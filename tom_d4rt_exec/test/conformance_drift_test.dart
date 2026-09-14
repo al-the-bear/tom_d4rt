@@ -1026,6 +1026,8 @@ const Map<String, int> _uncoveredBaseline = {
   // F-SCD72-3 (the no-override rail) and -5 (Dart's in-script semantics) hold
   // because they assert behaviour that predates the fix. The five that fail are
   // exactly the five the fix bought.
+  //
+  // Re-port when a publish raises exec's floor past 0.81.0.
   'scd72_instance_tostring_test.dart': 7,
   // scd73 does not COMPILE against 0.65.0: six `undefined_function` errors for
   // `unwrapScriptError`, which SCD73 made a public top-level and which lands in
@@ -1035,6 +1037,8 @@ const Map<String, int> _uncoveredBaseline = {
   // This package's own seam DOES carry SCD73 (SCD74 mirrored it into the third
   // copy of `_executeInEnvironment`), so the behaviour is present here — it is
   // only the helper the test calls that is missing.
+  //
+  // Re-port when a publish raises exec's floor past 0.82.0.
   'scd73_no_hook_unwrapping_test.dart': 8,
   // PORTED BY SCD79, by splitting rather than by subtracting. The five
   // behavioural cases pass in exec verbatim — they have since SCC25's fix
@@ -1291,6 +1295,8 @@ const Map<String, _Divergence> _divergentBaseline = {
   // red about a behaviour nobody is running — DGUC6. The entry in
   // [_pinnedInterpreterFloors] is what makes the flip condition
   // machine-checkable instead of remembered.
+  //
+  // Re-port when a publish raises exec's floor past 0.87.0.
   'scc29_parameter_type_check_test.dart': _Divergence.deliberate,
 };
 
@@ -1357,13 +1363,27 @@ const Map<String, _Divergence> _divergentBaseline = {
 /// *produces the re-port checklist* instead of relying on someone to reconstruct
 /// it, and the checklist arrives in the same commit that makes the work possible.
 ///
-/// TO ADD AN ENTRY: whenever you write a baseline comment saying an entry is
-/// blocked on an interpreter publish, record the version here too. The guard
-/// enforces that pairing in both directions — a key that no longer names a live
-/// baseline entry fails as a stale register, and a baseline comment naming a
-/// floor without a key here fails as an unregistered obligation. Neither half
-/// is optional, because a register that is allowed to drift from the prose is
-/// back to being prose.
+/// TO ADD AN ENTRY: record the version here, AND write the condition in a `//`
+/// comment run immediately above the baseline entry itself, in this form:
+///
+///     // Re-port when a publish raises exec's floor past 0.87.0.
+///     'scc29_parameter_type_check_test.dart': _Divergence.deliberate,
+///
+/// The wording around it is free; `floor past X.Y.Z` is what
+/// [_floorsDeclaredInComments] reads. ABOVE THE ENTRY is the load-bearing part
+/// — the same sentence in this header doc comment is narrative, attributable to
+/// no entry, and therefore unchecked.
+///
+/// The guard enforces the pairing in three directions, and SCD122 added the
+/// third because the other two could both hold over nothing. A key that no
+/// longer names a live baseline entry fails as a stale register; a comment
+/// naming a floor with no key here fails as an unregistered obligation; and a
+/// key whose entry carries no such comment fails as an invisible one. That last
+/// direction is what makes the scan non-empty, and a scan that finds nothing
+/// passes every assertion built on it — which is exactly what this block was
+/// doing until SCD122 measured it. None of the three is optional: a register
+/// allowed to drift from the prose is back to being prose, and prose nobody can
+/// attribute to an entry is back to being invisible.
 ///
 /// A PIN IS A PREDICTION UNTIL SOMEBODY RUNS IT. SCC44 re-measured all seven
 /// entries this register held and six of them already passed — the six were
@@ -2962,11 +2982,49 @@ void main() {
             'them from _pinnedInterpreterFloors:\n${stale.join('\n')}',
       );
 
-      // Part two — the register agrees with the prose. The observed failure
+      final declared = _floorsDeclaredInComments();
+
+      // Part two — the scan reached the entries, BEFORE anything is concluded
+      // from it. SCD122 measured this scanner returning the EMPTY MAP: the one
+      // entry that had ever been written with a `floor past X.Y.Z` comment had
+      // since been converged away, and the flip conditions that remained were
+      // stated in the `///` header narrative instead. Part three below was
+      // still doing its job, but part two was asserting over nothing and
+      // passing — the precise shape [_floorsDeclaredInComments]'s own doc
+      // comment warns about, and the shape F-SCC44-1 part one exists to stop
+      // for the sibling scanner.
+      //
+      // This is the direction the register can enforce. "Every comment names a
+      // registered floor" (part three of this block) cannot notice a flip
+      // condition nobody wrote down; "every registered floor is named in a
+      // comment above its entry" can, and it is what makes deleting a register
+      // line turn this test red instead of silently narrowing its subject.
+      final livePins = _pinnedInterpreterFloors.keys.where(live.contains);
+      final undeclared = [
+        for (final path in livePins)
+          if (declared[path] == null)
+            '$path: registered as waiting on '
+                '${_pinnedInterpreterFloors[path]}, no comment above its '
+                'baseline entry says so',
+      ];
+      expect(
+        undeclared,
+        isEmpty,
+        reason:
+            'A pinned floor is invisible to the reader of the entry it belongs '
+            'to. Put the condition in a `//` comment run immediately above the '
+            'baseline entry, in the form this scan reads — "Re-port when a '
+            'publish raises exec\'s floor past X.Y.Z." The narrative in the '
+            'header doc comment is worth keeping, but it is not attributable '
+            'to an entry and so cannot be checked against this '
+            'register:\n${undeclared.join('\n')}',
+      );
+
+      // Part three — the register agrees with the prose. The observed failure
       // mode was an entry whose flip condition lived only in a comment; this
       // makes writing the comment insufficient on its own.
       final unregistered = <String>[];
-      _floorsDeclaredInComments().forEach((path, version) {
+      declared.forEach((path, version) {
         if (!live.contains(path)) return;
         final registered = _pinnedInterpreterFloors[path];
         if (registered == null) {
@@ -2989,7 +3047,7 @@ void main() {
             'places:\n${unregistered.join('\n')}',
       );
 
-      // Part three — the point of the whole register. Everything whose publish
+      // Part four — the point of the whole register. Everything whose publish
       // has landed is now due, and the failure message IS the checklist.
       final due = <String>[];
       _pinnedInterpreterFloors.forEach((path, waitingOn) {
