@@ -2475,6 +2475,26 @@ class D4rt {
           declaration.accept<Object?>(_visitor!);
         }
       }
+      // 3c. Type aliases (SCD100). After classes, enums and extension types so
+      //     an alias can name one, and BEFORE functions and top-level
+      //     variables so their annotations can name an alias.
+      //
+      //     Run to a FIXPOINT so declaration order does not matter: `typedef A
+      //     = B;` written above `typedef B = int;` resolves on the second
+      //     round. Bounded by the number of aliases, because each round either
+      //     binds at least one new name or stops.
+      //
+      //     There was no type-alias phase at all before this, which is why
+      //     `visitTypeAlias` was never even reached by the ordered walk.
+      final typeAliases = compilationUnit.declarations.whereType<TypeAlias>();
+      for (var round = 0; round < typeAliases.length; round++) {
+        var bound = false;
+        for (final alias in typeAliases) {
+          if (_visitor!.registerTypeAlias(alias)) bound = true;
+        }
+        if (!bound) break;
+      }
+
       // 4. Function declarations
       for (final declaration in compilationUnit.declarations) {
         if (declaration is FunctionDeclaration) {

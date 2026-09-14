@@ -1121,6 +1121,26 @@ class ModuleLoader {
     }
     moduleInterpreter.runDeferredStaticInitializers();
 
+    // SCD100: type aliases. After classes, enums and extension types so an
+    // alias can name one, and BEFORE functions so their annotations can name an
+    // alias — a return type written through an alias used to report
+    // `Type 'I' not found.` and the program never ran. Run to a FIXPOINT so
+    // declaration order does not matter.
+    //
+    // This loop and the one in `d4rt_base.dart` are separate entry points into
+    // the same ordering, and BOTH need the phase: the `source:` form goes
+    // through that one, the `sources:`/`library:` form through this one, and a
+    // fix landing in only one of them passes the probe it was written against
+    // while the test suite — which uses the other — still fails.
+    final typeAliases = ast.declarations.whereType<TypeAlias>();
+    for (var round = 0; round < typeAliases.length; round++) {
+      var bound = false;
+      for (final alias in typeAliases) {
+        if (moduleInterpreter.registerTypeAlias(alias)) bound = true;
+      }
+      if (!bound) break;
+    }
+
     // Process function declarations to populate interpreted functions properly
     for (final declaration in ast.declarations) {
       if (declaration is FunctionDeclaration) {

@@ -1,3 +1,60 @@
+## 0.92.0
+
+### Fixed — a type alias now resolves to its target (scd100)
+
+SCC33 gave both interpreters an explicit handler for type aliases that returned
+null without recursing. That stopped seven further node types reaching the
+dispatch backstop, and it made explicit a gap that had been hidden: a typedef
+had no runtime representation at all. Both handlers' doc comments said "making
+aliases actually resolve is separate work (SCD100)".
+
+**Measured before choosing a fix.** Nineteen shapes were probed; nine were
+already fine by leniency, and the rest split two ways — the first group being
+the one worth leading with:
+
+- **Seven legal programs THREW.** `1 is I` through `typedef I = int` did not
+  answer "no", it raised `Type check failed: Undefined variable: I`. So did a
+  generic bound and a RETURN TYPE written through an alias: `typedef I = int;
+  I f() => 5;` reported `Type 'I' not found.` and the program never ran.
+- **Three accepted silently what Dart rejects** — an `as`, a parameter bind and
+  a local, all of which stay lenient when an annotation cannot be resolved.
+
+The handler was never even REACHED: the ordered declaration walk had phases for
+enums, classes, extensions, extension types, functions and variables, and none
+for type aliases. That is why the gap was total rather than partial.
+
+**The fix is one registration.** Every type-resolution path already funnels
+through `environment.get(typeName)` — `is`/`as`, parameter binding, the return
+check, generic bounds and a collection literal's type argument — so binding the
+alias name to the RuntimeType its target resolves to makes each behave exactly
+as if the script had written the target. A new phase runs it to a FIXPOINT so
+declaration order does not matter, placed after classes so an alias can name one
+and before functions so their annotations can name an alias.
+
+**It had to land in TWO places**, which is worth recording because a fix in
+either alone looks complete: the `source:` form is ordered by `d4rt_base.dart`
+and the `sources:`/`library:` form by `module_loader.dart`. Patching only the
+first passed every hand-written probe while the test suite — which uses the
+second — still failed on the return-type case.
+
+**`as` needed a separate touch.** It does not resolve types at all; it switches
+on the WRITTEN name, so an alias fell to its permissive `default:` and cast
+anything to anything. The written name is now resolved through the alias first,
+which is a no-op for every non-alias since those resolve to their own name.
+
+**The handler still does not recurse**, which is the constraint SCC33 left: the
+target is read off the annotation by `_resolveTypeAnnotationWithEnvironment`,
+never by `accept`ing a child, so no type-level syntax reaches the backstop.
+
+**Two limits measured and left, each with its reason.** A generic bound written
+through an alias still throws — bounds are extracted in PASS 1, before any phase
+of pass 2 can have registered an alias, and fixing it means reordering pass 1
+(sce130). A local declared through an alias still accepts a mismatch, which is
+NOT alias-specific: `int x = 'a'` is equally lenient, because local variable
+declarations are not type-checked at all (sce131). A GENERIC alias
+(`typedef L<T> = List<T>`) is skipped on purpose — binding it here would bind
+`T` to nothing and answer confidently wrong.
+
 ## 0.91.0
 
 ### Fixed — `x.runtimeType == SomeType` was false for every type (scd99)

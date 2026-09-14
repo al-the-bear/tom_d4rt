@@ -228,6 +228,10 @@ const _partialTwinBudget = 1;
 /// `bridged_enum_memo_test.dart`'s only `execute(` is inside a comment, and a
 /// naive search files it as script-level and inflates this budget.
 ///
+/// 20 -> 21: SCD100 added `scd100_type_alias_resolution_test.dart`. Exec
+/// resolves tom_d4rt_ast from pub.dev, where a typedef still binds nothing, so
+/// a port would assert alias resolution against an interpreter without it.
+///
 /// 19 -> 20: SCD99 added `scd99_runtimetype_reporting_test.dart`. Exec resolves
 /// tom_d4rt_ast from pub.dev, which still answers `false` for
 /// `x.runtimeType == SomeType`, so a port would assert the fix against an
@@ -261,7 +265,7 @@ const _partialTwinBudget = 1;
 /// than the tree — the same reason its own entry gives. The copier surface it
 /// would have added is list, set and map literals with type arguments, which
 /// the corpus already copies on every run.
-const _copierGapBudget = 20;
+const _copierGapBudget = 21;
 
 const Map<String, _Coverage> _coveredElsewhere = {
   // ---- Renamed on the exec side -------------------------------------------
@@ -493,6 +497,27 @@ const Map<String, _Coverage> _coveredElsewhere = {
     layer: _Layer.registration,
     refCases: 4,
     twinCases: 4,
+  ),
+  // SCD100's type-alias resolution. Script-level. Not ported to exec because
+  // exec resolves `tom_d4rt_ast` from pub.dev, where a typedef still has no
+  // runtime representation -- a port would go red until the release lands
+  // (DGUC6).
+  'scd100_type_alias_resolution_test.dart': _Coverage(
+    'ast:runtime/scd100_type_alias_resolution_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 10,
+    twinCases: 3,
+    whyPartial:
+        'the twin is a different KIND of test, not this one with cases '
+        'dropped. The reference file walks nineteen measured SHAPES across ten '
+        'cases -- `is`, `as`, parameters, return types, collection literals, '
+        'alias chains, and the two limits left in place -- which are one line '
+        'each when you can run source and a couple of dozen when every case is '
+        'a hand-built bundle. The twin carries the three that cannot pass by '
+        'accident: `is` answering BOTH ways, the fixpoint that makes '
+        'declaration order irrelevant, and the non-alias control for the `as` '
+        'change.',
   ),
   // SCD99's runtimeType reporting. Script-level. The defect lived in shared
   // interpreter code (`visitBinaryExpression`), so the twin is what says the

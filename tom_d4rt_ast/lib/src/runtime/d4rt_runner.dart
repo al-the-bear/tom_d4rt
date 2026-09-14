@@ -2068,6 +2068,23 @@ class D4rtRunner {
         _visitor!.deferStaticFieldInits = false;
       }
       _visitor!.runDeferredStaticInitializers();
+
+      // SCD100: type aliases. After classes, enums and extension types so an
+      // alias can name one, and BEFORE functions and top-level variables so
+      // their annotations can name an alias. Run to a FIXPOINT so declaration
+      // order does not matter — `typedef A = B;` above `typedef B = int;`
+      // resolves on the second round. There was no type-alias phase at all
+      // before this, which is why the handler was never reached by the walk.
+      final typeAliases = compilationUnit.declarations
+          .whereType<STypedefDeclaration>();
+      for (var round = 0; round < typeAliases.length; round++) {
+        var bound = false;
+        for (final alias in typeAliases) {
+          if (_visitor!.registerTypeAlias(alias)) bound = true;
+        }
+        if (!bound) break;
+      }
+
       for (final declaration in compilationUnit.declarations) {
         if (declaration is SFunctionDeclaration) {
           declaration.accept<Object?>(_visitor!);

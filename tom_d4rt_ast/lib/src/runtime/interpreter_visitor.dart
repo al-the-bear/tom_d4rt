@@ -72,14 +72,71 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   Object? visitNamedExpression(SNamedExpression node) =>
       node.expression!.accept<Object?>(this);
 
-  /// A typedef has no runtime representation, so it evaluates to nothing.
+  /// A typedef binds its NAME to the type it names, and evaluates to nothing
+  /// itself.
   ///
-  /// Deliberately does **not** recurse: the alias' type parameters, function
-  /// type and formal parameters are type-level syntax with no value to compute.
-  /// Type annotations that name an alias are resolved leniently elsewhere;
-  /// making aliases actually resolve is separate work (SCD100).
+  /// SCC33 gave this an explicit handler that returned null, which stopped
+  /// further node types reaching the dispatch backstop but left the alias with
+  /// no runtime representation at all. SCD100 measured what that cost: `1 is I`
+  /// through `typedef I = int` did not answer "no", it THREW, and so did a
+  /// return type written through an alias — legal programs that would not run.
+  ///
+  /// **One registration fixes all of them.** Every type-resolution path funnels
+  /// through `environment.get(typeName)`, so defining the alias name to the
+  /// RuntimeType its target resolves to makes `is`, parameter binding, return
+  /// checks and a collection literal's type argument all behave exactly as if
+  /// the script had written the target.
+  ///
+  /// **Still does not recurse**: the target is resolved by
+  /// [_resolveTypeAnnotationWithEnvironment], which reads the annotation
+  /// directly, so no child is ever `accept`ed and no type-level syntax reaches
+  /// the backstop.
+  ///
+  /// Lenient when the target does not resolve, and a GENERIC alias
+  /// (`typedef L<T> = List<T>`) is skipped on purpose — binding it here would
+  /// bind `T` to nothing and answer confidently wrong. See sce130.
   @override
-  Object? visitTypedefDeclaration(STypedefDeclaration node) => null;
+  Object? visitTypedefDeclaration(STypedefDeclaration node) {
+    registerTypeAlias(node);
+    return null;
+  }
+
+  /// Bind [node]'s name to its target type, if the target resolves now.
+  ///
+  /// Returns true when a binding was made, so the caller can run this to a
+  /// fixpoint and resolve alias chains written in any order.
+  bool registerTypeAlias(STypedefDeclaration node) {
+    final aliasName = node.name?.name;
+    final target = node.type;
+    if (aliasName == null || target == null) return false;
+    if (environment.isDefinedLocally(aliasName)) return false;
+    if (node.typeParameters != null) return false; // generic alias — see above
+    final RuntimeType resolved;
+    try {
+      resolved = _resolveTypeAnnotationWithEnvironment(target, environment);
+    } catch (_) {
+      return false; // not resolvable yet, or not modelled — stay lenient
+    }
+    environment.define(aliasName, resolved);
+    return true;
+  }
+
+  /// SCD100: the name [written] ultimately stands for, following a type alias.
+  ///
+  /// Returns [written] unchanged for anything that is not an alias — including
+  /// a name that does not resolve at all, which keeps every existing cast on
+  /// the branch it already took.
+  String _aliasTargetName(String written) {
+    try {
+      final resolved = environment.get(written);
+      if (resolved is RuntimeType && resolved.name != written) {
+        return resolved.name;
+      }
+    } catch (_) {
+      // Unresolvable — leave the written name alone.
+    }
+    return written;
+  }
 
   Environment environment;
   final Environment globalEnvironment;
@@ -404,9 +461,16 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     if (typeNode is SNamedType) {
       final rawTypeName = typeNode.name!.name;
       // GEN-100c: Handle import-prefixed cast types (e.g., value as ui.Color)
-      final typeName = typeNode.importPrefix != null
-          ? '${typeNode.importPrefix!.name}.$rawTypeName'
-          : rawTypeName;
+      // SCD100: `as` decides by the WRITTEN name, so an alias reached the
+      // permissive `default:` below and cast anything to anything. Resolving
+      // the alias to its target's name first puts the cast on the branch the
+      // target deserves; a non-alias resolves to its own name, so this is a
+      // no-op for every other program.
+      final typeName = _aliasTargetName(
+        typeNode.importPrefix != null
+            ? '${typeNode.importPrefix!.name}.$rawTypeName'
+            : rawTypeName,
+      );
       // G-DOV2-1 FIX: Handle nullable types (e.g., String?, int?)
       // If the type is nullable (has a '?' suffix), then null is always allowed
       final isNullable = typeNode.isNullable;
