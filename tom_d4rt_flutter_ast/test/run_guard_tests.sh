@@ -83,6 +83,15 @@ run "bridged enums resolve to themselves" \
 run "bridge registration is pooled (step #20)" \
   flutter test test/registration_skip_test.dart
 
+# The cluster log is a status register, and these keep it honest: the header
+# table is DERIVED from the section markers (ISSUES-1/2), no corpus numbers
+# live in the header (ISSUES-3), the recorded interpreter pair still describes
+# this machine (SCD65), and every open cluster is rated by what the defect can
+# REACH rather than by how many consumers currently trip over it
+# (ISSUES-4/5/6). Pure file I/O — no companion app.
+run "cluster log is derived, dated and blast-radius rated" \
+  flutter test test/interpreter_issues_doc_test.dart
+
 if [ "$status" -eq 0 ]; then
   echo "all guards passed"
 else

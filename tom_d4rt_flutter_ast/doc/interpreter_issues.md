@@ -24,8 +24,8 @@ reverse) fails the suite. Re-derive; do not hand-edit one side alone.
 
 | Marker | Section (heading text, verbatim) | What it is |
 | ------ | -------------------------------- | ---------- |
-| `[ ]` | Open (GEN-125) — an interpreted closure is rejected against a bridged function typedef (`VoidCallback`, `ValueChanged`) | An **interpreter / bridge** defect: passing a script closure to a parameter typed as a Flutter function typedef is rejected. Found 2026-09-06 (run `20260906-scc46-fixed`); 15 failures and ~276 framework errors across 109 scripts — the framework-error count is its real size. |
-| `[ ]` | Open (GEN-126) — a bridged base class arrives where the script's own subclass is declared | A script subclass of a bridged Flutter class loses its interpreted identity on a round trip through native code, so only the bridged base comes back (`type 'Intent' is not a subtype of type '_GreetIntent'`). Found 2026-09-06; 14 framework errors, 0 failures, identical in both twins. |
+| `[ ]` | Open (GEN-125) — an interpreted closure is rejected against a bridged function typedef (`VoidCallback`, `ValueChanged`) | An **interpreter / bridge** defect. Blast radius: every script closure passed to a parameter typed as a Flutter function typedef — which is every Flutter callback, on every widget, wherever a declared parameter type is checked. Nothing narrows it to the widgets the corpus happens to contain. Measured 2026-09-06 (run `20260906-scc46-fixed`); counts in the entry. |
+| `[ ]` | Open (GEN-126) — a bridged base class arrives where the script's own subclass is declared | Blast radius: every script-declared subclass of a bridged class, wherever the value returns through native code and meets a declared parameter of the script's own type — `getRuntimeType` answers with the bridge's name and the check refuses a value that works (`type 'Intent' is not a subtype of type '_GreetIntent'`). Measured 2026-09-06, identically in both twins; its failure count is zero, which is why it is recorded rather than dropped. |
 | `[~]` | Partially fixed — script-side / Flutter framework limitations | **Not an interpreter defect** — a rolling sweep log of demo-script fixes (layout overflow, unbounded constraints, platform-unsupported services). Rows whose "After" column reads `1*` note a residual that *is* interpreter-side; each of those is tracked by its own cluster. Last sweep 2026-04-29. |
 
 ## No corpus numbers live in this header
@@ -75,6 +75,72 @@ When a cluster lands a fix, mark its checkbox, add a `**Resolved:**` line
 with the commit ref, re-run the suite to confirm, and delete its row from
 "What is still open" above. Drop the cluster from the list once everything
 in it passes.
+
+---
+
+## Writing a cluster entry
+
+### Rate by blast radius, and keep the count separate
+
+**GEN-124 sat open for 25 days rated as cosmetic — "8 framework errors in one
+script, that script still passing" — while its own blast-radius sentence stated
+the true scope correctly on day one:** *any* bridged enum whose name starts with
+a >=3-character registered bridge name is mistyped *wherever* `getRuntimeType`
+is consulted. It was filed under its visible symptom.
+
+Then `_checkArgumentType` started consulting `getRuntimeType` for declared
+parameter types. Nothing about the defect changed; a second consumer simply
+began trusting an already-wrong value. The corpus went from all-green to 131
+failures across all 41 files, indistinguishable from a fresh regression until
+an inventory showed all 131 shared one signature. The repair was the four lines
+that had been written in the cluster entry the whole time.
+
+**A failure count measures how many consumers happen to read a wrong value
+today. It says nothing about the defect, and it moves without warning when an
+unrelated change adds a reader.** So every open cluster carries two separate
+things, and they must not be collapsed into one line:
+
+- **`**Blast radius:**`** — prose. What the defect can reach, stated
+  independently of what currently trips over it. Write the sentence you would
+  write if the corpus were entirely green. *Required on every open cluster;
+  `ISSUES-4/5` fail without it, and fail if it opens with a number.*
+- **`**Measured:**`** — the counts, and the run that produced them. Counts
+  belong here and nowhere else, so nobody mistakes one for a severity.
+
+For a `[~]` section that is not an interpreter defect, say so in the blast
+radius line. The field is required of every open section rather than exempted,
+because an exemption mechanism is one more thing that rots.
+
+### A written-out fix names its owner
+
+The second half of the same lesson: **where a cluster already carries an exact,
+written-out fix, deferring it buys nothing** — the analysis is the expensive
+part and it is already paid for. What deferral must never mean is *forgotten*,
+so a cluster with a `**Fix**` section names the todo that will apply it
+(`scd…` / `sce…`). `ISSUES-6` fails when one does not.
+
+That is deliberately a tracking requirement rather than a prohibition on
+deferring. A fix can be genuinely blocked — DGUC6 means an interpreter change
+cannot be certified by the corpus until it is published — and naming the todo
+that carries the publish-and-re-run sequence is the honest form of "later".
+
+### The shape
+
+```markdown
+### [ ] Open (GEN-nnn) — one line naming the defect, not the symptom
+
+**Found:** date, run id.
+
+**Blast radius:** what this can reach, in prose, independent of the count.
+
+**Measured:** the counts, and which run produced them.
+
+**Symptom** / **Root cause** / **Fix** / **Mirror sites** /
+**Representative script** / **Verifying the fix** — as the defect needs.
+```
+
+Closed clusters are not held to this. The fields exist to make a triage
+decision honest, and a closed cluster has no decision left to make.
 
 ---
 
@@ -1634,6 +1700,16 @@ proxy walker now reaching previously-shadowed bridged interfaces.
 ---
 
 ### [~] Partially fixed — script-side / Flutter framework limitations
+
+**Blast radius:** none — this is not an interpreter defect. It is a rolling
+sweep log of fixes made to the demo SCRIPTS (layout overflow, unbounded
+constraints, platform-unsupported services), each confined to the one file it
+names. Rows whose "After" column reads `1*` note a residual that *is*
+interpreter-side, and each of those is tracked by its own cluster, which is
+where its blast radius is stated.
+
+**Measured:** per-row `Before` / `After` framework-error counts in the table
+below, each verified in isolation at the commit named in its last column.
 
 **Status (2026-04-26)** — three sweeps so far. Cumulative table
 below; each commit verifies isolated 0-framework-error and runs
@@ -3700,8 +3776,15 @@ Two things follow, and both are cheap:
    not deferred.** The whole cost here was four lines that were sitting in
    this document the entire time.
 
-Filed as **scd135** (re-triage the open clusters by blast radius rather
-than by observed failure count).
+**Both are now rules rather than resolutions.** "## Writing a cluster entry"
+at the top of this document requires every open cluster to carry a
+`**Blast radius:**` statement in prose, with counts confined to a separate
+`**Measured:**` line, and requires a cluster that writes out a fix to name the
+todo that owes it. `ISSUES-4/5/6` in
+`test/interpreter_issues_doc_test.dart` fail on an entry that does not — the
+last of those specifically because deferral is sometimes unavoidable (DGUC6
+blocks certifying an interpreter change until it is published) while
+*forgetting* never is, and 25 days is what forgetting looked like.
 
 **A registry-wide guard now holds the property.** SCC46's three regression
 tests pin the mechanism with a hand-built two-bridge fixture, which can only
@@ -3727,11 +3810,19 @@ unresolvable. That is the blast-radius sentence in numbers, and it is what the
 **Found:** 2026-09-06, run `20260906-scc46-fixed`. Every corpus failure left
 after GEN-124 was fixed is this one signature.
 
-**Severity: 15 failures, ~276 framework errors across 109 scripts.** Read
-those two numbers together — the second is the defect's actual size and the
-first is only the part that happens to reach an assertion. Rating this by the
-failure count is the mistake GEN-124's post-mortem is about (see scd135), so
-the count is not the headline here.
+**Blast radius:** every script closure passed to a parameter whose declared
+type is a bridged function typedef — which is every Flutter callback
+(`VoidCallback`, `ValueChanged`, `ValueSetter`, `GestureTapCallback`, …), on
+every widget, wherever a declared parameter type is checked. The rejection is
+not conditional on anything about the script: a bridged typedef is a
+structural type wearing a nominal name, and `FunctionRuntimeType.isSubtypeOf`
+identifies `Function` by spelling, so the match cannot succeed for any of
+them. Nothing narrows this to the widgets that happen to be in the corpus.
+
+**Measured:** 15 failures and ~276 framework errors across 109 scripts, run
+`20260906-scc46-fixed`. The second number is the one that describes the
+defect; the first is the part that happened to reach an assertion, because a
+refused callback usually leaves a widget that still builds.
 
 **Symptom**
 
@@ -3847,9 +3938,22 @@ primary gate.
 
 ### [ ] Open (GEN-126) — a bridged base class arrives where the script's own subclass is declared
 
-**Found:** 2026-09-06, run `20260906-scc46-fixed`, alongside GEN-125. **14
-framework errors, 0 failures**, identically in both twins — recorded now
-precisely because a zero failure count is not evidence of harmlessness.
+**Found:** 2026-09-06, run `20260906-scc46-fixed`, alongside GEN-125.
+
+**Blast radius:** every script-declared subclass of a bridged class, at every
+point where the value returns through native code and meets a declared
+parameter of the script's own type. The proxy carrying the interpreted
+identity survives the round trip — property and method access already unwrap
+it — but `getRuntimeType` answers with the BRIDGE's name, so the check refuses
+a value that works. That is a property of the type check, not of any
+particular framework API: `Intent` and `ThemeExtension` are where the corpus
+happens to do this, not the limit of where it can happen.
+
+**Measured:** 14 framework errors, 0 failures, identically in both twins, run
+`20260906-scc46-fixed`. **The zero is why this was recorded rather than
+dropped.** The affected scripts pass; the corpus does not gate on
+`frameworkErrors`, so the count that would have rated this cluster is the one
+that says nothing about it.
 
 **Symptom**
 

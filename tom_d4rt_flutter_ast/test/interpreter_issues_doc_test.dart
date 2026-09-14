@@ -78,6 +78,63 @@ List<OpenCluster> parseOpenClustersFromSections(List<String> lines) {
   return result;
 }
 
+/// One open cluster with the lines of its body — everything from its heading
+/// up to the next `###` or `##`.
+typedef ClusterBody = ({String heading, List<String> body});
+
+/// Every open cluster under `## Active clusters`, with its body.
+///
+/// Same scoping as [parseOpenClustersFromSections] and for the same reason:
+/// `## Verification runs` uses `###` for dated entries, and
+/// `## Writing a cluster entry` (the template) uses `###` for its own
+/// subsections. Only the cluster list is a status register.
+List<ClusterBody> parseOpenClusterBodies(List<String> lines) {
+  final result = <ClusterBody>[];
+  var inActiveClusters = false;
+  String? heading;
+  var body = <String>[];
+
+  void flush() {
+    if (heading != null) result.add((heading: heading!, body: body));
+    heading = null;
+    body = <String>[];
+  }
+
+  for (final line in lines) {
+    if (line.startsWith('## ')) {
+      flush();
+      inActiveClusters = line.trim() == '## Active clusters';
+      continue;
+    }
+    if (!inActiveClusters) continue;
+    if (line.startsWith('### ')) {
+      flush();
+      final parsed = _parseHeading(line);
+      if (parsed != null && !_isClosed(parsed.marker)) {
+        heading = '${parsed.marker} ${parsed.section}';
+      }
+      continue;
+    }
+    if (heading != null) body.add(line);
+  }
+  flush();
+  return result;
+}
+
+/// The statement following a `**Field:**` marker, joined until the blank line
+/// that ends its paragraph. Null when the field is absent.
+String? fieldStatement(List<String> body, String field) {
+  final marker = '**$field:**';
+  final start = body.indexWhere((l) => l.trimLeft().startsWith(marker));
+  if (start < 0) return null;
+  final collected = <String>[body[start].trimLeft().substring(marker.length)];
+  for (var i = start + 1; i < body.length; i++) {
+    if (body[i].trim().isEmpty) break;
+    collected.add(body[i]);
+  }
+  return collected.join(' ').replaceAll(RegExp(r'\s+'), ' ').trim();
+}
+
 /// The rows of the `## What is still open` table, as (marker, section) pairs.
 ///
 /// Row shape: `| \`[MARKER]\` | section text | explanation |`. The marker is
@@ -481,6 +538,145 @@ void main() {
               'change, which for an unpublished one it does not.',
         );
       }
+    });
+  });
+
+  // ───────────────────────────────────────────────────────────────────────────
+  // SCD135 — a cluster is rated by what the defect can REACH, not by how many
+  // consumers currently trip over it.
+  //
+  // GEN-124 sat open for 25 days rated "8 framework errors in one script, that
+  // script still passing" while its own blast-radius sentence said, correctly
+  // and on day one, that any bridged enum whose name starts with a >=3-char
+  // registered bridge name is mistyped wherever `getRuntimeType` is consulted.
+  // Nothing about the defect then changed — `_checkArgumentType` simply began
+  // consulting `getRuntimeType`, a second reader of an already-wrong value —
+  // and the corpus went from all-green to 131 failures across all 41 files.
+  //
+  // So the count is not the rating. These pin the two fields apart: the rating
+  // is prose about reach, the count lives under its own marker, and a cluster
+  // whose fix is already written names the todo that owes it. The template they
+  // enforce is `## Writing a cluster entry` in the document itself.
+  group('SCD135: open clusters are rated by blast radius', () {
+    test('ISSUES-4: every open cluster carries a **Blast radius:** statement. '
+        '[2026-09-15 00:00] (PASS)', () {
+      final clusters = parseOpenClusterBodies(lines);
+
+      // Anti-vacuity first, exactly as ISSUES-1 does for the table: a
+      // splitter that returned nothing, or bodies that were empty, would
+      // make every assertion in this group pass while reading nothing.
+      expect(
+        clusters.length,
+        greaterThanOrEqualTo(2),
+        reason:
+            'Fewer than two open clusters parsed out of "## Active '
+            'clusters". If the campaign really has closed down to one, say '
+            'so deliberately — until then this is a broken splitter, and '
+            'ISSUES-5/6 below are reading nothing.',
+      );
+      final thin = <String>[
+        for (final cluster in clusters)
+          if (cluster.body.length < 10)
+            '${cluster.heading} (${cluster.body.length} lines)',
+      ];
+      expect(
+        thin,
+        isEmpty,
+        reason:
+            'These cluster bodies came back too short to contain an entry, '
+            'so the splitter is cutting them off:\n${thin.join('\n')}',
+      );
+
+      final missing = <String>[
+        for (final cluster in clusters)
+          if (fieldStatement(cluster.body, 'Blast radius') == null)
+            cluster.heading,
+      ];
+      expect(
+        missing,
+        isEmpty,
+        reason:
+            'These open clusters have no `**Blast radius:**` line. Write '
+            'the sentence you would write if the corpus were entirely green '
+            '— what the defect can REACH, independent of what currently '
+            'trips over it. A failure count measures how many consumers '
+            'happen to read a wrong value today; GEN-124 is what happens '
+            'when that is mistaken for a severity. See "## Writing a '
+            'cluster entry".\n  ${missing.join('\n  ')}',
+      );
+    });
+
+    test('ISSUES-5: the blast-radius statement is prose, not a count. '
+        '[2026-09-15 00:00] (PASS)', () {
+      // The failure this guards is `**Blast radius:** 8 framework errors`,
+      // which satisfies ISSUES-4 while reintroducing the exact mistake.
+      final offenders = <String>[];
+      for (final cluster in parseOpenClusterBodies(lines)) {
+        final statement = fieldStatement(cluster.body, 'Blast radius');
+        if (statement == null) continue; // ISSUES-4 owns that.
+        if (RegExp(r'^[^A-Za-z]*\d').hasMatch(statement)) {
+          offenders.add(
+            '${cluster.heading}\n    opens with a number: '
+            '"${statement.substring(0, statement.length.clamp(0, 70))}…"',
+          );
+        } else if (statement.length < 80) {
+          offenders.add(
+            '${cluster.heading}\n    too short to be a '
+            'statement of reach (${statement.length} chars): '
+            '"$statement"',
+          );
+        }
+      }
+      expect(
+        offenders,
+        isEmpty,
+        reason:
+            'A blast radius is what the defect can reach, in prose. Counts '
+            'go under `**Measured:**`, with the run that produced '
+            'them:\n  ${offenders.join('\n  ')}',
+      );
+    });
+
+    test('ISSUES-6: a cluster whose fix is already written names the todo that '
+        'owes it. [2026-09-15 00:00] (PASS)', () {
+      // The other half of GEN-124's post-mortem: a written-out fix should be
+      // applied, because the analysis is the expensive part and it is
+      // already paid for. Deferring is sometimes unavoidable — DGUC6 means
+      // an interpreter change cannot be certified by the corpus until it is
+      // published — but it must never mean forgotten.
+      final todoRef = RegExp(r'\b(scd|sce)\d+\b', caseSensitive: false);
+      final unowned = <String>[];
+      var withFix = 0;
+      for (final cluster in parseOpenClusterBodies(lines)) {
+        final hasFix = cluster.body.any(
+          (l) => l.trimLeft().startsWith('**Fix**'),
+        );
+        if (!hasFix) continue;
+        withFix++;
+        if (!cluster.body.any(todoRef.hasMatch)) unowned.add(cluster.heading);
+      }
+
+      expect(
+        unowned,
+        isEmpty,
+        reason:
+            'These clusters write out a fix and name no todo to apply it. '
+            'Add the `scd…` / `sce…` that owns it — a fix nobody is '
+            'assigned is the state GEN-124 spent 25 days '
+            'in:\n  ${unowned.join('\n  ')}',
+      );
+      // Coverage: without this the test passes just as happily on a document
+      // where no cluster writes out a fix at all, which is a different
+      // (worse) situation than every one of them being owned.
+      expect(
+        withFix,
+        greaterThanOrEqualTo(1),
+        reason:
+            'No open cluster carries a `**Fix**` section, so this test '
+            'asserted nothing. That may be legitimate — a cluster still '
+            'under investigation has no fix to write down — but say so '
+            'here rather than leaving a guard that cannot fail.',
+      );
     });
   });
 }
