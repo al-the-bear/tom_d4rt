@@ -228,6 +228,11 @@ const _partialTwinBudget = 1;
 /// `bridged_enum_memo_test.dart`'s only `execute(` is inside a comment, and a
 /// naive search files it as script-level and inflates this budget.
 ///
+/// 16 -> 17: SCD94 added `scd94_sdk_type_nameability_test.dart`. Two of its
+/// cases scan both trees' `core/error.dart`, which exec does not have -- it
+/// resolves the twin from pub.dev -- so a port here could not make the
+/// comparison at all, let alone make it against the working tree.
+///
 /// 15 -> 16: SCD93 added `scd93_native_operator_guards_test.dart`, which runs
 /// source to compare what d4rt throws against what the SDK throws. Same reason
 /// as SCD92 below: a copy here would state the swept behaviour against the
@@ -242,7 +247,7 @@ const _partialTwinBudget = 1;
 /// than the tree — the same reason its own entry gives. The copier surface it
 /// would have added is list, set and map literals with type arguments, which
 /// the corpus already copies on every run.
-const _copierGapBudget = 16;
+const _copierGapBudget = 17;
 
 const Map<String, _Coverage> _coveredElsewhere = {
   // ---- Renamed on the exec side -------------------------------------------
@@ -474,6 +479,31 @@ const Map<String, _Coverage> _coveredElsewhere = {
     layer: _Layer.registration,
     refCases: 4,
     twinCases: 4,
+  ),
+  // SCD94's `on`-clause nameability guard. Script-level: it runs a `try`/`on`
+  // per SDK type and asserts the clause is ENTERED. Not ported to exec on
+  // purpose, and for a sharper reason than the usual one: two of its nine cases
+  // are SOURCE SCANS of the reference and twin `core/error.dart`, which exec
+  // has no copy of at all — it resolves `tom_d4rt_ast` from pub.dev, so the
+  // registration it would scan lives in the pub cache rather than in a tree
+  // anybody edits (DGUC6). The twin carries the three cases that cannot pass
+  // by accident, hand-built as bundles.
+  'scd94_sdk_type_nameability_test.dart': _Coverage(
+    'ast:runtime/scd94_sdk_type_nameability_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 9,
+    twinCases: 3,
+    whyPartial:
+        'the twin is a different KIND of test, not this one with cases '
+        'dropped. Four of the reference cases walk TABLES of sixteen SDK types '
+        'through a `try`/`on`, which is three lines each when you can run '
+        'source and a couple of dozen when every case is a hand-built bundle; '
+        'two more are source scans over both trees, which the twin cannot make '
+        'from inside one of them. The twin carries the claim itself -- a '
+        'registered name is reached, an unregistered one is not, and the '
+        'supertype chain is walked -- which is what the reference tree cannot '
+        'prove about the analyzer-free interpreter.',
   ),
   // SCD93's native-operator-guard sweep. Script-level: it runs source and
   // compares what d4rt throws against what the SDK throws for the same
