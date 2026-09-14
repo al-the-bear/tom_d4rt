@@ -22,14 +22,14 @@ import 'package:flutter/rendering.dart';
 /// 8. Custom multi-child RenderObjectWidget
 
 // ─── palette ───────────────────────────────────────────────
-const _kCyan      = Color(0xFF00BCD4);
+const _kCyan = Color(0xFF00BCD4);
 const _kCyanLight = Color(0xFFB2EBF2);
-const _kCyanDark  = Color(0xFF00838F);
-const _kDeepPurple      = Color(0xFF673AB7);
+const _kCyanDark = Color(0xFF00838F);
+const _kDeepPurple = Color(0xFF673AB7);
 const _kDeepPurpleLight = Color(0xFFD1C4E9);
-const _kSurface   = Color(0xFFFAFAFA);
-const _kDivider   = Color(0xFFE0E0E0);
-const _kTextDark  = Color(0xFF212121);
+const _kSurface = Color(0xFFFAFAFA);
+const _kDivider = Color(0xFFE0E0E0);
+const _kTextDark = Color(0xFF212121);
 const _kTextMuted = Color(0xFF757575);
 
 // ─── 1. Lifecycle phases ───────────────────────────────────
@@ -58,7 +58,12 @@ const _kLifecyclePhases = <String, String>{
 
 // ─── 2. Create / update pairs ──────────────────────────────
 class _CreateUpdateEntry {
-  const _CreateUpdateEntry(this.widgetName, this.createCall, this.updateCall, this.note);
+  const _CreateUpdateEntry(
+    this.widgetName,
+    this.createCall,
+    this.updateCall,
+    this.note,
+  );
   final String widgetName;
   final String createCall;
   final String updateCall;
@@ -116,10 +121,22 @@ class _ParentDataExample {
 }
 
 const _kParentDataExamples = <_ParentDataExample>[
-  _ParentDataExample('Positioned', 'StackParentData', 'top, left, right, bottom, width, height'),
+  _ParentDataExample(
+    'Positioned',
+    'StackParentData',
+    'top, left, right, bottom, width, height',
+  ),
   _ParentDataExample('Expanded', 'FlexParentData', 'flex factor and FlexFit'),
-  _ParentDataExample('TableCell', 'TableCellParentData', 'verticalAlignment per cell'),
-  _ParentDataExample('SliverGridDelegateItem', 'SliverMultiBoxAdaptorParentData', 'layout offset, index, keepAlive'),
+  _ParentDataExample(
+    'TableCell',
+    'TableCellParentData',
+    'verticalAlignment per cell',
+  ),
+  _ParentDataExample(
+    'SliverGridDelegateItem',
+    'SliverMultiBoxAdaptorParentData',
+    'layout offset, index, keepAlive',
+  ),
 ];
 
 // ─── 5. Slot concept ───────────────────────────────────────
@@ -144,9 +161,7 @@ Widget _sectionHeader(String title, IconData icon) {
     width: double.infinity,
     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 14),
     decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: [_kCyanDark, _kDeepPurple],
-      ),
+      gradient: LinearGradient(colors: [_kCyanDark, _kDeepPurple]),
     ),
     child: Row(
       children: [
@@ -177,7 +192,11 @@ Widget _card({required Widget child}) {
       borderRadius: BorderRadius.circular(10),
       border: Border.all(color: _kDivider),
       boxShadow: [
-        BoxShadow(color: Colors.black.withOpacity(0.04), blurRadius: 6, offset: Offset(0, 2)),
+        BoxShadow(
+          color: Colors.black.withOpacity(0.04),
+          blurRadius: 6,
+          offset: Offset(0, 2),
+        ),
       ],
     ),
     child: child,
@@ -185,7 +204,15 @@ Widget _card({required Widget child}) {
 }
 
 Widget _label(String text) {
-  return Text(text, style: TextStyle(fontSize: 11, color: _kTextMuted, fontWeight: FontWeight.w600, letterSpacing: 0.6));
+  return Text(
+    text,
+    style: TextStyle(
+      fontSize: 11,
+      color: _kTextMuted,
+      fontWeight: FontWeight.w600,
+      letterSpacing: 0.6,
+    ),
+  );
 }
 
 Widget _mono(String text, {Color? color}) {
@@ -208,11 +235,17 @@ Widget _bulletPoint(String text) {
       children: [
         Container(
           margin: EdgeInsets.only(top: 7),
-          width: 5, height: 5,
+          width: 5,
+          height: 5,
           decoration: BoxDecoration(color: _kCyan, shape: BoxShape.circle),
         ),
         SizedBox(width: 10),
-        Expanded(child: Text(text, style: TextStyle(fontSize: 13, color: _kTextDark, height: 1.4))),
+        Expanded(
+          child: Text(
+            text,
+            style: TextStyle(fontSize: 13, color: _kTextDark, height: 1.4),
+          ),
+        ),
       ],
     ),
   );
@@ -232,7 +265,10 @@ class _DemoInsetWidget extends SingleChildRenderObjectWidget {
   }
 
   @override
-  void updateRenderObject(BuildContext context, covariant RenderPadding renderObject) {
+  void updateRenderObject(
+    BuildContext context,
+    covariant RenderPadding renderObject,
+  ) {
     print('[DemoInset] updateRenderObject  inset=$inset');
     renderObject.padding = EdgeInsets.all(inset);
   }
@@ -246,14 +282,19 @@ class _DemoInsetWidget extends SingleChildRenderObjectWidget {
 // ─── 8. Custom multi-child RenderObjectWidget ──────────────
 /// A custom ParentDataWidget that carries an integer "priority" value
 /// applied to each child's parent data in _DemoOverlayRenderBox.
-class _DemoPriorityParentDataWidget extends ParentDataWidget<_DemoPriorityParentData> {
-  const _DemoPriorityParentDataWidget({required this.priority, required super.child});
+class _DemoPriorityParentDataWidget
+    extends ParentDataWidget<_DemoPriorityParentData> {
+  const _DemoPriorityParentDataWidget({
+    required this.priority,
+    required super.child,
+  });
   final int priority;
 
   @override
   void applyParentData(RenderObject renderObject) {
     final parentData = renderObject.parentData;
-    if (parentData is _DemoPriorityParentData && parentData.priority != priority) {
+    if (parentData is _DemoPriorityParentData &&
+        parentData.priority != priority) {
       parentData.priority = priority;
       final parent = renderObject.parent;
       if (parent is RenderObject) {
@@ -283,9 +324,9 @@ class _DemoOverlayWidget extends MultiChildRenderObjectWidget {
 }
 
 class _DemoOverlayRenderBox extends RenderBox
-    with ContainerRenderObjectMixin<RenderBox, _DemoPriorityParentData>,
-         RenderBoxContainerDefaultsMixin<RenderBox, _DemoPriorityParentData> {
-
+    with
+        ContainerRenderObjectMixin<RenderBox, _DemoPriorityParentData>,
+        RenderBoxContainerDefaultsMixin<RenderBox, _DemoPriorityParentData> {
   @override
   void setupParentData(RenderBox child) {
     if (child.parentData is! _DemoPriorityParentData) {
@@ -337,7 +378,10 @@ Widget _buildDebugSection() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _sectionHeader('6 · Debug Inspection & Diagnostics', Icons.bug_report_outlined),
+      _sectionHeader(
+        '6 · Debug Inspection & Diagnostics',
+        Icons.bug_report_outlined,
+      ),
       SizedBox(height: 8),
       _card(
         child: Column(
@@ -345,17 +389,26 @@ Widget _buildDebugSection() {
           children: [
             _label('DIAGNOSTIC METHODS ON ELEMENT & RENDER OBJECT'),
             SizedBox(height: 8),
-            ...diagnosticMethods.entries.map((e) => Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _mono(e.key, color: _kCyanDark),
-                  SizedBox(height: 2),
-                  Text(e.value, style: TextStyle(fontSize: 12.5, color: _kTextDark, height: 1.35)),
-                ],
+            ...diagnosticMethods.entries.map(
+              (e) => Padding(
+                padding: EdgeInsets.only(bottom: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _mono(e.key, color: _kCyanDark),
+                    SizedBox(height: 2),
+                    Text(
+                      e.value,
+                      style: TextStyle(
+                        fontSize: 12.5,
+                        color: _kTextDark,
+                        height: 1.35,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            )),
+            ),
           ],
         ),
       ),
@@ -411,7 +464,10 @@ dynamic build(BuildContext context) {
   return MaterialApp(
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
-      colorScheme: ColorScheme.fromSeed(seedColor: _kCyan, brightness: Brightness.light),
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: _kCyan,
+        brightness: Brightness.light,
+      ),
       scaffoldBackgroundColor: _kSurface,
     ),
     home: Scaffold(
@@ -442,31 +498,40 @@ class _BodyState extends State<_Body> {
         // ── Section 1: Lifecycle ──
         _sectionHeader('1 · Element Lifecycle', Icons.loop),
         SizedBox(height: 8),
-        ..._kLifecyclePhases.entries.map((e) => _card(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                decoration: BoxDecoration(
-                  color: _kCyanLight,
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                child: Text(
-                  e.key,
-                  style: TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                    color: _kCyanDark,
+        ..._kLifecyclePhases.entries.map(
+          (e) => _card(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: _kCyanLight,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Text(
+                    e.key,
+                    style: TextStyle(
+                      fontFamily: 'monospace',
+                      fontSize: 13,
+                      fontWeight: FontWeight.w700,
+                      color: _kCyanDark,
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(height: 8),
-              Text(e.value, style: TextStyle(fontSize: 13, color: _kTextDark, height: 1.4)),
-            ],
+                SizedBox(height: 8),
+                Text(
+                  e.value,
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: _kTextDark,
+                    height: 1.4,
+                  ),
+                ),
+              ],
+            ),
           ),
-        )),
+        ),
 
         // ── Lifecycle flow diagram ──
         _card(
@@ -479,13 +544,22 @@ class _BodyState extends State<_Body> {
               _buildFlowArrow(),
               _buildFlowRow('mount  ➜  createRenderObject', _kCyan),
               _buildFlowArrow(),
-              _buildFlowRow('performRebuild  ➜  updateRenderObject', _kDeepPurple),
+              _buildFlowRow(
+                'performRebuild  ➜  updateRenderObject',
+                _kDeepPurple,
+              ),
               _buildFlowArrow(),
               _buildFlowRow('update  ➜  updateRenderObject', _kDeepPurple),
               _buildFlowArrow(),
-              _buildFlowRow('deactivate  ➜  detach render object', Colors.orange),
+              _buildFlowRow(
+                'deactivate  ➜  detach render object',
+                Colors.orange,
+              ),
               _buildFlowArrow(),
-              _buildFlowRow('unmount  ➜  didUnmountRenderObject', Colors.red.shade700),
+              _buildFlowRow(
+                'unmount  ➜  didUnmountRenderObject',
+                Colors.red.shade700,
+              ),
             ],
           ),
         ),
@@ -493,7 +567,10 @@ class _BodyState extends State<_Body> {
         SizedBox(height: 12),
 
         // ── Section 2: Create / Update ──
-        _sectionHeader('2 · Create / Update Render-Object Cycle', Icons.sync_alt),
+        _sectionHeader(
+          '2 · Create / Update Render-Object Cycle',
+          Icons.sync_alt,
+        ),
         SizedBox(height: 8),
         _card(
           child: Column(
@@ -513,41 +590,57 @@ class _BodyState extends State<_Body> {
             ],
           ),
         ),
-        ..._kCreateUpdatePairs.map((entry) => _card(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                    decoration: BoxDecoration(
-                      color: _kDeepPurpleLight,
-                      borderRadius: BorderRadius.circular(5),
+        ..._kCreateUpdatePairs.map(
+          (entry) => _card(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                      decoration: BoxDecoration(
+                        color: _kDeepPurpleLight,
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: Text(
+                        entry.widgetName,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 13,
+                          color: _kDeepPurple,
+                        ),
+                      ),
                     ),
-                    child: Text(
-                      entry.widgetName,
-                      style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13, color: _kDeepPurple),
+                  ],
+                ),
+                SizedBox(height: 8),
+                _mono(entry.createCall, color: _kCyanDark),
+                SizedBox(height: 3),
+                _mono(entry.updateCall, color: _kDeepPurple),
+                if (entry.note.isNotEmpty) ...[
+                  SizedBox(height: 6),
+                  Text(
+                    entry.note,
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: _kTextMuted,
+                      fontStyle: FontStyle.italic,
                     ),
                   ),
                 ],
-              ),
-              SizedBox(height: 8),
-              _mono(entry.createCall, color: _kCyanDark),
-              SizedBox(height: 3),
-              _mono(entry.updateCall, color: _kDeepPurple),
-              if (entry.note.isNotEmpty) ...[
-                SizedBox(height: 6),
-                Text(entry.note, style: TextStyle(fontSize: 12, color: _kTextMuted, fontStyle: FontStyle.italic)),
               ],
-            ],
+            ),
           ),
-        )),
+        ),
 
         SizedBox(height: 12),
 
         // ── Section 3: Ancestor lookup ──
-        _sectionHeader('3 · Ancestor Render-Object Lookup', Icons.account_tree_outlined),
+        _sectionHeader(
+          '3 · Ancestor Render-Object Lookup',
+          Icons.account_tree_outlined,
+        ),
         SizedBox(height: 8),
         _card(
           child: Column(
@@ -564,30 +657,44 @@ class _BodyState extends State<_Body> {
                 style: TextStyle(fontSize: 13, color: _kTextDark, height: 1.4),
               ),
               SizedBox(height: 12),
-              ..._kAncestorLookupSteps.asMap().entries.map((e) => Padding(
-                padding: EdgeInsets.only(bottom: 6),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: 22, height: 22,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: _kCyanDark,
-                        shape: BoxShape.circle,
+              ..._kAncestorLookupSteps.asMap().entries.map(
+                (e) => Padding(
+                  padding: EdgeInsets.only(bottom: 6),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: 22,
+                        height: 22,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: _kCyanDark,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Text(
+                          '${e.key + 1}',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
                       ),
-                      child: Text(
-                        '${e.key + 1}',
-                        style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w700),
+                      SizedBox(width: 10),
+                      Expanded(
+                        child: Text(
+                          e.value,
+                          style: TextStyle(
+                            fontSize: 12.5,
+                            color: _kTextDark,
+                            height: 1.35,
+                          ),
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 10),
-                    Expanded(
-                      child: Text(e.value, style: TextStyle(fontSize: 12.5, color: _kTextDark, height: 1.35)),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              )),
+              ),
             ],
           ),
         ),
@@ -621,42 +728,54 @@ class _BodyState extends State<_Body> {
             ],
           ),
         ),
-        ..._kParentDataExamples.map((ex) => _card(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: 90,
-                padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-                decoration: BoxDecoration(
-                  color: _kCyanLight,
-                  borderRadius: BorderRadius.circular(6),
+        ..._kParentDataExamples.map(
+          (ex) => _card(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: 90,
+                  padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: _kCyanLight,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Text(
+                    ex.widget,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 12,
+                      color: _kCyanDark,
+                    ),
+                  ),
                 ),
-                child: Text(
-                  ex.widget,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _kCyanDark),
+                SizedBox(width: 10),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _mono(ex.parentData, color: _kDeepPurple),
+                      SizedBox(height: 3),
+                      Text(
+                        ex.usage,
+                        style: TextStyle(fontSize: 12, color: _kTextMuted),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _mono(ex.parentData, color: _kDeepPurple),
-                    SizedBox(height: 3),
-                    Text(ex.usage, style: TextStyle(fontSize: 12, color: _kTextMuted)),
-                  ],
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
-        )),
+        ),
 
         SizedBox(height: 12),
 
         // ── Section 5: Slot management ──
-        _sectionHeader('5 · Slot Management in Multi-Child Layouts', Icons.view_column_outlined),
+        _sectionHeader(
+          '5 · Slot Management in Multi-Child Layouts',
+          Icons.view_column_outlined,
+        ),
         SizedBox(height: 8),
         _card(
           child: Column(
@@ -690,7 +809,10 @@ class _BodyState extends State<_Body> {
         SizedBox(height: 12),
 
         // ── Section 7: Custom single-child ──
-        _sectionHeader('7 · Custom SingleChildRenderObjectWidget', Icons.widgets_outlined),
+        _sectionHeader(
+          '7 · Custom SingleChildRenderObjectWidget',
+          Icons.widgets_outlined,
+        ),
         SizedBox(height: 8),
         _card(
           child: Column(
@@ -705,8 +827,10 @@ class _BodyState extends State<_Body> {
                 style: TextStyle(fontSize: 13, color: _kTextDark, height: 1.4),
               ),
               SizedBox(height: 12),
-              Text('Inset: ${_insetValue.toStringAsFixed(0)} px',
-                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
+              Text(
+                'Inset: ${_insetValue.toStringAsFixed(0)} px',
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+              ),
               Slider(
                 value: _insetValue,
                 min: 0,
@@ -732,14 +856,25 @@ class _BodyState extends State<_Body> {
                       borderRadius: BorderRadius.circular(6),
                     ),
                     alignment: Alignment.center,
-                    child: Text('Child content',
-                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
+                    child: Text(
+                      'Child content',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                   ),
                 ),
               ),
               SizedBox(height: 8),
-              _mono('// createRenderObject called once at mount', color: _kTextMuted),
-              _mono('// updateRenderObject called on every slider change', color: _kTextMuted),
+              _mono(
+                '// createRenderObject called once at mount',
+                color: _kTextMuted,
+              ),
+              _mono(
+                '// updateRenderObject called on every slider change',
+                color: _kTextMuted,
+              ),
             ],
           ),
         ),
@@ -749,12 +884,18 @@ class _BodyState extends State<_Body> {
             children: [
               _label('SOURCE OUTLINE'),
               SizedBox(height: 6),
-              _mono('class _DemoInsetWidget extends SingleChildRenderObjectWidget {'),
+              _mono(
+                'class _DemoInsetWidget extends SingleChildRenderObjectWidget {',
+              ),
               _mono('  final double inset;'),
               _mono(''),
               _mono('  @override'),
-              _mono('  RenderObject createRenderObject(BuildContext context) {'),
-              _mono('    return RenderPadding(padding: EdgeInsets.all(inset));'),
+              _mono(
+                '  RenderObject createRenderObject(BuildContext context) {',
+              ),
+              _mono(
+                '    return RenderPadding(padding: EdgeInsets.all(inset));',
+              ),
               _mono('  }'),
               _mono(''),
               _mono('  @override'),
@@ -774,7 +915,10 @@ class _BodyState extends State<_Body> {
         SizedBox(height: 12),
 
         // ── Section 8: Custom multi-child ──
-        _sectionHeader('8 · Custom MultiChildRenderObjectWidget', Icons.layers_outlined),
+        _sectionHeader(
+          '8 · Custom MultiChildRenderObjectWidget',
+          Icons.layers_outlined,
+        ),
         SizedBox(height: 8),
         _card(
           child: Column(
@@ -805,8 +949,14 @@ class _BodyState extends State<_Body> {
                         color: _kCyanLight,
                         alignment: Alignment.centerLeft,
                         padding: EdgeInsets.symmetric(horizontal: 12),
-                        child: Text('Priority 1 — Header',
-                            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13, color: _kCyanDark)),
+                        child: Text(
+                          'Priority 1 — Header',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 13,
+                            color: _kCyanDark,
+                          ),
+                        ),
                       ),
                     ),
                     _DemoPriorityParentDataWidget(
@@ -816,8 +966,14 @@ class _BodyState extends State<_Body> {
                         color: _kDeepPurpleLight,
                         alignment: Alignment.centerLeft,
                         padding: EdgeInsets.symmetric(horizontal: 12),
-                        child: Text('Priority 2 — Content',
-                            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13, color: _kDeepPurple)),
+                        child: Text(
+                          'Priority 2 — Content',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 13,
+                            color: _kDeepPurple,
+                          ),
+                        ),
                       ),
                     ),
                     _DemoPriorityParentDataWidget(
@@ -827,8 +983,13 @@ class _BodyState extends State<_Body> {
                         color: _kCyanLight.withOpacity(0.5),
                         alignment: Alignment.centerLeft,
                         padding: EdgeInsets.symmetric(horizontal: 12),
-                        child: Text('Priority 3 — Footer',
-                            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
+                        child: Text(
+                          'Priority 3 — Footer',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 13,
+                          ),
+                        ),
                       ),
                     ),
                   ],
@@ -843,14 +1004,24 @@ class _BodyState extends State<_Body> {
             children: [
               _label('MULTI-CHILD ELEMENT INTERNALS'),
               SizedBox(height: 8),
-              _bulletPoint('MultiChildRenderObjectElement manages a list of child Elements.'),
-              _bulletPoint('It calls insertRenderObjectChild for each child in order.'),
-              _bulletPoint('setupParentData() runs before the first layout to install '
-                  'the correct ParentData subclass.'),
-              _bulletPoint('When the child list changes, the framework diffs old vs new '
-                  'using keys and calls insert/move/remove accordingly.'),
-              _bulletPoint('ParentDataWidget.applyParentData() writes directly into '
-                  'the child\'s render object parentData field.'),
+              _bulletPoint(
+                'MultiChildRenderObjectElement manages a list of child Elements.',
+              ),
+              _bulletPoint(
+                'It calls insertRenderObjectChild for each child in order.',
+              ),
+              _bulletPoint(
+                'setupParentData() runs before the first layout to install '
+                'the correct ParentData subclass.',
+              ),
+              _bulletPoint(
+                'When the child list changes, the framework diffs old vs new '
+                'using keys and calls insert/move/remove accordingly.',
+              ),
+              _bulletPoint(
+                'ParentDataWidget.applyParentData() writes directly into '
+                'the child\'s render object parentData field.',
+              ),
             ],
           ),
         ),
@@ -886,8 +1057,15 @@ class _BodyState extends State<_Body> {
         borderRadius: BorderRadius.circular(6),
         border: Border.all(color: color.withOpacity(0.3)),
       ),
-      child: Text(text,
-          style: TextStyle(fontFamily: 'monospace', fontSize: 12, fontWeight: FontWeight.w600, color: color)),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontFamily: 'monospace',
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+          color: color,
+        ),
+      ),
     );
   }
 
@@ -950,17 +1128,37 @@ class _BodyState extends State<_Body> {
       children: [
         TableRow(
           decoration: BoxDecoration(color: _kCyanLight.withOpacity(0.4)),
-          children: ['Widget', 'Slot Type', 'Note'].map((h) => Padding(
-            padding: EdgeInsets.all(6),
-            child: Text(h, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 11, color: _kCyanDark)),
-          )).toList(),
+          children: ['Widget', 'Slot Type', 'Note']
+              .map(
+                (h) => Padding(
+                  padding: EdgeInsets.all(6),
+                  child: Text(
+                    h,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 11,
+                      color: _kCyanDark,
+                    ),
+                  ),
+                ),
+              )
+              .toList(),
         ),
-        ...rows.map((r) => TableRow(
-          children: r.map((c) => Padding(
-            padding: EdgeInsets.all(6),
-            child: Text(c, style: TextStyle(fontSize: 11.5, color: _kTextDark)),
-          )).toList(),
-        )),
+        ...rows.map(
+          (r) => TableRow(
+            children: r
+                .map(
+                  (c) => Padding(
+                    padding: EdgeInsets.all(6),
+                    child: Text(
+                      c,
+                      style: TextStyle(fontSize: 11.5, color: _kTextDark),
+                    ),
+                  ),
+                )
+                .toList(),
+          ),
+        ),
       ],
     );
   }

@@ -33,10 +33,12 @@ class _NavigationToolbarDeepDemoPage extends StatefulWidget {
   const _NavigationToolbarDeepDemoPage();
 
   @override
-  State<_NavigationToolbarDeepDemoPage> createState() => _NavigationToolbarDeepDemoPageState();
+  State<_NavigationToolbarDeepDemoPage> createState() =>
+      _NavigationToolbarDeepDemoPageState();
 }
 
-class _NavigationToolbarDeepDemoPageState extends State<_NavigationToolbarDeepDemoPage> {
+class _NavigationToolbarDeepDemoPageState
+    extends State<_NavigationToolbarDeepDemoPage> {
   bool _compact = false;
   bool _guides = true;
   bool _notes = true;
@@ -58,7 +60,11 @@ class _NavigationToolbarDeepDemoPageState extends State<_NavigationToolbarDeepDe
               const Text('NavigationToolbar Deep Demo'),
               Text(
                 'leading-middle-trailing composition | spacing and alignment behavior | responsive top-bar strategies',
-                style: TextStyle(color: Colors.white.withValues(alpha: 0.86), fontSize: 12, fontWeight: FontWeight.w500),
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.86),
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ],
           ),
@@ -87,7 +93,12 @@ class _NavigationToolbarDeepDemoPageState extends State<_NavigationToolbarDeepDe
                 title: 'NavigationToolbar Fundamentals Studio',
                 subtitle:
                     'Tune centerMiddle, middleSpacing, and slot visibility while observing how leading, middle, and trailing are arranged.',
-                child: _FundamentalsScene(compact: _compact, guides: _guides, notes: _notes, zoom: _zoom),
+                child: _FundamentalsScene(
+                  compact: _compact,
+                  guides: _guides,
+                  notes: _notes,
+                  zoom: _zoom,
+                ),
               ),
               const SizedBox(height: 12),
               _SceneShell(
@@ -96,7 +107,11 @@ class _NavigationToolbarDeepDemoPageState extends State<_NavigationToolbarDeepDe
                 title: 'Alignment and Spacing Comparison Lab',
                 subtitle:
                     'Side-by-side bars compare spacing profiles and center modes so layout differences are clear at a glance.',
-                child: _ComparisonScene(compact: _compact, guides: _guides, notes: _notes),
+                child: _ComparisonScene(
+                  compact: _compact,
+                  guides: _guides,
+                  notes: _notes,
+                ),
               ),
               const SizedBox(height: 12),
               _SceneShell(
@@ -105,7 +120,11 @@ class _NavigationToolbarDeepDemoPageState extends State<_NavigationToolbarDeepDe
                 title: 'Responsive Header Workshop',
                 subtitle:
                     'Preview toolbar behavior across narrow and wide frames with long titles, action density, and adaptive slot widgets.',
-                child: _ResponsiveScene(compact: _compact, guides: _guides, notes: _notes),
+                child: _ResponsiveScene(
+                  compact: _compact,
+                  guides: _guides,
+                  notes: _notes,
+                ),
               ),
               const SizedBox(height: 12),
               _SceneShell(
@@ -114,7 +133,11 @@ class _NavigationToolbarDeepDemoPageState extends State<_NavigationToolbarDeepDe
                 title: 'Directionality and Semantics Stage',
                 subtitle:
                     'Visualize how slot placement reacts to LTR/RTL directionality and how top bars can include explicit semantics cues.',
-                child: _DirectionalityScene(compact: _compact, guides: _guides, notes: _notes),
+                child: _DirectionalityScene(
+                  compact: _compact,
+                  guides: _guides,
+                  notes: _notes,
+                ),
               ),
               const SizedBox(height: 12),
               _SceneShell(
@@ -123,7 +146,11 @@ class _NavigationToolbarDeepDemoPageState extends State<_NavigationToolbarDeepDe
                 title: 'Practical Product Console',
                 subtitle:
                     'Three realistic modules use NavigationToolbar for dashboard, operations, and release contexts with instructive controls.',
-                child: _PracticalScene(compact: _compact, guides: _guides, notes: _notes),
+                child: _PracticalScene(
+                  compact: _compact,
+                  guides: _guides,
+                  notes: _notes,
+                ),
               ),
               const SizedBox(height: 12),
               const _RecapPanel(),
@@ -168,7 +195,12 @@ class _GlobalDeck extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         gradient: const LinearGradient(
-          colors: [Color(0xFF18374D), Color(0xFF296A9D), Color(0xFF36816F), Color(0xFF675CB2)],
+          colors: [
+            Color(0xFF18374D),
+            Color(0xFF296A9D),
+            Color(0xFF36816F),
+            Color(0xFF675CB2),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -178,7 +210,11 @@ class _GlobalDeck extends StatelessWidget {
         children: [
           const Text(
             'NavigationToolbar Control Deck',
-            style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.w800),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 30,
+              fontWeight: FontWeight.w800,
+            ),
           ),
           const SizedBox(height: 6),
           const Text(
@@ -193,53 +229,83 @@ class _GlobalDeck extends StatelessWidget {
                 child: Material(
                   type: MaterialType.transparency,
                   child: SwitchListTile(
-                  value: compact,
-                  onChanged: onCompactChanged,
-                  dense: true,
-                  contentPadding: EdgeInsets.zero,
-                  title: const Text('Compact scenes', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
-                ),
-                ),
-              ),
-              Expanded(
-                child: Material(
-                  type: MaterialType.transparency,
-                  child: SwitchListTile(
-                  value: guides,
-                  onChanged: onGuidesChanged,
-                  dense: true,
-                  contentPadding: EdgeInsets.zero,
-                  title: const Text('Guide overlays', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
-                ),
+                    value: compact,
+                    onChanged: onCompactChanged,
+                    dense: true,
+                    contentPadding: EdgeInsets.zero,
+                    title: const Text(
+                      'Compact scenes',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
                 ),
               ),
               Expanded(
                 child: Material(
                   type: MaterialType.transparency,
                   child: SwitchListTile(
-                  value: notes,
-                  onChanged: onNotesChanged,
-                  dense: true,
-                  contentPadding: EdgeInsets.zero,
-                  title: const Text('Instruction notes', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
-                ),
+                    value: guides,
+                    onChanged: onGuidesChanged,
+                    dense: true,
+                    contentPadding: EdgeInsets.zero,
+                    title: const Text(
+                      'Guide overlays',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
                 ),
               ),
               Expanded(
                 child: Material(
                   type: MaterialType.transparency,
                   child: SwitchListTile(
-                  value: rtl,
-                  onChanged: onRtlChanged,
-                  dense: true,
-                  contentPadding: EdgeInsets.zero,
-                  title: const Text('RTL mode', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                    value: notes,
+                    onChanged: onNotesChanged,
+                    dense: true,
+                    contentPadding: EdgeInsets.zero,
+                    title: const Text(
+                      'Instruction notes',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
                 ),
+              ),
+              Expanded(
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: SwitchListTile(
+                    value: rtl,
+                    onChanged: onRtlChanged,
+                    dense: true,
+                    contentPadding: EdgeInsets.zero,
+                    title: const Text(
+                      'RTL mode',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ],
           ),
-          Text('Global scene zoom: ${zoom.toStringAsFixed(2)}', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+          Text(
+            'Global scene zoom: ${zoom.toStringAsFixed(2)}',
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
           Slider(
             value: zoom,
             min: 0.8,
@@ -277,7 +343,11 @@ class _SceneShell extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
-          BoxShadow(color: Colors.black.withValues(alpha: 0.08), blurRadius: 14, offset: const Offset(0, 7)),
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.08),
+            blurRadius: 14,
+            offset: const Offset(0, 7),
+          ),
         ],
       ),
       child: Padding(
@@ -292,16 +362,32 @@ class _SceneShell extends StatelessWidget {
                   radius: 14,
                   backgroundColor: tone,
                   foregroundColor: Colors.white,
-                  child: Text('$index', style: const TextStyle(fontWeight: FontWeight.w800)),
+                  child: Text(
+                    '$index',
+                    style: const TextStyle(fontWeight: FontWeight.w800),
+                  ),
                 ),
                 const SizedBox(width: 10),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(title, style: TextStyle(color: tone, fontWeight: FontWeight.w800, fontSize: 19)),
+                      Text(
+                        title,
+                        style: TextStyle(
+                          color: tone,
+                          fontWeight: FontWeight.w800,
+                          fontSize: 19,
+                        ),
+                      ),
                       const SizedBox(height: 4),
-                      Text(subtitle, style: const TextStyle(color: Color(0xFF3A4F61), height: 1.34)),
+                      Text(
+                        subtitle,
+                        style: const TextStyle(
+                          color: Color(0xFF3A4F61),
+                          height: 1.34,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -317,7 +403,12 @@ class _SceneShell extends StatelessWidget {
 }
 
 class _FundamentalsScene extends StatefulWidget {
-  const _FundamentalsScene({required this.compact, required this.guides, required this.notes, required this.zoom});
+  const _FundamentalsScene({
+    required this.compact,
+    required this.guides,
+    required this.notes,
+    required this.zoom,
+  });
 
   final bool compact;
   final bool guides;
@@ -356,47 +447,50 @@ class _FundamentalsSceneState extends State<_FundamentalsScene> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('Fundamentals controls', style: TextStyle(fontWeight: FontWeight.w800)),
+                      const Text(
+                        'Fundamentals controls',
+                        style: TextStyle(fontWeight: FontWeight.w800),
+                      ),
                       const SizedBox(height: 8),
                       Material(
                         type: MaterialType.transparency,
                         child: SwitchListTile(
-                        value: _centerMiddle,
-                        onChanged: (v) => setState(() => _centerMiddle = v),
-                        dense: true,
-                        contentPadding: EdgeInsets.zero,
-                        title: const Text('centerMiddle'),
-                      ),
-                      ),
-                      Material(
-                        type: MaterialType.transparency,
-                        child: SwitchListTile(
-                        value: _showLeading,
-                        onChanged: (v) => setState(() => _showLeading = v),
-                        dense: true,
-                        contentPadding: EdgeInsets.zero,
-                        title: const Text('Show leading'),
-                      ),
+                          value: _centerMiddle,
+                          onChanged: (v) => setState(() => _centerMiddle = v),
+                          dense: true,
+                          contentPadding: EdgeInsets.zero,
+                          title: const Text('centerMiddle'),
+                        ),
                       ),
                       Material(
                         type: MaterialType.transparency,
                         child: SwitchListTile(
-                        value: _showMiddle,
-                        onChanged: (v) => setState(() => _showMiddle = v),
-                        dense: true,
-                        contentPadding: EdgeInsets.zero,
-                        title: const Text('Show middle'),
-                      ),
+                          value: _showLeading,
+                          onChanged: (v) => setState(() => _showLeading = v),
+                          dense: true,
+                          contentPadding: EdgeInsets.zero,
+                          title: const Text('Show leading'),
+                        ),
                       ),
                       Material(
                         type: MaterialType.transparency,
                         child: SwitchListTile(
-                        value: _showTrailing,
-                        onChanged: (v) => setState(() => _showTrailing = v),
-                        dense: true,
-                        contentPadding: EdgeInsets.zero,
-                        title: const Text('Show trailing'),
+                          value: _showMiddle,
+                          onChanged: (v) => setState(() => _showMiddle = v),
+                          dense: true,
+                          contentPadding: EdgeInsets.zero,
+                          title: const Text('Show middle'),
+                        ),
                       ),
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
+                          value: _showTrailing,
+                          onChanged: (v) => setState(() => _showTrailing = v),
+                          dense: true,
+                          contentPadding: EdgeInsets.zero,
+                          title: const Text('Show trailing'),
+                        ),
                       ),
                       const SizedBox(height: 8),
                       _MiniSlider(
@@ -414,15 +508,25 @@ class _FundamentalsSceneState extends State<_FundamentalsScene> {
                           border: OutlineInputBorder(),
                         ),
                         onSubmitted: (v) {
-                          setState(() => _titleText = v.trim().isEmpty ? _titleText : v.trim());
+                          setState(
+                            () => _titleText = v.trim().isEmpty
+                                ? _titleText
+                                : v.trim(),
+                          );
                           _push('title updated');
                         },
                       ),
                       const SizedBox(height: 8),
                       _DataTableCard(
                         rows: [
-                          _DataRowItem('centerMiddle', _centerMiddle ? 'true' : 'false'),
-                          _DataRowItem('middleSpacing', _middleSpacing.toStringAsFixed(1)),
+                          _DataRowItem(
+                            'centerMiddle',
+                            _centerMiddle ? 'true' : 'false',
+                          ),
+                          _DataRowItem(
+                            'middleSpacing',
+                            _middleSpacing.toStringAsFixed(1),
+                          ),
                           _DataRowItem('leading taps', '$_leadingTap'),
                           _DataRowItem('trailing taps', '$_trailingTap'),
                         ],
@@ -438,7 +542,10 @@ class _FundamentalsSceneState extends State<_FundamentalsScene> {
                           ],
                         ),
                       const SizedBox(height: 8),
-                      const Text('Fundamentals events', style: TextStyle(fontWeight: FontWeight.w800)),
+                      const Text(
+                        'Fundamentals events',
+                        style: TextStyle(fontWeight: FontWeight.w800),
+                      ),
                       const SizedBox(height: 6),
                       SizedBox(height: 180, child: _LogCard(lines: _events)),
                     ],
@@ -462,7 +569,8 @@ class _FundamentalsSceneState extends State<_FundamentalsScene> {
                       _ToolbarCard(
                         tone: _blue,
                         title: 'Primary Top Bar',
-                        subtitle: 'Direct fundamentals toolbar with current control values.',
+                        subtitle:
+                            'Direct fundamentals toolbar with current control values.',
                         toolbar: _makeToolbar(
                           leadingColor: _blue,
                           trailingColor: _teal,
@@ -473,18 +581,21 @@ class _FundamentalsSceneState extends State<_FundamentalsScene> {
                       _ToolbarCard(
                         tone: _teal,
                         title: 'Operations Header',
-                        subtitle: 'Same rules with longer middle text and dense trailing actions.',
+                        subtitle:
+                            'Same rules with longer middle text and dense trailing actions.',
                         toolbar: _makeToolbar(
                           leadingColor: _teal,
                           trailingColor: _amber,
-                          middleText: 'Ops Route / Stage / ${_titleText.split(' ').first}',
+                          middleText:
+                              'Ops Route / Stage / ${_titleText.split(' ').first}',
                         ),
                       ),
                       const SizedBox(height: 8),
                       _ToolbarCard(
                         tone: _amber,
                         title: 'Minimal Header',
-                        subtitle: 'Simple variant emphasizing slot visibility toggles.',
+                        subtitle:
+                            'Simple variant emphasizing slot visibility toggles.',
                         toolbar: _makeToolbar(
                           leadingColor: _amber,
                           trailingColor: _rose,
@@ -499,12 +610,17 @@ class _FundamentalsSceneState extends State<_FundamentalsScene> {
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(12),
-                            border: Border.all(color: _blue.withValues(alpha: 0.26)),
+                            border: Border.all(
+                              color: _blue.withValues(alpha: 0.26),
+                            ),
                           ),
                           child: const Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('Observation helper', style: TextStyle(fontWeight: FontWeight.w800)),
+                              Text(
+                                'Observation helper',
+                                style: TextStyle(fontWeight: FontWeight.w800),
+                              ),
                               SizedBox(height: 6),
                               Text(
                                 'Toggle centerMiddle and middleSpacing while watching where the middle slot settles. '
@@ -540,7 +656,9 @@ class _FundamentalsSceneState extends State<_FundamentalsScene> {
                 setState(() => _leadingTap += 1);
                 _push('leading pressed');
               },
-              style: FilledButton.styleFrom(backgroundColor: leadingColor.withValues(alpha: 0.12)),
+              style: FilledButton.styleFrom(
+                backgroundColor: leadingColor.withValues(alpha: 0.12),
+              ),
               child: const Text('Back'),
             )
           : null,
@@ -556,7 +674,10 @@ class _FundamentalsSceneState extends State<_FundamentalsScene> {
                 middleText,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
-                style: TextStyle(color: leadingColor, fontWeight: FontWeight.w800),
+                style: TextStyle(
+                  color: leadingColor,
+                  fontWeight: FontWeight.w800,
+                ),
               ),
             )
           : null,
@@ -569,7 +690,9 @@ class _FundamentalsSceneState extends State<_FundamentalsScene> {
                     setState(() => _trailingTap += 1);
                     _push('trail A pressed');
                   },
-                  style: FilledButton.styleFrom(backgroundColor: trailingColor.withValues(alpha: 0.12)),
+                  style: FilledButton.styleFrom(
+                    backgroundColor: trailingColor.withValues(alpha: 0.12),
+                  ),
                   child: const Text('Save'),
                 ),
                 FilledButton.tonal(
@@ -577,7 +700,9 @@ class _FundamentalsSceneState extends State<_FundamentalsScene> {
                     setState(() => _trailingTap += 1);
                     _push('trail B pressed');
                   },
-                  style: FilledButton.styleFrom(backgroundColor: trailingColor.withValues(alpha: 0.12)),
+                  style: FilledButton.styleFrom(
+                    backgroundColor: trailingColor.withValues(alpha: 0.12),
+                  ),
                   child: const Text('Share'),
                 ),
               ],
@@ -617,13 +742,20 @@ class _ToolbarCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: tone.withValues(alpha: 0.3)),
         boxShadow: [
-          BoxShadow(color: tone.withValues(alpha: 0.12), blurRadius: 8, offset: const Offset(0, 4)),
+          BoxShadow(
+            color: tone.withValues(alpha: 0.12),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
         ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: TextStyle(color: tone, fontWeight: FontWeight.w800)),
+          Text(
+            title,
+            style: TextStyle(color: tone, fontWeight: FontWeight.w800),
+          ),
           const SizedBox(height: 4),
           Text(subtitle, style: const TextStyle(fontSize: 12)),
           const SizedBox(height: 10),
@@ -646,7 +778,11 @@ class _ToolbarCard extends StatelessWidget {
 }
 
 class _ComparisonScene extends StatefulWidget {
-  const _ComparisonScene({required this.compact, required this.guides, required this.notes});
+  const _ComparisonScene({
+    required this.compact,
+    required this.guides,
+    required this.notes,
+  });
 
   final bool compact;
   final bool guides;
@@ -675,7 +811,10 @@ class _ComparisonSceneState extends State<_ComparisonScene> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Comparison notes', style: TextStyle(fontWeight: FontWeight.w800)),
+                    const Text(
+                      'Comparison notes',
+                      style: TextStyle(fontWeight: FontWeight.w800),
+                    ),
                     const SizedBox(height: 8),
                     const Text(
                       'Each card below uses NavigationToolbar with fixed slot widgets but different centerMiddle and middleSpacing values.',
@@ -692,7 +831,10 @@ class _ComparisonSceneState extends State<_ComparisonScene> {
                         ],
                       ),
                     const SizedBox(height: 8),
-                    const Text('Comparison event timeline', style: TextStyle(fontWeight: FontWeight.w800)),
+                    const Text(
+                      'Comparison event timeline',
+                      style: TextStyle(fontWeight: FontWeight.w800),
+                    ),
                     const SizedBox(height: 6),
                     Expanded(child: _LogCard(lines: _events)),
                   ],
@@ -793,7 +935,14 @@ class _ComparisonCardState extends State<_ComparisonCard> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(widget.title, style: TextStyle(color: widget.tone, fontWeight: FontWeight.w800, fontSize: 12)),
+          Text(
+            widget.title,
+            style: TextStyle(
+              color: widget.tone,
+              fontWeight: FontWeight.w800,
+              fontSize: 12,
+            ),
+          ),
           const SizedBox(height: 6),
           Container(
             padding: const EdgeInsets.all(8),
@@ -806,36 +955,48 @@ class _ComparisonCardState extends State<_ComparisonCard> {
             child: SizedBox(
               height: kToolbarHeight,
               child: NavigationToolbar(
-              centerMiddle: widget.centerMiddle,
-              middleSpacing: widget.middleSpacing,
-              leading: FilledButton.tonal(
-                onPressed: () {
-                  setState(() => _tapCount += 1);
-                  widget.onEvent('${widget.title}: leading pressed');
-                },
-                child: const Text('Menu'),
-              ),
-              middle: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: widget.tone.withValues(alpha: 0.25)),
+                centerMiddle: widget.centerMiddle,
+                middleSpacing: widget.middleSpacing,
+                leading: FilledButton.tonal(
+                  onPressed: () {
+                    setState(() => _tapCount += 1);
+                    widget.onEvent('${widget.title}: leading pressed');
+                  },
+                  child: const Text('Menu'),
                 ),
-                child: const Text('Comparison Title', maxLines: 1, overflow: TextOverflow.ellipsis),
+                middle: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 6,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                      color: widget.tone.withValues(alpha: 0.25),
+                    ),
+                  ),
+                  child: const Text(
+                    'Comparison Title',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                trailing: FilledButton.tonal(
+                  onPressed: () {
+                    setState(() => _tapCount += 1);
+                    widget.onEvent('${widget.title}: trailing pressed');
+                  },
+                  child: const Text('Action'),
+                ),
               ),
-              trailing: FilledButton.tonal(
-                onPressed: () {
-                  setState(() => _tapCount += 1);
-                  widget.onEvent('${widget.title}: trailing pressed');
-                },
-                child: const Text('Action'),
-              ),
-            ),
             ),
           ),
           const SizedBox(height: 8),
-          Text('taps: $_tapCount', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w700)),
+          Text(
+            'taps: $_tapCount',
+            style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w700),
+          ),
           Text(
             'centerMiddle=${widget.centerMiddle} | spacing=${widget.middleSpacing.toStringAsFixed(0)}',
             style: const TextStyle(fontSize: 11),
@@ -852,7 +1013,11 @@ class _ComparisonCardState extends State<_ComparisonCard> {
 }
 
 class _ResponsiveScene extends StatefulWidget {
-  const _ResponsiveScene({required this.compact, required this.guides, required this.notes});
+  const _ResponsiveScene({
+    required this.compact,
+    required this.guides,
+    required this.notes,
+  });
 
   final bool compact;
   final bool guides;
@@ -885,7 +1050,10 @@ class _ResponsiveSceneState extends State<_ResponsiveScene> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('Responsive controls', style: TextStyle(fontWeight: FontWeight.w800)),
+                      const Text(
+                        'Responsive controls',
+                        style: TextStyle(fontWeight: FontWeight.w800),
+                      ),
                       const SizedBox(height: 8),
                       _MiniSlider(
                         label: 'Frame width',
@@ -897,29 +1065,38 @@ class _ResponsiveSceneState extends State<_ResponsiveScene> {
                       Material(
                         type: MaterialType.transparency,
                         child: SwitchListTile(
-                        value: _denseActions,
-                        onChanged: (v) => setState(() => _denseActions = v),
-                        dense: true,
-                        contentPadding: EdgeInsets.zero,
-                        title: const Text('Dense trailing actions'),
-                      ),
+                          value: _denseActions,
+                          onChanged: (v) => setState(() => _denseActions = v),
+                          dense: true,
+                          contentPadding: EdgeInsets.zero,
+                          title: const Text('Dense trailing actions'),
+                        ),
                       ),
                       Material(
                         type: MaterialType.transparency,
                         child: SwitchListTile(
-                        value: _centerMiddle,
-                        onChanged: (v) => setState(() => _centerMiddle = v),
-                        dense: true,
-                        contentPadding: EdgeInsets.zero,
-                        title: const Text('centerMiddle'),
-                      ),
+                          value: _centerMiddle,
+                          onChanged: (v) => setState(() => _centerMiddle = v),
+                          dense: true,
+                          contentPadding: EdgeInsets.zero,
+                          title: const Text('centerMiddle'),
+                        ),
                       ),
                       const SizedBox(height: 8),
                       _DataTableCard(
                         rows: [
-                          _DataRowItem('frame width', _frameWidth.toStringAsFixed(0)),
-                          _DataRowItem('dense actions', _denseActions ? 'true' : 'false'),
-                          _DataRowItem('centerMiddle', _centerMiddle ? 'true' : 'false'),
+                          _DataRowItem(
+                            'frame width',
+                            _frameWidth.toStringAsFixed(0),
+                          ),
+                          _DataRowItem(
+                            'dense actions',
+                            _denseActions ? 'true' : 'false',
+                          ),
+                          _DataRowItem(
+                            'centerMiddle',
+                            _centerMiddle ? 'true' : 'false',
+                          ),
                         ],
                       ),
                       const SizedBox(height: 8),
@@ -933,7 +1110,10 @@ class _ResponsiveSceneState extends State<_ResponsiveScene> {
                           ],
                         ),
                       const SizedBox(height: 8),
-                      const Text('Responsive event timeline', style: TextStyle(fontWeight: FontWeight.w800)),
+                      const Text(
+                        'Responsive event timeline',
+                        style: TextStyle(fontWeight: FontWeight.w800),
+                      ),
                       const SizedBox(height: 6),
                       SizedBox(height: 200, child: _LogCard(lines: _events)),
                     ],
@@ -959,7 +1139,10 @@ class _ResponsiveSceneState extends State<_ResponsiveScene> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('Responsive frame preview', style: TextStyle(fontWeight: FontWeight.w800)),
+                      const Text(
+                        'Responsive frame preview',
+                        style: TextStyle(fontWeight: FontWeight.w800),
+                      ),
                       const SizedBox(height: 6),
                       Container(
                         padding: const EdgeInsets.all(8),
@@ -972,36 +1155,53 @@ class _ResponsiveSceneState extends State<_ResponsiveScene> {
                         child: SizedBox(
                           height: kToolbarHeight,
                           child: NavigationToolbar(
-                          centerMiddle: _centerMiddle,
-                          middleSpacing: 12,
-                          leading: FilledButton.tonal(
-                            onPressed: () => _push('leading pressed'),
-                            child: const Text('Back'),
-                          ),
-                          middle: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 7),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border.all(color: _amber.withValues(alpha: 0.25)),
+                            centerMiddle: _centerMiddle,
+                            middleSpacing: 12,
+                            leading: FilledButton.tonal(
+                              onPressed: () => _push('leading pressed'),
+                              child: const Text('Back'),
                             ),
-                            child: const Text(
-                              'Long report title: release preparation and deployment readiness',
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
+                            middle: Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 7,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(
+                                  color: _amber.withValues(alpha: 0.25),
+                                ),
+                              ),
+                              child: const Text(
+                                'Long report title: release preparation and deployment readiness',
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
+                            trailing: _denseActions
+                                ? Wrap(
+                                    spacing: 6,
+                                    children: [
+                                      FilledButton.tonal(
+                                        onPressed: () => _push('trail save'),
+                                        child: const Text('Save'),
+                                      ),
+                                      FilledButton.tonal(
+                                        onPressed: () => _push('trail export'),
+                                        child: const Text('Export'),
+                                      ),
+                                      FilledButton.tonal(
+                                        onPressed: () => _push('trail publish'),
+                                        child: const Text('Publish'),
+                                      ),
+                                    ],
+                                  )
+                                : FilledButton.tonal(
+                                    onPressed: () => _push('trail action'),
+                                    child: const Text('Action'),
+                                  ),
                           ),
-                          trailing: _denseActions
-                              ? Wrap(
-                                  spacing: 6,
-                                  children: [
-                                    FilledButton.tonal(onPressed: () => _push('trail save'), child: const Text('Save')),
-                                    FilledButton.tonal(onPressed: () => _push('trail export'), child: const Text('Export')),
-                                    FilledButton.tonal(onPressed: () => _push('trail publish'), child: const Text('Publish')),
-                                  ],
-                                )
-                              : FilledButton.tonal(onPressed: () => _push('trail action'), child: const Text('Action')),
-                        ),
                         ),
                       ),
                       const SizedBox(height: 10),
@@ -1016,11 +1216,20 @@ class _ResponsiveSceneState extends State<_ResponsiveScene> {
                           child: const Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('Responsive tips', style: TextStyle(fontWeight: FontWeight.w800)),
+                              Text(
+                                'Responsive tips',
+                                style: TextStyle(fontWeight: FontWeight.w800),
+                              ),
                               SizedBox(height: 6),
-                              Text('1) Keep middle text ellipsized for narrow widths.'),
-                              Text('2) Reduce trailing action count when space is constrained.'),
-                              Text('3) Validate centerMiddle with both compact and wide layouts.'),
+                              Text(
+                                '1) Keep middle text ellipsized for narrow widths.',
+                              ),
+                              Text(
+                                '2) Reduce trailing action count when space is constrained.',
+                              ),
+                              Text(
+                                '3) Validate centerMiddle with both compact and wide layouts.',
+                              ),
                             ],
                           ),
                         ),
@@ -1045,7 +1254,11 @@ class _ResponsiveSceneState extends State<_ResponsiveScene> {
 }
 
 class _DirectionalityScene extends StatefulWidget {
-  const _DirectionalityScene({required this.compact, required this.guides, required this.notes});
+  const _DirectionalityScene({
+    required this.compact,
+    required this.guides,
+    required this.notes,
+  });
 
   final bool compact;
   final bool guides;
@@ -1077,33 +1290,39 @@ class _DirectionalitySceneState extends State<_DirectionalityScene> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('Directionality controls', style: TextStyle(fontWeight: FontWeight.w800)),
+                      const Text(
+                        'Directionality controls',
+                        style: TextStyle(fontWeight: FontWeight.w800),
+                      ),
                       const SizedBox(height: 8),
                       Material(
                         type: MaterialType.transparency,
                         child: SwitchListTile(
-                        value: _rtlLocal,
-                        onChanged: (v) => setState(() => _rtlLocal = v),
-                        dense: true,
-                        contentPadding: EdgeInsets.zero,
-                        title: const Text('Use RTL for this scene'),
-                      ),
+                          value: _rtlLocal,
+                          onChanged: (v) => setState(() => _rtlLocal = v),
+                          dense: true,
+                          contentPadding: EdgeInsets.zero,
+                          title: const Text('Use RTL for this scene'),
+                        ),
                       ),
                       Material(
                         type: MaterialType.transparency,
                         child: SwitchListTile(
-                        value: _centerMiddle,
-                        onChanged: (v) => setState(() => _centerMiddle = v),
-                        dense: true,
-                        contentPadding: EdgeInsets.zero,
-                        title: const Text('centerMiddle'),
-                      ),
+                          value: _centerMiddle,
+                          onChanged: (v) => setState(() => _centerMiddle = v),
+                          dense: true,
+                          contentPadding: EdgeInsets.zero,
+                          title: const Text('centerMiddle'),
+                        ),
                       ),
                       const SizedBox(height: 8),
                       _DataTableCard(
                         rows: [
                           _DataRowItem('direction', _rtlLocal ? 'RTL' : 'LTR'),
-                          _DataRowItem('centerMiddle', _centerMiddle ? 'true' : 'false'),
+                          _DataRowItem(
+                            'centerMiddle',
+                            _centerMiddle ? 'true' : 'false',
+                          ),
                           _DataRowItem('events', '${_events.length}'),
                         ],
                       ),
@@ -1118,7 +1337,10 @@ class _DirectionalitySceneState extends State<_DirectionalityScene> {
                           ],
                         ),
                       const SizedBox(height: 8),
-                      const Text('Directionality events', style: TextStyle(fontWeight: FontWeight.w800)),
+                      const Text(
+                        'Directionality events',
+                        style: TextStyle(fontWeight: FontWeight.w800),
+                      ),
                       const SizedBox(height: 6),
                       SizedBox(height: 210, child: _LogCard(lines: _events)),
                     ],
@@ -1133,7 +1355,9 @@ class _DirectionalitySceneState extends State<_DirectionalityScene> {
             child: _PanelSurface(
               guides: widget.guides,
               child: Directionality(
-                textDirection: _rtlLocal ? TextDirection.rtl : TextDirection.ltr,
+                textDirection: _rtlLocal
+                    ? TextDirection.rtl
+                    : TextDirection.ltr,
                 child: Padding(
                   padding: const EdgeInsets.all(10),
                   child: Column(
@@ -1150,13 +1374,20 @@ class _DirectionalitySceneState extends State<_DirectionalityScene> {
                             child: Text(_rtlLocal ? 'رجوع' : 'Back'),
                           ),
                           middle: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 7),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 7,
+                            ),
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(8),
-                              border: Border.all(color: _rose.withValues(alpha: 0.25)),
+                              border: Border.all(
+                                color: _rose.withValues(alpha: 0.25),
+                              ),
                             ),
-                            child: Text(_rtlLocal ? 'لوحة الملاحة' : 'Navigation Board'),
+                            child: Text(
+                              _rtlLocal ? 'لوحة الملاحة' : 'Navigation Board',
+                            ),
                           ),
                           trailing: FilledButton.tonal(
                             onPressed: () => _push('trailing pressed'),
@@ -1168,12 +1399,15 @@ class _DirectionalitySceneState extends State<_DirectionalityScene> {
                       _ToolbarCard(
                         tone: _violet,
                         title: 'Semantics Focus Header',
-                        subtitle: 'Adds explicit semantic labels around controls.',
+                        subtitle:
+                            'Adds explicit semantic labels around controls.',
                         toolbar: NavigationToolbar(
                           centerMiddle: _centerMiddle,
                           middleSpacing: 20,
                           leading: Semantics(
-                            label: _rtlLocal ? 'التحكم في الرجوع' : 'Back control',
+                            label: _rtlLocal
+                                ? 'التحكم في الرجوع'
+                                : 'Back control',
                             button: true,
                             child: FilledButton.tonal(
                               onPressed: () => _push('semantic back pressed'),
@@ -1181,22 +1415,32 @@ class _DirectionalitySceneState extends State<_DirectionalityScene> {
                             ),
                           ),
                           middle: Semantics(
-                            label: _rtlLocal ? 'عنوان المرحلة الحالية' : 'Current stage title',
+                            label: _rtlLocal
+                                ? 'عنوان المرحلة الحالية'
+                                : 'Current stage title',
                             child: Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 7,
+                              ),
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(8),
-                                border: Border.all(color: _violet.withValues(alpha: 0.25)),
+                                border: Border.all(
+                                  color: _violet.withValues(alpha: 0.25),
+                                ),
                               ),
-                              child: Text(_rtlLocal ? 'مرحلة الإطلاق' : 'Release Stage'),
+                              child: Text(
+                                _rtlLocal ? 'مرحلة الإطلاق' : 'Release Stage',
+                              ),
                             ),
                           ),
                           trailing: Semantics(
                             label: _rtlLocal ? 'زر التأكيد' : 'Confirm button',
                             button: true,
                             child: FilledButton.tonal(
-                              onPressed: () => _push('semantic confirm pressed'),
+                              onPressed: () =>
+                                  _push('semantic confirm pressed'),
                               child: Text(_rtlLocal ? 'تأكيد' : 'Confirm'),
                             ),
                           ),
@@ -1210,16 +1454,25 @@ class _DirectionalitySceneState extends State<_DirectionalityScene> {
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(12),
-                            border: Border.all(color: _rose.withValues(alpha: 0.24)),
+                            border: Border.all(
+                              color: _rose.withValues(alpha: 0.24),
+                            ),
                           ),
                           child: const Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('Directionality checklist', style: TextStyle(fontWeight: FontWeight.w800)),
+                              Text(
+                                'Directionality checklist',
+                                style: TextStyle(fontWeight: FontWeight.w800),
+                              ),
                               SizedBox(height: 6),
                               Text('1) Verify slot order in LTR and RTL.'),
-                              Text('2) Use localized labels and direction-sensitive iconography.'),
-                              Text('3) Include semantics labels for assistive technologies.'),
+                              Text(
+                                '2) Use localized labels and direction-sensitive iconography.',
+                              ),
+                              Text(
+                                '3) Include semantics labels for assistive technologies.',
+                              ),
                             ],
                           ),
                         ),
@@ -1244,7 +1497,11 @@ class _DirectionalitySceneState extends State<_DirectionalityScene> {
 }
 
 class _PracticalScene extends StatefulWidget {
-  const _PracticalScene({required this.compact, required this.guides, required this.notes});
+  const _PracticalScene({
+    required this.compact,
+    required this.guides,
+    required this.notes,
+  });
 
   final bool compact;
   final bool guides;
@@ -1285,7 +1542,10 @@ class _PracticalSceneState extends State<_PracticalScene> {
                         FilledButton.tonal(
                           onPressed: () {
                             setState(() {
-                              _events.insert(0, '${_clock()} | snapshot captured');
+                              _events.insert(
+                                0,
+                                '${_clock()} | snapshot captured',
+                              );
                               _trim(_events, 60);
                             });
                           },
@@ -1305,7 +1565,8 @@ class _PracticalSceneState extends State<_PracticalScene> {
                             child: _PracticalModule(
                               tone: _blue,
                               title: 'Dashboard Header',
-                              subtitle: 'Status-centric top bar with centered context title.',
+                              subtitle:
+                                  'Status-centric top bar with centered context title.',
                               revision: _revision,
                               onEvent: (e) => _push('dashboard: $e'),
                             ),
@@ -1315,7 +1576,8 @@ class _PracticalSceneState extends State<_PracticalScene> {
                             child: _PracticalModule(
                               tone: _teal,
                               title: 'Operations Header',
-                              subtitle: 'Action-heavy top bar for operations control.',
+                              subtitle:
+                                  'Action-heavy top bar for operations control.',
                               revision: _revision,
                               onEvent: (e) => _push('operations: $e'),
                             ),
@@ -1325,7 +1587,8 @@ class _PracticalSceneState extends State<_PracticalScene> {
                             child: _PracticalModule(
                               tone: _violet,
                               title: 'Release Header',
-                              subtitle: 'Stage-oriented top bar for release milestones.',
+                              subtitle:
+                                  'Stage-oriented top bar for release milestones.',
                               revision: _revision,
                               onEvent: (e) => _push('release: $e'),
                             ),
@@ -1348,7 +1611,10 @@ class _PracticalSceneState extends State<_PracticalScene> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Practical guidance', style: TextStyle(fontWeight: FontWeight.w800)),
+                    const Text(
+                      'Practical guidance',
+                      style: TextStyle(fontWeight: FontWeight.w800),
+                    ),
                     const SizedBox(height: 8),
                     if (widget.notes)
                       _InstructionCard(
@@ -1368,7 +1634,10 @@ class _PracticalSceneState extends State<_PracticalScene> {
                       ],
                     ),
                     const SizedBox(height: 8),
-                    const Text('Practical event timeline', style: TextStyle(fontWeight: FontWeight.w800)),
+                    const Text(
+                      'Practical event timeline',
+                      style: TextStyle(fontWeight: FontWeight.w800),
+                    ),
                     const SizedBox(height: 6),
                     Expanded(child: _LogCard(lines: _events)),
                   ],
@@ -1427,7 +1696,15 @@ class _PracticalModuleState extends State<_PracticalModule> {
         children: [
           Row(
             children: [
-              Expanded(child: Text(widget.title, style: TextStyle(color: widget.tone, fontWeight: FontWeight.w800))),
+              Expanded(
+                child: Text(
+                  widget.title,
+                  style: TextStyle(
+                    color: widget.tone,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ),
               _ToneChip(tone: widget.tone, label: 'rev ${widget.revision}'),
             ],
           ),
@@ -1445,59 +1722,64 @@ class _PracticalModuleState extends State<_PracticalModule> {
             child: SizedBox(
               height: kToolbarHeight,
               child: NavigationToolbar(
-              centerMiddle: _centerMiddle,
-              middleSpacing: _spacing,
-              leading: FilledButton.tonal(
-                onPressed: () {
-                  setState(() => _tapCount += 1);
-                  widget.onEvent('${widget.title}: leading pressed');
-                },
-                child: const Text('Nav'),
-              ),
-              middle: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 7),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: widget.tone.withValues(alpha: 0.25)),
+                centerMiddle: _centerMiddle,
+                middleSpacing: _spacing,
+                leading: FilledButton.tonal(
+                  onPressed: () {
+                    setState(() => _tapCount += 1);
+                    widget.onEvent('${widget.title}: leading pressed');
+                  },
+                  child: const Text('Nav'),
                 ),
-                child: Text(widget.title, overflow: TextOverflow.ellipsis),
-              ),
-              trailing: Wrap(
-                spacing: 6,
-                children: [
-                  FilledButton.tonal(
-                    onPressed: () {
-                      setState(() => _tapCount += 1);
-                      widget.onEvent('${widget.title}: action A');
-                    },
-                    child: const Text('A'),
+                middle: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 7,
                   ),
-                  FilledButton.tonal(
-                    onPressed: () {
-                      setState(() => _tapCount += 1);
-                      widget.onEvent('${widget.title}: action B');
-                    },
-                    child: const Text('B'),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                      color: widget.tone.withValues(alpha: 0.25),
+                    ),
                   ),
-                ],
+                  child: Text(widget.title, overflow: TextOverflow.ellipsis),
+                ),
+                trailing: Wrap(
+                  spacing: 6,
+                  children: [
+                    FilledButton.tonal(
+                      onPressed: () {
+                        setState(() => _tapCount += 1);
+                        widget.onEvent('${widget.title}: action A');
+                      },
+                      child: const Text('A'),
+                    ),
+                    FilledButton.tonal(
+                      onPressed: () {
+                        setState(() => _tapCount += 1);
+                        widget.onEvent('${widget.title}: action B');
+                      },
+                      child: const Text('B'),
+                    ),
+                  ],
+                ),
               ),
-            ),
             ),
           ),
           const SizedBox(height: 6),
           Material(
             type: MaterialType.transparency,
             child: SwitchListTile(
-            value: _centerMiddle,
-            onChanged: (v) {
-              setState(() => _centerMiddle = v);
-              widget.onEvent('${widget.title}: centerMiddle=$v');
-            },
-            dense: true,
-            contentPadding: EdgeInsets.zero,
-            title: const Text('centerMiddle', style: TextStyle(fontSize: 12)),
-          ),
+              value: _centerMiddle,
+              onChanged: (v) {
+                setState(() => _centerMiddle = v);
+                widget.onEvent('${widget.title}: centerMiddle=$v');
+              },
+              dense: true,
+              contentPadding: EdgeInsets.zero,
+              title: const Text('centerMiddle', style: TextStyle(fontSize: 12)),
+            ),
           ),
           _MiniSlider(
             label: 'spacing',
@@ -1587,7 +1869,14 @@ class _ToneChip extends StatelessWidget {
         color: tone.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(999),
       ),
-      child: Text(label, style: TextStyle(color: tone, fontWeight: FontWeight.w700, fontSize: 11)),
+      child: Text(
+        label,
+        style: TextStyle(
+          color: tone,
+          fontWeight: FontWeight.w700,
+          fontSize: 11,
+        ),
+      ),
     );
   }
 }
@@ -1621,8 +1910,22 @@ class _DataTableCard extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 4),
                 child: Row(
                   children: [
-                    SizedBox(width: 138, child: Text(r.label, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700))),
-                    Expanded(child: Text(r.value, style: const TextStyle(fontSize: 12))),
+                    SizedBox(
+                      width: 138,
+                      child: Text(
+                        r.label,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        r.value,
+                        style: const TextStyle(fontSize: 12),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -1634,7 +1937,13 @@ class _DataTableCard extends StatelessWidget {
 }
 
 class _MiniSlider extends StatelessWidget {
-  const _MiniSlider({required this.label, required this.value, required this.min, required this.max, required this.onChanged});
+  const _MiniSlider({
+    required this.label,
+    required this.value,
+    required this.min,
+    required this.max,
+    required this.onChanged,
+  });
 
   final String label;
   final double value;
@@ -1646,8 +1955,16 @@ class _MiniSlider extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        SizedBox(width: 86, child: Text(label, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 12))),
-        Expanded(child: Slider(value: value, min: min, max: max, onChanged: onChanged)),
+        SizedBox(
+          width: 86,
+          child: Text(
+            label,
+            style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 12),
+          ),
+        ),
+        Expanded(
+          child: Slider(value: value, min: min, max: max, onChanged: onChanged),
+        ),
       ],
     );
   }
@@ -1679,10 +1996,22 @@ class _InstructionCard extends StatelessWidget {
                   children: [
                     const Padding(
                       padding: EdgeInsets.only(top: 5),
-                      child: Icon(Icons.circle, size: 7, color: Color(0xFFBFE3FF)),
+                      child: Icon(
+                        Icons.circle,
+                        size: 7,
+                        color: Color(0xFFBFE3FF),
+                      ),
                     ),
                     const SizedBox(width: 8),
-                    Expanded(child: Text(line, style: const TextStyle(color: Color(0xFFEAF6FF), height: 1.35))),
+                    Expanded(
+                      child: Text(
+                        line,
+                        style: const TextStyle(
+                          color: Color(0xFFEAF6FF),
+                          height: 1.35,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -1708,13 +2037,22 @@ class _LogCard extends StatelessWidget {
         border: Border.all(color: const Color(0xFFCFDEEC)),
       ),
       child: lines.isEmpty
-          ? const Text('No events yet.', style: TextStyle(color: Color(0xFF62798D)))
+          ? const Text(
+              'No events yet.',
+              style: TextStyle(color: Color(0xFF62798D)),
+            )
           : ListView.builder(
               itemCount: lines.length,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 3),
-                  child: Text(lines[index], style: const TextStyle(fontFamily: 'monospace', fontSize: 11)),
+                  child: Text(
+                    lines[index],
+                    style: const TextStyle(
+                      fontFamily: 'monospace',
+                      fontSize: 11,
+                    ),
+                  ),
                 );
               },
             ),
@@ -1736,7 +2074,14 @@ class _RecapPanel extends StatelessWidget {
       child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Recap: NavigationToolbar', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 18)),
+          Text(
+            'Recap: NavigationToolbar',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w800,
+              fontSize: 18,
+            ),
+          ),
           SizedBox(height: 8),
           Text(
             'NavigationToolbar is a compact but powerful layout primitive for building custom top bars. '

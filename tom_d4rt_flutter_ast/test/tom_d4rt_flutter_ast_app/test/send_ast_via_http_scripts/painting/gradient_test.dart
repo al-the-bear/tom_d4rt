@@ -255,9 +255,7 @@ dynamic build(BuildContext context) {
                   Wrap(
                     spacing: 4.0,
                     runSpacing: 4.0,
-                    children: [
-                      for (final c in colors) _buildSwatch(c),
-                    ],
+                    children: [for (final c in colors) _buildSwatch(c)],
                   ),
                 ],
               ),
@@ -395,9 +393,7 @@ dynamic build(BuildContext context) {
                   Wrap(
                     spacing: 4.0,
                     runSpacing: 4.0,
-                    children: [
-                      for (final c in colors) _buildSwatch(c),
-                    ],
+                    children: [for (final c in colors) _buildSwatch(c)],
                   ),
                 ],
               ),
@@ -543,9 +539,7 @@ dynamic build(BuildContext context) {
                   Wrap(
                     spacing: 4.0,
                     runSpacing: 4.0,
-                    children: [
-                      for (final c in colors) _buildSwatch(c),
-                    ],
+                    children: [for (final c in colors) _buildSwatch(c)],
                   ),
                 ],
               ),
@@ -650,10 +644,7 @@ dynamic build(BuildContext context) {
             SizedBox(height: 8.0),
             Text(
               description,
-              style: TextStyle(
-                fontSize: 11.0,
-                color: Colors.grey.shade700,
-              ),
+              style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700),
             ),
           ],
         ),
@@ -793,10 +784,7 @@ dynamic build(BuildContext context) {
     end: Alignment.bottomRight,
   );
   final combinedTopFg = RadialGradient(
-    colors: [
-      Colors.amberAccent.withValues(alpha: 0.6),
-      Colors.transparent,
-    ],
+    colors: [Colors.amberAccent.withValues(alpha: 0.6), Colors.transparent],
     center: Alignment(-0.4, -0.6),
     radius: 0.7,
   );
@@ -857,10 +845,7 @@ dynamic build(BuildContext context) {
     center: Alignment.center,
   );
   final combinedTwoFg = RadialGradient(
-    colors: [
-      Colors.transparent,
-      Colors.black.withValues(alpha: 0.55),
-    ],
+    colors: [Colors.transparent, Colors.black.withValues(alpha: 0.55)],
     center: Alignment.center,
     radius: 0.95,
   );
@@ -953,10 +938,7 @@ dynamic build(BuildContext context) {
               SizedBox(height: 4.0),
               Text(
                 'Tri-stop sunset gradient',
-                style: TextStyle(
-                  color: Colors.white70,
-                  fontSize: 13.0,
-                ),
+                style: TextStyle(color: Colors.white70, fontSize: 13.0),
               ),
             ],
           ),
@@ -1030,7 +1012,12 @@ dynamic build(BuildContext context) {
             child: Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Colors.red, Colors.orange, Colors.yellow, Colors.green],
+                  colors: [
+                    Colors.red,
+                    Colors.orange,
+                    Colors.yellow,
+                    Colors.green,
+                  ],
                   stops: [0.0, 0.4, 0.7, 1.0],
                   begin: Alignment.centerLeft,
                   end: Alignment.centerRight,
@@ -1076,10 +1063,7 @@ dynamic build(BuildContext context) {
       child: Container(
         width: 60.0,
         height: 60.0,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: Colors.white,
-        ),
+        decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white),
         child: Center(
           child: Icon(Icons.mood, color: Colors.deepPurple, size: 36.0),
         ),
@@ -1158,8 +1142,8 @@ dynamic build(BuildContext context) {
                     t == 0.0
                         ? 'pure A'
                         : t == 1.0
-                            ? 'pure B'
-                            : 'mix',
+                        ? 'pure B'
+                        : 'mix',
                     style: TextStyle(
                       fontSize: 10.0,
                       color: Colors.grey.shade600,
@@ -1353,23 +1337,37 @@ dynamic build(BuildContext context) {
           ],
         ),
         SizedBox(height: 12.0),
-        _buildRecapBullet('Gradient is the abstract base of '
-            'LinearGradient, RadialGradient and SweepGradient.'),
-        _buildRecapBullet('All three accept colors, stops, transform '
-            'and tileMode.'),
+        _buildRecapBullet(
+          'Gradient is the abstract base of '
+          'LinearGradient, RadialGradient and SweepGradient.',
+        ),
+        _buildRecapBullet(
+          'All three accept colors, stops, transform '
+          'and tileMode.',
+        ),
         _buildRecapBullet('LinearGradient: begin & end alignments.'),
-        _buildRecapBullet('RadialGradient: center, radius, focal, '
-            'focalRadius.'),
+        _buildRecapBullet(
+          'RadialGradient: center, radius, focal, '
+          'focalRadius.',
+        ),
         _buildRecapBullet('SweepGradient: center, startAngle, endAngle.'),
-        _buildRecapBullet('TileMode controls behaviour outside [0,1]: '
-            'clamp, repeated, mirror, decal.'),
+        _buildRecapBullet(
+          'TileMode controls behaviour outside [0,1]: '
+          'clamp, repeated, mirror, decal.',
+        ),
         _buildRecapBullet('createShader(Rect) builds a dart:ui Shader.'),
-        _buildRecapBullet('lerp(a, b, t) interpolates between two '
-            'gradients of the same kind.'),
-        _buildRecapBullet('scale(t) returns a copy with each color '
-            'multiplied by t — useful for fade-outs.'),
-        _buildRecapBullet('Use BoxDecoration(gradient: ...) for the '
-            'easiest path; or paint manually with a Paint and Shader.'),
+        _buildRecapBullet(
+          'lerp(a, b, t) interpolates between two '
+          'gradients of the same kind.',
+        ),
+        _buildRecapBullet(
+          'scale(t) returns a copy with each color '
+          'multiplied by t — useful for fade-outs.',
+        ),
+        _buildRecapBullet(
+          'Use BoxDecoration(gradient: ...) for the '
+          'easiest path; or paint manually with a Paint and Shader.',
+        ),
       ],
     ),
   );
@@ -1398,34 +1396,22 @@ dynamic build(BuildContext context) {
 
           // Section 3: LinearGradient
           _buildSectionHeader('2. LinearGradient', Colors.indigo),
-          Wrap(
-            alignment: WrapAlignment.center,
-            children: linearExamples,
-          ),
+          Wrap(alignment: WrapAlignment.center, children: linearExamples),
           SizedBox(height: 24.0),
 
           // Section 4: RadialGradient
           _buildSectionHeader('3. RadialGradient', Colors.deepPurple),
-          Wrap(
-            alignment: WrapAlignment.center,
-            children: radialExamples,
-          ),
+          Wrap(alignment: WrapAlignment.center, children: radialExamples),
           SizedBox(height: 24.0),
 
           // Section 5: SweepGradient
           _buildSectionHeader('4. SweepGradient', Colors.pink),
-          Wrap(
-            alignment: WrapAlignment.center,
-            children: sweepExamples,
-          ),
+          Wrap(alignment: WrapAlignment.center, children: sweepExamples),
           SizedBox(height: 24.0),
 
           // Section 6: TileMode
           _buildSectionHeader('5. TileMode catalogue', Colors.brown),
-          Wrap(
-            alignment: WrapAlignment.center,
-            children: tileModeCards,
-          ),
+          Wrap(alignment: WrapAlignment.center, children: tileModeCards),
           SizedBox(height: 24.0),
 
           // Section 7: Color stops
@@ -1449,18 +1435,12 @@ dynamic build(BuildContext context) {
 
           // Section 10: lerp
           _buildSectionHeader('9. lerp(a, b, t)', Colors.cyan),
-          Wrap(
-            alignment: WrapAlignment.center,
-            children: lerpCards,
-          ),
+          Wrap(alignment: WrapAlignment.center, children: lerpCards),
           SizedBox(height: 24.0),
 
           // Section 11: scale
           _buildSectionHeader('10. scale(t) opacity-style fade', Colors.teal),
-          Wrap(
-            alignment: WrapAlignment.center,
-            children: scaleCards,
-          ),
+          Wrap(alignment: WrapAlignment.center, children: scaleCards),
           SizedBox(height: 24.0),
 
           // Section 12: Footguns
@@ -1490,9 +1470,7 @@ Widget _buildSectionHeader(String text, Color color) {
     decoration: BoxDecoration(
       color: color.withValues(alpha: 0.12),
       borderRadius: BorderRadius.circular(8.0),
-      border: Border(
-        left: BorderSide(color: color, width: 4.0),
-      ),
+      border: Border(left: BorderSide(color: color, width: 4.0)),
     ),
     child: Text(
       text,
@@ -1547,9 +1525,7 @@ Widget _buildFootgun(String title, String description, Color color) {
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(8.0),
-      border: Border(
-        left: BorderSide(color: color, width: 4.0),
-      ),
+      border: Border(left: BorderSide(color: color, width: 4.0)),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1565,10 +1541,7 @@ Widget _buildFootgun(String title, String description, Color color) {
         SizedBox(height: 4.0),
         Text(
           description,
-          style: TextStyle(
-            fontSize: 11.0,
-            color: Colors.grey.shade800,
-          ),
+          style: TextStyle(fontSize: 11.0, color: Colors.grey.shade800),
         ),
       ],
     ),

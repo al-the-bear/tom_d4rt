@@ -90,8 +90,10 @@ dynamic build(BuildContext context) {
     OverlayVisibilityMode.notEditing,
   ];
 
-  print('OverlayVisibilityMode demo — ${modeOrder.length} enum values wired '
-      'into live CupertinoTextFields.');
+  print(
+    'OverlayVisibilityMode demo — ${modeOrder.length} enum values wired '
+    'into live CupertinoTextFields.',
+  );
   for (final m in modeOrder) {
     print('  • ${m.name} → index ${m.index}');
   }
@@ -120,8 +122,7 @@ dynamic build(BuildContext context) {
           Row(
             children: [
               Container(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                 decoration: BoxDecoration(
                   color: paletteA['accent'],
                   borderRadius: BorderRadius.circular(6.0),
@@ -138,10 +139,7 @@ dynamic build(BuildContext context) {
               SizedBox(width: 8.0),
               Text(
                 'index ${mode.index}',
-                style: TextStyle(
-                  color: paletteA['caption'],
-                  fontSize: 12.0,
-                ),
+                style: TextStyle(color: paletteA['caption'], fontSize: 12.0),
               ),
             ],
           ),
@@ -268,8 +266,7 @@ dynamic build(BuildContext context) {
           Row(
             children: [
               Container(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                 decoration: BoxDecoration(
                   color: paletteB['accent'],
                   borderRadius: BorderRadius.circular(6.0),
@@ -286,10 +283,7 @@ dynamic build(BuildContext context) {
               SizedBox(width: 8.0),
               Text(
                 'index ${mode.index}',
-                style: TextStyle(
-                  color: paletteB['caption'],
-                  fontSize: 12.0,
-                ),
+                style: TextStyle(color: paletteB['caption'], fontSize: 12.0),
               ),
             ],
           ),
@@ -430,8 +424,7 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: CupertinoColors.white,
                   borderRadius: BorderRadius.circular(10.0),
-                  border:
-                      Border.all(color: paletteC['border']!, width: 1.0),
+                  border: Border.all(color: paletteC['border']!, width: 1.0),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -496,8 +489,7 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: CupertinoColors.white,
                   borderRadius: BorderRadius.circular(10.0),
-                  border:
-                      Border.all(color: paletteC['border']!, width: 1.0),
+                  border: Border.all(color: paletteC['border']!, width: 1.0),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -601,14 +593,10 @@ dynamic build(BuildContext context) {
       height: 56.0,
       margin: EdgeInsets.all(2.0),
       decoration: BoxDecoration(
-        color: visible
-            ? Color(0xFFEDE9FE)
-            : Color(0xFFF3F4F6),
+        color: visible ? Color(0xFFEDE9FE) : Color(0xFFF3F4F6),
         borderRadius: BorderRadius.circular(8.0),
         border: Border.all(
-          color: visible
-              ? paletteD['border']!
-              : Color(0xFFD1D5DB),
+          color: visible ? paletteD['border']! : Color(0xFFD1D5DB),
           width: 1.0,
         ),
       ),
@@ -617,13 +605,9 @@ dynamic build(BuildContext context) {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(
-            visible
-                ? CupertinoIcons.eye_solid
-                : CupertinoIcons.eye_slash,
+            visible ? CupertinoIcons.eye_solid : CupertinoIcons.eye_slash,
             size: 16.0,
-            color: visible
-                ? paletteD['accent']
-                : Color(0xFF6B7280),
+            color: visible ? paletteD['accent'] : Color(0xFF6B7280),
           ),
           SizedBox(width: 6.0),
           Text(
@@ -631,9 +615,7 @@ dynamic build(BuildContext context) {
             style: TextStyle(
               fontSize: 12.0,
               fontWeight: FontWeight.bold,
-              color: visible
-                  ? paletteD['accent']
-                  : Color(0xFF6B7280),
+              color: visible ? paletteD['accent'] : Color(0xFF6B7280),
             ),
           ),
         ],
@@ -691,27 +673,15 @@ dynamic build(BuildContext context) {
         Expanded(flex: 2, child: buildMatrixRowLabel(mode)),
         Expanded(
           flex: 3,
-          child: buildMatrixCell(
-            mode: mode,
-            hasText: false,
-            isFocused: false,
-          ),
+          child: buildMatrixCell(mode: mode, hasText: false, isFocused: false),
         ),
         Expanded(
           flex: 3,
-          child: buildMatrixCell(
-            mode: mode,
-            hasText: true,
-            isFocused: false,
-          ),
+          child: buildMatrixCell(mode: mode, hasText: true, isFocused: false),
         ),
         Expanded(
           flex: 3,
-          child: buildMatrixCell(
-            mode: mode,
-            hasText: true,
-            isFocused: true,
-          ),
+          child: buildMatrixCell(mode: mode, hasText: true, isFocused: true),
         ),
       ],
     );
@@ -747,14 +717,8 @@ dynamic build(BuildContext context) {
           children: [
             Expanded(flex: 2, child: buildMatrixHeader('mode')),
             Expanded(flex: 3, child: buildMatrixHeader('empty + idle')),
-            Expanded(
-              flex: 3,
-              child: buildMatrixHeader('text + idle'),
-            ),
-            Expanded(
-              flex: 3,
-              child: buildMatrixHeader('text + focus'),
-            ),
+            Expanded(flex: 3, child: buildMatrixHeader('text + idle')),
+            Expanded(flex: 3, child: buildMatrixHeader('text + focus')),
           ],
         ),
         buildMatrixRow(OverlayVisibilityMode.always),
@@ -809,11 +773,7 @@ dynamic build(BuildContext context) {
     placeholder: 'Search…',
     prefix: Padding(
       padding: EdgeInsets.symmetric(horizontal: 8.0),
-      child: Icon(
-        CupertinoIcons.search,
-        color: paletteE['accent'],
-        size: 18.0,
-      ),
+      child: Icon(CupertinoIcons.search, color: paletteE['accent'], size: 18.0),
     ),
     prefixMode: OverlayVisibilityMode.always,
     suffix: Padding(
@@ -922,8 +882,7 @@ dynamic build(BuildContext context) {
               ),
               SizedBox(width: 8.0),
               Container(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
                 decoration: BoxDecoration(
                   color: paletteE['border'],
                   borderRadius: BorderRadius.circular(6.0),
@@ -939,8 +898,7 @@ dynamic build(BuildContext context) {
               ),
               SizedBox(width: 6.0),
               Container(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
                 decoration: BoxDecoration(
                   color: paletteE['accent'],
                   borderRadius: BorderRadius.circular(6.0),
@@ -1052,8 +1010,7 @@ dynamic build(BuildContext context) {
         children: [
           Container(
             width: 64.0,
-            padding:
-                EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
+            padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
             decoration: BoxDecoration(
               color: paletteF['accent'],
               borderRadius: BorderRadius.circular(8.0),
@@ -1156,18 +1113,12 @@ dynamic build(BuildContext context) {
               children: [
                 Text(
                   '→ yes: $yesBranch',
-                  style: TextStyle(
-                    fontSize: 12.0,
-                    color: paletteF['caption'],
-                  ),
+                  style: TextStyle(fontSize: 12.0, color: paletteF['caption']),
                 ),
                 SizedBox(height: 2.0),
                 Text(
                   '→ no:  $noBranch',
-                  style: TextStyle(
-                    fontSize: 12.0,
-                    color: paletteF['caption'],
-                  ),
+                  style: TextStyle(fontSize: 12.0, color: paletteF['caption']),
                 ),
               ],
             ),
@@ -1190,34 +1141,22 @@ dynamic build(BuildContext context) {
       CupertinoListTile(
         title: Text('always'),
         subtitle: Text('Render the slot in every state.'),
-        trailing: Icon(
-          CupertinoIcons.eye_solid,
-          color: paletteF['accent'],
-        ),
+        trailing: Icon(CupertinoIcons.eye_solid, color: paletteF['accent']),
       ),
       CupertinoListTile(
         title: Text('never'),
         subtitle: Text('Suppress the slot regardless of state.'),
-        trailing: Icon(
-          CupertinoIcons.eye_slash,
-          color: paletteF['accent'],
-        ),
+        trailing: Icon(CupertinoIcons.eye_slash, color: paletteF['accent']),
       ),
       CupertinoListTile(
         title: Text('editing'),
         subtitle: Text('Visible only while the field is focused.'),
-        trailing: Icon(
-          CupertinoIcons.pencil,
-          color: paletteF['accent'],
-        ),
+        trailing: Icon(CupertinoIcons.pencil, color: paletteF['accent']),
       ),
       CupertinoListTile(
         title: Text('notEditing'),
         subtitle: Text('Visible only while the field is idle.'),
-        trailing: Icon(
-          CupertinoIcons.pause_circle,
-          color: paletteF['accent'],
-        ),
+        trailing: Icon(CupertinoIcons.pause_circle, color: paletteF['accent']),
       ),
     ],
   );
@@ -1291,8 +1230,7 @@ dynamic build(BuildContext context) {
         SizedBox(height: 6.0),
         buildFlowStep(
           step: 1,
-          question:
-              'Should the slot ever be hidden based on user activity?',
+          question: 'Should the slot ever be hidden based on user activity?',
           yesBranch: 'continue to step 2',
           noBranch: 'pick always (or never if it should never paint)',
         ),
@@ -1406,10 +1344,7 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: CupertinoColors.white,
                   borderRadius: BorderRadius.circular(12.0),
-                  border: Border.all(
-                    color: Color(0xFFE2E8F0),
-                    width: 1.0,
-                  ),
+                  border: Border.all(color: Color(0xFFE2E8F0), width: 1.0),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

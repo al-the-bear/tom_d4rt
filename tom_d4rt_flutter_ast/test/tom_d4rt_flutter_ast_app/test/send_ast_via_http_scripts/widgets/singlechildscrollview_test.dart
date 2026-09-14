@@ -93,11 +93,7 @@ class _HeroSection extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [
-            Color(0xFF0E1430),
-            Color(0xFF26276A),
-            Color(0xFF5B4BD6),
-          ],
+          colors: [Color(0xFF0E1430), Color(0xFF26276A), Color(0xFF5B4BD6)],
         ),
       ),
       child: Column(
@@ -504,11 +500,7 @@ class _ParameterTableSection extends StatelessWidget {
           Text(
             "Each row links the parameter name, its Dart type, its default value, "
             "and the semantic effect on the viewport.",
-            style: TextStyle(
-              color: _kInkMuted,
-              fontSize: 13,
-              height: 1.45,
-            ),
+            style: TextStyle(color: _kInkMuted, fontSize: 13, height: 1.45),
           ),
           SizedBox(height: 20),
           Container(
@@ -597,9 +589,7 @@ class _ParamRowView extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 18, vertical: 12),
       decoration: BoxDecoration(
         color: even ? _kCard : _kStripeA,
-        border: Border(
-          top: BorderSide(color: _kGrid, width: 1),
-        ),
+        border: Border(top: BorderSide(color: _kGrid, width: 1)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -642,11 +632,7 @@ class _ParamRowView extends StatelessWidget {
             flex: 7,
             child: Text(
               row.description,
-              style: TextStyle(
-                color: _kInkSoft,
-                fontSize: 12.5,
-                height: 1.5,
-              ),
+              style: TextStyle(color: _kInkSoft, fontSize: 12.5, height: 1.5),
             ),
           ),
         ],
@@ -809,11 +795,7 @@ class _GalleryCardShell extends StatelessWidget {
             style: TextStyle(color: _kInkMuted, fontSize: 11.5, height: 1.4),
           ),
           SizedBox(height: 10),
-          Wrap(
-            spacing: 6,
-            runSpacing: 6,
-            children: tags,
-          ),
+          Wrap(spacing: 6, runSpacing: 6, children: tags),
           SizedBox(height: 12),
           body,
           if (footnote != null) ...[
@@ -1000,9 +982,7 @@ class _GalleryCardVertical extends StatelessWidget {
       ],
       body: SizedBox(
         height: 140,
-        child: SingleChildScrollView(
-          child: _TallStrips(),
-        ),
+        child: SingleChildScrollView(child: _TallStrips()),
       ),
       footnote:
           "The whole column is measured. Scroll offset translates the painting "
@@ -1177,7 +1157,8 @@ class _GalleryCardAlways extends StatelessWidget {
     return _GalleryCardShell(
       accent: _kSuccess,
       title: "8 · AlwaysScrollableScrollPhysics",
-      subtitle: "Allow drag even when child fits — required for RefreshIndicator.",
+      subtitle:
+          "Allow drag even when child fits — required for RefreshIndicator.",
       tags: const [
         _MiniTag(label: "physics", color: _kSuccess),
         _MiniTag(label: "pull-to-refresh", color: _kInkSoft),
@@ -1289,8 +1270,7 @@ class _GalleryCardKeyboardOnDrag extends StatelessWidget {
       body: SizedBox(
         height: 140,
         child: SingleChildScrollView(
-          keyboardDismissBehavior:
-              ScrollViewKeyboardDismissBehavior.onDrag,
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           child: _TallStrips(base: _kAccent3, count: 16),
         ),
       ),
@@ -1340,9 +1320,7 @@ class _AnatomySection extends StatelessWidget {
                   flex: 5,
                   child: SizedBox(
                     height: 320,
-                    child: CustomPaint(
-                      painter: _AnatomyPainter(),
-                    ),
+                    child: CustomPaint(painter: _AnatomyPainter()),
                   ),
                 ),
                 SizedBox(width: 20),
@@ -1434,11 +1412,7 @@ class _AnatomyKey extends StatelessWidget {
               SizedBox(height: 3),
               Text(
                 body,
-                style: TextStyle(
-                  color: _kInkSoft,
-                  fontSize: 12.5,
-                  height: 1.5,
-                ),
+                style: TextStyle(color: _kInkSoft, fontSize: 12.5, height: 1.5),
               ),
             ],
           ),
@@ -1454,7 +1428,12 @@ class _AnatomyPainter extends CustomPainter {
     final w = size.width;
     final h = size.height;
     final padding = 26.0;
-    final viewportRect = Rect.fromLTWH(padding, padding, w - 2 * padding, h - 2 * padding);
+    final viewportRect = Rect.fromLTWH(
+      padding,
+      padding,
+      w - 2 * padding,
+      h - 2 * padding,
+    );
 
     // Background grid.
     final grid = Paint()
@@ -1505,12 +1484,21 @@ class _AnatomyPainter extends CustomPainter {
       maskPaint,
     );
     canvas.drawRect(
-      Rect.fromLTWH(0, viewportRect.top, viewportRect.left, viewportRect.height),
+      Rect.fromLTWH(
+        0,
+        viewportRect.top,
+        viewportRect.left,
+        viewportRect.height,
+      ),
       maskPaint,
     );
     canvas.drawRect(
-      Rect.fromLTWH(viewportRect.right, viewportRect.top,
-          w - viewportRect.right, viewportRect.height),
+      Rect.fromLTWH(
+        viewportRect.right,
+        viewportRect.top,
+        w - viewportRect.right,
+        viewportRect.height,
+      ),
       maskPaint,
     );
 
@@ -1549,13 +1537,30 @@ class _AnatomyPainter extends CustomPainter {
     );
 
     // Labels.
-    _drawLabel(canvas, "viewport", Offset(viewportRect.left + 6, viewportRect.top + 6),
-        _kAccent);
-    _drawLabel(canvas, "child (eager)",
-        Offset(childRect.left + 6, childRect.top + 6), _kAccent2);
-    _drawLabel(canvas, "scroll offset",
-        Offset(arrowFromX - 92, arrowToY - 24), _kAccent4);
-    _drawLabel(canvas, "clip", Offset(w - padding - 30, padding + 2), _kAccent3);
+    _drawLabel(
+      canvas,
+      "viewport",
+      Offset(viewportRect.left + 6, viewportRect.top + 6),
+      _kAccent,
+    );
+    _drawLabel(
+      canvas,
+      "child (eager)",
+      Offset(childRect.left + 6, childRect.top + 6),
+      _kAccent2,
+    );
+    _drawLabel(
+      canvas,
+      "scroll offset",
+      Offset(arrowFromX - 92, arrowToY - 24),
+      _kAccent4,
+    );
+    _drawLabel(
+      canvas,
+      "clip",
+      Offset(w - padding - 30, padding + 2),
+      _kAccent3,
+    );
   }
 
   void _drawLabel(Canvas canvas, String text, Offset pos, Color color) {
@@ -1680,10 +1685,7 @@ class _PhysicsCurveCard extends StatelessWidget {
               Container(
                 width: 8,
                 height: 8,
-                decoration: BoxDecoration(
-                  color: color,
-                  shape: BoxShape.circle,
-                ),
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
               ),
               SizedBox(width: 8),
               Text(
@@ -1706,11 +1708,7 @@ class _PhysicsCurveCard extends StatelessWidget {
           SizedBox(height: 8),
           Text(
             _describe(type),
-            style: TextStyle(
-              color: _kInkSoft,
-              fontSize: 11.5,
-              height: 1.45,
-            ),
+            style: TextStyle(color: _kInkSoft, fontSize: 11.5, height: 1.45),
           ),
         ],
       ),
@@ -1741,7 +1739,11 @@ class _PhysicsCurvePainter extends CustomPainter {
     final axis = Paint()
       ..color = _kGrid
       ..strokeWidth = 1;
-    canvas.drawLine(Offset(0, size.height - 1), Offset(size.width, size.height - 1), axis);
+    canvas.drawLine(
+      Offset(0, size.height - 1),
+      Offset(size.width, size.height - 1),
+      axis,
+    );
     canvas.drawLine(Offset(0, 0), Offset(0, size.height), axis);
 
     final path = Path();
@@ -1982,7 +1984,8 @@ class _CodeSnippetCard extends StatelessWidget {
             child: Row(
               children: [
                 Container(
-                  width: 8, height: 8,
+                  width: 8,
+                  height: 8,
                   decoration: BoxDecoration(
                     color: _kAccent4,
                     shape: BoxShape.circle,
@@ -1990,7 +1993,8 @@ class _CodeSnippetCard extends StatelessWidget {
                 ),
                 SizedBox(width: 6),
                 Container(
-                  width: 8, height: 8,
+                  width: 8,
+                  height: 8,
                   decoration: BoxDecoration(
                     color: _kSuccess,
                     shape: BoxShape.circle,
@@ -1998,7 +2002,8 @@ class _CodeSnippetCard extends StatelessWidget {
                 ),
                 SizedBox(width: 6),
                 Container(
-                  width: 8, height: 8,
+                  width: 8,
+                  height: 8,
                   decoration: BoxDecoration(
                     color: _kAccent3,
                     shape: BoxShape.circle,
@@ -2065,76 +2070,88 @@ class _PitfallsSection extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(child: _PitfallCard(
-                index: 1,
-                title: "Column without MainAxisSize.min",
-                summary:
-                    "A default Column inside a SingleChildScrollView wants "
-                    "infinite height and throws ‘RenderFlex overflowed’.",
-                fix:
-                    "Set mainAxisSize: MainAxisSize.min on the child Column, "
-                    "or let it expand naturally only along the scroll axis.",
-              )),
+              Expanded(
+                child: _PitfallCard(
+                  index: 1,
+                  title: "Column without MainAxisSize.min",
+                  summary:
+                      "A default Column inside a SingleChildScrollView wants "
+                      "infinite height and throws ‘RenderFlex overflowed’.",
+                  fix:
+                      "Set mainAxisSize: MainAxisSize.min on the child Column, "
+                      "or let it expand naturally only along the scroll axis.",
+                ),
+              ),
               SizedBox(width: 14),
-              Expanded(child: _PitfallCard(
-                index: 2,
-                title: "Unbounded children",
-                summary:
-                    "Wrapping an Expanded or a ListView inside this scroll view "
-                    "produces double-unbounded layout exceptions.",
-                fix:
-                    "Replace Expanded with concrete sizing, or hoist the inner "
-                    "ListView out so only one scrollable owns the axis.",
-              )),
+              Expanded(
+                child: _PitfallCard(
+                  index: 2,
+                  title: "Unbounded children",
+                  summary:
+                      "Wrapping an Expanded or a ListView inside this scroll view "
+                      "produces double-unbounded layout exceptions.",
+                  fix:
+                      "Replace Expanded with concrete sizing, or hoist the inner "
+                      "ListView out so only one scrollable owns the axis.",
+                ),
+              ),
               SizedBox(width: 14),
-              Expanded(child: _PitfallCard(
-                index: 3,
-                title: "Conflicting primary controllers",
-                summary:
-                    "Two vertical SingleChildScrollViews both default to "
-                    "primary:true and fight over the PrimaryScrollController.",
-                fix:
-                    "Set primary:false on the inner one, or attach an explicit "
-                    "ScrollController so neither uses the primary.",
-              )),
+              Expanded(
+                child: _PitfallCard(
+                  index: 3,
+                  title: "Conflicting primary controllers",
+                  summary:
+                      "Two vertical SingleChildScrollViews both default to "
+                      "primary:true and fight over the PrimaryScrollController.",
+                  fix:
+                      "Set primary:false on the inner one, or attach an explicit "
+                      "ScrollController so neither uses the primary.",
+                ),
+              ),
             ],
           ),
           SizedBox(height: 14),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(child: _PitfallCard(
-                index: 4,
-                title: "Default primary inside Scaffold body",
-                summary:
-                    "A vertical SingleChildScrollView in Scaffold.body picks "
-                    "up the PrimaryScrollController and breaks NestedScrollView.",
-                fix:
-                    "Pass primary:false explicitly when the scroll view is not "
-                    "the page's main scroller — or use a dedicated controller.",
-              )),
+              Expanded(
+                child: _PitfallCard(
+                  index: 4,
+                  title: "Default primary inside Scaffold body",
+                  summary:
+                      "A vertical SingleChildScrollView in Scaffold.body picks "
+                      "up the PrimaryScrollController and breaks NestedScrollView.",
+                  fix:
+                      "Pass primary:false explicitly when the scroll view is not "
+                      "the page's main scroller — or use a dedicated controller.",
+                ),
+              ),
               SizedBox(width: 14),
-              Expanded(child: _PitfallCard(
-                index: 5,
-                title: "Confusing it with ListView.shrinkWrap",
-                summary:
-                    "Replacing ListView with SingleChildScrollView+Column "
-                    "loses lazy building and balloons memory for long lists.",
-                fix:
-                    "If you have more than ~50 homogeneous items, use "
-                    "ListView.builder. shrinkWrap is rarely the right answer.",
-              )),
+              Expanded(
+                child: _PitfallCard(
+                  index: 5,
+                  title: "Confusing it with ListView.shrinkWrap",
+                  summary:
+                      "Replacing ListView with SingleChildScrollView+Column "
+                      "loses lazy building and balloons memory for long lists.",
+                  fix:
+                      "If you have more than ~50 homogeneous items, use "
+                      "ListView.builder. shrinkWrap is rarely the right answer.",
+                ),
+              ),
               SizedBox(width: 14),
-              Expanded(child: _PitfallCard(
-                index: 6,
-                title: "Scrollbar without a controller",
-                summary:
-                    "A Scrollbar wrapped around a SingleChildScrollView on "
-                    "desktop/web throws unless both share a controller.",
-                fix:
-                    "Create one ScrollController, pass it to both Scrollbar "
-                    "and SingleChildScrollView. Setting primary on both also works.",
-              )),
+              Expanded(
+                child: _PitfallCard(
+                  index: 6,
+                  title: "Scrollbar without a controller",
+                  summary:
+                      "A Scrollbar wrapped around a SingleChildScrollView on "
+                      "desktop/web throws unless both share a controller.",
+                  fix:
+                      "Create one ScrollController, pass it to both Scrollbar "
+                      "and SingleChildScrollView. Setting primary on both also works.",
+                ),
+              ),
             ],
           ),
         ],
@@ -2202,11 +2219,7 @@ class _PitfallCard extends StatelessWidget {
           SizedBox(height: 10),
           Text(
             summary,
-            style: TextStyle(
-              color: _kInkSoft,
-              fontSize: 12.5,
-              height: 1.5,
-            ),
+            style: TextStyle(color: _kInkSoft, fontSize: 12.5, height: 1.5),
           ),
           SizedBox(height: 10),
           Container(
@@ -2264,8 +2277,10 @@ class _DecisionMatrixSection extends StatelessWidget {
         children: [
           _SectionLabel(label: "WHICH SCROLLABLE?"),
           SizedBox(height: 14),
-          _SectionTitle(text:
-              "SingleChildScrollView vs ListView vs CustomScrollView vs NestedScrollView"),
+          _SectionTitle(
+            text:
+                "SingleChildScrollView vs ListView vs CustomScrollView vs NestedScrollView",
+          ),
           SizedBox(height: 6),
           Text(
             "A condensed cross-check across the four Flutter scrollables you "
@@ -2284,7 +2299,12 @@ class _DecisionMatrixSection extends StatelessWidget {
                 _DecisionHeader(),
                 _DecisionRow(
                   axis: "Lazy layout?",
-                  values: const ["no", "yes (builders)", "yes (slivers)", "yes (slivers)"],
+                  values: const [
+                    "no",
+                    "yes (builders)",
+                    "yes (slivers)",
+                    "yes (slivers)",
+                  ],
                   colors: const [_kDanger, _kSuccess, _kSuccess, _kSuccess],
                 ),
                 _DecisionRow(
@@ -2299,7 +2319,12 @@ class _DecisionMatrixSection extends StatelessWidget {
                 ),
                 _DecisionRow(
                   axis: "Memory cost",
-                  values: const ["O(child)", "O(viewport)", "O(viewport)", "O(viewport)"],
+                  values: const [
+                    "O(child)",
+                    "O(viewport)",
+                    "O(viewport)",
+                    "O(viewport)",
+                  ],
                   colors: const [_kDanger, _kSuccess, _kSuccess, _kSuccess],
                 ),
                 _DecisionRow(
@@ -2309,7 +2334,12 @@ class _DecisionMatrixSection extends StatelessWidget {
                 ),
                 _DecisionRow(
                   axis: "Inner-scrollable nesting",
-                  values: const ["risky", "limited", "limited", "designed for it"],
+                  values: const [
+                    "risky",
+                    "limited",
+                    "limited",
+                    "designed for it",
+                  ],
                   colors: const [_kDanger, _kWarn, _kWarn, _kSuccess],
                 ),
                 _DecisionRow(
@@ -2342,7 +2372,10 @@ class _DecisionHeader extends StatelessWidget {
       child: Row(
         children: [
           Expanded(flex: 3, child: _ParamHeadText(text: "DIMENSION")),
-          Expanded(flex: 3, child: _ParamHeadText(text: "SingleChildScrollView")),
+          Expanded(
+            flex: 3,
+            child: _ParamHeadText(text: "SingleChildScrollView"),
+          ),
           Expanded(flex: 3, child: _ParamHeadText(text: "ListView")),
           Expanded(flex: 3, child: _ParamHeadText(text: "CustomScrollView")),
           Expanded(flex: 3, child: _ParamHeadText(text: "NestedScrollView")),
@@ -2392,7 +2425,10 @@ class _DecisionRow extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: colors[i].withOpacity(0.10),
                   borderRadius: BorderRadius.circular(6),
-                  border: Border.all(color: colors[i].withOpacity(0.4), width: 1),
+                  border: Border.all(
+                    color: colors[i].withOpacity(0.4),
+                    width: 1,
+                  ),
                 ),
                 child: Text(
                   values[i],
@@ -2424,10 +2460,7 @@ class _FooterCheatsheetSection extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [
-            Color(0xFF101333),
-            Color(0xFF1E2353),
-          ],
+          colors: [Color(0xFF101333), Color(0xFF1E2353)],
         ),
       ),
       child: Column(

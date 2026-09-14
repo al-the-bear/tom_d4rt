@@ -61,46 +61,60 @@ Widget _heroHeader() {
                 color: Colors.white.withOpacity(0.20),
                 borderRadius: BorderRadius.circular(16.0),
                 border: Border.all(
-                    color: Colors.white.withOpacity(0.45), width: 1.4),
+                  color: Colors.white.withOpacity(0.45),
+                  width: 1.4,
+                ),
               ),
-              child: Icon(Icons.mouse_outlined,
-                  color: Colors.white, size: 34.0),
+              child: Icon(
+                Icons.mouse_outlined,
+                color: Colors.white,
+                size: 34.0,
+              ),
             ),
             SizedBox(width: 18.0),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Mouse Cursor Showcase',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 25.0,
-                          fontWeight: FontWeight.w900,
-                          letterSpacing: 0.3)),
+                  Text(
+                    'Mouse Cursor Showcase',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25.0,
+                      fontWeight: FontWeight.w900,
+                      letterSpacing: 0.3,
+                    ),
+                  ),
                   SizedBox(height: 4.0),
                   Text(
-                      'A field guide to MouseRegion, SystemMouseCursors, and state-aware cursors',
-                      style: TextStyle(
-                          color: Colors.white.withOpacity(0.92),
-                          fontSize: 13.5,
-                          fontWeight: FontWeight.w500)),
+                    'A field guide to MouseRegion, SystemMouseCursors, and state-aware cursors',
+                    style: TextStyle(
+                      color: Colors.white.withOpacity(0.92),
+                      fontSize: 13.5,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
                 ],
               ),
             ),
           ],
         ),
         SizedBox(height: 22.0),
-        Wrap(spacing: 8.0, runSpacing: 8.0, children: [
-          _heroChip('MouseRegion'),
-          _heroChip('SystemMouseCursors'),
-          _heroChip('SystemMouseCursor'),
-          _heroChip('MaterialStateMouseCursor'),
-          _heroChip('WidgetStateMouseCursor'),
-          _heroChip('MouseCursor.defer'),
-          _heroChip('MouseCursor.uncontrolled'),
-          _heroChip('hitTestBehavior'),
-          _heroChip('opaqueLayer'),
-        ]),
+        Wrap(
+          spacing: 8.0,
+          runSpacing: 8.0,
+          children: [
+            _heroChip('MouseRegion'),
+            _heroChip('SystemMouseCursors'),
+            _heroChip('SystemMouseCursor'),
+            _heroChip('MaterialStateMouseCursor'),
+            _heroChip('WidgetStateMouseCursor'),
+            _heroChip('MouseCursor.defer'),
+            _heroChip('MouseCursor.uncontrolled'),
+            _heroChip('hitTestBehavior'),
+            _heroChip('opaqueLayer'),
+          ],
+        ),
         SizedBox(height: 18.0),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
@@ -111,18 +125,23 @@ Widget _heroHeader() {
           ),
           child: Row(
             children: [
-              Icon(Icons.info_outline,
-                  color: Colors.white.withOpacity(0.92), size: 18.0),
+              Icon(
+                Icons.info_outline,
+                color: Colors.white.withOpacity(0.92),
+                size: 18.0,
+              ),
               SizedBox(width: 10.0),
               Expanded(
                 child: Text(
-                    'Cursors only render under a physical pointer device. Each card '
-                    'uses an icon medallion as a visual stand-in.',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.w500,
-                        height: 1.4)),
+                  'Cursors only render under a physical pointer device. Each card '
+                  'uses an icon medallion as a visual stand-in.',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.w500,
+                    height: 1.4,
+                  ),
+                ),
               ),
             ],
           ),
@@ -140,12 +159,15 @@ Widget _heroChip(String label) {
       borderRadius: BorderRadius.circular(20.0),
       border: Border.all(color: Colors.white.withOpacity(0.40), width: 1.0),
     ),
-    child: Text(label,
-        style: TextStyle(
-            color: Colors.white,
-            fontSize: 11.5,
-            fontWeight: FontWeight.w700,
-            fontFamily: 'monospace')),
+    child: Text(
+      label,
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 11.5,
+        fontWeight: FontWeight.w700,
+        fontFamily: 'monospace',
+      ),
+    ),
   );
 }
 
@@ -175,33 +197,41 @@ Widget _sectionBanner(int n, String title, String subtitle, Color accent) {
             borderRadius: BorderRadius.circular(14.0),
             border: Border.all(color: Colors.white, width: 1.6),
           ),
-          child: Text(n.toString().padLeft(2, '0'),
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w900,
-                  fontSize: 18.0)),
+          child: Text(
+            n.toString().padLeft(2, '0'),
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w900,
+              fontSize: 18.0,
+            ),
+          ),
         ),
         SizedBox(width: 16.0),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 19.0,
-                      fontWeight: FontWeight.w900)),
+              Text(
+                title,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 19.0,
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
               SizedBox(height: 3.0),
-              Text(subtitle,
-                  style: TextStyle(
-                      color: Colors.white.withOpacity(0.92),
-                      fontSize: 12.5,
-                      fontWeight: FontWeight.w500)),
+              Text(
+                subtitle,
+                style: TextStyle(
+                  color: Colors.white.withOpacity(0.92),
+                  fontSize: 12.5,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
             ],
           ),
         ),
-        Icon(Icons.mouse,
-            color: Colors.white.withOpacity(0.85), size: 28.0),
+        Icon(Icons.mouse, color: Colors.white.withOpacity(0.85), size: 28.0),
       ],
     ),
   );
@@ -268,33 +298,41 @@ Widget _cursorCard({
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title,
-                    style: TextStyle(
-                        color: kInk,
-                        fontSize: 15.0,
-                        fontWeight: FontWeight.w800)),
+                Text(
+                  title,
+                  style: TextStyle(
+                    color: kInk,
+                    fontSize: 15.0,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
                 SizedBox(height: 3.0),
                 Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 8.0, vertical: 3.0),
+                  padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
                   decoration: BoxDecoration(
                     color: accent.withOpacity(0.14),
                     borderRadius: BorderRadius.circular(6.0),
                   ),
-                  child: Text(cursorName,
-                      style: TextStyle(
-                          color: accent,
-                          fontSize: 11.0,
-                          fontWeight: FontWeight.w700,
-                          fontFamily: 'monospace')),
+                  child: Text(
+                    cursorName,
+                    style: TextStyle(
+                      color: accent,
+                      fontSize: 11.0,
+                      fontWeight: FontWeight.w700,
+                      fontFamily: 'monospace',
+                    ),
+                  ),
                 ),
                 SizedBox(height: 8.0),
-                Text(description,
-                    style: TextStyle(
-                        color: kInk.withOpacity(0.78),
-                        fontSize: 12.5,
-                        fontWeight: FontWeight.w500,
-                        height: 1.42)),
+                Text(
+                  description,
+                  style: TextStyle(
+                    color: kInk.withOpacity(0.78),
+                    fontSize: 12.5,
+                    fontWeight: FontWeight.w500,
+                    height: 1.42,
+                  ),
+                ),
               ],
             ),
           ),
@@ -308,7 +346,11 @@ Widget _cursorCard({
 // HELPER: Recipe code-quote card
 // ============================================================================
 Widget _recipeCard(
-    String title, String description, List<String> snippet, Color accent) {
+  String title,
+  String description,
+  List<String> snippet,
+  Color accent,
+) {
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
     decoration: BoxDecoration(
@@ -323,29 +365,36 @@ Widget _recipeCard(
           padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 11.0),
           decoration: BoxDecoration(
             color: accent.withOpacity(0.22),
-            borderRadius:
-                BorderRadius.vertical(top: Radius.circular(13.0)),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(13.0)),
           ),
-          child: Row(children: [
-            Icon(Icons.terminal, color: accent, size: 18.0),
-            SizedBox(width: 9.0),
-            Expanded(
-              child: Text('Recipe: $title',
+          child: Row(
+            children: [
+              Icon(Icons.terminal, color: accent, size: 18.0),
+              SizedBox(width: 9.0),
+              Expanded(
+                child: Text(
+                  'Recipe: $title',
                   style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 13.0,
-                      fontWeight: FontWeight.w800)),
-            ),
-          ]),
+                    color: Colors.white,
+                    fontSize: 13.0,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
         Padding(
           padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
-          child: Text(description,
-              style: TextStyle(
-                  color: Colors.white.withOpacity(0.78),
-                  fontSize: 12.0,
-                  height: 1.45,
-                  fontWeight: FontWeight.w500)),
+          child: Text(
+            description,
+            style: TextStyle(
+              color: Colors.white.withOpacity(0.78),
+              fontSize: 12.0,
+              height: 1.45,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
         ),
         Container(
           margin: EdgeInsets.fromLTRB(16.0, 4.0, 16.0, 14.0),
@@ -358,15 +407,20 @@ Widget _recipeCard(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: snippet
-                .map((line) => Padding(
-                      padding: EdgeInsets.symmetric(vertical: 1.5),
-                      child: Text(line,
-                          style: TextStyle(
-                              color: accent.withOpacity(0.96),
-                              fontSize: 11.0,
-                              fontFamily: 'monospace',
-                              height: 1.35)),
-                    ))
+                .map(
+                  (line) => Padding(
+                    padding: EdgeInsets.symmetric(vertical: 1.5),
+                    child: Text(
+                      line,
+                      style: TextStyle(
+                        color: accent.withOpacity(0.96),
+                        fontSize: 11.0,
+                        fontFamily: 'monospace',
+                        height: 1.35,
+                      ),
+                    ),
+                  ),
+                )
                 .toList(),
           ),
         ),
@@ -378,8 +432,7 @@ Widget _recipeCard(
 // ============================================================================
 // HELPER: Comparison table
 // ============================================================================
-Widget _comparisonTable(
-    String title, List<List<String>> rows, Color accent) {
+Widget _comparisonTable(String title, List<List<String>> rows, Color accent) {
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
     decoration: BoxDecoration(
@@ -393,26 +446,29 @@ Widget _comparisonTable(
           padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 11.0),
           decoration: BoxDecoration(
             color: accent.withOpacity(0.16),
-            borderRadius:
-                BorderRadius.vertical(top: Radius.circular(13.0)),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(13.0)),
           ),
-          child: Row(children: [
-            Icon(Icons.table_chart_outlined, color: accent, size: 18.0),
-            SizedBox(width: 9.0),
-            Text(title,
+          child: Row(
+            children: [
+              Icon(Icons.table_chart_outlined, color: accent, size: 18.0),
+              SizedBox(width: 9.0),
+              Text(
+                title,
                 style: TextStyle(
-                    color: kInk,
-                    fontSize: 13.0,
-                    fontWeight: FontWeight.w800)),
-          ]),
+                  color: kInk,
+                  fontSize: 13.0,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+            ],
+          ),
         ),
         ...rows.asMap().entries.map((entry) {
           final idx = entry.key;
           final row = entry.value;
           final isHeader = idx == 0;
           return Container(
-            padding:
-                EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
+            padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
             decoration: BoxDecoration(
               color: isHeader
                   ? accent.withOpacity(0.07)
@@ -423,17 +479,21 @@ Widget _comparisonTable(
             ),
             child: Row(
               children: row
-                  .map((cell) => Expanded(
-                        child: Text(cell,
-                            style: TextStyle(
-                                color: isHeader ? accent : kInk,
-                                fontSize: 11.5,
-                                fontWeight: isHeader
-                                    ? FontWeight.w800
-                                    : FontWeight.w500,
-                                fontFamily:
-                                    isHeader ? null : 'monospace')),
-                      ))
+                  .map(
+                    (cell) => Expanded(
+                      child: Text(
+                        cell,
+                        style: TextStyle(
+                          color: isHeader ? accent : kInk,
+                          fontSize: 11.5,
+                          fontWeight: isHeader
+                              ? FontWeight.w800
+                              : FontWeight.w500,
+                          fontFamily: isHeader ? null : 'monospace',
+                        ),
+                      ),
+                    ),
+                  )
                   .toList(),
             ),
           );
@@ -458,39 +518,64 @@ Widget _conceptOverview() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(children: [
-          Icon(Icons.menu_book_outlined, color: kPlum, size: 22.0),
-          SizedBox(width: 10.0),
-          Text('Concept Overview',
+        Row(
+          children: [
+            Icon(Icons.menu_book_outlined, color: kPlum, size: 22.0),
+            SizedBox(width: 10.0),
+            Text(
+              'Concept Overview',
               style: TextStyle(
-                  color: kInk,
-                  fontSize: 17.0,
-                  fontWeight: FontWeight.w800)),
-        ]),
+                color: kInk,
+                fontSize: 17.0,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+          ],
+        ),
         SizedBox(height: 12.0),
         Text(
-            'Flutter renders cursors via the MouseRegion widget. A MouseRegion '
-            'wraps any subtree and declares which MouseCursor should be shown '
-            'while the pointer hovers inside its bounds. The cursor is chosen '
-            'from a deep stack — innermost MouseRegion wins unless it opts to '
-            'defer via MouseCursor.defer.',
-            style: TextStyle(
-                color: kInk.withOpacity(0.84),
-                fontSize: 13.5,
-                height: 1.5)),
+          'Flutter renders cursors via the MouseRegion widget. A MouseRegion '
+          'wraps any subtree and declares which MouseCursor should be shown '
+          'while the pointer hovers inside its bounds. The cursor is chosen '
+          'from a deep stack — innermost MouseRegion wins unless it opts to '
+          'defer via MouseCursor.defer.',
+          style: TextStyle(
+            color: kInk.withOpacity(0.84),
+            fontSize: 13.5,
+            height: 1.5,
+          ),
+        ),
         SizedBox(height: 14.0),
-        _bulletLine(Icons.adjust, kCopper,
-            'SystemMouseCursors exposes 30+ named predefined cursors.'),
-        _bulletLine(Icons.layers, kTeal,
-            'MouseRegion nests like a Stack — innermost cursor wins.'),
-        _bulletLine(Icons.swap_calls, kPlum,
-            'MouseCursor.defer hands off control to the next region.'),
-        _bulletLine(Icons.toggle_on, kSaffron,
-            'MaterialStateMouseCursor reacts to pressed / hovered / disabled.'),
-        _bulletLine(Icons.touch_app, kForest,
-            'HitTestBehavior controls whether the region is hit-testable.'),
-        _bulletLine(Icons.block, kCrimson,
-            'MouseCursor.uncontrolled leaves the cursor untouched.'),
+        _bulletLine(
+          Icons.adjust,
+          kCopper,
+          'SystemMouseCursors exposes 30+ named predefined cursors.',
+        ),
+        _bulletLine(
+          Icons.layers,
+          kTeal,
+          'MouseRegion nests like a Stack — innermost cursor wins.',
+        ),
+        _bulletLine(
+          Icons.swap_calls,
+          kPlum,
+          'MouseCursor.defer hands off control to the next region.',
+        ),
+        _bulletLine(
+          Icons.toggle_on,
+          kSaffron,
+          'MaterialStateMouseCursor reacts to pressed / hovered / disabled.',
+        ),
+        _bulletLine(
+          Icons.touch_app,
+          kForest,
+          'HitTestBehavior controls whether the region is hit-testable.',
+        ),
+        _bulletLine(
+          Icons.block,
+          kCrimson,
+          'MouseCursor.uncontrolled leaves the cursor untouched.',
+        ),
       ],
     ),
   );
@@ -508,12 +593,15 @@ Widget _bulletLine(IconData icon, Color color, String text) {
         ),
         SizedBox(width: 11.0),
         Expanded(
-          child: Text(text,
-              style: TextStyle(
-                  color: kInk,
-                  fontSize: 12.5,
-                  height: 1.4,
-                  fontWeight: FontWeight.w500)),
+          child: Text(
+            text,
+            style: TextStyle(
+              color: kInk,
+              fontSize: 12.5,
+              height: 1.4,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
         ),
       ],
     ),
@@ -528,8 +616,12 @@ Widget _section1() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
-      _sectionBanner(1, 'Cursor Primitives',
-          'The atomic building blocks of cursor behaviour', accent),
+      _sectionBanner(
+        1,
+        'Cursor Primitives',
+        'The atomic building blocks of cursor behaviour',
+        accent,
+      ),
       _cursorCard(
         icon: Icons.arrow_upward,
         title: 'Default Pointer',
@@ -588,17 +680,13 @@ Widget _section1() {
         ],
         accent,
       ),
-      _comparisonTable(
-        'Cursor primitive matrix',
-        [
-          ['Cursor', 'Visual Effect', 'Stops Cascade'],
-          ['SystemMouseCursors.basic', 'Arrow', 'yes'],
-          ['SystemMouseCursors.none', 'Hidden', 'yes'],
-          ['MouseCursor.defer', 'Passes through', 'no'],
-          ['MouseCursor.uncontrolled', 'Untouched', 'no'],
-        ],
-        accent,
-      ),
+      _comparisonTable('Cursor primitive matrix', [
+        ['Cursor', 'Visual Effect', 'Stops Cascade'],
+        ['SystemMouseCursors.basic', 'Arrow', 'yes'],
+        ['SystemMouseCursors.none', 'Hidden', 'yes'],
+        ['MouseCursor.defer', 'Passes through', 'no'],
+        ['MouseCursor.uncontrolled', 'Untouched', 'no'],
+      ], accent),
     ],
   );
 }
@@ -611,8 +699,12 @@ Widget _section2() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
-      _sectionBanner(2, 'Basic / Click / Forbidden',
-          'Foundational interactive cursors', accent),
+      _sectionBanner(
+        2,
+        'Basic / Click / Forbidden',
+        'Foundational interactive cursors',
+        accent,
+      ),
       _cursorCard(
         icon: Icons.touch_app,
         title: 'Click (Hand)',
@@ -696,8 +788,12 @@ Widget _section3() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
-      _sectionBanner(3, 'Text Cursors',
-          'I-beam variants for editable and selectable regions', accent),
+      _sectionBanner(
+        3,
+        'Text Cursors',
+        'I-beam variants for editable and selectable regions',
+        accent,
+      ),
       _cursorCard(
         icon: Icons.text_fields,
         title: 'Text I-Beam',
@@ -769,8 +865,12 @@ Widget _section4() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
-      _sectionBanner(4, 'Grab & Drag Cursors',
-          'Open and closed hands for grab gestures', accent),
+      _sectionBanner(
+        4,
+        'Grab & Drag Cursors',
+        'Open and closed hands for grab gestures',
+        accent,
+      ),
       _cursorCard(
         icon: Icons.pan_tool_outlined,
         title: 'Grab (Open Hand)',
@@ -849,9 +949,12 @@ Widget _section5() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
-      _sectionBanner(5, 'Resize Cursors',
-          'Edge and corner resize affordances for panels and elements',
-          accent),
+      _sectionBanner(
+        5,
+        'Resize Cursors',
+        'Edge and corner resize affordances for panels and elements',
+        accent,
+      ),
       _cursorCard(
         icon: Icons.height,
         title: 'Resize Column',
@@ -1016,8 +1119,12 @@ Widget _section6() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
-      _sectionBanner(6, 'Zoom Cursors',
-          'Magnifier-with-plus and magnifier-with-minus', accent),
+      _sectionBanner(
+        6,
+        'Zoom Cursors',
+        'Magnifier-with-plus and magnifier-with-minus',
+        accent,
+      ),
       _cursorCard(
         icon: Icons.zoom_in,
         title: 'Zoom In',
@@ -1066,8 +1173,12 @@ Widget _section7() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
-      _sectionBanner(7, 'Help & Contextual Cursors',
-          'Hints, context menus, alias links, and copy drag targets', accent),
+      _sectionBanner(
+        7,
+        'Help & Contextual Cursors',
+        'Hints, context menus, alias links, and copy drag targets',
+        accent,
+      ),
       _cursorCard(
         icon: Icons.help_center_outlined,
         title: 'Help',
@@ -1126,8 +1237,12 @@ Widget _section8() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
-      _sectionBanner(8, 'State-Aware Cursors',
-          'MaterialStateMouseCursor & WidgetStateMouseCursor', accent),
+      _sectionBanner(
+        8,
+        'State-Aware Cursors',
+        'MaterialStateMouseCursor & WidgetStateMouseCursor',
+        accent,
+      ),
       _cursorCard(
         icon: Icons.smart_button,
         title: 'Material clickable',
@@ -1189,18 +1304,14 @@ Widget _section8() {
         ],
         accent,
       ),
-      _comparisonTable(
-        'State-aware cursor matrix',
-        [
-          ['State', 'clickable', 'textable'],
-          ['default', 'click', 'text'],
-          ['disabled', 'basic', 'basic'],
-          ['hovered', 'click', 'text'],
-          ['pressed', 'click', 'text'],
-          ['focused', 'click', 'text'],
-        ],
-        accent,
-      ),
+      _comparisonTable('State-aware cursor matrix', [
+        ['State', 'clickable', 'textable'],
+        ['default', 'click', 'text'],
+        ['disabled', 'basic', 'basic'],
+        ['hovered', 'click', 'text'],
+        ['pressed', 'click', 'text'],
+        ['focused', 'click', 'text'],
+      ], accent),
     ],
   );
 }
@@ -1213,8 +1324,12 @@ Widget _section9() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
-      _sectionBanner(9, 'MouseRegion Behaviours',
-          'onEnter, onExit, onHover, opaque, hitTestBehavior', accent),
+      _sectionBanner(
+        9,
+        'MouseRegion Behaviours',
+        'onEnter, onExit, onHover, opaque, hitTestBehavior',
+        accent,
+      ),
       _behaviourCard(
         'onEnter',
         'Called once when the pointer first enters the region. Use it to '
@@ -1277,7 +1392,11 @@ Widget _section9() {
 }
 
 Widget _behaviourCard(
-    String name, String description, IconData icon, Color accent) {
+  String name,
+  String description,
+  IconData icon,
+  Color accent,
+) {
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
     padding: EdgeInsets.all(16.0),
@@ -1285,10 +1404,7 @@ Widget _behaviourCard(
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: [
-          accent.withOpacity(0.05),
-          accent.withOpacity(0.16),
-        ],
+        colors: [accent.withOpacity(0.05), accent.withOpacity(0.16)],
       ),
       borderRadius: BorderRadius.circular(14.0),
       border: Border.all(color: accent.withOpacity(0.40)),
@@ -1309,19 +1425,25 @@ Widget _behaviourCard(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(name,
-                  style: TextStyle(
-                      color: kInk,
-                      fontSize: 14.5,
-                      fontWeight: FontWeight.w800,
-                      fontFamily: 'monospace')),
+              Text(
+                name,
+                style: TextStyle(
+                  color: kInk,
+                  fontSize: 14.5,
+                  fontWeight: FontWeight.w800,
+                  fontFamily: 'monospace',
+                ),
+              ),
               SizedBox(height: 6.0),
-              Text(description,
-                  style: TextStyle(
-                      color: kInk.withOpacity(0.78),
-                      fontSize: 12.5,
-                      height: 1.42,
-                      fontWeight: FontWeight.w500)),
+              Text(
+                description,
+                style: TextStyle(
+                  color: kInk.withOpacity(0.78),
+                  fontSize: 12.5,
+                  height: 1.42,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
             ],
           ),
         ),
@@ -1338,8 +1460,12 @@ Widget _section10() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
-      _sectionBanner(10, 'hitTestBehavior Patterns',
-          'Opaque, translucent, and deferToChild scenarios', accent),
+      _sectionBanner(
+        10,
+        'hitTestBehavior Patterns',
+        'Opaque, translucent, and deferToChild scenarios',
+        accent,
+      ),
       _hitCard(
         'opaque (default)',
         'The MouseRegion blocks pointer events from reaching siblings beneath '
@@ -1381,22 +1507,23 @@ Widget _section10() {
         ],
         accent,
       ),
-      _comparisonTable(
-        'hitTestBehavior cheat sheet',
-        [
-          ['Behavior', 'Receives events', 'Blocks siblings'],
-          ['opaque', 'yes', 'yes'],
-          ['translucent', 'yes', 'no'],
-          ['deferToChild', 'only if child hits', 'only where child hits'],
-        ],
-        accent,
-      ),
+      _comparisonTable('hitTestBehavior cheat sheet', [
+        ['Behavior', 'Receives events', 'Blocks siblings'],
+        ['opaque', 'yes', 'yes'],
+        ['translucent', 'yes', 'no'],
+        ['deferToChild', 'only if child hits', 'only where child hits'],
+      ], accent),
     ],
   );
 }
 
-Widget _hitCard(String name, String description, HitTestBehavior behavior,
-    IconData icon, Color accent) {
+Widget _hitCard(
+  String name,
+  String description,
+  HitTestBehavior behavior,
+  IconData icon,
+  Color accent,
+) {
   return MouseRegion(
     cursor: SystemMouseCursors.click,
     hitTestBehavior: behavior,
@@ -1424,19 +1551,25 @@ Widget _hitCard(String name, String description, HitTestBehavior behavior,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(name,
-                    style: TextStyle(
-                        color: kInk,
-                        fontSize: 14.5,
-                        fontWeight: FontWeight.w800,
-                        fontFamily: 'monospace')),
+                Text(
+                  name,
+                  style: TextStyle(
+                    color: kInk,
+                    fontSize: 14.5,
+                    fontWeight: FontWeight.w800,
+                    fontFamily: 'monospace',
+                  ),
+                ),
                 SizedBox(height: 6.0),
-                Text(description,
-                    style: TextStyle(
-                        color: kInk.withOpacity(0.80),
-                        fontSize: 12.5,
-                        height: 1.42,
-                        fontWeight: FontWeight.w500)),
+                Text(
+                  description,
+                  style: TextStyle(
+                    color: kInk.withOpacity(0.80),
+                    fontSize: 12.5,
+                    height: 1.42,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
               ],
             ),
           ),
@@ -1454,8 +1587,12 @@ Widget _section11() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
-      _sectionBanner(11, 'Compound Examples',
-          'Real-world combinations of cursors and regions', accent),
+      _sectionBanner(
+        11,
+        'Compound Examples',
+        'Real-world combinations of cursors and regions',
+        accent,
+      ),
       _compoundSplitter(),
       _compoundReorderRow(),
       _compoundColorPicker(),
@@ -1478,15 +1615,20 @@ Widget _compoundSplitter() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(children: [
-          Icon(Icons.vertical_split_outlined, color: kPlum, size: 18.0),
-          SizedBox(width: 8.0),
-          Text('Vertical splitter (resizeColumn)',
+        Row(
+          children: [
+            Icon(Icons.vertical_split_outlined, color: kPlum, size: 18.0),
+            SizedBox(width: 8.0),
+            Text(
+              'Vertical splitter (resizeColumn)',
               style: TextStyle(
-                  color: kInk,
-                  fontSize: 13.5,
-                  fontWeight: FontWeight.w800)),
-        ]),
+                color: kInk,
+                fontSize: 13.5,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+          ],
+        ),
         SizedBox(height: 10.0),
         Container(
           height: 80.0,
@@ -1500,11 +1642,14 @@ Widget _compoundSplitter() {
               Expanded(
                 flex: 3,
                 child: Center(
-                  child: Text('Left Panel',
-                      style: TextStyle(
-                          color: kPlum,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 13.0)),
+                  child: Text(
+                    'Left Panel',
+                    style: TextStyle(
+                      color: kPlum,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 13.0,
+                    ),
+                  ),
                 ),
               ),
               MouseRegion(
@@ -1521,11 +1666,14 @@ Widget _compoundSplitter() {
               Expanded(
                 flex: 2,
                 child: Center(
-                  child: Text('Right Panel',
-                      style: TextStyle(
-                          color: kPlum,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 13.0)),
+                  child: Text(
+                    'Right Panel',
+                    style: TextStyle(
+                      color: kPlum,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 13.0,
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -1548,15 +1696,20 @@ Widget _compoundReorderRow() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(children: [
-          Icon(Icons.reorder, color: kSaffron, size: 18.0),
-          SizedBox(width: 8.0),
-          Text('Reorderable list (grab → grabbing)',
+        Row(
+          children: [
+            Icon(Icons.reorder, color: kSaffron, size: 18.0),
+            SizedBox(width: 8.0),
+            Text(
+              'Reorderable list (grab → grabbing)',
               style: TextStyle(
-                  color: kInk,
-                  fontSize: 13.5,
-                  fontWeight: FontWeight.w800)),
-        ]),
+                color: kInk,
+                fontSize: 13.5,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+          ],
+        ),
         SizedBox(height: 10.0),
         Column(
           children: [
@@ -1588,11 +1741,14 @@ Widget _reorderItem(String label, Color accent) {
         ),
         SizedBox(width: 12.0),
         Expanded(
-          child: Text(label,
-              style: TextStyle(
-                  color: kInk,
-                  fontSize: 13.0,
-                  fontWeight: FontWeight.w700)),
+          child: Text(
+            label,
+            style: TextStyle(
+              color: kInk,
+              fontSize: 13.0,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
         ),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
@@ -1600,12 +1756,15 @@ Widget _reorderItem(String label, Color accent) {
             color: accent.withOpacity(0.22),
             borderRadius: BorderRadius.circular(6.0),
           ),
-          child: Text('grab',
-              style: TextStyle(
-                  color: accent,
-                  fontSize: 10.5,
-                  fontWeight: FontWeight.w800,
-                  fontFamily: 'monospace')),
+          child: Text(
+            'grab',
+            style: TextStyle(
+              color: accent,
+              fontSize: 10.5,
+              fontWeight: FontWeight.w800,
+              fontFamily: 'monospace',
+            ),
+          ),
         ),
       ],
     ),
@@ -1634,51 +1793,58 @@ Widget _compoundColorPicker() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(children: [
-          Icon(Icons.palette_outlined, color: kTeal, size: 18.0),
-          SizedBox(width: 8.0),
-          Text('Color picker (precise crosshair)',
+        Row(
+          children: [
+            Icon(Icons.palette_outlined, color: kTeal, size: 18.0),
+            SizedBox(width: 8.0),
+            Text(
+              'Color picker (precise crosshair)',
               style: TextStyle(
-                  color: kInk,
-                  fontSize: 13.5,
-                  fontWeight: FontWeight.w800)),
-        ]),
+                color: kInk,
+                fontSize: 13.5,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+          ],
+        ),
         SizedBox(height: 12.0),
         MouseRegion(
           cursor: SystemMouseCursors.precise,
           child: Container(
             height: 60.0,
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: swatches,
-              ),
+              gradient: LinearGradient(colors: swatches),
               borderRadius: BorderRadius.circular(10.0),
             ),
           ),
         ),
         SizedBox(height: 10.0),
-        Wrap(spacing: 8.0, runSpacing: 8.0, children: [
-          for (final c in swatches)
-            MouseRegion(
-              cursor: SystemMouseCursors.click,
-              child: Container(
-                width: 32.0,
-                height: 32.0,
-                decoration: BoxDecoration(
-                  color: c,
-                  shape: BoxShape.circle,
-                  border: Border.all(color: Colors.white, width: 2.0),
-                  boxShadow: [
-                    BoxShadow(
-                      color: c.withOpacity(0.40),
-                      blurRadius: 6.0,
-                      offset: Offset(0, 2),
-                    ),
-                  ],
+        Wrap(
+          spacing: 8.0,
+          runSpacing: 8.0,
+          children: [
+            for (final c in swatches)
+              MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: Container(
+                  width: 32.0,
+                  height: 32.0,
+                  decoration: BoxDecoration(
+                    color: c,
+                    shape: BoxShape.circle,
+                    border: Border.all(color: Colors.white, width: 2.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: c.withOpacity(0.40),
+                        blurRadius: 6.0,
+                        offset: Offset(0, 2),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-        ]),
+          ],
+        ),
       ],
     ),
   );
@@ -1696,15 +1862,20 @@ Widget _compoundResizableCard() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(children: [
-          Icon(Icons.crop_landscape, color: kForest, size: 18.0),
-          SizedBox(width: 8.0),
-          Text('Resizable card (all eight handle cursors)',
+        Row(
+          children: [
+            Icon(Icons.crop_landscape, color: kForest, size: 18.0),
+            SizedBox(width: 8.0),
+            Text(
+              'Resizable card (all eight handle cursors)',
               style: TextStyle(
-                  color: kInk,
-                  fontSize: 13.5,
-                  fontWeight: FontWeight.w800)),
-        ]),
+                color: kInk,
+                fontSize: 13.5,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+          ],
+        ),
         SizedBox(height: 12.0),
         Stack(
           children: [
@@ -1716,11 +1887,14 @@ Widget _compoundResizableCard() {
                 border: Border.all(color: kForest.withOpacity(0.45)),
               ),
               alignment: Alignment.center,
-              child: Text('Drag any edge or corner',
-                  style: TextStyle(
-                      color: kForest,
-                      fontSize: 13.0,
-                      fontWeight: FontWeight.w700)),
+              child: Text(
+                'Drag any edge or corner',
+                style: TextStyle(
+                  color: kForest,
+                  fontSize: 13.0,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
             ),
             // Top edge
             Positioned(
@@ -1826,15 +2000,20 @@ Widget _compoundContextMenu() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(children: [
-          Icon(Icons.menu_open, color: kIndigo, size: 18.0),
-          SizedBox(width: 8.0),
-          Text('Right-click region (contextMenu cursor)',
+        Row(
+          children: [
+            Icon(Icons.menu_open, color: kIndigo, size: 18.0),
+            SizedBox(width: 8.0),
+            Text(
+              'Right-click region (contextMenu cursor)',
               style: TextStyle(
-                  color: kInk,
-                  fontSize: 13.5,
-                  fontWeight: FontWeight.w800)),
-        ]),
+                color: kInk,
+                fontSize: 13.5,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+          ],
+        ),
         SizedBox(height: 12.0),
         MouseRegion(
           cursor: SystemMouseCursors.contextMenu,
@@ -1851,13 +2030,15 @@ Widget _compoundContextMenu() {
                 SizedBox(width: 12.0),
                 Expanded(
                   child: Text(
-                      'Right-click anywhere in this area to open a custom context menu. '
-                      'The cursor hints at the secondary action.',
-                      style: TextStyle(
-                          color: kIndigo,
-                          fontSize: 12.5,
-                          fontWeight: FontWeight.w600,
-                          height: 1.4)),
+                    'Right-click anywhere in this area to open a custom context menu. '
+                    'The cursor hints at the secondary action.',
+                    style: TextStyle(
+                      color: kIndigo,
+                      fontSize: 12.5,
+                      fontWeight: FontWeight.w600,
+                      height: 1.4,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -1880,15 +2061,20 @@ Widget _compoundLinkText() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(children: [
-          Icon(Icons.link, color: kCopper, size: 18.0),
-          SizedBox(width: 8.0),
-          Text('Inline link inside a paragraph',
+        Row(
+          children: [
+            Icon(Icons.link, color: kCopper, size: 18.0),
+            SizedBox(width: 8.0),
+            Text(
+              'Inline link inside a paragraph',
               style: TextStyle(
-                  color: kInk,
-                  fontSize: 13.5,
-                  fontWeight: FontWeight.w800)),
-        ]),
+                color: kInk,
+                fontSize: 13.5,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+          ],
+        ),
         SizedBox(height: 10.0),
         Container(
           padding: EdgeInsets.all(14.0),
@@ -1899,26 +2085,37 @@ Widget _compoundLinkText() {
           child: Wrap(
             crossAxisAlignment: WrapCrossAlignment.center,
             children: [
-              Text('You can read more about cursors in the ',
-                  style: TextStyle(color: kInk, fontSize: 13.0)),
+              Text(
+                'You can read more about cursors in the ',
+                style: TextStyle(color: kInk, fontSize: 13.0),
+              ),
               MouseRegion(
                 cursor: SystemMouseCursors.click,
-                child: Text('official documentation',
-                    style: TextStyle(
-                        color: kCopper,
-                        fontSize: 13.0,
-                        fontWeight: FontWeight.w800,
-                        decoration: TextDecoration.underline)),
+                child: Text(
+                  'official documentation',
+                  style: TextStyle(
+                    color: kCopper,
+                    fontSize: 13.0,
+                    fontWeight: FontWeight.w800,
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
               ),
-              Text(' or open the ', style: TextStyle(color: kInk, fontSize: 13.0)),
+              Text(
+                ' or open the ',
+                style: TextStyle(color: kInk, fontSize: 13.0),
+              ),
               MouseRegion(
                 cursor: SystemMouseCursors.help,
-                child: Text('inline help',
-                    style: TextStyle(
-                        color: kTeal,
-                        fontSize: 13.0,
-                        fontWeight: FontWeight.w800,
-                        decoration: TextDecoration.underline)),
+                child: Text(
+                  'inline help',
+                  style: TextStyle(
+                    color: kTeal,
+                    fontSize: 13.0,
+                    fontWeight: FontWeight.w800,
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
               ),
               Text(' tooltip.', style: TextStyle(color: kInk, fontSize: 13.0)),
             ],
@@ -1937,82 +2134,65 @@ Widget _section12() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
-      _sectionBanner(12, 'Cursor Variant Matrix',
-          'A consolidated reference grid for every SystemMouseCursors entry',
-          accent),
-      _comparisonTable(
-        'Pointer cursors',
-        [
-          ['Cursor', 'Typical Use', 'Platforms'],
-          ['basic', 'default arrow', 'all'],
-          ['click', 'clickable affordances', 'all'],
-          ['forbidden', 'disabled drop targets', 'all'],
-          ['none', 'hide cursor', 'all'],
-          ['wait', 'blocking task', 'all'],
-          ['progress', 'background task', 'all'],
-          ['help', 'contextual help', 'all'],
-          ['contextMenu', 'right-click areas', 'all'],
-        ],
-        kCopper,
+      _sectionBanner(
+        12,
+        'Cursor Variant Matrix',
+        'A consolidated reference grid for every SystemMouseCursors entry',
+        accent,
       ),
-      _comparisonTable(
-        'Text cursors',
-        [
-          ['Cursor', 'Typical Use', 'Platforms'],
-          ['text', 'editable / selectable text', 'all'],
-          ['verticalText', 'rotated text / CJK vertical', 'all'],
-          ['cell', 'spreadsheet cell', 'all'],
-          ['precise', 'pixel-precise picking', 'all'],
-        ],
-        kTeal,
-      ),
-      _comparisonTable(
-        'Drag cursors',
-        [
-          ['Cursor', 'Typical Use', 'Platforms'],
-          ['grab', 'pickable item', 'all'],
-          ['grabbing', 'currently dragging', 'all'],
-          ['move', 'freely movable item', 'all'],
-          ['allScroll', 'autoscroll any direction', 'all'],
-          ['noDrop', 'dragging over reject zone', 'all'],
-          ['disappearing', 'drop here to discard', 'web'],
-          ['alias', 'drop creates shortcut', 'all'],
-          ['copy', 'drop copies', 'all'],
-        ],
-        kPlum,
-      ),
-      _comparisonTable(
-        'Resize cursors',
-        [
-          ['Cursor', 'Direction', 'Use'],
-          ['resizeColumn', 'horizontal', 'column splitter'],
-          ['resizeRow', 'vertical', 'row splitter'],
-          ['resizeUpDown', 'vertical', 'top/bottom edge'],
-          ['resizeLeftRight', 'horizontal', 'left/right edge'],
-          ['resizeUp', 'up', 'top edge only'],
-          ['resizeDown', 'down', 'bottom edge only'],
-          ['resizeLeft', 'left', 'left edge only'],
-          ['resizeRight', 'right', 'right edge only'],
-          ['resizeUpLeft', 'NW', 'top-left corner'],
-          ['resizeUpRight', 'NE', 'top-right corner'],
-          ['resizeDownLeft', 'SW', 'bottom-left corner'],
-          ['resizeDownRight', 'SE', 'bottom-right corner'],
-          ['resizeUpLeftDownRight', 'NW-SE', 'principal diagonal'],
-          ['resizeUpRightDownLeft', 'NE-SW', 'anti-diagonal'],
-        ],
-        kSaffron,
-      ),
-      _comparisonTable(
-        'Zoom & misc cursors',
-        [
-          ['Cursor', 'Typical Use', 'Notes'],
-          ['zoomIn', 'magnify in', 'image viewers'],
-          ['zoomOut', 'magnify out', 'image viewers'],
-          ['defer', 'pass to outer region', 'never visible'],
-          ['uncontrolled', 'leave OS cursor', 'native embedding'],
-        ],
-        kForest,
-      ),
+      _comparisonTable('Pointer cursors', [
+        ['Cursor', 'Typical Use', 'Platforms'],
+        ['basic', 'default arrow', 'all'],
+        ['click', 'clickable affordances', 'all'],
+        ['forbidden', 'disabled drop targets', 'all'],
+        ['none', 'hide cursor', 'all'],
+        ['wait', 'blocking task', 'all'],
+        ['progress', 'background task', 'all'],
+        ['help', 'contextual help', 'all'],
+        ['contextMenu', 'right-click areas', 'all'],
+      ], kCopper),
+      _comparisonTable('Text cursors', [
+        ['Cursor', 'Typical Use', 'Platforms'],
+        ['text', 'editable / selectable text', 'all'],
+        ['verticalText', 'rotated text / CJK vertical', 'all'],
+        ['cell', 'spreadsheet cell', 'all'],
+        ['precise', 'pixel-precise picking', 'all'],
+      ], kTeal),
+      _comparisonTable('Drag cursors', [
+        ['Cursor', 'Typical Use', 'Platforms'],
+        ['grab', 'pickable item', 'all'],
+        ['grabbing', 'currently dragging', 'all'],
+        ['move', 'freely movable item', 'all'],
+        ['allScroll', 'autoscroll any direction', 'all'],
+        ['noDrop', 'dragging over reject zone', 'all'],
+        ['disappearing', 'drop here to discard', 'web'],
+        ['alias', 'drop creates shortcut', 'all'],
+        ['copy', 'drop copies', 'all'],
+      ], kPlum),
+      _comparisonTable('Resize cursors', [
+        ['Cursor', 'Direction', 'Use'],
+        ['resizeColumn', 'horizontal', 'column splitter'],
+        ['resizeRow', 'vertical', 'row splitter'],
+        ['resizeUpDown', 'vertical', 'top/bottom edge'],
+        ['resizeLeftRight', 'horizontal', 'left/right edge'],
+        ['resizeUp', 'up', 'top edge only'],
+        ['resizeDown', 'down', 'bottom edge only'],
+        ['resizeLeft', 'left', 'left edge only'],
+        ['resizeRight', 'right', 'right edge only'],
+        ['resizeUpLeft', 'NW', 'top-left corner'],
+        ['resizeUpRight', 'NE', 'top-right corner'],
+        ['resizeDownLeft', 'SW', 'bottom-left corner'],
+        ['resizeDownRight', 'SE', 'bottom-right corner'],
+        ['resizeUpLeftDownRight', 'NW-SE', 'principal diagonal'],
+        ['resizeUpRightDownLeft', 'NE-SW', 'anti-diagonal'],
+      ], kSaffron),
+      _comparisonTable('Zoom & misc cursors', [
+        ['Cursor', 'Typical Use', 'Notes'],
+        ['zoomIn', 'magnify in', 'image viewers'],
+        ['zoomOut', 'magnify out', 'image viewers'],
+        ['defer', 'pass to outer region', 'never visible'],
+        ['uncontrolled', 'leave OS cursor', 'native embedding'],
+      ], kForest),
     ],
   );
 }
@@ -2025,75 +2205,93 @@ Widget _glossary() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
-      _sectionBanner(13, 'Glossary',
-          'Key terms used throughout the cursor system', accent),
+      _sectionBanner(
+        13,
+        'Glossary',
+        'Key terms used throughout the cursor system',
+        accent,
+      ),
       _glossaryEntry(
-          'MouseRegion',
-          'A widget that detects pointer enter/exit/hover and applies a cursor '
-              'while the pointer is inside its bounds.',
-          Icons.crop_square,
-          kCopper),
+        'MouseRegion',
+        'A widget that detects pointer enter/exit/hover and applies a cursor '
+            'while the pointer is inside its bounds.',
+        Icons.crop_square,
+        kCopper,
+      ),
       _glossaryEntry(
-          'MouseCursor',
-          'The abstract base class for all cursors. Subtypes include '
-              'SystemMouseCursor, MaterialStateMouseCursor, and the singletons '
-              'defer & uncontrolled.',
-          Icons.account_tree_outlined,
-          kTeal),
+        'MouseCursor',
+        'The abstract base class for all cursors. Subtypes include '
+            'SystemMouseCursor, MaterialStateMouseCursor, and the singletons '
+            'defer & uncontrolled.',
+        Icons.account_tree_outlined,
+        kTeal,
+      ),
       _glossaryEntry(
-          'SystemMouseCursor',
-          'A predefined cursor that maps to the host OS native cursor of the '
-              'same kind. Accessed through SystemMouseCursors.<name>.',
-          Icons.desktop_windows_outlined,
-          kPlum),
+        'SystemMouseCursor',
+        'A predefined cursor that maps to the host OS native cursor of the '
+            'same kind. Accessed through SystemMouseCursors.<name>.',
+        Icons.desktop_windows_outlined,
+        kPlum,
+      ),
       _glossaryEntry(
-          'SystemMouseCursors',
-          'The static collection of all named system cursors: basic, click, '
-              'text, forbidden, grab, grabbing, resize*, zoom*, etc.',
-          Icons.library_books_outlined,
-          kSaffron),
+        'SystemMouseCursors',
+        'The static collection of all named system cursors: basic, click, '
+            'text, forbidden, grab, grabbing, resize*, zoom*, etc.',
+        Icons.library_books_outlined,
+        kSaffron,
+      ),
       _glossaryEntry(
-          'MaterialStateMouseCursor',
-          'A cursor that resolves differently per MaterialState. The two '
-              'built-in constants are clickable and textable.',
-          Icons.layers_outlined,
-          kForest),
+        'MaterialStateMouseCursor',
+        'A cursor that resolves differently per MaterialState. The two '
+            'built-in constants are clickable and textable.',
+        Icons.layers_outlined,
+        kForest,
+      ),
       _glossaryEntry(
-          'WidgetStateMouseCursor',
-          'The framework-level rename of MaterialStateMouseCursor; same idea '
-              'but in flutter/widgets so non-Material apps can use it.',
-          Icons.widgets_outlined,
-          kCrimson),
+        'WidgetStateMouseCursor',
+        'The framework-level rename of MaterialStateMouseCursor; same idea '
+            'but in flutter/widgets so non-Material apps can use it.',
+        Icons.widgets_outlined,
+        kCrimson,
+      ),
       _glossaryEntry(
-          'MouseCursor.defer',
-          'Singleton meaning "delegate cursor decision to the next region". '
-              'Use to make a wrapper widget transparent to cursor logic.',
-          Icons.skip_next_outlined,
-          kIndigo),
+        'MouseCursor.defer',
+        'Singleton meaning "delegate cursor decision to the next region". '
+            'Use to make a wrapper widget transparent to cursor logic.',
+        Icons.skip_next_outlined,
+        kIndigo,
+      ),
       _glossaryEntry(
-          'MouseCursor.uncontrolled',
-          'Singleton meaning "do not change the cursor". Used by platform '
-              'views so native widgets remain in charge.',
-          Icons.do_disturb,
-          kSlate),
+        'MouseCursor.uncontrolled',
+        'Singleton meaning "do not change the cursor". Used by platform '
+            'views so native widgets remain in charge.',
+        Icons.do_disturb,
+        kSlate,
+      ),
       _glossaryEntry(
-          'HitTestBehavior',
-          'Enum controlling how a region participates in pointer hit testing: '
-              'opaque, translucent, deferToChild.',
-          Icons.touch_app_outlined,
-          kCopper),
+        'HitTestBehavior',
+        'Enum controlling how a region participates in pointer hit testing: '
+            'opaque, translucent, deferToChild.',
+        Icons.touch_app_outlined,
+        kCopper,
+      ),
       _glossaryEntry(
-          'opaqueLayer',
-          'A short-hand for "this MouseRegion blocks events from siblings". '
-              'Default behaviour for MouseRegion.opaque = true.',
-          Icons.filter_b_and_w_outlined,
-          kTeal),
+        'opaqueLayer',
+        'A short-hand for "this MouseRegion blocks events from siblings". '
+            'Default behaviour for MouseRegion.opaque = true.',
+        Icons.filter_b_and_w_outlined,
+        kTeal,
+      ),
     ],
   );
 }
 
 Widget _glossaryEntry(
-    String term, String description, IconData icon, Color color) {
+  String term,
+  String description,
+  IconData icon,
+  Color color,
+) {
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
     padding: EdgeInsets.all(14.0),
@@ -2118,19 +2316,25 @@ Widget _glossaryEntry(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(term,
-                  style: TextStyle(
-                      color: kInk,
-                      fontSize: 13.5,
-                      fontWeight: FontWeight.w800,
-                      fontFamily: 'monospace')),
+              Text(
+                term,
+                style: TextStyle(
+                  color: kInk,
+                  fontSize: 13.5,
+                  fontWeight: FontWeight.w800,
+                  fontFamily: 'monospace',
+                ),
+              ),
               SizedBox(height: 4.0),
-              Text(description,
-                  style: TextStyle(
-                      color: kInk.withOpacity(0.78),
-                      fontSize: 12.0,
-                      fontWeight: FontWeight.w500,
-                      height: 1.42)),
+              Text(
+                description,
+                style: TextStyle(
+                  color: kInk.withOpacity(0.78),
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w500,
+                  height: 1.42,
+                ),
+              ),
             ],
           ),
         ),
@@ -2157,28 +2361,38 @@ Widget _epilogue() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(children: [
-          Icon(Icons.auto_awesome,
-              color: Colors.white.withOpacity(0.92), size: 22.0),
-          SizedBox(width: 10.0),
-          Text('Epilogue',
+        Row(
+          children: [
+            Icon(
+              Icons.auto_awesome,
+              color: Colors.white.withOpacity(0.92),
+              size: 22.0,
+            ),
+            SizedBox(width: 10.0),
+            Text(
+              'Epilogue',
               style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 17.0,
-                  fontWeight: FontWeight.w800)),
-        ]),
+                color: Colors.white,
+                fontSize: 17.0,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+          ],
+        ),
         SizedBox(height: 14.0),
         Text(
-            'The MouseRegion + SystemMouseCursors pair gives you platform-correct '
-            'cursors for free. Reach for MaterialStateMouseCursor / '
-            'WidgetStateMouseCursor when your cursor should respond to state, '
-            'and use MouseCursor.defer to keep wrappers transparent to '
-            'composed cursor logic.',
-            style: TextStyle(
-                color: Colors.white.withOpacity(0.94),
-                fontSize: 13.0,
-                fontWeight: FontWeight.w500,
-                height: 1.5)),
+          'The MouseRegion + SystemMouseCursors pair gives you platform-correct '
+          'cursors for free. Reach for MaterialStateMouseCursor / '
+          'WidgetStateMouseCursor when your cursor should respond to state, '
+          'and use MouseCursor.defer to keep wrappers transparent to '
+          'composed cursor logic.',
+          style: TextStyle(
+            color: Colors.white.withOpacity(0.94),
+            fontSize: 13.0,
+            fontWeight: FontWeight.w500,
+            height: 1.5,
+          ),
+        ),
         SizedBox(height: 16.0),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
@@ -2188,38 +2402,50 @@ Widget _epilogue() {
           ),
           child: Row(
             children: [
-              Icon(Icons.tips_and_updates_outlined,
-                  color: Colors.white.withOpacity(0.92), size: 18.0),
+              Icon(
+                Icons.tips_and_updates_outlined,
+                color: Colors.white.withOpacity(0.92),
+                size: 18.0,
+              ),
               SizedBox(width: 10.0),
               Expanded(
                 child: Text(
-                    'Pro tip: the innermost MouseRegion wins. To "punch through" '
-                    'a wrapper, use MouseCursor.defer on the outer region.',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 11.5,
-                        fontWeight: FontWeight.w600,
-                        height: 1.4)),
+                  'Pro tip: the innermost MouseRegion wins. To "punch through" '
+                  'a wrapper, use MouseCursor.defer on the outer region.',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 11.5,
+                    fontWeight: FontWeight.w600,
+                    height: 1.4,
+                  ),
+                ),
               ),
             ],
           ),
         ),
         SizedBox(height: 18.0),
-        Wrap(spacing: 8.0, runSpacing: 8.0, children: [
-          _epilogueChip('30+ cursors'),
-          _epilogueChip('14 sections'),
-          _epilogueChip('6 compound demos'),
-          _epilogueChip('5 comparison tables'),
-          _epilogueChip('1 unified theme'),
-        ]),
+        Wrap(
+          spacing: 8.0,
+          runSpacing: 8.0,
+          children: [
+            _epilogueChip('30+ cursors'),
+            _epilogueChip('14 sections'),
+            _epilogueChip('6 compound demos'),
+            _epilogueChip('5 comparison tables'),
+            _epilogueChip('1 unified theme'),
+          ],
+        ),
         SizedBox(height: 20.0),
         Center(
-          child: Text('— end of cursor showcase —',
-              style: TextStyle(
-                  color: Colors.white.withOpacity(0.78),
-                  fontSize: 11.5,
-                  fontStyle: FontStyle.italic,
-                  fontWeight: FontWeight.w500)),
+          child: Text(
+            '— end of cursor showcase —',
+            style: TextStyle(
+              color: Colors.white.withOpacity(0.78),
+              fontSize: 11.5,
+              fontStyle: FontStyle.italic,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
         ),
       ],
     ),
@@ -2234,12 +2460,15 @@ Widget _epilogueChip(String label) {
       borderRadius: BorderRadius.circular(20.0),
       border: Border.all(color: Colors.white.withOpacity(0.35)),
     ),
-    child: Text(label,
-        style: TextStyle(
-            color: Colors.white,
-            fontSize: 11.0,
-            fontWeight: FontWeight.w700,
-            fontFamily: 'monospace')),
+    child: Text(
+      label,
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 11.0,
+        fontWeight: FontWeight.w700,
+        fontFamily: 'monospace',
+      ),
+    ),
   );
 }
 
@@ -2297,17 +2526,17 @@ Widget _aestheticStrip() {
   for (var i = 0; i < 18; i++) {
     final c = palette[rng.nextInt(palette.length)];
     final w = 36.0 + rng.nextInt(28).toDouble();
-    chips.add(Container(
-      width: w,
-      height: 18.0,
-      margin: EdgeInsets.symmetric(horizontal: 3.0),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [c, c.withOpacity(0.55)],
+    chips.add(
+      Container(
+        width: w,
+        height: 18.0,
+        margin: EdgeInsets.symmetric(horizontal: 3.0),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(colors: [c, c.withOpacity(0.55)]),
+          borderRadius: BorderRadius.circular(9.0),
         ),
-        borderRadius: BorderRadius.circular(9.0),
       ),
-    ));
+    );
   }
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),

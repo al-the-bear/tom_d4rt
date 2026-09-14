@@ -149,10 +149,7 @@ dynamic build(BuildContext context) {
             ? color.withValues(alpha: 0.2)
             : color.withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(10.0),
-        border: Border.all(
-          color: color,
-          width: consumed ? 2.0 : 1.0,
-        ),
+        border: Border.all(color: color, width: consumed ? 2.0 : 1.0),
       ),
       child: Row(
         children: [
@@ -379,9 +376,7 @@ dynamic build(BuildContext context) {
                 Row(
                   children: [
                     Icon(
-                      hasPhysicalButton
-                          ? Icons.touch_app
-                          : Icons.swipe,
+                      hasPhysicalButton ? Icons.touch_app : Icons.swipe,
                       color: Colors.grey.shade600,
                       size: 16.0,
                     ),
@@ -401,10 +396,7 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 6.0),
                 Text(
                   behavior,
-                  style: TextStyle(
-                    fontSize: 10.0,
-                    color: Colors.grey.shade600,
-                  ),
+                  style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600),
                 ),
               ],
             ),
@@ -483,18 +475,14 @@ dynamic build(BuildContext context) {
           ),
           child: Row(
             children: [
-              Icon(Icons.info_outline,
-                  color: Color(0xFFF9A825), size: 18.0),
+              Icon(Icons.info_outline, color: Color(0xFFF9A825), size: 18.0),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
                   'RootBackButtonDispatcher is most important on '
                   'Android and web where a system-level back action '
                   'exists. On iOS, navigation is gesture-driven.',
-                  style: TextStyle(
-                    fontSize: 11.0,
-                    color: Color(0xFF795548),
-                  ),
+                  style: TextStyle(fontSize: 11.0, color: Color(0xFF795548)),
                 ),
               ),
             ],
@@ -524,8 +512,7 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.account_tree,
-                color: Color(0xFF6A1B9A), size: 24.0),
+            Icon(Icons.account_tree, color: Color(0xFF6A1B9A), size: 24.0),
             SizedBox(width: 8.0),
             Text(
               'Router Integration',
@@ -648,9 +635,7 @@ dynamic build(BuildContext context) {
             width: barWidth.clamp(30.0, 200.0),
             height: 22.0,
             decoration: BoxDecoration(
-              color: isWinner
-                  ? color
-                  : color.withValues(alpha: 0.3),
+              color: isWinner ? color : color.withValues(alpha: 0.3),
               borderRadius: BorderRadius.circular(4.0),
             ),
             child: Center(
@@ -726,24 +711,9 @@ dynamic build(BuildContext context) {
                 ),
               ),
               SizedBox(height: 10.0),
-              buildPriorityBar(
-                'Drawer close',
-                5,
-                Color(0xFF2E7D32),
-                true,
-              ),
-              buildPriorityBar(
-                'Nested navigator',
-                2,
-                Color(0xFF1565C0),
-                false,
-              ),
-              buildPriorityBar(
-                'Root navigator',
-                0,
-                Color(0xFF795548),
-                false,
-              ),
+              buildPriorityBar('Drawer close', 5, Color(0xFF2E7D32), true),
+              buildPriorityBar('Nested navigator', 2, Color(0xFF1565C0), false),
+              buildPriorityBar('Root navigator', 0, Color(0xFF795548), false),
               SizedBox(height: 8.0),
               Text(
                 'Result: Drawer closes. Nested and root navigators '
@@ -776,18 +746,8 @@ dynamic build(BuildContext context) {
                 ),
               ),
               SizedBox(height: 10.0),
-              buildPriorityBar(
-                'Nested navigator',
-                2,
-                Color(0xFF1565C0),
-                true,
-              ),
-              buildPriorityBar(
-                'Root navigator',
-                0,
-                Color(0xFF795548),
-                false,
-              ),
+              buildPriorityBar('Nested navigator', 2, Color(0xFF1565C0), true),
+              buildPriorityBar('Root navigator', 0, Color(0xFF795548), false),
               SizedBox(height: 8.0),
               Text(
                 'Result: Nested navigator pops its top route. '
@@ -860,10 +820,7 @@ dynamic build(BuildContext context) {
               children: [
                 Text(
                   description,
-                  style: TextStyle(
-                    fontSize: 11.0,
-                    color: Colors.grey.shade700,
-                  ),
+                  style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700),
                 ),
                 SizedBox(height: 8.0),
                 Container(
@@ -970,9 +927,7 @@ dynamic build(BuildContext context) {
       margin: EdgeInsets.symmetric(vertical: 4.0),
       padding: EdgeInsets.all(12.0),
       decoration: BoxDecoration(
-        color: isActive
-            ? color.withValues(alpha: 0.15)
-            : Colors.white,
+        color: isActive ? color.withValues(alpha: 0.15) : Colors.white,
         borderRadius: BorderRadius.circular(8.0),
         border: Border.all(
           color: isActive ? color : Colors.grey.shade300,
@@ -1004,10 +959,7 @@ dynamic build(BuildContext context) {
                 ),
                 Text(
                   description,
-                  style: TextStyle(
-                    fontSize: 10.0,
-                    color: Colors.grey.shade600,
-                  ),
+                  style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600),
                 ),
               ],
             ),
@@ -1021,9 +973,7 @@ dynamic build(BuildContext context) {
     margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: [Color(0xFFFFF8E1), Color(0xFFFFECB3)],
-      ),
+      gradient: LinearGradient(colors: [Color(0xFFFFF8E1), Color(0xFFFFECB3)]),
       borderRadius: BorderRadius.circular(12.0),
       border: Border.all(color: Color(0xFFF57C00)),
     ),
@@ -1163,11 +1113,7 @@ dynamic build(BuildContext context) {
           padding: EdgeInsets.all(20.0),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [
-                Color(0xFF1B5E20),
-                Color(0xFF2E7D32),
-                Color(0xFF388E3C),
-              ],
+              colors: [Color(0xFF1B5E20), Color(0xFF2E7D32), Color(0xFF388E3C)],
             ),
           ),
           child: Column(
@@ -1284,10 +1230,7 @@ Widget _buildBackBullet(String text, Color color) {
         ),
         SizedBox(width: 8.0),
         Expanded(
-          child: Text(
-            text,
-            style: TextStyle(fontSize: 12.0, color: color),
-          ),
+          child: Text(text, style: TextStyle(fontSize: 12.0, color: color)),
         ),
       ],
     ),

@@ -74,10 +74,12 @@ BoxConstraints kHalveMaxWidth(BoxConstraints input) {
   // normalized". The teaching point — that a transform can shrink the
   // available width — is preserved; we just don't violate the
   // BoxConstraints normalisation invariant.
-  final double halvedMax =
-      input.hasBoundedWidth ? input.maxWidth / 2.0 : input.maxWidth;
-  final double safeMin =
-      input.minWidth > halvedMax ? halvedMax : input.minWidth;
+  final double halvedMax = input.hasBoundedWidth
+      ? input.maxWidth / 2.0
+      : input.maxWidth;
+  final double safeMin = input.minWidth > halvedMax
+      ? halvedMax
+      : input.minWidth;
   return BoxConstraints(
     minWidth: safeMin,
     maxWidth: halvedMax,
@@ -349,7 +351,8 @@ const List<_ClipEntry> _kClipEntries = <_ClipEntry>[
   _ClipEntry(
     label: 'Clip.none',
     clip: Clip.none,
-    note: 'Child paints freely past the parent box. Best when overflow is '
+    note:
+        'Child paints freely past the parent box. Best when overflow is '
         'expected and visually intentional (badges, tooltips).',
     accent: kAccentAmber,
   ),
@@ -362,7 +365,8 @@ const List<_ClipEntry> _kClipEntries = <_ClipEntry>[
   _ClipEntry(
     label: 'Clip.antiAlias',
     clip: Clip.antiAlias,
-    note: 'Smooth edge, slight cost. Use for circular/rounded clip surfaces '
+    note:
+        'Smooth edge, slight cost. Use for circular/rounded clip surfaces '
         'where pixelated edges are objectionable.',
     accent: kAccentIndigo,
   ),
@@ -618,11 +622,7 @@ Widget _buildHero() {
               width: 1.5,
             ),
           ),
-          child: const Icon(
-            Icons.transform,
-            color: Colors.white,
-            size: 32,
-          ),
+          child: const Icon(Icons.transform, color: Colors.white, size: 32),
         ),
         const SizedBox(width: 24),
         const Expanded(
@@ -679,9 +679,7 @@ class _HeroChip extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.16),
         borderRadius: BorderRadius.circular(999),
-        border: Border.all(
-          color: Colors.white.withValues(alpha: 0.32),
-        ),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.32)),
       ),
       child: Text(
         label,
@@ -784,7 +782,8 @@ Widget _buildAnatomyDiagram() {
               Expanded(
                 child: _AnatomyNote(
                   title: 'No layout side-effects',
-                  body: 'The transform is a pure '
+                  body:
+                      'The transform is a pure '
                       'BoxConstraints -> BoxConstraints function. It '
                       'does not read state, does not mutate, does not '
                       'allocate beyond the new constraints object.',
@@ -795,7 +794,8 @@ Widget _buildAnatomyDiagram() {
               Expanded(
                 child: _AnatomyNote(
                   title: 'Parent paints what it laid out',
-                  body: 'If the child measured larger than the parent '
+                  body:
+                      'If the child measured larger than the parent '
                       'box, the overflow is governed by clipBehavior and '
                       'alignment, never by the transform itself.',
                   accent: kAccentAmber,
@@ -871,11 +871,7 @@ class _FlowArrow extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Padding(
       padding: EdgeInsets.symmetric(horizontal: 8),
-      child: Icon(
-        Icons.chevron_right,
-        size: 28,
-        color: kInkMuted,
-      ),
+      child: Icon(Icons.chevron_right, size: 28, color: kInkMuted),
     );
   }
 }
@@ -945,10 +941,7 @@ Widget _buildCatalog() {
       runSpacing: 16,
       children: <Widget>[
         for (final _TransformInfo info in _kCatalog)
-          SizedBox(
-            width: 360,
-            child: _CatalogCard(info: info),
-          ),
+          SizedBox(width: 360, child: _CatalogCard(info: info)),
       ],
     ),
   );
@@ -1064,22 +1057,14 @@ class _BeforeAfterRow extends StatelessWidget {
     return Row(
       children: <Widget>[
         Expanded(
-          child: _MiniCons(
-            label: 'before',
-            text: before,
-            accent: kInkMuted,
-          ),
+          child: _MiniCons(label: 'before', text: before, accent: kInkMuted),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 6),
           child: Icon(Icons.arrow_forward, size: 16, color: accent),
         ),
         Expanded(
-          child: _MiniCons(
-            label: 'after',
-            text: after,
-            accent: accent,
-          ),
+          child: _MiniCons(label: 'after', text: after, accent: accent),
         ),
       ],
     );
@@ -1284,8 +1269,7 @@ class _OverflowSchematic extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Icon(Icons.warning_amber_outlined,
-                  color: kAccentRose, size: 16),
+              Icon(Icons.warning_amber_outlined, color: kAccentRose, size: 16),
               const SizedBox(width: 8),
               const Text(
                 'Schematic: what happens when child > parent slot',
@@ -1305,11 +1289,7 @@ class _OverflowSchematic extends StatelessWidget {
             'by 60 on the right, 60 on the bottom`. We depict it below '
             'with plain Stack + Container (no CTB) so the live demo can '
             'avoid the banner.',
-            style: TextStyle(
-              color: kInkSoft,
-              fontSize: 12,
-              height: 1.5,
-            ),
+            style: TextStyle(color: kInkSoft, fontSize: 12, height: 1.5),
           ),
           const SizedBox(height: 12),
           SizedBox(
@@ -1327,10 +1307,7 @@ class _OverflowSchematic extends StatelessWidget {
                     height: childH,
                     decoration: BoxDecoration(
                       gradient: const LinearGradient(
-                        colors: <Color>[
-                          Color(0xFF0F766E),
-                          Color(0xFF4F46E5),
-                        ],
+                        colors: <Color>[Color(0xFF0F766E), Color(0xFF4F46E5)],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
@@ -1377,7 +1354,9 @@ class _OverflowSchematic extends StatelessWidget {
                   top: parentH + 18,
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 8, vertical: 4),
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
                     decoration: BoxDecoration(
                       color: kAccentRose.withValues(alpha: 0.85),
                       borderRadius: BorderRadius.circular(4),
@@ -1529,10 +1508,7 @@ class _DemoChild extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           gradient: const LinearGradient(
-            colors: <Color>[
-              Color(0xFF0F766E),
-              Color(0xFF4F46E5),
-            ],
+            colors: <Color>[Color(0xFF0F766E), Color(0xFF4F46E5)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -1818,10 +1794,7 @@ Widget _buildAlignmentShowcase() {
       runSpacing: 16,
       children: <Widget>[
         for (final _AlignmentEntry entry in _kAlignmentEntries)
-          SizedBox(
-            width: 260,
-            child: _AlignmentTile(entry: entry),
-          ),
+          SizedBox(width: 260, child: _AlignmentTile(entry: entry)),
       ],
     ),
   );
@@ -1853,8 +1826,7 @@ class _AlignmentTile extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Icon(Icons.center_focus_strong,
-                  color: entry.swatch, size: 16),
+              Icon(Icons.center_focus_strong, color: entry.swatch, size: 16),
               const SizedBox(width: 6),
               Text(
                 entry.label,
@@ -1986,11 +1958,7 @@ class _ClipPanel extends StatelessWidget {
           const SizedBox(height: 10),
           Text(
             entry.note,
-            style: const TextStyle(
-              color: kInkSoft,
-              fontSize: 12,
-              height: 1.45,
-            ),
+            style: const TextStyle(color: kInkSoft, fontSize: 12, height: 1.45),
           ),
           const SizedBox(height: 10),
           // (b) Live CTB instance — non-overflowing child so the API call
@@ -2000,8 +1968,7 @@ class _ClipPanel extends StatelessWidget {
             decoration: BoxDecoration(
               color: kPaperCool,
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                  color: entry.accent.withValues(alpha: 0.20)),
+              border: Border.all(color: entry.accent.withValues(alpha: 0.20)),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -2020,8 +1987,7 @@ class _ClipPanel extends StatelessWidget {
                   width: 160,
                   height: 60,
                   child: ConstraintsTransformBox(
-                    constraintsTransform:
-                        ConstraintsTransformBox.unconstrained,
+                    constraintsTransform: ConstraintsTransformBox.unconstrained,
                     clipBehavior: entry.clip,
                     alignment: Alignment.center,
                     child: Container(
@@ -2030,8 +1996,7 @@ class _ClipPanel extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: entry.accent.withValues(alpha: 0.80),
                         borderRadius: BorderRadius.circular(6),
-                        border:
-                            Border.all(color: entry.accent, width: 1.5),
+                        border: Border.all(color: entry.accent, width: 1.5),
                       ),
                       alignment: Alignment.center,
                       child: const Text(
@@ -2206,8 +2171,7 @@ class _ComparisonCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.symmetric(
-                horizontal: 10, vertical: 4),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
             decoration: BoxDecoration(
               color: entry.accent.withValues(alpha: 0.18),
               borderRadius: BorderRadius.circular(999),
@@ -2277,11 +2241,7 @@ class _CompareRow extends StatelessWidget {
         Expanded(
           child: Text(
             value,
-            style: const TextStyle(
-              color: kInkMid,
-              fontSize: 12,
-              height: 1.4,
-            ),
+            style: const TextStyle(color: kInkMid, fontSize: 12, height: 1.4),
           ),
         ),
       ],
@@ -2313,8 +2273,10 @@ class _ComparisonInline extends StatelessWidget {
               height: 80,
               color: accent.withValues(alpha: 0.85),
               alignment: Alignment.center,
-              child: const Text('OverflowBox',
-                  style: TextStyle(color: Colors.white, fontSize: 11)),
+              child: const Text(
+                'OverflowBox',
+                style: TextStyle(color: Colors.white, fontSize: 11),
+              ),
             ),
           ),
         ),
@@ -2331,8 +2293,10 @@ class _ComparisonInline extends StatelessWidget {
               height: 80,
               color: accent.withValues(alpha: 0.85),
               alignment: Alignment.center,
-              child: const Text('UnconstrainedBox',
-                  style: TextStyle(color: Colors.white, fontSize: 11)),
+              child: const Text(
+                'UnconstrainedBox',
+                style: TextStyle(color: Colors.white, fontSize: 11),
+              ),
             ),
           ),
         ),
@@ -2356,8 +2320,10 @@ class _ComparisonInline extends StatelessWidget {
             height: 44,
             color: accent.withValues(alpha: 0.85),
             alignment: Alignment.center,
-            child: const Text('CTB (fits)',
-                style: TextStyle(color: Colors.white, fontSize: 11)),
+            child: const Text(
+              'CTB (fits)',
+              style: TextStyle(color: Colors.white, fontSize: 11),
+            ),
           ),
         ),
       ),
@@ -2467,17 +2433,23 @@ class _RealWorldRow extends StatelessWidget {
                 const SizedBox(height: 8),
                 Container(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 10, vertical: 6),
+                    horizontal: 10,
+                    vertical: 6,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(
-                        color: entry.accent.withValues(alpha: 0.40)),
+                      color: entry.accent.withValues(alpha: 0.40),
+                    ),
                   ),
                   child: Row(
                     children: <Widget>[
-                      Icon(Icons.lightbulb_outline,
-                          size: 14, color: entry.accent),
+                      Icon(
+                        Icons.lightbulb_outline,
+                        size: 14,
+                        color: entry.accent,
+                      ),
                       const SizedBox(width: 6),
                       Expanded(
                         child: Text(
@@ -2520,10 +2492,7 @@ Widget _buildCaveats() {
       runSpacing: 14,
       children: <Widget>[
         for (final _CaveatEntry caveat in _kCaveats)
-          SizedBox(
-            width: 360,
-            child: _CaveatCard(entry: caveat),
-          ),
+          SizedBox(width: 360, child: _CaveatCard(entry: caveat)),
       ],
     ),
   );
@@ -2620,8 +2589,11 @@ Widget _buildFooter() {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Icon(Icons.flag_outlined,
-                color: Colors.white.withValues(alpha: 0.9), size: 20),
+            Icon(
+              Icons.flag_outlined,
+              color: Colors.white.withValues(alpha: 0.9),
+              size: 20,
+            ),
             const SizedBox(width: 10),
             const Text(
               'Takeaways',
@@ -2640,10 +2612,7 @@ Widget _buildFooter() {
           runSpacing: 14,
           children: <Widget>[
             for (final _Takeaway takeaway in _kTakeaways)
-              SizedBox(
-                width: 320,
-                child: _TakeawayCard(entry: takeaway),
-              ),
+              SizedBox(width: 320, child: _TakeawayCard(entry: takeaway)),
           ],
         ),
         const SizedBox(height: 18),
@@ -2652,14 +2621,15 @@ Widget _buildFooter() {
           decoration: BoxDecoration(
             color: Colors.white.withValues(alpha: 0.08),
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(
-              color: Colors.white.withValues(alpha: 0.18),
-            ),
+            border: Border.all(color: Colors.white.withValues(alpha: 0.18)),
           ),
           child: Row(
             children: <Widget>[
-              Icon(Icons.info_outline,
-                  color: Colors.white.withValues(alpha: 0.85), size: 16),
+              Icon(
+                Icons.info_outline,
+                color: Colors.white.withValues(alpha: 0.85),
+                size: 16,
+              ),
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
@@ -2795,11 +2765,7 @@ class _Section extends StatelessWidget {
         const SizedBox(height: 6),
         Text(
           subtitle,
-          style: const TextStyle(
-            color: kInkMuted,
-            fontSize: 13.5,
-            height: 1.5,
-          ),
+          style: const TextStyle(color: kInkMuted, fontSize: 13.5, height: 1.5),
         ),
         const SizedBox(height: 16),
         child,

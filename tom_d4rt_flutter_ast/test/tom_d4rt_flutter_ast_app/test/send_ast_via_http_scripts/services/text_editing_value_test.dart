@@ -122,10 +122,7 @@ Widget kvLine(String key, String value, {Color? valueColor}) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(
-          width: 130,
-          child: Text(key, style: kMonoDim),
-        ),
+        SizedBox(width: 130, child: Text(key, style: kMonoDim)),
         Expanded(
           child: Text(
             value,
@@ -203,10 +200,7 @@ Widget explanatoryCard({
             Container(
               width: 8,
               height: 8,
-              decoration: BoxDecoration(
-                color: accent,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
             ),
             const SizedBox(width: 8),
             Text(title, style: kSubsection),
@@ -250,10 +244,8 @@ Widget renderTextValueStrip(TextEditingValue value) {
 
   for (var i = 0; i < text.length; i++) {
     final ch = text[i];
-    final inSelection = hasValidSel &&
-        !sel.isCollapsed &&
-        i >= sel.start &&
-        i < sel.end;
+    final inSelection =
+        hasValidSel && !sel.isCollapsed && i >= sel.start && i < sel.end;
     final inComposing =
         hasComposing && i >= composing.start && i < composing.end;
     final isCaretHere = hasValidSel && sel.isCollapsed && sel.baseOffset == i;
@@ -296,12 +288,7 @@ Widget renderTextValueStrip(TextEditingValue value) {
       );
     }
 
-    glyphs.add(
-      Stack(
-        alignment: Alignment.bottomLeft,
-        children: stacked,
-      ),
-    );
+    glyphs.add(Stack(alignment: Alignment.bottomLeft, children: stacked));
   }
 
   // Caret after the last glyph?
@@ -362,11 +349,7 @@ Widget tevCard({
         ),
         const SizedBox(height: 10),
         kvLine('text', '"${value.text}"', valueColor: kAccentGreen),
-        kvLine(
-          'selection.base',
-          '${sel.baseOffset}',
-          valueColor: kAccentBlue,
-        ),
+        kvLine('selection.base', '${sel.baseOffset}', valueColor: kAccentBlue),
         kvLine(
           'selection.extent',
           '${sel.extentOffset}',
@@ -387,8 +370,7 @@ Widget tevCard({
           composing.isValid
               ? '[${composing.start}, ${composing.end})'
               : 'TextRange.empty',
-          valueColor:
-              composing.isValid ? kAccentPink : kTextDim,
+          valueColor: composing.isValid ? kAccentPink : kTextDim,
         ),
       ],
     ),
@@ -538,10 +520,7 @@ Widget tevConstructionGallery() {
 
   final tevReversed = const TextEditingValue(
     text: 'Right-to-left selection',
-    selection: TextSelection(
-      baseOffset: 17,
-      extentOffset: 6,
-    ),
+    selection: TextSelection(baseOffset: 17, extentOffset: 6),
   );
 
   final tev1WithDart = tev1.copyWith(text: 'Hello Dart!');
@@ -661,9 +640,7 @@ Widget selectionStateRow({
           children: [
             pill(label, accent),
             const SizedBox(width: 8),
-            Expanded(
-              child: Text(description, style: kCardBody),
-            ),
+            Expanded(child: Text(description, style: kCardBody)),
           ],
         ),
         const SizedBox(height: 10),
@@ -677,22 +654,10 @@ Widget selectionStateRow({
             Text('extent=${selection.extentOffset}', style: kMonoDim),
             Text('start=${selection.start}', style: kMonoDim),
             Text('end=${selection.end}', style: kMonoDim),
-            Text(
-              'isCollapsed=${selection.isCollapsed}',
-              style: kMonoDim,
-            ),
-            Text(
-              'isDirectional=${selection.isDirectional}',
-              style: kMonoDim,
-            ),
-            Text(
-              'isNormalized=${selection.isNormalized}',
-              style: kMonoDim,
-            ),
-            Text(
-              'affinity=${selection.affinity}',
-              style: kMonoDim,
-            ),
+            Text('isCollapsed=${selection.isCollapsed}', style: kMonoDim),
+            Text('isDirectional=${selection.isDirectional}', style: kMonoDim),
+            Text('isNormalized=${selection.isNormalized}', style: kMonoDim),
+            Text('affinity=${selection.affinity}', style: kMonoDim),
           ],
         ),
       ],
@@ -707,10 +672,7 @@ Widget selectionStatesSection() {
   final selFromPosition = TextSelection.fromPosition(
     const TextPosition(offset: 0),
   );
-  final selFullExtent = const TextSelection(
-    baseOffset: 0,
-    extentOffset: 30,
-  );
+  final selFullExtent = const TextSelection(baseOffset: 0, extentOffset: 30);
   final selAffinityDownstream = const TextSelection.collapsed(offset: 9);
   final selAffinityUpstream = const TextSelection.collapsed(
     offset: 9,
@@ -831,12 +793,17 @@ Widget rangeCallout({
         const SizedBox(height: 8),
         kvLine('start', '${range.start}', valueColor: kAccentBlue),
         kvLine('end', '${range.end}', valueColor: kAccentBlue),
-        kvLine('isValid', '${range.isValid}',
-            valueColor: range.isValid ? kAccentGreen : kAccentRed),
-        kvLine('isCollapsed', '${range.isCollapsed}',
-            valueColor: kAccentAmber),
-        kvLine('isNormalized', '${range.isNormalized}',
-            valueColor: kAccentTeal),
+        kvLine(
+          'isValid',
+          '${range.isValid}',
+          valueColor: range.isValid ? kAccentGreen : kAccentRed,
+        ),
+        kvLine('isCollapsed', '${range.isCollapsed}', valueColor: kAccentAmber),
+        kvLine(
+          'isNormalized',
+          '${range.isNormalized}',
+          valueColor: kAccentTeal,
+        ),
         if (range.isValid) ...[
           kvLine(
             'textBefore',
@@ -1022,14 +989,26 @@ Widget affinityShowcase() {
           children: [
             Text('TextAffinity enum', style: kCardTitle),
             const SizedBox(height: 8),
-            kvLine('values[0]', '${TextAffinity.values[0]}',
-                valueColor: kAccentBlue),
-            kvLine('values[1]', '${TextAffinity.values[1]}',
-                valueColor: kAccentBlue),
-            kvLine('upstream.index', '${TextAffinity.upstream.index}',
-                valueColor: kAccentAmber),
-            kvLine('downstream.index', '${TextAffinity.downstream.index}',
-                valueColor: kAccentAmber),
+            kvLine(
+              'values[0]',
+              '${TextAffinity.values[0]}',
+              valueColor: kAccentBlue,
+            ),
+            kvLine(
+              'values[1]',
+              '${TextAffinity.values[1]}',
+              valueColor: kAccentBlue,
+            ),
+            kvLine(
+              'upstream.index',
+              '${TextAffinity.upstream.index}',
+              valueColor: kAccentAmber,
+            ),
+            kvLine(
+              'downstream.index',
+              '${TextAffinity.downstream.index}',
+              valueColor: kAccentAmber,
+            ),
           ],
         ),
       ),
@@ -1063,9 +1042,7 @@ Widget formatterRow({
           children: [
             pill(label, accent),
             const SizedBox(width: 8),
-            Expanded(
-              child: Text(description, style: kCardBody),
-            ),
+            Expanded(child: Text(description, style: kCardBody)),
           ],
         ),
         const SizedBox(height: 10),
@@ -1143,10 +1120,7 @@ Widget formatterRow({
 
 // Apply a list of formatters by manually invoking formatEditUpdate.
 // Returns just the resulting text — this is what the editor would commit.
-String simulateFormat(
-  List<TextInputFormatter> formatters,
-  String input,
-) {
+String simulateFormat(List<TextInputFormatter> formatters, String input) {
   var value = TextEditingValue(
     text: input,
     selection: TextSelection.collapsed(offset: input.length),
@@ -1190,9 +1164,7 @@ Widget formatterShowcase() {
         description:
             'FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")) — keeps only '
             'ASCII letters.',
-        formatters: [
-          FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]')),
-        ],
+        formatters: [FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]'))],
         input: 'Hello123 World!',
         accent: kAccentBlue,
       ),
@@ -1202,9 +1174,7 @@ Widget formatterShowcase() {
         description:
             'FilteringTextInputFormatter.deny(RegExp("[0-9]")) — the dual of '
             'allow: anything matching the pattern is removed.',
-        formatters: [
-          FilteringTextInputFormatter.deny(RegExp(r'[0-9]')),
-        ],
+        formatters: [FilteringTextInputFormatter.deny(RegExp(r'[0-9]'))],
         input: 'abc 123 def 456',
         accent: kAccentPink,
       ),
@@ -1248,9 +1218,8 @@ Widget formatterShowcase() {
             'uppercases every character before commit.',
         formatters: [
           TextInputFormatter.withFunction(
-            (oldValue, newValue) => newValue.copyWith(
-              text: newValue.text.toUpperCase(),
-            ),
+            (oldValue, newValue) =>
+                newValue.copyWith(text: newValue.text.toUpperCase()),
           ),
         ],
         input: 'shouting at the editor',
@@ -1264,8 +1233,11 @@ Widget formatterShowcase() {
           children: [
             Text('MaxLengthEnforcement enum', style: kCardTitle),
             const SizedBox(height: 8),
-            kvLine('values.length', '${MaxLengthEnforcement.values.length}',
-                valueColor: kAccentBlue),
+            kvLine(
+              'values.length',
+              '${MaxLengthEnforcement.values.length}',
+              valueColor: kAccentBlue,
+            ),
             kvLine(
               'none',
               '${MaxLengthEnforcement.none}',
@@ -1324,10 +1296,7 @@ Widget typeAndActionReference() {
       accent: kAccentAmber,
     ),
     _TypeRow(
-      type: const TextInputType.numberWithOptions(
-        signed: true,
-        decimal: true,
-      ),
+      type: const TextInputType.numberWithOptions(signed: true, decimal: true),
       caption: 'Number with sign and decimal point.',
       accent: kAccentPurple,
     ),
@@ -1467,7 +1436,7 @@ Widget typeAndActionReference() {
         runSpacing: 10,
         children: [
           for (var i = 0; i < inputTypes.length; i++)
-            SizedBox(width: 280, child: inputTypes[i].render())
+            SizedBox(width: 280, child: inputTypes[i].render()),
         ],
       ),
       const SizedBox(height: 24),
@@ -1485,7 +1454,7 @@ Widget typeAndActionReference() {
         runSpacing: 10,
         children: [
           for (var i = 0; i < actions.length; i++)
-            SizedBox(width: 240, child: actions[i].render())
+            SizedBox(width: 240, child: actions[i].render()),
         ],
       ),
     ],
@@ -1510,10 +1479,7 @@ class _TypeRow {
           const SizedBox(height: 8),
           Text(caption, style: kCardBody.copyWith(fontSize: 12.5)),
           const SizedBox(height: 6),
-          Text(
-            'toString: ${type.toString()}',
-            style: kMonoDim,
-          ),
+          Text('toString: ${type.toString()}', style: kMonoDim),
         ],
       ),
     );
@@ -1704,9 +1670,7 @@ Widget capitalizationAndBrightness() {
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: isDark
-                  ? const Color(0xFF161A22)
-                  : const Color(0xFFFBFCFE),
+              color: isDark ? const Color(0xFF161A22) : const Color(0xFFFBFCFE),
               borderRadius: BorderRadius.circular(6),
               border: Border.all(
                 color: isDark
@@ -1813,14 +1777,10 @@ Widget _keyboardRow(List<String> keys, bool isDark) {
           margin: const EdgeInsets.symmetric(horizontal: 2),
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: isDark
-                ? const Color(0xFF2A3346)
-                : const Color(0xFFEDEFF3),
+            color: isDark ? const Color(0xFF2A3346) : const Color(0xFFEDEFF3),
             borderRadius: BorderRadius.circular(4),
             border: Border.all(
-              color: isDark
-                  ? const Color(0xFF3B4660)
-                  : const Color(0xFFCED3DA),
+              color: isDark ? const Color(0xFF3B4660) : const Color(0xFFCED3DA),
             ),
           ),
           child: Text(
@@ -1912,10 +1872,7 @@ Widget mockedEditorAnatomy() {
                 hintText: 'someone@example.com',
                 helperText:
                     'keyboardType=email · action=send · cap=none · brightness=dark',
-                helperStyle: const TextStyle(
-                  color: kTextDim,
-                  fontSize: 11,
-                ),
+                helperStyle: const TextStyle(color: kTextDim, fontSize: 11),
                 prefixIcon: const Icon(Icons.mail_outline, color: kAccentBlue),
                 filled: true,
                 fillColor: kPanelAlt,
@@ -2001,9 +1958,8 @@ Widget deltaVsReplacementSection() {
     'evening',
   );
   final afterCustomFormatter = TextInputFormatter.withFunction(
-    (oldValue, newValue) => newValue.copyWith(
-      text: newValue.text.toUpperCase(),
-    ),
+    (oldValue, newValue) =>
+        newValue.copyWith(text: newValue.text.toUpperCase()),
   ).formatEditUpdate(original, replaced);
 
   return Column(
@@ -2145,7 +2101,9 @@ dynamic build(BuildContext context) {
   print('TEV.replaced result: ${replacedTev.text}');
 
   final selRange = const TextSelection(baseOffset: 2, extentOffset: 7);
-  print('TextSelection base=${selRange.baseOffset} extent=${selRange.extentOffset}');
+  print(
+    'TextSelection base=${selRange.baseOffset} extent=${selRange.extentOffset}',
+  );
   print('TextSelection isCollapsed=${selRange.isCollapsed}');
   print('TextSelection isDirectional=${selRange.isDirectional}');
 

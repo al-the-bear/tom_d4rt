@@ -13,7 +13,9 @@ import 'package:flutter/material.dart';
 final ValueNotifier<int> _activeSrcsetIndex = ValueNotifier<int>(1);
 final ValueNotifier<String> _activeFilter = ValueNotifier<String>('none');
 final ValueNotifier<bool> _lazyVisible = ValueNotifier<bool>(false);
-final ValueNotifier<String> _activeAlt = ValueNotifier<String>('A mountain lake at sunset');
+final ValueNotifier<String> _activeAlt = ValueNotifier<String>(
+  'A mountain lake at sunset',
+);
 final ValueNotifier<bool> _corsError = ValueNotifier<bool>(false);
 
 // ── Entry point ─────────────────────────────────────────────────────────────
@@ -46,8 +48,9 @@ class _RenderWebImageDemo extends StatelessWidget {
           bottom: TabBar(
             isScrollable: true,
             labelColor: Theme.of(context).colorScheme.onPrimary,
-            unselectedLabelColor:
-                Theme.of(context).colorScheme.onPrimary.withAlpha(178),
+            unselectedLabelColor: Theme.of(
+              context,
+            ).colorScheme.onPrimary.withAlpha(178),
             indicatorColor: Theme.of(context).colorScheme.onPrimary,
             tabs: const [
               Tab(text: '① Intro'),
@@ -121,7 +124,9 @@ class _Tab1HeroBanner extends StatelessWidget {
               const SizedBox(height: 6),
               Text(
                 'Web-only render object — HTML <img> inside Flutter',
-                style: tt.titleMedium?.copyWith(color: cs.onPrimary.withAlpha(220)),
+                style: tt.titleMedium?.copyWith(
+                  color: cs.onPrimary.withAlpha(220),
+                ),
               ),
             ],
           ),
@@ -142,8 +147,11 @@ class _Tab1HeroBanner extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(Icons.warning_amber_rounded,
-                      size: 18, color: Colors.orange.shade800),
+                  Icon(
+                    Icons.warning_amber_rounded,
+                    size: 18,
+                    color: Colors.orange.shade800,
+                  ),
                   const SizedBox(width: 6),
                   Text(
                     'Web-only  •  Not available on native platforms',
@@ -213,23 +221,44 @@ class _Tab1HeroBanner extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _BulletRow(icon: Icons.check_circle, color: Colors.green,
-                  text: 'User-generated content (avatars, thumbnails) where SEO matters'),
+              _BulletRow(
+                icon: Icons.check_circle,
+                color: Colors.green,
+                text:
+                    'User-generated content (avatars, thumbnails) where SEO matters',
+              ),
               const SizedBox(height: 6),
-              _BulletRow(icon: Icons.check_circle, color: Colors.green,
-                  text: 'Responsive images with srcset and sizes attributes'),
+              _BulletRow(
+                icon: Icons.check_circle,
+                color: Colors.green,
+                text: 'Responsive images with srcset and sizes attributes',
+              ),
               const SizedBox(height: 6),
-              _BulletRow(icon: Icons.check_circle, color: Colors.green,
-                  text: 'Accessibility: alt text is read by screen readers natively'),
+              _BulletRow(
+                icon: Icons.check_circle,
+                color: Colors.green,
+                text:
+                    'Accessibility: alt text is read by screen readers natively',
+              ),
               const SizedBox(height: 6),
-              _BulletRow(icon: Icons.check_circle, color: Colors.green,
-                  text: 'Lazy loading large images below the fold'),
+              _BulletRow(
+                icon: Icons.check_circle,
+                color: Colors.green,
+                text: 'Lazy loading large images below the fold',
+              ),
               const SizedBox(height: 6),
-              _BulletRow(icon: Icons.cancel, color: Colors.red,
-                  text: 'Avoid when pixel-perfect shader effects are required'),
+              _BulletRow(
+                icon: Icons.cancel,
+                color: Colors.red,
+                text: 'Avoid when pixel-perfect shader effects are required',
+              ),
               const SizedBox(height: 6),
-              _BulletRow(icon: Icons.cancel, color: Colors.red,
-                  text: 'Avoid on native iOS/Android — WebImage throws an assertion'),
+              _BulletRow(
+                icon: Icons.cancel,
+                color: Colors.red,
+                text:
+                    'Avoid on native iOS/Android — WebImage throws an assertion',
+              ),
             ],
           ),
         ),
@@ -283,9 +312,7 @@ class _Tab2Architecture extends StatelessWidget {
 
         SizedBox(
           height: 420,
-          child: CustomPaint(
-            painter: _ArchitecturePainter(cs: cs),
-          ),
+          child: CustomPaint(painter: _ArchitecturePainter(cs: cs)),
         ),
 
         const SizedBox(height: 20),
@@ -432,8 +459,7 @@ class _ArchitecturePainter extends CustomPainter {
 
       // Number circle
       paint.color = colors[i];
-      canvas.drawCircle(
-          Offset(startX + 22, y + boxH / 2), 14, paint);
+      canvas.drawCircle(Offset(startX + 22, y + boxH / 2), 14, paint);
 
       final numPainter = TextPainter(
         text: TextSpan(
@@ -447,9 +473,12 @@ class _ArchitecturePainter extends CustomPainter {
         textDirection: TextDirection.ltr,
       )..layout();
       numPainter.paint(
-          canvas,
-          Offset(startX + 22 - numPainter.width / 2,
-              y + boxH / 2 - numPainter.height / 2));
+        canvas,
+        Offset(
+          startX + 22 - numPainter.width / 2,
+          y + boxH / 2 - numPainter.height / 2,
+        ),
+      );
 
       // Label
       final labelPainter = TextPainter(
@@ -470,10 +499,7 @@ class _ArchitecturePainter extends CustomPainter {
       final subPainter = TextPainter(
         text: TextSpan(
           text: subtitles[i],
-          style: TextStyle(
-            color: cs.onSurfaceVariant,
-            fontSize: 11,
-          ),
+          style: TextStyle(color: cs.onSurfaceVariant, fontSize: 11),
         ),
         textDirection: TextDirection.ltr,
         maxLines: 1,
@@ -486,7 +512,10 @@ class _ArchitecturePainter extends CustomPainter {
         final arrowTop = y + boxH;
         final arrowBot = arrowTop + gapY;
         canvas.drawLine(
-            Offset(arrowX, arrowTop), Offset(arrowX, arrowBot - 6), arrowPaint);
+          Offset(arrowX, arrowTop),
+          Offset(arrowX, arrowBot - 6),
+          arrowPaint,
+        );
         final path = Path()
           ..moveTo(arrowX - 6, arrowBot - 8)
           ..lineTo(arrowX, arrowBot)
@@ -619,10 +648,12 @@ class _Tab3HtmlAttributes extends StatelessWidget {
           style: tt.bodySmall?.copyWith(color: cs.onSurfaceVariant),
         ),
         const SizedBox(height: 16),
-        ...attrs.map((a) => Padding(
-              padding: const EdgeInsets.only(bottom: 14),
-              child: _AttributeCard(info: a),
-            )),
+        ...attrs.map(
+          (a) => Padding(
+            padding: const EdgeInsets.only(bottom: 14),
+            child: _AttributeCard(info: a),
+          ),
+        ),
       ],
     );
   }
@@ -661,9 +692,10 @@ class _AttributeCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(14),
         boxShadow: [
           BoxShadow(
-              color: info.color.withAlpha(30),
-              blurRadius: 8,
-              offset: const Offset(0, 3)),
+            color: info.color.withAlpha(30),
+            blurRadius: 8,
+            offset: const Offset(0, 3),
+          ),
         ],
       ),
       child: Column(
@@ -674,8 +706,9 @@ class _AttributeCard extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             decoration: BoxDecoration(
               color: info.color.withAlpha(24),
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(13)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(13),
+              ),
             ),
             child: Row(
               children: [
@@ -902,8 +935,10 @@ class _SimulatedImagePanel extends StatelessWidget {
                 top: 8,
                 right: 8,
                 child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 3,
+                  ),
                   decoration: BoxDecoration(
                     color: badgeColor,
                     borderRadius: BorderRadius.circular(6),
@@ -911,9 +946,10 @@ class _SimulatedImagePanel extends StatelessWidget {
                   child: Text(
                     badge,
                     style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 11,
-                        fontWeight: FontWeight.bold),
+                      color: Colors.white,
+                      fontSize: 11,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
@@ -921,8 +957,10 @@ class _SimulatedImagePanel extends StatelessWidget {
                 bottom: 8,
                 left: 8,
                 child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 6,
+                    vertical: 2,
+                  ),
                   color: Colors.black38,
                   child: Text(
                     '[SIMULATED]',
@@ -934,10 +972,11 @@ class _SimulatedImagePanel extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 6),
-        Text(label,
-            style: tt.titleSmall?.copyWith(fontWeight: FontWeight.bold)),
-        Text(subtitle,
-            style: tt.bodySmall, textAlign: TextAlign.center),
+        Text(
+          label,
+          style: tt.titleSmall?.copyWith(fontWeight: FontWeight.bold),
+        ),
+        Text(subtitle, style: tt.bodySmall, textAlign: TextAlign.center),
       ],
     );
   }
@@ -977,28 +1016,39 @@ class _ComparisonTable extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
             decoration: BoxDecoration(
               color: cs.surfaceContainerHighest,
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(11)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(11),
+              ),
             ),
             child: Row(
               children: [
                 Expanded(
-                    flex: 3,
-                    child: Text('Aspect',
-                        style: tt.labelSmall?.copyWith(
-                            fontWeight: FontWeight.bold))),
+                  flex: 3,
+                  child: Text(
+                    'Aspect',
+                    style: tt.labelSmall?.copyWith(fontWeight: FontWeight.bold),
+                  ),
+                ),
                 Expanded(
-                    flex: 4,
-                    child: Text('CanvasKit',
-                        style: tt.labelSmall?.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.purple))),
+                  flex: 4,
+                  child: Text(
+                    'CanvasKit',
+                    style: tt.labelSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.purple,
+                    ),
+                  ),
+                ),
                 Expanded(
-                    flex: 4,
-                    child: Text('HTML / WebImage',
-                        style: tt.labelSmall?.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.blue.shade700))),
+                  flex: 4,
+                  child: Text(
+                    'HTML / WebImage',
+                    style: tt.labelSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue.shade700,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -1013,24 +1063,33 @@ class _ComparisonTable extends StatelessWidget {
 
             return Container(
               color: bg,
-              padding:
-                  const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
-                      flex: 3,
-                      child: Text(row.aspect,
-                          style: tt.bodySmall?.copyWith(
-                              fontWeight: FontWeight.w600))),
+                    flex: 3,
+                    child: Text(
+                      row.aspect,
+                      style: tt.bodySmall?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
                   Expanded(
-                      flex: 4,
-                      child: Text(row.canvasKit,
-                          style: tt.bodySmall?.copyWith(color: ckColor))),
+                    flex: 4,
+                    child: Text(
+                      row.canvasKit,
+                      style: tt.bodySmall?.copyWith(color: ckColor),
+                    ),
+                  ),
                   Expanded(
-                      flex: 4,
-                      child: Text(row.html,
-                          style: tt.bodySmall?.copyWith(color: htmlColor))),
+                    flex: 4,
+                    child: Text(
+                      row.html,
+                      style: tt.bodySmall?.copyWith(color: htmlColor),
+                    ),
+                  ),
                 ],
               ),
             );
@@ -1073,20 +1132,21 @@ class _Tab5CssFilters extends StatelessWidget {
             return Wrap(
               spacing: 8,
               runSpacing: 8,
-              children: [
-                'none',
-                'blur',
-                'sepia',
-                'grayscale',
-                'invert',
-                'brightness',
-              ].map((f) {
-                return FilterChip(
-                  label: Text(f),
-                  selected: active == f,
-                  onSelected: (_) => _activeFilter.value = f,
-                );
-              }).toList(),
+              children:
+                  [
+                    'none',
+                    'blur',
+                    'sepia',
+                    'grayscale',
+                    'invert',
+                    'brightness',
+                  ].map((f) {
+                    return FilterChip(
+                      label: Text(f),
+                      selected: active == f,
+                      onSelected: (_) => _activeFilter.value = f,
+                    );
+                  }).toList(),
             );
           },
         ),
@@ -1111,31 +1171,36 @@ class _Tab5CssFilters extends StatelessWidget {
             _FilterRow(
               css: 'filter: blur(4px)',
               flutter: 'ImageFiltered(imageFilter: ImageFilter.blur(...))',
-              notes: 'Gaussian blur. Real CSS blurs the <img> via GPU. '
+              notes:
+                  'Gaussian blur. Real CSS blurs the <img> via GPU. '
                   'Flutter\'s ImageFiltered wraps any widget subtree.',
             ),
             _FilterRow(
               css: 'filter: sepia(1)',
               flutter: 'ColorFiltered(colorFilter: ColorFilter.matrix([...]))',
-              notes: 'Warm brownish tone. Requires a 4×5 sepia color matrix '
+              notes:
+                  'Warm brownish tone. Requires a 4×5 sepia color matrix '
                   'in Flutter.',
             ),
             _FilterRow(
               css: 'filter: grayscale(1)',
               flutter: 'ColorFiltered(colorFilter: ColorFilter.matrix([...]))',
-              notes: 'Removes colour saturation. CSS shorthand; Flutter needs '
+              notes:
+                  'Removes colour saturation. CSS shorthand; Flutter needs '
                   'a luminance-preserving matrix.',
             ),
             _FilterRow(
               css: 'filter: invert(1)',
               flutter: 'ColorFiltered(colorFilter: ColorFilter.matrix([...]))',
-              notes: 'Inverts each RGB channel. Full invert = complementary '
+              notes:
+                  'Inverts each RGB channel. Full invert = complementary '
                   'colours.',
             ),
             _FilterRow(
               css: 'filter: brightness(1.5)',
               flutter: 'ColorFiltered(colorFilter: ColorFilter.matrix([...]))',
-              notes: 'Scales RGB values. Values >1 brighten; <1 darken; 0 = '
+              notes:
+                  'Scales RGB values. Values >1 brighten; <1 darken; 0 = '
                   'black.',
             ),
           ],
@@ -1147,8 +1212,10 @@ class _Tab5CssFilters extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('⚠️ CSS filters on <img> vs Flutter ColorFiltered',
-                  style: tt.titleSmall),
+              Text(
+                '⚠️ CSS filters on <img> vs Flutter ColorFiltered',
+                style: tt.titleSmall,
+              ),
               const SizedBox(height: 6),
               Text(
                 'When you set filter: on an HTMLImageElement in CSS, the browser '
@@ -1193,8 +1260,10 @@ class _FilteredImageCard extends StatelessWidget {
           children: [
             const Icon(Icons.landscape, size: 60, color: Colors.white),
             const SizedBox(height: 6),
-            Text('Mountain Lake [SIMULATED]',
-                style: const TextStyle(color: Colors.white, fontSize: 13)),
+            Text(
+              'Mountain Lake [SIMULATED]',
+              style: const TextStyle(color: Colors.white, fontSize: 13),
+            ),
           ],
         ),
       ),
@@ -1203,10 +1272,7 @@ class _FilteredImageCard extends StatelessWidget {
     // Apply simulated filter
     switch (filter) {
       case 'blur':
-        image = ImageFiltered(
-          imageFilter: _blurFilter(),
-          child: image,
-        );
+        image = ImageFiltered(imageFilter: _blurFilter(), child: image);
       case 'grayscale':
         image = ColorFiltered(
           colorFilter: const ColorFilter.matrix(_grayscaleMatrix),
@@ -1261,31 +1327,95 @@ class _FilteredImageCard extends StatelessWidget {
 
 // Color matrices
 const List<double> _grayscaleMatrix = [
-  0.2126, 0.7152, 0.0722, 0, 0,
-  0.2126, 0.7152, 0.0722, 0, 0,
-  0.2126, 0.7152, 0.0722, 0, 0,
-  0,      0,      0,      1, 0,
+  0.2126,
+  0.7152,
+  0.0722,
+  0,
+  0,
+  0.2126,
+  0.7152,
+  0.0722,
+  0,
+  0,
+  0.2126,
+  0.7152,
+  0.0722,
+  0,
+  0,
+  0,
+  0,
+  0,
+  1,
+  0,
 ];
 
 const List<double> _sepiaMatrix = [
-  0.393, 0.769, 0.189, 0, 0,
-  0.349, 0.686, 0.168, 0, 0,
-  0.272, 0.534, 0.131, 0, 0,
-  0,     0,     0,     1, 0,
+  0.393,
+  0.769,
+  0.189,
+  0,
+  0,
+  0.349,
+  0.686,
+  0.168,
+  0,
+  0,
+  0.272,
+  0.534,
+  0.131,
+  0,
+  0,
+  0,
+  0,
+  0,
+  1,
+  0,
 ];
 
 const List<double> _invertMatrix = [
-  -1, 0,  0,  0, 255,
-   0, -1, 0,  0, 255,
-   0,  0, -1, 0, 255,
-   0,  0,  0, 1, 0,
+  -1,
+  0,
+  0,
+  0,
+  255,
+  0,
+  -1,
+  0,
+  0,
+  255,
+  0,
+  0,
+  -1,
+  0,
+  255,
+  0,
+  0,
+  0,
+  1,
+  0,
 ];
 
 const List<double> _brightnessMatrix = [
-  1.6, 0,   0,   0, 0,
-  0,   1.6, 0,   0, 0,
-  0,   0,   1.6, 0, 0,
-  0,   0,   0,   1, 0,
+  1.6,
+  0,
+  0,
+  0,
+  0,
+  0,
+  1.6,
+  0,
+  0,
+  0,
+  0,
+  0,
+  1.6,
+  0,
+  0,
+  0,
+  0,
+  0,
+  1,
+  0,
 ];
 
 ui.ImageFilter _blurFilter() {
@@ -1296,8 +1426,11 @@ class _FilterRow {
   final String css;
   final String flutter;
   final String notes;
-  const _FilterRow(
-      {required this.css, required this.flutter, required this.notes});
+  const _FilterRow({
+    required this.css,
+    required this.flutter,
+    required this.notes,
+  });
 }
 
 class _FilterReferenceTable extends StatelessWidget {
@@ -1320,15 +1453,22 @@ class _FilterReferenceTable extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(r.css,
-                  style: tt.bodySmall?.copyWith(
-                      fontFamily: 'monospace',
-                      color: Colors.blue.shade700,
-                      fontWeight: FontWeight.bold)),
+              Text(
+                r.css,
+                style: tt.bodySmall?.copyWith(
+                  fontFamily: 'monospace',
+                  color: Colors.blue.shade700,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               const SizedBox(height: 2),
-              Text(r.flutter,
-                  style: tt.bodySmall?.copyWith(
-                      fontFamily: 'monospace', color: Colors.purple)),
+              Text(
+                r.flutter,
+                style: tt.bodySmall?.copyWith(
+                  fontFamily: 'monospace',
+                  color: Colors.purple,
+                ),
+              ),
               const SizedBox(height: 4),
               Text(r.notes, style: tt.bodySmall),
               const Divider(),
@@ -1378,8 +1518,9 @@ class _Tab6SrcsetDpr extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 4),
                     child: OutlinedButton(
                       style: OutlinedButton.styleFrom(
-                        backgroundColor:
-                            active == dprVal ? cs.primaryContainer : null,
+                        backgroundColor: active == dprVal
+                            ? cs.primaryContainer
+                            : null,
                       ),
                       onPressed: () => _activeSrcsetIndex.value = dprVal,
                       child: Text('${dprVal}x DPR'),
@@ -1445,9 +1586,12 @@ class _Tab6SrcsetDpr extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Pixel density (x)',
-                        style: tt.titleSmall?.copyWith(
-                            fontWeight: FontWeight.bold)),
+                    Text(
+                      'Pixel density (x)',
+                      style: tt.titleSmall?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     const SizedBox(height: 6),
                     const _CodeLine('srcset="img.jpg 1x,'),
                     const _CodeLine('        img@2x.jpg 2x"'),
@@ -1467,9 +1611,12 @@ class _Tab6SrcsetDpr extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Width descriptor (w)',
-                        style: tt.titleSmall?.copyWith(
-                            fontWeight: FontWeight.bold)),
+                    Text(
+                      'Width descriptor (w)',
+                      style: tt.titleSmall?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     const SizedBox(height: 6),
                     const _CodeLine('srcset="img-400.jpg 400w,'),
                     const _CodeLine('        img-800.jpg 800w"'),
@@ -1501,23 +1648,26 @@ class _SrcsetDiagram extends StatelessWidget {
 
     final candidates = [
       _SrcsetCandidate(
-          dpr: 1,
-          src: 'photo-1x.jpg',
-          size: '400×300',
-          bytes: '42 KB',
-          color: Colors.blue.shade100),
+        dpr: 1,
+        src: 'photo-1x.jpg',
+        size: '400×300',
+        bytes: '42 KB',
+        color: Colors.blue.shade100,
+      ),
       _SrcsetCandidate(
-          dpr: 2,
-          src: 'photo-2x.jpg',
-          size: '800×600',
-          bytes: '130 KB',
-          color: Colors.blue.shade200),
+        dpr: 2,
+        src: 'photo-2x.jpg',
+        size: '800×600',
+        bytes: '130 KB',
+        color: Colors.blue.shade200,
+      ),
       _SrcsetCandidate(
-          dpr: 3,
-          src: 'photo-3x.jpg',
-          size: '1200×900',
-          bytes: '280 KB',
-          color: Colors.blue.shade300),
+        dpr: 3,
+        src: 'photo-3x.jpg',
+        size: '1200×900',
+        bytes: '280 KB',
+        color: Colors.blue.shade300,
+      ),
     ];
 
     return Column(
@@ -1542,28 +1692,38 @@ class _SrcsetDiagram extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      Text('${c.dpr}x',
-                          style: tt.titleLarge?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: isSelected ? cs.primary : cs.onSurface)),
+                      Text(
+                        '${c.dpr}x',
+                        style: tt.titleLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: isSelected ? cs.primary : cs.onSurface,
+                        ),
+                      ),
                       const SizedBox(height: 4),
-                      Text(c.src,
-                          style: tt.labelSmall?.copyWith(
-                              fontFamily: 'monospace'),
-                          textAlign: TextAlign.center),
-                      Text(c.size,
-                          style: tt.bodySmall, textAlign: TextAlign.center),
-                      Text(c.bytes,
-                          style: tt.bodySmall?.copyWith(
-                              color: cs.onSurfaceVariant),
-                          textAlign: TextAlign.center),
+                      Text(
+                        c.src,
+                        style: tt.labelSmall?.copyWith(fontFamily: 'monospace'),
+                        textAlign: TextAlign.center,
+                      ),
+                      Text(
+                        c.size,
+                        style: tt.bodySmall,
+                        textAlign: TextAlign.center,
+                      ),
+                      Text(
+                        c.bytes,
+                        style: tt.bodySmall?.copyWith(
+                          color: cs.onSurfaceVariant,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
                       if (isSelected) ...[
                         const SizedBox(height: 4),
-                        Icon(Icons.check_circle,
-                            color: cs.primary, size: 18),
-                        Text('Selected',
-                            style: tt.labelSmall
-                                ?.copyWith(color: cs.primary)),
+                        Icon(Icons.check_circle, color: cs.primary, size: 18),
+                        Text(
+                          'Selected',
+                          style: tt.labelSmall?.copyWith(color: cs.primary),
+                        ),
                       ],
                     ],
                   ),
@@ -1584,7 +1744,9 @@ class _SrcsetDiagram extends StatelessWidget {
             'At ${selectedDpr}x DPR → browser fetches: '
             '${candidates.firstWhere((c) => c.dpr == selectedDpr).src}',
             style: tt.bodySmall?.copyWith(
-                fontFamily: 'monospace', fontWeight: FontWeight.bold),
+              fontFamily: 'monospace',
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ],
@@ -1652,8 +1814,10 @@ class _Tab7Accessibility extends StatelessWidget {
                   runSpacing: 8,
                   children: altExamples.map((a) {
                     return ChoiceChip(
-                      label: Text(a.isEmpty ? '[empty — decorative]' : a,
-                          style: const TextStyle(fontSize: 11)),
+                      label: Text(
+                        a.isEmpty ? '[empty — decorative]' : a,
+                        style: const TextStyle(fontSize: 11),
+                      ),
                       selected: _activeAlt.value == a,
                       onSelected: (_) => _activeAlt.value = a,
                     );
@@ -1718,20 +1882,18 @@ class _Tab7Accessibility extends StatelessWidget {
         _InfoCard(
           child: Column(
             children: [
-              _CheckRow(
-                  label: 'Informative images have descriptive alt text'),
-              _CheckRow(
-                  label: 'Decorative images use alt="" or aria-hidden'),
+              _CheckRow(label: 'Informative images have descriptive alt text'),
+              _CheckRow(label: 'Decorative images use alt="" or aria-hidden'),
               _CheckRow(label: 'Complex images have aria-describedby'),
               _CheckRow(
-                  label:
-                      'Color is not the only means of conveying information'),
+                label: 'Color is not the only means of conveying information',
+              ),
               _CheckRow(
-                  label:
-                      'Image links: alt text describes the link destination'),
+                label: 'Image links: alt text describes the link destination',
+              ),
               _CheckRow(
-                  label:
-                      'srcset doesn\'t affect alt text — use same description'),
+                label: 'srcset doesn\'t affect alt text — use same description',
+              ),
             ],
           ),
         ),
@@ -1753,7 +1915,9 @@ class _AltTextCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         border: Border.all(
-            color: isDecorative ? Colors.orange : cs.primary, width: 2),
+          color: isDecorative ? Colors.orange : cs.primary,
+          width: 2,
+        ),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
@@ -1764,8 +1928,9 @@ class _AltTextCard extends StatelessWidget {
             height: 100,
             decoration: BoxDecoration(
               color: cs.primaryContainer,
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(10)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(10),
+              ),
             ),
             child: Center(
               child: Icon(Icons.landscape, size: 48, color: cs.primary),
@@ -1779,19 +1944,20 @@ class _AltTextCard extends StatelessWidget {
                 Row(
                   children: [
                     Icon(
-                        isDecorative
-                            ? Icons.visibility_off
-                            : Icons.record_voice_over,
-                        size: 18,
-                        color: isDecorative ? Colors.orange : cs.primary),
+                      isDecorative
+                          ? Icons.visibility_off
+                          : Icons.record_voice_over,
+                      size: 18,
+                      color: isDecorative ? Colors.orange : cs.primary,
+                    ),
                     const SizedBox(width: 6),
                     Text(
                       isDecorative
                           ? 'Decorative — hidden from screen readers'
                           : 'Screen reader announces:',
                       style: tt.labelSmall?.copyWith(
-                          color:
-                              isDecorative ? Colors.orange : cs.primary),
+                        color: isDecorative ? Colors.orange : cs.primary,
+                      ),
                     ),
                   ],
                 ),
@@ -1800,9 +1966,12 @@ class _AltTextCard extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.all(8),
                     color: cs.surfaceContainerHighest,
-                    child: Text('"$alt"',
-                        style: tt.bodySmall?.copyWith(
-                            fontStyle: FontStyle.italic)),
+                    child: Text(
+                      '"$alt"',
+                      style: tt.bodySmall?.copyWith(
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
                   ),
                 ],
                 const SizedBox(height: 8),
@@ -1825,8 +1994,11 @@ class _AriaItem {
   final String attr;
   final String role;
   final String notes;
-  const _AriaItem(
-      {required this.attr, required this.role, required this.notes});
+  const _AriaItem({
+    required this.attr,
+    required this.role,
+    required this.notes,
+  });
 }
 
 class _AriaAttributeList extends StatelessWidget {
@@ -1854,21 +2026,27 @@ class _AriaAttributeList extends StatelessWidget {
                 children: [
                   Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 8, vertical: 3),
+                      horizontal: 8,
+                      vertical: 3,
+                    ),
                     decoration: BoxDecoration(
                       color: cs.primaryContainer,
                       borderRadius: BorderRadius.circular(6),
                     ),
-                    child: Text(item.attr,
-                        style: tt.labelSmall?.copyWith(
-                            fontFamily: 'monospace',
-                            color: cs.primary,
-                            fontWeight: FontWeight.bold)),
+                    child: Text(
+                      item.attr,
+                      style: tt.labelSmall?.copyWith(
+                        fontFamily: 'monospace',
+                        color: cs.primary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                   const SizedBox(width: 10),
-                  Text(item.role,
-                      style: tt.labelSmall?.copyWith(
-                          fontWeight: FontWeight.w600)),
+                  Text(
+                    item.role,
+                    style: tt.labelSmall?.copyWith(fontWeight: FontWeight.w600),
+                  ),
                 ],
               ),
               const SizedBox(height: 6),
@@ -1895,8 +2073,8 @@ class _CheckRow extends StatelessWidget {
           const Icon(Icons.check_box, color: Colors.green, size: 18),
           const SizedBox(width: 8),
           Expanded(
-              child: Text(label,
-                  style: Theme.of(context).textTheme.bodySmall)),
+            child: Text(label, style: Theme.of(context).textTheme.bodySmall),
+          ),
         ],
       ),
     );
@@ -1951,9 +2129,11 @@ class _Tab8LazyLoading extends StatelessWidget {
                 const SizedBox(height: 8),
                 SwitchListTile(
                   title: const Text('Image entered viewport'),
-                  subtitle: Text(visible
-                      ? 'Browser fetches image now'
-                      : 'Browser waits — image outside viewport'),
+                  subtitle: Text(
+                    visible
+                        ? 'Browser fetches image now'
+                        : 'Browser waits — image outside viewport',
+                  ),
                   value: visible,
                   onChanged: (v) => _lazyVisible.value = v,
                 ),
@@ -2009,33 +2189,37 @@ class _Tab8LazyLoading extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _BulletRow(
-                  icon: Icons.trending_up,
-                  color: Colors.green,
-                  text:
-                      'LCP (Largest Contentful Paint): Use loading="eager" for '
-                      'hero images to avoid delaying the LCP element.'),
+                icon: Icons.trending_up,
+                color: Colors.green,
+                text:
+                    'LCP (Largest Contentful Paint): Use loading="eager" for '
+                    'hero images to avoid delaying the LCP element.',
+              ),
               const SizedBox(height: 6),
               _BulletRow(
-                  icon: Icons.speed,
-                  color: Colors.blue,
-                  text:
-                      'FID / INP: Lazy loading reduces JS parse time for image '
-                      'decoders, improving responsiveness.'),
+                icon: Icons.speed,
+                color: Colors.blue,
+                text:
+                    'FID / INP: Lazy loading reduces JS parse time for image '
+                    'decoders, improving responsiveness.',
+              ),
               const SizedBox(height: 6),
               _BulletRow(
-                  icon: Icons.memory,
-                  color: Colors.purple,
-                  text:
-                      'TBT (Total Blocking Time): Deferred images reduce main '
-                      'thread decode work during initial load.'),
+                icon: Icons.memory,
+                color: Colors.purple,
+                text:
+                    'TBT (Total Blocking Time): Deferred images reduce main '
+                    'thread decode work during initial load.',
+              ),
               const SizedBox(height: 6),
               _BulletRow(
-                  icon: Icons.warning_amber,
-                  color: Colors.orange,
-                  text:
-                      'CLS (Cumulative Layout Shift): Always specify width/height '
-                      'on <img> — even lazy images shift layout if dimensions '
-                      'are unknown.'),
+                icon: Icons.warning_amber,
+                color: Colors.orange,
+                text:
+                    'CLS (Cumulative Layout Shift): Always specify width/height '
+                    'on <img> — even lazy images shift layout if dimensions '
+                    'are unknown.',
+              ),
             ],
           ),
         ),
@@ -2061,20 +2245,43 @@ class _LazyLoadTimelinePainter extends CustomPainter {
 
     final axisY = size.height - 30;
     canvas.drawLine(
-        Offset(20, axisY), Offset(size.width - 20, axisY), axisPaint);
+      Offset(20, axisY),
+      Offset(size.width - 20, axisY),
+      axisPaint,
+    );
 
     // Events
     final events = [
       _TimelineEvent(
-          x: 0.05, label: 'Page load', color: Colors.blue, y: axisY - 80),
+        x: 0.05,
+        label: 'Page load',
+        color: Colors.blue,
+        y: axisY - 80,
+      ),
       _TimelineEvent(
-          x: 0.2, label: 'eager img\nfetched', color: Colors.orange, y: axisY - 60),
+        x: 0.2,
+        label: 'eager img\nfetched',
+        color: Colors.orange,
+        y: axisY - 60,
+      ),
       _TimelineEvent(
-          x: 0.45, label: 'User\nscrolls', color: Colors.grey, y: axisY - 50),
+        x: 0.45,
+        label: 'User\nscrolls',
+        color: Colors.grey,
+        y: axisY - 50,
+      ),
       _TimelineEvent(
-          x: 0.65, label: 'lazy img\nenters viewport', color: Colors.green, y: axisY - 70),
+        x: 0.65,
+        label: 'lazy img\nenters viewport',
+        color: Colors.green,
+        y: axisY - 70,
+      ),
       _TimelineEvent(
-          x: 0.8, label: 'lazy img\nfetched', color: Colors.teal, y: axisY - 50),
+        x: 0.8,
+        label: 'lazy img\nfetched',
+        color: Colors.teal,
+        y: axisY - 50,
+      ),
     ];
 
     for (final e in events) {
@@ -2097,13 +2304,13 @@ class _LazyLoadTimelinePainter extends CustomPainter {
       // Label
       final tp = TextPainter(
         text: TextSpan(
-            text: e.label,
-            style: textStyle.copyWith(color: e.color)),
+          text: e.label,
+          style: textStyle.copyWith(color: e.color),
+        ),
         textDirection: TextDirection.ltr,
         textAlign: TextAlign.center,
       )..layout(maxWidth: 90);
-      tp.paint(
-          canvas, Offset(x - tp.width / 2, e.y));
+      tp.paint(canvas, Offset(x - tp.width / 2, e.y));
     }
 
     // "Time" label
@@ -2112,7 +2319,9 @@ class _LazyLoadTimelinePainter extends CustomPainter {
       textDirection: TextDirection.ltr,
     )..layout();
     timePainter.paint(
-        canvas, Offset(size.width - timePainter.width - 4, axisY + 8));
+      canvas,
+      Offset(size.width - timePainter.width - 4, axisY + 8),
+    );
   }
 
   @override
@@ -2124,11 +2333,12 @@ class _TimelineEvent {
   final String label;
   final Color color;
   final double y;
-  const _TimelineEvent(
-      {required this.x,
-      required this.label,
-      required this.color,
-      required this.y});
+  const _TimelineEvent({
+    required this.x,
+    required this.label,
+    required this.color,
+    required this.y,
+  });
 }
 
 class _LazyImageLoaded extends StatelessWidget {
@@ -2149,11 +2359,15 @@ class _LazyImageLoaded extends StatelessWidget {
           children: [
             Icon(Icons.image, size: 40, color: Colors.green.shade700),
             const SizedBox(height: 6),
-            Text('Image loaded [SIMULATED]',
-                style: TextStyle(color: Colors.green.shade700)),
-            Text('loading="lazy" — fetch triggered by viewport entry',
-                style: Theme.of(context).textTheme.bodySmall,
-                textAlign: TextAlign.center),
+            Text(
+              'Image loaded [SIMULATED]',
+              style: TextStyle(color: Colors.green.shade700),
+            ),
+            Text(
+              'loading="lazy" — fetch triggered by viewport entry',
+              style: Theme.of(context).textTheme.bodySmall,
+              textAlign: TextAlign.center,
+            ),
           ],
         ),
       ),
@@ -2180,11 +2394,15 @@ class _LazyImagePending extends StatelessWidget {
           children: [
             Icon(Icons.hourglass_empty, size: 40, color: cs.onSurfaceVariant),
             const SizedBox(height: 6),
-            Text('Waiting for viewport [SIMULATED]',
-                style: TextStyle(color: cs.onSurfaceVariant)),
-            Text('loading="lazy" — network request deferred',
-                style: Theme.of(context).textTheme.bodySmall,
-                textAlign: TextAlign.center),
+            Text(
+              'Waiting for viewport [SIMULATED]',
+              style: TextStyle(color: cs.onSurfaceVariant),
+            ),
+            Text(
+              'loading="lazy" — network request deferred',
+              style: Theme.of(context).textTheme.bodySmall,
+              textAlign: TextAlign.center,
+            ),
           ],
         ),
       ),
@@ -2218,11 +2436,14 @@ class _LoadingModeRow extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('loading="$mode"',
-                    style: tt.titleSmall?.copyWith(
-                        fontFamily: 'monospace',
-                        fontWeight: FontWeight.bold,
-                        color: color)),
+                Text(
+                  'loading="$mode"',
+                  style: tt.titleSmall?.copyWith(
+                    fontFamily: 'monospace',
+                    fontWeight: FontWeight.bold,
+                    color: color,
+                  ),
+                ),
                 const SizedBox(height: 4),
                 Text(description, style: tt.bodySmall),
               ],
@@ -2353,7 +2574,9 @@ class _Tab9PitfallsAndApi extends StatelessWidget {
               children: [
                 SwitchListTile(
                   title: const Text('Simulate CORS error'),
-                  subtitle: const Text('Toggle missing Access-Control-Allow-Origin header'),
+                  subtitle: const Text(
+                    'Toggle missing Access-Control-Allow-Origin header',
+                  ),
                   value: hasError,
                   onChanged: (v) => _corsError.value = v,
                 ),
@@ -2377,56 +2600,65 @@ class _Tab9PitfallsAndApi extends StatelessWidget {
         _ApiCheatSheet(
           rows: const [
             _ApiRow(
-                prop: 'src',
-                type: 'String',
-                notes: 'Required. The image URL.'),
+              prop: 'src',
+              type: 'String',
+              notes: 'Required. The image URL.',
+            ),
             _ApiRow(
-                prop: 'alt',
-                type: 'String',
-                notes:
-                    'Alt text for accessibility. Empty string for decorative.'),
+              prop: 'alt',
+              type: 'String',
+              notes: 'Alt text for accessibility. Empty string for decorative.',
+            ),
             _ApiRow(
-                prop: 'width',
-                type: 'double?',
-                notes: 'Intrinsic width hint.'),
+              prop: 'width',
+              type: 'double?',
+              notes: 'Intrinsic width hint.',
+            ),
             _ApiRow(
-                prop: 'height',
-                type: 'double?',
-                notes: 'Intrinsic height hint. Set both to prevent CLS.'),
+              prop: 'height',
+              type: 'double?',
+              notes: 'Intrinsic height hint. Set both to prevent CLS.',
+            ),
             _ApiRow(
-                prop: 'fit',
-                type: 'BoxFit?',
-                notes:
-                    'Mapped to CSS object-fit on the <img> element.'),
+              prop: 'fit',
+              type: 'BoxFit?',
+              notes: 'Mapped to CSS object-fit on the <img> element.',
+            ),
             _ApiRow(
-                prop: 'alignment',
-                type: 'Alignment',
-                notes: 'Mapped to CSS object-position.'),
+              prop: 'alignment',
+              type: 'Alignment',
+              notes: 'Mapped to CSS object-position.',
+            ),
             _ApiRow(
-                prop: 'srcset',
-                type: 'String?',
-                notes: 'Responsive image sources, e.g. "img-2x.jpg 2x".'),
+              prop: 'srcset',
+              type: 'String?',
+              notes: 'Responsive image sources, e.g. "img-2x.jpg 2x".',
+            ),
             _ApiRow(
-                prop: 'sizes',
-                type: 'String?',
-                notes:
-                    'Media conditions for srcset width selection.'),
+              prop: 'sizes',
+              type: 'String?',
+              notes: 'Media conditions for srcset width selection.',
+            ),
             _ApiRow(
-                prop: 'loading',
-                type: 'WebImageLoadingMode',
-                notes: 'eager (default) or lazy.'),
+              prop: 'loading',
+              type: 'WebImageLoadingMode',
+              notes: 'eager (default) or lazy.',
+            ),
             _ApiRow(
-                prop: 'decoding',
-                type: 'WebImageDecoding',
-                notes: 'sync, async, or auto.'),
+              prop: 'decoding',
+              type: 'WebImageDecoding',
+              notes: 'sync, async, or auto.',
+            ),
             _ApiRow(
-                prop: 'fetchPriority',
-                type: 'WebImageFetchPriority',
-                notes: 'high, low, or auto.'),
+              prop: 'fetchPriority',
+              type: 'WebImageFetchPriority',
+              notes: 'high, low, or auto.',
+            ),
             _ApiRow(
-                prop: 'referrerPolicy',
-                type: 'String?',
-                notes: 'Referrer header policy string.'),
+              prop: 'referrerPolicy',
+              type: 'String?',
+              notes: 'Referrer header policy string.',
+            ),
           ],
         ),
       ],
@@ -2471,25 +2703,31 @@ class _PitfallCard extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             decoration: BoxDecoration(
               color: color.withAlpha(20),
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(13)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(13),
+              ),
             ),
             child: Row(
               children: [
                 CircleAvatar(
                   backgroundColor: color,
                   radius: 14,
-                  child: Text(number,
-                      style: const TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold)),
+                  child: Text(
+                    number,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
                 const SizedBox(width: 10),
                 Icon(icon, color: color, size: 20),
                 const SizedBox(width: 8),
                 Expanded(
-                  child: Text(title,
-                      style: tt.titleSmall
-                          ?.copyWith(fontWeight: FontWeight.bold)),
+                  child: Text(
+                    title,
+                    style: tt.titleSmall?.copyWith(fontWeight: FontWeight.bold),
+                  ),
                 ),
               ],
             ),
@@ -2499,17 +2737,23 @@ class _PitfallCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Problem',
-                    style: tt.labelSmall?.copyWith(
-                        color: Colors.red.shade700,
-                        fontWeight: FontWeight.bold)),
+                Text(
+                  'Problem',
+                  style: tt.labelSmall?.copyWith(
+                    color: Colors.red.shade700,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 const SizedBox(height: 4),
                 Text(problem, style: tt.bodySmall),
                 const SizedBox(height: 10),
-                Text('Solution',
-                    style: tt.labelSmall?.copyWith(
-                        color: Colors.green.shade700,
-                        fontWeight: FontWeight.bold)),
+                Text(
+                  'Solution',
+                  style: tt.labelSmall?.copyWith(
+                    color: Colors.green.shade700,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 const SizedBox(height: 4),
                 Text(solution, style: tt.bodySmall),
                 const SizedBox(height: 10),
@@ -2520,9 +2764,10 @@ class _PitfallCard extends StatelessWidget {
                     color: cs.surfaceContainerHighest,
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Text(codeSnippet,
-                      style: tt.bodySmall
-                          ?.copyWith(fontFamily: 'monospace')),
+                  child: Text(
+                    codeSnippet,
+                    style: tt.bodySmall?.copyWith(fontFamily: 'monospace'),
+                  ),
                 ),
               ],
             ),
@@ -2551,11 +2796,14 @@ class _CorsErrorWidget extends StatelessWidget {
           children: [
             const Icon(Icons.broken_image, color: Colors.red, size: 30),
             const SizedBox(height: 4),
-            Text('[SIMULATED] CORS error — image blocked',
-                style: TextStyle(color: Colors.red.shade700, fontSize: 12)),
             Text(
-                'Missing Access-Control-Allow-Origin header',
-                style: TextStyle(color: Colors.red.shade400, fontSize: 11)),
+              '[SIMULATED] CORS error — image blocked',
+              style: TextStyle(color: Colors.red.shade700, fontSize: 12),
+            ),
+            Text(
+              'Missing Access-Control-Allow-Origin header',
+              style: TextStyle(color: Colors.red.shade400, fontSize: 11),
+            ),
           ],
         ),
       ),
@@ -2581,10 +2829,14 @@ class _CorsOkWidget extends StatelessWidget {
           children: [
             const Icon(Icons.image, color: Colors.green, size: 30),
             const SizedBox(height: 4),
-            Text('[SIMULATED] Image loaded successfully',
-                style: TextStyle(color: Colors.green.shade700, fontSize: 12)),
-            Text('CORS headers present — browser allowed load',
-                style: TextStyle(color: Colors.green.shade400, fontSize: 11)),
+            Text(
+              '[SIMULATED] Image loaded successfully',
+              style: TextStyle(color: Colors.green.shade700, fontSize: 12),
+            ),
+            Text(
+              'CORS headers present — browser allowed load',
+              style: TextStyle(color: Colors.green.shade400, fontSize: 11),
+            ),
           ],
         ),
       ),
@@ -2596,8 +2848,7 @@ class _ApiRow {
   final String prop;
   final String type;
   final String notes;
-  const _ApiRow(
-      {required this.prop, required this.type, required this.notes});
+  const _ApiRow({required this.prop, required this.type, required this.notes});
 }
 
 class _ApiCheatSheet extends StatelessWidget {
@@ -2618,30 +2869,36 @@ class _ApiCheatSheet extends StatelessWidget {
         children: [
           // Header row
           Container(
-            padding:
-                const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
             decoration: BoxDecoration(
               color: cs.surfaceContainerHighest,
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(11)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(11),
+              ),
             ),
             child: Row(
               children: [
                 Expanded(
-                    flex: 3,
-                    child: Text('Property',
-                        style: tt.labelSmall
-                            ?.copyWith(fontWeight: FontWeight.bold))),
+                  flex: 3,
+                  child: Text(
+                    'Property',
+                    style: tt.labelSmall?.copyWith(fontWeight: FontWeight.bold),
+                  ),
+                ),
                 Expanded(
-                    flex: 3,
-                    child: Text('Type',
-                        style: tt.labelSmall
-                            ?.copyWith(fontWeight: FontWeight.bold))),
+                  flex: 3,
+                  child: Text(
+                    'Type',
+                    style: tt.labelSmall?.copyWith(fontWeight: FontWeight.bold),
+                  ),
+                ),
                 Expanded(
-                    flex: 5,
-                    child: Text('Notes',
-                        style: tt.labelSmall
-                            ?.copyWith(fontWeight: FontWeight.bold))),
+                  flex: 5,
+                  child: Text(
+                    'Notes',
+                    style: tt.labelSmall?.copyWith(fontWeight: FontWeight.bold),
+                  ),
+                ),
               ],
             ),
           ),
@@ -2651,27 +2908,35 @@ class _ApiCheatSheet extends StatelessWidget {
             final bg = i.isOdd ? cs.surface : cs.surfaceContainerLowest;
             return Container(
               color: bg,
-              padding:
-                  const EdgeInsets.symmetric(vertical: 7, horizontal: 12),
+              padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 12),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
-                      flex: 3,
-                      child: Text(row.prop,
-                          style: tt.bodySmall?.copyWith(
-                              fontFamily: 'monospace',
-                              color: cs.primary,
-                              fontWeight: FontWeight.bold))),
+                    flex: 3,
+                    child: Text(
+                      row.prop,
+                      style: tt.bodySmall?.copyWith(
+                        fontFamily: 'monospace',
+                        color: cs.primary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                   Expanded(
-                      flex: 3,
-                      child: Text(row.type,
-                          style: tt.bodySmall?.copyWith(
-                              fontFamily: 'monospace',
-                              color: Colors.purple))),
+                    flex: 3,
+                    child: Text(
+                      row.type,
+                      style: tt.bodySmall?.copyWith(
+                        fontFamily: 'monospace',
+                        color: Colors.purple,
+                      ),
+                    ),
+                  ),
                   Expanded(
-                      flex: 5,
-                      child: Text(row.notes, style: tt.bodySmall)),
+                    flex: 5,
+                    child: Text(row.notes, style: tt.bodySmall),
+                  ),
                 ],
               ),
             );
@@ -2696,9 +2961,9 @@ class _SectionHeader extends StatelessWidget {
     return Text(
       text,
       style: Theme.of(context).textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.bold,
-            color: cs.primary,
-          ),
+        fontWeight: FontWeight.bold,
+        color: cs.primary,
+      ),
     );
   }
 }
@@ -2768,18 +3033,23 @@ class _CompactCompareCard extends StatelessWidget {
         children: [
           Icon(icon, size: 24),
           const SizedBox(height: 6),
-          Text(label, style: tt.titleSmall?.copyWith(fontWeight: FontWeight.bold)),
+          Text(
+            label,
+            style: tt.titleSmall?.copyWith(fontWeight: FontWeight.bold),
+          ),
           const SizedBox(height: 8),
-          ...points.map((p) => Padding(
-                padding: const EdgeInsets.only(bottom: 4),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text('• ', style: TextStyle(fontSize: 11)),
-                    Expanded(child: Text(p, style: tt.bodySmall)),
-                  ],
-                ),
-              )),
+          ...points.map(
+            (p) => Padding(
+              padding: const EdgeInsets.only(bottom: 4),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text('• ', style: TextStyle(fontSize: 11)),
+                  Expanded(child: Text(p, style: tt.bodySmall)),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -2790,8 +3060,11 @@ class _BulletRow extends StatelessWidget {
   final IconData icon;
   final Color color;
   final String text;
-  const _BulletRow(
-      {required this.icon, required this.color, required this.text});
+  const _BulletRow({
+    required this.icon,
+    required this.color,
+    required this.text,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -2801,8 +3074,8 @@ class _BulletRow extends StatelessWidget {
         Icon(icon, size: 16, color: color),
         const SizedBox(width: 8),
         Expanded(
-            child:
-                Text(text, style: Theme.of(context).textTheme.bodySmall)),
+          child: Text(text, style: Theme.of(context).textTheme.bodySmall),
+        ),
       ],
     );
   }
@@ -2819,9 +3092,9 @@ class _CodeLine extends StatelessWidget {
       child: Text(
         text,
         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              fontFamily: 'monospace',
-              color: Theme.of(context).colorScheme.onSurfaceVariant,
-            ),
+          fontFamily: 'monospace',
+          color: Theme.of(context).colorScheme.onSurfaceVariant,
+        ),
       ),
     );
   }
@@ -2858,20 +3131,24 @@ class _ArchLayerCard extends StatelessWidget {
           CircleAvatar(
             backgroundColor: border,
             radius: 13,
-            child: Text(number,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12)),
+            child: Text(
+              number,
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 12,
+              ),
+            ),
           ),
           const SizedBox(width: 10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title,
-                    style: tt.titleSmall
-                        ?.copyWith(fontWeight: FontWeight.bold)),
+                Text(
+                  title,
+                  style: tt.titleSmall?.copyWith(fontWeight: FontWeight.bold),
+                ),
                 const SizedBox(height: 4),
                 Text(description, style: tt.bodySmall),
               ],

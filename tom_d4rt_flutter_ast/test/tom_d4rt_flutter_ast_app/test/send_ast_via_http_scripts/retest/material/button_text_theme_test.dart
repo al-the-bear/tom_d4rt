@@ -138,11 +138,7 @@ class ButtonTextThemeDemoApp extends StatelessWidget {
       padding: const EdgeInsets.all(28.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[
-            scheme.primary,
-            scheme.tertiary,
-            scheme.secondary,
-          ],
+          colors: <Color>[scheme.primary, scheme.tertiary, scheme.secondary],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -189,10 +185,7 @@ class ButtonTextThemeDemoApp extends StatelessWidget {
                     SizedBox(height: 4.0),
                     Text(
                       'Legacy enum that drove RaisedButton text color.',
-                      style: TextStyle(
-                        color: Colors.white70,
-                        fontSize: 14.0,
-                      ),
+                      style: TextStyle(color: Colors.white70, fontSize: 14.0),
                     ),
                   ],
                 ),
@@ -223,8 +216,13 @@ class ButtonTextThemeDemoApp extends StatelessWidget {
   Widget _buildSection1(ColorScheme scheme) {
     print('=== Section 1: Legacy Lineage Map ===');
 
-    Widget lineageCard(IconData icon, String title, String subtitle,
-        Color color, bool deprecated) {
+    Widget lineageCard(
+      IconData icon,
+      String title,
+      String subtitle,
+      Color color,
+      bool deprecated,
+    ) {
       return Container(
         width: 160.0,
         padding: const EdgeInsets.all(14.0),
@@ -243,7 +241,9 @@ class ButtonTextThemeDemoApp extends StatelessWidget {
                 if (deprecated)
                   Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 6.0, vertical: 2.0),
+                      horizontal: 6.0,
+                      vertical: 2.0,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.red.withValues(alpha: 0.15),
                       borderRadius: BorderRadius.circular(4.0),
@@ -271,10 +271,7 @@ class ButtonTextThemeDemoApp extends StatelessWidget {
             const SizedBox(height: 4.0),
             Text(
               subtitle,
-              style: TextStyle(
-                fontSize: 11.0,
-                color: scheme.onSurfaceVariant,
-              ),
+              style: TextStyle(fontSize: 11.0, color: scheme.onSurfaceVariant),
             ),
           ],
         ),
@@ -282,32 +279,46 @@ class ButtonTextThemeDemoApp extends StatelessWidget {
     }
 
     Widget arrow() => Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4.0),
-          child: Icon(
-            Icons.arrow_forward,
-            color: scheme.outline,
-            size: 22.0,
-          ),
-        );
+      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+      child: Icon(Icons.arrow_forward, color: scheme.outline, size: 22.0),
+    );
 
     final Widget pipeline = SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          lineageCard(Icons.touch_app, 'RaisedButton',
-              'Material 1/2 elevated button widget.', Colors.indigo, true),
+          lineageCard(
+            Icons.touch_app,
+            'RaisedButton',
+            'Material 1/2 elevated button widget.',
+            Colors.indigo,
+            true,
+          ),
           arrow(),
-          lineageCard(Icons.layers, 'ButtonTheme',
-              'InheritedWidget that owns button defaults.',
-              Colors.deepPurple, true),
+          lineageCard(
+            Icons.layers,
+            'ButtonTheme',
+            'InheritedWidget that owns button defaults.',
+            Colors.deepPurple,
+            true,
+          ),
           arrow(),
-          lineageCard(Icons.format_color_text, 'ButtonTextTheme',
-              'Enum picking the text color strategy.', Colors.teal, true),
+          lineageCard(
+            Icons.format_color_text,
+            'ButtonTextTheme',
+            'Enum picking the text color strategy.',
+            Colors.teal,
+            true,
+          ),
           arrow(),
-          lineageCard(Icons.brush, 'ButtonStyle',
-              'M3 replacement: WidgetStateProperty values.',
-              Colors.green, false),
+          lineageCard(
+            Icons.brush,
+            'ButtonStyle',
+            'M3 replacement: WidgetStateProperty values.',
+            Colors.green,
+            false,
+          ),
         ],
       ),
     );
@@ -332,8 +343,7 @@ class ButtonTextThemeDemoApp extends StatelessWidget {
           ),
           child: Row(
             children: <Widget>[
-              Icon(Icons.info_outline,
-                  color: scheme.primary, size: 22.0),
+              Icon(Icons.info_outline, color: scheme.primary, size: 22.0),
               const SizedBox(width: 12.0),
               Expanded(
                 child: Text(
@@ -380,11 +390,7 @@ class ButtonTextThemeDemoApp extends StatelessWidget {
               'Each enum value, its semantic role and the color it resolved to.',
         ),
         const SizedBox(height: 14.0),
-        Wrap(
-          spacing: 14.0,
-          runSpacing: 14.0,
-          children: cards,
-        ),
+        Wrap(spacing: 14.0, runSpacing: 14.0, children: cards),
       ],
     );
   }
@@ -519,10 +525,7 @@ class ButtonTextThemeDemoApp extends StatelessWidget {
         Expanded(
           child: Text(
             value,
-            style: TextStyle(
-              fontSize: 11.5,
-              color: scheme.onSurface,
-            ),
+            style: TextStyle(fontSize: 11.5, color: scheme.onSurface),
           ),
         ),
       ],
@@ -579,7 +582,9 @@ class ButtonTextThemeDemoApp extends StatelessWidget {
             children: <Widget>[
               Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 10.0, vertical: 4.0),
+                  horizontal: 10.0,
+                  vertical: 4.0,
+                ),
                 decoration: BoxDecoration(
                   color: fact.swatch.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(6.0),
@@ -704,14 +709,14 @@ class ButtonTextThemeDemoApp extends StatelessWidget {
     final Color resolved = _modernForeground(fact.value, scheme);
     final WidgetStateProperty<Color?> fgProp =
         WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) {
-      if (states.contains(WidgetState.disabled)) {
-        return scheme.onSurface.withValues(alpha: 0.38);
-      }
-      if (states.contains(WidgetState.pressed)) {
-        return resolved.withValues(alpha: 0.85);
-      }
-      return resolved;
-    });
+          if (states.contains(WidgetState.disabled)) {
+            return scheme.onSurface.withValues(alpha: 0.38);
+          }
+          if (states.contains(WidgetState.pressed)) {
+            return resolved.withValues(alpha: 0.85);
+          }
+          return resolved;
+        });
     final ButtonStyle elevatedStyle = ButtonStyle(
       backgroundColor: WidgetStatePropertyAll<Color>(fact.swatch),
       foregroundColor: fgProp,
@@ -729,10 +734,7 @@ class ButtonTextThemeDemoApp extends StatelessWidget {
       decoration: BoxDecoration(
         color: scheme.surfaceContainerLow,
         borderRadius: BorderRadius.circular(14.0),
-        border: Border.all(
-          color: scheme.outlineVariant,
-          width: 1.0,
-        ),
+        border: Border.all(color: scheme.outlineVariant, width: 1.0),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -741,7 +743,9 @@ class ButtonTextThemeDemoApp extends StatelessWidget {
             children: <Widget>[
               Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 10.0, vertical: 4.0),
+                  horizontal: 10.0,
+                  vertical: 4.0,
+                ),
                 decoration: BoxDecoration(
                   color: scheme.primary.withValues(alpha: 0.10),
                   borderRadius: BorderRadius.circular(6.0),
@@ -757,8 +761,7 @@ class ButtonTextThemeDemoApp extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              Icon(Icons.auto_awesome,
-                  color: scheme.tertiary, size: 18.0),
+              Icon(Icons.auto_awesome, color: scheme.tertiary, size: 18.0),
             ],
           ),
           const SizedBox(height: 14.0),
@@ -847,32 +850,53 @@ class ButtonTextThemeDemoApp extends StatelessWidget {
         2: FlexColumnWidth(1.0),
         3: FlexColumnWidth(1.0),
       },
-      border: TableBorder.all(
-        color: scheme.outlineVariant,
-        width: 1.0,
-      ),
+      border: TableBorder.all(color: scheme.outlineVariant, width: 1.0),
       children: <TableRow>[
         header,
         body('Text color', 'black/white', 'accent', 'on-fill contrast'),
         body('Adapts to', 'brightness', 'theme accent', 'fill luminance'),
-        body('Best for', 'neutral text', 'CTA in FlatButton',
-            'RaisedButton labels'),
+        body(
+          'Best for',
+          'neutral text',
+          'CTA in FlatButton',
+          'RaisedButton labels',
+        ),
         body('M3 mapping', 'onSurface', 'secondary', 'onPrimary'),
         body('State-aware', 'no', 'no', 'no'),
       ],
     );
 
     final List<Widget> matrixRows = <Widget>[
-      _decisionRow(scheme, 'Neutral text on a card', 'normal',
-          'ColorScheme.onSurface'),
-      _decisionRow(scheme, 'Call-to-action link', 'accent',
-          'ColorScheme.secondary'),
-      _decisionRow(scheme, 'Solid filled button', 'primary',
-          'ColorScheme.onPrimary'),
-      _decisionRow(scheme, 'Pressed state tint', 'n/a',
-          'WidgetStateProperty resolver'),
-      _decisionRow(scheme, 'Disabled label', 'n/a',
-          'onSurface.withValues(alpha: 0.38)'),
+      _decisionRow(
+        scheme,
+        'Neutral text on a card',
+        'normal',
+        'ColorScheme.onSurface',
+      ),
+      _decisionRow(
+        scheme,
+        'Call-to-action link',
+        'accent',
+        'ColorScheme.secondary',
+      ),
+      _decisionRow(
+        scheme,
+        'Solid filled button',
+        'primary',
+        'ColorScheme.onPrimary',
+      ),
+      _decisionRow(
+        scheme,
+        'Pressed state tint',
+        'n/a',
+        'WidgetStateProperty resolver',
+      ),
+      _decisionRow(
+        scheme,
+        'Disabled label',
+        'n/a',
+        'onSurface.withValues(alpha: 0.38)',
+      ),
     ];
 
     return Column(
@@ -885,10 +909,7 @@ class ButtonTextThemeDemoApp extends StatelessWidget {
               'Side-by-side semantics and a quick "which one" cheat-sheet.',
         ),
         const SizedBox(height: 14.0),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(12.0),
-          child: table,
-        ),
+        ClipRRect(borderRadius: BorderRadius.circular(12.0), child: table),
         const SizedBox(height: 20.0),
         Container(
           padding: const EdgeInsets.all(14.0),
@@ -901,8 +922,11 @@ class ButtonTextThemeDemoApp extends StatelessWidget {
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  Icon(Icons.fact_check_outlined,
-                      color: scheme.primary, size: 20.0),
+                  Icon(
+                    Icons.fact_check_outlined,
+                    color: scheme.primary,
+                    size: 20.0,
+                  ),
                   const SizedBox(width: 8.0),
                   Text(
                     'Decision matrix',
@@ -937,8 +961,12 @@ class ButtonTextThemeDemoApp extends StatelessWidget {
     );
   }
 
-  Widget _decisionRow(ColorScheme scheme, String scenario, String enumValue,
-      String modern) {
+  Widget _decisionRow(
+    ColorScheme scheme,
+    String scenario,
+    String enumValue,
+    String modern,
+  ) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0),
       child: Row(
@@ -953,8 +981,10 @@ class ButtonTextThemeDemoApp extends StatelessWidget {
           Expanded(
             flex: 2,
             child: Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 6.0,
+                vertical: 2.0,
+              ),
               decoration: BoxDecoration(
                 color: scheme.secondaryContainer,
                 borderRadius: BorderRadius.circular(4.0),
@@ -1077,8 +1107,13 @@ class ButtonTextThemeDemoApp extends StatelessWidget {
     );
   }
 
-  Widget _recipeCard(ColorScheme scheme, String title, String before,
-      String after, String narrative) {
+  Widget _recipeCard(
+    ColorScheme scheme,
+    String title,
+    String before,
+    String after,
+    String narrative,
+  ) {
     return Container(
       margin: const EdgeInsets.only(bottom: 14.0),
       padding: const EdgeInsets.all(16.0),
@@ -1093,8 +1128,10 @@ class ButtonTextThemeDemoApp extends StatelessWidget {
           Row(
             children: <Widget>[
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8.0,
+                  vertical: 3.0,
+                ),
                 decoration: BoxDecoration(
                   color: scheme.tertiaryContainer,
                   borderRadius: BorderRadius.circular(6.0),
@@ -1123,11 +1160,19 @@ class ButtonTextThemeDemoApp extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 12.0),
-          _codeBlock('// Before (legacy)', before, Colors.red.shade300,
-              const Color(0xFF1B1B1F)),
+          _codeBlock(
+            '// Before (legacy)',
+            before,
+            Colors.red.shade300,
+            const Color(0xFF1B1B1F),
+          ),
           const SizedBox(height: 10.0),
-          _codeBlock('// After (Material 3)', after, Colors.green.shade300,
-              const Color(0xFF1B1B1F)),
+          _codeBlock(
+            '// After (Material 3)',
+            after,
+            Colors.green.shade300,
+            const Color(0xFF1B1B1F),
+          ),
           const SizedBox(height: 12.0),
           Text(
             narrative,
@@ -1142,8 +1187,7 @@ class ButtonTextThemeDemoApp extends StatelessWidget {
     );
   }
 
-  Widget _codeBlock(
-      String caption, String code, Color codeColor, Color bg) {
+  Widget _codeBlock(String caption, String code, Color codeColor, Color bg) {
     return Container(
       padding: const EdgeInsets.all(12.0),
       decoration: BoxDecoration(
@@ -1184,25 +1228,37 @@ class ButtonTextThemeDemoApp extends StatelessWidget {
     print('=== Section 7: Pitfalls and Glossary ===');
 
     final List<Widget> pitfalls = <Widget>[
-      _pitfall(scheme, Icons.warning_amber,
-          'Mixing legacy and modern buttons in the same theme.',
-          'A ButtonTheme ancestor still affects RaisedButton even after you '
-              'migrate the rest to ElevatedButton. Remove the ButtonTheme to '
-              'avoid surprises.'),
-      _pitfall(scheme, Icons.warning_amber,
-          'Forgetting state-aware colors.',
-          'ButtonTextTheme had no notion of pressed / hovered. With '
-              'WidgetStateProperty you must add resolvers for each state you '
-              'care about, otherwise the M3 defaults win.'),
-      _pitfall(scheme, Icons.warning_amber,
-          'Using accentColor instead of secondary.',
-          'ThemeData.accentColor was removed. The migration target is '
-              'ColorScheme.secondary inside the active ColorScheme.'),
-      _pitfall(scheme, Icons.warning_amber,
-          'Manual brightness calculation.',
-          'ThemeData.estimateBrightnessForColor still exists but rarely '
-              'needs to be called manually: M3 picks the right onPrimary for '
-              'you when you seed the ColorScheme.'),
+      _pitfall(
+        scheme,
+        Icons.warning_amber,
+        'Mixing legacy and modern buttons in the same theme.',
+        'A ButtonTheme ancestor still affects RaisedButton even after you '
+            'migrate the rest to ElevatedButton. Remove the ButtonTheme to '
+            'avoid surprises.',
+      ),
+      _pitfall(
+        scheme,
+        Icons.warning_amber,
+        'Forgetting state-aware colors.',
+        'ButtonTextTheme had no notion of pressed / hovered. With '
+            'WidgetStateProperty you must add resolvers for each state you '
+            'care about, otherwise the M3 defaults win.',
+      ),
+      _pitfall(
+        scheme,
+        Icons.warning_amber,
+        'Using accentColor instead of secondary.',
+        'ThemeData.accentColor was removed. The migration target is '
+            'ColorScheme.secondary inside the active ColorScheme.',
+      ),
+      _pitfall(
+        scheme,
+        Icons.warning_amber,
+        'Manual brightness calculation.',
+        'ThemeData.estimateBrightnessForColor still exists but rarely '
+            'needs to be called manually: M3 picks the right onPrimary for '
+            'you when you seed the ColorScheme.',
+      ),
     ];
 
     final Map<String, String> glossary = <String, String>{
@@ -1240,8 +1296,7 @@ class ButtonTextThemeDemoApp extends StatelessWidget {
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  Icon(Icons.menu_book,
-                      color: scheme.primary, size: 22.0),
+                  Icon(Icons.menu_book, color: scheme.primary, size: 22.0),
                   const SizedBox(width: 8.0),
                   Text(
                     'Glossary',
@@ -1293,7 +1348,11 @@ class ButtonTextThemeDemoApp extends StatelessWidget {
   }
 
   Widget _pitfall(
-      ColorScheme scheme, IconData icon, String title, String body) {
+    ColorScheme scheme,
+    IconData icon,
+    String title,
+    String body,
+  ) {
     return Container(
       margin: const EdgeInsets.only(bottom: 10.0),
       padding: const EdgeInsets.all(12.0),
@@ -1348,10 +1407,7 @@ class ButtonTextThemeDemoApp extends StatelessWidget {
       padding: const EdgeInsets.all(18.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[
-            scheme.primaryContainer,
-            scheme.tertiaryContainer,
-          ],
+          colors: <Color>[scheme.primaryContainer, scheme.tertiaryContainer],
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
         ),
@@ -1359,8 +1415,11 @@ class ButtonTextThemeDemoApp extends StatelessWidget {
       ),
       child: Row(
         children: <Widget>[
-          Icon(Icons.check_circle,
-              color: scheme.onPrimaryContainer, size: 26.0),
+          Icon(
+            Icons.check_circle,
+            color: scheme.onPrimaryContainer,
+            size: 26.0,
+          ),
           const SizedBox(width: 12.0),
           Expanded(
             child: Text(

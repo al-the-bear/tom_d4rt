@@ -305,10 +305,7 @@ class _PrivateChip extends StatelessWidget {
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(999.0),
-        border: Border.all(
-          color: color.withValues(alpha: 0.30),
-          width: 1.0,
-        ),
+        border: Border.all(color: color.withValues(alpha: 0.30), width: 1.0),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -338,10 +335,7 @@ class _PrivateTable extends StatelessWidget {
   final List<List<String>> rows;
   final Color headerColor;
 
-  const _PrivateTable({
-    required this.rows,
-    this.headerColor = _kAccentBlue,
-  });
+  const _PrivateTable({required this.rows, this.headerColor = _kAccentBlue});
 
   @override
   Widget build(BuildContext context) {
@@ -415,10 +409,7 @@ class _PrivateCodeListing extends StatelessWidget {
   final String code;
   final String? caption;
 
-  const _PrivateCodeListing({
-    required this.code,
-    this.caption,
-  });
+  const _PrivateCodeListing({required this.code, this.caption});
 
   @override
   Widget build(BuildContext context) {
@@ -583,11 +574,7 @@ Widget _buildHero() {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: [
-          Color(0xFF007AFF),
-          Color(0xFF5856D6),
-          Color(0xFFAF52DE),
-        ],
+        colors: [Color(0xFF007AFF), Color(0xFF5856D6), Color(0xFFAF52DE)],
       ),
       borderRadius: BorderRadius.circular(20.0),
       boxShadow: [
@@ -821,10 +808,7 @@ Widget _buildBoxedStyled() {
             unselectedColor: CupertinoColors.white,
             borderColor: _kAccentPink,
             pressedColor: _kAccentPink.withValues(alpha: 0.18),
-            padding: const EdgeInsets.symmetric(
-              horizontal: 4.0,
-              vertical: 4.0,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 4.0),
             children: const <int, Widget>{
               0: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
@@ -1046,10 +1030,7 @@ Widget _buildSlidingStyled() {
   );
 }
 
-Widget _buildMatrixCell({
-  required String selected,
-  required Color accent,
-}) {
+Widget _buildMatrixCell({required String selected, required Color accent}) {
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 6.0),
     padding: const EdgeInsets.all(10.0),
@@ -1066,10 +1047,7 @@ Widget _buildMatrixCell({
             Container(
               width: 8.0,
               height: 8.0,
-              decoration: BoxDecoration(
-                color: accent,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
             ),
             const SizedBox(width: 8.0),
             _PrivateText(
@@ -1189,22 +1167,10 @@ Widget _buildComparison() {
       const _PrivateTable(
         rows: [
           ['Aspect', 'Boxed vs Sliding'],
-          [
-            'Era',
-            'Boxed: iOS 12-style. Sliding: iOS 13+ style.',
-          ],
-          [
-            'Selection cue',
-            'Boxed: filled segment. Sliding: floating thumb.',
-          ],
-          [
-            'Animation',
-            'Boxed: cross-fade. Sliding: thumb position animates.',
-          ],
-          [
-            'Border',
-            'Boxed: visible borderColor. Sliding: no outer border.',
-          ],
+          ['Era', 'Boxed: iOS 12-style. Sliding: iOS 13+ style.'],
+          ['Selection cue', 'Boxed: filled segment. Sliding: floating thumb.'],
+          ['Animation', 'Boxed: cross-fade. Sliding: thumb position animates.'],
+          ['Border', 'Boxed: visible borderColor. Sliding: no outer border.'],
           [
             'Background',
             'Boxed: unselectedColor per segment. Sliding: a single track.',
@@ -1213,10 +1179,7 @@ Widget _buildComparison() {
             'Press feedback',
             'Boxed: pressedColor tint. Sliding: subtle thumb scale.',
           ],
-          [
-            'Disabled',
-            'Both expose disabledChildren as a Set<T>.',
-          ],
+          ['Disabled', 'Both expose disabledChildren as a Set<T>.'],
           [
             'Recommended',
             'Sliding for new apps; boxed only if you must match legacy.',
@@ -1253,10 +1216,7 @@ Widget _buildNavBarUsage() {
               leading: CupertinoButton(
                 padding: EdgeInsets.zero,
                 onPressed: () {},
-                child: const Icon(
-                  CupertinoIcons.back,
-                  color: _kAccentBlue,
-                ),
+                child: const Icon(CupertinoIcons.back, color: _kAccentBlue),
               ),
               middle: SizedBox(
                 width: 220.0,
@@ -1291,17 +1251,11 @@ Widget _buildNavBarUsage() {
               trailing: CupertinoButton(
                 padding: EdgeInsets.zero,
                 onPressed: () {},
-                child: const Icon(
-                  CupertinoIcons.add,
-                  color: _kAccentBlue,
-                ),
+                child: const Icon(CupertinoIcons.add, color: _kAccentBlue),
               ),
               backgroundColor: _kCardBg,
               border: const Border(
-                bottom: BorderSide(
-                  color: _kCardBorder,
-                  width: 0.5,
-                ),
+                bottom: BorderSide(color: _kCardBorder, width: 0.5),
               ),
             ),
             Container(
@@ -1330,13 +1284,15 @@ Widget _buildNavBarUsage() {
       ),
       const SizedBox(height: 12.0),
       const _PrivateBullet(
-        text: 'Wrap the control in a SizedBox to constrain its width inside '
+        text:
+            'Wrap the control in a SizedBox to constrain its width inside '
             'the nav bar middle slot.',
         icon: CupertinoIcons.info_circle_fill,
         color: _kAccentBlue,
       ),
       const _PrivateBullet(
-        text: 'Use CupertinoNavigationBar for static height; pair with '
+        text:
+            'Use CupertinoNavigationBar for static height; pair with '
             'CupertinoSliverNavigationBar if you want a large title that '
             'collapses.',
         icon: CupertinoIcons.info_circle_fill,
@@ -1410,10 +1366,7 @@ CupertinoSegmentedControl<int>(
         height: 1.45,
       ),
       const SizedBox(height: 12.0),
-      const _PrivateCodeListing(
-        code: code,
-        caption: 'segmented_examples.dart',
-      ),
+      const _PrivateCodeListing(code: code, caption: 'segmented_examples.dart'),
     ],
   );
 }
@@ -1423,41 +1376,47 @@ Widget _buildPitfalls() {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: const [
       _PrivateBullet(
-        text: 'children must contain at least 2 entries. Both classes assert '
+        text:
+            'children must contain at least 2 entries. Both classes assert '
             'this at construction; a single-segment control is a button.',
         icon: CupertinoIcons.exclamationmark_triangle_fill,
         color: _kAccentOrange,
       ),
       _PrivateBullet(
-        text: 'groupValue must either be null or be a key present in '
+        text:
+            'groupValue must either be null or be a key present in '
             'children. A non-null mismatched value is treated as none-selected '
             'and the thumb / fill disappears.',
         icon: CupertinoIcons.exclamationmark_triangle_fill,
         color: _kAccentOrange,
       ),
       _PrivateBullet(
-        text: 'Colors that come from CupertinoColors.* are dynamic — they '
+        text:
+            'Colors that come from CupertinoColors.* are dynamic — they '
             'resolve differently in light and dark mode. Pinning a const Color '
             'short-circuits that, so prefer system colors when possible.',
         icon: CupertinoIcons.moon_stars_fill,
         color: _kAccentBlue,
       ),
       _PrivateBullet(
-        text: 'onValueChanged on the boxed variant takes a non-nullable T, '
+        text:
+            'onValueChanged on the boxed variant takes a non-nullable T, '
             'while the sliding variant takes a nullable T?. Watch the '
             'signature when refactoring between the two.',
         icon: CupertinoIcons.exclamationmark_triangle_fill,
         color: _kAccentOrange,
       ),
       _PrivateBullet(
-        text: 'Wrapping a sliding control in a fixed SizedBox is the '
+        text:
+            'Wrapping a sliding control in a fixed SizedBox is the '
             'reliable way to control its width — by default it expands to '
             'fill its parent.',
         icon: CupertinoIcons.checkmark_circle_fill,
         color: _kAccentGreen,
       ),
       _PrivateBullet(
-        text: 'disabledChildren is a Set<T>, not a Map; use it to mark '
+        text:
+            'disabledChildren is a Set<T>, not a Map; use it to mark '
             'segments that should be visible but not selectable.',
         icon: CupertinoIcons.info_circle_fill,
         color: _kAccentTeal,
@@ -1649,8 +1608,7 @@ dynamic build(BuildContext context) {
               ),
               _PrivateSection(
                 title: 'Code listing',
-                subtitle:
-                    'Realistic constructor literals for both classes.',
+                subtitle: 'Realistic constructor literals for both classes.',
                 accent: _kAccentGreen,
                 icon: CupertinoIcons.chevron_left_slash_chevron_right,
                 child: _buildCodeListing(),

@@ -76,7 +76,11 @@ const double _radSm = 10.0;
 // ---------------------------------------------------------------------------
 // Shared typography helpers.
 // ---------------------------------------------------------------------------
-TextStyle _title(double size, {Color color = _ink, FontWeight w = FontWeight.w700}) {
+TextStyle _title(
+  double size, {
+  Color color = _ink,
+  FontWeight w = FontWeight.w700,
+}) {
   return TextStyle(
     fontSize: size,
     color: color,
@@ -86,13 +90,12 @@ TextStyle _title(double size, {Color color = _ink, FontWeight w = FontWeight.w70
   );
 }
 
-TextStyle _body(double size, {Color color = _mutedText, FontWeight w = FontWeight.w400}) {
-  return TextStyle(
-    fontSize: size,
-    color: color,
-    fontWeight: w,
-    height: 1.4,
-  );
+TextStyle _body(
+  double size, {
+  Color color = _mutedText,
+  FontWeight w = FontWeight.w400,
+}) {
+  return TextStyle(fontSize: size, color: color, fontWeight: w, height: 1.4);
 }
 
 TextStyle _mono(double size, {Color color = _ink}) {
@@ -263,7 +266,8 @@ class _HeroPipelinePainter extends CustomPainter {
 
     final TextPainter tp2 = TextPainter(
       text: TextSpan(
-        text: 'RawGestureDetector -> SemanticsGestureDelegate -> SemanticsNode -> Screen reader',
+        text:
+            'RawGestureDetector -> SemanticsGestureDelegate -> SemanticsNode -> Screen reader',
         style: TextStyle(
           color: _paper.withValues(alpha: 0.8),
           fontSize: 12,
@@ -310,7 +314,11 @@ class _HeroPipelinePainter extends CustomPainter {
   }
 
   void _drawPhone(Canvas canvas, Offset center, double w, double h) {
-    final Rect frame = Rect.fromCenter(center: center, width: w * 0.9, height: h);
+    final Rect frame = Rect.fromCenter(
+      center: center,
+      width: w * 0.9,
+      height: h,
+    );
     final RRect rr = RRect.fromRectAndRadius(frame, const Radius.circular(18));
     final Paint phone = Paint()..color = _paper.withValues(alpha: 0.92);
     canvas.drawRRect(rr, phone);
@@ -323,7 +331,10 @@ class _HeroPipelinePainter extends CustomPainter {
     // Screen area.
     final Rect screen = frame.deflate(8);
     final Paint scr = Paint()..color = _ink.withValues(alpha: 0.88);
-    canvas.drawRRect(RRect.fromRectAndRadius(screen, const Radius.circular(12)), scr);
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(screen, const Radius.circular(12)),
+      scr,
+    );
 
     // Stylised hand — just a teal circle with a finger stub to keep it simple.
     final Paint handFill = Paint()..color = _coral;
@@ -334,18 +345,23 @@ class _HeroPipelinePainter extends CustomPainter {
       ..strokeWidth = 5
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke;
-    canvas.drawLine(
-      hand,
-      Offset(hand.dx - 18, hand.dy - 22),
-      finger,
-    );
+    canvas.drawLine(hand, Offset(hand.dx - 18, hand.dy - 22), finger);
 
     _label(canvas, 'RawGestureDetector', center, h, 'Tap / long-press / drag');
   }
 
-  void _drawDelegateBox(Canvas canvas, Offset center, double w, double h,
-      {bool highlight = false}) {
-    final Rect frame = Rect.fromCenter(center: center, width: w * 0.95, height: h);
+  void _drawDelegateBox(
+    Canvas canvas,
+    Offset center,
+    double w,
+    double h, {
+    bool highlight = false,
+  }) {
+    final Rect frame = Rect.fromCenter(
+      center: center,
+      width: w * 0.95,
+      height: h,
+    );
     final RRect rr = RRect.fromRectAndRadius(frame, const Radius.circular(16));
     final Paint bg = Paint()
       ..shader = LinearGradient(
@@ -387,12 +403,21 @@ class _HeroPipelinePainter extends CustomPainter {
       canvas.drawPath(head, Paint()..color = _paper.withValues(alpha: 0.9));
     }
 
-    _label(canvas, 'SemanticsGestureDelegate', center, h,
-        'assignSemantics(renderObject)');
+    _label(
+      canvas,
+      'SemanticsGestureDelegate',
+      center,
+      h,
+      'assignSemantics(renderObject)',
+    );
   }
 
   void _drawSemanticsTree(Canvas canvas, Offset center, double w, double h) {
-    final Rect frame = Rect.fromCenter(center: center, width: w * 0.95, height: h);
+    final Rect frame = Rect.fromCenter(
+      center: center,
+      width: w * 0.95,
+      height: h,
+    );
     final RRect rr = RRect.fromRectAndRadius(frame, const Radius.circular(16));
     final Paint bg = Paint()..color = _paper.withValues(alpha: 0.96);
     canvas.drawRRect(rr, bg);
@@ -419,7 +444,11 @@ class _HeroPipelinePainter extends CustomPainter {
   }
 
   void _drawScreenReader(Canvas canvas, Offset center, double w, double h) {
-    final Rect frame = Rect.fromCenter(center: center, width: w * 0.95, height: h);
+    final Rect frame = Rect.fromCenter(
+      center: center,
+      width: w * 0.95,
+      height: h,
+    );
     final RRect rr = RRect.fromRectAndRadius(frame, const Radius.circular(16));
     final Paint bg = Paint()..color = _coral.withValues(alpha: 0.18);
     canvas.drawRRect(rr, bg);
@@ -456,7 +485,13 @@ class _HeroPipelinePainter extends CustomPainter {
     _label(canvas, 'Screen reader', center, h, 'VoiceOver / TalkBack');
   }
 
-  void _label(Canvas canvas, String title, Offset center, double h, String sub) {
+  void _label(
+    Canvas canvas,
+    String title,
+    Offset center,
+    double h,
+    String sub,
+  ) {
     final TextPainter tp = TextPainter(
       text: TextSpan(
         children: <InlineSpan>[
@@ -482,10 +517,7 @@ class _HeroPipelinePainter extends CustomPainter {
       textAlign: TextAlign.center,
       textDirection: TextDirection.ltr,
     )..layout(maxWidth: 160);
-    tp.paint(
-      canvas,
-      Offset(center.dx - tp.width / 2, center.dy + h * 0.5 + 8),
-    );
+    tp.paint(canvas, Offset(center.dx - tp.width / 2, center.dy + h * 0.5 + 8));
   }
 
   @override
@@ -529,9 +561,7 @@ class _SemanticsPipelineHeroState extends State<_SemanticsPipelineHero>
       builder: (BuildContext context, Widget? _) {
         return SizedBox(
           height: 260,
-          child: CustomPaint(
-            painter: _HeroPipelinePainter(pulse: _c.value),
-          ),
+          child: CustomPaint(painter: _HeroPipelinePainter(pulse: _c.value)),
         );
       },
     );
@@ -729,10 +759,7 @@ class _SceneCard extends StatelessWidget {
 // Semantic action list — small pill list showing exposed semantic actions.
 // ---------------------------------------------------------------------------
 class _SemanticActionPills extends StatelessWidget {
-  const _SemanticActionPills({
-    required this.exposed,
-    required this.all,
-  });
+  const _SemanticActionPills({required this.exposed, required this.all});
 
   final Set<String> exposed;
   final List<String> all;
@@ -744,10 +771,7 @@ class _SemanticActionPills extends StatelessWidget {
       runSpacing: 8,
       children: <Widget>[
         for (final String action in all)
-          _Pill(
-            label: action,
-            enabled: exposed.contains(action),
-          ),
+          _Pill(label: action, enabled: exposed.contains(action)),
       ],
     );
   }
@@ -837,9 +861,7 @@ class _GestureSurface extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           // Faint grid.
-          Positioned.fill(
-            child: CustomPaint(painter: _GridPainter()),
-          ),
+          Positioned.fill(child: CustomPaint(painter: _GridPainter())),
           AnimatedPositioned(
             duration: const Duration(milliseconds: 140),
             left: 100 + offset.dx,
@@ -852,17 +874,16 @@ class _GestureSurface extends StatelessWidget {
                 height: pressed ? 86 : 78,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: <Color>[
-                      _coral,
-                      _coral.withValues(alpha: 0.7),
-                    ],
+                    colors: <Color>[_coral, _coral.withValues(alpha: 0.7)],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
                   shape: BoxShape.circle,
                   boxShadow: <BoxShadow>[
                     BoxShadow(
-                      color: _coral.withValues(alpha: longPressing ? 0.75 : 0.4),
+                      color: _coral.withValues(
+                        alpha: longPressing ? 0.75 : 0.4,
+                      ),
                       blurRadius: longPressing ? 24 : 12,
                       spreadRadius: longPressing ? 6 : 0,
                     ),
@@ -934,38 +955,38 @@ Map<Type, GestureRecognizerFactory> _buildRecognizers({
   if (onTap != null) {
     map[TapGestureRecognizer] =
         GestureRecognizerFactoryWithHandlers<TapGestureRecognizer>(
-      () => TapGestureRecognizer(),
-      (TapGestureRecognizer instance) {
-        instance.onTap = onTap;
-      },
-    );
+          () => TapGestureRecognizer(),
+          (TapGestureRecognizer instance) {
+            instance.onTap = onTap;
+          },
+        );
   }
   if (onLongPress != null) {
     map[LongPressGestureRecognizer] =
         GestureRecognizerFactoryWithHandlers<LongPressGestureRecognizer>(
-      () => LongPressGestureRecognizer(),
-      (LongPressGestureRecognizer instance) {
-        instance.onLongPress = onLongPress;
-      },
-    );
+          () => LongPressGestureRecognizer(),
+          (LongPressGestureRecognizer instance) {
+            instance.onLongPress = onLongPress;
+          },
+        );
   }
   if (onHorizontalUpdate != null) {
     map[HorizontalDragGestureRecognizer] =
         GestureRecognizerFactoryWithHandlers<HorizontalDragGestureRecognizer>(
-      () => HorizontalDragGestureRecognizer(),
-      (HorizontalDragGestureRecognizer instance) {
-        instance.onUpdate = onHorizontalUpdate;
-      },
-    );
+          () => HorizontalDragGestureRecognizer(),
+          (HorizontalDragGestureRecognizer instance) {
+            instance.onUpdate = onHorizontalUpdate;
+          },
+        );
   }
   if (onVerticalUpdate != null) {
     map[VerticalDragGestureRecognizer] =
         GestureRecognizerFactoryWithHandlers<VerticalDragGestureRecognizer>(
-      () => VerticalDragGestureRecognizer(),
-      (VerticalDragGestureRecognizer instance) {
-        instance.onUpdate = onVerticalUpdate;
-      },
-    );
+          () => VerticalDragGestureRecognizer(),
+          (VerticalDragGestureRecognizer instance) {
+            instance.onUpdate = onVerticalUpdate;
+          },
+        );
   }
   return map;
 }
@@ -994,13 +1015,15 @@ class _DefaultDelegateCardState extends State<_DefaultDelegateCard> {
   bool _longPressing = false;
 
   void _log(String gesture, bool announced, String note) {
-    widget.onLog(_GestureLogEntry(
-      timestamp: DateTime.now(),
-      source: 'default',
-      gesture: gesture,
-      announced: announced,
-      note: note,
-    ));
+    widget.onLog(
+      _GestureLogEntry(
+        timestamp: DateTime.now(),
+        source: 'default',
+        gesture: gesture,
+        announced: announced,
+        note: note,
+      ),
+    );
   }
 
   @override
@@ -1027,15 +1050,21 @@ class _DefaultDelegateCardState extends State<_DefaultDelegateCard> {
         setState(() {
           _offset = Offset(_offset.dx + d.delta.dx, _offset.dy);
         });
-        _log('horizontalDrag', true,
-            'SemanticsAction.scrollLeft/scrollRight emitted');
+        _log(
+          'horizontalDrag',
+          true,
+          'SemanticsAction.scrollLeft/scrollRight emitted',
+        );
       },
       onVerticalUpdate: (DragUpdateDetails d) {
         setState(() {
           _offset = Offset(_offset.dx, _offset.dy + d.delta.dy);
         });
-        _log('verticalDrag', true,
-            'SemanticsAction.scrollUp/scrollDown emitted');
+        _log(
+          'verticalDrag',
+          true,
+          'SemanticsAction.scrollUp/scrollDown emitted',
+        );
       },
     );
 
@@ -1064,9 +1093,7 @@ class _DefaultDelegateCardState extends State<_DefaultDelegateCard> {
               decoration: BoxDecoration(
                 color: _teal.withValues(alpha: 0.08),
                 borderRadius: BorderRadius.circular(_radMd),
-                border: Border.all(
-                  color: _teal.withValues(alpha: 0.45),
-                ),
+                border: Border.all(color: _teal.withValues(alpha: 0.45)),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -1078,7 +1105,8 @@ class _DefaultDelegateCardState extends State<_DefaultDelegateCard> {
                   const SizedBox(height: 10),
                   Semantics(
                     container: true,
-                    label: 'Semantic actions exposed: tap, longPress, '
+                    label:
+                        'Semantic actions exposed: tap, longPress, '
                         'scrollLeft, scrollRight, scrollUp, scrollDown',
                     child: _SemanticActionPills(
                       all: const <String>[
@@ -1144,13 +1172,15 @@ class _ExcludedCardState extends State<_ExcludedCard> {
   bool _longPressing = false;
 
   void _log(String gesture, String note) {
-    widget.onLog(_GestureLogEntry(
-      timestamp: DateTime.now(),
-      source: 'excluded',
-      gesture: gesture,
-      announced: false,
-      note: note,
-    ));
+    widget.onLog(
+      _GestureLogEntry(
+        timestamp: DateTime.now(),
+        source: 'excluded',
+        gesture: gesture,
+        announced: false,
+        note: note,
+      ),
+    );
   }
 
   @override
@@ -1213,9 +1243,7 @@ class _ExcludedCardState extends State<_ExcludedCard> {
               decoration: BoxDecoration(
                 color: _coral.withValues(alpha: 0.08),
                 borderRadius: BorderRadius.circular(_radMd),
-                border: Border.all(
-                  color: _coral.withValues(alpha: 0.45),
-                ),
+                border: Border.all(color: _coral.withValues(alpha: 0.45)),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -1283,13 +1311,15 @@ class _AnnouncingDelegateCardState extends State<_AnnouncingDelegateCard> {
   bool _longPressing = false;
 
   void _log(String gesture, String note) {
-    widget.onLog(_GestureLogEntry(
-      timestamp: DateTime.now(),
-      source: 'announcing',
-      gesture: gesture,
-      announced: true,
-      note: note,
-    ));
+    widget.onLog(
+      _GestureLogEntry(
+        timestamp: DateTime.now(),
+        source: 'announcing',
+        gesture: gesture,
+        announced: true,
+        note: note,
+      ),
+    );
   }
 
   @override
@@ -1561,9 +1591,7 @@ class _GestureLogPanel extends StatelessWidget {
           else
             Column(
               children: <Widget>[
-                for (int i = 0;
-                    i < math.min(entries.length, 12);
-                    i++)
+                for (int i = 0; i < math.min(entries.length, 12); i++)
                   _logRow(entries[entries.length - 1 - i], i),
               ],
             ),
@@ -1588,9 +1616,7 @@ class _GestureLogPanel extends StatelessWidget {
   }
 
   Widget _logRow(_GestureLogEntry e, int i) {
-    final Color band = i.isEven
-        ? _paper
-        : _paperMist;
+    final Color band = i.isEven ? _paper : _paperMist;
     final Color srcColor = switch (e.source) {
       'default' => _teal,
       'excluded' => _coral,
@@ -1607,17 +1633,11 @@ class _GestureLogPanel extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Expanded(
-            flex: 2,
-            child: Text(e.timeString, style: _mono(11)),
-          ),
+          Expanded(flex: 2, child: Text(e.timeString, style: _mono(11))),
           Expanded(
             flex: 2,
             child: Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 6,
-                vertical: 2,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
               decoration: BoxDecoration(
                 color: srcColor.withValues(alpha: 0.14),
                 borderRadius: BorderRadius.circular(99),
@@ -1633,10 +1653,7 @@ class _GestureLogPanel extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(
-            flex: 2,
-            child: Text(e.gesture, style: _title(12)),
-          ),
+          Expanded(flex: 2, child: Text(e.gesture, style: _title(12))),
           Expanded(
             flex: 2,
             child: Row(
@@ -1660,10 +1677,7 @@ class _GestureLogPanel extends StatelessWidget {
           ),
           Expanded(
             flex: 4,
-            child: Text(
-              e.note,
-              style: _body(11, color: _inkSoft),
-            ),
+            child: Text(e.note, style: _body(11, color: _inkSoft)),
           ),
         ],
       ),
@@ -1703,12 +1717,14 @@ class _SemanticActionsPanel extends StatelessWidget {
       <String, String>{
         'gesture': 'PanGestureRecognizer',
         'action': 'scrollLeft / scrollRight',
-        'note': 'Pan maps onto horizontal scroll actions in the default delegate.',
+        'note':
+            'Pan maps onto horizontal scroll actions in the default delegate.',
       },
       <String, String>{
         'gesture': 'ScaleGestureRecognizer',
         'action': '(none)',
-        'note': 'Pinch-to-zoom has no default semantic mapping — custom delegate required.',
+        'note':
+            'Pinch-to-zoom has no default semantic mapping — custom delegate required.',
       },
     ];
     return _SceneCard(
@@ -1721,10 +1737,7 @@ class _SemanticActionsPanel extends StatelessWidget {
         children: <Widget>[
           for (int i = 0; i < rows.length; i++)
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 10,
-                vertical: 10,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               decoration: BoxDecoration(
                 color: i.isEven ? _paperMist : _paper,
                 borderRadius: BorderRadius.circular(_radSm),
@@ -1873,7 +1886,8 @@ class _ScreenReaderVsVisualPanel extends StatelessWidget {
       <String, String>{
         'scenario': 'Long press',
         'visual': 'Ripple grows then onLongPress fires',
-        'sr': 'Two-finger double-tap-and-hold (TalkBack) -> SemanticsAction.longPress',
+        'sr':
+            'Two-finger double-tap-and-hold (TalkBack) -> SemanticsAction.longPress',
       },
       <String, String>{
         'scenario': 'Horizontal swipe',
@@ -1908,18 +1922,18 @@ class _ScreenReaderVsVisualPanel extends StatelessWidget {
             children: <Widget>[
               Expanded(
                 flex: 3,
-                child: Text('Scenario',
-                    style: _title(12, color: _mutedText)),
+                child: Text('Scenario', style: _title(12, color: _mutedText)),
               ),
               Expanded(
                 flex: 4,
-                child: Text('Visual user',
-                    style: _title(12, color: _teal)),
+                child: Text('Visual user', style: _title(12, color: _teal)),
               ),
               Expanded(
                 flex: 4,
-                child: Text('Screen reader user',
-                    style: _title(12, color: _coral)),
+                child: Text(
+                  'Screen reader user',
+                  style: _title(12, color: _coral),
+                ),
               ),
             ],
           ),
@@ -1937,18 +1951,21 @@ class _ScreenReaderVsVisualPanel extends StatelessWidget {
                 children: <Widget>[
                   Expanded(
                     flex: 3,
-                    child: Text(rows[i]['scenario']!,
-                        style: _title(12)),
+                    child: Text(rows[i]['scenario']!, style: _title(12)),
                   ),
                   Expanded(
                     flex: 4,
-                    child: Text(rows[i]['visual']!,
-                        style: _body(12, color: _inkSoft)),
+                    child: Text(
+                      rows[i]['visual']!,
+                      style: _body(12, color: _inkSoft),
+                    ),
                   ),
                   Expanded(
                     flex: 4,
-                    child: Text(rows[i]['sr']!,
-                        style: _body(12, color: _inkSoft)),
+                    child: Text(
+                      rows[i]['sr']!,
+                      style: _body(12, color: _inkSoft),
+                    ),
                   ),
                 ],
               ),
@@ -1974,10 +1991,7 @@ class _SummaryStrip extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[
-            _ink,
-            _inkSoft.withValues(alpha: 0.92),
-          ],
+          colors: <Color>[_ink, _inkSoft.withValues(alpha: 0.92)],
         ),
         borderRadius: BorderRadius.circular(_radLg),
       ),
@@ -1995,8 +2009,11 @@ class _SummaryStrip extends StatelessWidget {
                   border: Border.all(color: _teal),
                 ),
                 alignment: Alignment.center,
-                child: const Icon(Icons.accessibility_new,
-                    color: _teal, size: 20),
+                child: const Icon(
+                  Icons.accessibility_new,
+                  color: _teal,
+                  size: 20,
+                ),
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -2159,10 +2176,7 @@ class _SemanticsGestureTourState extends State<_SemanticsGestureTour> {
         const _TourIntroPanel(),
         _DefaultDelegateCard(onLog: _addEntry),
         _ExcludedCard(onLog: _addEntry),
-        _AnnouncingDelegateCard(
-          onLog: _addEntry,
-          onAnnounce: _announce,
-        ),
+        _AnnouncingDelegateCard(onLog: _addEntry, onAnnounce: _announce),
         _GestureLogPanel(entries: _entries),
         const _SemanticActionsPanel(),
         const _ExcludeGuidancePanel(),
@@ -2247,10 +2261,7 @@ dynamic build(BuildContext context) {
         foregroundColor: _paper,
         title: const Text(
           'SemanticsGestureDelegate — A11y Gesture Tour',
-          style: TextStyle(
-            fontWeight: FontWeight.w800,
-            letterSpacing: 0.3,
-          ),
+          style: TextStyle(fontWeight: FontWeight.w800, letterSpacing: 0.3),
         ),
         elevation: 0,
       ),

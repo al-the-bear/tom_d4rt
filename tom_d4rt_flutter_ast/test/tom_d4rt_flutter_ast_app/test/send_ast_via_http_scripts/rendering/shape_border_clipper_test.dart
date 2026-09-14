@@ -74,8 +74,14 @@ Widget _scSectionTitle(String title, IconData icon) {
 Widget _scBadge(String label, Color bg, Color fg) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-    decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(4)),
-    child: Text(label, style: TextStyle(fontSize: 10, color: fg, fontWeight: FontWeight.w600)),
+    decoration: BoxDecoration(
+      color: bg,
+      borderRadius: BorderRadius.circular(4),
+    ),
+    child: Text(
+      label,
+      style: TextStyle(fontSize: 10, color: fg, fontWeight: FontWeight.w600),
+    ),
   );
 }
 
@@ -101,9 +107,23 @@ Widget _scInfoCard(String title, String body, IconData icon, {Color? accent}) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13, color: _scTextDark)),
+              Text(
+                title,
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 13,
+                  color: _scTextDark,
+                ),
+              ),
               SizedBox(height: 4),
-              Text(body, style: TextStyle(fontSize: 12, color: _scTextMedium, height: 1.4)),
+              Text(
+                body,
+                style: TextStyle(
+                  fontSize: 12,
+                  color: _scTextMedium,
+                  height: 1.4,
+                ),
+              ),
             ],
           ),
         ),
@@ -124,7 +144,11 @@ Widget _scShapeCard(String name, ShapeBorder border, Color color) {
       shape: border,
     ),
     alignment: Alignment.center,
-    child: Text(name, textAlign: TextAlign.center, style: TextStyle(fontSize: 9, fontWeight: FontWeight.w600, color: color)),
+    child: Text(
+      name,
+      textAlign: TextAlign.center,
+      style: TextStyle(fontSize: 9, fontWeight: FontWeight.w600, color: color),
+    ),
   );
 }
 
@@ -134,8 +158,19 @@ Widget _scShapeCard(String name, ShapeBorder border, Color color) {
 Widget _scCode(String text) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-    decoration: BoxDecoration(color: _scSurfaceDark, borderRadius: BorderRadius.circular(4)),
-    child: Text(text, style: TextStyle(fontSize: 11, fontFamily: 'monospace', color: _scPrimary, fontWeight: FontWeight.w600)),
+    decoration: BoxDecoration(
+      color: _scSurfaceDark,
+      borderRadius: BorderRadius.circular(4),
+    ),
+    child: Text(
+      text,
+      style: TextStyle(
+        fontSize: 11,
+        fontFamily: 'monospace',
+        color: _scPrimary,
+        fontWeight: FontWeight.w600,
+      ),
+    ),
   );
 }
 
@@ -185,7 +220,11 @@ Widget _scSection1Overview() {
             SizedBox(height: 8),
             Text(
               'The clipper delegates path generation to the ShapeBorder',
-              style: TextStyle(fontSize: 11, color: _scTextMedium, fontStyle: FontStyle.italic),
+              style: TextStyle(
+                fontSize: 11,
+                color: _scTextMedium,
+                fontStyle: FontStyle.italic,
+              ),
             ),
           ],
         ),
@@ -199,12 +238,42 @@ Widget _scSection1Overview() {
 // ---------------------------------------------------------------------------
 Widget _scSection2Hierarchy() {
   final shapes = <Map<String, dynamic>>[
-    {'name': 'RoundedRectangleBorder', 'desc': 'Rectangle with rounded corners', 'icon': Icons.rounded_corner, 'color': _scPrimary},
-    {'name': 'CircleBorder', 'desc': 'Perfect circle outline', 'icon': Icons.circle_outlined, 'color': _scAccentDark},
-    {'name': 'StadiumBorder', 'desc': 'Pill/stadium shape', 'icon': Icons.sports_soccer, 'color': _scGreen},
-    {'name': 'BeveledRectangleBorder', 'desc': 'Rectangle with beveled corners', 'icon': Icons.change_history, 'color': _scOrange},
-    {'name': 'ContinuousRectangleBorder', 'desc': 'Superellipse corners (squircle)', 'icon': Icons.crop_square, 'color': _scPurple},
-    {'name': 'StarBorder', 'desc': 'Star or polygon outline', 'icon': Icons.star_outline, 'color': _scPink},
+    {
+      'name': 'RoundedRectangleBorder',
+      'desc': 'Rectangle with rounded corners',
+      'icon': Icons.rounded_corner,
+      'color': _scPrimary,
+    },
+    {
+      'name': 'CircleBorder',
+      'desc': 'Perfect circle outline',
+      'icon': Icons.circle_outlined,
+      'color': _scAccentDark,
+    },
+    {
+      'name': 'StadiumBorder',
+      'desc': 'Pill/stadium shape',
+      'icon': Icons.sports_soccer,
+      'color': _scGreen,
+    },
+    {
+      'name': 'BeveledRectangleBorder',
+      'desc': 'Rectangle with beveled corners',
+      'icon': Icons.change_history,
+      'color': _scOrange,
+    },
+    {
+      'name': 'ContinuousRectangleBorder',
+      'desc': 'Superellipse corners (squircle)',
+      'icon': Icons.crop_square,
+      'color': _scPurple,
+    },
+    {
+      'name': 'StarBorder',
+      'desc': 'Star or polygon outline',
+      'icon': Icons.star_outline,
+      'color': _scPink,
+    },
   ];
 
   return Column(
@@ -219,31 +288,45 @@ Widget _scSection2Hierarchy() {
             'area). ShapeBorderClipper uses getOuterPath().',
         Icons.category,
       ),
-      ...shapes.map((s) => Container(
-        margin: EdgeInsets.only(bottom: 6),
-        padding: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(6),
-          border: Border(left: BorderSide(color: s['color'] as Color, width: 3)),
-        ),
-        child: Row(
-          children: [
-            Icon(s['icon'] as IconData, size: 18, color: s['color'] as Color),
-            SizedBox(width: 10),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(s['name'] as String, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _scTextDark)),
-                  SizedBox(height: 2),
-                  Text(s['desc'] as String, style: TextStyle(fontSize: 11, color: _scTextMedium)),
-                ],
-              ),
+      ...shapes.map(
+        (s) => Container(
+          margin: EdgeInsets.only(bottom: 6),
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(6),
+            border: Border(
+              left: BorderSide(color: s['color'] as Color, width: 3),
             ),
-          ],
+          ),
+          child: Row(
+            children: [
+              Icon(s['icon'] as IconData, size: 18, color: s['color'] as Color),
+              SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      s['name'] as String,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 12,
+                        color: _scTextDark,
+                      ),
+                    ),
+                    SizedBox(height: 2),
+                    Text(
+                      s['desc'] as String,
+                      style: TextStyle(fontSize: 11, color: _scTextMedium),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
-      )),
+      ),
     ],
   );
 }
@@ -274,7 +357,14 @@ Widget _scSection3GetClip() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Implementation', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _scTextDark)),
+            Text(
+              'Implementation',
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 12,
+                color: _scTextDark,
+              ),
+            ),
             SizedBox(height: 8),
             _scCode('Path getClip(Size size) {'),
             SizedBox(height: 2),
@@ -298,10 +388,7 @@ Widget _scSection3GetClip() {
               child: _scCode('textDirection: textDirection,'),
             ),
             SizedBox(height: 2),
-            Padding(
-              padding: EdgeInsets.only(left: 16),
-              child: _scCode(');'),
-            ),
+            Padding(padding: EdgeInsets.only(left: 16), child: _scCode(');')),
             SizedBox(height: 2),
             _scCode('}'),
           ],
@@ -358,7 +445,9 @@ Widget _scSection4Gallery() {
                 ),
                 _scShapeCard(
                   'Circle',
-                  CircleBorder(side: BorderSide(color: _scAccentDark, width: 2)),
+                  CircleBorder(
+                    side: BorderSide(color: _scAccentDark, width: 2),
+                  ),
                   _scAccentDark,
                 ),
                 _scShapeCard(
@@ -413,7 +502,10 @@ Widget _scSection5Comparison() {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       SizedBox(height: 16),
-      _scSectionTitle('5 · ShapeBorderClipper vs Manual Clipping', Icons.compare),
+      _scSectionTitle(
+        '5 · ShapeBorderClipper vs Manual Clipping',
+        Icons.compare,
+      ),
       _scInfoCard(
         'Why use ShapeBorderClipper?',
         'Instead of manually building a Path in a custom clipper, you can '
@@ -446,15 +538,37 @@ Widget _scSection5Comparison() {
                       children: [
                         Icon(Icons.check_circle, size: 14, color: _scGreen),
                         SizedBox(width: 4),
-                        Text('ShapeBorderClipper', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: _scGreen)),
+                        Text(
+                          'ShapeBorderClipper',
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w700,
+                            color: _scGreen,
+                          ),
+                        ),
                       ],
                     ),
                     SizedBox(height: 6),
-                    Text('• Reuses ShapeBorder', style: TextStyle(fontSize: 10, color: _scTextMedium)),
-                    Text('• No manual path code', style: TextStyle(fontSize: 10, color: _scTextMedium)),
-                    Text('• Border-consistent clip', style: TextStyle(fontSize: 10, color: _scTextMedium)),
-                    Text('• TextDirection aware', style: TextStyle(fontSize: 10, color: _scTextMedium)),
-                    Text('• shouldReclip built in', style: TextStyle(fontSize: 10, color: _scTextMedium)),
+                    Text(
+                      '• Reuses ShapeBorder',
+                      style: TextStyle(fontSize: 10, color: _scTextMedium),
+                    ),
+                    Text(
+                      '• No manual path code',
+                      style: TextStyle(fontSize: 10, color: _scTextMedium),
+                    ),
+                    Text(
+                      '• Border-consistent clip',
+                      style: TextStyle(fontSize: 10, color: _scTextMedium),
+                    ),
+                    Text(
+                      '• TextDirection aware',
+                      style: TextStyle(fontSize: 10, color: _scTextMedium),
+                    ),
+                    Text(
+                      '• shouldReclip built in',
+                      style: TextStyle(fontSize: 10, color: _scTextMedium),
+                    ),
                   ],
                 ),
               ),
@@ -475,15 +589,37 @@ Widget _scSection5Comparison() {
                       children: [
                         Icon(Icons.build_circle, size: 14, color: _scOrange),
                         SizedBox(width: 4),
-                        Text('Manual clipper', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: _scOrange)),
+                        Text(
+                          'Manual clipper',
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w700,
+                            color: _scOrange,
+                          ),
+                        ),
                       ],
                     ),
                     SizedBox(height: 6),
-                    Text('• Full path control', style: TextStyle(fontSize: 10, color: _scTextMedium)),
-                    Text('• Custom animations', style: TextStyle(fontSize: 10, color: _scTextMedium)),
-                    Text('• Complex shapes', style: TextStyle(fontSize: 10, color: _scTextMedium)),
-                    Text('• Animated transitions', style: TextStyle(fontSize: 10, color: _scTextMedium)),
-                    Text('• More boilerplate', style: TextStyle(fontSize: 10, color: _scTextMedium)),
+                    Text(
+                      '• Full path control',
+                      style: TextStyle(fontSize: 10, color: _scTextMedium),
+                    ),
+                    Text(
+                      '• Custom animations',
+                      style: TextStyle(fontSize: 10, color: _scTextMedium),
+                    ),
+                    Text(
+                      '• Complex shapes',
+                      style: TextStyle(fontSize: 10, color: _scTextMedium),
+                    ),
+                    Text(
+                      '• Animated transitions',
+                      style: TextStyle(fontSize: 10, color: _scTextMedium),
+                    ),
+                    Text(
+                      '• More boilerplate',
+                      style: TextStyle(fontSize: 10, color: _scTextMedium),
+                    ),
                   ],
                 ),
               ),
@@ -529,7 +665,14 @@ Widget _scSection6ClipPath() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Usage pattern', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _scTextDark)),
+            Text(
+              'Usage pattern',
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 12,
+                color: _scTextDark,
+              ),
+            ),
             SizedBox(height: 8),
             _scCode('ClipPath('),
             Padding(
@@ -544,14 +687,8 @@ Widget _scSection6ClipPath() {
               padding: EdgeInsets.only(left: 48),
               child: _scCode('borderRadius: BorderRadius.circular(16),'),
             ),
-            Padding(
-              padding: EdgeInsets.only(left: 32),
-              child: _scCode('),'),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 16),
-              child: _scCode('),'),
-            ),
+            Padding(padding: EdgeInsets.only(left: 32), child: _scCode('),')),
+            Padding(padding: EdgeInsets.only(left: 16), child: _scCode('),')),
             Padding(
               padding: EdgeInsets.only(left: 16),
               child: _scCode('child: Image(...),'),
@@ -572,7 +709,10 @@ Widget _scSection7TextDir() {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       SizedBox(height: 16),
-      _scSectionTitle('7 · TextDirection Sensitivity', Icons.format_textdirection_r_to_l),
+      _scSectionTitle(
+        '7 · TextDirection Sensitivity',
+        Icons.format_textdirection_r_to_l,
+      ),
       _scInfoCard(
         'Directional borders',
         'Some ShapeBorder subclasses define corners using start/end rather '
@@ -601,13 +741,25 @@ Widget _scSection7TextDir() {
                         topStart: Radius.circular(20),
                         bottomEnd: Radius.circular(20),
                       ).resolve(TextDirection.ltr),
-                      border: Border.all(color: _scPrimary.withValues(alpha: 0.3)),
+                      border: Border.all(
+                        color: _scPrimary.withValues(alpha: 0.3),
+                      ),
                     ),
                     alignment: Alignment.center,
                     child: Column(
                       children: [
-                        Text('LTR', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: _scPrimary)),
-                        Text('topStart = topLeft', style: TextStyle(fontSize: 10, color: _scTextMedium)),
+                        Text(
+                          'LTR',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: _scPrimary,
+                          ),
+                        ),
+                        Text(
+                          'topStart = topLeft',
+                          style: TextStyle(fontSize: 10, color: _scTextMedium),
+                        ),
                       ],
                     ),
                   ),
@@ -622,13 +774,25 @@ Widget _scSection7TextDir() {
                         topStart: Radius.circular(20),
                         bottomEnd: Radius.circular(20),
                       ).resolve(TextDirection.rtl),
-                      border: Border.all(color: _scAccentDark.withValues(alpha: 0.3)),
+                      border: Border.all(
+                        color: _scAccentDark.withValues(alpha: 0.3),
+                      ),
                     ),
                     alignment: Alignment.center,
                     child: Column(
                       children: [
-                        Text('RTL', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: _scAccentDark)),
-                        Text('topStart = topRight', style: TextStyle(fontSize: 10, color: _scTextMedium)),
+                        Text(
+                          'RTL',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: _scAccentDark,
+                          ),
+                        ),
+                        Text(
+                          'topStart = topRight',
+                          style: TextStyle(fontSize: 10, color: _scTextMedium),
+                        ),
                       ],
                     ),
                   ),
@@ -638,7 +802,11 @@ Widget _scSection7TextDir() {
             SizedBox(height: 8),
             Text(
               'Same directional border produces mirrored clips based on textDirection',
-              style: TextStyle(fontSize: 11, color: _scTextMedium, fontStyle: FontStyle.italic),
+              style: TextStyle(
+                fontSize: 11,
+                color: _scTextMedium,
+                fontStyle: FontStyle.italic,
+              ),
             ),
           ],
         ),
@@ -681,13 +849,40 @@ Widget _scSection8Performance() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Performance tips', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _scTextDark)),
+            Text(
+              'Performance tips',
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 12,
+                color: _scTextDark,
+              ),
+            ),
             SizedBox(height: 8),
-            _scPerfTip(Icons.check_circle, _scGreen, 'Use const ShapeBorder when possible'),
-            _scPerfTip(Icons.check_circle, _scGreen, 'Avoid rebuilding clipper on every frame'),
-            _scPerfTip(Icons.check_circle, _scGreen, 'Prefer ClipRect over ClipPath for rectangles'),
-            _scPerfTip(Icons.warning, _scOrange, 'Complex paths increase rasterisation cost'),
-            _scPerfTip(Icons.warning, _scOrange, 'Anti-aliased clip paths use more GPU time'),
+            _scPerfTip(
+              Icons.check_circle,
+              _scGreen,
+              'Use const ShapeBorder when possible',
+            ),
+            _scPerfTip(
+              Icons.check_circle,
+              _scGreen,
+              'Avoid rebuilding clipper on every frame',
+            ),
+            _scPerfTip(
+              Icons.check_circle,
+              _scGreen,
+              'Prefer ClipRect over ClipPath for rectangles',
+            ),
+            _scPerfTip(
+              Icons.warning,
+              _scOrange,
+              'Complex paths increase rasterisation cost',
+            ),
+            _scPerfTip(
+              Icons.warning,
+              _scOrange,
+              'Anti-aliased clip paths use more GPU time',
+            ),
           ],
         ),
       ),
@@ -702,7 +897,12 @@ Widget _scPerfTip(IconData icon, Color color, String text) {
       children: [
         Icon(icon, size: 16, color: color),
         SizedBox(width: 8),
-        Expanded(child: Text(text, style: TextStyle(fontSize: 11, color: _scTextMedium))),
+        Expanded(
+          child: Text(
+            text,
+            style: TextStyle(fontSize: 11, color: _scTextMedium),
+          ),
+        ),
       ],
     ),
   );
@@ -743,7 +943,14 @@ Widget _scSection9Advanced() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Lerp examples', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _scTextDark)),
+            Text(
+              'Lerp examples',
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 12,
+                color: _scTextDark,
+              ),
+            ),
             SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -751,7 +958,8 @@ Widget _scSection9Advanced() {
                 Column(
                   children: [
                     Container(
-                      width: 50, height: 50,
+                      width: 50,
+                      height: 50,
                       decoration: ShapeDecoration(
                         color: _scPrimary.withValues(alpha: 0.15),
                         shape: RoundedRectangleBorder(
@@ -761,13 +969,17 @@ Widget _scSection9Advanced() {
                       ),
                     ),
                     SizedBox(height: 4),
-                    Text('t=0.0', style: TextStyle(fontSize: 9, color: _scGrey)),
+                    Text(
+                      't=0.0',
+                      style: TextStyle(fontSize: 9, color: _scGrey),
+                    ),
                   ],
                 ),
                 Column(
                   children: [
                     Container(
-                      width: 50, height: 50,
+                      width: 50,
+                      height: 50,
                       decoration: ShapeDecoration(
                         color: _scAccentDark.withValues(alpha: 0.15),
                         shape: RoundedRectangleBorder(
@@ -777,13 +989,17 @@ Widget _scSection9Advanced() {
                       ),
                     ),
                     SizedBox(height: 4),
-                    Text('t=0.25', style: TextStyle(fontSize: 9, color: _scGrey)),
+                    Text(
+                      't=0.25',
+                      style: TextStyle(fontSize: 9, color: _scGrey),
+                    ),
                   ],
                 ),
                 Column(
                   children: [
                     Container(
-                      width: 50, height: 50,
+                      width: 50,
+                      height: 50,
                       decoration: ShapeDecoration(
                         color: _scGreen.withValues(alpha: 0.15),
                         shape: RoundedRectangleBorder(
@@ -793,20 +1009,29 @@ Widget _scSection9Advanced() {
                       ),
                     ),
                     SizedBox(height: 4),
-                    Text('t=0.5', style: TextStyle(fontSize: 9, color: _scGrey)),
+                    Text(
+                      't=0.5',
+                      style: TextStyle(fontSize: 9, color: _scGrey),
+                    ),
                   ],
                 ),
                 Column(
                   children: [
                     Container(
-                      width: 50, height: 50,
+                      width: 50,
+                      height: 50,
                       decoration: ShapeDecoration(
                         color: _scPink.withValues(alpha: 0.15),
-                        shape: CircleBorder(side: BorderSide(color: _scPink, width: 1.5)),
+                        shape: CircleBorder(
+                          side: BorderSide(color: _scPink, width: 1.5),
+                        ),
                       ),
                     ),
                     SizedBox(height: 4),
-                    Text('t=1.0', style: TextStyle(fontSize: 9, color: _scGrey)),
+                    Text(
+                      't=1.0',
+                      style: TextStyle(fontSize: 9, color: _scGrey),
+                    ),
                   ],
                 ),
               ],
@@ -814,7 +1039,11 @@ Widget _scSection9Advanced() {
             SizedBox(height: 8),
             Text(
               'Interpolating from rectangle → circle via ShapeBorder.lerp',
-              style: TextStyle(fontSize: 10, color: _scTextMedium, fontStyle: FontStyle.italic),
+              style: TextStyle(
+                fontSize: 10,
+                color: _scTextMedium,
+                fontStyle: FontStyle.italic,
+              ),
             ),
           ],
         ),
@@ -825,7 +1054,10 @@ Widget _scSection9Advanced() {
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [_scPrimary.withValues(alpha: 0.08), _scAccent.withValues(alpha: 0.08)],
+            colors: [
+              _scPrimary.withValues(alpha: 0.08),
+              _scAccent.withValues(alpha: 0.08),
+            ],
           ),
           borderRadius: BorderRadius.circular(8),
           border: Border.all(color: _scPrimary.withValues(alpha: 0.2)),
@@ -836,7 +1068,11 @@ Widget _scSection9Advanced() {
             SizedBox(height: 8),
             Text(
               'ShapeBorderClipper',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: _scTextDark),
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+                color: _scTextDark,
+              ),
             ),
             SizedBox(height: 4),
             Text(
@@ -897,7 +1133,10 @@ dynamic build(BuildContext context) {
               SizedBox(height: 6),
               Text(
                 'Shape-driven custom clipper for ClipPath and PhysicalShape',
-                style: TextStyle(fontSize: 12, color: _scOnPrimary.withValues(alpha: 0.85)),
+                style: TextStyle(
+                  fontSize: 12,
+                  color: _scOnPrimary.withValues(alpha: 0.85),
+                ),
               ),
             ],
           ),

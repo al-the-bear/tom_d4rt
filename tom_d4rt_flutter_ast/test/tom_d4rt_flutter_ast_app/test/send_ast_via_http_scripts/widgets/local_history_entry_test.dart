@@ -32,15 +32,24 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title,
-              style: TextStyle(
-                  color: fg, fontWeight: FontWeight.bold, fontSize: 16)),
+          Text(
+            title,
+            style: TextStyle(
+              color: fg,
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+          ),
           if (subtitle.isNotEmpty)
             Padding(
               padding: const EdgeInsets.only(top: 3),
-              child: Text(subtitle,
-                  style: TextStyle(
-                      color: fg.withValues(alpha: 0.85), fontSize: 12)),
+              child: Text(
+                subtitle,
+                style: TextStyle(
+                  color: fg.withValues(alpha: 0.85),
+                  fontSize: 12,
+                ),
+              ),
             ),
         ],
       ),
@@ -69,15 +78,17 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 180,
-            child: Text(label,
-                style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 13,
-                    color: accent)),
+            child: Text(
+              label,
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 13,
+                color: accent,
+              ),
+            ),
           ),
           Expanded(
-            child: Text(value,
-                style: TextStyle(fontSize: 13, color: deepJade)),
+            child: Text(value, style: TextStyle(fontSize: 13, color: deepJade)),
           ),
         ],
       ),
@@ -124,15 +135,20 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(name,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13,
-                        fontFamily: 'monospace',
-                        color: deepJade)),
+                Text(
+                  name,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 13,
+                    fontFamily: 'monospace',
+                    color: deepJade,
+                  ),
+                ),
                 const SizedBox(height: 3),
-                Text(description,
-                    style: TextStyle(fontSize: 12, color: celadon)),
+                Text(
+                  description,
+                  style: TextStyle(fontSize: 12, color: celadon),
+                ),
               ],
             ),
           ),
@@ -160,24 +176,29 @@ dynamic build(BuildContext context) {
               color: accent,
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Text('$number',
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 11,
-                    fontWeight: FontWeight.bold)),
+            child: Text(
+              '$number',
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 11,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
           const SizedBox(width: 10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
-                        color: deepJade)),
-                Text(detail,
-                    style: TextStyle(fontSize: 11, color: celadon)),
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                    color: deepJade,
+                  ),
+                ),
+                Text(detail, style: TextStyle(fontSize: 11, color: celadon)),
               ],
             ),
           ),
@@ -198,10 +219,12 @@ dynamic build(BuildContext context) {
   // Section 2 — creation
   print('\n--- Creation ---');
   var removeCount = 0;
-  final entry = LocalHistoryEntry(onRemove: () {
-    removeCount++;
-    print('  onRemove callback fired (count: $removeCount)');
-  });
+  final entry = LocalHistoryEntry(
+    onRemove: () {
+      removeCount++;
+      print('  onRemove callback fired (count: $removeCount)');
+    },
+  );
   print('  Created with onRemove callback');
 
   final entryNoCallback = LocalHistoryEntry();
@@ -247,31 +270,42 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('LocalHistoryEntry',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold)),
+              const Text(
+                'LocalHistoryEntry',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               const SizedBox(height: 6),
-              Text('Sub-page navigation without pushing new routes',
-                  style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.9),
-                      fontSize: 14)),
+              Text(
+                'Sub-page navigation without pushing new routes',
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.9),
+                  fontSize: 14,
+                ),
+              ),
               const SizedBox(height: 10),
-              Wrap(children: [
-                tag('Class', celadon, Colors.white),
-                tag('Navigation', seafoam, Colors.white),
-                tag('ModalRoute', malachite, Colors.white),
-                tag('Back Button', aquaMint, deepJade),
-              ]),
+              Wrap(
+                children: [
+                  tag('Class', celadon, Colors.white),
+                  tag('Navigation', seafoam, Colors.white),
+                  tag('ModalRoute', malachite, Colors.white),
+                  tag('Back Button', aquaMint, deepJade),
+                ],
+              ),
             ],
           ),
         ),
 
         // ── 2. What is it ────────────────────────────────────────────
-        sectionBanner('1 \u00b7 What Is LocalHistoryEntry',
-            'Route-local history management for sub-page states',
-            deepJade, Colors.white),
+        sectionBanner(
+          '1 \u00b7 What Is LocalHistoryEntry',
+          'Route-local history management for sub-page states',
+          deepJade,
+          Colors.white,
+        ),
         noteBox(
           'LocalHistoryEntry represents an entry in a ModalRoute\'s local '
           'history stack. When users push local history entries, the back '
@@ -282,24 +316,49 @@ dynamic build(BuildContext context) {
           jadeWhite,
         ),
         dataRow('Type', 'class', richJade),
-        dataRow('Constructor', 'LocalHistoryEntry({VoidCallback? onRemove})', celadon),
+        dataRow(
+          'Constructor',
+          'LocalHistoryEntry({VoidCallback? onRemove})',
+          celadon,
+        ),
         dataRow('Used with', 'ModalRoute.addLocalHistoryEntry()', seafoam),
         dataRow('Back button', 'Pops local entries before route', malachite),
         const SizedBox(height: 14),
 
         // ── 3. API surface ───────────────────────────────────────────
-        sectionBanner('2 \u00b7 API Surface',
-            'Constructor parameter and key members',
-            richJade, Colors.white),
-        apiCard('onRemove', 'VoidCallback? — called when entry is removed from route', Icons.notifications_active, deepJade),
-        apiCard('remove()', 'Removes this entry from the local history', Icons.delete_outline, richJade),
-        apiCard('impliesAppBarDismissal', 'bool — whether AppBar shows back/close button (default: true)', Icons.arrow_back, celadon),
+        sectionBanner(
+          '2 \u00b7 API Surface',
+          'Constructor parameter and key members',
+          richJade,
+          Colors.white,
+        ),
+        apiCard(
+          'onRemove',
+          'VoidCallback? — called when entry is removed from route',
+          Icons.notifications_active,
+          deepJade,
+        ),
+        apiCard(
+          'remove()',
+          'Removes this entry from the local history',
+          Icons.delete_outline,
+          richJade,
+        ),
+        apiCard(
+          'impliesAppBarDismissal',
+          'bool — whether AppBar shows back/close button (default: true)',
+          Icons.arrow_back,
+          celadon,
+        ),
         const SizedBox(height: 14),
 
         // ── 4. Creation patterns ─────────────────────────────────────
-        sectionBanner('3 \u00b7 Creation Patterns',
-            'Different ways to create entries',
-            celadon, Colors.white),
+        sectionBanner(
+          '3 \u00b7 Creation Patterns',
+          'Different ways to create entries',
+          celadon,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -310,10 +369,30 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final pattern in [
-                ('With callback', 'LocalHistoryEntry(onRemove: () { ... })', 'Most common — reacts to removal', deepJade),
-                ('Without callback', 'LocalHistoryEntry()', 'Just for back button interception', richJade),
-                ('Stored reference', 'final entry = LocalHistoryEntry(...)', 'Allows programmatic removal', celadon),
-                ('Inline creation', 'route.addLocalHistoryEntry(LocalHistoryEntry(...))', 'One-shot usage', seafoam),
+                (
+                  'With callback',
+                  'LocalHistoryEntry(onRemove: () { ... })',
+                  'Most common — reacts to removal',
+                  deepJade,
+                ),
+                (
+                  'Without callback',
+                  'LocalHistoryEntry()',
+                  'Just for back button interception',
+                  richJade,
+                ),
+                (
+                  'Stored reference',
+                  'final entry = LocalHistoryEntry(...)',
+                  'Allows programmatic removal',
+                  celadon,
+                ),
+                (
+                  'Inline creation',
+                  'route.addLocalHistoryEntry(LocalHistoryEntry(...))',
+                  'One-shot usage',
+                  seafoam,
+                ),
               ])
                 Container(
                   width: double.infinity,
@@ -322,26 +401,34 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     border: Border(
-                        left: BorderSide(color: pattern.$4, width: 3)),
+                      left: BorderSide(color: pattern.$4, width: 3),
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(pattern.$1,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                              color: pattern.$4)),
+                      Text(
+                        pattern.$1,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                          color: pattern.$4,
+                        ),
+                      ),
                       const SizedBox(height: 2),
-                      Text(pattern.$2,
-                          style: TextStyle(
-                              fontSize: 11,
-                              fontFamily: 'monospace',
-                              color: deepJade)),
+                      Text(
+                        pattern.$2,
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontFamily: 'monospace',
+                          color: deepJade,
+                        ),
+                      ),
                       const SizedBox(height: 2),
-                      Text(pattern.$3,
-                          style: TextStyle(
-                              fontSize: 11, color: malachite)),
+                      Text(
+                        pattern.$3,
+                        style: TextStyle(fontSize: 11, color: malachite),
+                      ),
                     ],
                   ),
                 ),
@@ -351,21 +438,57 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 5. Back button flow ──────────────────────────────────────
-        sectionBanner('4 \u00b7 Back Button Behavior',
-            'How local history interacts with navigation',
-            deepJade, Colors.white),
-        flowStep(1, 'User pushes route', 'Navigator.push() creates new route with empty local history', deepJade),
-        flowStep(2, 'App adds local entries', 'ModalRoute.of(context)!.addLocalHistoryEntry(entry)', richJade),
-        flowStep(3, 'User presses back', 'System checks for local history entries first', celadon),
-        flowStep(4, 'Local entry popped', 'Last entry removed, onRemove called', seafoam),
-        flowStep(5, 'More entries?', 'If yes, repeat step 3-4. If no, pop the route itself', malachite),
-        flowStep(6, 'Route popped', 'Only when all local entries are exhausted', aquaMint),
+        sectionBanner(
+          '4 \u00b7 Back Button Behavior',
+          'How local history interacts with navigation',
+          deepJade,
+          Colors.white,
+        ),
+        flowStep(
+          1,
+          'User pushes route',
+          'Navigator.push() creates new route with empty local history',
+          deepJade,
+        ),
+        flowStep(
+          2,
+          'App adds local entries',
+          'ModalRoute.of(context)!.addLocalHistoryEntry(entry)',
+          richJade,
+        ),
+        flowStep(
+          3,
+          'User presses back',
+          'System checks for local history entries first',
+          celadon,
+        ),
+        flowStep(
+          4,
+          'Local entry popped',
+          'Last entry removed, onRemove called',
+          seafoam,
+        ),
+        flowStep(
+          5,
+          'More entries?',
+          'If yes, repeat step 3-4. If no, pop the route itself',
+          malachite,
+        ),
+        flowStep(
+          6,
+          'Route popped',
+          'Only when all local entries are exhausted',
+          aquaMint,
+        ),
         const SizedBox(height: 14),
 
         // ── 6. impliesAppBarDismissal ────────────────────────────────
-        sectionBanner('5 \u00b7 impliesAppBarDismissal',
-            'Controls AppBar leading button appearance',
-            richJade, Colors.white),
+        sectionBanner(
+          '5 \u00b7 impliesAppBarDismissal',
+          'Controls AppBar leading button appearance',
+          richJade,
+          Colors.white,
+        ),
         noteBox(
           'When impliesAppBarDismissal is true (default), adding a local '
           'history entry causes the AppBar to show a back arrow or close '
@@ -385,10 +508,34 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final scenario in [
-                (true, 'Default entry', Icons.arrow_back, 'AppBar shows back arrow', deepJade),
-                (true, 'Tab switcher', Icons.tab, 'User sees they can go back', richJade),
-                (false, 'Silent entry', Icons.visibility_off, 'No visual change to AppBar', coralAccent),
-                (false, 'Background state', Icons.settings_backup_restore, 'Hidden undo point', amberSignal),
+                (
+                  true,
+                  'Default entry',
+                  Icons.arrow_back,
+                  'AppBar shows back arrow',
+                  deepJade,
+                ),
+                (
+                  true,
+                  'Tab switcher',
+                  Icons.tab,
+                  'User sees they can go back',
+                  richJade,
+                ),
+                (
+                  false,
+                  'Silent entry',
+                  Icons.visibility_off,
+                  'No visual change to AppBar',
+                  coralAccent,
+                ),
+                (
+                  false,
+                  'Background state',
+                  Icons.settings_backup_restore,
+                  'Hidden undo point',
+                  amberSignal,
+                ),
               ])
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 4),
@@ -407,32 +554,41 @@ dynamic build(BuildContext context) {
                       const SizedBox(width: 10),
                       SizedBox(
                         width: 100,
-                        child: Text(scenario.$2,
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 12,
-                                color: deepJade)),
+                        child: Text(
+                          scenario.$2,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 12,
+                            color: deepJade,
+                          ),
+                        ),
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 6, vertical: 2),
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: scenario.$1
                               ? deepJade.withValues(alpha: 0.1)
                               : coralAccent.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(4),
                         ),
-                        child: Text(scenario.$1 ? 'true' : 'false',
-                            style: TextStyle(
-                                fontSize: 11,
-                                fontWeight: FontWeight.bold,
-                                color: scenario.$1 ? deepJade : coralAccent)),
+                        child: Text(
+                          scenario.$1 ? 'true' : 'false',
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                            color: scenario.$1 ? deepJade : coralAccent,
+                          ),
+                        ),
                       ),
                       const SizedBox(width: 8),
                       Expanded(
-                        child: Text(scenario.$4,
-                            style: TextStyle(
-                                fontSize: 11, color: celadon)),
+                        child: Text(
+                          scenario.$4,
+                          style: TextStyle(fontSize: 11, color: celadon),
+                        ),
                       ),
                     ],
                   ),
@@ -443,9 +599,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 7. Stack visualization ───────────────────────────────────
-        sectionBanner('6 \u00b7 Local History Stack',
-            'Visual representation of entries on a route',
-            celadon, Colors.white),
+        sectionBanner(
+          '6 \u00b7 Local History Stack',
+          'Visual representation of entries on a route',
+          celadon,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -460,53 +619,74 @@ dynamic build(BuildContext context) {
                 children: [
                   Icon(Icons.layers, size: 20, color: deepJade),
                   const SizedBox(width: 8),
-                  Text('Route Local History Stack',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                          color: deepJade)),
+                  Text(
+                    'Route Local History Stack',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                      color: deepJade,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 12),
               for (final layer in [
-                ('Entry 3', 'Tab: Settings', 'TOP \u2190 back pops this first', coralAccent),
+                (
+                  'Entry 3',
+                  'Tab: Settings',
+                  'TOP \u2190 back pops this first',
+                  coralAccent,
+                ),
                 ('Entry 2', 'Tab: Profile', 'Next in line', seafoam),
                 ('Entry 1', 'Tab: Home', 'First added', celadon),
-                ('Route', 'MaterialPageRoute', 'Popped only when stack empty', deepJade),
+                (
+                  'Route',
+                  'MaterialPageRoute',
+                  'Popped only when stack empty',
+                  deepJade,
+                ),
               ])
                 Container(
                   width: double.infinity,
                   margin: const EdgeInsets.symmetric(vertical: 2),
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 12, vertical: 8),
+                    horizontal: 12,
+                    vertical: 8,
+                  ),
                   decoration: BoxDecoration(
                     color: layer.$4.withValues(alpha: 0.08),
                     borderRadius: BorderRadius.circular(6),
-                    border: Border.all(
-                        color: layer.$4.withValues(alpha: 0.3)),
+                    border: Border.all(color: layer.$4.withValues(alpha: 0.3)),
                   ),
                   child: Row(
                     children: [
                       SizedBox(
                         width: 70,
-                        child: Text(layer.$1,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                                color: layer.$4)),
+                        child: Text(
+                          layer.$1,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                            color: layer.$4,
+                          ),
+                        ),
                       ),
                       SizedBox(
                         width: 110,
-                        child: Text(layer.$2,
-                            style: TextStyle(
-                                fontSize: 11,
-                                fontFamily: 'monospace',
-                                color: deepJade)),
+                        child: Text(
+                          layer.$2,
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontFamily: 'monospace',
+                            color: deepJade,
+                          ),
+                        ),
                       ),
                       Expanded(
-                        child: Text(layer.$3,
-                            style: TextStyle(
-                                fontSize: 11, color: malachite)),
+                        child: Text(
+                          layer.$3,
+                          style: TextStyle(fontSize: 11, color: malachite),
+                        ),
                       ),
                     ],
                   ),
@@ -517,9 +697,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 8. Use cases ─────────────────────────────────────────────
-        sectionBanner('7 \u00b7 Common Use Cases',
-            'Where local history entries shine',
-            deepJade, Colors.white),
+        sectionBanner(
+          '7 \u00b7 Common Use Cases',
+          'Where local history entries shine',
+          deepJade,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -530,12 +713,42 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final useCase in [
-                ('Tab navigation', Icons.tab, 'Switch tabs with back-button support', deepJade),
-                ('Form wizard', Icons.list_alt, 'Multi-step forms that undo per-step', richJade),
-                ('Panel toggling', Icons.view_sidebar, 'Show/hide panels with back support', celadon),
-                ('Search overlay', Icons.search, 'Dismiss search bar via back button', seafoam),
-                ('Filter selection', Icons.filter_list, 'Remove filters one at a time', malachite),
-                ('Image gallery', Icons.photo_library, 'Navigate sub-images within a page', aquaMint),
+                (
+                  'Tab navigation',
+                  Icons.tab,
+                  'Switch tabs with back-button support',
+                  deepJade,
+                ),
+                (
+                  'Form wizard',
+                  Icons.list_alt,
+                  'Multi-step forms that undo per-step',
+                  richJade,
+                ),
+                (
+                  'Panel toggling',
+                  Icons.view_sidebar,
+                  'Show/hide panels with back support',
+                  celadon,
+                ),
+                (
+                  'Search overlay',
+                  Icons.search,
+                  'Dismiss search bar via back button',
+                  seafoam,
+                ),
+                (
+                  'Filter selection',
+                  Icons.filter_list,
+                  'Remove filters one at a time',
+                  malachite,
+                ),
+                (
+                  'Image gallery',
+                  Icons.photo_library,
+                  'Navigate sub-images within a page',
+                  aquaMint,
+                ),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 3),
@@ -543,7 +756,8 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     border: Border(
-                        left: BorderSide(color: useCase.$4, width: 3)),
+                      left: BorderSide(color: useCase.$4, width: 3),
+                    ),
                   ),
                   child: Row(
                     children: [
@@ -553,14 +767,18 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(useCase.$1,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 13,
-                                    color: deepJade)),
-                            Text(useCase.$3,
-                                style: TextStyle(
-                                    fontSize: 12, color: celadon)),
+                            Text(
+                              useCase.$1,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13,
+                                color: deepJade,
+                              ),
+                            ),
+                            Text(
+                              useCase.$3,
+                              style: TextStyle(fontSize: 12, color: celadon),
+                            ),
                           ],
                         ),
                       ),
@@ -573,9 +791,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 9. Simulated tab switcher ────────────────────────────────
-        sectionBanner('8 \u00b7 Simulated Tab Switcher',
-            'Visual demo: tabs as local history entries',
-            richJade, Colors.white),
+        sectionBanner(
+          '8 \u00b7 Simulated Tab Switcher',
+          'Visual demo: tabs as local history entries',
+          richJade,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -606,17 +827,22 @@ dynamic build(BuildContext context) {
                         ),
                         child: Column(
                           children: [
-                            Icon(tab.$2,
-                                size: 20,
-                                color: tab.$4 ? Colors.white : tab.$3),
+                            Icon(
+                              tab.$2,
+                              size: 20,
+                              color: tab.$4 ? Colors.white : tab.$3,
+                            ),
                             const SizedBox(height: 2),
-                            Text(tab.$1,
-                                style: TextStyle(
-                                    fontSize: 11,
-                                    fontWeight: tab.$4
-                                        ? FontWeight.bold
-                                        : FontWeight.normal,
-                                    color: tab.$4 ? Colors.white : tab.$3)),
+                            Text(
+                              tab.$1,
+                              style: TextStyle(
+                                fontSize: 11,
+                                fontWeight: tab.$4
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
+                                color: tab.$4 ? Colors.white : tab.$3,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -635,11 +861,14 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Local history:',
-                        style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold,
-                            color: deepJade)),
+                    Text(
+                      'Local history:',
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.bold,
+                        color: deepJade,
+                      ),
+                    ),
                     const SizedBox(height: 4),
                     Row(
                       children: [
@@ -650,31 +879,39 @@ dynamic build(BuildContext context) {
                         ]) ...[
                           Container(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 3),
+                              horizontal: 8,
+                              vertical: 3,
+                            ),
                             decoration: BoxDecoration(
                               color: histEntry.$2.withValues(alpha: 0.12),
                               borderRadius: BorderRadius.circular(4),
                             ),
-                            child: Text(histEntry.$1,
-                                style: TextStyle(
-                                    fontSize: 10,
-                                    color: histEntry.$2)),
+                            child: Text(
+                              histEntry.$1,
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: histEntry.$2,
+                              ),
+                            ),
                           ),
                           if (histEntry.$1 != 'Profile')
                             Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 4),
-                              child: Text('\u2192',
-                                  style: TextStyle(
-                                      fontSize: 12, color: aquaMint)),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 4,
+                              ),
+                              child: Text(
+                                '\u2192',
+                                style: TextStyle(fontSize: 12, color: aquaMint),
+                              ),
                             ),
                         ],
                       ],
                     ),
                     const SizedBox(height: 4),
-                    Text('Back button: Profile \u2192 Search \u2192 Home \u2192 pop route',
-                        style: TextStyle(
-                            fontSize: 10, color: malachite)),
+                    Text(
+                      'Back button: Profile \u2192 Search \u2192 Home \u2192 pop route',
+                      style: TextStyle(fontSize: 10, color: malachite),
+                    ),
                   ],
                 ),
               ),
@@ -684,9 +921,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 10. onRemove lifecycle ───────────────────────────────────
-        sectionBanner('9 \u00b7 onRemove Lifecycle',
-            'When and how the callback fires',
-            celadon, Colors.white),
+        sectionBanner(
+          '9 \u00b7 onRemove Lifecycle',
+          'When and how the callback fires',
+          celadon,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -697,12 +937,48 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final trigger in [
-                ('Back button pressed', Icons.arrow_back, 'System pops last local entry', true, deepJade),
-                ('entry.remove() called', Icons.delete_outline, 'Programmatic removal', true, richJade),
-                ('Route itself popped', Icons.exit_to_app, 'All remaining entries removed', true, celadon),
-                ('Route replaced', Icons.swap_horiz, 'Old route cleaned up', true, seafoam),
-                ('Entry added', Icons.add, 'NOT triggered on add', false, coralAccent),
-                ('Another entry popped', Icons.layers_clear, 'NOT triggered for siblings', false, amberSignal),
+                (
+                  'Back button pressed',
+                  Icons.arrow_back,
+                  'System pops last local entry',
+                  true,
+                  deepJade,
+                ),
+                (
+                  'entry.remove() called',
+                  Icons.delete_outline,
+                  'Programmatic removal',
+                  true,
+                  richJade,
+                ),
+                (
+                  'Route itself popped',
+                  Icons.exit_to_app,
+                  'All remaining entries removed',
+                  true,
+                  celadon,
+                ),
+                (
+                  'Route replaced',
+                  Icons.swap_horiz,
+                  'Old route cleaned up',
+                  true,
+                  seafoam,
+                ),
+                (
+                  'Entry added',
+                  Icons.add,
+                  'NOT triggered on add',
+                  false,
+                  coralAccent,
+                ),
+                (
+                  'Another entry popped',
+                  Icons.layers_clear,
+                  'NOT triggered for siblings',
+                  false,
+                  amberSignal,
+                ),
               ])
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 3),
@@ -723,22 +999,28 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(trigger.$1,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 12,
-                                    color: deepJade)),
-                            Text(trigger.$3,
-                                style: TextStyle(
-                                    fontSize: 11, color: malachite)),
+                            Text(
+                              trigger.$1,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 12,
+                                color: deepJade,
+                              ),
+                            ),
+                            Text(
+                              trigger.$3,
+                              style: TextStyle(fontSize: 11, color: malachite),
+                            ),
                           ],
                         ),
                       ),
-                      tag(trigger.$4 ? 'FIRES' : 'NO',
-                          trigger.$4
-                              ? deepJade.withValues(alpha: 0.1)
-                              : coralAccent.withValues(alpha: 0.1),
-                          trigger.$4 ? deepJade : coralAccent),
+                      tag(
+                        trigger.$4 ? 'FIRES' : 'NO',
+                        trigger.$4
+                            ? deepJade.withValues(alpha: 0.1)
+                            : coralAccent.withValues(alpha: 0.1),
+                        trigger.$4 ? deepJade : coralAccent,
+                      ),
                     ],
                   ),
                 ),
@@ -748,9 +1030,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 11. Comparison with alternatives ─────────────────────────
-        sectionBanner('10 \u00b7 Comparison with Navigation Patterns',
-            'Local history vs other approaches',
-            deepJade, Colors.white),
+        sectionBanner(
+          '10 \u00b7 Comparison with Navigation Patterns',
+          'Local history vs other approaches',
+          deepJade,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -769,14 +1054,22 @@ dynamic build(BuildContext context) {
               TableRow(
                 decoration: BoxDecoration(color: deepJade),
                 children: [
-                  for (final h in ['Approach', 'Routes', 'Back Button', 'Complexity'])
+                  for (final h in [
+                    'Approach',
+                    'Routes',
+                    'Back Button',
+                    'Complexity',
+                  ])
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(h,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 10)),
+                      child: Text(
+                        h,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 10,
+                        ),
+                      ),
                     ),
                 ],
               ),
@@ -791,31 +1084,37 @@ dynamic build(BuildContext context) {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(row.$1,
-                          style: TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w600,
-                              color: row.$1 == 'LocalHistoryEntry'
-                                  ? deepJade
-                                  : Colors.grey.shade700)),
+                      child: Text(
+                        row.$1,
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w600,
+                          color: row.$1 == 'LocalHistoryEntry'
+                              ? deepJade
+                              : Colors.grey.shade700,
+                        ),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(row.$2,
-                          style: TextStyle(
-                              fontSize: 10, color: richJade)),
+                      child: Text(
+                        row.$2,
+                        style: TextStyle(fontSize: 10, color: richJade),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(row.$3,
-                          style: TextStyle(
-                              fontSize: 10, color: celadon)),
+                      child: Text(
+                        row.$3,
+                        style: TextStyle(fontSize: 10, color: celadon),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(row.$4,
-                          style: TextStyle(
-                              fontSize: 10, color: seafoam)),
+                      child: Text(
+                        row.$4,
+                        style: TextStyle(fontSize: 10, color: seafoam),
+                      ),
                     ),
                   ],
                 ),
@@ -825,9 +1124,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 12. Integration with ModalRoute ──────────────────────────
-        sectionBanner('11 \u00b7 Integration with ModalRoute',
-            'How entries connect to the route system',
-            richJade, Colors.white),
+        sectionBanner(
+          '11 \u00b7 Integration with ModalRoute',
+          'How entries connect to the route system',
+          richJade,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -840,21 +1142,52 @@ dynamic build(BuildContext context) {
             children: [
               for (final line in [
                 ('Navigator', 'Manages route stack', deepJade),
-                ('  \u2514\u2500 ModalRoute', 'Owns local history list', richJade),
-                ('       \u251c\u2500 addLocalHistoryEntry()', 'Pushes entry', celadon),
-                ('       \u251c\u2500 removeLocalHistoryEntry()', 'Pops entry', seafoam),
-                ('       \u251c\u2500 willHandlePopInternally', 'True if entries exist', malachite),
-                ('       \u2514\u2500 LocalHistoryEntry', 'The entry object', aquaMint),
-                ('            \u251c\u2500 onRemove callback', 'Fires on removal', paleCeladon),
-                ('            \u2514\u2500 impliesAppBarDismissal', 'Controls back icon', amberSignal),
+                (
+                  '  \u2514\u2500 ModalRoute',
+                  'Owns local history list',
+                  richJade,
+                ),
+                (
+                  '       \u251c\u2500 addLocalHistoryEntry()',
+                  'Pushes entry',
+                  celadon,
+                ),
+                (
+                  '       \u251c\u2500 removeLocalHistoryEntry()',
+                  'Pops entry',
+                  seafoam,
+                ),
+                (
+                  '       \u251c\u2500 willHandlePopInternally',
+                  'True if entries exist',
+                  malachite,
+                ),
+                (
+                  '       \u2514\u2500 LocalHistoryEntry',
+                  'The entry object',
+                  aquaMint,
+                ),
+                (
+                  '            \u251c\u2500 onRemove callback',
+                  'Fires on removal',
+                  paleCeladon,
+                ),
+                (
+                  '            \u2514\u2500 impliesAppBarDismissal',
+                  'Controls back icon',
+                  amberSignal,
+                ),
               ])
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 2),
-                  child: Text(line.$1,
-                      style: TextStyle(
-                          fontSize: 12,
-                          fontFamily: 'monospace',
-                          color: line.$3)),
+                  child: Text(
+                    line.$1,
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontFamily: 'monospace',
+                      color: line.$3,
+                    ),
+                  ),
                 ),
             ],
           ),
@@ -869,9 +1202,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 13. Form wizard simulation ───────────────────────────────
-        sectionBanner('12 \u00b7 Form Wizard Simulation',
-            'Multi-step form with per-step undo',
-            celadon, Colors.white),
+        sectionBanner(
+          '12 \u00b7 Form Wizard Simulation',
+          'Multi-step form with per-step undo',
+          celadon,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -895,8 +1231,7 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: step.$5.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border(
-                        left: BorderSide(color: step.$5, width: 3)),
+                    border: Border(left: BorderSide(color: step.$5, width: 3)),
                   ),
                   child: Row(
                     children: [
@@ -911,29 +1246,36 @@ dynamic build(BuildContext context) {
                           borderRadius: BorderRadius.circular(14),
                         ),
                         child: step.$4
-                            ? Icon(Icons.check,
-                                size: 16, color: Colors.white)
-                            : Text('${step.$1}',
+                            ? Icon(Icons.check, size: 16, color: Colors.white)
+                            : Text(
+                                '${step.$1}',
                                 style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 11,
-                                    fontWeight: FontWeight.bold)),
+                                  color: Colors.white,
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                       ),
                       const SizedBox(width: 10),
                       Icon(step.$3, size: 18, color: step.$5),
                       const SizedBox(width: 8),
                       Expanded(
-                        child: Text(step.$2,
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 13,
-                                color: deepJade)),
+                        child: Text(
+                          step.$2,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 13,
+                            color: deepJade,
+                          ),
+                        ),
                       ),
-                      tag(step.$4 ? 'ENTRY' : 'CURRENT',
-                          step.$4
-                              ? deepJade.withValues(alpha: 0.1)
-                              : coralAccent.withValues(alpha: 0.1),
-                          step.$4 ? deepJade : coralAccent),
+                      tag(
+                        step.$4 ? 'ENTRY' : 'CURRENT',
+                        step.$4
+                            ? deepJade.withValues(alpha: 0.1)
+                            : coralAccent.withValues(alpha: 0.1),
+                        step.$4 ? deepJade : coralAccent,
+                      ),
                     ],
                   ),
                 ),
@@ -951,9 +1293,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 14. Gotchas and tips ─────────────────────────────────────
-        sectionBanner('13 \u00b7 Gotchas and Best Practices',
-            'Common mistakes to avoid',
-            deepJade, Colors.white),
+        sectionBanner(
+          '13 \u00b7 Gotchas and Best Practices',
+          'Common mistakes to avoid',
+          deepJade,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -964,12 +1309,42 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final tip in [
-                ('\u26a0\ufe0f', 'Don\'t add duplicate entries', 'Track whether an entry was already added', coralAccent),
-                ('\u26a0\ufe0f', 'Don\'t call remove() after route popped', 'Entry is already cleaned up', coralAccent),
-                ('\u2705', 'Store entry reference for removal', 'Enables programmatic undo', deepJade),
-                ('\u2705', 'Use onRemove to reset UI state', 'E.g., switch back to previous tab index', richJade),
-                ('\u2705', 'Check mounted before setState', 'Callback may fire during dispose', celadon),
-                ('\u2705', 'Test with PopScope too', 'Works alongside local history', seafoam),
+                (
+                  '\u26a0\ufe0f',
+                  'Don\'t add duplicate entries',
+                  'Track whether an entry was already added',
+                  coralAccent,
+                ),
+                (
+                  '\u26a0\ufe0f',
+                  'Don\'t call remove() after route popped',
+                  'Entry is already cleaned up',
+                  coralAccent,
+                ),
+                (
+                  '\u2705',
+                  'Store entry reference for removal',
+                  'Enables programmatic undo',
+                  deepJade,
+                ),
+                (
+                  '\u2705',
+                  'Use onRemove to reset UI state',
+                  'E.g., switch back to previous tab index',
+                  richJade,
+                ),
+                (
+                  '\u2705',
+                  'Check mounted before setState',
+                  'Callback may fire during dispose',
+                  celadon,
+                ),
+                (
+                  '\u2705',
+                  'Test with PopScope too',
+                  'Works alongside local history',
+                  seafoam,
+                ),
               ])
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 3),
@@ -978,20 +1353,27 @@ dynamic build(BuildContext context) {
                     children: [
                       SizedBox(
                         width: 22,
-                        child: Text(tip.$1, style: const TextStyle(fontSize: 14)),
+                        child: Text(
+                          tip.$1,
+                          style: const TextStyle(fontSize: 14),
+                        ),
                       ),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(tip.$2,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 12,
-                                    color: tip.$4)),
-                            Text(tip.$3,
-                                style: TextStyle(
-                                    fontSize: 11, color: malachite)),
+                            Text(
+                              tip.$2,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 12,
+                                color: tip.$4,
+                              ),
+                            ),
+                            Text(
+                              tip.$3,
+                              style: TextStyle(fontSize: 11, color: malachite),
+                            ),
                           ],
                         ),
                       ),
@@ -1004,9 +1386,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 15. Inheritance ──────────────────────────────────────────
-        sectionBanner('14 \u00b7 Inheritance Hierarchy',
-            'Where LocalHistoryEntry sits in the framework',
-            richJade, Colors.white),
+        sectionBanner(
+          '14 \u00b7 Inheritance Hierarchy',
+          'Where LocalHistoryEntry sits in the framework',
+          richJade,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1023,15 +1408,22 @@ dynamic build(BuildContext context) {
                 ('     \u2514\u2500 (your subclass)', 2, celadon),
               ])
                 Padding(
-                  padding: EdgeInsets.only(left: level.$2 * 12.0, top: 4, bottom: 4),
-                  child: Text(level.$1,
-                      style: TextStyle(
-                          fontSize: 13,
-                          fontFamily: 'monospace',
-                          fontWeight: level.$2 == 1
-                              ? FontWeight.bold
-                              : FontWeight.normal,
-                          color: level.$3)),
+                  padding: EdgeInsets.only(
+                    left: level.$2 * 12.0,
+                    top: 4,
+                    bottom: 4,
+                  ),
+                  child: Text(
+                    level.$1,
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontFamily: 'monospace',
+                      fontWeight: level.$2 == 1
+                          ? FontWeight.bold
+                          : FontWeight.normal,
+                      color: level.$3,
+                    ),
+                  ),
                 ),
             ],
           ),
@@ -1047,8 +1439,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 16. Summary ──────────────────────────────────────────────
-        sectionBanner('15 \u00b7 Summary',
-            'Key takeaways', deepJade, Colors.white),
+        sectionBanner(
+          '15 \u00b7 Summary',
+          'Key takeaways',
+          deepJade,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -1078,15 +1474,19 @@ dynamic build(BuildContext context) {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('\u2022  ',
-                          style: TextStyle(
-                              color: aquaMint,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14)),
+                      Text(
+                        '\u2022  ',
+                        style: TextStyle(
+                          color: aquaMint,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                      ),
                       Expanded(
-                        child: Text(point,
-                            style: TextStyle(
-                                color: Colors.white, fontSize: 13)),
+                        child: Text(
+                          point,
+                          style: TextStyle(color: Colors.white, fontSize: 13),
+                        ),
                       ),
                     ],
                   ),

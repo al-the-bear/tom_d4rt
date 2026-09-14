@@ -8,9 +8,7 @@ Widget buildSectionHeader(String title, IconData icon, Color color) {
     margin: EdgeInsets.fromLTRB(8, 16, 8, 8),
     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
     decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: [color, color.withValues(alpha: 0.7)],
-      ),
+      gradient: LinearGradient(colors: [color, color.withValues(alpha: 0.7)]),
       borderRadius: BorderRadius.circular(8),
     ),
     child: Row(
@@ -18,11 +16,14 @@ Widget buildSectionHeader(String title, IconData icon, Color color) {
         Icon(icon, color: Colors.white, size: 20),
         SizedBox(width: 8),
         Expanded(
-          child: Text(title,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold)),
+          child: Text(
+            title,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
       ],
     ),
@@ -54,14 +55,19 @@ Widget buildInfoCard(String label, String description, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(label,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 13,
-                      color: color)),
+              Text(
+                label,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13,
+                  color: color,
+                ),
+              ),
               SizedBox(height: 2),
-              Text(description,
-                  style: TextStyle(fontSize: 11, color: Colors.grey.shade600)),
+              Text(
+                description,
+                style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+              ),
             ],
           ),
         ),
@@ -95,15 +101,19 @@ Widget buildInkCard(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(label,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                    color: cardColor)),
+            Text(
+              label,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+                color: cardColor,
+              ),
+            ),
             SizedBox(height: 4),
-            Text(subtitle,
-                style:
-                    TextStyle(fontSize: 11, color: Colors.grey.shade700)),
+            Text(
+              subtitle,
+              style: TextStyle(fontSize: 11, color: Colors.grey.shade700),
+            ),
           ],
         ),
       ),
@@ -149,16 +159,20 @@ Widget buildComparisonCard(
                 children: [
                   Icon(Icons.touch_app, color: color, size: 28),
                   SizedBox(height: 6),
-                  Text(label,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 11,
-                          fontWeight: FontWeight.bold,
-                          color: color)),
+                  Text(
+                    label,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.bold,
+                      color: color,
+                    ),
+                  ),
                   SizedBox(height: 2),
-                  Text('Tap me',
-                      style: TextStyle(
-                          fontSize: 10, color: Colors.grey.shade500)),
+                  Text(
+                    'Tap me',
+                    style: TextStyle(fontSize: 10, color: Colors.grey.shade500),
+                  ),
                 ],
               ),
             ),
@@ -179,15 +193,20 @@ dynamic build(BuildContext context) {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       buildSectionHeader(
-          'Default Splash Factory', Icons.water_drop, Colors.blue),
+        'Default Splash Factory',
+        Icons.water_drop,
+        Colors.blue,
+      ),
       buildInfoCard(
-          'InteractiveInkFeatureFactory',
-          'A typedef for a factory that creates ink splash effects. The default factory creates the standard Material splash.',
-          Colors.blue),
+        'InteractiveInkFeatureFactory',
+        'A typedef for a factory that creates ink splash effects. The default factory creates the standard Material splash.',
+        Colors.blue,
+      ),
       buildInfoCard(
-          'Default behavior',
-          'When no splashFactory is specified in the Theme, Flutter uses the default InkSplash factory.',
-          Colors.blue),
+        'Default behavior',
+        'When no splashFactory is specified in the Theme, Flutter uses the default InkSplash factory.',
+        Colors.blue,
+      ),
       Material(
         color: Colors.blue.withValues(alpha: 0.05),
         borderRadius: BorderRadius.circular(12),
@@ -207,17 +226,22 @@ dynamic build(BuildContext context) {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Default Ink Splash',
-                          style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.blue.shade800)),
+                      Text(
+                        'Default Ink Splash',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue.shade800,
+                        ),
+                      ),
                       SizedBox(height: 4),
                       Text(
-                          'Tap this card to see the default splash effect provided by the framework.',
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey.shade600)),
+                        'Tap this card to see the default splash effect provided by the framework.',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey.shade600,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -237,13 +261,19 @@ dynamic build(BuildContext context) {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       buildSectionHeader(
-          'InkSplash.splashFactory', Icons.blur_circular, Colors.indigo),
+        'InkSplash.splashFactory',
+        Icons.blur_circular,
+        Colors.indigo,
+      ),
       buildInfoCard(
-          'InkSplash',
-          'Creates a circular splash that expands outward from the tap point. This is the classic Material splash.',
-          Colors.indigo),
+        'InkSplash',
+        'Creates a circular splash that expands outward from the tap point. This is the classic Material splash.',
+        Colors.indigo,
+      ),
       Theme(
-        data: Theme.of(context).copyWith(splashFactory: InkSplash.splashFactory),
+        data: Theme.of(
+          context,
+        ).copyWith(splashFactory: InkSplash.splashFactory),
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 8),
           child: Material(
@@ -265,25 +295,33 @@ dynamic build(BuildContext context) {
                         color: Colors.indigo.withValues(alpha: 0.15),
                         shape: BoxShape.circle,
                       ),
-                      child: Icon(Icons.blur_circular,
-                          color: Colors.indigo, size: 24),
+                      child: Icon(
+                        Icons.blur_circular,
+                        color: Colors.indigo,
+                        size: 24,
+                      ),
                     ),
                     SizedBox(width: 12),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('InkSplash Factory',
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.indigo)),
+                          Text(
+                            'InkSplash Factory',
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.indigo,
+                            ),
+                          ),
                           SizedBox(height: 3),
                           Text(
-                              'Circular splash expanding from the tap point.',
-                              style: TextStyle(
-                                  fontSize: 11,
-                                  color: Colors.grey.shade600)),
+                            'Circular splash expanding from the tap point.',
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: Colors.grey.shade600,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -296,7 +334,9 @@ dynamic build(BuildContext context) {
       ),
       SizedBox(height: 4),
       Theme(
-        data: Theme.of(context).copyWith(splashFactory: InkSplash.splashFactory),
+        data: Theme.of(
+          context,
+        ).copyWith(splashFactory: InkSplash.splashFactory),
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 8),
           child: Material(
@@ -310,8 +350,10 @@ dynamic build(BuildContext context) {
               },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 14, horizontal: 16),
-                child: Text('InkSplash with custom splashColor',
-                    style: TextStyle(fontSize: 12, color: Colors.indigo.shade700)),
+                child: Text(
+                  'InkSplash with custom splashColor',
+                  style: TextStyle(fontSize: 12, color: Colors.indigo.shade700),
+                ),
               ),
             ),
           ),
@@ -326,14 +368,16 @@ dynamic build(BuildContext context) {
   final Widget inkRippleSection = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      buildSectionHeader(
-          'InkRipple.splashFactory', Icons.waves, Colors.teal),
+      buildSectionHeader('InkRipple.splashFactory', Icons.waves, Colors.teal),
       buildInfoCard(
-          'InkRipple',
-          'Creates a ripple effect that fills the entire widget area. More dramatic than InkSplash.',
-          Colors.teal),
+        'InkRipple',
+        'Creates a ripple effect that fills the entire widget area. More dramatic than InkSplash.',
+        Colors.teal,
+      ),
       Theme(
-        data: Theme.of(context).copyWith(splashFactory: InkRipple.splashFactory),
+        data: Theme.of(
+          context,
+        ).copyWith(splashFactory: InkRipple.splashFactory),
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 8),
           child: Material(
@@ -362,17 +406,22 @@ dynamic build(BuildContext context) {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('InkRipple Factory',
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.teal)),
+                          Text(
+                            'InkRipple Factory',
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.teal,
+                            ),
+                          ),
                           SizedBox(height: 3),
                           Text(
-                              'Full-area ripple that fills the entire widget bounds.',
-                              style: TextStyle(
-                                  fontSize: 11,
-                                  color: Colors.grey.shade600)),
+                            'Full-area ripple that fills the entire widget bounds.',
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: Colors.grey.shade600,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -385,7 +434,9 @@ dynamic build(BuildContext context) {
       ),
       SizedBox(height: 4),
       Theme(
-        data: Theme.of(context).copyWith(splashFactory: InkRipple.splashFactory),
+        data: Theme.of(
+          context,
+        ).copyWith(splashFactory: InkRipple.splashFactory),
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 8),
           child: Material(
@@ -400,8 +451,10 @@ dynamic build(BuildContext context) {
               },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 14, horizontal: 16),
-                child: Text('InkRipple with custom splash and highlight colors',
-                    style: TextStyle(fontSize: 12, color: Colors.teal.shade700)),
+                child: Text(
+                  'InkRipple with custom splash and highlight colors',
+                  style: TextStyle(fontSize: 12, color: Colors.teal.shade700),
+                ),
               ),
             ),
           ),
@@ -416,12 +469,12 @@ dynamic build(BuildContext context) {
   final Widget noSplashSection = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      buildSectionHeader(
-          'NoSplash.splashFactory', Icons.block, Colors.red),
+      buildSectionHeader('NoSplash.splashFactory', Icons.block, Colors.red),
       buildInfoCard(
-          'NoSplash',
-          'Disables the splash effect entirely. Useful for custom hit feedback or when ink effects are undesired.',
-          Colors.red),
+        'NoSplash',
+        'Disables the splash effect entirely. Useful for custom hit feedback or when ink effects are undesired.',
+        Colors.red,
+      ),
       Theme(
         data: Theme.of(context).copyWith(splashFactory: NoSplash.splashFactory),
         child: Container(
@@ -452,17 +505,22 @@ dynamic build(BuildContext context) {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('No Splash Factory',
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.red)),
+                          Text(
+                            'No Splash Factory',
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.red,
+                            ),
+                          ),
                           SizedBox(height: 3),
                           Text(
-                              'Tap here - no ink splash will appear. Only highlight may show.',
-                              style: TextStyle(
-                                  fontSize: 11,
-                                  color: Colors.grey.shade600)),
+                            'Tap here - no ink splash will appear. Only highlight may show.',
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: Colors.grey.shade600,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -492,8 +550,9 @@ dynamic build(BuildContext context) {
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 14, horizontal: 16),
                 child: Text(
-                    'NoSplash + transparent highlightColor = fully silent tap',
-                    style: TextStyle(fontSize: 12, color: Colors.red.shade700)),
+                  'NoSplash + transparent highlightColor = fully silent tap',
+                  style: TextStyle(fontSize: 12, color: Colors.red.shade700),
+                ),
               ),
             ),
           ),
@@ -505,8 +564,9 @@ dynamic build(BuildContext context) {
 
   // Section 5: Theme.of(context).splashFactory usage
   print('Section 5: Theme.of(context).splashFactory');
-  final InteractiveInkFeatureFactory currentFactory =
-      Theme.of(context).splashFactory;
+  final InteractiveInkFeatureFactory currentFactory = Theme.of(
+    context,
+  ).splashFactory;
   final String factoryName = currentFactory.toString();
   print('Current theme splash factory: $factoryName');
 
@@ -514,11 +574,15 @@ dynamic build(BuildContext context) {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       buildSectionHeader(
-          'Theme splashFactory', Icons.palette, Colors.deepPurple),
+        'Theme splashFactory',
+        Icons.palette,
+        Colors.deepPurple,
+      ),
       buildInfoCard(
-          'Theme.of(context).splashFactory',
-          'Retrieves the current InteractiveInkFeatureFactory from the nearest Theme ancestor.',
-          Colors.deepPurple),
+        'Theme.of(context).splashFactory',
+        'Retrieves the current InteractiveInkFeatureFactory from the nearest Theme ancestor.',
+        Colors.deepPurple,
+      ),
       Container(
         margin: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
         padding: EdgeInsets.all(12),
@@ -533,9 +597,12 @@ dynamic build(BuildContext context) {
             SizedBox(width: 8),
             Expanded(
               child: Text(
-                  'Current factory: $factoryName',
-                  style: TextStyle(
-                      fontSize: 12, color: Colors.deepPurple.shade700)),
+                'Current factory: $factoryName',
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Colors.deepPurple.shade700,
+                ),
+              ),
             ),
           ],
         ),
@@ -543,11 +610,14 @@ dynamic build(BuildContext context) {
       SizedBox(height: 4),
       // Wrap in Theme with InkRipple
       Theme(
-        data: Theme.of(context).copyWith(splashFactory: InkRipple.splashFactory),
+        data: Theme.of(
+          context,
+        ).copyWith(splashFactory: InkRipple.splashFactory),
         child: Builder(
           builder: (BuildContext innerContext) {
-            final InteractiveInkFeatureFactory innerFactory =
-                Theme.of(innerContext).splashFactory;
+            final InteractiveInkFeatureFactory innerFactory = Theme.of(
+              innerContext,
+            ).splashFactory;
             print('Inner theme factory: $innerFactory');
             return Container(
               margin: EdgeInsets.symmetric(horizontal: 8),
@@ -564,17 +634,22 @@ dynamic build(BuildContext context) {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Overridden via Theme',
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.deepPurple)),
+                        Text(
+                          'Overridden via Theme',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.deepPurple,
+                          ),
+                        ),
                         SizedBox(height: 4),
                         Text(
-                            'This InkWell uses InkRipple because its parent Theme sets splashFactory to InkRipple.splashFactory.',
-                            style: TextStyle(
-                                fontSize: 11,
-                                color: Colors.grey.shade600)),
+                          'This InkWell uses InkRipple because its parent Theme sets splashFactory to InkRipple.splashFactory.',
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Colors.grey.shade600,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -605,17 +680,22 @@ dynamic build(BuildContext context) {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Theme with NoSplash',
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey.shade700)),
+                        Text(
+                          'Theme with NoSplash',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey.shade700,
+                          ),
+                        ),
                         SizedBox(height: 4),
                         Text(
-                            'This InkWell has no splash because the parent Theme sets splashFactory to NoSplash.splashFactory.',
-                            style: TextStyle(
-                                fontSize: 11,
-                                color: Colors.grey.shade500)),
+                          'This InkWell has no splash because the parent Theme sets splashFactory to NoSplash.splashFactory.',
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Colors.grey.shade500,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -635,21 +715,37 @@ dynamic build(BuildContext context) {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       buildSectionHeader(
-          'Side-by-Side Comparison', Icons.compare, Colors.orange),
+        'Side-by-Side Comparison',
+        Icons.compare,
+        Colors.orange,
+      ),
       buildInfoCard(
-          'Visual comparison',
-          'Tap each card to see the different splash effects produced by each factory.',
-          Colors.orange),
+        'Visual comparison',
+        'Tap each card to see the different splash effects produced by each factory.',
+        Colors.orange,
+      ),
       Container(
         margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         child: Row(
           children: [
             buildComparisonCard(
-                context, 'InkSplash', Colors.indigo, InkSplash.splashFactory),
+              context,
+              'InkSplash',
+              Colors.indigo,
+              InkSplash.splashFactory,
+            ),
             buildComparisonCard(
-                context, 'InkRipple', Colors.teal, InkRipple.splashFactory),
+              context,
+              'InkRipple',
+              Colors.teal,
+              InkRipple.splashFactory,
+            ),
             buildComparisonCard(
-                context, 'NoSplash', Colors.red, NoSplash.splashFactory),
+              context,
+              'NoSplash',
+              Colors.red,
+              NoSplash.splashFactory,
+            ),
           ],
         ),
       ),
@@ -664,14 +760,17 @@ dynamic build(BuildContext context) {
         ),
         child: Row(
           children: [
-            Icon(Icons.lightbulb_outline,
-                color: Colors.orange.shade700, size: 18),
+            Icon(
+              Icons.lightbulb_outline,
+              color: Colors.orange.shade700,
+              size: 18,
+            ),
             SizedBox(width: 8),
             Expanded(
               child: Text(
-                  'InkSplash creates a circular splash from tap point. InkRipple fills the whole area. NoSplash produces nothing.',
-                  style: TextStyle(
-                      fontSize: 11, color: Colors.orange.shade800)),
+                'InkSplash creates a circular splash from tap point. InkRipple fills the whole area. NoSplash produces nothing.',
+                style: TextStyle(fontSize: 11, color: Colors.orange.shade800),
+              ),
             ),
           ],
         ),
@@ -686,18 +785,25 @@ dynamic build(BuildContext context) {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       buildSectionHeader(
-          'InkResponse vs InkWell', Icons.compare_arrows, Colors.deepOrange),
+        'InkResponse vs InkWell',
+        Icons.compare_arrows,
+        Colors.deepOrange,
+      ),
       buildInfoCard(
-          'InkResponse',
-          'A more general version of InkWell with customizable containedInkWell, radius, and highlightShape.',
-          Colors.deepOrange),
+        'InkResponse',
+        'A more general version of InkWell with customizable containedInkWell, radius, and highlightShape.',
+        Colors.deepOrange,
+      ),
       buildInfoCard(
-          'InkWell difference',
-          'InkWell always contains ink within its bounds and uses a rectangular highlight. InkResponse can overflow.',
-          Colors.deepOrange),
+        'InkWell difference',
+        'InkWell always contains ink within its bounds and uses a rectangular highlight. InkResponse can overflow.',
+        Colors.deepOrange,
+      ),
       // InkResponse with InkSplash - circular highlight
       Theme(
-        data: Theme.of(context).copyWith(splashFactory: InkSplash.splashFactory),
+        data: Theme.of(
+          context,
+        ).copyWith(splashFactory: InkSplash.splashFactory),
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           child: Material(
@@ -713,22 +819,31 @@ dynamic build(BuildContext context) {
                 padding: EdgeInsets.all(16),
                 child: Row(
                   children: [
-                    Icon(Icons.radio_button_unchecked,
-                        color: Colors.deepOrange, size: 28),
+                    Icon(
+                      Icons.radio_button_unchecked,
+                      color: Colors.deepOrange,
+                      size: 28,
+                    ),
                     SizedBox(width: 10),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('InkResponse + InkSplash',
-                              style: TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.deepOrange)),
-                          Text('Circle highlight, radius: 60, splash can overflow',
-                              style: TextStyle(
-                                  fontSize: 11,
-                                  color: Colors.grey.shade600)),
+                          Text(
+                            'InkResponse + InkSplash',
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.deepOrange,
+                            ),
+                          ),
+                          Text(
+                            'Circle highlight, radius: 60, splash can overflow',
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: Colors.grey.shade600,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -741,7 +856,9 @@ dynamic build(BuildContext context) {
       ),
       // InkResponse with InkRipple - contained
       Theme(
-        data: Theme.of(context).copyWith(splashFactory: InkRipple.splashFactory),
+        data: Theme.of(
+          context,
+        ).copyWith(splashFactory: InkRipple.splashFactory),
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           child: Material(
@@ -758,22 +875,27 @@ dynamic build(BuildContext context) {
                 padding: EdgeInsets.all(16),
                 child: Row(
                   children: [
-                    Icon(Icons.crop_square,
-                        color: Colors.teal, size: 28),
+                    Icon(Icons.crop_square, color: Colors.teal, size: 28),
                     SizedBox(width: 10),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('InkResponse + InkRipple (contained)',
-                              style: TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.teal)),
-                          Text('Rectangle highlight, containedInkWell: true',
-                              style: TextStyle(
-                                  fontSize: 11,
-                                  color: Colors.grey.shade600)),
+                          Text(
+                            'InkResponse + InkRipple (contained)',
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.teal,
+                            ),
+                          ),
+                          Text(
+                            'Rectangle highlight, containedInkWell: true',
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: Colors.grey.shade600,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -786,7 +908,9 @@ dynamic build(BuildContext context) {
       ),
       // InkWell with InkRipple for contrast
       Theme(
-        data: Theme.of(context).copyWith(splashFactory: InkRipple.splashFactory),
+        data: Theme.of(
+          context,
+        ).copyWith(splashFactory: InkRipple.splashFactory),
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           child: Material(
@@ -801,22 +925,31 @@ dynamic build(BuildContext context) {
                 padding: EdgeInsets.all(16),
                 child: Row(
                   children: [
-                    Icon(Icons.rectangle_outlined,
-                        color: Colors.indigo, size: 28),
+                    Icon(
+                      Icons.rectangle_outlined,
+                      color: Colors.indigo,
+                      size: 28,
+                    ),
                     SizedBox(width: 10),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('InkWell + InkRipple',
-                              style: TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.indigo)),
-                          Text('Always contained, always rectangular',
-                              style: TextStyle(
-                                  fontSize: 11,
-                                  color: Colors.grey.shade600)),
+                          Text(
+                            'InkWell + InkRipple',
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.indigo,
+                            ),
+                          ),
+                          Text(
+                            'Always contained, always rectangular',
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: Colors.grey.shade600,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -837,11 +970,15 @@ dynamic build(BuildContext context) {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       buildSectionHeader(
-          'Custom Splash & Highlight Colors', Icons.color_lens, Colors.purple),
+        'Custom Splash & Highlight Colors',
+        Icons.color_lens,
+        Colors.purple,
+      ),
       buildInfoCard(
-          'Color customization',
-          'splashColor and highlightColor on InkWell interact with the chosen factory to produce different visual results.',
-          Colors.purple),
+        'Color customization',
+        'splashColor and highlightColor on InkWell interact with the chosen factory to produce different visual results.',
+        Colors.purple,
+      ),
       buildInkCard(
         context,
         'Pink splash + InkSplash',
@@ -897,14 +1034,20 @@ dynamic build(BuildContext context) {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       buildSectionHeader(
-          'Material Widget Integration', Icons.layers, Colors.brown),
+        'Material Widget Integration',
+        Icons.layers,
+        Colors.brown,
+      ),
       buildInfoCard(
-          'Material as ink host',
-          'Material is required as an ancestor for InkWell/InkResponse. Its type and elevation affect ink rendering.',
-          Colors.brown),
+        'Material as ink host',
+        'Material is required as an ancestor for InkWell/InkResponse. Its type and elevation affect ink rendering.',
+        Colors.brown,
+      ),
       // Card-type material with InkSplash
       Theme(
-        data: Theme.of(context).copyWith(splashFactory: InkSplash.splashFactory),
+        data: Theme.of(
+          context,
+        ).copyWith(splashFactory: InkSplash.splashFactory),
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           child: Material(
@@ -928,23 +1071,28 @@ dynamic build(BuildContext context) {
                         color: Colors.brown.withValues(alpha: 0.12),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: Icon(Icons.style,
-                          color: Colors.brown, size: 22),
+                      child: Icon(Icons.style, color: Colors.brown, size: 22),
                     ),
                     SizedBox(width: 12),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Material(type: card) + InkSplash',
-                              style: TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.brown.shade800)),
-                          Text('Elevated card with circular splash',
-                              style: TextStyle(
-                                  fontSize: 11,
-                                  color: Colors.grey.shade600)),
+                          Text(
+                            'Material(type: card) + InkSplash',
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.brown.shade800,
+                            ),
+                          ),
+                          Text(
+                            'Elevated card with circular splash',
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: Colors.grey.shade600,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -957,7 +1105,9 @@ dynamic build(BuildContext context) {
       ),
       // Canvas-type material with InkRipple
       Theme(
-        data: Theme.of(context).copyWith(splashFactory: InkRipple.splashFactory),
+        data: Theme.of(
+          context,
+        ).copyWith(splashFactory: InkRipple.splashFactory),
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           child: Material(
@@ -982,23 +1132,32 @@ dynamic build(BuildContext context) {
                         color: Colors.lime.withValues(alpha: 0.2),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: Icon(Icons.view_agenda,
-                          color: Colors.lime.shade800, size: 22),
+                      child: Icon(
+                        Icons.view_agenda,
+                        color: Colors.lime.shade800,
+                        size: 22,
+                      ),
                     ),
                     SizedBox(width: 12),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Material(type: canvas) + InkRipple',
-                              style: TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.lime.shade900)),
-                          Text('Flat canvas with ripple fill effect',
-                              style: TextStyle(
-                                  fontSize: 11,
-                                  color: Colors.grey.shade600)),
+                          Text(
+                            'Material(type: canvas) + InkRipple',
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.lime.shade900,
+                            ),
+                          ),
+                          Text(
+                            'Flat canvas with ripple fill effect',
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: Colors.grey.shade600,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -1011,7 +1170,9 @@ dynamic build(BuildContext context) {
       ),
       // Transparent material with InkSplash
       Theme(
-        data: Theme.of(context).copyWith(splashFactory: InkSplash.splashFactory),
+        data: Theme.of(
+          context,
+        ).copyWith(splashFactory: InkSplash.splashFactory),
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           decoration: BoxDecoration(
@@ -1038,23 +1199,32 @@ dynamic build(BuildContext context) {
                         color: Colors.blue.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: Icon(Icons.visibility_off,
-                          color: Colors.blue, size: 22),
+                      child: Icon(
+                        Icons.visibility_off,
+                        color: Colors.blue,
+                        size: 22,
+                      ),
                     ),
                     SizedBox(width: 12),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Material(type: transparency) + InkSplash',
-                              style: TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.blue.shade800)),
-                          Text('Transparent material, splash still renders on it',
-                              style: TextStyle(
-                                  fontSize: 11,
-                                  color: Colors.grey.shade600)),
+                          Text(
+                            'Material(type: transparency) + InkSplash',
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue.shade800,
+                            ),
+                          ),
+                          Text(
+                            'Transparent material, splash still renders on it',
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: Colors.grey.shade600,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -1077,31 +1247,36 @@ dynamic build(BuildContext context) {
             children: [
               Container(
                 padding: EdgeInsets.fromLTRB(16, 12, 16, 4),
-                child: Text('Multiple InkWells under one Material',
-                    style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.brown.shade700)),
+                child: Text(
+                  'Multiple InkWells under one Material',
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.brown.shade700,
+                  ),
+                ),
               ),
               Theme(
-                data: Theme.of(context)
-                    .copyWith(splashFactory: InkSplash.splashFactory),
+                data: Theme.of(
+                  context,
+                ).copyWith(splashFactory: InkSplash.splashFactory),
                 child: InkWell(
                   onTap: () {
                     print('Multi-ink item 1 tapped');
                   },
                   child: Container(
-                    padding: EdgeInsets.symmetric(
-                        vertical: 12, horizontal: 16),
+                    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                     child: Row(
                       children: [
-                        Icon(Icons.looks_one,
-                            color: Colors.indigo, size: 20),
+                        Icon(Icons.looks_one, color: Colors.indigo, size: 20),
                         SizedBox(width: 10),
-                        Text('Item 1 - InkSplash factory',
-                            style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.grey.shade800)),
+                        Text(
+                          'Item 1 - InkSplash factory',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey.shade800,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -1109,24 +1284,26 @@ dynamic build(BuildContext context) {
               ),
               Divider(height: 1),
               Theme(
-                data: Theme.of(context)
-                    .copyWith(splashFactory: InkRipple.splashFactory),
+                data: Theme.of(
+                  context,
+                ).copyWith(splashFactory: InkRipple.splashFactory),
                 child: InkWell(
                   onTap: () {
                     print('Multi-ink item 2 tapped');
                   },
                   child: Container(
-                    padding: EdgeInsets.symmetric(
-                        vertical: 12, horizontal: 16),
+                    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                     child: Row(
                       children: [
-                        Icon(Icons.looks_two,
-                            color: Colors.teal, size: 20),
+                        Icon(Icons.looks_two, color: Colors.teal, size: 20),
                         SizedBox(width: 10),
-                        Text('Item 2 - InkRipple factory',
-                            style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.grey.shade800)),
+                        Text(
+                          'Item 2 - InkRipple factory',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey.shade800,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -1134,24 +1311,26 @@ dynamic build(BuildContext context) {
               ),
               Divider(height: 1),
               Theme(
-                data: Theme.of(context)
-                    .copyWith(splashFactory: NoSplash.splashFactory),
+                data: Theme.of(
+                  context,
+                ).copyWith(splashFactory: NoSplash.splashFactory),
                 child: InkWell(
                   onTap: () {
                     print('Multi-ink item 3 tapped');
                   },
                   child: Container(
-                    padding: EdgeInsets.symmetric(
-                        vertical: 12, horizontal: 16),
+                    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                     child: Row(
                       children: [
-                        Icon(Icons.looks_3,
-                            color: Colors.red, size: 20),
+                        Icon(Icons.looks_3, color: Colors.red, size: 20),
                         SizedBox(width: 10),
-                        Text('Item 3 - NoSplash factory',
-                            style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.grey.shade800)),
+                        Text(
+                          'Item 3 - NoSplash factory',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey.shade800,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -1171,28 +1350,32 @@ dynamic build(BuildContext context) {
   final Widget summarySection = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      buildSectionHeader(
-          'Summary', Icons.summarize, Colors.blueGrey),
+      buildSectionHeader('Summary', Icons.summarize, Colors.blueGrey),
       buildInfoCard(
-          'InteractiveInkFeatureFactory',
-          'A typedef for factories that create InteractiveInkFeature instances, used by Material widgets for tap feedback.',
-          Colors.blueGrey),
+        'InteractiveInkFeatureFactory',
+        'A typedef for factories that create InteractiveInkFeature instances, used by Material widgets for tap feedback.',
+        Colors.blueGrey,
+      ),
       buildInfoCard(
-          'Built-in factories',
-          'InkSplash.splashFactory (circle from tap), InkRipple.splashFactory (fills area), NoSplash.splashFactory (none).',
-          Colors.blueGrey),
+        'Built-in factories',
+        'InkSplash.splashFactory (circle from tap), InkRipple.splashFactory (fills area), NoSplash.splashFactory (none).',
+        Colors.blueGrey,
+      ),
       buildInfoCard(
-          'Theme integration',
-          'Set via ThemeData.splashFactory. Nearest Theme ancestor determines which factory InkWell/InkResponse uses.',
-          Colors.blueGrey),
+        'Theme integration',
+        'Set via ThemeData.splashFactory. Nearest Theme ancestor determines which factory InkWell/InkResponse uses.',
+        Colors.blueGrey,
+      ),
       buildInfoCard(
-          'InkWell vs InkResponse',
-          'InkWell always contains ink and uses rectangle. InkResponse allows circle highlights and overflow.',
-          Colors.blueGrey),
+        'InkWell vs InkResponse',
+        'InkWell always contains ink and uses rectangle. InkResponse allows circle highlights and overflow.',
+        Colors.blueGrey,
+      ),
       buildInfoCard(
-          'Color control',
-          'splashColor and highlightColor on InkWell customize visual appearance regardless of factory choice.',
-          Colors.blueGrey),
+        'Color control',
+        'splashColor and highlightColor on InkWell customize visual appearance regardless of factory choice.',
+        Colors.blueGrey,
+      ),
       Container(
         margin: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
         padding: EdgeInsets.all(14),
@@ -1208,16 +1391,17 @@ dynamic build(BuildContext context) {
         ),
         child: Row(
           children: [
-            Icon(Icons.check_circle,
-                color: Colors.blueGrey, size: 22),
+            Icon(Icons.check_circle, color: Colors.blueGrey, size: 22),
             SizedBox(width: 10),
             Expanded(
               child: Text(
-                  'InteractiveInkFeatureFactory demo complete. All built-in factories demonstrated with Theme integration, color customization, and Material widget hosting.',
-                  style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.blueGrey.shade700)),
+                'InteractiveInkFeatureFactory demo complete. All built-in factories demonstrated with Theme integration, color customization, and Material widget hosting.',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.blueGrey.shade700,
+                ),
+              ),
             ),
           ],
         ),

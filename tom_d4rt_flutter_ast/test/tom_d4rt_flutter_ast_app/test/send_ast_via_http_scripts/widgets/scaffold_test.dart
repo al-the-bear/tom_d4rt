@@ -105,9 +105,7 @@ class _SectionShell extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(28, 28, 28, 28),
       decoration: BoxDecoration(
         color: _kPaper,
-        border: Border(
-          bottom: BorderSide(color: _kBorder, width: 1),
-        ),
+        border: Border(bottom: BorderSide(color: _kBorder, width: 1)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -126,7 +124,10 @@ class _SectionShell extends StatelessWidget {
               ),
               const SizedBox(width: 12),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: tone.withOpacity(0.10),
                   borderRadius: BorderRadius.circular(999),
@@ -282,8 +283,11 @@ class _PageHero extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(color: Colors.white.withOpacity(0.32)),
                 ),
-                child: const Icon(Icons.view_quilt_outlined,
-                    color: Colors.white, size: 26),
+                child: const Icon(
+                  Icons.view_quilt_outlined,
+                  color: Colors.white,
+                  size: 26,
+                ),
               ),
               const SizedBox(width: 14),
               Expanded(
@@ -397,8 +401,7 @@ class _PageFoot extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              const Icon(Icons.flag_outlined,
-                  color: _kInkFaint, size: 18),
+              const Icon(Icons.flag_outlined, color: _kInkFaint, size: 18),
               const SizedBox(width: 8),
               const Text(
                 "End of Scaffold deep demo",
@@ -600,8 +603,7 @@ class _Section2Anatomy extends StatelessWidget {
           ),
           child: Column(
             children: <Widget>[
-              _anatomyBar(
-                  "appBar (PreferredSize 56dp)", _kAccent5, 38),
+              _anatomyBar("appBar (PreferredSize 56dp)", _kAccent5, 38),
               _anatomyGap(),
               Row(
                 children: <Widget>[
@@ -622,8 +624,7 @@ class _Section2Anatomy extends StatelessWidget {
                         const SizedBox(height: 6),
                         _anatomyBar("bottomSheet", _kAccent3, 28),
                         const SizedBox(height: 6),
-                        _anatomyBar(
-                            "persistentFooterButtons", _kWarn, 22),
+                        _anatomyBar("persistentFooterButtons", _kWarn, 22),
                       ],
                     ),
                   ),
@@ -639,17 +640,17 @@ class _Section2Anatomy extends StatelessWidget {
                 ],
               ),
               _anatomyGap(),
-              _anatomyBar(
-                  "bottomNavigationBar (56dp)", _kAccent5, 30),
+              _anatomyBar("bottomNavigationBar (56dp)", _kAccent5, 30),
               _anatomyGap(),
               Stack(
                 clipBehavior: Clip.none,
                 alignment: Alignment.centerRight,
                 children: <Widget>[
                   _anatomyBar(
-                      "floatingActionButton (centerFloat / endDocked …)",
-                      _kAccent3,
-                      18),
+                    "floatingActionButton (centerFloat / endDocked …)",
+                    _kAccent3,
+                    18,
+                  ),
                 ],
               ),
             ],
@@ -864,26 +865,26 @@ class _LoginBody extends StatelessWidget {
       child: SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
         child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: const <Widget>[
-          _LoginLogo(),
-          SizedBox(height: 22),
-          _MockField(label: "Email", hint: "you@example.com"),
-          SizedBox(height: 12),
-          _MockField(label: "Password", hint: "•••••••••", obscure: true),
-          SizedBox(height: 22),
-          _SolidButton(text: "Sign in", tone: _kAccent3),
-          SizedBox(height: 12),
-          _OutlineButton(text: "Continue with Passkey"),
-          SizedBox(height: 18),
-          Center(
-            child: Text(
-              "By signing in you accept the Terms of Service.",
-              style: TextStyle(color: _kInkMuted, fontSize: 11),
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: const <Widget>[
+            _LoginLogo(),
+            SizedBox(height: 22),
+            _MockField(label: "Email", hint: "you@example.com"),
+            SizedBox(height: 12),
+            _MockField(label: "Password", hint: "•••••••••", obscure: true),
+            SizedBox(height: 22),
+            _SolidButton(text: "Sign in", tone: _kAccent3),
+            SizedBox(height: 12),
+            _OutlineButton(text: "Continue with Passkey"),
+            SizedBox(height: 18),
+            Center(
+              child: Text(
+                "By signing in you accept the Terms of Service.",
+                style: TextStyle(color: _kInkMuted, fontSize: 11),
+              ),
             ),
-          ),
-        ],
-      ),
+          ],
+        ),
       ),
     );
   }
@@ -902,8 +903,11 @@ class _LoginLogo extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           border: Border.all(color: _kAccent3.withOpacity(0.35)),
         ),
-        child: const Icon(Icons.lock_outline_rounded,
-            color: _kAccent3, size: 32),
+        child: const Icon(
+          Icons.lock_outline_rounded,
+          color: _kAccent3,
+          size: 32,
+        ),
       ),
     );
   }
@@ -1086,7 +1090,9 @@ class _Section4DashboardRecipe extends StatelessWidget {
                       _BNavItem(icon: Icons.home_rounded, label: "Home"),
                       _BNavItem(icon: Icons.layers_rounded, label: "Projects"),
                       _BNavItem(
-                          icon: Icons.bar_chart_rounded, label: "Reports"),
+                        icon: Icons.bar_chart_rounded,
+                        label: "Reports",
+                      ),
                       _BNavItem(icon: Icons.person_outline, label: "Me"),
                     ],
                     selected: 0,
@@ -1109,11 +1115,15 @@ class _Section4DashboardRecipe extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 12),
-        Wrap(spacing: 8, runSpacing: 8, children: const <Widget>[
-          _Pill(text: "Scaffold.drawer", color: _kAccent4),
-          _Pill(text: "Scaffold.bottomNavigationBar", color: _kAccent5),
-          _Pill(text: "Scaffold.floatingActionButton", color: _kAccent3),
-        ]),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: const <Widget>[
+            _Pill(text: "Scaffold.drawer", color: _kAccent4),
+            _Pill(text: "Scaffold.bottomNavigationBar", color: _kAccent5),
+            _Pill(text: "Scaffold.floatingActionButton", color: _kAccent3),
+          ],
+        ),
       ],
     );
   }
@@ -1132,27 +1142,15 @@ class _DashboardBody extends StatelessWidget {
           Row(
             children: <Widget>[
               Expanded(
-                child: _DashCard(
-                  title: "Active",
-                  value: "12",
-                  tone: _kAccent4,
-                ),
+                child: _DashCard(title: "Active", value: "12", tone: _kAccent4),
               ),
               const SizedBox(width: 8),
               Expanded(
-                child: _DashCard(
-                  title: "Pending",
-                  value: "3",
-                  tone: _kWarn,
-                ),
+                child: _DashCard(title: "Pending", value: "3", tone: _kWarn),
               ),
               const SizedBox(width: 8),
               Expanded(
-                child: _DashCard(
-                  title: "Closed",
-                  value: "48",
-                  tone: _kSuccess,
-                ),
+                child: _DashCard(title: "Closed", value: "48", tone: _kSuccess),
               ),
             ],
           ),
@@ -1178,21 +1176,25 @@ class _DashboardBody extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   _ActivityRow(
-                      icon: Icons.task_alt,
-                      text: "QA-128 closed by Maria",
-                      tone: _kSuccess),
+                    icon: Icons.task_alt,
+                    text: "QA-128 closed by Maria",
+                    tone: _kSuccess,
+                  ),
                   _ActivityRow(
-                      icon: Icons.hourglass_bottom,
-                      text: "QA-129 waiting on review",
-                      tone: _kWarn),
+                    icon: Icons.hourglass_bottom,
+                    text: "QA-129 waiting on review",
+                    tone: _kWarn,
+                  ),
                   _ActivityRow(
-                      icon: Icons.flag_outlined,
-                      text: "QA-130 blocked",
-                      tone: _kDanger),
+                    icon: Icons.flag_outlined,
+                    text: "QA-130 blocked",
+                    tone: _kDanger,
+                  ),
                   _ActivityRow(
-                      icon: Icons.edit_note,
-                      text: "QA-131 drafted by Otto",
-                      tone: _kInfo),
+                    icon: Icons.edit_note,
+                    text: "QA-131 drafted by Otto",
+                    tone: _kInfo,
+                  ),
                 ],
               ),
             ),
@@ -1317,8 +1319,11 @@ class _MockDrawer extends StatelessWidget {
               color: _kAccent4.withOpacity(0.16),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: const Icon(Icons.workspaces_outline,
-                color: _kAccent4, size: 22),
+            child: const Icon(
+              Icons.workspaces_outline,
+              color: _kAccent4,
+              size: 22,
+            ),
           ),
           const SizedBox(height: 18),
           _DrawerTile(icon: Icons.home_rounded, label: "Home", selected: true),
@@ -1347,15 +1352,12 @@ class _DrawerTile extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
       padding: const EdgeInsets.symmetric(vertical: 6),
       decoration: BoxDecoration(
-        color: selected
-            ? _kAccent4.withOpacity(0.12)
-            : Colors.transparent,
+        color: selected ? _kAccent4.withOpacity(0.12) : Colors.transparent,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Column(
         children: <Widget>[
-          Icon(icon,
-              color: selected ? _kAccent4 : _kInkMuted, size: 18),
+          Icon(icon, color: selected ? _kAccent4 : _kInkMuted, size: 18),
           const SizedBox(height: 2),
           Text(
             label,
@@ -1393,9 +1395,7 @@ class _MockBottomNav extends StatelessWidget {
       height: 56,
       decoration: BoxDecoration(
         color: _kCard,
-        border: Border(
-          top: BorderSide(color: _kBorder),
-        ),
+        border: Border(top: BorderSide(color: _kBorder)),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: Colors.black.withOpacity(0.06),
@@ -1525,27 +1525,32 @@ class _ChatBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const <Widget>[
           _ChatBubble(
-              text: "Hey! Did you finish the Scaffold demo?",
-              mine: false,
-              tone: _kAccent6),
+            text: "Hey! Did you finish the Scaffold demo?",
+            mine: false,
+            tone: _kAccent6,
+          ),
           _ChatBubble(
-              text: "Almost — ten sections to go.",
-              mine: true,
-              tone: _kAccent),
+            text: "Almost — ten sections to go.",
+            mine: true,
+            tone: _kAccent,
+          ),
           _ChatBubble(
-              text:
-                  "Don't forget the persistentFooterButtons recipe — easy "
-                  "to miss it.",
-              mine: false,
-              tone: _kAccent6),
+            text:
+                "Don't forget the persistentFooterButtons recipe — easy "
+                "to miss it.",
+            mine: false,
+            tone: _kAccent6,
+          ),
           _ChatBubble(
-              text: "Already drafted. Pushing soon.",
-              mine: true,
-              tone: _kAccent),
+            text: "Already drafted. Pushing soon.",
+            mine: true,
+            tone: _kAccent,
+          ),
           _ChatBubble(
-              text: "Beautiful. Talk later!",
-              mine: false,
-              tone: _kAccent6),
+            text: "Beautiful. Talk later!",
+            mine: false,
+            tone: _kAccent6,
+          ),
         ],
       ),
     );
@@ -1577,9 +1582,7 @@ class _ChatBubble extends StatelessWidget {
             bottomLeft: Radius.circular(mine ? 14 : 2),
             bottomRight: Radius.circular(mine ? 2 : 14),
           ),
-          border: Border.all(
-            color: mine ? tone : _kBorder,
-          ),
+          border: Border.all(color: mine ? tone : _kBorder),
         ),
         child: Text(
           text,
@@ -1606,8 +1609,7 @@ class _ChatComposer extends StatelessWidget {
       ),
       child: Row(
         children: <Widget>[
-          const Icon(Icons.attach_file_rounded,
-              color: _kInkMuted, size: 20),
+          const Icon(Icons.attach_file_rounded, color: _kInkMuted, size: 20),
           const SizedBox(width: 8),
           Expanded(
             child: Container(
@@ -1634,8 +1636,11 @@ class _ChatComposer extends StatelessWidget {
               color: _kAccent6,
               shape: BoxShape.circle,
             ),
-            child: const Icon(Icons.send_rounded,
-                color: Colors.white, size: 18),
+            child: const Icon(
+              Icons.send_rounded,
+              color: Colors.white,
+              size: 18,
+            ),
           ),
         ],
       ),
@@ -1708,47 +1713,54 @@ class _SettingsList extends StatelessWidget {
       child: SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
         child: Column(
-        children: const <Widget>[
-          _SectionLabel(text: "ACCOUNT"),
-          _SettingsRow(
+          children: const <Widget>[
+            _SectionLabel(text: "ACCOUNT"),
+            _SettingsRow(
               icon: Icons.person_outline,
               title: "Profile",
               subtitle: "Name, email, photo",
-              tone: _kAccent5),
-          _SettingsRow(
+              tone: _kAccent5,
+            ),
+            _SettingsRow(
               icon: Icons.lock_outline,
               title: "Security",
               subtitle: "Password, passkeys, 2FA",
-              tone: _kAccent4),
-          _SettingsRow(
+              tone: _kAccent4,
+            ),
+            _SettingsRow(
               icon: Icons.devices_other_outlined,
               title: "Devices",
               subtitle: "3 active sessions",
-              tone: _kAccent2),
-          _SectionLabel(text: "PREFERENCES"),
-          _SettingsRow(
+              tone: _kAccent2,
+            ),
+            _SectionLabel(text: "PREFERENCES"),
+            _SettingsRow(
               icon: Icons.palette_outlined,
               title: "Appearance",
               subtitle: "Light · Dark · System",
-              tone: _kAccent3),
-          _SettingsRow(
+              tone: _kAccent3,
+            ),
+            _SettingsRow(
               icon: Icons.language_outlined,
               title: "Language",
               subtitle: "English (US)",
-              tone: _kAccent6),
-          _SettingsRow(
+              tone: _kAccent6,
+            ),
+            _SettingsRow(
               icon: Icons.notifications_none_rounded,
               title: "Notifications",
               subtitle: "On for mentions",
-              tone: _kWarn),
-          _SectionLabel(text: "ABOUT"),
-          _SettingsRow(
+              tone: _kWarn,
+            ),
+            _SectionLabel(text: "ABOUT"),
+            _SettingsRow(
               icon: Icons.info_outline,
               title: "About this app",
               subtitle: "Version 4.2.0",
-              tone: _kInkMuted),
-        ],
-      ),
+              tone: _kInkMuted,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -1823,16 +1835,12 @@ class _SettingsRow extends StatelessWidget {
                 const SizedBox(height: 2),
                 Text(
                   subtitle,
-                  style: const TextStyle(
-                    color: _kInkMuted,
-                    fontSize: 11.5,
-                  ),
+                  style: const TextStyle(color: _kInkMuted, fontSize: 11.5),
                 ),
               ],
             ),
           ),
-          const Icon(Icons.chevron_right_rounded,
-              color: _kInkFaint, size: 18),
+          const Icon(Icons.chevron_right_rounded, color: _kInkFaint, size: 18),
         ],
       ),
     );
@@ -1862,30 +1870,46 @@ class _Section7FabLocations extends StatelessWidget {
           runSpacing: 12,
           children: <Widget>[
             _FabThumb(
-                title: "startFloat", align: Alignment.bottomLeft, docked: false),
+              title: "startFloat",
+              align: Alignment.bottomLeft,
+              docked: false,
+            ),
             _FabThumb(
-                title: "centerFloat",
-                align: Alignment.bottomCenter,
-                docked: false),
+              title: "centerFloat",
+              align: Alignment.bottomCenter,
+              docked: false,
+            ),
             _FabThumb(
-                title: "endFloat", align: Alignment.bottomRight, docked: false),
+              title: "endFloat",
+              align: Alignment.bottomRight,
+              docked: false,
+            ),
             _FabThumb(
-                title: "startDocked", align: Alignment.bottomLeft, docked: true),
+              title: "startDocked",
+              align: Alignment.bottomLeft,
+              docked: true,
+            ),
             _FabThumb(
-                title: "centerDocked",
-                align: Alignment.bottomCenter,
-                docked: true),
+              title: "centerDocked",
+              align: Alignment.bottomCenter,
+              docked: true,
+            ),
             _FabThumb(
-                title: "endDocked", align: Alignment.bottomRight, docked: true),
+              title: "endDocked",
+              align: Alignment.bottomRight,
+              docked: true,
+            ),
             _FabThumb(
-                title: "miniStartTop",
-                align: Alignment.topLeft,
-                docked: false,
-                mini: true),
+              title: "miniStartTop",
+              align: Alignment.topLeft,
+              docked: false,
+              mini: true,
+            ),
             _FabThumb(
-                title: "endTop",
-                align: Alignment.topRight,
-                docked: false),
+              title: "endTop",
+              align: Alignment.topRight,
+              docked: false,
+            ),
           ],
         ),
         const SizedBox(height: 14),
@@ -1940,9 +1964,7 @@ class _FabThumb extends StatelessWidget {
           Expanded(
             child: Stack(
               children: <Widget>[
-                Positioned.fill(
-                  child: Container(color: _kPaperCool),
-                ),
+                Positioned.fill(child: Container(color: _kPaperCool)),
                 Positioned(
                   left: 0,
                   right: 0,
@@ -1951,8 +1973,9 @@ class _FabThumb extends StatelessWidget {
                     height: 22,
                     decoration: BoxDecoration(
                       color: _kInkSoft,
-                      borderRadius:
-                          docked ? BorderRadius.zero : BorderRadius.zero,
+                      borderRadius: docked
+                          ? BorderRadius.zero
+                          : BorderRadius.zero,
                     ),
                     alignment: Alignment.center,
                     child: const Text(
@@ -1969,12 +1992,7 @@ class _FabThumb extends StatelessWidget {
                 Align(
                   alignment: align,
                   child: Padding(
-                    padding: EdgeInsets.fromLTRB(
-                      8,
-                      8,
-                      8,
-                      docked ? 12 : 28,
-                    ),
+                    padding: EdgeInsets.fromLTRB(8, 8, 8, docked ? 12 : 28),
                     child: Container(
                       width: mini ? 22 : 28,
                       height: mini ? 22 : 28,
@@ -1990,8 +2008,11 @@ class _FabThumb extends StatelessWidget {
                           ),
                         ],
                       ),
-                      child: const Icon(Icons.add_rounded,
-                          color: Colors.white, size: 14),
+                      child: const Icon(
+                        Icons.add_rounded,
+                        color: Colors.white,
+                        size: 14,
+                      ),
                     ),
                   ),
                 ),
@@ -2048,33 +2069,33 @@ class _CompareCard extends StatelessWidget {
   });
 
   factory _CompareCard.scaffold() => const _CompareCard(
-        title: "Scaffold",
-        tone: _kAccent,
-        icon: Icons.view_quilt_outlined,
-        summary:
-            "Full Material orchestration. AppBar, drawers, FAB, snack bars, "
-            "bottom bar, persistent footer — all wired in.",
-      );
+    title: "Scaffold",
+    tone: _kAccent,
+    icon: Icons.view_quilt_outlined,
+    summary:
+        "Full Material orchestration. AppBar, drawers, FAB, snack bars, "
+        "bottom bar, persistent footer — all wired in.",
+  );
 
   factory _CompareCard.cupertino() => const _CompareCard(
-        title: "CupertinoPageScaffold",
-        tone: _kAccent5,
-        icon: Icons.phone_iphone_rounded,
-        summary:
-            "iOS-style nav bar at the top, edge swipe back gestures. No "
-            "drawer / FAB concepts; bottom controls come from "
-            "CupertinoTabScaffold instead.",
-      );
+    title: "CupertinoPageScaffold",
+    tone: _kAccent5,
+    icon: Icons.phone_iphone_rounded,
+    summary:
+        "iOS-style nav bar at the top, edge swipe back gestures. No "
+        "drawer / FAB concepts; bottom controls come from "
+        "CupertinoTabScaffold instead.",
+  );
 
   factory _CompareCard.raw() => const _CompareCard(
-        title: "Raw Material",
-        tone: _kInkSoft,
-        icon: Icons.crop_square_rounded,
-        summary:
-            "A bare Material surface. Use when you want a fully custom shell "
-            "but still need ink wells and ancestor Material to paint splash "
-            "effects.",
-      );
+    title: "Raw Material",
+    tone: _kInkSoft,
+    icon: Icons.crop_square_rounded,
+    summary:
+        "A bare Material surface. Use when you want a fully custom shell "
+        "but still need ink wells and ancestor Material to paint splash "
+        "effects.",
+  );
 
   final String title;
   final Color tone;
@@ -2146,40 +2167,47 @@ class _CompareTable extends StatelessWidget {
         children: const <Widget>[
           _CompareHeaderRow(),
           _CompareRow(
-              feature: "AppBar slot",
-              scaffold: "yes",
-              cupertino: "navigationBar",
-              raw: "diy"),
+            feature: "AppBar slot",
+            scaffold: "yes",
+            cupertino: "navigationBar",
+            raw: "diy",
+          ),
           _CompareRow(
-              feature: "Drawer",
-              scaffold: "yes",
-              cupertino: "no",
-              raw: "diy"),
+            feature: "Drawer",
+            scaffold: "yes",
+            cupertino: "no",
+            raw: "diy",
+          ),
           _CompareRow(
-              feature: "FAB",
-              scaffold: "yes",
-              cupertino: "no",
-              raw: "diy"),
+            feature: "FAB",
+            scaffold: "yes",
+            cupertino: "no",
+            raw: "diy",
+          ),
           _CompareRow(
-              feature: "BottomNav",
-              scaffold: "yes",
-              cupertino: "via TabScaffold",
-              raw: "diy"),
+            feature: "BottomNav",
+            scaffold: "yes",
+            cupertino: "via TabScaffold",
+            raw: "diy",
+          ),
           _CompareRow(
-              feature: "SnackBar",
-              scaffold: "ScaffoldMessenger",
-              cupertino: "diy",
-              raw: "diy"),
+            feature: "SnackBar",
+            scaffold: "ScaffoldMessenger",
+            cupertino: "diy",
+            raw: "diy",
+          ),
           _CompareRow(
-              feature: "Edge swipe back",
-              scaffold: "no",
-              cupertino: "yes",
-              raw: "no"),
+            feature: "Edge swipe back",
+            scaffold: "no",
+            cupertino: "yes",
+            raw: "no",
+          ),
           _CompareRow(
-              feature: "Material ink",
-              scaffold: "yes",
-              cupertino: "limited",
-              raw: "yes"),
+            feature: "Material ink",
+            scaffold: "yes",
+            cupertino: "limited",
+            raw: "yes",
+          ),
         ],
       ),
     );
@@ -2199,33 +2227,49 @@ class _CompareHeaderRow extends StatelessWidget {
       child: Row(
         children: const <Widget>[
           Expanded(
-              flex: 3,
-              child: Text("Feature",
-                  style: TextStyle(
-                      color: _kInk,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w800))),
+            flex: 3,
+            child: Text(
+              "Feature",
+              style: TextStyle(
+                color: _kInk,
+                fontSize: 11,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+          ),
           Expanded(
-              flex: 2,
-              child: Text("Scaffold",
-                  style: TextStyle(
-                      color: _kAccent,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w800))),
+            flex: 2,
+            child: Text(
+              "Scaffold",
+              style: TextStyle(
+                color: _kAccent,
+                fontSize: 11,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+          ),
           Expanded(
-              flex: 3,
-              child: Text("Cupertino",
-                  style: TextStyle(
-                      color: _kAccent5,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w800))),
+            flex: 3,
+            child: Text(
+              "Cupertino",
+              style: TextStyle(
+                color: _kAccent5,
+                fontSize: 11,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+          ),
           Expanded(
-              flex: 2,
-              child: Text("Raw Material",
-                  style: TextStyle(
-                      color: _kInkSoft,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w800))),
+            flex: 2,
+            child: Text(
+              "Raw Material",
+              style: TextStyle(
+                color: _kInkSoft,
+                fontSize: 11,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -2253,27 +2297,49 @@ class _CompareRow extends StatelessWidget {
       child: Row(
         children: <Widget>[
           Expanded(
-              flex: 3,
-              child: Text(feature,
-                  style: const TextStyle(
-                      color: _kInkSoft,
-                      fontSize: 11.5,
-                      fontWeight: FontWeight.w700))),
+            flex: 3,
+            child: Text(
+              feature,
+              style: const TextStyle(
+                color: _kInkSoft,
+                fontSize: 11.5,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
           Expanded(
-              flex: 2,
-              child: Text(scaffold,
-                  style: const TextStyle(
-                      color: _kInk, fontSize: 11, fontWeight: FontWeight.w600))),
+            flex: 2,
+            child: Text(
+              scaffold,
+              style: const TextStyle(
+                color: _kInk,
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
           Expanded(
-              flex: 3,
-              child: Text(cupertino,
-                  style: const TextStyle(
-                      color: _kInk, fontSize: 11, fontWeight: FontWeight.w600))),
+            flex: 3,
+            child: Text(
+              cupertino,
+              style: const TextStyle(
+                color: _kInk,
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
           Expanded(
-              flex: 2,
-              child: Text(raw,
-                  style: const TextStyle(
-                      color: _kInk, fontSize: 11, fontWeight: FontWeight.w600))),
+            flex: 2,
+            child: Text(
+              raw,
+              style: const TextStyle(
+                color: _kInk,
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -2298,82 +2364,97 @@ class _Section9Glossary extends StatelessWidget {
       tone: _kAccent2,
       children: const <Widget>[
         _GlossEntry(
-            term: "Scaffold",
-            def:
-                "Material widget that implements the basic visual layout "
-                "structure: appBar, body, bottom slots, drawers, and "
-                "snack bar host."),
+          term: "Scaffold",
+          def:
+              "Material widget that implements the basic visual layout "
+              "structure: appBar, body, bottom slots, drawers, and "
+              "snack bar host.",
+        ),
         _GlossEntry(
-            term: "ScaffoldState",
-            def:
-                "State accessed via Scaffold.of(context) — used to open "
-                "drawers, show snack bars (legacy), or show bottom sheets "
-                "programmatically."),
+          term: "ScaffoldState",
+          def:
+              "State accessed via Scaffold.of(context) — used to open "
+              "drawers, show snack bars (legacy), or show bottom sheets "
+              "programmatically.",
+        ),
         _GlossEntry(
-            term: "ScaffoldMessenger",
-            def:
-                "Inherited widget that owns the snack bar queue. Survives "
-                "route changes when placed above the navigator."),
+          term: "ScaffoldMessenger",
+          def:
+              "Inherited widget that owns the snack bar queue. Survives "
+              "route changes when placed above the navigator.",
+        ),
         _GlossEntry(
-            term: "PreferredSizeWidget",
-            def:
-                "A widget that exposes a preferred size so Scaffold can lay "
-                "out the appBar slot. AppBar and TabBar implement this."),
+          term: "PreferredSizeWidget",
+          def:
+              "A widget that exposes a preferred size so Scaffold can lay "
+              "out the appBar slot. AppBar and TabBar implement this.",
+        ),
         _GlossEntry(
-            term: "FloatingActionButtonLocation",
-            def:
-                "Strategy class that places the FAB. Built-in options include "
-                "startFloat, centerFloat, endFloat, plus docked variants."),
+          term: "FloatingActionButtonLocation",
+          def:
+              "Strategy class that places the FAB. Built-in options include "
+              "startFloat, centerFloat, endFloat, plus docked variants.",
+        ),
         _GlossEntry(
-            term: "FloatingActionButtonAnimator",
-            def:
-                "Strategy class that animates FAB transitions when the "
-                "location, icon, or visibility changes."),
+          term: "FloatingActionButtonAnimator",
+          def:
+              "Strategy class that animates FAB transitions when the "
+              "location, icon, or visibility changes.",
+        ),
         _GlossEntry(
-            term: "Drawer",
-            def:
-                "Material side panel pushed in from the leading edge. "
-                "Endorsed for navigation destinations on mobile."),
+          term: "Drawer",
+          def:
+              "Material side panel pushed in from the leading edge. "
+              "Endorsed for navigation destinations on mobile.",
+        ),
         _GlossEntry(
-            term: "EndDrawer",
-            def:
-                "Mirror of Drawer on the trailing edge. Same gestures, "
-                "different alignment."),
+          term: "EndDrawer",
+          def:
+              "Mirror of Drawer on the trailing edge. Same gestures, "
+              "different alignment.",
+        ),
         _GlossEntry(
-            term: "BottomNavigationBar",
-            def:
-                "Persistent bar of top-level destinations. Replaced in "
-                "Material 3 by NavigationBar but still widely used."),
+          term: "BottomNavigationBar",
+          def:
+              "Persistent bar of top-level destinations. Replaced in "
+              "Material 3 by NavigationBar but still widely used.",
+        ),
         _GlossEntry(
-            term: "BottomSheet",
-            def:
-                "A surface that slides up above the body. Persistent variants "
-                "stay across screens; modal variants block interaction."),
+          term: "BottomSheet",
+          def:
+              "A surface that slides up above the body. Persistent variants "
+              "stay across screens; modal variants block interaction.",
+        ),
         _GlossEntry(
-            term: "persistentFooterButtons",
-            def:
-                "A horizontal row of buttons just above the bottom bar. "
-                "Useful for global commit / cancel actions."),
+          term: "persistentFooterButtons",
+          def:
+              "A horizontal row of buttons just above the bottom bar. "
+              "Useful for global commit / cancel actions.",
+        ),
         _GlossEntry(
-            term: "SnackBar",
-            def:
-                "Brief floating notification displayed by ScaffoldMessenger. "
-                "Queued — only one is shown at a time."),
+          term: "SnackBar",
+          def:
+              "Brief floating notification displayed by ScaffoldMessenger. "
+              "Queued — only one is shown at a time.",
+        ),
         _GlossEntry(
-            term: "extendBody",
-            def:
-                "When true, the body is laid out behind the bottom bar — "
-                "useful for translucent bars."),
+          term: "extendBody",
+          def:
+              "When true, the body is laid out behind the bottom bar — "
+              "useful for translucent bars.",
+        ),
         _GlossEntry(
-            term: "extendBodyBehindAppBar",
-            def:
-                "When true, the body extends behind a translucent appBar. "
-                "Pair with SafeArea inside the body if needed."),
+          term: "extendBodyBehindAppBar",
+          def:
+              "When true, the body extends behind a translucent appBar. "
+              "Pair with SafeArea inside the body if needed.",
+        ),
         _GlossEntry(
-            term: "resizeToAvoidBottomInset",
-            def:
-                "When true (default), Scaffold resizes its body to avoid "
-                "the keyboard. Disable for flows that want to pin content."),
+          term: "resizeToAvoidBottomInset",
+          def:
+              "When true (default), Scaffold resizes its body to avoid "
+              "the keyboard. Disable for flows that want to pin content.",
+        ),
       ],
     );
   }
@@ -2449,64 +2530,72 @@ class _Section10Recap extends StatelessWidget {
       tone: _kAccent,
       children: const <Widget>[
         _RecapRow(
-            number: "1",
-            tone: _kAccent5,
-            title: "Pick the right shell",
-            text:
-                "Use Scaffold for Material apps, CupertinoPageScaffold for "
-                "iOS-styled apps, and a raw Material widget only when you "
-                "are sure you need to bypass conventions."),
+          number: "1",
+          tone: _kAccent5,
+          title: "Pick the right shell",
+          text:
+              "Use Scaffold for Material apps, CupertinoPageScaffold for "
+              "iOS-styled apps, and a raw Material widget only when you "
+              "are sure you need to bypass conventions.",
+        ),
         _RecapRow(
-            number: "2",
-            tone: _kAccent2,
-            title: "Reserve the body for content",
-            text:
-                "Push chrome to the slots. Anything that should pin or "
-                "animate independently belongs in appBar, bottom bar, "
-                "bottom sheet, or persistent footer."),
+          number: "2",
+          tone: _kAccent2,
+          title: "Reserve the body for content",
+          text:
+              "Push chrome to the slots. Anything that should pin or "
+              "animate independently belongs in appBar, bottom bar, "
+              "bottom sheet, or persistent footer.",
+        ),
         _RecapRow(
-            number: "3",
-            tone: _kAccent3,
-            title: "Choose a FAB location intentionally",
-            text:
-                "Docked variants link the FAB to a bottom app bar; floating "
-                "variants keep it free. Avoid switching at runtime unless "
-                "you opt into the animator."),
+          number: "3",
+          tone: _kAccent3,
+          title: "Choose a FAB location intentionally",
+          text:
+              "Docked variants link the FAB to a bottom app bar; floating "
+              "variants keep it free. Avoid switching at runtime unless "
+              "you opt into the animator.",
+        ),
         _RecapRow(
-            number: "4",
-            tone: _kAccent4,
-            title: "Use drawers for navigation",
-            text:
-                "Drawers shine on mobile when there are more destinations "
-                "than a bottom bar can fit. EndDrawer is great for filters."),
+          number: "4",
+          tone: _kAccent4,
+          title: "Use drawers for navigation",
+          text:
+              "Drawers shine on mobile when there are more destinations "
+              "than a bottom bar can fit. EndDrawer is great for filters.",
+        ),
         _RecapRow(
-            number: "5",
-            tone: _kSuccess,
-            title: "ScaffoldMessenger > Scaffold.of for snack bars",
-            text:
-                "Always reach for ScaffoldMessenger.of. It survives route "
-                "transitions and avoids context-not-found issues."),
+          number: "5",
+          tone: _kSuccess,
+          title: "ScaffoldMessenger > Scaffold.of for snack bars",
+          text:
+              "Always reach for ScaffoldMessenger.of. It survives route "
+              "transitions and avoids context-not-found issues.",
+        ),
         _RecapRow(
-            number: "6",
-            tone: _kInfo,
-            title: "Mind the keyboard",
-            text:
-                "resizeToAvoidBottomInset defaults to true. Disable it only "
-                "when the layout below the keyboard must stay visible."),
+          number: "6",
+          tone: _kInfo,
+          title: "Mind the keyboard",
+          text:
+              "resizeToAvoidBottomInset defaults to true. Disable it only "
+              "when the layout below the keyboard must stay visible.",
+        ),
         _RecapRow(
-            number: "7",
-            tone: _kWarn,
-            title: "Watch extendBody pitfalls",
-            text:
-                "extendBody draws content behind the bottom bar. Translucent "
-                "bars require manual padding adjustments inside the body."),
+          number: "7",
+          tone: _kWarn,
+          title: "Watch extendBody pitfalls",
+          text:
+              "extendBody draws content behind the bottom bar. Translucent "
+              "bars require manual padding adjustments inside the body.",
+        ),
         _RecapRow(
-            number: "8",
-            tone: _kDanger,
-            title: "Don't nest Scaffolds",
-            text:
-                "Nested Scaffolds usually point to a structural problem. "
-                "Prefer tabs, pages, or modular bodies instead."),
+          number: "8",
+          tone: _kDanger,
+          title: "Don't nest Scaffolds",
+          text:
+              "Nested Scaffolds usually point to a structural problem. "
+              "Prefer tabs, pages, or modular bodies instead.",
+        ),
       ],
     );
   }

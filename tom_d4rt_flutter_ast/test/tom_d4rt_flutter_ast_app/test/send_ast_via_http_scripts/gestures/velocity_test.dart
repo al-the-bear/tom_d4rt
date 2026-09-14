@@ -91,10 +91,10 @@ String _fix(double v, [int frac = 1]) {
   final int mult = frac == 0
       ? 1
       : frac == 1
-          ? 10
-          : frac == 2
-              ? 100
-              : 1000;
+      ? 10
+      : frac == 2
+      ? 100
+      : 1000;
   final int rounded = (a * mult + 0.5).floor();
   final String whole = (rounded ~/ mult).toString();
   if (frac == 0) return neg ? '-$whole' : whole;
@@ -443,7 +443,11 @@ class _BulletList extends StatelessWidget {
                 Expanded(
                   child: Text(
                     text,
-                    style: const TextStyle(color: _inkSoft, fontSize: 13, height: 1.5),
+                    style: const TextStyle(
+                      color: _inkSoft,
+                      fontSize: 13,
+                      height: 1.5,
+                    ),
                   ),
                 ),
               ],
@@ -516,7 +520,10 @@ class _HeroSection extends StatelessWidget {
           Row(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   color: _vel.withValues(alpha: 0.14),
                   borderRadius: BorderRadius.circular(999),
@@ -534,7 +541,10 @@ class _HeroSection extends StatelessWidget {
               ),
               const SizedBox(width: 10),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   color: _track.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(999),
@@ -573,7 +583,11 @@ class _HeroSection extends StatelessWidget {
           const SizedBox(height: 10),
           const Text(
             'A 2-D pointer velocity, in logical pixels per second.',
-            style: TextStyle(color: _ink, fontSize: 18, fontWeight: FontWeight.w600),
+            style: TextStyle(
+              color: _ink,
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+            ),
           ),
           const SizedBox(height: 12),
           const Text(
@@ -588,13 +602,41 @@ class _HeroSection extends StatelessWidget {
           const SizedBox(height: 22),
           Row(
             children: const <Widget>[
-              Expanded(child: _HeroStat(tint: _vel, label: 'Fields', value: '1', sub: 'pixelsPerSecond')),
+              Expanded(
+                child: _HeroStat(
+                  tint: _vel,
+                  label: 'Fields',
+                  value: '1',
+                  sub: 'pixelsPerSecond',
+                ),
+              ),
               SizedBox(width: 12),
-              Expanded(child: _HeroStat(tint: _clamp, label: 'Helpers', value: '1', sub: 'clampMagnitude')),
+              Expanded(
+                child: _HeroStat(
+                  tint: _clamp,
+                  label: 'Helpers',
+                  value: '1',
+                  sub: 'clampMagnitude',
+                ),
+              ),
               SizedBox(width: 12),
-              Expanded(child: _HeroStat(tint: _addOp, label: 'Operators', value: '4', sub: '+  -  -()  ==')),
+              Expanded(
+                child: _HeroStat(
+                  tint: _addOp,
+                  label: 'Operators',
+                  value: '4',
+                  sub: '+  -  -()  ==',
+                ),
+              ),
               SizedBox(width: 12),
-              Expanded(child: _HeroStat(tint: _zero, label: 'Constants', value: '1', sub: 'Velocity.zero')),
+              Expanded(
+                child: _HeroStat(
+                  tint: _zero,
+                  label: 'Constants',
+                  value: '1',
+                  sub: 'Velocity.zero',
+                ),
+              ),
             ],
           ),
         ],
@@ -604,7 +646,12 @@ class _HeroSection extends StatelessWidget {
 }
 
 class _HeroStat extends StatelessWidget {
-  const _HeroStat({required this.tint, required this.label, required this.value, required this.sub});
+  const _HeroStat({
+    required this.tint,
+    required this.label,
+    required this.value,
+    required this.sub,
+  });
   final Color tint;
   final String label;
   final String value;
@@ -641,7 +688,11 @@ class _HeroStat extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             value,
-            style: const TextStyle(color: _ink, fontSize: 26, fontWeight: FontWeight.w800),
+            style: const TextStyle(
+              color: _ink,
+              fontSize: 26,
+              fontWeight: FontWeight.w800,
+            ),
           ),
           const SizedBox(height: 2),
           Text(sub, style: const TextStyle(color: _inkMute, fontSize: 11)),
@@ -678,14 +729,40 @@ class _AnatomySection extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const <Widget>[
                 _CodeLine('class Velocity {', tint: _vel),
-                _CodeLine('  const Velocity({required this.pixelsPerSecond});', indent: 1),
+                _CodeLine(
+                  '  const Velocity({required this.pixelsPerSecond});',
+                  indent: 1,
+                ),
                 _CodeLine('  static const Velocity zero =', indent: 1),
-                _CodeLine('      Velocity(pixelsPerSecond: Offset.zero);', indent: 2),
-                _CodeLine('  final Offset pixelsPerSecond; // logical px / second', indent: 1, tint: _vel),
-                _CodeLine('  Velocity clampMagnitude(double minValue, double maxValue);', indent: 1, tint: _clamp),
-                _CodeLine('  Velocity operator +(Velocity other);', indent: 1, tint: _addOp),
-                _CodeLine('  Velocity operator -(Velocity other);', indent: 1, tint: _subOp),
-                _CodeLine('  Velocity operator -(); // unary negate', indent: 1, tint: _subOp),
+                _CodeLine(
+                  '      Velocity(pixelsPerSecond: Offset.zero);',
+                  indent: 2,
+                ),
+                _CodeLine(
+                  '  final Offset pixelsPerSecond; // logical px / second',
+                  indent: 1,
+                  tint: _vel,
+                ),
+                _CodeLine(
+                  '  Velocity clampMagnitude(double minValue, double maxValue);',
+                  indent: 1,
+                  tint: _clamp,
+                ),
+                _CodeLine(
+                  '  Velocity operator +(Velocity other);',
+                  indent: 1,
+                  tint: _addOp,
+                ),
+                _CodeLine(
+                  '  Velocity operator -(Velocity other);',
+                  indent: 1,
+                  tint: _subOp,
+                ),
+                _CodeLine(
+                  '  Velocity operator -(); // unary negate',
+                  indent: 1,
+                  tint: _subOp,
+                ),
                 _CodeLine('}'),
               ],
             ),
@@ -730,10 +807,7 @@ class _AnatomySection extends StatelessWidget {
               borderRadius: BorderRadius.circular(16),
               border: Border.all(color: _grid),
             ),
-            child: CustomPaint(
-              painter: _AnatomyPainter(),
-              size: Size.infinite,
-            ),
+            child: CustomPaint(painter: _AnatomyPainter(), size: Size.infinite),
           ),
           const SizedBox(height: 8),
           const Text(
@@ -785,7 +859,11 @@ class _AnatomyField extends StatelessWidget {
             children: <Widget>[
               Text(
                 name,
-                style: TextStyle(color: tint, fontSize: 14, fontWeight: FontWeight.w800),
+                style: TextStyle(
+                  color: tint,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w800,
+                ),
               ),
               const SizedBox(width: 8),
               Container(
@@ -796,13 +874,24 @@ class _AnatomyField extends StatelessWidget {
                 ),
                 child: Text(
                   type,
-                  style: TextStyle(color: tint, fontSize: 10.5, fontWeight: FontWeight.w700),
+                  style: TextStyle(
+                    color: tint,
+                    fontSize: 10.5,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
             ],
           ),
           const SizedBox(height: 8),
-          Text(description, style: const TextStyle(color: _inkSoft, fontSize: 12.5, height: 1.45)),
+          Text(
+            description,
+            style: const TextStyle(
+              color: _inkSoft,
+              fontSize: 12.5,
+              height: 1.45,
+            ),
+          ),
           const SizedBox(height: 10),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
@@ -870,9 +959,24 @@ class _AnatomyPainter extends CustomPainter {
 
     _label(canvas, 'origin', origin + const Offset(-44, 8), _inkMute);
     _label(canvas, 'pixelsPerSecond', tip + const Offset(8, -16), _vel);
-    _label(canvas, 'dx (+x → right)', Offset(origin.dx + 70, origin.dy + 8), _addOp);
-    _label(canvas, 'dy (+y ↓ down)', Offset(tip.dx + 8, origin.dy - 60), _clamp);
-    _label(canvas, '|v| = √(dx² + dy²)', Offset(origin.dx + 80, origin.dy - 90), _ink);
+    _label(
+      canvas,
+      'dx (+x → right)',
+      Offset(origin.dx + 70, origin.dy + 8),
+      _addOp,
+    );
+    _label(
+      canvas,
+      'dy (+y ↓ down)',
+      Offset(tip.dx + 8, origin.dy - 60),
+      _clamp,
+    );
+    _label(
+      canvas,
+      '|v| = √(dx² + dy²)',
+      Offset(origin.dx + 80, origin.dy - 90),
+      _ink,
+    );
 
     canvas.drawCircle(origin, 4, Paint()..color = _ink);
     canvas.drawCircle(tip, 4, Paint()..color = _vel);
@@ -886,8 +990,14 @@ class _AnatomyPainter extends CustomPainter {
     final double ux = dx / len;
     final double uy = dy / len;
     const double s = 10;
-    final Offset left = Offset(to.dx - ux * s - uy * (s * 0.55), to.dy - uy * s + ux * (s * 0.55));
-    final Offset right = Offset(to.dx - ux * s + uy * (s * 0.55), to.dy - uy * s - ux * (s * 0.55));
+    final Offset left = Offset(
+      to.dx - ux * s - uy * (s * 0.55),
+      to.dy - uy * s + ux * (s * 0.55),
+    );
+    final Offset right = Offset(
+      to.dx - ux * s + uy * (s * 0.55),
+      to.dy - uy * s - ux * (s * 0.55),
+    );
     final Path p = Path()
       ..moveTo(to.dx, to.dy)
       ..lineTo(left.dx, left.dy)
@@ -900,7 +1010,11 @@ class _AnatomyPainter extends CustomPainter {
     final TextPainter tp = TextPainter(
       text: TextSpan(
         text: text,
-        style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w700),
+        style: TextStyle(
+          color: color,
+          fontSize: 11,
+          fontWeight: FontWeight.w700,
+        ),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
@@ -954,7 +1068,11 @@ class _ZeroSection extends StatelessWidget {
                       SizedBox(height: 8),
                       Text(
                         '== Velocity(pixelsPerSecond: Offset.zero)',
-                        style: TextStyle(color: _inkSoft, fontSize: 12.5, fontFamily: 'monospace'),
+                        style: TextStyle(
+                          color: _inkSoft,
+                          fontSize: 12.5,
+                          fontFamily: 'monospace',
+                        ),
                       ),
                       SizedBox(height: 14),
                       Text(
@@ -962,7 +1080,11 @@ class _ZeroSection extends StatelessWidget {
                         'fitted polynomial is degenerate. Many gesture recognisers also '
                         'fall back to it on an early gesture cancel. Always safe to use '
                         'as a default and as the right-hand side of `==` checks.',
-                        style: TextStyle(color: _inkSoft, fontSize: 13, height: 1.5),
+                        style: TextStyle(
+                          color: _inkSoft,
+                          fontSize: 13,
+                          height: 1.5,
+                        ),
                       ),
                     ],
                   ),
@@ -978,7 +1100,10 @@ class _ZeroSection extends StatelessWidget {
                     borderRadius: BorderRadius.circular(14),
                     border: Border.all(color: _grid),
                   ),
-                  child: CustomPaint(painter: _ZeroDotPainter(), size: Size.infinite),
+                  child: CustomPaint(
+                    painter: _ZeroDotPainter(),
+                    size: Size.infinite,
+                  ),
                 ),
               ),
             ],
@@ -1018,7 +1143,11 @@ class _ZeroDotPainter extends CustomPainter {
     final TextPainter tp = TextPainter(
       text: const TextSpan(
         text: '|v| = 0',
-        style: TextStyle(color: _ink, fontSize: 13, fontWeight: FontWeight.w700),
+        style: TextStyle(
+          color: _ink,
+          fontSize: 13,
+          fontWeight: FontWeight.w700,
+        ),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
@@ -1090,14 +1219,21 @@ class _GalleryGrid extends StatelessWidget {
               children: <Widget>[
                 Expanded(child: _GalleryCard(sample: a)),
                 const SizedBox(width: 12),
-                Expanded(child: b == null ? const SizedBox.shrink() : _GalleryCard(sample: b)),
+                Expanded(
+                  child: b == null
+                      ? const SizedBox.shrink()
+                      : _GalleryCard(sample: b),
+                ),
               ],
             ),
           ),
         ),
       );
     }
-    return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: rows);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: rows,
+    );
   }
 }
 
@@ -1138,7 +1274,11 @@ class _GalleryCard extends StatelessWidget {
                 ),
                 child: Text(
                   sample.glyph,
-                  style: TextStyle(color: sample.tint, fontSize: 13, fontWeight: FontWeight.w800),
+                  style: TextStyle(
+                    color: sample.tint,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
               ),
               const SizedBox(width: 10),
@@ -1148,7 +1288,11 @@ class _GalleryCard extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       sample.label,
-                      style: const TextStyle(color: _ink, fontSize: 13.5, fontWeight: FontWeight.w700),
+                      style: const TextStyle(
+                        color: _ink,
+                        fontSize: 13.5,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                     Text(
                       sample.subtitle,
@@ -1163,7 +1307,10 @@ class _GalleryCard extends StatelessWidget {
           SizedBox(
             height: 130,
             child: CustomPaint(
-              painter: _ArrowPainter(velocity: sample.pixelsPerSecond, tint: sample.tint),
+              painter: _ArrowPainter(
+                velocity: sample.pixelsPerSecond,
+                tint: sample.tint,
+              ),
               size: Size.infinite,
             ),
           ),
@@ -1172,8 +1319,14 @@ class _GalleryCard extends StatelessWidget {
             spacing: 8,
             runSpacing: 6,
             children: <Widget>[
-              _Pill(text: 'dx ${_fix(sample.pixelsPerSecond.dx)}', tint: _addOp),
-              _Pill(text: 'dy ${_fix(sample.pixelsPerSecond.dy)}', tint: _clamp),
+              _Pill(
+                text: 'dx ${_fix(sample.pixelsPerSecond.dx)}',
+                tint: _addOp,
+              ),
+              _Pill(
+                text: 'dy ${_fix(sample.pixelsPerSecond.dy)}',
+                tint: _clamp,
+              ),
               _Pill(text: '|v| ${_fix(mag)}', tint: sample.tint),
             ],
           ),
@@ -1220,7 +1373,8 @@ class _ArrowPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final Offset c = Offset(size.width / 2, size.height / 2);
-    final double r = (size.width < size.height ? size.width : size.height) * 0.42;
+    final double r =
+        (size.width < size.height ? size.width : size.height) * 0.42;
 
     // Halo rings.
     for (int i = 4; i >= 1; i--) {
@@ -1262,7 +1416,10 @@ class _ArrowPainter extends CustomPainter {
 
     // Arrow tip.
     final double scale = ringR / mag;
-    final Offset tip = Offset(c.dx + velocity.dx * scale, c.dy + velocity.dy * scale);
+    final Offset tip = Offset(
+      c.dx + velocity.dx * scale,
+      c.dy + velocity.dy * scale,
+    );
     final Paint shaft = Paint()
       ..color = tint
       ..strokeWidth = 3
@@ -1277,8 +1434,14 @@ class _ArrowPainter extends CustomPainter {
       final double ux = dx / len;
       final double uy = dy / len;
       const double s = 9;
-      final Offset l = Offset(tip.dx - ux * s - uy * (s * 0.55), tip.dy - uy * s + ux * (s * 0.55));
-      final Offset rArr = Offset(tip.dx - ux * s + uy * (s * 0.55), tip.dy - uy * s - ux * (s * 0.55));
+      final Offset l = Offset(
+        tip.dx - ux * s - uy * (s * 0.55),
+        tip.dy - uy * s + ux * (s * 0.55),
+      );
+      final Offset rArr = Offset(
+        tip.dx - ux * s + uy * (s * 0.55),
+        tip.dy - uy * s - ux * (s * 0.55),
+      );
       final Path p = Path()
         ..moveTo(tip.dx, tip.dy)
         ..lineTo(l.dx, l.dy)
@@ -1333,7 +1496,10 @@ class _LegendDot extends StatelessWidget {
         Container(
           width: 10,
           height: 10,
-          decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(3)),
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(3),
+          ),
         ),
         const SizedBox(width: 6),
         Text(label, style: const TextStyle(color: _inkSoft, fontSize: 12)),
@@ -1609,7 +1775,11 @@ class _ClampDataRow extends StatelessWidget {
             padding: const EdgeInsets.only(left: 2, top: 2),
             child: Text(
               row.note,
-              style: const TextStyle(color: _inkMute, fontSize: 11.5, height: 1.4),
+              style: const TextStyle(
+                color: _inkMute,
+                fontSize: 11.5,
+                height: 1.4,
+              ),
             ),
           ),
         ],
@@ -1684,14 +1854,28 @@ class _ClampRulesSection extends StatelessWidget {
               children: const <Widget>[
                 Text(
                   'Edge cases',
-                  style: TextStyle(color: _clamp, fontSize: 13, fontWeight: FontWeight.w800),
+                  style: TextStyle(
+                    color: _clamp,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
                 SizedBox(height: 8),
-                _RuleBullet('|v| == 0 is fixed: clamping returns Velocity.zero regardless of min — there is no canonical direction to stretch.'),
-                _RuleBullet('min and max must satisfy min <= max in callers; the framework asserts this in debug builds.'),
-                _RuleBullet('Negative bounds are not meaningful for magnitudes, but the math still preserves direction.'),
-                _RuleBullet('clampMagnitude allocates a new Velocity only when scaling actually occurs.'),
-                _RuleBullet('Repeated clamping with the same bounds is idempotent: clamp(clamp(v, a, b), a, b) == clamp(v, a, b).'),
+                _RuleBullet(
+                  '|v| == 0 is fixed: clamping returns Velocity.zero regardless of min — there is no canonical direction to stretch.',
+                ),
+                _RuleBullet(
+                  'min and max must satisfy min <= max in callers; the framework asserts this in debug builds.',
+                ),
+                _RuleBullet(
+                  'Negative bounds are not meaningful for magnitudes, but the math still preserves direction.',
+                ),
+                _RuleBullet(
+                  'clampMagnitude allocates a new Velocity only when scaling actually occurs.',
+                ),
+                _RuleBullet(
+                  'Repeated clamping with the same bounds is idempotent: clamp(clamp(v, a, b), a, b) == clamp(v, a, b).',
+                ),
               ],
             ),
           ),
@@ -1742,7 +1926,10 @@ class _RuleCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          Text(body, style: const TextStyle(color: _ink, fontSize: 13, height: 1.45)),
+          Text(
+            body,
+            style: const TextStyle(color: _ink, fontSize: 13, height: 1.45),
+          ),
           const SizedBox(height: 10),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
@@ -1791,7 +1978,11 @@ class _RuleBullet extends StatelessWidget {
           Expanded(
             child: Text(
               text,
-              style: const TextStyle(color: _inkSoft, fontSize: 12.5, height: 1.5),
+              style: const TextStyle(
+                color: _inkSoft,
+                fontSize: 12.5,
+                height: 1.5,
+              ),
             ),
           ),
         ],
@@ -1804,7 +1995,12 @@ class _RuleBullet extends StatelessWidget {
 // SECTION 7 — OPERATORS
 // =============================================================================
 class _OpRow {
-  const _OpRow({required this.label, required this.a, required this.b, required this.op});
+  const _OpRow({
+    required this.label,
+    required this.a,
+    required this.b,
+    required this.op,
+  });
   final String label;
   final Offset a;
   final Offset b;
@@ -1812,12 +2008,42 @@ class _OpRow {
 }
 
 const List<_OpRow> _kOpRows = <_OpRow>[
-  _OpRow(label: 'Combining two horizontal flings', a: Offset(800, 0), b: Offset(400, 0), op: '+'),
-  _OpRow(label: 'Cancelling a horizontal pull-back', a: Offset(1200, 0), b: Offset(-500, 0), op: '+'),
-  _OpRow(label: 'Net diagonal motion', a: Offset(900, -700), b: Offset(200, -300), op: '+'),
-  _OpRow(label: 'Subtracting reference velocity', a: Offset(1500, 200), b: Offset(500, 200), op: '-'),
-  _OpRow(label: 'Difference between two flings', a: Offset(2400, -800), b: Offset(2400, 0), op: '-'),
-  _OpRow(label: 'Negating a velocity', a: Offset(1300, -900), b: Offset.zero, op: '-a'),
+  _OpRow(
+    label: 'Combining two horizontal flings',
+    a: Offset(800, 0),
+    b: Offset(400, 0),
+    op: '+',
+  ),
+  _OpRow(
+    label: 'Cancelling a horizontal pull-back',
+    a: Offset(1200, 0),
+    b: Offset(-500, 0),
+    op: '+',
+  ),
+  _OpRow(
+    label: 'Net diagonal motion',
+    a: Offset(900, -700),
+    b: Offset(200, -300),
+    op: '+',
+  ),
+  _OpRow(
+    label: 'Subtracting reference velocity',
+    a: Offset(1500, 200),
+    b: Offset(500, 200),
+    op: '-',
+  ),
+  _OpRow(
+    label: 'Difference between two flings',
+    a: Offset(2400, -800),
+    b: Offset(2400, 0),
+    op: '-',
+  ),
+  _OpRow(
+    label: 'Negating a velocity',
+    a: Offset(1300, -900),
+    b: Offset.zero,
+    op: '-a',
+  ),
 ];
 
 class _OperatorSection extends StatelessWidget {
@@ -1848,7 +2074,8 @@ class _OperatorSection extends StatelessWidget {
                   tint: _addOp,
                   symbol: '+',
                   title: 'Addition',
-                  rule: 'Velocity(a + b) where + is the Offset componentwise sum.',
+                  rule:
+                      'Velocity(a + b) where + is the Offset componentwise sum.',
                   example: 'Velocity(pixelsPerSecond: a + b)',
                 ),
               ),
@@ -1868,7 +2095,8 @@ class _OperatorSection extends StatelessWidget {
                   tint: _est,
                   symbol: '-a',
                   title: 'Negation',
-                  rule: 'Unary minus flips dx and dy. Same magnitude, opposite direction.',
+                  rule:
+                      'Unary minus flips dx and dy. Same magnitude, opposite direction.',
                   example: 'Velocity(pixelsPerSecond: -a)',
                 ),
               ),
@@ -1934,18 +2162,33 @@ class _OpFormulaCard extends StatelessWidget {
                 ),
                 child: Text(
                   symbol,
-                  style: TextStyle(color: tint, fontSize: 14, fontWeight: FontWeight.w800),
+                  style: TextStyle(
+                    color: tint,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
               ),
               const SizedBox(width: 10),
               Text(
                 title,
-                style: const TextStyle(color: _ink, fontSize: 14, fontWeight: FontWeight.w700),
+                style: const TextStyle(
+                  color: _ink,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ],
           ),
           const SizedBox(height: 10),
-          Text(rule, style: const TextStyle(color: _inkSoft, fontSize: 12.5, height: 1.45)),
+          Text(
+            rule,
+            style: const TextStyle(
+              color: _inkSoft,
+              fontSize: 12.5,
+              height: 1.45,
+            ),
+          ),
           const SizedBox(height: 10),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
@@ -1956,7 +2199,12 @@ class _OpFormulaCard extends StatelessWidget {
             ),
             child: Text(
               example,
-              style: TextStyle(color: tint, fontSize: 11.5, fontFamily: 'monospace', fontWeight: FontWeight.w700),
+              style: TextStyle(
+                color: tint,
+                fontSize: 11.5,
+                fontFamily: 'monospace',
+                fontWeight: FontWeight.w700,
+              ),
             ),
           ),
         ],
@@ -2047,14 +2295,22 @@ class _OpDataRow extends StatelessWidget {
             flex: 5,
             child: Text(
               row.label,
-              style: const TextStyle(color: _ink, fontSize: 13, fontWeight: FontWeight.w700),
+              style: const TextStyle(
+                color: _ink,
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+              ),
             ),
           ),
           Expanded(
             flex: 4,
             child: Text(
               _vec(row.a),
-              style: const TextStyle(color: _inkSoft, fontSize: 12.5, fontFamily: 'monospace'),
+              style: const TextStyle(
+                color: _inkSoft,
+                fontSize: 12.5,
+                fontFamily: 'monospace',
+              ),
             ),
           ),
           Expanded(
@@ -2070,7 +2326,12 @@ class _OpDataRow extends StatelessWidget {
                 ),
                 child: Text(
                   _opGlyph(),
-                  style: TextStyle(color: tint, fontSize: 12, fontWeight: FontWeight.w800, fontFamily: 'monospace'),
+                  style: TextStyle(
+                    color: tint,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w800,
+                    fontFamily: 'monospace',
+                  ),
                 ),
               ),
             ),
@@ -2079,14 +2340,23 @@ class _OpDataRow extends StatelessWidget {
             flex: 4,
             child: Text(
               row.op == '-a' ? '—' : _vec(row.b),
-              style: const TextStyle(color: _inkSoft, fontSize: 12.5, fontFamily: 'monospace'),
+              style: const TextStyle(
+                color: _inkSoft,
+                fontSize: 12.5,
+                fontFamily: 'monospace',
+              ),
             ),
           ),
           Expanded(
             flex: 4,
             child: Text(
               _vec(r),
-              style: TextStyle(color: tint, fontSize: 12.5, fontFamily: 'monospace', fontWeight: FontWeight.w700),
+              style: TextStyle(
+                color: tint,
+                fontSize: 12.5,
+                fontFamily: 'monospace',
+                fontWeight: FontWeight.w700,
+              ),
             ),
           ),
         ],
@@ -2107,7 +2377,8 @@ class _EqualitySection extends StatelessWidget {
       tint: _ok,
       eyebrow: 'Identity',
       title: 'Equality is value-based; hashCode folds the Offset',
-      subtitle: 'Velocity overrides == and hashCode so it can live in sets and maps.',
+      subtitle:
+          'Velocity overrides == and hashCode so it can live in sets and maps.',
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -2124,7 +2395,10 @@ class _EqualitySection extends StatelessWidget {
                 _CodeLine('// Conceptually:'),
                 _CodeLine('@override'),
                 _CodeLine('bool operator ==(Object other) =>'),
-                _CodeLine('    other is Velocity && other.pixelsPerSecond == pixelsPerSecond;', indent: 1),
+                _CodeLine(
+                  '    other is Velocity && other.pixelsPerSecond == pixelsPerSecond;',
+                  indent: 1,
+                ),
                 // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #35, P-empty-text):
                 // Original source had a blank `_CodeLine('')` separator here.
                 // Under the d4rt interpreter, a `Text('')` inside this Column
@@ -2138,7 +2412,9 @@ class _EqualitySection extends StatelessWidget {
                 // interpreter bug is tracked in interpreter_unfixable.md.
                 SizedBox(height: 14),
                 _CodeLine('@override'),
-                _CodeLine('int get hashCode => Object.hash(pixelsPerSecond.dx, pixelsPerSecond.dy);'),
+                _CodeLine(
+                  'int get hashCode => Object.hash(pixelsPerSecond.dx, pixelsPerSecond.dy);',
+                ),
               ],
             ),
           ),
@@ -2171,7 +2447,8 @@ class _VelocityVsEstimateSection extends StatelessWidget {
       tint: _est,
       eyebrow: 'Sibling',
       title: 'Velocity vs VelocityEstimate — when to reach for which',
-      subtitle: 'Two related types in flutter/gestures, one richer than the other.',
+      subtitle:
+          'Two related types in flutter/gestures, one richer than the other.',
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -2186,52 +2463,56 @@ class _VelocityVsEstimateSection extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Expanded(child: _CompareCard(
-                tint: _vel,
-                title: 'Velocity',
-                role: 'Public API surface',
-                fields: const <String>['pixelsPerSecond : Offset'],
-                where: const <String>[
-                  'DragEndDetails.velocity',
-                  'TapDragEndDetails.velocity',
-                  'Fling animation seeding (BallisticScrollSimulation)',
-                ],
-                strengths: const <String>[
-                  'Compact; cheap to copy and compare',
-                  'Has clampMagnitude and arithmetic operators',
-                  'Has a canonical .zero',
-                ],
-                gaps: const <String>[
-                  'No confidence — caller cannot tell good fits from bad',
-                  'No duration / displacement context',
-                ],
-              )),
+              Expanded(
+                child: _CompareCard(
+                  tint: _vel,
+                  title: 'Velocity',
+                  role: 'Public API surface',
+                  fields: const <String>['pixelsPerSecond : Offset'],
+                  where: const <String>[
+                    'DragEndDetails.velocity',
+                    'TapDragEndDetails.velocity',
+                    'Fling animation seeding (BallisticScrollSimulation)',
+                  ],
+                  strengths: const <String>[
+                    'Compact; cheap to copy and compare',
+                    'Has clampMagnitude and arithmetic operators',
+                    'Has a canonical .zero',
+                  ],
+                  gaps: const <String>[
+                    'No confidence — caller cannot tell good fits from bad',
+                    'No duration / displacement context',
+                  ],
+                ),
+              ),
               const SizedBox(width: 12),
-              Expanded(child: _CompareCard(
-                tint: _est,
-                title: 'VelocityEstimate',
-                role: 'Tracker output',
-                fields: const <String>[
-                  'pixelsPerSecond : Offset',
-                  'confidence : double  (0..1)',
-                  'duration : Duration',
-                  'offset : Offset',
-                ],
-                where: const <String>[
-                  'VelocityTracker.getVelocityEstimate()',
-                  'IOSScrollViewFlingVelocityTracker',
-                  'Custom recognisers that gate on confidence',
-                ],
-                strengths: const <String>[
-                  'Carries fit quality (confidence)',
-                  'Knows the time window and total displacement',
-                  'Suited to debugging tracker behaviour',
-                ],
-                gaps: const <String>[
-                  'No clampMagnitude / operators',
-                  'Heavier; more allocation pressure than Velocity',
-                ],
-              )),
+              Expanded(
+                child: _CompareCard(
+                  tint: _est,
+                  title: 'VelocityEstimate',
+                  role: 'Tracker output',
+                  fields: const <String>[
+                    'pixelsPerSecond : Offset',
+                    'confidence : double  (0..1)',
+                    'duration : Duration',
+                    'offset : Offset',
+                  ],
+                  where: const <String>[
+                    'VelocityTracker.getVelocityEstimate()',
+                    'IOSScrollViewFlingVelocityTracker',
+                    'Custom recognisers that gate on confidence',
+                  ],
+                  strengths: const <String>[
+                    'Carries fit quality (confidence)',
+                    'Knows the time window and total displacement',
+                    'Suited to debugging tracker behaviour',
+                  ],
+                  gaps: const <String>[
+                    'No clampMagnitude / operators',
+                    'Heavier; more allocation pressure than Velocity',
+                  ],
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 16),
@@ -2247,16 +2528,31 @@ class _VelocityVsEstimateSection extends StatelessWidget {
               children: const <Widget>[
                 Text(
                   'Conversion in practice',
-                  style: TextStyle(color: _est, fontSize: 13, fontWeight: FontWeight.w800),
+                  style: TextStyle(
+                    color: _est,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
                 SizedBox(height: 8),
-                _CodeLine('VelocityTracker tracker = VelocityTracker.withKind(PointerDeviceKind.touch);'),
+                _CodeLine(
+                  'VelocityTracker tracker = VelocityTracker.withKind(PointerDeviceKind.touch);',
+                ),
                 _CodeLine('// ...feed pointer samples...'),
-                _CodeLine('VelocityEstimate? estimate = tracker.getVelocityEstimate();', tint: _est),
+                _CodeLine(
+                  'VelocityEstimate? estimate = tracker.getVelocityEstimate();',
+                  tint: _est,
+                ),
                 _CodeLine('Velocity velocity = estimate == null'),
                 _CodeLine('    ? Velocity.zero', indent: 1, tint: _zero),
-                _CodeLine('    : Velocity(pixelsPerSecond: estimate.pixelsPerSecond);', indent: 1, tint: _vel),
-                _CodeLine('// Velocity == the public summary; VelocityEstimate stays internal.'),
+                _CodeLine(
+                  '    : Velocity(pixelsPerSecond: estimate.pixelsPerSecond);',
+                  indent: 1,
+                  tint: _vel,
+                ),
+                _CodeLine(
+                  '// Velocity == the public summary; VelocityEstimate stays internal.',
+                ),
               ],
             ),
           ),
@@ -2305,7 +2601,11 @@ class _CompareCard extends StatelessWidget {
         children: <Widget>[
           Text(
             title,
-            style: TextStyle(color: tint, fontSize: 16, fontWeight: FontWeight.w800),
+            style: TextStyle(
+              color: tint,
+              fontSize: 16,
+              fontWeight: FontWeight.w800,
+            ),
           ),
           const SizedBox(height: 2),
           Text(
@@ -2431,15 +2731,36 @@ class _IntegrationStorySection extends StatelessWidget {
               children: const <Widget>[
                 Text(
                   'Concrete handler',
-                  style: TextStyle(color: _drag, fontSize: 13, fontWeight: FontWeight.w800),
+                  style: TextStyle(
+                    color: _drag,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
                 SizedBox(height: 8),
                 _CodeLine('GestureDetector('),
-                _CodeLine('  onHorizontalDragEnd: (DragEndDetails details) {', indent: 1),
-                _CodeLine('    final Velocity v = details.velocity; // ← here it is', indent: 2, tint: _vel),
-                _CodeLine('    final Velocity safe = v.clampMagnitude(50, 4000);', indent: 2, tint: _clamp),
-                _CodeLine('    if (safe.pixelsPerSecond.dx > 1500) _dismissPage();', indent: 2),
-                _CodeLine('    else if (safe.pixelsPerSecond.dx < -1500) _goBack();', indent: 2),
+                _CodeLine(
+                  '  onHorizontalDragEnd: (DragEndDetails details) {',
+                  indent: 1,
+                ),
+                _CodeLine(
+                  '    final Velocity v = details.velocity; // ← here it is',
+                  indent: 2,
+                  tint: _vel,
+                ),
+                _CodeLine(
+                  '    final Velocity safe = v.clampMagnitude(50, 4000);',
+                  indent: 2,
+                  tint: _clamp,
+                ),
+                _CodeLine(
+                  '    if (safe.pixelsPerSecond.dx > 1500) _dismissPage();',
+                  indent: 2,
+                ),
+                _CodeLine(
+                  '    else if (safe.pixelsPerSecond.dx < -1500) _goBack();',
+                  indent: 2,
+                ),
                 _CodeLine('    else _settleToRestPosition();', indent: 2),
                 _CodeLine('  },', indent: 1),
                 _CodeLine('  child: ...,', indent: 1),
@@ -2471,22 +2792,62 @@ class _Pipeline extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Expanded(child: _PipelineNode(tint: _track, title: 'PointerEvent', sub: 'each touch sample (position, time)', kind: 'input')),
+        Expanded(
+          child: _PipelineNode(
+            tint: _track,
+            title: 'PointerEvent',
+            sub: 'each touch sample (position, time)',
+            kind: 'input',
+          ),
+        ),
         _PipelineArrow(label: 'addPosition()'),
-        Expanded(child: _PipelineNode(tint: _track, title: 'VelocityTracker', sub: 'least-squares polynomial fit', kind: 'process')),
+        Expanded(
+          child: _PipelineNode(
+            tint: _track,
+            title: 'VelocityTracker',
+            sub: 'least-squares polynomial fit',
+            kind: 'process',
+          ),
+        ),
         _PipelineArrow(label: 'getVelocityEstimate()'),
-        Expanded(child: _PipelineNode(tint: _est, title: 'VelocityEstimate', sub: 'pixels/s + confidence + window', kind: 'process')),
+        Expanded(
+          child: _PipelineNode(
+            tint: _est,
+            title: 'VelocityEstimate',
+            sub: 'pixels/s + confidence + window',
+            kind: 'process',
+          ),
+        ),
         _PipelineArrow(label: 'simplify'),
-        Expanded(child: _PipelineNode(tint: _vel, title: 'Velocity', sub: 'pixelsPerSecond only', kind: 'output')),
+        Expanded(
+          child: _PipelineNode(
+            tint: _vel,
+            title: 'Velocity',
+            sub: 'pixelsPerSecond only',
+            kind: 'output',
+          ),
+        ),
         _PipelineArrow(label: 'pack'),
-        Expanded(child: _PipelineNode(tint: _drag, title: 'DragEndDetails', sub: '.velocity surfaced to your callback', kind: 'output')),
+        Expanded(
+          child: _PipelineNode(
+            tint: _drag,
+            title: 'DragEndDetails',
+            sub: '.velocity surfaced to your callback',
+            kind: 'output',
+          ),
+        ),
       ],
     );
   }
 }
 
 class _PipelineNode extends StatelessWidget {
-  const _PipelineNode({required this.tint, required this.title, required this.sub, required this.kind});
+  const _PipelineNode({
+    required this.tint,
+    required this.title,
+    required this.sub,
+    required this.kind,
+  });
   final Color tint;
   final String title;
   final String sub;
@@ -2524,13 +2885,21 @@ class _PipelineNode extends StatelessWidget {
           const SizedBox(height: 5),
           Text(
             title,
-            style: const TextStyle(color: _ink, fontSize: 12.5, fontWeight: FontWeight.w800),
+            style: const TextStyle(
+              color: _ink,
+              fontSize: 12.5,
+              fontWeight: FontWeight.w800,
+            ),
           ),
           const SizedBox(height: 4),
           Expanded(
             child: Text(
               sub,
-              style: const TextStyle(color: _inkSoft, fontSize: 11, height: 1.35),
+              style: const TextStyle(
+                color: _inkSoft,
+                fontSize: 11,
+                height: 1.35,
+              ),
             ),
           ),
         ],
@@ -2713,13 +3082,24 @@ class _PitfallCard extends StatelessWidget {
               Expanded(
                 child: Text(
                   p.title,
-                  style: const TextStyle(color: _ink, fontSize: 14, fontWeight: FontWeight.w800),
+                  style: const TextStyle(
+                    color: _ink,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
               ),
             ],
           ),
           const SizedBox(height: 8),
-          Text(p.body, style: const TextStyle(color: _inkSoft, fontSize: 12.5, height: 1.5)),
+          Text(
+            p.body,
+            style: const TextStyle(
+              color: _inkSoft,
+              fontSize: 12.5,
+              height: 1.5,
+            ),
+          ),
           const SizedBox(height: 10),
           Container(
             padding: const EdgeInsets.fromLTRB(12, 8, 12, 10),
@@ -2733,7 +3113,10 @@ class _PitfallCard extends StatelessWidget {
               children: <Widget>[
                 Container(
                   margin: const EdgeInsets.only(top: 2, right: 8),
-                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 6,
+                    vertical: 2,
+                  ),
                   decoration: BoxDecoration(
                     color: _ok.withValues(alpha: 0.18),
                     borderRadius: BorderRadius.circular(6),
@@ -2751,7 +3134,11 @@ class _PitfallCard extends StatelessWidget {
                 Expanded(
                   child: Text(
                     p.fix,
-                    style: const TextStyle(color: _inkSoft, fontSize: 12.5, height: 1.5),
+                    style: const TextStyle(
+                      color: _inkSoft,
+                      fontSize: 12.5,
+                      height: 1.5,
+                    ),
                   ),
                 ),
               ],
@@ -2774,16 +3161,52 @@ class _Cheat {
 }
 
 const List<_Cheat> _kCheats = <_Cheat>[
-  _Cheat(lhs: 'Velocity.zero', rhs: 'Canonical no-motion sentinel', tint: _zero),
-  _Cheat(lhs: 'v.pixelsPerSecond', rhs: 'The Offset, dx in px/s, dy in px/s', tint: _vel),
-  _Cheat(lhs: 'v.pixelsPerSecond.distance', rhs: 'Magnitude in px/s', tint: _vel),
-  _Cheat(lhs: 'v.clampMagnitude(min, max)', rhs: 'Rescale to [min, max]; preserves direction', tint: _clamp),
-  _Cheat(lhs: 'a + b', rhs: 'Componentwise sum into a new Velocity', tint: _addOp),
+  _Cheat(
+    lhs: 'Velocity.zero',
+    rhs: 'Canonical no-motion sentinel',
+    tint: _zero,
+  ),
+  _Cheat(
+    lhs: 'v.pixelsPerSecond',
+    rhs: 'The Offset, dx in px/s, dy in px/s',
+    tint: _vel,
+  ),
+  _Cheat(
+    lhs: 'v.pixelsPerSecond.distance',
+    rhs: 'Magnitude in px/s',
+    tint: _vel,
+  ),
+  _Cheat(
+    lhs: 'v.clampMagnitude(min, max)',
+    rhs: 'Rescale to [min, max]; preserves direction',
+    tint: _clamp,
+  ),
+  _Cheat(
+    lhs: 'a + b',
+    rhs: 'Componentwise sum into a new Velocity',
+    tint: _addOp,
+  ),
   _Cheat(lhs: 'a - b', rhs: 'Componentwise difference', tint: _subOp),
-  _Cheat(lhs: '-a', rhs: 'Negate dx and dy (same magnitude, opposite direction)', tint: _est),
-  _Cheat(lhs: 'a == b', rhs: 'Value equality based on pixelsPerSecond', tint: _ok),
-  _Cheat(lhs: 'details.velocity', rhs: 'On DragEndDetails / TapDragEndDetails', tint: _drag),
-  _Cheat(lhs: 'tracker.getVelocityEstimate()', rhs: 'Returns the richer VelocityEstimate', tint: _est),
+  _Cheat(
+    lhs: '-a',
+    rhs: 'Negate dx and dy (same magnitude, opposite direction)',
+    tint: _est,
+  ),
+  _Cheat(
+    lhs: 'a == b',
+    rhs: 'Value equality based on pixelsPerSecond',
+    tint: _ok,
+  ),
+  _Cheat(
+    lhs: 'details.velocity',
+    rhs: 'On DragEndDetails / TapDragEndDetails',
+    tint: _drag,
+  ),
+  _Cheat(
+    lhs: 'tracker.getVelocityEstimate()',
+    rhs: 'Returns the richer VelocityEstimate',
+    tint: _est,
+  ),
 ];
 
 class _CheatsheetSection extends StatelessWidget {
@@ -2795,7 +3218,8 @@ class _CheatsheetSection extends StatelessWidget {
       tint: _vel,
       eyebrow: 'Cheatsheet',
       title: 'Everything you actually use, in one place',
-      subtitle: 'Quick reference — left column is what you type, right column is what it does.',
+      subtitle:
+          'Quick reference — left column is what you type, right column is what it does.',
       child: Container(
         decoration: BoxDecoration(
           color: _surfaceDeep,
@@ -2806,11 +3230,16 @@ class _CheatsheetSection extends StatelessWidget {
           children: <Widget>[
             for (int i = 0; i < _kCheats.length; i++)
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 14,
+                  vertical: 12,
+                ),
                 decoration: BoxDecoration(
                   border: i == 0
                       ? null
-                      : Border(top: BorderSide(color: _grid.withValues(alpha: 0.6))),
+                      : Border(
+                          top: BorderSide(color: _grid.withValues(alpha: 0.6)),
+                        ),
                 ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -2840,7 +3269,11 @@ class _CheatsheetSection extends StatelessWidget {
                       flex: 7,
                       child: Text(
                         _kCheats[i].rhs,
-                        style: const TextStyle(color: _inkSoft, fontSize: 12.5, height: 1.4),
+                        style: const TextStyle(
+                          color: _inkSoft,
+                          fontSize: 12.5,
+                          height: 1.4,
+                        ),
                       ),
                     ),
                   ],
@@ -2885,7 +3318,10 @@ class _FooterSection extends StatelessWidget {
           Container(
             width: 10,
             height: 10,
-            decoration: const BoxDecoration(color: _vel, shape: BoxShape.circle),
+            decoration: const BoxDecoration(
+              color: _vel,
+              shape: BoxShape.circle,
+            ),
           ),
           const SizedBox(width: 10),
           const Expanded(

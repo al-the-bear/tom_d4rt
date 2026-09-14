@@ -23,7 +23,8 @@ import 'package:flutter/material.dart';
 // iOS packs inside UIKeyModifierFlags / UIKey.modifierFlags.
 // ---------------------------------------------------------------------------
 class _IosFlag {
-  static const int alphaShift = 0x10000; // kModifierFlagAlphaShift  (Caps lock physical state)
+  static const int alphaShift =
+      0x10000; // kModifierFlagAlphaShift  (Caps lock physical state)
   static const int shift = 0x20000; // kModifierFlagShift
   static const int control = 0x40000; // kModifierFlagControl
   static const int alternate = 0x80000; // kModifierFlagAlternate (Option)
@@ -262,10 +263,7 @@ class _Line {
 class _CodeBlock extends StatelessWidget {
   final List<_Line> lines;
   final EdgeInsets padding;
-  const _CodeBlock(
-    this.lines, {
-    this.padding = const EdgeInsets.all(16),
-  });
+  const _CodeBlock(this.lines, {this.padding = const EdgeInsets.all(16)});
 
   @override
   Widget build(BuildContext context) {
@@ -508,7 +506,10 @@ class _Hero extends StatelessWidget {
               _HeroFact('keyCode', 'UIKeyboardHIDUsage', _Palette.iosTeal),
               _HeroFact('characters', 'iOS-produced text', _Palette.iosGreen),
               _HeroFact(
-                  'charactersIgnoringModifiers', 'unmodified', _Palette.iosYellow),
+                'charactersIgnoringModifiers',
+                'unmodified',
+                _Palette.iosYellow,
+              ),
               _HeroFact('modifiers', 'UIKeyModifierFlags', _Palette.iosOrange),
               _HeroFact('platform', "'ios'", _Palette.iosPink),
             ],
@@ -568,26 +569,27 @@ class _HeroFact extends StatelessWidget {
           Container(
             width: 8,
             height: 8,
-            decoration: BoxDecoration(
-              color: color,
-              shape: BoxShape.circle,
+            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          ),
+          SizedBox(width: 10),
+          Text(
+            label,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              color: _Palette.textPrimary,
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
             ),
           ),
           SizedBox(width: 10),
-          Text(label,
-              style: TextStyle(
-                fontFamily: 'monospace',
-                color: _Palette.textPrimary,
-                fontSize: 12,
-                fontWeight: FontWeight.w700,
-              )),
-          SizedBox(width: 10),
-          Text(value,
-              style: TextStyle(
-                fontFamily: 'monospace',
-                color: _Palette.textSecondary,
-                fontSize: 11,
-              )),
+          Text(
+            value,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              color: _Palette.textSecondary,
+              fontSize: 11,
+            ),
+          ),
         ],
       ),
     );
@@ -694,7 +696,10 @@ class _AnatomyDiagram extends StatelessWidget {
           ]),
           _Line([
             _Tok('// ', _Type.codeCom),
-            _Tok('UIKey -> platform channel -> RawKeyEventDataIos', _Type.codeCom),
+            _Tok(
+              'UIKey -> platform channel -> RawKeyEventDataIos',
+              _Type.codeCom,
+            ),
           ]),
           _Line.blank(),
           _Line([
@@ -1004,17 +1009,13 @@ class _BitRuler extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('UIKeyModifierFlags · 24-bit window',
-              style: _Type.caption),
+          Text('UIKeyModifierFlags · 24-bit window', style: _Type.caption),
           SizedBox(height: 10),
           Row(
             children: [
               for (int b = 23; b >= 0; b--)
                 Expanded(
-                  child: _BitCell(
-                    bit: b,
-                    spec: _findSpec(flags, b),
-                  ),
+                  child: _BitCell(bit: b, spec: _findSpec(flags, b)),
                 ),
             ],
           ),
@@ -1057,9 +1058,7 @@ class _BitCell extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 2),
       height: 32,
       decoration: BoxDecoration(
-        color: filled
-            ? color.withValues(alpha: 0.30)
-            : _Palette.panel,
+        color: filled ? color.withValues(alpha: 0.30) : _Palette.panel,
         borderRadius: BorderRadius.circular(5),
         border: Border.all(
           color: filled
@@ -1095,10 +1094,7 @@ class _FlagCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: _Palette.panelAlt,
         borderRadius: BorderRadius.circular(11),
-        border: Border.all(
-          color: spec.color.withValues(alpha: 0.55),
-          width: 1,
-        ),
+        border: Border.all(color: spec.color.withValues(alpha: 0.55), width: 1),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1109,9 +1105,7 @@ class _FlagCard extends StatelessWidget {
             decoration: BoxDecoration(
               color: spec.color.withValues(alpha: 0.22),
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: spec.color.withValues(alpha: 0.7),
-              ),
+              border: Border.all(color: spec.color.withValues(alpha: 0.7)),
             ),
             child: Center(
               child: Text(
@@ -1143,8 +1137,7 @@ class _FlagCard extends StatelessWidget {
                     ),
                     SizedBox(width: 10),
                     Container(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 6, vertical: 2),
+                      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                       decoration: BoxDecoration(
                         color: spec.color.withValues(alpha: 0.18),
                         borderRadius: BorderRadius.circular(4),
@@ -1342,7 +1335,9 @@ class _JourneyCard extends StatelessWidget {
                       children: [
                         Container(
                           padding: EdgeInsets.symmetric(
-                              horizontal: 7, vertical: 3),
+                            horizontal: 7,
+                            vertical: 3,
+                          ),
                           decoration: BoxDecoration(
                             color: j.keyCapColor.withValues(alpha: 0.22),
                             borderRadius: BorderRadius.circular(5),
@@ -1361,11 +1356,13 @@ class _JourneyCard extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 8),
-                    Text(j.title,
-                        style: _Type.body.copyWith(
-                          fontSize: 17,
-                          fontWeight: FontWeight.w700,
-                        )),
+                    Text(
+                      j.title,
+                      style: _Type.body.copyWith(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                     SizedBox(height: 3),
                     Text(j.subtitle, style: _Type.bodyDim),
                   ],
@@ -1405,8 +1402,7 @@ class _JourneyCard extends StatelessWidget {
               children: [
                 for (final f in j.activeFlags)
                   Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 9, vertical: 4),
+                    padding: EdgeInsets.symmetric(horizontal: 9, vertical: 4),
                     decoration: BoxDecoration(
                       color: _Palette.iosOrange.withValues(alpha: 0.18),
                       borderRadius: BorderRadius.circular(15),
@@ -1433,9 +1429,7 @@ class _JourneyCard extends StatelessWidget {
             decoration: BoxDecoration(
               color: _Palette.panel,
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                color: _Palette.border.withValues(alpha: 0.7),
-              ),
+              border: Border.all(color: _Palette.border.withValues(alpha: 0.7)),
             ),
             child: Text(j.notes, style: _Type.bodyDim),
           ),
@@ -1465,10 +1459,7 @@ class _KeyCap extends StatelessWidget {
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: color.withValues(alpha: 0.8),
-          width: 1.4,
-        ),
+        border: Border.all(color: color.withValues(alpha: 0.8), width: 1.4),
         boxShadow: [
           BoxShadow(
             color: color.withValues(alpha: 0.30),
@@ -1597,15 +1588,12 @@ class _CharactersExplainer extends StatelessWidget {
           decoration: BoxDecoration(
             color: _Palette.iosTeal.withValues(alpha: 0.10),
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(
-              color: _Palette.iosTeal.withValues(alpha: 0.5),
-            ),
+            border: Border.all(color: _Palette.iosTeal.withValues(alpha: 0.5)),
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(Icons.info_outline,
-                  color: _Palette.iosTeal, size: 18),
+              Icon(Icons.info_outline, color: _Palette.iosTeal, size: 18),
               SizedBox(width: 10),
               Expanded(
                 child: Text(
@@ -1720,42 +1708,109 @@ class _HidUsageTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final entries = <_UsageRow>[
-      _UsageRow('keyboardA', _HidUsage.keyboardA, 'letter A',
-          _Palette.iosBlue),
-      _UsageRow('keyboardC', _HidUsage.keyboardC, 'letter C',
-          _Palette.iosBlueSoft),
-      _UsageRow('keyboardReturn', _HidUsage.keyboardReturn, 'main Return',
-          _Palette.iosGreen),
-      _UsageRow('keyboardEscape', _HidUsage.keyboardEscape, 'Escape',
-          _Palette.iosPink),
-      _UsageRow('keyboardTab', _HidUsage.keyboardTab, 'horizontal Tab',
-          _Palette.iosTeal),
-      _UsageRow('keyboardSpacebar', _HidUsage.keyboardSpacebar,
-          'Space (0x2C)', _Palette.iosYellow),
-      _UsageRow('keyboardCapsLock', _HidUsage.keyboardCapsLock,
-          'Caps Lock toggle', _Palette.iosOrange),
-      _UsageRow('keyboardF1', _HidUsage.keyboardF1, 'F1 function key',
-          _Palette.iosPurple),
-      _UsageRow('keyboardArrowUp', _HidUsage.keyboardArrowUp, 'arrow up',
-          _Palette.iosBlueSoft),
-      _UsageRow('keyboardArrowDown', _HidUsage.keyboardArrowDown,
-          'arrow down', _Palette.iosBlue),
-      _UsageRow('keyboardLeftShift', _HidUsage.keyboardLeftShift,
-          'left Shift modifier', _Palette.iosIndigo),
-      _UsageRow('keyboardLeftControl', _HidUsage.keyboardLeftControl,
-          'left Control modifier', _Palette.iosTeal),
-      _UsageRow('keyboardLeftCommand', _HidUsage.keyboardLeftCommand,
-          'left Command (Cmd)', _Palette.iosPink),
-      _UsageRow('keyboardRightCommand', _HidUsage.keyboardRightCommand,
-          'right Command (Cmd)', _Palette.iosPink),
-      _UsageRow('keyboardLeftAlt', _HidUsage.keyboardLeftAlt,
-          'left Option (Alt)', _Palette.iosPurple),
-      _UsageRow('keyboardHelp', _HidUsage.keyboardHelp,
-          'Help (legacy Apple)', _Palette.iosYellow),
-      _UsageRow('keypad1', _HidUsage.keypad1,
-          'numpad 1 (with kModifierFlagNumericPad)', _Palette.iosGreen),
-      _UsageRow('keypadEnter', _HidUsage.keypadEnter,
-          'numpad Enter (distinct from Return)', _Palette.iosGreen),
+      _UsageRow('keyboardA', _HidUsage.keyboardA, 'letter A', _Palette.iosBlue),
+      _UsageRow(
+        'keyboardC',
+        _HidUsage.keyboardC,
+        'letter C',
+        _Palette.iosBlueSoft,
+      ),
+      _UsageRow(
+        'keyboardReturn',
+        _HidUsage.keyboardReturn,
+        'main Return',
+        _Palette.iosGreen,
+      ),
+      _UsageRow(
+        'keyboardEscape',
+        _HidUsage.keyboardEscape,
+        'Escape',
+        _Palette.iosPink,
+      ),
+      _UsageRow(
+        'keyboardTab',
+        _HidUsage.keyboardTab,
+        'horizontal Tab',
+        _Palette.iosTeal,
+      ),
+      _UsageRow(
+        'keyboardSpacebar',
+        _HidUsage.keyboardSpacebar,
+        'Space (0x2C)',
+        _Palette.iosYellow,
+      ),
+      _UsageRow(
+        'keyboardCapsLock',
+        _HidUsage.keyboardCapsLock,
+        'Caps Lock toggle',
+        _Palette.iosOrange,
+      ),
+      _UsageRow(
+        'keyboardF1',
+        _HidUsage.keyboardF1,
+        'F1 function key',
+        _Palette.iosPurple,
+      ),
+      _UsageRow(
+        'keyboardArrowUp',
+        _HidUsage.keyboardArrowUp,
+        'arrow up',
+        _Palette.iosBlueSoft,
+      ),
+      _UsageRow(
+        'keyboardArrowDown',
+        _HidUsage.keyboardArrowDown,
+        'arrow down',
+        _Palette.iosBlue,
+      ),
+      _UsageRow(
+        'keyboardLeftShift',
+        _HidUsage.keyboardLeftShift,
+        'left Shift modifier',
+        _Palette.iosIndigo,
+      ),
+      _UsageRow(
+        'keyboardLeftControl',
+        _HidUsage.keyboardLeftControl,
+        'left Control modifier',
+        _Palette.iosTeal,
+      ),
+      _UsageRow(
+        'keyboardLeftCommand',
+        _HidUsage.keyboardLeftCommand,
+        'left Command (Cmd)',
+        _Palette.iosPink,
+      ),
+      _UsageRow(
+        'keyboardRightCommand',
+        _HidUsage.keyboardRightCommand,
+        'right Command (Cmd)',
+        _Palette.iosPink,
+      ),
+      _UsageRow(
+        'keyboardLeftAlt',
+        _HidUsage.keyboardLeftAlt,
+        'left Option (Alt)',
+        _Palette.iosPurple,
+      ),
+      _UsageRow(
+        'keyboardHelp',
+        _HidUsage.keyboardHelp,
+        'Help (legacy Apple)',
+        _Palette.iosYellow,
+      ),
+      _UsageRow(
+        'keypad1',
+        _HidUsage.keypad1,
+        'numpad 1 (with kModifierFlagNumericPad)',
+        _Palette.iosGreen,
+      ),
+      _UsageRow(
+        'keypadEnter',
+        _HidUsage.keypadEnter,
+        'numpad Enter (distinct from Return)',
+        _Palette.iosGreen,
+      ),
     ];
 
     return Container(
@@ -1772,8 +1827,7 @@ class _HidUsageTable extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 14, vertical: 12),
             decoration: BoxDecoration(
               border: Border(
-                bottom:
-                    BorderSide(color: _Palette.border, width: 1),
+                bottom: BorderSide(color: _Palette.border, width: 1),
               ),
             ),
             child: Row(
@@ -1782,17 +1836,12 @@ class _HidUsageTable extends StatelessWidget {
                   width: 220,
                   child: Text('Constant', style: _Type.caption),
                 ),
-                SizedBox(
-                  width: 90,
-                  child: Text('Hex', style: _Type.caption),
-                ),
+                SizedBox(width: 90, child: Text('Hex', style: _Type.caption)),
                 SizedBox(
                   width: 90,
                   child: Text('Decimal', style: _Type.caption),
                 ),
-                Expanded(
-                  child: Text('Meaning', style: _Type.caption),
-                ),
+                Expanded(child: Text('Meaning', style: _Type.caption)),
               ],
             ),
           ),
@@ -1826,10 +1875,12 @@ class _HidUsageTable extends StatelessWidget {
                           ),
                         ),
                         Expanded(
-                          child: Text(entries[i].name,
-                              style: _Type.code.copyWith(
-                                fontWeight: FontWeight.w600,
-                              )),
+                          child: Text(
+                            entries[i].name,
+                            style: _Type.code.copyWith(
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
                         ),
                       ],
                     ),

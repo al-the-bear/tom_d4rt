@@ -19,7 +19,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.security,
       'title': 'Content Sensitivity Management',
-      'body': 'SensitiveContentHost is a singleton that manages content '
+      'body':
+          'SensitiveContentHost is a singleton that manages content '
           'sensitivity for the entire widget tree. It tracks how many '
           'SensitiveContent widgets are active and their sensitivity '
           'levels, then communicates with the platform to obscure screens '
@@ -28,7 +29,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.hub,
       'title': 'Singleton Pattern',
-      'body': 'Accessed via SensitiveContentHost.instance, it is the '
+      'body':
+          'Accessed via SensitiveContentHost.instance, it is the '
           'central registry that all SensitiveContent widgets '
           'register with and unregister from. Only one instance '
           'exists per application.',
@@ -36,7 +38,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.android,
       'title': 'Platform Integration',
-      'body': 'On Android API 35+, the host communicates with '
+      'body':
+          'On Android API 35+, the host communicates with '
           'SensitiveContentService to set the native View content '
           'sensitivity. On other platforms, it is a no-op. The screen '
           'is hidden from screen sharing when set to sensitive.',
@@ -44,7 +47,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.construction,
       'title': 'Testing & Experimental',
-      'body': 'Marked @visibleForTesting — not yet production-ready. '
+      'body':
+          'Marked @visibleForTesting — not yet production-ready. '
           'Known vulnerabilities exist during page transitions where '
           'sensitive content can briefly be visible. Active development '
           'is ongoing (Flutter issues #160050, #164820).',
@@ -67,7 +71,11 @@ dynamic build(BuildContext context) {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(p['icon'] as IconData, color: Colors.deepOrange.shade700, size: 26.0),
+            Icon(
+              p['icon'] as IconData,
+              color: Colors.deepOrange.shade700,
+              size: 26.0,
+            ),
             const SizedBox(width: 12.0),
             Expanded(
               child: Column(
@@ -84,7 +92,11 @@ dynamic build(BuildContext context) {
                   const SizedBox(height: 4.0),
                   Text(
                     p['body'] as String,
-                    style: TextStyle(fontSize: 12.5, color: Colors.grey.shade800, height: 1.4),
+                    style: TextStyle(
+                      fontSize: 12.5,
+                      color: Colors.grey.shade800,
+                      height: 1.4,
+                    ),
                   ),
                 ],
               ),
@@ -103,35 +115,40 @@ dynamic build(BuildContext context) {
   final archLayers = <Map<String, dynamic>>[
     {
       'layer': 'SensitiveContent Widgets',
-      'desc': 'Placed in widget tree by developers to mark sensitive areas. '
+      'desc':
+          'Placed in widget tree by developers to mark sensitive areas. '
           'Each registers with the host on initState and unregisters on dispose.',
       'color': Colors.blue,
       'icon': Icons.widgets,
     },
     {
       'layer': 'SensitiveContentHost (Singleton)',
-      'desc': 'Tracks widget counts per sensitivity level. Calculates '
+      'desc':
+          'Tracks widget counts per sensitivity level. Calculates '
           'the effective sensitivity and communicates with the platform.',
       'color': Colors.deepOrange,
       'icon': Icons.hub,
     },
     {
       'layer': '_ContentSensitivitySetting',
-      'desc': 'Internal counter tracking how many widgets of each sensitivity '
+      'desc':
+          'Internal counter tracking how many widgets of each sensitivity '
           'level are registered. Returns the highest priority sensitivity.',
       'color': Colors.purple,
       'icon': Icons.calculate,
     },
     {
       'layer': 'SensitiveContentService',
-      'desc': 'Platform channel that communicates with the native Android API. '
+      'desc':
+          'Platform channel that communicates with the native Android API. '
           'Calls setContentSensitivity() and getContentSensitivity().',
       'color': Colors.green,
       'icon': Icons.phonelink,
     },
     {
       'layer': 'Android View (API 35+)',
-      'desc': 'The native View that hosts the Flutter content. Its content '
+      'desc':
+          'The native View that hosts the Flutter content. Its content '
           'sensitivity property controls screen obscuring during projection.',
       'color': Colors.teal,
       'icon': Icons.android,
@@ -163,9 +180,14 @@ dynamic build(BuildContext context) {
                       border: Border.all(color: color, width: 2.0),
                     ),
                     child: Center(
-                      child: Text('${i + 1}',
-                          style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w700,
-                              color: color)),
+                      child: Text(
+                        '${i + 1}',
+                        style: TextStyle(
+                          fontSize: 10.0,
+                          fontWeight: FontWeight.w700,
+                          color: color,
+                        ),
+                      ),
                     ),
                   ),
                   if (i < archLayers.length - 1)
@@ -191,13 +213,23 @@ dynamic build(BuildContext context) {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(layer['layer'] as String,
-                              style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w700,
-                                  color: color)),
+                          Text(
+                            layer['layer'] as String,
+                            style: TextStyle(
+                              fontSize: 11.5,
+                              fontWeight: FontWeight.w700,
+                              color: color,
+                            ),
+                          ),
                           const SizedBox(height: 2.0),
-                          Text(layer['desc'] as String,
-                              style: TextStyle(fontSize: 10.5, color: Colors.grey.shade600,
-                                  height: 1.3)),
+                          Text(
+                            layer['desc'] as String,
+                            style: TextStyle(
+                              fontSize: 10.5,
+                              color: Colors.grey.shade600,
+                              height: 1.3,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -222,7 +254,8 @@ dynamic build(BuildContext context) {
       'priority': '1 (Highest)',
       'color': Colors.red,
       'icon': Icons.shield,
-      'behavior': 'Screen is ALWAYS obscured during media projection. '
+      'behavior':
+          'Screen is ALWAYS obscured during media projection. '
           'Use for passwords, financial data, personal information.',
       'example': 'Password fields, credit card forms, medical records',
     },
@@ -231,7 +264,8 @@ dynamic build(BuildContext context) {
       'priority': '2 (Medium)',
       'color': Colors.orange,
       'icon': Icons.auto_fix_high,
-      'behavior': 'Platform decides whether to obscure. On Android API 35+, '
+      'behavior':
+          'Platform decides whether to obscure. On Android API 35+, '
           'this is the default behavior — the system may choose to obscure.',
       'example': 'Default app content, general text, non-critical data',
     },
@@ -240,7 +274,8 @@ dynamic build(BuildContext context) {
       'priority': '3 (Lowest)',
       'color': Colors.green,
       'icon': Icons.lock_open,
-      'behavior': 'Screen is NEVER obscured during projection. Content is '
+      'behavior':
+          'Screen is NEVER obscured during projection. Content is '
           'always visible during screen sharing.',
       'example': 'Public information, marketing, help pages, onboarding',
     },
@@ -263,7 +298,9 @@ dynamic build(BuildContext context) {
               padding: const EdgeInsets.all(12.0),
               decoration: BoxDecoration(
                 color: color.withValues(alpha: 0.06),
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(9.0)),
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(9.0),
+                ),
               ),
               child: Row(
                 children: [
@@ -275,12 +312,19 @@ dynamic build(BuildContext context) {
                       children: [
                         Text(
                           lvl['level'] as String,
-                          style: TextStyle(fontSize: 12.0, fontFamily: 'monospace',
-                              fontWeight: FontWeight.w700, color: color),
+                          style: TextStyle(
+                            fontSize: 12.0,
+                            fontFamily: 'monospace',
+                            fontWeight: FontWeight.w700,
+                            color: color,
+                          ),
                         ),
                         Text(
                           'Priority: ${lvl['priority']}',
-                          style: TextStyle(fontSize: 10.0, color: color.withValues(alpha: 0.7)),
+                          style: TextStyle(
+                            fontSize: 10.0,
+                            color: color.withValues(alpha: 0.7),
+                          ),
                         ),
                       ],
                     ),
@@ -295,7 +339,11 @@ dynamic build(BuildContext context) {
                 children: [
                   Text(
                     lvl['behavior'] as String,
-                    style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700, height: 1.35),
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      color: Colors.grey.shade700,
+                      height: 1.35,
+                    ),
                   ),
                   const SizedBox(height: 8.0),
                   Container(
@@ -308,13 +356,20 @@ dynamic build(BuildContext context) {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Icon(Icons.lightbulb_outline, size: 14.0, color: Colors.grey.shade500),
+                        Icon(
+                          Icons.lightbulb_outline,
+                          size: 14.0,
+                          color: Colors.grey.shade500,
+                        ),
                         const SizedBox(width: 6.0),
                         Expanded(
                           child: Text(
                             'Use cases: ${lvl['example']}',
-                            style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600,
-                                fontStyle: FontStyle.italic),
+                            style: TextStyle(
+                              fontSize: 11.0,
+                              color: Colors.grey.shade600,
+                              fontStyle: FontStyle.italic,
+                            ),
                           ),
                         ),
                       ],
@@ -337,42 +392,48 @@ dynamic build(BuildContext context) {
   final lifecycleSteps = <Map<String, dynamic>>[
     {
       'step': '1. Widget Created',
-      'desc': 'SensitiveContent widget enters the tree. initState() '
+      'desc':
+          'SensitiveContent widget enters the tree. initState() '
           'calls SensitiveContentHost.register(sensitivity).',
       'icon': Icons.add_circle_outline,
       'color': Colors.blue,
     },
     {
       'step': '2. Platform Check',
-      'desc': 'Host checks _sensitiveContentService.isSupported(). '
+      'desc':
+          'Host checks _sensitiveContentService.isSupported(). '
           'If not supported (non-Android or API < 35), registration is a no-op.',
       'icon': Icons.verified,
       'color': Colors.purple,
     },
     {
       'step': '3. Fallback Captured',
-      'desc': 'On first registration, host captures the current platform '
+      'desc':
+          'On first registration, host captures the current platform '
           'sensitivity as a fallback for when all widgets are removed.',
       'icon': Icons.save,
       'color': Colors.teal,
     },
     {
       'step': '4. Counter Updated',
-      'desc': '_ContentSensitivitySetting increments the count for the '
+      'desc':
+          '_ContentSensitivitySetting increments the count for the '
           'requested sensitivity level (sensitive, auto, or notSensitive).',
       'icon': Icons.exposure_plus_1,
       'color': Colors.green,
     },
     {
       'step': '5. Platform Notified',
-      'desc': 'If the effective sensitivity changed, host calls '
+      'desc':
+          'If the effective sensitivity changed, host calls '
           'setContentSensitivity() on the platform service.',
       'icon': Icons.send,
       'color': Colors.orange,
     },
     {
       'step': '6. Widget Disposed',
-      'desc': 'SensitiveContent.dispose() calls SensitiveContentHost.unregister(). '
+      'desc':
+          'SensitiveContent.dispose() calls SensitiveContentHost.unregister(). '
           'Counter decremented. If no widgets remain, fallback is restored.',
       'icon': Icons.remove_circle_outline,
       'color': Colors.red,
@@ -401,11 +462,23 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(step['step'] as String,
-                      style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700, color: color)),
+                  Text(
+                    step['step'] as String,
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.w700,
+                      color: color,
+                    ),
+                  ),
                   const SizedBox(height: 3.0),
-                  Text(step['desc'] as String,
-                      style: TextStyle(fontSize: 11.5, color: Colors.grey.shade700, height: 1.35)),
+                  Text(
+                    step['desc'] as String,
+                    style: TextStyle(
+                      fontSize: 11.5,
+                      color: Colors.grey.shade700,
+                      height: 1.35,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -439,7 +512,8 @@ dynamic build(BuildContext context) {
       'title': 'Wrapping Sensitive Forms',
       'color': Colors.red,
       'icon': Icons.lock,
-      'code': 'SensitiveContent(\n'
+      'code':
+          'SensitiveContent(\n'
           '  sensitivity: ContentSensitivity.sensitive,\n'
           '  child: Column(\n'
           '    children: [\n'
@@ -449,14 +523,16 @@ dynamic build(BuildContext context) {
           '    ],\n'
           '  ),\n'
           ')',
-      'desc': 'Wrap the entire login form so the password field plus '
+      'desc':
+          'Wrap the entire login form so the password field plus '
           'all related inputs are obscured during screen sharing.',
     },
     {
       'title': 'Mixed Sensitivity in Routing',
       'color': Colors.orange,
       'icon': Icons.route,
-      'code': '// Public page:\n'
+      'code':
+          '// Public page:\n'
           'MaterialPageRoute(\n'
           '  builder: (_) => SensitiveContent(\n'
           '    sensitivity:\n'
@@ -472,14 +548,16 @@ dynamic build(BuildContext context) {
           '    child: AccountPage(),\n'
           '  ),\n'
           ')',
-      'desc': 'Different pages can have different sensitivities. The host '
+      'desc':
+          'Different pages can have different sensitivities. The host '
           'tracks all active widgets and uses the highest priority.',
     },
     {
       'title': 'Checking Host State',
       'color': Colors.purple,
       'icon': Icons.monitor,
-      'code': '// In tests or debugging:\n'
+      'code':
+          '// In tests or debugging:\n'
           'final host =\n'
           '  SensitiveContentHost.instance;\n'
           'final sensitivity =\n'
@@ -487,20 +565,23 @@ dynamic build(BuildContext context) {
           'print(sensitivity);\n'
           '// ContentSensitivity.sensitive\n'
           '// (if any sensitive widgets exist)',
-      'desc': 'During testing, inspect the singleton to verify which '
+      'desc':
+          'During testing, inspect the singleton to verify which '
           'sensitivity level is currently active.',
     },
     {
       'title': 'Conditional Sensitivity',
       'color': Colors.blue,
       'icon': Icons.settings_applications,
-      'code': 'SensitiveContent(\n'
+      'code':
+          'SensitiveContent(\n'
           '  sensitivity: userSettings.hideData\n'
           '    ? ContentSensitivity.sensitive\n'
           '    : ContentSensitivity.notSensitive,\n'
           '  child: DataDashboard(),\n'
           ')',
-      'desc': 'Let users control sensitivity via app settings. The widget '
+      'desc':
+          'Let users control sensitivity via app settings. The widget '
           'will re-register when the sensitivity property changes.',
     },
   ];
@@ -522,14 +603,22 @@ dynamic build(BuildContext context) {
               padding: const EdgeInsets.all(10.0),
               decoration: BoxDecoration(
                 color: color.withValues(alpha: 0.06),
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(9.0)),
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(9.0),
+                ),
               ),
               child: Row(
                 children: [
                   Icon(pat['icon'] as IconData, size: 18.0, color: color),
                   const SizedBox(width: 8.0),
-                  Text(pat['title'] as String,
-                      style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w700, color: color)),
+                  Text(
+                    pat['title'] as String,
+                    style: TextStyle(
+                      fontSize: 12.5,
+                      fontWeight: FontWeight.w700,
+                      color: color,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -548,13 +637,22 @@ dynamic build(BuildContext context) {
                     ),
                     child: Text(
                       pat['code'] as String,
-                      style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
-                          color: Colors.grey.shade700),
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        fontFamily: 'monospace',
+                        color: Colors.grey.shade700,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 8.0),
-                  Text(pat['desc'] as String,
-                      style: TextStyle(fontSize: 11.5, color: Colors.grey.shade600, height: 1.35)),
+                  Text(
+                    pat['desc'] as String,
+                    style: TextStyle(
+                      fontSize: 11.5,
+                      color: Colors.grey.shade600,
+                      height: 1.35,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -570,12 +668,31 @@ dynamic build(BuildContext context) {
   print('=== Section 8: Summary ===');
 
   final summaryPoints = <Map<String, dynamic>>[
-    {'icon': Icons.hub, 'text': 'SensitiveContentHost is a singleton managing content sensitivity'},
-    {'icon': Icons.security, 'text': 'Tracks registrations from SensitiveContent widgets in the tree'},
-    {'icon': Icons.sort, 'text': 'Priority: sensitive > autoSensitive > notSensitive'},
-    {'icon': Icons.android, 'text': 'Only functional on Android API 35+ via SensitiveContentService'},
-    {'icon': Icons.construction, 'text': '@visibleForTesting — not production-ready, active development'},
-    {'icon': Icons.refresh, 'text': 'Restores fallback sensitivity when all widgets are removed'},
+    {
+      'icon': Icons.hub,
+      'text':
+          'SensitiveContentHost is a singleton managing content sensitivity',
+    },
+    {
+      'icon': Icons.security,
+      'text': 'Tracks registrations from SensitiveContent widgets in the tree',
+    },
+    {
+      'icon': Icons.sort,
+      'text': 'Priority: sensitive > autoSensitive > notSensitive',
+    },
+    {
+      'icon': Icons.android,
+      'text': 'Only functional on Android API 35+ via SensitiveContentService',
+    },
+    {
+      'icon': Icons.construction,
+      'text': '@visibleForTesting — not production-ready, active development',
+    },
+    {
+      'icon': Icons.refresh,
+      'text': 'Restores fallback sensitivity when all widgets are removed',
+    },
   ];
 
   final summaryItems = <Widget>[];
@@ -586,12 +703,20 @@ dynamic build(BuildContext context) {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(sp['icon'] as IconData, size: 16.0, color: Colors.deepOrange.shade700),
+            Icon(
+              sp['icon'] as IconData,
+              size: 16.0,
+              color: Colors.deepOrange.shade700,
+            ),
             const SizedBox(width: 8.0),
             Expanded(
               child: Text(
                 sp['text'] as String,
-                style: TextStyle(fontSize: 12.5, color: Colors.grey.shade800, height: 1.3),
+                style: TextStyle(
+                  fontSize: 12.5,
+                  color: Colors.grey.shade800,
+                  height: 1.3,
+                ),
               ),
             ),
           ],
@@ -638,9 +763,11 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSCHBullet('SensitiveContentHost',
-                    'The singleton hub managing screen content sensitivity for '
-                    'media projection on Android API 35+.'),
+                _buildSCHBullet(
+                  'SensitiveContentHost',
+                  'The singleton hub managing screen content sensitivity for '
+                      'media projection on Android API 35+.',
+                ),
                 const SizedBox(height: 14.0),
                 ...conceptCards,
               ],
@@ -652,8 +779,10 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSCHBullet('Architecture Stack',
-                    'How SensitiveContent widgets communicate with the platform.'),
+                _buildSCHBullet(
+                  'Architecture Stack',
+                  'How SensitiveContent widgets communicate with the platform.',
+                ),
                 const SizedBox(height: 14.0),
                 ...archCards,
                 const SizedBox(height: 14.0),
@@ -668,15 +797,22 @@ dynamic build(BuildContext context) {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Icon(Icons.info_outline, size: 16.0, color: Colors.amber.shade800),
+                      Icon(
+                        Icons.info_outline,
+                        size: 16.0,
+                        color: Colors.amber.shade800,
+                      ),
                       const SizedBox(width: 8.0),
                       Expanded(
                         child: Text(
                           'The host uses a priority system: if any widget '
                           'requests "sensitive", the entire screen is obscured '
                           'regardless of other widgets requesting lower levels.',
-                          style: TextStyle(fontSize: 11.5, color: Colors.amber.shade900,
-                              height: 1.35),
+                          style: TextStyle(
+                            fontSize: 11.5,
+                            color: Colors.amber.shade900,
+                            height: 1.35,
+                          ),
                         ),
                       ),
                     ],
@@ -691,8 +827,10 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSCHBullet('ContentSensitivity Values',
-                    'Three levels with descending priority.'),
+                _buildSCHBullet(
+                  'ContentSensitivity Values',
+                  'Three levels with descending priority.',
+                ),
                 const SizedBox(height: 14.0),
                 ...levelCards,
               ],
@@ -704,8 +842,10 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSCHBullet('Registration Lifecycle',
-                    'How SensitiveContent widgets register and unregister.'),
+                _buildSCHBullet(
+                  'Registration Lifecycle',
+                  'How SensitiveContent widgets register and unregister.',
+                ),
                 const SizedBox(height: 14.0),
                 ...lifecycleCards,
               ],
@@ -717,9 +857,11 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSCHBullet('Live Demo',
-                    'Wrapping content with SensitiveContent. On non-Android '
-                    'platforms, the visual indicators show what would happen.'),
+                _buildSCHBullet(
+                  'Live Demo',
+                  'Wrapping content with SensitiveContent. On non-Android '
+                      'platforms, the visual indicators show what would happen.',
+                ),
                 const SizedBox(height: 14.0),
                 liveDemo,
               ],
@@ -731,9 +873,11 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSCHBullet('Priority Resolution',
-                    'How the host resolves conflicting sensitivities from '
-                    'multiple SensitiveContent widgets.'),
+                _buildSCHBullet(
+                  'Priority Resolution',
+                  'How the host resolves conflicting sensitivities from '
+                      'multiple SensitiveContent widgets.',
+                ),
                 const SizedBox(height: 14.0),
                 priorityDemo,
               ],
@@ -745,8 +889,10 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSCHBullet('Usage Patterns',
-                    'Common patterns for using SensitiveContentHost.'),
+                _buildSCHBullet(
+                  'Usage Patterns',
+                  'Common patterns for using SensitiveContentHost.',
+                ),
                 const SizedBox(height: 14.0),
                 ...patternCards,
               ],
@@ -770,7 +916,9 @@ dynamic build(BuildContext context) {
                       ],
                     ),
                     borderRadius: BorderRadius.circular(10.0),
-                    border: Border.all(color: Colors.deepOrange.withValues(alpha: 0.2)),
+                    border: Border.all(
+                      color: Colors.deepOrange.withValues(alpha: 0.2),
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -795,16 +943,31 @@ Widget _buildSCHBullet(String title, String body) {
     decoration: BoxDecoration(
       color: Colors.deepOrange.withValues(alpha: 0.04),
       borderRadius: BorderRadius.circular(8.0),
-      border: Border(left: BorderSide(color: Colors.deepOrange.shade700, width: 3.0)),
+      border: Border(
+        left: BorderSide(color: Colors.deepOrange.shade700, width: 3.0),
+      ),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w700,
-            color: Colors.deepOrange.shade700)),
+        Text(
+          title,
+          style: TextStyle(
+            fontSize: 15.0,
+            fontWeight: FontWeight.w700,
+            color: Colors.deepOrange.shade700,
+          ),
+        ),
         if (body.isNotEmpty) ...[
           const SizedBox(height: 4.0),
-          Text(body, style: TextStyle(fontSize: 13.0, color: Colors.grey.shade700, height: 1.4)),
+          Text(
+            body,
+            style: TextStyle(
+              fontSize: 13.0,
+              color: Colors.grey.shade700,
+              height: 1.4,
+            ),
+          ),
         ],
       ],
     ),
@@ -843,14 +1006,20 @@ class _SCHLiveDemoState extends State<_SCHLiveDemo> {
           Text(
             'Toggle SensitiveContent wrapping and change the sensitivity '
             'level to see how the host manages registrations.',
-            style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600, height: 1.3),
+            style: TextStyle(
+              fontSize: 12.0,
+              color: Colors.grey.shade600,
+              height: 1.3,
+            ),
           ),
           const SizedBox(height: 14.0),
           // Controls
           Row(
             children: [
-              const Text('Wrap with SensitiveContent: ',
-                  style: TextStyle(fontSize: 12.0)),
+              const Text(
+                'Wrap with SensitiveContent: ',
+                style: TextStyle(fontSize: 12.0),
+              ),
               Switch(
                 value: _wrapEnabled,
                 activeColor: Colors.deepOrange,
@@ -869,17 +1038,21 @@ class _SCHLiveDemoState extends State<_SCHLiveDemo> {
                 final color = s == ContentSensitivity.sensitive
                     ? Colors.red
                     : s == ContentSensitivity.autoSensitive
-                        ? Colors.orange
-                        : Colors.green;
+                    ? Colors.orange
+                    : Colors.green;
                 return Padding(
                   padding: const EdgeInsets.only(right: 6.0),
                   child: InkWell(
                     onTap: () => setState(() => _selectedSensitivity = s),
                     borderRadius: BorderRadius.circular(6.0),
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5.0),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0,
+                        vertical: 5.0,
+                      ),
                       decoration: BoxDecoration(
-                        color: isSelected ? color.withValues(alpha: 0.15)
+                        color: isSelected
+                            ? color.withValues(alpha: 0.15)
                             : Colors.grey.withValues(alpha: 0.05),
                         borderRadius: BorderRadius.circular(6.0),
                         border: Border.all(
@@ -891,7 +1064,9 @@ class _SCHLiveDemoState extends State<_SCHLiveDemo> {
                         s.name,
                         style: TextStyle(
                           fontSize: 10.0,
-                          fontWeight: isSelected ? FontWeight.w700 : FontWeight.normal,
+                          fontWeight: isSelected
+                              ? FontWeight.w700
+                              : FontWeight.normal,
                           color: isSelected ? color : Colors.grey.shade600,
                         ),
                       ),
@@ -917,19 +1092,27 @@ class _SCHLiveDemoState extends State<_SCHLiveDemo> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Generated Widget Tree:',
-                    style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w700,
-                        color: Colors.grey.shade700)),
+                Text(
+                  'Generated Widget Tree:',
+                  style: TextStyle(
+                    fontSize: 10.0,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.grey.shade700,
+                  ),
+                ),
                 const SizedBox(height: 4.0),
                 Text(
                   _wrapEnabled
                       ? 'SensitiveContent(\n'
-                        '  sensitivity: ContentSensitivity.${_selectedSensitivity.name},\n'
-                        '  child: loginForm,\n'
-                        ')'
+                            '  sensitivity: ContentSensitivity.${_selectedSensitivity.name},\n'
+                            '  child: loginForm,\n'
+                            ')'
                       : '// No SensitiveContent wrapper\nloginForm',
-                  style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
-                      color: Colors.grey.shade600),
+                  style: TextStyle(
+                    fontSize: 10.0,
+                    fontFamily: 'monospace',
+                    color: Colors.grey.shade600,
+                  ),
                 ),
               ],
             ),
@@ -943,8 +1126,8 @@ class _SCHLiveDemoState extends State<_SCHLiveDemo> {
     final sensitiveColor = _selectedSensitivity == ContentSensitivity.sensitive
         ? Colors.red
         : _selectedSensitivity == ContentSensitivity.autoSensitive
-            ? Colors.orange
-            : Colors.green;
+        ? Colors.orange
+        : Colors.green;
 
     final content = Container(
       width: double.infinity,
@@ -959,9 +1142,16 @@ class _SCHLiveDemoState extends State<_SCHLiveDemo> {
         children: [
           Row(
             children: [
-              Icon(Icons.account_circle, size: 20.0, color: Colors.grey.shade600),
+              Icon(
+                Icons.account_circle,
+                size: 20.0,
+                color: Colors.grey.shade600,
+              ),
               const SizedBox(width: 8.0),
-              Text('Username', style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700)),
+              Text(
+                'Username',
+                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
+              ),
             ],
           ),
           Container(
@@ -976,8 +1166,10 @@ class _SCHLiveDemoState extends State<_SCHLiveDemo> {
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Align(
                 alignment: Alignment.centerLeft,
-                child: Text('user@example.com',
-                    style: TextStyle(fontSize: 12.0, color: Colors.grey.shade500)),
+                child: Text(
+                  'user@example.com',
+                  style: TextStyle(fontSize: 12.0, color: Colors.grey.shade500),
+                ),
               ),
             ),
           ),
@@ -985,7 +1177,10 @@ class _SCHLiveDemoState extends State<_SCHLiveDemo> {
             children: [
               Icon(Icons.lock, size: 20.0, color: Colors.grey.shade600),
               const SizedBox(width: 8.0),
-              Text('Password', style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700)),
+              Text(
+                'Password',
+                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
+              ),
             ],
           ),
           Container(
@@ -1013,9 +1208,14 @@ class _SCHLiveDemoState extends State<_SCHLiveDemo> {
                 borderRadius: BorderRadius.circular(6.0),
               ),
               child: const Center(
-                child: Text('Sign In',
-                    style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w600,
-                        color: Colors.white)),
+                child: Text(
+                  'Sign In',
+                  style: TextStyle(
+                    fontSize: 13.0,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
+                ),
               ),
             ),
           ),
@@ -1038,27 +1238,36 @@ class _SCHLiveDemoState extends State<_SCHLiveDemo> {
           children: [
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10.0,
+                vertical: 6.0,
+              ),
               decoration: BoxDecoration(
                 color: sensitiveColor.withValues(alpha: 0.1),
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(8.0)),
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(8.0),
+                ),
               ),
               child: Row(
                 children: [
                   Icon(
                     _selectedSensitivity == ContentSensitivity.sensitive
                         ? Icons.shield
-                        : _selectedSensitivity == ContentSensitivity.autoSensitive
-                            ? Icons.auto_fix_high
-                            : Icons.lock_open,
+                        : _selectedSensitivity ==
+                              ContentSensitivity.autoSensitive
+                        ? Icons.auto_fix_high
+                        : Icons.lock_open,
                     size: 14.0,
                     color: sensitiveColor,
                   ),
                   const SizedBox(width: 6.0),
                   Text(
                     'SensitiveContent: ${_selectedSensitivity.name}',
-                    style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w700,
-                        color: sensitiveColor),
+                    style: TextStyle(
+                      fontSize: 10.0,
+                      fontWeight: FontWeight.w700,
+                      color: sensitiveColor,
+                    ),
                   ),
                 ],
               ),
@@ -1095,7 +1304,11 @@ class _SCHPriorityDemo extends StatelessWidget {
           Text(
             'When multiple SensitiveContent widgets coexist, the host '
             'always uses the highest priority level. Sensitive trumps all.',
-            style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600, height: 1.3),
+            style: TextStyle(
+              fontSize: 12.0,
+              color: Colors.grey.shade600,
+              height: 1.3,
+            ),
           ),
           const SizedBox(height: 14.0),
           // Scenario 1
@@ -1104,7 +1317,8 @@ class _SCHPriorityDemo extends StatelessWidget {
             widgets: ['sensitive'],
             result: 'sensitive',
             resultColor: Colors.red,
-            explanation: 'One sensitive widget means the entire screen is obscured.',
+            explanation:
+                'One sensitive widget means the entire screen is obscured.',
           ),
           const SizedBox(height: 10.0),
           // Scenario 2
@@ -1140,7 +1354,8 @@ class _SCHPriorityDemo extends StatelessWidget {
             widgets: [],
             result: 'fallback',
             resultColor: Colors.grey,
-            explanation: 'Restores the platform default (usually autoSensitive).',
+            explanation:
+                'Restores the platform default (usually autoSensitive).',
           ),
           const SizedBox(height: 14.0),
           Container(
@@ -1157,8 +1372,11 @@ class _SCHPriorityDemo extends StatelessWidget {
               'if (autoSensitiveCount > 0) return autoSensitive;\n'
               'if (notSensitiveCount > 0) return notSensitive;\n'
               'return null; // fallback used',
-              style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
-                  color: Colors.grey.shade700),
+              style: TextStyle(
+                fontSize: 10.0,
+                fontFamily: 'monospace',
+                color: Colors.grey.shade700,
+              ),
             ),
           ),
         ],
@@ -1189,14 +1407,24 @@ class _SCHPriorityDemo extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(scenario,
-              style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w700,
-                  color: resultColor)),
+          Text(
+            scenario,
+            style: TextStyle(
+              fontSize: 11.0,
+              fontWeight: FontWeight.w700,
+              color: resultColor,
+            ),
+          ),
           const SizedBox(height: 6.0),
           if (widgets.isEmpty)
-            Text('(no SensitiveContent widgets)',
-                style: TextStyle(fontSize: 10.0, fontStyle: FontStyle.italic,
-                    color: Colors.grey.shade500))
+            Text(
+              '(no SensitiveContent widgets)',
+              style: TextStyle(
+                fontSize: 10.0,
+                fontStyle: FontStyle.italic,
+                color: Colors.grey.shade500,
+              ),
+            )
           else
             Wrap(
               spacing: 4.0,
@@ -1204,14 +1432,24 @@ class _SCHPriorityDemo extends StatelessWidget {
               children: widgets.map((w) {
                 final c = widgetColors[w] ?? Colors.grey;
                 return Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 3.0),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 6.0,
+                    vertical: 3.0,
+                  ),
                   decoration: BoxDecoration(
                     color: c.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(4.0),
                     border: Border.all(color: c.withValues(alpha: 0.3)),
                   ),
-                  child: Text(w, style: TextStyle(fontSize: 9.0, fontFamily: 'monospace',
-                      color: c, fontWeight: FontWeight.w700)),
+                  child: Text(
+                    w,
+                    style: TextStyle(
+                      fontSize: 9.0,
+                      fontFamily: 'monospace',
+                      color: c,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 );
               }).toList(),
             ),
@@ -1220,24 +1458,40 @@ class _SCHPriorityDemo extends StatelessWidget {
             children: [
               Icon(Icons.arrow_forward, size: 12.0, color: resultColor),
               const SizedBox(width: 4.0),
-              Text('Effective: ',
-                  style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600)),
+              Text(
+                'Effective: ',
+                style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600),
+              ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 6.0,
+                  vertical: 2.0,
+                ),
                 decoration: BoxDecoration(
                   color: resultColor.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(4.0),
                 ),
-                child: Text(result,
-                    style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
-                        fontWeight: FontWeight.w700, color: resultColor)),
+                child: Text(
+                  result,
+                  style: TextStyle(
+                    fontSize: 10.0,
+                    fontFamily: 'monospace',
+                    fontWeight: FontWeight.w700,
+                    color: resultColor,
+                  ),
+                ),
               ),
             ],
           ),
           const SizedBox(height: 3.0),
-          Text(explanation,
-              style: TextStyle(fontSize: 10.0, color: Colors.grey.shade500,
-                  fontStyle: FontStyle.italic)),
+          Text(
+            explanation,
+            style: TextStyle(
+              fontSize: 10.0,
+              color: Colors.grey.shade500,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
         ],
       ),
     );

@@ -3,10 +3,7 @@
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  return MaterialApp(
-    theme: ThemeData.light(),
-    home: const PhysicalModelDemo(),
-  );
+  return MaterialApp(theme: ThemeData.light(), home: const PhysicalModelDemo());
 }
 
 class PhysicalModelDemo extends StatefulWidget {
@@ -159,17 +156,25 @@ class _PhysicalModelDemoState extends State<PhysicalModelDemo> {
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(Icons.layers, color: Colors.deepPurple.shade300),
+                              Icon(
+                                Icons.layers,
+                                color: Colors.deepPurple.shade300,
+                              ),
                               Text(
                                 '${elev.toInt()}',
-                                style: const TextStyle(fontWeight: FontWeight.bold),
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ],
                           ),
                         ),
                       ),
                       const SizedBox(height: 8),
-                      Text('elevation: ${elev.toInt()}', style: const TextStyle(fontSize: 11)),
+                      Text(
+                        'elevation: ${elev.toInt()}',
+                        style: const TextStyle(fontSize: 11),
+                      ),
                     ],
                   );
                 }).toList(),
@@ -179,7 +184,10 @@ class _PhysicalModelDemoState extends State<PhysicalModelDemo> {
             const SizedBox(height: 24),
 
             // Interactive demo
-            const Text('Interactive elevation control:', style: TextStyle(fontWeight: FontWeight.w500)),
+            const Text(
+              'Interactive elevation control:',
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
             const SizedBox(height: 12),
             Center(
               child: PhysicalModel(
@@ -215,7 +223,10 @@ class _PhysicalModelDemoState extends State<PhysicalModelDemo> {
                     },
                   ),
                 ),
-                SizedBox(width: 40, child: Text(_basicElevation.toStringAsFixed(1))),
+                SizedBox(
+                  width: 40,
+                  child: Text(_basicElevation.toStringAsFixed(1)),
+                ),
               ],
             ),
 
@@ -289,7 +300,10 @@ class _PhysicalModelDemoState extends State<PhysicalModelDemo> {
                       },
                     ),
                   ),
-                  SizedBox(width: 40, child: Text(_borderRadius.toStringAsFixed(0))),
+                  SizedBox(
+                    width: 40,
+                    child: Text(_borderRadius.toStringAsFixed(0)),
+                  ),
                 ],
               ),
               const SizedBox(height: 16),
@@ -301,7 +315,9 @@ class _PhysicalModelDemoState extends State<PhysicalModelDemo> {
                 elevation: 8,
                 color: Colors.amber.shade100,
                 shape: _shapeType == 0 ? BoxShape.rectangle : BoxShape.circle,
-                borderRadius: _shapeType == 0 ? BorderRadius.circular(_borderRadius) : null,
+                borderRadius: _shapeType == 0
+                    ? BorderRadius.circular(_borderRadius)
+                    : null,
                 shadowColor: Colors.amber.shade700,
                 child: Container(
                   width: 120,
@@ -318,7 +334,10 @@ class _PhysicalModelDemoState extends State<PhysicalModelDemo> {
                       const SizedBox(height: 4),
                       Text(
                         _shapeType == 0 ? 'Rectangle' : 'Circle',
-                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.amber.shade800),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.amber.shade800,
+                        ),
                       ),
                     ],
                   ),
@@ -329,7 +348,10 @@ class _PhysicalModelDemoState extends State<PhysicalModelDemo> {
             const SizedBox(height: 16),
 
             // Shape comparison
-            const Text('All shape variants:', style: TextStyle(fontWeight: FontWeight.w500)),
+            const Text(
+              'All shape variants:',
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
             const SizedBox(height: 12),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -464,7 +486,10 @@ class _PhysicalModelDemoState extends State<PhysicalModelDemo> {
                     },
                   ),
                 ),
-                SizedBox(width: 40, child: Text(_shadowOpacity.toStringAsFixed(2))),
+                SizedBox(
+                  width: 40,
+                  child: Text(_shadowOpacity.toStringAsFixed(2)),
+                ),
               ],
             ),
 
@@ -506,7 +531,10 @@ class _PhysicalModelDemoState extends State<PhysicalModelDemo> {
             const SizedBox(height: 24),
 
             // All colors comparison
-            const Text('Shadow color comparison:', style: TextStyle(fontWeight: FontWeight.w500)),
+            const Text(
+              'Shadow color comparison:',
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
             const SizedBox(height: 12),
             Wrap(
               spacing: 16,
@@ -578,7 +606,10 @@ class _PhysicalModelDemoState extends State<PhysicalModelDemo> {
                     setState(() => _colorIndex = index);
                     print('Model color: ${colors[index].$1}');
                   },
-                  avatar: CircleAvatar(backgroundColor: colors[index].$2, radius: 8),
+                  avatar: CircleAvatar(
+                    backgroundColor: colors[index].$2,
+                    radius: 8,
+                  ),
                 );
               }),
             ),
@@ -599,11 +630,18 @@ class _PhysicalModelDemoState extends State<PhysicalModelDemo> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(Icons.palette, size: 36, color: Colors.grey.shade600),
+                      Icon(
+                        Icons.palette,
+                        size: 36,
+                        color: Colors.grey.shade600,
+                      ),
                       const SizedBox(height: 8),
                       Text(
                         colors[_colorIndex].$1,
-                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey.shade800),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey.shade800,
+                        ),
                       ),
                     ],
                   ),
@@ -614,7 +652,11 @@ class _PhysicalModelDemoState extends State<PhysicalModelDemo> {
             const SizedBox(height: 16),
             const Text(
               'Note: The color fills the entire model surface and clips the child.',
-              style: TextStyle(fontStyle: FontStyle.italic, fontSize: 12, color: Colors.grey),
+              style: TextStyle(
+                fontStyle: FontStyle.italic,
+                fontSize: 12,
+                color: Colors.grey,
+              ),
             ),
 
             print('Model color section rendered'),
@@ -725,7 +767,10 @@ class _PhysicalModelDemoState extends State<PhysicalModelDemo> {
             const SizedBox(height: 24),
 
             // Clip modes comparison
-            const Text('Clip modes:', style: TextStyle(fontWeight: FontWeight.w500)),
+            const Text(
+              'Clip modes:',
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
             const SizedBox(height: 12),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -733,7 +778,10 @@ class _PhysicalModelDemoState extends State<PhysicalModelDemo> {
                 _buildClipDemo('none', Clip.none),
                 _buildClipDemo('hardEdge', Clip.hardEdge),
                 _buildClipDemo('antiAlias', Clip.antiAlias),
-                _buildClipDemo('antiAliasWithSaveLayer', Clip.antiAliasWithSaveLayer),
+                _buildClipDemo(
+                  'antiAliasWithSaveLayer',
+                  Clip.antiAliasWithSaveLayer,
+                ),
               ],
             ),
 
@@ -809,7 +857,10 @@ class _PhysicalModelDemoState extends State<PhysicalModelDemo> {
                       const SizedBox(height: 4),
                       Text(
                         'Elevation: ${_animatedElevation.toStringAsFixed(0)}',
-                        style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.indigo),
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.indigo,
+                        ),
                       ),
                     ],
                   ),
@@ -831,8 +882,12 @@ class _PhysicalModelDemoState extends State<PhysicalModelDemo> {
                       print('Animated elevation: $elev');
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: _animatedElevation == elev ? Colors.indigo : null,
-                      foregroundColor: _animatedElevation == elev ? Colors.white : null,
+                      backgroundColor: _animatedElevation == elev
+                          ? Colors.indigo
+                          : null,
+                      foregroundColor: _animatedElevation == elev
+                          ? Colors.white
+                          : null,
                     ),
                     child: Text(elev.toInt().toString()),
                   ),
@@ -843,7 +898,10 @@ class _PhysicalModelDemoState extends State<PhysicalModelDemo> {
             const SizedBox(height: 24),
 
             // Hover effect simulation
-            const Text('Hover effect (tap to toggle):', style: TextStyle(fontWeight: FontWeight.w500)),
+            const Text(
+              'Hover effect (tap to toggle):',
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
             const SizedBox(height: 12),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -898,7 +956,10 @@ class _PhysicalModelDemoState extends State<PhysicalModelDemo> {
                     },
                   ),
                 ),
-                SizedBox(width: 40, child: Text(_compareElevation.toStringAsFixed(0))),
+                SizedBox(
+                  width: 40,
+                  child: Text(_compareElevation.toStringAsFixed(0)),
+                ),
               ],
             ),
 
@@ -919,7 +980,10 @@ class _PhysicalModelDemoState extends State<PhysicalModelDemo> {
                         width: 90,
                         height: 70,
                         alignment: Alignment.center,
-                        child: const Text('Physical\nModel', textAlign: TextAlign.center),
+                        child: const Text(
+                          'Physical\nModel',
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -939,7 +1003,10 @@ class _PhysicalModelDemoState extends State<PhysicalModelDemo> {
                         width: 90,
                         height: 70,
                         alignment: Alignment.center,
-                        child: const Text('Material', textAlign: TextAlign.center),
+                        child: const Text(
+                          'Material',
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -952,7 +1019,9 @@ class _PhysicalModelDemoState extends State<PhysicalModelDemo> {
                   children: [
                     Card(
                       elevation: _compareElevation,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                       child: Container(
                         width: 90,
                         height: 70,
@@ -979,9 +1048,14 @@ class _PhysicalModelDemoState extends State<PhysicalModelDemo> {
               child: const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Key differences:', style: TextStyle(fontWeight: FontWeight.bold)),
+                  Text(
+                    'Key differences:',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                   SizedBox(height: 8),
-                  Text('• PhysicalModel: Direct control, fixed color, no ripples'),
+                  Text(
+                    '• PhysicalModel: Direct control, fixed color, no ripples',
+                  ),
                   Text('• Material: Theme-aware, supports InkWell effects'),
                   Text('• Card: Material + default styling + margin'),
                 ],
@@ -1019,7 +1093,10 @@ class _PhysicalModelDemoState extends State<PhysicalModelDemo> {
             const SizedBox(height: 16),
 
             // Use Case 1: Custom Button
-            const Text('1. Custom Button:', style: TextStyle(fontWeight: FontWeight.w500)),
+            const Text(
+              '1. Custom Button:',
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
             const SizedBox(height: 8),
             Center(
               child: GestureDetector(
@@ -1031,13 +1108,22 @@ class _PhysicalModelDemoState extends State<PhysicalModelDemo> {
                   borderRadius: BorderRadius.circular(30),
                   shadowColor: Colors.blue.shade700,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 32,
+                      vertical: 14,
+                    ),
                     child: const Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Icon(Icons.send, color: Colors.white),
                         SizedBox(width: 8),
-                        Text('Send Message', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                        Text(
+                          'Send Message',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -1048,7 +1134,10 @@ class _PhysicalModelDemoState extends State<PhysicalModelDemo> {
             const SizedBox(height: 24),
 
             // Use Case 2: Floating Badge
-            const Text('2. Floating Badge:', style: TextStyle(fontWeight: FontWeight.w500)),
+            const Text(
+              '2. Floating Badge:',
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
             const SizedBox(height: 8),
             Center(
               child: Stack(
@@ -1071,7 +1160,13 @@ class _PhysicalModelDemoState extends State<PhysicalModelDemo> {
                         width: 28,
                         height: 28,
                         child: Center(
-                          child: Text('3', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                          child: Text(
+                            '3',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -1083,7 +1178,10 @@ class _PhysicalModelDemoState extends State<PhysicalModelDemo> {
             const SizedBox(height: 24),
 
             // Use Case 3: Avatar Group
-            const Text('3. Avatar Group:', style: TextStyle(fontWeight: FontWeight.w500)),
+            const Text(
+              '3. Avatar Group:',
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
             const SizedBox(height: 8),
             Center(
               child: SizedBox(
@@ -1095,7 +1193,12 @@ class _PhysicalModelDemoState extends State<PhysicalModelDemo> {
                       left: index * 35.0,
                       child: PhysicalModel(
                         elevation: 4,
-                        color: [Colors.blue, Colors.green, Colors.orange, Colors.purple][index],
+                        color: [
+                          Colors.blue,
+                          Colors.green,
+                          Colors.orange,
+                          Colors.purple,
+                        ][index],
                         shape: BoxShape.circle,
                         child: Container(
                           width: 44,
@@ -1107,7 +1210,10 @@ class _PhysicalModelDemoState extends State<PhysicalModelDemo> {
                           child: Center(
                             child: Text(
                               ['A', 'B', 'C', 'D'][index],
-                              style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
@@ -1121,7 +1227,10 @@ class _PhysicalModelDemoState extends State<PhysicalModelDemo> {
             const SizedBox(height: 24),
 
             // Use Case 4: Toast/Snackbar style
-            const Text('4. Toast Notification:', style: TextStyle(fontWeight: FontWeight.w500)),
+            const Text(
+              '4. Toast Notification:',
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
             const SizedBox(height: 8),
             Center(
               child: PhysicalModel(
@@ -1129,13 +1238,19 @@ class _PhysicalModelDemoState extends State<PhysicalModelDemo> {
                 color: Colors.grey.shade900,
                 borderRadius: BorderRadius.circular(8),
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 12,
+                  ),
                   child: const Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(Icons.check_circle, color: Colors.green, size: 20),
                       SizedBox(width: 12),
-                      Text('Message sent successfully', style: TextStyle(color: Colors.white)),
+                      Text(
+                        'Message sent successfully',
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ],
                   ),
                 ),
@@ -1145,7 +1260,10 @@ class _PhysicalModelDemoState extends State<PhysicalModelDemo> {
             const SizedBox(height: 24),
 
             // Use Case 5: Floating Action Button
-            const Text('5. Custom FAB:', style: TextStyle(fontWeight: FontWeight.w500)),
+            const Text(
+              '5. Custom FAB:',
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
             const SizedBox(height: 8),
             Center(
               child: PhysicalModel(
@@ -1200,10 +1318,18 @@ class _PhysicalModelDemoState extends State<PhysicalModelDemo> {
             ),
             const Divider(),
 
-            _buildApiRow('color', 'Color', 'Surface color of the physical model'),
+            _buildApiRow(
+              'color',
+              'Color',
+              'Surface color of the physical model',
+            ),
             _buildApiRow('elevation', 'double', 'Z-depth that creates shadow'),
             _buildApiRow('shape', 'BoxShape', 'rectangle or circle'),
-            _buildApiRow('borderRadius', 'BorderRadius?', 'Corners (rectangles only)'),
+            _buildApiRow(
+              'borderRadius',
+              'BorderRadius?',
+              'Corners (rectangles only)',
+            ),
             _buildApiRow('shadowColor', 'Color', 'Color of elevation shadow'),
             _buildApiRow('clipBehavior', 'Clip', 'How to clip child content'),
             _buildApiRow('child', 'Widget?', 'Content of the model'),
@@ -1214,9 +1340,17 @@ class _PhysicalModelDemoState extends State<PhysicalModelDemo> {
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 4),
-            _buildApiRow('duration', 'Duration', 'Transition animation duration'),
+            _buildApiRow(
+              'duration',
+              'Duration',
+              'Transition animation duration',
+            ),
             _buildApiRow('curve', 'Curve', 'Animation easing curve'),
-            _buildApiRow('onEnd', 'VoidCallback?', 'Called when animation ends'),
+            _buildApiRow(
+              'onEnd',
+              'VoidCallback?',
+              'Called when animation ends',
+            ),
 
             const SizedBox(height: 12),
             const Text(
@@ -1224,7 +1358,9 @@ class _PhysicalModelDemoState extends State<PhysicalModelDemo> {
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 4),
-            const Text('• Use Clip.hardEdge for better performance when aliasing not needed'),
+            const Text(
+              '• Use Clip.hardEdge for better performance when aliasing not needed',
+            ),
             const Text('• PhysicalModel is cheaper than Material widget'),
             const Text('• For ripple effects, use Material instead'),
             const Text('• Shadow rendering is GPU-accelerated'),
@@ -1242,13 +1378,31 @@ class _PhysicalModelDemoState extends State<PhysicalModelDemo> {
         children: [
           SizedBox(
             width: 100,
-            child: Text(name, style: const TextStyle(fontFamily: 'monospace', fontWeight: FontWeight.w600)),
+            child: Text(
+              name,
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           ),
           SizedBox(
             width: 100,
-            child: Text(type, style: const TextStyle(fontFamily: 'monospace', color: Colors.deepPurple, fontSize: 12)),
+            child: Text(
+              type,
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                color: Colors.deepPurple,
+                fontSize: 12,
+              ),
+            ),
           ),
-          Expanded(child: Text(description, style: const TextStyle(fontSize: 12, color: Colors.grey))),
+          Expanded(
+            child: Text(
+              description,
+              style: const TextStyle(fontSize: 12, color: Colors.grey),
+            ),
+          ),
         ],
       ),
     );

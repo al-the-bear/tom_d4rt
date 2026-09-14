@@ -81,10 +81,7 @@ Widget buildQuickAction(IconData icon, String label, Color color) {
         decoration: BoxDecoration(
           color: color.withValues(alpha: 0.18),
           borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(
-            color: color.withValues(alpha: 0.45),
-            width: 1.0,
-          ),
+          border: Border.all(color: color.withValues(alpha: 0.45), width: 1.0),
         ),
         child: Icon(icon, color: color, size: 18.0),
       ),
@@ -211,10 +208,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.16),
         borderRadius: BorderRadius.circular(20.0),
-        border: Border.all(
-          color: color.withValues(alpha: 0.55),
-          width: 1.0,
-        ),
+        border: Border.all(color: color.withValues(alpha: 0.55), width: 1.0),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -315,10 +309,7 @@ dynamic build(BuildContext context) {
           ),
           const SizedBox(width: 10.0),
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 8.0,
-              vertical: 4.0,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
             decoration: BoxDecoration(
               color: tone.withValues(alpha: 0.12),
               borderRadius: BorderRadius.circular(8.0),
@@ -356,10 +347,7 @@ dynamic build(BuildContext context) {
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(14.0),
-        border: Border.all(
-          color: color.withValues(alpha: 0.45),
-          width: 1.1,
-        ),
+        border: Border.all(color: color.withValues(alpha: 0.45), width: 1.1),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -587,19 +575,17 @@ dynamic build(BuildContext context) {
   // SECTION 1 - CANONICAL NestedScrollView WITH PINNED SliverAppBar
   // ===========================================================================
 
-  final List<Widget> section1Tiles = List<Widget>.generate(
-    14,
-    (int i) {
-      return contentTile(
-        index: i + 1,
-        title: 'Activity entry ${i + 1}',
-        subtitle: 'A pinned SliverAppBar keeps the title visible while this '
-            'inner body scrolls underneath it.',
-        icon: Icons.event_note,
-        color: kAccent,
-      );
-    },
-  );
+  final List<Widget> section1Tiles = List<Widget>.generate(14, (int i) {
+    return contentTile(
+      index: i + 1,
+      title: 'Activity entry ${i + 1}',
+      subtitle:
+          'A pinned SliverAppBar keeps the title visible while this '
+          'inner body scrolls underneath it.',
+      icon: Icons.event_note,
+      color: kAccent,
+    );
+  });
 
   final Widget section1Demo = NestedScrollView(
     headerSliverBuilder: (BuildContext ctx, bool innerScrolled) {
@@ -610,10 +596,7 @@ dynamic build(BuildContext context) {
             pinned: true,
             title: Text(
               'Pinned activity log',
-              style: TextStyle(
-                fontWeight: FontWeight.w800,
-                letterSpacing: 0.3,
-              ),
+              style: TextStyle(fontWeight: FontWeight.w800, letterSpacing: 0.3),
             ),
             backgroundColor: kAccent,
             foregroundColor: Colors.white,
@@ -639,9 +622,7 @@ dynamic build(BuildContext context) {
             SliverOverlapInjector(
               handle: NestedScrollView.sliverOverlapAbsorberHandleFor(inner),
             ),
-            SliverList(
-              delegate: SliverChildListDelegate(section1Tiles),
-            ),
+            SliverList(delegate: SliverChildListDelegate(section1Tiles)),
           ],
         );
       },
@@ -650,7 +631,8 @@ dynamic build(BuildContext context) {
 
   final Widget section1 = sectionShell(
     title: '01 · Canonical NestedScrollView with pinned SliverAppBar',
-    subtitle: 'The classic outer/inner pattern: a pinned SliverAppBar in the '
+    subtitle:
+        'The classic outer/inner pattern: a pinned SliverAppBar in the '
         'headerSliverBuilder, with a SliverOverlapAbsorber routing overscroll '
         'into the body sliver list.',
     surface: Colors.white,
@@ -676,19 +658,17 @@ dynamic build(BuildContext context) {
   // SECTION 2 - FLOATING + SNAP SliverAppBar
   // ===========================================================================
 
-  final List<Widget> section2Tiles = List<Widget>.generate(
-    16,
-    (int i) {
-      return contentTile(
-        index: i + 1,
-        title: 'Feed post ${i + 1}',
-        subtitle: 'Scroll up to make the floating + snap SliverAppBar appear '
-            'in a single animated jump.',
-        icon: Icons.dynamic_feed,
-        color: kSecondary,
-      );
-    },
-  );
+  final List<Widget> section2Tiles = List<Widget>.generate(16, (int i) {
+    return contentTile(
+      index: i + 1,
+      title: 'Feed post ${i + 1}',
+      subtitle:
+          'Scroll up to make the floating + snap SliverAppBar appear '
+          'in a single animated jump.',
+      icon: Icons.dynamic_feed,
+      color: kSecondary,
+    );
+  });
 
   final Widget section2Demo = NestedScrollView(
     headerSliverBuilder: (BuildContext ctx, bool innerScrolled) {
@@ -701,10 +681,7 @@ dynamic build(BuildContext context) {
           elevation: 4.0,
           title: const Text(
             'Floating + snap feed',
-            style: TextStyle(
-              fontWeight: FontWeight.w800,
-              letterSpacing: 0.3,
-            ),
+            style: TextStyle(fontWeight: FontWeight.w800, letterSpacing: 0.3),
           ),
           actions: const <Widget>[
             Padding(
@@ -752,7 +729,8 @@ dynamic build(BuildContext context) {
 
   final Widget section2 = sectionShell(
     title: '02 · floating: true + snap: true SliverAppBar',
-    subtitle: 'Combining floating with snap makes the bar pop back into view '
+    subtitle:
+        'Combining floating with snap makes the bar pop back into view '
         'in a single animated jump as soon as the user scrolls up — perfect '
         'for social-style feeds.',
     surface: Colors.white,
@@ -778,19 +756,17 @@ dynamic build(BuildContext context) {
   // SECTION 3 - LARGE expandedHeight + FlexibleSpaceBar gradient background
   // ===========================================================================
 
-  final List<Widget> section3Tiles = List<Widget>.generate(
-    18,
-    (int i) {
-      return contentTile(
-        index: i + 1,
-        title: 'Catalog item ${i + 1}',
-        subtitle: 'The header collapses from 240px down to a slim AppBar as '
-            'the inner body scrolls.',
-        icon: Icons.style,
-        color: kAccentDeep,
-      );
-    },
-  );
+  final List<Widget> section3Tiles = List<Widget>.generate(18, (int i) {
+    return contentTile(
+      index: i + 1,
+      title: 'Catalog item ${i + 1}',
+      subtitle:
+          'The header collapses from 240px down to a slim AppBar as '
+          'the inner body scrolls.',
+      icon: Icons.style,
+      color: kAccentDeep,
+    );
+  });
 
   final Widget section3Demo = NestedScrollView(
     headerSliverBuilder: (BuildContext ctx, bool innerScrolled) {
@@ -819,11 +795,7 @@ dynamic build(BuildContext context) {
             background: Container(
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
-                  colors: <Color>[
-                    kAccentDeep,
-                    kAccent,
-                    Color(0xFF8B7DF9),
-                  ],
+                  colors: <Color>[kAccentDeep, kAccent, Color(0xFF8B7DF9)],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
@@ -871,8 +843,7 @@ dynamic build(BuildContext context) {
                             Text(
                               'CURATED FOR YOU',
                               style: TextStyle(
-                                color:
-                                    Colors.white.withValues(alpha: 0.85),
+                                color: Colors.white.withValues(alpha: 0.85),
                                 fontSize: 11.0,
                                 letterSpacing: 2.0,
                                 fontWeight: FontWeight.w700,
@@ -888,11 +859,7 @@ dynamic build(BuildContext context) {
                               icon: Icons.height,
                             ),
                             const SizedBox(width: 8.0),
-                            chip(
-                              'pinned',
-                              Colors.white,
-                              icon: Icons.lock,
-                            ),
+                            chip('pinned', Colors.white, icon: Icons.lock),
                           ],
                         ),
                       ],
@@ -912,8 +879,10 @@ dynamic build(BuildContext context) {
   );
 
   final Widget section3 = sectionShell(
-    title: '03 · Large expandedHeight with gradient FlexibleSpaceBar background',
-    subtitle: 'expandedHeight: 240.0 reveals a layered gradient hero with '
+    title:
+        '03 · Large expandedHeight with gradient FlexibleSpaceBar background',
+    subtitle:
+        'expandedHeight: 240.0 reveals a layered gradient hero with '
         'decorative circles and stacked typography — a richer "marketing" '
         'style header that collapses into a simple AppBar.',
     surface: Colors.white,
@@ -1026,8 +995,7 @@ dynamic build(BuildContext context) {
                             Text(
                               'Workspace administrator',
                               style: TextStyle(
-                                color:
-                                    Colors.white.withValues(alpha: 0.85),
+                                color: Colors.white.withValues(alpha: 0.85),
                                 fontSize: 12.0,
                               ),
                             ),
@@ -1065,7 +1033,8 @@ dynamic build(BuildContext context) {
 
   final Widget section4 = sectionShell(
     title: '04 · NestedScrollView body = TabBarView',
-    subtitle: 'A DefaultTabController wraps the NestedScrollView. The pinned '
+    subtitle:
+        'A DefaultTabController wraps the NestedScrollView. The pinned '
         'SliverAppBar carries a TabBar in its bottom slot; the body becomes a '
         'TabBarView whose pages each scroll under the shared header.',
     surface: Colors.white,
@@ -1100,9 +1069,7 @@ dynamic build(BuildContext context) {
           foregroundColor: Colors.white,
           title: Text(
             'Custom persistent band',
-            style: TextStyle(
-              fontWeight: FontWeight.w800,
-            ),
+            style: TextStyle(fontWeight: FontWeight.w800),
           ),
         ),
         SliverPersistentHeader(
@@ -1138,7 +1105,8 @@ dynamic build(BuildContext context) {
         return contentTile(
           index: i + 1,
           title: 'Catalog row ${i + 1}',
-          subtitle: 'Pinned persistent header stays visible while this row '
+          subtitle:
+              'Pinned persistent header stays visible while this row '
               'scrolls underneath.',
           icon: Icons.table_rows,
           color: kAccent,
@@ -1149,7 +1117,8 @@ dynamic build(BuildContext context) {
 
   final Widget section5 = sectionShell(
     title: '05 · Custom SliverPersistentHeaderDelegate bands',
-    subtitle: 'A bespoke SliverPersistentHeaderDelegate (built from SizedBox + '
+    subtitle:
+        'A bespoke SliverPersistentHeaderDelegate (built from SizedBox + '
         'Container) renders two decorative bands — one pinned, one scrolling — '
         'beneath the SliverAppBar.',
     surface: Colors.white,
@@ -1195,12 +1164,7 @@ dynamic build(BuildContext context) {
   final List<Widget> section6Cards = List<Widget>.generate(20, (int i) {
     final Color color = palette6[i % palette6.length];
     final IconData icon = icons6[i % icons6.length];
-    return gridCard(
-      index: i + 1,
-      icon: icon,
-      color: color,
-      label: 'TILE',
-    );
+    return gridCard(index: i + 1, icon: icon, color: color, label: 'TILE');
   });
 
   final Widget section6Demo = NestedScrollView(
@@ -1214,9 +1178,7 @@ dynamic build(BuildContext context) {
           flexibleSpace: FlexibleSpaceBar(
             title: const Text(
               'Grid gallery',
-              style: TextStyle(
-                fontWeight: FontWeight.w800,
-              ),
+              style: TextStyle(fontWeight: FontWeight.w800),
             ),
             background: Container(
               decoration: const BoxDecoration(
@@ -1246,7 +1208,8 @@ dynamic build(BuildContext context) {
 
   final Widget section6 = sectionShell(
     title: '06 · Nested GridView under SliverAppBar',
-    subtitle: 'The body of a NestedScrollView can be any scrollable, including '
+    subtitle:
+        'The body of a NestedScrollView can be any scrollable, including '
         'a GridView. Here a 3-column grid scrolls under a pinned header with '
         'gradient FlexibleSpaceBar background.',
     surface: Colors.white,
@@ -1288,9 +1251,7 @@ dynamic build(BuildContext context) {
             ],
             title: const Text(
               'Parallax hero',
-              style: TextStyle(
-                fontWeight: FontWeight.w800,
-              ),
+              style: TextStyle(fontWeight: FontWeight.w800),
             ),
             background: Stack(
               fit: StackFit.expand,
@@ -1392,7 +1353,8 @@ dynamic build(BuildContext context) {
 
   final Widget section7 = sectionShell(
     title: '07 · Parallax-ish stacked headers',
-    subtitle: 'CollapseMode.parallax and StretchMode.zoomBackground/fadeTitle '
+    subtitle:
+        'CollapseMode.parallax and StretchMode.zoomBackground/fadeTitle '
         'are configured on a SliverAppBar.flexibleSpace, and a second pinned '
         'SliverPersistentHeader sits below it.',
     surface: Colors.white,
@@ -1430,9 +1392,7 @@ dynamic build(BuildContext context) {
           foregroundColor: Colors.white,
           title: const Text(
             'Bottom shadow on AppBar',
-            style: TextStyle(
-              fontWeight: FontWeight.w800,
-            ),
+            style: TextStyle(fontWeight: FontWeight.w800),
           ),
         ),
       ];
@@ -1443,7 +1403,8 @@ dynamic build(BuildContext context) {
         return contentTile(
           index: i + 1,
           title: 'Alert ${i + 1}',
-          subtitle: 'SliverAppBar carries forceElevated, elevation 8 and a '
+          subtitle:
+              'SliverAppBar carries forceElevated, elevation 8 and a '
               'tinted shadow color to enhance separation.',
           icon: Icons.notification_important,
           color: kDanger,
@@ -1454,7 +1415,8 @@ dynamic build(BuildContext context) {
 
   final Widget section8 = sectionShell(
     title: '08 · forceElevated + custom shadowColor',
-    subtitle: 'A SliverAppBar with elevation: 8.0 and a tinted shadowColor '
+    subtitle:
+        'A SliverAppBar with elevation: 8.0 and a tinted shadowColor '
         'demonstrates a strong drop shadow below the header.',
     surface: Colors.white,
     border: kDangerSoft,
@@ -1483,7 +1445,8 @@ dynamic build(BuildContext context) {
     return contentTile(
       index: i + 1,
       title: 'Bulk record ${i + 1}',
-      subtitle: 'Large SliverList of 60 entries to exercise viewport recycling.',
+      subtitle:
+          'Large SliverList of 60 entries to exercise viewport recycling.',
       icon: Icons.storage,
       color: kInfo,
     );
@@ -1500,17 +1463,12 @@ dynamic build(BuildContext context) {
           flexibleSpace: FlexibleSpaceBar(
             title: const Text(
               'Large list of 60 items',
-              style: TextStyle(
-                fontWeight: FontWeight.w800,
-              ),
+              style: TextStyle(fontWeight: FontWeight.w800),
             ),
             background: Container(
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
-                  colors: <Color>[
-                    Color(0xFF0D47A1),
-                    Color(0xFF1565C0),
-                  ],
+                  colors: <Color>[Color(0xFF0D47A1), Color(0xFF1565C0)],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
@@ -1524,9 +1482,7 @@ dynamic build(BuildContext context) {
       slivers: <Widget>[
         SliverPadding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
-          sliver: SliverList(
-            delegate: SliverChildListDelegate(section9Tiles),
-          ),
+          sliver: SliverList(delegate: SliverChildListDelegate(section9Tiles)),
         ),
       ],
     ),
@@ -1534,7 +1490,8 @@ dynamic build(BuildContext context) {
 
   final Widget section9 = sectionShell(
     title: '09 · Large SliverList — 60 elements',
-    subtitle: 'A NestedScrollView whose body is a CustomScrollView containing '
+    subtitle:
+        'A NestedScrollView whose body is a CustomScrollView containing '
         'a 60-element SliverList. Verifies viewport recycling under a pinned '
         'collapsed header.',
     surface: Colors.white,
@@ -1570,9 +1527,7 @@ dynamic build(BuildContext context) {
           foregroundColor: Colors.white,
           title: const Text(
             'Inbox',
-            style: TextStyle(
-              fontWeight: FontWeight.w800,
-            ),
+            style: TextStyle(fontWeight: FontWeight.w800),
           ),
           actions: const <Widget>[
             Padding(
@@ -1658,7 +1613,8 @@ dynamic build(BuildContext context) {
         return contentTile(
           index: i + 1,
           title: 'Message ${i + 1}',
-          subtitle: 'Inbox entry. The toolbar above carries a bottom search '
+          subtitle:
+              'Inbox entry. The toolbar above carries a bottom search '
               'panel and multiple action icons.',
           icon: Icons.email_outlined,
           color: kWarn,
@@ -1669,7 +1625,8 @@ dynamic build(BuildContext context) {
 
   final Widget section10 = sectionShell(
     title: '10 · Collapsing toolbar with actions + bottom search',
-    subtitle: 'Multiple actions, a gradient FlexibleSpaceBar background, and a '
+    subtitle:
+        'Multiple actions, a gradient FlexibleSpaceBar background, and a '
         'PreferredSize-driven search field in the bottom slot — a complete '
         'collapsing toolbar pattern.',
     surface: Colors.white,
@@ -1705,9 +1662,7 @@ dynamic build(BuildContext context) {
           foregroundColor: Colors.white,
           title: Text(
             'Restoration-aware NSV',
-            style: TextStyle(
-              fontWeight: FontWeight.w800,
-            ),
+            style: TextStyle(fontWeight: FontWeight.w800),
           ),
         ),
         SliverPersistentHeader(
@@ -1716,8 +1671,10 @@ dynamic build(BuildContext context) {
             minHeight: 60.0,
             maxHeight: 60.0,
             child: Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 14.0, vertical: 8.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 14.0,
+                vertical: 8.0,
+              ),
               color: kSecondarySoft,
               child: Row(
                 children: <Widget>[
@@ -1749,10 +1706,7 @@ dynamic build(BuildContext context) {
                         ),
                         Text(
                           'Scroll position survives state restoration',
-                          style: TextStyle(
-                            color: kInkSoft,
-                            fontSize: 11.0,
-                          ),
+                          style: TextStyle(color: kInkSoft, fontSize: 11.0),
                         ),
                       ],
                     ),
@@ -1771,7 +1725,8 @@ dynamic build(BuildContext context) {
         return contentTile(
           index: i + 1,
           title: 'Saved item ${i + 1}',
-          subtitle: 'Position restored across process death thanks to '
+          subtitle:
+              'Position restored across process death thanks to '
               'restorationId.',
           icon: Icons.bookmark_outline,
           color: kSecondary,
@@ -1782,7 +1737,8 @@ dynamic build(BuildContext context) {
 
   final Widget section11 = sectionShell(
     title: '11 · restorationId on NestedScrollView and inner ListView',
-    subtitle: 'Both the NestedScrollView and the inner ListView carry a '
+    subtitle:
+        'Both the NestedScrollView and the inner ListView carry a '
         'restorationId. UI demonstrates the pattern only — visual integrity '
         'remains unchanged.',
     surface: Colors.white,
@@ -1810,12 +1766,7 @@ dynamic build(BuildContext context) {
 
   Widget tabGrid(int count, IconData icon, Color color) {
     final List<Widget> cards = List<Widget>.generate(count, (int i) {
-      return gridCard(
-        index: i + 1,
-        icon: icon,
-        color: color,
-        label: 'CARD',
-      );
+      return gridCard(index: i + 1, icon: icon, color: color, label: 'CARD');
     });
     return GridView.count(
       crossAxisCount: 2,
@@ -1856,9 +1807,7 @@ dynamic build(BuildContext context) {
             flexibleSpace: FlexibleSpaceBar(
               title: const Text(
                 'Four-tab workspace',
-                style: TextStyle(
-                  fontWeight: FontWeight.w800,
-                ),
+                style: TextStyle(fontWeight: FontWeight.w800),
               ),
               background: Container(
                 decoration: const BoxDecoration(
@@ -1908,10 +1857,16 @@ dynamic build(BuildContext context) {
                         spacing: 8.0,
                         runSpacing: 8.0,
                         children: <Widget>[
-                          chip('4 tabs', Colors.white,
-                              icon: Icons.tab_unselected),
-                          chip('mixed scrolls', Colors.white,
-                              icon: Icons.swap_vert),
+                          chip(
+                            '4 tabs',
+                            Colors.white,
+                            icon: Icons.tab_unselected,
+                          ),
+                          chip(
+                            'mixed scrolls',
+                            Colors.white,
+                            icon: Icons.swap_vert,
+                          ),
                         ],
                       ),
                     ],
@@ -1947,7 +1902,8 @@ dynamic build(BuildContext context) {
 
   final Widget section12 = sectionShell(
     title: '12 · Four-tab workspace with mixed scrollables',
-    subtitle: 'Each tab body uses a different scrollable: two ListViews and '
+    subtitle:
+        'Each tab body uses a different scrollable: two ListViews and '
         'two GridViews. The shared header collapses across every tab swap.',
     surface: Colors.white,
     border: kAccentSoft,
@@ -1982,9 +1938,7 @@ dynamic build(BuildContext context) {
           foregroundColor: Colors.white,
           title: const Text(
             'Snap toolbar',
-            style: TextStyle(
-              fontWeight: FontWeight.w800,
-            ),
+            style: TextStyle(fontWeight: FontWeight.w800),
           ),
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(64.0),
@@ -1995,8 +1949,7 @@ dynamic build(BuildContext context) {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  buildQuickAction(
-                      Icons.add_box_outlined, 'New', Colors.white),
+                  buildQuickAction(Icons.add_box_outlined, 'New', Colors.white),
                   buildQuickAction(Icons.share, 'Share', Colors.white),
                   buildQuickAction(Icons.download, 'Download', Colors.white),
                   buildQuickAction(Icons.star_border, 'Star', Colors.white),
@@ -2024,7 +1977,8 @@ dynamic build(BuildContext context) {
 
   final Widget section13 = sectionShell(
     title: '13 · Snap floating bar with quick-actions band',
-    subtitle: 'A floating + snap SliverAppBar combines with a 64-pixel custom '
+    subtitle:
+        'A floating + snap SliverAppBar combines with a 64-pixel custom '
         'bottom band of icon buttons that double the toolbar height.',
     surface: Colors.white,
     border: kAccentSoft,
@@ -2066,10 +2020,7 @@ dynamic build(BuildContext context) {
             ],
             title: const Text(
               'Stretch · Zoom · Blur · Fade',
-              style: TextStyle(
-                fontWeight: FontWeight.w800,
-                letterSpacing: 0.3,
-              ),
+              style: TextStyle(fontWeight: FontWeight.w800, letterSpacing: 0.3),
             ),
             background: Stack(
               fit: StackFit.expand,
@@ -2160,7 +2111,8 @@ dynamic build(BuildContext context) {
         return contentTile(
           index: i + 1,
           title: 'Practice ${i + 1}',
-          subtitle: 'Overscroll on the top of this list causes the header to '
+          subtitle:
+              'Overscroll on the top of this list causes the header to '
               'stretch, blur, and fade thanks to stretchModes.',
           icon: Icons.self_improvement,
           color: kSecondaryDeep,
@@ -2171,7 +2123,8 @@ dynamic build(BuildContext context) {
 
   final Widget section14 = sectionShell(
     title: '14 · stretch + multi-StretchMode FlexibleSpaceBar',
-    subtitle: 'stretch: true plus stretchModes [zoomBackground, blurBackground, '
+    subtitle:
+        'stretch: true plus stretchModes [zoomBackground, blurBackground, '
         'fadeTitle] showcases the full stretch animation vocabulary on the '
         'collapsing header.',
     surface: Colors.white,
@@ -2225,17 +2178,12 @@ dynamic build(BuildContext context) {
                   flexibleSpace: FlexibleSpaceBar(
                     title: Text(
                       label,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w800,
-                      ),
+                      style: const TextStyle(fontWeight: FontWeight.w800),
                     ),
                     background: Container(
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
-                          colors: <Color>[
-                            color,
-                            color.withValues(alpha: 0.55),
-                          ],
+                          colors: <Color>[color, color.withValues(alpha: 0.55)],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                         ),
@@ -2272,7 +2220,8 @@ dynamic build(BuildContext context) {
 
   final Widget section15 = sectionShell(
     title: '15 · expandedHeight tuning gallery',
-    subtitle: 'Three NestedScrollView mini-demos with progressively larger '
+    subtitle:
+        'Three NestedScrollView mini-demos with progressively larger '
         'expandedHeight values (96, 160, 240) — side-by-side in a horizontal '
         'scroller for direct comparison.',
     surface: Colors.white,
@@ -2381,10 +2330,7 @@ dynamic build(BuildContext context) {
     appBar: AppBar(
       title: const Text(
         'NestedScrollView Deep Demo',
-        style: TextStyle(
-          fontWeight: FontWeight.w800,
-          letterSpacing: 0.3,
-        ),
+        style: TextStyle(fontWeight: FontWeight.w800, letterSpacing: 0.3),
       ),
       backgroundColor: kAccentDeep,
       foregroundColor: Colors.white,

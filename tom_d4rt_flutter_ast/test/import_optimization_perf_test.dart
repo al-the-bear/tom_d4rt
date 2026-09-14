@@ -76,8 +76,7 @@ void main() {
   setUp(D4rtRunner.debugResetPool);
   tearDown(D4rtRunner.debugResetPool);
 
-  test('Cost A + Cost B realized: cold vs warm, registration isolated',
-      () async {
+  test('Cost A + Cost B realized: cold vs warm, registration isolated', () async {
     // A material-importing script whose entry returns a plain int. Importing
     // `package:flutter/material.dart` is what triggers the full Material bridge
     // import-registration (Cost B); the body returns a stable int so the
@@ -116,12 +115,17 @@ int main() {
 
     // Build the bundles once (not part of either cost — this is the host-side
     // analyzer compile, which has no on-device equivalent).
-    final bundler =
-        AstBundler(bridgedLibraries: d4rt.interpreter.bridgedLibraryUris);
-    final materialBundle = await bundler.createFromSource(materialSource,
-        sourcePath: 'perf_material.dart');
-    final bareBundle =
-        await bundler.createFromSource(bareSource, sourcePath: 'perf_bare.dart');
+    final bundler = AstBundler(
+      bridgedLibraries: d4rt.interpreter.bridgedLibraryUris,
+    );
+    final materialBundle = await bundler.createFromSource(
+      materialSource,
+      sourcePath: 'perf_material.dart',
+    );
+    final bareBundle = await bundler.createFromSource(
+      bareSource,
+      sourcePath: 'perf_bare.dart',
+    );
 
     // --- Cost B: first (cold) material execute -------------------------------
     final swColdExec = Stopwatch()..start();
@@ -129,28 +133,42 @@ int main() {
     swColdExec.stop();
 
     // --- Cost B: warm reuse of the material bundle ---------------------------
-    final materialWarmUs =
-        _medianRunUs(10, () => d4rt.execute<int>(materialBundle, name: 'main'));
+    final materialWarmUs = _medianRunUs(
+      10,
+      () => d4rt.execute<int>(materialBundle, name: 'main'),
+    );
 
     // --- Baseline: warm reuse of the bare (no-import) bundle ------------------
-    final bareWarmUs =
-        _medianRunUs(10, () => d4rt.execute<int>(bareBundle, name: 'main'));
+    final bareWarmUs = _medianRunUs(
+      10,
+      () => d4rt.execute<int>(bareBundle, name: 'main'),
+    );
 
     String ms(int us) => (us / 1000).toStringAsFixed(3);
     print('=== Import-optimization perf (Step #36, AST twin) ===');
-    print('Cost A  first construction (no warmup):  '
-        '${swFirstCtor.elapsedMicroseconds / 1000} ms');
-    print('Cost A  second construction (pool hit):  '
-        '${swSecondCtor.elapsedMicroseconds / 1000} ms');
-    print('        deferred warm-parent build (warmup): '
-        '${swWarmup.elapsedMilliseconds} ms');
-    print('Cost B  cold first material execute:     '
-        '${swColdExec.elapsedMilliseconds} ms');
+    print(
+      'Cost A  first construction (no warmup):  '
+      '${swFirstCtor.elapsedMicroseconds / 1000} ms',
+    );
+    print(
+      'Cost A  second construction (pool hit):  '
+      '${swSecondCtor.elapsedMicroseconds / 1000} ms',
+    );
+    print(
+      '        deferred warm-parent build (warmup): '
+      '${swWarmup.elapsedMilliseconds} ms',
+    );
+    print(
+      'Cost B  cold first material execute:     '
+      '${swColdExec.elapsedMilliseconds} ms',
+    );
     print('Cost B  warm material execute (median):  ${ms(materialWarmUs)} ms');
     print('        warm bare execute (median):      ${ms(bareWarmUs)} ms');
-    print('        per-execute registration delta:  '
-        '${ms(materialWarmUs - bareWarmUs)} ms '
-        '(material warm − bare warm)');
+    print(
+      '        per-execute registration delta:  '
+      '${ms(materialWarmUs - bareWarmUs)} ms '
+      '(material warm − bare warm)',
+    );
 
     // The script executed end to end (proves the material import path ran).
     expect(firstResult, isA<int>());
@@ -158,9 +176,11 @@ int main() {
 
     // Cost A realized: the pool-hit second construction is far cheaper than the
     // first construction that pooled the bridge surface.
-    expect(swSecondCtor.elapsedMicroseconds,
-        lessThan(swFirstCtor.elapsedMicroseconds),
-        reason: 'second construction must hit the pool and skip registration');
+    expect(
+      swSecondCtor.elapsedMicroseconds,
+      lessThan(swFirstCtor.elapsedMicroseconds),
+      reason: 'second construction must hit the pool and skip registration',
+    );
 
     // Cost B (warm-parent infrastructure overhead eliminated): a bare bundle
     // that imports nothing chains off the cached warm parent and runs in well
@@ -168,9 +188,13 @@ int main() {
     // rebuilding stdlib + the pooled bridge surface into a fresh Environment),
     // even the bare bundle would pay that cost. Sub-millisecond bare reuse
     // proves the per-execute *infrastructure* rebuild is gone.
-    expect(bareWarmUs, lessThan(swColdExec.elapsedMicroseconds),
-        reason: 'bare warm execute must reuse the warm parent, not rebuild '
-            'the runner infrastructure');
+    expect(
+      bareWarmUs,
+      lessThan(swColdExec.elapsedMicroseconds),
+      reason:
+          'bare warm execute must reuse the warm parent, not rebuild '
+          'the runner infrastructure',
+    );
 
     // Cost B (core fix realized — no per-execute bridge *rebuild*): warm reuse
     // of the material bundle must be cheaper than building the whole bridge
@@ -180,16 +204,24 @@ int main() {
     // warmup. Coming in well under warmup proves the bridge *definitions* are
     // built once per process and reused, not rebuilt per execute — this is the
     // regression guard against the O(N×M) re-scan returning.
-    expect(materialWarmUs, lessThan(swWarmup.elapsedMicroseconds),
-        reason: 'warm material execute must not rebuild the bridge surface — '
-            'it must be cheaper than a full warmup build');
+    expect(
+      materialWarmUs,
+      lessThan(swWarmup.elapsedMicroseconds),
+      reason:
+          'warm material execute must not rebuild the bridge surface — '
+          'it must be cheaper than a full warmup build',
+    );
 
     // Cost B (warm-parent reuse): warm reuse must also beat the cold first
     // execute, which pays the one-time lazy materialization on top of import
     // resolution.
-    expect(materialWarmUs, lessThan(swColdExec.elapsedMicroseconds),
-        reason: 'warm executes must chain off the cached warm parent, not '
-            're-run the cold-start build');
+    expect(
+      materialWarmUs,
+      lessThan(swColdExec.elapsedMicroseconds),
+      reason:
+          'warm executes must chain off the cached warm parent, not '
+          're-run the cold-start build',
+    );
 
     // DOCUMENTED RESIDUAL (not asserted as near-zero): the warm material
     // execute is ~200 ms, NOT near-zero like the bare bundle (sub-ms). The

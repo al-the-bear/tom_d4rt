@@ -343,10 +343,7 @@ dynamic build(BuildContext context) {
       final Color c = tracks[i % tracks.length];
       kids.add(Expanded(flex: f, child: flexBlock(f, c, 'flex: $f')));
     }
-    return SizedBox(
-      width: 360.0,
-      child: Row(children: kids),
-    );
+    return SizedBox(width: 360.0, child: Row(children: kids));
   }
 
   Widget distributionRowWithFixed(List<dynamic> spec) {
@@ -361,10 +358,7 @@ dynamic build(BuildContext context) {
         kids.add(fixedBlock(s, c, '${s.toInt()}px'));
       }
     }
-    return SizedBox(
-      width: 360.0,
-      child: Row(children: kids),
-    );
+    return SizedBox(width: 360.0, child: Row(children: kids));
   }
 
   final Widget gallery = panel(
@@ -398,7 +392,9 @@ dynamic build(BuildContext context) {
         caption('// 1 : 1 : 1 : 1 — quarters'),
         distributionRow(<int>[1, 1, 1, 1]),
         const SizedBox(height: 10.0),
-        caption('// 80px : flex 1 : flex 3 : 40px — header/middle/aside/gutter'),
+        caption(
+          '// 80px : flex 1 : flex 3 : 40px — header/middle/aside/gutter',
+        ),
         distributionRowWithFixed(<dynamic>[80.0, 1, 3, 40.0]),
       ],
     ),
@@ -431,11 +427,7 @@ dynamic build(BuildContext context) {
         ),
       );
     }
-    return SizedBox(
-      width: 90.0,
-      height: 220.0,
-      child: Column(children: kids),
-    );
+    return SizedBox(width: 90.0, height: 220.0, child: Column(children: kids));
   }
 
   final Widget symmetry = panel(
@@ -676,10 +668,7 @@ dynamic build(BuildContext context) {
           border: Border.all(color: c.withValues(alpha: 0.6)),
           borderRadius: BorderRadius.circular(5.0),
         ),
-        child: Text(
-          label,
-          style: TextStyle(color: c, fontSize: 11.0),
-        ),
+        child: Text(label, style: TextStyle(color: c, fontSize: 11.0)),
       );
     }
 
@@ -815,7 +804,11 @@ dynamic build(BuildContext context) {
         mapRow('flex-direction:col', 'Column(...)', 'main axis vertical'),
         mapRow('flex-grow: N', 'Expanded(flex: N)', 'share of remaining space'),
         mapRow('flex-shrink: 1', 'Flexible(loose)', 'may shrink, not forced'),
-        mapRow('flex-basis: 0', 'Expanded child', 'starts from zero, then grows'),
+        mapRow(
+          'flex-basis: 0',
+          'Expanded child',
+          'starts from zero, then grows',
+        ),
         mapRow('justify-content', 'MainAxisAlignment', 'when no Expanded'),
         mapRow('align-items', 'CrossAxisAlignment', 'cross axis'),
       ],
@@ -923,10 +916,7 @@ dynamic build(BuildContext context) {
             ),
           ),
           const SizedBox(height: 6.0),
-          Text(
-            result,
-            style: const TextStyle(color: inkSoft, fontSize: 11.0),
-          ),
+          Text(result, style: const TextStyle(color: inkSoft, fontSize: 11.0)),
         ],
       ),
     );
@@ -1063,13 +1053,31 @@ dynamic build(BuildContext context) {
           ),
         ),
         const SizedBox(height: 8.0),
-        refRow('Expanded', 'Flexible with fit: tight. Forces the child to fill its share.'),
-        refRow('Flexible', 'Same flex distribution; child may stay smaller (loose).'),
-        refRow('Spacer', 'Empty Expanded — produces a flex gap between siblings.'),
-        refRow('SizedBox', 'Fixed-size box; the opposite of "flex": rigid pixels.'),
+        refRow(
+          'Expanded',
+          'Flexible with fit: tight. Forces the child to fill its share.',
+        ),
+        refRow(
+          'Flexible',
+          'Same flex distribution; child may stay smaller (loose).',
+        ),
+        refRow(
+          'Spacer',
+          'Empty Expanded — produces a flex gap between siblings.',
+        ),
+        refRow(
+          'SizedBox',
+          'Fixed-size box; the opposite of "flex": rigid pixels.',
+        ),
         refRow('AspectRatio', 'Sizes a child to a given width:height ratio.'),
-        refRow('FractionallySizedBox', 'Child sized to a fraction of available space.'),
-        refRow('IntrinsicWidth', 'Forces a Row to use a child\'s intrinsic width.'),
+        refRow(
+          'FractionallySizedBox',
+          'Child sized to a fraction of available space.',
+        ),
+        refRow(
+          'IntrinsicWidth',
+          'Forces a Row to use a child\'s intrinsic width.',
+        ),
         refRow('Flex', 'The base widget Row and Column extend.'),
       ],
     ),
@@ -1109,10 +1117,7 @@ dynamic build(BuildContext context) {
         ),
       );
     }
-    return SizedBox(
-      width: 460.0,
-      child: Row(children: kids),
-    );
+    return SizedBox(width: 460.0, child: Row(children: kids));
   }
 
   Widget ratioLabel(String label, String math) {
@@ -1198,7 +1203,12 @@ dynamic build(BuildContext context) {
   // 11 — Tabular calculation reference. Given a remaining-space width and a
   //      flex-weight vector, what does each child get? Pure arithmetic.
   // ---------------------------------------------------------------------------
-  Widget tableCell(String t, double w, {Color color = inkSoft, bool bold = false}) {
+  Widget tableCell(
+    String t,
+    double w, {
+    Color color = inkSoft,
+    bool bold = false,
+  }) {
     return SizedBox(
       width: w,
       child: Text(
@@ -1232,7 +1242,13 @@ dynamic build(BuildContext context) {
     );
   }
 
-  Widget tableLine(String remain, String weights, String sum, String per, String got) {
+  Widget tableLine(
+    String remain,
+    String weights,
+    String sum,
+    String per,
+    String got,
+  ) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 3.0),
       child: Row(
@@ -1278,7 +1294,13 @@ dynamic build(BuildContext context) {
         tableLine('600px', '[5,3,2]', '10', '60px', '300 / 180 / 120'),
         tableLine('600px', '[8,2,1,1]', '12', '50px', '400 / 100 / 50 / 50'),
         tableLine('500px', '[1,1,1,1,1]', '5', '100px', '100 ×5'),
-        tableLine('420px', '[3,1,1,3]', '8', '52.5px', '157.5 / 52.5 / 52.5 / 157.5'),
+        tableLine(
+          '420px',
+          '[3,1,1,3]',
+          '8',
+          '52.5px',
+          '157.5 / 52.5 / 52.5 / 157.5',
+        ),
       ],
     ),
   );
@@ -1321,11 +1343,7 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 6.0),
           Text(
             legend,
-            style: const TextStyle(
-              color: inkSoft,
-              fontSize: 10.5,
-              height: 1.4,
-            ),
+            style: const TextStyle(color: inkSoft, fontSize: 10.5, height: 1.4),
           ),
         ],
       ),
@@ -1352,52 +1370,52 @@ dynamic build(BuildContext context) {
             asciiDiagram(
               '[fixed:60] [Expanded:1] [Expanded:2]',
               '+----+--------+----------------+\n'
-              '| 60 |  1/3   |      2/3       |\n'
-              '+----+--------+----------------+\n'
-              '|    |<--remaining = W - 60--->|',
+                  '| 60 |  1/3   |      2/3       |\n'
+                  '+----+--------+----------------+\n'
+                  '|    |<--remaining = W - 60--->|',
               'Fixed 60px first. Remaining (W-60) split 1:2.',
             ),
             asciiDiagram(
               '[Expanded:1] [Expanded:1] [Expanded:1]',
               '+--------+--------+--------+\n'
-              '|  1/3   |  1/3   |  1/3   |\n'
-              '+--------+--------+--------+',
+                  '|  1/3   |  1/3   |  1/3   |\n'
+                  '+--------+--------+--------+',
               'Three equal columns. Most common layout.',
             ),
             asciiDiagram(
               '[Expanded:1] [SizedBox 100] [Expanded:1]',
               '+--------+------+--------+\n'
-              '|  flex  | 100  |  flex  |\n'
-              '+--------+------+--------+',
+                  '|  flex  | 100  |  flex  |\n'
+                  '+--------+------+--------+',
               'Symmetric padding around a fixed center.',
             ),
             asciiDiagram(
               '[Spacer] [chip] [Spacer]',
               '+----------+----+----------+\n'
-              '| (flex 1) |chip| (flex 1) |\n'
-              '+----------+----+----------+',
+                  '| (flex 1) |chip| (flex 1) |\n'
+                  '+----------+----+----------+',
               'Spacer is just Expanded with an empty child.',
             ),
             asciiDiagram(
               '[Expanded:2] [Spacer:1] [Expanded:1]',
               '+--------+----+--------+\n'
-              '|  2/4   |1/4 |  1/4   |\n'
-              '+--------+----+--------+',
+                  '|  2/4   |1/4 |  1/4   |\n'
+                  '+--------+----+--------+',
               'Mixed: weight expresses both content and gap.',
             ),
             asciiDiagram(
               'column: [hdr 40] [Expanded] [ftr 30]',
               '+-------+\n'
-              '|  hdr  | 40\n'
-              '+-------+\n'
-              '|       |\n'
-              '|       |\n'
-              '|  body | flex\n'
-              '|       |\n'
-              '|       |\n'
-              '+-------+\n'
-              '|  ftr  | 30\n'
-              '+-------+',
+                  '|  hdr  | 40\n'
+                  '+-------+\n'
+                  '|       |\n'
+                  '|       |\n'
+                  '|  body | flex\n'
+                  '|       |\n'
+                  '|       |\n'
+                  '+-------+\n'
+                  '|  ftr  | 30\n'
+                  '+-------+',
               'Vertical equivalent of header/main/footer.',
             ),
           ],
@@ -1581,10 +1599,16 @@ dynamic build(BuildContext context) {
         caption('// 8 equal swatches'),
         SizedBox(
           width: 460.0,
-          child: swatchRow(
-            tracks,
-            const <String>['rose', 'amber', 'mint', 'sea', 'plum', 'cyan', 'orange', 'pink'],
-          ),
+          child: swatchRow(tracks, const <String>[
+            'rose',
+            'amber',
+            'mint',
+            'sea',
+            'plum',
+            'cyan',
+            'orange',
+            'pink',
+          ]),
         ),
         const SizedBox(height: 8.0),
         caption('// 4 swatches → wider cards'),
@@ -1644,11 +1668,7 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 6.0),
           Text(
             body,
-            style: const TextStyle(
-              color: inkSoft,
-              fontSize: 11.5,
-              height: 1.5,
-            ),
+            style: const TextStyle(color: inkSoft, fontSize: 11.5, height: 1.5),
           ),
           const SizedBox(height: 8.0),
           Container(
@@ -1693,83 +1713,83 @@ dynamic build(BuildContext context) {
             proseCard(
               'Default flex is 1',
               'Both Expanded() and Expanded(flex: 1, ...) are identical. '
-              'You only need to specify flex when at least two siblings '
-              'differ.',
+                  'You only need to specify flex when at least two siblings '
+                  'differ.',
               'Row(children: [\n'
-              '  Expanded(child: A),     // flex: 1\n'
-              '  Expanded(child: B),     // flex: 1\n'
-              '])',
+                  '  Expanded(child: A),     // flex: 1\n'
+                  '  Expanded(child: B),     // flex: 1\n'
+                  '])',
             ),
             proseCard(
               'Spacer is empty Expanded',
               'Use Spacer when you want a flex gap. It is exactly the same '
-              'as Expanded(child: SizedBox.shrink()) — the API is just '
-              'sugar.',
+                  'as Expanded(child: SizedBox.shrink()) — the API is just '
+                  'sugar.',
               'Row(children: [\n'
-              '  Text("left"),\n'
-              '  Spacer(),                // flex: 1\n'
-              '  Text("right"),\n'
-              '])',
+                  '  Text("left"),\n'
+                  '  Spacer(),                // flex: 1\n'
+                  '  Text("right"),\n'
+                  '])',
             ),
             proseCard(
               'Expanded inside Column',
               'Same logic — Column is a Flex with vertical main axis, so '
-              'Expanded distributes height. Useful for a scroll body '
-              'sandwiched between header and footer.',
+                  'Expanded distributes height. Useful for a scroll body '
+                  'sandwiched between header and footer.',
               'Column(children: [\n'
-              '  Header(),\n'
-              '  Expanded(child: ListView(...)),\n'
-              '  Footer(),\n'
-              '])',
+                  '  Header(),\n'
+                  '  Expanded(child: ListView(...)),\n'
+                  '  Footer(),\n'
+                  '])',
             ),
             proseCard(
               'Flexible vs Expanded',
               'Flexible(loose) lets the child stay smaller than its share. '
-              'Expanded forces the child to fill its share completely. The '
-              'flex weight is the same in both.',
+                  'Expanded forces the child to fill its share completely. The '
+                  'flex weight is the same in both.',
               'Flexible(\n'
-              '  flex: 2,\n'
-              '  fit: FlexFit.loose,    // child may stay small\n'
-              '  child: Text("hi"),\n'
-              ')',
+                  '  flex: 2,\n'
+                  '  fit: FlexFit.loose,    // child may stay small\n'
+                  '  child: Text("hi"),\n'
+                  ')',
             ),
             proseCard(
               'No Expanded → intrinsic',
               'Without any Expanded, a Row uses the intrinsic widths of its '
-              'children and aligns them per MainAxisAlignment.',
+                  'children and aligns them per MainAxisAlignment.',
               'Row(\n'
-              '  mainAxisAlignment: MainAxisAlignment.spaceBetween,\n'
-              '  children: [Text("a"), Text("b"), Text("c")],\n'
-              ')',
+                  '  mainAxisAlignment: MainAxisAlignment.spaceBetween,\n'
+                  '  children: [Text("a"), Text("b"), Text("c")],\n'
+                  ')',
             ),
             proseCard(
               'Avoid in scroll views',
               'A Row inside a horizontal scroll is unbounded — Expanded '
-              'cannot resolve. Use SizedBox or IntrinsicWidth, or wrap the '
-              'scroll in a constrained box first.',
+                  'cannot resolve. Use SizedBox or IntrinsicWidth, or wrap the '
+                  'scroll in a constrained box first.',
               '// BAD\n'
-              'SingleChildScrollView(\n'
-              '  scrollDirection: Axis.horizontal,\n'
-              '  child: Row(children: [Expanded(...)]),\n'
-              ')',
+                  'SingleChildScrollView(\n'
+                  '  scrollDirection: Axis.horizontal,\n'
+                  '  child: Row(children: [Expanded(...)]),\n'
+                  ')',
             ),
             proseCard(
               'Split-pane idiom',
               'A two-pane layout is two Expanded children. Adjust the flex '
-              'weights to bias the split (e.g. 1:3 for a narrow nav rail).',
+                  'weights to bias the split (e.g. 1:3 for a narrow nav rail).',
               'Row(children: [\n'
-              '  Expanded(flex: 1, child: NavRail()),\n'
-              '  Expanded(flex: 3, child: Body()),\n'
-              '])',
+                  '  Expanded(flex: 1, child: NavRail()),\n'
+                  '  Expanded(flex: 3, child: Body()),\n'
+                  '])',
             ),
             proseCard(
               'Equal grid via flex',
               'A horizontal "grid" of equal cells is a Row of N Expanded '
-              'children with the default flex. Combine with Wrap to break '
-              'into rows.',
+                  'children with the default flex. Combine with Wrap to break '
+                  'into rows.',
               'Row(children: [\n'
-              '  for (final c in colors) Expanded(child: swatch(c)),\n'
-              '])',
+                  '  for (final c in colors) Expanded(child: swatch(c)),\n'
+                  '])',
             ),
           ],
         ),
@@ -1827,17 +1847,41 @@ dynamic build(BuildContext context) {
         ),
         const SizedBox(height: 10.0),
         flowLine('Q1', 'Are you inside a Row, Column, or Flex?', tracks[0]),
-        flowLine('  no →', 'Expanded will throw. Use SizedBox / FractionallySizedBox.', danger),
+        flowLine(
+          '  no →',
+          'Expanded will throw. Use SizedBox / FractionallySizedBox.',
+          danger,
+        ),
         flowLine('  yes →', 'Continue.', ok),
-        flowLine('Q2', 'Should at least one child consume free space?', tracks[1]),
-        flowLine('  no →', 'Use MainAxisAlignment to distribute the gap instead.', warn),
+        flowLine(
+          'Q2',
+          'Should at least one child consume free space?',
+          tracks[1],
+        ),
+        flowLine(
+          '  no →',
+          'Use MainAxisAlignment to distribute the gap instead.',
+          warn,
+        ),
         flowLine('  yes →', 'Continue.', ok),
         flowLine('Q3', 'Is the parent main-axis size bounded?', tracks[2]),
-        flowLine('  no →', 'Constrain it first (SizedBox, parent layout).', danger),
+        flowLine(
+          '  no →',
+          'Constrain it first (SizedBox, parent layout).',
+          danger,
+        ),
         flowLine('  yes →', 'Use Expanded.', ok),
-        flowLine('Q4', 'Should the child be allowed to stay smaller than its share?', tracks[3]),
+        flowLine(
+          'Q4',
+          'Should the child be allowed to stay smaller than its share?',
+          tracks[3],
+        ),
         flowLine('  yes →', 'Use Flexible(fit: FlexFit.loose) instead.', warn),
-        flowLine('  no →', 'Expanded is correct (flex: N for non-equal split).', ok),
+        flowLine(
+          '  no →',
+          'Expanded is correct (flex: N for non-equal split).',
+          ok,
+        ),
       ],
     ),
   );
@@ -2001,22 +2045,19 @@ dynamic build(BuildContext context) {
         ),
         runProbe(
           'Flexible(fit: loose, flex: 2, child: ...)',
-          () => const Flexible(fit: FlexFit.loose, flex: 2, child: SizedBox.shrink()),
+          () => const Flexible(
+            fit: FlexFit.loose,
+            flex: 2,
+            child: SizedBox.shrink(),
+          ),
           tracks[4],
         ),
-        runProbe(
-          'Spacer()',
-          () => const Spacer(),
-          tracks[5],
-        ),
-        runProbe(
-          'Spacer(flex: 4)',
-          () => const Spacer(flex: 4),
-          tracks[6],
-        ),
+        runProbe('Spacer()', () => const Spacer(), tracks[5]),
+        runProbe('Spacer(flex: 4)', () => const Spacer(flex: 4), tracks[6]),
         runProbe(
           'Row(children: [Expanded(...)])',
-          () => Row(children: <Widget>[const Expanded(child: SizedBox.shrink())]),
+          () =>
+              Row(children: <Widget>[const Expanded(child: SizedBox.shrink())]),
           tracks[7],
         ),
       ],
@@ -2068,41 +2109,101 @@ dynamic build(BuildContext context) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         hero,
-        sectionTitle('01', 'Mechanic', 'How Flex distributes space among children.'),
+        sectionTitle(
+          '01',
+          'Mechanic',
+          'How Flex distributes space among children.',
+        ),
         mechanic,
-        sectionTitle('02', 'Distribution gallery', 'Common flex ratios and mixes.'),
+        sectionTitle(
+          '02',
+          'Distribution gallery',
+          'Common flex ratios and mixes.',
+        ),
         gallery,
-        sectionTitle('03', 'Row ↔ Column', 'Same widget; the axis just rotates.'),
+        sectionTitle(
+          '03',
+          'Row ↔ Column',
+          'Same widget; the axis just rotates.',
+        ),
         symmetry,
-        sectionTitle('04', 'tight vs loose', 'Expanded forces fill; Flexible(loose) does not.'),
+        sectionTitle(
+          '04',
+          'tight vs loose',
+          'Expanded forces fill; Flexible(loose) does not.',
+        ),
         tightLoose,
-        sectionTitle('05', 'Recipes', 'Header+list, sidebar+main, two-column form.'),
+        sectionTitle(
+          '05',
+          'Recipes',
+          'Header+list, sidebar+main, two-column form.',
+        ),
         recipes,
         sectionTitle('06', 'CSS Flexbox map', 'For folks coming from the web.'),
         cssMap,
         sectionTitle('07', 'Alignment vs Expanded', 'When to use which.'),
         mainAxisVsExpanded,
-        sectionTitle('08', 'Edge cases', 'Common assertion errors and pitfalls.'),
+        sectionTitle(
+          '08',
+          'Edge cases',
+          'Common assertion errors and pitfalls.',
+        ),
         edges,
-        sectionTitle('09', 'Reference', 'Sibling widgets you reach for nearby.'),
+        sectionTitle(
+          '09',
+          'Reference',
+          'Sibling widgets you reach for nearby.',
+        ),
         references,
-        sectionTitle('10', 'Ratio matrix', 'Same children under different flex weights.'),
+        sectionTitle(
+          '10',
+          'Ratio matrix',
+          'Same children under different flex weights.',
+        ),
         ratioMatrix,
-        sectionTitle('11', 'Arithmetic table', 'Concrete numeric splits for typical widths.'),
+        sectionTitle(
+          '11',
+          'Arithmetic table',
+          'Concrete numeric splits for typical widths.',
+        ),
         calcTable,
-        sectionTitle('12', 'ASCII diagrams', 'Layout sketches in plain monospace text.'),
+        sectionTitle(
+          '12',
+          'ASCII diagrams',
+          'Layout sketches in plain monospace text.',
+        ),
         asciiPanel,
-        sectionTitle('13', 'Decorative gauges', 'Nested Row/Column with Expanded children.'),
+        sectionTitle(
+          '13',
+          'Decorative gauges',
+          'Nested Row/Column with Expanded children.',
+        ),
         gauges,
-        sectionTitle('14', 'Palette swatches', 'Equal flex distribution at a glance.'),
+        sectionTitle(
+          '14',
+          'Palette swatches',
+          'Equal flex distribution at a glance.',
+        ),
         palettes,
-        sectionTitle('15', 'Practical notes', 'Idioms, caveats, and prose snippets.'),
+        sectionTitle(
+          '15',
+          'Practical notes',
+          'Idioms, caveats, and prose snippets.',
+        ),
         proseBlocks,
         sectionTitle('16', 'Decision flow', 'Should I reach for Expanded?'),
         flowchart,
-        sectionTitle('17', 'Before / After', 'Fixed pixels vs flex — same content.'),
+        sectionTitle(
+          '17',
+          'Before / After',
+          'Fixed pixels vs flex — same content.',
+        ),
         beforeAfter,
-        sectionTitle('18', 'Constructor probes', 'try/catch over assorted variants.'),
+        sectionTitle(
+          '18',
+          'Constructor probes',
+          'try/catch over assorted variants.',
+        ),
         probesPanel,
         footer,
       ],
@@ -2111,8 +2212,5 @@ dynamic build(BuildContext context) {
 
   print('Expanded demo build done');
 
-  return Scaffold(
-    backgroundColor: canvas,
-    body: body,
-  );
+  return Scaffold(backgroundColor: canvas, body: body);
 }

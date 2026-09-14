@@ -165,11 +165,7 @@ Widget _section1Banner() {
       borderRadius: BorderRadius.circular(10),
       border: Border.all(color: _kInkBlack, width: 2),
       boxShadow: const <BoxShadow>[
-        BoxShadow(
-          color: _kPaperShadow,
-          offset: Offset(0, 6),
-          blurRadius: 16,
-        ),
+        BoxShadow(color: _kPaperShadow, offset: Offset(0, 6), blurRadius: 16),
       ],
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
@@ -339,33 +335,41 @@ Widget _section2ClipEnumAnatomy() {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(child: _clipEnumPanel(
-              label: 'Clip.none',
-              caption: 'no clip; pixels spill',
-              behavior: Clip.none,
-              swatch: _kAccentSun,
-            )),
+            Expanded(
+              child: _clipEnumPanel(
+                label: 'Clip.none',
+                caption: 'no clip; pixels spill',
+                behavior: Clip.none,
+                swatch: _kAccentSun,
+              ),
+            ),
             const SizedBox(width: 10),
-            Expanded(child: _clipEnumPanel(
-              label: 'Clip.hardEdge',
-              caption: '1px hard mask',
-              behavior: Clip.hardEdge,
-              swatch: _kAccentTeal,
-            )),
+            Expanded(
+              child: _clipEnumPanel(
+                label: 'Clip.hardEdge',
+                caption: '1px hard mask',
+                behavior: Clip.hardEdge,
+                swatch: _kAccentTeal,
+              ),
+            ),
             const SizedBox(width: 10),
-            Expanded(child: _clipEnumPanel(
-              label: 'Clip.antiAlias',
-              caption: 'smooth alpha mask',
-              behavior: Clip.antiAlias,
-              swatch: _kNeonPink,
-            )),
+            Expanded(
+              child: _clipEnumPanel(
+                label: 'Clip.antiAlias',
+                caption: 'smooth alpha mask',
+                behavior: Clip.antiAlias,
+                swatch: _kNeonPink,
+              ),
+            ),
             const SizedBox(width: 10),
-            Expanded(child: _clipEnumPanel(
-              label: 'antiAlias+SL',
-              caption: 'smooth + saveLayer',
-              behavior: Clip.antiAliasWithSaveLayer,
-              swatch: _kAccentRoyal,
-            )),
+            Expanded(
+              child: _clipEnumPanel(
+                label: 'antiAlias+SL',
+                caption: 'smooth + saveLayer',
+                behavior: Clip.antiAliasWithSaveLayer,
+                swatch: _kAccentRoyal,
+              ),
+            ),
           ],
         ),
         const SizedBox(height: 14),
@@ -505,11 +509,7 @@ Widget _enumLegend() {
           'subtree into it, then composites the masked result. Reach '
           'for it ONLY when you see seams between an antialiased clip '
           'and a child that uses blend modes.',
-          style: TextStyle(
-            color: _kCreamDeep,
-            fontSize: 11,
-            height: 1.4,
-          ),
+          style: TextStyle(color: _kCreamDeep, fontSize: 11, height: 1.4),
         ),
       ],
     ),
@@ -570,9 +570,7 @@ Widget _clipRectCardPlain() {
         clipBehavior: Clip.hardEdge,
         child: Container(
           decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: <Color>[_kNeonPink, _kAccentSun],
-            ),
+            gradient: LinearGradient(colors: <Color>[_kNeonPink, _kAccentSun]),
           ),
           alignment: Alignment.center,
           child: const Text(
@@ -705,9 +703,7 @@ Widget _clipRectCardWindowSlot() {
         clipBehavior: Clip.hardEdge,
         child: Stack(
           children: <Widget>[
-            Container(
-              decoration: const BoxDecoration(color: _kInkBlack),
-            ),
+            Container(decoration: const BoxDecoration(color: _kInkBlack)),
             Positioned(
               left: -20,
               top: -20,
@@ -867,9 +863,7 @@ Widget _section4ClipRRectGallery() {
             _rrectCard(
               title: 'one corner',
               subtitle: 'topLeft 40',
-              radius: const BorderRadius.only(
-                topLeft: Radius.circular(40),
-              ),
+              radius: const BorderRadius.only(topLeft: Radius.circular(40)),
             ),
             _rrectCard(
               title: 'asymmetric',
@@ -884,23 +878,17 @@ Widget _section4ClipRRectGallery() {
             _rrectCard(
               title: 'elliptical',
               subtitle: 'X != Y',
-              radius: const BorderRadius.all(
-                Radius.elliptical(40, 14),
-              ),
+              radius: const BorderRadius.all(Radius.elliptical(40, 14)),
             ),
             _rrectCard(
               title: 'horizontal',
               subtitle: 'left only',
-              radius: const BorderRadius.horizontal(
-                left: Radius.circular(28),
-              ),
+              radius: const BorderRadius.horizontal(left: Radius.circular(28)),
             ),
             _rrectCard(
               title: 'vertical',
               subtitle: 'top only',
-              radius: const BorderRadius.vertical(
-                top: Radius.circular(28),
-              ),
+              radius: const BorderRadius.vertical(top: Radius.circular(28)),
             ),
             _rrectCard(
               title: 'staircase',
@@ -953,12 +941,7 @@ Widget _rrectFiller(String label) {
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          _kNeonPink,
-          _kAccentSun,
-          _kAccentLime,
-          _kAccentTeal,
-        ],
+        colors: <Color>[_kNeonPink, _kAccentSun, _kAccentLime, _kAccentTeal],
         stops: <double>[0.0, 0.4, 0.7, 1.0],
       ),
     ),
@@ -1014,19 +997,13 @@ Widget _section5ClipOvalGallery() {
               title: 'wide ellipse',
               subtitle: '160 x 70',
               size: const Size(160, 70),
-              filler: _ovalFillerGradient(<Color>[
-                _kAccentTeal,
-                _kAccentRoyal,
-              ]),
+              filler: _ovalFillerGradient(<Color>[_kAccentTeal, _kAccentRoyal]),
             ),
             _ovalCard(
               title: 'tall ellipse',
               subtitle: '70 x 140',
               size: const Size(70, 140),
-              filler: _ovalFillerGradient(<Color>[
-                _kAccentSun,
-                _kAccentBlood,
-              ]),
+              filler: _ovalFillerGradient(<Color>[_kAccentSun, _kAccentBlood]),
             ),
             _ovalCard(
               title: 'tiny dot',
@@ -1098,10 +1075,7 @@ Widget _ovalCard({
         child: SizedBox(
           width: size.width,
           height: size.height,
-          child: ClipOval(
-            clipBehavior: Clip.antiAlias,
-            child: filler,
-          ),
+          child: ClipOval(clipBehavior: Clip.antiAlias, child: filler),
         ),
       ),
     ),
@@ -1502,38 +1476,44 @@ Widget _section8PerformanceNotes() {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(child: _perfPanel(
-              accent: _kAccentLime,
-              title: 'Cheap',
-              lines: const <String>[
-                'ClipRect over a stable child.',
-                'ClipRRect with small uniform radius.',
-                'ClipOval over a square avatar (cached).',
-                'Clip.hardEdge when edges are axis-aligned.',
-              ],
-            )),
+            Expanded(
+              child: _perfPanel(
+                accent: _kAccentLime,
+                title: 'Cheap',
+                lines: const <String>[
+                  'ClipRect over a stable child.',
+                  'ClipRRect with small uniform radius.',
+                  'ClipOval over a square avatar (cached).',
+                  'Clip.hardEdge when edges are axis-aligned.',
+                ],
+              ),
+            ),
             const SizedBox(width: 12),
-            Expanded(child: _perfPanel(
-              accent: _kAccentSun,
-              title: 'Watch',
-              lines: const <String>[
-                'Animated BorderRadius -- recalculates every frame.',
-                'Many nested ClipPaths -- each adds a draw step.',
-                'ClipPath inside a list item -- clipping cost x N.',
-                'Clip.antiAlias on tiny shapes -- AA cost dominates.',
-              ],
-            )),
+            Expanded(
+              child: _perfPanel(
+                accent: _kAccentSun,
+                title: 'Watch',
+                lines: const <String>[
+                  'Animated BorderRadius -- recalculates every frame.',
+                  'Many nested ClipPaths -- each adds a draw step.',
+                  'ClipPath inside a list item -- clipping cost x N.',
+                  'Clip.antiAlias on tiny shapes -- AA cost dominates.',
+                ],
+              ),
+            ),
             const SizedBox(width: 12),
-            Expanded(child: _perfPanel(
-              accent: _kAccentBlood,
-              title: 'Expensive',
-              lines: const <String>[
-                'Clip.antiAliasWithSaveLayer (offscreen buffer).',
-                'CustomClipper that returns a brand new Path each frame.',
-                'shouldReclip that always returns true.',
-                'ClipPath wrapping a subtree with shadows + filters.',
-              ],
-            )),
+            Expanded(
+              child: _perfPanel(
+                accent: _kAccentBlood,
+                title: 'Expensive',
+                lines: const <String>[
+                  'Clip.antiAliasWithSaveLayer (offscreen buffer).',
+                  'CustomClipper that returns a brand new Path each frame.',
+                  'shouldReclip that always returns true.',
+                  'ClipPath wrapping a subtree with shadows + filters.',
+                ],
+              ),
+            ),
           ],
         ),
         const SizedBox(height: 14),
@@ -1567,10 +1547,7 @@ Widget _perfPanel({
               width: 6,
               height: 6,
               margin: const EdgeInsets.only(top: 6, right: 8),
-              decoration: BoxDecoration(
-                color: accent,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
             ),
             Expanded(
               child: Text(
@@ -1722,39 +1699,51 @@ Widget _section9Recap() {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(child: _recapCell(
-              accent: _kNeonPink,
-              widgetName: 'ClipRect',
-              line: 'Clip a child to its own paint rectangle. Cheapest. '
-                  'Use to confine paint that intentionally overflows.',
-            )),
+            Expanded(
+              child: _recapCell(
+                accent: _kNeonPink,
+                widgetName: 'ClipRect',
+                line:
+                    'Clip a child to its own paint rectangle. Cheapest. '
+                    'Use to confine paint that intentionally overflows.',
+              ),
+            ),
             const SizedBox(width: 10),
-            Expanded(child: _recapCell(
-              accent: _kAccentTeal,
-              widgetName: 'ClipRRect',
-              line: 'Clip to a rounded rectangle described by '
-                  'BorderRadius. The default for cards, chips, '
-                  'thumbnails.',
-            )),
+            Expanded(
+              child: _recapCell(
+                accent: _kAccentTeal,
+                widgetName: 'ClipRRect',
+                line:
+                    'Clip to a rounded rectangle described by '
+                    'BorderRadius. The default for cards, chips, '
+                    'thumbnails.',
+              ),
+            ),
           ],
         ),
         const SizedBox(height: 10),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(child: _recapCell(
-              accent: _kAccentSun,
-              widgetName: 'ClipOval',
-              line: 'Clip to the inscribed ellipse. Square => circle, '
-                  'rectangle => ellipse. Avatars and dots.',
-            )),
+            Expanded(
+              child: _recapCell(
+                accent: _kAccentSun,
+                widgetName: 'ClipOval',
+                line:
+                    'Clip to the inscribed ellipse. Square => circle, '
+                    'rectangle => ellipse. Avatars and dots.',
+              ),
+            ),
             const SizedBox(width: 10),
-            Expanded(child: _recapCell(
-              accent: _kAccentRoyal,
-              widgetName: 'ClipPath',
-              line: 'Clip to a Path supplied by a CustomClipper or by '
-                  'ClipPath.shape(...) with a ShapeBorder.',
-            )),
+            Expanded(
+              child: _recapCell(
+                accent: _kAccentRoyal,
+                widgetName: 'ClipPath',
+                line:
+                    'Clip to a Path supplied by a CustomClipper or by '
+                    'ClipPath.shape(...) with a ShapeBorder.',
+              ),
+            ),
           ],
         ),
         const SizedBox(height: 14),
@@ -1798,16 +1787,12 @@ Widget _section9Recap() {
         const SizedBox(height: 14),
         Center(
           child: Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
             decoration: BoxDecoration(
               color: _kNeonPink,
               borderRadius: BorderRadius.circular(60),
               boxShadow: const <BoxShadow>[
-                BoxShadow(
-                  color: Color(0x66FF2E88),
-                  blurRadius: 14,
-                ),
+                BoxShadow(color: Color(0x66FF2E88), blurRadius: 14),
               ],
             ),
             child: const Text(
@@ -1862,11 +1847,7 @@ Widget _recapCell({
         const SizedBox(height: 6),
         Text(
           line,
-          style: const TextStyle(
-            color: _kInkBlack,
-            fontSize: 11,
-            height: 1.4,
-          ),
+          style: const TextStyle(color: _kInkBlack, fontSize: 11, height: 1.4),
         ),
       ],
     ),
@@ -1905,10 +1886,7 @@ Widget _galleryCard({
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 6,
-                vertical: 2,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
               decoration: BoxDecoration(
                 color: _kInkBlack,
                 borderRadius: BorderRadius.circular(4),
@@ -1985,11 +1963,7 @@ Widget _platePanel({
       borderRadius: BorderRadius.circular(10),
       border: Border.all(color: _kInkBlack, width: 1.4),
       boxShadow: const <BoxShadow>[
-        BoxShadow(
-          color: _kPaperShadow,
-          blurRadius: 10,
-          offset: Offset(0, 5),
-        ),
+        BoxShadow(color: _kPaperShadow, blurRadius: 10, offset: Offset(0, 5)),
       ],
     ),
     child: Column(
@@ -2070,10 +2044,7 @@ Widget _platePanel({
           ),
         ),
         // Body.
-        Padding(
-          padding: const EdgeInsets.all(14),
-          child: body,
-        ),
+        Padding(padding: const EdgeInsets.all(14), child: body),
       ],
     ),
   );

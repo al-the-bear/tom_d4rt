@@ -544,11 +544,7 @@ class _HeaderBanner extends StatelessWidget {
       padding: const EdgeInsets.all(28.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[
-            scheme.primary,
-            scheme.secondary,
-            scheme.tertiary,
-          ],
+          colors: <Color>[scheme.primary, scheme.secondary, scheme.tertiary],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -574,11 +570,7 @@ class _HeaderBanner extends StatelessWidget {
                 width: 2.0,
               ),
             ),
-            child: Icon(
-              Icons.inbox,
-              size: 44.0,
-              color: scheme.onPrimary,
-            ),
+            child: Icon(Icons.inbox, size: 44.0, color: scheme.onPrimary),
           ),
           const SizedBox(width: 24.0),
           Expanded(
@@ -607,22 +599,10 @@ class _HeaderBanner extends StatelessWidget {
                   spacing: 8.0,
                   runSpacing: 8.0,
                   children: <Widget>[
-                    _HeaderChip(
-                      label: 'static singleton',
-                      scheme: scheme,
-                    ),
-                    _HeaderChip(
-                      label: 'FIFO ring buffers',
-                      scheme: scheme,
-                    ),
-                    _HeaderChip(
-                      label: 'resize / drain',
-                      scheme: scheme,
-                    ),
-                    _HeaderChip(
-                      label: 'warning zone: 100',
-                      scheme: scheme,
-                    ),
+                    _HeaderChip(label: 'static singleton', scheme: scheme),
+                    _HeaderChip(label: 'FIFO ring buffers', scheme: scheme),
+                    _HeaderChip(label: 'resize / drain', scheme: scheme),
+                    _HeaderChip(label: 'warning zone: 100', scheme: scheme),
                   ],
                 ),
               ],
@@ -906,10 +886,7 @@ class _LifecycleDiagram extends StatelessWidget {
       decoration: BoxDecoration(
         color: scheme.surfaceContainerLow,
         borderRadius: BorderRadius.circular(20.0),
-        border: Border.all(
-          color: scheme.outlineVariant,
-          width: 1.0,
-        ),
+        border: Border.all(color: scheme.outlineVariant, width: 1.0),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1172,10 +1149,7 @@ class _CapacityMeterCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: scheme.surfaceContainerHigh,
         borderRadius: BorderRadius.circular(16.0),
-        border: Border.all(
-          color: color.withValues(alpha: 0.5),
-          width: 1.4,
-        ),
+        border: Border.all(color: color.withValues(alpha: 0.5), width: 1.4),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1285,10 +1259,7 @@ class _CapacityMeter extends StatelessWidget {
         height: 22.0,
         decoration: BoxDecoration(
           color: scheme.surfaceContainerHighest,
-          border: Border.all(
-            color: scheme.outlineVariant,
-            width: 1.0,
-          ),
+          border: Border.all(color: scheme.outlineVariant, width: 1.0),
         ),
         child: Stack(
           children: <Widget>[
@@ -1299,10 +1270,7 @@ class _CapacityMeter extends StatelessWidget {
                   width: width,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: <Color>[
-                        color.withValues(alpha: 0.65),
-                        color,
-                      ],
+                      colors: <Color>[color.withValues(alpha: 0.65), color],
                     ),
                   ),
                 );
@@ -1347,20 +1315,13 @@ class _MetricChip extends StatelessWidget {
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(6.0),
-        border: Border.all(
-          color: color.withValues(alpha: 0.4),
-          width: 1.0,
-        ),
+        border: Border.all(color: color.withValues(alpha: 0.4), width: 1.0),
       ),
       child: Column(
         children: <Widget>[
           Text(
             label,
-            style: TextStyle(
-              fontSize: 9.5,
-              color: color,
-              letterSpacing: 0.4,
-            ),
+            style: TextStyle(fontSize: 9.5, color: color, letterSpacing: 0.4),
           ),
           Text(
             value,
@@ -1382,10 +1343,7 @@ class _MetricChip extends StatelessWidget {
 // ---------------------------------------------------------------------------
 
 class _ResizeDecisionMatrix extends StatelessWidget {
-  const _ResizeDecisionMatrix({
-    required this.scheme,
-    required this.decisions,
-  });
+  const _ResizeDecisionMatrix({required this.scheme, required this.decisions});
   final ColorScheme scheme;
   final List<_ResizeDecision> decisions;
 
@@ -1527,10 +1485,7 @@ class _MatrixRow extends StatelessWidget {
             ? scheme.surfaceContainerHighest
             : scheme.surfaceContainer,
         borderRadius: BorderRadius.circular(10.0),
-        border: Border.all(
-          color: accent.withValues(alpha: 0.3),
-          width: 1.0,
-        ),
+        border: Border.all(color: accent.withValues(alpha: 0.3), width: 1.0),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1970,10 +1925,7 @@ class _RecipeTile extends StatelessWidget {
           ),
           const SizedBox(height: 6.0),
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 8.0,
-              vertical: 3.0,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
             decoration: BoxDecoration(
               color: scheme.secondaryContainer,
               borderRadius: BorderRadius.circular(6.0),
@@ -2175,10 +2127,7 @@ class _TakeawaysPanel extends StatelessWidget {
       padding: const EdgeInsets.all(18.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[
-            scheme.primaryContainer,
-            scheme.secondaryContainer,
-          ],
+          colors: <Color>[scheme.primaryContainer, scheme.secondaryContainer],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),

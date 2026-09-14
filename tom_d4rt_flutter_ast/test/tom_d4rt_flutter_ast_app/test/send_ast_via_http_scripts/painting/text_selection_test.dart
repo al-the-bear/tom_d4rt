@@ -401,11 +401,7 @@ Widget _prose(String text) {
     ),
     child: Text(
       text,
-      style: const TextStyle(
-        color: _kInk,
-        fontSize: 13.5,
-        height: 1.55,
-      ),
+      style: const TextStyle(color: _kInk, fontSize: 13.5, height: 1.55),
     ),
   );
 }
@@ -565,10 +561,7 @@ dynamic build(BuildContext context) {
   // These objects are referenced by both the prose and the diagrams.
   final pos0 = const TextPosition(offset: 0);
   final pos5 = const TextPosition(offset: 5);
-  final posUp = const TextPosition(
-    offset: 10,
-    affinity: TextAffinity.upstream,
-  );
+  final posUp = const TextPosition(offset: 10, affinity: TextAffinity.upstream);
   final posDown = const TextPosition(
     offset: 10,
     affinity: TextAffinity.downstream,
@@ -612,7 +605,9 @@ dynamic build(BuildContext context) {
   print('posUp.affinity = ${posUp.affinity}');
   print('posDown.affinity = ${posDown.affinity}');
   print('selForward.isCollapsed = ${selForward.isCollapsed}');
-  print('selBackward base/extent = ${selBackward.baseOffset}/${selBackward.extentOffset}');
+  print(
+    'selBackward base/extent = ${selBackward.baseOffset}/${selBackward.extentOffset}',
+  );
   print('selBackward.start..end = ${selBackward.start}..${selBackward.end}');
   print('selCollapsed.isCollapsed = ${selCollapsed.isCollapsed}');
   print('selFromPos.baseOffset = ${selFromPos.baseOffset}');
@@ -624,10 +619,7 @@ dynamic build(BuildContext context) {
     theme: ThemeData(
       useMaterial3: true,
       scaffoldBackgroundColor: const Color(0xFFF1F5F9),
-      textTheme: const TextTheme().apply(
-        bodyColor: _kInk,
-        displayColor: _kInk,
-      ),
+      textTheme: const TextTheme().apply(bodyColor: _kInk, displayColor: _kInk),
     ),
     home: Scaffold(
       backgroundColor: const Color(0xFFF1F5F9),
@@ -728,7 +720,7 @@ dynamic build(BuildContext context) {
                       '01',
                       'TextRange -- the unanchored interval',
                       'A half-open [start, end) slice over a string with no '
-                      'direction and no caret.',
+                          'direction and no caret.',
                     ),
                     const SizedBox(height: 14),
                     _prose(
@@ -759,28 +751,28 @@ dynamic build(BuildContext context) {
                           _kvRow(
                             'TextRange(0,5)',
                             'start=${range05.start} end=${range05.end} '
-                            'valid=${range05.isValid} '
-                            'normalised=${range05.isNormalized} '
-                            'collapsed=${range05.isCollapsed}',
+                                'valid=${range05.isValid} '
+                                'normalised=${range05.isNormalized} '
+                                'collapsed=${range05.isCollapsed}',
                           ),
                           _kvRow(
                             'TextRange(5,0)',
                             'start=${rangeFlipped.start} '
-                            'end=${rangeFlipped.end} '
-                            'normalised=${rangeFlipped.isNormalized}',
+                                'end=${rangeFlipped.end} '
+                                'normalised=${rangeFlipped.isNormalized}',
                             valueColor: _kAccentExtent,
                           ),
                           _kvRow(
                             'TextRange.empty',
                             'start=${rangeEmpty.start} end=${rangeEmpty.end} '
-                            'collapsed=${rangeEmpty.isCollapsed} '
-                            'valid=${rangeEmpty.isValid}',
+                                'collapsed=${rangeEmpty.isCollapsed} '
+                                'valid=${rangeEmpty.isValid}',
                           ),
                           _kvRow(
                             'TextRange.collapsed(3)',
                             'start=${rangeCollapsed.start} '
-                            'end=${rangeCollapsed.end} '
-                            'collapsed=${rangeCollapsed.isCollapsed}',
+                                'end=${rangeCollapsed.end} '
+                                'collapsed=${rangeCollapsed.isCollapsed}',
                           ),
                           _kvRow(
                             'textBefore',
@@ -833,7 +825,7 @@ dynamic build(BuildContext context) {
                       '02',
                       'TextPosition + TextAffinity',
                       'An offset plus a tie-breaker for ambiguous caret '
-                      'placements at line wraps.',
+                          'placements at line wraps.',
                     ),
                     const SizedBox(height: 14),
                     _prose(
@@ -915,7 +907,7 @@ dynamic build(BuildContext context) {
                       '03',
                       'TextSelection forward (base < extent)',
                       'The base anchors the selection; the extent rides with '
-                      'the user gesture.',
+                          'the user gesture.',
                     ),
                     const SizedBox(height: 14),
                     _prose(
@@ -943,7 +935,8 @@ dynamic build(BuildContext context) {
                         painter: _SelectionVisualizer(
                           sample: sample,
                           selection: selForward,
-                          label: 'TextSelection(base: 0, extent: 5) over "$sample"',
+                          label:
+                              'TextSelection(base: 0, extent: 5) over "$sample"',
                         ),
                         size: Size.infinite,
                       ),
@@ -970,16 +963,16 @@ dynamic build(BuildContext context) {
                           ),
                           _kvRow('start', '${selForward.start}'),
                           _kvRow('end', '${selForward.end}'),
-                          _kvRow(
-                            'isCollapsed',
-                            '${selForward.isCollapsed}',
-                          ),
+                          _kvRow('isCollapsed', '${selForward.isCollapsed}'),
                           _kvRow(
                             'isDirectional',
                             '${selForward.isDirectional}',
                           ),
                           _kvRow('affinity', '${selForward.affinity}'),
-                          _kvRow('textInside', '"${selForward.textInside(sample)}"'),
+                          _kvRow(
+                            'textInside',
+                            '"${selForward.textInside(sample)}"',
+                          ),
                         ],
                       ),
                     ),
@@ -1015,7 +1008,7 @@ dynamic build(BuildContext context) {
                       '04',
                       'TextSelection backward (base > extent)',
                       'Same range, different orientation: the caret is on '
-                      'the left, the anchor on the right.',
+                          'the left, the anchor on the right.',
                     ),
                     const SizedBox(height: 14),
                     _prose(
@@ -1042,7 +1035,8 @@ dynamic build(BuildContext context) {
                         painter: _SelectionVisualizer(
                           sample: sample,
                           selection: selBackward,
-                          label: 'TextSelection(base: 9, extent: 2) over "$sample"',
+                          label:
+                              'TextSelection(base: 9, extent: 2) over "$sample"',
                         ),
                         size: Size.infinite,
                       ),
@@ -1069,10 +1063,7 @@ dynamic build(BuildContext context) {
                           ),
                           _kvRow('start', '${selBackward.start}'),
                           _kvRow('end', '${selBackward.end}'),
-                          _kvRow(
-                            'isCollapsed',
-                            '${selBackward.isCollapsed}',
-                          ),
+                          _kvRow('isCollapsed', '${selBackward.isCollapsed}'),
                           _kvRow(
                             'textInside',
                             '"${selBackward.textInside(sample).replaceAll('\n', '\\n')}"',
@@ -1101,7 +1092,7 @@ dynamic build(BuildContext context) {
                       '05',
                       'Collapsed selections',
                       'When base == extent the "selection" is really a bare '
-                      'caret.',
+                          'caret.',
                     ),
                     const SizedBox(height: 14),
                     _prose(
@@ -1129,7 +1120,8 @@ dynamic build(BuildContext context) {
                         painter: _SelectionVisualizer(
                           sample: sample,
                           selection: selCollapsed,
-                          label: 'TextSelection.collapsed(offset: 7) -- caret only',
+                          label:
+                              'TextSelection.collapsed(offset: 7) -- caret only',
                         ),
                         size: Size.infinite,
                       ),
@@ -1203,7 +1195,7 @@ dynamic build(BuildContext context) {
                       '06',
                       'Affinity at a soft wrap',
                       'Two selections, same offsets, different affinity, '
-                      'different visual caret placement.',
+                          'different visual caret placement.',
                     ),
                     const SizedBox(height: 14),
                     _prose(
@@ -1276,7 +1268,7 @@ dynamic build(BuildContext context) {
                       '07',
                       'Interactive base / extent',
                       'Drag the sliders to move base and extent over the '
-                      'sample string and watch the carets dance.',
+                          'sample string and watch the carets dance.',
                     ),
                     const SizedBox(height: 14),
                     _prose(
@@ -1321,7 +1313,7 @@ dynamic build(BuildContext context) {
                       '08',
                       'Selection presets palette',
                       'A row of named TextSelection presets, each chip '
-                      'showing the constructor and a short description.',
+                          'showing the constructor and a short description.',
                     ),
                     const SizedBox(height: 14),
                     _prose(
@@ -1425,16 +1417,13 @@ dynamic build(BuildContext context) {
 
 Widget _decisionMatrix() {
   TextStyle headStyle() => const TextStyle(
-        color: Colors.white,
-        fontSize: 12,
-        fontWeight: FontWeight.w800,
-        fontFamily: 'monospace',
-      );
-  TextStyle cellStyle() => const TextStyle(
-        color: _kInk,
-        fontSize: 12,
-        fontFamily: 'monospace',
-      );
+    color: Colors.white,
+    fontSize: 12,
+    fontWeight: FontWeight.w800,
+    fontFamily: 'monospace',
+  );
+  TextStyle cellStyle() =>
+      const TextStyle(color: _kInk, fontSize: 12, fontFamily: 'monospace');
   return Container(
     decoration: BoxDecoration(
       color: Colors.white.withValues(alpha: 0.94),
@@ -1460,24 +1449,30 @@ Widget _decisionMatrix() {
           DataColumn(label: Text('Typical source', style: headStyle())),
         ],
         rows: [
-          DataRow(cells: [
-            DataCell(Text('upstream', style: cellStyle())),
-            DataCell(Text('end of previous line', style: cellStyle())),
-            DataCell(Text('right edge, line N-1', style: cellStyle())),
-            DataCell(Text('End key on prev row', style: cellStyle())),
-          ]),
-          DataRow(cells: [
-            DataCell(Text('downstream', style: cellStyle())),
-            DataCell(Text('start of next line', style: cellStyle())),
-            DataCell(Text('left edge, line N', style: cellStyle())),
-            DataCell(Text('default / typing', style: cellStyle())),
-          ]),
-          DataRow(cells: [
-            DataCell(Text('n/a', style: cellStyle())),
-            DataCell(Text('mid-line offset', style: cellStyle())),
-            DataCell(Text('unique position', style: cellStyle())),
-            DataCell(Text('arrow keys, taps', style: cellStyle())),
-          ]),
+          DataRow(
+            cells: [
+              DataCell(Text('upstream', style: cellStyle())),
+              DataCell(Text('end of previous line', style: cellStyle())),
+              DataCell(Text('right edge, line N-1', style: cellStyle())),
+              DataCell(Text('End key on prev row', style: cellStyle())),
+            ],
+          ),
+          DataRow(
+            cells: [
+              DataCell(Text('downstream', style: cellStyle())),
+              DataCell(Text('start of next line', style: cellStyle())),
+              DataCell(Text('left edge, line N', style: cellStyle())),
+              DataCell(Text('default / typing', style: cellStyle())),
+            ],
+          ),
+          DataRow(
+            cells: [
+              DataCell(Text('n/a', style: cellStyle())),
+              DataCell(Text('mid-line offset', style: cellStyle())),
+              DataCell(Text('unique position', style: cellStyle())),
+              DataCell(Text('arrow keys, taps', style: cellStyle())),
+            ],
+          ),
         ],
       ),
     ),
@@ -1490,16 +1485,13 @@ Widget _decisionMatrix() {
 
 Widget _constructorTable() {
   TextStyle head() => const TextStyle(
-        color: Colors.white,
-        fontSize: 12,
-        fontWeight: FontWeight.w800,
-        fontFamily: 'monospace',
-      );
-  TextStyle body() => const TextStyle(
-        color: _kInk,
-        fontSize: 11.5,
-        fontFamily: 'monospace',
-      );
+    color: Colors.white,
+    fontSize: 12,
+    fontWeight: FontWeight.w800,
+    fontFamily: 'monospace',
+  );
+  TextStyle body() =>
+      const TextStyle(color: _kInk, fontSize: 11.5, fontFamily: 'monospace');
   return Container(
     decoration: BoxDecoration(
       color: Colors.white,
@@ -1517,51 +1509,69 @@ Widget _constructorTable() {
           DataColumn(label: Text('Yields', style: head())),
         ],
         rows: [
-          DataRow(cells: [
-            DataCell(Text('TextRange', style: body())),
-            DataCell(Text('TextRange(start, end)', style: body())),
-            DataCell(Text('[start, end) interval', style: body())),
-          ]),
-          DataRow(cells: [
-            DataCell(Text('TextRange', style: body())),
-            DataCell(Text('TextRange.empty', style: body())),
-            DataCell(Text('start=-1 end=-1 invalid', style: body())),
-          ]),
-          DataRow(cells: [
-            DataCell(Text('TextRange', style: body())),
-            DataCell(Text('TextRange.collapsed(n)', style: body())),
-            DataCell(Text('start=end=n', style: body())),
-          ]),
-          DataRow(cells: [
-            DataCell(Text('TextPosition', style: body())),
-            DataCell(Text('TextPosition(offset, [affinity])', style: body())),
-            DataCell(Text('caret + tie-breaker', style: body())),
-          ]),
-          DataRow(cells: [
-            DataCell(Text('TextAffinity', style: body())),
-            DataCell(Text('TextAffinity.upstream', style: body())),
-            DataCell(Text('cling to previous line', style: body())),
-          ]),
-          DataRow(cells: [
-            DataCell(Text('TextAffinity', style: body())),
-            DataCell(Text('TextAffinity.downstream', style: body())),
-            DataCell(Text('cling to next line', style: body())),
-          ]),
-          DataRow(cells: [
-            DataCell(Text('TextSelection', style: body())),
-            DataCell(Text('TextSelection(base, extent)', style: body())),
-            DataCell(Text('directional selection', style: body())),
-          ]),
-          DataRow(cells: [
-            DataCell(Text('TextSelection', style: body())),
-            DataCell(Text('TextSelection.collapsed(offset)', style: body())),
-            DataCell(Text('caret-only selection', style: body())),
-          ]),
-          DataRow(cells: [
-            DataCell(Text('TextSelection', style: body())),
-            DataCell(Text('TextSelection.fromPosition(p)', style: body())),
-            DataCell(Text('collapsed at p with affinity', style: body())),
-          ]),
+          DataRow(
+            cells: [
+              DataCell(Text('TextRange', style: body())),
+              DataCell(Text('TextRange(start, end)', style: body())),
+              DataCell(Text('[start, end) interval', style: body())),
+            ],
+          ),
+          DataRow(
+            cells: [
+              DataCell(Text('TextRange', style: body())),
+              DataCell(Text('TextRange.empty', style: body())),
+              DataCell(Text('start=-1 end=-1 invalid', style: body())),
+            ],
+          ),
+          DataRow(
+            cells: [
+              DataCell(Text('TextRange', style: body())),
+              DataCell(Text('TextRange.collapsed(n)', style: body())),
+              DataCell(Text('start=end=n', style: body())),
+            ],
+          ),
+          DataRow(
+            cells: [
+              DataCell(Text('TextPosition', style: body())),
+              DataCell(Text('TextPosition(offset, [affinity])', style: body())),
+              DataCell(Text('caret + tie-breaker', style: body())),
+            ],
+          ),
+          DataRow(
+            cells: [
+              DataCell(Text('TextAffinity', style: body())),
+              DataCell(Text('TextAffinity.upstream', style: body())),
+              DataCell(Text('cling to previous line', style: body())),
+            ],
+          ),
+          DataRow(
+            cells: [
+              DataCell(Text('TextAffinity', style: body())),
+              DataCell(Text('TextAffinity.downstream', style: body())),
+              DataCell(Text('cling to next line', style: body())),
+            ],
+          ),
+          DataRow(
+            cells: [
+              DataCell(Text('TextSelection', style: body())),
+              DataCell(Text('TextSelection(base, extent)', style: body())),
+              DataCell(Text('directional selection', style: body())),
+            ],
+          ),
+          DataRow(
+            cells: [
+              DataCell(Text('TextSelection', style: body())),
+              DataCell(Text('TextSelection.collapsed(offset)', style: body())),
+              DataCell(Text('caret-only selection', style: body())),
+            ],
+          ),
+          DataRow(
+            cells: [
+              DataCell(Text('TextSelection', style: body())),
+              DataCell(Text('TextSelection.fromPosition(p)', style: body())),
+              DataCell(Text('collapsed at p with affinity', style: body())),
+            ],
+          ),
         ],
       ),
     ),
@@ -1634,18 +1644,21 @@ class _InteractivePanel extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _kvRow('base', '${selection.baseOffset}',
-                  valueColor: _kAccentBase),
-              _kvRow('extent', '${selection.extentOffset}',
-                  valueColor: _kAccentExtent),
+              _kvRow(
+                'base',
+                '${selection.baseOffset}',
+                valueColor: _kAccentBase,
+              ),
+              _kvRow(
+                'extent',
+                '${selection.extentOffset}',
+                valueColor: _kAccentExtent,
+              ),
               _kvRow('start', '${selection.start}'),
               _kvRow('end', '${selection.end}'),
               _kvRow('isCollapsed', '${selection.isCollapsed}'),
               _kvRow('isDirectional', '${selection.isDirectional}'),
-              _kvRow(
-                'textInside',
-                '"${selection.textInside(sample)}"',
-              ),
+              _kvRow('textInside', '"${selection.textInside(sample)}"'),
             ],
           ),
         ),

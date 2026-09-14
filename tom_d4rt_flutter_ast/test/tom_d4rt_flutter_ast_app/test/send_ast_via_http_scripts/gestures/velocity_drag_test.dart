@@ -347,10 +347,8 @@ dynamic build(BuildContext context) {
   // every operator we explain is actually invoked through the live API.
   // ---------------------------------------------------------------------------
   const Velocity zeroVel = Velocity.zero;
-  const Velocity vRightHundred =
-      Velocity(pixelsPerSecond: Offset(100, 0));
-  const Velocity vDownTwoFifty =
-      Velocity(pixelsPerSecond: Offset(0, 250));
+  const Velocity vRightHundred = Velocity(pixelsPerSecond: Offset(100, 0));
+  const Velocity vDownTwoFifty = Velocity(pixelsPerSecond: Offset(0, 250));
   final Velocity vSum = vRightHundred + vDownTwoFifty;
   final Velocity vDiff = vRightHundred - vDownTwoFifty;
   final Velocity vNegated = -vRightHundred;
@@ -365,21 +363,35 @@ dynamic build(BuildContext context) {
   // Narrative print() trace.
   // ---------------------------------------------------------------------------
   print('[Velocity demo] === Drift Argent gauge house ===');
-  print('[Velocity demo] Constructed five VelocityTrackers with '
-      'PointerDeviceKind.touch.');
-  print('[Velocity demo] Scenario 1 (slow drag) velocity = '
-      '${v1.pixelsPerSecond}');
-  print('[Velocity demo] Scenario 2 (fast flick) velocity = '
-      '${v2.pixelsPerSecond}');
-  print('[Velocity demo] Scenario 3 (reversed) velocity = '
-      '${v3.pixelsPerSecond}');
-  print('[Velocity demo] Scenario 4 (diagonal) velocity = '
-      '${v4.pixelsPerSecond}');
-  print('[Velocity demo] Scenario 5 (jerk) velocity = '
-      '${v5.pixelsPerSecond}');
+  print(
+    '[Velocity demo] Constructed five VelocityTrackers with '
+    'PointerDeviceKind.touch.',
+  );
+  print(
+    '[Velocity demo] Scenario 1 (slow drag) velocity = '
+    '${v1.pixelsPerSecond}',
+  );
+  print(
+    '[Velocity demo] Scenario 2 (fast flick) velocity = '
+    '${v2.pixelsPerSecond}',
+  );
+  print(
+    '[Velocity demo] Scenario 3 (reversed) velocity = '
+    '${v3.pixelsPerSecond}',
+  );
+  print(
+    '[Velocity demo] Scenario 4 (diagonal) velocity = '
+    '${v4.pixelsPerSecond}',
+  );
+  print(
+    '[Velocity demo] Scenario 5 (jerk) velocity = '
+    '${v5.pixelsPerSecond}',
+  );
   if (e2 != null) {
-    print('[Velocity demo] Scenario 2 estimate confidence = '
-        '${e2.confidence}, duration = ${e2.duration}, offset = ${e2.offset}');
+    print(
+      '[Velocity demo] Scenario 2 estimate confidence = '
+      '${e2.confidence}, duration = ${e2.duration}, offset = ${e2.offset}',
+    );
   }
   print('[Velocity demo] Velocity.zero = $zeroVel');
   print('[Velocity demo] vRightHundred + vDownTwoFifty = $vSum');
@@ -539,10 +551,7 @@ Widget _swatch(String label, Color color) {
           ),
         ),
         const SizedBox(height: 2),
-        Text(
-          label,
-          style: const TextStyle(color: daSteelLight, fontSize: 9),
-        ),
+        Text(label, style: const TextStyle(color: daSteelLight, fontSize: 9)),
       ],
     ),
   );
@@ -634,36 +643,81 @@ Widget _buildSection3ApiAnatomy() {
     title: '3 · API Anatomy',
     accent: daPhosphor,
     children: [
-      _propRow('Velocity(pixelsPerSecond:)', 'const constructor',
-          'Wraps an Offset of px/s into a Velocity value.'),
-      _propRow('Velocity.zero', 'static const',
-          'A no-motion velocity; additive identity for + and -.'),
-      _propRow('.pixelsPerSecond', 'Offset',
-          'The (.dx, .dy) horizontal and vertical rates in px/s.'),
-      _propRow('operator -()', 'Velocity',
-          'Unary minus: returns the reverse-direction velocity.'),
-      _propRow('operator +(Velocity)', 'Velocity',
-          'Component-wise addition of two velocities.'),
-      _propRow('operator -(Velocity)', 'Velocity',
-          'Component-wise subtraction of two velocities.'),
-      _propRow('clampMagnitude(min, max)', 'Velocity',
-          'Clamp magnitude into [min, max] while preserving direction.'),
-      _propRow('VelocityEstimate', 'class',
-          'Richer estimate: pixelsPerSecond, confidence, duration, offset.'),
-      _propRow('.confidence', 'double in 0..1',
-          'How much the polynomial fit trusts itself. 1.0 = perfect.'),
-      _propRow('.duration', 'Duration',
-          'The time window over which the estimate was computed.'),
-      _propRow('.offset', 'Offset',
-          'Pointer travel observed during that duration.'),
-      _propRow('VelocityTracker.withKind(kind)', 'constructor',
-          'Picks the polynomial-fit strategy for the device kind.'),
-      _propRow('.addPosition(t, pos)', 'void',
-          'Feed one sample; tracker keeps a rolling history.'),
-      _propRow('.getVelocity()', 'Velocity',
-          'Best-effort velocity now; Velocity.zero on insufficient data.'),
-      _propRow('.getVelocityEstimate()', 'VelocityEstimate?',
-          'Same with confidence/duration/offset; null when impossible.'),
+      _propRow(
+        'Velocity(pixelsPerSecond:)',
+        'const constructor',
+        'Wraps an Offset of px/s into a Velocity value.',
+      ),
+      _propRow(
+        'Velocity.zero',
+        'static const',
+        'A no-motion velocity; additive identity for + and -.',
+      ),
+      _propRow(
+        '.pixelsPerSecond',
+        'Offset',
+        'The (.dx, .dy) horizontal and vertical rates in px/s.',
+      ),
+      _propRow(
+        'operator -()',
+        'Velocity',
+        'Unary minus: returns the reverse-direction velocity.',
+      ),
+      _propRow(
+        'operator +(Velocity)',
+        'Velocity',
+        'Component-wise addition of two velocities.',
+      ),
+      _propRow(
+        'operator -(Velocity)',
+        'Velocity',
+        'Component-wise subtraction of two velocities.',
+      ),
+      _propRow(
+        'clampMagnitude(min, max)',
+        'Velocity',
+        'Clamp magnitude into [min, max] while preserving direction.',
+      ),
+      _propRow(
+        'VelocityEstimate',
+        'class',
+        'Richer estimate: pixelsPerSecond, confidence, duration, offset.',
+      ),
+      _propRow(
+        '.confidence',
+        'double in 0..1',
+        'How much the polynomial fit trusts itself. 1.0 = perfect.',
+      ),
+      _propRow(
+        '.duration',
+        'Duration',
+        'The time window over which the estimate was computed.',
+      ),
+      _propRow(
+        '.offset',
+        'Offset',
+        'Pointer travel observed during that duration.',
+      ),
+      _propRow(
+        'VelocityTracker.withKind(kind)',
+        'constructor',
+        'Picks the polynomial-fit strategy for the device kind.',
+      ),
+      _propRow(
+        '.addPosition(t, pos)',
+        'void',
+        'Feed one sample; tracker keeps a rolling history.',
+      ),
+      _propRow(
+        '.getVelocity()',
+        'Velocity',
+        'Best-effort velocity now; Velocity.zero on insufficient data.',
+      ),
+      _propRow(
+        '.getVelocityEstimate()',
+        'VelocityEstimate?',
+        'Same with confidence/duration/offset; null when impossible.',
+      ),
     ],
   );
 }
@@ -898,44 +952,42 @@ TableRow _scenarioOverviewRow(_Scenario sc, bool even) {
   final double dx = sc.velocity.pixelsPerSecond.dx;
   final double dy = sc.velocity.pixelsPerSecond.dy;
   return TableRow(
-    decoration: BoxDecoration(
-      color: even ? daSlateDeep : daSlate,
-    ),
+    decoration: BoxDecoration(color: even ? daSlateDeep : daSlate),
     children: [
       _bCell(sc.label),
       _bCell('${sc.samples.length}'),
       _bCell('${dur.inMilliseconds} ms'),
       _bCell(
-          '(${deltaOff.dx.toStringAsFixed(0)}, ${deltaOff.dy.toStringAsFixed(0)})'),
-      _bCell(
-          '(${dx.toStringAsFixed(1)}, ${dy.toStringAsFixed(1)}) px/s'),
+        '(${deltaOff.dx.toStringAsFixed(0)}, ${deltaOff.dy.toStringAsFixed(0)})',
+      ),
+      _bCell('(${dx.toStringAsFixed(1)}, ${dy.toStringAsFixed(1)}) px/s'),
     ],
   );
 }
 
 Widget _hCell(String t) => Padding(
-      padding: const EdgeInsets.all(6),
-      child: Text(
-        t,
-        style: const TextStyle(
-          color: daArgentBright,
-          fontWeight: FontWeight.bold,
-          fontSize: 11,
-        ),
-      ),
-    );
+  padding: const EdgeInsets.all(6),
+  child: Text(
+    t,
+    style: const TextStyle(
+      color: daArgentBright,
+      fontWeight: FontWeight.bold,
+      fontSize: 11,
+    ),
+  ),
+);
 
 Widget _bCell(String t) => Padding(
-      padding: const EdgeInsets.all(6),
-      child: Text(
-        t,
-        style: const TextStyle(
-          fontFamily: 'monospace',
-          color: daArgent,
-          fontSize: 11,
-        ),
-      ),
-    );
+  padding: const EdgeInsets.all(6),
+  child: Text(
+    t,
+    style: const TextStyle(
+      fontFamily: 'monospace',
+      color: daArgent,
+      fontSize: 11,
+    ),
+  ),
+);
 
 // =============================================================================
 //  SECTION 6 — Scenario cards
@@ -982,8 +1034,7 @@ Widget _scenarioCard(_Scenario sc) {
         Row(
           children: [
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
               decoration: BoxDecoration(
                 color: sc.accent,
                 borderRadius: BorderRadius.circular(4),
@@ -1093,7 +1144,8 @@ Widget _outputBlock(_Scenario sc) {
   final double mag = _magnitude(dx, dy);
   String estimateLine;
   if (sc.estimate == null) {
-    estimateLine = 'getVelocityEstimate() = null '
+    estimateLine =
+        'getVelocityEstimate() = null '
         '(insufficient or untrustworthy samples)';
   } else {
     final VelocityEstimate est = sc.estimate!;
@@ -1164,8 +1216,7 @@ Widget _buildSection7DialFaces(List<_Scenario> scenarios) {
         spacing: 14,
         runSpacing: 14,
         children: [
-          for (int i = 0; i < scenarios.length; i++)
-            _dialFace(scenarios[i]),
+          for (int i = 0; i < scenarios.length; i++) _dialFace(scenarios[i]),
         ],
       ),
       const SizedBox(height: 10),
@@ -1317,9 +1368,7 @@ Widget _dialFace(_Scenario sc) {
                 margin: const EdgeInsets.only(bottom: 2),
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
-                  gradient: RadialGradient(
-                    colors: [daArgentBright, daSteel],
-                  ),
+                  gradient: RadialGradient(colors: [daArgentBright, daSteel]),
                 ),
               ),
             ],
@@ -1377,7 +1426,7 @@ Widget _buildSection8EstimateAnatomy(List<_Scenario> scenarios) {
         valueOf: (e) => e == null
             ? 'null'
             : '(${e.pixelsPerSecond.dx.toStringAsFixed(1)}, '
-                '${e.pixelsPerSecond.dy.toStringAsFixed(1)}) px/s',
+                  '${e.pixelsPerSecond.dy.toStringAsFixed(1)}) px/s',
       ),
       const SizedBox(height: 10),
       _estimateField(
@@ -1410,7 +1459,7 @@ Widget _buildSection8EstimateAnatomy(List<_Scenario> scenarios) {
         valueOf: (e) => e == null
             ? 'null'
             : '(${e.offset.dx.toStringAsFixed(1)}, '
-                '${e.offset.dy.toStringAsFixed(1)})',
+                  '${e.offset.dy.toStringAsFixed(1)})',
       ),
       const SizedBox(height: 12),
       Container(
@@ -1486,10 +1535,7 @@ Widget _estimateField({
                   width: 130,
                   child: Text(
                     scenarios[i].label,
-                    style: const TextStyle(
-                      color: daSteelLight,
-                      fontSize: 11,
-                    ),
+                    style: const TextStyle(color: daSteelLight, fontSize: 11),
                   ),
                 ),
                 Expanded(
@@ -1537,15 +1583,24 @@ Widget _buildSection9FlingThreshold(List<_Scenario> scenarios) {
         style: TextStyle(fontSize: 12, color: daArgent),
       ),
       const SizedBox(height: 10),
-      _thresholdRow('kMinFlingVelocity', kMinFlingPxPerSec,
-          'Below this magnitude the recognizer treats the gesture as a '
-          'plain drag end — no coast, no inertia.'),
-      _thresholdRow('typical scroll fling', typicalScrollFlingPxPerSec,
-          'A comfortable scroll-fling on a phone. List coasts a screen '
-          'or two before friction stops it.'),
-      _thresholdRow('kMaxFlingVelocity', kHighFlingPxPerSec,
-          'Upper sanity cap. A faster reading is almost certainly noise; '
-          'recognizers clamp to this maximum.'),
+      _thresholdRow(
+        'kMinFlingVelocity',
+        kMinFlingPxPerSec,
+        'Below this magnitude the recognizer treats the gesture as a '
+            'plain drag end — no coast, no inertia.',
+      ),
+      _thresholdRow(
+        'typical scroll fling',
+        typicalScrollFlingPxPerSec,
+        'A comfortable scroll-fling on a phone. List coasts a screen '
+            'or two before friction stops it.',
+      ),
+      _thresholdRow(
+        'kMaxFlingVelocity',
+        kHighFlingPxPerSec,
+        'Upper sanity cap. A faster reading is almost certainly noise; '
+            'recognizers clamp to this maximum.',
+      ),
       const SizedBox(height: 14),
       const Text(
         'Per-scenario assessment:',
@@ -1557,8 +1612,12 @@ Widget _buildSection9FlingThreshold(List<_Scenario> scenarios) {
       ),
       const SizedBox(height: 6),
       for (int i = 0; i < scenarios.length; i++)
-        _flingAssessmentRow(scenarios[i], kMinFlingPxPerSec,
-            typicalScrollFlingPxPerSec, kHighFlingPxPerSec),
+        _flingAssessmentRow(
+          scenarios[i],
+          kMinFlingPxPerSec,
+          typicalScrollFlingPxPerSec,
+          kHighFlingPxPerSec,
+        ),
     ],
   );
 }
@@ -1604,7 +1663,11 @@ Widget _thresholdRow(String label, double value, String explanation) {
 }
 
 Widget _flingAssessmentRow(
-    _Scenario sc, double minFling, double typical, double maxFling) {
+  _Scenario sc,
+  double minFling,
+  double typical,
+  double maxFling,
+) {
   final double mag = _magnitude(
     sc.velocity.pixelsPerSecond.dx,
     sc.velocity.pixelsPerSecond.dy,
@@ -1632,10 +1695,7 @@ Widget _flingAssessmentRow(
           width: 8,
           height: 8,
           margin: const EdgeInsets.only(right: 6),
-          decoration: BoxDecoration(
-            color: sc.accent,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: sc.accent, shape: BoxShape.circle),
         ),
         SizedBox(
           width: 130,
@@ -1790,9 +1850,7 @@ TableRow _clampRow(List<dynamic> row, bool even) {
     input.pixelsPerSecond.dy,
   );
   return TableRow(
-    decoration: BoxDecoration(
-      color: even ? daSlateDeep : daSlate,
-    ),
+    decoration: BoxDecoration(color: even ? daSlateDeep : daSlate),
     children: [
       _bCell(desc),
       _bCell(
@@ -1823,20 +1881,44 @@ Widget _buildSection11ComparisonTable(List<_Scenario> scenarios) {
         _hCell('VelocityEstimate'),
       ],
     ),
-    _cmp('purpose', 'a generic 2-D vector', 'rate of motion (px/s)',
-        'rate of motion + diagnostics'),
-    _cmp('shape', '(dx, dy)', '(pixelsPerSecond)',
-        '(pixelsPerSecond, confidence, duration, offset)'),
-    _cmp('returned by', 'painting/layout', 'recognizer callbacks',
-        'VelocityTracker.getVelocityEstimate()'),
-    _cmp('nullable?', 'no', 'no (zero on insufficient data)',
-        'yes (null when no estimate)'),
-    _cmp('arithmetic', '+, -, scalar *', '+, -, unary -, clampMagnitude',
-        'none — pure data record'),
+    _cmp(
+      'purpose',
+      'a generic 2-D vector',
+      'rate of motion (px/s)',
+      'rate of motion + diagnostics',
+    ),
+    _cmp(
+      'shape',
+      '(dx, dy)',
+      '(pixelsPerSecond)',
+      '(pixelsPerSecond, confidence, duration, offset)',
+    ),
+    _cmp(
+      'returned by',
+      'painting/layout',
+      'recognizer callbacks',
+      'VelocityTracker.getVelocityEstimate()',
+    ),
+    _cmp(
+      'nullable?',
+      'no',
+      'no (zero on insufficient data)',
+      'yes (null when no estimate)',
+    ),
+    _cmp(
+      'arithmetic',
+      '+, -, scalar *',
+      '+, -, unary -, clampMagnitude',
+      'none — pure data record',
+    ),
     _cmp('confidence', 'n/a', 'n/a', '0..1 polynomial-fit goodness'),
     _cmp('duration', 'n/a', 'n/a', 'time window of the fit'),
-    _cmp('typical use', 'translate, paint',
-        'fling decision in onPanEnd', 'recognizer-internal diagnosis'),
+    _cmp(
+      'typical use',
+      'translate, paint',
+      'fling decision in onPanEnd',
+      'recognizer-internal diagnosis',
+    ),
   ];
   return _sectionCard(
     title: '11 · Offset vs Velocity vs VelocityEstimate',
@@ -1914,35 +1996,62 @@ Widget _buildSection12DoAvoid() {
     title: '12 · DO and AVOID',
     accent: daPhosphor,
     children: [
-      _doRow(true, 'DO',
-          'Use the velocity reported by the framework in DragEndDetails.velocity '
-          'rather than computing one yourself from the last two pointer events.'),
-      _doRow(true, 'DO',
-          'Pass the velocity through clampMagnitude before feeding it into a '
-          'Simulation — it prevents pathological inputs from crashing physics.'),
-      _doRow(true, 'DO',
-          'Treat Velocity.zero as a meaningful signal. The recognizer returns '
-          'it deliberately when the polynomial fit is too weak.'),
-      _doRow(true, 'DO',
-          'Use VelocityEstimate.confidence to decide whether to act on the '
-          'estimate. Recognizers do this internally but custom code may need it too.'),
-      _doRow(false, 'AVOID',
-          'Adding two velocities from different gestures or different '
-          'pointer ids. The arithmetic is defined but the result is meaningless.'),
-      _doRow(false, 'AVOID',
-          'Hard-coding a fling threshold like "magnitude > 1000". Use '
-          'kMinFlingVelocity from package:flutter/gestures.dart so the '
-          'threshold tracks framework changes.'),
-      _doRow(false, 'AVOID',
-          'Confusing Velocity.pixelsPerSecond with a per-frame delta. The '
-          'units are pixels per second; multiply by the frame duration in '
-          'seconds before adding to a position.'),
-      _doRow(false, 'AVOID',
-          'Storing a Velocity across a hot reload of the recognizer state. '
-          'The samples that produced it are gone; the value is now a fossil.'),
-      _doRow(false, 'AVOID',
-          'Calling clampMagnitude with min == max == 0; the direction '
-          'becomes undefined. Use Velocity.zero directly instead.'),
+      _doRow(
+        true,
+        'DO',
+        'Use the velocity reported by the framework in DragEndDetails.velocity '
+            'rather than computing one yourself from the last two pointer events.',
+      ),
+      _doRow(
+        true,
+        'DO',
+        'Pass the velocity through clampMagnitude before feeding it into a '
+            'Simulation — it prevents pathological inputs from crashing physics.',
+      ),
+      _doRow(
+        true,
+        'DO',
+        'Treat Velocity.zero as a meaningful signal. The recognizer returns '
+            'it deliberately when the polynomial fit is too weak.',
+      ),
+      _doRow(
+        true,
+        'DO',
+        'Use VelocityEstimate.confidence to decide whether to act on the '
+            'estimate. Recognizers do this internally but custom code may need it too.',
+      ),
+      _doRow(
+        false,
+        'AVOID',
+        'Adding two velocities from different gestures or different '
+            'pointer ids. The arithmetic is defined but the result is meaningless.',
+      ),
+      _doRow(
+        false,
+        'AVOID',
+        'Hard-coding a fling threshold like "magnitude > 1000". Use '
+            'kMinFlingVelocity from package:flutter/gestures.dart so the '
+            'threshold tracks framework changes.',
+      ),
+      _doRow(
+        false,
+        'AVOID',
+        'Confusing Velocity.pixelsPerSecond with a per-frame delta. The '
+            'units are pixels per second; multiply by the frame duration in '
+            'seconds before adding to a position.',
+      ),
+      _doRow(
+        false,
+        'AVOID',
+        'Storing a Velocity across a hot reload of the recognizer state. '
+            'The samples that produced it are gone; the value is now a fossil.',
+      ),
+      _doRow(
+        false,
+        'AVOID',
+        'Calling clampMagnitude with min == max == 0; the direction '
+            'becomes undefined. Use Velocity.zero directly instead.',
+      ),
     ],
   );
 }
@@ -1974,11 +2083,7 @@ Widget _doRow(bool good, String tag, String text) {
         Expanded(
           child: Text(
             text,
-            style: const TextStyle(
-              fontSize: 12,
-              color: daArgent,
-              height: 1.45,
-            ),
+            style: const TextStyle(fontSize: 12, color: daArgent, height: 1.45),
           ),
         ),
       ],
@@ -1995,9 +2100,7 @@ Widget _buildSection13Recap(List<_Scenario> scenarios) {
     width: double.infinity,
     padding: const EdgeInsets.all(20),
     decoration: BoxDecoration(
-      gradient: const LinearGradient(
-        colors: [daSlate, daSlateDeep],
-      ),
+      gradient: const LinearGradient(colors: [daSlate, daSlateDeep]),
       borderRadius: BorderRadius.circular(12),
       border: Border.all(color: daArgent, width: 1.5),
     ),
@@ -2078,8 +2181,7 @@ Widget _sectionCard({
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          padding:
-              const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           decoration: BoxDecoration(
             color: accent,
             borderRadius: BorderRadius.circular(6),

@@ -65,11 +65,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(28.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Color(0xFF1A237E),
-          Color(0xFF512DA8),
-          Color(0xFF7B1FA2),
-        ],
+        colors: [Color(0xFF1A237E), Color(0xFF512DA8), Color(0xFF7B1FA2)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -98,7 +94,10 @@ dynamic build(BuildContext context) {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
-            border: Border.all(color: Colors.white.withValues(alpha: 0.6), width: 2.0),
+            border: Border.all(
+              color: Colors.white.withValues(alpha: 0.6),
+              width: 2.0,
+            ),
           ),
           child: Icon(
             Icons.center_focus_strong,
@@ -792,8 +791,7 @@ dynamic build(BuildContext context) {
               Expanded(
                 child: Container(
                   margin: EdgeInsets.symmetric(horizontal: 3.0),
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 4.0, vertical: 6.0),
+                  padding: EdgeInsets.symmetric(horizontal: 4.0, vertical: 6.0),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
@@ -853,9 +851,7 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 for (final ui.ViewFocusDirection d in dirs)
-                  Expanded(
-                    child: _buildMatrixCell(s, d),
-                  ),
+                  Expanded(child: _buildMatrixCell(s, d)),
               ],
             ),
           ),
@@ -917,10 +913,7 @@ dynamic build(BuildContext context) {
           Padding(
             padding: EdgeInsets.symmetric(vertical: 3.0),
             child: Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: 10.0,
-                vertical: 8.0,
-              ),
+              padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
               decoration: BoxDecoration(
                 color: Colors.black.withValues(alpha: 0.35),
                 borderRadius: BorderRadius.circular(6.0),
@@ -1009,10 +1002,18 @@ dynamic build(BuildContext context) {
             _buildLifecycleStep('1', 'Platform', Icons.computer, Colors.indigo),
             _buildLifecycleArrow(),
             _buildLifecycleStep(
-                '2', 'Engine', Icons.developer_board, Colors.purple),
+              '2',
+              'Engine',
+              Icons.developer_board,
+              Colors.purple,
+            ),
             _buildLifecycleArrow(),
             _buildLifecycleStep(
-                '3', 'Dispatcher', Icons.podcasts, Colors.deepOrange),
+              '3',
+              'Dispatcher',
+              Icons.podcasts,
+              Colors.deepOrange,
+            ),
             _buildLifecycleArrow(),
             _buildLifecycleStep('4', 'Callback', Icons.call, Colors.green),
           ],
@@ -1247,10 +1248,7 @@ Widget _buildAnatomyRow({
               SizedBox(height: 3.0),
               Text(
                 purpose,
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.grey.shade800,
-                ),
+                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade800),
               ),
             ],
           ),
@@ -1271,10 +1269,7 @@ Widget _buildEnumValueTile({
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          color.withValues(alpha: 0.12),
-          color.withValues(alpha: 0.25),
-        ],
+        colors: [color.withValues(alpha: 0.12), color.withValues(alpha: 0.25)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1388,10 +1383,7 @@ Widget _buildDirectionRow(ui.ViewFocusDirection d) {
               ),
               Text(
                 description,
-                style: TextStyle(
-                  fontSize: 11.5,
-                  color: Colors.grey.shade800,
-                ),
+                style: TextStyle(fontSize: 11.5, color: Colors.grey.shade800),
               ),
             ],
           ),
@@ -1411,10 +1403,7 @@ Widget _buildFieldGridTile(
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          color.withValues(alpha: 0.1),
-          color.withValues(alpha: 0.3),
-        ],
+        colors: [color.withValues(alpha: 0.1), color.withValues(alpha: 0.3)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1488,10 +1477,7 @@ Widget _buildRecipeCard(_Recipe r) {
               padding: EdgeInsets.all(8.0),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [
-                    r.accent.withValues(alpha: 0.7),
-                    r.accent,
-                  ],
+                  colors: [r.accent.withValues(alpha: 0.7), r.accent],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
@@ -1670,10 +1656,7 @@ Widget _buildMatrixCell(ui.ViewFocusState s, ui.ViewFocusDirection d) {
     padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          base.withValues(alpha: 0.15),
-          base.withValues(alpha: 0.35),
-        ],
+        colors: [base.withValues(alpha: 0.15), base.withValues(alpha: 0.35)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1733,10 +1716,7 @@ Widget _buildLifecycleStep(
             width: 24.0,
             height: 24.0,
             alignment: Alignment.center,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: color,
-            ),
+            decoration: BoxDecoration(shape: BoxShape.circle, color: color),
             child: Text(
               index,
               style: TextStyle(
@@ -1766,10 +1746,6 @@ Widget _buildLifecycleStep(
 Widget _buildLifecycleArrow() {
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: 4.0),
-    child: Icon(
-      Icons.chevron_right,
-      color: Colors.teal.shade700,
-      size: 24.0,
-    ),
+    child: Icon(Icons.chevron_right, color: Colors.teal.shade700, size: 24.0),
   );
 }

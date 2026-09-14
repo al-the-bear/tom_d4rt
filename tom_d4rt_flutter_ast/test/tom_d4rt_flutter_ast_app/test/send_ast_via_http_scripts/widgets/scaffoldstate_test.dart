@@ -189,8 +189,11 @@ class _PrivateTitleBar extends StatelessWidget {
               border: Border.all(color: _kAccent.withValues(alpha: 0.35)),
             ),
             alignment: Alignment.center,
-            child: const Icon(Icons.dashboard_customize_outlined,
-                color: _kAccent, size: 28),
+            child: const Icon(
+              Icons.dashboard_customize_outlined,
+              color: _kAccent,
+              size: 28,
+            ),
           ),
           const SizedBox(width: 18),
           Expanded(
@@ -225,11 +228,7 @@ class _PrivateTitleBar extends StatelessWidget {
             bg: _kAccentSoft,
           ),
           const SizedBox(width: 8),
-          _PrivateBadge(
-            label: 'analyzer-clean',
-            fg: _kGood,
-            bg: _kGoodSoft,
-          ),
+          _PrivateBadge(label: 'analyzer-clean', fg: _kGood, bg: _kGoodSoft),
         ],
       ),
     );
@@ -403,10 +402,7 @@ class _PrivateHeroCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              SizedBox(
-                height: 360,
-                child: _PrivateScaffoldFromAboveDiagram(),
-              ),
+              SizedBox(height: 360, child: _PrivateScaffoldFromAboveDiagram()),
               const SizedBox(height: 18),
               Wrap(
                 spacing: 10,
@@ -676,8 +672,7 @@ class _PrivateAnatomyPanel extends StatelessWidget {
                   _PrivateAnatomyRow(
                     name: 'openEndDrawer()',
                     sig: 'void',
-                    text:
-                        'Same as openDrawer but for `Scaffold.endDrawer`.',
+                    text: 'Same as openDrawer but for `Scaffold.endDrawer`.',
                   ),
                   _PrivateAnatomyRow(
                     name: 'closeDrawer()',
@@ -731,8 +726,7 @@ class _PrivateAnatomyPanel extends StatelessWidget {
                   _PrivateAnatomyRow(
                     name: 'removeCurrentSnackBar()',
                     sig: 'void',
-                    text:
-                        'Removes without animating. Same deprecation note.',
+                    text: 'Removes without animating. Same deprecation note.',
                   ),
                 ],
               ),
@@ -897,8 +891,7 @@ class _PrivateAnatomyRowView extends StatelessWidget {
                 ),
               ),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
                   color: _kBg,
                   borderRadius: BorderRadius.circular(6),
@@ -1072,11 +1065,7 @@ class _PrivatePhoneMock extends StatelessWidget {
           Text(
             subtitle,
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 11.5,
-              color: accent,
-              fontFamily: _kMono,
-            ),
+            style: TextStyle(fontSize: 11.5, color: accent, fontFamily: _kMono),
           ),
         ],
       ),
@@ -1096,9 +1085,7 @@ class _PrivatePhoneScreen extends StatelessWidget {
         final double h = cons.maxHeight;
         final double appBarH = 36;
         final List<Widget> layers = <Widget>[
-          Positioned.fill(
-            child: Container(color: _kPhoneScreen),
-          ),
+          Positioned.fill(child: Container(color: _kPhoneScreen)),
           Positioned(
             left: 0,
             right: 0,
@@ -1149,61 +1136,75 @@ class _PrivatePhoneScreen extends StatelessWidget {
         ];
         // Drawer overlays
         if (kind == _PrivatePhoneKind.drawerOpen) {
-          layers.add(Positioned(
-            left: 0,
-            right: 0,
-            top: appBarH,
-            bottom: 0,
-            child: Container(color: _kPhoneScrim.withValues(alpha: 0.45)),
-          ));
-          layers.add(Positioned(
-            left: 0,
-            top: appBarH,
-            bottom: 0,
-            width: w * 0.65,
-            child: _PrivateDrawerInside(side: 'start'),
-          ));
+          layers.add(
+            Positioned(
+              left: 0,
+              right: 0,
+              top: appBarH,
+              bottom: 0,
+              child: Container(color: _kPhoneScrim.withValues(alpha: 0.45)),
+            ),
+          );
+          layers.add(
+            Positioned(
+              left: 0,
+              top: appBarH,
+              bottom: 0,
+              width: w * 0.65,
+              child: _PrivateDrawerInside(side: 'start'),
+            ),
+          );
         } else if (kind == _PrivatePhoneKind.endDrawerOpen) {
-          layers.add(Positioned(
-            left: 0,
-            right: 0,
-            top: appBarH,
-            bottom: 0,
-            child: Container(color: _kPhoneScrim.withValues(alpha: 0.45)),
-          ));
-          layers.add(Positioned(
-            right: 0,
-            top: appBarH,
-            bottom: 0,
-            width: w * 0.65,
-            child: _PrivateDrawerInside(side: 'end'),
-          ));
+          layers.add(
+            Positioned(
+              left: 0,
+              right: 0,
+              top: appBarH,
+              bottom: 0,
+              child: Container(color: _kPhoneScrim.withValues(alpha: 0.45)),
+            ),
+          );
+          layers.add(
+            Positioned(
+              right: 0,
+              top: appBarH,
+              bottom: 0,
+              width: w * 0.65,
+              child: _PrivateDrawerInside(side: 'end'),
+            ),
+          );
         }
         // Sheet overlays
         if (kind == _PrivatePhoneKind.sheetCollapsed) {
-          layers.add(Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            height: 36,
-            child: _PrivateSheetSurface(label: 'handle'),
-          ));
+          layers.add(
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              height: 36,
+              child: _PrivateSheetSurface(label: 'handle'),
+            ),
+          );
         } else if (kind == _PrivatePhoneKind.sheetExpanded) {
-          layers.add(Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            height: h * 0.62,
-            child: _PrivateSheetSurface(label: 'expanded'),
-          ));
+          layers.add(
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              height: h * 0.62,
+              child: _PrivateSheetSurface(label: 'expanded'),
+            ),
+          );
         } else if (kind == _PrivatePhoneKind.sheetDragging) {
-          layers.add(Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            height: h * 0.36,
-            child: _PrivateSheetSurface(label: 'dragging'),
-          ));
+          layers.add(
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              height: h * 0.36,
+              child: _PrivateSheetSurface(label: 'dragging'),
+            ),
+          );
         }
         return Stack(children: layers);
       },
@@ -1619,45 +1620,47 @@ class _PrivateMessengerDeprecationPanel extends StatelessWidget {
               // IntrinsicHeight resolves the cross-axis height to the tallest
               // child's intrinsic height before stretch fires — visual
               // (two height-matched _PrivateBeforeAfterCard panels) preserved.
-              IntrinsicHeight(child: Row(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Expanded(
-                    child: _PrivateBeforeAfterCard(
-                      header: 'Before — deprecated',
-                      tone: _kBad,
-                      toneSoft: _kBadSoft,
-                      icon: Icons.warning_amber_outlined,
-                      code: '''// This still works but is deprecated.
+              IntrinsicHeight(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Expanded(
+                      child: _PrivateBeforeAfterCard(
+                        header: 'Before — deprecated',
+                        tone: _kBad,
+                        toneSoft: _kBadSoft,
+                        icon: Icons.warning_amber_outlined,
+                        code: '''// This still works but is deprecated.
 Scaffold.of(context).showSnackBar(
   const SnackBar(content: Text('saved!')),
 );''',
-                      bullets: const <String>[
-                        'Scoped to one Scaffold widget.',
-                        'Disappears if the route is replaced before the snack bar finishes.',
-                        'Issues an analyzer warning under deprecated_member_use.',
-                      ],
+                        bullets: const <String>[
+                          'Scoped to one Scaffold widget.',
+                          'Disappears if the route is replaced before the snack bar finishes.',
+                          'Issues an analyzer warning under deprecated_member_use.',
+                        ],
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: _PrivateBeforeAfterCard(
-                      header: 'After — preferred',
-                      tone: _kGood,
-                      toneSoft: _kGoodSoft,
-                      icon: Icons.verified_outlined,
-                      code: '''ScaffoldMessenger.of(context).showSnackBar(
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: _PrivateBeforeAfterCard(
+                        header: 'After — preferred',
+                        tone: _kGood,
+                        toneSoft: _kGoodSoft,
+                        icon: Icons.verified_outlined,
+                        code: '''ScaffoldMessenger.of(context).showSnackBar(
   const SnackBar(content: Text('saved!')),
 );''',
-                      bullets: const <String>[
-                        'Scoped to the messenger subtree (default: MaterialApp).',
-                        'Snack bar can outlive the originating route.',
-                        'Returns a ScaffoldFeatureController for hide/remove.',
-                      ],
+                        bullets: const <String>[
+                          'Scoped to the messenger subtree (default: MaterialApp).',
+                          'Snack bar can outlive the originating route.',
+                          'Returns a ScaffoldFeatureController for hide/remove.',
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              )),
+                  ],
+                ),
+              ),
               const SizedBox(height: 18),
               _PrivateNoteBanner(
                 color: _kWarn,
@@ -1838,15 +1841,17 @@ _scaffoldKey.currentState?.openDrawer();''',
                 // Row(stretch)+Expanded inside SCV-descended Column chain;
                 // IntrinsicHeight bounds the cross-axis height to the tallest
                 // card before stretch demands an infinite tight height.
-                return IntrinsicHeight(child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    for (int i = 0; i < cards.length; i++) ...<Widget>[
-                      Expanded(child: cards[i]),
-                      if (i != cards.length - 1) const SizedBox(width: 16),
+                return IntrinsicHeight(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      for (int i = 0; i < cards.length; i++) ...<Widget>[
+                        Expanded(child: cards[i]),
+                        if (i != cards.length - 1) const SizedBox(width: 16),
+                      ],
                     ],
-                  ],
-                ));
+                  ),
+                );
               }
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -2075,8 +2080,11 @@ class _PrivateFlowRow extends StatelessWidget {
                 if (i != steps.length - 1)
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 4),
-                    child: Icon(Icons.arrow_downward,
-                        color: _kInkMuted, size: 16),
+                    child: Icon(
+                      Icons.arrow_downward,
+                      color: _kInkMuted,
+                      size: 16,
+                    ),
                   ),
               ],
             ],
@@ -2086,20 +2094,25 @@ class _PrivateFlowRow extends StatelessWidget {
         // Row(stretch)+Expanded inside SCV-descended Column chain;
         // IntrinsicHeight resolves the cross-axis height to the tallest
         // flow chip before stretch demands an infinite tight height.
-        return IntrinsicHeight(child: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            for (int i = 0; i < steps.length; i++) ...<Widget>[
-              Expanded(child: _PrivateFlowChip(step: steps[i])),
-              if (i != steps.length - 1)
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 6),
-                  child: Icon(Icons.arrow_forward,
-                      color: _kInkMuted, size: 18),
-                ),
+        return IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              for (int i = 0; i < steps.length; i++) ...<Widget>[
+                Expanded(child: _PrivateFlowChip(step: steps[i])),
+                if (i != steps.length - 1)
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 6),
+                    child: Icon(
+                      Icons.arrow_forward,
+                      color: _kInkMuted,
+                      size: 18,
+                    ),
+                  ),
+              ],
             ],
-          ],
-        ));
+          ),
+        );
       },
     );
   }
@@ -2289,10 +2302,7 @@ class _PrivateCallStep extends StatelessWidget {
           Container(
             width: 10,
             height: 10,
-            decoration: BoxDecoration(
-              color: tone,
-              shape: BoxShape.circle,
-            ),
+            decoration: BoxDecoration(color: tone, shape: BoxShape.circle),
           ),
           const SizedBox(width: 10),
           Expanded(
@@ -2311,10 +2321,7 @@ class _PrivateCallStep extends StatelessWidget {
                 const SizedBox(height: 2),
                 Text(
                   sub,
-                  style: const TextStyle(
-                    fontSize: 11.5,
-                    color: _kInkSoft,
-                  ),
+                  style: const TextStyle(fontSize: 11.5, color: _kInkSoft),
                 ),
               ],
             ),
@@ -2436,7 +2443,8 @@ _key.currentState?.openDrawer();''',
               ),
               SizedBox(height: 16),
               _PrivatePitfallCard(
-                title: 'Looking for showFloatingActionButton — it does not exist',
+                title:
+                    'Looking for showFloatingActionButton — it does not exist',
                 bad:
                     'There is no showFloatingActionButton method on '
                     'ScaffoldState. The FAB is configured statically as the '
@@ -2532,14 +2540,16 @@ class _PrivatePitfallCard extends StatelessWidget {
                 // Row(stretch)+Expanded inside SCV-descended Column chain;
                 // IntrinsicHeight bounds cross-axis height to the taller of
                 // (badPanel, goodPanel) before stretch fires.
-                return IntrinsicHeight(child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Expanded(child: badPanel),
-                    const SizedBox(width: 12),
-                    Expanded(child: goodPanel),
-                  ],
-                ));
+                return IntrinsicHeight(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Expanded(child: badPanel),
+                      const SizedBox(width: 12),
+                      Expanded(child: goodPanel),
+                    ],
+                  ),
+                );
               }
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -2661,17 +2671,9 @@ class _PrivateFooter extends StatelessWidget {
               ],
             ),
           ),
-          _PrivateBadge(
-            label: 'static',
-            fg: _kInkMuted,
-            bg: _kBg,
-          ),
+          _PrivateBadge(label: 'static', fg: _kInkMuted, bg: _kBg),
           const SizedBox(width: 8),
-          _PrivateBadge(
-            label: 'analyzer-clean',
-            fg: _kGood,
-            bg: _kGoodSoft,
-          ),
+          _PrivateBadge(label: 'analyzer-clean', fg: _kGood, bg: _kGoodSoft),
         ],
       ),
     );

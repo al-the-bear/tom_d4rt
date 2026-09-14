@@ -32,15 +32,24 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title,
-              style: TextStyle(
-                  color: fg, fontWeight: FontWeight.bold, fontSize: 16)),
+          Text(
+            title,
+            style: TextStyle(
+              color: fg,
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+          ),
           if (subtitle.isNotEmpty)
             Padding(
               padding: const EdgeInsets.only(top: 3),
-              child: Text(subtitle,
-                  style: TextStyle(
-                      color: fg.withValues(alpha: 0.85), fontSize: 12)),
+              child: Text(
+                subtitle,
+                style: TextStyle(
+                  color: fg.withValues(alpha: 0.85),
+                  fontSize: 12,
+                ),
+              ),
             ),
         ],
       ),
@@ -57,8 +66,7 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border(left: BorderSide(color: border, width: 4)),
       ),
-      child: Text(text,
-          style: TextStyle(fontSize: 13, color: darkBark)),
+      child: Text(text, style: TextStyle(fontSize: 13, color: darkBark)),
     );
   }
 
@@ -70,15 +78,17 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 170,
-            child: Text(label,
-                style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 13,
-                    color: accent)),
+            child: Text(
+              label,
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 13,
+                color: accent,
+              ),
+            ),
           ),
           Expanded(
-            child: Text(value,
-                style: TextStyle(fontSize: 13, color: darkBark)),
+            child: Text(value, style: TextStyle(fontSize: 13, color: darkBark)),
           ),
         ],
       ),
@@ -155,40 +165,50 @@ dynamic build(BuildContext context) {
             children: [
               Row(
                 children: [
-                  Icon(Icons.format_list_numbered, size: 28,
-                      color: wheat),
+                  Icon(Icons.format_list_numbered, size: 28, color: wheat),
                   const SizedBox(width: 10),
                   Expanded(
-                    child: Text('NumericFocusOrder',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold)),
+                    child: Text(
+                      'NumericFocusOrder',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ],
               ),
               const SizedBox(height: 6),
-              Text('A FocusOrder subclass that assigns numeric priority '
-                  'to focus traversal — lower values are visited first '
-                  'when Tab navigates through widgets',
-                  style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.9),
-                      fontSize: 13)),
+              Text(
+                'A FocusOrder subclass that assigns numeric priority '
+                'to focus traversal — lower values are visited first '
+                'when Tab navigates through widgets',
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.9),
+                  fontSize: 13,
+                ),
+              ),
               const SizedBox(height: 10),
-              Wrap(children: [
-                tag('FocusOrder', fawn, Colors.white),
-                tag('double order', warmFawn, darkBark),
-                tag('doCompare()', wheat, darkBark),
-                tag('OrderedTraversalPolicy', lightWheat, darkBark),
-              ]),
+              Wrap(
+                children: [
+                  tag('FocusOrder', fawn, Colors.white),
+                  tag('double order', warmFawn, darkBark),
+                  tag('doCompare()', wheat, darkBark),
+                  tag('OrderedTraversalPolicy', lightWheat, darkBark),
+                ],
+              ),
             ],
           ),
         ),
 
         // ── 2. What is NumericFocusOrder ─────────────────────────────
-        sectionBanner('1 \u00b7 What Is NumericFocusOrder',
-            'A concrete FocusOrder using doubles for priority',
-            deepFawn, Colors.white),
+        sectionBanner(
+          '1 \u00b7 What Is NumericFocusOrder',
+          'A concrete FocusOrder using doubles for priority',
+          deepFawn,
+          Colors.white,
+        ),
         noteBox(
           'NumericFocusOrder extends FocusOrder and assigns a double '
           'value to its order property. When used with '
@@ -208,9 +228,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 3. Class hierarchy ───────────────────────────────────────
-        sectionBanner('2 \u00b7 The FocusOrder Hierarchy',
-            'Where NumericFocusOrder fits in the tree',
-            fawn, Colors.white),
+        sectionBanner(
+          '2 \u00b7 The FocusOrder Hierarchy',
+          'Where NumericFocusOrder fits in the tree',
+          fawn,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -237,16 +260,19 @@ dynamic build(BuildContext context) {
                     borderRadius: BorderRadius.circular(6),
                     border: level.$3
                         ? Border.all(color: level.$2)
-                        : Border.all(
-                            color: level.$2.withValues(alpha: 0.3)),
+                        : Border.all(color: level.$2.withValues(alpha: 0.3)),
                   ),
-                  child: Text(level.$1,
-                      style: TextStyle(
-                          fontFamily: 'monospace',
-                          fontSize: 12,
-                          fontWeight:
-                              level.$3 ? FontWeight.bold : FontWeight.normal,
-                          color: level.$2)),
+                  child: Text(
+                    level.$1,
+                    style: TextStyle(
+                      fontFamily: 'monospace',
+                      fontSize: 12,
+                      fontWeight: level.$3
+                          ? FontWeight.bold
+                          : FontWeight.normal,
+                      color: level.$2,
+                    ),
+                  ),
                 ),
             ],
           ),
@@ -262,9 +288,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 4. doCompare() method ────────────────────────────────────
-        sectionBanner('3 \u00b7 The doCompare() Method',
-            'Implementation detail of numeric comparison',
-            warmFawn, Colors.white),
+        sectionBanner(
+          '3 \u00b7 The doCompare() Method',
+          'Implementation detail of numeric comparison',
+          warmFawn,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -281,19 +310,20 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: deepFawn.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                      color: deepFawn.withValues(alpha: 0.3)),
+                  border: Border.all(color: deepFawn.withValues(alpha: 0.3)),
                 ),
                 child: Text(
-                    '// SDK source code:\n'
-                    '@override\n'
-                    'int doCompare(NumericFocusOrder other) {\n'
-                    '  return order.compareTo(other.order);\n'
-                    '}',
-                    style: TextStyle(
-                        fontSize: 11,
-                        fontFamily: 'monospace',
-                        color: deepFawn)),
+                  '// SDK source code:\n'
+                  '@override\n'
+                  'int doCompare(NumericFocusOrder other) {\n'
+                  '  return order.compareTo(other.order);\n'
+                  '}',
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                    color: deepFawn,
+                  ),
+                ),
               ),
               const SizedBox(height: 8),
               noteBox(
@@ -310,9 +340,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 5. Required widget setup ─────────────────────────────────
-        sectionBanner('4 \u00b7 Required Widget Setup',
-            'The three pieces needed for ordered traversal',
-            deepFawn, Colors.white),
+        sectionBanner(
+          '4 \u00b7 Required Widget Setup',
+          'The three pieces needed for ordered traversal',
+          deepFawn,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -323,26 +356,32 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final step in [
-                ('1. FocusTraversalGroup',
-                    'FocusTraversalGroup(\n'
-                    '  policy: OrderedTraversalPolicy(),\n'
-                    '  child: ...\n'
-                    ')',
-                    'Wraps a region of focus nodes and sets the policy.',
-                    fawn),
-                ('2. FocusTraversalOrder',
-                    'FocusTraversalOrder(\n'
-                    '  order: NumericFocusOrder(1.0),\n'
-                    '  child: myWidget,\n'
-                    ')',
-                    'Assigns a numeric order to an individual focusable widget.',
-                    deepFawn),
-                ('3. The focusable widget',
-                    'TextField(...)\n'
-                    'ElevatedButton(...)\n'
-                    'Focus(child: ...)',
-                    'The actual widget that receives focus. Must be focusable.',
-                    warmFawn),
+                (
+                  '1. FocusTraversalGroup',
+                  'FocusTraversalGroup(\n'
+                      '  policy: OrderedTraversalPolicy(),\n'
+                      '  child: ...\n'
+                      ')',
+                  'Wraps a region of focus nodes and sets the policy.',
+                  fawn,
+                ),
+                (
+                  '2. FocusTraversalOrder',
+                  'FocusTraversalOrder(\n'
+                      '  order: NumericFocusOrder(1.0),\n'
+                      '  child: myWidget,\n'
+                      ')',
+                  'Assigns a numeric order to an individual focusable widget.',
+                  deepFawn,
+                ),
+                (
+                  '3. The focusable widget',
+                  'TextField(...)\n'
+                      'ElevatedButton(...)\n'
+                      'Focus(child: ...)',
+                  'The actual widget that receives focus. Must be focusable.',
+                  warmFawn,
+                ),
               ])
                 Container(
                   width: double.infinity,
@@ -351,17 +390,19 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: step.$4.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border(
-                        left: BorderSide(color: step.$4, width: 3)),
+                    border: Border(left: BorderSide(color: step.$4, width: 3)),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(step.$1,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                              color: step.$4)),
+                      Text(
+                        step.$1,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                          color: step.$4,
+                        ),
+                      ),
                       const SizedBox(height: 4),
                       Container(
                         width: double.infinity,
@@ -370,16 +411,20 @@ dynamic build(BuildContext context) {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(4),
                         ),
-                        child: Text(step.$2,
-                            style: TextStyle(
-                                fontSize: 10,
-                                fontFamily: 'monospace',
-                                color: darkBark)),
+                        child: Text(
+                          step.$2,
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontFamily: 'monospace',
+                            color: darkBark,
+                          ),
+                        ),
                       ),
                       const SizedBox(height: 4),
-                      Text(step.$3,
-                          style: TextStyle(
-                              fontSize: 11, color: darkBark)),
+                      Text(
+                        step.$3,
+                        style: TextStyle(fontSize: 11, color: darkBark),
+                      ),
                     ],
                   ),
                 ),
@@ -389,9 +434,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 6. Live demo: ordered traversal ──────────────────────────
-        sectionBanner('5 \u00b7 Live Demo: Ordered Traversal',
-            'Tab traversal in numeric order instead of visual order',
-            fawn, Colors.white),
+        sectionBanner(
+          '5 \u00b7 Live Demo: Ordered Traversal',
+          'Tab traversal in numeric order instead of visual order',
+          fawn,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -416,9 +464,10 @@ dynamic build(BuildContext context) {
                     children: [
                       Icon(Icons.tab, size: 16, color: accentOlive),
                       const SizedBox(width: 6),
-                      Text('Tab order: 3 \u2192 1 \u2192 4 \u2192 2 (by numeric order)',
-                          style: TextStyle(
-                              fontSize: 10, color: darkBark)),
+                      Text(
+                        'Tab order: 3 \u2192 1 \u2192 4 \u2192 2 (by numeric order)',
+                        style: TextStyle(fontSize: 10, color: darkBark),
+                      ),
                     ],
                   ),
                 ),
@@ -436,13 +485,15 @@ dynamic build(BuildContext context) {
                       child: Container(
                         width: double.infinity,
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 8),
+                          horizontal: 12,
+                          vertical: 8,
+                        ),
                         decoration: BoxDecoration(
                           color: item.$3.withValues(alpha: 0.06),
                           borderRadius: BorderRadius.circular(6),
                           border: Border(
-                              left: BorderSide(
-                                  color: item.$3, width: 3)),
+                            left: BorderSide(color: item.$3, width: 3),
+                          ),
                         ),
                         child: Row(
                           children: [
@@ -452,21 +503,23 @@ dynamic build(BuildContext context) {
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
                                 color: item.$3,
-                                borderRadius:
-                                    BorderRadius.circular(4),
+                                borderRadius: BorderRadius.circular(4),
                               ),
-                              child: Text('${item.$1.toInt()}',
-                                  style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.bold)),
+                              child: Text(
+                                '${item.$1.toInt()}',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
                             const SizedBox(width: 8),
                             Expanded(
-                              child: Text(item.$2,
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      color: darkBark)),
+                              child: Text(
+                                item.$2,
+                                style: TextStyle(fontSize: 12, color: darkBark),
+                              ),
                             ),
                             SizedBox(
                               width: 80,
@@ -476,13 +529,14 @@ dynamic build(BuildContext context) {
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: item.$3,
                                   foregroundColor: Colors.white,
-                                  padding:
-                                      const EdgeInsets.symmetric(
-                                          vertical: 2),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 2,
+                                  ),
                                 ),
-                                child: Text('Focus me',
-                                    style: const TextStyle(
-                                        fontSize: 9)),
+                                child: Text(
+                                  'Focus me',
+                                  style: const TextStyle(fontSize: 9),
+                                ),
                               ),
                             ),
                           ],
@@ -505,9 +559,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 7. Decimal ordering ──────────────────────────────────────
-        sectionBanner('6 \u00b7 Decimal Ordering',
-            'Fine-grained control with fractional values',
-            warmFawn, Colors.white),
+        sectionBanner(
+          '6 \u00b7 Decimal Ordering',
+          'Fine-grained control with fractional values',
+          warmFawn,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -527,12 +584,13 @@ dynamic build(BuildContext context) {
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 2),
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 12, vertical: 6),
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
                   decoration: BoxDecoration(
                     color: frac.$3.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(6),
-                    border: Border(
-                        left: BorderSide(color: frac.$3, width: 2)),
+                    border: Border(left: BorderSide(color: frac.$3, width: 2)),
                   ),
                   child: Row(
                     children: [
@@ -540,22 +598,28 @@ dynamic build(BuildContext context) {
                         width: 42,
                         alignment: Alignment.center,
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 4, vertical: 2),
+                          horizontal: 4,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: frac.$3,
                           borderRadius: BorderRadius.circular(4),
                         ),
-                        child: Text('${frac.$1}',
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'monospace')),
+                        child: Text(
+                          '${frac.$1}',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'monospace',
+                          ),
+                        ),
                       ),
                       const SizedBox(width: 8),
-                      Text(frac.$2,
-                          style: TextStyle(
-                              fontSize: 12, color: darkBark)),
+                      Text(
+                        frac.$2,
+                        style: TextStyle(fontSize: 12, color: darkBark),
+                      ),
                     ],
                   ),
                 ),
@@ -573,9 +637,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 8. Cannot mix with LexicalFocusOrder ─────────────────────
-        sectionBanner('7 \u00b7 Cannot Mix With LexicalFocusOrder',
-            'The runtimeType assertion constraint',
-            deepFawn, Colors.white),
+        sectionBanner(
+          '7 \u00b7 Cannot Mix With LexicalFocusOrder',
+          'The runtimeType assertion constraint',
+          deepFawn,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -596,19 +663,24 @@ dynamic build(BuildContext context) {
                 ),
                 child: Row(
                   children: [
-                    Icon(Icons.warning, size: 20,
-                        color: const Color(0xFFC62828)),
+                    Icon(
+                      Icons.warning,
+                      size: 20,
+                      color: const Color(0xFFC62828),
+                    ),
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                          'FocusOrder.compareTo() asserts:\n'
-                          'assert(runtimeType == other.runtimeType)\n\n'
-                          'Mixing NumericFocusOrder and LexicalFocusOrder\n'
-                          'in the same group crashes at runtime.',
-                          style: TextStyle(
-                              fontSize: 11,
-                              fontFamily: 'monospace',
-                              color: const Color(0xFFC62828))),
+                        'FocusOrder.compareTo() asserts:\n'
+                        'assert(runtimeType == other.runtimeType)\n\n'
+                        'Mixing NumericFocusOrder and LexicalFocusOrder\n'
+                        'in the same group crashes at runtime.',
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontFamily: 'monospace',
+                          color: const Color(0xFFC62828),
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -620,23 +692,24 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: deepFawn.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                      color: deepFawn.withValues(alpha: 0.3)),
+                  border: Border.all(color: deepFawn.withValues(alpha: 0.3)),
                 ),
                 child: Text(
-                    '// This would CRASH:\n'
-                    'FocusTraversalOrder(\n'
-                    '  order: NumericFocusOrder(1.0),\n'
-                    '  child: fieldA,\n'
-                    ')\n'
-                    'FocusTraversalOrder(\n'
-                    '  order: LexicalFocusOrder("a"),\n'
-                    '  child: fieldB, // ASSERTION ERROR\n'
-                    ')',
-                    style: TextStyle(
-                        fontSize: 11,
-                        fontFamily: 'monospace',
-                        color: deepFawn)),
+                  '// This would CRASH:\n'
+                  'FocusTraversalOrder(\n'
+                  '  order: NumericFocusOrder(1.0),\n'
+                  '  child: fieldA,\n'
+                  ')\n'
+                  'FocusTraversalOrder(\n'
+                  '  order: LexicalFocusOrder("a"),\n'
+                  '  child: fieldB, // ASSERTION ERROR\n'
+                  ')',
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                    color: deepFawn,
+                  ),
+                ),
               ),
             ],
           ),
@@ -644,9 +717,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 9. LexicalFocusOrder comparison ──────────────────────────
-        sectionBanner('8 \u00b7 Numeric vs Lexical FocusOrder',
-            'Choosing between the two concrete FocusOrder types',
-            fawn, Colors.white),
+        sectionBanner(
+          '8 \u00b7 Numeric vs Lexical FocusOrder',
+          'Choosing between the two concrete FocusOrder types',
+          fawn,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -667,21 +743,24 @@ dynamic build(BuildContext context) {
                   ),
                   child: Column(
                     children: [
-                      Icon(Icons.format_list_numbered, size: 24,
-                          color: fawn),
+                      Icon(Icons.format_list_numbered, size: 24, color: fawn),
                       const SizedBox(height: 4),
-                      Text('NumericFocusOrder',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 11,
-                              color: fawn)),
+                      Text(
+                        'NumericFocusOrder',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 11,
+                          color: fawn,
+                        ),
+                      ),
                       const SizedBox(height: 6),
-                      Text('double value\n1.0, 2.0, 3.5\n\n'
-                          'Simple numeric\ncomparison.\n\n'
-                          'Best for numbered\nsequences.',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 10, color: darkBark)),
+                      Text(
+                        'double value\n1.0, 2.0, 3.5\n\n'
+                        'Simple numeric\ncomparison.\n\n'
+                        'Best for numbered\nsequences.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 10, color: darkBark),
+                      ),
                     ],
                   ),
                 ),
@@ -697,21 +776,24 @@ dynamic build(BuildContext context) {
                   ),
                   child: Column(
                     children: [
-                      Icon(Icons.sort_by_alpha, size: 24,
-                          color: accentSlate),
+                      Icon(Icons.sort_by_alpha, size: 24, color: accentSlate),
                       const SizedBox(height: 4),
-                      Text('LexicalFocusOrder',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 11,
-                              color: accentSlate)),
+                      Text(
+                        'LexicalFocusOrder',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 11,
+                          color: accentSlate,
+                        ),
+                      ),
                       const SizedBox(height: 6),
-                      Text('String value\n"a", "b", "c"\n\n'
-                          'String.compareTo\nfor ordering.\n\n'
-                          'Best for alpha\nsequences.',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 10, color: darkBark)),
+                      Text(
+                        'String value\n"a", "b", "c"\n\n'
+                        'String.compareTo\nfor ordering.\n\n'
+                        'Best for alpha\nsequences.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 10, color: darkBark),
+                      ),
                     ],
                   ),
                 ),
@@ -722,9 +804,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 10. Live demo: form field ordering ───────────────────────
-        sectionBanner('9 \u00b7 Live Demo: Form Field Ordering',
-            'Reordering text fields with NumericFocusOrder',
-            deepFawn, Colors.white),
+        sectionBanner(
+          '9 \u00b7 Live Demo: Form Field Ordering',
+          'Reordering text fields with NumericFocusOrder',
+          deepFawn,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -746,10 +831,10 @@ dynamic build(BuildContext context) {
                     border: Border.all(color: accentOlive),
                   ),
                   child: Text(
-                      'Visual order: Email, Phone, Name, Zip\n'
-                      'Tab order: Name(1) \u2192 Email(2) \u2192 Phone(3) \u2192 Zip(4)',
-                      style: TextStyle(
-                          fontSize: 10, color: darkBark)),
+                    'Visual order: Email, Phone, Name, Zip\n'
+                    'Tab order: Name(1) \u2192 Email(2) \u2192 Phone(3) \u2192 Zip(4)',
+                    style: TextStyle(fontSize: 10, color: darkBark),
+                  ),
                 ),
                 const SizedBox(height: 8),
                 for (final field in [
@@ -770,18 +855,19 @@ dynamic build(BuildContext context) {
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                               color: field.$4,
-                              borderRadius:
-                                  BorderRadius.circular(4),
+                              borderRadius: BorderRadius.circular(4),
                             ),
-                            child: Text('${field.$2.toInt()}',
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.bold)),
+                            child: Text(
+                              '${field.$2.toInt()}',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                           const SizedBox(width: 8),
-                          Icon(field.$3, size: 16,
-                              color: field.$4),
+                          Icon(field.$3, size: 16, color: field.$4),
                           const SizedBox(width: 6),
                           Expanded(
                             child: SizedBox(
@@ -790,31 +876,31 @@ dynamic build(BuildContext context) {
                                 decoration: InputDecoration(
                                   labelText: field.$1,
                                   labelStyle: TextStyle(
-                                      fontSize: 11,
-                                      color: field.$4),
-                                  contentPadding:
-                                      const EdgeInsets.symmetric(
-                                          horizontal: 8, vertical: 4),
+                                    fontSize: 11,
+                                    color: field.$4,
+                                  ),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                    vertical: 4,
+                                  ),
                                   border: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.circular(6),
+                                    borderRadius: BorderRadius.circular(6),
                                   ),
                                   enabledBorder: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.circular(6),
+                                    borderRadius: BorderRadius.circular(6),
                                     borderSide: BorderSide(
-                                        color: field.$4
-                                            .withValues(alpha: 0.3)),
+                                      color: field.$4.withValues(alpha: 0.3),
+                                    ),
                                   ),
                                   focusedBorder: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.circular(6),
+                                    borderRadius: BorderRadius.circular(6),
                                     borderSide: BorderSide(
-                                        color: field.$4, width: 2),
+                                      color: field.$4,
+                                      width: 2,
+                                    ),
                                   ),
                                 ),
-                                style: TextStyle(
-                                    fontSize: 12, color: darkBark),
+                                style: TextStyle(fontSize: 12, color: darkBark),
                               ),
                             ),
                           ),
@@ -829,9 +915,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 11. Without OrderedTraversalPolicy ───────────────────────
-        sectionBanner('10 \u00b7 Without OrderedTraversalPolicy',
-            'What happens when focus orders are ignored',
-            warmFawn, Colors.white),
+        sectionBanner(
+          '10 \u00b7 Without OrderedTraversalPolicy',
+          'What happens when focus orders are ignored',
+          warmFawn,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -842,18 +931,27 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final policy in [
-                ('WidgetOrderTraversalPolicy',
-                    'Traverses in widget tree creation order (the default). '
-                    'Ignores FocusTraversalOrder completely.',
-                    Icons.reorder, fawn),
-                ('ReadingOrderTraversalPolicy',
-                    'Traverses in reading order (LTR or RTL based on locale). '
-                    'Also ignores FocusTraversalOrder.',
-                    Icons.menu_book, warmFawn),
-                ('OrderedTraversalPolicy',
-                    'The ONLY policy that respects FocusTraversalOrder. '
-                    'Sorts ordered nodes first, then unordered via secondary.',
-                    Icons.format_list_numbered, deepFawn),
+                (
+                  'WidgetOrderTraversalPolicy',
+                  'Traverses in widget tree creation order (the default). '
+                      'Ignores FocusTraversalOrder completely.',
+                  Icons.reorder,
+                  fawn,
+                ),
+                (
+                  'ReadingOrderTraversalPolicy',
+                  'Traverses in reading order (LTR or RTL based on locale). '
+                      'Also ignores FocusTraversalOrder.',
+                  Icons.menu_book,
+                  warmFawn,
+                ),
+                (
+                  'OrderedTraversalPolicy',
+                  'The ONLY policy that respects FocusTraversalOrder. '
+                      'Sorts ordered nodes first, then unordered via secondary.',
+                  Icons.format_list_numbered,
+                  deepFawn,
+                ),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 3),
@@ -862,7 +960,8 @@ dynamic build(BuildContext context) {
                     color: policy.$4.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8),
                     border: Border(
-                        left: BorderSide(color: policy.$4, width: 3)),
+                      left: BorderSide(color: policy.$4, width: 3),
+                    ),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -873,15 +972,19 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(policy.$1,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12,
-                                    fontFamily: 'monospace',
-                                    color: policy.$4)),
-                            Text(policy.$2,
-                                style: TextStyle(
-                                    fontSize: 11, color: darkBark)),
+                            Text(
+                              policy.$1,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                                fontFamily: 'monospace',
+                                color: policy.$4,
+                              ),
+                            ),
+                            Text(
+                              policy.$2,
+                              style: TextStyle(fontSize: 11, color: darkBark),
+                            ),
                           ],
                         ),
                       ),
@@ -901,9 +1004,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 12. Secondary policy behavior ────────────────────────────
-        sectionBanner('11 \u00b7 Secondary Policy',
-            'How OrderedTraversalPolicy handles unordered nodes',
-            deepFawn, Colors.white),
+        sectionBanner(
+          '11 \u00b7 Secondary Policy',
+          'How OrderedTraversalPolicy handles unordered nodes',
+          deepFawn,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -919,11 +1025,16 @@ dynamic build(BuildContext context) {
                   margin: const EdgeInsets.symmetric(vertical: 3),
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: [fawn, deepFawn, warmFawn, accentOlive][i]
-                        .withValues(alpha: 0.06),
+                    color: [
+                      fawn,
+                      deepFawn,
+                      warmFawn,
+                      accentOlive,
+                    ][i].withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(6),
                     border: Border.all(
-                        color: [fawn, deepFawn, warmFawn, accentOlive][i]),
+                      color: [fawn, deepFawn, warmFawn, accentOlive][i],
+                    ),
                   ),
                   child: Row(
                     children: [
@@ -935,22 +1046,26 @@ dynamic build(BuildContext context) {
                           color: [fawn, deepFawn, warmFawn, accentOlive][i],
                           borderRadius: BorderRadius.circular(11),
                         ),
-                        child: Text('${i + 1}',
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold)),
+                        child: Text(
+                          '${i + 1}',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                       const SizedBox(width: 8),
                       Expanded(
-                        child: Text([
-                          'Sort ALL nodes by secondary policy (default: ReadingOrder)',
-                          'Split into ordered (have FocusTraversalOrder) and unordered',
-                          'Stable-sort the ordered list by FocusOrder.compareTo()',
-                          'Result: ordered nodes first, then unordered nodes',
-                        ][i],
-                            style: TextStyle(
-                                fontSize: 11, color: darkBark)),
+                        child: Text(
+                          [
+                            'Sort ALL nodes by secondary policy (default: ReadingOrder)',
+                            'Split into ordered (have FocusTraversalOrder) and unordered',
+                            'Stable-sort the ordered list by FocusOrder.compareTo()',
+                            'Result: ordered nodes first, then unordered nodes',
+                          ][i],
+                          style: TextStyle(fontSize: 11, color: darkBark),
+                        ),
                       ),
                     ],
                   ),
@@ -961,9 +1076,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 13. Performance notes ────────────────────────────────────
-        sectionBanner('12 \u00b7 Performance Characteristics',
-            'Cost and efficiency considerations',
-            fawn, Colors.white),
+        sectionBanner(
+          '12 \u00b7 Performance Characteristics',
+          'Cost and efficiency considerations',
+          fawn,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -974,27 +1092,48 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final perf in [
-                ('Object size', 'Single double field — 8 bytes + overhead',
-                    Icons.memory, fawn),
-                ('Comparison', 'O(1) double.compareTo — trivial cost',
-                    Icons.speed, deepFawn),
-                ('Sort', 'Stable mergeSort on ordered nodes — O(n log n)',
-                    Icons.sort, warmFawn),
-                ('Ancestor lookup', 'FocusTraversalOrder.of() walks ancestors — '
-                    'cached per frame',
-                    Icons.search, accentSlate),
-                ('Const', 'Fully const — zero allocation overhead',
-                    Icons.eco, accentOlive),
+                (
+                  'Object size',
+                  'Single double field — 8 bytes + overhead',
+                  Icons.memory,
+                  fawn,
+                ),
+                (
+                  'Comparison',
+                  'O(1) double.compareTo — trivial cost',
+                  Icons.speed,
+                  deepFawn,
+                ),
+                (
+                  'Sort',
+                  'Stable mergeSort on ordered nodes — O(n log n)',
+                  Icons.sort,
+                  warmFawn,
+                ),
+                (
+                  'Ancestor lookup',
+                  'FocusTraversalOrder.of() walks ancestors — '
+                      'cached per frame',
+                  Icons.search,
+                  accentSlate,
+                ),
+                (
+                  'Const',
+                  'Fully const — zero allocation overhead',
+                  Icons.eco,
+                  accentOlive,
+                ),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 2),
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 10, vertical: 6),
+                    horizontal: 10,
+                    vertical: 6,
+                  ),
                   decoration: BoxDecoration(
                     color: perf.$4.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(6),
-                    border: Border(
-                        left: BorderSide(color: perf.$4, width: 2)),
+                    border: Border(left: BorderSide(color: perf.$4, width: 2)),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1006,16 +1145,17 @@ dynamic build(BuildContext context) {
                           text: TextSpan(
                             children: [
                               TextSpan(
-                                  text: '${perf.$1}: ',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 11,
-                                      color: perf.$4)),
+                                text: '${perf.$1}: ',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 11,
+                                  color: perf.$4,
+                                ),
+                              ),
                               TextSpan(
-                                  text: perf.$2,
-                                  style: TextStyle(
-                                      fontSize: 11,
-                                      color: darkBark)),
+                                text: perf.$2,
+                                style: TextStyle(fontSize: 11, color: darkBark),
+                              ),
                             ],
                           ),
                         ),
@@ -1029,9 +1169,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 14. Common patterns ──────────────────────────────────────
-        sectionBanner('13 \u00b7 Common Patterns',
-            'Real-world usage scenarios',
-            warmFawn, Colors.white),
+        sectionBanner(
+          '13 \u00b7 Common Patterns',
+          'Real-world usage scenarios',
+          warmFawn,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1042,18 +1185,38 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final pattern in [
-                ('Login form', 'Username(1) \u2192 Password(2) \u2192 Submit(3)',
-                    Icons.login, fawn),
-                ('Address form', 'Name(1) \u2192 Street(2) \u2192 City(3) '
-                    '\u2192 State(4) \u2192 Zip(5)',
-                    Icons.home, deepFawn),
-                ('Toolbar', 'Bold(1) \u2192 Italic(2) \u2192 Underline(3)',
-                    Icons.format_bold, warmFawn),
-                ('Dialog', 'Input(1) \u2192 Cancel(2) \u2192 Confirm(3)',
-                    Icons.check_box, accentOlive),
-                ('Grid skip', 'Header(1) \u2192 Cell(5) — skip decoration '
-                    'elements between',
-                    Icons.grid_on, accentSlate),
+                (
+                  'Login form',
+                  'Username(1) \u2192 Password(2) \u2192 Submit(3)',
+                  Icons.login,
+                  fawn,
+                ),
+                (
+                  'Address form',
+                  'Name(1) \u2192 Street(2) \u2192 City(3) '
+                      '\u2192 State(4) \u2192 Zip(5)',
+                  Icons.home,
+                  deepFawn,
+                ),
+                (
+                  'Toolbar',
+                  'Bold(1) \u2192 Italic(2) \u2192 Underline(3)',
+                  Icons.format_bold,
+                  warmFawn,
+                ),
+                (
+                  'Dialog',
+                  'Input(1) \u2192 Cancel(2) \u2192 Confirm(3)',
+                  Icons.check_box,
+                  accentOlive,
+                ),
+                (
+                  'Grid skip',
+                  'Header(1) \u2192 Cell(5) — skip decoration '
+                      'elements between',
+                  Icons.grid_on,
+                  accentSlate,
+                ),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 3),
@@ -1062,7 +1225,8 @@ dynamic build(BuildContext context) {
                     color: pattern.$4.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8),
                     border: Border(
-                        left: BorderSide(color: pattern.$4, width: 3)),
+                      left: BorderSide(color: pattern.$4, width: 3),
+                    ),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1073,14 +1237,18 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(pattern.$1,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12,
-                                    color: pattern.$4)),
-                            Text(pattern.$2,
-                                style: TextStyle(
-                                    fontSize: 11, color: darkBark)),
+                            Text(
+                              pattern.$1,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                                color: pattern.$4,
+                              ),
+                            ),
+                            Text(
+                              pattern.$2,
+                              style: TextStyle(fontSize: 11, color: darkBark),
+                            ),
                           ],
                         ),
                       ),
@@ -1093,9 +1261,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 15. Equality and identity ────────────────────────────────
-        sectionBanner('14 \u00b7 Equality and Identity',
-            'How NumericFocusOrder instances compare',
-            deepFawn, Colors.white),
+        sectionBanner(
+          '14 \u00b7 Equality and Identity',
+          'How NumericFocusOrder instances compare',
+          deepFawn,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1106,17 +1277,23 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              dataRow('operator ==',
-                  'Not overridden — identity-based. Two NumericFocusOrder(1.0) are NOT ==.',
-                  fawn),
+              dataRow(
+                'operator ==',
+                'Not overridden — identity-based. Two NumericFocusOrder(1.0) are NOT ==.',
+                fawn,
+              ),
               const SizedBox(height: 4),
-              dataRow('compareTo',
-                  'Compares .order values. Two NumericFocusOrder(1.0) compare as equal (returns 0).',
-                  deepFawn),
+              dataRow(
+                'compareTo',
+                'Compares .order values. Two NumericFocusOrder(1.0) compare as equal (returns 0).',
+                deepFawn,
+              ),
               const SizedBox(height: 4),
-              dataRow('const',
-                  'const NumericFocusOrder(1.0) — identical instances thanks to const canonicalization.',
-                  warmFawn),
+              dataRow(
+                'const',
+                'const NumericFocusOrder(1.0) — identical instances thanks to const canonicalization.',
+                warmFawn,
+              ),
               const SizedBox(height: 8),
               noteBox(
                 'With const, identical order values produce the same instance. '
@@ -1131,8 +1308,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 16. Summary ──────────────────────────────────────────────
-        sectionBanner('15 \u00b7 Summary',
-            'Key takeaways', deepFawn, Colors.white),
+        sectionBanner(
+          '15 \u00b7 Summary',
+          'Key takeaways',
+          deepFawn,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -1164,15 +1345,19 @@ dynamic build(BuildContext context) {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('\u2022  ',
-                          style: TextStyle(
-                              color: wheat,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14)),
+                      Text(
+                        '\u2022  ',
+                        style: TextStyle(
+                          color: wheat,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                      ),
                       Expanded(
-                        child: Text(point,
-                            style: TextStyle(
-                                color: Colors.white, fontSize: 13)),
+                        child: Text(
+                          point,
+                          style: TextStyle(color: Colors.white, fontSize: 13),
+                        ),
                       ),
                     ],
                   ),

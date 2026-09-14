@@ -387,7 +387,11 @@ Widget _heroBanner() {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[Color(0xFF0F172A), Color(0xFF1D4ED8), Color(0xFF6D28D9)],
+        colors: <Color>[
+          Color(0xFF0F172A),
+          Color(0xFF1D4ED8),
+          Color(0xFF6D28D9),
+        ],
       ),
       borderRadius: BorderRadius.circular(18.0),
       boxShadow: const <BoxShadow>[
@@ -490,7 +494,8 @@ Widget _heroIntroCard() {
       children: <Widget>[
         _cardTitle(
           'What is foundation.dart?',
-          subtitle: 'The lowest Flutter-specific layer. Pure Dart, no '
+          subtitle:
+              'The lowest Flutter-specific layer. Pure Dart, no '
               'rendering, no widgets. It hosts platform detection, build-mode '
               'constants, the Listenable family, Diagnosticable, and a '
               'handful of math / byte helpers (clampDouble, Endian, BitField).',
@@ -509,11 +514,7 @@ Widget _heroIntroCard() {
             'certainly lives in foundation. The widgets / painting / '
             'rendering libraries depend on foundation, never the other '
             'way round.',
-            style: TextStyle(
-              fontSize: 13.5,
-              height: 1.5,
-              color: _kInk,
-            ),
+            style: TextStyle(fontSize: 13.5, height: 1.5, color: _kInk),
           ),
         ),
         const SizedBox(height: 14.0),
@@ -647,10 +648,7 @@ Widget _platformTile(_PlatformTileSpec spec, bool isDefault) {
                       fontFamily: 'monospace',
                     ),
                   ),
-                  Text(
-                    'index ${spec.platform.index}',
-                    style: _kCaptionStyle,
-                  ),
+                  Text('index ${spec.platform.index}', style: _kCaptionStyle),
                 ],
               ),
             ),
@@ -672,7 +670,8 @@ Widget _platformMatrix() {
       children: <Widget>[
         _cardTitle(
           'TargetPlatform - the 6 constants',
-          subtitle: 'Use it for cosmetic branching only. Do not gate features '
+          subtitle:
+              'Use it for cosmetic branching only. Do not gate features '
               'on it - prefer capability checks.',
         ),
         const SizedBox(height: 14.0),
@@ -680,8 +679,7 @@ Widget _platformMatrix() {
           builder: (BuildContext context, BoxConstraints constraints) {
             final double w = constraints.maxWidth;
             final int columns = w >= 720.0 ? 3 : (w >= 480.0 ? 2 : 1);
-            final double tileWidth =
-                (w - (columns - 1) * 10.0) / columns;
+            final double tileWidth = (w - (columns - 1) * 10.0) / columns;
             return Wrap(
               spacing: 10.0,
               runSpacing: 10.0,
@@ -736,7 +734,8 @@ Widget _platformVariantCard() {
       children: <Widget>[
         _cardTitle(
           'TargetPlatformVariant',
-          subtitle: 'A flutter_test TestVariant<TargetPlatform> that runs the '
+          subtitle:
+              'A flutter_test TestVariant<TargetPlatform> that runs the '
               'same testWidgets body once per TargetPlatform value.',
         ),
         const SizedBox(height: 12.0),
@@ -764,16 +763,23 @@ Widget _platformVariantCard() {
                       ),
                     ),
                     const SizedBox(height: 8.0),
-                    _kvRow('TargetPlatformVariant.all()',
-                        'every TargetPlatform value'),
-                    _kvRow('TargetPlatformVariant.only(p)',
-                        'a single platform'),
-                    _kvRow('TargetPlatformVariant.desktop()',
-                        'linux + macOS + windows'),
-                    _kvRow('TargetPlatformVariant.mobile()',
-                        'android + iOS + fuchsia'),
-                    _kvRow('TargetPlatformVariant({...})',
-                        'an explicit set'),
+                    _kvRow(
+                      'TargetPlatformVariant.all()',
+                      'every TargetPlatform value',
+                    ),
+                    _kvRow(
+                      'TargetPlatformVariant.only(p)',
+                      'a single platform',
+                    ),
+                    _kvRow(
+                      'TargetPlatformVariant.desktop()',
+                      'linux + macOS + windows',
+                    ),
+                    _kvRow(
+                      'TargetPlatformVariant.mobile()',
+                      'android + iOS + fuchsia',
+                    ),
+                    _kvRow('TargetPlatformVariant({...})', 'an explicit set'),
                   ],
                 ),
               ),
@@ -876,16 +882,31 @@ Widget _modePill(bool value) {
 
 Widget _buildModePanel() {
   final List<_ModeRow> rows = <_ModeRow>[
-    _ModeRow('kReleaseMode', kReleaseMode,
-        'true when the binary was compiled with --release.'),
-    _ModeRow('kDebugMode', kDebugMode,
-        'true in dev builds; assertions are enabled here.'),
-    _ModeRow('kProfileMode', kProfileMode,
-        'true when --profile was used; timeline data is collected.'),
-    _ModeRow('kIsWeb', kIsWeb,
-        'true when the script targets dart2js or dart2wasm on the web.'),
-    _ModeRow('kIsWasm', kIsWasm,
-        'true when compiled to WebAssembly specifically.'),
+    _ModeRow(
+      'kReleaseMode',
+      kReleaseMode,
+      'true when the binary was compiled with --release.',
+    ),
+    _ModeRow(
+      'kDebugMode',
+      kDebugMode,
+      'true in dev builds; assertions are enabled here.',
+    ),
+    _ModeRow(
+      'kProfileMode',
+      kProfileMode,
+      'true when --profile was used; timeline data is collected.',
+    ),
+    _ModeRow(
+      'kIsWeb',
+      kIsWeb,
+      'true when the script targets dart2js or dart2wasm on the web.',
+    ),
+    _ModeRow(
+      'kIsWasm',
+      kIsWasm,
+      'true when compiled to WebAssembly specifically.',
+    ),
   ];
   return _card(
     child: Column(
@@ -893,7 +914,8 @@ Widget _buildModePanel() {
       children: <Widget>[
         _cardTitle(
           'Build-mode constants',
-          subtitle: 'Compile-time const bools. The dart compiler tree-shakes '
+          subtitle:
+              'Compile-time const bools. The dart compiler tree-shakes '
               'branches gated on `if (kReleaseMode)` etc.',
         ),
         const SizedBox(height: 12.0),
@@ -997,14 +1019,10 @@ class _NotifierDiagramPainter extends CustomPainter {
 
     // Box positions.
     final Rect listenable = Rect.fromLTWH(20.0, 30.0, 180.0, 70.0);
-    final Rect changeNotifier =
-        Rect.fromLTWH(20.0, 130.0, 180.0, 70.0);
-    final Rect valueNotifier =
-        Rect.fromLTWH(20.0, 230.0, 180.0, 70.0);
-    final Rect mergedFanIn =
-        Rect.fromLTWH(260.0, 130.0, 200.0, 70.0);
-    final Rect listener =
-        Rect.fromLTWH(520.0, 130.0, 180.0, 70.0);
+    final Rect changeNotifier = Rect.fromLTWH(20.0, 130.0, 180.0, 70.0);
+    final Rect valueNotifier = Rect.fromLTWH(20.0, 230.0, 180.0, 70.0);
+    final Rect mergedFanIn = Rect.fromLTWH(260.0, 130.0, 200.0, 70.0);
+    final Rect listener = Rect.fromLTWH(520.0, 130.0, 180.0, 70.0);
 
     void _drawBox(Rect r, String title, String subtitle, Color colour) {
       canvas.drawRRect(
@@ -1045,17 +1063,36 @@ class _NotifierDiagramPainter extends CustomPainter {
       tp.paint(canvas, Offset(r.left + 8.0, r.top + 8.0));
     }
 
-    _drawBox(listenable, 'Listenable',
-        'addListener / removeListener\nbase interface', _kAccent);
-    _drawBox(changeNotifier, 'ChangeNotifier',
-        'mixin, hasListeners,\nnotifyListeners()', _kAccentBlue);
-    _drawBox(valueNotifier, 'ValueNotifier<T>',
-        'wraps a value,\nfires on T mutation', _kAccentTeal);
-    _drawBox(mergedFanIn, 'Listenable.merge([a, b])',
-        'fan-in adapter, no\nstate of its own', _kAccentViolet);
-    _drawBox(listener, 'VoidCallback',
-        'addListener(cb)\nnever throws',
-        _kAccentGreen);
+    _drawBox(
+      listenable,
+      'Listenable',
+      'addListener / removeListener\nbase interface',
+      _kAccent,
+    );
+    _drawBox(
+      changeNotifier,
+      'ChangeNotifier',
+      'mixin, hasListeners,\nnotifyListeners()',
+      _kAccentBlue,
+    );
+    _drawBox(
+      valueNotifier,
+      'ValueNotifier<T>',
+      'wraps a value,\nfires on T mutation',
+      _kAccentTeal,
+    );
+    _drawBox(
+      mergedFanIn,
+      'Listenable.merge([a, b])',
+      'fan-in adapter, no\nstate of its own',
+      _kAccentViolet,
+    );
+    _drawBox(
+      listener,
+      'VoidCallback',
+      'addListener(cb)\nnever throws',
+      _kAccentGreen,
+    );
 
     // Arrows.
     final Paint arrowPaint = Paint()
@@ -1122,11 +1159,7 @@ class _NotifierDiagramPainter extends CustomPainter {
         text:
             'Listenable.merge collapses many sources into one Listenable;\n'
             'a single addListener fires when any input notifies.',
-        style: TextStyle(
-          color: _kInkSecondary,
-          fontSize: 11.5,
-          height: 1.35,
-        ),
+        style: TextStyle(color: _kInkSecondary, fontSize: 11.5, height: 1.35),
       ),
       textDirection: TextDirection.ltr,
     )..layout(maxWidth: size.width - 40.0);
@@ -1246,23 +1279,33 @@ class _DiagnosticableTreePainter extends CustomPainter {
 
     // Root: Diagnosticable
     final Rect root = Rect.fromLTWH(20.0, 20.0, 200.0, 60.0);
-    _drawBox(root, 'Diagnosticable',
-        _kAccent,
-        sub: 'mixin: toString,\ntoStringShort,\ntoDiagnosticsNode');
+    _drawBox(
+      root,
+      'Diagnosticable',
+      _kAccent,
+      sub: 'mixin: toString,\ntoStringShort,\ntoDiagnosticsNode',
+    );
 
     // Builder
     final Rect builder = Rect.fromLTWH(260.0, 20.0, 220.0, 60.0);
-    _drawBox(builder, 'DiagnosticPropertiesBuilder', _kAccentBlue,
-        sub: '.add(prop)\n.properties: List<...>');
+    _drawBox(
+      builder,
+      'DiagnosticPropertiesBuilder',
+      _kAccentBlue,
+      sub: '.add(prop)\n.properties: List<...>',
+    );
 
     // DiagnosticsNode
     final Rect node = Rect.fromLTWH(520.0, 20.0, 200.0, 60.0);
-    _drawBox(node, 'DiagnosticsNode', _kAccentViolet,
-        sub: 'name + value + style\ntoDescription()');
+    _drawBox(
+      node,
+      'DiagnosticsNode',
+      _kAccentViolet,
+      sub: 'name + value + style\ntoDescription()',
+    );
 
     // Property subclasses row
-    final List<MapEntry<String, String>> props =
-        <MapEntry<String, String>>[
+    final List<MapEntry<String, String>> props = <MapEntry<String, String>>[
       MapEntry('IntProperty', 'int'),
       MapEntry('DoubleProperty', 'double, units'),
       MapEntry('FlagProperty', 'bool, ifTrue/False'),
@@ -1309,11 +1352,7 @@ class _DiagnosticableTreePainter extends CustomPainter {
         text:
             'debugFillProperties(DiagnosticPropertiesBuilder b) builds a node\n'
             'tree that toString and devtools both consume.',
-        style: TextStyle(
-          color: _kInkSecondary,
-          fontSize: 11.0,
-          height: 1.35,
-        ),
+        style: TextStyle(color: _kInkSecondary, fontSize: 11.0, height: 1.35),
       ),
       textDirection: TextDirection.ltr,
     )..layout(maxWidth: size.width - 40.0);
@@ -1328,8 +1367,10 @@ Widget _diagnosticableSection() {
   // Build a couple of DiagnosticsProperty instances so the card can show
   // them rendered next to the diagram. They are constructed once; we never
   // attach them to a builder more than once.
-  final DiagnosticsProperty<String> nameProp =
-      DiagnosticsProperty<String>('label', 'Button A');
+  final DiagnosticsProperty<String> nameProp = DiagnosticsProperty<String>(
+    'label',
+    'Button A',
+  );
   final IntProperty widthProp = IntProperty('width', 240);
   final DoubleProperty opacityProp = DoubleProperty('opacity', 0.85);
   final FlagProperty visibleProp = FlagProperty(
@@ -1340,8 +1381,9 @@ Widget _diagnosticableSection() {
   );
   final EnumProperty<TargetPlatform> platformProp =
       EnumProperty<TargetPlatform>('platform', TargetPlatform.iOS);
-  final DiagnosticsNode messageNode =
-      DiagnosticsNode.message('A static message diagnostic');
+  final DiagnosticsNode messageNode = DiagnosticsNode.message(
+    'A static message diagnostic',
+  );
   final DiagnosticPropertiesBuilder builder = DiagnosticPropertiesBuilder()
     ..add(nameProp)
     ..add(widthProp)
@@ -1394,8 +1436,10 @@ Widget _diagnosticableSection() {
               _kvRow('DoubleProperty', opacityProp.toString()),
               _kvRow('FlagProperty', visibleProp.toString()),
               _kvRow('EnumProperty<TargetPlatform>', platformProp.toString()),
-              _kvRow('builder.properties.length',
-                  '${builder.properties.length}'),
+              _kvRow(
+                'builder.properties.length',
+                '${builder.properties.length}',
+              ),
             ],
           ),
         ),
@@ -1457,10 +1501,7 @@ Widget _debugPrintSection() {
                       children: <Widget>[
                         _pill('print', colour: _kInkTertiary),
                         const SizedBox(width: 8.0),
-                        const Text(
-                          'dart:core',
-                          style: _kCaptionStyle,
-                        ),
+                        const Text('dart:core', style: _kCaptionStyle),
                       ],
                     ),
                     const SizedBox(height: 10.0),
@@ -1488,10 +1529,7 @@ Widget _debugPrintSection() {
                       children: <Widget>[
                         _pill('debugPrint', colour: _kAccent),
                         const SizedBox(width: 8.0),
-                        const Text(
-                          'foundation',
-                          style: _kCaptionStyle,
-                        ),
+                        const Text('foundation', style: _kCaptionStyle),
                       ],
                     ),
                     const SizedBox(height: 10.0),
@@ -1673,8 +1711,7 @@ Widget _endianCard() {
 Widget _factoryCard() {
   // Factory<T> is a const-friendly thunk used by plugins so the framework
   // can defer constructing T until the host knows which subclass to use.
-  const Factory<String> stringFactory =
-      Factory<String>(_makeGreeting);
+  const Factory<String> stringFactory = Factory<String>(_makeGreeting);
   return _card(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1920,8 +1957,7 @@ Widget _recipeCards() {
           children: <Widget>[
             _cardTitle(
               'Recipe: silence debugPrint in tests',
-              subtitle:
-                  'Replace the global function; restore in tearDown.',
+              subtitle: 'Replace the global function; restore in tearDown.',
             ),
             const SizedBox(height: 10.0),
             _codeBlock(
@@ -2034,7 +2070,8 @@ Widget _pitfallsPanel() {
       children: <Widget>[
         _cardTitle(
           'Pitfalls',
-          subtitle: 'Six things that bite people when they first reach for '
+          subtitle:
+              'Six things that bite people when they first reach for '
               'foundation symbols.',
         ),
         const SizedBox(height: 12.0),
@@ -2042,8 +2079,7 @@ Widget _pitfallsPanel() {
           builder: (BuildContext context, BoxConstraints constraints) {
             final double w = constraints.maxWidth;
             final int columns = w >= 720.0 ? 3 : (w >= 480.0 ? 2 : 1);
-            final double tileWidth =
-                (w - (columns - 1) * 10.0) / columns;
+            final double tileWidth = (w - (columns - 1) * 10.0) / columns;
             return Wrap(
               spacing: 10.0,
               runSpacing: 10.0,
@@ -2080,10 +2116,7 @@ Widget _cheatSheetFooter() {
         const SizedBox(height: 4.0),
         const Text(
           'A flat list of every symbol the poster touches.',
-          style: TextStyle(
-            color: _kInkOnDarkSecondary,
-            fontSize: 12.5,
-          ),
+          style: TextStyle(color: _kInkOnDarkSecondary, fontSize: 12.5),
         ),
         const SizedBox(height: 14.0),
         Wrap(
@@ -2097,8 +2130,10 @@ Widget _cheatSheetFooter() {
             _pill('TargetPlatform.macOS', colour: const Color(0xFFCBD5E1)),
             _pill('TargetPlatform.windows', colour: const Color(0xFF99F6E4)),
             _pill('defaultTargetPlatform', colour: const Color(0xFFFBCFE8)),
-            _pill('debugDefaultTargetPlatformOverride',
-                colour: const Color(0xFFFCD34D)),
+            _pill(
+              'debugDefaultTargetPlatformOverride',
+              colour: const Color(0xFFFCD34D),
+            ),
             _pill('kReleaseMode', colour: const Color(0xFFFCA5A5)),
             _pill('kDebugMode', colour: const Color(0xFF93C5FD)),
             _pill('kProfileMode', colour: const Color(0xFFA7F3D0)),
@@ -2119,8 +2154,10 @@ Widget _cheatSheetFooter() {
             _pill('flagProperty', colour: const Color(0xFFFBCFE8)),
             _pill('Diagnosticable', colour: const Color(0xFFC4B5FD)),
             _pill('DiagnosticsNode', colour: const Color(0xFF93C5FD)),
-            _pill('DiagnosticPropertiesBuilder',
-                colour: const Color(0xFFA7F3D0)),
+            _pill(
+              'DiagnosticPropertiesBuilder',
+              colour: const Color(0xFFA7F3D0),
+            ),
             _pill('IntProperty', colour: const Color(0xFFFCA5A5)),
             _pill('DoubleProperty', colour: const Color(0xFFFDBA74)),
             _pill('FlagProperty', colour: const Color(0xFFFCD34D)),
@@ -2129,10 +2166,7 @@ Widget _cheatSheetFooter() {
           ],
         ),
         const SizedBox(height: 14.0),
-        Container(
-          height: 1.0,
-          color: _kHairlineDark,
-        ),
+        Container(height: 1.0, color: _kHairlineDark),
         const SizedBox(height: 10.0),
         const Text(
           'Generated once at build(). No setState, no Timer, no async. '
@@ -2159,8 +2193,10 @@ dynamic build(BuildContext context) {
   if (kDebugMode) {
     debugPrint('foundation_misc_adv: building static poster');
     debugPrint('  defaultTargetPlatform = $defaultTargetPlatform');
-    debugPrint('  kReleaseMode=$kReleaseMode kDebugMode=$kDebugMode '
-        'kProfileMode=$kProfileMode kIsWeb=$kIsWeb');
+    debugPrint(
+      '  kReleaseMode=$kReleaseMode kDebugMode=$kDebugMode '
+      'kProfileMode=$kProfileMode kIsWeb=$kIsWeb',
+    );
   }
 
   return MaterialApp(

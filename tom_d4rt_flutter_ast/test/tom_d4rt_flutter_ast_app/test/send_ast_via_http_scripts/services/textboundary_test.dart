@@ -123,9 +123,19 @@ const EdgeInsets _kSectionPadding = EdgeInsets.symmetric(horizontal: 18.0);
 // `Widget`s. They are intentionally not wrapped in StatelessWidget subclasses
 // so the file reads top-to-bottom in narrative order.
 
-Widget _sectionHeader(int index, String title, String tagline, {Color colour = _kAccentBoundary}) {
+Widget _sectionHeader(
+  int index,
+  String title,
+  String tagline, {
+  Color colour = _kAccentBoundary,
+}) {
   return Padding(
-    padding: const EdgeInsets.only(top: 28.0, bottom: 12.0, left: 18.0, right: 18.0),
+    padding: const EdgeInsets.only(
+      top: 28.0,
+      bottom: 12.0,
+      left: 18.0,
+      right: 18.0,
+    ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -173,7 +183,10 @@ Widget _card({
   required Widget child,
   Color background = _kCardBg,
   EdgeInsets padding = _kCardPadding,
-  EdgeInsets margin = const EdgeInsets.symmetric(horizontal: 18.0, vertical: 6.0),
+  EdgeInsets margin = const EdgeInsets.symmetric(
+    horizontal: 18.0,
+    vertical: 6.0,
+  ),
   Color border = _kHairline,
 }) {
   return Container(
@@ -195,7 +208,13 @@ Widget _card({
   );
 }
 
-Widget _cardTitle(String title, {String? subtitle, Color titleColor = _kInk, Color subtitleColor = _kInkSecondary, Color? accent}) {
+Widget _cardTitle(
+  String title, {
+  String? subtitle,
+  Color titleColor = _kInk,
+  Color subtitleColor = _kInkSecondary,
+  Color? accent,
+}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
@@ -229,14 +248,21 @@ Widget _cardTitle(String title, {String? subtitle, Color titleColor = _kInk, Col
         const SizedBox(height: 4.0),
         Padding(
           padding: EdgeInsets.only(left: accent != null ? 12.0 : 0.0),
-          child: Text(subtitle, style: TextStyle(fontSize: 12.5, color: subtitleColor)),
+          child: Text(
+            subtitle,
+            style: TextStyle(fontSize: 12.5, color: subtitleColor),
+          ),
         ),
       ],
     ],
   );
 }
 
-Widget _pill(String label, {Color colour = _kAccentBoundary, Color? textColour}) {
+Widget _pill(
+  String label, {
+  Color colour = _kAccentBoundary,
+  Color? textColour,
+}) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 9.0, vertical: 3.0),
     decoration: BoxDecoration(
@@ -441,15 +467,26 @@ class _HierarchyPainter extends CustomPainter {
         ..color = node.colour
         ..strokeWidth = 1.4
         ..style = PaintingStyle.stroke;
-      final RRect rr = RRect.fromRectAndRadius(childRect, const Radius.circular(8.0));
+      final RRect rr = RRect.fromRectAndRadius(
+        childRect,
+        const Radius.circular(8.0),
+      );
       canvas.drawRRect(rr, childFill);
       canvas.drawRRect(rr, childStroke);
 
       // Connector line.
       final Offset top = Offset(cx, childRect.top);
       final Offset rootBottom = Offset(rootRect.center.dx, rootRect.bottom);
-      canvas.drawLine(rootBottom, Offset(rootBottom.dx, rootY + rootH + 12.0), linePaint);
-      canvas.drawLine(Offset(rootBottom.dx, rootY + rootH + 12.0), Offset(cx, rootY + rootH + 12.0), linePaint);
+      canvas.drawLine(
+        rootBottom,
+        Offset(rootBottom.dx, rootY + rootH + 12.0),
+        linePaint,
+      );
+      canvas.drawLine(
+        Offset(rootBottom.dx, rootY + rootH + 12.0),
+        Offset(cx, rootY + rootH + 12.0),
+        linePaint,
+      );
       canvas.drawLine(Offset(cx, rootY + rootH + 12.0), top, linePaint);
 
       // Title.
@@ -508,7 +545,11 @@ class _HierarchyNode {
 // every visible line break and draws a dashed-ish red marker between lines
 // to make the line iteration cost visible at a glance.
 class _LineBreakOverlayPainter extends CustomPainter {
-  _LineBreakOverlayPainter({required this.text, required this.style, required this.maxWidth});
+  _LineBreakOverlayPainter({
+    required this.text,
+    required this.style,
+    required this.maxWidth,
+  });
 
   final String text;
   final TextStyle style;
@@ -540,10 +581,15 @@ class _LineBreakOverlayPainter extends CustomPainter {
       if (range.start != previousStart || range.end != previousEnd) {
         previousStart = range.start;
         previousEnd = range.end;
-        if (range.start >= 0 && range.end >= range.start && range.start < text.length) {
+        if (range.start >= 0 &&
+            range.end >= range.start &&
+            range.start < text.length) {
           // Get the rect for the *start* of this line via getBoxesForSelection.
           final List<TextBox> boxes = painter.getBoxesForSelection(
-            TextSelection(baseOffset: range.start, extentOffset: math.min(range.end, text.length)),
+            TextSelection(
+              baseOffset: range.start,
+              extentOffset: math.min(range.end, text.length),
+            ),
           );
           if (boxes.isNotEmpty) {
             final TextBox box = boxes.first;
@@ -566,7 +612,9 @@ class _LineBreakOverlayPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _LineBreakOverlayPainter oldDelegate) =>
-      oldDelegate.text != text || oldDelegate.style != style || oldDelegate.maxWidth != maxWidth;
+      oldDelegate.text != text ||
+      oldDelegate.style != style ||
+      oldDelegate.maxWidth != maxWidth;
 }
 
 // ---------------------------------------------------------------------------
@@ -622,15 +670,19 @@ List<_BoundaryProbe> _probeCharacterBoundary(String text) {
     final int? trail = boundary.getTrailingTextBoundaryAt(i);
     final TextRange range = boundary.getTextBoundaryAt(i);
     final String before = i == 0 ? '' : _safeSlice(text, math.max(0, i - 1), i);
-    final String after = i >= text.length ? '' : _safeSlice(text, i, math.min(text.length, i + 1));
-    out.add(_BoundaryProbe(
-      offset: i,
-      charBefore: before,
-      charAfter: after,
-      leading: lead,
-      trailing: trail,
-      range: range,
-    ));
+    final String after = i >= text.length
+        ? ''
+        : _safeSlice(text, i, math.min(text.length, i + 1));
+    out.add(
+      _BoundaryProbe(
+        offset: i,
+        charBefore: before,
+        charAfter: after,
+        leading: lead,
+        trailing: trail,
+        range: range,
+      ),
+    );
   }
   return out;
 }
@@ -643,15 +695,19 @@ List<_BoundaryProbe> _probeParagraphBoundary(String text) {
     final int? trail = boundary.getTrailingTextBoundaryAt(i);
     final TextRange range = boundary.getTextBoundaryAt(i);
     final String before = i == 0 ? '' : _safeSlice(text, math.max(0, i - 1), i);
-    final String after = i >= text.length ? '' : _safeSlice(text, i, math.min(text.length, i + 1));
-    out.add(_BoundaryProbe(
-      offset: i,
-      charBefore: before,
-      charAfter: after,
-      leading: lead,
-      trailing: trail,
-      range: range,
-    ));
+    final String after = i >= text.length
+        ? ''
+        : _safeSlice(text, i, math.min(text.length, i + 1));
+    out.add(
+      _BoundaryProbe(
+        offset: i,
+        charBefore: before,
+        charAfter: after,
+        leading: lead,
+        trailing: trail,
+        range: range,
+      ),
+    );
   }
   return out;
 }
@@ -673,46 +729,66 @@ List<_BoundaryProbe> _probeDocumentBoundary(String text) {
     final int? lead = boundary.getLeadingTextBoundaryAt(safe);
     final int? trail = boundary.getTrailingTextBoundaryAt(safe);
     final TextRange range = boundary.getTextBoundaryAt(safe);
-    final String before = safe == 0 ? '' : _safeSlice(text, math.max(0, safe - 1), safe);
-    final String after = safe >= text.length ? '' : _safeSlice(text, safe, math.min(text.length, safe + 1));
-    out.add(_BoundaryProbe(
-      offset: safe,
-      charBefore: before,
-      charAfter: after,
-      leading: lead,
-      trailing: trail,
-      range: range,
-    ));
+    final String before = safe == 0
+        ? ''
+        : _safeSlice(text, math.max(0, safe - 1), safe);
+    final String after = safe >= text.length
+        ? ''
+        : _safeSlice(text, safe, math.min(text.length, safe + 1));
+    out.add(
+      _BoundaryProbe(
+        offset: safe,
+        charBefore: before,
+        charAfter: after,
+        leading: lead,
+        trailing: trail,
+        range: range,
+      ),
+    );
   }
   return out;
 }
 
 // For words we can't construct a WordBoundary directly (its constructor is
 // private). We compute boundaries via a layouted `TextPainter`.
-List<_BoundaryProbe> _probeWordBoundaryViaPainter(String text, TextStyle style, double maxWidth) {
+List<_BoundaryProbe> _probeWordBoundaryViaPainter(
+  String text,
+  TextStyle style,
+  double maxWidth,
+) {
   final TextPainter painter = TextPainter(
     text: TextSpan(text: text, style: style),
     textDirection: TextDirection.ltr,
   )..layout(maxWidth: maxWidth);
   final List<_BoundaryProbe> out = <_BoundaryProbe>[];
   for (int i = 0; i <= text.length; i++) {
-    final TextRange range = painter.getWordBoundary(TextPosition(offset: math.min(i, text.length)));
+    final TextRange range = painter.getWordBoundary(
+      TextPosition(offset: math.min(i, text.length)),
+    );
     final String before = i == 0 ? '' : _safeSlice(text, math.max(0, i - 1), i);
-    final String after = i >= text.length ? '' : _safeSlice(text, i, math.min(text.length, i + 1));
-    out.add(_BoundaryProbe(
-      offset: i,
-      charBefore: before,
-      charAfter: after,
-      leading: range.start,
-      trailing: range.end,
-      range: range,
-    ));
+    final String after = i >= text.length
+        ? ''
+        : _safeSlice(text, i, math.min(text.length, i + 1));
+    out.add(
+      _BoundaryProbe(
+        offset: i,
+        charBefore: before,
+        charAfter: after,
+        leading: range.start,
+        trailing: range.end,
+        range: range,
+      ),
+    );
   }
   return out;
 }
 
 // Lines come from a layouted `TextPainter.getLineBoundary`.
-List<_BoundaryProbe> _probeLineBoundaryViaPainter(String text, TextStyle style, double maxWidth) {
+List<_BoundaryProbe> _probeLineBoundaryViaPainter(
+  String text,
+  TextStyle style,
+  double maxWidth,
+) {
   final TextPainter painter = TextPainter(
     text: TextSpan(text: text, style: style),
     textDirection: TextDirection.ltr,
@@ -723,20 +799,28 @@ List<_BoundaryProbe> _probeLineBoundaryViaPainter(String text, TextStyle style, 
   int previousStart = -2;
   int previousEnd = -2;
   for (int i = 0; i <= text.length; i++) {
-    final TextRange range = painter.getLineBoundary(TextPosition(offset: math.min(i, text.length)));
+    final TextRange range = painter.getLineBoundary(
+      TextPosition(offset: math.min(i, text.length)),
+    );
     if (range.start != previousStart || range.end != previousEnd) {
       previousStart = range.start;
       previousEnd = range.end;
-      final String before = i == 0 ? '' : _safeSlice(text, math.max(0, i - 1), i);
-      final String after = i >= text.length ? '' : _safeSlice(text, i, math.min(text.length, i + 1));
-      out.add(_BoundaryProbe(
-        offset: i,
-        charBefore: before,
-        charAfter: after,
-        leading: range.start,
-        trailing: range.end,
-        range: range,
-      ));
+      final String before = i == 0
+          ? ''
+          : _safeSlice(text, math.max(0, i - 1), i);
+      final String after = i >= text.length
+          ? ''
+          : _safeSlice(text, i, math.min(text.length, i + 1));
+      out.add(
+        _BoundaryProbe(
+          offset: i,
+          charBefore: before,
+          charAfter: after,
+          leading: range.start,
+          trailing: range.end,
+          range: range,
+        ),
+      );
     }
   }
   return out;
@@ -745,7 +829,9 @@ List<_BoundaryProbe> _probeLineBoundaryViaPainter(String text, TextStyle style, 
 // Renders a single probe as an "annotation card" - a tiny chip showing
 // `offset / leading / trailing` plus the surrounding characters.
 Widget _probeCard(_BoundaryProbe probe, {required Color accent}) {
-  final String beforeDisplay = probe.charBefore.isEmpty ? '◁' : probe.charBefore;
+  final String beforeDisplay = probe.charBefore.isEmpty
+      ? '◁'
+      : probe.charBefore;
   final String afterDisplay = probe.charAfter.isEmpty ? '▷' : probe.charAfter;
   return Container(
     margin: const EdgeInsets.all(3.0),
@@ -809,7 +895,9 @@ Widget _probeGrid(List<_BoundaryProbe> probes, {required Color accent}) {
   return Wrap(
     spacing: 0.0,
     runSpacing: 0.0,
-    children: probes.map((_BoundaryProbe p) => _probeCard(p, accent: accent)).toList(),
+    children: probes
+        .map((_BoundaryProbe p) => _probeCard(p, accent: accent))
+        .toList(),
   );
 }
 
@@ -825,8 +913,8 @@ Widget _stringRuler(String text, {required Color accent}) {
     final Color cellColor = isHighSurrogate
         ? const Color(0xFFFFEDD5)
         : isLowSurrogate
-            ? const Color(0xFFFEF3C7)
-            : _kCardBg;
+        ? const Color(0xFFFEF3C7)
+        : _kCardBg;
     // For surrogate halves we render the hex value because a lone
     // high/low surrogate isn't well-formed UTF-16 and Text rejects
     // it. For BMP units (everything else) build the label from the
@@ -837,40 +925,42 @@ Widget _stringRuler(String text, {required Color accent}) {
     final String label = (isHighSurrogate || isLowSurrogate)
         ? '0x${unit.toRadixString(16).toUpperCase().padLeft(4, "0")}'
         : String.fromCharCode(unit);
-    cells.add(Container(
-      width: 28.0,
-      margin: const EdgeInsets.symmetric(horizontal: 1.0),
-      padding: const EdgeInsets.symmetric(vertical: 4.0),
-      decoration: BoxDecoration(
-        color: cellColor,
-        borderRadius: BorderRadius.circular(4.0),
-        border: Border.all(color: _kHairline),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: isHighSurrogate || isLowSurrogate ? 9.0 : 13.0,
-              fontWeight: FontWeight.w600,
-              color: _kInk,
-              fontFamily: 'monospace',
+    cells.add(
+      Container(
+        width: 28.0,
+        margin: const EdgeInsets.symmetric(horizontal: 1.0),
+        padding: const EdgeInsets.symmetric(vertical: 4.0),
+        decoration: BoxDecoration(
+          color: cellColor,
+          borderRadius: BorderRadius.circular(4.0),
+          border: Border.all(color: _kHairline),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: isHighSurrogate || isLowSurrogate ? 9.0 : 13.0,
+                fontWeight: FontWeight.w600,
+                color: _kInk,
+                fontFamily: 'monospace',
+              ),
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center,
-          ),
-          Text(
-            '$i',
-            style: TextStyle(
-              fontSize: 9.0,
-              color: accent,
-              fontFamily: 'monospace',
-              fontWeight: FontWeight.w700,
+            Text(
+              '$i',
+              style: TextStyle(
+                fontSize: 9.0,
+                color: accent,
+                fontFamily: 'monospace',
+                fontWeight: FontWeight.w700,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ));
+    );
   }
   return SingleChildScrollView(
     scrollDirection: Axis.horizontal,
@@ -939,7 +1029,9 @@ dynamic build(BuildContext context) {
     const TextStyle(fontSize: 14.0, color: _kInk, height: 1.45),
     320.0,
   );
-  final List<_BoundaryProbe> paragraphProbes = _probeParagraphBoundary(paragraphSample);
+  final List<_BoundaryProbe> paragraphProbes = _probeParagraphBoundary(
+    paragraphSample,
+  );
   final List<_BoundaryProbe> docProbes = _probeDocumentBoundary(docSample);
 
   print('  charProbes: ${charProbes.length}');
@@ -960,10 +1052,7 @@ dynamic build(BuildContext context) {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          Color(0xFF6750A4),
-          Color(0xFF2563EB),
-        ],
+        colors: <Color>[Color(0xFF6750A4), Color(0xFF2563EB)],
       ),
       borderRadius: BorderRadius.circular(20.0),
       boxShadow: const <BoxShadow>[
@@ -1022,11 +1111,31 @@ dynamic build(BuildContext context) {
           spacing: 8.0,
           runSpacing: 8.0,
           children: <Widget>[
-            _pill('Editor-aware', colour: const Color(0xFFFFFFFF), textColour: Colors.white),
-            _pill('Grapheme-safe', colour: const Color(0xFFFFFFFF), textColour: Colors.white),
-            _pill('Locale-aware', colour: const Color(0xFFFFFFFF), textColour: Colors.white),
-            _pill('Accessibility', colour: const Color(0xFFFFFFFF), textColour: Colors.white),
-            _pill('flutter/services', colour: const Color(0xFFFFFFFF), textColour: Colors.white),
+            _pill(
+              'Editor-aware',
+              colour: const Color(0xFFFFFFFF),
+              textColour: Colors.white,
+            ),
+            _pill(
+              'Grapheme-safe',
+              colour: const Color(0xFFFFFFFF),
+              textColour: Colors.white,
+            ),
+            _pill(
+              'Locale-aware',
+              colour: const Color(0xFFFFFFFF),
+              textColour: Colors.white,
+            ),
+            _pill(
+              'Accessibility',
+              colour: const Color(0xFFFFFFFF),
+              textColour: Colors.white,
+            ),
+            _pill(
+              'flutter/services',
+              colour: const Color(0xFFFFFFFF),
+              textColour: Colors.white,
+            ),
           ],
         ),
         const SizedBox(height: 16.0),
@@ -1121,7 +1230,10 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14.0),
         Text(
           'Probes - one per code-unit offset:',
-          style: _kCaptionStyle.copyWith(color: _kAccentChar, fontWeight: FontWeight.w700),
+          style: _kCaptionStyle.copyWith(
+            color: _kAccentChar,
+            fontWeight: FontWeight.w700,
+          ),
         ),
         const SizedBox(height: 6.0),
         _probeGrid(charProbes, accent: _kAccentChar),
@@ -1138,7 +1250,10 @@ dynamic build(BuildContext context) {
             children: <Widget>[
               _kvRow('length', '${charSample.length} code units'),
               _kvRow('graphemes', '${charSample.characters.length}'),
-              _kvRow('runtimeType', '${CharacterBoundary(charSample).runtimeType}'),
+              _kvRow(
+                'runtimeType',
+                '${CharacterBoundary(charSample).runtimeType}',
+              ),
               _kvRow('superclass', 'TextBoundary'),
             ],
           ),
@@ -1160,7 +1275,8 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         _cardTitle(
           'WordBoundary',
-          subtitle: 'Locale-aware word boundaries via TextPainter.getWordBoundary',
+          subtitle:
+              'Locale-aware word boundaries via TextPainter.getWordBoundary',
           accent: _kAccentWord,
         ),
         const SizedBox(height: 10.0),
@@ -1199,7 +1315,10 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14.0),
         Text(
           'Probes - one per code-unit offset:',
-          style: _kCaptionStyle.copyWith(color: _kAccentWord, fontWeight: FontWeight.w700),
+          style: _kCaptionStyle.copyWith(
+            color: _kAccentWord,
+            fontWeight: FontWeight.w700,
+          ),
         ),
         const SizedBox(height: 6.0),
         _probeGrid(wordProbes, accent: _kAccentWord),
@@ -1248,12 +1367,20 @@ dynamic build(BuildContext context) {
           'class shipped in flutter/services is `LineBoundary`, which wraps a '
           '`TextLayoutMetrics` (most commonly a `TextPainter`). The naming below '
           'follows the real API.',
-          style: _kCaptionStyle.copyWith(height: 1.5, fontStyle: FontStyle.italic),
+          style: _kCaptionStyle.copyWith(
+            height: 1.5,
+            fontStyle: FontStyle.italic,
+          ),
         ),
         const SizedBox(height: 12.0),
         Container(
           width: 320.0 + 16.0,
-          padding: const EdgeInsets.only(left: 16.0, right: 8.0, top: 8.0, bottom: 8.0),
+          padding: const EdgeInsets.only(
+            left: 16.0,
+            right: 8.0,
+            top: 8.0,
+            bottom: 8.0,
+          ),
           decoration: BoxDecoration(
             color: _kAccentLine.withOpacity(0.05),
             borderRadius: BorderRadius.circular(8.0),
@@ -1265,7 +1392,11 @@ dynamic build(BuildContext context) {
             child: CustomPaint(
               painter: _LineBreakOverlayPainter(
                 text: longParagraph,
-                style: const TextStyle(fontSize: 14.0, color: _kInk, height: 1.45),
+                style: const TextStyle(
+                  fontSize: 14.0,
+                  color: _kInk,
+                  height: 1.45,
+                ),
                 maxWidth: 320.0,
               ),
             ),
@@ -1274,7 +1405,10 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14.0),
         Text(
           'One probe per visible line:',
-          style: _kCaptionStyle.copyWith(color: _kAccentLine, fontWeight: FontWeight.w700),
+          style: _kCaptionStyle.copyWith(
+            color: _kAccentLine,
+            fontWeight: FontWeight.w700,
+          ),
         ),
         const SizedBox(height: 6.0),
         _probeGrid(lineProbes, accent: _kAccentLine),
@@ -1342,7 +1476,10 @@ dynamic build(BuildContext context) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               _kvRow('always', '[0, text.length)'),
-              _kvRow('runtimeType', '${DocumentBoundary(docSample).runtimeType}'),
+              _kvRow(
+                'runtimeType',
+                '${DocumentBoundary(docSample).runtimeType}',
+              ),
               _kvRow('null at', 'position < 0 (leading)'),
               _kvRow('null at', 'position >= length (trailing)'),
             ],
@@ -1395,7 +1532,10 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 12.0),
         Text(
           'Annotated probes:',
-          style: _kCaptionStyle.copyWith(color: _kAccentParagraph, fontWeight: FontWeight.w700),
+          style: _kCaptionStyle.copyWith(
+            color: _kAccentParagraph,
+            fontWeight: FontWeight.w700,
+          ),
         ),
         const SizedBox(height: 6.0),
         _probeGrid(paragraphProbes, accent: _kAccentParagraph),
@@ -1411,7 +1551,10 @@ dynamic build(BuildContext context) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               _kvRow('separator', 'LF / CR / CRLF / LS / PS'),
-              _kvRow('runtimeType', '${ParagraphBoundary(paragraphSample).runtimeType}'),
+              _kvRow(
+                'runtimeType',
+                '${ParagraphBoundary(paragraphSample).runtimeType}',
+              ),
               _kvRow('used by', 'block-level ops, paragraph nav'),
               _kvRow('layout-free', 'true - only needs the String'),
             ],
@@ -1426,7 +1569,13 @@ dynamic build(BuildContext context) {
   // -------------------------------------------------------------------------
   // Five rows: Boundary type / unit size / surrogate-aware / locale-aware /
   // keyboard shortcut consumer.
-  Widget _tableCell(String text, {Color colour = _kInk, FontWeight weight = FontWeight.w500, double fontSize = 12.5, TextAlign align = TextAlign.left}) {
+  Widget _tableCell(
+    String text, {
+    Color colour = _kInk,
+    FontWeight weight = FontWeight.w500,
+    double fontSize = 12.5,
+    TextAlign align = TextAlign.left,
+  }) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10.0),
       child: Text(
@@ -1489,7 +1638,11 @@ dynamic build(BuildContext context) {
           TableRow(
             decoration: const BoxDecoration(color: Color(0xFFF8FAFC)),
             children: <Widget>[
-              _tableCell('CharacterBoundary', colour: _kAccentChar, weight: FontWeight.w700),
+              _tableCell(
+                'CharacterBoundary',
+                colour: _kAccentChar,
+                weight: FontWeight.w700,
+              ),
               _tableCell('grapheme cluster'),
               _tableCell('YES'),
               _tableCell('—'),
@@ -1498,7 +1651,11 @@ dynamic build(BuildContext context) {
           ),
           TableRow(
             children: <Widget>[
-              _tableCell('WordBoundary', colour: _kAccentWord, weight: FontWeight.w700),
+              _tableCell(
+                'WordBoundary',
+                colour: _kAccentWord,
+                weight: FontWeight.w700,
+              ),
               _tableCell('locale word'),
               _tableCell('YES (via Paragraph)'),
               _tableCell('YES'),
@@ -1508,7 +1665,11 @@ dynamic build(BuildContext context) {
           TableRow(
             decoration: const BoxDecoration(color: Color(0xFFF8FAFC)),
             children: <Widget>[
-              _tableCell('LineBoundary', colour: _kAccentLine, weight: FontWeight.w700),
+              _tableCell(
+                'LineBoundary',
+                colour: _kAccentLine,
+                weight: FontWeight.w700,
+              ),
               _tableCell('visual line'),
               _tableCell('YES (via Paragraph)'),
               _tableCell('partial (BiDi)'),
@@ -1517,7 +1678,11 @@ dynamic build(BuildContext context) {
           ),
           TableRow(
             children: <Widget>[
-              _tableCell('ParagraphBoundary', colour: _kAccentParagraph, weight: FontWeight.w700),
+              _tableCell(
+                'ParagraphBoundary',
+                colour: _kAccentParagraph,
+                weight: FontWeight.w700,
+              ),
               _tableCell('hard-terminator block'),
               _tableCell('NO (UTF-16 scan)'),
               _tableCell('—'),
@@ -1527,7 +1692,11 @@ dynamic build(BuildContext context) {
           TableRow(
             decoration: const BoxDecoration(color: Color(0xFFF8FAFC)),
             children: <Widget>[
-              _tableCell('DocumentBoundary', colour: _kAccentDocument, weight: FontWeight.w700),
+              _tableCell(
+                'DocumentBoundary',
+                colour: _kAccentDocument,
+                weight: FontWeight.w700,
+              ),
               _tableCell('whole document'),
               _tableCell('—'),
               _tableCell('—'),
@@ -1546,7 +1715,8 @@ dynamic build(BuildContext context) {
   // of the boundary classes plus `TextSelection.expandToInclude`. The sixth
   // block sketches a custom-boundary skeleton.
 
-  const String code1 = '// 1. Expand a collapsed caret to the surrounding grapheme.\n'
+  const String code1 =
+      '// 1. Expand a collapsed caret to the surrounding grapheme.\n'
       'TextSelection _selectGrapheme(String text, TextSelection sel) {\n'
       '  final boundary = CharacterBoundary(text);\n'
       '  final range = boundary.getTextBoundaryAt(sel.baseOffset);\n'
@@ -1557,7 +1727,8 @@ dynamic build(BuildContext context) {
       '  return sel.expandToInclude(unit);\n'
       '}';
 
-  const String code2 = '// 2. Word-wise expansion using TextPainter.getWordBoundary.\n'
+  const String code2 =
+      '// 2. Word-wise expansion using TextPainter.getWordBoundary.\n'
       'TextSelection _selectWord(TextPainter painter, TextSelection sel) {\n'
       '  final range = painter.getWordBoundary(\n'
       '    TextPosition(offset: sel.baseOffset),\n'
@@ -1570,7 +1741,8 @@ dynamic build(BuildContext context) {
       '  );\n'
       '}';
 
-  const String code3 = '// 3. Line-wise expansion via LineBoundary.\n'
+  const String code3 =
+      '// 3. Line-wise expansion via LineBoundary.\n'
       'TextSelection _selectLine(TextLayoutMetrics metrics, int offset, TextSelection sel) {\n'
       '  const boundary = LineBoundary; // type-only reference\n'
       '  final lb = LineBoundary(metrics);\n'
@@ -1583,7 +1755,8 @@ dynamic build(BuildContext context) {
       '  );\n'
       '}';
 
-  const String code4 = '// 4. Paragraph-wise expansion (hard-break units).\n'
+  const String code4 =
+      '// 4. Paragraph-wise expansion (hard-break units).\n'
       'TextSelection _selectParagraph(String text, TextSelection sel) {\n'
       '  final boundary = ParagraphBoundary(text);\n'
       '  final start = boundary.getLeadingTextBoundaryAt(sel.baseOffset) ?? 0;\n'
@@ -1593,7 +1766,8 @@ dynamic build(BuildContext context) {
       '  );\n'
       '}';
 
-  const String code5 = '// 5. Select-all via DocumentBoundary.\n'
+  const String code5 =
+      '// 5. Select-all via DocumentBoundary.\n'
       'TextSelection _selectAll(String text) {\n'
       '  final boundary = DocumentBoundary(text);\n'
       '  return TextSelection(\n'
@@ -1602,7 +1776,8 @@ dynamic build(BuildContext context) {
       '  );\n'
       '}';
 
-  const String code6 = '// 6. Custom boundary skeleton (sentence-by-sentence, English).\n'
+  const String code6 =
+      '// 6. Custom boundary skeleton (sentence-by-sentence, English).\n'
       'class _SentenceBoundary extends TextBoundary {\n'
       '  const _SentenceBoundary(this._text);\n'
       '  final String _text;\n'
@@ -1635,7 +1810,12 @@ dynamic build(BuildContext context) {
   // -------------------------------------------------------------------------
   // SECTION 10 - PITFALLS
   // -------------------------------------------------------------------------
-  Widget _pitfall(String title, String body, {Color colour = _kAccentRed, IconData icon = Icons.warning_amber}) {
+  Widget _pitfall(
+    String title,
+    String body, {
+    Color colour = _kAccentRed,
+    IconData icon = Icons.warning_amber,
+  }) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 6.0),
       padding: const EdgeInsets.all(14.0),
@@ -1681,7 +1861,11 @@ dynamic build(BuildContext context) {
   // -------------------------------------------------------------------------
   // SECTION 11 - FOOTER CHEAT-SHEET
   // -------------------------------------------------------------------------
-  Widget _chipGroup(String title, List<String> chips, {Color colour = _kAccentBoundary}) {
+  Widget _chipGroup(
+    String title,
+    List<String> chips, {
+    Color colour = _kAccentBoundary,
+  }) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 6.0),
       padding: const EdgeInsets.all(12.0),
@@ -1705,7 +1889,9 @@ dynamic build(BuildContext context) {
           Wrap(
             spacing: 6.0,
             runSpacing: 6.0,
-            children: chips.map<Widget>((String c) => _pill(c, colour: colour)).toList(),
+            children: chips
+                .map<Widget>((String c) => _pill(c, colour: colour))
+                .toList(),
           ),
         ],
       ),
@@ -1725,75 +1911,91 @@ dynamic build(BuildContext context) {
   tree.add(heroIntro);
 
   // Section 2 - Hierarchy.
-  tree.add(_sectionHeader(
-    2,
-    'Class hierarchy',
-    'How the five concrete boundaries inherit from the abstract root',
-    colour: _kAccentBoundary,
-  ));
+  tree.add(
+    _sectionHeader(
+      2,
+      'Class hierarchy',
+      'How the five concrete boundaries inherit from the abstract root',
+      colour: _kAccentBoundary,
+    ),
+  );
   tree.add(hierarchyCard);
 
   // Section 3 - CharacterBoundary.
-  tree.add(_sectionHeader(
-    3,
-    'CharacterBoundary',
-    'Grapheme clusters across surrogate pairs',
-    colour: _kAccentChar,
-  ));
+  tree.add(
+    _sectionHeader(
+      3,
+      'CharacterBoundary',
+      'Grapheme clusters across surrogate pairs',
+      colour: _kAccentChar,
+    ),
+  );
   tree.add(charBoundaryCard);
 
   // Section 4 - WordBoundary.
-  tree.add(_sectionHeader(
-    4,
-    'WordBoundary',
-    'Locale-aware word breaking via a layouted TextPainter',
-    colour: _kAccentWord,
-  ));
+  tree.add(
+    _sectionHeader(
+      4,
+      'WordBoundary',
+      'Locale-aware word breaking via a layouted TextPainter',
+      colour: _kAccentWord,
+    ),
+  );
   tree.add(wordBoundaryCard);
 
   // Section 5 - LineBoundary.
-  tree.add(_sectionHeader(
-    5,
-    'LineBoundary',
-    'Visual line breaks for caret motion and selection',
-    colour: _kAccentLine,
-  ));
+  tree.add(
+    _sectionHeader(
+      5,
+      'LineBoundary',
+      'Visual line breaks for caret motion and selection',
+      colour: _kAccentLine,
+    ),
+  );
   tree.add(lineBoundaryCard);
 
   // Section 6 - DocumentBoundary.
-  tree.add(_sectionHeader(
-    6,
-    'DocumentBoundary',
-    'The whole document as one logical range',
-    colour: _kAccentDocument,
-  ));
+  tree.add(
+    _sectionHeader(
+      6,
+      'DocumentBoundary',
+      'The whole document as one logical range',
+      colour: _kAccentDocument,
+    ),
+  );
   tree.add(documentBoundaryCard);
 
   // Section 7 - ParagraphBoundary.
-  tree.add(_sectionHeader(
-    7,
-    'ParagraphBoundary',
-    'Hard line-terminator splits, layout-free',
-    colour: _kAccentParagraph,
-  ));
+  tree.add(
+    _sectionHeader(
+      7,
+      'ParagraphBoundary',
+      'Hard line-terminator splits, layout-free',
+      colour: _kAccentParagraph,
+    ),
+  );
   tree.add(paragraphBoundaryCard);
 
   // Section 8 - Comparison.
-  tree.add(_sectionHeader(
-    8,
-    'Comparison',
-    'Side-by-side properties of each boundary type',
-    colour: _kAccentBoundary,
-  ));
+  tree.add(
+    _sectionHeader(
+      8,
+      'Comparison',
+      'Side-by-side properties of each boundary type',
+      colour: _kAccentBoundary,
+    ),
+  );
   tree.add(comparisonTableCard);
 
   // Section 9 - Code blocks.
-  tree.add(_sectionHeader(
-    9,
-    'Selection-handling idioms',
-    'Six dark code blocks - one per boundary, plus a custom-boundary skeleton',
-    colour: _kInk,
-  ));
+  tree.add(
+    _sectionHeader(
+      9,
+      'Selection-handling idioms',
+      'Six dark code blocks - one per boundary, plus a custom-boundary skeleton',
+      colour: _kInk,
+    ),
+  );
   tree.add(_codeBlock(code1, title: 'grapheme.dart'));
   tree.add(_codeBlock(code2, title: 'word.dart'));
   tree.add(_codeBlock(code3, title: 'line.dart'));
@@ -1802,83 +2004,94 @@ dynamic build(BuildContext context) {
   tree.add(_codeBlock(code6, title: 'custom_sentence_boundary.dart'));
 
   // Section 10 - Pitfalls.
-  tree.add(_sectionHeader(
-    10,
-    'Pitfalls',
-    'Common ways code that "works for ASCII" silently corrupts real text',
-    colour: _kAccentRed,
-  ));
-  tree.add(_pitfall(
-    'Surrogate-pair miscounting',
-    'String.length returns UTF-16 code units, NOT grapheme clusters. The flag '
-    '🇺🇸 is four code units but one user-perceived character. Always use '
-    'CharacterBoundary (or the Characters package) before deleting or moving '
-    'the caret - otherwise you will split a surrogate pair and produce an '
-    'invalid string.',
-  ));
-  tree.add(_pitfall(
-    'Locale-specific word boundaries',
-    'WordBoundary depends on the platform\'s ICU word-break rules and the '
-    'paragraph\'s Locale. "I.B.M." breaks into three words in en_US but stays '
-    'as one in many CJK locales. Never hard-code regex `\\W` as a substitute '
-    'for WordBoundary; always layout a real TextPainter with the correct '
-    'locale.',
-    colour: const Color(0xFFB45309),
-    icon: Icons.translate,
-  ));
-  tree.add(_pitfall(
-    'LineBoundary iteration cost',
-    'Each LineBoundary call ultimately calls into the platform paragraph and '
-    'is amortised over a single layout. Calling it in a tight loop across '
-    'tens of thousands of code units AND re-laying out the paragraph between '
-    'calls turns selection extension into a soft hang. Cache the TextPainter '
-    'whenever you can.',
-    colour: const Color(0xFFD97706),
-    icon: Icons.speed,
-  ));
-  tree.add(_pitfall(
-    'RTL edge cases',
-    'In bidirectional text, "previous" and "next" do NOT always correspond to '
-    'the leading and trailing offsets of a boundary. A WordBoundary range '
-    'that crosses a BiDi run might map to two visually distinct rectangles '
-    'when you ask for getBoxesForSelection. Test with mixed Hebrew/Arabic + '
-    'Latin samples before shipping.',
-    colour: const Color(0xFF7C3AED),
-    icon: Icons.swap_horiz,
-  ));
-  tree.add(_pitfall(
-    'Mixing boundary results across layouts',
-    'WordBoundary and LineBoundary are tied to a specific layouted paragraph. '
-    'If you reuse a range computed against an old TextPainter (different '
-    'maxWidth, different textScaler, different fontSize) the offsets may '
-    'still be valid as integers but the geometry will be wrong. Recompute '
-    'on every relayout.',
-    colour: const Color(0xFF0EA5E9),
-    icon: Icons.layers,
-  ));
+  tree.add(
+    _sectionHeader(
+      10,
+      'Pitfalls',
+      'Common ways code that "works for ASCII" silently corrupts real text',
+      colour: _kAccentRed,
+    ),
+  );
+  tree.add(
+    _pitfall(
+      'Surrogate-pair miscounting',
+      'String.length returns UTF-16 code units, NOT grapheme clusters. The flag '
+          '🇺🇸 is four code units but one user-perceived character. Always use '
+          'CharacterBoundary (or the Characters package) before deleting or moving '
+          'the caret - otherwise you will split a surrogate pair and produce an '
+          'invalid string.',
+    ),
+  );
+  tree.add(
+    _pitfall(
+      'Locale-specific word boundaries',
+      'WordBoundary depends on the platform\'s ICU word-break rules and the '
+          'paragraph\'s Locale. "I.B.M." breaks into three words in en_US but stays '
+          'as one in many CJK locales. Never hard-code regex `\\W` as a substitute '
+          'for WordBoundary; always layout a real TextPainter with the correct '
+          'locale.',
+      colour: const Color(0xFFB45309),
+      icon: Icons.translate,
+    ),
+  );
+  tree.add(
+    _pitfall(
+      'LineBoundary iteration cost',
+      'Each LineBoundary call ultimately calls into the platform paragraph and '
+          'is amortised over a single layout. Calling it in a tight loop across '
+          'tens of thousands of code units AND re-laying out the paragraph between '
+          'calls turns selection extension into a soft hang. Cache the TextPainter '
+          'whenever you can.',
+      colour: const Color(0xFFD97706),
+      icon: Icons.speed,
+    ),
+  );
+  tree.add(
+    _pitfall(
+      'RTL edge cases',
+      'In bidirectional text, "previous" and "next" do NOT always correspond to '
+          'the leading and trailing offsets of a boundary. A WordBoundary range '
+          'that crosses a BiDi run might map to two visually distinct rectangles '
+          'when you ask for getBoxesForSelection. Test with mixed Hebrew/Arabic + '
+          'Latin samples before shipping.',
+      colour: const Color(0xFF7C3AED),
+      icon: Icons.swap_horiz,
+    ),
+  );
+  tree.add(
+    _pitfall(
+      'Mixing boundary results across layouts',
+      'WordBoundary and LineBoundary are tied to a specific layouted paragraph. '
+          'If you reuse a range computed against an old TextPainter (different '
+          'maxWidth, different textScaler, different fontSize) the offsets may '
+          'still be valid as integers but the geometry will be wrong. Recompute '
+          'on every relayout.',
+      colour: const Color(0xFF0EA5E9),
+      icon: Icons.layers,
+    ),
+  );
 
   // Section 11 - Cheat-sheet footer.
-  tree.add(_sectionHeader(
-    11,
-    'Cheat-sheet',
-    'Boundary classes, TextSelection helpers, TextPainter integration',
-    colour: _kAccentBoundary,
-  ));
-  tree.add(_chipGroup(
-    'Boundary classes',
-    const <String>[
+  tree.add(
+    _sectionHeader(
+      11,
+      'Cheat-sheet',
+      'Boundary classes, TextSelection helpers, TextPainter integration',
+      colour: _kAccentBoundary,
+    ),
+  );
+  tree.add(
+    _chipGroup('Boundary classes', const <String>[
       'TextBoundary',
       'CharacterBoundary',
       'WordBoundary',
       'LineBoundary',
       'ParagraphBoundary',
       'DocumentBoundary',
-    ],
-    colour: _kAccentBoundary,
-  ));
-  tree.add(_chipGroup(
-    'TextSelection helpers',
-    const <String>[
+    ], colour: _kAccentBoundary),
+  );
+  tree.add(
+    _chipGroup('TextSelection helpers', const <String>[
       'TextSelection',
       'TextSelection.collapsed',
       'TextSelection.fromPosition',
@@ -1887,12 +2100,10 @@ dynamic build(BuildContext context) {
       'baseOffset / extentOffset',
       'TextRange',
       'TextPosition',
-    ],
-    colour: _kAccentChar,
-  ));
-  tree.add(_chipGroup(
-    'TextPainter integration',
-    const <String>[
+    ], colour: _kAccentChar),
+  );
+  tree.add(
+    _chipGroup('TextPainter integration', const <String>[
       'TextPainter.layout(maxWidth:)',
       'TextPainter.getWordBoundary',
       'TextPainter.getLineBoundary',
@@ -1900,12 +2111,10 @@ dynamic build(BuildContext context) {
       'TextPainter.getOffsetAfter',
       'TextPainter.getBoxesForSelection',
       'TextLayoutMetrics',
-    ],
-    colour: _kAccentWord,
-  ));
-  tree.add(_chipGroup(
-    'Keyboard shortcuts they power',
-    const <String>[
+    ], colour: _kAccentWord),
+  );
+  tree.add(
+    _chipGroup('Keyboard shortcuts they power', const <String>[
       '←/→ char',
       'Ctrl/⌥ + ←/→ word',
       'Home / End line',
@@ -1914,60 +2123,64 @@ dynamic build(BuildContext context) {
       'Shift +  ↑/↓ extend',
       'Double-tap word',
       'Triple-tap line',
-    ],
-    colour: _kAccentLine,
-  ));
-  tree.add(Padding(
-    padding: const EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 40.0),
-    child: Container(
-      padding: const EdgeInsets.all(18.0),
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-          colors: <Color>[
-            Color(0xFF111319),
-            Color(0xFF1F2430),
+    ], colour: _kAccentLine),
+  );
+  tree.add(
+    Padding(
+      padding: const EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 40.0),
+      child: Container(
+        padding: const EdgeInsets.all(18.0),
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+            colors: <Color>[Color(0xFF111319), Color(0xFF1F2430)],
+          ),
+          borderRadius: BorderRadius.circular(14.0),
+        ),
+        child: Row(
+          children: <Widget>[
+            const Icon(
+              Icons.format_quote,
+              color: Color(0xFFE6E6E6),
+              size: 28.0,
+            ),
+            const SizedBox(width: 12.0),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const <Widget>[
+                  Text(
+                    'TextBoundary in one line',
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      color: _kInkOnDarkSecondary,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  SizedBox(height: 4.0),
+                  Text(
+                    '"Three methods. Five concrete subclasses. Every selection-aware '
+                    'shortcut in Flutter lives or dies by these objects."',
+                    style: TextStyle(
+                      fontSize: 14.5,
+                      color: _kInkOnDark,
+                      height: 1.45,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
-        borderRadius: BorderRadius.circular(14.0),
-      ),
-      child: Row(
-        children: <Widget>[
-          const Icon(Icons.format_quote, color: Color(0xFFE6E6E6), size: 28.0),
-          const SizedBox(width: 12.0),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const <Widget>[
-                Text(
-                  'TextBoundary in one line',
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    color: _kInkOnDarkSecondary,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                SizedBox(height: 4.0),
-                Text(
-                  '"Three methods. Five concrete subclasses. Every selection-aware '
-                  'shortcut in Flutter lives or dies by these objects."',
-                  style: TextStyle(
-                    fontSize: 14.5,
-                    color: _kInkOnDark,
-                    height: 1.45,
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
       ),
     ),
-  ));
+  );
 
-  print('Services TextBoundary deep visual demo completed (${tree.length} top-level widgets)');
+  print(
+    'Services TextBoundary deep visual demo completed (${tree.length} top-level widgets)',
+  );
 
   return Container(
     color: _kCanvas,

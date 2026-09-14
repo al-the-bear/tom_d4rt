@@ -153,10 +153,7 @@ class _SectionHeader extends StatelessWidget {
               const SizedBox(height: 4),
               Text(
                 subtitle,
-                style: TextStyle(
-                  color: Colors.grey.shade700,
-                  fontSize: 13,
-                ),
+                style: TextStyle(color: Colors.grey.shade700, fontSize: 13),
               ),
             ],
           ),
@@ -168,10 +165,7 @@ class _SectionHeader extends StatelessWidget {
 
 /// A small pill-style label used inside the demos to annotate things.
 class _Pill extends StatelessWidget {
-  const _Pill({
-    required this.label,
-    this.color = Colors.indigo,
-  });
+  const _Pill({required this.label, this.color = Colors.indigo});
 
   final MaterialColor color;
 
@@ -214,10 +208,7 @@ class _Caption extends StatelessWidget {
         border: Border.all(color: Colors.amber.shade200),
         borderRadius: BorderRadius.circular(6),
       ),
-      child: Text(
-        text,
-        style: const TextStyle(fontSize: 12.5, height: 1.35),
-      ),
+      child: Text(text, style: const TextStyle(fontSize: 12.5, height: 1.35)),
     );
   }
 }
@@ -270,11 +261,7 @@ class _DemoCard extends StatelessWidget {
 /// Stage area used to host a Stack demo. Provides a fixed-size dashed
 /// background so the user can reason about positions visually.
 class _Stage extends StatelessWidget {
-  const _Stage({
-    required this.child,
-    this.height = 180,
-    this.label,
-  });
+  const _Stage({required this.child, this.height = 180, this.label});
 
   final Widget child;
   final double height;
@@ -617,8 +604,7 @@ class _Section4SideBySide extends StatelessWidget {
         _SectionHeader(
           index: 4,
           title: 'Side-by-side LTR vs RTL',
-          subtitle:
-              'A single shared toggle drives both stages simultaneously.',
+          subtitle: 'A single shared toggle drives both stages simultaneously.',
         ),
         SizedBox(height: 12),
         _LtrVsRtlDemo(),
@@ -678,19 +664,11 @@ class _LtrVsRtlDemoState extends State<_LtrVsRtlDemo> {
         Row(
           children: <Widget>[
             Expanded(
-              child: _buildStage(
-                TextDirection.ltr,
-                Colors.indigo,
-                'LTR',
-              ),
+              child: _buildStage(TextDirection.ltr, Colors.indigo, 'LTR'),
             ),
             const SizedBox(width: 8),
             Expanded(
-              child: _buildStage(
-                TextDirection.rtl,
-                Colors.deepOrange,
-                'RTL',
-              ),
+              child: _buildStage(TextDirection.rtl, Colors.deepOrange, 'RTL'),
             ),
           ],
         ),
@@ -1073,9 +1051,7 @@ class _SizeMorphDemoState extends State<_SizeMorphDemo> {
           children: <Widget>[
             FilledButton.icon(
               onPressed: _toggle,
-              icon: Icon(
-                _expanded ? Icons.fullscreen_exit : Icons.fullscreen,
-              ),
+              icon: Icon(_expanded ? Icons.fullscreen_exit : Icons.fullscreen),
               label: Text(_expanded ? 'Dock' : 'Expand'),
             ),
             const SizedBox(width: 12),
@@ -1308,10 +1284,7 @@ class _ToggleDirectionDemoState extends State<_ToggleDirectionDemo> {
           ),
         ),
         const SizedBox(height: 8),
-        Text(
-          'Current direction: $_dir',
-          style: const TextStyle(fontSize: 12),
-        ),
+        Text('Current direction: $_dir', style: const TextStyle(fontSize: 12)),
       ],
     );
   }
@@ -1409,18 +1382,9 @@ class _DrawerRevealDemoState extends State<_DrawerRevealDemo> {
                           ),
                         ),
                         SizedBox(height: 8),
-                        Text(
-                          'Inbox',
-                          style: TextStyle(color: Colors.white70),
-                        ),
-                        Text(
-                          'Sent',
-                          style: TextStyle(color: Colors.white70),
-                        ),
-                        Text(
-                          'Drafts',
-                          style: TextStyle(color: Colors.white70),
-                        ),
+                        Text('Inbox', style: TextStyle(color: Colors.white70)),
+                        Text('Sent', style: TextStyle(color: Colors.white70)),
+                        Text('Drafts', style: TextStyle(color: Colors.white70)),
                         Text(
                           'Settings',
                           style: TextStyle(color: Colors.white70),
@@ -1470,8 +1434,7 @@ class _Section11BadgeAnchor extends StatelessWidget {
         _SectionHeader(
           index: 11,
           title: 'Recipe: notification badge anchoring',
-          subtitle:
-              'A small badge animates into the end-top corner of a card.',
+          subtitle: 'A small badge animates into the end-top corner of a card.',
         ),
         SizedBox(height: 12),
         _BadgeAnchorDemo(),
@@ -1655,7 +1618,8 @@ class _Section12ReferenceTable extends StatelessWidget {
               ),
               _RefRow(
                 label: 'top',
-                value: 'Distance from the top edge (unchanged by Directionality).',
+                value:
+                    'Distance from the top edge (unchanged by Directionality).',
                 isHeader: false,
               ),
               _RefRow(
@@ -1688,7 +1652,8 @@ class _Section12ReferenceTable extends StatelessWidget {
               ),
               _RefRow(
                 label: 'onEnd',
-                value: 'Optional callback triggered when an animation finishes.',
+                value:
+                    'Optional callback triggered when an animation finishes.',
                 isHeader: false,
               ),
             ],
@@ -1774,21 +1739,14 @@ class _RefRow extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: isHeader ? Colors.indigo.shade50 : Colors.white,
-        border: Border(
-          bottom: BorderSide(color: Colors.grey.shade200),
-        ),
+        border: Border(bottom: BorderSide(color: Colors.grey.shade200)),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          SizedBox(
-            width: 180,
-            child: Text(label, style: labelStyle),
-          ),
-          Expanded(
-            child: Text(value, style: valueStyle),
-          ),
+          SizedBox(width: 180, child: Text(label, style: labelStyle)),
+          Expanded(child: Text(value, style: valueStyle)),
         ],
       ),
     );

@@ -33,11 +33,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Color(0xFF1B2A4E),
-          Color(0xFF274472),
-          Color(0xFF5885AF),
-        ],
+        colors: [Color(0xFF1B2A4E), Color(0xFF274472), Color(0xFF5885AF)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -130,10 +126,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Color(0xFFF5F7FA),
-          Color(0xFFE4ECF7),
-        ],
+        colors: [Color(0xFFF5F7FA), Color(0xFFE4ECF7)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -246,11 +239,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Color(0xFFFFF3E0),
-          Color(0xFFFFE0B2),
-          Color(0xFFFFCC80),
-        ],
+        colors: [Color(0xFFFFF3E0), Color(0xFFFFE0B2), Color(0xFFFFCC80)],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ),
@@ -269,8 +258,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.slow_motion_video,
-                color: Colors.deepOrange.shade700, size: 22.0),
+            Icon(
+              Icons.slow_motion_video,
+              color: Colors.deepOrange.shade700,
+              size: 22.0,
+            ),
             SizedBox(width: 8.0),
             Text(
               'timeDilation factors — visual scrub bar',
@@ -322,7 +314,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.terminal, color: Colors.greenAccent.shade400, size: 22.0),
+            Icon(
+              Icons.terminal,
+              color: Colors.greenAccent.shade400,
+              size: 22.0,
+            ),
             SizedBox(width: 8.0),
             Text(
               'DevTools / VM service recipes',
@@ -373,10 +369,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Color(0xFFFFEBEE),
-          Color(0xFFFFCDD2),
-        ],
+        colors: [Color(0xFFFFEBEE), Color(0xFFFFCDD2)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -395,8 +388,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.warning_amber_rounded,
-                color: Colors.red.shade800, size: 22.0),
+            Icon(
+              Icons.warning_amber_rounded,
+              color: Colors.red.shade800,
+              size: 22.0,
+            ),
             SizedBox(width: 8.0),
             Text(
               'Pitfalls & gotchas',
@@ -465,8 +461,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.compare_arrows,
-                color: Colors.purple.shade700, size: 22.0),
+            Icon(
+              Icons.compare_arrows,
+              color: Colors.purple.shade700,
+              size: 22.0,
+            ),
             SizedBox(width: 8.0),
             Text(
               'Related scheduler surfaces',
@@ -480,18 +479,42 @@ dynamic build(BuildContext context) {
         ),
         SizedBox(height: 14.0),
         _comparisonHeader(),
-        _comparisonRow('SchedulerServiceExtensions.timeDilation',
-            'enum (this file)', 'global slow-motion factor', Colors.indigo),
-        _comparisonRow('Ticker', 'class', 'per-frame callback driver',
-            Colors.teal),
-        _comparisonRow('SchedulerBinding', 'mixin',
-            'owns the frame pipeline', Colors.deepOrange),
-        _comparisonRow('SchedulerPhase', 'enum',
-            'where in the frame we currently are', Colors.blueGrey),
-        _comparisonRow('Priority', 'class',
-            'task priority for scheduleTask', Colors.brown),
-        _comparisonRow('FrameTiming', 'class',
-            'timing data of each frame', Colors.cyan),
+        _comparisonRow(
+          'SchedulerServiceExtensions.timeDilation',
+          'enum (this file)',
+          'global slow-motion factor',
+          Colors.indigo,
+        ),
+        _comparisonRow(
+          'Ticker',
+          'class',
+          'per-frame callback driver',
+          Colors.teal,
+        ),
+        _comparisonRow(
+          'SchedulerBinding',
+          'mixin',
+          'owns the frame pipeline',
+          Colors.deepOrange,
+        ),
+        _comparisonRow(
+          'SchedulerPhase',
+          'enum',
+          'where in the frame we currently are',
+          Colors.blueGrey,
+        ),
+        _comparisonRow(
+          'Priority',
+          'class',
+          'task priority for scheduleTask',
+          Colors.brown,
+        ),
+        _comparisonRow(
+          'FrameTiming',
+          'class',
+          'timing data of each frame',
+          Colors.cyan,
+        ),
       ],
     ),
   );
@@ -504,10 +527,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Color(0xFFE8F5E9),
-          Color(0xFFC8E6C9),
-        ],
+        colors: [Color(0xFFE8F5E9), Color(0xFFC8E6C9)],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ),
@@ -526,8 +546,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.checklist_rounded,
-                color: Colors.green.shade800, size: 22.0),
+            Icon(
+              Icons.checklist_rounded,
+              color: Colors.green.shade800,
+              size: 22.0,
+            ),
             SizedBox(width: 8.0),
             Text(
               'Quick reference',
@@ -562,11 +585,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Color(0xFF1B1B2F),
-          Color(0xFF162447),
-          Color(0xFF1F4068),
-        ],
+        colors: [Color(0xFF1B1B2F), Color(0xFF162447), Color(0xFF1F4068)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -677,17 +696,12 @@ Widget _sectionHeader(String title) {
     padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Color(0xFFE3F2FD),
-          Color(0xFFBBDEFB),
-        ],
+        colors: [Color(0xFFE3F2FD), Color(0xFFBBDEFB)],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ),
       borderRadius: BorderRadius.circular(10.0),
-      border: Border(
-        left: BorderSide(color: Colors.blue.shade700, width: 4.0),
-      ),
+      border: Border(left: BorderSide(color: Colors.blue.shade700, width: 4.0)),
     ),
     child: Text(
       title,
@@ -750,11 +764,7 @@ Widget _extensionCard(SchedulerServiceExtensions ext) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Color(0xFFEDE7F6),
-          Color(0xFFD1C4E9),
-          Color(0xFFB39DDB),
-        ],
+        colors: [Color(0xFFEDE7F6), Color(0xFFD1C4E9), Color(0xFFB39DDB)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -832,7 +842,9 @@ Widget _extensionCard(SchedulerServiceExtensions ext) {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(999.0),
                   border: Border.all(
-                      color: Colors.deepPurple.shade300, width: 1.0),
+                    color: Colors.deepPurple.shade300,
+                    width: 1.0,
+                  ),
                 ),
                 child: Text(
                   'index ${ext.index}',
@@ -864,9 +876,7 @@ Widget _extensionCard(SchedulerServiceExtensions ext) {
           SizedBox(height: 12.0),
           Row(
             children: [
-              Expanded(
-                child: _kvCell('wire name', ext.name, Colors.indigo),
-              ),
+              Expanded(child: _kvCell('wire name', ext.name, Colors.indigo)),
               SizedBox(width: 8.0),
               Expanded(
                 child: _kvCell(
@@ -878,7 +888,10 @@ Widget _extensionCard(SchedulerServiceExtensions ext) {
               SizedBox(width: 8.0),
               Expanded(
                 child: _kvCell(
-                    'progress', progress.value.toStringAsFixed(2), Colors.pink),
+                  'progress',
+                  progress.value.toStringAsFixed(2),
+                  Colors.pink,
+                ),
               ),
             ],
           ),
@@ -889,8 +902,7 @@ Widget _extensionCard(SchedulerServiceExtensions ext) {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(6.0),
-              border:
-                  Border.all(color: Colors.deepPurple.shade200, width: 1.0),
+              border: Border.all(color: Colors.deepPurple.shade200, width: 1.0),
             ),
             child: FractionallySizedBox(
               alignment: Alignment.centerLeft,
@@ -925,13 +937,14 @@ Widget _extensionCard(SchedulerServiceExtensions ext) {
             children: [
               for (final tag in _miniTagsFor(ext))
                 Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+                  padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(999.0),
                     border: Border.all(
-                        color: Colors.deepPurple.shade200, width: 1.0),
+                      color: Colors.deepPurple.shade200,
+                      width: 1.0,
+                    ),
                   ),
                   child: Text(
                     tag,
@@ -1037,8 +1050,8 @@ Widget _dilationRow(double factor) {
   final color = factor <= 1.0
       ? Colors.green
       : factor <= 5.0
-          ? Colors.orange
-          : Colors.red;
+      ? Colors.orange
+      : Colors.red;
 
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 6.0),
@@ -1229,16 +1242,18 @@ Widget _comparisonHeader() {
 }
 
 Widget _comparisonRow(
-    String symbol, String kind, String role, MaterialColor color) {
+  String symbol,
+  String kind,
+  String role,
+  MaterialColor color,
+) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
     margin: EdgeInsets.only(top: 6.0),
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(8.0),
-      border: Border(
-        left: BorderSide(color: color.shade400, width: 4.0),
-      ),
+      border: Border(left: BorderSide(color: color.shade400, width: 4.0)),
       boxShadow: [
         BoxShadow(
           color: color.withValues(alpha: 0.08),
@@ -1284,10 +1299,7 @@ Widget _comparisonRow(
           flex: 4,
           child: Text(
             role,
-            style: TextStyle(
-              fontSize: 11.5,
-              color: Colors.grey.shade800,
-            ),
+            style: TextStyle(fontSize: 11.5, color: Colors.grey.shade800),
           ),
         ),
       ],
@@ -1303,7 +1315,11 @@ Widget _bullet(String text) {
       children: [
         Padding(
           padding: EdgeInsets.only(top: 5.0, right: 8.0),
-          child: Icon(Icons.check_circle, color: Colors.green.shade700, size: 14.0),
+          child: Icon(
+            Icons.check_circle,
+            color: Colors.green.shade700,
+            size: 14.0,
+          ),
         ),
         Expanded(
           child: Text(

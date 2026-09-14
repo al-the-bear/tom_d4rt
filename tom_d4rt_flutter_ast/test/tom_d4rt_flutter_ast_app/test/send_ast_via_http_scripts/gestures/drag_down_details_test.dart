@@ -121,11 +121,21 @@ dynamic build(BuildContext context) {
   );
 
   print('=== Section 1: instances built ===');
-  print('  ddTopLeft       global=${ddTopLeft.globalPosition} local=${ddTopLeft.localPosition}');
-  print('  ddCenter        global=${ddCenter.globalPosition} local=${ddCenter.localPosition}');
-  print('  ddBottomRight   global=${ddBottomRight.globalPosition} local=${ddBottomRight.localPosition}');
-  print('  ddDefaultLocal  global=${ddDefaultLocal.globalPosition} local=${ddDefaultLocal.localPosition}');
-  print('  ddFarFromOrigin delta=${ddFarFromOrigin.globalPosition - ddFarFromOrigin.localPosition}');
+  print(
+    '  ddTopLeft       global=${ddTopLeft.globalPosition} local=${ddTopLeft.localPosition}',
+  );
+  print(
+    '  ddCenter        global=${ddCenter.globalPosition} local=${ddCenter.localPosition}',
+  );
+  print(
+    '  ddBottomRight   global=${ddBottomRight.globalPosition} local=${ddBottomRight.localPosition}',
+  );
+  print(
+    '  ddDefaultLocal  global=${ddDefaultLocal.globalPosition} local=${ddDefaultLocal.localPosition}',
+  );
+  print(
+    '  ddFarFromOrigin delta=${ddFarFromOrigin.globalPosition - ddFarFromOrigin.localPosition}',
+  );
   print('  ddMouseLike     global=${ddMouseLike.globalPosition}');
   print('  ddStylusLike    global=${ddStylusLike.globalPosition}');
   print('  ddTouchLike     global=${ddTouchLike.globalPosition}');
@@ -349,7 +359,10 @@ Widget _heroCard() {
           spacing: 10,
           runSpacing: 10,
           children: const [
-            _HeroPill(label: 'globalPosition : Offset', tint: Color(0xFFFF6BCB)),
+            _HeroPill(
+              label: 'globalPosition : Offset',
+              tint: Color(0xFFFF6BCB),
+            ),
             _HeroPill(label: 'localPosition : Offset', tint: Color(0xFF6BC4FF)),
             _HeroPill(label: 'with Diagnosticable', tint: Color(0xFFFFD56B)),
           ],
@@ -570,7 +583,8 @@ Widget _anatomyDiagram(DragDownDetails sample) {
                 left: 30,
                 top: 24,
                 child: _LabelChip(
-                  text: 'globalPosition = ${sample.globalPosition.dx.toStringAsFixed(0)}, ${sample.globalPosition.dy.toStringAsFixed(0)}',
+                  text:
+                      'globalPosition = ${sample.globalPosition.dx.toStringAsFixed(0)}, ${sample.globalPosition.dy.toStringAsFixed(0)}',
                   color: const Color(0xFF1F77D2),
                 ),
               ),
@@ -578,7 +592,8 @@ Widget _anatomyDiagram(DragDownDetails sample) {
                 left: 124,
                 top: 96,
                 child: _LabelChip(
-                  text: 'localPosition = ${sample.localPosition.dx.toStringAsFixed(0)}, ${sample.localPosition.dy.toStringAsFixed(0)}',
+                  text:
+                      'localPosition = ${sample.localPosition.dx.toStringAsFixed(0)}, ${sample.localPosition.dy.toStringAsFixed(0)}',
                   color: const Color(0xFFE91E63),
                 ),
               ),
@@ -590,8 +605,14 @@ Widget _anatomyDiagram(DragDownDetails sample) {
           spacing: 10,
           runSpacing: 10,
           children: const [
-            _LegendDot(color: Color(0xFF1F77D2), text: 'screen-relative — globalPosition'),
-            _LegendDot(color: Color(0xFFE91E63), text: 'widget-relative — localPosition'),
+            _LegendDot(
+              color: Color(0xFF1F77D2),
+              text: 'screen-relative — globalPosition',
+            ),
+            _LegendDot(
+              color: Color(0xFFE91E63),
+              text: 'widget-relative — localPosition',
+            ),
             _LegendDot(color: Color(0xFFB13BFF), text: 'pointer landing'),
           ],
         ),
@@ -604,7 +625,11 @@ class _Dashed extends StatelessWidget {
   final double width;
   final double height;
   final Color color;
-  const _Dashed({required this.width, required this.height, required this.color});
+  const _Dashed({
+    required this.width,
+    required this.height,
+    required this.color,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -729,7 +754,8 @@ Widget _constructorSignatures() {
         const SizedBox(height: 18),
         const _CodeBlock(
           title: 'Default localPosition',
-          code: 'DragDownDetails(\n'
+          code:
+              'DragDownDetails(\n'
               '  globalPosition: Offset(180, 200),\n'
               ')\n'
               '// localPosition defaults to globalPosition',
@@ -738,7 +764,8 @@ Widget _constructorSignatures() {
         const SizedBox(height: 14),
         const _CodeBlock(
           title: 'Explicit localPosition',
-          code: 'DragDownDetails(\n'
+          code:
+              'DragDownDetails(\n'
               '  globalPosition: Offset(420, 880),\n'
               '  localPosition: Offset(118, 56),\n'
               ')',
@@ -778,7 +805,11 @@ class _CodeBlock extends StatelessWidget {
   final String title;
   final String code;
   final Color accent;
-  const _CodeBlock({required this.title, required this.code, required this.accent});
+  const _CodeBlock({
+    required this.title,
+    required this.code,
+    required this.accent,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -812,7 +843,10 @@ class _CodeBlock extends StatelessWidget {
                 Container(
                   width: 8,
                   height: 8,
-                  decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
+                  decoration: BoxDecoration(
+                    color: accent,
+                    shape: BoxShape.circle,
+                  ),
                 ),
                 const SizedBox(width: 8),
                 Text(
@@ -886,7 +920,8 @@ Widget _samplesGrid() {
     ),
     _Sample(
       label: 'mouse-like landing',
-      story: 'No kind on DragDownDetails — read it from the next DragStartDetails',
+      story:
+          'No kind on DragDownDetails — read it from the next DragStartDetails',
       global: Offset(330, 220),
       local: Offset(50, 30),
       hue: Color(0xFF42A5F5),
@@ -1297,7 +1332,8 @@ Widget _livePreviews() {
         _sectionHeader(
           number: '06',
           title: 'Static preview of onPanDown',
-          subtitle: 'Imagine the user tapping these spots — see the DragDownDetails',
+          subtitle:
+              'Imagine the user tapping these spots — see the DragDownDetails',
           accent: const Color(0xFF00897B),
         ),
         const SizedBox(height: 18),
@@ -1392,9 +1428,7 @@ class _PreviewBoard extends StatelessWidget {
                     width: 26,
                     height: 26,
                     decoration: BoxDecoration(
-                      gradient: RadialGradient(
-                        colors: [Colors.white, tint],
-                      ),
+                      gradient: RadialGradient(colors: [Colors.white, tint]),
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
@@ -1411,7 +1445,10 @@ class _PreviewBoard extends StatelessWidget {
                   left: tapLocal.dx.clamp(0.0, 250.0) + 30,
                   top: tapLocal.dy.clamp(0.0, 150.0) + 4,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 6,
+                      vertical: 2,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(4),
@@ -1445,9 +1482,18 @@ class _PreviewBoard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 6),
-                _kv('globalPosition', '(${tapGlobal.dx.toInt()}, ${tapGlobal.dy.toInt()})'),
-                _kv('localPosition', '(${tapLocal.dx.toInt()}, ${tapLocal.dy.toInt()})'),
-                _kv('Δ', '(${(tapGlobal.dx - tapLocal.dx).toInt()}, ${(tapGlobal.dy - tapLocal.dy).toInt()})'),
+                _kv(
+                  'globalPosition',
+                  '(${tapGlobal.dx.toInt()}, ${tapGlobal.dy.toInt()})',
+                ),
+                _kv(
+                  'localPosition',
+                  '(${tapLocal.dx.toInt()}, ${tapLocal.dy.toInt()})',
+                ),
+                _kv(
+                  'Δ',
+                  '(${(tapGlobal.dx - tapLocal.dx).toInt()}, ${(tapGlobal.dy - tapLocal.dy).toInt()})',
+                ),
                 const SizedBox(height: 8),
                 Text(
                   caption,
@@ -1519,14 +1565,25 @@ Widget _siblingComparison() {
     ),
     _SiblingCard(
       type: 'DragUpdateDetails',
-      fields: ['globalPosition', 'localPosition', 'sourceTimeStamp', 'delta', 'primaryDelta'],
+      fields: [
+        'globalPosition',
+        'localPosition',
+        'sourceTimeStamp',
+        'delta',
+        'primaryDelta',
+      ],
       unique: '↪ + delta + primaryDelta',
       tint: Color(0xFF00ACC1),
       icon: Icons.trending_up_rounded,
     ),
     _SiblingCard(
       type: 'DragEndDetails',
-      fields: ['velocity', 'primaryVelocity', 'globalPosition', 'localPosition'],
+      fields: [
+        'velocity',
+        'primaryVelocity',
+        'globalPosition',
+        'localPosition',
+      ],
       unique: '↪ velocity + primaryVelocity',
       tint: Color(0xFF8E24AA),
       icon: Icons.flag_rounded,
@@ -1868,7 +1925,11 @@ class _RecipeMapPan extends StatelessWidget {
               gradient: const LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: [Color(0xFFC8E6C9), Color(0xFFE8F5E9), Color(0xFFB3E5FC)],
+                colors: [
+                  Color(0xFFC8E6C9),
+                  Color(0xFFE8F5E9),
+                  Color(0xFFB3E5FC),
+                ],
               ),
               borderRadius: BorderRadius.circular(12),
               border: Border.all(color: const Color(0xFF66BB6A)),
@@ -1894,7 +1955,11 @@ class _RecipeMapPan extends StatelessWidget {
                 const Positioned(
                   left: 64,
                   top: 50,
-                  child: Icon(Icons.location_on_rounded, color: Color(0xFFD32F2F), size: 22),
+                  child: Icon(
+                    Icons.location_on_rounded,
+                    color: Color(0xFFD32F2F),
+                    size: 22,
+                  ),
                 ),
                 // Finger position.
                 Positioned(
@@ -2188,14 +2253,16 @@ Widget _pitfallsFaq() {
   const items = <({String title, String body, IconData icon, Color tint})>[
     (
       title: 'Using globalPosition for hit-testing inside a transformed widget',
-      body: 'Always prefer localPosition. globalPosition ignores any Transform, '
+      body:
+          'Always prefer localPosition. globalPosition ignores any Transform, '
           'rotation, scale, or scroll offset that wraps your widget.',
       icon: Icons.warning_amber_rounded,
       tint: Color(0xFFE53935),
     ),
     (
       title: 'Assuming localPosition is always (0, 0)',
-      body: 'It is not. localPosition is the same Offset as globalPosition only '
+      body:
+          'It is not. localPosition is the same Offset as globalPosition only '
           'when the widget sits flush at screen origin or you constructed the '
           'details manually without a localPosition argument.',
       icon: Icons.bug_report_rounded,
@@ -2203,7 +2270,8 @@ Widget _pitfallsFaq() {
     ),
     (
       title: 'Reaching for `kind` on DragDownDetails',
-      body: 'It is not there. DragDownDetails only carries globalPosition and '
+      body:
+          'It is not there. DragDownDetails only carries globalPosition and '
           'localPosition. Pointer kind is reported on DragStartDetails, so '
           'inspect kind inside onStart, not onDown.',
       icon: Icons.tune_rounded,
@@ -2211,7 +2279,8 @@ Widget _pitfallsFaq() {
     ),
     (
       title: 'Expecting velocity from DragDownDetails',
-      body: 'Wrong type. Velocity is reported by DragEndDetails when the finger '
+      body:
+          'Wrong type. Velocity is reported by DragEndDetails when the finger '
           'lifts. DragDownDetails is the LANDING — there is no movement yet, so '
           'no velocity is meaningful.',
       icon: Icons.flash_off_rounded,
@@ -2443,7 +2512,9 @@ Widget _sectionHeader({
   bool onDarkBackground = false,
 }) {
   final titleColor = onDarkBackground ? Colors.white : const Color(0xFF1A1A1A);
-  final subColor = onDarkBackground ? const Color(0xCCEFEFEF) : const Color(0xFF6B6B6B);
+  final subColor = onDarkBackground
+      ? const Color(0xCCEFEFEF)
+      : const Color(0xFF6B6B6B);
   return Row(
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [

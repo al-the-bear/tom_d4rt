@@ -410,10 +410,7 @@ Widget _treeRow(String pipe, String name, Color color, String note) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        SizedBox(
-          width: 110.0,
-          child: Text(pipe, style: _kMono),
-        ),
+        SizedBox(width: 110.0, child: Text(pipe, style: _kMono)),
         Container(
           width: 12.0,
           height: 12.0,
@@ -469,24 +466,60 @@ Widget _hierarchyDiagram() {
         ),
         _gap(8.0),
         _treeRow('Route<T>', 'abstract', _kSlate, 'the contract'),
-        _treeRow(' └── ', 'OverlayRoute<T>', _kLineBlue,
-            'paints into Overlay via OverlayEntry'),
-        _treeRow('      └── ', 'TransitionRoute<T>', _kLineGreen,
-            'owns a primary AnimationController'),
-        _treeRow('           └── ', 'ModalRoute<T>', _kLineOrange,
-            'adds the barrier scrim & focus traps'),
-        _treeRow('                └── ', 'PageRoute<T>', _kLineRed,
-            'fullscreen, opaque, push/pop animated'),
-        _treeRow('                     └── ', 'CupertinoPageRoute<T>',
-            _kLinePurple, 'iOS slide-in transition + back gesture'),
-        _treeRow('                └── ', 'PopupRoute<T>', _kLineYellow,
-            'non-fullscreen overlays (sheets, dialogs)'),
-        _treeRow('                     └── ', 'CupertinoModalPopupRoute<T>',
-            _kLineYellow, 'iOS-style action sheet popup'),
-        _treeRow('                     └── ', 'CupertinoDialogRoute<T>',
-            _kLineOrange, 'iOS-style centred alert dialog'),
-        _treeRow('                     └── ', 'CupertinoSheetRoute<T>',
-            _kLineTeal, 'iOS 15+ stacked card sheet'),
+        _treeRow(
+          ' └── ',
+          'OverlayRoute<T>',
+          _kLineBlue,
+          'paints into Overlay via OverlayEntry',
+        ),
+        _treeRow(
+          '      └── ',
+          'TransitionRoute<T>',
+          _kLineGreen,
+          'owns a primary AnimationController',
+        ),
+        _treeRow(
+          '           └── ',
+          'ModalRoute<T>',
+          _kLineOrange,
+          'adds the barrier scrim & focus traps',
+        ),
+        _treeRow(
+          '                └── ',
+          'PageRoute<T>',
+          _kLineRed,
+          'fullscreen, opaque, push/pop animated',
+        ),
+        _treeRow(
+          '                     └── ',
+          'CupertinoPageRoute<T>',
+          _kLinePurple,
+          'iOS slide-in transition + back gesture',
+        ),
+        _treeRow(
+          '                └── ',
+          'PopupRoute<T>',
+          _kLineYellow,
+          'non-fullscreen overlays (sheets, dialogs)',
+        ),
+        _treeRow(
+          '                     └── ',
+          'CupertinoModalPopupRoute<T>',
+          _kLineYellow,
+          'iOS-style action sheet popup',
+        ),
+        _treeRow(
+          '                     └── ',
+          'CupertinoDialogRoute<T>',
+          _kLineOrange,
+          'iOS-style centred alert dialog',
+        ),
+        _treeRow(
+          '                     └── ',
+          'CupertinoSheetRoute<T>',
+          _kLineTeal,
+          'iOS 15+ stacked card sheet',
+        ),
         _gap(8.0),
         _explainerCard(
           'Read top-to-bottom: each child class layers responsibility on '
@@ -629,8 +662,11 @@ Widget _specimenCard(_SpecimenReport r) {
         _captionRow('settings.args', r.settingsArguments),
         _captionRow('fullscreenDialog', r.fullscreenDialog),
         _captionRow('title', r.title),
-        _captionRow('attached', r.attachedNote,
-            valueColor: r.attached ? _kLineGreen : _kLineRed),
+        _captionRow(
+          'attached',
+          r.attachedNote,
+          valueColor: r.attached ? _kLineGreen : _kLineRed,
+        ),
       ],
     ),
   );
@@ -663,9 +699,8 @@ Widget _liveSpecimenSection() {
   );
 
   final CupertinoPageRoute<int> typed = CupertinoPageRoute<int>(
-    builder: (ctx) => CupertinoPageScaffold(
-      child: Center(child: Text('Pick a number')),
-    ),
+    builder: (ctx) =>
+        CupertinoPageScaffold(child: Center(child: Text('Pick a number'))),
     settings: RouteSettings(name: '/pick-int'),
     title: 'Pick',
   );
@@ -1017,10 +1052,7 @@ Widget _compareDeclarative() {
                 height: 1.0,
                 color: _kFog,
               ),
-              _captionRow(
-                'CupertinoPageRoute.title',
-                route.title ?? '(none)',
-              ),
+              _captionRow('CupertinoPageRoute.title', route.title ?? '(none)'),
               _captionRow(
                 'CupertinoPageRoute.settings.name',
                 route.settings.name ?? '(none)',
@@ -1202,10 +1234,7 @@ Widget _dialogMockup() {
                     style: TextStyle(fontSize: 9.5, color: _kIron),
                   ),
                   _gap(6.0),
-                  Container(
-                    height: 1.0,
-                    color: _kFog,
-                  ),
+                  Container(height: 1.0, color: _kFog),
                   _gap(4.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -1354,8 +1383,7 @@ Widget _lifecycleStep({
               ),
             ),
           ),
-          if (!last)
-            Container(width: 2.0, height: 30.0, color: _kFog),
+          if (!last) Container(width: 2.0, height: 30.0, color: _kFog),
         ],
       ),
       _hgap(12.0),
@@ -1376,11 +1404,7 @@ Widget _lifecycleStep({
               _gap(2.0),
               Text(
                 desc,
-                style: TextStyle(
-                  fontSize: 11.5,
-                  color: _kSlate,
-                  height: 1.35,
-                ),
+                style: TextStyle(fontSize: 11.5, color: _kSlate, height: 1.35),
               ),
             ],
           ),
@@ -1415,42 +1439,48 @@ Widget _lifecycleDiagram() {
           n: 1,
           name: 'install',
           color: _kLineBlue,
-          desc: 'Navigator inserts the route\'s OverlayEntry(s) into the '
+          desc:
+              'Navigator inserts the route\'s OverlayEntry(s) into the '
               'Overlay. No animation has run yet.',
         ),
         _lifecycleStep(
           n: 2,
           name: 'didPush',
           color: _kLineGreen,
-          desc: 'Push animation starts. Returns the TickerFuture that '
+          desc:
+              'Push animation starts. Returns the TickerFuture that '
               'completes when the entry is fully on-screen.',
         ),
         _lifecycleStep(
           n: 3,
           name: 'didChangeNext',
           color: _kLineYellow,
-          desc: 'Called when a new route is pushed on top — your route '
+          desc:
+              'Called when a new route is pushed on top — your route '
               'learns who its successor is and can react.',
         ),
         _lifecycleStep(
           n: 4,
           name: 'didChangePrevious',
           color: _kLineOrange,
-          desc: 'Called when the route below changes — typical when '
+          desc:
+              'Called when the route below changes — typical when '
               'replace() or removeRoute() mutates the stack mid-flight.',
         ),
         _lifecycleStep(
           n: 5,
           name: 'didPop(result)',
           color: _kLineRed,
-          desc: 'The pop animation begins. The popped Future<T?> resolves '
+          desc:
+              'The pop animation begins. The popped Future<T?> resolves '
               'with whatever value was passed to Navigator.pop().',
         ),
         _lifecycleStep(
           n: 6,
           name: 'dispose',
           color: _kLinePurple,
-          desc: 'OverlayEntries are removed and the route\'s controllers are '
+          desc:
+              'OverlayEntries are removed and the route\'s controllers are '
               'disposed. Anything held by the route is now free.',
           last: true,
         ),
@@ -1543,7 +1573,8 @@ Widget _recipeGrid() {
               '    builder: (_) => DetailPage(),\n'
               '  ),\n'
               ');',
-          note: 'The classic imperative push — slides in from the right '
+          note:
+              'The classic imperative push — slides in from the right '
               'with the iOS back gesture enabled by default.',
         ),
         _recipeCard(
@@ -1556,7 +1587,8 @@ Widget _recipeGrid() {
               '    builder: (_) => Picker(),\n'
               '  ),\n'
               ');',
-          note: 'Type the route parameter T explicitly so the pop value '
+          note:
+              'Type the route parameter T explicitly so the pop value '
               'type-checks against the awaited Future.',
         ),
         _recipeCard(
@@ -1568,7 +1600,8 @@ Widget _recipeGrid() {
               '    builder: (_) => Welcome(),\n'
               '  ),\n'
               ');',
-          note: 'Replace swaps the top of the stack — the previous route '
+          note:
+              'Replace swaps the top of the stack — the previous route '
               'is disposed and the new one takes its place.',
         ),
         _recipeCard(
@@ -1578,7 +1611,8 @@ Widget _recipeGrid() {
               'Navigator.of(context).popUntil(\n'
               '  (route) => route.settings.name == \'/\'\n'
               ');',
-          note: 'Walks the stack popping each route until the predicate '
+          note:
+              'Walks the stack popping each route until the predicate '
               'returns true — great for "Done" buttons.',
         ),
         _recipeCard(
@@ -1591,7 +1625,8 @@ Widget _recipeGrid() {
               '  ),\n'
               '  (route) => false,\n'
               ');',
-          note: 'After login: jump to Home and wipe the stack so users '
+          note:
+              'After login: jump to Home and wipe the stack so users '
               'cannot back-swipe into the auth screens.',
         ),
         _recipeCard(
@@ -1602,7 +1637,8 @@ Widget _recipeGrid() {
               '  context: context,\n'
               '  pageBuilder: (_) => SettingsSheet(),\n'
               ');',
-          note: 'A helper that pushes a CupertinoSheetRoute — partial '
+          note:
+              'A helper that pushes a CupertinoSheetRoute — partial '
               'overlay with the stacked-card visual.',
         ),
       ],
@@ -1686,82 +1722,112 @@ Widget _comparisonTable() {
               4: FlexColumnWidth(1.0),
             },
             children: <TableRow>[
-              TableRow(children: <Widget>[
-                _cmpHeader('Route variant'),
-                _cmpHeader('Platform'),
-                _cmpHeader('Transition'),
-                _cmpHeader('Back gesture'),
-                _cmpHeader('Owns barrier?'),
-              ]),
-              TableRow(children: <Widget>[
-                _cmpCell('Route<T>', bold: true, color: _kPaper),
-                _cmpCell('abstract'),
-                _cmpCell('—'),
-                _cmpCell('—'),
-                _cmpCell('—'),
-              ]),
-              TableRow(children: <Widget>[
-                _cmpCell('PageRoute<T>', bold: true, color: _kPaper),
-                _cmpCell('abstract / both'),
-                _cmpCell('subclass decides'),
-                _cmpCell('subclass decides'),
-                _cmpCell('yes (opaque)'),
-              ]),
-              TableRow(children: <Widget>[
-                _cmpCell('MaterialPageRoute<T>',
-                    bold: true, color: _kPaper),
-                _cmpCell('Material / Android'),
-                _cmpCell('fade-up'),
-                _cmpCell('no'),
-                _cmpCell('yes'),
-              ]),
-              TableRow(children: <Widget>[
-                _cmpCell('CupertinoPageRoute<T>',
-                    bold: true, color: _kPaper),
-                _cmpCell('Cupertino / iOS'),
-                _cmpCell('horizontal slide'),
-                _cmpCell('edge swipe'),
-                _cmpCell('yes'),
-              ]),
-              TableRow(children: <Widget>[
-                _cmpCell('PopupRoute<T>', bold: true, color: _kPaper),
-                _cmpCell('abstract'),
-                _cmpCell('subclass decides'),
-                _cmpCell('subclass decides'),
-                _cmpCell('yes (translucent)'),
-              ]),
-              TableRow(children: <Widget>[
-                _cmpCell('DialogRoute<T> (Material)',
-                    bold: true, color: _kPaper),
-                _cmpCell('Material'),
-                _cmpCell('fade-scale'),
-                _cmpCell('no'),
-                _cmpCell('yes'),
-              ]),
-              TableRow(children: <Widget>[
-                _cmpCell('CupertinoDialogRoute<T>',
-                    bold: true, color: _kPaper),
-                _cmpCell('Cupertino'),
-                _cmpCell('fade'),
-                _cmpCell('no'),
-                _cmpCell('yes'),
-              ]),
-              TableRow(children: <Widget>[
-                _cmpCell('CupertinoModalPopupRoute<T>',
-                    bold: true, color: _kPaper),
-                _cmpCell('Cupertino'),
-                _cmpCell('slide-up'),
-                _cmpCell('no'),
-                _cmpCell('yes (dim)'),
-              ]),
-              TableRow(children: <Widget>[
-                _cmpCell('CupertinoSheetRoute<T>',
-                    bold: true, color: _kPaper),
-                _cmpCell('Cupertino (iOS15+)'),
-                _cmpCell('stacked sheet'),
-                _cmpCell('drag-to-dismiss'),
-                _cmpCell('yes (dim)'),
-              ]),
+              TableRow(
+                children: <Widget>[
+                  _cmpHeader('Route variant'),
+                  _cmpHeader('Platform'),
+                  _cmpHeader('Transition'),
+                  _cmpHeader('Back gesture'),
+                  _cmpHeader('Owns barrier?'),
+                ],
+              ),
+              TableRow(
+                children: <Widget>[
+                  _cmpCell('Route<T>', bold: true, color: _kPaper),
+                  _cmpCell('abstract'),
+                  _cmpCell('—'),
+                  _cmpCell('—'),
+                  _cmpCell('—'),
+                ],
+              ),
+              TableRow(
+                children: <Widget>[
+                  _cmpCell('PageRoute<T>', bold: true, color: _kPaper),
+                  _cmpCell('abstract / both'),
+                  _cmpCell('subclass decides'),
+                  _cmpCell('subclass decides'),
+                  _cmpCell('yes (opaque)'),
+                ],
+              ),
+              TableRow(
+                children: <Widget>[
+                  _cmpCell('MaterialPageRoute<T>', bold: true, color: _kPaper),
+                  _cmpCell('Material / Android'),
+                  _cmpCell('fade-up'),
+                  _cmpCell('no'),
+                  _cmpCell('yes'),
+                ],
+              ),
+              TableRow(
+                children: <Widget>[
+                  _cmpCell('CupertinoPageRoute<T>', bold: true, color: _kPaper),
+                  _cmpCell('Cupertino / iOS'),
+                  _cmpCell('horizontal slide'),
+                  _cmpCell('edge swipe'),
+                  _cmpCell('yes'),
+                ],
+              ),
+              TableRow(
+                children: <Widget>[
+                  _cmpCell('PopupRoute<T>', bold: true, color: _kPaper),
+                  _cmpCell('abstract'),
+                  _cmpCell('subclass decides'),
+                  _cmpCell('subclass decides'),
+                  _cmpCell('yes (translucent)'),
+                ],
+              ),
+              TableRow(
+                children: <Widget>[
+                  _cmpCell(
+                    'DialogRoute<T> (Material)',
+                    bold: true,
+                    color: _kPaper,
+                  ),
+                  _cmpCell('Material'),
+                  _cmpCell('fade-scale'),
+                  _cmpCell('no'),
+                  _cmpCell('yes'),
+                ],
+              ),
+              TableRow(
+                children: <Widget>[
+                  _cmpCell(
+                    'CupertinoDialogRoute<T>',
+                    bold: true,
+                    color: _kPaper,
+                  ),
+                  _cmpCell('Cupertino'),
+                  _cmpCell('fade'),
+                  _cmpCell('no'),
+                  _cmpCell('yes'),
+                ],
+              ),
+              TableRow(
+                children: <Widget>[
+                  _cmpCell(
+                    'CupertinoModalPopupRoute<T>',
+                    bold: true,
+                    color: _kPaper,
+                  ),
+                  _cmpCell('Cupertino'),
+                  _cmpCell('slide-up'),
+                  _cmpCell('no'),
+                  _cmpCell('yes (dim)'),
+                ],
+              ),
+              TableRow(
+                children: <Widget>[
+                  _cmpCell(
+                    'CupertinoSheetRoute<T>',
+                    bold: true,
+                    color: _kPaper,
+                  ),
+                  _cmpCell('Cupertino (iOS15+)'),
+                  _cmpCell('stacked sheet'),
+                  _cmpCell('drag-to-dismiss'),
+                  _cmpCell('yes (dim)'),
+                ],
+              ),
             ],
           ),
         ),
@@ -1801,10 +1867,7 @@ Widget _glossaryRow(String term, String def, Color accent) {
           ),
         ),
         _gap(2.0),
-        Text(
-          def,
-          style: TextStyle(fontSize: 11.5, color: _kIron, height: 1.4),
-        ),
+        Text(def, style: TextStyle(fontSize: 11.5, color: _kIron, height: 1.4)),
       ],
     ),
   );
@@ -1927,10 +1990,7 @@ Widget _summaryItem(String label) {
         ),
         _hgap(10.0),
         Expanded(
-          child: Text(
-            label,
-            style: TextStyle(color: _kCream, fontSize: 12.5),
-          ),
+          child: Text(label, style: TextStyle(color: _kCream, fontSize: 12.5)),
         ),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),

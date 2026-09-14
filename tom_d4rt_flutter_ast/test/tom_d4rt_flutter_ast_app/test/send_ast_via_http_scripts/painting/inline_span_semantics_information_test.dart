@@ -24,11 +24,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(24.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          deepPurple.shade700,
-          purple.shade500,
-          teal.shade400,
-        ],
+        colors: [deepPurple.shade700, purple.shade500, teal.shade400],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -155,10 +151,7 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(10.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              color.shade50,
-              color.shade100,
-            ],
+            colors: [color.shade50, color.shade100],
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
           ),
@@ -279,8 +272,10 @@ dynamic build(BuildContext context) {
   print('plainInfo.text=${plainInfo.text}');
   print('labelledInfo.semanticsLabel=${labelledInfo.semanticsLabel}');
   print('placeholderInfo.isPlaceholder=${placeholderInfo.isPlaceholder}');
-  print('recognizerInfo.recognizer != null = '
-      '${recognizerInfo.recognizer != null}');
+  print(
+    'recognizerInfo.recognizer != null = '
+    '${recognizerInfo.recognizer != null}',
+  );
 
   final variantCards = <Widget>[
     _buildVariantCard(
@@ -377,10 +372,7 @@ dynamic build(BuildContext context) {
               alignment: Alignment.center,
               child: Text(
                 placeholderConst.text,
-                style: TextStyle(
-                  fontSize: 40.0,
-                  color: teal.shade900,
-                ),
+                style: TextStyle(fontSize: 40.0, color: teal.shade900),
               ),
             ),
             SizedBox(width: 16.0),
@@ -437,9 +429,7 @@ dynamic build(BuildContext context) {
         text: 'Hello ',
         style: TextStyle(color: deepPurple, fontWeight: FontWeight.bold),
       ),
-      WidgetSpan(
-        child: Icon(Icons.star, color: amber, size: 16.0),
-      ),
+      WidgetSpan(child: Icon(Icons.star, color: amber, size: 16.0)),
       TextSpan(
         text: ' world',
         style: TextStyle(color: teal.shade700),
@@ -447,8 +437,8 @@ dynamic build(BuildContext context) {
     ],
   );
 
-  final List<InlineSpanSemanticsInformation> infos =
-      richSpan.getSemanticsInformation();
+  final List<InlineSpanSemanticsInformation> infos = richSpan
+      .getSemanticsInformation();
   print('Got ${infos.length} InlineSpanSemanticsInformation entries');
 
   final infoRows = <Widget>[];
@@ -674,7 +664,9 @@ dynamic build(BuildContext context) {
     'IBM bonjour',
     stringAttributes: attrs,
   );
-  print('attrInfo.text=${attrInfo.text} attrCount=${attrInfo.stringAttributes.length}');
+  print(
+    'attrInfo.text=${attrInfo.text} attrCount=${attrInfo.stringAttributes.length}',
+  );
 
   final timelineSegments = <Widget>[
     _buildTimelineSegment(
@@ -683,12 +675,7 @@ dynamic build(BuildContext context) {
       '0..3 — read letter by letter',
       Colors.deepOrange,
     ),
-    _buildTimelineSegment(
-      ' ',
-      'no attribute',
-      'normal speech',
-      Colors.grey,
-    ),
+    _buildTimelineSegment(' ', 'no attribute', 'normal speech', Colors.grey),
     _buildTimelineSegment(
       'bonjour',
       'LocaleStringAttribute',
@@ -779,11 +766,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          deepPurple.shade100,
-          purple.shade100,
-          teal.shade100,
-        ],
+        colors: [deepPurple.shade100, purple.shade100, teal.shade100],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -868,7 +851,7 @@ dynamic build(BuildContext context) {
       'color': Colors.red,
       'desc':
           "Text('🎉') alone gives screen readers no useful name. Always set "
-              "semanticsLabel: 'celebration' or wrap in Semantics(label: ...).",
+          "semanticsLabel: 'celebration' or wrap in Semantics(label: ...).",
     },
     <String, dynamic>{
       'title': 'WidgetSpan without isPlaceholder',
@@ -876,8 +859,8 @@ dynamic build(BuildContext context) {
       'color': Colors.deepOrange,
       'desc':
           'Custom InlineSpan subclasses that wrap widgets must yield '
-              'isPlaceholder: true and text == U+FFFC, otherwise the index alignment '
-              'between glyphs and widgets breaks.',
+          'isPlaceholder: true and text == U+FFFC, otherwise the index alignment '
+          'between glyphs and widgets breaks.',
     },
     <String, dynamic>{
       'title': 'StringAttribute range mismatch',
@@ -885,8 +868,8 @@ dynamic build(BuildContext context) {
       'color': Colors.purple,
       'desc':
           'A StringAttribute range must lie within text.length of THIS '
-              'descriptor — not the whole rich text. Off-by-one ranges silently '
-              'drop on some platforms.',
+          'descriptor — not the whole rich text. Off-by-one ranges silently '
+          'drop on some platforms.',
     },
     <String, dynamic>{
       'title': 'Recognizer lifecycle leaks',
@@ -894,8 +877,8 @@ dynamic build(BuildContext context) {
       'color': Colors.teal,
       'desc':
           'TapGestureRecognizer attached via the recognizer field must be '
-              'disposed when the owning span is replaced; semantics keeps a '
-              'reference until then.',
+          'disposed when the owning span is replaced; semantics keeps a '
+          'reference until then.',
     },
   ];
 
@@ -962,11 +945,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          deepPurple.shade400,
-          purple.shade300,
-          teal.shade300,
-        ],
+        colors: [deepPurple.shade400, purple.shade300, teal.shade300],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1003,12 +982,24 @@ dynamic build(BuildContext context) {
         ),
         SizedBox(height: 12.0),
         _buildBullet('A descriptor — not a widget. Five fields, no behaviour.'),
-        _buildBullet('Always returned in document order from getSemanticsInformation().'),
-        _buildBullet('Placeholder entries carry U+FFFC and isPlaceholder=true.'),
-        _buildBullet('semanticsLabel is the screen-reader override; prefer it for emoji/icons.'),
-        _buildBullet('stringAttributes attach per-range hints (spell-out, locale).'),
-        _buildBullet('recognizer wires inline tap targets through the semantics tree.'),
-        _buildBullet('Use InlineSpanSemanticsInformation.placeholder for any custom WidgetSpan-like span.'),
+        _buildBullet(
+          'Always returned in document order from getSemanticsInformation().',
+        ),
+        _buildBullet(
+          'Placeholder entries carry U+FFFC and isPlaceholder=true.',
+        ),
+        _buildBullet(
+          'semanticsLabel is the screen-reader override; prefer it for emoji/icons.',
+        ),
+        _buildBullet(
+          'stringAttributes attach per-range hints (spell-out, locale).',
+        ),
+        _buildBullet(
+          'recognizer wires inline tap targets through the semantics tree.',
+        ),
+        _buildBullet(
+          'Use InlineSpanSemanticsInformation.placeholder for any custom WidgetSpan-like span.',
+        ),
       ],
     ),
   );
@@ -1421,11 +1412,7 @@ Widget _buildBullet(String text) {
         Expanded(
           child: Text(
             text,
-            style: TextStyle(
-              fontSize: 12.5,
-              color: Colors.white,
-              height: 1.35,
-            ),
+            style: TextStyle(fontSize: 12.5, color: Colors.white, height: 1.35),
           ),
         ),
       ],

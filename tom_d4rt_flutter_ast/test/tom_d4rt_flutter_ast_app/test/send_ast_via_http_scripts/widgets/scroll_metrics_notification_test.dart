@@ -63,7 +63,8 @@ const List<Map<String, Object>> kInitialTiles = <Map<String, Object>>[
 const List<Map<String, String>> kMetricsFields = <Map<String, String>>[
   <String, String>{
     'name': 'pixels',
-    'desc': 'Current scroll offset. Typically unchanged by a pure metrics event.',
+    'desc':
+        'Current scroll offset. Typically unchanged by a pure metrics event.',
   },
   <String, String>{
     'name': 'minScrollExtent',
@@ -179,7 +180,8 @@ const List<Map<String, String>> kTeachingTiles = <Map<String, String>>[
   },
 ];
 
-const String kCanonicalSnippet = '''NotificationListener<ScrollMetricsNotification>(
+const String kCanonicalSnippet =
+    '''NotificationListener<ScrollMetricsNotification>(
   onNotification: (ScrollMetricsNotification n) {
     final ScrollMetrics m = n.metrics;
     debugPrint(
@@ -417,7 +419,8 @@ class _MetricsChangeDetectorState extends State<MetricsChangeDetector>
           _SectionTitle(
             number: '7',
             title: 'Use cases',
-            subtitle: 'Four real product patterns that depend on this notification.',
+            subtitle:
+                'Four real product patterns that depend on this notification.',
           ),
           const SizedBox(height: 12),
           const _UseCaseStrip(),
@@ -425,7 +428,8 @@ class _MetricsChangeDetectorState extends State<MetricsChangeDetector>
           _SectionTitle(
             number: '8',
             title: 'Canonical snippet',
-            subtitle: 'The shortest real listener you would write in production.',
+            subtitle:
+                'The shortest real listener you would write in production.',
           ),
           const SizedBox(height: 12),
           const _CodeSnippetCard(),
@@ -489,9 +493,7 @@ class _HeroHeader extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: kCream.withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(20),
-                  border: Border.all(
-                    color: kCream.withValues(alpha: 0.4),
-                  ),
+                  border: Border.all(color: kCream.withValues(alpha: 0.4)),
                 ),
                 child: const Text(
                   'Notification subclass',
@@ -512,9 +514,7 @@ class _HeroHeader extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: kCream.withValues(alpha: 0.08),
                   borderRadius: BorderRadius.circular(20),
-                  border: Border.all(
-                    color: kCream.withValues(alpha: 0.22),
-                  ),
+                  border: Border.all(color: kCream.withValues(alpha: 0.22)),
                 ),
                 child: const Text(
                   'not a ScrollNotification',
@@ -555,11 +555,7 @@ class _HeroHeader extends StatelessWidget {
             'Fires when a Scrollable discovers its metrics have changed for reasons '
             'other than a user scroll: list item additions, viewport resizes, '
             'orientation flips, expandable headers, reflow.',
-            style: TextStyle(
-              color: kCream,
-              fontSize: 13,
-              height: 1.45,
-            ),
+            style: TextStyle(color: kCream, fontSize: 13, height: 1.45),
           ),
         ],
       ),
@@ -778,20 +774,14 @@ class _LaboratoryPanel extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              _LabChip(
-                label: 'items: ${tiles.length}',
-                color: kBurgundy,
-              ),
+              _LabChip(label: 'items: ${tiles.length}', color: kBurgundy),
               const SizedBox(width: 8),
               _LabChip(
                 label: 'viewport: ${viewportHeight.toStringAsFixed(0)} px',
                 color: kLeaf,
               ),
               const SizedBox(width: 8),
-              _LabChip(
-                label: 'events: ${events.length}',
-                color: kInk,
-              ),
+              _LabChip(label: 'events: ${events.length}', color: kInk),
               const Spacer(),
               TextButton(
                 onPressed: onClear,
@@ -1046,9 +1036,7 @@ class _LabButton extends StatelessWidget {
         foregroundColor: Colors.white,
         elevation: 2,
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         textStyle: const TextStyle(
           fontSize: 13,
           fontWeight: FontWeight.w700,
@@ -1080,10 +1068,7 @@ class _EventRow extends StatelessWidget {
           Row(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 6,
-                  vertical: 2,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(
                   color: kBurgundy,
                   borderRadius: BorderRadius.circular(4),
@@ -1145,8 +1130,7 @@ class _DiffBadgesPanel extends StatelessWidget {
     if (events.isEmpty) {
       return _EmptyPanel(message: 'No metrics events captured yet.');
     }
-    final List<_MetricsEvent> sliced =
-        events.take(6).toList(growable: false);
+    final List<_MetricsEvent> sliced = events.take(6).toList(growable: false);
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -1235,9 +1219,7 @@ class _DeltaBadge extends StatelessWidget {
       decoration: BoxDecoration(
         color: tint.withValues(alpha: zero ? 0.06 : 0.14),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: tint.withValues(alpha: zero ? 0.15 : 0.5),
-        ),
+        border: Border.all(color: tint.withValues(alpha: zero ? 0.15 : 0.5)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -1296,11 +1278,7 @@ class _SparklineCard extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              const Icon(
-                Icons.stacked_line_chart,
-                color: kBurgundy,
-                size: 18,
-              ),
+              const Icon(Icons.stacked_line_chart, color: kBurgundy, size: 18),
               const SizedBox(width: 8),
               const Text(
                 'maxScrollExtent sparkline',
@@ -1333,11 +1311,7 @@ class _SparklineCard extends StatelessWidget {
           const Text(
             'The line walks right as new notifications arrive; height is scaled '
             'to the current min/max of the window.',
-            style: TextStyle(
-              color: kSlate,
-              fontSize: 11.5,
-              height: 1.35,
-            ),
+            style: TextStyle(color: kSlate, fontSize: 11.5, height: 1.35),
           ),
         ],
       ),
@@ -1353,10 +1327,7 @@ class _SparklinePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final Paint bg = Paint()..color = kSoft.withValues(alpha: 0.5);
     canvas.drawRRect(
-      RRect.fromRectAndRadius(
-        Offset.zero & size,
-        const Radius.circular(10),
-      ),
+      RRect.fromRectAndRadius(Offset.zero & size, const Radius.circular(10)),
       bg,
     );
 
@@ -1378,10 +1349,7 @@ class _SparklinePainter extends CustomPainter {
       )..layout();
       tp.paint(
         canvas,
-        Offset(
-          (size.width - tp.width) / 2,
-          (size.height - tp.height) / 2,
-        ),
+        Offset((size.width - tp.width) / 2, (size.height - tp.height) / 2),
       );
       return;
     }
@@ -1399,8 +1367,9 @@ class _SparklinePainter extends CustomPainter {
     final Path linePath = Path();
     final Path fillPath = Path();
     for (int i = 0; i < points.length; i++) {
-      final double x =
-          points.length == 1 ? 0 : size.width * i / (points.length - 1);
+      final double x = points.length == 1
+          ? 0
+          : size.width * i / (points.length - 1);
       final double normalised = (points[i] - minV) / (maxV - minV);
       final double y = size.height - normalised * (size.height - 8) - 4;
       if (i == 0) {
@@ -1438,16 +1407,8 @@ class _SparklinePainter extends CustomPainter {
     final double lastX = size.width;
     final double lastNorm = (points.last - minV) / (maxV - minV);
     final double lastY = size.height - lastNorm * (size.height - 8) - 4;
-    canvas.drawCircle(
-      Offset(lastX, lastY),
-      4,
-      Paint()..color = kBurgundy,
-    );
-    canvas.drawCircle(
-      Offset(lastX, lastY),
-      2,
-      Paint()..color = kCream,
-    );
+    canvas.drawCircle(Offset(lastX, lastY), 4, Paint()..color = kBurgundy);
+    canvas.drawCircle(Offset(lastX, lastY), 2, Paint()..color = kCream);
 
     // axis labels
     final TextPainter maxLbl = TextPainter(
@@ -1485,20 +1446,19 @@ class _BeforeAfterPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<_MetricsEvent> sliced =
-        events.take(3).toList(growable: false);
+    final List<_MetricsEvent> sliced = events.take(3).toList(growable: false);
     if (sliced.isEmpty) {
-      return _EmptyPanel(
-        message: 'No notifications yet — nothing to compare.',
-      );
+      return _EmptyPanel(message: 'No notifications yet — nothing to compare.');
     }
     return Column(
-      children: sliced.map((_MetricsEvent e) {
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 10),
-          child: _BeforeAfterRow(event: e),
-        );
-      }).toList(growable: false),
+      children: sliced
+          .map((_MetricsEvent e) {
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: _BeforeAfterRow(event: e),
+            );
+          })
+          .toList(growable: false),
     );
   }
 }
@@ -1522,10 +1482,7 @@ class _BeforeAfterRow extends StatelessWidget {
           Row(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 3,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
                   color: kBurgundy,
                   borderRadius: BorderRadius.circular(6),
@@ -1604,9 +1561,8 @@ class _ViewportBar extends StatelessWidget {
         ),
       );
     }
-    final double total =
-        (sample!.maxScrollExtent + sample!.viewportDimension)
-            .clamp(1.0, 100000.0);
+    final double total = (sample!.maxScrollExtent + sample!.viewportDimension)
+        .clamp(1.0, 100000.0);
     final double viewRatio = sample!.viewportDimension / total;
     return Container(
       padding: const EdgeInsets.all(10),
@@ -1630,7 +1586,10 @@ class _ViewportBar extends StatelessWidget {
           const SizedBox(height: 6),
           LayoutBuilder(
             builder: (BuildContext ctx, BoxConstraints c) {
-              final double viewPx = (c.maxWidth * viewRatio).clamp(12.0, c.maxWidth);
+              final double viewPx = (c.maxWidth * viewRatio).clamp(
+                12.0,
+                c.maxWidth,
+              );
               final double extPx = c.maxWidth - viewPx;
               return SizedBox(
                 height: 22,
@@ -1757,11 +1716,7 @@ class _MetricsFieldTile extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             row['desc']!,
-            style: const TextStyle(
-              color: kInk,
-              fontSize: 11.5,
-              height: 1.35,
-            ),
+            style: const TextStyle(color: kInk, fontSize: 11.5, height: 1.35),
           ),
         ],
       ),
@@ -1790,10 +1745,7 @@ class _CompareCard extends StatelessWidget {
           Row(
             children: const <Widget>[
               Expanded(
-                child: _CompareHeader(
-                  label: 'aspect',
-                  color: kInk,
-                ),
+                child: _CompareHeader(label: 'aspect', color: kInk),
               ),
               Expanded(
                 child: _CompareHeader(
@@ -1833,10 +1785,7 @@ class _CompareCard extends StatelessWidget {
                     ),
                   ),
                   Expanded(
-                    child: _CompareCell(
-                      text: row['scroll']!,
-                      accent: kLeaf,
-                    ),
+                    child: _CompareCell(text: row['scroll']!, accent: kLeaf),
                   ),
                 ],
               ),
@@ -1893,11 +1842,7 @@ class _CompareCell extends StatelessWidget {
       ),
       child: Text(
         text,
-        style: const TextStyle(
-          color: kInk,
-          fontSize: 11.5,
-          height: 1.35,
-        ),
+        style: const TextStyle(color: kInk, fontSize: 11.5, height: 1.35),
       ),
     );
   }
@@ -1916,8 +1861,8 @@ class _UseCaseStrip extends StatelessWidget {
         final int columns = c.maxWidth > 820
             ? 4
             : c.maxWidth > 560
-                ? 2
-                : 1;
+            ? 2
+            : 1;
         return GridView.count(
           crossAxisCount: columns,
           childAspectRatio: 1.55,
@@ -2141,11 +2086,7 @@ class _TeachingTile extends StatelessWidget {
           Expanded(
             child: Text(
               row['body']!,
-              style: const TextStyle(
-                color: kInk,
-                fontSize: 12,
-                height: 1.4,
-              ),
+              style: const TextStyle(color: kInk, fontSize: 12, height: 1.4),
             ),
           ),
         ],
@@ -2167,10 +2108,7 @@ class _FooterSummary extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[
-            kInk,
-            kInk.withValues(alpha: 0.92),
-          ],
+          colors: <Color>[kInk, kInk.withValues(alpha: 0.92)],
         ),
         borderRadius: BorderRadius.circular(16),
       ),
@@ -2199,9 +2137,7 @@ class _FooterSummary extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: kCream.withValues(alpha: 0.08),
                   borderRadius: BorderRadius.circular(20),
-                  border: Border.all(
-                    color: kCream.withValues(alpha: 0.22),
-                  ),
+                  border: Border.all(color: kCream.withValues(alpha: 0.22)),
                 ),
                 child: const Text(
                   'ScrollMetricsNotification',
@@ -2222,11 +2158,7 @@ class _FooterSummary extends StatelessWidget {
             '• Use it to observe structural changes (item adds/removes, viewport resizes).\n'
             '• Use ScrollController.addListener when you need every-frame pixel reads.\n'
             '• Never trigger layout that re-enters the same Scrollable synchronously from the listener.',
-            style: TextStyle(
-              color: kCream,
-              fontSize: 12.5,
-              height: 1.5,
-            ),
+            style: TextStyle(color: kCream, fontSize: 12.5, height: 1.5),
           ),
         ],
       ),

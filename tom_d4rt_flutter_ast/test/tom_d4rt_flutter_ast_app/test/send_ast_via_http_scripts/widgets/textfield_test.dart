@@ -17,7 +17,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.text_fields,
       'title': 'What is TextField?',
-      'body': 'TextField is Flutter\'s primary widget for text input. It '
+      'body':
+          'TextField is Flutter\'s primary widget for text input. It '
           'wraps an EditableText with Material Design decoration, '
           'providing underline or outlined borders, labels, hints, '
           'icons, and error states out of the box.',
@@ -26,7 +27,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.format_size,
       'title': 'InputDecoration',
-      'body': 'Every TextField has an InputDecoration that controls its '
+      'body':
+          'Every TextField has an InputDecoration that controls its '
           'visual appearance: label text, hint text, prefix/suffix '
           'icons, error text, helper text, counter, borders, and '
           'fill colors. This is the most customized parameter.',
@@ -35,7 +37,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.keyboard,
       'title': 'TextInputType',
-      'body': 'The keyboardType parameter determines which keyboard layout '
+      'body':
+          'The keyboardType parameter determines which keyboard layout '
           'appears: text, number, email, phone, URL, multiline, or '
           'datetime. Each type optimizes the virtual keyboard for '
           'the expected input.',
@@ -44,7 +47,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.edit_note,
       'title': 'TextEditingController',
-      'body': 'A controller provides programmatic access to the text '
+      'body':
+          'A controller provides programmatic access to the text '
           'content and selection. It notifies listeners on changes, '
           'enabling reactive UI updates. Always dispose controllers '
           'when no longer needed.',
@@ -122,21 +126,24 @@ dynamic build(BuildContext context) {
   final decoStyles = <Map<String, dynamic>>[
     {
       'name': 'Underline (Default)',
-      'desc': 'A simple underline that highlights on focus. The default '
+      'desc':
+          'A simple underline that highlights on focus. The default '
           'border style for Material Design. Minimal visual weight.',
       'border': 'underline',
       'color': Colors.indigo,
     },
     {
       'name': 'Outlined',
-      'desc': 'A full border surrounding the field. Provides a clear '
+      'desc':
+          'A full border surrounding the field. Provides a clear '
           'boundary. Popular in Material Design 3 and form-heavy UIs.',
       'border': 'outline',
       'color': Colors.purple,
     },
     {
       'name': 'Filled',
-      'desc': 'The field has a semi-transparent background fill with no '
+      'desc':
+          'The field has a semi-transparent background fill with no '
           'border. Softer visual style that works well on colored '
           'backgrounds.',
       'border': 'filled',
@@ -144,7 +151,8 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'Custom Rounded',
-      'desc': 'Fully rounded corners with a thick outline border. Shows '
+      'desc':
+          'Fully rounded corners with a thick outline border. Shows '
           'that InputDecoration borders can be heavily customized for '
           'unique branding.',
       'border': 'rounded',
@@ -176,9 +184,7 @@ dynamic build(BuildContext context) {
         labelText: 'Email',
         hintText: 'you@example.com',
         prefixIcon: Icon(Icons.email, color: dsColor),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(color: dsColor.withOpacity(0.4)),
@@ -236,10 +242,7 @@ dynamic build(BuildContext context) {
                 ),
               ),
               const SizedBox(height: 10),
-              TextField(
-                decoration: deco,
-                readOnly: true,
-              ),
+              TextField(decoration: deco, readOnly: true),
               const SizedBox(height: 8),
               Text(
                 ds['desc'] as String,
@@ -265,42 +268,48 @@ dynamic build(BuildContext context) {
     {
       'type': 'TextInputType.text',
       'label': 'Standard Text',
-      'desc': 'Default keyboard with auto-correct and suggestions. Used '
+      'desc':
+          'Default keyboard with auto-correct and suggestions. Used '
           'for names, messages, and general text input.',
       'color': Colors.indigo,
     },
     {
       'type': 'TextInputType.number',
       'label': 'Number',
-      'desc': 'Numeric keyboard with digits 0-9. Used for quantities, '
+      'desc':
+          'Numeric keyboard with digits 0-9. Used for quantities, '
           'ages, PIN codes. No decimal or sign by default.',
       'color': Colors.blue,
     },
     {
       'type': 'TextInputType.emailAddress',
       'label': 'Email Address',
-      'desc': 'Keyboard includes @ and . prominently. No auto-correct. '
+      'desc':
+          'Keyboard includes @ and . prominently. No auto-correct. '
           'Optimized for email entry with domain suggestions.',
       'color': Colors.teal,
     },
     {
       'type': 'TextInputType.phone',
       'label': 'Phone Number',
-      'desc': 'Phone dialer keyboard with +, *, #, and digits. '
+      'desc':
+          'Phone dialer keyboard with +, *, #, and digits. '
           'No letters. Used for phone number entry.',
       'color': Colors.green,
     },
     {
       'type': 'TextInputType.url',
       'label': 'URL',
-      'desc': 'Keyboard includes / and .com shortcuts. No auto-correct '
+      'desc':
+          'Keyboard includes / and .com shortcuts. No auto-correct '
           'or auto-capitalize. Optimized for web addresses.',
       'color': Colors.orange,
     },
     {
       'type': 'TextInputType.multiline',
       'label': 'Multiline',
-      'desc': 'Return key inserts a newline instead of submitting. '
+      'desc':
+          'Return key inserts a newline instead of submitting. '
           'Used with maxLines > 1 for paragraphs or comments.',
       'color': Colors.deepOrange,
     },
@@ -395,7 +404,8 @@ dynamic build(BuildContext context) {
       'label': 'Required Field',
       'error': 'This field is required',
       'hint': 'Enter your name',
-      'desc': 'Error text appears below the field in red. The border '
+      'desc':
+          'Error text appears below the field in red. The border '
           'changes to the error color. This is the most basic '
           'validation pattern.',
       'color': Colors.red,
@@ -404,7 +414,8 @@ dynamic build(BuildContext context) {
       'label': 'Email Validation',
       'error': 'Please enter a valid email address',
       'hint': 'user@domain.com',
-      'desc': 'Pattern-based validation checks format before submission. '
+      'desc':
+          'Pattern-based validation checks format before submission. '
           'The error border and text guide the user to correct input.',
       'color': Colors.deepOrange,
     },
@@ -412,7 +423,8 @@ dynamic build(BuildContext context) {
       'label': 'Min Length',
       'error': 'Password must be at least 8 characters',
       'hint': 'Enter password',
-      'desc': 'Length validation ensures minimum data quality. Can be '
+      'desc':
+          'Length validation ensures minimum data quality. Can be '
           'combined with a counter to show current vs required length.',
       'color': Colors.orange,
     },
@@ -420,7 +432,8 @@ dynamic build(BuildContext context) {
       'label': 'Custom Pattern',
       'error': 'Only alphanumeric characters allowed',
       'hint': 'Enter username',
-      'desc': 'Regular expression validation for specific character sets. '
+      'desc':
+          'Regular expression validation for specific character sets. '
           'Common for usernames, codes, and formatted inputs.',
       'color': Colors.amber,
     },
@@ -493,7 +506,8 @@ dynamic build(BuildContext context) {
   final specialModes = <Map<String, dynamic>>[
     {
       'mode': 'Obscure Text (Password)',
-      'desc': 'Characters are replaced with dots or bullets. Used for '
+      'desc':
+          'Characters are replaced with dots or bullets. Used for '
           'passwords, PINs, and sensitive data. The obscureText '
           'property toggles this behavior. Often combined with a '
           'visibility toggle suffix icon.',
@@ -502,7 +516,8 @@ dynamic build(BuildContext context) {
     },
     {
       'mode': 'Read-Only',
-      'desc': 'The field displays text but does not accept input. '
+      'desc':
+          'The field displays text but does not accept input. '
           'Useful for showing computed values, system-generated IDs, '
           'or locked form fields. Text can still be selected and '
           'copied.',
@@ -511,7 +526,8 @@ dynamic build(BuildContext context) {
     },
     {
       'mode': 'Enabled: false',
-      'desc': 'The field is visually dimmed and ignores all interaction. '
+      'desc':
+          'The field is visually dimmed and ignores all interaction. '
           'Unlike readOnly, the text cannot be selected. Use for '
           'fields that depend on other form state.',
       'icon': Icons.block,
@@ -519,7 +535,8 @@ dynamic build(BuildContext context) {
     },
     {
       'mode': 'Max Lines / Expanding',
-      'desc': 'Set maxLines to null for expandable text areas. Set to '
+      'desc':
+          'Set maxLines to null for expandable text areas. Set to '
           'a fixed number for scrollable areas. Combine with '
           'TextInputType.multiline for newline support.',
       'icon': Icons.expand,
@@ -527,7 +544,8 @@ dynamic build(BuildContext context) {
     },
     {
       'mode': 'Max Length with Counter',
-      'desc': 'Limits input to a maximum character count and displays '
+      'desc':
+          'Limits input to a maximum character count and displays '
           'a counter (e.g., "23/100") below the field. By default, '
           'enforcement prevents typing beyond the limit.',
       'icon': Icons.pin,
@@ -535,7 +553,8 @@ dynamic build(BuildContext context) {
     },
     {
       'mode': 'Autocorrect & Suggestions',
-      'desc': 'Controls whether the keyboard shows auto-corrections '
+      'desc':
+          'Controls whether the keyboard shows auto-corrections '
           'and predictive suggestions. Disable for code, URLs, '
           'passwords, and technical input where suggestions are '
           'unhelpful.',
@@ -610,11 +629,13 @@ dynamic build(BuildContext context) {
   final controllerItems = <Map<String, dynamic>>[
     {
       'title': 'TextEditingController',
-      'desc': 'Provides read/write access to the text value and '
+      'desc':
+          'Provides read/write access to the text value and '
           'selection. Listen to changes with addListener(). '
           'Use controller.text to get/set content. Use '
           'controller.selection to manipulate selection.',
-      'code': 'final ctrl = TextEditingController();\n'
+      'code':
+          'final ctrl = TextEditingController();\n'
           'ctrl.text = "Hello";\n'
           'ctrl.selection = TextSelection(\n'
           '  baseOffset: 0,\n'
@@ -624,11 +645,13 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'FocusNode',
-      'desc': 'Manages keyboard focus for the field. Request focus '
+      'desc':
+          'Manages keyboard focus for the field. Request focus '
           'programmatically with focusNode.requestFocus(). '
           'Check hasFocus to determine state. Listen to '
           'focus changes via addListener().',
-      'code': 'final focus = FocusNode();\n'
+      'code':
+          'final focus = FocusNode();\n'
           'focus.requestFocus();\n'
           'print(focus.hasFocus); // true\n'
           'focus.unfocus();',
@@ -636,10 +659,12 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'onChanged Callback',
-      'desc': 'Called whenever the user modifies the text content. '
+      'desc':
+          'Called whenever the user modifies the text content. '
           'Receives the new string value. Ideal for live search, '
           'character counting, or real-time validation.',
-      'code': 'TextField(\n'
+      'code':
+          'TextField(\n'
           '  onChanged: (value) {\n'
           '    print("New text: \$value");\n'
           '    setState(() => count = value.length);\n'
@@ -649,10 +674,12 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'onSubmitted Callback',
-      'desc': 'Called when the user presses the keyboard action button '
+      'desc':
+          'Called when the user presses the keyboard action button '
           '(Enter/Done/Search). Receives the final text value. '
           'Use for form submission or search execution.',
-      'code': 'TextField(\n'
+      'code':
+          'TextField(\n'
           '  textInputAction: TextInputAction.search,\n'
           '  onSubmitted: (value) {\n'
           '    performSearch(value);\n'
@@ -730,35 +757,40 @@ dynamic build(BuildContext context) {
   final stylingOptions = <Map<String, dynamic>>[
     {
       'title': 'Text Style',
-      'desc': 'The style property controls the input text\'s font size, '
+      'desc':
+          'The style property controls the input text\'s font size, '
           'weight, color, and family. Different from label/hint styles.',
       'property': 'style: TextStyle(fontSize: 18, color: Colors.indigo)',
       'color': Colors.indigo,
     },
     {
       'title': 'Cursor Customization',
-      'desc': 'cursorColor, cursorWidth, cursorHeight, and cursorRadius '
+      'desc':
+          'cursorColor, cursorWidth, cursorHeight, and cursorRadius '
           'let you match the cursor to your theme.',
       'property': 'cursorColor: Colors.purple, cursorWidth: 3.0',
       'color': Colors.purple,
     },
     {
       'title': 'Selection Theme',
-      'desc': 'The text selection highlight color is set via '
+      'desc':
+          'The text selection highlight color is set via '
           'selectionColor on textSelectionTheme or directly on TextField.',
       'property': 'selectionHeightStyle: BoxHeightStyle.max',
       'color': Colors.teal,
     },
     {
       'title': 'Content Padding',
-      'desc': 'contentPadding in InputDecoration controls the internal '
+      'desc':
+          'contentPadding in InputDecoration controls the internal '
           'spacing between text and the field borders.',
       'property': 'contentPadding: EdgeInsets.all(20)',
       'color': Colors.deepOrange,
     },
     {
       'title': 'isDense',
-      'desc': 'When true, reduces vertical padding for a compact layout. '
+      'desc':
+          'When true, reduces vertical padding for a compact layout. '
           'Useful in dense forms or table cells where space is limited.',
       'property': 'isDense: true',
       'color': Colors.green,
@@ -836,32 +868,38 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.text_fields,
-      'text': 'TextField is Flutter\'s primary text input widget, wrapping '
+      'text':
+          'TextField is Flutter\'s primary text input widget, wrapping '
           'EditableText with Material Design decoration.',
     },
     {
       'icon': Icons.brush,
-      'text': 'InputDecoration provides extensive customization: labels, '
+      'text':
+          'InputDecoration provides extensive customization: labels, '
           'hints, icons, errors, borders, fills, and counters.',
     },
     {
       'icon': Icons.keyboard,
-      'text': 'TextInputType optimizes the virtual keyboard for text, '
+      'text':
+          'TextInputType optimizes the virtual keyboard for text, '
           'numbers, emails, phones, URLs, or multiline.',
     },
     {
       'icon': Icons.security,
-      'text': 'obscureText hides input for passwords. readOnly and '
+      'text':
+          'obscureText hides input for passwords. readOnly and '
           'enabled control interaction states.',
     },
     {
       'icon': Icons.edit_note,
-      'text': 'TextEditingController and FocusNode give programmatic '
+      'text':
+          'TextEditingController and FocusNode give programmatic '
           'control over content, selection, and keyboard focus.',
     },
     {
       'icon': Icons.check_circle,
-      'text': 'Validation via errorText and callbacks. maxLength with '
+      'text':
+          'Validation via errorText and callbacks. maxLength with '
           'counter for character limits.',
     },
   ];

@@ -20,7 +20,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.menu_open,
       'title': 'Menu Positioning Data',
-      'body': 'RawMenuOverlayInfo is a data class passed to the '
+      'body':
+          'RawMenuOverlayInfo is a data class passed to the '
           'overlayBuilder callback of RawMenuAnchor. It carries all '
           'the geometric information needed to position and size a '
           'menu overlay relative to its anchor widget.',
@@ -29,7 +30,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.crop_square,
       'title': 'Anchor Rect',
-      'body': 'The anchorRect property provides the bounding rectangle '
+      'body':
+          'The anchorRect property provides the bounding rectangle '
           'of the anchor widget in overlay coordinates. Use this to '
           'position the menu below, above, or beside the trigger '
           'button that opened it.',
@@ -38,7 +40,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.aspect_ratio,
       'title': 'Overlay Size',
-      'body': 'The overlaySize property gives the full dimensions of '
+      'body':
+          'The overlaySize property gives the full dimensions of '
           'the overlay (typically the screen or a route\'s overlay). '
           'Use this to constrain the menu so it doesn\'t overflow '
           'the available space.',
@@ -47,7 +50,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.touch_app,
       'title': 'Tap Region Grouping',
-      'body': 'The tapRegionGroupId groups the anchor and menu into '
+      'body':
+          'The tapRegionGroupId groups the anchor and menu into '
           'a single tap region. Taps outside this region dismiss '
           'the menu, while taps inside (on menu items or anchor) '
           'are treated as intentional interactions.',
@@ -68,7 +72,8 @@ dynamic build(BuildContext context) {
       'type': 'ui.Rect',
       'icon': Icons.crop_square,
       'color': Colors.blueGrey[700]!,
-      'description': 'The bounding rectangle of the anchor widget in '
+      'description':
+          'The bounding rectangle of the anchor widget in '
           'overlay coordinates. The rect\'s left/top gives the anchor\'s '
           'position; width/height give its size. Use this to align the '
           'menu edge to the anchor edge.',
@@ -78,7 +83,8 @@ dynamic build(BuildContext context) {
       'type': 'ui.Size',
       'icon': Icons.fullscreen,
       'color': Colors.blue[700]!,
-      'description': 'The size of the overlay surface — typically the '
+      'description':
+          'The size of the overlay surface — typically the '
           'full screen dimensions. Use this as the constraint boundary '
           'when computing menu position to prevent off-screen overflow.',
     },
@@ -87,7 +93,8 @@ dynamic build(BuildContext context) {
       'type': 'Offset?',
       'icon': Icons.control_camera,
       'color': Colors.blueGrey[600]!,
-      'description': 'An optional offset that shifts the menu from the '
+      'description':
+          'An optional offset that shifts the menu from the '
           'default anchor-aligned position. When non-null, this is '
           'typically the pointer location for context menus opened '
           'at the cursor position.',
@@ -97,7 +104,8 @@ dynamic build(BuildContext context) {
       'type': 'Object',
       'icon': Icons.group_work,
       'color': Colors.blue[600]!,
-      'description': 'An opaque identifier that groups the anchor and '
+      'description':
+          'An opaque identifier that groups the anchor and '
           'menu overlay into the same TapRegion group. Taps outside '
           'this group trigger menu dismissal. The ID is shared between '
           'the RawMenuAnchor and the overlay it spawns.',
@@ -148,9 +156,11 @@ dynamic build(BuildContext context) {
   final strategies = <Map<String, dynamic>>[
     {
       'name': 'Below Anchor (Default)',
-      'description': 'Position the menu below the anchor, aligned by '
+      'description':
+          'Position the menu below the anchor, aligned by '
           'left edge. Most common for dropdown menus and toolbar buttons.',
-      'diagram': '┌─────────┐\n'
+      'diagram':
+          '┌─────────┐\n'
           '│  Anchor  │\n'
           '└─────────┘\n'
           '┌───────────────┐\n'
@@ -163,10 +173,12 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'Above Anchor',
-      'description': 'Position the menu above when there isn\'t enough '
+      'description':
+          'Position the menu above when there isn\'t enough '
           'space below. Computed by checking if anchorRect.bottom + '
           'menuHeight > overlaySize.height.',
-      'diagram': '┌───────────────┐\n'
+      'diagram':
+          '┌───────────────┐\n'
           '│  Menu Item 1  │\n'
           '│  Menu Item 2  │\n'
           '│  Menu Item 3  │\n'
@@ -179,10 +191,12 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'Beside Anchor (Cascade)',
-      'description': 'Position the menu to the right of the anchor. '
+      'description':
+          'Position the menu to the right of the anchor. '
           'Used for nested/cascade menus. Falls back to left side '
           'if right overflow detected.',
-      'diagram': '┌─────────┐┌───────────────┐\n'
+      'diagram':
+          '┌─────────┐┌───────────────┐\n'
           '│  Anchor  ││  Sub Menu 1   │\n'
           '└─────────┘│  Sub Menu 2   │\n'
           '           │  Sub Menu 3   │\n'
@@ -192,10 +206,12 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'At Pointer (Context Menu)',
-      'description': 'Use the position offset to place the menu at the '
+      'description':
+          'Use the position offset to place the menu at the '
           'cursor/finger location. The anchorRect is still available '
           'for fallback positioning.',
-      'diagram': '     ↖ pointer\n'
+      'diagram':
+          '     ↖ pointer\n'
           '  ┌───────────────┐\n'
           '  │  Cut           │\n'
           '  │  Copy          │\n'
@@ -254,7 +270,8 @@ dynamic build(BuildContext context) {
   final tapBehaviors = <Map<String, dynamic>>[
     {
       'title': 'Inside Group → No Dismiss',
-      'detail': 'Taps on menu items or the anchor widget are within '
+      'detail':
+          'Taps on menu items or the anchor widget are within '
           'the tap region group. These are recognized as intentional '
           'interactions and do not dismiss the menu.',
       'icon': Icons.check_circle,
@@ -262,7 +279,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Outside Group → Dismiss',
-      'detail': 'Taps on any widget outside the tap region group '
+      'detail':
+          'Taps on any widget outside the tap region group '
           'trigger the outside-tap callback, which typically closes '
           'the menu via the menu controller.',
       'icon': Icons.cancel,
@@ -270,7 +288,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Nested Menus → Shared Group',
-      'detail': 'Cascading sub-menus inherit the parent\'s '
+      'detail':
+          'Cascading sub-menus inherit the parent\'s '
           'tapRegionGroupId. This keeps the entire menu hierarchy '
           'open when navigating between levels.',
       'icon': Icons.account_tree,
@@ -278,7 +297,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Multiple Independent Menus',
-      'detail': 'Different menu anchors get different group IDs. '
+      'detail':
+          'Different menu anchors get different group IDs. '
           'Opening a new menu with a different ID automatically '
           'triggers outside-tap on the first menu, closing it.',
       'icon': Icons.view_column,
@@ -296,7 +316,8 @@ dynamic build(BuildContext context) {
   final equalityNotes = <Map<String, dynamic>>[
     {
       'aspect': 'operator ==',
-      'detail': 'Compares anchorRect, overlaySize, position, and '
+      'detail':
+          'Compares anchorRect, overlaySize, position, and '
           'tapRegionGroupId. Two instances with identical values '
           'and the same group ID object are equal.',
       'icon': Icons.compare,
@@ -304,14 +325,16 @@ dynamic build(BuildContext context) {
     },
     {
       'aspect': 'hashCode',
-      'detail': 'Computed via Object.hash(anchorRect, overlaySize, '
+      'detail':
+          'Computed via Object.hash(anchorRect, overlaySize, '
           'position, tapRegionGroupId). Consistent with equality.',
       'icon': Icons.tag,
       'color': Colors.blue[700]!,
     },
     {
       'aspect': 'Identity vs Value',
-      'detail': 'tapRegionGroupId is compared by identity (same '
+      'detail':
+          'tapRegionGroupId is compared by identity (same '
           'Object instance), not by value. Two different Object() '
           'instances are never equal even if created identically.',
       'icon': Icons.fingerprint,
@@ -336,7 +359,8 @@ dynamic build(BuildContext context) {
     {
       'step': 2,
       'title': 'Build the Anchor',
-      'code': 'RawMenuAnchor(\n'
+      'code':
+          'RawMenuAnchor(\n'
           '  controller: menuController,\n'
           '  builder: (ctx, controller, child) {\n'
           '    return ElevatedButton(\n'
@@ -353,7 +377,8 @@ dynamic build(BuildContext context) {
     {
       'step': 3,
       'title': 'Implement overlayBuilder',
-      'code': 'overlayBuilder: (ctx, info) {\n'
+      'code':
+          'overlayBuilder: (ctx, info) {\n'
           '  // info is RawMenuOverlayInfo\n'
           '  final top = info.anchorRect.bottom;\n'
           '  final left = info.anchorRect.left;\n'
@@ -368,7 +393,8 @@ dynamic build(BuildContext context) {
     {
       'step': 4,
       'title': 'Handle Overflow',
-      'code': 'final top = info.anchorRect.bottom;\n'
+      'code':
+          'final top = info.anchorRect.bottom;\n'
           'final fitsBelow = top + menuH\n'
           '    <= info.overlaySize.height;\n'
           'final finalTop = fitsBelow\n'
@@ -429,82 +455,128 @@ dynamic build(BuildContext context) {
         // ---- Section 1: Concept ----
         _sectionHeader('1. Concept', Icons.info_outline, Colors.blueGrey[700]!),
         SizedBox(height: 10),
-        ...conceptCards.map((c) => Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: (c['accent'] as Color).withValues(alpha: 0.08),
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(left: BorderSide(color: c['accent'] as Color, width: 4)),
-                ),
-                padding: EdgeInsets.all(14),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Icon(c['icon'] as IconData, color: c['accent'] as Color, size: 28),
-                    SizedBox(width: 12),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(c['title'] as String,
-                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: c['accent'] as Color)),
-                          SizedBox(height: 4),
-                          Text(c['body'] as String, style: TextStyle(fontSize: 13)),
-                        ],
-                      ),
-                    ),
-                  ],
+        ...conceptCards.map(
+          (c) => Padding(
+            padding: EdgeInsets.only(bottom: 10),
+            child: Container(
+              decoration: BoxDecoration(
+                color: (c['accent'] as Color).withValues(alpha: 0.08),
+                borderRadius: BorderRadius.circular(12),
+                border: Border(
+                  left: BorderSide(color: c['accent'] as Color, width: 4),
                 ),
               ),
-            )),
+              padding: EdgeInsets.all(14),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(
+                    c['icon'] as IconData,
+                    color: c['accent'] as Color,
+                    size: 28,
+                  ),
+                  SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          c['title'] as String,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
+                            color: c['accent'] as Color,
+                          ),
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          c['body'] as String,
+                          style: TextStyle(fontSize: 13),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
 
         SizedBox(height: 20),
 
         // ---- Section 2: Properties ----
         _sectionHeader('2. Properties', Icons.list_alt, Colors.blue[700]!),
         SizedBox(height: 10),
-        ...properties.map((p) => Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.grey[50],
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.grey[300]!),
-                ),
-                padding: EdgeInsets.all(12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(p['icon'] as IconData, color: p['color'] as Color, size: 20),
-                        SizedBox(width: 8),
-                        Text(p['name'] as String,
-                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, fontFamily: 'monospace', color: p['color'] as Color)),
-                        SizedBox(width: 8),
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[200],
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          child: Text(p['type'] as String,
-                              style: TextStyle(fontFamily: 'monospace', fontSize: 11, color: Colors.grey[800])),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 6),
-                    Text(p['description'] as String, style: TextStyle(fontSize: 12, color: Colors.grey[700])),
-                  ],
-                ),
+        ...properties.map(
+          (p) => Padding(
+            padding: EdgeInsets.only(bottom: 10),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.grey[50],
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: Colors.grey[300]!),
               ),
-            )),
+              padding: EdgeInsets.all(12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Icon(
+                        p['icon'] as IconData,
+                        color: p['color'] as Color,
+                        size: 20,
+                      ),
+                      SizedBox(width: 8),
+                      Text(
+                        p['name'] as String,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                          fontFamily: 'monospace',
+                          color: p['color'] as Color,
+                        ),
+                      ),
+                      SizedBox(width: 8),
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Text(
+                          p['type'] as String,
+                          style: TextStyle(
+                            fontFamily: 'monospace',
+                            fontSize: 11,
+                            color: Colors.grey[800],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 6),
+                  Text(
+                    p['description'] as String,
+                    style: TextStyle(fontSize: 12, color: Colors.grey[700]),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
 
         SizedBox(height: 20),
 
         // ---- Section 3: Live Instance ----
-        _sectionHeader('3. Live Instance', Icons.science, Colors.blueGrey[700]!),
+        _sectionHeader(
+          '3. Live Instance',
+          Icons.science,
+          Colors.blueGrey[700]!,
+        ),
         SizedBox(height: 10),
         Container(
           decoration: BoxDecoration(
@@ -515,14 +587,42 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _infoRow('anchorRect', '${overlayInfo.anchorRect}', Colors.blueGrey[700]!),
-              _infoRow('overlaySize', '${overlayInfo.overlaySize}', Colors.blue[700]!),
-              _infoRow('position (null)', '${overlayInfo.position}', Colors.blueGrey[600]!),
-              _infoRow('position (offset)', '${overlayInfoWithPos.position}', Colors.blue[600]!),
-              _infoRow('tapRegionGroupId', '${overlayInfo.tapRegionGroupId.runtimeType}', Colors.blueGrey[700]!),
+              _infoRow(
+                'anchorRect',
+                '${overlayInfo.anchorRect}',
+                Colors.blueGrey[700]!,
+              ),
+              _infoRow(
+                'overlaySize',
+                '${overlayInfo.overlaySize}',
+                Colors.blue[700]!,
+              ),
+              _infoRow(
+                'position (null)',
+                '${overlayInfo.position}',
+                Colors.blueGrey[600]!,
+              ),
+              _infoRow(
+                'position (offset)',
+                '${overlayInfoWithPos.position}',
+                Colors.blue[600]!,
+              ),
+              _infoRow(
+                'tapRegionGroupId',
+                '${overlayInfo.tapRegionGroupId.runtimeType}',
+                Colors.blueGrey[700]!,
+              ),
               Divider(height: 16),
-              _infoRow('equality (same values)', '$areEqual', Colors.green[700]!),
-              _infoRow('hashCode', '${overlayInfo.hashCode}', Colors.grey[600]!),
+              _infoRow(
+                'equality (same values)',
+                '$areEqual',
+                Colors.green[700]!,
+              ),
+              _infoRow(
+                'hashCode',
+                '${overlayInfo.hashCode}',
+                Colors.grey[600]!,
+              ),
             ],
           ),
         ),
@@ -530,205 +630,329 @@ dynamic build(BuildContext context) {
         SizedBox(height: 20),
 
         // ---- Section 4: Positioning Strategies ----
-        _sectionHeader('4. Positioning Strategies', Icons.control_camera, Colors.blue[700]!),
+        _sectionHeader(
+          '4. Positioning Strategies',
+          Icons.control_camera,
+          Colors.blue[700]!,
+        ),
         SizedBox(height: 10),
-        ...strategies.map((s) => Padding(
-              padding: EdgeInsets.only(bottom: 12),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: (s['color'] as Color).withValues(alpha: 0.07),
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(left: BorderSide(color: s['color'] as Color, width: 4)),
-                ),
-                padding: EdgeInsets.all(14),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(s['icon'] as IconData, color: s['color'] as Color, size: 22),
-                        SizedBox(width: 8),
-                        Text(s['name'] as String,
-                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: s['color'] as Color)),
-                      ],
-                    ),
-                    SizedBox(height: 6),
-                    Text(s['description'] as String, style: TextStyle(fontSize: 12, color: Colors.grey[700])),
-                    SizedBox(height: 8),
-                    Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[900],
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Text(s['diagram'] as String,
-                          style: TextStyle(fontFamily: 'monospace', fontSize: 11, color: Colors.lightBlueAccent[100])),
-                    ),
-                  ],
+        ...strategies.map(
+          (s) => Padding(
+            padding: EdgeInsets.only(bottom: 12),
+            child: Container(
+              decoration: BoxDecoration(
+                color: (s['color'] as Color).withValues(alpha: 0.07),
+                borderRadius: BorderRadius.circular(12),
+                border: Border(
+                  left: BorderSide(color: s['color'] as Color, width: 4),
                 ),
               ),
-            )),
+              padding: EdgeInsets.all(14),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Icon(
+                        s['icon'] as IconData,
+                        color: s['color'] as Color,
+                        size: 22,
+                      ),
+                      SizedBox(width: 8),
+                      Text(
+                        s['name'] as String,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                          color: s['color'] as Color,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 6),
+                  Text(
+                    s['description'] as String,
+                    style: TextStyle(fontSize: 12, color: Colors.grey[700]),
+                  ),
+                  SizedBox(height: 8),
+                  Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[900],
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      s['diagram'] as String,
+                      style: TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 11,
+                        color: Colors.lightBlueAccent[100],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
 
         SizedBox(height: 20),
 
         // ---- Section 5: Overflow Detection ----
-        _sectionHeader('5. Overflow Detection', Icons.warning_amber, Colors.red[600]!),
+        _sectionHeader(
+          '5. Overflow Detection',
+          Icons.warning_amber,
+          Colors.red[600]!,
+        ),
         SizedBox(height: 10),
-        ...overflowRules.map((o) => Padding(
-              padding: EdgeInsets.only(bottom: 8),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: (o['color'] as Color).withValues(alpha: 0.08),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                padding: EdgeInsets.all(12),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Icon(o['icon'] as IconData, color: o['color'] as Color, size: 22),
-                    SizedBox(width: 10),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(o['rule'] as String,
-                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: o['color'] as Color)),
-                          SizedBox(height: 4),
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                            decoration: BoxDecoration(
-                              color: Colors.grey[200],
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            child: Text(o['condition'] as String,
-                                style: TextStyle(fontFamily: 'monospace', fontSize: 11)),
-                          ),
-                          SizedBox(height: 4),
-                          Text(o['action'] as String, style: TextStyle(fontSize: 12, color: Colors.grey[700])),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+        ...overflowRules.map(
+          (o) => Padding(
+            padding: EdgeInsets.only(bottom: 8),
+            child: Container(
+              decoration: BoxDecoration(
+                color: (o['color'] as Color).withValues(alpha: 0.08),
+                borderRadius: BorderRadius.circular(10),
               ),
-            )),
-
-        SizedBox(height: 20),
-
-        // ---- Section 6: Tap Region ----
-        _sectionHeader('6. Tap Region Behavior', Icons.touch_app, Colors.blueGrey[700]!),
-        SizedBox(height: 10),
-        ...tapBehaviors.map((t) => Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: (t['color'] as Color).withValues(alpha: 0.08),
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(left: BorderSide(color: t['color'] as Color, width: 4)),
-                ),
-                padding: EdgeInsets.all(14),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Icon(t['icon'] as IconData, color: t['color'] as Color, size: 24),
-                    SizedBox(width: 12),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(t['title'] as String,
-                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: t['color'] as Color)),
-                          SizedBox(height: 4),
-                          Text(t['detail'] as String, style: TextStyle(fontSize: 13)),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            )),
-
-        SizedBox(height: 20),
-
-        // ---- Section 7: Equality ----
-        _sectionHeader('7. Equality & Hashing', Icons.balance, Colors.blue[700]!),
-        SizedBox(height: 10),
-        ...equalityNotes.map((e) => Padding(
-              padding: EdgeInsets.only(bottom: 8),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.grey[50],
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Colors.grey[300]!),
-                ),
-                padding: EdgeInsets.all(12),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Icon(e['icon'] as IconData, color: e['color'] as Color, size: 22),
-                    SizedBox(width: 10),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(e['aspect'] as String,
-                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, fontFamily: 'monospace', color: e['color'] as Color)),
-                          SizedBox(height: 4),
-                          Text(e['detail'] as String, style: TextStyle(fontSize: 12, color: Colors.grey[700])),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            )),
-
-        SizedBox(height: 20),
-
-        // ---- Section 8: Usage Steps ----
-        _sectionHeader('8. RawMenuAnchor Pattern', Icons.code, Colors.blueGrey[700]!),
-        SizedBox(height: 10),
-        ...usageSteps.map((u) => Padding(
-              padding: EdgeInsets.only(bottom: 10),
+              padding: EdgeInsets.all(12),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    width: 34,
-                    height: 34,
-                    decoration: BoxDecoration(
-                      color: u['color'] as Color,
-                      shape: BoxShape.circle,
-                    ),
-                    alignment: Alignment.center,
-                    child: Text('${u['step']}',
-                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15)),
+                  Icon(
+                    o['icon'] as IconData,
+                    color: o['color'] as Color,
+                    size: 22,
                   ),
-                  SizedBox(width: 12),
+                  SizedBox(width: 10),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(u['title'] as String,
-                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-                        SizedBox(height: 6),
-                        Container(
-                          width: double.infinity,
-                          padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[900],
-                            borderRadius: BorderRadius.circular(8),
+                        Text(
+                          o['rule'] as String,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            color: o['color'] as Color,
                           ),
-                          child: Text(u['code'] as String,
-                              style: TextStyle(fontFamily: 'monospace', fontSize: 11, color: Colors.greenAccent[200])),
+                        ),
+                        SizedBox(height: 4),
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 4,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.grey[200],
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: Text(
+                            o['condition'] as String,
+                            style: TextStyle(
+                              fontFamily: 'monospace',
+                              fontSize: 11,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          o['action'] as String,
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey[700],
+                          ),
                         ),
                       ],
                     ),
                   ),
                 ],
               ),
-            )),
+            ),
+          ),
+        ),
+
+        SizedBox(height: 20),
+
+        // ---- Section 6: Tap Region ----
+        _sectionHeader(
+          '6. Tap Region Behavior',
+          Icons.touch_app,
+          Colors.blueGrey[700]!,
+        ),
+        SizedBox(height: 10),
+        ...tapBehaviors.map(
+          (t) => Padding(
+            padding: EdgeInsets.only(bottom: 10),
+            child: Container(
+              decoration: BoxDecoration(
+                color: (t['color'] as Color).withValues(alpha: 0.08),
+                borderRadius: BorderRadius.circular(12),
+                border: Border(
+                  left: BorderSide(color: t['color'] as Color, width: 4),
+                ),
+              ),
+              padding: EdgeInsets.all(14),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(
+                    t['icon'] as IconData,
+                    color: t['color'] as Color,
+                    size: 24,
+                  ),
+                  SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          t['title'] as String,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            color: t['color'] as Color,
+                          ),
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          t['detail'] as String,
+                          style: TextStyle(fontSize: 13),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+
+        SizedBox(height: 20),
+
+        // ---- Section 7: Equality ----
+        _sectionHeader(
+          '7. Equality & Hashing',
+          Icons.balance,
+          Colors.blue[700]!,
+        ),
+        SizedBox(height: 10),
+        ...equalityNotes.map(
+          (e) => Padding(
+            padding: EdgeInsets.only(bottom: 8),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.grey[50],
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: Colors.grey[300]!),
+              ),
+              padding: EdgeInsets.all(12),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(
+                    e['icon'] as IconData,
+                    color: e['color'] as Color,
+                    size: 22,
+                  ),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          e['aspect'] as String,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            fontFamily: 'monospace',
+                            color: e['color'] as Color,
+                          ),
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          e['detail'] as String,
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey[700],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+
+        SizedBox(height: 20),
+
+        // ---- Section 8: Usage Steps ----
+        _sectionHeader(
+          '8. RawMenuAnchor Pattern',
+          Icons.code,
+          Colors.blueGrey[700]!,
+        ),
+        SizedBox(height: 10),
+        ...usageSteps.map(
+          (u) => Padding(
+            padding: EdgeInsets.only(bottom: 10),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: 34,
+                  height: 34,
+                  decoration: BoxDecoration(
+                    color: u['color'] as Color,
+                    shape: BoxShape.circle,
+                  ),
+                  alignment: Alignment.center,
+                  child: Text(
+                    '${u['step']}',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                    ),
+                  ),
+                ),
+                SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        u['title'] as String,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                      ),
+                      SizedBox(height: 6),
+                      Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[900],
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Text(
+                          u['code'] as String,
+                          style: TextStyle(
+                            fontFamily: 'monospace',
+                            fontSize: 11,
+                            color: Colors.greenAccent[200],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
 
         SizedBox(height: 24),
 
@@ -767,7 +991,14 @@ Widget _sectionHeader(String title, IconData icon, Color color) {
     children: [
       Icon(icon, color: color, size: 22),
       SizedBox(width: 8),
-      Text(title, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: color)),
+      Text(
+        title,
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+          color: color,
+        ),
+      ),
     ],
   );
 }
@@ -779,12 +1010,24 @@ Widget _infoRow(String label, String value, Color color) {
       children: [
         SizedBox(
           width: 140,
-          child: Text(label,
-              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12, color: color)),
+          child: Text(
+            label,
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 12,
+              color: color,
+            ),
+          ),
         ),
         Expanded(
-          child: Text(value,
-              style: TextStyle(fontSize: 12, fontFamily: 'monospace', color: Colors.grey[800])),
+          child: Text(
+            value,
+            style: TextStyle(
+              fontSize: 12,
+              fontFamily: 'monospace',
+              color: Colors.grey[800],
+            ),
+          ),
         ),
       ],
     ),

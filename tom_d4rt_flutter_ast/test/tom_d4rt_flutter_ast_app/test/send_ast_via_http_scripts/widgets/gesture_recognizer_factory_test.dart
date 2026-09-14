@@ -19,7 +19,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.factory,
       'title': 'Factory for Gesture Recognizers',
-      'body': 'GestureRecognizerFactory is an abstract class that '
+      'body':
+          'GestureRecognizerFactory is an abstract class that '
           'defines how to create and configure a GestureRecognizer. '
           'It separates construction (creating a new instance) from '
           'initialization (setting callbacks like onTap, onPan). '
@@ -29,7 +30,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.build,
       'title': 'GestureRecognizerFactoryWithHandlers',
-      'body': 'The concrete implementation you actually use. Takes '
+      'body':
+          'The concrete implementation you actually use. Takes '
           'two callbacks: a constructor function (() => TapGestureRecognizer()) '
           'and an initializer function ((recognizer) { recognizer.onTap = ... }). '
           'This is what GestureDetector creates under the hood.',
@@ -38,7 +40,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.touch_app,
       'title': 'Behind GestureDetector',
-      'body': 'When you use GestureDetector(onTap: ..., onLongPress: ...), '
+      'body':
+          'When you use GestureDetector(onTap: ..., onLongPress: ...), '
           'it internally creates GestureRecognizerFactoryWithHandlers '
           'for each gesture type. The factory pattern enables efficient '
           'recognizer lifecycle management by the framework.',
@@ -47,7 +50,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.recycling,
       'title': 'Recognizer Reuse',
-      'body': 'Flutter doesn\'t recreate gesture recognizers every '
+      'body':
+          'Flutter doesn\'t recreate gesture recognizers every '
           'build. The factory\'s constructor is called once; the '
           'initializer is called on every rebuild to update callbacks. '
           'This preserves gesture state (like an in-progress drag) '
@@ -69,7 +73,8 @@ dynamic build(BuildContext context) {
       'role': 'Abstract base class',
       'icon': Icons.architecture,
       'color': Colors.teal[700]!,
-      'description': 'Generic abstract class where T extends '
+      'description':
+          'Generic abstract class where T extends '
           'GestureRecognizer. Defines two abstract methods: '
           'constructor() returns a new T, and initializer(T) '
           'configures an existing T. You rarely implement this '
@@ -80,7 +85,8 @@ dynamic build(BuildContext context) {
       'role': 'Creates recognizer',
       'icon': Icons.add_circle,
       'color': Colors.cyan[700]!,
-      'description': 'Called ONCE to create the GestureRecognizer '
+      'description':
+          'Called ONCE to create the GestureRecognizer '
           'instance. Must return a new T. Example: '
           '() => TapGestureRecognizer(). The framework caches '
           'the result and reuses it.',
@@ -90,7 +96,8 @@ dynamic build(BuildContext context) {
       'role': 'Configures callbacks',
       'icon': Icons.settings,
       'color': Colors.teal[600]!,
-      'description': 'Called on EVERY rebuild to update the recognizer\'s '
+      'description':
+          'Called on EVERY rebuild to update the recognizer\'s '
           'callbacks. Example: (r) { r.onTap = handleTap; '
           'r.onTapDown = handleTapDown; }. This is where you '
           'wire up your gesture handlers.',
@@ -100,7 +107,8 @@ dynamic build(BuildContext context) {
       'role': 'Concrete helper',
       'icon': Icons.handyman,
       'color': Colors.cyan[600]!,
-      'description': 'Convenience class that takes the constructor and '
+      'description':
+          'Convenience class that takes the constructor and '
           'initializer as callback parameters. This is what you\'ll '
           'use 99% of the time instead of subclassing the abstract '
           'factory.',
@@ -120,9 +128,11 @@ dynamic build(BuildContext context) {
       'icon': Icons.touch_app,
       'color': Colors.teal[700]!,
       'bgColor': Colors.teal[50]!,
-      'callbacks': 'onTap, onTapDown, onTapUp, onTapCancel, '
+      'callbacks':
+          'onTap, onTapDown, onTapUp, onTapCancel, '
           'onSecondaryTap, onSecondaryTapDown',
-      'description': 'Detects discrete taps. The most common '
+      'description':
+          'Detects discrete taps. The most common '
           'recognizer — every button uses it. Fires after the '
           'user touches and releases within a timeout and without '
           'exceeding a movement threshold.',
@@ -133,7 +143,8 @@ dynamic build(BuildContext context) {
       'color': Colors.cyan[700]!,
       'bgColor': Colors.cyan[50]!,
       'callbacks': 'onDoubleTap, onDoubleTapDown, onDoubleTapCancel',
-      'description': 'Detects two taps in quick succession. Used for '
+      'description':
+          'Detects two taps in quick succession. Used for '
           'text selection (double-tap to select a word) and zoom '
           '(double-tap on maps/images).',
     },
@@ -142,9 +153,11 @@ dynamic build(BuildContext context) {
       'icon': Icons.pan_tool,
       'color': Colors.teal[600]!,
       'bgColor': Colors.teal[50]!,
-      'callbacks': 'onLongPress, onLongPressStart, onLongPressMoveUpdate, '
+      'callbacks':
+          'onLongPress, onLongPressStart, onLongPressMoveUpdate, '
           'onLongPressEnd, onLongPressUp',
-      'description': 'Fires when the user holds down for 500ms (by '
+      'description':
+          'Fires when the user holds down for 500ms (by '
           'default). Supports drag while long-pressing. Used for '
           'context menus, reordering, and selection.',
     },
@@ -153,9 +166,11 @@ dynamic build(BuildContext context) {
       'icon': Icons.open_with,
       'color': Colors.cyan[600]!,
       'bgColor': Colors.cyan[50]!,
-      'callbacks': 'onPanStart, onPanUpdate, onPanEnd, onPanDown, '
+      'callbacks':
+          'onPanStart, onPanUpdate, onPanEnd, onPanDown, '
           'onPanCancel',
-      'description': 'Detects dragging in any direction. Reports delta '
+      'description':
+          'Detects dragging in any direction. Reports delta '
           'offset on each frame. Used for moving objects, drawing, '
           'and custom scrolling.',
     },
@@ -165,7 +180,8 @@ dynamic build(BuildContext context) {
       'color': Colors.teal[500]!,
       'bgColor': Colors.teal[50]!,
       'callbacks': 'onScaleStart, onScaleUpdate, onScaleEnd',
-      'description': 'Handles pinch-to-zoom and rotation with one or '
+      'description':
+          'Handles pinch-to-zoom and rotation with one or '
           'two fingers. Reports scale factor and rotation angle. '
           'Subsumes PanGestureRecognizer (handles both pan and scale).',
     },
@@ -174,9 +190,11 @@ dynamic build(BuildContext context) {
       'icon': Icons.swap_horiz,
       'color': Colors.cyan[500]!,
       'bgColor': Colors.cyan[50]!,
-      'callbacks': 'onHorizontalDragStart, onHorizontalDragUpdate, '
+      'callbacks':
+          'onHorizontalDragStart, onHorizontalDragUpdate, '
           'onHorizontalDragEnd, onHorizontalDragDown',
-      'description': 'Detects horizontal-only drags. Wins the gesture '
+      'description':
+          'Detects horizontal-only drags. Wins the gesture '
           'arena when the user moves primarily horizontally. Used '
           'for sliders, dismissible cards, and horizontal lists.',
     },
@@ -185,9 +203,11 @@ dynamic build(BuildContext context) {
       'icon': Icons.swap_vert,
       'color': Colors.teal[400]!,
       'bgColor': Colors.teal[50]!,
-      'callbacks': 'onVerticalDragStart, onVerticalDragUpdate, '
+      'callbacks':
+          'onVerticalDragStart, onVerticalDragUpdate, '
           'onVerticalDragEnd, onVerticalDragDown',
-      'description': 'Detects vertical-only drags. Wins when movement '
+      'description':
+          'Detects vertical-only drags. Wins when movement '
           'is primarily vertical. Used by ScrollView, pull-to-refresh, '
           'and vertical carousels.',
     },
@@ -196,9 +216,11 @@ dynamic build(BuildContext context) {
       'icon': Icons.fitness_center,
       'color': Colors.cyan[400]!,
       'bgColor': Colors.cyan[50]!,
-      'callbacks': 'onForcePress, onForcePressStart, '
+      'callbacks':
+          'onForcePress, onForcePressStart, '
           'onForcePressPeak, onForcePressUpdate, onForcePressEnd',
-      'description': 'Detects force/3D Touch press levels on '
+      'description':
+          'Detects force/3D Touch press levels on '
           'supported devices. Reports pressure as a 0.0-1.0 value. '
           'Used for peek-and-pop interactions on iOS.',
     },
@@ -217,7 +239,8 @@ dynamic build(BuildContext context) {
       'title': 'User writes GestureDetector',
       'icon': Icons.code,
       'color': Colors.teal[700]!,
-      'description': 'Developer creates GestureDetector(onTap: myFunc, '
+      'description':
+          'Developer creates GestureDetector(onTap: myFunc, '
           'onLongPress: myOtherFunc, child: ...). This is the '
           'high-level API most developers use.',
     },
@@ -226,7 +249,8 @@ dynamic build(BuildContext context) {
       'title': 'GestureDetector creates factories',
       'icon': Icons.factory,
       'color': Colors.cyan[700]!,
-      'description': 'Internally, GestureDetector maps each non-null '
+      'description':
+          'Internally, GestureDetector maps each non-null '
           'callback to a factory. onTap → TapGestureRecognizer factory. '
           'onLongPress → LongPressGestureRecognizer factory. Each '
           'factory is a GestureRecognizerFactoryWithHandlers instance.',
@@ -236,7 +260,8 @@ dynamic build(BuildContext context) {
       'title': 'Factories passed to RawGestureDetector',
       'icon': Icons.widgets,
       'color': Colors.teal[600]!,
-      'description': 'GestureDetector returns a RawGestureDetector with '
+      'description':
+          'GestureDetector returns a RawGestureDetector with '
           'a Map<Type, GestureRecognizerFactory> of all factories. '
           'RawGestureDetector is the actual widget that manages '
           'recognizer lifecycle.',
@@ -246,7 +271,8 @@ dynamic build(BuildContext context) {
       'title': 'RawGestureDetectorState creates recognizers',
       'icon': Icons.play_circle,
       'color': Colors.cyan[600]!,
-      'description': 'On first build, initState() calls each factory\'s '
+      'description':
+          'On first build, initState() calls each factory\'s '
           'constructor() to create recognizers. On subsequent builds, '
           'didUpdateWidget() calls initializer() to update callbacks. '
           'Recognizers survive rebuilds.',
@@ -256,7 +282,8 @@ dynamic build(BuildContext context) {
       'title': 'Recognizers compete in gesture arena',
       'icon': Icons.sports_mma,
       'color': Colors.teal[500]!,
-      'description': 'When the user touches the screen, pointer events '
+      'description':
+          'When the user touches the screen, pointer events '
           'are routed to all recognizers. They compete in the gesture '
           'arena. The winner fires its callbacks. Losers are cancelled.',
     },
@@ -265,7 +292,8 @@ dynamic build(BuildContext context) {
       'title': 'Dispose on unmount',
       'icon': Icons.delete,
       'color': Colors.cyan[500]!,
-      'description': 'When the widget is removed, dispose() is called '
+      'description':
+          'When the widget is removed, dispose() is called '
           'on all recognizers. This clears timers, listeners, and '
           'pending gesture state.',
     },
@@ -283,7 +311,8 @@ dynamic build(BuildContext context) {
       'name': 'Custom Gesture Combination',
       'icon': Icons.tune,
       'color': Colors.teal[600]!,
-      'code': 'RawGestureDetector(\n'
+      'code':
+          'RawGestureDetector(\n'
           '  gestures: {\n'
           '    TapGestureRecognizer:\n'
           '      GestureRecognizerFactoryWithHandlers<\n'
@@ -296,7 +325,8 @@ dynamic build(BuildContext context) {
           '  },\n'
           '  child: myWidget,\n'
           ')',
-      'description': 'Direct control over which recognizers are '
+      'description':
+          'Direct control over which recognizers are '
           'created. This is more verbose than GestureDetector but '
           'gives you full control over recognizer configuration.',
     },
@@ -304,7 +334,8 @@ dynamic build(BuildContext context) {
       'name': 'Configuring Recognizer Properties',
       'icon': Icons.settings_applications,
       'color': Colors.cyan[600]!,
-      'code': 'GestureRecognizerFactoryWithHandlers<\n'
+      'code':
+          'GestureRecognizerFactoryWithHandlers<\n'
           '    LongPressGestureRecognizer>(\n'
           '  () => LongPressGestureRecognizer(\n'
           '    duration: Duration(milliseconds: 200),\n'
@@ -314,7 +345,8 @@ dynamic build(BuildContext context) {
           '    instance.onLongPressUp = handleLongPressUp;\n'
           '  },\n'
           ')',
-      'description': 'The constructor callback can pass parameters '
+      'description':
+          'The constructor callback can pass parameters '
           'to the recognizer constructor. Here we reduce the '
           'long-press duration from the default 500ms to 200ms.',
     },
@@ -322,7 +354,8 @@ dynamic build(BuildContext context) {
       'name': 'Multiple Custom Recognizers',
       'icon': Icons.layers,
       'color': Colors.teal[500]!,
-      'code': 'RawGestureDetector(\n'
+      'code':
+          'RawGestureDetector(\n'
           '  gestures: {\n'
           '    TapGestureRecognizer: tapFactory,\n'
           '    PanGestureRecognizer: panFactory,\n'
@@ -330,7 +363,8 @@ dynamic build(BuildContext context) {
           '  },\n'
           '  child: myCanvas,\n'
           ')',
-      'description': 'Combine multiple recognizer factories in one '
+      'description':
+          'Combine multiple recognizer factories in one '
           'detector. The gesture arena resolves conflicts. Note: '
           'PanGestureRecognizer and ScaleGestureRecognizer conflict '
           '— use only ScaleGestureRecognizer (it handles pan too).',
@@ -389,7 +423,8 @@ dynamic build(BuildContext context) {
       'phase': 'Pointer Down',
       'icon': Icons.touch_app,
       'color': Colors.teal[700]!,
-      'description': 'User touches the screen. A GestureArenaEntry '
+      'description':
+          'User touches the screen. A GestureArenaEntry '
           'is created for each recognizer that registered for this '
           'pointer. All competitors start in the "possible" state.',
     },
@@ -397,7 +432,8 @@ dynamic build(BuildContext context) {
       'phase': 'Pointer Move',
       'icon': Icons.swipe,
       'color': Colors.cyan[700]!,
-      'description': 'As the pointer moves, each recognizer analyzes '
+      'description':
+          'As the pointer moves, each recognizer analyzes '
           'the movement. If a recognizer determines it cannot be the '
           'winning gesture (e.g., too much vertical movement for a '
           'horizontal drag), it rejects itself from the arena.',
@@ -406,7 +442,8 @@ dynamic build(BuildContext context) {
       'phase': 'Resolution',
       'icon': Icons.emoji_events,
       'color': Colors.teal[600]!,
-      'description': 'When only one recognizer remains (all others '
+      'description':
+          'When only one recognizer remains (all others '
           'rejected), it wins by default. Or a recognizer can '
           'declare victory (e.g., long press timer fires). The '
           'winner\'s callbacks are called.',
@@ -415,7 +452,8 @@ dynamic build(BuildContext context) {
       'phase': 'Sweep (Pointer Up)',
       'icon': Icons.cleaning_services,
       'color': Colors.cyan[600]!,
-      'description': 'If the pointer is released before resolution, '
+      'description':
+          'If the pointer is released before resolution, '
           'the arena is swept: the first remaining competitor wins. '
           'This is how TapGestureRecognizer wins — it\'s typically '
           'first and survives until pointer up.',
@@ -424,7 +462,8 @@ dynamic build(BuildContext context) {
       'phase': 'Cancellation',
       'icon': Icons.cancel,
       'color': Colors.teal[500]!,
-      'description': 'Losing recognizers receive a cancel callback '
+      'description':
+          'Losing recognizers receive a cancel callback '
           '(onTapCancel, onPanCancel). They reset their internal '
           'state and prepare for the next gesture.',
     },
@@ -442,7 +481,8 @@ dynamic build(BuildContext context) {
       'title': 'Custom Ink Splash Timing',
       'icon': Icons.water_drop,
       'color': Colors.teal[600]!,
-      'body': 'Use RawGestureDetector with a TapGestureRecognizer '
+      'body':
+          'Use RawGestureDetector with a TapGestureRecognizer '
           'that has a custom timeout. For buttons that should respond '
           'faster (kiosk apps), reduce the tap timeout. For buttons '
           'that must ignore accidental taps, increase it.',
@@ -451,7 +491,8 @@ dynamic build(BuildContext context) {
       'title': 'Drawing Canvas',
       'icon': Icons.draw,
       'color': Colors.cyan[600]!,
-      'body': 'A drawing app uses a PanGestureRecognizer factory '
+      'body':
+          'A drawing app uses a PanGestureRecognizer factory '
           'with custom properties: a very low slop (movement '
           'threshold) for precision, immediate start without '
           'waiting for the arena to resolve. The factory '
@@ -461,7 +502,8 @@ dynamic build(BuildContext context) {
       'title': 'Game Input Handler',
       'icon': Icons.gamepad,
       'color': Colors.teal[500]!,
-      'body': 'Game controls may need multiple simultaneous '
+      'body':
+          'Game controls may need multiple simultaneous '
           'recognizers on the same widget. Use RawGestureDetector '
           'with allowedButtonsFilter to distinguish between primary '
           'and secondary touch points.',
@@ -470,7 +512,8 @@ dynamic build(BuildContext context) {
       'title': 'Accessibility Gesture Override',
       'icon': Icons.accessibility,
       'color': Colors.cyan[500]!,
-      'body': 'Replace standard long-press behavior with a shorter '
+      'body':
+          'Replace standard long-press behavior with a shorter '
           'duration for users with motor impairments. The factory '
           'constructor lets you customize the LongPressGestureRecognizer '
           'duration per widget or per user preference.',
@@ -488,7 +531,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'Pan + Scale Conflict',
-      'body': 'PanGestureRecognizer and ScaleGestureRecognizer '
+      'body':
+          'PanGestureRecognizer and ScaleGestureRecognizer '
           'cannot coexist in the same detector — they compete for '
           'the same gesture. Use ScaleGestureRecognizer alone; at '
           'scale 1.0, it reports pan-like updates.',
@@ -497,7 +541,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb_outline,
       'title': 'Factory Reuse Across Rebuilds',
-      'body': 'The constructor() is called once, but initializer() '
+      'body':
+          'The constructor() is called once, but initializer() '
           'runs on every build. Don\'t create expensive objects in '
           'the initializer. Put creation logic in constructor(), '
           'configuration in initializer().',
@@ -506,7 +551,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle_outline,
       'title': 'Prefer GestureDetector for Simple Cases',
-      'body': 'For standard tap/long-press/drag, use GestureDetector. '
+      'body':
+          'For standard tap/long-press/drag, use GestureDetector. '
           'It handles factory creation internally. Only drop to '
           'RawGestureDetector + manual factories when you need '
           'custom recognizer parameters or custom recognizer types.',
@@ -515,7 +561,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'Map Key is the Type',
-      'body': 'In RawGestureDetector\'s gestures map, the key is '
+      'body':
+          'In RawGestureDetector\'s gestures map, the key is '
           'the recognizer Type (e.g., TapGestureRecognizer). You '
           'can only have ONE factory per type. Two TapGestureRecognizer '
           'factories in the same map won\'t work — the second '
@@ -525,7 +572,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb_outline,
       'title': 'debugPrintGestureArenaDiagnostics',
-      'body': 'Set debugPrintGestureArenaDiagnostics = true to '
+      'body':
+          'Set debugPrintGestureArenaDiagnostics = true to '
           'see which recognizers compete and who wins. Essential '
           'when gestures don\'t fire as expected.',
       'severity': 'info',
@@ -533,7 +581,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle_outline,
       'title': 'Gesture semantics for Testing',
-      'body': 'RawGestureDetector has a semantics property. Set it '
+      'body':
+          'RawGestureDetector has a semantics property. Set it '
           'to provide accessible labels for gesture-based widgets. '
           'This helps with widget testing and screen readers.',
       'severity': 'tip',
@@ -605,71 +654,87 @@ dynamic build(BuildContext context) {
           // ── Section 1: Concept ──
           _gestHead('1', 'What is GestureRecognizerFactory?'),
           SizedBox(height: 12),
-          ...conceptCards.map((card) => Padding(
-                padding: EdgeInsets.only(bottom: 12),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: card['accent'] as Color, width: 4),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 4,
-                          offset: Offset(0, 2))
-                    ],
+          ...conceptCards.map(
+            (card) => Padding(
+              padding: EdgeInsets.only(bottom: 12),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: card['accent'] as Color, width: 4),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        Icon(card['icon'] as IconData,
-                            color: card['accent'] as Color, size: 22),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 4,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          card['icon'] as IconData,
+                          color: card['accent'] as Color,
+                          size: 22,
+                        ),
                         SizedBox(width: 10),
                         Expanded(
-                          child: Text(card['title'] as String,
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey[900])),
+                          child: Text(
+                            card['title'] as String,
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey[900],
+                            ),
+                          ),
                         ),
-                      ]),
-                      SizedBox(height: 10),
-                      Text(card['body'] as String,
-                          style: TextStyle(
-                              fontSize: 13,
-                              color: Colors.grey[700],
-                              height: 1.5)),
-                    ],
-                  ),
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      card['body'] as String,
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: Colors.grey[700],
+                        height: 1.5,
+                      ),
+                    ),
+                  ],
                 ),
-              )),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
           // ── Section 2: Factory Anatomy ──
           _gestHead('2', 'Factory Anatomy'),
           SizedBox(height: 12),
-          ...anatomyItems.map((item) => Padding(
-                padding: EdgeInsets.only(bottom: 10),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: (item['color'] as Color).withOpacity(0.08),
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                        color: (item['color'] as Color).withOpacity(0.3)),
+          ...anatomyItems.map(
+            (item) => Padding(
+              padding: EdgeInsets.only(bottom: 10),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: (item['color'] as Color).withOpacity(0.08),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color: (item['color'] as Color).withOpacity(0.3),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
                         Container(
                           width: 30,
                           height: 30,
@@ -677,119 +742,149 @@ dynamic build(BuildContext context) {
                             color: item['color'] as Color,
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          child: Icon(item['icon'] as IconData,
-                              color: Colors.white, size: 16),
+                          child: Icon(
+                            item['icon'] as IconData,
+                            color: Colors.white,
+                            size: 16,
+                          ),
                         ),
                         SizedBox(width: 10),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(item['part'] as String,
-                                  style: TextStyle(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'monospace',
-                                      color: item['color'] as Color)),
-                              Text(item['role'] as String,
-                                  style: TextStyle(
-                                      fontSize: 10,
-                                      color: Colors.grey[600])),
+                              Text(
+                                item['part'] as String,
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'monospace',
+                                  color: item['color'] as Color,
+                                ),
+                              ),
+                              Text(
+                                item['role'] as String,
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  color: Colors.grey[600],
+                                ),
+                              ),
                             ],
                           ),
                         ),
-                      ]),
-                      SizedBox(height: 8),
-                      Text(item['description'] as String,
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[800],
-                              height: 1.4)),
-                    ],
-                  ),
+                      ],
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      item['description'] as String,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[800],
+                        height: 1.4,
+                      ),
+                    ),
+                  ],
                 ),
-              )),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
           // ── Section 3: Recognizer Types ──
           _gestHead('3', 'Common Recognizer Types'),
           SizedBox(height: 12),
-          ...recognizerTypes.map((rt) => Padding(
-                padding: EdgeInsets.only(bottom: 12),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: rt['bgColor'] as Color,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                        color: (rt['color'] as Color).withOpacity(0.3)),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 2,
-                          offset: Offset(0, 1))
-                    ],
+          ...recognizerTypes.map(
+            (rt) => Padding(
+              padding: EdgeInsets.only(bottom: 12),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: rt['bgColor'] as Color,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color: (rt['color'] as Color).withOpacity(0.3),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        Icon(rt['icon'] as IconData,
-                            color: rt['color'] as Color, size: 20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 2,
+                      offset: Offset(0, 1),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          rt['icon'] as IconData,
+                          color: rt['color'] as Color,
+                          size: 20,
+                        ),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(rt['name'] as String,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 13,
-                                  fontFamily: 'monospace',
-                                  color: rt['color'] as Color)),
+                          child: Text(
+                            rt['name'] as String,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                              fontFamily: 'monospace',
+                              color: rt['color'] as Color,
+                            ),
+                          ),
                         ),
-                      ]),
-                      SizedBox(height: 6),
-                      _factChip(rt['callbacks'] as String,
-                          rt['color'] as Color),
-                      SizedBox(height: 8),
-                      Text(rt['description'] as String,
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[800],
-                              height: 1.4)),
-                    ],
-                  ),
+                      ],
+                    ),
+                    SizedBox(height: 6),
+                    _factChip(rt['callbacks'] as String, rt['color'] as Color),
+                    SizedBox(height: 8),
+                    Text(
+                      rt['description'] as String,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[800],
+                        height: 1.4,
+                      ),
+                    ),
+                  ],
                 ),
-              )),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
           // ── Section 4: GestureDetector Internals ──
           _gestHead('4', 'How GestureDetector Uses Factories'),
           SizedBox(height: 12),
-          ...internalSteps.map((step) => Padding(
-                padding: EdgeInsets.only(bottom: 10),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: step['color'] as Color, width: 4),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 2,
-                          offset: Offset(0, 1))
-                    ],
+          ...internalSteps.map(
+            (step) => Padding(
+              padding: EdgeInsets.only(bottom: 10),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: step['color'] as Color, width: 4),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 2,
+                      offset: Offset(0, 1),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
                         Container(
                           width: 26,
                           height: 26,
@@ -798,99 +893,128 @@ dynamic build(BuildContext context) {
                             shape: BoxShape.circle,
                           ),
                           child: Center(
-                            child: Text(step['step'] as String,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 13)),
+                            child: Text(
+                              step['step'] as String,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13,
+                              ),
+                            ),
                           ),
                         ),
                         SizedBox(width: 10),
-                        Icon(step['icon'] as IconData,
-                            color: step['color'] as Color, size: 18),
+                        Icon(
+                          step['icon'] as IconData,
+                          color: step['color'] as Color,
+                          size: 18,
+                        ),
                         SizedBox(width: 6),
                         Expanded(
-                          child: Text(step['title'] as String,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 13)),
+                          child: Text(
+                            step['title'] as String,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                            ),
+                          ),
                         ),
-                      ]),
-                      SizedBox(height: 6),
-                      Text(step['description'] as String,
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[700],
-                              height: 1.4)),
-                    ],
-                  ),
+                      ],
+                    ),
+                    SizedBox(height: 6),
+                    Text(
+                      step['description'] as String,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[700],
+                        height: 1.4,
+                      ),
+                    ),
+                  ],
                 ),
-              )),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
           // ── Section 5: RawGestureDetector ──
           _gestHead('5', 'RawGestureDetector Usage'),
           SizedBox(height: 12),
-          ...rawUsages.map((ru) => Padding(
-                padding: EdgeInsets.only(bottom: 14),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: ru['color'] as Color, width: 4),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(0, 1))
-                    ],
+          ...rawUsages.map(
+            (ru) => Padding(
+              padding: EdgeInsets.only(bottom: 14),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: ru['color'] as Color, width: 4),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        Icon(ru['icon'] as IconData,
-                            color: ru['color'] as Color, size: 20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 3,
+                      offset: Offset(0, 1),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          ru['icon'] as IconData,
+                          color: ru['color'] as Color,
+                          size: 20,
+                        ),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(ru['name'] as String,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14)),
-                        ),
-                      ]),
-                      SizedBox(height: 8),
-                      Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color:
-                              (ru['color'] as Color).withOpacity(0.06),
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        child: Text(ru['code'] as String,
+                          child: Text(
+                            ru['name'] as String,
                             style: TextStyle(
-                                fontSize: 11,
-                                fontFamily: 'monospace',
-                                color: Colors.grey[700],
-                                height: 1.4)),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 8),
+                    Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: (ru['color'] as Color).withOpacity(0.06),
+                        borderRadius: BorderRadius.circular(6),
                       ),
-                      SizedBox(height: 8),
-                      Text(ru['description'] as String,
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[700],
-                              height: 1.4)),
-                    ],
-                  ),
+                      child: Text(
+                        ru['code'] as String,
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontFamily: 'monospace',
+                          color: Colors.grey[700],
+                          height: 1.4,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      ru['description'] as String,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[700],
+                        height: 1.4,
+                      ),
+                    ),
+                  ],
                 ),
-              )),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
@@ -904,81 +1028,108 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 4,
-                    offset: Offset(0, 2))
+                  color: Colors.black12,
+                  blurRadius: 4,
+                  offset: Offset(0, 2),
+                ),
               ],
             ),
-            child: Column(children: [
-              Container(
-                padding:
-                    EdgeInsets.symmetric(vertical: 10, horizontal: 12),
-                decoration: BoxDecoration(
-                  color: Colors.teal[700],
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(12),
-                    topRight: Radius.circular(12),
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+                  decoration: BoxDecoration(
+                    color: Colors.teal[700],
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(12),
+                      topRight: Radius.circular(12),
+                    ),
                   ),
-                ),
-                child: Row(children: [
-                  Expanded(
-                      flex: 2,
-                      child: Text('Aspect',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 11))),
-                  Expanded(
-                      flex: 3,
-                      child: Text('GestureDetector',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 11))),
-                  Expanded(
-                      flex: 3,
-                      child: Text('RawGestureDetector',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 11))),
-                ]),
-              ),
-              ...comparisonRows.asMap().entries.map((entry) {
-                final idx = entry.key;
-                final row = entry.value;
-                return Container(
-                  padding: EdgeInsets.symmetric(
-                      vertical: 8, horizontal: 12),
-                  color: idx.isEven ? Colors.grey[50] : Colors.white,
                   child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
-                          flex: 2,
-                          child: Text(row['aspect']!,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 11))),
+                        flex: 2,
+                        child: Text(
+                          'Aspect',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 11,
+                          ),
+                        ),
+                      ),
                       Expanded(
-                          flex: 3,
-                          child: Text(row['detector']!,
-                              style: TextStyle(
-                                  fontSize: 11,
-                                  color: Colors.grey[700],
-                                  height: 1.3))),
+                        flex: 3,
+                        child: Text(
+                          'GestureDetector',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 11,
+                          ),
+                        ),
+                      ),
                       Expanded(
-                          flex: 3,
-                          child: Text(row['raw']!,
-                              style: TextStyle(
-                                  fontSize: 11,
-                                  color: Colors.grey[700],
-                                  height: 1.3))),
+                        flex: 3,
+                        child: Text(
+                          'RawGestureDetector',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 11,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
-                );
-              }),
-            ]),
+                ),
+                ...comparisonRows.asMap().entries.map((entry) {
+                  final idx = entry.key;
+                  final row = entry.value;
+                  return Container(
+                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                    color: idx.isEven ? Colors.grey[50] : Colors.white,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          flex: 2,
+                          child: Text(
+                            row['aspect']!,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 11,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 3,
+                          child: Text(
+                            row['detector']!,
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: Colors.grey[700],
+                              height: 1.3,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 3,
+                          child: Text(
+                            row['raw']!,
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: Colors.grey[700],
+                              height: 1.3,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }),
+              ],
+            ),
           ),
 
           SizedBox(height: 24),
@@ -986,98 +1137,124 @@ dynamic build(BuildContext context) {
           // ── Section 7: Gesture Arena ──
           _gestHead('7', 'Gesture Arena Explained'),
           SizedBox(height: 12),
-          ...arenaPhases.map((phase) => Padding(
-                padding: EdgeInsets.only(bottom: 10),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: phase['color'] as Color, width: 4),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 2,
-                          offset: Offset(0, 1))
-                    ],
+          ...arenaPhases.map(
+            (phase) => Padding(
+              padding: EdgeInsets.only(bottom: 10),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: phase['color'] as Color, width: 4),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        Icon(phase['icon'] as IconData,
-                            color: phase['color'] as Color, size: 20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 2,
+                      offset: Offset(0, 1),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          phase['icon'] as IconData,
+                          color: phase['color'] as Color,
+                          size: 20,
+                        ),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(phase['phase'] as String,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14)),
+                          child: Text(
+                            phase['phase'] as String,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                            ),
+                          ),
                         ),
-                      ]),
-                      SizedBox(height: 6),
-                      Text(phase['description'] as String,
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[700],
-                              height: 1.4)),
-                    ],
-                  ),
+                      ],
+                    ),
+                    SizedBox(height: 6),
+                    Text(
+                      phase['description'] as String,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[700],
+                        height: 1.4,
+                      ),
+                    ),
+                  ],
                 ),
-              )),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
           // ── Section 8: Real-World ──
           _gestHead('8', 'Real-World Patterns'),
           SizedBox(height: 12),
-          ...patterns.map((p) => Padding(
-                padding: EdgeInsets.only(bottom: 12),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: p['color'] as Color, width: 4),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(0, 1))
-                    ],
+          ...patterns.map(
+            (p) => Padding(
+              padding: EdgeInsets.only(bottom: 12),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: p['color'] as Color, width: 4),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        Icon(p['icon'] as IconData,
-                            color: p['color'] as Color, size: 20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 3,
+                      offset: Offset(0, 1),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          p['icon'] as IconData,
+                          color: p['color'] as Color,
+                          size: 20,
+                        ),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(p['title'] as String,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14)),
+                          child: Text(
+                            p['title'] as String,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                            ),
+                          ),
                         ),
-                      ]),
-                      SizedBox(height: 8),
-                      Text(p['body'] as String,
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[700],
-                              height: 1.4)),
-                    ],
-                  ),
+                      ],
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      p['body'] as String,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[700],
+                        height: 1.4,
+                      ),
+                    ),
+                  ],
                 ),
-              )),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
@@ -1109,29 +1286,41 @@ dynamic build(BuildContext context) {
                   color: bgColor,
                   borderRadius: BorderRadius.circular(10),
                   border: Border(
-                      left: BorderSide(color: borderColor, width: 4)),
+                    left: BorderSide(color: borderColor, width: 4),
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(children: [
-                      Icon(tip['icon'] as IconData,
-                          color: borderColor, size: 20),
-                      SizedBox(width: 8),
-                      Expanded(
-                        child: Text(tip['title'] as String,
+                    Row(
+                      children: [
+                        Icon(
+                          tip['icon'] as IconData,
+                          color: borderColor,
+                          size: 20,
+                        ),
+                        SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            tip['title'] as String,
                             style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 13,
-                                color: Colors.grey[900])),
-                      ),
-                    ]),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                              color: Colors.grey[900],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                     SizedBox(height: 6),
-                    Text(tip['body'] as String,
-                        style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey[800],
-                            height: 1.4)),
+                    Text(
+                      tip['body'] as String,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[800],
+                        height: 1.4,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -1172,20 +1361,26 @@ Widget _gestHead(String number, String title) {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(
-          child: Text(number,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14)),
+          child: Text(
+            number,
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+            ),
+          ),
         ),
       ),
       SizedBox(width: 10),
       Expanded(
-        child: Text(title,
-            style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.grey[900])),
+        child: Text(
+          title,
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.grey[900],
+          ),
+        ),
       ),
     ],
   );
@@ -1202,11 +1397,14 @@ Widget _factChip(String text, Color color) {
       color: color.withOpacity(0.1),
       borderRadius: BorderRadius.circular(6),
     ),
-    child: Text(text,
-        style: TextStyle(
-            fontSize: 10,
-            fontFamily: 'monospace',
-            color: color,
-            height: 1.3)),
+    child: Text(
+      text,
+      style: TextStyle(
+        fontSize: 10,
+        fontFamily: 'monospace',
+        color: color,
+        height: 1.3,
+      ),
+    ),
   );
 }

@@ -17,7 +17,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.collections,
       'title': 'What is ViewCollection?',
-      'body': 'ViewCollection is a widget that groups multiple View '
+      'body':
+          'ViewCollection is a widget that groups multiple View '
           'widgets together. It serves as the root for multi-view '
           'Flutter applications where the framework manages more '
           'than one FlutterView simultaneously.',
@@ -26,7 +27,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.view_carousel,
       'title': 'Multiple Rendering Surfaces',
-      'body': 'Each View within a ViewCollection gets its own rendering '
+      'body':
+          'Each View within a ViewCollection gets its own rendering '
           'pipeline. They are independently laid out, painted, and '
           'composited. This is fundamentally different from using '
           'multiple widgets within a single view.',
@@ -35,7 +37,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.hub,
       'title': 'Centralized Management',
-      'body': 'ViewCollection coordinates the lifecycle of all its views. '
+      'body':
+          'ViewCollection coordinates the lifecycle of all its views. '
           'When views are added or removed, the collection handles '
           'creation and disposal of the associated rendering resources. '
           'It ensures consistent frame scheduling.',
@@ -44,7 +47,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.devices,
       'title': 'Multi-Window / Multi-Display',
-      'body': 'The primary use case is multi-window or multi-display '
+      'body':
+          'The primary use case is multi-window or multi-display '
           'applications. Each window or display gets its own View '
           'inside the ViewCollection. Desktop apps can span multiple '
           'monitors with independent content.',
@@ -123,35 +127,40 @@ dynamic build(BuildContext context) {
     {
       'name': 'views',
       'type': 'List<Widget>',
-      'desc': 'The list of View widgets managed by this collection. Each '
+      'desc':
+          'The list of View widgets managed by this collection. Each '
           'View wraps a FlutterView and establishes an independent '
           'rendering pipeline with its own build/layout/paint cycle.',
     },
     {
       'name': 'View',
       'type': 'Widget',
-      'desc': 'An individual view within the collection. Wraps a single '
+      'desc':
+          'An individual view within the collection. Wraps a single '
           'FlutterView and provides a MediaQuery, Directionality, '
           'and other essentials for its subtree.',
     },
     {
       'name': 'ViewAnchor',
       'type': 'Widget (related)',
-      'desc': 'Associates a secondary view with a position in a primary '
+      'desc':
+          'Associates a secondary view with a position in a primary '
           'view\u0027s widget tree. ViewAnchor effectively adds a '
           'view to the collection anchored at a specific widget.',
     },
     {
       'name': 'WidgetsBinding.instance.platformDispatcher',
       'type': 'PlatformDispatcher',
-      'desc': 'Provides access to all available FlutterViews. '
+      'desc':
+          'Provides access to all available FlutterViews. '
           'ViewCollection typically iterates over the dispatcher\u0027s '
           'views to create one View widget per FlutterView.',
     },
     {
       'name': 'wrapWithDefaultView',
       'type': 'bool',
-      'desc': 'In WidgetsApp/MaterialApp: if false, the app does not '
+      'desc':
+          'In WidgetsApp/MaterialApp: if false, the app does not '
           'wrap its content in a default single view. Instead, '
           'the builder can return a ViewCollection for multi-view.',
     },
@@ -240,7 +249,8 @@ dynamic build(BuildContext context) {
   final addViewSteps = <Map<String, dynamic>>[
     {
       'step': '1. Enumerate FlutterViews',
-      'desc': 'Query PlatformDispatcher.views to discover all available '
+      'desc':
+          'Query PlatformDispatcher.views to discover all available '
           'FlutterViews. Each represents a window, display, or '
           'rendering surface provided by the platform.',
       'icon': Icons.search,
@@ -248,7 +258,8 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '2. Create View Widgets',
-      'desc': 'For each FlutterView, create a View widget. The View '
+      'desc':
+          'For each FlutterView, create a View widget. The View '
           'establishes an independent rendering pipeline bound '
           'to that specific FlutterView.',
       'icon': Icons.add_box,
@@ -256,7 +267,8 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '3. Assemble ViewCollection',
-      'desc': 'Pass the list of View widgets to ViewCollection\u0027s '
+      'desc':
+          'Pass the list of View widgets to ViewCollection\u0027s '
           'views parameter. The collection becomes the root of '
           'the multi-view widget tree.',
       'icon': Icons.collections,
@@ -264,7 +276,8 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '4. Listen for View Changes',
-      'desc': 'Subscribe to PlatformDispatcher.onViewsChanged to detect '
+      'desc':
+          'Subscribe to PlatformDispatcher.onViewsChanged to detect '
           'when windows open or close. Rebuild the ViewCollection '
           'to add or remove corresponding View widgets.',
       'icon': Icons.notifications_active,
@@ -272,7 +285,8 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '5. Hot-Add New Views',
-      'desc': 'When a new FlutterView appears (new window), add a View '
+      'desc':
+          'When a new FlutterView appears (new window), add a View '
           'widget to the collection. The framework creates the '
           'rendering pipeline and starts painting the new view.',
       'icon': Icons.fiber_new,
@@ -299,11 +313,7 @@ dynamic build(BuildContext context) {
                     color: avColor.withOpacity(0.12),
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(
-                    av['icon'] as IconData,
-                    color: avColor,
-                    size: 18,
-                  ),
+                  child: Icon(av['icon'] as IconData, color: avColor, size: 18),
                 ),
                 if (i < addViewSteps.length - 1)
                   Container(
@@ -360,28 +370,32 @@ dynamic build(BuildContext context) {
   final removeTopics = <Map<String, dynamic>>[
     {
       'title': 'Window Close Detection',
-      'desc': 'When the platform closes a window, its FlutterView is '
+      'desc':
+          'When the platform closes a window, its FlutterView is '
           'removed from PlatformDispatcher.views. The '
           'onViewsChanged callback fires, triggering a rebuild.',
       'color': Colors.red,
     },
     {
       'title': 'Remove View Widget',
-      'desc': 'Remove the corresponding View widget from the collection\u0027s '
+      'desc':
+          'Remove the corresponding View widget from the collection\u0027s '
           'views list during rebuild. The framework unmounts the View '
           'and disposes its rendering pipeline.',
       'color': Colors.orange,
     },
     {
       'title': 'Resource Cleanup',
-      'desc': 'The framework automatically releases render objects, '
+      'desc':
+          'The framework automatically releases render objects, '
           'layers, and compositing resources. State objects in '
           'the removed view\u0027s subtree are disposed normally.',
       'color': Colors.teal,
     },
     {
       'title': 'Graceful Shutdown',
-      'desc': 'Views can animate out before removal. Use a state variable '
+      'desc':
+          'Views can animate out before removal. Use a state variable '
           'to trigger an exit animation, then remove the View widget '
           'after the animation completes.',
       'color': Colors.blue,
@@ -464,7 +478,8 @@ dynamic build(BuildContext context) {
   final lifecyclePhases = <Map<String, dynamic>>[
     {
       'phase': 'App Startup',
-      'desc': 'The app creates a ViewCollection with one View per '
+      'desc':
+          'The app creates a ViewCollection with one View per '
           'initial FlutterView. The framework initializes rendering '
           'pipelines for each view in the collection.',
       'icon': Icons.power_settings_new,
@@ -472,7 +487,8 @@ dynamic build(BuildContext context) {
     },
     {
       'phase': 'View Added (Window Opens)',
-      'desc': 'A new FlutterView appears (user opens new window). '
+      'desc':
+          'A new FlutterView appears (user opens new window). '
           'onViewsChanged fires. App rebuilds with an additional '
           'View in the collection. New rendering pipeline starts.',
       'icon': Icons.open_in_new,
@@ -480,7 +496,8 @@ dynamic build(BuildContext context) {
     },
     {
       'phase': 'Views Active',
-      'desc': 'All views render independently. Each has its own frame '
+      'desc':
+          'All views render independently. Each has its own frame '
           'schedule. User interacts with any view. State can be '
           'shared across views via inherited widgets above the '
           'ViewCollection.',
@@ -489,7 +506,8 @@ dynamic build(BuildContext context) {
     },
     {
       'phase': 'View Removed (Window Closes)',
-      'desc': 'A FlutterView is removed. onViewsChanged fires. App '
+      'desc':
+          'A FlutterView is removed. onViewsChanged fires. App '
           'removes the corresponding View. State objects dispose. '
           'Rendering resources release.',
       'icon': Icons.close,
@@ -497,7 +515,8 @@ dynamic build(BuildContext context) {
     },
     {
       'phase': 'App Shutdown',
-      'desc': 'All remaining views unmount. The ViewCollection disposes '
+      'desc':
+          'All remaining views unmount. The ViewCollection disposes '
           'all child View widgets and their associated rendering '
           'pipelines. Final cleanup occurs.',
       'icon': Icons.power_off,
@@ -524,11 +543,7 @@ dynamic build(BuildContext context) {
                     color: lpColor.withOpacity(0.12),
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(
-                    lp['icon'] as IconData,
-                    color: lpColor,
-                    size: 20,
-                  ),
+                  child: Icon(lp['icon'] as IconData, color: lpColor, size: 20),
                 ),
                 if (i < lifecyclePhases.length - 1)
                   Container(
@@ -585,14 +600,16 @@ dynamic build(BuildContext context) {
   final layoutTopics = <Map<String, dynamic>>[
     {
       'title': 'Independent Layout',
-      'desc': 'Each View in the collection is laid out independently. '
+      'desc':
+          'Each View in the collection is laid out independently. '
           'They do not share constraints. A phone-sized view and '
           'a tablet-sized view can coexist in one collection.',
       'color': Colors.teal,
     },
     {
       'title': 'View Size from FlutterView',
-      'desc': 'Each View\u0027s size comes from the FlutterView\u0027s '
+      'desc':
+          'Each View\u0027s size comes from the FlutterView\u0027s '
           'physicalSize and devicePixelRatio. The framework '
           'provides tight constraints matching the view dimensions '
           'to the View widget\u0027s child.',
@@ -600,7 +617,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'No Z-Order Between Views',
-      'desc': 'Views in a collection do not have a defined z-order '
+      'desc':
+          'Views in a collection do not have a defined z-order '
           'relative to each other. The platform compositor decides '
           'visibility. In windowed mode, the window manager handles '
           'overlapping.',
@@ -608,14 +626,16 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Shared InheritedWidgets',
-      'desc': 'InheritedWidgets placed above the ViewCollection are '
+      'desc':
+          'InheritedWidgets placed above the ViewCollection are '
           'accessible from all views. This is how themes, locales, '
           'and app-wide state are shared across views.',
       'color': Colors.green,
     },
     {
       'title': 'Per-View MediaQuery',
-      'desc': 'Each View establishes its own MediaQuery based on its '
+      'desc':
+          'Each View establishes its own MediaQuery based on its '
           'FlutterView\u0027s properties. A view on a high-DPI '
           'display has different pixelRatio than one on a low-DPI '
           'display.',
@@ -697,7 +717,8 @@ dynamic build(BuildContext context) {
   final patterns = <Map<String, dynamic>>[
     {
       'title': 'Multi-Window Desktop App',
-      'desc': 'Each window gets its own View widget. ViewCollection at '
+      'desc':
+          'Each window gets its own View widget. ViewCollection at '
           'the root manages all windows. Windows can be opened and '
           'closed dynamically by adding/removing Views.',
       'icon': Icons.desktop_windows,
@@ -705,7 +726,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Multi-Display Kiosk',
-      'desc': 'A kiosk with multiple screens. Each screen is a FlutterView. '
+      'desc':
+          'A kiosk with multiple screens. Each screen is a FlutterView. '
           'ViewCollection renders different content on each screen. '
           'Maps, menus, and information displays run independently.',
       'icon': Icons.connected_tv,
@@ -713,7 +735,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Primary + Companion View',
-      'desc': 'A main editing view with a companion panel view. The '
+      'desc':
+          'A main editing view with a companion panel view. The '
           'editing view has the document; the companion shows '
           'properties or preview. Both share app state.',
       'icon': Icons.view_sidebar,
@@ -721,7 +744,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Mirrored Views',
-      'desc': 'Two views showing the same data with different layouts. '
+      'desc':
+          'Two views showing the same data with different layouts. '
           'A presenter view (full screen) and a controller view '
           '(with notes and controls) share one reactive state.',
       'icon': Icons.screen_share,
@@ -729,7 +753,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Embedded + Floating',
-      'desc': 'An embedded Flutter view within a native app, plus '
+      'desc':
+          'An embedded Flutter view within a native app, plus '
           'floating overlay views using ViewAnchor. The collection '
           'manages both the embedded and anchored views.',
       'icon': Icons.picture_in_picture_alt,
@@ -761,11 +786,7 @@ dynamic build(BuildContext context) {
                   color: pColor.withOpacity(0.12),
                   shape: BoxShape.circle,
                 ),
-                child: Icon(
-                  p['icon'] as IconData,
-                  color: pColor,
-                  size: 22,
-                ),
+                child: Icon(p['icon'] as IconData, color: pColor, size: 22),
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -807,32 +828,38 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.collections,
-      'text': 'ViewCollection groups multiple View widgets into a '
+      'text':
+          'ViewCollection groups multiple View widgets into a '
           'single root for multi-view Flutter applications.',
     },
     {
       'icon': Icons.view_carousel,
-      'text': 'Each View runs an independent rendering pipeline '
+      'text':
+          'Each View runs an independent rendering pipeline '
           'with its own layout, paint, and compositing passes.',
     },
     {
       'icon': Icons.sync,
-      'text': 'Views can be added and removed dynamically by '
+      'text':
+          'Views can be added and removed dynamically by '
           'listening to PlatformDispatcher.onViewsChanged.',
     },
     {
       'icon': Icons.share,
-      'text': 'InheritedWidgets above the ViewCollection are shared '
+      'text':
+          'InheritedWidgets above the ViewCollection are shared '
           'across all views for common state and theming.',
     },
     {
       'icon': Icons.devices,
-      'text': 'Primary use cases include multi-window desktop apps, '
+      'text':
+          'Primary use cases include multi-window desktop apps, '
           'multi-display kiosks, and embedded Flutter views.',
     },
     {
       'icon': Icons.memory,
-      'text': 'Each view has its own MediaQuery, reflecting the '
+      'text':
+          'Each view has its own MediaQuery, reflecting the '
           'properties of its specific FlutterView.',
     },
   ];

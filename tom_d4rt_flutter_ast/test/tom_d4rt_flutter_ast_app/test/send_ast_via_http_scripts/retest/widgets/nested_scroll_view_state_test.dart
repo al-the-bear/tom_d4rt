@@ -32,15 +32,24 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title,
-              style: TextStyle(
-                  color: fg, fontWeight: FontWeight.bold, fontSize: 16)),
+          Text(
+            title,
+            style: TextStyle(
+              color: fg,
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+          ),
           if (subtitle.isNotEmpty)
             Padding(
               padding: const EdgeInsets.only(top: 3),
-              child: Text(subtitle,
-                  style: TextStyle(
-                      color: fg.withValues(alpha: 0.85), fontSize: 12)),
+              child: Text(
+                subtitle,
+                style: TextStyle(
+                  color: fg.withValues(alpha: 0.85),
+                  fontSize: 12,
+                ),
+              ),
             ),
         ],
       ),
@@ -57,8 +66,7 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border(left: BorderSide(color: border, width: 4)),
       ),
-      child: Text(text,
-          style: TextStyle(fontSize: 13, color: darkNavy)),
+      child: Text(text, style: TextStyle(fontSize: 13, color: darkNavy)),
     );
   }
 
@@ -70,15 +78,17 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 170,
-            child: Text(label,
-                style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 13,
-                    color: accent)),
+            child: Text(
+              label,
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 13,
+                color: accent,
+              ),
+            ),
           ),
           Expanded(
-            child: Text(value,
-                style: TextStyle(fontSize: 13, color: darkNavy)),
+            child: Text(value, style: TextStyle(fontSize: 13, color: darkNavy)),
           ),
         ],
       ),
@@ -148,34 +158,45 @@ dynamic build(BuildContext context) {
                   Icon(Icons.swap_vert, size: 28, color: paleDenim),
                   const SizedBox(width: 10),
                   Expanded(
-                    child: Text('NestedScrollViewState',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold)),
+                    child: Text(
+                      'NestedScrollViewState',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ],
               ),
               const SizedBox(height: 6),
-              Text('State<NestedScrollView> — coordinates dual-controller scrolling for headers and body',
-                  style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.9),
-                      fontSize: 13)),
+              Text(
+                'State<NestedScrollView> — coordinates dual-controller scrolling for headers and body',
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.9),
+                  fontSize: 13,
+                ),
+              ),
               const SizedBox(height: 10),
-              Wrap(children: [
-                tag('State', chambray, Colors.white),
-                tag('innerController', softDenim, darkNavy),
-                tag('outerController', lightChambray, darkNavy),
-                tag('Coordinator', paleDenim, darkNavy),
-              ]),
+              Wrap(
+                children: [
+                  tag('State', chambray, Colors.white),
+                  tag('innerController', softDenim, darkNavy),
+                  tag('outerController', lightChambray, darkNavy),
+                  tag('Coordinator', paleDenim, darkNavy),
+                ],
+              ),
             ],
           ),
         ),
 
         // ── 2. What is it ────────────────────────────────────────────
-        sectionBanner('1 \u00b7 What Is NestedScrollViewState',
-            'The State object that manages NestedScrollView\'s scrolling',
-            deepDenim, Colors.white),
+        sectionBanner(
+          '1 \u00b7 What Is NestedScrollViewState',
+          'The State object that manages NestedScrollView\'s scrolling',
+          deepDenim,
+          Colors.white,
+        ),
         noteBox(
           'NestedScrollViewState is the State for NestedScrollView. It '
           'exposes two scroll controllers — innerController for the body '
@@ -188,16 +209,27 @@ dynamic build(BuildContext context) {
           whiteDenim,
         ),
         dataRow('Extends', 'State<NestedScrollView>', denim),
-        dataRow('Inner controller', 'ScrollController — body scroll', deepDenim),
-        dataRow('Outer controller', 'ScrollController — header scroll', chambray),
+        dataRow(
+          'Inner controller',
+          'ScrollController — body scroll',
+          deepDenim,
+        ),
+        dataRow(
+          'Outer controller',
+          'ScrollController — header scroll',
+          chambray,
+        ),
         dataRow('Coordinator', 'NestedScrollCoordinator (internal)', softDenim),
         dataRow('Defined in', 'widgets/nested_scroll_view.dart', darkNavy),
         const SizedBox(height: 14),
 
         // ── 3. Dual controller architecture ──────────────────────────
-        sectionBanner('2 \u00b7 Dual Controller Architecture',
-            'Two controllers, one coordinated experience',
-            denim, Colors.white),
+        sectionBanner(
+          '2 \u00b7 Dual Controller Architecture',
+          'Two controllers, one coordinated experience',
+          denim,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -222,25 +254,37 @@ dynamic build(BuildContext context) {
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.vertical_align_top, size: 20,
-                            color: accentAmber),
+                        Icon(
+                          Icons.vertical_align_top,
+                          size: 20,
+                          color: accentAmber,
+                        ),
                         const SizedBox(width: 8),
-                        Text('outerController',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
-                                fontFamily: 'monospace',
-                                color: accentAmber)),
+                        Text(
+                          'outerController',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            fontFamily: 'monospace',
+                            color: accentAmber,
+                          ),
+                        ),
                       ],
                     ),
                     const SizedBox(height: 6),
-                    Text('Controls the header slivers region',
-                        style: TextStyle(fontSize: 12, color: darkNavy)),
+                    Text(
+                      'Controls the header slivers region',
+                      style: TextStyle(fontSize: 12, color: darkNavy),
+                    ),
                     const SizedBox(height: 4),
-                    Text('Scrolls: SliverAppBar, SliverList headers, etc.',
-                        style: TextStyle(fontSize: 11, color: softDenim)),
-                    Text('Range: 0 → maxScrollExtent of header region',
-                        style: TextStyle(fontSize: 11, color: softDenim)),
+                    Text(
+                      'Scrolls: SliverAppBar, SliverList headers, etc.',
+                      style: TextStyle(fontSize: 11, color: softDenim),
+                    ),
+                    Text(
+                      'Range: 0 → maxScrollExtent of header region',
+                      style: TextStyle(fontSize: 11, color: softDenim),
+                    ),
                   ],
                 ),
               ),
@@ -249,11 +293,14 @@ dynamic build(BuildContext context) {
                 child: Column(
                   children: [
                     Icon(Icons.sync_alt, size: 20, color: chambray),
-                    Text('Coordinator handoff',
-                        style: TextStyle(
-                            fontSize: 9,
-                            fontWeight: FontWeight.bold,
-                            color: chambray)),
+                    Text(
+                      'Coordinator handoff',
+                      style: TextStyle(
+                        fontSize: 9,
+                        fontWeight: FontWeight.bold,
+                        color: chambray,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -271,25 +318,37 @@ dynamic build(BuildContext context) {
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.vertical_align_bottom, size: 20,
-                            color: accentTeal),
+                        Icon(
+                          Icons.vertical_align_bottom,
+                          size: 20,
+                          color: accentTeal,
+                        ),
                         const SizedBox(width: 8),
-                        Text('innerController',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
-                                fontFamily: 'monospace',
-                                color: accentTeal)),
+                        Text(
+                          'innerController',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            fontFamily: 'monospace',
+                            color: accentTeal,
+                          ),
+                        ),
                       ],
                     ),
                     const SizedBox(height: 6),
-                    Text('Controls the body content region',
-                        style: TextStyle(fontSize: 12, color: darkNavy)),
+                    Text(
+                      'Controls the body content region',
+                      style: TextStyle(fontSize: 12, color: darkNavy),
+                    ),
                     const SizedBox(height: 4),
-                    Text('Scrolls: body ListView, GridView, CustomScrollView',
-                        style: TextStyle(fontSize: 11, color: softDenim)),
-                    Text('Range: 0 → maxScrollExtent of body content',
-                        style: TextStyle(fontSize: 11, color: softDenim)),
+                    Text(
+                      'Scrolls: body ListView, GridView, CustomScrollView',
+                      style: TextStyle(fontSize: 11, color: softDenim),
+                    ),
+                    Text(
+                      'Range: 0 → maxScrollExtent of body content',
+                      style: TextStyle(fontSize: 11, color: softDenim),
+                    ),
                   ],
                 ),
               ),
@@ -299,9 +358,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 4. Visual: NestedScrollView structure ────────────────────
-        sectionBanner('3 \u00b7 Visual: NestedScrollView Structure',
-            'What the widget tree looks like',
-            chambray, Colors.white),
+        sectionBanner(
+          '3 \u00b7 Visual: NestedScrollView Structure',
+          'What the widget tree looks like',
+          chambray,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -322,12 +384,15 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    Text('NestedScrollView',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13,
-                            fontFamily: 'monospace',
-                            color: deepDenim)),
+                    Text(
+                      'NestedScrollView',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                        fontFamily: 'monospace',
+                        color: deepDenim,
+                      ),
+                    ),
                     const SizedBox(height: 8),
                     // Header slivers
                     Container(
@@ -340,12 +405,15 @@ dynamic build(BuildContext context) {
                       ),
                       child: Column(
                         children: [
-                          Text('headerSliverBuilder',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 11,
-                                  fontFamily: 'monospace',
-                                  color: accentAmber)),
+                          Text(
+                            'headerSliverBuilder',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 11,
+                              fontFamily: 'monospace',
+                              color: accentAmber,
+                            ),
+                          ),
                           const SizedBox(height: 4),
                           for (final sliver in [
                             'SliverAppBar',
@@ -356,16 +424,21 @@ dynamic build(BuildContext context) {
                               width: double.infinity,
                               margin: const EdgeInsets.symmetric(vertical: 2),
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 8, vertical: 4),
+                                horizontal: 8,
+                                vertical: 4,
+                              ),
                               decoration: BoxDecoration(
                                 color: accentAmber.withValues(alpha: 0.08),
                                 borderRadius: BorderRadius.circular(4),
                               ),
-                              child: Text(sliver,
-                                  style: TextStyle(
-                                      fontSize: 10,
-                                      fontFamily: 'monospace',
-                                      color: darkNavy)),
+                              child: Text(
+                                sliver,
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  fontFamily: 'monospace',
+                                  color: darkNavy,
+                                ),
+                              ),
                             ),
                         ],
                       ),
@@ -382,26 +455,34 @@ dynamic build(BuildContext context) {
                       ),
                       child: Column(
                         children: [
-                          Text('body',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 11,
-                                  fontFamily: 'monospace',
-                                  color: accentTeal)),
+                          Text(
+                            'body',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 11,
+                              fontFamily: 'monospace',
+                              color: accentTeal,
+                            ),
+                          ),
                           const SizedBox(height: 4),
                           Container(
                             width: double.infinity,
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 4),
+                              horizontal: 8,
+                              vertical: 4,
+                            ),
                             decoration: BoxDecoration(
                               color: accentTeal.withValues(alpha: 0.08),
                               borderRadius: BorderRadius.circular(4),
                             ),
-                            child: Text('ListView / GridView / CustomScrollView',
-                                style: TextStyle(
-                                    fontSize: 10,
-                                    fontFamily: 'monospace',
-                                    color: darkNavy)),
+                            child: Text(
+                              'ListView / GridView / CustomScrollView',
+                              style: TextStyle(
+                                fontSize: 10,
+                                fontFamily: 'monospace',
+                                color: darkNavy,
+                              ),
+                            ),
                           ),
                         ],
                       ),
@@ -415,9 +496,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 5. Live demo: NestedScrollView with SliverAppBar ─────────
-        sectionBanner('4 \u00b7 Live Demo: NestedScrollView With SliverAppBar',
-            'Classic collapsing header pattern using NestedScrollView',
-            deepDenim, Colors.white),
+        sectionBanner(
+          '4 \u00b7 Live Demo: NestedScrollView With SliverAppBar',
+          'Classic collapsing header pattern using NestedScrollView',
+          deepDenim,
+          Colors.white,
+        ),
         SizedBox(
           height: 350,
           child: ClipRRect(
@@ -425,39 +509,45 @@ dynamic build(BuildContext context) {
             child: NestedScrollView(
               headerSliverBuilder:
                   (BuildContext innerContext, bool innerBoxIsScrolled) {
-                return [
-                  SliverAppBar(
-                    expandedHeight: 140,
-                    pinned: true,
-                    backgroundColor: denim,
-                    flexibleSpace: FlexibleSpaceBar(
-                      title: Text('Collapsing Header',
-                          style: TextStyle(fontSize: 14)),
-                      background: Container(
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [deepDenim, chambray],
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
+                    return [
+                      SliverAppBar(
+                        expandedHeight: 140,
+                        pinned: true,
+                        backgroundColor: denim,
+                        flexibleSpace: FlexibleSpaceBar(
+                          title: Text(
+                            'Collapsing Header',
+                            style: TextStyle(fontSize: 14),
+                          ),
+                          background: Container(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [deepDenim, chambray],
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                              ),
+                            ),
+                            child: Center(
+                              child: Icon(
+                                Icons.layers,
+                                size: 50,
+                                color: Colors.white.withValues(alpha: 0.3),
+                              ),
+                            ),
                           ),
                         ),
-                        child: Center(
-                          child: Icon(Icons.layers,
-                              size: 50,
-                              color: Colors.white.withValues(alpha: 0.3)),
-                        ),
                       ),
-                    ),
-                  ),
-                ];
-              },
+                    ];
+                  },
               body: ListView.builder(
                 itemCount: 30,
                 itemBuilder: (context, index) {
                   final isEven = index % 2 == 0;
                   return Container(
                     margin: const EdgeInsets.symmetric(
-                        horizontal: 8, vertical: 2),
+                      horizontal: 8,
+                      vertical: 2,
+                    ),
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
                       color: isEven ? paleDenim : whiteDenim,
@@ -473,17 +563,21 @@ dynamic build(BuildContext context) {
                             borderRadius: BorderRadius.circular(16),
                           ),
                           child: Center(
-                            child: Text('${index + 1}',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold)),
+                            child: Text(
+                              '${index + 1}',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                         ),
                         const SizedBox(width: 12),
-                        Text('Body item ${index + 1}',
-                            style: TextStyle(
-                                fontSize: 13, color: darkNavy)),
+                        Text(
+                          'Body item ${index + 1}',
+                          style: TextStyle(fontSize: 13, color: darkNavy),
+                        ),
                       ],
                     ),
                   );
@@ -502,9 +596,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 6. State lifecycle ───────────────────────────────────────
-        sectionBanner('5 \u00b7 State Lifecycle',
-            'How NestedScrollViewState initializes and disposes',
-            denim, Colors.white),
+        sectionBanner(
+          '5 \u00b7 State Lifecycle',
+          'How NestedScrollViewState initializes and disposes',
+          denim,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -515,21 +612,41 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final phase in [
-                (1, 'initState()', 'Creates the NestedScrollCoordinator, '
-                    'sets up inner and outer scroll controllers',
-                    accentTeal),
-                (2, 'didChangeDependencies()', 'Sets the parent scroll '
-                    'controller from the widget configuration. Called after initState.',
-                    denim),
-                (3, 'build()', 'Constructs the CustomScrollView with header '
-                    'slivers and body. Wraps body in SliverFillRemaining.',
-                    chambray),
-                (4, 'didUpdateWidget()', 'When NestedScrollView config changes, '
-                    'updates the coordinator with new controller/physics.',
-                    softDenim),
-                (5, 'dispose()', 'Disposes the scroll coordinator and both '
-                    'controllers. Cleans up all scroll position listeners.',
-                    deepDenim),
+                (
+                  1,
+                  'initState()',
+                  'Creates the NestedScrollCoordinator, '
+                      'sets up inner and outer scroll controllers',
+                  accentTeal,
+                ),
+                (
+                  2,
+                  'didChangeDependencies()',
+                  'Sets the parent scroll '
+                      'controller from the widget configuration. Called after initState.',
+                  denim,
+                ),
+                (
+                  3,
+                  'build()',
+                  'Constructs the CustomScrollView with header '
+                      'slivers and body. Wraps body in SliverFillRemaining.',
+                  chambray,
+                ),
+                (
+                  4,
+                  'didUpdateWidget()',
+                  'When NestedScrollView config changes, '
+                      'updates the coordinator with new controller/physics.',
+                  softDenim,
+                ),
+                (
+                  5,
+                  'dispose()',
+                  'Disposes the scroll coordinator and both '
+                      'controllers. Cleans up all scroll position listeners.',
+                  deepDenim,
+                ),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 3),
@@ -537,8 +654,7 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: phase.$4.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border(
-                        left: BorderSide(color: phase.$4, width: 3)),
+                    border: Border(left: BorderSide(color: phase.$4, width: 3)),
                   ),
                   child: Row(
                     children: [
@@ -550,26 +666,33 @@ dynamic build(BuildContext context) {
                           color: phase.$4,
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        child: Text('${phase.$1}',
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 11,
-                                fontWeight: FontWeight.bold)),
+                        child: Text(
+                          '${phase.$1}',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                       const SizedBox(width: 10),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(phase.$2,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12,
-                                    fontFamily: 'monospace',
-                                    color: darkNavy)),
-                            Text(phase.$3,
-                                style: TextStyle(
-                                    fontSize: 11, color: darkNavy)),
+                            Text(
+                              phase.$2,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                                fontFamily: 'monospace',
+                                color: darkNavy,
+                              ),
+                            ),
+                            Text(
+                              phase.$3,
+                              style: TextStyle(fontSize: 11, color: darkNavy),
+                            ),
                           ],
                         ),
                       ),
@@ -582,9 +705,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 7. Live demo: tabs with nested scrolling ─────────────────
-        sectionBanner('6 \u00b7 Live Demo: Tabbed NestedScrollView',
-            'Multiple tabs sharing one NestedScrollView',
-            chambray, Colors.white),
+        sectionBanner(
+          '6 \u00b7 Live Demo: Tabbed NestedScrollView',
+          'Multiple tabs sharing one NestedScrollView',
+          chambray,
+          Colors.white,
+        ),
         SizedBox(
           height: 380,
           child: ClipRRect(
@@ -594,28 +720,31 @@ dynamic build(BuildContext context) {
               child: NestedScrollView(
                 headerSliverBuilder:
                     (BuildContext innerContext, bool innerBoxIsScrolled) {
-                  return [
-                    SliverAppBar(
-                      expandedHeight: 100,
-                      floating: true,
-                      pinned: true,
-                      backgroundColor: chambray,
-                      title: Text('Tabbed View',
-                          style: TextStyle(fontSize: 14)),
-                      bottom: TabBar(
-                        indicatorColor: accentAmber,
-                        labelColor: Colors.white,
-                        unselectedLabelColor:
-                            Colors.white.withValues(alpha: 0.6),
-                        tabs: [
-                          Tab(text: 'Alpha'),
-                          Tab(text: 'Beta'),
-                          Tab(text: 'Gamma'),
-                        ],
-                      ),
-                    ),
-                  ];
-                },
+                      return [
+                        SliverAppBar(
+                          expandedHeight: 100,
+                          floating: true,
+                          pinned: true,
+                          backgroundColor: chambray,
+                          title: Text(
+                            'Tabbed View',
+                            style: TextStyle(fontSize: 14),
+                          ),
+                          bottom: TabBar(
+                            indicatorColor: accentAmber,
+                            labelColor: Colors.white,
+                            unselectedLabelColor: Colors.white.withValues(
+                              alpha: 0.6,
+                            ),
+                            tabs: [
+                              Tab(text: 'Alpha'),
+                              Tab(text: 'Beta'),
+                              Tab(text: 'Gamma'),
+                            ],
+                          ),
+                        ),
+                      ];
+                    },
                 body: TabBarView(
                   children: [
                     for (final tab in [
@@ -634,17 +763,20 @@ dynamic build(BuildContext context) {
                               color: tab.$2.withValues(alpha: 0.06),
                               borderRadius: BorderRadius.circular(6),
                               border: Border(
-                                  left: BorderSide(
-                                      color: tab.$2, width: 3)),
+                                left: BorderSide(color: tab.$2, width: 3),
+                              ),
                             ),
                             child: Row(
                               children: [
                                 Icon(tab.$3, size: 18, color: tab.$2),
                                 const SizedBox(width: 8),
-                                Text('${tab.$1} item ${index + 1}',
-                                    style: TextStyle(
-                                        fontSize: 12,
-                                        color: darkNavy)),
+                                Text(
+                                  '${tab.$1} item ${index + 1}',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: darkNavy,
+                                  ),
+                                ),
                               ],
                             ),
                           );
@@ -667,9 +799,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 8. Scroll handover mechanics ─────────────────────────────
-        sectionBanner('7 \u00b7 Scroll Handover Mechanics',
-            'How outer-to-inner scrolling transition works',
-            deepDenim, Colors.white),
+        sectionBanner(
+          '7 \u00b7 Scroll Handover Mechanics',
+          'How outer-to-inner scrolling transition works',
+          deepDenim,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -680,14 +815,34 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final step in [
-                ('User drags down', 'Outer controller scrolls first — '
-                    'header slivers collapse', accentAmber, Icons.swipe_down),
-                ('Outer hits max', 'Header fully collapsed. Coordinator '
-                    'detects boundary reached.', chambray, Icons.horizontal_rule),
-                ('Inner takes over', 'Body content starts scrolling. '
-                    'innerController now active.', accentTeal, Icons.swipe_up),
-                ('User drags up', 'Inner scrolls back to zero first. '
-                    'Then outer expands headers.', softDenim, Icons.undo),
+                (
+                  'User drags down',
+                  'Outer controller scrolls first — '
+                      'header slivers collapse',
+                  accentAmber,
+                  Icons.swipe_down,
+                ),
+                (
+                  'Outer hits max',
+                  'Header fully collapsed. Coordinator '
+                      'detects boundary reached.',
+                  chambray,
+                  Icons.horizontal_rule,
+                ),
+                (
+                  'Inner takes over',
+                  'Body content starts scrolling. '
+                      'innerController now active.',
+                  accentTeal,
+                  Icons.swipe_up,
+                ),
+                (
+                  'User drags up',
+                  'Inner scrolls back to zero first. '
+                      'Then outer expands headers.',
+                  softDenim,
+                  Icons.undo,
+                ),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 4),
@@ -695,8 +850,7 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: step.$3.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border(
-                        left: BorderSide(color: step.$3, width: 3)),
+                    border: Border(left: BorderSide(color: step.$3, width: 3)),
                   ),
                   child: Row(
                     children: [
@@ -706,14 +860,18 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(step.$1,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12,
-                                    color: darkNavy)),
-                            Text(step.$2,
-                                style: TextStyle(
-                                    fontSize: 11, color: darkNavy)),
+                            Text(
+                              step.$1,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                                color: darkNavy,
+                              ),
+                            ),
+                            Text(
+                              step.$2,
+                              style: TextStyle(fontSize: 11, color: darkNavy),
+                            ),
                           ],
                         ),
                       ),
@@ -726,9 +884,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 9. SliverOverlapAbsorber / Injector ──────────────────────
-        sectionBanner('8 \u00b7 SliverOverlapAbsorber & Injector',
-            'How overlap is managed in nested scrolling',
-            denim, Colors.white),
+        sectionBanner(
+          '8 \u00b7 SliverOverlapAbsorber & Injector',
+          'How overlap is managed in nested scrolling',
+          denim,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -752,21 +913,24 @@ dynamic build(BuildContext context) {
                       ),
                       child: Column(
                         children: [
-                          Icon(Icons.filter_none, size: 24,
-                              color: accentAmber),
+                          Icon(Icons.filter_none, size: 24, color: accentAmber),
                           const SizedBox(height: 4),
-                          Text('SliverOverlap\nAbsorber',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 11,
-                                  fontFamily: 'monospace',
-                                  color: accentAmber)),
+                          Text(
+                            'SliverOverlap\nAbsorber',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 11,
+                              fontFamily: 'monospace',
+                              color: accentAmber,
+                            ),
+                          ),
                           const SizedBox(height: 4),
-                          Text('Placed in header.\nAbsorbs the overlap\nof pinned slivers.',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 10, color: darkNavy)),
+                          Text(
+                            'Placed in header.\nAbsorbs the overlap\nof pinned slivers.',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 10, color: darkNavy),
+                          ),
                         ],
                       ),
                     ),
@@ -776,11 +940,11 @@ dynamic build(BuildContext context) {
                     child: Column(
                       children: [
                         const SizedBox(height: 20),
-                        Icon(Icons.arrow_forward, size: 18,
-                            color: chambray),
-                        Text('handle',
-                            style: TextStyle(
-                                fontSize: 8, color: chambray)),
+                        Icon(Icons.arrow_forward, size: 18, color: chambray),
+                        Text(
+                          'handle',
+                          style: TextStyle(fontSize: 8, color: chambray),
+                        ),
                       ],
                     ),
                   ),
@@ -794,21 +958,24 @@ dynamic build(BuildContext context) {
                       ),
                       child: Column(
                         children: [
-                          Icon(Icons.input, size: 24,
-                              color: accentTeal),
+                          Icon(Icons.input, size: 24, color: accentTeal),
                           const SizedBox(height: 4),
-                          Text('SliverOverlap\nInjector',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 11,
-                                  fontFamily: 'monospace',
-                                  color: accentTeal)),
+                          Text(
+                            'SliverOverlap\nInjector',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 11,
+                              fontFamily: 'monospace',
+                              color: accentTeal,
+                            ),
+                          ),
                           const SizedBox(height: 4),
-                          Text('Placed in body.\nInjects space to\navoid header overlap.',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 10, color: darkNavy)),
+                          Text(
+                            'Placed in body.\nInjects space to\navoid header overlap.',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 10, color: darkNavy),
+                          ),
                         ],
                       ),
                     ),
@@ -831,9 +998,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 10. floatHeaderSlivers vs pinned ─────────────────────────
-        sectionBanner('9 \u00b7 floatHeaderSlivers Property',
-            'Controlling header behavior during scroll',
-            chambray, Colors.white),
+        sectionBanner(
+          '9 \u00b7 floatHeaderSlivers Property',
+          'Controlling header behavior during scroll',
+          chambray,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -856,17 +1026,21 @@ dynamic build(BuildContext context) {
                     children: [
                       Icon(Icons.push_pin, size: 24, color: accentTeal),
                       const SizedBox(height: 4),
-                      Text('floatHeaderSlivers:\nfalse (default)',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 11,
-                              color: accentTeal)),
+                      Text(
+                        'floatHeaderSlivers:\nfalse (default)',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 11,
+                          color: accentTeal,
+                        ),
+                      ),
                       const SizedBox(height: 4),
-                      Text('Headers scroll away\nnormally and stay\ncollapsed until user\nscrolls back to top.',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 10, color: darkNavy)),
+                      Text(
+                        'Headers scroll away\nnormally and stay\ncollapsed until user\nscrolls back to top.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 10, color: darkNavy),
+                      ),
                     ],
                   ),
                 ),
@@ -884,17 +1058,21 @@ dynamic build(BuildContext context) {
                     children: [
                       Icon(Icons.swap_vert, size: 24, color: accentAmber),
                       const SizedBox(height: 4),
-                      Text('floatHeaderSlivers:\ntrue',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 11,
-                              color: accentAmber)),
+                      Text(
+                        'floatHeaderSlivers:\ntrue',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 11,
+                          color: accentAmber,
+                        ),
+                      ),
                       const SizedBox(height: 4),
-                      Text('Headers reappear as\nsoon as user scrolls\nup, even in the\nmiddle of the list.',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 10, color: darkNavy)),
+                      Text(
+                        'Headers reappear as\nsoon as user scrolls\nup, even in the\nmiddle of the list.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 10, color: darkNavy),
+                      ),
                     ],
                   ),
                 ),
@@ -905,9 +1083,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 11. Live demo: floating header ───────────────────────────
-        sectionBanner('10 \u00b7 Live Demo: Floating Header Slivers',
-            'Headers that reappear on scroll-up',
-            deepDenim, Colors.white),
+        sectionBanner(
+          '10 \u00b7 Live Demo: Floating Header Slivers',
+          'Headers that reappear on scroll-up',
+          deepDenim,
+          Colors.white,
+        ),
         SizedBox(
           height: 300,
           child: ClipRRect(
@@ -916,24 +1097,28 @@ dynamic build(BuildContext context) {
               floatHeaderSlivers: true,
               headerSliverBuilder:
                   (BuildContext innerContext, bool innerBoxIsScrolled) {
-                return [
-                  SliverAppBar(
-                    expandedHeight: 80,
-                    floating: true,
-                    snap: true,
-                    backgroundColor: deepDenim,
-                    title: Row(
-                      children: [
-                        Icon(Icons.cloud, size: 18, color: paleDenim),
-                        const SizedBox(width: 8),
-                        Text('Floating Header',
-                            style: TextStyle(
-                                fontSize: 14, color: Colors.white)),
-                      ],
-                    ),
-                  ),
-                ];
-              },
+                    return [
+                      SliverAppBar(
+                        expandedHeight: 80,
+                        floating: true,
+                        snap: true,
+                        backgroundColor: deepDenim,
+                        title: Row(
+                          children: [
+                            Icon(Icons.cloud, size: 18, color: paleDenim),
+                            const SizedBox(width: 8),
+                            Text(
+                              'Floating Header',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ];
+                  },
               body: ListView.builder(
                 itemCount: 25,
                 padding: const EdgeInsets.all(6),
@@ -941,18 +1126,21 @@ dynamic build(BuildContext context) {
                   return Container(
                     margin: const EdgeInsets.symmetric(vertical: 2),
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 12, vertical: 8),
+                      horizontal: 12,
+                      vertical: 8,
+                    ),
                     decoration: BoxDecoration(
                       color: index % 3 == 0
                           ? denim.withValues(alpha: 0.06)
                           : index % 3 == 1
-                              ? chambray.withValues(alpha: 0.06)
-                              : softDenim.withValues(alpha: 0.06),
+                          ? chambray.withValues(alpha: 0.06)
+                          : softDenim.withValues(alpha: 0.06),
                       borderRadius: BorderRadius.circular(6),
                     ),
-                    child: Text('Floating item ${index + 1}',
-                        style: TextStyle(
-                            fontSize: 12, color: darkNavy)),
+                    child: Text(
+                      'Floating item ${index + 1}',
+                      style: TextStyle(fontSize: 12, color: darkNavy),
+                    ),
                   );
                 },
               ),
@@ -969,9 +1157,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 12. innerBoxIsScrolled callback param ────────────────────
-        sectionBanner('11 \u00b7 innerBoxIsScrolled Parameter',
-            'Knowing when the body has scrolled',
-            denim, Colors.white),
+        sectionBanner(
+          '11 \u00b7 innerBoxIsScrolled Parameter',
+          'Knowing when the body has scrolled',
+          denim,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -988,18 +1179,19 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: denim.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                      color: denim.withValues(alpha: 0.3)),
+                  border: Border.all(color: denim.withValues(alpha: 0.3)),
                 ),
                 child: Text(
-                    'headerSliverBuilder: (\n'
-                    '  BuildContext context,\n'
-                    '  bool innerBoxIsScrolled,\n'
-                    ') { ... }',
-                    style: TextStyle(
-                        fontSize: 11,
-                        fontFamily: 'monospace',
-                        color: deepDenim)),
+                  'headerSliverBuilder: (\n'
+                  '  BuildContext context,\n'
+                  '  bool innerBoxIsScrolled,\n'
+                  ') { ... }',
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                    color: deepDenim,
+                  ),
+                ),
               ),
               const SizedBox(height: 8),
               Row(
@@ -1015,16 +1207,20 @@ dynamic build(BuildContext context) {
                       ),
                       child: Column(
                         children: [
-                          Text('false',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14,
-                                  fontFamily: 'monospace',
-                                  color: accentTeal)),
-                          Text('Body is at top\nNo body scrolling',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 10, color: darkNavy)),
+                          Text(
+                            'false',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                              fontFamily: 'monospace',
+                              color: accentTeal,
+                            ),
+                          ),
+                          Text(
+                            'Body is at top\nNo body scrolling',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 10, color: darkNavy),
+                          ),
                         ],
                       ),
                     ),
@@ -1040,16 +1236,20 @@ dynamic build(BuildContext context) {
                       ),
                       child: Column(
                         children: [
-                          Text('true',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14,
-                                  fontFamily: 'monospace',
-                                  color: accentAmber)),
-                          Text('Body has scrolled\nUseful for shadow/elevation',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 10, color: darkNavy)),
+                          Text(
+                            'true',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                              fontFamily: 'monospace',
+                              color: accentAmber,
+                            ),
+                          ),
+                          Text(
+                            'Body has scrolled\nUseful for shadow/elevation',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 10, color: darkNavy),
+                          ),
                         ],
                       ),
                     ),
@@ -1071,9 +1271,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 13. Common mistakes ──────────────────────────────────────
-        sectionBanner('12 \u00b7 Common Mistakes',
-            'Pitfalls when using NestedScrollView',
-            chambray, Colors.white),
+        sectionBanner(
+          '12 \u00b7 Common Mistakes',
+          'Pitfalls when using NestedScrollView',
+          chambray,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1084,22 +1287,34 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final mistake in [
-                ('Forgetting SliverOverlapInjector',
-                    'Body content overlaps pinned header. Always pair '
-                    'SliverOverlapAbsorber in header with SliverOverlapInjector in body.',
-                    Icons.warning_amber, accentAmber),
-                ('Using ScrollController on body',
-                    'Body\'s scroll controller is managed by the State. '
-                    'Don\'t provide your own — use innerController instead.',
-                    Icons.error_outline, Color(0xFFE53935)),
-                ('Non-sliver children in header',
-                    'headerSliverBuilder must return Sliver widgets only. '
-                    'Wrap non-slivers in SliverToBoxAdapter.',
-                    Icons.block, softDenim),
-                ('Mixing scrollDirection',
-                    'NestedScrollView only supports vertical scrolling. '
-                    'For horizontal, use a different approach.',
-                    Icons.swap_horiz, chambray),
+                (
+                  'Forgetting SliverOverlapInjector',
+                  'Body content overlaps pinned header. Always pair '
+                      'SliverOverlapAbsorber in header with SliverOverlapInjector in body.',
+                  Icons.warning_amber,
+                  accentAmber,
+                ),
+                (
+                  'Using ScrollController on body',
+                  'Body\'s scroll controller is managed by the State. '
+                      'Don\'t provide your own — use innerController instead.',
+                  Icons.error_outline,
+                  Color(0xFFE53935),
+                ),
+                (
+                  'Non-sliver children in header',
+                  'headerSliverBuilder must return Sliver widgets only. '
+                      'Wrap non-slivers in SliverToBoxAdapter.',
+                  Icons.block,
+                  softDenim,
+                ),
+                (
+                  'Mixing scrollDirection',
+                  'NestedScrollView only supports vertical scrolling. '
+                      'For horizontal, use a different approach.',
+                  Icons.swap_horiz,
+                  chambray,
+                ),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 4),
@@ -1108,7 +1323,8 @@ dynamic build(BuildContext context) {
                     color: mistake.$4.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8),
                     border: Border(
-                        left: BorderSide(color: mistake.$4, width: 3)),
+                      left: BorderSide(color: mistake.$4, width: 3),
+                    ),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1119,14 +1335,18 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(mistake.$1,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12,
-                                    color: darkNavy)),
-                            Text(mistake.$2,
-                                style: TextStyle(
-                                    fontSize: 11, color: darkNavy)),
+                            Text(
+                              mistake.$1,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                                color: darkNavy,
+                              ),
+                            ),
+                            Text(
+                              mistake.$2,
+                              style: TextStyle(fontSize: 11, color: darkNavy),
+                            ),
                           ],
                         ),
                       ),
@@ -1139,9 +1359,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 14. Accessing the state ──────────────────────────────────
-        sectionBanner('13 \u00b7 Accessing NestedScrollViewState',
-            'How to programmatically access the state',
-            deepDenim, Colors.white),
+        sectionBanner(
+          '13 \u00b7 Accessing NestedScrollViewState',
+          'How to programmatically access the state',
+          deepDenim,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1159,22 +1382,23 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: deepDenim.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                      color: deepDenim.withValues(alpha: 0.3)),
+                  border: Border.all(color: deepDenim.withValues(alpha: 0.3)),
                 ),
                 child: Text(
-                    '// Using a GlobalKey\n'
-                    'final key = GlobalKey<NestedScrollViewState>();\n'
-                    '\n'
-                    'NestedScrollView(key: key, ...)\n'
-                    '\n'
-                    '// Access controllers\n'
-                    'key.currentState!.innerController\n'
-                    'key.currentState!.outerController',
-                    style: TextStyle(
-                        fontSize: 11,
-                        fontFamily: 'monospace',
-                        color: deepDenim)),
+                  '// Using a GlobalKey\n'
+                  'final key = GlobalKey<NestedScrollViewState>();\n'
+                  '\n'
+                  'NestedScrollView(key: key, ...)\n'
+                  '\n'
+                  '// Access controllers\n'
+                  'key.currentState!.innerController\n'
+                  'key.currentState!.outerController',
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                    color: deepDenim,
+                  ),
+                ),
               ),
               noteBox(
                 'A GlobalKey<NestedScrollViewState> gives access to both '
@@ -1189,8 +1413,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 15. Class hierarchy ──────────────────────────────────────
-        sectionBanner('14 \u00b7 Class Hierarchy',
-            'Inheritance chain', denim, Colors.white),
+        sectionBanner(
+          '14 \u00b7 Class Hierarchy',
+          'Inheritance chain',
+          denim,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1208,14 +1436,17 @@ dynamic build(BuildContext context) {
               ])
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 3),
-                  child: Text(level.$1,
-                      style: TextStyle(
-                          fontSize: 12,
-                          fontFamily: 'monospace',
-                          fontWeight: level.$1.contains('NestedScrollViewState')
-                              ? FontWeight.bold
-                              : FontWeight.normal,
-                          color: level.$2)),
+                  child: Text(
+                    level.$1,
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontFamily: 'monospace',
+                      fontWeight: level.$1.contains('NestedScrollViewState')
+                          ? FontWeight.bold
+                          : FontWeight.normal,
+                      color: level.$2,
+                    ),
+                  ),
                 ),
             ],
           ),
@@ -1223,8 +1454,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 16. Summary ──────────────────────────────────────────────
-        sectionBanner('15 \u00b7 Summary',
-            'Key takeaways', deepDenim, Colors.white),
+        sectionBanner(
+          '15 \u00b7 Summary',
+          'Key takeaways',
+          deepDenim,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -1256,15 +1491,19 @@ dynamic build(BuildContext context) {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('\u2022  ',
-                          style: TextStyle(
-                              color: lightChambray,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14)),
+                      Text(
+                        '\u2022  ',
+                        style: TextStyle(
+                          color: lightChambray,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                      ),
                       Expanded(
-                        child: Text(point,
-                            style: TextStyle(
-                                color: Colors.white, fontSize: 13)),
+                        child: Text(
+                          point,
+                          style: TextStyle(color: Colors.white, fontSize: 13),
+                        ),
                       ),
                     ],
                   ),

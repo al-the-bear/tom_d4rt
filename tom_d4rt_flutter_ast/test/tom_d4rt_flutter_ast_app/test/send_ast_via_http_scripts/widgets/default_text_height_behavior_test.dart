@@ -24,24 +24,35 @@ class _DefaultTextHeightBehaviorDemoPage extends StatefulWidget {
   const _DefaultTextHeightBehaviorDemoPage();
 
   @override
-  State<_DefaultTextHeightBehaviorDemoPage> createState() => _DefaultTextHeightBehaviorDemoPageState();
+  State<_DefaultTextHeightBehaviorDemoPage> createState() =>
+      _DefaultTextHeightBehaviorDemoPageState();
 }
 
-class _DefaultTextHeightBehaviorDemoPageState extends State<_DefaultTextHeightBehaviorDemoPage> {
+class _DefaultTextHeightBehaviorDemoPageState
+    extends State<_DefaultTextHeightBehaviorDemoPage> {
   final TextEditingController _editorA = TextEditingController(
-    text: 'Editable text with scoped DefaultTextHeightBehavior.\nObserve top and bottom spacing.',
+    text:
+        'Editable text with scoped DefaultTextHeightBehavior.\nObserve top and bottom spacing.',
   );
   final TextEditingController _editorB = TextEditingController(
-    text: 'DefaultTextStyle can also carry textHeightBehavior and may override local defaults.',
+    text:
+        'DefaultTextStyle can also carry textHeightBehavior and may override local defaults.',
   );
-  final TextEditingController _moduleOps = TextEditingController(text: 'Operations headline draft\nSpacing consistency check');
-  final TextEditingController _moduleCreative = TextEditingController(text: 'Creative copy block\nVisual rhythm checkpoint');
-  final TextEditingController _moduleResearch = TextEditingController(text: 'Research summary\nLeading distribution comparison');
+  final TextEditingController _moduleOps = TextEditingController(
+    text: 'Operations headline draft\nSpacing consistency check',
+  );
+  final TextEditingController _moduleCreative = TextEditingController(
+    text: 'Creative copy block\nVisual rhythm checkpoint',
+  );
+  final TextEditingController _moduleResearch = TextEditingController(
+    text: 'Research summary\nLeading distribution comparison',
+  );
 
   double _interactiveHeight = 1.6;
   bool _interactiveFirstAscent = true;
   bool _interactiveLastDescent = true;
-  TextLeadingDistribution _interactiveLeading = TextLeadingDistribution.proportional;
+  TextLeadingDistribution _interactiveLeading =
+      TextLeadingDistribution.proportional;
 
   @override
   void dispose() {
@@ -136,10 +147,14 @@ class _DefaultTextHeightBehaviorDemoPageState extends State<_DefaultTextHeightBe
                 leadingDistribution: _interactiveLeading,
                 editorA: _editorA,
                 editorB: _editorB,
-                onHeightChanged: (value) => setState(() => _interactiveHeight = value),
-                onFirstAscentChanged: (value) => setState(() => _interactiveFirstAscent = value),
-                onLastDescentChanged: (value) => setState(() => _interactiveLastDescent = value),
-                onLeadingChanged: (value) => setState(() => _interactiveLeading = value),
+                onHeightChanged: (value) =>
+                    setState(() => _interactiveHeight = value),
+                onFirstAscentChanged: (value) =>
+                    setState(() => _interactiveFirstAscent = value),
+                onLastDescentChanged: (value) =>
+                    setState(() => _interactiveLastDescent = value),
+                onLeadingChanged: (value) =>
+                    setState(() => _interactiveLeading = value),
               ),
             ),
             const SizedBox(height: 12),
@@ -175,11 +190,7 @@ class _HeroBanner extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         gradient: const LinearGradient(
-          colors: [
-            Color(0xFF0E6479),
-            Color(0xFF2F879B),
-            Color(0xFF6C5AA1),
-          ],
+          colors: [Color(0xFF0E6479), Color(0xFF2F879B), Color(0xFF6C5AA1)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -189,13 +200,21 @@ class _HeroBanner extends StatelessWidget {
         children: [
           const Text(
             'DefaultTextHeightBehavior',
-            style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: Colors.white),
+            style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.w800,
+              color: Colors.white,
+            ),
           ),
           const SizedBox(height: 8),
           const Text(
             'Defines default TextHeightBehavior for descendant Text and EditableText widgets that do not explicitly '
             'set textHeightBehavior. Useful for typography consistency across feature subtrees.',
-            style: TextStyle(fontSize: 13, height: 1.45, color: Color(0xFFF1FAFF)),
+            style: TextStyle(
+              fontSize: 13,
+              height: 1.45,
+              color: Color(0xFFF1FAFF),
+            ),
           ),
           const SizedBox(height: 12),
           Wrap(
@@ -231,7 +250,11 @@ class _TagChip extends StatelessWidget {
       ),
       child: Text(
         label,
-        style: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w700),
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 11,
+          fontWeight: FontWeight.w700,
+        ),
       ),
     );
   }
@@ -290,7 +313,11 @@ class _SceneCard extends StatelessWidget {
               Expanded(
                 child: Text(
                   title,
-                  style: TextStyle(fontSize: 19, fontWeight: FontWeight.w800, color: accent),
+                  style: TextStyle(
+                    fontSize: 19,
+                    fontWeight: FontWeight.w800,
+                    color: accent,
+                  ),
                 ),
               ),
             ],
@@ -298,7 +325,11 @@ class _SceneCard extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             subtitle,
-            style: TextStyle(fontSize: 12, height: 1.45, color: accent.withValues(alpha: 0.8)),
+            style: TextStyle(
+              fontSize: 12,
+              height: 1.45,
+              color: accent.withValues(alpha: 0.8),
+            ),
           ),
           const SizedBox(height: 12),
           child,
@@ -328,26 +359,31 @@ class _ConceptScene extends StatelessWidget {
             _BehaviorFactCard(
               title: 'First ascent',
               accent: Color(0xFFE17258),
-              line1: 'applyHeightToFirstAscent controls top edge of first line.',
+              line1:
+                  'applyHeightToFirstAscent controls top edge of first line.',
               line2: 'Important for tight card headers and baseline alignment.',
             ),
             _BehaviorFactCard(
               title: 'Last descent',
               accent: Color(0xFF2E7A65),
-              line1: 'applyHeightToLastDescent controls bottom edge of last line.',
+              line1:
+                  'applyHeightToLastDescent controls bottom edge of last line.',
               line2: 'Useful to avoid clipping in compact containers.',
             ),
             _BehaviorFactCard(
               title: 'Leading distribution',
               accent: Color(0xFF6C5AA1),
-              line1: 'proportional vs even changes top/bottom extra spacing split.',
+              line1:
+                  'proportional vs even changes top/bottom extra spacing split.',
               line2: 'Influences optical text balance in multiline layouts.',
             ),
             _BehaviorFactCard(
               title: 'Priority rules',
               accent: Color(0xFF0E6479),
-              line1: 'Explicit Text.textHeightBehavior overrides inherited default.',
-              line2: 'DefaultTextStyle.textHeightBehavior can override inherited too.',
+              line1:
+                  'Explicit Text.textHeightBehavior overrides inherited default.',
+              line2:
+                  'DefaultTextStyle.textHeightBehavior can override inherited too.',
             ),
           ],
         ),
@@ -369,7 +405,11 @@ class _ConceptScene extends StatelessWidget {
             '  ),\n'
             '  child: Text("...")\n'
             ')',
-            style: TextStyle(fontFamily: 'monospace', fontSize: 11, height: 1.4),
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 11,
+              height: 1.4,
+            ),
           ),
         ),
       ],
@@ -404,7 +444,14 @@ class _BehaviorFactCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(title, style: TextStyle(fontWeight: FontWeight.w800, color: accent, fontSize: 13)),
+            Text(
+              title,
+              style: TextStyle(
+                fontWeight: FontWeight.w800,
+                color: accent,
+                fontSize: 13,
+              ),
+            ),
             const SizedBox(height: 6),
             Text(line1, style: const TextStyle(fontSize: 11.6, height: 1.35)),
             const SizedBox(height: 3),
@@ -580,13 +627,24 @@ class _HeightBehaviorCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: TextStyle(fontWeight: FontWeight.w800, color: accent, fontSize: 13.5)),
+              Text(
+                title,
+                style: TextStyle(
+                  fontWeight: FontWeight.w800,
+                  color: accent,
+                  fontSize: 13.5,
+                ),
+              ),
               const SizedBox(height: 7),
               _RulerFrame(
                 accent: accent,
                 child: Text(
                   text,
-                  style: TextStyle(fontSize: 16, height: 1.8, color: accent.withValues(alpha: 0.9)),
+                  style: TextStyle(
+                    fontSize: 16,
+                    height: 1.8,
+                    color: accent.withValues(alpha: 0.9),
+                  ),
                 ),
               ),
               const SizedBox(height: 7),
@@ -713,7 +771,10 @@ class _InteractiveScene extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Text height: ${height.toStringAsFixed(2)}', style: const TextStyle(fontWeight: FontWeight.w700)),
+                Text(
+                  'Text height: ${height.toStringAsFixed(2)}',
+                  style: const TextStyle(fontWeight: FontWeight.w700),
+                ),
                 Slider(
                   value: height,
                   min: 1.0,
@@ -728,14 +789,20 @@ class _InteractiveScene extends StatelessWidget {
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Checkbox(value: firstAscent, onChanged: (v) => onFirstAscentChanged(v ?? true)),
+                        Checkbox(
+                          value: firstAscent,
+                          onChanged: (v) => onFirstAscentChanged(v ?? true),
+                        ),
                         const Text('applyHeightToFirstAscent'),
                       ],
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Checkbox(value: lastDescent, onChanged: (v) => onLastDescentChanged(v ?? true)),
+                        Checkbox(
+                          value: lastDescent,
+                          onChanged: (v) => onLastDescentChanged(v ?? true),
+                        ),
                         const Text('applyHeightToLastDescent'),
                       ],
                     ),
@@ -785,14 +852,20 @@ class _InteractiveScene extends StatelessWidget {
                   style: TextStyle(fontSize: 16, height: height),
                   decoration: InputDecoration(
                     labelText: 'Editable preview A',
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                   ),
                 ),
               ),
               SizedBox(
                 width: 300,
                 child: DefaultTextStyle(
-                  style: TextStyle(fontSize: 16, height: height, color: const Color(0xFF324652)),
+                  style: TextStyle(
+                    fontSize: 16,
+                    height: height,
+                    color: const Color(0xFF324652),
+                  ),
                   textHeightBehavior: const TextHeightBehavior(
                     applyHeightToFirstAscent: false,
                     applyHeightToLastDescent: false,
@@ -808,7 +881,9 @@ class _InteractiveScene extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text('DefaultTextStyle override sample\n(uses explicit textHeightBehavior)'),
+                        const Text(
+                          'DefaultTextStyle override sample\n(uses explicit textHeightBehavior)',
+                        ),
                         const SizedBox(height: 8),
                         TextField(
                           controller: editorB,
@@ -943,9 +1018,23 @@ class _ModuleCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(title, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w800, color: accent)),
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w800,
+                color: accent,
+              ),
+            ),
             const SizedBox(height: 4),
-            Text(note, style: TextStyle(fontSize: 11.2, color: accent.withValues(alpha: 0.83), height: 1.35)),
+            Text(
+              note,
+              style: TextStyle(
+                fontSize: 11.2,
+                color: accent.withValues(alpha: 0.83),
+                height: 1.35,
+              ),
+            ),
             const SizedBox(height: 8),
             TextField(
               controller: controller,
@@ -953,7 +1042,9 @@ class _ModuleCard extends StatelessWidget {
               style: const TextStyle(fontSize: 15, height: 1.7),
               decoration: InputDecoration(
                 labelText: 'Reusable module editor',
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
               ),
             ),
             const SizedBox(height: 8),
@@ -995,7 +1086,11 @@ class _RecapCard extends StatelessWidget {
         children: [
           Text(
             'Deep Demo Recap',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800, color: Color(0xFF314B5B)),
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w800,
+              color: Color(0xFF314B5B),
+            ),
           ),
           SizedBox(height: 8),
           Text(

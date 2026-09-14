@@ -49,7 +49,12 @@ Widget buildInfoCard(String label, String value) {
   );
 }
 
-Widget buildConceptCard(String title, String description, IconData icon, Color color) {
+Widget buildConceptCard(
+  String title,
+  String description,
+  IconData icon,
+  Color color,
+) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 6),
     padding: EdgeInsets.all(14),
@@ -316,7 +321,11 @@ Widget buildSliderWithValueIndicator(
   );
 }
 
-Widget buildComponentMethodCard(String method, String description, Color color) {
+Widget buildComponentMethodCard(
+  String method,
+  String description,
+  Color color,
+) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 4),
     padding: EdgeInsets.all(12),
@@ -355,7 +364,12 @@ Widget buildComponentMethodCard(String method, String description, Color color) 
   );
 }
 
-Widget buildShapeTypeCard(String shapeName, String description, IconData icon, Color color) {
+Widget buildShapeTypeCard(
+  String shapeName,
+  String description,
+  IconData icon,
+  Color color,
+) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 6),
     padding: EdgeInsets.all(14),
@@ -437,7 +451,9 @@ Widget buildSliderComparisonCard(
                   SizedBox(height: 6),
                   SliderTheme(
                     data: SliderThemeData(
-                      thumbShape: RoundSliderThumbShape(enabledThumbRadius: thumbRadius1),
+                      thumbShape: RoundSliderThumbShape(
+                        enabledThumbRadius: thumbRadius1,
+                      ),
                       activeTrackColor: color,
                       inactiveTrackColor: color.withAlpha(60),
                       thumbColor: color,
@@ -468,7 +484,9 @@ Widget buildSliderComparisonCard(
                   SizedBox(height: 6),
                   SliderTheme(
                     data: SliderThemeData(
-                      thumbShape: RoundSliderThumbShape(enabledThumbRadius: thumbRadius2),
+                      thumbShape: RoundSliderThumbShape(
+                        enabledThumbRadius: thumbRadius2,
+                      ),
                       activeTrackColor: color,
                       inactiveTrackColor: color.withAlpha(60),
                       thumbColor: color,
@@ -499,7 +517,9 @@ Widget buildSliderComparisonCard(
                   SizedBox(height: 6),
                   SliderTheme(
                     data: SliderThemeData(
-                      thumbShape: RoundSliderThumbShape(enabledThumbRadius: thumbRadius3),
+                      thumbShape: RoundSliderThumbShape(
+                        enabledThumbRadius: thumbRadius3,
+                      ),
                       activeTrackColor: color,
                       inactiveTrackColor: color.withAlpha(60),
                       thumbColor: color,
@@ -732,7 +752,10 @@ Widget buildGetPreferredSizeSection() {
                     ),
                     Text(
                       'Vertical space',
-                      style: TextStyle(fontSize: 10, color: Colors.grey.shade600),
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: Colors.grey.shade600,
+                      ),
                     ),
                   ],
                 ),
@@ -749,7 +772,11 @@ Widget buildGetPreferredSizeSection() {
                 ),
                 child: Column(
                   children: [
-                    Icon(Icons.swap_horiz, color: Colors.amber.shade600, size: 28),
+                    Icon(
+                      Icons.swap_horiz,
+                      color: Colors.amber.shade600,
+                      size: 28,
+                    ),
                     SizedBox(height: 6),
                     Text(
                       'Width',
@@ -761,7 +788,10 @@ Widget buildGetPreferredSizeSection() {
                     ),
                     Text(
                       'Horizontal space',
-                      style: TextStyle(fontSize: 10, color: Colors.grey.shade600),
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: Colors.grey.shade600,
+                      ),
                     ),
                   ],
                 ),
@@ -846,10 +876,19 @@ Widget buildRoundSliderThumbShapeSection() {
           style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
         ),
         SizedBox(height: 14),
-        buildInfoCard('enabledThumbRadius', 'Radius when slider is enabled (default: 10.0)'),
+        buildInfoCard(
+          'enabledThumbRadius',
+          'Radius when slider is enabled (default: 10.0)',
+        ),
         buildInfoCard('disabledThumbRadius', 'Radius when slider is disabled'),
-        buildInfoCard('elevation', 'Shadow elevation for the thumb (default: 1.0)'),
-        buildInfoCard('pressedElevation', 'Elevation when pressed (default: 6.0)'),
+        buildInfoCard(
+          'elevation',
+          'Shadow elevation for the thumb (default: 1.0)',
+        ),
+        buildInfoCard(
+          'pressedElevation',
+          'Elevation when pressed (default: 6.0)',
+        ),
         SizedBox(height: 12),
         buildSliderWithThumbShape(
           'Standard Round Thumb',
@@ -921,7 +960,10 @@ Widget buildRoundSliderOverlayShapeSection() {
           style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
         ),
         SizedBox(height: 14),
-        buildInfoCard('overlayRadius', 'Radius of the circular overlay (default: 24.0)'),
+        buildInfoCard(
+          'overlayRadius',
+          'Radius of the circular overlay (default: 24.0)',
+        ),
         SizedBox(height: 12),
         buildSliderWithOverlayShape(
           'Default Overlay',
@@ -1020,10 +1062,26 @@ Widget buildCustomImplementationsSection() {
                 ),
               ),
               SizedBox(height: 10),
-              buildStepItem(1, 'Extend SliderComponentShape class', Colors.teal),
-              buildStepItem(2, 'Override getPreferredSize() to return size', Colors.teal),
-              buildStepItem(3, 'Override paint() with custom drawing logic', Colors.teal),
-              buildStepItem(4, 'Use in SliderThemeData thumbShape property', Colors.teal),
+              buildStepItem(
+                1,
+                'Extend SliderComponentShape class',
+                Colors.teal,
+              ),
+              buildStepItem(
+                2,
+                'Override getPreferredSize() to return size',
+                Colors.teal,
+              ),
+              buildStepItem(
+                3,
+                'Override paint() with custom drawing logic',
+                Colors.teal,
+              ),
+              buildStepItem(
+                4,
+                'Use in SliderThemeData thumbShape property',
+                Colors.teal,
+              ),
             ],
           ),
         ),
@@ -1128,7 +1186,11 @@ Widget buildSliderComponentOverview() {
                   ],
                 ),
               ),
-              Container(width: 1, height: 40, color: Colors.white.withAlpha(60)),
+              Container(
+                width: 1,
+                height: 40,
+                color: Colors.white.withAlpha(60),
+              ),
               Expanded(
                 child: Column(
                   children: [
@@ -1144,7 +1206,11 @@ Widget buildSliderComponentOverview() {
                   ],
                 ),
               ),
-              Container(width: 1, height: 40, color: Colors.white.withAlpha(60)),
+              Container(
+                width: 1,
+                height: 40,
+                color: Colors.white.withAlpha(60),
+              ),
               Expanded(
                 child: Column(
                   children: [
@@ -1340,8 +1406,14 @@ Widget buildOverlaysSection() {
           style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
         ),
         SizedBox(height: 14),
-        buildInfoCard('Purpose', 'Shows interaction feedback when user touches the slider'),
-        buildInfoCard('Default Shape', 'RoundSliderOverlayShape with 24.0 radius'),
+        buildInfoCard(
+          'Purpose',
+          'Shows interaction feedback when user touches the slider',
+        ),
+        buildInfoCard(
+          'Default Shape',
+          'RoundSliderOverlayShape with 24.0 radius',
+        ),
         buildInfoCard('Color', 'Controlled by SliderThemeData.overlayColor'),
         buildInfoCard('Animation', 'Fades in/out based on touch state'),
       ],
@@ -1411,7 +1483,11 @@ dynamic build(BuildContext context) {
             ),
             child: Column(
               children: [
-                Icon(Icons.check_circle, color: Colors.green.shade400, size: 32),
+                Icon(
+                  Icons.check_circle,
+                  color: Colors.green.shade400,
+                  size: 32,
+                ),
                 SizedBox(height: 8),
                 Text(
                   'SliderComponentShape Demo Complete',

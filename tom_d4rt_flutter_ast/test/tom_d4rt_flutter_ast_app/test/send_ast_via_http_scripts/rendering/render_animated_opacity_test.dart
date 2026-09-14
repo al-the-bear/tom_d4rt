@@ -41,16 +41,15 @@ import 'package:flutter/material.dart';
 dynamic build(BuildContext context) {
   print('=== RenderAnimatedOpacity Deep Demo ===');
   print('Subject: RenderAnimatedOpacity, RenderSliverAnimatedOpacity');
-  print('Public widgets: AnimatedOpacity, SliverAnimatedOpacity, Opacity, SliverOpacity');
+  print(
+    'Public widgets: AnimatedOpacity, SliverAnimatedOpacity, Opacity, SliverOpacity',
+  );
   print('Static visualisation: 11-frame fade ladder, 0.0..1.0 in 0.1 steps');
 
   return MaterialApp(
     title: 'RenderAnimatedOpacity Deep Demo',
     debugShowCheckedModeBanner: false,
-    theme: ThemeData(
-      colorSchemeSeed: Colors.deepPurple,
-      useMaterial3: true,
-    ),
+    theme: ThemeData(colorSchemeSeed: Colors.deepPurple, useMaterial3: true),
     home: Scaffold(
       backgroundColor: const Color(0xFFF4F1FA),
       appBar: AppBar(
@@ -202,14 +201,22 @@ Widget _section1HeroHeader() {
                 'AnimatedOpacity introduces an implicit animation between two '
                 'opacity values. RenderAnimatedOpacity allocates a saveLayer '
                 'and applies the current alpha on every frame.',
-                style: TextStyle(color: Colors.white, fontSize: 13, height: 1.5),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 13,
+                  height: 1.5,
+                ),
               ),
               SizedBox(height: 8),
               Text(
                 'Because this script renders a single static frame, we cannot '
                 'show the animation in motion. Instead, we lay out the target '
                 'frames side-by-side as a fade-ladder of Opacity widgets.',
-                style: TextStyle(color: Colors.white, fontSize: 13, height: 1.5),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 13,
+                  height: 1.5,
+                ),
               ),
             ],
           ),
@@ -493,10 +500,7 @@ class _ContrastCard extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.teal.shade100.withOpacity(0.4),
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                  color: Colors.teal.shade300,
-                  width: 1,
-                ),
+                border: Border.all(color: Colors.teal.shade300, width: 1),
               ),
               child: const Center(
                 child: Padding(
@@ -538,7 +542,11 @@ class _ContrastCard extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(Icons.auto_awesome, color: Colors.white, size: 36),
+                    const Icon(
+                      Icons.auto_awesome,
+                      color: Colors.white,
+                      size: 36,
+                    ),
                     const SizedBox(height: 8),
                     Text(
                       label,
@@ -551,7 +559,10 @@ class _ContrastCard extends StatelessWidget {
                     const SizedBox(height: 4),
                     Text(
                       opacity == 0.0 ? 'invisible' : 'fully opaque',
-                      style: const TextStyle(color: Colors.white70, fontSize: 11),
+                      style: const TextStyle(
+                        color: Colors.white70,
+                        fontSize: 11,
+                      ),
                     ),
                   ],
                 ),
@@ -710,7 +721,8 @@ Widget _section5ApiReference() {
           color: Colors.indigo,
           name: 'opacity',
           type: 'double (0.0 - 1.0)',
-          summary: 'Target alpha. Whenever this changes, the controller resets '
+          summary:
+              'Target alpha. Whenever this changes, the controller resets '
               'and tweens from the current animated value to the new target.',
           notes: const [
             'opacity == 1.0   -> child painted directly (no saveLayer, fast).',
@@ -724,7 +736,8 @@ Widget _section5ApiReference() {
           color: Colors.deepPurple,
           name: 'duration',
           type: 'Duration',
-          summary: 'How long the implicit tween should take when opacity '
+          summary:
+              'How long the implicit tween should take when opacity '
               'changes. Required: there is no default.',
           notes: const [
             'Typical values: 150ms (snappy), 300ms (default-feeling), 500ms (slow).',
@@ -738,7 +751,8 @@ Widget _section5ApiReference() {
           color: Colors.teal,
           name: 'curve',
           type: 'Curve (default Curves.linear)',
-          summary: 'Maps the controller value (0..1) to the tween position. '
+          summary:
+              'Maps the controller value (0..1) to the tween position. '
               'A non-linear curve makes the fade ease in or out.',
           notes: const [
             'Curves.easeIn      — slow start, fast finish.',
@@ -753,13 +767,14 @@ Widget _section5ApiReference() {
           color: Colors.green,
           name: 'alwaysIncludeSemantics',
           type: 'bool (default false)',
-          summary: 'When false, the child stops contributing to the semantics '
+          summary:
+              'When false, the child stops contributing to the semantics '
               'tree once opacity hits 0. When true, semantics remain live '
               'regardless of visual opacity.',
           notes: const [
             'Default false — invisible content is not announced by screen readers.',
             'Set true if the child must remain reachable by assistive tech '
-            'even when alpha is 0 (rare).',
+                'even when alpha is 0 (rare).',
           ],
         ),
       ],
@@ -840,32 +855,31 @@ class _ApiCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 12),
-          Text(
-            summary,
-            style: const TextStyle(fontSize: 13, height: 1.45),
-          ),
+          Text(summary, style: const TextStyle(fontSize: 13, height: 1.45)),
           const SizedBox(height: 10),
-          ...notes.map((n) => Padding(
-                padding: const EdgeInsets.only(top: 4),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Icon(Icons.chevron_right, size: 16, color: color),
-                    const SizedBox(width: 4),
-                    Expanded(
-                      child: Text(
-                        n,
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontFamily: 'monospace',
-                          color: Colors.grey.shade800,
-                          height: 1.4,
-                        ),
+          ...notes.map(
+            (n) => Padding(
+              padding: const EdgeInsets.only(top: 4),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(Icons.chevron_right, size: 16, color: color),
+                  const SizedBox(width: 4),
+                  Expanded(
+                    child: Text(
+                      n,
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontFamily: 'monospace',
+                        color: Colors.grey.shade800,
+                        height: 1.4,
                       ),
                     ),
-                  ],
-                ),
-              )),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -1015,9 +1029,7 @@ Widget _sliverItem(int index, MaterialColor base, String label, IconData icon) {
             child: Icon(icon, size: 16, color: base.shade700),
           ),
           const SizedBox(width: 10),
-          Expanded(
-            child: Text(label, style: const TextStyle(fontSize: 13)),
-          ),
+          Expanded(child: Text(label, style: const TextStyle(fontSize: 13))),
           Icon(Icons.chevron_right, color: base.shade400, size: 18),
         ],
       ),
@@ -1048,7 +1060,8 @@ Widget _section7PerformancePanel() {
           icon: Icons.layers_outlined,
           color: Colors.red,
           title: 'saveLayer is allocated per frame',
-          body: 'During an animation every frame in the open interval (0,1) '
+          body:
+              'During an animation every frame in the open interval (0,1) '
               'forces a new offscreen surface. This is the dominant cost.',
         ),
         const SizedBox(height: 10),
@@ -1056,7 +1069,8 @@ Widget _section7PerformancePanel() {
           icon: Icons.timer_off_outlined,
           color: Colors.orange,
           title: 'Boundary frames are cheap',
-          body: 'At opacity 0 the subtree is skipped entirely. At opacity 1 '
+          body:
+              'At opacity 0 the subtree is skipped entirely. At opacity 1 '
               'the layer is bypassed and the child paints directly. The '
               'expensive frames are the in-between ones.',
         ),
@@ -1065,7 +1079,8 @@ Widget _section7PerformancePanel() {
           icon: Icons.swap_horiz,
           color: Colors.teal,
           title: 'Prefer FadeTransition when you have an Animation<double>',
-          body: 'AnimatedOpacity owns its controller. If you already drive '
+          body:
+              'AnimatedOpacity owns its controller. If you already drive '
               'an Animation<double> (e.g. from a Hero, a route transition, '
               'a parent AnimationController), FadeTransition reuses it and '
               'is otherwise identical at paint time.',
@@ -1075,7 +1090,8 @@ Widget _section7PerformancePanel() {
           icon: Icons.grid_on_outlined,
           color: Colors.deepPurple,
           title: 'Avoid wrapping huge subtrees',
-          body: 'Place AnimatedOpacity as low in the tree as possible. The '
+          body:
+              'Place AnimatedOpacity as low in the tree as possible. The '
               'saveLayer is sized to the wrapped widget; smaller widget == '
               'smaller layer.',
         ),
@@ -1084,7 +1100,8 @@ Widget _section7PerformancePanel() {
           icon: Icons.image_outlined,
           color: Colors.indigo,
           title: 'For images, consider FadeInImage',
-          body: 'FadeInImage handles the placeholder/cross-fade pattern '
+          body:
+              'FadeInImage handles the placeholder/cross-fade pattern '
               'without an explicit AnimatedOpacity in your tree.',
         ),
       ],
@@ -1123,10 +1140,7 @@ Widget _perfRow({
                 ),
               ),
               const SizedBox(height: 4),
-              Text(
-                body,
-                style: const TextStyle(fontSize: 12, height: 1.4),
-              ),
+              Text(body, style: const TextStyle(fontSize: 12, height: 1.4)),
             ],
           ),
         ),
@@ -1264,17 +1278,11 @@ Widget _tableRow(
         ),
         Expanded(
           flex: 2,
-          child: Text(
-            animation,
-            style: const TextStyle(fontSize: 11),
-          ),
+          child: Text(animation, style: const TextStyle(fontSize: 11)),
         ),
         Expanded(
           flex: 6,
-          child: Text(
-            use,
-            style: const TextStyle(fontSize: 11, height: 1.3),
-          ),
+          child: Text(use, style: const TextStyle(fontSize: 11, height: 1.3)),
         ),
       ],
     ),
@@ -1305,7 +1313,8 @@ Widget _section9Pitfalls() {
               'events. Tap targets fire, drags begin, etc. To turn off '
               'interaction, wrap the same subtree in IgnorePointer or use '
               'Visibility(maintainInteractivity: false).',
-          example: 'IgnorePointer(\n'
+          example:
+              'IgnorePointer(\n'
               '  ignoring: opacity == 0.0,\n'
               '  child: AnimatedOpacity(\n'
               '    opacity: opacity,\n'
@@ -1324,7 +1333,8 @@ Widget _section9Pitfalls() {
               'But if alwaysIncludeSemantics is true, screen readers will '
               'still announce hidden text. Use ExcludeSemantics or rely on '
               'the default to keep the invisible content silent.',
-          example: 'AnimatedOpacity(\n'
+          example:
+              'AnimatedOpacity(\n'
               '  opacity: 0.0,\n'
               '  duration: kThemeAnimationDuration,\n'
               '  alwaysIncludeSemantics: false, // default — best practice\n'
@@ -1340,7 +1350,8 @@ Widget _section9Pitfalls() {
               'A saveLayer over a high-resolution bitmap can introduce subtle '
               'banding or dithering on low-end GPUs. For images, prefer '
               'FadeInImage which uses a more optimised cross-fade path.',
-          example: 'FadeInImage(\n'
+          example:
+              'FadeInImage(\n'
               '  placeholder: const AssetImage(\'assets/blur.png\'),\n'
               '  image: NetworkImage(url),\n'
               '  fadeInDuration: const Duration(milliseconds: 320),\n'
@@ -1355,7 +1366,8 @@ Widget _section9Pitfalls() {
               'Two AnimatedOpacity widgets on the same subtree multiply their '
               'alpha. A 0.5 inside another 0.5 yields 0.25 final alpha — and '
               'two saveLayers, doubling the cost. Flatten when you can.',
-          example: '// avoid:\n'
+          example:
+              '// avoid:\n'
               'AnimatedOpacity(\n'
               '  opacity: 0.5,\n'
               '  child: AnimatedOpacity(\n'
@@ -1419,10 +1431,7 @@ class _PitfallCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 10),
-          Text(
-            body,
-            style: const TextStyle(fontSize: 13, height: 1.45),
-          ),
+          Text(body, style: const TextStyle(fontSize: 13, height: 1.45)),
           const SizedBox(height: 12),
           Container(
             width: double.infinity,
@@ -1689,10 +1698,7 @@ Widget _sectionShell({
           ],
         ),
         const SizedBox(height: 12),
-        Text(
-          description,
-          style: const TextStyle(fontSize: 13, height: 1.5),
-        ),
+        Text(description, style: const TextStyle(fontSize: 13, height: 1.5)),
         const SizedBox(height: 16),
         child,
       ],
@@ -1714,10 +1720,7 @@ Widget _miniNote(String text, Color color) {
         Icon(Icons.tips_and_updates_outlined, color: color, size: 18),
         const SizedBox(width: 8),
         Expanded(
-          child: Text(
-            text,
-            style: const TextStyle(fontSize: 12, height: 1.45),
-          ),
+          child: Text(text, style: const TextStyle(fontSize: 12, height: 1.45)),
         ),
       ],
     ),

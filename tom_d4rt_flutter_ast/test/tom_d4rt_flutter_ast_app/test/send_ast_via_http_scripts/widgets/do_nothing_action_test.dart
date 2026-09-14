@@ -74,8 +74,9 @@ class _CustomIntent extends Intent {
 class _DemoLog {
   _DemoLog();
 
-  final ValueNotifier<List<String>> entries =
-      ValueNotifier<List<String>>(const <String>[]);
+  final ValueNotifier<List<String>> entries = ValueNotifier<List<String>>(
+    const <String>[],
+  );
 
   void add(String entry) {
     final List<String> next = <String>[...entries.value, entry];
@@ -178,8 +179,10 @@ class _CustomAction extends Action<_CustomIntent> {
 class _NoisySaveAction extends Action<_SaveIntent> {
   @override
   Object? invoke(_SaveIntent intent) {
-    _log.add('[!Noise!] Parent _SaveAction reached — '
-        'DoNothingAction did NOT suppress.');
+    _log.add(
+      '[!Noise!] Parent _SaveAction reached — '
+      'DoNothingAction did NOT suppress.',
+    );
     return null;
   }
 }
@@ -213,9 +216,7 @@ dynamic build(BuildContext context) {
       visualDensity: VisualDensity.adaptivePlatformDensity,
     ),
     home: Scaffold(
-      appBar: AppBar(
-        title: const Text('DoNothingAction — deep demo'),
-      ),
+      appBar: AppBar(title: const Text('DoNothingAction — deep demo')),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
@@ -274,8 +275,11 @@ class _DemoHeader extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Icon(Icons.block,
-                size: 48, color: theme.colorScheme.onPrimaryContainer),
+            Icon(
+              Icons.block,
+              size: 48,
+              color: theme.colorScheme.onPrimaryContainer,
+            ),
             const SizedBox(width: 16),
             Expanded(
               child: Column(
@@ -421,14 +425,16 @@ class _SectionIntro extends StatelessWidget {
         children: <Widget>[
           _BulletText(
             theme: theme,
-            text: 'When the focused widget is in a subtree whose '
+            text:
+                'When the focused widget is in a subtree whose '
                 '[Actions] map binds an Intent to DoNothingAction, the action '
                 'is *consumed* (handled with no effect) instead of falling '
                 'through to a parent Actions widget that would normally run.',
           ),
           _BulletText(
             theme: theme,
-            text: 'DoNothingAction has a [consumesKey] flag (default true). '
+            text:
+                'DoNothingAction has a [consumesKey] flag (default true). '
                 'When true the keystroke is also reported as consumed by the '
                 'keyboard system, so widgets that look at raw key events stop '
                 'seeing it. When false, the Intent is still claimed but the '
@@ -436,13 +442,15 @@ class _SectionIntro extends StatelessWidget {
           ),
           _BulletText(
             theme: theme,
-            text: 'It is *not* the same as a missing binding. With no binding '
+            text:
+                'It is *not* the same as a missing binding. With no binding '
                 'the Intent bubbles further up. With DoNothingAction the '
                 'Intent is handled here — it just does nothing.',
           ),
           _BulletText(
             theme: theme,
-            text: 'It is *not* the same as DoNothingAndStopPropagationAction, '
+            text:
+                'It is *not* the same as DoNothingAndStopPropagationAction, '
                 'which additionally tells the [ShortcutManager] to stop '
                 'propagation entirely (useful when you want a region to be '
                 'completely transparent to keyboard shortcuts).',
@@ -492,9 +500,7 @@ class _BulletText extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 8),
-          Expanded(
-            child: Text(text, style: theme.textTheme.bodyMedium),
-          ),
+          Expanded(child: Text(text, style: theme.textTheme.bodyMedium)),
         ],
       ),
     );
@@ -537,9 +543,7 @@ class _SectionLiveBoundState extends State<_SectionLiveBound> {
           const CharacterActivator('s', meta: true): const _SaveIntent(),
         },
         child: Actions(
-          actions: <Type, Action<Intent>>{
-            _SaveIntent: _SaveAction('outer'),
-          },
+          actions: <Type, Action<Intent>>{_SaveIntent: _SaveAction('outer')},
           child: Focus(
             focusNode: _outerFocus,
             autofocus: true,
@@ -574,8 +578,8 @@ class _SectionLiveBoundState extends State<_SectionLiveBound> {
                                   'region. Pressing Ctrl/Cmd+S does nothing '
                                   '— it does NOT bubble to the outer Save.',
                               borderColor: theme.colorScheme.tertiary,
-                              onTrigger: () => Actions.invoke(
-                                  innerCtx, const _SaveIntent()),
+                              onTrigger: () =>
+                                  Actions.invoke(innerCtx, const _SaveIntent()),
                               onTriggerLabel:
                                   'Trigger _SaveIntent (inner = no-op)',
                             );
@@ -641,9 +645,13 @@ class _LiveBoundCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(title,
-              style: theme.textTheme.titleSmall
-                  ?.copyWith(color: borderColor, fontWeight: FontWeight.bold)),
+          Text(
+            title,
+            style: theme.textTheme.titleSmall?.copyWith(
+              color: borderColor,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           const SizedBox(height: 4),
           Text(caption, style: theme.textTheme.bodySmall),
           const SizedBox(height: 8),
@@ -760,18 +768,17 @@ class _ConsumesKeyCardState extends State<_ConsumesKeyCard> {
           Text(
             widget.consumes
                 ? 'The keystroke is reported as consumed. Other handlers '
-                    'in the tree (e.g. RawKeyboardListener parents) stop '
-                    'seeing the raw event.'
+                      'in the tree (e.g. RawKeyboardListener parents) stop '
+                      'seeing the raw event.'
                 : 'The Intent is still no-op claimed, but the raw key is '
-                    'NOT marked consumed. Other key listeners may still see '
-                    'and react to it.',
+                      'NOT marked consumed. Other key listeners may still see '
+                      'and react to it.',
             style: theme.textTheme.bodySmall,
           ),
           const SizedBox(height: 10),
           Shortcuts(
             shortcuts: <ShortcutActivator, Intent>{
-              const CharacterActivator('s', control: true):
-                  const _SaveIntent(),
+              const CharacterActivator('s', control: true): const _SaveIntent(),
             },
             child: Actions(
               actions: <Type, Action<Intent>>{
@@ -784,13 +791,13 @@ class _ConsumesKeyCardState extends State<_ConsumesKeyCard> {
                   child: Container(
                     width: double.infinity,
                     padding: const EdgeInsets.symmetric(
-                        vertical: 18, horizontal: 12),
+                      vertical: 18,
+                      horizontal: 12,
+                    ),
                     decoration: BoxDecoration(
                       color: widget.color.withOpacity(0.08),
                       borderRadius: BorderRadius.circular(6),
-                      border: Border.all(
-                        color: widget.color.withOpacity(0.4),
-                      ),
+                      border: Border.all(color: widget.color.withOpacity(0.4)),
                     ),
                     child: Text(
                       'Tap to focus, then press Ctrl+S.\n'
@@ -863,8 +870,8 @@ class _SectionMultiIntentState extends State<_SectionMultiIntent> {
                         child: OutlinedButton.icon(
                           icon: const Icon(Icons.save),
                           label: const Text('Outer: invoke Save'),
-                          onPressed: () => Actions.invoke(
-                              outerCtx, const _SaveIntent()),
+                          onPressed: () =>
+                              Actions.invoke(outerCtx, const _SaveIntent()),
                         ),
                       ),
                       const SizedBox(width: 8),
@@ -872,8 +879,8 @@ class _SectionMultiIntentState extends State<_SectionMultiIntent> {
                         child: OutlinedButton.icon(
                           icon: const Icon(Icons.format_bold),
                           label: const Text('Outer: invoke Bold'),
-                          onPressed: () => Actions.invoke(
-                              outerCtx, const _BoldIntent()),
+                          onPressed: () =>
+                              Actions.invoke(outerCtx, const _BoldIntent()),
                         ),
                       ),
                     ],
@@ -909,18 +916,20 @@ class _SectionMultiIntentState extends State<_SectionMultiIntent> {
                                     Expanded(
                                       child: FilledButton.tonal(
                                         onPressed: () => Actions.invoke(
-                                            innerCtx, const _SaveIntent()),
-                                        child:
-                                            const Text('Inner: invoke Save'),
+                                          innerCtx,
+                                          const _SaveIntent(),
+                                        ),
+                                        child: const Text('Inner: invoke Save'),
                                       ),
                                     ),
                                     const SizedBox(width: 8),
                                     Expanded(
                                       child: FilledButton.tonal(
                                         onPressed: () => Actions.invoke(
-                                            innerCtx, const _BoldIntent()),
-                                        child:
-                                            const Text('Inner: invoke Bold'),
+                                          innerCtx,
+                                          const _BoldIntent(),
+                                        ),
+                                        child: const Text('Inner: invoke Bold'),
                                       ),
                                     ),
                                   ],
@@ -965,13 +974,9 @@ class _SectionToggleableState extends State<_SectionToggleable> {
 
   Map<Type, Action<Intent>> _buildActions() {
     if (_suppress) {
-      return <Type, Action<Intent>>{
-        _SaveIntent: DoNothingAction(),
-      };
+      return <Type, Action<Intent>>{_SaveIntent: DoNothingAction()};
     }
-    return <Type, Action<Intent>>{
-      _SaveIntent: _SaveAction('toggleable'),
-    };
+    return <Type, Action<Intent>>{_SaveIntent: _SaveAction('toggleable')};
   }
 
   @override
@@ -997,12 +1002,13 @@ class _SectionToggleableState extends State<_SectionToggleable> {
                   children: <Widget>[
                     SwitchListTile(
                       title: const Text('Suppress Save (DoNothingAction)'),
-                      subtitle: Text(_suppress
-                          ? 'ON → Ctrl+S does nothing'
-                          : 'OFF → Ctrl+S logs "Saved!"'),
+                      subtitle: Text(
+                        _suppress
+                            ? 'ON → Ctrl+S does nothing'
+                            : 'OFF → Ctrl+S logs "Saved!"',
+                      ),
                       value: _suppress,
-                      onChanged: (bool v) =>
-                          setState(() => _suppress = v),
+                      onChanged: (bool v) => setState(() => _suppress = v),
                     ),
                     const SizedBox(height: 8),
                     Row(
@@ -1066,7 +1072,8 @@ class _SectionComparison extends StatelessWidget {
   Widget build(BuildContext context) {
     return _SectionFrame(
       number: 6,
-      title: 'Empty CallbackAction vs DoNothingAction vs '
+      title:
+          'Empty CallbackAction vs DoNothingAction vs '
           'DoNothingAndStopPropagationAction',
       subtitle: 'Same key binding, different fall-through behaviour.',
       child: Column(
@@ -1141,9 +1148,7 @@ class _ComparisonCardState extends State<_ComparisonCard> {
         const CharacterActivator('s', control: true): const _SaveIntent(),
       },
       child: Actions(
-        actions: <Type, Action<Intent>>{
-          _SaveIntent: _NoisySaveAction(),
-        },
+        actions: <Type, Action<Intent>>{_SaveIntent: _NoisySaveAction()},
         child: Builder(
           builder: (BuildContext outer) {
             return Container(
@@ -1163,23 +1168,28 @@ class _ComparisonCardState extends State<_ComparisonCard> {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(widget.title,
-                              style: theme.textTheme.titleSmall?.copyWith(
-                                fontWeight: FontWeight.bold,
-                              )),
+                          Text(
+                            widget.title,
+                            style: theme.textTheme.titleSmall?.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                           const SizedBox(height: 4),
-                          Text(widget.description,
-                              style: theme.textTheme.bodySmall),
+                          Text(
+                            widget.description,
+                            style: theme.textTheme.bodySmall,
+                          ),
                           const SizedBox(height: 8),
                           Wrap(
                             spacing: 8,
                             runSpacing: 8,
                             children: <Widget>[
                               FilledButton.tonal(
-                                onPressed: () => Actions.invoke(
-                                    inner, const _SaveIntent()),
-                                child:
-                                    const Text('Invoke through inner subtree'),
+                                onPressed: () =>
+                                    Actions.invoke(inner, const _SaveIntent()),
+                                child: const Text(
+                                  'Invoke through inner subtree',
+                                ),
                               ),
                               OutlinedButton(
                                 onPressed: _focus.requestFocus,
@@ -1257,7 +1267,8 @@ class _SectionDeleteGuardState extends State<_SectionDeleteGuard> {
                   OutlinedButton.icon(
                     icon: const Icon(Icons.delete_forever),
                     label: const Text(
-                        'Invoke _DeleteIntent at the global scope'),
+                      'Invoke _DeleteIntent at the global scope',
+                    ),
                     onPressed: () =>
                         Actions.invoke(outer, const _DeleteIntent()),
                   ),
@@ -1277,17 +1288,18 @@ class _SectionDeleteGuardState extends State<_SectionDeleteGuard> {
                             children: <Widget>[
                               Row(
                                 children: <Widget>[
-                                  Icon(Icons.shield,
-                                      color: theme
-                                          .colorScheme.onTertiaryContainer),
+                                  Icon(
+                                    Icons.shield,
+                                    color:
+                                        theme.colorScheme.onTertiaryContainer,
+                                  ),
                                   const SizedBox(width: 6),
                                   Text(
                                     'Protected editor',
-                                    style:
-                                        theme.textTheme.titleSmall?.copyWith(
+                                    style: theme.textTheme.titleSmall?.copyWith(
                                       fontWeight: FontWeight.bold,
-                                      color: theme
-                                          .colorScheme.onTertiaryContainer,
+                                      color:
+                                          theme.colorScheme.onTertiaryContainer,
                                     ),
                                   ),
                                 ],
@@ -1307,9 +1319,12 @@ class _SectionDeleteGuardState extends State<_SectionDeleteGuard> {
                                 builder: (BuildContext innerCtx) {
                                   return FilledButton.tonal(
                                     onPressed: () => Actions.invoke(
-                                        innerCtx, const _DeleteIntent()),
+                                      innerCtx,
+                                      const _DeleteIntent(),
+                                    ),
                                     child: const Text(
-                                        'Try _DeleteIntent here (no-op)'),
+                                      'Try _DeleteIntent here (no-op)',
+                                    ),
                                   );
                                 },
                               ),
@@ -1471,7 +1486,8 @@ class _SectionRecipeGallery extends StatelessWidget {
               description:
                   'A subtree where edit-related shortcuts (Save, Bold, Cut) '
                   'are explicitly silenced so a viewer cannot mutate state.',
-              code: 'Actions(\n'
+              code:
+                  'Actions(\n'
                   '  actions: <Type, Action<Intent>>{\n'
                   '    _SaveIntent: DoNothingAction(),\n'
                   '    _BoldIntent: DoNothingAction(),\n'
@@ -1486,7 +1502,8 @@ class _SectionRecipeGallery extends StatelessWidget {
               description:
                   'When showing a tour/onboarding overlay, mute background '
                   'shortcuts under it without removing the bindings entirely.',
-              code: 'Actions(\n'
+              code:
+                  'Actions(\n'
                   '  actions: <Type, Action<Intent>>{\n'
                   '    _UndoIntent: DoNothingAction(),\n'
                   '    _RedoIntent: DoNothingAction(),\n'
@@ -1501,7 +1518,8 @@ class _SectionRecipeGallery extends StatelessWidget {
                   'A modal that should swallow every app-level shortcut. '
                   'Use DoNothingAndStopPropagationAction or pair '
                   'DoNothingAction with a custom ShortcutManager.',
-              code: 'Actions(\n'
+              code:
+                  'Actions(\n'
                   '  actions: <Type, Action<Intent>>{\n'
                   '    _SaveIntent: DoNothingAndStopPropagationAction(),\n'
                   '  },\n'
@@ -1515,7 +1533,8 @@ class _SectionRecipeGallery extends StatelessWidget {
                   'During development, temporarily disable a shortcut in a '
                   'specific subtree to compare behaviours without ripping '
                   'the binding out of the whole app.',
-              code: 'Actions(\n'
+              code:
+                  'Actions(\n'
                   '  actions: <Type, Action<Intent>>{\n'
                   '    _CustomIntent: DoNothingAction(),\n'
                   '  },\n'
@@ -1529,10 +1548,12 @@ class _SectionRecipeGallery extends StatelessWidget {
               spacing: 12,
               runSpacing: 12,
               children: tiles
-                  .map((Widget t) => SizedBox(
-                        width: (constraints.maxWidth - 12) / 2,
-                        child: t,
-                      ))
+                  .map(
+                    (Widget t) => SizedBox(
+                      width: (constraints.maxWidth - 12) / 2,
+                      child: t,
+                    ),
+                  )
                   .toList(),
             );
           }
@@ -1727,10 +1748,12 @@ class _PitfallCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(item.title,
-                    style: theme.textTheme.titleSmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    )),
+                Text(
+                  item.title,
+                  style: theme.textTheme.titleSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 const SizedBox(height: 4),
                 Text(item.body, style: theme.textTheme.bodySmall),
               ],
@@ -1819,18 +1842,22 @@ class _SectionReferenceTable extends StatelessWidget {
               children: <Widget>[
                 SizedBox(
                   width: 220,
-                  child: Text('API',
-                      style: theme.textTheme.titleSmall?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: theme.colorScheme.onPrimaryContainer,
-                      )),
+                  child: Text(
+                    'API',
+                    style: theme.textTheme.titleSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: theme.colorScheme.onPrimaryContainer,
+                    ),
+                  ),
                 ),
                 Expanded(
-                  child: Text('What it does',
-                      style: theme.textTheme.titleSmall?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: theme.colorScheme.onPrimaryContainer,
-                      )),
+                  child: Text(
+                    'What it does',
+                    style: theme.textTheme.titleSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: theme.colorScheme.onPrimaryContainer,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -1843,9 +1870,7 @@ class _SectionReferenceTable extends StatelessWidget {
                     ? theme.colorScheme.surfaceContainer
                     : theme.colorScheme.surface,
                 border: Border(
-                  bottom: BorderSide(
-                    color: theme.colorScheme.outlineVariant,
-                  ),
+                  bottom: BorderSide(color: theme.colorScheme.outlineVariant),
                 ),
               ),
               child: Row(
@@ -1853,15 +1878,16 @@ class _SectionReferenceTable extends StatelessWidget {
                 children: <Widget>[
                   SizedBox(
                     width: 220,
-                    child: Text(rows[i].api,
-                        style: const TextStyle(
-                          fontFamily: 'monospace',
-                          fontWeight: FontWeight.bold,
-                        )),
+                    child: Text(
+                      rows[i].api,
+                      style: const TextStyle(
+                        fontFamily: 'monospace',
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                   Expanded(
-                    child: Text(rows[i].what,
-                        style: theme.textTheme.bodySmall),
+                    child: Text(rows[i].what, style: theme.textTheme.bodySmall),
                   ),
                 ],
               ),
@@ -1904,10 +1930,12 @@ class _LogPanel extends StatelessWidget {
               children: <Widget>[
                 Icon(Icons.terminal, color: theme.colorScheme.primary),
                 const SizedBox(width: 8),
-                Text('Action log',
-                    style: theme.textTheme.titleSmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    )),
+                Text(
+                  'Action log',
+                  style: theme.textTheme.titleSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 const Spacer(),
                 TextButton.icon(
                   onPressed: _log.clear,

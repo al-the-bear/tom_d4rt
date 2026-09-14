@@ -53,21 +53,27 @@ dynamic build(BuildContext context) {
               border: Border.all(color: silver, width: 1.5),
             ),
             child: Center(
-              child: Text(number,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold)),
+              child: Text(
+                number,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(title,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.3)),
+            child: Text(
+              title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 0.3,
+              ),
+            ),
           ),
         ],
       ),
@@ -84,11 +90,14 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: mist),
       ),
-      child: Text(text,
-          style: TextStyle(
-              fontSize: 13,
-              color: deepSlate.withValues(alpha: 0.9),
-              height: 1.5)),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 13,
+          color: deepSlate.withValues(alpha: 0.9),
+          height: 1.5,
+        ),
+      ),
     );
   }
 
@@ -116,14 +125,18 @@ dynamic build(BuildContext context) {
             padding: const EdgeInsets.symmetric(vertical: 9, horizontal: 12),
             decoration: BoxDecoration(
               color: paleCloud,
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(7)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(7),
+              ),
             ),
-            child: Text(heading,
-                style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                    color: charcoal)),
+            child: Text(
+              heading,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+                color: charcoal,
+              ),
+            ),
           ),
           Padding(padding: const EdgeInsets.all(12), child: content),
         ],
@@ -139,9 +152,10 @@ dynamic build(BuildContext context) {
         color: bg,
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Text(label,
-          style:
-              TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: fg)),
+      child: Text(
+        label,
+        style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: fg),
+      ),
     );
   }
 
@@ -153,15 +167,20 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 160,
-            child: Text(label,
-                style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: charcoal)),
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                color: charcoal,
+              ),
+            ),
           ),
           Expanded(
-            child: Text(value,
-                style: TextStyle(fontSize: 12, color: deepSlate)),
+            child: Text(
+              value,
+              style: TextStyle(fontSize: 12, color: deepSlate),
+            ),
           ),
         ],
       ),
@@ -180,13 +199,17 @@ dynamic build(BuildContext context) {
               color: color,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
-                  color: charcoal.withValues(alpha: 0.15), width: 1),
+                color: charcoal.withValues(alpha: 0.15),
+                width: 1,
+              ),
             ),
           ),
           const SizedBox(height: 4),
-          Text(name,
-              style: TextStyle(fontSize: 9, color: charcoal),
-              textAlign: TextAlign.center),
+          Text(
+            name,
+            style: TextStyle(fontSize: 9, color: charcoal),
+            textAlign: TextAlign.center,
+          ),
         ],
       ),
     );
@@ -201,13 +224,15 @@ dynamic build(BuildContext context) {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(label,
-                  style: TextStyle(fontSize: 11, color: charcoal)),
-              Text('${(fraction * 100).toStringAsFixed(0)}%',
-                  style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w700,
-                      color: color)),
+              Text(label, style: TextStyle(fontSize: 11, color: charcoal)),
+              Text(
+                '${(fraction * 100).toStringAsFixed(0)}%',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w700,
+                  color: color,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 3),
@@ -242,18 +267,27 @@ dynamic build(BuildContext context) {
         color: active ? activeColor.withValues(alpha: 0.15) : pewter,
         borderRadius: BorderRadius.circular(14),
         border: Border.all(
-            color: active ? activeColor : silver,
-            width: active ? 2 : 1),
+          color: active ? activeColor : silver,
+          width: active ? 2 : 1,
+        ),
       ),
-      child: Text(label,
-          style: TextStyle(
-              fontSize: 11,
-              fontWeight: active ? FontWeight.w700 : FontWeight.normal,
-              color: active ? activeColor : steel)),
+      child: Text(
+        label,
+        style: TextStyle(
+          fontSize: 11,
+          fontWeight: active ? FontWeight.w700 : FontWeight.normal,
+          color: active ? activeColor : steel,
+        ),
+      ),
     );
   }
 
-  Widget dependentWidget(String name, List<String> aspects, bool rebuilds, Color color) {
+  Widget dependentWidget(
+    String name,
+    List<String> aspects,
+    bool rebuilds,
+    Color color,
+  ) {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.only(bottom: 6),
@@ -262,8 +296,9 @@ dynamic build(BuildContext context) {
         color: rebuilds ? color.withValues(alpha: 0.08) : Colors.white,
         borderRadius: BorderRadius.circular(6),
         border: Border.all(
-            color: rebuilds ? color : mist,
-            width: rebuilds ? 2 : 1),
+          color: rebuilds ? color : mist,
+          width: rebuilds ? 2 : 1,
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -276,17 +311,23 @@ dynamic build(BuildContext context) {
                 color: rebuilds ? color : silver,
               ),
               const SizedBox(width: 6),
-              Text(name,
-                  style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600,
-                      color: rebuilds ? color : steel)),
+              Text(
+                name,
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                  color: rebuilds ? color : steel,
+                ),
+              ),
               const Spacer(),
-              Text(rebuilds ? 'REBUILDS' : 'skipped',
-                  style: TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w700,
-                      color: rebuilds ? color : silver)),
+              Text(
+                rebuilds ? 'REBUILDS' : 'skipped',
+                style: TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w700,
+                  color: rebuilds ? color : silver,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 4),
@@ -308,34 +349,37 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('01', 'Overview & Purpose'),
       noteBox(
-          'InheritedModelElement is the Element counterpart of InheritedModel. '
-          'It extends InheritedElement to add aspect-based dependency '
-          'tracking. When an InheritedModel changes, only dependents '
-          'that declared interest in changed aspects are rebuilt — unlike '
-          'InheritedWidget which rebuilds all dependents.'),
+        'InheritedModelElement is the Element counterpart of InheritedModel. '
+        'It extends InheritedElement to add aspect-based dependency '
+        'tracking. When an InheritedModel changes, only dependents '
+        'that declared interest in changed aspects are rebuilt — unlike '
+        'InheritedWidget which rebuilds all dependents.',
+      ),
       infoCard(
-          'Core Identity',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Type', 'InheritedElement subclass'),
-              dataRow('Package', 'flutter/widgets'),
-              dataRow('Widget pair', 'InheritedModel<T>'),
-              dataRow('Key feature', 'Aspect-based selective rebuild'),
-              dataRow('Performance', 'Avoids unnecessary rebuilds'),
-            ],
-          )),
+        'Core Identity',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Type', 'InheritedElement subclass'),
+            dataRow('Package', 'flutter/widgets'),
+            dataRow('Widget pair', 'InheritedModel<T>'),
+            dataRow('Key feature', 'Aspect-based selective rebuild'),
+            dataRow('Performance', 'Avoids unnecessary rebuilds'),
+          ],
+        ),
+      ),
       infoCard(
-          'InheritedWidget vs InheritedModel',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('InheritedWidget', 'All dependents rebuild on change'),
-              dataRow('InheritedModel', 'Only aspect-matched dependents'),
-              dataRow('InheritedElement', 'No aspect awareness'),
-              dataRow('InheritedModelElement', 'Tracks aspects per dependent'),
-            ],
-          )),
+        'InheritedWidget vs InheritedModel',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('InheritedWidget', 'All dependents rebuild on change'),
+            dataRow('InheritedModel', 'Only aspect-matched dependents'),
+            dataRow('InheritedElement', 'No aspect awareness'),
+            dataRow('InheritedModelElement', 'Tracks aspects per dependent'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -347,34 +391,36 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('02', 'What Are Aspects'),
       noteBox(
-          'An "aspect" is any value (typically an enum or string) that '
-          'identifies a specific part of the model data. When a widget '
-          'subscribes to an InheritedModel, it declares which aspects '
-          'it cares about. Only changes to those aspects trigger rebuilds.'),
+        'An "aspect" is any value (typically an enum or string) that '
+        'identifies a specific part of the model data. When a widget '
+        'subscribes to an InheritedModel, it declares which aspects '
+        'it cares about. Only changes to those aspects trigger rebuilds.',
+      ),
       infoCard(
-          'Aspect Example: User Profile',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Wrap(
-                children: [
-                  aspectChip('name', true, slate),
-                  aspectChip('email', false, slate),
-                  aspectChip('avatar', false, slate),
-                  aspectChip('theme', true, slate),
-                  aspectChip('locale', false, slate),
-                ],
-              ),
-              const SizedBox(height: 8),
-              dataRow('Widget: NameDisplay', 'Depends on [name]'),
-              dataRow('Widget: AvatarIcon', 'Depends on [avatar]'),
-              dataRow('Widget: ThemeSwitch', 'Depends on [theme]'),
-              const SizedBox(height: 4),
-              dataRow('If name changes', 'Only NameDisplay rebuilds'),
-              dataRow('If avatar changes', 'Only AvatarIcon rebuilds'),
-              dataRow('ThemeSwitch', 'Untouched by name/avatar changes'),
-            ],
-          )),
+        'Aspect Example: User Profile',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Wrap(
+              children: [
+                aspectChip('name', true, slate),
+                aspectChip('email', false, slate),
+                aspectChip('avatar', false, slate),
+                aspectChip('theme', true, slate),
+                aspectChip('locale', false, slate),
+              ],
+            ),
+            const SizedBox(height: 8),
+            dataRow('Widget: NameDisplay', 'Depends on [name]'),
+            dataRow('Widget: AvatarIcon', 'Depends on [avatar]'),
+            dataRow('Widget: ThemeSwitch', 'Depends on [theme]'),
+            const SizedBox(height: 4),
+            dataRow('If name changes', 'Only NameDisplay rebuilds'),
+            dataRow('If avatar changes', 'Only AvatarIcon rebuilds'),
+            dataRow('ThemeSwitch', 'Untouched by name/avatar changes'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -386,42 +432,46 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('03', 'Dependency Registration'),
       noteBox(
-          'When a widget calls InheritedModel.inheritFrom<T>(context, '
-          'aspect: anAspect), the InheritedModelElement records that '
-          'this dependent needs rebuild only when that aspect changes.'),
+        'When a widget calls InheritedModel.inheritFrom<T>(context, '
+        'aspect: anAspect), the InheritedModelElement records that '
+        'this dependent needs rebuild only when that aspect changes.',
+      ),
       infoCard(
-          'Registration Flow',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('1. Widget builds', 'Calls inheritFrom with aspect'),
-              dataRow('2. Element records', 'dependent → {aspect} mapping'),
-              dataRow('3. Model changes', 'Element checks each dependent'),
-              dataRow('4. Aspect match?', 'Yes → rebuild, No → skip'),
-            ],
-          )),
+        'Registration Flow',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('1. Widget builds', 'Calls inheritFrom with aspect'),
+            dataRow('2. Element records', 'dependent → {aspect} mapping'),
+            dataRow('3. Model changes', 'Element checks each dependent'),
+            dataRow('4. Aspect match?', 'Yes → rebuild, No → skip'),
+          ],
+        ),
+      ),
       infoCard(
-          'Null Aspect',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('inheritFrom(aspect: null)', 'Depends on everything'),
-              dataRow('Any change', 'This dependent always rebuilds'),
-              dataRow('Same as', 'InheritedWidget behavior'),
-              dataRow('Use case', 'Widget needs the whole model'),
-            ],
-          )),
+        'Null Aspect',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('inheritFrom(aspect: null)', 'Depends on everything'),
+            dataRow('Any change', 'This dependent always rebuilds'),
+            dataRow('Same as', 'InheritedWidget behavior'),
+            dataRow('Use case', 'Widget needs the whole model'),
+          ],
+        ),
+      ),
       infoCard(
-          'Multiple Aspects',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Call inheritFrom twice', 'Two aspects registered'),
-              dataRow('Widget depends on', '{name, email} for example'),
-              dataRow('Either changes', 'Widget rebuilds'),
-              dataRow('Other changes', 'Widget skipped'),
-            ],
-          )),
+        'Multiple Aspects',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Call inheritFrom twice', 'Two aspects registered'),
+            dataRow('Widget depends on', '{name, email} for example'),
+            dataRow('Either changes', 'Widget rebuilds'),
+            dataRow('Other changes', 'Widget skipped'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -433,66 +483,91 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('04', 'Selective Rebuild Visualization'),
       noteBox(
-          'This visualizes what happens when specific aspects change. '
-          'Notice how only widgets whose aspects match get rebuilt.'),
+        'This visualizes what happens when specific aspects change. '
+        'Notice how only widgets whose aspects match get rebuilt.',
+      ),
       infoCard(
-          'Scenario: "name" Aspect Changes',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(8),
-                margin: const EdgeInsets.only(bottom: 8),
-                decoration: BoxDecoration(
-                  color: deepSlate.withValues(alpha: 0.05),
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                child: Row(
-                  children: [
-                    Icon(Icons.published_with_changes, size: 16, color: slate),
-                    const SizedBox(width: 6),
-                    Text('Changed aspect: name',
-                        style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: slate)),
-                  ],
-                ),
+        'Scenario: "name" Aspect Changes',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(8),
+              margin: const EdgeInsets.only(bottom: 8),
+              decoration: BoxDecoration(
+                color: deepSlate.withValues(alpha: 0.05),
+                borderRadius: BorderRadius.circular(6),
               ),
-              dependentWidget('NameDisplay', ['name'], true, slate),
-              dependentWidget('AvatarIcon', ['avatar'], false, slate),
-              dependentWidget('ThemeSwitch', ['theme'], false, slate),
-              dependentWidget('FullProfile', ['name', 'email', 'avatar'], true, slate),
-              dependentWidget('LocaleLabel', ['locale'], false, slate),
-            ],
-          )),
+              child: Row(
+                children: [
+                  Icon(Icons.published_with_changes, size: 16, color: slate),
+                  const SizedBox(width: 6),
+                  Text(
+                    'Changed aspect: name',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: slate,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            dependentWidget('NameDisplay', ['name'], true, slate),
+            dependentWidget('AvatarIcon', ['avatar'], false, slate),
+            dependentWidget('ThemeSwitch', ['theme'], false, slate),
+            dependentWidget(
+              'FullProfile',
+              ['name', 'email', 'avatar'],
+              true,
+              slate,
+            ),
+            dependentWidget('LocaleLabel', ['locale'], false, slate),
+          ],
+        ),
+      ),
       infoCard(
-          'Scenario: "theme" Aspect Changes',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(8),
-                margin: const EdgeInsets.only(bottom: 8),
-                decoration: BoxDecoration(
-                  color: graphite.withValues(alpha: 0.05),
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                child: Row(
-                  children: [
-                    Icon(Icons.published_with_changes, size: 16, color: graphite),
-                    const SizedBox(width: 6),
-                    Text('Changed aspect: theme',
-                        style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: graphite)),
-                  ],
-                ),
+        'Scenario: "theme" Aspect Changes',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(8),
+              margin: const EdgeInsets.only(bottom: 8),
+              decoration: BoxDecoration(
+                color: graphite.withValues(alpha: 0.05),
+                borderRadius: BorderRadius.circular(6),
               ),
-              dependentWidget('NameDisplay', ['name'], false, graphite),
-              dependentWidget('AvatarIcon', ['avatar'], false, graphite),
-              dependentWidget('ThemeSwitch', ['theme'], true, graphite),
-              dependentWidget('FullProfile', ['name', 'email', 'avatar'], false, graphite),
-              dependentWidget('LocaleLabel', ['locale'], false, graphite),
-            ],
-          )),
+              child: Row(
+                children: [
+                  Icon(Icons.published_with_changes, size: 16, color: graphite),
+                  const SizedBox(width: 6),
+                  Text(
+                    'Changed aspect: theme',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: graphite,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            dependentWidget('NameDisplay', ['name'], false, graphite),
+            dependentWidget('AvatarIcon', ['avatar'], false, graphite),
+            dependentWidget('ThemeSwitch', ['theme'], true, graphite),
+            dependentWidget(
+              'FullProfile',
+              ['name', 'email', 'avatar'],
+              false,
+              graphite,
+            ),
+            dependentWidget('LocaleLabel', ['locale'], false, graphite),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -504,31 +579,34 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('05', 'updateShouldNotifyDependent'),
       noteBox(
-          'InheritedModelElement overrides updateShouldNotifyDependent() '
-          'to check whether the dependent\'s registered aspects match '
-          'the aspects that actually changed. This is the core mechanism.'),
+        'InheritedModelElement overrides updateShouldNotifyDependent() '
+        'to check whether the dependent\'s registered aspects match '
+        'the aspects that actually changed. This is the core mechanism.',
+      ),
       infoCard(
-          'Method Signature',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Method', 'updateShouldNotifyDependent(dependent, deps)'),
-              dataRow('dependent', 'The widget element to check'),
-              dataRow('deps', 'Set of aspects it registered'),
-              dataRow('Returns', 'bool — should this dependent rebuild'),
-            ],
-          )),
+        'Method Signature',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Method', 'updateShouldNotifyDependent(dependent, deps)'),
+            dataRow('dependent', 'The widget element to check'),
+            dataRow('deps', 'Set of aspects it registered'),
+            dataRow('Returns', 'bool — should this dependent rebuild'),
+          ],
+        ),
+      ),
       infoCard(
-          'Decision Logic',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('deps is empty', 'Always notify (null aspect)'),
-              dataRow('deps ∩ changed ≠ ∅', 'Notify — aspect overlap'),
-              dataRow('deps ∩ changed = ∅', 'Skip — no relevant change'),
-              dataRow('isSupportedAspect', 'Model validates aspect exists'),
-            ],
-          )),
+        'Decision Logic',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('deps is empty', 'Always notify (null aspect)'),
+            dataRow('deps ∩ changed ≠ ∅', 'Notify — aspect overlap'),
+            dataRow('deps ∩ changed = ∅', 'Skip — no relevant change'),
+            dataRow('isSupportedAspect', 'Model validates aspect exists'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -540,32 +618,35 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('06', 'Element Lifecycle'),
       noteBox(
-          'InheritedModelElement follows the standard Element lifecycle '
-          'but adds aspect management during the dependency notification phase.'),
+        'InheritedModelElement follows the standard Element lifecycle '
+        'but adds aspect management during the dependency notification phase.',
+      ),
       infoCard(
-          'Lifecycle Phases',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('mount', 'Element enters tree'),
-              dataRow('update', 'Widget configuration changed'),
-              dataRow('notifyClients', 'Walks dependents, checks aspects'),
-              dataRow('deactivate', 'Removed from tree temporarily'),
-              dataRow('unmount', 'Permanently removed'),
-            ],
-          )),
+        'Lifecycle Phases',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('mount', 'Element enters tree'),
+            dataRow('update', 'Widget configuration changed'),
+            dataRow('notifyClients', 'Walks dependents, checks aspects'),
+            dataRow('deactivate', 'Removed from tree temporarily'),
+            dataRow('unmount', 'Permanently removed'),
+          ],
+        ),
+      ),
       infoCard(
-          'Notification Phase Detail',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('1. Widget rebuilds', 'New InheritedModel provided'),
-              dataRow('2. updateShouldNotify', 'Global: did anything change?'),
-              dataRow('3. If true', 'Walk all dependents'),
-              dataRow('4. Per dependent', 'updateShouldNotifyDependent()'),
-              dataRow('5. Match?', 'Mark dirty — will rebuild'),
-            ],
-          )),
+        'Notification Phase Detail',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('1. Widget rebuilds', 'New InheritedModel provided'),
+            dataRow('2. updateShouldNotify', 'Global: did anything change?'),
+            dataRow('3. If true', 'Walk all dependents'),
+            dataRow('4. Per dependent', 'updateShouldNotifyDependent()'),
+            dataRow('5. Match?', 'Mark dirty — will rebuild'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -577,45 +658,49 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('07', 'Use Cases'),
       noteBox(
-          'InheritedModel is ideal when a single model object holds '
-          'multiple independent pieces of state and different widgets '
-          'care about different pieces.'),
+        'InheritedModel is ideal when a single model object holds '
+        'multiple independent pieces of state and different widgets '
+        'care about different pieces.',
+      ),
       infoCard(
-          'Theme Configuration',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Aspects', 'brightness, primaryColor, textTheme'),
-              dataRow('AppBar', 'Depends on primaryColor'),
-              dataRow('Body text', 'Depends on textTheme'),
-              dataRow('Background', 'Depends on brightness'),
-              dataRow('Benefit', 'Changing fontSize won\'t rebuild AppBar'),
-            ],
-          )),
+        'Theme Configuration',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Aspects', 'brightness, primaryColor, textTheme'),
+            dataRow('AppBar', 'Depends on primaryColor'),
+            dataRow('Body text', 'Depends on textTheme'),
+            dataRow('Background', 'Depends on brightness'),
+            dataRow('Benefit', 'Changing fontSize won\'t rebuild AppBar'),
+          ],
+        ),
+      ),
       infoCard(
-          'Media Query',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Aspects', 'size, orientation, padding, textScale'),
-              dataRow('Layout widget', 'Depends on size'),
-              dataRow('Text widget', 'Depends on textScale'),
-              dataRow('Safe area', 'Depends on padding'),
-              dataRow('Benefit', 'Keyboard showing only rebuilds padding'),
-            ],
-          )),
+        'Media Query',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Aspects', 'size, orientation, padding, textScale'),
+            dataRow('Layout widget', 'Depends on size'),
+            dataRow('Text widget', 'Depends on textScale'),
+            dataRow('Safe area', 'Depends on padding'),
+            dataRow('Benefit', 'Keyboard showing only rebuilds padding'),
+          ],
+        ),
+      ),
       infoCard(
-          'App State',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Aspects', 'user, cart, notifications, settings'),
-              dataRow('Profile page', 'Depends on user'),
-              dataRow('Cart badge', 'Depends on cart'),
-              dataRow('Bell icon', 'Depends on notifications'),
-              dataRow('Benefit', 'Adding cart item won\'t rebuild profile'),
-            ],
-          )),
+        'App State',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Aspects', 'user, cart, notifications, settings'),
+            dataRow('Profile page', 'Depends on user'),
+            dataRow('Cart badge', 'Depends on cart'),
+            dataRow('Bell icon', 'Depends on notifications'),
+            dataRow('Benefit', 'Adding cart item won\'t rebuild profile'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -627,37 +712,68 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('08', 'Performance Comparison'),
       noteBox(
-          'The performance benefit of InheritedModel over InheritedWidget '
-          'grows with the number of dependents and aspects.'),
+        'The performance benefit of InheritedModel over InheritedWidget '
+        'grows with the number of dependents and aspects.',
+      ),
       infoCard(
-          'Rebuild Count Comparison',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Scenario: 5 dependents, 1 aspect changed',
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: charcoal)),
-              const SizedBox(height: 8),
-              progressBar('InheritedWidget: 5/5 rebuilt', 1.0, const Color(0xFFEF4444)),
-              progressBar('InheritedModel: 1/5 rebuilt', 0.2, const Color(0xFF22C55E)),
-              const SizedBox(height: 12),
-              Text('Scenario: 20 dependents, 2 aspects changed',
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: charcoal)),
-              const SizedBox(height: 8),
-              progressBar('InheritedWidget: 20/20 rebuilt', 1.0, const Color(0xFFEF4444)),
-              progressBar('InheritedModel: 4/20 rebuilt', 0.2, const Color(0xFF22C55E)),
-            ],
-          )),
+        'Rebuild Count Comparison',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Scenario: 5 dependents, 1 aspect changed',
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                color: charcoal,
+              ),
+            ),
+            const SizedBox(height: 8),
+            progressBar(
+              'InheritedWidget: 5/5 rebuilt',
+              1.0,
+              const Color(0xFFEF4444),
+            ),
+            progressBar(
+              'InheritedModel: 1/5 rebuilt',
+              0.2,
+              const Color(0xFF22C55E),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              'Scenario: 20 dependents, 2 aspects changed',
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                color: charcoal,
+              ),
+            ),
+            const SizedBox(height: 8),
+            progressBar(
+              'InheritedWidget: 20/20 rebuilt',
+              1.0,
+              const Color(0xFFEF4444),
+            ),
+            progressBar(
+              'InheritedModel: 4/20 rebuilt',
+              0.2,
+              const Color(0xFF22C55E),
+            ),
+          ],
+        ),
+      ),
       infoCard(
-          'When to Use Which',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('InheritedWidget', 'Single value or always-together data'),
-              dataRow('InheritedModel', 'Multi-field model, independent parts'),
-              dataRow('Provider', 'Complex state, multiple notifiers'),
-              dataRow('Riverpod', 'Fine-grained reactivity at library level'),
-            ],
-          )),
+        'When to Use Which',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('InheritedWidget', 'Single value or always-together data'),
+            dataRow('InheritedModel', 'Multi-field model, independent parts'),
+            dataRow('Provider', 'Complex state, multiple notifiers'),
+            dataRow('Riverpod', 'Fine-grained reactivity at library level'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -669,43 +785,52 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('09', 'Real-World: MediaQuery'),
       noteBox(
-          'MediaQuery in Flutter uses InheritedModel internally. When you '
-          'call MediaQuery.sizeOf(context), you register a dependency on '
-          'the "size" aspect only.'),
+        'MediaQuery in Flutter uses InheritedModel internally. When you '
+        'call MediaQuery.sizeOf(context), you register a dependency on '
+        'the "size" aspect only.',
+      ),
       infoCard(
-          'MediaQuery Aspects',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Wrap(
-                children: [
-                  aspectChip('size', true, slate),
-                  aspectChip('devicePixelRatio', false, slate),
-                  aspectChip('textScaler', false, slate),
-                  aspectChip('padding', false, slate),
-                  aspectChip('viewInsets', true, slate),
-                  aspectChip('viewPadding', false, slate),
-                  aspectChip('orientation', false, slate),
-                  aspectChip('platformBrightness', false, slate),
-                ],
-              ),
-              const SizedBox(height: 8),
-              dataRow('MediaQuery.of(context)', 'Depends on ALL aspects'),
-              dataRow('MediaQuery.sizeOf(context)', 'Only size aspect'),
-              dataRow('MediaQuery.paddingOf(context)', 'Only padding aspect'),
-              dataRow('Keyboard opens', 'Only viewInsets changes'),
-            ],
-          )),
+        'MediaQuery Aspects',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Wrap(
+              children: [
+                aspectChip('size', true, slate),
+                aspectChip('devicePixelRatio', false, slate),
+                aspectChip('textScaler', false, slate),
+                aspectChip('padding', false, slate),
+                aspectChip('viewInsets', true, slate),
+                aspectChip('viewPadding', false, slate),
+                aspectChip('orientation', false, slate),
+                aspectChip('platformBrightness', false, slate),
+              ],
+            ),
+            const SizedBox(height: 8),
+            dataRow('MediaQuery.of(context)', 'Depends on ALL aspects'),
+            dataRow('MediaQuery.sizeOf(context)', 'Only size aspect'),
+            dataRow('MediaQuery.paddingOf(context)', 'Only padding aspect'),
+            dataRow('Keyboard opens', 'Only viewInsets changes'),
+          ],
+        ),
+      ),
       infoCard(
-          'Optimization Impact',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Before (MediaQuery.of)', 'Every widget rebuilt on keyboard'),
-              dataRow('After (sizeOf/paddingOf)', 'Only relevant widgets rebuild'),
-              dataRow('Savings', 'Often 80-90% fewer rebuilds'),
-            ],
-          )),
+        'Optimization Impact',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow(
+              'Before (MediaQuery.of)',
+              'Every widget rebuilt on keyboard',
+            ),
+            dataRow(
+              'After (sizeOf/paddingOf)',
+              'Only relevant widgets rebuild',
+            ),
+            dataRow('Savings', 'Often 80-90% fewer rebuilds'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -717,31 +842,40 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('10', 'Creating Custom InheritedModel'),
       noteBox(
-          'To create your own InheritedModel, subclass InheritedModel<T> '
-          'where T is your aspect type (usually an enum), and implement '
-          'updateShouldNotify and updateShouldNotifyDependent.'),
+        'To create your own InheritedModel, subclass InheritedModel<T> '
+        'where T is your aspect type (usually an enum), and implement '
+        'updateShouldNotify and updateShouldNotifyDependent.',
+      ),
       infoCard(
-          'Steps to Create',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('1. Define aspects', 'enum AppModelAspect { user, cart, theme }'),
-              dataRow('2. Extend InheritedModel', 'InheritedModel<AppModelAspect>'),
-              dataRow('3. Override methods', 'updateShouldNotify + Dependent'),
-              dataRow('4. Static accessor', 'of(context, {aspect})'),
-            ],
-          )),
+        'Steps to Create',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow(
+              '1. Define aspects',
+              'enum AppModelAspect { user, cart, theme }',
+            ),
+            dataRow(
+              '2. Extend InheritedModel',
+              'InheritedModel<AppModelAspect>',
+            ),
+            dataRow('3. Override methods', 'updateShouldNotify + Dependent'),
+            dataRow('4. Static accessor', 'of(context, {aspect})'),
+          ],
+        ),
+      ),
       infoCard(
-          'Aspect Enum Design',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Granularity', 'One aspect per independent field'),
-              dataRow('Too few aspects', 'Loses optimization benefit'),
-              dataRow('Too many aspects', 'Overhead > rebuild savings'),
-              dataRow('Sweet spot', '3-10 aspects per model'),
-            ],
-          )),
+        'Aspect Enum Design',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Granularity', 'One aspect per independent field'),
+            dataRow('Too few aspects', 'Loses optimization benefit'),
+            dataRow('Too many aspects', 'Overhead > rebuild savings'),
+            dataRow('Sweet spot', '3-10 aspects per model'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -753,83 +887,104 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('11', 'Element Internal State'),
       noteBox(
-          'InheritedModelElement maintains a map from dependent elements '
-          'to their registered aspects. This map is updated every time '
-          'a dependent rebuilds and re-registers its aspects.'),
+        'InheritedModelElement maintains a map from dependent elements '
+        'to their registered aspects. This map is updated every time '
+        'a dependent rebuilds and re-registers its aspects.',
+      ),
       infoCard(
-          'Dependency Map',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Structure', 'Map<Element, Set<T>>'),
-              dataRow('Key', 'Dependent element'),
-              dataRow('Value', 'Set of aspects it subscribed to'),
-              dataRow('Updated', 'Each time dependent builds'),
-              dataRow('Cleaned', 'When dependent unmounts'),
-            ],
-          )),
+        'Dependency Map',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Structure', 'Map<Element, Set<T>>'),
+            dataRow('Key', 'Dependent element'),
+            dataRow('Value', 'Set of aspects it subscribed to'),
+            dataRow('Updated', 'Each time dependent builds'),
+            dataRow('Cleaned', 'When dependent unmounts'),
+          ],
+        ),
+      ),
       infoCard(
-          'Map Visualization',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(8),
-                margin: const EdgeInsets.only(bottom: 4),
-                decoration: BoxDecoration(
-                  color: paleCloud,
-                  borderRadius: BorderRadius.circular(6),
-                  border: Border.all(color: mist),
-                ),
-                child: Row(
-                  children: [
-                    Text('NameDisplay →',
-                        style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: slate)),
-                    const SizedBox(width: 8),
-                    aspectChip('name', true, slate),
-                  ],
-                ),
+        'Map Visualization',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(8),
+              margin: const EdgeInsets.only(bottom: 4),
+              decoration: BoxDecoration(
+                color: paleCloud,
+                borderRadius: BorderRadius.circular(6),
+                border: Border.all(color: mist),
               ),
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(8),
-                margin: const EdgeInsets.only(bottom: 4),
-                decoration: BoxDecoration(
-                  color: paleCloud,
-                  borderRadius: BorderRadius.circular(6),
-                  border: Border.all(color: mist),
-                ),
-                child: Row(
-                  children: [
-                    Text('CartBadge →',
-                        style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: slate)),
-                    const SizedBox(width: 8),
-                    aspectChip('cart', true, slate),
-                  ],
-                ),
+              child: Row(
+                children: [
+                  Text(
+                    'NameDisplay →',
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w600,
+                      color: slate,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  aspectChip('name', true, slate),
+                ],
               ),
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: paleCloud,
-                  borderRadius: BorderRadius.circular(6),
-                  border: Border.all(color: mist),
-                ),
-                child: Row(
-                  children: [
-                    Text('FullProfile →',
-                        style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: slate)),
-                    const SizedBox(width: 8),
-                    aspectChip('name', true, slate),
-                    aspectChip('email', true, slate),
-                    aspectChip('avatar', true, slate),
-                  ],
-                ),
+            ),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(8),
+              margin: const EdgeInsets.only(bottom: 4),
+              decoration: BoxDecoration(
+                color: paleCloud,
+                borderRadius: BorderRadius.circular(6),
+                border: Border.all(color: mist),
               ),
-            ],
-          )),
+              child: Row(
+                children: [
+                  Text(
+                    'CartBadge →',
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w600,
+                      color: slate,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  aspectChip('cart', true, slate),
+                ],
+              ),
+            ),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: paleCloud,
+                borderRadius: BorderRadius.circular(6),
+                border: Border.all(color: mist),
+              ),
+              child: Row(
+                children: [
+                  Text(
+                    'FullProfile →',
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w600,
+                      color: slate,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  aspectChip('name', true, slate),
+                  aspectChip('email', true, slate),
+                  aspectChip('avatar', true, slate),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -841,33 +996,36 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('12', 'Comparison with Other Patterns'),
       noteBox(
-          'InheritedModel sits between InheritedWidget (simple) and full '
-          'state management solutions (complex). Understanding the spectrum '
-          'helps choose the right tool.'),
+        'InheritedModel sits between InheritedWidget (simple) and full '
+        'state management solutions (complex). Understanding the spectrum '
+        'helps choose the right tool.',
+      ),
       infoCard(
-          'Spectrum Table',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('InheritedWidget', 'One value, all rebuild'),
-              dataRow('InheritedModel', 'Multi-aspect, selective rebuild'),
-              dataRow('ChangeNotifier', 'Listeners, manual dispose'),
-              dataRow('Provider', 'InheritedWidget + convenience'),
-              dataRow('Riverpod', 'Provider graph, auto-dispose'),
-              dataRow('BLoC', 'Stream-based, events/states'),
-            ],
-          )),
+        'Spectrum Table',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('InheritedWidget', 'One value, all rebuild'),
+            dataRow('InheritedModel', 'Multi-aspect, selective rebuild'),
+            dataRow('ChangeNotifier', 'Listeners, manual dispose'),
+            dataRow('Provider', 'InheritedWidget + convenience'),
+            dataRow('Riverpod', 'Provider graph, auto-dispose'),
+            dataRow('BLoC', 'Stream-based, events/states'),
+          ],
+        ),
+      ),
       infoCard(
-          'InheritedModel Strengths',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('No packages', 'Built into Flutter framework'),
-              dataRow('Zero overhead', 'No streams, no listeners'),
-              dataRow('Compile-time safe', 'Aspect types enforced'),
-              dataRow('Familiar API', 'Just like .of(context)'),
-            ],
-          )),
+        'InheritedModel Strengths',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('No packages', 'Built into Flutter framework'),
+            dataRow('Zero overhead', 'No streams, no listeners'),
+            dataRow('Compile-time safe', 'Aspect types enforced'),
+            dataRow('Familiar API', 'Just like .of(context)'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -879,30 +1037,33 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('13', 'Edge Cases'),
       noteBox(
-          'There are several subtle behaviors when working with '
-          'InheritedModelElement that can cause unexpected rebuilds.'),
+        'There are several subtle behaviors when working with '
+        'InheritedModelElement that can cause unexpected rebuilds.',
+      ),
       infoCard(
-          'Common Pitfalls',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Null aspect', 'Rebuilds on ANY change'),
-              dataRow('Aspect in build()', 'Re-registers every build'),
-              dataRow('Hot reload', 'Dependency map may reset'),
-              dataRow('Wrong model type', 'Falls back to full rebuild'),
-            ],
-          )),
+        'Common Pitfalls',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Null aspect', 'Rebuilds on ANY change'),
+            dataRow('Aspect in build()', 'Re-registers every build'),
+            dataRow('Hot reload', 'Dependency map may reset'),
+            dataRow('Wrong model type', 'Falls back to full rebuild'),
+          ],
+        ),
+      ),
       infoCard(
-          'Aspect Registration Timing',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('During build', 'Correct — standard pattern'),
-              dataRow('During initState', 'Too early — no build context'),
-              dataRow('In callback', 'Creates dependency but may miss'),
-              dataRow('Conditional', 'Aspect changes between builds'),
-            ],
-          )),
+        'Aspect Registration Timing',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('During build', 'Correct — standard pattern'),
+            dataRow('During initState', 'Too early — no build context'),
+            dataRow('In callback', 'Creates dependency but may miss'),
+            dataRow('Conditional', 'Aspect changes between builds'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -914,31 +1075,34 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('14', 'Testing'),
       noteBox(
-          'Testing InheritedModel requires verifying that changing one '
-          'aspect only rebuilds the correct dependents.'),
+        'Testing InheritedModel requires verifying that changing one '
+        'aspect only rebuilds the correct dependents.',
+      ),
       infoCard(
-          'Test Strategies',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Build counter', 'Track builds per widget'),
-              dataRow('Change one aspect', 'Assert only matching rebuild'),
-              dataRow('Pump frame', 'After setState, verify build count'),
-              dataRow('Null aspect', 'Assert always rebuilds'),
-            ],
-          )),
+        'Test Strategies',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Build counter', 'Track builds per widget'),
+            dataRow('Change one aspect', 'Assert only matching rebuild'),
+            dataRow('Pump frame', 'After setState, verify build count'),
+            dataRow('Null aspect', 'Assert always rebuilds'),
+          ],
+        ),
+      ),
       infoCard(
-          'Test Setup',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Create model', 'With known aspects'),
-              dataRow('Build dependents', 'Each watching different aspect'),
-              dataRow('Track builds', 'Counter in each dependent'),
-              dataRow('Change model', 'Modify one aspect'),
-              dataRow('Verify', 'Only expected counter incremented'),
-            ],
-          )),
+        'Test Setup',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Create model', 'With known aspects'),
+            dataRow('Build dependents', 'Each watching different aspect'),
+            dataRow('Track builds', 'Counter in each dependent'),
+            dataRow('Change model', 'Modify one aspect'),
+            dataRow('Verify', 'Only expected counter incremented'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -950,30 +1114,33 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('15', 'Debugging'),
       noteBox(
-          'When selective rebuilds don\'t work as expected, debugging '
-          'the aspect registration and notification is key.'),
+        'When selective rebuilds don\'t work as expected, debugging '
+        'the aspect registration and notification is key.',
+      ),
       infoCard(
-          'Debug Techniques',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('print in build()', 'See which widgets rebuild'),
-              dataRow('debugPrintRebuildDirtyWidgets', 'Framework-level flag'),
-              dataRow('DevTools', 'Widget inspector rebuild highlights'),
-              dataRow('Override notifyClients', 'Log aspect matching'),
-            ],
-          )),
+        'Debug Techniques',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('print in build()', 'See which widgets rebuild'),
+            dataRow('debugPrintRebuildDirtyWidgets', 'Framework-level flag'),
+            dataRow('DevTools', 'Widget inspector rebuild highlights'),
+            dataRow('Override notifyClients', 'Log aspect matching'),
+          ],
+        ),
+      ),
       infoCard(
-          'Common Issues',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Everything rebuilds', 'Using .of() without aspect'),
-              dataRow('Nothing rebuilds', 'updateShouldNotify returns false'),
-              dataRow('Wrong dependents', 'Aspect enum mismatch'),
-              dataRow('Memory leak', 'Dependent not unmounting'),
-            ],
-          )),
+        'Common Issues',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Everything rebuilds', 'Using .of() without aspect'),
+            dataRow('Nothing rebuilds', 'updateShouldNotify returns false'),
+            dataRow('Wrong dependents', 'Aspect enum mismatch'),
+            dataRow('Memory leak', 'Dependent not unmounting'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -986,54 +1153,57 @@ dynamic build(BuildContext context) {
       sectionBanner('16', 'Visual Dashboard'),
       noteBox('Complete overview of the InheritedModelElement deep demo.'),
       infoCard(
-          'Demo Color Palette',
-          Wrap(
-            children: [
-              colorSwatch('Slate', slate),
-              colorSwatch('Graphite', graphite),
-              colorSwatch('Deep Slate', deepSlate),
-              colorSwatch('Pale Cloud', paleCloud),
-              colorSwatch('Steel', steel),
-              colorSwatch('Mist', mist),
-              colorSwatch('Charcoal', charcoal),
-              colorSwatch('Silver', silver),
-              colorSwatch('Pewter', pewter),
-              colorSwatch('Iron', iron),
-            ],
-          )),
+        'Demo Color Palette',
+        Wrap(
+          children: [
+            colorSwatch('Slate', slate),
+            colorSwatch('Graphite', graphite),
+            colorSwatch('Deep Slate', deepSlate),
+            colorSwatch('Pale Cloud', paleCloud),
+            colorSwatch('Steel', steel),
+            colorSwatch('Mist', mist),
+            colorSwatch('Charcoal', charcoal),
+            colorSwatch('Silver', silver),
+            colorSwatch('Pewter', pewter),
+            colorSwatch('Iron', iron),
+          ],
+        ),
+      ),
       infoCard(
-          'Section Coverage',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              progressBar('Overview', 1.0, slate),
-              progressBar('Aspects', 1.0, graphite),
-              progressBar('Dependency Registration', 1.0, steel),
-              progressBar('Selective Rebuild', 1.0, iron),
-              progressBar('updateShouldNotifyDependent', 1.0, slate),
-              progressBar('Element Lifecycle', 1.0, graphite),
-              progressBar('Use Cases', 1.0, steel),
-              progressBar('Performance', 1.0, iron),
-              progressBar('MediaQuery Example', 1.0, slate),
-              progressBar('Custom InheritedModel', 1.0, graphite),
-              progressBar('Internal State', 1.0, steel),
-              progressBar('Comparison', 1.0, iron),
-              progressBar('Edge Cases', 1.0, slate),
-              progressBar('Testing', 1.0, graphite),
-              progressBar('Debugging', 1.0, steel),
-              progressBar('Dashboard', 1.0, iron),
-            ],
-          )),
+        'Section Coverage',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            progressBar('Overview', 1.0, slate),
+            progressBar('Aspects', 1.0, graphite),
+            progressBar('Dependency Registration', 1.0, steel),
+            progressBar('Selective Rebuild', 1.0, iron),
+            progressBar('updateShouldNotifyDependent', 1.0, slate),
+            progressBar('Element Lifecycle', 1.0, graphite),
+            progressBar('Use Cases', 1.0, steel),
+            progressBar('Performance', 1.0, iron),
+            progressBar('MediaQuery Example', 1.0, slate),
+            progressBar('Custom InheritedModel', 1.0, graphite),
+            progressBar('Internal State', 1.0, steel),
+            progressBar('Comparison', 1.0, iron),
+            progressBar('Edge Cases', 1.0, slate),
+            progressBar('Testing', 1.0, graphite),
+            progressBar('Debugging', 1.0, steel),
+            progressBar('Dashboard', 1.0, iron),
+          ],
+        ),
+      ),
       infoCard(
-          'Statistics',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Total sections', '16'),
-              dataRow('Theme', 'Slate / Graphite'),
-              dataRow('Palette colors', '10'),
-            ],
-          )),
+        'Statistics',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Total sections', '16'),
+            dataRow('Theme', 'Slate / Graphite'),
+            dataRow('Palette colors', '10'),
+          ],
+        ),
+      ),
       Wrap(
         spacing: 6,
         runSpacing: 4,

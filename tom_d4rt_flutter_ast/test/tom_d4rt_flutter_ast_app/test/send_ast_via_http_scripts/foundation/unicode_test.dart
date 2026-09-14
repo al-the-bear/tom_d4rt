@@ -41,10 +41,14 @@ dynamic build(BuildContext context) {
   // animation API surfaces without ever ticking. Duration.zero is reused as a
   // semantic "no transition" marker for the recipe section.
   // --------------------------------------------------------------------------
-  final AlwaysStoppedAnimation<double> railFade = AlwaysStoppedAnimation<double>(1.0);
-  final AlwaysStoppedAnimation<double> railHalf = AlwaysStoppedAnimation<double>(0.5);
-  final AlwaysStoppedAnimation<double> railQuarter = AlwaysStoppedAnimation<double>(0.25);
-  final AlwaysStoppedAnimation<double> railThreeQuarter = AlwaysStoppedAnimation<double>(0.75);
+  final AlwaysStoppedAnimation<double> railFade =
+      AlwaysStoppedAnimation<double>(1.0);
+  final AlwaysStoppedAnimation<double> railHalf =
+      AlwaysStoppedAnimation<double>(0.5);
+  final AlwaysStoppedAnimation<double> railQuarter =
+      AlwaysStoppedAnimation<double>(0.25);
+  final AlwaysStoppedAnimation<double> railThreeQuarter =
+      AlwaysStoppedAnimation<double>(0.75);
   final Duration zeroDuration = Duration.zero;
 
   // --------------------------------------------------------------------------
@@ -216,7 +220,10 @@ dynamic build(BuildContext context) {
               decoration: BoxDecoration(
                 color: Colors.white.withValues(alpha: 0.18),
                 borderRadius: BorderRadius.circular(16.0),
-                border: Border.all(color: Colors.white.withValues(alpha: 0.5), width: 1.5),
+                border: Border.all(
+                  color: Colors.white.withValues(alpha: 0.5),
+                  width: 1.5,
+                ),
               ),
               child: Icon(Icons.text_format, size: 36.0, color: Colors.white),
             ),
@@ -323,28 +330,36 @@ dynamic build(BuildContext context) {
               members: 'LRE / RLE',
               icon: Icons.format_indent_increase,
               color: Colors.blue,
-              behaviour: 'Soft directional push - inherits surrounding context, ' 'closed with PDF.',
+              behaviour:
+                  'Soft directional push - inherits surrounding context, '
+                  'closed with PDF.',
             ),
             _familyTile(
               family: 'Override',
               members: 'LRO / RLO',
               icon: Icons.swap_horizontal_circle,
               color: Colors.deepPurple,
-              behaviour: 'Forces every following character to a fixed direction, ' 'closed with PDF.',
+              behaviour:
+                  'Forces every following character to a fixed direction, '
+                  'closed with PDF.',
             ),
             _familyTile(
               family: 'Isolate',
               members: 'LRI / RLI / FSI',
               icon: Icons.shield,
               color: Colors.teal,
-              behaviour: 'Wraps an inner run so it does not affect outer ' 'paragraph direction, closed with PDI.',
+              behaviour:
+                  'Wraps an inner run so it does not affect outer '
+                  'paragraph direction, closed with PDI.',
             ),
             _familyTile(
               family: 'Mark',
               members: 'LRM / RLM / ALM',
               icon: Icons.push_pin,
               color: Colors.deepOrange,
-              behaviour: 'Zero-width strong-direction pin - resolves the ' 'direction of nearby neutral characters.',
+              behaviour:
+                  'Zero-width strong-direction pin - resolves the '
+                  'direction of nearby neutral characters.',
             ),
           ],
         ),
@@ -367,7 +382,11 @@ dynamic build(BuildContext context) {
                   'code. Embeddings leak; isolates do not. Overrides should be '
                   'reserved for very specific UI tricks like control-character '
                   'visualisers.',
-                  style: TextStyle(fontSize: 12.5, color: Colors.indigo.shade900, height: 1.4),
+                  style: TextStyle(
+                    fontSize: 12.5,
+                    color: Colors.indigo.shade900,
+                    height: 1.4,
+                  ),
                 ),
               ),
             ],
@@ -565,7 +584,8 @@ dynamic build(BuildContext context) {
             "final safe = '\${Unicode.LRI}\$userText\${Unicode.PDI}';",
             'Text(safe, textDirection: paragraphDirection)',
           ],
-          note: 'Prevents user-supplied strong-RTL text from flipping the '
+          note:
+              'Prevents user-supplied strong-RTL text from flipping the '
               'surrounding UI labels.',
         ),
         SizedBox(height: 12.0),
@@ -576,7 +596,8 @@ dynamic build(BuildContext context) {
             "final glyph = '\${Unicode.LRO}\${value}\${Unicode.PDF}';",
             "Text(glyph, style: TextStyle(fontFamily: 'monospace'))",
           ],
-          note: 'LRO + PDF guarantees the glyph renders LTR even when the '
+          note:
+              'LRO + PDF guarantees the glyph renders LTR even when the '
               'paragraph context is RTL.',
         ),
         SizedBox(height: 12.0),
@@ -587,7 +608,8 @@ dynamic build(BuildContext context) {
             "final pretty = 'From: \${Unicode.FSI}\$name\${Unicode.PDI}';",
             'return Text(pretty);',
           ],
-          note: 'FSI/PDI lets the first strong character of <name> choose, '
+          note:
+              'FSI/PDI lets the first strong character of <name> choose, '
               'avoiding LTR/RTL guesses.',
         ),
         SizedBox(height: 12.0),
@@ -598,7 +620,8 @@ dynamic build(BuildContext context) {
             "final tagged = label + '\${Unicode.RLM}';",
             'Text(tagged, textDirection: TextDirection.rtl)',
           ],
-          note: 'RLM glues trailing punctuation to the RTL side so it does '
+          note:
+              'RLM glues trailing punctuation to the RTL side so it does '
               'not jump to the visual left.',
         ),
         SizedBox(height: 12.0),
@@ -609,7 +632,9 @@ dynamic build(BuildContext context) {
             "final line = '\${Unicode.LRE}\$tag\${Unicode.PDF} \$message';",
             'debugPrint(line);',
           ],
-          note: 'LRE/PDF embed the bracketed tag as LTR even if message ' 'contains RTL text.',
+          note:
+              'LRE/PDF embed the bracketed tag as LTR even if message '
+              'contains RTL text.',
         ),
       ],
     ),
@@ -652,7 +677,8 @@ dynamic build(BuildContext context) {
           severity: 'High',
           title: 'Forgetting PDF / PDI',
           colors: <Color>[Colors.red.shade400, Colors.red.shade700],
-          body: 'Every LRE / RLE / LRO / RLO must be closed by PDF. Every LRI '
+          body:
+              'Every LRE / RLE / LRO / RLO must be closed by PDF. Every LRI '
               '/ RLI / FSI must be closed by PDI. Unbalanced controls leak '
               'into the rest of the paragraph.',
         ),
@@ -660,32 +686,42 @@ dynamic build(BuildContext context) {
         _pitfallTile(
           severity: 'High',
           title: 'Using RLO for visual mirroring',
-          colors: <Color>[Colors.deepOrange.shade400, Colors.deepOrange.shade700],
-          body: 'RLO mirrors text but does not reorder semantics. Screen '
-              'readers still read it left-to-right - prefer Transform.scale or ' 'real translation.',
+          colors: <Color>[
+            Colors.deepOrange.shade400,
+            Colors.deepOrange.shade700,
+          ],
+          body:
+              'RLO mirrors text but does not reorder semantics. Screen '
+              'readers still read it left-to-right - prefer Transform.scale or '
+              'real translation.',
         ),
         SizedBox(height: 10.0),
         _pitfallTile(
           severity: 'Medium',
           title: 'Stacking marks unnecessarily',
           colors: <Color>[Colors.amber.shade500, Colors.amber.shade800],
-          body: 'Adding LRM / RLM / ALM everywhere bloats strings and confuses '
-              'copy/paste. Use one mark exactly where direction resolution ' 'is ambiguous.',
+          body:
+              'Adding LRM / RLM / ALM everywhere bloats strings and confuses '
+              'copy/paste. Use one mark exactly where direction resolution '
+              'is ambiguous.',
         ),
         SizedBox(height: 10.0),
         _pitfallTile(
           severity: 'Medium',
           title: 'Embedding instead of isolating',
           colors: <Color>[Colors.orange.shade400, Colors.orange.shade700],
-          body: 'Old codebases use LRE/RLE for templating. Modern code should '
-              'prefer LRI/RLI/FSI - isolates do not affect outer paragraph ' 'direction.',
+          body:
+              'Old codebases use LRE/RLE for templating. Modern code should '
+              'prefer LRI/RLI/FSI - isolates do not affect outer paragraph '
+              'direction.',
         ),
         SizedBox(height: 10.0),
         _pitfallTile(
           severity: 'Low',
           title: 'Trusting FSI for short strings',
           colors: <Color>[Colors.yellow.shade700, Colors.amber.shade600],
-          body: 'FSI auto-detection picks the first strong character. A leading '
+          body:
+              'FSI auto-detection picks the first strong character. A leading '
               'quote or emoji can flip the result - test with real data.',
         ),
       ],
@@ -729,7 +765,10 @@ dynamic build(BuildContext context) {
           padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 8.0),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: <Color>[Colors.blueGrey.shade700, Colors.blueGrey.shade900],
+              colors: <Color>[
+                Colors.blueGrey.shade700,
+                Colors.blueGrey.shade900,
+              ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -755,10 +794,30 @@ dynamic build(BuildContext context) {
             margin: EdgeInsets.only(top: 2.0),
             child: Row(
               children: <Widget>[
-                _matrixCell(constants[i].name, 70.0, FontWeight.bold, constants[i].swatch.shade700),
-                _matrixCell(constants[i].codePoint, 80.0, FontWeight.normal, Colors.black87),
-                _matrixCell(constants[i].family, 90.0, FontWeight.w500, Colors.indigo.shade700),
-                _matrixCell(constants[i].hint, 130.0, FontWeight.normal, Colors.black54),
+                _matrixCell(
+                  constants[i].name,
+                  70.0,
+                  FontWeight.bold,
+                  constants[i].swatch.shade700,
+                ),
+                _matrixCell(
+                  constants[i].codePoint,
+                  80.0,
+                  FontWeight.normal,
+                  Colors.black87,
+                ),
+                _matrixCell(
+                  constants[i].family,
+                  90.0,
+                  FontWeight.w500,
+                  Colors.indigo.shade700,
+                ),
+                _matrixCell(
+                  constants[i].hint,
+                  130.0,
+                  FontWeight.normal,
+                  Colors.black54,
+                ),
               ],
             ),
           ),
@@ -821,7 +880,10 @@ dynamic build(BuildContext context) {
                 children: <TextSpan>[
                   TextSpan(
                     text: c.name.padRight(5),
-                    style: TextStyle(color: Colors.cyanAccent, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      color: Colors.cyanAccent,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   TextSpan(
                     text: c.codePoint.padRight(8),
@@ -833,7 +895,9 @@ dynamic build(BuildContext context) {
                   ),
                   TextSpan(
                     text: c.summary,
-                    style: TextStyle(color: Colors.white.withValues(alpha: 0.85)),
+                    style: TextStyle(
+                      color: Colors.white.withValues(alpha: 0.85),
+                    ),
                   ),
                 ],
               ),
@@ -852,10 +916,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: <Color>[
-          Color(0xFF111827),
-          Color(0xFF1F2937),
-        ],
+        colors: <Color>[Color(0xFF111827), Color(0xFF1F2937)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -954,19 +1015,35 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           Text(
             '+----------------------------------------+',
-            style: TextStyle(fontFamily: 'monospace', color: Colors.white, fontSize: 13.0),
+            style: TextStyle(
+              fontFamily: 'monospace',
+              color: Colors.white,
+              fontSize: 13.0,
+            ),
           ),
           Text(
             '|   Unicode bidi control reference deck   |',
-            style: TextStyle(fontFamily: 'monospace', color: Colors.white, fontSize: 13.0),
+            style: TextStyle(
+              fontFamily: 'monospace',
+              color: Colors.white,
+              fontSize: 13.0,
+            ),
           ),
           Text(
             '|   12 constants  -  4 families  -  TR9   |',
-            style: TextStyle(fontFamily: 'monospace', color: Colors.white, fontSize: 13.0),
+            style: TextStyle(
+              fontFamily: 'monospace',
+              color: Colors.white,
+              fontSize: 13.0,
+            ),
           ),
           Text(
             '+----------------------------------------+',
-            style: TextStyle(fontFamily: 'monospace', color: Colors.white, fontSize: 13.0),
+            style: TextStyle(
+              fontFamily: 'monospace',
+              color: Colors.white,
+              fontSize: 13.0,
+            ),
           ),
           SizedBox(height: 16.0),
           Opacity(
@@ -1054,10 +1131,7 @@ dynamic build(BuildContext context) {
 
   return MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: Scaffold(
-      backgroundColor: Color(0xFFF5F7FB),
-      body: body,
-    ),
+    home: Scaffold(backgroundColor: Color(0xFFF5F7FB), body: body),
   );
 }
 
@@ -1071,7 +1145,10 @@ Widget _heroChip(IconData icon, String label) {
     decoration: BoxDecoration(
       color: Colors.white.withValues(alpha: 0.18),
       borderRadius: BorderRadius.circular(40.0),
-      border: Border.all(color: Colors.white.withValues(alpha: 0.45), width: 1.0),
+      border: Border.all(
+        color: Colors.white.withValues(alpha: 0.45),
+        width: 1.0,
+      ),
     ),
     child: Row(
       mainAxisSize: MainAxisSize.min,
@@ -1080,7 +1157,11 @@ Widget _heroChip(IconData icon, String label) {
         SizedBox(width: 6.0),
         Text(
           label,
-          style: TextStyle(color: Colors.white, fontSize: 12.0, fontWeight: FontWeight.w600),
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 12.0,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ],
     ),
@@ -1196,7 +1277,11 @@ Widget _familyTile({
           SizedBox(height: 8.0),
           Text(
             behaviour,
-            style: TextStyle(fontSize: 11.5, color: Colors.black87, height: 1.4),
+            style: TextStyle(
+              fontSize: 11.5,
+              color: Colors.black87,
+              height: 1.4,
+            ),
           ),
         ],
       ),
@@ -1234,10 +1319,7 @@ Widget _constantCard(_BidiConstant c, int index) {
             padding: EdgeInsets.symmetric(horizontal: 18.0, vertical: 12.0),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: <Color>[
-                  c.swatch.shade700,
-                  c.swatch.shade400,
-                ],
+                colors: <Color>[c.swatch.shade700, c.swatch.shade400],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -1245,7 +1327,10 @@ Widget _constantCard(_BidiConstant c, int index) {
             child: Row(
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 10.0,
+                    vertical: 4.0,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.white.withValues(alpha: 0.25),
                     borderRadius: BorderRadius.circular(8.0),
@@ -1285,7 +1370,9 @@ Widget _constantCard(_BidiConstant c, int index) {
                   decoration: BoxDecoration(
                     color: Colors.white.withValues(alpha: 0.20),
                     borderRadius: BorderRadius.circular(6.0),
-                    border: Border.all(color: Colors.white.withValues(alpha: 0.45)),
+                    border: Border.all(
+                      color: Colors.white.withValues(alpha: 0.45),
+                    ),
                   ),
                   child: Text(
                     c.family,
@@ -1304,10 +1391,7 @@ Widget _constantCard(_BidiConstant c, int index) {
             padding: EdgeInsets.all(16.0),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: <Color>[
-                  c.swatch.shade50,
-                  Colors.white,
-                ],
+                colors: <Color>[c.swatch.shade50, Colors.white],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
               ),
@@ -1342,14 +1426,21 @@ Widget _constantCard(_BidiConstant c, int index) {
                 ),
                 SizedBox(height: 10.0),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 10.0,
+                    vertical: 6.0,
+                  ),
                   decoration: BoxDecoration(
                     color: c.swatch.withValues(alpha: 0.10),
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   child: Row(
                     children: <Widget>[
-                      Icon(Icons.fingerprint, size: 14.0, color: c.swatch.shade700),
+                      Icon(
+                        Icons.fingerprint,
+                        size: 14.0,
+                        color: c.swatch.shade700,
+                      ),
                       SizedBox(width: 6.0),
                       Text(
                         'codeUnit: 0x${c.character.codeUnitAt(0).toRadixString(16).toUpperCase()}',
@@ -1360,7 +1451,11 @@ Widget _constantCard(_BidiConstant c, int index) {
                         ),
                       ),
                       SizedBox(width: 14.0),
-                      Icon(Icons.straighten, size: 14.0, color: c.swatch.shade700),
+                      Icon(
+                        Icons.straighten,
+                        size: 14.0,
+                        color: c.swatch.shade700,
+                      ),
                       SizedBox(width: 6.0),
                       Text(
                         'length: ${c.character.length}',
@@ -1457,108 +1552,106 @@ Widget _beforeAfter({
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-      Expanded(
-        child: Container(
-          padding: EdgeInsets.all(10.0),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10.0),
-            border: Border.all(color: Colors.grey.shade300, width: 1.0),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Icon(Icons.label_outline, size: 14.0, color: Colors.grey.shade600),
-                  SizedBox(width: 4.0),
-                  Text(
-                    'before',
-                    style: TextStyle(
-                      fontSize: 10.0,
-                      color: Colors.grey.shade700,
-                      letterSpacing: 1.0,
+        Expanded(
+          child: Container(
+            padding: EdgeInsets.all(10.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10.0),
+              border: Border.all(color: Colors.grey.shade300, width: 1.0),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Icon(
+                      Icons.label_outline,
+                      size: 14.0,
+                      color: Colors.grey.shade600,
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 4.0),
-              Text(
-                before,
-                style: TextStyle(
-                  fontSize: 13.0,
-                  color: Colors.black87,
-                  fontFamily: 'monospace',
+                    SizedBox(width: 4.0),
+                    Text(
+                      'before',
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        color: Colors.grey.shade700,
+                        letterSpacing: 1.0,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
+                SizedBox(height: 4.0),
+                Text(
+                  before,
+                  style: TextStyle(
+                    fontSize: 13.0,
+                    color: Colors.black87,
+                    fontFamily: 'monospace',
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-      SizedBox(width: 8.0),
-      Container(
-        padding: EdgeInsets.all(8.0),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: <Color>[
-              swatch.shade400,
-              swatch.shade700,
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-          borderRadius: BorderRadius.circular(8.0),
-        ),
-        child: Icon(Icons.arrow_forward, color: Colors.white, size: 18.0),
-      ),
-      SizedBox(width: 8.0),
-      Expanded(
-        child: Container(
-          padding: EdgeInsets.all(10.0),
+        SizedBox(width: 8.0),
+        Container(
+          padding: EdgeInsets.all(8.0),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: <Color>[
-                swatch.shade50,
-                swatch.shade100,
-              ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
+              colors: <Color>[swatch.shade400, swatch.shade700],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
             ),
-            borderRadius: BorderRadius.circular(10.0),
-            border: Border.all(color: swatch.shade400, width: 1.2),
+            borderRadius: BorderRadius.circular(8.0),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Icon(Icons.bolt, size: 14.0, color: swatch.shade700),
-                  SizedBox(width: 4.0),
-                  Text(
-                    'after  -  $hint',
-                    style: TextStyle(
-                      fontSize: 10.0,
-                      color: swatch.shade700,
-                      letterSpacing: 0.6,
-                      fontWeight: FontWeight.bold,
+          child: Icon(Icons.arrow_forward, color: Colors.white, size: 18.0),
+        ),
+        SizedBox(width: 8.0),
+        Expanded(
+          child: Container(
+            padding: EdgeInsets.all(10.0),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: <Color>[swatch.shade50, swatch.shade100],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              borderRadius: BorderRadius.circular(10.0),
+              border: Border.all(color: swatch.shade400, width: 1.2),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Icon(Icons.bolt, size: 14.0, color: swatch.shade700),
+                    SizedBox(width: 4.0),
+                    Text(
+                      'after  -  $hint',
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        color: swatch.shade700,
+                        letterSpacing: 0.6,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 4.0),
-              Text(
-                after,
-                style: TextStyle(
-                  fontSize: 13.0,
-                  color: Colors.black87,
-                  fontFamily: 'monospace',
+                  ],
                 ),
-              ),
-            ],
+                SizedBox(height: 4.0),
+                Text(
+                  after,
+                  style: TextStyle(
+                    fontSize: 13.0,
+                    color: Colors.black87,
+                    fontFamily: 'monospace',
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-    ],
+      ],
     ),
   );
 }
@@ -1611,7 +1704,9 @@ Widget _scenarioRow({
             ),
             SizedBox(width: 10.0),
             Text(
-              baseDirection == TextDirection.ltr ? 'LTR paragraph' : 'RTL paragraph',
+              baseDirection == TextDirection.ltr
+                  ? 'LTR paragraph'
+                  : 'RTL paragraph',
               style: TextStyle(
                 fontSize: 10.0,
                 color: Colors.grey.shade600,
@@ -1637,11 +1732,13 @@ Widget _scenarioRow({
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text('before',
-                          style: TextStyle(
-                            fontSize: 10.0,
-                            color: Colors.grey.shade600,
-                          )),
+                      Text(
+                        'before',
+                        style: TextStyle(
+                          fontSize: 10.0,
+                          color: Colors.grey.shade600,
+                        ),
+                      ),
                       SizedBox(height: 4.0),
                       Text(
                         before,
@@ -1668,12 +1765,14 @@ Widget _scenarioRow({
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text('after',
-                          style: TextStyle(
-                            fontSize: 10.0,
-                            color: color.shade700,
-                            fontWeight: FontWeight.bold,
-                          )),
+                      Text(
+                        'after',
+                        style: TextStyle(
+                          fontSize: 10.0,
+                          color: color.shade700,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       SizedBox(height: 4.0),
                       Text(
                         after,
@@ -1790,11 +1889,7 @@ Widget _recipeCard({
         SizedBox(height: 8.0),
         Text(
           note,
-          style: TextStyle(
-            fontSize: 12.0,
-            color: Colors.black87,
-            height: 1.35,
-          ),
+          style: TextStyle(fontSize: 12.0, color: Colors.black87, height: 1.35),
         ),
       ],
     ),
@@ -1815,7 +1910,10 @@ Widget _pitfallTile({
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(12.0),
-      border: Border.all(color: colors.last.withValues(alpha: 0.45), width: 1.0),
+      border: Border.all(
+        color: colors.last.withValues(alpha: 0.45),
+        width: 1.0,
+      ),
       boxShadow: <BoxShadow>[
         BoxShadow(
           color: colors.last.withValues(alpha: 0.18),
@@ -1865,7 +1963,11 @@ Widget _pitfallTile({
               SizedBox(height: 4.0),
               Text(
                 body,
-                style: TextStyle(fontSize: 12.0, color: Colors.black87, height: 1.4),
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: Colors.black87,
+                  height: 1.4,
+                ),
               ),
             ],
           ),
@@ -1921,10 +2023,7 @@ Widget _codeSnippet({
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: <Color>[
-          Color(0xFF0F172A),
-          Color(0xFF1E293B),
-        ],
+        colors: <Color>[Color(0xFF0F172A), Color(0xFF1E293B)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),

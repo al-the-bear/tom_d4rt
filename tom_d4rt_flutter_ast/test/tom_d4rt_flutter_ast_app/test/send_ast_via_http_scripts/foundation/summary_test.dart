@@ -221,20 +221,14 @@ _PrivateTreeNode _privateBuildFakeTree() {
         name: 'Padding',
         hash: '7c1f0',
         props: [
-          _PrivateSummaryField(
-            name: 'padding',
-            value: 'EdgeInsets.all(12.0)',
-          ),
+          _PrivateSummaryField(name: 'padding', value: 'EdgeInsets.all(12.0)'),
         ],
         children: [
           _PrivateTreeNode(
             name: 'Column',
             hash: '99a8e',
             props: [
-              _PrivateSummaryField(
-                name: 'mainAxisAlignment',
-                value: 'start',
-              ),
+              _PrivateSummaryField(name: 'mainAxisAlignment', value: 'start'),
               _PrivateSummaryField(
                 name: 'crossAxisAlignment',
                 value: 'stretch',
@@ -246,10 +240,7 @@ _PrivateTreeNode _privateBuildFakeTree() {
                 hash: '4dd33',
                 props: [
                   _PrivateSummaryField(name: '', value: '"Hello"'),
-                  _PrivateSummaryField(
-                    name: 'softWrap',
-                    value: 'true',
-                  ),
+                  _PrivateSummaryField(name: 'softWrap', value: 'true'),
                 ],
               ),
               _PrivateTreeNode(
@@ -262,10 +253,7 @@ _PrivateTreeNode _privateBuildFakeTree() {
                   ),
                 ],
               ),
-              _PrivateTreeNode(
-                name: 'Spacer',
-                hash: '0e2a4',
-              ),
+              _PrivateTreeNode(name: 'Spacer', hash: '0e2a4'),
             ],
           ),
         ],
@@ -323,7 +311,11 @@ const List<_PrivateSummaryRecord> _privateSampleSummaries = [
     typeName: 'StatelessElement',
     hashShort: '4dd33',
     fields: [
-      _PrivateSummaryField(name: 'widget', value: 'MyHeader#bb44e', isKey: true),
+      _PrivateSummaryField(
+        name: 'widget',
+        value: 'MyHeader#bb44e',
+        isKey: true,
+      ),
       _PrivateSummaryField(name: 'depth', value: '7'),
     ],
   ),
@@ -424,11 +416,7 @@ Widget _privateBuildHero() {
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: [
-          _privateSurface2,
-          _privateSurface,
-          Color(0xFF0B0F1A),
-        ],
+        colors: [_privateSurface2, _privateSurface, Color(0xFF0B0F1A)],
       ),
       borderRadius: BorderRadius.circular(14),
       border: Border.all(color: _privateAccent.withValues(alpha: 0.25)),
@@ -449,16 +437,12 @@ Widget _privateBuildHero() {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
-              flex: 5,
-              child: _privateHeroTreeBox(),
-            ),
+            Expanded(flex: 5, child: _privateHeroTreeBox()),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Column(
                 children: [
-                  Icon(Icons.arrow_forward,
-                      color: _privateAccent, size: 32),
+                  Icon(Icons.arrow_forward, color: _privateAccent, size: 32),
                   const SizedBox(height: 4),
                   Text(
                     'singleLine',
@@ -467,10 +451,7 @@ Widget _privateBuildHero() {
                 ],
               ),
             ),
-            Expanded(
-              flex: 6,
-              child: _privateHeroSummaryBox(),
-            ),
+            Expanded(flex: 6, child: _privateHeroSummaryBox()),
           ],
         ),
       ],
@@ -503,8 +484,10 @@ Widget _privateHeroSummaryBox() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text('singleLine summary',
-            style: _privateMono(size: 11, color: _privateMuted)),
+        Text(
+          'singleLine summary',
+          style: _privateMono(size: 11, color: _privateMuted),
+        ),
         const SizedBox(height: 6),
         Text(
           'Container#a3b21(constraints: '
@@ -512,8 +495,10 @@ Widget _privateHeroSummaryBox() {
           style: _privateMono(size: 12, color: _privateAccent4),
         ),
         const SizedBox(height: 10),
-        Text('shallow summary',
-            style: _privateMono(size: 11, color: _privateMuted)),
+        Text(
+          'shallow summary',
+          style: _privateMono(size: 11, color: _privateMuted),
+        ),
         const SizedBox(height: 6),
         Text(
           'Container#a3b21 [+2 children]',
@@ -588,9 +573,10 @@ Widget _privateBuildIntroCard() {
                         TextSpan(
                           text: '${r[0]}. ',
                           style: _privateSans(
-                              size: 13,
-                              w: FontWeight.w700,
-                              color: _privateAccent),
+                            size: 13,
+                            w: FontWeight.w700,
+                            color: _privateAccent,
+                          ),
                         ),
                         TextSpan(text: r[1]),
                       ],
@@ -655,10 +641,7 @@ Widget _privateLabelledCode({
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text(
-          label,
-          style: _privateMono(size: 11, color: _privateMuted),
-        ),
+        Text(label, style: _privateMono(size: 11, color: _privateMuted)),
         const SizedBox(height: 6),
         SelectableText(
           code,
@@ -743,10 +726,7 @@ Widget _privateBuildTruncateChildrenSection() {
   final rows = <_PrivateTruncateRow>[
     _PrivateTruncateRow(
       label: 'small list',
-      children: [
-        'Text#001',
-        'Text#002',
-      ],
+      children: ['Text#001', 'Text#002'],
       truncateAt: 5,
     ),
     _PrivateTruncateRow(
@@ -782,9 +762,7 @@ Widget _privateBuildTruncateChildrenSection() {
     ),
     _PrivateTruncateRow(
       label: 'huge list',
-      children: [
-        for (var i = 0; i < 32; i++) 'Tile#${i.toRadixString(16)}',
-      ],
+      children: [for (var i = 0; i < 32; i++) 'Tile#${i.toRadixString(16)}'],
       truncateAt: 5,
     ),
   ];
@@ -814,18 +792,24 @@ Widget _privateTruncateHeader() {
     children: [
       Expanded(
         flex: 2,
-        child: Text('Tree shape',
-            style: _privateMono(size: 11, color: _privateMuted)),
+        child: Text(
+          'Tree shape',
+          style: _privateMono(size: 11, color: _privateMuted),
+        ),
       ),
       Expanded(
         flex: 5,
-        child: Text('Pre-truncation',
-            style: _privateMono(size: 11, color: _privateMuted)),
+        child: Text(
+          'Pre-truncation',
+          style: _privateMono(size: 11, color: _privateMuted),
+        ),
       ),
       Expanded(
         flex: 4,
-        child: Text('Post-truncation (cap=5)',
-            style: _privateMono(size: 11, color: _privateMuted)),
+        child: Text(
+          'Post-truncation (cap=5)',
+          style: _privateMono(size: 11, color: _privateMuted),
+        ),
       ),
     ],
   );
@@ -854,13 +838,7 @@ Widget _privateTruncateRowWidget(_PrivateTruncateRow row) {
             style: _privateMono(size: 11.5, color: _privateAccent2),
           ),
         ),
-        Expanded(
-          flex: 5,
-          child: Text(
-            pre,
-            style: _privateMono(size: 11.5),
-          ),
-        ),
+        Expanded(flex: 5, child: Text(pre, style: _privateMono(size: 11.5))),
         Expanded(
           flex: 4,
           child: Text(
@@ -987,18 +965,24 @@ Widget _privateAnatomyTable(_PrivateSummaryRecord sample) {
         children: [
           Expanded(
             flex: 3,
-            child: Text('Part',
-                style: _privateMono(size: 11, color: _privateMuted)),
+            child: Text(
+              'Part',
+              style: _privateMono(size: 11, color: _privateMuted),
+            ),
           ),
           Expanded(
             flex: 4,
-            child: Text('Value',
-                style: _privateMono(size: 11, color: _privateMuted)),
+            child: Text(
+              'Value',
+              style: _privateMono(size: 11, color: _privateMuted),
+            ),
           ),
           Expanded(
             flex: 5,
-            child: Text('Origin',
-                style: _privateMono(size: 11, color: _privateMuted)),
+            child: Text(
+              'Origin',
+              style: _privateMono(size: 11, color: _privateMuted),
+            ),
           ),
         ],
       ),
@@ -1016,8 +1000,10 @@ Widget _privateAnatomyTable(_PrivateSummaryRecord sample) {
             children: [
               Expanded(
                 flex: 3,
-                child: Text(rows[i][0],
-                    style: _privateMono(size: 12, color: _privateAccent3)),
+                child: Text(
+                  rows[i][0],
+                  style: _privateMono(size: 12, color: _privateAccent3),
+                ),
               ),
               Expanded(
                 flex: 4,
@@ -1214,8 +1200,10 @@ Widget _privateDiagnosticableExample(_PrivateDiagnosticableExample ex) {
                 color: _privateAccent4.withValues(alpha: 0.18),
                 borderRadius: BorderRadius.circular(4),
               ),
-              child: Text(ex.label,
-                  style: _privateMono(size: 11.5, color: _privateAccent4)),
+              child: Text(
+                ex.label,
+                style: _privateMono(size: 11.5, color: _privateAccent4),
+              ),
             ),
             const SizedBox(width: 10),
             Expanded(
@@ -1227,20 +1215,32 @@ Widget _privateDiagnosticableExample(_PrivateDiagnosticableExample ex) {
           ],
         ),
         const SizedBox(height: 8),
-        Text('toStringShort()',
-            style: _privateMono(size: 10.5, color: _privateMuted)),
-        SelectableText(ex.toStringShort,
-            style: _privateMono(size: 12, color: _privateAccent2)),
+        Text(
+          'toStringShort()',
+          style: _privateMono(size: 10.5, color: _privateMuted),
+        ),
+        SelectableText(
+          ex.toStringShort,
+          style: _privateMono(size: 12, color: _privateAccent2),
+        ),
         const SizedBox(height: 6),
-        Text('toStringShallow()',
-            style: _privateMono(size: 10.5, color: _privateMuted)),
-        SelectableText(ex.toStringShallow,
-            style: _privateMono(size: 12, color: _privateAccent3)),
+        Text(
+          'toStringShallow()',
+          style: _privateMono(size: 10.5, color: _privateMuted),
+        ),
+        SelectableText(
+          ex.toStringShallow,
+          style: _privateMono(size: 12, color: _privateAccent3),
+        ),
         const SizedBox(height: 6),
-        Text('toStringDeep() (first lines)',
-            style: _privateMono(size: 10.5, color: _privateMuted)),
-        SelectableText(ex.toStringDeepFirstLines,
-            style: _privateMono(size: 12, color: _privateText)),
+        Text(
+          'toStringDeep() (first lines)',
+          style: _privateMono(size: 10.5, color: _privateMuted),
+        ),
+        SelectableText(
+          ex.toStringDeepFirstLines,
+          style: _privateMono(size: 12, color: _privateText),
+        ),
       ],
     ),
   );
@@ -1338,19 +1338,21 @@ Widget _privatePitfallRow(_PrivatePitfall p) {
       children: [
         Row(
           children: [
-            Icon(Icons.warning_amber_rounded,
-                color: _privateError, size: 16),
+            Icon(Icons.warning_amber_rounded, color: _privateError, size: 16),
             const SizedBox(width: 6),
             Expanded(
-              child: Text(p.name,
-                  style:
-                      _privateSans(size: 13, w: FontWeight.w700)),
+              child: Text(
+                p.name,
+                style: _privateSans(size: 13, w: FontWeight.w700),
+              ),
             ),
           ],
         ),
         const SizedBox(height: 6),
-        Text(p.explanation,
-            style: _privateSans(size: 12, color: _privateMuted)),
+        Text(
+          p.explanation,
+          style: _privateSans(size: 12, color: _privateMuted),
+        ),
         const SizedBox(height: 8),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1395,16 +1397,21 @@ Widget _privateBuildFooter() {
             color: _privateAccent.withValues(alpha: 0.12),
             shape: BoxShape.circle,
           ),
-          child: Icon(Icons.summarize_outlined,
-              color: _privateAccent, size: 22),
+          child: Icon(
+            Icons.summarize_outlined,
+            color: _privateAccent,
+            size: 22,
+          ),
         ),
         const SizedBox(width: 12),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text('Summary, in summary',
-                  style: _privateSans(size: 14, w: FontWeight.w800)),
+              Text(
+                'Summary, in summary',
+                style: _privateSans(size: 14, w: FontWeight.w800),
+              ),
               const SizedBox(height: 4),
               Text(
                 'Choose the shortest representation your consumer can use. '

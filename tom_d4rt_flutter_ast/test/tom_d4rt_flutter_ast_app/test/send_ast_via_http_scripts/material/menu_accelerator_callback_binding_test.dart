@@ -23,8 +23,9 @@ dynamic build(BuildContext context) {
   // accelerator, or a custom binding consumer. The ValueNotifier feeds a
   // ValueListenableBuilder so chips re-render on each push.
   // ===========================================================================
-  final ValueNotifier<List<String>> activityLog =
-      ValueNotifier<List<String>>(<String>[]);
+  final ValueNotifier<List<String>> activityLog = ValueNotifier<List<String>>(
+    <String>[],
+  );
 
   void logEntry(String entry) {
     activityLog.value = <String>[...activityLog.value, entry];
@@ -421,43 +422,43 @@ dynamic build(BuildContext context) {
     Widget defaultLabel() => const MenuAcceleratorLabel('&Quit');
 
     Widget customLabel() => MenuAcceleratorLabel(
-          '&Quit',
-          builder: (BuildContext ctx, String label, int idx) {
-            // The builder receives the cleaned label and the index of the
-            // accelerator letter (or -1 if none). We split the label into
-            // before / accelerator / after segments and decorate the middle
-            // segment with our custom style.
-            if (idx < 0) {
-              return Text(label);
-            }
-            final String before = label.substring(0, idx);
-            final String accel = label.substring(idx, idx + 1);
-            final String after = label.substring(idx + 1);
-            return Text.rich(
+      '&Quit',
+      builder: (BuildContext ctx, String label, int idx) {
+        // The builder receives the cleaned label and the index of the
+        // accelerator letter (or -1 if none). We split the label into
+        // before / accelerator / after segments and decorate the middle
+        // segment with our custom style.
+        if (idx < 0) {
+          return Text(label);
+        }
+        final String before = label.substring(0, idx);
+        final String accel = label.substring(idx, idx + 1);
+        final String after = label.substring(idx + 1);
+        return Text.rich(
+          TextSpan(
+            children: <InlineSpan>[
+              TextSpan(text: before),
               TextSpan(
-                children: <InlineSpan>[
-                  TextSpan(text: before),
-                  TextSpan(
-                    text: '\u2605',
-                    style: const TextStyle(
-                      color: Color(0xFFE53935),
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  TextSpan(
-                    text: accel,
-                    style: const TextStyle(
-                      color: Color(0xFFE53935),
-                      fontWeight: FontWeight.bold,
-                      decoration: TextDecoration.underline,
-                    ),
-                  ),
-                  TextSpan(text: after),
-                ],
+                text: '\u2605',
+                style: const TextStyle(
+                  color: Color(0xFFE53935),
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            );
-          },
+              TextSpan(
+                text: accel,
+                style: const TextStyle(
+                  color: Color(0xFFE53935),
+                  fontWeight: FontWeight.bold,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+              TextSpan(text: after),
+            ],
+          ),
         );
+      },
+    );
 
     return Container(
       width: double.infinity,
@@ -613,7 +614,9 @@ dynamic build(BuildContext context) {
                         child: Text(
                           '${i + 1}',
                           style: const TextStyle(
-                              fontSize: 11, color: Colors.white),
+                            fontSize: 11,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                       label: Text(entries[i]),
@@ -665,8 +668,10 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    const Text('Deutsch',
-                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    const Text(
+                      'Deutsch',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                     const SizedBox(height: 4),
                     MenuBar(
                       children: <Widget>[
@@ -677,10 +682,8 @@ dynamic build(BuildContext context) {
                               child: const MenuAcceleratorLabel('&Neu'),
                             ),
                             MenuItemButton(
-                              onPressed: () =>
-                                  logEntry('Datei → Speichern'),
-                              child:
-                                  const MenuAcceleratorLabel('&Speichern'),
+                              onPressed: () => logEntry('Datei → Speichern'),
+                              child: const MenuAcceleratorLabel('&Speichern'),
                             ),
                           ],
                           child: const MenuAcceleratorLabel('&Datei'),
@@ -695,8 +698,10 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    const Text('Français',
-                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    const Text(
+                      'Français',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                     const SizedBox(height: 4),
                     MenuBar(
                       children: <Widget>[
@@ -709,8 +714,7 @@ dynamic build(BuildContext context) {
                             MenuItemButton(
                               onPressed: () =>
                                   logEntry('Fichier → Enregistrer'),
-                              child: const MenuAcceleratorLabel(
-                                  '&Enregistrer'),
+                              child: const MenuAcceleratorLabel('&Enregistrer'),
                             ),
                           ],
                           child: const MenuAcceleratorLabel('&Fichier'),
@@ -725,8 +729,10 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    const Text('Español',
-                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    const Text(
+                      'Español',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                     const SizedBox(height: 4),
                     MenuBar(
                       children: <Widget>[
@@ -883,8 +889,8 @@ dynamic build(BuildContext context) {
           Text(
             inScope
                 ? (hasCallback
-                    ? 'binding present, callback set'
-                    : 'binding present, callback null')
+                      ? 'binding present, callback set'
+                      : 'binding present, callback null')
                 : 'binding absent (maybeOf returned null)',
             style: const TextStyle(fontSize: 12),
           ),
@@ -917,8 +923,10 @@ dynamic build(BuildContext context) {
             style: TextStyle(fontSize: 12),
           ),
           const SizedBox(height: 12),
-          const Text('Inside a MenuItemButton (binding installed):',
-              style: TextStyle(fontWeight: FontWeight.bold)),
+          const Text(
+            'Inside a MenuItemButton (binding installed):',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           const SizedBox(height: 4),
           MenuBar(
             children: <Widget>[
@@ -948,8 +956,10 @@ dynamic build(BuildContext context) {
             ],
           ),
           const SizedBox(height: 16),
-          const Text('Outside any menu (no binding):',
-              style: TextStyle(fontWeight: FontWeight.bold)),
+          const Text(
+            'Outside any menu (no binding):',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           const SizedBox(height: 4),
           Builder(builder: buildBindingConsumer),
           const SizedBox(height: 12),
@@ -1016,34 +1026,50 @@ dynamic build(BuildContext context) {
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 4),
-          refRow('label',
-              'String with at most one "&"-prefixed letter; "&&" renders a literal "&".'),
-          refRow('builder',
-              'Optional MenuAcceleratorChildBuilder (BuildContext, String, int) used to render the label.'),
+          refRow(
+            'label',
+            'String with at most one "&"-prefixed letter; "&&" renders a literal "&".',
+          ),
+          refRow(
+            'builder',
+            'Optional MenuAcceleratorChildBuilder (BuildContext, String, int) used to render the label.',
+          ),
           const SizedBox(height: 12),
           const Text(
             'MenuAcceleratorLabel static helpers',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 4),
-          refRow('stripAcceleratorMarkers',
-              'Strips "&"-prefix markers from a label, returning the plain string.'),
+          refRow(
+            'stripAcceleratorMarkers',
+            'Strips "&"-prefix markers from a label, returning the plain string.',
+          ),
           const SizedBox(height: 12),
           const Text(
             'MenuAcceleratorCallbackBinding members',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 4),
-          refRow('static maybeOf(BuildContext)',
-              'Returns the nearest binding or null if none is installed.'),
-          refRow('static of(BuildContext)',
-              'Returns the nearest binding; throws if none is installed.'),
-          refRow('onInvoke',
-              'The activation callback (i.e. MenuItemButton.onPressed) or null if disabled.'),
-          refRow('hasSubmenu',
-              'True if the enclosing entry opens a submenu rather than firing onInvoke.'),
-          refRow('accelerator',
-              'The accelerator key index inside the label, or -1 if none.'),
+          refRow(
+            'static maybeOf(BuildContext)',
+            'Returns the nearest binding or null if none is installed.',
+          ),
+          refRow(
+            'static of(BuildContext)',
+            'Returns the nearest binding; throws if none is installed.',
+          ),
+          refRow(
+            'onInvoke',
+            'The activation callback (i.e. MenuItemButton.onPressed) or null if disabled.',
+          ),
+          refRow(
+            'hasSubmenu',
+            'True if the enclosing entry opens a submenu rather than firing onInvoke.',
+          ),
+          refRow(
+            'accelerator',
+            'The accelerator key index inside the label, or -1 if none.',
+          ),
           const SizedBox(height: 12),
           const Text(
             'When each member is read',
@@ -1051,12 +1077,18 @@ dynamic build(BuildContext context) {
           ),
           const SizedBox(height: 4),
           refRow('maybeOf', 'inside MenuAcceleratorChildBuilder.'),
-          refRow('onInvoke',
-              'wired by the default builder to the keyboard activator.'),
-          refRow('hasSubmenu',
-              'used to suppress underline in submenu parent vs. leaf items.'),
-          refRow('accelerator',
-              'used by the default builder to position the underline.'),
+          refRow(
+            'onInvoke',
+            'wired by the default builder to the keyboard activator.',
+          ),
+          refRow(
+            'hasSubmenu',
+            'used to suppress underline in submenu parent vs. leaf items.',
+          ),
+          refRow(
+            'accelerator',
+            'used by the default builder to position the underline.',
+          ),
         ],
       ),
     );
@@ -1071,7 +1103,10 @@ dynamic build(BuildContext context) {
   return MaterialApp(
     debugShowCheckedModeBanner: false,
     title: 'MenuAcceleratorCallbackBinding gallery',
-    theme: ThemeData(useMaterial3: true, colorSchemeSeed: const Color(0xFF6A1B9A)),
+    theme: ThemeData(
+      useMaterial3: true,
+      colorSchemeSeed: const Color(0xFF6A1B9A),
+    ),
     home: Scaffold(
       appBar: AppBar(
         title: const Text('MenuAcceleratorCallbackBinding gallery'),

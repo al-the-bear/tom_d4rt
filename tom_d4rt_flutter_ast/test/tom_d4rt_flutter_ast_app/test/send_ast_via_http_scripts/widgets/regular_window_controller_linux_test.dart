@@ -20,10 +20,10 @@ const Color _kCode = Color(0xFF1E3A1E);
 // ---------------------------------------------------------------------------
 // Top-level ValueNotifiers — stateless demo, reactive via ValueListenableBuilder
 // ---------------------------------------------------------------------------
-final ValueNotifier<_WinState> _windowState =
-    ValueNotifier<_WinState>(_WinState.normal);
-final ValueNotifier<bool> _decorationsClientSide =
-    ValueNotifier<bool>(true);
+final ValueNotifier<_WinState> _windowState = ValueNotifier<_WinState>(
+  _WinState.normal,
+);
+final ValueNotifier<bool> _decorationsClientSide = ValueNotifier<bool>(true);
 final ValueNotifier<int> _activeWindowIndex = ValueNotifier<int>(0);
 final ValueNotifier<bool> _showDbusDetail = ValueNotifier<bool>(false);
 final ValueNotifier<_WmType> _activeWm = ValueNotifier<_WmType>(_WmType.gnome);
@@ -32,6 +32,7 @@ final ValueNotifier<_WmType> _activeWm = ValueNotifier<_WmType>(_WmType.gnome);
 // Enums
 // ---------------------------------------------------------------------------
 enum _WinState { normal, minimized, maximized, fullscreen }
+
 enum _WmType { gnome, kde, weston }
 
 // ---------------------------------------------------------------------------
@@ -205,10 +206,7 @@ class _SectionHeader extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
-            title,
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
+          Text(title, style: Theme.of(context).textTheme.titleMedium),
           if (subtitle != null) ...<Widget>[
             const SizedBox(height: 2),
             Text(
@@ -348,7 +346,11 @@ class _HeroBannerTab extends StatelessWidget {
                   color: Colors.white.withAlpha(26),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: const Icon(Icons.desktop_windows, color: Colors.white, size: 28),
+                child: const Icon(
+                  Icons.desktop_windows,
+                  color: Colors.white,
+                  size: 28,
+                ),
               ),
               const SizedBox(width: 14),
               Expanded(
@@ -415,17 +417,42 @@ class _HeroBannerTab extends StatelessWidget {
             subtitle: 'Where RegularWindowControllerLinux fits',
           ),
           const SizedBox(height: 8),
-          _HierarchyRow(depth: 0, name: 'RegularWindowControllerDelegate', role: 'abstract base'),
-          _HierarchyRow(depth: 1, name: 'RegularWindowController', role: 'cross-platform contract'),
-          _HierarchyRow(depth: 2, name: 'RegularWindowControllerLinux', role: 'Linux impl', highlight: true),
-          _HierarchyRow(depth: 2, name: 'RegularWindowControllerMacOS', role: 'macOS impl'),
-          _HierarchyRow(depth: 2, name: 'RegularWindowControllerWin32', role: 'Win32 impl'),
+          _HierarchyRow(
+            depth: 0,
+            name: 'RegularWindowControllerDelegate',
+            role: 'abstract base',
+          ),
+          _HierarchyRow(
+            depth: 1,
+            name: 'RegularWindowController',
+            role: 'cross-platform contract',
+          ),
+          _HierarchyRow(
+            depth: 2,
+            name: 'RegularWindowControllerLinux',
+            role: 'Linux impl',
+            highlight: true,
+          ),
+          _HierarchyRow(
+            depth: 2,
+            name: 'RegularWindowControllerMacOS',
+            role: 'macOS impl',
+          ),
+          _HierarchyRow(
+            depth: 2,
+            name: 'RegularWindowControllerWin32',
+            role: 'Win32 impl',
+          ),
           const SizedBox(height: 12),
           const Text(
             'The Linux controller is instantiated by the Flutter engine on linux desktop targets. '
             'It is surfaced to Dart code as the platform view controller for a regular '
             '(non-dialog, non-fullscreen) window.',
-            style: TextStyle(fontSize: 12, color: Color(0xFF445544), height: 1.5),
+            style: TextStyle(
+              fontSize: 12,
+              color: Color(0xFF445544),
+              height: 1.5,
+            ),
           ),
         ],
       ),
@@ -437,7 +464,10 @@ class _HeroBannerTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const _SectionHeader('Linux Display Architecture', subtitle: 'X11, Wayland, and GTK'),
+          const _SectionHeader(
+            'Linux Display Architecture',
+            subtitle: 'X11, Wayland, and GTK',
+          ),
           const SizedBox(height: 8),
           _buildDisplayTable(),
         ],
@@ -448,8 +478,18 @@ class _HeroBannerTab extends StatelessWidget {
   Widget _buildDisplayTable() {
     final List<List<String>> rows = <List<String>>[
       <String>['X11', 'Xlib / XCB', 'DISPLAY', 'GDK_BACKEND=x11'],
-      <String>['Wayland', 'libwayland-client', 'WAYLAND_DISPLAY', 'GDK_BACKEND=wayland'],
-      <String>['GTK3/4', 'GDK abstraction', 'Both', 'Default on modern distros'],
+      <String>[
+        'Wayland',
+        'libwayland-client',
+        'WAYLAND_DISPLAY',
+        'GDK_BACKEND=wayland',
+      ],
+      <String>[
+        'GTK3/4',
+        'GDK abstraction',
+        'Both',
+        'Default on modern distros',
+      ],
       <String>['Mir', 'Mir client libs', 'MIR_SOCKET', 'Ubuntu Touch / Unity8'],
     ];
     return Table(
@@ -461,10 +501,13 @@ class _HeroBannerTab extends StatelessWidget {
       },
       border: TableBorder.all(color: _kBorder, width: 0.5),
       children: <TableRow>[
-        _tableHeaderRow(<String>['Backend', 'Protocol Library', 'Socket/Env', 'Activation']),
-        ...rows.map(
-          (List<String> r) => _tableDataRow(r),
-        ),
+        _tableHeaderRow(<String>[
+          'Backend',
+          'Protocol Library',
+          'Socket/Env',
+          'Activation',
+        ]),
+        ...rows.map((List<String> r) => _tableDataRow(r)),
       ],
     );
   }
@@ -487,12 +530,36 @@ class _HeroBannerTab extends StatelessWidget {
 
   Widget _buildCallStack() {
     final List<_CallStackItem> items = <_CallStackItem>[
-      _CallStackItem('Dart / Flutter Framework', _kAccentDark, 'Your app code — uses RegularWindowController API'),
-      _CallStackItem('Platform Channel (MethodChannel)', _kBlue, 'Serialises calls across the Dart/native boundary'),
-      _CallStackItem('Flutter Engine (C++)', const Color(0xFF885500), 'flutter::FlutterWindow — owns GTK GtkWidget*'),
-      _CallStackItem('GTK3 / GTK4', const Color(0xFF770077), 'GtkApplicationWindow → GdkSurface → native surface'),
-      _CallStackItem('GDK Backend', const Color(0xFF007777), 'X11: GdkX11Window  |  Wayland: GdkWaylandWindow'),
-      _CallStackItem('Compositor / WM', const Color(0xFF444444), 'Mutter (GNOME) · KWin (KDE) · Weston (reference)'),
+      _CallStackItem(
+        'Dart / Flutter Framework',
+        _kAccentDark,
+        'Your app code — uses RegularWindowController API',
+      ),
+      _CallStackItem(
+        'Platform Channel (MethodChannel)',
+        _kBlue,
+        'Serialises calls across the Dart/native boundary',
+      ),
+      _CallStackItem(
+        'Flutter Engine (C++)',
+        const Color(0xFF885500),
+        'flutter::FlutterWindow — owns GTK GtkWidget*',
+      ),
+      _CallStackItem(
+        'GTK3 / GTK4',
+        const Color(0xFF770077),
+        'GtkApplicationWindow → GdkSurface → native surface',
+      ),
+      _CallStackItem(
+        'GDK Backend',
+        const Color(0xFF007777),
+        'X11: GdkX11Window  |  Wayland: GdkWaylandWindow',
+      ),
+      _CallStackItem(
+        'Compositor / WM',
+        const Color(0xFF444444),
+        'Mutter (GNOME) · KWin (KDE) · Weston (reference)',
+      ),
     ];
     return Column(
       children: items.asMap().entries.map((MapEntry<int, _CallStackItem> e) {
@@ -521,7 +588,10 @@ class _HeroBannerTab extends StatelessWidget {
                   const SizedBox(height: 2),
                   Text(
                     e.value.detail,
-                    style: const TextStyle(fontSize: 11, color: Color(0xFF556655)),
+                    style: const TextStyle(
+                      fontSize: 11,
+                      color: Color(0xFF556655),
+                    ),
                   ),
                 ],
               ),
@@ -544,12 +614,36 @@ class _HeroBannerTab extends StatelessWidget {
         children: <Widget>[
           const _SectionHeader('Flutter Linux Desktop Timeline'),
           const SizedBox(height: 8),
-          _TimelineEntry('Flutter 2.0 (Mar 2021)', 'Linux desktop promoted to beta', _kAmber),
-          _TimelineEntry('Flutter 2.5 (Sep 2021)', 'Input method improvements for GTK', _kAmber),
-          _TimelineEntry('Flutter 3.0 (May 2022)', 'Linux desktop stable, Wayland preview', _kOk),
-          _TimelineEntry('Flutter 3.7 (Jan 2023)', 'Improved Wayland clipboard + IME', _kOk),
-          _TimelineEntry('Flutter 3.16 (Nov 2023)', 'Native GTK title bar option added', _kOk),
-          _TimelineEntry('Flutter 3.22+ (2024)', 'Multi-view / multi-window Linux support', _kBlue),
+          _TimelineEntry(
+            'Flutter 2.0 (Mar 2021)',
+            'Linux desktop promoted to beta',
+            _kAmber,
+          ),
+          _TimelineEntry(
+            'Flutter 2.5 (Sep 2021)',
+            'Input method improvements for GTK',
+            _kAmber,
+          ),
+          _TimelineEntry(
+            'Flutter 3.0 (May 2022)',
+            'Linux desktop stable, Wayland preview',
+            _kOk,
+          ),
+          _TimelineEntry(
+            'Flutter 3.7 (Jan 2023)',
+            'Improved Wayland clipboard + IME',
+            _kOk,
+          ),
+          _TimelineEntry(
+            'Flutter 3.16 (Nov 2023)',
+            'Native GTK title bar option added',
+            _kOk,
+          ),
+          _TimelineEntry(
+            'Flutter 3.22+ (2024)',
+            'Multi-view / multi-window Linux support',
+            _kBlue,
+          ),
         ],
       ),
     );
@@ -659,10 +753,7 @@ class _TimelineEntry extends StatelessWidget {
             width: 10,
             height: 10,
             margin: const EdgeInsets.only(top: 3, right: 10),
-            decoration: BoxDecoration(
-              color: color,
-              shape: BoxShape.circle,
-            ),
+            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
           ),
           Expanded(
             child: RichText(
@@ -731,7 +822,8 @@ class _ChromeSimTab extends StatelessWidget {
       children: <Widget>[
         const _SectionHeader(
           'Linux Window Chrome Simulation',
-          subtitle: 'Flutter-drawn GNOME-style window with interactive controls',
+          subtitle:
+              'Flutter-drawn GNOME-style window with interactive controls',
         ),
         const SizedBox(height: 8),
         _buildExplanation(),
@@ -763,20 +855,21 @@ class _ChromeSimTab extends StatelessWidget {
       builder: (BuildContext ctx, _WinState state, Widget? _) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            _buildWindowFrame(state),
-          ],
+          children: <Widget>[_buildWindowFrame(state)],
         );
       },
     );
   }
 
   Widget _buildWindowFrame(_WinState state) {
-    final bool isMaximized = state == _WinState.maximized || state == _WinState.fullscreen;
+    final bool isMaximized =
+        state == _WinState.maximized || state == _WinState.fullscreen;
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: isMaximized ? BorderRadius.zero : BorderRadius.circular(10),
+        borderRadius: isMaximized
+            ? BorderRadius.zero
+            : BorderRadius.circular(10),
         border: Border.all(color: _kChrome, width: 1.2),
         boxShadow: isMaximized
             ? null
@@ -814,9 +907,17 @@ class _ChromeSimTab extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Row(
         children: <Widget>[
-          _buildChromeButton(_kRed, Icons.close, () => _windowState.value = _WinState.minimized),
+          _buildChromeButton(
+            _kRed,
+            Icons.close,
+            () => _windowState.value = _WinState.minimized,
+          ),
           const SizedBox(width: 8),
-          _buildChromeButton(_kAmber, Icons.minimize, () => _windowState.value = _WinState.minimized),
+          _buildChromeButton(
+            _kAmber,
+            Icons.minimize,
+            () => _windowState.value = _WinState.minimized,
+          ),
           const SizedBox(width: 8),
           _buildChromeButton(_kOk, Icons.crop_square, () {
             _windowState.value = _windowState.value == _WinState.maximized
@@ -906,11 +1007,19 @@ class _ChromeSimTab extends StatelessWidget {
           children: <Widget>[
             Row(
               children: <Widget>[
-                const Icon(Icons.desktop_windows, size: 14, color: _kAccentDark),
+                const Icon(
+                  Icons.desktop_windows,
+                  size: 14,
+                  color: _kAccentDark,
+                ),
                 const SizedBox(width: 6),
                 Text(
                   'Window state: ${_winStateLabel(state)}',
-                  style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: _kAccentDark),
+                  style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: _kAccentDark,
+                  ),
                 ),
               ],
             ),
@@ -918,7 +1027,11 @@ class _ChromeSimTab extends StatelessWidget {
             const Text(
               'Application content area — managed by Flutter rendering pipeline.\n'
               'The GtkWidget* is the container; FlutterView renders here.',
-              style: TextStyle(fontSize: 11, color: Color(0xFF667766), height: 1.4),
+              style: TextStyle(
+                fontSize: 11,
+                color: Color(0xFF667766),
+                height: 1.4,
+              ),
             ),
           ],
         ),
@@ -950,11 +1063,31 @@ class _ChromeSimTab extends StatelessWidget {
         children: <Widget>[
           const _SectionHeader('Chrome Component Legend'),
           const SizedBox(height: 6),
-          _AnnotationRow(_kRed, 'Close button', 'Calls gtk_window_close() → wl_surface destroy'),
-          _AnnotationRow(_kAmber, 'Minimize button', 'gtk_window_iconify() → send_configure_request'),
-          _AnnotationRow(_kOk, 'Maximize toggle', 'gtk_window_maximize/unmaximize()'),
-          _AnnotationRow(_kChrome, 'Title bar (CSD)', 'GtkHeaderBar widget — drawn by app, not WM'),
-          _AnnotationRow(_kBorder, 'Resize handle', 'gtk_window_resize_grip — GDK resize edges'),
+          _AnnotationRow(
+            _kRed,
+            'Close button',
+            'Calls gtk_window_close() → wl_surface destroy',
+          ),
+          _AnnotationRow(
+            _kAmber,
+            'Minimize button',
+            'gtk_window_iconify() → send_configure_request',
+          ),
+          _AnnotationRow(
+            _kOk,
+            'Maximize toggle',
+            'gtk_window_maximize/unmaximize()',
+          ),
+          _AnnotationRow(
+            _kChrome,
+            'Title bar (CSD)',
+            'GtkHeaderBar widget — drawn by app, not WM',
+          ),
+          _AnnotationRow(
+            _kBorder,
+            'Resize handle',
+            'gtk_window_resize_grip — GDK resize edges',
+          ),
         ],
       ),
     );
@@ -971,7 +1104,10 @@ class _ChromeSimTab extends StatelessWidget {
               const _SectionHeader('Decoration Mode Toggle'),
               Row(
                 children: <Widget>[
-                  const Text('Server-side (WM draws chrome)', style: TextStyle(fontSize: 12)),
+                  const Text(
+                    'Server-side (WM draws chrome)',
+                    style: TextStyle(fontSize: 12),
+                  ),
                   const SizedBox(width: 10),
                   Switch(
                     value: csd,
@@ -979,7 +1115,10 @@ class _ChromeSimTab extends StatelessWidget {
                     activeThumbColor: _kAccentDark,
                   ),
                   const SizedBox(width: 10),
-                  const Text('Client-side (App draws chrome)', style: TextStyle(fontSize: 12)),
+                  const Text(
+                    'Client-side (App draws chrome)',
+                    style: TextStyle(fontSize: 12),
+                  ),
                 ],
               ),
               const SizedBox(height: 6),
@@ -988,14 +1127,16 @@ class _ChromeSimTab extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: csd ? _kOk.withAlpha(18) : _kBlue.withAlpha(18),
                   borderRadius: BorderRadius.circular(6),
-                  border: Border.all(color: csd ? _kOk.withAlpha(80) : _kBlue.withAlpha(80)),
+                  border: Border.all(
+                    color: csd ? _kOk.withAlpha(80) : _kBlue.withAlpha(80),
+                  ),
                 ),
                 child: Text(
                   csd
                       ? 'CSD active: GtkHeaderBar visible. gtk_window_set_titlebar() configured.\n'
-                          'Flutter window rendered inside a headerbar-less GtkApplicationWindow.'
+                            'Flutter window rendered inside a headerbar-less GtkApplicationWindow.'
                       : 'SSD active: Window manager decorates the frame.\n'
-                          'gtk_window_set_decorated(TRUE) — title bar drawn by Mutter/KWin/Weston.',
+                            'gtk_window_set_decorated(TRUE) — title bar drawn by Mutter/KWin/Weston.',
                   style: TextStyle(
                     fontSize: 11,
                     color: csd ? _kOk : _kBlue,
@@ -1045,10 +1186,20 @@ class _AnnotationRow extends StatelessWidget {
           ),
           SizedBox(
             width: 120,
-            child: Text(label, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: _kInk)),
+            child: Text(
+              label,
+              style: const TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+                color: _kInk,
+              ),
+            ),
           ),
           Expanded(
-            child: Text(desc, style: const TextStyle(fontSize: 11, color: Color(0xFF556655))),
+            child: Text(
+              desc,
+              style: const TextStyle(fontSize: 11, color: Color(0xFF556655)),
+            ),
           ),
         ],
       ),
@@ -1096,21 +1247,33 @@ class _ArchDiagramTab extends StatelessWidget {
         children: <Widget>[
           const _SectionHeader('Layer Responsibilities'),
           const SizedBox(height: 8),
-          _LayerCard('Flutter Framework (Dart)', _kAccentDark,
-              'Widget tree, rendering pipeline, platform channels. '
-              'window.setGeometry(), window.title etc. forwarded here.'),
+          _LayerCard(
+            'Flutter Framework (Dart)',
+            _kAccentDark,
+            'Widget tree, rendering pipeline, platform channels. '
+                'window.setGeometry(), window.title etc. forwarded here.',
+          ),
           const SizedBox(height: 6),
-          _LayerCard('Flutter Engine (C++)', const Color(0xFF885500),
-              'flutter::FlutterWindowLinux — wraps GtkApplicationWindow. '
-              'Manages GdkGLContext, vsync via GDK frame clocks.'),
+          _LayerCard(
+            'Flutter Engine (C++)',
+            const Color(0xFF885500),
+            'flutter::FlutterWindowLinux — wraps GtkApplicationWindow. '
+                'Manages GdkGLContext, vsync via GDK frame clocks.',
+          ),
           const SizedBox(height: 6),
-          _LayerCard('GTK / GDK', const Color(0xFF660077),
-              'GdkSurface (Wayland wl_surface or X11 Window). '
-              'GtkWidget* hierarchy maps the app window to the display server.'),
+          _LayerCard(
+            'GTK / GDK',
+            const Color(0xFF660077),
+            'GdkSurface (Wayland wl_surface or X11 Window). '
+                'GtkWidget* hierarchy maps the app window to the display server.',
+          ),
           const SizedBox(height: 6),
-          _LayerCard('Compositor (Mutter/KWin)', const Color(0xFF444444),
-              'Receives xdg_toplevel configure events (Wayland) '
-              'or MapNotify / ConfigureNotify (X11). Applies decoration + tiling.'),
+          _LayerCard(
+            'Compositor (Mutter/KWin)',
+            const Color(0xFF444444),
+            'Receives xdg_toplevel configure events (Wayland) '
+                'or MapNotify / ConfigureNotify (X11). Applies decoration + tiling.',
+          ),
         ],
       ),
     );
@@ -1156,10 +1319,17 @@ class _LayerCard extends StatelessWidget {
         children: <Widget>[
           Text(
             label,
-            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: color),
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+              color: color,
+            ),
           ),
           const SizedBox(height: 3),
-          Text(detail, style: const TextStyle(fontSize: 11, color: _kInk, height: 1.4)),
+          Text(
+            detail,
+            style: const TextStyle(fontSize: 11, color: _kInk, height: 1.4),
+          ),
         ],
       ),
     );
@@ -1173,21 +1343,60 @@ class _ArchPainter extends CustomPainter {
     final double h = size.height;
 
     final List<_BoxSpec> boxes = <_BoxSpec>[
-      _BoxSpec('Dart App Code\n(Flutter Framework)', 0.1, 0.04, 0.8, 0.11, const Color(0xFF3A6B35)),
-      _BoxSpec('RegularWindowControllerLinux', 0.15, 0.2, 0.7, 0.09, const Color(0xFF1A5A18)),
-      _BoxSpec('Platform Channel\n(MethodChannel)', 0.2, 0.34, 0.6, 0.09, const Color(0xFF3355AA)),
-      _BoxSpec('Flutter Engine (C++)\nflutter::FlutterWindowLinux', 0.1, 0.48, 0.8, 0.11, const Color(0xFF885500)),
-      _BoxSpec('GTK / GDK\nGtkApplicationWindow → GdkSurface', 0.1, 0.64, 0.8, 0.11, const Color(0xFF660077)),
-      _BoxSpec('Linux Compositor (Mutter / KWin / Weston)', 0.1, 0.80, 0.8, 0.11, const Color(0xFF444444)),
+      _BoxSpec(
+        'Dart App Code\n(Flutter Framework)',
+        0.1,
+        0.04,
+        0.8,
+        0.11,
+        const Color(0xFF3A6B35),
+      ),
+      _BoxSpec(
+        'RegularWindowControllerLinux',
+        0.15,
+        0.2,
+        0.7,
+        0.09,
+        const Color(0xFF1A5A18),
+      ),
+      _BoxSpec(
+        'Platform Channel\n(MethodChannel)',
+        0.2,
+        0.34,
+        0.6,
+        0.09,
+        const Color(0xFF3355AA),
+      ),
+      _BoxSpec(
+        'Flutter Engine (C++)\nflutter::FlutterWindowLinux',
+        0.1,
+        0.48,
+        0.8,
+        0.11,
+        const Color(0xFF885500),
+      ),
+      _BoxSpec(
+        'GTK / GDK\nGtkApplicationWindow → GdkSurface',
+        0.1,
+        0.64,
+        0.8,
+        0.11,
+        const Color(0xFF660077),
+      ),
+      _BoxSpec(
+        'Linux Compositor (Mutter / KWin / Weston)',
+        0.1,
+        0.80,
+        0.8,
+        0.11,
+        const Color(0xFF444444),
+      ),
     ];
 
     for (final _BoxSpec b in boxes) {
       final Rect r = Rect.fromLTWH(b.x * w, b.y * h, b.width * w, b.height * h);
       final RRect rr = RRect.fromRectAndRadius(r, const Radius.circular(8));
-      canvas.drawRRect(
-        rr,
-        Paint()..color = b.color.withAlpha(28),
-      );
+      canvas.drawRRect(rr, Paint()..color = b.color.withAlpha(28));
       canvas.drawRRect(
         rr,
         Paint()
@@ -1242,7 +1451,14 @@ class _ArchPainter extends CustomPainter {
 }
 
 class _BoxSpec {
-  const _BoxSpec(this.label, this.x, this.y, this.width, this.height, this.color);
+  const _BoxSpec(
+    this.label,
+    this.x,
+    this.y,
+    this.width,
+    this.height,
+    this.color,
+  );
   final String label;
   final double x;
   final double y;
@@ -1265,25 +1481,85 @@ class _GdkBackendPainter extends CustomPainter {
       final Rect r = Rect.fromLTWH(x, y, bw, bh);
       final RRect rr = RRect.fromRectAndRadius(r, const Radius.circular(6));
       canvas.drawRRect(rr, Paint()..color = col.withAlpha(22));
-      canvas.drawRRect(rr, Paint()..color = col..style = PaintingStyle.stroke..strokeWidth = 1);
+      canvas.drawRRect(
+        rr,
+        Paint()
+          ..color = col
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 1,
+      );
       final TextPainter tp = TextPainter(
-        text: TextSpan(text: text, style: TextStyle(color: col, fontSize: 10, fontWeight: FontWeight.w700)),
+        text: TextSpan(
+          text: text,
+          style: TextStyle(
+            color: col,
+            fontSize: 10,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         textDirection: TextDirection.ltr,
         textAlign: TextAlign.center,
       );
       tp.layout(maxWidth: bw - 8);
-      tp.paint(canvas, Offset(x + (bw - tp.width) / 2, y + (bh - tp.height) / 2));
+      tp.paint(
+        canvas,
+        Offset(x + (bw - tp.width) / 2, y + (bh - tp.height) / 2),
+      );
     }
 
     box(w * 0.3, 0, w * 0.4, h * 0.18, 'GDK Init', _kAccentDark);
-    canvas.drawLine(Offset(w / 2, h * 0.18), Offset(w * 0.25, h * 0.4), linePaint);
-    canvas.drawLine(Offset(w / 2, h * 0.18), Offset(w * 0.75, h * 0.4), linePaint);
-    box(0, h * 0.4, w * 0.42, h * 0.2, 'WAYLAND_DISPLAY set?\nGdkWaylandDisplay', _kBlue);
-    box(w * 0.55, h * 0.4, w * 0.42, h * 0.2, 'DISPLAY set?\nGdkX11Display', const Color(0xFF885500));
-    canvas.drawLine(Offset(w * 0.21, h * 0.6), Offset(w * 0.21, h * 0.78), linePaint);
-    canvas.drawLine(Offset(w * 0.76, h * 0.6), Offset(w * 0.76, h * 0.78), linePaint);
-    box(0, h * 0.78, w * 0.42, h * 0.2, 'wl_surface\n(Wayland protocol)', _kBlue);
-    box(w * 0.55, h * 0.78, w * 0.42, h * 0.2, 'X11 Window\n(Xlib / XCB)', const Color(0xFF885500));
+    canvas.drawLine(
+      Offset(w / 2, h * 0.18),
+      Offset(w * 0.25, h * 0.4),
+      linePaint,
+    );
+    canvas.drawLine(
+      Offset(w / 2, h * 0.18),
+      Offset(w * 0.75, h * 0.4),
+      linePaint,
+    );
+    box(
+      0,
+      h * 0.4,
+      w * 0.42,
+      h * 0.2,
+      'WAYLAND_DISPLAY set?\nGdkWaylandDisplay',
+      _kBlue,
+    );
+    box(
+      w * 0.55,
+      h * 0.4,
+      w * 0.42,
+      h * 0.2,
+      'DISPLAY set?\nGdkX11Display',
+      const Color(0xFF885500),
+    );
+    canvas.drawLine(
+      Offset(w * 0.21, h * 0.6),
+      Offset(w * 0.21, h * 0.78),
+      linePaint,
+    );
+    canvas.drawLine(
+      Offset(w * 0.76, h * 0.6),
+      Offset(w * 0.76, h * 0.78),
+      linePaint,
+    );
+    box(
+      0,
+      h * 0.78,
+      w * 0.42,
+      h * 0.2,
+      'wl_surface\n(Wayland protocol)',
+      _kBlue,
+    );
+    box(
+      w * 0.55,
+      h * 0.78,
+      w * 0.42,
+      h * 0.2,
+      'X11 Window\n(Xlib / XCB)',
+      const Color(0xFF885500),
+    );
   }
 
   @override
@@ -1338,7 +1614,11 @@ class _StateMachineTab extends StatelessWidget {
           children: <Widget>[
             const Text(
               'Live window state — tap to transition:',
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: _kInk),
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                color: _kInk,
+              ),
             ),
             const SizedBox(height: 8),
             SegmentedButton<_WinState>(
@@ -1369,12 +1649,18 @@ class _StateMachineTab extends StatelessWidget {
                 if (sel.isNotEmpty) _windowState.value = sel.first;
               },
               style: ButtonStyle(
-                backgroundColor: WidgetStateProperty.resolveWith((Set<WidgetState> states) {
-                  if (states.contains(WidgetState.selected)) return _kAccentDark;
+                backgroundColor: WidgetStateProperty.resolveWith((
+                  Set<WidgetState> states,
+                ) {
+                  if (states.contains(WidgetState.selected))
+                    return _kAccentDark;
                   return null;
                 }),
-                foregroundColor: WidgetStateProperty.resolveWith((Set<WidgetState> states) {
-                  if (states.contains(WidgetState.selected)) return Colors.white;
+                foregroundColor: WidgetStateProperty.resolveWith((
+                  Set<WidgetState> states,
+                ) {
+                  if (states.contains(WidgetState.selected))
+                    return Colors.white;
                   return null;
                 }),
               ),
@@ -1399,12 +1685,19 @@ class _StateMachineTab extends StatelessWidget {
                   const SizedBox(width: 10),
                   Text(
                     'State: ${_stateLabel(state)}',
-                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: _kInk),
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                      color: _kInk,
+                    ),
                   ),
                 ],
               ),
               const SizedBox(height: 8),
-              Text(_stateDesc(state), style: const TextStyle(fontSize: 12, color: _kInk, height: 1.5)),
+              Text(
+                _stateDesc(state),
+                style: const TextStyle(fontSize: 12, color: _kInk, height: 1.5),
+              ),
               const SizedBox(height: 8),
               Text(
                 'GTK call: ${_stateGtkCall(state)}',
@@ -1437,13 +1730,48 @@ class _StateMachineTab extends StatelessWidget {
             },
             border: TableBorder.all(color: _kBorder, width: 0.5),
             children: <TableRow>[
-              _tableHeaderRow(<String>['From', 'To', 'GTK API', 'Wayland event']),
-              _tableDataRow(<String>['normal', 'minimized', 'gtk_window_iconify()', 'xdg_toplevel.set_minimized']),
-              _tableDataRow(<String>['normal', 'maximized', 'gtk_window_maximize()', 'xdg_toplevel.set_maximized']),
-              _tableDataRow(<String>['normal', 'fullscreen', 'gtk_window_fullscreen()', 'xdg_toplevel.set_fullscreen']),
-              _tableDataRow(<String>['maximized', 'normal', 'gtk_window_unmaximize()', 'xdg_toplevel.unset_maximized']),
-              _tableDataRow(<String>['fullscreen', 'normal', 'gtk_window_unfullscreen()', 'xdg_toplevel.unset_fullscreen']),
-              _tableDataRow(<String>['minimized', 'normal', 'gtk_window_present()', 'app-driven deiconify']),
+              _tableHeaderRow(<String>[
+                'From',
+                'To',
+                'GTK API',
+                'Wayland event',
+              ]),
+              _tableDataRow(<String>[
+                'normal',
+                'minimized',
+                'gtk_window_iconify()',
+                'xdg_toplevel.set_minimized',
+              ]),
+              _tableDataRow(<String>[
+                'normal',
+                'maximized',
+                'gtk_window_maximize()',
+                'xdg_toplevel.set_maximized',
+              ]),
+              _tableDataRow(<String>[
+                'normal',
+                'fullscreen',
+                'gtk_window_fullscreen()',
+                'xdg_toplevel.set_fullscreen',
+              ]),
+              _tableDataRow(<String>[
+                'maximized',
+                'normal',
+                'gtk_window_unmaximize()',
+                'xdg_toplevel.unset_maximized',
+              ]),
+              _tableDataRow(<String>[
+                'fullscreen',
+                'normal',
+                'gtk_window_unfullscreen()',
+                'xdg_toplevel.unset_fullscreen',
+              ]),
+              _tableDataRow(<String>[
+                'minimized',
+                'normal',
+                'gtk_window_present()',
+                'app-driven deiconify',
+              ]),
             ],
           ),
         ],
@@ -1453,28 +1781,40 @@ class _StateMachineTab extends StatelessWidget {
 
   String _stateBadge(_WinState s) {
     switch (s) {
-      case _WinState.normal: return 'NORMAL';
-      case _WinState.minimized: return 'MIN';
-      case _WinState.maximized: return 'MAX';
-      case _WinState.fullscreen: return 'FULL';
+      case _WinState.normal:
+        return 'NORMAL';
+      case _WinState.minimized:
+        return 'MIN';
+      case _WinState.maximized:
+        return 'MAX';
+      case _WinState.fullscreen:
+        return 'FULL';
     }
   }
 
   Color _stateColor(_WinState s) {
     switch (s) {
-      case _WinState.normal: return _kOk;
-      case _WinState.minimized: return _kAmber;
-      case _WinState.maximized: return _kBlue;
-      case _WinState.fullscreen: return _kBad;
+      case _WinState.normal:
+        return _kOk;
+      case _WinState.minimized:
+        return _kAmber;
+      case _WinState.maximized:
+        return _kBlue;
+      case _WinState.fullscreen:
+        return _kBad;
     }
   }
 
   String _stateLabel(_WinState s) {
     switch (s) {
-      case _WinState.normal: return 'Normal';
-      case _WinState.minimized: return 'Minimized';
-      case _WinState.maximized: return 'Maximized';
-      case _WinState.fullscreen: return 'Fullscreen';
+      case _WinState.normal:
+        return 'Normal';
+      case _WinState.minimized:
+        return 'Minimized';
+      case _WinState.maximized:
+        return 'Maximized';
+      case _WinState.fullscreen:
+        return 'Fullscreen';
     }
   }
 
@@ -1497,10 +1837,14 @@ class _StateMachineTab extends StatelessWidget {
 
   String _stateGtkCall(_WinState s) {
     switch (s) {
-      case _WinState.normal: return 'gtk_window_present(window)';
-      case _WinState.minimized: return 'gtk_window_iconify(window)';
-      case _WinState.maximized: return 'gtk_window_maximize(window)';
-      case _WinState.fullscreen: return 'gtk_window_fullscreen(window)';
+      case _WinState.normal:
+        return 'gtk_window_present(window)';
+      case _WinState.minimized:
+        return 'gtk_window_iconify(window)';
+      case _WinState.maximized:
+        return 'gtk_window_maximize(window)';
+      case _WinState.fullscreen:
+        return 'gtk_window_fullscreen(window)';
     }
   }
 }
@@ -1551,11 +1895,22 @@ class _StateMachinePainter extends CustomPainter {
     centers.forEach((String name, Offset center) {
       final Color col = stateColors[name]!;
       canvas.drawCircle(center, 26, Paint()..color = col.withAlpha(28));
-      canvas.drawCircle(center, 26, Paint()..color = col..style = PaintingStyle.stroke..strokeWidth = 2);
+      canvas.drawCircle(
+        center,
+        26,
+        Paint()
+          ..color = col
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 2,
+      );
       final TextPainter tp = TextPainter(
         text: TextSpan(
           text: name,
-          style: TextStyle(color: col, fontSize: 10, fontWeight: FontWeight.w700),
+          style: TextStyle(
+            color: col,
+            fontSize: 10,
+            fontWeight: FontWeight.w700,
+          ),
         ),
         textDirection: TextDirection.ltr,
         textAlign: TextAlign.center,
@@ -1602,33 +1957,37 @@ class _DecorationsTab extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Expanded(child: _DecorationCard(
-          title: 'CSD (Client-Side)',
-          color: _kAccentDark,
-          icon: Icons.widgets_outlined,
-          points: const <String>[
-            'App draws its own title bar',
-            'GtkHeaderBar widget',
-            'Full visual control',
-            'Shadows drawn in-process',
-            'Default in GTK 3+',
-            'GNOME standard',
-          ],
-        )),
+        Expanded(
+          child: _DecorationCard(
+            title: 'CSD (Client-Side)',
+            color: _kAccentDark,
+            icon: Icons.widgets_outlined,
+            points: const <String>[
+              'App draws its own title bar',
+              'GtkHeaderBar widget',
+              'Full visual control',
+              'Shadows drawn in-process',
+              'Default in GTK 3+',
+              'GNOME standard',
+            ],
+          ),
+        ),
         const SizedBox(width: 12),
-        Expanded(child: _DecorationCard(
-          title: 'SSD (Server-Side)',
-          color: _kBlue,
-          icon: Icons.window_outlined,
-          points: const <String>[
-            'WM draws frame + title bar',
-            'gtk_window_set_decorated(TRUE)',
-            'WM controls appearance',
-            'Traditional X11 style',
-            'More consistent on KDE',
-            'Lower app complexity',
-          ],
-        )),
+        Expanded(
+          child: _DecorationCard(
+            title: 'SSD (Server-Side)',
+            color: _kBlue,
+            icon: Icons.window_outlined,
+            points: const <String>[
+              'WM draws frame + title bar',
+              'gtk_window_set_decorated(TRUE)',
+              'WM controls appearance',
+              'Traditional X11 style',
+              'More consistent on KDE',
+              'Lower app complexity',
+            ],
+          ),
+        ),
       ],
     );
   }
@@ -1691,14 +2050,26 @@ class _DecorationsTab extends StatelessWidget {
         children: <Widget>[
           const _SectionHeader('When to Use Each'),
           const SizedBox(height: 6),
-          _DecisionRow(Icons.check_circle_outline, _kOk, 'Use CSD',
-              'Building a GNOME-targeted app, need custom title bar widgets, using libadwaita aesthetic'),
+          _DecisionRow(
+            Icons.check_circle_outline,
+            _kOk,
+            'Use CSD',
+            'Building a GNOME-targeted app, need custom title bar widgets, using libadwaita aesthetic',
+          ),
           const SizedBox(height: 6),
-          _DecisionRow(Icons.check_circle_outline, _kBlue, 'Use SSD',
-              'Cross-desktop app that must look native on KDE/XFCE/Cinnamon, or when targeting older GTK2 toolkits'),
+          _DecisionRow(
+            Icons.check_circle_outline,
+            _kBlue,
+            'Use SSD',
+            'Cross-desktop app that must look native on KDE/XFCE/Cinnamon, or when targeting older GTK2 toolkits',
+          ),
           const SizedBox(height: 6),
-          _DecisionRow(Icons.warning_amber_outlined, _kAmber, 'Mixed',
-              'Wayland compositors may override; some window managers ignore gtk_window_set_titlebar on non-GNOME desktops'),
+          _DecisionRow(
+            Icons.warning_amber_outlined,
+            _kAmber,
+            'Mixed',
+            'Wayland compositors may override; some window managers ignore gtk_window_set_titlebar on non-GNOME desktops',
+          ),
         ],
       ),
     );
@@ -1709,7 +2080,9 @@ class _DecorationsTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const _SectionHeader('Flutter → RegularWindowControllerLinux API sketch'),
+          const _SectionHeader(
+            'Flutter → RegularWindowControllerLinux API sketch',
+          ),
           _CodeBlock(
             '// Hypothetical Dart-side API (educational reference)\n'
             'final controller = RegularWindowControllerLinux.of(context);\n'
@@ -1770,7 +2143,11 @@ class _DecorationCard extends StatelessWidget {
               const SizedBox(width: 6),
               Text(
                 title,
-                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: color),
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                  color: color,
+                ),
               ),
             ],
           ),
@@ -1781,9 +2158,19 @@ class _DecorationCard extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('• ', style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w700)),
+                  Text(
+                    '• ',
+                    style: TextStyle(
+                      color: color,
+                      fontSize: 11,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                   Expanded(
-                    child: Text(p, style: const TextStyle(fontSize: 11, color: _kInk)),
+                    child: Text(
+                      p,
+                      style: const TextStyle(fontSize: 11, color: _kInk),
+                    ),
                   ),
                 ],
               ),
@@ -1811,10 +2198,20 @@ class _DecisionRow extends StatelessWidget {
         const SizedBox(width: 8),
         SizedBox(
           width: 80,
-          child: Text(label, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: color)),
+          child: Text(
+            label,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+              color: color,
+            ),
+          ),
         ),
         Expanded(
-          child: Text(desc, style: const TextStyle(fontSize: 11, color: _kInk, height: 1.4)),
+          child: Text(
+            desc,
+            style: const TextStyle(fontSize: 11, color: _kInk, height: 1.4),
+          ),
         ),
       ],
     );
@@ -1834,7 +2231,8 @@ class _DbusTab extends StatelessWidget {
       children: <Widget>[
         const _SectionHeader(
           'D-Bus Integration',
-          subtitle: 'How Flutter communicates with Linux window managers via D-Bus and GTK',
+          subtitle:
+              'How Flutter communicates with Linux window managers via D-Bus and GTK',
         ),
         const SizedBox(height: 12),
         _buildDbusOverview(),
@@ -1936,12 +2334,30 @@ class _DbusTab extends StatelessWidget {
       border: TableBorder.all(color: _kBorder, width: 0.5),
       children: <TableRow>[
         _tableHeaderRow(<String>['Portal Interface', 'Purpose']),
-        _tableDataRow(<String>['org.freedesktop.portal.FileChooser', 'Native open/save file dialogs']),
-        _tableDataRow(<String>['org.freedesktop.portal.Screenshot', 'Screen capture with permission']),
-        _tableDataRow(<String>['org.freedesktop.portal.Inhibit', 'Prevent screen saver / sleep']),
-        _tableDataRow(<String>['org.freedesktop.portal.Notification', 'Desktop notifications']),
-        _tableDataRow(<String>['org.freedesktop.portal.OpenURI', 'Open URLs / files externally']),
-        _tableDataRow(<String>['org.freedesktop.portal.Settings', 'Read desktop theme/accent color']),
+        _tableDataRow(<String>[
+          'org.freedesktop.portal.FileChooser',
+          'Native open/save file dialogs',
+        ]),
+        _tableDataRow(<String>[
+          'org.freedesktop.portal.Screenshot',
+          'Screen capture with permission',
+        ]),
+        _tableDataRow(<String>[
+          'org.freedesktop.portal.Inhibit',
+          'Prevent screen saver / sleep',
+        ]),
+        _tableDataRow(<String>[
+          'org.freedesktop.portal.Notification',
+          'Desktop notifications',
+        ]),
+        _tableDataRow(<String>[
+          'org.freedesktop.portal.OpenURI',
+          'Open URLs / files externally',
+        ]),
+        _tableDataRow(<String>[
+          'org.freedesktop.portal.Settings',
+          'Read desktop theme/accent color',
+        ]),
       ],
     );
   }
@@ -1989,7 +2405,11 @@ class _DbusTab extends StatelessWidget {
                   const Expanded(
                     child: Text(
                       'Show full D-Bus message trace',
-                      style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: _kInk),
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                        color: _kInk,
+                      ),
                     ),
                   ),
                   Switch(
@@ -2123,7 +2543,11 @@ class _MultiWindowTab extends StatelessWidget {
           children: <Widget>[
             const Text(
               'Simulated window switcher:',
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: _kInk),
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                color: _kInk,
+              ),
             ),
             const SizedBox(height: 8),
             Row(
@@ -2139,10 +2563,16 @@ class _MultiWindowTab extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: sel ? _kAccentDark : _kSurfaceAlt,
                         borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: sel ? _kAccentDark : _kBorder),
+                        border: Border.all(
+                          color: sel ? _kAccentDark : _kBorder,
+                        ),
                         boxShadow: sel
                             ? const <BoxShadow>[
-                                BoxShadow(color: Color(0x331A5A18), blurRadius: 6, offset: Offset(0, 2)),
+                                BoxShadow(
+                                  color: Color(0x331A5A18),
+                                  blurRadius: 6,
+                                  offset: Offset(0, 2),
+                                ),
                               ]
                             : null,
                       ),
@@ -2211,7 +2641,11 @@ class _MultiWindowTab extends StatelessWidget {
         children: <Widget>[
           Text(
             d['title']!,
-            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: _kAccentDark),
+            style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w700,
+              color: _kAccentDark,
+            ),
           ),
           const SizedBox(height: 8),
           _KVRow('FlutterView', d['view']!),
@@ -2290,7 +2724,11 @@ class _PropPill extends StatelessWidget {
       ),
       child: Text(
         label,
-        style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: color),
+        style: TextStyle(
+          fontSize: 10,
+          fontWeight: FontWeight.w700,
+          color: color,
+        ),
       ),
     );
   }
@@ -2322,7 +2760,11 @@ class _KVRow extends StatelessWidget {
           Expanded(
             child: Text(
               value,
-              style: const TextStyle(fontFamily: 'monospace', fontSize: 11, color: _kInk),
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 11,
+                color: _kInk,
+              ),
             ),
           ),
         ],
@@ -2337,39 +2779,107 @@ class _MultiWindowPainter extends CustomPainter {
     final double w = size.width;
     final double h = size.height;
 
-    void labeledBox(double x, double y, double bw, double bh, String label, Color col) {
+    void labeledBox(
+      double x,
+      double y,
+      double bw,
+      double bh,
+      String label,
+      Color col,
+    ) {
       final Rect r = Rect.fromLTWH(x, y, bw, bh);
       final RRect rr = RRect.fromRectAndRadius(r, const Radius.circular(6));
       canvas.drawRRect(rr, Paint()..color = col.withAlpha(22));
-      canvas.drawRRect(rr, Paint()..color = col..style = PaintingStyle.stroke..strokeWidth = 1.2);
+      canvas.drawRRect(
+        rr,
+        Paint()
+          ..color = col
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 1.2,
+      );
       final TextPainter tp = TextPainter(
         text: TextSpan(
           text: label,
-          style: TextStyle(color: col, fontSize: 9, fontWeight: FontWeight.w700),
+          style: TextStyle(
+            color: col,
+            fontSize: 9,
+            fontWeight: FontWeight.w700,
+          ),
         ),
         textDirection: TextDirection.ltr,
         textAlign: TextAlign.center,
       );
       tp.layout(maxWidth: bw - 8);
-      tp.paint(canvas, Offset(x + (bw - tp.width) / 2, y + (bh - tp.height) / 2));
+      tp.paint(
+        canvas,
+        Offset(x + (bw - tp.width) / 2, y + (bh - tp.height) / 2),
+      );
     }
 
     void line(Offset a, Offset b) {
-      canvas.drawLine(a, b, Paint()..color = _kBorder..strokeWidth = 1);
+      canvas.drawLine(
+        a,
+        b,
+        Paint()
+          ..color = _kBorder
+          ..strokeWidth = 1,
+      );
     }
 
     // Dart isolate box
-    labeledBox(w * 0.1, h * 0.05, w * 0.8, h * 0.2, 'Dart Isolate\n(Single Flutter Engine)', _kAccentDark);
+    labeledBox(
+      w * 0.1,
+      h * 0.05,
+      w * 0.8,
+      h * 0.2,
+      'Dart Isolate\n(Single Flutter Engine)',
+      _kAccentDark,
+    );
 
     // Three controllers
     labeledBox(0, h * 0.45, w * 0.28, h * 0.18, 'RWC\nLinux #0', _kAccentDark);
-    labeledBox(w * 0.36, h * 0.45, w * 0.28, h * 0.18, 'RWC\nLinux #1', _kAccentDark);
-    labeledBox(w * 0.72, h * 0.45, w * 0.28, h * 0.18, 'RWC\nLinux #2', _kAccentDark);
+    labeledBox(
+      w * 0.36,
+      h * 0.45,
+      w * 0.28,
+      h * 0.18,
+      'RWC\nLinux #1',
+      _kAccentDark,
+    );
+    labeledBox(
+      w * 0.72,
+      h * 0.45,
+      w * 0.28,
+      h * 0.18,
+      'RWC\nLinux #2',
+      _kAccentDark,
+    );
 
     // GTK boxes
-    labeledBox(0, h * 0.75, w * 0.28, h * 0.18, 'GtkWindow #0', const Color(0xFF660077));
-    labeledBox(w * 0.36, h * 0.75, w * 0.28, h * 0.18, 'GtkWindow #1', const Color(0xFF660077));
-    labeledBox(w * 0.72, h * 0.75, w * 0.28, h * 0.18, 'GtkWindow #2', const Color(0xFF660077));
+    labeledBox(
+      0,
+      h * 0.75,
+      w * 0.28,
+      h * 0.18,
+      'GtkWindow #0',
+      const Color(0xFF660077),
+    );
+    labeledBox(
+      w * 0.36,
+      h * 0.75,
+      w * 0.28,
+      h * 0.18,
+      'GtkWindow #1',
+      const Color(0xFF660077),
+    );
+    labeledBox(
+      w * 0.72,
+      h * 0.75,
+      w * 0.28,
+      h * 0.18,
+      'GtkWindow #2',
+      const Color(0xFF660077),
+    );
 
     // Lines from isolate to controllers
     line(Offset(w * 0.14, h * 0.25), Offset(w * 0.14, h * 0.45));
@@ -2430,11 +2940,17 @@ class _WmCompareTab extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: sel ? _wmColor(type) : _kSurfaceAlt,
                       borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: sel ? _wmColor(type) : _kBorder),
+                      border: Border.all(
+                        color: sel ? _wmColor(type) : _kBorder,
+                      ),
                     ),
                     child: Column(
                       children: <Widget>[
-                        Icon(_wmIcon(type), size: 22, color: sel ? Colors.white : _kChrome),
+                        Icon(
+                          _wmIcon(type),
+                          size: 22,
+                          color: sel ? Colors.white : _kChrome,
+                        ),
                         const SizedBox(height: 4),
                         Text(
                           _wmLabel(type),
@@ -2477,19 +2993,28 @@ class _WmCompareTab extends StatelessWidget {
                   const SizedBox(width: 8),
                   Text(
                     _wmFullName(wm),
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: col),
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w800,
+                      color: col,
+                    ),
                   ),
                   const Spacer(),
                   _LabelBadge(_wmProtocol(wm), color: col),
                 ],
               ),
               const SizedBox(height: 10),
-              Text(_wmDesc(wm), style: const TextStyle(fontSize: 12, color: _kInk, height: 1.5)),
+              Text(
+                _wmDesc(wm),
+                style: const TextStyle(fontSize: 12, color: _kInk, height: 1.5),
+              ),
               const SizedBox(height: 10),
               Wrap(
                 spacing: 6,
                 runSpacing: 4,
-                children: _wmTraits(wm).map((String t) => _LabelBadge(t, color: col)).toList(),
+                children: _wmTraits(
+                  wm,
+                ).map((String t) => _LabelBadge(t, color: col)).toList(),
               ),
             ],
           ),
@@ -2514,14 +3039,54 @@ class _WmCompareTab extends StatelessWidget {
             },
             border: TableBorder.all(color: _kBorder, width: 0.5),
             children: <TableRow>[
-              _tableHeaderRow(<String>['Feature', 'GNOME / Mutter', 'KDE / KWin', 'Weston']),
-              _tableDataRow(<String>['Protocol', 'Wayland + XWayland', 'Wayland + X11', 'Wayland only']),
-              _tableDataRow(<String>['Decoration', 'CSD preferred', 'SSD preferred', 'CSD only']),
-              _tableDataRow(<String>['Tiling', 'Manual/extension', 'Built-in (KWin)', 'None']),
-              _tableDataRow(<String>['HiDPI', 'Fractional (1.25×)', 'Fractional scaling', 'Integer only']),
-              _tableDataRow(<String>['Animations', 'Mutter effects', 'KWin effects', 'Minimal']),
-              _tableDataRow(<String>['D-Bus WM API', 'org.gnome.*', 'org.kde.*', 'Limited']),
-              _tableDataRow(<String>['Snap/Flatpak', 'Full support', 'Full support', 'Partial']),
+              _tableHeaderRow(<String>[
+                'Feature',
+                'GNOME / Mutter',
+                'KDE / KWin',
+                'Weston',
+              ]),
+              _tableDataRow(<String>[
+                'Protocol',
+                'Wayland + XWayland',
+                'Wayland + X11',
+                'Wayland only',
+              ]),
+              _tableDataRow(<String>[
+                'Decoration',
+                'CSD preferred',
+                'SSD preferred',
+                'CSD only',
+              ]),
+              _tableDataRow(<String>[
+                'Tiling',
+                'Manual/extension',
+                'Built-in (KWin)',
+                'None',
+              ]),
+              _tableDataRow(<String>[
+                'HiDPI',
+                'Fractional (1.25×)',
+                'Fractional scaling',
+                'Integer only',
+              ]),
+              _tableDataRow(<String>[
+                'Animations',
+                'Mutter effects',
+                'KWin effects',
+                'Minimal',
+              ]),
+              _tableDataRow(<String>[
+                'D-Bus WM API',
+                'org.gnome.*',
+                'org.kde.*',
+                'Limited',
+              ]),
+              _tableDataRow(<String>[
+                'Snap/Flatpak',
+                'Full support',
+                'Full support',
+                'Partial',
+              ]),
             ],
           ),
         ],
@@ -2552,41 +3117,56 @@ class _WmCompareTab extends StatelessWidget {
 
   Color _wmColor(_WmType wm) {
     switch (wm) {
-      case _WmType.gnome: return _kAccentDark;
-      case _WmType.kde: return _kBlue;
-      case _WmType.weston: return const Color(0xFF664400);
+      case _WmType.gnome:
+        return _kAccentDark;
+      case _WmType.kde:
+        return _kBlue;
+      case _WmType.weston:
+        return const Color(0xFF664400);
     }
   }
 
   IconData _wmIcon(_WmType wm) {
     switch (wm) {
-      case _WmType.gnome: return Icons.desktop_mac_outlined;
-      case _WmType.kde: return Icons.desktop_windows_outlined;
-      case _WmType.weston: return Icons.computer_outlined;
+      case _WmType.gnome:
+        return Icons.desktop_mac_outlined;
+      case _WmType.kde:
+        return Icons.desktop_windows_outlined;
+      case _WmType.weston:
+        return Icons.computer_outlined;
     }
   }
 
   String _wmLabel(_WmType wm) {
     switch (wm) {
-      case _WmType.gnome: return 'GNOME';
-      case _WmType.kde: return 'KDE';
-      case _WmType.weston: return 'Weston';
+      case _WmType.gnome:
+        return 'GNOME';
+      case _WmType.kde:
+        return 'KDE';
+      case _WmType.weston:
+        return 'Weston';
     }
   }
 
   String _wmFullName(_WmType wm) {
     switch (wm) {
-      case _WmType.gnome: return 'GNOME Shell + Mutter';
-      case _WmType.kde: return 'KDE Plasma + KWin';
-      case _WmType.weston: return 'Weston (Reference Compositor)';
+      case _WmType.gnome:
+        return 'GNOME Shell + Mutter';
+      case _WmType.kde:
+        return 'KDE Plasma + KWin';
+      case _WmType.weston:
+        return 'Weston (Reference Compositor)';
     }
   }
 
   String _wmProtocol(_WmType wm) {
     switch (wm) {
-      case _WmType.gnome: return 'Wayland + XWayland';
-      case _WmType.kde: return 'Wayland + X11';
-      case _WmType.weston: return 'Wayland only';
+      case _WmType.gnome:
+        return 'Wayland + XWayland';
+      case _WmType.kde:
+        return 'Wayland + X11';
+      case _WmType.weston:
+        return 'Wayland only';
     }
   }
 
@@ -2610,11 +3190,29 @@ class _WmCompareTab extends StatelessWidget {
   List<String> _wmTraits(_WmType wm) {
     switch (wm) {
       case _WmType.gnome:
-        return <String>['libadwaita', 'Mutter compositor', 'xdg-toplevel', 'GSD plugins', 'GNOME extensions'];
+        return <String>[
+          'libadwaita',
+          'Mutter compositor',
+          'xdg-toplevel',
+          'GSD plugins',
+          'GNOME extensions',
+        ];
       case _WmType.kde:
-        return <String>['Plasma widgets', 'KWin scripts', 'Breeze theme', 'KIO integration', 'systemd scope'];
+        return <String>[
+          'Plasma widgets',
+          'KWin scripts',
+          'Breeze theme',
+          'KIO integration',
+          'systemd scope',
+        ];
       case _WmType.weston:
-        return <String>['Reference impl', 'Minimal IPC', 'No XWayland', 'Embedded use', 'Libinput'];
+        return <String>[
+          'Reference impl',
+          'Minimal IPC',
+          'No XWayland',
+          'Embedded use',
+          'Libinput',
+        ];
     }
   }
 }
@@ -2634,7 +3232,10 @@ class _FeatureMatrixRow extends StatelessWidget {
         children: <Widget>[
           Expanded(
             flex: 3,
-            child: Text(feature, style: const TextStyle(fontSize: 11, color: _kInk)),
+            child: Text(
+              feature,
+              style: const TextStyle(fontSize: 11, color: _kInk),
+            ),
           ),
           _StatusDot(gnome),
           const SizedBox(width: 22),
@@ -2704,7 +3305,8 @@ class _PitfallsApiTab extends StatelessWidget {
             icon: Icons.warning_amber,
             color: _kAmber,
             title: 'Linux-only APIs',
-            body: 'RegularWindowControllerLinux is a Linux-only class. Always guard usage with '
+            body:
+                'RegularWindowControllerLinux is a Linux-only class. Always guard usage with '
                 '`Platform.isLinux` or use the abstract RegularWindowController interface to keep '
                 'code portable across macOS/Windows.',
           ),
@@ -2713,7 +3315,8 @@ class _PitfallsApiTab extends StatelessWidget {
             icon: Icons.bug_report_outlined,
             color: _kBad,
             title: 'X11 XID vs Wayland surface',
-            body: 'x11WindowId returns null under Wayland. waylandSurfaceId returns null under X11. '
+            body:
+                'x11WindowId returns null under Wayland. waylandSurfaceId returns null under X11. '
                 'Always check which backend is active before using surface identifiers for native '
                 'window operations (e.g., passing to external window embedding APIs).',
           ),
@@ -2722,7 +3325,8 @@ class _PitfallsApiTab extends StatelessWidget {
             icon: Icons.layers_outlined,
             color: _kBlue,
             title: 'Decoration flicker on GNOME',
-            body: 'CSD decoration can flicker on first render if the GtkHeaderBar is configured after '
+            body:
+                'CSD decoration can flicker on first render if the GtkHeaderBar is configured after '
                 'the window is shown. Always configure decorations before calling gtk_widget_show_all().',
           ),
           const SizedBox(height: 8),
@@ -2730,7 +3334,8 @@ class _PitfallsApiTab extends StatelessWidget {
             icon: Icons.zoom_out_map,
             color: _kRed,
             title: 'Fractional HiDPI and pixel snapping',
-            body: 'At 125% scaling, flutter renders at logical scale but GTK rounds window geometry to '
+            body:
+                'At 125% scaling, flutter renders at logical scale but GTK rounds window geometry to '
                 'physical pixels. This can cause 1px misalignments in window borders. Use '
                 'GDK_SCALE + GDK_DPI_SCALE to control the rendering scale precisely.',
           ),
@@ -2774,12 +3379,36 @@ class _PitfallsApiTab extends StatelessWidget {
             border: TableBorder.all(color: _kBorder, width: 0.5),
             children: <TableRow>[
               _tableHeaderRow(<String>['Capability', 'X11', 'Wayland']),
-              _tableDataRow(<String>['Window positioning', 'Exact (setPosition)', 'Hint only']),
-              _tableDataRow(<String>['Global hotkeys', 'Always work', 'Portal required']),
-              _tableDataRow(<String>['Screenshot', 'Direct capture', 'Portal mediated']),
-              _tableDataRow(<String>['XID access', 'Always available', 'N/A (wl_surface)']),
-              _tableDataRow(<String>['Popup placement', 'Explicit coords', 'xdg-positioner']),
-              _tableDataRow(<String>['Clipboard access', 'Direct Xlib', 'wl-clipboard proto']),
+              _tableDataRow(<String>[
+                'Window positioning',
+                'Exact (setPosition)',
+                'Hint only',
+              ]),
+              _tableDataRow(<String>[
+                'Global hotkeys',
+                'Always work',
+                'Portal required',
+              ]),
+              _tableDataRow(<String>[
+                'Screenshot',
+                'Direct capture',
+                'Portal mediated',
+              ]),
+              _tableDataRow(<String>[
+                'XID access',
+                'Always available',
+                'N/A (wl_surface)',
+              ]),
+              _tableDataRow(<String>[
+                'Popup placement',
+                'Explicit coords',
+                'xdg-positioner',
+              ]),
+              _tableDataRow(<String>[
+                'Clipboard access',
+                'Direct Xlib',
+                'wl-clipboard proto',
+              ]),
             ],
           ),
         ],
@@ -2798,7 +3427,8 @@ class _PitfallsApiTab extends StatelessWidget {
             icon: Icons.lock_outline,
             color: const Color(0xFF665500),
             title: 'Flatpak filesystem isolation',
-            body: 'Flatpak sandboxes restrict file system access. Use the '
+            body:
+                'Flatpak sandboxes restrict file system access. Use the '
                 'org.freedesktop.portal.FileChooser portal for file picking. '
                 'Direct access to /home or /run/user is limited by the sandbox policy.',
           ),
@@ -2807,7 +3437,8 @@ class _PitfallsApiTab extends StatelessWidget {
             icon: Icons.security_outlined,
             color: const Color(0xFF665500),
             title: 'Snap confinement and D-Bus',
-            body: 'Snap packages in strict confinement cannot send arbitrary D-Bus messages. '
+            body:
+                'Snap packages in strict confinement cannot send arbitrary D-Bus messages. '
                 'The snap interface "desktop" provides limited access to xdg-desktop-portal. '
                 'Window manager APIs via org.gnome.Shell or org.kde.KWin are typically blocked.',
           ),
@@ -2816,7 +3447,8 @@ class _PitfallsApiTab extends StatelessWidget {
             icon: Icons.devices_other_outlined,
             color: _kBlue,
             title: 'Wayland socket access in containers',
-            body: 'If running Flutter in a container (Docker, systemd-nspawn), ensure '
+            body:
+                'If running Flutter in a container (Docker, systemd-nspawn), ensure '
                 'WAYLAND_DISPLAY is set and the socket is bind-mounted. Without --device wayland, '
                 'the GTK backend cannot connect and falls back to X11 (if available).',
           ),
@@ -2832,7 +3464,8 @@ class _PitfallsApiTab extends StatelessWidget {
         children: <Widget>[
           const _SectionHeader(
             'RegularWindowControllerLinux API Reference',
-            subtitle: 'Educational reference — adapt to actual platform channel API',
+            subtitle:
+                'Educational reference — adapt to actual platform channel API',
           ),
           const SizedBox(height: 8),
           _CodeBlock(
@@ -2918,7 +3551,11 @@ class _PitfallsApiTab extends StatelessWidget {
       },
       border: TableBorder.all(color: _kBorder, width: 0.5),
       children: <TableRow>[
-        _tableHeaderRow(<String>['Scale', 'GDK_SCALE', 'Flutter devicePixelRatio']),
+        _tableHeaderRow(<String>[
+          'Scale',
+          'GDK_SCALE',
+          'Flutter devicePixelRatio',
+        ]),
         _tableDataRow(<String>['100%', '1', '1.0']),
         _tableDataRow(<String>['125%', '1 + DPI', '1.25 (fractional)']),
         _tableDataRow(<String>['150%', '1 + DPI', '1.5 (fractional)']),
@@ -2951,13 +3588,27 @@ class _PitfallsApiTab extends StatelessWidget {
             ),
           ),
           SizedBox(height: 10),
-          _SummaryBullet('RegularWindowControllerLinux wraps a GtkApplicationWindow per FlutterView'),
-          _SummaryBullet('CSD (GtkHeaderBar) is the GNOME default; SSD needed for KDE parity'),
-          _SummaryBullet('D-Bus portals are the safe cross-WM / cross-sandbox IPC path'),
-          _SummaryBullet('Wayland restricts window positioning — design around compositor control'),
-          _SummaryBullet('Multi-window (Flutter 3.22+) shares one Dart isolate across all views'),
-          _SummaryBullet('Always guard Linux-specific code with Platform.isLinux checks'),
-          _SummaryBullet('HiDPI fractional scaling requires GNOME experimental or integer GDK_SCALE'),
+          _SummaryBullet(
+            'RegularWindowControllerLinux wraps a GtkApplicationWindow per FlutterView',
+          ),
+          _SummaryBullet(
+            'CSD (GtkHeaderBar) is the GNOME default; SSD needed for KDE parity',
+          ),
+          _SummaryBullet(
+            'D-Bus portals are the safe cross-WM / cross-sandbox IPC path',
+          ),
+          _SummaryBullet(
+            'Wayland restricts window positioning — design around compositor control',
+          ),
+          _SummaryBullet(
+            'Multi-window (Flutter 3.22+) shares one Dart isolate across all views',
+          ),
+          _SummaryBullet(
+            'Always guard Linux-specific code with Platform.isLinux checks',
+          ),
+          _SummaryBullet(
+            'HiDPI fractional scaling requires GNOME experimental or integer GDK_SCALE',
+          ),
         ],
       ),
     );
@@ -2994,9 +3645,23 @@ class _PitfallCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(title, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: color)),
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                    color: color,
+                  ),
+                ),
                 const SizedBox(height: 3),
-                Text(body, style: const TextStyle(fontSize: 11, color: _kInk, height: 1.45)),
+                Text(
+                  body,
+                  style: const TextStyle(
+                    fontSize: 11,
+                    color: _kInk,
+                    height: 1.45,
+                  ),
+                ),
               ],
             ),
           ),
@@ -3017,11 +3682,22 @@ class _SummaryBullet extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text('→  ', style: TextStyle(color: Color(0xFF9FFFAF), fontSize: 12, fontWeight: FontWeight.w700)),
+          const Text(
+            '→  ',
+            style: TextStyle(
+              color: Color(0xFF9FFFAF),
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
           Expanded(
             child: Text(
               text,
-              style: const TextStyle(color: Color(0xFFDDEEDD), fontSize: 12, height: 1.4),
+              style: const TextStyle(
+                color: Color(0xFFDDEEDD),
+                fontSize: 12,
+                height: 1.4,
+              ),
             ),
           ),
         ],

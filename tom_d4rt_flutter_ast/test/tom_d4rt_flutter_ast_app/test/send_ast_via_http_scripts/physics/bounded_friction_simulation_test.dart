@@ -51,24 +51,24 @@ import 'package:flutter/physics.dart';
 // glacier-and-citrus concept.  We define more than ten palette colors so that
 // every section can find a coherent contrast pair.
 
-const Color kGlacierAbyss     = Color(0xFF06243A); // deep crevasse blue
-const Color kGlacierMidnight  = Color(0xFF0D3A5C); // mid-depth ice
-const Color kGlacierDeep      = Color(0xFF14507E); // structural blue
-const Color kGlacierFrost     = Color(0xFF4F8FB8); // sun-on-ice
-const Color kGlacierMist      = Color(0xFFAFD3E6); // distant haze
-const Color kCitrusZest       = Color(0xFFFFC857); // candied lemon
-const Color kCitrusRind       = Color(0xFFE8A33C); // orange peel
-const Color kCitrusBlossom    = Color(0xFFFFE6A1); // pale flower
-const Color kCitrusEmber      = Color(0xFFE3692A); // burnt orange
-const Color kCitrusMandarin   = Color(0xFFF39237); // mandarin
-const Color kSnowfield        = Color(0xFFF6F9FC); // background paper
-const Color kSnowEdge         = Color(0xFFD9E3EC); // subtle border
-const Color kInkPrimary       = Color(0xFF11202E); // primary text
-const Color kInkSecondary     = Color(0xFF445566); // secondary text
-const Color kInkMuted         = Color(0xFF7F8C99); // muted text
-const Color kAccentLime       = Color(0xFFCBE36B); // surprise lime
-const Color kAccentTeal       = Color(0xFF21808D); // mid teal
-const Color kAccentBerry      = Color(0xFF8E2C5B); // sour berry
+const Color kGlacierAbyss = Color(0xFF06243A); // deep crevasse blue
+const Color kGlacierMidnight = Color(0xFF0D3A5C); // mid-depth ice
+const Color kGlacierDeep = Color(0xFF14507E); // structural blue
+const Color kGlacierFrost = Color(0xFF4F8FB8); // sun-on-ice
+const Color kGlacierMist = Color(0xFFAFD3E6); // distant haze
+const Color kCitrusZest = Color(0xFFFFC857); // candied lemon
+const Color kCitrusRind = Color(0xFFE8A33C); // orange peel
+const Color kCitrusBlossom = Color(0xFFFFE6A1); // pale flower
+const Color kCitrusEmber = Color(0xFFE3692A); // burnt orange
+const Color kCitrusMandarin = Color(0xFFF39237); // mandarin
+const Color kSnowfield = Color(0xFFF6F9FC); // background paper
+const Color kSnowEdge = Color(0xFFD9E3EC); // subtle border
+const Color kInkPrimary = Color(0xFF11202E); // primary text
+const Color kInkSecondary = Color(0xFF445566); // secondary text
+const Color kInkMuted = Color(0xFF7F8C99); // muted text
+const Color kAccentLime = Color(0xFFCBE36B); // surprise lime
+const Color kAccentTeal = Color(0xFF21808D); // mid teal
+const Color kAccentBerry = Color(0xFF8E2C5B); // sour berry
 
 // ============================================================================
 //                              TEXT STYLES
@@ -189,9 +189,9 @@ dynamic build(BuildContext context) {
 
   final BoundedFrictionSimulation simAlpha = BoundedFrictionSimulation(
     0.135, // drag — typical for scroll views
-    50.0,  // start position
+    50.0, // start position
     220.0, // initial velocity (positive => moving toward maxX)
-    0.0,   // minX
+    0.0, // minX
     300.0, // maxX
   );
   print('  [alpha] drag=0.135 pos=50.0 vel=220.0 bounds=[0, 300]');
@@ -264,26 +264,54 @@ dynamic build(BuildContext context) {
   // which IS allowed in D4rt (only `for-in` over BridgedInstance is banned).
 
   final List<_SimEntry> entries = <_SimEntry>[
-    _SimEntry('alpha',   simAlpha,   'baseline scroll-view friction'),
-    _SimEntry('beta',    simBeta,    'fast launch with generous bounds'),
-    _SimEntry('gamma',   simGamma,   'tight upper bound clamps early'),
-    _SimEntry('delta',   simDelta,   'aggressive drag, quick rest'),
+    _SimEntry('alpha', simAlpha, 'baseline scroll-view friction'),
+    _SimEntry('beta', simBeta, 'fast launch with generous bounds'),
+    _SimEntry('gamma', simGamma, 'tight upper bound clamps early'),
+    _SimEntry('delta', simDelta, 'aggressive drag, quick rest'),
     _SimEntry('epsilon', simEpsilon, 'reverse motion toward minX'),
-    _SimEntry('zeta',    simZeta,    'paper-thin bounds, instant clamp'),
-    _SimEntry('eta',     simEta,     'lazy glide with minimal drag'),
-    _SimEntry('theta',   simTheta,   'overshoots — clamped at upper bound'),
+    _SimEntry('zeta', simZeta, 'paper-thin bounds, instant clamp'),
+    _SimEntry('eta', simEta, 'lazy glide with minimal drag'),
+    _SimEntry('theta', simTheta, 'overshoots — clamped at upper bound'),
   ];
 
   // Sample times we'll use throughout the document.  Six values, but the
   // sampling tables will combine these into 12+ row blocks by interleaving
   // with extra times (see `_extendedTimes`).
 
-  final List<double> sampleTimes = <double>[0.0, 0.05, 0.1, 0.25, 0.5, 1.0, 2.0];
+  final List<double> sampleTimes = <double>[
+    0.0,
+    0.05,
+    0.1,
+    0.25,
+    0.5,
+    1.0,
+    2.0,
+  ];
   final List<double> extendedTimes = <double>[
-    0.0, 0.025, 0.05, 0.075, 0.1, 0.15, 0.25, 0.35, 0.5, 0.75, 1.0, 1.5, 2.0,
+    0.0,
+    0.025,
+    0.05,
+    0.075,
+    0.1,
+    0.15,
+    0.25,
+    0.35,
+    0.5,
+    0.75,
+    1.0,
+    1.5,
+    2.0,
   ];
   final List<double> isDoneTimes = <double>[
-    0.0, 0.1, 0.25, 0.5, 1.0, 2.0, 3.0, 5.0, 10.0,
+    0.0,
+    0.1,
+    0.25,
+    0.5,
+    1.0,
+    2.0,
+    3.0,
+    5.0,
+    10.0,
   ];
 
   print('  Sampling at base times: $sampleTimes');
@@ -293,11 +321,13 @@ dynamic build(BuildContext context) {
 
   // We also do a quick eyeball sanity check on simAlpha so it shows up in the
   // build log even if a section is later collapsed.
-  print('  [alpha] x(0)=${simAlpha.x(0.0).toStringAsFixed(2)} '
-      'x(1)=${simAlpha.x(1.0).toStringAsFixed(2)} '
-      'dx(0)=${simAlpha.dx(0.0).toStringAsFixed(2)} '
-      'dx(1)=${simAlpha.dx(1.0).toStringAsFixed(2)} '
-      'done(2)=${simAlpha.isDone(2.0)}');
+  print(
+    '  [alpha] x(0)=${simAlpha.x(0.0).toStringAsFixed(2)} '
+    'x(1)=${simAlpha.x(1.0).toStringAsFixed(2)} '
+    'dx(0)=${simAlpha.dx(0.0).toStringAsFixed(2)} '
+    'dx(1)=${simAlpha.dx(1.0).toStringAsFixed(2)} '
+    'done(2)=${simAlpha.isDone(2.0)}',
+  );
 
   return Scaffold(
     backgroundColor: kSnowfield,
@@ -572,13 +602,9 @@ Widget _buildProseAnatomy() {
           style: kStyleBody,
         ),
         const SizedBox(height: 10),
-        _formulaBox(
-          'x(t) = x0 + (v0 / ln(d)) * (pow(d, t) - 1)',
-        ),
+        _formulaBox('x(t) = x0 + (v0 / ln(d)) * (pow(d, t) - 1)'),
         const SizedBox(height: 4),
-        _formulaBox(
-          'dx(t) = v0 * pow(d, t)',
-        ),
+        _formulaBox('dx(t) = v0 * pow(d, t)'),
         const SizedBox(height: 12),
         const Text(
           'These two scalar functions tell you where the particle is and how '
@@ -659,16 +685,44 @@ Widget _buildPropertyAnatomy() {
   // Simulation but often forgotten.
 
   final List<List<String>> rows = <List<String>>[
-    <String>['drag', 'double', 'Friction coefficient (0 < d < 1).  Lower = more drag, faster decay.'],
-    <String>['position', 'double', 'Initial position x0 of the particle at t=0.'],
-    <String>['velocity', 'double', 'Initial velocity v0 (signed).  Positive = toward maxX.'],
+    <String>[
+      'drag',
+      'double',
+      'Friction coefficient (0 < d < 1).  Lower = more drag, faster decay.',
+    ],
+    <String>[
+      'position',
+      'double',
+      'Initial position x0 of the particle at t=0.',
+    ],
+    <String>[
+      'velocity',
+      'double',
+      'Initial velocity v0 (signed).  Positive = toward maxX.',
+    ],
     <String>['minX', 'double', 'Lower bound; x(t) is clamped to >= minX.'],
     <String>['maxX', 'double', 'Upper bound; x(t) is clamped to <= maxX.'],
-    <String>['tolerance', 'Tolerance', 'Inherited.  Dictates when isDone returns true.'],
-    <String>['x(time)', 'double Function', 'Returns clamped position at given time.'],
-    <String>['dx(time)', 'double Function', 'Returns velocity at given time (zero past clamp).'],
+    <String>[
+      'tolerance',
+      'Tolerance',
+      'Inherited.  Dictates when isDone returns true.',
+    ],
+    <String>[
+      'x(time)',
+      'double Function',
+      'Returns clamped position at given time.',
+    ],
+    <String>[
+      'dx(time)',
+      'double Function',
+      'Returns velocity at given time (zero past clamp).',
+    ],
     <String>['isDone(time)', 'bool Function', 'True once at rest OR clamped.'],
-    <String>['toString()', 'String Function', 'Debug rendering of the simulation parameters.'],
+    <String>[
+      'toString()',
+      'String Function',
+      'Debug rendering of the simulation parameters.',
+    ],
   ];
 
   return _section(
@@ -706,7 +760,10 @@ Widget _propertyTable(List<List<String>> rows) {
         children: const <Widget>[
           Expanded(flex: 3, child: Text('property', style: kStyleTableHeader)),
           Expanded(flex: 3, child: Text('type', style: kStyleTableHeader)),
-          Expanded(flex: 8, child: Text('description', style: kStyleTableHeader)),
+          Expanded(
+            flex: 8,
+            child: Text('description', style: kStyleTableHeader),
+          ),
         ],
       ),
     ),
@@ -715,29 +772,29 @@ Widget _propertyTable(List<List<String>> rows) {
   for (var i = 0; i < rows.length; i++) {
     final List<String> r = rows[i];
     final bool zebra = i.isOdd;
-    rowWidgets.add(Container(
-      color: zebra ? kSnowEdge.withValues(alpha: 0.45) : kSnowfield,
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 9),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Expanded(
-            flex: 3,
-            child: Text(r[0], style: kStyleMono.copyWith(
-              color: kAccentTeal, fontWeight: FontWeight.w700,
-            )),
-          ),
-          Expanded(
-            flex: 3,
-            child: Text(r[1], style: kStyleMonoLight),
-          ),
-          Expanded(
-            flex: 8,
-            child: Text(r[2], style: kStyleBody),
-          ),
-        ],
+    rowWidgets.add(
+      Container(
+        color: zebra ? kSnowEdge.withValues(alpha: 0.45) : kSnowfield,
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 9),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Expanded(
+              flex: 3,
+              child: Text(
+                r[0],
+                style: kStyleMono.copyWith(
+                  color: kAccentTeal,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+            Expanded(flex: 3, child: Text(r[1], style: kStyleMonoLight)),
+            Expanded(flex: 8, child: Text(r[2], style: kStyleBody)),
+          ],
+        ),
       ),
-    ));
+    );
   }
 
   return Container(
@@ -774,11 +831,7 @@ Widget _buildConstructionGallery(List<_SimEntry> entries) {
           style: kStyleBody,
         ),
         const SizedBox(height: 14),
-        Wrap(
-          spacing: 12,
-          runSpacing: 12,
-          children: cards,
-        ),
+        Wrap(spacing: 12, runSpacing: 12, children: cards),
       ],
     ),
   );
@@ -787,13 +840,13 @@ Widget _buildConstructionGallery(List<_SimEntry> entries) {
 Widget _constructionCard(_SimEntry entry, int index) {
   // We pull a few computed sample values to make the card feel "alive" even
   // though we are not animating anything.  These are still snapshot reads.
-  final double x0   = entry.sim.x(0.0);
+  final double x0 = entry.sim.x(0.0);
   final double xHalf = entry.sim.x(0.5);
   final double xOne = entry.sim.x(1.0);
   final double xRest = entry.sim.x(10.0);
-  final double dx0  = entry.sim.dx(0.0);
+  final double dx0 = entry.sim.dx(0.0);
   final double dxRest = entry.sim.dx(10.0);
-  final bool   doneAt2 = entry.sim.isDone(2.0);
+  final bool doneAt2 = entry.sim.isDone(2.0);
 
   final Color tint = _entryTint(index);
 
@@ -824,10 +877,7 @@ Widget _constructionCard(_SimEntry entry, int index) {
                 color: tint,
                 borderRadius: BorderRadius.circular(4),
               ),
-              child: Text(
-                entry.name.toUpperCase(),
-                style: kStyleBadge,
-              ),
+              child: Text(entry.name.toUpperCase(), style: kStyleBadge),
             ),
             const SizedBox(width: 8),
             Text(
@@ -841,19 +891,19 @@ Widget _constructionCard(_SimEntry entry, int index) {
         const SizedBox(height: 10),
         const Divider(height: 1, color: kSnowEdge),
         const SizedBox(height: 8),
-        _kvRow('drag',     _fmt(_simDrag(entry.name))),
+        _kvRow('drag', _fmt(_simDrag(entry.name))),
         _kvRow('position', _fmt(x0)),
         _kvRow('velocity', _fmt(dx0)),
-        _kvRow('minX',     _fmt(_simMin(entry.name))),
-        _kvRow('maxX',     _fmt(_simMax(entry.name))),
+        _kvRow('minX', _fmt(_simMin(entry.name))),
+        _kvRow('maxX', _fmt(_simMax(entry.name))),
         const SizedBox(height: 8),
         const Divider(height: 1, color: kSnowEdge),
         const SizedBox(height: 8),
-        _kvRow('x(0.5)',   _fmt(xHalf)),
-        _kvRow('x(1.0)',   _fmt(xOne)),
-        _kvRow('x(10.0)',  _fmt(xRest)),
+        _kvRow('x(0.5)', _fmt(xHalf)),
+        _kvRow('x(1.0)', _fmt(xOne)),
+        _kvRow('x(10.0)', _fmt(xRest)),
         _kvRow('dx(10.0)', _fmt(dxRest)),
-        _kvRow('done(2)',  _fmtBool(doneAt2)),
+        _kvRow('done(2)', _fmtBool(doneAt2)),
       ],
     ),
   );
@@ -865,42 +915,66 @@ Widget _constructionCard(_SimEntry entry, int index) {
 
 double _simDrag(String name) {
   switch (name) {
-    case 'alpha':   return 0.135;
-    case 'beta':    return 0.250;
-    case 'gamma':   return 0.075;
-    case 'delta':   return 0.500;
-    case 'epsilon': return 0.135;
-    case 'zeta':    return 0.135;
-    case 'eta':     return 0.020;
-    case 'theta':   return 0.350;
+    case 'alpha':
+      return 0.135;
+    case 'beta':
+      return 0.250;
+    case 'gamma':
+      return 0.075;
+    case 'delta':
+      return 0.500;
+    case 'epsilon':
+      return 0.135;
+    case 'zeta':
+      return 0.135;
+    case 'eta':
+      return 0.020;
+    case 'theta':
+      return 0.350;
   }
   return 0.0;
 }
 
 double _simMin(String name) {
   switch (name) {
-    case 'alpha':   return 0.0;
-    case 'beta':    return 0.0;
-    case 'gamma':   return 0.0;
-    case 'delta':   return 0.0;
-    case 'epsilon': return 0.0;
-    case 'zeta':    return 50.0;
-    case 'eta':     return -200.0;
-    case 'theta':   return -100.0;
+    case 'alpha':
+      return 0.0;
+    case 'beta':
+      return 0.0;
+    case 'gamma':
+      return 0.0;
+    case 'delta':
+      return 0.0;
+    case 'epsilon':
+      return 0.0;
+    case 'zeta':
+      return 50.0;
+    case 'eta':
+      return -200.0;
+    case 'theta':
+      return -100.0;
   }
   return 0.0;
 }
 
 double _simMax(String name) {
   switch (name) {
-    case 'alpha':   return 300.0;
-    case 'beta':    return 600.0;
-    case 'gamma':   return 150.0;
-    case 'delta':   return 1000.0;
-    case 'epsilon': return 500.0;
-    case 'zeta':    return 52.0;
-    case 'eta':     return 200.0;
-    case 'theta':   return 400.0;
+    case 'alpha':
+      return 300.0;
+    case 'beta':
+      return 600.0;
+    case 'gamma':
+      return 150.0;
+    case 'delta':
+      return 1000.0;
+    case 'epsilon':
+      return 500.0;
+    case 'zeta':
+      return 52.0;
+    case 'eta':
+      return 200.0;
+    case 'theta':
+      return 400.0;
   }
   return 0.0;
 }
@@ -924,13 +998,8 @@ Widget _kvRow(String key, String value) {
     padding: const EdgeInsets.symmetric(vertical: 1.5),
     child: Row(
       children: <Widget>[
-        SizedBox(
-          width: 78,
-          child: Text(key, style: kStyleMonoLight),
-        ),
-        Expanded(
-          child: Text(value, style: kStyleMono),
-        ),
+        SizedBox(width: 78, child: Text(key, style: kStyleMonoLight)),
+        Expanded(child: Text(value, style: kStyleMono)),
       ],
     ),
   );
@@ -940,7 +1009,10 @@ Widget _kvRow(String key, String value) {
 //                  SECTION 5 :: POSITION SAMPLING TABLE
 // ============================================================================
 
-Widget _buildPositionSamplingTable(List<_SimEntry> entries, List<double> times) {
+Widget _buildPositionSamplingTable(
+  List<_SimEntry> entries,
+  List<double> times,
+) {
   // We render a single big table with one row per (sim, time) combination so
   // it is easy to scan vertically.  Eight sims × thirteen times = 104 rows —
   // far more than the 12+ minimum requested, and a useful reference itself.
@@ -957,20 +1029,19 @@ Widget _buildPositionSamplingTable(List<_SimEntry> entries, List<double> times) 
       final double dv = e.sim.dx(t);
       final bool done = e.sim.isDone(t);
       final String tag = _positionTag(e, xv, t);
-      rows.add(_tableRow(<String>[
-        e.name,
-        _fmt(t),
-        _fmt(xv),
-        _fmt(dv),
-        _fmtBool(done),
-        tag,
-      ], zebra: (i + j).isOdd));
+      rows.add(
+        _tableRow(<String>[
+          e.name,
+          _fmt(t),
+          _fmt(xv),
+          _fmt(dv),
+          _fmtBool(done),
+          tag,
+        ], zebra: (i + j).isOdd),
+      );
     }
     // A separator between simulations so the human eye does not glaze over.
-    rows.add(Container(
-      height: 1,
-      color: kGlacierDeep.withValues(alpha: 0.18),
-    ));
+    rows.add(Container(height: 1, color: kGlacierDeep.withValues(alpha: 0.18)));
   }
 
   return _section(
@@ -1062,19 +1133,18 @@ Widget _buildVelocityDecayTable(List<_SimEntry> entries, List<double> times) {
       final double mag = dv.abs();
       final String sign = dv == 0.0 ? '0' : (dv > 0 ? '+' : '-');
       final String phase = _velocityPhase(e, t);
-      rows.add(_tableRow(<String>[
-        e.name,
-        _fmt(t),
-        _fmt(dv),
-        _fmt(mag),
-        sign,
-        phase,
-      ], zebra: (i + j).isOdd));
+      rows.add(
+        _tableRow(<String>[
+          e.name,
+          _fmt(t),
+          _fmt(dv),
+          _fmt(mag),
+          sign,
+          phase,
+        ], zebra: (i + j).isOdd),
+      );
     }
-    rows.add(Container(
-      height: 1,
-      color: kCitrusEmber.withValues(alpha: 0.20),
-    ));
+    rows.add(Container(height: 1, color: kCitrusEmber.withValues(alpha: 0.20)));
   }
 
   return _section(
@@ -1120,7 +1190,18 @@ String _velocityPhase(_SimEntry e, double t) {
 
 Widget _buildIsDoneProgression(List<_SimEntry> entries, List<double> times) {
   final List<Widget> rows = <Widget>[
-    _tableHeader(<String>['sim', 't=0', 't=0.1', 't=0.25', 't=0.5', 't=1', 't=2', 't=3', 't=5', 't=10']),
+    _tableHeader(<String>[
+      'sim',
+      't=0',
+      't=0.1',
+      't=0.25',
+      't=0.5',
+      't=1',
+      't=2',
+      't=3',
+      't=5',
+      't=10',
+    ]),
   ];
 
   for (var i = 0; i < entries.length; i++) {
@@ -1163,8 +1244,12 @@ Widget _buildIsDoneProgression(List<_SimEntry> entries, List<double> times) {
 //                  SECTION 8 :: BAR CHART DIAGRAM
 // ============================================================================
 
-Widget _buildBarChartDiagram(BoundedFrictionSimulation sim, String name,
-    double minX, double maxX) {
+Widget _buildBarChartDiagram(
+  BoundedFrictionSimulation sim,
+  String name,
+  double minX,
+  double maxX,
+) {
   // Hand-built bar chart of x(t) for the given simulation across 24 sample
   // points.  Each bar is a Container whose width scales with the position
   // value mapped into the bar-area width.
@@ -1176,78 +1261,79 @@ Widget _buildBarChartDiagram(BoundedFrictionSimulation sim, String name,
     final double t = duration * (i / (numBars - 1));
     final double x = sim.x(t);
     final double range = (maxX - minX).abs();
-    final double normalized = range == 0 ? 0 : ((x - minX) / range).clamp(0.0, 1.0);
+    final double normalized = range == 0
+        ? 0
+        : ((x - minX) / range).clamp(0.0, 1.0);
     final bool done = sim.isDone(t);
 
-    bars.add(Padding(
-      padding: const EdgeInsets.symmetric(vertical: 2),
-      child: Row(
-        children: <Widget>[
-          SizedBox(
-            width: 50,
-            child: Text(
-              't=${_fmt(t)}',
-              style: kStyleMonoLight,
+    bars.add(
+      Padding(
+        padding: const EdgeInsets.symmetric(vertical: 2),
+        child: Row(
+          children: <Widget>[
+            SizedBox(
+              width: 50,
+              child: Text('t=${_fmt(t)}', style: kStyleMonoLight),
             ),
-          ),
-          Expanded(
-            child: Stack(
-              children: <Widget>[
-                Container(
-                  height: 14,
-                  decoration: BoxDecoration(
-                    color: kSnowEdge.withValues(alpha: 0.5),
-                    borderRadius: BorderRadius.circular(3),
-                  ),
-                ),
-                FractionallySizedBox(
-                  widthFactor: normalized.clamp(0.0, 1.0),
-                  child: Container(
+            Expanded(
+              child: Stack(
+                children: <Widget>[
+                  Container(
                     height: 14,
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: <Color>[
-                          done ? kAccentBerry : kGlacierDeep,
-                          done ? kCitrusEmber : kCitrusZest,
-                        ],
-                      ),
+                      color: kSnowEdge.withValues(alpha: 0.5),
                       borderRadius: BorderRadius.circular(3),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(width: 8),
-          SizedBox(
-            width: 60,
-            child: Text(
-              _fmt(x),
-              style: kStyleMono,
-              textAlign: TextAlign.right,
-            ),
-          ),
-          const SizedBox(width: 6),
-          Container(
-            width: 28,
-            alignment: Alignment.center,
-            padding: const EdgeInsets.symmetric(vertical: 1),
-            decoration: BoxDecoration(
-              color: done ? kAccentBerry : kSnowEdge,
-              borderRadius: BorderRadius.circular(3),
-            ),
-            child: Text(
-              done ? 'D' : '\u00B7',
-              style: TextStyle(
-                fontSize: 10,
-                fontWeight: FontWeight.w800,
-                color: done ? kSnowfield : kInkMuted,
+                  FractionallySizedBox(
+                    widthFactor: normalized.clamp(0.0, 1.0),
+                    child: Container(
+                      height: 14,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: <Color>[
+                            done ? kAccentBerry : kGlacierDeep,
+                            done ? kCitrusEmber : kCitrusZest,
+                          ],
+                        ),
+                        borderRadius: BorderRadius.circular(3),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-          ),
-        ],
+            const SizedBox(width: 8),
+            SizedBox(
+              width: 60,
+              child: Text(
+                _fmt(x),
+                style: kStyleMono,
+                textAlign: TextAlign.right,
+              ),
+            ),
+            const SizedBox(width: 6),
+            Container(
+              width: 28,
+              alignment: Alignment.center,
+              padding: const EdgeInsets.symmetric(vertical: 1),
+              decoration: BoxDecoration(
+                color: done ? kAccentBerry : kSnowEdge,
+                borderRadius: BorderRadius.circular(3),
+              ),
+              child: Text(
+                done ? 'D' : '\u00B7',
+                style: TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w800,
+                  color: done ? kSnowfield : kInkMuted,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
-    ));
+    );
   }
 
   return _section(
@@ -1284,9 +1370,11 @@ Widget _buildBarChartDiagram(BoundedFrictionSimulation sim, String name,
 //                  SECTION 9 :: BOUNDARY CLAMP EXPLANATION
 // ============================================================================
 
-Widget _buildClampExplanation(BoundedFrictionSimulation tight,
-    BoundedFrictionSimulation narrow,
-    BoundedFrictionSimulation overshoot) {
+Widget _buildClampExplanation(
+  BoundedFrictionSimulation tight,
+  BoundedFrictionSimulation narrow,
+  BoundedFrictionSimulation overshoot,
+) {
   return _section(
     icon: '\u2502',
     title: '8. How minX/maxX truncate motion',
@@ -1304,13 +1392,15 @@ Widget _buildClampExplanation(BoundedFrictionSimulation tight,
         _bulletRow(
           tint: kGlacierDeep,
           tag: 'Case A',
-          text: 'x_inf lies inside [minX, maxX].  The bounds are inert; the '
+          text:
+              'x_inf lies inside [minX, maxX].  The bounds are inert; the '
               'simulation behaves identically to its unbounded parent.',
         ),
         _bulletRow(
           tint: kCitrusEmber,
           tag: 'Case B',
-          text: 'x_inf lies outside [minX, maxX] in the direction of motion.  '
+          text:
+              'x_inf lies outside [minX, maxX] in the direction of motion.  '
               'The simulation is truncated: it follows the friction curve up '
               'until x(t) hits the wall, then snaps to the wall and reports '
               'isDone=true.',
@@ -1318,7 +1408,8 @@ Widget _buildClampExplanation(BoundedFrictionSimulation tight,
         _bulletRow(
           tint: kAccentBerry,
           tag: 'Case C',
-          text: 'The starting position is already at or past a bound and the '
+          text:
+              'The starting position is already at or past a bound and the '
               'velocity points further past it.  The simulation reports done '
               'almost immediately.',
         ),
@@ -1331,14 +1422,16 @@ Widget _buildClampExplanation(BoundedFrictionSimulation tight,
         _calloutCard(
           title: 'gamma (tight upper bound)',
           tint: kCitrusEmber,
-          body: 'drag=0.075 vel=180 maxX=150.  At t=0 position is 20.  '
+          body:
+              'drag=0.075 vel=180 maxX=150.  At t=0 position is 20.  '
               'x(0.5)=${_fmt(tight.x(0.5))}, x(1.0)=${_fmt(tight.x(1.0))}, '
               'x(2.0)=${_fmt(tight.x(2.0))}, isDone(2)=${_fmtBool(tight.isDone(2.0))}.',
         ),
         _calloutCard(
           title: 'zeta (paper-thin band)',
           tint: kAccentBerry,
-          body: 'pos=50 minX=50 maxX=52.  Almost no room.  '
+          body:
+              'pos=50 minX=50 maxX=52.  Almost no room.  '
               'x(0.05)=${_fmt(narrow.x(0.05))}, '
               'x(0.1)=${_fmt(narrow.x(0.1))}, '
               'isDone(0.1)=${_fmtBool(narrow.isDone(0.1))}.',
@@ -1346,7 +1439,8 @@ Widget _buildClampExplanation(BoundedFrictionSimulation tight,
         _calloutCard(
           title: 'theta (overshoots maxX)',
           tint: kGlacierDeep,
-          body: 'drag=0.350 vel=600 maxX=400.  '
+          body:
+              'drag=0.350 vel=600 maxX=400.  '
               'x(0.5)=${_fmt(overshoot.x(0.5))}, '
               'x(1.0)=${_fmt(overshoot.x(1.0))}, '
               'isDone(1)=${_fmtBool(overshoot.isDone(1.0))}.',
@@ -1356,7 +1450,11 @@ Widget _buildClampExplanation(BoundedFrictionSimulation tight,
   );
 }
 
-Widget _bulletRow({required Color tint, required String tag, required String text}) {
+Widget _bulletRow({
+  required Color tint,
+  required String tag,
+  required String text,
+}) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 4),
     child: Row(
@@ -1377,7 +1475,11 @@ Widget _bulletRow({required Color tint, required String tag, required String tex
   );
 }
 
-Widget _calloutCard({required String title, required Color tint, required String body}) {
+Widget _calloutCard({
+  required String title,
+  required Color tint,
+  required String body,
+}) {
   return Container(
     margin: const EdgeInsets.only(top: 6),
     padding: const EdgeInsets.all(10),
@@ -1408,9 +1510,21 @@ Widget _buildComparisonTable() {
     <String>['x(t)', 'asymptotic to x_inf', 'clamped to [minX, maxX]'],
     <String>['dx(t)', 'exponential decay', 'zero past the clamp time'],
     <String>['isDone(t)', 'true when |dx| < tol', 'true OR position at bound'],
-    <String>['typical use', 'inertia in fling animations', 'scroll views with edges'],
-    <String>['final state', 'arrives at x_inf eventually', 'rests at x_inf or wall'],
-    <String>['tolerance role', 'detects effective rest', 'same plus boundary check'],
+    <String>[
+      'typical use',
+      'inertia in fling animations',
+      'scroll views with edges',
+    ],
+    <String>[
+      'final state',
+      'arrives at x_inf eventually',
+      'rests at x_inf or wall',
+    ],
+    <String>[
+      'tolerance role',
+      'detects effective rest',
+      'same plus boundary check',
+    ],
     <String>['overshoot', 'possible past intended target', 'never; clamped'],
     <String>['inheritance', 'Simulation', 'FrictionSimulation -> Simulation'],
   ];
@@ -1459,32 +1573,38 @@ Widget _buildDoAvoidCallouts() {
   final List<Map<String, String>> doRules = <Map<String, String>>[
     <String, String>{
       'title': 'Pick drag in (0, 1)',
-      'body' : 'Values approaching 0 mean nearly instant stop; values near 1 '
+      'body':
+          'Values approaching 0 mean nearly instant stop; values near 1 '
           'mean the velocity barely decays.  Typical scroll views use 0.135.',
     },
     <String, String>{
       'title': 'Use bounds that match your content',
-      'body' : 'minX/maxX should reflect the real edges of whatever the user '
+      'body':
+          'minX/maxX should reflect the real edges of whatever the user '
           'is scrolling: scroll extent, pan limits, zoom range.',
     },
     <String, String>{
       'title': 'Sample x(t) deterministically',
-      'body' : 'BoundedFrictionSimulation is a pure function of time.  Cache '
+      'body':
+          'BoundedFrictionSimulation is a pure function of time.  Cache '
           'or precompute samples for offline analysis with confidence.',
     },
     <String, String>{
       'title': 'Read tolerance carefully',
-      'body' : 'The default Tolerance has small but non-zero distance/velocity '
+      'body':
+          'The default Tolerance has small but non-zero distance/velocity '
           'thresholds.  If your units are unusual, override tolerance.',
     },
     <String, String>{
       'title': 'Combine with Curve only when needed',
-      'body' : 'Friction is already a curve.  Wrapping in CurvedAnimation can '
+      'body':
+          'Friction is already a curve.  Wrapping in CurvedAnimation can '
           'hide the very physics you wanted.',
     },
     <String, String>{
       'title': 'Check isDone before reusing',
-      'body' : 'Once isDone returns true, further x(t) calls just return the '
+      'body':
+          'Once isDone returns true, further x(t) calls just return the '
           'rest position — useful for early-out logic.',
     },
   ];
@@ -1492,32 +1612,38 @@ Widget _buildDoAvoidCallouts() {
   final List<Map<String, String>> avoidRules = <Map<String, String>>[
     <String, String>{
       'title': 'Avoid drag >= 1.0',
-      'body' : 'A drag coefficient of 1 freezes velocity, and >1 amplifies — '
+      'body':
+          'A drag coefficient of 1 freezes velocity, and >1 amplifies — '
           'the simulation no longer represents friction.',
     },
     <String, String>{
       'title': 'Avoid identical minX and maxX',
-      'body' : 'A zero-width range collapses motion.  If you need a fixed '
+      'body':
+          'A zero-width range collapses motion.  If you need a fixed '
           'point, use a SpringSimulation at rest, not a bounded friction.',
     },
     <String, String>{
       'title': 'Avoid sampling at negative time',
-      'body' : 'The simulation is defined for t >= 0.  Negative times are '
+      'body':
+          'The simulation is defined for t >= 0.  Negative times are '
           'undefined and often return meaningless extrapolations.',
     },
     <String, String>{
       'title': 'Avoid mutating after construction',
-      'body' : 'BoundedFrictionSimulation is immutable.  Replace the instance '
+      'body':
+          'BoundedFrictionSimulation is immutable.  Replace the instance '
           'rather than try to tweak parameters mid-flight.',
     },
     <String, String>{
       'title': 'Avoid relying on toString format',
-      'body' : 'The string representation is debug-only and may change between '
+      'body':
+          'The string representation is debug-only and may change between '
           'Flutter versions.  Never parse it.',
     },
     <String, String>{
       'title': 'Avoid coupling to wall-clock time',
-      'body' : 'The simulation\'s t is logical seconds since launch, not '
+      'body':
+          'The simulation\'s t is logical seconds since launch, not '
           'DateTime.now().  Drive it from a Ticker or ScrollPosition.',
     },
   ];
@@ -1530,11 +1656,7 @@ Widget _buildDoAvoidCallouts() {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Expanded(
-          child: _ruleColumn(
-            heading: 'DO',
-            tint: kAccentTeal,
-            rules: doRules,
-          ),
+          child: _ruleColumn(heading: 'DO', tint: kAccentTeal, rules: doRules),
         ),
         const SizedBox(width: 14),
         Expanded(
@@ -1567,25 +1689,30 @@ Widget _ruleColumn({
   ];
   for (var i = 0; i < rules.length; i++) {
     final Map<String, String> r = rules[i];
-    children.add(Container(
-      margin: const EdgeInsets.only(bottom: 8),
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: kSnowfield,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: tint.withValues(alpha: 0.35)),
+    children.add(
+      Container(
+        margin: const EdgeInsets.only(bottom: 8),
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: kSnowfield,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: tint.withValues(alpha: 0.35)),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(r['title'] ?? '', style: kStyleSubtitle.copyWith(color: tint)),
+            const SizedBox(height: 4),
+            Text(r['body'] ?? '', style: kStyleBody),
+          ],
+        ),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(r['title'] ?? '', style: kStyleSubtitle.copyWith(color: tint)),
-          const SizedBox(height: 4),
-          Text(r['body'] ?? '', style: kStyleBody),
-        ],
-      ),
-    ));
+    );
   }
-  return Column(crossAxisAlignment: CrossAxisAlignment.start, children: children);
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: children,
+  );
 }
 
 // ============================================================================
@@ -1596,86 +1723,93 @@ Widget _buildRecipeCards() {
   final List<Map<String, String>> recipes = <Map<String, String>>[
     <String, String>{
       'title': 'Recipe 1 :: Standard scroll view fling',
-      'code' : "final sim = BoundedFrictionSimulation(\n"
-               "  0.135, // typical scroll drag\n"
-               "  scrollPosition,\n"
-               "  velocity,\n"
-               "  minScroll,\n"
-               "  maxScroll,\n"
-               ");",
+      'code':
+          "final sim = BoundedFrictionSimulation(\n"
+          "  0.135, // typical scroll drag\n"
+          "  scrollPosition,\n"
+          "  velocity,\n"
+          "  minScroll,\n"
+          "  maxScroll,\n"
+          ");",
     },
     <String, String>{
       'title': 'Recipe 2 :: Pan with hard limits',
-      'code' : "final sim = BoundedFrictionSimulation(\n"
-               "  0.18,\n"
-               "  panOffset.dx,\n"
-               "  flingVelocity.dx,\n"
-               "  minPan, maxPan,\n"
-               ");",
+      'code':
+          "final sim = BoundedFrictionSimulation(\n"
+          "  0.18,\n"
+          "  panOffset.dx,\n"
+          "  flingVelocity.dx,\n"
+          "  minPan, maxPan,\n"
+          ");",
     },
     <String, String>{
       'title': 'Recipe 3 :: Fast settle to nearest edge',
-      'code' : "final sim = BoundedFrictionSimulation(\n"
-               "  0.45, // strong drag\n"
-               "  current, velocity,\n"
-               "  minEdge, maxEdge,\n"
-               ");",
+      'code':
+          "final sim = BoundedFrictionSimulation(\n"
+          "  0.45, // strong drag\n"
+          "  current, velocity,\n"
+          "  minEdge, maxEdge,\n"
+          ");",
     },
     <String, String>{
       'title': 'Recipe 4 :: Sample without ticker',
-      'code' : "double xAt(double t) => sim.x(t);\n"
-               "final s0 = xAt(0.0);\n"
-               "final s1 = xAt(0.5);\n"
-               "final s2 = xAt(1.0);\n"
-               "final done = sim.isDone(2.0);",
+      'code':
+          "double xAt(double t) => sim.x(t);\n"
+          "final s0 = xAt(0.0);\n"
+          "final s1 = xAt(0.5);\n"
+          "final s2 = xAt(1.0);\n"
+          "final done = sim.isDone(2.0);",
     },
     <String, String>{
       'title': 'Recipe 5 :: Check before applying',
-      'code' : "if (sim.isDone(elapsed)) {\n"
-               "  notifyListeners();\n"
-               "  return;\n"
-               "}\n"
-               "currentX = sim.x(elapsed);\n"
-               "currentDx = sim.dx(elapsed);",
+      'code':
+          "if (sim.isDone(elapsed)) {\n"
+          "  notifyListeners();\n"
+          "  return;\n"
+          "}\n"
+          "currentX = sim.x(elapsed);\n"
+          "currentDx = sim.dx(elapsed);",
     },
   ];
 
   final List<Widget> cards = <Widget>[];
   for (var i = 0; i < recipes.length; i++) {
     final Map<String, String> r = recipes[i];
-    cards.add(Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: kGlacierAbyss,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: kCitrusZest.withValues(alpha: 0.45)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            r['title'] ?? '',
-            style: const TextStyle(
-              fontSize: 13.5,
-              fontWeight: FontWeight.w800,
-              color: kCitrusZest,
-              letterSpacing: 0.4,
+    cards.add(
+      Container(
+        margin: const EdgeInsets.only(bottom: 12),
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: kGlacierAbyss,
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: kCitrusZest.withValues(alpha: 0.45)),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              r['title'] ?? '',
+              style: const TextStyle(
+                fontSize: 13.5,
+                fontWeight: FontWeight.w800,
+                color: kCitrusZest,
+                letterSpacing: 0.4,
+              ),
             ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            r['code'] ?? '',
-            style: const TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 12,
-              color: kSnowfield,
-              height: 1.45,
+            const SizedBox(height: 8),
+            Text(
+              r['code'] ?? '',
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 12,
+                color: kSnowfield,
+                height: 1.45,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ));
+    );
   }
 
   return _section(
@@ -1705,85 +1839,87 @@ Widget _buildGlossary() {
   final List<Map<String, String>> terms = <Map<String, String>>[
     <String, String>{
       'term': 'Simulation',
-      'def' : 'Abstract base class.  Defines x(t), dx(t), isDone(t).',
+      'def': 'Abstract base class.  Defines x(t), dx(t), isDone(t).',
     },
     <String, String>{
       'term': 'FrictionSimulation',
-      'def' : 'Models exponential velocity decay due to drag.',
+      'def': 'Models exponential velocity decay due to drag.',
     },
     <String, String>{
       'term': 'BoundedFrictionSimulation',
-      'def' : 'FrictionSimulation with hard min/max position walls.',
+      'def': 'FrictionSimulation with hard min/max position walls.',
     },
     <String, String>{
       'term': 'drag',
-      'def' : 'Friction coefficient, typically 0 < d < 1.',
+      'def': 'Friction coefficient, typically 0 < d < 1.',
     },
     <String, String>{
       'term': 'tolerance',
-      'def' : 'Distance/velocity thresholds for declaring rest.',
+      'def': 'Distance/velocity thresholds for declaring rest.',
     },
     <String, String>{
       'term': 'isDone',
-      'def' : 'True once the particle is effectively at rest.',
+      'def': 'True once the particle is effectively at rest.',
     },
     <String, String>{
       'term': 'clamp',
-      'def' : 'Constrain a value to a [min, max] interval.',
+      'def': 'Constrain a value to a [min, max] interval.',
     },
     <String, String>{
       'term': 'asymptote',
-      'def' : 'The limit value the unbounded position approaches.',
+      'def': 'The limit value the unbounded position approaches.',
     },
     <String, String>{
       'term': 'fling',
-      'def' : 'A flick gesture that produces a high initial velocity.',
+      'def': 'A flick gesture that produces a high initial velocity.',
     },
     <String, String>{
       'term': 'over-scroll',
-      'def' : 'Scrolling past the natural extent of content.',
+      'def': 'Scrolling past the natural extent of content.',
     },
     <String, String>{
       'term': 'Tolerance',
-      'def' : 'Class holding distance/velocity tolerances for simulations.',
+      'def': 'Class holding distance/velocity tolerances for simulations.',
     },
     <String, String>{
       'term': 'Ticker',
-      'def' : 'Frame-clock pulse the AnimationController uses to drive sims.',
+      'def': 'Frame-clock pulse the AnimationController uses to drive sims.',
     },
     <String, String>{
       'term': 'pow(d, t)',
-      'def' : 'Exponential factor governing velocity decay.',
+      'def': 'Exponential factor governing velocity decay.',
     },
     <String, String>{
       'term': 'snapshot tree',
-      'def' : 'A widget tree returned in a single build with no live state.',
+      'def': 'A widget tree returned in a single build with no live state.',
     },
   ];
 
   final List<Widget> rows = <Widget>[];
   for (var i = 0; i < terms.length; i++) {
     final Map<String, String> t = terms[i];
-    rows.add(Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      color: i.isOdd ? kSnowEdge.withValues(alpha: 0.35) : kSnowfield,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          SizedBox(
-            width: 150,
-            child: Text(
-              t['term'] ?? '',
-              style: kStyleMono.copyWith(
-                color: kAccentBerry,
-                fontWeight: FontWeight.w700,
+    rows.add(
+      Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        color: i.isOdd ? kSnowEdge.withValues(alpha: 0.35) : kSnowfield,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            SizedBox(
+              width: 150,
+              child: Text(
+                t['term'] ?? '',
+                style: kStyleMono.copyWith(
+                  color: kAccentBerry,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ),
-          ),
-          Expanded(child: Text(t['def'] ?? '', style: kStyleBody)),
-        ],
+            Expanded(child: Text(t['def'] ?? '', style: kStyleBody)),
+          ],
+        ),
       ),
-    ));
+    );
   }
 
   return _section(
@@ -1814,49 +1950,57 @@ Widget _buildRecapFooter(List<_SimEntry> entries, List<double> times) {
     final _SimEntry e = entries[i];
     final double xMid = e.sim.x(0.5);
     final double xEnd = e.sim.x(2.0);
-    final bool   doneEnd = e.sim.isDone(2.0);
+    final bool doneEnd = e.sim.isDone(2.0);
 
-    chips.add(Container(
-      padding: const EdgeInsets.all(10),
-      width: 180,
-      decoration: BoxDecoration(
-        color: kGlacierAbyss.withValues(alpha: 0.94),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            e.name.toUpperCase(),
-            style: const TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w800,
-              color: kCitrusZest,
-              letterSpacing: 1.0,
+    chips.add(
+      Container(
+        padding: const EdgeInsets.all(10),
+        width: 180,
+        decoration: BoxDecoration(
+          color: kGlacierAbyss.withValues(alpha: 0.94),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              e.name.toUpperCase(),
+              style: const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w800,
+                color: kCitrusZest,
+                letterSpacing: 1.0,
+              ),
             ),
-          ),
-          const SizedBox(height: 6),
-          Text('x(0.5) = ${_fmt(xMid)}',
+            const SizedBox(height: 6),
+            Text(
+              'x(0.5) = ${_fmt(xMid)}',
               style: const TextStyle(
                 fontFamily: 'monospace',
                 fontSize: 11.5,
                 color: kSnowfield,
-              )),
-          Text('x(2.0) = ${_fmt(xEnd)}',
+              ),
+            ),
+            Text(
+              'x(2.0) = ${_fmt(xEnd)}',
               style: const TextStyle(
                 fontFamily: 'monospace',
                 fontSize: 11.5,
                 color: kSnowfield,
-              )),
-          Text('done(2) = ${_fmtBool(doneEnd)}',
+              ),
+            ),
+            Text(
+              'done(2) = ${_fmtBool(doneEnd)}',
               style: TextStyle(
                 fontFamily: 'monospace',
                 fontSize: 11.5,
                 color: doneEnd ? kCitrusZest : kGlacierMist,
-              )),
-        ],
+              ),
+            ),
+          ],
+        ),
       ),
-    ));
+    );
   }
 
   return Container(
@@ -1961,10 +2105,7 @@ Widget _section({
             ),
             const SizedBox(width: 10),
             Expanded(
-              child: Text(
-                title,
-                style: kStyleSection.copyWith(color: accent),
-              ),
+              child: Text(title, style: kStyleSection.copyWith(color: accent)),
             ),
           ],
         ),

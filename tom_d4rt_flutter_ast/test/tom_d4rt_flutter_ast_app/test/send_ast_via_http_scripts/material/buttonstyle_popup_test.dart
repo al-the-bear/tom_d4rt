@@ -122,53 +122,73 @@ dynamic build(BuildContext context) {
             children: <Widget>[
               _hero(),
               const SizedBox(height: 28.0),
-              _section('1. ButtonStyle field gallery',
-                  'Ten ElevatedButton variants, each overriding a different ButtonStyle field. Hover-aware variants use WidgetStateProperty.resolveWith.'),
+              _section(
+                '1. ButtonStyle field gallery',
+                'Ten ElevatedButton variants, each overriding a different ButtonStyle field. Hover-aware variants use WidgetStateProperty.resolveWith.',
+              ),
               const SizedBox(height: 14.0),
               _buttonStyleGallery(),
               const SizedBox(height: 28.0),
-              _section('2. WidgetStateProperty resolution diagram',
-                  'How resolveWith picks a value from the active state-set. Each row is a hypothetical state-set, each column a resolved property.'),
+              _section(
+                '2. WidgetStateProperty resolution diagram',
+                'How resolveWith picks a value from the active state-set. Each row is a hypothetical state-set, each column a resolved property.',
+              ),
               const SizedBox(height: 14.0),
               _stateResolutionDiagram(),
               const SizedBox(height: 28.0),
-              _section('3. PopupMenuButton<int> playbook',
-                  'Four styled PopupMenuButton<int> instances with PopupMenuItem<int>, PopupMenuDivider and CheckedPopupMenuItem<int>.'),
+              _section(
+                '3. PopupMenuButton<int> playbook',
+                'Four styled PopupMenuButton<int> instances with PopupMenuItem<int>, PopupMenuDivider and CheckedPopupMenuItem<int>.',
+              ),
               const SizedBox(height: 14.0),
               _popupMenuShowcase(),
               const SizedBox(height: 28.0),
-              _section('4. MenuBar + MenuItemButton',
-                  'A MenuBar with three top-level menus. menuButtonTheme drives uniform child styling; per-item ButtonStyle.styleFrom overrides accents.'),
+              _section(
+                '4. MenuBar + MenuItemButton',
+                'A MenuBar with three top-level menus. menuButtonTheme drives uniform child styling; per-item ButtonStyle.styleFrom overrides accents.',
+              ),
               const SizedBox(height: 14.0),
               _menuBarShowcase(),
               const SizedBox(height: 28.0),
-              _section('5. ButtonStyle.lerp + copyWith',
-                  'A base ButtonStyle plus four derivations: copyWith only-shape, copyWith only-color, lerp 50/50 with the rose style, and merge with elevation override.'),
+              _section(
+                '5. ButtonStyle.lerp + copyWith',
+                'A base ButtonStyle plus four derivations: copyWith only-shape, copyWith only-color, lerp 50/50 with the rose style, and merge with elevation override.',
+              ),
               const SizedBox(height: 14.0),
               _lerpCopyWithShowcase(),
               const SizedBox(height: 28.0),
-              _section('6. WidgetStateProperty: .all vs .resolveWith vs lerp',
-                  'Three code-block cards explaining the three primary constructors and how they collapse to a value at paint time.'),
+              _section(
+                '6. WidgetStateProperty: .all vs .resolveWith vs lerp',
+                'Three code-block cards explaining the three primary constructors and how they collapse to a value at paint time.',
+              ),
               const SizedBox(height: 14.0),
               _stateConstructorsShowcase(),
               const SizedBox(height: 28.0),
-              _section('7. PopupMenuTheme + MenuTheme integration',
-                  'A wrapping Theme provides menuButtonTheme + popupMenuTheme. All children inherit visual identity unless overridden.'),
+              _section(
+                '7. PopupMenuTheme + MenuTheme integration',
+                'A wrapping Theme provides menuButtonTheme + popupMenuTheme. All children inherit visual identity unless overridden.',
+              ),
               const SizedBox(height: 14.0),
               _themeIntegrationShowcase(),
               const SizedBox(height: 28.0),
-              _section('8. Pitfalls',
-                  'Six common traps when mixing ButtonStyle with PopupMenu / Menu surfaces.'),
+              _section(
+                '8. Pitfalls',
+                'Six common traps when mixing ButtonStyle with PopupMenu / Menu surfaces.',
+              ),
               const SizedBox(height: 14.0),
               _pitfallsGrid(),
               const SizedBox(height: 28.0),
-              _section('9. Idiomatic code samples',
-                  'Six canonical snippets you will reach for again and again.'),
+              _section(
+                '9. Idiomatic code samples',
+                'Six canonical snippets you will reach for again and again.',
+              ),
               const SizedBox(height: 14.0),
               _codeIdiomsGrid(),
               const SizedBox(height: 28.0),
-              _section('10. API surface cheat-sheet',
-                  'Chip-tagged inventory of the relevant API symbols, grouped by capability.'),
+              _section(
+                '10. API surface cheat-sheet',
+                'Chip-tagged inventory of the relevant API symbols, grouped by capability.',
+              ),
               const SizedBox(height: 14.0),
               _cheatSheetFooter(),
               const SizedBox(height: 32.0),
@@ -474,8 +494,10 @@ Widget _section(String title, String description) {
 
 Widget _card({
   required Widget child,
-  EdgeInsetsGeometry padding =
-      const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+  EdgeInsetsGeometry padding = const EdgeInsets.symmetric(
+    horizontal: 16.0,
+    vertical: 16.0,
+  ),
   Color background = _kCard,
 }) {
   return Container(
@@ -723,10 +745,7 @@ Widget _buttonStyleGallery() {
     ]),
   ];
   return _card(
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: rows,
-    ),
+    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: rows),
   );
 }
 
@@ -759,8 +778,10 @@ Widget _galleryCell(String field, String caption, Widget demo, String code) {
         Row(
           children: <Widget>[
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 7.0, vertical: 2.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 7.0,
+                vertical: 2.0,
+              ),
               decoration: BoxDecoration(
                 color: _kAccentSoft,
                 borderRadius: const BorderRadius.all(Radius.circular(6.0)),
@@ -836,14 +857,8 @@ Widget _resolutionHeader() {
     ),
     child: Row(
       children: const <Widget>[
-        SizedBox(
-          width: 120.0,
-          child: Text('state-set', style: _kLabel),
-        ),
-        SizedBox(
-          width: 200.0,
-          child: Text('branch fired', style: _kLabel),
-        ),
+        SizedBox(width: 120.0, child: Text('state-set', style: _kLabel)),
+        SizedBox(width: 200.0, child: Text('branch fired', style: _kLabel)),
         Expanded(child: Text('resolved value', style: _kLabel)),
       ],
     ),
@@ -1095,10 +1110,7 @@ List<PopupMenuEntry<int>> _firstMenuItems() {
       child: ListTile(
         contentPadding: EdgeInsets.zero,
         leading: Icon(Icons.delete_rounded, size: 18.0, color: _kRose),
-        title: Text(
-          'Delete',
-          style: TextStyle(fontSize: 13.0, color: _kRose),
-        ),
+        title: Text('Delete', style: TextStyle(fontSize: 13.0, color: _kRose)),
         dense: true,
       ),
     ),
@@ -1150,12 +1162,14 @@ List<PopupMenuEntry<int>> _thirdMenuItems() {
           SizedBox(width: 10.0),
           Text('Download', style: TextStyle(fontSize: 13.0)),
           Spacer(),
-          Text('Ctrl+D',
-              style: TextStyle(
-                fontSize: 11.0,
-                color: _kMuted,
-                fontFamily: 'monospace',
-              )),
+          Text(
+            'Ctrl+D',
+            style: TextStyle(
+              fontSize: 11.0,
+              color: _kMuted,
+              fontFamily: 'monospace',
+            ),
+          ),
         ],
       ),
     ),
@@ -1167,8 +1181,10 @@ List<PopupMenuEntry<int>> _thirdMenuItems() {
         children: const <Widget>[
           Icon(Icons.lock_rounded, size: 18.0, color: _kMuted),
           SizedBox(width: 10.0),
-          Text('Archive (locked)',
-              style: TextStyle(fontSize: 13.0, color: _kMuted)),
+          Text(
+            'Archive (locked)',
+            style: TextStyle(fontSize: 13.0, color: _kMuted),
+          ),
         ],
       ),
     ),
@@ -1215,7 +1231,9 @@ Widget _popupCard({
             children: <Widget>[
               Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 8.0, vertical: 3.0),
+                  horizontal: 8.0,
+                  vertical: 3.0,
+                ),
                 decoration: BoxDecoration(
                   color: accentSoft,
                   borderRadius: const BorderRadius.all(Radius.circular(6.0)),
@@ -1273,8 +1291,7 @@ Widget _previewEntry(PopupMenuEntry<int> entry, Color accent) {
   }
   if (entry is CheckedPopupMenuItem<int>) {
     return Container(
-      padding:
-          const EdgeInsets.symmetric(horizontal: 14.0, vertical: 8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 8.0),
       child: Row(
         children: <Widget>[
           Icon(
@@ -1293,8 +1310,7 @@ Widget _previewEntry(PopupMenuEntry<int> entry, Color accent) {
   }
   if (entry is PopupMenuItem<int>) {
     return Container(
-      padding:
-          const EdgeInsets.symmetric(horizontal: 14.0, vertical: 8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 8.0),
       child: DefaultTextStyle.merge(
         style: const TextStyle(fontSize: 13.0, color: _kInk),
         child: entry.child ?? const SizedBox.shrink(),
@@ -1329,7 +1345,10 @@ Widget _menuBarShowcase() {
                 ),
                 MenuItemButton(
                   onPressed: () {},
-                  leadingIcon: const Icon(Icons.folder_open_rounded, size: 16.0),
+                  leadingIcon: const Icon(
+                    Icons.folder_open_rounded,
+                    size: 16.0,
+                  ),
                   shortcut: const SingleActivator(
                     LogicalKeyboardKey.keyO,
                     control: true,
@@ -1349,8 +1368,11 @@ Widget _menuBarShowcase() {
                 MenuItemButton(
                   onPressed: () {},
                   style: MenuItemButton.styleFrom(foregroundColor: _kRose),
-                  leadingIcon:
-                      const Icon(Icons.logout_rounded, size: 16.0, color: _kRose),
+                  leadingIcon: const Icon(
+                    Icons.logout_rounded,
+                    size: 16.0,
+                    color: _kRose,
+                  ),
                   child: const Text('Quit'),
                 ),
               ],
@@ -1401,8 +1423,7 @@ Widget _menuBarShowcase() {
                 ),
                 MenuItemButton(
                   onPressed: () {},
-                  leadingIcon:
-                      const Icon(Icons.fullscreen_rounded, size: 16.0),
+                  leadingIcon: const Icon(Icons.fullscreen_rounded, size: 16.0),
                   child: const Text('Full screen'),
                 ),
               ],
@@ -1431,7 +1452,10 @@ List<_SubmenuRow> _fileSubmenuRows() {
   return const <_SubmenuRow>[
     _SubmenuRow(icon: Icons.note_add_rounded, label: 'New', shortcut: 'Ctrl+N'),
     _SubmenuRow(
-        icon: Icons.folder_open_rounded, label: 'Open...', shortcut: 'Ctrl+O'),
+      icon: Icons.folder_open_rounded,
+      label: 'Open...',
+      shortcut: 'Ctrl+O',
+    ),
     _SubmenuRow(icon: Icons.save_rounded, label: 'Save', shortcut: 'Ctrl+S'),
     _SubmenuRow.divider(),
     _SubmenuRow(
@@ -1457,13 +1481,20 @@ List<_SubmenuRow> _editSubmenuRows() {
 List<_SubmenuRow> _viewSubmenuRows() {
   return const <_SubmenuRow>[
     _SubmenuRow(
-        icon: Icons.zoom_in_rounded, label: 'Zoom in', shortcut: 'Ctrl++'),
+      icon: Icons.zoom_in_rounded,
+      label: 'Zoom in',
+      shortcut: 'Ctrl++',
+    ),
     _SubmenuRow(
-        icon: Icons.zoom_out_rounded, label: 'Zoom out', shortcut: 'Ctrl+-'),
+      icon: Icons.zoom_out_rounded,
+      label: 'Zoom out',
+      shortcut: 'Ctrl+-',
+    ),
     _SubmenuRow(
-        icon: Icons.fullscreen_rounded,
-        label: 'Full screen',
-        shortcut: 'F11'),
+      icon: Icons.fullscreen_rounded,
+      label: 'Full screen',
+      shortcut: 'F11',
+    ),
   ];
 }
 
@@ -1476,11 +1507,11 @@ class _SubmenuRow {
   }) : isDivider = false;
 
   const _SubmenuRow.divider()
-      : icon = Icons.remove,
-        label = '',
-        shortcut = '',
-        accent = _kInk,
-        isDivider = true;
+    : icon = Icons.remove,
+      label = '',
+      shortcut = '',
+      accent = _kInk,
+      isDivider = true;
 
   final IconData icon;
   final String label;
@@ -1490,7 +1521,11 @@ class _SubmenuRow {
 }
 
 Widget _submenuPreview(
-    String title, List<_SubmenuRow> rows, Color accent, Color accentSoft) {
+  String title,
+  List<_SubmenuRow> rows,
+  Color accent,
+  Color accentSoft,
+) {
   return SizedBox(
     width: 260.0,
     child: Container(
@@ -1504,13 +1539,17 @@ Widget _submenuPreview(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 14.0, vertical: 4.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 14.0,
+              vertical: 4.0,
+            ),
             child: Row(
               children: <Widget>[
                 Container(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 8.0, vertical: 2.0),
+                    horizontal: 8.0,
+                    vertical: 2.0,
+                  ),
                   decoration: BoxDecoration(
                     color: accentSoft,
                     borderRadius: const BorderRadius.all(Radius.circular(6.0)),
@@ -1594,10 +1633,10 @@ Widget _lerpCopyWithShowcase() {
   final ButtonStyle copyColor = base.copyWith(
     backgroundColor: WidgetStateProperty.all<Color>(_kViolet),
   );
-  final ButtonStyle lerped =
-      ButtonStyle.lerp(base, _roseStyle(), 0.5) ?? base;
-  final ButtonStyle merged =
-      base.merge(ButtonStyle(elevation: WidgetStateProperty.all<double>(8.0)));
+  final ButtonStyle lerped = ButtonStyle.lerp(base, _roseStyle(), 0.5) ?? base;
+  final ButtonStyle merged = base.merge(
+    ButtonStyle(elevation: WidgetStateProperty.all<double>(8.0)),
+  );
 
   return _card(
     child: Wrap(
@@ -1648,8 +1687,7 @@ Widget _lerpCell(String label, ButtonStyle style, String summary) {
           ),
           const SizedBox(height: 8.0),
           Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
             decoration: const BoxDecoration(
               color: _kCodeBg,
               borderRadius: BorderRadius.all(Radius.circular(6.0)),
@@ -1784,14 +1822,14 @@ Widget _themeIntegrationShowcase() {
             menuButtonTheme: MenuButtonThemeData(
               style: ButtonStyle(
                 foregroundColor: WidgetStateProperty.all<Color>(_kRose),
-                backgroundColor: WidgetStateProperty.resolveWith<Color>(
-                  (states) {
-                    if (states.contains(WidgetState.hovered)) {
-                      return _kRoseSoft;
-                    }
-                    return Colors.transparent;
-                  },
-                ),
+                backgroundColor: WidgetStateProperty.resolveWith<Color>((
+                  states,
+                ) {
+                  if (states.contains(WidgetState.hovered)) {
+                    return _kRoseSoft;
+                  }
+                  return Colors.transparent;
+                }),
               ),
             ),
           ),
@@ -1810,9 +1848,7 @@ Widget _themeIntegrationShowcase() {
                   child: const _ThemedTriggerLabel(label: 'Themed trigger'),
                 ),
                 const SizedBox(width: 18.0),
-                Expanded(
-                  child: _menuPreview(_firstMenuItems(), _kRose),
-                ),
+                Expanded(child: _menuPreview(_firstMenuItems(), _kRose)),
               ],
             ),
           ),
@@ -2083,8 +2119,7 @@ Widget _cheatSheetFooter() {
           'IconButton.styleFrom',
         ]),
         const SizedBox(height: 10.0),
-        _chipGroup(
-            'State machinery', _kViolet, _kVioletSoft, const <String>[
+        _chipGroup('State machinery', _kViolet, _kVioletSoft, const <String>[
           'WidgetState',
           'WidgetStateProperty',
           'WidgetStateProperty.all',
@@ -2140,7 +2175,11 @@ Widget _cheatSheetFooter() {
 }
 
 Widget _chipGroup(
-    String label, Color accent, Color accentSoft, List<String> entries) {
+  String label,
+  Color accent,
+  Color accentSoft,
+  List<String> entries,
+) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 12.0),
     decoration: BoxDecoration(
@@ -2181,12 +2220,16 @@ Widget _chipGroup(
             for (final String entry in entries)
               Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 10.0, vertical: 5.0),
+                  horizontal: 10.0,
+                  vertical: 5.0,
+                ),
                 decoration: BoxDecoration(
                   color: accentSoft,
-                  borderRadius:
-                      const BorderRadius.all(Radius.circular(999.0)),
-                  border: Border.all(color: accent.withOpacity(0.3), width: 1.0),
+                  borderRadius: const BorderRadius.all(Radius.circular(999.0)),
+                  border: Border.all(
+                    color: accent.withOpacity(0.3),
+                    width: 1.0,
+                  ),
                 ),
                 child: Text(
                   entry,

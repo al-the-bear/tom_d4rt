@@ -609,10 +609,9 @@ dynamic build(BuildContext context) {
                     painter: _TextPainterDemoPainter(
                       span: twbSpan,
                       maxWidth: 320.0,
-                      textWidthBasis:
-                          label.contains('parent')
-                              ? TextWidthBasis.parent
-                              : TextWidthBasis.longestLine,
+                      textWidthBasis: label.contains('parent')
+                          ? TextWidthBasis.parent
+                          : TextWidthBasis.longestLine,
                       offset: Offset(6.0, 6.0),
                       drawBox: true,
                       boxColor: color,
@@ -1418,11 +1417,7 @@ Widget _lifeStep(IconData icon, String label, Color color) {
       SizedBox(height: 4.0),
       Text(
         label,
-        style: TextStyle(
-          fontFamily: 'monospace',
-          fontSize: 10.0,
-          color: color,
-        ),
+        style: TextStyle(fontFamily: 'monospace', fontSize: 10.0, color: color),
       ),
     ],
   );
@@ -1623,10 +1618,7 @@ class _TextPainterDemoPainter extends CustomPainter {
 
     // Optional caret indicator.
     if (caretAt != null) {
-      final c = tp.getOffsetForCaret(
-        TextPosition(offset: caretAt!),
-        Rect.zero,
-      );
+      final c = tp.getOffsetForCaret(TextPosition(offset: caretAt!), Rect.zero);
       final h = tp.getFullHeightForCaret(
         TextPosition(offset: caretAt!),
         Rect.zero,

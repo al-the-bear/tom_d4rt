@@ -393,8 +393,10 @@ Widget buildAnatomyDiagram() {
               Row(
                 children: <Widget>[
                   Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 4,
+                      vertical: 2,
+                    ),
                     color: kTeal.withValues(alpha: 0.4),
                     child: const Text(
                       'fox jumps over',
@@ -421,9 +423,7 @@ Widget buildAnatomyDiagram() {
                 padding: const EdgeInsets.only(left: 60),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    buildAnatomyToolbar(),
-                  ],
+                  children: <Widget>[buildAnatomyToolbar()],
                 ),
               ),
             ],
@@ -436,8 +436,7 @@ Widget buildAnatomyDiagram() {
           decoration: BoxDecoration(
             color: kSlate,
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-                color: kTeal.withValues(alpha: 0.35), width: 1),
+            border: Border.all(color: kTeal.withValues(alpha: 0.35), width: 1),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -452,15 +451,27 @@ Widget buildAnatomyDiagram() {
                 ),
               ),
               const SizedBox(height: 12),
-              buildAnatomyRow('outer surface', 'Material elevation + radius',
-                  kTeal),
-              buildAnatomyRow('button slot', 'DesktopTextSelectionToolbarButton',
-                  kSky),
+              buildAnatomyRow(
+                'outer surface',
+                'Material elevation + radius',
+                kTeal,
+              ),
+              buildAnatomyRow(
+                'button slot',
+                'DesktopTextSelectionToolbarButton',
+                kSky,
+              ),
               buildAnatomyRow('child', 'Text or Row of icon + label', kAmber),
-              buildAnatomyRow('padding', 'EdgeInsetsGeometry around child',
-                  kViolet),
-              buildAnatomyRow('hover/focus', 'Material InkWell highlight',
-                  kRose),
+              buildAnatomyRow(
+                'padding',
+                'EdgeInsetsGeometry around child',
+                kViolet,
+              ),
+              buildAnatomyRow(
+                'hover/focus',
+                'Material InkWell highlight',
+                kRose,
+              ),
             ],
           ),
         ),
@@ -500,9 +511,7 @@ Widget buildFauxToolbarBtn(String label, {bool highlight = false}) {
     margin: const EdgeInsets.symmetric(horizontal: 1),
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
     decoration: BoxDecoration(
-      color: highlight
-          ? kTeal.withValues(alpha: 0.25)
-          : Colors.transparent,
+      color: highlight ? kTeal.withValues(alpha: 0.25) : Colors.transparent,
       borderRadius: BorderRadius.circular(4),
     ),
     child: Text(
@@ -548,10 +557,7 @@ Widget buildAnatomyRow(String head, String detail, Color color) {
         Expanded(
           child: Text(
             detail,
-            style: const TextStyle(
-              color: Color(0xFFB7C4DA),
-              fontSize: 12,
-            ),
+            style: const TextStyle(color: Color(0xFFB7C4DA), fontSize: 12),
           ),
         ),
       ],
@@ -682,16 +688,12 @@ Widget buildGalleryCell({
               borderRadius: BorderRadius.circular(8),
               border: Border.all(color: kPaperEdge, width: 1),
             ),
-            child: Material(
-              color: Colors.transparent,
-              child: body,
-            ),
+            child: Material(color: Colors.transparent, child: body),
           ),
         ),
         const SizedBox(height: 10),
         Container(
-          padding:
-              const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
           decoration: BoxDecoration(
             color: kSlateDeep,
             borderRadius: BorderRadius.circular(7),
@@ -796,16 +798,10 @@ Widget buildLegendDot(String label, Color color) {
       Container(
         width: 8,
         height: 8,
-        decoration: BoxDecoration(
-          color: color,
-          shape: BoxShape.circle,
-        ),
+        decoration: BoxDecoration(color: color, shape: BoxShape.circle),
       ),
       const SizedBox(width: 6),
-      Text(
-        label,
-        style: const TextStyle(color: kInkMuted, fontSize: 11),
-      ),
+      Text(label, style: const TextStyle(color: kInkMuted, fontSize: 11)),
     ],
   );
 }
@@ -852,14 +848,8 @@ Widget buildToolbarSurface({
           fontWeight: FontWeight.w600,
         ),
         child: IconTheme(
-          data: IconThemeData(
-            color: textColor ?? kPaper,
-            size: 16,
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: sized,
-          ),
+          data: IconThemeData(color: textColor ?? kPaper, size: 16),
+          child: Row(mainAxisSize: MainAxisSize.min, children: sized),
         ),
       ),
     ),
@@ -932,8 +922,7 @@ Widget buildExtendedToolbarMock(BuildContext context) {
         ),
         const SizedBox(height: 22),
         Container(
-          padding:
-              const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
           decoration: BoxDecoration(
             color: kPaperAlt,
             borderRadius: BorderRadius.circular(10),
@@ -942,8 +931,7 @@ Widget buildExtendedToolbarMock(BuildContext context) {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const Icon(Icons.lightbulb_outline,
-                  size: 16, color: kAmber),
+              const Icon(Icons.lightbulb_outline, size: 16, color: kAmber),
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
@@ -1069,8 +1057,7 @@ Widget buildThemedSwatchRow(ColorScheme scheme) {
         buildSwatch('onPrimary', Colors.white),
         buildSwatch('surface', const Color(0xFF1B1438)),
         buildSwatch('onSurface', kVioletSoft),
-        buildSwatch(
-            'inverse', scheme.inverseSurface.withValues(alpha: 0.9)),
+        buildSwatch('inverse', scheme.inverseSurface.withValues(alpha: 0.9)),
       ],
     ),
   );
@@ -1115,10 +1102,7 @@ Widget buildStateGallery() {
     decoration: BoxDecoration(
       color: kSlate,
       borderRadius: BorderRadius.circular(16),
-      border: Border.all(
-        color: kTeal.withValues(alpha: 0.25),
-        width: 1,
-      ),
+      border: Border.all(color: kTeal.withValues(alpha: 0.25), width: 1),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1254,15 +1238,26 @@ Widget buildStateLegend() {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         buildStateLegendRow(
-            'default', 'idle button surface — transparent', kInkFaint),
+          'default',
+          'idle button surface — transparent',
+          kInkFaint,
+        ),
         buildStateLegendRow(
-            'hovered', 'pointer overlay (cyan tint, soft glow)', kTeal),
+          'hovered',
+          'pointer overlay (cyan tint, soft glow)',
+          kTeal,
+        ),
         buildStateLegendRow(
-            'focused', 'keyboard focus ring (2-px outline)', kTealSoft),
+          'focused',
+          'keyboard focus ring (2-px outline)',
+          kTealSoft,
+        ),
+        buildStateLegendRow('pressed', 'down-state — saturated overlay', kTeal),
         buildStateLegendRow(
-            'pressed', 'down-state — saturated overlay', kTeal),
-        buildStateLegendRow(
-            'disabled', 'reduced contrast text + muted border', kInkFaint),
+          'disabled',
+          'reduced contrast text + muted border',
+          kInkFaint,
+        ),
       ],
     ),
   );
@@ -1278,10 +1273,7 @@ Widget buildStateLegendRow(String head, String detail, Color color) {
           width: 8,
           height: 8,
           margin: const EdgeInsets.only(top: 5),
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         const SizedBox(width: 8),
         SizedBox(
@@ -1437,10 +1429,7 @@ Widget buildCodeCard() {
     decoration: BoxDecoration(
       color: kSlateDeep,
       borderRadius: BorderRadius.circular(16),
-      border: Border.all(
-        color: kTeal.withValues(alpha: 0.25),
-        width: 1,
-      ),
+      border: Border.all(color: kTeal.withValues(alpha: 0.25), width: 1),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1520,8 +1509,7 @@ Widget buildCodeCard() {
         ),
         const SizedBox(height: 16),
         Container(
-          padding: const EdgeInsets.symmetric(
-              horizontal: 12, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
           decoration: BoxDecoration(
             color: kSlate,
             borderRadius: BorderRadius.circular(8),
@@ -1695,12 +1683,14 @@ Widget buildMobileColumn(BuildContext context) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         buildColumnHeader(
-            'Mobile', 'Larger touch targets, capsule shape', kViolet),
+          'Mobile',
+          'Larger touch targets, capsule shape',
+          kViolet,
+        ),
         const SizedBox(height: 14),
         Center(
           child: Container(
-            padding: const EdgeInsets.symmetric(
-                horizontal: 6, vertical: 6),
+            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
             decoration: BoxDecoration(
               color: const Color(0xFFFAFAFA),
               borderRadius: BorderRadius.circular(7),
@@ -1797,10 +1787,7 @@ Widget buildBulletPoint(String text, Color color) {
           width: 5,
           height: 5,
           margin: const EdgeInsets.only(top: 7),
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         const SizedBox(width: 8),
         Expanded(
@@ -1920,20 +1907,14 @@ Widget buildTableRow(String attr, String desktop, String mobile) {
           flex: 3,
           child: Text(
             desktop,
-            style: const TextStyle(
-              color: kInkMuted,
-              fontSize: 11.5,
-            ),
+            style: const TextStyle(color: kInkMuted, fontSize: 11.5),
           ),
         ),
         Expanded(
           flex: 3,
           child: Text(
             mobile,
-            style: const TextStyle(
-              color: kInkMuted,
-              fontSize: 11.5,
-            ),
+            style: const TextStyle(color: kInkMuted, fontSize: 11.5),
           ),
         ),
       ],
@@ -1972,21 +1953,24 @@ Widget buildPitfallsPanel() {
           icon: Icons.error_outline,
           color: kRose,
           title: 'Disabled state requires onPressed: null',
-          body: 'Passing a no-op callback keeps the button enabled visually. '
+          body:
+              'Passing a no-op callback keeps the button enabled visually. '
               'Pass null when the action cannot run.',
         ),
         buildPitfall(
           icon: Icons.text_fields,
           color: kSky,
           title: 'Localised labels',
-          body: 'Use the .text constructor — it pulls localised strings via '
+          body:
+              'Use the .text constructor — it pulls localised strings via '
               'context. Hard-coding labels breaks i18n.',
         ),
         buildPitfall(
           icon: Icons.format_size,
           color: kAmber,
           title: 'Padding interplay',
-          body: 'The default padding is intentionally small. If you push '
+          body:
+              'The default padding is intentionally small. If you push '
               'larger padding, the toolbar size grows and may overlap the '
               'caret.',
         ),
@@ -1994,7 +1978,8 @@ Widget buildPitfallsPanel() {
           icon: Icons.accessibility_new,
           color: kLime,
           title: 'Focus traversal',
-          body: 'Keyboard users need predictable arrow-key traversal. Avoid '
+          body:
+              'Keyboard users need predictable arrow-key traversal. Avoid '
               'placing non-button widgets between buttons unless they are '
               'focus-skipped.',
         ),
@@ -2002,7 +1987,8 @@ Widget buildPitfallsPanel() {
           icon: Icons.brush,
           color: kViolet,
           title: 'Theme cascading',
-          body: 'Override TextSelectionThemeData high in the tree — the '
+          body:
+              'Override TextSelectionThemeData high in the tree — the '
               'button reads colours from the surrounding theme.',
         ),
         const SizedBox(height: 14),
@@ -2024,10 +2010,7 @@ Widget buildPitfall({
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(11),
-      border: Border.all(
-        color: color.withValues(alpha: 0.35),
-        width: 1,
-      ),
+      border: Border.all(color: color.withValues(alpha: 0.35), width: 1),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -2090,8 +2073,7 @@ Widget buildAccessibilityCard() {
                 color: kTeal.withValues(alpha: 0.18),
                 borderRadius: BorderRadius.circular(6),
               ),
-              child: const Icon(Icons.accessibility,
-                  size: 14, color: kTeal),
+              child: const Icon(Icons.accessibility, size: 14, color: kTeal),
             ),
             const SizedBox(width: 10),
             const Text(
@@ -2152,10 +2134,7 @@ Widget buildFooter() {
         colors: <Color>[kSlateDeep, kSlate, kTealDeep],
       ),
       borderRadius: BorderRadius.circular(16),
-      border: Border.all(
-        color: kTeal.withValues(alpha: 0.3),
-        width: 1,
-      ),
+      border: Border.all(color: kTeal.withValues(alpha: 0.3), width: 1),
     ),
     child: Row(
       children: <Widget>[

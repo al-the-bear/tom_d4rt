@@ -70,7 +70,7 @@ dynamic build(BuildContext context) {
                 ),
               ),
               SizedBox(height: 20.0),
-              
+
               Text(
                 'Default TextMagnifier:',
                 style: TextStyle(
@@ -80,7 +80,7 @@ dynamic build(BuildContext context) {
                 ),
               ),
               SizedBox(height: 12.0),
-              
+
               // Demo showing the magnifier concept
               Container(
                 padding: EdgeInsets.all(20.0),
@@ -100,7 +100,7 @@ dynamic build(BuildContext context) {
                       ),
                     ),
                     SizedBox(height: 16.0),
-                    
+
                     // Visual representation of magnifier
                     Stack(
                       alignment: Alignment.center,
@@ -145,13 +145,17 @@ dynamic build(BuildContext context) {
                         ),
                       ],
                     ),
-                    
+
                     SizedBox(height: 24.0),
-                    
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.info_outline, size: 16.0, color: Colors.grey.shade600),
+                        Icon(
+                          Icons.info_outline,
+                          size: 16.0,
+                          color: Colors.grey.shade600,
+                        ),
                         SizedBox(width: 8.0),
                         Text(
                           'Magnifier shows content 1.48x larger',
@@ -226,13 +230,10 @@ dynamic build(BuildContext context) {
               Text(
                 'TextMagnifier uses a default size of approximately 77.37 x 37.9 pixels. '
                 'Here are visual comparisons of different size concepts:',
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.grey.shade700,
-                ),
+                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
               ),
               SizedBox(height: 16.0),
-              
+
               // Size comparison grid
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -242,9 +243,9 @@ dynamic build(BuildContext context) {
                   _buildMagnifierSizeDemo('Large', 100.0, 50.0, Colors.orange),
                 ],
               ),
-              
+
               SizedBox(height: 16.0),
-              
+
               Container(
                 padding: EdgeInsets.all(12.0),
                 decoration: BoxDecoration(
@@ -328,13 +329,10 @@ dynamic build(BuildContext context) {
             children: [
               Text(
                 'The magnifier typically uses 1.48x magnification scale:',
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.grey.shade700,
-                ),
+                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
               ),
               SizedBox(height: 16.0),
-              
+
               // Before/after magnification demo
               Row(
                 children: [
@@ -368,12 +366,12 @@ dynamic build(BuildContext context) {
                       ],
                     ),
                   ),
-                  
+
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 8.0),
                     child: Icon(Icons.arrow_forward, color: Colors.grey),
                   ),
-                  
+
                   Expanded(
                     child: Column(
                       children: [
@@ -417,9 +415,9 @@ dynamic build(BuildContext context) {
                   ),
                 ],
               ),
-              
+
               SizedBox(height: 20.0),
-              
+
               // Different zoom levels visualization
               Text(
                 'Zoom Level Comparison:',
@@ -430,7 +428,7 @@ dynamic build(BuildContext context) {
                 ),
               ),
               SizedBox(height: 12.0),
-              
+
               _buildZoomLevelRow('1.0x', 12.0, Colors.grey),
               _buildZoomLevelRow('1.25x', 15.0, Colors.blue),
               _buildZoomLevelRow('1.48x (Default)', 18.0, Colors.purple),
@@ -495,25 +493,30 @@ dynamic build(BuildContext context) {
             children: [
               Text(
                 'TextMagnifier includes subtle shadow effects for visual depth:',
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.grey.shade700,
-                ),
+                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
               ),
               SizedBox(height: 16.0),
-              
+
               // Shadow demonstrations
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   _buildShadowDemo('No Shadow', false, Colors.grey.shade200),
-                  _buildShadowDemo('Light Shadow', true, Colors.grey.withValues(alpha: 0.15)),
-                  _buildShadowDemo('Strong Shadow', true, Colors.grey.withValues(alpha: 0.4)),
+                  _buildShadowDemo(
+                    'Light Shadow',
+                    true,
+                    Colors.grey.withValues(alpha: 0.15),
+                  ),
+                  _buildShadowDemo(
+                    'Strong Shadow',
+                    true,
+                    Colors.grey.withValues(alpha: 0.4),
+                  ),
                 ],
               ),
-              
+
               SizedBox(height: 24.0),
-              
+
               // Border styles
               Text(
                 'Border Styles:',
@@ -524,7 +527,7 @@ dynamic build(BuildContext context) {
                 ),
               ),
               SizedBox(height: 12.0),
-              
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -596,13 +599,10 @@ dynamic build(BuildContext context) {
             children: [
               Text(
                 'TextMagnifier is typically used with text selection handles for precise cursor positioning:',
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.grey.shade700,
-                ),
+                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
               ),
               SizedBox(height: 16.0),
-              
+
               // Text selection simulation
               Container(
                 padding: EdgeInsets.all(16.0),
@@ -630,9 +630,9 @@ dynamic build(BuildContext context) {
                         ],
                       ),
                     ),
-                    
+
                     SizedBox(height: 8.0),
-                    
+
                     // Magnifier positioned above
                     Center(
                       child: Column(
@@ -683,9 +683,9 @@ dynamic build(BuildContext context) {
                         ],
                       ),
                     ),
-                    
+
                     SizedBox(height: 12.0),
-                    
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -764,21 +764,38 @@ dynamic build(BuildContext context) {
             children: [
               Text(
                 'TextMagnifier follows Material Design and is primarily used on Android:',
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.grey.shade700,
-                ),
+                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
               ),
               SizedBox(height: 16.0),
-              
+
               // Platform comparison
-              _buildPlatformRow(Icons.android, 'Android', 'TextMagnifier (Material)', Colors.green),
-              _buildPlatformRow(Icons.apple, 'iOS', 'CupertinoMagnifier (Cupertino)', Colors.grey),
-              _buildPlatformRow(Icons.desktop_windows, 'Desktop', 'Usually not shown', Colors.blue),
-              _buildPlatformRow(Icons.language, 'Web', 'Browser native behavior', Colors.orange),
-              
+              _buildPlatformRow(
+                Icons.android,
+                'Android',
+                'TextMagnifier (Material)',
+                Colors.green,
+              ),
+              _buildPlatformRow(
+                Icons.apple,
+                'iOS',
+                'CupertinoMagnifier (Cupertino)',
+                Colors.grey,
+              ),
+              _buildPlatformRow(
+                Icons.desktop_windows,
+                'Desktop',
+                'Usually not shown',
+                Colors.blue,
+              ),
+              _buildPlatformRow(
+                Icons.language,
+                'Web',
+                'Browser native behavior',
+                Colors.orange,
+              ),
+
               SizedBox(height: 16.0),
-              
+
               Container(
                 padding: EdgeInsets.all(12.0),
                 decoration: BoxDecoration(
@@ -789,7 +806,11 @@ dynamic build(BuildContext context) {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Icon(Icons.lightbulb, size: 16.0, color: Colors.green.shade700),
+                    Icon(
+                      Icons.lightbulb,
+                      size: 16.0,
+                      color: Colors.green.shade700,
+                    ),
                     SizedBox(width: 8.0),
                     Expanded(
                       child: Text(
@@ -864,13 +885,10 @@ dynamic build(BuildContext context) {
               Text(
                 'The magnifier is positioned above the focal point with a vertical offset '
                 'to avoid obstructing the text being selected:',
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.grey.shade700,
-                ),
+                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
               ),
               SizedBox(height: 16.0),
-              
+
               // Position diagram
               Container(
                 padding: EdgeInsets.all(20.0),
@@ -911,7 +929,7 @@ dynamic build(BuildContext context) {
                         ),
                       ),
                     ),
-                    
+
                     // Vertical offset indicator
                     Container(
                       height: 30.0,
@@ -937,7 +955,7 @@ dynamic build(BuildContext context) {
                         ],
                       ),
                     ),
-                    
+
                     // Focal point
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -960,12 +978,15 @@ dynamic build(BuildContext context) {
                         ),
                       ],
                     ),
-                    
+
                     SizedBox(height: 16.0),
-                    
+
                     // Text line below
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16.0,
+                        vertical: 8.0,
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(4.0),
@@ -1020,11 +1041,15 @@ dynamic build(BuildContext context) {
           ],
         ),
         SizedBox(height: 16.0),
-        
-        _buildApiRow('magnifierInfo', 'MagnifierInfo', 'Position and configuration data'),
-        
+
+        _buildApiRow(
+          'magnifierInfo',
+          'MagnifierInfo',
+          'Position and configuration data',
+        ),
+
         SizedBox(height: 16.0),
-        
+
         Text(
           'Static Methods:',
           style: TextStyle(
@@ -1034,11 +1059,15 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 8.0),
-        
-        _buildApiRow('adaptiveMagnifierConfiguration', 'TextMagnifierConfiguration', 'Platform-adaptive builder'),
-        
+
+        _buildApiRow(
+          'adaptiveMagnifierConfiguration',
+          'TextMagnifierConfiguration',
+          'Platform-adaptive builder',
+        ),
+
         SizedBox(height: 16.0),
-        
+
         Text(
           'Constants:',
           style: TextStyle(
@@ -1048,13 +1077,21 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 8.0),
-        
+
         _buildConstantRow('magnifierScale', '1.48', 'Default zoom level'),
-        _buildConstantRow('kDefaultMagnifierSize', '77.37 × 37.9', 'Default widget size'),
-        _buildConstantRow('kVerticalFocalPointOffset', '-22.0', 'Vertical position offset'),
-        
+        _buildConstantRow(
+          'kDefaultMagnifierSize',
+          '77.37 × 37.9',
+          'Default widget size',
+        ),
+        _buildConstantRow(
+          'kVerticalFocalPointOffset',
+          '-22.0',
+          'Vertical position offset',
+        ),
+
         SizedBox(height: 16.0),
-        
+
         Container(
           padding: EdgeInsets.all(12.0),
           decoration: BoxDecoration(
@@ -1071,10 +1108,7 @@ dynamic build(BuildContext context) {
                 child: Text(
                   'TextMagnifier is typically used via SelectionArea or TextField\'s '
                   'magnifierConfiguration property rather than directly.',
-                  style: TextStyle(
-                    fontSize: 12.0,
-                    color: Colors.blue.shade900,
-                  ),
+                  style: TextStyle(fontSize: 12.0, color: Colors.blue.shade900),
                 ),
               ),
             ],
@@ -1120,18 +1154,12 @@ dynamic build(BuildContext context) {
               SizedBox(height: 4.0),
               Text(
                 'Deep Demo',
-                style: TextStyle(
-                  fontSize: 16.0,
-                  color: Colors.white70,
-                ),
+                style: TextStyle(fontSize: 16.0, color: Colors.white70),
               ),
               SizedBox(height: 8.0),
               Text(
                 'Material-style magnifying glass for text selection',
-                style: TextStyle(
-                  fontSize: 13.0,
-                  color: Colors.white60,
-                ),
+                style: TextStyle(fontSize: 13.0, color: Colors.white60),
               ),
             ],
           ),
@@ -1199,7 +1227,12 @@ Widget _buildSectionHeader(String title, IconData icon) {
 }
 
 // Helper: Magnifier size demo
-Widget _buildMagnifierSizeDemo(String label, double width, double height, Color color) {
+Widget _buildMagnifierSizeDemo(
+  String label,
+  double width,
+  double height,
+  Color color,
+) {
   return Column(
     children: [
       Container(
@@ -1232,10 +1265,7 @@ Widget _buildMagnifierSizeDemo(String label, double width, double height, Color 
       ),
       Text(
         '${width.toInt()}×${height.toInt()}',
-        style: TextStyle(
-          fontSize: 9.0,
-          color: Colors.grey,
-        ),
+        style: TextStyle(fontSize: 9.0, color: Colors.grey),
       ),
     ],
   );
@@ -1267,10 +1297,7 @@ Widget _buildZoomLevelRow(String label, double fontSize, Color color) {
         Expanded(
           child: Text(
             'Sample Text',
-            style: TextStyle(
-              fontSize: fontSize,
-              color: Colors.black,
-            ),
+            style: TextStyle(fontSize: fontSize, color: Colors.black),
           ),
         ),
       ],
@@ -1297,28 +1324,19 @@ Widget _buildShadowDemo(String label, bool hasShadow, Color shadowColor) {
                   ),
                 ]
               : [],
-          border: Border.all(
-            color: Colors.grey.shade400,
-            width: 1.0,
-          ),
+          border: Border.all(color: Colors.grey.shade400, width: 1.0),
         ),
         child: Center(
           child: Text(
             'Abc',
-            style: TextStyle(
-              fontSize: 14.0,
-              fontWeight: FontWeight.bold,
-            ),
+            style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
           ),
         ),
       ),
       SizedBox(height: 6.0),
       Text(
         label,
-        style: TextStyle(
-          fontSize: 10.0,
-          color: Colors.grey.shade700,
-        ),
+        style: TextStyle(fontSize: 10.0, color: Colors.grey.shade700),
       ),
     ],
   );
@@ -1341,42 +1359,35 @@ Widget _buildBorderDemo(String label, double width, Color color) {
               offset: Offset(0.0, 2.0),
             ),
           ],
-          border: Border.all(
-            color: color,
-            width: width,
-          ),
+          border: Border.all(color: color, width: width),
         ),
         child: Center(
           child: Text(
             'Xy',
-            style: TextStyle(
-              fontSize: 12.0,
-              fontWeight: FontWeight.bold,
-            ),
+            style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold),
           ),
         ),
       ),
       SizedBox(height: 6.0),
       Text(
         label,
-        style: TextStyle(
-          fontSize: 10.0,
-          color: Colors.grey.shade700,
-        ),
+        style: TextStyle(fontSize: 10.0, color: Colors.grey.shade700),
       ),
       Text(
         '${width}px',
-        style: TextStyle(
-          fontSize: 9.0,
-          color: Colors.grey.shade500,
-        ),
+        style: TextStyle(fontSize: 9.0, color: Colors.grey.shade500),
       ),
     ],
   );
 }
 
 // Helper: Platform row
-Widget _buildPlatformRow(IconData icon, String platform, String magnifier, Color color) {
+Widget _buildPlatformRow(
+  IconData icon,
+  String platform,
+  String magnifier,
+  Color color,
+) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 4.0),
     padding: EdgeInsets.all(10.0),
@@ -1403,10 +1414,7 @@ Widget _buildPlatformRow(IconData icon, String platform, String magnifier, Color
         Expanded(
           child: Text(
             magnifier,
-            style: TextStyle(
-              fontSize: 11.0,
-              color: Colors.grey.shade700,
-            ),
+            style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700),
           ),
         ),
       ],
@@ -1442,10 +1450,7 @@ Widget _buildApiRow(String prop, String type, String desc) {
         Expanded(
           child: Text(
             desc,
-            style: TextStyle(
-              fontSize: 11.0,
-              color: Colors.grey.shade700,
-            ),
+            style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700),
           ),
         ),
       ],
@@ -1492,10 +1497,7 @@ Widget _buildConstantRow(String name, String value, String desc) {
         Expanded(
           child: Text(
             desc,
-            style: TextStyle(
-              fontSize: 10.0,
-              color: Colors.grey.shade600,
-            ),
+            style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600),
           ),
         ),
       ],

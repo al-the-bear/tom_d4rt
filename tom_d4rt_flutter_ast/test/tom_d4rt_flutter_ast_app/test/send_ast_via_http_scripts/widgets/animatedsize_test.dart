@@ -54,10 +54,7 @@ dynamic build(BuildContext context) {
   final mutedGradient = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: [
-      Color(0xFFECEFF1),
-      Color(0xFFCFD8DC),
-    ],
+    colors: [Color(0xFFECEFF1), Color(0xFFCFD8DC)],
   );
 
   final dangerGradient = LinearGradient(
@@ -239,12 +236,42 @@ dynamic build(BuildContext context) {
 
   final anatomyParams = <Widget>[];
   final anatomyData = <List<dynamic>>[
-    ['child', Icons.widgets, 'The single child whose intrinsic size is observed.', Color(0xFF1976D2)],
-    ['duration', Icons.timer, 'How long the size transition takes when expanding.', Color(0xFF388E3C)],
-    ['reverseDuration', Icons.timer_off, 'Optional separate duration for shrinking.', Color(0xFFF57C00)],
-    ['curve', Icons.show_chart, 'Easing function applied to the size tween.', Color(0xFF7B1FA2)],
-    ['alignment', Icons.center_focus_strong, 'Anchors the child while the box resizes.', Color(0xFFD81B60)],
-    ['clipBehavior', Icons.crop, 'How content extending past the box is clipped.', Color(0xFF00796B)],
+    [
+      'child',
+      Icons.widgets,
+      'The single child whose intrinsic size is observed.',
+      Color(0xFF1976D2),
+    ],
+    [
+      'duration',
+      Icons.timer,
+      'How long the size transition takes when expanding.',
+      Color(0xFF388E3C),
+    ],
+    [
+      'reverseDuration',
+      Icons.timer_off,
+      'Optional separate duration for shrinking.',
+      Color(0xFFF57C00),
+    ],
+    [
+      'curve',
+      Icons.show_chart,
+      'Easing function applied to the size tween.',
+      Color(0xFF7B1FA2),
+    ],
+    [
+      'alignment',
+      Icons.center_focus_strong,
+      'Anchors the child while the box resizes.',
+      Color(0xFFD81B60),
+    ],
+    [
+      'clipBehavior',
+      Icons.crop,
+      'How content extending past the box is clipped.',
+      Color(0xFF00796B),
+    ],
   ];
 
   for (final row in anatomyData) {
@@ -601,10 +628,7 @@ dynamic build(BuildContext context) {
             ),
             Text(
               label,
-              style: TextStyle(
-                fontSize: 11.0,
-                color: Color(0xFF607D8B),
-              ),
+              style: TextStyle(fontSize: 11.0, color: Color(0xFF607D8B)),
             ),
             SizedBox(height: 10.0),
             AnimatedSize(
@@ -756,11 +780,7 @@ dynamic build(BuildContext context) {
                   boxShadow: [softShadow],
                 ),
                 child: Center(
-                  child: Icon(
-                    Icons.timeline,
-                    color: Colors.white,
-                    size: 20.0,
-                  ),
+                  child: Icon(Icons.timeline, color: Colors.white, size: 20.0),
                 ),
               ),
             ),
@@ -781,10 +801,7 @@ dynamic build(BuildContext context) {
 
   final curveGrid = Container(
     margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
-    child: Wrap(
-      alignment: WrapAlignment.center,
-      children: curveCards,
-    ),
+    child: Wrap(alignment: WrapAlignment.center, children: curveCards),
   );
 
   // ============================================================
@@ -923,10 +940,7 @@ dynamic build(BuildContext context) {
 
   final alignmentRow = Container(
     margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
-    child: Wrap(
-      alignment: WrapAlignment.center,
-      children: alignmentCards,
-    ),
+    child: Wrap(alignment: WrapAlignment.center, children: alignmentCards),
   );
 
   // ============================================================
@@ -982,7 +996,11 @@ dynamic build(BuildContext context) {
     ['Clip.none', Clip.none, Color(0xFF455A64)],
     ['Clip.hardEdge', Clip.hardEdge, Color(0xFF1976D2)],
     ['Clip.antiAlias', Clip.antiAlias, Color(0xFF388E3C)],
-    ['Clip.antiAliasWithSaveLayer', Clip.antiAliasWithSaveLayer, Color(0xFF7B1FA2)],
+    [
+      'Clip.antiAliasWithSaveLayer',
+      Clip.antiAliasWithSaveLayer,
+      Color(0xFF7B1FA2),
+    ],
   ];
 
   for (final c in clipData) {
@@ -1020,10 +1038,7 @@ dynamic build(BuildContext context) {
                 height: 70.0,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [
-                      color,
-                      color.withValues(alpha: 0.6),
-                    ],
+                    colors: [color, color.withValues(alpha: 0.6)],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
@@ -1050,10 +1065,10 @@ dynamic build(BuildContext context) {
               clip == Clip.hardEdge
                   ? 'Default; cheapest clipping.'
                   : clip == Clip.none
-                      ? 'No clipping; child can overflow.'
-                      : clip == Clip.antiAlias
-                          ? 'Smooth edges, slightly costlier.'
-                          : 'Smoothest, requires save layer.',
+                  ? 'No clipping; child can overflow.'
+                  : clip == Clip.antiAlias
+                  ? 'Smooth edges, slightly costlier.'
+                  : 'Smoothest, requires save layer.',
               style: TextStyle(
                 fontSize: 10.0,
                 color: Color(0xFF607D8B),
@@ -1069,10 +1084,7 @@ dynamic build(BuildContext context) {
 
   final clipGrid = Container(
     margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
-    child: Wrap(
-      alignment: WrapAlignment.center,
-      children: clipCards,
-    ),
+    child: Wrap(alignment: WrapAlignment.center, children: clipCards),
   );
 
   // ============================================================
@@ -1326,10 +1338,7 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(14.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Colors.white,
-              color.withValues(alpha: 0.05),
-            ],
+            colors: [Colors.white, color.withValues(alpha: 0.05)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),

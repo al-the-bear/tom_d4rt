@@ -19,7 +19,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.send,
       'title': 'What is an Intent?',
-      'body': 'In Flutter\'s action framework, an Intent is a '
+      'body':
+          'In Flutter\'s action framework, an Intent is a '
           'lightweight, immutable object that describes *what* '
           'should happen without specifying *how*. Think of it as '
           'a command message: "please activate the focused widget". '
@@ -29,7 +30,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.touch_app,
       'title': 'ActivateIntent Specifically',
-      'body': 'ActivateIntent is the built-in intent meaning '
+      'body':
+          'ActivateIntent is the built-in intent meaning '
           '"activate the currently focused widget". It\'s the intent '
           'generated when a user presses Enter or Space on a focused '
           'button, checkbox, switch, or any activatable widget. '
@@ -39,7 +41,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.architecture,
       'title': 'Why Separate Intent from Action?',
-      'body': 'Separation of intent from action allows:\n'
+      'body':
+          'Separation of intent from action allows:\n'
           '• Multiple triggers for the same intent (keyboard, mouse, code)\n'
           '• Different actions at different tree locations for the same intent\n'
           '• Testable, composable interaction patterns\n'
@@ -49,7 +52,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.key,
       'title': 'Const & Immutable',
-      'body': 'ActivateIntent has a single const constructor and no '
+      'body':
+          'ActivateIntent has a single const constructor and no '
           'fields. It\'s a pure marker class — its mere existence '
           'communicates the intent. It can be stored in const maps, '
           'reused across widgets, and compared by identity.',
@@ -66,15 +70,16 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: (card['accent'] as Color).withOpacity(0.08),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: (card['accent'] as Color).withOpacity(0.3),
-        ),
+        border: Border.all(color: (card['accent'] as Color).withOpacity(0.3)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(card['icon'] as IconData,
-              color: card['accent'] as Color, size: 32),
+          Icon(
+            card['icon'] as IconData,
+            color: card['accent'] as Color,
+            size: 32,
+          ),
           const SizedBox(width: 14),
           Expanded(
             child: Column(
@@ -152,9 +157,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: Colors.teal.withOpacity(0.05),
         borderRadius: BorderRadius.circular(8),
-        border: Border(
-          left: BorderSide(color: Colors.teal, width: 4),
-        ),
+        border: Border(left: BorderSide(color: Colors.teal, width: 4)),
       ),
       child: Row(
         children: [
@@ -229,32 +232,39 @@ dynamic build(BuildContext context) {
         // Header
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-          decoration: BoxDecoration(
-            color: Colors.teal[800],
-          ),
+          decoration: BoxDecoration(color: Colors.teal[800]),
           child: Row(
             children: [
               SizedBox(
                 width: 70,
-                child: Text('Aspect',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12)),
+                child: Text(
+                  'Aspect',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                  ),
+                ),
               ),
               Expanded(
-                child: Text('Intent (What)',
-                    style: TextStyle(
-                        color: Colors.teal[100],
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12)),
+                child: Text(
+                  'Intent (What)',
+                  style: TextStyle(
+                    color: Colors.teal[100],
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                  ),
+                ),
               ),
               Expanded(
-                child: Text('Action (How)',
-                    style: TextStyle(
-                        color: Colors.orange[100],
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12)),
+                child: Text(
+                  'Action (How)',
+                  style: TextStyle(
+                    color: Colors.orange[100],
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                  ),
+                ),
               ),
             ],
           ),
@@ -275,19 +285,25 @@ dynamic build(BuildContext context) {
               children: [
                 SizedBox(
                   width: 70,
-                  child: Text(intentSide[i]['aspect']!,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w600, fontSize: 11)),
+                  child: Text(
+                    intentSide[i]['aspect']!,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 11,
+                    ),
+                  ),
                 ),
                 Expanded(
-                  child: Text(intentSide[i]['value']!,
-                      style: TextStyle(
-                          fontSize: 11, color: Colors.teal[700])),
+                  child: Text(
+                    intentSide[i]['value']!,
+                    style: TextStyle(fontSize: 11, color: Colors.teal[700]),
+                  ),
                 ),
                 Expanded(
-                  child: Text(actionSide[i]['value']!,
-                      style: TextStyle(
-                          fontSize: 11, color: Colors.orange[800])),
+                  child: Text(
+                    actionSide[i]['value']!,
+                    style: TextStyle(fontSize: 11, color: Colors.orange[800]),
+                  ),
                 ),
               ],
             ),
@@ -306,7 +322,8 @@ dynamic build(BuildContext context) {
     {
       'step': '1',
       'label': 'Trigger',
-      'detail': 'User presses Enter or Space; or code calls '
+      'detail':
+          'User presses Enter or Space; or code calls '
           'Actions.invoke(context, const ActivateIntent())',
       'icon': Icons.keyboard,
       'color': Colors.teal[900]!,
@@ -314,7 +331,8 @@ dynamic build(BuildContext context) {
     {
       'step': '2',
       'label': 'Shortcuts Match',
-      'detail': 'The nearest Shortcuts widget (typically from WidgetsApp) '
+      'detail':
+          'The nearest Shortcuts widget (typically from WidgetsApp) '
           'maps the key event to ActivateIntent',
       'icon': Icons.shortcut,
       'color': Colors.teal[700]!,
@@ -322,7 +340,8 @@ dynamic build(BuildContext context) {
     {
       'step': '3',
       'label': 'Tree Walk Up',
-      'detail': 'Flutter walks up from the focused widget through '
+      'detail':
+          'Flutter walks up from the focused widget through '
           'all Actions ancestors looking for one that handles '
           'ActivateIntent',
       'icon': Icons.arrow_upward,
@@ -331,7 +350,8 @@ dynamic build(BuildContext context) {
     {
       'step': '4',
       'label': 'Action Found',
-      'detail': 'The nearest Actions widget whose map contains '
+      'detail':
+          'The nearest Actions widget whose map contains '
           'ActivateIntent provides the Action handler',
       'icon': Icons.check_circle,
       'color': Colors.teal[500]!,
@@ -339,7 +359,8 @@ dynamic build(BuildContext context) {
     {
       'step': '5',
       'label': 'isEnabled Check',
-      'detail': 'The framework calls action.isEnabled(intent) — '
+      'detail':
+          'The framework calls action.isEnabled(intent) — '
           'if false, the intent is ignored and bubbles further up',
       'icon': Icons.verified,
       'color': Colors.teal[400]!,
@@ -347,7 +368,8 @@ dynamic build(BuildContext context) {
     {
       'step': '6',
       'label': 'invoke()',
-      'detail': 'action.invoke(intent) is called. For buttons this '
+      'detail':
+          'action.invoke(intent) is called. For buttons this '
           'triggers onPressed; for checkboxes it toggles the value',
       'icon': Icons.play_arrow,
       'color': Colors.green[600]!,
@@ -355,7 +377,8 @@ dynamic build(BuildContext context) {
     {
       'step': '7',
       'label': 'Result',
-      'detail': 'invoke() returns an Object? result (often null). '
+      'detail':
+          'invoke() returns an Object? result (often null). '
           'The widget updates its visual state accordingly',
       'icon': Icons.done_all,
       'color': Colors.green[400]!,
@@ -396,10 +419,7 @@ dynamic build(BuildContext context) {
                 color: (step['color'] as Color).withOpacity(0.08),
                 borderRadius: BorderRadius.circular(8),
                 border: Border(
-                  left: BorderSide(
-                    color: step['color'] as Color,
-                    width: 3,
-                  ),
+                  left: BorderSide(color: step['color'] as Color, width: 3),
                 ),
               ),
               child: Column(
@@ -407,8 +427,11 @@ dynamic build(BuildContext context) {
                 children: [
                   Row(
                     children: [
-                      Icon(step['icon'] as IconData,
-                          size: 16, color: step['color'] as Color),
+                      Icon(
+                        step['icon'] as IconData,
+                        size: 16,
+                        color: step['color'] as Color,
+                      ),
                       const SizedBox(width: 6),
                       Text(
                         step['label'] as String,
@@ -540,7 +563,9 @@ dynamic build(BuildContext context) {
             : (intent['color'] as Color).withOpacity(0.06),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
-          color: (intent['color'] as Color).withOpacity(isHighlighted ? 0.5 : 0.2),
+          color: (intent['color'] as Color).withOpacity(
+            isHighlighted ? 0.5 : 0.2,
+          ),
           width: isHighlighted ? 2 : 1,
         ),
       ),
@@ -553,8 +578,11 @@ dynamic build(BuildContext context) {
               color: (intent['color'] as Color).withOpacity(0.15),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Icon(intent['icon'] as IconData,
-                color: intent['color'] as Color, size: 20),
+            child: Icon(
+              intent['icon'] as IconData,
+              color: intent['color'] as Color,
+              size: 20,
+            ),
           ),
           const SizedBox(width: 10),
           Expanded(
@@ -575,7 +603,9 @@ dynamic build(BuildContext context) {
                       const SizedBox(width: 6),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 6, vertical: 2),
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.teal,
                           borderRadius: BorderRadius.circular(4),
@@ -613,28 +643,33 @@ dynamic build(BuildContext context) {
   final customIntentPatterns = <Map<String, dynamic>>[
     {
       'title': 'Marker Intent (No Data)',
-      'code': 'class SaveDocumentIntent extends Intent {\n'
+      'code':
+          'class SaveDocumentIntent extends Intent {\n'
           '  const SaveDocumentIntent();\n'
           '}',
-      'explanation': 'Like ActivateIntent — a pure signal with no payload. '
+      'explanation':
+          'Like ActivateIntent — a pure signal with no payload. '
           'Use when the intent meaning is fully captured by its type.',
       'color': Colors.teal,
       'icon': Icons.flag,
     },
     {
       'title': 'Parameterized Intent',
-      'code': 'class NavigateIntent extends Intent {\n'
+      'code':
+          'class NavigateIntent extends Intent {\n'
           '  const NavigateIntent(this.route);\n'
           '  final String route;\n'
           '}',
-      'explanation': 'Carries data the Action needs. Use when the same Action '
+      'explanation':
+          'Carries data the Action needs. Use when the same Action '
           'type should behave differently based on parameters.',
       'color': Colors.blue,
       'icon': Icons.data_object,
     },
     {
       'title': 'Reuse ActivateIntent',
-      'code': '// Don\'t subclass — just map ActivateIntent\n'
+      'code':
+          '// Don\'t subclass — just map ActivateIntent\n'
           '// to your own Action in the Actions widget.\n'
           'Actions(\n'
           '  actions: {\n'
@@ -642,7 +677,8 @@ dynamic build(BuildContext context) {
           '  },\n'
           '  child: ...\n'
           ')',
-      'explanation': 'When you want to customize what activation does in a '
+      'explanation':
+          'When you want to customize what activation does in a '
           'subtree, override the Action, not the Intent. ActivateIntent '
           'is already well-known to Flutter\'s accessibility system.',
       'color': Colors.green,
@@ -650,12 +686,14 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Domain-Specific Intent',
-      'code': 'class AddToCartIntent extends Intent {\n'
+      'code':
+          'class AddToCartIntent extends Intent {\n'
           '  const AddToCartIntent(this.productId, this.quantity);\n'
           '  final String productId;\n'
           '  final int quantity;\n'
           '}',
-      'explanation': 'Model your app\'s domain actions as intents for '
+      'explanation':
+          'Model your app\'s domain actions as intents for '
           'clean separation of concerns. Map them to actions in an '
           'Actions widget near the relevant part of the tree.',
       'color': Colors.orange,
@@ -681,8 +719,11 @@ dynamic build(BuildContext context) {
         children: [
           Row(
             children: [
-              Icon(pattern['icon'] as IconData,
-                  color: pattern['color'] as Color, size: 22),
+              Icon(
+                pattern['icon'] as IconData,
+                color: pattern['color'] as Color,
+                size: 22,
+              ),
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
@@ -744,21 +785,28 @@ dynamic build(BuildContext context) {
             Row(
               children: [
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 3,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.teal,
                     borderRadius: BorderRadius.circular(4),
                   ),
-                  child: const Text('Scope A',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 11)),
+                  child: const Text(
+                    'Scope A',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 11,
+                    ),
+                  ),
                 ),
                 const SizedBox(width: 8),
-                const Text('Default activation',
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
+                const Text(
+                  'Default activation',
+                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+                ),
               ],
             ),
             const SizedBox(height: 8),
@@ -797,22 +845,28 @@ dynamic build(BuildContext context) {
               Row(
                 children: [
                   Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 3,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.blue,
                       borderRadius: BorderRadius.circular(4),
                     ),
-                    child: const Text('Scope B',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 11)),
+                    child: const Text(
+                      'Scope B',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 11,
+                      ),
+                    ),
                   ),
                   const SizedBox(width: 8),
-                  const Text('Custom logging override',
-                      style:
-                          TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
+                  const Text(
+                    'Custom logging override',
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+                  ),
                 ],
               ),
               const SizedBox(height: 8),
@@ -857,22 +911,28 @@ dynamic build(BuildContext context) {
               Row(
                 children: [
                   Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 3,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.red,
                       borderRadius: BorderRadius.circular(4),
                     ),
-                    child: const Text('Scope C',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 11)),
+                    child: const Text(
+                      'Scope C',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 11,
+                      ),
+                    ),
                   ),
                   const SizedBox(width: 8),
-                  const Text('Gated activation',
-                      style:
-                          TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
+                  const Text(
+                    'Gated activation',
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+                  ),
                 ],
               ),
               const SizedBox(height: 8),
@@ -954,8 +1014,10 @@ dynamic build(BuildContext context) {
               children: [
                 const Icon(Icons.touch_app, color: Colors.teal, size: 18),
                 const SizedBox(width: 6),
-                const Text('ActivateIntent → Custom handler',
-                    style: TextStyle(fontSize: 12)),
+                const Text(
+                  'ActivateIntent → Custom handler',
+                  style: TextStyle(fontSize: 12),
+                ),
               ],
             ),
           ),
@@ -970,8 +1032,10 @@ dynamic build(BuildContext context) {
               children: [
                 const Icon(Icons.close, color: Colors.red, size: 18),
                 const SizedBox(width: 6),
-                const Text('DismissIntent → Custom handler',
-                    style: TextStyle(fontSize: 12)),
+                const Text(
+                  'DismissIntent → Custom handler',
+                  style: TextStyle(fontSize: 12),
+                ),
               ],
             ),
           ),
@@ -986,8 +1050,10 @@ dynamic build(BuildContext context) {
               children: [
                 const Icon(Icons.swap_vert, color: Colors.orange, size: 18),
                 const SizedBox(width: 6),
-                const Text('ScrollIntent → Custom handler',
-                    style: TextStyle(fontSize: 12)),
+                const Text(
+                  'ScrollIntent → Custom handler',
+                  style: TextStyle(fontSize: 12),
+                ),
               ],
             ),
           ),
@@ -1038,7 +1104,8 @@ dynamic build(BuildContext context) {
       'title': 'Creating Custom Intent When Built-In Exists',
       'severity': 'Warning',
       'sevColor': Colors.orange,
-      'detail': 'Don\'t create MyActivateIntent when ActivateIntent already '
+      'detail':
+          'Don\'t create MyActivateIntent when ActivateIntent already '
           'exists. The framework and accessibility tools know about '
           'ActivateIntent. Custom intents won\'t trigger from default '
           'keyboard shortcuts.',
@@ -1048,7 +1115,8 @@ dynamic build(BuildContext context) {
       'title': 'Forgetting const on Intent Constructors',
       'severity': 'Info',
       'sevColor': Colors.blue,
-      'detail': 'Intent subclasses should have const constructors. Without '
+      'detail':
+          'Intent subclasses should have const constructors. Without '
           'const, you allocate a new object every time a shortcut fires. '
           'Use "const ActivateIntent()" not "ActivateIntent()".',
       'icon': Icons.info,
@@ -1057,7 +1125,8 @@ dynamic build(BuildContext context) {
       'title': 'Not Registering Action for Intent',
       'severity': 'Error',
       'sevColor': Colors.red,
-      'detail': 'If you dispatch an ActivateIntent but no ancestor Actions '
+      'detail':
+          'If you dispatch an ActivateIntent but no ancestor Actions '
           'widget has a handler for it, the intent is silently ignored. '
           'This is common when building custom widget trees without '
           'WidgetsApp.',
@@ -1067,7 +1136,8 @@ dynamic build(BuildContext context) {
       'title': 'Overriding Intent Type Equality',
       'severity': 'Warning',
       'sevColor': Colors.orange,
-      'detail': 'Intent lookup is by runtimeType, not by value equality. '
+      'detail':
+          'Intent lookup is by runtimeType, not by value equality. '
           'Don\'t override operator== on intents expecting it to '
           'change dispatch behavior — it won\'t. Each Intent subclass '
           'type is a unique key.',
@@ -1077,7 +1147,8 @@ dynamic build(BuildContext context) {
       'title': 'Heavy Logic in Intent',
       'severity': 'Anti-pattern',
       'sevColor': Colors.red,
-      'detail': 'Intents should be lightweight data objects. Put logic '
+      'detail':
+          'Intents should be lightweight data objects. Put logic '
           'in the Action, not the Intent. Intents describe what, '
           'Actions do what.',
       'icon': Icons.do_not_disturb,
@@ -1102,8 +1173,11 @@ dynamic build(BuildContext context) {
         children: [
           Row(
             children: [
-              Icon(pitfall['icon'] as IconData,
-                  color: pitfall['sevColor'] as Color, size: 20),
+              Icon(
+                pitfall['icon'] as IconData,
+                color: pitfall['sevColor'] as Color,
+                size: 20,
+              ),
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
@@ -1116,8 +1190,7 @@ dynamic build(BuildContext context) {
                 ),
               ),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                 decoration: BoxDecoration(
                   color: pitfall['sevColor'] as Color,
                   borderRadius: BorderRadius.circular(4),
@@ -1149,12 +1222,32 @@ dynamic build(BuildContext context) {
   print('=== Section 10: Summary Dashboard ===');
 
   final summaryItems = <Map<String, dynamic>>[
-    {'label': 'Propagation steps', 'value': '${propagationSteps.length}', 'icon': Icons.route},
-    {'label': 'Built-in intents', 'value': '${intentFamily.length}', 'icon': Icons.category},
-    {'label': 'Custom patterns', 'value': '${customIntentPatterns.length}', 'icon': Icons.build},
+    {
+      'label': 'Propagation steps',
+      'value': '${propagationSteps.length}',
+      'icon': Icons.route,
+    },
+    {
+      'label': 'Built-in intents',
+      'value': '${intentFamily.length}',
+      'icon': Icons.category,
+    },
+    {
+      'label': 'Custom patterns',
+      'value': '${customIntentPatterns.length}',
+      'icon': Icons.build,
+    },
     {'label': 'Action scopes shown', 'value': '3', 'icon': Icons.layers},
-    {'label': 'Pitfalls documented', 'value': '${pitfalls.length}', 'icon': Icons.warning},
-    {'label': 'API properties', 'value': '${apiItems.length}', 'icon': Icons.code},
+    {
+      'label': 'Pitfalls documented',
+      'value': '${pitfalls.length}',
+      'icon': Icons.warning,
+    },
+    {
+      'label': 'API properties',
+      'value': '${apiItems.length}',
+      'icon': Icons.code,
+    },
   ];
 
   print('  Summary: ${summaryItems.length} metrics');

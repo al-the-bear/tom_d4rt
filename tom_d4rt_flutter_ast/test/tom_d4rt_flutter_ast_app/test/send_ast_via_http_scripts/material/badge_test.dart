@@ -188,16 +188,20 @@ Widget _heroBanner() {
             const _HeroBadgeChip(
               icon: Icons.mail_outline,
               label: 'dot',
-              badge: Badge(child: Icon(Icons.mail_outline,
-                  size: 30, color: Colors.white)),
+              badge: Badge(
+                child: Icon(Icons.mail_outline, size: 30, color: Colors.white),
+              ),
             ),
             const _HeroBadgeChip(
               icon: Icons.notifications_outlined,
               label: 'label',
               badge: Badge(
                 label: Text('NEW'),
-                child: Icon(Icons.notifications_outlined,
-                    size: 30, color: Colors.white),
+                child: Icon(
+                  Icons.notifications_outlined,
+                  size: 30,
+                  color: Colors.white,
+                ),
               ),
             ),
             _HeroBadgeChip(
@@ -205,8 +209,11 @@ Widget _heroBanner() {
               label: 'count',
               badge: Badge.count(
                 count: 42,
-                child: const Icon(Icons.shopping_cart_outlined,
-                    size: 30, color: Colors.white),
+                child: const Icon(
+                  Icons.shopping_cart_outlined,
+                  size: 30,
+                  color: Colors.white,
+                ),
               ),
             ),
             _HeroBadgeChip(
@@ -214,8 +221,11 @@ Widget _heroBanner() {
               label: 'overflow',
               badge: Badge.count(
                 count: 1000,
-                child: const Icon(Icons.inbox_outlined,
-                    size: 30, color: Colors.white),
+                child: const Icon(
+                  Icons.inbox_outlined,
+                  size: 30,
+                  color: Colors.white,
+                ),
               ),
             ),
           ],
@@ -298,24 +308,25 @@ Widget _basicModesCard() {
             const _LabelledTile(
               caption: 'Badge()',
               child: Badge(
-                child: Icon(Icons.email_outlined,
-                    size: 36, color: _inkMid),
+                child: Icon(Icons.email_outlined, size: 36, color: _inkMid),
               ),
             ),
             const _LabelledTile(
               caption: 'Badge(label:)',
               child: Badge(
                 label: Text('3'),
-                child: Icon(Icons.email_outlined,
-                    size: 36, color: _inkMid),
+                child: Icon(Icons.email_outlined, size: 36, color: _inkMid),
               ),
             ),
             _LabelledTile(
               caption: 'Badge.count(7)',
               child: Badge.count(
                 count: 7,
-                child: const Icon(Icons.email_outlined,
-                    size: 36, color: _inkMid),
+                child: const Icon(
+                  Icons.email_outlined,
+                  size: 36,
+                  color: _inkMid,
+                ),
               ),
             ),
           ],
@@ -328,24 +339,33 @@ Widget _basicModesCard() {
               caption: 'count: 99',
               child: Badge.count(
                 count: 99,
-                child: const Icon(Icons.shopping_cart_outlined,
-                    size: 36, color: _inkMid),
+                child: const Icon(
+                  Icons.shopping_cart_outlined,
+                  size: 36,
+                  color: _inkMid,
+                ),
               ),
             ),
             _LabelledTile(
               caption: 'count: 100',
               child: Badge.count(
                 count: 100,
-                child: const Icon(Icons.shopping_cart_outlined,
-                    size: 36, color: _inkMid),
+                child: const Icon(
+                  Icons.shopping_cart_outlined,
+                  size: 36,
+                  color: _inkMid,
+                ),
               ),
             ),
             _LabelledTile(
               caption: 'count: 1000',
               child: Badge.count(
                 count: 1000,
-                child: const Icon(Icons.shopping_cart_outlined,
-                    size: 36, color: _inkMid),
+                child: const Icon(
+                  Icons.shopping_cart_outlined,
+                  size: 36,
+                  color: _inkMid,
+                ),
               ),
             ),
           ],
@@ -416,8 +436,7 @@ Widget _countOverflowCard() {
                           ),
                         ],
                       ),
-                      child: const Icon(Icons.inbox_outlined,
-                          color: _inkMid),
+                      child: const Icon(Icons.inbox_outlined, color: _inkMid),
                     ),
                   ),
                   const SizedBox(height: 6),
@@ -557,9 +576,7 @@ Widget _navigationSurfacesCard() {
               children: <Widget>[
                 IconButton(
                   onPressed: () {},
-                  icon: const Badge(
-                    child: Icon(Icons.notifications_outlined),
-                  ),
+                  icon: const Badge(child: Icon(Icons.notifications_outlined)),
                 ),
                 IconButton(
                   onPressed: () {},
@@ -722,8 +739,10 @@ Widget _alignmentGridCard() {
                           color: _accentMint.withValues(alpha: 0.18),
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        child: const Icon(Icons.layers_outlined,
-                            color: _inkMid),
+                        child: const Icon(
+                          Icons.layers_outlined,
+                          color: _inkMid,
+                        ),
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -805,7 +824,8 @@ Widget _offsetExplorerCard() {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
-                            color: _accentRose.withValues(alpha: 0.4)),
+                          color: _accentRose.withValues(alpha: 0.4),
+                        ),
                       ),
                       child: const Icon(Icons.tag_outlined, color: _inkMid),
                     ),
@@ -840,10 +860,7 @@ Widget _offsetExplorerCard() {
 // =============================================================================
 
 Widget _badgeThemeWrapperCard() {
-  final base = ThemeData(
-    useMaterial3: true,
-    colorSchemeSeed: _accentIris,
-  );
+  final base = ThemeData(useMaterial3: true, colorSchemeSeed: _accentIris);
   final smallTheme = base.copyWith(
     badgeTheme: const BadgeThemeData(
       backgroundColor: _accentLagoon,
@@ -901,20 +918,11 @@ Widget _badgeThemeWrapperCard() {
           'out at different sizes, colours and anchor points.',
         ),
         const SizedBox(height: 18),
-        _ThemedBranch(
-          label: 'small • lagoon',
-          theme: smallTheme,
-        ),
+        _ThemedBranch(label: 'small • lagoon', theme: smallTheme),
         const SizedBox(height: 14),
-        _ThemedBranch(
-          label: 'large • magenta',
-          theme: largeTheme,
-        ),
+        _ThemedBranch(label: 'large • magenta', theme: largeTheme),
         const SizedBox(height: 14),
-        _ThemedBranch(
-          label: 'accent • lemon (topStart)',
-          theme: accentTheme,
-        ),
+        _ThemedBranch(label: 'accent • lemon (topStart)', theme: accentTheme),
       ],
     ),
   );
@@ -1074,8 +1082,10 @@ Widget _anatomyDiagramCard() {
                   bottom: 28,
                   right: 28,
                   child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 8,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10),
@@ -1115,16 +1125,18 @@ class _BadgeAnatomyPainter extends CustomPainter {
       ..color = _accentSlate.withValues(alpha: 0.12)
       ..style = PaintingStyle.fill;
     canvas.drawRRect(
-        RRect.fromRectAndRadius(childRect, const Radius.circular(14)),
-        paintChild);
+      RRect.fromRectAndRadius(childRect, const Radius.circular(14)),
+      paintChild,
+    );
 
     final paintChildBorder = Paint()
       ..color = _accentSlate
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.4;
     canvas.drawRRect(
-        RRect.fromRectAndRadius(childRect, const Radius.circular(14)),
-        paintChildBorder);
+      RRect.fromRectAndRadius(childRect, const Radius.circular(14)),
+      paintChildBorder,
+    );
 
     // Anchor dot at topEnd of child
     final anchor = Offset(childRect.right, childRect.top);
@@ -1148,16 +1160,23 @@ class _BadgeAnatomyPainter extends CustomPainter {
 
     // Badge bubble at tip
     final bubbleRect = Rect.fromCenter(
-        center: tip.translate(8, 0), width: 22, height: 18);
+      center: tip.translate(8, 0),
+      width: 22,
+      height: 18,
+    );
     final bubblePaint = Paint()..color = _accentIris;
     canvas.drawRRect(
-        RRect.fromRectAndRadius(bubbleRect, const Radius.circular(9)),
-        bubblePaint);
+      RRect.fromRectAndRadius(bubbleRect, const Radius.circular(9)),
+      bubblePaint,
+    );
     final tp = TextPainter(
       text: const TextSpan(
         text: '3',
         style: TextStyle(
-            color: Colors.white, fontSize: 11, fontWeight: FontWeight.w700),
+          color: Colors.white,
+          fontSize: 11,
+          fontWeight: FontWeight.w700,
+        ),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
@@ -1171,10 +1190,22 @@ class _BadgeAnatomyPainter extends CustomPainter {
     final iconCenter = childRect.center;
     final heart = Path()
       ..moveTo(iconCenter.dx, iconCenter.dy + 14)
-      ..cubicTo(iconCenter.dx - 30, iconCenter.dy - 6,
-          iconCenter.dx - 16, iconCenter.dy - 24, iconCenter.dx, iconCenter.dy - 8)
-      ..cubicTo(iconCenter.dx + 16, iconCenter.dy - 24,
-          iconCenter.dx + 30, iconCenter.dy - 6, iconCenter.dx, iconCenter.dy + 14)
+      ..cubicTo(
+        iconCenter.dx - 30,
+        iconCenter.dy - 6,
+        iconCenter.dx - 16,
+        iconCenter.dy - 24,
+        iconCenter.dx,
+        iconCenter.dy - 8,
+      )
+      ..cubicTo(
+        iconCenter.dx + 16,
+        iconCenter.dy - 24,
+        iconCenter.dx + 30,
+        iconCenter.dy - 6,
+        iconCenter.dx,
+        iconCenter.dy + 14,
+      )
       ..close();
     canvas.drawPath(heart, iconPaint);
   }
@@ -1241,42 +1272,54 @@ Widget _decisionMatrixCard() {
               ),
             ),
             children: const <TableRow>[
-              TableRow(children: <Widget>[
-                _MatrixHead('Question'),
-                _MatrixHead('Badge()'),
-                _MatrixHead('Badge.count'),
-                _MatrixHead('Custom overlay'),
-              ]),
-              TableRow(children: <Widget>[
-                _MatrixCell('Only need "unseen" hint?'),
-                _MatrixCell('✓ dot mode'),
-                _MatrixCell('— overkill'),
-                _MatrixCell('— overkill'),
-              ]),
-              TableRow(children: <Widget>[
-                _MatrixCell('Short text label?'),
-                _MatrixCell('✓ via label:'),
-                _MatrixCell('— numeric only'),
-                _MatrixCell('possible, more code'),
-              ]),
-              TableRow(children: <Widget>[
-                _MatrixCell('Numeric counter?'),
-                _MatrixCell('manual stringify'),
-                _MatrixCell('✓ auto overflow'),
-                _MatrixCell('possible, more code'),
-              ]),
-              TableRow(children: <Widget>[
-                _MatrixCell('Non-pill shape?'),
-                _MatrixCell('— pill only'),
-                _MatrixCell('— pill only'),
-                _MatrixCell('✓ Stack+Positioned'),
-              ]),
-              TableRow(children: <Widget>[
-                _MatrixCell('Themable across subtree?'),
-                _MatrixCell('✓ BadgeThemeData'),
-                _MatrixCell('✓ BadgeThemeData'),
-                _MatrixCell('— roll your own'),
-              ]),
+              TableRow(
+                children: <Widget>[
+                  _MatrixHead('Question'),
+                  _MatrixHead('Badge()'),
+                  _MatrixHead('Badge.count'),
+                  _MatrixHead('Custom overlay'),
+                ],
+              ),
+              TableRow(
+                children: <Widget>[
+                  _MatrixCell('Only need "unseen" hint?'),
+                  _MatrixCell('✓ dot mode'),
+                  _MatrixCell('— overkill'),
+                  _MatrixCell('— overkill'),
+                ],
+              ),
+              TableRow(
+                children: <Widget>[
+                  _MatrixCell('Short text label?'),
+                  _MatrixCell('✓ via label:'),
+                  _MatrixCell('— numeric only'),
+                  _MatrixCell('possible, more code'),
+                ],
+              ),
+              TableRow(
+                children: <Widget>[
+                  _MatrixCell('Numeric counter?'),
+                  _MatrixCell('manual stringify'),
+                  _MatrixCell('✓ auto overflow'),
+                  _MatrixCell('possible, more code'),
+                ],
+              ),
+              TableRow(
+                children: <Widget>[
+                  _MatrixCell('Non-pill shape?'),
+                  _MatrixCell('— pill only'),
+                  _MatrixCell('— pill only'),
+                  _MatrixCell('✓ Stack+Positioned'),
+                ],
+              ),
+              TableRow(
+                children: <Widget>[
+                  _MatrixCell('Themable across subtree?'),
+                  _MatrixCell('✓ BadgeThemeData'),
+                  _MatrixCell('✓ BadgeThemeData'),
+                  _MatrixCell('— roll your own'),
+                ],
+              ),
             ],
           ),
         ),
@@ -1442,8 +1485,10 @@ Widget _paletteWrapCard() {
           children: <Widget>[
             for (final entry in palette)
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 14,
+                  vertical: 10,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(999),
@@ -1468,8 +1513,11 @@ Widget _paletteWrapCard() {
                         ),
                       ),
                       backgroundColor: entry.$2,
-                      child: Icon(Icons.palette_outlined,
-                          color: entry.$2, size: 22),
+                      child: Icon(
+                        Icons.palette_outlined,
+                        color: entry.$2,
+                        size: 22,
+                      ),
                     ),
                     const SizedBox(width: 10),
                     Text(
@@ -1569,8 +1617,7 @@ class _CountStageState extends State<_CountStage> {
                 color: _accentLagoon.withValues(alpha: 0.14),
                 borderRadius: BorderRadius.circular(20),
               ),
-              child: const Icon(Icons.inbox_outlined,
-                  size: 40, color: _inkMid),
+              child: const Icon(Icons.inbox_outlined, size: 40, color: _inkMid),
             ),
           ),
           const SizedBox(height: 12),
@@ -1854,11 +1901,7 @@ class _BodyProse extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: const TextStyle(
-        fontSize: 12.5,
-        color: _inkMid,
-        height: 1.55,
-      ),
+      style: const TextStyle(fontSize: 12.5, color: _inkMid, height: 1.55),
     );
   }
 }

@@ -81,11 +81,7 @@ dynamic build(BuildContext context) {
                     BorderSide(color: Color(0x66FFFFFF), width: 1.0),
                   ),
                 ),
-                child: Icon(
-                  Icons.touch_app,
-                  size: 44.0,
-                  color: Colors.white,
-                ),
+                child: Icon(Icons.touch_app, size: 44.0, color: Colors.white),
               ),
               SizedBox(width: 18.0),
               Expanded(
@@ -189,9 +185,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: parchment,
         borderRadius: BorderRadius.all(Radius.circular(16.0)),
-        border: Border.fromBorderSide(
-          BorderSide(color: goldRich, width: 1.5),
-        ),
+        border: Border.fromBorderSide(BorderSide(color: goldRich, width: 1.5)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -426,10 +420,7 @@ dynamic build(BuildContext context) {
                 alignment: Alignment.center,
                 child: Text(
                   'idle',
-                  style: TextStyle(
-                    color: inkDark,
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: TextStyle(color: inkDark, fontWeight: FontWeight.w700),
                 ),
               ),
               Column(
@@ -458,10 +449,7 @@ dynamic build(BuildContext context) {
                 alignment: Alignment.center,
                 child: Text(
                   'tracking',
-                  style: TextStyle(
-                    color: inkDark,
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: TextStyle(color: inkDark, fontWeight: FontWeight.w700),
                 ),
               ),
               Column(
@@ -534,10 +522,7 @@ dynamic build(BuildContext context) {
                 alignment: Alignment.center,
                 child: Text(
                   'idle',
-                  style: TextStyle(
-                    color: inkDark,
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: TextStyle(color: inkDark, fontWeight: FontWeight.w700),
                 ),
               ),
             ],
@@ -613,9 +598,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: parchment,
         borderRadius: BorderRadius.all(Radius.circular(12.0)),
-        border: Border.fromBorderSide(
-          BorderSide(color: goldRich, width: 1.2),
-        ),
+        border: Border.fromBorderSide(BorderSide(color: goldRich, width: 1.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -672,9 +655,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: parchment,
         borderRadius: BorderRadius.all(Radius.circular(12.0)),
-        border: Border.fromBorderSide(
-          BorderSide(color: goldRich, width: 1.2),
-        ),
+        border: Border.fromBorderSide(BorderSide(color: goldRich, width: 1.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -731,9 +712,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: parchment,
         borderRadius: BorderRadius.all(Radius.circular(12.0)),
-        border: Border.fromBorderSide(
-          BorderSide(color: goldRich, width: 1.2),
-        ),
+        border: Border.fromBorderSide(BorderSide(color: goldRich, width: 1.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -790,9 +769,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: parchment,
         borderRadius: BorderRadius.all(Radius.circular(12.0)),
-        border: Border.fromBorderSide(
-          BorderSide(color: goldRich, width: 1.2),
-        ),
+        border: Border.fromBorderSide(BorderSide(color: goldRich, width: 1.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -849,9 +826,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: parchment,
         borderRadius: BorderRadius.all(Radius.circular(12.0)),
-        border: Border.fromBorderSide(
-          BorderSide(color: goldRich, width: 1.2),
-        ),
+        border: Border.fromBorderSide(BorderSide(color: goldRich, width: 1.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -908,9 +883,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: parchment,
         borderRadius: BorderRadius.all(Radius.circular(12.0)),
-        border: Border.fromBorderSide(
-          BorderSide(color: goldRich, width: 1.2),
-        ),
+        border: Border.fromBorderSide(BorderSide(color: goldRich, width: 1.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -967,9 +940,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: amberPale,
         borderRadius: BorderRadius.all(Radius.circular(16.0)),
-        border: Border.fromBorderSide(
-          BorderSide(color: goldRich, width: 1.5),
-        ),
+        border: Border.fromBorderSide(BorderSide(color: goldRich, width: 1.5)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1122,9 +1093,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: parchment,
         borderRadius: BorderRadius.all(Radius.circular(16.0)),
-        border: Border.fromBorderSide(
-          BorderSide(color: goldRich, width: 1.5),
-        ),
+        border: Border.fromBorderSide(BorderSide(color: goldRich, width: 1.5)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1327,9 +1296,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: parchment,
         borderRadius: BorderRadius.all(Radius.circular(12.0)),
-        border: Border.fromBorderSide(
-          BorderSide(color: goldRich, width: 1.2),
-        ),
+        border: Border.fromBorderSide(BorderSide(color: goldRich, width: 1.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1368,9 +1335,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: parchment,
         borderRadius: BorderRadius.all(Radius.circular(12.0)),
-        border: Border.fromBorderSide(
-          BorderSide(color: goldRich, width: 1.2),
-        ),
+        border: Border.fromBorderSide(BorderSide(color: goldRich, width: 1.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1409,9 +1374,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: parchment,
         borderRadius: BorderRadius.all(Radius.circular(12.0)),
-        border: Border.fromBorderSide(
-          BorderSide(color: goldRich, width: 1.2),
-        ),
+        border: Border.fromBorderSide(BorderSide(color: goldRich, width: 1.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1450,9 +1413,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: parchment,
         borderRadius: BorderRadius.all(Radius.circular(12.0)),
-        border: Border.fromBorderSide(
-          BorderSide(color: goldRich, width: 1.2),
-        ),
+        border: Border.fromBorderSide(BorderSide(color: goldRich, width: 1.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1492,9 +1453,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: amberPale,
         borderRadius: BorderRadius.all(Radius.circular(16.0)),
-        border: Border.fromBorderSide(
-          BorderSide(color: goldRich, width: 1.5),
-        ),
+        border: Border.fromBorderSide(BorderSide(color: goldRich, width: 1.5)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1533,9 +1492,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: parchment,
         borderRadius: BorderRadius.all(Radius.circular(12.0)),
-        border: Border.fromBorderSide(
-          BorderSide(color: goldRich, width: 1.2),
-        ),
+        border: Border.fromBorderSide(BorderSide(color: goldRich, width: 1.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1573,9 +1530,7 @@ dynamic build(BuildContext context) {
           colors: <Color>[Color(0xFFFFE9B0), Color(0xFFFFD180)],
         ),
         borderRadius: BorderRadius.all(Radius.circular(12.0)),
-        border: Border.fromBorderSide(
-          BorderSide(color: goldDeep, width: 1.5),
-        ),
+        border: Border.fromBorderSide(BorderSide(color: goldDeep, width: 1.5)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1609,9 +1564,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: parchment,
         borderRadius: BorderRadius.all(Radius.circular(12.0)),
-        border: Border.fromBorderSide(
-          BorderSide(color: goldRich, width: 1.2),
-        ),
+        border: Border.fromBorderSide(BorderSide(color: goldRich, width: 1.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1645,9 +1598,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: parchment,
         borderRadius: BorderRadius.all(Radius.circular(16.0)),
-        border: Border.fromBorderSide(
-          BorderSide(color: goldRich, width: 1.5),
-        ),
+        border: Border.fromBorderSide(BorderSide(color: goldRich, width: 1.5)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1805,9 +1756,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: amberPale,
         borderRadius: BorderRadius.all(Radius.circular(16.0)),
-        border: Border.fromBorderSide(
-          BorderSide(color: goldRich, width: 1.5),
-        ),
+        border: Border.fromBorderSide(BorderSide(color: goldRich, width: 1.5)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1854,11 +1803,7 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Icon(
-                Icons.warning_amber,
-                color: Color(0xFFEF6C00),
-                size: 18.0,
-              ),
+              Icon(Icons.warning_amber, color: Color(0xFFEF6C00), size: 18.0),
               SizedBox(width: 8.0),
               Text(
                 'debugOwner is debug-only',
@@ -1899,11 +1844,7 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Icon(
-                Icons.warning_amber,
-                color: Color(0xFFEF6C00),
-                size: 18.0,
-              ),
+              Icon(Icons.warning_amber, color: Color(0xFFEF6C00), size: 18.0),
               SizedBox(width: 8.0),
               Text(
                 'Arena interaction is implicit',
@@ -1944,11 +1885,7 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Icon(
-                Icons.warning_amber,
-                color: Color(0xFFEF6C00),
-                size: 18.0,
-              ),
+              Icon(Icons.warning_amber, color: Color(0xFFEF6C00), size: 18.0),
               SizedBox(width: 8.0),
               Text(
                 'Slop math is squared internally',
@@ -1989,11 +1926,7 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Icon(
-                Icons.warning_amber,
-                color: Color(0xFFEF6C00),
-                size: 18.0,
-              ),
+              Icon(Icons.warning_amber, color: Color(0xFFEF6C00), size: 18.0),
               SizedBox(width: 8.0),
               Text(
                 'kind filter is exact match only',
@@ -2033,11 +1966,7 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Icon(
-                Icons.warning_amber,
-                color: Color(0xFFEF6C00),
-                size: 18.0,
-              ),
+              Icon(Icons.warning_amber, color: Color(0xFFEF6C00), size: 18.0),
               SizedBox(width: 8.0),
               Text(
                 'supportedDevices fallback is null, not empty',
@@ -2068,9 +1997,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: parchment,
         borderRadius: BorderRadius.all(Radius.circular(16.0)),
-        border: Border.fromBorderSide(
-          BorderSide(color: goldRich, width: 1.5),
-        ),
+        border: Border.fromBorderSide(BorderSide(color: goldRich, width: 1.5)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -2143,11 +2070,7 @@ dynamic build(BuildContext context) {
           'mind when reasoning about thresholds.\n'
           '• Prefer supportedDevices over the legacy kind parameter for '
           'multi-device recognizers.',
-          style: TextStyle(
-            fontSize: 13.0,
-            color: Colors.white,
-            height: 1.6,
-          ),
+          style: TextStyle(fontSize: 13.0, color: Colors.white, height: 1.6),
         ),
       ],
     ),

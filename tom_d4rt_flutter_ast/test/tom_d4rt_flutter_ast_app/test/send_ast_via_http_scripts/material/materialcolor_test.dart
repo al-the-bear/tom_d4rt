@@ -389,10 +389,7 @@ dynamic build(BuildContext context) {
                 ),
                 child: Text(
                   '10 shades',
-                  style: TextStyle(
-                    fontSize: 10.0,
-                    color: swatch.shade900,
-                  ),
+                  style: TextStyle(fontSize: 10.0, color: swatch.shade900),
                 ),
               ),
             ],
@@ -893,9 +890,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10.0),
-        border: Border(
-          left: BorderSide(color: accent, width: 4.0),
-        ),
+        border: Border(left: BorderSide(color: accent, width: 4.0)),
         boxShadow: [
           BoxShadow(
             color: themed.withValues(alpha: 0.15),
@@ -1214,10 +1209,7 @@ dynamic build(BuildContext context) {
               style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 12.0),
-            Wrap(
-              alignment: WrapAlignment.center,
-              children: conceptCards,
-            ),
+            Wrap(alignment: WrapAlignment.center, children: conceptCards),
             SizedBox(height: 32.0),
 
             // Section 2

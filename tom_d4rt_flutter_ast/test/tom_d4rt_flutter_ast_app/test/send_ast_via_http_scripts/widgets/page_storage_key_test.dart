@@ -139,7 +139,9 @@ dynamic build(BuildContext context) {
   print('  │  keyA == keyC              = ${keyA == keyC}');
   print('  │  keyA == keyInt            = ${keyA == keyInt}');
   print('  │  keyEnum.value             = ${keyEnum.value}');
-  print('  │  keyA.hashCode == keyB.hashCode = ${keyA.hashCode == keyB.hashCode}');
+  print(
+    '  │  keyA.hashCode == keyB.hashCode = ${keyA.hashCode == keyB.hashCode}',
+  );
   print('  └──────────────────────────────────────────────────┘');
   print('');
   print('  Note: Two PageStorageKeys with the same value AND');
@@ -370,16 +372,36 @@ dynamic build(BuildContext context) {
   print('  SECTION 10: Key Comparison Matrix');
   print('═══════════════════════════════════════════════════════════');
   print('');
-  print('  ┌─────────────────┬────────────┬────────────┬────────────┬──────────────┐');
-  print('  │  Feature         │ ValueKey   │ PSK        │ ObjectKey  │ GlobalKey    │');
-  print('  ├─────────────────┼────────────┼────────────┼────────────┼──────────────┤');
-  print('  │  Equality        │ by value   │ by value   │ by ident.  │ by identity  │');
-  print('  │  Const-able      │ yes        │ yes        │ no*        │ no           │');
-  print('  │  State persist   │ no         │ YES        │ no         │ state ref    │');
-  print('  │  Tree-unique     │ same level │ same level │ same level │ globally     │');
-  print('  │  Common use      │ diff lists │ scroll pos │ non-const  │ access state │');
-  print('  │  Performance     │ no cost    │ no cost    │ no cost    │ registry     │');
-  print('  └─────────────────┴────────────┴────────────┴────────────┴──────────────┘');
+  print(
+    '  ┌─────────────────┬────────────┬────────────┬────────────┬──────────────┐',
+  );
+  print(
+    '  │  Feature         │ ValueKey   │ PSK        │ ObjectKey  │ GlobalKey    │',
+  );
+  print(
+    '  ├─────────────────┼────────────┼────────────┼────────────┼──────────────┤',
+  );
+  print(
+    '  │  Equality        │ by value   │ by value   │ by ident.  │ by identity  │',
+  );
+  print(
+    '  │  Const-able      │ yes        │ yes        │ no*        │ no           │',
+  );
+  print(
+    '  │  State persist   │ no         │ YES        │ no         │ state ref    │',
+  );
+  print(
+    '  │  Tree-unique     │ same level │ same level │ same level │ globally     │',
+  );
+  print(
+    '  │  Common use      │ diff lists │ scroll pos │ non-const  │ access state │',
+  );
+  print(
+    '  │  Performance     │ no cost    │ no cost    │ no cost    │ registry     │',
+  );
+  print(
+    '  └─────────────────┴────────────┴────────────┴────────────┴──────────────┘',
+  );
   print('');
   print('  * ObjectKey can be const if the identity object is const');
   print('');
@@ -681,16 +703,11 @@ dynamic build(BuildContext context) {
                 alpha: 0.1 + (index % 5) * 0.15,
               );
               return Container(
-                margin: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 4,
-                ),
+                margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                    color: slate300.withValues(alpha: 0.5),
-                  ),
+                  border: Border.all(color: slate300.withValues(alpha: 0.5)),
                 ),
                 child: ListTile(
                   leading: CircleAvatar(
@@ -713,15 +730,9 @@ dynamic build(BuildContext context) {
                   ),
                   subtitle: Text(
                     'Scroll position persists via PSK("inbox_list")',
-                    style: TextStyle(
-                      color: slate400,
-                      fontSize: 12,
-                    ),
+                    style: TextStyle(color: slate400, fontSize: 12),
                   ),
-                  trailing: Icon(
-                    Icons.chevron_right,
-                    color: slate400,
-                  ),
+                  trailing: Icon(Icons.chevron_right, color: slate400),
                 ),
               );
             },
@@ -744,19 +755,13 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: color,
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                    color: blueGrey400.withValues(alpha: 0.3),
-                  ),
+                  border: Border.all(color: blueGrey400.withValues(alpha: 0.3)),
                 ),
                 child: Center(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(
-                        Icons.star,
-                        color: blueGrey600,
-                        size: 20,
-                      ),
+                      Icon(Icons.star, color: blueGrey600, size: 20),
                       const SizedBox(height: 4),
                       Text(
                         '★ ${index + 1}',
@@ -811,19 +816,13 @@ dynamic build(BuildContext context) {
                       ),
                       child: Text(
                         'Archive top #${index + 1}  (PSK: "archive_top")',
-                        style: TextStyle(
-                          color: slate600,
-                          fontSize: 13,
-                        ),
+                        style: TextStyle(color: slate600, fontSize: 13),
                       ),
                     );
                   },
                 ),
               ),
-              Container(
-                height: 1,
-                color: slate300,
-              ),
+              Container(height: 1, color: slate300),
               Expanded(
                 child: ListView.builder(
                   key: const PageStorageKey<String>('archive_bottom'),
@@ -841,10 +840,7 @@ dynamic build(BuildContext context) {
                       ),
                       child: Text(
                         'Archive bottom #${index + 1}  (PSK: "archive_bottom")',
-                        style: TextStyle(
-                          color: blueGrey600,
-                          fontSize: 13,
-                        ),
+                        style: TextStyle(color: blueGrey600, fontSize: 13),
                       ),
                     );
                   },
@@ -896,16 +892,36 @@ dynamic build(BuildContext context) {
 
   print('  Demo colors used:');
   print('  ┌──────────────────────────────────────────────────┐');
-  print('  │  Slate 800  ${slate800.toARGB32().toRadixString(16).padLeft(8, "0")}  Deep backgrounds');
-  print('  │  Slate 700  ${slate700.toARGB32().toRadixString(16).padLeft(8, "0")}  Primary text');
-  print('  │  Slate 600  ${slate600.toARGB32().toRadixString(16).padLeft(8, "0")}  Secondary text');
-  print('  │  Slate 500  ${slate500.toARGB32().toRadixString(16).padLeft(8, "0")}  Muted elements');
-  print('  │  Slate 400  ${slate400.toARGB32().toRadixString(16).padLeft(8, "0")}  Subtle accents');
-  print('  │  Slate 300  ${slate300.toARGB32().toRadixString(16).padLeft(8, "0")}  Borders');
-  print('  │  Slate 200  ${slate200.toARGB32().toRadixString(16).padLeft(8, "0")}  Light surfaces');
-  print('  │  Slate 100  ${slate100.toARGB32().toRadixString(16).padLeft(8, "0")}  Backgrounds');
-  print('  │  BlueGrey4  ${blueGrey400.toARGB32().toRadixString(16).padLeft(8, "0")}  Warm accents');
-  print('  │  BlueGrey6  ${blueGrey600.toARGB32().toRadixString(16).padLeft(8, "0")}  Highlight');
+  print(
+    '  │  Slate 800  ${slate800.toARGB32().toRadixString(16).padLeft(8, "0")}  Deep backgrounds',
+  );
+  print(
+    '  │  Slate 700  ${slate700.toARGB32().toRadixString(16).padLeft(8, "0")}  Primary text',
+  );
+  print(
+    '  │  Slate 600  ${slate600.toARGB32().toRadixString(16).padLeft(8, "0")}  Secondary text',
+  );
+  print(
+    '  │  Slate 500  ${slate500.toARGB32().toRadixString(16).padLeft(8, "0")}  Muted elements',
+  );
+  print(
+    '  │  Slate 400  ${slate400.toARGB32().toRadixString(16).padLeft(8, "0")}  Subtle accents',
+  );
+  print(
+    '  │  Slate 300  ${slate300.toARGB32().toRadixString(16).padLeft(8, "0")}  Borders',
+  );
+  print(
+    '  │  Slate 200  ${slate200.toARGB32().toRadixString(16).padLeft(8, "0")}  Light surfaces',
+  );
+  print(
+    '  │  Slate 100  ${slate100.toARGB32().toRadixString(16).padLeft(8, "0")}  Backgrounds',
+  );
+  print(
+    '  │  BlueGrey4  ${blueGrey400.toARGB32().toRadixString(16).padLeft(8, "0")}  Warm accents',
+  );
+  print(
+    '  │  BlueGrey6  ${blueGrey600.toARGB32().toRadixString(16).padLeft(8, "0")}  Highlight',
+  );
   print('  └──────────────────────────────────────────────────┘');
   print('');
 

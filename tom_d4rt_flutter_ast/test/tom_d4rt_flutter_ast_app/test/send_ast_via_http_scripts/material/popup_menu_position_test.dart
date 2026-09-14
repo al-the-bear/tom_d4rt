@@ -118,8 +118,11 @@ dynamic build(BuildContext context) {
                               color: Colors.white.withOpacity(0.12),
                               borderRadius: BorderRadius.circular(12),
                             ),
-                            child: const Icon(Icons.more_vert,
-                                color: Colors.white, size: 28),
+                            child: const Icon(
+                              Icons.more_vert,
+                              color: Colors.white,
+                              size: 28,
+                            ),
                           ),
                           const SizedBox(width: 14),
                           const Expanded(
@@ -144,7 +147,8 @@ dynamic build(BuildContext context) {
                       _heroValueRow(
                         token: '.over',
                         title: 'Open over the trigger',
-                        body: 'The first item visually overlaps the anchor. '
+                        body:
+                            'The first item visually overlaps the anchor. '
                             'Cursor / focus does not have to move - good for '
                             'desktop "command" menus.',
                         accent: const Color(0xFFB388FF),
@@ -153,7 +157,8 @@ dynamic build(BuildContext context) {
                       _heroValueRow(
                         token: '.under',
                         title: 'Open under the trigger',
-                        body: 'The trigger stays visible above the menu. '
+                        body:
+                            'The trigger stays visible above the menu. '
                             'Material 3 toolbar / dropdown convention.',
                         accent: const Color(0xFF80CBC4),
                       ),
@@ -197,7 +202,8 @@ dynamic build(BuildContext context) {
               _SectionHeader(
                 accent: const Color(0xFF6A1B9A),
                 title: '2. .over vs .under, side by side',
-                subtitle: 'Two menus rendered in parallel with the same items '
+                subtitle:
+                    'Two menus rendered in parallel with the same items '
                     'so the only changing variable is PopupMenuPosition.',
               ),
               const SizedBox(height: 12),
@@ -225,7 +231,8 @@ dynamic build(BuildContext context) {
                                     position: PopupMenuPosition.over,
                                     tooltip: 'File actions (over)',
                                     onSelected: (value) => setState(
-                                        () => livePick = 'over -> $value'),
+                                      () => livePick = 'over -> $value',
+                                    ),
                                     itemBuilder: (ctx) => const [
                                       PopupMenuItem<String>(
                                         value: 'new',
@@ -274,12 +281,14 @@ dynamic build(BuildContext context) {
                                   background: const Color(0xFFE0F2F1),
                                   accent: const Color(0xFF00695C),
                                   label: 'PopupMenuPosition.under',
-                                  helper: 'Trigger stays above; classic dropdown.',
+                                  helper:
+                                      'Trigger stays above; classic dropdown.',
                                   child: PopupMenuButton<String>(
                                     position: PopupMenuPosition.under,
                                     tooltip: 'File actions (under)',
                                     onSelected: (value) => setState(
-                                        () => livePick = 'under -> $value'),
+                                      () => livePick = 'under -> $value',
+                                    ),
                                     itemBuilder: (ctx) => const [
                                       PopupMenuItem<String>(
                                         value: 'new',
@@ -348,15 +357,15 @@ dynamic build(BuildContext context) {
                                   ),
                                 ],
                                 selected: {livePosition},
-                                onSelectionChanged: (set) => setState(
-                                    () => livePosition = set.first),
+                                onSelectionChanged: (set) =>
+                                    setState(() => livePosition = set.first),
                               ),
                               const SizedBox(width: 16),
                               PopupMenuButton<String>(
                                 position: livePosition,
                                 tooltip: 'Sort by (live position)',
-                                onSelected: (value) => setState(
-                                    () => livePick = 'live -> $value'),
+                                onSelected: (value) =>
+                                    setState(() => livePick = 'live -> $value'),
                                 itemBuilder: (ctx) => const [
                                   PopupMenuItem<String>(
                                     value: 'name',
@@ -409,7 +418,8 @@ dynamic build(BuildContext context) {
               _SectionHeader(
                 accent: const Color(0xFF00838F),
                 title: '3. The anchor box drives "where over/under starts"',
-                subtitle: 'Same position enum, three different child widgets. '
+                subtitle:
+                    'Same position enum, three different child widgets. '
                     'The menu always aligns to the bounds of the anchor.',
               ),
               const SizedBox(height: 12),
@@ -470,7 +480,9 @@ dynamic build(BuildContext context) {
                               const Text(
                                 'PopupMenuPosition: ',
                                 style: TextStyle(
-                                    fontWeight: FontWeight.w600, fontSize: 14),
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14,
+                                ),
                               ),
                               const SizedBox(width: 8),
                               SegmentedButton<PopupMenuPosition>(
@@ -485,8 +497,8 @@ dynamic build(BuildContext context) {
                                   ),
                                 ],
                                 selected: {anchorPosition},
-                                onSelectionChanged: (set) => setState(
-                                    () => anchorPosition = set.first),
+                                onSelectionChanged: (set) =>
+                                    setState(() => anchorPosition = set.first),
                               ),
                             ],
                           ),
@@ -499,7 +511,8 @@ dynamic build(BuildContext context) {
                                 background: const Color(0xFFE0F7FA),
                                 accent: const Color(0xFF006064),
                                 label: 'IconButton anchor',
-                                helper: 'Default 48x48 anchor box. The menu '
+                                helper:
+                                    'Default 48x48 anchor box. The menu '
                                     'begins right at the icon edge.',
                                 child: anchorMenu(
                                   Container(
@@ -509,14 +522,15 @@ dynamic build(BuildContext context) {
                                       shape: BoxShape.circle,
                                       boxShadow: [
                                         BoxShadow(
-                                          color: Colors.black
-                                              .withOpacity(0.08),
+                                          color: Colors.black.withOpacity(0.08),
                                           blurRadius: 6,
                                         ),
                                       ],
                                     ),
-                                    child: const Icon(Icons.share,
-                                        color: Color(0xFF006064)),
+                                    child: const Icon(
+                                      Icons.share,
+                                      color: Color(0xFF006064),
+                                    ),
                                   ),
                                   'icon',
                                 ),
@@ -525,7 +539,8 @@ dynamic build(BuildContext context) {
                                 background: const Color(0xFFFFF8E1),
                                 accent: const Color(0xFF8D6E63),
                                 label: 'Label/pill anchor',
-                                helper: 'A wider anchor produces a wider '
+                                helper:
+                                    'A wider anchor produces a wider '
                                     'menu attachment edge.',
                                 child: anchorMenu(
                                   const _AnchorPill(
@@ -539,7 +554,8 @@ dynamic build(BuildContext context) {
                                 background: const Color(0xFFFCE4EC),
                                 accent: const Color(0xFFAD1457),
                                 label: 'Avatar anchor',
-                                helper: 'Round anchor; menu still aligns to '
+                                helper:
+                                    'Round anchor; menu still aligns to '
                                     'the bounding box, not the visible shape.',
                                 child: anchorMenu(
                                   const CircleAvatar(
@@ -580,7 +596,8 @@ dynamic build(BuildContext context) {
               _SectionHeader(
                 accent: const Color(0xFFD84315),
                 title: '4. position + offset, fine-tuned together',
-                subtitle: 'offset is applied on top of position. Use it for '
+                subtitle:
+                    'offset is applied on top of position. Use it for '
                     'small alignment nudges, not large jumps.',
               ),
               const SizedBox(height: 12),
@@ -601,7 +618,9 @@ dynamic build(BuildContext context) {
                               const Text(
                                 'Position: ',
                                 style: TextStyle(
-                                    fontWeight: FontWeight.w600, fontSize: 14),
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14,
+                                ),
                               ),
                               const SizedBox(width: 8),
                               SegmentedButton<PopupMenuPosition>(
@@ -616,8 +635,8 @@ dynamic build(BuildContext context) {
                                   ),
                                 ],
                                 selected: {offsetPosition},
-                                onSelectionChanged: (set) => setState(
-                                    () => offsetPosition = set.first),
+                                onSelectionChanged: (set) =>
+                                    setState(() => offsetPosition = set.first),
                               ),
                             ],
                           ),
@@ -652,9 +671,10 @@ dynamic build(BuildContext context) {
                                 position: offsetPosition,
                                 offset: Offset(offsetDx, offsetDy),
                                 tooltip: 'View options',
-                                onSelected: (value) => setState(() =>
-                                    offsetPick =
-                                        'offset(${offsetDx.toStringAsFixed(0)},${offsetDy.toStringAsFixed(0)}) -> $value'),
+                                onSelected: (value) => setState(
+                                  () => offsetPick =
+                                      'offset(${offsetDx.toStringAsFixed(0)},${offsetDy.toStringAsFixed(0)}) -> $value',
+                                ),
                                 itemBuilder: (ctx) => const [
                                   PopupMenuItem<String>(
                                     value: 'compact',
@@ -711,7 +731,8 @@ dynamic build(BuildContext context) {
               _SectionHeader(
                 accent: const Color(0xFF1565C0),
                 title: '5. .over on a tall trigger - the row-action pattern',
-                subtitle: 'Useful for data tables: tap any row, see the row '
+                subtitle:
+                    'Useful for data tables: tap any row, see the row '
                     'commands open right on top of the row\'s anchor.',
               ),
               const SizedBox(height: 12),
@@ -721,7 +742,9 @@ dynamic build(BuildContext context) {
                     return Container(
                       margin: const EdgeInsets.symmetric(vertical: 6),
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 14, vertical: 14),
+                        horizontal: 14,
+                        vertical: 14,
+                      ),
                       decoration: BoxDecoration(
                         color: const Color(0xFFE3F2FD),
                         borderRadius: BorderRadius.circular(10),
@@ -733,29 +756,38 @@ dynamic build(BuildContext context) {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(invoice,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.w700)),
+                                Text(
+                                  invoice,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
                                 const SizedBox(height: 4),
-                                Text(customer,
-                                    style: const TextStyle(
-                                        color: Color(0xFF455A64),
-                                        fontSize: 13)),
+                                Text(
+                                  customer,
+                                  style: const TextStyle(
+                                    color: Color(0xFF455A64),
+                                    fontSize: 13,
+                                  ),
+                                ),
                               ],
                             ),
                           ),
                           Expanded(
                             flex: 2,
-                            child: Text('Due $due',
-                                style: const TextStyle(
-                                    color: Color(0xFF1565C0),
-                                    fontWeight: FontWeight.w600)),
+                            child: Text(
+                              'Due $due',
+                              style: const TextStyle(
+                                color: Color(0xFF1565C0),
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
                           ),
                           PopupMenuButton<String>(
                             position: PopupMenuPosition.over,
                             tooltip: 'Row actions',
-                            onSelected: (value) => setState(
-                                () => tallPick = '$invoice -> $value'),
+                            onSelected: (value) =>
+                                setState(() => tallPick = '$invoice -> $value'),
                             itemBuilder: (ctx) => const [
                               PopupMenuItem<String>(
                                 value: 'view',
@@ -790,15 +822,19 @@ dynamic build(BuildContext context) {
                                 value: 'delete',
                                 enabled: false,
                                 child: ListTile(
-                                  leading:
-                                      Icon(Icons.delete, color: Colors.grey),
+                                  leading: Icon(
+                                    Icons.delete,
+                                    color: Colors.grey,
+                                  ),
                                   title: Text('Delete (locked)'),
                                 ),
                               ),
                             ],
                             child: Container(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 8),
+                                horizontal: 10,
+                                vertical: 8,
+                              ),
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(8),
@@ -809,13 +845,19 @@ dynamic build(BuildContext context) {
                               child: const Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  Icon(Icons.menu_open,
-                                      color: Color(0xFF1565C0), size: 18),
+                                  Icon(
+                                    Icons.menu_open,
+                                    color: Color(0xFF1565C0),
+                                    size: 18,
+                                  ),
                                   SizedBox(width: 4),
-                                  Text('Actions',
-                                      style: TextStyle(
-                                          color: Color(0xFF1565C0),
-                                          fontWeight: FontWeight.w600)),
+                                  Text(
+                                    'Actions',
+                                    style: TextStyle(
+                                      color: Color(0xFF1565C0),
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
@@ -835,14 +877,14 @@ dynamic build(BuildContext context) {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          tallRow('INV-1024', 'Aurora Robotics, Inc.',
-                              'Apr 22'),
-                          tallRow('INV-1031', 'Petals & Boughs',
-                              'Apr 25'),
-                          tallRow('INV-1042', 'Northstar Logistics',
-                              'May 02'),
-                          tallRow('INV-1057', 'Quanta Foods (Latam)',
-                              'May 09'),
+                          tallRow(
+                            'INV-1024',
+                            'Aurora Robotics, Inc.',
+                            'Apr 22',
+                          ),
+                          tallRow('INV-1031', 'Petals & Boughs', 'Apr 25'),
+                          tallRow('INV-1042', 'Northstar Logistics', 'May 02'),
+                          tallRow('INV-1057', 'Quanta Foods (Latam)', 'May 09'),
                           const SizedBox(height: 12),
                           _ResultBanner(
                             icon: Icons.table_rows,
@@ -870,7 +912,8 @@ dynamic build(BuildContext context) {
               _SectionHeader(
                 accent: const Color(0xFFAD1457),
                 title: '6. .under near a bottom edge - auto-flip',
-                subtitle: 'PopupMenuPosition is a PREFERENCE. If there is no '
+                subtitle:
+                    'PopupMenuPosition is a PREFERENCE. If there is no '
                     'room below the trigger, the menu opens above instead.',
               ),
               const SizedBox(height: 12),
@@ -899,10 +942,7 @@ dynamic build(BuildContext context) {
                             height: 220,
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
-                                colors: [
-                                  const Color(0xFFFCE4EC),
-                                  Colors.white,
-                                ],
+                                colors: [const Color(0xFFFCE4EC), Colors.white],
                                 begin: Alignment.topCenter,
                                 end: Alignment.bottomCenter,
                               ),
@@ -935,8 +975,10 @@ dynamic build(BuildContext context) {
                                   child: PopupMenuButton<String>(
                                     position: PopupMenuPosition.under,
                                     tooltip: 'Send to ...',
-                                    onSelected: (value) => setState(() =>
-                                        bottomPick = 'under(flip) -> $value'),
+                                    onSelected: (value) => setState(
+                                      () =>
+                                          bottomPick = 'under(flip) -> $value',
+                                    ),
                                     itemBuilder: (ctx) => const [
                                       PopupMenuItem<String>(
                                         value: 'mail',
@@ -970,8 +1012,7 @@ dynamic build(BuildContext context) {
                                       PopupMenuItem<String>(
                                         value: 'airdrop',
                                         child: ListTile(
-                                          leading:
-                                              Icon(Icons.wifi_tethering),
+                                          leading: Icon(Icons.wifi_tethering),
                                           title: Text('AirDrop'),
                                         ),
                                       ),
@@ -998,7 +1039,8 @@ dynamic build(BuildContext context) {
                               color: const Color(0xFFFFF1F5),
                               borderRadius: BorderRadius.circular(10),
                               border: Border.all(
-                                  color: const Color(0xFFEC407A)),
+                                color: const Color(0xFFEC407A),
+                              ),
                             ),
                             child: const Text(
                               'Caption: PopupMenuButton uses CustomSingleChild'
@@ -1034,7 +1076,8 @@ dynamic build(BuildContext context) {
               _SectionHeader(
                 accent: const Color(0xFF2E7D32),
                 title: '7. PopupMenuTheme - app-wide defaults for position',
-                subtitle: 'Set position once on the theme and every PopupMenu '
+                subtitle:
+                    'Set position once on the theme and every PopupMenu '
                     'in the subtree inherits it (unless overridden locally).',
               ),
               const SizedBox(height: 12),
@@ -1070,10 +1113,13 @@ dynamic build(BuildContext context) {
                             runSpacing: 12,
                             crossAxisAlignment: WrapCrossAlignment.center,
                             children: [
-                              const Text('themed position: ',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 14)),
+                              const Text(
+                                'themed position: ',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14,
+                                ),
+                              ),
                               SegmentedButton<PopupMenuPosition>(
                                 segments: const [
                                   ButtonSegment(
@@ -1086,14 +1132,17 @@ dynamic build(BuildContext context) {
                                   ),
                                 ],
                                 selected: {themePosition},
-                                onSelectionChanged: (set) => setState(
-                                    () => themePosition = set.first),
+                                onSelectionChanged: (set) =>
+                                    setState(() => themePosition = set.first),
                               ),
                               const SizedBox(width: 12),
-                              const Text('color: ',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 14)),
+                              const Text(
+                                'color: ',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14,
+                                ),
+                              ),
                               for (final c in const [
                                 Color(0xFF2E7D32),
                                 Color(0xFF1565C0),
@@ -1129,8 +1178,9 @@ dynamic build(BuildContext context) {
                           ),
                           const SizedBox(height: 8),
                           Theme(
-                            data: Theme.of(context)
-                                .copyWith(popupMenuTheme: themeData),
+                            data: Theme.of(
+                              context,
+                            ).copyWith(popupMenuTheme: themeData),
                             child: Container(
                               padding: const EdgeInsets.all(16),
                               decoration: BoxDecoration(
@@ -1145,9 +1195,9 @@ dynamic build(BuildContext context) {
                                   Expanded(
                                     child: PopupMenuButton<String>(
                                       tooltip: 'View (theme A)',
-                                      onSelected: (value) => setState(() =>
-                                          themePick =
-                                              'themeA -> $value'),
+                                      onSelected: (value) => setState(
+                                        () => themePick = 'themeA -> $value',
+                                      ),
                                       itemBuilder: (ctx) => const [
                                         PopupMenuItem<String>(
                                           value: 'list',
@@ -1176,9 +1226,9 @@ dynamic build(BuildContext context) {
                                   Expanded(
                                     child: PopupMenuButton<String>(
                                       tooltip: 'View (theme B)',
-                                      onSelected: (value) => setState(() =>
-                                          themePick =
-                                              'themeB -> $value'),
+                                      onSelected: (value) => setState(
+                                        () => themePick = 'themeB -> $value',
+                                      ),
                                       itemBuilder: (ctx) => const [
                                         PopupMenuItem<String>(
                                           value: 'group_status',
@@ -1220,7 +1270,8 @@ dynamic build(BuildContext context) {
                               color: const Color(0xFFE8F5E9),
                               borderRadius: BorderRadius.circular(10),
                               border: Border.all(
-                                  color: const Color(0xFF2E7D32)),
+                                color: const Color(0xFF2E7D32),
+                              ),
                             ),
                             child: const Text(
                               'Theme tip: When you set position on the theme '
@@ -1257,7 +1308,8 @@ dynamic build(BuildContext context) {
               _SectionHeader(
                 accent: const Color(0xFFEF6C00),
                 title: '8. Checked / disabled / dividers under .over',
-                subtitle: 'Position is independent of item kind. Mixing '
+                subtitle:
+                    'Position is independent of item kind. Mixing '
                     'CheckedPopupMenuItem, dividers and disabled rows works '
                     'identically with .over and .under.',
               ),
@@ -1276,8 +1328,7 @@ dynamic build(BuildContext context) {
                         children: [
                           Row(
                             children: [
-                              const Icon(Icons.code,
-                                  color: Color(0xFFEF6C00)),
+                              const Icon(Icons.code, color: Color(0xFFEF6C00)),
                               const SizedBox(width: 10),
                               Expanded(
                                 child: Text(
@@ -1337,8 +1388,10 @@ dynamic build(BuildContext context) {
                                     value: 'theme',
                                     enabled: false,
                                     child: ListTile(
-                                      leading: Icon(Icons.brightness_4,
-                                          color: Colors.grey),
+                                      leading: Icon(
+                                        Icons.brightness_4,
+                                        color: Colors.grey,
+                                      ),
                                       title: Text(
                                         'Theme... (locked by org policy)',
                                         style: TextStyle(color: Colors.grey),
@@ -1369,8 +1422,9 @@ dynamic build(BuildContext context) {
                               _Chip(label: 'minimap', value: minimap),
                               _Chip(label: 'showRuler', value: showRuler),
                               _Chip(
-                                  label: 'showWhitespace',
-                                  value: showWhitespace),
+                                label: 'showWhitespace',
+                                value: showWhitespace,
+                              ),
                             ],
                           ),
                           const SizedBox(height: 14),
@@ -1401,7 +1455,8 @@ dynamic build(BuildContext context) {
               _SectionHeader(
                 accent: const Color(0xFF455A64),
                 title: '9. menuPadding tightens the surface',
-                subtitle: 'Use small menuPadding values when a popup feels '
+                subtitle:
+                    'Use small menuPadding values when a popup feels '
                     'visually heavy next to a compact trigger.',
               ),
               const SizedBox(height: 12),
@@ -1422,16 +1477,14 @@ dynamic build(BuildContext context) {
                             min: 0,
                             max: 24,
                             value: menuPaddingV,
-                            onChanged: (v) =>
-                                setState(() => menuPaddingV = v),
+                            onChanged: (v) => setState(() => menuPaddingV = v),
                           ),
                           _LabeledSlider(
                             label: 'menuPadding (horizontal)',
                             min: 0,
                             max: 24,
                             value: menuPaddingH,
-                            onChanged: (v) =>
-                                setState(() => menuPaddingH = v),
+                            onChanged: (v) => setState(() => menuPaddingH = v),
                           ),
                           const SizedBox(height: 14),
                           Container(
@@ -1463,8 +1516,9 @@ dynamic build(BuildContext context) {
                                     vertical: menuPaddingV,
                                     horizontal: menuPaddingH,
                                   ),
-                                  onSelected: (value) => setState(() =>
-                                      menuPaddingPick = 'profile -> $value'),
+                                  onSelected: (value) => setState(
+                                    () => menuPaddingPick = 'profile -> $value',
+                                  ),
                                   itemBuilder: (ctx) => const [
                                     PopupMenuItem<String>(
                                       value: 'work',
@@ -1527,7 +1581,8 @@ dynamic build(BuildContext context) {
               _SectionHeader(
                 accent: const Color(0xFF424242),
                 title: '10. When should I pick .over vs .under?',
-                subtitle: 'Practical guidance, distilled from M2 / M3 spec '
+                subtitle:
+                    'Practical guidance, distilled from M2 / M3 spec '
                     'and from common toolbar / data-grid patterns.',
               ),
               const SizedBox(height: 12),
@@ -1544,7 +1599,8 @@ dynamic build(BuildContext context) {
                       _RecommendRow(
                         position: '.over',
                         title: 'Toolbars and command menus',
-                        body: 'Cursor lands directly on the first item; no '
+                        body:
+                            'Cursor lands directly on the first item; no '
                             'mouse travel needed. Matches how desktop IDEs '
                             'render context menus. Use sparingly on touch '
                             'because the trigger disappears.',
@@ -1553,7 +1609,8 @@ dynamic build(BuildContext context) {
                       _RecommendRow(
                         position: '.over',
                         title: 'Data-grid row actions',
-                        body: 'When the trigger is taller than the menu (a '
+                        body:
+                            'When the trigger is taller than the menu (a '
                             'whole row), .over feels like a contextual '
                             'pop-out anchored to the row.',
                         accent: const Color(0xFF6A1B9A),
@@ -1561,7 +1618,8 @@ dynamic build(BuildContext context) {
                       _RecommendRow(
                         position: '.under',
                         title: 'Header / app-bar dropdowns',
-                        body: 'Users expect dropdowns to open beneath the '
+                        body:
+                            'Users expect dropdowns to open beneath the '
                             'trigger. Keeps the trigger visible so the '
                             'context (which menu is open) remains obvious.',
                         accent: const Color(0xFF00695C),
@@ -1569,7 +1627,8 @@ dynamic build(BuildContext context) {
                       _RecommendRow(
                         position: '.under',
                         title: 'Touch / mobile',
-                        body: 'Finger does not occlude the trigger. Easier '
+                        body:
+                            'Finger does not occlude the trigger. Easier '
                             'to tap, especially on small phones, and the '
                             'first item is well-clear of the touch target.',
                         accent: const Color(0xFF00695C),
@@ -1577,7 +1636,8 @@ dynamic build(BuildContext context) {
                       _RecommendRow(
                         position: 'theme',
                         title: 'Set a default once, override locally',
-                        body: 'Pick the value that fits 80% of your menus '
+                        body:
+                            'Pick the value that fits 80% of your menus '
                             'and put it on PopupMenuThemeData.position. '
                             'Override the rare exceptions per button.',
                         accent: const Color(0xFF2E7D32),
@@ -1588,8 +1648,7 @@ dynamic build(BuildContext context) {
                         decoration: BoxDecoration(
                           color: const Color(0xFFEEEEEE),
                           borderRadius: BorderRadius.circular(10),
-                          border:
-                              Border.all(color: const Color(0xFF9E9E9E)),
+                          border: Border.all(color: const Color(0xFF9E9E9E)),
                         ),
                         child: const Text(
                           'Accessibility note: PopupMenuButton manages focus '
@@ -1610,8 +1669,7 @@ dynamic build(BuildContext context) {
                         decoration: BoxDecoration(
                           color: const Color(0xFFE3F2FD),
                           borderRadius: BorderRadius.circular(10),
-                          border:
-                              Border.all(color: const Color(0xFF1565C0)),
+                          border: Border.all(color: const Color(0xFF1565C0)),
                         ),
                         child: const Text(
                           'M3 vs M2: in Material 2 the historical default '
@@ -1633,8 +1691,7 @@ dynamic build(BuildContext context) {
                         decoration: BoxDecoration(
                           color: const Color(0xFFF3E5F5),
                           borderRadius: BorderRadius.circular(10),
-                          border:
-                              Border.all(color: const Color(0xFF6A1B9A)),
+                          border: Border.all(color: const Color(0xFF6A1B9A)),
                         ),
                         child: const Text(
                           'Interaction with MenuAnchor: PopupMenuButton uses '
@@ -1866,10 +1923,7 @@ class _PositionBox extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 4),
-          Text(
-            helper,
-            style: const TextStyle(fontSize: 12, height: 1.35),
-          ),
+          Text(helper, style: const TextStyle(fontSize: 12, height: 1.35)),
           const SizedBox(height: 14),
           Center(child: child),
         ],
@@ -1915,10 +1969,7 @@ class _AnchorBox extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 4),
-          Text(
-            helper,
-            style: const TextStyle(fontSize: 12, height: 1.35),
-          ),
+          Text(helper, style: const TextStyle(fontSize: 12, height: 1.35)),
           const SizedBox(height: 14),
           Center(child: child),
         ],
@@ -2218,9 +2269,7 @@ class _RefDataRow extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
       decoration: const BoxDecoration(
-        border: Border(
-          bottom: BorderSide(color: Color(0xFFE0E0E0)),
-        ),
+        border: Border(bottom: BorderSide(color: Color(0xFFE0E0E0))),
       ),
       child: Row(
         children: [

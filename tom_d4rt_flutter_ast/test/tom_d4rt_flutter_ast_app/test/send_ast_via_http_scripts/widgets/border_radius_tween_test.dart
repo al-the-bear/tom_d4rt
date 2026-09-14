@@ -18,7 +18,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.animation,
       'title': 'Tweens in Flutter',
-      'body': 'A Tween defines a mapping from an input range (0.0 to 1.0) '
+      'body':
+          'A Tween defines a mapping from an input range (0.0 to 1.0) '
           'to an output range of typed values. For example, Tween<double> '
           'maps 0.0→1.0 to begin→end doubles. Tweens are the building '
           'blocks of Flutter\'s animation system, used with '
@@ -28,7 +29,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.rounded_corner,
       'title': 'Why a Specific BorderRadius Tween?',
-      'body': 'BorderRadius has four corners, each with its own x/y '
+      'body':
+          'BorderRadius has four corners, each with its own x/y '
           'radius. Simple linear interpolation of a single number won\'t '
           'work — you need to interpolate all four Radius values '
           'independently. BorderRadiusTween handles this via '
@@ -38,7 +40,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.crop_square,
       'title': 'Circle ↔ Rectangle Morphing',
-      'body': 'The most common use: animating from a rectangle (zero '
+      'body':
+          'The most common use: animating from a rectangle (zero '
           'radius) to a circle (radius = half the side length), or any '
           'state in between. Think avatar reveal animations, card '
           'expansion, FAB morphing, or shape-shifting containers.',
@@ -47,7 +50,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.tune,
       'title': 'Asymmetric Corner Control',
-      'body': 'BorderRadiusTween can animate asymmetric radii — for '
+      'body':
+          'BorderRadiusTween can animate asymmetric radii — for '
           'example, starting with only topLeft rounded and ending with '
           'all corners rounded. Each corner interpolates independently, '
           'creating fluid visual transitions.',
@@ -64,15 +68,16 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: (card['accent'] as Color).withOpacity(0.07),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: (card['accent'] as Color).withOpacity(0.3),
-        ),
+        border: Border.all(color: (card['accent'] as Color).withOpacity(0.3)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(card['icon'] as IconData,
-              color: card['accent'] as Color, size: 32),
+          Icon(
+            card['icon'] as IconData,
+            color: card['accent'] as Color,
+            size: 32,
+          ),
           const SizedBox(width: 14),
           Expanded(
             child: Column(
@@ -108,7 +113,8 @@ dynamic build(BuildContext context) {
     {
       'name': 'BorderRadiusTween({begin, end})',
       'type': 'Constructor',
-      'desc': 'Creates a tween with optional begin and end BorderRadius '
+      'desc':
+          'Creates a tween with optional begin and end BorderRadius '
           'values. Both default to null. Typically set begin and end '
           'before using with an Animation.',
       'icon': Icons.build,
@@ -116,21 +122,24 @@ dynamic build(BuildContext context) {
     {
       'name': 'begin',
       'type': 'BorderRadius?',
-      'desc': 'The border radius at t=0.0 (animation start). Null means '
+      'desc':
+          'The border radius at t=0.0 (animation start). Null means '
           'the tween starts from BorderRadius.zero.',
       'icon': Icons.first_page,
     },
     {
       'name': 'end',
       'type': 'BorderRadius?',
-      'desc': 'The border radius at t=1.0 (animation end). Null means '
+      'desc':
+          'The border radius at t=1.0 (animation end). Null means '
           'the tween ends at BorderRadius.zero.',
       'icon': Icons.last_page,
     },
     {
       'name': 'lerp(double t)',
       'type': 'BorderRadius?',
-      'desc': 'Returns the interpolated BorderRadius at progress t '
+      'desc':
+          'Returns the interpolated BorderRadius at progress t '
           '(0.0 to 1.0). Delegates to BorderRadius.lerp(begin, end, t). '
           'Called internally by the animation framework.',
       'icon': Icons.linear_scale,
@@ -138,14 +147,16 @@ dynamic build(BuildContext context) {
     {
       'name': 'transform(double t)',
       'type': 'BorderRadius?',
-      'desc': 'Inherited from Tween. Returns lerp(t) after applying the '
+      'desc':
+          'Inherited from Tween. Returns lerp(t) after applying the '
           'curve transform. Same as lerp for linear animations.',
       'icon': Icons.transform,
     },
     {
       'name': 'animate(Animation<double>)',
       'type': 'Animation<BorderRadius?>',
-      'desc': 'Inherited from Animatable. Chains this tween with a '
+      'desc':
+          'Inherited from Animatable. Chains this tween with a '
           'parent animation (like an AnimationController) to produce '
           'an Animation<BorderRadius?> that changes over time.',
       'icon': Icons.play_arrow,
@@ -153,7 +164,8 @@ dynamic build(BuildContext context) {
     {
       'name': 'chain(Animatable<double>)',
       'type': 'Animatable<BorderRadius?>',
-      'desc': 'Inherited from Animatable. Composes with another animatable '
+      'desc':
+          'Inherited from Animatable. Composes with another animatable '
           '(e.g., CurveTween) so the tween uses a curved input (ease-in, '
           'bounce, etc.).',
       'icon': Icons.link,
@@ -167,9 +179,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: Colors.teal.withOpacity(0.04),
         borderRadius: BorderRadius.circular(8),
-        border: Border(
-          left: BorderSide(color: Colors.teal[600]!, width: 3),
-        ),
+        border: Border(left: BorderSide(color: Colors.teal[600]!, width: 3)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -195,7 +205,9 @@ dynamic build(BuildContext context) {
                     ),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 6, vertical: 1),
+                        horizontal: 6,
+                        vertical: 1,
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.teal.withOpacity(0.08),
                         borderRadius: BorderRadius.circular(4),
@@ -343,12 +355,8 @@ dynamic build(BuildContext context) {
     },
     {
       'label': 'Asymmetric Morph',
-      'begin': const BorderRadius.only(
-        topLeft: Radius.circular(40),
-      ),
-      'end': const BorderRadius.only(
-        bottomRight: Radius.circular(40),
-      ),
+      'begin': const BorderRadius.only(topLeft: Radius.circular(40)),
+      'end': const BorderRadius.only(bottomRight: Radius.circular(40)),
       'color': Colors.deepPurple[400]!,
       'size': 80.0,
     },
@@ -367,8 +375,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: (ex['color'] as Color).withOpacity(0.05),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: (ex['color'] as Color).withOpacity(0.2)),
+        border: Border.all(color: (ex['color'] as Color).withOpacity(0.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -394,10 +401,7 @@ dynamic build(BuildContext context) {
                     decoration: BoxDecoration(
                       color: (ex['color'] as Color).withOpacity(0.2 + t * 0.3),
                       borderRadius: r,
-                      border: Border.all(
-                        color: ex['color'] as Color,
-                        width: 2,
-                      ),
+                      border: Border.all(color: ex['color'] as Color, width: 2),
                     ),
                     child: Center(
                       child: Text(
@@ -413,10 +417,7 @@ dynamic build(BuildContext context) {
                   const SizedBox(height: 4),
                   Text(
                     t == 0 ? 'begin' : (t == 1 ? 'end' : 'mid'),
-                    style: TextStyle(
-                      fontSize: 10,
-                      color: Colors.grey[600],
-                    ),
+                    style: TextStyle(fontSize: 10, color: Colors.grey[600]),
                   ),
                 ],
               );
@@ -440,7 +441,8 @@ dynamic build(BuildContext context) {
         topRight: Radius.circular(30),
       ),
       'end': BorderRadius.circular(30),
-      'desc': 'Common in bottom sheets or modal transitions where '
+      'desc':
+          'Common in bottom sheets or modal transitions where '
           'the top is rounded and the bottom animates into rounded.',
       'color': Colors.teal[700]!,
     },
@@ -454,17 +456,17 @@ dynamic build(BuildContext context) {
         topRight: Radius.circular(40),
         bottomLeft: Radius.circular(40),
       ),
-      'desc': 'Diagonal corner animation — useful for decorative '
+      'desc':
+          'Diagonal corner animation — useful for decorative '
           'morphing effects, loading indicators, or playful UIs.',
       'color': Colors.cyan[700]!,
     },
     {
       'title': 'Single Corner Expand',
-      'begin': const BorderRadius.only(
-        topLeft: Radius.circular(50),
-      ),
+      'begin': const BorderRadius.only(topLeft: Radius.circular(50)),
       'end': BorderRadius.circular(50),
-      'desc': 'Start with one dramatically rounded corner and expand '
+      'desc':
+          'Start with one dramatically rounded corner and expand '
           'rounding to all corners. Great for reveal animations.',
       'color': Colors.deepPurple[500]!,
     },
@@ -482,9 +484,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: (ex['color'] as Color).withOpacity(0.05),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: (ex['color'] as Color).withOpacity(0.25),
-        ),
+        border: Border.all(color: (ex['color'] as Color).withOpacity(0.25)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -516,7 +516,9 @@ dynamic build(BuildContext context) {
                       color: (ex['color'] as Color).withOpacity(0.2 + t * 0.25),
                       borderRadius: r,
                       border: Border.all(
-                          color: ex['color'] as Color, width: 1.5),
+                        color: ex['color'] as Color,
+                        width: 1.5,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 4),
@@ -546,7 +548,8 @@ dynamic build(BuildContext context) {
   final comboTweens = <Map<String, dynamic>>[
     {
       'name': 'BorderRadiusTween + ColorTween',
-      'desc': 'Smoothly morph both shape and color simultaneously. '
+      'desc':
+          'Smoothly morph both shape and color simultaneously. '
           'The container goes from a grey rectangle to a teal circle.',
       'icon': Icons.palette,
       'color': Colors.teal[700]!,
@@ -557,7 +560,8 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'BorderRadiusTween + SizeTween',
-      'desc': 'Change corners while growing or shrinking. Useful for '
+      'desc':
+          'Change corners while growing or shrinking. Useful for '
           'FAB-to-dialog transitions where a small circle expands '
           'into a large rounded rectangle.',
       'icon': Icons.crop_free,
@@ -569,7 +573,8 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'BorderRadiusTween + DecorationTween',
-      'desc': 'Animate the entire BoxDecoration including shadows, '
+      'desc':
+          'Animate the entire BoxDecoration including shadows, '
           'gradients, and border radius together for rich visual '
           'transitions.',
       'icon': Icons.gradient,
@@ -597,16 +602,18 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: (combo['color'] as Color).withOpacity(0.05),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: (combo['color'] as Color).withOpacity(0.2)),
+        border: Border.all(color: (combo['color'] as Color).withOpacity(0.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(combo['icon'] as IconData,
-                  color: combo['color'] as Color, size: 22),
+              Icon(
+                combo['icon'] as IconData,
+                color: combo['color'] as Color,
+                size: 22,
+              ),
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
@@ -658,10 +665,7 @@ dynamic build(BuildContext context) {
                   const SizedBox(height: 4),
                   Text(
                     t == 0 ? 'begin' : (t == 1 ? 'end' : 'mid'),
-                    style: TextStyle(
-                      fontSize: 10,
-                      color: Colors.grey[600],
-                    ),
+                    style: TextStyle(fontSize: 10, color: Colors.grey[600]),
                   ),
                 ],
               );
@@ -680,10 +684,12 @@ dynamic build(BuildContext context) {
   final patterns = <Map<String, dynamic>>[
     {
       'title': 'Circle ↔ Rectangle Morph',
-      'desc': 'The classic shape morph. Start as a circle (radius = '
+      'desc':
+          'The classic shape morph. Start as a circle (radius = '
           'half width), animate to rectangle (radius = 0). Used in '
           'hero transitions, avatar reveals, and FAB animations.',
-      'code': 'BorderRadiusTween(\n'
+      'code':
+          'BorderRadiusTween(\n'
           '  begin: BorderRadius.circular(50),\n'
           '  end: BorderRadius.zero,\n'
           ')',
@@ -692,9 +698,11 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Card Corner Softening',
-      'desc': 'Animate from sharp corners to soft rounded corners when '
+      'desc':
+          'Animate from sharp corners to soft rounded corners when '
           'a card is selected or expanded. Gives a tactile feel.',
-      'code': 'BorderRadiusTween(\n'
+      'code':
+          'BorderRadiusTween(\n'
           '  begin: BorderRadius.circular(4),\n'
           '  end: BorderRadius.circular(20),\n'
           ')',
@@ -703,9 +711,11 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Bottom Sheet Appearance',
-      'desc': 'Bottom sheets typically have rounded top corners that '
+      'desc':
+          'Bottom sheets typically have rounded top corners that '
           'might become sharper as the sheet expands to full screen.',
-      'code': 'BorderRadiusTween(\n'
+      'code':
+          'BorderRadiusTween(\n'
           '  begin: BorderRadius.vertical(\n'
           '    top: Radius.circular(28),\n'
           '  ),\n'
@@ -716,9 +726,11 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Pill / Stadium Shape',
-      'desc': 'Animate a rectangular button into a pill (stadium) shape '
+      'desc':
+          'Animate a rectangular button into a pill (stadium) shape '
           'by increasing the radius to half the height.',
-      'code': 'BorderRadiusTween(\n'
+      'code':
+          'BorderRadiusTween(\n'
           '  begin: BorderRadius.circular(8),\n'
           '  end: BorderRadius.circular(24),\n'
           ')',
@@ -734,16 +746,14 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: (p['color'] as Color).withOpacity(0.06),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: (p['color'] as Color).withOpacity(0.25)),
+        border: Border.all(color: (p['color'] as Color).withOpacity(0.25)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(p['icon'] as IconData,
-                  color: p['color'] as Color, size: 22),
+              Icon(p['icon'] as IconData, color: p['color'] as Color, size: 22),
               const SizedBox(width: 10),
               Expanded(
                 child: Text(
@@ -794,7 +804,8 @@ dynamic build(BuildContext context) {
     {
       'type': 'pattern',
       'title': 'Use with AnimatedContainer for implicit animations',
-      'detail': 'AnimatedContainer animates border radius changes '
+      'detail':
+          'AnimatedContainer animates border radius changes '
           'automatically. You don\'t need BorderRadiusTween explicitly — '
           'just change the borderRadius property and AnimatedContainer '
           'handles the interpolation internally.',
@@ -804,7 +815,8 @@ dynamic build(BuildContext context) {
     {
       'type': 'pattern',
       'title': 'Chain with CurveTween for easing',
-      'detail': 'tween.chain(CurveTween(curve: Curves.easeInOut)) applies '
+      'detail':
+          'tween.chain(CurveTween(curve: Curves.easeInOut)) applies '
           'easing to the interpolation, making the animation feel more '
           'natural. Always prefer curved animations over linear.',
       'icon': Icons.check_circle,
@@ -813,7 +825,8 @@ dynamic build(BuildContext context) {
     {
       'type': 'pattern',
       'title': 'TweenAnimationBuilder for stateless use',
-      'detail': 'TweenAnimationBuilder<BorderRadius?> lets you define '
+      'detail':
+          'TweenAnimationBuilder<BorderRadius?> lets you define '
           'a BorderRadiusTween animation without managing an '
           'AnimationController. Great for one-shot or simple animations.',
       'icon': Icons.check_circle,
@@ -822,7 +835,8 @@ dynamic build(BuildContext context) {
     {
       'type': 'pitfall',
       'title': 'Radius larger than half the widget dimension',
-      'detail': 'Setting radius to 100 on a 60px container won\'t look '
+      'detail':
+          'Setting radius to 100 on a 60px container won\'t look '
           'more circular — it will just be clamped. For a true circle, '
           'use radius = min(width, height) / 2.',
       'icon': Icons.warning_amber,
@@ -831,7 +845,8 @@ dynamic build(BuildContext context) {
     {
       'type': 'pitfall',
       'title': 'Null begin or end',
-      'detail': 'If you forget to set begin or end, BorderRadius.lerp '
+      'detail':
+          'If you forget to set begin or end, BorderRadius.lerp '
           'treats null as BorderRadius.zero. This may not be what you '
           'want if the starting state should be rounded.',
       'icon': Icons.error_outline,
@@ -840,7 +855,8 @@ dynamic build(BuildContext context) {
     {
       'type': 'pitfall',
       'title': 'Performance with complex shapes',
-      'detail': 'Very rapid border radius animations on large widgets '
+      'detail':
+          'Very rapid border radius animations on large widgets '
           'with shadows can be expensive. Use RepaintBoundary if '
           'performance suffers, and keep shadows simple during animation.',
       'icon': Icons.warning_amber,
@@ -862,8 +878,7 @@ dynamic build(BuildContext context) {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(tip['icon'] as IconData,
-              color: tip['color'] as Color, size: 20),
+          Icon(tip['icon'] as IconData, color: tip['color'] as Color, size: 20),
           const SizedBox(width: 10),
           Expanded(
             child: Column(
@@ -873,7 +888,9 @@ dynamic build(BuildContext context) {
                   children: [
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 6, vertical: 2),
+                        horizontal: 6,
+                        vertical: 2,
+                      ),
                       decoration: BoxDecoration(
                         color: (tip['color'] as Color).withOpacity(0.15),
                         borderRadius: BorderRadius.circular(4),
@@ -919,12 +936,36 @@ dynamic build(BuildContext context) {
   print('=== Section 9: Summary Dashboard ===');
 
   final summaryItems = <Map<String, dynamic>>[
-    {'label': 'API members', 'value': '${apiMembers.length}', 'icon': Icons.code},
-    {'label': 'Lerp steps', 'value': '${lerpSteps.length}', 'icon': Icons.linear_scale},
-    {'label': 'Gallery demos', 'value': '${animExamples.length}', 'icon': Icons.grid_view},
-    {'label': 'Asymmetric demos', 'value': '${asymmetricExamples.length}', 'icon': Icons.crop_rotate},
-    {'label': 'Combo tweens', 'value': '${comboTweens.length}', 'icon': Icons.link},
-    {'label': 'Tips & pitfalls', 'value': '${tips.length}', 'icon': Icons.lightbulb},
+    {
+      'label': 'API members',
+      'value': '${apiMembers.length}',
+      'icon': Icons.code,
+    },
+    {
+      'label': 'Lerp steps',
+      'value': '${lerpSteps.length}',
+      'icon': Icons.linear_scale,
+    },
+    {
+      'label': 'Gallery demos',
+      'value': '${animExamples.length}',
+      'icon': Icons.grid_view,
+    },
+    {
+      'label': 'Asymmetric demos',
+      'value': '${asymmetricExamples.length}',
+      'icon': Icons.crop_rotate,
+    },
+    {
+      'label': 'Combo tweens',
+      'value': '${comboTweens.length}',
+      'icon': Icons.link,
+    },
+    {
+      'label': 'Tips & pitfalls',
+      'value': '${tips.length}',
+      'icon': Icons.lightbulb,
+    },
   ];
 
   final summaryGrid = Wrap(
@@ -948,8 +989,7 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: [
-            Icon(item['icon'] as IconData,
-                color: Colors.teal[700], size: 24),
+            Icon(item['icon'] as IconData, color: Colors.teal[700], size: 24),
             const SizedBox(height: 6),
             Text(
               item['value'] as String,
@@ -1053,8 +1093,7 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Icon(Icons.rounded_corner,
-                    color: Colors.white, size: 40),
+                const Icon(Icons.rounded_corner, color: Colors.white, size: 40),
                 const SizedBox(height: 10),
                 const Text(
                   'BorderRadiusTween',
@@ -1101,12 +1140,14 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Square → Circle (0 → 40px radius)',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.teal[700],
-                      fontSize: 13,
-                    )),
+                Text(
+                  'Square → Circle (0 → 40px radius)',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.teal[700],
+                    fontSize: 13,
+                  ),
+                ),
                 const SizedBox(height: 12),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -1125,12 +1166,14 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Rectangle → Pill (4px → 28px radius)',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.cyan[700],
-                      fontSize: 13,
-                    )),
+                Text(
+                  'Rectangle → Pill (4px → 28px radius)',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.cyan[700],
+                    fontSize: 13,
+                  ),
+                ),
                 const SizedBox(height: 12),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,

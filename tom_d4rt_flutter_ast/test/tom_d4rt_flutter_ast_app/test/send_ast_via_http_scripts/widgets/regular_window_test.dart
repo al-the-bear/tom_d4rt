@@ -111,17 +111,18 @@ class _HostRegularWindowController extends RegularWindowController {
     BoxConstraints? preferredConstraints,
     String? title,
     RegularWindowControllerDelegate? delegate,
-  })  : _title = title ?? 'Untitled',
-        _size = preferredSize ?? const Size(800, 600),
-        _constraints = preferredConstraints ??
-            const BoxConstraints(
-              minWidth: 320,
-              minHeight: 240,
-              maxWidth: 4096,
-              maxHeight: 4096,
-            ),
-        _delegate = delegate ?? RegularWindowControllerDelegate(),
-        super.empty();
+  }) : _title = title ?? 'Untitled',
+       _size = preferredSize ?? const Size(800, 600),
+       _constraints =
+           preferredConstraints ??
+           const BoxConstraints(
+             minWidth: 320,
+             minHeight: 240,
+             maxWidth: 4096,
+             maxHeight: 4096,
+           ),
+       _delegate = delegate ?? RegularWindowControllerDelegate(),
+       super.empty();
 
   String _title;
   Size _size;
@@ -223,7 +224,11 @@ class _HostRegularWindowController extends RegularWindowController {
 // Constructor signature matches: ({Key? key, required controller, required child})
 // ===========================================================================
 class RegularWindow extends StatelessWidget {
-  const RegularWindow({super.key, required this.controller, required this.child});
+  const RegularWindow({
+    super.key,
+    required this.controller,
+    required this.child,
+  });
 
   final RegularWindowController controller;
   final Widget child;
@@ -233,10 +238,7 @@ class RegularWindow extends StatelessWidget {
     return ListenableBuilder(
       listenable: controller,
       builder: (BuildContext context, Widget? _) {
-        return _RegularWindowChrome(
-          controller: controller,
-          child: child,
-        );
+        return _RegularWindowChrome(controller: controller, child: child);
       },
     );
   }
@@ -292,9 +294,7 @@ class _RegularWindowChrome extends StatelessWidget {
             SizedBox(
               width: sz.width.clamp(280.0, 720.0),
               height: sz.height.clamp(140.0, 360.0),
-              child: controller.isMinimized
-                  ? const _MinimizedSurface()
-                  : child,
+              child: controller.isMinimized ? const _MinimizedSurface() : child,
             ),
           ],
         ),
@@ -325,32 +325,18 @@ class _Titlebar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Widget> controls = <Widget>[
-      _TrafficLight(
-        color: _kRed,
-        onTap: onClose,
-        isMac: isMac,
-      ),
+      _TrafficLight(color: _kRed, onTap: onClose, isMac: isMac),
       const SizedBox(width: 6),
-      _TrafficLight(
-        color: _kYellow,
-        onTap: onMin,
-        isMac: isMac,
-      ),
+      _TrafficLight(color: _kYellow, onTap: onMin, isMac: isMac),
       const SizedBox(width: 6),
-      _TrafficLight(
-        color: _kGreen,
-        onTap: onMax,
-        isMac: isMac,
-      ),
+      _TrafficLight(color: _kGreen, onTap: onMax, isMac: isMac),
     ];
     return Container(
       height: 30,
       padding: const EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
         color: focused ? _kChromeLight : _kBorder,
-        border: const Border(
-          bottom: BorderSide(color: _kBorder, width: 1),
-        ),
+        border: const Border(bottom: BorderSide(color: _kBorder, width: 1)),
       ),
       child: Row(
         children: <Widget>[
@@ -428,8 +414,9 @@ class _MinimizedSurface extends StatelessWidget {
 // ---------------------------------------------------------------------------
 final ValueNotifier<int> _lifecyclePhase = ValueNotifier<int>(0);
 final ValueNotifier<int> _secondaryRoute = ValueNotifier<int>(0);
-final ValueNotifier<List<String>> _opLog =
-    ValueNotifier<List<String>>(<String>[]);
+final ValueNotifier<List<String>> _opLog = ValueNotifier<List<String>>(
+  <String>[],
+);
 
 void _log(String msg) {
   final List<String> next = List<String>.from(_opLog.value)..add(msg);
@@ -460,31 +447,30 @@ final RegularWindowController _primaryController = _HostRegularWindowController(
   title: 'Main Application',
 );
 
-final RegularWindowController _settingsController = _HostRegularWindowController(
-  preferredSize: const Size(560, 240),
-  preferredConstraints: const BoxConstraints(
-    minWidth: 280,
-    minHeight: 160,
-    maxWidth: 1024,
-    maxHeight: 768,
-  ),
-  title: 'Settings Panel',
-);
+final RegularWindowController _settingsController =
+    _HostRegularWindowController(
+      preferredSize: const Size(560, 240),
+      preferredConstraints: const BoxConstraints(
+        minWidth: 280,
+        minHeight: 160,
+        maxWidth: 1024,
+        maxHeight: 768,
+      ),
+      title: 'Settings Panel',
+    );
 
 final RegularWindowController _consoleController = _HostRegularWindowController(
   preferredSize: const Size(540, 220),
-  preferredConstraints: const BoxConstraints(
-    minWidth: 280,
-    minHeight: 160,
-  ),
+  preferredConstraints: const BoxConstraints(minWidth: 280, minHeight: 160),
   title: 'Console',
 );
 
-final RegularWindowController _inspectorController = _HostRegularWindowController(
-  preferredSize: const Size(520, 220),
-  preferredConstraints: const BoxConstraints(minWidth: 280, minHeight: 160),
-  title: 'Inspector',
-);
+final RegularWindowController _inspectorController =
+    _HostRegularWindowController(
+      preferredSize: const Size(520, 220),
+      preferredConstraints: const BoxConstraints(minWidth: 280, minHeight: 160),
+      title: 'Inspector',
+    );
 
 // ---------------------------------------------------------------------------
 // Entry point — d4rt harness calls build(context) and mounts the result.
@@ -647,11 +633,7 @@ class _Card extends StatelessWidget {
         border: Border.all(color: _kBorder),
         borderRadius: BorderRadius.circular(10),
         boxShadow: const <BoxShadow>[
-          BoxShadow(
-            color: _kShadow,
-            blurRadius: 6,
-            offset: Offset(0, 2),
-          ),
+          BoxShadow(color: _kShadow, blurRadius: 6, offset: Offset(0, 2)),
         ],
       ),
       child: child,
@@ -810,10 +792,7 @@ class _HeaderSection extends StatelessWidget {
                     SizedBox(height: 4),
                     Text(
                       'Flutter multi-window experimental API · live mirror in compiled build()',
-                      style: TextStyle(
-                        color: _kChromeLight,
-                        fontSize: 12,
-                      ),
+                      style: TextStyle(color: _kChromeLight, fontSize: 12),
                     ),
                   ],
                 ),
@@ -822,10 +801,7 @@ class _HeaderSection extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 14),
-          Container(
-            height: 1,
-            color: _kChrome,
-          ),
+          Container(height: 1, color: _kChrome),
           const SizedBox(height: 12),
           const Text(
             'This demo defines a shape-faithful local mirror named RegularWindow '
@@ -875,11 +851,7 @@ class _SdkGapNarrative extends StatelessWidget {
             'reproduce the public-facing shape here so the demo mounts on any '
             'platform — desktop, mobile, web — without depending on a '
             'multi-window-capable embedder.',
-            style: TextStyle(
-              color: _kInk,
-              fontSize: 12,
-              height: 1.5,
-            ),
+            style: TextStyle(color: _kInk, fontSize: 12, height: 1.5),
           ),
           const SizedBox(height: 10),
           Wrap(
@@ -907,7 +879,8 @@ class _PlatformGuardSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TargetPlatform platform = Theme.of(context).platform;
-    final bool isDesktop = platform == TargetPlatform.macOS ||
+    final bool isDesktop =
+        platform == TargetPlatform.macOS ||
         platform == TargetPlatform.windows ||
         platform == TargetPlatform.linux;
     final String name = platform.toString().split('.').last;
@@ -928,10 +901,10 @@ class _PlatformGuardSection extends StatelessWidget {
                 Text(
                   isDesktop
                       ? 'Detected desktop target ($name) — RegularWindow native '
-                          'backing would be available with isWindowingEnabled.'
+                            'backing would be available with isWindowingEnabled.'
                       : 'Detected non-desktop target ($name) — native '
-                          'RegularWindow is unavailable; mirror handles all '
-                          'rendering inside the widget tree.',
+                            'RegularWindow is unavailable; mirror handles all '
+                            'rendering inside the widget tree.',
                   style: const TextStyle(
                     color: _kInk,
                     fontSize: 12,
@@ -1005,7 +978,8 @@ class _AnatomySection extends StatelessWidget {
           ),
           const _KeyValue(
             k: 'controller',
-            v: 'RegularWindowController — owns native window handle, '
+            v:
+                'RegularWindowController — owns native window handle, '
                 'lifecycle, focus, size, and constraints.',
           ),
           const _KeyValue(
@@ -1065,8 +1039,11 @@ class _PrimaryWindowContent extends StatelessWidget {
                   color: _kSeed,
                   borderRadius: BorderRadius.circular(4),
                 ),
-                child: const Icon(Icons.dashboard,
-                    color: Colors.white, size: 16),
+                child: const Icon(
+                  Icons.dashboard,
+                  color: Colors.white,
+                  size: 16,
+                ),
               ),
               const SizedBox(width: 10),
               const Text(
@@ -1317,19 +1294,22 @@ class _ControllerStateBadge extends StatelessWidget {
           ),
           _KeyValue(
             k: 'contentSize',
-            v: '${controller.contentSize.width.toStringAsFixed(0)} x '
+            v:
+                '${controller.contentSize.width.toStringAsFixed(0)} x '
                 '${controller.contentSize.height.toStringAsFixed(0)}',
             mono: true,
           ),
           _KeyValue(
             k: 'constraints.min',
-            v: '${controller.constraints.minWidth.toStringAsFixed(0)} x '
+            v:
+                '${controller.constraints.minWidth.toStringAsFixed(0)} x '
                 '${controller.constraints.minHeight.toStringAsFixed(0)}',
             mono: true,
           ),
           _KeyValue(
             k: 'constraints.max',
-            v: '${controller.constraints.maxWidth.toStringAsFixed(0)} x '
+            v:
+                '${controller.constraints.maxWidth.toStringAsFixed(0)} x '
                 '${controller.constraints.maxHeight.toStringAsFixed(0)}',
             mono: true,
           ),
@@ -1649,8 +1629,8 @@ class _LifecycleSection extends StatelessWidget {
                   final Color color = active
                       ? _kSeed
                       : past
-                          ? _kGreen
-                          : _kBorder;
+                      ? _kGreen
+                      : _kBorder;
                   return Expanded(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 2),
@@ -1777,7 +1757,8 @@ class _ConstraintSection extends StatelessWidget {
               ),
               _KeyValue(
                 k: 'currentSize',
-                v: '${sz.width.toStringAsFixed(0)} x '
+                v:
+                    '${sz.width.toStringAsFixed(0)} x '
                     '${sz.height.toStringAsFixed(0)}',
                 mono: true,
               ),
@@ -1788,12 +1769,14 @@ class _ConstraintSection extends StatelessWidget {
                   _MiniButton(
                     label: 'Tighten constraints',
                     onTap: () {
-                      _primaryController.setConstraints(const BoxConstraints(
-                        minWidth: 480,
-                        minHeight: 220,
-                        maxWidth: 800,
-                        maxHeight: 320,
-                      ));
+                      _primaryController.setConstraints(
+                        const BoxConstraints(
+                          minWidth: 480,
+                          minHeight: 220,
+                          maxWidth: 800,
+                          maxHeight: 320,
+                        ),
+                      );
                       _log('primary.setConstraints(tight)');
                     },
                     color: _kAccent,
@@ -1801,12 +1784,14 @@ class _ConstraintSection extends StatelessWidget {
                   _MiniButton(
                     label: 'Loosen constraints',
                     onTap: () {
-                      _primaryController.setConstraints(const BoxConstraints(
-                        minWidth: 280,
-                        minHeight: 160,
-                        maxWidth: 1600,
-                        maxHeight: 900,
-                      ));
+                      _primaryController.setConstraints(
+                        const BoxConstraints(
+                          minWidth: 280,
+                          minHeight: 160,
+                          maxWidth: 1600,
+                          maxHeight: 900,
+                        ),
+                      );
                       _log('primary.setConstraints(loose)');
                     },
                     color: _kSeed,
@@ -2115,8 +2100,9 @@ class _DelegateBox extends StatelessWidget {
 class _TitleBindingSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final TextEditingController editor =
-        TextEditingController(text: _settingsController.title);
+    final TextEditingController editor = TextEditingController(
+      text: _settingsController.title,
+    );
     return ListenableBuilder(
       listenable: _settingsController,
       builder: (BuildContext context, Widget? _) {
@@ -2148,9 +2134,11 @@ class _TitleBindingSection extends StatelessWidget {
                     label: 'Apply',
                     icon: Icons.check,
                     onTap: () {
-                      _settingsController.setTitle(editor.text.trim().isEmpty
-                          ? 'Untitled'
-                          : editor.text.trim());
+                      _settingsController.setTitle(
+                        editor.text.trim().isEmpty
+                            ? 'Untitled'
+                            : editor.text.trim(),
+                      );
                       _log('settings.setTitle("${editor.text}")');
                     },
                   ),
@@ -2189,8 +2177,11 @@ class _OpLogSection extends StatelessWidget {
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  const Icon(Icons.terminal,
-                      color: Color(0xFF7CFFA0), size: 18),
+                  const Icon(
+                    Icons.terminal,
+                    color: Color(0xFF7CFFA0),
+                    size: 18,
+                  ),
                   const SizedBox(width: 8),
                   const Text(
                     'Operation log',
@@ -2271,8 +2262,7 @@ class _GenericsSection extends StatelessWidget {
     final Map<String, RegularWindow> byTitle = <String, RegularWindow>{
       for (final RegularWindow w in registry) w.controller.title: w,
     };
-    final Set<RegularWindowController> controllers =
-        <RegularWindowController>{
+    final Set<RegularWindowController> controllers = <RegularWindowController>{
       _primaryController,
       _settingsController,
       _consoleController,
@@ -2308,10 +2298,10 @@ class _GenericsSection extends StatelessWidget {
             spacing: 8,
             runSpacing: 6,
             children: registry
-                .map((RegularWindow w) => _Pill(
-                      text: w.controller.title,
-                      color: _kSeed,
-                    ))
+                .map(
+                  (RegularWindow w) =>
+                      _Pill(text: w.controller.title, color: _kSeed),
+                )
                 .toList(),
           ),
         ],
@@ -2327,8 +2317,11 @@ class _TypeAnnotationSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Local function whose parameters and return type all use mirror types.
-    String describe(RegularWindow window, RegularWindowController c,
-        RegularWindowControllerDelegate d) {
+    String describe(
+      RegularWindow window,
+      RegularWindowController c,
+      RegularWindowControllerDelegate d,
+    ) {
       return 'RegularWindow(title="${c.title}", '
           'activated=${c.isActivated}, '
           'delegate=${d.runtimeType})';
@@ -2339,8 +2332,7 @@ class _TypeAnnotationSection extends StatelessWidget {
       controller: _primaryController,
       child: const SizedBox.shrink(),
     );
-    final String summary =
-        describe(w, _primaryController, _LoggingDelegate());
+    final String summary = describe(w, _primaryController, _LoggingDelegate());
     return _Card(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -2399,11 +2391,7 @@ class _FooterSection extends StatelessWidget {
             'as a real Dart type — constructor calls, type annotations, '
             'generic arguments, parameter types — so the audit signal '
             '"appears only in code-block strings" is fully cleared.',
-            style: TextStyle(
-              color: _kChromeLight,
-              fontSize: 12,
-              height: 1.5,
-            ),
+            style: TextStyle(color: _kChromeLight, fontSize: 12, height: 1.5),
           ),
         ],
       ),

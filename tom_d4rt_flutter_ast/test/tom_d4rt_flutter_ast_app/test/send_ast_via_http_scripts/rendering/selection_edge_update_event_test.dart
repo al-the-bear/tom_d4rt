@@ -50,9 +50,7 @@ Widget _seSectionHeader(String title, {String? subtitle}) {
     width: double.infinity,
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
     decoration: const BoxDecoration(
-      gradient: LinearGradient(
-        colors: [_seAmber, _seDarkAmber],
-      ),
+      gradient: LinearGradient(colors: [_seAmber, _seDarkAmber]),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -192,10 +190,7 @@ Widget _seKeyValueRow(String key, String value, {Color? valueColor}) {
         Expanded(
           child: Text(
             value,
-            style: TextStyle(
-              color: valueColor ?? _seCharcoal,
-              fontSize: 13,
-            ),
+            style: TextStyle(color: valueColor ?? _seCharcoal, fontSize: 13),
           ),
         ),
       ],
@@ -268,13 +263,29 @@ Widget _seBuildOverview() {
             const SizedBox(height: 12),
             _seFlowStep(Icons.pan_tool, 'User drags finger on text', _seRose),
             _seFlowArrow(),
-            _seFlowStep(Icons.location_on, 'GestureDetector reports global (x, y)', _seIndigo),
+            _seFlowStep(
+              Icons.location_on,
+              'GestureDetector reports global (x, y)',
+              _seIndigo,
+            ),
             _seFlowArrow(),
-            _seFlowStep(Icons.send, 'SelectionEdgeUpdateEvent created', _seAmber),
+            _seFlowStep(
+              Icons.send,
+              'SelectionEdgeUpdateEvent created',
+              _seAmber,
+            ),
             _seFlowArrow(),
-            _seFlowStep(Icons.widgets, 'Dispatched to all Selectables', _seTeal),
+            _seFlowStep(
+              Icons.widgets,
+              'Dispatched to all Selectables',
+              _seTeal,
+            ),
             _seFlowArrow(),
-            _seFlowStep(Icons.highlight, 'Each Selectable updates its selection', _seBrown),
+            _seFlowStep(
+              Icons.highlight,
+              'Each Selectable updates its selection',
+              _seBrown,
+            ),
           ],
         ),
       ),
@@ -290,7 +301,11 @@ Widget _seFlowStep(IconData icon, String desc, Color color) {
       Expanded(
         child: Text(
           desc,
-          style: TextStyle(color: color, fontWeight: FontWeight.w600, fontSize: 12),
+          style: TextStyle(
+            color: color,
+            fontWeight: FontWeight.w600,
+            fontSize: 12,
+          ),
         ),
       ),
     ],
@@ -337,7 +352,11 @@ Widget _seBuildFields() {
           children: [
             const Text(
               'Global vs Local Coordinates',
-              style: TextStyle(color: _seDarkAmber, fontWeight: FontWeight.bold, fontSize: 13),
+              style: TextStyle(
+                color: _seDarkAmber,
+                fontWeight: FontWeight.bold,
+                fontSize: 13,
+              ),
             ),
             const SizedBox(height: 12),
             Row(
@@ -442,23 +461,64 @@ Widget _seBuildFields() {
                 children: [
                   Expanded(
                     flex: 2,
-                    child: Text('Granularity', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12)),
+                    child: Text(
+                      'Granularity',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
                   ),
                   Expanded(
                     flex: 2,
-                    child: Text('Gesture', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12)),
+                    child: Text(
+                      'Gesture',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
                   ),
                   Expanded(
                     flex: 3,
-                    child: Text('Behavior', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12)),
+                    child: Text(
+                      'Behavior',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
                   ),
                 ],
               ),
             ),
-            _seGranularityRow('character', 'Single tap + drag', 'Selects one char at a time', false),
-            _seGranularityRow('word', 'Double tap + drag', 'Snaps to whole words', true),
-            _seGranularityRow('line', 'Triple click', 'Selects entire line', false),
-            _seGranularityRow('document', 'Ctrl+A / Cmd+A', 'Selects everything', true),
+            _seGranularityRow(
+              'character',
+              'Single tap + drag',
+              'Selects one char at a time',
+              false,
+            ),
+            _seGranularityRow(
+              'word',
+              'Double tap + drag',
+              'Snaps to whole words',
+              true,
+            ),
+            _seGranularityRow(
+              'line',
+              'Triple click',
+              'Selects entire line',
+              false,
+            ),
+            _seGranularityRow(
+              'document',
+              'Ctrl+A / Cmd+A',
+              'Selects everything',
+              true,
+            ),
           ],
         ),
       ),
@@ -476,11 +536,26 @@ Widget _seCoordBox(String title, String desc, String example, Color color) {
     ),
     child: Column(
       children: [
-        Text(title, style: TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 12)),
+        Text(
+          title,
+          style: TextStyle(
+            color: color,
+            fontWeight: FontWeight.bold,
+            fontSize: 12,
+          ),
+        ),
         const SizedBox(height: 4),
         Text(desc, style: const TextStyle(color: _seCharcoal, fontSize: 10)),
         const SizedBox(height: 6),
-        Text(example, style: TextStyle(color: color, fontFamily: 'monospace', fontSize: 11, fontWeight: FontWeight.bold)),
+        Text(
+          example,
+          style: TextStyle(
+            color: color,
+            fontFamily: 'monospace',
+            fontSize: 11,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ],
     ),
   );
@@ -498,15 +573,32 @@ Widget _seEdgeTypeCard(String name, String desc, IconData icon, Color color) {
       children: [
         Icon(icon, color: color, size: 28),
         const SizedBox(height: 6),
-        Text(name, style: TextStyle(color: color, fontWeight: FontWeight.bold, fontFamily: 'monospace', fontSize: 11)),
+        Text(
+          name,
+          style: TextStyle(
+            color: color,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'monospace',
+            fontSize: 11,
+          ),
+        ),
         const SizedBox(height: 4),
-        Text(desc, textAlign: TextAlign.center, style: const TextStyle(color: _seCharcoal, fontSize: 10)),
+        Text(
+          desc,
+          textAlign: TextAlign.center,
+          style: const TextStyle(color: _seCharcoal, fontSize: 10),
+        ),
       ],
     ),
   );
 }
 
-Widget _seGranularityRow(String granularity, String gesture, String behavior, bool isAlt) {
+Widget _seGranularityRow(
+  String granularity,
+  String gesture,
+  String behavior,
+  bool isAlt,
+) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
     color: isAlt ? _seLightGold.withValues(alpha: 0.5) : Colors.white,
@@ -514,15 +606,29 @@ Widget _seGranularityRow(String granularity, String gesture, String behavior, bo
       children: [
         Expanded(
           flex: 2,
-          child: Text(granularity, style: const TextStyle(color: _seDarkAmber, fontWeight: FontWeight.bold, fontFamily: 'monospace', fontSize: 11)),
+          child: Text(
+            granularity,
+            style: const TextStyle(
+              color: _seDarkAmber,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'monospace',
+              fontSize: 11,
+            ),
+          ),
         ),
         Expanded(
           flex: 2,
-          child: Text(gesture, style: const TextStyle(color: _seCharcoal, fontSize: 11)),
+          child: Text(
+            gesture,
+            style: const TextStyle(color: _seCharcoal, fontSize: 11),
+          ),
         ),
         Expanded(
           flex: 3,
-          child: Text(behavior, style: const TextStyle(color: _seCharcoal, fontSize: 11)),
+          child: Text(
+            behavior,
+            style: const TextStyle(color: _seCharcoal, fontSize: 11),
+          ),
         ),
       ],
     ),
@@ -565,11 +671,20 @@ Widget _seBuildConstructors() {
                   children: [
                     Row(
                       children: [
-                        const Icon(Icons.arrow_back, color: _seIndigo, size: 16),
+                        const Icon(
+                          Icons.arrow_back,
+                          color: _seIndigo,
+                          size: 16,
+                        ),
                         const SizedBox(width: 6),
                         const Text(
                           '.forStart()',
-                          style: TextStyle(color: _seIndigo, fontWeight: FontWeight.bold, fontFamily: 'monospace', fontSize: 13),
+                          style: TextStyle(
+                            color: _seIndigo,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'monospace',
+                            fontSize: 13,
+                          ),
                         ),
                       ],
                     ),
@@ -577,7 +692,11 @@ Widget _seBuildConstructors() {
                     const Text(
                       'Creates an event that moves the START edge of the selection.\n\n'
                       'Type is automatically set to SelectionEventType.startEdgeUpdate',
-                      style: TextStyle(color: _seCharcoal, fontSize: 11, height: 1.4),
+                      style: TextStyle(
+                        color: _seCharcoal,
+                        fontSize: 11,
+                        height: 1.4,
+                      ),
                     ),
                     const SizedBox(height: 8),
                     _seBadge('Start Edge', _seIndigo),
@@ -599,11 +718,20 @@ Widget _seBuildConstructors() {
                   children: [
                     Row(
                       children: [
-                        const Icon(Icons.arrow_forward, color: _seRose, size: 16),
+                        const Icon(
+                          Icons.arrow_forward,
+                          color: _seRose,
+                          size: 16,
+                        ),
                         const SizedBox(width: 6),
                         const Text(
                           '.forEnd()',
-                          style: TextStyle(color: _seRose, fontWeight: FontWeight.bold, fontFamily: 'monospace', fontSize: 13),
+                          style: TextStyle(
+                            color: _seRose,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'monospace',
+                            fontSize: 13,
+                          ),
                         ),
                       ],
                     ),
@@ -611,7 +739,11 @@ Widget _seBuildConstructors() {
                     const Text(
                       'Creates an event that moves the END edge of the selection.\n\n'
                       'Type is automatically set to SelectionEventType.endEdgeUpdate',
-                      style: TextStyle(color: _seCharcoal, fontSize: 11, height: 1.4),
+                      style: TextStyle(
+                        color: _seCharcoal,
+                        fontSize: 11,
+                        height: 1.4,
+                      ),
                     ),
                     const SizedBox(height: 8),
                     _seBadge('End Edge', _seRose),
@@ -670,20 +802,60 @@ Widget _seBuildPipeline() {
           children: [
             const Text(
               'Complete Pipeline',
-              style: TextStyle(color: _seDarkAmber, fontWeight: FontWeight.bold, fontSize: 14),
+              style: TextStyle(
+                color: _seDarkAmber,
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+              ),
             ),
             const SizedBox(height: 14),
-            _sePipelineCard('1', 'GestureDetector', 'Detects pan/drag gestures from user input', Icons.touch_app, _seRose),
+            _sePipelineCard(
+              '1',
+              'GestureDetector',
+              'Detects pan/drag gestures from user input',
+              Icons.touch_app,
+              _seRose,
+            ),
             _sePipelineConnector(),
-            _sePipelineCard('2', 'SelectableRegion', 'Creates SelectionEdgeUpdateEvent\nwith global position', Icons.spatial_tracking, _seAmber),
+            _sePipelineCard(
+              '2',
+              'SelectableRegion',
+              'Creates SelectionEdgeUpdateEvent\nwith global position',
+              Icons.spatial_tracking,
+              _seAmber,
+            ),
             _sePipelineConnector(),
-            _sePipelineCard('3', 'Selectables.forEach', 'Event dispatched to each registered\nSelectable via dispatchSelectionEvent', Icons.send, _seTeal),
+            _sePipelineCard(
+              '3',
+              'Selectables.forEach',
+              'Event dispatched to each registered\nSelectable via dispatchSelectionEvent',
+              Icons.send,
+              _seTeal,
+            ),
             _sePipelineConnector(),
-            _sePipelineCard('4', 'Hit Test', 'Selectable converts global→local\ncoords and checks if position is within', Icons.gps_fixed, _seIndigo),
+            _sePipelineCard(
+              '4',
+              'Hit Test',
+              'Selectable converts global→local\ncoords and checks if position is within',
+              Icons.gps_fixed,
+              _seIndigo,
+            ),
             _sePipelineConnector(),
-            _sePipelineCard('5', 'Offset Computation', 'Determines nearest character offset\nfor the given local position', Icons.text_fields, _seBrown),
+            _sePipelineCard(
+              '5',
+              'Offset Computation',
+              'Determines nearest character offset\nfor the given local position',
+              Icons.text_fields,
+              _seBrown,
+            ),
             _sePipelineConnector(),
-            _sePipelineCard('6', 'Selection Update', 'Updates internal selection range\nNotifies parent of geometry change', Icons.update, _seAmber),
+            _sePipelineCard(
+              '6',
+              'Selection Update',
+              'Updates internal selection range\nNotifies parent of geometry change',
+              Icons.update,
+              _seAmber,
+            ),
           ],
         ),
       ),
@@ -721,7 +893,11 @@ Widget _seBuildPipeline() {
 }
 
 Widget _sePipelineCard(
-  String number, String title, String desc, IconData icon, Color color,
+  String number,
+  String title,
+  String desc,
+  IconData icon,
+  Color color,
 ) {
   return Container(
     padding: const EdgeInsets.all(10),
@@ -737,7 +913,14 @@ Widget _sePipelineCard(
           height: 28,
           decoration: BoxDecoration(color: color, shape: BoxShape.circle),
           child: Center(
-            child: Text(number, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12)),
+            child: Text(
+              number,
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 12,
+              ),
+            ),
           ),
         ),
         const SizedBox(width: 10),
@@ -747,8 +930,22 @@ Widget _sePipelineCard(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 12)),
-              Text(desc, style: const TextStyle(color: _seCharcoal, fontSize: 11, height: 1.3)),
+              Text(
+                title,
+                style: TextStyle(
+                  color: color,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                ),
+              ),
+              Text(
+                desc,
+                style: const TextStyle(
+                  color: _seCharcoal,
+                  fontSize: 11,
+                  height: 1.3,
+                ),
+              ),
             ],
           ),
         ),
@@ -814,9 +1011,7 @@ Widget _seBuildGranularityDemo() {
       _seSubheading('Line Granularity'),
       _seGranularityVisual(
         'The quick brown fox jumps over',
-        [
-          _SeHighlight(0, 30, 'entire line'),
-        ],
+        [_SeHighlight(0, 30, 'entire line')],
         'Entire line selected regardless of position (triple-click)',
         _seIndigo,
         selectedChars: Set.from(List.generate(30, (i) => i)),
@@ -885,7 +1080,9 @@ Widget _seGranularityVisual(
                       color: selectedChars.contains(i) ? color : _seCharcoal,
                       fontSize: 11,
                       fontFamily: 'monospace',
-                      fontWeight: selectedChars.contains(i) ? FontWeight.bold : FontWeight.normal,
+                      fontWeight: selectedChars.contains(i)
+                          ? FontWeight.bold
+                          : FontWeight.normal,
                     ),
                   ),
                 ),
@@ -895,7 +1092,11 @@ Widget _seGranularityVisual(
         const SizedBox(height: 8),
         Text(
           description,
-          style: TextStyle(color: color, fontSize: 11, fontStyle: FontStyle.italic),
+          style: TextStyle(
+            color: color,
+            fontSize: 11,
+            fontStyle: FontStyle.italic,
+          ),
         ),
       ],
     ),
@@ -936,14 +1137,38 @@ Widget _seBuildContinuousDispatch() {
           children: [
             const Text(
               'Events During a Single Drag',
-              style: TextStyle(color: _seDarkAmber, fontWeight: FontWeight.bold, fontSize: 14),
+              style: TextStyle(
+                color: _seDarkAmber,
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+              ),
             ),
             const SizedBox(height: 12),
-            _seTimelineEvent('t=0ms', 'forEnd(globalPosition: Offset(100, 50))', _seAmber),
-            _seTimelineEvent('t=16ms', 'forEnd(globalPosition: Offset(112, 50))', _seTeal),
-            _seTimelineEvent('t=32ms', 'forEnd(globalPosition: Offset(125, 51))', _seAmber),
-            _seTimelineEvent('t=48ms', 'forEnd(globalPosition: Offset(140, 52))', _seTeal),
-            _seTimelineEvent('t=64ms', 'forEnd(globalPosition: Offset(158, 53))', _seAmber),
+            _seTimelineEvent(
+              't=0ms',
+              'forEnd(globalPosition: Offset(100, 50))',
+              _seAmber,
+            ),
+            _seTimelineEvent(
+              't=16ms',
+              'forEnd(globalPosition: Offset(112, 50))',
+              _seTeal,
+            ),
+            _seTimelineEvent(
+              't=32ms',
+              'forEnd(globalPosition: Offset(125, 51))',
+              _seAmber,
+            ),
+            _seTimelineEvent(
+              't=48ms',
+              'forEnd(globalPosition: Offset(140, 52))',
+              _seTeal,
+            ),
+            _seTimelineEvent(
+              't=64ms',
+              'forEnd(globalPosition: Offset(158, 53))',
+              _seAmber,
+            ),
             _seTimelineEvent('...', '(continues until finger lifts)', _seBrown),
           ],
         ),
@@ -990,7 +1215,8 @@ Widget _seTimelineEvent(String time, String desc, Color color) {
           ),
         ),
         Container(
-          width: 8, height: 8,
+          width: 8,
+          height: 8,
           margin: const EdgeInsets.only(top: 4),
           decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
@@ -1049,13 +1275,17 @@ Widget _seBuildSelectionResult() {
               ),
               child: const Text(
                 'SelectionResult Values',
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13,
+                ),
               ),
             ),
             _seResultCard(
               'SelectionResult.end',
               'The edge position falls within this Selectable — selection '
-              'processing can stop for this edge.',
+                  'processing can stop for this edge.',
               Icons.check_circle,
               _seTeal,
             ),
@@ -1063,7 +1293,7 @@ Widget _seBuildSelectionResult() {
             _seResultCard(
               'SelectionResult.previous',
               'The edge position is BEFORE this Selectable — the previous '
-              'Selectable in order should handle it.',
+                  'Selectable in order should handle it.',
               Icons.arrow_upward,
               _seIndigo,
             ),
@@ -1071,7 +1301,7 @@ Widget _seBuildSelectionResult() {
             _seResultCard(
               'SelectionResult.next',
               'The edge position is AFTER this Selectable — the next '
-              'Selectable in order should handle it.',
+                  'Selectable in order should handle it.',
               Icons.arrow_downward,
               _seRose,
             ),
@@ -1079,7 +1309,7 @@ Widget _seBuildSelectionResult() {
             _seResultCard(
               'SelectionResult.pending',
               'The Selectable cannot determine the result yet — typically '
-              'used during layout computation.',
+                  'used during layout computation.',
               Icons.hourglass_empty,
               _seBrown,
             ),
@@ -1178,7 +1408,11 @@ Widget _seBuildLiveDemo() {
                   const SizedBox(width: 8),
                   const Text(
                     'Drag to select — events fire continuously',
-                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                    ),
                   ),
                   const Spacer(),
                   _seBadge('live', _seTeal),
@@ -1289,17 +1523,67 @@ Widget _seBuildComparison() {
               ),
               child: const Row(
                 children: [
-                  Expanded(flex: 3, child: Text('Event Type', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12))),
-                  Expanded(flex: 2, child: Text('Trigger', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12))),
-                  Expanded(flex: 3, child: Text('Purpose', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12))),
+                  Expanded(
+                    flex: 3,
+                    child: Text(
+                      'Event Type',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child: Text(
+                      'Trigger',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 3,
+                    child: Text(
+                      'Purpose',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
-            _seEventRow('EdgeUpdateEvent', 'Drag gesture', 'Move start/end edge', false),
+            _seEventRow(
+              'EdgeUpdateEvent',
+              'Drag gesture',
+              'Move start/end edge',
+              false,
+            ),
             _seEventRow('SelectAllEvent', 'Ctrl+A', 'Select all content', true),
-            _seEventRow('ClearSelectionEvent', 'Tap away', 'Remove selection', false),
-            _seEventRow('GranularlyExtendEvent', 'Shift+arrow', 'Extend by granularity', true),
-            _seEventRow('DirectionallyExtendEvent', 'Shift+Up/Dn', 'Extend directionally', false),
+            _seEventRow(
+              'ClearSelectionEvent',
+              'Tap away',
+              'Remove selection',
+              false,
+            ),
+            _seEventRow(
+              'GranularlyExtendEvent',
+              'Shift+arrow',
+              'Extend by granularity',
+              true,
+            ),
+            _seEventRow(
+              'DirectionallyExtendEvent',
+              'Shift+Up/Dn',
+              'Extend directionally',
+              false,
+            ),
           ],
         ),
       ),
@@ -1321,9 +1605,32 @@ Widget _seEventRow(String type, String trigger, String purpose, bool isAlt) {
     color: isAlt ? _seLightGold.withValues(alpha: 0.5) : Colors.white,
     child: Row(
       children: [
-        Expanded(flex: 3, child: Text(type, style: const TextStyle(color: _seDarkAmber, fontWeight: FontWeight.bold, fontFamily: 'monospace', fontSize: 10))),
-        Expanded(flex: 2, child: Text(trigger, style: const TextStyle(color: _seCharcoal, fontSize: 11))),
-        Expanded(flex: 3, child: Text(purpose, style: const TextStyle(color: _seCharcoal, fontSize: 11))),
+        Expanded(
+          flex: 3,
+          child: Text(
+            type,
+            style: const TextStyle(
+              color: _seDarkAmber,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'monospace',
+              fontSize: 10,
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 2,
+          child: Text(
+            trigger,
+            style: const TextStyle(color: _seCharcoal, fontSize: 11),
+          ),
+        ),
+        Expanded(
+          flex: 3,
+          child: Text(
+            purpose,
+            style: const TextStyle(color: _seCharcoal, fontSize: 11),
+          ),
+        ),
       ],
     ),
   );
@@ -1362,17 +1669,39 @@ Widget _seBuildSummary() {
                 SizedBox(width: 8),
                 Text(
                   'SelectionEdgeUpdateEvent — Takeaways',
-                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
                 ),
               ],
             ),
             const SizedBox(height: 12),
-            _seSummaryItem('Most common event', 'Fired continuously during every drag gesture'),
-            _seSummaryItem('Three fields', 'globalPosition, type (start/end), granularity'),
-            _seSummaryItem('Named constructors', 'forStart() and forEnd() set type automatically'),
-            _seSummaryItem('Performance critical', 'Fires 60+ times/sec — handlers must be fast'),
-            _seSummaryItem('Returns SelectionResult', 'end/previous/next tells system where edge landed'),
-            _seSummaryItem('Granularity aware', 'char/word/line/document snapping built in'),
+            _seSummaryItem(
+              'Most common event',
+              'Fired continuously during every drag gesture',
+            ),
+            _seSummaryItem(
+              'Three fields',
+              'globalPosition, type (start/end), granularity',
+            ),
+            _seSummaryItem(
+              'Named constructors',
+              'forStart() and forEnd() set type automatically',
+            ),
+            _seSummaryItem(
+              'Performance critical',
+              'Fires 60+ times/sec — handlers must be fast',
+            ),
+            _seSummaryItem(
+              'Returns SelectionResult',
+              'end/previous/next tells system where edge landed',
+            ),
+            _seSummaryItem(
+              'Granularity aware',
+              'char/word/line/document snapping built in',
+            ),
           ],
         ),
       ),
@@ -1388,9 +1717,13 @@ Widget _seSummaryItem(String title, String desc) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          width: 6, height: 6,
+          width: 6,
+          height: 6,
           margin: const EdgeInsets.only(top: 6),
-          decoration: const BoxDecoration(color: _seGold, shape: BoxShape.circle),
+          decoration: const BoxDecoration(
+            color: _seGold,
+            shape: BoxShape.circle,
+          ),
         ),
         const SizedBox(width: 10),
         Expanded(
@@ -1399,11 +1732,19 @@ Widget _seSummaryItem(String title, String desc) {
               children: [
                 TextSpan(
                   text: '$title — ',
-                  style: const TextStyle(color: _seGold, fontWeight: FontWeight.bold, fontSize: 12),
+                  style: const TextStyle(
+                    color: _seGold,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                  ),
                 ),
                 TextSpan(
                   text: desc,
-                  style: TextStyle(color: Colors.white.withValues(alpha: 0.9), fontSize: 12, height: 1.4),
+                  style: TextStyle(
+                    color: Colors.white.withValues(alpha: 0.9),
+                    fontSize: 12,
+                    height: 1.4,
+                  ),
                 ),
               ],
             ),
