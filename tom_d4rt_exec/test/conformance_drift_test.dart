@@ -1416,6 +1416,43 @@ const Map<String, _Divergence> _divergentBaseline = {
   'scc29_parameter_type_check_test.dart': _Divergence.deliberate,
 };
 
+/// The difference each [_divergentBaseline] entry actually sanctions.
+///
+/// SCD154. Keyed by the same path, one entry each, and F-SCC6-4 asserts the two
+/// key sets are equal — so a new baseline entry cannot arrive without a
+/// fingerprint, which is the only thing that makes the exemption specific.
+///
+/// WHY A PARALLEL MAP RATHER THAN A SECOND FIELD ON THE VALUE, since the todo
+/// asked for the latter. The entry syntax `'path': _Divergence.kind,` is parsed
+/// as TEXT by three things: [_entryComments] here (which F-SCC44-2 asserts
+/// against the declared map), [_floorsDeclaredInComments], and
+/// `tom_d4rt/test/scd153_conformance_drift_mirror_test.dart`, which reads this
+/// map from the other package. Widening the value to a constructor call moves
+/// it onto its own line under the formatter and silently disarms every one of
+/// them — which is the exact failure F-SCC44-2 exists to catch, introduced by
+/// the change meant to tighten the map. A parallel map with an asserted key set
+/// is the same guarantee at none of that risk.
+///
+/// TO RECOMPUTE ONE: run this suite. F-SCC6-4 prints the observed fingerprint
+/// beside the recorded one and you paste it in — deliberately the same
+/// mechanism [_pinnedInterpreterFloors] uses, and deliberately an act, because
+/// an exemption that widens itself for free is what SCD154 was filed about.
+/// Recomputing without reading the new difference is the failure mode; the
+/// message says so.
+const Map<String, String> _divergenceFingerprints = <String, String>{
+  'scc20_catch_clause_type_test.dart': 'cf854ab1616b9e5f',
+  'stdlib/collection/list_queue_test.dart': '927a588334725bb2',
+  'stdlib/collection/queue_test.dart': '19eee099a23916a8',
+  'stdlib/cast_from_family_test.dart': 'c7a32ccddec5a069',
+  'scc12_await_in_finally_test.dart': '2281f29dff43036a',
+  'warm_parent_package_pool_test.dart': '971b6ff19185f442',
+  'stdlib/intentionally_unbridged_test.dart': '625078dfd5baba8a',
+  'scc31_undefined_name_uncatchable_test.dart': 'ad105fd6b643370f',
+  'scc32_bridged_value_key_test.dart': 'bf57cd97b77c0e83',
+  'scc33_unhandled_node_test.dart': '1be2b48d0784ff46',
+  'scc29_parameter_type_check_test.dart': 'a4c38e44ee9853e1',
+};
+
 /// The direct interpreter-package imports the port recipe legitimately rewrites,
 /// mapped to a shared token so a correctly-ported file compares equal.
 ///
@@ -1964,6 +2001,70 @@ List<String> _markers(String source) => [
 /// each pair, and for normalising rather than baselining, lives there with it.
 String _normalise(String source) => normalisePortImports(source);
 
+/// A fingerprint of the difference a [_divergentBaseline] entry sanctions.
+///
+/// SCD154. Membership in that map is by PATH, so an entry exempts its file from
+/// ALL future drift for as long as it stands — the map's own header names the
+/// hazard and the guard then implemented exactly it. That was tolerable while
+/// the six original entries were structural and permanent. It stopped being
+/// tolerable when SCC52 and SCD153 added nine more of a different kind: live
+/// ports that differ only by a publish-pinned expectation, which will keep
+/// receiving reference-side edits, every one of which landed unchecked. The
+/// entry that says "this file still expects the old StateError" silently also
+/// said "and anything else you like".
+///
+/// POSITION-INDEPENDENT ON PURPOSE. The todo proposed "the sorted set of
+/// differing line numbers plus a hash of the differing lines". Line numbers are
+/// the brittle half: inserting a comment anywhere above a divergence shifts
+/// every number below it, so the fingerprint would demand a deliberate
+/// recomputation for an edit that changed nothing about what the two copies
+/// assert. What this hashes instead is the multiset of lines each side has that
+/// the other does not, sorted — which moves when the CONTENT of the divergence
+/// moves and stays still when it only slides down the file.
+///
+/// A mirrored edit — the same line added to both copies — does not move the
+/// fingerprint either, which is the case that matters most: it is what a
+/// correctly-maintained port looks like.
+///
+/// The hash is FNV-1a/64 written out rather than `package:crypto`, because this
+/// package does not depend on it and a guard is not worth a dependency. Nothing
+/// here is adversarial: the input is two files in the same repository.
+String _divergenceFingerprint(String refSource, String execSource) {
+  final ref = _normalise(refSource).split('\n');
+  final exec = _normalise(execSource).split('\n');
+  final onlyRef = _linesNotIn(ref, exec)..sort();
+  final onlyExec = _linesNotIn(exec, ref)..sort();
+  return _fnv1a('${onlyRef.join('\n')}\n@@SIDE@@\n${onlyExec.join('\n')}');
+}
+
+/// The lines of [a] that [b] does not also contain, counting duplicates.
+List<String> _linesNotIn(List<String> a, List<String> b) {
+  final remaining = <String, int>{};
+  for (final line in b) {
+    remaining[line] = (remaining[line] ?? 0) + 1;
+  }
+  final out = <String>[];
+  for (final line in a) {
+    final left = remaining[line] ?? 0;
+    if (left > 0) {
+      remaining[line] = left - 1;
+    } else {
+      out.add(line);
+    }
+  }
+  return out;
+}
+
+String _fnv1a(String input) {
+  var hash = BigInt.parse('cbf29ce484222325', radix: 16);
+  final mask = (BigInt.one << 64) - BigInt.one;
+  final prime = BigInt.parse('100000001b3', radix: 16);
+  for (final unit in utf8.encode(input)) {
+    hash = (hash ^ BigInt.from(unit)) * prime & mask;
+  }
+  return hash.toRadixString(16).padLeft(16, '0');
+}
+
 /// Files under `tom_d4rt_ast/lib` that differ between the PUBLISHED copy exec
 /// resolves and the sibling working tree, and why that is currently accepted.
 ///
@@ -2328,6 +2429,51 @@ void main() {
             'These files no longer diverge. Remove them from '
             '_divergentBaseline so the next real divergence is not absorbed '
             'by a stale entry.\n${converged.join('\n')}',
+      );
+
+      // SCD154. Membership above is by PATH, so everything up to here treats an
+      // entry as a blanket: once a file is listed, the check stops looking at
+      // it, and the second divergence in an already-listed file is invisible.
+      // The fingerprint makes the entry pin the DIFFERENCE instead.
+      expect(
+        _divergenceFingerprints.keys.toSet(),
+        equals(baseline),
+        reason:
+            'Every _divergentBaseline entry needs a fingerprint and every '
+            'fingerprint needs an entry. A path in one map and not the other '
+            'is an exemption with no recorded shape — which is the blanket '
+            'this pairing exists to replace. Assert coverage before asserting '
+            'content: without this the check below silently skips whichever '
+            'entries have no fingerprint.',
+      );
+
+      final widened = <String>[];
+      for (final path in baseline.intersection(divergent)) {
+        final observed = _divergenceFingerprint(
+          ref[path]!.readAsStringSync(),
+          exec[path]!.readAsStringSync(),
+        );
+        if (observed != _divergenceFingerprints[path]) {
+          widened.add(
+            '$path\n      recorded: ${_divergenceFingerprints[path]}\n'
+            '      observed: $observed',
+          );
+        }
+      }
+      expect(
+        widened,
+        isEmpty,
+        reason:
+            'These files still diverge, but NOT in the way their entry '
+            'sanctions — something else in them has changed on one side only. '
+            'The entry was a statement about one difference; it is not a '
+            'licence for the next one.\n\n'
+            'READ THE NEW DIFFERENCE BEFORE TOUCHING THE FINGERPRINT. Diff the '
+            'pair, decide whether the new divergence is a missed mirror (fix '
+            'it — the fingerprint then goes back by itself) or a second '
+            'sanctioned difference (extend the comment above the entry to say '
+            'what it is, THEN paste the observed value). Pasting first turns '
+            'this back into the blanket it replaced.\n${widened.join('\n')}',
       );
     });
 
