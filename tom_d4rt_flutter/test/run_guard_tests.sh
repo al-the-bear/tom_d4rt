@@ -54,6 +54,11 @@ run() {
 run "bridged enums resolve to themselves" \
   flutter test test/scd133_registry_enum_resolution_test.dart
 
+# SCD195 — the collision check one layer above the stdlib. Registration-level,
+# so it needs no companion app and belongs here rather than in the corpus.
+run "no bridged name covers two native classes" \
+  flutter test test/scd195_registry_collision_test.dart
+
 # Import-optimization step #19 — the pooled-registration skip path.
 run "bridge registration is pooled (step #19)" \
   flutter test test/registration_skip_test.dart

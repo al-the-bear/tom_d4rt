@@ -77,6 +77,11 @@ run "doc/ holds no runner output" \
 run "bridged enums resolve to themselves" \
   flutter test test/scd133_registry_enum_resolution_test.dart
 
+# SCD195 — the collision check one layer above the stdlib. Registration-level,
+# so it needs no companion app and belongs here rather than in the corpus.
+run "no bridged name covers two native classes" \
+  flutter test test/scd195_registry_collision_test.dart
+
 # Import-optimization step #20. In-process, no transport — and, until now,
 # invoked by nothing: it matches neither corpus runner's glob. Same SCD108
 # shape as the user-bridge check above.
