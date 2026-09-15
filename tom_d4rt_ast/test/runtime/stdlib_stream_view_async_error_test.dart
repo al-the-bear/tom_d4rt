@@ -8,6 +8,11 @@ import 'package:tom_d4rt_ast/runtime.dart';
 // AST module, so we reach for the same-package registrars directly rather than
 // widening the published API.
 import 'package:tom_d4rt_ast/src/runtime/stdlib/async/async_error.dart';
+// `Error` is a `dart:core` bridge and sits above `AsyncError`, so the chain only
+// reaches its top once `CoreStdlib` has run too. Every script gets `dart:core`
+// implicitly; a registration-level test has to say so, or an assertion about an
+// inherited member is structurally incapable of passing.
+import 'package:tom_d4rt_ast/src/runtime/stdlib/core.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/async/stream.dart';
 
 /// SC6 mirror coverage for `tom_d4rt_ast` — `StreamView`, `AsyncError` and
@@ -37,6 +42,7 @@ void main() {
 
   setUp(() {
     env = Environment();
+    CoreStdlib.register(env);
     AsyncStreamStdlib.register(env);
     AsyncErrorStdlib.register(env);
     // Method adapters take a non-nullable visitor (only getters accept `null`).
@@ -127,6 +133,13 @@ void main() {
     test(
       'F-SC6-AST-7: is registered with error and stackTrace [2026-07-27]',
       () {
+        // LAYOUT, deliberately: this test is about what the REGISTRATION says
+        // — the bridge exists, routes to the native `AsyncError`, and carries
+        // its own `error` / `stackTrace`. Neither name exists anywhere above it
+        // (`Error` declares nothing of the sort), so there is no supertype for
+        // them to move onto and nothing for reachability to add. `staticMethods`
+        // is layout by construction: statics are reached through the bridge a
+        // script names, never through its supertype chain.
         final bridge = env.findBridgedClassByName('AsyncError');
         expect(bridge, isNotNull);
         expect(bridge!.nativeType, AsyncError);

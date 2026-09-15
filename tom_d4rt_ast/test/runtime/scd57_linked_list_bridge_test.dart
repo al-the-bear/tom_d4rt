@@ -110,17 +110,19 @@ void main() {
     });
 
     test('F-SCD57-2: exposes the getters that read through [2026-09-12]', () {
-      final bridge = env.findBridgedClassByName('LinkedList')!;
       final list = LinkedList<BridgedLinkedListEntry>()
         ..add(BridgedLinkedListEntry('a'))
         ..add(BridgedLinkedListEntry('b'));
+      // REACHABILITY, not declaration: the claim is that a script reading
+      // `list.length` gets an answer, and after SCC51 the answering bridge may
+      // be `LinkedList` or `Iterable` without anything observable changing.
       expect(
-        bridge.getters.keys,
+        reachableGetterNames(env, 'LinkedList'),
         containsAll(['length', 'isEmpty', 'isNotEmpty']),
       );
-      expect(bridge.getters['length']!(null, list), 2);
-      expect(bridge.getters['isEmpty']!(null, list), isFalse);
-      expect(bridge.getters['isNotEmpty']!(null, list), isTrue);
+      expect(readReachable(env, 'LinkedList', list, 'length'), 2);
+      expect(readReachable(env, 'LinkedList', list, 'isEmpty'), isFalse);
+      expect(readReachable(env, 'LinkedList', list, 'isNotEmpty'), isTrue);
       // `first` and `last` are NOT declared here — SCC51 deleted the local
       // copies so `Iterable`'s delegating adapters answer, which is what makes
       // an empty list raise the SDK's StateError (F-SCC51-5) instead of a
@@ -144,6 +146,11 @@ void main() {
     // came back, and "removeFirst is gone" is half of what the divergence was.
     test('F-SCD57-3: declares exactly the expected mutating surface '
         '[2026-09-12]', () {
+      // LAYOUT, deliberately — the only kind of assertion in this file that is
+      // about which bridge DECLARES a member rather than about what a script
+      // can reach. It has to be: the disagreement it pins is `removeFirst`
+      // being absent from THIS bridge, which `tom_d4rt_exec` recorded in its
+      // `_divergentBaseline`, and reachability cannot express that.
       final bridge = env.findBridgedClassByName('LinkedList')!;
       expect(
         bridge.methods.keys.toSet(),

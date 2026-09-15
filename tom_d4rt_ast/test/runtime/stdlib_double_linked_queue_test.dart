@@ -56,6 +56,19 @@ void main() {
   BridgedClass entryBridge() =>
       env.findBridgedClassByName('DoubleLinkedQueueEntry')!;
 
+  // Reachability-resolved accessors for the queue, used throughout. SCC51 moved
+  // `first` / `last` / `single` off this bridge onto `Iterable`'s delegating
+  // adapters, and the rest of the deque surface may follow onto `Queue` without
+  // anything a script does changing — so a test must not index one bridge's map.
+  //
+  // `entryBridge()` below is left indexing directly on purpose:
+  // `DoubleLinkedQueueEntry` has no registered supertypes, so no member of it
+  // can move and there is nothing for reachability to resolve.
+  BridgedMethodAdapter queueMethod(String name) =>
+      findReachableMethod(env, 'DoubleLinkedQueue', name)!;
+  BridgedInstanceGetterAdapter queueGetter(String name) =>
+      findReachableGetter(env, 'DoubleLinkedQueue', name)!;
+
   group('SC7: DoubleLinkedQueue collection bridge', () {
     test(
       'F-SC7-AST-1: is registered under the name DoubleLinkedQueue [2026-07-27]',
@@ -131,35 +144,33 @@ void main() {
     );
 
     test('F-SC7-AST-5: the deque surface mutates both ends [2026-07-27]', () {
-      final bridge = queueBridge();
       final queue = DoubleLinkedQueue<dynamic>();
-      bridge.methods['addLast']!(visitor, queue, [2], {}, []);
-      bridge.methods['addFirst']!(visitor, queue, [1], {}, []);
-      bridge.methods['add']!(visitor, queue, [3], {}, []);
+      queueMethod('addLast')(visitor, queue, [2], {}, []);
+      queueMethod('addFirst')(visitor, queue, [1], {}, []);
+      queueMethod('add')(visitor, queue, [3], {}, []);
       expect(
-        bridge.methods['toList']!(visitor, queue, [], {}, []),
+        queueMethod('toList')(visitor, queue, [], {}, []),
         orderedEquals([1, 2, 3]),
       );
-      expect(bridge.methods['removeFirst']!(visitor, queue, [], {}, []), 1);
-      expect(bridge.methods['removeLast']!(visitor, queue, [], {}, []), 3);
-      expect(bridge.getters['length']!(visitor, queue), 1);
+      expect(queueMethod('removeFirst')(visitor, queue, [], {}, []), 1);
+      expect(queueMethod('removeLast')(visitor, queue, [], {}, []), 3);
+      expect(queueGetter('length')(visitor, queue), 1);
     });
 
     test(
       'F-SC7-AST-6: removeFirst and removeLast guard an empty queue [2026-07-27]',
       () {
-        final bridge = queueBridge();
         final queue = DoubleLinkedQueue<dynamic>();
         // SCD30 finished what SCC51 started. These two kept their hand-written
         // guard while `first` below lost its copy, so the bridge reported two
         // different error contracts for the same empty queue — and the one a
         // Dart author catches was the one `removeFirst` did not use.
         expect(
-          () => bridge.methods['removeFirst']!(visitor, queue, [], {}, []),
+          () => queueMethod('removeFirst')(visitor, queue, [], {}, []),
           throwsA(isA<StateError>()),
         );
         expect(
-          () => bridge.methods['removeLast']!(visitor, queue, [], {}, []),
+          () => queueMethod('removeLast')(visitor, queue, [], {}, []),
           throwsA(isA<StateError>()),
         );
         // `first` parts company with the two methods above, on both axes.
@@ -274,13 +285,7 @@ void main() {
       () {
         final queue = DoubleLinkedQueue<dynamic>.from([1, 2, 3]);
         final entries = entryBridge();
-        final first = queueBridge().methods['firstEntry']!(
-          visitor,
-          queue,
-          [],
-          {},
-          [],
-        )!;
+        final first = queueMethod('firstEntry')(visitor, queue, [], {}, [])!;
         expect(entries.getters['element']!(visitor, first), 1);
         final second = entries.methods['nextEntry']!(
           visitor,
@@ -294,13 +299,7 @@ void main() {
           entries.methods['previousEntry']!(visitor, first, [], {}, []),
           isNull,
         );
-        final last = queueBridge().methods['lastEntry']!(
-          visitor,
-          queue,
-          [],
-          {},
-          [],
-        )!;
+        final last = queueMethod('lastEntry')(visitor, queue, [], {}, [])!;
         expect(entries.getters['element']!(visitor, last), 3);
       },
     );
@@ -311,22 +310,10 @@ void main() {
         // The entire reason DoubleLinkedQueue exists rather than ListQueue.
         final queue = DoubleLinkedQueue<dynamic>.from([1, 3]);
         final entries = entryBridge();
-        final first = queueBridge().methods['firstEntry']!(
-          visitor,
-          queue,
-          [],
-          {},
-          [],
-        )!;
+        final first = queueMethod('firstEntry')(visitor, queue, [], {}, [])!;
         entries.methods['append']!(visitor, first, [2], {}, []);
         expect(queue.toList(), orderedEquals([1, 2, 3]));
-        final last = queueBridge().methods['lastEntry']!(
-          visitor,
-          queue,
-          [],
-          {},
-          [],
-        )!;
+        final last = queueMethod('lastEntry')(visitor, queue, [], {}, [])!;
         entries.methods['prepend']!(visitor, last, [9], {}, []);
         expect(queue.toList(), orderedEquals([1, 2, 9, 3]));
       },
@@ -337,21 +324,9 @@ void main() {
       () {
         final queue = DoubleLinkedQueue<dynamic>.from([1, 2, 3]);
         final entries = entryBridge();
-        final first = queueBridge().methods['firstEntry']!(
-          visitor,
-          queue,
-          [],
-          {},
-          [],
-        )!;
+        final first = queueMethod('firstEntry')(visitor, queue, [], {}, [])!;
         expect(entries.methods['remove']!(visitor, first, [], {}, []), 1);
-        final newFirst = queueBridge().methods['firstEntry']!(
-          visitor,
-          queue,
-          [],
-          {},
-          [],
-        )!;
+        final newFirst = queueMethod('firstEntry')(visitor, queue, [], {}, [])!;
         entries.setters['element']!(visitor, newFirst, 99);
         expect(queue.toList(), orderedEquals([99, 3]));
       },
@@ -378,7 +353,7 @@ void main() {
         final queue = DoubleLinkedQueue<dynamic>.from([1, 2, 3]);
         final entries = entryBridge();
         final seen = <Object?>[];
-        queueBridge().methods['forEachEntry']!(
+        queueMethod('forEachEntry')(
           visitor,
           queue,
           [
@@ -398,7 +373,7 @@ void main() {
         );
         expect(seen, orderedEquals([1, 2, 3]));
         expect(
-          queueBridge().methods['firstEntry']!(
+          queueMethod('firstEntry')(
             visitor,
             DoubleLinkedQueue<dynamic>(),
             [],

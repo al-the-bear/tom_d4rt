@@ -66,9 +66,10 @@ void main() {
     );
 
     test('F-SC2-AST-3: exposes the Set method surface [2026-07-27]', () {
-      final bridge = env.findBridgedClassByName('LinkedHashSet')!;
+      // Reachability: `Set` and `Iterable` carry most of this surface, and
+      // which of the three declares a given member is not observable.
       expect(
-        bridge.methods.keys,
+        reachableMethodNames(env, 'LinkedHashSet'),
         containsAll(<String>[
           'add',
           'addAll',
@@ -137,10 +138,19 @@ void main() {
     test(
       'F-SC2-AST-7: exposes the same method surface as LinkedHashSet [2026-07-27]',
       () {
-        final linked = env.findBridgedClassByName('LinkedHashSet')!;
-        final splay = env.findBridgedClassByName('SplayTreeSet')!;
-        expect(splay.methods.keys.toSet(), linked.methods.keys.toSet());
-        expect(splay.getters.keys.toSet(), linked.getters.keys.toSet());
+        // Compared at REACHABILITY, not at declaration. The claim is that a
+        // script sees the same surface on both, which is what equal reachable
+        // sets say; equal DECLARED sets additionally forbid one twin shadowing
+        // an inherited member the other inherits, and that is F-SCC51-8's
+        // subject, not this one's.
+        expect(
+          reachableMethodNames(env, 'SplayTreeSet'),
+          reachableMethodNames(env, 'LinkedHashSet'),
+        );
+        expect(
+          reachableGetterNames(env, 'SplayTreeSet'),
+          reachableGetterNames(env, 'LinkedHashSet'),
+        );
       },
     );
 
@@ -255,10 +265,16 @@ void main() {
     test(
       'F-SCC50-AST-3: toSet() returns a sorted, independent copy [2026-09-06]',
       () {
-        final bridge = env.findBridgedClassByName('SplayTreeSet')!;
         final original = SplayTreeSet<dynamic>.of([5, 1, 9, 3]);
         final copy =
-            bridge.methods['toSet']!(visitor, original, [], {}, []) as Set;
+            findReachableMethod(env, 'SplayTreeSet', 'toSet')!(
+                  visitor,
+                  original,
+                  [],
+                  {},
+                  [],
+                )
+                as Set;
         original.add(2);
         expect(copy.toList(), orderedEquals([1, 3, 5, 9]));
         expect(
@@ -277,7 +293,7 @@ void main() {
       // this one also came back sorted the three tests above would be
       // measuring the SDK rather than which native object did the work.
       final result =
-          env.findBridgedClassByName('LinkedHashSet')!.methods['union']!(
+          findReachableMethod(env, 'LinkedHashSet', 'union')!(
                 visitor,
                 LinkedHashSet<dynamic>.of([5, 1, 9, 3]),
                 [
@@ -296,9 +312,13 @@ void main() {
       // conclusion of this todo and a future reader will otherwise re-file
       // it. Adding either adapter would invent API that native Dart does not
       // have, and would break F-SC2-AST-7's surface equality besides.
-      final splay = env.findBridgedClassByName('SplayTreeSet')!;
-      expect(splay.methods.keys, isNot(contains('firstAfter')));
-      expect(splay.methods.keys, isNot(contains('lastBefore')));
+      // Asserted over the REACHABLE set, which is the stronger claim and the
+      // only correct one: `splay.methods.keys` would stay silent if `Set` or
+      // `Iterable` acquired either name, and an absence assertion that a
+      // supertype can satisfy is not an absence assertion.
+      final reachable = reachableMethodNames(env, 'SplayTreeSet');
+      expect(reachable, isNot(contains('firstAfter')));
+      expect(reachable, isNot(contains('lastBefore')));
     });
 
     test('F-SCC50-AST-6: the map twin DOES carry the ordered surface '
@@ -307,7 +327,7 @@ void main() {
       // rather than about our coverage: the members exist on the map, they
       // are bridged there, and they have no set-side counterpart to bridge.
       expect(
-        env.findBridgedClassByName('SplayTreeMap')!.methods.keys,
+        reachableMethodNames(env, 'SplayTreeMap'),
         containsAll(<String>[
           'firstKey',
           'lastKey',

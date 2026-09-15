@@ -120,13 +120,16 @@ void main() {
     test(
       'F-SC3-AST-4: the getters read through to the backing map [2026-07-27]',
       () {
-        final bridge = env.findBridgedClassByName('UnmodifiableMapView')!;
+        const cls = 'UnmodifiableMapView';
         final view = UnmodifiableMapView<dynamic, dynamic>({'a': 1, 'b': 2});
-        expect(bridge.getters['length']!(null, view), 2);
-        expect(bridge.getters['isEmpty']!(null, view), isFalse);
-        expect(bridge.getters['isNotEmpty']!(null, view), isTrue);
-        expect(bridge.getters['keys']!(null, view), orderedEquals(['a', 'b']));
-        expect(bridge.getters['values']!(null, view), orderedEquals([1, 2]));
+        expect(readReachable(env, cls, view, 'length'), 2);
+        expect(readReachable(env, cls, view, 'isEmpty'), isFalse);
+        expect(readReachable(env, cls, view, 'isNotEmpty'), isTrue);
+        expect(
+          readReachable(env, cls, view, 'keys'),
+          orderedEquals(['a', 'b']),
+        );
+        expect(readReachable(env, cls, view, 'values'), orderedEquals([1, 2]));
       },
     );
 
@@ -135,18 +138,33 @@ void main() {
       () {
         // The whole point of delegating rather than intercepting: scripts catch
         // `UnsupportedError`, not a D4rt-specific exception.
-        final bridge = env.findBridgedClassByName('UnmodifiableMapView')!;
+        const cls = 'UnmodifiableMapView';
         final view = UnmodifiableMapView<dynamic, dynamic>({'a': 1});
         expect(
-          () => bridge.methods['clear']!(visitor, view, [], {}, []),
+          () => findReachableMethod(env, cls, 'clear')!(
+            visitor,
+            view,
+            [],
+            {},
+            [],
+          ),
           throwsUnsupportedError,
         );
         expect(
-          () => bridge.methods['[]=']!(visitor, view, ['b', 2], {}, []),
+          () => findReachableMethod(env, cls, '[]=')!(
+            visitor,
+            view,
+            ['b', 2],
+            {},
+            [],
+          ),
           throwsUnsupportedError,
         );
-        // ... while the read-through members on the same bridge still work.
-        expect(bridge.methods['[]']!(visitor, view, ['a'], {}, []), 1);
+        // ... while the read-through members a script reaches still work.
+        expect(
+          findReachableMethod(env, cls, '[]')!(visitor, view, ['a'], {}, []),
+          1,
+        );
       },
     );
 
@@ -210,9 +228,11 @@ void main() {
     test(
       'F-SC3-AST-7: exposes the read and mutating Set surface [2026-07-27]',
       () {
-        final bridge = env.findBridgedClassByName('UnmodifiableSetView')!;
+        // REACHABILITY, for the same reason as the map view above: most of
+        // this surface lives on `Set` / `Iterable`, and which bridge in the
+        // chain declares a member is not something a script can see.
         expect(
-          bridge.methods.keys,
+          reachableMethodNames(env, 'UnmodifiableSetView'),
           containsAll(<String>[
             // read-through
             'contains', 'containsAll', 'lookup', 'difference', 'intersection',
@@ -235,30 +255,48 @@ void main() {
     test(
       'F-SC3-AST-8: the getters read through to the backing set [2026-07-27]',
       () {
-        final bridge = env.findBridgedClassByName('UnmodifiableSetView')!;
+        const cls = 'UnmodifiableSetView';
         final view = UnmodifiableSetView<dynamic>({'x', 'y'});
-        expect(bridge.getters['length']!(null, view), 2);
-        expect(bridge.getters['isEmpty']!(null, view), isFalse);
-        expect(bridge.getters['first']!(null, view), 'x');
-        expect(bridge.getters['last']!(null, view), 'y');
+        expect(readReachable(env, cls, view, 'length'), 2);
+        expect(readReachable(env, cls, view, 'isEmpty'), isFalse);
+        // `first` / `last` resolve onto `Iterable`, since SCC51 deleted this
+        // bridge's copies. The read-through values are the contract.
+        expect(readReachable(env, cls, view, 'first'), 'x');
+        expect(readReachable(env, cls, view, 'last'), 'y');
       },
     );
 
     test(
       'F-SC3-AST-9: the mutators delegate, so the SDK error surfaces [2026-07-27]',
       () {
-        final bridge = env.findBridgedClassByName('UnmodifiableSetView')!;
+        const cls = 'UnmodifiableSetView';
         final view = UnmodifiableSetView<dynamic>({1});
         expect(
-          () => bridge.methods['add']!(visitor, view, [2], {}, []),
+          () =>
+              findReachableMethod(env, cls, 'add')!(visitor, view, [2], {}, []),
           throwsUnsupportedError,
         );
         expect(
-          () => bridge.methods['clear']!(visitor, view, [], {}, []),
+          () => findReachableMethod(env, cls, 'clear')!(
+            visitor,
+            view,
+            [],
+            {},
+            [],
+          ),
           throwsUnsupportedError,
         );
-        // ... while the read-through members on the same bridge still work.
-        expect(bridge.methods['contains']!(visitor, view, [1], {}, []), isTrue);
+        // ... while the read-through members a script reaches still work.
+        expect(
+          findReachableMethod(env, cls, 'contains')!(
+            visitor,
+            view,
+            [1],
+            {},
+            [],
+          ),
+          isTrue,
+        );
       },
     );
 
@@ -315,9 +353,9 @@ void main() {
     test(
       'F-SC3-AST-13: exposes the read and mutating List surface [2026-09-04]',
       () {
-        final bridge = env.findBridgedClassByName('UnmodifiableListView')!;
+        // REACHABILITY: most of this surface lives on `List` / `Iterable`.
         expect(
-          bridge.methods.keys,
+          reachableMethodNames(env, 'UnmodifiableListView'),
           containsAll(<String>[
             // read-through
             '[]', 'contains', 'indexOf', 'lastIndexOf', 'elementAt', 'sublist',
@@ -327,7 +365,10 @@ void main() {
             ..._mutatingListCalls.keys,
           ]),
         );
-        expect(bridge.setters.keys, containsAll(_mutatingListSetters.keys));
+        expect(
+          reachableSetterNames(env, 'UnmodifiableListView'),
+          containsAll(_mutatingListSetters.keys),
+        );
       },
     );
 
@@ -390,12 +431,30 @@ void main() {
         '[2026-09-04]', () {
       // Guards against "make the mutators throw" being satisfied by a bridge
       // that throws for everything.
-      final bridge = env.findBridgedClassByName('UnmodifiableListView')!;
+      const cls = 'UnmodifiableListView';
       final view = UnmodifiableListView<dynamic>(['a', 'b']);
-      expect(bridge.methods['[]']!(visitor, view, [1], {}, []), 'b');
-      expect(bridge.methods['contains']!(visitor, view, ['a'], {}, []), isTrue);
-      expect(bridge.methods['indexOf']!(visitor, view, ['b'], {}, []), 1);
-      expect(bridge.methods['join']!(visitor, view, ['-'], {}, []), 'a-b');
+      expect(
+        findReachableMethod(env, cls, '[]')!(visitor, view, [1], {}, []),
+        'b',
+      );
+      expect(
+        findReachableMethod(env, cls, 'contains')!(
+          visitor,
+          view,
+          ['a'],
+          {},
+          [],
+        ),
+        isTrue,
+      );
+      expect(
+        findReachableMethod(env, cls, 'indexOf')!(visitor, view, ['b'], {}, []),
+        1,
+      );
+      expect(
+        findReachableMethod(env, cls, 'join')!(visitor, view, ['-'], {}, []),
+        'a-b',
+      );
     });
   });
 

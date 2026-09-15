@@ -65,6 +65,41 @@ Set<String> reachableMethodNames(Environment env, String className) => {
     ...?env.findBridgedClassByName(name)?.methods.keys,
 };
 
+/// Every getter name reachable on [className]. The getter counterpart of
+/// [reachableMethodNames], and needed for the same reason: `bridge.getters.keys`
+/// answers about one bridge's declarations, and a `containsAll` over it fails
+/// the moment a getter correctly moves onto a supertype.
+Set<String> reachableGetterNames(Environment env, String className) => {
+  for (final name in _resolutionOrder(className))
+    ...?env.findBridgedClassByName(name)?.getters.keys,
+};
+
+/// Every setter name reachable on [className].
+Set<String> reachableSetterNames(Environment env, String className) => {
+  for (final name in _resolutionOrder(className))
+    ...?env.findBridgedClassByName(name)?.setters.keys,
+};
+
+/// The setter adapter a script would reach for `<className>.<member> = v`, or
+/// null if no bridge in the chain declares it.
+BridgedInstanceSetterAdapter? findReachableSetter(
+  Environment env,
+  String className,
+  String member,
+) {
+  for (final name in _resolutionOrder(className)) {
+    final adapter = env.findBridgedClassByName(name)?.setters[member];
+    if (adapter != null) return adapter;
+  }
+  return null;
+}
+
+/// STATICS ARE DELIBERATELY ABSENT from this file. `staticMethods` and
+/// `staticGetters` are reached through the bridge a script names, not through
+/// its supertype chain — `Future.wait` is not callable as `Completer.wait` —
+/// so a test asserting over them is asking about one bridge's declarations and
+/// is correct to index the map directly.
+
 /// Reads `<className>.<member>` through the reachable getter, failing loudly
 /// rather than with a null-check error when nothing in the chain declares it.
 Object? readReachable(

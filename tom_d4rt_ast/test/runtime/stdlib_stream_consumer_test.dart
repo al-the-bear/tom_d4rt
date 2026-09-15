@@ -8,6 +8,11 @@ import 'package:tom_d4rt_ast/runtime.dart';
 // unit test would mean building a parsed AST module, so we reach for the
 // same-package registrar directly instead of widening the published API.
 import 'package:tom_d4rt_ast/src/runtime/stdlib/async/stream.dart';
+// `Sink` is a `dart:core` bridge and sits above `EventSink` / `StreamConsumer`,
+// so the sink hierarchy only reaches its top once `CoreStdlib` has run too.
+import 'package:tom_d4rt_ast/src/runtime/stdlib/core.dart';
+
+import '../bridge_reachability.dart';
 
 /// SC4 mirror coverage for `tom_d4rt_ast`.
 ///
@@ -40,6 +45,7 @@ void main() {
 
   setUp(() {
     env = Environment();
+    CoreStdlib.register(env);
     AsyncStreamStdlib.register(env);
     // Method adapters take a non-nullable visitor (only getters accept `null`).
     // None of the members exercised here resolves a name or loads a module, so
@@ -164,15 +170,19 @@ void main() {
     test(
       'F-SC4-AST-8: StreamSink exposes the inherited addStream [2026-07-27]',
       () {
-        // Dispatch is per-bridge rather than hierarchical, so a member the SDK
-        // inherits from StreamConsumer has to be repeated on the concrete bridge
-        // or it is unreachable on the type scripts actually hold.
-        final bridge = env.findBridgedClassByName('StreamSink')!;
+        // Dispatch IS hierarchical: SC7 registered the supertype edges and
+        // `InterpreterVisitor.lookupOnBridgedSupertypes` walks them, so a member
+        // the SDK inherits from `StreamConsumer` no longer has to be repeated on
+        // the concrete bridge to be reachable. (This test's earlier comment
+        // asserted the opposite and predated those edges.) What the SDK's
+        // inheritance means for a script is a REACHABILITY claim, which is what
+        // is asserted here — `addStream` may be declared on `StreamSink` or on
+        // `StreamConsumer` without anything a script does changing.
         expect(
-          bridge.methods.keys,
+          reachableMethodNames(env, 'StreamSink'),
           containsAll(<String>['add', 'addError', 'close', 'addStream']),
         );
-        expect(bridge.getters.keys, contains('done'));
+        expect(reachableGetterNames(env, 'StreamSink'), contains('done'));
       },
     );
 

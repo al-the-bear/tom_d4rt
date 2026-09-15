@@ -8,6 +8,15 @@ import 'package:tom_d4rt_ast/runtime.dart';
 // AST module, so we reach for the same-package registrar directly rather than
 // widening the published API.
 import 'package:tom_d4rt_ast/src/runtime/stdlib/convert.dart';
+// `Sink` and `StringSink` are `dart:core` bridges and `StreamTransformer` is a
+// `dart:async` one, so the chains above `ClosableStringSink` and
+// `JsonUtf8Encoder` only exist once these have run too. A script gets them
+// because it imports them; a registration-level test has to say so, or an
+// assertion about an inherited member is structurally incapable of passing.
+import 'package:tom_d4rt_ast/src/runtime/stdlib/async/stream.dart';
+import 'package:tom_d4rt_ast/src/runtime/stdlib/core.dart';
+
+import '../bridge_reachability.dart';
 
 /// SC9 mirror coverage for `tom_d4rt_ast` — `JsonUtf8Encoder`,
 /// `ClosableStringSink`, and the two chunked-sink bridges that had been
@@ -24,6 +33,8 @@ void main() {
 
   setUp(() {
     env = Environment();
+    CoreStdlib.register(env);
+    AsyncStreamStdlib.register(env);
     ConvertStdlib.register(env);
     visitor = InterpreterVisitor(
       globalEnvironment: env,
@@ -144,16 +155,32 @@ void main() {
         // same contract every sibling sink bridge in this library uses for its
         // callback), and only a running script can supply one. The adapters
         // under test are independent of how the instance was made.
-        final b = bridge('ClosableStringSink');
+        // Reachability-resolved: `write` / `writeCharCode` / `writeAll` are
+        // `StringSink`'s surface, so whether this bridge or its supertype
+        // declares them is not something a script can observe. The buffer
+        // contents below are the contract.
+        const cls = 'ClosableStringSink';
         final buffer = StringBuffer();
         var closed = false;
         final sink = ClosableStringSink.fromStringSink(
           buffer,
           () => closed = true,
         );
-        b.methods['write']!(visitor, sink, ['hi'], {}, null);
-        b.methods['writeCharCode']!(visitor, sink, [33], {}, null);
-        b.methods['writeAll']!(
+        findReachableMethod(env, cls, 'write')!(
+          visitor,
+          sink,
+          ['hi'],
+          {},
+          null,
+        );
+        findReachableMethod(env, cls, 'writeCharCode')!(
+          visitor,
+          sink,
+          [33],
+          {},
+          null,
+        );
+        findReachableMethod(env, cls, 'writeAll')!(
           visitor,
           sink,
           [
@@ -165,7 +192,7 @@ void main() {
         );
         expect(buffer.toString(), 'hi!a-b');
         expect(closed, isFalse);
-        b.methods['close']!(visitor, sink, [], {}, null);
+        findReachableMethod(env, cls, 'close')!(visitor, sink, [], {}, null);
         expect(closed, isTrue);
       },
     );
