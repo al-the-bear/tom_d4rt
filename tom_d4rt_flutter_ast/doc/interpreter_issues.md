@@ -4028,7 +4028,29 @@ defects are unrelated: GEN-125 is a *modelling* gap (the type system cannot
 say what a typedef is), GEN-126 is an *identity* loss (the value itself
 changed). Fixing GEN-125 will not move these 11.
 
-**The symptom list above is not the limit, and "0 failures" is not safe to
+**Root cause, MEASURED 2026-09-15 (scd138), and it decomposes into three.**
+scd119 fixed the mechanism; what remained was a registry that does not reach
+it everywhere. A script subclass survives the crossing as a registered
+`D4InterpretedProxy`, and `ResolvedBinding.bind` retries against the instance
+behind one — so a row closes exactly when a proxy exists AND exposes it:
+
+| case | state | rows |
+| ---- | ----- | ---- |
+| proxy exists and implements `D4InterpretedProxy` | works | `ThemeExtension`; the nine `Intent` rows, measured clean |
+| proxy exists but did NOT implement it | fixed by scd138 | `StatelessWidget`, `StatefulWidget` and 19 more |
+| **no proxy registered for the base at all** | **still open** | `TwoDimensionalChildBuilderDelegate`, `RenderProxyBox` |
+
+Twenty-one of the twins' forty interpreted proxies did not implement the
+interface, so scd119's retry saw nothing and refused values that work — among
+them the two bases a script is most likely to extend. Each now does.
+
+For the third case the entry's ORIGINAL hypothesis is the correct one: with no
+proxy registered, the interpreted identity really is gone by the time the value
+returns, and the repair is a proxy registration rather than anything at the
+type check. `RenderProxyBox → _RenderMeasureBox` is a sixth shape, absent from
+the symptom list below. **sce164** owns that case.
+
+**The symptom list below is not the limit, and "0 failures" is not safe to
 rely on.** A fifth shape exists — a script's own `StatelessWidget` subclass,
 which is about as general a bridged base as Flutter has:
 

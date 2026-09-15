@@ -1,3 +1,34 @@
+## 1.2.3
+
+### Fixed - a script subclass now binds as itself after a round trip (scd138 / GEN-126)
+
+A script declaring `class _A11yNote extends StatelessWidget` and handing
+instances to Flutter got the bridged BASE back when the value returned to a
+parameter declared as its own class:
+
+```
+type 'StatelessWidget' is not a subtype of type '_A11yNote'
+```
+
+scd119 (tom_d4rt 1.106.0 / tom_d4rt_ast 0.93.0) fixed the MECHANISM:
+`ResolvedBinding.bind` retries against the interpreted instance behind a
+`D4InterpretedProxy` after the base check has failed. What it could not fix is
+a proxy that does not expose one - and 21 of this package's 40 interpreted
+proxies did not implement the interface, so the retry saw nothing and refused a
+value that works.
+
+Among them were the two bases a script is most likely to extend
+(`StatelessWidget`, `StatefulWidget`) and several GEN-126 names its symptom
+list.
+
+Each now implements `D4InterpretedProxy` and exposes its instance. Purely
+additive: the retry runs only after the base check has already failed, so it
+can remove a rejection but never add one, and no program that binds today stops
+binding.
+
+**Needs an interpreter carrying scd119.** Below that the retry does not exist
+and these declarations are inert.
+
 ## 1.2.2
 
 ### Fixed — a dangling citation in `d4rt_runtime_registrations.dart`

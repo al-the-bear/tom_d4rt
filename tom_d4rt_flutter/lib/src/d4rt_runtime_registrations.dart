@@ -878,7 +878,16 @@ List<Widget> _readChildrenWidgets(
 
 /// Native TickerProvider that delegates [createTicker] to an interpreted
 /// D4rt class that implements TickerProvider.
-class _InterpretedTickerProvider implements TickerProvider {
+class _InterpretedTickerProvider implements D4InterpretedProxy, TickerProvider {
+  /// SCD138 — exposes the interpreted instance so a value that crossed into
+  /// native code can still bind to a parameter declared as the SCRIPT's own
+  /// class. `ResolvedBinding.bind` (scd119) retries against this after the
+  /// base check has failed; without the interface it sees nothing and rejects
+  /// a value that works — GEN-126's `type Base is not a subtype of type
+  /// ScriptClass` signature.
+  @override
+  Object get d4rtInstance => _instance;
+
   final InterpreterVisitor _visitor;
   final InterpretedInstance _instance;
 
@@ -1101,7 +1110,17 @@ void _registerGenericConstructors() {
 
 /// A native [StatelessWidget] that delegates [build] to an interpreted
 /// D4rt class extending StatelessWidget.
-class _InterpretedStatelessWidget extends StatelessWidget {
+class _InterpretedStatelessWidget extends StatelessWidget
+    implements D4InterpretedProxy {
+  /// SCD138 — exposes the interpreted instance so a value that crossed into
+  /// native code can still bind to a parameter declared as the SCRIPT's own
+  /// class. `ResolvedBinding.bind` (scd119) retries against this after the
+  /// base check has failed; without the interface it sees nothing and rejects
+  /// a value that works — GEN-126's `type Base is not a subtype of type
+  /// ScriptClass` signature.
+  @override
+  Object get d4rtInstance => _instance;
+
   final InterpreterVisitor _visitor;
   final InterpretedInstance _instance;
 
@@ -1141,7 +1160,16 @@ class _InterpretedStatelessWidget extends StatelessWidget {
 /// [InterpretedInstance.get]; `build` delegates the same way as
 /// `_InterpretedStatelessWidget`.
 class _InterpretedPreferredSizeWidget extends StatelessWidget
-    implements PreferredSizeWidget {
+    implements D4InterpretedProxy, PreferredSizeWidget {
+  /// SCD138 — exposes the interpreted instance so a value that crossed into
+  /// native code can still bind to a parameter declared as the SCRIPT's own
+  /// class. `ResolvedBinding.bind` (scd119) retries against this after the
+  /// base check has failed; without the interface it sees nothing and rejects
+  /// a value that works — GEN-126's `type Base is not a subtype of type
+  /// ScriptClass` signature.
+  @override
+  Object get d4rtInstance => _instance;
+
   final InterpreterVisitor _visitor;
   final InterpretedInstance _instance;
 
@@ -1180,7 +1208,17 @@ class _InterpretedPreferredSizeWidget extends StatelessWidget
 
 /// A native [StatefulWidget] that delegates [createState] to an interpreted
 /// D4rt class extending StatefulWidget.
-class _InterpretedStatefulWidget extends StatefulWidget {
+class _InterpretedStatefulWidget extends StatefulWidget
+    implements D4InterpretedProxy {
+  /// SCD138 — exposes the interpreted instance so a value that crossed into
+  /// native code can still bind to a parameter declared as the SCRIPT's own
+  /// class. `ResolvedBinding.bind` (scd119) retries against this after the
+  /// base check has failed; without the interface it sees nothing and rejects
+  /// a value that works — GEN-126's `type Base is not a subtype of type
+  /// ScriptClass` signature.
+  @override
+  Object get d4rtInstance => _instance;
+
   final InterpreterVisitor _visitor;
   final InterpretedInstance _instance;
 
@@ -2587,7 +2625,17 @@ void _updateRenderObject(
 }
 
 /// Native [LeafRenderObjectWidget] backing an interpreted subclass.
-class _InterpretedLeafRenderObjectWidget extends LeafRenderObjectWidget {
+class _InterpretedLeafRenderObjectWidget extends LeafRenderObjectWidget
+    implements D4InterpretedProxy {
+  /// SCD138 — exposes the interpreted instance so a value that crossed into
+  /// native code can still bind to a parameter declared as the SCRIPT's own
+  /// class. `ResolvedBinding.bind` (scd119) retries against this after the
+  /// base check has failed; without the interface it sees nothing and rejects
+  /// a value that works — GEN-126's `type Base is not a subtype of type
+  /// ScriptClass` signature.
+  @override
+  Object get d4rtInstance => _instance;
+
   const _InterpretedLeafRenderObjectWidget(
     this._visitor,
     this._instance, {
@@ -2608,7 +2656,17 @@ class _InterpretedLeafRenderObjectWidget extends LeafRenderObjectWidget {
 
 /// Native [SingleChildRenderObjectWidget] backing an interpreted subclass.
 class _InterpretedSingleChildRenderObjectWidget
-    extends SingleChildRenderObjectWidget {
+    extends SingleChildRenderObjectWidget
+    implements D4InterpretedProxy {
+  /// SCD138 — exposes the interpreted instance so a value that crossed into
+  /// native code can still bind to a parameter declared as the SCRIPT's own
+  /// class. `ResolvedBinding.bind` (scd119) retries against this after the
+  /// base check has failed; without the interface it sees nothing and rejects
+  /// a value that works — GEN-126's `type Base is not a subtype of type
+  /// ScriptClass` signature.
+  @override
+  Object get d4rtInstance => _instance;
+
   const _InterpretedSingleChildRenderObjectWidget(
     this._visitor,
     this._instance, {
@@ -2630,7 +2688,17 @@ class _InterpretedSingleChildRenderObjectWidget
 
 /// Native [MultiChildRenderObjectWidget] backing an interpreted subclass.
 class _InterpretedMultiChildRenderObjectWidget
-    extends MultiChildRenderObjectWidget {
+    extends MultiChildRenderObjectWidget
+    implements D4InterpretedProxy {
+  /// SCD138 — exposes the interpreted instance so a value that crossed into
+  /// native code can still bind to a parameter declared as the SCRIPT's own
+  /// class. `ResolvedBinding.bind` (scd119) retries against this after the
+  /// base check has failed; without the interface it sees nothing and rejects
+  /// a value that works — GEN-126's `type Base is not a subtype of type
+  /// ScriptClass` signature.
+  @override
+  Object get d4rtInstance => _instance;
+
   const _InterpretedMultiChildRenderObjectWidget(
     this._visitor,
     this._instance, {
@@ -2662,7 +2730,16 @@ class _InterpretedMultiChildRenderObjectWidget
 /// is the same trade-off accepted by the existing layout/clip delegate
 /// proxies. Real shortcut dispatch for fully-interpreted Intents is a
 /// separate concern.
-class _InterpretedIntent extends Intent {
+class _InterpretedIntent extends Intent implements D4InterpretedProxy {
+  /// SCD138 — exposes the interpreted instance so a value that crossed into
+  /// native code can still bind to a parameter declared as the SCRIPT's own
+  /// class. `ResolvedBinding.bind` (scd119) retries against this after the
+  /// base check has failed; without the interface it sees nothing and rejects
+  /// a value that works — GEN-126's `type Base is not a subtype of type
+  /// ScriptClass` signature.
+  @override
+  Object get d4rtInstance => _instance;
+
   const _InterpretedIntent(this._visitor, this._instance) : super();
 
   // Held for parity with the other proxies and to keep the InterpretedInstance
@@ -2686,7 +2763,16 @@ class _InterpretedIntent extends Intent {
 /// accepted by the layout/clip delegate proxies. Real action dispatch through
 /// `Actions.invoke` for fully-interpreted Action subclasses is a separate
 /// concern.
-class _InterpretedAction extends Action<Intent> {
+class _InterpretedAction extends Action<Intent> implements D4InterpretedProxy {
+  /// SCD138 — exposes the interpreted instance so a value that crossed into
+  /// native code can still bind to a parameter declared as the SCRIPT's own
+  /// class. `ResolvedBinding.bind` (scd119) retries against this after the
+  /// base check has failed; without the interface it sees nothing and rejects
+  /// a value that works — GEN-126's `type Base is not a subtype of type
+  /// ScriptClass` signature.
+  @override
+  Object get d4rtInstance => _instance;
+
   _InterpretedAction(this._visitor, this._instance) : super();
 
   final InterpreterVisitor _visitor;
@@ -2723,7 +2809,17 @@ class _InterpretedAction extends Action<Intent> {
 /// [SlottedContainerRenderObjectMixin]; the concrete type arguments are
 /// internal to the interpreter.
 class _InterpretedSlottedMultiChildRenderObjectWidget
-    extends SlottedMultiChildRenderObjectWidget<dynamic, RenderObject> {
+    extends SlottedMultiChildRenderObjectWidget<dynamic, RenderObject>
+    implements D4InterpretedProxy {
+  /// SCD138 — exposes the interpreted instance so a value that crossed into
+  /// native code can still bind to a parameter declared as the SCRIPT's own
+  /// class. `ResolvedBinding.bind` (scd119) retries against this after the
+  /// base check has failed; without the interface it sees nothing and rejects
+  /// a value that works — GEN-126's `type Base is not a subtype of type
+  /// ScriptClass` signature.
+  @override
+  Object get d4rtInstance => _instance;
+
   const _InterpretedSlottedMultiChildRenderObjectWidget(
     this._visitor,
     this._instance, {
@@ -2818,7 +2914,17 @@ class _EmptyWidget extends StatelessWidget {
 /// `finalizeTree()` pass; for our proxy the assertion fires prematurely,
 /// throws from `finalizeTree()`, and leaves the element tree partially
 /// deactivated — causing all subsequent builds in the same app session to hang.
-class _InterpretedInheritedWidget extends InheritedWidget {
+class _InterpretedInheritedWidget extends InheritedWidget
+    implements D4InterpretedProxy {
+  /// SCD138 — exposes the interpreted instance so a value that crossed into
+  /// native code can still bind to a parameter declared as the SCRIPT's own
+  /// class. `ResolvedBinding.bind` (scd119) retries against this after the
+  /// base check has failed; without the interface it sees nothing and rejects
+  /// a value that works — GEN-126's `type Base is not a subtype of type
+  /// ScriptClass` signature.
+  @override
+  Object get d4rtInstance => _instance;
+
   const _InterpretedInheritedWidget(
     this._visitor,
     this._instance, {
@@ -2871,7 +2977,17 @@ class _InterpretedInheritedElement extends InheritedElement {
 }
 
 /// Native [MultiChildLayoutDelegate] backing an interpreted subclass.
-class _InterpretedMultiChildLayoutDelegate extends MultiChildLayoutDelegate {
+class _InterpretedMultiChildLayoutDelegate extends MultiChildLayoutDelegate
+    implements D4InterpretedProxy {
+  /// SCD138 — exposes the interpreted instance so a value that crossed into
+  /// native code can still bind to a parameter declared as the SCRIPT's own
+  /// class. `ResolvedBinding.bind` (scd119) retries against this after the
+  /// base check has failed; without the interface it sees nothing and rejects
+  /// a value that works — GEN-126's `type Base is not a subtype of type
+  /// ScriptClass` signature.
+  @override
+  Object get d4rtInstance => _instance;
+
   _InterpretedMultiChildLayoutDelegate(this._visitor, this._instance);
 
   final InterpreterVisitor _visitor;
@@ -2897,7 +3013,17 @@ class _InterpretedMultiChildLayoutDelegate extends MultiChildLayoutDelegate {
 }
 
 /// Native [SingleChildLayoutDelegate] backing an interpreted subclass.
-class _InterpretedSingleChildLayoutDelegate extends SingleChildLayoutDelegate {
+class _InterpretedSingleChildLayoutDelegate extends SingleChildLayoutDelegate
+    implements D4InterpretedProxy {
+  /// SCD138 — exposes the interpreted instance so a value that crossed into
+  /// native code can still bind to a parameter declared as the SCRIPT's own
+  /// class. `ResolvedBinding.bind` (scd119) retries against this after the
+  /// base check has failed; without the interface it sees nothing and rejects
+  /// a value that works — GEN-126's `type Base is not a subtype of type
+  /// ScriptClass` signature.
+  @override
+  Object get d4rtInstance => _instance;
+
   _InterpretedSingleChildLayoutDelegate(this._visitor, this._instance);
 
   final InterpreterVisitor _visitor;
@@ -2951,7 +3077,17 @@ class _InterpretedSingleChildLayoutDelegate extends SingleChildLayoutDelegate {
 /// Native [CustomClipper<Path>] backing an interpreted subclass. Only the
 /// Path variant is registered for now (the common case); Rect/RRect
 /// variants can be added by mirroring this proxy.
-class _InterpretedCustomClipperPath extends CustomClipper<Path> {
+class _InterpretedCustomClipperPath extends CustomClipper<Path>
+    implements D4InterpretedProxy {
+  /// SCD138 — exposes the interpreted instance so a value that crossed into
+  /// native code can still bind to a parameter declared as the SCRIPT's own
+  /// class. `ResolvedBinding.bind` (scd119) retries against this after the
+  /// base check has failed; without the interface it sees nothing and rejects
+  /// a value that works — GEN-126's `type Base is not a subtype of type
+  /// ScriptClass` signature.
+  @override
+  Object get d4rtInstance => _instance;
+
   _InterpretedCustomClipperPath(this._visitor, this._instance);
 
   final InterpreterVisitor _visitor;
@@ -2982,7 +3118,17 @@ class _InterpretedCustomClipperPath extends CustomClipper<Path> {
 
 /// Native [CustomClipper<Rect>] backing an interpreted subclass declared
 /// as `extends CustomClipper<Rect>`. Used by `ClipRect(clipper: ...)`.
-class _InterpretedCustomClipperRect extends CustomClipper<Rect> {
+class _InterpretedCustomClipperRect extends CustomClipper<Rect>
+    implements D4InterpretedProxy {
+  /// SCD138 — exposes the interpreted instance so a value that crossed into
+  /// native code can still bind to a parameter declared as the SCRIPT's own
+  /// class. `ResolvedBinding.bind` (scd119) retries against this after the
+  /// base check has failed; without the interface it sees nothing and rejects
+  /// a value that works — GEN-126's `type Base is not a subtype of type
+  /// ScriptClass` signature.
+  @override
+  Object get d4rtInstance => _instance;
+
   _InterpretedCustomClipperRect(this._visitor, this._instance);
 
   final InterpreterVisitor _visitor;
@@ -3013,7 +3159,17 @@ class _InterpretedCustomClipperRect extends CustomClipper<Rect> {
 
 /// Native [CustomClipper<RRect>] backing an interpreted subclass declared
 /// as `extends CustomClipper<RRect>`. Used by `ClipRRect(clipper: ...)`.
-class _InterpretedCustomClipperRRect extends CustomClipper<RRect> {
+class _InterpretedCustomClipperRRect extends CustomClipper<RRect>
+    implements D4InterpretedProxy {
+  /// SCD138 — exposes the interpreted instance so a value that crossed into
+  /// native code can still bind to a parameter declared as the SCRIPT's own
+  /// class. `ResolvedBinding.bind` (scd119) retries against this after the
+  /// base check has failed; without the interface it sees nothing and rejects
+  /// a value that works — GEN-126's `type Base is not a subtype of type
+  /// ScriptClass` signature.
+  @override
+  Object get d4rtInstance => _instance;
+
   _InterpretedCustomClipperRRect(this._visitor, this._instance);
 
   final InterpreterVisitor _visitor;
@@ -3045,7 +3201,17 @@ class _InterpretedCustomClipperRRect extends CustomClipper<RRect> {
 /// Native [CustomClipper<RSuperellipse>] backing an interpreted subclass
 /// declared as `extends CustomClipper<RSuperellipse>`.
 class _InterpretedCustomClipperRSuperellipse
-    extends CustomClipper<RSuperellipse> {
+    extends CustomClipper<RSuperellipse>
+    implements D4InterpretedProxy {
+  /// SCD138 — exposes the interpreted instance so a value that crossed into
+  /// native code can still bind to a parameter declared as the SCRIPT's own
+  /// class. `ResolvedBinding.bind` (scd119) retries against this after the
+  /// base check has failed; without the interface it sees nothing and rejects
+  /// a value that works — GEN-126's `type Base is not a subtype of type
+  /// ScriptClass` signature.
+  @override
+  Object get d4rtInstance => _instance;
+
   _InterpretedCustomClipperRSuperellipse(this._visitor, this._instance);
 
   final InterpreterVisitor _visitor;
@@ -4165,7 +4331,17 @@ T? _readSuperArg<T>(
 }
 
 /// Native [TwoDimensionalScrollView] backing an interpreted subclass.
-class _InterpretedTwoDimensionalScrollView extends TwoDimensionalScrollView {
+class _InterpretedTwoDimensionalScrollView extends TwoDimensionalScrollView
+    implements D4InterpretedProxy {
+  /// SCD138 — exposes the interpreted instance so a value that crossed into
+  /// native code can still bind to a parameter declared as the SCRIPT's own
+  /// class. `ResolvedBinding.bind` (scd119) retries against this after the
+  /// base check has failed; without the interface it sees nothing and rejects
+  /// a value that works — GEN-126's `type Base is not a subtype of type
+  /// ScriptClass` signature.
+  @override
+  Object get d4rtInstance => _instance;
+
   const _InterpretedTwoDimensionalScrollView._(
     this._visitor,
     this._instance, {
@@ -4295,7 +4471,17 @@ class _InterpretedTwoDimensionalScrollView extends TwoDimensionalScrollView {
 ///
 /// Delegates [buildChildLayout] to the interpreted class's override,
 /// enabling scripts that extend [BoxScrollView] to power a real scrollable.
-class _InterpretedBoxScrollView extends BoxScrollView {
+class _InterpretedBoxScrollView extends BoxScrollView
+    implements D4InterpretedProxy {
+  /// SCD138 — exposes the interpreted instance so a value that crossed into
+  /// native code can still bind to a parameter declared as the SCRIPT's own
+  /// class. `ResolvedBinding.bind` (scd119) retries against this after the
+  /// base check has failed; without the interface it sees nothing and rejects
+  /// a value that works — GEN-126's `type Base is not a subtype of type
+  /// ScriptClass` signature.
+  @override
+  Object get d4rtInstance => _instance;
+
   const _InterpretedBoxScrollView._(
     this._visitor,
     this._instance, {
@@ -4380,7 +4566,17 @@ class _InterpretedBoxScrollView extends BoxScrollView {
 }
 
 /// Native [TwoDimensionalViewport] backing an interpreted subclass.
-class _InterpretedTwoDimensionalViewport extends TwoDimensionalViewport {
+class _InterpretedTwoDimensionalViewport extends TwoDimensionalViewport
+    implements D4InterpretedProxy {
+  /// SCD138 — exposes the interpreted instance so a value that crossed into
+  /// native code can still bind to a parameter declared as the SCRIPT's own
+  /// class. `ResolvedBinding.bind` (scd119) retries against this after the
+  /// base check has failed; without the interface it sees nothing and rejects
+  /// a value that works — GEN-126's `type Base is not a subtype of type
+  /// ScriptClass` signature.
+  @override
+  Object get d4rtInstance => _instance;
+
   const _InterpretedTwoDimensionalViewport._(
     this._visitor,
     this._instance, {
@@ -4627,7 +4823,18 @@ class _InterpretedRenderTwoDimensionalViewport
 /// work whether the interpreted predicate appears on the left or right. The
 /// mixin is applied with `with` rather than `implements` precisely so those
 /// default operators are inherited instead of having to be re-declared.
-class _InterpretedWidgetStatesConstraint with WidgetStatesConstraint {
+class _InterpretedWidgetStatesConstraint
+    with WidgetStatesConstraint
+    implements D4InterpretedProxy {
+  /// SCD138 — exposes the interpreted instance so a value that crossed into
+  /// native code can still bind to a parameter declared as the SCRIPT's own
+  /// class. `ResolvedBinding.bind` (scd119) retries against this after the
+  /// base check has failed; without the interface it sees nothing and rejects
+  /// a value that works — GEN-126's `type Base is not a subtype of type
+  /// ScriptClass` signature.
+  @override
+  Object get d4rtInstance => _instance;
+
   _InterpretedWidgetStatesConstraint(this._visitor, this._instance);
 
   final InterpreterVisitor _visitor;
