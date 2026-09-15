@@ -42,6 +42,41 @@
 /// newly written adapter is another chance to narrow to `InterpretedFunction`.
 /// A behavioural test covers the members it names; the scan covers the ones
 /// nobody has written yet.
+///
+/// ## The generated half — F-SCD35-13 and F-SCD35-14
+///
+/// F-SCD35-9 scans `stdlib/` in the two interpreter trees. Those are the
+/// HAND-WRITTEN adapters, and they are only part of the surface: the generator
+/// emits a callback call for every bridged member that takes one, across 207
+/// `.b.dart` files in this repository. One wrong template there multiplies.
+///
+/// The generator has been right for months — it emits
+/// `D4.callInterpreterCallback`, which dispatches on `Callable` — and 201 of
+/// the 207 files show it. The remaining six were generated on 2026-02-07,
+/// before the generator carried a version stamp at all, and still read
+/// `(xRaw as InterpretedFunction).call(...)`. They are `tom_d4rt_dcli`'s three
+/// library bridges and `tom_dcli_exec`'s identical three.
+///
+/// They are recorded as DEBT WITH A COUNT, not exempted by path. The count is
+/// what lets F-SCD35-14 fail in both directions: a regeneration that used a
+/// generator still emitting the narrowing would make the number grow, and a
+/// regeneration that fixed the file would make it zero — which is good news
+/// and has to be recorded, or the entry stops describing debt and starts
+/// granting permission. The remedy is a REGENERATION of those two packages,
+/// not an edit — a `.b.dart` says "do not edit" on its first line — and it is
+/// blocked on a generator/analyzer resolution rather than on anybody's time.
+///
+/// EACH OF THE TWO HAS BEEN SEEN TO FAIL:
+///
+///   | Injected fault                                        | Fires  |
+///   | ----------------------------------------------------- | ------ |
+///   | a narrowing added to a clean generated bridge          | 13     |
+///   | a recorded count changed so it no longer matches disk  | 14     |
+///   | the repo root pointed somewhere with no `.b.dart`      | 13, 14 |
+///
+/// The third row is the anti-vacuity check doing its job: both cases are
+/// emptiness assertions over a walk, and a walk that found no generated
+/// bridges finds no narrowings either.
 library;
 
 import 'dart:io';
@@ -125,6 +160,66 @@ List<String> _narrowingSites(String stdlibRoot) {
   hits.sort();
   return hits;
 }
+
+/// Every generated bridge in the repository that calls a callback through an
+/// `InterpretedFunction` cast, keyed by repo-relative path with its site count.
+///
+/// SEPARATE FROM [_narrowingSites] because the remedy is different. A narrowing
+/// in `stdlib/` is hand-written and is fixed by editing it; a narrowing in a
+/// `.b.dart` is the GENERATOR's output and the file says so on its first line —
+/// it is fixed by regenerating, and editing it would be overwritten.
+Map<String, int> _generatedNarrowingSites(String repoRoot) {
+  final narrowing = RegExp(r'\b(?:as|is|is!)\s+InterpretedFunction\b');
+  final out = <String, int>{};
+  for (final entity in Directory(repoRoot).listSync(recursive: true)) {
+    if (entity is! File || !entity.path.endsWith('.b.dart')) continue;
+    var count = 0;
+    for (final line in entity.readAsStringSync().split('\n')) {
+      if (line.trimLeft().startsWith('//')) continue;
+      if (narrowing.hasMatch(line)) count++;
+    }
+    if (count == 0) continue;
+    out[entity.path.substring(repoRoot.length + 1)] = count;
+  }
+  return out;
+}
+
+/// How many `.b.dart` files the repository held on 2026-09-15. The floor is
+/// well below that because its job is to separate "scanned the corpus" from
+/// "scanned nothing" — a walk that found no generated bridges would satisfy
+/// F-SCD35-10 by finding no narrowings either.
+const _minGeneratedBridges = 150;
+
+/// Generated bridges still carrying the pre-SCD35 narrowing, with their exact
+/// site count.
+///
+/// THESE ARE NOT EXEMPTIONS, THEY ARE DEBT. Every one was generated on
+/// 2026-02-07 — before the generator was even version-stamped — and carries
+/// `(xRaw as InterpretedFunction).call(...)`, which throws a `CastError` when a
+/// script passes a bridged tear-off such as `seen.add`. The other 201 generated
+/// bridges in the repository route through `D4.callInterpreterCallback`, which
+/// accepts `Callable`, so the generator itself has been right for months.
+///
+/// The count is pinned rather than the path, for the reason SCD49 pins regions
+/// rather than files: a pinned path would let the debt grow silently, and the
+/// point of recording it is that it is finite and shrinking.
+///
+/// The remedy is to regenerate those two packages, not to edit here. A
+/// `.b.dart` says "do not edit" on its first line and means it.
+const _staleGeneratedBridges = <String, int>{
+  'tom_d4rt_dcli/lib/src/d4rt_library_bridges/package_dcli_bridges.b.dart': 6,
+  'tom_d4rt_dcli/lib/src/d4rt_library_bridges/package_dcli_core_bridges.b.dart':
+      3,
+  'tom_d4rt_dcli/lib/src/d4rt_library_bridges/'
+          'package_tom_vscode_scripting_api_bridges.b.dart':
+      7,
+  'tom_dcli_exec/lib/src/d4rt_library_bridges/package_dcli_bridges.b.dart': 6,
+  'tom_dcli_exec/lib/src/d4rt_library_bridges/package_dcli_core_bridges.b.dart':
+      3,
+  'tom_dcli_exec/lib/src/d4rt_library_bridges/'
+          'package_tom_vscode_scripting_api_bridges.b.dart':
+      7,
+};
 
 void main() {
   // SCD158: this guard resolves its subject relative to the package it
@@ -355,5 +450,94 @@ main() async {
         );
       }
     });
+
+    test('F-SCD35-13: no GENERATED bridge narrows a callback to '
+        '`InterpretedFunction`, outside the recorded debt [2026-09-15] '
+        '(PASS)', () {
+      // THE GAP F-SCD35-9 LEAVES, and it is the one this bug was reported
+      // through. That case scans `stdlib/` in the two interpreter trees —
+      // hand-written adapters. It says nothing about the 207 `.b.dart` files
+      // the generator produces, and 6 of them still carry the pre-SCD35 shape.
+      //
+      // The surface matters more here than in stdlib, not less: a generated
+      // bridge is emitted once per bridged member, so one wrong template
+      // multiplies. The 201 clean files route through
+      // `D4.callInterpreterCallback`, which accepts `Callable`.
+      final repoRoot = Directory(_repoRoot()).absolute.path;
+      final all = Directory(repoRoot)
+          .listSync(recursive: true)
+          .whereType<File>()
+          .where((f) => f.path.endsWith('.b.dart'))
+          .length;
+      expect(
+        all,
+        greaterThanOrEqualTo(_minGeneratedBridges),
+        reason:
+            'Found only $all generated bridges under $repoRoot. That is not a '
+            'finding about the generator — the walk did not run.',
+      );
+
+      final found = _generatedNarrowingSites(repoRoot);
+      final unrecorded =
+          found.keys
+              .where((f) => !_staleGeneratedBridges.containsKey(f))
+              .toList()
+            ..sort();
+
+      expect(
+        unrecorded,
+        isEmpty,
+        reason:
+            'These generated bridges call a callback through an '
+            '`InterpretedFunction` cast:\n'
+            '${unrecorded.map((f) => '  $f (${found[f]} sites)').join('\n')}\n\n'
+            'A bridged tear-off such as `seen.add` is a '
+            '`BridgedMethodCallable`, not an `InterpretedFunction`, so the '
+            'cast throws and the script is told its valid Dart is not a '
+            'function. Fix the GENERATOR — emit '
+            '`D4.callInterpreterCallback`, which accepts `Callable` — and '
+            'regenerate. Do not edit the `.b.dart`; its first line says so.',
+      );
+    });
+
+    test('F-SCD35-14: the recorded generated-bridge debt has not grown, and '
+        'nothing paid stays on the list [2026-09-15] (PASS)', () {
+      // The ratchet, in both directions. Pinning the COUNT rather than the
+      // path is what makes the first direction possible: a pinned path would
+      // let a regeneration of one member reintroduce ten narrowings in a file
+      // that is already on the list, and nothing would say so.
+      final found = _generatedNarrowingSites(
+        Directory(_repoRoot()).absolute.path,
+      );
+      final wrong = <String>[];
+      for (final entry in _staleGeneratedBridges.entries) {
+        final actual = found[entry.key] ?? 0;
+        if (actual == entry.value) continue;
+        wrong.add(
+          '  ${entry.key}: recorded ${entry.value}, found $actual'
+          '${actual == 0 ? ' — regenerated; delete the entry' : ''}',
+        );
+      }
+
+      expect(
+        wrong,
+        isEmpty,
+        reason:
+            'The recorded debt no longer matches what is on disk:\n'
+            '${wrong.join('\n')}\n\n'
+            'A count that grew means a regeneration used a generator that '
+            'still emits the narrowing — fix the generator first. A count of '
+            'zero is good news and has to be recorded: left on the list, the '
+            'entry stops describing debt and starts granting permission.',
+      );
+    });
   });
 }
+
+/// The `tom_ai/d4rt` checkout root, from wherever the suite was started.
+///
+/// The repo holds every D4rt package as a sibling of `tom_d4rt`, so the parent
+/// is the subject for anything scanning across packages.
+String _repoRoot() => Directory.current.path.endsWith('tom_d4rt')
+    ? '${Directory.current.path}/..'
+    : Directory.current.path;
