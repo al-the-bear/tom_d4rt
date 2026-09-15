@@ -41,6 +41,8 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 
+import 'companion_app_resolution.dart';
+
 /// One open cluster: its state marker and the heading text that follows it.
 typedef OpenCluster = ({String marker, String section});
 
@@ -234,18 +236,31 @@ const companionApps =
 
 /// The resolved version of [package] in the lockfile at [lockPath], or null
 /// when the file or the entry is absent.
+///
+/// SCD179: this used to carry its own twelve-line lockfile parser. It now
+/// defers to `readLockedPackages` in `companion_app_resolution.dart` — the
+/// same directory, already parsing exactly this, already used by
+/// `run_attribution.dart`, and already held byte-identical across both twins
+/// by `CAR-07`. Two parsers beside each other is one more than the number of
+/// places this decision should live.
+///
+/// NOT `hosted_drift.dart`, which is what SCD179 proposed and which cannot
+/// answer this question: its `worktreePackages` is a non-recursive
+/// `listSync()` over the repo root — "every package DIRECTLY under repoRoot" —
+/// and the companion apps live two levels down, under a twin's `test/`. That
+/// is deliberate rather than an oversight: recursing would pull every example
+/// and fixture package in the repo into the drift report and change what
+/// `--check` means. The tool measures the repo's published surface; this guard
+/// measures the app the corpus actually runs in, and they are different
+/// questions.
 String? resolvedVersion(String lockPath, String package) {
-  final file = File(lockPath);
-  if (!file.existsSync()) return null;
-  final lines = file.readAsLinesSync();
-  for (var i = 0; i < lines.length; i++) {
-    if (lines[i].trimRight() != '  $package:') continue;
-    for (var j = i + 1; j < lines.length && lines[j].startsWith('    '); j++) {
-      final match = RegExp(r'^\s+version: "([^"]+)"').firstMatch(lines[j]);
-      if (match != null) return match.group(1);
-    }
-  }
-  return null;
+  // `readLockedPackages` takes the package DIRECTORY; the tables above record
+  // the lockfile path because that is what a reader checks by hand.
+  const suffix = '/pubspec.lock';
+  final dir = lockPath.endsWith(suffix)
+      ? lockPath.substring(0, lockPath.length - suffix.length)
+      : lockPath;
+  return readLockedPackages(dir)[package]?.version;
 }
 
 /// The lines of the NEWEST `## Verification runs` entry.
