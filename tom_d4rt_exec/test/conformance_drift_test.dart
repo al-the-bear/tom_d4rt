@@ -952,7 +952,10 @@ const Map<String, _Coverage> _coveredElsewhere = {
 ///     scc73_sdk_member_completeness_test.dart    does-not-compile
 ///     stdlib/member_coverage_baseline_test.dart  does-not-compile
 ///     release_hygiene_test.dart                  runs, 31/32
-///     scc22_io_error_handler_arity_test.dart     14/17   (as recorded)
+///     scc22_io_error_handler_arity_test.dart     14/17   (as recorded; SCD157
+///                                                 then split the 3 out and
+///                                                 ported the 14 — the entry
+///                                                 here is now the guard file)
 ///     scd72_instance_tostring_test.dart          2/7     (as recorded)
 ///     scd73_no_hook_unwrapping_test.dart         does-not-compile
 ///     scc25_listen_duplication_guard_test.dart   0/2     (as recorded)
@@ -1065,36 +1068,25 @@ const Map<String, int> _uncoveredBaseline = {
   // exec's own release hygiene is F-SCC17-1/2/3 `tom_d4rt_exec`, which already
   // run in the reference tree.
   'release_hygiene_test.dart': 10,
-  // PARTLY PORTABLE, and the reason it is still whole here is a decision this
-  // map cannot make on its own. Re-measured 2026-09-06 against published
-  // 0.42.0: 14 of 17 cases PASS. The four async-catch cases this entry was
-  // written to pin (F-SCC22-13..16) are among them — SCC22's fix for an empty
-  // `catch (e) {}` abandoning the rest of an async function shipped, so the
-  // publish pin this entry used to carry is discharged.
+  // NOT PORTABLE — SCC22's source-level half, split out of
+  // `scc22_io_error_handler_arity_test.dart` by SCD157. Its three cases read
+  // the two sibling trees' `lib/src/stdlib` off disk with paths relative to the
+  // package they run in, so from `tom_d4rt_exec/test` they resolve to exec's
+  // own `lib`, which carries no stdlib error-handler adapters at all. The
+  // reference copy already walks BOTH trees and answers the question correctly
+  // for both; a copy here could only restate it against the wrong subject,
+  // which is SCD158's general shape.
   //
-  // What fails is the group the old text predicted would pass: the three
-  // structural cases F-SCC22-10/-11/-12. They read the two sibling trees'
-  // `lib/src` off disk with paths relative to the package they run in, so from
-  // `tom_d4rt_exec/test` they resolve to exec's own `lib`, which carries no
-  // stdlib error-handler adapters at all. The reference copy already walks BOTH
-  // trees and answers the question correctly for both; a copy here can only ever
-  // restate it against the wrong subject.
-  //
-  // So the file splits 14 portable / 3 structurally single-copy, and porting the
-  // portable half means a subtraction port — a `_divergentBaseline` entry whose
-  // blanket then absorbs every future divergence in the file (SCD154). That
-  // trade is a design call, not a census outcome, so it is SCD157 rather than
-  // something this pass improvised.
-  //
-  // RE-MEASURED 2026-09-12 against published 0.65.0 (scd25_aida), which is 23
-  // releases past the 0.42.0 the numbers above were taken at: UNCHANGED, case
-  // for case. scc22 is still 14/17 with F-SCC22-10/-11/-12 failing, scc25 still
-  // 5/7 with F-SCC25-6/-7, scc27 still 8/9 with F-SCC27-9, and scc23 still does
-  // not compile for the same five `undefined_setter` errors. So none of these
-  // four is a stale pin waiting on a publish that already happened — the
-  // residual failures are source scans over files exec does not own, plus the
-  // one behavioural gap scc27's own note names.
-  'scc22_io_error_handler_arity_test.dart': 17,
+  // THE BEHAVIOURAL FOURTEEN ARE NOW PORTED and are no longer in this map. They
+  // were the whole reason the undivided file sat here: re-measured 2026-09-06
+  // and again 2026-09-12 it passed 14 of 17, and the three failures were these
+  // three. SCD157 took the split rather than the subtraction port SCD79 had
+  // already declined for SCC25's twin — a `_divergentBaseline` entry is keyed by
+  // path, so even with SCD154's fingerprint narrowing it has to be re-blessed by
+  // hand on every legitimate change, and it would have sat over exactly the
+  // fourteen cases the port exists to gain. Ported and run against published
+  // 0.65.0: 14 of 14.
+  'scc22_error_handler_site_guard_test.dart': 3,
   // BLOCKED ON A PUBLISH, and measured rather than inferred — the register above
   // says a pin written from prose rots, so both of these were ported into
   // `test/` and run against published 0.65.0 before being recorded.
