@@ -611,7 +611,37 @@ class InternetAddressTypeIo {
   );
 }
 
-/// Bridged InternetAddress class
+/// Bridged ServerSocket class.
+///
+/// TWENTY-EIGHT OF ITS MEMBERS ARE ALSO ON `Stream`, AND THAT IS DELIBERATE FOR
+/// NOW. SCD38 registered `ServerSocket -> Stream`, which made every `Stream`
+/// adapter reachable through the walk — so the 21 methods and 7 getters this
+/// bridge spells out (`map`, `where`, `fold`, `toList`, `first`, `listen` and
+/// the rest) now shadow an inherited copy that would answer if they were gone.
+/// Measured 2026-09-15.
+///
+/// THE DECISION, so nobody has to re-derive it: DELETE THEM, but not before the
+/// shadow differential can see them. `F-SCC51-8` invokes both adapters of a
+/// shadowed pair on one object and compares the outcomes — which is the only
+/// thing that can say these copies are redundant rather than subtly different —
+/// and its fixture table covers the COLLECTION bridges only. Until
+/// `ServerSocket` is in it, deleting 28 adapters would be a change nothing
+/// measured, on the package's migration target, unverifiable by the corpus
+/// until published (DGUC6). sce195 carries the deletion, gated on sce185
+/// extending the differential.
+///
+/// SCC51 AND SCD152 BOTH DELETED SUCH COPIES, so the direction is not in doubt;
+/// what is in doubt is only whether these 28 behave identically, and the
+/// evidence for that does not exist yet. SCD152 is why it matters: driving the
+/// previously-skipped half of that differential found `HashMap.map` rebuilding
+/// its result wrongly — a leaf copy that had looked like pure redundancy for as
+/// long as nobody invoked it.
+///
+/// ONE THING IS WRONG TODAY AND IS NOT WAITING ON ANY OF THAT: the arity
+/// diagnostics in this class say `Socket.map`, `Socket.where`, `Socket.fold`
+/// and so on. They were copied from the `Socket` bridge above and name the
+/// wrong class, so a script passing two arguments to `serverSocket.map` is told
+/// about a type it did not touch.
 class ServerSocketIo {
   static BridgedClass get definition => BridgedClass(
     nativeType: ServerSocket,

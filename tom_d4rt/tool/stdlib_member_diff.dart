@@ -1142,6 +1142,97 @@ const _instanceRecipes = <String, Recipe>{
   ),
 };
 
+/// Expressions that yield a resource the PROCESS owns rather than one the probe
+/// owns, keyed by the token a recipe would have to name to reach it.
+///
+/// SCD162. A recipe is a measurement, and a measurement may not change the thing
+/// it measures — nor anything else. The audit probes a member by BARE-READING
+/// it, which for an inherited `Stream` getter means SUBSCRIBING, and subscribing
+/// to a process-global stream is not an observation: it consumes a resource
+/// every later suite in the same `dart test` process still needs.
+///
+/// MEASURED, AND EXPENSIVELY. Declaring `Stdin -> Stream` was correct and stayed
+/// declared. What it also did was make `stdin.length`, `stdin.first` and
+/// `stdin.last` probeable — and a bare read of any of them destroys fd 0 for the
+/// whole process. 82 suites in `test/stdlib` alone then died in
+/// `IoStdioStdlib.register` with "Failed to get type of stdio handle (fd 0)",
+/// none of them near the audit, none of them naming it. It took five bisecting
+/// runs to connect the two.
+///
+/// The rule that produced — A RECIPE MUST YIELD AN OBJECT THE AUDIT OWNS — was
+/// written into `_notAuditable`'s `Stdin` entry and into the gap-audit doc, and
+/// stayed prose for as long as prose stays anything: evaluated only by whoever
+/// rereads it. [recipesNamingProcessGlobals] is the same rule with a check
+/// behind it.
+const processGlobalTokens = <String, String>{
+  'stdin':
+      'reading any inherited `Stream` getter SUBSCRIBES to fd 0 and destroys '
+      'it for every later suite in the same process',
+  'stdout':
+      'a second handle on fd 1; safe to bare-read, which is why `Stdout` is '
+      'exempt below — but a recipe reaching it to obtain something ELSE is '
+      'measuring the wrong bridge',
+  'stderr': 'the same, on fd 2',
+  'pid':
+      'the library-level getter in `dart:io`; a process id is not an object '
+      'the audit can own or tear down',
+  'Isolate.current': 'the running isolate, which the probe cannot replace',
+};
+
+/// Recipes allowed to name one of [processGlobalTokens], with the reason.
+///
+/// `Stdout` is the whole exemption list and is the point of having one. There is
+/// no constructor for it: the only `Stdout` in existence is the process's, so a
+/// recipe either names `stdout` or the class cannot be audited at all. That is
+/// survivable for exactly the reason `Stdin` is not — a SINK can be bare-read
+/// without consuming anything. `stdout.encoding`, `stdout.nonBlocking` and the
+/// rest answer without taking a byte from anybody; `stdin.first` cannot.
+///
+/// The exemption is per CLASS rather than per token on purpose: it says "this
+/// recipe may hold the process's stdout", not "stdout is fine everywhere".
+const processGlobalExemptions = <String, String>{
+  'Stdout':
+      'no constructor exists, and a sink bare-reads without consuming — the '
+      'property `Stdin` lacks',
+};
+
+/// `<class>: names <token>` for every recipe reaching a process-global resource
+/// without an exemption.
+///
+/// Reads the Recipe OBJECTS rather than this file's source, so a token named in
+/// the prose explaining it cannot register as a use — the failure SCD140,
+/// SCD151 and SCD161 each hit from the other direction. Measured 2026-09-15:
+/// scanning the source text instead reports `Directory`, whose entry is
+/// followed by a comment mentioning `stdout`.
+List<String> recipesNamingProcessGlobals() {
+  final found = <String>[];
+  _instanceRecipes.forEach((className, recipe) {
+    if (processGlobalExemptions.containsKey(className)) return;
+    final code =
+        '${recipe.imports}\n${recipe.prelude}\n${recipe.expr}\n'
+        '${recipe.teardown}';
+    for (final token in processGlobalTokens.keys) {
+      if (namesProcessGlobal(code, token)) {
+        found.add('$className: names `$token` — ${processGlobalTokens[token]}');
+      }
+    }
+  });
+  found.sort();
+  return found;
+}
+
+/// Whether [code] uses [token] as a whole identifier.
+///
+/// WHOLE-WORD, not `contains`. SCD161 measured the cost of the loose form on a
+/// check of exactly this shape: `contains('readMessage')` accepted
+/// `readMessageZZZ`, so a renamed identifier went on satisfying the check. Here
+/// the same looseness would flag `stdinLike` as a use of `stdin` — a false
+/// positive rather than a false negative, which is the friendlier direction and
+/// still wrong.
+bool namesProcessGlobal(String code, String token) => RegExp(
+  '(^|[^A-Za-z0-9_.])${RegExp.escape(token)}([^A-Za-z0-9_]|\$)',
+).hasMatch(code);
+
 /// Whether the interpreter said the member does not exist, as opposed to failing
 /// for any other reason.
 ///

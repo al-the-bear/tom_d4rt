@@ -1,3 +1,25 @@
+## 1.115.0
+
+### Changed - the `ServerSocket` bridge records why it shadows 28 `Stream` members (scd162)
+
+SCD38 registered `ServerSocket -> Stream`, which made every `Stream` adapter
+reachable through the walk. The 21 methods and 7 getters this bridge spells out
+by hand have shadowed an inherited copy ever since, and nothing said whether
+that was a decision or an oversight.
+
+It is now written at the bridge: DELETE THEM, once the shadow differential can
+see them. `F-SCC51-8` is the only thing that can say 28 copies are redundant
+rather than subtly different, and its fixture table covers the collection
+bridges alone. SCD152 is why that gate matters — driving the previously-skipped
+half of that differential found `HashMap.map` rebuilding its result wrongly, a
+leaf copy that had looked like pure redundancy for as long as nobody invoked it.
+
+Also recorded, because it is wrong today and waits on nothing: the arity
+diagnostics in `ServerSocketIo` say `Socket.map`, `Socket.where`, `Socket.fold`
+— copied from the `Socket` bridge above, naming the wrong class.
+
+Comment only; no adapter changed.
+
 ## 1.114.0
 
 ### Fixed - `HashMap.map` / `LinkedHashMap.map` ignored the entry the callback returns (scd152)

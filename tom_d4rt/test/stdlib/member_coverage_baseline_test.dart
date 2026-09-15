@@ -111,6 +111,8 @@ library;
 import 'dart:io';
 
 import 'package:test/test.dart';
+import 'package:tom_d4rt/d4rt.dart';
+import 'package:tom_d4rt/src/stdlib/io/stdio.dart';
 
 import '../../tool/stdlib_member_diff.dart';
 import 'member_coverage_baseline.dart';
@@ -540,6 +542,104 @@ void main() {
           'dart run tool/stdlib_member_diff.dart --baseline\n'
           'Commit the regenerated baseline together with the change that caused '
           'it, so the diff shows which members moved and why.',
+    );
+  });
+
+  test('F-SCD162-1: no audit recipe reaches a process-global resource '
+      '[2026-09-15]', () {
+    // THE RULE THE STDIN INCIDENT PRODUCED, with a check behind it at last.
+    //
+    // A recipe is a measurement, and the audit probes a member by BARE-READING
+    // it — which for an inherited `Stream` getter SUBSCRIBES. Declaring
+    // `Stdin -> Stream` was correct and made `stdin.length`, `stdin.first` and
+    // `stdin.last` probeable; a bare read of any of them destroys fd 0 for the
+    // whole process, and `dart test` runs VM suites as isolates in ONE process.
+    // 82 suites in test/stdlib then died in `IoStdioStdlib.register` with
+    // "Failed to get type of stdio handle (fd 0)", none of them near the audit.
+    // Five bisecting runs to connect the two.
+    //
+    // "A recipe must yield an object the audit owns" went into
+    // `_notAuditable`'s Stdin entry and into the gap-audit doc, and stayed
+    // prose — evaluated only by whoever rereads it, which is the same defect
+    // `_pinnedInterpreterFloors` was built to remove one register over.
+    expect(
+      recipesNamingProcessGlobals(),
+      isEmpty,
+      reason:
+          'A recipe reaches a resource the PROCESS owns rather than one the '
+          'probe owns. Bare-reading an inherited member of such an object is '
+          'not an observation — it consumes something every later suite in the '
+          'same `dart test` process still needs, and the failure surfaces '
+          'somewhere else entirely.\n\n'
+          'Find another instance the probe can construct and tear down. If '
+          'there genuinely is none — as for `Stdout`, which has no constructor '
+          '— add the class to `processGlobalExemptions` with the reason it is '
+          'safe, and "it seems to work" is not one: `Stdin` seemed to work for '
+          'as long as it exposed nothing inherited.',
+    );
+  });
+
+  test('F-SCD162-2: the rule reads a bare library getter, not a member access '
+      '[2026-09-15]', () {
+    // The check above is an emptiness assertion over a table that is empty
+    // today, so it passes whether or not the rule works. This supplies the
+    // inputs instead.
+    //
+    // WHOLE-WORD AND NOT AFTER A DOT are both load-bearing, in opposite
+    // directions. Loose `contains` would flag `stdinLike`, which SCD161
+    // measured the cost of on a check of this exact shape. Ignoring the leading
+    // dot would flag `process.pid` and `socket.stdin` — ordinary member
+    // accesses on an object the probe DOES own, which is the common case and
+    // would make the rule unusable within a week.
+    expect(namesProcessGlobal('stdin.first', 'stdin'), isTrue);
+    expect(namesProcessGlobal('print(stdout)', 'stdout'), isTrue);
+    expect(namesProcessGlobal('pid', 'pid'), isTrue);
+    expect(namesProcessGlobal('Isolate.current', 'Isolate.current'), isTrue);
+    expect(
+      namesProcessGlobal('stdinLike', 'stdin'),
+      isFalse,
+      reason: 'a longer identifier that merely starts with the token',
+    );
+    expect(
+      namesProcessGlobal('process.pid', 'pid'),
+      isFalse,
+      reason: 'an instance member on an object the probe owns',
+    );
+    expect(
+      namesProcessGlobal('myIsolate.current', 'Isolate.current'),
+      isFalse,
+      reason: 'a member access that happens to end in the token',
+    );
+  });
+
+  test('F-SCD162-3: fd 0 is still usable after the audit has run '
+      '[2026-09-15]', () {
+    // THE FINGERPRINT. F-SCD162-1 is a static rule and can only catch a recipe
+    // whose reach is visible in its own text; this catches the consequence
+    // however it arrives — a transitive read, a teardown that closes the wrong
+    // handle, a future probe form nobody has thought of.
+    //
+    // It runs in the audit's own suite, AFTER `setUpAll` has probed all 682
+    // candidates, so a recipe that destroys the descriptor fails HERE with a
+    // message naming the audit — rather than in 82 later suites with a message
+    // naming `IoStdioStdlib`.
+    //
+    // `IoStdioStdlib.register` is the exact call that failed in the incident:
+    // its `environment.define('stdin', stdin)` touches the library getter, and
+    // that is what throws "Failed to get type of stdio handle (fd 0)".
+    expect(
+      () => IoStdioStdlib.register(Environment()),
+      returnsNormally,
+      reason:
+          'Registering `dart:io` stdio fails after the audit ran, which means '
+          'a probe consumed one of the process standard descriptors. This is '
+          'the SCD162 incident: the damage is done by a subscription, not by a '
+          'hang, so no timeout catches it and every later suite in this '
+          '`dart test` process will die in `IoStdioStdlib.register` with a '
+          'message that names stdio rather than the audit.\n\n'
+          'Look at what `setUpAll` probed last, and at any recipe added since '
+          'the run that was green — F-SCD162-1 catches the visible cases, so a '
+          'failure HERE with that one green means the reach is transitive.',
     );
   });
 
