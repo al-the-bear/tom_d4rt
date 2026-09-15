@@ -293,6 +293,58 @@ String _declaredVersion(String package) {
   throw StateError('$package/pubspec.yaml declares no version');
 }
 
+/// The failure text for [F-SCC17-3], which has to distinguish two states the
+/// original message conflated.
+///
+/// SCD150. The guard reads COMMITTED history — `_lastVersionBump` walks
+/// `git log`, so a bump sitting in the working tree does not clear it. That is
+/// correct (a bump nobody committed does not cover a commit) but it means the
+/// same red test means two different things, wanting two different actions:
+///
+/// * the bump does not exist anywhere, so WRITE one; or
+/// * the bump is already written on disk and simply has not landed, so COMMIT
+///   it.
+///
+/// The second is what a mid-turn reader is usually looking at, and telling them
+/// to "bump the version" when the pubspec on disk already says the new number
+/// reads as the guard being broken. Naming which state it is costs one string
+/// comparison.
+String _orphanReason({
+  required String package,
+  required List<String> orphans,
+  required String treeVersion,
+  required String? committedVersion,
+}) {
+  final commits = '  ${orphans.join('\n  ')}';
+  final rerun =
+      'This check runs on its own in about three seconds — '
+      '`dart test test/release_hygiene_test.dart` from `tom_d4rt/` — so run it '
+      'after a `lib` commit rather than discovering this from the full suite a '
+      'turn later.';
+
+  if (committedVersion == null) {
+    return '$package/lib has commits after the last version bump, and no '
+        'committed pubspec could be read for it at HEAD. Treat this as the '
+        'no-bump case: raise the version, write the CHANGELOG section, commit.\n'
+        '$commits\n$rerun';
+  }
+  if (treeVersion != committedVersion) {
+    return 'THE BUMP IS WRITTEN BUT NOT COMMITTED. $package/pubspec.yaml on '
+        'disk says $treeVersion; the newest COMMITTED version is '
+        '$committedVersion. This guard measures the repository, not the working '
+        'tree — deliberately, because a bump nobody has committed does not '
+        'cover a commit — so editing the pubspec cannot clear it. COMMIT the '
+        'bump together with its CHANGELOG section and re-run. The commits it '
+        'has to cover:\n$commits\n$rerun';
+  }
+  return 'NO BUMP EXISTS FOR THESE COMMITS. $package declares $treeVersion, '
+      'which is also the newest committed version, so these commits changed '
+      '$package/lib after the version was last set: they belong to no version '
+      'and would ship inside an already-written section — which is how SCC17 '
+      'happened. Raise the version in pubspec.yaml, add a `## <version>` '
+      'CHANGELOG section describing them, and commit:\n$commits\n$rerun';
+}
+
 List<String> _changelogVersions(String package) {
   final changelog = File(
     '${_packages[package]}/CHANGELOG.md',
@@ -351,15 +403,81 @@ void main() {
         expect(
           orphans,
           isEmpty,
-          reason:
-              'These commits changed $package/lib after the version was '
-              'last set, so they belong to no version and would ship inside '
-              'an already-written section — which is how SCC17 happened. '
-              'Bump the version and add a section describing them:\n'
-              '  ${orphans.join('\n  ')}',
+          reason: _orphanReason(
+            package: package,
+            orphans: orphans,
+            treeVersion: _declaredVersion(package),
+            committedVersion: _versionAt(package, 'HEAD'),
+          ),
         );
       }, skip: gitSkip);
     }
+
+    // SCD150. The two states above are not interchangeable advice, and the only
+    // way to check that the message says which one it is, is to render it —
+    // the reason string is built whether or not the expectation fails, so it is
+    // reachable without manufacturing a red tree.
+    test('F-SCD150-1: the failure text distinguishes an uncommitted bump from '
+        'a missing one [2026-09-15]', () {
+      const orphans = ['abc1234 some lib change'];
+      final missing = _orphanReason(
+        package: 'tom_d4rt',
+        orphans: orphans,
+        treeVersion: '1.113.0',
+        committedVersion: '1.113.0',
+      );
+      final uncommitted = _orphanReason(
+        package: 'tom_d4rt',
+        orphans: orphans,
+        treeVersion: '1.114.0',
+        committedVersion: '1.113.0',
+      );
+      expect(
+        missing,
+        contains('NO BUMP EXISTS'),
+        reason:
+            'With the tree and HEAD at the same version there is nothing to '
+            'commit, so the message must ask for a bump to be written.',
+      );
+      expect(
+        uncommitted,
+        contains('NOT COMMITTED'),
+        reason:
+            'With the tree ahead of HEAD the bump is already written, so '
+            'telling the reader to bump the version reads as the guard being '
+            'broken. It must ask for a commit.',
+      );
+      expect(
+        uncommitted,
+        contains('1.114.0'),
+        reason:
+            'The message has to name both versions, or the reader cannot tell '
+            'which of the two the guard read.',
+      );
+      // Non-vacuity: a single message reused for both states would satisfy
+      // neither pair of expectations above by accident, but it would satisfy
+      // them if both strings happened to carry both phrases. They must differ.
+      expect(
+        missing,
+        isNot(uncommitted),
+        reason: 'One message for two states is the defect SCD150 was filed on.',
+      );
+      for (final text in [missing, uncommitted]) {
+        expect(
+          text,
+          contains(orphans.single),
+          reason: 'Either message is useless without the commits it is about.',
+        );
+        expect(
+          text,
+          contains('dart test test/release_hygiene_test.dart'),
+          reason:
+              'SCD150 part (1): the standalone invocation belongs in the '
+              'message, not only in the quest overview — this is where a '
+              'reader who has just hit the failure is looking.',
+        );
+      }
+    });
 
     // The commit SCC17 was filed about: at this point `tom_d4rt` had said
     // 1.22.0 since f6ad794c3, 1.22.0 was already on pub.dev, and three stdlib
