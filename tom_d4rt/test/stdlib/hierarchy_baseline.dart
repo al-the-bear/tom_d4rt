@@ -13,7 +13,7 @@
 // edge.
 //
 // Current state: 0 confirmed missing edges across 0 classes,
-// 1 edges on 1 classes missing by decision,
+// 0 edges on 0 classes missing by decision,
 // and 0 edges on 0 classes that cannot be measured at all.
 // Those totals are documentation, not assertions — the test derives them from the
 // tables below, so there is only ever one thing to update.
@@ -22,9 +22,7 @@
 const confirmedEdges = <String, List<String>>{};
 
 /// Edges deliberately not declared — see `_declinedEdges` in the tool.
-const declinedEdges = <String, List<String>>{
-  'HttpClientResponseCompressionState': [r'Enum'],
-};
+const declinedEdges = <String, List<String>>{};
 
 /// Edges no probe could measure.
 ///

@@ -1,3 +1,31 @@
+## 1.120.0
+
+### Fixed - `x is Enum` answers what Dart answers (scd176)
+
+`Enum` was bridged but declared no `isAssignable`, and `_valueHasType`'s
+bridged branch only reaches its native-predicate fallback when the bridge has
+one. So `is Enum` was FALSE for every bridged value, including genuine SDK
+enums — false by omission rather than by any decision.
+
+A PREDICATE, NOT SUPERTYPE EDGES, and the distinction is load-bearing. The
+obvious repair is to declare an `-> Enum` edge on every "enum-shaped" bridge.
+Measured against Dart, four of the five usual candidates are not enums at all:
+`StdioType` and `InternetAddressType` are `final class`, `ProcessSignal` is an
+`interface class`, and `FileMode` is a class — all with static const instances
+that look like enum values from a script. Only
+`HttpClientResponseCompressionState` is a real `enum`. Hand-declared edges
+would have turned four correct answers into wrong ones; asking the native
+value classifies each correctly with no list to maintain.
+
+`is Comparable` is deliberately untouched. Dart answers FALSE for all five,
+including the genuine enum — `Enum` does not extend `Comparable` — and the
+bridge declares no `compareTo`, so the interpreter's existing `false` is
+already right.
+
+The hierarchy audit's one `_declinedEdges` entry is removed: it held this
+question open, and the audit now reports the edge as satisfied via
+`isAssignable` rather than missing by decision.
+
 ## 1.119.0
 
 ### Added - the TLS pair: `X509Certificate` and `SecurityContext` (scd171)

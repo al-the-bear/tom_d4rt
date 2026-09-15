@@ -12,6 +12,21 @@ class EnumCore {
   static BridgedClass get definition => BridgedClass(
     nativeType: Enum,
     name: 'Enum',
+    // SCD176: without this, `x is Enum` was FALSE for every bridged value,
+    // including genuine SDK enums. `_valueHasType`'s bridged branch falls back
+    // to `isAssignable` for an operand the supertype walk did not resolve, and
+    // skips the fallback entirely when the bridge declares none — so the answer
+    // was false by omission rather than by any decision.
+    //
+    // A PREDICATE RATHER THAN SUPERTYPE EDGES, and the difference is not
+    // stylistic. SCD176 proposed declaring an `-> Enum` edge on every
+    // "enum-shaped" bridge; measured against Dart, four of the five it names
+    // are not enums at all — `StdioType`, `ProcessSignal` and
+    // `InternetAddressType` are `final`/`interface class` with static consts,
+    // and `FileMode` likewise, so `is Enum` is correctly FALSE for them. A
+    // hand-declared edge would have made four correct answers wrong. Asking
+    // the native value is right for each without anyone classifying it.
+    isAssignable: (v) => v is Enum,
     typeParameterCount: 0,
     constructors: {},
     staticMethods: {

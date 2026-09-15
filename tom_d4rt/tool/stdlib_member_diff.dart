@@ -621,19 +621,21 @@ const _notAuditable = <String, String>{
 /// same reason: an audit that cannot distinguish "nobody did this" from "we
 /// decided not to" reports both as gaps, and a gap nobody intends to close
 /// teaches readers to skip the section.
-const _declinedEdges = <String, Map<String, String>>{
-  'HttpClientResponseCompressionState': {'Enum': _enumSupertypeNotModelled},
-};
-
-const _enumSupertypeNotModelled =
-    'the stdlib bridges every enum as a BridgedClass with staticGetters rather '
-    'than a BridgedEnumDefinition, and no bridged enum declares an `-> Enum` '
-    'edge. Declaring it for this one would make it the only enum in the '
-    'library that does. Whether they all should is a real question and is '
-    'filed as SCD207 -- until it is answered, the uniform convention is the '
-    'decision, not an oversight. This class is the only enum the audit can see '
-    'the edge on at all, because SCC89 gave it the instance recipe that made '
-    'it measurable.';
+/// EMPTY since SCD176, and that is a resolution rather than a reset.
+///
+/// It held one entry: `HttpClientResponseCompressionState -> Enum`, declined
+/// because no bridged enum declared the edge and giving it to the one class the
+/// audit could measure would have made it the library's only exception. That
+/// was a holding position, and SCD176 answered the question it was holding open.
+///
+/// The answer was not to declare edges. Measured against Dart, four of the five
+/// "enum-shaped" bridges are not enums — `StdioType`, `ProcessSignal` and
+/// `InternetAddressType` are `final`/`interface class` with static consts, and
+/// `FileMode` likewise — so an edge on each would have made four correct
+/// answers wrong. `Enum` gained an `isAssignable` predicate instead, which asks
+/// the native value and classifies every bridge correctly without a list. The
+/// edge is now SATISFIED rather than declined, so the entry is gone.
+const _declinedEdges = <String, Map<String, String>>{};
 
 /// Whether `Class -> Supertype` is a recorded decision rather than a defect.
 bool _isDeclinedEdge(String className, String supertype) =>

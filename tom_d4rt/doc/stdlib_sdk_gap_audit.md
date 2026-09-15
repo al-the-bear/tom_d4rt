@@ -983,12 +983,12 @@ Measured 2026-09-07.
 | Metric | Count |
 |--------|-------|
 | Bridged classes examined | 208 |
-| … declaring `isAssignable` | 180 |
+| … declaring `isAssignable` | 181 |
 | … with ≥ 1 registered edge | 120 |
 | Candidate edges from the cross-reference | 1 |
-| … satisfied anyway via `isAssignable` | 0 |
+| … satisfied anyway via `isAssignable` | 1 |
 | … unverified (no instance recipe) | 0 |
-| … missing **by decision** | 1 |
+| … missing **by decision** | 0 |
 | **CONFIRMED missing edges** | **0** |
 | Classes with ≥ 1 confirmed gap | 0 |
 
