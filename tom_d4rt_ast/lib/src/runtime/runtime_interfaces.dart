@@ -1,3 +1,5 @@
+import 'bridge/bridged_types.dart';
+
 /// Common interface for types defined at runtime (interpreted or bridged).
 abstract class RuntimeType {
   /// The name of the type.
@@ -140,6 +142,33 @@ class FunctionRuntimeType implements RuntimeType {
       }
       return true;
     }
+    // GEN-125 / SCD136 — a function TYPEDEF is bridged as
+    // `BridgedClass(nativeType: Function, name: typedef.name)`, so its name is
+    // `VoidCallback`, never `Function`. The name is the one property of that
+    // bridge deliberately not `Function`, so the nominal test below could
+    // never match one and every Flutter callback was refused:
+    //
+    //     type 'dynamic Function()' is not a subtype of type 'VoidCallback?'
+    //
+    // Ask what the bridge IS rather than what it is called. This subsumes the
+    // nominal test — `dart:core`'s own `Function` bridge carries
+    // `nativeType: Function` too — and because the argument check, the return
+    // check and `is`/`as` all route through here, one rule repairs all three.
+    //
+    // WHY THIS FILE MAY KNOW ABOUT `BridgedClass`, given that it is the
+    // interface file everything else depends on: it already did. The line
+    // below is a STRING GUESS about how bridges are named, which is the same
+    // coupling in its worst form. Replacing a guess about an implementor with
+    // a typed question to it removes knowledge from this file rather than
+    // adding it.
+    //
+    // Deliberately arity-blind, exactly as the nominal test it subsumes was: a
+    // bridged typedef carries `nativeType: Function` and nothing else, so
+    // there is no signature here to check a closure against. Making the bridge
+    // carry one is a generator change, tracked as scd137. Until then the
+    // posture is the documented one — be permissive rather than reject working
+    // callbacks.
+    if (other is BridgedClass && other.nativeType == Function) return true;
     // Every function is a `Function` and an `Object`.
     return _isWildcardTypeName(other.name) || other.name == 'Function';
   }

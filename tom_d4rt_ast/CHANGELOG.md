@@ -1,3 +1,44 @@
+## 0.96.0
+
+### Fixed — an interpreted closure is accepted against a bridged function typedef (scd136 / GEN-125)
+
+Passing a script closure to any Flutter callback parameter was rejected:
+
+```
+type 'dynamic Function()'        is not a subtype of type 'VoidCallback?' of 'onPressed'
+type 'dynamic Function(dynamic)' is not a subtype of type 'ValueChanged'  of 'onChanged'
+```
+
+A function typedef has no bridgeable class, so it is registered as
+`BridgedClass(nativeType: Function, name: typedef.name)` — and
+`FunctionRuntimeType.isSubtypeOf` ended by identifying `Function` **by name**.
+The bridge's name is `VoidCallback`, which is the one property of that
+registration deliberately not `Function`, so the nominal test could never match
+one. A bridged typedef is a structural type wearing a nominal name, which is
+also why the two escape hatches in `_checkArgumentType` (skip structural
+annotations, exempt a declared `Function` by name) both miss it.
+
+`isSubtypeOf` now asks what the bridge IS rather than what it is called:
+
+```dart
+if (other is BridgedClass && other.nativeType == Function) return true;
+```
+
+This subsumes the nominal test — `dart:core`'s own `Function` bridge carries
+`nativeType: Function` too — and because the argument check, the return check
+and `is`/`as` all route through the same method, one rule repairs all three.
+
+Deliberately arity-blind, exactly as the nominal test it subsumes was: the
+bridge carries `nativeType: Function` and nothing else, so there is no signature
+to check a closure against. Making it carry one is a generator change, tracked
+as scd137. The rule therefore does not widen what is accepted for typedefs that
+already matched — it stops rejecting the ones that never could.
+
+The rule was always wrong; nothing consulted it for arguments until
+`_checkArgumentType` began routing declared parameter types through
+`isSubtypeOf`, at which point a second reader of an already-wrong answer turned
+it into 15 corpus failures and ~276 framework errors across 109 scripts.
+
 ## 0.95.0
 
 ### Changed — a bare name prefix no longer claims a bridge (scd132)
