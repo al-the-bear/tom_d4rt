@@ -290,7 +290,14 @@ Set<String> _kindsOn(
   String member,
 ) {
   final seen = <String>{};
-  final queue = <String>[className];
+  // SCD196: `Object` is every class's supertype and almost never written down.
+  // `abstract interface class Match {` declares no `extends` and no
+  // `implements`, so a walk that follows only written clauses stops there and
+  // reports every inherited member as unspeakable — which is a PASS. That is
+  // how `hashCode` registered as a method on `Match`, `Pattern` and `Sink`, and
+  // `toString` registered as a getter on two isolate errors, survived
+  // F-SCD189-1: the five members live on `Object` and the walk never arrived.
+  final queue = <String>[className, 'Object'];
   final kinds = <String>{};
   while (queue.isNotEmpty) {
     final name = queue.removeLast();

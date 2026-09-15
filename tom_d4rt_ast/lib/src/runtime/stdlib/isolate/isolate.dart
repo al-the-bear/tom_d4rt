@@ -17,8 +17,6 @@ class IsolateSpawnExceptionIsolate {
     },
     getters: {
       'message': (visitor, target) => (target as IsolateSpawnException).message,
-      'toString': (visitor, target) =>
-          (target as IsolateSpawnException).toString(),
       'hashCode': (visitor, target) =>
           (target as IsolateSpawnException).hashCode,
       'runtimeType': (visitor, target) =>
@@ -417,7 +415,6 @@ class RemoteErrorIsolate {
     },
     getters: {
       'stackTrace': (visitor, target) => (target as RemoteError).stackTrace,
-      'toString': (visitor, target) => (target as RemoteError).toString(),
       'hashCode': (visitor, target) => (target as RemoteError).hashCode,
       'runtimeType': (visitor, target) => (target as RemoteError).runtimeType,
     },

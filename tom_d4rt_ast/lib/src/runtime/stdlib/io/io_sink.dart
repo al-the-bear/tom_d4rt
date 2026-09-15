@@ -95,7 +95,6 @@ class IOSinkIo {
       'encoding': (visitor, target) => (target as IOSink).encoding,
       'done': (visitor, target) => (target as IOSink).done,
       'hashCode': (visitor, target) => (target as IOSink).hashCode,
-      'toString': (visitor, target) => (target as IOSink).toString(),
       'runtimeType': (visitor, target) => (target as IOSink).runtimeType,
     },
     setters: {

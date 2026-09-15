@@ -21,8 +21,6 @@ class SinkCore {
         (target as Sink).close();
         return null;
       },
-      'hashCode': (visitor, target, positionalArgs, namedArgs, _) =>
-          (target as Sink).hashCode,
       'toString': (visitor, target, positionalArgs, namedArgs, _) =>
           (target as Sink).toString(),
     },

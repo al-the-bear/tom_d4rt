@@ -265,14 +265,18 @@ class MapEntryCore {
       },
     },
     methods: {
-      'hashCode': (visitor, target, positionalArgs, namedArgs, _) =>
-          (target as MapEntry).hashCode,
       'toString': (visitor, target, positionalArgs, namedArgs, _) =>
           (target as MapEntry).toString(),
     },
     getters: {
       'key': (visitor, target) => (target as MapEntry).key,
       'value': (visitor, target) => (target as MapEntry).value,
+      // SCD196: a GETTER, which is what `Object` declares. Registered as a
+      // method it was reachable only as `e.hashCode()`, and `e.hashCode` — the
+      // spelling every Dart program uses — returned the bound callable. Nothing
+      // masked it: no universal getter answers ahead of a bridge's own method
+      // map, so `map.entries.first.hashCode` was not an int.
+      'hashCode': (visitor, target) => (target as MapEntry).hashCode,
     },
   );
 }

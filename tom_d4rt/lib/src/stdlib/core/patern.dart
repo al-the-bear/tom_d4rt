@@ -22,8 +22,6 @@ class PatternCore {
           positionalArgs.get<int>(1) ?? 0,
         );
       },
-      'hashCode': (visitor, target, positionalArgs, namedArgs, _) =>
-          (target as Pattern).hashCode,
       'toString': (visitor, target, positionalArgs, namedArgs, _) =>
           (target as Pattern).toString(),
     },
@@ -60,8 +58,6 @@ class MatchCore {
         }
         return (target as Match)[positionalArgs[0] as int];
       },
-      'hashCode': (visitor, target, positionalArgs, namedArgs, _) =>
-          (target as Match).hashCode,
       'toString': (visitor, target, positionalArgs, namedArgs, _) =>
           (target as Match).toString(),
     },

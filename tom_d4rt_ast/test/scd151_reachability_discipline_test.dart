@@ -295,10 +295,18 @@ void main() {
       // layout-level by nature and correct. They are invisible to F-SCD151-1,
       // so the number is pinned: a new unattributable site is a new blind spot,
       // and the fix is to name the bridge rather than to raise this ceiling.
+      //
+      // SCD196 raised it 26 -> 27, and the reason is the one case where raising
+      // is right. `scd196_member_map_disjointness_test.dart` asks whether any
+      // bridge declares one member in two maps; its subject is EVERY bridge, so
+      // there is no bridge to name and reading the member maps off the loop
+      // variable is the assertion rather than a shortcut. Same shape as the two
+      // sweeps above. Raise this only for that shape; a site that COULD name
+      // its bridge should.
       final unattributable = sites.length - attributed.length;
       expect(
         unattributable,
-        lessThanOrEqualTo(26),
+        lessThanOrEqualTo(27),
         reason:
             '$unattributable sites cannot be attributed to a bridge, against '
             '24 measured. Each is a site F-SCD151-1 cannot check. Prefer '
