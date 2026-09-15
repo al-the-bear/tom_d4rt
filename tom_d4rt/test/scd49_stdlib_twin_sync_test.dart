@@ -116,12 +116,27 @@ const _helperAst =
     'normalizedPath = File ( path ) . absolute . path ; '
     'final allowed = visitor . moduleContext';
 
+/// The same idiom again in `network_permission_helper.dart` (SCD170), where
+/// the trimmed region reaches back to the `d4rt` binding because the statement
+/// before it is the `_hostOf` call rather than a path normalisation.
+const _networkHelperRef =
+    'd4rt = visitor . moduleLoader . d4rt ; if ( d4rt == null ) return ; '
+    'final resolvedHost = _hostOf ( host ) ; final allowed = d4rt';
+const _networkHelperAst =
+    'resolvedHost = _hostOf ( host ) ; final allowed = visitor . moduleContext';
+
 /// Files allowed to differ, and exactly how. Anything else is a finding.
+///
+/// SCD170 moved `io/socket.dart` OFF this list. Its divergence was the same
+/// permission idiom, spelled inline in `_checkNetworkPermission`; both trees
+/// now route that through the shared network helper, so the whole 1 600-line
+/// file is code-identical again and the idiom is confined to the two helpers
+/// whose job it is.
 const _allowed = <String, (String, String)>{
   'io/platform.dart': (_idiomRef, _idiomAst),
   'io/process.dart': (_idiomRef, _idiomAst),
-  'io/socket.dart': (_idiomRef, _idiomAst),
   'io/filesystem_permission_helper.dart': (_helperRef, _helperAst),
+  'io/network_permission_helper.dart': (_networkHelperRef, _networkHelperAst),
 };
 
 /// The executable tokens of [source]: no comments, no directives, no trailing

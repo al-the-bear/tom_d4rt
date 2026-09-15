@@ -5,6 +5,7 @@ import 'package:tom_d4rt/d4rt.dart';
 
 import '../run_action.dart';
 import '../stream_listen.dart';
+import 'network_permission_helper.dart';
 
 /// The WebSocket block of `dart:io` — the last of the three unreachable
 /// re-export groups SCB21's audit found.
@@ -199,6 +200,15 @@ class WebSocketIo {
           );
         }
         final protocols = namedArgs['protocols'];
+        // The permission is scoped by host, so the url has to be parsed
+        // before the connection rather than handed over whole.
+        final wsUri = Uri.parse(positionalArgs[0] as String);
+        checkNetworkConnectPermission(
+          visitor,
+          wsUri.host,
+          wsUri.hasPort ? wsUri.port : null,
+          operation: 'WebSocket.connect',
+        );
         return WebSocket.connect(
           positionalArgs[0] as String,
           protocols: protocols is Iterable

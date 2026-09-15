@@ -7,6 +7,7 @@ import 'package:tom_d4rt/d4rt.dart';
 import '../error_handler_args.dart';
 import '../run_action.dart';
 import '../stream_listen.dart';
+import 'network_permission_helper.dart';
 
 /// Bridged implementation of dart:io Socket
 class SocketIo {
@@ -17,9 +18,9 @@ class SocketIo {
     typeParameterCount: 0,
     staticMethods: {
       'connect': (visitor, positionalArgs, namedArgs, _) =>
-          _connect(positionalArgs, namedArgs),
+          _connect(visitor, positionalArgs, namedArgs),
       'startConnect': (visitor, positionalArgs, namedArgs, _) =>
-          _startConnect(positionalArgs, namedArgs),
+          _startConnect(visitor, positionalArgs, namedArgs),
     },
     methods: {
       'destroy': (visitor, target, positionalArgs, namedArgs, _) {
@@ -419,6 +420,7 @@ class SocketIo {
   );
 
   static Future<Socket> _connect(
+    InterpreterVisitor visitor,
     List<dynamic> positionalArgs,
     Map<String, dynamic> namedArgs,
   ) async {
@@ -432,6 +434,12 @@ class SocketIo {
     final sourcePort = namedArgs['sourcePort'] as int? ?? 0;
     final timeout = namedArgs['timeout'] as Duration?;
 
+    checkNetworkConnectPermission(
+      visitor,
+      host,
+      port,
+      operation: 'Socket.connect',
+    );
     final socket = await Socket.connect(
       host,
       port,
@@ -444,6 +452,7 @@ class SocketIo {
   }
 
   static Future<ConnectionTask<Socket>> _startConnect(
+    InterpreterVisitor visitor,
     List<dynamic> positionalArgs,
     Map<String, dynamic> namedArgs,
   ) {
@@ -456,6 +465,12 @@ class SocketIo {
     final sourceAddress = namedArgs['sourceAddress'];
     final sourcePort = namedArgs['sourcePort'] as int? ?? 0;
 
+    checkNetworkConnectPermission(
+      visitor,
+      host,
+      port,
+      operation: 'Socket.startConnect',
+    );
     return Socket.startConnect(
       host,
       port,
@@ -554,19 +569,22 @@ class InternetAddressIo {
     },
   );
 
-  /// Helper method to check if NetworkPermission is granted
-  static void _checkNetworkPermission(InterpreterVisitor visitor, String host) {
-    final d4rt = visitor.moduleLoader.d4rt;
-    if (d4rt == null) return;
-
-    // Check for NetworkPermission
-    if (!d4rt.checkPermission({'type': 'network', 'connect': true})) {
-      throw RuntimeD4rtException(
-        'Network operations require NetworkPermission. '
-        'Use d4rt.grant(NetworkPermission.any) to allow network access.',
-      );
-    }
-  }
+  /// Asserts the script may resolve [host].
+  ///
+  /// SCD170: this used to take [host] and then drop it, asking only
+  /// `{'type': 'network', 'connect': true}` — so `NetworkPermission.connectTo`
+  /// behaved exactly like `NetworkPermission.connect`. It now routes through
+  /// the shared helper every other socket-acquiring bridge calls, which passes
+  /// the host through.
+  static void _checkNetworkPermission(
+    InterpreterVisitor visitor,
+    String host,
+  ) => checkNetworkConnectPermission(
+    visitor,
+    host,
+    null,
+    operation: 'InternetAddress.lookup',
+  );
 }
 
 /// Bridged `InternetAddressType` enum.
@@ -823,6 +841,12 @@ class ServerSocketIo {
         final v6Only = namedArgs['v6Only'] as bool? ?? false;
         final shared = namedArgs['shared'] as bool? ?? false;
 
+        checkNetworkBindPermission(
+          visitor,
+          address,
+          port,
+          operation: 'ServerSocket.bind',
+        );
         return ServerSocket.bind(
           address,
           port,
@@ -905,6 +929,12 @@ class RawSocketIo {
         final port = positionalArgs[1] as int;
         final sourceAddress = namedArgs['sourceAddress'];
         final timeout = namedArgs['timeout'] as Duration?;
+        checkNetworkConnectPermission(
+          visitor,
+          host,
+          port,
+          operation: 'RawSocket.connect',
+        );
         return RawSocket.connect(
           host,
           port,
@@ -916,6 +946,12 @@ class RawSocketIo {
         final host = positionalArgs[0];
         final port = positionalArgs[1] as int;
         final sourceAddress = namedArgs['sourceAddress'];
+        checkNetworkConnectPermission(
+          visitor,
+          host,
+          port,
+          operation: 'RawSocket.startConnect',
+        );
         return RawSocket.startConnect(host, port, sourceAddress: sourceAddress);
       },
     },
@@ -963,6 +999,12 @@ class RawServerSocketIo {
         final backlog = namedArgs['backlog'] as int? ?? 0;
         final v6Only = namedArgs['v6Only'] as bool? ?? false;
         final shared = namedArgs['shared'] as bool? ?? false;
+        checkNetworkBindPermission(
+          visitor,
+          address,
+          port,
+          operation: 'RawServerSocket.bind',
+        );
         return RawServerSocket.bind(
           address,
           port,
@@ -1179,6 +1221,12 @@ class RawDatagramSocketIo {
         final reuseAddress = namedArgs['reuseAddress'] as bool? ?? true;
         final reusePort = namedArgs['reusePort'] as bool? ?? false;
         final ttl = namedArgs['ttl'] as int? ?? 1;
+        checkNetworkBindPermission(
+          visitor,
+          host,
+          port,
+          operation: 'RawDatagramSocket.bind',
+        );
         return RawDatagramSocket.bind(
           host,
           port,

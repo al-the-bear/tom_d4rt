@@ -1,3 +1,37 @@
+## 1.118.0
+
+### Fixed - `NetworkPermission` now gates every socket-acquiring bridge (scd170)
+
+`NetworkPermission` was declared, documented and threaded through the
+permission system, and in the whole of `lib` it gated exactly ONE call site:
+`InternetAddress.lookup`. Everything that opens a socket ran unchecked —
+`Socket.connect` / `startConnect`, `ServerSocket.bind`, `RawSocket.connect` /
+`startConnect`, `RawServerSocket.bind`, `RawDatagramSocket.bind`,
+`HttpServer.bind` / `bindSecure` / `listenOn`, `WebSocket.connect`, and all
+fourteen `HttpClient` request methods.
+
+What stood in for a gate was the IMPORT gate on `dart:io`, which is keyed on
+`FilesystemPermission`. A script granted filesystem access therefore received
+unrestricted inbound and outbound network access. The quest's standing
+constraint is that the interpreter "must remain fully sandboxed".
+
+It is one sweep rather than a gate per class because a partial gate reads as a
+working sandbox: `HttpServer.bind` alone is bypassable with
+`ServerSocket.bind` + `HttpServer.listenOn`, `HttpClient.getUrl` alone with
+`HttpClient.open`, and all of HTTP with `Socket.connect`.
+
+The host and port are passed through, so `NetworkPermission.connectTo` now
+means something. The one gate that existed took a `host` argument and dropped
+it, asking only `{'type': 'network', 'connect': true}`.
+
+Each operation asks for exactly one flag — connects ask `connect`, binds ask
+`bind`, serving an already-bound socket asks `listen` — because
+`NetworkPermission.allows` requires every requested flag to be granted, so a
+combination would make the single-capability grants unusable.
+
+The `dart:io` import gate's key is deliberately unchanged; decoupling it is a
+breaking change to how every existing permission set is read.
+
 ## 1.117.0
 
 ### Fixed - a throw inside an `async` catch block no longer spins the machine (scd169)

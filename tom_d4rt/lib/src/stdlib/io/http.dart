@@ -7,6 +7,7 @@ import '../core/map.dart';
 import '../run_action.dart';
 import '../stream_listen.dart';
 import 'websocket.dart';
+import 'network_permission_helper.dart';
 
 /// Binds a script callback for a native API that will call it later.
 ///
@@ -74,36 +75,72 @@ class HttpClientIo {
         if (positionalArgs.length != 1 || positionalArgs[0] is! Uri) {
           throw RuntimeD4rtException('getUrl requires a Uri argument.');
         }
+        checkNetworkConnectPermission(
+          visitor,
+          (positionalArgs[0] as Uri).host,
+          (positionalArgs[0] as Uri).port,
+          operation: 'HttpClient.getUrl',
+        );
         return (target as HttpClient).getUrl(positionalArgs[0] as Uri);
       },
       'postUrl': (visitor, target, positionalArgs, namedArgs, _) {
         if (positionalArgs.length != 1 || positionalArgs[0] is! Uri) {
           throw RuntimeD4rtException('postUrl requires a Uri argument.');
         }
+        checkNetworkConnectPermission(
+          visitor,
+          (positionalArgs[0] as Uri).host,
+          (positionalArgs[0] as Uri).port,
+          operation: 'HttpClient.postUrl',
+        );
         return (target as HttpClient).postUrl(positionalArgs[0] as Uri);
       },
       'putUrl': (visitor, target, positionalArgs, namedArgs, _) {
         if (positionalArgs.length != 1 || positionalArgs[0] is! Uri) {
           throw RuntimeD4rtException('putUrl requires a Uri argument.');
         }
+        checkNetworkConnectPermission(
+          visitor,
+          (positionalArgs[0] as Uri).host,
+          (positionalArgs[0] as Uri).port,
+          operation: 'HttpClient.putUrl',
+        );
         return (target as HttpClient).putUrl(positionalArgs[0] as Uri);
       },
       'deleteUrl': (visitor, target, positionalArgs, namedArgs, _) {
         if (positionalArgs.length != 1 || positionalArgs[0] is! Uri) {
           throw RuntimeD4rtException('deleteUrl requires a Uri argument.');
         }
+        checkNetworkConnectPermission(
+          visitor,
+          (positionalArgs[0] as Uri).host,
+          (positionalArgs[0] as Uri).port,
+          operation: 'HttpClient.deleteUrl',
+        );
         return (target as HttpClient).deleteUrl(positionalArgs[0] as Uri);
       },
       'headUrl': (visitor, target, positionalArgs, namedArgs, _) {
         if (positionalArgs.length != 1 || positionalArgs[0] is! Uri) {
           throw RuntimeD4rtException('headUrl requires a Uri argument.');
         }
+        checkNetworkConnectPermission(
+          visitor,
+          (positionalArgs[0] as Uri).host,
+          (positionalArgs[0] as Uri).port,
+          operation: 'HttpClient.headUrl',
+        );
         return (target as HttpClient).headUrl(positionalArgs[0] as Uri);
       },
       'patchUrl': (visitor, target, positionalArgs, namedArgs, _) {
         if (positionalArgs.length != 1 || positionalArgs[0] is! Uri) {
           throw RuntimeD4rtException('patchUrl requires a Uri argument.');
         }
+        checkNetworkConnectPermission(
+          visitor,
+          (positionalArgs[0] as Uri).host,
+          (positionalArgs[0] as Uri).port,
+          operation: 'HttpClient.patchUrl',
+        );
         return (target as HttpClient).patchUrl(positionalArgs[0] as Uri);
       },
       'open': (visitor, target, positionalArgs, namedArgs, _) {
@@ -116,6 +153,12 @@ class HttpClientIo {
             'open requires method, host, port, and path arguments.',
           );
         }
+        checkNetworkConnectPermission(
+          visitor,
+          positionalArgs[1],
+          positionalArgs[2],
+          operation: 'HttpClient.open',
+        );
         return (target as HttpClient).open(
           positionalArgs[0] as String,
           positionalArgs[1] as String,
@@ -131,6 +174,12 @@ class HttpClientIo {
             'openUrl requires method and Uri arguments.',
           );
         }
+        checkNetworkConnectPermission(
+          visitor,
+          (positionalArgs[1] as Uri).host,
+          (positionalArgs[1] as Uri).port,
+          operation: 'HttpClient.openUrl',
+        );
         return (target as HttpClient).openUrl(
           positionalArgs[0] as String,
           positionalArgs[1] as Uri,
@@ -145,6 +194,12 @@ class HttpClientIo {
             'get requires host, port, and path arguments.',
           );
         }
+        checkNetworkConnectPermission(
+          visitor,
+          positionalArgs[0],
+          positionalArgs[1],
+          operation: 'HttpClient.get',
+        );
         return (target as HttpClient).get(
           positionalArgs[0] as String,
           positionalArgs[1] as int,
@@ -160,6 +215,12 @@ class HttpClientIo {
             'post requires host, port, and path arguments.',
           );
         }
+        checkNetworkConnectPermission(
+          visitor,
+          positionalArgs[0],
+          positionalArgs[1],
+          operation: 'HttpClient.post',
+        );
         return (target as HttpClient).post(
           positionalArgs[0] as String,
           positionalArgs[1] as int,
@@ -175,6 +236,12 @@ class HttpClientIo {
             'put requires host, port, and path arguments.',
           );
         }
+        checkNetworkConnectPermission(
+          visitor,
+          positionalArgs[0],
+          positionalArgs[1],
+          operation: 'HttpClient.put',
+        );
         return (target as HttpClient).put(
           positionalArgs[0] as String,
           positionalArgs[1] as int,
@@ -190,6 +257,12 @@ class HttpClientIo {
             'delete requires host, port, and path arguments.',
           );
         }
+        checkNetworkConnectPermission(
+          visitor,
+          positionalArgs[0],
+          positionalArgs[1],
+          operation: 'HttpClient.delete',
+        );
         return (target as HttpClient).delete(
           positionalArgs[0] as String,
           positionalArgs[1] as int,
@@ -205,6 +278,12 @@ class HttpClientIo {
             'patch requires host, port, and path arguments.',
           );
         }
+        checkNetworkConnectPermission(
+          visitor,
+          positionalArgs[0],
+          positionalArgs[1],
+          operation: 'HttpClient.patch',
+        );
         return (target as HttpClient).patch(
           positionalArgs[0] as String,
           positionalArgs[1] as int,
@@ -220,6 +299,12 @@ class HttpClientIo {
             'head requires host, port, and path arguments.',
           );
         }
+        checkNetworkConnectPermission(
+          visitor,
+          positionalArgs[0],
+          positionalArgs[1],
+          operation: 'HttpClient.head',
+        );
         return (target as HttpClient).head(
           positionalArgs[0] as String,
           positionalArgs[1] as int,
@@ -436,6 +521,12 @@ class HttpServerIo {
             'HttpServer.bind requires address and port arguments.',
           );
         }
+        checkNetworkBindPermission(
+          visitor,
+          positionalArgs[0],
+          positionalArgs[1],
+          operation: 'HttpServer.bind',
+        );
         return HttpServer.bind(
           positionalArgs[0],
           positionalArgs[1] as int,
@@ -452,6 +543,12 @@ class HttpServerIo {
             'HttpServer.bindSecure requires address, port, and context arguments.',
           );
         }
+        checkNetworkBindPermission(
+          visitor,
+          positionalArgs[0],
+          positionalArgs[1],
+          operation: 'HttpServer.bindSecure',
+        );
         return HttpServer.bindSecure(
           positionalArgs[0],
           positionalArgs[1] as int,
@@ -469,6 +566,12 @@ class HttpServerIo {
             'HttpServer.listenOn requires a ServerSocket argument.',
           );
         }
+        checkNetworkListenPermission(
+          visitor,
+          null,
+          null,
+          operation: 'HttpServer.listenOn',
+        );
         return HttpServer.listenOn(positionalArgs[0] as ServerSocket);
       },
     },

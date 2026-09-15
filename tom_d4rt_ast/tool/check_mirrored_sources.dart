@@ -62,9 +62,12 @@ const Map<String, String> kDivergentMirrors = <String, String>{
   'stdlib/io/process.dart': _permissionAccess,
   'stdlib/io/platform.dart': _permissionAccess,
   'stdlib/io/filesystem_permission_helper.dart': _permissionAccess,
-  'stdlib/io/socket.dart':
-      'documented as a deliberate divergence in the quest overview, alongside '
-      'io/process.dart and unbridged_reasons.dart',
+  'stdlib/io/network_permission_helper.dart': _permissionAccess,
+  // SCD170 removed `stdlib/io/socket.dart` from this baseline. Its divergence
+  // was this same permission-access idiom, written inline in
+  // `_checkNetworkPermission`; both trees now route that through the network
+  // helper above, so the file is a textual mirror again and the idiom lives
+  // only in the two helpers whose job it is.
 };
 
 const String _astNodeTypes =
