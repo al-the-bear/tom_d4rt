@@ -1,3 +1,30 @@
+## 1.122.0
+
+### Added - `Future.syncValue`, and the SDK floor that was hiding it (scd186)
+
+`scc73_sdk_member_completeness_test.dart` skips any SDK member annotated
+`@Since` a version above the package's own floor, so that an SDK upgrade cannot
+turn it red demanding members the package may not legally compile against.
+`tom_d4rt` declared `^3.9.0` while `Future.syncValue` is `@Since("3.10")`, so it
+sat knowingly unbridged.
+
+The floor is now `^3.10.4` — the version `tom_d4rt_ast` and every other package
+in the d4rt repo already declared. The two mirrored packages had been
+straddling, which SCC26 asks them not to do, and no consumer could use the lower
+floor anyway. Raising it made the completeness guard name the member on its own,
+with no list to consult; measured across all eight bridged `dart:` libraries it
+was the only one hidden, even against an installed 3.12.2 SDK.
+
+`Future.syncValue` is not `Future.value` under another name. Both complete with
+the argument, but `value` ADOPTS a future argument — waiting for it and taking
+its result, error included — while `syncValue` completes with the argument
+as-is. That is what the SDK's "guaranteed to not have an error" rests on, and
+the tests pin both sides of the difference against real Dart.
+
+Registered as both a constructor and a static, like every other named `Future`
+factory: `Future<T>.syncValue(v)` routes through constructor lookup and
+`Future.syncValue(v)` through the static path.
+
 ## 1.121.0
 
 ### Fixed - `startChunkedConversion` accepts a sink a script can build (scd181)

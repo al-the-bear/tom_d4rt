@@ -33,6 +33,15 @@ class FutureAsync {
       'value': (visitor, positionalArgs, namedArgs) {
         return Future.value(positionalArgs.get<dynamic>(0));
       },
+      // `Future.syncValue` is NOT `Future.value` with a different name. Both
+      // complete with the argument, but `value` ADOPTS a future argument —
+      // waiting for it and taking its result, error included — while
+      // `syncValue` completes with the argument as-is. The SDK's own phrasing
+      // is that `syncValue` "is guaranteed to not have an error"; that
+      // guarantee is exactly what adoption would break.
+      'syncValue': (visitor, positionalArgs, namedArgs) {
+        return Future<Object?>.syncValue(positionalArgs.get<dynamic>(0));
+      },
       'error': (visitor, positionalArgs, namedArgs) {
         final error = positionalArgs[0];
         if (error == null) {
@@ -69,6 +78,12 @@ class FutureAsync {
       },
       'value': (visitor, positionalArgs, namedArgs, _) {
         return Future.value(positionalArgs.get<dynamic>(0));
+      },
+      // Registered in both maps for the reason the comment above the named
+      // factories gives: `Future<T>.syncValue(v)` routes through constructor
+      // lookup and `Future.syncValue(v)` through the static path.
+      'syncValue': (visitor, positionalArgs, namedArgs, _) {
+        return Future<Object?>.syncValue(positionalArgs.get<dynamic>(0));
       },
       'error': (visitor, positionalArgs, namedArgs, _) {
         final error = positionalArgs[0];
