@@ -1086,12 +1086,6 @@ class HttpClientResponseIo {
             positionalArgs,
             namedArgs,
           ),
-      'transform': (visitor, target, positionalArgs, namedArgs, _) {
-        // Implementation for transform would be complex, placeholder
-        throw RuntimeD4rtException(
-          'transform not yet implemented in interpreted environment',
-        );
-      },
       'redirect': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'HttpClient.redirect', atMost: 2);
         final method = positionalArgs.isNotEmpty

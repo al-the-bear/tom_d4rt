@@ -1,3 +1,33 @@
+## 1.123.0
+
+### Fixed - `HttpClientResponse.transform` works, by deleting the stub that broke it (scd187)
+
+Reading an HTTP body the way every Dart tutorial shows —
+`await response.transform(utf8.decoder).join()` — reported `transform not yet
+implemented in interpreted environment`, leaving the hand-folded read
+(`toList()`, concatenate, `utf8.decode`) as the only way to get a body out.
+
+There was nothing to implement. The `HttpClientResponse` bridge carried a local
+`transform` adapter whose entire body was that throw, under the comment
+"Implementation for transform would be complex, placeholder". But an
+`HttpClientResponse` IS a `Stream<List<int>>`, and the `Stream` bridge's
+`transform` already coerces the transformer and delegates. Deleting the local
+adapter is the whole fix — verified by deleting it and re-running the
+reproduction before the change was written.
+
+This is SCC51's shape one library over: a leaf bridge redeclaring a member its
+supertype supplies, and supplying a worse version. SCC51 deleted seventeen of
+these in `dart:collection` for the same reason — the inherited one was already
+right. `HttpServer.transform` worked throughout, because nothing shadowed it
+there.
+
+The message was also wider than the defect. "not yet implemented in interpreted
+environment" reads as a statement about the interpreter; it was one adapter on
+one class, one site per tree. A new repo-wide guard
+(`scd187_no_unimplemented_stubs_test.dart`) asserts that neither stdlib tree
+ships a message of that shape — the set is now empty, which is when a ratchet
+costs nothing and is worth having.
+
 ## 1.122.0
 
 ### Added - `Future.syncValue`, and the SDK floor that was hiding it (scd186)
