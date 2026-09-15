@@ -1617,6 +1617,42 @@ bool _versionExceeds(String a, String b) {
   return false;
 }
 
+/// What a pinned floor means now, given the two versions that describe this
+/// package's interpreter.
+///
+/// SCD159. F-SCC43-1 used to ask one question — has the DECLARED floor passed
+/// the pin — and the declared floor is not what the suite runs. The constraint
+/// moves only when somebody edits `pubspec.yaml`; the resolved version moves on
+/// every `pub upgrade`, and a caret bound admits every release up to the next
+/// major. So between a publish and the constraint bump that follows it, a pin is
+/// actionable while the register reports it as waiting, which is precisely the
+/// failure SCC43 exists to prevent, recurring inside the mechanism meant to
+/// prevent it.
+///
+/// THE TWO SIGNALS ARE DIFFERENT CLAIMS and are worth reporting apart:
+///
+///   * [due] — the interpreter this suite is RUNNING is already past the pin.
+///     The entry can be re-ported today, and the run that proves it is the one
+///     happening now.
+///   * [floorRaised] — the CONSTRAINT is past the pin too, so the entry is not
+///     merely re-portable, it is stale: nothing in this package can resolve an
+///     interpreter old enough to justify it.
+///
+/// `floorRaised` implies `due` — F-SCC80-1 asserts the lock is never behind the
+/// floor — so it is checked first and the weaker answer never masks the stronger
+/// one.
+enum _PinVerdict { waiting, due, floorRaised }
+
+_PinVerdict _pinVerdict(
+  String waitingOn, {
+  required String floor,
+  required String resolved,
+}) {
+  if (_versionExceeds(floor, waitingOn)) return _PinVerdict.floorRaised;
+  if (_versionExceeds(resolved, waitingOn)) return _PinVerdict.due;
+  return _PinVerdict.waiting;
+}
+
 /// Baseline entries in this file whose comment declares an interpreter floor,
 /// as `<entry path> -> <version>`.
 ///
@@ -3217,6 +3253,62 @@ void main() {
   });
 
   group('SCC43: publish-blocked entries flip when the publish lands', () {
+    // SCD159. The verdict rule decides what part four means, and TODAY IT
+    // CANNOT BE EXERCISED BY THE REGISTER: exec's constraint is `^0.65.0` and
+    // its lock resolves 0.65.0, so `floor` and `resolved` are the same string
+    // and the old rule and the new one agree on every one of the eight pins.
+    // The gap is real and latent — it opens the moment somebody runs
+    // `pub upgrade` after a publish, which a caret bound permits without any
+    // edit to the pubspec — so it is asserted directly, with the two versions
+    // supplied rather than read.
+    //
+    // Without this case the fix would be a change nothing measured, in a file
+    // whose whole subject is that a pin written from prose rots.
+    test('F-SCD159-1: a pin is due when the RESOLVED interpreter passes it, '
+        'not when the constraint does [2026-09-15]', () {
+      // The gap, stated as the case that used to be missed: a publish has
+      // landed and been resolved, the constraint has not been touched, and the
+      // pin sits between the two.
+      expect(
+        _pinVerdict('0.81.0', floor: '0.65.0', resolved: '0.87.0'),
+        _PinVerdict.due,
+        reason:
+            'This is the window SCD159 was filed about. Comparing against the '
+            'constraint answers `waiting` here, while the suite is already '
+            'running an interpreter two publishes past the pin.',
+      );
+      expect(
+        _pinVerdict('0.81.0', floor: '0.87.0', resolved: '0.87.0'),
+        _PinVerdict.floorRaised,
+        reason:
+            'Once the constraint has moved too, the entry is not merely '
+            're-portable — nothing here can resolve an interpreter old enough '
+            'to justify it, which is a stronger claim and a different '
+            'instruction.',
+      );
+      expect(
+        _pinVerdict('0.87.0', floor: '0.65.0', resolved: '0.65.0'),
+        _PinVerdict.waiting,
+        reason: 'The ordinary state: the publish has not happened.',
+      );
+      expect(
+        _pinVerdict('0.65.0', floor: '0.65.0', resolved: '0.65.0'),
+        _PinVerdict.waiting,
+        reason:
+            'Equality is not "past". A pin names the version whose publish it '
+            'waits for, so being AT that version is the moment before, not '
+            'after — and reading it the other way would declare every pin due '
+            'one release early.',
+      );
+      // Non-vacuity in the direction that matters: `floorRaised` must be
+      // checked before `due`, or the weaker answer masks the stronger one for
+      // every entry the constraint has passed.
+      expect(
+        _pinVerdict('0.40.0', floor: '0.65.0', resolved: '0.65.0'),
+        isNot(_PinVerdict.due),
+      );
+    });
+
     test('F-SCC43-1: no pinned entry is waiting on a publish that already '
         'happened [2026-09-05] (PASS)', () {
       final floor = _execAstFloor();
@@ -3305,19 +3397,41 @@ void main() {
 
       // Part four — the point of the whole register. Everything whose publish
       // has landed is now due, and the failure message IS the checklist.
+      //
+      // SCD159 changed WHICH VERSION this asks about. It used to compare the pin
+      // against the declared floor, which is not what the suite runs: the
+      // constraint moves when somebody edits the pubspec, the resolved version
+      // moves on every `pub upgrade`, and a caret bound admits everything up to
+      // the next major. Between a publish and the constraint bump that follows
+      // it, every pin in that window was actionable while this reported it as
+      // waiting.
+      final resolved = _execAstResolved();
       final due = <String>[];
+      final stalePins = <String>[];
       _pinnedInterpreterFloors.forEach((path, waitingOn) {
-        if (_versionExceeds(floor, waitingOn)) {
-          due.add('$path — waited on a publish past $waitingOn');
+        switch (_pinVerdict(waitingOn, floor: floor, resolved: resolved)) {
+          case _PinVerdict.floorRaised:
+            stalePins.add(
+              '$path — waited on $waitingOn; the CONSTRAINT is $floor, so '
+              'nothing here can resolve an interpreter old enough to justify '
+              'the entry',
+            );
+          case _PinVerdict.due:
+            due.add(
+              '$path — waited on $waitingOn; this run resolved $resolved',
+            );
+          case _PinVerdict.waiting:
+            break;
         }
       });
       expect(
-        due,
+        [...stalePins, ...due],
         isEmpty,
         reason:
-            "exec's tom_d4rt_ast floor is now $floor, which passes the version "
-            'these entries were waiting for. The interpreter behaviour they '
-            'were pinned to is published, so each one can be re-ported now: '
+            "exec resolves tom_d4rt_ast $resolved (constraint $floor), which "
+            'passes the version these entries were waiting for. The '
+            'interpreter behaviour they were pinned to is published, so each '
+            'one can be re-ported now: '
             'copy the twin from ../tom_d4rt/test over the exec copy, rewrite '
             'the interpreter import, run it, and delete both the baseline '
             'entry and its line in _pinnedInterpreterFloors. If one of them '
@@ -3325,7 +3439,12 @@ void main() {
             'entry saying so — do not re-pin it to the next version without '
             'measuring. `dart run tool/remeasure_pins.dart` does that '
             'measurement for every entry at once and prints the failing case '
-            'ids to paste into the entry.\n${due.join('\n')}',
+            'ids to paste into the entry.\n\n'
+            'An entry listed as CONSTRAINT-stale is the stronger case: it is '
+            'not merely re-portable, nothing in this package can resolve an '
+            'interpreter old enough for it, so leaving the register line is '
+            'recording a wait that cannot happen.\n'
+            '${[...stalePins, ...due].join('\n')}',
       );
     });
   }, skip: skipReason);
