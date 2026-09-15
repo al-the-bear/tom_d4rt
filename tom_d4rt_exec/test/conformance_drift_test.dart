@@ -977,6 +977,20 @@ const Map<String, _Coverage> _coveredElsewhere = {
 /// a copy would ask the same questions about the same three packages and add a
 /// second red for one cause, not that it cannot run.
 const Map<String, int> _uncoveredBaseline = {
+  // A REPO-WIDE GUARD whose subject is the REPOSITORY, not this package: it is
+  // the reference half of THIS file's F-SCC6-4, and it reads this file as data.
+  // An exec copy would compare the same two trees against the same baseline and
+  // reach the same verdict, so a dropped guard would turn two suites red for one
+  // cause and the extra red would say nothing the first did not. Listed here by
+  // its own author rather than left to grow F-SCC6-2's backlog (sce186), which
+  // is exactly the debt it would otherwise have joined.
+  'scd153_conformance_drift_mirror_test.dart': 4,
+  // The same shape, one subject over: it parses both packages' public export
+  // namespaces off disk and asserts neither withholds a name it declares. The
+  // comparison is symmetric, so running it from either side gives the same
+  // answer — which is what makes a second copy pure duplication rather than
+  // coverage.
+  'scd156_public_surface_parity_test.dart': 3,
   // NOT PORTABLE — and uniquely so: the subject itself cannot exist on the
   // analyzer-free line. `static_name_report.dart` resolves names over the
   // ANALYZER AST, which `tom_d4rt_ast` has no access to by construction, so
