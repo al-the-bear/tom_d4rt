@@ -367,6 +367,43 @@ class BridgedClass implements RuntimeType {
   BridgedInstanceSetterAdapter? findInstanceSetterAdapter(String name) {
     return setters[name];
   }
+
+  /// SCD198 — a bare class name is a VALUE in a script, and it has to hash like
+  /// the `Type` it denotes.
+  ///
+  /// `x.runtimeType == Foo` was already reconciled, in
+  /// `visitBinaryExpression`: a `Type` against a `BridgedClass` compares their
+  /// native types and answers correctly. Hashing was not, and it cannot be
+  /// reconciled there — `Map` and `Set` call `.hashCode` on the Dart object
+  /// itself, with no interpreter in between. So `{String: 's'}` keyed by a
+  /// class name and looked up by `'x'.runtimeType` missed, as did
+  /// `Set<Type>.contains` and `List<Type>.indexOf`, while `==` on the same two
+  /// values said true.
+  ///
+  /// Equal objects with different hash codes is an `Object` contract violation,
+  /// and it is SCC32's shape exactly — that todo fixed it for `BridgedInstance`
+  /// wrappers and this is the same defect on the class-name value. Delegating
+  /// both to [nativeType] is what makes the two agree.
+  ///
+  /// TWO BRIDGES FOR ONE NATIVE TYPE NOW COMPARE EQUAL, which is deliberate and
+  /// is what a re-export is: `scd195_registry_collision_test.dart` measures
+  /// 1 659 names reached through more than one barrel, every one of them the
+  /// same `nativeType`. Nothing in the registry depends on the old identity
+  /// semantics — the shadow machinery uses `identical` throughout, and there is
+  /// no `Map<BridgedClass, …>` or `Set<BridgedClass>` in either tree.
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is BridgedClass) return nativeType == other.nativeType;
+    if (other is Type) return nativeType == other;
+    return false;
+  }
+
+  /// Must agree with [operator ==], and therefore with [nativeType], or a value
+  /// that compares equal still lands in a different bucket — which is precisely
+  /// the defect this pair fixes.
+  @override
+  int get hashCode => nativeType.hashCode;
 }
 
 /// Represents an instance of a bridged native class.

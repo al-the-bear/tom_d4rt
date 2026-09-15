@@ -1,3 +1,31 @@
+## 1.127.0
+
+### Fixed - a class name used as a value now compares, hashes and tests like a `Type` (scd198)
+
+`x.runtimeType == Foo` had already been reconciled, so `==` answered correctly.
+`hashCode` had not. Equal objects with different hash codes is an `Object`
+contract violation, and it explains the symptom set exactly: the comparison
+looked fine and every hash-based collection missed —
+`<Type, T>{String: v}[x.runtimeType]` was null, `Set<Type>.contains` false,
+`List<Type>.indexOf` -1.
+
+This is SCC32's shape on the class-name value, and it takes SCC32's fix in both
+halves, because either alone leaves the two map spellings disagreeing:
+
+1. `BridgedClass` delegates `==` and `hashCode` to its `nativeType`.
+2. A class name used as a hash key is normalised to that native at storage, in
+   `_unwrapHashKey` — Dart's hash lookup asks `lookupKey == storedKey` with the
+   lookup key as receiver, and a native `Type` looking up a stored
+   `BridgedClass` is rejected by `Type.==`, which no code here can override.
+
+Two bridges for one native type now compare equal. That is deliberate and is
+what a re-export is; identity is untouched, which is what the shadow machinery
+relies on.
+
+`SomeClass is Type` was false for every class in the language while
+`x.runtimeType is Type` was true — the `is` predicate had no arm for a class
+name. It has one now, for bridged and interpreted classes alike.
+
 ## 1.126.0
 
 ### Fixed - `MapEntry.hashCode` was not readable as a value (scd196)

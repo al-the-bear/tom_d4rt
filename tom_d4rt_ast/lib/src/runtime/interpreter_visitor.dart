@@ -8137,6 +8137,13 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   Object? _unwrapHashKey(Object? key) {
     if (key is BridgedEnumValue) return key.nativeValue;
     if (key is BridgedInstance) return key.nativeObject;
+    // SCD198: a bare CLASS NAME is a value too, and the same argument covers
+    // it. `<Type, T>{String: v}` stores the `BridgedClass` the name evaluates
+    // to; a lookup by `x.runtimeType` arrives as a native `Type`, and
+    // `Type.==` rejects a `BridgedClass` — the direction no code here can
+    // override. Storing the native `Type` is what makes `m[x.runtimeType]`
+    // and `m[String]` reach the same entry.
+    if (key is BridgedClass) return key.nativeType;
     return key;
   }
 
@@ -11879,6 +11886,21 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           break;
         case 'Null':
           result = expressionValue == null;
+          break;
+        case 'Type':
+          // SCD198: a bare class name is a VALUE denoting a type, and
+          // `SomeClass is Type` is the check a script writes before using one
+          // as a type at all. It evaluates to a `BridgedClass` (bridged) or an
+          // `InterpretedClass` (script-declared), neither of which is a Dart
+          // `Type`, so without this arm the answer was false for every class
+          // in the language while `x.runtimeType is Type` was true.
+          //
+          // A real `Type` still answers through the same arm, so this widens
+          // the predicate rather than replacing it.
+          result =
+              expressionValue is Type ||
+              expressionValue is BridgedClass ||
+              expressionValue is InterpretedClass;
           break;
         case 'Object':
           // Everything non-null is an Object?
