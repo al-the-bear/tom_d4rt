@@ -145,6 +145,29 @@ void main() {
       },
     );
 
+    test('F-SCD160-1: IntegerDivisionByZeroException reaches BOTH its parents '
+        'through the walk [2026-09-15]', () {
+      // The one edge in `ErrorHierarchyCore` the SDK makes unusual, and the
+      // only one whose two answers come from different places. The declaration
+      // is `['UnsupportedError', 'Exception']` — single-hop, like every edge in
+      // the block since SCD67 — so `is Error` is a TWO-hop answer composed by
+      // the registry walk, while `is Exception` comes from the second parent
+      // directly.
+      //
+      // SCD160 asked for a case that exercises the walk the de-flattened block
+      // now depends on. F-SC5-5 above does that for the `IndexError` chain;
+      // this does it for the branch, which is the harder one to get right: a
+      // walk that stopped at the first parent would still answer `is Error`
+      // correctly and lose `is Exception` entirely.
+      final result = execute('''
+        main() {
+          final e = IntegerDivisionByZeroException();
+          return '\${e is UnsupportedError}|\${e is Error}|\${e is Exception}';
+        }
+      ''');
+      expect(result, 'true|true|true');
+    });
+
     test('F-SC5-6: TypeError is constructible and catchable [2026-07-27]', () {
       final result = execute('''
         main() {

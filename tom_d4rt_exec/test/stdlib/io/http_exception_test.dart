@@ -179,6 +179,27 @@ void main() {
         expect(execute(source), equals('io'));
       });
 
+      test('F-SCD160-2-${entry.key}: ${entry.key} reaches `Exception` '
+          'through IOException [2026-09-15]', () {
+        // The TWO-hop answer, which F-SCC61-8 above does not ask for.
+        // `ExceptionHierarchyCore` declares `SocketException -> IOException`
+        // and `IOException -> Exception` as separate single hops — the shape
+        // SCD67 swept the whole stdlib into — so nothing composes them but the
+        // registry walk SCC19 put behind `isSubtypeOf`.
+        //
+        // That matters because a block declaring its own transitive closure
+        // passes every test of its own contents whether or not the walk works,
+        // which is how the pre-SCC19 depth defect stayed hidden. Measured by
+        // ablation 2026-09-15: reverting the walk to one hop turns this red and
+        // leaves F-SCC61-8 green.
+        final source =
+            '''
+        import 'dart:io';
+        main() { return [${entry.value} is Exception, 1 is Exception]; }
+        ''';
+        expect(execute(source), equals([true, false]));
+      });
+
       test('F-SCC61-8-${entry.key}: ${entry.key} answers `is IOException` '
           '[2026-09-06]', () {
         final source =

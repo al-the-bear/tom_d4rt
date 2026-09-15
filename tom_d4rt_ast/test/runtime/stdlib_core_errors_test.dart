@@ -113,6 +113,16 @@ void main() {
         BridgedClass.transitiveSupertypeNames('UnimplementedError'),
         containsAll(<String>['UnsupportedError', 'Error']),
       );
+      // SCD160. The one edge in `ErrorHierarchyCore` the SDK makes unusual, and
+      // the only one whose two answers come from different places: the
+      // declaration is `['UnsupportedError', 'Exception']`, so `Error` is a
+      // TWO-hop answer composed by the walk while `Exception` is a direct
+      // second parent. A walk that stopped at the first parent would still
+      // reach `Error` and lose `Exception` entirely.
+      expect(
+        BridgedClass.transitiveSupertypeNames('IntegerDivisionByZeroException'),
+        containsAll(<String>['UnsupportedError', 'Error', 'Exception']),
+      );
       for (final name in const [
         'NoSuchMethodError',
         'ConcurrentModificationError',
