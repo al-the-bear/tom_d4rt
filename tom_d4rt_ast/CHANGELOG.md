@@ -1,3 +1,46 @@
+## 0.97.0
+
+### Added - a bridged function typedef can carry its positional arity (scd137)
+
+scd136 made a bridged function typedef accept any callable, arity-blind,
+because `BridgedClass(nativeType: Function, name: typedef.name)` was all that
+survived generation: the signature was discarded, so `VoidCallback` and
+`ValueChanged` were indistinguishable at runtime. A zero-argument closure
+passed where a one-argument callback is required bound happily, then threw at
+the call with a message naming neither the parameter nor the typedef.
+
+`BridgedClass` now carries `typedefRequiredPositional` /
+`typedefMaxPositional`, and `FunctionRuntimeType.isSubtypeOf` uses them to
+refuse a callable that PROVABLY cannot be invoked - moving the failure to the
+binding, where the parameter and the typedef can be named.
+
+The rule is deliberately narrow, because the prize is a better error rather
+than a caught bug: the program is broken either way, so a false rejection -
+refusing a callback that works, across every Flutter widget - costs far more
+than the diagnostic gains.
+
+- **Arity only; return types are never consulted.** An interpreted closure
+  always resolves to `dynamic Function(...)`, so checking returns would refuse
+  working callbacks wholesale.
+- **Only the typedef's REQUIRED positional count is checked**, never its
+  maximum. That is the one invocation shape a typedef guarantees; rejecting on
+  a possibility is how a working callback gets refused.
+- **Optional positionals on the callable side count toward what it accepts**,
+  so a closure taking one required and one optional argument serves a
+  one-argument typedef.
+- **No arity, no opinion.** A bridge registered without it behaves exactly as
+  scd136 left it.
+
+`registerFunctionTypedef` gains two optional named parameters, and the
+`functionTypedefs` record gains two nullable fields - both additive.
+
+**This is inert until a generator that emits the arity ships.** Every
+generated bridge in existence registers typedefs without it, so nothing
+changes for any current consumer. The generator half is tracked separately
+(sce163): generated output has to compile against the PUBLISHED interpreter,
+and it cannot emit a call to an API that does not exist yet - which the
+GEN-121 analyse gate demonstrated by going red the moment it tried.
+
 ## 0.96.0
 
 ### Fixed — an interpreted closure is accepted against a bridged function typedef (scd136 / GEN-125)

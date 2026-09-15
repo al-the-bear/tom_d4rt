@@ -217,9 +217,32 @@ class BridgedClass implements RuntimeType {
   Map<String, String> getterSignatures = {};
   Map<String, String> setterSignatures = {};
 
+  /// SCD137 — the positional arity of the FUNCTION TYPEDEF this bridge stands
+  /// for, when it stands for one. `null` on every other bridge, and on a
+  /// typedef bridge generated before the generator carried the signature
+  /// through — in which case `FunctionRuntimeType.isSubtypeOf` keeps scd136's
+  /// arity-blind acceptance.
+  ///
+  /// A function typedef has no bridgeable class, so it is registered as
+  /// `BridgedClass(nativeType: Function, name: typedef.name)`. That discarded
+  /// the signature, which is why `VoidCallback` and `ValueChanged` were
+  /// indistinguishable to the interpreter.
+  ///
+  /// Only POSITIONAL arity is carried, and only these two numbers. Return
+  /// types are deliberately absent: an interpreted closure always resolves to
+  /// `dynamic Function(...)`, so checking returns would refuse working
+  /// callbacks wholesale.
+  final int? typedefRequiredPositional;
+
+  /// The most positional arguments the typedef may pass — required plus
+  /// optional. See [typedefRequiredPositional].
+  final int? typedefMaxPositional;
+
   BridgedClass({
     required this.nativeType,
     required this.name,
+    this.typedefRequiredPositional,
+    this.typedefMaxPositional,
     this.nativeNames,
     this.typeParameterCount = 0,
     this.canBeUsedAsMixin = false,

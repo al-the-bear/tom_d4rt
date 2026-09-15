@@ -168,7 +168,27 @@ class FunctionRuntimeType implements RuntimeType {
     // carry one is a generator change, tracked as scd137. Until then the
     // posture is the documented one — be permissive rather than reject working
     // callbacks.
-    if (other is BridgedClass && other.nativeType == Function) return true;
+    if (other is BridgedClass && other.nativeType == Function) {
+      // SCD137 — when the bridge carries the typedef's positional arity, a
+      // callable that PROVABLY cannot be invoked is refused here instead of
+      // throwing later at the call, with a message that names neither the
+      // parameter nor the typedef.
+      //
+      // The rule is deliberately the conservative one. Only the typedef's
+      // REQUIRED count is checked: that is the one invocation shape it
+      // guarantees, and rejecting on a possibility is how a working callback
+      // gets refused. Optional positionals on the callable side count toward
+      // what it can accept, so `(a, [b]) {}` serves a one-argument typedef.
+      //
+      // No arity means no opinion — scd136's acceptance, unchanged. Every
+      // `.b.dart` generated before the generator carried signatures through is
+      // in that state, so this is inert until both have shipped.
+      final required = other.typedefRequiredPositional;
+      if (required == null) return true;
+      final minAccepted = positionalParameterTypes.length;
+      final maxAccepted = minAccepted + optionalPositionalParameterTypes.length;
+      return minAccepted <= required && required <= maxAccepted;
+    }
     // Every function is a `Function` and an `Object`.
     return _isWildcardTypeName(other.name) || other.name == 'Function';
   }

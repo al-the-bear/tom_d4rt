@@ -134,7 +134,10 @@ class _PackageBridgeBundle {
   final Map<String, List<LibraryExtension>> bridgedExtensions = {};
   final List<({String aliasName, String targetName, String library})>
   classAliases = [];
-  final List<({String name, String library})> functionTypedefs = [];
+  final List<
+    ({String name, String library, int? requiredPositional, int? maxPositional})
+  >
+  functionTypedefs = [];
   final Map<String, Map<String, LibraryFunction>> libraryFunctions = {};
   final Map<String, Map<String, LibraryVariable>> libraryVariables = {};
   final Map<String, Map<String, LibraryGetter>> libraryGetters = {};
@@ -249,7 +252,10 @@ class D4rtRunner {
   /// Function typedefs (e.g., VoidCallback = void Function()) registered
   /// as environment types so they can be resolved in type annotations
   /// and type arguments.
-  final List<({String name, String library})> _functionTypedefs = [];
+  final List<
+    ({String name, String library, int? requiredPositional, int? maxPositional})
+  >
+  _functionTypedefs = [];
 
   final Map<String, Map<String, LibraryFunction>> _libraryFunctions = {};
   final Map<String, Map<String, LibraryVariable>> _libraryVariables = {};
@@ -707,16 +713,33 @@ class D4rtRunner {
   ///
   /// [name] The typedef name (e.g., 'VoidCallback').
   /// [library] The library path where this typedef is exported from.
-  void registerFunctionTypedef(String name, String library) {
-    final typedef = (name: name, library: library);
+  /// SCD137 — [requiredPositional] / [maxPositional] carry the typedef's
+  /// POSITIONAL arity so `FunctionRuntimeType.isSubtypeOf` can refuse a
+  /// callable that provably cannot be invoked. Both are optional: a bridge
+  /// generated before the generator carried signatures through omits them, and
+  /// the interpreter then keeps scd136's arity-blind acceptance.
+  void registerFunctionTypedef(
+    String name,
+    String library, {
+    int? requiredPositional,
+    int? maxPositional,
+  }) {
+    final typedef = (
+      name: name,
+      library: library,
+      requiredPositional: requiredPositional,
+      maxPositional: maxPositional,
+    );
     _functionTypedefs.add(typedef);
     // Step 7: dual-write into the process-global pool (see registerBridgedEnum).
     _bundleFor().functionTypedefs.add(typedef);
   }
 
   /// Registered function typedefs.
-  List<({String name, String library})> get functionTypedefs =>
-      _functionTypedefs;
+  List<
+    ({String name, String library, int? requiredPositional, int? maxPositional})
+  >
+  get functionTypedefs => _functionTypedefs;
 
   /// GEN-107: Registered library re-exports keyed by source library URI.
   ///
@@ -1434,7 +1457,15 @@ class D4rtRunner {
     Environment env, {
     required Map<String, Map<String, LibraryEnum>> enumDefinitions,
     required Map<String, Map<String, LibraryClass>> classes,
-    required List<({String name, String library})> functionTypedefs,
+    required List<
+      ({
+        String name,
+        String library,
+        int? requiredPositional,
+        int? maxPositional,
+      })
+    >
+    functionTypedefs,
     required Map<String, Map<String, LibraryFunction>> libraryFunctions,
     required Map<String, Map<String, LibraryVariable>> libraryVariables,
     required Map<String, Map<String, LibraryGetter>> libraryGetters,

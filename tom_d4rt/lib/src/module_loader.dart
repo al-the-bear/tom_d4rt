@@ -547,7 +547,13 @@ class ModuleLoader {
         }
         try {
           targetEnvironment.defineBridge(
-            BridgedClass(nativeType: Function, name: typedef.name),
+            BridgedClass(
+              nativeType: Function,
+              name: typedef.name,
+              // SCD137 — carries through when the generator emitted it.
+              typedefRequiredPositional: typedef.requiredPositional,
+              typedefMaxPositional: typedef.maxPositional,
+            ),
             sourceUri: uriString,
           );
           Logger.debugLazy(
