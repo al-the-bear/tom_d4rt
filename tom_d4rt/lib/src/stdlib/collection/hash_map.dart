@@ -78,13 +78,6 @@ class HashMapCollection {
         }
         throw RuntimeD4rtException("Invalid arguments for HashMap[] getter");
       },
-      '[]=': (visitor, target, positionalArgs, namedArgs, _) {
-        if (target is HashMap && positionalArgs.length == 2) {
-          target[positionalArgs[0]] = positionalArgs[1];
-          return positionalArgs[1];
-        }
-        throw RuntimeD4rtException("Invalid arguments for HashMap[]= setter");
-      },
       'addAll': (visitor, target, positionalArgs, namedArgs, _) {
         if (target is HashMap && positionalArgs.length == 1) {
           final otherMap = positionalArgs[0];
@@ -222,21 +215,6 @@ class HashMapCollection {
           return target.cast<dynamic, dynamic>();
         }
         throw RuntimeD4rtException("Invalid arguments for HashMap.cast");
-      },
-      'map': (visitor, target, positionalArgs, namedArgs, _) {
-        if (target is HashMap && positionalArgs.length == 1) {
-          final transform = positionalArgs[0];
-          if (transform is Callable) {
-            return target.map(
-              (key, value) =>
-                  MapEntry(key, transform.call(visitor, [key, value], {})),
-            );
-          }
-          throw RuntimeD4rtException(
-            "Argument to HashMap.map must be a function.",
-          );
-        }
-        throw RuntimeD4rtException("Invalid arguments for HashMap.map");
       },
     },
     getters: {

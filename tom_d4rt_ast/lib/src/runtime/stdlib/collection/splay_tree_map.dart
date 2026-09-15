@@ -131,15 +131,6 @@ class SplayTreeMapCollection {
           "Invalid arguments for SplayTreeMap[] getter",
         );
       },
-      '[]=': (visitor, target, positionalArgs, namedArgs, _) {
-        if (target is SplayTreeMap && positionalArgs.length == 2) {
-          target[positionalArgs[0]] = positionalArgs[1];
-          return positionalArgs[1];
-        }
-        throw RuntimeD4rtException(
-          "Invalid arguments for SplayTreeMap[]= setter",
-        );
-      },
       'addAll': (visitor, target, positionalArgs, namedArgs, _) {
         if (target is SplayTreeMap && positionalArgs.length == 1) {
           final otherMap = positionalArgs[0];

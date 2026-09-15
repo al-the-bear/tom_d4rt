@@ -1,3 +1,50 @@
+## 0.100.0
+
+### Fixed - `HashMap.map` / `LinkedHashMap.map` ignored the entry the callback returns (scd152)
+
+Both bridges carried a local `map` adapter that rebuilt the result as
+`MapEntry(key, callbackResult)` — keeping the ORIGINAL key and storing whatever
+the callback returned as the value. `Map.map`'s contract is that the callback
+returns a `MapEntry` supplying BOTH halves. So
+
+```dart
+HashMap.from({'a': 1}).map((k, v) => MapEntry(v, k))
+```
+
+produced `{'a': MapEntry(1, 'a')}` where Dart gives `{1: 'a'}`. The shared
+`Map.map` adapter has always been right, including unwrapping a
+`BridgedInstance<MapEntry>` an interpreted `MapEntry(...)` produces, so the fix
+is to delete the two local copies and let it answer. `SplayTreeMap` never had a
+copy and was already correct — byte-for-byte the SCB17 `addEntries` asymmetry,
+where two of three map siblings carried the same divergent duplicate.
+
+### Changed - the `[]=` adapters on three map bridges no longer diverge
+
+`HashMap`, `LinkedHashMap` and `SplayTreeMap` each declared a local `[]=`
+returning the assigned value, while `Map.[]=` returns null. Not observable from
+a script — the interpreter discards the adapter's result and yields the assigned
+value itself — but a shadowed adapter whose body differs from the one it hides is
+what SCC51 exists to remove, so the local copies are gone.
+
+### Changed - the SCC51 shadow differential drives every pair (scd152)
+
+`F-SCC51-8` compared 281 of 542 shadowed pairs and SKIPPED 261, because its
+harness invokes adapters directly and a callback argument needs an
+interpreter-side `Callable` it did not build. The skipped half is where SCC51
+predicted divergence would hide, and both defects above were in it.
+
+Seven native callables and a per-member argument recipe remove the skip
+category entirely: the walk now compares **537** pairs with **no** skips. Two
+new counters make the ways it could stop measuring visible instead of silent —
+`undrivable` for a shadowed member with no recipe, and `vacuous` for a pair
+where both adapters rejected the arguments, which is agreement about nothing
+rather than a passing comparison. Both are asserted zero; the old skip set
+reached 261 precisely because nothing objected to it growing.
+
+The skip set was never only about callables, incidentally: of its 38 names, some
+twenty — `clear`, `removeLast`, `insert`, `setRange`, `asMap`, `[]=` and the rest
+— take no callback at all and were simply missing an argument recipe.
+
 ## 0.99.0
 
 ### Changed - `_isInterpreterOwned` now covers `InterpretedRecord` (scd147)

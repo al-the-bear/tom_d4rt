@@ -135,49 +135,189 @@ final Map<String, List<Object?>> _classArgs = {
     ],
 };
 
-/// Members taking a callback or otherwise needing an interpreted value the
-/// harness cannot synthesise natively. These are counted, not silently dropped,
-/// so the coverage gap stays visible in the test output.
-const _needsCallable = {
-  'map',
-  'where',
-  'forEach',
-  'any',
-  'every',
-  'firstWhere',
-  'lastWhere',
-  'singleWhere',
-  'fold',
-  'reduce',
-  'expand',
-  'removeWhere',
-  'retainWhere',
-  'skipWhile',
-  'takeWhile',
-  'whereType',
-  'cast',
-  'putIfAbsent',
-  'update',
-  'updateAll',
-  'sort',
-  'shuffle',
-  'followedBy',
-  'addEntries',
-  '[]=',
-  'setAll',
-  'setRange',
-  'fillRange',
-  'replaceRange',
-  'insert',
-  'insertAll',
-  'asMap',
-  'clear',
-  'removeLast',
-  'removeRange',
-  'addFirst',
-  'addLast',
-  'removeFirst',
+/// Interpreter-side callables, by the shape the member expects. SCD152: the
+/// differential used to SKIP every member taking one of these — 261 of 542
+/// pairs, which is where SCC51 predicted divergence would hide, because
+/// unwrapping a callback argument is fiddly and a leaf copy that gets it subtly
+/// wrong looks identical from the outside. Both predictions held: driving them
+/// found `HashMap.map` and `LinkedHashMap.map` rebuilding the entry as
+/// `MapEntry(key, callbackResult)` instead of using the `MapEntry` the callback
+/// returns, so `{'a': 1}.map((k, v) => MapEntry(v, k))` produced
+/// `{'a': MapEntry(1, 'a')}`. `SplayTreeMap` had no copy and already worked —
+/// byte-for-byte the SCB17 `addEntries` asymmetry.
+///
+/// These are built natively even though this tree HAS a parser, for two
+/// reasons. The mirror twin has none, so the same shape keeps the two files
+/// diffable; and a script-level probe cannot produce a differential anyway — a
+/// script cannot force the SUPERTYPE's adapter to run on a given object, since
+/// dispatch resolves by the object's bridged class.
+final _pred1 = NativeFunction(
+  (visitor, positional, named, types) => true,
+  arity: 1,
+  name: 'pred1',
+);
+final _pred2 = NativeFunction(
+  (visitor, positional, named, types) => true,
+  arity: 2,
+  name: 'pred2',
+);
+final _ident1 = NativeFunction(
+  (visitor, positional, named, types) => positional.first,
+  arity: 1,
+  name: 'ident1',
+);
+final _combine2 = NativeFunction(
+  (visitor, positional, named, types) => positional.first,
+  arity: 2,
+  name: 'combine2',
+);
+final _expand1 = NativeFunction(
+  (visitor, positional, named, types) => [positional.first],
+  arity: 1,
+  name: 'expand1',
+);
+final _supplier0 = NativeFunction(
+  (visitor, positional, named, types) => 99,
+  arity: 0,
+  name: 'supplier0',
+);
+
+/// `Map.map` takes `(K, V) => MapEntry`, not a one-argument transform. Getting
+/// that wrong is what made the first run of this walk report `HashMap.map` as
+/// divergent for the wrong reason — the leaf accepted a 1-arg callable while
+/// `Map.map` correctly refused it, which says nothing about entry handling.
+final _entry2 = NativeFunction(
+  (visitor, positional, named, types) =>
+      MapEntry<dynamic, dynamic>(positional[0], positional[1]),
+  arity: 2,
+  name: 'entry2',
+);
+
+/// The fixtures whose member signatures are the `Map` ones — `forEach` takes
+/// `(k, v)` here and `(e)` everywhere else.
+const _mapFixtures = {
+  'HashMap',
+  'LinkedHashMap',
+  'SplayTreeMap',
+  'UnmodifiableMapView',
 };
+
+/// Arguments for members the plain `_args` table cannot express, either because
+/// one of them has to be a `Callable` or because the argument depends on whether
+/// the receiver is a map.
+///
+/// Returns null for a member with no recipe, which the walk counts rather than
+/// silently invoking with no arguments — an adapter called wrongly throws on
+/// BOTH sides and would otherwise read as agreement.
+List<Object?>? _callableArgs(String cls, String m) {
+  final isMap = _mapFixtures.contains(cls);
+  switch (m) {
+    case 'map':
+      return [isMap ? _entry2 : _ident1];
+    case 'forEach':
+    case 'removeWhere':
+      return [isMap ? _pred2 : _pred1];
+    case 'where':
+    case 'any':
+    case 'every':
+    case 'firstWhere':
+    case 'lastWhere':
+    case 'singleWhere':
+    case 'retainWhere':
+    case 'skipWhile':
+    case 'takeWhile':
+      return [_pred1];
+    case 'fold':
+      return [0, _combine2];
+    case 'reduce':
+      return [_combine2];
+    case 'expand':
+      return [_expand1];
+    case 'putIfAbsent':
+      return ['z', _supplier0];
+    case 'update':
+      return ['a', _ident1];
+    case 'updateAll':
+      return [_combine2];
+    // No callback, and no entry in `_args` either: these were swept into the
+    // old skip set alongside the callback-takers, which is why the set was
+    // never only about callables.
+    case 'sort':
+    case 'shuffle':
+    case 'asMap':
+    case 'clear':
+    case 'removeLast':
+    case 'removeFirst':
+    case 'cast':
+    case 'whereType':
+    // Genuinely no positional arguments — listed rather than left to a default,
+    // because the default is what made `elementAtOrNull` below compare
+    // `THROW == THROW` and read as agreement.
+    case 'toList':
+    case 'toSet':
+      return const <Object?>[];
+    case 'elementAtOrNull':
+      return [0];
+    case 'followedBy':
+      return [
+        <dynamic>[7, 8],
+      ];
+    case 'addEntries':
+      return [
+        <dynamic>[const MapEntry<dynamic, dynamic>('c', 3)],
+      ];
+    case '[]=':
+      return isMap ? ['c', 3] : [0, 7];
+    case 'setAll':
+      return [
+        0,
+        <dynamic>[7],
+      ];
+    case 'setRange':
+      return [
+        0,
+        1,
+        <dynamic>[7],
+      ];
+    case 'fillRange':
+      return [0, 1, 7];
+    case 'replaceRange':
+      return [
+        0,
+        1,
+        <dynamic>[7],
+      ];
+    case 'insert':
+      return [0, 7];
+    case 'insertAll':
+      return [
+        0,
+        <dynamic>[7],
+      ];
+    case 'removeRange':
+      return [0, 1];
+    case 'addFirst':
+    case 'addLast':
+      return [7];
+  }
+  return null;
+}
+
+/// How a pair of outcomes is counted. Extracted from the walk so the third
+/// case is reachable without contriving a registry state that produces it:
+/// no ablation of the recipes yields two IDENTICAL `RuntimeD4rtException`s —
+/// they differ in message and land in [_PairVerdict.divergent] first — so the
+/// branch that keeps `THROW == THROW` from reading as agreement would otherwise
+/// be asserted by nothing. `F-SCD152-1` covers it directly.
+enum _PairVerdict { compared, divergent, vacuous }
+
+_PairVerdict _verdict(String subOutcome, String supOutcome) {
+  if (subOutcome != supOutcome) return _PairVerdict.divergent;
+  if (subOutcome.startsWith('THROW RuntimeD4rtException')) {
+    return _PairVerdict.vacuous;
+  }
+  return _PairVerdict.compared;
+}
 
 /// Stringifies an invocation so two adapters can be compared for behavioural
 /// equality — including which exception family escaped, which is the whole
@@ -358,6 +498,42 @@ void main() {
       );
     });
 
+    // SCD152. The verdict rule decides what the two counters above mean, and
+    // its third case cannot be reached by ablating the recipes — two adapters
+    // rejecting the same bad arguments produce DIFFERENT messages, so they are
+    // reported as a divergence before the vacuous branch is consulted.
+    // Asserted directly for that reason.
+    test('F-SCD152-1: identical rejections are not counted as agreement '
+        '[2026-09-15]', () {
+      expect(
+        _verdict('Iterable([1, 2])', 'Iterable([1, 2])'),
+        _PairVerdict.compared,
+        reason: 'two adapters returning the same value is the passing case',
+      );
+      expect(
+        _verdict('int(3)', 'Null(null)'),
+        _PairVerdict.divergent,
+        reason:
+            'the shape of the `[]=` divergence SCD152 found — same call, '
+            'different result',
+      );
+      expect(
+        _verdict('THROW StateError', 'THROW StateError'),
+        _PairVerdict.compared,
+        reason:
+            'an SDK error on both sides IS meaningful agreement: it is what '
+            'F-SCC51-1..5 are about, so it must stay a comparison',
+      );
+      expect(
+        _verdict('THROW RuntimeD4rtException', 'THROW RuntimeD4rtException'),
+        _PairVerdict.vacuous,
+        reason:
+            'a D4rt-level rejection on both sides means the harness supplied '
+            'arguments neither adapter accepted. Counting that as a comparison '
+            'is how a differential hollows out while staying green.',
+      );
+    });
+
     test('F-SCC51-8: no shadowed adapter behaves differently from the '
         'supertype adapter it hides [2026-09-06]', () {
       // The standing guard, and the reason this file is not a 300-name
@@ -383,8 +559,10 @@ void main() {
       );
 
       var compared = 0;
-      var skipped = 0;
+      var undrivable = 0;
+      var vacuous = 0;
       final diffs = <String>[];
+      final noRecipe = <String>{};
 
       for (final name in _fixtures.keys) {
         final sub = env.findBridgedClassByName(name);
@@ -396,21 +574,33 @@ void main() {
           for (final m in sub.methods.keys.toSet().intersection(
             sup.methods.keys.toSet(),
           )) {
-            if (_needsCallable.contains(m)) {
-              skipped++;
+            // SCD152: a member with no recipe is COUNTED, never invoked with
+            // whatever `_args` happens to hold. An adapter called with the
+            // wrong arguments throws on both sides, and THROW == THROW would be
+            // recorded as agreement — the quietest way for this guard to hollow
+            // out as the bridges grow.
+            final args =
+                _classArgs['$name.$m'] ?? _args[m] ?? _callableArgs(name, m);
+            if (args == null) {
+              undrivable++;
+              noRecipe.add(m);
               continue;
             }
-            final args =
-                _classArgs['$name.$m'] ?? _args[m] ?? const <Object?>[];
             final a = _outcome(
               () => sub.methods[m]!(visitor, _fixtures[name]!(), args, {}, []),
             );
             final b = _outcome(
               () => sup.methods[m]!(visitor, _fixtures[name]!(), args, {}, []),
             );
-            compared++;
-            if (a != b) {
-              diffs.add('$name -> $sname .$m()  sub: $a  sup: $b');
+            switch (_verdict(a, b)) {
+              case _PairVerdict.divergent:
+                diffs.add('$name -> $sname .$m()  sub: $a  sup: $b');
+              case _PairVerdict.vacuous:
+                // Both adapters rejected the arguments. That is agreement about
+                // nothing, so it is not counted as a comparison.
+                vacuous++;
+              case _PairVerdict.compared:
+                compared++;
             }
           }
 
@@ -445,13 +635,46 @@ void main() {
       // Non-vacuity: the walk must actually reach the shadowed pairs. A
       // registry that silently stopped returning supertypes would make the
       // assertion above pass by comparing nothing.
+      //
+      // SCD152 raised this floor from 200 to 500. The old number was set when
+      // 261 of 542 pairs were skipped, so it had to sit below half the surface
+      // to pass at all; with every pair driven the walk compares 537 and the
+      // floor can sit just under that. The 5 missing from 542 are the shadowed
+      // pairs this todo DELETED — `map` on two map bridges and `[]=` on three —
+      // so the arithmetic is the audit trail.
       expect(
         compared,
-        greaterThan(200),
+        greaterThan(500),
         reason:
-            'compared=$compared skipped=$skipped — the differential walk '
-            'found far fewer shadowed pairs than the ~280 known to exist, so '
-            'the supertype registry or the bridge registration changed shape.',
+            'compared=$compared undrivable=$undrivable vacuous=$vacuous — '
+            'the differential walk found far fewer shadowed pairs than the '
+            '~537 known to exist, so the supertype registry or the bridge '
+            'registration changed shape.',
+      );
+
+      // SCD152. The two ways this guard can stop measuring without failing,
+      // both counted rather than assumed away. `undrivable` is a shadowed
+      // member `_callableArgs` has no recipe for; `vacuous` is a pair where
+      // both adapters rejected the arguments, which is agreement about
+      // nothing. Both are zero today, and an assertion is the only thing that
+      // keeps them so — the old skip set reached 261 precisely because nothing
+      // objected to it growing.
+      expect(
+        undrivable,
+        isZero,
+        reason:
+            'No recipe for: $noRecipe. Add one to `_callableArgs` — a member '
+            'left out is a member this guard does not check, which is how the '
+            'callback-taking half of the surface went unmeasured until SCD152.',
+      );
+      expect(
+        vacuous,
+        isZero,
+        reason:
+            '$vacuous shadowed pairs threw `RuntimeD4rtException` on BOTH '
+            'sides, so they agree only about rejecting the arguments the '
+            'harness supplied. Fix the recipe in `_callableArgs` rather than '
+            'reading THROW == THROW as a passing comparison.',
       );
     });
   });

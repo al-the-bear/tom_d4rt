@@ -84,15 +84,6 @@ class LinkedHashMapCollection {
           "Invalid arguments for LinkedHashMap[] getter",
         );
       },
-      '[]=': (visitor, target, positionalArgs, namedArgs, _) {
-        if (target is LinkedHashMap && positionalArgs.length == 2) {
-          target[positionalArgs[0]] = positionalArgs[1];
-          return positionalArgs[1];
-        }
-        throw RuntimeD4rtException(
-          "Invalid arguments for LinkedHashMap[]= setter",
-        );
-      },
       'addAll': (visitor, target, positionalArgs, namedArgs, _) {
         if (target is LinkedHashMap && positionalArgs.length == 1) {
           final otherMap = positionalArgs[0];
@@ -241,21 +232,6 @@ class LinkedHashMapCollection {
           return target.cast<dynamic, dynamic>();
         }
         throw RuntimeD4rtException("Invalid arguments for LinkedHashMap.cast");
-      },
-      'map': (visitor, target, positionalArgs, namedArgs, _) {
-        if (target is LinkedHashMap && positionalArgs.length == 1) {
-          final transform = positionalArgs[0];
-          if (transform is Callable) {
-            return target.map(
-              (key, value) =>
-                  MapEntry(key, transform.call(visitor, [key, value])),
-            );
-          }
-          throw RuntimeD4rtException(
-            "Argument to LinkedHashMap.map must be a function.",
-          );
-        }
-        throw RuntimeD4rtException("Invalid arguments for LinkedHashMap.map");
       },
     },
     getters: {
