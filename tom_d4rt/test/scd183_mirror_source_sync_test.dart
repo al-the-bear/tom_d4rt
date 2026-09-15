@@ -258,15 +258,6 @@ const _allowedRegions = <String, (String, String)>{
         'InterpreterVisitor ( globalEnvironment : env , moduleContext : '
         'NoOpModuleContext ( globalEnvironment : env',
   ),
-  // Two spellings of one dispatch. Behaviourally identical; recorded rather
-  // than reconciled because neither is better and changing one to match the
-  // other would be churn in a 1388-token file for no measurable gain.
-  'bridge/bridged_types.dart': (
-    "final enumObj = nativeObject as Enum ; if ( name == 'name' ) return "
-        "enumObj . name ; if ( name == 'index' ) return enumObj . index ;",
-    "switch ( name ) { case 'name' : return ( nativeObject as Enum ) . name ; "
-        "case 'index' : return ( nativeObject as Enum ) . index ; }",
-  ),
 };
 
 /// Shared files whose divergence is pervasive, and why token identity cannot

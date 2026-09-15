@@ -1,3 +1,28 @@
+## 1.129.0
+
+### Changed - two mirrored files stop diverging for reasons that did not survive reading (scd208)
+
+Both were baselined as SUSPECTED ONE-SIDED EDITS by the mirror guard, meaning
+the divergence had been noticed and not investigated. Read with a normalised
+diff, neither was an edit that reached one tree.
+
+`environment.dart` declared `removeLocalValue` in both trees, five identical
+lines, in a different POSITION — and in this tree the position was wrong: the
+method sat BETWEEN `define`'s doc comment and `define`, so `define` documented
+`removeLocalValue` and `removeLocalValue`'s doc read as a continuation of
+`define`'s. It now sits after `getSlot`, where the twin has always had it, and
+`define` has its documentation back.
+
+`BridgedInstance.get` spelled one enum-property lookup — `.name` and `.index`
+on a wrapped native `Enum` — as an if-chain here and a switch in the twin.
+Behaviour-identical, confirmed by reading both; this tree now carries the
+switch, since the analyzer-free tree is where new interpreter work lands.
+
+No behaviour changes. Both pairs now agree whole-file, and the three separate
+records that described their divergence — the mirror baseline, SCD183's region
+list and SCD199's body census — were each deleted by the guard that noticed
+them go stale.
+
 ## 1.128.0
 
 ### Fixed - 49 stdlib adapters no longer discard a surplus argument in silence (scd204)

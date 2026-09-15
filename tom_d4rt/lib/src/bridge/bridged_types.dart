@@ -443,9 +443,12 @@ class BridgedInstance<T extends Object> implements RuntimeValue {
     // provide access to standard enum properties (.name, .index) even when
     // the bridge doesn't define custom getters for them.
     if (nativeObject is Enum) {
-      final enumObj = nativeObject as Enum;
-      if (name == 'name') return enumObj.name;
-      if (name == 'index') return enumObj.index;
+      switch (name) {
+        case 'name':
+          return (nativeObject as Enum).name;
+        case 'index':
+          return (nativeObject as Enum).index;
+      }
     }
 
     // 3. If neither method nor getter found, throw an error

@@ -53,10 +53,6 @@ const Map<String, String> kDivergentMirrors = <String, String>{
       'module loading differs — the reference constructs a ModuleLoader where '
       'this tree builds an Environment directly, which is the same difference '
       'that makes module_loader.dart untwinnable',
-  'bridge/bridged_types.dart':
-      'SUSPECTED ONE-SIDED EDIT, not architecture: the same enum name/index '
-      'lookup is an if-chain in the reference and a switch here — a refactor '
-      'that reached one tree. Behaviour looks identical; unverified. SCD208.',
   'stdlib/io/process.dart': _permissionAccess,
   'stdlib/io/platform.dart': _permissionAccess,
   'stdlib/io/filesystem_permission_helper.dart': _permissionAccess,

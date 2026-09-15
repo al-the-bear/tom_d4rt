@@ -39,18 +39,27 @@
 // is a different picture of the same trees, and it is the finding:
 //
 //     726 shared member bodies across the 31 shared files
-//     618 byte-identical after normalisation            (85 %)
-//     108 divergent, in 7 files                         (15 %)
+//     619 byte-identical after normalisation            (85 %)
+//     107 divergent, in 6 files                         (15 %)
 //
-// 24 of the 31 files are 100 % body-identical, including `generator/d4.dart`
-// (96 bodies) and `environment.dart` (92) — the latter carrying a file-level
-// region exemption in SCD183 for a method DECLARED IN A DIFFERENT POSITION,
-// which per-body comparison correctly reports as no divergence at all. Even the
-// worst file, `interpreter_visitor.dart`, is 77 of 134 bodies identical rather
-// than the 1 % its file-level reading suggests.
+// 25 of the 31 files are 100 % body-identical, including `generator/d4.dart`
+// (96 bodies) and `environment.dart` (92). Even the worst file,
+// `interpreter_visitor.dart`, is 77 of 134 bodies identical rather than the
+// 1 % its file-level reading suggests.
 //
-// SO THE EXEMPTION SHRINKS FROM 5 FILES TO 108 METHODS, and the 618 bodies that
+// SO THE EXEMPTION SHRINKS FROM 5 FILES TO 107 METHODS, and the 619 bodies that
 // do agree are now held to agreeing.
+//
+// SCD208 TOOK THE FIRST ONE OFF THE LIST, which is what F-SCD199-3 is for.
+// `BridgedInstance.get` spelled one enum-property lookup as an if-chain in the
+// reference and a switch in the twin — recorded here, and in SCD183's region
+// list, as behaviour-identical-but-different. It was mirrored, both records
+// went stale within a second of the change, and both guards said so. The
+// census above is the state after that. `environment.dart` reached its 92 the
+// same way earlier: its `removeLocalValue` was DECLARED IN A DIFFERENT
+// POSITION, which per-body comparison correctly reports as no divergence at
+// all — SCD208 then moved the declaration so the whole-file readings agree
+// too.
 //
 // WHAT NORMALISATION IS APPLIED, and each is a difference the twin is REQUIRED
 // to have rather than one it happens to have:
@@ -81,7 +90,7 @@
 // `moduleContext` is worth 0. Each is a semantic rewrite that could hide a
 // genuinely wrong accessor, and none of them pays for that.
 //
-// THE 108 ARE PINNED BY THEIR DIVERGENCE, not merely listed. Each entry holds a
+// THE 107 ARE PINNED BY THEIR DIVERGENCE, not merely listed. Each entry holds a
 // hash of the trimmed residue — what the two sides say where they stop
 // agreeing. That is what makes this a detector for SCC78's shape rather than
 // only for new ones:
@@ -93,7 +102,7 @@
 //
 // WHAT IT STILL CANNOT SEE, so that a green run is not read as more than it
 // is: a divergence that was present when the list was written is recorded, not
-// resolved. SCC78's own line is among the 108. This guard freezes the
+// resolved. SCC78's own line is among the 107. This guard freezes the
 // disagreement at a known shape and reports every movement in it; it does not
 // adjudicate which of the two sides is right. Shrinking the list is
 // ordinary work, and F-SCD199-3 is what makes that work visible.
@@ -182,17 +191,16 @@ const _minMirrorTypes = 150;
 /// the pin exact and cheap; the failure message prints the live residue, so the
 /// reader still sees the divergence itself at the moment it matters.
 ///
-/// NO PER-ENTRY REASON, also deliberate. 108 individually-worded reasons would
-/// be 108 restatements of five facts, and the five facts are recorded once
+/// NO PER-ENTRY REASON, also deliberate. 107 individually-worded reasons would
+/// be 107 restatements of five facts, and the five facts are recorded once
 /// where they belong — SCD183's `_structural` and `_allowedRegions` say why
-/// each of these seven files cannot be compared whole. This map is a census of
+/// each of these six files cannot be compared whole. This map is a census of
 /// WHAT diverges, so that a change in it is visible.
 const _divergentBodies = <String, Map<String, String>>{
   'bridge/bridged_enum.dart': {
     'BridgedEnumValue.get': 'daf0087e',
     'BridgedEnumValue.toString': 'b096c062',
   },
-  'bridge/bridged_types.dart': {'BridgedInstance.get': '8207c6c6'},
   'callable.dart': {
     'BoundExtensionMethodCallable.call': '1154620a',
     'InterpretedExtensionMethod.call': 'c2d7ab35',
