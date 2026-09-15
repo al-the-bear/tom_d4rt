@@ -107,6 +107,18 @@ const List<PortImport> portImports = <PortImport>[
     'package:tom_d4rt/src/stdlib/core.dart',
     'package:tom_d4rt_ast/src/runtime/stdlib/core.dart',
   ),
+  // SCD188: `stdlib/io/scd188_stdin_audit_reason_expiry_test.dart` reaches the
+  // `Stdin` bridge definition directly — it asserts which members that bridge
+  // declares, which is not a question the public library can be asked. Same
+  // `src/` pattern as the pairs above and the same reason for normalising:
+  // with the pair in place the two copies are byte-identical, and a
+  // `_divergentBaseline` entry would instead grant a standing exemption to a
+  // file whose assertions are the same on both sides.
+  PortImport(
+    '@STDIO_STDLIB@',
+    'package:tom_d4rt/src/stdlib/io/stdio.dart',
+    'package:tom_d4rt_ast/src/runtime/stdlib/io/stdio.dart',
+  ),
 ];
 
 /// [source] with every interpreter import collapsed to its token, so the two
