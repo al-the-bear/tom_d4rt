@@ -36,43 +36,84 @@ const String kAstRoot = 'lib/src/runtime';
 /// should leave rather than sit here claiming a difference it no longer has.
 /// `F-SCC92-3` fails on a stale entry.
 ///
-/// Reasons are what was MEASURED on 2026-09-07, not what was assumed. Five
-/// stdlib barrels were in this list on the first draft and the stale check
-/// removed them within a minute — they had been copied from an earlier run
-/// with a weaker path normaliser and did not diverge at all. Two of the
-/// entries that remain are suspected one-sided edits rather than architecture,
-/// and say so; SCD208 owns finishing that characterisation.
+/// Reasons are what was MEASURED, not what was assumed. Five stdlib barrels
+/// were in this list on the first draft and the stale check removed them
+/// within a minute — they had been copied from an earlier run with a weaker
+/// path normaliser and did not diverge at all.
+///
+/// SCD208 read all thirteen entries with `--show` and each now carries its
+/// measured size on 2026-09-15: how many code lines of the file actually
+/// differ, and where. Two entries said SUSPECTED ONE-SIDED EDIT, meaning the
+/// difference had been noticed and not investigated, and NEITHER survived
+/// reading — both were reconciled and their entries deleted. The counts are a
+/// dated observation rather than a pinned one; what pins these files is
+/// SCD183's region and member checks and SCD199's per-body census, which fire
+/// on movement. A number here that has drifted is stale prose, not a failure.
+///
+/// The sizes are worth having because they are not what the shared reasons
+/// suggest. `runtime_types.dart` diverges in 62 of 2035 code lines and
+/// `interpreter_visitor.dart` in 2319 of 11548 — 3 % and 20 %, against the
+/// 55 % and 99 % that SCD183's whole-stream reading records for the same
+/// files. Both readings are honest about different questions: a trimmed
+/// common-prefix comparison measures where two token streams STOP agreeing,
+/// which after the first desynchronisation is most of the file. \"These cannot
+/// be textual mirrors\" is true either way; \"almost nothing in them matches\"
+/// is not.
 const Map<String, String> kDivergentMirrors = <String, String>{
-  'interpreter_visitor.dart': _astNodeTypes,
-  'callable.dart': _astNodeTypes,
-  'declaration_visitor.dart': _astNodeTypes,
-  'runtime_types.dart': _astNodeTypes,
-  'introspection.dart': _astNodeTypes,
-  'async_state.dart': _astNodeTypes,
+  'interpreter_visitor.dart': '2319 of 11548 code lines. $_astNodeTypes',
+  'callable.dart': '1457 of 4981 code lines. $_astNodeTypes',
+  'declaration_visitor.dart': '82 of 203 code lines. $_astNodeTypes',
+  'runtime_types.dart': '62 of 2035 code lines. $_astNodeTypes',
+  'introspection.dart': '57 of 609 code lines. $_astNodeTypes',
+  'async_state.dart':
+      '28 of 124 code lines, and ALL of them are the rename alone — every '
+      'divergent line is `AstNode`/`ForStatement` against '
+      '`SAstNode`/`SForStatement`, or the import that supplies them. No '
+      'accessor differs and no statement differs. SCD199, which normalises '
+      'the rename, reports 0 divergent bodies here. $_astNodeTypes',
   'bridge/bridged_enum.dart':
-      'module loading differs — the reference constructs a ModuleLoader where '
-      'this tree builds an Environment directly, which is the same difference '
-      'that makes module_loader.dart untwinnable',
-  'stdlib/io/process.dart': _permissionAccess,
-  'stdlib/io/platform.dart': _permissionAccess,
-  'stdlib/io/filesystem_permission_helper.dart': _permissionAccess,
-  'stdlib/io/network_permission_helper.dart': _permissionAccess,
+      '4 code lines at two sites, and nothing else: the reference passes '
+      '`moduleLoader: ModuleLoader(env, {}, {}, {})` where the twin passes '
+      '`moduleContext: NoOpModuleContext(globalEnvironment: env)`, in the two '
+      'throwaway visitors built to invoke a bridged enum `toString`. The twin '
+      'has no `ModuleLoader` at all, which is the same difference that makes '
+      '`module_loader.dart` untwinnable.',
+  'stdlib/io/process.dart': '4 code lines, one site. $_permissionAccess',
+  'stdlib/io/platform.dart': '4 code lines, one site. $_permissionAccess',
+  'stdlib/io/filesystem_permission_helper.dart':
+      '4 code lines, one site. $_permissionAccess',
+  'stdlib/io/network_permission_helper.dart':
+      '4 code lines, one site. $_permissionAccess',
   // SCD170 removed `stdlib/io/socket.dart` from this baseline. Its divergence
   // was this same permission-access idiom, written inline in
   // `_checkNetworkPermission`; both trees now route that through the network
   // helper above, so the file is a textual mirror again and the idiom lives
   // only in the two helpers whose job it is.
+  //
+  // SCD208 removed `environment.dart` and `bridge/bridged_types.dart`, the two
+  // entries that said SUSPECTED ONE-SIDED EDIT. Neither was one. The first
+  // declared the same method in a different POSITION, which the guard's
+  // positional comparison reported as 136 divergent lines; the second spelled
+  // one enum-property lookup as an if-chain against a switch. Both were
+  // reconciled rather than re-worded, and both pairs now agree whole-file.
 };
 
 const String _astNodeTypes =
-    'the analyzer AST and the mirror AST are different types — `AstNode` vs '
-    '`SAstNode` — so these files cannot be textual mirrors even in principle. '
-    'This is the divergence the whole analyzer-free line exists to have.';
+    'The analyzer AST and the mirror AST are different types — `AstNode` vs '
+    '`SAstNode` — and the accessors differ with them (`node.name.lexeme` '
+    "against `node.name?.name ?? ''`). These files cannot be textual mirrors "
+    'even in principle; this is the divergence the whole analyzer-free line '
+    'exists to have. What HOLDS them is not this entry but '
+    '`scd199_mirror_body_agreement_test.dart`, which compares each shared '
+    'member body separately after normalising the rename, and pins every one '
+    'that disagrees — 107 of 726, so 85 % of the bodies in these files are '
+    'held to being identical.';
 
 const String _permissionAccess =
-    'permission checks reach the host differently: the reference goes through '
-    '`visitor.moduleLoader.d4rt`, which this tree has no equivalent of, and '
-    'uses `visitor.moduleContext` instead';
+    'permission checks reach the host differently: the reference reads '
+    '`visitor.moduleLoader.d4rt`, null-checks it and calls `checkPermission` '
+    'on it, where the twin calls `visitor.moduleContext.checkPermission` '
+    'directly — three lines against one, and no other difference in the file.';
 
 /// The code of [source], with comments removed and the two package layouts
 /// normalised so only real differences survive.
