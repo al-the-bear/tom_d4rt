@@ -1,3 +1,34 @@
+## 0.103.0
+
+### Fixed - a throw inside an `async` catch block no longer spins the machine (scd169)
+
+`_handleAsyncError` found the enclosing try with `_findEnclosingTryStatement`,
+which for an error raised in a catch block returns the try that catch belongs
+to. `selectCatchClause` then matched a clause of that same try, the clause ran
+and threw again, and the error was re-offered to the same try. The script did
+not fail and did not complete: it looped. Measured before the fix, the catch
+block of a four-line script ran **135,239 times in six seconds**.
+
+The symptom reported was "the returned future is never completed", which is
+true but misleading — the isolate is spinning, so no Timer runs and neither
+`dart test`'s per-test timeout nor a host-side `Future.timeout` fires. The
+process has to be killed with a signal.
+
+Dart's rule is that an exception raised in a catch block of `T` is not
+catchable by `T`: the handler that would claim it is the one already running.
+`_isInsideCatchClauseOf` answers that from the AST, and it is applied in two
+places because they cover different cases — the outward search now treats a try
+whose clauses are all ineligible as no handler at all, and clause selection
+refuses to match on a try that stays in the search because it has a `finally`.
+
+That `finally` still runs before the error carries on outward, as the
+synchronous path and the language both require; skipping the try outright would
+stop the spin and silently drop it.
+
+It was not limited to interpreter-level errors. An ordinary
+`throw ArgumentError(...)` from a catch block did the same, so this was plain
+correct Dart hanging, not an edge case of error reporting.
+
 ## 0.102.0
 
 ### Changed - `Uint8List` shares the inherited getters with its ten siblings (scd166)

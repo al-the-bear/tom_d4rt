@@ -1311,6 +1311,14 @@ const Map<String, _Divergence> _divergentBaseline = {
   // why it cannot be ported yet. Nothing was added to this copy: the whole
   // point of the entry above is that running this file against the published
   // interpreter does not terminate.
+  //
+  // SCD169 widened it again, by eight cases, and this time the gap is not a
+  // choice: the fix they pin landed in `tom_d4rt_ast` 0.103.0 and this package
+  // resolves the published interpreter, on which those scripts SPIN. Porting
+  // them now would not fail here, it would hang the suite with no Dart-level
+  // timeout able to stop it — the precise hazard the entry above already
+  // describes, made worse. They come across with the rest of this file when
+  // the floor moves.
   'scc12_await_in_finally_test.dart': _Divergence.deliberate,
   // The reference copy's four `(legacy)` cases reach into the analyzer `D4rt`'s
   // own environment chain — `enclosing`, the static warm-parent cache keyed on
@@ -1395,7 +1403,7 @@ const Map<String, String> _divergenceFingerprints = <String, String>{
   'stdlib/collection/list_queue_test.dart': '927a588334725bb2',
   'stdlib/collection/queue_test.dart': '19eee099a23916a8',
   'stdlib/cast_from_family_test.dart': 'c7a32ccddec5a069',
-  'scc12_await_in_finally_test.dart': '642512207f3cebec',
+  'scc12_await_in_finally_test.dart': '7c826ab0613fae0b',
   'warm_parent_package_pool_test.dart': '971b6ff19185f442',
   'stdlib/intentionally_unbridged_test.dart': '625078dfd5baba8a',
   'scc31_undefined_name_uncatchable_test.dart': 'ad105fd6b643370f',

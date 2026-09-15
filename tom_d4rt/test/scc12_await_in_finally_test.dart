@@ -985,6 +985,211 @@ void main() {
   /// starves the event loop and the file's `run` timeout never fires. Before
   /// the fix this group wedged the suite rather than failing it. To see a red
   /// state, use a wall clock: `perl -e 'alarm 90; exec @ARGV' dart test …`.
+  /// SCD169 — a throw raised inside an async CATCH BLOCK never left the
+  /// machine.
+  ///
+  /// `_findEnclosingTryStatement` returns the try whose catch block contains
+  /// the throw, `selectCatchClause` then matched a clause of that same try, the
+  /// clause ran and threw again, and the machine re-offered the error to the
+  /// same try forever. The symptom is a HANG and the cause is a SPIN: measured
+  /// before the fix, the catch block of a four-line script ran **135,239 times
+  /// in six seconds**.
+  ///
+  /// That distinction is what makes these tests dangerous to write carelessly.
+  /// A spinning isolate never runs a Timer, so neither `dart test`'s per-test
+  /// timeout nor a `Future.timeout` in the harness can contain a regression —
+  /// verified: a host-side `.timeout(seconds: 5)` around `execute()` did not
+  /// fire, and the process had to be killed with a signal after 120 s. A
+  /// regression here would therefore wedge the whole suite rather than fail.
+  ///
+  /// So EVERY case whose script throws from a catch block is written to be
+  /// SELF-LIMITING: it counts its own catch-block entries and, on the second,
+  /// yields `SCD169-LOOPED` instead of throwing again. On the fixed machine the
+  /// count never reaches two; on a regressed machine the script terminates and
+  /// the test FAILS with a readable message instead of hanging.
+  ///
+  /// Doing this for one case is not enough, and that was measured rather than
+  /// assumed: with only F-SCD169-1 self-limiting, reverting the selection guard
+  /// left F-SCD169-3 to wedge the whole suite. The two guards cover DIFFERENT
+  /// cases — the search loop skips an ineligible try that has nothing else to
+  /// do, and the selection guard stops a try that stays in the search because
+  /// it has a `finally` from matching anyway — so a regression in either one
+  /// spins a different script.
+  ///
+  /// The oracle throughout is the synchronous path, which already behaves the
+  /// way Dart specifies: a catch block's own exception is not catchable by its
+  /// own try, the try's `finally` still runs, and an enclosing try whose BODY
+  /// contains the inner try may catch it.
+  group('SCD169: a throw inside an async catch block leaves the machine', () {
+    Future<void> expectThrows(String source, String fragment) => expectLater(
+      executeAsync(source).timeout(const Duration(seconds: 10)),
+      throwsA(
+        predicate(
+          (Object? e) => e.toString().contains(fragment),
+          'an error mentioning "$fragment"',
+        ),
+      ),
+    );
+
+    test('F-SCD169-1: the catch block runs exactly once '
+        '[2026-09-15] (PASS)', () async {
+      // Self-limiting, deliberately — see the group doc. `entries` is returned
+      // rather than asserted on directly because a looping machine never
+      // returns at all unless the script stops it.
+      expect(
+        await run(r"""
+          int entries = 0;
+          Future<dynamic> f() async {
+            try { throw StateError('x'); }
+            catch (e) {
+              entries = entries + 1;
+              if (entries > 1) { return 'LOOPED'; }
+              throw ArgumentError('B');
+            }
+          }
+          Future<dynamic> main() async {
+            try { await f(); } catch (e) { return 'propagated:$entries'; }
+          }
+        """),
+        'propagated:1',
+        reason:
+            'A result of LOOPED means the machine re-offered the error to the '
+            'try whose catch block raised it — the SCD169 spin. Before the fix '
+            'this script did not return at all.',
+      );
+    });
+
+    test('F-SCD169-2: the error propagates out of the function '
+        '[2026-09-15] (PASS)', () async {
+      await expectThrows(r"""
+          Future<dynamic> f() async {
+            try { throw StateError('x'); }
+            catch (e) {
+              entries = entries + 1;
+              if (entries > 1) { throw StateError('SCD169-LOOPED'); }
+              throw ArgumentError('B');
+            }
+          }
+          int entries = 0;
+          Future<dynamic> main() async { return await f(); }
+        """, 'B');
+    });
+
+    test('F-SCD169-3: the try\'s own finally still runs before it propagates '
+        '[2026-09-15] (PASS)', () async {
+      // The half a naive fix gets wrong. Skipping the try outright stops the
+      // spin and silently drops its finally; Dart runs it. The search loop
+      // therefore skips an ineligible try only when it has nothing else to do.
+      expect(
+        await run(r"""
+          int ran = 0;
+          int entries = 0;
+          Future<dynamic> f() async {
+            try { throw StateError('x'); }
+            catch (e) {
+              entries = entries + 1;
+              if (entries > 1) { return 'SCD169-LOOPED'; }
+              throw ArgumentError('B');
+            }
+            finally { ran = ran + 1; }
+          }
+          Future<dynamic> main() async {
+            try { await f(); } catch (e) { return 'finally ran $ran times'; }
+          }
+        """),
+        'finally ran 1 times',
+      );
+    });
+
+    test('F-SCD169-4: an enclosing try whose BODY holds the inner try catches '
+        'it [2026-09-15] (PASS)', () async {
+      expect(
+        await run(r"""
+          int entries = 0;
+          Future<dynamic> main() async {
+            try {
+              try { throw StateError('x'); }
+              catch (e) {
+                entries = entries + 1;
+                if (entries > 1) { return 'SCD169-LOOPED'; }
+                throw ArgumentError('B');
+              }
+            } catch (e2) { return 'outer caught'; }
+          }
+        """),
+        'outer caught',
+      );
+    });
+
+    test('F-SCD169-5: an enclosing try whose CATCH holds the inner try does '
+        'NOT catch it [2026-09-15] (PASS)', () async {
+      // The rule has to hold at every level: a handler that is already running
+      // cannot claim an exception raised beneath it. A single-level skip would
+      // let the outer clause catch here, which is why the search continues
+      // outward rather than stepping out once.
+      await expectThrows(r"""
+          int entries = 0;
+          Future<dynamic> main() async {
+            try { throw StateError('a'); }
+            catch (e) {
+              try { throw StateError('c'); }
+              catch (e2) {
+                entries = entries + 1;
+                if (entries > 1) { throw StateError('SCD169-LOOPED'); }
+                throw ArgumentError('B');
+              }
+            }
+          }
+        """, 'B');
+    });
+
+    test('F-SCD169-6: an interpreter-level error in a catch block surfaces '
+        '[2026-09-15] (PASS)', () async {
+      // SCD169's original reproduction, found because F-SCC61-13 hung rather
+      // than failed. An unresolvable name is only one way in; F-SCD169-2 shows
+      // a plain `throw` did the same, which is why the fix is not about error
+      // kinds.
+      await expectThrows(r"""
+          Future<dynamic> g() async { throw StateError('x'); }
+          Future<dynamic> main() async {
+            try { await g(); } catch (e) { return e is NoSuchBridgedName; }
+          }
+        """, 'NoSuchBridgedName');
+    });
+
+    test('F-SCD169-7 (control): a catch block that does NOT throw still '
+        'catches [2026-09-15] (PASS)', () async {
+      // Without this, F-SCD169-2/5/6 are satisfied by a machine that has
+      // stopped letting ANY clause match — which would be a different bug with
+      // the same test results.
+      expect(
+        await run(r"""
+          Future<dynamic> main() async {
+            try { throw StateError('x'); } catch (e) { return 'caught'; }
+          }
+        """),
+        'caught',
+      );
+    });
+
+    test('F-SCD169-8 (control): the SYNC path is unchanged '
+        '[2026-09-15] (PASS)', () async {
+      expect(
+        await run(r"""
+          int ran = 0;
+          dynamic main() {
+            try {
+              try { throw StateError('x'); }
+              catch (e) { throw ArgumentError('B'); }
+              finally { ran = ran + 1; }
+            } catch (e2) { return 'outer caught, finally ran $ran times'; }
+          }
+        """),
+        'outer caught, finally ran 1 times',
+      );
+    });
+  });
+
   group('SCD43: a throw inside an async finally propagates', () {
     /// Asserts the program throws something naming [fragment].
     Future<void> expectThrows(String source, String fragment) => expectLater(

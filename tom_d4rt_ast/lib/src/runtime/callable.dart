@@ -3767,8 +3767,16 @@ class InterpretedFunction implements Callable {
     // handler, and the search has to continue at the try enclosing *it* — the
     // single-level lookup used to stop there and propagate straight to the
     // function's Future, so an enclosing `catch` in the same function never ran.
+    //
+    // SCD169 widened the first condition. A try whose catch clauses are all
+    // INELIGIBLE — because the error came from one of them — is equally not a
+    // handler, and the search has to continue outside it. A try that still has
+    // a finally is not skipped here: it can do something with the error, and
+    // the `matchingCatchClause == null` branch below runs that finally before
+    // the error carries on outward, which is what the synchronous path does.
     while (enclosingTry != null &&
-        enclosingTry.catchClauses.isEmpty &&
+        (enclosingTry.catchClauses.isEmpty ||
+            _isInsideCatchClauseOf(nodeWhereErrorOccurred, enclosingTry)) &&
         (enclosingTry.finallyBlock == null ||
             enclosingTry.finallyBlock!.statements.isEmpty)) {
       Logger.debug(
@@ -3799,7 +3807,11 @@ class InterpretedFunction implements Callable {
       // depending only on whether the enclosing function is `async`.
       // `selectCatchClause` also owns the SCC31 undefined-name rule, so the
       // guard that used to sit here inline lives in one place now.
-      if (enclosingTry.catchClauses.isNotEmpty) {
+      // SCD169: no clause of this try may claim an error that came from one of
+      // its OWN catch blocks. Without this the machine re-entered the clause
+      // that had just thrown, forever.
+      if (enclosingTry.catchClauses.isNotEmpty &&
+          !_isInsideCatchClauseOf(nodeWhereErrorOccurred, enclosingTry)) {
         matchingCatchClause = visitor.selectCatchClause(enclosingTry, error);
         Logger.debug(
           matchingCatchClause == null
@@ -4041,6 +4053,35 @@ class InterpretedFunction implements Callable {
   /// by [_findEnclosingTryStatement] first and handles its own errors normally.
   /// Skipping to the owner unconditionally would make such a try unable to
   /// catch anything a rethrow passed through it.
+  /// Whether [node] sits inside a catch clause belonging to [owner].
+  ///
+  /// SCD169: an exception raised in a catch block of `T` is not catchable by
+  /// `T` — the handler that would claim it is the one already running. The
+  /// async machine had no such rule, so `_findEnclosingTryStatement` returned
+  /// `T`, `selectCatchClause` matched the same clause again, the clause threw
+  /// again, and the state machine looped. Measured before the fix: the catch
+  /// block of a four-line script ran 135,239 times in six seconds. That is why
+  /// the symptom is a HANG rather than an unresolved future, and why no
+  /// Dart-level timeout contains it — a spinning isolate never runs the Timer.
+  ///
+  /// Structural for the same reason as [_tryOwningCatchClauseOf] and
+  /// [_tryOwningFinallyBlockOf]: whether a throw is lexically inside a given
+  /// try's catch block is a property of the AST, not of what else has run.
+  /// Unlike [_tryOwningCatchClauseOf] this answers about a SPECIFIC try rather
+  /// than the nearest one, because the rule has to hold at every level — a try
+  /// nested inside another try's catch block is not catchable by either.
+  static bool _isInsideCatchClauseOf(SAstNode? node, STryStatement owner) {
+    SAstNode? current = node;
+    while (current != null) {
+      if (current is SCatchClause && identical(_parentOf(current), owner)) {
+        return true;
+      }
+      if (current is SFunctionBody) return false;
+      current = _parentOf(current);
+    }
+    return false;
+  }
+
   static STryStatement? _tryOwningCatchClauseOf(SAstNode? node) {
     SAstNode? current = node;
     while (current != null) {
