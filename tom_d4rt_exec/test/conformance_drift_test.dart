@@ -1328,6 +1328,13 @@ const Map<String, _Divergence> _divergentBaseline = {
   // therefore a different contract: that the forwards expose the runner's
   // behaviour faithfully through the wrapper. Neither copy can be the other.
   'warm_parent_package_pool_test.dart': _Divergence.necessary,
+  // SCD171 changed the reference copy's F-SCC65-23: bridging `X509Certificate`
+  // made a parameter annotation naming it start being CHECKED, so the case's
+  // fabricated `'cert'` string no longer type-matches and the script now passes
+  // a null through a nullable annotation. That is a divergence in the same
+  // direction as the one below — each copy describes its own package — and it
+  // moves this entry's fingerprint without changing why the entry exists.
+  //
   // Each copy reads its OWN package's `doc/d4rt_limitations.md` and asserts the
   // set of names that package deliberately does not bridge. The two sets are
   // not the same set, and the reference copy does not even run here — exec has
@@ -1405,7 +1412,7 @@ const Map<String, String> _divergenceFingerprints = <String, String>{
   'stdlib/cast_from_family_test.dart': 'c7a32ccddec5a069',
   'scc12_await_in_finally_test.dart': '7c826ab0613fae0b',
   'warm_parent_package_pool_test.dart': '971b6ff19185f442',
-  'stdlib/intentionally_unbridged_test.dart': '625078dfd5baba8a',
+  'stdlib/intentionally_unbridged_test.dart': 'a11036cda720efcf',
   'scc31_undefined_name_uncatchable_test.dart': 'ad105fd6b643370f',
   'scc32_bridged_value_key_test.dart': 'bf57cd97b77c0e83',
   'scc33_unhandled_node_test.dart': '1be2b48d0784ff46',

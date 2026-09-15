@@ -85,6 +85,8 @@ import 'package:tom_d4rt_ast/src/runtime/stdlib/convert.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/io.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/stdlib.dart';
 
+import 'tls_fixture.dart';
+
 // ---------------------------------------------------------------------------
 // Infrastructure
 // ---------------------------------------------------------------------------
@@ -538,6 +540,20 @@ Future<void> _captureLiveInstances() async {
   // leaves stdio exactly as it found it.
   _liveInstances['Stdout'] = stdout;
   _liveInstances['Stdin'] = stdin;
+
+  // SCD171: the TLS pair, for the reason the reference copy records — a real
+  // handshake is the only source of the `_X509CertificateImpl` the runtime
+  // builds, and both `certificate` getters are null on a plain-HTTP request,
+  // which is the null the sweep skips. Skipped on a host with no `openssl`.
+  final tls = await TlsFixture.generate();
+  if (tls != null) {
+    try {
+      _liveInstances['X509Certificate'] = await tls.peerCertificate();
+      _liveInstances['SecurityContext'] = tls.serverContext();
+    } finally {
+      tls.dispose();
+    }
+  }
 }
 
 /// The bridges with instance getters that this sweep deliberately does NOT cover,

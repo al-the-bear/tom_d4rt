@@ -452,7 +452,7 @@ Measured 2026-09-12.
 
 | Metric | Count |
 |--------|-------|
-| Bridged classes examined | 205 |
+| Bridged classes examined | 208 |
 | Raw candidates from the map diff | 680 |
 | … reachable anyway via instance fallback | 651 |
 | … unverified — cannot be measured, reason stated | 36 in 1 class |
@@ -982,8 +982,8 @@ Measured 2026-09-07.
 
 | Metric | Count |
 |--------|-------|
-| Bridged classes examined | 205 |
-| … declaring `isAssignable` | 177 |
+| Bridged classes examined | 208 |
+| … declaring `isAssignable` | 180 |
 | … with ≥ 1 registered edge | 120 |
 | Candidate edges from the cross-reference | 1 |
 | … satisfied anyway via `isAssignable` | 0 |
@@ -1197,12 +1197,12 @@ Measured 2026-09-12.
 
 | Metric | Count |
 |--------|-------|
-| Members whose return value was probed | 419 |
-| … usable (a witness read succeeded) | 419 |
+| Members whose return value was probed | 420 |
+| … usable (a witness read succeeded) | 420 |
 | … **RETURN-TYPE GAP** | **0** |
 | Not probed (no argument literal, or no witness on the return type) | 279 |
 | No answer (probe wedged) | 3 |
-| Parameter types with no bridge (static pass) | 1 |
+| Parameter types with no bridge (static pass) | 0 |
 
 ### The zero is load-bearing, so the instrument is tested for sensitivity
 

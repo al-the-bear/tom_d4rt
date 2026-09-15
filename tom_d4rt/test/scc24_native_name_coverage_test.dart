@@ -77,6 +77,8 @@ import 'package:tom_d4rt/src/stdlib/convert.dart';
 import 'package:tom_d4rt/src/stdlib/io.dart';
 import 'package:tom_d4rt/src/stdlib/stdlib.dart';
 
+import 'tls_fixture.dart';
+
 // ---------------------------------------------------------------------------
 // Infrastructure
 // ---------------------------------------------------------------------------
@@ -530,6 +532,28 @@ Future<void> _captureLiveInstances() async {
   // leaves stdio exactly as it found it.
   _liveInstances['Stdout'] = stdout;
   _liveInstances['Stdin'] = stdin;
+
+  // SCD171: the TLS pair. `X509Certificate` is the type this sweep could not
+  // see — `HttpRequest.certificate` and `HttpClientResponse.certificate`
+  // returned one and no bridge claimed it, but both getters are NULL on the
+  // plain-HTTP round trip above and the sweep skips nulls. A real handshake is
+  // the only way to obtain one the runtime built; a hand-rolled stand-in would
+  // be a different type from `_X509CertificateImpl` and would cover nothing.
+  //
+  // Same resource class as the loopback sockets above: a self-signed
+  // certificate written under `.dart_tool/`, one TLS exchange, everything
+  // closed and deleted again. Skipped entirely on a host with no `openssl`,
+  // which leaves the pair uncovered rather than making the count a fact about
+  // the host.
+  final tls = await TlsFixture.generate();
+  if (tls != null) {
+    try {
+      _liveInstances['X509Certificate'] = await tls.peerCertificate();
+      _liveInstances['SecurityContext'] = tls.serverContext();
+    } finally {
+      tls.dispose();
+    }
+  }
 }
 
 /// The bridges with instance getters that this sweep deliberately does NOT cover,

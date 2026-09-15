@@ -6,7 +6,7 @@
 // an assertion about the interpreter that nothing measured, which is exactly the
 // claim this baseline was introduced to stop anyone making.
 //
-// Current state: 205 bridged classes registered; of those,
+// Current state: 208 bridged classes registered; of those,
 // 51 confirmed-unreachable members across 4 classes,
 // 5 members on 2 classes unreachable by decision,
 // and 36 members on 1 classes that cannot be measured at all.
@@ -407,6 +407,7 @@ const bridgedClasses = <String>{
   'RemoteError',
   'Runes',
   'SameSite',
+  'SecurityContext',
   'SendPort',
   'ServerSocket',
   'Set',
@@ -440,6 +441,7 @@ const bridgedClasses = <String>{
   'Symbol',
   'TimeoutException',
   'Timer',
+  'TlsProtocolVersion',
   'TransferableTypedData',
   'Type',
   'TypeError',
@@ -463,6 +465,7 @@ const bridgedClasses = <String>{
   'WebSocketException',
   'WebSocketStatus',
   'WebSocketTransformer',
+  'X509Certificate',
   'bool',
   'double',
   'int',

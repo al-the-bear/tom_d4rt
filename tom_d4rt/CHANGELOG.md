@@ -1,3 +1,29 @@
+## 1.119.0
+
+### Added - the TLS pair: `X509Certificate` and `SecurityContext` (scd171)
+
+Both were consumed by adapters and registered nowhere. `SecurityContext` is
+what `HttpServer.bindSecure` and `HttpClient(context:)` cast their argument to,
+so a script had no way to build the value they demand and both entry points
+were unreachable. `X509Certificate` is what the bridged `HttpRequest.certificate`
+and `HttpClientResponse.certificate` getters return — with no bridge claiming
+it, every member call on the result died with `Undefined property or method
+... on _X509CertificateImpl`.
+
+That one failed SILENTLY, and outlived the sweep built to catch it: SCC24 skips
+null getters, and `certificate` is null on a plain-HTTP request. Both trees'
+sweeps now capture a real certificate from a loopback TLS handshake, so the
+blind spot is closed for this type.
+
+`SecurityContext`'s four file-reading members — `usePrivateKey`,
+`useCertificateChain`, `setTrustedCertificates`, `setClientAuthorities` — go
+through the same `FilesystemPermission` gate as `File` and `Directory`. Handing
+the path straight to the SDK would let a script scoped to one directory read a
+private key anywhere on the host through a TLS API. The `*Bytes` variants read
+nothing and are ungated.
+
+`alpnSupported` is deliberately not bridged: the SDK deprecates it.
+
 ## 1.118.0
 
 ### Fixed - `NetworkPermission` now gates every socket-acquiring bridge (scd170)

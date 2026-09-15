@@ -171,16 +171,26 @@ void main() {
       ''';
       expect(execute(assignment), equals('assigned'));
 
-      // Second: the alias is usable as an annotation while undefined, because
-      // the interpreter does not resolve type annotations at all. A script
-      // pasted from SDK documentation therefore runs unchanged — which is the
-      // only way a reader would meet the name in practice.
+      // Second: the alias is usable as an annotation while undefined, so a
+      // script pasted from SDK documentation runs unchanged — which is the only
+      // way a reader would meet the name in practice.
+      //
+      // THE REASON IS NARROWER THAN IT USED TO SAY. This comment read "because
+      // the interpreter does not resolve type annotations at all", and SCD171
+      // disproved it: bridging `X509Certificate` made the parameter annotation
+      // on `check` start being CHECKED, and this case failed with "type
+      // 'String' is not a subtype of type 'X509Certificate'". So an annotation
+      // naming a BRIDGED type is enforced; what is harmless is an annotation
+      // naming a type the interpreter cannot resolve — which is exactly what
+      // `BadCertificateCallback` is and what this case is about. The parameter
+      // is nullable and the argument null so that the case keeps testing the
+      // alias rather than the certificate.
       const annotated = '''
       import 'dart:io';
-      bool check(X509Certificate c, String h, int p) => false;
+      bool check(X509Certificate? c, String h, int p) => false;
       main() {
         BadCertificateCallback cb = check;
-        return cb('cert', 'host', 443);
+        return cb(null, 'host', 443);
       }
       ''';
       expect(execute(annotated), isFalse);
