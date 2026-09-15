@@ -40,14 +40,14 @@ This split is what makes the analyzer-free family possible: the **runtime** (`to
 
 ## Installation
 
-```yaml
-dependencies:
-  tom_d4rt_exec: ^1.8.5
-```
-
 ```sh
 dart pub add tom_d4rt_exec
 ```
+
+That writes the current constraint into your `pubspec.yaml`. A hand-written
+`tom_d4rt_exec: ^x.y.z` block is not shown here on purpose: it is a version
+stamp in a document, and a reader who copies one pins an older floor than the
+one they just installed.
 
 ## Features
 
@@ -420,10 +420,19 @@ Related packages (don't duplicate — follow the link):
 
 ## Status
 
-**Version 1.8.5** — current release on pub.dev (first published at 1.8.2).
+Published on pub.dev; `pubspec.yaml` carries the current version and the
+CHANGELOG records what each release contained. Neither is repeated here: a
+version written into a README is stale the moment the next one ships, and a
+stale one under a heading reading "Status" is worse than none, because a reader
+cannot tell the two apart.
 
-- 1680+ tests passing (2 intentional won't-fix exclusions).
-- All 20 Dart language areas covered in the `dart_overview` test suite.
+- The test suite is a PORT of `tom_d4rt`'s, and
+  `test/conformance_drift_test.dart` is the live comparison of the two: it
+  checks them file for file and case for case and records every sanctioned
+  difference with its reason. A pass count is not quoted for the same reason a
+  version is not — it changes on every added file, and the drift test answers
+  the question a count was reaching for.
+- All 20 Dart language areas are covered in the `dart_overview` test suite.
 - Supported platforms: Android, iOS, Linux, macOS, Web, Windows.
 
 Repository: [https://github.com/al-the-bear/tom_d4rt/tree/main/tom_d4rt_exec](https://github.com/al-the-bear/tom_d4rt/tree/main/tom_d4rt_exec)

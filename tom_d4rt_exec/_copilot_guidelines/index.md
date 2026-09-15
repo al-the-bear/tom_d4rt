@@ -1,26 +1,44 @@
 # D4rt Exec Project Guidelines
 
 **Project:** `tom_d4rt_exec`  
-**Type:** Dart Package (migration target)
+**Type:** Dart Package
 
 ## Purpose
 
-`tom_d4rt_exec` is the migration target for the analyzer-free D4rt split. It starts as a copy of `tom_d4rt` v1.8.1 and will be transformed to run entirely on the mirror AST from `tom_d4rt_ast`, eliminating the `analyzer` dependency.
+`tom_d4rt_exec` is the analyzer-free line's parsing front end. It parses source
+with the `analyzer`, has `tom_ast_generator` copy that AST 1:1 into the mirror
+AST, and hands the result to the interpreter in `tom_d4rt_ast` — which carries
+no `analyzer` dependency itself. `execute()` and `eval()` work as they do on
+`tom_d4rt`, routed through that copy step.
 
-The original `tom_d4rt` stays untouched — all existing project dependencies remain on `tom_d4rt`. Once the migration is complete, downstream projects can switch to `tom_d4rt_exec` by changing one `pubspec.yaml` line and imports.
+It is also **the only place script-level conformance can be run against the
+analyzer-free line.** `tom_d4rt_ast` has no parser, so a test there can build a
+bundle by hand or drive the registry, but cannot run a script; every such test
+for that line lives here.
 
-## Migration Plan
-
-1. Move interpreter infrastructure into `tom_d4rt_ast` (swap analyzer imports for mirror AST)
-2. Rewire `tom_d4rt_exec` to use `tom_d4rt_ast` (interpreter) + `tom_d4rt_astgen` (parsing)
-3. Run conformance tests: same test suite against `tom_d4rt` and `tom_d4rt_exec`
-4. Once passing, downstream projects can switch dependencies
+`tom_d4rt` is the separate, analyzer-based reference and is not a dependency of
+this package.
 
 ## Conformance Testing
 
-Run the same tests against both packages to detect regressions:
-- `tom_d4rt` = reference (1680 passing, 2 pre-existing failures as of v1.8.1)
-- `tom_d4rt_exec` = migration target (must match or exceed)
+This package's `test/` is a PORT of `tom_d4rt/test/` — the same questions asked
+of the other interpreter. `test/conformance_drift_test.dart` is the live answer
+to how the two corpora compare: it checks them file for file and case for case,
+records every sanctioned difference with its reason, and fails when an
+unsanctioned one appears.
+
+**No pass/fail counts are quoted here, deliberately.** A number written into a
+document goes stale on the next added file, and a stale count under a heading
+that reads as current is worse than none — a reader comparing a fresh run
+against it concludes something has gone wrong. Run the suite, or read
+`conformance_drift_test.dart`, which answers the question the counts were
+reaching for and cannot rot.
+
+**What this package measures is the PUBLISHED interpreter** (DGUC6). It resolves
+`tom_d4rt_ast` from pub.dev, not by path, so a green suite here certifies the
+release rather than the working tree. `_pinnedInterpreterFloors` in the drift
+test records which files are waiting on a version that has not shipped, and
+`tool/hosted_drift.dart` measures the gap — see [hosted_drift.md](hosted_drift.md).
 
 ## Guidelines in this folder
 
@@ -35,8 +53,13 @@ Run the same tests against both packages to detect regressions:
 
 ## Related Packages
 
-- `tom_d4rt` — The stable, unchanged reference version (all projects depend on this)
-- `tom_d4rt_ast` — Mirror AST model (zero deps, serializable)
-- `tom_ast_generator` — 1:1 copier: analyzer AST → mirror AST
-- `tom_d4rt_generator` — Code generator for bridges
-- `tom_d4rt_dcli` — DCli integration for D4rt scripting
+- `tom_d4rt_ast` — the analyzer-free interpreter this package runs scripts on
+  (a dependency, resolved from pub.dev)
+- `tom_ast_generator` — 1:1 copier, analyzer AST → mirror AST (a dependency)
+- `tom_ast_model` — the mirror AST itself: `SAstNode` and its subtypes, zero
+  dependencies, serializable. What the copier produces and the interpreter
+  consumes
+- `tom_d4rt` — the analyzer-based reference interpreter. NOT a dependency; the
+  package whose test suite this one ports
+- `tom_dcli_exec` — the `dcli` REPL built on this package
+- `tom_d4rt_generator` — bridge code generator
