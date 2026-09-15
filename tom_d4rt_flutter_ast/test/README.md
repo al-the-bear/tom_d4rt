@@ -114,6 +114,60 @@ it belongs in `doc/` under a name that survives the run it came from. The
 the raw metrics it was written from are no longer tracked, which is the same
 convention every historical entry in `doc/interpreter_issues.md` follows.
 
+## The two twins execute ONE script corpus, owned by the AST twin
+
+`tom_d4rt_flutter` has **no script corpus of its own.** Its
+`test/send_test_runner.dart` sets
+
+```dart
+static const String scriptsPath =
+    '../tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts';
+```
+
+so both suites execute the same **2 085** scripts, out of the AST twin's tree.
+Measured 2026-09-15. The fact was recorded only in that constant's doc comment,
+where you find it after you already know to look.
+
+Two consequences worth having before you need them:
+
+- **A script fix lands on both twins from one edit.** Do not mirror it. SCC47
+  nearly hand-copied a script change into
+  `tom_d4rt_flutter/test/tom_d4rt_flutter_test_app/test/send_via_http_scripts/`
+  — a path that does not exist — and found out only because
+  `git diff --no-index` failed on it.
+- **Byte-identical `metrics.txt` between the twins is the EXPECTED outcome**,
+  not evidence that one run was accidentally reused. Same scripts, and
+  `metrics.txt` carries only the per-file `exit=` / `+N ~M -K` summary, no
+  timings. SCC46 saw it and had to reason it out from scratch. What legitimately
+  differs is the interpreter, so a *divergent* line is the interesting one.
+
+### What IS duplicated, measured rather than assumed
+
+"Only the driver files need mirroring" is the natural guess and it is wrong.
+Measured 2026-09-15, after normalising the `tom_d4rt_ast`→`tom_d4rt` /
+`runtime.dart`→`d4rt.dart` rewrite:
+
+| | AST twin | source twin | in both | differ |
+| --- | ---: | ---: | ---: | ---: |
+| `test/` | 2 307 | 249 | 59 | **45** |
+| `lib/` | 27 | 27 | 24 | **20** |
+
+Of the 45 differing files under `test/`, **31 are `flutter_*_test.dart` drivers
+and 14 are not**: both `README.md`s, every runner script (`run_base_tests`,
+`run_issue_analysis_tests`, `run_guard_tests`, the profilers, `idle_timeout`),
+`send_test_runner.dart`, and the in-process guards `registration_skip_test.dart`,
+`scd133_registry_enum_resolution_test.dart`, `suspicious_rewrite_test.dart`.
+
+Under `lib/`, 18 of the 20 are generated `*.b.dart` bridges — regenerated per
+twin, never hand-edited. The other two are hand-written and the important ones:
+`src/d4rt_runtime_registrations.dart` (~198 KB of interface proxies, with **no
+sync guard** — sce165) and the user bridges, which ARE derived and guarded
+(`tool/sync_shared_user_bridges.dart`, a test, and a pre-commit hook).
+
+So the rule of thumb: **scripts are shared, bridges are generated per twin,
+everything else is duplicated by hand** — and only the user bridges have a
+mechanism that notices when the copies drift.
+
 ## ⚠️ Read all three numbers — a rising skip count is a regression
 
 A runner prints `+45 ~1 -2`: **pass, skip, fail**. Only `-N` is habitually read

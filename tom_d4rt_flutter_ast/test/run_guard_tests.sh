@@ -83,6 +83,14 @@ run "bridged enums resolve to themselves" \
 run "bridge registration is pooled (step #20)" \
   flutter test test/registration_skip_test.dart
 
+# SCD141: the two twins execute ONE script corpus, and it lives in this package.
+# `tom_d4rt_flutter` has none of its own — its `send_test_runner.dart` points at
+# `send_ast_via_http_scripts/` here. A missing path is already loud (the sibling
+# suite fails at run time); a SECOND, forked corpus is the silent case, and SCC47
+# nearly created one by hand. Pure file I/O.
+run "the twins share one script corpus" \
+  flutter test test/scd141_shared_corpus_test.dart
+
 # SCD140: every `skip:` in BOTH twins' corpus drivers states a mechanism and
 # names evidence a reader can check. A skip is a claim that the interpreter
 # cannot be measured here, and twice that claim has been false — SCC47 found one
