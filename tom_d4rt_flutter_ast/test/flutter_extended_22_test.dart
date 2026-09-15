@@ -39,7 +39,7 @@ void main() {
       final result = await SendTestRunner.send(
         'widgets/slidetransition_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 30. widgets/nestedscrollview_test.dart (idx 269)
@@ -47,7 +47,7 @@ void main() {
       final result = await SendTestRunner.send(
         'widgets/nestedscrollview_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 31. animation/tweensequence_test.dart (idx 278)
@@ -55,19 +55,19 @@ void main() {
       final result = await SendTestRunner.send(
         'animation/tweensequence_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 32. services/codecs_test.dart (idx 279)
     test('services/codecs_test.dart', () async {
       final result = await SendTestRunner.send('services/codecs_test.dart');
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 33. services/channels_test.dart (idx 280)
     test('services/channels_test.dart', () async {
       final result = await SendTestRunner.send('services/channels_test.dart');
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 34. semantics/semantics_config_test.dart (idx 290)
@@ -75,7 +75,7 @@ void main() {
       final result = await SendTestRunner.send(
         'semantics/semantics_config_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 35. widgets/layout_builder_adv_test.dart (idx 292)
@@ -83,7 +83,7 @@ void main() {
       final result = await SendTestRunner.send(
         'widgets/layout_builder_adv_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 36. material/scaffold_messenger_test.dart (idx 303)
@@ -91,7 +91,7 @@ void main() {
       final result = await SendTestRunner.send(
         'material/scaffold_messenger_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 37. rendering/box_hit_test_result_test.dart (idx 309)
@@ -99,7 +99,7 @@ void main() {
       final result = await SendTestRunner.send(
         'rendering/box_hit_test_result_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 38. rendering/custom_painter_semantics_test.dart (idx 310)
@@ -107,7 +107,7 @@ void main() {
       final result = await SendTestRunner.send(
         'rendering/custom_painter_semantics_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 39. rendering/relayout_when_system_fonts_change_mixin_test.dart (idx 312)
@@ -117,7 +117,7 @@ void main() {
         final result = await SendTestRunner.send(
           'rendering/relayout_when_system_fonts_change_mixin_test.dart',
         );
-        expectSuccess(result);
+        SendTestRunner.expectSuccess(result);
       },
     );
 
@@ -126,7 +126,7 @@ void main() {
       final result = await SendTestRunner.send(
         'rendering/render_absorb_pointer_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 41. rendering/render_aligning_shifted_box_test.dart (idx 314)
@@ -134,7 +134,7 @@ void main() {
       final result = await SendTestRunner.send(
         'rendering/render_aligning_shifted_box_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 47. rendering/render_shrink_wrapping_viewport_test.dart (idx 325)
@@ -142,7 +142,7 @@ void main() {
       final result = await SendTestRunner.send(
         'rendering/render_shrink_wrapping_viewport_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 48. widgets/android_view_test.dart (idx 329)
@@ -152,7 +152,7 @@ void main() {
         final result = await SendTestRunner.send(
           'widgets/android_view_test.dart',
         );
-        expectSuccess(result);
+        SendTestRunner.expectSuccess(result);
       },
       // SCD139 (2026-09-15) re-derived this rather than trusting it. The
       // original justification — added by e22671e8b on 2026-04-18, "AndroidView
@@ -188,7 +188,7 @@ void main() {
       final result = await SendTestRunner.send(
         'widgets/animated_cross_fade_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 51. widgets/autofill_group_test.dart (idx 333)
@@ -196,7 +196,7 @@ void main() {
       final result = await SendTestRunner.send(
         'widgets/autofill_group_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 52. widgets/backdrop_filter_test.dart (idx 334)
@@ -204,7 +204,7 @@ void main() {
       final result = await SendTestRunner.send(
         'widgets/backdrop_filter_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 53. widgets/composited_transform_follower_test.dart (idx 336)
@@ -212,7 +212,7 @@ void main() {
       final result = await SendTestRunner.send(
         'widgets/composited_transform_follower_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 54. widgets/fixed_extent_metrics_test.dart (idx 340)
@@ -220,7 +220,7 @@ void main() {
       final result = await SendTestRunner.send(
         'widgets/fixed_extent_metrics_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 55. widgets/glowing_overscroll_indicator_test.dart (idx 341)
@@ -228,7 +228,7 @@ void main() {
       final result = await SendTestRunner.send(
         'widgets/glowing_overscroll_indicator_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 56. widgets/html_element_view_test.dart (idx 342)
@@ -245,7 +245,7 @@ void main() {
       final result = await SendTestRunner.send(
         'widgets/html_element_view_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 57. widgets/image_filtered_test.dart (idx 343)
@@ -253,7 +253,7 @@ void main() {
       final result = await SendTestRunner.send(
         'widgets/image_filtered_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 58. widgets/indexed_stack_test.dart (idx 344)
@@ -261,7 +261,7 @@ void main() {
       final result = await SendTestRunner.send(
         'widgets/indexed_stack_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 59. widgets/inherited_theme_test.dart (idx 346)
@@ -269,7 +269,7 @@ void main() {
       final result = await SendTestRunner.send(
         'widgets/inherited_theme_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 60. widgets/inherited_widget_test.dart (idx 347)
@@ -277,7 +277,7 @@ void main() {
       final result = await SendTestRunner.send(
         'widgets/inherited_widget_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 61. widgets/list_wheel_scroll_view_test.dart (idx 348)
@@ -285,7 +285,7 @@ void main() {
       final result = await SendTestRunner.send(
         'widgets/list_wheel_scroll_view_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 62. widgets/list_wheel_viewport_test.dart (idx 349)
@@ -293,7 +293,7 @@ void main() {
       final result = await SendTestRunner.send(
         'widgets/list_wheel_viewport_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 63. widgets/magnifier_decoration_test.dart (idx 350)
@@ -301,7 +301,7 @@ void main() {
       final result = await SendTestRunner.send(
         'widgets/magnifier_decoration_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 64. widgets/navigation_toolbar_test.dart (idx 351)
@@ -309,7 +309,7 @@ void main() {
       final result = await SendTestRunner.send(
         'widgets/navigation_toolbar_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 65. widgets/overflow_bar_test.dart (idx 352)
@@ -317,7 +317,7 @@ void main() {
       final result = await SendTestRunner.send(
         'widgets/overflow_bar_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 66. widgets/overflow_box_test.dart (idx 353)
@@ -325,7 +325,7 @@ void main() {
       final result = await SendTestRunner.send(
         'widgets/overflow_box_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 67. widgets/page_storage_bucket_test.dart (idx 354)
@@ -333,7 +333,7 @@ void main() {
       final result = await SendTestRunner.send(
         'widgets/page_storage_bucket_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 68. widgets/page_storage_test.dart (idx 355)
@@ -341,7 +341,7 @@ void main() {
       final result = await SendTestRunner.send(
         'widgets/page_storage_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 69. widgets/parent_data_widget_test.dart (idx 356)
@@ -349,7 +349,7 @@ void main() {
       final result = await SendTestRunner.send(
         'widgets/parent_data_widget_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 70. widgets/physical_model_test.dart (idx 358)
@@ -357,7 +357,7 @@ void main() {
       final result = await SendTestRunner.send(
         'widgets/physical_model_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 71. widgets/render_object_element_test.dart (idx 359)
@@ -365,7 +365,7 @@ void main() {
       final result = await SendTestRunner.send(
         'widgets/render_object_element_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 72. widgets/render_object_widget_test.dart (idx 360)
@@ -373,7 +373,7 @@ void main() {
       final result = await SendTestRunner.send(
         'widgets/render_object_widget_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 73. widgets/restorable_enum_test.dart (idx 364)
@@ -381,7 +381,7 @@ void main() {
       final result = await SendTestRunner.send(
         'widgets/restorable_enum_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 74. widgets/restorable_text_editing_controller_test.dart (idx 368)
@@ -389,13 +389,13 @@ void main() {
       final result = await SendTestRunner.send(
         'widgets/restorable_text_editing_controller_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 75. widgets/root_widget_test.dart (idx 372)
     test('widgets/root_widget_test.dart', () async {
       final result = await SendTestRunner.send('widgets/root_widget_test.dart');
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 79. widgets/stateful_element_test.dart (idx 380)
@@ -403,15 +403,7 @@ void main() {
       final result = await SendTestRunner.send(
         'widgets/stateful_element_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
   });
-}
-
-void expectSuccess(SendResult result) {
-  final errors = result.frameworkErrors.isNotEmpty
-      ? result.frameworkErrors.join('; ')
-      : null;
-  final reason = result.error ?? errors;
-  expect(result.success && !result.hasFrameworkErrors, isTrue, reason: reason);
 }

@@ -283,7 +283,7 @@ void main() {
           'retest/widgets/default_text_editing_shortcuts_test.dart',
           waitBeforeClear: const Duration(seconds: 10),
         );
-        expectSuccess(result);
+        SendTestRunner.expectSuccess(result);
       },
     );
   });
@@ -296,26 +296,26 @@ void main() {
         final result = await SendTestRunner.send(
           'widgets/display_feature_sub_screen_test.dart',
         );
-        expectSuccess(result);
+        SendTestRunner.expectSuccess(result);
       },
     );
 
     // From essential_classes_test.dart.
     test('appbar_test.dart (from essential_classes)', () async {
       final result = await SendTestRunner.send('widgets/appbar_test.dart');
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('icon_test.dart (from essential_classes)', () async {
       final result = await SendTestRunner.send('widgets/icon_test.dart');
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('singlechildscrollview_test.dart (from essential_classes)', () async {
       final result = await SendTestRunner.send(
         'widgets/singlechildscrollview_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // From important_classes_test.dart.
@@ -323,14 +323,14 @@ void main() {
       final result = await SendTestRunner.send(
         'widgets/customscrollview_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('transform_full_test.dart (from important_classes)', () async {
       final result = await SendTestRunner.send(
         'widgets/transform_full_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // From secondary_classes_test.dart.
@@ -338,14 +338,14 @@ void main() {
       final result = await SendTestRunner.send(
         'rendering/selection_registrar_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('animation_max_test.dart (from secondary_classes)', () async {
       final result = await SendTestRunner.send(
         'animation/animation_max_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // The wedger that causes the cupertino_text_magnifier /clear timeout.
@@ -355,7 +355,7 @@ void main() {
         final result = await SendTestRunner.send(
           'cupertino/cupertino_spell_check_suggestions_toolbar_test.dart',
         );
-        expectSuccess(result);
+        SendTestRunner.expectSuccess(result);
       },
     );
 
@@ -365,7 +365,7 @@ void main() {
         final result = await SendTestRunner.send(
           'cupertino/cupertino_text_magnifier_test.dart',
         );
-        expectSuccess(result);
+        SendTestRunner.expectSuccess(result);
       },
     );
 
@@ -375,7 +375,7 @@ void main() {
         final result = await SendTestRunner.send(
           'dart_ui/ztmp_path_metrics_access_test.dart',
         );
-        expectSuccess(result);
+        SendTestRunner.expectSuccess(result);
       },
     );
 
@@ -383,7 +383,7 @@ void main() {
       final result = await SendTestRunner.send(
         'dart_ui/semantics_action_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // From hardly_relevant_classes_2_test.dart.
@@ -391,7 +391,7 @@ void main() {
       final result = await SendTestRunner.send(
         'material/selection_area_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     test(
@@ -400,7 +400,7 @@ void main() {
         final result = await SendTestRunner.send(
           'material/animated_icon_data_test.dart',
         );
-        expectSuccess(result);
+        SendTestRunner.expectSuccess(result);
       },
     );
 
@@ -411,7 +411,7 @@ void main() {
         final result = await SendTestRunner.send(
           'rendering/persistent_header_show_on_screen_configuration_test.dart',
         );
-        expectSuccess(result);
+        SendTestRunner.expectSuccess(result);
       },
     );
 
@@ -422,16 +422,8 @@ void main() {
         final result = await SendTestRunner.send(
           'widgets/popup_window_controller_delegate_test.dart',
         );
-        expectSuccess(result);
+        SendTestRunner.expectSuccess(result);
       },
     );
   });
-}
-
-void expectSuccess(SendResult result) {
-  final errors = result.frameworkErrors.isNotEmpty
-      ? result.frameworkErrors.join('; ')
-      : null;
-  final reason = result.error ?? errors;
-  expect(result.success && !result.hasFrameworkErrors, isTrue, reason: reason);
 }

@@ -39,7 +39,7 @@ void main() {
       final result = await SendTestRunner.send(
         'retest/animation/reverse_tween_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // Dart UI
@@ -47,21 +47,21 @@ void main() {
       final result = await SendTestRunner.send(
         'retest/dart_ui/key_event_type_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('retest: dart_ui/vertex_mode_test.dart', () async {
       final result = await SendTestRunner.send(
         'retest/dart_ui/vertex_mode_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('retest: dart_ui/color_space_test.dart', () async {
       final result = await SendTestRunner.send(
         'retest/dart_ui/color_space_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     test(
@@ -70,7 +70,7 @@ void main() {
         final result = await SendTestRunner.send(
           'retest/dart_ui/system_color_palette_test.dart',
         );
-        expectSuccess(result);
+        SendTestRunner.expectSuccess(result);
       },
       // SCC47 (2026-09-06): this test used to carry
       //   skip: 'SystemColor not supported on desktop platforms (web-only API)'
@@ -95,21 +95,21 @@ void main() {
       final result = await SendTestRunner.send(
         'retest/foundation/object_created_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('retest: foundation/object_disposed_test.dart', () async {
       final result = await SendTestRunner.send(
         'retest/foundation/object_disposed_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('retest: foundation/object_event_test.dart', () async {
       final result = await SendTestRunner.send(
         'retest/foundation/object_event_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // Material
@@ -117,35 +117,35 @@ void main() {
       final result = await SendTestRunner.send(
         'retest/material/bottom_navigation_bar_type_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('retest: material/button_bar_theme_test.dart', () async {
       final result = await SendTestRunner.send(
         'retest/material/button_bar_theme_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('retest: material/button_bar_layout_behavior_test.dart', () async {
       final result = await SendTestRunner.send(
         'retest/material/button_bar_layout_behavior_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('retest: material/button_text_theme_test.dart', () async {
       final result = await SendTestRunner.send(
         'retest/material/button_text_theme_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('retest: material/dropdown_menu_close_behavior_test.dart', () async {
       final result = await SendTestRunner.send(
         'retest/material/dropdown_menu_close_behavior_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     test(
@@ -154,7 +154,7 @@ void main() {
         final result = await SendTestRunner.send(
           'retest/material/gapped_range_slider_track_shape_test.dart',
         );
-        expectSuccess(result);
+        SendTestRunner.expectSuccess(result);
       },
     );
 
@@ -162,14 +162,14 @@ void main() {
       final result = await SendTestRunner.send(
         'retest/material/hour_format_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('retest: material/material_banner_closed_reason_test.dart', () async {
       final result = await SendTestRunner.send(
         'retest/material/material_banner_closed_reason_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     test(
@@ -178,7 +178,7 @@ void main() {
         final result = await SendTestRunner.send(
           'retest/material/navigation_destination_label_behavior_test.dart',
         );
-        expectSuccess(result);
+        SendTestRunner.expectSuccess(result);
       },
     );
 
@@ -186,7 +186,7 @@ void main() {
       final result = await SendTestRunner.send(
         'retest/material/navigation_rail_label_type_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 1944 TODO C.150 (2026-06-02): wrapper removed. Isolated retest
@@ -199,28 +199,28 @@ void main() {
       final result = await SendTestRunner.send(
         'retest/material/popup_menu_position_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('retest: material/theme_extension_test.dart', () async {
       final result = await SendTestRunner.send(
         'retest/material/theme_extension_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('retest: material/toggle_buttons_theme_data_test.dart', () async {
       final result = await SendTestRunner.send(
         'retest/material/toggle_buttons_theme_data_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('retest: material/toggle_buttons_theme_test.dart', () async {
       final result = await SendTestRunner.send(
         'retest/material/toggle_buttons_theme_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // Painting
@@ -228,7 +228,7 @@ void main() {
       final result = await SendTestRunner.send(
         'retest/painting/axis_direction_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // Rendering
@@ -236,7 +236,7 @@ void main() {
       final result = await SendTestRunner.send(
         'retest/rendering/hit_test_behavior_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     test(
@@ -245,7 +245,7 @@ void main() {
         final result = await SendTestRunner.send(
           'retest/rendering/over_scroll_header_stretch_configuration_test.dart',
         );
-        expectSuccess(result);
+        SendTestRunner.expectSuccess(result);
       },
     );
 
@@ -255,7 +255,7 @@ void main() {
         final result = await SendTestRunner.send(
           'retest/rendering/render_android_view_test.dart',
         );
-        expectSuccess(result);
+        SendTestRunner.expectSuccess(result);
       },
       skip: Platform.isAndroid
           // This script builds an AndroidView PlatformView with the view type
@@ -295,14 +295,14 @@ void main() {
       final result = await SendTestRunner.send(
         'retest/widgets/nested_scroll_view_state_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('retest: widgets/next_focus_intent_test.dart', () async {
       final result = await SendTestRunner.send(
         'retest/widgets/next_focus_intent_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 1944 TODO C.163 (2026-06-02): the 60 s `_slowTestTimeout` wrapper was
@@ -315,14 +315,14 @@ void main() {
       final result = await SendTestRunner.send(
         'retest/widgets/object_key_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('retest: widgets/raw_dialog_route_test.dart', () async {
       final result = await SendTestRunner.send(
         'retest/widgets/raw_dialog_route_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 1944 TODO C.164 (2026-06-02): the 60 s `_slowTestTimeout` wrapper was
@@ -339,14 +339,14 @@ void main() {
       final result = await SendTestRunner.send(
         'retest/widgets/raw_keyboard_listener_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('retest: widgets/raw_menu_overlay_info_test.dart', () async {
       final result = await SendTestRunner.send(
         'retest/widgets/raw_menu_overlay_info_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 1944 TODO C.165 (2026-06-02): the 60 s `_slowTestTimeout` wrapper was
@@ -363,14 +363,14 @@ void main() {
       final result = await SendTestRunner.send(
         'retest/widgets/raw_radio_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('retest: widgets/redo_text_intent_test.dart', () async {
       final result = await SendTestRunner.send(
         'retest/widgets/redo_text_intent_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 1944 TODO C.166 (2026-06-02): the 60 s `_slowTestTimeout` wrapper was
@@ -388,7 +388,7 @@ void main() {
         final result = await SendTestRunner.send(
           'retest/widgets/regular_window_controller_delegate_test.dart',
         );
-        expectSuccess(result);
+        SendTestRunner.expectSuccess(result);
       },
     );
 
@@ -396,7 +396,7 @@ void main() {
       final result = await SendTestRunner.send(
         'retest/widgets/regular_window_controller_linux_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 1944 TODO C.167 (2026-06-02): the 60 s `_slowTestTimeout` wrapper was
@@ -414,7 +414,7 @@ void main() {
         final result = await SendTestRunner.send(
           'retest/widgets/regular_window_controller_mac_o_s_test.dart',
         );
-        expectSuccess(result);
+        SendTestRunner.expectSuccess(result);
       },
     );
 
@@ -422,7 +422,7 @@ void main() {
       final result = await SendTestRunner.send(
         'retest/widgets/regular_window_controller_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 1944 TODO C.168 (2026-06-02): the 60 s `_slowTestTimeout` wrapper was
@@ -438,14 +438,14 @@ void main() {
       final result = await SendTestRunner.send(
         'retest/widgets/regular_window_controller_win32_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('retest: widgets/regular_window_test.dart', () async {
       final result = await SendTestRunner.send(
         'retest/widgets/regular_window_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 1944 TODO C.169 (2026-06-02): the 60 s `_slowTestTimeout` wrapper was
@@ -465,7 +465,7 @@ void main() {
         final result = await SendTestRunner.send(
           'retest/widgets/render_abstract_layout_builder_mixin_test.dart',
         );
-        expectSuccess(result);
+        SendTestRunner.expectSuccess(result);
       },
     );
 
@@ -475,7 +475,7 @@ void main() {
         final result = await SendTestRunner.send(
           'retest/widgets/render_nested_scroll_view_viewport_test.dart',
         );
-        expectSuccess(result);
+        SendTestRunner.expectSuccess(result);
       },
     );
 
@@ -492,14 +492,14 @@ void main() {
       final result = await SendTestRunner.send(
         'retest/widgets/render_tap_region_surface_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('retest: widgets/replace_text_intent_test.dart', () async {
       final result = await SendTestRunner.send(
         'retest/widgets/replace_text_intent_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 1944 TODO C.171 (2026-06-02): stripped the `timeout: _slowTestTimeout`
@@ -517,15 +517,7 @@ void main() {
       final result = await SendTestRunner.send(
         'retest/widgets/request_focus_action_test.dart',
       );
-      expectSuccess(result);
+      SendTestRunner.expectSuccess(result);
     });
   });
-}
-
-void expectSuccess(SendResult result) {
-  final errors = result.frameworkErrors.isNotEmpty
-      ? result.frameworkErrors.join('; ')
-      : null;
-  final reason = result.error ?? errors;
-  expect(result.success && !result.hasFrameworkErrors, isTrue, reason: reason);
 }

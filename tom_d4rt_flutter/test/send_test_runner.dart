@@ -734,6 +734,44 @@ class SendTestRunner {
     return _client!;
   }
 
+  /// The corpus verdict rule: a script passed only when the build succeeded AND
+  /// no framework errors were captured.
+  ///
+  /// **This is the single most consequential piece of logic in the corpus** — it
+  /// is what converts a [SendResult] into the per-file `+N ~M -K` that every
+  /// cluster count and every `## Verification runs` entry is compared against.
+  ///
+  /// SCD144 moved it here. It had been defined PER TEST FILE, four copies per
+  /// twin (`flutter_extended_21/22/23`, `interpreter_generator_open_issues`), so
+  /// a change to what counts as a failure could land in one file and silently
+  /// not in the others, and a session auditing the rule had to know to look four
+  /// times — which is what SCC48 spent part of a session doing. All eight copies
+  /// were verified byte-identical before the collapse; had one diverged, the
+  /// divergence would have been a finding rather than something to average away.
+  ///
+  /// It lives beside [SendResult] because it is inseparable from the result it
+  /// interprets: the inputs to the verdict and the verdict itself belong in one
+  /// place.
+  ///
+  /// **Not every driver uses it, and that is a known inconsistency, not a
+  /// choice.** The `flutter_base_*` files assert `expect(result.success, isTrue)`
+  /// inline, which does NOT gate on `frameworkErrors` — so the same script can
+  /// pass in one file and fail in another, and `interpreter_issues.md`'s
+  /// statement that "the corpus does not gate on `frameworkErrors`" is true of
+  /// only half the files. sce167 owns settling that; this method is where the
+  /// settlement will land.
+  static void expectSuccess(SendResult result) {
+    final errors = result.frameworkErrors.isNotEmpty
+        ? result.frameworkErrors.join('; ')
+        : null;
+    final reason = result.error ?? errors;
+    expect(
+      result.success && !result.hasFrameworkErrors,
+      isTrue,
+      reason: reason,
+    );
+  }
+
   /// Send a Dart source script to the test app and return the build result.
   ///
   /// [scriptPath] is relative to [scriptsPath], e.g.
