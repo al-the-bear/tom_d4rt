@@ -980,6 +980,20 @@ const Map<String, _Coverage> _coveredElsewhere = {
 /// a copy would ask the same questions about the same three packages and add a
 /// second red for one cause, not that it cannot run.
 const Map<String, int> _uncoveredBaseline = {
+  // NOT PORTABLE YET, and the reason is the thing it tests. SCD173's four cases
+  // pass a map literal to `ContentType`, `HeaderValue` and
+  // `findProxyFromEnvironment`; the coercion that makes those work landed under
+  // SCD70 and is NOT PUBLISHED, so against the interpreter this package
+  // resolves all four fail with exactly the error they exist to prevent —
+  // `type '_Map<Object?, Object?>' is not a subtype of type
+  // 'Map<String, String?>?' in type cast`, thrown from
+  // `tom_d4rt_ast/src/runtime/stdlib/io/http.dart`.
+  //
+  // Measured, not assumed: the copy was written, run here, and removed. That
+  // failure is the evidence in sce209 that the defect is live in every shipped
+  // interpreter, so this entry is a dated record of an unreleased fix rather
+  // than a gap in the suite. It comes across when the floor moves.
+  'stdlib/io/scd173_collection_args_test.dart': 4,
   // NOT PORTABLE — and uniquely so: the subject itself cannot exist on the
   // analyzer-free line. `static_name_report.dart` resolves names over the
   // ANALYZER AST, which `tom_d4rt_ast` has no access to by construction, so
