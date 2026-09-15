@@ -83,6 +83,15 @@ run "bridged enums resolve to themselves" \
 run "bridge registration is pooled (step #20)" \
   flutter test test/registration_skip_test.dart
 
+# SCD140: every `skip:` in BOTH twins' corpus drivers states a mechanism and
+# names evidence a reader can check. A skip is a claim that the interpreter
+# cannot be measured here, and twice that claim has been false — SCC47 found one
+# asserting a bridge behaviour that does not exist, SCD139 another claiming a
+# capability gap that was really a permission gate. Neither named evidence, and
+# that is the part a test can check. Pure file I/O over both `test/` dirs.
+run "corpus skips state a mechanism and cite evidence" \
+  flutter test test/scd140_skip_hygiene_test.dart
+
 # The cluster log is a status register, and these keep it honest: the header
 # table is DERIVED from the section markers (ISSUES-1/2), no corpus numbers
 # live in the header (ISSUES-3), the recorded interpreter pair still describes

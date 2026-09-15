@@ -114,6 +114,43 @@ it belongs in `doc/` under a name that survives the run it came from. The
 the raw metrics it was written from are no longer tracked, which is the same
 convention every historical entry in `doc/interpreter_issues.md` follows.
 
+## ⚠️ Read all three numbers — a rising skip count is a regression
+
+A runner prints `+45 ~1 -2`: **pass, skip, fail**. Only `-N` is habitually read
+as bad, and that is the hole SCD140 closes.
+
+On 2026-07-28 `flutter_extended_23` went from `+44 ~1 -1` to `+44 ~2`. It was
+recorded beside genuine recoveries, annotated "not a pass", and left. The pass
+count had not moved: a visible FAILURE had become an invisible SKIP. That is a
+regression in measurement, not a repair, and it sat unexamined for six weeks in
+a file whose test group is named "Tests with workarounds reverted retest".
+
+**`+44 ~2` and `+44 ~1 -1` describe the same amount of working software. Only
+one of them tells you so.** So compare a run against its baseline on all three:
+
+| change | reading |
+| ------ | ------- |
+| fail rises | regression — the usual one |
+| **skip rises, pass unchanged** | **regression. A test stopped being measured.** Explain it in the verification entry exactly as a new failure would be |
+| skip rises, pass rises by the same amount | a test moved between files, or a driver was split. Say which |
+| skip falls, pass rises | a skip was audited and became a measured test (SCD139) — worth calling out |
+| skip falls, fail rises | a masker was removed and the truth is red. Better than a skip, and it needs a cluster entry |
+
+**Every `skip:` in a driver file must state the MECHANISM that makes the
+condition unobservable to the interpreter, and name its evidence** — a commit, a
+source location, or a reproduction. "Platform-dependent API" is not a mechanism:
+a script can guard a platform-dependent API and still be measured, and two of
+the three surviving skips were justified that way until SCD139 re-measured them.
+`scd140_skip_hygiene_test.dart` enforces the shape over both twins' drivers, and
+it is in `run_guard_tests.sh`.
+
+Why the shape and not the prose: SCC47 found a skip asserting that "the d4rt
+bridge wraps the native `UnsupportedError` in a way that the script's `catch (e)`
+does not reliably intercept" — a mechanism that does not exist, masking a plain
+script defect. SCD139 found another claiming an interpreter capability gap that
+was really a permission gate. Both read plausibly. Neither named evidence, and
+that is the part a test can check.
+
 ## ⚠️ The tests must run strictly serially — never in parallel
 
 The corpus drives **one** companion-app process through **one** local HTTP

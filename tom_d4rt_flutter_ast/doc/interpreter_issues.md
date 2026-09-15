@@ -62,6 +62,29 @@ newest entry of the same scope in "Verification runs": base-subset runs
 and full-corpus runs are recorded separately, so compare a run only with
 an entry of its own scope, and read that entry's resolved pair first.
 
+### Compare all three numbers. A rising skip count is a regression (SCD140)
+
+**Only `-N` reads as bad, and that is the hole.** On 2026-07-28 this document
+tabulated `flutter_extended_23` going from `+44 ~1 -1` to `+44 ~2` in the same
+column as genuine recoveries, observed that it was "not a pass", and moved on.
+The pass count had not moved: a visible FAILURE had become an invisible SKIP,
+which is a regression in measurement rather than a repair. It then sat
+unexamined for six weeks, in a file whose test group is named "Tests with
+workarounds reverted retest".
+
+So a run is compared on **pass / skip / fail**, all three:
+
+| change | reading |
+| ------ | ------- |
+| fail rises | regression — the usual one |
+| **skip rises, pass unchanged** | **regression. A test stopped being measured.** Explain it in the entry exactly as a new failure would be |
+| skip rises, pass rises by the same amount | a test moved between files, or a driver was split. Say which |
+| skip falls, pass rises | a skip was audited and converted to a measured test — the SCD139 outcome, and the one worth calling out |
+| skip falls, fail rises | a masker was removed and the truth is red. Better than the skip, and it needs a cluster entry |
+
+`+44 ~2` and `+44 ~1 -1` describe the same amount of working software. Only one
+of them tells you so.
+
 To produce a number: `./test/run_base_tests.sh` for the 17-file base gate
 (`flutter_base_01..17`), `./test/run_issue_analysis_tests.sh` for the full
 41-file corpus. **Serial only, one twin at a time** — see
