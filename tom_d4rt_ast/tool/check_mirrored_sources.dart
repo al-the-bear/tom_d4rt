@@ -53,10 +53,6 @@ const Map<String, String> kDivergentMirrors = <String, String>{
       'module loading differs — the reference constructs a ModuleLoader where '
       'this tree builds an Environment directly, which is the same difference '
       'that makes module_loader.dart untwinnable',
-  'environment.dart':
-      'SUSPECTED ONE-SIDED EDIT, not architecture: the reference declares '
-      '`removeLocalValue` and this tree does not. Baselined so the guard can '
-      'ship, NOT because the difference is justified. SCD208.',
   'bridge/bridged_types.dart':
       'SUSPECTED ONE-SIDED EDIT, not architecture: the same enum name/index '
       'lookup is an if-chain in the reference and a switch here — a refactor '

@@ -267,40 +267,6 @@ const _allowedRegions = <String, (String, String)>{
     "switch ( name ) { case 'name' : return ( nativeObject as Enum ) . name ; "
         "case 'index' : return ( nativeObject as Enum ) . index ; }",
   ),
-  // `removeLocalValue` is declared in a different position in the two files.
-  // Both trees HAVE it — F-SCD183-5 proves that — so this is ordering, not a
-  // missing member, and the member check is what makes that distinction
-  // visible rather than leaving it to be guessed from a token diff.
-  'environment.dart': (
-    'bool removeLocalValue ( String name ) { if ( ! _values . '
-        'containsKey ( name ) ) return false ; _values . remove ( name '
-        ') ; return true ; } void define ( String name , Object ? value '
-        ') { if ( _values . containsKey ( name ) || _bridgedClasses . '
-        'containsKey ( name ) || _bridgedEnums . containsKey ( name ) ) '
-        '{ Logger . warn ( "Redefining variable or colliding with '
-        'bridged type:  \$ name " ) ; } _values [ name ] = value ; } '
-        'void defineSlot ( int slot , String name , Object ? value ) { '
-        'var slots = _slots ; if ( slots == null ) { slots = List < '
-        'Object ? > . filled ( slot + 1 , _unset , growable : true ) ; '
-        '_slots = slots ; } else if ( slot >= slots . length ) { while '
-        '( slots . length <= slot ) { slots . add ( _unset ) ; } } '
-        'slots [ slot ] = value ; ( _slotIndex ??= { } ) [ name ] = '
-        'slot ; } Object ? getSlot ( int slot ) => _slots ! [ slot ] ;',
-    'void define ( String name , Object ? value ) { if ( _values . '
-        'containsKey ( name ) || _bridgedClasses . containsKey ( name ) '
-        '|| _bridgedEnums . containsKey ( name ) ) { Logger . warn ( '
-        '"Redefining variable or colliding with bridged type:  \$ name " '
-        ') ; } _values [ name ] = value ; } void defineSlot ( int slot '
-        ', String name , Object ? value ) { var slots = _slots ; if ( '
-        'slots == null ) { slots = List < Object ? > . filled ( slot + '
-        '1 , _unset , growable : true ) ; _slots = slots ; } else if ( '
-        'slot >= slots . length ) { while ( slots . length <= slot ) { '
-        'slots . add ( _unset ) ; } } slots [ slot ] = value ; ( '
-        '_slotIndex ??= { } ) [ name ] = slot ; } Object ? getSlot ( '
-        'int slot ) => _slots ! [ slot ] ; bool removeLocalValue ( '
-        'String name ) { if ( ! _values . containsKey ( name ) ) return '
-        'false ; _values . remove ( name ) ; return true ; }',
-  ),
 };
 
 /// Shared files whose divergence is pervasive, and why token identity cannot
