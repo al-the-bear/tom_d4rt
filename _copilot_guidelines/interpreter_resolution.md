@@ -57,6 +57,33 @@ other is a near-miss the bridge corpus has already had.
 
 ---
 
+## Clearing a frozen lock
+
+One command, from anywhere inside the repo:
+
+```bash
+dart run tom_d4rt_ast/tool/upgrade_stale_locks.dart --dry-run   # the plan
+dart run tom_d4rt_ast/tool/upgrade_stale_locks.dart             # apply
+```
+
+It walks every package under the repo root — nested fixtures and both
+companion apps included, each of which carries its own ignored lock — chooses
+`flutter pub upgrade` or `dart pub upgrade` by reading `sdk: flutter` out of
+the pubspec rather than guessing from the path, and **re-measures afterwards**
+rather than trusting exit codes. A lock that will not move is a *constraint*
+holding it there, and the tool says so instead of reporting success.
+
+It shares its definition with the guard: the walk, the lock parse and the
+version comparison live in `tom_d4rt_ast/tool/stale_locks.dart`, which
+`scc45_resolution_guard_test.dart` imports. A tool that clears a red the guard
+still reports would be worse than either alone.
+
+**A green `F-SCC45-2` is not a corpus re-measurement.** Upgrading a Flutter
+twin's lock moves the bridge corpus onto a new interpreter without re-running
+it — DGUC6 arriving by a side door. The tool prints a warning naming the
+packages it moved when that happens; re-run `./test/run_base_tests.sh` in each
+twin, serially, and record the run.
+
 ## Before any run whose result will be quoted
 
 A baseline, a conformance claim, a "the suite is green" statement — start with
@@ -89,6 +116,7 @@ For a consumer that is not a corpus host, the caret is the record.
 | ----- | -------- | ------- |
 | `F-SCC45-1` | `tom_d4rt_ast` | no package resolves a `tom_*` from a path it does not declare |
 | `F-SCC45-2` | `tom_d4rt_ast` | no lock is behind a version already in this machine's pub cache |
+| `F-SCC45-6` | `tom_d4rt_ast` | the shared walk reaches both companion apps and classifies them as Flutter |
 | `F-SCC45-4` | `tom_d4rt_ast` | no copy surface declares a floor below the current release |
 | `F-SCC45-5` | `tom_d4rt_ast` | every library declares its interpreter with a caret |
 | `F-SCC80-1` | `tom_d4rt_exec` | the resolved version is readable, printed, and not behind the floor |

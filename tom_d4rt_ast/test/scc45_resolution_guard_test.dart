@@ -36,6 +36,48 @@
 // pub.dev needs the network, and a test that reaches the network is a test
 // that gets disabled the first week it flakes.
 //
+// THE REMEDY IS A TOOL, AND THEY SHARE ONE DEFINITION (SCD206)
+//
+// F-SCC45-2 used to end at "run `dart pub upgrade` (or `flutter pub upgrade`)
+// in the package". Clearing it once, on this machine, was forty-one findings
+// across twenty-nine packages, each classified by hand as a Dart or a Flutter
+// package by reading its path back to its kind. That work is per-machine —
+// the locks are gitignored — and it recurs on every fleet host after every
+// publish, which this quest does often. A check whose remedy costs that much
+// is one people switch off rather than act on, which is how a guard stops
+// being a guard.
+//
+// `tool/upgrade_stale_locks.dart` now does it in one command. The walk, the
+// lock parse and the version comparison moved to `tool/stale_locks.dart`,
+// which this file imports: if the two disagreed about what "behind" means,
+// the tool would clear a red the guard still reports, which is worse than
+// either alone. That is also why the import points from `test/` into `tool/`
+// rather than the reverse — one definition, read in two directions, the same
+// arrangement `tom_d4rt_exec/tool/remeasure_pins.dart` uses.
+//
+// The shared walk now decides what gets UPGRADED and not only what gets
+// reported, so F-SCC45-6 and -7 guard the two places a silent miss costs most:
+// the companion apps, whose own locks are what the bridge corpus executes
+// (SCD193), and the path-linked fixtures, which inherit an upgraded host's
+// SOURCE while resolving their own dependencies. The tool's first sweep
+// cleared F-SCC45-2 and turned `G-PARITY-EX[d4_test_scripts]` red in
+// `tom_d4rt_generator` doing exactly that.
+//
+// EVERY ONE OF THEM HAS BEEN SEEN TO FAIL:
+//
+//   | Injected fault                                  | Fires          |
+//   | ----------------------------------------------- | -------------- |
+//   | `packagesUnder` depth limit lowered 5 → 2        | -6, walk 17    |
+//   | `isFlutterPackage` guesses from the path         | -6, both apps  |
+//   | `pathLinkedDependents` matches `hosted`          | -7, misses `d4`|
+//   | its self-exclusion deleted                       | -7, returns d4 |
+//
+// THE LAST TWO ARE WHY -7 NAMES A PACKAGE RATHER THAN ASSERTING isNotEmpty.
+// It was written as an emptiness check first, and NEITHER fault fired:
+// `tom_ast_generator` resolves `tom_d4rt_exec` hosted, so a source-blind
+// implementation still returns something, and the excluded package is absent
+// from an arbitrary result for free.
+//
 // THE PUB-CACHE DISCRIMINATOR
 //
 // Detecting SCC45 looks like it needs the network too, and the obvious offline
@@ -145,15 +187,13 @@ import 'dart:io';
 
 import 'package:test/test.dart';
 
-/// Packages whose presence identifies the d4rt repo root.
-const _repoMarkers = ['tom_d4rt', 'tom_d4rt_ast', 'tom_d4rt_exec'];
-
-/// Prefix identifying the packages this guard cares about.
-///
-/// Third-party dependencies are out of scope: they are not published by this
-/// workspace, so neither a stale path resolution nor an unpropagated publish
-/// can happen to them.
-const _ownedPrefix = 'tom_';
+// SCD206: the walk, the lock parse and the comparison live in `tool/`,
+// because a TOOL now clears what this guard reports and a tool that clears
+// a red the guard still reports is worse than either alone. The import
+// goes this way round — test reaching into tool — for the same reason
+// `tom_d4rt_exec/tool/remeasure_pins.dart` reaches into `test/`: one
+// definition, read in two directions.
+import '../tool/stale_locks.dart';
 
 /// Packages exempted from [F_SCC45_2], each naming the todo that owns the
 /// unfreeze.
@@ -176,108 +216,6 @@ const _ownedPrefix = 'tom_';
 /// re-deriving the shape under time pressure is how one gets added without an
 /// owner.
 const Map<String, String> _frozenLockExceptions = <String, String>{};
-
-/// A single dependency as recorded in a `pubspec.lock`.
-class _Resolution {
-  _Resolution(this.name, this.source, this.version);
-
-  final String name;
-
-  /// `hosted`, `path`, `sdk`, or `git`.
-  final String source;
-  final String version;
-}
-
-/// The d4rt repo root, found by walking up from the current directory.
-///
-/// Looks for a directory holding all the marker packages rather than counting
-/// `..` segments, so it survives being run from a nested fixture.
-Directory? _repoRoot() {
-  var dir = Directory.current.absolute;
-  for (var i = 0; i < 6; i++) {
-    final hasAll = _repoMarkers.every(
-      (p) => Directory('${dir.path}/$p').existsSync(),
-    );
-    if (hasAll) return dir;
-    final parent = dir.parent;
-    if (parent.path == dir.path) break;
-    dir = parent;
-  }
-  return null;
-}
-
-/// Every directory beneath [root] that holds both a pubspec and a lock.
-///
-/// `.dart_tool`, `build` and `.git` are pruned: pub materialises package
-/// skeletons under them that are not packages anyone maintains.
-List<Directory> _packagesUnder(Directory root) {
-  final found = <Directory>[];
-  void walk(Directory dir, int depth) {
-    if (depth > 5) return;
-    final name = dir.path.split(Platform.pathSeparator).last;
-    if (name.startsWith('.') || name == 'build' || name == 'node_modules') {
-      return;
-    }
-    if (File('${dir.path}/pubspec.yaml').existsSync() &&
-        File('${dir.path}/pubspec.lock').existsSync()) {
-      found.add(dir);
-    }
-    for (final child in dir.listSync().whereType<Directory>()) {
-      walk(child, depth + 1);
-    }
-  }
-
-  walk(root, 0);
-  return found;
-}
-
-/// The `tom_*` entries of [package]'s `pubspec.lock`.
-///
-/// Hand-rolled rather than parsed with a YAML package: this is the
-/// zero-dependency half of the split, and gaining a `yaml` dev-dependency here
-/// would put one more thing between a Flutter app and using it. The lock's
-/// shape is fixed and machine-written, so indentation is a reliable key —
-/// package names sit at two spaces, their fields at four.
-List<_Resolution> _lockedTomPackages(Directory package) {
-  final lines = File('${package.path}/pubspec.lock').readAsLinesSync();
-  final namePattern = RegExp(r'^  ([A-Za-z0-9_]+):\s*$');
-  final fieldPattern = RegExp(r'^    (source|version):\s*"?([^"]*)"?\s*$');
-
-  final out = <_Resolution>[];
-  String? current;
-  String? source;
-  String? version;
-
-  void flush() {
-    if (current != null &&
-        current!.startsWith(_ownedPrefix) &&
-        source != null &&
-        version != null) {
-      out.add(_Resolution(current!, source!, version!));
-    }
-    current = null;
-    source = null;
-    version = null;
-  }
-
-  for (final line in lines) {
-    if (namePattern.firstMatch(line) case final m?) {
-      flush();
-      current = m.group(1);
-      continue;
-    }
-    if (current == null) continue;
-    if (fieldPattern.firstMatch(line) case final m?) {
-      if (m.group(1) == 'source') {
-        source = m.group(2);
-      } else {
-        version = m.group(2);
-      }
-    }
-  }
-  flush();
-  return out;
-}
 
 /// Names of dependencies [package]'s pubspec declares with a `path:` key.
 ///
@@ -338,7 +276,7 @@ Set<String> _declaredPathDependencies(Directory package) {
   final byPackage = <String, int>{};
   for (final entry in cache.listSync().whereType<Directory>()) {
     final dir = entry.path.split(Platform.pathSeparator).last;
-    if (!dir.startsWith(_ownedPrefix)) continue;
+    if (!dir.startsWith(ownedPrefix)) continue;
     final dash = dir.lastIndexOf('-');
     if (dash <= 0) continue;
     byPackage.update(dir.substring(0, dash), (n) => n + 1, ifAbsent: () => 1);
@@ -359,54 +297,6 @@ Set<String> _declaredPathDependencies(Directory package) {
 /// on a host that works here; well above a fresh clone that has pulled two
 /// packages.
 const int _minimumCachedPackages = 5;
-
-/// Versions of [name] present in this machine's pub.dev cache.
-List<String> _cachedVersions(String name) {
-  final home =
-      Platform.environment['HOME'] ?? Platform.environment['USERPROFILE'];
-  if (home == null) return const [];
-  final cache = Directory('$home/.pub-cache/hosted/pub.dev');
-  if (!cache.existsSync()) return const [];
-
-  final prefix = '$name-';
-  return cache
-      .listSync()
-      .whereType<Directory>()
-      .map((d) => d.path.split(Platform.pathSeparator).last)
-      .where((d) => d.startsWith(prefix))
-      .map((d) => d.substring(prefix.length))
-      .toList();
-}
-
-/// Compares two dotted numeric versions, ignoring any pre-release suffix.
-///
-/// Pre-release versions are treated as their release counterpart and then
-/// discarded by the caller: a `-dev` build in the cache is not evidence that a
-/// stable release was passed over.
-int _compareVersions(String a, String b) {
-  List<int> parts(String v) => v
-      .split(RegExp(r'[-+]'))
-      .first
-      .split('.')
-      .map((p) => int.tryParse(p) ?? 0)
-      .toList();
-  final pa = parts(a);
-  final pb = parts(b);
-  for (var i = 0; i < 3; i++) {
-    final x = i < pa.length ? pa[i] : 0;
-    final y = i < pb.length ? pb[i] : 0;
-    if (x != y) return x.compareTo(y);
-  }
-  return 0;
-}
-
-/// The newest stable version of [name] in the cache, or null.
-String? _newestCached(String name) {
-  final stable = _cachedVersions(name).where((v) => !v.contains('-')).toList();
-  if (stable.isEmpty) return null;
-  stable.sort(_compareVersions);
-  return stable.last;
-}
 
 /// The interpreter packages whose floors F-SCC45-4 holds to the current
 /// release. Tool dependencies such as `tom_d4rt_generator` are left out: an
@@ -488,7 +378,7 @@ List<Directory> _pubspecsUnder(Directory root) {
 /// name -> constraint text. Path, git and sdk dependencies carry no constraint
 /// and are skipped; F-SCC45-1 owns path resolutions.
 ///
-/// Hand-rolled for the same reason as [_lockedTomPackages]. A dependency with
+/// Hand-rolled for the same reason as [lockedTomPackages]. A dependency with
 /// an inline constraint sits at two spaces under `dependencies:` or
 /// `dev_dependencies:`, which the scan tracks by the last top-level key.
 Map<String, String> _declaredInterpreterConstraints(Directory package) {
@@ -531,19 +421,8 @@ String? _lowerBound(String constraint) {
   return null;
 }
 
-/// [dir] relative to [root], for readable failure messages.
-///
-/// Always `/`-separated, so the exception list can be keyed on a path segment
-/// without the entries silently ceasing to match on Windows.
-String _rel(Directory root, Directory dir) {
-  final path = dir.path.startsWith(root.path)
-      ? dir.path.substring(root.path.length + 1)
-      : dir.path;
-  return path.replaceAll(r'\', '/');
-}
-
 void main() {
-  final root = _repoRoot();
+  final root = repoRoot();
 
   group('SCC45/DGUC10: resolutions match declarations', () {
     late List<Directory> packages;
@@ -551,7 +430,7 @@ void main() {
     late ({int versions, int packages, int multiVersion}) cache;
 
     setUpAll(() {
-      packages = root == null ? const [] : _packagesUnder(root);
+      packages = root == null ? const [] : packagesUnder(root);
       cache = _cacheSensitivity();
       // SCD130: printed on EVERY run, pass or fail, because the number is what
       // makes a green interpretable and nobody collects it by hand. A fleet
@@ -593,12 +472,12 @@ void main() {
       if (root != null) {
         final rows = <String>[];
         for (final package in packages) {
-          final resolved = _lockedTomPackages(
+          final resolved = lockedTomPackages(
             package,
           ).where((r) => _interpreterPackages.contains(r.name)).toList();
           if (resolved.isEmpty) continue;
           rows.add(
-            '  ${_rel(root, package)}: '
+            '  ${relativeTo(root, package)}: '
             '${resolved.map((r) => '${r.name} ${r.version} (${r.source})').join(', ')}',
           );
         }
@@ -641,10 +520,10 @@ void main() {
           continue;
         }
         final declared = _declaredPathDependencies(package);
-        for (final res in _lockedTomPackages(package)) {
+        for (final res in lockedTomPackages(package)) {
           if (res.source == 'path' && !declared.contains(res.name)) {
             offenders.add(
-              '${_rel(root, package)} resolves ${res.name} from path '
+              '${relativeTo(root, package)} resolves ${res.name} from path '
               '(${res.version}) but declares no path dependency on it',
             );
           }
@@ -672,26 +551,15 @@ void main() {
       }
       if (!canDiscriminate('F-SCC45-2')) return;
 
-      final offenders = <String>[];
-      for (final package in packages) {
-        // Keyed on the owning top-level package, so an exception covers the
-        // companion app nested under its `test/` too — those share the
-        // corpus run that owns the unfreeze.
-        final owningPackage = _rel(root, package).split('/').first;
-        if (_frozenLockExceptions.containsKey(owningPackage)) continue;
-
-        for (final res in _lockedTomPackages(package)) {
-          if (res.source != 'hosted') continue;
-          final newest = _newestCached(res.name);
-          if (newest == null) continue;
-          if (_compareVersions(res.version, newest) < 0) {
-            offenders.add(
-              '${_rel(root, package)} locks ${res.name} ${res.version} '
-              'while $newest is already in the pub cache',
-            );
-          }
-        }
-      }
+      // The walk, the parse and the comparison come from `tool/stale_locks.dart`
+      // so that the tool below clears exactly what this reports. Exceptions are
+      // keyed on the owning top-level package, so one covers the companion app
+      // nested under its `test/` too — those share the corpus run that owns
+      // the unfreeze.
+      final offenders = staleLocks(
+        root,
+        exceptions: _frozenLockExceptions,
+      ).map((s) => s.toString()).toList();
 
       expect(
         offenders,
@@ -701,12 +569,21 @@ void main() {
             'constraint admits a newer version without ever selecting it. '
             'These locks were passed over by a resolution that had the newer '
             'version on hand.\n'
-            'REMEDY: run `dart pub upgrade` (or `flutter pub upgrade`) in the '
-            'package — and in every nested fixture package under it, which '
-            'carry their own ignored locks. If the upgrade does NOT move the '
-            'version, the cause is the other one: the sibling working tree '
-            'has unpublished work (DGUC6) and the fix is to publish it, not '
-            'to re-resolve.\n'
+            'REMEDY, from anywhere inside the repo:\n'
+            '  dart run tom_d4rt_ast/tool/upgrade_stale_locks.dart --dry-run\n'
+            '  dart run tom_d4rt_ast/tool/upgrade_stale_locks.dart\n'
+            'It walks every package under the repo root — nested fixtures and '
+            'the companion apps included, each of which carries its own '
+            'ignored lock — picks `flutter pub upgrade` or `dart pub upgrade` '
+            'from the pubspec, re-measures afterwards rather than trusting '
+            'exit codes, and says so on exit when it moved a lock the bridge '
+            'corpus depends on. SCD206 added it because doing this by hand '
+            'was forty-one findings across twenty-nine packages, and a check '
+            'whose remedy costs that much is one people switch off.\n'
+            'If the upgrade does NOT move a version, the cause is the other '
+            'one: either a CONSTRAINT is holding it there (raise it), or the '
+            'sibling working tree has unpublished work (DGUC6) and the fix is '
+            'to publish it, not to re-resolve.\n'
             '${offenders.join('\n')}',
       );
     });
@@ -717,17 +594,12 @@ void main() {
         return;
       }
 
-      final stillFrozen = <String>{};
-      for (final package in packages) {
-        for (final res in _lockedTomPackages(package)) {
-          if (res.source != 'hosted') continue;
-          final newest = _newestCached(res.name);
-          if (newest == null) continue;
-          if (_compareVersions(res.version, newest) < 0) {
-            stillFrozen.add(_rel(root, package).split('/').first);
-          }
-        }
-      }
+      // Deliberately measured with NO exceptions applied: the question here is
+      // which packages are still frozen, and passing the exception list in
+      // would filter out precisely the ones being asked about.
+      final stillFrozen = staleLocks(
+        root,
+      ).map((s) => s.package.split('/').first).toSet();
 
       final obsolete = _frozenLockExceptions.keys.toSet().difference(
         stillFrozen,
@@ -757,9 +629,9 @@ void main() {
 
       final surfaces = _pubspecsUnder(
         root,
-      ).where((package) => _isCopySurface(_rel(root, package))).toList();
+      ).where((package) => _isCopySurface(relativeTo(root, package))).toList();
       expect(
-        surfaces.map((package) => _rel(root, package)),
+        surfaces.map((package) => relativeTo(root, package)),
         containsAll(['tom_d4rt_samples/d4rt_advanced_sample', ..._demoApps]),
         reason: 'the copy-surface discovery found too little to be trusted',
       );
@@ -768,7 +640,8 @@ void main() {
       // copy surface clean. The advanced sample is known to declare one.
       final advanced = surfaces.firstWhere(
         (package) =>
-            _rel(root, package) == 'tom_d4rt_samples/d4rt_advanced_sample',
+            relativeTo(root, package) ==
+            'tom_d4rt_samples/d4rt_advanced_sample',
       );
       expect(
         _declaredInterpreterConstraints(advanced),
@@ -782,15 +655,15 @@ void main() {
         for (final MapEntry(key: name, value: constraint)
             in constraints.entries) {
           final floor = _lowerBound(constraint);
-          final newest = _newestCached(name);
+          final newest = newestCachedVersion(name);
           if (floor == null) {
             offenders.add(
-              '${_rel(root, package)} declares $name "$constraint", which has '
+              '${relativeTo(root, package)} declares $name "$constraint", which has '
               'no floor at all',
             );
-          } else if (newest != null && _compareVersions(floor, newest) < 0) {
+          } else if (newest != null && compareVersions(floor, newest) < 0) {
             offenders.add(
-              '${_rel(root, package)} declares $name "$constraint" while '
+              '${relativeTo(root, package)} declares $name "$constraint" while '
               '$newest is already in the pub cache',
             );
           }
@@ -856,19 +729,19 @@ void main() {
 
       final libraries = _pubspecsUnder(
         root,
-      ).where((package) => !_isCopySurface(_rel(root, package))).toList();
+      ).where((package) => !_isCopySurface(relativeTo(root, package))).toList();
 
       // Anti-vacuity, in both directions. A walk that finds no libraries
       // reports every one of them compliant, and a constraint parser that
       // reads nothing does the same — so name a package known to declare one
       // rather than trusting the count alone.
       expect(
-        libraries.map((package) => _rel(root, package)),
+        libraries.map((package) => relativeTo(root, package)),
         containsAll(['tom_d4rt_exec', 'tom_d4rt_flutter_ast', 'tom_dcli_exec']),
         reason: 'the library discovery found too little to be trusted',
       );
       final exec = libraries.firstWhere(
-        (package) => _rel(root, package) == 'tom_d4rt_exec',
+        (package) => relativeTo(root, package) == 'tom_d4rt_exec',
       );
       expect(
         _declaredInterpreterConstraints(exec),
@@ -878,7 +751,7 @@ void main() {
 
       final offenders = <String>[];
       for (final package in libraries) {
-        final rel = _rel(root, package);
+        final rel = relativeTo(root, package);
         for (final MapEntry(key: name, value: constraint)
             in _declaredInterpreterConstraints(package).entries) {
           if (_caretExempt['$rel:$name'] != null) continue;
@@ -905,7 +778,7 @@ void main() {
       final stale = _caretExempt.keys.where((key) {
         final parts = key.split(':');
         final package = libraries
-            .where((p) => _rel(root, p) == parts.first)
+            .where((p) => relativeTo(root, p) == parts.first)
             .firstOrNull;
         if (package == null) return true;
         final constraint = _declaredInterpreterConstraints(package)[parts.last];
@@ -921,6 +794,137 @@ void main() {
             'all:\n  ${stale.join('\n  ')}\n\n'
             'Delete them. An exemption nobody prunes stops being an exception '
             'and becomes a hole.',
+      );
+    });
+
+    test('F-SCC45-6: the walk reaches the companion apps, and knows they are '
+        'Flutter packages [2026-09-15] (PASS)', () {
+      // SCD206. The remedy above is now a tool, and both the guard and the
+      // tool take their package list from `packagesUnder`. So this walk
+      // decides what gets UPGRADED, not only what gets reported — and the
+      // companion apps are the packages where being missed costs the most.
+      //
+      // Each twin's companion app carries its OWN lock and is what the bridge
+      // corpus actually executes. SCD193 exists because upgrading a twin and
+      // forgetting its app leaves the corpus measuring the old interpreter
+      // while every visible signal says it was upgraded. A walk that skipped
+      // them — by depth, by a `test/` prune, or by a special case — would
+      // reproduce that silently and the suite would stay green.
+      //
+      // The Flutter classification is the second half: `dart pub upgrade` in
+      // a Flutter package fails, so an app misclassified as a Dart package is
+      // reported as an upgrade FAILURE rather than silently skipped. Pinning
+      // it here keeps the reason readable, since the classification is read
+      // from the pubspec and a path-based guess would get these two wrong —
+      // nothing about `.../test/tom_d4rt_flutter_ast_app` says Flutter.
+      if (root == null) {
+        markTestSkipped('d4rt repo root not reachable — nothing to check');
+        return;
+      }
+
+      const apps = [
+        'tom_d4rt_flutter/test/tom_d4rt_flutter_test_app',
+        'tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app',
+      ];
+
+      final walked = {for (final p in packages) relativeTo(root, p): p};
+      expect(
+        walked.keys,
+        containsAll(apps),
+        reason:
+            'The shared walk in `tool/stale_locks.dart` did not reach a '
+            'companion app. It walked ${walked.length} packages:\n'
+            '  ${walked.keys.take(40).join('\n  ')}\n\n'
+            'Both `upgrade_stale_locks.dart` and F-SCC45-2 take their package '
+            'list from it, so an app outside the walk is an app that never '
+            'gets upgraded AND never gets reported — which is exactly the '
+            'state SCD193 was filed about. Check the depth limit and the '
+            'pruned directory names in `packagesUnder`.',
+      );
+
+      for (final app in apps) {
+        expect(
+          isFlutterPackage(walked[app]!),
+          isTrue,
+          reason:
+              '$app was not recognised as a Flutter package, so '
+              '`upgrade_stale_locks.dart` would run `dart pub upgrade` in it '
+              'and that fails. The classification reads `sdk: flutter` out of '
+              'the pubspec — check it is still declared there.',
+        );
+      }
+    });
+
+    test('F-SCC45-7: the path-linked fixtures of an upgraded package are '
+        'reachable [2026-09-15] (PASS)', () {
+      // SCD206, second half. `upgrade_stale_locks.dart` moves a package and
+      // then re-resolves the fixtures that reach it by `path:`, because a
+      // fixture inherits its host's SOURCE while resolving its OWN
+      // dependencies — move the host and the fixture goes on compiling the new
+      // `lib/` against the old third-party versions. The tool's first sweep
+      // did exactly that and turned `G-PARITY-EX[d4_test_scripts]` red in
+      // `tom_d4rt_generator` while clearing F-SCC45-2 here.
+      //
+      // WHY THIS CASE EXISTS AT ALL: once the repo is clean the second pass
+      // never runs, so nothing exercises `pathLinkedDependents` on a green
+      // tree. A silently-empty result would make the pass a no-op that reads
+      // as working. `tom_d4rt_exec` is the anchor because its examples reach
+      // it by `path:` — the per-package print in setUpAll shows them.
+      if (root == null) {
+        markTestSkipped('d4rt repo root not reachable — nothing to check');
+        return;
+      }
+
+      // A NON-EMPTY RESULT IS NOT ENOUGH, and two ablations proved it:
+      // flipping the source test from `path` to `hosted`, and deleting the
+      // self-exclusion, both left an emptiness check passing.
+      // `tom_ast_generator` resolves tom_d4rt_exec as HOSTED, so a
+      // source-blind implementation still returns something. The named pair
+      // below is what separates them.
+      final dependents = pathLinkedDependents(root, {
+        'tom_d4rt_exec',
+      }).map((p) => relativeTo(root, p)).toList();
+
+      expect(
+        dependents,
+        contains('tom_d4rt_exec/example/d4'),
+        reason:
+            '`pathLinkedDependents` missed a fixture that reaches '
+            'tom_d4rt_exec by `path: "../.."`, so the second pass of '
+            '`upgrade_stale_locks.dart` is a no-op that reads as working — '
+            'the tool would move tom_d4rt_exec and leave this fixture '
+            'compiling the new lib/ against its old third-party '
+            'resolutions.\n'
+            'Found: '
+            '${dependents.isEmpty ? '(nothing)' : dependents.join(', ')}',
+      );
+
+      expect(
+        dependents,
+        isNot(contains('tom_ast_generator')),
+        reason:
+            'tom_ast_generator resolves tom_d4rt_exec as HOSTED, not by path, '
+            'so it does not inherit the working tree and needs no '
+            're-resolution. Its presence means the source field is being '
+            'ignored — which would make the second pass a repo-wide '
+            '`pub upgrade` rather than the targeted repair it is meant to be.',
+      );
+
+      // Self-exclusion, asked so the answer cannot be yes by accident: `d4` is
+      // in the moved set here AND path-links to tom_d4rt_exec, so an
+      // implementation without the exclusion would return it.
+      expect(
+        pathLinkedDependents(root, {
+          'tom_d4rt_exec',
+          'd4_example',
+        }).map((p) => relativeTo(root, p)),
+        isNot(contains('tom_d4rt_exec/example/d4')),
+        reason:
+            'A package that MOVED is in its own dependent list, so the tool '
+            'would upgrade it twice. The exclusion is by pubspec `name:` — '
+            '`tom_d4rt_exec/example/d4` declares `name: d4_example`, which is '
+            'why it cannot be done on the directory name. Check `packageName` '
+            'still reads it.',
       );
     });
   });
