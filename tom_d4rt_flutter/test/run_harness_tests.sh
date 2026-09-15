@@ -34,6 +34,12 @@
 # Output lands in `testlog/harnesslog_<ID>/`, matching the corpus runners:
 # a `.log.txt`, a `.result.json` and a `metrics.txt` summary per file.
 #
+# metrics.txt opens with an ATTRIBUTION HEADER (SCD164) — `# `-prefixed
+# lines naming the run id, its start time, this package, and every `tom_`
+# package this package and its companion app resolved. The locks are
+# gitignored, so without it a testlog folder cannot be matched to the
+# interpreter that produced it.
+#
 # Add a test here when it needs the companion app and is not a corpus file.
 # `scd142_runner_coverage_test.dart` fails if a test file ends up reachable from
 # no runner at all, so a future harness test cannot repeat SCC48's outcome.
@@ -84,6 +90,19 @@ if ! pub_out="$(cd "$APP_DIR" && flutter pub get 2>&1)"; then
   echo "$pub_out"
   echo "companion app: flutter pub get failed in ${APP_DIR}" | tee -a "$OUT/metrics.txt"
   exit 1
+fi
+
+# Attribution header (SCD164). Both twins gitignore `pubspec.lock`, so the
+# interpreter a run resolved appears in no diff and no commit — and a testlog
+# folder was therefore a pass/skip/fail triple with no provenance. Written
+# AFTER the app is resolved, so it records the versions the run actually used.
+# `dart` may be absent on a machine that has only `flutter`; a run whose
+# attribution failed is still a run worth having, so this never aborts.
+if command -v dart >/dev/null 2>&1; then
+  dart run test/run_attribution.dart "." "$APP_DIR" "$ID" >> "$OUT/metrics.txt" \
+    || echo "# attribution: FAILED — dart run test/run_attribution.dart exited non-zero" >> "$OUT/metrics.txt"
+else
+  echo "# attribution: FAILED — no dart on PATH" >> "$OUT/metrics.txt"
 fi
 
 status=0

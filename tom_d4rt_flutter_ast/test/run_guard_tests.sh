@@ -120,6 +120,15 @@ run "the twins share one script corpus" \
 run "corpus skips state a mechanism and cite evidence" \
   flutter test test/scd140_skip_hygiene_test.dart
 
+# SCD164: every runner that writes metrics.txt attributes it. Both twins
+# gitignore `pubspec.lock`, so without the header a testlog folder is a
+# pass/skip/fail triple that cannot be matched to the interpreter that produced
+# it. The census is globbed from disk and covers `.ps1` as well as `.sh` — a
+# `.ps1` left behind is how this corpus once wrote to `doc/` on Windows and
+# `testlog/` everywhere else. Pure file I/O over both `test/` dirs.
+run "corpus runs record the interpreter they resolved" \
+  flutter test test/scd164_run_attribution_test.dart
+
 # The cluster log is a status register, and these keep it honest: the header
 # table is DERIVED from the section markers (ISSUES-1/2), no corpus numbers
 # live in the header (ISSUES-3), the recorded interpreter pair still describes

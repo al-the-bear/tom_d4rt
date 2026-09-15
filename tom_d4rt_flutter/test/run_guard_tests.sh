@@ -69,6 +69,13 @@ run "precise bridge match beats fuzzy prefix" \
 # script). The coverage guard that checks every file is reachable from SOME
 # runner covers BOTH twins and lives in tom_d4rt_flutter_ast, for the same
 # reason the user-bridge de-dup does — one copy reporting on the pair.
+#
+# SCD164 is in the same position: the guard that every runner writing
+# metrics.txt also writes the attribution header inspects THIS twin's scripts
+# too, and lives once, as
+# tom_d4rt_flutter_ast/test/scd164_run_attribution_test.dart. The helper it
+# checks, test/run_attribution.dart, IS duplicated here and must stay
+# byte-identical to the AST twin's copy.
 
 if [ "$status" -eq 0 ]; then
   echo "all guards passed"

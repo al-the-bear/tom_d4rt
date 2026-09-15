@@ -27,6 +27,12 @@
 #   testlog/basetestlog_<Id>/<base>.log.txt        full stdout incl. framework errors
 #   testlog/basetestlog_<Id>/metrics.txt           per-file exit code + pass/skip/fail summary
 #
+# metrics.txt opens with an ATTRIBUTION HEADER (SCD164) — `# `-prefixed
+# lines naming the run id, its start time, this package, and every `tom_`
+# package this package and its companion app resolved. The locks are
+# gitignored, so without it a testlog folder cannot be matched to the
+# interpreter that produced it.
+#
 # A failing test file must not abort the rest, so errors are non-terminating.
 param(
   [string]$Id = ((Get-Date -Format 'yyyyMMdd-HHmm') + '-base')
@@ -88,6 +94,22 @@ if ($pubRc -ne 0) {
   Write-Host "companion app: flutter pub get failed in $appDir"
   exit 1
 }
+
+# Attribution header (SCD164). Both twins gitignore `pubspec.lock`, so the
+# interpreter a run resolved appears in no diff and no commit — and a testlog
+# folder was therefore a pass/skip/fail triple with no provenance. Written
+# AFTER the app is resolved, so it records the versions the run actually used.
+# `dart` may be absent on a machine that has only `flutter`; a run whose
+# attribution failed is still a run worth having, so this never aborts.
+if (Get-Command dart -ErrorAction SilentlyContinue) {
+  $attr = & dart run test/run_attribution.dart '.' $appDir $Id 2>&1
+  if ($LASTEXITCODE -ne 0) {
+    $attr = '# attribution: FAILED - dart run test/run_attribution.dart exited non-zero'
+  }
+} else {
+  $attr = '# attribution: FAILED - no dart on PATH'
+}
+Add-Content -Path "$out/metrics.txt" -Value $attr
 
 foreach ($f in $files) {
   $base = [IO.Path]::GetFileNameWithoutExtension($f)

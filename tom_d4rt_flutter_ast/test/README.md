@@ -79,7 +79,51 @@ Each run writes, per test file `<base>`, into a folder under `testlog/`:
 | ---- | -------- |
 | `<base>.result.json` | Machine-readable results (`flutter test --file-reporter json`) — includes per-test timing **metrics**. |
 | `<base>.log.txt` | Full stdout, including Flutter framework output (overflow errors, assertion banners, transport errors) that does **not** necessarily fail a test. |
-| `metrics.txt` | One line per file: exit code + the `+passed ~skipped -failed` summary. |
+| `metrics.txt` | An ATTRIBUTION HEADER, then one line per file: exit code + the `+passed ~skipped -failed` summary. |
+
+### The attribution header
+
+Every runner writes a `# `-prefixed header at the top of `metrics.txt`, after
+the companion app is resolved and before the first test file:
+
+```
+# run: 20260915-1200-base
+# started: 2026-09-15T12:00:00
+# package: tom_d4rt_flutter_ast 0.5.2
+# app: test/tom_d4rt_flutter_ast_app
+# resolved: tom_d4rt 1.77.0 (hosted)
+# resolved: tom_d4rt_ast 0.65.0 (hosted)
+# resolved: tom_d4rt_generator 1.26.0 (hosted)
+...
+# app-resolved: tom_d4rt_ast 0.65.0 (hosted)
+# app-resolved: tom_d4rt_flutter_ast 0.5.2 (path)
+```
+
+**Why it exists.** Both twins gitignore `pubspec.lock`, so the interpreter a run
+resolved is machine-local and appears in no diff, no review and no commit.
+Without the header a `testlog/` folder is a pass/skip/fail triple with no
+provenance: two fleet hosts can run the same corpus against different published
+interpreters and produce two incomparable result sets that look identical in
+shape, and a folder kept across a `pub upgrade` silently changes meaning. The
+`Verification runs` table in `doc/interpreter_issues.md` is now a transcription
+of a measured value rather than a hand-recalled one.
+
+**Every hosted `tom_` package is recorded, not a chosen three.** Naming just
+`tom_d4rt` / `tom_d4rt_ast` / `tom_d4rt_generator` — what the table happens to
+carry today — is the failure mode this repo keeps re-finding: the next package
+that matters presents as one the record quietly does not mention. The app's
+entry for its own twin is recorded too, whatever it is called, because a `path`
+source is what says the app is wired to this working tree.
+
+**A lock that is missing or holds nothing is NAMED** (`NONE — ...`), so "asked
+and found none" is distinguishable from "never asked". So is a failed
+attribution (`# attribution: FAILED — ...`): it never aborts the run, because a
+run whose attribution failed is still a run worth having.
+
+`test/scd164_run_attribution_test.dart` fails if any runner in either twin
+writes `metrics.txt` without attributing it — globbed from disk, `.sh` and
+`.ps1` alike, since a `.ps1` left behind is exactly how this corpus once ended
+up writing to `doc/` on Windows and `testlog/` everywhere else.
 
 ### Everything goes to `testlog/`, and `testlog/` is gitignored
 
@@ -164,11 +208,16 @@ Two consequences worth having before you need them:
   `tom_d4rt_flutter/test/tom_d4rt_flutter_test_app/test/send_via_http_scripts/`
   — a path that does not exist — and found out only because
   `git diff --no-index` failed on it.
-- **Byte-identical `metrics.txt` between the twins is the EXPECTED outcome**,
-  not evidence that one run was accidentally reused. Same scripts, and
-  `metrics.txt` carries only the per-file `exit=` / `+N ~M -K` summary, no
-  timings. SCC46 saw it and had to reason it out from scratch. What legitimately
-  differs is the interpreter, so a *divergent* line is the interesting one.
+- **Byte-identical RESULT LINES between the twins are the EXPECTED outcome**,
+  not evidence that one run was accidentally reused. Same scripts, and the
+  per-file `exit=` / `+N ~M -K` summary carries no timings. SCC46 saw it and had
+  to reason it out from scratch. What legitimately differs is the interpreter,
+  so a *divergent* line is the interesting one.
+
+  The two files are no longer byte-identical as a whole, and that is the point:
+  since SCD164 each opens with an **attribution header** naming the package and
+  the versions it resolved, which differ by construction. Compare the result
+  lines; read the headers to know whether the comparison is meaningful at all.
 
 ### What IS duplicated, measured rather than assumed
 
