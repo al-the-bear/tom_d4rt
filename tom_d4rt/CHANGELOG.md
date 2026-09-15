@@ -1,3 +1,39 @@
+## 1.113.0
+
+### Changed - `_isInterpreterOwned` now covers `InterpretedRecord` (scd147)
+
+The predicate SCC49 added to keep its structural pass from guessing a bridge for
+the interpreter's own representation tested `Enum`, `RuntimeType`, `RuntimeValue`
+and `Callable`. `InterpretedRecord` implements none of them, so the predicate
+could not see it - harmless only because no bridge is named `Record`, which Dart
+3 records make an entirely plausible addition. The predicate's contract is "is
+this the interpreter's own representation"; a record is, so leaving it out made
+the answer depend on the registry.
+
+### The boundary is held by SCD132, not by the predicate - measured
+
+Measured over the live registry (84 bridges): **eight** interpreter-owned type
+names match a bridge name today, not the one the 43-failure incident found.
+`BridgedEnum` and `InterpretedEnum` end with `Enum`; `InterpretedFunction` with
+`Function`; the four `*RuntimeType` types with `Type`; and `TypeParameter` matches
+`Type` as a >=3-character PREFIX.
+
+All eight are `RuntimeType` or `Callable`, so the predicate covers them - but only
+at step 4 of `toBridgedInstance`, the single site that consults it. `toBridgedClass`
+and its PASS B prefix fallback do not ask, and no interpreter-owned type is claimed
+there today for a different reason: ablate SCD132's corroboration requirement and
+`TypeParameter` is immediately claimed by the `Type` bridge.
+
+That protection is incidental - SCD132 was written about bridge-to-bridge false
+positives (`TextDirection` claimed by `Text`) and knows nothing about this
+distinction - and nothing recorded it, so widening PASS B again, or a bridge
+declaring one of these in its `nativeNames`, would reopen the hazard silently.
+`tom_d4rt/test/scd147_interpreter_owned_boundary_test.dart` now pins it, asserting
+the property at `toBridgedClass` precisely because no predicate guards it there.
+
+No behaviour change for any value that resolves today: the predicate addition is
+inert while no `Record` bridge exists, and the guard is a test.
+
 ## 1.112.0
 
 ### Changed - a native object no bridge claims now says so (scd145)

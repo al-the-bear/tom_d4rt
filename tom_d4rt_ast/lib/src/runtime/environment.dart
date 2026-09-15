@@ -1022,7 +1022,30 @@ class Environment {
       nativeObject is Enum ||
       nativeObject is RuntimeType ||
       nativeObject is RuntimeValue ||
-      nativeObject is Callable;
+      nativeObject is Callable ||
+      // SCD147: `InterpretedRecord` implements NONE of the four above, so the
+      // predicate could not see it. Harmless only because no bridge is named
+      // `Record` — a name-shaped guess needs a name to match, and Dart 3
+      // records make a `Record` bridge entirely plausible. Added because the
+      // predicate's contract is "is this the interpreter's own representation",
+      // and a record is; leaving it out made the answer depend on the registry.
+      //
+      // Measured 2026-09-15: eight interpreter-owned type names match a bridge
+      // name today (`BridgedEnum`/`InterpretedEnum` -> `Enum`,
+      // `InterpretedFunction` -> `Function`, four `*RuntimeType` -> `Type`,
+      // `TypeParameter` -> `Type` by PREFIX). All eight are `RuntimeType` or
+      // `Callable`, so this predicate covers them — but only at step 4 of
+      // [toBridgedInstance], the one site that consults it.
+      //
+      // `toBridgedClass` and its PASS B prefix fallback do not ask, and there
+      // the boundary is held by SCD132's corroboration requirement instead:
+      // ablate it and `TypeParameter` is claimed by the `Type` bridge at once.
+      // That protection is incidental — SCD132 was about bridge-to-bridge false
+      // positives — so it is pinned by
+      // `tom_d4rt/test/scd147_interpreter_owned_boundary_test.dart`, which
+      // asserts the property at `toBridgedClass` precisely because no predicate
+      // guards it there. sce179 carries moving the check to the entry.
+      nativeObject is InterpretedRecord;
 
   /// Resolves [nativeType] by the longest bridge name that is a suffix of its
   /// name, walking the whole scope chain. See step 4 of [toBridgedInstance] for
