@@ -3899,6 +3899,18 @@ them. Nothing narrows this to the widgets that happen to be in the corpus.
 defect; the first is the part that happened to reach an assertion, because a
 refused callback usually leaves a widget that still builds.
 
+**Re-measured 2026-09-15** at the same published pair, both twins, and the
+shape is unchanged — 15 failures, 109 scripts — while the rejection count is
+higher than the 2026-09-06 figure: **320** in the AST twin and **326** in the
+source twin across the full corpus. The gap between the two numbers is the
+point of the entry.
+
+**It is also 117 rejections inside the BASE subset**, across 12 of its 17
+files, while that subset reports **927 / 1 / 0 — entirely green**. The fast
+regression gate carries over a hundred refused callbacks and says nothing,
+which is worth knowing before a green base run is quoted as evidence that
+callbacks work.
+
 **Symptom**
 
 Passing a script-declared closure to a parameter whose type is a Flutter
@@ -4162,6 +4174,116 @@ move — the affected tests already pass.
 Corpus runs made to certify an interpreter change rather than to
 discover new clusters. Each entry records what was measured, against
 which resolved package versions, and what moved.
+
+### 2026-09-15 — BOTH corpora, BOTH twins at tom_d4rt 1.77.0 / tom_d4rt_ast 0.65.0: SCC29's parameter check has no corpus fallout of its own, and GEN-125 is all of it
+
+**Why this run exists.** SCD91 held SCC29's DONE WHEN clause — the bridge
+corpus run its landing commit could not make, because the twins resolve the
+interpreter from pub.dev and SCC29 was unpublished (DGUC6). SCC29 makes a
+declared parameter type reject a wrong-typed argument, so its blast radius is
+exactly the set of scripts that were relying on one getting through, and the
+corpus is the largest body of interpreted code available to look in.
+
+**The condition is met and was checked rather than assumed.** SCC29 shipped in
+`tom_d4rt` **1.47.0** and `tom_d4rt_ast` **0.36.0**, read from each CHANGELOG.
+Both twins and both companion apps resolve 1.77.0 / 0.65.0, hosted.
+
+| Package | `tom_d4rt` | `tom_d4rt_ast` | `tom_d4rt_generator` |
+| ------- | ---------- | -------------- | -------------------- |
+| `tom_d4rt_flutter` | **1.77.0** | — | **1.26.0** |
+| `tom_d4rt_flutter_ast` | **1.77.0** | **0.65.0** | **1.26.0** |
+| `tom_d4rt_flutter/test/tom_d4rt_flutter_test_app` | **1.77.0** | — | — |
+| `tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app` | — | **0.65.0** | — |
+
+Nothing moved since the 2026-09-14 entry, which is what makes this run a
+comparison rather than a new baseline.
+
+**Method.** Host checked free of other `flutter test` processes first. AST twin
+base, then AST twin full, then `tom_d4rt_flutter` base, then its full — four
+runs, strictly serial, one twin finished before the other began. No file was
+IDLE-KILLED.
+
+**Result — base corpus (17 files).**
+
+| | AST twin | source twin |
+| --- | --- | --- |
+| pass / skip / fail | **927 / 1 / 0** | **927 / 1 / 0** |
+
+`metrics.txt` byte-identical between the twins, and identical to the
+2026-09-14 base entry cell for cell.
+
+**Result — full corpus (41 files).**
+
+| | AST twin | source twin |
+| --- | --- | --- |
+| files | 41/41 | 41/41 |
+| failing files | 4 | 4 |
+| pass / skip / fail | **2151 / 3 / 15** | **2151 / 3 / 15** |
+| `frameworkErrors` | 297 (was 288) | 301 (was 299) |
+| scripts raising them | 109 | 109 |
+
+`metrics.txt` is again **byte-identical between the twins**.
+
+**Movement vs 2026-09-14: one cell, and it is explained.**
+
+| File | 2026-09-14 | now |
+| ---- | ---------- | --- |
+| `flutter_extended_02` | `exit=0 +60 ~1` | `exit=0 +61` |
+
+The skip was `dart_ui/isolate_name_server_test.dart`, carrying
+`Skip: IsolateNameServer is not supported by the d4rt interpreter (requires
+real Dart isolate infrastructure)`. Commit `0f643e497` (SCD139, 2026-09-15
+04:29, after the 2026-09-14 20:13 run) removed it — its message calls it "one
+masker retired". **This run is the confirmation that it was a masker**: the
+script now runs and passes, `status=success`. A skip becoming a pass with the
+pass count rising is the good direction of the rule the overview states for
+the bad one.
+
+**What SCC29 costs the corpus: nothing of its own.** Every one of the 15
+failures, in both twins, carries the GEN-125 signature — a script closure
+refused against a bridged function typedef:
+
+```
+type 'dynamic Function()'        is not a subtype of type 'VoidCallback?' of 'onPressed'
+type 'dynamic Function(dynamic)' is not a subtype of type 'ValueChanged'  of 'onChanged'
+type 'dynamic Function(double)'  is not a subtype of type 'ValueChanged'  of 'onChanged'
+```
+
+No failure has any other signature, and none is a script passing a genuinely
+wrong-typed argument — which is what SCD91 was written to look for.
+
+**SCC29 is the mechanism, GEN-125 is the defect, and the entry already says
+so**: "the rule was always wrong; nothing consulted it for arguments until
+`_checkArgumentType` started routing declared-parameter types through
+`isSubtypeOf`". So the corpus fallout attributable to SCC29 is exactly
+GEN-125 and is already a numbered cluster with a root cause and a fix
+(`scd136`, in the tree, unpublished).
+
+**The count that describes the defect is not the failure count.** Measured
+here, across the full corpus:
+
+| | AST twin | source twin |
+| --- | --- | --- |
+| failures | 15 | 15 |
+| GEN-125 rejections in the logs | **320** | **326** |
+
+and in the BASE subset alone, which reports 927/1/0 green:
+
+| | AST twin | source twin |
+| --- | --- | --- |
+| GEN-125 rejections | **117** across 12 of 17 files | **112** |
+
+A refused callback usually leaves a widget that still builds, so the corpus
+reports `status=success` while the callback was silently dropped. The base
+subset is the fast regression gate and it is **entirely green while carrying
+over a hundred of them** — worth knowing before quoting a green base run as
+evidence that callbacks work.
+
+**What this entry licenses.** SCC29 may be treated as corpus-verified: it
+introduces no failure of its own in 2 151 assertions across 41 files in both
+twins. It does NOT license anything about the unpublished interpreter — see
+sce162, whose pre-publish pass on the same day takes the AST base corpus to
+923/1/4 path-resolved to the tree, against the 927/1/0 recorded here.
 
 ### 2026-09-14 — BOTH corpora, BOTH twins at tom_d4rt 1.77.0 / tom_d4rt_ast 0.65.0: a seven-minor GENERATOR jump is behaviourally neutral
 
