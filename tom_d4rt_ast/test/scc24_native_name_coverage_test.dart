@@ -1327,4 +1327,313 @@ void main() {
       },
     );
   });
+  // -------------------------------------------------------------------------
+  // SCD197 — bridges nothing resolves to, whose member lists are unreachable
+  // -------------------------------------------------------------------------
+  //
+  // SCC77 found `StringSink` registered with seven adapters and nothing
+  // resolving to it: every value the stdlib can hand a script has a more
+  // specific bridge, so it is a TYPE-TEST and interface target and never a
+  // member-lookup target. SCC77 predicted supertype edges would let lookup
+  // fall through to it for members `StringBufferCore` does not declare. SCD197
+  // asked how many bridges are in that position. Measured here rather than
+  // guessed.
+  //
+  // WHY IT MATTERS. An unreachable member list is the precondition for SCB26:
+  // the io registrar shipped a second, smaller `StringSink` that displaced the
+  // core one and silently removed three members, and no script could tell
+  // because no script could reach the bridge either way. The list can drift
+  // arbitrarily and only a registration-level test will know.
+  //
+  // WHAT "UNREACHABLE" MEANS HERE, because the obvious measure over-counts
+  // badly. A bridge that is never `toBridgedInstance`'s DIRECT answer may still
+  // be reached through the supertype chain — `Set` is never the answer for a
+  // set literal (`LinkedHashSet` is) and is obviously reachable. So the
+  // question asked is per MEMBER: is there any bridge that IS an answer, has
+  // this one above it, and does not shadow the member with its own or a nearer
+  // declaration? By the direct measure 52 bridges look unreachable; by this one
+  // the fully-unreachable set with a canonical instance is nine.
+  //
+  // SCC77's PREDICTION WAS NEARLY RIGHT AND NOT QUITE. `StringSink` is 1/7
+  // reachable, not 0/7 — one member does fall through. The seven are not all
+  // dead, which is worth knowing before anyone deletes them.
+  //
+  // WHAT THIS GROUP DOES NOT DO, deliberately: it does not delete anything.
+  // SCD197 asked to measure first and then decide per bridge, and the deciding
+  // is judgement-heavy — twenty-nine bridges, some of which want their adapters
+  // kept and guarded rather than removed. This is the measurement plus the
+  // ratchet that stops the set growing while that is decided; the deletions are
+  // sce233.
+  //
+  // BOTH RATCHETS HAVE BEEN SEEN TO FAIL:
+  //
+  //   | Injected fault                                    | Fires |
+  //   | ------------------------------------------------- | ----- |
+  //   | a member added to `Pattern`, which nothing reaches | 1     |
+  //   | a member added to `StringSink`, moving 1/7 to 1/8  | 2     |
+
+  group('SCD197: interface bridges whose members nothing can reach', () {
+    /// Bridges with a canonical instance that are never a resolution answer AND
+    /// none of whose members any heir falls through to. Value is the member
+    /// count, so a list that GROWS under an already-unreachable bridge shows.
+    ///
+    /// Measured 2026-09-15. `num` at 32 is the largest and is consistent with
+    /// sce185's independent census: `int` and `double` each shadow ~36 of its
+    /// adapters, so none of `num`'s own is ever reached.
+    const measuredUnreachable = <String, int>{
+      'Comparable': 4,
+      'Error': 4,
+      'FileSystemEntity': 16,
+      'Function': 4,
+      'LinkedListEntry': 7,
+      'Match': 11,
+      'Pattern': 5,
+      'TypedData': 4,
+      'num': 32,
+    };
+
+    /// Bridges some of whose members ARE reached. Pinned as a fraction because
+    /// both halves are informative: a rise means a member stopped being
+    /// shadowed, a fall means one started.
+    const partlyReachable = <String, String>{
+      'Codec': '2/8',
+      'Converter': '2/7',
+      'Encoding': '3/9',
+      'Exception': '2/3',
+      'Queue': '3/17',
+      'Set': '3/43',
+      'Sink': '3/5',
+      'StringSink': '1/7',
+    };
+
+    /// Bridges with no canonical instance in `_canonicalInstances`, so "never a
+    /// resolution answer" is UNMEASURED for them rather than established — a
+    /// bridge cannot win a comparison it was not entered in. Listed so the
+    /// distinction is on the record and nobody reads the nine above as the
+    /// whole set.
+    const unmeasuredForWantOfAnInstance = <String>{
+      'ChunkedConversionSink',
+      'EventSink',
+      'FileSystemEntityType',
+      'FileSystemEvent',
+      'IOException',
+      'Null',
+      'Process',
+      'ProcessStartMode',
+      'StreamConsumer',
+      'StreamTransformer',
+      'StreamTransformerBase',
+      'WebSocketTransformer',
+    };
+
+    late Environment env;
+    late Set<String> winners;
+    late Map<String, int> unreachable;
+    late Map<String, String> partial;
+
+    setUpAll(() {
+      env = _stdlibEnvironment();
+      final instances = _sweepInstances();
+      winners = <String>{};
+      for (final entry in instances.entries) {
+        try {
+          final bridged = env.toBridgedInstance(entry.value);
+          if (bridged != null) winners.add(bridged.bridgedClass.name);
+        } catch (_) {
+          // A canonical instance whose native type has no bridge at all is
+          // F-SCC24-1's subject, not this group's.
+        }
+      }
+
+      bool declares(String className, String member) {
+        final bridge = env.findBridgedClassByName(className);
+        if (bridge == null) return false;
+        return bridge.methods.containsKey(member) ||
+            bridge.getters.containsKey(member) ||
+            bridge.setters.containsKey(member);
+      }
+
+      unreachable = <String, int>{};
+      partial = <String, String>{};
+      for (final name in (env.bridgedClassNames..sort())) {
+        if (winners.contains(name)) continue;
+        if (!instances.containsKey(name)) continue;
+        final bridge = env.findBridgedClassByName(name);
+        if (bridge == null) continue;
+        final members = <String>{
+          ...bridge.methods.keys,
+          ...bridge.getters.keys,
+          ...bridge.setters.keys,
+        };
+        if (members.isEmpty) continue;
+        final heirs = winners
+            .where(
+              (w) => BridgedClass.transitiveSupertypeNames(w).contains(name),
+            )
+            .toList();
+        var reached = 0;
+        for (final member in members) {
+          for (final heir in heirs) {
+            var shadowed = declares(heir, member);
+            if (!shadowed) {
+              for (final mid in BridgedClass.transitiveSupertypeNames(heir)) {
+                if (mid == name) break;
+                if (declares(mid, member)) {
+                  shadowed = true;
+                  break;
+                }
+              }
+            }
+            if (!shadowed) {
+              reached++;
+              break;
+            }
+          }
+        }
+        if (reached == 0) {
+          unreachable[name] = members.length;
+        } else if (reached < members.length) {
+          partial[name] = '$reached/${members.length}';
+        }
+      }
+    });
+
+    test('F-SCD197-3 (control): instances resolved and heirs were found '
+        '[2026-09-15] (PASS)', () {
+      // Every assertion below is a set comparison over this walk, and two
+      // plausible ways to break it both end in "nothing unreachable": no
+      // instances resolved (so `winners` is empty and EVERY bridge looks
+      // unreachable), or the supertype registry empty (so no heir shadows
+      // anything and every member looks reachable). Both directions are
+      // pinned.
+      expect(
+        winners.length,
+        greaterThanOrEqualTo(120),
+        reason:
+            'Only ${winners.length} bridges were a resolution answer. The '
+            'canonical instances did not resolve, so every bridge looks '
+            'unreachable.',
+      );
+      expect(
+        BridgedClass.transitiveSupertypeNames('LinkedHashSet'),
+        contains('Set'),
+        reason:
+            'The supertype registry is not populated, so no heir shadows '
+            'anything and every member reads as reachable.',
+      );
+    });
+
+    test('F-SCD197-1: the unreachable set has not grown [2026-09-15] '
+        '(PASS)', () {
+      final appeared =
+          unreachable.keys
+              .where((n) => !measuredUnreachable.containsKey(n))
+              .toList()
+            ..sort();
+      expect(
+        appeared,
+        isEmpty,
+        reason:
+            'These bridges are now a resolution answer for nothing, and no '
+            'heir falls through to any of their members:\n'
+            '${appeared.map((n) => '  $n (${unreachable[n]} members)').join('\n')}\n\n'
+            'An unreachable member list is the precondition for SCB26, where a '
+            'displaced `StringSink` lost three members and no script could '
+            'tell. Either give the bridge a reason to be reached, or record it '
+            'here — and say so in its source file, where somebody would go to '
+            'add a member.',
+      );
+
+      final resolved =
+          measuredUnreachable.keys
+              .where((n) => !unreachable.containsKey(n))
+              .toList()
+            ..sort();
+      expect(
+        resolved,
+        isEmpty,
+        reason:
+            'These are recorded as fully unreachable and no longer are: '
+            '${resolved.join(', ')}.\n'
+            'Good news, and it has to be recorded or the entry stops '
+            'describing the registry.',
+      );
+
+      final grew =
+          measuredUnreachable.keys
+              .where(
+                (n) =>
+                    unreachable.containsKey(n) &&
+                    unreachable[n]! != measuredUnreachable[n],
+              )
+              .map(
+                (n) => '  $n: ${measuredUnreachable[n]} -> ${unreachable[n]}',
+              )
+              .toList()
+            ..sort();
+      expect(
+        grew,
+        isEmpty,
+        reason:
+            'The member count changed under a bridge nothing can reach:\n'
+            '${grew.join('\n')}\n'
+            'Adding to an unreachable list is adding code no script runs.',
+      );
+    });
+
+    test('F-SCD197-2: the partly-reachable fractions hold [2026-09-15] '
+        '(PASS)', () {
+      // SCC77 predicted supertype edges would let lookup fall through to
+      // `StringSink` for members `StringBufferCore` does not declare. It is
+      // 1/7 — so the prediction was directionally right and almost entirely
+      // wrong about the size, which is why this is pinned as a fraction rather
+      // than as a boolean.
+      final changed = <String>[];
+      for (final entry in partlyReachable.entries) {
+        final actual = partial[entry.key] ?? unreachable[entry.key]?.let0();
+        if (actual == entry.value) continue;
+        changed.add(
+          '  ${entry.key}: recorded ${entry.value}, found '
+          '${partial[entry.key] ?? (unreachable.containsKey(entry.key) ? '0/${unreachable[entry.key]}' : 'fully reachable')}',
+        );
+      }
+      expect(
+        changed,
+        isEmpty,
+        reason:
+            'These reachability fractions moved:\n${changed.join('\n')}\n'
+            'A rise means a member stopped being shadowed by an heir; a fall '
+            'means one started. Both are worth a look before the number is '
+            'updated.',
+      );
+    });
+
+    test('F-SCD197-4: every unmeasured bridge is still unmeasured '
+        '[2026-09-15] (PASS)', () {
+      // The honest half. These have no canonical instance, so "nothing
+      // resolves to them" is not a finding — a bridge cannot win a comparison
+      // it was not entered in. When one gains an instance it moves into the
+      // measured set, and this says so rather than letting it slip in.
+      final nowMeasured =
+          unmeasuredForWantOfAnInstance
+              .where(_sweepInstances().containsKey)
+              .toList()
+            ..sort();
+      expect(
+        nowMeasured,
+        isEmpty,
+        reason:
+            'These now have a canonical instance: ${nowMeasured.join(', ')}.\n'
+            'Re-run the measurement and move each into measuredUnreachable or '
+            'partlyReachable, or delete its entry if it resolves.',
+      );
+    });
+  });
+}
+
+extension on int {
+  /// Renders a fully-unreachable count in the `reached/total` shape the
+  /// partly-reachable map uses, so the two can be compared without special
+  /// cases at the call site.
+  String let0() => '0/$this';
 }
