@@ -4175,7 +4175,7 @@ Corpus runs made to certify an interpreter change rather than to
 discover new clusters. Each entry records what was measured, against
 which resolved package versions, and what moved.
 
-### 2026-09-15 — BOTH corpora, BOTH twins at tom_d4rt 1.77.0 / tom_d4rt_ast 0.65.0: SCC29's parameter check has no corpus fallout of its own, and GEN-125 is all of it
+### 2026-09-15 — BOTH corpora, BOTH twins at tom_d4rt 1.77.0 / tom_d4rt_ast 0.65.0: SCC29 has no corpus fallout of its own (GEN-125 is all of it), and SCC33's backstop fires nowhere
 
 **Why this run exists.** SCD91 held SCC29's DONE WHEN clause — the bridge
 corpus run its landing commit could not make, because the twins resolve the
@@ -4278,6 +4278,35 @@ reports `status=success` while the callback was silently dropped. The base
 subset is the fast regression gate and it is **entirely green while carrying
 over a hundred of them** — worth knowing before quoting a green base run as
 evidence that callbacks work.
+
+**It certifies SCC33 too, and that took no extra run.** SCD102 held the same
+debt for SCC33 — the dispatch backstop that made an unhandled AST node raise
+`UnimplementedD4rtException` instead of evaluating to `null`. It shipped in
+`tom_d4rt_ast` **0.40.0**, so the pair measured here carries it, and the
+question it asks is a different question of the same logs rather than a
+different run: does any bridge or generated `.b.dart` lean on a node type the
+evaluating visitor has no handler for?
+
+| | AST twin | source twin |
+| --- | --- | --- |
+| `Unsupported AST node '…' at offset …` | **0** | **0** |
+| `UnimplementedD4rtException` | **0** | **0** |
+
+Zero in all four runs — base and full, both twins, across ~2 080 scripts.
+
+**Checked for vacuity, because a grep for absent text always returns zero.**
+Both published interpreters carry that exact wording
+(`tom_d4rt_ast-0.65.0/lib/src/runtime/interpreter_visitor.dart:58`,
+`tom_d4rt-1.77.0/lib/src/interpreter_visitor.dart:35`), so the string can
+appear; and interpreter-raised throws demonstrably do reach these logs — the
+same files captured 307 GEN-125 subtype rejections by the same mechanism. The
+zero is a measurement, not a missing haystack.
+
+**What that licenses.** SCC33 may be treated as corpus-verified: the backstop
+fires nowhere in the largest body of interpreted code in the workspace, which
+is the population check its own suites could not be. It does NOT license the
+unpublished tree — SCD100 moved type-level syntax in front of this backstop
+after 0.40.0, and that sits in the delta sce162 blocks.
 
 **What this entry licenses.** SCC29 may be treated as corpus-verified: it
 introduces no failure of its own in 2 151 assertions across 41 files in both
