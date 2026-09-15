@@ -242,6 +242,13 @@ class Environment {
   // miss into a hit.
   Set<Type>? _unbridgedTypeCacheRaw;
   Map<String, BridgedEnum>? _bridgedEnumsRaw; // Store bridged enums
+  // SCD194: the enum counterpart of [_shadowedBridgesRaw]. `defineBridgedEnum`
+  // used to warn and overwrite, so a displaced enum left no trace but a log
+  // line that is off in a normal run — which is the condition that let SCB26
+  // live for its whole lifetime. Keeping the displaced enum is what makes the
+  // collision enumerable, and therefore assertable. Null until a genuine
+  // collision occurs; the one-enum-per-name case allocates nothing.
+  Map<String, List<BridgedEnum>>? _shadowedEnumsRaw;
   List<InterpretedExtension>? _unnamedExtensionsRaw; // Store unnamed extensions
   Map<String, Environment>? _prefixedImportsRaw; // For prefixed imports
 
@@ -277,6 +284,8 @@ class Environment {
       _resolvedTypeCacheRaw ??= {};
   Set<Type> get _unbridgedTypeCacheOrNew => _unbridgedTypeCacheRaw ??= {};
   Map<String, BridgedEnum> get _bridgedEnumsOrNew => _bridgedEnumsRaw ??= {};
+  Map<String, List<BridgedEnum>> get _shadowedEnumsOrNew =>
+      _shadowedEnumsRaw ??= {};
   List<InterpretedExtension> get _unnamedExtensionsOrNew =>
       _unnamedExtensionsRaw ??= [];
   Map<String, Environment> get _prefixedImportsOrNew =>
@@ -1385,8 +1394,58 @@ class Environment {
         "Redefining bridged enum or colliding with existing definition: $name",
       );
     }
+    // SCD194: record before overwriting. The warning above is the only other
+    // trace and it is off in a normal run, so without this the displaced enum
+    // is simply gone — no candidate list, nothing for a guard to count. The
+    // class path has done this unconditionally since SCC76; this is the same
+    // bookkeeping on the namespace that lacked it.
+    _recordShadowedEnum(name, _bridgedEnumsRaw?[name], bridgedEnum);
     _bridgedEnumsOrNew[name] = bridgedEnum;
     Logger.debugLazy(() => "[Environment] Defined bridge for enum: $name");
+  }
+
+  /// Stashes a same-name enum that a new registration is about to displace, so
+  /// every candidate stays enumerable via [findAllBridgedEnumsByName].
+  ///
+  /// The enum counterpart of [_recordShadowedBridge], with the same no-op
+  /// cases: a null prior, or a prior that IS the replacement (a re-export of
+  /// one definition through two paths, which is not a collision).
+  void _recordShadowedEnum(
+    String name,
+    BridgedEnum? prior,
+    BridgedEnum replacement,
+  ) {
+    if (prior == null || identical(prior, replacement)) return;
+    final shadowed = _shadowedEnumsOrNew.putIfAbsent(name, () => []);
+    if (!shadowed.any((e) => identical(e, prior))) shadowed.add(prior);
+    shadowed.removeWhere((e) => identical(e, replacement));
+  }
+
+  /// Returns every bridged enum registered under [name] across the scope chain
+  /// — the primary (last-wins) enum of each scope first, followed by any
+  /// same-name enums it displaced.
+  ///
+  /// Mirrors [findAllBridgedClassesByName]. Returns an empty list when no enum
+  /// with [name] is registered, and a single-element list in the ordinary case;
+  /// a longer list means two different definitions are competing for the name,
+  /// which is what `scc76_bridge_name_collision_test.dart` asserts against.
+  List<BridgedEnum> findAllBridgedEnumsByName(String name) {
+    final result = <BridgedEnum>[];
+    Environment? current = this;
+    while (current != null) {
+      final primary = current._bridgedEnumsRaw?[name];
+      if (primary != null && !result.any((e) => identical(e, primary))) {
+        result.add(primary);
+      }
+      final shadowed = current._shadowedEnumsRaw?[name];
+      if (shadowed != null) {
+        for (final e in shadowed) {
+          if (!result.any((x) => identical(x, e))) result.add(e);
+        }
+      }
+      current = current._enclosing;
+    }
+    return result;
   }
 
   /// Checks if the given object is a bridged enum value
@@ -2408,6 +2467,10 @@ class Environment {
           "[Environment.importEnvironment] GEN-100: Overwriting pre-registered "
           "bridged enum '$name' with imported version",
         );
+        // SCD194: preserve the displaced enum, as the bridged-class branch
+        // above does. "Import wins" decides which one the bare name reaches;
+        // it does not make the other one stop existing.
+        _recordShadowedEnum(name, _bridgedEnumsRaw?[name], bridgedEnum);
         _bridgedEnumsOrNew[name] = bridgedEnum;
         return;
       }

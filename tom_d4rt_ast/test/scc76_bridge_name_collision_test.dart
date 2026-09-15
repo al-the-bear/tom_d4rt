@@ -56,15 +56,14 @@
 // silently dropped from this file cannot hide behind either check alone.
 
 import 'package:test/test.dart';
+import 'package:tom_d4rt_ast/runtime.dart';
 // `Environment` arrives through the stdlib registrar imports below; declaring
 // it again would be redundant. `ModuleLoader` does not, and F-SCC76-3 needs it.
-import 'package:tom_d4rt_ast/src/runtime/ast_module_loader.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/collection.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/convert.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/io.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/isolate.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/math.dart';
-import 'package:tom_d4rt_ast/src/runtime/stdlib/stdlib.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/typed_data.dart';
 
 /// The `dart:` modules this file registers, and how.
@@ -111,6 +110,64 @@ Map<String, int> _collisions(Environment env) {
   }
   return found;
 }
+
+/// SCD194 — THE ENUM NAMESPACE, AND THE DECISION IT CARRIED.
+///
+/// This guard could not be written for enums until SCD194, and the reason was
+/// in the production code rather than here. `defineBridgeLazy` calls
+/// `_recordShadowedBridge` on EVERY class collision, unconditionally, so the
+/// displaced bridge survives and is countable. `defineBridgedEnum` warned and
+/// overwrote: the displaced enum was gone, and the only trace was a log line
+/// that is off in a normal run — which is precisely the condition that let
+/// SCB26 live for its whole lifetime. The enum registry now keeps the same
+/// bookkeeping, and F-SCD194-3 fails if that recording is taken away again.
+///
+/// THE DECISION, taken rather than defaulted: a colliding enum is RECORDED AND
+/// REPORTED, not rejected. The class rule — same `nativeType` is a re-export,
+/// a different one is Dart's ambiguous-import case — transfers in principle,
+/// but the enum path has no qualifier machinery, so making a name ambiguous
+/// would leave a script no way to say which one it meant. Recording first is
+/// reversible and costs nothing; rejecting first would strand callers.
+///
+/// WHAT THE TWO EMPTINESS CASES ARE WORTH TODAY, stated because it is easy to
+/// over-read them: the stdlib registers ZERO bridged enums (measured
+/// 2026-09-06 and again 2026-09-15 — `FileMode` and its kind are
+/// `BridgedClass`es), so F-SCD194-1 and -2 pass over an empty namespace.
+/// F-SCD194-3 is what makes them more than decoration, and it asserts that
+/// emptiness explicitly so the day it stops being true is the day somebody
+/// re-reads all three.
+///
+/// `defineBridgedEnum` IS called from production code — `ast_module_loader`
+/// and `d4rt_runner` merge bridged enums when loading a module — so a bridge
+/// package whose enum name collides with another's is the live case, and it is
+/// outside the stdlib these cases can reach.
+
+/// The same, on the ENUM namespace.
+///
+/// SCD194 is what makes this writable. `defineBridgedEnum` used to warn and
+/// overwrite, so a displaced enum left nothing behind to count — the guard
+/// below could not have existed, and the only trace of a collision was a log
+/// line that is off in a normal run. The enum registry now records the
+/// displaced definition the way the class registry has since SCC76.
+Map<String, int> _enumCollisions(Environment env) {
+  final found = <String, int>{};
+  for (final name in env.bridgedEnumNames) {
+    final count = env.findAllBridgedEnumsByName(name).length;
+    if (count != 1) found[name] = count;
+  }
+  return found;
+}
+
+/// Names registered as BOTH a bridged class and a bridged enum.
+///
+/// The third branch of `defineBridgedEnum`'s collision check, and the one
+/// neither namespace can see alone: the class registry never learns that an
+/// enum took its name, and the enum registry never learns the reverse. Only a
+/// caller holding both can ask.
+List<String> _crossNamespaceCollisions(Environment env) =>
+    (env.bridgedEnumNames.toSet().intersection(
+      env.bridgedClassNames.toSet(),
+    )).toList()..sort();
 
 void main() {
   test('F-SCC76-1: no stdlib bridge name is defined twice [2026-09-06]', () {
@@ -205,4 +262,100 @@ void main() {
       );
     }
   });
+
+  test('F-SCD194-1: no stdlib enum name is defined twice [2026-09-15] '
+      '(PASS)', () {
+    final env = _fullyRegisteredEnvironment();
+    final collisions = _enumCollisions(env);
+    final detail = (collisions.keys.toList()..sort())
+        .map((n) => '  $n -> ${collisions[n]} candidates')
+        .join('\n');
+    expect(
+      collisions,
+      isEmpty,
+      reason:
+          'These bridged ENUM names have more than one definition in scope at '
+          'once:\n$detail\n'
+          'The last registration wins and the others become unreachable — the '
+          'class-namespace version of that is SCB26.',
+    );
+  });
+
+  test('F-SCD194-2: no name is both a bridged class and a bridged enum '
+      '[2026-09-15] (PASS)', () {
+    // `defineBridgedEnum` warns about this case and then registers anyway, so
+    // the name resolves to whichever registry the lookup consults first. That
+    // is not a decision anybody made.
+    final env = _fullyRegisteredEnvironment();
+    final both = _crossNamespaceCollisions(env);
+    expect(
+      both,
+      isEmpty,
+      reason:
+          'These names are registered in BOTH namespaces: ${both.join(', ')}.'
+          '\nWhich one a bare name reaches depends on lookup order rather '
+          'than on any rule. Register the enum as a BridgedClass (which is '
+          'what every stdlib enum already does) or rename one of them.',
+    );
+  });
+
+  test('F-SCD194-3: the enum guards detect a collision when there is one '
+      '[2026-09-15] (PASS)', () {
+    // The anti-vacuity case, and it carries more weight here than usual: the
+    // stdlib registers ZERO bridged enums (measured 2026-09-06 and again
+    // 2026-09-15 — stdlib enums like `FileMode` are `BridgedClass`es), so
+    // F-SCD194-1 and -2 pass over an EMPTY namespace today. Without this case
+    // they would be two assertions that have never touched anything, and would
+    // keep passing if the recording SCD194 added were removed again.
+    final env = _fullyRegisteredEnvironment();
+    expect(
+      env.bridgedEnumNames,
+      isEmpty,
+      reason:
+          'The stdlib now registers bridged enums. That is not a problem, but '
+          'this case was written when it registered none — re-read it, and '
+          'note the real count in F-SCD194-1 so the emptiness above stops '
+          'being vacuous.',
+    );
+
+    // Two DIFFERENT definitions under one name, built here because the stdlib
+    // offers none.
+    final first = BridgedEnumDefinition<_ProbeA>(
+      name: 'ScdProbeEnum',
+      values: _ProbeA.values,
+      getters: {'label': (visitor, target) => 'a'},
+    );
+    final second = BridgedEnumDefinition<_ProbeB>(
+      name: 'ScdProbeEnum',
+      values: _ProbeB.values,
+      getters: {'label': (visitor, target) => 'b'},
+    );
+    env.defineBridgedEnum(first.buildBridgedEnum());
+    expect(_enumCollisions(env), isEmpty, reason: 'one definition, no clash');
+    env.defineBridgedEnum(second.buildBridgedEnum());
+
+    final collisions = _enumCollisions(env);
+    expect(
+      collisions.keys,
+      contains('ScdProbeEnum'),
+      reason:
+          'the displaced enum must stay enumerable — this is exactly what '
+          'SCD194 added to defineBridgedEnum',
+    );
+    expect(collisions['ScdProbeEnum'], equals(2));
+
+    // And the cross-namespace half, on the same probe name.
+    env.defineBridge(
+      BridgedClass(nativeType: _ProbeCarrier, name: 'ScdProbeEnum'),
+    );
+    expect(_crossNamespaceCollisions(env), contains('ScdProbeEnum'));
+  });
 }
+
+enum _ProbeA { one }
+
+enum _ProbeB { two }
+
+/// A native type for the cross-namespace probe. Its identity is all that
+/// matters — the bridge is never instantiated.
+class _ProbeCarrier {}

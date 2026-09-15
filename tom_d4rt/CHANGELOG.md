@@ -1,3 +1,28 @@
+## 1.125.0
+
+### Added - the enum registry records what it displaces (scd194)
+
+`defineBridgedEnum` warned about a name collision and then overwrote. The
+displaced enum was gone, and the only trace was a log line that is off in a
+normal run — the same condition that let SCB26's missing `StringSink` members
+live for that bridge's whole lifetime.
+
+The class registry has recorded every displaced bridge unconditionally since
+SCC76, which is what makes `findAllBridgedClassesByName` and the collision
+guard possible. The enum namespace now has the same bookkeeping:
+`_recordShadowedEnum` at both displacement sites (`defineBridgedEnum` and
+`importEnvironment`'s import-wins branch) and `findAllBridgedEnumsByName`
+mirroring the class version across the scope chain.
+
+A colliding enum is RECORDED AND REPORTED, not rejected. The class rule — same
+`nativeType` is a re-export, a different one is Dart's ambiguous-import case —
+transfers in principle, but the enum path has no qualifier machinery, so making
+a name ambiguous would leave a script no way to say which one it meant.
+
+`scc76_bridge_name_collision_test.dart` gains the enum axis and the
+cross-namespace case (a name must not be both a bridged class and a bridged
+enum), in both trees.
+
 ## 1.124.0
 
 ### Fixed - six bridged members registered under the wrong kind (scd189)
