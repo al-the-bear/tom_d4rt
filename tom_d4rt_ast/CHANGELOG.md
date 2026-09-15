@@ -1,3 +1,53 @@
+## 0.98.0
+
+### Changed - a native object no bridge claims now says so (scd145)
+
+A member call on a native object the interpreter never bridged reported
+
+```
+Undefined property or method 'moveNext' on _TallyIterator
+```
+
+The real cause - `Cannot bridge native object: No registered bridged class found
+for native type ...` - is thrown at the end of `Environment.toBridgedClass` and
+then absorbed: `InterpreterVisitorExtension.toBridgedInstance` catches it,
+revokes it and returns `(null, false)`. That catch is correct and load-bearing,
+because its callers use the `false` as a control-flow signal and fall through to
+other registries - an interpreter-internal value legitimately has no bridge. The
+cost was that the cause was gone by the time the fallthrough chain gave up, and
+the reader was pointed at the member: they went looking for a missing method on a
+bridge that does not exist.
+
+The two member-error sites for a raw native receiver now append the cause:
+
+```
+Undefined property or method 'tally' on Zqwx. No bridge claims this type: no
+bridged class is registered for the native type Zqwx, so the object was never
+bridged and has no members at all - the missing member is a consequence.
+Register a bridge for Zqwx, or add 'Zqwx' to an existing bridge's `nativeNames`.
+```
+
+**Only the message changes** - not the exception type, not `memberName`, not
+`receiver`, and not the control flow. `environment.dart` already records why
+widening resolution instead broke 43 enum-dispatch tests: callers use the throw
+as a signal. A message change on a path that is already failing cannot regress a
+passing one.
+
+Two exclusions, and they are the interesting part. Interpreter-internal values
+are tested against the abstractions the interpreter owns - `RuntimeValue`,
+`RuntimeType`, `Callable`, `InterpretedRecord` - rather than a list of concrete
+types, because a list is what rots when a new value shape appears; a
+script-declared class has no bridge and is not supposed to, so the clause would
+be noise on every script typo. And a type a bridge DOES claim earns nothing,
+because there the member really is the problem.
+
+This matters more after SCC49, not less: that change made implementation types
+named after their interface resolve structurally, so what still reaches this path
+is the hard residue - types the SDK abbreviates (`_StreamSinkWrapper`,
+`_ControllerSubscription`) and types with no naming relationship to any bridge.
+Those are exactly the cases where the reader most needs the diagnostic to name
+the cause.
+
 ## 0.97.0
 
 ### Added - a bridged function typedef can carry its positional arity (scd137)

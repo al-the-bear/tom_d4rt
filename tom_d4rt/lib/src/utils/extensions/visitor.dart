@@ -34,6 +34,63 @@ extension InterpreterVisitorExtension on InterpreterVisitor {
     }
   }
 
+  /// SCD145 — the clause a member error should carry when its receiver is a
+  /// NATIVE object that **no bridge claims**.
+  ///
+  /// `Environment.toBridgedClass` throws
+  /// `Cannot bridge native object: No registered bridged class found for native
+  /// type …` and [toBridgedInstance] above catches it, `revoke()`s it and
+  /// returns `(null, false)`. That catch is correct and load-bearing: its
+  /// callers use the `false` as a CONTROL-FLOW signal and fall through to other
+  /// registries, because an interpreter-internal value legitimately has no
+  /// bridge. The cost is that the real cause is gone by the time the
+  /// fallthrough chain gives up, and what the script author sees is
+  ///
+  ///     Undefined property or method 'moveNext' on _TallyIterator
+  ///
+  /// which points at the member. The reader goes looking for a missing method
+  /// on a bridge that does not exist.
+  ///
+  /// This recovers the cause at the point of failure. It changes only the
+  /// MESSAGE — not the exception type, not `memberName`, not `receiver`, and not
+  /// the control flow. `environment.dart`'s own note records why widening
+  /// resolution instead broke 43 enum-dispatch tests: callers use the throw as
+  /// a signal. A message change on a path that is already failing cannot
+  /// regress a passing one.
+  ///
+  /// Returns `''` for anything that is not in that situation, and the two
+  /// exclusions are the interesting part:
+  ///
+  ///   * **Interpreter-internal values.** Tested against the abstractions the
+  ///     interpreter owns — `RuntimeValue`, `RuntimeType`, `Callable`,
+  ///     `InterpretedRecord` — rather than a list of concrete types, because a
+  ///     list is what rots when a new value shape appears. A script-declared
+  ///     class has no bridge and is not supposed to, so saying so would be
+  ///     noise on every script typo.
+  ///   * **Types a bridge DOES claim.** There the member really is the problem
+  ///     and the new wording would be a lie.
+  String unbridgedNativeClause(Object? receiver) {
+    if (receiver == null) return '';
+    if (receiver is RuntimeValue ||
+        receiver is RuntimeType ||
+        receiver is Callable ||
+        receiver is InterpretedRecord) {
+      return '';
+    }
+    try {
+      globalEnvironment.toBridgedInstance(receiver);
+      return '';
+    } catch (e) {
+      if (e is D4rtException) e.revoke();
+      final type = receiver.runtimeType;
+      return ' No bridge claims this type: no bridged class is registered for the '
+          'native type $type, so the object was never bridged and has no '
+          'members at all — the missing member is a consequence. Register a '
+          "bridge for $type, or add '$type' to an existing bridge's "
+          '`nativeNames`.';
+    }
+  }
+
   /// Cluster-12 (priority 3): Walks the registered supertype chain of
   /// [bridgedInstance]'s class and returns the first matching getter result
   /// or method tear-off for [propertyName]. Used as a fallback in property

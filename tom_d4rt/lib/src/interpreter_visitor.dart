@@ -5249,7 +5249,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             "[MethodInvocation] Extension method '$methodName' not found. Rethrowing original error.",
           );
           throw UndefinedMemberD4rtException(
-            "Undefined property or method '$methodName' on ${targetValue.runtimeType}.",
+            "Undefined property or method '$methodName' on ${targetValue.runtimeType}."
+            '${unbridgedNativeClause(targetValue)}',
             memberName: methodName,
             receiver: targetValue,
           );
@@ -6376,7 +6377,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           "[PropertyAccess] Extension getter '$propertyName' not found. Rethrowing original error.",
         );
         throw UndefinedMemberD4rtException(
-          "Undefined property or method '$propertyName' on ${target.runtimeType}.",
+          "Undefined property or method '$propertyName' on ${target.runtimeType}."
+          '${unbridgedNativeClause(target)}',
           memberName: propertyName,
           receiver: target,
         );
