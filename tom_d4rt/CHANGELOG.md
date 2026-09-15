@@ -1,3 +1,24 @@
+## 1.116.0
+
+### Changed - `Uint8List` shares the inherited getters with its ten siblings (scd166)
+
+SCD28 folded this variant's methods and setters onto `inheritedListMethods` /
+`inheritedListSetters` and left its `getters` map hand-rolled. That kept
+`Uint8List` the one typed-data variant of eleven that would not receive the
+next getter added to `inheritedListGetters`, which is the exposure that
+produced SCB3 (`sort`/`shuffle`/`asUnmodifiableView` resolving here and
+nowhere else) and SCC9 (a `_TypeError` where the family raised a catchable
+`UnsupportedError`).
+
+The three getters it declared — `single`, `iterator`, `reversed` — were
+equivalent to the helper's, so the effective member set is unchanged and no
+behaviour moves: all eleven variants exposed the same fourteen getters before
+this change and after it. What changes is that they now do so from one source.
+
+The comment claiming `Uint8List` "hand-rolls its instance maps rather than
+sharing inheritedListMethods" is removed; it had been false since SCD28, three
+lines below the spread it denied.
+
 ## 1.115.0
 
 ### Changed - the `ServerSocket` bridge records why it shadows 28 `Stream` members (scd162)

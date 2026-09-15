@@ -176,8 +176,7 @@ class Uint8ListTypedData {
         unmodifiableView: (t) => (t as Uint8List).asUnmodifiableView(),
       ),
     },
-    // Uint8List hand-rolls its instance maps rather than sharing
-    // inheritedListMethods, but the static is the same for every variant.
+    // The static is the same for every variant.
     staticGetters: typedListStaticGetters(Uint8List.bytesPerElement),
     getters: {
       'length': (visitor, target) => (target as Uint8List).length,
@@ -190,11 +189,18 @@ class Uint8ListTypedData {
       'last': (visitor, target) => (target as Uint8List).last,
       'isEmpty': (visitor, target) => (target as Uint8List).isEmpty,
       'isNotEmpty': (visitor, target) => (target as Uint8List).isNotEmpty,
-      'iterator': (visitor, target) => (target as Uint8List).iterator,
-      'reversed': (visitor, target) => (target as Uint8List).reversed,
-      'single': (visitor, target) => (target as Uint8List).single,
       'hashCode': (visitor, target) => (target as Uint8List).hashCode,
       'runtimeType': (visitor, target) => (target as Uint8List).runtimeType,
+
+      // Inherited getters (single, iterator, reversed).
+      //
+      // SCD28 folded this variant's methods and setters onto the shared
+      // helpers and left the getters hand-rolled, which kept Uint8List the one
+      // variant that would not receive the next getter added to
+      // inheritedListGetters. The three it declared were equivalent to the
+      // helper's, so nothing behaved differently — the exposure was the point,
+      // and it is the same exposure that produced SCB3 and SCC9.
+      ...inheritedListGetters<int>((t) => t as Uint8List),
     },
     setters: inheritedListSetters<int>((t) => t as Uint8List),
   );
