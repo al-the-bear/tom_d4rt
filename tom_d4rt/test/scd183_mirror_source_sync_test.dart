@@ -26,6 +26,16 @@
 // "must be identical" assertion over this surface would be red on the day it
 // landed and would stay red, which is the same as having no guard.
 //
+// THE FILE-LEVEL READING OVERSTATES THE FIVE, and SCD199 is the correction.
+// `_divergence` trims the common prefix and suffix, so a single early
+// difference leaves every token after it inside the residue — which is how
+// `interpreter_visitor.dart` reads as "99 % of tokens differ" when 77 of its
+// 134 member bodies are in fact identical. That matters because a wholesale
+// `_structural` exemption is where SCC78's one-line divergence survived for as
+// long as both files existed. `scd199_mirror_body_agreement_test.dart` applies
+// this file's normalisation per member instead and pins the 108 bodies that
+// really do disagree.
+//
 // SO THERE ARE TWO MEASUREMENTS, and each is applied where it can be true.
 //
 //   1. CODE IDENTITY, after normalising the mirror type names. The twin's
@@ -98,6 +108,7 @@ import 'package:analyzer/dart/ast/token.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:test/test.dart';
 
+import 'mirror_normalisation.dart';
 import 'sibling_trees.dart';
 
 /// The reference tree's interpreter sources, relative to the package root.
@@ -106,9 +117,6 @@ const _refRoot = 'lib/src';
 /// The twin's. A sibling checkout, because both packages live in the one
 /// `tom_d4rt` repository.
 const _astRoot = '../tom_d4rt_ast/lib/src/runtime';
-
-/// Where the mirror AST types are declared, and the source of the rename map.
-const _modelRoot = '../tom_ast_model/lib';
 
 /// `stdlib/` is SCD49's subject, not this file's. Splitting them keeps each
 /// failure pointing at one remedy — and the stdlib half can demand plain token
@@ -298,10 +306,16 @@ const _allowedRegions = <String, (String, String)>{
 /// Shared files whose divergence is pervasive, and why token identity cannot
 /// express it.
 ///
-/// An entry here buys an exemption from F-SCD183-2 ONLY. Every one of these is
-/// still held to member-set parity by F-SCD183-5, which is the assertion that
-/// actually corresponds to the mirror rule — "the same fix landed in both" is a
-/// claim about what a file declares, not about how it spells the body.
+/// An entry here buys an exemption from F-SCD183-2 ONLY, and it is a narrower
+/// exemption than it looks. Every one of these is still held to member-set
+/// parity by F-SCD183-5 — "the same fix landed in both" is first a claim about
+/// what a file declares — and, since SCD199, to per-BODY agreement by
+/// `scd199_mirror_body_agreement_test.dart`, which compares each shared member
+/// separately so that one early difference no longer swallows the file. The
+/// percentages quoted below are what THIS file's whole-stream comparison sees;
+/// per body the same five files are 249 of 354 members identical. Both readings
+/// are of the same trees, and the second is where a one-line divergence is
+/// visible.
 const _structural = <String, String>{
   'callable.dart':
       'the mirror AST has no parent pointer, so the twin reconstructs one '
@@ -383,42 +397,6 @@ const _memberDivergenceReasons = <String, String>{
       'the analyzer node for its source range.',
 };
 
-/// The types `tom_ast_model` declares, read from the sibling checkout.
-///
-/// Derived rather than listed: a hand-written map of 195 names is a thing that
-/// rots, and a rotted entry here silently stops normalising one type — which
-/// presents as a divergence in a file nobody changed.
-Set<String> _mirrorTypeNames() {
-  final dir = Directory(_modelRoot);
-  if (!dir.existsSync()) return const {};
-  final re = RegExp(r'\b(?:class|mixin|enum|typedef)\s+([A-Za-z0-9_]+)');
-  final out = <String>{};
-  for (final f
-      in dir
-          .listSync(recursive: true)
-          .whereType<File>()
-          .where((f) => f.path.endsWith('.dart'))) {
-    for (final m in re.allMatches(f.readAsStringSync())) {
-      out.add(m.group(1)!);
-    }
-  }
-  return out;
-}
-
-/// The reference tree's name for a mirror type, or [token] unchanged.
-String _denormalise(String token, Set<String> mirrorTypes) {
-  if (!mirrorTypes.contains(token)) return token;
-  if (token.startsWith('S') &&
-      token.length > 1 &&
-      token[1].toUpperCase() == token[1]) {
-    return token.substring(1);
-  }
-  // `GeneralizingSAstVisitor`, `RecursiveSAstVisitor` and friends carry the S
-  // in the middle rather than at the front.
-  if (token.contains('SAst')) return token.replaceFirst('SAst', 'Ast');
-  return token;
-}
-
 /// The executable tokens of [source]: no comments, no directives, no trailing
 /// commas. When [mirrorTypes] is non-empty every mirror type name is rewritten
 /// to its reference spelling.
@@ -441,30 +419,12 @@ List<String> _codeTokens(String source, {Set<String> mirrorTypes = const {}}) {
       if (next != null && const [')', ']', '}'].contains(next.lexeme)) continue;
     }
     out.add(
-      mirrorTypes.isEmpty ? t.lexeme : _denormalise(t.lexeme, mirrorTypes),
+      mirrorTypes.isEmpty
+          ? t.lexeme
+          : denormaliseMirrorType(t.lexeme, mirrorTypes),
     );
   }
   return out;
-}
-
-/// The two sides of where [a] and [b] stop agreeing, with the common prefix and
-/// suffix trimmed off. `null` when they agree everywhere.
-(String, String)? _divergence(List<String> a, List<String> b) {
-  var head = 0;
-  while (head < a.length && head < b.length && a[head] == b[head]) {
-    head++;
-  }
-  if (head == a.length && head == b.length) return null;
-  var tail = 0;
-  while (tail < a.length - head &&
-      tail < b.length - head &&
-      a[a.length - 1 - tail] == b[b.length - 1 - tail]) {
-    tail++;
-  }
-  return (
-    a.sublist(head, a.length - tail).join(' '),
-    b.sublist(head, b.length - tail).join(' '),
-  );
 }
 
 /// Every named declaration in [source], qualified by its owner.
@@ -551,19 +511,6 @@ Set<String> _declaredMembers(String source) {
   return visitor.out;
 }
 
-List<String> _dartFilesUnder(String root) {
-  final dir = Directory(root);
-  if (!dir.existsSync()) return const [];
-  return dir
-      .listSync(recursive: true)
-      .whereType<File>()
-      .where((f) => f.path.endsWith('.dart'))
-      .map((f) => f.path.substring(root.length + 1))
-      .where((rel) => !rel.startsWith(_excludedPrefix))
-      .toList()
-    ..sort();
-}
-
 void main() {
   // SCD158: this guard resolves its subject relative to the package it runs
   // in, so a copy anywhere else measures a different tree in silence.
@@ -572,9 +519,9 @@ void main() {
     subject: 'both interpreter trees outside lib/src/stdlib',
   );
 
-  final mirrorTypes = _mirrorTypeNames();
-  final refFiles = _dartFilesUnder(_refRoot);
-  final astFiles = _dartFilesUnder(_astRoot);
+  final mirrorTypes = mirrorTypeNames();
+  final refFiles = dartFilesUnder(_refRoot, excludedPrefix: _excludedPrefix);
+  final astFiles = dartFilesUnder(_astRoot, excludedPrefix: _excludedPrefix);
   final shared = (refFiles.toSet().intersection(astFiles.toSet()).toList())
     ..sort();
 
@@ -587,7 +534,7 @@ void main() {
   for (final rel in shared) {
     final refSource = File('$_refRoot/$rel').readAsStringSync();
     final astSource = File('$_astRoot/$rel').readAsStringSync();
-    final d = _divergence(
+    final d = tokenDivergence(
       _codeTokens(refSource),
       _codeTokens(astSource, mirrorTypes: mirrorTypes),
     );
@@ -673,7 +620,7 @@ void main() {
       mirrorTypes,
       hasLength(greaterThanOrEqualTo(_minMirrorTypes)),
       reason:
-          'Read only ${mirrorTypes.length} type names from $_modelRoot. The '
+          'Read only ${mirrorTypes.length} type names from $mirrorModelRoot. The '
           'mirror rename map is derived from that checkout; without it this '
           'comparison is measuring something else.',
     );
@@ -694,8 +641,8 @@ void main() {
       reason:
           'These files differ in CODE between the two interpreter trees:\n'
           '${unexpected.map((f) => '  $f\n'
-              '      ref: ${_excerpt(divergences[f]!.$1)}\n'
-              '      ast: ${_excerpt(divergences[f]!.$2)}').join('\n')}\n\n'
+              '      ref: ${tokenExcerpt(divergences[f]!.$1)}\n'
+              '      ast: ${tokenExcerpt(divergences[f]!.$2)}').join('\n')}\n\n'
           'The mirror rule says a fix lands in both trees in one commit — see '
           '_copilot_guidelines/d4rt/mirror_maintenance.md. Port the change. If '
           'the trees genuinely cannot agree, add an entry to _allowedRegions '
@@ -758,10 +705,10 @@ void main() {
       if (actual.$1 == entry.value.$1 && actual.$2 == entry.value.$2) continue;
       changed.add(
         '  ${entry.key}\n'
-        '      recorded ref: ${_excerpt(entry.value.$1)}\n'
-        '      actual   ref: ${_excerpt(actual.$1)}\n'
-        '      recorded ast: ${_excerpt(entry.value.$2)}\n'
-        '      actual   ast: ${_excerpt(actual.$2)}',
+        '      recorded ref: ${tokenExcerpt(entry.value.$1)}\n'
+        '      actual   ref: ${tokenExcerpt(actual.$1)}\n'
+        '      recorded ast: ${tokenExcerpt(entry.value.$2)}\n'
+        '      actual   ast: ${tokenExcerpt(actual.$2)}',
       );
     }
 
@@ -870,11 +817,6 @@ void main() {
 
 /// The first 240 characters of a token region, so a 59 000-token divergence
 /// does not make a failure unreadable.
-String _excerpt(String region) => region.length <= 240
-    ? region
-    : '${region.substring(0, 240)} … '
-          '(${region.split(' ').length} tokens)';
-
 bool _sameNames(List<String> a, List<String> b) {
   if (a.length != b.length) return false;
   for (var i = 0; i < a.length; i++) {
