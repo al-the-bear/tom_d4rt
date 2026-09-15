@@ -115,8 +115,11 @@ Then `_checkArgumentType` started consulting `getRuntimeType` for declared
 parameter types. Nothing about the defect changed; a second consumer simply
 began trusting an already-wrong value. The corpus went from all-green to 131
 failures across all 41 files, indistinguishable from a fresh regression until
-an inventory showed all 131 shared one signature. The repair was the four lines
-that had been written in the cluster entry the whole time.
+an inventory showed they shared one signature — a claim whose durable evidence
+is the next run clearing 116 of the 131 with a single four-line fix, not the
+inventory itself, which lived in a gitignored run folder and is gone (SCD143).
+The repair was those four lines, which had been written in the cluster entry the
+whole time.
 
 **A failure count measures how many consumers happen to read a wrong value
 today. It says nothing about the defect, and it moves without warning when an
@@ -146,6 +149,48 @@ That is deliberately a tracking requirement rather than a prohibition on
 deferring. A fix can be genuinely blocked — DGUC6 means an interpreter change
 cannot be certified by the corpus until it is published — and naming the todo
 that carries the publish-and-re-run sequence is the honest form of "later".
+
+### A shared-cause claim cites its measurement
+
+**"N failures share one cause" is the most attractive wrong sentence in this
+document, and it has been written twice.** SCC47 overturned a skip whose stated
+mechanism did not exist; SCC48 overturned the reading of twelve contiguous
+`flutter_extended_22` failures as one leaked framework error — they were twelve
+independent script-authoring defects, already fixed five and a half hours after
+the baseline they were compared against, and the claim survived five weeks as
+established fact because contiguity *looks* like propagation and nobody had
+counted.
+
+So a claim that N failures share a cause, or that a delta is *attributable to*
+something, states the measurement that supports it. Two checks are cheap and
+between them decided both corrections:
+
+- **Count the error occurrences per test.** A genuinely shared or leaking cause
+  accumulates; independent defects do not. SCC48's twelve were 11, 78, 23, 8, 2,
+  2, 3, 11, 9, 6, 1, 6 — non-monotonic, which killed the accumulation
+  hypothesis before any code was read.
+- **`git log -S` the error string.** A real fix usually documents the exact
+  delta you are staring at. `0f93ea375`'s message literally contained
+  `flutter_extended_22 +30~1-12 -> +42~1`.
+
+A third, for an attribution: **name the variables that moved and rule out each
+one.** If two things changed and the entry blames one, it has to say why the
+other cannot account for the delta — see the 2026-09-14 entry, where the answer
+is that the co-moving bump was formatting-only.
+
+**Correct a wrong claim, do not delete it.** The SCC47 and SCC48 amendments are
+worth more than erasure would have been, because they record *why* the wrong
+reading was attractive — which is the part that stops it being written a third
+time.
+
+**This document was swept for such claims on 2026-09-15 (SCD143).** Every
+occurrence of the shape was examined: the propagation claims in the sweep log
+are evidenced by isolated re-runs, the re-export "no leak" claims by named unit
+tests, and the two that were not fully evidenced are now annotated in place —
+the 131-failure inventory (which cited a deleted artefact when the document held
+better evidence) and the 2026-09-14 generator attribution (true, but silent
+about the second variable). Re-run the sweep with
+`grep -inE 'share[sd]? one|one cause|attributable|all [0-9]+ |cascade|propagat|leak'`.
 
 ### The shape
 
@@ -3786,8 +3831,15 @@ in `callable.dart` (`_checkArgumentType`) began consulting the same already
 -wrong `getRuntimeType` result. Nothing about the defect changed; a second
 consumer simply started trusting it. The corpus went from all-green to
 **131 failures across all 41 files**, and the failures were
-indistinguishable from a fresh interpreter regression until the inventory
+indistinguishable from a fresh interpreter regression until an inventory
 showed all 131 shared one signature.
+
+That inventory lived in a run folder under the gitignored `testlog/` and is
+gone, so it cannot be checked (SCD143). **The durable evidence is stronger than
+the artefact it replaces**, and it is in this document: the very next full
+corpus run, recorded below as 2026-09-06, reports 15 failures on both twins
+after the one four-line fix. One repair clearing 116 of 131 failures is the
+measurement; independent defects do not collapse together.
 
 Two things follow, and both are cheap:
 
@@ -4141,6 +4193,17 @@ bump, which arrived with the `pub upgrade` and **regenerated the AST twin's 18
 `.b.dart` files**. Because the interpreter pair is identical to the 2026-09-11
 entry's, every delta here is attributable to the generator alone — an
 unusually clean control, and the reason this entry is worth its runtime.
+
+**Why "alone", given that two things moved (SCD143).** The paragraph above also
+records the companion apps' view of their twin going 1.2.0 → 1.2.1 and
+0.4.0 → 0.4.1, so on its face the attribution names one of two variables. Both
+twin bumps are **scd81, which was formatting-only** — and measured to be so
+rather than asserted: its CHANGELOG entries record that normalising away
+whitespace, then whitespace-and-commas, leaves every changed file byte-identical
+to its previous content, with no quote count changed and therefore no string
+literal re-split. A layout-only change cannot account for a behavioural delta, so
+the generator really is the only candidate. Re-derived during SCD143's audit,
+because a reader checking this claim would otherwise have to do the same work.
 
 The generator's output delta is three things: an extension-registry keying fix
 (`extDef.name ?? '<unnamed>@${onTypeName}'` appended `@Type` only when the name
@@ -4796,6 +4859,12 @@ separate them: count the error occurrences per test (a leak accumulates,
 independent defects do not), and `git log -S` the error string (a real fix
 usually documents the exact delta you are staring at). Both were what
 overturned SCC47 the day before, and both applied unchanged here.
+
+SCD143 promoted those two checks into "## Writing a cluster entry" at the top of
+this document, which is where somebody about to write such a claim will meet
+them — buried at the end of a dated amendment, they were advice nobody finds.
+This paragraph stays as the record of where they came from; the canonical
+statement is up there.
 
 ---
 
