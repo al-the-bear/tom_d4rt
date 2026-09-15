@@ -149,14 +149,13 @@ class JsonEncoderConvert {
       },
       'startChunkedConversion':
           (visitor, target, positionalArgs, namedArgs, _) {
-            if (positionalArgs.length != 1 ||
-                positionalArgs[0] is! Sink<String>) {
+            if (positionalArgs.length != 1 || positionalArgs[0] is! Sink) {
               throw RuntimeD4rtException(
                 'startChunkedConversion requires a Sink<String> argument.',
               );
             }
             return (target as JsonEncoder).startChunkedConversion(
-              positionalArgs[0] as Sink<String>,
+              D4.adaptSink<String>(positionalArgs[0], 'sink'),
             );
           },
       'bind': (visitor, target, positionalArgs, namedArgs, _) {
@@ -220,14 +219,13 @@ class JsonDecoderConvert {
       },
       'startChunkedConversion':
           (visitor, target, positionalArgs, namedArgs, _) {
-            if (positionalArgs.length != 1 ||
-                positionalArgs[0] is! Sink<dynamic>) {
+            if (positionalArgs.length != 1 || positionalArgs[0] is! Sink) {
               throw RuntimeD4rtException(
                 'startChunkedConversion requires a Sink<dynamic> argument.',
               );
             }
             return (target as JsonDecoder).startChunkedConversion(
-              positionalArgs[0] as Sink<dynamic>,
+              D4.adaptSink<dynamic>(positionalArgs[0], 'sink'),
             );
           },
       'bind': (visitor, target, positionalArgs, namedArgs, _) {

@@ -1,3 +1,29 @@
+## 1.121.0
+
+### Fixed - `startChunkedConversion` accepts a sink a script can build (scd181)
+
+Every `startChunkedConversion` adapter in `dart:convert` guarded on
+`positionalArgs[0] is! Sink<T>` and then cast to `Sink<T>`. The interpreter
+erases type arguments, so `ChunkedConversionSink.withCallback(cb)` evaluates to
+a `ChunkedConversionSink<Object?>` — and `Sink<Object?>` is not a
+`Sink<String>`. Fourteen guards across nine files therefore rejected every sink
+a script could construct, which made the whole chunked-conversion surface
+unreachable. `ByteConversionSink.from` carried the same guard.
+
+This is the contravariant twin of the `Converter.bind` defect SCC68 fixed, and
+it needs a different remedy. A `Stream<T>` is a producer, so `D4.coerceStream`
+has elements in hand and maps them; a `Sink<T>` is a consumer, and nothing has
+been produced yet. The new `D4.adaptSink<T>` returns a forwarding `Sink<T>`
+that delegates `add` and `close` to the erased sink underneath, and passes an
+already-correctly-typed sink through untouched so a receiver testing for a
+concrete subtype still sees it.
+
+The guards stay, narrowed to `is! Sink`. `ArgumentD4rtException` (what the
+`D4.*` helpers throw) and `RuntimeD4rtException` (what stdlib adapters throw)
+are siblings under `D4rtException`, not parent and child, so routing the whole
+check through the helper would silently change what a script's `catch`
+dispatches on.
+
 ## 1.120.0
 
 ### Fixed - `x is Enum` answers what Dart answers (scd176)

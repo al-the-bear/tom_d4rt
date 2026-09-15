@@ -21,13 +21,14 @@ class ByteConversionConvert {
     typeParameterCount: 0,
     staticMethods: {
       'from': (visitor, positionalArgs, namedArgs, _) {
-        if (positionalArgs.length != 1 ||
-            positionalArgs[0] is! Sink<List<int>>) {
+        if (positionalArgs.length != 1 || positionalArgs[0] is! Sink) {
           throw RuntimeD4rtException(
             'ByteConversionSink.from requires one Sink<List<int>> argument.',
           );
         }
-        return ByteConversionSink.from(positionalArgs[0] as Sink<List<int>>);
+        return ByteConversionSink.from(
+          D4.adaptSink<List<int>>(positionalArgs[0], 'sink'),
+        );
       },
       'withCallback': (visitor, positionalArgs, namedArgs, _) {
         if (positionalArgs.length != 1 || positionalArgs[0] is! Callable) {

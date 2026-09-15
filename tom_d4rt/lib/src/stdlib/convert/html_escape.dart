@@ -26,14 +26,13 @@ class HtmlEscapeConvert {
       },
       'startChunkedConversion':
           (visitor, target, positionalArgs, namedArgs, _) {
-            if (positionalArgs.length != 1 ||
-                positionalArgs[0] is! Sink<String>) {
+            if (positionalArgs.length != 1 || positionalArgs[0] is! Sink) {
               throw RuntimeD4rtException(
                 'startChunkedConversion requires a Sink<String> argument.',
               );
             }
             return (target as HtmlEscape).startChunkedConversion(
-              positionalArgs[0] as Sink<String>,
+              D4.adaptSink<String>(positionalArgs[0], 'sink'),
             );
           },
       'bind': (visitor, target, positionalArgs, namedArgs, _) {

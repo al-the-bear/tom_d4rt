@@ -68,13 +68,15 @@ class JsonUtf8EncoderConvert {
       'startChunkedConversion':
           (visitor, target, positionalArgs, namedArgs, _) {
             final sink = positionalArgs.isNotEmpty ? positionalArgs[0] : null;
-            if (sink is! Sink<List<int>>) {
+            if (sink is! Sink) {
               throw RuntimeD4rtException(
                 'JsonUtf8Encoder.startChunkedConversion requires a '
                 'Sink<List<int>> argument.',
               );
             }
-            return (target as JsonUtf8Encoder).startChunkedConversion(sink);
+            return (target as JsonUtf8Encoder).startChunkedConversion(
+              D4.adaptSink<List<int>>(sink, 'sink'),
+            );
           },
       'fuse': (visitor, target, positionalArgs, namedArgs, _) {
         final other = positionalArgs.isNotEmpty ? positionalArgs[0] : null;

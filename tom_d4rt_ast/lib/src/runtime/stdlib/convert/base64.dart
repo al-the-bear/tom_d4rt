@@ -117,14 +117,13 @@ class Base64EncoderConvert {
       },
       'startChunkedConversion':
           (visitor, target, positionalArgs, namedArgs, _) {
-            if (positionalArgs.length != 1 ||
-                positionalArgs[0] is! Sink<dynamic>) {
+            if (positionalArgs.length != 1 || positionalArgs[0] is! Sink) {
               throw RuntimeD4rtException(
                 'startChunkedConversion requires a Sink<String> argument.',
               );
             }
             return (target as Base64Encoder).startChunkedConversion(
-              positionalArgs[0] as Sink<String>,
+              D4.adaptSink<String>(positionalArgs[0], 'sink'),
             );
           },
       'bind': (visitor, target, positionalArgs, namedArgs, _) {
@@ -186,14 +185,13 @@ class Base64DecoderConvert {
       },
       'startChunkedConversion':
           (visitor, target, positionalArgs, namedArgs, _) {
-            if (positionalArgs.length != 1 ||
-                positionalArgs[0] is! Sink<List<int>>) {
+            if (positionalArgs.length != 1 || positionalArgs[0] is! Sink) {
               throw RuntimeD4rtException(
                 'startChunkedConversion requires a Sink<List<int>> argument.',
               );
             }
             return (target as Base64Decoder).startChunkedConversion(
-              positionalArgs[0] as Sink<List<int>>,
+              D4.adaptSink<List<int>>(positionalArgs[0], 'sink'),
             );
           },
       'bind': (visitor, target, positionalArgs, namedArgs, _) {

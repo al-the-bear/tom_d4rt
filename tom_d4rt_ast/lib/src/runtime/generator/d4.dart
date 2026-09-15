@@ -909,6 +909,45 @@ class D4 {
   }
 
   // ==========================================================================
+  // Sink Adaptation
+  // ==========================================================================
+
+  /// Adapt a sink that came from d4rt into a typed `Sink<T>`.
+  ///
+  /// **The contravariant twin of [coerceStream], and it cannot be a
+  /// coercion.** The interpreter erases type arguments, so
+  /// `ChunkedConversionSink.withCallback(cb)` evaluates to a native
+  /// `ChunkedConversionSink<Object?>`, and Dart generics are covariant:
+  /// `Sink<Object?>` is NOT a `Sink<String>`. Every
+  /// `startChunkedConversion` guard and cast in `stdlib/convert` therefore
+  /// rejected every sink a script could build, exactly as `bind` rejected
+  /// every stream before SCC68.
+  ///
+  /// A `Stream<T>` is a PRODUCER — [coerceStream] maps its elements on the
+  /// way out, and there is something to map. A `Sink<T>` is a CONSUMER:
+  /// nothing has been produced yet, only a method that will be called with a
+  /// `T` later. So the repair is a forwarding wrapper that IS the demanded
+  /// `Sink<T>` and passes `add`/`close` down to the erased sink underneath.
+  ///
+  /// An already-typed `Sink<T>` passes through by identity rather than being
+  /// wrapped — the same rule [coerceStream] follows, and for the same reason:
+  /// a wrapper around a sink that did not need one would make `identical`
+  /// false for a value the caller still holds.
+  ///
+  /// A value that is not a `Sink` at all still throws — this widens nothing.
+  static Sink<T> adaptSink<T>(Object? arg, String paramName) {
+    final value = arg is BridgedInstance ? arg.nativeObject : arg;
+    if (value is Sink<T>) return value;
+    if (value is! Sink) {
+      throw ArgumentD4rtException(
+        'Invalid parameter "$paramName": expected Sink<$T>, '
+        'got ${value.runtimeType}',
+      );
+    }
+    return _AdaptedSink<T>(value, paramName);
+  }
+
+  // ==========================================================================
   // Stream Coercion
   // ==========================================================================
 
@@ -3074,4 +3113,26 @@ class _TypePair {
 
   @override
   int get hashCode => Object.hash(sourceType, targetType);
+}
+
+/// A `Sink<T>` forwarding to a sink whose type argument the interpreter erased.
+///
+/// See [D4.adaptSink]. `add` is where the erasure is actually resolved: the
+/// native sink underneath accepts `dynamic`, so handing it a `T` is always
+/// sound, and a script that built the sink sees exactly the values it would
+/// have seen.
+class _AdaptedSink<T> implements Sink<T> {
+  _AdaptedSink(this._inner, this._paramName);
+
+  final Sink<dynamic> _inner;
+  final String _paramName;
+
+  @override
+  void add(T data) => _inner.add(data);
+
+  @override
+  void close() => _inner.close();
+
+  @override
+  String toString() => 'Sink<$T> adapting $_paramName (${_inner.runtimeType})';
 }
