@@ -4028,6 +4028,30 @@ defects are unrelated: GEN-125 is a *modelling* gap (the type system cannot
 say what a typedef is), GEN-126 is an *identity* loss (the value itself
 changed). Fixing GEN-125 will not move these 11.
 
+**The symptom list above is not the limit, and "0 failures" is not safe to
+rely on.** A fifth shape exists — a script's own `StatelessWidget` subclass,
+which is about as general a bridged base as Flutter has:
+
+```
+type 'StatelessWidget' is not a subtype of type '_A11yNote'
+type 'StatelessWidget' is not a subtype of type '_MatrixRow'
+```
+
+and it reaches an ASSERTION rather than stopping at a framework error. Both
+facts read against this entry as written: the list names `Intent`,
+`TwoDimensional*` and `ThemeExtension`, and the zero-failure count is the
+stated reason the cluster was recorded rather than dropped. The blast-radius
+sentence above was the accurate part all along — *every* script-declared
+subclass of a bridged class — which is the same lesson GEN-124's post-mortem
+draws, arriving a second time in the same document.
+
+Counts are deliberately not quoted here: this was seen in a SCD66 pre-publish
+path-resolved pass, so it describes a tree nobody can install yet, and a
+number in that state is worse than none. **sce161** carries the
+characterisation and the one question the pass could not settle — whether one
+of `flutter_extended_23`'s four failures was misattributed to GEN-125 all
+along. **sce160** owns the published re-measurement that decides it.
+
 Tracked as **scd138** — as an investigation, not as a fix; scd119 answered
 its first question and narrowed what is left to the `Intent` rows.
 
