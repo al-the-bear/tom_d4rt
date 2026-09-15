@@ -21,8 +21,8 @@ dependencies:
   # In-workspace components are pinned to a lower bound only (no upper cap) so
   # `pub upgrade` always tracks our latest published versions during active
   # development.
-  tom_d4rt_ast: ">=0.55.0"
-  tom_ast_model: ">=0.2.0"
+  tom_d4rt_ast: "^0.65.0"
+  tom_ast_model: "^0.2.0"
   tom_build_base: ">=2.6.25"
 
 dev_dependencies:
@@ -37,4 +37,4 @@ dev_dependencies:
   # 1.19.0 is the first whose `resolveIfUnresolved` asks pub whether a project
   # resolves instead of only checking that a package config exists.
   tom_d4rt_generator: ">=1.23.0"
-  tom_d4rt_exec: ">=1.9.0"
+  tom_d4rt_exec: "^1.25.0"

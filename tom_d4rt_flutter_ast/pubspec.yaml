@@ -25,7 +25,7 @@ dependencies:
   # same-name rule to `dart:*` declarations too, so `TextStyle` — declared by
   # both `dart:ui` and painting — is rejected unqualified and 17 base-corpus
   # scripts fail. 0.20.1 restores Dart's platform-library precedence.
-  tom_d4rt_ast: ">=0.55.0"
+  tom_d4rt_ast: "^0.65.0"
   archive: ^4.0.9
   # Explicit transitive Flutter deps used in generated bridge code
   characters: ^1.4.0
@@ -51,8 +51,8 @@ dev_dependencies:
   # driver — never by lib/ runtime code. The bridges and FlutterD4rt
   # resolve entirely within tom_d4rt_ast, keeping the runtime
   # analyzer-free and web-safe.
-  tom_d4rt_exec: ">=1.13.0"
-  tom_ast_generator: ">=0.1.5"
+  tom_d4rt_exec: "^1.25.0"
+  tom_ast_generator: "^0.1.5"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

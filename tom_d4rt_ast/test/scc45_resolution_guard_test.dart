@@ -412,7 +412,44 @@ String? _newestCached(String name) {
 /// release. Tool dependencies such as `tom_d4rt_generator` are left out: an
 /// example demonstrates running ON the interpreter, and chasing every tool
 /// release through every example is churn that buys no truth.
-const _interpreterPackages = {'tom_d4rt', 'tom_d4rt_ast', 'tom_d4rt_exec'};
+/// The interpreter line, as the set every constraint check here is about.
+///
+/// `tom_ast_generator` and `tom_ast_model` belong in it for the same reason
+/// the three runners do: exec's front end parses with the generator and hands
+/// the model's nodes to the interpreter, so a package resolving an old copy of
+/// either is running a different pipeline. SCD201 added them when it carreted
+/// the libraries; F-SCC45-4 holds the copy surfaces to the same set.
+const _interpreterPackages = {
+  'tom_d4rt',
+  'tom_d4rt_ast',
+  'tom_d4rt_exec',
+  'tom_ast_generator',
+  'tom_ast_model',
+};
+
+/// Libraries permitted a non-caret interpreter constraint, keyed
+/// `<repo-relative package>:<dependency>`, with the reason.
+///
+/// One entry, and it is the case the map exists for: a package whose
+/// resolution is decided somewhere else. The second half of F-SCC45-5 deletes
+/// an entry that stops describing anything.
+const Map<String, String> _caretExempt = <String, String>{
+  // SCD139 declared `tom_d4rt: any` here because the companion app names
+  // `IsolatePermission` directly and needs the dependency visible, with the
+  // reasoning that "the parent library pins the interpreter, and a second
+  // constraint here would be a second thing to bump".
+  //
+  // That reasoning was aspirational when it was written — the parent declared
+  // `>=1.66.0`, which pins nothing — and SCD201's caret makes it true: the
+  // parent now admits one minor line, and `any` cannot widen it. The app is
+  // additionally held to resolving exactly what its parent resolves by
+  // `companion_app_resolution.dart`, which the harness runs before it launches
+  // anything. So this is a deferral to a constraint that exists, not an
+  // absence of one.
+  'tom_d4rt_flutter/test/tom_d4rt_flutter_test_app:tom_d4rt':
+      'defers to the parent library\'s caret; the companion-app resolution '
+      'check enforces that they agree',
+};
 
 /// Top-level projects that are copy surfaces although no path segment says so:
 /// the standalone demo apps a new user starts from.
@@ -529,6 +566,52 @@ void main() {
         'machine: the discriminator can only see a freeze whose newer version '
         'is already cached here.',
       );
+
+      // SCD201: the interpreter every package in the repo actually resolves,
+      // printed on every run.
+      //
+      // The problem it answers is the one SCC80 named for tom_d4rt_exec and
+      // then left as exec's alone: a suite's result is a statement about an
+      // interpreter version, and that version lives in a GITIGNORED lock. It
+      // appears in no diff, differs per fleet machine, and nothing said it
+      // out loud — so a baseline recorded on one host could not be compared
+      // with a run on another, and nobody could tell.
+      //
+      // ONE TABLE RATHER THAN A PRINT PER PACKAGE, deliberately. Porting
+      // F-SCC80-1's printed line into each of the eight consumers would have
+      // been eight near-identical files to keep in step, and the eight numbers
+      // would still only ever be seen one at a time. The walk that produces
+      // this table already exists here for F-SCC45-1 and -2; what it costs is
+      // the print.
+      //
+      // WHAT IT DOES NOT DO, so the gap is stated rather than assumed: it
+      // prints when THIS package's suite runs. A session working in
+      // `tom_dcli_exec` and running only that suite sees nothing, and for
+      // those consumers the committed caret constraint (F-SCC45-5) is the
+      // record instead — it names the minor line in a file under version
+      // control, which is what the lock never was.
+      if (root != null) {
+        final rows = <String>[];
+        for (final package in packages) {
+          final resolved = _lockedTomPackages(
+            package,
+          ).where((r) => _interpreterPackages.contains(r.name)).toList();
+          if (resolved.isEmpty) continue;
+          rows.add(
+            '  ${_rel(root, package)}: '
+            '${resolved.map((r) => '${r.name} ${r.version} (${r.source})').join(', ')}',
+          );
+        }
+        // ignore: avoid_print
+        print(
+          rows.isEmpty
+              ? '[SCC45] no package in the repo resolves an interpreter — '
+                    'either nothing has been `pub get`-ed or the walk found '
+                    'nothing. Do not read the cases below as clean.'
+              : '[SCC45] interpreter resolved per package '
+                    '(${rows.length} packages):\n${rows.join('\n')}',
+        );
+      }
     });
 
     /// Whether this machine's cache is warm enough for a verdict to mean
@@ -728,6 +811,116 @@ void main() {
             'interpreter, that is the bug this guard exists to surface — fix '
             'the example, do not lower the floor.\n'
             '${offenders.join('\n')}',
+      );
+    });
+
+    test('F-SCC45-5: every library declares its interpreter with a caret '
+        '[2026-09-15] (PASS)', () {
+      // SCD201. The other half of SCC45's defect family, and the half a guard
+      // can state about the REPOSITORY rather than about one machine.
+      //
+      // F-SCC45-2 above catches a frozen lock by comparing it against the pub
+      // cache, which is the strongest evidence available but is per-machine:
+      // it can only see a freeze whose newer version this host happens to have
+      // downloaded, so a cold cache reports nothing and a green is a statement
+      // about the machine. The constraint is different. It is committed, it is
+      // diffable, and `>=0.55.0` against a published 0.65.0 is the same
+      // sentence on every host: "any lock at or above 0.55.0 satisfies me
+      // forever", which is exactly the licence `pub get`'s lock-preserving
+      // behaviour needs to keep an ancient resolution alive.
+      //
+      // A caret removes the licence rather than detecting its use. `^0.65.0`
+      // admits one minor line, so a lock outside it does not resolve at all
+      // and `pub get` must move; and because the constraint names a version,
+      // the number a run measured is readable from a file under version
+      // control instead of from a gitignored lock.
+      //
+      // WHAT IT COSTS, stated rather than discovered later: every interpreter
+      // publish now needs the consumers' constraints bumped. That is the
+      // protocol the quest overview already writes for the Flutter twins —
+      // "publish the interpreter, bump the twins' constraint, `pub upgrade` in
+      // the twin AND its companion app, then re-run" — made true of every
+      // consumer instead of two, and F-SCC45-4 imposes the same duty on the
+      // copy surfaces already.
+      //
+      // COPY SURFACES ARE NOT IN SCOPE, and the distinction is not cosmetic.
+      // An example or a sample is a file a new user copies, so what it should
+      // declare is the floor a reader would write themselves — F-SCC45-4 owns
+      // that and holds them to naming the current release. A library is
+      // consumed by resolution, not by reading, so what matters is which
+      // version it actually gets.
+      if (root == null) {
+        markTestSkipped('d4rt repo root not reachable — nothing to check');
+        return;
+      }
+
+      final libraries = _pubspecsUnder(
+        root,
+      ).where((package) => !_isCopySurface(_rel(root, package))).toList();
+
+      // Anti-vacuity, in both directions. A walk that finds no libraries
+      // reports every one of them compliant, and a constraint parser that
+      // reads nothing does the same — so name a package known to declare one
+      // rather than trusting the count alone.
+      expect(
+        libraries.map((package) => _rel(root, package)),
+        containsAll(['tom_d4rt_exec', 'tom_d4rt_flutter_ast', 'tom_dcli_exec']),
+        reason: 'the library discovery found too little to be trusted',
+      );
+      final exec = libraries.firstWhere(
+        (package) => _rel(root, package) == 'tom_d4rt_exec',
+      );
+      expect(
+        _declaredInterpreterConstraints(exec),
+        contains('tom_d4rt_ast'),
+        reason: 'the pubspec scan read no constraint where one is declared',
+      );
+
+      final offenders = <String>[];
+      for (final package in libraries) {
+        final rel = _rel(root, package);
+        for (final MapEntry(key: name, value: constraint)
+            in _declaredInterpreterConstraints(package).entries) {
+          if (_caretExempt['$rel:$name'] != null) continue;
+          if (constraint.trim().startsWith('^')) continue;
+          offenders.add('$rel declares $name "$constraint"');
+        }
+      }
+
+      expect(
+        offenders,
+        isEmpty,
+        reason:
+            'These libraries declare an interpreter with a lower bound rather '
+            'than a caret, so a pre-existing lock satisfies them forever and '
+            'the version actually measured is invisible in any diff:\n'
+            '  ${offenders.join('\n  ')}\n\n'
+            'REMEDY: set the caret to the CURRENT PUBLISHED version — not to '
+            'the old floor, since `^0.55.0` does not admit 0.65.0 — and run '
+            '`dart pub get` (or `flutter pub get`) in the package AND in any '
+            'companion app beside it. If a package genuinely needs a range, '
+            'record it in _caretExempt with the reason.',
+      );
+
+      final stale = _caretExempt.keys.where((key) {
+        final parts = key.split(':');
+        final package = libraries
+            .where((p) => _rel(root, p) == parts.first)
+            .firstOrNull;
+        if (package == null) return true;
+        final constraint = _declaredInterpreterConstraints(package)[parts.last];
+        return constraint == null || constraint.trim().startsWith('^');
+      }).toList();
+
+      expect(
+        stale,
+        isEmpty,
+        reason:
+            'These caret exemptions no longer describe anything — the package '
+            'is gone, the dependency is gone, or it carries a caret after '
+            'all:\n  ${stale.join('\n  ')}\n\n'
+            'Delete them. An exemption nobody prunes stops being an exception '
+            'and becomes a hole.',
       );
     });
   });

@@ -56,4 +56,4 @@ dev_dependencies:
   # floor — and for a long time that accident was 1.11.0. Keep the two floors in
   # step; a conformance suite should not have to be reverse-engineered from
   # `dart pub deps` to find out what it is measuring.
-  tom_d4rt: ">=1.30.1"
+  tom_d4rt: "^1.77.0"

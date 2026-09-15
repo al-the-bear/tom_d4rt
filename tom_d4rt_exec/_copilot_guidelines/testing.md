@@ -122,6 +122,12 @@ dart test --name "Lim-3"
 path** (DGUC6), and its `pubspec.lock` is gitignored. So the interpreter a run
 measures is per-machine state that appears in no diff and no review.
 
+This is not exec's problem alone — every consumer in the repo has it, and the
+rules that follow from it (a caret for libraries, a floor for copy surfaces,
+where each resolved version is recorded) are one document:
+`tom_ai/d4rt/_copilot_guidelines/interpreter_resolution.md`. What is written
+here is exec's instance of it.
+
 Any run whose result is going to be quoted — a baseline, a conformance claim, a
 "the exec suite is green" statement — must therefore start with:
 
