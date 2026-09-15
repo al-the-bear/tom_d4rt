@@ -108,6 +108,8 @@
 @Timeout(Duration(minutes: 5))
 library;
 
+import 'dart:io';
+
 import 'package:test/test.dart';
 
 import '../../tool/stdlib_member_diff.dart';
@@ -135,6 +137,44 @@ enum _Now { gap, reachable, blind }
 /// second baseline to update.
 const _minClassesExamined = 100;
 const _minClassesMeasured = 40;
+
+/// [source] with comment bodies blanked out, string literals preserved.
+///
+/// SCD161. The scan below asks whether a member NAME appears in the pinning
+/// file's code. A member's name also appears in the prose explaining why it is
+/// unbridged — that is what the prose is for — so a raw search would accept a
+/// decision that was documented and never pinned, which is the one outcome the
+/// check exists to reject.
+String _withoutComments(String source) {
+  final out = source.split('');
+  var i = 0;
+  while (i < source.length) {
+    final c = source[i];
+    if (c == "'" || c == '"') {
+      final quote = c;
+      i++;
+      while (i < source.length && source[i] != quote) {
+        if (source[i] == r'\') i++;
+        i++;
+      }
+      i++;
+    } else if (source.startsWith('//', i)) {
+      while (i < source.length && source[i] != '\n') {
+        out[i] = ' ';
+        i++;
+      }
+    } else if (source.startsWith('/*', i)) {
+      while (i < source.length && !source.startsWith('*/', i)) {
+        if (source[i] != '\n') out[i] = ' ';
+        i++;
+      }
+      i += 2;
+    } else {
+      i++;
+    }
+  }
+  return out.join();
+}
 
 void main() {
   // The audit is ~600 interpreter probes, each in its own isolate. Measured at
@@ -500,6 +540,74 @@ void main() {
           'dart run tool/stdlib_member_diff.dart --baseline\n'
           'Commit the regenerated baseline together with the change that caused '
           'it, so the diff shows which members moved and why.',
+    );
+  });
+
+  test('F-SCD161-1: every declined member is pinned by a case in '
+      'intentionally_unbridged_test.dart [2026-09-15]', () {
+    // SCD161's DONE WHEN, made derivable. Its wording was "the baseline's
+    // confirmedGaps contains only entries whose Boundary status is pinned by a
+    // test" — which reads across two maps, because a Boundary lives in
+    // `declinedMembers`, not in `confirmedGaps`. What it asks for is that a
+    // DECISION not be recorded in a data table alone.
+    //
+    // The distinction matters here more than it usually does. The check above
+    // asserts a declined member is still UNREACHABLE, which is the decision
+    // holding; nothing asserted that the decision is VISIBLE to a script author
+    // — that reaching for it produces the diagnostic the limitations doc
+    // promises rather than a bare "no such member". Those are different claims
+    // and only the second survives someone deleting a pinning case.
+    //
+    // Measured 2026-09-15: all five declined members were already pinned, by
+    // F-SCB29-1..4 and F-SCC74-1. This case is what stops the sixth being
+    // recorded in the table alone.
+    //
+    // COMMENTS ARE STRIPPED before the scan, and that is insurance rather than
+    // a fix: measured 2026-09-15, all five declined members are named in CODE
+    // as well as in prose, so stripping changes nothing today. It is here
+    // because a limitations decision is exactly the kind of thing whose name
+    // appears in the paragraph explaining it, and a scan that reads prose would
+    // accept a member that was documented and never pinned — the failure SCD140
+    // and SCD151 both hit, in the one direction that would make this check
+    // agree with the table it exists to distrust.
+    //
+    // ONLY THE WHOLE-WORD MATCH BELOW IS DEMONSTRATED BY ABLATION. Renaming a
+    // pinning mention fires this case; removing the stripping does not change
+    // the verdict on the current corpus, and claiming otherwise would be the
+    // kind of unmeasured assertion the baseline's own header warns about.
+    final pinning = File('test/stdlib/intentionally_unbridged_test.dart');
+    expect(
+      pinning.existsSync(),
+      isTrue,
+      reason:
+          'The file every Boundary decision is pinned in is missing, so the '
+          'check below would pass over nothing.',
+    );
+    final code = _withoutComments(pinning.readAsStringSync());
+    // WHOLE-WORD, not `contains`. Measured by ablation 2026-09-15: renaming
+    // `readMessage` to `readMessageZZZ` in the pinning file left a substring
+    // search satisfied, so the check accepted a member whose only mention was
+    // the name of a DIFFERENT identifier. A pinning case that no longer names
+    // the member is exactly what this is for.
+    final unpinned = <String>[
+      for (final entry in declinedMembers.entries)
+        for (final member in entry.value)
+          if (!RegExp('\\b${RegExp.escape(member)}\\b').hasMatch(code))
+            '${entry.key}.$member',
+    ]..sort();
+    expect(
+      unpinned,
+      isEmpty,
+      reason:
+          'These members are recorded in `declinedMembers` as deliberately '
+          'unbridged, and no case in intentionally_unbridged_test.dart names '
+          'them. A decision that lives only in a data table is a decision '
+          'nothing re-checks: the member could start resolving, or start '
+          'failing with a different diagnostic than the limitations doc '
+          'promises, and the table would go on saying the same thing.\n'
+          '  ${unpinned.join('\n  ')}\n\n'
+          'Add a case asserting what a script actually sees when it reaches '
+          'for the member, in the shape F-SCC74-1 uses.',
     );
   });
 
