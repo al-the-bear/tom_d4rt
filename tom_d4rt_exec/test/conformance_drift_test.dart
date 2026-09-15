@@ -418,8 +418,14 @@ const Map<String, _Coverage> _coveredElsewhere = {
     // both copies in the same commit. The sweep it joins reads member VALUES,
     // which cannot see a method registered as a getter once a `Function` bridge
     // exists to resolve the tear-off.
-    refCases: 10,
-    twinCases: 10,
+    //
+    // 10 -> 14 with SCD197's group, also added to both copies together: which
+    // bridges are never a resolution answer AND no heir falls through to. It
+    // belongs beside the native-name sweep because both need the same fully
+    // registered environment and the same canonical-instance table, and a
+    // third copy of either would measure nothing new.
+    refCases: 14,
+    twinCases: 14,
   ),
   // SCD121 made a variable declaration keep every `await` in its initializer,
   // and made `a + b` stop evaluating `b` while `a` is suspended. The reference
@@ -1097,6 +1103,20 @@ const Map<String, int> _uncoveredBaseline = {
   //
   // Re-port when a publish raises exec's floor past 0.110.0.
   'stdlib/scd189_member_kind_parity_test.dart': 3,
+  // SCD198 drives scripts through `D4rt.execute` to ask what a bare class name
+  // evaluates to. Its three fixes — `BridgedClass` equality and hashing, the
+  // hash-key normalisation, and the `is Type` arm — are all in the tree and in
+  // no release, so a port would report every case it was written for.
+  //
+  // Measured 2026-09-15 with `dart run tool/remeasure_pins.dart --uncovered`:
+  // still failing 4 of 7. The three that pass are the ones the fix did not
+  // change — the `==` reconciliation that already worked, the interpreted
+  // path, and `toString`. That split is worth having recorded: at the re-port,
+  // 0 of 7 is the expected result and 3 of 7 would mean only the old
+  // behaviour still holds.
+  //
+  // Re-port when a publish raises exec's floor past 0.113.0.
+  'scd198_class_name_as_type_value_test.dart': 7,
 
   // NOT PORTABLE, and confirmed FROM THE SOURCE rather than by a run — SCD126's
   // first rule, because a structural reason is cheaper to read than to measure
@@ -1650,6 +1670,8 @@ const Map<String, String> _pinnedInterpreterFloors = <String, String>{
   // SCD189's six kind fixes ship in 0.110.0; its guard reports every one of
   // them against anything older.
   'stdlib/scd189_member_kind_parity_test.dart': '0.110.0',
+  // SCD198's three fixes ship in 0.113.0.
+  'scd198_class_name_as_type_value_test.dart': '0.113.0',
   // SCD92 shipped the applied-type-argument check in 0.87.0. At that floor,
   // re-port F-SCC29-21 from the reference copy (it expects a `TypeError`), and
   // check whether `scd92_applied_parameter_type_test.dart` should come with it
