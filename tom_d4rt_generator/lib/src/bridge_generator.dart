@@ -14726,21 +14726,30 @@ class BridgeGenerator {
     return primitives.contains(stripped);
   }
 
-  /// Generates a wrapper that converts an InterpretedFunction to a native function.
+  /// Generates a wrapper that converts a script callback into a native
+  /// function of the required shape.
   ///
   /// Example output for `void Function(int, String)`:
   /// ```dart
   /// (int p0, String p1) {
-  ///   (callback as InterpretedFunction).call(visitor, [p0, p1]);
+  ///   D4.callInterpreterCallback(visitor, callback, [p0, p1]);
   /// }
   /// ```
   ///
   /// Example output for `String Function(int)?`:
   /// ```dart
   /// callback == null ? null : (int p0) {
-  ///   return (callback as InterpretedFunction).call(visitor, [p0]) as String;
+  ///   return D4.callInterpreterCallback(visitor, callback, [p0]) as String;
   /// }
   /// ```
+  ///
+  /// THE CALL GOES THROUGH `D4.callInterpreterCallback`, never through a cast
+  /// to `InterpretedFunction`. A script may legitimately pass a tear-off of a
+  /// bridged method — `seen.add` — which is a `BridgedMethodCallable`, and a
+  /// cast would throw on it while telling the script its valid Dart is not a
+  /// function. The helper dispatches on `Callable`, the supertype both
+  /// implement, and also handles a plain native `Function` arriving back
+  /// through a bridge. See SCD35.
   String _generateFunctionWrapper({
     required String callbackVarName,
     required FunctionTypeInfo funcInfo,

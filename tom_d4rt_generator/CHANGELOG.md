@@ -1,3 +1,20 @@
+## 1.26.2
+
+### Fixed — the callback-wrapper docstring showed the shape the generator no longer emits (scd185)
+
+`_generateFunctionWrapper`'s examples read
+`(callback as InterpretedFunction).call(visitor, [p0])`. The generator has
+emitted `D4.callInterpreterCallback` for months — SCD35 established why: a
+script may pass a tear-off of a bridged method (`seen.add`), which is a
+`BridgedMethodCallable`, and the cast throws on it while telling the script its
+valid Dart is not a function.
+
+A docstring is where the next reader learns the shape, so one showing the old
+cast is an invitation to reintroduce the defect. Corrected, with the reason
+named rather than left as a convention.
+
+No behaviour change — the emitted code was already correct.
+
 ## 1.26.1
 
 ### Changed — formatted the tree once (scd82)
