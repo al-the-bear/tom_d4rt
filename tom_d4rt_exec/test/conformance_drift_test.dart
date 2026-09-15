@@ -1036,16 +1036,38 @@ const Map<String, int> _uncoveredBaseline = {
   // reference tree declares `^3.9.0` and this one `^3.10.4`, so the two
   // legitimately disagree about which members are in scope.
   //
-  // Ported experimentally on 2026-09-06 it reported one member,
-  // `Future.syncValue` (`@Since("3.10")`) — correctly, and the finding is real
-  // rather than an artefact: `tom_d4rt_ast` also declares `^3.10.4`, so it
-  // could bridge it today and does not, purely because the mirror ties it to
-  // `tom_d4rt`'s lower floor. `tom_d4rt` is in fact the only package in the
-  // repo below 3.10.4, lower than every one of its own consumers. Aligning the
-  // floors and bridging the member is SCD191; porting this file becomes
-  // possible in the same change, because the disagreement disappears with the
-  // floor gap.
+  // THE FLOOR DISAGREEMENT IS GONE. SCD186 raised `tom_d4rt` to `^3.10.4` —
+  // the version this package, `tom_d4rt_ast` and every other in the repo
+  // already declared — and bridged the one member the gap was hiding,
+  // `Future.syncValue`. The two packages no longer disagree about which SDK
+  // members are in scope, so the reason this file could not be shared has
+  // expired.
+  //
+  // WHAT REMAINS IS THE PUBLISH, and it is a different blocker rather than the
+  // same one restated. The file diffs the SDK source against the REGISTERED
+  // bridge set, and the set this package gets is whatever `tom_d4rt_ast`
+  // published — 0.65.0, which has no `Future.syncValue`. A port today would
+  // correctly report a member that exists in the tree and not in the release.
+  // Measured 2026-09-15 with `dart run tool/remeasure_pins.dart --uncovered`:
+  // does-not-compile against the resolved interpreter, so the port is blocked
+  // for its own reason too and not only by the missing member.
+  //
+  // Re-port when a publish raises exec's floor past 0.108.0.
   'scc73_sdk_member_completeness_test.dart': 4,
+  // SCD186 bridged `Future.syncValue`, the one SDK member the floor gap was
+  // hiding, and this file is its behaviour cover. It cannot be ported yet for
+  // the same reason as the entry above: exec measures the PUBLISHED
+  // `tom_d4rt_ast`, and 0.65.0 does not have the member.
+  //
+  // Measured 2026-09-15 with `dart run tool/remeasure_pins.dart --uncovered`:
+  // still failing 4 of 5. The one that passes is F-SCD186-4, the CONTROL —
+  // it asserts what `Future.value` does and needs no new member. That split is
+  // worth having recorded: a future re-port showing 5 of 5 failing would mean
+  // something else broke, and showing 1 of 5 would mean only the control ran.
+  //
+  // Re-port when a publish raises exec's floor past 0.108.0.
+  'stdlib/async/scd186_future_sync_value_test.dart': 5,
+
   // NOT PORTABLE, and confirmed FROM THE SOURCE rather than by a run — SCD126's
   // first rule, because a structural reason is cheaper to read than to measure
   // and a run would only have restated it. This file imports
@@ -1581,6 +1603,17 @@ const Map<String, String> _pinnedInterpreterFloors = <String, String>{
   // checklist — and re-measure BOTH, not just the one that came due.
   'scd72_instance_tostring_test.dart': '0.81.0',
   'scd73_no_hook_unwrapping_test.dart': '0.82.0',
+  // SCD186 raised `tom_d4rt`'s SDK floor to `^3.10.4`, removing the
+  // disagreement that made this file unshareable, and bridged the member the
+  // gap was hiding. What is left is the publish: the file diffs the SDK against
+  // the REGISTERED bridge set, and 0.65.0 has no `Future.syncValue`. Measured
+  // does-not-compile against the resolved interpreter on 2026-09-15 before
+  // being pinned. 0.108.0 is the working-tree version carrying the member —
+  // the conservative choice, per the SCD153 entries above.
+  'scc73_sdk_member_completeness_test.dart': '0.108.0',
+  // Same publish, same floor: this is SCD186's behaviour cover for the member
+  // 0.108.0 adds. Recorded together so the re-port checklist produces both.
+  'stdlib/async/scd186_future_sync_value_test.dart': '0.108.0',
   // SCD92 shipped the applied-type-argument check in 0.87.0. At that floor,
   // re-port F-SCC29-21 from the reference copy (it expects a `TypeError`), and
   // check whether `scd92_applied_parameter_type_test.dart` should come with it
