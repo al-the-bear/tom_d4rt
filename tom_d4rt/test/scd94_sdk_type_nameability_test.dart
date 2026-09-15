@@ -9,6 +9,8 @@
 import 'dart:io';
 
 import 'package:test/test.dart';
+
+import 'sibling_trees.dart';
 import 'interpreter_test.dart' show execute;
 
 /// SCD94 — every SDK type d4rt can raise must be nameable in an `on` clause.
@@ -65,6 +67,10 @@ import 'interpreter_test.dart' show execute;
 /// registration. F-SCD94-7 therefore ratchets against `ErrorHierarchyCore`
 /// specifically, so the file cannot fall behind the hierarchy it guards.
 void main() {
+  // SCD158: this guard resolves its subject relative to the package it
+  // runs in, so a copy anywhere else measures a different tree in silence.
+  requirePackage('tom_d4rt', subject: 'both interpreter trees under lib/src');
+
   /// The value of running [body] inside a `try` whose only typed clause names
   /// [typeName] — `'CAUGHT'` when the clause is entered, `'FELL-THROUGH: …'`
   /// when it is inert, `'NO THROW'` when [body] did not raise at all.

@@ -54,6 +54,8 @@ import 'dart:io';
 
 import 'package:test/test.dart';
 
+import 'sibling_trees.dart';
+
 // ---------------------------------------------------------------------------
 // Structural sweep
 // ---------------------------------------------------------------------------
@@ -173,6 +175,10 @@ Map<String, List<String>> _siteMap(String root) {
 }
 
 void main() {
+  // SCD158: this guard resolves its subject relative to the package it
+  // runs in, so a copy anywhere else measures a different tree in silence.
+  requirePackage('tom_d4rt', subject: 'both stdlib trees under lib/src/stdlib');
+
   group('SCC22: the sites no script can reach are guarded structurally', () {
     test('F-SCC22-10: the only hardcoded [error, stackTrace] pair in the stdlib '
         'is the one inside errorHandlerArgs [2026-09-04]', () {

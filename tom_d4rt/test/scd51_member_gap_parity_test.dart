@@ -79,6 +79,8 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:test/test.dart';
 import 'package:tom_d4rt/d4rt.dart';
 
+import 'sibling_trees.dart';
+
 import '../tool/stdlib_member_diff.dart';
 import 'stdlib/member_coverage_baseline.dart';
 
@@ -127,6 +129,10 @@ Map<String, Set<String>>? _readTwinBaseline() {
 }
 
 void main() {
+  // SCD158: this guard resolves its subject relative to the package it
+  // runs in, so a copy anywhere else measures a different tree in silence.
+  requirePackage('tom_d4rt', subject: 'both interpreter trees under lib/src');
+
   late Map<String, Set<String>> chainWalk;
   late Map<String, Set<String>>? twin;
 

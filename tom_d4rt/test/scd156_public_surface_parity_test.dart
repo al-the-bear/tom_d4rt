@@ -55,6 +55,8 @@ import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:test/test.dart';
 
+import 'sibling_trees.dart';
+
 /// `parseFile` demands an absolute, NORMALISED path -- a `..` segment anywhere
 /// in it raises rather than being resolved -- and every sibling root below
 /// carries one.
@@ -157,6 +159,13 @@ Set<String> _declaredUnder(String root) {
 }
 
 void main() {
+  // SCD158: this guard resolves its subject relative to the package it
+  // runs in, so a copy anywhere else measures a different tree in silence.
+  requirePackage(
+    'tom_d4rt',
+    subject: "both interpreter lines' public libraries",
+  );
+
   final skip =
       Directory('../tom_d4rt_ast/lib').existsSync() &&
           Directory('../tom_d4rt_exec/lib').existsSync()

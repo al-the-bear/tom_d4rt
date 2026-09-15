@@ -57,6 +57,8 @@ import 'dart:io';
 
 import 'package:test/test.dart';
 
+import 'sibling_trees.dart';
+
 /// `lib/src/stdlib` in each tree.
 ///
 /// Both trees are swept from this one suite, following the precedent
@@ -100,6 +102,10 @@ List<File> _allStdlibSources(String root) {
 }
 
 void main() {
+  // SCD158: this guard resolves its subject relative to the package it
+  // runs in, so a copy anywhere else measures a different tree in silence.
+  requirePackage('tom_d4rt', subject: 'both stdlib trees under lib/src/stdlib');
+
   group('SCC25: the duplication cannot grow back', () {
     test('F-SCC25-6: `_runAction` is not redefined privately in any stdlib file '
         '[2026-09-04]', () {

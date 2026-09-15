@@ -49,6 +49,8 @@ import 'dart:io';
 import 'package:test/test.dart';
 import 'package:tom_d4rt/d4rt.dart';
 
+import 'sibling_trees.dart';
+
 const _libUri = 'package:scd35/scd35.dart';
 
 /// A bridged class with a method that takes a callback, so the "passed to a
@@ -125,6 +127,10 @@ List<String> _narrowingSites(String stdlibRoot) {
 }
 
 void main() {
+  // SCD158: this guard resolves its subject relative to the package it
+  // runs in, so a copy anywhere else measures a different tree in silence.
+  requirePackage('tom_d4rt', subject: 'both interpreter trees under lib/src');
+
   group('SCD35: a bridged tear-off is accepted wherever a function is', () {
     group('passed to a bridged-function parameter', () {
       test('F-SCD35-1: `stream.listen(seen.add)` — the reported case '

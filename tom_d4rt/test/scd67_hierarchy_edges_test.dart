@@ -49,6 +49,8 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:test/test.dart';
 
+import 'sibling_trees.dart';
+
 /// The reference tree's stdlib, relative to the package root.
 const _refRoot = 'lib/src/stdlib';
 
@@ -139,6 +141,10 @@ Set<String> reachable(
 }
 
 void main() {
+  // SCD158: this guard resolves its subject relative to the package it
+  // runs in, so a copy anywhere else measures a different tree in silence.
+  requirePackage('tom_d4rt', subject: 'both stdlib trees under lib/src/stdlib');
+
   final trees = {
     'tom_d4rt': directEdges(_refRoot),
     'tom_d4rt_ast': directEdges(_astRoot),

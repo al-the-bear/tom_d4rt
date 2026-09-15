@@ -64,6 +64,8 @@ import 'dart:io';
 
 import 'package:test/test.dart';
 
+import 'sibling_trees.dart';
+
 /// The exec package, as seen from this package's test working directory.
 final Directory _execPackage = Directory('../tom_d4rt_exec');
 
@@ -197,6 +199,13 @@ Map<String, File> _filesUnder(Directory root) {
 }
 
 void main() {
+  // SCD158: this guard resolves its subject relative to the package it
+  // runs in, so a copy anywhere else measures a different tree in silence.
+  requirePackage(
+    'tom_d4rt',
+    subject: "this tree's test corpus and its exec ports",
+  );
+
   final skip = _execPackage.existsSync() && _execGuard.existsSync()
       ? null
       : 'needs the sibling checkout ../tom_d4rt_exec; this guard is about the '

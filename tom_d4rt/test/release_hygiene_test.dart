@@ -47,6 +47,8 @@ import 'dart:io';
 
 import 'package:test/test.dart';
 
+import 'sibling_trees.dart';
+
 /// The packages in this repo that are published, and their path relative to
 /// `tom_d4rt/` — which is the working directory when this suite runs.
 ///
@@ -356,6 +358,14 @@ List<String> _changelogVersions(String package) {
 }
 
 void main() {
+  // SCD158: this guard resolves its subject relative to the package it
+  // runs in, so a copy anywhere else measures a different tree in silence.
+  requirePackage(
+    'tom_d4rt',
+    subject:
+        'the git history and pubspec of every publishable package in the repo',
+  );
+
   final siblings = _packages.values.every((p) => Directory(p).existsSync());
   final haveGit = siblings && _gitAvailable();
 

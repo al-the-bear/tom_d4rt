@@ -74,6 +74,8 @@ import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/token.dart';
 import 'package:test/test.dart';
 
+import 'sibling_trees.dart';
+
 /// The reference tree's stdlib, relative to the package root.
 const _refRoot = 'lib/src/stdlib';
 
@@ -180,6 +182,10 @@ List<String> _dartFilesUnder(String root) {
 }
 
 void main() {
+  // SCD158: this guard resolves its subject relative to the package it
+  // runs in, so a copy anywhere else measures a different tree in silence.
+  requirePackage('tom_d4rt', subject: 'both stdlib trees under lib/src/stdlib');
+
   final refFiles = _dartFilesUnder(_refRoot);
   final astFiles = _dartFilesUnder(_astRoot);
 

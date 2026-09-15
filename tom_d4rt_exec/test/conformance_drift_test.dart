@@ -980,20 +980,6 @@ const Map<String, _Coverage> _coveredElsewhere = {
 /// a copy would ask the same questions about the same three packages and add a
 /// second red for one cause, not that it cannot run.
 const Map<String, int> _uncoveredBaseline = {
-  // A REPO-WIDE GUARD whose subject is the REPOSITORY, not this package: it is
-  // the reference half of THIS file's F-SCC6-4, and it reads this file as data.
-  // An exec copy would compare the same two trees against the same baseline and
-  // reach the same verdict, so a dropped guard would turn two suites red for one
-  // cause and the extra red would say nothing the first did not. Listed here by
-  // its own author rather than left to grow F-SCC6-2's backlog (sce186), which
-  // is exactly the debt it would otherwise have joined.
-  'scd153_conformance_drift_mirror_test.dart': 4,
-  // The same shape, one subject over: it parses both packages' public export
-  // namespaces off disk and asserts neither withholds a name it declares. The
-  // comparison is symmetric, so running it from either side gives the same
-  // answer — which is what makes a second copy pure duplication rather than
-  // coverage.
-  'scd156_public_surface_parity_test.dart': 3,
   // NOT PORTABLE — and uniquely so: the subject itself cannot exist on the
   // analyzer-free line. `static_name_report.dart` resolves names over the
   // ANALYZER AST, which `tom_d4rt_ast` has no access to by construction, so
@@ -1060,33 +1046,6 @@ const Map<String, int> _uncoveredBaseline = {
   // and the same remedy: the analyzer-free line's equivalent has to be BUILT
   // against `tom_d4rt_ast`'s registry, not ported. [2026-09-15]
   'stdlib/member_coverage_baseline_test.dart': 4,
-  // NOT PORTABLE — SCC17's release-hygiene guard. Its subject is the repo, not
-  // an interpreter: it walks git history and reads the pubspec and CHANGELOG of
-  // all three published packages, *including this one*. A copy here would ask
-  // the same questions about the same three files and answer them identically,
-  // so the second copy could only ever add a duplicate failure. Coverage of
-  // exec's own release hygiene is F-SCC17-1/2/3 `tom_d4rt_exec`, which already
-  // run in the reference tree.
-  'release_hygiene_test.dart': 10,
-  // NOT PORTABLE — SCC22's source-level half, split out of
-  // `scc22_io_error_handler_arity_test.dart` by SCD157. Its three cases read
-  // the two sibling trees' `lib/src/stdlib` off disk with paths relative to the
-  // package they run in, so from `tom_d4rt_exec/test` they resolve to exec's
-  // own `lib`, which carries no stdlib error-handler adapters at all. The
-  // reference copy already walks BOTH trees and answers the question correctly
-  // for both; a copy here could only restate it against the wrong subject,
-  // which is SCD158's general shape.
-  //
-  // THE BEHAVIOURAL FOURTEEN ARE NOW PORTED and are no longer in this map. They
-  // were the whole reason the undivided file sat here: re-measured 2026-09-06
-  // and again 2026-09-12 it passed 14 of 17, and the three failures were these
-  // three. SCD157 took the split rather than the subtraction port SCD79 had
-  // already declined for SCC25's twin — a `_divergentBaseline` entry is keyed by
-  // path, so even with SCD154's fingerprint narrowing it has to be re-blessed by
-  // hand on every legitimate change, and it would have sat over exactly the
-  // fourteen cases the port exists to gain. Ported and run against published
-  // 0.65.0: 14 of 14.
-  'scc22_error_handler_site_guard_test.dart': 3,
   // BLOCKED ON A PUBLISH, and measured rather than inferred — the register above
   // says a pin written from prose rots, so both of these were ported into
   // `test/` and run against published 0.65.0 before being recorded.
@@ -1110,31 +1069,6 @@ const Map<String, int> _uncoveredBaseline = {
   //
   // Re-port when a publish raises exec's floor past 0.82.0.
   'scd73_no_hook_unwrapping_test.dart': 8,
-  // PORTED BY SCD79, by splitting rather than by subtracting. The five
-  // behavioural cases pass in exec verbatim — they have since SCC25's fix
-  // shipped, re-measured against published 0.65.0 — and the two that could not
-  // be ported were never about exec's subject: F-SCC25-6/-7 resolve
-  // `lib/src/stdlib` and `../tom_d4rt_ast/...` relative to the package they run
-  // in, so from here they scan exec's own `lib`, which has no stdlib at all.
-  //
-  // SCD157 decided to take the subtraction port. The form it named — port the
-  // file minus that group and record a `_divergentBaseline` entry — was declined
-  // for the cheaper one: such an entry is a blanket (SCD154) that would then
-  // absorb drift in the five behavioural cases the port exists to gain. So the
-  // two source guards moved to `tom_d4rt/test/scc25_listen_duplication_guard_test.dart`,
-  // the shared-name file is a verbatim port on both sides and stays under
-  // F-SCC6-4, and what is recorded uncovered below is the two-case guard file.
-  //
-  // This is `_Divergence.necessary`'s own advice — "where the exec-only coverage
-  // is separable, prefer splitting it into its own file over claiming this
-  // category" — applied to REFERENCE-only coverage, which is the same move in
-  // the other direction.
-  //
-  // NOT PORTABLE, and not a shortfall: what this file reads is two sibling
-  // packages' stdlib sources. A copy under exec would read exec's `lib` and
-  // reach a verdict about nothing. The reference copy already asks the question
-  // of BOTH trees, so a second copy could only ever agree with it or be wrong.
-  'scc25_listen_duplication_guard_test.dart': 2,
 };
 
 /// Why a [_divergentBaseline] entry is allowed to stand.
@@ -2071,6 +2005,38 @@ String _fnv1a(String input) {
   return hash.toRadixString(16).padLeft(16, '0');
 }
 
+/// Reference tests that DECLARE they must run in `tom_d4rt`, and are therefore
+/// structurally single-copy.
+///
+/// SCD158. A test that asserts something about the interpreter SOURCE resolves
+/// its paths relative to the package it runs in. Ported here, `lib/src/stdlib`
+/// becomes exec's own `lib` — a parsing front end with no stdlib adapters — and
+/// the test walks an unrelated file set WITHOUT erroring. SCC22's three cases
+/// failed that way, which is how the category was noticed, but that was luck: an
+/// emptiness check over the wrong tree passes.
+///
+/// The category used to be recorded here one file at a time, in the prose above
+/// whichever `_uncoveredBaseline` entry the last person to port something had
+/// written — the prose-only mechanism SCD107 and F-SCC43-1 exist because of. It
+/// is now DERIVED, from a marker the file itself carries: `requirePackage(
+/// 'tom_d4rt', ...)` as the first statement of `main()`, which aborts at load
+/// time if the file is ever run anywhere else.
+///
+/// READING THE DECLARATION RATHER THAN INFERRING FROM A PATH is the half of this
+/// that matters. A path literal says a file MENTIONS a sibling tree; the call
+/// says its author decided the file belongs to one package. The two are kept in
+/// step from the other side:
+/// `tom_d4rt/test/scd158_structural_guard_anchoring_test.dart` fails when a test
+/// whose code names a sibling tree does not carry the call, so the marker cannot
+/// be quietly omitted — and it fails in the tree where such a file is written,
+/// which is SCD153's lesson applied.
+Set<String> _selfAnchored(Map<String, File> reference) => {
+  for (final entry in reference.entries)
+    if (_anchorCall.hasMatch(entry.value.readAsStringSync())) entry.key,
+};
+
+final RegExp _anchorCall = RegExp(r"requirePackage\(\s*'tom_d4rt'");
+
 /// Files under `tom_d4rt_ast/lib` that differ between the PUBLISHED copy exec
 /// resolves and the sibling working tree, and why that is currently accepted.
 ///
@@ -2243,10 +2209,17 @@ void main() {
 
     test('F-SCC6-2: no reference test has appeared without a counterpart '
         '[2026-09-03] (PASS)', () {
+      // SCD158. A reference test that declares it must run in `tom_d4rt` is
+      // structurally single-copy: ported here it would resolve its paths
+      // against exec and measure a different tree. Subtracted rather than
+      // listed, so the category stops being rediscovered one file at a time by
+      // whoever ports the next one.
+      final anchored = _selfAnchored(ref);
       final uncovered = unmatched.entries
           .where((e) => e.value.where.isEmpty)
           .map((e) => e.key)
-          .toSet();
+          .toSet()
+          .difference(anchored);
       final appeared = uncovered.difference(_uncoveredBaseline.keys.toSet());
       final closed = _uncoveredBaseline.keys.toSet().difference(uncovered);
 

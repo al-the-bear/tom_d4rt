@@ -57,6 +57,8 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:test/test.dart';
 
+import 'sibling_trees.dart';
+
 const _refRoot = 'lib/src/stdlib';
 const _astRoot = '../tom_d4rt_ast/lib/src/runtime/stdlib';
 
@@ -152,6 +154,10 @@ class _CastVisitor extends RecursiveAstVisitor<void> {
 }
 
 void main() {
+  // SCD158: this guard resolves its subject relative to the package it
+  // runs in, so a copy anywhere else measures a different tree in silence.
+  requirePackage('tom_d4rt', subject: 'both interpreter trees under lib/src');
+
   final trees = {
     'tom_d4rt': argumentCasts(_refRoot),
     'tom_d4rt_ast': argumentCasts(_astRoot),

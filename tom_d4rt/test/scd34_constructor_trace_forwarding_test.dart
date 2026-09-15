@@ -51,6 +51,8 @@ import 'dart:io';
 import 'package:test/test.dart';
 import 'package:tom_d4rt/d4rt.dart';
 
+import 'sibling_trees.dart';
+
 const _libUri = 'package:scd34/scd34.dart';
 
 const _superSentinel = 'SCD34-SENTINEL-EXPLICIT-SUPER';
@@ -169,6 +171,10 @@ List<({String file, int line, bool forwardsTrace})> _wrapSites(String root) {
 }
 
 void main() {
+  // SCD158: this guard resolves its subject relative to the package it
+  // runs in, so a copy anywhere else measures a different tree in silence.
+  requirePackage('tom_d4rt', subject: 'both interpreter trees under lib/src');
+
   group('SCD34: bridged-constructor wrap sites forward the native trace', () {
     test('F-SCD34-1: explicit `super.named()` hands the script the adapter '
         "trace, not the wrap site's [2026-09-12]", () {
