@@ -14,15 +14,31 @@ import 'package:tom_d4rt_flutter_ast/tom_d4rt_flutter_ast.dart';
 
 /// Compiles [source] into an [AstBundle], skipping the libraries already
 /// bridged on [d4rt]'s runner (handled natively at runtime).
-Future<AstBundle> _bundle(FlutterD4rt d4rt, String source) =>
-    AstBundler(bridgedLibraries: d4rt.interpreter.bridgedLibraryUris)
-        .createFromSource(source);
+Future<AstBundle> _bundle(FlutterD4rt d4rt, String source) => AstBundler(
+  bridgedLibraries: d4rt.interpreter.bridgedLibraryUris,
+).createFromSource(source);
 
 void main() {
   group('FlutterD4rt bridge execution', () {
     late FlutterD4rt d4rt;
 
-    setUp(() {
+    // SCD142 — `setUpAll`, not `setUp`, and the reason is a real defect rather
+    // than a style preference. Bridge registration is pooled per PROCESS
+    // (import-optimization step #20): `providePackage` returns true on the
+    // second instance, its `register*` block is skipped, and with it the
+    // dual-write into the instance registries. So every `FlutterD4rt` after the
+    // first reports an EMPTY `bridgedLibraryUris`, the `AstBundler` below stops
+    // skipping bridged imports, and the compile dies several layers away with
+    //
+    //     Cannot resolve import "package:flutter/material.dart" …
+    //     is not bridged and not in the same package
+    //
+    // This file was reachable from no runner, so it sat red and unnoticed. One
+    // instance is also the honest model: the instances share process-global
+    // tables, so constructing one per test bought isolation that does not exist.
+    // The underlying defect — a public getter whose answer depends on
+    // construction order — is sce150.
+    setUpAll(() {
       d4rt = FlutterD4rt();
     });
 

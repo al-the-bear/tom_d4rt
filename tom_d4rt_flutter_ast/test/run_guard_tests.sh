@@ -83,6 +83,26 @@ run "bridged enums resolve to themselves" \
 run "bridge registration is pooled (step #20)" \
   flutter test test/registration_skip_test.dart
 
+# SCD142: four more in-process tests that were reachable from no runner. Each
+# says in its own header that it does NOT spawn the companion app, which is what
+# makes them belong here rather than in the corpus or harness runners.
+run "bridges execute in-process" \
+  flutter test test/bridge_execution_test.dart
+run "import-optimization timings hold" \
+  flutter test test/import_optimization_perf_test.dart
+run "companion app resolution is checked" \
+  flutter test test/companion_app_resolution_test.dart
+run "hosted is the default resolution strategy" \
+  flutter test test/scd66_resolution_strategy_test.dart
+run "the package's own smoke test" \
+  flutter test test/tom_d4rt_flutter_ast_test.dart
+
+# SCD142: every test file is reachable from SOME runner. SCC48 named its
+# isolation test outside the corpus globs on purpose and it was then executed by
+# nothing for six weeks — this is what notices the next one.
+run "every test file is reachable from a runner" \
+  flutter test test/scd142_runner_coverage_test.dart
+
 # SCD141: the two twins execute ONE script corpus, and it lives in this package.
 # `tom_d4rt_flutter` has none of its own — its `send_test_runner.dart` points at
 # `send_ast_via_http_scripts/` here. A missing path is already loud (the sibling

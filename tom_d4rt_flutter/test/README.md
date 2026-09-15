@@ -31,6 +31,23 @@ neither glob is invoked by nothing, which is how `text_user_bridge.dart` stayed
 duplicated and unguarded in both twins for months — but folding a one-second
 file check into a sixteen-minute serial suite answers at the wrong cadence.
 
+A **harness** runner covers the tests that drive the companion app but are not
+corpus files:
+
+- `run_harness_tests.sh` / `.ps1` — globs `test/*_isolation_test.dart`, writes
+  to `testlog/harnesslog_<ID>/` like the corpus runners, and is serial for the
+  same reason they are: one app, one local HTTP server. **The `.ps1` is
+  unverified on Windows** — written as a close adaptation of the proven
+  `run_base_tests.ps1` while the fleet VPN was down, so the first legiondary01
+  run is its verification (sce172).
+
+It is separate from the corpus runners on purpose, and that was SCC48's original
+call: `framework_error_isolation_test.dart` is named outside the
+`flutter_base_*` / `flutter_extended_*` globs so that adding it could not shift
+the metrics tables every verification run is compared against. Right for the
+baselines — and it then left the test executed by nothing for six weeks, which is
+the gap SCD142 closes.
+
 A third runner here is **not** part of the corpus and answers in seconds:
 
 - `run_guard_tests.sh` — this package's own fast, transport-free guards
@@ -131,6 +148,17 @@ it belongs in `doc/` under a name that survives the run it came from. The
 is kept in each project it describes); the raw metrics it was written from are
 no longer tracked, which is the same convention every historical entry in
 `tom_d4rt_flutter_ast/doc/interpreter_issues.md` follows.
+
+**Every test file is reachable from some runner, and that is checked.** Three
+times a test has ended up invoked by nothing — the user-bridge de-dup (SCD108),
+SCC48's isolation test (SCD142), and three more found at once in the sibling twin
+(SCD133). `scd142_runner_coverage_test.dart` asserts it over BOTH twins: a
+`*_test.dart` must match a corpus glob, match the harness convention, or be named
+by some `run_*.sh` — or carry a recorded exemption, of which there are exactly
+two (`interpreter_generator_open_issues_test.dart`, which is EXPECTED to fail, and
+`suspicious_rewrite_test.dart`, a ~16-minute corpus audit invoked directly). The
+guard fails when an exemption stops being needed, so one cannot quietly outlive
+its reason.
 
 ## The two twins execute ONE script corpus, owned by the AST twin
 

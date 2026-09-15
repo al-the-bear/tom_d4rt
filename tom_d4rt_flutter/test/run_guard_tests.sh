@@ -64,6 +64,12 @@ run "bridge registration is pooled (step #19)" \
 run "precise bridge match beats fuzzy prefix" \
   flutter test test/mapped_iterable_resolution_test.dart
 
+# SCD142: the harness-level tests live behind ./test/run_harness_tests.sh (they
+# drive the companion app, so they are serial and belong nowhere near this
+# script). The coverage guard that checks every file is reachable from SOME
+# runner covers BOTH twins and lives in tom_d4rt_flutter_ast, for the same
+# reason the user-bridge de-dup does — one copy reporting on the pair.
+
 if [ "$status" -eq 0 ]; then
   echo "all guards passed"
 else
