@@ -43,8 +43,6 @@ class FunctionCore {
         }
         throw RuntimeD4rtException('Cannot call non-Callable Function');
       },
-      'hashCode': (visitor, target, positionalArgs, namedArgs, _) =>
-          (target as Function).hashCode,
       'toString': (visitor, target, positionalArgs, namedArgs, _) =>
           (target as Function).toString(),
     },

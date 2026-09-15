@@ -179,7 +179,7 @@ void main() {
 
   group('SCB9: Stream.handleError and subscription handlers', () {
     test(
-      'F-SCB9-8: the StreamSubscription.onError setter accepts a unary handler [2026-07-28]',
+      'F-SCB9-8: StreamSubscription.onError accepts a unary handler [2026-07-28]',
       () async {
         final result =
             await executeAsync('''
@@ -188,7 +188,7 @@ void main() {
           final c = StreamController();
           final seen = [];
           final sub = c.stream.listen((v) {});
-          sub.onError = (e) => seen.add('s:\$e');
+          sub.onError((e) => seen.add('s:\$e'));
           c.sink.addError(StateError('boom'));
           await c.sink.close();
           await Future.delayed(Duration(milliseconds: 10));

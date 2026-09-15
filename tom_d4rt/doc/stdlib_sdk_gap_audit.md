@@ -1193,14 +1193,14 @@ have missed both.
 
 ### Measured state
 
-Measured 2026-09-12.
+Measured 2026-09-15.
 
 | Metric | Count |
 |--------|-------|
-| Members whose return value was probed | 420 |
-| … usable (a witness read succeeded) | 420 |
+| Members whose return value was probed | 419 |
+| … usable (a witness read succeeded) | 419 |
 | … **RETURN-TYPE GAP** | **0** |
-| Not probed (no argument literal, or no witness on the return type) | 279 |
+| Not probed (no argument literal, or no witness on the return type) | 276 |
 | No answer (probe wedged) | 3 |
 | Parameter types with no bridge (static pass) | 0 |
 

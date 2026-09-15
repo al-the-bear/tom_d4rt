@@ -360,10 +360,19 @@ void main() {
             // read-through
             '[]', 'contains', 'indexOf', 'lastIndexOf', 'elementAt', 'sublist',
             'getRange', 'forEach', 'map', 'where', 'fold', 'join', 'toList',
-            'toSet', 'cast', 'asMap', 'reversed',
+            'toSet', 'cast', 'asMap',
             // delegated so the native view raises UnsupportedError
             ..._mutatingListCalls.keys,
           ]),
+        );
+        // SCD189: `reversed` is a GETTER and is asserted as one. This bridge
+        // used to register it in BOTH maps, so `view.reversed()` — which does
+        // not compile as Dart — was accepted, and this list named it among the
+        // methods. The fabricated method is gone; the getter is what Dart
+        // declares and what the bridge now supplies.
+        expect(
+          reachableGetterNames(env, 'UnmodifiableListView'),
+          contains('reversed'),
         );
         expect(
           reachableSetterNames(env, 'UnmodifiableListView'),

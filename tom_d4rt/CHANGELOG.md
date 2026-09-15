@@ -1,3 +1,29 @@
+## 1.124.0
+
+### Fixed - six bridged members registered under the wrong kind (scd189)
+
+The member audit asks whether a member RESOLVES; the coverage baseline asks
+whether it is REACHABLE. Both are satisfied by an adapter that resolves and then
+does the wrong thing — SCC73 found `Runes.iterator` registered as a METHOD, so
+it handed back the bound callable instead of the iterator and nothing noticed.
+
+`scd189_member_kind_parity_test.dart` asks the cheapest useful form of the next
+question: is each member registered as the same KIND the SDK declares? It
+compares 1 487 members against the SDK source and found six.
+
+BLOCKING: `StreamSubscription.onData`, `onDone` and `onError` were registered as
+SETTERS. Dart declares them as methods, so `sub.onData(h)` — the correct
+spelling — failed with "has no instance method named 'onData'" and only the
+uncompilable `sub.onData = h` worked. They are methods now; the one test that
+exercised this was itself written in the invalid form and is corrected.
+
+FABRICATIONS: `Encoding.inverted`, `Function.hashCode` and
+`UnmodifiableListView.reversed` were registered as methods beside a correct
+getter, so `utf8.inverted()`, `f.hashCode()` and `view.reversed()` were
+accepted — green in the interpreter, rejected by the Dart analyser. Deleted.
+`Function.hashCode`'s method was additionally dead: the universal Object getter
+shadowed it.
+
 ## 1.123.0
 
 ### Fixed - `HttpClientResponse.transform` works, by deleting the stub that broke it (scd187)

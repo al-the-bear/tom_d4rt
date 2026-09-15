@@ -34,9 +34,6 @@ class EncodingConvert {
         }
         return (target as Encoding).decode((positionalArgs[0] as List).cast());
       },
-      'inverted': (visitor, target, positionalArgs, namedArgs, _) {
-        return (target as Encoding).inverted;
-      },
       // SCB23: the one member of this bridge that the three character
       // encodings cannot declare for themselves — the SDK puts it on
       // `Encoding` only. It is reachable on `utf8`/`ascii`/`latin1` through

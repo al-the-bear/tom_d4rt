@@ -627,15 +627,6 @@ class UnmodifiableListViewCollection {
           "Invalid arguments for UnmodifiableListView.asMap",
         );
       },
-      'reversed': (visitor, target, positionalArgs, namedArgs, _) {
-        final t = target as UnmodifiableListView;
-        if (positionalArgs.isEmpty && namedArgs.isEmpty) {
-          return t.reversed;
-        }
-        throw RuntimeD4rtException(
-          "Invalid arguments for UnmodifiableListView.reversed",
-        );
-      },
     },
     getters: {
       'length': (visitor, target) {

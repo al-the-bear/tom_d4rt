@@ -785,6 +785,15 @@ const _asyncNonFamilyReturning = <String, String>{
   'onCancel': 'callback (void Function()?)',
   'onPause': 'callback (void Function()?)',
   'onResume': 'callback (void Function()?)',
+  // SCD189 moved these three from `setters` to `methods`, which is where the
+  // SDK declares them (`void onData(void Function(T)?)`), so the methods scan
+  // now sees them and asks for a triage. They install a handler and return
+  // void — the callback they take is a family value's CONSUMER, never a
+  // family value itself, which is the same reasoning as the four entries
+  // above.
+  'onData': 'void (installs a handler)',
+  'onDone': 'void (installs a handler)',
+  'onError': 'void (installs a handler)',
 };
 
 Map<String, BridgedClass> _asyncFamilyBridges() => {

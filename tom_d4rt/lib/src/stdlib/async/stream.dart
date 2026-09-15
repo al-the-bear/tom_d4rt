@@ -590,46 +590,58 @@ class StreamSubscriptionAsync {
         (target as StreamSubscription).resume();
         return null;
       },
-    },
-    getters: {
-      'isPaused': (visitor, target) => (target as StreamSubscription).isPaused,
-    },
-    setters: {
-      'onData': (visitorParam, target, value) {
-        final callback = value as Callable?;
-        final visitor = visitorParam; // Keep reference for closure
+      // SCD189: METHODS, not setters. The SDK declares
+      // `void onData(void Function(T)? handleData)` and the two spellings are
+      // not interchangeable in Dart — `sub.onData = h` does not compile. These
+      // were registered as setters, so a script written correctly failed with
+      // "has no instance method named 'onData'" and only the uncompilable form
+      // worked. That is the fabrication shape the gap audit warns about: green
+      // in the interpreter, rejected by the Dart analyser.
+      'onData': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'StreamSubscription.onData', atMost: 1);
+        final callback = positionalArgs.isEmpty
+            ? null
+            : positionalArgs[0] as Callable?;
         (target as StreamSubscription).onData(
           callback == null
               ? null
-              : (data) => runAction<void>(visitor!, callback, [data]),
+              : (data) => runAction<void>(visitor, callback, [data]),
         );
-        return;
+        return null;
       },
-      'onError': (visitorParam, target, value) {
-        final callback = value as Callable?;
-        final visitor = visitorParam; // Keep reference for closure
+      'onError': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'StreamSubscription.onError', atMost: 1);
+        final callback = positionalArgs.isEmpty
+            ? null
+            : positionalArgs[0] as Callable?;
         (target as StreamSubscription).onError(
           callback == null
               ? null
               : (error, stackTrace) => runAction<void>(
-                  visitor!,
+                  visitor,
                   callback,
                   errorHandlerArgs(callback, error, stackTrace),
                 ),
         );
-        return;
+        return null;
       },
-      'onDone': (visitorParam, target, value) {
-        final callback = value as Callable?;
-        final visitor = visitorParam; // Keep reference for closure
+      'onDone': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'StreamSubscription.onDone', atMost: 1);
+        final callback = positionalArgs.isEmpty
+            ? null
+            : positionalArgs[0] as Callable?;
         (target as StreamSubscription).onDone(
           callback == null
               ? null
-              : () => runAction<void>(visitor!, callback, []),
+              : () => runAction<void>(visitor, callback, []),
         );
-        return;
+        return null;
       },
     },
+    getters: {
+      'isPaused': (visitor, target) => (target as StreamSubscription).isPaused,
+    },
+    setters: {},
   );
 }
 
