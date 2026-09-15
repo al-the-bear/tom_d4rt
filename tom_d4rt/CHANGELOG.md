@@ -1,3 +1,23 @@
+## 1.130.0
+
+### Changed - one environment instead of two in the bridged-enum toString visitors (scd208)
+
+`BridgedEnumValue.get` and `BridgedEnumValue.toString` build a throwaway
+`InterpreterVisitor` to invoke a bridged `toString` adapter. Each site
+constructed TWO separate `Environment()` objects — one as the visitor's
+`globalEnvironment`, one inside the `ModuleLoader` it was given — where the
+analyzer-free twin has always bound one local and passed it to both.
+
+Inert in practice: both were fresh and empty, and the adapter is called and
+discarded in the same expression. It is not a shape anyone would choose, and
+it made two spellings of the same construction read as two different
+constructions, which is what a mirror baseline is meant to make visible.
+
+Both sites now bind `final env = Environment()`. What remains between the
+trees is the type difference that cannot go away — `ModuleLoader` against
+`NoOpModuleContext`, the twin having no module loader at all — now four code
+lines rather than ten.
+
 ## 1.129.0
 
 ### Changed - two mirrored files stop diverging for reasons that did not survive reading (scd208)

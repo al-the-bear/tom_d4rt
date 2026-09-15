@@ -191,69 +191,75 @@ const _astOnly = <String, String>{
 /// divergence anywhere in the file changes the trimmed result and is reported
 /// by F-SCD183-4.
 const _allowedRegions = <String, (String, String)>{
-  // The twin has no `ModuleLoader`; it constructs a `NoOpModuleContext` over
-  // the same fresh environment, and has to bind the environment first because
-  // the context takes it as a named argument.
+  // The twin has no `ModuleLoader`. It builds a `NoOpModuleContext` over the
+  // same environment the visitor gets, and binds that environment to a local
+  // first because the context takes it as a named argument.
+  //
+  // SCD208 SHRANK THIS REGION by making the reference bind the local too. It
+  // had been constructing TWO separate `Environment()` objects per site — one
+  // for the visitor, one inside the `ModuleLoader` — where the twin passed one
+  // to both. Inert here (the visitor is a throwaway for invoking a bridged
+  // `toString`, and both environments were empty), but it is not a shape
+  // anyone would choose, and it made two spellings of the same construction
+  // look like two different constructions. What is left is the type
+  // difference, which is real: 4 code lines at two sites.
   'bridge/bridged_enum.dart': (
-    'return methodAdapter ( InterpreterVisitor ( globalEnvironment '
-        ': Environment ( ) , moduleLoader : ModuleLoader ( Environment '
-        '( ) , { } , { } , { } ) ) , nativeValue , [ ] , { } , null ) ; '
-        "} catch ( _ ) { return ' \${ enumType . name } . \$ name ' ; } } "
-        "throw RuntimeD4rtException ( 'Cannot access method \" \$ "
-        'identifier " as a property on enum value  \${ enumType . name } '
-        ". \$ name . Use call syntax ().' ) ; } throw "
-        "RuntimeD4rtException ( 'Property \" \$ identifier \" not found on "
-        "enum value  \${ enumType . name } . \$ name ' ) ; } } @ override "
-        'void set ( String identifier , Object ? value ) { throw '
-        "RuntimeD4rtException ( 'Cannot set property \" \$ identifier \" "
-        "on enum value  \${ enumType . name } . \$ name ' ) ; } bool "
+    'moduleLoader : ModuleLoader ( env , { } , { } , { } ) ) , '
+        'nativeValue , [ ] , { } , null ) ; } catch ( _ ) { return \' \${ '
+        'enumType . name } . \$ name \' ; } } throw RuntimeD4rtException '
+        '( \'Cannot access method " \$ identifier " as a property on enum '
+        'value  \${ enumType . name } . \$ name . Use call syntax ().\' ) '
+        '; } throw RuntimeD4rtException ( \'Property " \$ identifier " '
+        'not found on enum value  \${ enumType . name } . \$ name \' ) ; } '
+        '} @ override void set ( String identifier , Object ? value ) { '
+        'throw RuntimeD4rtException ( \'Cannot set property " \$ '
+        'identifier " on enum value  \${ enumType . name } . \$ name \' ) '
+        '; } bool hasMethod ( String method ) => _methods . containsKey '
+        '( method ) || enumType . methods . containsKey ( method ) ; '
+        'Object ? invoke ( InterpreterVisitor visitor , String method , '
+        'List < Object ? > args , Map < String , Object ? > namedArgs ) '
+        '{ final methodAdapter = _methods [ method ] ?? enumType . '
+        'methods [ method ] ; if ( methodAdapter == null ) { if ( '
+        'method == \'toString\' && args . isEmpty && namedArgs . isEmpty '
+        ') { return \' \${ enumType . name } . \$ name \' ; } throw '
+        'RuntimeD4rtException ( \'Method " \$ method " not found on enum '
+        'value  \${ enumType . name } . \$ name \' ) ; } try { return '
+        'methodAdapter ( visitor , nativeValue , args , namedArgs , '
+        'null ) ; } catch ( e ) { throw RuntimeD4rtException ( \'Error '
+        'executing bridged method " \$ method " on  \${ enumType . name } '
+        '. \$ name :  \$ e \' ) ; } } @ override String toString ( ) { '
+        'final toStringAdapter = _methods [ \'toString\' ] ?? enumType . '
+        'methods [ \'toString\' ] ; if ( toStringAdapter != null ) { try '
+        '{ final env = Environment ( ) ; return toStringAdapter ( '
+        'InterpreterVisitor ( globalEnvironment : env , moduleLoader : '
+        'ModuleLoader ( env , { } , { } , { }',
+    'moduleContext : NoOpModuleContext ( globalEnvironment : env ) '
+        ') , nativeValue , [ ] , { } , null ) ; } catch ( _ ) { return '
+        '\' \${ enumType . name } . \$ name \' ; } } throw '
+        'RuntimeD4rtException ( \'Cannot access method " \$ identifier " '
+        'as a property on enum value  \${ enumType . name } . \$ name . '
+        'Use call syntax ().\' ) ; } throw RuntimeD4rtException ( '
+        '\'Property " \$ identifier " not found on enum value  \${ '
+        'enumType . name } . \$ name \' ) ; } } @ override void set ( '
+        'String identifier , Object ? value ) { throw '
+        'RuntimeD4rtException ( \'Cannot set property " \$ identifier " '
+        'on enum value  \${ enumType . name } . \$ name \' ) ; } bool '
         'hasMethod ( String method ) => _methods . containsKey ( method '
         ') || enumType . methods . containsKey ( method ) ; Object ? '
         'invoke ( InterpreterVisitor visitor , String method , List < '
         'Object ? > args , Map < String , Object ? > namedArgs ) { '
         'final methodAdapter = _methods [ method ] ?? enumType . '
         'methods [ method ] ; if ( methodAdapter == null ) { if ( '
-        "method == 'toString' && args . isEmpty && namedArgs . isEmpty "
-        ") { return ' \${ enumType . name } . \$ name ' ; } throw "
-        "RuntimeD4rtException ( 'Method \" \$ method \" not found on enum "
-        "value  \${ enumType . name } . \$ name ' ) ; } try { return "
+        'method == \'toString\' && args . isEmpty && namedArgs . isEmpty '
+        ') { return \' \${ enumType . name } . \$ name \' ; } throw '
+        'RuntimeD4rtException ( \'Method " \$ method " not found on enum '
+        'value  \${ enumType . name } . \$ name \' ) ; } try { return '
         'methodAdapter ( visitor , nativeValue , args , namedArgs , '
-        "null ) ; } catch ( e ) { throw RuntimeD4rtException ( 'Error "
+        'null ) ; } catch ( e ) { throw RuntimeD4rtException ( \'Error '
         'executing bridged method " \$ method " on  \${ enumType . name } '
-        ". \$ name :  \$ e ' ) ; } } @ override String toString ( ) { "
-        "final toStringAdapter = _methods [ 'toString' ] ?? enumType . "
-        "methods [ 'toString' ] ; if ( toStringAdapter != null ) { try "
-        '{ return toStringAdapter ( InterpreterVisitor ( '
-        'globalEnvironment : Environment ( ) , moduleLoader : '
-        'ModuleLoader ( Environment ( ) , { } , { } , { }',
-    'final env = Environment ( ) ; return methodAdapter ( '
-        'InterpreterVisitor ( globalEnvironment : env , moduleContext : '
-        'NoOpModuleContext ( globalEnvironment : env ) ) , nativeValue '
-        ", [ ] , { } , null ) ; } catch ( _ ) { return ' \${ enumType . "
-        "name } . \$ name ' ; } } throw RuntimeD4rtException ( 'Cannot "
-        'access method " \$ identifier " as a property on enum value  \${ '
-        "enumType . name } . \$ name . Use call syntax ().' ) ; } throw "
-        "RuntimeD4rtException ( 'Property \" \$ identifier \" not found on "
-        "enum value  \${ enumType . name } . \$ name ' ) ; } } @ override "
-        'void set ( String identifier , Object ? value ) { throw '
-        "RuntimeD4rtException ( 'Cannot set property \" \$ identifier \" "
-        "on enum value  \${ enumType . name } . \$ name ' ) ; } bool "
-        'hasMethod ( String method ) => _methods . containsKey ( method '
-        ') || enumType . methods . containsKey ( method ) ; Object ? '
-        'invoke ( InterpreterVisitor visitor , String method , List < '
-        'Object ? > args , Map < String , Object ? > namedArgs ) { '
-        'final methodAdapter = _methods [ method ] ?? enumType . '
-        'methods [ method ] ; if ( methodAdapter == null ) { if ( '
-        "method == 'toString' && args . isEmpty && namedArgs . isEmpty "
-        ") { return ' \${ enumType . name } . \$ name ' ; } throw "
-        "RuntimeD4rtException ( 'Method \" \$ method \" not found on enum "
-        "value  \${ enumType . name } . \$ name ' ) ; } try { return "
-        'methodAdapter ( visitor , nativeValue , args , namedArgs , '
-        "null ) ; } catch ( e ) { throw RuntimeD4rtException ( 'Error "
-        'executing bridged method " \$ method " on  \${ enumType . name } '
-        ". \$ name :  \$ e ' ) ; } } @ override String toString ( ) { "
-        "final toStringAdapter = _methods [ 'toString' ] ?? enumType . "
-        "methods [ 'toString' ] ; if ( toStringAdapter != null ) { try "
+        '. \$ name :  \$ e \' ) ; } } @ override String toString ( ) { '
+        'final toStringAdapter = _methods [ \'toString\' ] ?? enumType . '
+        'methods [ \'toString\' ] ; if ( toStringAdapter != null ) { try '
         '{ final env = Environment ( ) ; return toStringAdapter ( '
         'InterpreterVisitor ( globalEnvironment : env , moduleContext : '
         'NoOpModuleContext ( globalEnvironment : env',

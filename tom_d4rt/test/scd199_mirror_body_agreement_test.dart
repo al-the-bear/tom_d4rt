@@ -197,9 +197,13 @@ const _minMirrorTypes = 150;
 /// each of these six files cannot be compared whole. This map is a census of
 /// WHAT diverges, so that a change in it is visible.
 const _divergentBodies = <String, Map<String, String>>{
+  // SCD208: both were '1954…'-era signatures naming the reference's two
+  // separate `Environment()` objects. It now binds one local like the twin, so
+  // the residue is the type difference alone — and identical in both members,
+  // which is why the two hashes are now the same.
   'bridge/bridged_enum.dart': {
-    'BridgedEnumValue.get': 'daf0087e',
-    'BridgedEnumValue.toString': 'b096c062',
+    'BridgedEnumValue.get': '184efa79',
+    'BridgedEnumValue.toString': '184efa79',
   },
   'callable.dart': {
     'BoundExtensionMethodCallable.call': '1154620a',
