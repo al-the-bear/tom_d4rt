@@ -1300,6 +1300,17 @@ const Map<String, _Divergence> _divergentBaseline = {
   // to re-port carelessly: `dart test` has no wall-clock kill for a
   // non-yielding isolate, and the run has to be killed by hand. Converges at a
   // floor past 0.100.0.
+  //
+  // SCD168 widened the gap on purpose. The reference copy gained F-SCD168-1..4,
+  // four cases asserting that an `on String` clause in an ASYNC body does not
+  // catch a `FormatException` — the one shape SCD41's eleven cases do not
+  // reach, since every one of those dispatches on an `Error` subclass. They sit
+  // beside the SCD41 group they extend rather than in a file of their own,
+  // because a new reference file with no counterpart here would cost an
+  // `_uncoveredBaseline` entry, and this file is already the entry that says
+  // why it cannot be ported yet. Nothing was added to this copy: the whole
+  // point of the entry above is that running this file against the published
+  // interpreter does not terminate.
   'scc12_await_in_finally_test.dart': _Divergence.deliberate,
   // The reference copy's four `(legacy)` cases reach into the analyzer `D4rt`'s
   // own environment chain — `enclosing`, the static warm-parent cache keyed on
@@ -1384,7 +1395,7 @@ const Map<String, String> _divergenceFingerprints = <String, String>{
   'stdlib/collection/list_queue_test.dart': '927a588334725bb2',
   'stdlib/collection/queue_test.dart': '19eee099a23916a8',
   'stdlib/cast_from_family_test.dart': 'c7a32ccddec5a069',
-  'scc12_await_in_finally_test.dart': '2281f29dff43036a',
+  'scc12_await_in_finally_test.dart': '642512207f3cebec',
   'warm_parent_package_pool_test.dart': '971b6ff19185f442',
   'stdlib/intentionally_unbridged_test.dart': '625078dfd5baba8a',
   'scc31_undefined_name_uncatchable_test.dart': 'ad105fd6b643370f',

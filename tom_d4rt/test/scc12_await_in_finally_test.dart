@@ -659,6 +659,72 @@ void main() {
       );
     });
 
+    /// SCD168 named a case the eleven above do not reach: every one of them
+    /// dispatches on an `Error` subclass or the `Exception` interface, so the
+    /// whole group exercises one shape of `_valueHasType` — a bridged class
+    /// against a bridged instance. `on String` is a different question. The
+    /// clause type is a PRIMITIVE, the thrown value is a bridged exception, and
+    /// nothing above would notice if the primitive branch answered `true` for
+    /// everything the way `catchClauses.first` once did.
+    test('F-SCD168-1: `on String` does not catch a FormatException in an '
+        'async body [2026-09-15] (PASS)', () async {
+      expect(
+        await run(r"""
+          Future<dynamic> main() async {
+            try { throw FormatException('boom'); }
+            on String catch (e) { return 'String'; }
+            on FormatException catch (e) { return 'FormatException'; }
+          }
+        """),
+        'FormatException',
+      );
+    });
+
+    test('F-SCD168-2: a non-matching primitive clause alone does not swallow '
+        '[2026-09-15] (PASS)', () async {
+      // The dangerous half of F-SCD168-1, and the exact sentence SCD168 was
+      // written around: with `catchClauses.first`, `on String` caught a
+      // FormatException and the error surfaced nowhere.
+      await expectThrows(
+        r"Future<dynamic> main() async { try { throw FormatException('boom'); } "
+            r"on String catch (e) { return 'swallowed'; } }",
+        'boom',
+      );
+    });
+
+    test('F-SCD168-3 (control): `on String` DOES catch a thrown String '
+        '[2026-09-15] (PASS)', () async {
+      // Without this, F-SCD168-1/2 are satisfied by a primitive branch that
+      // answers `false` for everything — which would be a different bug with
+      // the same test results.
+      expect(
+        await run(r"""
+          Future<dynamic> main() async {
+            try { throw 'plain'; }
+            on String catch (e) { return 'String:$e'; }
+            on FormatException catch (e) { return 'FormatException'; }
+          }
+        """),
+        'String:plain',
+      );
+    });
+
+    test('F-SCD168-4: the async and sync paths agree on the same program '
+        '[2026-09-15] (PASS)', () async {
+      // SCD168's framing: the defect was "the same script behaving differently
+      // depending only on whether the enclosing function is `async`". That is
+      // the property to assert, rather than two separately-pinned answers.
+      const body = r"""
+            try { throw FormatException('boom'); }
+            on String catch (e) { return 'String'; }
+            on FormatException catch (e) { return 'FormatException'; }
+      """;
+      expect(
+        await run('Future<dynamic> main() async {$body}'),
+        await run('dynamic main() {$body}'),
+      );
+    });
+
     test('F-SCD41-7: a rethrow after a nested try ran inside the catch '
         '[2026-09-12]', () async {
       // Defect 2, and it HUNG rather than failing: the inner try/finally
