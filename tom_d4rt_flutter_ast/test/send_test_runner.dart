@@ -353,12 +353,21 @@ class SendTestRunner {
       await _ensureBridgesRegenerated();
     }
 
-    if (startApp && !useRunningApp) {
-      // Refuse to launch an app that would run a different interpreter from
-      // this package's — see companion_app_resolution.dart. It is a read of
-      // two lock files, so it costs nothing and fails in seconds, where an app
-      // built against a stale lock used to burn two launch timeouts and then
-      // blame the timeout.
+    // SCD193: this runs whenever the corpus is about to DRIVE the app, not
+    // only when this process is about to launch one. It is a read of two lock
+    // files, so it costs nothing and fails in seconds, where an app built
+    // against a stale lock used to burn two launch timeouts and then blame the
+    // timeout.
+    //
+    // ATTACH MODE NEEDS IT MORE, NOT LESS. Under `D4RT_USE_RUNNING_APP` the
+    // caller launched the app out-of-band — which today means the profiler
+    // scripts, and those are the two runners that do NOT `flutter pub get` in
+    // the app first. The check used to sit inside the launch branch, so the one
+    // path with no other control skipped it: a profiling session could measure
+    // a stale interpreter and nothing would say so. Whoever launched the app,
+    // the question "does it resolve what this package resolves" has the same
+    // answer and the same evidence on disk.
+    if (startApp) {
       final unresolved = companionResolutionFailure(
         parentDir: Directory.current.path,
         appDir: p.join(Directory.current.path, testAppPath),
@@ -366,6 +375,9 @@ class SendTestRunner {
       if (unresolved != null) {
         throw StateError(unresolved);
       }
+    }
+
+    if (startApp && !useRunningApp) {
       // Always reap any prior test_app first — covers orphans from a
       // SIGKILL'd parent or a wedged-but-still-bound prior invocation.
       // `_killExistingProcess` is best-effort and is safe to run when

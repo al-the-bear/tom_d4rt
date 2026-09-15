@@ -68,6 +68,24 @@ echo "==       then run  ./test/run_test_profiler.sh  in a second terminal."
 echo "== (For init-path [PROFILE] spans, D4rtProfiler.enabled must be true — see header.)"
 echo ""
 
+# SCD193: resolve the app before launching it. This workflow is the one the
+# corpus runners' `flutter pub get` does not cover — they resolve the app
+# before their first file, this script launches it directly — and the app is a
+# separate package with its own gitignored lock that nothing re-resolves when
+# the twin moves. A profiling session against a stale interpreter produces
+# numbers that look exactly like good ones.
+#
+# The harness refuses to drive an app out of step (test/companion_app_
+# resolution.dart, and it checks in attach mode too since SCD193). Resolving
+# here means the refusal is something you never see rather than something you
+# hit after a three-minute AOT build.
+echo "== resolving ${APP_DIR} =="
+if ! pub_out="$(cd "$APP_DIR" && flutter pub get 2>&1)"; then
+  echo "$pub_out"
+  echo "companion app: flutter pub get failed in ${APP_DIR}" >&2
+  exit 1
+fi
+
 cd "$APP_DIR"
 # stdout/stderr → console + logfile. stdin stays on the TTY so the flutter-run
 # interactive console (q/r/R) and Ctrl-C keep working.
