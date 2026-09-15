@@ -22,16 +22,14 @@ import '../../interpreter_test.dart';
 /// gives — driving the client from the host would require the port before the
 /// script runs, and a pre-bound-then-released port is a race.
 ///
-/// SANDBOX POSTURE: this file adds no permission gate, inheriting SCC62's
-/// decision rather than inventing a second one. The measurement that decision
-/// rests on is that `NetworkPermission` gates exactly one call site in the whole
-/// library (`InternetAddress.lookup`) while `bind`, `connect` and the entire
-/// `HttpClient` surface sit behind an import gate keyed on
-/// `FilesystemPermission`. A gate added here would be bypassable — a script can
-/// reach the same socket through `HttpServer.bind` plus `HttpResponse.detachSocket`
-/// — while *looking* like the capability was sandboxed, which is worse than the
-/// honest absence. Closing the gap coherently across the library is tracked
-/// separately.
+/// SANDBOX POSTURE: `WebSocket.connect` is gated on `NetworkPermission`, like
+/// every other socket-acquiring bridge in the library. This paragraph used to
+/// record the opposite — that a gate here would be bypassable, because
+/// `NetworkPermission` gated exactly one call site while `bind`, `connect` and
+/// the whole `HttpClient` surface sat behind an import gate keyed on
+/// `FilesystemPermission`. SCD170 closed that across the library in one sweep,
+/// so the reasoning no longer applies and the gate is no longer avoidable.
+/// The scripts below run through `execute`, which grants every permission.
 void main() {
   group('SCC63: a script can hold both ends of a WebSocket', () {
     test('F-SCC63-1: upgrade, connect, exchange a message each way, read the '
@@ -431,6 +429,113 @@ void main() {
           'v2',
         ]),
       );
+    });
+
+    test('F-SCD172-1: bind upgrades every request on the stream, and the '
+        'constructed protocolSelector is consulted per connection '
+        '[2026-09-15] (PASS)', () async {
+      // The transformer's OTHER form. `WebSocketTransformer.upgrade` — the
+      // static, one request at a time — is covered end to end by nine cases;
+      // the instance form binds to the `Stream<HttpRequest>` an `HttpServer`
+      // IS and yields a `Stream<WebSocket>`. F-SCC63-11 asserted only that the
+      // factory constructs, so nothing called `bind`.
+      //
+      // IT MATTERS MORE THAN A COVERAGE COUNT because the adapter coerces the
+      // argument with `D4.coerceStream<HttpRequest>`, which is LAZY: it maps
+      // the stream, so a wrong element type does not fail at the `bind` call
+      // but on the first event, inside a stream the script is already
+      // listening to. That is the failure shape this area keeps producing —
+      // a call that appears to succeed and a value that turns out inert.
+      //
+      // TWO CLIENTS, NOT ONE, and that is the half the static path cannot
+      // test: the selector is stored on the INSTANCE at construction and
+      // invoked per request, so `runAction` is re-entered once per connection
+      // rather than once. One client would pass with a selector that works
+      // exactly once.
+      const source = '''
+      import 'dart:io';
+      import 'dart:async';
+      main() async {
+        var server = await HttpServer.bind(InternetAddress.loopbackIPv4, 0);
+        var offered = [];
+        var transformer = WebSocketTransformer(
+          protocolSelector: (protocols) {
+            offered.add(protocols.join(','));
+            return protocols.first;
+          },
+        );
+
+        var arrived = [];
+        var both = Completer();
+        transformer.bind(server).listen((socket) {
+          arrived.add(socket is WebSocket);
+          socket.close();
+          if (arrived.length == 2) { both.complete(); }
+        });
+
+        var url = 'ws://127.0.0.1:' + server.port.toString() + '/';
+        var first = await WebSocket.connect(url, protocols: ['alpha']);
+        var second = await WebSocket.connect(url, protocols: ['beta']);
+        await both.future;
+        await server.close();
+
+        return [arrived, offered, first.protocol, second.protocol];
+      }
+      ''';
+      expect(await executeAsync(source), [
+        [true, true],
+        ['alpha', 'beta'],
+        'alpha',
+        'beta',
+      ]);
+    });
+
+    test('F-SCD172-2: bind coerces a stream the script re-shaped '
+        '[2026-09-15] (PASS)', () async {
+      // F-SCD172-1 does NOT exercise the coercion, and that was measured:
+      // replacing `D4.coerceStream<HttpRequest>` with a raw
+      // `as Stream<HttpRequest>` leaves it green, because an `HttpServer` IS a
+      // `Stream<HttpRequest>` and the cast succeeds unchanged.
+      //
+      // The coercion only does work when the script has re-shaped the stream,
+      // at which point the interpreter has erased the element type to
+      // `dynamic` — `server.map((r) => r)` is the shortest way a script gets
+      // there, and it is an ordinary thing to write. This is the path SCD172
+      // is about: the coercion is LAZY, so a bad element surfaces on the first
+      // event inside a stream already being listened to, not at the `bind`
+      // call.
+      const good = '''
+      import 'dart:io';
+      import 'dart:async';
+      main() async {
+        var server = await HttpServer.bind(InternetAddress.loopbackIPv4, 0);
+        var arrived = Completer();
+        WebSocketTransformer().bind(server.map((request) => request))
+            .listen((socket) { socket.close(); arrived.complete(true); });
+        var url = 'ws://127.0.0.1:' + server.port.toString() + '/';
+        var client = await WebSocket.connect(url);
+        var ok = await arrived.future;
+        await server.close();
+        return ok;
+      }
+      ''';
+      expect(await executeAsync(good), isTrue);
+
+      // THE FAILING HALF IS NOT HERE, and that is a finding rather than a gap
+      // in this case. Binding a stream whose elements are the wrong type is
+      // accepted by `bind`, and the coercion then raises
+      // `Invalid parameter "WebSocketTransformer.bind": expected a
+      // Stream<HttpRequest>, but an element was String` — but the script
+      // cannot observe it. It does not reach the listener's `onError` and it
+      // does not reach the future of `await stream.first`; both simply never
+      // complete, and the script hangs. Two drafts of this case were written
+      // against those two routes and each timed out with the diagnostic
+      // printed beside it.
+      //
+      // A test for that would be a test that HANGS, which SCD169 established
+      // wedges the whole suite rather than failing it — no Dart-level timeout
+      // contains a stream that never completes. It is filed as sce208 with the
+      // reproduction, and deliberately not pinned here.
     });
 
     test(
