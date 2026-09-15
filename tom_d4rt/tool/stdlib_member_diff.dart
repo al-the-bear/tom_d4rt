@@ -1951,7 +1951,75 @@ class HierarchyGap {
 /// `ContentType -> HeaderValue` reported as "no recipe written yet" while the
 /// recipe worked perfectly. A blind spot manufactured by the instrument is worse
 /// than the one it was built to find, because it names the wrong cause.
-const _sdkReexports = <String, String>{'dart:_http': 'dart:io'};
+/// Overrides for [sdkReexportOwners], for a case the derivation cannot see.
+///
+/// EMPTY, and that is the result rather than a stub. SCD163 replaced the
+/// hand-written `{'dart:_http': 'dart:io'}` with a derivation off the SDK's own
+/// export directives, which reproduces that entry and finds the two it was
+/// missing.
+const sdkReexportOverrides = <String, String>{};
+
+/// Cache for [sdkReexportOwners]; the mirror walk is the same answer every time.
+final Map<String, Map<String, List<String>>> _reexportCache = {};
+
+/// Patch libraries this run could not resolve, as `<patch library>.<type>`.
+///
+/// The other half of SCD163's DONE WHEN. A derivation that finds nothing must
+/// SAY so: the old behaviour was to return null and let the class land in the
+/// unverified bucket with the reason "cannot derive an import", which reads as a
+/// property of the class rather than as a gap in the tool — and that distinction
+/// is what the audit spends most of its design on elsewhere.
+final Set<String> unresolvedPatchLibraries = <String>{};
+
+/// The public `dart:` libraries that re-export [typeName] out of [patchUri].
+///
+/// SCD163. A `dart:_`-prefixed library cannot be imported by any program, so an
+/// import directive naming one does not resolve and the probe throws — which the
+/// hierarchy audit then scores UNVERIFIED. `dart:io` declares its whole HTTP
+/// surface in the patch library `dart:_http`, so `ContentType -> HeaderValue`
+/// reported as "no recipe written yet" while the recipe worked perfectly. A
+/// blind spot manufactured by the instrument is worse than the one it was built
+/// to find, because it names the wrong cause.
+///
+/// SCC57 fixed that with a one-entry table. This derives it instead, from the
+/// export directives `dart:mirrors` already exposes: for each public `dart:`
+/// library, each `export` dependency whose target is [patchUri], the `show`
+/// combinator naming the type. Every such re-export in the SDK is `show`-limited
+/// — measured 2026-09-15 — so the answer is exact per TYPE rather than per
+/// library, which the table could not be.
+///
+/// IT FINDS TWO THE TABLE MISSED. Of the 30 bridged classes declared in a patch
+/// library, 28 are `dart:_http` and the table covered them; `BytesBuilder` and
+/// `HttpStatus` are declared in `dart:_internal` and were not covered at all.
+/// `BytesBuilder` has TWO public homes (`dart:io` and `dart:typed_data`), which
+/// is why this returns a list and the caller sorts: either import resolves, and
+/// a stable choice keeps the emitted probe reproducible.
+List<String> sdkReexportOwners(String patchUri, String typeName) {
+  final byType = _reexportCache.putIfAbsent(patchUri, () {
+    final out = <String, List<String>>{};
+    for (final library in currentMirrorSystem().libraries.values) {
+      final uri = library.uri.toString();
+      if (!uri.startsWith('dart:') || uri.startsWith('dart:_')) continue;
+      for (final dependency in library.libraryDependencies) {
+        if (!dependency.isExport) continue;
+        if (dependency.targetLibrary?.uri.toString() != patchUri) continue;
+        for (final combinator in dependency.combinators) {
+          if (!combinator.isShow) continue;
+          for (final identifier in combinator.identifiers) {
+            out
+                .putIfAbsent(MirrorSystem.getName(identifier), () => [])
+                .add(uri);
+          }
+        }
+      }
+    }
+    for (final list in out.values) {
+      list.sort();
+    }
+    return out;
+  });
+  return byType[typeName] ?? const [];
+}
 
 /// The `dart:` library that declares [type], as an import directive.
 ///
@@ -1966,13 +2034,25 @@ String? _importForType(Type type) {
     final owner = t.owner;
     if (owner is! LibraryMirror) return null;
     final raw = owner.uri.toString();
-    final uri = _sdkReexports[raw] ?? raw;
+    var uri = raw;
+    if (raw.startsWith('dart:_')) {
+      final typeName = MirrorSystem.getName(t.simpleName);
+      final owners = sdkReexportOwners(raw, typeName);
+      uri = sdkReexportOverrides[raw] ?? (owners.isEmpty ? raw : owners.first);
+    }
     if (!uri.startsWith('dart:') || uri == 'dart:core') return null;
-    // An unmapped implementation library: emit nothing rather than something
-    // unresolvable. The supertype may still be in scope through the recipe's own
-    // imports, and if it is not the probe fails honestly instead of failing for
-    // a reason that has nothing to do with the edge.
-    if (uri.startsWith('dart:_')) return null;
+    // Still unresolvable: emit nothing rather than something that cannot
+    // compile — the supertype may be in scope through the recipe's own imports,
+    // and if it is not the probe fails honestly instead of for a reason that has
+    // nothing to do with the edge. SCD163: it is also RECORDED, so the run says
+    // which library it could not resolve rather than leaving the class in the
+    // unverified bucket with a reason that reads as the class's own property.
+    if (uri.startsWith('dart:_')) {
+      unresolvedPatchLibraries.add(
+        '$uri.${MirrorSystem.getName(t.simpleName)}',
+      );
+      return null;
+    }
     return "import '$uri';";
   } catch (_) {
     return null;

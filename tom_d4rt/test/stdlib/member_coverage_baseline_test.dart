@@ -109,6 +109,7 @@
 library;
 
 import 'dart:io';
+import 'dart:mirrors';
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt/d4rt.dart';
@@ -177,6 +178,13 @@ String _withoutComments(String source) {
   }
   return out.join();
 }
+
+/// A fully registered environment for the patch-library scan.
+///
+/// Separate from the audit's own environment so the scan cannot be affected by
+/// anything `setUpAll` does to that one, and built lazily so a suite run that
+/// skips these cases pays nothing.
+final Environment _registryForPatchScan = buildFullyRegisteredEnvironment();
 
 void main() {
   // The audit is ~600 interpreter probes, each in its own isolate. Measured at
@@ -542,6 +550,90 @@ void main() {
           'dart run tool/stdlib_member_diff.dart --baseline\n'
           'Commit the regenerated baseline together with the change that caused '
           'it, so the diff shows which members moved and why.',
+    );
+  });
+
+  test('F-SCD163-1: every bridged class declared in a patch library resolves '
+      'to a public one [2026-09-15]', () {
+    // SCD163's DONE WHEN, over the real registry rather than over a table.
+    //
+    // A `dart:_`-prefixed library cannot be imported by any program, so an
+    // import directive naming one does not resolve and the probe throws — which
+    // the audit then scores UNVERIFIED with the reason "cannot derive an
+    // import". That reads as a property of the CLASS and is a property of the
+    // TOOL, which is the distinction this audit spends most of its design on.
+    //
+    // SCC57 fixed the case it hit with a one-entry table,
+    // `{'dart:_http': 'dart:io'}`. Measured 2026-09-15: 30 bridged classes are
+    // declared in a patch library, 28 of them `dart:_http` — and the other two,
+    // `BytesBuilder` and `HttpStatus`, are `dart:_internal` and were not in the
+    // table at all. The derivation covers both without anyone writing a line.
+    final unresolved = <String>[];
+    for (final name in _registryForPatchScan.bridgedClassNames) {
+      final bridge = _registryForPatchScan.findBridgedClassByName(name);
+      if (bridge == null) continue;
+      final mirror = reflectType(bridge.nativeType);
+      if (mirror is! ClassMirror) continue;
+      final owner = mirror.owner;
+      if (owner is! LibraryMirror) continue;
+      final declaring = owner.uri.toString();
+      if (!declaring.startsWith('dart:_')) continue;
+      final typeName = MirrorSystem.getName(mirror.simpleName);
+      if (sdkReexportOwners(declaring, typeName).isEmpty &&
+          !sdkReexportOverrides.containsKey(declaring)) {
+        unresolved.add('$name ($declaring.$typeName)');
+      }
+    }
+    unresolved.sort();
+    expect(
+      unresolved,
+      isEmpty,
+      reason:
+          'These bridged classes are declared in a library no program can '
+          'import, and nothing says which public library re-exports them. The '
+          'audit will emit no import for them and score whatever depends on '
+          'them UNVERIFIED, with a reason that names the class rather than the '
+          'tool.\n  ${unresolved.join('\n  ')}\n\n'
+          'The derivation reads the SDK\'s own `export ... show` directives, so '
+          'a miss here means the re-export is NOT show-limited — add the '
+          'library to `sdkReexportOverrides` with the public library it belongs '
+          'to, and say why the derivation could not see it.',
+    );
+  });
+
+  test('F-SCD163-2: the re-export derivation answers per type, not per library '
+      '[2026-09-15]', () {
+    // F-SCD163-1 is an emptiness assertion and would pass over a derivation
+    // that returned a non-empty list for everything. These are the answers.
+    expect(
+      sdkReexportOwners('dart:_http', 'HeaderValue'),
+      ['dart:io'],
+      reason:
+          'the entry SCC57 wrote by hand, now derived — if this fails the '
+          'derivation has stopped working and the table is gone',
+    );
+    expect(
+      sdkReexportOwners('dart:_internal', 'BytesBuilder'),
+      ['dart:io', 'dart:typed_data'],
+      reason:
+          'PER TYPE, not per library: `dart:_internal` is re-exported by three '
+          'public libraries and each shows a different name, so a table keyed '
+          'on the library alone could not have answered this at all. Two homes '
+          'here, sorted so the emitted probe is reproducible — either import '
+          'resolves.',
+    );
+    expect(
+      sdkReexportOwners('dart:_internal', 'HttpStatus'),
+      ['dart:io'],
+      reason: 'the second class the one-entry table missed',
+    );
+    expect(
+      sdkReexportOwners('dart:_http', 'NotAClassInThatLibrary'),
+      isEmpty,
+      reason:
+          'an unknown name must answer nothing rather than the library\'s '
+          'other re-exporters — otherwise F-SCD163-1 passes for every class '
+          'whose library happens to re-export anything',
     );
   });
 
