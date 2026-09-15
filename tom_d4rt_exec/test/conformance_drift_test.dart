@@ -1080,6 +1080,23 @@ const Map<String, int> _uncoveredBaseline = {
   //
   // Re-port when a publish raises exec's floor past 0.109.0.
   'stdlib/io/scd187_http_response_transform_test.dart': 5,
+  // SCD189's member-kind parity guard. It reads the SDK with the ANALYZER and
+  // diffs it against the registered bridge set — a different registry here, so
+  // a port would measure the analyzer-free line's bridges against the same SDK
+  // and is a legitimate second measurement rather than a copy. It is blocked
+  // on the publish either way: the six kind fixes it was written for
+  // (StreamSubscription.onData/onDone/onError as methods, and the three
+  // fabricated methods) are in the tree and not in any release, so a port
+  // today would report them all.
+  //
+  // Measured 2026-09-15 with `dart run tool/remeasure_pins.dart --uncovered`:
+  // does-not-compile against the resolved interpreter — it imports the stdlib
+  // registrars by same-package path, and the port rewrite does not yet carry
+  // every one of them. That is a second thing to settle at the re-port, beyond
+  // the six findings.
+  //
+  // Re-port when a publish raises exec's floor past 0.110.0.
+  'stdlib/scd189_member_kind_parity_test.dart': 3,
 
   // NOT PORTABLE, and confirmed FROM THE SOURCE rather than by a run — SCD126's
   // first rule, because a structural reason is cheaper to read than to measure
@@ -1630,6 +1647,9 @@ const Map<String, String> _pinnedInterpreterFloors = <String, String>{
   // SCD187's cover for the stub deletion — same publish family, one release
   // later because the deletion landed after the floor raise.
   'stdlib/io/scd187_http_response_transform_test.dart': '0.109.0',
+  // SCD189's six kind fixes ship in 0.110.0; its guard reports every one of
+  // them against anything older.
+  'stdlib/scd189_member_kind_parity_test.dart': '0.110.0',
   // SCD92 shipped the applied-type-argument check in 0.87.0. At that floor,
   // re-port F-SCC29-21 from the reference copy (it expects a `TypeError`), and
   // check whether `scd92_applied_parameter_type_test.dart` should come with it
