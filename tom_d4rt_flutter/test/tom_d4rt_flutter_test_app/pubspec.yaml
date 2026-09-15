@@ -12,6 +12,11 @@ dependencies:
     sdk: flutter
   tom_d4rt_flutter:
     path: ../..  # parent library — provides SourceFlutterD4rt + all Flutter bridges
+  # SCD139 — declared because this app names `IsolatePermission` directly, to
+  # grant the corpus the `dart:isolate` access the source line gates. The
+  # version floor is deliberately loose: the parent library pins the
+  # interpreter, and a second constraint here would be a second thing to bump.
+  tom_d4rt: any
 
 dev_dependencies:
   flutter_test:

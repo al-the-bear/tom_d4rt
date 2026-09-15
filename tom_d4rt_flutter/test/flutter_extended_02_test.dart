@@ -257,22 +257,12 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'isolate_name_server_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'dart_ui/isolate_name_server_test.dart',
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      // IsolateNameServer requires real Dart isolate infrastructure
-      // (Isolate.spawn, cross-isolate SendPort/ReceivePort, port registration).
-      // The d4rt interpreter does not support real isolate execution — only
-      // limited async/await simulation — so this API is unavailable.
-      skip:
-          'IsolateNameServer is not supported by the d4rt interpreter '
-          '(requires real Dart isolate infrastructure)',
-    );
+    test('isolate_name_server_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'dart_ui/isolate_name_server_test.dart',
+      );
+      expect(result.success, isTrue, reason: result.error);
+    });
 
     test('key_event_device_type_test.dart', () async {
       final result = await SendTestRunner.send(

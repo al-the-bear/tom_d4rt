@@ -50,7 +50,33 @@ void main() {
         );
         expect(result.success, isTrue, reason: result.error);
       },
-      skip: !Platform.isAndroid ? 'AndroidView only renders on Android' : null,
+      // SCD139 (2026-09-15) re-derived this rather than trusting it. The
+      // original justification — added by e22671e8b on 2026-04-18, "AndroidView
+      // only renders on Android — fails everywhere else" — is the weak kind
+      // this audit exists to catch: platform-dependence alone does not justify
+      // a skip, and the script DOES guard itself (`_supportsAndroidView` gates
+      // `_status` to 'unsupported' on non-Android hosts).
+      //
+      // Removing it measured as PASSING on the hosted interpreter, which is
+      // exactly the trap. Re-measured against the working tree, where GEN-125
+      // is fixed, the script gets further and kills the companion app:
+      //
+      //     Bad state: Transport failure … HttpException: Connection closed
+      //     before full header was received
+      //
+      // So the apparent pass was one defect masking another: GEN-125's
+      // `ValueChanged` rejections short-circuited the build before it reached
+      // the platform-view channel. The real reason is the same uncatchable
+      // Objective-C `NSInvalidArgumentException` SCC47 documented for
+      // `retest/rendering/render_android_view_test.dart` — raised inside the
+      // macOS embedder, outside any Dart frame, fatal to the app and therefore
+      // to a sibling test as well.
+      //
+      // Genuine HOST-CAPABILITY guard. Stays skipped, now for the measured
+      // reason.
+      skip: !Platform.isAndroid
+          ? 'AndroidView PlatformView crashes the embedder on non-Android hosts'
+          : null,
     );
 
     test('animated_align_test.dart', () async {

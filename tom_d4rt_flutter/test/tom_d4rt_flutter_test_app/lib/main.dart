@@ -5,6 +5,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:tom_d4rt/d4rt.dart' show IsolatePermission;
 import 'package:tom_d4rt_flutter/tom_d4rt_flutter.dart';
 
 import 'interaction_controller.dart';
@@ -71,7 +72,29 @@ class _BuildResult {
 
 class _D4rtTestPageState extends State<D4rtTestPage>
     with TickerProviderStateMixin {
-  final SourceFlutterD4rt _d4rt = SourceFlutterD4rt();
+  final SourceFlutterD4rt _d4rt = _grantedInterpreter();
+
+  /// SCD139 — the corpus includes `dart_ui/isolate_name_server_test.dart`,
+  /// which uses `ReceivePort` + `IsolateNameServer` entirely within one
+  /// isolate. `dart:isolate` is permission-gated on this line, so without the
+  /// grant the script dies with
+  ///
+  ///     Access to dart:isolate requires IsolatePermission.
+  ///
+  /// That gate is why the test was skipped with the false justification that
+  /// "the d4rt interpreter does not support real isolate execution". It does;
+  /// the AST twin runs the same script green, because its module loader never
+  /// added the check (sce166 — a sandbox divergence, not something to rely on).
+  ///
+  /// Granting here is correct rather than a workaround: a harness whose entire
+  /// job is executing corpus scripts should declare the capabilities the corpus
+  /// needs, explicitly and in one place.
+  static SourceFlutterD4rt _grantedInterpreter() {
+    final d4rt = SourceFlutterD4rt();
+    d4rt.interpreter.grant(IsolatePermission.any);
+    return d4rt;
+  }
+
   final InteractionController _interactionController = InteractionController();
   HttpServer? _server;
 
@@ -113,7 +136,7 @@ class _D4rtTestPageState extends State<D4rtTestPage>
   // console with `grep '\[D4rtApp\]\[build-metric\]'`.
   Stopwatch? _buildStopwatch;
   int? _bodyMs;
-  int? _parseMs;      // source receive (no JSON decode on flutter_test)
+  int? _parseMs; // source receive (no JSON decode on flutter_test)
   int? _setStateMs;
   int? _interpretStartMs;
   int? _interpretEndMs;
@@ -155,7 +178,7 @@ class _D4rtTestPageState extends State<D4rtTestPage>
   /// port without requiring a host reboot.
   static final int _serverPort =
       int.tryParse(Platform.environment['TOM_D4RT_TEST_TEST_PORT'] ?? '') ??
-          4248;
+      4248;
 
   /// Dart VM Service URI (set asynchronously on startup; null in release mode
   /// or when the VM service is disabled).
@@ -207,13 +230,17 @@ class _D4rtTestPageState extends State<D4rtTestPage>
       // Use [_log] (debugPrint + in-app log) so the off-frame move is visible
       // in the normal console and the in-app log panel — `developer.log` is
       // swallowed by plain `flutter run`.
-      _log('[warmup] SourceFlutterD4rt.warmup() completed off-frame in '
-          '${sw.elapsedMilliseconds}ms.');
+      _log(
+        '[warmup] SourceFlutterD4rt.warmup() completed off-frame in '
+        '${sw.elapsedMilliseconds}ms.',
+      );
       // When the compile-time init profiler is on, dump the per-phase
       // breakdown so a profiling session sees the warmup cost split out.
       // Dead-code-eliminated when ProfilingMetrics.enabled is false.
       if (ProfilingMetrics.enabled) {
-        _log('[profile] ${ProfilingMetrics.report(title: "D4rt warmup profile")}');
+        _log(
+          '[profile] ${ProfilingMetrics.report(title: "D4rt warmup profile")}',
+        );
       }
     });
   }
@@ -277,7 +304,8 @@ class _D4rtTestPageState extends State<D4rtTestPage>
           'ws',
         ],
       );
-      final devToolsUri = 'https://devtools.flutter.dev/?uri='
+      final devToolsUri =
+          'https://devtools.flutter.dev/?uri='
           '${Uri.encodeQueryComponent(wsUri.toString())}';
       if (!mounted) return;
       setState(() {
@@ -292,10 +320,7 @@ class _D4rtTestPageState extends State<D4rtTestPage>
   void _handleFlutterError(FlutterErrorDetails details) {
     final message = details.exceptionAsString();
 
-    const silencedPatterns = [
-      '_dependents.isEmpty',
-      '_dependent.isEmpty',
-    ];
+    const silencedPatterns = ['_dependents.isEmpty', '_dependent.isEmpty'];
     final isSilenced = silencedPatterns.any((p) => message.contains(p));
 
     // Cleanup-trace: ALWAYS log every error that mentions `_dependents` so
@@ -412,8 +437,7 @@ class _D4rtTestPageState extends State<D4rtTestPage>
         // See flutter_ast's main.dart for the full rationale and
         // `interpreter_unfixable.md` §U30 for the architectural framing.
       ];
-      isIgnored =
-          ignoredPatterns.any((p) => message.contains(p)) || isSilenced;
+      isIgnored = ignoredPatterns.any((p) => message.contains(p)) || isSilenced;
 
       if (!isIgnored) {
         _frameworkErrors.add(message);
@@ -430,8 +454,10 @@ class _D4rtTestPageState extends State<D4rtTestPage>
             _lastError = null;
             _widgetGeneration++;
           });
-          _traceCleanup('silenced-restart',
-              'internal restart applied (generation=$_widgetGeneration)');
+          _traceCleanup(
+            'silenced-restart',
+            'internal restart applied (generation=$_widgetGeneration)',
+          );
         }
       });
     } else if (!isIgnored) {
@@ -442,8 +468,10 @@ class _D4rtTestPageState extends State<D4rtTestPage>
       // handler and printed `EXCEPTION CAUGHT BY ...` to stdout —
       // polluting per-file log captures even though the intended
       // suppression had correctly kept them out of `_frameworkErrors`.
-      _traceCleanup('forwarded',
-          'forwarding to original FlutterError handler (would show red screen)');
+      _traceCleanup(
+        'forwarded',
+        'forwarding to original FlutterError handler (would show red screen)',
+      );
       _originalFlutterErrorHandler?.call(details);
     }
   }
@@ -521,8 +549,7 @@ class _D4rtTestPageState extends State<D4rtTestPage>
 
   /// Default pump duration after mounting/unmounting a D4rt widget subtree —
   /// see equivalent docstring in flutter_ast/main.dart for full rationale.
-  static const Duration _postMutationPumpDuration =
-      Duration(milliseconds: 200);
+  static const Duration _postMutationPumpDuration = Duration(milliseconds: 200);
 
   /// Mirror of flutter_ast/main.dart::_pumpFor — schedules frames and waits
   /// for [duration] so the engine has a chance to run post-frame work
@@ -558,7 +585,9 @@ class _D4rtTestPageState extends State<D4rtTestPage>
     sw.stop();
     final fileLabel = _currentTestFile ?? '<none>';
     final widgetLabel = widgetType ?? '<no-widget>';
-    final errorTail = error == null ? '' : ' error="${error.split('\n').first}"';
+    final errorTail = error == null
+        ? ''
+        : ' error="${error.split('\n').first}"';
     debugPrint(
       '[D4rtApp][build-metric] file="$fileLabel" widgetType="$widgetLabel" '
       'bodyMs=$_bodyMs parseMs=$_parseMs setStateMs=$_setStateMs '
@@ -750,8 +779,10 @@ class _D4rtTestPageState extends State<D4rtTestPage>
           Timer(const Duration(seconds: 2), () {
             if (clearResponded) return;
             clearResponded = true;
-            _traceCleanup('clear-timeout',
-                'pump did NOT complete within 2s, responding via timeout');
+            _traceCleanup(
+              'clear-timeout',
+              'pump did NOT complete within 2s, responding via timeout',
+            );
             if (mounted) {
               _respond(request, 200, {'status': 'cleared (timeout)'});
             }
@@ -804,16 +835,15 @@ class _D4rtTestPageState extends State<D4rtTestPage>
         ? Uri.decodeComponent(filenameParam)
         : null;
     final suiteParam = request.uri.queryParameters['suite'];
-    final suite = suiteParam != null
-        ? Uri.decodeComponent(suiteParam)
-        : null;
+    final suite = suiteParam != null ? Uri.decodeComponent(suiteParam) : null;
     // testlog_20260528-2206 TODO #5 — per-request build budget override
     // (mirror of flutter_ast). Defaults to 45 s (fixed harness build budget,
     // see quest memory "Flutter corpus test rules"); slow scripts can override
     // via the test runner's `httpBuildTimeout` which threads through as
     // `&buildBudgetMs=N`. Capped at 120 s.
-    final budgetParamMs =
-        int.tryParse(request.uri.queryParameters['buildBudgetMs'] ?? '');
+    final budgetParamMs = int.tryParse(
+      request.uri.queryParameters['buildBudgetMs'] ?? '',
+    );
     final buildBudget = budgetParamMs != null
         ? Duration(milliseconds: budgetParamMs.clamp(1000, 120000))
         : const Duration(seconds: 45);
@@ -908,8 +938,9 @@ class _D4rtTestPageState extends State<D4rtTestPage>
     };
     // Init-path profiler snapshot (compile-time gated). `null` when the
     // profiler is off so the harness can omit the profiling block.
-    responseJson['_initProfile'] =
-        ProfilingMetrics.enabled ? ProfilingMetrics.snapshot() : null;
+    responseJson['_initProfile'] = ProfilingMetrics.enabled
+        ? ProfilingMetrics.snapshot()
+        : null;
     _respond(request, result.success ? 200 : 400, responseJson);
   }
 
@@ -1625,13 +1656,8 @@ class _ProfilerUriRow extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(
-            width: 64,
-            child: Text('$label:', style: labelStyle),
-          ),
-          Expanded(
-            child: SelectableText(uri, style: uriStyle, maxLines: 1),
-          ),
+          SizedBox(width: 64, child: Text('$label:', style: labelStyle)),
+          Expanded(child: SelectableText(uri, style: uriStyle, maxLines: 1)),
           Tooltip(
             message: 'Copy $label URI',
             child: InkWell(
