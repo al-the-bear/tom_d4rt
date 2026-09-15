@@ -220,11 +220,15 @@ void main() {
             await client.getUrl(Uri.parse('http://127.0.0.1:1/ignored'));
         final response = await request.close();
         // Read by folding the chunks rather than with
-        // `response.transform(utf8.decoder)`: `transform` on an
-        // `HttpClientResponse` reports "not yet implemented in interpreted
-        // environment", which is a separate gap from this one and is filed as
-        // its own todo. Folding measures the same thing without depending on
-        // it.
+        // `response.transform(utf8.decoder)`. The fold is kept for two
+        // reasons, and both survive SCD187 having made `transform` work: this
+        // case's subject is `connectionFactory`, so depending on a second
+        // bridged member would mean a failure here could be either one — and
+        // the exec copy of this file measures the PUBLISHED interpreter, where
+        // the `transform` stub is still present until the release carrying its
+        // deletion lands. The fold reads the same body on both sides.
+        // `transform` has its own cover in
+        // `stdlib/io/scd187_http_response_transform_test.dart`.
         final chunks = await response.toList();
         final bytes = <int>[];
         for (final chunk in chunks) {

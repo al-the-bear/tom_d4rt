@@ -1067,6 +1067,19 @@ const Map<String, int> _uncoveredBaseline = {
   //
   // Re-port when a publish raises exec's floor past 0.108.0.
   'stdlib/async/scd186_future_sync_value_test.dart': 5,
+  // SCD187 deleted the `HttpClientResponse.transform` stub that was shadowing
+  // the working inherited `Stream.transform`. This file is its cover, and it
+  // cannot be ported until the deletion ships: exec measures the PUBLISHED
+  // `tom_d4rt_ast`, where the stub is still present.
+  //
+  // Measured 2026-09-15 with `dart run tool/remeasure_pins.dart --uncovered`:
+  // still failing 4 of 5 — the same split as the SCD186 entry above, and for
+  // the same reason. The one that passes is F-SCD187-4, the CONTROL, which
+  // reads the body by folding chunks and never touches `transform`. A later
+  // re-port showing 5 of 5 failing would mean the fold broke too.
+  //
+  // Re-port when a publish raises exec's floor past 0.109.0.
+  'stdlib/io/scd187_http_response_transform_test.dart': 5,
 
   // NOT PORTABLE, and confirmed FROM THE SOURCE rather than by a run — SCD126's
   // first rule, because a structural reason is cheaper to read than to measure
@@ -1614,6 +1627,9 @@ const Map<String, String> _pinnedInterpreterFloors = <String, String>{
   // Same publish, same floor: this is SCD186's behaviour cover for the member
   // 0.108.0 adds. Recorded together so the re-port checklist produces both.
   'stdlib/async/scd186_future_sync_value_test.dart': '0.108.0',
+  // SCD187's cover for the stub deletion — same publish family, one release
+  // later because the deletion landed after the floor raise.
+  'stdlib/io/scd187_http_response_transform_test.dart': '0.109.0',
   // SCD92 shipped the applied-type-argument check in 0.87.0. At that floor,
   // re-port F-SCC29-21 from the reference copy (it expects a `TypeError`), and
   // check whether `scd92_applied_parameter_type_test.dart` should come with it
