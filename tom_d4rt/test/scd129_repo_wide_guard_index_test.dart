@@ -63,6 +63,8 @@ import 'dart:io';
 
 import 'package:test/test.dart';
 
+import 'sibling_trees.dart';
+
 /// Ways a test file reaches outside the package it lives in.
 ///
 /// Deliberately syntactic and deliberately incomplete. A reach this misses is a
@@ -105,6 +107,16 @@ String _name(Directory package) =>
     package.uri.pathSegments.where((s) => s.isNotEmpty).last;
 
 void main() {
+  // SCD158: this guard walks THIS repository's sibling packages, so a copy in
+  // another one would either find nothing or index a different repository.
+  // SCD200: it is also what removes the file from tom_d4rt_exec's conformance
+  // census — a port there would index the same repository a second time, which
+  // is duplication rather than coverage.
+  requirePackage(
+    'tom_d4rt',
+    subject: 'every test in this repository that reaches outside its package',
+  );
+
   if (!Directory('..').existsSync()) {
     test('SCD129: skipped — no sibling packages reachable', () {}, skip: true);
     return;

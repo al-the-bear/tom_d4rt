@@ -75,6 +75,13 @@
 ///
 ///     dart run tool/remeasure_pins.dart              # _pinnedInterpreterFloors
 ///     dart run tool/remeasure_pins.dart --uncovered  # _uncoveredBaseline
+///     dart run tool/remeasure_pins.dart --candidates scd62_nullable_is_test.dart ...
+///
+/// The third form runs the identical experiment over files in NEITHER register
+/// — what F-SCC6-2 reports when a reference test has no counterpart. `PASSES
+/// NOW` there means the port is available and should be taken; the other three
+/// verdicts each imply a different entry, and which one is not a judgement the
+/// reader should have to make from the file alone.
 library;
 
 import 'dart:convert';
@@ -97,16 +104,38 @@ Future<int> main(List<String> args) async {
   }
 
   final uncovered = args.contains('--uncovered');
-  final register = uncovered
+  // SCD200: the same experiment over files that are in NEITHER register — the
+  // reference tests F-SCC6-2 reports as having no counterpart. Deciding what to
+  // do with one of those means knowing whether its port would run, and the
+  // recipe for finding that out is this tool's whole subject. Without this mode
+  // the question was answered by hand, per file, which is how twenty-four of
+  // them accumulated unanswered.
+  final candidates = args.contains('--candidates');
+  final register = candidates
+      ? 'candidate'
+      : uncovered
       ? '_uncoveredBaseline'
       : '_pinnedInterpreterFloors';
-  final pins = uncovered
+  final pins = candidates
+      ? {
+          for (final path in args.where((a) => !a.startsWith('--')))
+            path: '(candidate)',
+        }
+      : uncovered
       ? _parseRegister(
           File(_guardPath).readAsStringSync(),
           'const Map<String, int> _uncoveredBaseline = {',
           "^\\s*'([^']+)':\\s*(\\d+),",
         )
       : _parsePins(File(_guardPath).readAsStringSync());
+  if (candidates && pins.isEmpty) {
+    stderr.writeln(
+      'No candidate paths given. Usage:\n'
+      '    dart run tool/remeasure_pins.dart --candidates '
+      '<path relative to tom_d4rt/test> ...',
+    );
+    return 2;
+  }
   if (pins.isEmpty) {
     // A scan that finds nothing "succeeds" at everything. SCD122 caught exactly
     // that failure in this file's sibling scanner, twice, so an empty parse is

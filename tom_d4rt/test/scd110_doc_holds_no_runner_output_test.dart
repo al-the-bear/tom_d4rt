@@ -54,6 +54,8 @@ import 'dart:io';
 
 import 'package:test/test.dart';
 
+import 'sibling_trees.dart';
+
 /// Paths whose SHAPE says "a program wrote this", relative to the repo root.
 ///
 /// Returns null when [path] is fine, or a one-line reason when it is runner
@@ -144,6 +146,16 @@ MOVE it, do not delete it — the results are still valid locally, and
 `testlog/` is exactly where a run would write them today.''';
 
 void main() {
+  // SCD158: the walk starts at this package and climbs to the repo root, so a
+  // copy in another package either finds nothing or re-asks the same question
+  // of the same repository. SCD200 anchored it for the second reason — a
+  // tom_d4rt_exec port passes, and passing twice about one repository is
+  // duplication rather than coverage.
+  requirePackage(
+    'tom_d4rt',
+    subject: "every package in this repository's doc/ and runner scripts",
+  );
+
   if (!_gitAvailable()) {
     // Not a git checkout: skip rather than fail. The same posture as the other
     // history-reading suites in this package.

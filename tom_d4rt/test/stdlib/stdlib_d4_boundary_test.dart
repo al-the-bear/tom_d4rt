@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:test/test.dart';
 
+import '../sibling_trees.dart';
+
 /// SCC87 — which `D4` helpers the hand-written stdlib may use.
 ///
 /// There are two ways to read a positional argument out of a bridge adapter and
@@ -27,6 +29,13 @@ import 'package:test/test.dart';
 /// SCC85's `checkArity`. `D4` is not off-limits here; the argument-READING pair
 /// specifically is.
 void main() {
+  // SCD158: `lib/src/stdlib` means THIS package's stdlib, and means something
+  // else in any other. tom_d4rt_ast carries its own copy over its own tree;
+  // SCD200 anchored this one rather than recording an exemption, because a
+  // tom_d4rt_exec port would resolve the path against a package that has no
+  // stdlib at all and fail for want of a subject.
+  requirePackage('tom_d4rt', subject: 'this package\'s stdlib bridge sources');
+
   final stdlibDir = Directory('lib/src/stdlib');
 
   /// Every `.dart` under the stdlib, as (path, source).

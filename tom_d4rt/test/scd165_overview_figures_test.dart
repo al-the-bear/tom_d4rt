@@ -35,6 +35,8 @@ import 'dart:io';
 
 import 'package:test/test.dart';
 
+import 'sibling_trees.dart';
+
 /// The quest overview this guard reads.
 ///
 /// Read rather than mirrored, for the reason `conformance_drift_test.dart`
@@ -61,6 +63,12 @@ const _historicalSample = '''
 ''';
 
 void main() {
+  // SCD158: the overview is located relative to this package, so a copy
+  // anywhere else reads a different path or none. SCD200: it is also what keeps
+  // the file out of tom_d4rt_exec's conformance census — the quest overview is
+  // one document, and a second guard over it is a second red for one cause.
+  requirePackage('tom_d4rt', subject: 'the d4rt quest overview document');
+
   group('SCD165: the quest overview carries no figure that rots', () {
     test('F-SCD165-1: the overview was found and read [2026-09-15] (PASS)', () {
       // Anti-vacuity: every case below asks whether a pattern is ABSENT, and

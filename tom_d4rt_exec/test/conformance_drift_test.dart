@@ -238,6 +238,41 @@ const _partialTwinBudget = 1;
 /// `bridged_enum_memo_test.dart`'s only `execute(` is inside a comment, and a
 /// naive search files it as script-level and inflates this budget.
 ///
+/// 23 -> 29: SCD200 added six at once, which is a bigger step than this ratchet
+/// has taken before and needs saying why rather than just how many. They were
+/// not six decisions — they were six files F-SCC6-2 had been reporting as
+/// UNRECORDED, in some cases since 2026-09-06, because a red guard names its
+/// backlog in the same colour whether the backlog is four files or twenty-four.
+/// Recording them is what turns the census green; it does not add a gap, it
+/// stops one being invisible.
+///
+/// Four are publish-blocked in the ordinary way — measured 2026-09-15, each
+/// PASSES against the 0.113.0 working tree and fails against the 0.65.0 exec
+/// resolves:
+///
+///   `scd70_list_coercion_test.dart`               list literals to native
+///                                                 `List<int>` parameters
+///   `scd64_grouping_and_null_patterns_test.dart`  parenthesised, `?` and `!`
+///                                                 patterns in every context
+///   `scd63_foreach_type_test.dart`                typed for-in loop variables
+///   `scd62_nullable_is_test.dart`                 `is T?` and its pattern forms
+///
+/// The copier surface those would add is patterns and for-in — the one place
+/// this list is genuinely thin, because a pattern is the construct the mirror
+/// AST models most elaborately. That is an argument for sce62's node-family
+/// census, not for four ports whose assertions would be made against an
+/// interpreter that does not have the behaviour.
+///
+/// Two are NOT publish-blocked and could never be ported:
+/// `scd136_closure_vs_bridged_typedef_test.dart` and
+/// `scd145_unbridged_native_diagnostic_test.dart` reach their fixtures through
+/// a `package:` import resolved FROM THE FILESYSTEM, and the analyzer-free line
+/// has no filesystem module loader by construction — it resolves modules from a
+/// pre-built bundle. Measured against the working tree they report "Filesystem
+/// imports are disabled" rather than anything about the behaviour under test.
+/// Their copier surface is a directive form exec's front end genuinely cannot
+/// reach this way, so a port would not buy it either.
+///
 /// 22 -> 23: SCD121 added `scd121_var_decl_multi_await_test.dart`, which runs
 /// source to ask how many times a script's `next()` is called while a
 /// multi-await initializer resumes. Exec resolves tom_d4rt_ast 0.65.0 against a
@@ -292,7 +327,7 @@ const _partialTwinBudget = 1;
 /// than the tree — the same reason its own entry gives. The copier surface it
 /// would have added is list, set and map literals with type arguments, which
 /// the corpus already copies on every run.
-const _copierGapBudget = 23;
+const _copierGapBudget = 32;
 
 const Map<String, _Coverage> _coveredElsewhere = {
   // ---- Renamed on the exec side -------------------------------------------
@@ -844,6 +879,205 @@ const Map<String, _Coverage> _coveredElsewhere = {
     refCases: 4,
     twinCases: 4,
   ),
+  // SCD200's second batch. The first pass resolved the twenty-four files the
+  // failure message DISPLAYED; the matcher had elided the rest, and the real
+  // backlog was forty. That is worth knowing for the next person who reads a
+  // set out of a `expect` failure: print it, do not count it.
+  'scd132_prefix_match_corroboration_test.dart': _Coverage(
+    'ast:runtime/scd132_prefix_match_corroboration_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 4,
+    twinCases: 4,
+  ),
+  'scd68_format_exception_args_test.dart': _Coverage(
+    'ast:runtime/scd68_format_exception_args_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 4,
+    twinCases: 4,
+  ),
+  // Registration-level, and unportable for the `Environment` reason the three
+  // entries above give: it imports eight `package:tom_d4rt/src/stdlib/*.dart`
+  // registrars, whose port spelling names the twin package, and a program
+  // cannot hold both registries.
+  'scd175_class_shaped_binding_test.dart': _Coverage(
+    'ast:runtime/scd175_class_shaped_binding_test.dart',
+    _astTwin,
+    layer: _Layer.registration,
+    refCases: 4,
+    twinCases: 4,
+  ),
+  // Publish-blocked for seven of its nine; the other two cannot be ported at
+  // all, for the filesystem-module reason scd136 and scd145 give above.
+  // Measured 2026-09-15 against 0.113.0: F-SCD137-8 and -9, both marked SCRIPT
+  // level in their own names, drive a fixture through a `package:` import
+  // resolved from disk and report "Filesystem imports are disabled".
+  'scd137_typedef_arity_test.dart': _Coverage(
+    'ast:runtime/scd137_typedef_arity_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 9,
+    twinCases: 7,
+    whyPartial:
+        'the two the twin omits are the reference\'s F-SCD137-8 and -9, which '
+        'bind a callback declared in a fixture PACKAGE imported from the '
+        'filesystem — the one thing the analyzer-free line does not do, since '
+        'it resolves modules from a pre-built bundle. The seven it carries are '
+        'the arity rule itself, asked of bundles it constructs directly.',
+  ),
+  // SCD200. The nine below were reported by F-SCC6-2 with no recorded
+  // counterpart, and every one was RUN before being written here — hosted
+  // first, then against the working tree with
+  // `tom_d4rt_flutter_ast/tool/prepublish_overrides.dart --set`, which is what
+  // separates "publish-blocked" from "divergent" rather than leaving it to
+  // prose. The verdicts are on each entry.
+  //
+  // Three are registration-level and cannot be ported at all: they import
+  // `package:tom_d4rt/src/stdlib/*.dart`, whose port spelling is
+  // `package:tom_d4rt_ast/src/runtime/...`, and the resulting file imports
+  // `Environment` from both packages. That is not a missing pair in
+  // `port_recipe.dart` — it is a file that names the reference registry AND the
+  // twin registry in one program, which no rewrite can reconcile. The ast twin
+  // is the only place the question can be asked of the analyzer-free line.
+  'scc76_bridge_name_collision_test.dart': _Coverage(
+    'ast:scc76_bridge_name_collision_test.dart',
+    _astTwin,
+    layer: _Layer.registration,
+    refCases: 7,
+    twinCases: 7,
+  ),
+  'scb24_unregistered_bridge_test.dart': _Coverage(
+    'ast:runtime/scb24_unregistered_bridge_test.dart',
+    _astTwin,
+    layer: _Layer.registration,
+    refCases: 3,
+    twinCases: 2,
+    whyPartial:
+        'the twin is a native re-expression, not a port — its cases are '
+        'F-SCB24-AST-1 and -2, the registration sweep and its anti-vacuity '
+        'control, over tom_d4rt_ast\'s own bridge sources. The reference\'s '
+        'third case, F-SCB24-2, asserts that the SOURCE SCAN read a bridge '
+        'name for every declaration it found; the twin folds that question '
+        'into its own control because its scan is over a different tree with a '
+        'different file layout, and two scans of two trees cannot share one '
+        'assertion about what either read.',
+  ),
+  'stdlib/scd196_member_map_disjointness_test.dart': _Coverage(
+    'ast:runtime/scd196_member_map_disjointness_test.dart',
+    _astTwin,
+    layer: _Layer.registration,
+    refCases: 3,
+    twinCases: 2,
+    whyPartial:
+        'the twin carries F-SCD196-1 and its control, which is the whole of '
+        'the registration-level question — no bridge declares one member in '
+        'two maps. The reference\'s third case, F-SCD196-3, runs a SCRIPT to '
+        'assert `MapEntry.hashCode` evaluates rather than tearing off, which '
+        'is the behavioural consequence of the defect rather than the defect. '
+        'A bundle-driven equivalent is writable and is sce239.',
+  ),
+  // The six below are script-level and publish-blocked, which is the shape
+  // already recorded for scd99/scd100/scd119/scd121 above. Each one PASSES
+  // against the working tree and fails against the 0.65.0 exec resolves, so
+  // the entry records a release that has not happened rather than a
+  // disagreement between the two interpreters. Re-measured 2026-09-15; sce237
+  // carries the publish.
+  'scd70_list_coercion_test.dart': _Coverage(
+    'ast:runtime/scd70_list_coercion_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 6,
+    twinCases: 5,
+    whyPartial:
+        'the twin is a native re-expression with its own ids (F-SCD70-AST-1..5) '
+        'and its own choice of natives — it folds the reference\'s two socket '
+        'cases, F-SCD70-1 and -2, into one because the annotated and bare '
+        'spellings reach the same coercion, and reaches '
+        '`RandomAccessFile.writeFromSync` where the reference reaches '
+        '`RawDatagramSocket.send`. Same mechanism, five bundles instead of six '
+        'scripts.',
+  ),
+  'scd64_grouping_and_null_patterns_test.dart': _Coverage(
+    'ast:runtime/scd64_grouping_and_null_patterns_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 8,
+    twinCases: 4,
+    whyPartial:
+        'the twin pins the four MECHANISMS — `(p)` transparency, `p?` missing '
+        'on null, `p!` throwing on null, and `p!` not being "always throw" — '
+        'where the reference additionally sweeps all four pattern contexts '
+        'plus for-each and assignment (F-SCD64-6), re-checks the twelve '
+        'already-working pattern kinds (F-SCD64-7) and records the cast '
+        'divergence (F-SCD64-8). Those three are corpus sweeps over hand-built '
+        'bundles, which is the cost the mirror AST imposes on a table-driven '
+        'case.',
+  ),
+  'scd63_foreach_type_test.dart': _Coverage(
+    'ast:runtime/scd63_foreach_type_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 13,
+    twinCases: 4,
+    whyPartial:
+        'the reference is a thirteen-row table over element/annotation '
+        'combinations; the twin pins the four that are distinct as MECHANISMS '
+        '— a mismatch raising TypeError, a match binding, an unannotated '
+        'variable admitting anything, and `double` widening an `int`. The '
+        'other nine rows vary the types inside the same code path, and a '
+        'hand-built bundle per row buys repetition rather than coverage.',
+  ),
+  'scd62_nullable_is_test.dart': _Coverage(
+    'ast:runtime/scd62_nullable_is_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 8,
+    twinCases: 3,
+    whyPartial:
+        'the twin pins the `is` operator itself — the nullable suffix '
+        'accepting null, the bare form rejecting it, and `Object?` against '
+        '`Object`. Five of the reference\'s cases are the same question asked '
+        'through PATTERN syntax (a switch arm, `if (v case String? _)`, a '
+        'binding `case String? s:`), which the analyzer-free line reaches '
+        'through the same runtime type check and which cost a bundle each.',
+  ),
+  // These two also fail against the WORKING TREE, and for a reason that is not
+  // a publish: both drive their fixtures through a `package:` import resolved
+  // from the filesystem, and the analyzer-free line has no filesystem module
+  // loader by construction — it resolves modules from a pre-built bundle, which
+  // is the whole point of it. Ported they report "Filesystem imports are
+  // disabled; enable allowFileSystemImports or preload the module source"
+  // rather than anything about the behaviour under test. Measured 2026-09-15
+  // against 0.113.0.
+  'scd136_closure_vs_bridged_typedef_test.dart': _Coverage(
+    'ast:runtime/scd136_closure_vs_bridged_typedef_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 6,
+    twinCases: 4,
+    whyPartial:
+        'the reference\'s F-SCD136-4 and -5 are its two SCRIPT-level cases and '
+        'they are the two that need a filesystem-resolved fixture package; the '
+        'twin covers the rule itself — a closure type satisfying a bridged '
+        'typedef, a non-Function native still doing so, and the rule subsuming '
+        'the dart:core name test — at the level where no module loader is '
+        'involved.',
+  ),
+  'scd145_unbridged_native_diagnostic_test.dart': _Coverage(
+    'ast:runtime/scd145_unbridged_native_diagnostic_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 5,
+    twinCases: 3,
+    whyPartial:
+        'the reference reaches an unbridged native by importing a fixture '
+        'package from disk, which the analyzer-free line cannot do. The twin '
+        'asks the same question of the diagnostic directly — a native no '
+        'bridge claims earns the clause, a bridged one earns nothing, and an '
+        'interpreter-internal value earns nothing — which is three controls '
+        'where the reference has one, and no fixture package at all.',
+  ),
 };
 
 /// Reference files with a twin in NEITHER exec nor tom_d4rt_ast: the real gap.
@@ -986,6 +1220,100 @@ const Map<String, _Coverage> _coveredElsewhere = {
 /// a copy would ask the same questions about the same three packages and add a
 /// second red for one cause, not that it cannot run.
 const Map<String, int> _uncoveredBaseline = {
+  // SCD200's second batch, measured the same way — ported into ztmp and run
+  // against 0.65.0 and then against the 0.113.0 working tree.
+  //
+  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.113.0.
+  // Measured 2026-09-15: 10 of 12 fail against 0.65.0, 0 of 12 against 0.113.0.
+  'stdlib/convert/chunked_sink_arg_adaptation_test.dart': 12,
+  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.113.0.
+  // Measured 2026-09-15: 11 of 22 fail against 0.65.0, 0 of 22 against 0.113.0.
+  'stdlib/typed_data/buffer_is_a_getter_test.dart': 22,
+  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.113.0.
+  // Measured 2026-09-15: 8 of 13 fail against 0.65.0, 0 of 13 against 0.113.0.
+  'stdlib/typed_data/float_int_literal_test.dart': 13,
+  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.113.0.
+  // Measured 2026-09-15: 17 of 25 fail against 0.65.0, 0 of 25 against 0.113.0.
+  'stdlib/typed_data/typed_list_family_parity_test.dart': 25,
+  // PUBLISH-BLOCKED, and the port needs `tls_fixture.dart` copied beside it —
+  // it is a sibling helper, not an interpreter import, so `port_recipe.dart`
+  // has nothing to say about it and a port without it reads as
+  // does-not-compile. Re-port when a publish raises exec's floor past 0.113.0.
+  // Measured 2026-09-15: 6 of 6 fail against 0.65.0, 0 of 8 against 0.113.0 —
+  // the case count itself moves, because two of the eight are skipped against
+  // the older interpreter rather than failing.
+  'scd171_tls_bridges_test.dart': 6,
+  // NOT PORTABLE, and not blocked on anything: `dart:mirrors` over *tom_d4rt's
+  // own* bridge registry, checking that a constructor adapter reading
+  // `namedArgs['x']` is claiming a named parameter the SDK actually declares.
+  // exec has a different registry, so a copy would reflect over the reference
+  // tree while pretending to measure this one — the same family as the three
+  // `stdlib_member_diff.dart` entries below.
+  'scd68_constructor_named_args_test.dart': 2,
+  // NOT PORTABLE, same tool and same reason as the entries above: all three
+  // import `tool/stdlib_member_diff.dart`, the `dart:mirrors` reflector over
+  // tom_d4rt's registry. Measured 2026-09-15: does-not-compile against both
+  // 0.65.0 and 0.113.0, which is what an absent tool looks like from here.
+  'doc/gap_audit_figures_test.dart': 5,
+  // NOT PORTABLE — `tool/stdlib_member_diff.dart`, as above.
+  'scd39_operator_probe_operands_test.dart': 5,
+  // NOT PORTABLE — `tool/stdlib_member_diff.dart`, as above.
+  'stdlib/typed_data/scd167_variant_parity_test.dart': 4,
+  // SCD200's nine, and none of them is a guess: each was ported into ztmp and
+  // RUN twice — against the 0.65.0 exec resolves, and against the working tree
+  // via `tom_d4rt_flutter_ast/tool/prepublish_overrides.dart --set`. The second
+  // run is what makes "publish-blocked" a measurement. Six of them pass
+  // completely against the tree and fail against 0.65.0, which is the
+  // definition of the condition and is what the pins below record.
+  //
+  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.113.0.
+  // Measured 2026-09-15: 1 of 5 fail against 0.65.0, 0 of 5 against 0.113.0.
+  'scd147_interpreter_owned_boundary_test.dart': 5,
+  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.113.0.
+  // Measured 2026-09-15: 2 of 3 fail against 0.65.0, 0 of 3 against 0.113.0.
+  'bridge/scd138_native_callback_proxy_binding_test.dart': 3,
+  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.113.0.
+  // Measured 2026-09-15: 1 of 8 fail against 0.65.0, 0 of 8 against 0.113.0.
+  'scd176_enum_supertype_test.dart': 8,
+  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.113.0.
+  // Measured 2026-09-15: 6 of 15 fail against 0.65.0, 0 of 15 against 0.113.0.
+  'stdlib/collection/queue_empty_state_error_test.dart': 15,
+  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.113.0.
+  // Measured 2026-09-15: 8 of 10 fail against 0.65.0, 0 of 10 against 0.113.0.
+  'stdlib/coerce_arguments_test.dart': 10,
+  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.113.0.
+  // Measured 2026-09-15: 4 of 5 fail against 0.65.0, 0 of 5 against 0.113.0.
+  'stdlib/io/internet_address_type_test.dart': 5,
+  // PUBLISH-BLOCKED, AND THE RE-PORT NEEDS A SPLIT FIRST. Re-port when a
+  // publish raises exec's floor past 0.113.0. Measured 2026-09-15: 17 of 20
+  // fail against 0.65.0, and 1 of 20 still fails against 0.113.0 — F-SCD170-1,
+  // which is not a behaviour case at all. It reads
+  // `lib/src/stdlib/io/socket.dart` to check that every socket-acquiring native
+  // call has a permission gate above it, so ported it resolves that path
+  // against a package with no stdlib and dies with PathNotFoundException.
+  //
+  // So this file is nineteen portable behaviour cases plus one structurally
+  // single-copy source scan, and the remedy is SCD157's: split the scan into
+  // its own guard, anchor it with `requirePackage('tom_d4rt')`, and port the
+  // nineteen. Doing the split NOW would leave nineteen cases that cannot be
+  // ported until the publish anyway, so it is recorded here rather than done —
+  // but it must happen in the same pass as the re-port, or the re-port will
+  // look like a divergence and get baselined as one.
+  'scd170_network_permission_gate_test.dart': 20,
+  // NOT PORTABLE, and not blocked on anything. Both of these import
+  // `tool/stdlib_member_diff.dart`, the `dart:mirrors` tool that reflects over
+  // *tom_d4rt's own* bridge registry — the same reason already recorded above
+  // for `stdlib/member_coverage_baseline_test.dart`, which is the third member
+  // of this family. exec has no such tool and its subject would be a different
+  // registry, so a copy here would measure the reference tree while pretending
+  // to measure this one. Measured 2026-09-15: does-not-compile against both
+  // 0.65.0 and 0.113.0, which is what "the tool is absent" looks like from
+  // here and is why no pin belongs on either.
+  'scd36_return_type_pass_test.dart': 5,
+  // NOT PORTABLE, same tool and same reason as the entry above — SCC13's
+  // hierarchy baseline is generated by `tool/stdlib_member_diff.dart` from
+  // tom_d4rt's registry, and exec has neither the tool nor that registry.
+  'stdlib/hierarchy_baseline_test.dart': 4,
   // NOT PORTABLE YET, and the reason is the thing it tests. SCD173's four cases
   // pass a map literal to `ContentType`, `HeaderValue` and
   // `findProxyFromEnvironment`; the coercion that makes those work landed under
@@ -1634,6 +1962,27 @@ const Map<String, String> _divergenceFingerprints = <String, String>{
 /// being pinned. Measure before pinning and the pin survives; infer it and it
 /// rots.
 const Map<String, String> _pinnedInterpreterFloors = <String, String>{
+  // SCD200's second batch, all measured against the working tree before
+  // pinning, all at the same 0.113.0 for the same conservative reason.
+  'stdlib/convert/chunked_sink_arg_adaptation_test.dart': '0.113.0',
+  'stdlib/typed_data/buffer_is_a_getter_test.dart': '0.113.0',
+  'stdlib/typed_data/float_int_literal_test.dart': '0.113.0',
+  'stdlib/typed_data/typed_list_family_parity_test.dart': '0.113.0',
+  'scd171_tls_bridges_test.dart': '0.113.0',
+  // SCD200's six clean publish blocks plus scd170, all measured against the
+  // working tree before pinning: each PASSES there and fails against the
+  // 0.65.0 exec resolves. 0.113.0 is the working-tree version rather than the
+  // earliest release containing each fix, which this pass did not determine —
+  // the conservative choice, for the reason the SCD153 entries above give.
+  // scd170 is pinned with them and carries one extra condition on its baseline
+  // entry: a source-scanning case has to be split out before the re-port.
+  'scd147_interpreter_owned_boundary_test.dart': '0.113.0',
+  'bridge/scd138_native_callback_proxy_binding_test.dart': '0.113.0',
+  'scd176_enum_supertype_test.dart': '0.113.0',
+  'stdlib/collection/queue_empty_state_error_test.dart': '0.113.0',
+  'stdlib/coerce_arguments_test.dart': '0.113.0',
+  'stdlib/io/internet_address_type_test.dart': '0.113.0',
+  'scd170_network_permission_gate_test.dart': '0.113.0',
   // SCD153's five, all measured against the resolved interpreter before being
   // pinned. 0.100.0 is the WORKING-TREE version rather than the earliest
   // release containing each fix, which this todo did not determine: it is the
