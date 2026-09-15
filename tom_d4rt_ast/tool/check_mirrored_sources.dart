@@ -7,6 +7,8 @@
 //
 //     dart run tool/check_mirrored_sources.dart            # report and exit
 //     dart run tool/check_mirrored_sources.dart --verbose  # with the diffs
+//     dart run tool/check_mirrored_sources.dart --show <path>   # one pair,
+//                                                              # in full
 //
 // WHY IT COMPARES CODE AND NOT TEXT. The todo that filed this proposed a
 // derivation tool — generate one tree's copy from the other, as
@@ -179,8 +181,99 @@ List<String> diffFor(
   return out;
 }
 
+/// The full normalised diff for [rel] as a unified-style listing.
+///
+/// [diffFor] deliberately stops after five lines and then gives up, because
+/// what the GUARD needs is only where a pair stops agreeing. Characterising a
+/// baselined entry needs the opposite — every difference, so the reason can
+/// state what was measured rather than what the first five lines suggested.
+/// SCD208 read all thirteen entries this way.
+List<String> fullDiff(
+  String rel, {
+  String referenceRoot = kReferenceRoot,
+  String astRoot = kAstRoot,
+}) {
+  final a = stripToCode(
+    File('$referenceRoot/$rel').readAsStringSync(),
+    ast: false,
+  );
+  final b = stripToCode(File('$astRoot/$rel').readAsStringSync(), ast: true);
+
+  // Longest common subsequence over whole lines. The guard's positional
+  // comparison reports every line after an insertion as different, which is
+  // fine for "where do they stop agreeing" and useless for "what actually
+  // differs" — a single added method made environment.dart look like 136
+  // divergent lines when 8 had changed.
+  final n = a.length;
+  final m = b.length;
+  final lcs = List.generate(n + 1, (_) => List<int>.filled(m + 1, 0));
+  for (var i = n - 1; i >= 0; i--) {
+    for (var j = m - 1; j >= 0; j--) {
+      lcs[i][j] = a[i] == b[j]
+          ? lcs[i + 1][j + 1] + 1
+          : (lcs[i + 1][j] > lcs[i][j + 1] ? lcs[i + 1][j] : lcs[i][j + 1]);
+    }
+  }
+
+  final out = <String>[];
+  var i = 0;
+  var j = 0;
+  while (i < n && j < m) {
+    if (a[i] == b[j]) {
+      i++;
+      j++;
+    } else if (lcs[i + 1][j] >= lcs[i][j + 1]) {
+      out.add('- [${i + 1}] ${a[i++]}');
+    } else {
+      out.add('+ [${j + 1}] ${b[j++]}');
+    }
+  }
+  while (i < n) {
+    out.add('- [${i + 1}] ${a[i++]}');
+  }
+  while (j < m) {
+    out.add('+ [${j + 1}] ${b[j++]}');
+  }
+  return out;
+}
+
 void main(List<String> args) {
   final verbose = args.contains('--verbose');
+
+  // `--show <path>` prints one pair's full normalised diff. Reading a
+  // baselined entry is how its reason gets written, and doing that with plain
+  // `diff` shows the prose differences the guard deliberately ignores — which
+  // is most of the output and none of the subject.
+  final showAt = args.indexOf('--show');
+  if (showAt >= 0) {
+    if (showAt + 1 >= args.length) {
+      stderr.writeln(
+        '--show needs a path relative to the two roots, e.g. '
+        '`--show bridge/bridged_types.dart`',
+      );
+      exit(2);
+    }
+    final rel = args[showAt + 1];
+    if (!File('$kReferenceRoot/$rel').existsSync() ||
+        !File('$kAstRoot/$rel').existsSync()) {
+      stderr.writeln(
+        '$rel is not a mirrored pair — it is missing from one '
+        'tree. Run without --show to list what is.',
+      );
+      exit(2);
+    }
+    final lines = fullDiff(rel);
+    stdout.writeln(
+      lines.isEmpty
+          ? '$rel: the two trees agree once comments and package paths are '
+                'normalised.'
+          : '$rel: ${lines.length} differing code '
+                '${lines.length == 1 ? 'line' : 'lines'} '
+                '(- tom_d4rt, + tom_d4rt_ast)\n${lines.join('\n')}',
+    );
+    return;
+  }
+
   final paths = mirroredPaths();
   if (paths.isEmpty) {
     stderr.writeln(
