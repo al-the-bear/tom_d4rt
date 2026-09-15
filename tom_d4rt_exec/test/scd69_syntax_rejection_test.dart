@@ -69,9 +69,9 @@ Object? rejectionOf(String source) {
 }
 
 void main() {
-  group('SCD69/EXEC: malformed source never reaches the interpreter', () {
+  group('SCD69: malformed source never reaches the interpreter', () {
     test(
-      'F-SCD69-EXEC-1: a syntax error is a SourceCodeD4rtException, not a runtime '
+      'F-SCD69-1: a syntax error is a SourceCodeD4rtException, not a runtime '
       'error [2026-09-12] (PASS)',
       () {
         // Five shapes, because the parser recovers differently from each and a
@@ -107,7 +107,7 @@ void main() {
     );
 
     test(
-      'F-SCD69-EXEC-2: the message carries the analyzer diagnostic and its position '
+      'F-SCD69-2: the message carries the analyzer diagnostic and its position '
       '[2026-09-12] (PASS)',
       () {
         // A bare "could not parse" would satisfy F-SCD69-1 and tell the author
@@ -121,7 +121,7 @@ void main() {
     );
 
     test(
-      'F-SCD69-EXEC-3: the salvaged fragment does not run [2026-09-12] (PASS)',
+      'F-SCD69-3: the salvaged fragment does not run [2026-09-12] (PASS)',
       () {
         // THE CASE THE OTHERS CANNOT MAKE. `main` here is complete and valid,
         // and the garbage is behind it — so a front end that parses, keeps what
@@ -145,21 +145,18 @@ void main() {
       },
     );
 
-    test(
-      'F-SCD69-EXEC-4: warnings and lints still run [2026-09-12] (PASS)',
-      () {
-        // The rail. The check filters on ERROR severity; dropping that filter
-        // would turn an unused variable into a fatal error, which is worse than
-        // the defect this file guards. Each of these is diagnosed by the
-        // analyzer at a lower severity and each is a program somebody would
-        // reasonably write.
-        expect(run('main() { var unused = 1; return 7; }'), 7);
-        expect(run('main() { return 7; var x = 1; }'), 7);
-        expect(run('main() { var a = 1; return a + 1; }'), 2);
-      },
-    );
+    test('F-SCD69-4: warnings and lints still run [2026-09-12] (PASS)', () {
+      // The rail. The check filters on ERROR severity; dropping that filter
+      // would turn an unused variable into a fatal error, which is worse than
+      // the defect this file guards. Each of these is diagnosed by the
+      // analyzer at a lower severity and each is a program somebody would
+      // reasonably write.
+      expect(run('main() { var unused = 1; return 7; }'), 7);
+      expect(run('main() { return 7; var x = 1; }'), 7);
+      expect(run('main() { var a = 1; return a + 1; }'), 2);
+    });
 
-    test('F-SCD69-EXEC-5: SEMANTIC errors are not the front end\'s job '
+    test('F-SCD69-5: SEMANTIC errors are not the front end\'s job '
         '[2026-09-12] (PASS)', () {
       // The front end parses without resolving, so it sees syntax and nothing
       // else. An undefined name is legal Dart syntax and reaches the
@@ -180,7 +177,7 @@ void main() {
       );
     });
 
-    test('F-SCD69-EXEC-6: an imported module is rejected too, and named '
+    test('F-SCD69-6: an imported module is rejected too, and named '
         '[2026-09-12] (PASS)', () {
       // The front end parses the entry script AND every module it loads, so
       // the rejection has to reach both. This is the half a test written

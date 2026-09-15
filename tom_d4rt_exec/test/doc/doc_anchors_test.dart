@@ -17,11 +17,6 @@ import 'package:test/test.dart';
 /// check — the breakage arrived with the initial group-repo import and survived
 /// every edit since, which is the argument that a human check does not happen.
 ///
-/// PER-PACKAGE BY DESIGN. Each copy walks its OWN  — the paths are
-/// relative to the package root, so this is one of the cases SCD158 describes
-/// where a ported structural test changes subject, and here that is the point:
-/// exec carried two of the dead anchors in its own copy of BRIDGING_GUIDE.md.
-///
 /// SLUGIFICATION follows GitHub's rule, which is what these files are read
 /// with: lowercase, drop everything that is not a word character, whitespace or
 /// hyphen, then spaces to hyphens. Backticks are stripped BEFORE punctuation so

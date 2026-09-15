@@ -88,6 +88,25 @@ const List<PortImport> portImports = <PortImport>[
     'package:tom_d4rt/src/bridge/bridged_enum.dart',
     'package:tom_d4rt_ast/src/runtime/bridge/bridged_enum.dart',
   ),
+  // SCD153: `bridge/d4_helpers_test.dart` reaches the core stdlib registrar
+  // directly, to register `int` / `String` before exercising the D4 helpers
+  // against them. The same `src/` pattern as the four pairs above, and the same
+  // reason for normalising rather than baselining — with the import pair in
+  // place the two copies are byte-identical, so an entry would have bought a
+  // standing exemption for a file that asserts exactly the same things.
+  //
+  // The file needed one other change to become a port, which is worth recording
+  // because it is the shape a reader will meet again: exec's copy was importing
+  // `package:tom_d4rt_ast/runtime.dart` plus an explicit `generator/d4.dart`,
+  // where the reference imports the public `d4rt.dart` alone. Exec's own public
+  // library re-exports `D4`, so reaching past it was never necessary — and a
+  // port that imports a DIFFERENT public surface from its reference is not
+  // measuring the same thing.
+  PortImport(
+    '@CORE_STDLIB@',
+    'package:tom_d4rt/src/stdlib/core.dart',
+    'package:tom_d4rt_ast/src/runtime/stdlib/core.dart',
+  ),
 ];
 
 /// [source] with every interpreter import collapsed to its token, so the two

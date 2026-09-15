@@ -790,8 +790,8 @@ const Map<String, _Coverage> _coveredElsewhere = {
     'ast:scc51_shadowed_adapter_test.dart',
     _astTwin,
     layer: _Layer.script,
-    refCases: 8,
-    twinCases: 8,
+    refCases: 9,
+    twinCases: 9,
   ),
   'warm_parent_lazy_class_test.dart': _Coverage(
     'ast:runtime/warm_parent_lazy_class_test.dart',
@@ -1322,6 +1322,45 @@ const Map<String, _Convergence> _convergenceLog = {
 /// re-measure the whole register when the floor moves, not the entry you
 /// happened to be reading.
 const Map<String, _Divergence> _divergentBaseline = {
+  // SCD153 found these five by opening this suite after three turns that had
+  // no reason to — the lag this file's reference-side twin
+  // (`tom_d4rt/test/scd153_conformance_drift_mirror_test.dart`) now closes.
+  // Every one was PORTED and RUN against the resolved interpreter before being
+  // recorded, per the discipline [_pinnedInterpreterFloors] demands; four of
+  // the nine unbaselined divergences SCD153 measured passed when ported and
+  // were converged instead of landing here.
+  //
+  // `scc20`: the reference copy asserts `['bad', 'src', 2]` from a caught
+  // `FormatException`; the published interpreter answers `['bad', null, null]`
+  // because its bridge reads `source` and `offset` out of namedArgs while the
+  // SDK constructor takes all three positionally. SCD68 fixed the adapter.
+  // Converges at a floor past 0.100.0.
+  'scc20_catch_clause_type_test.dart': _Divergence.deliberate,
+  // `list_queue`: the reference copy expects the SDK's `StateError` from
+  // `removeFirst` on an empty queue; the published interpreter still throws
+  // `RuntimeD4rtException: Cannot removeFirst from an empty ListQueue.`, the
+  // hand-written message SCD30 removed. A script written `on StateError` does
+  // not catch it there. Converges at a floor past 0.100.0.
+  'stdlib/collection/list_queue_test.dart': _Divergence.deliberate,
+  // `queue`: the same SCD30 retarget on the `Queue` bridge — published answers
+  // `RuntimeD4rtException: Cannot removeFirst from an empty queue.` where the
+  // reference copy expects `StateError` containing 'No element'. Converges at a
+  // floor past 0.100.0.
+  'stdlib/collection/queue_test.dart': _Divergence.deliberate,
+  // `cast_from_family`: the reference copy carries SCD37's whole `newSet`
+  // section — 111 lines this copy has never had — asserting that the one
+  // bridged member taking a GENERIC function argument rejects it rather than
+  // accepting and ignoring it. Ported, its first case answers false against the
+  // published interpreter. Converges at a floor past 0.100.0.
+  'stdlib/cast_from_family_test.dart': _Divergence.deliberate,
+  // `scc12`: the only one of the five that does not fail — it HANGS. Ported and
+  // run, it span at 100% CPU for twelve minutes before being killed, so the
+  // published interpreter does not merely answer differently about `await` in a
+  // `finally`, it does not terminate. That makes this the most expensive entry
+  // to re-port carelessly: `dart test` has no wall-clock kill for a
+  // non-yielding isolate, and the run has to be killed by hand. Converges at a
+  // floor past 0.100.0.
+  'scc12_await_in_finally_test.dart': _Divergence.deliberate,
   // The reference copy's four `(legacy)` cases reach into the analyzer `D4rt`'s
   // own environment chain — `enclosing`, the static warm-parent cache keyed on
   // the allowed-set signature — and measured here they fail, because the exec
@@ -1506,6 +1545,20 @@ const Map<String, _Divergence> _divergentBaseline = {
 /// being pinned. Measure before pinning and the pin survives; infer it and it
 /// rots.
 const Map<String, String> _pinnedInterpreterFloors = <String, String>{
+  // SCD153's five, all measured against the resolved interpreter before being
+  // pinned. 0.100.0 is the WORKING-TREE version rather than the earliest
+  // release containing each fix, which this todo did not determine: it is the
+  // conservative choice — every one of the five is certainly fixed by then, and
+  // a pin that is too late produces a re-port checklist a release later, where
+  // one that is too early produces a checklist that fails and teaches the next
+  // reader to distrust the register.
+  'scc20_catch_clause_type_test.dart': '0.100.0',
+  'stdlib/collection/list_queue_test.dart': '0.100.0',
+  'stdlib/collection/queue_test.dart': '0.100.0',
+  'stdlib/cast_from_family_test.dart': '0.100.0',
+  // Re-port this one LAST and expect to babysit it: ported against 0.65.0 it
+  // hangs rather than failing, so a green checklist run cannot be assumed.
+  'scc12_await_in_finally_test.dart': '0.100.0',
   // SCD74 measured both of these against published 0.65.0 before pinning them.
   // When the floor reaches either version, F-SCC43-1 produces the re-port
   // checklist — and re-measure BOTH, not just the one that came due.

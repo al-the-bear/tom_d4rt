@@ -9,10 +9,9 @@
 /// - "Invalid parameter elevation: expected double?, got int"
 /// - Type coercion for widget parameters
 import 'package:test/test.dart';
-import 'package:tom_d4rt_ast/runtime.dart';
+import 'package:tom_d4rt_exec/d4rt.dart';
 // The stdlib registrars are not part of the published surface, so `CoreStdlib`
 // is reached by same-package path rather than by widening the barrel for a test.
-import 'package:tom_d4rt_ast/src/runtime/generator/d4.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/core.dart';
 
 void main() {
