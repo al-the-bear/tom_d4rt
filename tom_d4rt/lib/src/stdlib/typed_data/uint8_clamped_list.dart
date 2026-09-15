@@ -182,6 +182,7 @@ class Uint8ClampedListTypedData {
       // reach `List`, so pruning this spread looks safe and is not.
       ...inheritedListMethods<int>(
         (t) => t as Uint8ClampedList,
+        className: 'Uint8ClampedList',
         unmodifiableView: (t) => (t as Uint8ClampedList).asUnmodifiableView(),
       ),
     },

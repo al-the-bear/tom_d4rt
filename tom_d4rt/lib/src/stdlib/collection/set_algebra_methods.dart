@@ -44,16 +44,19 @@ Map<String, BridgedMethodAdapter> setAlgebraMethods(
 
   return {
     'difference': (visitor, target, positionalArgs, namedArgs, _) {
+      D4.checkArity(positionalArgs, '$className.difference', atMost: 1);
       return coerce(
         target,
       ).difference(requireSet(positionalArgs[0], 'difference'));
     },
     'intersection': (visitor, target, positionalArgs, namedArgs, _) {
+      D4.checkArity(positionalArgs, '$className.intersection', atMost: 1);
       return coerce(
         target,
       ).intersection(requireSet(positionalArgs[0], 'intersection'));
     },
     'union': (visitor, target, positionalArgs, namedArgs, _) {
+      D4.checkArity(positionalArgs, '$className.union', atMost: 1);
       return coerce(target).union(requireSet(positionalArgs[0], 'union'));
     },
   };

@@ -34,6 +34,7 @@ class SocketIo {
         return (target as Socket).close();
       },
       'add': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.add', atMost: 1);
         if (positionalArgs.isEmpty) {
           throw ArgumentD4rtException('Socket.add requires data');
         }
@@ -55,6 +56,7 @@ class SocketIo {
         return null;
       },
       'addError': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.addError', atMost: 2);
         if (positionalArgs.isEmpty) {
           throw ArgumentD4rtException('Socket.addError requires error');
         }
@@ -70,6 +72,7 @@ class SocketIo {
         return (target as Socket).transform(separator.cast());
       },
       'addStream': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.addStream', atMost: 1);
         if (positionalArgs.isEmpty) {
           throw ArgumentD4rtException('Socket.addStream requires stream');
         }
@@ -78,6 +81,7 @@ class SocketIo {
         );
       },
       'write': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.write', atMost: 1);
         if (positionalArgs.isEmpty) {
           throw ArgumentD4rtException('Socket.write requires object');
         }
@@ -91,6 +95,7 @@ class SocketIo {
         return null;
       },
       'writeAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.writeAll', atMost: 2);
         if (positionalArgs.isEmpty) {
           throw ArgumentD4rtException('Socket.writeAll requires objects');
         }
@@ -102,6 +107,7 @@ class SocketIo {
         return null;
       },
       'writeCharCode': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.writeCharCode', atMost: 1);
         if (positionalArgs.isEmpty) {
           throw ArgumentD4rtException('Socket.writeCharCode requires charCode');
         }
@@ -109,6 +115,7 @@ class SocketIo {
         return null;
       },
       'setOption': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.setOption', atMost: 2);
         if (positionalArgs.length < 2) {
           throw ArgumentD4rtException(
             'Socket.setOption requires option and enabled',
@@ -120,6 +127,7 @@ class SocketIo {
         );
       },
       'getRawOption': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.getRawOption', atMost: 1);
         if (positionalArgs.isEmpty) {
           throw ArgumentD4rtException('Socket.getRawOption requires option');
         }
@@ -128,6 +136,7 @@ class SocketIo {
         );
       },
       'setRawOption': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.setRawOption', atMost: 1);
         if (positionalArgs.length < 2) {
           throw ArgumentD4rtException(
             'Socket.setRawOption requires option and value',
@@ -279,6 +288,7 @@ class SocketIo {
             namedArgs,
           ),
       'asyncMap': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.asyncMap', atMost: 1);
         if (positionalArgs.isEmpty || positionalArgs[0] is! Callable) {
           throw RuntimeD4rtException(
             'Socket.asyncMap requires a convert function.',
@@ -290,6 +300,7 @@ class SocketIo {
         );
       },
       'asyncExpand': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.asyncExpand', atMost: 1);
         if (positionalArgs.isEmpty || positionalArgs[0] is! Callable) {
           throw RuntimeD4rtException(
             'Socket.asyncExpand requires a convert function.',
@@ -302,6 +313,7 @@ class SocketIo {
         });
       },
       'handleError': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.handleError', atMost: 1);
         if (positionalArgs.isEmpty || positionalArgs[0] is! Callable) {
           throw RuntimeD4rtException(
             'Socket.handleError requires an onError function.',
@@ -321,6 +333,7 @@ class SocketIo {
         );
       },
       'timeout': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.timeout', atMost: 1);
         if (positionalArgs.isEmpty || positionalArgs[0] is! Duration) {
           throw RuntimeD4rtException('Socket.timeout requires a Duration.');
         }
@@ -500,6 +513,7 @@ class InternetAddressIo {
     typeParameterCount: 0,
     staticMethods: {
       'lookup': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'InternetAddress.lookup', atMost: 1);
         if (positionalArgs.isEmpty) {
           throw ArgumentD4rtException('InternetAddress.lookup requires host');
         }
@@ -515,6 +529,11 @@ class InternetAddressIo {
         return InternetAddress.lookup(host, type: type);
       },
       'fromRawAddress': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'InternetAddress.fromRawAddress',
+          atMost: 1,
+        );
         if (positionalArgs.isEmpty) {
           throw ArgumentD4rtException(
             'InternetAddress.fromRawAddress requires host',
@@ -526,6 +545,7 @@ class InternetAddressIo {
         return InternetAddress.fromRawAddress(rawAddress, type: type);
       },
       'tryParse': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'InternetAddress.tryParse', atMost: 1);
         if (positionalArgs.isEmpty) {
           throw ArgumentD4rtException(
             'InternetAddress.tryParse requires adresse',
@@ -826,6 +846,7 @@ class ServerSocketIo {
     },
     staticMethods: {
       'bind': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ServerSocket.bind', atMost: 2);
         // `dynamic address`, and deliberately so: the SDK accepts either a
         // host string or an `InternetAddress`, and its own documentation
         // uses the latter. A `toString()` here turned
@@ -925,6 +946,7 @@ class RawSocketIo {
     },
     staticMethods: {
       'connect': (visitor, positionalArgs, namedArgs, _) async {
+        D4.checkArity(positionalArgs, 'RawSocket.connect', atMost: 2);
         final host = positionalArgs[0];
         final port = positionalArgs[1] as int;
         final sourceAddress = namedArgs['sourceAddress'];
@@ -943,6 +965,7 @@ class RawSocketIo {
         );
       },
       'startConnect': (visitor, positionalArgs, namedArgs, _) async {
+        D4.checkArity(positionalArgs, 'RawSocket.startConnect', atMost: 2);
         final host = positionalArgs[0];
         final port = positionalArgs[1] as int;
         final sourceAddress = namedArgs['sourceAddress'];
@@ -994,6 +1017,7 @@ class RawServerSocketIo {
     },
     staticMethods: {
       'bind': (visitor, positionalArgs, namedArgs, _) async {
+        D4.checkArity(positionalArgs, 'RawServerSocket.bind', atMost: 2);
         final address = positionalArgs[0];
         final port = positionalArgs[1] as int;
         final backlog = namedArgs['backlog'] as int? ?? 0;
@@ -1216,6 +1240,7 @@ class RawDatagramSocketIo {
     },
     staticMethods: {
       'bind': (visitor, positionalArgs, namedArgs, _) async {
+        D4.checkArity(positionalArgs, 'RawDatagramSocket.bind', atMost: 2);
         final host = positionalArgs[0];
         final port = positionalArgs[1] as int;
         final reuseAddress = namedArgs['reuseAddress'] as bool? ?? true;

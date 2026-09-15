@@ -1,3 +1,34 @@
+## 0.114.0
+
+### Fixed - 49 stdlib adapters no longer discard a surplus argument in silence (scd204)
+
+`socket.add(data, extra)`, `list.skip(2, 3)` and 47 others read the arguments
+they wanted and returned, dropping the rest without a word. SCC85 closed 443
+adapters this way and left a residue of 23 in three files it could not label:
+two of them are helpers shared by several bridged classes — `inheritedListMethods`
+by thirteen typed-data lists, `setAlgebraMethods` by five sets — and the
+diagnostic takes a `Class.member` string that a shared helper has no way to
+name where its adapters are written.
+
+`inheritedListMethods` now takes the class name as a required parameter, threaded
+from the thirteen call sites that each already declare it two lines above. It is
+required rather than optional so a new typed-data variant cannot omit it and
+report the wrong class.
+
+**The residue was larger than recorded, and the reason is a definition.** SCC85's
+sweep skipped an adapter whose body held a length test that could REJECT. That is
+the right question for a too-FEW guard and the wrong one for this: `if
+(positionalArgs.length < 2) throw …` cannot fire on a surplus, and neither can
+`positionalArgs.length > 1 ? positionalArgs[1] : null`, which yields a value
+rather than rejecting. Measured with that corrected, the three files held 49
+unguarded adapters rather than 23.
+
+Every guard is `atMost`, never `exactly`, so the generic `describeArityError`
+diagnostic keeps the too-few half — the property F-SCC85-4 pins.
+
+`tom_d4rt/test/stdlib/scd204_surplus_arity_guard_test.dart` keeps the three files
+closed in both trees and ratchets the rest.
+
 ## 0.113.0
 
 ### Fixed - a class name used as a value now compares, hashes and tests like a `Type` (scd198)

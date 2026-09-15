@@ -176,6 +176,7 @@ class Int64ListTypedData {
       // reach `List`, so pruning this spread looks safe and is not.
       ...inheritedListMethods<int>(
         (t) => t as Int64List,
+        className: 'Int64List',
         unmodifiableView: (t) => (t as Int64List).asUnmodifiableView(),
       ),
     },

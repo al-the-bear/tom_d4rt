@@ -176,6 +176,7 @@ class Float32ListTypedData {
       // reach `List`, so pruning this spread looks safe and is not.
       ...inheritedListMethods<double>(
         (t) => t as Float32List,
+        className: 'Float32List',
         unmodifiableView: (t) => (t as Float32List).asUnmodifiableView(),
       ),
     },

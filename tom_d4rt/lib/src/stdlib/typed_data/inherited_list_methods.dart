@@ -115,13 +115,23 @@ Map<String, BridgedInstanceSetterAdapter> inheritedListSetters<E>(
 /// `asUnmodifiableView` is declared on each concrete typed-data class,
 /// not on `List<E>`, so it cannot be expressed through [coerce]. Making
 /// it required means a newly added variant cannot silently omit it.
+/// [className] names the concrete variant for the arity diagnostic. SCD204
+/// added it, and it is the reason the 21 adapters here were the residue SCC85
+/// left behind: the sweep's guard message takes a `Class.member` string, and a
+/// helper shared by thirteen bridges has no single class to name at the point
+/// an adapter is written. Every call site knows it — it is in the `name:` field
+/// of the `BridgedClass` two lines above — so this threads a value that exists
+/// rather than inventing one. Required, so a new variant cannot omit it and
+/// quietly report the wrong class.
 Map<String, BridgedMethodAdapter> inheritedListMethods<E>(
   List<E> Function(Object target) coerce, {
+  required String className,
   required Object Function(Object target) unmodifiableView,
 }) {
   return {
     // List<E> — in-place reordering (length-preserving, so supported).
     'sort': (visitor, target, positionalArgs, namedArgs, _) {
+      D4.checkArity(positionalArgs, '$className.sort', atMost: 1);
       if (positionalArgs.isEmpty || positionalArgs[0] == null) {
         coerce(target).sort();
         return null;
@@ -131,6 +141,7 @@ Map<String, BridgedMethodAdapter> inheritedListMethods<E>(
       return null;
     },
     'shuffle': (visitor, target, positionalArgs, namedArgs, _) {
+      D4.checkArity(positionalArgs, '$className.shuffle', atMost: 1);
       final random = positionalArgs.isNotEmpty ? positionalArgs[0] : null;
       coerce(target).shuffle(random as Random?);
       return null;
@@ -152,24 +163,28 @@ Map<String, BridgedMethodAdapter> inheritedListMethods<E>(
 
     // Iterable<E> — transformations.
     'map': (visitor, target, positionalArgs, namedArgs, _) {
+      D4.checkArity(positionalArgs, '$className.map', atMost: 1);
       final f = positionalArgs[0] as Callable;
       return coerce(target).map((element) {
         return f.call(visitor, [element]);
       });
     },
     'where': (visitor, target, positionalArgs, namedArgs, _) {
+      D4.checkArity(positionalArgs, '$className.where', atMost: 1);
       final test = positionalArgs[0] as Callable;
       return coerce(target).where((element) {
         return test.call(visitor, [element]) as bool;
       });
     },
     'expand': (visitor, target, positionalArgs, namedArgs, _) {
+      D4.checkArity(positionalArgs, '$className.expand', atMost: 1);
       final f = positionalArgs[0] as Callable;
       return coerce(target).expand((element) {
         return f.call(visitor, [element]) as Iterable;
       });
     },
     'followedBy': (visitor, target, positionalArgs, namedArgs, _) {
+      D4.checkArity(positionalArgs, '$className.followedBy', atMost: 1);
       return coerce(
         target,
       ).followedBy(coerceElements<E>(positionalArgs[0], 'followedBy'));
@@ -184,9 +199,11 @@ Map<String, BridgedMethodAdapter> inheritedListMethods<E>(
 
     // Iterable<E> — searches.
     'contains': (visitor, target, positionalArgs, namedArgs, _) {
+      D4.checkArity(positionalArgs, '$className.contains', atMost: 1);
       return coerce(target).contains(positionalArgs[0]);
     },
     'firstWhere': (visitor, target, positionalArgs, namedArgs, _) {
+      D4.checkArity(positionalArgs, '$className.firstWhere', atMost: 1);
       final test = positionalArgs[0] as Callable;
       final orElse = namedArgs['orElse'] as Callable?;
       return coerce(target).firstWhere(
@@ -195,6 +212,7 @@ Map<String, BridgedMethodAdapter> inheritedListMethods<E>(
       );
     },
     'lastWhere': (visitor, target, positionalArgs, namedArgs, _) {
+      D4.checkArity(positionalArgs, '$className.lastWhere', atMost: 1);
       final test = positionalArgs[0] as Callable;
       final orElse = namedArgs['orElse'] as Callable?;
       return coerce(target).lastWhere(
@@ -203,6 +221,7 @@ Map<String, BridgedMethodAdapter> inheritedListMethods<E>(
       );
     },
     'singleWhere': (visitor, target, positionalArgs, namedArgs, _) {
+      D4.checkArity(positionalArgs, '$className.singleWhere', atMost: 1);
       final test = positionalArgs[0] as Callable;
       final orElse = namedArgs['orElse'] as Callable?;
       return coerce(target).singleWhere(
@@ -211,11 +230,13 @@ Map<String, BridgedMethodAdapter> inheritedListMethods<E>(
       );
     },
     'elementAt': (visitor, target, positionalArgs, namedArgs, _) {
+      D4.checkArity(positionalArgs, '$className.elementAt', atMost: 1);
       return coerce(target).elementAt(positionalArgs[0] as int);
     },
 
     // Iterable<E> — quantifiers / iteration.
     'forEach': (visitor, target, positionalArgs, namedArgs, _) {
+      D4.checkArity(positionalArgs, '$className.forEach', atMost: 1);
       final action = positionalArgs[0] as Callable;
       for (final element in coerce(target)) {
         action.call(visitor, [element]);
@@ -223,12 +244,14 @@ Map<String, BridgedMethodAdapter> inheritedListMethods<E>(
       return null;
     },
     'reduce': (visitor, target, positionalArgs, namedArgs, _) {
+      D4.checkArity(positionalArgs, '$className.reduce', atMost: 1);
       final combine = positionalArgs[0] as Callable;
       return coerce(target).reduce((value, element) {
         return combine.call(visitor, [value, element]) as E;
       });
     },
     'fold': (visitor, target, positionalArgs, namedArgs, _) {
+      D4.checkArity(positionalArgs, '$className.fold', atMost: 2);
       final initialValue = positionalArgs[0];
       final combine = positionalArgs[1] as Callable;
       return coerce(target).fold(initialValue, (previousValue, element) {
@@ -236,18 +259,21 @@ Map<String, BridgedMethodAdapter> inheritedListMethods<E>(
       });
     },
     'every': (visitor, target, positionalArgs, namedArgs, _) {
+      D4.checkArity(positionalArgs, '$className.every', atMost: 1);
       final test = positionalArgs[0] as Callable;
       return coerce(target).every((element) {
         return test.call(visitor, [element]) as bool;
       });
     },
     'any': (visitor, target, positionalArgs, namedArgs, _) {
+      D4.checkArity(positionalArgs, '$className.any', atMost: 1);
       final test = positionalArgs[0] as Callable;
       return coerce(target).any((element) {
         return test.call(visitor, [element]) as bool;
       });
     },
     'join': (visitor, target, positionalArgs, namedArgs, _) {
+      D4.checkArity(positionalArgs, '$className.join', atMost: 1);
       final separator = positionalArgs.isNotEmpty
           ? positionalArgs[0] as String
           : '';
@@ -256,18 +282,22 @@ Map<String, BridgedMethodAdapter> inheritedListMethods<E>(
 
     // Iterable<E> — slicing.
     'take': (visitor, target, positionalArgs, namedArgs, _) {
+      D4.checkArity(positionalArgs, '$className.take', atMost: 1);
       return coerce(target).take(positionalArgs[0] as int);
     },
     'takeWhile': (visitor, target, positionalArgs, namedArgs, _) {
+      D4.checkArity(positionalArgs, '$className.takeWhile', atMost: 1);
       final test = positionalArgs[0] as Callable;
       return coerce(target).takeWhile((element) {
         return test.call(visitor, [element]) as bool;
       });
     },
     'skip': (visitor, target, positionalArgs, namedArgs, _) {
+      D4.checkArity(positionalArgs, '$className.skip', atMost: 1);
       return coerce(target).skip(positionalArgs[0] as int);
     },
     'skipWhile': (visitor, target, positionalArgs, namedArgs, _) {
+      D4.checkArity(positionalArgs, '$className.skipWhile', atMost: 1);
       final test = positionalArgs[0] as Callable;
       return coerce(target).skipWhile((element) {
         return test.call(visitor, [element]) as bool;
@@ -276,11 +306,13 @@ Map<String, BridgedMethodAdapter> inheritedListMethods<E>(
 
     // List<E> — non-mutating read APIs.
     'indexOf': (visitor, target, positionalArgs, namedArgs, _) {
+      D4.checkArity(positionalArgs, '$className.indexOf', atMost: 2);
       final element = positionalArgs[0] as E;
       final start = positionalArgs.length > 1 ? positionalArgs[1] as int : 0;
       return coerce(target).indexOf(element, start);
     },
     'lastIndexOf': (visitor, target, positionalArgs, namedArgs, _) {
+      D4.checkArity(positionalArgs, '$className.lastIndexOf', atMost: 2);
       final element = positionalArgs[0] as E;
       final start = positionalArgs.length > 1
           ? positionalArgs[1] as int?
@@ -288,6 +320,7 @@ Map<String, BridgedMethodAdapter> inheritedListMethods<E>(
       return coerce(target).lastIndexOf(element, start);
     },
     'indexWhere': (visitor, target, positionalArgs, namedArgs, _) {
+      D4.checkArity(positionalArgs, '$className.indexWhere', atMost: 2);
       final test = positionalArgs[0] as Callable;
       final start = positionalArgs.length > 1 ? positionalArgs[1] as int : 0;
       return coerce(
@@ -295,6 +328,7 @@ Map<String, BridgedMethodAdapter> inheritedListMethods<E>(
       ).indexWhere((element) => test.call(visitor, [element]) as bool, start);
     },
     'lastIndexWhere': (visitor, target, positionalArgs, namedArgs, _) {
+      D4.checkArity(positionalArgs, '$className.lastIndexWhere', atMost: 2);
       final test = positionalArgs[0] as Callable;
       final start = positionalArgs.length > 1
           ? positionalArgs[1] as int?

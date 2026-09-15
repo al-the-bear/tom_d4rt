@@ -176,6 +176,7 @@ class Int16ListTypedData {
       // reach `List`, so pruning this spread looks safe and is not.
       ...inheritedListMethods<int>(
         (t) => t as Int16List,
+        className: 'Int16List',
         unmodifiableView: (t) => (t as Int16List).asUnmodifiableView(),
       ),
     },

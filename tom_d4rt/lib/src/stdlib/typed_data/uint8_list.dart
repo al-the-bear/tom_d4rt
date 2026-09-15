@@ -173,6 +173,7 @@ class Uint8ListTypedData {
       // spot-check of "typed lists" was a spot-check of the special case.
       ...inheritedListMethods<int>(
         (t) => t as Uint8List,
+        className: 'Uint8List',
         unmodifiableView: (t) => (t as Uint8List).asUnmodifiableView(),
       ),
     },

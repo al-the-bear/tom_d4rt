@@ -176,6 +176,7 @@ class Int8ListTypedData {
       // reach `List`, so pruning this spread looks safe and is not.
       ...inheritedListMethods<int>(
         (t) => t as Int8List,
+        className: 'Int8List',
         unmodifiableView: (t) => (t as Int8List).asUnmodifiableView(),
       ),
     },

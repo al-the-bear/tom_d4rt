@@ -176,6 +176,7 @@ class Float64ListTypedData {
       // reach `List`, so pruning this spread looks safe and is not.
       ...inheritedListMethods<double>(
         (t) => t as Float64List,
+        className: 'Float64List',
         unmodifiableView: (t) => (t as Float64List).asUnmodifiableView(),
       ),
     },
