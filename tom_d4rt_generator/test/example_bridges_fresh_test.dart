@@ -14,6 +14,13 @@
 //
 // then commit everything it changes — including a new `relaxers.b.dart`, which
 // the regenerated `dartscript.b.dart` imports — and delete its entry here.
+//
+// RUN IT TWICE. Generation is not a one-pass fixed point: the second run reads
+// what the first wrote and can produce a different, larger file — measured on
+// `dart_overview`, 2934 committed lines became 5144 after one run and 5960
+// after two, and 5960 is stable. A single run therefore leaves a package that
+// is still not what the generator produces from it. Regenerate until the
+// content stops changing (the `// Generated:` line always does).
 
 @Tags(['generation'])
 library;
@@ -25,13 +32,27 @@ import 'package:tom_d4rt_generator/tom_d4rt_generator.dart';
 
 /// Examples whose committed bridges predate the current generator.
 const knownStale = <String>{
+  // NOT STALE. Both were regenerated to a fixed point by `bin/d4rtgen.dart` in
+  // SCE1's sweep and `git diff` is empty for them — but this check does not run
+  // that generator. `checkBridgeFreshness` calls `generateBridges`
+  // (`src/bridge_api.dart`), and `d4rtgen` calls `_generateBridges`
+  // (`src/v2/d4rtgen_executor.dart`). The two are hand-maintained mirrors, and
+  // they no longer agree: measured on `dart_overview`, the tool emits 5960 code
+  // lines and the check's path 5144, the missing 816 being every abstract,
+  // sealed, generic and mixin class in the package — `Shape`, `SortedList`,
+  // `Bird`, `Flying` and the rest. Neither the overlay nor the starting state
+  // is responsible; both paths were measured in place, from the same fixed
+  // point, with the same config.
+  //
+  // So these two entries record a disagreement between two generators, not a
+  // stale file, and deleting them would make the ratchet demand that the tool's
+  // own output look stale. SCF1 owns collapsing the two implementations into
+  // one; when it lands, both come off and the comment goes with them.
+  //
+  // The other five examples pass because their generation happens to agree
+  // across the two paths — which is why the split went unnoticed.
   'd4',
   'dart_overview',
-  'example_project',
-  'user_guide',
-  'user_reference',
-  'userbridge_override',
-  'userbridge_user_guide',
 };
 
 void main() {

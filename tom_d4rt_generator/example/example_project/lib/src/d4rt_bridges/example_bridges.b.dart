@@ -1,8 +1,8 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 7 files
-// Generated: 2026-03-12T18:17:02.446205
+// Generated: 2026-09-17T23:04:08.190557 by tom_d4rt_generator 1.26.2
 
-// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
@@ -19,6 +19,10 @@ import 'package:d4rt_generator_example/test_classes/operator_classes.dart' as $d
 /// Bridge class for all module.
 class AllBridge {
   /// Returns all bridge class definitions.
+  ///
+  /// Eager — building every class. Prefer [bridgeClassThunks] +
+  /// [bridgeClassTypes] for lazy registration (Step #17); this remains
+  /// for diagnostics and callers that need the full list.
   static List<BridgedClass> bridgeClasses() {
     return [
       _createPersonBridge(),
@@ -45,6 +49,69 @@ class AllBridge {
       _createMatrixBridge(),
       _createDictionaryBridge(),
     ];
+  }
+
+  /// Returns deferred factory thunks keyed by class name.
+  ///
+  /// Each thunk builds one class's [BridgedClass] on demand. Plugs into
+  /// the interpreter's lazy registry via [registerBridges] (Step #17).
+  static Map<String, BridgedClass Function()> bridgeClassThunks() {
+    return {
+      'Person': _createPersonBridge,
+      'Calculator': _createCalculatorBridge,
+      'MathUtils': _createMathUtilsBridge,
+      'Result': _createResultBridge,
+      'TaskScheduler': _createTaskSchedulerBridge,
+      'AsyncService': _createAsyncServiceBridge,
+      'EventEmitter': _createEventEmitterBridge,
+      'Identifiable': _createIdentifiableBridge,
+      'Entity': _createEntityBridge,
+      'Box': _createBoxBridge,
+      'Repository': _createRepositoryBridge,
+      'Pair': _createPairBridge,
+      'Transformer': _createTransformerBridge,
+      'Shape': _createShapeBridge,
+      'Circle': _createCircleBridge,
+      'Rectangle': _createRectangleBridge,
+      'Serializable': _createSerializableBridge,
+      'Cloneable': _createCloneableBridge,
+      'Point': _createPointBridge,
+      'ColoredRectangle': _createColoredRectangleBridge,
+      'Vector2D': _createVector2DBridge,
+      'Matrix': _createMatrixBridge,
+      'Dictionary': _createDictionaryBridge,
+    };
+  }
+
+  /// Returns native [Type]s keyed by class name, parallel to
+  /// [bridgeClassThunks] (Step #17). Used to register the native-type
+  /// lookup thunk without building the BridgedClass.
+  static Map<String, Type> bridgeClassTypes() {
+    return {
+      'Person': $d4rt_generator_example_1.Person,
+      'Calculator': $d4rt_generator_example_1.Calculator,
+      'MathUtils': $d4rt_generator_example_1.MathUtils,
+      'Result': $d4rt_generator_example_2.Result,
+      'TaskScheduler': $d4rt_generator_example_2.TaskScheduler,
+      'AsyncService': $d4rt_generator_example_2.AsyncService,
+      'EventEmitter': $d4rt_generator_example_2.EventEmitter,
+      'Identifiable': $d4rt_generator_example_4.Identifiable,
+      'Entity': $d4rt_generator_example_4.Entity,
+      'Box': $d4rt_generator_example_4.Box,
+      'Repository': $d4rt_generator_example_4.Repository,
+      'Pair': $d4rt_generator_example_4.Pair,
+      'Transformer': $d4rt_generator_example_4.Transformer,
+      'Shape': $d4rt_generator_example_6.Shape,
+      'Circle': $d4rt_generator_example_6.Circle,
+      'Rectangle': $d4rt_generator_example_6.Rectangle,
+      'Serializable': $d4rt_generator_example_6.Serializable,
+      'Cloneable': $d4rt_generator_example_6.Cloneable,
+      'Point': $d4rt_generator_example_6.Point,
+      'ColoredRectangle': $d4rt_generator_example_6.ColoredRectangle,
+      'Vector2D': $d4rt_generator_example_7.Vector2D,
+      'Matrix': $d4rt_generator_example_7.Matrix,
+      'Dictionary': $d4rt_generator_example_7.Dictionary,
+    };
   }
 
   /// Returns a map of class names to their canonical source URIs.
@@ -76,6 +143,23 @@ class AllBridge {
       'Vector2D': 'package:d4rt_generator_example/test_classes/operator_classes.dart',
       'Matrix': 'package:d4rt_generator_example/test_classes/operator_classes.dart',
       'Dictionary': 'package:d4rt_generator_example/test_classes/operator_classes.dart',
+    };
+  }
+
+  /// Returns a map of class names to their flattened (transitive)
+  /// native supertype names (superclasses, interfaces and mixins).
+  ///
+  /// Fed to `BridgedClass.registerSupertypes` so interpreted subclasses
+  /// of bridged classes pass `is`/subtype checks against bridged
+  /// ancestors and the interface-proxy supertype walk resolves up the
+  /// chain.
+  static Map<String, List<String>> classSupertypes() {
+    return {
+      'Entity': ['Identifiable'],
+      'Circle': ['Shape'],
+      'Rectangle': ['Shape'],
+      'Point': ['Serializable', 'Cloneable'],
+      'ColoredRectangle': ['Rectangle', 'Shape', 'Serializable'],
     };
   }
 
@@ -127,6 +211,11 @@ class AllBridge {
             return (t as dynamic) > positional[0];
           },
         },
+        staticMethods: {
+          'fromValue': (visitor, positional, named, typeArgs) {
+            return Function.apply($d4rt_generator_example_3.Priority.fromValue, positional, named.map((k, v) => MapEntry(Symbol(k), v)));
+          },
+        },
       ),
       BridgedEnumDefinition<$d4rt_generator_example_3.Color>(
         name: 'Color',
@@ -141,6 +230,11 @@ class AllBridge {
           'isLight': (visitor, target) => (target as $d4rt_generator_example_3.Color).isLight,
           'inverted': (visitor, target) => (target as $d4rt_generator_example_3.Color).inverted,
         },
+        staticMethods: {
+          'byName': (visitor, positional, named, typeArgs) {
+            return Function.apply($d4rt_generator_example_3.Color.byName, positional, named.map((k, v) => MapEntry(Symbol(k), v)));
+          },
+        },
       ),
       BridgedEnumDefinition<$d4rt_generator_example_3.HttpMethod>(
         name: 'HttpMethod',
@@ -149,6 +243,11 @@ class AllBridge {
           'value': (visitor, target) => (target as $d4rt_generator_example_3.HttpMethod).value,
           'isIdempotent': (visitor, target) => (target as $d4rt_generator_example_3.HttpMethod).isIdempotent,
           'hasBody': (visitor, target) => (target as $d4rt_generator_example_3.HttpMethod).hasBody,
+        },
+        staticMethods: {
+          'fromString': (visitor, positional, named, typeArgs) {
+            return Function.apply($d4rt_generator_example_3.HttpMethod.fromString, positional, named.map((k, v) => MapEntry(Symbol(k), v)));
+          },
         },
       ),
       BridgedEnumDefinition<$d4rt_generator_example_3.DayOfWeek>(
@@ -161,6 +260,14 @@ class AllBridge {
           'isWeekday': (visitor, target) => (target as $d4rt_generator_example_3.DayOfWeek).isWeekday,
           'next': (visitor, target) => (target as $d4rt_generator_example_3.DayOfWeek).next,
           'previous': (visitor, target) => (target as $d4rt_generator_example_3.DayOfWeek).previous,
+        },
+        staticMethods: {
+          'fromNumber': (visitor, positional, named, typeArgs) {
+            return Function.apply($d4rt_generator_example_3.DayOfWeek.fromNumber, positional, named.map((k, v) => MapEntry(Symbol(k), v)));
+          },
+          'today': (visitor, positional, named, typeArgs) {
+            return Function.apply($d4rt_generator_example_3.DayOfWeek.today, positional, named.map((k, v) => MapEntry(Symbol(k), v)));
+          },
         },
       ),
     ];
@@ -192,17 +299,48 @@ class AllBridge {
     };
   }
 
+  /// GEN-107: Library re-exports declared by the bridged source
+  /// libraries. Each tuple mirrors a Dart `export '…'` directive.
+  /// Consumed by `registerBridges` via `D4rt.registerLibraryReExport`
+  /// (mirrored on `D4rtRunner` in tom_d4rt_ast).
+  static List<({String source, String target, Set<String>? show, Set<String>? hide})>
+  bridgeReExports() {
+    return [
+      (source: 'package:d4rt_generator_example/test_classes.dart', target: 'package:d4rt_generator_example/test_classes/basic_classes.dart', show: null, hide: null),
+      (source: 'package:d4rt_generator_example/test_classes.dart', target: 'package:d4rt_generator_example/test_classes/callback_classes.dart', show: null, hide: null),
+      (source: 'package:d4rt_generator_example/test_classes.dart', target: 'package:d4rt_generator_example/test_classes/enum_classes.dart', show: null, hide: null),
+      (source: 'package:d4rt_generator_example/test_classes.dart', target: 'package:d4rt_generator_example/test_classes/generic_classes.dart', show: null, hide: null),
+      (source: 'package:d4rt_generator_example/test_classes.dart', target: 'package:d4rt_generator_example/test_classes/global_members.dart', show: null, hide: null),
+      (source: 'package:d4rt_generator_example/test_classes.dart', target: 'package:d4rt_generator_example/test_classes/inheritance_classes.dart', show: null, hide: null),
+      (source: 'package:d4rt_generator_example/test_classes.dart', target: 'package:d4rt_generator_example/test_classes/operator_classes.dart', show: null, hide: null),
+    ];
+  }
+
   /// Registers all bridges with an interpreter.
   ///
   /// [importPath] is the package import path that D4rt scripts will use
   /// to access these classes (e.g., 'package:tom_build/tom.dart').
   static void registerBridges(D4rt interpreter, String importPath) {
-    // Register bridged classes with source URIs for deduplication
-    final classes = bridgeClasses();
+    // Step #17 — register deferred factory thunks (not pre-built
+    // BridgedClass objects): a script touching N of the M classes
+    // materializes ≈N (each thunk builds its class on first resolve).
+    final classThunks = bridgeClassThunks();
+    final classTypes = bridgeClassTypes();
     final classSources = classSourceUris();
-    for (final bridge in classes) {
-      interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
+    for (final entry in classThunks.entries) {
+      interpreter.registerBridgedClassLazy(
+        entry.key,
+        classTypes[entry.key]!,
+        entry.value,
+        importPath,
+        sourceUri: classSources[entry.key],
+      );
     }
+
+    // Register the flattened native supertype table so
+    // interpreted subclasses pass subtype checks against bridged
+    // ancestors. Idempotent — safe to call per barrel.
+    BridgedClass.registerSupertypes(classSupertypes());
 
     // Register bridged enums with source URIs for deduplication
     final enums = bridgedEnums();
@@ -226,6 +364,11 @@ class AllBridge {
     final typedefs = functionTypedefs();
     for (final name in typedefs) {
       interpreter.registerFunctionTypedef(name, importPath);
+    }
+
+    // GEN-107: Register library re-exports
+    for (final r in bridgeReExports()) {
+      interpreter.registerLibraryReExport(r.source, r.target, show: r.show, hide: r.hide);
     }
   }
 
@@ -328,7 +471,7 @@ class AllBridge {
           throw ArgumentError('findWhere: Missing required argument "predicate" at position 1');
         }
         final predicateRaw = positional[1];
-        final predicate = (dynamic p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; };
+        final predicate = ((dynamic p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; }) as bool Function(dynamic);
         return $d4rt_generator_example_5.findWhere<dynamic>(items, predicate);
       },
       'mapList': (visitor, positional, named, typeArgs) {
@@ -348,7 +491,7 @@ class AllBridge {
           throw ArgumentError('filterList: Missing required argument "predicate" at position 1');
         }
         final predicateRaw = positional[1];
-        final predicate = (dynamic p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; };
+        final predicate = ((dynamic p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; }) as bool Function(dynamic);
         return $d4rt_generator_example_5.filterList<dynamic>(items, predicate);
       },
       'reduceList': (visitor, positional, named, typeArgs) {
@@ -441,7 +584,7 @@ class AllBridge {
           throw ArgumentError('processAsync: Missing required argument "processor" at position 1');
         }
         final processorRaw = positional[1];
-        final processor = (dynamic p0) { return D4.callInterpreterCallback(visitor!, processorRaw, [p0]) as Future<dynamic>; };
+        final processor = ((dynamic p0) { return Future.value(D4.callInterpreterCallback(visitor!, processorRaw, [p0])).then((v) => v as dynamic); }) as Future<dynamic> Function(dynamic);
         return $d4rt_generator_example_5.processAsync<dynamic, dynamic>(items, processor);
       },
       'incrementCounter': (visitor, positional, named, typeArgs) {
@@ -790,28 +933,28 @@ BridgedClass _createResultBridge() {
           case int _: return $d4rt_generator_example_2.Result<int>.success(value);
           case String _: return $d4rt_generator_example_2.Result<String>.success(value);
           case bool _: return $d4rt_generator_example_2.Result<bool>.success(value);
-          case $d4rt_generator_example_1.Person _: return $d4rt_generator_example_2.Result<$d4rt_generator_example_1.Person>.success(value);
-          case $d4rt_generator_example_1.Calculator _: return $d4rt_generator_example_2.Result<$d4rt_generator_example_1.Calculator>.success(value);
-          case $d4rt_generator_example_1.MathUtils _: return $d4rt_generator_example_2.Result<$d4rt_generator_example_1.MathUtils>.success(value);
-          case $d4rt_generator_example_2.TaskScheduler _: return $d4rt_generator_example_2.Result<$d4rt_generator_example_2.TaskScheduler>.success(value);
+          case $d4rt_generator_example_6.ColoredRectangle _: return $d4rt_generator_example_2.Result<$d4rt_generator_example_6.ColoredRectangle>.success(value);
+          case $d4rt_generator_example_6.Point _: return $d4rt_generator_example_2.Result<$d4rt_generator_example_6.Point>.success(value);
+          case $d4rt_generator_example_6.Circle _: return $d4rt_generator_example_2.Result<$d4rt_generator_example_6.Circle>.success(value);
+          case $d4rt_generator_example_4.Entity _: return $d4rt_generator_example_2.Result<$d4rt_generator_example_4.Entity>.success(value);
+          case $d4rt_generator_example_6.Rectangle _: return $d4rt_generator_example_2.Result<$d4rt_generator_example_6.Rectangle>.success(value);
           case $d4rt_generator_example_2.AsyncService _: return $d4rt_generator_example_2.Result<$d4rt_generator_example_2.AsyncService>.success(value);
+          case $d4rt_generator_example_4.Box _: return $d4rt_generator_example_2.Result<$d4rt_generator_example_4.Box>.success(value);
+          case $d4rt_generator_example_1.Calculator _: return $d4rt_generator_example_2.Result<$d4rt_generator_example_1.Calculator>.success(value);
+          case $d4rt_generator_example_6.Cloneable _: return $d4rt_generator_example_2.Result<$d4rt_generator_example_6.Cloneable>.success(value);
+          case $d4rt_generator_example_7.Dictionary _: return $d4rt_generator_example_2.Result<$d4rt_generator_example_7.Dictionary>.success(value);
           case $d4rt_generator_example_2.EventEmitter _: return $d4rt_generator_example_2.Result<$d4rt_generator_example_2.EventEmitter>.success(value);
           case $d4rt_generator_example_4.Identifiable _: return $d4rt_generator_example_2.Result<$d4rt_generator_example_4.Identifiable>.success(value);
-          case $d4rt_generator_example_4.Entity _: return $d4rt_generator_example_2.Result<$d4rt_generator_example_4.Entity>.success(value);
-          case $d4rt_generator_example_4.Box _: return $d4rt_generator_example_2.Result<$d4rt_generator_example_4.Box>.success(value);
-          case $d4rt_generator_example_4.Repository _: return $d4rt_generator_example_2.Result<$d4rt_generator_example_4.Repository>.success(value);
-          case $d4rt_generator_example_4.Pair _: return $d4rt_generator_example_2.Result<$d4rt_generator_example_4.Pair>.success(value);
-          case $d4rt_generator_example_4.Transformer _: return $d4rt_generator_example_2.Result<$d4rt_generator_example_4.Transformer>.success(value);
-          case $d4rt_generator_example_6.Shape _: return $d4rt_generator_example_2.Result<$d4rt_generator_example_6.Shape>.success(value);
-          case $d4rt_generator_example_6.Circle _: return $d4rt_generator_example_2.Result<$d4rt_generator_example_6.Circle>.success(value);
-          case $d4rt_generator_example_6.Rectangle _: return $d4rt_generator_example_2.Result<$d4rt_generator_example_6.Rectangle>.success(value);
-          case $d4rt_generator_example_6.Serializable _: return $d4rt_generator_example_2.Result<$d4rt_generator_example_6.Serializable>.success(value);
-          case $d4rt_generator_example_6.Cloneable _: return $d4rt_generator_example_2.Result<$d4rt_generator_example_6.Cloneable>.success(value);
-          case $d4rt_generator_example_6.Point _: return $d4rt_generator_example_2.Result<$d4rt_generator_example_6.Point>.success(value);
-          case $d4rt_generator_example_6.ColoredRectangle _: return $d4rt_generator_example_2.Result<$d4rt_generator_example_6.ColoredRectangle>.success(value);
-          case $d4rt_generator_example_7.Vector2D _: return $d4rt_generator_example_2.Result<$d4rt_generator_example_7.Vector2D>.success(value);
+          case $d4rt_generator_example_1.MathUtils _: return $d4rt_generator_example_2.Result<$d4rt_generator_example_1.MathUtils>.success(value);
           case $d4rt_generator_example_7.Matrix _: return $d4rt_generator_example_2.Result<$d4rt_generator_example_7.Matrix>.success(value);
-          case $d4rt_generator_example_7.Dictionary _: return $d4rt_generator_example_2.Result<$d4rt_generator_example_7.Dictionary>.success(value);
+          case $d4rt_generator_example_4.Pair _: return $d4rt_generator_example_2.Result<$d4rt_generator_example_4.Pair>.success(value);
+          case $d4rt_generator_example_1.Person _: return $d4rt_generator_example_2.Result<$d4rt_generator_example_1.Person>.success(value);
+          case $d4rt_generator_example_4.Repository _: return $d4rt_generator_example_2.Result<$d4rt_generator_example_4.Repository>.success(value);
+          case $d4rt_generator_example_6.Serializable _: return $d4rt_generator_example_2.Result<$d4rt_generator_example_6.Serializable>.success(value);
+          case $d4rt_generator_example_6.Shape _: return $d4rt_generator_example_2.Result<$d4rt_generator_example_6.Shape>.success(value);
+          case $d4rt_generator_example_2.TaskScheduler _: return $d4rt_generator_example_2.Result<$d4rt_generator_example_2.TaskScheduler>.success(value);
+          case $d4rt_generator_example_4.Transformer _: return $d4rt_generator_example_2.Result<$d4rt_generator_example_4.Transformer>.success(value);
+          case $d4rt_generator_example_7.Vector2D _: return $d4rt_generator_example_2.Result<$d4rt_generator_example_7.Vector2D>.success(value);
           default: return $d4rt_generator_example_2.Result.success(value);
         }
       },
@@ -894,7 +1037,7 @@ BridgedClass _createTaskSchedulerBridge() {
           throw ArgumentError('runWithHandler: Missing required argument "onError" at position 2');
         }
         final onErrorRaw = positional[2];
-        t.runWithHandler(() { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, taskRaw, [])); }, (dynamic p0) { D4.callInterpreterCallback(visitor!, onSuccessRaw, [p0]); }, (Object p0) { D4.callInterpreterCallback(visitor!, onErrorRaw, [p0]); });
+        t.runWithHandler<Object?>(() { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, taskRaw, [])); }, (dynamic p0) { D4.callInterpreterCallback(visitor!, onSuccessRaw, [p0]); }, (Object p0) { D4.callInterpreterCallback(visitor!, onErrorRaw, [p0]); });
         return null;
       },
       'mapValues': (visitor, target, positional, named, typeArgs) {
@@ -908,7 +1051,7 @@ BridgedClass _createTaskSchedulerBridge() {
           throw ArgumentError('mapValues: Missing required argument "mapper" at position 1');
         }
         final mapperRaw = positional[1];
-        return t.mapValues(values, (dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, mapperRaw, [p0])); });
+        return t.mapValues<Object?, Object?>(values, (dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, mapperRaw, [p0])); });
       },
       'filterValues': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$d4rt_generator_example_2.TaskScheduler>(target, 'TaskScheduler');
@@ -921,7 +1064,7 @@ BridgedClass _createTaskSchedulerBridge() {
           throw ArgumentError('filterValues: Missing required argument "predicate" at position 1');
         }
         final predicateRaw = positional[1];
-        return t.filterValues(values, (dynamic p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; });
+        return t.filterValues<Object?>(values, ((dynamic p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; }) as bool Function(dynamic));
       },
       'reduceValues': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$d4rt_generator_example_2.TaskScheduler>(target, 'TaskScheduler');
@@ -934,7 +1077,7 @@ BridgedClass _createTaskSchedulerBridge() {
           throw ArgumentError('reduceValues: Missing required argument "combiner" at position 1');
         }
         final combinerRaw = positional[1];
-        return t.reduceValues(values, (dynamic p0, dynamic p1) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, combinerRaw, [p0, p1])); });
+        return t.reduceValues<Object?>(values, (dynamic p0, dynamic p1) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, combinerRaw, [p0, p1])); });
       },
     },
     staticMethods: {
@@ -1122,6 +1265,7 @@ BridgedClass _createIdentifiableBridge() {
     nativeType: $d4rt_generator_example_4.Identifiable,
     name: 'Identifiable',
     isAssignable: (v) => v is $d4rt_generator_example_4.Identifiable,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -1142,6 +1286,7 @@ BridgedClass _createEntityBridge() {
     nativeType: $d4rt_generator_example_4.Entity,
     name: 'Entity',
     isAssignable: (v) => v is $d4rt_generator_example_4.Entity,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Entity');
@@ -1191,28 +1336,28 @@ BridgedClass _createBoxBridge() {
           case int _: return $d4rt_generator_example_4.Box<int>(value);
           case String _: return $d4rt_generator_example_4.Box<String>(value);
           case bool _: return $d4rt_generator_example_4.Box<bool>(value);
-          case $d4rt_generator_example_1.Person _: return $d4rt_generator_example_4.Box<$d4rt_generator_example_1.Person>(value);
-          case $d4rt_generator_example_1.Calculator _: return $d4rt_generator_example_4.Box<$d4rt_generator_example_1.Calculator>(value);
-          case $d4rt_generator_example_1.MathUtils _: return $d4rt_generator_example_4.Box<$d4rt_generator_example_1.MathUtils>(value);
-          case $d4rt_generator_example_2.Result _: return $d4rt_generator_example_4.Box<$d4rt_generator_example_2.Result>(value);
-          case $d4rt_generator_example_2.TaskScheduler _: return $d4rt_generator_example_4.Box<$d4rt_generator_example_2.TaskScheduler>(value);
+          case $d4rt_generator_example_6.ColoredRectangle _: return $d4rt_generator_example_4.Box<$d4rt_generator_example_6.ColoredRectangle>(value);
+          case $d4rt_generator_example_6.Point _: return $d4rt_generator_example_4.Box<$d4rt_generator_example_6.Point>(value);
+          case $d4rt_generator_example_6.Circle _: return $d4rt_generator_example_4.Box<$d4rt_generator_example_6.Circle>(value);
+          case $d4rt_generator_example_4.Entity _: return $d4rt_generator_example_4.Box<$d4rt_generator_example_4.Entity>(value);
+          case $d4rt_generator_example_6.Rectangle _: return $d4rt_generator_example_4.Box<$d4rt_generator_example_6.Rectangle>(value);
           case $d4rt_generator_example_2.AsyncService _: return $d4rt_generator_example_4.Box<$d4rt_generator_example_2.AsyncService>(value);
+          case $d4rt_generator_example_1.Calculator _: return $d4rt_generator_example_4.Box<$d4rt_generator_example_1.Calculator>(value);
+          case $d4rt_generator_example_6.Cloneable _: return $d4rt_generator_example_4.Box<$d4rt_generator_example_6.Cloneable>(value);
+          case $d4rt_generator_example_7.Dictionary _: return $d4rt_generator_example_4.Box<$d4rt_generator_example_7.Dictionary>(value);
           case $d4rt_generator_example_2.EventEmitter _: return $d4rt_generator_example_4.Box<$d4rt_generator_example_2.EventEmitter>(value);
           case $d4rt_generator_example_4.Identifiable _: return $d4rt_generator_example_4.Box<$d4rt_generator_example_4.Identifiable>(value);
-          case $d4rt_generator_example_4.Entity _: return $d4rt_generator_example_4.Box<$d4rt_generator_example_4.Entity>(value);
-          case $d4rt_generator_example_4.Repository _: return $d4rt_generator_example_4.Box<$d4rt_generator_example_4.Repository>(value);
-          case $d4rt_generator_example_4.Pair _: return $d4rt_generator_example_4.Box<$d4rt_generator_example_4.Pair>(value);
-          case $d4rt_generator_example_4.Transformer _: return $d4rt_generator_example_4.Box<$d4rt_generator_example_4.Transformer>(value);
-          case $d4rt_generator_example_6.Shape _: return $d4rt_generator_example_4.Box<$d4rt_generator_example_6.Shape>(value);
-          case $d4rt_generator_example_6.Circle _: return $d4rt_generator_example_4.Box<$d4rt_generator_example_6.Circle>(value);
-          case $d4rt_generator_example_6.Rectangle _: return $d4rt_generator_example_4.Box<$d4rt_generator_example_6.Rectangle>(value);
-          case $d4rt_generator_example_6.Serializable _: return $d4rt_generator_example_4.Box<$d4rt_generator_example_6.Serializable>(value);
-          case $d4rt_generator_example_6.Cloneable _: return $d4rt_generator_example_4.Box<$d4rt_generator_example_6.Cloneable>(value);
-          case $d4rt_generator_example_6.Point _: return $d4rt_generator_example_4.Box<$d4rt_generator_example_6.Point>(value);
-          case $d4rt_generator_example_6.ColoredRectangle _: return $d4rt_generator_example_4.Box<$d4rt_generator_example_6.ColoredRectangle>(value);
-          case $d4rt_generator_example_7.Vector2D _: return $d4rt_generator_example_4.Box<$d4rt_generator_example_7.Vector2D>(value);
+          case $d4rt_generator_example_1.MathUtils _: return $d4rt_generator_example_4.Box<$d4rt_generator_example_1.MathUtils>(value);
           case $d4rt_generator_example_7.Matrix _: return $d4rt_generator_example_4.Box<$d4rt_generator_example_7.Matrix>(value);
-          case $d4rt_generator_example_7.Dictionary _: return $d4rt_generator_example_4.Box<$d4rt_generator_example_7.Dictionary>(value);
+          case $d4rt_generator_example_4.Pair _: return $d4rt_generator_example_4.Box<$d4rt_generator_example_4.Pair>(value);
+          case $d4rt_generator_example_1.Person _: return $d4rt_generator_example_4.Box<$d4rt_generator_example_1.Person>(value);
+          case $d4rt_generator_example_4.Repository _: return $d4rt_generator_example_4.Box<$d4rt_generator_example_4.Repository>(value);
+          case $d4rt_generator_example_2.Result _: return $d4rt_generator_example_4.Box<$d4rt_generator_example_2.Result>(value);
+          case $d4rt_generator_example_6.Serializable _: return $d4rt_generator_example_4.Box<$d4rt_generator_example_6.Serializable>(value);
+          case $d4rt_generator_example_6.Shape _: return $d4rt_generator_example_4.Box<$d4rt_generator_example_6.Shape>(value);
+          case $d4rt_generator_example_2.TaskScheduler _: return $d4rt_generator_example_4.Box<$d4rt_generator_example_2.TaskScheduler>(value);
+          case $d4rt_generator_example_4.Transformer _: return $d4rt_generator_example_4.Box<$d4rt_generator_example_4.Transformer>(value);
+          case $d4rt_generator_example_7.Vector2D _: return $d4rt_generator_example_4.Box<$d4rt_generator_example_7.Vector2D>(value);
           default: return $d4rt_generator_example_4.Box(value);
         }
       },
@@ -1238,7 +1383,7 @@ BridgedClass _createBoxBridge() {
           throw ArgumentError('transform: Missing required argument "transformer" at position 0');
         }
         final transformerRaw = positional[0];
-        return t.transform((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, transformerRaw, [p0])); });
+        return (t as dynamic).transform((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, transformerRaw, [p0])); });
       },
     },
     staticMethods: {
@@ -1316,7 +1461,7 @@ BridgedClass _createRepositoryBridge() {
           throw ArgumentError('findWhere: Missing required argument "predicate" at position 0');
         }
         final predicateRaw = positional[0];
-        return t.findWhere(($d4rt_generator_example_4.Identifiable p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; });
+        return (t as dynamic).findWhere((($d4rt_generator_example_4.Identifiable p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; }) as bool Function($d4rt_generator_example_4.Identifiable));
       },
       'mapAll': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$d4rt_generator_example_4.Repository>(target, 'Repository');
@@ -1325,7 +1470,7 @@ BridgedClass _createRepositoryBridge() {
           throw ArgumentError('mapAll: Missing required argument "mapper" at position 0');
         }
         final mapperRaw = positional[0];
-        return t.mapAll(($d4rt_generator_example_4.Identifiable p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, mapperRaw, [p0])); });
+        return (t as dynamic).mapAll(($d4rt_generator_example_4.Identifiable p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, mapperRaw, [p0])); });
       },
     },
     staticMethods: {
@@ -1394,7 +1539,7 @@ BridgedClass _createPairBridge() {
           throw ArgumentError('mapBoth: Missing required argument "mapSecond" at position 1');
         }
         final mapSecondRaw = positional[1];
-        return t.mapBoth((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, mapFirstRaw, [p0])); }, (dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, mapSecondRaw, [p0])); });
+        return (t as dynamic).mapBoth((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, mapFirstRaw, [p0])); }, (dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, mapSecondRaw, [p0])); });
       },
       'withFirst': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$d4rt_generator_example_4.Pair>(target, 'Pair');
@@ -1510,6 +1655,7 @@ BridgedClass _createShapeBridge() {
     nativeType: $d4rt_generator_example_6.Shape,
     name: 'Shape',
     isAssignable: (v) => v is $d4rt_generator_example_6.Shape,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -1549,6 +1695,7 @@ BridgedClass _createCircleBridge() {
     nativeType: $d4rt_generator_example_6.Circle,
     name: 'Circle',
     isAssignable: (v) => v is $d4rt_generator_example_6.Circle,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Circle');
@@ -1600,6 +1747,7 @@ BridgedClass _createRectangleBridge() {
     nativeType: $d4rt_generator_example_6.Rectangle,
     name: 'Rectangle',
     isAssignable: (v) => v is $d4rt_generator_example_6.Rectangle,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Rectangle');
@@ -1660,6 +1808,7 @@ BridgedClass _createSerializableBridge() {
     nativeType: $d4rt_generator_example_6.Serializable,
     name: 'Serializable',
     isAssignable: (v) => v is $d4rt_generator_example_6.Serializable,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -1683,6 +1832,7 @@ BridgedClass _createCloneableBridge() {
     nativeType: $d4rt_generator_example_6.Cloneable,
     name: 'Cloneable',
     isAssignable: (v) => v is $d4rt_generator_example_6.Cloneable,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -1706,6 +1856,7 @@ BridgedClass _createPointBridge() {
     nativeType: $d4rt_generator_example_6.Point,
     name: 'Point',
     isAssignable: (v) => v is $d4rt_generator_example_6.Point,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Point');
@@ -1787,6 +1938,7 @@ BridgedClass _createColoredRectangleBridge() {
     nativeType: $d4rt_generator_example_6.ColoredRectangle,
     name: 'ColoredRectangle',
     isAssignable: (v) => v is $d4rt_generator_example_6.ColoredRectangle,
+    hierarchyDepth: 3,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'ColoredRectangle');
@@ -1916,6 +2068,8 @@ BridgedClass _createVector2DBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$d4rt_generator_example_7.Vector2D>(target, 'Vector2D');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },

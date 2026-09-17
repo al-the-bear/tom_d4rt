@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Test runner for user_reference_example
-// Generated: 2026-08-04T15:47:38.168274
+// Generated: 2026-09-17T23:05:24.304419 by tom_d4rt_generator 1.26.2
 
 // ignore_for_file: avoid_print
 

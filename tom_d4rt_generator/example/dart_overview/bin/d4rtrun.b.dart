@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Test runner for dart_overview
-// Generated: 2026-06-28T13:58:03.692683
+// Generated: 2026-09-17T23:03:25.572317 by tom_d4rt_generator 1.26.2
 
 // ignore_for_file: avoid_print
 

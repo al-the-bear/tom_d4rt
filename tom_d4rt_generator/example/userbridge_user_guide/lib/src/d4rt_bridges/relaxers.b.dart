@@ -1,5 +1,5 @@
-// Generated: 2026-09-17T23:05:24.323628 by tom_d4rt_generator 1.26.2
-/// D4rt GEN-079 Relaxer Wrappers for user_reference_example
+// Generated: 2026-09-17T23:06:03.736240 by tom_d4rt_generator 1.26.2
+/// D4rt GEN-079 Relaxer Wrappers for userbridge_user_guide_example
 ///
 /// Auto-generated wrapper classes and factory functions for generic
 /// type relaxation. These enable `extractBridgedArg<Base<Arg>>` to
