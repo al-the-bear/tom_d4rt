@@ -41,10 +41,12 @@ const knownStale = <String>{
   // corrected the configuration before regenerating, so they are now generated
   // against the interpreter they actually run on.
   //
-  // `d4` is here for the same reason and reports the same four files as its
-  // namesakes in the other two packages — `core_extensions`, `dart_overview`,
-  // `test_part_of_files`, `test_callback_types` — which is what establishes
-  // the cause as the generator split rather than anything about this package.
+  // `d4` is here for the same reason. Note the other two packages' `d4`
+  // examples LEFT this list in the same sweep: theirs carry two extra
+  // generated test-runner variants that their own generator tests rewrite,
+  // and refreshing those was enough to bring the two paths back into
+  // agreement. This copy has only `bin/d4rtrun.b.dart`, so it has no such
+  // lever — which is a useful datum for SCF1, not a difference in kind.
   'd4',
   'dart_overview',
 };

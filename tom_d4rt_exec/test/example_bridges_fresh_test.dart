@@ -39,7 +39,6 @@ const knownStale = <String>{
   // not a stale file. SCF1 owns collapsing them into one; both entries go when
   // it lands. The five that left this list pass because their generation
   // happens to agree across both paths.
-  'd4',
   'dart_overview/dart_overview',
 };
 

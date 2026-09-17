@@ -51,7 +51,6 @@ const knownStale = <String>{
   //
   // The other five examples pass because their generation happens to agree
   // across the two paths — which is why the split went unnoticed.
-  'd4',
   'dart_overview',
 };
 
