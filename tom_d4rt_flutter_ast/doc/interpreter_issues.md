@@ -4175,6 +4175,73 @@ Corpus runs made to certify an interpreter change rather than to
 discover new clusters. Each entry records what was measured, against
 which resolved package versions, and what moved.
 
+### 2026-09-18 — base corpus, source twin at tom_d4rt 1.77.0 / tom_d4rt_generator 1.26.2: the extension-registry keying fix reaches `tom_d4rt_flutter`, behaviourally neutral
+
+**Why this run exists.** SCE1's regeneration sweep. `tom_d4rt_flutter`'s
+eighteen committed bridge files were the last in the repo written by a
+generator nobody could name — the skew table read `unstamped x18` — and
+regenerating them at 1.26.2 changed real content, not only the stamp. Bridge
+changes ARE exercised by the corpus (they live in the tree; only the
+interpreter comes from pub.dev), so this is the gate the quest protocol asks
+for, and it is owed for this change specifically.
+
+**What changed in the bridges.** The extension-registry keying fix, which
+`tom_d4rt_flutter_ast` received at generator 1.26.0 in the 2026-09-14 run and
+the source twin never did:
+
+    'StringCharacters'      -> 'StringCharacters@String'
+    'HtmlElementViewImpl'   -> 'HtmlElementViewImpl@HtmlElementView'
+    extDef.name ?? '<unnamed>@${extDef.onTypeName}'
+      -> '${extDef.name ?? '<unnamed>'}@${extDef.onTypeName}'
+
+A named extension was keyed by its bare name, so two extensions of the same
+name on different target types collided. Sixteen changed lines across the
+eighteen files, plus one lint added to the ignore list.
+
+| Package | `tom_d4rt` | `tom_d4rt_ast` | `tom_d4rt_generator` |
+| ------- | ---------- | -------------- | -------------------- |
+| `tom_d4rt_flutter` | **1.77.0** | — | **1.26.2** |
+| `tom_d4rt_flutter/test/tom_d4rt_flutter_test_app` | **1.77.0** | — | — |
+| `tom_d4rt_flutter_ast` | **1.77.0** | **0.65.0** | **1.26.2** |
+| `tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app` | — | **0.65.0** | — |
+
+The source twin's rows are read from the run's own `metrics.txt` attribution
+header, not recollected. The AST twin's are read from its lockfiles: it was
+not run here, and its rows are recorded anyway because this is now the newest
+entry and therefore the one a later run is compared against — SCD65-1 holds
+every entry to naming both companion apps for exactly that reason. The
+interpreter pair is unchanged from the 2026-09-15 entry; only
+`tom_d4rt_generator` moved, 1.26.0 → 1.26.2.
+
+**Method.** `./test/run_base_tests.sh sce1-src`, `IDLE_TIMEOUT=300`,
+`D4RT_SKIP_BRIDGE_REGEN=1`. One twin only, and the reason is stated rather
+than skipped over: `tom_d4rt_flutter_ast`'s bridges are BYTE-IDENTICAL after
+this regeneration — the only change in its eighteen files is the
+`// Generated:` line — so its corpus result cannot have moved, and the
+2026-09-15 entry above still certifies it.
+
+**Result — base corpus (17 files).**
+
+| | source twin |
+| --- | --- |
+| pass / skip / fail | **927 / 1 / 0** |
+
+Identical to the 2026-09-15 and 2026-09-14 base entries, cell for cell. The
+one skip is `flutter_base_15`'s, unchanged.
+
+**One file had to be re-run, and it was infrastructure, not a result.**
+`flutter_base_01` reported `exit=1 +0 -1` inside the sweep with
+
+    error: accessing build database … XCBuildData/build.db: database is
+    locked  Possibly there are two concurrent builds running in the same
+    filesystem location
+
+— the companion app never came up, so no script executed. Re-run alone on a
+quiet host it gives `+71`, the baseline figure, which is what the 927 above
+includes. Recorded rather than quietly re-run: a `-1` on the first file of a
+sweep is exactly the shape a real regression takes, and the discriminator is
+the log, not the number.
+
 ### 2026-09-15 — BOTH corpora, BOTH twins at tom_d4rt 1.77.0 / tom_d4rt_ast 0.65.0: SCC29 has no corpus fallout of its own (GEN-125 is all of it), and SCC33's backstop fires nowhere
 
 **Why this run exists.** SCD91 held SCC29's DONE WHEN clause — the bridge
