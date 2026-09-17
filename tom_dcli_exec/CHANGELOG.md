@@ -1,3 +1,16 @@
+## 1.3.0
+
+### Changed — eight stale bridge files regenerated at generator 1.26.2 (sce1)
+
+This package was recorded FRESH in the 2026-09-11 bridge survey and was not.
+Its own `bridges_fresh_test.dart` reported eight stale files — every bridge
+module, the relaxers, the dartscript and the test runner — two of them outside
+`lib/src/bridges`, where a regeneration scoped by directory would have missed
+them.
+
+All eight are now what the generator produces, and the freshness gate passes
+for the first time.
+
 ## 1.2.2
 
 ### Changed — formatted the tree once (scd82)

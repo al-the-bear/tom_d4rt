@@ -1,3 +1,24 @@
+## 1.3.0
+
+### Changed — the extension registry keys a named extension by name AND target type (sce1)
+
+Regenerated at `tom_d4rt_generator` 1.26.2. These eighteen bridge files were
+the last in the repo whose writer could not be named — they predate the
+generator's version stamping — and unlike every other package in that sweep
+the content moved rather than only the stamp:
+
+    'StringCharacters'    -> 'StringCharacters@String'
+    'HtmlElementViewImpl' -> 'HtmlElementViewImpl@HtmlElementView'
+
+A NAMED extension was keyed by its bare name, so two extensions of the same
+name on different target types collided. `tom_d4rt_flutter_ast` received this
+at generator 1.26.0; this package never did, and the twins are now on the same
+generator and the same keying.
+
+Verified by the bridge corpus, which is the right gate for a bridge change:
+base corpus 927 / 1 / 0, identical to the two preceding recorded runs cell for
+cell.
+
 ## 1.2.3
 
 ### Fixed - a script subclass now binds as itself after a round trip (scd138 / GEN-126)

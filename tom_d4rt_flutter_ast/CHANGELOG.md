@@ -1,3 +1,21 @@
+## 0.6.0
+
+### Changed — bridges re-stamped at generator 1.26.2 (sce1)
+
+Regenerated as part of the workspace-wide sweep. The eighteen files are
+BYTE-IDENTICAL to their previous contents — only the `// Generated:` line
+differs — because this package already received generator 1.26.0's
+extension-registry keying fix, and 1.26.1 and 1.26.2 were a formatting pass
+and a docstring.
+
+The stamp is committed rather than reverted because it is the durable,
+in-repository record of which generator produced a file. The lockfile that
+would otherwise answer is gitignored, so without the stamp the question has no
+answer a diff can carry.
+
+No behaviour change, and no corpus run is owed: byte-identical bridges cannot
+move a corpus result.
+
 ## 0.5.2
 
 ### Fixed - a script subclass now binds as itself after a round trip (scd138 / GEN-126)
