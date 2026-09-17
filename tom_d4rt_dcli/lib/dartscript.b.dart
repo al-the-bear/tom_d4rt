@@ -1,14 +1,13 @@
 // D4rt Bridge - Generated file, do not edit
 // Dartscript registration for tom_d4rt_dcli
-// Generated: 2026-08-12T10:16:03.760373
+// Generated: 2026-09-18T01:47:58.901820 by tom_d4rt_generator 1.26.2
 
 /// D4rt Bridge Registration for tom_d4rt_dcli
 library;
 
 import 'package:tom_d4rt/d4rt.dart';
 import 'src/bridges/cli_api_bridges.b.dart' as cli_api_bridges;
-import 'src/bridges/tom_vscode_scripting_api_bridges.b.dart'
-    as tom_vscode_scripting_api_bridges;
+import 'src/bridges/tom_vscode_scripting_api_bridges.b.dart' as tom_vscode_scripting_api_bridges;
 import 'src/bridges/dcli_bridges.b.dart' as dcli_bridges;
 import 'src/bridges/path_bridges.b.dart' as path_bridges;
 import 'src/bridges/tom_chattools_bridges.b.dart' as tom_chattools_bridges;
@@ -28,24 +27,26 @@ class TomD4rtDcliBridge {
     for (final barrel in cli_api_bridges.CliApiBridge.subPackageBarrels()) {
       cli_api_bridges.CliApiBridge.registerBridges(d4rt, barrel);
     }
-    tom_vscode_scripting_api_bridges
-        .TomVscodeScriptingApiBridge.registerBridges(
+    tom_vscode_scripting_api_bridges.TomVscodeScriptingApiBridge.registerBridges(
       d4rt,
       'package:tom_vscode_scripting_api/script_globals.dart',
     );
     // Register under sub-package barrels for direct imports
-    for (final barrel
-        in tom_vscode_scripting_api_bridges
-            .TomVscodeScriptingApiBridge.subPackageBarrels()) {
-      tom_vscode_scripting_api_bridges
-          .TomVscodeScriptingApiBridge.registerBridges(d4rt, barrel);
+    for (final barrel in tom_vscode_scripting_api_bridges.TomVscodeScriptingApiBridge.subPackageBarrels()) {
+      tom_vscode_scripting_api_bridges.TomVscodeScriptingApiBridge.registerBridges(d4rt, barrel);
     }
-    dcli_bridges.DcliBridge.registerBridges(d4rt, 'package:dcli/dcli.dart');
+    dcli_bridges.DcliBridge.registerBridges(
+      d4rt,
+      'package:dcli/dcli.dart',
+    );
     // Register under sub-package barrels for direct imports
     for (final barrel in dcli_bridges.DcliBridge.subPackageBarrels()) {
       dcli_bridges.DcliBridge.registerBridges(d4rt, barrel);
     }
-    path_bridges.PathBridge.registerBridges(d4rt, 'package:path/path.dart');
+    path_bridges.PathBridge.registerBridges(
+      d4rt,
+      'package:path/path.dart',
+    );
     // Register under sub-package barrels for direct imports
     for (final barrel in path_bridges.PathBridge.subPackageBarrels()) {
       path_bridges.PathBridge.registerBridges(d4rt, barrel);
@@ -55,8 +56,7 @@ class TomD4rtDcliBridge {
       'package:tom_chattools/tom_chattools.dart',
     );
     // Register under sub-package barrels for direct imports
-    for (final barrel
-        in tom_chattools_bridges.TomChattoolsBridge.subPackageBarrels()) {
+    for (final barrel in tom_chattools_bridges.TomChattoolsBridge.subPackageBarrels()) {
       tom_chattools_bridges.TomChattoolsBridge.registerBridges(d4rt, barrel);
     }
 
@@ -70,10 +70,7 @@ class TomD4rtDcliBridge {
   static String getImportBlock() {
     final buffer = StringBuffer();
     buffer.writeln(cli_api_bridges.CliApiBridge.getImportBlock());
-    buffer.writeln(
-      tom_vscode_scripting_api_bridges
-          .TomVscodeScriptingApiBridge.getImportBlock(),
-    );
+    buffer.writeln(tom_vscode_scripting_api_bridges.TomVscodeScriptingApiBridge.getImportBlock());
     buffer.writeln(dcli_bridges.DcliBridge.getImportBlock());
     buffer.writeln(path_bridges.PathBridge.getImportBlock());
     buffer.writeln(tom_chattools_bridges.TomChattoolsBridge.getImportBlock());

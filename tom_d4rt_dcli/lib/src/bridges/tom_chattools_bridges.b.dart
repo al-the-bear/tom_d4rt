@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 7 files
-// Generated: 2026-08-12T10:16:03.748790
+// Generated: 2026-09-18T01:47:58.887548 by tom_d4rt_generator 1.26.2
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -9,18 +9,12 @@ import 'package:tom_d4rt/tom_d4rt.dart';
 import 'dart:async';
 
 import 'package:tom_chattools/src/api/chat/chat_api.dart' as $tom_chattools_1;
-import 'package:tom_chattools/src/api/chat/chat_config.dart'
-    as $tom_chattools_2;
-import 'package:tom_chattools/src/api/chat/chat_message.dart'
-    as $tom_chattools_3;
-import 'package:tom_chattools/src/api/chat/chat_receiver.dart'
-    as $tom_chattools_4;
-import 'package:tom_chattools/src/api/chat/chat_response.dart'
-    as $tom_chattools_5;
-import 'package:tom_chattools/src/api/chat/chat_settings.dart'
-    as $tom_chattools_6;
-import 'package:tom_chattools/src/telegram/telegram_config.dart'
-    as $tom_chattools_7;
+import 'package:tom_chattools/src/api/chat/chat_config.dart' as $tom_chattools_2;
+import 'package:tom_chattools/src/api/chat/chat_message.dart' as $tom_chattools_3;
+import 'package:tom_chattools/src/api/chat/chat_receiver.dart' as $tom_chattools_4;
+import 'package:tom_chattools/src/api/chat/chat_response.dart' as $tom_chattools_5;
+import 'package:tom_chattools/src/api/chat/chat_settings.dart' as $tom_chattools_6;
+import 'package:tom_chattools/src/telegram/telegram_config.dart' as $tom_chattools_7;
 
 /// Bridge class for tom_chattools module.
 class TomChattoolsBridge {
@@ -96,13 +90,11 @@ class TomChattoolsBridge {
       'ChatAttachment': 'package:tom_chattools/src/api/chat/chat_message.dart',
       'ChatResponse': 'package:tom_chattools/src/api/chat/chat_response.dart',
       'ChatReceiver': 'package:tom_chattools/src/api/chat/chat_receiver.dart',
-      'ChatReceiverInfo':
-          'package:tom_chattools/src/api/chat/chat_receiver.dart',
+      'ChatReceiverInfo': 'package:tom_chattools/src/api/chat/chat_receiver.dart',
       'ChatSettings': 'package:tom_chattools/src/api/chat/chat_settings.dart',
       'ChatApi': 'package:tom_chattools/src/api/chat/chat_api.dart',
       'ChatMessageFilter': 'package:tom_chattools/src/api/chat/chat_api.dart',
-      'TelegramChatConfig':
-          'package:tom_chattools/src/telegram/telegram_config.dart',
+      'TelegramChatConfig': 'package:tom_chattools/src/telegram/telegram_config.dart',
     };
   }
 
@@ -125,7 +117,8 @@ class TomChattoolsBridge {
   /// are registered so that code using the alias name can resolve to the
   /// bridged class under its canonical name.
   static Map<String, String> classAliases() {
-    return {};
+    return {
+    };
   }
 
   /// Returns the list of function typedef names declared in this library.
@@ -133,7 +126,8 @@ class TomChattoolsBridge {
   /// Function typedefs like `typedef VoidCallback = void Function()` are
   /// registered so that they can be used as type arguments in D4rt scripts.
   static List<String> functionTypedefs() {
-    return [];
+    return [
+    ];
   }
 
   /// Returns all bridged enum definitions.
@@ -165,100 +159,42 @@ class TomChattoolsBridge {
   static Map<String, String> enumSourceUris() {
     return {
       'ChatMessageType': 'package:tom_chattools/src/api/chat/chat_message.dart',
-      'ChatAttachmentType':
-          'package:tom_chattools/src/api/chat/chat_message.dart',
-      'ChatResponseStatus':
-          'package:tom_chattools/src/api/chat/chat_response.dart',
-      'ChatReceiverType':
-          'package:tom_chattools/src/api/chat/chat_receiver.dart',
+      'ChatAttachmentType': 'package:tom_chattools/src/api/chat/chat_message.dart',
+      'ChatResponseStatus': 'package:tom_chattools/src/api/chat/chat_response.dart',
+      'ChatReceiverType': 'package:tom_chattools/src/api/chat/chat_receiver.dart',
     };
   }
 
   /// Returns all bridged extension definitions.
   static List<BridgedExtensionDefinition> bridgedExtensions() {
-    return [];
+    return [
+    ];
   }
 
   /// Returns a map of extension identifiers to their canonical source URIs.
   static Map<String, String> extensionSourceUris() {
-    return {};
+    return {
+    };
   }
 
   /// GEN-107: Library re-exports declared by the bridged source
   /// libraries. Each tuple mirrors a Dart `export '…'` directive.
   /// Consumed by `registerBridges` via `D4rt.registerLibraryReExport`
   /// (mirrored on `D4rtRunner` in tom_d4rt_ast).
-  static List<
-    ({String source, String target, Set<String>? show, Set<String>? hide})
-  >
+  static List<({String source, String target, Set<String>? show, Set<String>? hide})>
   bridgeReExports() {
     return [
-      (
-        source: 'package:tom_chattools/tom_chattools.dart',
-        target: 'package:tom_chattools/src/api/chat/chat_api.dart',
-        show: null,
-        hide: null,
-      ),
-      (
-        source: 'package:tom_chattools/tom_chattools.dart',
-        target: 'package:tom_chattools/src/api/chat/chat_config.dart',
-        show: null,
-        hide: null,
-      ),
-      (
-        source: 'package:tom_chattools/tom_chattools.dart',
-        target: 'package:tom_chattools/src/api/chat/chat_message.dart',
-        show: null,
-        hide: null,
-      ),
-      (
-        source: 'package:tom_chattools/tom_chattools.dart',
-        target: 'package:tom_chattools/src/api/chat/chat_receiver.dart',
-        show: null,
-        hide: null,
-      ),
-      (
-        source: 'package:tom_chattools/tom_chattools.dart',
-        target: 'package:tom_chattools/src/api/chat/chat_response.dart',
-        show: null,
-        hide: null,
-      ),
-      (
-        source: 'package:tom_chattools/tom_chattools.dart',
-        target: 'package:tom_chattools/src/telegram/telegram_config.dart',
-        show: null,
-        hide: null,
-      ),
-      (
-        source: 'package:tom_chattools/src/api/chat/chat_api.dart',
-        target: 'package:tom_chattools/src/api/chat/chat_config.dart',
-        show: null,
-        hide: null,
-      ),
-      (
-        source: 'package:tom_chattools/src/api/chat/chat_api.dart',
-        target: 'package:tom_chattools/src/api/chat/chat_message.dart',
-        show: null,
-        hide: null,
-      ),
-      (
-        source: 'package:tom_chattools/src/api/chat/chat_api.dart',
-        target: 'package:tom_chattools/src/api/chat/chat_response.dart',
-        show: null,
-        hide: null,
-      ),
-      (
-        source: 'package:tom_chattools/src/api/chat/chat_api.dart',
-        target: 'package:tom_chattools/src/api/chat/chat_receiver.dart',
-        show: null,
-        hide: null,
-      ),
-      (
-        source: 'package:tom_chattools/src/api/chat/chat_api.dart',
-        target: 'package:tom_chattools/src/api/chat/chat_settings.dart',
-        show: null,
-        hide: null,
-      ),
+      (source: 'package:tom_chattools/tom_chattools.dart', target: 'package:tom_chattools/src/api/chat/chat_api.dart', show: null, hide: null),
+      (source: 'package:tom_chattools/tom_chattools.dart', target: 'package:tom_chattools/src/api/chat/chat_config.dart', show: null, hide: null),
+      (source: 'package:tom_chattools/tom_chattools.dart', target: 'package:tom_chattools/src/api/chat/chat_message.dart', show: null, hide: null),
+      (source: 'package:tom_chattools/tom_chattools.dart', target: 'package:tom_chattools/src/api/chat/chat_receiver.dart', show: null, hide: null),
+      (source: 'package:tom_chattools/tom_chattools.dart', target: 'package:tom_chattools/src/api/chat/chat_response.dart', show: null, hide: null),
+      (source: 'package:tom_chattools/tom_chattools.dart', target: 'package:tom_chattools/src/telegram/telegram_config.dart', show: null, hide: null),
+      (source: 'package:tom_chattools/src/api/chat/chat_api.dart', target: 'package:tom_chattools/src/api/chat/chat_config.dart', show: null, hide: null),
+      (source: 'package:tom_chattools/src/api/chat/chat_api.dart', target: 'package:tom_chattools/src/api/chat/chat_message.dart', show: null, hide: null),
+      (source: 'package:tom_chattools/src/api/chat/chat_api.dart', target: 'package:tom_chattools/src/api/chat/chat_response.dart', show: null, hide: null),
+      (source: 'package:tom_chattools/src/api/chat/chat_api.dart', target: 'package:tom_chattools/src/api/chat/chat_receiver.dart', show: null, hide: null),
+      (source: 'package:tom_chattools/src/api/chat/chat_api.dart', target: 'package:tom_chattools/src/api/chat/chat_settings.dart', show: null, hide: null),
     ];
   }
 
@@ -292,21 +228,12 @@ class TomChattoolsBridge {
     final enums = bridgedEnums();
     final enumSources = enumSourceUris();
     for (final enumDef in enums) {
-      interpreter.registerBridgedEnum(
-        enumDef,
-        importPath,
-        sourceUri: enumSources[enumDef.name],
-      );
+      interpreter.registerBridgedEnum(enumDef, importPath, sourceUri: enumSources[enumDef.name]);
     }
 
     // GEN-107: Register library re-exports
     for (final r in bridgeReExports()) {
-      interpreter.registerLibraryReExport(
-        r.source,
-        r.target,
-        show: r.show,
-        hide: r.hide,
-      );
+      interpreter.registerLibraryReExport(r.source, r.target, show: r.show, hide: r.hide);
     }
   }
 
@@ -367,6 +294,7 @@ class TomChattoolsBridge {
     'ChatResponseStatus',
     'ChatReceiverType',
   ];
+
 }
 
 // =============================================================================
@@ -379,30 +307,25 @@ BridgedClass _createChatConfigBridge() {
     name: 'ChatConfig',
     isAssignable: (v) => v is $tom_chattools_2.ChatConfig,
     isAbstract: true,
-    constructors: {},
+    constructors: {
+    },
     getters: {
-      'platform': (visitor, target) => D4
-          .validateTarget<$tom_chattools_2.ChatConfig>(target, 'ChatConfig')
-          .platform,
+      'platform': (visitor, target) => D4.validateTarget<$tom_chattools_2.ChatConfig>(target, 'ChatConfig').platform,
     },
     methods: {
       'createApi': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_chattools_2.ChatConfig>(
-          target,
-          'ChatConfig',
-        );
+        final t = D4.validateTarget<$tom_chattools_2.ChatConfig>(target, 'ChatConfig');
         D4.requireMinArgs(positional, 1, 'createApi');
-        final settings = D4.getRequiredArg<$tom_chattools_6.ChatSettings>(
-          positional,
-          0,
-          'settings',
-          'createApi',
-        );
+        final settings = D4.getRequiredArg<$tom_chattools_6.ChatSettings>(positional, 0, 'settings', 'createApi');
         return t.createApi(settings);
       },
     },
-    methodSignatures: {'createApi': 'ChatApi createApi(ChatSettings settings)'},
-    getterSignatures: {'platform': 'String get platform'},
+    methodSignatures: {
+      'createApi': 'ChatApi createApi(ChatSettings settings)',
+    },
+    getterSignatures: {
+      'platform': 'String get platform',
+    },
   );
 }
 
@@ -419,99 +342,37 @@ BridgedClass _createChatMessageBridge() {
       '': (visitor, positional, named) {
         final id = D4.getRequiredNamedArg<String>(named, 'id', 'ChatMessage');
         final text = D4.getOptionalNamedArg<String?>(named, 'text');
-        final sender = D4.getRequiredNamedArg<$tom_chattools_3.ChatSender>(
-          named,
-          'sender',
-          'ChatMessage',
-        );
-        final timestamp = D4.getRequiredNamedArg<DateTime>(
-          named,
-          'timestamp',
-          'ChatMessage',
-        );
-        final type = D4
-            .getNamedArgWithDefault<$tom_chattools_3.ChatMessageType>(
-              named,
-              'type',
-              $tom_chattools_3.ChatMessageType.text,
-            );
-        final platformMessageId = D4.getOptionalNamedArg<String?>(
-          named,
-          'platformMessageId',
-        );
-        final replyToMessageId = D4.getOptionalNamedArg<String?>(
-          named,
-          'replyToMessageId',
-        );
-        final attachments =
-            named.containsKey('attachments') && named['attachments'] != null
-            ? D4.coerceList<$tom_chattools_3.ChatAttachment>(
-                named['attachments'],
-                'attachments',
-              )
+        final sender = D4.getRequiredNamedArg<$tom_chattools_3.ChatSender>(named, 'sender', 'ChatMessage');
+        final timestamp = D4.getRequiredNamedArg<DateTime>(named, 'timestamp', 'ChatMessage');
+        final type = D4.getNamedArgWithDefault<$tom_chattools_3.ChatMessageType>(named, 'type', $tom_chattools_3.ChatMessageType.text);
+        final platformMessageId = D4.getOptionalNamedArg<String?>(named, 'platformMessageId');
+        final replyToMessageId = D4.getOptionalNamedArg<String?>(named, 'replyToMessageId');
+        final attachments = named.containsKey('attachments') && named['attachments'] != null
+            ? D4.coerceList<$tom_chattools_3.ChatAttachment>(named['attachments'], 'attachments')
             : const <$tom_chattools_3.ChatAttachment>[];
-        final rawData = D4.coerceMapOrNull<String, dynamic>(
-          named['rawData'],
-          'rawData',
-        );
-        return $tom_chattools_3.ChatMessage(
-          id: id,
-          text: text,
-          sender: sender,
-          timestamp: timestamp,
-          type: type,
-          platformMessageId: platformMessageId,
-          replyToMessageId: replyToMessageId,
-          attachments: attachments,
-          rawData: rawData,
-        );
+        final rawData = D4.coerceMapOrNull<String, dynamic>(named['rawData'], 'rawData');
+        return $tom_chattools_3.ChatMessage(id: id, text: text, sender: sender, timestamp: timestamp, type: type, platformMessageId: platformMessageId, replyToMessageId: replyToMessageId, attachments: attachments, rawData: rawData);
       },
       'text': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ChatMessage');
-        final text = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'text',
-          'ChatMessage',
-        );
+        final text = D4.getRequiredArg<String>(positional, 0, 'text', 'ChatMessage');
         return $tom_chattools_3.ChatMessage.text(text);
       },
     },
     getters: {
-      'id': (visitor, target) => D4
-          .validateTarget<$tom_chattools_3.ChatMessage>(target, 'ChatMessage')
-          .id,
-      'text': (visitor, target) => D4
-          .validateTarget<$tom_chattools_3.ChatMessage>(target, 'ChatMessage')
-          .text,
-      'sender': (visitor, target) => D4
-          .validateTarget<$tom_chattools_3.ChatMessage>(target, 'ChatMessage')
-          .sender,
-      'timestamp': (visitor, target) => D4
-          .validateTarget<$tom_chattools_3.ChatMessage>(target, 'ChatMessage')
-          .timestamp,
-      'type': (visitor, target) => D4
-          .validateTarget<$tom_chattools_3.ChatMessage>(target, 'ChatMessage')
-          .type,
-      'platformMessageId': (visitor, target) => D4
-          .validateTarget<$tom_chattools_3.ChatMessage>(target, 'ChatMessage')
-          .platformMessageId,
-      'replyToMessageId': (visitor, target) => D4
-          .validateTarget<$tom_chattools_3.ChatMessage>(target, 'ChatMessage')
-          .replyToMessageId,
-      'attachments': (visitor, target) => D4
-          .validateTarget<$tom_chattools_3.ChatMessage>(target, 'ChatMessage')
-          .attachments,
-      'rawData': (visitor, target) => D4
-          .validateTarget<$tom_chattools_3.ChatMessage>(target, 'ChatMessage')
-          .rawData,
+      'id': (visitor, target) => D4.validateTarget<$tom_chattools_3.ChatMessage>(target, 'ChatMessage').id,
+      'text': (visitor, target) => D4.validateTarget<$tom_chattools_3.ChatMessage>(target, 'ChatMessage').text,
+      'sender': (visitor, target) => D4.validateTarget<$tom_chattools_3.ChatMessage>(target, 'ChatMessage').sender,
+      'timestamp': (visitor, target) => D4.validateTarget<$tom_chattools_3.ChatMessage>(target, 'ChatMessage').timestamp,
+      'type': (visitor, target) => D4.validateTarget<$tom_chattools_3.ChatMessage>(target, 'ChatMessage').type,
+      'platformMessageId': (visitor, target) => D4.validateTarget<$tom_chattools_3.ChatMessage>(target, 'ChatMessage').platformMessageId,
+      'replyToMessageId': (visitor, target) => D4.validateTarget<$tom_chattools_3.ChatMessage>(target, 'ChatMessage').replyToMessageId,
+      'attachments': (visitor, target) => D4.validateTarget<$tom_chattools_3.ChatMessage>(target, 'ChatMessage').attachments,
+      'rawData': (visitor, target) => D4.validateTarget<$tom_chattools_3.ChatMessage>(target, 'ChatMessage').rawData,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_chattools_3.ChatMessage>(
-          target,
-          'ChatMessage',
-        );
+        final t = D4.validateTarget<$tom_chattools_3.ChatMessage>(target, 'ChatMessage');
         return t.toString();
       },
     },
@@ -519,7 +380,9 @@ BridgedClass _createChatMessageBridge() {
       '': 'const ChatMessage({required String id, String? text, required ChatSender sender, required DateTime timestamp, ChatMessageType type = ChatMessageType.text, String? platformMessageId, String? replyToMessageId, List<ChatAttachment> attachments = const [], Map<String, dynamic>? rawData})',
       'text': 'factory ChatMessage.text(String text)',
     },
-    methodSignatures: {'toString': 'String toString()'},
+    methodSignatures: {
+      'toString': 'String toString()',
+    },
     getterSignatures: {
       'id': 'String get id',
       'text': 'String? get text',
@@ -549,37 +412,21 @@ BridgedClass _createChatSenderBridge() {
         final name = D4.getOptionalNamedArg<String?>(named, 'name');
         final username = D4.getOptionalNamedArg<String?>(named, 'username');
         final isSelf = D4.getNamedArgWithDefault<bool>(named, 'isSelf', false);
-        return $tom_chattools_3.ChatSender(
-          id: id,
-          name: name,
-          username: username,
-          isSelf: isSelf,
-        );
+        return $tom_chattools_3.ChatSender(id: id, name: name, username: username, isSelf: isSelf);
       },
       'self': (visitor, positional, named) {
         return $tom_chattools_3.ChatSender.self();
       },
     },
     getters: {
-      'id': (visitor, target) => D4
-          .validateTarget<$tom_chattools_3.ChatSender>(target, 'ChatSender')
-          .id,
-      'name': (visitor, target) => D4
-          .validateTarget<$tom_chattools_3.ChatSender>(target, 'ChatSender')
-          .name,
-      'username': (visitor, target) => D4
-          .validateTarget<$tom_chattools_3.ChatSender>(target, 'ChatSender')
-          .username,
-      'isSelf': (visitor, target) => D4
-          .validateTarget<$tom_chattools_3.ChatSender>(target, 'ChatSender')
-          .isSelf,
+      'id': (visitor, target) => D4.validateTarget<$tom_chattools_3.ChatSender>(target, 'ChatSender').id,
+      'name': (visitor, target) => D4.validateTarget<$tom_chattools_3.ChatSender>(target, 'ChatSender').name,
+      'username': (visitor, target) => D4.validateTarget<$tom_chattools_3.ChatSender>(target, 'ChatSender').username,
+      'isSelf': (visitor, target) => D4.validateTarget<$tom_chattools_3.ChatSender>(target, 'ChatSender').isSelf,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_chattools_3.ChatSender>(
-          target,
-          'ChatSender',
-        );
+        final t = D4.validateTarget<$tom_chattools_3.ChatSender>(target, 'ChatSender');
         return t.toString();
       },
     },
@@ -587,7 +434,9 @@ BridgedClass _createChatSenderBridge() {
       '': 'const ChatSender({required String id, String? name, String? username, bool isSelf = false})',
       'self': 'const ChatSender.self()',
     },
-    methodSignatures: {'toString': 'String toString()'},
+    methodSignatures: {
+      'toString': 'String toString()',
+    },
     getterSignatures: {
       'id': 'String get id',
       'name': 'String? get name',
@@ -608,68 +457,22 @@ BridgedClass _createChatAttachmentBridge() {
     isAssignable: (v) => v is $tom_chattools_3.ChatAttachment,
     constructors: {
       '': (visitor, positional, named) {
-        final type = D4
-            .getRequiredNamedArg<$tom_chattools_3.ChatAttachmentType>(
-              named,
-              'type',
-              'ChatAttachment',
-            );
-        final url = D4.getRequiredNamedArg<String>(
-          named,
-          'url',
-          'ChatAttachment',
-        );
+        final type = D4.getRequiredNamedArg<$tom_chattools_3.ChatAttachmentType>(named, 'type', 'ChatAttachment');
+        final url = D4.getRequiredNamedArg<String>(named, 'url', 'ChatAttachment');
         final mimeType = D4.getOptionalNamedArg<String?>(named, 'mimeType');
         final fileName = D4.getOptionalNamedArg<String?>(named, 'fileName');
         final fileSize = D4.getOptionalNamedArg<int?>(named, 'fileSize');
         final caption = D4.getOptionalNamedArg<String?>(named, 'caption');
-        return $tom_chattools_3.ChatAttachment(
-          type: type,
-          url: url,
-          mimeType: mimeType,
-          fileName: fileName,
-          fileSize: fileSize,
-          caption: caption,
-        );
+        return $tom_chattools_3.ChatAttachment(type: type, url: url, mimeType: mimeType, fileName: fileName, fileSize: fileSize, caption: caption);
       },
     },
     getters: {
-      'type': (visitor, target) => D4
-          .validateTarget<$tom_chattools_3.ChatAttachment>(
-            target,
-            'ChatAttachment',
-          )
-          .type,
-      'url': (visitor, target) => D4
-          .validateTarget<$tom_chattools_3.ChatAttachment>(
-            target,
-            'ChatAttachment',
-          )
-          .url,
-      'mimeType': (visitor, target) => D4
-          .validateTarget<$tom_chattools_3.ChatAttachment>(
-            target,
-            'ChatAttachment',
-          )
-          .mimeType,
-      'fileName': (visitor, target) => D4
-          .validateTarget<$tom_chattools_3.ChatAttachment>(
-            target,
-            'ChatAttachment',
-          )
-          .fileName,
-      'fileSize': (visitor, target) => D4
-          .validateTarget<$tom_chattools_3.ChatAttachment>(
-            target,
-            'ChatAttachment',
-          )
-          .fileSize,
-      'caption': (visitor, target) => D4
-          .validateTarget<$tom_chattools_3.ChatAttachment>(
-            target,
-            'ChatAttachment',
-          )
-          .caption,
+      'type': (visitor, target) => D4.validateTarget<$tom_chattools_3.ChatAttachment>(target, 'ChatAttachment').type,
+      'url': (visitor, target) => D4.validateTarget<$tom_chattools_3.ChatAttachment>(target, 'ChatAttachment').url,
+      'mimeType': (visitor, target) => D4.validateTarget<$tom_chattools_3.ChatAttachment>(target, 'ChatAttachment').mimeType,
+      'fileName': (visitor, target) => D4.validateTarget<$tom_chattools_3.ChatAttachment>(target, 'ChatAttachment').fileName,
+      'fileSize': (visitor, target) => D4.validateTarget<$tom_chattools_3.ChatAttachment>(target, 'ChatAttachment').fileSize,
+      'caption': (visitor, target) => D4.validateTarget<$tom_chattools_3.ChatAttachment>(target, 'ChatAttachment').caption,
     },
     constructorSignatures: {
       '': 'const ChatAttachment({required ChatAttachmentType type, required String url, String? mimeType, String? fileName, int? fileSize, String? caption})',
@@ -697,155 +500,68 @@ BridgedClass _createChatResponseBridge() {
     constructors: {
       '': (visitor, positional, named) {
         if (!named.containsKey('messages') || named['messages'] == null) {
-          throw ArgumentError(
-            'ChatResponse: Missing required named argument "messages"',
-          );
+          throw ArgumentError('ChatResponse: Missing required named argument "messages"');
         }
-        final messages = D4.coerceList<$tom_chattools_3.ChatMessage>(
-          named['messages'],
-          'messages',
-        );
+        final messages = D4.coerceList<$tom_chattools_3.ChatMessage>(named['messages'], 'messages');
         final success = D4.getNamedArgWithDefault<bool>(named, 'success', true);
-        final status = D4
-            .getNamedArgWithDefault<$tom_chattools_5.ChatResponseStatus>(
-              named,
-              'status',
-              $tom_chattools_5.ChatResponseStatus.ok,
-            );
+        final status = D4.getNamedArgWithDefault<$tom_chattools_5.ChatResponseStatus>(named, 'status', $tom_chattools_5.ChatResponseStatus.ok);
         final error = D4.getOptionalNamedArg<String?>(named, 'error');
-        final waitDuration = D4.getNamedArgWithDefault<Duration>(
-          named,
-          'waitDuration',
-          Duration.zero,
-        );
-        final hasMore = D4.getNamedArgWithDefault<bool>(
-          named,
-          'hasMore',
-          false,
-        );
-        final metadata = D4.coerceMapOrNull<String, dynamic>(
-          named['metadata'],
-          'metadata',
-        );
-        return $tom_chattools_5.ChatResponse(
-          messages: messages,
-          success: success,
-          status: status,
-          error: error,
-          waitDuration: waitDuration,
-          hasMore: hasMore,
-          metadata: metadata,
-        );
+        final waitDuration = D4.getNamedArgWithDefault<Duration>(named, 'waitDuration', Duration.zero);
+        final hasMore = D4.getNamedArgWithDefault<bool>(named, 'hasMore', false);
+        final metadata = D4.coerceMapOrNull<String, dynamic>(named['metadata'], 'metadata');
+        return $tom_chattools_5.ChatResponse(messages: messages, success: success, status: status, error: error, waitDuration: waitDuration, hasMore: hasMore, metadata: metadata);
       },
       'empty': (visitor, positional, named) {
         return $tom_chattools_5.ChatResponse.empty();
       },
       'error': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ChatResponse');
-        final message = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'message',
-          'ChatResponse',
-        );
-        final status = D4
-            .getOptionalNamedArg<$tom_chattools_5.ChatResponseStatus?>(
-              named,
-              'status',
-            );
+        final message = D4.getRequiredArg<String>(positional, 0, 'message', 'ChatResponse');
+        final status = D4.getOptionalNamedArg<$tom_chattools_5.ChatResponseStatus?>(named, 'status');
         return $tom_chattools_5.ChatResponse.error(message, status: status);
       },
       'timeout': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ChatResponse');
-        final waitDuration = D4.getRequiredArg<Duration>(
-          positional,
-          0,
-          'waitDuration',
-          'ChatResponse',
-        );
+        final waitDuration = D4.getRequiredArg<Duration>(positional, 0, 'waitDuration', 'ChatResponse');
         return $tom_chattools_5.ChatResponse.timeout(waitDuration);
       },
     },
     getters: {
-      'messages': (visitor, target) => D4
-          .validateTarget<$tom_chattools_5.ChatResponse>(target, 'ChatResponse')
-          .messages,
-      'success': (visitor, target) => D4
-          .validateTarget<$tom_chattools_5.ChatResponse>(target, 'ChatResponse')
-          .success,
-      'status': (visitor, target) => D4
-          .validateTarget<$tom_chattools_5.ChatResponse>(target, 'ChatResponse')
-          .status,
-      'error': (visitor, target) => D4
-          .validateTarget<$tom_chattools_5.ChatResponse>(target, 'ChatResponse')
-          .error,
-      'waitDuration': (visitor, target) => D4
-          .validateTarget<$tom_chattools_5.ChatResponse>(target, 'ChatResponse')
-          .waitDuration,
-      'hasMore': (visitor, target) => D4
-          .validateTarget<$tom_chattools_5.ChatResponse>(target, 'ChatResponse')
-          .hasMore,
-      'metadata': (visitor, target) => D4
-          .validateTarget<$tom_chattools_5.ChatResponse>(target, 'ChatResponse')
-          .metadata,
-      'hasMessages': (visitor, target) => D4
-          .validateTarget<$tom_chattools_5.ChatResponse>(target, 'ChatResponse')
-          .hasMessages,
-      'count': (visitor, target) => D4
-          .validateTarget<$tom_chattools_5.ChatResponse>(target, 'ChatResponse')
-          .count,
-      'first': (visitor, target) => D4
-          .validateTarget<$tom_chattools_5.ChatResponse>(target, 'ChatResponse')
-          .first,
-      'last': (visitor, target) => D4
-          .validateTarget<$tom_chattools_5.ChatResponse>(target, 'ChatResponse')
-          .last,
-      'textContent': (visitor, target) => D4
-          .validateTarget<$tom_chattools_5.ChatResponse>(target, 'ChatResponse')
-          .textContent,
+      'messages': (visitor, target) => D4.validateTarget<$tom_chattools_5.ChatResponse>(target, 'ChatResponse').messages,
+      'success': (visitor, target) => D4.validateTarget<$tom_chattools_5.ChatResponse>(target, 'ChatResponse').success,
+      'status': (visitor, target) => D4.validateTarget<$tom_chattools_5.ChatResponse>(target, 'ChatResponse').status,
+      'error': (visitor, target) => D4.validateTarget<$tom_chattools_5.ChatResponse>(target, 'ChatResponse').error,
+      'waitDuration': (visitor, target) => D4.validateTarget<$tom_chattools_5.ChatResponse>(target, 'ChatResponse').waitDuration,
+      'hasMore': (visitor, target) => D4.validateTarget<$tom_chattools_5.ChatResponse>(target, 'ChatResponse').hasMore,
+      'metadata': (visitor, target) => D4.validateTarget<$tom_chattools_5.ChatResponse>(target, 'ChatResponse').metadata,
+      'hasMessages': (visitor, target) => D4.validateTarget<$tom_chattools_5.ChatResponse>(target, 'ChatResponse').hasMessages,
+      'count': (visitor, target) => D4.validateTarget<$tom_chattools_5.ChatResponse>(target, 'ChatResponse').count,
+      'first': (visitor, target) => D4.validateTarget<$tom_chattools_5.ChatResponse>(target, 'ChatResponse').first,
+      'last': (visitor, target) => D4.validateTarget<$tom_chattools_5.ChatResponse>(target, 'ChatResponse').last,
+      'textContent': (visitor, target) => D4.validateTarget<$tom_chattools_5.ChatResponse>(target, 'ChatResponse').textContent,
     },
     methods: {
       'fromSender': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_chattools_5.ChatResponse>(
-          target,
-          'ChatResponse',
-        );
+        final t = D4.validateTarget<$tom_chattools_5.ChatResponse>(target, 'ChatResponse');
         D4.requireMinArgs(positional, 1, 'fromSender');
-        final senderId = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'senderId',
-          'fromSender',
-        );
+        final senderId = D4.getRequiredArg<String>(positional, 0, 'senderId', 'fromSender');
         return t.fromSender(senderId);
       },
       'ofType': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_chattools_5.ChatResponse>(
-          target,
-          'ChatResponse',
-        );
+        final t = D4.validateTarget<$tom_chattools_5.ChatResponse>(target, 'ChatResponse');
         D4.requireMinArgs(positional, 1, 'ofType');
-        final type = D4.getRequiredArg<$tom_chattools_3.ChatMessageType>(
-          positional,
-          0,
-          'type',
-          'ofType',
-        );
+        final type = D4.getRequiredArg<$tom_chattools_3.ChatMessageType>(positional, 0, 'type', 'ofType');
         return t.ofType(type);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_chattools_5.ChatResponse>(
-          target,
-          'ChatResponse',
-        );
+        final t = D4.validateTarget<$tom_chattools_5.ChatResponse>(target, 'ChatResponse');
         return t.toString();
       },
     },
     constructorSignatures: {
       '': 'const ChatResponse({required List<ChatMessage> messages, bool success = true, ChatResponseStatus status = ChatResponseStatus.ok, String? error, Duration waitDuration = Duration.zero, bool hasMore = false, Map<String, dynamic>? metadata})',
       'empty': 'const ChatResponse.empty()',
-      'error':
-          'factory ChatResponse.error(String message, {ChatResponseStatus? status})',
+      'error': 'factory ChatResponse.error(String message, {ChatResponseStatus? status})',
       'timeout': 'factory ChatResponse.timeout(Duration waitDuration)',
     },
     methodSignatures: {
@@ -882,77 +598,40 @@ BridgedClass _createChatReceiverBridge() {
     constructors: {
       'id': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ChatReceiver');
-        final id = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'id',
-          'ChatReceiver',
-        );
+        final id = D4.getRequiredArg<String>(positional, 0, 'id', 'ChatReceiver');
         return $tom_chattools_4.ChatReceiver.id(id);
       },
       'username': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ChatReceiver');
-        final username = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'username',
-          'ChatReceiver',
-        );
+        final username = D4.getRequiredArg<String>(positional, 0, 'username', 'ChatReceiver');
         return $tom_chattools_4.ChatReceiver.username(username);
       },
       'phone': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ChatReceiver');
-        final phone = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'phone',
-          'ChatReceiver',
-        );
+        final phone = D4.getRequiredArg<String>(positional, 0, 'phone', 'ChatReceiver');
         return $tom_chattools_4.ChatReceiver.phone(phone);
       },
       'group': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ChatReceiver');
-        final groupId = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'groupId',
-          'ChatReceiver',
-        );
+        final groupId = D4.getRequiredArg<String>(positional, 0, 'groupId', 'ChatReceiver');
         return $tom_chattools_4.ChatReceiver.group(groupId);
       },
     },
     getters: {
-      'type': (visitor, target) => D4
-          .validateTarget<$tom_chattools_4.ChatReceiver>(target, 'ChatReceiver')
-          .type,
-      'value': (visitor, target) => D4
-          .validateTarget<$tom_chattools_4.ChatReceiver>(target, 'ChatReceiver')
-          .value,
-      'hashCode': (visitor, target) => D4
-          .validateTarget<$tom_chattools_4.ChatReceiver>(target, 'ChatReceiver')
-          .hashCode,
+      'type': (visitor, target) => D4.validateTarget<$tom_chattools_4.ChatReceiver>(target, 'ChatReceiver').type,
+      'value': (visitor, target) => D4.validateTarget<$tom_chattools_4.ChatReceiver>(target, 'ChatReceiver').value,
+      'hashCode': (visitor, target) => D4.validateTarget<$tom_chattools_4.ChatReceiver>(target, 'ChatReceiver').hashCode,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_chattools_4.ChatReceiver>(
-          target,
-          'ChatReceiver',
-        );
+        final t = D4.validateTarget<$tom_chattools_4.ChatReceiver>(target, 'ChatReceiver');
         return t.toString();
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_chattools_4.ChatReceiver>(
-          target,
-          'ChatReceiver',
-        );
+        final t = D4.validateTarget<$tom_chattools_4.ChatReceiver>(target, 'ChatReceiver');
         // GEN-103: Dart spec — non-null == null is always false.
         if (positional.isEmpty || positional[0] == null) return false;
-        final other = D4.getRequiredArg<Object>(
-          positional,
-          0,
-          'other',
-          'operator==',
-        );
+        final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
     },
@@ -962,7 +641,9 @@ BridgedClass _createChatReceiverBridge() {
       'phone': 'const ChatReceiver.phone(String phone)',
       'group': 'const ChatReceiver.group(String groupId)',
     },
-    methodSignatures: {'toString': 'String toString()'},
+    methodSignatures: {
+      'toString': 'String toString()',
+    },
     getterSignatures: {
       'type': 'ChatReceiverType get type',
       'value': 'String get value',
@@ -982,11 +663,7 @@ BridgedClass _createChatReceiverInfoBridge() {
     isAssignable: (v) => v is $tom_chattools_4.ChatReceiverInfo,
     constructors: {
       '': (visitor, positional, named) {
-        final id = D4.getRequiredNamedArg<String>(
-          named,
-          'id',
-          'ChatReceiverInfo',
-        );
+        final id = D4.getRequiredNamedArg<String>(named, 'id', 'ChatReceiverInfo');
         final name = D4.getOptionalNamedArg<String?>(named, 'name');
         final firstName = D4.getOptionalNamedArg<String?>(named, 'firstName');
         final lastName = D4.getOptionalNamedArg<String?>(named, 'lastName');
@@ -994,92 +671,33 @@ BridgedClass _createChatReceiverInfoBridge() {
         final phone = D4.getOptionalNamedArg<String?>(named, 'phone');
         final photoUrl = D4.getOptionalNamedArg<String?>(named, 'photoUrl');
         final isBot = D4.getNamedArgWithDefault<bool>(named, 'isBot', false);
-        final rawData = D4.coerceMapOrNull<String, dynamic>(
-          named['rawData'],
-          'rawData',
-        );
-        return $tom_chattools_4.ChatReceiverInfo(
-          id: id,
-          name: name,
-          firstName: firstName,
-          lastName: lastName,
-          username: username,
-          phone: phone,
-          photoUrl: photoUrl,
-          isBot: isBot,
-          rawData: rawData,
-        );
+        final rawData = D4.coerceMapOrNull<String, dynamic>(named['rawData'], 'rawData');
+        return $tom_chattools_4.ChatReceiverInfo(id: id, name: name, firstName: firstName, lastName: lastName, username: username, phone: phone, photoUrl: photoUrl, isBot: isBot, rawData: rawData);
       },
     },
     getters: {
-      'id': (visitor, target) => D4
-          .validateTarget<$tom_chattools_4.ChatReceiverInfo>(
-            target,
-            'ChatReceiverInfo',
-          )
-          .id,
-      'name': (visitor, target) => D4
-          .validateTarget<$tom_chattools_4.ChatReceiverInfo>(
-            target,
-            'ChatReceiverInfo',
-          )
-          .name,
-      'firstName': (visitor, target) => D4
-          .validateTarget<$tom_chattools_4.ChatReceiverInfo>(
-            target,
-            'ChatReceiverInfo',
-          )
-          .firstName,
-      'lastName': (visitor, target) => D4
-          .validateTarget<$tom_chattools_4.ChatReceiverInfo>(
-            target,
-            'ChatReceiverInfo',
-          )
-          .lastName,
-      'username': (visitor, target) => D4
-          .validateTarget<$tom_chattools_4.ChatReceiverInfo>(
-            target,
-            'ChatReceiverInfo',
-          )
-          .username,
-      'phone': (visitor, target) => D4
-          .validateTarget<$tom_chattools_4.ChatReceiverInfo>(
-            target,
-            'ChatReceiverInfo',
-          )
-          .phone,
-      'photoUrl': (visitor, target) => D4
-          .validateTarget<$tom_chattools_4.ChatReceiverInfo>(
-            target,
-            'ChatReceiverInfo',
-          )
-          .photoUrl,
-      'isBot': (visitor, target) => D4
-          .validateTarget<$tom_chattools_4.ChatReceiverInfo>(
-            target,
-            'ChatReceiverInfo',
-          )
-          .isBot,
-      'rawData': (visitor, target) => D4
-          .validateTarget<$tom_chattools_4.ChatReceiverInfo>(
-            target,
-            'ChatReceiverInfo',
-          )
-          .rawData,
+      'id': (visitor, target) => D4.validateTarget<$tom_chattools_4.ChatReceiverInfo>(target, 'ChatReceiverInfo').id,
+      'name': (visitor, target) => D4.validateTarget<$tom_chattools_4.ChatReceiverInfo>(target, 'ChatReceiverInfo').name,
+      'firstName': (visitor, target) => D4.validateTarget<$tom_chattools_4.ChatReceiverInfo>(target, 'ChatReceiverInfo').firstName,
+      'lastName': (visitor, target) => D4.validateTarget<$tom_chattools_4.ChatReceiverInfo>(target, 'ChatReceiverInfo').lastName,
+      'username': (visitor, target) => D4.validateTarget<$tom_chattools_4.ChatReceiverInfo>(target, 'ChatReceiverInfo').username,
+      'phone': (visitor, target) => D4.validateTarget<$tom_chattools_4.ChatReceiverInfo>(target, 'ChatReceiverInfo').phone,
+      'photoUrl': (visitor, target) => D4.validateTarget<$tom_chattools_4.ChatReceiverInfo>(target, 'ChatReceiverInfo').photoUrl,
+      'isBot': (visitor, target) => D4.validateTarget<$tom_chattools_4.ChatReceiverInfo>(target, 'ChatReceiverInfo').isBot,
+      'rawData': (visitor, target) => D4.validateTarget<$tom_chattools_4.ChatReceiverInfo>(target, 'ChatReceiverInfo').rawData,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_chattools_4.ChatReceiverInfo>(
-          target,
-          'ChatReceiverInfo',
-        );
+        final t = D4.validateTarget<$tom_chattools_4.ChatReceiverInfo>(target, 'ChatReceiverInfo');
         return t.toString();
       },
     },
     constructorSignatures: {
       '': 'const ChatReceiverInfo({required String id, String? name, String? firstName, String? lastName, String? username, String? phone, String? photoUrl, bool isBot = false, Map<String, dynamic>? rawData})',
     },
-    methodSignatures: {'toString': 'String toString()'},
+    methodSignatures: {
+      'toString': 'String toString()',
+    },
     getterSignatures: {
       'id': 'String get id',
       'name': 'String? get name',
@@ -1107,90 +725,37 @@ BridgedClass _createChatSettingsBridge() {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ChatSettings');
         if (positional.isEmpty) {
-          throw ArgumentError(
-            'ChatSettings: Missing required argument "settings" at position 0',
-          );
+          throw ArgumentError('ChatSettings: Missing required argument "settings" at position 0');
         }
-        final settings = D4.coerceMap<String, String>(
-          positional[0],
-          'settings',
-        );
-        final pollingTimeout = D4.getNamedArgWithDefault<Duration>(
-          named,
-          'pollingTimeout',
-          const Duration(seconds: 2),
-        );
-        final usePolling = D4.getNamedArgWithDefault<bool>(
-          named,
-          'usePolling',
-          true,
-        );
-        return $tom_chattools_6.ChatSettings(
-          settings,
-          pollingTimeout: pollingTimeout,
-          usePolling: usePolling,
-        );
+        final settings = D4.coerceMap<String, String>(positional[0], 'settings');
+        final pollingTimeout = D4.getNamedArgWithDefault<Duration>(named, 'pollingTimeout', const Duration(seconds: 2));
+        final usePolling = D4.getNamedArgWithDefault<bool>(named, 'usePolling', true);
+        return $tom_chattools_6.ChatSettings(settings, pollingTimeout: pollingTimeout, usePolling: usePolling);
       },
       'telegram': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ChatSettings');
-        final token = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'token',
-          'ChatSettings',
-        );
-        final pollingTimeout = D4.getNamedArgWithDefault<Duration>(
-          named,
-          'pollingTimeout',
-          const Duration(seconds: 2),
-        );
-        final usePolling = D4.getNamedArgWithDefault<bool>(
-          named,
-          'usePolling',
-          true,
-        );
-        return $tom_chattools_6.ChatSettings.telegram(
-          token,
-          pollingTimeout: pollingTimeout,
-          usePolling: usePolling,
-        );
+        final token = D4.getRequiredArg<String>(positional, 0, 'token', 'ChatSettings');
+        final pollingTimeout = D4.getNamedArgWithDefault<Duration>(named, 'pollingTimeout', const Duration(seconds: 2));
+        final usePolling = D4.getNamedArgWithDefault<bool>(named, 'usePolling', true);
+        return $tom_chattools_6.ChatSettings.telegram(token, pollingTimeout: pollingTimeout, usePolling: usePolling);
       },
     },
     getters: {
-      'settings': (visitor, target) => D4
-          .validateTarget<$tom_chattools_6.ChatSettings>(target, 'ChatSettings')
-          .settings,
-      'pollingTimeout': (visitor, target) => D4
-          .validateTarget<$tom_chattools_6.ChatSettings>(target, 'ChatSettings')
-          .pollingTimeout,
-      'usePolling': (visitor, target) => D4
-          .validateTarget<$tom_chattools_6.ChatSettings>(target, 'ChatSettings')
-          .usePolling,
-      'detectedPlatform': (visitor, target) => D4
-          .validateTarget<$tom_chattools_6.ChatSettings>(target, 'ChatSettings')
-          .detectedPlatform,
+      'settings': (visitor, target) => D4.validateTarget<$tom_chattools_6.ChatSettings>(target, 'ChatSettings').settings,
+      'pollingTimeout': (visitor, target) => D4.validateTarget<$tom_chattools_6.ChatSettings>(target, 'ChatSettings').pollingTimeout,
+      'usePolling': (visitor, target) => D4.validateTarget<$tom_chattools_6.ChatSettings>(target, 'ChatSettings').usePolling,
+      'detectedPlatform': (visitor, target) => D4.validateTarget<$tom_chattools_6.ChatSettings>(target, 'ChatSettings').detectedPlatform,
     },
     methods: {
       'has': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_chattools_6.ChatSettings>(
-          target,
-          'ChatSettings',
-        );
+        final t = D4.validateTarget<$tom_chattools_6.ChatSettings>(target, 'ChatSettings');
         D4.requireMinArgs(positional, 1, 'has');
         final key = D4.getRequiredArg<String>(positional, 0, 'key', 'has');
         return t.has(key);
       },
       '[]': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_chattools_6.ChatSettings>(
-          target,
-          'ChatSettings',
-        );
-        final index = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'index',
-          'operator[]',
-        );
+        final t = D4.validateTarget<$tom_chattools_6.ChatSettings>(target, 'ChatSettings');
+        final index = D4.getRequiredArg<String>(positional, 0, 'index', 'operator[]');
         return t[index];
       },
     },
@@ -1201,10 +766,11 @@ BridgedClass _createChatSettingsBridge() {
     },
     constructorSignatures: {
       '': 'const ChatSettings(Map<String, String> settings, {Duration pollingTimeout = const Duration(seconds: 2), bool usePolling = true})',
-      'telegram':
-          'factory ChatSettings.telegram(String token, {Duration pollingTimeout = const Duration(seconds: 2), bool usePolling = true})',
+      'telegram': 'factory ChatSettings.telegram(String token, {Duration pollingTimeout = const Duration(seconds: 2), bool usePolling = true})',
     },
-    methodSignatures: {'has': 'bool has(String key)'},
+    methodSignatures: {
+      'has': 'bool has(String key)',
+    },
     getterSignatures: {
       'settings': 'Map<String, String> get settings',
       'pollingTimeout': 'Duration get pollingTimeout',
@@ -1229,179 +795,79 @@ BridgedClass _createChatApiBridge() {
     name: 'ChatApi',
     isAssignable: (v) => v is $tom_chattools_1.ChatApi,
     isAbstract: true,
-    constructors: {},
+    constructors: {
+    },
     getters: {
-      'settings': (visitor, target) => D4
-          .validateTarget<$tom_chattools_1.ChatApi>(target, 'ChatApi')
-          .settings,
-      'isConnected': (visitor, target) => D4
-          .validateTarget<$tom_chattools_1.ChatApi>(target, 'ChatApi')
-          .isConnected,
-      'platform': (visitor, target) => D4
-          .validateTarget<$tom_chattools_1.ChatApi>(target, 'ChatApi')
-          .platform,
-      'onMessage': (visitor, target) => D4
-          .validateTarget<$tom_chattools_1.ChatApi>(target, 'ChatApi')
-          .onMessage,
+      'settings': (visitor, target) => D4.validateTarget<$tom_chattools_1.ChatApi>(target, 'ChatApi').settings,
+      'isConnected': (visitor, target) => D4.validateTarget<$tom_chattools_1.ChatApi>(target, 'ChatApi').isConnected,
+      'platform': (visitor, target) => D4.validateTarget<$tom_chattools_1.ChatApi>(target, 'ChatApi').platform,
+      'onMessage': (visitor, target) => D4.validateTarget<$tom_chattools_1.ChatApi>(target, 'ChatApi').onMessage,
     },
     setters: {
-      'settings': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_chattools_1.ChatApi>(target, 'ChatApi')
-              .settings = D4.extractBridgedArg<$tom_chattools_6.ChatSettings>(
-            value,
-            'settings',
-          ),
+      'settings': (visitor, target, value) => 
+        D4.validateTarget<$tom_chattools_1.ChatApi>(target, 'ChatApi').settings = D4.extractBridgedArg<$tom_chattools_6.ChatSettings>(value, 'settings'),
     },
     methods: {
       'initialize': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_chattools_1.ChatApi>(
-          target,
-          'ChatApi',
-        );
+        final t = D4.validateTarget<$tom_chattools_1.ChatApi>(target, 'ChatApi');
         return t.initialize();
       },
       'sendMessage': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_chattools_1.ChatApi>(
-          target,
-          'ChatApi',
-        );
+        final t = D4.validateTarget<$tom_chattools_1.ChatApi>(target, 'ChatApi');
         D4.requireMinArgs(positional, 2, 'sendMessage');
-        final receiver = D4.getRequiredArg<$tom_chattools_4.ChatReceiver>(
-          positional,
-          0,
-          'receiver',
-          'sendMessage',
-        );
-        final text = D4.getRequiredArg<String>(
-          positional,
-          1,
-          'text',
-          'sendMessage',
-        );
+        final receiver = D4.getRequiredArg<$tom_chattools_4.ChatReceiver>(positional, 0, 'receiver', 'sendMessage');
+        final text = D4.getRequiredArg<String>(positional, 1, 'text', 'sendMessage');
         final parseMode = D4.getOptionalNamedArg<String?>(named, 'parseMode');
         return t.sendMessage(receiver, text, parseMode: parseMode);
       },
       'send': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_chattools_1.ChatApi>(
-          target,
-          'ChatApi',
-        );
+        final t = D4.validateTarget<$tom_chattools_1.ChatApi>(target, 'ChatApi');
         D4.requireMinArgs(positional, 2, 'send');
-        final receiver = D4.getRequiredArg<$tom_chattools_4.ChatReceiver>(
-          positional,
-          0,
-          'receiver',
-          'send',
-        );
-        final message = D4.getRequiredArg<$tom_chattools_3.ChatMessage>(
-          positional,
-          1,
-          'message',
-          'send',
-        );
+        final receiver = D4.getRequiredArg<$tom_chattools_4.ChatReceiver>(positional, 0, 'receiver', 'send');
+        final message = D4.getRequiredArg<$tom_chattools_3.ChatMessage>(positional, 1, 'message', 'send');
         return t.send(receiver, message);
       },
       'getMessages': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_chattools_1.ChatApi>(
-          target,
-          'ChatApi',
-        );
+        final t = D4.validateTarget<$tom_chattools_1.ChatApi>(target, 'ChatApi');
         D4.requireMinArgs(positional, 1, 'getMessages');
-        final receiver = D4.getRequiredArg<$tom_chattools_4.ChatReceiver>(
-          positional,
-          0,
-          'receiver',
-          'getMessages',
-        );
-        final maxWait = D4.getNamedArgWithDefault<Duration>(
-          named,
-          'maxWait',
-          const Duration(seconds: 30),
-        );
-        final minWait = D4.getNamedArgWithDefault<Duration>(
-          named,
-          'minWait',
-          Duration.zero,
-        );
-        final interval = D4.getNamedArgWithDefault<Duration>(
-          named,
-          'interval',
-          const Duration(seconds: 2),
-        );
-        final filter = D4
-            .getOptionalNamedArg<$tom_chattools_1.ChatMessageFilter?>(
-              named,
-              'filter',
-            );
-        return t.getMessages(
-          receiver,
-          maxWait: maxWait,
-          minWait: minWait,
-          interval: interval,
-          filter: filter,
-        );
+        final receiver = D4.getRequiredArg<$tom_chattools_4.ChatReceiver>(positional, 0, 'receiver', 'getMessages');
+        final maxWait = D4.getNamedArgWithDefault<Duration>(named, 'maxWait', const Duration(seconds: 30));
+        final minWait = D4.getNamedArgWithDefault<Duration>(named, 'minWait', Duration.zero);
+        final interval = D4.getNamedArgWithDefault<Duration>(named, 'interval', const Duration(seconds: 2));
+        final filter = D4.getOptionalNamedArg<$tom_chattools_1.ChatMessageFilter?>(named, 'filter');
+        return t.getMessages(receiver, maxWait: maxWait, minWait: minWait, interval: interval, filter: filter);
       },
       'getReceiverInfo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_chattools_1.ChatApi>(
-          target,
-          'ChatApi',
-        );
+        final t = D4.validateTarget<$tom_chattools_1.ChatApi>(target, 'ChatApi');
         D4.requireMinArgs(positional, 1, 'getReceiverInfo');
-        final receiver = D4.getRequiredArg<$tom_chattools_4.ChatReceiver>(
-          positional,
-          0,
-          'receiver',
-          'getReceiverInfo',
-        );
+        final receiver = D4.getRequiredArg<$tom_chattools_4.ChatReceiver>(positional, 0, 'receiver', 'getReceiverInfo');
         return t.getReceiverInfo(receiver);
       },
       'downloadAttachment': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_chattools_1.ChatApi>(
-          target,
-          'ChatApi',
-        );
+        final t = D4.validateTarget<$tom_chattools_1.ChatApi>(target, 'ChatApi');
         D4.requireMinArgs(positional, 1, 'downloadAttachment');
-        final attachment = D4.getRequiredArg<$tom_chattools_3.ChatAttachment>(
-          positional,
-          0,
-          'attachment',
-          'downloadAttachment',
-        );
+        final attachment = D4.getRequiredArg<$tom_chattools_3.ChatAttachment>(positional, 0, 'attachment', 'downloadAttachment');
         return t.downloadAttachment(attachment);
       },
       'disconnect': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_chattools_1.ChatApi>(
-          target,
-          'ChatApi',
-        );
+        final t = D4.validateTarget<$tom_chattools_1.ChatApi>(target, 'ChatApi');
         return t.disconnect();
       },
     },
     staticMethods: {
       'connect': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'connect');
-        final settings = D4.getRequiredArg<$tom_chattools_6.ChatSettings>(
-          positional,
-          0,
-          'settings',
-          'connect',
-        );
+        final settings = D4.getRequiredArg<$tom_chattools_6.ChatSettings>(positional, 0, 'settings', 'connect');
         return $tom_chattools_1.ChatApi.connect(settings);
       },
     },
     methodSignatures: {
       'initialize': 'Future<void> initialize()',
-      'sendMessage':
-          'Future<ChatMessage> sendMessage(ChatReceiver receiver, String text, {String? parseMode})',
-      'send':
-          'Future<ChatMessage> send(ChatReceiver receiver, ChatMessage message)',
-      'getMessages':
-          'Future<ChatResponse> getMessages(ChatReceiver receiver, {Duration maxWait = const Duration(seconds: 30), Duration minWait = Duration.zero, Duration interval = const Duration(seconds: 2), ChatMessageFilter? filter})',
-      'getReceiverInfo':
-          'Future<ChatReceiverInfo?> getReceiverInfo(ChatReceiver receiver)',
-      'downloadAttachment':
-          'Future<List<int>?> downloadAttachment(ChatAttachment attachment)',
+      'sendMessage': 'Future<ChatMessage> sendMessage(ChatReceiver receiver, String text, {String? parseMode})',
+      'send': 'Future<ChatMessage> send(ChatReceiver receiver, ChatMessage message)',
+      'getMessages': 'Future<ChatResponse> getMessages(ChatReceiver receiver, {Duration maxWait = const Duration(seconds: 30), Duration minWait = Duration.zero, Duration interval = const Duration(seconds: 2), ChatMessageFilter? filter})',
+      'getReceiverInfo': 'Future<ChatReceiverInfo?> getReceiverInfo(ChatReceiver receiver)',
+      'downloadAttachment': 'Future<List<int>?> downloadAttachment(ChatAttachment attachment)',
       'disconnect': 'Future<void> disconnect()',
     },
     getterSignatures: {
@@ -1410,7 +876,9 @@ BridgedClass _createChatApiBridge() {
       'platform': 'String get platform',
       'onMessage': 'Stream<ChatMessage> get onMessage',
     },
-    setterSignatures: {'settings': 'set settings(dynamic value)'},
+    setterSignatures: {
+      'settings': 'set settings(dynamic value)',
+    },
     staticMethodSignatures: {
       'connect': 'Future<ChatApi> connect(ChatSettings settings)',
     },
@@ -1428,41 +896,16 @@ BridgedClass _createChatMessageFilterBridge() {
     isAssignable: (v) => v is $tom_chattools_1.ChatMessageFilter,
     constructors: {
       '': (visitor, positional, named) {
-        final from = D4.coerceListOrNull<$tom_chattools_4.ChatReceiver>(
-          named['from'],
-          'from',
-        );
-        final types = D4.coerceListOrNull<$tom_chattools_3.ChatMessageType>(
-          named['types'],
-          'types',
-        );
+        final from = D4.coerceListOrNull<$tom_chattools_4.ChatReceiver>(named['from'], 'from');
+        final types = D4.coerceListOrNull<$tom_chattools_3.ChatMessageType>(named['types'], 'types');
         final after = D4.getOptionalNamedArg<DateTime?>(named, 'after');
-        return $tom_chattools_1.ChatMessageFilter(
-          from: from,
-          types: types,
-          after: after,
-        );
+        return $tom_chattools_1.ChatMessageFilter(from: from, types: types, after: after);
       },
     },
     getters: {
-      'from': (visitor, target) => D4
-          .validateTarget<$tom_chattools_1.ChatMessageFilter>(
-            target,
-            'ChatMessageFilter',
-          )
-          .from,
-      'types': (visitor, target) => D4
-          .validateTarget<$tom_chattools_1.ChatMessageFilter>(
-            target,
-            'ChatMessageFilter',
-          )
-          .types,
-      'after': (visitor, target) => D4
-          .validateTarget<$tom_chattools_1.ChatMessageFilter>(
-            target,
-            'ChatMessageFilter',
-          )
-          .after,
+      'from': (visitor, target) => D4.validateTarget<$tom_chattools_1.ChatMessageFilter>(target, 'ChatMessageFilter').from,
+      'types': (visitor, target) => D4.validateTarget<$tom_chattools_1.ChatMessageFilter>(target, 'ChatMessageFilter').types,
+      'after': (visitor, target) => D4.validateTarget<$tom_chattools_1.ChatMessageFilter>(target, 'ChatMessageFilter').after,
     },
     constructorSignatures: {
       '': 'const ChatMessageFilter({List<ChatReceiver>? from, List<ChatMessageType>? types, DateTime? after})',
@@ -1487,85 +930,34 @@ BridgedClass _createTelegramChatConfigBridge() {
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
-        final token = D4.getRequiredNamedArg<String>(
-          named,
-          'token',
-          'TelegramChatConfig',
-        );
-        final usePolling = D4.getNamedArgWithDefault<bool>(
-          named,
-          'usePolling',
-          true,
-        );
-        final pollingTimeout = D4.getNamedArgWithDefault<int>(
-          named,
-          'pollingTimeout',
-          2,
-        );
-        final allowedUpdates = D4.coerceListOrNull<String>(
-          named['allowedUpdates'],
-          'allowedUpdates',
-        );
-        return $tom_chattools_7.TelegramChatConfig(
-          token: token,
-          usePolling: usePolling,
-          pollingTimeout: pollingTimeout,
-          allowedUpdates: allowedUpdates,
-        );
+        final token = D4.getRequiredNamedArg<String>(named, 'token', 'TelegramChatConfig');
+        final usePolling = D4.getNamedArgWithDefault<bool>(named, 'usePolling', true);
+        final pollingTimeout = D4.getNamedArgWithDefault<int>(named, 'pollingTimeout', 2);
+        final allowedUpdates = D4.coerceListOrNull<String>(named['allowedUpdates'], 'allowedUpdates');
+        return $tom_chattools_7.TelegramChatConfig(token: token, usePolling: usePolling, pollingTimeout: pollingTimeout, allowedUpdates: allowedUpdates);
       },
     },
     getters: {
-      'platform': (visitor, target) => D4
-          .validateTarget<$tom_chattools_7.TelegramChatConfig>(
-            target,
-            'TelegramChatConfig',
-          )
-          .platform,
-      'token': (visitor, target) => D4
-          .validateTarget<$tom_chattools_7.TelegramChatConfig>(
-            target,
-            'TelegramChatConfig',
-          )
-          .token,
-      'usePolling': (visitor, target) => D4
-          .validateTarget<$tom_chattools_7.TelegramChatConfig>(
-            target,
-            'TelegramChatConfig',
-          )
-          .usePolling,
-      'pollingTimeout': (visitor, target) => D4
-          .validateTarget<$tom_chattools_7.TelegramChatConfig>(
-            target,
-            'TelegramChatConfig',
-          )
-          .pollingTimeout,
-      'allowedUpdates': (visitor, target) => D4
-          .validateTarget<$tom_chattools_7.TelegramChatConfig>(
-            target,
-            'TelegramChatConfig',
-          )
-          .allowedUpdates,
+      'platform': (visitor, target) => D4.validateTarget<$tom_chattools_7.TelegramChatConfig>(target, 'TelegramChatConfig').platform,
+      'token': (visitor, target) => D4.validateTarget<$tom_chattools_7.TelegramChatConfig>(target, 'TelegramChatConfig').token,
+      'usePolling': (visitor, target) => D4.validateTarget<$tom_chattools_7.TelegramChatConfig>(target, 'TelegramChatConfig').usePolling,
+      'pollingTimeout': (visitor, target) => D4.validateTarget<$tom_chattools_7.TelegramChatConfig>(target, 'TelegramChatConfig').pollingTimeout,
+      'allowedUpdates': (visitor, target) => D4.validateTarget<$tom_chattools_7.TelegramChatConfig>(target, 'TelegramChatConfig').allowedUpdates,
     },
     methods: {
       'createApi': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_chattools_7.TelegramChatConfig>(
-          target,
-          'TelegramChatConfig',
-        );
+        final t = D4.validateTarget<$tom_chattools_7.TelegramChatConfig>(target, 'TelegramChatConfig');
         D4.requireMinArgs(positional, 1, 'createApi');
-        final settings = D4.getRequiredArg<$tom_chattools_6.ChatSettings>(
-          positional,
-          0,
-          'settings',
-          'createApi',
-        );
+        final settings = D4.getRequiredArg<$tom_chattools_6.ChatSettings>(positional, 0, 'settings', 'createApi');
         return t.createApi(settings);
       },
     },
     constructorSignatures: {
       '': 'const TelegramChatConfig({required String token, bool usePolling = true, int pollingTimeout = 2, List<String>? allowedUpdates})',
     },
-    methodSignatures: {'createApi': 'ChatApi createApi(ChatSettings settings)'},
+    methodSignatures: {
+      'createApi': 'ChatApi createApi(ChatSettings settings)',
+    },
     getterSignatures: {
       'platform': 'String get platform',
       'token': 'String get token',
@@ -1575,3 +967,4 @@ BridgedClass _createTelegramChatConfigBridge() {
     },
   );
 }
+

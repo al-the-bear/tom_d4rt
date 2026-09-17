@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 10 files
-// Generated: 2026-08-12T10:16:00.408575
+// Generated: 2026-09-18T01:47:56.087259 by tom_d4rt_generator 1.26.2
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -23,13 +23,11 @@ import 'package:tom_d4rt_dcli/src/api/cli_api.dart' as $tom_d4rt_dcli_1;
 import 'package:tom_d4rt_dcli/src/api/cli_bridge.dart' as $tom_d4rt_dcli_2;
 import 'package:tom_d4rt_dcli/src/api/cli_controller.dart' as $tom_d4rt_dcli_3;
 import 'package:tom_d4rt_dcli/src/api/cli_exceptions.dart' as $tom_d4rt_dcli_4;
-import 'package:tom_d4rt_dcli/src/api/cli_result_types.dart'
-    as $tom_d4rt_dcli_5;
+import 'package:tom_d4rt_dcli/src/api/cli_result_types.dart' as $tom_d4rt_dcli_5;
 import 'package:tom_d4rt_dcli/src/api/cli_runtime.dart' as $tom_d4rt_dcli_6;
 import 'package:tom_d4rt_dcli/src/api/cli_state.dart' as $tom_d4rt_dcli_7;
 import 'package:tom_d4rt_dcli/src/api/cli_test_utils.dart' as $tom_d4rt_dcli_8;
-import 'package:tom_d4rt_dcli/src/api/execution_context.dart'
-    as $tom_d4rt_dcli_9;
+import 'package:tom_d4rt_dcli/src/api/execution_context.dart' as $tom_d4rt_dcli_9;
 import 'package:tom_d4rt/src/exceptions.dart' as $aux_tom_d4rt;
 
 /// Bridge class for cli_api module.
@@ -79,8 +77,7 @@ class CliApiBridge {
       'DirectoryNotFoundException': _createDirectoryNotFoundExceptionBridge,
       'ExecutionException': _createExecutionExceptionBridge,
       'ReplayException': _createReplayExceptionBridge,
-      'InvalidMultilineModeException':
-          _createInvalidMultilineModeExceptionBridge,
+      'InvalidMultilineModeException': _createInvalidMultilineModeExceptionBridge,
       'MaxNestingDepthException': _createMaxNestingDepthExceptionBridge,
       'CliNotInitializedException': _createCliNotInitializedExceptionBridge,
       'ExecuteResult': _createExecuteResultBridge,
@@ -109,8 +106,7 @@ class CliApiBridge {
       'DirectoryNotFoundException': $tom_d4rt_dcli_4.DirectoryNotFoundException,
       'ExecutionException': $tom_d4rt_dcli_4.ExecutionException,
       'ReplayException': $tom_d4rt_dcli_4.ReplayException,
-      'InvalidMultilineModeException':
-          $tom_d4rt_dcli_4.InvalidMultilineModeException,
+      'InvalidMultilineModeException': $tom_d4rt_dcli_4.InvalidMultilineModeException,
       'MaxNestingDepthException': $tom_d4rt_dcli_4.MaxNestingDepthException,
       'CliNotInitializedException': $tom_d4rt_dcli_4.CliNotInitializedException,
       'ExecuteResult': $tom_d4rt_dcli_5.ExecuteResult,
@@ -136,28 +132,21 @@ class CliApiBridge {
       'D4rtCliController': 'package:tom_d4rt_dcli/src/api/cli_controller.dart',
       'CliGlobalHolder': 'package:tom_d4rt_dcli/src/api/cli_controller.dart',
       'CliException': 'package:tom_d4rt_dcli/src/api/cli_exceptions.dart',
-      'CliFileNotFoundException':
-          'package:tom_d4rt_dcli/src/api/cli_exceptions.dart',
-      'DirectoryNotFoundException':
-          'package:tom_d4rt_dcli/src/api/cli_exceptions.dart',
+      'CliFileNotFoundException': 'package:tom_d4rt_dcli/src/api/cli_exceptions.dart',
+      'DirectoryNotFoundException': 'package:tom_d4rt_dcli/src/api/cli_exceptions.dart',
       'ExecutionException': 'package:tom_d4rt_dcli/src/api/cli_exceptions.dart',
       'ReplayException': 'package:tom_d4rt_dcli/src/api/cli_exceptions.dart',
-      'InvalidMultilineModeException':
-          'package:tom_d4rt_dcli/src/api/cli_exceptions.dart',
-      'MaxNestingDepthException':
-          'package:tom_d4rt_dcli/src/api/cli_exceptions.dart',
-      'CliNotInitializedException':
-          'package:tom_d4rt_dcli/src/api/cli_exceptions.dart',
+      'InvalidMultilineModeException': 'package:tom_d4rt_dcli/src/api/cli_exceptions.dart',
+      'MaxNestingDepthException': 'package:tom_d4rt_dcli/src/api/cli_exceptions.dart',
+      'CliNotInitializedException': 'package:tom_d4rt_dcli/src/api/cli_exceptions.dart',
       'ExecuteResult': 'package:tom_d4rt_dcli/src/api/cli_result_types.dart',
       'ImportInfo': 'package:tom_d4rt_dcli/src/api/cli_result_types.dart',
       'SymbolInfo': 'package:tom_d4rt_dcli/src/api/cli_result_types.dart',
       'CliRuntime': 'package:tom_d4rt_dcli/src/api/cli_runtime.dart',
       'CliRuntimeImpl': 'package:tom_d4rt_dcli/src/api/cli_runtime.dart',
       'CliState': 'package:tom_d4rt_dcli/src/api/cli_state.dart',
-      'VerificationFailure':
-          'package:tom_d4rt_dcli/src/api/cli_test_utils.dart',
-      'ExecutionContext':
-          'package:tom_d4rt_dcli/src/api/execution_context.dart',
+      'VerificationFailure': 'package:tom_d4rt_dcli/src/api/cli_test_utils.dart',
+      'ExecutionContext': 'package:tom_d4rt_dcli/src/api/execution_context.dart',
       'ContextStack': 'package:tom_d4rt_dcli/src/api/execution_context.dart',
       'D4rt': 'package:tom_d4rt/src/d4rt_base.dart',
     };
@@ -174,33 +163,13 @@ class CliApiBridge {
     return {
       'D4rtCliController': ['D4rtCliApi'],
       'CliException': ['D4rtException', 'Exception'],
-      'CliFileNotFoundException': [
-        'CliException',
-        'D4rtException',
-        'Exception',
-      ],
-      'DirectoryNotFoundException': [
-        'CliException',
-        'D4rtException',
-        'Exception',
-      ],
+      'CliFileNotFoundException': ['CliException', 'D4rtException', 'Exception'],
+      'DirectoryNotFoundException': ['CliException', 'D4rtException', 'Exception'],
       'ExecutionException': ['CliException', 'D4rtException', 'Exception'],
       'ReplayException': ['CliException', 'D4rtException', 'Exception'],
-      'InvalidMultilineModeException': [
-        'CliException',
-        'D4rtException',
-        'Exception',
-      ],
-      'MaxNestingDepthException': [
-        'CliException',
-        'D4rtException',
-        'Exception',
-      ],
-      'CliNotInitializedException': [
-        'CliException',
-        'D4rtException',
-        'Exception',
-      ],
+      'InvalidMultilineModeException': ['CliException', 'D4rtException', 'Exception'],
+      'MaxNestingDepthException': ['CliException', 'D4rtException', 'Exception'],
+      'CliNotInitializedException': ['CliException', 'D4rtException', 'Exception'],
       'CliRuntimeImpl': ['CliRuntime'],
       'VerificationFailure': ['Exception'],
     };
@@ -212,7 +181,8 @@ class CliApiBridge {
   /// are registered so that code using the alias name can resolve to the
   /// bridged class under its canonical name.
   static Map<String, String> classAliases() {
-    return {};
+    return {
+    };
   }
 
   /// Returns the list of function typedef names declared in this library.
@@ -255,77 +225,32 @@ class CliApiBridge {
 
   /// Returns all bridged extension definitions.
   static List<BridgedExtensionDefinition> bridgedExtensions() {
-    return [];
+    return [
+    ];
   }
 
   /// Returns a map of extension identifiers to their canonical source URIs.
   static Map<String, String> extensionSourceUris() {
-    return {};
+    return {
+    };
   }
 
   /// GEN-107: Library re-exports declared by the bridged source
   /// libraries. Each tuple mirrors a Dart `export '…'` directive.
   /// Consumed by `registerBridges` via `D4rt.registerLibraryReExport`
   /// (mirrored on `D4rtRunner` in tom_d4rt_ast).
-  static List<
-    ({String source, String target, Set<String>? show, Set<String>? hide})
-  >
+  static List<({String source, String target, Set<String>? show, Set<String>? hide})>
   bridgeReExports() {
     return [
-      (
-        source: 'package:tom_d4rt_dcli/tom_d4rt_cli_api.dart',
-        target: 'package:tom_d4rt_dcli/src/api/cli_api.dart',
-        show: null,
-        hide: null,
-      ),
-      (
-        source: 'package:tom_d4rt_dcli/tom_d4rt_cli_api.dart',
-        target: 'package:tom_d4rt_dcli/src/api/cli_bridge.dart',
-        show: null,
-        hide: null,
-      ),
-      (
-        source: 'package:tom_d4rt_dcli/tom_d4rt_cli_api.dart',
-        target: 'package:tom_d4rt_dcli/src/api/cli_controller.dart',
-        show: null,
-        hide: null,
-      ),
-      (
-        source: 'package:tom_d4rt_dcli/tom_d4rt_cli_api.dart',
-        target: 'package:tom_d4rt_dcli/src/api/cli_exceptions.dart',
-        show: null,
-        hide: null,
-      ),
-      (
-        source: 'package:tom_d4rt_dcli/tom_d4rt_cli_api.dart',
-        target: 'package:tom_d4rt_dcli/src/api/cli_result_types.dart',
-        show: null,
-        hide: null,
-      ),
-      (
-        source: 'package:tom_d4rt_dcli/tom_d4rt_cli_api.dart',
-        target: 'package:tom_d4rt_dcli/src/api/cli_runtime.dart',
-        show: null,
-        hide: null,
-      ),
-      (
-        source: 'package:tom_d4rt_dcli/tom_d4rt_cli_api.dart',
-        target: 'package:tom_d4rt_dcli/src/api/cli_state.dart',
-        show: null,
-        hide: null,
-      ),
-      (
-        source: 'package:tom_d4rt_dcli/tom_d4rt_cli_api.dart',
-        target: 'package:tom_d4rt_dcli/src/api/cli_test_utils.dart',
-        show: null,
-        hide: null,
-      ),
-      (
-        source: 'package:tom_d4rt_dcli/tom_d4rt_cli_api.dart',
-        target: 'package:tom_d4rt_dcli/src/api/execution_context.dart',
-        show: null,
-        hide: null,
-      ),
+      (source: 'package:tom_d4rt_dcli/tom_d4rt_cli_api.dart', target: 'package:tom_d4rt_dcli/src/api/cli_api.dart', show: null, hide: null),
+      (source: 'package:tom_d4rt_dcli/tom_d4rt_cli_api.dart', target: 'package:tom_d4rt_dcli/src/api/cli_bridge.dart', show: null, hide: null),
+      (source: 'package:tom_d4rt_dcli/tom_d4rt_cli_api.dart', target: 'package:tom_d4rt_dcli/src/api/cli_controller.dart', show: null, hide: null),
+      (source: 'package:tom_d4rt_dcli/tom_d4rt_cli_api.dart', target: 'package:tom_d4rt_dcli/src/api/cli_exceptions.dart', show: null, hide: null),
+      (source: 'package:tom_d4rt_dcli/tom_d4rt_cli_api.dart', target: 'package:tom_d4rt_dcli/src/api/cli_result_types.dart', show: null, hide: null),
+      (source: 'package:tom_d4rt_dcli/tom_d4rt_cli_api.dart', target: 'package:tom_d4rt_dcli/src/api/cli_runtime.dart', show: null, hide: null),
+      (source: 'package:tom_d4rt_dcli/tom_d4rt_cli_api.dart', target: 'package:tom_d4rt_dcli/src/api/cli_state.dart', show: null, hide: null),
+      (source: 'package:tom_d4rt_dcli/tom_d4rt_cli_api.dart', target: 'package:tom_d4rt_dcli/src/api/cli_test_utils.dart', show: null, hide: null),
+      (source: 'package:tom_d4rt_dcli/tom_d4rt_cli_api.dart', target: 'package:tom_d4rt_dcli/src/api/execution_context.dart', show: null, hide: null),
     ];
   }
 
@@ -359,11 +284,7 @@ class CliApiBridge {
     final enums = bridgedEnums();
     final enumSources = enumSourceUris();
     for (final enumDef in enums) {
-      interpreter.registerBridgedEnum(
-        enumDef,
-        importPath,
-        sourceUri: enumSources[enumDef.name],
-      );
+      interpreter.registerBridgedEnum(enumDef, importPath, sourceUri: enumSources[enumDef.name]);
     }
 
     // Register global variables
@@ -374,13 +295,7 @@ class CliApiBridge {
     final funcSources = globalFunctionSourceUris();
     final funcSigs = globalFunctionSignatures();
     for (final entry in funcs.entries) {
-      interpreter.registertopLevelFunction(
-        entry.key,
-        entry.value,
-        importPath,
-        sourceUri: funcSources[entry.key],
-        signature: funcSigs[entry.key],
-      );
+      interpreter.registertopLevelFunction(entry.key, entry.value, importPath, sourceUri: funcSources[entry.key], signature: funcSigs[entry.key]);
     }
 
     // Register function typedefs for type resolution
@@ -391,12 +306,7 @@ class CliApiBridge {
 
     // GEN-107: Register library re-exports
     for (final r in bridgeReExports()) {
-      interpreter.registerLibraryReExport(
-        r.source,
-        r.target,
-        show: r.show,
-        hide: r.hide,
-      );
+      interpreter.registerLibraryReExport(r.source, r.target, show: r.show, hide: r.hide);
     }
   }
 
@@ -409,36 +319,19 @@ class CliApiBridge {
     final errors = <String>[];
 
     try {
-      interpreter.registerGlobalVariable(
-        'cliLibrary',
-        $tom_d4rt_dcli_2.cliLibrary,
-        importPath,
-        sourceUri: 'package:tom_d4rt_dcli/src/api/cli_bridge.dart',
-      );
+      interpreter.registerGlobalVariable('cliLibrary', $tom_d4rt_dcli_2.cliLibrary, importPath, sourceUri: 'package:tom_d4rt_dcli/src/api/cli_bridge.dart');
     } catch (e) {
       errors.add('Failed to register variable "cliLibrary": $e');
     }
     try {
-      interpreter.registerGlobalVariable(
-        'cliGlobalHolder',
-        $tom_d4rt_dcli_2.cliGlobalHolder,
-        importPath,
-        sourceUri: 'package:tom_d4rt_dcli/src/api/cli_bridge.dart',
-      );
+      interpreter.registerGlobalVariable('cliGlobalHolder', $tom_d4rt_dcli_2.cliGlobalHolder, importPath, sourceUri: 'package:tom_d4rt_dcli/src/api/cli_bridge.dart');
     } catch (e) {
       errors.add('Failed to register variable "cliGlobalHolder": $e');
     }
-    interpreter.registerGlobalGetter(
-      'verificationFailures',
-      () => $tom_d4rt_dcli_8.verificationFailures,
-      importPath,
-      sourceUri: 'package:tom_d4rt_dcli/src/api/cli_test_utils.dart',
-    );
+    interpreter.registerGlobalGetter('verificationFailures', () => $tom_d4rt_dcli_8.verificationFailures, importPath, sourceUri: 'package:tom_d4rt_dcli/src/api/cli_test_utils.dart');
 
     if (errors.isNotEmpty) {
-      throw StateError(
-        'Bridge registration errors (cli_api):\n${errors.join("\n")}',
-      );
+      throw StateError('Bridge registration errors (cli_api):\n${errors.join("\n")}');
     }
   }
 
@@ -447,22 +340,12 @@ class CliApiBridge {
     return {
       'registerCliBridge': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'registerCliBridge');
-        final d4rt = D4.getRequiredArg<$tom_d4rt_4.D4rt>(
-          positional,
-          0,
-          'd4rt',
-          'registerCliBridge',
-        );
+        final d4rt = D4.getRequiredArg<$tom_d4rt_4.D4rt>(positional, 0, 'd4rt', 'registerCliBridge');
         return $tom_d4rt_dcli_2.registerCliBridge(d4rt);
       },
       'registerCliShortcuts': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'registerCliShortcuts');
-        final d4rt = D4.getRequiredArg<$tom_d4rt_4.D4rt>(
-          positional,
-          0,
-          'd4rt',
-          'registerCliShortcuts',
-        );
+        final d4rt = D4.getRequiredArg<$tom_d4rt_4.D4rt>(positional, 0, 'd4rt', 'registerCliShortcuts');
         return $tom_d4rt_dcli_2.registerCliShortcuts(d4rt);
       },
       'clearVerificationFailures': (visitor, positional, named, typeArgs) {
@@ -470,132 +353,63 @@ class CliApiBridge {
       },
       'verify': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'verify');
-        final condition = D4.getRequiredArg<bool>(
-          positional,
-          0,
-          'condition',
-          'verify',
-        );
-        final errorMessage = D4.getRequiredArg<String>(
-          positional,
-          1,
-          'errorMessage',
-          'verify',
-        );
+        final condition = D4.getRequiredArg<bool>(positional, 0, 'condition', 'verify');
+        final errorMessage = D4.getRequiredArg<String>(positional, 1, 'errorMessage', 'verify');
         return $tom_d4rt_dcli_8.verify(condition, errorMessage);
       },
       'verifyEquals': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'verifyEquals');
-        final actual = D4.getRequiredArg<Object?>(
-          positional,
-          0,
-          'actual',
-          'verifyEquals',
-        );
-        final expected = D4.getRequiredArg<Object?>(
-          positional,
-          1,
-          'expected',
-          'verifyEquals',
-        );
+        final actual = D4.getRequiredArg<Object?>(positional, 0, 'actual', 'verifyEquals');
+        final expected = D4.getRequiredArg<Object?>(positional, 1, 'expected', 'verifyEquals');
         final message = positional.length > 2 ? positional[2] as String? : null;
         return $tom_d4rt_dcli_8.verifyEquals(actual, expected, message);
       },
       'verifyNotNull': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'verifyNotNull');
-        final value = D4.getRequiredArg<Object?>(
-          positional,
-          0,
-          'value',
-          'verifyNotNull',
-        );
+        final value = D4.getRequiredArg<Object?>(positional, 0, 'value', 'verifyNotNull');
         final message = positional.length > 1 ? positional[1] as String? : null;
         return $tom_d4rt_dcli_8.verifyNotNull(value, message);
       },
       'verifyNull': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'verifyNull');
-        final value = D4.getRequiredArg<Object?>(
-          positional,
-          0,
-          'value',
-          'verifyNull',
-        );
+        final value = D4.getRequiredArg<Object?>(positional, 0, 'value', 'verifyNull');
         final message = positional.length > 1 ? positional[1] as String? : null;
         return $tom_d4rt_dcli_8.verifyNull(value, message);
       },
       'verifyContains': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'verifyContains');
-        final actual = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'actual',
-          'verifyContains',
-        );
-        final substring = D4.getRequiredArg<String>(
-          positional,
-          1,
-          'substring',
-          'verifyContains',
-        );
+        final actual = D4.getRequiredArg<String>(positional, 0, 'actual', 'verifyContains');
+        final substring = D4.getRequiredArg<String>(positional, 1, 'substring', 'verifyContains');
         final message = positional.length > 2 ? positional[2] as String? : null;
         return $tom_d4rt_dcli_8.verifyContains(actual, substring, message);
       },
       'verifyMatches': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'verifyMatches');
-        final actual = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'actual',
-          'verifyMatches',
-        );
-        final pattern = D4.getRequiredArg<String>(
-          positional,
-          1,
-          'pattern',
-          'verifyMatches',
-        );
+        final actual = D4.getRequiredArg<String>(positional, 0, 'actual', 'verifyMatches');
+        final pattern = D4.getRequiredArg<String>(positional, 1, 'pattern', 'verifyMatches');
         final message = positional.length > 2 ? positional[2] as String? : null;
         return $tom_d4rt_dcli_8.verifyMatches(actual, pattern, message);
       },
       'verifyNotEmpty': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'verifyNotEmpty');
-        final list = D4.getRequiredArg<List>(
-          positional,
-          0,
-          'list',
-          'verifyNotEmpty',
-        );
+        final list = D4.getRequiredArg<List>(positional, 0, 'list', 'verifyNotEmpty');
         final message = positional.length > 1 ? positional[1] as String? : null;
         return $tom_d4rt_dcli_8.verifyNotEmpty(list, message);
       },
       'verifyLength': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'verifyLength');
-        final list = D4.getRequiredArg<List>(
-          positional,
-          0,
-          'list',
-          'verifyLength',
-        );
-        final length = D4.getRequiredArg<int>(
-          positional,
-          1,
-          'length',
-          'verifyLength',
-        );
+        final list = D4.getRequiredArg<List>(positional, 0, 'list', 'verifyLength');
+        final length = D4.getRequiredArg<int>(positional, 1, 'length', 'verifyLength');
         final message = positional.length > 2 ? positional[2] as String? : null;
         return $tom_d4rt_dcli_8.verifyLength(list, length, message);
       },
       'verifyThrows': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'verifyThrows');
         if (positional.isEmpty) {
-          throw ArgumentError(
-            'verifyThrows: Missing required argument "fn" at position 0',
-          );
+          throw ArgumentError('verifyThrows: Missing required argument "fn" at position 0');
         }
         final fnRaw = positional[0];
-        final fn = () {
-          D4.callInterpreterCallback(visitor!, fnRaw, []);
-        };
+        final fn = () { D4.callInterpreterCallback(visitor!, fnRaw, []); };
         final message = positional.length > 1 ? positional[1] as String? : null;
         return $tom_d4rt_dcli_8.verifyThrows(fn, message);
       },
@@ -613,8 +427,7 @@ class CliApiBridge {
     return {
       'registerCliBridge': 'package:tom_d4rt_dcli/src/api/cli_bridge.dart',
       'registerCliShortcuts': 'package:tom_d4rt_dcli/src/api/cli_bridge.dart',
-      'clearVerificationFailures':
-          'package:tom_d4rt_dcli/src/api/cli_test_utils.dart',
+      'clearVerificationFailures': 'package:tom_d4rt_dcli/src/api/cli_test_utils.dart',
       'verify': 'package:tom_d4rt_dcli/src/api/cli_test_utils.dart',
       'verifyEquals': 'package:tom_d4rt_dcli/src/api/cli_test_utils.dart',
       'verifyNotNull': 'package:tom_d4rt_dcli/src/api/cli_test_utils.dart',
@@ -635,19 +448,14 @@ class CliApiBridge {
       'registerCliShortcuts': 'void registerCliShortcuts(D4rt d4rt)',
       'clearVerificationFailures': 'void clearVerificationFailures()',
       'verify': 'bool verify(bool condition, String errorMessage)',
-      'verifyEquals':
-          'bool verifyEquals(Object? actual, Object? expected, [String? message])',
+      'verifyEquals': 'bool verifyEquals(Object? actual, Object? expected, [String? message])',
       'verifyNotNull': 'bool verifyNotNull(Object? value, [String? message])',
       'verifyNull': 'bool verifyNull(Object? value, [String? message])',
-      'verifyContains':
-          'bool verifyContains(String actual, String substring, [String? message])',
-      'verifyMatches':
-          'bool verifyMatches(String actual, String pattern, [String? message])',
+      'verifyContains': 'bool verifyContains(String actual, String substring, [String? message])',
+      'verifyMatches': 'bool verifyMatches(String actual, String pattern, [String? message])',
       'verifyNotEmpty': 'bool verifyNotEmpty(List list, [String? message])',
-      'verifyLength':
-          'bool verifyLength(List list, int length, [String? message])',
-      'verifyThrows':
-          'bool verifyThrows(void Function() fn, [String? message])',
+      'verifyLength': 'bool verifyLength(List list, int length, [String? message])',
+      'verifyThrows': 'bool verifyThrows(void Function() fn, [String? message])',
       'testSummary': 'bool testSummary()',
     };
   }
@@ -690,11 +498,17 @@ class CliApiBridge {
   /// These barrels need to be registered with the interpreter separately
   /// so that module resolution finds content for those URIs.
   static List<String> subPackageBarrels() {
-    return ['package:tom_d4rt/tom_d4rt.dart'];
+    return [
+      'package:tom_d4rt/tom_d4rt.dart',
+    ];
   }
 
   /// Returns a list of bridged enum names.
-  static List<String> get enumNames => ['SymbolKind', 'MultilineMode'];
+  static List<String> get enumNames => [
+    'SymbolKind',
+    'MultilineMode',
+  ];
+
 }
 
 // =============================================================================
@@ -707,543 +521,291 @@ BridgedClass _createD4rtCliApiBridge() {
     name: 'D4rtCliApi',
     isAssignable: (v) => v is $tom_d4rt_dcli_1.D4rtCliApi,
     isAbstract: true,
-    constructors: {},
+    constructors: {
+    },
     getters: {
-      'isMultilineMode': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi')
-          .isMultilineMode,
-      'multilineMode': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi')
-          .multilineMode,
-      'multilineBuffer': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi')
-          .multilineBuffer,
-      'd4rt': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi')
-          .d4rt,
-      'dataDirectory': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi')
-          .dataDirectory,
-      'toolName': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi')
-          .toolName,
-      'currentSessionId': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi')
-          .currentSessionId,
-      'configuration': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi')
-          .configuration,
-      'runtime': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi')
-          .runtime,
+      'isMultilineMode': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi').isMultilineMode,
+      'multilineMode': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi').multilineMode,
+      'multilineBuffer': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi').multilineBuffer,
+      'd4rt': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi').d4rt,
+      'dataDirectory': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi').dataDirectory,
+      'toolName': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi').toolName,
+      'currentSessionId': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi').currentSessionId,
+      'configuration': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi').configuration,
+      'runtime': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi').runtime,
     },
     methods: {
       'processPrompt': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         D4.requireMinArgs(positional, 1, 'processPrompt');
-        final line = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'line',
-          'processPrompt',
-        );
+        final line = D4.getRequiredArg<String>(positional, 0, 'line', 'processPrompt');
         return t.processPrompt(line);
       },
       'processPrompts': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         D4.requireMinArgs(positional, 1, 'processPrompts');
         if (positional.isEmpty) {
-          throw ArgumentError(
-            'processPrompts: Missing required argument "lines" at position 0',
-          );
+          throw ArgumentError('processPrompts: Missing required argument "lines" at position 0');
         }
         final lines = D4.coerceList<String>(positional[0], 'lines');
-        final continueOnError = D4.getNamedArgWithDefault<bool>(
-          named,
-          'continueOnError',
-          false,
-        );
+        final continueOnError = D4.getNamedArgWithDefault<bool>(named, 'continueOnError', false);
         return t.processPrompts(lines, continueOnError: continueOnError);
       },
       'help': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         return t.help();
       },
       'info': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         final name = D4.getOptionalArg<String?>(positional, 0, 'name');
         return t.info(name);
       },
       'classes': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         return t.classes();
       },
       'enums': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         return t.enums();
       },
       'methods': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         return t.methods();
       },
       'variables': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         return t.variables();
       },
       'imports': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         return t.imports();
       },
       'registeredClasses': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         return t.registeredClasses();
       },
       'registeredEnums': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         return t.registeredEnums();
       },
       'registeredMethods': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         return t.registeredMethods();
       },
       'registeredVariables': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         return t.registeredVariables();
       },
       'registeredImports': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         return t.registeredImports();
       },
       'showInit': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         return t.showInit();
       },
       'clear': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         t.clear();
         return null;
       },
       'define': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         D4.requireMinArgs(positional, 2, 'define');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'define');
-        final template = D4.getRequiredArg<String>(
-          positional,
-          1,
-          'template',
-          'define',
-        );
+        final template = D4.getRequiredArg<String>(positional, 1, 'template', 'define');
         t.define(name, template);
         return null;
       },
       'undefine': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         D4.requireMinArgs(positional, 1, 'undefine');
-        final name = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'name',
-          'undefine',
-        );
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'undefine');
         return t.undefine(name);
       },
       'defines': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         return t.defines();
       },
       'loadDefines': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         D4.requireMinArgs(positional, 1, 'loadDefines');
-        final path = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'path',
-          'loadDefines',
-        );
+        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'loadDefines');
         return t.loadDefines(path);
       },
       'invokeDefine': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         D4.requireMinArgs(positional, 1, 'invokeDefine');
-        final name = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'name',
-          'invokeDefine',
-        );
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'invokeDefine');
         final args = positional.length > 1
             ? D4.coerceListOrNull<String>(positional[1], 'args')
             : null;
         return t.invokeDefine(name, args);
       },
       'expandDefine': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         D4.requireMinArgs(positional, 1, 'expandDefine');
-        final input = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'input',
-          'expandDefine',
-        );
+        final input = D4.getRequiredArg<String>(positional, 0, 'input', 'expandDefine');
         return t.expandDefine(input);
       },
       'sessions': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         return t.sessions();
       },
       'scripts': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         return t.scripts();
       },
       'plays': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         return t.plays();
       },
       'executes': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         return t.executes();
       },
       'ls': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         final path = D4.getOptionalArg<String?>(positional, 0, 'path');
         return t.ls(path);
       },
       'cd': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         D4.requireMinArgs(positional, 1, 'cd');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'cd');
         return t.cd(path);
       },
       'cwd': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         return t.cwd();
       },
       'home': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         return t.home();
       },
       'startDefine': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         t.startDefine();
         return null;
       },
       'startScript': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         t.startScript();
         return null;
       },
       'startFile': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         t.startFile();
         return null;
       },
       'startExecute': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         t.startExecute();
         return null;
       },
       'end': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         return t.end();
       },
       'clearMultilineBuffer': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         t.clearMultilineBuffer();
         return null;
       },
       'execute': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         D4.requireMinArgs(positional, 1, 'execute');
-        final source = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'source',
-          'execute',
-        );
+        final source = D4.getRequiredArg<String>(positional, 0, 'source', 'execute');
         final basePath = D4.getOptionalNamedArg<String?>(named, 'basePath');
         return t.execute(source, basePath: basePath);
       },
       'executeFile': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         D4.requireMinArgs(positional, 1, 'executeFile');
-        final path = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'path',
-          'executeFile',
-        );
+        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'executeFile');
         return t.executeFile(path);
       },
       'executeContinued': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         D4.requireMinArgs(positional, 1, 'executeContinued');
-        final source = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'source',
-          'executeContinued',
-        );
+        final source = D4.getRequiredArg<String>(positional, 0, 'source', 'executeContinued');
         final basePath = D4.getOptionalNamedArg<String?>(named, 'basePath');
         return t.executeContinued(source, basePath: basePath);
       },
       'file': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         D4.requireMinArgs(positional, 1, 'file');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'file');
         return t.file(path);
       },
       'script': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         D4.requireMinArgs(positional, 1, 'script');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'script');
         return t.script(path);
       },
       'load': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         D4.requireMinArgs(positional, 1, 'load');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'load');
         return t.load(path);
       },
       'replay': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         D4.requireMinArgs(positional, 1, 'replay');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'replay');
         return t.replay(path);
       },
       'session': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         D4.requireMinArgs(positional, 1, 'session');
-        final sessionId = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'sessionId',
-          'session',
-        );
+        final sessionId = D4.getRequiredArg<String>(positional, 0, 'sessionId', 'session');
         return t.session(sessionId);
       },
       'reset': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         final replayPath = D4.getOptionalNamedArg<String?>(named, 'replayPath');
         return t.reset(replayPath: replayPath);
       },
       'loadFile': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         D4.requireMinArgs(positional, 1, 'loadFile');
-        final path = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'path',
-          'loadFile',
-        );
+        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'loadFile');
         return t.loadFile(path);
       },
       'loadScript': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         D4.requireMinArgs(positional, 1, 'loadScript');
-        final path = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'path',
-          'loadScript',
-        );
+        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'loadScript');
         return t.loadScript(path);
       },
       'loadReplay': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         D4.requireMinArgs(positional, 1, 'loadReplay');
-        final path = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'path',
-          'loadReplay',
-        );
+        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'loadReplay');
         return t.loadReplay(path);
       },
       'loadSession': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         D4.requireMinArgs(positional, 1, 'loadSession');
-        final sessionId = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'sessionId',
-          'loadSession',
-        );
+        final sessionId = D4.getRequiredArg<String>(positional, 0, 'sessionId', 'loadSession');
         return t.loadSession(sessionId);
       },
       'eval': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         D4.requireMinArgs(positional, 1, 'eval');
-        final expression = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'expression',
-          'eval',
-        );
+        final expression = D4.getRequiredArg<String>(positional, 0, 'expression', 'eval');
         return t.eval(expression);
       },
       'closeSession': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(
-          target,
-          'D4rtCliApi',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_1.D4rtCliApi>(target, 'D4rtCliApi');
         t.closeSession();
         return null;
       },
     },
     methodSignatures: {
       'processPrompt': 'Future processPrompt(String line)',
-      'processPrompts':
-          'Future<List> processPrompts(List<String> lines, {bool continueOnError = false})',
+      'processPrompts': 'Future<List> processPrompts(List<String> lines, {bool continueOnError = false})',
       'help': 'String help()',
       'info': 'SymbolInfo? info([String? name])',
       'classes': 'List<ClassInfo> classes()',
@@ -1278,11 +840,9 @@ BridgedClass _createD4rtCliApiBridge() {
       'startExecute': 'void startExecute()',
       'end': 'Future end()',
       'clearMultilineBuffer': 'void clearMultilineBuffer()',
-      'execute':
-          'Future<ExecuteResult> execute(String source, {String? basePath})',
+      'execute': 'Future<ExecuteResult> execute(String source, {String? basePath})',
       'executeFile': 'Future<ExecuteResult> executeFile(String path)',
-      'executeContinued':
-          'Future<ExecuteResult> executeContinued(String source, {String? basePath})',
+      'executeContinued': 'Future<ExecuteResult> executeContinued(String source, {String? basePath})',
       'file': 'Future<ExecuteResult> file(String path)',
       'script': 'Future<int> script(String path)',
       'load': 'Future<int> load(String path)',
@@ -1322,589 +882,290 @@ BridgedClass _createD4rtCliControllerBridge() {
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
-        final d4rt = D4.getRequiredNamedArg<$tom_d4rt_4.D4rt>(
-          named,
-          'd4rt',
-          'D4rtCliController',
-        );
-        final state = D4.getRequiredNamedArg<$tom_d4rt_dcli_7.CliState>(
-          named,
-          'state',
-          'D4rtCliController',
-        );
-        final toolName = D4.getRequiredNamedArg<String>(
-          named,
-          'toolName',
-          'D4rtCliController',
-        );
-        final runtime = D4.getOptionalNamedArg<$tom_d4rt_dcli_6.CliRuntime?>(
-          named,
-          'runtime',
-        );
-        return $tom_d4rt_dcli_3.D4rtCliController(
-          d4rt: d4rt,
-          state: state,
-          toolName: toolName,
-          runtime: runtime,
-        );
+        final d4rt = D4.getRequiredNamedArg<$tom_d4rt_4.D4rt>(named, 'd4rt', 'D4rtCliController');
+        final state = D4.getRequiredNamedArg<$tom_d4rt_dcli_7.CliState>(named, 'state', 'D4rtCliController');
+        final toolName = D4.getRequiredNamedArg<String>(named, 'toolName', 'D4rtCliController');
+        final runtime = D4.getOptionalNamedArg<$tom_d4rt_dcli_6.CliRuntime?>(named, 'runtime');
+        return $tom_d4rt_dcli_3.D4rtCliController(d4rt: d4rt, state: state, toolName: toolName, runtime: runtime);
       },
     },
     getters: {
-      'd4rt': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-            target,
-            'D4rtCliController',
-          )
-          .d4rt,
-      'dataDirectory': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-            target,
-            'D4rtCliController',
-          )
-          .dataDirectory,
-      'toolName': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-            target,
-            'D4rtCliController',
-          )
-          .toolName,
-      'currentSessionId': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-            target,
-            'D4rtCliController',
-          )
-          .currentSessionId,
-      'configuration': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-            target,
-            'D4rtCliController',
-          )
-          .configuration,
-      'runtime': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-            target,
-            'D4rtCliController',
-          )
-          .runtime,
-      'isMultilineMode': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-            target,
-            'D4rtCliController',
-          )
-          .isMultilineMode,
-      'multilineMode': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-            target,
-            'D4rtCliController',
-          )
-          .multilineMode,
-      'multilineBuffer': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-            target,
-            'D4rtCliController',
-          )
-          .multilineBuffer,
+      'd4rt': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController').d4rt,
+      'dataDirectory': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController').dataDirectory,
+      'toolName': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController').toolName,
+      'currentSessionId': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController').currentSessionId,
+      'configuration': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController').configuration,
+      'runtime': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController').runtime,
+      'isMultilineMode': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController').isMultilineMode,
+      'multilineMode': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController').multilineMode,
+      'multilineBuffer': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController').multilineBuffer,
     },
     methods: {
       'processPrompt': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         D4.requireMinArgs(positional, 1, 'processPrompt');
-        final line = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'line',
-          'processPrompt',
-        );
+        final line = D4.getRequiredArg<String>(positional, 0, 'line', 'processPrompt');
         return t.processPrompt(line);
       },
       'processPrompts': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         D4.requireMinArgs(positional, 1, 'processPrompts');
         if (positional.isEmpty) {
-          throw ArgumentError(
-            'processPrompts: Missing required argument "lines" at position 0',
-          );
+          throw ArgumentError('processPrompts: Missing required argument "lines" at position 0');
         }
         final lines = D4.coerceList<String>(positional[0], 'lines');
-        final continueOnError = D4.getNamedArgWithDefault<bool>(
-          named,
-          'continueOnError',
-          false,
-        );
+        final continueOnError = D4.getNamedArgWithDefault<bool>(named, 'continueOnError', false);
         return t.processPrompts(lines, continueOnError: continueOnError);
       },
       'help': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         return t.help();
       },
       'info': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         final name = D4.getOptionalArg<String?>(positional, 0, 'name');
         return t.info(name);
       },
       'classes': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         return t.classes();
       },
       'enums': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         return t.enums();
       },
       'methods': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         return t.methods();
       },
       'variables': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         return t.variables();
       },
       'imports': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         return t.imports();
       },
       'registeredClasses': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         return t.registeredClasses();
       },
       'registeredEnums': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         return t.registeredEnums();
       },
       'registeredMethods': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         return t.registeredMethods();
       },
       'registeredVariables': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         return t.registeredVariables();
       },
       'registeredImports': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         return t.registeredImports();
       },
       'showInit': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         return t.showInit();
       },
       'clear': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         t.clear();
         return null;
       },
       'define': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         D4.requireMinArgs(positional, 2, 'define');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'define');
-        final template = D4.getRequiredArg<String>(
-          positional,
-          1,
-          'template',
-          'define',
-        );
+        final template = D4.getRequiredArg<String>(positional, 1, 'template', 'define');
         t.define(name, template);
         return null;
       },
       'undefine': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         D4.requireMinArgs(positional, 1, 'undefine');
-        final name = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'name',
-          'undefine',
-        );
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'undefine');
         return t.undefine(name);
       },
       'defines': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         return t.defines();
       },
       'loadDefines': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         D4.requireMinArgs(positional, 1, 'loadDefines');
-        final path = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'path',
-          'loadDefines',
-        );
+        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'loadDefines');
         return t.loadDefines(path);
       },
       'invokeDefine': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         D4.requireMinArgs(positional, 1, 'invokeDefine');
-        final name = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'name',
-          'invokeDefine',
-        );
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'invokeDefine');
         final args = positional.length > 1
             ? D4.coerceListOrNull<String>(positional[1], 'args')
             : null;
         return t.invokeDefine(name, args);
       },
       'expandDefine': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         D4.requireMinArgs(positional, 1, 'expandDefine');
-        final input = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'input',
-          'expandDefine',
-        );
+        final input = D4.getRequiredArg<String>(positional, 0, 'input', 'expandDefine');
         return t.expandDefine(input);
       },
       'sessions': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         return t.sessions();
       },
       'scripts': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         return t.scripts();
       },
       'plays': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         return t.plays();
       },
       'executes': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         return t.executes();
       },
       'ls': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         final path = D4.getOptionalArg<String?>(positional, 0, 'path');
         return t.ls(path);
       },
       'cd': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         D4.requireMinArgs(positional, 1, 'cd');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'cd');
         return t.cd(path);
       },
       'cwd': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         return t.cwd();
       },
       'home': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         return t.home();
       },
       'startDefine': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         t.startDefine();
         return null;
       },
       'startScript': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         t.startScript();
         return null;
       },
       'startFile': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         t.startFile();
         return null;
       },
       'startExecute': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         t.startExecute();
         return null;
       },
       'end': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         return t.end();
       },
       'clearMultilineBuffer': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         t.clearMultilineBuffer();
         return null;
       },
       'execute': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         D4.requireMinArgs(positional, 1, 'execute');
-        final source = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'source',
-          'execute',
-        );
+        final source = D4.getRequiredArg<String>(positional, 0, 'source', 'execute');
         final basePath = D4.getOptionalNamedArg<String?>(named, 'basePath');
         return t.execute(source, basePath: basePath);
       },
       'executeFile': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         D4.requireMinArgs(positional, 1, 'executeFile');
-        final path = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'path',
-          'executeFile',
-        );
+        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'executeFile');
         return t.executeFile(path);
       },
       'executeContinued': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         D4.requireMinArgs(positional, 1, 'executeContinued');
-        final source = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'source',
-          'executeContinued',
-        );
+        final source = D4.getRequiredArg<String>(positional, 0, 'source', 'executeContinued');
         final basePath = D4.getOptionalNamedArg<String?>(named, 'basePath');
         return t.executeContinued(source, basePath: basePath);
       },
       'file': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         D4.requireMinArgs(positional, 1, 'file');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'file');
         return t.file(path);
       },
       'script': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         D4.requireMinArgs(positional, 1, 'script');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'script');
         return t.script(path);
       },
       'load': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         D4.requireMinArgs(positional, 1, 'load');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'load');
         return t.load(path);
       },
       'replay': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         D4.requireMinArgs(positional, 1, 'replay');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'replay');
         return t.replay(path);
       },
       'session': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         D4.requireMinArgs(positional, 1, 'session');
-        final sessionId = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'sessionId',
-          'session',
-        );
+        final sessionId = D4.getRequiredArg<String>(positional, 0, 'sessionId', 'session');
         return t.session(sessionId);
       },
       'reset': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         final replayPath = D4.getOptionalNamedArg<String?>(named, 'replayPath');
         return t.reset(replayPath: replayPath);
       },
       'closeSession': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         t.closeSession();
         return null;
       },
       'loadFile': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         D4.requireMinArgs(positional, 1, 'loadFile');
-        final path = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'path',
-          'loadFile',
-        );
+        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'loadFile');
         return t.loadFile(path);
       },
       'loadScript': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         D4.requireMinArgs(positional, 1, 'loadScript');
-        final path = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'path',
-          'loadScript',
-        );
+        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'loadScript');
         return t.loadScript(path);
       },
       'loadReplay': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         D4.requireMinArgs(positional, 1, 'loadReplay');
-        final path = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'path',
-          'loadReplay',
-        );
+        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'loadReplay');
         return t.loadReplay(path);
       },
       'loadSession': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         D4.requireMinArgs(positional, 1, 'loadSession');
-        final sessionId = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'sessionId',
-          'loadSession',
-        );
+        final sessionId = D4.getRequiredArg<String>(positional, 0, 'sessionId', 'loadSession');
         return t.loadSession(sessionId);
       },
       'eval': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(
-          target,
-          'D4rtCliController',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.D4rtCliController>(target, 'D4rtCliController');
         D4.requireMinArgs(positional, 1, 'eval');
-        final expression = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'expression',
-          'eval',
-        );
+        final expression = D4.getRequiredArg<String>(positional, 0, 'expression', 'eval');
         return t.eval(expression);
       },
     },
@@ -1913,8 +1174,7 @@ BridgedClass _createD4rtCliControllerBridge() {
     },
     methodSignatures: {
       'processPrompt': 'Future processPrompt(String line)',
-      'processPrompts':
-          'Future<List> processPrompts(List<String> lines, {bool continueOnError = false})',
+      'processPrompts': 'Future<List> processPrompts(List<String> lines, {bool continueOnError = false})',
       'help': 'String help()',
       'info': 'SymbolInfo? info([String? name])',
       'classes': 'List<ClassInfo> classes()',
@@ -1949,11 +1209,9 @@ BridgedClass _createD4rtCliControllerBridge() {
       'startExecute': 'void startExecute()',
       'end': 'Future end()',
       'clearMultilineBuffer': 'void clearMultilineBuffer()',
-      'execute':
-          'Future<ExecuteResult> execute(String source, {String? basePath})',
+      'execute': 'Future<ExecuteResult> execute(String source, {String? basePath})',
       'executeFile': 'Future<ExecuteResult> executeFile(String path)',
-      'executeContinued':
-          'Future<ExecuteResult> executeContinued(String source, {String? basePath})',
+      'executeContinued': 'Future<ExecuteResult> executeContinued(String source, {String? basePath})',
       'file': 'Future<ExecuteResult> file(String path)',
       'script': 'Future<int> script(String path)',
       'load': 'Future<int> load(String path)',
@@ -1996,47 +1254,26 @@ BridgedClass _createCliGlobalHolderBridge() {
       },
     },
     getters: {
-      'controller': (visitor, target) =>
-          (D4.validateTarget<$tom_d4rt_dcli_3.CliGlobalHolder>(
-                    target,
-                    'CliGlobalHolder',
-                  )
-                  as dynamic)
-              .controller,
-      'isInitialized': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_3.CliGlobalHolder>(
-            target,
-            'CliGlobalHolder',
-          )
-          .isInitialized,
+      'controller': (visitor, target) => (D4.validateTarget<$tom_d4rt_dcli_3.CliGlobalHolder>(target, 'CliGlobalHolder') as dynamic).controller,
+      'isInitialized': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_3.CliGlobalHolder>(target, 'CliGlobalHolder').isInitialized,
     },
     methods: {
       'initialize': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.CliGlobalHolder>(
-          target,
-          'CliGlobalHolder',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.CliGlobalHolder>(target, 'CliGlobalHolder');
         D4.requireMinArgs(positional, 1, 'initialize');
-        final controller = D4
-            .getRequiredArg<$tom_d4rt_dcli_3.D4rtCliController>(
-              positional,
-              0,
-              'controller',
-              'initialize',
-            );
+        final controller = D4.getRequiredArg<$tom_d4rt_dcli_3.D4rtCliController>(positional, 0, 'controller', 'initialize');
         t.initialize(controller);
         return null;
       },
       'reset': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_3.CliGlobalHolder>(
-          target,
-          'CliGlobalHolder',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_3.CliGlobalHolder>(target, 'CliGlobalHolder');
         t.reset();
         return null;
       },
     },
-    constructorSignatures: {'': 'CliGlobalHolder()'},
+    constructorSignatures: {
+      '': 'CliGlobalHolder()',
+    },
     methodSignatures: {
       'initialize': 'void initialize(D4rtCliController controller)',
       'reset': 'void reset()',
@@ -2061,76 +1298,32 @@ BridgedClass _createCliExceptionBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'CliException');
-        final message = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'message',
-          'CliException',
-        );
+        final message = D4.getRequiredArg<String>(positional, 0, 'message', 'CliException');
         final command = D4.getOptionalNamedArg<String?>(named, 'command');
-        final stackTrace = D4.getOptionalNamedArg<StackTrace?>(
-          named,
-          'stackTrace',
-        );
-        return $tom_d4rt_dcli_4.CliException(
-          message,
-          command: command,
-          stackTrace: stackTrace,
-        );
+        final stackTrace = D4.getOptionalNamedArg<StackTrace?>(named, 'stackTrace');
+        return $tom_d4rt_dcli_4.CliException(message, command: command, stackTrace: stackTrace);
       },
     },
     getters: {
-      'command': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.CliException>(target, 'CliException')
-          .command,
-      'stackTrace': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.CliException>(target, 'CliException')
-          .stackTrace,
-      'message': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.CliException>(target, 'CliException')
-          .message,
-      'trackedStackTrace': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.CliException>(target, 'CliException')
-          .trackedStackTrace,
-      'hasDirectiveContext': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.CliException>(target, 'CliException')
-          .hasDirectiveContext,
+      'command': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.CliException>(target, 'CliException').command,
+      'stackTrace': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.CliException>(target, 'CliException').stackTrace,
+      'message': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.CliException>(target, 'CliException').message,
+      'trackedStackTrace': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.CliException>(target, 'CliException').trackedStackTrace,
+      'hasDirectiveContext': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.CliException>(target, 'CliException').hasDirectiveContext,
     },
     setters: {
-      'trackedStackTrace': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_d4rt_dcli_4.CliException>(
-                target,
-                'CliException',
-              )
-              .trackedStackTrace = D4.extractBridgedArgOrNull<StackTrace>(
-            value,
-            'trackedStackTrace',
-          ),
-      'hasDirectiveContext': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_d4rt_dcli_4.CliException>(
-                target,
-                'CliException',
-              )
-              .hasDirectiveContext = D4.extractBridgedArg<bool>(
-            value,
-            'hasDirectiveContext',
-          ),
+      'trackedStackTrace': (visitor, target, value) => 
+        D4.validateTarget<$tom_d4rt_dcli_4.CliException>(target, 'CliException').trackedStackTrace = D4.extractBridgedArgOrNull<StackTrace>(value, 'trackedStackTrace'),
+      'hasDirectiveContext': (visitor, target, value) => 
+        D4.validateTarget<$tom_d4rt_dcli_4.CliException>(target, 'CliException').hasDirectiveContext = D4.extractBridgedArg<bool>(value, 'hasDirectiveContext'),
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_4.CliException>(
-          target,
-          'CliException',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_4.CliException>(target, 'CliException');
         return t.toString();
       },
       'revoke': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_4.CliException>(
-          target,
-          'CliException',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_4.CliException>(target, 'CliException');
         return t.revoke();
       },
     },
@@ -2168,92 +1361,37 @@ BridgedClass _createCliFileNotFoundExceptionBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'CliFileNotFoundException');
-        final path = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'path',
-          'CliFileNotFoundException',
-        );
+        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'CliFileNotFoundException');
         return $tom_d4rt_dcli_4.CliFileNotFoundException(path);
       },
     },
     getters: {
-      'command': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.CliFileNotFoundException>(
-            target,
-            'CliFileNotFoundException',
-          )
-          .command,
-      'stackTrace': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.CliFileNotFoundException>(
-            target,
-            'CliFileNotFoundException',
-          )
-          .stackTrace,
-      'message': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.CliFileNotFoundException>(
-            target,
-            'CliFileNotFoundException',
-          )
-          .message,
-      'trackedStackTrace': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.CliFileNotFoundException>(
-            target,
-            'CliFileNotFoundException',
-          )
-          .trackedStackTrace,
-      'hasDirectiveContext': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.CliFileNotFoundException>(
-            target,
-            'CliFileNotFoundException',
-          )
-          .hasDirectiveContext,
-      'path': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.CliFileNotFoundException>(
-            target,
-            'CliFileNotFoundException',
-          )
-          .path,
+      'command': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.CliFileNotFoundException>(target, 'CliFileNotFoundException').command,
+      'stackTrace': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.CliFileNotFoundException>(target, 'CliFileNotFoundException').stackTrace,
+      'message': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.CliFileNotFoundException>(target, 'CliFileNotFoundException').message,
+      'trackedStackTrace': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.CliFileNotFoundException>(target, 'CliFileNotFoundException').trackedStackTrace,
+      'hasDirectiveContext': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.CliFileNotFoundException>(target, 'CliFileNotFoundException').hasDirectiveContext,
+      'path': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.CliFileNotFoundException>(target, 'CliFileNotFoundException').path,
     },
     setters: {
-      'trackedStackTrace': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_d4rt_dcli_4.CliFileNotFoundException>(
-                target,
-                'CliFileNotFoundException',
-              )
-              .trackedStackTrace = D4.extractBridgedArgOrNull<StackTrace>(
-            value,
-            'trackedStackTrace',
-          ),
-      'hasDirectiveContext': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_d4rt_dcli_4.CliFileNotFoundException>(
-                target,
-                'CliFileNotFoundException',
-              )
-              .hasDirectiveContext = D4.extractBridgedArg<bool>(
-            value,
-            'hasDirectiveContext',
-          ),
+      'trackedStackTrace': (visitor, target, value) => 
+        D4.validateTarget<$tom_d4rt_dcli_4.CliFileNotFoundException>(target, 'CliFileNotFoundException').trackedStackTrace = D4.extractBridgedArgOrNull<StackTrace>(value, 'trackedStackTrace'),
+      'hasDirectiveContext': (visitor, target, value) => 
+        D4.validateTarget<$tom_d4rt_dcli_4.CliFileNotFoundException>(target, 'CliFileNotFoundException').hasDirectiveContext = D4.extractBridgedArg<bool>(value, 'hasDirectiveContext'),
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_4.CliFileNotFoundException>(
-          target,
-          'CliFileNotFoundException',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_4.CliFileNotFoundException>(target, 'CliFileNotFoundException');
         return t.toString();
       },
       'revoke': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_4.CliFileNotFoundException>(
-          target,
-          'CliFileNotFoundException',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_4.CliFileNotFoundException>(target, 'CliFileNotFoundException');
         return t.revoke();
       },
     },
-    constructorSignatures: {'': 'CliFileNotFoundException(String path)'},
+    constructorSignatures: {
+      '': 'CliFileNotFoundException(String path)',
+    },
     methodSignatures: {
       'toString': 'String toString()',
       'revoke': 'bool revoke()',
@@ -2286,94 +1424,37 @@ BridgedClass _createDirectoryNotFoundExceptionBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'DirectoryNotFoundException');
-        final path = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'path',
-          'DirectoryNotFoundException',
-        );
+        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'DirectoryNotFoundException');
         return $tom_d4rt_dcli_4.DirectoryNotFoundException(path);
       },
     },
     getters: {
-      'command': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.DirectoryNotFoundException>(
-            target,
-            'DirectoryNotFoundException',
-          )
-          .command,
-      'stackTrace': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.DirectoryNotFoundException>(
-            target,
-            'DirectoryNotFoundException',
-          )
-          .stackTrace,
-      'message': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.DirectoryNotFoundException>(
-            target,
-            'DirectoryNotFoundException',
-          )
-          .message,
-      'trackedStackTrace': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.DirectoryNotFoundException>(
-            target,
-            'DirectoryNotFoundException',
-          )
-          .trackedStackTrace,
-      'hasDirectiveContext': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.DirectoryNotFoundException>(
-            target,
-            'DirectoryNotFoundException',
-          )
-          .hasDirectiveContext,
-      'path': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.DirectoryNotFoundException>(
-            target,
-            'DirectoryNotFoundException',
-          )
-          .path,
+      'command': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.DirectoryNotFoundException>(target, 'DirectoryNotFoundException').command,
+      'stackTrace': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.DirectoryNotFoundException>(target, 'DirectoryNotFoundException').stackTrace,
+      'message': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.DirectoryNotFoundException>(target, 'DirectoryNotFoundException').message,
+      'trackedStackTrace': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.DirectoryNotFoundException>(target, 'DirectoryNotFoundException').trackedStackTrace,
+      'hasDirectiveContext': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.DirectoryNotFoundException>(target, 'DirectoryNotFoundException').hasDirectiveContext,
+      'path': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.DirectoryNotFoundException>(target, 'DirectoryNotFoundException').path,
     },
     setters: {
-      'trackedStackTrace': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_d4rt_dcli_4.DirectoryNotFoundException>(
-                target,
-                'DirectoryNotFoundException',
-              )
-              .trackedStackTrace = D4.extractBridgedArgOrNull<StackTrace>(
-            value,
-            'trackedStackTrace',
-          ),
-      'hasDirectiveContext': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_d4rt_dcli_4.DirectoryNotFoundException>(
-                target,
-                'DirectoryNotFoundException',
-              )
-              .hasDirectiveContext = D4.extractBridgedArg<bool>(
-            value,
-            'hasDirectiveContext',
-          ),
+      'trackedStackTrace': (visitor, target, value) => 
+        D4.validateTarget<$tom_d4rt_dcli_4.DirectoryNotFoundException>(target, 'DirectoryNotFoundException').trackedStackTrace = D4.extractBridgedArgOrNull<StackTrace>(value, 'trackedStackTrace'),
+      'hasDirectiveContext': (visitor, target, value) => 
+        D4.validateTarget<$tom_d4rt_dcli_4.DirectoryNotFoundException>(target, 'DirectoryNotFoundException').hasDirectiveContext = D4.extractBridgedArg<bool>(value, 'hasDirectiveContext'),
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4
-            .validateTarget<$tom_d4rt_dcli_4.DirectoryNotFoundException>(
-              target,
-              'DirectoryNotFoundException',
-            );
+        final t = D4.validateTarget<$tom_d4rt_dcli_4.DirectoryNotFoundException>(target, 'DirectoryNotFoundException');
         return t.toString();
       },
       'revoke': (visitor, target, positional, named, typeArgs) {
-        final t = D4
-            .validateTarget<$tom_d4rt_dcli_4.DirectoryNotFoundException>(
-              target,
-              'DirectoryNotFoundException',
-            );
+        final t = D4.validateTarget<$tom_d4rt_dcli_4.DirectoryNotFoundException>(target, 'DirectoryNotFoundException');
         return t.revoke();
       },
     },
-    constructorSignatures: {'': 'DirectoryNotFoundException(String path)'},
+    constructorSignatures: {
+      '': 'DirectoryNotFoundException(String path)',
+    },
     methodSignatures: {
       'toString': 'String toString()',
       'revoke': 'bool revoke()',
@@ -2406,91 +1487,32 @@ BridgedClass _createExecutionExceptionBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ExecutionException');
-        final message = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'message',
-          'ExecutionException',
-        );
+        final message = D4.getRequiredArg<String>(positional, 0, 'message', 'ExecutionException');
         final command = D4.getOptionalNamedArg<String?>(named, 'command');
-        final stackTrace = D4.getOptionalNamedArg<StackTrace?>(
-          named,
-          'stackTrace',
-        );
-        return $tom_d4rt_dcli_4.ExecutionException(
-          message,
-          command: command,
-          stackTrace: stackTrace,
-        );
+        final stackTrace = D4.getOptionalNamedArg<StackTrace?>(named, 'stackTrace');
+        return $tom_d4rt_dcli_4.ExecutionException(message, command: command, stackTrace: stackTrace);
       },
     },
     getters: {
-      'command': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.ExecutionException>(
-            target,
-            'ExecutionException',
-          )
-          .command,
-      'stackTrace': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.ExecutionException>(
-            target,
-            'ExecutionException',
-          )
-          .stackTrace,
-      'message': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.ExecutionException>(
-            target,
-            'ExecutionException',
-          )
-          .message,
-      'trackedStackTrace': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.ExecutionException>(
-            target,
-            'ExecutionException',
-          )
-          .trackedStackTrace,
-      'hasDirectiveContext': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.ExecutionException>(
-            target,
-            'ExecutionException',
-          )
-          .hasDirectiveContext,
+      'command': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.ExecutionException>(target, 'ExecutionException').command,
+      'stackTrace': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.ExecutionException>(target, 'ExecutionException').stackTrace,
+      'message': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.ExecutionException>(target, 'ExecutionException').message,
+      'trackedStackTrace': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.ExecutionException>(target, 'ExecutionException').trackedStackTrace,
+      'hasDirectiveContext': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.ExecutionException>(target, 'ExecutionException').hasDirectiveContext,
     },
     setters: {
-      'trackedStackTrace': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_d4rt_dcli_4.ExecutionException>(
-                target,
-                'ExecutionException',
-              )
-              .trackedStackTrace = D4.extractBridgedArgOrNull<StackTrace>(
-            value,
-            'trackedStackTrace',
-          ),
-      'hasDirectiveContext': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_d4rt_dcli_4.ExecutionException>(
-                target,
-                'ExecutionException',
-              )
-              .hasDirectiveContext = D4.extractBridgedArg<bool>(
-            value,
-            'hasDirectiveContext',
-          ),
+      'trackedStackTrace': (visitor, target, value) => 
+        D4.validateTarget<$tom_d4rt_dcli_4.ExecutionException>(target, 'ExecutionException').trackedStackTrace = D4.extractBridgedArgOrNull<StackTrace>(value, 'trackedStackTrace'),
+      'hasDirectiveContext': (visitor, target, value) => 
+        D4.validateTarget<$tom_d4rt_dcli_4.ExecutionException>(target, 'ExecutionException').hasDirectiveContext = D4.extractBridgedArg<bool>(value, 'hasDirectiveContext'),
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_4.ExecutionException>(
-          target,
-          'ExecutionException',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_4.ExecutionException>(target, 'ExecutionException');
         return t.toString();
       },
       'revoke': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_4.ExecutionException>(
-          target,
-          'ExecutionException',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_4.ExecutionException>(target, 'ExecutionException');
         return t.revoke();
       },
     },
@@ -2528,112 +1550,35 @@ BridgedClass _createReplayExceptionBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'ReplayException');
-        final file = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'file',
-          'ReplayException',
-        );
-        final line = D4.getRequiredArg<int>(
-          positional,
-          1,
-          'line',
-          'ReplayException',
-        );
-        final cause = D4.getRequiredArg<$tom_d4rt_dcli_4.CliException>(
-          positional,
-          2,
-          'cause',
-          'ReplayException',
-        );
+        final file = D4.getRequiredArg<String>(positional, 0, 'file', 'ReplayException');
+        final line = D4.getRequiredArg<int>(positional, 1, 'line', 'ReplayException');
+        final cause = D4.getRequiredArg<$tom_d4rt_dcli_4.CliException>(positional, 2, 'cause', 'ReplayException');
         return $tom_d4rt_dcli_4.ReplayException(file, line, cause);
       },
     },
     getters: {
-      'command': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.ReplayException>(
-            target,
-            'ReplayException',
-          )
-          .command,
-      'stackTrace': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.ReplayException>(
-            target,
-            'ReplayException',
-          )
-          .stackTrace,
-      'message': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.ReplayException>(
-            target,
-            'ReplayException',
-          )
-          .message,
-      'trackedStackTrace': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.ReplayException>(
-            target,
-            'ReplayException',
-          )
-          .trackedStackTrace,
-      'hasDirectiveContext': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.ReplayException>(
-            target,
-            'ReplayException',
-          )
-          .hasDirectiveContext,
-      'file': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.ReplayException>(
-            target,
-            'ReplayException',
-          )
-          .file,
-      'line': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.ReplayException>(
-            target,
-            'ReplayException',
-          )
-          .line,
-      'cause': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.ReplayException>(
-            target,
-            'ReplayException',
-          )
-          .cause,
+      'command': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.ReplayException>(target, 'ReplayException').command,
+      'stackTrace': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.ReplayException>(target, 'ReplayException').stackTrace,
+      'message': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.ReplayException>(target, 'ReplayException').message,
+      'trackedStackTrace': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.ReplayException>(target, 'ReplayException').trackedStackTrace,
+      'hasDirectiveContext': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.ReplayException>(target, 'ReplayException').hasDirectiveContext,
+      'file': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.ReplayException>(target, 'ReplayException').file,
+      'line': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.ReplayException>(target, 'ReplayException').line,
+      'cause': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.ReplayException>(target, 'ReplayException').cause,
     },
     setters: {
-      'trackedStackTrace': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_d4rt_dcli_4.ReplayException>(
-                target,
-                'ReplayException',
-              )
-              .trackedStackTrace = D4.extractBridgedArgOrNull<StackTrace>(
-            value,
-            'trackedStackTrace',
-          ),
-      'hasDirectiveContext': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_d4rt_dcli_4.ReplayException>(
-                target,
-                'ReplayException',
-              )
-              .hasDirectiveContext = D4.extractBridgedArg<bool>(
-            value,
-            'hasDirectiveContext',
-          ),
+      'trackedStackTrace': (visitor, target, value) => 
+        D4.validateTarget<$tom_d4rt_dcli_4.ReplayException>(target, 'ReplayException').trackedStackTrace = D4.extractBridgedArgOrNull<StackTrace>(value, 'trackedStackTrace'),
+      'hasDirectiveContext': (visitor, target, value) => 
+        D4.validateTarget<$tom_d4rt_dcli_4.ReplayException>(target, 'ReplayException').hasDirectiveContext = D4.extractBridgedArg<bool>(value, 'hasDirectiveContext'),
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_4.ReplayException>(
-          target,
-          'ReplayException',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_4.ReplayException>(target, 'ReplayException');
         return t.toString();
       },
       'revoke': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_4.ReplayException>(
-          target,
-          'ReplayException',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_4.ReplayException>(target, 'ReplayException');
         return t.revoke();
       },
     },
@@ -2673,103 +1618,33 @@ BridgedClass _createInvalidMultilineModeExceptionBridge() {
     hierarchyDepth: 3,
     constructors: {
       '': (visitor, positional, named) {
-        final currentMode = D4.getRequiredNamedArg<String>(
-          named,
-          'currentMode',
-          'InvalidMultilineModeException',
-        );
-        final attemptedMethod = D4.getRequiredNamedArg<String>(
-          named,
-          'attemptedMethod',
-          'InvalidMultilineModeException',
-        );
-        return $tom_d4rt_dcli_4.InvalidMultilineModeException(
-          currentMode: currentMode,
-          attemptedMethod: attemptedMethod,
-        );
+        final currentMode = D4.getRequiredNamedArg<String>(named, 'currentMode', 'InvalidMultilineModeException');
+        final attemptedMethod = D4.getRequiredNamedArg<String>(named, 'attemptedMethod', 'InvalidMultilineModeException');
+        return $tom_d4rt_dcli_4.InvalidMultilineModeException(currentMode: currentMode, attemptedMethod: attemptedMethod);
       },
     },
     getters: {
-      'command': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.InvalidMultilineModeException>(
-            target,
-            'InvalidMultilineModeException',
-          )
-          .command,
-      'stackTrace': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.InvalidMultilineModeException>(
-            target,
-            'InvalidMultilineModeException',
-          )
-          .stackTrace,
-      'message': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.InvalidMultilineModeException>(
-            target,
-            'InvalidMultilineModeException',
-          )
-          .message,
-      'trackedStackTrace': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.InvalidMultilineModeException>(
-            target,
-            'InvalidMultilineModeException',
-          )
-          .trackedStackTrace,
-      'hasDirectiveContext': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.InvalidMultilineModeException>(
-            target,
-            'InvalidMultilineModeException',
-          )
-          .hasDirectiveContext,
-      'currentMode': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.InvalidMultilineModeException>(
-            target,
-            'InvalidMultilineModeException',
-          )
-          .currentMode,
-      'attemptedMethod': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.InvalidMultilineModeException>(
-            target,
-            'InvalidMultilineModeException',
-          )
-          .attemptedMethod,
+      'command': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.InvalidMultilineModeException>(target, 'InvalidMultilineModeException').command,
+      'stackTrace': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.InvalidMultilineModeException>(target, 'InvalidMultilineModeException').stackTrace,
+      'message': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.InvalidMultilineModeException>(target, 'InvalidMultilineModeException').message,
+      'trackedStackTrace': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.InvalidMultilineModeException>(target, 'InvalidMultilineModeException').trackedStackTrace,
+      'hasDirectiveContext': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.InvalidMultilineModeException>(target, 'InvalidMultilineModeException').hasDirectiveContext,
+      'currentMode': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.InvalidMultilineModeException>(target, 'InvalidMultilineModeException').currentMode,
+      'attemptedMethod': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.InvalidMultilineModeException>(target, 'InvalidMultilineModeException').attemptedMethod,
     },
     setters: {
-      'trackedStackTrace': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_d4rt_dcli_4.InvalidMultilineModeException>(
-                target,
-                'InvalidMultilineModeException',
-              )
-              .trackedStackTrace = D4.extractBridgedArgOrNull<StackTrace>(
-            value,
-            'trackedStackTrace',
-          ),
-      'hasDirectiveContext': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_d4rt_dcli_4.InvalidMultilineModeException>(
-                target,
-                'InvalidMultilineModeException',
-              )
-              .hasDirectiveContext = D4.extractBridgedArg<bool>(
-            value,
-            'hasDirectiveContext',
-          ),
+      'trackedStackTrace': (visitor, target, value) => 
+        D4.validateTarget<$tom_d4rt_dcli_4.InvalidMultilineModeException>(target, 'InvalidMultilineModeException').trackedStackTrace = D4.extractBridgedArgOrNull<StackTrace>(value, 'trackedStackTrace'),
+      'hasDirectiveContext': (visitor, target, value) => 
+        D4.validateTarget<$tom_d4rt_dcli_4.InvalidMultilineModeException>(target, 'InvalidMultilineModeException').hasDirectiveContext = D4.extractBridgedArg<bool>(value, 'hasDirectiveContext'),
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4
-            .validateTarget<$tom_d4rt_dcli_4.InvalidMultilineModeException>(
-              target,
-              'InvalidMultilineModeException',
-            );
+        final t = D4.validateTarget<$tom_d4rt_dcli_4.InvalidMultilineModeException>(target, 'InvalidMultilineModeException');
         return t.toString();
       },
       'revoke': (visitor, target, positional, named, typeArgs) {
-        final t = D4
-            .validateTarget<$tom_d4rt_dcli_4.InvalidMultilineModeException>(
-              target,
-              'InvalidMultilineModeException',
-            );
+        final t = D4.validateTarget<$tom_d4rt_dcli_4.InvalidMultilineModeException>(target, 'InvalidMultilineModeException');
         return t.revoke();
       },
     },
@@ -2809,92 +1684,37 @@ BridgedClass _createMaxNestingDepthExceptionBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'MaxNestingDepthException');
-        final maxDepth = D4.getRequiredArg<int>(
-          positional,
-          0,
-          'maxDepth',
-          'MaxNestingDepthException',
-        );
+        final maxDepth = D4.getRequiredArg<int>(positional, 0, 'maxDepth', 'MaxNestingDepthException');
         return $tom_d4rt_dcli_4.MaxNestingDepthException(maxDepth);
       },
     },
     getters: {
-      'command': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.MaxNestingDepthException>(
-            target,
-            'MaxNestingDepthException',
-          )
-          .command,
-      'stackTrace': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.MaxNestingDepthException>(
-            target,
-            'MaxNestingDepthException',
-          )
-          .stackTrace,
-      'message': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.MaxNestingDepthException>(
-            target,
-            'MaxNestingDepthException',
-          )
-          .message,
-      'trackedStackTrace': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.MaxNestingDepthException>(
-            target,
-            'MaxNestingDepthException',
-          )
-          .trackedStackTrace,
-      'hasDirectiveContext': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.MaxNestingDepthException>(
-            target,
-            'MaxNestingDepthException',
-          )
-          .hasDirectiveContext,
-      'maxDepth': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.MaxNestingDepthException>(
-            target,
-            'MaxNestingDepthException',
-          )
-          .maxDepth,
+      'command': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.MaxNestingDepthException>(target, 'MaxNestingDepthException').command,
+      'stackTrace': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.MaxNestingDepthException>(target, 'MaxNestingDepthException').stackTrace,
+      'message': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.MaxNestingDepthException>(target, 'MaxNestingDepthException').message,
+      'trackedStackTrace': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.MaxNestingDepthException>(target, 'MaxNestingDepthException').trackedStackTrace,
+      'hasDirectiveContext': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.MaxNestingDepthException>(target, 'MaxNestingDepthException').hasDirectiveContext,
+      'maxDepth': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.MaxNestingDepthException>(target, 'MaxNestingDepthException').maxDepth,
     },
     setters: {
-      'trackedStackTrace': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_d4rt_dcli_4.MaxNestingDepthException>(
-                target,
-                'MaxNestingDepthException',
-              )
-              .trackedStackTrace = D4.extractBridgedArgOrNull<StackTrace>(
-            value,
-            'trackedStackTrace',
-          ),
-      'hasDirectiveContext': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_d4rt_dcli_4.MaxNestingDepthException>(
-                target,
-                'MaxNestingDepthException',
-              )
-              .hasDirectiveContext = D4.extractBridgedArg<bool>(
-            value,
-            'hasDirectiveContext',
-          ),
+      'trackedStackTrace': (visitor, target, value) => 
+        D4.validateTarget<$tom_d4rt_dcli_4.MaxNestingDepthException>(target, 'MaxNestingDepthException').trackedStackTrace = D4.extractBridgedArgOrNull<StackTrace>(value, 'trackedStackTrace'),
+      'hasDirectiveContext': (visitor, target, value) => 
+        D4.validateTarget<$tom_d4rt_dcli_4.MaxNestingDepthException>(target, 'MaxNestingDepthException').hasDirectiveContext = D4.extractBridgedArg<bool>(value, 'hasDirectiveContext'),
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_4.MaxNestingDepthException>(
-          target,
-          'MaxNestingDepthException',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_4.MaxNestingDepthException>(target, 'MaxNestingDepthException');
         return t.toString();
       },
       'revoke': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_4.MaxNestingDepthException>(
-          target,
-          'MaxNestingDepthException',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_4.MaxNestingDepthException>(target, 'MaxNestingDepthException');
         return t.revoke();
       },
     },
-    constructorSignatures: {'': 'MaxNestingDepthException(int maxDepth)'},
+    constructorSignatures: {
+      '': 'MaxNestingDepthException(int maxDepth)',
+    },
     methodSignatures: {
       'toString': 'String toString()',
       'revoke': 'bool revoke()',
@@ -2930,78 +1750,31 @@ BridgedClass _createCliNotInitializedExceptionBridge() {
       },
     },
     getters: {
-      'command': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.CliNotInitializedException>(
-            target,
-            'CliNotInitializedException',
-          )
-          .command,
-      'stackTrace': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.CliNotInitializedException>(
-            target,
-            'CliNotInitializedException',
-          )
-          .stackTrace,
-      'message': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.CliNotInitializedException>(
-            target,
-            'CliNotInitializedException',
-          )
-          .message,
-      'trackedStackTrace': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.CliNotInitializedException>(
-            target,
-            'CliNotInitializedException',
-          )
-          .trackedStackTrace,
-      'hasDirectiveContext': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_4.CliNotInitializedException>(
-            target,
-            'CliNotInitializedException',
-          )
-          .hasDirectiveContext,
+      'command': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.CliNotInitializedException>(target, 'CliNotInitializedException').command,
+      'stackTrace': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.CliNotInitializedException>(target, 'CliNotInitializedException').stackTrace,
+      'message': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.CliNotInitializedException>(target, 'CliNotInitializedException').message,
+      'trackedStackTrace': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.CliNotInitializedException>(target, 'CliNotInitializedException').trackedStackTrace,
+      'hasDirectiveContext': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.CliNotInitializedException>(target, 'CliNotInitializedException').hasDirectiveContext,
     },
     setters: {
-      'trackedStackTrace': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_d4rt_dcli_4.CliNotInitializedException>(
-                target,
-                'CliNotInitializedException',
-              )
-              .trackedStackTrace = D4.extractBridgedArgOrNull<StackTrace>(
-            value,
-            'trackedStackTrace',
-          ),
-      'hasDirectiveContext': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_d4rt_dcli_4.CliNotInitializedException>(
-                target,
-                'CliNotInitializedException',
-              )
-              .hasDirectiveContext = D4.extractBridgedArg<bool>(
-            value,
-            'hasDirectiveContext',
-          ),
+      'trackedStackTrace': (visitor, target, value) => 
+        D4.validateTarget<$tom_d4rt_dcli_4.CliNotInitializedException>(target, 'CliNotInitializedException').trackedStackTrace = D4.extractBridgedArgOrNull<StackTrace>(value, 'trackedStackTrace'),
+      'hasDirectiveContext': (visitor, target, value) => 
+        D4.validateTarget<$tom_d4rt_dcli_4.CliNotInitializedException>(target, 'CliNotInitializedException').hasDirectiveContext = D4.extractBridgedArg<bool>(value, 'hasDirectiveContext'),
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4
-            .validateTarget<$tom_d4rt_dcli_4.CliNotInitializedException>(
-              target,
-              'CliNotInitializedException',
-            );
+        final t = D4.validateTarget<$tom_d4rt_dcli_4.CliNotInitializedException>(target, 'CliNotInitializedException');
         return t.toString();
       },
       'revoke': (visitor, target, positional, named, typeArgs) {
-        final t = D4
-            .validateTarget<$tom_d4rt_dcli_4.CliNotInitializedException>(
-              target,
-              'CliNotInitializedException',
-            );
+        final t = D4.validateTarget<$tom_d4rt_dcli_4.CliNotInitializedException>(target, 'CliNotInitializedException');
         return t.revoke();
       },
     },
-    constructorSignatures: {'': 'CliNotInitializedException()'},
+    constructorSignatures: {
+      '': 'CliNotInitializedException()',
+    },
     methodSignatures: {
       'toString': 'String toString()',
       'revoke': 'bool revoke()',
@@ -3031,112 +1804,42 @@ BridgedClass _createExecuteResultBridge() {
     isAssignable: (v) => v is $tom_d4rt_dcli_5.ExecuteResult,
     constructors: {
       '': (visitor, positional, named) {
-        final success = D4.getRequiredNamedArg<bool>(
-          named,
-          'success',
-          'ExecuteResult',
-        );
+        final success = D4.getRequiredNamedArg<bool>(named, 'success', 'ExecuteResult');
         final error = D4.getOptionalNamedArg<String?>(named, 'error');
-        final stackTrace = D4.getOptionalNamedArg<StackTrace?>(
-          named,
-          'stackTrace',
-        );
-        final sourcesLoaded = D4.getNamedArgWithDefault<int>(
-          named,
-          'sourcesLoaded',
-          1,
-        );
+        final stackTrace = D4.getOptionalNamedArg<StackTrace?>(named, 'stackTrace');
+        final sourcesLoaded = D4.getNamedArgWithDefault<int>(named, 'sourcesLoaded', 1);
         if (!named.containsKey('result')) {
-          return $tom_d4rt_dcli_5.ExecuteResult(
-            success: success,
-            error: error,
-            stackTrace: stackTrace,
-            sourcesLoaded: sourcesLoaded,
-          );
+          return $tom_d4rt_dcli_5.ExecuteResult(success: success, error: error, stackTrace: stackTrace, sourcesLoaded: sourcesLoaded);
         }
         if (named.containsKey('result')) {
-          final result = D4.getRequiredNamedArg<dynamic>(
-            named,
-            'result',
-            'ExecuteResult',
-          );
-          return $tom_d4rt_dcli_5.ExecuteResult(
-            success: success,
-            error: error,
-            stackTrace: stackTrace,
-            sourcesLoaded: sourcesLoaded,
-            result: result,
-          );
+          final result = D4.getRequiredNamedArg<dynamic>(named, 'result', 'ExecuteResult');
+          return $tom_d4rt_dcli_5.ExecuteResult(success: success, error: error, stackTrace: stackTrace, sourcesLoaded: sourcesLoaded, result: result);
         }
-        throw StateError(
-          'Unreachable: all named parameter combinations should be covered',
-        );
+        throw StateError('Unreachable: all named parameter combinations should be covered');
       },
       'success': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ExecuteResult');
-        final result = D4.getRequiredArg<dynamic>(
-          positional,
-          0,
-          'result',
-          'ExecuteResult',
-        );
+        final result = D4.getRequiredArg<dynamic>(positional, 0, 'result', 'ExecuteResult');
         return $tom_d4rt_dcli_5.ExecuteResult.success(result);
       },
       'failure': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ExecuteResult');
-        final error = D4.getRequiredArg<String?>(
-          positional,
-          0,
-          'error',
-          'ExecuteResult',
-        );
-        final stackTrace = D4.getOptionalNamedArg<StackTrace?>(
-          named,
-          'stackTrace',
-        );
-        return $tom_d4rt_dcli_5.ExecuteResult.failure(
-          error,
-          stackTrace: stackTrace,
-        );
+        final error = D4.getRequiredArg<String?>(positional, 0, 'error', 'ExecuteResult');
+        final stackTrace = D4.getOptionalNamedArg<StackTrace?>(named, 'stackTrace');
+        return $tom_d4rt_dcli_5.ExecuteResult.failure(error, stackTrace: stackTrace);
       },
     },
     getters: {
-      'success': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_5.ExecuteResult>(
-            target,
-            'ExecuteResult',
-          )
-          .success,
-      'result': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_5.ExecuteResult>(
-            target,
-            'ExecuteResult',
-          )
-          .result,
-      'error': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_5.ExecuteResult>(
-            target,
-            'ExecuteResult',
-          )
-          .error,
-      'stackTrace': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_5.ExecuteResult>(
-            target,
-            'ExecuteResult',
-          )
-          .stackTrace,
-      'sourcesLoaded': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_5.ExecuteResult>(
-            target,
-            'ExecuteResult',
-          )
-          .sourcesLoaded,
+      'success': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_5.ExecuteResult>(target, 'ExecuteResult').success,
+      'result': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_5.ExecuteResult>(target, 'ExecuteResult').result,
+      'error': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_5.ExecuteResult>(target, 'ExecuteResult').error,
+      'stackTrace': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_5.ExecuteResult>(target, 'ExecuteResult').stackTrace,
+      'sourcesLoaded': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_5.ExecuteResult>(target, 'ExecuteResult').sourcesLoaded,
     },
     constructorSignatures: {
       '': 'const ExecuteResult({required bool success, dynamic result, String? error, StackTrace? stackTrace, int sourcesLoaded = 1})',
       'success': 'const ExecuteResult.success(dynamic result)',
-      'failure':
-          'ExecuteResult.failure(String? error, {StackTrace? stackTrace})',
+      'failure': 'ExecuteResult.failure(String? error, {StackTrace? stackTrace})',
     },
     getterSignatures: {
       'success': 'bool get success',
@@ -3159,64 +1862,41 @@ BridgedClass _createImportInfoBridge() {
     isAssignable: (v) => v is $tom_d4rt_dcli_5.ImportInfo,
     constructors: {
       '': (visitor, positional, named) {
-        final path = D4.getRequiredNamedArg<String>(
-          named,
-          'path',
-          'ImportInfo',
-        );
+        final path = D4.getRequiredNamedArg<String>(named, 'path', 'ImportInfo');
         final classes = named.containsKey('classes') && named['classes'] != null
             ? D4.coerceList<String>(named['classes'], 'classes')
             : const <String>[];
         final enums = named.containsKey('enums') && named['enums'] != null
             ? D4.coerceList<String>(named['enums'], 'enums')
             : const <String>[];
-        final functions =
-            named.containsKey('functions') && named['functions'] != null
+        final functions = named.containsKey('functions') && named['functions'] != null
             ? D4.coerceList<String>(named['functions'], 'functions')
             : const <String>[];
-        final variables =
-            named.containsKey('variables') && named['variables'] != null
+        final variables = named.containsKey('variables') && named['variables'] != null
             ? D4.coerceList<String>(named['variables'], 'variables')
             : const <String>[];
-        return $tom_d4rt_dcli_5.ImportInfo(
-          path: path,
-          classes: classes,
-          enums: enums,
-          functions: functions,
-          variables: variables,
-        );
+        return $tom_d4rt_dcli_5.ImportInfo(path: path, classes: classes, enums: enums, functions: functions, variables: variables);
       },
     },
     getters: {
-      'path': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_5.ImportInfo>(target, 'ImportInfo')
-          .path,
-      'classes': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_5.ImportInfo>(target, 'ImportInfo')
-          .classes,
-      'enums': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_5.ImportInfo>(target, 'ImportInfo')
-          .enums,
-      'functions': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_5.ImportInfo>(target, 'ImportInfo')
-          .functions,
-      'variables': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_5.ImportInfo>(target, 'ImportInfo')
-          .variables,
+      'path': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_5.ImportInfo>(target, 'ImportInfo').path,
+      'classes': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_5.ImportInfo>(target, 'ImportInfo').classes,
+      'enums': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_5.ImportInfo>(target, 'ImportInfo').enums,
+      'functions': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_5.ImportInfo>(target, 'ImportInfo').functions,
+      'variables': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_5.ImportInfo>(target, 'ImportInfo').variables,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_5.ImportInfo>(
-          target,
-          'ImportInfo',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_5.ImportInfo>(target, 'ImportInfo');
         return t.toString();
       },
     },
     constructorSignatures: {
       '': 'const ImportInfo({required String path, List<String> classes = const [], List<String> enums = const [], List<String> functions = const [], List<String> variables = const []})',
     },
-    methodSignatures: {'toString': 'String toString()'},
+    methodSignatures: {
+      'toString': 'String toString()',
+    },
     getterSignatures: {
       'path': 'String get path',
       'classes': 'List<String> get classes',
@@ -3238,58 +1918,33 @@ BridgedClass _createSymbolInfoBridge() {
     isAssignable: (v) => v is $tom_d4rt_dcli_5.SymbolInfo,
     constructors: {
       '': (visitor, positional, named) {
-        final name = D4.getRequiredNamedArg<String>(
-          named,
-          'name',
-          'SymbolInfo',
-        );
-        final kind = D4.getRequiredNamedArg<$tom_d4rt_dcli_5.SymbolKind>(
-          named,
-          'kind',
-          'SymbolInfo',
-        );
-        final documentation = D4.getOptionalNamedArg<String?>(
-          named,
-          'documentation',
-        );
+        final name = D4.getRequiredNamedArg<String>(named, 'name', 'SymbolInfo');
+        final kind = D4.getRequiredNamedArg<$tom_d4rt_dcli_5.SymbolKind>(named, 'kind', 'SymbolInfo');
+        final documentation = D4.getOptionalNamedArg<String?>(named, 'documentation');
         final details = named.containsKey('details') && named['details'] != null
             ? D4.coerceMap<String, dynamic>(named['details'], 'details')
             : const <String, dynamic>{};
-        return $tom_d4rt_dcli_5.SymbolInfo(
-          name: name,
-          kind: kind,
-          documentation: documentation,
-          details: details,
-        );
+        return $tom_d4rt_dcli_5.SymbolInfo(name: name, kind: kind, documentation: documentation, details: details);
       },
     },
     getters: {
-      'name': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_5.SymbolInfo>(target, 'SymbolInfo')
-          .name,
-      'kind': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_5.SymbolInfo>(target, 'SymbolInfo')
-          .kind,
-      'documentation': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_5.SymbolInfo>(target, 'SymbolInfo')
-          .documentation,
-      'details': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_5.SymbolInfo>(target, 'SymbolInfo')
-          .details,
+      'name': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_5.SymbolInfo>(target, 'SymbolInfo').name,
+      'kind': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_5.SymbolInfo>(target, 'SymbolInfo').kind,
+      'documentation': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_5.SymbolInfo>(target, 'SymbolInfo').documentation,
+      'details': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_5.SymbolInfo>(target, 'SymbolInfo').details,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_5.SymbolInfo>(
-          target,
-          'SymbolInfo',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_5.SymbolInfo>(target, 'SymbolInfo');
         return t.toString();
       },
     },
     constructorSignatures: {
       '': 'const SymbolInfo({required String name, required SymbolKind kind, String? documentation, Map<String, dynamic> details = const {}})',
     },
-    methodSignatures: {'toString': 'String toString()'},
+    methodSignatures: {
+      'toString': 'String toString()',
+    },
     getterSignatures: {
       'name': 'String get name',
       'kind': 'SymbolKind get kind',
@@ -3309,74 +1964,32 @@ BridgedClass _createCliRuntimeBridge() {
     name: 'CliRuntime',
     isAssignable: (v) => v is $tom_d4rt_dcli_6.CliRuntime,
     isAbstract: true,
-    constructors: {},
+    constructors: {
+    },
     getters: {
-      'processDirectory': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_6.CliRuntime>(target, 'CliRuntime')
-          .processDirectory,
-      'processDirectoryObject': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_6.CliRuntime>(target, 'CliRuntime')
-          .processDirectoryObject,
-      'pid': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_6.CliRuntime>(target, 'CliRuntime')
-          .pid,
-      'executable': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_6.CliRuntime>(target, 'CliRuntime')
-          .executable,
-      'resolvedExecutable': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_6.CliRuntime>(target, 'CliRuntime')
-          .resolvedExecutable,
-      'executableArguments': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_6.CliRuntime>(target, 'CliRuntime')
-          .executableArguments,
-      'script': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_6.CliRuntime>(target, 'CliRuntime')
-          .script,
-      'version': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_6.CliRuntime>(target, 'CliRuntime')
-          .version,
-      'environment': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_6.CliRuntime>(target, 'CliRuntime')
-          .environment,
-      'operatingSystem': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_6.CliRuntime>(target, 'CliRuntime')
-          .operatingSystem,
-      'operatingSystemVersion': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_6.CliRuntime>(target, 'CliRuntime')
-          .operatingSystemVersion,
-      'numberOfProcessors': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_6.CliRuntime>(target, 'CliRuntime')
-          .numberOfProcessors,
-      'localHostname': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_6.CliRuntime>(target, 'CliRuntime')
-          .localHostname,
-      'pathSeparator': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_6.CliRuntime>(target, 'CliRuntime')
-          .pathSeparator,
-      'isLinux': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_6.CliRuntime>(target, 'CliRuntime')
-          .isLinux,
-      'isMacOS': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_6.CliRuntime>(target, 'CliRuntime')
-          .isMacOS,
-      'isWindows': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_6.CliRuntime>(target, 'CliRuntime')
-          .isWindows,
-      'isAndroid': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_6.CliRuntime>(target, 'CliRuntime')
-          .isAndroid,
-      'isIOS': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_6.CliRuntime>(target, 'CliRuntime')
-          .isIOS,
+      'processDirectory': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_6.CliRuntime>(target, 'CliRuntime').processDirectory,
+      'processDirectoryObject': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_6.CliRuntime>(target, 'CliRuntime').processDirectoryObject,
+      'pid': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_6.CliRuntime>(target, 'CliRuntime').pid,
+      'executable': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_6.CliRuntime>(target, 'CliRuntime').executable,
+      'resolvedExecutable': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_6.CliRuntime>(target, 'CliRuntime').resolvedExecutable,
+      'executableArguments': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_6.CliRuntime>(target, 'CliRuntime').executableArguments,
+      'script': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_6.CliRuntime>(target, 'CliRuntime').script,
+      'version': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_6.CliRuntime>(target, 'CliRuntime').version,
+      'environment': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_6.CliRuntime>(target, 'CliRuntime').environment,
+      'operatingSystem': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_6.CliRuntime>(target, 'CliRuntime').operatingSystem,
+      'operatingSystemVersion': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_6.CliRuntime>(target, 'CliRuntime').operatingSystemVersion,
+      'numberOfProcessors': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_6.CliRuntime>(target, 'CliRuntime').numberOfProcessors,
+      'localHostname': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_6.CliRuntime>(target, 'CliRuntime').localHostname,
+      'pathSeparator': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_6.CliRuntime>(target, 'CliRuntime').pathSeparator,
+      'isLinux': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_6.CliRuntime>(target, 'CliRuntime').isLinux,
+      'isMacOS': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_6.CliRuntime>(target, 'CliRuntime').isMacOS,
+      'isWindows': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_6.CliRuntime>(target, 'CliRuntime').isWindows,
+      'isAndroid': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_6.CliRuntime>(target, 'CliRuntime').isAndroid,
+      'isIOS': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_6.CliRuntime>(target, 'CliRuntime').isIOS,
     },
     setters: {
-      'processDirectory': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_d4rt_dcli_6.CliRuntime>(target, 'CliRuntime')
-              .processDirectory = D4.extractBridgedArg<String>(
-            value,
-            'processDirectory',
-          ),
+      'processDirectory': (visitor, target, value) => 
+        D4.validateTarget<$tom_d4rt_dcli_6.CliRuntime>(target, 'CliRuntime').processDirectory = D4.extractBridgedArg<String>(value, 'processDirectory'),
     },
     getterSignatures: {
       'processDirectory': 'String get processDirectory',
@@ -3421,134 +2034,33 @@ BridgedClass _createCliRuntimeImplBridge() {
       },
     },
     getters: {
-      'processDirectory': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_6.CliRuntimeImpl>(
-            target,
-            'CliRuntimeImpl',
-          )
-          .processDirectory,
-      'processDirectoryObject': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_6.CliRuntimeImpl>(
-            target,
-            'CliRuntimeImpl',
-          )
-          .processDirectoryObject,
-      'pid': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_6.CliRuntimeImpl>(
-            target,
-            'CliRuntimeImpl',
-          )
-          .pid,
-      'executable': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_6.CliRuntimeImpl>(
-            target,
-            'CliRuntimeImpl',
-          )
-          .executable,
-      'resolvedExecutable': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_6.CliRuntimeImpl>(
-            target,
-            'CliRuntimeImpl',
-          )
-          .resolvedExecutable,
-      'executableArguments': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_6.CliRuntimeImpl>(
-            target,
-            'CliRuntimeImpl',
-          )
-          .executableArguments,
-      'script': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_6.CliRuntimeImpl>(
-            target,
-            'CliRuntimeImpl',
-          )
-          .script,
-      'version': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_6.CliRuntimeImpl>(
-            target,
-            'CliRuntimeImpl',
-          )
-          .version,
-      'environment': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_6.CliRuntimeImpl>(
-            target,
-            'CliRuntimeImpl',
-          )
-          .environment,
-      'operatingSystem': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_6.CliRuntimeImpl>(
-            target,
-            'CliRuntimeImpl',
-          )
-          .operatingSystem,
-      'operatingSystemVersion': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_6.CliRuntimeImpl>(
-            target,
-            'CliRuntimeImpl',
-          )
-          .operatingSystemVersion,
-      'numberOfProcessors': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_6.CliRuntimeImpl>(
-            target,
-            'CliRuntimeImpl',
-          )
-          .numberOfProcessors,
-      'localHostname': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_6.CliRuntimeImpl>(
-            target,
-            'CliRuntimeImpl',
-          )
-          .localHostname,
-      'pathSeparator': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_6.CliRuntimeImpl>(
-            target,
-            'CliRuntimeImpl',
-          )
-          .pathSeparator,
-      'isLinux': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_6.CliRuntimeImpl>(
-            target,
-            'CliRuntimeImpl',
-          )
-          .isLinux,
-      'isMacOS': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_6.CliRuntimeImpl>(
-            target,
-            'CliRuntimeImpl',
-          )
-          .isMacOS,
-      'isWindows': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_6.CliRuntimeImpl>(
-            target,
-            'CliRuntimeImpl',
-          )
-          .isWindows,
-      'isAndroid': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_6.CliRuntimeImpl>(
-            target,
-            'CliRuntimeImpl',
-          )
-          .isAndroid,
-      'isIOS': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_6.CliRuntimeImpl>(
-            target,
-            'CliRuntimeImpl',
-          )
-          .isIOS,
+      'processDirectory': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_6.CliRuntimeImpl>(target, 'CliRuntimeImpl').processDirectory,
+      'processDirectoryObject': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_6.CliRuntimeImpl>(target, 'CliRuntimeImpl').processDirectoryObject,
+      'pid': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_6.CliRuntimeImpl>(target, 'CliRuntimeImpl').pid,
+      'executable': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_6.CliRuntimeImpl>(target, 'CliRuntimeImpl').executable,
+      'resolvedExecutable': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_6.CliRuntimeImpl>(target, 'CliRuntimeImpl').resolvedExecutable,
+      'executableArguments': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_6.CliRuntimeImpl>(target, 'CliRuntimeImpl').executableArguments,
+      'script': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_6.CliRuntimeImpl>(target, 'CliRuntimeImpl').script,
+      'version': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_6.CliRuntimeImpl>(target, 'CliRuntimeImpl').version,
+      'environment': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_6.CliRuntimeImpl>(target, 'CliRuntimeImpl').environment,
+      'operatingSystem': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_6.CliRuntimeImpl>(target, 'CliRuntimeImpl').operatingSystem,
+      'operatingSystemVersion': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_6.CliRuntimeImpl>(target, 'CliRuntimeImpl').operatingSystemVersion,
+      'numberOfProcessors': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_6.CliRuntimeImpl>(target, 'CliRuntimeImpl').numberOfProcessors,
+      'localHostname': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_6.CliRuntimeImpl>(target, 'CliRuntimeImpl').localHostname,
+      'pathSeparator': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_6.CliRuntimeImpl>(target, 'CliRuntimeImpl').pathSeparator,
+      'isLinux': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_6.CliRuntimeImpl>(target, 'CliRuntimeImpl').isLinux,
+      'isMacOS': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_6.CliRuntimeImpl>(target, 'CliRuntimeImpl').isMacOS,
+      'isWindows': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_6.CliRuntimeImpl>(target, 'CliRuntimeImpl').isWindows,
+      'isAndroid': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_6.CliRuntimeImpl>(target, 'CliRuntimeImpl').isAndroid,
+      'isIOS': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_6.CliRuntimeImpl>(target, 'CliRuntimeImpl').isIOS,
     },
     setters: {
-      'processDirectory': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_d4rt_dcli_6.CliRuntimeImpl>(
-                target,
-                'CliRuntimeImpl',
-              )
-              .processDirectory = D4.extractBridgedArg<String>(
-            value,
-            'processDirectory',
-          ),
+      'processDirectory': (visitor, target, value) => 
+        D4.validateTarget<$tom_d4rt_dcli_6.CliRuntimeImpl>(target, 'CliRuntimeImpl').processDirectory = D4.extractBridgedArg<String>(value, 'processDirectory'),
     },
-    constructorSignatures: {'': 'CliRuntimeImpl()'},
+    constructorSignatures: {
+      '': 'CliRuntimeImpl()',
+    },
     getterSignatures: {
       'processDirectory': 'String get processDirectory',
       'processDirectoryObject': 'Directory get processDirectoryObject',
@@ -3587,229 +2099,108 @@ BridgedClass _createCliStateBridge() {
     isAssignable: (v) => v is $tom_d4rt_dcli_7.CliState,
     constructors: {
       '': (visitor, positional, named) {
-        final dataDirectory = D4.getRequiredNamedArg<String>(
-          named,
-          'dataDirectory',
-          'CliState',
-        );
-        final initialDirectory = D4.getOptionalNamedArg<String?>(
-          named,
-          'initialDirectory',
-        );
-        return $tom_d4rt_dcli_7.CliState(
-          dataDirectory: dataDirectory,
-          initialDirectory: initialDirectory,
-        );
+        final dataDirectory = D4.getRequiredNamedArg<String>(named, 'dataDirectory', 'CliState');
+        final initialDirectory = D4.getOptionalNamedArg<String?>(named, 'initialDirectory');
+        return $tom_d4rt_dcli_7.CliState(dataDirectory: dataDirectory, initialDirectory: initialDirectory);
       },
     },
     getters: {
-      'dataDirectory': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState')
-          .dataDirectory,
-      'contextStack': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState')
-          .contextStack,
-      'sessionFile': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState')
-          .sessionFile,
-      'currentSessionId': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState')
-          .currentSessionId,
-      'cwd': (visitor, target) =>
-          D4.validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState').cwd,
-      'defines': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState')
-          .defines,
-      'hasActiveSession': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState')
-          .hasActiveSession,
-      'multilineMode': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState')
-          .multilineMode,
-      'isMultilineMode': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState')
-          .isMultilineMode,
-      'multilineBuffer': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState')
-          .multilineBuffer,
+      'dataDirectory': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState').dataDirectory,
+      'contextStack': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState').contextStack,
+      'sessionFile': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState').sessionFile,
+      'currentSessionId': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState').currentSessionId,
+      'cwd': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState').cwd,
+      'defines': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState').defines,
+      'hasActiveSession': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState').hasActiveSession,
+      'multilineMode': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState').multilineMode,
+      'isMultilineMode': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState').isMultilineMode,
+      'multilineBuffer': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState').multilineBuffer,
     },
     setters: {
-      'sessionFile': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState')
-              .sessionFile = D4.extractBridgedArgOrNull<RandomAccessFile>(
-            value,
-            'sessionFile',
-          ),
-      'currentSessionId': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState')
-              .currentSessionId = D4.extractBridgedArgOrNull<String>(
-            value,
-            'currentSessionId',
-          ),
+      'sessionFile': (visitor, target, value) => 
+        D4.validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState').sessionFile = D4.extractBridgedArgOrNull<RandomAccessFile>(value, 'sessionFile'),
+      'currentSessionId': (visitor, target, value) => 
+        D4.validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState').currentSessionId = D4.extractBridgedArgOrNull<String>(value, 'currentSessionId'),
     },
     methods: {
       'cd': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_7.CliState>(
-          target,
-          'CliState',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState');
         D4.requireMinArgs(positional, 1, 'cd');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'cd');
         return t.cd(path);
       },
       'home': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_7.CliState>(
-          target,
-          'CliState',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState');
         return t.home();
       },
       'resolvePath': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_7.CliState>(
-          target,
-          'CliState',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState');
         D4.requireMinArgs(positional, 1, 'resolvePath');
-        final path = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'path',
-          'resolvePath',
-        );
+        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'resolvePath');
         return t.resolvePath(path);
       },
       'getDefine': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_7.CliState>(
-          target,
-          'CliState',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState');
         D4.requireMinArgs(positional, 1, 'getDefine');
-        final name = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'name',
-          'getDefine',
-        );
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'getDefine');
         return t.getDefine(name);
       },
       'setDefine': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_7.CliState>(
-          target,
-          'CliState',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState');
         D4.requireMinArgs(positional, 2, 'setDefine');
-        final name = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'name',
-          'setDefine',
-        );
-        final value = D4.getRequiredArg<String?>(
-          positional,
-          1,
-          'value',
-          'setDefine',
-        );
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'setDefine');
+        final value = D4.getRequiredArg<String?>(positional, 1, 'value', 'setDefine');
         t.setDefine(name, value);
         return null;
       },
       'removeDefine': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_7.CliState>(
-          target,
-          'CliState',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState');
         D4.requireMinArgs(positional, 1, 'removeDefine');
-        final name = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'name',
-          'removeDefine',
-        );
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'removeDefine');
         t.removeDefine(name);
         return null;
       },
       'clearDefines': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_7.CliState>(
-          target,
-          'CliState',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState');
         t.clearDefines();
         return null;
       },
       'getSessionPath': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_7.CliState>(
-          target,
-          'CliState',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState');
         D4.requireMinArgs(positional, 1, 'getSessionPath');
-        final sessionId = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'sessionId',
-          'getSessionPath',
-        );
+        final sessionId = D4.getRequiredArg<String>(positional, 0, 'sessionId', 'getSessionPath');
         return t.getSessionPath(sessionId);
       },
       'startSession': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_7.CliState>(
-          target,
-          'CliState',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState');
         D4.requireMinArgs(positional, 1, 'startSession');
-        final sessionId = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'sessionId',
-          'startSession',
-        );
+        final sessionId = D4.getRequiredArg<String>(positional, 0, 'sessionId', 'startSession');
         return t.startSession(sessionId);
       },
       'closeSession': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_7.CliState>(
-          target,
-          'CliState',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState');
         t.closeSession();
         return null;
       },
       'recordToSession': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_7.CliState>(
-          target,
-          'CliState',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState');
         D4.requireMinArgs(positional, 1, 'recordToSession');
-        final command = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'command',
-          'recordToSession',
-        );
+        final command = D4.getRequiredArg<String>(positional, 0, 'command', 'recordToSession');
         t.recordToSession(command);
         return null;
       },
       'clearMultilineBuffer': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_7.CliState>(
-          target,
-          'CliState',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState');
         t.clearMultilineBuffer();
         return null;
       },
       'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_7.CliState>(
-          target,
-          'CliState',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState');
         (t as dynamic).dispose();
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_7.CliState>(
-          target,
-          'CliState',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_7.CliState>(target, 'CliState');
         return t.toString();
       },
     },
@@ -3864,35 +2255,28 @@ BridgedClass _createVerificationFailureBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'VerificationFailure');
-        final message = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'message',
-          'VerificationFailure',
-        );
+        final message = D4.getRequiredArg<String>(positional, 0, 'message', 'VerificationFailure');
         return $tom_d4rt_dcli_8.VerificationFailure(message);
       },
     },
     getters: {
-      'message': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_8.VerificationFailure>(
-            target,
-            'VerificationFailure',
-          )
-          .message,
+      'message': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_8.VerificationFailure>(target, 'VerificationFailure').message,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_8.VerificationFailure>(
-          target,
-          'VerificationFailure',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_8.VerificationFailure>(target, 'VerificationFailure');
         return t.toString();
       },
     },
-    constructorSignatures: {'': 'VerificationFailure(String message)'},
-    methodSignatures: {'toString': 'String toString()'},
-    getterSignatures: {'message': 'String get message'},
+    constructorSignatures: {
+      '': 'VerificationFailure(String message)',
+    },
+    methodSignatures: {
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'message': 'String get message',
+    },
   );
 }
 
@@ -3907,158 +2291,56 @@ BridgedClass _createExecutionContextBridge() {
     isAssignable: (v) => v is $tom_d4rt_dcli_9.ExecutionContext,
     constructors: {
       '': (visitor, positional, named) {
-        final workingDirectory = D4.getRequiredNamedArg<String>(
-          named,
-          'workingDirectory',
-          'ExecutionContext',
-        );
+        final workingDirectory = D4.getRequiredNamedArg<String>(named, 'workingDirectory', 'ExecutionContext');
         final sourceFile = D4.getOptionalNamedArg<String?>(named, 'sourceFile');
-        final recordToSession = D4.getNamedArgWithDefault<bool>(
-          named,
-          'recordToSession',
-          true,
-        );
+        final recordToSession = D4.getNamedArgWithDefault<bool>(named, 'recordToSession', true);
         final silent = D4.getNamedArgWithDefault<bool>(named, 'silent', false);
-        final parent = D4
-            .getOptionalNamedArg<$tom_d4rt_dcli_9.ExecutionContext?>(
-              named,
-              'parent',
-            );
-        return $tom_d4rt_dcli_9.ExecutionContext(
-          workingDirectory: workingDirectory,
-          sourceFile: sourceFile,
-          recordToSession: recordToSession,
-          silent: silent,
-          parent: parent,
-        );
+        final parent = D4.getOptionalNamedArg<$tom_d4rt_dcli_9.ExecutionContext?>(named, 'parent');
+        return $tom_d4rt_dcli_9.ExecutionContext(workingDirectory: workingDirectory, sourceFile: sourceFile, recordToSession: recordToSession, silent: silent, parent: parent);
       },
     },
     getters: {
-      'workingDirectory': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_9.ExecutionContext>(
-            target,
-            'ExecutionContext',
-          )
-          .workingDirectory,
-      'sourceFile': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_9.ExecutionContext>(
-            target,
-            'ExecutionContext',
-          )
-          .sourceFile,
-      'recordToSession': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_9.ExecutionContext>(
-            target,
-            'ExecutionContext',
-          )
-          .recordToSession,
-      'silent': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_9.ExecutionContext>(
-            target,
-            'ExecutionContext',
-          )
-          .silent,
-      'parent': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_9.ExecutionContext>(
-            target,
-            'ExecutionContext',
-          )
-          .parent,
-      'multilineMode': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_9.ExecutionContext>(
-            target,
-            'ExecutionContext',
-          )
-          .multilineMode,
-      'multilineBuffer': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_9.ExecutionContext>(
-            target,
-            'ExecutionContext',
-          )
-          .multilineBuffer,
-      'isMultilineMode': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_9.ExecutionContext>(
-            target,
-            'ExecutionContext',
-          )
-          .isMultilineMode,
-      'isRoot': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_9.ExecutionContext>(
-            target,
-            'ExecutionContext',
-          )
-          .isRoot,
-      'depth': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_9.ExecutionContext>(
-            target,
-            'ExecutionContext',
-          )
-          .depth,
+      'workingDirectory': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_9.ExecutionContext>(target, 'ExecutionContext').workingDirectory,
+      'sourceFile': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_9.ExecutionContext>(target, 'ExecutionContext').sourceFile,
+      'recordToSession': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_9.ExecutionContext>(target, 'ExecutionContext').recordToSession,
+      'silent': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_9.ExecutionContext>(target, 'ExecutionContext').silent,
+      'parent': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_9.ExecutionContext>(target, 'ExecutionContext').parent,
+      'multilineMode': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_9.ExecutionContext>(target, 'ExecutionContext').multilineMode,
+      'multilineBuffer': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_9.ExecutionContext>(target, 'ExecutionContext').multilineBuffer,
+      'isMultilineMode': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_9.ExecutionContext>(target, 'ExecutionContext').isMultilineMode,
+      'isRoot': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_9.ExecutionContext>(target, 'ExecutionContext').isRoot,
+      'depth': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_9.ExecutionContext>(target, 'ExecutionContext').depth,
     },
     setters: {
-      'multilineMode': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_d4rt_dcli_9.ExecutionContext>(
-                target,
-                'ExecutionContext',
-              )
-              .multilineMode = D4
-              .extractBridgedArg<$tom_d4rt_dcli_9.MultilineMode>(
-                value,
-                'multilineMode',
-              ),
+      'multilineMode': (visitor, target, value) => 
+        D4.validateTarget<$tom_d4rt_dcli_9.ExecutionContext>(target, 'ExecutionContext').multilineMode = D4.extractBridgedArg<$tom_d4rt_dcli_9.MultilineMode>(value, 'multilineMode'),
     },
     methods: {
       'clearMultilineBuffer': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_9.ExecutionContext>(
-          target,
-          'ExecutionContext',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_9.ExecutionContext>(target, 'ExecutionContext');
         t.clearMultilineBuffer();
         return null;
       },
       'startMultilineMode': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_9.ExecutionContext>(
-          target,
-          'ExecutionContext',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_9.ExecutionContext>(target, 'ExecutionContext');
         D4.requireMinArgs(positional, 1, 'startMultilineMode');
-        final mode = D4.getRequiredArg<$tom_d4rt_dcli_9.MultilineMode>(
-          positional,
-          0,
-          'mode',
-          'startMultilineMode',
-        );
+        final mode = D4.getRequiredArg<$tom_d4rt_dcli_9.MultilineMode>(positional, 0, 'mode', 'startMultilineMode');
         t.startMultilineMode(mode);
         return null;
       },
       'addMultilineLine': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_9.ExecutionContext>(
-          target,
-          'ExecutionContext',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_9.ExecutionContext>(target, 'ExecutionContext');
         D4.requireMinArgs(positional, 1, 'addMultilineLine');
-        final line = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'line',
-          'addMultilineLine',
-        );
+        final line = D4.getRequiredArg<String>(positional, 0, 'line', 'addMultilineLine');
         t.addMultilineLine(line);
         return null;
       },
       'getMultilineCode': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_9.ExecutionContext>(
-          target,
-          'ExecutionContext',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_9.ExecutionContext>(target, 'ExecutionContext');
         return t.getMultilineCode();
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_9.ExecutionContext>(
-          target,
-          'ExecutionContext',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_9.ExecutionContext>(target, 'ExecutionContext');
         return t.toString();
       },
     },
@@ -4084,7 +2366,9 @@ BridgedClass _createExecutionContextBridge() {
       'isRoot': 'bool get isRoot',
       'depth': 'int get depth',
     },
-    setterSignatures: {'multilineMode': 'set multilineMode(dynamic value)'},
+    setterSignatures: {
+      'multilineMode': 'set multilineMode(dynamic value)',
+    },
   );
 }
 
@@ -4100,114 +2384,63 @@ BridgedClass _createContextStackBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ContextStack');
-        final initialWorkingDirectory = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'initialWorkingDirectory',
-          'ContextStack',
-        );
+        final initialWorkingDirectory = D4.getRequiredArg<String>(positional, 0, 'initialWorkingDirectory', 'ContextStack');
         return $tom_d4rt_dcli_9.ContextStack(initialWorkingDirectory);
       },
     },
     getters: {
-      'current': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_9.ContextStack>(target, 'ContextStack')
-          .current,
-      'root': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_9.ContextStack>(target, 'ContextStack')
-          .root,
-      'cwd': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_9.ContextStack>(target, 'ContextStack')
-          .cwd,
-      'silent': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_9.ContextStack>(target, 'ContextStack')
-          .silent,
-      'recordToSession': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_9.ContextStack>(target, 'ContextStack')
-          .recordToSession,
-      'multilineMode': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_9.ContextStack>(target, 'ContextStack')
-          .multilineMode,
-      'isMultilineMode': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_9.ContextStack>(target, 'ContextStack')
-          .isMultilineMode,
-      'multilineBuffer': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_9.ContextStack>(target, 'ContextStack')
-          .multilineBuffer,
-      'depth': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_9.ContextStack>(target, 'ContextStack')
-          .depth,
-      'isRoot': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_9.ContextStack>(target, 'ContextStack')
-          .isRoot,
-      'length': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_dcli_9.ContextStack>(target, 'ContextStack')
-          .length,
+      'current': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_9.ContextStack>(target, 'ContextStack').current,
+      'root': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_9.ContextStack>(target, 'ContextStack').root,
+      'cwd': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_9.ContextStack>(target, 'ContextStack').cwd,
+      'silent': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_9.ContextStack>(target, 'ContextStack').silent,
+      'recordToSession': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_9.ContextStack>(target, 'ContextStack').recordToSession,
+      'multilineMode': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_9.ContextStack>(target, 'ContextStack').multilineMode,
+      'isMultilineMode': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_9.ContextStack>(target, 'ContextStack').isMultilineMode,
+      'multilineBuffer': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_9.ContextStack>(target, 'ContextStack').multilineBuffer,
+      'depth': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_9.ContextStack>(target, 'ContextStack').depth,
+      'isRoot': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_9.ContextStack>(target, 'ContextStack').isRoot,
+      'length': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_9.ContextStack>(target, 'ContextStack').length,
     },
     methods: {
       'push': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_9.ContextStack>(
-          target,
-          'ContextStack',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_9.ContextStack>(target, 'ContextStack');
         D4.requireMinArgs(positional, 1, 'push');
-        final context = D4.getRequiredArg<$tom_d4rt_dcli_9.ExecutionContext>(
-          positional,
-          0,
-          'context',
-          'push',
-        );
+        final context = D4.getRequiredArg<$tom_d4rt_dcli_9.ExecutionContext>(positional, 0, 'context', 'push');
         t.push(context);
         return null;
       },
       'pop': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_9.ContextStack>(
-          target,
-          'ContextStack',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_9.ContextStack>(target, 'ContextStack');
         return t.pop();
       },
       'popToRoot': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_9.ContextStack>(
-          target,
-          'ContextStack',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_9.ContextStack>(target, 'ContextStack');
         t.popToRoot();
         return null;
       },
       'updateWorkingDirectory': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_9.ContextStack>(
-          target,
-          'ContextStack',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_9.ContextStack>(target, 'ContextStack');
         D4.requireMinArgs(positional, 1, 'updateWorkingDirectory');
-        final newDirectory = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'newDirectory',
-          'updateWorkingDirectory',
-        );
+        final newDirectory = D4.getRequiredArg<String>(positional, 0, 'newDirectory', 'updateWorkingDirectory');
         t.updateWorkingDirectory(newDirectory);
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_d4rt_dcli_9.ContextStack>(
-          target,
-          'ContextStack',
-        );
+        final t = D4.validateTarget<$tom_d4rt_dcli_9.ContextStack>(target, 'ContextStack');
         return t.toString();
       },
     },
     staticGetters: {
       'maxDepth': (visitor) => $tom_d4rt_dcli_9.ContextStack.maxDepth,
     },
-    constructorSignatures: {'': 'ContextStack(String initialWorkingDirectory)'},
+    constructorSignatures: {
+      '': 'ContextStack(String initialWorkingDirectory)',
+    },
     methodSignatures: {
       'push': 'void push(ExecutionContext context)',
       'pop': 'ExecutionContext pop()',
       'popToRoot': 'void popToRoot()',
-      'updateWorkingDirectory':
-          'void updateWorkingDirectory(String newDirectory)',
+      'updateWorkingDirectory': 'void updateWorkingDirectory(String newDirectory)',
       'toString': 'String toString()',
     },
     getterSignatures: {
@@ -4223,7 +2456,9 @@ BridgedClass _createContextStackBridge() {
       'isRoot': 'bool get isRoot',
       'length': 'int get length',
     },
-    staticGetterSignatures: {'maxDepth': 'int get maxDepth'},
+    staticGetterSignatures: {
+      'maxDepth': 'int get maxDepth',
+    },
   );
 }
 
@@ -4238,61 +2473,39 @@ BridgedClass _createD4rtBridge() {
     isAssignable: (v) => v is $tom_d4rt_4.D4rt,
     constructors: {
       '': (visitor, positional, named) {
-        final reuseAcrossRuns = D4.getNamedArgWithDefault<bool>(
-          named,
-          'reuseAcrossRuns',
-          true,
-        );
+        final reuseAcrossRuns = D4.getNamedArgWithDefault<bool>(named, 'reuseAcrossRuns', true);
         return $tom_d4rt_4.D4rt(reuseAcrossRuns: reuseAcrossRuns);
       },
     },
     getters: {
-      'reuseAcrossRuns': (visitor, target) =>
-          D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt').reuseAcrossRuns,
-      'visitor': (visitor, target) =>
-          D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt').visitor,
-      'bridgesFinalized': (visitor, target) =>
-          D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt').bridgesFinalized,
-      'allowedPackages': (visitor, target) =>
-          D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt').allowedPackages,
-      'debugLoadedModuleCount': (visitor, target) => D4
-          .validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt')
-          .debugLoadedModuleCount,
-      'classAliases': (visitor, target) =>
-          D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt').classAliases,
-      'functionTypedefs': (visitor, target) =>
-          D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt').functionTypedefs,
-      'libraryReExports': (visitor, target) =>
-          D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt').libraryReExports,
+      'reuseAcrossRuns': (visitor, target) => D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt').reuseAcrossRuns,
+      'onUncaughtError': (visitor, target) => D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt').onUncaughtError,
+      'visitor': (visitor, target) => D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt').visitor,
+      'bridgesFinalized': (visitor, target) => D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt').bridgesFinalized,
+      'allowedPackages': (visitor, target) => D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt').allowedPackages,
+      'debugLoadedModuleCount': (visitor, target) => D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt').debugLoadedModuleCount,
+      'classAliases': (visitor, target) => D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt').classAliases,
+      'functionTypedefs': (visitor, target) => D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt').functionTypedefs,
+      'libraryReExports': (visitor, target) => D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt').libraryReExports,
+    },
+    setters: {
+      'onUncaughtError': (visitor, target, value) {
+        final onUncaughtErrorRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onUncaughtError');
+        D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt').onUncaughtError = onUncaughtErrorRaw == null ? null : (Object p0, StackTrace p1) { D4.callInterpreterCallback(visitor!, onUncaughtErrorRaw, [p0, p1]); };
+      },
     },
     methods: {
       'providePackage': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         D4.requireMinArgs(positional, 1, 'providePackage');
-        final packageName = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'packageName',
-          'providePackage',
-        );
+        final packageName = D4.getRequiredArg<String>(positional, 0, 'packageName', 'providePackage');
         return t.providePackage(packageName);
       },
       'registerBridgedEnum': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         D4.requireMinArgs(positional, 2, 'registerBridgedEnum');
-        final definition = D4
-            .getRequiredArg<$tom_d4rt_2.BridgedEnumDefinition<Enum>>(
-              positional,
-              0,
-              'definition',
-              'registerBridgedEnum',
-            );
-        final library = D4.getRequiredArg<String>(
-          positional,
-          1,
-          'library',
-          'registerBridgedEnum',
-        );
+        final definition = D4.getRequiredArg<$tom_d4rt_2.BridgedEnumDefinition<Enum>>(positional, 0, 'definition', 'registerBridgedEnum');
+        final library = D4.getRequiredArg<String>(positional, 1, 'library', 'registerBridgedEnum');
         final sourceUri = D4.getOptionalNamedArg<String?>(named, 'sourceUri');
         t.registerBridgedEnum(definition, library, sourceUri: sourceUri);
         return null;
@@ -4300,18 +2513,8 @@ BridgedClass _createD4rtBridge() {
       'registerBridgedClass': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         D4.requireMinArgs(positional, 2, 'registerBridgedClass');
-        final definition = D4.getRequiredArg<$tom_d4rt_1.BridgedClass>(
-          positional,
-          0,
-          'definition',
-          'registerBridgedClass',
-        );
-        final library = D4.getRequiredArg<String>(
-          positional,
-          1,
-          'library',
-          'registerBridgedClass',
-        );
+        final definition = D4.getRequiredArg<$tom_d4rt_1.BridgedClass>(positional, 0, 'definition', 'registerBridgedClass');
+        final library = D4.getRequiredArg<String>(positional, 1, 'library', 'registerBridgedClass');
         final sourceUri = D4.getOptionalNamedArg<String?>(named, 'sourceUri');
         t.registerBridgedClass(definition, library, sourceUri: sourceUri);
         return null;
@@ -4319,218 +2522,73 @@ BridgedClass _createD4rtBridge() {
       'registerBridgedClassLazy': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         D4.requireMinArgs(positional, 4, 'registerBridgedClassLazy');
-        final name = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'name',
-          'registerBridgedClassLazy',
-        );
-        final nativeType = D4.getRequiredArg<Type>(
-          positional,
-          1,
-          'nativeType',
-          'registerBridgedClassLazy',
-        );
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'registerBridgedClassLazy');
+        final nativeType = D4.getRequiredArg<Type>(positional, 1, 'nativeType', 'registerBridgedClassLazy');
         if (positional.length <= 2) {
-          throw ArgumentError(
-            'registerBridgedClassLazy: Missing required argument "thunk" at position 2',
-          );
+          throw ArgumentError('registerBridgedClassLazy: Missing required argument "thunk" at position 2');
         }
         final thunkRaw = positional[2];
-        final library = D4.getRequiredArg<String>(
-          positional,
-          3,
-          'library',
-          'registerBridgedClassLazy',
-        );
+        final library = D4.getRequiredArg<String>(positional, 3, 'library', 'registerBridgedClassLazy');
         final sourceUri = D4.getOptionalNamedArg<String?>(named, 'sourceUri');
-        t.registerBridgedClassLazy(
-          name,
-          nativeType,
-          (() {
-                return D4.extractBridgedArg<$tom_d4rt_1.BridgedClass>(
-                      D4.callInterpreterCallback(visitor!, thunkRaw, []),
-                      'callback',
-                      visitor,
-                    )
-                    as $tom_d4rt_1.BridgedClass;
-              })
-              as $tom_d4rt_1.BridgedClass Function(),
-          library,
-          sourceUri: sourceUri,
-        );
+        t.registerBridgedClassLazy(name, nativeType, (() { return D4.extractBridgedArg<$tom_d4rt_1.BridgedClass>(D4.callInterpreterCallback(visitor!, thunkRaw, []), 'callback', visitor) as $tom_d4rt_1.BridgedClass; }) as $tom_d4rt_1.BridgedClass Function(), library, sourceUri: sourceUri);
         return null;
       },
       'registerClassAlias': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         D4.requireMinArgs(positional, 3, 'registerClassAlias');
-        final aliasName = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'aliasName',
-          'registerClassAlias',
-        );
-        final targetName = D4.getRequiredArg<String>(
-          positional,
-          1,
-          'targetName',
-          'registerClassAlias',
-        );
-        final library = D4.getRequiredArg<String>(
-          positional,
-          2,
-          'library',
-          'registerClassAlias',
-        );
+        final aliasName = D4.getRequiredArg<String>(positional, 0, 'aliasName', 'registerClassAlias');
+        final targetName = D4.getRequiredArg<String>(positional, 1, 'targetName', 'registerClassAlias');
+        final library = D4.getRequiredArg<String>(positional, 2, 'library', 'registerClassAlias');
         t.registerClassAlias(aliasName, targetName, library);
         return null;
       },
-      'registerFunctionTypedef':
-          (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
-            D4.requireMinArgs(positional, 2, 'registerFunctionTypedef');
-            final name = D4.getRequiredArg<String>(
-              positional,
-              0,
-              'name',
-              'registerFunctionTypedef',
-            );
-            final library = D4.getRequiredArg<String>(
-              positional,
-              1,
-              'library',
-              'registerFunctionTypedef',
-            );
-            t.registerFunctionTypedef(name, library);
-            return null;
-          },
-      'registerLibraryReExport':
-          (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
-            D4.requireMinArgs(positional, 2, 'registerLibraryReExport');
-            final sourceUri = D4.getRequiredArg<String>(
-              positional,
-              0,
-              'sourceUri',
-              'registerLibraryReExport',
-            );
-            final targetUri = D4.getRequiredArg<String>(
-              positional,
-              1,
-              'targetUri',
-              'registerLibraryReExport',
-            );
-            final show = D4.coerceSetOrNull<String>(named['show'], 'show');
-            final hide = D4.coerceSetOrNull<String>(named['hide'], 'hide');
-            t.registerLibraryReExport(
-              sourceUri,
-              targetUri,
-              show: show,
-              hide: hide,
-            );
-            return null;
-          },
-      'registerBridgedExtension':
-          (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
-            D4.requireMinArgs(positional, 2, 'registerBridgedExtension');
-            final definition = D4
-                .getRequiredArg<$tom_d4rt_2.BridgedExtensionDefinition>(
-                  positional,
-                  0,
-                  'definition',
-                  'registerBridgedExtension',
-                );
-            final library = D4.getRequiredArg<String>(
-              positional,
-              1,
-              'library',
-              'registerBridgedExtension',
-            );
-            final sourceUri = D4.getOptionalNamedArg<String?>(
-              named,
-              'sourceUri',
-            );
-            t.registerBridgedExtension(
-              definition,
-              library,
-              sourceUri: sourceUri,
-            );
-            return null;
-          },
+      'registerFunctionTypedef': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
+        D4.requireMinArgs(positional, 2, 'registerFunctionTypedef');
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'registerFunctionTypedef');
+        final library = D4.getRequiredArg<String>(positional, 1, 'library', 'registerFunctionTypedef');
+        t.registerFunctionTypedef(name, library);
+        return null;
+      },
+      'registerLibraryReExport': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
+        D4.requireMinArgs(positional, 2, 'registerLibraryReExport');
+        final sourceUri = D4.getRequiredArg<String>(positional, 0, 'sourceUri', 'registerLibraryReExport');
+        final targetUri = D4.getRequiredArg<String>(positional, 1, 'targetUri', 'registerLibraryReExport');
+        final show = D4.coerceSetOrNull<String>(named['show'], 'show');
+        final hide = D4.coerceSetOrNull<String>(named['hide'], 'hide');
+        t.registerLibraryReExport(sourceUri, targetUri, show: show, hide: hide);
+        return null;
+      },
+      'registerBridgedExtension': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
+        D4.requireMinArgs(positional, 2, 'registerBridgedExtension');
+        final definition = D4.getRequiredArg<$tom_d4rt_2.BridgedExtensionDefinition>(positional, 0, 'definition', 'registerBridgedExtension');
+        final library = D4.getRequiredArg<String>(positional, 1, 'library', 'registerBridgedExtension');
+        final sourceUri = D4.getOptionalNamedArg<String?>(named, 'sourceUri');
+        t.registerBridgedExtension(definition, library, sourceUri: sourceUri);
+        return null;
+      },
       'registertopLevelFunction': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         D4.requireMinArgs(positional, 3, 'registertopLevelFunction');
-        final name = D4.getRequiredArg<String?>(
-          positional,
-          0,
-          'name',
-          'registertopLevelFunction',
-        );
+        final name = D4.getRequiredArg<String?>(positional, 0, 'name', 'registertopLevelFunction');
         if (positional.length <= 1) {
-          throw ArgumentError(
-            'registertopLevelFunction: Missing required argument "function" at position 1',
-          );
+          throw ArgumentError('registertopLevelFunction: Missing required argument "function" at position 1');
         }
         final functionRaw = positional[1];
-        final library = D4.getRequiredArg<String>(
-          positional,
-          2,
-          'library',
-          'registertopLevelFunction',
-        );
+        final library = D4.getRequiredArg<String>(positional, 2, 'library', 'registertopLevelFunction');
         final sourceUri = D4.getOptionalNamedArg<String?>(named, 'sourceUri');
         final signature = D4.getOptionalNamedArg<String?>(named, 'signature');
-        t.registertopLevelFunction(
-          name,
-          ((
-                $tom_d4rt_6.InterpreterVisitor p0,
-                List<Object?> p1,
-                Map<String, Object?> p2,
-                List<$tom_d4rt_8.RuntimeType>? p3,
-              ) {
-                return D4.castCallbackResult<Object?>(
-                  D4.callInterpreterCallback(visitor!, functionRaw, [
-                    p0,
-                    p1,
-                    p2,
-                    p3,
-                  ]),
-                );
-              })
-              as Object? Function(
-                $tom_d4rt_6.InterpreterVisitor,
-                List<Object?>,
-                Map<String, Object?>,
-                List<$tom_d4rt_8.RuntimeType>?,
-              ),
-          library,
-          sourceUri: sourceUri,
-          signature: signature,
-        );
+        t.registertopLevelFunction(name, (($tom_d4rt_6.InterpreterVisitor p0, List<Object?> p1, Map<String, Object?> p2, List<$tom_d4rt_8.RuntimeType>? p3) { return D4.castCallbackResult<Object?>(D4.callInterpreterCallback(visitor!, functionRaw, [p0, p1, p2, p3])); }) as Object? Function($tom_d4rt_6.InterpreterVisitor, List<Object?>, Map<String, Object?>, List<$tom_d4rt_8.RuntimeType>?), library, sourceUri: sourceUri, signature: signature);
         return null;
       },
       'registerGlobalVariable': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         D4.requireMinArgs(positional, 3, 'registerGlobalVariable');
-        final name = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'name',
-          'registerGlobalVariable',
-        );
-        final value = D4.getRequiredArg<Object?>(
-          positional,
-          1,
-          'value',
-          'registerGlobalVariable',
-        );
-        final library = D4.getRequiredArg<String>(
-          positional,
-          2,
-          'library',
-          'registerGlobalVariable',
-        );
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'registerGlobalVariable');
+        final value = D4.getRequiredArg<Object?>(positional, 1, 'value', 'registerGlobalVariable');
+        final library = D4.getRequiredArg<String>(positional, 2, 'library', 'registerGlobalVariable');
         final sourceUri = D4.getOptionalNamedArg<String?>(named, 'sourceUri');
         t.registerGlobalVariable(name, value, library, sourceUri: sourceUri);
         return null;
@@ -4538,76 +2596,34 @@ BridgedClass _createD4rtBridge() {
       'registerGlobalGetter': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         D4.requireMinArgs(positional, 3, 'registerGlobalGetter');
-        final name = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'name',
-          'registerGlobalGetter',
-        );
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'registerGlobalGetter');
         if (positional.length <= 1) {
-          throw ArgumentError(
-            'registerGlobalGetter: Missing required argument "getter" at position 1',
-          );
+          throw ArgumentError('registerGlobalGetter: Missing required argument "getter" at position 1');
         }
         final getterRaw = positional[1];
-        final library = D4.getRequiredArg<String>(
-          positional,
-          2,
-          'library',
-          'registerGlobalGetter',
-        );
+        final library = D4.getRequiredArg<String>(positional, 2, 'library', 'registerGlobalGetter');
         final sourceUri = D4.getOptionalNamedArg<String?>(named, 'sourceUri');
-        t.registerGlobalGetter(
-          name,
-          (() {
-                return D4.castCallbackResult<Object?>(
-                  D4.callInterpreterCallback(visitor!, getterRaw, []),
-                );
-              })
-              as Object? Function(),
-          library,
-          sourceUri: sourceUri,
-        );
+        t.registerGlobalGetter(name, (() { return D4.castCallbackResult<Object?>(D4.callInterpreterCallback(visitor!, getterRaw, [])); }) as Object? Function(), library, sourceUri: sourceUri);
         return null;
       },
       'registerGlobalSetter': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         D4.requireMinArgs(positional, 3, 'registerGlobalSetter');
-        final name = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'name',
-          'registerGlobalSetter',
-        );
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'registerGlobalSetter');
         if (positional.length <= 1) {
-          throw ArgumentError(
-            'registerGlobalSetter: Missing required argument "setter" at position 1',
-          );
+          throw ArgumentError('registerGlobalSetter: Missing required argument "setter" at position 1');
         }
         final setterRaw = positional[1];
-        final library = D4.getRequiredArg<String>(
-          positional,
-          2,
-          'library',
-          'registerGlobalSetter',
-        );
+        final library = D4.getRequiredArg<String>(positional, 2, 'library', 'registerGlobalSetter');
         final sourceUri = D4.getOptionalNamedArg<String?>(named, 'sourceUri');
-        t.registerGlobalSetter(
-          name,
-          (Object? p0) {
-            D4.callInterpreterCallback(visitor!, setterRaw, [p0]);
-          },
-          library,
-          sourceUri: sourceUri,
-        );
+        t.registerGlobalSetter(name, (Object? p0) { D4.callInterpreterCallback(visitor!, setterRaw, [p0]); }, library, sourceUri: sourceUri);
         return null;
       },
-      'resetScriptDeclarations':
-          (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
-            t.resetScriptDeclarations();
-            return null;
-          },
+      'resetScriptDeclarations': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
+        t.resetScriptDeclarations();
+        return null;
+      },
       'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         (t as dynamic).dispose();
@@ -4615,82 +2631,42 @@ BridgedClass _createD4rtBridge() {
       },
       'validateRegistrations': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
-        final source = D4.getRequiredNamedArg<String>(
-          named,
-          'source',
-          'validateRegistrations',
-        );
-        final sources = D4.coerceMapOrNull<String, String>(
-          named['sources'],
-          'sources',
-        );
+        final source = D4.getRequiredNamedArg<String>(named, 'source', 'validateRegistrations');
+        final sources = D4.coerceMapOrNull<String, String>(named['sources'], 'sources');
         final basePath = D4.getOptionalNamedArg<String?>(named, 'basePath');
-        final allowFileSystemImports = D4.getNamedArgWithDefault<bool>(
-          named,
-          'allowFileSystemImports',
-          false,
-        );
-        return t.validateRegistrations(
-          source: source,
-          sources: sources,
-          basePath: basePath,
-          allowFileSystemImports: allowFileSystemImports,
-        );
+        final allowFileSystemImports = D4.getNamedArgWithDefault<bool>(named, 'allowFileSystemImports', false);
+        return t.validateRegistrations(source: source, sources: sources, basePath: basePath, allowFileSystemImports: allowFileSystemImports);
       },
       'setDebug': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         D4.requireMinArgs(positional, 1, 'setDebug');
-        final enabled = D4.getRequiredArg<bool>(
-          positional,
-          0,
-          'enabled',
-          'setDebug',
-        );
+        final enabled = D4.getRequiredArg<bool>(positional, 0, 'enabled', 'setDebug');
         t.setDebug(enabled);
         return null;
       },
       'grant': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         D4.requireMinArgs(positional, 1, 'grant');
-        final permission = D4.getRequiredArg<$tom_d4rt_10.Permission>(
-          positional,
-          0,
-          'permission',
-          'grant',
-        );
+        final permission = D4.getRequiredArg<$tom_d4rt_10.Permission>(positional, 0, 'permission', 'grant');
         t.grant(permission);
         return null;
       },
       'revoke': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         D4.requireMinArgs(positional, 1, 'revoke');
-        final permission = D4.getRequiredArg<$tom_d4rt_10.Permission>(
-          positional,
-          0,
-          'permission',
-          'revoke',
-        );
+        final permission = D4.getRequiredArg<$tom_d4rt_10.Permission>(positional, 0, 'permission', 'revoke');
         t.revoke(permission);
         return null;
       },
       'registerExtensions': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         D4.requireMinArgs(positional, 2, 'registerExtensions');
-        final packageName = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'packageName',
-          'registerExtensions',
-        );
+        final packageName = D4.getRequiredArg<String>(positional, 0, 'packageName', 'registerExtensions');
         if (positional.length <= 1) {
-          throw ArgumentError(
-            'registerExtensions: Missing required argument "body" at position 1',
-          );
+          throw ArgumentError('registerExtensions: Missing required argument "body" at position 1');
         }
         final bodyRaw = positional[1];
-        t.registerExtensions(packageName, () {
-          D4.callInterpreterCallback(visitor!, bodyRaw, []);
-        });
+        t.registerExtensions(packageName, () { D4.callInterpreterCallback(visitor!, bodyRaw, []); });
         return null;
       },
       'finalizeBridges': (visitor, target, positional, named, typeArgs) {
@@ -4706,129 +2682,47 @@ BridgedClass _createD4rtBridge() {
       'registerRelaxerFactory': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         D4.requireMinArgs(positional, 2, 'registerRelaxerFactory');
-        final baseTypeName = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'baseTypeName',
-          'registerRelaxerFactory',
-        );
+        final baseTypeName = D4.getRequiredArg<String>(positional, 0, 'baseTypeName', 'registerRelaxerFactory');
         if (positional.length <= 1) {
-          throw ArgumentError(
-            'registerRelaxerFactory: Missing required argument "factory" at position 1',
-          );
+          throw ArgumentError('registerRelaxerFactory: Missing required argument "factory" at position 1');
         }
         final factoryRaw = positional[1];
-        t.registerRelaxerFactory(
-          baseTypeName,
-          ((Object p0, String p1) {
-                return D4.castCallbackResult<Object?>(
-                  D4.callInterpreterCallback(visitor!, factoryRaw, [p0, p1]),
-                );
-              })
-              as Object? Function(Object, String),
-        );
+        t.registerRelaxerFactory(baseTypeName, ((Object p0, String p1) { return D4.castCallbackResult<Object?>(D4.callInterpreterCallback(visitor!, factoryRaw, [p0, p1])); }) as Object? Function(Object, String));
         return null;
       },
       'registerInterfaceProxy': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         D4.requireMinArgs(positional, 2, 'registerInterfaceProxy');
-        final bridgedTypeName = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'bridgedTypeName',
-          'registerInterfaceProxy',
-        );
+        final bridgedTypeName = D4.getRequiredArg<String>(positional, 0, 'bridgedTypeName', 'registerInterfaceProxy');
         if (positional.length <= 1) {
-          throw ArgumentError(
-            'registerInterfaceProxy: Missing required argument "factory" at position 1',
-          );
+          throw ArgumentError('registerInterfaceProxy: Missing required argument "factory" at position 1');
         }
         final factoryRaw = positional[1];
-        t.registerInterfaceProxy(
-          bridgedTypeName,
-          ((
-                $tom_d4rt_6.InterpreterVisitor p0,
-                $tom_d4rt_9.InterpretedInstance p1,
-              ) {
-                return D4.castCallbackResult<Object?>(
-                  D4.callInterpreterCallback(visitor!, factoryRaw, [p0, p1]),
-                );
-              })
-              as Object? Function(
-                $tom_d4rt_6.InterpreterVisitor,
-                $tom_d4rt_9.InterpretedInstance,
-              ),
-        );
+        t.registerInterfaceProxy(bridgedTypeName, (($tom_d4rt_6.InterpreterVisitor p0, $tom_d4rt_9.InterpretedInstance p1) { return D4.castCallbackResult<Object?>(D4.callInterpreterCallback(visitor!, factoryRaw, [p0, p1])); }) as Object? Function($tom_d4rt_6.InterpreterVisitor, $tom_d4rt_9.InterpretedInstance));
         return null;
       },
       'registerGenericConstructor': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         D4.requireMinArgs(positional, 3, 'registerGenericConstructor');
-        final className = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'className',
-          'registerGenericConstructor',
-        );
-        final constructorName = D4.getRequiredArg<String>(
-          positional,
-          1,
-          'constructorName',
-          'registerGenericConstructor',
-        );
+        final className = D4.getRequiredArg<String>(positional, 0, 'className', 'registerGenericConstructor');
+        final constructorName = D4.getRequiredArg<String>(positional, 1, 'constructorName', 'registerGenericConstructor');
         if (positional.length <= 2) {
-          throw ArgumentError(
-            'registerGenericConstructor: Missing required argument "factory" at position 2',
-          );
+          throw ArgumentError('registerGenericConstructor: Missing required argument "factory" at position 2');
         }
         final factoryRaw = positional[2];
-        t.registerGenericConstructor(
-          className,
-          constructorName,
-          ((
-                $tom_d4rt_6.InterpreterVisitor p0,
-                List<Object?> p1,
-                Map<String, Object?> p2,
-                List<$tom_d4rt_8.RuntimeType>? p3,
-              ) {
-                return D4.castCallbackResult<Object?>(
-                  D4.callInterpreterCallback(visitor!, factoryRaw, [
-                    p0,
-                    p1,
-                    p2,
-                    p3,
-                  ]),
-                );
-              })
-              as Object? Function(
-                $tom_d4rt_6.InterpreterVisitor,
-                List<Object?>,
-                Map<String, Object?>,
-                List<$tom_d4rt_8.RuntimeType>?,
-              ),
-        );
+        t.registerGenericConstructor(className, constructorName, (($tom_d4rt_6.InterpreterVisitor p0, List<Object?> p1, Map<String, Object?> p2, List<$tom_d4rt_8.RuntimeType>? p3) { return D4.castCallbackResult<Object?>(D4.callInterpreterCallback(visitor!, factoryRaw, [p0, p1, p2, p3])); }) as Object? Function($tom_d4rt_6.InterpreterVisitor, List<Object?>, Map<String, Object?>, List<$tom_d4rt_8.RuntimeType>?));
         return null;
       },
       'hasPermission': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         D4.requireMinArgs(positional, 1, 'hasPermission');
-        final permission = D4.getRequiredArg<$tom_d4rt_10.Permission>(
-          positional,
-          0,
-          'permission',
-          'hasPermission',
-        );
+        final permission = D4.getRequiredArg<$tom_d4rt_10.Permission>(positional, 0, 'permission', 'hasPermission');
         return t.hasPermission(permission);
       },
       'checkPermission': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         D4.requireMinArgs(positional, 1, 'checkPermission');
-        final operation = D4.getRequiredArg<dynamic>(
-          positional,
-          0,
-          'operation',
-          'checkPermission',
-        );
+        final operation = D4.getRequiredArg<dynamic>(positional, 0, 'operation', 'checkPermission');
         return t.checkPermission(operation);
       },
       'getConfiguration': (visitor, target, positional, named, typeArgs) {
@@ -4843,90 +2737,35 @@ BridgedClass _createD4rtBridge() {
         final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         final source = D4.getOptionalNamedArg<String?>(named, 'source');
         final name = D4.getNamedArgWithDefault<String>(named, 'name', 'main');
-        final positionalArgs = D4.coerceListOrNull<Object?>(
-          named['positionalArgs'],
-          'positionalArgs',
-        );
-        final namedArgs = D4.coerceMapOrNull<String, Object?>(
-          named['namedArgs'],
-          'namedArgs',
-        );
+        final positionalArgs = D4.coerceListOrNull<Object?>(named['positionalArgs'], 'positionalArgs');
+        final namedArgs = D4.coerceMapOrNull<String, Object?>(named['namedArgs'], 'namedArgs');
         final args = D4.getOptionalNamedArg<Object?>(named, 'args');
         final library = D4.getOptionalNamedArg<String?>(named, 'library');
-        final sources = D4.coerceMapOrNull<String, String>(
-          named['sources'],
-          'sources',
-        );
+        final sources = D4.coerceMapOrNull<String, String>(named['sources'], 'sources');
         final basePath = D4.getOptionalNamedArg<String?>(named, 'basePath');
-        final allowFileSystemImports = D4.getNamedArgWithDefault<bool>(
-          named,
-          'allowFileSystemImports',
-          false,
-        );
-        return t.execute(
-          source: source,
-          name: name,
-          positionalArgs: positionalArgs,
-          namedArgs: namedArgs,
-          args: args,
-          library: library,
-          sources: sources,
-          basePath: basePath,
-          allowFileSystemImports: allowFileSystemImports,
-        );
+        final allowFileSystemImports = D4.getNamedArgWithDefault<bool>(named, 'allowFileSystemImports', false);
+        return t.execute(source: source, name: name, positionalArgs: positionalArgs, namedArgs: namedArgs, args: args, library: library, sources: sources, basePath: basePath, allowFileSystemImports: allowFileSystemImports);
       },
       'continuedExecute': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         final source = D4.getOptionalNamedArg<String?>(named, 'source');
         final name = D4.getNamedArgWithDefault<String>(named, 'name', 'main');
-        final positionalArgs = D4.coerceListOrNull<Object?>(
-          named['positionalArgs'],
-          'positionalArgs',
-        );
-        final namedArgs = D4.coerceMapOrNull<String, Object?>(
-          named['namedArgs'],
-          'namedArgs',
-        );
+        final positionalArgs = D4.coerceListOrNull<Object?>(named['positionalArgs'], 'positionalArgs');
+        final namedArgs = D4.coerceMapOrNull<String, Object?>(named['namedArgs'], 'namedArgs');
         final library = D4.getOptionalNamedArg<String?>(named, 'library');
-        return t.continuedExecute(
-          source: source,
-          name: name,
-          positionalArgs: positionalArgs,
-          namedArgs: namedArgs,
-          library: library,
-        );
+        return t.continuedExecute(source: source, name: name, positionalArgs: positionalArgs, namedArgs: namedArgs, library: library);
       },
       'analyze': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
-        final source = D4.getRequiredNamedArg<String>(
-          named,
-          'source',
-          'analyze',
-        );
-        final sources = D4.coerceMapOrNull<String, String>(
-          named['sources'],
-          'sources',
-        );
-        final includeBuiltins = D4.getNamedArgWithDefault<bool>(
-          named,
-          'includeBuiltins',
-          false,
-        );
-        return t.analyze(
-          source: source,
-          sources: sources,
-          includeBuiltins: includeBuiltins,
-        );
+        final source = D4.getRequiredNamedArg<String>(named, 'source', 'analyze');
+        final sources = D4.coerceMapOrNull<String, String>(named['sources'], 'sources');
+        final includeBuiltins = D4.getNamedArgWithDefault<bool>(named, 'includeBuiltins', false);
+        return t.analyze(source: source, sources: sources, includeBuiltins: includeBuiltins);
       },
       'eval': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         D4.requireMinArgs(positional, 1, 'eval');
-        final expression = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'expression',
-          'eval',
-        );
+        final expression = D4.getRequiredArg<String>(positional, 0, 'expression', 'eval');
         return t.eval(expression);
       },
       'invoke': (visitor, target, positional, named, typeArgs) {
@@ -4934,14 +2773,9 @@ BridgedClass _createD4rtBridge() {
         D4.requireMinArgs(positional, 2, 'invoke');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'invoke');
         if (positional.length <= 1) {
-          throw ArgumentError(
-            'invoke: Missing required argument "positionalArgs" at position 1',
-          );
+          throw ArgumentError('invoke: Missing required argument "positionalArgs" at position 1');
         }
-        final positionalArgs = D4.coerceList<Object?>(
-          positional[1],
-          'positionalArgs',
-        );
+        final positionalArgs = D4.coerceList<Object?>(positional[1], 'positionalArgs');
         final namedArgs = positional.length > 2 && positional[2] != null
             ? D4.coerceMap<String, Object?>(positional[2], 'namedArgs')
             : const <String, Object?>{};
@@ -4952,105 +2786,81 @@ BridgedClass _createD4rtBridge() {
       },
     },
     staticGetters: {
-      'debugBridgedModuleEnvBuildCount': (visitor) =>
-          $tom_d4rt_4.D4rt.debugBridgedModuleEnvBuildCount,
+      'debugBridgedModuleEnvBuildCount': (visitor) => $tom_d4rt_4.D4rt.debugBridgedModuleEnvBuildCount,
       'debugPooledPackages': (visitor) => $tom_d4rt_4.D4rt.debugPooledPackages,
-      'debugWarmParentCacheSize': (visitor) =>
-          $tom_d4rt_4.D4rt.debugWarmParentCacheSize,
+      'debugWarmParentCacheSize': (visitor) => $tom_d4rt_4.D4rt.debugWarmParentCacheSize,
     },
     staticMethods: {
       'debugPooledClassCount': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'debugPooledClassCount');
-        final packageName = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'packageName',
-          'debugPooledClassCount',
-        );
+        final packageName = D4.getRequiredArg<String>(positional, 0, 'packageName', 'debugPooledClassCount');
         return $tom_d4rt_4.D4rt.debugPooledClassCount(packageName);
       },
       'debugResetPool': (visitor, positional, named, typeArgs) {
         return $tom_d4rt_4.D4rt.debugResetPool();
       },
     },
-    constructorSignatures: {'': 'D4rt({bool reuseAcrossRuns = true})'},
+    constructorSignatures: {
+      '': 'D4rt({bool reuseAcrossRuns = true})',
+    },
     methodSignatures: {
       'providePackage': 'bool providePackage(String packageName)',
-      'registerBridgedEnum':
-          'void registerBridgedEnum(BridgedEnumDefinition<Enum> definition, String library, {String? sourceUri})',
-      'registerBridgedClass':
-          'void registerBridgedClass(BridgedClass definition, String library, {String? sourceUri})',
-      'registerBridgedClassLazy':
-          'void registerBridgedClassLazy(String name, Type nativeType, BridgedClass Function() thunk, String library, {String? sourceUri})',
-      'registerClassAlias':
-          'void registerClassAlias(String aliasName, String targetName, String library)',
-      'registerFunctionTypedef':
-          'void registerFunctionTypedef(String name, String library)',
-      'registerLibraryReExport':
-          'void registerLibraryReExport(String sourceUri, String targetUri, {Set<String>? show, Set<String>? hide})',
-      'registerBridgedExtension':
-          'void registerBridgedExtension(BridgedExtensionDefinition definition, String library, {String? sourceUri})',
-      'registertopLevelFunction':
-          'void registertopLevelFunction(String? name, NativeFunctionImpl function, String library, {String? sourceUri, String? signature})',
-      'registerGlobalVariable':
-          'void registerGlobalVariable(String name, Object? value, String library, {String? sourceUri})',
-      'registerGlobalGetter':
-          'void registerGlobalGetter(String name, Object? Function() getter, String library, {String? sourceUri})',
-      'registerGlobalSetter':
-          'void registerGlobalSetter(String name, void Function(Object?) setter, String library, {String? sourceUri})',
+      'registerBridgedEnum': 'void registerBridgedEnum(BridgedEnumDefinition<Enum> definition, String library, {String? sourceUri})',
+      'registerBridgedClass': 'void registerBridgedClass(BridgedClass definition, String library, {String? sourceUri})',
+      'registerBridgedClassLazy': 'void registerBridgedClassLazy(String name, Type nativeType, BridgedClass Function() thunk, String library, {String? sourceUri})',
+      'registerClassAlias': 'void registerClassAlias(String aliasName, String targetName, String library)',
+      'registerFunctionTypedef': 'void registerFunctionTypedef(String name, String library)',
+      'registerLibraryReExport': 'void registerLibraryReExport(String sourceUri, String targetUri, {Set<String>? show, Set<String>? hide})',
+      'registerBridgedExtension': 'void registerBridgedExtension(BridgedExtensionDefinition definition, String library, {String? sourceUri})',
+      'registertopLevelFunction': 'void registertopLevelFunction(String? name, NativeFunctionImpl function, String library, {String? sourceUri, String? signature})',
+      'registerGlobalVariable': 'void registerGlobalVariable(String name, Object? value, String library, {String? sourceUri})',
+      'registerGlobalGetter': 'void registerGlobalGetter(String name, Object? Function() getter, String library, {String? sourceUri})',
+      'registerGlobalSetter': 'void registerGlobalSetter(String name, void Function(Object?) setter, String library, {String? sourceUri})',
       'resetScriptDeclarations': 'void resetScriptDeclarations()',
       'dispose': 'void dispose()',
-      'validateRegistrations':
-          'List<String> validateRegistrations({required String source, Map<String, String>? sources, String? basePath, bool allowFileSystemImports = false})',
+      'validateRegistrations': 'List<String> validateRegistrations({required String source, Map<String, String>? sources, String? basePath, bool allowFileSystemImports = false})',
       'setDebug': 'void setDebug(bool enabled)',
       'grant': 'void grant(Permission permission)',
       'revoke': 'void revoke(Permission permission)',
-      'registerExtensions':
-          'void registerExtensions(String packageName, void Function() body)',
+      'registerExtensions': 'void registerExtensions(String packageName, void Function() body)',
       'finalizeBridges': 'void finalizeBridges()',
       'warmup': 'void warmup()',
-      'registerRelaxerFactory':
-          'void registerRelaxerFactory(String baseTypeName, GenericTypeWrapperFactory factory)',
-      'registerInterfaceProxy':
-          'void registerInterfaceProxy(String bridgedTypeName, InterfaceProxyFactory factory)',
-      'registerGenericConstructor':
-          'void registerGenericConstructor(String className, String constructorName, GenericConstructorFactory factory)',
+      'registerRelaxerFactory': 'void registerRelaxerFactory(String baseTypeName, GenericTypeWrapperFactory factory)',
+      'registerInterfaceProxy': 'void registerInterfaceProxy(String bridgedTypeName, InterfaceProxyFactory factory)',
+      'registerGenericConstructor': 'void registerGenericConstructor(String className, String constructorName, GenericConstructorFactory factory)',
       'hasPermission': 'bool hasPermission(Permission permission)',
       'checkPermission': 'bool checkPermission(dynamic operation)',
       'getConfiguration': 'D4rtConfiguration getConfiguration()',
       'getEnvironmentState': 'EnvironmentState? getEnvironmentState()',
-      'execute':
-          'dynamic execute({String? source, String name = \'main\', List<Object?>? positionalArgs, Map<String, Object?>? namedArgs, Object? args, String? library, Map<String, String>? sources, String? basePath, bool allowFileSystemImports = false})',
-      'continuedExecute':
-          'dynamic continuedExecute({String? source, String name = \'main\', List<Object?>? positionalArgs, Map<String, Object?>? namedArgs, String? library})',
-      'analyze':
-          'IntrospectionResult analyze({required String source, Map<String, String>? sources, bool includeBuiltins = false})',
+      'execute': 'dynamic execute({String? source, String name = \'main\', List<Object?>? positionalArgs, Map<String, Object?>? namedArgs, Object? args, String? library, Map<String, String>? sources, String? basePath, bool allowFileSystemImports = false})',
+      'continuedExecute': 'dynamic continuedExecute({String? source, String name = \'main\', List<Object?>? positionalArgs, Map<String, Object?>? namedArgs, String? library})',
+      'analyze': 'IntrospectionResult analyze({required String source, Map<String, String>? sources, bool includeBuiltins = false})',
       'eval': 'dynamic eval(String expression)',
-      'invoke':
-          'dynamic invoke(String name, List<Object?> positionalArgs, [Map<String, Object?> namedArgs = const {}, Map<String, String>? sources])',
+      'invoke': 'dynamic invoke(String name, List<Object?> positionalArgs, [Map<String, Object?> namedArgs = const {}, Map<String, String>? sources])',
     },
     getterSignatures: {
       'reuseAcrossRuns': 'bool get reuseAcrossRuns',
+      'onUncaughtError': 'void Function(Object error, StackTrace stackTrace)? get onUncaughtError',
       'visitor': 'InterpreterVisitor? get visitor',
       'bridgesFinalized': 'bool get bridgesFinalized',
       'allowedPackages': 'Set<String> get allowedPackages',
       'debugLoadedModuleCount': 'int get debugLoadedModuleCount',
-      'classAliases':
-          'List<({String aliasName, String library, String targetName})> get classAliases',
-      'functionTypedefs':
-          'List<({String library, String name})> get functionTypedefs',
-      'libraryReExports':
-          'Map<String, List<({Set<String>? hide, Set<String>? show, String uri})>> get libraryReExports',
+      'classAliases': 'List<({String aliasName, String library, String targetName})> get classAliases',
+      'functionTypedefs': 'List<({String library, String name})> get functionTypedefs',
+      'libraryReExports': 'Map<String, List<({Set<String>? hide, Set<String>? show, String uri})>> get libraryReExports',
+    },
+    setterSignatures: {
+      'onUncaughtError': 'set onUncaughtError(dynamic value)',
     },
     staticMethodSignatures: {
       'debugPooledClassCount': 'int debugPooledClassCount(String packageName)',
       'debugResetPool': 'void debugResetPool()',
     },
     staticGetterSignatures: {
-      'debugBridgedModuleEnvBuildCount':
-          'int get debugBridgedModuleEnvBuildCount',
+      'debugBridgedModuleEnvBuildCount': 'int get debugBridgedModuleEnvBuildCount',
       'debugPooledPackages': 'Set<String> get debugPooledPackages',
       'debugWarmParentCacheSize': 'int get debugWarmParentCacheSize',
     },
   );
 }
+

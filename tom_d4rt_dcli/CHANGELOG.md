@@ -1,3 +1,29 @@
+## 1.4.0
+
+### Changed — the bridges are regenerated after seven months, and the package can now check them (sce3)
+
+`tom_d4rt_dcli` configured `d4rtgen` in its `buildkit.yaml` but listed
+`tom_d4rt_generator` in no dependency block, so `dart run
+tom_d4rt_generator:d4rtgen` failed in it and `checkBridgeFreshness` could not
+be called from its suite. It was one of two consumers in the workspace that
+could neither regenerate its bridges nor check what it had committed.
+
+The dependency was there once, commented out, with a reason:
+
+    # analyzer-10 migration: tom_d4rt_generator (still analyzer ^8.4.1) cannot
+    # share a resolution with tom_d4rt's analyzer ^10.
+
+That has not been true for some time. The generator depends on
+`analyzer: ^10.0.0` and on `tom_d4rt: ^1.77.0`, which is exactly what this
+package already declared; adding it back as a DEV dependency resolves on the
+first attempt and changes nothing the package ships.
+
+With it in place the measurement was possible, and eight of the nine generated
+files were stale — every bridge module, the dartscript, the test runner and
+the relaxers, last written in February. They are now what the generator
+produces, and `test/bridges_fresh_test.dart` will say so the next time they
+drift.
+
 ## 1.3.1
 
 ### Changed — formatted the tree once (scd82)
