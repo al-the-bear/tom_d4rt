@@ -1,12 +1,13 @@
 // D4rt Bridge - Generated file, do not edit
 // Dartscript registration for dart_overview
-// Generated: 2026-03-12T17:02:50.229994
+// Generated: 2026-09-17T23:21:44.099953 by tom_d4rt_generator 1.26.2
 
 /// D4rt Bridge Registration for dart_overview
 library;
 
-import 'package:tom_d4rt/d4rt.dart';
-import 'src\d4rt_bridges\dart_overview_bridges.b.dart' as all_bridges;
+import 'package:tom_d4rt_exec/d4rt.dart';
+import 'src/d4rt_bridges/dart_overview_bridges.b.dart' as all_bridges;
+import 'src/d4rt_bridges/relaxers.b.dart' as relaxer_factories;
 
 /// Combined bridge registration for dart_overview.
 class DartOverviewBridges {
@@ -26,6 +27,11 @@ class DartOverviewBridges {
     for (final barrel in all_bridges.AllBridge.subPackageBarrels()) {
       all_bridges.AllBridge.registerBridges(d4rt, barrel);
     }
+
+    // RC-2: Register generic constructor factories
+    relaxer_factories.registerGenericConstructors();
+    // GEN-079: Register relaxer wrapper factories
+    relaxer_factories.registerRelaxers();
   }
 
   /// Get import block for all modules.

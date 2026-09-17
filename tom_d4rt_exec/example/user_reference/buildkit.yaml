@@ -2,7 +2,8 @@
 
 d4rtgen:
   name: user_reference_example
-  helpersImport: package:tom_d4rt/tom_d4rt.dart
+  helpersImport: package:tom_d4rt_exec/tom_d4rt.dart
+  d4rtImport: package:tom_d4rt_exec/d4rt.dart
   generateBarrel: true
   barrelPath: lib/d4rt_bridges.b.dart
   generateDartscript: true

@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Test runner for dart_overview
-// Generated: 2026-06-28T14:04:54.497670
+// Generated: 2026-09-17T23:21:44.120567 by tom_d4rt_generator 1.26.2
 
 // ignore_for_file: avoid_print
 
@@ -17,7 +17,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:tom_d4rt/d4rt.dart';
+import 'package:tom_d4rt_exec/d4rt.dart';
 import 'package:dart_overview/src/d4rt_bridges/dart_overview_bridges.b.dart' as all_bridges;
 
 /// Init script source that imports all bridged modules.

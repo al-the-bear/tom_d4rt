@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Dartscript registration for user_reference_example
-// Generated: 2026-09-11T10:26:06.448239
+// Generated: 2026-09-17T23:25:19.755625 by tom_d4rt_generator 1.26.2
 
 /// D4rt Bridge Registration for user_reference_example
 library;

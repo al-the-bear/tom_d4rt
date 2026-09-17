@@ -1,21 +1,48 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 2 files
-// Generated: 2026-03-12T18:18:39.768943
+// Generated: 2026-09-17T23:19:29.728120 by tom_d4rt_generator 1.26.2
 
-// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
-import 'package:tom_d4rt/d4rt.dart';
-import 'package:tom_d4rt/tom_d4rt.dart';
+import 'package:tom_d4rt_exec/d4rt.dart';
+import 'package:tom_d4rt_exec/tom_d4rt.dart';
 
-import 'package:user_guide_example/src/calculator.dart'
-    as $user_guide_example_1;
+import 'package:user_guide_example/src/calculator.dart' as $user_guide_example_1;
 import 'package:user_guide_example/src/greeter.dart' as $user_guide_example_2;
 
 /// Bridge class for all module.
 class AllBridge {
   /// Returns all bridge class definitions.
+  ///
+  /// Eager — building every class. Prefer [bridgeClassThunks] +
+  /// [bridgeClassTypes] for lazy registration (Step #17); this remains
+  /// for diagnostics and callers that need the full list.
   static List<BridgedClass> bridgeClasses() {
-    return [_createGreeterBridge(), _createCalculatorBridge()];
+    return [
+      _createGreeterBridge(),
+      _createCalculatorBridge(),
+    ];
+  }
+
+  /// Returns deferred factory thunks keyed by class name.
+  ///
+  /// Each thunk builds one class's [BridgedClass] on demand. Plugs into
+  /// the interpreter's lazy registry via [registerBridges] (Step #17).
+  static Map<String, BridgedClass Function()> bridgeClassThunks() {
+    return {
+      'Greeter': _createGreeterBridge,
+      'Calculator': _createCalculatorBridge,
+    };
+  }
+
+  /// Returns native [Type]s keyed by class name, parallel to
+  /// [bridgeClassThunks] (Step #17). Used to register the native-type
+  /// lookup thunk without building the BridgedClass.
+  static Map<String, Type> bridgeClassTypes() {
+    return {
+      'Greeter': $user_guide_example_2.Greeter,
+      'Calculator': $user_guide_example_1.Calculator,
+    };
   }
 
   /// Returns a map of class names to their canonical source URIs.
@@ -29,13 +56,26 @@ class AllBridge {
     };
   }
 
+  /// Returns a map of class names to their flattened (transitive)
+  /// native supertype names (superclasses, interfaces and mixins).
+  ///
+  /// Fed to `BridgedClass.registerSupertypes` so interpreted subclasses
+  /// of bridged classes pass `is`/subtype checks against bridged
+  /// ancestors and the interface-proxy supertype walk resolves up the
+  /// chain.
+  static Map<String, List<String>> classSupertypes() {
+    return {
+    };
+  }
+
   /// Returns a map of type alias names to their target class names.
   ///
   /// Type aliases like `typedef MaterialStateProperty<T> = WidgetStateProperty<T>`
   /// are registered so that code using the alias name can resolve to the
   /// bridged class under its canonical name.
   static Map<String, String> classAliases() {
-    return {};
+    return {
+    };
   }
 
   /// Returns the list of function typedef names declared in this library.
@@ -43,12 +83,14 @@ class AllBridge {
   /// Function typedefs like `typedef VoidCallback = void Function()` are
   /// registered so that they can be used as type arguments in D4rt scripts.
   static List<String> functionTypedefs() {
-    return [];
+    return [
+    ];
   }
 
   /// Returns all bridged enum definitions.
   static List<BridgedEnumDefinition> bridgedEnums() {
-    return [];
+    return [
+    ];
   }
 
   /// Returns a map of enum names to their canonical source URIs.
@@ -56,17 +98,32 @@ class AllBridge {
   /// Used for deduplication when the same enum is exported through
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> enumSourceUris() {
-    return {};
+    return {
+    };
   }
 
   /// Returns all bridged extension definitions.
   static List<BridgedExtensionDefinition> bridgedExtensions() {
-    return [];
+    return [
+    ];
   }
 
   /// Returns a map of extension identifiers to their canonical source URIs.
   static Map<String, String> extensionSourceUris() {
-    return {};
+    return {
+    };
+  }
+
+  /// GEN-107: Library re-exports declared by the bridged source
+  /// libraries. Each tuple mirrors a Dart `export '…'` directive.
+  /// Consumed by `registerBridges` via `D4rt.registerLibraryReExport`
+  /// (mirrored on `D4rtRunner` in tom_d4rt_ast).
+  static List<({String source, String target, Set<String>? show, Set<String>? hide})>
+  bridgeReExports() {
+    return [
+      (source: 'package:user_guide_example/user_guide_example.dart', target: 'package:user_guide_example/src/greeter.dart', show: null, hide: null),
+      (source: 'package:user_guide_example/user_guide_example.dart', target: 'package:user_guide_example/src/calculator.dart', show: null, hide: null),
+    ];
   }
 
   /// Registers all bridges with an interpreter.
@@ -74,15 +131,30 @@ class AllBridge {
   /// [importPath] is the package import path that D4rt scripts will use
   /// to access these classes (e.g., 'package:tom_build/tom.dart').
   static void registerBridges(D4rt interpreter, String importPath) {
-    // Register bridged classes with source URIs for deduplication
-    final classes = bridgeClasses();
+    // Step #17 — register deferred factory thunks (not pre-built
+    // BridgedClass objects): a script touching N of the M classes
+    // materializes ≈N (each thunk builds its class on first resolve).
+    final classThunks = bridgeClassThunks();
+    final classTypes = bridgeClassTypes();
     final classSources = classSourceUris();
-    for (final bridge in classes) {
-      interpreter.registerBridgedClass(
-        bridge,
+    for (final entry in classThunks.entries) {
+      interpreter.registerBridgedClassLazy(
+        entry.key,
+        classTypes[entry.key]!,
+        entry.value,
         importPath,
-        sourceUri: classSources[bridge.name],
+        sourceUri: classSources[entry.key],
       );
+    }
+
+    // Register the flattened native supertype table so
+    // interpreted subclasses pass subtype checks against bridged
+    // ancestors. Idempotent — safe to call per barrel.
+    BridgedClass.registerSupertypes(classSupertypes());
+
+    // GEN-107: Register library re-exports
+    for (final r in bridgeReExports()) {
+      interpreter.registerLibraryReExport(r.source, r.target, show: r.show, hide: r.hide);
     }
   }
 
@@ -130,6 +202,7 @@ class AllBridge {
   static List<String> subPackageBarrels() {
     return [];
   }
+
 }
 
 // =============================================================================
@@ -144,12 +217,7 @@ BridgedClass _createGreeterBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Greeter');
-        final greeting = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'greeting',
-          'Greeter',
-        );
+        final greeting = D4.getRequiredArg<String>(positional, 0, 'greeting', 'Greeter');
         return $user_guide_example_2.Greeter(greeting);
       },
       'defaultGreeting': (visitor, positional, named) {
@@ -157,30 +225,20 @@ BridgedClass _createGreeterBridge() {
       },
     },
     getters: {
-      'greeting': (visitor, target) => D4
-          .validateTarget<$user_guide_example_2.Greeter>(target, 'Greeter')
-          .greeting,
+      'greeting': (visitor, target) => D4.validateTarget<$user_guide_example_2.Greeter>(target, 'Greeter').greeting,
     },
     methods: {
       'greet': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$user_guide_example_2.Greeter>(
-          target,
-          'Greeter',
-        );
+        final t = D4.validateTarget<$user_guide_example_2.Greeter>(target, 'Greeter');
         D4.requireMinArgs(positional, 1, 'greet');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'greet');
         return t.greet(name);
       },
       'greetAll': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$user_guide_example_2.Greeter>(
-          target,
-          'Greeter',
-        );
+        final t = D4.validateTarget<$user_guide_example_2.Greeter>(target, 'Greeter');
         D4.requireMinArgs(positional, 1, 'greetAll');
         if (positional.isEmpty) {
-          throw ArgumentError(
-            'greetAll: Missing required argument "names" at position 0',
-          );
+          throw ArgumentError('greetAll: Missing required argument "names" at position 0');
         }
         final names = D4.coerceList<String>(positional[0], 'names');
         return t.greetAll(names);
@@ -194,7 +252,9 @@ BridgedClass _createGreeterBridge() {
       'greet': 'String greet(String name)',
       'greetAll': 'String greetAll(List<String> names)',
     },
-    getterSignatures: {'greeting': 'String get greeting'},
+    getterSignatures: {
+      'greeting': 'String get greeting',
+    },
   );
 }
 
@@ -214,40 +274,28 @@ BridgedClass _createCalculatorBridge() {
     },
     methods: {
       'add': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$user_guide_example_1.Calculator>(
-          target,
-          'Calculator',
-        );
+        final t = D4.validateTarget<$user_guide_example_1.Calculator>(target, 'Calculator');
         D4.requireMinArgs(positional, 2, 'add');
         final a = D4.getRequiredArg<int>(positional, 0, 'a', 'add');
         final b = D4.getRequiredArg<int>(positional, 1, 'b', 'add');
         return t.add(a, b);
       },
       'subtract': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$user_guide_example_1.Calculator>(
-          target,
-          'Calculator',
-        );
+        final t = D4.validateTarget<$user_guide_example_1.Calculator>(target, 'Calculator');
         D4.requireMinArgs(positional, 2, 'subtract');
         final a = D4.getRequiredArg<int>(positional, 0, 'a', 'subtract');
         final b = D4.getRequiredArg<int>(positional, 1, 'b', 'subtract');
         return t.subtract(a, b);
       },
       'multiply': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$user_guide_example_1.Calculator>(
-          target,
-          'Calculator',
-        );
+        final t = D4.validateTarget<$user_guide_example_1.Calculator>(target, 'Calculator');
         D4.requireMinArgs(positional, 2, 'multiply');
         final a = D4.getRequiredArg<int>(positional, 0, 'a', 'multiply');
         final b = D4.getRequiredArg<int>(positional, 1, 'b', 'multiply');
         return t.multiply(a, b);
       },
       'divide': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$user_guide_example_1.Calculator>(
-          target,
-          'Calculator',
-        );
+        final t = D4.validateTarget<$user_guide_example_1.Calculator>(target, 'Calculator');
         D4.requireMinArgs(positional, 2, 'divide');
         final a = D4.getRequiredArg<double>(positional, 0, 'a', 'divide');
         final b = D4.getRequiredArg<double>(positional, 1, 'b', 'divide');
@@ -263,13 +311,18 @@ BridgedClass _createCalculatorBridge() {
         return $user_guide_example_1.Calculator.quickAdd(a, b);
       },
     },
-    constructorSignatures: {'': 'Calculator()'},
+    constructorSignatures: {
+      '': 'Calculator()',
+    },
     methodSignatures: {
       'add': 'int add(int a, int b)',
       'subtract': 'int subtract(int a, int b)',
       'multiply': 'int multiply(int a, int b)',
       'divide': 'double divide(double a, double b, {int precision = 2})',
     },
-    staticMethodSignatures: {'quickAdd': 'int quickAdd(int a, int b)'},
+    staticMethodSignatures: {
+      'quickAdd': 'int quickAdd(int a, int b)',
+    },
   );
 }
+
