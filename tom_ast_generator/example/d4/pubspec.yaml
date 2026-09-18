@@ -7,8 +7,11 @@ environment:
   sdk: ^3.10.4
 
 dependencies:
-  tom_d4rt_exec:
-    path: ../../../tom_d4rt_exec
+  # HOSTED, not a path to the sibling: an example is a copy surface, and
+  # `../../../tom_d4rt_exec` resolves nowhere outside this repo. The floor
+  # names the current release, which is what a new project would write;
+  # `F-SCC45-4` fails once a newer one is in the pub cache (SCE6).
+  tom_d4rt_exec: ">=1.25.0"
   # No path dep on tom_d4rt_ast: nothing here imports it (the only mentions
   # are comments inside generated bridges), while tom_d4rt_exec depends on
   # the *hosted* package. Declaring two sources for one package is a
