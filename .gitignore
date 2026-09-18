@@ -140,6 +140,7 @@ reflectable.dart
 **/example/d4/bin/d4
 **/example/d4/bin/d4_coverage
 **/example/d4/bin/d4_tester
+**/example/d4/bin/d4_sce35
 **/example/d4/bin/d4rtrun
 **/example/d4/bin/d4rtrun.b
 
