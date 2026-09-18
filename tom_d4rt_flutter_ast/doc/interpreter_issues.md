@@ -4175,6 +4175,44 @@ Corpus runs made to certify an interpreter change rather than to
 discover new clusters. Each entry records what was measured, against
 which resolved package versions, and what moved.
 
+### 2026-09-18 — NO RUN MADE: the twins' locks moved to tom_d4rt_generator 1.28.0 and nothing they execute changed
+
+**Why this entry exists without a run.** SCE49 and SCE51 published
+`tom_ast_model`, `tom_build_base` and `tom_d4rt_generator`, and the stale-lock
+sweep that followed moved both twins and the AST companion app.
+`upgrade_stale_locks.dart` closes with the standing warning — *THE BRIDGE CORPUS
+NOW MEASURES A DIFFERENT INTERPRETER … re-run `./test/run_base_tests.sh` in each
+twin, SERIALLY, and record the run* — so the duty was assumed and then
+MEASURED, because the warning is generic and the question is not.
+
+**The interpreters did not move.** Every row below is identical to the entry
+beneath this one; only the generator column changed.
+
+| Package | `tom_d4rt` | `tom_d4rt_ast` | `tom_d4rt_generator` |
+| ------- | ---------- | -------------- | -------------------- |
+| `tom_d4rt_flutter` | **1.77.0** | — | 1.26.2 → 1.28.0 |
+| `tom_d4rt_flutter/test/tom_d4rt_flutter_test_app` | **1.77.0** | — | — |
+| `tom_d4rt_flutter_ast` | **1.77.0** | **0.65.0** | 1.26.2 → 1.28.0 |
+| `tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app` | — | **0.65.0** | — |
+
+**And the generator move changes no executed byte.** That is not an inference
+from the version numbers: `tool/regenerate_bridges.dart` was run in each twin
+at the newly resolved 1.28.0 and the result diffed against the committed files.
+Eighteen files changed in each, one line apiece, every one of them the
+`// Generated:` stamp — zero lines of content. Both regenerations were then
+reverted, because committing them would stamp two packages 1.28.0 while the
+other twenty-six bridge consumers stay at 1.26.2, which is skew added rather
+than removed (`_bin/check_generator_skew.py`).
+
+So the corpus would have executed exactly the code the run below measured, and
+its result is still the current one. A run was not skipped here; it was shown
+to have no subject.
+
+**What this does NOT license.** The generator resolution is now recorded, so a
+later run comparing against this entry compares against 1.28.0. The next change
+that alters generated CONTENT, or any interpreter publish, owes a real run as
+the protocol says — DGUC6 has not moved, and neither has the rule.
+
 ### 2026-09-18 — base corpus, source twin at tom_d4rt 1.77.0 / tom_d4rt_generator 1.26.2: the extension-registry keying fix reaches `tom_d4rt_flutter`, behaviourally neutral
 
 **Why this run exists.** SCE1's regeneration sweep. `tom_d4rt_flutter`'s
