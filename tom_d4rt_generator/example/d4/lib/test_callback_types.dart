@@ -74,3 +74,31 @@ class CallbackTypeService {
     return result.toString();
   }
 }
+
+/// sce35: a list of callbacks, in both parameter positions.
+///
+/// A `List<Callback>` parameter used to emit a throw — "Bridge cannot handle
+/// function types in collections" — while a `Map<K, Callback>` was already
+/// converted value by value. These two members let a script pass real closures
+/// and prove the native side calls them, which is the only thing that
+/// distinguishes a working conversion from one that merely compiles.
+typedef ListEchoHandler = int Function(int value);
+
+class ListCallbackSink {
+  /// The NAMED path: a list of callbacks through a constructor argument.
+  ListCallbackSink({List<ListEchoHandler>? handlers})
+    : _handlers = handlers ?? const [];
+
+  final List<ListEchoHandler> _handlers;
+
+  /// Calls every handler given at construction, summing what they return.
+  int runNamed(int value) =>
+      _handlers.fold(0, (sum, handler) => sum + handler(value));
+
+  /// The POSITIONAL path: a list of callbacks as a method argument.
+  int runPositional(List<ListEchoHandler> handlers, int value) =>
+      handlers.fold(0, (sum, handler) => sum + handler(value));
+
+  /// How many handlers arrived — separates "called none" from "got none".
+  int get namedCount => _handlers.length;
+}

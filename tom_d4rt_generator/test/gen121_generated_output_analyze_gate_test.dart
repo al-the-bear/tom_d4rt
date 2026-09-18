@@ -534,15 +534,22 @@ void main() {
         contains("'Helpers@Beta': 'package:zom_analyzegate/beta_ext.dart'"),
         reason: 'scd8: the second must not be lost to the first',
       );
+      // sce35 CHANGED THIS CONTRACT. A `List<Callback>` parameter used to emit
+      // a throw; it is now converted element by element, as a
+      // `Map<K, Callback>` already was. What this assertion is for is
+      // unchanged — both emitters must be exercised, because the named
+      // (constructor) and positional (method) paths are separate code — so it
+      // now counts conversions rather than refusals.
       expect(
-        'Unbridgeable function type List<BridgeRegistrar>'
+        'Convert list with function elements inline'
             .allMatches(pristineSource)
             .length,
-        2,
+        3,
         reason:
-            'both List<BridgeRegistrar> parameters must take the unbridgeable '
-            'path — the named one (constructor) and the positional one '
-            '(method) are emitted by different code',
+            'every list-of-callbacks parameter in the fixture must be '
+            'converted, and they are emitted by three different code paths: '
+            "ZomDispatcher's constructor (named), addAll (positional) and "
+            'addAllUnlisted (positional, an unlisted typedef)',
       );
     });
   });

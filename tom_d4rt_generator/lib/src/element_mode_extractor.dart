@@ -464,6 +464,7 @@ class ElementModeExtractor {
           defaultValue: _defaultValueSource(p),
           isFunctionTypeAlias: typeInfo.isFunctionTypeAlias,
           functionTypeInfo: typeInfo.functionTypeInfo,
+          resolvedTypeKinds: BridgeGenerator.resolveTypeKinds(p.type),
         ),
       );
     }
@@ -659,6 +660,7 @@ class ElementModeExtractor {
         defaultValue: _defaultValueSource(p),
         typeImportUris: paramTypeImportUris,
         typeToUri: paramTypeToUri,
+        resolvedTypeKinds: BridgeGenerator.resolveTypeKinds(p.type),
       );
     }).toList();
     return EnumMethodDetail(name: method.name ?? '', parameters: params);
@@ -1009,6 +1011,7 @@ class ElementModeExtractor {
                   type: _renderDartType(p.type),
                   isRequired: p.isRequired,
                   isNamed: p.isNamed,
+                  resolvedTypeKinds: BridgeGenerator.resolveTypeKinds(p.type),
                 ),
               )
               .toList(),
@@ -1508,6 +1511,7 @@ class ElementModeExtractor {
           type: pType,
           isRequired: p.isRequired,
           isNamed: p.isNamed,
+          resolvedTypeKinds: BridgeGenerator.resolveTypeKinds(p.type),
         );
       }).toList(),
     );

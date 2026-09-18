@@ -548,13 +548,24 @@ class EventBus {
           // Simple function parameter should work
           expect(result.generatedCode!, contains("'addListener'"));
 
-          // GEN-005: List<Function> should produce an UnimplementedError throw
+          // GEN-005 IS FIXED, and this assertion is inverted deliberately
+          // (sce35). The issue was that a list of callbacks could not be
+          // bridged at all; such a parameter now converts element by element,
+          // as a `Map<K, Callback>` already did. `List<void Function(String)>`
+          // has a parseable signature, so it takes the conversion — the throw
+          // survives only for an element type whose signature cannot be
+          // determined.
           expect(
             result.generatedCode!,
-            contains('UnimplementedError'),
+            contains('Convert list with function elements inline'),
             reason:
-                'GEN-005: List<void Function(String)> should throw '
-                'UnimplementedError',
+                'GEN-005: List<void Function(String)> must now be converted '
+                'element by element rather than refused',
+          );
+          expect(
+            result.generatedCode!,
+            isNot(contains('UnimplementedError')),
+            reason: 'nothing in this fixture is unbridgeable any more',
           );
         },
       );

@@ -149,21 +149,24 @@ void main() {
     if (root.existsSync()) root.deleteSync(recursive: true);
   });
 
-  test('GEN-TYPEDEF-1: an unlisted typedef in a List is refused exactly as a '
+  test('GEN-TYPEDEF-1: an unlisted typedef in a List is treated exactly as a '
       'listed one is [2026-09-18]', () {
+    // sce35 changed WHAT that treatment is — both are now converted element
+    // by element rather than refused. What this test is for is unchanged:
+    // the two must not diverge because one name happens to be in a list.
     final unlisted = _bodyOf(emitted, 'takeUnlistedList', methods);
     final listed = _bodyOf(emitted, 'takeListedList', methods);
 
     expect(
       listed,
-      contains('unbridgeable function type'),
+      contains('Convert list with function elements inline'),
       reason:
           'the listed typedef is the control; if this changed, the '
           'comparison below means nothing',
     );
     expect(
       unlisted,
-      contains('unbridgeable function type'),
+      contains('Convert list with function elements inline'),
       reason:
           'decided by name, an unlisted typedef took the ordinary '
           'coerceList path instead',

@@ -1,3 +1,45 @@
+## 1.31.0
+
+### Added — a `List<Callback>` parameter is converted element by element
+
+Such a parameter emitted a throw, with the message "Bridge cannot handle
+function types in collections". That had stopped being true of collections in
+general: a `Map<K, Callback>` was already converted value by value and single
+callbacks were wrapped. A script could not construct
+`VSCodeBridgeServer(additionalBridgeRegistrars: [...])`, or call any method
+taking a list of callbacks.
+
+`_generateInlineFunctionListConversion` is the list counterpart of the map
+conversion, wrapping each element with the same `_generateFunctionWrapper` the
+other two paths use. The throw survives for an element type whose signature
+cannot be determined.
+
+**FOUR emitters had to change, not the two the surface suggested.** The
+positional method path, the named method path, and — found only by running the
+bridge — the constructor's named path, which had no function-element check at
+all and went straight to `D4.coerceList`. That one throws at RUNTIME on an
+`InterpretedFunction`, so every compile-time check passed over it: the
+generated file analysed clean while the feature did not work. The fourth is the
+element type itself.
+
+The declared element type expands the typedef rather than erasing it to
+`dynamic`, because `List<dynamic>` is not assignable to `List<BridgeRegistrar>`
+— the same defect GEN-067 fixed for map values, reusing its expansion table
+rather than inventing a second one. The GEN-121 analyze gate caught this.
+
+Constructor parameters now carry `resolvedTypeKinds` too; 1.30.0 populated it
+only for methods and setters, which is why the constructor path could not see
+that an unlisted typedef was a function type.
+
+### Changed — three tests that pinned the old refusal now pin the conversion
+
+Stated rather than quietly adjusted: `G-ISS-10` asserted that
+`List<void Function(String)>` throws `UnimplementedError` — that is GEN-005,
+and this release fixes it, so the assertion is inverted. `GEN-TYPEDEF-1`
+asserted an unlisted typedef is *refused* exactly as a listed one is; it now
+asserts both are *converted*, which is the same property under the new
+contract. `G-GEN121-02` counts conversions rather than refusals.
+
 ## 1.30.0
 
 ### Fixed — a function typedef is recognised by the analyzer, not by a name list

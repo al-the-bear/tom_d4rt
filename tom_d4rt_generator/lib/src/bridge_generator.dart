@@ -7430,6 +7430,41 @@ class BridgeGenerator {
                 sourceFilePath: func.sourceFile,
               );
               final isNullable = param.type.endsWith('?');
+
+              // A list of callbacks is converted element by element here too.
+              // This site had no function-element check at all and went
+              // straight to `coerceList`, which throws at RUNTIME on an
+              // InterpretedFunction — invisible to any check that only
+              // compiles the output.
+              final rawElementType = _extractListElementType(param.type);
+              if (_isFunctionTypeInParam(param, rawElementType)) {
+                final elementFuncInfo = _functionTypeInfoFor(
+                  param,
+                  rawElementType,
+                );
+                if (elementFuncInfo != null) {
+                  argDeclarations.addAll(
+                    _generateInlineFunctionListConversion(
+                      localName: localName,
+                      rawListExpr: "named['${param.name}']",
+                      elementType: _functionListElementType(
+                        elementType,
+                        rawElementType,
+                        typeToUri: param.typeToUri,
+                        classTypeParams: funcTypeParams,
+                        sourceFilePath: func.sourceFile,
+                      ),
+                      funcInfo: elementFuncInfo,
+                      isNullable: isNullable,
+                      typeToUri: param.typeToUri,
+                      classTypeParams: funcTypeParams,
+                      sourceFilePath: func.sourceFile,
+                    ),
+                  );
+                  continue;
+                }
+              }
+
               final coerceMethod = isNullable
                   ? 'D4.coerceListOrNull'
                   : 'D4.coerceList';
@@ -10838,6 +10873,31 @@ class BridgeGenerator {
       // Check if element type is a function typedef - can't bridge those properly
       final rawElementType = _extractListElementType(param.type);
       if (_isFunctionTypeInParam(param, rawElementType)) {
+        // Convert element by element, as the map path does. Only a signature
+        // this generator cannot parse still falls back to the throw.
+        final elementFuncInfo = _functionTypeInfoFor(param, rawElementType);
+        if (elementFuncInfo != null) {
+          for (final line in _generateInlineFunctionListConversion(
+            localName: localName,
+            rawListExpr: 'positional[$index]',
+            elementType: _functionListElementType(
+              elementType,
+              rawElementType,
+              typeToUri: param.typeToUri,
+              classTypeParams: classTypeParams,
+              sourceFilePath: sourceFilePath,
+            ),
+            funcInfo: elementFuncInfo,
+            isNullable: param.type.endsWith('?'),
+            typeToUri: param.typeToUri,
+            classTypeParams: classTypeParams,
+            sourceFilePath: sourceFilePath,
+          )) {
+            buffer.writeln(line);
+          }
+          if (callExpressions != null) callExpressions[param.name] = localName;
+          return true;
+        }
         warnings?.add(
           'TODO: $contextName: parameter "${param.name}" '
           'has unbridgeable function type List<$rawElementType>',
@@ -11549,10 +11609,42 @@ class BridgeGenerator {
     // Check for List types - need coercion
     if (_isListType(param.type)) {
       final rawElementType = _extractListElementType(param.type);
-      final isFunctionElement = _isFunctionTypeName(rawElementType);
+      // The analyzer decides, as on the positional path; the name list is only
+      // the fallback for what it could not resolve.
+      final isFunctionElement = _isFunctionTypeInParam(param, rawElementType);
 
-      // If element type is a function typedef, we can't bridge it properly
+      final elementType = _getListElementType(
+        param.type,
+        typeToUri: param.typeToUri,
+        classTypeParams: classTypeParams,
+        sourceFilePath: sourceFilePath,
+      );
+
       if (isFunctionElement) {
+        // Convert element by element, as the map path does. Only a signature
+        // this generator cannot parse still falls back to the throw.
+        final elementFuncInfo = _functionTypeInfoFor(param, rawElementType);
+        if (elementFuncInfo != null) {
+          for (final line in _generateInlineFunctionListConversion(
+            localName: localName,
+            rawListExpr: "named['${param.name}']",
+            elementType: _functionListElementType(
+              elementType,
+              rawElementType,
+              typeToUri: param.typeToUri,
+              classTypeParams: classTypeParams,
+              sourceFilePath: sourceFilePath,
+            ),
+            funcInfo: elementFuncInfo,
+            isNullable: isNullable,
+            typeToUri: param.typeToUri,
+            classTypeParams: classTypeParams,
+            sourceFilePath: sourceFilePath,
+          )) {
+            buffer.writeln(line);
+          }
+          return true;
+        }
         warnings?.add(
           'TODO: $contextName: parameter "${param.name}" '
           'has unbridgeable type List<$rawElementType>',
@@ -11565,13 +11657,6 @@ class BridgeGenerator {
         );
         return true;
       }
-
-      final elementType = _getListElementType(
-        param.type,
-        typeToUri: param.typeToUri,
-        classTypeParams: classTypeParams,
-        sourceFilePath: sourceFilePath,
-      );
       // GEN-096 (D8g): pick coerceNestedList for List<List<X>> params.
       final picked = _pickListCoerce(elementType, isNullable);
       final coerceMethod = picked.method;
@@ -14354,6 +14439,52 @@ class BridgeGenerator {
     return _isFunctionTypeName(typeName);
   }
 
+  /// The element type to declare for a `List<Callback>`.
+  ///
+  /// `_getTypeArgument` erases a function alias to `dynamic`, and
+  /// `List<dynamic>` is not assignable to `List<BridgeRegistrar>` — the same
+  /// defect GEN-067 fixed for map VALUES, which is why the expansion table it
+  /// added is reused here rather than a second one invented.
+  String _functionListElementType(
+    String resolvedElementType,
+    String rawElementType, {
+    Map<String, String> typeToUri = const {},
+    Map<String, String?> classTypeParams = const {},
+    String? sourceFilePath,
+  }) {
+    if (resolvedElementType != 'dynamic') return resolvedElementType;
+    final cleaned = rawElementType.replaceAll('?', '');
+    final expanded = _typedefExpansions[cleaned];
+    if (expanded != null) {
+      final rendered = _getTypeArgument(
+        expanded,
+        typeToUri: typeToUri,
+        classTypeParams: classTypeParams,
+        sourceFilePath: sourceFilePath,
+      );
+      return rawElementType.endsWith('?') && !rendered.endsWith('?')
+          ? '$rendered?'
+          : rendered;
+    }
+    // Better than `dynamic` for a function type, and still assignable.
+    return rawElementType.endsWith('?') ? 'Function?' : 'Function';
+  }
+
+  /// The signature for [typeName] as it appears in [param], or null when this
+  /// generator cannot determine one.
+  ///
+  /// Analyzer verdict first, then the known-alias table, then an inline
+  /// `Function(...)` parse — the same order the predicate uses.
+  FunctionTypeInfo? _functionTypeInfoFor(ParameterInfo param, String typeName) {
+    final clean = typeName.endsWith('?')
+        ? typeName.substring(0, typeName.length - 1)
+        : typeName;
+    final bare = _getUnprefixedTypeName(clean);
+    return param.resolvedTypeKinds[bare] ??
+        _knownFunctionTypeAliasInfo[bare] ??
+        _parseFunctionType(clean);
+  }
+
   bool _isFunctionTypeName(String typeName) {
     // Check known function type aliases
     if (_knownFunctionTypeAliases.contains(typeName)) {
@@ -15354,6 +15485,94 @@ class BridgeGenerator {
       lines.add('$indent      $localName[k] = v as $valueType;');
     }
 
+    lines.add('$indent    }');
+    lines.add('$indent  }');
+    lines.add('$indent}');
+
+    return lines;
+  }
+
+  /// Converts a list whose ELEMENTS are callbacks, element by element.
+  ///
+  /// The counterpart of [_generateInlineFunctionMapConversion]. A
+  /// `List<Callback>` parameter used to emit a throw — "Bridge cannot handle
+  /// function types in collections" — which had stopped being true of
+  /// collections in general once the map path converted value by value.
+  ///
+  /// Each element is wrapped with the same [_generateFunctionWrapper] the map
+  /// and single-parameter paths use, so a script can pass `[(x) => ...]` and
+  /// the native side can call the elements.
+  List<String> _generateInlineFunctionListConversion({
+    required String localName,
+    required String rawListExpr,
+    required String elementType,
+    required FunctionTypeInfo funcInfo,
+    required bool isNullable,
+    bool declareVariable = true,
+    String visitorExpr = 'visitor',
+    Map<String, String> typeToUri = const {},
+    Map<String, String?> classTypeParams = const {},
+    String? sourceFilePath,
+    String indent = '        ',
+  }) {
+    final lines = <String>[];
+    final rawVarName = '${localName}Raw';
+    final fullListType = 'List<$elementType>';
+
+    lines.add('$indent// Convert list with function elements inline');
+    lines.add('${indent}final $rawVarName = $rawListExpr as List?;');
+
+    if (declareVariable) {
+      if (isNullable) {
+        lines.add('$indent$fullListType? $localName;');
+      } else {
+        lines.add('${indent}final $localName = <$elementType>[];');
+      }
+    } else if (!isNullable) {
+      lines.add('$indent$localName = <$elementType>[];');
+    }
+
+    lines.add('${indent}if ($rawVarName != null) {');
+
+    final wrapperExpr = _generateFunctionWrapper(
+      callbackVarName: 'v',
+      funcInfo: funcInfo,
+      isNullable: false, // individual elements; null is handled in the loop
+      visitorExpr: visitorExpr,
+      typeToUri: typeToUri,
+      classTypeParams: classTypeParams,
+      sourceFilePath: sourceFilePath,
+    );
+
+    lines.add('$indent  for (final v in $rawVarName) {');
+    lines.add('$indent    if (v == null) {');
+    if (elementType.endsWith('?')) {
+      if (isNullable) {
+        lines.add('$indent      $localName ??= <$elementType>[];');
+        lines.add('$indent      $localName!.add(null);');
+      } else {
+        lines.add('$indent      $localName.add(null);');
+      }
+    } else {
+      lines.add(
+        '$indent      // Skip null elements for a non-nullable function type',
+      );
+    }
+    lines.add('$indent    } else if (v is Callable) {');
+    if (isNullable) {
+      lines.add('$indent      $localName ??= <$elementType>[];');
+      lines.add('$indent      $localName!.add($wrapperExpr);');
+    } else {
+      lines.add('$indent      $localName.add($wrapperExpr);');
+    }
+    lines.add('$indent    } else {');
+    // Already a native closure of the right shape.
+    if (isNullable) {
+      lines.add('$indent      $localName ??= <$elementType>[];');
+      lines.add('$indent      $localName!.add(v as $elementType);');
+    } else {
+      lines.add('$indent      $localName.add(v as $elementType);');
+    }
     lines.add('$indent    }');
     lines.add('$indent  }');
     lines.add('$indent}');
