@@ -37,7 +37,7 @@ dependencies:
   # Shared build utilities. Floor 2.7.1: a `--project` selector that matches no
   # project fails the run instead of silently generating nothing and exiting 0
   # (2.7.1 extends that to pipeline `shell-scan` steps).
-  tom_build_base: ">=2.7.1"
+  tom_build_base: ">=2.10.0"
 
   # D4rt runtime (used by the testing library). Floor 1.30.1 because 1.27.0
   # through 1.30.0 cannot run a generated bridge set at all: 1.27.0 (tcca19)
