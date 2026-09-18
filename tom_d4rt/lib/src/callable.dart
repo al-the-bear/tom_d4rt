@@ -5097,6 +5097,34 @@ class InterpretedFunction implements Callable {
     return null; // Default stop state machine
   }
 
+  /// The next enclosing `try` with a non-empty `finally` that [from] is
+  /// unwinding out of, or null when the function boundary is reached first.
+  ///
+  /// SCE18. Used while an abrupt completion is pending, to find the finally
+  /// blocks that still have to run. Two things it deliberately does NOT match:
+  ///
+  ///   * a try whose FINALLY (rather than body or catch) contains [from] — that
+  ///     finally is the one already running, and re-entering it would loop;
+  ///   * a try whose finally block is empty — there is nothing to run, so the
+  ///     walk continues past it rather than scheduling a no-op.
+  static TryStatement? _nextEnclosingFinallyTry(AstNode from) {
+    AstNode? child = from;
+    for (
+      AstNode? current = from.parent;
+      current != null;
+      child = current, current = current.parent
+    ) {
+      if (current is FunctionBody) return null;
+      if (current is! TryStatement) continue;
+      final finallyBlock = current.finallyBlock;
+      if (finallyBlock == null || finallyBlock.statements.isEmpty) continue;
+      // Reached from the finally itself: already running, do not re-enter.
+      if (identical(child, finallyBlock)) continue;
+      return current;
+    }
+    return null;
+  }
+
   /// The [ExpressionFunctionBody] that [node] sits inside, or null.
   ///
   /// Stops at the FIRST function body reached, so an await in a nested block
@@ -5267,6 +5295,40 @@ class InterpretedFunction implements Callable {
             // returned below.
             if (state.errorAfterFinallyTry == blockParent) {
               state.resumeErrorAfterFinally = true;
+            }
+
+            // SCE18: a RETURN was deferred into this finally. The function is
+            // unwinding, so what follows the try must NOT run — only the
+            // finally blocks still between here and the function boundary.
+            //
+            // This line used to fall straight through to the node after the
+            // try, which lost the return entirely:
+            //
+            //   try { return 'r'; } finally { l.add(1); } return 'end';
+            //
+            // answered 'end'. It looked like it worked whenever the try was the
+            // LAST thing in the function — there was no next node, the machine
+            // stopped, and the exit at the bottom of the loop completed with
+            // the stored value. That is why the shape in the todo that opened
+            // this ("`return` already has this mechanism") reads as working.
+            // With anything after the try it did not, and an intervening
+            // statement ran too: the nested case answered 'end:A,MID,B' where
+            // Dart, and this interpreter's own synchronous visitor, answer 'x'.
+            if (state.returnAfterFinally != null) {
+              final nextFinally = _nextEnclosingFinallyTry(blockParent);
+              if (nextFinally != null) {
+                Logger.debug(
+                  "[_findNextSequentialNode] Return pending; running the next "
+                  "enclosing finally before completing.",
+                );
+                state.activeTryStatement = nextFinally;
+                return nextFinally.finallyBlock!.statements.first;
+              }
+              Logger.debug(
+                "[_findNextSequentialNode] Return pending and no finally left; "
+                "stopping so the loop completes with the stored value.",
+              );
+              return null;
             }
           }
           return _findNextSequentialNode(visitor, blockParent);

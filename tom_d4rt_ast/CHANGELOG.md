@@ -1,3 +1,34 @@
+## 0.118.0
+
+### Fixed — a `return` that unwinds through a `finally` in an async body
+
+`try { return 'r'; } finally { l.add(1); } return 'end';` answered `'end'`. The
+return was recorded, the finally ran, and then the machine carried on with the
+statement after the try, whose value won.
+
+It looked like the mechanism was present, because it worked whenever the try
+was the LAST thing in the function: there is no next node, the machine stops,
+and the exit at the bottom of the loop completes with the stored value. With
+anything after the try it did not.
+
+Worse than a lost value: an ordinary statement between an inner try and an
+outer finally RAN. The nested case answered `end:A,MID,B` where Dart — and this
+interpreter's own SYNCHRONOUS visitor — answer `x`. A function that is
+unwinding must execute nothing but the finally blocks between the return and
+the function boundary.
+
+`_findNextSequentialNode`'s "End of a Finally block" case now consults
+`returnAfterFinally`: with a return pending it walks to the next enclosing
+`try` with a non-empty `finally` and runs that, or stops so the loop's exit
+completes with the value. The walk skips a try reached from its OWN finally
+(already running) and one whose finally is empty (nothing to run).
+
+STILL BROKEN, and deliberately not fixed here: `break` and `continue` out of a
+try in an async body skip its finally. That needs a pending-jump mechanism
+rather than this one — see scf6. The tests record today's wrong answers for
+both, beside the synchronous visitor's correct ones, so the next change to this
+machinery cannot move them silently.
+
 ## 0.117.0
 
 ### Fixed — an `await` inside an expression-bodied async function no longer swallows its expression
