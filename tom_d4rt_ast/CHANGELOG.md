@@ -1,3 +1,38 @@
+## 0.117.0
+
+### Fixed — an `await` inside an expression-bodied async function no longer swallows its expression
+
+`Future<int> a() async => 2; main() async => "x${await a()}y";` returned `2`,
+not `"x2y"`. A silent wrong answer, in one of the commonest shapes of async
+Dart.
+
+**It was not a string-interpolation bug**, which is how it presented. Measured:
+`=> (await a()) + 10` returned `2` rather than `12`, and
+`=> "x" + (await a()).toString()` returned `2` rather than `"x2"`.
+Interpolation was one instance of "any composite expression".
+
+The discriminator is the BODY. A block body never had this — `return
+"x${await a()}y";` is a ReturnStatement, and SCC40 already re-runs a suspended
+statement with per-site replay from `resolvedAwaitResults`. An expression body
+has no statement, so nothing re-ran: `_determineNextNodeAfterAwait` recognised
+no case, returned null, the machine stopped, and the function completed with
+`lastAwaitResult` — the awaited value standing in for the whole expression.
+
+The repair re-uses SCC40 rather than adding a case per expression kind: an
+expression body is the only other unit the machine executes, so it is handed
+back and evaluated again. Resolved await sites replay, the first one not yet
+reached suspends for real, and the pass where nothing suspends produces the
+value.
+
+`=> await a()` used to arrive at the same dead end and be right by accident —
+the machine stopped, and the awaited value *was* the whole expression. It now
+takes the same route on purpose.
+
+KNOWN, NOT FIXED HERE: an `await` inside a collection literal
+(`[await a(), 9]`) still puts the interpreter's own `AsyncSuspensionRequest`
+into the collection. That one fails in block bodies too, so it is a different
+defect — see scf5.
+
 ## 0.116.0
 
 ### Changed — `await for` is lazy: one element at a time, and the stream is cancelled when the loop is left

@@ -5241,10 +5241,71 @@ class InterpretedFunction implements Callable {
       return awaitContextNode;
     }
 
+    // SCE17: an `await` ANYWHERE inside an expression-bodied async function.
+    //
+    // `=> "x${await a()}y"` returned 2 rather than "x2y"; `=> (await a()) + 10`
+    // returned 2 rather than 12; and `=> [await a(), 9]` put the interpreter's
+    // own `AsyncSuspensionRequest` into the list. All three are the same
+    // failure: no case above recognises the context, the tail returned null,
+    // the machine stopped, and the function completed with `lastAwaitResult` —
+    // the awaited value standing in for the whole expression.
+    //
+    // A BLOCK body never had this, which is what made it look like a string
+    // problem: `return "x${await a()}y";` is a ReturnStatement, which SCC40
+    // already re-runs with per-site replay. An expression body has no
+    // statement, so nothing re-ran.
+    //
+    // The repair is SCC40's, applied to the only other unit the machine
+    // executes: hand the body expression back and let it be evaluated again.
+    // Await sites already resolved replay from `resolvedAwaitResults`, the
+    // first one not yet reached suspends for real, and the pass where nothing
+    // suspends produces the value. `resumingStatementHasMoreAwaits` keeps that
+    // cache alive across the re-run — without it the machine clears the map
+    // immediately below and every replay would suspend again instead.
+    //
+    // This also covers `=> await a()`, which used to arrive at the `return
+    // null` below and be right by accident: the machine stopped and the
+    // awaited value WAS the whole expression. It now takes the same route as
+    // every other shape and gets there on purpose.
+    final enclosingExpressionBody = _enclosingExpressionFunctionBody(
+      awaitExpression ?? nodeThatCausedSuspension,
+    );
+    if (enclosingExpressionBody != null) {
+      Logger.debug(
+        "[_determineNextNodeAfterAwait] Await inside an expression body; "
+        "re-running the body expression so the resolved sites replay.",
+      );
+      state.resumingStatementHasMoreAwaits = true;
+      if (visitor.environment != currentExecutionEnvironment) {
+        visitor.environment = currentExecutionEnvironment;
+      }
+      return enclosingExpressionBody.expression;
+    }
+
     Logger.warn(
       "_determineNextNodeAfterAwait - Unhandled await context: ${awaitContextNode.runtimeType} (suspension from: ${nodeThatCausedSuspension.runtimeType}). Stopping state machine.",
     );
     return null; // Default stop state machine
+  }
+
+  /// The [SExpressionFunctionBody] that [node] sits inside, or null.
+  ///
+  /// Stops at the FIRST function body reached, so an await in a nested block
+  /// body does not find an outer `=>` body and re-run the wrong unit. A block
+  /// body answers null on purpose: its statements are already the machine's
+  /// unit of re-execution.
+  static SExpressionFunctionBody? _enclosingExpressionFunctionBody(
+    SAstNode node,
+  ) {
+    for (
+      SAstNode? current = node;
+      current != null;
+      current = _parentOf(current)
+    ) {
+      if (current is SExpressionFunctionBody) return current;
+      if (current is SFunctionBody) return null;
+    }
+    return null;
   }
 
   /// Give the `await for` [forNode] its environment and its place on the loop
