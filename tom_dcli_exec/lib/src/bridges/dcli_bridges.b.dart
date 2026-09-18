@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 73 files
-// Generated: 2026-09-17T23:34:29.259472 by tom_d4rt_generator 1.26.2
+// Generated: 2026-09-18T04:57:21.770494 by tom_d4rt_generator 1.26.2
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -161,6 +161,7 @@ class DcliBridge {
       _createFileNotFoundExceptionBridge(),
       _createNotAFileExceptionBridge(),
       _createNamedLockBridge(),
+      _createNamedLockObservationBridge(),
       _createLockExceptionBridge(),
       _createProcessHelperBridge(),
       _createProcessDetailsBridge(),
@@ -238,6 +239,7 @@ class DcliBridge {
       'FileNotFoundException': _createFileNotFoundExceptionBridge,
       'NotAFileException': _createNotAFileExceptionBridge,
       'NamedLock': _createNamedLockBridge,
+      'NamedLockObservation': _createNamedLockObservationBridge,
       'LockException': _createLockExceptionBridge,
       'ProcessHelper': _createProcessHelperBridge,
       'ProcessDetails': _createProcessDetailsBridge,
@@ -314,6 +316,7 @@ class DcliBridge {
       'FileNotFoundException': $dcli_36.FileNotFoundException,
       'NotAFileException': $dcli_36.NotAFileException,
       'NamedLock': $dcli_37.NamedLock,
+      'NamedLockObservation': $dcli_37.NamedLockObservation,
       'LockException': $dcli_37.LockException,
       'ProcessHelper': $dcli_38.ProcessHelper,
       'ProcessDetails': $dcli_38.ProcessDetails,
@@ -391,6 +394,7 @@ class DcliBridge {
       'FileNotFoundException': 'package:dcli/src/util/file_util.dart',
       'NotAFileException': 'package:dcli/src/util/file_util.dart',
       'NamedLock': 'package:dcli/src/util/named_lock.dart',
+      'NamedLockObservation': 'package:dcli/src/util/named_lock.dart',
       'LockException': 'package:dcli/src/util/named_lock.dart',
       'ProcessHelper': 'package:dcli/src/util/process_helper.dart',
       'ProcessDetails': 'package:dcli/src/util/process_helper.dart',
@@ -639,7 +643,6 @@ class DcliBridge {
       (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/ask.dart', show: null, hide: null),
       (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/backup.dart', show: null, hide: null),
       (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/confirm.dart', show: null, hide: null),
-      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/create_dir.dart', show: {'withTempDir'}, hide: null),
       (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/delete.dart', show: {'DeleteException', 'delete'}, hide: null),
       (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/echo.dart', show: {'echo'}, hide: null),
       (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/fetch.dart', show: {'FetchData', 'FetchException', 'FetchMethod', 'FetchProgress', 'FetchStatus', 'FetchUrl', 'OnFetchProgress', 'fetch', 'fetchMultiple'}, hide: null),
@@ -673,13 +676,12 @@ class DcliBridge {
       (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/util/file_sort.dart', show: {'Column', 'FileSort', 'SortDirection'}, hide: null),
       (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/util/file_sync.dart', show: null, hide: null),
       (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/util/file_util.dart', show: null, hide: null),
-      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/util/named_lock.dart', show: {'LockException', 'NamedLock'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/util/named_lock.dart', show: {'LockException', 'NamedLock', 'NamedLockObservation'}, hide: null),
       (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/util/process_helper.dart', show: {'ProcessDetails', 'ProcessHelper'}, hide: null),
       (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/util/pub_cache.dart', show: null, hide: null),
       (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/util/remote.dart', show: {'Remote'}, hide: null),
       (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/util/runnable_process.dart', show: {'printerr'}, hide: null),
       (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/util/string_as_process.dart', show: null, hide: null),
-      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/util/temp_file.dart', show: null, hide: null),
       (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/backup.dart', show: null, hide: null),
       (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/cat.dart', show: null, hide: null),
       (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/copy.dart', show: null, hide: null),
@@ -1834,8 +1836,8 @@ BridgedClass _createCatExceptionBridge() {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'CatException');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'CatException');
-        final stacktrace = D4.getOptionalArg<$stack_trace_1.Trace?>(positional, 1, 'stacktrace');
-        return $dcli_core_2.CatException(message, stacktrace);
+        final stackTrace = D4.getOptionalArg<$stack_trace_1.Trace?>(positional, 1, 'stackTrace');
+        return $dcli_core_2.CatException(message, stackTrace);
       },
     },
     getters: {
@@ -1867,7 +1869,7 @@ BridgedClass _createCatExceptionBridge() {
       },
     },
     constructorSignatures: {
-      '': 'CatException(String message, [Trace? stacktrace])',
+      '': 'CatException(String message, [Trace? stackTrace])',
     },
     methodSignatures: {
       'toString': 'String toString()',
@@ -2299,13 +2301,6 @@ BridgedClass _createEnvBridge() {
         t.removeFromPATH(oldPath);
         return null;
       },
-      'addToPATHIfAbsent': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_core_9.Env>(target, 'Env');
-        D4.requireMinArgs(positional, 1, 'addToPATHIfAbsent');
-        final newPath = D4.getRequiredArg<String>(positional, 0, 'newPath', 'addToPATHIfAbsent');
-        t.addToPATHIfAbsent(newPath);
-        return null;
-      },
       'isOnPATH': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dcli_core_9.Env>(target, 'Env');
         D4.requireMinArgs(positional, 1, 'isOnPATH');
@@ -2353,7 +2348,6 @@ BridgedClass _createEnvBridge() {
       'appendToPATH': 'void appendToPATH(String newPath)',
       'prependToPATH': 'void prependToPATH(String newPath)',
       'removeFromPATH': 'void removeFromPATH(String oldPath)',
-      'addToPATHIfAbsent': 'void addToPATHIfAbsent(String newPath)',
       'isOnPATH': 'bool isOnPATH(String checkPath)',
       'toJson': 'String toJson()',
       'fromJson': 'void fromJson(String json)',
@@ -3162,7 +3156,6 @@ BridgedClass _createTerminalBridge() {
       'row': (visitor, target) => D4.validateTarget<$dcli_terminal_4.Terminal>(target, 'Terminal').row,
       'hasTerminal': (visitor, target) => D4.validateTarget<$dcli_terminal_4.Terminal>(target, 'Terminal').hasTerminal,
       'rows': (visitor, target) => D4.validateTarget<$dcli_terminal_4.Terminal>(target, 'Terminal').rows,
-      'lines': (visitor, target) => D4.validateTarget<$dcli_terminal_4.Terminal>(target, 'Terminal').lines,
     },
     setters: {
       'column': (visitor, target, value) => 
@@ -3242,11 +3235,6 @@ BridgedClass _createTerminalBridge() {
         return null;
       },
     },
-    staticMethods: {
-      'previousLine': (visitor, positional, named, typeArgs) {
-        return $dcli_terminal_4.Terminal.previousLine();
-      },
-    },
     constructorSignatures: {
       '': 'factory Terminal()',
     },
@@ -3271,14 +3259,10 @@ BridgedClass _createTerminalBridge() {
       'row': 'int get row',
       'hasTerminal': 'bool get hasTerminal',
       'rows': 'int get rows',
-      'lines': 'int get lines',
     },
     setterSignatures: {
       'column': 'set column(int value)',
       'row': 'set row(int value)',
-    },
-    staticMethodSignatures: {
-      'previousLine': 'void previousLine()',
     },
   );
 }
@@ -3937,8 +3921,8 @@ BridgedClass _createReadExceptionBridge() {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ReadException');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'ReadException');
-        final stacktrace = D4.getOptionalArg<$stack_trace_1.Trace?>(positional, 1, 'stacktrace');
-        return $dcli_12.ReadException(message, stacktrace);
+        final stackTrace = D4.getOptionalArg<$stack_trace_1.Trace?>(positional, 1, 'stackTrace');
+        return $dcli_12.ReadException(message, stackTrace);
       },
     },
     getters: {
@@ -3970,7 +3954,7 @@ BridgedClass _createReadExceptionBridge() {
       },
     },
     constructorSignatures: {
-      '': 'ReadException(String message, [Trace? stacktrace])',
+      '': 'ReadException(String message, [Trace? stackTrace])',
     },
     methodSignatures: {
       'toString': 'String toString()',
@@ -4403,7 +4387,6 @@ BridgedClass _createDartProjectBridge() {
       },
     },
     staticGetters: {
-      'current': (visitor) => $dcli_22.DartProject.current,
       'self': (visitor) => $dcli_22.DartProject.self,
     },
     staticMethods: {
@@ -4448,7 +4431,6 @@ BridgedClass _createDartProjectBridge() {
       'findProject': 'DartProject? findProject(String pathToSearchFrom, {bool search = true})',
     },
     staticGetterSignatures: {
-      'current': 'DartProject get current',
       'self': 'DartProject get self',
     },
   );
@@ -4731,7 +4713,6 @@ BridgedClass _createDartScriptBridge() {
     },
     staticGetters: {
       'self': (visitor) => $dcli_23.DartScript.self,
-      'current': (visitor) => $dcli_23.DartScript.current,
     },
     staticMethods: {
       'sansRoot': (visitor, positional, named, typeArgs) {
@@ -4781,7 +4762,6 @@ BridgedClass _createDartScriptBridge() {
     },
     staticGetterSignatures: {
       'self': 'DartScript get self',
-      'current': 'DartScript get current',
     },
   );
 }
@@ -4897,40 +4877,6 @@ BridgedClass _createDartSdkBridge() {
         final t = D4.validateTarget<$dcli_24.DartSdk>(target, 'DartSdk');
         return t.resolveArchitecture();
       },
-      'globalActivate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_24.DartSdk>(target, 'DartSdk');
-        D4.requireMinArgs(positional, 1, 'globalActivate');
-        final package = D4.getRequiredArg<String>(positional, 0, 'package', 'globalActivate');
-        t.globalActivate(package);
-        return null;
-      },
-      'globalActivateFromPath': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_24.DartSdk>(target, 'DartSdk');
-        D4.requireMinArgs(positional, 1, 'globalActivateFromPath');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'globalActivateFromPath');
-        t.globalActivateFromPath(path);
-        return null;
-      },
-      'globalDeactivate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_24.DartSdk>(target, 'DartSdk');
-        D4.requireMinArgs(positional, 1, 'globalDeactivate');
-        final package = D4.getRequiredArg<String>(positional, 0, 'package', 'globalDeactivate');
-        t.globalDeactivate(package);
-        return null;
-      },
-      'isPackageGloballyActivated': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_24.DartSdk>(target, 'DartSdk');
-        D4.requireMinArgs(positional, 1, 'isPackageGloballyActivated');
-        final package = D4.getRequiredArg<String>(positional, 0, 'package', 'isPackageGloballyActivated');
-        return t.isPackageGloballyActivated(package);
-      },
-      'isPackageGlobalActivateFromPath': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_24.DartSdk>(target, 'DartSdk');
-        D4.requireMinArgs(positional, 1, 'isPackageGlobalActivateFromPath');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'isPackageGlobalActivateFromPath');
-        t.isPackageGlobalActivateFromPath(path);
-        return null;
-      },
     },
     staticGetters: {
       'dartExeName': (visitor) => $dcli_24.DartSdk.dartExeName,
@@ -4952,11 +4898,6 @@ BridgedClass _createDartSdkBridge() {
       'runPubUpgrade': 'void runPubUpgrade(String? workingDirectory, {Progress? progress, bool compileExecutables = false})',
       'installFromArchive': 'Future<String> installFromArchive(String defaultDartSdkPath, {bool askUser = true})',
       'resolveArchitecture': 'String resolveArchitecture()',
-      'globalActivate': 'void globalActivate(String package)',
-      'globalActivateFromPath': 'void globalActivateFromPath(String path)',
-      'globalDeactivate': 'void globalDeactivate(String package)',
-      'isPackageGloballyActivated': 'bool isPackageGloballyActivated(String package)',
-      'isPackageGlobalActivateFromPath': 'void isPackageGlobalActivateFromPath(String path)',
     },
     getterSignatures: {
       'pathToSdk': 'String get pathToSdk',
@@ -5002,10 +4943,8 @@ BridgedClass _createSettingsBridge() {
       'isMacOS': (visitor, target) => D4.validateTarget<$dcli_25.Settings>(target, 'Settings').isMacOS,
       'isLinux': (visitor, target) => D4.validateTarget<$dcli_25.Settings>(target, 'Settings').isLinux,
       'isWindows': (visitor, target) => D4.validateTarget<$dcli_25.Settings>(target, 'Settings').isWindows,
-      'pathToScript': (visitor, target) => D4.validateTarget<$dcli_25.Settings>(target, 'Settings').pathToScript,
       'pathToDCli': (visitor, target) => D4.validateTarget<$dcli_25.Settings>(target, 'Settings').pathToDCli,
       'pathToDCliBin': (visitor, target) => D4.validateTarget<$dcli_25.Settings>(target, 'Settings').pathToDCliBin,
-      'pathToTemplate': (visitor, target) => D4.validateTarget<$dcli_25.Settings>(target, 'Settings').pathToTemplate,
       'pathToTemplateProject': (visitor, target) => D4.validateTarget<$dcli_25.Settings>(target, 'Settings').pathToTemplateProject,
       'pathToTemplateProjectCustom': (visitor, target) => D4.validateTarget<$dcli_25.Settings>(target, 'Settings').pathToTemplateProjectCustom,
       'pathToTemplateScript': (visitor, target) => D4.validateTarget<$dcli_25.Settings>(target, 'Settings').pathToTemplateScript,
@@ -5014,7 +4953,6 @@ BridgedClass _createSettingsBridge() {
       'logger': (visitor, target) => D4.validateTarget<$dcli_25.Settings>(target, 'Settings').logger,
       'isInstalled': (visitor, target) => D4.validateTarget<$dcli_25.Settings>(target, 'Settings').isInstalled,
       'installCompletedIndicator': (visitor, target) => D4.validateTarget<$dcli_25.Settings>(target, 'Settings').installCompletedIndicator,
-      'isStackEmpty': (visitor, target) => D4.validateTarget<$dcli_25.Settings>(target, 'Settings').isStackEmpty,
     },
     setters: {
       'version': (visitor, target, value) => 
@@ -5062,10 +5000,8 @@ BridgedClass _createSettingsBridge() {
       'isMacOS': 'bool get isMacOS',
       'isLinux': 'bool get isLinux',
       'isWindows': 'bool get isWindows',
-      'pathToScript': 'String get pathToScript',
       'pathToDCli': 'String get pathToDCli',
       'pathToDCliBin': 'String get pathToDCliBin',
-      'pathToTemplate': 'String get pathToTemplate',
       'pathToTemplateProject': 'String get pathToTemplateProject',
       'pathToTemplateProjectCustom': 'String get pathToTemplateProjectCustom',
       'pathToTemplateScript': 'String get pathToTemplateScript',
@@ -5074,7 +5010,6 @@ BridgedClass _createSettingsBridge() {
       'logger': 'Logger get logger',
       'isInstalled': 'bool get isInstalled',
       'installCompletedIndicator': 'String get installCompletedIndicator',
-      'isStackEmpty': 'bool get isStackEmpty',
     },
     setterSignatures: {
       'version': 'set version(dynamic value)',
@@ -5126,12 +5061,6 @@ BridgedClass _createShellBridge() {
         D4.requireMinArgs(positional, 1, 'matchByName');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'matchByName');
         return t.matchByName(name);
-      },
-      'addToPATH': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_26.Shell>(target, 'Shell');
-        D4.requireMinArgs(positional, 1, 'addToPATH');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'addToPATH');
-        return t.addToPATH(path);
       },
       'appendToPATH': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dcli_26.Shell>(target, 'Shell');
@@ -5210,7 +5139,6 @@ BridgedClass _createShellBridge() {
     },
     methodSignatures: {
       'matchByName': 'bool matchByName(String name)',
-      'addToPATH': 'bool addToPATH(String path)',
       'appendToPATH': 'bool appendToPATH(String path)',
       'prependToPATH': 'bool prependToPATH(String path)',
       'addFileAssocation': 'void addFileAssocation(String dcliPath)',
@@ -5376,12 +5304,6 @@ BridgedClass _createUnknownShellBridge() {
       'installInstructions': (visitor, target) => D4.validateTarget<$dcli_28.UnknownShell>(target, 'UnknownShell').installInstructions,
     },
     methods: {
-      'addToPATH': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_28.UnknownShell>(target, 'UnknownShell');
-        D4.requireMinArgs(positional, 1, 'addToPATH');
-        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'addToPATH');
-        return t.addToPATH(path);
-      },
       'appendToPATH': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dcli_28.UnknownShell>(target, 'UnknownShell');
         D4.requireMinArgs(positional, 1, 'appendToPATH');
@@ -5481,7 +5403,6 @@ BridgedClass _createUnknownShellBridge() {
       'withPid': 'UnknownShell.withPid(int? pid, {String? processName})',
     },
     methodSignatures: {
-      'addToPATH': 'bool addToPATH(String path)',
       'appendToPATH': 'bool appendToPATH(String path)',
       'prependToPATH': 'bool prependToPATH(String path)',
       'appendPathToMacOsPathd': 'bool appendPathToMacOsPathd(String path)',
@@ -6033,12 +5954,6 @@ BridgedClass _createFileSyncBridge() {
         return null;
       },
     },
-    staticMethods: {
-      'tempFile': (visitor, positional, named, typeArgs) {
-        final suffix = D4.getOptionalNamedArg<String?>(named, 'suffix');
-        return $dcli_35.FileSync.tempFile(suffix: suffix);
-      },
-    },
     constructorSignatures: {
       '': 'FileSync(String path, {FileMode fileMode = FileMode.writeOnlyAppend})',
     },
@@ -6057,9 +5972,6 @@ BridgedClass _createFileSyncBridge() {
     getterSignatures: {
       'path': 'String get path',
       'length': 'int get length',
-    },
-    staticMethodSignatures: {
-      'tempFile': 'String tempFile({String? suffix})',
     },
   );
 }
@@ -6219,16 +6131,6 @@ BridgedClass _createNamedLockBridge() {
       'decLockCount': (visitor, target) => D4.validateTarget<$dcli_37.NamedLock>(target, 'NamedLock').decLockCount,
     },
     methods: {
-      'withLock': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_37.NamedLock>(target, 'NamedLock');
-        D4.requireMinArgs(positional, 1, 'withLock');
-        if (positional.isEmpty) {
-          throw ArgumentError('withLock: Missing required argument "fn" at position 0');
-        }
-        final fnRaw = positional[0];
-        final waiting = D4.getOptionalNamedArg<String?>(named, 'waiting');
-        return t.withLock(() { D4.callInterpreterCallback(visitor!, fnRaw, []); }, waiting: waiting);
-      },
       'withLockAsync': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dcli_37.NamedLock>(target, 'NamedLock');
         D4.requireMinArgs(positional, 1, 'withLockAsync');
@@ -6239,19 +6141,66 @@ BridgedClass _createNamedLockBridge() {
         final waiting = D4.getOptionalNamedArg<String?>(named, 'waiting');
         return t.withLockAsync((() { return Future.value(D4.callInterpreterCallback(visitor!, fnRaw, [])); }) as Future<void> Function(), waiting: waiting);
       },
+      'observe': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dcli_37.NamedLock>(target, 'NamedLock');
+        return t.observe();
+      },
     },
     constructorSignatures: {
       '': 'NamedLock({required String name, String? lockPath, String description = \'\', Duration timeout = const Duration(seconds: 30)})',
     },
     methodSignatures: {
-      'withLock': 'Future<void> withLock(void Function() fn, {String? waiting})',
       'withLockAsync': 'Future<void> withLockAsync(Future<void> Function() fn, {String? waiting})',
+      'observe': 'NamedLockObservation observe()',
     },
     getterSignatures: {
       'port': 'int get port',
       'name': 'String get name',
       'incLockCount': 'int get incLockCount',
       'decLockCount': 'int get decLockCount',
+    },
+  );
+}
+
+// =============================================================================
+// NamedLockObservation Bridge
+// =============================================================================
+
+BridgedClass _createNamedLockObservationBridge() {
+  return BridgedClass(
+    nativeType: $dcli_37.NamedLockObservation,
+    name: 'NamedLockObservation',
+    isAssignable: (v) => v is $dcli_37.NamedLockObservation,
+    constructors: {
+      'held': (visitor, positional, named) {
+        final name = D4.getRequiredNamedArg<String>(named, 'name', 'NamedLockObservation');
+        final ownerPid = D4.getRequiredNamedArg<int>(named, 'ownerPid', 'NamedLockObservation');
+        final ownerIsolateId = D4.getRequiredNamedArg<int>(named, 'ownerIsolateId', 'NamedLockObservation');
+        final acquiredAt = D4.getRequiredNamedArg<DateTime>(named, 'acquiredAt', 'NamedLockObservation');
+        return $dcli_37.NamedLockObservation.held(name: name, ownerPid: ownerPid, ownerIsolateId: ownerIsolateId, acquiredAt: acquiredAt);
+      },
+      'notHeld': (visitor, positional, named) {
+        final name = D4.getRequiredNamedArg<String>(named, 'name', 'NamedLockObservation');
+        return $dcli_37.NamedLockObservation.notHeld(name: name);
+      },
+    },
+    getters: {
+      'name': (visitor, target) => D4.validateTarget<$dcli_37.NamedLockObservation>(target, 'NamedLockObservation').name,
+      'isHeld': (visitor, target) => D4.validateTarget<$dcli_37.NamedLockObservation>(target, 'NamedLockObservation').isHeld,
+      'ownerPid': (visitor, target) => D4.validateTarget<$dcli_37.NamedLockObservation>(target, 'NamedLockObservation').ownerPid,
+      'ownerIsolateId': (visitor, target) => D4.validateTarget<$dcli_37.NamedLockObservation>(target, 'NamedLockObservation').ownerIsolateId,
+      'acquiredAt': (visitor, target) => D4.validateTarget<$dcli_37.NamedLockObservation>(target, 'NamedLockObservation').acquiredAt,
+    },
+    constructorSignatures: {
+      'held': 'const NamedLockObservation.held({required String name, required int ownerPid, required int ownerIsolateId, required DateTime acquiredAt})',
+      'notHeld': 'const NamedLockObservation.notHeld({required String name})',
+    },
+    getterSignatures: {
+      'name': 'String get name',
+      'isHeld': 'bool get isHeld',
+      'ownerPid': 'int? get ownerPid',
+      'ownerIsolateId': 'int? get ownerIsolateId',
+      'acquiredAt': 'DateTime? get acquiredAt',
     },
   );
 }
@@ -6354,6 +6303,12 @@ BridgedClass _createProcessHelperBridge() {
         final pid = D4.getRequiredArg<int?>(positional, 0, 'pid', 'isRunning');
         return t.isRunning(pid);
       },
+      'getProcessStartIdentity': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dcli_38.ProcessHelper>(target, 'ProcessHelper');
+        D4.requireMinArgs(positional, 1, 'getProcessStartIdentity');
+        final pid = D4.getRequiredArg<int>(positional, 0, 'pid', 'getProcessStartIdentity');
+        return t.getProcessStartIdentity(pid);
+      },
       'isProcessRunning': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dcli_38.ProcessHelper>(target, 'ProcessHelper');
         D4.requireMinArgs(positional, 1, 'isProcessRunning');
@@ -6385,6 +6340,7 @@ BridgedClass _createProcessHelperBridge() {
       'getProcessName': 'String? getProcessName(int pid)',
       'getParentPID': 'int getParentPID(int? childPid)',
       'isRunning': 'bool isRunning(int? pid)',
+      'getProcessStartIdentity': 'String? getProcessStartIdentity(int pid)',
       'isProcessRunning': 'bool isProcessRunning(String name)',
       'getProcesses': 'List<ProcessDetails> getProcesses()',
       'getProcessesByName': 'List<ProcessDetails> getProcessesByName(String name)',
@@ -6990,6 +6946,7 @@ BridgedClass _createScopeKeyBridge() {
           case $dcli_core_10.FindItem _: return $scope_1.ScopeKey<$dcli_core_10.FindItem>.withDefault(defaultValue, debugName);
           case $dcli_terminal_3.Format _: return $scope_1.ScopeKey<$dcli_terminal_3.Format>.withDefault(defaultValue, debugName);
           case $dcli_37.NamedLock _: return $scope_1.ScopeKey<$dcli_37.NamedLock>.withDefault(defaultValue, debugName);
+          case $dcli_37.NamedLockObservation _: return $scope_1.ScopeKey<$dcli_37.NamedLockObservation>.withDefault(defaultValue, debugName);
           case $dcli_20.PackedResource _: return $scope_1.ScopeKey<$dcli_20.PackedResource>.withDefault(defaultValue, debugName);
           case $dcli_38.ProcessDetails _: return $scope_1.ScopeKey<$dcli_38.ProcessDetails>.withDefault(defaultValue, debugName);
           case $dcli_38.ProcessHelper _: return $scope_1.ScopeKey<$dcli_38.ProcessHelper>.withDefault(defaultValue, debugName);

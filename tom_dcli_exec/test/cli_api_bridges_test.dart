@@ -1391,17 +1391,6 @@ void main() {
       await ctx.tearDown();
     });
 
-    test('FileSync.tempFile() creates temp file', () async {
-      // FileSync.tempFile() returns a String path, not a FileSync object
-      final out = await ctx.runAndCapture('''
-void main() {
-  var tempPath = FileSync.tempFile();
-  print(tempPath is String);
-}
-''');
-      expect(out.trim(), 'true');
-    });
-
     test('FileSync write and read', () async {
       final path = '${ctx.tempDir.path}/filesync_test.txt';
       await ctx.run('''

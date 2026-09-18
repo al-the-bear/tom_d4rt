@@ -1,3 +1,32 @@
+## 1.4.0
+
+### Changed — realigned with the `dcli` 10 line
+
+`dcli`, `dcli_core` and `dcli_terminal` move from `^8.4.2` to `^10.0.0`, and
+`dart_console` to `^5.0.0` (required by `dcli_terminal` 10). `win32` resolves
+6.4.0 in consequence. Matches `tom_d4rt_dcli` 1.5.0, this package's
+analyzer-based twin.
+
+The move was blocked, not deferred: `tom_build_base` pinned `dcli: ^8.4.2` and
+sits transitively under this package, so version solving rejected `dcli` 10
+regardless of what this pubspec declared. `tom_build_base` 2.11.0 widens that
+constraint to admit both majors.
+
+### Changed — bridges regenerated against the dcli 10 API
+
+`lib/src/bridges/*.b.dart` are regenerated. dcli 9 removed members deprecated
+through the 8.x line, so the committed bridges named methods the package no
+longer has.
+
+### Removed — the `FileSync.tempFile()` bridge test
+
+Removed in dcli 9 in favour of the top-level `createTempFilename()`, which
+already has two tests in the Temp Files group.
+
+Suite 420/0/2, against a 421/0/2 baseline — the difference is exactly the
+deleted test, and both failures are the pre-existing
+`stdin_preprocessing_test.dart` pair.
+
 ## 1.3.0
 
 ### Fixed — the `--version` banner reports the real version (sce9)

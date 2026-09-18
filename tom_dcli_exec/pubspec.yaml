@@ -1,6 +1,6 @@
 name: tom_dcli_exec
 description: Base D4rt CLI with dcli bridges using tom_d4rt_exec (analyzer-free). Extensible foundation for D4rt tools.
-version: 1.3.0
+version: 1.4.0
 repository: https://github.com/al-the-bear/tom_d4rt
 homepage: https://github.com/al-the-bear/tom_d4rt/tree/main/tom_dcli_exec
 topics:
@@ -38,10 +38,10 @@ dependencies:
   tom_chattools: ">=1.0.2"
 
   # External packages for CLI
-  dcli: ^8.4.2
-  dcli_core: ^8.2.8
-  dcli_terminal: ^8.4.2
-  dart_console: ^4.1.2
+  dcli: ^10.0.0
+  dcli_core: ^10.0.0
+  dcli_terminal: ^10.0.0
+  dart_console: ^5.0.0
   console_markdown: ^0.0.3
   marked: ^0.2.5
   crypto: ^3.0.6
