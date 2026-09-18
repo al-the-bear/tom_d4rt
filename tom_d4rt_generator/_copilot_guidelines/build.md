@@ -135,12 +135,19 @@ The example project includes test classes and generated bridges:
    ```
 
    `--versioner` rewrites `lib/src/version.versioner.dart`, which is what
-   `d4rtgen --version` prints. The `--minor=` value is matched against the
-   project path BuildKit prints (`.` here); a value that matches nothing falls
-   back to a PATCH bump without saying so, so check the `(minor)` in its
-   output. After a hand edit of `pubspec.yaml`, run `buildkit -v -p .
-   :versioner` instead — an older BuildKit writes `lib/src/version.g.dart` and
-   leaves the banner behind, so use the current one.
+   `d4rtgen --version` prints. The `--minor=` value may be this package's
+   pubspec `name:`, its project name, or a suffix of its path (`.` being the
+   project you are standing in); from BuildKit 1.8.0 a value that matches
+   nothing fails and names itself, rather than falling back to a PATCH bump in
+   silence (SCE10). After a hand edit of `pubspec.yaml`, run `buildkit -v -p .
+   :versioner` instead.
+
+   **Use the BuildKit in `tom_binaries`, not whatever is on `PATH`.** An older
+   one writes `lib/src/version.g.dart` and leaves the banner behind; the 1.1.0
+   copy that was on `~/.tom/bin` reported "Version file generated" and wrote
+   nothing at all. From tom_build_base 2.10.0 every tom CLI prints where it is
+   running from under its version, so `buildkit --version` answers which copy
+   you have.
 2. **Update CHANGELOG.md** with changes
 3. **Run all tests**: `dart test` — `test/version_stamp_test.dart` fails when
    the stamp and `pubspec.yaml` disagree, and the example freshness and
