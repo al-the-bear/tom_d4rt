@@ -20,6 +20,10 @@ linter:
 # Exclude generated bridge files
 analyzer:
   exclude:
+    # hides: 0 errors (measured 2026-09-18) — generated d4rt bridges, rewritten
+    #   by tom_d4rt_generator and never hand-edited, so lint findings here are
+    #   not actionable. Measured rather than assumed: GEN-119 was an exclusion of
+    #   exactly this shape hiding a generated import that resolved nowhere.
     - "**/*.b.dart"
 
 # Uncomment the following section to specify additional rules.
