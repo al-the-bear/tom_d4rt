@@ -20,11 +20,27 @@ const d4rtgenOptions = <OptionDefinition>[
     name: 'dump-config',
     description: 'Print effective merged configuration as JSON (no action)',
   ),
+  // SCE51: on by default. scd13_ahcm shipped it opt-in and said not to choose
+  // the default before the semantics had been exercised on real consumers.
+  // The sweep that followed ran every d4rtgen consumer in the workspace — all
+  // 13 verified clean — and measured the cost warm-to-warm on the largest of
+  // them at 52.2s against 52.4s unverified. Generation parses with the
+  // analyzer already, so the summary cache the verify step needs is warm by
+  // the time it runs.
+  //
+  // A gate nobody enables is not a gate, and the population it was built for —
+  // a consumer regenerating bridges who has never heard of the flag — is
+  // exactly the one that would not pass it. The objection that made default-on
+  // risky is gone by construction: every diagnostic is scoped to the files the
+  // run just wrote, so a consumer's own pre-existing problems cannot fail its
+  // regeneration.
   OptionDefinition.flag(
     name: 'verify-output',
     description:
         'After generating, run dart analyze over the generated files and fail '
-        'on any error (opt-in; adds a few seconds per project)',
+        'on any error',
+    defaultValue: 'true',
+    negatable: true,
   ),
 ];
 

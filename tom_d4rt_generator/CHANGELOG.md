@@ -1,3 +1,36 @@
+## 1.38.0
+
+### Changed — `--verify-output` is now the default (sce51)
+
+scd13_ahcm shipped verification opt-in and said so deliberately: the default
+was not to be chosen before the allowlist semantics had been exercised on real
+consumers. That sweep has now run.
+
+**Every d4rtgen consumer in the workspace, 13 of 13, verifies clean** —
+tom_dist_ledger (where GEN-119 was found), tom_process_monitor, tom_d4rt_dcli,
+tom_dcli_exec, tom_spec_engine, tom_build_cli, tom_vscode_bridge,
+tom_brain_procedure, the three d4rt samples, and both flutter twins. Nothing
+needed allowlisting.
+
+**The cost is not the "few seconds per project" the opt-in text promised.**
+Measured warm-to-warm on the largest consumer — tom_d4rt_flutter, 18 generated
+files — a verified run took 52.2s against 52.4s unverified. The reason is
+mechanical rather than lucky: generation parses with the analyzer already, so
+the summary cache the verify step needs is warm by the time it runs.
+
+So: on by default, `--no-verify-output` to opt out. A gate nobody enables is
+not a gate, and the population it was built for — a consumer regenerating
+bridges who has never heard of the flag — is exactly the population that would
+not have passed it. The objection that made default-on risky was removed by
+construction in scd13: every diagnostic is scoped to the files the run just
+wrote, so a consumer's own pre-existing problems cannot fail its regeneration.
+
+Requires `tom_build_base` 2.15.0, which is where `--no-<flag>` and declared
+flag defaults became expressible at all.
+
+`verifyRequested(CliArgs)` names the rule once, next to the executor that acts
+on it, so it can be tested without a generation run.
+
 ## 1.37.0
 
 ### Added — `@D4rtUserRelaxer` directives now reach the generator

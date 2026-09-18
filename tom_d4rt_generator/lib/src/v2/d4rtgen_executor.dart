@@ -64,7 +64,7 @@ class D4rtgenExecutor extends CommandExecutor {
         verbose: args.verbose,
       );
 
-      if (args.extraOptions['verify-output'] == true) {
+      if (verifyRequested(args)) {
         final failure = await _verifyOutput(context, written);
         if (failure != null) return failure;
       }
@@ -81,6 +81,18 @@ class D4rtgenExecutor extends CommandExecutor {
     }
   }
 }
+
+/// Whether this run verifies what it wrote.
+///
+/// SCE51: DEFAULT-ON. Absence means verify — `--no-verify-output` arrives as
+/// `false` under this same key rather than as a second key, which is what
+/// tom_build_base 2.15.0's negatable-flag support bought; before it the opt-out
+/// could not be expressed at all.
+///
+/// Named rather than inlined so the rule is stated once and can be tested
+/// without going through a generation run.
+bool verifyRequested(CliArgs args) =>
+    args.extraOptions['verify-output'] != false;
 
 /// `d4rtgen --verify-output`: analyse what was just written, and fail on it.
 ///

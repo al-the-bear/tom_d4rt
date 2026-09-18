@@ -20,6 +20,8 @@ import 'dart:io';
 
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
+import 'package:tom_build_base/tom_build_base_v2.dart';
+import 'package:tom_d4rt_generator/src/v2/d4rtgen_executor.dart';
 import 'package:tom_d4rt_generator/src/v2/d4rtgen_tool.dart';
 import 'package:tom_d4rt_generator/src/verification/generated_output_analysis.dart';
 
@@ -221,6 +223,72 @@ void main() {
             'The policy can be perfect and still reach nobody if the flag '
             'is not on the tool. Declared options: $names',
       );
+    });
+  });
+
+  // SCE51: the flag defaults to ON. scd13_ahcm shipped it opt-in and deferred
+  // the default until the semantics had been exercised on real consumers; the
+  // sweep ran all 13 d4rtgen consumers in the workspace and every one verified
+  // clean, at a cost measured warm-to-warm on the largest (18 generated files)
+  // of 52.2s against 52.4s unverified.
+  //
+  // A gate nobody enables is not a gate. The population it protects is the
+  // consumer who never heard of the flag, which is exactly the population that
+  // would not have passed it.
+  group('SCE51: verify-output is the default', () {
+    OptionDefinition flagNamed(String name) =>
+        d4rtgenTool.globalOptions.firstWhere((o) => o.name == name);
+
+    CliArgs parse(List<String> argv) =>
+        CliArgParser(toolDefinition: d4rtgenTool).parse(argv);
+
+    test('G-SCE51-1: the declaration carries the default and the opt-out '
+        '[2026-09-18] (PASS)', () {
+      final flag = flagNamed('verify-output');
+
+      expect(flag.defaultValue, 'true');
+      expect(
+        flag.negatable,
+        isTrue,
+        reason:
+            'a default-on flag with no opt-out is a flag nobody can '
+            'turn off',
+      );
+    });
+
+    test(
+      'G-SCE51-2: a run that says nothing verifies [2026-09-18] (PASS)',
+      () => expect(verifyRequested(parse(['.'])), isTrue),
+    );
+
+    test(
+      'G-SCE51-3: --no-verify-output opts out [2026-09-18] (PASS)',
+      () => expect(verifyRequested(parse(['--no-verify-output'])), isFalse),
+    );
+
+    test(
+      'G-SCE51-4: --verify-output still opts in [2026-09-18] (PASS)',
+      () => expect(verifyRequested(parse(['--verify-output'])), isTrue),
+    );
+
+    test('G-SCE51-5: the opt-out does not land under a second key [2026-09-18] '
+        '(PASS)', () {
+      // How it failed before tom_build_base 2.15.0: `--no-verify-output`
+      // became an extra option named `no-verify-output`, the real flag stayed
+      // unset, and the run verified anyway — the command line saying one
+      // thing and the tool doing another.
+      final args = parse(['--no-verify-output']);
+
+      expect(args.extraOptions.containsKey('no-verify-output'), isFalse);
+      expect(args.extraOptions['verify-output'], isFalse);
+    });
+
+    test('G-SCE51-6: --help names the opt-out, so the default is discoverable '
+        '[2026-09-18] (PASS)', () {
+      final help = HelpGenerator.generateOptionHelp(flagNamed('verify-output'));
+
+      expect(help, contains('verify-output'));
+      expect(help, contains('default'));
     });
   });
 }
