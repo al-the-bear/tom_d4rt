@@ -17,7 +17,9 @@ import 'd4rtgen_logging.dart';
 import 'file_generators.dart';
 import 'proxy_generator.dart';
 import 'relaxer_generator.dart';
-import 'user_bridge_prescan.dart' show preScanUserBridges;
+import 'user_variant_sites.dart' show userVariantExtractionSites;
+import 'user_bridge_prescan.dart'
+    show preScanUserBridges, preScanUserVariantDirectives;
 
 /// Result of a bridge generation operation.
 class GenerationResult {
@@ -251,6 +253,23 @@ Future<GenerationResult> generateBridges({
       sdkSummaryPath: sdkSummaryPath,
     );
 
+    // sce47: the annotation-driven directive scan, beside the user-bridge one.
+    // `UserProxyRelaxerScanner` was implemented and unit-tested but
+    // constructed nowhere under `lib/`, so `@D4rtUserProxy` /
+    // `@D4rtUserRelaxer` had no effect on any generated output. The decision
+    // on this todo was to wire it up rather than delete it, keeping the
+    // `user_relaxers/` file convention as the fallback it already is.
+    final userVariantScanner = await preScanUserVariantDirectives(
+      projectDir,
+      summaryPaths: summaryPaths,
+      sdkSummaryPath: sdkSummaryPath,
+      // Surfaced, not swallowed: a directive that extends the marker but
+      // carries no annotation, or declares variants of inconsistent arity, is
+      // a mistake the author wants told about — and this scanner's whole
+      // history is of producing nothing while looking like it worked.
+      onWarning: warnings.add,
+    );
+
     // GEN-076: Track class names and source files across modules to prevent
     // duplicate registrations. Only deduplicates when BOTH name AND source match,
     // so different classes with the same name (e.g., dart:ui vs Flutter) are kept.
@@ -429,6 +448,35 @@ Future<GenerationResult> generateBridges({
           ' → ${proxyResult.outputFile}',
         );
       }
+    }
+
+    // sce47: turn each `@D4rtUserRelaxer` variant into a generic extraction
+    // site, which is the shape the relaxer pipeline already consumes — a
+    // directive says "treat `Base<Arg>` as a relaxer target" and an extraction
+    // site is exactly that, discovered from usage instead of declared. The
+    // candidate pool is every bridged class, so a wildcard pattern expands
+    // against what this package actually bridges.
+    //
+    // WHAT THIS DOES NOT REACH, so the silence does not simply move: the
+    // relaxer emitter generates wrappers for SINGLE-type-parameter classes
+    // only, and warns by name on anything else — so a multi-parameter variant
+    // is reported rather than dropped. `@D4rtUserProxy` has no path at all:
+    // `generateProxies` is driven by `config.proxyClasses`, which carries no
+    // type-argument variants, so those directives are warned about below
+    // instead of being silently ignored as they were before.
+    allExtractionSites.addAll(
+      userVariantExtractionSites(
+        userVariantScanner.relaxerDirectives,
+        globalClassLookup.keys.toList()..sort(),
+      ),
+    );
+    for (final directive in userVariantScanner.proxyDirectives) {
+      warnings.add(
+        '@D4rtUserProxy for ${directive.baseClass} '
+        '(${directive.libraryPath}) was discovered but not emitted: '
+        'generateProxies is driven by proxyClasses, which carries no '
+        'type-argument variants. See SCF15.',
+      );
     }
 
     // Generate relaxer wrappers (GEN-079) — always runs, output path
