@@ -116,57 +116,51 @@ void main() {
   });
 
   group('one pipeline', () {
-    test(
-      'D4G-PIPE-1: the executor builds no BridgeGenerator of its own '
-      '[2026-09-18]',
-      () {
-        final executor = File('lib/src/v2/d4rtgen_executor.dart');
-        expect(
-          executor.existsSync(),
-          isTrue,
-          reason: 'the guard is pointless if the file moved',
-        );
-        final source = executor.readAsStringSync();
+    test('D4G-PIPE-1: the executor builds no BridgeGenerator of its own '
+        '[2026-09-18]', () {
+      final executor = File('lib/src/v2/d4rtgen_executor.dart');
+      expect(
+        executor.existsSync(),
+        isTrue,
+        reason: 'the guard is pointless if the file moved',
+      );
+      final source = executor.readAsStringSync();
 
-        // Anti-vacuity: the same pattern must match the pipeline that IS
-        // allowed to construct one, or the assertion below proves nothing.
-        expect(
-          File('lib/src/bridge_api.dart').readAsStringSync(),
-          contains('BridgeGenerator('),
-          reason: 'the pattern must be able to match at all',
-        );
+      // Anti-vacuity: the same pattern must match the pipeline that IS
+      // allowed to construct one, or the assertion below proves nothing.
+      expect(
+        File('lib/src/bridge_api.dart').readAsStringSync(),
+        contains('BridgeGenerator('),
+        reason: 'the pattern must be able to match at all',
+      );
 
+      expect(
+        source,
+        isNot(contains('BridgeGenerator(')),
+        reason:
+            'the CLI must route through generateBridges, not orchestrate a '
+            'second pipeline that can drift from the one the freshness gate '
+            'certifies against',
+      );
+    });
+
+    test('D4G-PIPE-2: the executor keeps no private copy of the file-writing '
+        'stages [2026-09-18]', () {
+      final source = File(
+        'lib/src/v2/d4rtgen_executor.dart',
+      ).readAsStringSync();
+      for (final helper in [
+        '_generateBarrelFile',
+        '_generateDartscriptFile',
+        '_generateTestRunnerFile',
+      ]) {
         expect(
           source,
-          isNot(contains('BridgeGenerator(')),
-          reason:
-              'the CLI must route through generateBridges, not orchestrate a '
-              'second pipeline that can drift from the one the freshness gate '
-              'certifies against',
+          isNot(contains('Future<void> $helper(')),
+          reason: '$helper is generateBridges\' job',
         );
-      },
-    );
-
-    test(
-      'D4G-PIPE-2: the executor keeps no private copy of the file-writing '
-      'stages [2026-09-18]',
-      () {
-        final source = File(
-          'lib/src/v2/d4rtgen_executor.dart',
-        ).readAsStringSync();
-        for (final helper in [
-          '_generateBarrelFile',
-          '_generateDartscriptFile',
-          '_generateTestRunnerFile',
-        ]) {
-          expect(
-            source,
-            isNot(contains('Future<void> $helper(')),
-            reason: '$helper is generateBridges\' job',
-          );
-        }
-      },
-    );
+      }
+    });
 
     test(
       'D4G-PIPE-3: the CLI and the API generate identical bridges when '
@@ -213,32 +207,30 @@ void main() {
       timeout: const Timeout(Duration(minutes: 4)),
     );
 
-    test(
-      'D4G-PIPE-4: generateBridges only runs `dart pub get` when asked '
-      '[2026-09-18]',
-      () async {
-        // An unresolved package: no .dart_tool/package_config.json.
-        final dir = Directory(p.join(work.path, 'unresolved'))
-          ..createSync(recursive: true);
-        _writePackage(dir);
-        Directory(p.join(dir.path, '.dart_tool')).deleteSync(recursive: true);
+    test('D4G-PIPE-4: generateBridges only runs `dart pub get` when asked '
+        '[2026-09-18]', () async {
+      // An unresolved package: no .dart_tool/package_config.json.
+      final dir = Directory(p.join(work.path, 'unresolved'))
+        ..createSync(recursive: true);
+      _writePackage(dir);
+      Directory(p.join(dir.path, '.dart_tool')).deleteSync(recursive: true);
 
-        final result = await generateBridges(
-          configPath: p.join(dir.path, 'buildkit.yaml'),
-          projectPath: dir.path,
-          runPubGet: false,
-        );
+      final result = await generateBridges(
+        configPath: p.join(dir.path, 'buildkit.yaml'),
+        projectPath: dir.path,
+        runPubGet: false,
+      );
 
-        // `dart pub get` would have created the package config. It must not
-        // have run: a dry run that resolves the package has written to it.
-        expect(
-          File(p.join(dir.path, '.dart_tool', 'package_config.json')).existsSync(),
-          isFalse,
-          reason: 'runPubGet: false must not spawn pub get',
-        );
-        expect(result, isNotNull);
-      },
-      timeout: const Timeout(Duration(minutes: 4)),
-    );
+      // `dart pub get` would have created the package config. It must not
+      // have run: a dry run that resolves the package has written to it.
+      expect(
+        File(
+          p.join(dir.path, '.dart_tool', 'package_config.json'),
+        ).existsSync(),
+        isFalse,
+        reason: 'runPubGet: false must not spawn pub get',
+      );
+      expect(result, isNotNull);
+    }, timeout: const Timeout(Duration(minutes: 4)));
   });
 }
