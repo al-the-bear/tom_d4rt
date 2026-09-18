@@ -1,3 +1,24 @@
+## 1.5.0
+
+### Removed — eight build_runner-era bridge files nothing imports or regenerates
+
+`lib/src/d4rt_library_bridges/` held `bridges_trigger.b.dart` and seven
+`package_*_bridges.b.dart` from the build_runner builder, dated 2026-02-26,
+~740 KB. This package builds its bridges with the `d4rtgen` CLI, which never
+touches that folder, so the files could only rot or be hand-edited in the
+belief a regeneration would keep the edit.
+
+Confirmed before deleting: no reference to the folder anywhere outside it, and
+`d4rtgen --dry-run` reports no run writes any of the eight.
+
+`tom_d4rt_generator` 1.28.0's orphan check is what makes this visible, and
+`test/bridges_fresh_test.dart` now asserts nothing is orphaned.
+
+**`lib/src/bridges/dcli_bridges.b.dart` is deliberately NOT regenerated**, for
+the reason recorded in tom_d4rt_dcli 1.6.0: a fresh generation degrades
+`SettingsYaml` to `dynamic` / `InvalidType`, and committing it would ship that
+regression to silence the gate reporting it.
+
 ## 1.4.0
 
 ### Changed — realigned with the `dcli` 10 line
