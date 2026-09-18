@@ -1,3 +1,40 @@
+## 0.2.2
+
+### Added — `SConfiguration` and `SDottedName`: conditional import/export branches (sce49)
+
+`SImportDirective` carried `uri`, `prefix`, `combinators`, `isDeferred` and
+`metadata` — and no `configurations`; `SExportDirective` was the same. A
+directive written
+
+```dart
+import 'stub.dart' if (dart.library.io) 'io.dart';
+```
+
+therefore had nowhere to put its branch, so a converter dropped it: the
+directive survived as `import 'stub.dart';`, not reported, not warned about,
+and not recorded anywhere. Every consumer downstream saw a well-formed import
+of the default URI with no way to learn that a branch had been discarded — and
+conditional imports are the standard Dart mechanism for VM-vs-web divergence.
+
+`SConfiguration` (name, optional `== '...'` test value, branch URI) and
+`SDottedName` (the condition's `dart.library.io`) are the missing nodes, and
+both directives now carry a `configurations` list with JSON round-tripping,
+structural equality and visitor dispatch (`visitConfiguration`,
+`visitDottedName`).
+
+**The conditions are preserved, not evaluated.** Which branch applies depends
+on the target platform, which this model does not know; resolving it belongs to
+the bundler at compile time or the runner at load time. A field that exists can
+be resolved later — a dropped one cannot be recovered at all.
+
+A patch bump rather than a minor one, although 0.2.0 set the precedent of a
+minor for an additive node. `tom_ast_generator` depends on this package AND on
+`tom_d4rt_ast`, which constrains it to `^0.2.0`; under pub's 0.x rules a 0.3.0
+is breaking, so it could not resolve against a published `tom_d4rt_ast` until
+that package shipped a raised constraint — which it cannot right now. Adding
+API is not a breaking change, so the patch is also the semantically accurate
+bump.
+
 ## 0.2.1
 
 ### Changed — formatted the tree once (scd82)

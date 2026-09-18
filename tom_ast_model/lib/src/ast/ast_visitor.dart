@@ -290,6 +290,12 @@ abstract class SAstVisitor<T> {
   /// Visit a [SLibraryDirective].
   T? visitLibraryDirective(SLibraryDirective node) => visitNode(node);
 
+  /// Visit a [SConfiguration].
+  T? visitConfiguration(SConfiguration node) => visitNode(node);
+
+  /// Visit a [SDottedName].
+  T? visitDottedName(SDottedName node) => visitNode(node);
+
   // --------------------------------------------------------------------------
   // Type annotations
   // --------------------------------------------------------------------------
@@ -1053,6 +1059,14 @@ class GeneralizingSAstVisitor<T> extends SAstVisitor<T> {
 
   @override
   T? visitLibraryDirective(SLibraryDirective node) => visitDirective(node);
+
+  // A Configuration and a DottedName are plain AstNodes in the analyzer, with
+  // no intermediate category — so they generalize straight to visitNode.
+  @override
+  T? visitConfiguration(SConfiguration node) => visitNode(node);
+
+  @override
+  T? visitDottedName(SDottedName node) => visitNode(node);
 
   // --------------------------------------------------------------------------
   // Type annotations → visitTypeAnnotation

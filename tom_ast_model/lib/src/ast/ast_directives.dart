@@ -17,6 +17,7 @@ class SImportDirective extends SNamespaceDirective {
   final List<SAnnotation> metadata;
   final SStringLiteral? uri;
   final SSimpleIdentifier? prefix;
+  final List<SConfiguration> configurations;
   final List<SCombinator> combinators;
   final bool isDeferred;
 
@@ -26,6 +27,7 @@ class SImportDirective extends SNamespaceDirective {
     this.metadata = const [],
     this.uri,
     this.prefix,
+    this.configurations = const [],
     this.combinators = const [],
     this.isDeferred = false,
   });
@@ -41,6 +43,7 @@ class SImportDirective extends SNamespaceDirective {
     'metadata': metadata.map((a) => a.toJson()).toList(),
     if (uri != null) 'uri': uri!.toJson(),
     if (prefix != null) 'prefix': prefix!.toJson(),
+    'configurations': configurations.map((c) => c.toJson()).toList(),
     'combinators': combinators.map((c) => c.toJson()).toList(),
     'isDeferred': isDeferred,
   };
@@ -60,6 +63,9 @@ class SImportDirective extends SNamespaceDirective {
       prefix: json['prefix'] != null
           ? SSimpleIdentifier.fromJson(json['prefix'] as Map<String, dynamic>)
           : null,
+      configurations: SAstNodeFactory.listFromJson<SConfiguration>(
+        json['configurations'] as List?,
+      ),
       combinators: SAstNodeFactory.listFromJson<SCombinator>(
         json['combinators'] as List?,
       ),
@@ -77,6 +83,9 @@ class SImportDirective extends SNamespaceDirective {
     }
     uri?.accept(visitor);
     prefix?.accept(visitor);
+    for (final child in configurations) {
+      child.accept(visitor);
+    }
     for (final child in combinators) {
       child.accept(visitor);
     }
@@ -96,6 +105,7 @@ class SExportDirective extends SNamespaceDirective {
   @override
   final List<SAnnotation> metadata;
   final SStringLiteral? uri;
+  final List<SConfiguration> configurations;
   final List<SCombinator> combinators;
 
   SExportDirective({
@@ -103,6 +113,7 @@ class SExportDirective extends SNamespaceDirective {
     required this.length,
     this.metadata = const [],
     this.uri,
+    this.configurations = const [],
     this.combinators = const [],
   });
 
@@ -116,6 +127,7 @@ class SExportDirective extends SNamespaceDirective {
     'length': length,
     'metadata': metadata.map((a) => a.toJson()).toList(),
     if (uri != null) 'uri': uri!.toJson(),
+    'configurations': configurations.map((c) => c.toJson()).toList(),
     'combinators': combinators.map((c) => c.toJson()).toList(),
   };
 
@@ -131,6 +143,9 @@ class SExportDirective extends SNamespaceDirective {
       uri:
           SAstNodeFactory.fromJson(json['uri'] as Map<String, dynamic>?)
               as SStringLiteral?,
+      configurations: SAstNodeFactory.listFromJson<SConfiguration>(
+        json['configurations'] as List?,
+      ),
       combinators: SAstNodeFactory.listFromJson<SCombinator>(
         json['combinators'] as List?,
       ),
@@ -146,6 +161,9 @@ class SExportDirective extends SNamespaceDirective {
       child.accept(visitor);
     }
     uri?.accept(visitor);
+    for (final child in configurations) {
+      child.accept(visitor);
+    }
     for (final child in combinators) {
       child.accept(visitor);
     }
@@ -436,5 +454,135 @@ class SHideCombinator extends SCombinator {
     for (final child in hiddenNames) {
       child.accept(visitor);
     }
+  }
+}
+
+// ============================================================================
+// Configurations (conditional imports/exports)
+// ============================================================================
+
+/// A dotted name — the left-hand side of a configuration's condition, as in
+/// `dart.library.io`.
+class SDottedName extends SAstNode {
+  @override
+  final int offset;
+  @override
+  final int length;
+
+  final List<SSimpleIdentifier> components;
+
+  SDottedName({
+    required this.offset,
+    required this.length,
+    this.components = const [],
+  });
+
+  @override
+  String get nodeType => 'DottedName';
+
+  /// The components joined with `.`, as written in source.
+  String get name => components.map((c) => c.name).join('.');
+
+  @override
+  Map<String, dynamic> toJson() => {
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'components': components.map((c) => c.toJson()).toList(),
+  };
+
+  factory SDottedName.fromJson(Map<String, dynamic> json) {
+    return SDottedName(
+      offset: json['offset'] as int,
+      length: json['length'] as int,
+      components:
+          (json['components'] as List?)
+              ?.map(
+                (c) => SSimpleIdentifier.fromJson(c as Map<String, dynamic>),
+              )
+              .toList() ??
+          [],
+    );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitDottedName(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    for (final child in components) {
+      child.accept(visitor);
+    }
+  }
+}
+
+/// One conditional branch of an import or export directive:
+/// `if (dart.library.io) 'io.dart'`, or with an explicit test value,
+/// `if (dart.library.io == 'true') 'io.dart'`.
+///
+/// The condition is PRESERVED, not evaluated. Which branch applies depends on
+/// the target platform, which the model does not know — resolving it is the
+/// bundler's job at compile time, or the runner's at load time.
+class SConfiguration extends SAstNode {
+  @override
+  final int offset;
+  @override
+  final int length;
+
+  /// The declaration name being tested, e.g. `dart.library.io`.
+  final SDottedName? name;
+
+  /// The value the name is compared against, when the source writes
+  /// `== '...'`. Absent means the implicit test against `'true'`.
+  final SStringLiteral? value;
+
+  /// The URI taken when the condition holds.
+  final SStringLiteral? uri;
+
+  SConfiguration({
+    required this.offset,
+    required this.length,
+    this.name,
+    this.value,
+    this.uri,
+  });
+
+  @override
+  String get nodeType => 'Configuration';
+
+  @override
+  Map<String, dynamic> toJson() => {
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (name != null) 'name': name!.toJson(),
+    if (value != null) 'value': value!.toJson(),
+    if (uri != null) 'uri': uri!.toJson(),
+  };
+
+  factory SConfiguration.fromJson(Map<String, dynamic> json) {
+    return SConfiguration(
+      offset: json['offset'] as int,
+      length: json['length'] as int,
+      name: json['name'] != null
+          ? SDottedName.fromJson(json['name'] as Map<String, dynamic>)
+          : null,
+      value:
+          SAstNodeFactory.fromJson(json['value'] as Map<String, dynamic>?)
+              as SStringLiteral?,
+      uri:
+          SAstNodeFactory.fromJson(json['uri'] as Map<String, dynamic>?)
+              as SStringLiteral?,
+    );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitConfiguration(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    name?.accept(visitor);
+    value?.accept(visitor);
+    uri?.accept(visitor);
   }
 }

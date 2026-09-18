@@ -502,6 +502,8 @@ void _registerAllFactories() {
   SAstNodeFactory.register('PartDirective', SPartDirective.fromJson);
   SAstNodeFactory.register('PartOfDirective', SPartOfDirective.fromJson);
   SAstNodeFactory.register('LibraryDirective', SLibraryDirective.fromJson);
+  SAstNodeFactory.register('Configuration', SConfiguration.fromJson);
+  SAstNodeFactory.register('DottedName', SDottedName.fromJson);
 
   // Misc
   SAstNodeFactory.register('ArgumentList', SArgumentList.fromJson);
