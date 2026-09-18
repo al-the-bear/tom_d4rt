@@ -3953,6 +3953,7 @@ class BridgeGenerator {
 
   /// Resolves a package: URI to an absolute file path (synchronous version).
   ///
+  /// doc-ref: ok — `foo.dart` is a stand-in for any URI, not a file.
   /// This resolves a full package URI like `package:tom_core_kernel/src/foo.dart`
   /// to an absolute file path. Used for resolving external type dependencies.
   String? _resolvePackageUriToFilePath(String packageUri) {
@@ -4480,6 +4481,7 @@ class BridgeGenerator {
   /// Generates a sanitized import prefix from an import path.
   ///
   /// Uses a '$' prefix to avoid conflicts with local variables.
+  /// doc-ref: ok — an example URI, chosen to show the prefix derivation.
   /// Example: 'package:tom_build/src/tom/generation/placeholder_resolver.dart'
   /// becomes '$placeholder_resolver'.
   String _generateImportPrefix(String importPath) {

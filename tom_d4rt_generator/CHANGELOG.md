@@ -1,3 +1,13 @@
+## 1.42.0
+
+### Changed — two illustrative URIs in `bridge_generator.dart` marked as prose (sce56)
+
+`package:tom_core_kernel/src/foo.dart` is a stand-in for any URI and
+`package:tom_build/src/tom/generation/placeholder_resolver.dart` is an example
+chosen to show the `$`-prefix derivation. Neither is a pointer; both now say so
+with `doc-ref: ok`, so `_bin/check_doc_references.py` can report the ones that
+are.
+
 ## 1.41.0
 
 ### Fixed — the verified write set is what the generator reports, not a second guess (sce52)

@@ -1,3 +1,17 @@
+## 1.138.0
+
+### Changed — doc comments that name a library are marked as prose (sce56)
+
+`_bin/check_doc_references.py` resolves `package:` URIs inside `///` comments
+against the workspace. Three doc blocks here name libraries that no file backs,
+all of them deliberately: `library_mapping.dart` documents CANONICAL URIs, the
+identity a bridge registers under rather than a path, and
+`d4rt_user_bridge_annotation.dart` shows annotation targets in packages this one
+does not depend on.
+
+Marked with `doc-ref: ok` and the reason, so the check stays quiet without
+losing the distinction between "illustrative" and "wrong".
+
 ## 1.137.0
 
 Name resolution: yes — a name narrowed by import scope is retrieved by kind, not as a class only (sce25).

@@ -12,6 +12,9 @@ import 'package:tom_d4rt/src/exceptions.dart';
 
 /// Bridges for a single source library.
 ///
+/// doc-ref: ok — the `package:` URIs below name BRIDGED libraries, the
+/// canonical URI a bridge registers under. They are runtime identities, not
+/// files, and several deliberately name a library this package does not ship.
 /// Groups all bridged elements that originate from the same canonical library
 /// (e.g., `package:tom_crypto/src/rsa/helpers.dart`). This allows the runtime
 /// to identify that elements from the same source are identical, even when
@@ -139,6 +142,8 @@ class LibraryBridgeDefinition {
       '${enums.length} enums)';
 }
 
+/// doc-ref: ok — the `package:` URIs in this example name BRIDGED libraries,
+/// the canonical URIs a bridge registers under rather than files here.
 /// Mapping from a barrel (re-export file) to its source libraries.
 ///
 /// Barrels like `package:tom_core_kernel/tom_core_kernel.dart` export elements

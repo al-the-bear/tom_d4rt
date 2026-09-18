@@ -1,3 +1,12 @@
+## 0.123.0
+
+### Changed — doc comments that name a library are marked as prose (sce56)
+
+The mirror of the `tom_d4rt` change: `d4rt_user_bridge_annotation.dart` shows
+annotation targets in packages this one does not depend on, now marked
+`doc-ref: ok` with the reason. Both copies stay identical under the import
+rewrite, as the mirror rule requires.
+
 ## 0.122.0
 
 Name resolution: yes — a name narrowed by import scope is retrieved by kind, not as a class only (sce25).

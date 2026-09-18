@@ -8,6 +8,8 @@
 ///
 /// Apply this annotation to classes extending `D4UserBridge`:
 ///
+/// doc-ref: ok — the library URIs in these examples are illustrative
+/// targets for the annotation, naming packages this one does not depend on.
 /// ```dart
 /// // Override all elements from a specific library
 /// @D4rtUserBridge('package:tom_basics/src/log/tom_log.dart')
@@ -44,6 +46,8 @@ library;
 /// that the generator cannot handle correctly (e.g., operators, complex
 /// generics, or classes needing `nativeNames`).
 ///
+/// doc-ref: ok — the library URIs in this example are illustrative targets,
+/// naming packages this one does not depend on.
 /// Example:
 /// ```dart
 /// @D4rtUserBridge('package:tom_basics/src/log/tom_log.dart')
@@ -85,6 +89,8 @@ class D4rtUserBridge {
 /// Globals user bridges provide custom implementations for top-level
 /// functions, variables, and getters from a specific library.
 ///
+/// doc-ref: ok — the library URIs in this example are illustrative targets,
+/// naming packages this one does not depend on.
 /// Example:
 /// ```dart
 /// @D4rtGlobalsUserBridge('package:tom_basics/src/utils/helpers.dart')
