@@ -239,11 +239,60 @@ void main() {
         expect(result, equals('v1,v2'));
       },
       skip:
-          'sce16_aikt: `await for` reads the whole stream before running '
-          'its body, and an async* generator runs to completion regardless '
-          'of its listener, so the generator logs "resumed" before the loop '
-          'body sees element 1.',
+          'scf4: SCE16 made `await for` lazy — one `moveNext()` per element, '
+          'and the iterator is cancelled when the loop is left — so the '
+          'interleaving is now right: this returns "v1,v2,resumed" where it '
+          'used to return "resumed,v1,v2". What is left is the other half: an '
+          '`async*` generator still ignores its listener, so cancelling the '
+          'subscription does not stop the body and "resumed" still runs.',
     );
+
+    test('F-SCE16-1: an await for over an INFINITE stream runs its body and '
+        'can be broken out of [2026-09-18] (PASS)', () async {
+      // The one failure that was total rather than a wrong ordering. While the
+      // loop was implemented as `stream.toList()` then walk the list, an
+      // infinite stream never produced a list, so the body never ran ONCE and
+      // a `break` could not help — the break is in the body. Driven by
+      // `moveNext()` the body runs on the first element, and the `break`
+      // cancels the subscription.
+      //
+      // `Stream.periodic` is genuinely unbounded: if this regresses it hangs
+      // rather than fails, which is what the timeout is for.
+      final result = await executeAsync('''
+        main() async {
+          var seen = <int>[];
+          await for (var t in Stream.periodic(
+              Duration(milliseconds: 1), (i) => i)) {
+            seen.add(t);
+            if (seen.length == 3) break;
+          }
+          return seen.join(',');
+        }
+      ''');
+      expect(result, equals('0,1,2'));
+    }, timeout: const Timeout(Duration(seconds: 20)));
+
+    test('F-SCE16-2: the body runs before the whole stream is produced '
+        '[2026-09-18] (PASS)', () async {
+      // The ordering half. Every element used to be produced before the body
+      // ran at all, so a generator's side effects all landed first. Here the
+      // generator records when it produces and the body records when it
+      // consumes; interleaved is correct, front-loaded is the old bug.
+      final result = await executeAsync('''
+        var log = <String>[];
+        Stream<int> gen() async* {
+          log.add('p1'); yield 1;
+          log.add('p2'); yield 2;
+        }
+        main() async {
+          await for (var v in gen()) {
+            log.add('c\$v');
+          }
+          return log.join(',');
+        }
+      ''');
+      expect(result, equals('p1,c1,p2,c2'));
+    });
 
     test('F-SCD4-11: break inside an await for inside a called async function '
         'returns to the caller normally [2026-09-11] (PASS)', () async {

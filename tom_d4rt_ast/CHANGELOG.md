@@ -1,3 +1,32 @@
+## 0.116.0
+
+### Changed — `await for` is lazy: one element at a time, and the stream is cancelled when the loop is left
+
+`await for` suspended ONCE on `stream.toList()` and then walked the resulting
+list. Three consequences, one of them total:
+
+* a loop over an **infinite** stream never ran its body at all — `toList()`
+  never completes, and a `break` cannot help because the break is in the body;
+* every element was produced before the body ran once, so a producer's side
+  effects all landed up front;
+* `break` meant nothing to the producer: nothing was ever cancelled.
+
+The loop is now driven by a `StreamIterator` — one suspension per element on
+`moveNext()`, `current` bound on resumption — and every loop-exit path cancels
+the iterator, because `truncateLoopStacks` (SCD4's centralised exit) is the one
+place that cannot be forgotten.
+
+The cancel is deliberately not awaited: every caller is a synchronous exit path
+in the state machine. It happens promptly; what is not guaranteed is its
+ORDERING against code after the loop, which is why a test observing a
+generator's `finally` has to await a turn first.
+
+**Half of SCE16, not all of it.** An `async*` generator still ignores its
+listener, so cancelling a subscription does not yet stop the body — see scf4.
+`F-SCD4-10` stays skipped, but its failure has changed shape: it returned
+`resumed,v1,v2` and now returns `v1,v2,resumed`, so the interleaving is right
+and only the cancellation is missing.
+
 ## 0.115.0
 
 ### Added — a bundle can record what produced it

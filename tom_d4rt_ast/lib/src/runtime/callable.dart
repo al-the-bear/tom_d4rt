@@ -2443,40 +2443,38 @@ class InterpretedFunction implements Callable {
               "[StateMachine] Detected await for loop, handling natively.",
             );
 
-            // Check if this await-for loop is already in the stack
+            // SCE16: `await for` is driven by a StreamIterator — one
+            // suspension on `moveNext()` per element — rather than by reading
+            // the whole stream into a list and walking it. See
+            // AsyncExecutionState.awaitingStreamMoveNext for what that cost.
+            //
+            // Three cases, and the handler is re-entered for each of them:
+            //   1. the loop is not on the stack  -> evaluate the stream, make
+            //      an iterator, suspend on moveNext();
+            //   2. the loop is on the stack with an element in hand -> bind it
+            //      and run the body;
+            //   3. the loop is on the stack with no element -> suspend on
+            //      moveNext() again.
+            // A resumption from moveNext() lands in case 2 or ends the loop,
+            // and a resumption from the body's own await lands in case 3.
             final awaitForLoopIndex = currentState.awaitForNodeStack.indexOf(
               forNode,
             );
             final bool isExistingAwaitForLoop = awaitForLoopIndex >= 0;
 
-            // Get or initialize the state for this specific await-for loop
-            List<Object?>? awaitForList;
-            int? awaitForIndex;
-
-            if (isExistingAwaitForLoop) {
-              // This loop is already in the stack, retrieve its state
-              awaitForList = currentState.awaitForListStack[awaitForLoopIndex];
-              awaitForIndex =
-                  currentState.awaitForIndexStack[awaitForLoopIndex];
-              Logger.debug(
-                "[StateMachine] AwaitForIn: Resuming existing loop at stack index $awaitForLoopIndex",
-              );
-            }
-
-            // Check if we need to initialize this await-for loop
-            if (!isExistingAwaitForLoop && awaitForList == null) {
-              // First time: evaluate the stream and convert to list
+            if (!isExistingAwaitForLoop) {
+              // ── Case 1: first encounter ───────────────────────────────────
               Logger.debug("[StateMachine] AwaitForIn: Evaluating stream.");
               final streamResult = partsIterable!.accept<Object?>(visitor);
 
               if (streamResult is AsyncSuspensionRequest) {
+                // `await for (x in await f())` — the stream expression itself
+                // suspends. Resuming re-enters this handler, still in case 1.
                 Logger.debug(
                   "[StateMachine] AwaitForIn stream evaluation suspended. Waiting...",
                 );
                 lastResult = streamResult;
-                // The suspension logic below will handle it.
               } else {
-                // We have a stream, convert it to a list asynchronously
                 Object? streamValue;
                 if (visitor.toBridgedInstance(streamResult).$2) {
                   final bridgedInstance = visitor
@@ -2498,47 +2496,45 @@ class InterpretedFunction implements Callable {
                 }
 
                 if (streamValue is Stream) {
-                  // Create a suspension request to convert stream to list
+                  final iterator = StreamIterator<Object?>(streamValue);
+                  currentState.recordLoopEntry(forNode);
+                  currentState.awaitForNodeStack.add(forNode);
+                  currentState.awaitForIteratorStack.add(iterator);
+                  currentState.awaitForHasElementStack.add(false);
+                  // The loop gets its environment and its place on the loop
+                  // stack NOW, before the first element: `break` in the body
+                  // needs to find it (SCD4), and so does the binding below.
+                  _beginAwaitForIteration(currentState, forNode);
+                  currentState.awaitingStreamMoveNext = true;
                   lastResult = AsyncSuspensionRequest(
-                    streamValue.toList(),
+                    iterator.moveNext(),
                     currentState,
                   );
-                  // Mark that we're waiting for stream conversion
-                  currentState.awaitingStreamConversion = true;
-                  currentState.recordLoopEntry(forNode);
-                  // Add this loop to the stack as "pending initialization"
-                  currentState.awaitForNodeStack.add(forNode);
-                  currentState.awaitForListStack.add(
-                    [],
-                  ); // Placeholder until stream converts
-                  currentState.awaitForIndexStack.add(0);
                 }
               }
-            } else if (currentState.awaitingStreamConversion == true) {
-              // The stream has just been read into a list.
-              final items = currentState.lastAwaitResult as List<Object?>;
-              _beginAwaitForIteration(currentState, forNode, items);
-              awaitForList = items;
-              awaitForIndex = 0;
-            }
+            } else {
+              final iterator =
+                  currentState.awaitForIteratorStack[awaitForLoopIndex];
 
-            // Determine which list and index to use
-            if (isExistingAwaitForLoop && awaitForList != null) {
-              // Use the state from the stack
-              final items = awaitForList;
-              final currentIndex = awaitForIndex ?? 0;
+              // A moveNext() has just completed: its bool says whether the
+              // loop continues.
+              if (currentState.awaitingStreamMoveNext) {
+                currentState.awaitingStreamMoveNext = false;
+                final hasElement = currentState.lastAwaitResult == true;
+                currentState.awaitForHasElementStack[awaitForLoopIndex] =
+                    hasElement;
+              }
 
-              if (currentIndex < items.length) {
-                // Process current item
-                final currentItem = items[currentIndex];
+              if (currentState.awaitForHasElementStack[awaitForLoopIndex]) {
+                // ── Case 2: an element is in hand ──────────────────────────
+                final currentItem = iterator.current;
+                currentState.awaitForHasElementStack[awaitForLoopIndex] = false;
                 Logger.debug(
-                  "[StateMachine] AwaitForIn: Processing item $currentIndex: $currentItem (stack level ${currentState.awaitForNodeStack.length})",
+                  "[StateMachine] AwaitForIn: Processing $currentItem (stack level ${currentState.awaitForNodeStack.length})",
                 );
 
-                // The loop's environment is the one it pushed when its stream
-                // was read — at the environment depth recorded on entry.
-                final awaitForLoopIndex = currentState.awaitForNodeStack
-                    .indexOf(forNode);
+                // The loop's environment is the one it pushed on entry, at the
+                // environment depth recorded then.
                 final entryDepths = currentState.loopEntryDepths[forNode];
                 if (entryDepths != null &&
                     entryDepths.environments <
@@ -2548,9 +2544,9 @@ class InterpretedFunction implements Callable {
                 }
 
                 if (parts is SForEachPartsWithDeclaration) {
-                  // G-DOV-12 FIX: Use define-then-assign pattern to handle cases
-                  // where the loop environment might not have the variable defined yet
-                  // (e.g., after async resumption with environment changes).
+                  // G-DOV-12: define-then-assign, because an async resumption
+                  // can land in an environment where the variable is not yet
+                  // defined.
                   final varName = _loopVarName(parts.loopVariable);
                   final boundItem = checkForEachBinding(
                     visitor.environment,
@@ -2560,7 +2556,6 @@ class InterpretedFunction implements Callable {
                   try {
                     visitor.environment.assign(varName, boundItem);
                   } on RuntimeD4rtException {
-                    // Variable not found in scope chain — define it in current env
                     visitor.environment.define(varName, boundItem);
                   }
                 } else if (parts is SForEachPartsWithIdentifier) {
@@ -2570,39 +2565,24 @@ class InterpretedFunction implements Callable {
                   );
                 }
 
-                // Execute the body through the state machine, not manually
-                // This ensures proper suspension/resumption handling for await expressions
-                Logger.debug(
-                  "[StateMachine] AwaitForIn: Executing body for item $currentIndex",
-                );
-                Logger.debug(
-                  "[StateMachine] AwaitForIn: Next node is body: ${forNode.body.runtimeType}",
-                );
-
-                // Increment the index NOW, before executing the body
-                // This way, when the body completes and we return to SForStatement,
-                // we'll move to the next item instead of re-processing the current one
-                currentState.awaitForIndexStack[awaitForLoopIndex] =
-                    currentIndex + 1;
-                Logger.debug(
-                  "[StateMachine] AwaitForIn: Pre-incremented index to ${currentIndex + 1}",
-                );
-
                 if (forNode.body is SBlock) {
                   currentNode = (forNode.body as SBlock).statements.firstOrNull;
                 } else {
                   currentNode = forNode.body;
                 }
                 currentState.nextStateIdentifier = currentNode;
-                continue; // Let state machine execute the body
-              } else {
-                // End of iteration - remove this loop from the stack
+                continue; // Let the state machine execute the body.
+              } else if (currentState.lastAwaitResult == false &&
+                  !currentState.awaitingStreamMoveNext) {
+                // ── The stream is done ─────────────────────────────────────
                 Logger.debug(
-                  "[StateMachine] AwaitForIn: Iteration finished for stack level ${currentState.awaitForNodeStack.length}.",
+                  "[StateMachine] AwaitForIn: Stream exhausted at stack level ${currentState.awaitForNodeStack.length}.",
                 );
-
                 final entryDepths = currentState.loopEntryDepths[forNode];
                 if (entryDepths != null) {
+                  // Truncation cancels the iterator. Harmless on a stream that
+                  // already ended, and it is the one place that cannot be
+                  // forgotten.
                   currentState.truncateLoopStacks(entryDepths);
                 }
                 visitor.environment =
@@ -2612,7 +2592,17 @@ class InterpretedFunction implements Callable {
 
                 currentNode = _findNextSequentialNode(visitor, forNode);
                 currentState.nextStateIdentifier = currentNode;
-                continue; // Restart the state machine loop
+                continue;
+              } else {
+                // ── Case 3: ask for the next element ───────────────────────
+                Logger.debug(
+                  "[StateMachine] AwaitForIn: Requesting next element.",
+                );
+                currentState.awaitingStreamMoveNext = true;
+                lastResult = AsyncSuspensionRequest(
+                  iterator.moveNext(),
+                  currentState,
+                );
               }
             }
           } else {
@@ -5243,40 +5233,12 @@ class InterpretedFunction implements Callable {
         "[_determineNextNodeAfterAwait] Handling await for loop suspension.",
       );
 
-      // If we just finished converting stream to list, set up the list and start iteration
-      if (state.awaitingStreamConversion == true) {
-        Logger.debug(
-          "[_determineNextNodeAfterAwait] Setting up await for list iteration.",
-        );
-        _beginAwaitForIteration(
-          state,
-          awaitContextNode,
-          futureResult as List<Object?>,
-        );
-
-        // Return the SForStatement itself to continue processing
-        return awaitContextNode;
-      } else {
-        // If we're in the middle of await for iteration but got suspended (e.g., body had async operation)
-        // Increment the index in the stack for this specific await-for loop
-        final stackIndex = state.awaitForNodeStack.indexOf(awaitContextNode);
-        if (stackIndex >= 0) {
-          final currentIndex = state.awaitForIndexStack[stackIndex];
-          state.awaitForIndexStack[stackIndex] = currentIndex + 1;
-          Logger.debug(
-            "[_determineNextNodeAfterAwait] Continuing await for iteration at stack level $stackIndex. Moving to index ${state.awaitForIndexStack[stackIndex]}",
-          );
-        } else {
-          // Fallback to legacy approach
-          final currentIndex = state.currentAwaitForIndex ?? 0;
-          state.currentAwaitForIndex = currentIndex + 1;
-          Logger.debug(
-            "[_determineNextNodeAfterAwait] Continuing await for iteration (legacy). Moving to index ${state.currentAwaitForIndex}",
-          );
-        }
-        // Continue back to the SForStatement to process next item
-        return awaitContextNode;
-      }
+      // SCE16: every await-for suspension — the stream expression, and each
+      // `moveNext()` — resumes at the ForStatement itself, which decides what
+      // to do from `awaitingStreamMoveNext` and `lastAwaitResult`. It used to
+      // advance an index here, which only made sense while the loop was
+      // walking a pre-read list.
+      return awaitContextNode;
     }
 
     Logger.warn(
@@ -5285,31 +5247,22 @@ class InterpretedFunction implements Callable {
     return null; // Default stop state machine
   }
 
-  /// The stream of the `await for` [forNode] has been read into [items]: file
-  /// them against the loop, and give the loop its environment and its place
-  /// on the loop stack.
+  /// Give the `await for` [forNode] its environment and its place on the loop
+  /// stack, before its first element arrives.
   ///
   /// SCD4: the loop used to be put on `loopNodeStack` only on a path that the
   /// resumption never took, so `break` and `continue` in the body found no
   /// loop and failed with "outside of a loop". Both loop-variable forms get an
   /// environment: a declared variable lives in it, and an existing one is
   /// assigned through it to the scope that owns it.
+  ///
+  /// SCE16: called once on entry rather than once the stream had been read,
+  /// because there is no longer a moment when the whole stream is in hand —
+  /// and `break` must work from the first element, which arrives after this.
   static void _beginAwaitForIteration(
     AsyncExecutionState state,
     SForStatement forNode,
-    List<Object?> items,
   ) {
-    state.awaitingStreamConversion = false;
-    final stackIndex = state.awaitForNodeStack.indexWhere(
-      (node) => identical(node, forNode),
-    );
-    if (stackIndex >= 0) {
-      state.awaitForListStack[stackIndex] = items;
-      state.awaitForIndexStack[stackIndex] = 0;
-    }
-    state.currentAwaitForList = items;
-    state.currentAwaitForIndex = 0;
-
     final loopEnvironment = Environment(
       enclosing: state.loopEnvironmentStack.isNotEmpty
           ? state.loopEnvironmentStack.last

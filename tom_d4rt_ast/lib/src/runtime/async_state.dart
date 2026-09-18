@@ -161,17 +161,30 @@ class AsyncExecutionState {
   /// Used to track position in the converted list from a stream.
   int? currentAwaitForIndex;
 
-  /// Flag indicating if the interpreter is currently waiting for stream conversion.
-  /// When true, indicates that a stream is being converted to a list for await-for processing.
-  bool awaitingStreamConversion = false;
+  /// Whether the pending suspension is an `await for`'s `moveNext()`.
+  ///
+  /// SCE16. This used to be `awaitingStreamConversion`, and the name was
+  /// accurate: the loop suspended ONCE on `stream.toList()` and then walked the
+  /// list. That made `await for` eager — every element was produced before the
+  /// body ran once, a `break` could not stop the producer, and a loop over an
+  /// infinite stream never ran its body at all because `toList()` never
+  /// completes. The loop now suspends once per element on
+  /// [StreamIterator.moveNext], which is what `await for` means.
+  bool awaitingStreamMoveNext = false;
 
-  /// Stack of lists for nested await-for loops
-  /// Each level of nesting has its own list
-  final List<List<Object?>> awaitForListStack = [];
+  /// Stack of stream iterators for nested await-for loops.
+  ///
+  /// Parallel to [awaitForNodeStack]. Each entry owns a subscription and MUST
+  /// be cancelled when its loop is left — see [truncateLoopStacks].
+  final List<StreamIterator<Object?>> awaitForIteratorStack = [];
 
-  /// Stack of indices for nested await-for loops
-  /// Each level of nesting has its own index
-  final List<int> awaitForIndexStack = [];
+  /// Whether each nested await-for loop currently holds an unconsumed element.
+  ///
+  /// Parallel to [awaitForNodeStack]. The loop's handler is re-entered both
+  /// after a `moveNext()` resumption and after its body finishes, and this is
+  /// what tells those apart: with an element in hand it binds and runs the
+  /// body, without one it asks for the next.
+  final List<bool> awaitForHasElementStack = [];
 
   /// Stack of SForStatement nodes for nested await-for loops
   /// Used to track which await-for loop we're in
@@ -213,12 +226,26 @@ class AsyncExecutionState {
     for (final node in awaitForNodeStack.skip(depths.awaitFor)) {
       loopEntryDepths.remove(node);
     }
+    // SCE16: an await-for being left owns a live subscription. Cancelling it is
+    // what stops the producer — an `async*` generator resumes at its `yield`
+    // and runs its `finally` blocks, and an infinite stream stops arriving.
+    // Leaving it uncancelled is how a `break` used to mean nothing to the
+    // stream.
+    //
+    // NOT awaited, because every caller of this is a synchronous exit path in
+    // the state machine (break, continue, loop end, an exception unwinding).
+    // The cancel still happens promptly — it is the ORDERING against code after
+    // the loop that is not guaranteed, which is why a test that observes a
+    // generator's `finally` has to await a turn first.
+    for (final iterator in awaitForIteratorStack.skip(depths.awaitFor)) {
+      unawaited(iterator.cancel().catchError((Object _) {}));
+    }
     _shrink(loopNodeStack, depths.nodes);
     _shrink(loopEnvironmentStack, depths.environments);
     _shrink(loopInitializedStack, depths.initialized);
     _shrink(awaitForNodeStack, depths.awaitFor);
-    _shrink(awaitForListStack, depths.awaitFor);
-    _shrink(awaitForIndexStack, depths.awaitFor);
+    _shrink(awaitForIteratorStack, depths.awaitFor);
+    _shrink(awaitForHasElementStack, depths.awaitFor);
     if (awaitForNodeStack.isEmpty) {
       currentAwaitForList = null;
       currentAwaitForIndex = null;

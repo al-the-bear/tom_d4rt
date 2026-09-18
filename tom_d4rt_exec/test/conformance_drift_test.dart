@@ -1734,6 +1734,15 @@ const Map<String, _Divergence> _divergentBaseline = {
   // describes, made worse. They come across with the rest of this file when
   // the floor moves.
   'scc12_await_in_finally_test.dart': _Divergence.deliberate,
+  // `scd4_await_for_break`: SCE16 made `await for` lazy in the reference tree —
+  // one `StreamIterator.moveNext()` per element, with the iterator cancelled
+  // when the loop is left — and added two cases the published interpreter
+  // cannot pass. F-SCE16-1 loops over `Stream.periodic`, which under the old
+  // `stream.toList()` implementation never completes, so that case does not
+  // fail against 0.65.0, it HANGS; F-SCE16-2 asserts the body runs between
+  // elements rather than after all of them. Converges when the interpreter
+  // carrying SCE16 publishes, which sce162 currently blocks.
+  'scd4_await_for_break_test.dart': _Divergence.deliberate,
   // The reference copy's four `(legacy)` cases reach into the analyzer `D4rt`'s
   // own environment chain — `enclosing`, the static warm-parent cache keyed on
   // the allowed-set signature — and measured here they fail, because the exec
@@ -1824,6 +1833,7 @@ const Map<String, String> _divergenceFingerprints = <String, String>{
   'stdlib/collection/list_queue_test.dart': '927a588334725bb2',
   'stdlib/collection/queue_test.dart': '19eee099a23916a8',
   'stdlib/cast_from_family_test.dart': 'c7a32ccddec5a069',
+  'scd4_await_for_break_test.dart': '9d8fdd67890791db',
   'scc12_await_in_finally_test.dart': '7c826ab0613fae0b',
   'warm_parent_package_pool_test.dart': '971b6ff19185f442',
   'stdlib/intentionally_unbridged_test.dart': 'a11036cda720efcf',
