@@ -342,7 +342,12 @@ void _writePackageConfig({
 /// dartscript writers, live in `bridge_api.generateBridges`, so the gate could
 /// not see their output at all — and GEN-119 lived in that neighbourhood.
 /// `@D4rtUserProxy` / `@D4rtUserRelaxer` directives are what drive them.
-Future<Directory> buildOrchestratedPackage(String generatorRoot) async {
+Future<Directory> buildOrchestratedPackage(
+  String generatorRoot, {
+  // sce46: the two knobs that isolate the relaxer emitter's early exits.
+  bool withExtractionSites = true,
+  bool withUserRelaxer = true,
+}) async {
   final root = Directory.systemTemp.createTempSync('gen121_orch_');
   File(p.join(root.path, 'pubspec.yaml')).writeAsStringSync(
     'name: zom_orchgate\n'
@@ -372,6 +377,13 @@ class ZomBox<T> {
   int get count => items.length;
 }
 
+''');
+  if (withExtractionSites) {
+    // Extraction sites come from USAGE, not from declaring a generic class:
+    // this consumer is what makes the generator collect a site for
+    // `ZomBox<ZomCustomer>`. Omitting it leaves `ZomBox<T>` declared, so a
+    // user relaxer still compiles, while no site is collected at all.
+    File(p.join(libDir.path, 'forms.dart')).writeAsStringSync('''
 class ZomConsumer {
   ZomConsumer();
 
@@ -380,7 +392,8 @@ class ZomConsumer {
   ZomBox<ZomCustomer> build(List<ZomCustomer> items) =>
       ZomBox<ZomCustomer>(items);
 }
-''');
+      ''', mode: FileMode.append);
+  }
   File(p.join(libDir.path, 'user_directives.dart')).writeAsStringSync('''
 library;
 
@@ -414,12 +427,13 @@ class ZomBoxUserRelaxer extends D4UserRelaxer {
   // above is scanned by `UserProxyRelaxerScanner`, which no generation path
   // calls — SCE46. The directives stay in the fixture because they still
   // exercise bridging of the directive classes themselves.)
-  Directory(
-    p.join(libDir.path, 'src', 'user_relaxers'),
-  ).createSync(recursive: true);
-  File(
-    p.join(libDir.path, 'src', 'user_relaxers', 'zom_box_user_relaxer.dart'),
-  ).writeAsStringSync('''
+  if (withUserRelaxer) {
+    Directory(
+      p.join(libDir.path, 'src', 'user_relaxers'),
+    ).createSync(recursive: true);
+    File(
+      p.join(libDir.path, 'src', 'user_relaxers', 'zom_box_user_relaxer.dart'),
+    ).writeAsStringSync('''
 import 'package:zom_orchgate/forms.dart';
 
 /// A hand-written relaxer, in the shape `GenericTypeWrapperFactory` requires:
@@ -430,6 +444,7 @@ Object? relaxZomBox(Object value, String innerTypeArg) {
   return ZomBox<ZomCustomer>(items.whereType<ZomCustomer>().toList());
 }
 ''');
+  }
 
   _writePackageConfig(
     root: root,
@@ -609,6 +624,100 @@ void main() {
             'package: URI — the GEN-119 failure mode was a bare path',
       );
     });
+  });
+
+  // sce46: the relaxer emitter's two EARLY exits ran before it had looked for
+  // user relaxers, so a package whose only relaxer content is hand-written was
+  // handed an empty stub and its relaxers were dropped silently — nothing had
+  // scanned for them, so no warning could name them. The GEN-095 exit at Step
+  // 4 already honoured `userRelaxers.isEmpty`, which is what makes this an
+  // inconsistency with the generator's own intent rather than a design
+  // question.
+  //
+  // The variant below is the same fixture with `ZomConsumer` dropped: no
+  // USAGE of `ZomBox<ZomCustomer>` means no extraction site is collected,
+  // which is exactly the state the first exit fired on.
+  group('SCE46: a user relaxer alone keeps the relaxer file non-stub', () {
+    late Directory withRelaxer;
+    late Directory withoutRelaxer;
+
+    setUpAll(() async {
+      withRelaxer = await buildOrchestratedPackage(
+        Directory.current.path,
+        withExtractionSites: false,
+      );
+      withoutRelaxer = await buildOrchestratedPackage(
+        Directory.current.path,
+        withExtractionSites: false,
+        withUserRelaxer: false,
+      );
+    });
+
+    tearDownAll(() {
+      for (final dir in [withRelaxer, withoutRelaxer]) {
+        try {
+          dir.deleteSync(recursive: true);
+        } catch (_) {}
+      }
+    });
+
+    String relaxerSourceIn(Directory root) => File(
+      p.join(root.path, 'lib', 'src', 'relaxers.b.dart'),
+    ).readAsStringSync();
+
+    test('G-SCE46-1: with NO extraction sites and no user relaxer the file is '
+        'still a stub [2026-09-18] (PASS)', () {
+      // Two things at once, and the second is why it comes first. It pins that
+      // the early exit still works — the fix narrows it, it does not remove
+      // it — AND it establishes that this fixture really collects no
+      // extraction sites, without which G-SCE46-2 would prove nothing.
+      final source = relaxerSourceIn(withoutRelaxer);
+      expect(
+        source,
+        contains('void registerRelaxers() {}'),
+        reason:
+            'nothing to register and nothing hand-written, so the stub is the '
+            'correct output — and its presence is what proves the variant is '
+            'genuinely extraction-site-free',
+      );
+      expect(source, isNot(contains('relaxZomBox')));
+    });
+
+    test('G-SCE46-2: with NO extraction sites, a user relaxer is still '
+        'registered [2026-09-18] (PASS)', () {
+      final source = relaxerSourceIn(withRelaxer);
+
+      expect(
+        source,
+        isNot(contains('void registerRelaxers() {}')),
+        reason:
+            'this is the defect: both early exits returned a stub before '
+            '`scanUserRelaxers` had run, so the hand-written relaxer was '
+            'dropped and no warning could name it',
+      );
+      expect(
+        source,
+        contains("D4.registerGenericTypeWrapper('ZomBox', relaxZomBox)"),
+        reason: 'the relaxer must be REGISTERED, not merely imported',
+      );
+      expect(
+        source,
+        contains('user_relaxers/zom_box_user_relaxer.dart'),
+        reason:
+            'and imported, or the registration names a function the file '
+            'never brought into scope — the scd12 failure mode',
+      );
+    });
+
+    test('G-SCE46-3: the target-less package with a user relaxer analyses '
+        'clean [2026-09-18] (PASS)', () async {
+      // The emitted file now takes a path it never took before: imports and a
+      // registration body with zero wrapper classes above them. Analysing it
+      // is what distinguishes "emitted something" from "emitted something
+      // that compiles".
+      final fatal = fatalDiagnostics(await analyzeDirectory(withRelaxer.path));
+      expect(fatal, isEmpty, reason: 'Offenders:\n${fatal.join('\n')}');
+    }, timeout: const Timeout(Duration(minutes: 5)));
   });
 
   // These two tests are the reason the gate is worth its runtime. They assert

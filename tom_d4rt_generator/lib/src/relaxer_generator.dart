@@ -181,10 +181,32 @@ Future<RelaxerGenerationResult> generateRelaxers({
     );
   }
 
+  // sce46: scan for user-defined relaxers BEFORE the early bails.
+  //
+  // This used to run at Step 3, after both exits below had already returned a
+  // stub — so a package whose only relaxer content is hand-written user
+  // relaxers got an empty `relaxers.b.dart` and its relaxers were dropped
+  // SILENTLY: nothing had looked for them yet, so no warning could name them.
+  //
+  // It is an inconsistency with the generator's own later intent rather than
+  // an open question: the GEN-095 exit at Step 4 already includes
+  // `userRelaxers.isEmpty` in its condition, so user relaxers alone were
+  // always meant to keep the file non-stub. The two earlier exits predate that
+  // and were never revisited.
+  //
+  // The scan is a filesystem walk of one directory and depends on nothing
+  // computed below, so it moves freely.
+  final userRelaxers = scanUserRelaxers(
+    outputPath,
+    projectPath,
+    warn,
+    packageName: config.name,
+  );
+
   // -------------------------------------------------------------------------
   // Step 1: Use pre-collected generic extraction sites from bridge generator
   // -------------------------------------------------------------------------
-  if (genericExtractionSites.isEmpty) {
+  if (genericExtractionSites.isEmpty && userRelaxers.isEmpty) {
     warn('No generic extraction sites collected during bridge generation');
     return emitStub('No generic extraction sites collected');
   }
@@ -233,7 +255,10 @@ Future<RelaxerGenerationResult> generateRelaxers({
     reducedTypeArgAllowlist,
   );
 
-  if (targets.isEmpty) {
+  // sce46: `userRelaxers.isEmpty` for the same reason as Step 1 — a package
+  // with no RC-2-eligible class but a hand-written relaxer has nothing to put
+  // in `targets` and still has something to register.
+  if (targets.isEmpty && userRelaxers.isEmpty) {
     warn('No relaxer targets identified after filtering');
     return emitStub('No relaxer targets after filtering');
   }
@@ -332,13 +357,6 @@ Future<RelaxerGenerationResult> generateRelaxers({
     }
   }
 
-  // Scan for user-defined relaxer extensions
-  final userRelaxers = scanUserRelaxers(
-    outputPath,
-    projectPath,
-    warn,
-    packageName: config.name,
-  );
   var userRelaxerImports = '';
 
   // Add user relaxer imports if any exist

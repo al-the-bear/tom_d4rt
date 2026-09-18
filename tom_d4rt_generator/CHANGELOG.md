@@ -1,3 +1,35 @@
+## 1.36.0
+
+### Fixed — a user relaxer alone now keeps `relaxers.b.dart` non-stub
+
+`generateRelaxers` returned an empty stub at two points BEFORE it ever scanned
+for user relaxers:
+
+    Step 1  genericExtractionSites.isEmpty  → "No generic extraction sites collected"
+    Step 2  targets.isEmpty                 → "No relaxer targets after filtering"
+
+`scanUserRelaxers` did not run until Step 3. So a package whose only relaxer
+content is hand-written — `<relaxer output dir>/user_relaxers/*_user_relaxer.dart`
+— got an empty `relaxers.b.dart` and its relaxers were dropped SILENTLY: no
+warning could name them, because nothing had looked for them yet.
+
+This was an inconsistency with the generator's own later intent rather than an
+open design question. The Step 4 exit (GEN-095) already includes
+`userRelaxers.isEmpty` in its condition, so user relaxers alone were always
+meant to keep the file non-stub; the two earlier exits predate that and were
+never revisited.
+
+The scan is hoisted above both exits — it is a filesystem walk of one directory
+and depends on nothing computed below — and `userRelaxers.isEmpty` is folded
+into each condition. Nothing else needed changing: Step 3 iterates `targets`,
+so an empty list contributes no wrappers, while user relaxers already feed
+`factoryNames`, which is what `registerRelaxers()` is written from, and
+`_withUserRelaxerImports` already splices the import block.
+
+The exits are NARROWED, not removed: a package with neither extraction sites
+nor user relaxers still gets its stub, which is what keeps the unconditional
+`dartscript.b.dart` import resolving.
+
 ## 1.35.0
 
 ### Fixed — directory mode honours `excludeSourcePatterns` for enums, functions and variables
