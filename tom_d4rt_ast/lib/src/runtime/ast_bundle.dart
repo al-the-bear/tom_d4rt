@@ -57,6 +57,20 @@ abstract final class AstBundleFormat {
   /// Key for the optional source code map.
   static const String keySources = 'sources';
 
+  /// Key for the optional producer identity, e.g. `tom_ast_generator 0.1.6`.
+  ///
+  /// SCE15. [version] identifies the FORMAT; it says nothing about what built
+  /// the bundle. That gap matters more here than anywhere else in the
+  /// ecosystem: a bundle is produced on a server and shipped to an app that
+  /// cannot re-derive it, so a bundle that fails to interpret on device could
+  /// not say whether it was written by a generator older than the app's model.
+  ///
+  /// Optional and additive. Every reader in this file takes known keys only, so
+  /// an older reader ignores it and a bundle without it loads unchanged — which
+  /// is exactly why [version] does NOT bump for this. A format stamp bumps only
+  /// for a change that is not backwards compatible.
+  static const String keyGenerator = 'generator';
+
   /// File extension suffix for Dart source entries within the archive.
   static const String sourceDartSuffix = '.src.dart';
 
@@ -106,11 +120,18 @@ class AstBundleManifest {
   /// compiled AST modules. This is opt-in and `null` by default.
   final Map<String, String>? sourceFiles;
 
+  /// What produced this bundle, e.g. `tom_ast_generator 0.1.6`.
+  ///
+  /// `null` for a bundle written before [AstBundleFormat.keyGenerator] existed,
+  /// or by a producer that does not set it.
+  final String? generator;
+
   const AstBundleManifest({
     required this.version,
     required this.entryPoint,
     required this.files,
     this.sourceFiles,
+    this.generator,
   });
 
   /// Serializes this manifest to a JSON-compatible map.
@@ -119,6 +140,7 @@ class AstBundleManifest {
     AstBundleFormat.keyEntryPoint: entryPoint,
     AstBundleFormat.keyFiles: files,
     if (sourceFiles != null) AstBundleFormat.keySources: sourceFiles,
+    if (generator != null) AstBundleFormat.keyGenerator: generator,
   };
 
   /// Deserializes a manifest from a JSON map.
@@ -162,6 +184,9 @@ class AstBundleManifest {
       entryPoint: entryPoint,
       files: filesJson.map((k, v) => MapEntry(k, v.toString())),
       sourceFiles: sourceFiles,
+      // Read as a nullable String and not validated beyond its type: this is
+      // provenance, so a malformed value must never stop a bundle loading.
+      generator: json[AstBundleFormat.keyGenerator] as String?,
     );
   }
 
@@ -169,7 +194,8 @@ class AstBundleManifest {
   String toString() =>
       'AstBundleManifest(version: $version, '
       'entryPoint: $entryPoint, '
-      'files: ${files.length})';
+      'files: ${files.length}'
+      '${generator == null ? '' : ', generator: $generator'})';
 }
 
 // =============================================================================
@@ -220,10 +246,20 @@ class AstBundle {
   /// and disabled by default (`null`).
   final Map<String, String>? sources;
 
+  /// What produced this bundle, e.g. `tom_ast_generator 0.1.6`.
+  ///
+  /// `null` for a bundle written before [AstBundleFormat.keyGenerator] existed,
+  /// or by a producer that does not set it. See that constant for why it is
+  /// recorded. Carried through every serialization format this class offers —
+  /// JSON, gzip bytes and the ZIP manifest — because a bundle is diagnosed in
+  /// whichever form it arrived in.
+  final String? generator;
+
   /// Creates an [AstBundle] with the given entry point and modules.
   ///
   /// Optionally includes [sources] — a map from module URI to Dart source
-  /// code. When `null` (the default), no source is bundled.
+  /// code. When `null` (the default), no source is bundled — and [generator],
+  /// the identity of the tool that built it.
   ///
   /// Throws [ArgumentD4rtException] if [entryPointUri] is not present
   /// in [modules].
@@ -231,6 +267,7 @@ class AstBundle {
     required this.entryPointUri,
     required this.modules,
     this.sources,
+    this.generator,
   }) {
     if (!modules.containsKey(entryPointUri)) {
       throw ArgumentD4rtException(
@@ -265,6 +302,7 @@ class AstBundle {
       (uri, cu) => MapEntry(uri, cu.toJson()),
     ),
     if (sources != null) AstBundleFormat.keySources: sources,
+    if (generator != null) AstBundleFormat.keyGenerator: generator,
   };
 
   /// Deserializes a bundle from a JSON map.
@@ -311,6 +349,9 @@ class AstBundle {
       entryPointUri: entryPointUri,
       modules: modules,
       sources: sources,
+      // Nullable and untyped-checked beyond String: provenance must never be
+      // the reason a bundle fails to load.
+      generator: json[AstBundleFormat.keyGenerator] as String?,
     );
   }
 
@@ -392,6 +433,7 @@ class AstBundle {
       entryPoint: entryPointUri,
       files: fileToUri,
       sourceFiles: sourceFileToUri,
+      generator: generator,
     );
     final manifestJson = const JsonEncoder.withIndent(
       '  ',
@@ -497,6 +539,7 @@ class AstBundle {
       entryPointUri: manifest.entryPoint,
       modules: modules,
       sources: sources,
+      generator: manifest.generator,
     );
   }
 

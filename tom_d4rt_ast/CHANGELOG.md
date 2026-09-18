@@ -1,3 +1,34 @@
+## 0.115.0
+
+### Added — a bundle can record what produced it
+
+`AstBundle` and `AstBundleManifest` gain an optional `generator` field, written
+and read under the new `AstBundleFormat.keyGenerator` (`"generator"`), for a
+producer identity such as `tom_ast_generator 0.1.6`. It is carried through all
+three serialization paths — the JSON map, the gzip byte form, and the ZIP
+manifest — because a bundle is diagnosed in whichever form it arrived in.
+
+`AstBundleFormat.version` identifies the FORMAT and says nothing about the
+producer. For this artefact that gap is worse than for a generated `*.b.dart`:
+a bundle is built on a server and shipped to an app that cannot re-derive it,
+so a bundle that failed to interpret on device could not say whether it had
+been written by a generator older than the app's AST model.
+
+**The format version does NOT bump.** The key is additive and every reader here
+takes known keys only, so an older reader ignores it and a bundle written
+before the key existed still loads with `generator == null`. A format stamp
+bumps for a change that is not backwards compatible; bumping it here would
+strand readers over a field they are free to ignore.
+
+Omitting the generator writes no key at all rather than a null-valued one — a
+present-but-null key would make every bundle claim provenance and supply none,
+which a reader cannot tell from a producer that tried and failed.
+
+This is the read side. Nothing in this package can populate the field: the
+value belongs to whatever built the bundle, and `AstBundler` lives in
+`tom_ast_generator`, which resolves this package from pub.dev. Bundles start
+carrying provenance once that side ships.
+
 ## 0.114.0
 
 ### Fixed - 49 stdlib adapters no longer discard a surplus argument in silence (scd204)
