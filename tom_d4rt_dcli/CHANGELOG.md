@@ -1,3 +1,38 @@
+## 1.5.0
+
+### Changed — realigned with the `dcli` 10 line
+
+`dcli`, `dcli_core` and `dcli_terminal` move from `^8.4.2` to `^10.0.0`, and
+`dart_console` to `^5.0.0` (required by `dcli_terminal` 10). `win32` resolves
+6.4.0 in consequence.
+
+The move was blocked, not deferred: `tom_build_base` pinned `dcli: ^8.4.2`,
+and because it sits transitively under this package via `tom_d4rt_generator`,
+version solving rejected any request for `dcli` 10 regardless of what this
+pubspec said. `tom_build_base` 2.11.0 widens that constraint to admit both
+majors, which is what unblocks this.
+
+### Changed — bridges regenerated against the dcli 10 API
+
+`lib/src/bridges/*.b.dart` are regenerated. dcli 9 removed a set of members
+that had been deprecated through the 8.x line, so the committed bridges
+described methods the package no longer has and every test that loaded them
+failed to compile. The removals visible here are `Env.addToPATHIfAbsent`,
+`Terminal.previousLine`, `Terminal.lines`, `DartProject.current`,
+`DartScript.current`, and `DartSdk.globalActivate` /
+`globalActivateFromPath`.
+
+### Removed — the `FileSync.tempFile()` bridge test
+
+`FileSync.tempFile()` was deprecated in favour of the top-level
+`createTempFilename()` and removed in dcli 9, so the test asserted an API that
+no longer exists. `createTempFilename()` is already covered by two tests in
+the Temp Files group; a third copy in the FileSync group would have been
+duplication rather than coverage.
+
+Suite 704/13/0, against a 705/13/0 baseline — the difference is exactly the
+deleted test.
+
 ## 1.4.0
 
 ### Fixed — the `--version` banner reports the real version (sce9)
