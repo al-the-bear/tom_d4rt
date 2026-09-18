@@ -1,3 +1,40 @@
+## 1.29.0
+
+### Added — a config option only the build_runner builder reads is warned about
+
+Three things generate bridges from the same `d4rtgen:` block: the CLI, the
+`generateBridges` API it calls, and the build_runner builder. An option only
+the builder reads was accepted and silently ignored by the other two, which
+reads as "configured" to anyone looking at the file. `libraryPath` is the case
+— it is part of `BridgeConfig` and consulted only by
+`PerPackageBridgeOrchestrator`. tom_brain_procedure set it for months under a
+comment asserting "the generator always runs the per-package orchestrator",
+false for the CLI that package had moved to, with nothing to say so.
+
+`generateBridges` now names any such option it finds, on stdout and on
+`GenerationResult.warnings`. The warning is not gated on `--verbose`: the whole
+defect is that setting the option looks like configuring something.
+
+One check covers both paths because the CLI delegates to `generateBridges`
+(1.27.0). `D4G-OPT-3` pins that it still does — if the executor ever
+orchestrates its own generation again, the warning stops reaching the CLI and
+that test fails.
+
+No configuration in this workspace sets `libraryPath`, so the warning fires
+nowhere today. It is here so the next package to set one is told, rather than
+finding out from output that never changed.
+
+### Changed — the docs say the builder produces different files
+
+The configuration reference marked `libraryPath` as enabling per-package dedup,
+with no hint it is builder-only, and the CLI guide compared the CLI and
+build_runner on speed and features as though they emitted the same thing. They
+do not: the builder writes a per-package file per dependency, a delegating
+barrel and a `bridges_trigger.b.dart`, where the CLI writes one self-contained
+module file. Both documents now say so, and note that the builder's
+`auto_apply: dependents` applies it to any dependent package running
+build_runner whether or not it meant to use it.
+
 ## 1.28.0
 
 ### Added — a committed generated file no run writes is reported as orphaned

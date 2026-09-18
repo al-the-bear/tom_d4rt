@@ -35,16 +35,54 @@ class GenerationResult {
   /// Any errors encountered.
   final List<String> errors;
 
+  /// Non-fatal notes about the configuration this run used.
+  ///
+  /// Carried on the result as well as printed, so a test can assert on them
+  /// without capturing stdout.
+  final List<String> warnings;
+
   const GenerationResult({
     required this.totalClasses,
     required this.totalModules,
     required this.outputFiles,
     required this.config,
     this.errors = const [],
+    this.warnings = const [],
   });
 
   /// Whether generation was successful (no errors).
   bool get isSuccess => errors.isEmpty;
+}
+
+/// Options a `d4rtgen:` block may set that ONLY the build_runner builder reads.
+///
+/// The builder (`lib/builder.dart`, via `PerPackageBridgeOrchestrator`) is a
+/// third generation pipeline beside the CLI and this API, and it takes its
+/// configuration from the same `d4rtgen:` block. An option it alone consults is
+/// therefore accepted and silently ignored everywhere else — which reads as
+/// "configured" to anyone looking at the file.
+///
+/// Maps the option name to what reads it, so the warning can say why.
+const builderOnlyOptions = <String, String>{
+  'libraryPath':
+      'the per-package output directory, read only by '
+      'PerPackageBridgeOrchestrator when build_runner drives generation',
+};
+
+/// Warnings for options [config] sets that this pipeline does not read.
+///
+/// Empty for every configuration in the workspace today: the check is here so
+/// that setting one of these and believing it took effect stops being silent.
+List<String> builderOnlyOptionWarnings(BridgeConfig config) {
+  final set = <String, Object?>{
+    if (config.libraryPath != null) 'libraryPath': config.libraryPath,
+  };
+  return [
+    for (final entry in set.entries)
+      "'${entry.key}' is set to '${entry.value}', but it has no effect here: "
+          '${builderOnlyOptions[entry.key]}. Remove it, or run generation '
+          'through build_runner.',
+  ];
 }
 
 /// Generate D4rt bridges for a project.
@@ -118,8 +156,17 @@ Future<GenerationResult> generateBridges({
         outputFiles: [],
         config: bridgeConfig,
         errors: ['dart pub get failed in $projectDir: ${pubGetResult.stderr}'],
+        warnings: builderOnlyOptionWarnings(bridgeConfig),
       );
     }
+  }
+
+  // Options only the build_runner builder reads. Always reported, not gated on
+  // `verbose`: the whole defect is that setting one looks like configuring
+  // something, and a warning nobody sees by default would not fix that.
+  final warnings = builderOnlyOptionWarnings(bridgeConfig);
+  for (final warning in warnings) {
+    print('  Warning: $warning');
   }
 
   if (verbose) {
@@ -395,6 +442,7 @@ Future<GenerationResult> generateBridges({
     outputFiles: outputFiles,
     config: bridgeConfig,
     errors: errors,
+    warnings: warnings,
   );
 }
 

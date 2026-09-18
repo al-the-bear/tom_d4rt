@@ -59,10 +59,38 @@ Mirrors `BridgeConfig` in `lib/src/bridge_config.dart`.
 | `generateDartscript` | `bool` | `true` | Emit a `dartscript.b.dart` registration entry-point. |
 | `dartscriptPath` | `String` | — | Output path for the dartscript file. |
 | `registrationClass` | `String` | — | Name of the top-level registration class. |
-| `libraryPath` | `String` | auto-derived | Directory for per-package bridge files (enables `PerPackageBridgeOrchestrator` dedup). |
+| `libraryPath` | `String` | auto-derived | **build_runner only** — directory for per-package bridge files. Ignored by `d4rtgen` and `generateBridges`, which warn when it is set. See [Builder-only options](#builder-only-options). |
 | `generateTestRunner` | `bool` | `false` | Emit an executable `d4rtrun.b.dart` test runner. |
 | `testRunnerPath` | `String` | — | Output path for the test runner. |
 | `importedBridges` | `List` | `[]` | External bridge packages to import and chain (entry: `{import, class}`). |
+
+### Builder-only options
+
+Three things generate bridges from the same `d4rtgen:` block: the `d4rtgen`
+CLI, the `generateBridges` library API (which the CLI calls), and the
+build_runner builder (`package:tom_d4rt_generator/builder.dart`). An option
+only the builder reads is still accepted by the other two and does nothing —
+which reads as "configured" to anyone looking at the file.
+
+| Key | Read by |
+|---|---|
+| `libraryPath` | `PerPackageBridgeOrchestrator`, under build_runner only |
+
+`d4rtgen` and `generateBridges` print a warning naming any such option they
+find, and carry it on `GenerationResult.warnings`.
+
+**The builder does not produce the same files.** From one configuration it
+writes a per-package bridge file for each dependency, a delegating barrel, and
+a `bridges_trigger.b.dart` whose deletion forces the next build to regenerate.
+The CLI writes one self-contained module file per configured module. Output
+from one is not a drop-in for the other, so a package that has moved from
+build_runner to the CLI keeps the builder's files only as dead weight — they
+are not regenerated, and `d4rtgen --dry-run` and `checkBridgeFreshness` report
+them as orphaned.
+
+The builder declares `auto_apply: dependents`, so it applies to any package
+that depends on `tom_d4rt_generator` and runs `build_runner`, whether or not
+that package meant to use it.
 
 ### Relaxers, proxies, generic constructors (mechanism toggles)
 

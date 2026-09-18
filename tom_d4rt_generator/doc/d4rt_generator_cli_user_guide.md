@@ -455,6 +455,32 @@ Bridge generation complete:
 | **Incremental Builds** | No (always regenerates) | Yes |
 | **Subproject Support** | Yes (with `--recursive`) | Manual |
 
+**They do not produce the same files.** This is not a performance trade-off
+with one output: from one configuration the builder writes a per-package bridge
+file for each dependency, a delegating barrel, and a `bridges_trigger.b.dart`
+whose deletion forces the next build to regenerate. The CLI writes one
+self-contained module file per configured module. Output from one is not a
+drop-in for the other.
+
+A package that moves from build_runner to the CLI therefore keeps the builder's
+files as dead weight — nothing regenerates them, so they can only rot or be
+hand-edited. `d4rtgen --dry-run` and `checkBridgeFreshness` report them as
+orphaned; deleting them is a decision the tool leaves to you.
+
+**Builder-only options.** `libraryPath` is read only by the builder's
+`PerPackageBridgeOrchestrator`. The CLI accepts it, ignores it, and warns:
+
+```text
+  Warning: 'libraryPath' is set to 'lib/src/d4rt_library_bridges', but it has
+  no effect here: the per-package output directory, read only by
+  PerPackageBridgeOrchestrator when build_runner drives generation. Remove it,
+  or run generation through build_runner.
+```
+
+Note also that the builder declares `auto_apply: dependents`, so it applies to
+any package depending on `tom_d4rt_generator` that runs `build_runner` —
+whether or not that package meant to use it.
+
 **Recommendation:**
 - Use CLI for quick generation, CI/CD, or batch processing
 - Use build_runner for development with watch mode and incremental builds
