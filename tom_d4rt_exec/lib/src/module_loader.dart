@@ -162,6 +162,32 @@ class ModuleLoader implements context.ModuleContext {
   final SCompilationUnit Function(String sourceCode, Uri uri)?
   parseSourceCallback;
 
+  /// Step #3 (retention) — number of source modules currently parsed and
+  /// cached in [_moduleCache] (each entry holds a parsed unit). Read-only
+  /// introspection so [D4rt] can assert that prior runs' ASTs are not
+  /// accumulated. Bridged-module envs (which carry no user AST) are not
+  /// counted.
+  ///
+  /// sce43: mirrors `ModuleLoader.loadedModuleCount` on the reference. This
+  /// file is one of the three the front-end parity guard compares, and the
+  /// member was missing here — which is why `D4rt.dispose` and
+  /// `D4rt.debugLoadedModuleCount` could not be forwarded.
+  int get loadedModuleCount => _moduleCache.length;
+
+  /// Step #3 (retention) — drops the per-loader parsed-module cache so a
+  /// finished run's parsed units become collectable. Only the per-loader
+  /// [_moduleCache] is cleared; the process-global shared bridge caches hold
+  /// no per-run state and are untouched. A subsequent execute re-parses and
+  /// re-populates [_moduleCache] as usual.
+  ///
+  /// sce43: mirrors `ModuleLoader.releaseLoadedModules` on the reference.
+  void releaseLoadedModules() {
+    _moduleCache.clear();
+    // DFUB10 — nothing may be mid-load at this point; clearing guards against
+    // a previously abandoned partial being handed out on the next execute.
+    _inFlightModules.clear();
+  }
+
   ModuleLoader(
     this.globalEnvironment,
     this.sources,

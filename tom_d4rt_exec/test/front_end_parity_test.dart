@@ -57,6 +57,21 @@
 //   F-SCD10-4  the boundary still routes through `throwAsHostFacingError` in
 //              BOTH trees, and registration still qualifies by source URI.
 //              Measured against the pre-fix file: red.
+//   F-SCD10-5  every public member of the reference's `D4rt` CLASS is declared
+//              by this package's `D4rt` facade. SCD10 asked whether the mirrored
+//              FILES agree; SCE43 widened it to the consumer-facing class and
+//              found NINE members the facade omitted — `dispose`,
+//              `classAliases`, `functionTypedefs`, `reuseAcrossRuns`, the two
+//              debug counters and the RC-2 registration trio — every one of
+//              them already present on `D4rtRunner`, so the capability was
+//              there and only the facade hid it. `dispose` was the visible
+//              cost: `tom_d4rt`'s testing guideline tells readers to write
+//              `tearDown(() => interpreter.dispose())`, which did not compile
+//              here. Parsed with the ANALYZER, not a regex — the scan that
+//              sized SCE43 returned seven false positives (`Directory`,
+//              `StateError`, `print`, …), and a rule that noisy gets muted.
+//   F-SCD10-6  every recorded class-surface absence is still absent, so an
+//              entry cannot outlive its reason.
 //
 // Comments are stripped before comparing: `module_loader.dart` mentions
 // `AmbiguousBridgedNameException` in a comment explaining where the throw
@@ -66,6 +81,9 @@ library;
 
 import 'dart:io';
 
+import 'package:analyzer/dart/analysis/features.dart';
+import 'package:analyzer/dart/analysis/utilities.dart';
+import 'package:analyzer/dart/ast/ast.dart';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 
@@ -147,6 +165,59 @@ Set<String> _namedArguments(String source, String function) {
         nested--;
       } else if (token.group(1) != null && nested == 0) {
         names.add(token.group(1)!);
+      }
+    }
+  }
+  return names;
+}
+
+/// Public members of the reference's `D4rt` this facade deliberately does not
+/// declare, each with the reason it is absent.
+///
+/// EMPTY, and meant to stay that way. SCE43 forwarded all nine that were
+/// missing rather than recording any of them: every one already existed on
+/// `D4rtRunner`, so "record it" would have meant writing down that a working
+/// capability is unreachable through the facade. An entry here needs a reason
+/// that survives being read aloud.
+const _expectedClassAbsences = <String, String>{};
+
+/// Members this facade adds that the reference does not have.
+///
+/// The analyzer-free line carries a bundle API the reference has no analogue
+/// for; it is not drift, and F-SCD10-5 only compares in one direction.
+const _execOnlyMembers = <String>{
+  'bridgedLibraryUris',
+  'createBundle',
+  'createBundleFromSource',
+  'executeBundle',
+  'executeBundleAs',
+  'executeBundleAsAsync',
+};
+
+/// Public member names declared by [className] in [path].
+///
+/// Parsed, not matched: a regex over a 2,500-line file cannot tell a
+/// declaration from a mention, which is how the scan that sized SCE43 reported
+/// `Directory` and `print` as class members.
+Set<String> _publicMembers(String path, String className) {
+  final unit = parseFile(
+    // The analyzer rejects a path that is not normalised, and the reference
+    // is reached through `../`.
+    path: p.normalize(p.absolute(path)),
+    featureSet: FeatureSet.latestLanguageVersion(),
+  ).unit;
+  final names = <String>{};
+  for (final decl in unit.declarations.whereType<ClassDeclaration>()) {
+    if (decl.name.lexeme != className) continue;
+    for (final member in decl.members) {
+      if (member is MethodDeclaration) {
+        if (!member.name.lexeme.startsWith('_')) names.add(member.name.lexeme);
+      } else if (member is FieldDeclaration) {
+        for (final variable in member.fields.variables) {
+          if (!variable.name.lexeme.startsWith('_')) {
+            names.add(variable.name.lexeme);
+          }
+        }
       }
     }
   }
@@ -313,6 +384,69 @@ void main() {
         ),
         contains('sourceUri'),
         reason: 'registration must still qualify the bridge by source URI',
+      );
+    }, skip: skipReason);
+
+    test('F-SCD10-5: every public member of the reference D4rt is declared by '
+        'this facade [2026-09-18] (PASS)', () {
+      final reference = _publicMembers(
+        '../tom_d4rt/lib/src/d4rt_base.dart',
+        'D4rt',
+      );
+      final facade = _publicMembers('lib/src/d4rt_base.dart', 'D4rt');
+
+      expect(
+        reference,
+        isNotEmpty,
+        reason:
+            'parsed no members from the reference, so an empty difference '
+            'would prove nothing',
+      );
+      expect(facade, isNotEmpty, reason: 'parsed no members from the facade');
+
+      final missing = reference.difference(facade)
+        ..removeAll(_expectedClassAbsences.keys);
+      expect(
+        missing,
+        isEmpty,
+        reason:
+            'the reference declares these on `D4rt` and this facade does not, '
+            'so a consumer written against the documented API does not '
+            'compile here. Forward them to the inner `D4rtRunner`, or record '
+            'each in _expectedClassAbsences with its reason:\n  '
+            '${missing.join('\n  ')}',
+      );
+    }, skip: skipReason);
+
+    test('F-SCD10-6: every recorded class-surface absence is still absent '
+        '[2026-09-18] (PASS)', () {
+      final facade = _publicMembers('lib/src/d4rt_base.dart', 'D4rt');
+      final resolved = _expectedClassAbsences.keys
+          .where(facade.contains)
+          .toList();
+      expect(
+        resolved,
+        isEmpty,
+        reason:
+            'these are recorded as deliberately absent but this facade now '
+            'declares them. Delete their entries — a register that outlives '
+            'its reason is how the next reader learns to ignore it:\n  '
+            '${resolved.join('\n  ')}',
+      );
+
+      // The other direction: an exec-only member that the reference has
+      // grown is no longer exec-only, and leaving it listed would hide a
+      // real convergence.
+      final reference = _publicMembers(
+        '../tom_d4rt/lib/src/d4rt_base.dart',
+        'D4rt',
+      );
+      expect(
+        _execOnlyMembers.intersection(reference),
+        isEmpty,
+        reason:
+            'the reference now declares these too, so they are no longer '
+            'exec-only. Delete them from _execOnlyMembers.',
       );
     }, skip: skipReason);
   });

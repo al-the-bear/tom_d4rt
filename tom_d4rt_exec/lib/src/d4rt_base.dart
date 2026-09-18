@@ -33,9 +33,6 @@ class D4rt {
   final List<Map<String, LibraryClass>> _bridgedClases = [];
   final List<Map<String, LibraryExtension>> _bridgedExtensions = [];
 
-  /// GEN-074: Class aliases (type aliases) for alias name → target class name mapping.
-  final List<({String aliasName, String targetName, String library})>
-  _classAliases = [];
   InterpretedInstance? _interpretedInstance;
   InterpreterVisitor? _visitor;
   // Step #17 — thunk-backed native-type lookup (see LazyBridgeRegistry). The
@@ -51,7 +48,7 @@ class D4rt {
   ///
   /// All bridge registrations and permissions are forwarded to this runner
   /// so that [executeBundle] works correctly without re-registration.
-  final D4rtRunner _runner = D4rtRunner();
+  final D4rtRunner _runner;
 
   /// Tracks all library URIs that have bridged registrations.
   ///
@@ -90,7 +87,20 @@ class D4rt {
   bool _hasExecutedOnce = false;
 
   /// Creates a D4rt interpreter instance.
-  D4rt();
+  /// sce43: mirrors the reference's constructor.
+  ///
+  /// [reuseAcrossRuns] controls the cross-run caches; it is forwarded to the
+  /// inner [D4rtRunner], which owns them on this line. The reference declares
+  /// the same parameter, so a consumer written against either gets the same
+  /// behaviour rather than silently losing the flag on this one.
+  D4rt({this.reuseAcrossRuns = true})
+    : _runner = D4rtRunner(reuseAcrossRuns: reuseAcrossRuns);
+
+  /// Whether the cross-run bridge caches are reused between runs.
+  ///
+  /// Mirrors `D4rt.reuseAcrossRuns` on the reference and
+  /// [D4rtRunner.reuseAcrossRuns] here.
+  final bool reuseAcrossRuns;
 
   /// Parses source code to an [SCompilationUnit] using the internal converter.
   ///
@@ -268,11 +278,11 @@ class D4rt {
   /// [targetName] The target class name (e.g., 'WidgetStateProperty').
   /// [library] The library path where this alias is exported from.
   void registerClassAlias(String aliasName, String targetName, String library) {
-    _classAliases.add((
-      aliasName: aliasName,
-      targetName: targetName,
-      library: library,
-    ));
+    // sce43: a pure forward. This wrapper used to keep a second list as well,
+    // which nothing ever read — `registerFunctionTypedef` beside it already
+    // forwarded only, and the [classAliases] getter below reads the runner.
+    // A divergent second pool on the wrapper is what this file's own
+    // `resetScriptDeclarations` comment warns against.
     _runner.registerClassAlias(aliasName, targetName, library);
   }
 
@@ -714,6 +724,104 @@ class D4rt {
   /// the D4rt host (or open a follow-up issue if that becomes a
   /// real use case).
   void resetScriptDeclarations() => _runner.resetScriptDeclarations();
+
+  // ==========================================================================
+  // sce43 — members the reference's `D4rt` declares and this facade did not
+  // ==========================================================================
+  //
+  // All of them already existed on [D4rtRunner], so the capability was present
+  // on this line the whole time and only the facade omitted it: a consumer
+  // reached them by going around the facade, or could not reach them at all.
+  // `dispose` is the one that mattered most — `tom_d4rt`'s testing guideline
+  // tells readers to write `tearDown(() => interpreter.dispose())`, so the
+  // documented pattern did not compile here.
+  //
+  // `F-SCD10-5` in `test/front_end_parity_test.dart` compares the two class
+  // surfaces with the analyzer and fails when they diverge again.
+
+  /// Releases the interpreter artifacts retained from the most recent run.
+  ///
+  /// Mirrors `D4rt.dispose` on the reference. Non-destructive: process-global
+  /// state (the package pool, warm parent, shared bridged-module envs) is
+  /// preserved and a subsequent `execute*` rebuilds the per-run loader and
+  /// visitor, so the instance stays usable.
+  ///
+  /// This line has TWO execution paths and each keeps its own per-run state:
+  /// the classic `execute()` path on this wrapper, and the bundle path on the
+  /// inner runner. Both are released here — forwarding alone would have left
+  /// this wrapper's `CompilationUnit`s pinned, which is the retention
+  /// `dispose` exists to end.
+  void dispose() {
+    if (_hasExecutedOnce) {
+      _moduleLoader.releaseLoadedModules();
+    }
+    _visitor = null;
+    // Also performs the script-declaration reset this wrapper forwards.
+    _runner.dispose();
+  }
+
+  /// Registered class aliases, for module-env registration.
+  ///
+  /// Mirrors `D4rt.classAliases` on the reference and
+  /// [D4rtRunner.classAliases] here. The runner is the single source: every
+  /// [registerClassAlias] forwards to it.
+  List<({String aliasName, String targetName, String library})>
+  get classAliases => _runner.classAliases;
+
+  /// Registered function typedefs, for module-env registration.
+  ///
+  /// Mirrors `D4rt.functionTypedefs` on the reference and
+  /// [D4rtRunner.functionTypedefs] here.
+  /// NOTE — this record is NARROWER than the reference's, which also carries
+  /// `requiredPositional` and `maxPositional`. That is a real divergence
+  /// between the lines, not an omission here: the `tom_d4rt_ast` this package
+  /// RESOLVES declares two fields. (The AST working tree already carries four,
+  /// so this widens on the next publish — DGUC6: what exec compiles against is
+  /// the published interpreter, not the tree beside it.) The parity guard
+  /// compares member NAMES, so it stays green either way.
+  List<({String name, String library})> get functionTypedefs =>
+      _runner.functionTypedefs;
+
+  /// Number of source modules whose parsed unit this instance currently
+  /// retains. `0` before the first execute or after [dispose].
+  ///
+  /// Mirrors `D4rt.debugLoadedModuleCount` on the reference, and reports this
+  /// wrapper's own loader for the same reason [dispose] releases it.
+  int get debugLoadedModuleCount =>
+      _hasExecutedOnce ? _moduleLoader.loadedModuleCount : 0;
+
+  /// Diagnostics — how many bridged-module environments have been built.
+  ///
+  /// Mirrors `D4rt.debugBridgedModuleEnvBuildCount` on the reference. The
+  /// counter is process-global and lives on [D4rtRunner] on this line.
+  static int get debugBridgedModuleEnvBuildCount =>
+      D4rtRunner.debugBridgedModuleEnvBuildCount;
+
+  /// Registers a relaxer factory for [baseTypeName] (RC-2 generics).
+  ///
+  /// Mirrors `D4rt.registerRelaxerFactory` on the reference.
+  void registerRelaxerFactory(
+    String baseTypeName,
+    GenericTypeWrapperFactory factory,
+  ) => _runner.registerRelaxerFactory(baseTypeName, factory);
+
+  /// Registers an interface-proxy factory for [bridgedTypeName].
+  ///
+  /// Mirrors `D4rt.registerInterfaceProxy` on the reference.
+  void registerInterfaceProxy(
+    String bridgedTypeName,
+    InterfaceProxyFactory factory,
+  ) => _runner.registerInterfaceProxy(bridgedTypeName, factory);
+
+  /// Registers a generic-constructor factory for
+  /// [className].[constructorName]. Use `''` for the unnamed constructor.
+  ///
+  /// Mirrors `D4rt.registerGenericConstructor` on the reference.
+  void registerGenericConstructor(
+    String className,
+    String constructorName,
+    GenericConstructorFactory factory,
+  ) => _runner.registerGenericConstructor(className, constructorName, factory);
 
   // ============================================================================
   // Step 7/8 — package pool + warm parent (forwards to inner D4rtRunner)

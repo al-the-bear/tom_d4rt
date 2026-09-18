@@ -1,3 +1,44 @@
+## 1.27.0
+
+### Fixed — the `D4rt` facade now declares every public member the reference does
+
+`tom_d4rt`'s `D4rt` declared NINE public members this facade did not forward —
+`dispose`, `classAliases`, `functionTypedefs`, `reuseAcrossRuns`,
+`debugLoadedModuleCount`, `debugBridgedModuleEnvBuildCount`,
+`registerRelaxerFactory`, `registerInterfaceProxy` and
+`registerGenericConstructor`. Every one already existed on `D4rtRunner`, so the
+capability was present on this line the whole time and only the facade hid it: a
+consumer reached them by going around it, or could not reach them at all.
+
+`dispose` was the visible cost. `tom_d4rt`'s testing guideline tells readers to
+write `tearDown(() => interpreter.dispose())`, so the documented pattern did not
+compile here.
+
+It is IMPLEMENTED, not merely forwarded. This line has two execution paths and
+each keeps its own per-run state — the classic `execute()` path on the wrapper,
+the bundle path on the inner runner — and releasing only the runner's leaves the
+wrapper's parsed units pinned, which is the retention `dispose` exists to end.
+Measured: with a forward-only `dispose`, `debugLoadedModuleCount` stays at 2
+where it must reach 0.
+
+`ModuleLoader` gained `loadedModuleCount` and `releaseLoadedModules`, mirroring
+the reference — that file is one of the three the front-end parity guard
+compares, and their absence is why `dispose` could not be implemented before.
+
+`registerClassAlias` is now a pure forward. It used to also append to a second
+list on this wrapper that nothing ever read, which the new `classAliases` getter
+would have made actively misleading.
+
+`F-SCD10-5` in `test/front_end_parity_test.dart` compares the two class surfaces
+with the ANALYZER and fails when they diverge again; `F-SCD10-6` keeps the
+absence register from outliving its reason. Parsed rather than matched: the
+regex scan that sized this work returned seven false positives.
+
+NOTE: `functionTypedefs` here carries `(name, library)` while the reference also
+carries `requiredPositional` / `maxPositional`. That is a real divergence
+between the lines — the published `tom_d4rt_ast` declares two fields — and it
+widens on the next publish of that package.
+
 ## 1.26.0
 
 ### Fixed — `getConfiguration`'s example omitted the library argument
