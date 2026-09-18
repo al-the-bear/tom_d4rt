@@ -47,9 +47,25 @@ const knownStale = <String>{
   // and refreshing those was enough to bring the two paths back into
   // agreement. This copy has only `bin/d4rtrun.b.dart`, so it has no such
   // lever — which is a useful datum for SCF1, not a difference in kind.
-  'd4',
   'dart_overview',
 };
+
+/// Examples whose generated output is NOT VERSIONED, so freshness cannot be a
+/// statement about this repository.
+///
+/// `.gitignore` carries `**/example/d4/**/*.b.dart`: not one `.b.dart` under
+/// any `example/d4` in this repo is tracked — measured across all three
+/// generator packages, 0 tracked against 15-17 on disk. `checkBridgeFreshness`
+/// compares a fresh generation against what the PACKAGE holds, so for these it
+/// compares against local untracked files: fresh on a machine that ran the
+/// generator tests recently, `notCommitted` on a clean clone, and neither
+/// verdict describes anything a reviewer could act on.
+///
+/// Skipped rather than listed as known-stale, because the ratchet has no
+/// meaning here in either direction. SCE6 measured it; SCE1 had put these
+/// entries on and off the known-stale list on the strength of a local
+/// regeneration, which is exactly the machine-dependence this removes.
+const untrackedOutput = <String>{'d4'};
 
 void main() {
   final examples = findD4rtgenProjects('example');
@@ -60,7 +76,7 @@ void main() {
     expect(knownStale.difference(examples.toSet()), isEmpty);
   });
 
-  for (final example in examples) {
+  for (final example in examples.where((e) => !untrackedOutput.contains(e))) {
     final onList = knownStale.contains(example);
     test('AG-FRESH-EX[$example]: committed bridges '
         '${onList ? 'are still known-stale' : 'match the generator'} '
