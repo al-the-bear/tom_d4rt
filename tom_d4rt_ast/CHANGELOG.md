@@ -1,3 +1,12 @@
+## 0.122.0
+
+### Fixed — an ambiguous name narrowed by import scope was only retrieved as a class
+
+Mirror of the `tom_d4rt` fix of the same name: a name narrowed to a single
+imported package was retrieved as a bridged class only, so a narrowed enum or
+top-level value fell through to the ambiguity throw. Retrieval now consults the
+alias environment by kind.
+
 ## 0.121.0
 
 ### Fixed — same-name bridged enums and top-level values are ambiguous, not last-wins

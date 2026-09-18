@@ -1,3 +1,20 @@
+## 1.137.0
+
+### Fixed — an ambiguous name narrowed by import scope was only retrieved as a class
+
+Completes the generalisation the previous release began. `_resolveAmbiguityInImportScope`
+narrowed a contested name to the single package the script had imported and then
+read `_bridgedClasses[name]` alone, so a narrowed ENUM or top-level value fell
+through the branch and reached the `AmbiguousBridgedNameException` throw it had
+just been cleared of. Retrieval now consults the alias environment by kind —
+bridged class, then bridged enum, then value — so narrowing resolves whatever
+kind the name actually denotes.
+
+### Fixed — `getConfiguration`'s example omitted the library argument
+
+`registerGlobalVariable` takes the library URI as a required third argument; the
+doc comment showed a two-argument call that does not compile.
+
 ## 1.136.0
 
 ### Fixed — same-name bridged enums and top-level values are ambiguous, not last-wins

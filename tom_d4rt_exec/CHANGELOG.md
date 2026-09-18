@@ -1,3 +1,10 @@
+## 1.26.0
+
+### Fixed — `getConfiguration`'s example omitted the library argument
+
+`registerGlobalVariable` takes the library URI as a required third argument; the
+doc comment showed a two-argument call that does not compile.
+
 ## 1.25.0
 
 ### Fixed — exec's host boundary is the shared rule, with no copies left (scd101)
