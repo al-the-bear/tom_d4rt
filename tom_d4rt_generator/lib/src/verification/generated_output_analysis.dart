@@ -16,6 +16,8 @@ library;
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:tom_build_base/tom_build_base_v2.dart';
+
 import 'package:path/path.dart' as p;
 
 /// Diagnostic severities that do not count as a bad emission.
@@ -104,13 +106,19 @@ class AnalyzeInvocationException implements Exception {
 
 /// Runs `dart analyze --format=machine` over [paths] and parses the result.
 ///
-/// Uses [Platform.resolvedExecutable] — the Dart binary running this process —
-/// rather than whatever `dart` is first on PATH, so the analysis uses the same
-/// SDK as the caller.
+/// SCE51: the executable comes from [resolveDartExecutable], NOT from
+/// [Platform.resolvedExecutable]. That property is the Dart runtime only under
+/// `dart run`; the compiled `d4rtgen` is its own `resolvedExecutable`, so this
+/// used to spawn `d4rtgen analyze --format=machine ...`. The child parsed
+/// `analyze` as a positional, generated bridges in the working directory,
+/// printed nothing this parser recognised and exited 0 — so verification
+/// reported "analysed clean" having analysed nothing, in every compiled run.
+/// It surfaced only when `--verify-output` became default-on and the child
+/// began verifying too.
 Future<List<Diagnostic>> analyzePaths(List<String> paths) async {
   if (paths.isEmpty) return const [];
 
-  final result = await Process.run(Platform.resolvedExecutable, [
+  final result = await Process.run(resolveDartExecutable(), [
     'analyze',
     '--format=machine',
     ...paths,

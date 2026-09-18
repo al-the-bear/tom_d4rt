@@ -1,3 +1,32 @@
+## 1.39.0
+
+### Fixed — `--verify-output` analysed nothing when run from the compiled binary (sce51)
+
+`analyzePaths` spawned `Platform.resolvedExecutable analyze --format=machine`.
+That property is the Dart runtime only under `dart run`; the compiled `d4rtgen`
+is its own `resolvedExecutable`, so the command it actually ran was
+
+    d4rtgen analyze --format=machine <paths>
+
+The child parsed `analyze` as a positional, generated bridges in the working
+directory, printed nothing this parser recognised as a diagnostic, and exited
+0. So the parent found zero diagnostics and printed **"N generated file(s)
+analysed clean"** — having analysed nothing. Every `--verify-output` run from
+the binary was a silent no-op, and the green line it printed is precisely why
+nobody looked. The flag worked only under `dart run`, which is how its own
+tests exercise it.
+
+It surfaced when 1.38.0 made the flag default-on: the child then verified too,
+and the no-op became a fork bomb — 69 processes, which made the point that
+three years of "analysed clean" had not.
+
+The executable now comes from `resolveDartExecutable()` (tom_build_base
+2.16.0), which never resolves to the running AOT tool.
+
+**The 1.38.0 sweep is void.** "13 of 13 consumers verify clean" was measured
+with the broken invocation and established nothing. It has been re-run against
+a binary carrying this fix; see the todo record for the results that stand.
+
 ## 1.38.0
 
 ### Changed — `--verify-output` is now the default (sce51)
