@@ -1,5 +1,13 @@
 ## 1.4.0
 
+### Fixed — the `--version` banner reports the real version (sce9)
+
+`lib/src/version.versioner.dart` said 1.3.1 while the pubspec said 1.4.0, so
+`dcli --version` named a release that is not what was running. The stamp is
+regenerated and `version_stamp_test` passes; published so the correction
+reaches the package people install rather than only this tree.
+
+
 ### Changed — the bridges are regenerated after seven months, and the package can now check them (sce3)
 
 `tom_d4rt_dcli` configured `d4rtgen` in its `buildkit.yaml` but listed

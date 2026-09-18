@@ -1,5 +1,12 @@
 ## 0.1.6
 
+### Released — so the corrected stamp reaches the package people install (sce9)
+
+The tree's stamp has read 0.1.6 for some time; published 0.1.5 still ships one
+saying 0.1.4, so `astgen --version` from pub.dev names the wrong release. This
+release carries the corrected stamp.
+
+
 ### Changed — formatted the tree once (scd82)
 
 Every package in this repo already declares an SDK floor above the 3.7

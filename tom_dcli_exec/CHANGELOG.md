@@ -1,5 +1,13 @@
 ## 1.3.0
 
+### Fixed — the `--version` banner reports the real version (sce9)
+
+`lib/src/version.versioner.dart` said 1.2.2 while the pubspec said 1.3.0, so
+`dclie --version` named a release that is not what was running. The stamp is
+regenerated and `version_stamp_test` passes; published so the correction
+reaches the package people install rather than only this tree.
+
+
 ### Changed — eight stale bridge files regenerated at generator 1.26.2 (sce1)
 
 This package was recorded FRESH in the 2026-09-11 bridge survey and was not.
