@@ -7,6 +7,10 @@
 /// - Operator overloading
 /// - Special patterns (empty classes, static-only, etc.)
 /// - Mixins and late initialization
+
+@Tags(['generation'])
+library;
+
 import 'dart:io';
 
 import 'package:path/path.dart' as p;

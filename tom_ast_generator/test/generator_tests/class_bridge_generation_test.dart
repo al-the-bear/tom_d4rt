@@ -6,6 +6,10 @@
 /// - Handles getters, setters, and methods
 /// - Supports inheritance and static members
 /// - Handles abstract classes and generics
+
+@Tags(['generation'])
+library;
+
 import 'dart:io';
 
 import 'package:path/path.dart' as p;

@@ -8,6 +8,10 @@
 /// The table is flattened (each class lists ALL transitive bridged ancestors)
 /// because `BridgedClass.isSubtypeOf` only walks two levels. See
 /// `fixtures/supertype_table_source.dart` for the hierarchy under test.
+
+@Tags(['generation'])
+library;
+
 import 'dart:io';
 
 import 'package:path/path.dart' as p;

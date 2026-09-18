@@ -10,6 +10,7 @@
 /// See `doc/test_coverage.md` for the full feature inventory.
 @TestOn('vm')
 @Timeout(Duration(minutes: 5))
+@Tags(['generation'])
 library d4rt_coverage_test;
 
 import 'dart:io';

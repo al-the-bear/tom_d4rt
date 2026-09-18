@@ -5,6 +5,10 @@
 /// - Generates BridgedExtensionDefinition code with getters, setters, methods
 /// - Registers extensions via registerBridges()
 /// - Skips private extensions
+
+@Tags(['generation'])
+library;
+
 import 'dart:io';
 
 import 'package:path/path.dart' as p;

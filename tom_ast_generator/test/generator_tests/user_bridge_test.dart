@@ -5,6 +5,7 @@
 /// - Static override methods are correctly identified
 /// - Classes extending D4UserBridge are excluded from generation
 /// - Generated bridges use static override methods
+@Tags(['generation'])
 library;
 
 import 'dart:io';

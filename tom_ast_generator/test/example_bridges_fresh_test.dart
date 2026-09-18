@@ -18,6 +18,9 @@
 // interpreter line its pubspec depends on: regenerating against the wrong line
 // produces clean output that is still wrong.
 
+@Tags(['generation'])
+library;
+
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:tom_d4rt_generator/testing.dart';

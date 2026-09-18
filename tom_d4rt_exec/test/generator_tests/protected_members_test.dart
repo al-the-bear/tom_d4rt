@@ -16,6 +16,10 @@
 /// these members from subclassable bridges — these tests fail first instead.
 ///
 /// See `fixtures/protected_members_source.dart` for the class under test.
+
+@Tags(['generation'])
+library;
+
 import 'dart:io';
 
 import 'package:path/path.dart' as p;

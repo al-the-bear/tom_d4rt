@@ -1,0 +1,38 @@
+# Test configuration for tom_d4rt_exec.
+#
+# WHY THIS FILE EXISTS (sce40, carrying scd9_ahcm's fix to this mirror).
+# Twenty of this package's test files run the bridge generator, which means
+# running the ANALYZER over a project and its whole dependency graph. That work
+# costs seconds when the workspace summary cache is warm and minutes when it is
+# not — a cache is cold after any dependency change, which is exactly when the
+# suite gets run. The framework's default 30-second per-test budget is a
+# deadline for a fixed amount of work; these tests do not have one.
+#
+# tom_d4rt_generator met the consequence first: a `TimeoutException` landing on
+# whichever generation-bound file happened to be loading when the machine was
+# busy, moving between files between runs, so the suite's headline count was
+# not reproducible and a real regression was indistinguishable from the noise.
+# It was read as flaky tests for a month. This package carries the same
+# exposure — and, unlike the other mirror, it reproduced HERE on the first
+# attempt: see the measurement recorded below.
+#
+# REPRODUCING IT (it does not appear on an idle machine with a warm cache —
+# BOTH stressors are needed):
+#
+#   CACHE=$(mktemp -d)                       # a cold summary cache, in isolation
+#   for i in $(seq 1 16); do python3 -c "
+#   import time
+#   end = time.time() + 900
+#   while time.time() < end: pass
+#   " & done                                  # saturate the CPU
+#   TOM_TOOL_CACHE=$CACHE dart test
+#   pkill -f "end = time.time"
+#
+# Use `TOM_TOOL_CACHE` rather than deleting `<workspace>/.tom/analyzer-cache`:
+# that cache is shared with every other session on the machine.
+tags:
+  # Tests that run the generator, so their cost is the analyzer's, not the
+  # test's. The factor multiplies whatever the test or file already declares,
+  # so a file with `@Timeout(Duration(minutes: 2))` keeps its own proportion.
+  generation:
+    timeout: 10x

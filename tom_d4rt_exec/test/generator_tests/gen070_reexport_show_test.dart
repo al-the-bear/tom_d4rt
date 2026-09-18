@@ -12,6 +12,7 @@
 ///    can be reached through multiple chains.
 /// 2. Union show clauses when merging (multiple export chains are additive).
 @TestOn('vm')
+@Tags(['generation'])
 library;
 
 import 'dart:io';

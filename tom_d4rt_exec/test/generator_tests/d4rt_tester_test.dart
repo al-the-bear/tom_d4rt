@@ -15,6 +15,7 @@
 /// → structured result parsing.
 @TestOn('vm')
 @Timeout(Duration(minutes: 2))
+@Tags(['generation'])
 library d4rt_tester_test;
 
 import 'dart:io';

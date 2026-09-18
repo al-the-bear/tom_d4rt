@@ -10,6 +10,7 @@
 /// - DCL-SUB: Superclass bridge resolution for subclasses
 /// - DCL-OPT: Optional parameter detection
 /// - DCL-CLS: Class method callback wrapping
+@Tags(['generation'])
 library;
 
 import 'dart:io';
