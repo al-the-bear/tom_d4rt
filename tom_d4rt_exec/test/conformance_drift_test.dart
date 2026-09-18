@@ -1220,6 +1220,33 @@ const Map<String, _Coverage> _coveredElsewhere = {
 /// a copy would ask the same questions about the same three packages and add a
 /// second red for one cause, not that it cannot run.
 const Map<String, int> _uncoveredBaseline = {
+  // SCE21's batch: the four async state-machine fixes closed on 2026-09-18,
+  // measured BOTH ways with `tool/remeasure_pins.dart --candidates` before
+  // being pinned — against the 0.65.0 exec resolves, and against the 0.120.0
+  // working tree through SCD66's pre-publish override, which was restored
+  // before anything here was written.
+  //
+  // Every one of them is a silent WRONG ANSWER rather than a crash, which is
+  // why the failing-case counts below are worth reading: the cases that pass
+  // against 0.65.0 are the shapes that were already right, and they are in each
+  // file deliberately as controls.
+  //
+  // PUBLISH-PIN(sce162_aioc-four-unpublished-base-corpus-regressions-block-the-publish)
+  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.117.0.
+  // Measured 2026-09-18: 6 of 10 fail against 0.65.0, 0 of 10 against 0.120.0.
+  'sce17_await_in_expression_body_test.dart': 10,
+  // PUBLISH-PIN(sce162_aioc-four-unpublished-base-corpus-regressions-block-the-publish)
+  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.118.0.
+  // Measured 2026-09-18: 4 of 9 fail against 0.65.0, 0 of 9 against 0.120.0.
+  'sce18_finally_on_abrupt_exit_test.dart': 9,
+  // PUBLISH-PIN(sce162_aioc-four-unpublished-base-corpus-regressions-block-the-publish)
+  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.119.0.
+  // Measured 2026-09-18: 5 of 9 fail against 0.65.0, 0 of 9 against 0.120.0.
+  'sce19_do_while_first_body_run_test.dart': 9,
+  // PUBLISH-PIN(sce162_aioc-four-unpublished-base-corpus-regressions-block-the-publish)
+  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.120.0.
+  // Measured 2026-09-18: 7 of 9 fail against 0.65.0, 0 of 9 against 0.120.0.
+  'sce20_braceless_if_else_test.dart': 9,
   // SCD200's second batch, measured the same way — ported into ztmp and run
   // against 0.65.0 and then against the 0.113.0 working tree.
   //
@@ -1972,6 +1999,15 @@ const Map<String, String> _divergenceFingerprints = <String, String>{
 /// being pinned. Measure before pinning and the pin survives; infer it and it
 /// rots.
 const Map<String, String> _pinnedInterpreterFloors = <String, String>{
+  // SCE21's batch. Unlike SCD200's, these are pinned at the version each fix
+  // ACTUALLY landed in rather than at one conservative working-tree version:
+  // the four commits are known (0.117.0, 0.118.0, 0.119.0, 0.120.0), so the
+  // earliest release carrying each is not a guess here. A pin that is later
+  // than it needs to be keeps an available port out of reach.
+  'sce17_await_in_expression_body_test.dart': '0.117.0',
+  'sce18_finally_on_abrupt_exit_test.dart': '0.118.0',
+  'sce19_do_while_first_body_run_test.dart': '0.119.0',
+  'sce20_braceless_if_else_test.dart': '0.120.0',
   // SCD200's second batch, all measured against the working tree before
   // pinning, all at the same 0.113.0 for the same conservative reason.
   'stdlib/convert/chunked_sink_arg_adaptation_test.dart': '0.113.0',
