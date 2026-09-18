@@ -30,9 +30,23 @@ void main() {
       expect(
         freshness.stale,
         isEmpty,
-        reason:
-            'regenerate with d4rtgen and commit:\n  '
+        reason: 'regenerate with d4rtgen and commit:\n  '
             '${freshness.stale.join('\n  ')}',
+      );
+      // A generated file no run writes any more is invisible to the comparison
+      // above, which only looks at what a run produces. Such a file can only
+      // rot or be hand-edited in the belief a regeneration will keep the edit.
+      expect(
+        freshness.orphanScanSkipped,
+        isNull,
+        reason: 'the orphan scan did not run, so its result means nothing',
+      );
+      expect(
+        freshness.orphaned,
+        isEmpty,
+        reason: 'committed generated files that no run writes. d4rtgen never '
+            'deletes them; decide and remove by hand:\n  '
+            '${freshness.orphaned.join('\n  ')}',
       );
     },
     timeout: const Timeout(Duration(minutes: 10)),

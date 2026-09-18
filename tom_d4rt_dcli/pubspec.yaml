@@ -69,4 +69,4 @@ dev_dependencies:
   # `dart run tom_d4rt_generator:d4rtgen` works and `bridges_fresh_test.dart`
   # can run: without it this was one of two consumers configuring d4rtgen that
   # could neither regenerate nor check what they had committed (SCE3).
-  tom_d4rt_generator: ">=1.26.2"
+  tom_d4rt_generator: ">=1.28.0"
