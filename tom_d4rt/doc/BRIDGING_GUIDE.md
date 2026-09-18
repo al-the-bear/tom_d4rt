@@ -46,7 +46,9 @@ This guide provides a comprehensive overview of how to *manually* bridge your na
 - [Global Variables and Getters](#global-variables-and-getters)
   - [Registering Global Variables](#registering-global-variables)
   - [Registering Global Getters (Lazy Evaluation)](#registering-global-getters-lazy-evaluation)
+  - [Registering Global Setters](#registering-global-setters)
   - [When to Use Getters vs Variables](#when-to-use-getters-vs-variables)
+  - [Registration Order](#registration-order)
 - [Best Practices](#best-practices)
 
 ---
@@ -862,60 +864,134 @@ This feature is essential for creating robust bridges that work with the full ec
 
 ## Global Variables and Getters
 
-D4rt allows you to register global variables and getters that can be accessed from interpreted scripts. These are registered on the `D4rt` instance before executing code.
+D4rt can expose native Dart values to interpreted code as top-level members of
+a library. They are registered on the `D4rt` instance before `execute()`.
 
-### Registering Global Variables
-
-Use `registerGlobalVariable` to register a value that is evaluated once at registration time:
+**A global belongs to a library, and the script must import that library.**
+Every registration takes the library URI as its third argument, and the member
+is only added to the environment when a script imports that URI — exactly as a
+real top-level declaration would be. A script that does not import it fails
+with `Undefined variable: <name>`.
 
 ```dart
+const lib = 'package:my_app/my_app.dart';
+
 final d4rt = D4rt();
+d4rt.registerGlobalVariable('appName', 'MyApp', lib);
 
-// Register a constant value
-d4rt.registerGlobalVariable('appVersion', '1.0.0');
-
-// Register an object
-d4rt.registerGlobalVariable('config', MyAppConfig());
-
-// Execute script that uses the variable
-d4rt.execute('''
-  print(appVersion);  // Prints: 1.0.0
-  print(config.someSetting);
+d4rt.execute(source: '''
+  import '$lib';
+  main() => print(appName);   // MyApp
 ''');
 ```
 
-**Important:** The value is captured at the time of registration. If you register a mutable object, the script will see changes to the object's state, but if you register a primitive or register the result of a getter, changes after registration won't be reflected.
+Note the two shapes this implies for every example below: `execute` takes its
+script as the named `source:` argument, and the script needs a `main()` —
+a body of bare statements is a parse error.
+
+**A global that holds a native object still needs that object's class bridged.**
+Registering the value binds the *name*; it does not teach the interpreter the
+object's shape. Strings, numbers, booleans, `List` and `Map` are usable as they
+stand, but reaching a member of any other native instance requires its class to
+be registered as a `BridgedClass` under the same library — otherwise the access
+fails with `Cannot access property '<name>' on target of type <Type>`. Each
+example below that touches a member assumes its class was bridged as described
+earlier in this guide.
+
+### Registering Global Variables
+
+Use `registerGlobalVariable` for a value that is captured once, at registration
+time:
+
+```dart
+const lib = 'package:my_app/my_app.dart';
+final d4rt = D4rt();
+
+d4rt.registerGlobalVariable('appVersion', '1.0.0', lib);       // primitive
+d4rt.registerGlobalVariable('limits', {'maxRetries': 3}, lib); // plain Map
+
+// A native instance: bridge the class, then register the value.
+d4rt.registerBridgedClass(myAppConfigDefinition, lib);
+d4rt.registerGlobalVariable('config', MyAppConfig(), lib);
+
+d4rt.execute(source: '''
+  import '$lib';
+  main() {
+    print(appVersion);            // 1.0.0
+    print(limits['maxRetries']);  // 3
+    print(config.someSetting);    // needs myAppConfigDefinition
+  }
+''');
+```
+
+**Important:** the value is captured when you register it. A mutable object
+registered this way will show later changes to its own state, but re-assigning
+the Dart variable you passed in does not reach the script. Use a getter for
+that.
 
 ### Registering Global Getters (Lazy Evaluation)
 
-Use `registerGlobalGetter` when the value should be evaluated lazily each time it's accessed. This is essential for:
+Use `registerGlobalGetter` when the value should be evaluated afresh on each
+access. This is essential for:
 
 - Values that may not be initialized at registration time (like singletons)
 - Values that may change between accesses
 - Expensive computations that should be deferred
 
 ```dart
+const lib = 'package:my_app/my_app.dart';
 final d4rt = D4rt();
 
-// Singleton pattern - getter is evaluated when accessed, not at registration
-d4rt.registerGlobalGetter('logger', () => Logger.instance);
+// Singleton - the getter runs when accessed, not at registration
+d4rt.registerGlobalGetter('logger', () => Logger.instance, lib);
 
-// Dynamic value - evaluated fresh each access
-d4rt.registerGlobalGetter('currentTime', () => DateTime.now());
+// Dynamic value - fresh on each access
+d4rt.registerGlobalGetter('currentTime', () => DateTime.now(), lib);
 
 // Deferred initialization
 late MyService service;
-d4rt.registerGlobalGetter('service', () => service);
+d4rt.registerGlobalGetter('service', () => service, lib);
 
-// Initialize later
-service = MyService();
+service = MyService();   // initialized after registration
 
-// Now the script can access it
-d4rt.execute('''
-  logger.log('Message');          // Logger.instance evaluated here
-  print(currentTime);             // Gets current timestamp
-  service.doSomething();          // service evaluated here
+d4rt.execute(source: '''
+  import '$lib';
+  main() {
+    logger.log('Message');   // Logger.instance evaluated here
+    print(currentTime);      // current timestamp
+    service.doSomething();   // service evaluated here
+  }
 ''');
+```
+
+Because the getter re-runs on each access, a later change on the native side is
+visible to the script:
+
+```dart
+var n = 1;
+d4rt.registerGlobalGetter('n', () => n, lib);
+d4rt.execute(source: "import '$lib';\nmain() => n;");   // 1
+n = 99;
+d4rt.eval('n');                                          // 99
+```
+
+### Registering Global Setters
+
+`registerGlobalSetter` pairs with a getter to make a global assignable from the
+script, giving the native variable full read-write access:
+
+```dart
+int _counter = 0;
+
+d4rt.registerGlobalGetter('counter', () => _counter, lib);
+d4rt.registerGlobalSetter('counter', (v) => _counter = v as int, lib);
+
+d4rt.execute(source: '''
+  import '$lib';
+  main() { counter = 7; }
+''');
+
+print(_counter);   // 7
 ```
 
 ### When to Use Getters vs Variables
@@ -927,6 +1003,7 @@ d4rt.execute('''
 | Singletons accessed via getter | `registerGlobalGetter` | Instance may not exist at registration |
 | Top-level getters | `registerGlobalGetter` | Preserves lazy evaluation semantics |
 | Mutable state that may change | `registerGlobalGetter` | Get current value on each access |
+| Script must assign to it | `registerGlobalSetter` (+ getter) | Assignment writes back to native state |
 
 **Example - Singleton Pattern:**
 
@@ -935,24 +1012,41 @@ d4rt.execute('''
 class MyApp {
   static MyApp? _instance;
   static MyApp get instance => _instance!;
-  
+
   static void initialize() {
     _instance = MyApp._();
   }
-  
+
   MyApp._();
 }
 
 // WRONG - crashes if called before initialize()
-// d4rt.registerGlobalVariable('app', MyApp.instance);
+// d4rt.registerGlobalVariable('app', MyApp.instance, lib);
 
 // CORRECT - evaluates when accessed
-d4rt.registerGlobalGetter('app', () => MyApp.instance);
+d4rt.registerGlobalGetter('app', () => MyApp.instance, lib);
 
 // Later...
 MyApp.initialize();
-d4rt.execute('print(app);');  // Works!
+d4rt.execute(source: "import '$lib';\nmain() => print(app);");  // Works!
 ```
+
+### Registration Order
+
+Register a library's globals **before** the `execute()` whose script imports it.
+Anything registered before that point stays visible to later `eval()` calls on
+the same instance:
+
+```dart
+d4rt.registerGlobalVariable('counter', 42, lib);
+d4rt.execute(source: "import '$lib';\nmain() => counter;");
+d4rt.eval('counter + 10');   // 52
+```
+
+Registering a library's *first* member after `execute()` does not work: the
+import in the earlier script has nothing to resolve, and that `execute()`
+itself fails with `Package module source not preloaded for URI: <lib>`. Register
+first, execute second.
 
 ---
 

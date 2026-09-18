@@ -1729,7 +1729,8 @@ class D4rt {
   /// final interpreter = D4rt();
   /// interpreter.registerBridgedClass(myClass, 'package:my_lib/my_lib.dart');
   /// interpreter.grant(FilesystemPermission.read);
-  /// interpreter.registerGlobalVariable('config', {'debug': true});
+  /// interpreter.registerGlobalVariable(
+  ///     'config', {'debug': true}, 'package:my_lib/my_lib.dart');
   ///
   /// final config = interpreter.getConfiguration();
   /// print(jsonEncode(config.toJson()));
