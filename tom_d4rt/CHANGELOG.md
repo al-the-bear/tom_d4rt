@@ -1,3 +1,30 @@
+## 1.135.0
+
+### Fixed — a braceless `then` branch with an `else` no longer ends an async function
+
+    var x = 0; var c = true;
+    if (c) x = 1; else x = 2;
+    return x + 10;                // answered 1, not 11
+
+`_findNextSequentialNode` returned null for the end of a single-statement
+`then` branch whenever an `else` was present, on the reasoning that *"there is
+no next sequential node after the then if there is an else"*. There is: the
+`else` is the branch NOT taken, and control resumes after the `if` — which is
+exactly what the neighbouring `else` case had always returned. Null stopped the
+state machine, so the function completed with whatever value it had last
+evaluated.
+
+The two branches of that decision are now one; the distinction was the bug.
+
+**Braced branches were never affected**, because a `{ … }` then-branch ends at
+the block-end case instead. Almost all Dart is braced, which is why this
+survived.
+
+**In a loop body a wrong value became no value**: the loop never advanced and
+the function answered `null`. That is the DONE WHEN's second clause and the
+case worth knowing about — it is also the one that HANGS rather than fails if
+it ever regresses, since the loop condition is never re-evaluated.
+
 ## 1.134.0
 
 ### Fixed — a `do` loop in an async body ran its condition before its body

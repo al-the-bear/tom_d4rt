@@ -5450,20 +5450,31 @@ class InterpretedFunction implements Callable {
       if (currentSearchNode is Statement &&
           parent is IfStatement &&
           parent.thenStatement == currentSearchNode) {
-        // If there is an 'else' branch, do nothing (execution stops here for this branch)
-        // If there is NO 'else' branch, find the node AFTER the IfStatement.
-        if (parent.elseStatement == null) {
-          Logger.debug(
-            "[_findNextSequentialNode] End of If 'then' (single statement, no else). Finding node after IfStatement.",
-          );
-          return _findNextSequentialNode(visitor, parent);
-        } else {
-          Logger.debug(
-            "[_findNextSequentialNode] End of If 'then' (single statement, with else). Stopping this path.",
-          );
-          // There is no "next sequential node" after the then if there is an else.
-          return null;
-        }
+        // SCE20: whether or not there is an `else`, what follows a taken `then`
+        // is the node after the whole IfStatement — the same answer the `else`
+        // case below has always given.
+        //
+        // This used to return null when an `else` was present, reasoning that
+        // "there is no next sequential node after the then if there is an
+        // else". There is: the else is the branch NOT taken, and control
+        // resumes after the if. Returning null stopped the state machine, so
+        // the function completed with the last value it had evaluated:
+        //
+        //   var x = 0; var c = true;
+        //   if (c) x = 1; else x = 2;
+        //   return x + 10;                  // answered 1, not 11
+        //
+        // Braced branches were unaffected, because a `{ … }` then-branch ends
+        // at the block-end case above instead, which never had this. That is
+        // why it survived: almost all Dart is braced.
+        //
+        // In a loop body it was worse than a wrong value — the loop never
+        // advanced and the function answered null.
+        Logger.debug(
+          "[_findNextSequentialNode] End of If 'then' (single statement). "
+          "Finding node after IfStatement.",
+        );
+        return _findNextSequentialNode(visitor, parent);
       }
 
       // Handle the end of the 'else' branch (single statement) of an IfStatement

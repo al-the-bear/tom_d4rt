@@ -216,7 +216,7 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpretedFunction._extractTypeParameterNames': '065705f9',
     'InterpretedFunction._findEnclosingTryStatement': '64523cb5',
     'InterpretedFunction._findInvocationWithAwaitInArguments': '5fedfaed',
-    'InterpretedFunction._findNextSequentialNode': '120d66b6',
+    'InterpretedFunction._findNextSequentialNode': '00e07640',
     'InterpretedFunction._enclosingExpressionFunctionBody': '34fd9762',
     'InterpretedFunction._handleAsyncError': 'a47ef623',
     'InterpretedFunction._instantiateRedirectedFactory': 'c9d9b3ba',
