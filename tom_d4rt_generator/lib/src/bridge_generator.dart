@@ -6131,7 +6131,24 @@ class BridgeGenerator {
     // Header - list all source files
     buffer.writeln('// D4rt Bridge - Generated file, do not edit');
     if (allSourceFiles.length == 1) {
-      buffer.writeln('// Source: $sourceFile');
+      // sce42: the header carries the CANONICAL URI, not the path this run
+      // happened to be handed. Two reasons, and the second is the worse one.
+      //
+      // The CLI walks a project with paths relative to its scan root while the
+      // library API is given an absolute one, so the same project generated
+      // through the two produced two different headers and `checkBridgeFreshness`
+      // — which normalises away the `// Generated:` line and nothing else —
+      // could never see them as equal. Following the regeneration command that
+      // every `example_bridges_fresh_test.dart` prints therefore turned a fresh
+      // example STALE, and the reader was told to commit the result.
+      //
+      // And a generated file has no business recording where on one machine its
+      // input happened to live: four tracked `*.b.dart` files carry a
+      // developer's home directory to this day. `_getPackageUri` is what the
+      // generator already uses for imports, so it maps sky_engine to `dart:ui`
+      // and a pub-cache path to `package:<name>/…` — machine-independent, and
+      // identical whichever way the caller spelled the path.
+      buffer.writeln('// Source: ${_getPackageUri(sourceFile)}');
     } else {
       buffer.writeln('// Sources: ${allSourceFiles.length} files');
     }

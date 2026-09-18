@@ -32,25 +32,32 @@ import 'package:tom_d4rt_generator/tom_d4rt_generator.dart';
 
 /// Examples whose committed bridges predate the current generator.
 const knownStale = <String>{
-  // NOT STALE. Both were regenerated to a fixed point by `bin/d4rtgen.dart` in
-  // SCE1's sweep and `git diff` is empty for them — but this check does not run
-  // that generator. `checkBridgeFreshness` calls `generateBridges`
-  // (`src/bridge_api.dart`), and `d4rtgen` calls `_generateBridges`
-  // (`src/v2/d4rtgen_executor.dart`). The two are hand-maintained mirrors, and
-  // they no longer agree: measured on `dart_overview`, the tool emits 5960 code
-  // lines and the check's path 5144, the missing 816 being every abstract,
-  // sealed, generic and mixin class in the package — `Shape`, `SortedList`,
-  // `Bird`, `Flying` and the rest. Neither the overlay nor the starting state
-  // is responsible; both paths were measured in place, from the same fixed
-  // point, with the same config.
+  // NOT STALE. `dart_overview` was regenerated to a fixed point by
+  // `bin/d4rtgen.dart` and `git diff` is empty for it — but this check does not
+  // call it the same way.
   //
-  // So these two entries record a disagreement between two generators, not a
-  // stale file, and deleting them would make the ratchet demand that the tool's
-  // own output look stale. SCF1 owns collapsing the two implementations into
-  // one; when it lands, both come off and the comment goes with them.
+  // THE EARLIER EXPLANATION HERE WAS WRONG and is recorded as such so nobody
+  // hunts for it again: it said `d4rtgen` and `checkBridgeFreshness` run two
+  // hand-maintained generator implementations that had drifted apart. SCE28
+  // unified those — both build their config with the same loader and call the
+  // same `generateBridges`, and `--dump-config` returns byte-identical JSON.
   //
-  // The other five examples pass because their generation happens to agree
-  // across the two paths — which is why the split went unnoticed.
+  // MEASURED (SCE37): the variable is the FORM of `projectPath`, nothing else.
+  // `checkBridgeFreshness` opens with `p.normalize(p.absolute(projectPath))`
+  // while `d4rtgen` passes `-p .` through as given, and `generateBridges` is
+  // not invariant under that: its barrel export-clause filter looks up
+  // `exportInfo[c.sourceFile]`, and `sourceFile` is written in mixed forms, so
+  // a relative path MISSES the lookup and falls open while an absolute one
+  // HITS the wrong entry. Relative yields 110 classes, absolute 97 — one
+  // version, one config, cold cache, either working directory. The absolute
+  // run drops `Animal` as "not exported from barrel file" while the barrel
+  // reads `show Animal, Cat, …`, which is the proof that side is wrong.
+  //
+  // So this entry records a generator that is not path-form invariant, not a
+  // stale file. SCF1 owns the fix; when it lands this comes off.
+  //
+  // The other examples pass because their generation happens to agree across
+  // the two forms — which is why the split went unnoticed.
   'dart_overview',
 };
 

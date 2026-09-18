@@ -1,3 +1,39 @@
+## 1.34.0
+
+### Fixed — the `// Source:` header is canonical, so the documented regeneration command works
+
+The header recorded the path the run happened to be handed. The CLI walks a
+project with paths relative to its scan root and the library API is given an
+absolute one, so the same project generated the two ways produced two different
+files — and `checkBridgeFreshness` normalises away the `// Generated:` line and
+nothing else, so they could never compare equal:
+
+    CLI      // Source: example/d4/lib/test_extensions.dart
+    library  // Source: /Users/<user>/…/example/d4/lib/test_extensions.dart
+
+Following the regeneration command that every `example_bridges_fresh_test.dart`
+PRINTS therefore turned a fresh example stale, and told the reader to commit the
+result. Anyone who did would have recorded headers the gate then failed on
+forever.
+
+The second defect is the worse one: a generated file has no business recording
+where on one machine its input happened to live. Four tracked `*.b.dart` files
+carry a developer's home directory today, so the same project generates
+differently on another machine.
+
+The header now uses `_getPackageUri` — the same mapping the generator already
+applies to imports — so sky_engine becomes `dart:ui`, a pub-cache path becomes
+`package:<name>/…`, and every spelling of one file maps to one URI:
+
+    both     // Source: package:d4_example/test_extensions.dart
+
+`test/sce42_source_header_test.dart` pins the emitted header, not just the URI
+mapping: the mapping was already correct before this change, so a test that
+exercised only `packageUriForTesting` passed with the fix reverted. It also
+carries a repo-wide guard that no committed bridge records an absolute path,
+with the four known files registered as a ratchet — they can only be repaired by
+regenerating after a publish, which SCF1's sweep owns.
+
 ## 1.33.0
 
 ### Changed — the d4 test runner is compiled once per `dart test`, not once per suite
