@@ -16,8 +16,8 @@ dependencies:
   # 8.4.1 — long gone from pub-cache — and every AOT compile in the tests
   # failed. `analyzer` itself is not imported by this example either.
   path: ^1.9.0
-  dcli: ^8.4.2
-  dcli_core: ^8.2.8
+  dcli: ^10.0.0
+  dcli_core: ^10.0.0
 
 dev_dependencies:
   lints: ^6.0.0

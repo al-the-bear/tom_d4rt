@@ -15,8 +15,8 @@ dependencies:
   # `F-SCC45-4` fails once a newer one is in the pub cache (SCE6).
   tom_d4rt_exec: ">=1.25.0"
   path: ^1.9.0
-  dcli: ^8.4.2
-  dcli_core: ^8.2.8
+  dcli: ^10.0.0
+  dcli_core: ^10.0.0
 
 dev_dependencies:
   lints: ^6.0.0
