@@ -206,20 +206,16 @@ const _minGeneratedBridges = 150;
 ///
 /// The remedy is to regenerate those two packages, not to edit here. A
 /// `.b.dart` says "do not edit" on its first line and means it.
-const _staleGeneratedBridges = <String, int>{
-  'tom_d4rt_dcli/lib/src/d4rt_library_bridges/package_dcli_bridges.b.dart': 6,
-  'tom_d4rt_dcli/lib/src/d4rt_library_bridges/package_dcli_core_bridges.b.dart':
-      3,
-  'tom_d4rt_dcli/lib/src/d4rt_library_bridges/'
-          'package_tom_vscode_scripting_api_bridges.b.dart':
-      7,
-  'tom_dcli_exec/lib/src/d4rt_library_bridges/package_dcli_bridges.b.dart': 6,
-  'tom_dcli_exec/lib/src/d4rt_library_bridges/package_dcli_core_bridges.b.dart':
-      3,
-  'tom_dcli_exec/lib/src/d4rt_library_bridges/'
-          'package_tom_vscode_scripting_api_bridges.b.dart':
-      7,
-};
+///
+/// EMPTY SINCE 2026-09-18, and the way it emptied is worth recording because
+/// it is not the way the paragraph above predicted. The six files were not
+/// regenerated: SCE30 found them ORPHANED — committed generated files that no
+/// generator run writes any more — and deleted them. So the debt went away
+/// with its carriers rather than being paid, and the narrowing sites went with
+/// it. The register is kept declared rather than removed: F-SCD35-13 reads it
+/// as the allow-list of known-narrowing files, so an empty map is what makes
+/// any NEW one a failure, and F-SCD35-14 is the ratchet over it.
+const _staleGeneratedBridges = <String, int>{};
 
 void main() {
   // SCD158: this guard resolves its subject relative to the package it
