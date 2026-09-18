@@ -1,5 +1,7 @@
 ## 0.122.0
 
+Name resolution: yes — a name narrowed by import scope is retrieved by kind, not as a class only (sce25).
+
 ### Fixed — an ambiguous name narrowed by import scope was only retrieved as a class
 
 Mirror of the `tom_d4rt` fix of the same name: a name narrowed to a single
@@ -8,6 +10,8 @@ top-level value fell through to the ambiguity throw. Retrieval now consults the
 alias environment by kind.
 
 ## 0.121.0
+
+Name resolution: yes — same-name bridged enums and top-level values are ambiguous rather than last-wins (sce25).
 
 ### Fixed — same-name bridged enums and top-level values are ambiguous, not last-wins
 
@@ -320,6 +324,8 @@ A class declaring no supertype stopped the walk dead, so every inherited member
 read as unspeakable — which is a pass. That gap is what hid both defects above.
 
 ## 0.111.0
+
+Name resolution: yes — the enum registry records what it displaces, so a displaced enum is reachable (scd194).
 
 ### Added - the enum registry records what it displaces (scd194)
 
@@ -833,6 +839,8 @@ The rule was always wrong; nothing consulted it for arguments until
 it into 15 corpus failures and ~276 framework errors across 109 scripts.
 
 ## 0.95.0
+
+Name resolution: yes — `Environment.toBridgedClass` no longer claims a bridge on a bare-name prefix (scd132).
 
 ### Changed — a bare name prefix no longer claims a bridge (scd132)
 
@@ -2198,6 +2206,8 @@ point — `package:tom_d4rt_ast/d4rt.dart` is. The docstring now says so, and
 have.
 
 ## 0.65.0
+
+Name resolution: yes — a shared name is judged over what the reading script imports (scd4_aicv).
 
 ### Fixed — a name two packages share is judged over what the script imports (scd4_aicv)
 
@@ -3864,6 +3874,8 @@ using it ran here and would not compile as Dart. Replace it with
 
 ## 0.20.1
 
+Name resolution: yes — platform-library precedence, so a `dart:*` name no longer makes a package name ambiguous.
+
 Mirrors `tom_d4rt` 1.30.1.
 
 ### Fixed — a `dart:*` declaration no longer makes a package declaration's bare name ambiguous
@@ -4015,6 +4027,8 @@ script-level contract for all four items is pinned by the analyzer twin; here th
 adapters and the recogniser are invoked directly.
 
 ## 0.19.0
+
+Name resolution: yes — the ambiguity rule itself — two same-named bridged classes stop resolving to whichever registered last (tcca19).
 
 ### Fixed — two packages declaring the same class name resolved to whichever registered last (tcca19)
 

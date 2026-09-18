@@ -175,3 +175,31 @@ naming the class reaches it. So a change to this rule needs both of:
   with the companion-app locks at the new release, recorded under
   `Verification runs` in `tom_d4rt_flutter_ast/doc/interpreter_issues.md`. The
   d4rt quest overview states this for every name-resolution change.
+
+### Marking the release, so the owed run is visible
+
+A rule stated only in prose is what tcca19 shipped through: its commit message
+named the invariant and nothing held it. The corpus run itself cannot be a CI
+check — it needs a GUI and half an hour — but the RECORD of it can be, and is.
+
+**A CHANGELOG section that changes name resolution carries a marker line
+directly under its `## <version>` heading:**
+
+```markdown
+## 1.77.0
+
+Name resolution: yes — a shared name is judged over what the reading script
+imports (scd4_aicv).
+```
+
+`tom_d4rt_ast/test/sce29_name_resolution_corpus_test.dart` reads both
+interpreter CHANGELOGs for that marker and the `Verification runs` section for
+the versions each run measured, and fails when a marked release has neither a
+covering run nor an entry in its `_deferred` map. Write the marker in both
+trees — the guard checks the mirror, because a name-resolution change lands in
+both.
+
+A release that cannot be certified yet — normally because it is unpublished and
+the twins resolve the interpreter from pub.dev (DGUC6) — goes in `_deferred`
+with the reason. That records the debt; it does not discharge it. When the
+blocker lifts, make the run, record it, and delete the entry.

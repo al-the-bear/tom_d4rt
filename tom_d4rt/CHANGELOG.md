@@ -1,5 +1,7 @@
 ## 1.137.0
 
+Name resolution: yes — a name narrowed by import scope is retrieved by kind, not as a class only (sce25).
+
 ### Fixed — an ambiguous name narrowed by import scope was only retrieved as a class
 
 Completes the generalisation the previous release began. `_resolveAmbiguityInImportScope`
@@ -16,6 +18,8 @@ kind the name actually denotes.
 doc comment showed a two-argument call that does not compile.
 
 ## 1.136.0
+
+Name resolution: yes — same-name bridged enums and top-level values are ambiguous rather than last-wins (sce25).
 
 ### Fixed — same-name bridged enums and top-level values are ambiguous, not last-wins
 
@@ -342,6 +346,8 @@ A class declaring no supertype stopped the walk dead, so every inherited member
 read as unspeakable — which is a pass. That gap is what hid both defects above.
 
 ## 1.125.0
+
+Name resolution: yes — the enum registry records what it displaces, so a displaced enum is reachable (scd194).
 
 ### Added - the enum registry records what it displaces (scd194)
 
@@ -884,6 +890,8 @@ and the other deliberately not, two are one concept under two names, and five
 are recorded as genuine gaps rather than differences (see sce154 and sce155).
 
 ## 1.108.0
+
+Name resolution: yes — `Environment.toBridgedClass` no longer claims a bridge on a bare-name prefix (scd132).
 
 ### Changed — a bare name prefix no longer claims a bridge (scd132)
 
@@ -2310,6 +2318,8 @@ and really does declare all four. Removed, and their absence pinned by
 `F-SCD24-1..5`.
 
 ## 1.77.0
+
+Name resolution: yes — a shared name is judged over what the reading script imports (scd4_aicv).
 
 ### Fixed — a name two packages share is judged over what the script imports (scd4_aicv)
 
@@ -4504,6 +4514,8 @@ open finding.
 
 ## 1.30.1
 
+Name resolution: yes — platform-library precedence, so a `dart:*` name no longer makes a package name ambiguous.
+
 ### Fixed — a `dart:*` declaration no longer makes a package declaration's bare name ambiguous
 
 1.27.0 (tcca19) made two same-named bridged classes reject the bare name instead
@@ -4710,6 +4722,8 @@ The probe now uses the non-throwing `Environment.lookup`, as that method's own
 doc comment prescribes for callers that fall back on a miss.
 
 ## 1.27.0
+
+Name resolution: yes — the ambiguity rule itself — two same-named bridged classes stop resolving to whichever registered last (tcca19).
 
 ### Fixed — two packages declaring the same class name resolved to whichever registered last (tcca19)
 
