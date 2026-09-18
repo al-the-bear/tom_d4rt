@@ -230,6 +230,8 @@ class AstConverter {
       return _convertConstructorFieldInitializer(node);
     if (node is analyzer.AssertInitializer)
       return _convertAssertInitializer(node);
+    if (node is analyzer.Configuration) return _convertConfiguration(node);
+    if (node is analyzer.DottedName) return _convertDottedName(node);
     if (node is analyzer.ShowCombinator) return _convertShowCombinator(node);
     if (node is analyzer.HideCombinator) return _convertHideCombinator(node);
 
@@ -1493,6 +1495,7 @@ class AstConverter {
           ? _convertSimpleIdentifier(node.prefix!)
           : null,
       isDeferred: node.deferredKeyword != null,
+      configurations: _nodesAs<SConfiguration>(node.configurations),
       combinators: _nodesAs<SCombinator>(node.combinators),
     );
   }
@@ -1503,6 +1506,7 @@ class AstConverter {
       length: node.length,
       metadata: _convertAnnotations(node.metadata),
       uri: _as<SStringLiteral>(node.uri),
+      configurations: _nodesAs<SConfiguration>(node.configurations),
       combinators: _nodesAs<SCombinator>(node.combinators),
     );
   }
@@ -1532,6 +1536,29 @@ class AstConverter {
       length: node.length,
       metadata: _convertAnnotations(node.metadata),
       name: _as<SIdentifier>(node.name),
+    );
+  }
+
+  /// A conditional branch of an import or export:
+  /// `if (dart.library.io) 'io.dart'`.
+  ///
+  /// The condition is copied, not evaluated — which branch applies depends on
+  /// the target platform, which this converter does not know.
+  SConfiguration _convertConfiguration(analyzer.Configuration node) {
+    return SConfiguration(
+      offset: node.offset,
+      length: node.length,
+      name: _convertDottedName(node.name),
+      value: _as<SStringLiteral>(node.value),
+      uri: _as<SStringLiteral>(node.uri),
+    );
+  }
+
+  SDottedName _convertDottedName(analyzer.DottedName node) {
+    return SDottedName(
+      offset: node.offset,
+      length: node.length,
+      components: node.components.map(_convertSimpleIdentifier).toList(),
     );
   }
 

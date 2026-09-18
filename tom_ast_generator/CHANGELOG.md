@@ -1,3 +1,40 @@
+## 0.1.7
+
+### Fixed — conditional import/export branches are no longer dropped (sce49)
+
+`_convertImportDirective` read `uri`, `prefix`, `combinators` and
+`deferredKeyword`, and never `node.configurations` — because the mirror AST had
+no field to put them in. `_convertExportDirective` was the same. So
+
+```dart
+import 'stub.dart' if (dart.library.io) 'io.dart';
+```
+
+reached every consumer as `import 'stub.dart';`: a well-formed import of the
+default URI with nothing anywhere recording that a branch had been discarded.
+Conditional imports are the standard Dart mechanism for VM-vs-web divergence,
+so the symptom surfaces on one platform, far from the cause.
+
+Both converters now populate `configurations`, and `analyzer.Configuration` and
+`analyzer.DottedName` are in the `convert()` dispatch chain — a node type that
+is not in it falls through to the opaque unknown-node placeholder and is then
+filtered out of the typed list, which is how DGUB8 lost every record-type
+field.
+
+The conditions are COPIED, not evaluated: which branch applies depends on the
+target platform, which this converter does not know.
+
+Requires `tom_ast_model` 0.2.2, which adds `SConfiguration` and `SDottedName`.
+
+### Added — a 1:1 fidelity ratchet over the directive nodes
+
+`test/directive_mirror_fidelity_test.dart` enumerates, by reflection, every
+getter the analyzer's `ImportDirective`, `ExportDirective`, `Configuration` and
+`DottedName` declare, and requires each to be classified exactly once: mirrored
+(naming the field on the mirror node, which must exist) or deliberately absent
+(with the reason). A field the analyzer adds later is in neither set and fails
+the test by name, instead of disappearing the way `configurations` did.
+
 ## 0.1.6
 
 ### Released — so the corrected stamp reaches the package people install (sce9)
