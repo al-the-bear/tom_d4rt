@@ -386,6 +386,30 @@ IDLE_TIMEOUT=600 ./test/run_issue_analysis_tests.sh   # more headroom still
 $env:IDLE_TIMEOUT = 600; ./test/run_issue_analysis_tests.ps1
 ```
 
+## This twin does NOT regenerate bridges at test time
+
+`SendTestRunner.setUp` here does no bridge regeneration and no freshness check
+at all. This package's `lib/src/bridges/*.b.dart` move only when somebody runs
+
+```bash
+dart run tool/regenerate_bridges.dart
+```
+
+by hand. Nothing in a corpus run notices that they are stale, so a generator
+change reaches this twin only when a person brings it.
+
+**The AST twin behaves differently**, and the difference is easy to mistake for
+a bug in whichever one you looked at second.
+`tom_d4rt_flutter_ast`'s runner checks freshness before the first test of every
+file — by CONTENT, via `tool/bridge_freshness_gate.dart`, and it rewrites the
+bridges when the generator's output has genuinely changed. See the "bridge
+gate" section of that twin's `test/README.md` for how it decides and for the
+two environment variables that control it (SCE13).
+
+Same shape of asymmetry as the user bridges, the runtime registrations and the
+runner files: **scripts are shared, bridges are per twin, and the harness around
+them is duplicated by hand.** See the table above.
+
 ## ⚠️ The corpus certifies the PUBLISHED interpreter, not the working tree
 
 This package resolves ``tom_d4rt`` **from pub.dev**, and so does its companion

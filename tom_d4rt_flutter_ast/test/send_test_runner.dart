@@ -398,6 +398,37 @@ class SendTestRunner {
     }
   }
 
+  /// Make sure the committed bridges match the generator before tests run.
+  ///
+  /// SCE13. Three decisions, each of which used to be wrong in a way that
+  /// reported as something else:
+  ///
+  /// 1. WHETHER TO LOOK is still decided by mtimes ([_evaluateBridgeStaleness]),
+  ///    because that costs a handful of `stat` calls and the answer is "no" on
+  ///    nearly every run. It is used only as a NEGATIVE filter now: mtimes can
+  ///    prove nothing changed, they cannot prove something did.
+  /// 2. WHETHER ANYTHING ACTUALLY DIFFERS is decided by CONTENT, by
+  ///    `tool/bridge_freshness_gate.dart`. A `flutter pub upgrade` moves
+  ///    tom_d4rt_generator into a different pub-cache directory with fresh
+  ///    mtimes, so the mtime test called every lock change stale. Measured
+  ///    2026-09-18: regenerating then took 116 s and rewrote all 18 bridges
+  ///    with no difference beyond the `// Generated:` line — which dirtied
+  ///    `lib/src/bridges` and forced a cold rebuild of the companion app.
+  /// 3. WHETHER IT IS VISIBLE. The old call was `Process.run`, which buffers
+  ///    everything until the child exits. The generator prints ~240 lines and
+  ///    not one of them reached the terminal, so `setUpAll` sat mute for the
+  ///    whole 116 s — past the corpus runner's idle watchdog, which killed
+  ///    file 01 and reported `exit=124 (IDLE-KILLED)`. That reads as a wedged
+  ///    transport, and the protocol says to re-run a wedged transport rather
+  ///    than read it, so the real cause stayed invisible. The gate is streamed
+  ///    line by line and emits its own heartbeat.
+  ///
+  /// The stamp is what makes this affordable. Every `flutter_base_NN_test.dart`
+  /// is its own process, so a per-process memo ([_bridgesRegenerated]) does not
+  /// help across a run: without the stamp, all seventeen files in a base run
+  /// would each pay for the content check. The stamp records the input
+  /// fingerprint the check last blessed, so the first file pays and the rest
+  /// read one small file.
   static Future<void> _ensureBridgesRegenerated() async {
     if (_bridgesRegenerated) {
       return;
@@ -410,32 +441,194 @@ class SendTestRunner {
       return;
     }
 
-    final staleness = _isEnvEnabled(_forceBridgeRegenEnv)
-        ? (stale: true, reason: 'forced via $_forceBridgeRegenEnv')
-        : await _evaluateBridgeStaleness();
+    // `D4RT_FORCE_BRIDGE_REGEN` keeps its original meaning — an unconditional
+    // rewrite — rather than being redirected into the gate. It is the escape
+    // hatch for the day the content check is itself wrong, so it must not go
+    // through the thing being overridden. Streamed, so it cannot go silent
+    // either.
+    if (_isEnvEnabled(_forceBridgeRegenEnv)) {
+      print(
+        'bridges: forced via $_forceBridgeRegenEnv — regenerating '
+        'unconditionally',
+      );
+      await _runBridgeTool(
+        'tool/regenerate_bridges.dart',
+        allowedExitCodes: const {0},
+      );
+      await _writeBridgeFreshnessStamp();
+      _bridgesRegenerated = true;
+      return;
+    }
+
+    final staleness = await _evaluateBridgeStaleness();
     if (!staleness.stale) {
       _bridgesRegenerated = true;
       return;
     }
 
-    final packageRoot = Directory.current.path;
-    final dartExecutable = await _resolveDartExecutable();
-    final result = await Process.run(dartExecutable, [
-      'run',
-      'tool/regenerate_bridges.dart',
-    ], workingDirectory: packageRoot);
-
-    if (result.exitCode != 0) {
-      final output = [
-        if ((result.stdout as String).trim().isNotEmpty)
-          'stdout:\n${result.stdout}',
-        if ((result.stderr as String).trim().isNotEmpty)
-          'stderr:\n${result.stderr}',
-      ].join('\n');
-      throw StateError('Bridge regeneration failed before tests.\n$output');
+    final fingerprint = await _bridgeInputFingerprint();
+    if (fingerprint != null && fingerprint == _readBridgeFreshnessStamp()) {
+      // The mtimes moved, but a content check has already established that the
+      // generator's output for exactly this input state is what is committed.
+      // Re-running it would burn ~45 s to reach the same answer.
+      _bridgesRegenerated = true;
+      return;
     }
 
+    print('bridges: ${staleness.reason}');
+    print('bridges: checking by content (mtimes cannot tell output apart)');
+    final exit = await _runBridgeTool(
+      'tool/bridge_freshness_gate.dart',
+      allowedExitCodes: const {0, _bridgeRegeneratedExitCode},
+    );
+    if (exit == _bridgeRegeneratedExitCode) {
+      print('bridges: regenerated — the generator output genuinely changed');
+    }
+
+    await _writeBridgeFreshnessStamp();
     _bridgesRegenerated = true;
+  }
+
+  /// Exit code `tool/bridge_freshness_gate.dart` uses for "I rewrote them".
+  ///
+  /// Deliberately a second copy of that tool's `regeneratedExitCode` rather
+  /// than an import of it. Importing would pull `tom_d4rt_generator`, and with
+  /// it the analyzer, into the compilation unit of all seventeen
+  /// `flutter_base_NN_test.dart` files — which is precisely why the gate is a
+  /// subprocess. Keep the two in step by hand; the contract is one integer and
+  /// it is named on both sides.
+  static const int _bridgeRegeneratedExitCode = 20;
+
+  /// Run a bridge tool as a subprocess, streaming its output as it arrives.
+  ///
+  /// Streaming is the point: see [_ensureBridgesRegenerated]. Returns the exit
+  /// code when it is in [allowedExitCodes], and throws otherwise — with the
+  /// output already on the terminal, so the failure is readable rather than
+  /// recovered from a buffer.
+  static Future<int> _runBridgeTool(
+    String scriptPath, {
+    required Set<int> allowedExitCodes,
+  }) async {
+    final packageRoot = Directory.current.path;
+    final dartExecutable = await _resolveDartExecutable();
+    final process = await Process.start(dartExecutable, [
+      'run',
+      scriptPath,
+    ], workingDirectory: packageRoot);
+
+    final drained = <Future<void>>[
+      for (final stream in [process.stdout, process.stderr])
+        stream
+            .transform(utf8.decoder)
+            .transform(const LineSplitter())
+            .forEach((line) => print('  $line')),
+    ];
+    final exit = await process.exitCode;
+    await Future.wait(drained);
+
+    if (!allowedExitCodes.contains(exit)) {
+      throw StateError(
+        'Bridge step `$scriptPath` failed with exit $exit before tests. Its '
+        'output is above.',
+      );
+    }
+    return exit;
+  }
+
+  /// Where the blessed input fingerprint is recorded.
+  ///
+  /// `.dart_tool/` is gitignored and per-package, so the stamp never reaches a
+  /// commit and never travels between machines — which is right, because what
+  /// it attests to (a pub-cache path and its mtimes) is per-machine too.
+  static File get _bridgeFreshnessStampFile => File(
+    p.join(Directory.current.path, '.dart_tool', 'd4rt_bridge_freshness.stamp'),
+  );
+
+  static String? _readBridgeFreshnessStamp() {
+    final file = _bridgeFreshnessStampFile;
+    if (!file.existsSync()) {
+      return null;
+    }
+    try {
+      return file.readAsStringSync().trim();
+    } catch (_) {
+      return null;
+    }
+  }
+
+  static Future<void> _writeBridgeFreshnessStamp() async {
+    // Computed AFTER the tool ran: a regeneration moves the outputs' mtimes,
+    // and the stamp has to describe the state that was actually blessed.
+    final fingerprint = await _bridgeInputFingerprint();
+    if (fingerprint == null) {
+      return;
+    }
+    try {
+      final file = _bridgeFreshnessStampFile;
+      file.parent.createSync(recursive: true);
+      file.writeAsStringSync(fingerprint);
+    } catch (_) {
+      // A stamp that cannot be written costs time on the next file, never
+      // correctness — the content check simply runs again.
+    }
+  }
+
+  /// A string identifying the input state the freshness answer belongs to.
+  ///
+  /// Deliberately the same evidence [_evaluateBridgeStaleness] reads, so a
+  /// blessed stamp stays valid exactly as long as that check keeps firing for
+  /// the same reason. Returns null when the evidence cannot be gathered, which
+  /// makes the caller fall back to running the check.
+  static Future<String?> _bridgeInputFingerprint() async {
+    final packageRoot = Directory.current.path;
+    final bridgesDir = Directory(p.join(packageRoot, 'lib', 'src', 'bridges'));
+    if (!bridgesDir.existsSync()) {
+      return null;
+    }
+
+    final parts = <String>[];
+    final outputs =
+        bridgesDir
+            .listSync()
+            .whereType<File>()
+            .where((file) => file.path.endsWith('.b.dart'))
+            .toList()
+          ..sort((a, b) => a.path.compareTo(b.path));
+    if (outputs.isEmpty) {
+      return null;
+    }
+    for (final output in outputs) {
+      parts.add(
+        '${p.basename(output.path)}:'
+        '${output.lastModifiedSync().millisecondsSinceEpoch}',
+      );
+    }
+
+    for (final name in const [
+      'buildkit.yaml',
+      'tool/regenerate_bridges.dart',
+    ]) {
+      final file = File(p.join(packageRoot, name));
+      if (file.existsSync()) {
+        parts.add('$name:${file.lastModifiedSync().millisecondsSinceEpoch}');
+      }
+    }
+
+    final generatorRoot = await _resolveLocalPackageRoot(
+      packageName: 'tom_d4rt_generator',
+    );
+    if (generatorRoot != null && generatorRoot.existsSync()) {
+      // The resolved PATH matters as much as the mtime: a `pub upgrade` to a
+      // different generator version changes the directory, and that is the
+      // change this whole mechanism was built to stop misreading.
+      parts.add('generator:${generatorRoot.path}');
+      final newest = _newestGeneratorInput(generatorRoot);
+      if (newest != null) {
+        parts.add('generatorInput:${newest.modified.millisecondsSinceEpoch}');
+      }
+    }
+
+    return parts.join('|');
   }
 
   static bool _isEnvEnabled(String key) {

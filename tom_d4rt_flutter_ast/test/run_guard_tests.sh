@@ -143,6 +143,13 @@ run "corpus runs record the interpreter they resolved" \
 run "cluster log is derived, dated and blast-radius rated" \
   flutter test test/interpreter_issues_doc_test.dart
 
+# SCE13: the harness's bridge step stays visible, content-decided and
+# uncommitted. Source-shape only, and deliberately so — the property it stands
+# for ("a fresh package is left untouched") needs a ~45 s generation to observe,
+# which is exactly the cost this runner exists to keep out of the cheap set.
+run "bridge step is streamed and content-decided" \
+  flutter test test/sce13_bridge_gate_test.dart
+
 if [ "$status" -eq 0 ]; then
   echo "all guards passed"
 else

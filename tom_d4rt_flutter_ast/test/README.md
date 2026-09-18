@@ -367,6 +367,61 @@ IDLE_TIMEOUT=600 ./test/run_issue_analysis_tests.sh   # more headroom still
 $env:IDLE_TIMEOUT = 600; ./test/run_issue_analysis_tests.ps1
 ```
 
+## The bridge gate: `setUpAll` decides by content, not by mtime
+
+Before the first test of a file, `SendTestRunner.setUp` makes sure this
+package's committed `*.b.dart` bridges still match what `tom_d4rt_generator`
+produces. Three steps, in increasing cost, and only the first runs on a normal
+day:
+
+1. **An mtime comparison** — `buildkit.yaml`, `tool/regenerate_bridges.dart`
+   and the resolved generator, against the oldest bridge. It is a handful of
+   `stat` calls and it is used only as a NEGATIVE filter: mtimes can show that
+   nothing changed, never that something did.
+2. **A stamp** in `.dart_tool/d4rt_bridge_freshness.stamp`, holding the input
+   fingerprint a content check last blessed. Every `flutter_base_NN_test.dart`
+   is its own process, so without this all seventeen files in a base run would
+   each pay for step 3.
+3. **A content check** — `tool/bridge_freshness_gate.dart`, which runs
+   `checkBridgeFreshness`: it regenerates into a scratch tree, compares each
+   file ignoring the `// Generated:` line, and **never writes to the
+   package**. It rewrites the bridges only when something other than the
+   timestamp differs. Measured at 43–55 s here, streamed line by line with a
+   heartbeat every 10 s.
+
+**Why it is not just step 1 (SCE13).** It used to be, and the regeneration ran
+through `Process.run`, which buffers. A `flutter pub upgrade` moves
+`tom_d4rt_generator` into a different pub-cache directory with fresh mtimes, so
+every lock change read as stale. Measured 2026-09-18 in this package: the
+regeneration took **116 s**, printed 240 lines nobody saw, and rewrote all 18
+bridges with **no difference beyond the `// Generated:` line**. It cost two
+things, and neither named its cause — 116 s of silence inside `setUpAll`, which
+the idle watchdog above killed as a wedged transport (`exit=124`, the one
+result the protocol says to re-run rather than read); and a dirty
+`lib/src/bridges`, which forced a cold rebuild of the companion app.
+
+Note what that means for the watchdog's budget: the bridge step and the
+companion app's 120 s start are both inside ONE idle window. Widening the
+window (SCD131) made the symptom rarer; it is the streaming that removes it.
+
+Two environment variables, both read by `SendTestRunner`:
+
+```bash
+D4RT_SKIP_BRIDGE_REGEN=1 flutter test test/flutter_base_01_test.dart  # skip entirely
+D4RT_FORCE_BRIDGE_REGEN=1 ./test/run_base_tests.sh                    # rewrite unconditionally
+```
+
+`D4RT_FORCE_BRIDGE_REGEN` deliberately bypasses the gate rather than running
+through it: it is the escape hatch for the day the content check is itself
+wrong, so it must not depend on the thing it overrides. Use
+`D4RT_SKIP_BRIDGE_REGEN` when hand-editing a `.b.dart` to debug — otherwise the
+gate reverts the edit, which is the documented reason that variable exists.
+
+**The sibling twin has none of this.** `tom_d4rt_flutter`'s `send_test_runner.dart`
+never regenerates; its bridges move only when somebody runs
+`tool/regenerate_bridges.dart` by hand. Same asymmetry as the user bridges and
+`d4rt_runtime_registrations.dart` — see the table above.
+
 ## ⚠️ The corpus certifies the PUBLISHED interpreter, not the working tree
 
 This package resolves ``tom_d4rt_ast`` **from pub.dev**, and so does its companion

@@ -41,11 +41,16 @@ dev_dependencies:
   # matching tom_d4rt_exec / tom_ast_generator (also analyzer ^10), so the
   # earlier analyzer-8-vs-10 conflict that deferred regen is resolved — the
   # generator now shares a single resolution with the rest of the toolchain.
-  # Floor 1.15.3: below it, a regeneration from a relative scan root writes
-  # `bridgeReExports()` source keys as `lib/…` instead of `package:…`, which no
-  # script import can ever match (GEN-125). This package regenerates at test
-  # time, so the floor is load-bearing here rather than advisory.
-  tom_d4rt_generator: ">=1.15.3"
+  # Floor 1.18.0, and load-bearing rather than advisory, because this package
+  # decides bridge freshness at TEST time. 1.15.3 was the old floor: below it a
+  # regeneration from a relative scan root writes `bridgeReExports()` source
+  # keys as `lib/…` instead of `package:…`, which no script import can ever
+  # match (GEN-125). 1.17.0 added `checkBridgeFreshness`, which
+  # `tool/bridge_freshness_gate.dart` calls to decide by content instead of by
+  # mtime; 1.18.0 is where that check refuses an unresolved package outright
+  # rather than running `pub get` for it. The gate runs against a package it
+  # must not modify, so not-writing is the property being depended on.
+  tom_d4rt_generator: ">=1.18.0"
   # Analyzer front-end + 1:1 AST copier. Used ONLY by the bridge
   # regeneration tool (tool/regenerate_bridges.dart) and the test
   # driver — never by lib/ runtime code. The bridges and FlutterD4rt
