@@ -1,3 +1,39 @@
+## 1.27.0
+
+### Changed — the `d4rtgen` CLI and `generateBridges` are one pipeline
+
+The CLI executor used to orchestrate generation itself: its own
+`BridgeGenerator` per module, its own barrel / dartscript / test-runner
+writers. That is a second pipeline alongside the library API, and it is the
+API that every consumer's freshness gate (`checkBridgeFreshness`) certifies
+committed bridges against — so the two disagreeing means a gate can fail on
+bridges `d4rtgen` just produced, or pass on bridges it would never produce.
+
+They had already drifted once (DGUB2: buildkit `recursiveBoundTypes:` reached
+the API but not the executor). A second divergence survived until now: the two
+computed `sourceImport` / `sourceImports` differently, so a module whose
+`barrelImport` names a different URI than its barrel got a different
+`getImportBlock()` from each — the API emitting both URIs, the CLI only the
+override. Reproduced in `D4G-PIPE-3`.
+
+No committed bridge in the workspace changes. Every module that reaches the
+diverging input sets `barrelImport` to its own barrel, which the downstream
+`si != importBlockUri` filter collapses to one import either way, and there are
+no multi-barrel modules at all — the executor's multi-barrel branch, the one
+that could pass a null `sourceImport`, was never exercised.
+
+The executor now contributes only CLI concerns (project discovery, `--list`,
+`--dump-config`, `--dry-run`, `--verify-output`, output) and delegates to
+`generateBridges`, which gains two parameters for it:
+
+- `verbose`, so the CLI keeps its per-module progress output.
+- `runPubGet` (default true, preserving the library's behaviour). The CLI
+  passes false: resolving a package is a write, and `--dry-run` runs this same
+  path inside the scratch overlay. `checkBridgeFreshness` already refused an
+  unresolved package for the same reason.
+
+`D4G-PIPE-1` and `D4G-PIPE-2` fail if a second pipeline is reintroduced.
+
 ## 1.26.2
 
 ### Fixed — the callback-wrapper docstring showed the shape the generator no longer emits (scd185)

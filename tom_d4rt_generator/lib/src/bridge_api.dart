@@ -75,6 +75,8 @@ Future<GenerationResult> generateBridges({
   BridgeConfig? config,
   String? configPath,
   String? projectPath,
+  bool verbose = false,
+  bool runPubGet = true,
 }) async {
   if (config == null && configPath == null) {
     throw ArgumentError('Either config or configPath must be provided');
@@ -95,11 +97,16 @@ Future<GenerationResult> generateBridges({
   }
 
   // Ensure package_config.json exists — required for resolving package: URIs
-  // in barrel files. Run `dart pub get` if missing.
+  // in barrel files. Run `dart pub get` if missing, when the caller allows it.
+  //
+  // [runPubGet] is what lets the `d4rtgen` CLI share this pipeline: a dry run
+  // must not spawn a subprocess that writes to the package it is only
+  // inspecting, and `checkBridgeFreshness` refuses an unresolved package for
+  // the same reason rather than resolving it behind the caller's back.
   final packageConfig = File(
     p.join(projectDir, '.dart_tool', 'package_config.json'),
   );
-  if (!packageConfig.existsSync()) {
+  if (runPubGet && !packageConfig.existsSync()) {
     final pubGetResult = await Process.run('dart', [
       'pub',
       'get',
@@ -113,6 +120,11 @@ Future<GenerationResult> generateBridges({
         errors: ['dart pub get failed in $projectDir: ${pubGetResult.stderr}'],
       );
     }
+  }
+
+  if (verbose) {
+    print('  Project: ${bridgeConfig.name}');
+    print('  Modules: ${bridgeConfig.modules.length}');
   }
 
   // Log invocation at project level (once per generateBridges call)
@@ -189,6 +201,9 @@ Future<GenerationResult> generateBridges({
 
     // Generate bridges for each module
     for (final module in bridgeConfig.modules) {
+      if (verbose) {
+        print('  Generating module: ${module.name}');
+      }
       // Determine sourceImport: use barrelImport if provided, otherwise first barrel file
       final sourceImport = module.barrelImport ?? module.barrelFiles.first;
 
@@ -213,6 +228,7 @@ Future<GenerationResult> generateBridges({
                   .toList()
             : null, // Use defaults if not configured
         userBridgeScanner: sharedUserBridgeScanner,
+        verbose: verbose,
         librarySummaryPaths: summaryPaths,
         sdkSummaryPath: sdkSummaryPath,
         // DGU3: forward the configurable type-mapping escape hatch and any
@@ -282,7 +298,7 @@ Future<GenerationResult> generateBridges({
         projectDir,
         ensureBDartExtension(bridgeConfig.barrelPath!),
       );
-      await _generateBarrelFile(barrelPath, bridgeConfig);
+      await _generateBarrelFile(barrelPath, bridgeConfig, verbose: verbose);
       outputFiles.add(barrelPath);
     }
 
@@ -294,6 +310,7 @@ Future<GenerationResult> generateBridges({
         ensureBDartExtension(bridgeConfig.dartscriptPath!),
       );
       await _generateDartscriptFile(
+        verbose: verbose,
         dartscriptPath,
         bridgeConfig,
         packageName: effectivePackageName,
@@ -309,6 +326,7 @@ Future<GenerationResult> generateBridges({
         ensureBDartExtension(bridgeConfig.testRunnerPath!),
       );
       await _generateTestRunnerFile(
+        verbose: verbose,
         testRunnerPath,
         bridgeConfig,
         packageName: effectivePackageName,
@@ -381,7 +399,12 @@ Future<GenerationResult> generateBridges({
 }
 
 /// Generate barrel file that exports all bridge modules.
-Future<void> _generateBarrelFile(String barrelPath, BridgeConfig config) async {
+Future<void> _generateBarrelFile(
+  String barrelPath,
+  BridgeConfig config, {
+  bool verbose = false,
+}) async {
+  if (verbose) print('  Generating barrel: $barrelPath');
   await File(barrelPath).writeAsString(generateBarrelFileContent(config));
 }
 
@@ -390,7 +413,9 @@ Future<void> _generateDartscriptFile(
   String dartscriptPath,
   BridgeConfig config, {
   required String packageName,
+  bool verbose = false,
 }) async {
+  if (verbose) print('  Generating dartscript: $dartscriptPath');
   final normalizedDartscriptPath = config.dartscriptPath != null
       ? ensureBDartExtension(config.dartscriptPath!)
       : null;
@@ -408,7 +433,9 @@ Future<void> _generateTestRunnerFile(
   String testRunnerPath,
   BridgeConfig config, {
   required String packageName,
+  bool verbose = false,
 }) async {
+  if (verbose) print('  Generating test runner: $testRunnerPath');
   final dir = File(testRunnerPath).parent;
   if (!dir.existsSync()) {
     dir.createSync(recursive: true);

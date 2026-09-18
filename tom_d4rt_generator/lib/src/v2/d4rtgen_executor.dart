@@ -12,12 +12,8 @@ import 'package:path/path.dart' as p;
 import '../verification/generated_output_analysis.dart';
 import 'package:tom_build_base/tom_build_base.dart'
     show TomBuildConfig, hasTomBuildConfig, findWorkspaceRoot;
-import 'package:tom_analyzer_shared/tom_analyzer_shared.dart'
-    show runSummaryCacheStage;
 import 'package:tom_build_base/tom_build_base_v2.dart';
 import 'package:tom_d4rt_generator/src/build_config_loader.dart';
-import 'package:tom_d4rt_generator/src/user_bridge_prescan.dart'
-    show preScanUserBridges;
 import 'package:tom_d4rt_generator/tom_d4rt_generator.dart';
 import 'package:yaml/yaml.dart';
 
@@ -193,324 +189,34 @@ Future<List<String>> _processProjectDirect(
     if (verbose) {
       print('  Using configuration from buildkit.yaml');
     }
-    return _generateBridges(config, projectPath, verbose: verbose);
+    // One pipeline. The CLI used to orchestrate generation itself, which is
+    // how it drifted from `generateBridges` -- the pipeline every consumer's
+    // freshness gate certifies committed bridges against. The executor now
+    // contributes only CLI concerns (discovery, --list, --dump-config,
+    // --dry-run, --verify-output, output) and delegates the generation.
+    //
+    // `runPubGet: false`: resolving the package is a write, and the CLI may be
+    // inspecting a package rather than building it (--dry-run runs this same
+    // path inside the scratch overlay). An unresolved package fails loudly
+    // below instead.
+    final result = await generateBridges(
+      config: config,
+      projectPath: projectPath,
+      verbose: verbose,
+      runPubGet: false,
+    );
+    for (final error in result.errors) {
+      print('  ERROR: $error');
+    }
+    if (verbose) {
+      print('  Complete');
+      print('');
+    }
+    return result.outputFiles;
   }
 
   throw Exception(
     'No d4rtgen configuration found in $projectPath/buildkit.yaml',
-  );
-}
-
-/// Generate bridges from a BridgeConfig object.
-Future<List<String>> _generateBridges(
-  BridgeConfig config,
-  String projectDir, {
-  required bool verbose,
-}) async {
-  // Every path this run wrote, for `--verify-output` to analyse.
-  //
-  // Collected at the sites that already compute the path rather than derived
-  // from the config a second time: a path computed twice is a path that can
-  // disagree with itself. A write site added later and not recorded here is
-  // simply not verified — it is never written somewhere unexpected — so the
-  // failure mode of forgetting one is a coverage gap, not a wrong file.
-  final written = <String>[];
-  final effectivePackageName =
-      BuildConfigLoader.getPackageName(projectDir) ?? config.name;
-
-  if (verbose) {
-    print('  Project: ${config.name}');
-    print('  Modules: ${config.modules.length}');
-  }
-
-  // Run summary-cache stage (non-fatal): produce library summaries + SDK
-  // summary so the analyzer can resolve external dependencies from cached
-  // `.sum` bundles instead of re-parsing their sources on every run.
-  //
-  // Phase 2 (summary-refactoring-plan): bridge generation now routes
-  // every package through its `.sum` summary bundle via the element
-  // walker (ElementModeExtractor). No filter-exclusion pass — every
-  // dependency (including bridged packages) resolves from summaries.
-  // Phase 6: the legacy AST walker (`_ResolvedClassVisitor`) and the
-  // `useLegacyAstWalker` debug flag have been removed; element-mode
-  // extraction is now the only code path.
-  //
-  // Phase 5: summary-cache now runs BEFORE user-bridge scanning so the
-  // element-walker scanner can resolve user-bridge files against the
-  // same `.sum` cache (notably: classes from bridged packages that the
-  // user bridge targets).
-  List<String>? summaryPaths;
-  String? sdkSummaryPath;
-  try {
-    final cacheResult = await runSummaryCacheStage(projectDir);
-    summaryPaths = cacheResult?.summaryPaths;
-    sdkSummaryPath = cacheResult?.sdkSummaryPath;
-  } catch (e) {
-    print('  Warning: summary-cache stage failed: $e');
-  }
-
-  // Scan for user bridges before processing modules.
-  final userBridgeScanner = await preScanUserBridges(
-    projectDir,
-    verbose: verbose,
-    summaryPaths: summaryPaths,
-    sdkSummaryPath: sdkSummaryPath,
-  );
-
-  // GEN-079: Collect class lookup across modules for relaxer generation.
-  final globalClassLookup = <String, ClassInfo>{};
-
-  // GEN-079: Collect generic extraction sites and GEN-075 classes
-  // across all modules for relaxer generation.
-  final allExtractionSites = <GenericExtractionSite>[];
-  final allGen075Classes = <String>{};
-
-  // Generate bridges for each module
-  for (final module in config.modules) {
-    if (verbose) {
-      print('  Generating module: ${module.name}');
-    }
-
-    // Determine sourceImport(s)
-    final List<String> sourceImports;
-    final String? sourceImport;
-
-    if (module.barrelFiles.length > 1) {
-      sourceImports = module.barrelFiles;
-      sourceImport = module.barrelImport;
-    } else {
-      sourceImport = module.barrelImport ?? module.barrelFiles.first;
-      sourceImports = const [];
-    }
-
-    // Create a fresh generator instance for each module
-    // Pass the shared UserBridgeScanner to enable constructor overrides
-    final generator = BridgeGenerator(
-      workspacePath: projectDir,
-      packageName: config.name,
-      sourceImport: sourceImport,
-      sourceImports: sourceImports,
-      helpersImport: config.helpersImport ?? 'package:tom_d4rt/tom_d4rt.dart',
-      d4rtImport: config.d4rtImport ?? 'package:tom_d4rt/d4rt.dart',
-      verbose: verbose,
-      userBridgeScanner: userBridgeScanner,
-      librarySummaryPaths: summaryPaths,
-      sdkSummaryPath: sdkSummaryPath,
-      // DGUB2: forward the runtime-dispatch bound-type escape hatch so
-      // buildkit `recursiveBoundTypes:` entries reach generation on the v2
-      // path too (mirrors bridge_api.dart). Without this the v2 executor
-      // silently fell back to the built-in defaults and ignored config.
-      recursiveBoundTypes: config.recursiveBoundTypes.isNotEmpty
-          ? config.recursiveBoundTypes
-                .map(RecursiveBoundType.fromString)
-                .toList()
-          : null, // Use defaults if not configured
-      // DGU3: forward the configurable type-mapping escape hatch and any
-      // paired custom imports so buildkit.yaml can resolve awkward types
-      // without patching the generator.
-      typeMappings: config.typeMappings,
-      additionalImports: config.additionalImports,
-    );
-
-    // Resolve barrel files
-    final barrelFiles = module.barrelFiles.map((f) {
-      if (f.startsWith('package:') || f.startsWith('dart:')) {
-        return f;
-      }
-      return p.join(projectDir, f);
-    }).toList();
-
-    final normalizedOutputPath = ensureBDartExtension(module.outputPath);
-    final result = await generator.generateBridgesFromExports(
-      barrelFiles: barrelFiles,
-      outputPath: p.join(projectDir, normalizedOutputPath),
-      moduleName: module.name,
-      excludePatterns: module.excludePatterns,
-      excludeClasses: module.excludeClasses,
-      excludeEnums: module.excludeEnums,
-      excludeFunctions: module.excludeFunctions,
-      excludeConstructors: module.excludeConstructors,
-      excludeVariables: module.excludeVariables,
-      excludeSourcePatterns: module.excludeSourcePatterns,
-      followAllReExports: module.followAllReExports,
-      skipReExports: module.skipReExports,
-      followReExports: module.followReExports,
-      importShowClause: module.importShowClause,
-      importHideClause: module.importHideClause,
-    );
-
-    written.add(p.join(projectDir, normalizedOutputPath));
-
-    if (verbose) {
-      print('    Generated ${result.classesGenerated} classes');
-    }
-    // GEN-079: Accumulate class lookup for relaxer generation
-    globalClassLookup.addAll(generator.classLookup);
-    // GEN-079: Accumulate generic extraction sites and GEN-075 classes
-    allExtractionSites.addAll(generator.genericExtractionSites);
-    allGen075Classes.addAll(generator.gen075Classes);
-  }
-
-  // Generate barrel file if requested
-  if (config.generateBarrel && config.barrelPath != null) {
-    final barrelPath = p.join(
-      projectDir,
-      ensureBDartExtension(config.barrelPath!),
-    );
-    await _generateBarrelFile(barrelPath, config, verbose: verbose);
-    written.add(barrelPath);
-  }
-
-  // Generate dartscript file if requested
-  if (config.generateDartscript && config.dartscriptPath != null) {
-    final dartscriptPath = p.join(
-      projectDir,
-      ensureBDartExtension(config.dartscriptPath!),
-    );
-    await _generateDartscriptFile(
-      dartscriptPath,
-      config,
-      packageName: effectivePackageName,
-      verbose: verbose,
-    );
-    written.add(dartscriptPath);
-  }
-
-  // Generate test runner file if requested
-  if (config.generateTestRunner && config.testRunnerPath != null) {
-    final testRunnerPath = p.join(
-      projectDir,
-      ensureBDartExtension(config.testRunnerPath!),
-    );
-    await _generateTestRunnerFile(
-      testRunnerPath,
-      config,
-      packageName: effectivePackageName,
-      verbose: verbose,
-    );
-    written.add(testRunnerPath);
-  }
-
-  // Generate proxy classes if requested (GEN-083)
-  if (config.generateProxies && config.proxyClasses.isNotEmpty) {
-    final proxyResult = await generateProxies(
-      config: config,
-      projectPath: projectDir,
-      librarySummaryPaths: summaryPaths,
-      sdkSummaryPath: sdkSummaryPath,
-    );
-
-    if (proxyResult.errors.isNotEmpty) {
-      for (final error in proxyResult.errors) {
-        print('  PROXY ERROR: $error');
-      }
-    }
-
-    if (proxyResult.outputFile != null) written.add(proxyResult.outputFile!);
-
-    if (proxyResult.proxies.isNotEmpty) {
-      print(
-        '  GEN-083: Generated ${proxyResult.proxies.length} proxy classes'
-        ' → ${proxyResult.outputFile}',
-      );
-    }
-  }
-
-  // Generate relaxer wrappers (GEN-079) — always runs, output path
-  // auto-derived from first module when not explicitly configured.
-  {
-    final relaxerResult = await generateRelaxers(
-      config: config,
-      projectPath: projectDir,
-      globalClassLookup: globalClassLookup,
-      genericExtractionSites: allExtractionSites,
-      gen075Classes: allGen075Classes,
-    );
-    if (relaxerResult.errors.isNotEmpty) {
-      for (final error in relaxerResult.errors) {
-        print('  RELAXER ERROR: $error');
-      }
-    }
-    if (relaxerResult.wrapperClassesGenerated > 0) {
-      print(
-        '  GEN-079: Generated ${relaxerResult.wrapperClassesGenerated} relaxer wrappers'
-        ' (${relaxerResult.factoryFunctionsGenerated} factories)'
-        ' → ${relaxerResult.outputFile}',
-      );
-    }
-    if (relaxerResult.outputFile != null) {
-      written.add(relaxerResult.outputFile!);
-    }
-    for (final warning in relaxerResult.warnings) {
-      print('  GEN-079 WARNING: $warning');
-    }
-  }
-
-  if (verbose) {
-    print('  Complete');
-    print('');
-  }
-
-  return written;
-}
-
-/// Generate barrel file that exports all bridge modules.
-Future<void> _generateBarrelFile(
-  String barrelPath,
-  BridgeConfig config, {
-  required bool verbose,
-}) async {
-  if (verbose) {
-    print('  Generating barrel: $barrelPath');
-  }
-  await File(barrelPath).writeAsString(generateBarrelFileContent(config));
-}
-
-/// Generate dartscript file with combined bridge registration.
-Future<void> _generateDartscriptFile(
-  String dartscriptPath,
-  BridgeConfig config, {
-  required String packageName,
-  required bool verbose,
-}) async {
-  if (verbose) {
-    print('  Generating dartscript: $dartscriptPath');
-  }
-  final normalizedDartscriptPath = config.dartscriptPath != null
-      ? ensureBDartExtension(config.dartscriptPath!)
-      : null;
-  await File(dartscriptPath).writeAsString(
-    generateDartscriptFileContent(
-      config,
-      dartscriptPath: normalizedDartscriptPath,
-      packageName: packageName,
-    ),
-  );
-}
-
-/// Generate test runner file for testing bridges.
-Future<void> _generateTestRunnerFile(
-  String testRunnerPath,
-  BridgeConfig config, {
-  required String packageName,
-  required bool verbose,
-}) async {
-  if (verbose) {
-    print('  Generating test runner: $testRunnerPath');
-  }
-  final dir = File(testRunnerPath).parent;
-  if (!dir.existsSync()) {
-    dir.createSync(recursive: true);
-  }
-  final normalizedTestRunnerPath = config.testRunnerPath != null
-      ? ensureBDartExtension(config.testRunnerPath!)
-      : null;
-  await File(testRunnerPath).writeAsString(
-    generateTestRunnerContent(
-      config,
-      testRunnerPath: normalizedTestRunnerPath,
-      packageName: packageName,
-    ),
   );
 }
 
