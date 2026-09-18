@@ -2917,13 +2917,31 @@ class BridgeGenerator {
       final functionsPerFile = <String, List<GlobalFunctionInfo>>{};
       final variablesPerFile = <String, List<GlobalVariableInfo>>{};
       final extensionsPerFile = <String, List<ExtensionInfo>>{};
-      for (final e in globals.enums) {
+      // sce44: the same exclusion + dedupe the single-file branch applies.
+      // Reading `globals` RAW here bridged enums, functions and variables from
+      // sources the caller had excluded — the same bypass scd11 fixed for
+      // extensions, three lines over. Measured on the gen120 part fixture: the
+      // extension was correctly dropped while `enum ZomLevel`, declared in the
+      // very same excluded file, was still emitted.
+      for (final e in _bridgeableEnums(
+        globals.enums,
+        excludeSourcePatterns,
+        warnings,
+      )) {
         enumsPerFile.putIfAbsent(e.sourceFile, () => []).add(e);
       }
-      for (final f in globals.functions) {
+      for (final f in _bridgeableFunctions(
+        globals.functions,
+        excludeSourcePatterns,
+        warnings,
+      )) {
         functionsPerFile.putIfAbsent(f.sourceFile, () => []).add(f);
       }
-      for (final v in globals.variables) {
+      for (final v in _bridgeableVariables(
+        globals.variables,
+        excludeSourcePatterns,
+        warnings,
+      )) {
         variablesPerFile.putIfAbsent(v.sourceFile, () => []).add(v);
       }
       // scd11: the same exclusion + dedupe the single-file branch applies.
@@ -3046,50 +3064,13 @@ class BridgeGenerator {
         }).toList();
       }
 
-      // Filter out functions matching source URI patterns
-      if (excludeSourcePatterns != null && excludeSourcePatterns.isNotEmpty) {
-        filteredFunctions = filteredFunctions.where((f) {
-          final sourceUri = _getPackageUri(f.sourceFile);
-          if (_matchesSourceExclusion(
-            sourceUri,
-            f.name,
-            excludeSourcePatterns,
-          )) {
-            _recordSkip(
-              'function',
-              f.name,
-              'source URI excluded by pattern: $sourceUri',
-            );
-            return false;
-          }
-          return true;
-        }).toList();
-      }
-
-      // Filter out duplicate functions (keep first occurrence)
-      // GEN-045: Detect barrel-level name collisions
-      final seenFunctions = <String, String>{}; // name -> sourceFile
-      filteredFunctions = filteredFunctions.where((f) {
-        if (seenFunctions.containsKey(f.name)) {
-          final firstUri = _getPackageUri(seenFunctions[f.name]!);
-          final duplicateUri = _getPackageUri(f.sourceFile);
-          warnings.add(
-            '⚠️  NAME COLLISION: Function "${f.name}" is defined in multiple source files:\n'
-            '    1. $firstUri (kept)\n'
-            '    2. $duplicateUri (skipped)\n'
-            '    Consider excluding one with excludeFunctions, or using show/hide in barrel exports.',
-          );
-          _recordSkip(
-            'function',
-            f.name,
-            'duplicate (already seen from another source file: $firstUri)',
-          );
-          return false;
-        }
-        seenFunctions[f.name] = f.sourceFile;
-        return true;
-      }).toList();
-
+      // sce44: exclusion + GEN-045 dedupe live in one place, because
+      // directory mode has to get exactly the same answer.
+      filteredFunctions = _bridgeableFunctions(
+        filteredFunctions,
+        excludeSourcePatterns,
+        warnings,
+      );
       // Filter out explicitly excluded variables
       if (excludeVariables != null && excludeVariables.isNotEmpty) {
         final excludeSet = excludeVariables.toSet();
@@ -3102,97 +3083,20 @@ class BridgeGenerator {
         }).toList();
       }
 
-      // Filter out variables matching source URI patterns
-      if (excludeSourcePatterns != null && excludeSourcePatterns.isNotEmpty) {
-        filteredVariables = filteredVariables.where((v) {
-          final sourceUri = _getPackageUri(v.sourceFile);
-          if (_matchesSourceExclusion(
-            sourceUri,
-            v.name,
-            excludeSourcePatterns,
-          )) {
-            _recordSkip(
-              'variable',
-              v.name,
-              'source URI excluded by pattern: $sourceUri',
-            );
-            return false;
-          }
-          return true;
-        }).toList();
-      }
-
-      // Filter out duplicate variables (keep first occurrence)
-      // GEN-045: Detect barrel-level name collisions
-      {
-        final seenVariables = <String, String>{}; // name -> sourceFile
-        filteredVariables = filteredVariables.where((v) {
-          if (seenVariables.containsKey(v.name)) {
-            final firstUri = _getPackageUri(seenVariables[v.name]!);
-            final duplicateUri = _getPackageUri(v.sourceFile);
-            warnings.add(
-              '⚠️  NAME COLLISION: Variable "${v.name}" is defined in multiple source files:\n'
-              '    1. $firstUri (kept)\n'
-              '    2. $duplicateUri (skipped)\n'
-              '    Consider excluding one with excludeVariables, or using show/hide in barrel exports.',
-            );
-            _recordSkip(
-              'variable',
-              v.name,
-              'duplicate (already seen from another source file: $firstUri)',
-            );
-            return false;
-          }
-          seenVariables[v.name] = v.sourceFile;
-          return true;
-        }).toList();
-      }
-
-      // Filter out enums matching source URI patterns
-      if (excludeSourcePatterns != null && excludeSourcePatterns.isNotEmpty) {
-        filteredEnums = filteredEnums.where((e) {
-          final sourceUri = _getPackageUri(e.sourceFile);
-          if (_matchesSourceExclusion(
-            sourceUri,
-            e.name,
-            excludeSourcePatterns,
-          )) {
-            _recordSkip(
-              'enum',
-              e.name,
-              'source URI excluded by pattern: $sourceUri',
-            );
-            return false;
-          }
-          return true;
-        }).toList();
-      }
-
-      // GEN-045: Detect barrel-level name collisions for enums
-      {
-        final seenEnums = <String, String>{}; // name -> sourceFile
-        filteredEnums = filteredEnums.where((e) {
-          if (seenEnums.containsKey(e.name)) {
-            final firstUri = _getPackageUri(seenEnums[e.name]!);
-            final duplicateUri = _getPackageUri(e.sourceFile);
-            warnings.add(
-              '⚠️  NAME COLLISION: Enum "${e.name}" is defined in multiple source files:\n'
-              '    1. $firstUri (kept)\n'
-              '    2. $duplicateUri (skipped)\n'
-              '    Consider excluding one with excludeEnums, or using show/hide in barrel exports.',
-            );
-            _recordSkip(
-              'enum',
-              e.name,
-              'duplicate (already seen from another source file: $firstUri)',
-            );
-            return false;
-          }
-          seenEnums[e.name] = e.sourceFile;
-          return true;
-        }).toList();
-      }
-
+      // sce44: exclusion + GEN-045 dedupe live in one place, because
+      // directory mode has to get exactly the same answer.
+      filteredVariables = _bridgeableVariables(
+        filteredVariables,
+        excludeSourcePatterns,
+        warnings,
+      );
+      // sce44: exclusion + GEN-045 dedupe live in one place, because
+      // directory mode has to get exactly the same answer.
+      filteredEnums = _bridgeableEnums(
+        filteredEnums,
+        excludeSourcePatterns,
+        warnings,
+      );
       // GEN-064 / GEN-120 / scd11: exclusion and dedupe live in one place,
       // because directory mode has to get exactly the same answer.
       final filteredExtensions = _bridgeableExtensions(
@@ -14339,6 +14243,158 @@ class BridgeGenerator {
     required String? name,
     required String onTypeName,
   }) => '${name ?? '<unnamed>'}@$onTypeName';
+
+  /// The enums that should be bridged: [excludeSourcePatterns] applied, then
+  /// GEN-045 name collisions collapsed.
+  ///
+  /// BOTH generation modes call this. The pipeline used to sit inline in the
+  /// single-file branch while directory mode read `globals.enums` RAW, so an
+  /// enum declared in an excluded source was bridged anyway — the same bypass
+  /// scd11 fixed for extensions, three lines over (sce44).
+  List<EnumInfo> _bridgeableEnums(
+    List<EnumInfo> enums,
+    List<String>? excludeSourcePatterns,
+    List<String> warnings,
+  ) {
+    var filtered = enums;
+    if (excludeSourcePatterns != null && excludeSourcePatterns.isNotEmpty) {
+      filtered = filtered.where((e) {
+        final sourceUri = _getPackageUri(e.sourceFile);
+        if (_matchesSourceExclusion(sourceUri, e.name, excludeSourcePatterns)) {
+          _recordSkip(
+            'enum',
+            e.name,
+            'source URI excluded by pattern: $sourceUri',
+          );
+          return false;
+        }
+        return true;
+      }).toList();
+    }
+
+    // GEN-045: Detect barrel-level name collisions for enums
+    final seen = <String, String>{}; // name -> sourceFile
+    return filtered.where((e) {
+      if (seen.containsKey(e.name)) {
+        final firstUri = _getPackageUri(seen[e.name]!);
+        final duplicateUri = _getPackageUri(e.sourceFile);
+        warnings.add(
+          '⚠️  NAME COLLISION: Enum "${e.name}" is defined in multiple source files:\n'
+          '    1. $firstUri (kept)\n'
+          '    2. $duplicateUri (skipped)\n'
+          '    Consider excluding one with excludeEnums, or using show/hide in barrel exports.',
+        );
+        _recordSkip(
+          'enum',
+          e.name,
+          'duplicate (already seen from another source file: $firstUri)',
+        );
+        return false;
+      }
+      seen[e.name] = e.sourceFile;
+      return true;
+    }).toList();
+  }
+
+  /// The global functions that should be bridged: [excludeSourcePatterns]
+  /// applied, then GEN-045 name collisions collapsed.
+  ///
+  /// BOTH generation modes call this — see [_bridgeableEnums] for why.
+  List<GlobalFunctionInfo> _bridgeableFunctions(
+    List<GlobalFunctionInfo> functions,
+    List<String>? excludeSourcePatterns,
+    List<String> warnings,
+  ) {
+    var filtered = functions;
+    if (excludeSourcePatterns != null && excludeSourcePatterns.isNotEmpty) {
+      filtered = filtered.where((f) {
+        final sourceUri = _getPackageUri(f.sourceFile);
+        if (_matchesSourceExclusion(sourceUri, f.name, excludeSourcePatterns)) {
+          _recordSkip(
+            'function',
+            f.name,
+            'source URI excluded by pattern: $sourceUri',
+          );
+          return false;
+        }
+        return true;
+      }).toList();
+    }
+
+    // Filter out duplicate functions (keep first occurrence)
+    // GEN-045: Detect barrel-level name collisions
+    final seen = <String, String>{}; // name -> sourceFile
+    return filtered.where((f) {
+      if (seen.containsKey(f.name)) {
+        final firstUri = _getPackageUri(seen[f.name]!);
+        final duplicateUri = _getPackageUri(f.sourceFile);
+        warnings.add(
+          '⚠️  NAME COLLISION: Function "${f.name}" is defined in multiple source files:\n'
+          '    1. $firstUri (kept)\n'
+          '    2. $duplicateUri (skipped)\n'
+          '    Consider excluding one with excludeFunctions, or using show/hide in barrel exports.',
+        );
+        _recordSkip(
+          'function',
+          f.name,
+          'duplicate (already seen from another source file: $firstUri)',
+        );
+        return false;
+      }
+      seen[f.name] = f.sourceFile;
+      return true;
+    }).toList();
+  }
+
+  /// The global variables that should be bridged: [excludeSourcePatterns]
+  /// applied, then GEN-045 name collisions collapsed.
+  ///
+  /// BOTH generation modes call this — see [_bridgeableEnums] for why.
+  List<GlobalVariableInfo> _bridgeableVariables(
+    List<GlobalVariableInfo> variables,
+    List<String>? excludeSourcePatterns,
+    List<String> warnings,
+  ) {
+    var filtered = variables;
+    if (excludeSourcePatterns != null && excludeSourcePatterns.isNotEmpty) {
+      filtered = filtered.where((v) {
+        final sourceUri = _getPackageUri(v.sourceFile);
+        if (_matchesSourceExclusion(sourceUri, v.name, excludeSourcePatterns)) {
+          _recordSkip(
+            'variable',
+            v.name,
+            'source URI excluded by pattern: $sourceUri',
+          );
+          return false;
+        }
+        return true;
+      }).toList();
+    }
+
+    // Filter out duplicate variables (keep first occurrence)
+    // GEN-045: Detect barrel-level name collisions
+    final seen = <String, String>{}; // name -> sourceFile
+    return filtered.where((v) {
+      if (seen.containsKey(v.name)) {
+        final firstUri = _getPackageUri(seen[v.name]!);
+        final duplicateUri = _getPackageUri(v.sourceFile);
+        warnings.add(
+          '⚠️  NAME COLLISION: Variable "${v.name}" is defined in multiple source files:\n'
+          '    1. $firstUri (kept)\n'
+          '    2. $duplicateUri (skipped)\n'
+          '    Consider excluding one with excludeVariables, or using show/hide in barrel exports.',
+        );
+        _recordSkip(
+          'variable',
+          v.name,
+          'duplicate (already seen from another source file: $firstUri)',
+        );
+        return false;
+      }
+      seen[v.name] = v.sourceFile;
+      return true;
+    }).toList();
+  }
 
   /// The extensions that should be bridged: [excludeSourcePatterns] applied,
   /// then duplicates collapsed.

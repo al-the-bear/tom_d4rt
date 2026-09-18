@@ -1,3 +1,33 @@
+## 1.35.0
+
+### Fixed — directory mode honours `excludeSourcePatterns` for enums, functions and variables
+
+scd11 fixed this for extensions. The three lines beside the one it named had the
+same shape and the same defect: the single-file branch filters each kind by
+`excludeSourcePatterns` and then collapses GEN-045 name collisions, while
+directory mode — one `<source>_bridge.dart` per source file — grouped straight
+off `globals`, applying none of it.
+
+Measured on the gen120 part fixture: excluding
+`package:zom_partext/parent_lib.dart` correctly dropped the extension and still
+bridged `enum ZomLevel`, declared in that very same excluded file.
+
+One helper per kind, mirroring `_bridgeableExtensions` — `_bridgeableEnums`,
+`_bridgeableFunctions`, `_bridgeableVariables` — lifted out of the single-file
+branch and called from both. Classes were never affected: the directory branch
+already groups the filtered list.
+
+Each kind carries BOTH the exclusion and a GEN-045 dedupe, not just enums as
+first thought, so all three helpers are symmetric.
+
+NOT CONSOLIDATED into `_parseGlobals`, though scd11's note suggested it once all
+four kinds were lifted. The single-file branch interleaves other filters
+(`exportInfo`, `excludeFunctions` / `excludeVariables`) BEFORE the exclusion,
+and the GEN-045 dedupe is order-dependent — it keeps the first occurrence and
+warns about the rest. Filtering earlier would change which duplicate survives
+and could suppress a collision warning, so the consolidation is not the safe
+refactor the note assumed.
+
 ## 1.34.0
 
 ### Fixed — the `// Source:` header is canonical, so the documented regeneration command works
