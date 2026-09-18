@@ -1,385 +1,210 @@
-````markdown
-# D4rt Generator Example Guidelines
+# Adding and maintaining an example in tom_d4rt_generator
 
-This document provides guidelines for creating and maintaining example files in the `tom_d4rt_generator` package.
+`example/` holds eight independent Dart packages. Each one is a generation
+fixture: real source, a `buildkit.yaml`, and committed `*.b.dart` output that
+the generator's own suite holds to being what the current generator produces.
 
-## Example Structure Overview
+Every command below was run against the tree before this document was
+committed.
 
-The `example/` folder contains two types of examples:
-
-1. **Document-based examples** - Standalone mini-packages in `example/<document-name>/` that correspond to documentation files
-2. **Test class examples** - The main example package with comprehensive test classes
-
-## Document-Based Examples
-
-Each documentation file in `doc/` should have a corresponding example folder:
+## What is actually there
 
 ```
 example/
-├── run_all_examples.dart         # Master script to run all examples
-├── user_guide/                   # From bridgegenerator_user_guide.md
-│   ├── pubspec.yaml
-│   ├── d4rt_bridging.json       # CLI configuration (fallback)
-│   ├── lib/
-│   │   ├── user_guide_example.dart
-│   │   └── src/
-│   └── bin/
-│       └── run_example.dart
-├── user_reference/               # From bridgegenerator_user_reference.md
-│   ├── pubspec.yaml
-│   ├── d4rt_bridging.json       # Full config reference example
-│   ├── lib/
-│   │   ├── user_reference_example.dart
-│   │   └── src/
-│   └── bin/
-│       └── run_example.dart
-├── userbridge_override/          # From userbridge_override_design.md
-│   ├── pubspec.yaml
-│   ├── d4rt_bridging.json
-│   ├── lib/
-│   │   ├── userbridge_override_example.dart
-│   │   └── src/
-│   │       ├── my_list.dart     # Source class
-│   │       ├── my_list_user_bridge.dart  # UserBridge override
-│   │       ├── globals.dart
-│   │       └── globals_user_bridge.dart
-│   └── bin/
-│       └── run_example.dart
-└── ... (existing test_classes structure)
+├── run_all_examples.dart        # runs the examples that have a run script
+├── generate_example_bridges.dart
+├── test_example_bridges.dart
+├── buildkit_skip.yaml           # keeps workspace-wide scans out of example/
+├── d4/                          # the large one: 12 modules, shared by several suites
+├── d4_test_scripts/             # scripts run against d4; no buildkit.yaml of its own
+├── dart_overview/
+├── example_project/
+├── user_guide/
+├── user_reference/
+├── userbridge_override/
+└── userbridge_user_guide/
 ```
 
-### Document Example Configuration
+A single example is a normal package:
 
-Each document example uses `d4rt_bridging.json` as the CLI configuration file:
-
-```json
-{
-  "$schema": "../../json_schema/d4rt_bridging_schema.json",
-  "name": "example_name",
-  "description": "Example description",
-  "modules": [
-    {
-      "package": "example_package_name",
-      "barrelFile": "lib/example_package.dart"
-    }
-  ],
-  "outputPath": "lib/src/d4rt_bridges/"
-}
+```
+example/user_guide/
+├── pubspec.yaml
+├── buildkit.yaml                # the d4rtgen: section is the generator's input
+├── lib/
+│   ├── user_guide_example.dart  # the barrel the generator reads
+│   ├── src/                     # the classes being bridged
+│   └── src/d4rt_bridges/        # generated output, committed
+├── bin/run_example.dart         # optional: makes it runnable
+└── scripts/*.d4rt               # optional: D4rt scripts the example executes
 ```
 
-### Running Document Examples
+Three of the eight — `user_guide`, `user_reference`, `userbridge_override` —
+have a `bin/run_example.dart`. The rest are generation fixtures with no
+runnable entry point, which is why `run_all_examples.dart` lists three.
 
-Each example can be run standalone:
+## Adding an example
+
+### 1. The package
+
+`pubspec.yaml`. The interpreter floor is a **copy surface**, not a
+requirement: an example is what a reader copies into a project of their own,
+so it names the current release rather than the oldest version that would
+work. `F-SCC45-4` in `tom_d4rt_ast/test/scc45_resolution_guard_test.dart`
+fails once a newer release is in the pub cache, so the floor cannot rot
+quietly.
+
+```yaml
+name: my_feature_example
+publish_to: none
+
+environment:
+  sdk: ^3.10.4
+
+dependencies:
+  # Tracks the current published release: an example is what a new project
+  # copies, so it names the release it is run against. F-SCC45-4 fails when a
+  # newer one is in the pub cache.
+  tom_d4rt: ">=1.77.0"
+
+dev_dependencies:
+  # Keep in step with this package's own version: an example that resolves an
+  # older published generator than the tree it lives in demonstrates behaviour
+  # the tree no longer has.
+  tom_d4rt_generator: ">=1.26.2"
+```
+
+**Name the interpreter line the example actually runs on.** `tom_d4rt` is the
+analyzer-based reference; `tom_d4rt_exec` is the analyzer-free line. Declaring
+one and configuring the other produces output that analyzes clean and is
+generated against an interpreter the package does not have — a result that
+passes and is wrong. SCE1 found eight `buildkit.yaml` files in this state
+across two packages.
+
+**Do not path to a sibling.** `path: ../../../tom_d4rt_exec` resolves nowhere
+outside this repo and silently measures a working tree rather than a release
+(SCE6). Depending on another EXAMPLE by path is different and is fine —
+`d4_test_scripts` takes `d4_example: path: ../d4`, because that package is
+unpublished by design.
+
+### 2. The generator configuration
+
+`buildkit.yaml`, whose `d4rtgen:` section is the whole input:
+
+```yaml
+d4rtgen:
+  name: my_feature_example
+  helpersImport: package:tom_d4rt/tom_d4rt.dart   # the exec line: package:tom_d4rt_exec/tom_d4rt.dart
+  d4rtImport: package:tom_d4rt/d4rt.dart          # the exec line: package:tom_d4rt_exec/d4rt.dart
+  generateBarrel: true
+  barrelPath: lib/d4rt_bridges.b.dart
+  generateDartscript: true
+  dartscriptPath: lib/dartscript.b.dart
+  registrationClass: MyFeatureExampleBridges
+  generateTestRunner: true
+  testRunnerPath: bin/d4rtrun.b.dart
+  modules:
+    - name: all
+      barrelFiles:
+        - lib/my_feature_example.dart
+      barrelImport: package:my_feature_example/my_feature_example.dart
+      outputPath: lib/src/d4rt_bridges/my_feature_bridges.b.dart
+```
+
+Run `dart run bin/d4rtgen.dart -s example/my_feature --dump-config` to see
+what the generator read, which is the quickest way to find a key in the wrong
+place.
+
+### 3. Generate
+
+From this package's root:
 
 ```bash
-cd example/user_guide
-dart pub get
-dart run tom_d4rt_generator --config d4rt_bridging.json
-dart run bin/run_example.dart
+dart run bin/d4rtgen.dart -s example/my_feature
 ```
 
-Or all examples can be run with the master script:
+**Run it until the output stops changing.** Generation is not a one-pass fixed
+point — the second run reads what the first wrote and can produce a different,
+larger file. Measured on `dart_overview`: 2934 committed lines became 5144
+after one run and 5960 after two, and 5960 is stable (SCE1). A single run
+leaves a package that is still not what the generator makes of it, and the
+next person to run the tool sees a diff again.
+
+Commit everything it writes, `relaxers.b.dart` included — the generated
+`dartscript.b.dart` imports it, and a checkout without it does not compile.
+
+If a generated file ever shows conflict-marker damage, regenerate; do not
+repair it by hand. `user_reference` carried 228 parse errors for six months
+from a hand-resolved merge of generated output.
+
+### 4. Make it runnable (optional)
+
+Add `bin/run_example.dart` and register it in `example/run_all_examples.dart`'s
+`examples` list. Only do this if there is something to run; a fixture with no
+entry point belongs off that list.
+
+## What the suite then requires
+
+Nothing needs registering for the tests — both discover examples by scanning
+`example/` with `findD4rtgenProjects`:
+
+| Test | Requires |
+| ---- | -------- |
+| `test/example_resolution_test.dart` | the example resolves (`dart pub get --offline`, online on failure) |
+| `test/example_bridges_fresh_test.dart` | its committed bridges match a fresh generation |
+
+`example_bridges_fresh_test` is a **ratchet**: an example on its `knownStale`
+set must STAY stale, and every other must be fresh. Regenerating one therefore
+means deleting its entry in the same commit, or the test fails for the
+opposite reason.
+
+Two exclusions, both with a reason in the file:
+
+- `untrackedOutput` skips `d4`. `.gitignore` carries
+  `**/example/d4/**/*.b.dart`, so nothing under it is versioned and freshness
+  would be a statement about local untracked files — fresh on a machine that
+  regenerated recently, absent on a clean clone.
+- `knownStale` currently holds `dart_overview`, which is NOT stale. It is a
+  fixed point under `d4rtgen`, and the check disagrees because
+  `checkBridgeFreshness` runs `generateBridges` while the tool runs
+  `_generateBridges` — two implementations that have drifted. SCF1 owns that;
+  the entry goes when it lands.
+
+**A NEW EXAMPLE WILL FAIL THIS GATE, and it is not your fault.** Measured by
+adding one and following this document exactly: `example_resolution_test`
+discovers it and passes, `example_bridges_fresh_test` discovers it and fails.
+The two generator paths write a different second line — the tool writes
+
+    // Source: example/<name>/lib/<name>_example.dart
+
+and the check's path writes the same file as an ABSOLUTE path. The 246 lines
+below it were identical. So the check reports "committed content differs from a
+fresh generation" over one header comment.
+
+Until SCF1 lands, add the new example to `knownStale` with a comment saying
+this is the reason, and delete the entry in the same commit that closes SCF1.
+Do not try to make it pass by committing the check's output: that bakes a
+path from one developer's machine into the repository. Four files in the two
+Flutter twins already carry one, which is how this was found.
+
+## Running the examples
 
 ```bash
-dart run example/run_all_examples.dart
+dart run example/run_all_examples.dart                  # generate, then run
 dart run example/run_all_examples.dart --generate-only
 dart run example/run_all_examples.dart --run-only
 ```
 
----
+It runs the three examples that have a `bin/run_example.dart`. There is no
+per-example argument; to work on one, use `-s example/<name>` for generation
+and run its `bin/run_example.dart` directly.
 
-## Main Example Package Structure
-
-The main `example/` folder is also a Dart package demonstrating the bridge generator:
-
-```
-example/
-├── pubspec.yaml                # Example package definition
-├── analysis_options.yaml       # Analyzer config
-├── generate_bridges.dart       # Local generation script
-├── run_examples.dart           # Runs D4rt scripts with generated bridges
-├── lib/
-│   ├── test_classes.dart       # Barrel export of test classes
-│   ├── d4rt_bridges.dart       # Barrel export of generated bridges
-│   ├── test_classes/           # Source classes to be bridged
-│   │   ├── basic_classes.dart
-│   │   ├── generic_classes.dart
-│   │   ├── inheritance_classes.dart
-│   │   ├── callback_classes.dart
-│   │   ├── operator_classes.dart
-│   │   ├── enum_classes.dart
-│   │   └── global_members.dart
-│   └── d4rt_bridges/           # Generated bridge files
-│       ├── basic_bridge.dart
-│       ├── generic_bridge.dart
-│       ├── inheritance_bridge.dart
-│       ├── callback_bridge.dart
-│       ├── operator_bridge.dart
-│       ├── enum_bridge.dart
-│       └── global_bridge.dart
-├── scripts/                    # D4rt scripts demonstrating bridges
-│   ├── basic_example.d4rt
-│   ├── generic_example.d4rt
-│   ├── inheritance_example.d4rt
-│   ├── callbacks_example.d4rt
-│   └── operators_example.d4rt
-└── test/                       # Unit tests for generated bridges
-    ├── test_bridge_context.dart
-    ├── test_covariance.dart
-    └── ...
-```
-
-## Example Categories
-
-### Test Classes (`example/lib/test_classes/`)
-
-Each file demonstrates a specific bridging feature:
-
-| File | Feature Demonstrated |
-|------|---------------------|
-| `basic_classes.dart` | Simple classes with constructors, methods, getters, setters |
-| `generic_classes.dart` | Generic classes and methods with type parameters |
-| `inheritance_classes.dart` | Class inheritance, abstract classes, interfaces |
-| `callback_classes.dart` | Methods accepting function parameters |
-| `operator_classes.dart` | Operator overloading |
-| `enum_classes.dart` | Enum bridging |
-| `global_members.dart` | Top-level functions and variables |
-
-### D4rt Scripts (`example/scripts/`)
-
-Each `.d4rt` file demonstrates using the corresponding bridges:
-
-| Script | Purpose |
-|--------|---------|
-| `basic_example.d4rt` | Using bridged constructors, methods, properties |
-| `generic_example.d4rt` | Using generic classes from D4rt |
-| `inheritance_example.d4rt` | Polymorphism with bridged classes |
-| `callbacks_example.d4rt` | Passing interpreted functions to native code |
-| `operators_example.d4rt` | Using bridged operators |
-
-## Running Examples
-
-### Running All Examples
+## Before committing
 
 ```bash
-cd example
-dart run run_examples.dart all
+dart run bin/d4rtgen.dart -s example/<name>   # twice; see above
+cd example/<name> && dart analyze
+cd ../.. && dart test test/example_resolution_test.dart \
+                     test/example_bridges_fresh_test.dart
+dart run example/run_all_examples.dart        # if it has a run script
 ```
-
-### Running a Specific Example
-
-```bash
-dart run run_examples.dart basic
-dart run run_examples.dart generic
-dart run run_examples.dart inheritance
-```
-
-## Adding New Examples
-
-When adding a new bridging feature demonstration:
-
-### 1. Create Test Class
-
-Add a new file in `example/lib/test_classes/`:
-
-```dart
-// example/lib/test_classes/new_feature_classes.dart
-
-/// Demonstrates [feature name] for bridge generation.
-class NewFeatureClass {
-  // ... implementation showing the feature
-}
-```
-
-### 2. Export from Barrel
-
-Add export to `example/lib/test_classes.dart`:
-
-```dart
-export 'test_classes/new_feature_classes.dart';
-```
-
-### 3. Regenerate Bridges
-
-```bash
-cd tom_d4rt_generator
-dart run bin/d4rt_generator.dart --project=example
-```
-
-### 4. Create D4rt Script
-
-Add a script demonstrating usage in `example/scripts/`:
-
-```dart
-// example/scripts/new_feature_example.d4rt
-
-import 'package:d4rt_generator_example/test_classes.dart';
-
-void main() {
-  print('=== New Feature Example ===');
-  
-  final instance = NewFeatureClass();
-  // ... demonstrate the feature
-}
-```
-
-### 5. Update run_examples.dart
-
-Add the new script to `availableScripts` list and add bridge imports:
-
-```dart
-import 'package:d4rt_generator_example/d4rt_bridges/new_feature_bridge.dart';
-
-// In availableScripts list:
-'new_feature_example.d4rt',
-```
-
-### 6. Verify
-
-```bash
-cd example
-dart run run_examples.dart new_feature
-dart run run_examples.dart all
-```
-
-## Example File Templates
-
-### Test Class Template
-
-```dart
-// example/lib/test_classes/{feature}_classes.dart
-
-/// Demonstrates {feature} for D4rt bridge generation.
-///
-/// This file is processed by tom_d4rt_generator to produce
-/// {feature}_bridge.dart in the d4rt_bridges folder.
-library;
-
-/// A class demonstrating {feature}.
-class {FeatureName}Class {
-  // Properties
-  final String value;
-  
-  // Constructors
-  {FeatureName}Class(this.value);
-  {FeatureName}Class.named({required this.value});
-  
-  // Methods
-  String describe() => '{FeatureName}: $value';
-}
-```
-
-### D4rt Script Template
-
-```dart
-// example/scripts/{feature}_example.d4rt
-//
-// Demonstrates: {feature description}
-// Bridge: d4rt_bridges/{feature}_bridge.dart
-
-import 'package:d4rt_generator_example/test_classes.dart';
-
-void main() {
-  print('=== {Feature} Example ===');
-  print('');
-  
-  // Create instance using bridged constructor
-  final instance = {FeatureName}Class('test value');
-  
-  // Call bridged methods
-  print('Result: ${instance.describe()}');
-  
-  print('');
-  print('✓ {Feature} example complete');
-}
-```
-
-## Verification Checklist
-
-Before committing examples:
-
-1. **Regenerate bridges:** `dart run bin/d4rt_generator.dart --project=example`
-2. **Run analyzer:** `cd example && dart analyze`
-3. **Run all examples:** `dart run run_examples.dart all` or `dart run example/run_all_examples.dart`
-4. **Verify output is correct**
-
-## Notes on Example Package Structure
-
-The example is a separate Dart package (`d4rt_generator_example`) to:
-
-1. Demonstrate realistic bridge generation workflow
-2. Test the generator against a real package
-3. Provide runnable D4rt scripts for verification
-4. Show recommended project structure for bridge users
-
----
-
-## Adding Document-Based Examples
-
-When creating examples from documentation:
-
-### 1. Create Example Directory
-
-```bash
-mkdir -p example/<document-name>/lib/src
-mkdir -p example/<document-name>/bin
-```
-
-### 2. Create Package Files
-
-**pubspec.yaml:**
-```yaml
-name: <document_name>_example
-description: Example from <document-name>.md
-version: 1.0.0
-publish_to: none
-
-environment:
-  sdk: ^3.0.0
-
-dependencies:
-  tom_d4rt:
-    path: ../../../../tom_d4rt
-
-dev_dependencies:
-  tom_d4rt_generator:
-    path: ../..
-```
-
-**d4rt_bridging.json:**
-```json
-{
-  "$schema": "../../json_schema/d4rt_bridging_schema.json",
-  "name": "<document_name>",
-  "modules": [
-    {
-      "package": "<document_name>_example",
-      "barrelFile": "lib/<document_name>_example.dart"
-    }
-  ],
-  "outputPath": "lib/src/d4rt_bridges/"
-}
-```
-
-### 3. Create Source Files
-
-Place source classes in `lib/src/` and export from the barrel file.
-
-### 4. Create Run Script
-
-Create `bin/run_example.dart` that demonstrates the example.
-
-### 5. Add to run_all_examples.dart
-
-Add the new example to the `examples` list in `example/run_all_examples.dart`.
-
-### 6. Generate and Test
-
-```bash
-cd example/<document-name>
-dart pub get
-dart run tom_d4rt_generator --config d4rt_bridging.json --project .
-dart run bin/run_example.dart
-```
-
-````

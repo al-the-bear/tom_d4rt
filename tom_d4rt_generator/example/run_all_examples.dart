@@ -14,35 +14,36 @@ import 'dart:io';
 class ExampleProject {
   final String name;
   final String directory;
-  final String configFile;
   final String runScript;
 
   const ExampleProject({
     required this.name,
     required this.directory,
-    required this.configFile,
     required this.runScript,
   });
 }
 
-/// List of example projects.
+/// The example projects this script runs.
+///
+/// EVERY EXAMPLE THAT HAS A `bin/run_example.dart`, which is what makes the
+/// list short rather than stale: the other five under `example/` are
+/// generation fixtures with no runnable entry point, and the example tests
+/// (`example_resolution_test`, `example_bridges_fresh_test`) discover those by
+/// scanning rather than from any list.
 const examples = [
   ExampleProject(
     name: 'User Guide',
     directory: 'example/user_guide',
-    configFile: 'd4rt_bridging.json',
     runScript: 'bin/run_example.dart',
   ),
   ExampleProject(
     name: 'UserBridge Override',
     directory: 'example/userbridge_override',
-    configFile: 'd4rt_bridging.json',
     runScript: 'bin/run_example.dart',
   ),
   ExampleProject(
     name: 'User Reference',
     directory: 'example/user_reference',
-    configFile: 'd4rt_bridging.json',
     runScript: 'bin/run_example.dart',
   ),
 ];
@@ -105,8 +106,6 @@ Future<void> main(List<String> args) async {
         [
           'run',
           'tom_d4rt_generator:d4rtgen',
-          '--config',
-          example.configFile,
         ],
         workingDirectory: exampleDir.path,
       );
