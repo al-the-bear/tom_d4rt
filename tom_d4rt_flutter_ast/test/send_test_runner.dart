@@ -199,6 +199,14 @@ class SendTestRunner {
   }
 
   static bool _bridgesRegenerated = false;
+
+  /// Whether this process has already brought the companion app up once.
+  ///
+  /// SCE14: only the FIRST launch in a process can be waiting on a platform
+  /// build; by the time [_recycleTestApp] runs, the build is warm. The two
+  /// cases deserve different patience, and this is the whole distinction —
+  /// no mtime heuristic, so there is nothing to be wrong about.
+  static bool _hasLaunchedOnce = false;
   static const String _forceBridgeRegenEnv = 'D4RT_FORCE_BRIDGE_REGEN';
   static const String _skipBridgeRegenEnv = 'D4RT_SKIP_BRIDGE_REGEN';
   static const int _processLogTailLimit = 200;
@@ -386,13 +394,40 @@ class SendTestRunner {
       await _waitForPortFree(timeout: const Duration(seconds: 10));
       try {
         await _startTestApp(timeout: timeout);
-      } catch (_) {
+      } catch (firstAttempt) {
         // Belt-and-braces: if the first launch fails (e.g. a slow
         // kernel reclaim of the just-killed port), retry once after a
         // second kill sweep.
         await _killExistingProcess();
         await _waitForPortFree(timeout: const Duration(seconds: 10));
-        await _startTestApp(timeout: timeout);
+        // SCE14: and wait for the app's build database, because the usual
+        // reason the first attempt failed is that its build was still running.
+        // Restarting into a live build fails with "database is locked", which
+        // describes the retry and says nothing about why the first attempt
+        // went wrong.
+        await _waitForBuildLockFree(
+          appDir: p.join(Directory.current.path, testAppPath),
+          timeout: const Duration(minutes: 5),
+        );
+        try {
+          await _startTestApp(timeout: timeout);
+        } catch (secondAttempt) {
+          // SCE14: BOTH attempts, in order. This used to be `catch (_)`, so
+          // only the retry's reason survived — and the retry's reason was
+          // usually a consequence of the first attempt rather than a cause of
+          // anything. A reader saw "database is locked" and never learned that
+          // the launch before it had timed out on a cold build.
+          throw StateError(
+            'The companion app failed to start twice.\n'
+            '\n'
+            '=== First attempt ===\n'
+            '$firstAttempt\n'
+            '\n'
+            '=== Retry (after killing the first attempt\'s process tree and '
+            'waiting for its build database) ===\n'
+            '$secondAttempt',
+          );
+        }
       }
       _startedByRunner = true;
     }
@@ -933,6 +968,167 @@ class SendTestRunner {
     }
   }
 
+  /// Every pid in the tree rooted at [root], parents before children.
+  ///
+  /// Dart has no process-group API: `Process.start` leaves the child in this
+  /// process's group, so `Process.killPid(-pid)` has no group to signal. The
+  /// descendants are therefore enumerated explicitly. `pgrep -P` is present on
+  /// both macOS and Linux (checked 2026-09-18).
+  static Future<List<int>> _processTreePids(int root) async {
+    final ordered = <int>[root];
+    final queue = <int>[root];
+    // A cycle is impossible in a process tree, but a pid recycled mid-walk
+    // could produce one; the seen-set makes the walk terminate regardless.
+    final seen = <int>{root};
+    while (queue.isNotEmpty) {
+      final parent = queue.removeAt(0);
+      List<int> children;
+      try {
+        final result = await Process.run('pgrep', ['-P', '$parent']);
+        children = result.stdout
+            .toString()
+            .trim()
+            .split('\n')
+            .map((s) => s.trim())
+            .where((s) => s.isNotEmpty)
+            .map(int.tryParse)
+            .whereType<int>()
+            .toList();
+      } catch (error) {
+        // No pgrep, or it failed. Say so: falling back to killing the root
+        // alone IS the pre-SCE14 behaviour, and the whole cost of that bug was
+        // that it looked like something else. A line here turns a silent
+        // regression into a visible limitation.
+        children = const [];
+        print(
+          '[test-app] WARNING: could not enumerate children of pid $parent '
+          '($error). Only the root will be killed, so a platform build it '
+          'spawned may survive and lock the build directory.',
+        );
+      }
+      for (final child in children) {
+        if (seen.add(child)) {
+          ordered.add(child);
+          queue.add(child);
+        }
+      }
+    }
+    return ordered;
+  }
+
+  /// SIGKILL the tree rooted at [root], deepest first.
+  ///
+  /// Deepest-first so a parent cannot spawn a replacement for a child that has
+  /// already been killed. On Windows `taskkill /T` does the same job in one
+  /// call, and there is no `pgrep` to enumerate with.
+  static Future<void> _killProcessTree(int root) async {
+    if (Platform.isWindows) {
+      try {
+        await Process.run('taskkill', ['/PID', '$root', '/T', '/F']);
+      } catch (_) {
+        try {
+          Process.killPid(root, ProcessSignal.sigkill);
+        } catch (_) {
+          // Already gone.
+        }
+      }
+      return;
+    }
+    final pids = await _processTreePids(root);
+    for (final pid in pids.reversed) {
+      try {
+        Process.killPid(pid, ProcessSignal.sigkill);
+      } catch (_) {
+        // Already gone, or not ours to signal.
+      }
+    }
+  }
+
+  /// The build database a platform build locks, or null when there is none.
+  ///
+  /// Only macOS is covered because only Xcode's `build.db` was measured to
+  /// produce the collision this guards against. Returning null elsewhere means
+  /// [_waitForBuildLockFree] is a no-op there rather than a wrong answer.
+  static File? _appBuildLockFile(String appDir) {
+    if (!Platform.isMacOS) {
+      return null;
+    }
+    final db = File(
+      p.join(
+        appDir,
+        'build',
+        'macos',
+        'Build',
+        'Intermediates.noindex',
+        'XCBuildData',
+        'build.db',
+      ),
+    );
+    return db.existsSync() ? db : null;
+  }
+
+  /// Block until nothing holds the app's build database, or [timeout] elapses.
+  ///
+  /// SCE14. Killing the tree is necessary but not sufficient: the kernel has
+  /// not necessarily closed a dying process's file handles by the time
+  /// `Process.killPid` returns, and a build started while the previous holder
+  /// is still closing fails exactly as if it were concurrent. Measured
+  /// 2026-09-18: during a build the holder is XCBBuildService, and `lsof -t`
+  /// on the database names it.
+  ///
+  /// Prints while it waits — a silent wait here is what the corpus idle
+  /// watchdog reads as a wedged transport.
+  static Future<void> _waitForBuildLockFree({
+    required String appDir,
+    required Duration timeout,
+  }) async {
+    final db = _appBuildLockFile(appDir);
+    if (db == null) {
+      return;
+    }
+    final start = DateTime.now();
+    final deadline = start.add(timeout);
+    var announced = false;
+    while (DateTime.now().isBefore(deadline)) {
+      List<String> holders;
+      try {
+        final result = await Process.run('lsof', ['-t', '--', db.path]);
+        holders = result.stdout
+            .toString()
+            .trim()
+            .split('\n')
+            .where((s) => s.trim().isNotEmpty)
+            .toList();
+      } catch (_) {
+        // No lsof: nothing can be concluded, so do not block on it.
+        return;
+      }
+      if (holders.isEmpty) {
+        if (announced) {
+          print(
+            '[test-app] build database released after '
+            '${DateTime.now().difference(start).inSeconds}s',
+          );
+        }
+        return;
+      }
+      if (!announced) {
+        announced = true;
+        print(
+          '[test-app] waiting for the app build database to be released by '
+          'pid(s) ${holders.join(', ')} — a second build in the same '
+          'directory fails with "database is locked"',
+        );
+      }
+      await Future<void>.delayed(const Duration(milliseconds: 500));
+    }
+    print(
+      '[test-app] build database still held after ${timeout.inSeconds}s; '
+      'starting anyway — a "database is locked" failure below is that, not a '
+      'wedged transport',
+    );
+  }
+
   /// Block until [defaultPort] has no LISTEN socket, or [timeout] elapses.
   /// After SIGKILL the kernel still needs a moment to reclaim the bind, and
   /// `flutter run` will fail if it tries to bind too early.
@@ -1025,8 +1221,32 @@ class SendTestRunner {
     // Wait for app to be ready.
     // AOT builds are an order of magnitude slower than debug builds; floor
     // the timeout at 5 minutes in profile mode regardless of caller default.
-    final effectiveTimeout = profileMode && timeout < const Duration(minutes: 5)
-        ? const Duration(minutes: 5)
+    // AOT builds are an order of magnitude slower than debug builds; floor the
+    // timeout at 5 minutes in profile mode regardless of caller default.
+    //
+    // SCE14 floors the FIRST launch of a process the same way, for the same
+    // reason at a smaller scale: it is the only launch that can be waiting on a
+    // cold platform build, and a cold macOS build does not fit in 120 s. That
+    // is what produced the failure this addresses — the first attempt ran past
+    // the deadline mid-build, and the retry then collided with the build the
+    // first attempt had left running.
+    //
+    // A LONGER DEADLINE, not a cleverer one. The obvious improvement is to
+    // treat the budget as idle-time and extend it while the child keeps
+    // talking. Measured 2026-09-18: `flutter run` printed THREE lines in its
+    // first 25 s — "Launching…", "Building macOS application…" and one
+    // incidental xcodebuild warning — and nothing at all while xcodebuild
+    // worked. There is no progress signal to key on, so patience is the only
+    // lever, and the floor is a ceiling on waiting rather than a delay: an app
+    // that answers /health in 20 s is unaffected.
+    //
+    // The launch loop heartbeats every 3 s, so a long wait here cannot be
+    // mistaken for a stall by the runner's idle watchdog, and the runner's
+    // per-file `timeout 900` still caps a genuine hang.
+    final slowBuildFloor = const Duration(minutes: 5);
+    final wantsSlowBuildFloor = profileMode || !_hasLaunchedOnce;
+    final effectiveTimeout = wantsSlowBuildFloor && timeout < slowBuildFloor
+        ? slowBuildFloor
         : timeout;
     final start = DateTime.now();
     final deadline = start.add(effectiveTimeout);
@@ -1077,6 +1297,12 @@ class SendTestRunner {
         );
       }
       await Future<void>.delayed(const Duration(milliseconds: 500));
+    }
+
+    if (ready) {
+      // Set only on success: a failed first launch leaves the next attempt the
+      // same patience, which is exactly what the retry needs.
+      _hasLaunchedOnce = true;
     }
 
     if (!ready) {
@@ -1191,11 +1417,10 @@ class SendTestRunner {
     } catch (_) {
       // Process may already be gone — proceed to restart.
     }
-    // Belt-and-braces: _killTestApp kills the `flutter` wrapper, but the
-    // wrapper's spawned linux/macos/windows desktop app is a separate
-    // process that does NOT receive a propagated signal. We must reap it
-    // explicitly via the LISTEN socket on [defaultPort], then wait for
-    // the kernel to release the bind before launching a replacement.
+    // Belt-and-braces: _killTestApp kills the wrapper's whole process tree
+    // (SCE14), but a desktop app that reparented is outside it. Reap that via
+    // the LISTEN socket on [defaultPort], then wait for the kernel to release
+    // the bind before launching a replacement.
     await _killExistingProcess();
     // 1401-TODO #11 (H2) — bumped from 10s to 20s. Mirror of TEST-side
     // TODO #10. The kernel can take several seconds to fully reclaim
@@ -1226,13 +1451,28 @@ class SendTestRunner {
 
   static Future<void> _killTestApp() async {
     if (_testAppProcess != null) {
-      // SIGKILL the wrapper directly — graceful 'q' is unreliable when the
-      // app's Dart event loop is wedged: the wrapper sits waiting for an
-      // ack that will never come, blowing past flutter_test's 30s budget.
-      // Speed matters more than cleanliness here; the orphaned desktop
-      // child is reaped by [_killExistingProcess] right after.
+      // SIGKILL rather than a graceful 'q' — 'q' is unreliable when the app's
+      // Dart event loop is wedged: the wrapper sits waiting for an ack that
+      // will never come, blowing past flutter_test's 30s budget. Speed matters
+      // more than cleanliness here.
+      //
+      // SCE14: kill the whole PROCESS TREE, not just this wrapper. On macOS
+      // `flutter run` spawns `xcodebuild` as a DIRECT CHILD, which in turn owns
+      // a subtree (XCBBuildService, sh, bash, two dartvms, a dartaotruntime).
+      // Measured 2026-09-18: SIGKILL on the wrapper alone left `xcodebuild` and
+      // all six of its descendants running, with XCBBuildService still holding
+      // `build/macos/.../XCBuildData/build.db`. The retry then started a second
+      // build in the same directory and died on `unable to attach DB: …
+      // database is locked`.
+      //
+      // The port reap below cannot cover that case and is not redundant with
+      // this one: a build binds no socket, so only the tree walk reaches it —
+      // and a desktop child that has REPARENTED (away from this wrapper, to
+      // launchd/init) is no longer in the tree, so only the port reap reaches
+      // THAT. Both are needed, for disjoint escapees.
+      final treeRoot = _testAppProcess!.pid;
       try {
-        _testAppProcess!.kill(ProcessSignal.sigkill);
+        await _killProcessTree(treeRoot);
       } catch (_) {
         // Already exiting.
       }
@@ -1246,12 +1486,13 @@ class SendTestRunner {
       }
       _testAppProcess = null;
     }
-    // Reap any spawned-but-orphaned desktop process still bound to the port.
-    // SIGKILL on the `flutter` wrapper does NOT propagate to the linux/macos/
-    // windows desktop app it spawned — they're separate processes. Without
-    // this cleanup, the app keeps running, stays bound to [defaultPort], and
-    // the next test run's isAppRunning() returns true → _startedByRunner
-    // stays false → _recycleTestApp becomes a no-op for the entire run.
+    // Reap a desktop process still bound to the port. The tree walk above
+    // covers every descendant the wrapper still owns; this covers the one it
+    // does not — a desktop app that reparented, which no walk from the
+    // wrapper's pid can find. Without it the app keeps running, stays bound to
+    // [defaultPort], and the next run's isAppRunning() returns true →
+    // _startedByRunner stays false → _recycleTestApp is a no-op for the whole
+    // run.
     await _killExistingProcess();
   }
 

@@ -82,6 +82,13 @@ run "precise bridge match beats fuzzy prefix" \
 # checks, test/run_attribution.dart, IS duplicated here and must stay
 # byte-identical to the AST twin's copy.
 
+# SCE14 is in the same position. The guard that both twins kill the companion
+# app as a process TREE — rather than SIGKILLing the `flutter run` wrapper and
+# leaving the xcodebuild it spawned holding the build database — reads THIS
+# twin's send_test_runner.dart too, and lives once as
+# tom_d4rt_flutter_ast/test/sce14_launch_retry_test.dart. The code it checks is
+# duplicated here by hand, like the rest of the harness.
+
 if [ "$status" -eq 0 ]; then
   echo "all guards passed"
 else

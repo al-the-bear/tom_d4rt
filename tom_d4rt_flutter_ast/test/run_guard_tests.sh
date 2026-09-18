@@ -150,6 +150,13 @@ run "cluster log is derived, dated and blast-radius rated" \
 run "bridge step is streamed and content-decided" \
   flutter test test/sce13_bridge_gate_test.dart
 
+# SCE14: both twins kill the app as a process TREE, wait for the build database
+# before retrying, and report both attempts. Repo-wide (it reads the sibling's
+# runner too) and source-shape only — the behaviour needs a ~3 min cold platform
+# build to observe, which is exactly the cost this runner keeps out.
+run "launch retry leaves no orphaned build" \
+  flutter test test/sce14_launch_retry_test.dart
+
 if [ "$status" -eq 0 ]; then
   echo "all guards passed"
 else
