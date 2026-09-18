@@ -1,3 +1,41 @@
+## 1.40.0
+
+### Changed — the sweep 1.39.0 made possible, and the cost it really has (sce51)
+
+1.39.0 fixed the verification so it analyses something. This records what it
+then measured, because 1.38.0's numbers were taken with the broken invocation
+and are void.
+
+**Re-run 2026-09-18 against a binary whose verification runs. Same verdict —
+13 of 13 consumers clean, nothing allowlisted — and now it means something:**
+
+| consumer | run | verified |
+| --- | --- | --- |
+| tom_dist_ledger | 10.1s | 5 (1 non-fatal) |
+| tom_process_monitor | 10.0s | 5 |
+| tom_d4rt_dcli | 20.6s | 9 |
+| tom_dcli_exec | 16.8s | 9 |
+| tom_spec_engine | 47.5s | 5 |
+| tom_build_cli | 35.7s | 5 (2 non-fatal) |
+| tom_vscode_bridge | 15.2s | 5 (2 non-fatal) |
+| tom_brain_procedure | 18.5s | 4 (2 non-fatal) |
+| d4rt_advanced_sample | 9.7s | 4 |
+| d4rt_dcli_sample | 8.6s | 4 |
+| d4rt_userbridges_sample | 8.4s | 4 |
+| tom_d4rt_flutter | 144.6s | 18 |
+| tom_d4rt_flutter_ast | 177.8s | 18 |
+
+The "(N non-fatal)" suffixes are the evidence the run is real: diagnostics came
+back and the allowlist classified them, which cannot happen when zero are
+parsed.
+
+**1.38.0's cost claim is void with it.** "52.2s against 52.4s" was measuring a
+no-op. Against the same pre-fix runs, verification adds a few seconds on a
+small consumer (tom_vscode_bridge 6.0s → 15.2s) and one to two minutes on the
+flutter twins (tom_d4rt_flutter 84.2s → 144.6s). The flag's description now
+says so, because a default-on cost the reader cannot see is the same trap as a
+default they cannot see.
+
 ## 1.39.0
 
 ### Fixed — `--verify-output` analysed nothing when run from the compiled binary (sce51)
@@ -22,10 +60,6 @@ three years of "analysed clean" had not.
 
 The executable now comes from `resolveDartExecutable()` (tom_build_base
 2.16.0), which never resolves to the running AOT tool.
-
-**The 1.38.0 sweep is void.** "13 of 13 consumers verify clean" was measured
-with the broken invocation and established nothing. It has been re-run against
-a binary carrying this fix; see the todo record for the results that stand.
 
 ## 1.38.0
 

@@ -22,11 +22,13 @@ const d4rtgenOptions = <OptionDefinition>[
   ),
   // SCE51: on by default. scd13_ahcm shipped it opt-in and said not to choose
   // the default before the semantics had been exercised on real consumers.
-  // The sweep that followed ran every d4rtgen consumer in the workspace — all
-  // 13 verified clean — and measured the cost warm-to-warm on the largest of
-  // them at 52.2s against 52.4s unverified. Generation parses with the
-  // analyzer already, so the summary cache the verify step needs is warm by
-  // the time it runs.
+  // That sweep ran every d4rtgen consumer in the workspace — all 13 verify
+  // clean, nothing needed allowlisting — against a binary whose verification
+  // actually runs, which no compiled build before 1.39.0 did.
+  //
+  // It is not free: a few seconds on a small consumer, one to two minutes on
+  // the flutter twins (18 generated files each). That cost is the point rather
+  // than a regret — the alternative measured 0s because it analysed nothing.
   //
   // A gate nobody enables is not a gate, and the population it was built for —
   // a consumer regenerating bridges who has never heard of the flag — is
@@ -38,7 +40,7 @@ const d4rtgenOptions = <OptionDefinition>[
     name: 'verify-output',
     description:
         'After generating, run dart analyze over the generated files and fail '
-        'on any error',
+        'on any error (seconds on a small package, ~2 min on a large one)',
     defaultValue: 'true',
     negatable: true,
   ),
