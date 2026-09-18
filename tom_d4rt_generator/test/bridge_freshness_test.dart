@@ -330,6 +330,152 @@ void main() {
     });
   });
 
+  group('orphaned generated files', () {
+    // A package that commits a generated file no run writes any more. The
+    // freshness check compares only the files a run WRITES, so such a file is
+    // invisible to it — tom_brain_procedure carried two from the retired
+    // build_runner builder and passed every check it had.
+    //
+    // Committedness is the question, so the fixture is a real git repository:
+    // a `*.b.dart` can legitimately be a gitignored build artifact (this
+    // package's own `example/d4` writes two extra test runners per suite), and
+    // flagging those would make the check noise rather than a signal.
+    late Directory package;
+
+    Future<void> gitInit(Directory root) async {
+      for (final args in [
+        ['init', '-q'],
+        ['config', 'user.email', 'guard@example.invalid'],
+        ['config', 'user.name', 'guard'],
+      ]) {
+        final r = await Process.run('git', args, workingDirectory: root.path);
+        expect(r.exitCode, 0, reason: 'git ${args.first} failed: ${r.stderr}');
+      }
+    }
+
+    Future<void> gitAddAll(Directory root) async {
+      // `git add -- lib bin` aborts with 128 when `bin/` does not exist, and
+      // this fixture configures no test runner. Staging the whole tree is
+      // equivalent here: the scan asks `git ls-files -- lib bin`, which does
+      // tolerate a missing pathspec.
+      final r = await Process.run('git', [
+        'add',
+        '-A',
+        '.',
+      ], workingDirectory: root.path);
+      expect(r.exitCode, 0, reason: 'git add failed: ${r.stderr}');
+    }
+
+    setUp(() async {
+      package = _fixtureRoot('orphan');
+      final root = package.path;
+      File(p.join(root, 'pubspec.yaml'))
+        ..createSync(recursive: true)
+        ..writeAsStringSync(
+          "name: zom_orphan\nenvironment:\n  sdk: '>=3.0.0 <4.0.0'\n",
+        );
+      File(p.join(root, '.dart_tool', 'package_config.json'))
+        ..createSync(recursive: true)
+        ..writeAsStringSync(
+          '{"configVersion": 2, "packages": [{"name": "zom_orphan", '
+          '"rootUri": "../", "packageUri": "lib/", "languageVersion": "3.0"}]}',
+        );
+      File(p.join(root, 'lib', 'zom_orphan.dart'))
+        ..createSync(recursive: true)
+        ..writeAsStringSync("export 'src/thing.dart';\n");
+      File(p.join(root, 'lib', 'src', 'thing.dart'))
+        ..createSync(recursive: true)
+        ..writeAsStringSync('class Thing {\n  int get n => 1;\n}\n');
+      File(p.join(root, 'buildkit.yaml')).writeAsStringSync(
+        'd4rtgen:\n'
+        '  name: zom_orphan\n'
+        '  modules:\n'
+        '    - name: zom_orphan\n'
+        '      barrelFiles:\n'
+        '        - lib/zom_orphan.dart\n'
+        '      outputPath: lib/src/d4rt_bridges/zom_orphan_bridges.b.dart\n',
+      );
+      final generated = await generateBridges(
+        configPath: p.join(root, 'buildkit.yaml'),
+      );
+      expect(generated.errors, isEmpty, reason: 'fixture generation failed');
+      await gitInit(package);
+      await gitAddAll(package);
+    });
+
+    tearDown(() => package.deleteSync(recursive: true));
+
+    test('G-FRESH-09: a committed generated file no run writes is reported as '
+        'orphaned [2026-09-18]', () async {
+      final orphan = File(
+        p.join(package.path, 'lib', 'src', 'old', 'retired_bridges.b.dart'),
+      )..createSync(recursive: true);
+      orphan.writeAsStringSync(
+        '// D4rt Bridge - Generated file, do not edit\n'
+        '// Sources: 1 files\n\nclass Retired {}\n',
+      );
+      await gitAddAll(package);
+
+      final result = await checkBridgeFreshness(package.path);
+
+      expect(result.orphanScanSkipped, isNull, reason: 'the scan must run');
+      expect(result.orphaned.map((o) => o.path), [
+        'lib/src/old/retired_bridges.b.dart',
+      ]);
+      expect(
+        result.stale,
+        isEmpty,
+        reason: 'an orphan is not a stale file; the two are different faults',
+      );
+      expect(result.isFresh, isFalse, reason: 'an orphan is not freshness');
+    });
+
+    test('G-FRESH-10: the files a run writes are not orphans, and an '
+        'untracked one is not either [2026-09-18]', () async {
+      // Anti-vacuity for G-FRESH-09: without this, a scan that flagged
+      // EVERYTHING would pass it just as well.
+      final clean = await checkBridgeFreshness(package.path);
+      expect(clean.orphanScanSkipped, isNull);
+      expect(
+        clean.orphaned,
+        isEmpty,
+        reason: 'every committed .b.dart here is written by the run',
+      );
+      expect(clean.checked, isNotEmpty, reason: 'nothing was compared');
+
+      // A generated file git does not track is a build artifact, not an orphan.
+      File(p.join(package.path, 'lib', 'src', 'old', 'untracked.b.dart'))
+        ..createSync(recursive: true)
+        ..writeAsStringSync(
+          '// D4rt Bridge - Generated file, do not edit\n\nclass U {}\n',
+        );
+      final withUntracked = await checkBridgeFreshness(package.path);
+      expect(
+        withUntracked.orphaned,
+        isEmpty,
+        reason: 'untracked generated output is a build artifact',
+      );
+    });
+
+    test('G-FRESH-11: a committed .b.dart without a generated-file header is '
+        'left alone [2026-09-18]', () async {
+      File(p.join(package.path, 'lib', 'src', 'old', 'handwritten.b.dart'))
+        ..createSync(recursive: true)
+        ..writeAsStringSync('// not generated by anything\n\nclass H {}\n');
+      await gitAddAll(package);
+
+      final result = await checkBridgeFreshness(package.path);
+
+      expect(
+        result.orphaned,
+        isEmpty,
+        reason:
+            'the header is what identifies this toolchain\'s output; a file '
+            'without one belongs to somebody else',
+      );
+    });
+  });
+
   test('G-FRESH-07: an unresolved package is refused rather than resolved in '
       'place [2026-09-11] (PASS)', () async {
     final package = _fixtureRoot('unresolved');

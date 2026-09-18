@@ -63,6 +63,68 @@ enum StaleReason {
   final String description;
 }
 
+/// A committed generated file that no generation writes any more.
+///
+/// The freshness check compares only the files a run WRITES, so a generated
+/// file the toolchain has stopped producing is invisible to it: it can only
+/// rot, or be hand-edited in the belief that a regeneration will preserve the
+/// edit. `tom_brain_procedure` carried two such files from the retired
+/// build_runner builder and passed every check it had.
+///
+/// Reported, never deleted. Whether an orphan is dead output or a file some
+/// other tool owns is the reader's call, not the checker's.
+class OrphanedBridge {
+  /// Creates a record of an orphaned generated file at [path].
+  const OrphanedBridge(this.path, this.header);
+
+  /// Package-relative path, for example `lib/src/old/x.b.dart`.
+  final String path;
+
+  /// The generated-file header that identified it.
+  final String header;
+
+  @override
+  String toString() => '$path (generated, but no run writes it)';
+}
+
+/// Header lines this toolchain writes at the top of a generated file.
+///
+/// Matching is restricted to `*.b.dart`, which is the extension every
+/// destination passes through `ensureBDartExtension` to reach. That matters
+/// for the second header: the versioner writes it too, at the top of
+/// `version.g.dart` and `*.versioner.dart`, and those are not bridges.
+const _generatedHeaders = <String>[
+  '// D4rt Bridge - Generated file, do not edit',
+  '// GENERATED FILE - DO NOT EDIT',
+];
+
+/// Files git tracks under [packageRoot]'s `lib/` and `bin/`, or null when that
+/// cannot be determined.
+///
+/// Committedness is the question, so git is the only honest answer to it. A
+/// package's `*.b.dart` can legitimately be a gitignored build artifact —
+/// `tom_d4rt_generator/example/d4` writes two extra test runners per suite,
+/// and flagging those would make the check noise. Returning null when git
+/// cannot answer keeps that distinction from being guessed at.
+Set<String>? _trackedSources(String packageRoot) {
+  try {
+    final result = Process.runSync('git', [
+      'ls-files',
+      '-z',
+      '--',
+      'lib',
+      'bin',
+    ], workingDirectory: packageRoot);
+    if (result.exitCode != 0) return null;
+    return (result.stdout as String)
+        .split('\u0000')
+        .where((e) => e.isNotEmpty)
+        .toSet();
+  } on ProcessException {
+    return null;
+  }
+}
+
 /// The outcome of [checkBridgeFreshness].
 class BridgeFreshness {
   /// Creates a freshness report.
@@ -70,6 +132,8 @@ class BridgeFreshness {
     required this.checked,
     required this.stale,
     required this.errors,
+    this.orphaned = const [],
+    this.orphanScanSkipped,
   });
 
   /// Package-relative paths of every file the generator produced.
@@ -81,8 +145,19 @@ class BridgeFreshness {
   /// Generation errors. A report with errors has not measured anything.
   final List<String> errors;
 
-  /// True only when the generator ran cleanly AND nothing is stale.
-  bool get isFresh => errors.isEmpty && stale.isEmpty;
+  /// Committed generated files that no run writes.
+  final List<OrphanedBridge> orphaned;
+
+  /// Why the orphan scan did not run, or null when it did.
+  ///
+  /// An empty [orphaned] means two different things — nothing orphaned, or
+  /// nothing looked — and a caller that cannot tell them apart is the vacuity
+  /// this field exists to prevent.
+  final String? orphanScanSkipped;
+
+  /// True only when the generator ran cleanly, nothing is stale, and no
+  /// committed generated file is unaccounted for.
+  bool get isFresh => errors.isEmpty && stale.isEmpty && orphaned.isEmpty;
 }
 
 /// Regenerate [projectPath]'s bridges into a scratch tree and compare them with
@@ -156,9 +231,66 @@ Future<BridgeFreshness> checkBridgeFreshness(String projectPath) async {
         break;
     }
   }
+  final scan = findOrphanedBridges(packageRoot: packageRoot, produced: checked);
+
   return BridgeFreshness(
     checked: checked,
     stale: stale,
     errors: preview.result.errors,
+    orphaned: scan.orphaned,
+    orphanScanSkipped: scan.skipped,
   );
+}
+
+/// Committed generated files under [packageRoot] that [produced] does not name.
+///
+/// Shared by [checkBridgeFreshness] and `d4rtgen --dry-run` so the gate and the
+/// tool cannot disagree about what an orphan is — the same reason generation
+/// itself has one pipeline.
+///
+/// [produced] is the set of package-relative destinations a run reported.
+/// Anything git tracks under `lib/` or `bin/` that ends in `.b.dart`, carries a
+/// generated-file header, and is not in that set is output the toolchain has
+/// stopped writing.
+({List<OrphanedBridge> orphaned, String? skipped}) findOrphanedBridges({
+  required String packageRoot,
+  required Iterable<String> produced,
+}) {
+  final tracked = _trackedSources(packageRoot);
+  if (tracked == null) {
+    return (
+      orphaned: const <OrphanedBridge>[],
+      skipped:
+          'git could not list tracked files in $packageRoot, so committed '
+          'generated files could not be told apart from build artifacts',
+    );
+  }
+  final written = produced.map(p.normalize).toSet();
+  final orphaned = <OrphanedBridge>[];
+  for (final relative in tracked.toList()..sort()) {
+    if (!relative.endsWith('.b.dart')) continue;
+    if (written.contains(p.normalize(relative))) continue;
+    final file = File(p.join(packageRoot, relative));
+    if (!file.existsSync()) continue;
+    final first = _firstLine(file);
+    if (first == null) continue;
+    final header = _generatedHeaders.firstWhere(
+      (h) => first.trim() == h,
+      orElse: () => '',
+    );
+    if (header.isEmpty) continue;
+    orphaned.add(OrphanedBridge(relative, header));
+  }
+  return (orphaned: orphaned, skipped: null);
+}
+
+/// The first line of [file], or null when it cannot be read as text.
+String? _firstLine(File file) {
+  try {
+    final content = file.readAsStringSync();
+    final end = content.indexOf('\n');
+    return end < 0 ? content : content.substring(0, end);
+  } on FileSystemException {
+    return null;
+  }
 }

@@ -1,3 +1,35 @@
+## 1.28.0
+
+### Added — a committed generated file no run writes is reported as orphaned
+
+`checkBridgeFreshness` and `d4rtgen --dry-run` compared only the files a run
+WRITES, so a generated file the toolchain had stopped producing was invisible
+to both. It could only rot, or be hand-edited in the belief a regeneration
+would keep the edit. `tom_brain_procedure` carried two from the retired
+build_runner builder and passed every check it had; the dcli packages carried
+eight each, ~740 KB, frozen since 2026-02-26 and imported by nothing.
+
+`BridgeFreshness` gains `orphaned`, and `isFresh` now requires it to be empty.
+`d4rtgen --dry-run` prints an `orphaned` row. **Never deleted** — whether an
+orphan is dead output or a file another tool owns is the reader's call.
+
+Both paths call one `findOrphanedBridges`, so the gate and the tool cannot
+disagree about what an orphan is.
+
+**What counts as one**, because each condition rules out a false positive:
+
+- Tracked by git. A `*.b.dart` can legitimately be a gitignored build artifact
+  — this package's own `example/d4` writes two extra test runners per suite —
+  and flagging those would make the report noise. When git cannot answer,
+  `orphanScanSkipped` says so rather than reporting an empty list, which would
+  be indistinguishable from a clean package.
+- Ends in `.b.dart`, which every destination reaches through
+  `ensureBDartExtension`. This is what keeps the versioner's files out: it
+  writes `// GENERATED FILE - DO NOT EDIT` too, at the top of `version.g.dart`
+  and `*.versioner.dart`.
+- Carries a generated-file header this toolchain writes.
+- Is not among the destinations the run reported.
+
 ## 1.27.0
 
 ### Changed — the `d4rtgen` CLI and `generateBridges` are one pipeline

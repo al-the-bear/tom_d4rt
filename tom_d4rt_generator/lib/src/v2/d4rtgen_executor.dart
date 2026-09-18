@@ -157,6 +157,27 @@ Future<ItemResult> _dryRun(CommandContext context, CliArgs args) async {
     for (final write in preview.writes) {
       print('  ${write.change.label.padRight(width)}  ${write.path}');
     }
+
+    // Files the package commits that this run does NOT write. A dry run that
+    // lists only what it would write cannot show these, and that blindness is
+    // how a package keeps generated output no generation produces any more.
+    // Reported, never deleted: whether an orphan is dead output or a file
+    // another tool owns is the reader's call.
+    final scan = findOrphanedBridges(
+      packageRoot: context.path,
+      produced: preview.writes.map((w) => w.path),
+    );
+    if (scan.skipped != null) {
+      print('  orphan scan skipped: ${scan.skipped}');
+    } else if (scan.orphaned.isNotEmpty) {
+      print(
+        '  ${scan.orphaned.length} committed generated file(s) that no run '
+        'writes; d4rtgen never deletes them:',
+      );
+      for (final orphan in scan.orphaned) {
+        print('  ${'orphaned'.padRight(width)}  ${orphan.path}');
+      }
+    }
     return ItemResult.success(path: context.path, name: context.name);
   } catch (e, st) {
     stderr.writeln('Error processing ${context.path} (dry run): $e');
