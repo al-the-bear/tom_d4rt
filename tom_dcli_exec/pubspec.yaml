@@ -13,18 +13,38 @@ environment:
   sdk: ^3.10.4
 
 dependencies:
-  # D4rt runtime (analyzer-free mirror AST), resolved from pub.dev (there is no
-  # pubspec_overrides.yaml — what is published here is what runs). Floor
-  # 1.13.0: registering a bridged extension no longer leaves a phantom
-  # `Undefined variable: <Type>` in the ErrorReporter, neither when its on-type
-  # resolves through the fallback (1.12.0) nor while that fallback probes the
-  # stdlib modules (1.13.0). The REPL's `-test` mode counts those as failures.
+  # D4rt parsing front end (analyzer → mirror AST), resolved from pub.dev
+  # (there is no pubspec_overrides.yaml — what is published here is what runs).
+  #
+  # THE FLOOR IS A REQUIREMENT CLAIM, so it names what this tool PROMISES, not
+  # merely what it happened to be built against. Two things are load-bearing:
+  #
+  #   * 1.13.0 — registering a bridged extension no longer leaves a phantom
+  #     `Undefined variable: <Type>` in the ErrorReporter, neither when its
+  #     on-type resolves through the fallback (1.12.0) nor while that fallback
+  #     probes the stdlib modules (1.13.0). The REPL's `-test` mode counts
+  #     those as failures.
+  #   * 1.20.0 — `break` and `continue` inside an `await for` reach their
+  #     target instead of aborting the script (scd4). A shell tool whose
+  #     scripts loop over a stream and leave early cannot claim less (sce22).
+  #
+  # The constraint sits above both, at the release this REPL is verified
+  # against. Do not lower it to the earliest version satisfying one bullet —
+  # the list is cumulative.
   tom_d4rt_exec: "^1.25.0"
   # Mirror-AST interpreter — generated bridges import its runtime directly.
-  # Floor 0.20.0: tracks the interpreter this REPL is verified against, and
-  # 0.19.0 is load-bearing (same-name bridged classes resolve by declaring
-  # source URI rather than last-wins, tcca19) for a host that registers the
-  # whole Tom bridge set.
+  #
+  # Load-bearing, cumulatively:
+  #
+  #   * 0.19.0 — same-name bridged classes resolve by declaring source URI
+  #     rather than last-wins (tcca19), which a host registering the whole Tom
+  #     bridge set depends on;
+  #   * 0.64.0 — `break` and `continue` inside an `await for` reach their
+  #     target (scd4), the runtime half of the same promise the
+  #     `tom_d4rt_exec` floor above makes (sce22).
+  #
+  # The constraint tracks the interpreter this REPL is verified against, which
+  # is above both.
   tom_d4rt_ast: "^0.65.0"
   # AST converter (analyzer → mirror AST) for parseSourceCallback
   tom_ast_generator: "^0.1.5"

@@ -14,11 +14,27 @@ environment:
 
 dependencies:
   # D4rt runtime, resolved from pub.dev (there is no pubspec_overrides.yaml —
-  # what is published here is what runs). Floor 1.29.0: registering a bridged
-  # extension no longer leaves a phantom `Undefined variable: <Type>` in the
-  # ErrorReporter, neither when its on-type resolves through the fallback
-  # (1.28.0) nor while that fallback probes the stdlib modules (1.29.0). The
-  # REPL's `-test` mode counts those as failures.
+  # what is published here is what runs).
+  #
+  # THE FLOOR IS A REQUIREMENT CLAIM, so it names what this tool PROMISES, not
+  # merely what it happened to be built against. Two things are load-bearing:
+  #
+  #   * 1.29.0 — registering a bridged extension no longer leaves a phantom
+  #     `Undefined variable: <Type>` in the ErrorReporter, neither when its
+  #     on-type resolves through the fallback (1.28.0) nor while that fallback
+  #     probes the stdlib modules (1.29.0). The REPL's `-test` mode counts
+  #     those as failures.
+  #   * 1.76.0 — `break` and `continue` inside an `await for` reach their
+  #     target instead of aborting the script with "Break statement outside of
+  #     a loop" (scd4). A shell tool whose scripts loop over a stream and leave
+  #     early cannot claim less than this, which is why the floor moved here
+  #     rather than staying where the extension fix put it (sce22).
+  #
+  # The constraint sits above both, at the release this REPL is verified
+  # against. Do not lower it to the earliest version satisfying one bullet:
+  # the list is cumulative, and the comment above it used to name 1.29.0 while
+  # the constraint said ^1.77.0, which reads as an invitation to do exactly
+  # that.
   tom_d4rt: "^1.77.0"
 
   # VS Code scripting API (for bridge support)
