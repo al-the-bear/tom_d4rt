@@ -187,6 +187,26 @@ class AsyncExecutionState {
   /// Used to track which await-for loop we're in
   final List<ForStatement> awaitForNodeStack = [];
 
+  /// The `do` loops whose body has already been entered.
+  ///
+  /// SCE19. The state machine re-enters a `DoStatement` node for two different
+  /// reasons — arriving at the loop from the statement before it, and coming
+  /// back from the end of its body — and it used to assume the second,
+  /// evaluating the condition every time. So `do { n++; } while (false);`
+  /// never ran its body at all. Loops whose condition is true on entry gave the
+  /// right answer, which is why nothing caught it.
+  ///
+  /// Membership is what tells the two arrivals apart: absent means the body has
+  /// not run yet and must, present means the body has finished and the
+  /// condition decides. `continue` deliberately leaves the entry in place — it
+  /// returns to the loop from INSIDE, and Dart evaluates the condition for it
+  /// (F-SCD4-13 pins that).
+  ///
+  /// Keyed by IDENTITY, and load-bearing in the `tom_d4rt_ast` twin: `SAstNode`
+  /// overrides `==` with a structural `toJson()` comparison, so a plain Set
+  /// there would treat two identical-looking `do` loops as one.
+  final Set<DoStatement> doBodiesStarted = Set<DoStatement>.identity();
+
   /// How deep each loop stack was when a `for` loop was entered.
   ///
   /// WHY. Leaving a loop — at its end, or by `break` / `continue` from inside

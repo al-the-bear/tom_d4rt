@@ -1,3 +1,36 @@
+## 1.134.0
+
+### Fixed — a `do` loop in an async body ran its condition before its body
+
+`do { n++; } while (false);` answered `0`. A `do` body always runs once, so
+Dart — and this interpreter's own synchronous visitor — answer `1`.
+
+The state machine re-enters a `DoStatement` node for two different reasons:
+arriving at the loop from the statement before it, and coming back from the end
+of its body. It assumed the second every time. The comment that stood there
+said so, and named the cost: *"if we entered the loop in a non-standard way,
+this could fail"*. Arriving from the statement before the loop is the standard
+way.
+
+A loop whose condition is true on entry was unaffected — `do { n++; } while
+(n < 3)` counts to 3 either way — which is why nothing caught it.
+
+`AsyncExecutionState.doBodiesStarted` now tells the two arrivals apart: absent
+means the body has not run and must, present means the body finished and the
+condition decides. The mark is forgotten when the loop is left, by a false
+condition or by `break` / a labelled break (`_leaveLoopsFor`), because a `do`
+nested in another loop runs again on the outer loop's next iteration and would
+otherwise check its condition first — the same defect one level in, where it is
+much harder to see.
+
+`continue` deliberately keeps the mark: it returns to the loop from inside, and
+Dart evaluates the condition for it (F-SCD4-13 pins the same rule from the jump
+side).
+
+An empty body (`do {} while (c);`) has no first statement to jump to; it falls
+back to the loop node so the condition decides, which would otherwise stop the
+machine and never return.
+
 ## 1.133.0
 
 ### Fixed — a `return` that unwinds through a `finally` in an async body

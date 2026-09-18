@@ -2373,10 +2373,35 @@ class InterpretedFunction implements Callable {
           //    (detected by _findNextSequentialNode returning the SDoStatement),
           //    we need to evaluate the condition.
 
-          // To differentiate, we can look at the previous state or add a flag in AsyncExecutionState.
-          // Simple approach: if the current state points to SDoStatement, we assume we need to evaluate the condition
-          // because _findNextSequentialNode led us to the SDoStatement from the end of the body.
-          // If we entered the loop in a non-standard way, this could fail.
+          // SCE19: the two arrivals are told apart by `doBodiesStarted`. This
+          // used to assume the second one always — the comment that stood here
+          // said so, and said what it would cost: "if we entered the loop in a
+          // non-standard way, this could fail". Arriving from the statement
+          // before the loop IS the standard way, and it failed:
+          // `do { n++; } while (false);` answered 0 where Dart, and this
+          // interpreter's own synchronous visitor, answer 1. A loop whose
+          // condition is true on entry was unaffected, which is why it survived.
+          if (!currentState.doBodiesStarted.contains(doNode)) {
+            Logger.debug(
+              "[StateMachine] Entering DoStatement body for the first time.",
+            );
+            currentState.doBodiesStarted.add(doNode);
+            if (doNode.body is SBlock) {
+              currentNode = (doNode.body as SBlock).statements.firstOrNull;
+              // An empty body would leave `currentNode` null and stop the
+              // machine, so fall back to the loop itself: the condition then
+              // decides, which is what `do {} while (c);` means.
+              currentNode ??= doNode;
+              if (identical(currentNode, doNode)) {
+                currentState.nextStateIdentifier = currentNode;
+                continue;
+              }
+            } else {
+              currentNode = doNode.body;
+            }
+            currentState.nextStateIdentifier = currentNode;
+            continue;
+          }
 
           Logger.debug(
             "[StateMachine] Handling SDoStatement. Evaluating condition.",
@@ -2410,6 +2435,11 @@ class InterpretedFunction implements Callable {
               Logger.debug(
                 "[StateMachine] DoWhile condition FALSE. Finding node after do-while.",
               );
+              // SCE19: the loop is over, so the next arrival at this node is a
+              // fresh entry. A `do` nested in another loop runs again on the
+              // outer loop's next iteration, and would otherwise check its
+              // condition before its body — the original bug, one level in.
+              currentState.doBodiesStarted.remove(doNode);
               currentNode = _findNextSequentialNode(visitor, doNode);
               currentState.nextStateIdentifier = currentNode;
               continue; // Restart the state machine loop
@@ -4000,6 +4030,11 @@ class InterpretedFunction implements Callable {
     for (SAstNode? node = from; node != null; node = _parentOf(node)) {
       final atTarget = identical(node, target);
       if (atTarget && !leaveTarget) break;
+      // SCE19: a `do` being LEFT must forget that its body started, or a later
+      // entry would check the condition first. `continue` stops above without
+      // reaching here for its target, which is what keeps the condition being
+      // evaluated for it (F-SCD4-13).
+      if (node is SDoStatement) state.doBodiesStarted.remove(node);
       outermost = state.loopEntryDepths[node] ?? outermost;
       if (atTarget) break;
     }
