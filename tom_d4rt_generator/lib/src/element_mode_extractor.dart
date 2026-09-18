@@ -1553,6 +1553,7 @@ class ElementModeExtractor {
         typeImportUris: paramTypeImportUris,
         typeToUri: paramTypeToUri,
         functionTypeInfo: funcTypeInfo,
+        resolvedTypeKinds: BridgeGenerator.resolveTypeKinds(p.type),
       );
     }).toList();
 
@@ -1604,6 +1605,7 @@ class ElementModeExtractor {
         typeImportUris: paramTypeImportUris,
         typeToUri: paramTypeToUri,
         functionTypeInfo: funcTypeInfo,
+        resolvedTypeKinds: BridgeGenerator.resolveTypeKinds(p.type),
       );
     }).toList();
 

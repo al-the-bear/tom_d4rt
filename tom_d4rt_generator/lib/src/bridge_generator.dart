@@ -675,6 +675,22 @@ class ParameterInfo {
   /// Used to generate proper wrappers for InterpretedFunction.
   final FunctionTypeInfo? functionTypeInfo;
 
+  /// What the ANALYZER determined about each type name appearing in this
+  /// parameter's type — the type itself and its type arguments.
+  ///
+  /// Three states, and the third is the reason this is a map rather than a set:
+  ///
+  ///   * present with a value — a function type (a typedef whose aliased type
+  ///     is a `FunctionType`, or an inline one); the value is its signature.
+  ///   * present with null — the analyzer resolved it and it is NOT a function
+  ///     type. A name-list match must not override this.
+  ///   * absent — not resolved. The caller may fall back to the name list.
+  ///
+  /// Deciding by name alone gets both directions wrong: an unlisted
+  /// package-local typedef is missed, and a CLASS that happens to share a
+  /// listed typedef's name is treated as a callback.
+  final Map<String, FunctionTypeInfo?> resolvedTypeKinds;
+
   const ParameterInfo({
     required this.name,
     required this.type,
@@ -685,6 +701,7 @@ class ParameterInfo {
     this.defaultValue,
     this.isFunctionTypeAlias = false,
     this.functionTypeInfo,
+    this.resolvedTypeKinds = const {},
   });
 
   /// Whether this parameter is a function type that can be wrapped
@@ -7356,6 +7373,7 @@ class BridgeGenerator {
             typeToUri: param.typeToUri,
             classTypeParams: funcTypeParams,
             sourceFilePath: func.sourceFile,
+            resolvedTypeKinds: param.resolvedTypeKinds,
           );
 
           if (param.isNamed) {
@@ -9145,6 +9163,7 @@ class BridgeGenerator {
           param.type,
           typeToUri: param.typeToUri,
           classTypeParams: typeParams,
+          resolvedTypeKinds: param.resolvedTypeKinds,
         );
         // We use getRequiredArg because we know it exists at this index
         final sanitizedName = _sanitizeLocalVarName(param.name);
@@ -9267,6 +9286,7 @@ class BridgeGenerator {
                 param.type,
                 typeToUri: param.typeToUri,
                 classTypeParams: typeParams,
+                resolvedTypeKinds: param.resolvedTypeKinds,
               );
               buffer.writeln(
                 "          final $localName = D4.getRequiredNamedArg<$resolvedType>(named, '${param.name}', '${_escapeString(contextName)}');",
@@ -9822,6 +9842,7 @@ class BridgeGenerator {
           param.type,
           typeToUri: param.typeToUri,
           sourceFilePath: ext.sourceFile,
+          resolvedTypeKinds: param.resolvedTypeKinds,
         );
         if (param.isRequired) {
           buffer.writeln(
@@ -10026,6 +10047,7 @@ class BridgeGenerator {
         param.type,
         typeToUri: param.typeToUri,
         sourceFilePath: sourceFilePath,
+        resolvedTypeKinds: param.resolvedTypeKinds,
       );
       if (param.isRequired) {
         buffer.writeln(
@@ -10110,6 +10132,7 @@ class BridgeGenerator {
         param.type,
         typeToUri: param.typeToUri,
         sourceFilePath: sourceFilePath,
+        resolvedTypeKinds: param.resolvedTypeKinds,
       );
       if (param.isRequired) {
         buffer.writeln(
@@ -10814,7 +10837,7 @@ class BridgeGenerator {
 
       // Check if element type is a function typedef - can't bridge those properly
       final rawElementType = _extractListElementType(param.type);
-      if (_isFunctionTypeName(rawElementType)) {
+      if (_isFunctionTypeInParam(param, rawElementType)) {
         warnings?.add(
           'TODO: $contextName: parameter "${param.name}" '
           'has unbridgeable function type List<$rawElementType>',
@@ -10999,13 +11022,16 @@ class BridgeGenerator {
 
       // Check if value type is a function type - needs inline conversion
       final cleanValueType = valueType.replaceAll('?', '');
-      final isFunctionValue = _isFunctionTypeName(cleanValueType);
+      final isFunctionValue = _isFunctionTypeInParam(param, cleanValueType);
 
       if (isFunctionValue) {
         // Get function type info for the value type
         FunctionTypeInfo? valueFuncInfo;
         final lookupName = _getUnprefixedTypeName(cleanValueType);
-        valueFuncInfo = _knownFunctionTypeAliasInfo[lookupName];
+        // The analyzer knows an unlisted typedef; the tables do not.
+        valueFuncInfo =
+            param.resolvedTypeKinds[lookupName] ??
+            _knownFunctionTypeAliasInfo[lookupName];
         valueFuncInfo ??= _parseFunctionType(cleanValueType);
 
         if (valueFuncInfo != null) {
@@ -11306,6 +11332,7 @@ class BridgeGenerator {
       typeToUri: param.typeToUri,
       classTypeParams: classTypeParams,
       sourceFilePath: sourceFilePath,
+      resolvedTypeKinds: param.resolvedTypeKinds,
     );
     if (param.isRequired) {
       buffer.writeln(
@@ -11754,13 +11781,16 @@ class BridgeGenerator {
 
       // Check if value type is a function type - needs inline conversion
       final cleanValueType = valueType.replaceAll('?', '');
-      final isFunctionValue = _isFunctionTypeName(cleanValueType);
+      final isFunctionValue = _isFunctionTypeInParam(param, cleanValueType);
 
       if (isFunctionValue) {
         // Get function type info for the value type
         FunctionTypeInfo? valueFuncInfo;
         final lookupName = _getUnprefixedTypeName(cleanValueType);
-        valueFuncInfo = _knownFunctionTypeAliasInfo[lookupName];
+        // The analyzer knows an unlisted typedef; the tables do not.
+        valueFuncInfo =
+            param.resolvedTypeKinds[lookupName] ??
+            _knownFunctionTypeAliasInfo[lookupName];
         valueFuncInfo ??= _parseFunctionType(cleanValueType);
 
         if (valueFuncInfo != null) {
@@ -11990,6 +12020,7 @@ class BridgeGenerator {
         typeToUri: param.typeToUri,
         classTypeParams: classTypeParams,
         sourceFilePath: sourceFilePath,
+        resolvedTypeKinds: param.resolvedTypeKinds,
       );
       var baseResolved = resolvedTypeForRecord;
       if (baseResolved.endsWith('?')) {
@@ -12100,6 +12131,7 @@ class BridgeGenerator {
       typeToUri: param.typeToUri,
       classTypeParams: classTypeParams,
       sourceFilePath: sourceFilePath,
+      resolvedTypeKinds: param.resolvedTypeKinds,
     );
     if (param.defaultValue != null) {
       final prefixedDefault = _prefixDefaultValue(
@@ -12175,6 +12207,7 @@ class BridgeGenerator {
     Map<String, String> typeToUri = const {},
     Map<String, String?> classTypeParams = const {},
     String? sourceFilePath,
+    Map<String, FunctionTypeInfo?> resolvedTypeKinds = const {},
   }) {
     // Create a cache key that includes the context
     // IMPORTANT: Include both keys AND values to distinguish E:null from E:Identifiable
@@ -12194,7 +12227,14 @@ class BridgeGenerator {
       cacheBaseType = cacheBaseType.split('.').last;
     }
     final typeUriKey = typeToUri[cacheBaseType] ?? '';
-    final cacheKey = '$type|$typeParamsKey|${sourceFilePath ?? ''}|$typeUriKey';
+    // The analyzer's verdict for this type name is part of the answer, so it
+    // must be part of the key: without it the first caller's result would be
+    // served to a later one whose analyzer said the opposite.
+    final kindKey = resolvedTypeKinds.containsKey(cacheBaseType)
+        ? (resolvedTypeKinds[cacheBaseType] == null ? 'notfn' : 'fn')
+        : '';
+    final cacheKey =
+        '$type|$typeParamsKey|${sourceFilePath ?? ''}|$typeUriKey|$kindKey';
 
     // Check cache first
     if (_typeResolutionCache.containsKey(cacheKey)) {
@@ -12216,6 +12256,7 @@ class BridgeGenerator {
         typeToUri: typeToUri,
         classTypeParams: classTypeParams,
         sourceFilePath: sourceFilePath,
+        resolvedTypeKinds: resolvedTypeKinds,
       );
       // Cache the result
       _typeResolutionCache[cacheKey] = result;
@@ -12483,6 +12524,7 @@ class BridgeGenerator {
     Map<String, String> typeToUri = const {},
     Map<String, String?> classTypeParams = const {},
     String? sourceFilePath,
+    Map<String, FunctionTypeInfo?> resolvedTypeKinds = const {},
   }) {
     // Handle nullable types first - strip the ?
     var baseType = type;
@@ -12535,8 +12577,15 @@ class BridgeGenerator {
       return isNullable ? '$resolved?' : resolved;
     }
 
-    // Handle known function type aliases (typedef names) - use dynamic since we can't bridge them
-    if (_knownFunctionTypeAliases.contains(baseType)) {
+    // Handle known function type aliases (typedef names) - use dynamic since
+    // we can't bridge them. The analyzer overrules the list in both
+    // directions, so a CLASS that happens to share a listed typedef's name
+    // keeps its own type instead of degrading to `dynamic`.
+    final kindName = _getUnprefixedTypeName(baseType);
+    final analyzerResolved = resolvedTypeKinds.containsKey(kindName);
+    if (analyzerResolved && resolvedTypeKinds[kindName] == null) {
+      // Resolved, and not a function type. Fall through to normal resolution.
+    } else if (_knownFunctionTypeAliases.contains(baseType)) {
       return 'dynamic';
     }
 
@@ -14285,6 +14334,26 @@ class BridgeGenerator {
   }
 
   /// Checks if a type name is a known function typedef.
+  /// Whether [typeName], appearing in [param]'s type, is a function type.
+  ///
+  /// The analyzer decides when it resolved the name; the name list is the
+  /// fallback for what it could not. That ordering is the whole point: an
+  /// unlisted package-local typedef is a function type the list does not know,
+  /// and a class sharing a listed typedef's name is not one however the list
+  /// answers.
+  bool _isFunctionTypeInParam(ParameterInfo param, String typeName) {
+    final bare = _getUnprefixedTypeName(
+      typeName.endsWith('?')
+          ? typeName.substring(0, typeName.length - 1)
+          : typeName,
+    );
+    final kinds = param.resolvedTypeKinds;
+    if (kinds.containsKey(bare)) return kinds[bare] != null;
+    // Unresolved: the name list is all there is. Inline `Function(` text is
+    // decided by the same fallback, and is never ambiguous.
+    return _isFunctionTypeName(typeName);
+  }
+
   bool _isFunctionTypeName(String typeName) {
     // Check known function type aliases
     if (_knownFunctionTypeAliases.contains(typeName)) {
@@ -14601,6 +14670,39 @@ class BridgeGenerator {
   ///
   /// ENG-010: Now handles typedef aliases that resolve to function types
   /// (e.g., `GestureCallback` → `void Function(GestureDetails)`).
+  /// What the analyzer says about [dartType] and each of its type arguments.
+  ///
+  /// Keyed by the bare type name as the emitters see it, so a caller holding
+  /// only a type-argument string (`List<X>` yields `X`) can still ask the
+  /// analyzer's verdict instead of guessing from the name.
+  static Map<String, FunctionTypeInfo?> resolveTypeKinds(DartType dartType) {
+    final out = <String, FunctionTypeInfo?>{};
+    void visit(DartType type) {
+      final name = _bareTypeName(type);
+      if (name != null && !out.containsKey(name)) {
+        out[name] = extractFunctionTypeInfoFromDartType(type);
+      }
+      if (type is ParameterizedType) {
+        for (final arg in type.typeArguments) {
+          visit(arg);
+        }
+      }
+    }
+
+    visit(dartType);
+    return out;
+  }
+
+  /// The name an emitter would see for [type], without nullability or type
+  /// arguments — `List<Foo>?` yields `List`, `Foo?` yields `Foo`.
+  static String? _bareTypeName(DartType type) {
+    final alias = type.alias;
+    if (alias != null) return alias.element.name;
+    final element = type.element;
+    if (element == null) return null;
+    return element.name;
+  }
+
   static FunctionTypeInfo? extractFunctionTypeInfoFromDartType(
     DartType dartType,
   ) {

@@ -1,3 +1,42 @@
+## 1.30.0
+
+### Fixed — a function typedef is recognised by the analyzer, not by a name list
+
+`_isFunctionTypeName` decided whether a type was a function typedef by looking
+its name up in a set of about fifty known Flutter, SDK, DCli and D4rt names.
+That gets both directions wrong, and both were measured against identically
+shaped controls:
+
+- **An unlisted typedef was missed.** `List<ZomHandler>`, a package-local
+  `typedef ZomHandler = void Function(int)`, took the ordinary
+  `D4.coerceList<ZomHandler>` path, while the identically shaped
+  `List<VoidCallback>` was correctly refused as unbridgeable. The same held for
+  a `Map` value. The scd7 fixture had to use a listed name to reach the path it
+  meant to exercise, and said so in a comment.
+- **A class sharing a listed name was misclassified.** A parameter typed by a
+  class called `ErrorHandler` resolved to `dynamic`, losing its type; the same
+  class under an unlisted name did not. That control is what proves the name
+  list caused it rather than it being how classes render.
+
+The analyzer already knew the answer — `extractFunctionTypeInfoFromDartType`
+unwraps a `TypeAliasElement` whose aliased type is a `FunctionType`. What was
+missing was carrying the verdict to the emitters. `ParameterInfo` gains
+`resolvedTypeKinds`, a map with three states: present with a value (a function
+type, and its signature), present with null (resolved, NOT a function type), or
+absent (unresolved). The name list is consulted only for the absent case.
+
+`_getTypeArgument`'s cache key includes the verdict, so one caller's answer is
+not served to a later one whose analyzer said the opposite.
+
+SINGLE-PARAMETER CALLBACKS WERE ALREADY CORRECT: that path preferred
+`functionTypeInfo` and only fell back to the list, so an unlisted typedef
+already produced a properly typed wrapper. GEN-TYPEDEF-4 asserts it anyway, so
+a later simplification cannot hand it back to the list. Ablation confirms the
+split — disabling the verdict fails GEN-TYPEDEF-1/2/3 and leaves 4 green.
+
+The GEN-121 analyze gate's fixture carries the new shapes too, so what is
+emitted for them is known to compile.
+
 ## 1.29.0
 
 ### Added — a config option only the build_runner builder reads is warned about

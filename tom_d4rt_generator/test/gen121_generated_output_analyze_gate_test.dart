@@ -241,10 +241,27 @@ extension Helpers on Beta {
   File(p.join(libDir.path, 'handlers.dart')).writeAsStringSync('''
 typedef BridgeRegistrar = void Function(int value);
 
+// sce34: the same shapes under a typedef the generator's name list does NOT
+// know, plus a class sharing a listed typedef's name. Whether these are
+// classified correctly is asserted in
+// `sce34_function_typedef_detection_test.dart`; what this gate adds is that
+// whatever is emitted for them still compiles.
+typedef ZomHandler = void Function(int value);
+
+class ErrorHandler {
+  const ErrorHandler(this.code);
+  final int code;
+}
+
 class ZomDispatcher {
   ZomDispatcher({List<BridgeRegistrar>? registrars});
 
   void addAll(List<BridgeRegistrar> registrars) {}
+
+  void addAllUnlisted(List<ZomHandler> registrars) {}
+  void byName(Map<String, ZomHandler> registrars) {}
+  void takeOne(ZomHandler registrar) {}
+  void takeErrorHandler(ErrorHandler e) {}
 }
 ''');
 
