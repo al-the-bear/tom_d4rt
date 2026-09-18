@@ -58,6 +58,7 @@ library;
 
 import 'dart:io';
 
+import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 
 import '../bridge_api.dart';
@@ -169,32 +170,255 @@ class D4rtTester {
       return false;
     }
 
-    // Step 3: Compile the test runner to a native binary
+    // Step 3: Compile the test runner — once per `dart test` invocation,
+    // not once per suite. See [_ensureSuiteBinary].
     final runnerPath = _resolveRunnerPath();
-    final compileResult = await Process.run('dart', [
-      'compile',
-      'exe',
-      runnerPath,
-      '-o',
-      _binaryPath,
-    ], workingDirectory: projectPath);
-
-    if (compileResult.exitCode != 0) {
-      _lastGenerationErrors = [
-        'Failed to compile test runner:',
-        compileResult.stderr.toString(),
-      ];
-      return false;
-    }
-
-    // Verify binary was created
-    if (!File(_binaryPath).existsSync()) {
-      _lastGenerationErrors = ['Compiled binary not found at $_binaryPath'];
+    final compileErrors = await _ensureSuiteBinary(runnerPath, genResult);
+    if (compileErrors != null) {
+      _lastGenerationErrors = compileErrors;
       return false;
     }
 
     _lastGenerationErrors = null;
     return true;
+  }
+
+  // ───────────────────────────────────────────────────────────────────
+  // sce41: the shared runner binary
+  // ───────────────────────────────────────────────────────────────────
+  //
+  // Two suites prepare the SAME `example/d4` project — `d4rt_tester_test.dart`
+  // and `d4rt_coverage_test.dart` — so the heaviest work in the package's
+  // suite was being done twice. They keep DISTINCT binary names on purpose
+  // (Cluster M #34): `dart compile exe -o bin/d4` in one suite's setUpAll
+  // races against `Process.start(bin/d4)` in the other suite's tests, and the
+  // symptom is ETXTBSY. That constraint is kept — what is shared is the
+  // COMPILE, not the binary.
+  //
+  // The two generated runner sources differ only in comments (the
+  // `// Generated:` line, and usage lines naming the file), so one compilation
+  // serves both. Each suite then copies the shared artifact to its own name.
+  //
+  // `dart test` runs each file in its own process, so the cache has to be on
+  // disk. It is keyed by the CONTENT of everything that goes into the binary —
+  // the runner source and every generated bridge file — so a stale binary
+  // cannot survive a generator change. Nothing about this reuses an artifact
+  // across a change; it only avoids repeating identical work.
+
+  /// Name of the artifact shared by every suite preparing this project.
+  static const _sharedBinaryName = 'd4_shared.b';
+
+  String get _sharedBinaryPath => p.join(projectPath, 'bin', _sharedBinaryName);
+
+  String get _sharedStampPath => '$_sharedBinaryPath.stamp';
+
+  String get _sharedLockPath => '$_sharedBinaryPath.lock';
+
+  /// A content hash of everything the compiled binary is built from.
+  ///
+  /// The `// Generated:` line carries a timestamp and the generator version
+  /// and is excluded: it changes on every generation without changing what is
+  /// compiled, and including it would defeat the cache entirely.
+  String _artifactKey(String runnerPath, List<String> generatedFiles) {
+    // FNV-1a, 64-bit. A content hash, not a security one — the question it
+    // answers is "is this the same input as last time", and adding a crypto
+    // dependency to a test helper to answer it would not be proportionate.
+    var hash = 0xcbf29ce484222325;
+    void mix(String text) {
+      for (final unit in text.codeUnits) {
+        hash ^= unit;
+        hash = (hash * 0x100000001b3) & 0xFFFFFFFFFFFFFFFF;
+      }
+      hash ^= 0x0a;
+      hash = (hash * 0x100000001b3) & 0xFFFFFFFFFFFFFFFF;
+    }
+
+    // The `// Generated:` line carries a timestamp and the generator version:
+    // it changes on every generation without changing what is compiled, and
+    // counting it would defeat the cache entirely.
+    String normalise(String text) => text
+        .split('\n')
+        .where((line) => !line.trimLeft().startsWith('// Generated:'))
+        .join('\n');
+
+    final absoluteRunner = p.isAbsolute(runnerPath)
+        ? runnerPath
+        : p.join(projectPath, runnerPath);
+
+    // THE RUNNER IS HASHED BY BODY, NOT BY NAME, and this is the whole reason
+    // the artifact can be shared. Each suite owns a differently-named runner
+    // (Cluster M #34), and the generator writes that name into the file's
+    // usage comments — so two runners that compile to identical programs
+    // differ textually. Keying on that would give every suite its own key,
+    // each would rebuild the shared binary, and the two suites would trade it
+    // back and forth: strictly worse than compiling their own. Measured
+    // exactly that way before this normalisation was added.
+    final runnerStem = p.basenameWithoutExtension(absoluteRunner);
+    final runnerFile = File(absoluteRunner);
+    mix('<runner>');
+    mix(
+      runnerFile.existsSync()
+          ? normalise(
+              runnerFile.readAsStringSync().replaceAll(runnerStem, '<runner>'),
+            )
+          : '<absent>',
+    );
+
+    // Generated bridges ARE hashed by name as well as content: a rename is a
+    // change in what the binary contains, and two files with identical bodies
+    // under different names are different output.
+    // The generator lists the test runner among its outputs, under the
+    // suite-specific name. It is hashed above, name-normalised, so including
+    // it here as well would reintroduce exactly the per-suite key this
+    // normalisation exists to remove — measured: the two suites then traded
+    // the shared binary back and forth, recompiling on every run.
+    final sorted = [
+      ...generatedFiles.where(
+        (f) => p.canonicalize(f) != p.canonicalize(absoluteRunner),
+      ),
+    ]..sort();
+    for (final path in sorted) {
+      final file = File(path);
+      // A listed file that is missing is itself a distinguishing fact, and
+      // recording it is what stops two different states hashing alike.
+      mix(p.basename(path));
+      mix(file.existsSync() ? normalise(file.readAsStringSync()) : '<absent>');
+    }
+
+    // Dart's ints are SIGNED 64-bit, so masking cannot clear the sign bit and
+    // `toRadixString` would render a negative key with a leading `-`. Printing
+    // it as two unsigned 32-bit halves keeps the stamp file a plain 16-digit
+    // hex string, which is what anyone reading it expects to find.
+    final high = (hash >> 32).toUnsigned(32);
+    final low = hash.toUnsigned(32);
+    return high.toRadixString(16).padLeft(8, '0') +
+        low.toRadixString(16).padLeft(8, '0');
+  }
+
+  /// The content key for the given inputs, for tests.
+  ///
+  /// The key is what makes "a stale binary is never reused" true, so it is the
+  /// part worth pinning directly: asserting on the shared binary itself would
+  /// mean asserting on state that other suites in the same `dart test` run are
+  /// legitimately allowed to rebuild, which is how a guard becomes flaky.
+  @visibleForTesting
+  String artifactKeyForTesting(
+    String runnerPath,
+    List<String> generatedFiles,
+  ) => _artifactKey(runnerPath, generatedFiles);
+
+  /// Runs [body] with the shared-artifact lock held, if it can be taken.
+  ///
+  /// `dart test` gives each file its own process, so this has to be an
+  /// inter-process lock; exclusive file creation is the portable way to get
+  /// one. Failing to take it is NOT an error: the fallback is for this suite
+  /// to compile its own binary, which is exactly what every suite did before
+  /// this existed. Waiting forever would turn a contended cache into a hang,
+  /// which is worse than the duplicated work it exists to avoid.
+  Future<T> _withSharedLock<T>(Future<T> Function(bool held) body) async {
+    final lock = File(_sharedLockPath);
+    final deadline = DateTime.now().add(const Duration(minutes: 5));
+    var held = false;
+    while (DateTime.now().isBefore(deadline)) {
+      try {
+        lock.parent.createSync(recursive: true);
+        lock.createSync(exclusive: true);
+        held = true;
+        break;
+      } on FileSystemException {
+        // A lock left behind by a killed process would otherwise block every
+        // later run until someone deleted it by hand.
+        try {
+          final age = DateTime.now().difference(lock.lastModifiedSync());
+          if (age > const Duration(minutes: 10)) {
+            lock.deleteSync();
+            continue;
+          }
+        } on FileSystemException {
+          // It vanished under us — that is the holder releasing it.
+        }
+        await Future<void>.delayed(const Duration(milliseconds: 200));
+      }
+    }
+    try {
+      return await body(held);
+    } finally {
+      if (held) {
+        try {
+          lock.deleteSync();
+        } on FileSystemException {
+          // Already gone; nothing to release.
+        }
+      }
+    }
+  }
+
+  /// Compiles [runnerPath] to [output]. Returns errors, or null on success.
+  Future<List<String>?> _compileTo(String runnerPath, String output) async {
+    final result = await Process.run('dart', [
+      'compile',
+      'exe',
+      runnerPath,
+      '-o',
+      output,
+    ], workingDirectory: projectPath);
+    if (result.exitCode != 0) {
+      return ['Failed to compile test runner:', result.stderr.toString()];
+    }
+    if (!File(output).existsSync()) {
+      return ['Compiled binary not found at $output'];
+    }
+    return null;
+  }
+
+  /// Puts a current binary at [_binaryPath], compiling the shared artifact
+  /// only when no current one exists. Returns errors, or null on success.
+  Future<List<String>?> _ensureSuiteBinary(
+    String runnerPath,
+    GenerationResult genResult,
+  ) async {
+    final key = _artifactKey(runnerPath, genResult.outputFiles);
+
+    return _withSharedLock<List<String>?>((held) async {
+      if (!held) {
+        // Could not serialise with peers. Build this suite's own binary, which
+        // is exactly what every suite did before the shared artifact existed.
+        // Writing to the shared path unlocked could clobber it while a peer is
+        // copying from it — duplicated work is the safe failure here.
+        return _compileTo(runnerPath, _binaryPath);
+      }
+
+      final shared = File(_sharedBinaryPath);
+      final stamp = File(_sharedStampPath);
+      final current =
+          shared.existsSync() &&
+          stamp.existsSync() &&
+          stamp.readAsStringSync().trim() == key;
+
+      if (!current) {
+        // Stale or absent: rebuild. The stamp is written only AFTER the binary
+        // exists, so an interrupted compile leaves no stamp and the next run
+        // rebuilds rather than trusting a partial artifact.
+        final errors = await _compileTo(runnerPath, _sharedBinaryPath);
+        if (errors != null) return errors;
+        stamp.writeAsStringSync(key);
+      }
+
+      // The copy happens INSIDE the lock: otherwise a peer whose key differs
+      // could begin overwriting the shared binary while this read is in
+      // flight, and the suite would run a half-written executable.
+      try {
+        shared.copySync(_binaryPath);
+      } on FileSystemException catch (e) {
+        return ['Failed to place the runner binary at $_binaryPath: $e'];
+      }
+      // `copySync` does not carry the execute bit.
+      final chmod = await Process.run('chmod', ['+x', _binaryPath]);
+      if (chmod.exitCode != 0) {
+        return ['Failed to make $_binaryPath executable: ${chmod.stderr}'];
+      }
+      return null;
+    });
   }
 
   /// Run a D4rt script file **without** regenerating bridges.

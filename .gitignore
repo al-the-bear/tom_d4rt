@@ -141,6 +141,12 @@ reflectable.dart
 **/example/d4/bin/d4_coverage
 **/example/d4/bin/d4_tester
 **/example/d4/bin/d4_sce35
+# sce41: the runner binary is compiled once per `dart test` invocation and
+# copied to each suite's own name; the stamp is its content key and the lock
+# serialises the compile across test processes. All three are build artifacts.
+**/example/d4/bin/d4_shared.b
+**/example/d4/bin/d4_shared.b.stamp
+**/example/d4/bin/d4_shared.b.lock
 **/example/d4/bin/d4rtrun
 **/example/d4/bin/d4rtrun.b
 

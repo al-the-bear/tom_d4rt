@@ -1,3 +1,35 @@
+## 1.33.0
+
+### Changed — the d4 test runner is compiled once per `dart test`, not once per suite
+
+`d4rt_tester_test.dart` and `d4rt_coverage_test.dart` prepare the SAME
+`example/d4` project, so the two heaviest CPU consumers in this package's suite
+were each generating the bridges and running `dart compile exe` over the same
+inputs — roughly a minute of the suite's two.
+
+They keep DISTINCT binary names on purpose (Cluster M #34): compiling to a
+shared name races against a peer suite executing it, and the symptom is
+ETXTBSY. That constraint is unchanged. What is now shared is the COMPILE, not
+the binary — the two generated runner sources differ only in comments, so one
+compilation serves both, and each suite copies the result to its own name.
+
+`dart test` gives each file its own process, so the cache is on disk:
+
+- keyed by the CONTENT of the runner source and every generated bridge file,
+  with the `// Generated:` line excluded (it carries a timestamp, and counting
+  it would rebuild every time and defeat the cache);
+- the stamp is written only after the binary exists, so an interrupted compile
+  is never mistaken for a finished one;
+- serialised by a lock file, with stale-lock recovery. Failing to take the lock
+  is not an error — the suite compiles its own binary, exactly as before this
+  existed. Writing to the shared path unlocked could clobber it while a peer
+  copies from it, so duplicated work is the safe failure.
+
+`prepareBridges` still deletes the suite's own binary first, so "it gets
+regenerated" is still proved. The new risk — a stale SHARED binary — is what
+`test/sce41_shared_runner_test.dart` pins: content changes, file-set changes
+and renames all change the key, while a `// Generated:` line change does not.
+
 ## 1.32.0
 
 ### Added — generation stops on a missing cached package instead of dropping classes
