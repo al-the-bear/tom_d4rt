@@ -1,3 +1,8 @@
 # https://dart.dev/guides/libraries/private-files
 # Created by `dart pub`
 .dart_tool/
+
+# Run artifacts from test/replay/run_tests.sh — a record of one machine,
+# regenerated on demand. Committed copies named a workspace layout that no
+# longer exists and the account that produced them (sce54).
+test/results/

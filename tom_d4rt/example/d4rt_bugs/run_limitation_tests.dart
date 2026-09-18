@@ -735,8 +735,9 @@ void main() async {
     final process = await Process.start(
       'dart',
       ['run', runnerFile.path],
-      workingDirectory:
-          '/Users/alexiskyaw/Desktop/Code/tom2/xternal/tom_module_d4rt/tom_d4rt_generator/example',
+      // sce54: the runner's own directory. The absolute path that stood here
+      // named a `Code/tom2` workspace that no longer exists.
+      workingDirectory: runnerFile.parent.path,
     );
 
     final stdout = StringBuffer();

@@ -46,3 +46,7 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Flutter build scaffolding: regenerated per machine, and the committed copy
+# named a fleet Linux host (sce54).
+**/flutter/ephemeral/
