@@ -156,7 +156,13 @@ void main() {
       'D4G-DRY-2: --dry-run on a generated package leaves the committed '
       'bridges untouched and says which would change [2026-09-11] (PASS)',
       () async {
-        final real = await _d4rtgen(scanRoot, const []);
+        // `--no-verify-output` (sce51 made verification the default): this
+        // fixture is a synthetic package whose `package_config.json` names
+        // only itself, so the generated test runner's `package:tom_d4rt`
+        // import resolves nowhere and verification reports it — correctly,
+        // and irrelevantly. What this test is about is what `--dry-run`
+        // writes, which is nothing either way.
+        final real = await _d4rtgen(scanRoot, const ['--no-verify-output']);
         expect(real.success, isTrue, reason: real.printed);
         expect(_generatedFiles(package), hasLength(4));
 

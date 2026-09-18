@@ -1,3 +1,63 @@
+## 1.41.0
+
+### Fixed — the verified write set is what the generator reports, not a second guess (sce52)
+
+`--verify-output` analyses exactly `GenerationResult.outputFiles`, so whatever
+is missing from that list is not verified — and the run still prints "analysed
+clean". SCE28 removed the CLI's parallel orchestration; this removes the last
+place the write set was computed twice.
+
+`generateBridges` re-derived each module's destination from the config
+(`p.join(projectDir, ensureBDartExtension(module.outputPath))`) instead of
+taking what `generateBridgesFromExports` reported having written. The two agree
+today only by luck, and they part in two knowable cases:
+
+* **Directory mode** writes one `*.b.dart` per source file and reports them
+  all; the re-derived path named a single file.
+* **A module with nothing bridgeable** returns early having written NOTHING,
+  and the re-derived path named a file that does not exist — which
+  `--verify-output` would then try to analyse.
+
+Now `outputFiles.addAll(result.outputFiles)`.
+
+### Added — a guard for the direction nothing checked
+
+`checkBridgeFreshness` already fails when a REPORTED file is missing from the
+scratch tree. Nothing walked the other way, and that is the direction
+`--verify-output` depends on: a file written but not reported is a file the
+gate never sees.
+
+`test/sce52_write_set_coverage_test.dart` runs each example through
+`previewGeneration` — which observes writes at the filesystem boundary rather
+than trusting the generator's own bookkeeping, the thing under test — and
+requires every intercepted write to appear in `outputFiles`. Ablation: dropping
+`outputFiles.add(barrelPath)` fails it, naming the barrel.
+
+A known limit is stated in the test rather than left implicit: the overlay
+redirects `*.b.dart`, which today is every destination because each passes
+through `ensureBDartExtension`. An emitter using another suffix escapes this
+check and is caught by `checkBridgeFreshness` instead.
+
+### Fixed — 1.38.0's default-on reached callers that never asked for it
+
+`verifyRequested` read `extraOptions['verify-output'] != false`, which
+re-expressed "absent means on" at the READ site. The default already lives in
+the flag's declaration, which tom_build_base 2.15.0 seeds into `extraOptions`
+whenever a command line is parsed — so the `!= false` was a second copy of the
+default, and it was wrong for the caller that has no command line at all.
+
+`executor.execute(context, const CliArgs())` carries an empty `extraOptions`.
+Two suites call exactly that against synthetic packages, and got verification
+they never asked for, of output whose imports cannot resolve there
+(`D4G-EXE-5`, `G-DGUB2-1`). Now `== true`: the value is read, the default is
+not restated. The CLI is unaffected — the parser seeds it.
+
+`D4G-DRY-2` is the case that IS a CLI run, so it still verifies, and its
+synthetic package still cannot resolve `package:tom_d4rt`. Its setup run passes
+`--no-verify-output`; measured rather than assumed — removing the flag fails
+the test. What it is about is what `--dry-run` writes, which is nothing either
+way.
+
 ## 1.40.0
 
 ### Changed — the sweep 1.39.0 made possible, and the cost it really has (sce51)

@@ -84,15 +84,24 @@ class D4rtgenExecutor extends CommandExecutor {
 
 /// Whether this run verifies what it wrote.
 ///
-/// SCE51: DEFAULT-ON. Absence means verify — `--no-verify-output` arrives as
-/// `false` under this same key rather than as a second key, which is what
-/// tom_build_base 2.15.0's negatable-flag support bought; before it the opt-out
-/// could not be expressed at all.
+/// SCE51: DEFAULT-ON, and the default lives in exactly one place — the
+/// `verify-output` declaration in `d4rtgenTool`, which tom_build_base 2.15.0
+/// seeds into `extraOptions` when the command line does not mention the flag.
+/// `--no-verify-output` arrives as `false` under this same key rather than as a
+/// second key, which is what that release bought; before it the opt-out could
+/// not be expressed at all.
+///
+/// SO THIS READS THE VALUE AND DOES NOT RESTATE THE DEFAULT. It briefly said
+/// `!= false`, which re-expressed "absent means on" at the read site — a second
+/// copy of the default, and wrong for the caller that has no command line at
+/// all: `executor.execute(context, const CliArgs())` carries an empty
+/// `extraOptions`, so a programmatic caller who never asked for verification
+/// got it, against a synthetic package whose imports do not resolve.
 ///
 /// Named rather than inlined so the rule is stated once and can be tested
 /// without going through a generation run.
 bool verifyRequested(CliArgs args) =>
-    args.extraOptions['verify-output'] != false;
+    args.extraOptions['verify-output'] == true;
 
 /// `d4rtgen --verify-output`: analyse what was just written, and fail on it.
 ///

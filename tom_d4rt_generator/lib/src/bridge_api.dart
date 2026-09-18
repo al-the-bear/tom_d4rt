@@ -366,7 +366,15 @@ Future<GenerationResult> generateBridges({
       );
 
       totalClasses += result.classesGenerated;
-      outputFiles.add(p.join(projectDir, normalizedOutputPath));
+      // sce52: what the generator REPORTS writing, not a second guess at it.
+      //
+      // This used to re-derive the destination from the config. The two agreed
+      // only by luck: directory mode writes one file per source file and
+      // reports them all, and a module with nothing bridgeable returns early
+      // having written nothing — in both cases the re-derived single path was
+      // wrong, and `--verify-output` (which analyses exactly this list) would
+      // have analysed a path that does not exist while reporting "clean".
+      outputFiles.addAll(result.outputFiles);
       errors.addAll(result.errors);
       // GEN-076: Accumulate generated class sources for next module
       globallyGeneratedClasses.addAll(result.generatedClassSources);
