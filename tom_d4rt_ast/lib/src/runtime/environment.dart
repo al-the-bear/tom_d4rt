@@ -625,9 +625,19 @@ class Environment {
       }
     });
     if (inScope.length == 1) {
-      final bridge =
-          owner._prefixedImports[inScope.keys.single]?._bridgedClasses[name];
-      if (bridge != null) return bridge;
+      // SCE25: read the alias environment by KIND. This used to look only in
+      // `_bridgedClasses`, so an ambiguous ENUM or VALUE narrowed correctly to
+      // one candidate and then failed to retrieve it — the null fell through to
+      // the throw below and the name stayed ambiguous however the script
+      // imported. The narrowing was never the missing piece; the lookup was.
+      final alias = owner._prefixedImports[inScope.keys.single];
+      if (alias != null) {
+        final bridge =
+            alias._bridgedClasses[name] ??
+            alias._bridgedEnums[name] ??
+            (alias._values.containsKey(name) ? alias._values[name] : null);
+        if (bridge != null) return bridge;
+      }
     }
     throw AmbiguousBridgedNameException(
       name,

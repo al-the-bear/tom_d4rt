@@ -26,6 +26,12 @@ classes: two candidates that yield no qualifier — an embedder registering
 directly, a script rebinding its own variable — keep the legacy overwrite. An
 error whose remedy does not exist is worse than the arbitrary pick it replaces.
 
+**The import-scope narrowing needed one more fix than expected.** It reduced an
+ambiguous enum to a single candidate correctly, then failed to RETRIEVE it: the
+retrieval read `_bridgedClasses[name]` only, so the null fell through and the
+name stayed ambiguous however the script imported. It now reads the alias
+environment by kind. The narrowing was never the missing piece; the lookup was.
+
 `module_loader` and the AST runner's warm parent now pass the declaring URI
 through, which is what makes the rule reachable rather than theoretical.
 

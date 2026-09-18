@@ -576,6 +576,34 @@ void main() {
       );
     });
 
+    test('SCE25-6: importing one package settles an ambiguous enum', () {
+      // The third clause of the rule, and the one the raw-environment cases
+      // above cannot reach: ambiguity is judged over the READER's imports
+      // (scd4_aicv), not over the whole registry. The class equivalent is
+      // AMBIG-S1; this is the same narrowing one namespace over, and it shares
+      // `_resolveAmbiguityInImportScope` with it — which is exactly why it is
+      // worth pinning rather than assuming.
+      final registry = Environment();
+      final a = enumA();
+      final b = enumB();
+      registry.defineBridgedEnum(a, sourceUri: uriA);
+      registry.defineBridgedEnum(b, sourceUri: uriB);
+      final script = Environment(enclosing: registry);
+
+      // A barrel that does NOT itself carry `Mode` — a name the import did
+      // bring would be found in the script's own scope first and never reach
+      // the ambiguous registry entry.
+      script.recordUnprefixedImport(
+        'package:pkg_b/pkg_b.dart',
+        Environment()..defineBridge(
+          BridgedClass(nativeType: Object, name: 'Marker'),
+          sourceUri: uriB,
+        ),
+      );
+
+      expect(script.get('Mode'), same(b));
+    });
+
     test('SCE25-4: without source URIs the legacy overwrite is kept', () {
       // The deliberate limit, and the same one the class rule has: an error
       // whose remedy does not exist is worse than the arbitrary pick it
