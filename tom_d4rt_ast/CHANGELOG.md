@@ -1,3 +1,34 @@
+## 0.121.0
+
+### Fixed — same-name bridged enums and top-level values are ambiguous, not last-wins
+
+The ambiguity machinery — source URIs per name, `qualifier.Name` aliases,
+`AmbiguousBridgedNameException`, platform precedence, import-scope narrowing —
+existed for bridged CLASSES only. Two packages that each bridged an enum `Mode`
+or a top-level `parse()` left the bare name silently bound to whichever
+registered LAST, and the displaced declaration had no qualifier to be reached
+by: it was simply gone. Measured before the fix — bare `Mode` returned the
+second enum, and `pkg_b.Mode` threw `UndefinedNameD4rtException`.
+
+Generalised rather than copied per kind, which is what the class path already
+made possible: the ambiguity map was always `name → (qualifier → source URI)`
+and carries no kind. `_collectAmbiguityCandidate`, `_bindQualifierAlias`,
+`_markAmbiguousBridgeName` and `_peersAfterPlatformPrecedence` now take
+`Object?`, the alias environment binds whichever kind the name designates, and
+`define` / `defineBridgedEnum` take an optional `sourceUri` and record it.
+
+The lookup needed two checks rather than one. The class branch had its own,
+because it must run before the class is returned; a value is found in the FIRST
+branch of the walk, so a check further down never runs for it.
+
+**The rule is gated on the source URI, deliberately**, exactly as it is for
+classes: two candidates that yield no qualifier — an embedder registering
+directly, a script rebinding its own variable — keep the legacy overwrite. An
+error whose remedy does not exist is worse than the arbitrary pick it replaces.
+
+`module_loader` and the AST runner's warm parent now pass the declaring URI
+through, which is what makes the rule reachable rather than theoretical.
+
 ## 0.120.0
 
 ### Fixed — a braceless `then` branch with an `else` no longer ends an async function

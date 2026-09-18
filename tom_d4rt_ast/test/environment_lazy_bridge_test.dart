@@ -8,6 +8,10 @@ import 'package:test/test.dart';
 import 'package:tom_d4rt_ast/runtime.dart';
 
 /// A trivial native type used as a bridge target.
+enum _ModeA { a }
+
+enum _ModeB { b }
+
 class _Widget {
   final String label;
   _Widget(this.label);
@@ -504,6 +508,100 @@ void main() {
         used,
         reason: 'only the resolved classes are materialized (≈N of M)',
       );
+    });
+  });
+
+  group('SCE25: enums, functions and variables get the class rule too', () {
+    // SCE25 — the ambiguity machinery (source URIs, `qualifier.Name` aliases,
+    // AmbiguousBridgedNameException, platform precedence, import narrowing)
+    // existed for bridged CLASSES only. Two packages that each bridged an enum
+    // `Mode` or a top-level `parse()` left the bare name silently bound to
+    // whichever registered LAST, and the displaced declaration had no qualifier
+    // to be reached by — it was simply gone. Measured before the fix: bare
+    // `Mode` returned the second enum and `pkg_b.Mode` threw
+    // UndefinedNameD4rtException.
+    //
+    // These pin the three kinds against the same rule AMBIG-1/2/3 pin for
+    // classes, so the four namespaces cannot drift apart again.
+    const uriA = 'package:pkg_a/src/mode.dart';
+    const uriB = 'package:pkg_b/src/mode.dart';
+
+    BridgedEnum enumA() => BridgedEnumDefinition<_ModeA>(
+      name: 'Mode',
+      values: _ModeA.values,
+    ).buildBridgedEnum();
+    BridgedEnum enumB() => BridgedEnumDefinition<_ModeB>(
+      name: 'Mode',
+      values: _ModeB.values,
+    ).buildBridgedEnum();
+
+    test('SCE25-1: an ambiguous enum stays reachable under each package', () {
+      final env = Environment();
+      final a = enumA();
+      final b = enumB();
+      env.defineBridgedEnum(a, sourceUri: uriA);
+      env.defineBridgedEnum(b, sourceUri: uriB);
+
+      expect(env.get('pkg_a.Mode'), same(a));
+      expect(env.get('pkg_b.Mode'), same(b));
+    });
+
+    test('SCE25-2: the bare enum name is an error, not an arbitrary pick', () {
+      final env = Environment();
+      env.defineBridgedEnum(enumA(), sourceUri: uriA);
+      env.defineBridgedEnum(enumB(), sourceUri: uriB);
+
+      expect(
+        () => env.get('Mode'),
+        throwsA(
+          isA<AmbiguousBridgedNameException>().having(
+            (e) => e.candidatesByQualifier.keys,
+            'qualifiers',
+            containsAll(<String>['pkg_a', 'pkg_b']),
+          ),
+        ),
+      );
+    });
+
+    test('SCE25-3: an ambiguous top-level value behaves the same way', () {
+      // `define` is what the runner uses for library functions, variables and
+      // getters, so one test covers all three kinds.
+      final env = Environment();
+      env.define('parse', 'FROM_A', sourceUri: 'package:pkg_a/src/p.dart');
+      env.define('parse', 'FROM_B', sourceUri: 'package:pkg_b/src/p.dart');
+
+      expect(env.get('pkg_a.parse'), equals('FROM_A'));
+      expect(env.get('pkg_b.parse'), equals('FROM_B'));
+      expect(
+        () => env.get('parse'),
+        throwsA(isA<AmbiguousBridgedNameException>()),
+      );
+    });
+
+    test('SCE25-4: without source URIs the legacy overwrite is kept', () {
+      // The deliberate limit, and the same one the class rule has: an error
+      // whose remedy does not exist is worse than the arbitrary pick it
+      // replaces. An embedder registering directly supplies no URI, so there is
+      // no qualifier to escape with and the name must stay usable.
+      final env = Environment();
+      env.defineBridgedEnum(enumA());
+      final b = enumB();
+      env.defineBridgedEnum(b);
+      expect(env.get('Mode'), same(b), reason: 'last registration still wins');
+
+      env.define('parse', 'FROM_A');
+      env.define('parse', 'FROM_B');
+      expect(env.get('parse'), equals('FROM_B'));
+    });
+
+    test('SCE25-5: a script redefining its own variable is not ambiguous', () {
+      // `define` is also ordinary assignment. Only a cross-package collision
+      // with source URIs is a bridge ambiguity; a script rebinding its own name
+      // must keep working, which is why the URI is what gates the rule.
+      final env = Environment();
+      env.define('x', 1);
+      env.define('x', 2);
+      expect(env.get('x'), equals(2));
     });
   });
 }

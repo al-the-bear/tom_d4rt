@@ -456,7 +456,11 @@ class AstModuleLoader implements ModuleContext {
       if (!_shouldInclude(name, showNames, hideNames)) continue;
 
       final bridgedEnum = libEnum.enumDefinition.buildBridgedEnum();
-      targetEnvironment.defineBridgedEnum(bridgedEnum);
+      // SCE25: see the runner's warm-parent registration.
+      targetEnvironment.defineBridgedEnum(
+        bridgedEnum,
+        sourceUri: libEnum.sourceUri ?? uriString,
+      );
       Logger.debugLazy(
         () =>
             '[AstModuleLoader] Registered bridged enum: $name from $uriString',

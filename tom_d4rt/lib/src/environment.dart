@@ -330,13 +330,31 @@ class Environment {
   ///
   /// If a name is already defined or conflicts with a bridged type,
   /// a warning will be logged.
-  void define(String name, Object? value) {
+  void define(String name, Object? value, {String? sourceUri}) {
     if (_values.containsKey(name) ||
         _bridgedClasses.containsKey(name) ||
         _bridgedEnums.containsKey(name)) {
-      // CHECK: Also check bridged enums
-      Logger.warn("Redefining variable or colliding with bridged type: $name");
+      // SCE25: a top-level function or variable bridged by TWO packages under
+      // one name used to take this branch, log a warning nobody reads in a
+      // normal run, and silently bind the bare name to whichever registered
+      // last. The class path has rejected that arbitrary pick since tcca19;
+      // this is the same rule on the namespace that lacked it.
+      //
+      // Only a cross-package collision qualifies. A script redefining its own
+      // variable, or an embedder re-registering without a source URI, keeps the
+      // legacy overwrite — an error whose remedy does not exist is worse than
+      // the pick it replaces, which is the rule [_markAmbiguousBridgeName]
+      // already applies for classes.
+      final prior = _values[name];
+      if (sourceUri != null && _values.containsKey(name)) {
+        if (_markAmbiguousBridgeName(name, prior, value, sourceUri)) return;
+      } else {
+        Logger.warn(
+          "Redefining variable or colliding with bridged type: $name",
+        );
+      }
     }
+    if (sourceUri != null) _bridgeSourceUrisOrNew[name] = sourceUri;
     _values[name] = value;
   }
 
@@ -494,17 +512,17 @@ class Environment {
   /// — see [_isPlatformSourceUri].
   bool _markAmbiguousBridgeName(
     String name,
-    BridgedClass prior,
-    BridgedClass replacement,
+    Object? prior,
+    Object? replacement,
     String? replacementSourceUri,
   ) {
     final priorSourceUri = _bridgeSourceUrisRaw?[name];
-    final qualified = <String, ({String sourceUri, BridgedClass bridge})>{};
+    final qualified = <String, ({String sourceUri, Object? bridge})>{};
     _collectAmbiguityCandidate(qualified, prior, priorSourceUri);
     _collectAmbiguityCandidate(qualified, replacement, replacementSourceUri);
     if (qualified.length < 2) {
       Logger.warn(
-        "Bridged name '$name' is declared by more than one class, but the "
+        "Bridged name '$name' is declared more than once, but the "
         "declarations cannot be told apart by package qualifier; the last "
         "registration wins.",
       );
@@ -620,11 +638,11 @@ class Environment {
   /// Drops the platform (`dart:*`) candidates when at least one non-platform
   /// candidate is present, leaving the set that genuinely competes for the bare
   /// name. A set that is all-platform or all-non-platform is returned unchanged.
-  static Map<String, ({String sourceUri, BridgedClass bridge})>
+  static Map<String, ({String sourceUri, Object? bridge})>
   _peersAfterPlatformPrecedence(
-    Map<String, ({String sourceUri, BridgedClass bridge})> qualified,
+    Map<String, ({String sourceUri, Object? bridge})> qualified,
   ) {
-    final nonPlatform = <String, ({String sourceUri, BridgedClass bridge})>{};
+    final nonPlatform = <String, ({String sourceUri, Object? bridge})>{};
     qualified.forEach((qualifier, candidate) {
       if (!_isPlatformSourceUri(candidate.sourceUri)) {
         nonPlatform[qualifier] = candidate;
@@ -653,8 +671,8 @@ class Environment {
   /// when two candidates map to the same qualifier — a qualifier that resolves
   /// to two classes disambiguates nothing.
   void _collectAmbiguityCandidate(
-    Map<String, ({String sourceUri, BridgedClass bridge})> qualified,
-    BridgedClass bridge,
+    Map<String, ({String sourceUri, Object? bridge})> qualified,
+    Object? bridge,
     String? sourceUri,
   ) {
     if (sourceUri == null) return;
@@ -672,17 +690,28 @@ class Environment {
   void _bindQualifierAlias(
     String qualifier,
     String name,
-    BridgedClass bridge,
+    Object? bridge,
     String sourceUri,
   ) {
-    final existing = _prefixedImportsOrNew[qualifier];
-    if (existing == null) {
-      _prefixedImportsOrNew[qualifier] = Environment()
-        ..defineBridge(bridge, sourceUri: sourceUri);
+    final env = _prefixedImportsOrNew[qualifier] ??= Environment();
+    // SCE25: the alias environment holds whatever KIND the ambiguous name
+    // designates. It used to hold classes only, which is why an ambiguous enum
+    // had no `qualifier.Name` to escape with — the name was simply overwritten
+    // and the displaced declaration became unreachable.
+    if (bridge is BridgedClass) {
+      if (env.findBridgedClassByName(name) == null) {
+        env.defineBridge(bridge, sourceUri: sourceUri);
+      }
       return;
     }
-    if (existing.findBridgedClassByName(name) == null) {
-      existing.defineBridge(bridge, sourceUri: sourceUri);
+    if (bridge is BridgedEnum) {
+      if (!env._bridgedEnums.containsKey(name)) {
+        env.defineBridgedEnum(bridge, sourceUri: sourceUri);
+      }
+      return;
+    }
+    if (!env._values.containsKey(name)) {
+      env.define(name, bridge, sourceUri: sourceUri);
     }
   }
 
@@ -1385,15 +1414,26 @@ class Environment {
   }
 
   // Method to define bridged enums
-  void defineBridgedEnum(BridgedEnum bridgedEnum) {
+  void defineBridgedEnum(BridgedEnum bridgedEnum, {String? sourceUri}) {
     final name = bridgedEnum.name;
     if (_values.containsKey(name) ||
         _bridgedClasses.containsKey(name) ||
         _bridgedEnums.containsKey(name)) {
-      Logger.warn(
-        "Redefining bridged enum or colliding with existing definition: $name",
-      );
+      // SCE25: same rule as classes and values — a cross-package same-name
+      // enum is ambiguous, not last-wins. Before this, the displaced enum had
+      // no `qualifier.Name` to be reached by either, so it was simply gone.
+      final prior = _bridgedEnumsRaw?[name];
+      if (sourceUri != null && prior != null) {
+        if (_markAmbiguousBridgeName(name, prior, bridgedEnum, sourceUri)) {
+          return;
+        }
+      } else {
+        Logger.warn(
+          "Redefining bridged enum or colliding with existing definition: $name",
+        );
+      }
     }
+    if (sourceUri != null) _bridgeSourceUrisOrNew[name] = sourceUri;
     // SCD194: record before overwriting. The warning above is the only other
     // trace and it is off in a normal run, so without this the displaced enum
     // is simply gone — no candidate list, nothing for a guard to count. The
@@ -1649,6 +1689,15 @@ class Environment {
       // Normal search. Single probe: read once, only re-check `containsKey`
       // when the read returned null (key-mapped-to-null vs absent).
       final localValue = env._values[name];
+      // SCE25: a value bridged under one name by two packages is ambiguous,
+      // and the check has to sit HERE, before the value is returned — this is
+      // the first branch of the walk, so a check further down never runs for a
+      // name that is in `_values`. The map is null until a real cross-package
+      // collision occurs, so this is a null-read on the hot path.
+      if (env._ambiguousBridgeNamesRaw?[name] case final ambiguous?
+          when localValue != null || env._values.containsKey(name)) {
+        return _resolveAmbiguityInImportScope(name, env, ambiguous);
+      }
       if (localValue != null || env._values.containsKey(name)) {
         if (Logger.isDebug) {
           Logger.debug(
@@ -1685,6 +1734,17 @@ class Environment {
           );
         }
         return env._bridgedClasses[name];
+      }
+
+      // SCE25: an ambiguous ENUM or VALUE is reported here for the same reason
+      // the class branch above reports one — at the READ, so only a script that
+      // actually names the symbol is affected. The class branch has its own
+      // copy of this because it must run before the class is returned; this one
+      // covers the two namespaces that had no ambiguity check at all.
+      if (env._ambiguousBridgeNamesRaw?[name] case final ambiguous?
+          when env._bridgedEnums.containsKey(name) ||
+              env._values.containsKey(name)) {
+        return _resolveAmbiguityInImportScope(name, env, ambiguous);
       }
 
       // Check for bridged enums

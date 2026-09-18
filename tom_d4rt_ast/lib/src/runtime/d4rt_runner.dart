@@ -1471,13 +1471,20 @@ class D4rtRunner {
     required Map<String, Map<String, LibraryGetter>> libraryGetters,
     required Map<String, Map<String, LibrarySetter>> librarySetters,
   }) {
-    // Register bridged enums
-    for (final byName in enumDefinitions.values) {
+    // Register bridged enums.
+    //
+    // SCE25: the declaring URI travels with each registration, so two packages
+    // that both bridge an enum `Mode` make the bare name AMBIGUOUS rather than
+    // silently binding it to whichever registered last. Ambiguity recorded here
+    // is narrowed at the read by the reading script's imports
+    // (`_resolveAmbiguityInImportScope`, scd4_aicv), which is the same
+    // arrangement the class registration below has had since tcca19.
+    enumDefinitions.forEach((uri, byName) {
       for (final libEnum in byName.values) {
         final bridgedEnum = libEnum.enumDefinition.buildBridgedEnum();
-        env.defineBridgedEnum(bridgedEnum);
+        env.defineBridgedEnum(bridgedEnum, sourceUri: libEnum.sourceUri ?? uri);
       }
-    }
+    });
 
     // Register bridged classes (Step #17 — lazily, so the class's member maps
     // + adapter closures are only built when the env first resolves it).

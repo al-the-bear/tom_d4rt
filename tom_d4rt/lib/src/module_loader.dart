@@ -470,7 +470,13 @@ class ModuleLoader {
       }
       try {
         final bridgedEnum = libEnum.enumDefinition.buildBridgedEnum();
-        targetEnvironment.defineBridgedEnum(bridgedEnum);
+        // SCE25: the declaring URI travels with the registration, so a
+        // same-name enum from a second package is ambiguous rather than
+        // last-wins — the rule classes have had since tcca19.
+        targetEnvironment.defineBridgedEnum(
+          bridgedEnum,
+          sourceUri: libEnum.sourceUri ?? uriString,
+        );
         Logger.debugLazy(
           () =>
               ' [ModuleLoader] GEN-100: Registered bridged enum: $name from $uriString',
@@ -1494,7 +1500,11 @@ class ModuleLoader {
 
         try {
           final bridgedEnum = definition.buildBridgedEnum();
-          globalEnvironment.defineBridgedEnum(bridgedEnum);
+          // SCE25: see the sibling call above.
+          globalEnvironment.defineBridgedEnum(
+            bridgedEnum,
+            sourceUri: sourceUri,
+          );
           Logger.debugLazy(
             () =>
                 " [execute] Registered bridged enum: $enumName from $sourceUri",
