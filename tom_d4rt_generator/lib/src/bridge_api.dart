@@ -6,6 +6,7 @@ library;
 import 'dart:io';
 
 import 'package:path/path.dart' as p;
+import 'package:tom_build_base/tom_build_base.dart' show PubCacheIntegrity;
 import 'package:tom_analyzer_shared/tom_analyzer_shared.dart'
     show runSummaryCacheStage;
 
@@ -159,6 +160,29 @@ Future<GenerationResult> generateBridges({
         warnings: builderOnlyOptionWarnings(bridgeConfig),
       );
     }
+  }
+
+  // sce38: every path below opens an analysis context over this package's
+  // resolved dependencies. A locked package the cache cannot supply produces
+  // no resolution error — `dart pub get` reports success, because the lock is
+  // satisfiable — and the analyzer then reports `Undefined name` at each use
+  // site, which reads as an upstream rename. The generator swallows the
+  // resulting link failures and silently drops the affected classes, so the
+  // visible symptom is a bridge file missing types rather than anything
+  // naming the cache.
+  //
+  // Checked after the resolve above, so a package this call just resolved is
+  // measured in its resolved state.
+  final cacheReport = PubCacheIntegrity.preflight(projectPath: projectDir);
+  if (cacheReport != null) {
+    return GenerationResult(
+      totalClasses: 0,
+      totalModules: 0,
+      outputFiles: [],
+      config: bridgeConfig,
+      errors: [cacheReport],
+      warnings: builderOnlyOptionWarnings(bridgeConfig),
+    );
   }
 
   // Options only the build_runner builder reads. Always reported, not gated on

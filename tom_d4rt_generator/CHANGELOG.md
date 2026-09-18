@@ -1,3 +1,21 @@
+## 1.32.0
+
+### Added — generation stops on a missing cached package instead of dropping classes
+
+`generateBridges` opens an analysis context over the package's resolved
+dependencies. A locked package the pub cache cannot supply produces no
+resolution error at all — the lock is satisfiable, so `dart pub get` reports
+success — and the analyzer then reports `Undefined name` at each use site. The
+generator swallows the resulting link failures and silently drops the affected
+classes, so the visible symptom is a generated bridge file missing types, with
+nothing anywhere naming the cache.
+
+It now calls `PubCacheIntegrity.preflight` (tom_build_base 2.14.0) after the
+resolve step and returns a `GenerationResult` whose `errors` name the package,
+where it should be, and the repair. One stat per dependency.
+
+Requires tom_build_base >= 2.14.0.
+
 ## 1.31.0
 
 ### Added — a `List<Callback>` parameter is converted element by element
