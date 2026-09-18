@@ -16,9 +16,9 @@ dependencies:
   # against. F-SCC45-4 (tom_d4rt_ast/test/scc45_resolution_guard_test.dart)
   # fails when a newer release is in the pub cache.
   tom_d4rt: ">=1.77.0"
-  tom_d4rt_dcli: ">=1.1.6"
+  tom_d4rt_dcli: ">=1.5.0"
   # Referenced directly by the example scripts (import 'package:dcli/dcli.dart').
-  dcli: ^8.4.2
+  dcli: ^10.0.0
 
 dev_dependencies:
   # Floor 1.15.3: below it, a regeneration from a relative scan root writes
