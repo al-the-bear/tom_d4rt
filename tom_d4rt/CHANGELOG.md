@@ -1,3 +1,39 @@
+## 1.153.0
+
+### Documented — the permission gates' null-interpreter branch is the un-sandboxed mode (sce87)
+
+No behaviour change. The five `dart:io` permission gates reach the permission
+table through a nullable handle and return when it is absent:
+
+    final d4rt = visitor.moduleLoader.d4rt;
+    if (d4rt == null) return;            // no D4rt, no check
+
+An early return from a gate GRANTS, in the capabilities the sandbox exists for,
+and the analyzer-free twin — which has no nullable handle and always calls
+`checkPermission` — reads as the corrected version. Measured, it is neither a
+hole nor a correction:
+
+* the branch is UNREACHABLE FROM A SCRIPT. `d4rt_base.dart` constructs exactly
+  one `ModuleLoader` and passes `d4rt: this`; the only `lib/` code that builds
+  a d4rt-less loader is the bridged-enum `toString` fallback, which calls a
+  `toString` adapter inside a `try/catch` and reaches no gate;
+* the gate is LIVE on the path a script takes — granting `FilesystemPermission`
+  (which `dart:io` needs to import at all) and withholding
+  `DangerousPermission` refuses `Platform.version`;
+* the twin is PERMISSIVE IN THE SAME STATE. `NoOpModuleContext.checkPermission`
+  returns `true` when no checker is wired, under its own comment "be permissive
+  (allow all)".
+
+So both trees grant when nothing sandboxed them, and differ only in where that
+is expressed. Denying here would make the reference refuse where the twin
+allows — introducing a behavioural divergence rather than removing one, and
+breaking the documented mode in which a bridge is driven directly.
+
+All five gates now say this, and both halves are pinned by
+`sce87_permission_gate_null_handle_test.dart` in each tree. The load-bearing
+case is the structural one: a second `ModuleLoader` construction, or that
+`d4rt:` argument going away, is what would turn the branch into a real hole.
+
 ## 1.152.0
 
 ### Fixed (BREAKING for scripts using the old entry form) — `LinkedListEntry` can be subclassed (sce84)

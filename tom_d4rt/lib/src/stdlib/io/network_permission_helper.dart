@@ -104,8 +104,14 @@ void _check(
   required bool bind,
 }) {
   // No interpreter instance means no permission set to enforce — the bridges
-  // are being driven directly (e.g. from a unit test), not sandboxed. Same
-  // rule as the filesystem helper beside this one.
+  // are being driven directly (e.g. from a unit test), not sandboxed. NOT a
+  // sandbox hole: every path that runs a SCRIPT builds its loader with
+  // `d4rt: this`, so a script's visitor always carries one and this branch is
+  // unreachable from interpreted code. The analyzer-free twin is permissive in
+  // the same state for the same reason — its `NoOpModuleContext
+  // .checkPermission` returns true when no checker is wired — so the two trees
+  // agree on the un-sandboxed mode and differ only in where they express it.
+  // Pinned by `test/stdlib/io/sce87_permission_gate_null_handle_test.dart`.
   final d4rt = visitor.moduleLoader.d4rt;
   if (d4rt == null) return;
 

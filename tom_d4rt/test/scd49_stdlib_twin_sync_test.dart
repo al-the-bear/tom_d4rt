@@ -95,11 +95,22 @@ const _minFiles = 100;
 /// .d4rt`, which is nullable; the twin has no `D4rt` in that shape and reaches
 /// it through the non-nullable `visitor.moduleContext`.
 ///
-/// NOTE THE BEHAVIOURAL DIFFERENCE, because it is not cosmetic: the reference
-/// `return`s when the `D4rt` is null, so it SKIPS the check, while the twin
-/// always performs it. A permission gate that fails open is a real difference
-/// and is tracked separately — it is recorded here rather than normalised away
-/// precisely so that it stays visible.
+/// THE DIFFERENCE IS STRUCTURAL AND NOT BEHAVIOURAL, which took a measurement
+/// to establish and is worth stating precisely, because the shape invites the
+/// opposite reading: the reference `return`s when the `D4rt` is null and so
+/// SKIPS the check, while the twin always calls `checkPermission`. That looks
+/// like one tree failing open and the other closed.
+///
+/// It is not. The twin's `NoOpModuleContext.checkPermission` returns `true`
+/// when no checker is wired — "be permissive (allow all)" — so it grants in
+/// exactly the state the reference returns in. Both trees are permissive when
+/// nothing sandboxed them, and neither branch is reachable from a script:
+/// every loader a script runs on is built with `d4rt: this`. Both halves are
+/// pinned, in `test/stdlib/io/sce87_permission_gate_null_handle_test.dart`
+/// here and in the file of the same name in the twin.
+///
+/// So the entries below record a difference in WHERE the un-sandboxed mode is
+/// expressed, not in what it does.
 const _idiomRef =
     'final d4rt = visitor . moduleLoader . d4rt ; if ( d4rt == null ) '
     'return ; if ( ! d4rt';
