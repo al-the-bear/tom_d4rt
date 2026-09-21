@@ -27,6 +27,43 @@
 //     than the platform — the mistake `D4rtRangeError` records for
 //     `IndexError`, and the reason scc31 keeps the undefined-name case
 //     deliberately uncatchable. F-SCE67-3 pins that they stay out.
+//
+// HOW MUCH OF THE SUITE WAS STILL PINNING THE INVENTED TYPE. Measured
+// 2026-09-21 across the whole `tom_d4rt` suite: 119 assertions expect
+// `RuntimeD4rtException`, spread over 38 files. Whether an assertion sits on
+// an SDK-specified failure cannot be decided by reading the script — a keyword
+// pass over the surrounding source proposed 16 candidates and 15 of them were
+// false (`list.add(entry)` matching a fixed-length-list pattern, and so on).
+// It CAN be decided mechanically, because `UndefinedMemberD4rtException` is
+// the only interpreter exception carrying an SDK type: strengthen every
+// assertion to `isA<UndefinedMemberD4rtException>` and run the suite, and the
+// ones that still pass are exactly the ones already throwing an SDK error.
+// 113 of the 119 failed — they are undefined NAMES, import/export conflicts,
+// wrong arity, bridge-target mismatches, type-bound violations and permission
+// denials, none of which real Dart reports at runtime at all. Of the six that
+// survived, four exist to assert this hierarchy (F-SCC28-2, F-SCE67-4 and the
+// two in scc28/internet_address) and one was a helper definition rather than
+// a case. The single genuine finding was `I-MISC-335` in
+// `interpreter2_test.dart`, a tear-off of an absent instance method, which now
+// asserts the script-level catch.
+//
+// The remaining 118 are confirmed interpreter-owned. The corroboration that
+// this is a real boundary rather than an artefact of the experiment is the
+// pair `I-MISC-335` / `I-MISC-336`: two tests differing by one word of source,
+// landing on opposite sides of the line drawn above, and each the other's
+// control.
+//
+// The stdlib assertions deserve their own note, because they look like
+// candidates and are not. Every one of them — `JsonUtf8Encoder(42)`,
+// `Int32List(2).setAll(0, [7.5])`, `Runes('ab').followedBy(7)`,
+// `utf8.decoder.startChunkedConversion(42)` — is an ARGUMENT-TYPE mismatch,
+// which real Dart rejects at compile time. The SDK method never runs, so there
+// is no runtime SDK error to re-point at; the interpreter is reporting a
+// failure the platform reports earlier and differently. `LinkedListEntry`
+// unlinked twice is the one that genuinely reaches SDK code, and measuring it
+// gives `_TypeError: Null check operator used on a null value` — an
+// implementation leak of `_list!` rather than a specified contract, so pinning
+// it would be worse than what is there.
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt/d4rt.dart';

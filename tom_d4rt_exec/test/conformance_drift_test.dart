@@ -1937,6 +1937,25 @@ const Map<String, _Divergence> _divergentBaseline = {
   //
   // Re-port when a publish raises exec's floor past 0.87.0.
   'scc29_parameter_type_check_test.dart': _Divergence.deliberate,
+  // SCE73 re-pointed `I-MISC-335` (tear-off of an ABSENT INSTANCE METHOD)
+  // from the invented `RuntimeD4rtException` to the SDK type real Dart
+  // raises for it, asserted the way a script would — an interpreted
+  // `try` / `on NoSuchMethodError` whose recovery path returns a value the
+  // test reads. `I-MISC-336`, the static tear-off one word away, became its
+  // control and asserts `isNot(isA<NoSuchMethodError>())`: a missing static
+  // is a COMPILE error in Dart, so SCE67 withheld the supertype there on
+  // purpose and the two cases must keep landing on opposite sides.
+  //
+  // Ported and RUN against the resolved 0.65.0 before being recorded, per the
+  // discipline the header demands. The script-level case answers `escaped`
+  // rather than `caught`, and the host-side throw is an
+  // `UndefinedMemberD4rtException` with `is NoSuchMethodError` false — SCE67's
+  // supertype is in the working tree and has not shipped, so this copy cannot
+  // assert it yet. The control half already passes there and is not what
+  // pins this.
+  //
+  // Re-port when a publish raises exec's floor past 0.125.0.
+  'interpreter2_test.dart': _Divergence.deliberate,
 };
 
 /// The difference each [_divergentBaseline] entry actually sanctions.
@@ -1975,6 +1994,7 @@ const Map<String, String> _divergenceFingerprints = <String, String>{
   'scc32_bridged_value_key_test.dart': 'bf57cd97b77c0e83',
   'scc33_unhandled_node_test.dart': '1be2b48d0784ff46',
   'scc29_parameter_type_check_test.dart': 'a4c38e44ee9853e1',
+  'interpreter2_test.dart': '072dd1096b1d280c',
 };
 
 /// The direct interpreter-package imports the port recipe legitimately rewrites,
@@ -2121,6 +2141,11 @@ const Map<String, String> _pinnedInterpreterFloors = <String, String>{
   'sce18_finally_on_abrupt_exit_test.dart': '0.118.0',
   'sce19_do_while_first_body_run_test.dart': '0.119.0',
   'sce20_braceless_if_else_test.dart': '0.120.0',
+  // SCE73's re-point. 0.125.0 is the version the commit giving
+  // `UndefinedMemberD4rtException` its `NoSuchMethodError` supertype
+  // declares, confirmed against the commit before it, not a conservative
+  // working-tree guess.
+  'interpreter2_test.dart': '0.125.0',
   // SCD200's second batch, all measured against the working tree before
   // pinning, all at the same 0.113.0 for the same conservative reason.
   'stdlib/convert/chunked_sink_arg_adaptation_test.dart': '0.113.0',
