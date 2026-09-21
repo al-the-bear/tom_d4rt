@@ -1,3 +1,52 @@
+## 1.157.0
+
+### Fixed — a failing cast pattern throws, and there is only one cast (sce104)
+
+`case var x as T` raised `PatternMatchD4rtException` when the cast failed, and
+every arm-selection site catches exactly that and reads it as "this arm did not
+match". So the failure was converted into arm selection: a program that should
+stop ran on down `default`, into a branch its author wrote for a different case.
+`as` in a pattern exists to assert; a cast pattern that cannot fail is a cast
+pattern that does nothing.
+
+THE FIX IS NOT "THROW INSTEAD". `v as T` and `case var x as T` are the same
+operation, and they were implemented twice — an eleven-name ladder in
+`visitAsExpression` and a nine-name ladder in the `CastPattern` branch, each
+with a permissive `default`. Measured before the merge they disagreed on eight
+inputs, and each knew something the other did not:
+
+| input             | expression  | pattern | Dart   |
+| ----------------- | ----------- | ------- | ------ |
+| `'s' as int`      | throws      | MISS    | throws |
+| `1 as double`     | 1.0         | MISS    | 1.0    |
+| `1 as Null`       | throws      | HIT     | throws |
+| `'s' as I` (=int) | throws      | HIT     | throws |
+| `'s' as Map`      | RETURNS 's' | miss    | throws |
+| `'s' as Set`      | RETURNS 's' | miss    | throws |
+
+The pattern lacked `Null`, alias resolution (SCD100) and the `int`→`double`
+promotion (GEN-094); the expression lacked `Map` and `Set` entirely, so a
+failing cast to either RETURNED ITS OPERAND. Turning the pattern's ladder into
+a throw without merging would have shipped four of those rows wrong. One body,
+`_tryCast`, ends both.
+
+It returns a sentinel rather than throwing, so each construct keeps its own
+message: the SDK words a failed `as` and a failed cast PATTERN differently, and
+matching it per construct is the point of `D4rtTypeError`.
+
+THE CAST'S RESULT IS WHAT BINDS, not the operand — `1 as double` binds 1.0, and
+a proxy cast to the class it wraps binds the interpreted instance (C21).
+
+DELIBERATELY UNCHANGED: the shared ladder's `default` stays permissive, so
+`A() as B` between unrelated script classes still succeeds, in the pattern and
+the expression alike. That is a separate decision with its own blast radius, and
+it is pinned as a case so the limit is recorded rather than discovered.
+
+Blast radius, measured because this change CAN break a green test: zero across
+the reference suite.
+
+Name resolution: no.
+
 ## 1.156.0
 
 ### Fixed — a typed local is checked, at its declaration and at every write (sce103)

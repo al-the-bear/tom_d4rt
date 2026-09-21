@@ -282,7 +282,15 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpreterVisitor._executeForInWithItems': '9e90b956',
     'InterpreterVisitor._functionRuntimeTypeFromParts': '13a969d0',
     'InterpreterVisitor._mapCompoundToOperatorName': 'd728ed84',
-    'InterpreterVisitor._matchAndBind': '3cf10a8a',
+    // SCE104 extracted both from `visitAsExpression`, whose divergence they
+    // inherit: the mirror AST carries an `importPrefix` and an `isNullable`
+    // flag where the analyzer's node carries a token and a `question`, and it
+    // cannot print itself, so the twin rebuilds the type's spelling by hand.
+    // `_castTypeDescription` exists to keep that one difference in one member
+    // instead of at both call sites.
+    'InterpreterVisitor._castTypeDescription': '8ab45b85',
+    'InterpreterVisitor._tryCast': '15d1bc02',
+    'InterpreterVisitor._matchAndBind': '83c84f07',
     'InterpreterVisitor._processCollectionElement': '2043ae78',
     'InterpreterVisitor._resolveFormalParameterRuntimeType': '7b7a00d6',
     'InterpreterVisitor._resolveTypeAnnotationWithEnvironment': 'ff411f95',
@@ -294,7 +302,7 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpreterVisitor.new': '2cc4e641',
     'InterpreterVisitor.registerTypeAlias': '2107b213',
     'InterpreterVisitor.resolveStaticCoordinates': '1c58137b',
-    'InterpreterVisitor.visitAsExpression': '8d3fb462',
+    'InterpreterVisitor.visitAsExpression': '749f9253',
     'InterpreterVisitor.visitAssignmentExpression': '294abc8b',
     'InterpreterVisitor.visitBinaryExpression': '4a8ad811',
     'InterpreterVisitor.visitClassDeclaration': '57fc0f99',

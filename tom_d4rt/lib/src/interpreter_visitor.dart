@@ -9,6 +9,18 @@ import 'package:tom_d4rt/src/unbridged_reasons.dart';
 
 /// Main visitor that walks the AST and interprets the code.
 /// Uses a two-pass approach (DeclarationVisitor first).
+/// SCE104: the answer [InterpreterVisitor._tryCast] gives when a cast cannot
+/// succeed.
+///
+/// A sentinel rather than an exception because the two constructs that perform
+/// a cast word their failure differently, and rather than `null` because `null`
+/// is a perfectly good cast result — `null as int?` succeeds and yields it.
+class _CastFailure {
+  const _CastFailure();
+}
+
+const _CastFailure _castFailed = _CastFailure();
+
 class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
   /// SCC33 — the dispatch backstop.
   ///
@@ -451,7 +463,55 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
   @override
   Object? visitAsExpression(AsExpression node) {
     final value = node.expression.accept<Object?>(this);
-    final typeNode = node.type;
+    final result = _tryCast(value, node.type);
+    if (!identical(result, _castFailed)) return result;
+    // GEN-094: Include actual value type for actionable diagnostics.
+    final valueDesc = value?.runtimeType.toString() ?? 'Null';
+    throw D4rtTypeError(
+      "Cast failed with 'as' : value of type $valueDesc cannot be cast to "
+      '${_castTypeDescription(node.type)}',
+    );
+  }
+
+  /// SCE104: how a cast's target type is spelled in a failure message.
+  ///
+  /// The ONE architectural divergence the shared cast carries. The analyzer's
+  /// `TypeAnnotation` can print itself; the mirror AST cannot, so the twin
+  /// rebuilds the name from the node. Confined to this method on purpose —
+  /// both call sites (the `as` expression and the cast pattern) go through it,
+  /// so the difference is one recorded member rather than four inline copies.
+  String _castTypeDescription(TypeAnnotation typeNode) => typeNode.toSource();
+
+  /// [value] cast to [typeNode], or [_castFailed] when the cast cannot succeed.
+  ///
+  /// SCE104: ONE cast, for the two constructs that perform one. `v as T` and
+  /// `case var x as T` are the same operation written twice, and they were
+  /// implemented twice — an eleven-name ladder here and a nine-name ladder in
+  /// the `CastPattern` branch of [_matchAndBind]. Measured before the merge,
+  /// the two disagreed on eight inputs, and each knew something the other did
+  /// not:
+  ///
+  ///   | input            | expression | pattern | Dart   |
+  ///   | ---------------- | ---------- | ------- | ------ |
+  ///   | `'s' as int`     | throws     | MISS    | throws |
+  ///   | `1 as double`    | 1.0        | MISS    | 1.0    |
+  ///   | `1 as Null`      | throws     | HIT     | throws |
+  ///   | `'s' as I` (=int)| throws     | HIT     | throws |
+  ///   | `'s' as Map`     | RETURNS 's'| miss    | throws |
+  ///   | `'s' as Set`     | RETURNS 's'| miss    | throws |
+  ///
+  /// The pattern lacked `Null`, alias resolution and the `int`→`double`
+  /// promotion; the expression lacked `Map` and `Set` entirely, so those fell
+  /// to the permissive `default` and a failing cast returned its operand. One
+  /// body ends both, and the two rows the pattern was right about are why the
+  /// merge is not simply "call the expression's version".
+  ///
+  /// Returning a sentinel rather than throwing is what lets each construct keep
+  /// its own message: the SDK words a failed `as` and a failed cast PATTERN
+  /// differently, and matching it per construct is the point of [D4rtTypeError]
+  /// — the same discipline `ResolvedBinding` applies with its `of 'name'`
+  /// suffix.
+  Object? _tryCast(Object? value, TypeAnnotation typeNode) {
     if (typeNode is NamedType) {
       // SCD100: `as` decides by the WRITTEN name, so an alias reached the
       // permissive `default:` below and cast anything to anything — `'a' as I`
@@ -492,6 +552,16 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           break;
         case 'List':
           if (value is List) return value;
+          break;
+        case 'Map':
+          // SCE104: from the pattern's ladder. Absent here, so `'s' as Map`
+          // reached `default` and RETURNED the String.
+          if (value is Map) return value;
+          break;
+        case 'Set':
+          // SCE104: likewise — and `Set` is the one name the pattern's ladder
+          // had that this one did not.
+          if (value is Set) return value;
           break;
         case 'Null':
           if (value == null) return value;
@@ -534,11 +604,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         return value;
       }
     }
-    // GEN-094: Include actual value type for actionable diagnostics.
-    final valueDesc = value?.runtimeType.toString() ?? 'Null';
-    throw D4rtTypeError(
-      "Cast failed with 'as' : value of type $valueDesc cannot be cast to ${typeNode.toSource()}",
-    );
+    return _castFailed;
   }
 
   /// SCD100: the name [written] ultimately stands for, following a type alias.
@@ -14575,66 +14641,32 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         );
       }
     } else if (pattern is CastPattern) {
-      // G-DOV2-5 FIX: Handle cast patterns (var x as Type)
-      // The cast pattern matches if the value can be cast to the specified type,
-      // then binds the casted value to the sub-pattern
-      final targetType = pattern.type;
-      if (Logger.isDebug) {
-        Logger.debug(
-          "[_matchAndBind] CastPattern: casting value to ${targetType.toSource()}",
+      // SCE104: `case var x as T` is a CAST, and a failing cast throws. This
+      // branch used to raise `PatternMatchD4rtException`, which every
+      // arm-selection site catches and reads as "this arm did not match" — so
+      // the failure was converted into arm selection and a program that should
+      // have stopped ran on down `default`. `as` in a pattern exists to assert;
+      // a cast pattern that cannot fail is a cast pattern that does nothing.
+      //
+      // The cast itself is [_tryCast], shared with `visitAsExpression`, which
+      // replaces this branch's own nine-name ladder — a ladder whose `default`
+      // read "for custom types, be permissive". That permissiveness was safe
+      // while a wrong answer only cost an arm and is not safe now, which is
+      // exactly why the ladder went rather than being thrown from.
+      //
+      // The CAST'S RESULT is bound, not the original value: `1 as double`
+      // binds 1.0, and a proxy cast to the class it wraps binds the
+      // interpreted instance (C21). Binding the operand instead would make the
+      // cast a test with no effect, which is half of what it is.
+      final result = _tryCast(value, pattern.type);
+      if (identical(result, _castFailed)) {
+        final valueDesc = value?.runtimeType.toString() ?? 'Null';
+        throw D4rtTypeError(
+          "type '$valueDesc' is not a subtype of type "
+          "'${_castTypeDescription(pattern.type)}' in type cast",
         );
       }
-
-      // Try to perform the cast - reuse visitAsExpression logic
-      // Create a synthetic AsExpression node to evaluate the cast
-      bool castSucceeds = false;
-      if (targetType is NamedType) {
-        final typeName = targetType.name.lexeme;
-        final isNullable = targetType.question != null;
-
-        // Check if the cast would succeed
-        if (isNullable && value == null) {
-          castSucceeds = true;
-        } else {
-          switch (typeName) {
-            case 'int':
-              castSucceeds = value is int;
-            case 'double':
-              castSucceeds = value is double;
-            case 'num':
-              castSucceeds = value is num;
-            case 'String':
-              castSucceeds = value is String;
-            case 'bool':
-              castSucceeds = value is bool;
-            case 'List':
-              castSucceeds = value is List;
-            case 'Map':
-              castSucceeds = value is Map;
-            case 'Set':
-              castSucceeds = value is Set;
-            case 'Object':
-              castSucceeds = value != null || isNullable;
-            case 'dynamic':
-              castSucceeds = true;
-            default:
-              // For custom types, be permissive
-              castSucceeds = true;
-          }
-        }
-      } else {
-        // For complex type annotations, be permissive
-        castSucceeds = true;
-      }
-
-      if (!castSucceeds) {
-        throw PatternMatchD4rtException(
-          "Cast pattern failed: value ${value?.runtimeType} cannot be cast to ${targetType.toSource()}",
-        );
-      }
-
-      // Cast succeeded, now match the sub-pattern
-      _matchAndBind(pattern.pattern, value, environment);
+      _matchAndBind(pattern.pattern, result, environment);
       if (Logger.isDebug) {
         Logger.debug("[_matchAndBind] CastPattern: matched successfully");
       }

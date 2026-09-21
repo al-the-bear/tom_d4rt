@@ -37,11 +37,11 @@
 // a match failure would silently take `default` instead of stopping.
 //
 // CONTROL, measured by reverting all three branches: `+2 -6`. Only F-SCD64-7
-// (the twelve already-working kinds) and F-SCD64-8 (the cast divergence, which
-// this change does not touch) keep passing. They are the rails: -7 says the
-// new branches did not disturb the dispatch they were added to, and -8 pins a
-// known divergence as known, so closing it later is a decision rather than a
-// drift.
+// (the twelve already-working kinds) and F-SCD64-8 (the cast, which this change
+// does not touch) keep passing. They are the rails: -7 says the new branches
+// did not disturb the dispatch they were added to, and -8 pinned a known
+// divergence as known, so closing it later would be a decision rather than a
+// drift. SCE104 made that decision — the cast now throws — and -8 says so.
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt/d4rt.dart';
@@ -215,7 +215,9 @@ void main() {
         '> 0': ['1', '-1'], // RelationalPattern
         '1 || 2': ['2', '3'], // LogicalOrPattern
         'int _ && > 0': ['1', '-1'], // LogicalAndPattern
-        // The cast's non-matching half is deliberately '' — see F-SCD64-8.
+        // The cast's non-matching half is '' because it THROWS rather than
+        // missing — the one kind whose failure is not an arm selection. See
+        // F-SCD64-8, which asserts the throw.
         'var n as int': ['1', ''],
       };
       kinds.forEach((pattern, scrutinees) {
@@ -238,15 +240,28 @@ void main() {
       );
     });
 
-    test('F-SCD64-8: a failing cast pattern still MISSES where Dart throws '
+    test('F-SCD64-8: a failing cast pattern throws, as Dart does '
         '[2026-09-12] (PASS)', () {
-      // NOT fixed here, and pinned so it stays visible. `case var n as int`
-      // over a String raises `TypeError: type 'String' is not a subtype of
-      // type 'int' in type cast` in real Dart; d4rt signals a non-match and
-      // takes `default`. That is an arm-selection difference with real blast
-      // radius — a program that should stop keeps running — so it is a
-      // decision of its own rather than a tail of this todo.
-      expect(run(switchOn('var n as int', "'s'")), 'miss');
+      // This pinned the divergence as a divergence so that closing it would be
+      // a decision rather than a drift. SCE104 made that decision, and the same
+      // case now holds the answer rather than the gap — inverted rather than
+      // deleted, because its job was never the `miss`.
+      //
+      // The branch raised `PatternMatchD4rtException`, which every
+      // arm-selection site catches and reads as "this arm did not match", so a
+      // program that should have stopped ran on down `default`.
+      expect(
+        () => run(switchOn('var n as int', "'s'")),
+        throwsA(
+          isA<TypeError>().having(
+            (e) => e.toString(),
+            'message',
+            "type 'String' is not a subtype of type 'int' in type cast",
+          ),
+        ),
+      );
+      // The rail: a SUCCEEDING cast still selects its arm.
+      expect(run(switchOn('var n as int', '1')), 'HIT');
     });
   });
 }
