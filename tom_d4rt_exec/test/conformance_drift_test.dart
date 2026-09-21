@@ -537,13 +537,16 @@ const Map<String, _Coverage> _coveredElsewhere = {
   'environment_lazy_bridge_test.dart': _Coverage(
     'ast:environment_lazy_bridge_test.dart',
     _astTwin,
-    // SCD19: both sides had grown from 17 to 24 since these were written, in
-    // step, so the pair was never partial and nothing reported the drift. The
-    // numbers were simply no longer true, which is why F-SCC6-6 now checks
-    // them against the files.
+    // This entry has now rotted twice the same way: 17 to 24, caught by SCD19
+    // once F-SCC6-6 existed to check the numbers against the files, and 24 to
+    // 30, caught by it again. Both sides grew IN STEP each time, so the pair
+    // was never partial and no deficit was ever computed wrongly — which is
+    // exactly why nothing but F-SCC6-6 would report it. A count that is only
+    // ever read to compute a deficit goes unexamined while it agrees with its
+    // twin, and silently stops being true.
     layer: _Layer.registration,
-    refCases: 24,
-    twinCases: 24,
+    refCases: 30,
+    twinCases: 30,
   ),
   'environment_lookup_test.dart': _Coverage(
     'ast:runtime/environment_lookup_test.dart',
@@ -2442,6 +2445,68 @@ List<String> _publishPins(String source) => [
 /// their memory against itself — the argument [_execAstFloor] already makes.
 File _questTodoFile() => File('../../../_ai/quests/d4rt/todos.d4rt.todo.yaml');
 
+/// Every file a quest todo can be declared in, live first.
+///
+/// A COMPLETED todo does not stay in `todos.d4rt.todo.yaml` — archiving MOVES
+/// it to the `-archived` sibling, and the live file holds no `completed` entry
+/// at all. Reading only the live file therefore cannot distinguish "this id
+/// was never real" from "this id is done", which are opposite diagnoses: the
+/// first says a pin was mistyped, the second says the publish it waited for
+/// has landed and the weakened assertion can be restored.
+///
+/// F-SCD103-1 read the live file alone and so could never take its own
+/// COMPLETED branch — the branch its comment describes as the whole point of
+/// the case. Cancelled and deleted todos are read for the same reason: a pin
+/// whose reason was abandoned is as stale as one whose reason was finished.
+List<File> _questTodoSources() => [
+  _questTodoFile(),
+  File('../../../_ai/quests/d4rt/todos-archived.d4rt.todo.yaml'),
+  File('../../../_ai/quests/d4rt/todos-deleted.d4rt.todo.yaml'),
+];
+
+/// The `status:` of quest todo [id], or `null` when no such todo is declared.
+///
+/// The id as written may be a PREFIX of the qualified todo id, which is how
+/// both callers cite one: a `PUBLISH-PIN` marker and
+/// [_astPublishBlock] name the stem a reader can grep for rather than the full
+/// slug. The block a status is read from runs to the next `  - id:`.
+///
+/// Extracted from F-SCD103-1 when [_astPublishBlock] became its second caller.
+/// The two ask the same question — "is the todo that justifies this weakening
+/// still open?" — and a pin that answered it differently from a block would be
+/// the defect both cases exist to prevent.
+String? _questTodoStatus(String id, [String? todoSource]) {
+  if (id.isEmpty) return null;
+  if (todoSource == null) {
+    for (final file in _questTodoSources()) {
+      if (!file.existsSync()) continue;
+      final found = _questTodoStatus(id, file.readAsStringSync());
+      if (found != null) return found;
+    }
+    return null;
+  }
+  final declared = RegExp(
+    '^  - id: ${RegExp.escape(id)}',
+    multiLine: true,
+  ).firstMatch(todoSource);
+  if (declared == null) return null;
+  final start = declared.start;
+  final next = RegExp(
+    r'^  - id: ',
+    multiLine: true,
+  ).firstMatch(todoSource.substring(start + 10));
+  final block = next == null
+      ? todoSource.substring(start)
+      : todoSource.substring(start, start + 10 + next.start);
+  return RegExp(
+    r'^    status: (.*)$',
+    multiLine: true,
+  ).firstMatch(block)?.group(1)?.trim();
+}
+
+/// Statuses that mean a todo will not be acted on again.
+const Set<String> _closedTodoStatuses = {'completed', 'cancelled'};
+
 /// Collects `test(...)` / `group(...)` names that claim an expected failure.
 ///
 /// SCD53 / F-SCC6-6. Two different rules, and the asymmetry is measured rather
@@ -2620,6 +2685,39 @@ const Map<String, String> _astWorkingTreeDrift = {
   'ast.dart': 'doc comment only (scd14_aicx), unpublished',
   'tom_d4rt_ast.dart': 'doc comment only (scd14_aicx), unpublished',
 };
+
+/// The todo blocking the `tom_d4rt_ast` publish that would clear F-SCC80-3,
+/// or `null` when nothing blocks it.
+///
+/// WHY A WHOLE-SUITE BLOCK RATHER THAN 91 [_astWorkingTreeDrift] ENTRIES.
+/// That register means one specific thing — "this file differs, and nothing an
+/// interpreter DOES differs between the copies" — which is why its only two
+/// members are barrel docstrings. Listing `interpreter_visitor.dart`,
+/// `environment.dart` and `callable.dart` there would assert something false
+/// to make a case green, and would keep asserting it after the publish landed.
+/// The drift here is 58 minors of real interpreter work; it is not explainable
+/// file by file, only datable.
+///
+/// WHY NOT SIMPLY LEAVE THE CASE RED. A red that stands for weeks stops being
+/// read: scd15_aicx recorded exactly that decay for the reflector performance
+/// test, and this file's own SCD103 machinery was built because pins written
+/// as prose went unfollowed. A reader hitting a red here cannot tell a stale
+/// resolution from a regression without re-deriving the cause — and the cause
+/// is a decision already taken and written down elsewhere.
+///
+/// SO IT IS PINNED, NOT SILENCED, and it self-retires in both directions:
+/// F-SCC80-3 fails when the named todo is missing or closed, and fails when
+/// the drift is gone while a block is still declared. The block cannot outlive
+/// its reason, and it cannot hide a publish that has already happened.
+/// F-SCC80-1 still PRINTS the resolved version on every run, so "which
+/// interpreter did this measure" is answered whether or not a block is in
+/// force.
+// The type is the contract — `null` is how "nothing blocks the publish" is
+// expressed, and that is the state this constant returns to. The lint reasons
+// from today's value alone.
+// ignore: unnecessary_nullable_for_final_variable_declarations
+const String? _astPublishBlock =
+    'sce162_aioc-four-unpublished-base-corpus-regressions-block-the-publish';
 
 /// The directory exec's own package config resolves `tom_d4rt_ast` to.
 ///
@@ -3230,7 +3328,6 @@ void main() {
       // publish it waited for has landed, the assertion it weakened can be
       // restored, and nothing else would have said so. When sce119 closes,
       // every file below goes red and names itself.
-      final todoSource = _questTodoFile().readAsStringSync();
       final problems = <String>[];
 
       for (final tree in [ref, exec]) {
@@ -3241,32 +3338,14 @@ void main() {
               continue;
             }
             // The id as written may be a prefix of the qualified todo id.
-            final declared = RegExp(
-              '^  - id: ${RegExp.escape(id)}',
-              multiLine: true,
-            ).firstMatch(todoSource);
-            if (declared == null) {
+            final status = _questTodoStatus(id);
+            if (status == null) {
               problems.add('$path: PUBLISH-PIN($id) names no todo that exists');
               continue;
             }
-            // Read that todo's status: the block runs to the next `  - id:`.
-            final blockStart = declared.start;
-            final next = RegExp(
-              r'^  - id: ',
-              multiLine: true,
-            ).firstMatch(todoSource.substring(blockStart + 10));
-            final block = next == null
-                ? todoSource.substring(blockStart)
-                : todoSource.substring(
-                    blockStart,
-                    blockStart + 10 + next.start,
-                  );
-            if (RegExp(
-              r'^    status: completed\s*$',
-              multiLine: true,
-            ).hasMatch(block)) {
+            if (_closedTodoStatuses.contains(status)) {
               problems.add(
-                '$path: PUBLISH-PIN($id) — that todo is COMPLETED, so the '
+                '$path: PUBLISH-PIN($id) — that todo is $status, so the '
                 'publish it waited for has landed and this assertion can be '
                 'restored',
               );
@@ -3729,6 +3808,56 @@ void main() {
             '${settled.join('\n')}',
       );
 
+      // The drift may be PINNED to the todo that forbids the publish which
+      // would clear it. The pin is checked before it is honoured: a block
+      // naming a todo that does not exist, or one already closed, is worse
+      // than no block, because it reads as a decision somebody took.
+      final blocker = _astPublishBlock;
+      if (blocker != null) {
+        final status = _questTodoStatus(blocker);
+        expect(
+          status,
+          isNotNull,
+          reason:
+              '_astPublishBlock names `$blocker`, and no todo with that id is '
+              'declared in any of '
+              '${_questTodoSources().map((f) => f.path).join(', ')}. '
+              'A block that cannot be '
+              'followed to its reason is prose, which is the state SCD103 was '
+              'built to end. Name a todo that exists, or delete the block and '
+              'let this case be red.',
+        );
+        expect(
+          _closedTodoStatuses.contains(status),
+          isFalse,
+          reason:
+              '_astPublishBlock names `$blocker`, which is `$status`. The '
+              'publish it was waiting on is no longer blocked, so this case '
+              'must go back to demanding one: publish tom_d4rt_ast, raise the '
+              'constraint in pubspec.yaml, and delete _astPublishBlock in the '
+              'same change.',
+        );
+
+        expect(
+          unexplained,
+          isNotEmpty,
+          reason:
+              '_astPublishBlock names `$blocker`, but the resolved '
+              'tom_d4rt_ast and the working tree no longer differ — the '
+              'publish has landed. Delete the block; a baseline nobody prunes '
+              'is how a ratchet loosens.',
+        );
+
+        // Pinned, not silenced. The drift is real and is reported on every
+        // run; what the pin buys is that a reader can tell it from a
+        // regression without re-deriving the cause.
+        printOnFailure(
+          'F-SCC80-3 is PINNED to $blocker: the resolved tom_d4rt_ast and the '
+          'working tree differ in ${unexplained.length} file(s).',
+        );
+        return;
+      }
+
       expect(
         unexplained,
         isEmpty,
@@ -3747,7 +3876,10 @@ void main() {
             'version constraint."\n\n'
             'If a difference genuinely cannot change what this suite measures '
             '(a doc comment, say), add it to _astWorkingTreeDrift with the '
-            'reason — and expect to remove it at the next release.',
+            'reason — and expect to remove it at the next release.\n\n'
+            'If the publish is BLOCKED by a todo, pin it: set '
+            '_astPublishBlock to that todo id. The pin is verified to name an '
+            'open todo and is deleted by the publish.',
       );
     });
 
