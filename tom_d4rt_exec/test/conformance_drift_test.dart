@@ -1559,17 +1559,31 @@ enum _Divergence {
 /// leaves evidence.
 enum _Direction {
   /// The REFERENCE copy in `tom_d4rt` was the stronger one and was mirrored
-  /// down into exec. The obvious direction, and presumably the common one.
+  /// down into exec.
   ///
-  /// Unused, which is worth stating rather than suppressing quietly: of the
-  /// four convergences whose direction is documented anywhere, NONE went this
-  /// way. Two possible readings — either the pairs that needed a written
-  /// justification were exactly the counter-intuitive ones, or the obvious
-  /// direction is rarer than it looks. The register is too small to tell, and
-  /// sce64 is where that gets answered. Keeping the value is the point: an
-  /// enum with only the surprising cases in it would make the surprising case
-  /// look like the rule.
-  // ignore: unused_field
+  /// THE COMMON DIRECTION BY A LONG WAY, measured rather than assumed. This
+  /// doc comment used to pose a question — none of the four recorded
+  /// convergences had gone this way, and the register could not say whether
+  /// that meant downstream was rare or merely never worth writing down. SCE64
+  /// walked every revision of [_divergentBaseline]: 50 entries have been
+  /// removed across five commits, and each of those commits states a
+  /// direction. Roughly 45 went downstream, 1 upstream
+  /// (`unmodifiable_map_view`), 3 were unions folded up before the port
+  /// (`dfub5`/`dfub6`/`dfub13`), and 1 was neither (`bridged_class`, where the
+  /// normaliser was fixed instead of either file).
+  ///
+  /// So the FIRST reading was right: the pairs that needed a written
+  /// justification were exactly the counter-intuitive ones, and the empty
+  /// downstream column was selection bias, not a finding. Two commits carry
+  /// the bulk — SCC44 converged 32 "the moment the reference file was copied
+  /// over the exec one", and SCC75 ported 18 at a publish where "ALL EIGHTEEN
+  /// PASSED".
+  ///
+  /// WHAT THAT MEANS FOR THE RULE'S STEP (2), which is why the question was
+  /// asked: copying the reference over exec is right about nine times in ten,
+  /// and checking is still worth it, because the tenth deleted a real
+  /// assertion. SCC7 is the case to keep in mind — one commit, three files,
+  /// two of them downstream and one upstream, decided file by file.
   downstream,
 
   /// The EXEC copy was the stronger one and was mirrored up into `tom_d4rt`.
@@ -1598,13 +1612,74 @@ class _Convergence {
 /// of convergences that have since drifted apart again would be worse than no
 /// log, because it reads as a record of settled questions.
 ///
-/// This register starts part-full, and honestly so. Roughly twenty-six pairs
-/// converged between SCC44 and SCD22 with no direction recorded anywhere;
-/// reconstructing those from diffs would be inventing a finding rather than
-/// recording one, so only the four whose direction is documented in the
-/// paragraph above [_divergentBaseline] are listed. New convergences add an
+/// THIS REGISTER IS PART-FULL ON PURPOSE, and the arithmetic behind that is
+/// worth stating because the first version of it was wrong. It read "roughly
+/// twenty-six pairs converged between SCC44 and SCD22"; walking every revision
+/// of [_divergentBaseline] gives 50 removals from a register that opened at 33
+/// and stands at 12 — entries have been added and removed repeatedly, so no
+/// subtraction of two snapshots recovers the count.
+///
+/// Every one of those 50 has a direction, because all five convergence commits
+/// state one. What only SOME have is a per-FILE citation: ten are named
+/// individually and are listed here. The other forty are covered by a group
+/// sentence ("32 ... converged the moment the reference file was copied over
+/// the exec one", "ALL EIGHTEEN PASSED when ported") which establishes the
+/// direction for the batch but names no file, and several of them have since
+/// re-diverged and sit in [_divergentBaseline] again. Nothing is recorded here
+/// from a diff: a converged file looks the same whichever side won, so reading
+/// the outcome cannot recover the decision. New convergences add an
 /// entry; sce64 covers reconstructing what can still be established.
 const Map<String, _Convergence> _convergenceLog = {
+  // SCE64 reconstructed the entries below from the commits that converged
+  // them. Only convergences whose direction the COMMIT MESSAGE states are
+  // here; the rule's own hazard is that a converged file looks identical
+  // whichever side won, so nothing was read back from the resulting file.
+  //
+  // A TERMINOLOGY TRAP, recorded because it inverts the answer if missed. The
+  // commit prose calls `tom_d4rt` "upstream" — it is upstream in the
+  // dependency sense. This enum calls the same event [_Direction.downstream],
+  // because the reference is mirrored DOWN into exec. "Taking upstream's
+  // wording" in a commit message therefore means `downstream` here.
+  'stdlib/collection/unmodifiable_list_view_test.dart': _Convergence(
+    _Direction.downstream,
+    'SCC7 (756e47e12) names it: the copy "takes tom_d4rt\'s newer assertions '
+    '(the delegating mutators)", whose header had said to flip it at exactly '
+    'the publish that commit landed. The reference was the stronger copy.',
+  ),
+  'stdlib/async/stream_consumer_test.dart': _Convergence(
+    _Direction.downstream,
+    'SCC7 (756e47e12), the same sentence: this copy took the reference\'s '
+    "F-SC4-8 unary onError handler. Named beside unmodifiable_map_view, "
+    'which went the other way — one commit, both directions, which is why '
+    'a per-file record is worth more than a per-commit one.',
+  ),
+  'stdlib/collection/linked_list_test.dart': _Convergence(
+    _Direction.downstream,
+    'SCC35 (7aa21f302) names it: "ported verbatim per the flip recipe its '
+    'own header prescribed — the publish met its stated condition".',
+  ),
+  'interpreter_test.dart': _Convergence(
+    _Direction.downstream,
+    'SCC35 (4116884d7) names it: three cases had recorded the OLD behaviour '
+    'as a property of the serialized-AST pipeline ("the analyzer\'s parse '
+    'error is not thrown"). It is thrown; they assert the diagnostic again '
+    "taking the reference's wording, and the file converges to a verbatim "
+    'port. Its entry had been described as "the one permanent entry".',
+  ),
+  'scb11_symbol_literal_test.dart': _Convergence(
+    _Direction.downstream,
+    'SCC35 (4116884d7) names it: "widened to the reference form".',
+  ),
+  'bridge/bridged_class_test.dart': _Convergence(
+    _Direction.union,
+    'NEITHER SIDE WON, and the log has no value for that. SCC35 (7aa21f302): '
+    'it "converged once _normalise learned the interpreted_instance.dart '
+    'pair, a permanent path-shape difference that would otherwise have '
+    'needed a standing entry able to absorb real drift". The files were '
+    'never edited — the COMPARISON was wrong. Recorded as union because both '
+    'copies survived intact, which is the outcome union describes, but the '
+    'mechanism is a third one: the guard was fixed, not the pair.',
+  ),
   'stdlib/collection/unmodifiable_map_view_test.dart': _Convergence(
     _Direction.upstream,
     'exec F-SC3-9 asserted four expressions including `source is Map` — the '
