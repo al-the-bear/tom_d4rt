@@ -80,6 +80,42 @@ for f in example/*.dart; do dart run "$f"; done
 6. **Update documentation** if API changed
 7. **Commit all changes** to submodule
 
+### Bumping again before the last bump shipped
+
+**If the version you are replacing is already COMMITTED, add a new heading —
+do not rename the old one.**
+
+The move this prevents is not carelessness, which is why it is written down. A
+bump lands, the work turns out to be unfinished, and the natural next edit is
+"this is going out as the next version instead" — for which renaming the
+heading is literally the right edit. It is wrong only because the first number
+is already in history, with nothing left describing it. The rename is
+invisible to `F-SCC17-1` and `-2`, which is exactly what they cannot see.
+
+It has happened three times across two commits: `tom_d4rt_ast` 0.22.0 into
+0.23.0, and `tom_d4rt` 1.55.0 and `tom_d4rt_ast` 0.44.0 into their successors
+in one commit. All three are recorded in `_versionsWithoutHeading` in
+`release_hygiene_test.dart`, each naming the commit that absorbed it.
+
+`F-SCC17-5` now fails on the next one — but only AFTER the commit exists, since
+the version it asks about is not in history until then. By that point the
+remedy is to write a section for a release nobody can install, or to add a
+baseline entry; both are bookkeeping for something that need not have
+happened. Two headings cost nothing:
+
+```markdown
+## 1.57.0
+
+### Fixed — the part that was still in flight
+
+## 1.56.0
+
+### Added — what actually went out under this number
+```
+
+If the version being replaced was **not** committed yet, rename freely: no
+history references it, and nothing will ask.
+
 ### Publishing Steps
 
 ```bash
@@ -102,7 +138,14 @@ Follow semantic versioning:
 - **MINOR** - New features, backward compatible
 - **PATCH** - Bug fixes, backward compatible
 
-Current version: **1.5.0**
+No current version is written here, deliberately — this package bumps several
+times a day during a campaign, so a number in a guideline is stale before the
+commit carrying it lands, and a stale figure under a heading reading "current"
+is worse than none. Read it:
+
+```bash
+grep -m1 '^version:' pubspec.yaml
+```
 
 ## Related Packages
 
