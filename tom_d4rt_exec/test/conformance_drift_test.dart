@@ -2942,6 +2942,7 @@ const _anchoredBaseline = <String>{
   'scd70_no_container_arg_casts_test.dart',
   'scd94_sdk_type_nameability_test.dart',
   'sce45_todo_count_stamps_test.dart',
+  'sce89_skip_tag_agreement_test.dart',
   'stdlib/io/sce87_permission_gate_null_handle_test.dart',
   'stdlib/scd204_surplus_arity_guard_test.dart',
   'stdlib/stdlib_d4_boundary_test.dart',
