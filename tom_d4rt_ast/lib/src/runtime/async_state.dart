@@ -76,6 +76,35 @@ class AsyncExecutionState {
   /// Optional: Environment for the current standard for-loop scope.
   Environment? forLoopEnvironment;
 
+  /// The child environment each catch clause's body runs in, by clause.
+  ///
+  /// SCE79. `_handleAsyncError` used to define the exception variable in the
+  /// FUNCTION's environment — its own comment said "can cause collisions" —
+  /// so in an async function the variable outlived its block and, worse,
+  /// silently overwrote a caller's local of the same name. `e` is one of the
+  /// most common names there is, and nothing threw or logged: the value was
+  /// simply wrong from that point on. `visitTryStatement` has always created a
+  /// child environment, which is what Dart requires.
+  ///
+  /// WHY A MAP AND NOT A STACK, which is the design question this posed. A
+  /// stack has to be POPPED, and the state machine resumes at a node rather
+  /// than executing a block — so every exit from a catch block (fallthrough,
+  /// return, rethrow, break, an error) would need to pop, and one missed exit
+  /// leaks the scope again in a way nothing would notice. Keyed by clause, the
+  /// binding is SELECTED structurally instead: a node lexically inside the
+  /// clause gets the environment, a node outside it never asks. There is no
+  /// exit to instrument because there is nothing to undo.
+  ///
+  /// A re-entered clause overwrites its entry, so a try inside a loop gets a
+  /// fresh environment per iteration rather than resuming a stale one.
+  ///
+  /// KEYED BY IDENTITY, and load-bearing in the `tom_d4rt_ast` twin for the
+  /// same reason [doBodiesStarted] records: `SAstNode` overrides `==` with a
+  /// structural `toJson()` comparison, so a plain Map there would treat two
+  /// identical-looking catch clauses as one.
+  final Map<SCatchClause, Environment> catchEnvironments =
+      Map<SCatchClause, Environment>.identity();
+
   /// Stack of loop environments for nested loops
   final List<Environment> loopEnvironmentStack = [];
 

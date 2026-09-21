@@ -1,3 +1,43 @@
+## 0.133.0
+
+### Fixed — the async catch variable leaked out of its block (sce79)
+
+    Future<dynamic> f() async {
+      var e = 'outer';
+      try { throw StateError('x'); } catch (e) { }
+      return e;                       // returned the exception, not 'outer'
+    }
+
+`_handleAsyncError` defined the exception variable in the FUNCTION's
+environment — its own comment said "can cause collisions" — while
+`visitTryStatement` has always given the synchronous path a child environment,
+which is what Dart requires. So the variable outlived its block, and in an
+async function any caught exception silently overwrote a caller's local of the
+same name. `e` is one of the most common names there is; nothing threw and
+nothing logged, and the wrong value surfaced wherever the variable was next
+read.
+
+The catch block now runs in its own environment, recorded against its clause on
+`AsyncExecutionState` and SELECTED from the node's position rather than pushed
+and popped. That choice is the substance of the fix: the state machine resumes
+at a node rather than executing a block, so a stack would have to be popped on
+every exit — fallthrough, return, rethrow, break, an error — and one missed
+exit would leak the scope again in a way nothing notices. Selecting
+structurally, there is no exit to instrument because there is nothing to undo,
+and the scope survives suspension for free.
+
+The environment's parent is whatever was selected when the error was handled,
+so a catch inside a loop still reaches the loop's variables; and the loop
+environment keeps winning inside a catch, because a loop opened there built its
+own as a child of the catch's. That one condition — prefer the catch
+environment only when the already-selected one does not already reach it — is
+what makes both nestings come out right with no ordering bookkeeping.
+
+Ten cases in `test/scc12_await_in_finally_test.dart`. The clobber is pinned
+beside the leak deliberately: the leak alone could be "fixed" by clearing the
+variable after the block, which would leave the clobber untouched and look
+green.
+
 ## 0.132.0
 
 ### Fixed — a `return` inside an async `finally` hung the interpreter (sce78)

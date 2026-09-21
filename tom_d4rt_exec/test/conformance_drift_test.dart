@@ -1872,6 +1872,13 @@ const Map<String, _Divergence> _divergentBaseline = {
   // machine jumped back to the top of the finally that had just issued the
   // return and did it again. Porting them now would wedge this suite exactly
   // as the SCD169 batch would. The fix landed in `tom_d4rt_ast` 0.132.0.
+  //
+  // SCE79 widened it a fourth time, by ten cases, and these would FAIL here
+  // rather than hang: the published interpreter binds a catch clause's
+  // exception variable in the FUNCTION's environment, so it outlives the block
+  // and overwrites a caller's local of the same name. That is the defect they
+  // pin, and it is still present in 0.65.0. The fix landed in `tom_d4rt_ast`
+  // 0.133.0.
   'scc12_await_in_finally_test.dart': _Divergence.deliberate,
   // `scd4_await_for_break`: SCE16 made `await for` lazy in the reference tree —
   // one `StreamIterator.moveNext()` per element, with the iterator cancelled
@@ -1994,7 +2001,7 @@ const Map<String, String> _divergenceFingerprints = <String, String>{
   'stdlib/collection/queue_test.dart': '19eee099a23916a8',
   'stdlib/cast_from_family_test.dart': 'c7a32ccddec5a069',
   'scd4_await_for_break_test.dart': '9d8fdd67890791db',
-  'scc12_await_in_finally_test.dart': '366113dc15358546',
+  'scc12_await_in_finally_test.dart': '3e45c775ab09d467',
   'warm_parent_package_pool_test.dart': '971b6ff19185f442',
   'stdlib/intentionally_unbridged_test.dart': 'a11036cda720efcf',
   'scc31_undefined_name_uncatchable_test.dart': 'ad105fd6b643370f',

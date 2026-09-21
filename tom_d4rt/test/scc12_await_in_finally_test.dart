@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:test/test.dart';
+import 'package:tom_d4rt/d4rt.dart' show UndefinedNameD4rtException;
 import 'interpreter_test.dart' show executeAsync;
 
 /// SCC12 — `await` inside a `finally` block, and the once-only execution of a
@@ -1480,6 +1481,194 @@ void main() {
           main() async => f();
         '''),
         5,
+      );
+    });
+  });
+  group('SCE79: the catch variable is scoped to its block', () {
+    // The third thing the async error path approximated rather than decided.
+    // `_handleAsyncError` bound the exception variable into the FUNCTION's
+    // environment — its own comment said "can cause collisions" — while
+    // `visitTryStatement` has always given the synchronous path a child
+    // environment, which is what Dart requires.
+    //
+    // BOTH SHAPES ARE PINNED, and the second is why the first is not enough:
+    // the leak alone could be "fixed" by clearing the variable after the
+    // block, which would leave the clobber untouched and look green. The
+    // clobber is also the serious one and the silent one — `e` is one of the
+    // most common names in any codebase, so in an async function a caught
+    // exception overwrote the caller's own local and nothing threw or logged.
+    //
+    // Each case carries its SYNCHRONOUS control, because the sync path was
+    // already correct and is the reference the async path is being made to
+    // agree with.
+
+    test('F-SCE79-1: the catch variable does not outlive its block '
+        '[2026-09-21]', () async {
+      await expectLater(
+        run('''
+          Future<dynamic> f() async {
+            try { throw StateError('x'); } catch (e) { }
+            return e;
+          }
+          main() async => await f();
+        '''),
+        throwsA(isA<UndefinedNameD4rtException>()),
+      );
+    });
+
+    test(
+      'F-SCE79-2 (control): the SYNC path already scoped it [2026-09-21]',
+      () async {
+        await expectLater(
+          run('''
+          dynamic f() {
+            try { throw StateError('x'); } catch (e) { }
+            return e;
+          }
+          main() async => f();
+        '''),
+          throwsA(isA<UndefinedNameD4rtException>()),
+        );
+      },
+    );
+
+    test('F-SCE79-3: the catch variable does not clobber an outer local '
+        '[2026-09-21]', () async {
+      // The silent one. Before the fix this returned the exception.
+      expect(
+        await run('''
+          Future<dynamic> f() async {
+            var e = 'outer';
+            try { throw StateError('x'); } catch (e) { }
+            return e;
+          }
+          main() async => await f();
+        '''),
+        'outer',
+      );
+    });
+
+    test('F-SCE79-4 (control): the SYNC path already protected it '
+        '[2026-09-21]', () async {
+      expect(
+        await run('''
+          dynamic f() {
+            var e = 'outer';
+            try { throw StateError('x'); } catch (e) { }
+            return e;
+          }
+          main() async => f();
+        '''),
+        'outer',
+      );
+    });
+
+    test('F-SCE79-5: the outer local survives a SUSPENSION in the catch '
+        '[2026-09-21]', () async {
+      // The scope has to survive resumption, which is the part of this that
+      // made a pushed-and-popped stack the wrong shape: the machine resumes at
+      // a NODE rather than executing a block, so every exit would have needed
+      // to pop. Selecting the environment from the node's position instead
+      // means there is nothing to undo — and this is the case that would fail
+      // if the binding were merely cleared at the end of the block.
+      expect(
+        await run('''
+          Future<dynamic> f() async {
+            var e = 'outer';
+            try { throw StateError('x'); } catch (e) { await Future.delayed(Duration.zero); }
+            return e;
+          }
+          main() async => await f();
+        '''),
+        'outer',
+      );
+    });
+
+    test('F-SCE79-6: a catch inside a LOOP still sees the loop variable '
+        '[2026-09-21]', () async {
+      // The catch environment is a child of whatever was selected when the
+      // error was handled, so the loop's variables stay reachable through the
+      // chain — and each iteration gets a fresh binding rather than resuming a
+      // stale one.
+      expect(
+        await run('''
+          Future<dynamic> f() async {
+            var out = [];
+            for (var i = 0; i < 2; i++) {
+              try { throw StateError('e' + i.toString()); } catch (e) { out.add(i.toString() + ':' + e.message); }
+            }
+            return out.join(',');
+          }
+          main() async => await f();
+        '''),
+        '0:e0,1:e1',
+      );
+    });
+
+    test('F-SCE79-7: a LOOP inside a catch still sees the exception '
+        '[2026-09-21]', () async {
+      // The other nesting, and the one that decides the selection rule: a loop
+      // opened inside a catch built its environment as a child of the catch's,
+      // so it already reaches the exception variable and must keep winning.
+      // Preferring the catch environment unconditionally would lose the loop's.
+      expect(
+        await run('''
+          Future<dynamic> f() async {
+            try { throw StateError('x'); } catch (e) {
+              var out = [];
+              for (var i = 0; i < 2; i++) { out.add(i.toString() + '-' + e.message); }
+              return out.join(',');
+            }
+          }
+          main() async => await f();
+        '''),
+        '0-x,1-x',
+      );
+    });
+
+    test('F-SCE79-8: a closure written in the catch captures the variable '
+        '[2026-09-21]', () async {
+      expect(
+        await run('''
+          Future<dynamic> f() async {
+            try { throw StateError('x'); } catch (e) { var g = () => e.message; return g(); }
+          }
+          main() async => await f();
+        '''),
+        'x',
+      );
+    });
+
+    test('F-SCE79-9: the stack-trace parameter is scoped the same way '
+        '[2026-09-21]', () async {
+      // It is bound beside the exception variable and would have leaked with
+      // it. Asserting only the exception variable would leave half the fix
+      // unpinned.
+      await expectLater(
+        run('''
+          Future<dynamic> f() async {
+            try { throw StateError('x'); } catch (e, st) { }
+            return st;
+          }
+          main() async => await f();
+        '''),
+        throwsA(isA<UndefinedNameD4rtException>()),
+      );
+    });
+
+    test('F-SCE79-10 (control): the variable IS visible inside the block '
+        '[2026-09-21]', () async {
+      // Every case above asserts an absence, which is the shape that passes
+      // when the binding is simply broken. This one reads it where it must be
+      // present.
+      expect(
+        await run('''
+          Future<dynamic> f() async {
+            try { throw StateError('x'); } catch (e) { return e.message; }
+          }
+          main() async => await f();
+        '''),
+        'x',
       );
     });
   });

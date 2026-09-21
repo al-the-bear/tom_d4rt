@@ -2118,6 +2118,22 @@ class InterpretedFunction implements Callable {
       } else {
         visitor.environment = currentState.environment;
       }
+      // SCE79: a node lexically inside a catch clause runs in that clause's own
+      // environment.
+      //
+      // Applied AFTER the loop selection rather than instead of it, and only
+      // when the environment already chosen does not reach the catch
+      // environment through its parents. That one condition is what makes both
+      // nestings come out right without any ordering bookkeeping: a loop INSIDE
+      // a catch built its environment as a child of the catch's, so it already
+      // sees the exception variable and must keep winning; a catch INSIDE a
+      // loop built its environment as a child of the loop's, so switching to it
+      // still reaches the loop variables.
+      final catchEnvironment = _catchEnvironmentFor(currentState, currentNode);
+      if (catchEnvironment != null &&
+          !_chainReaches(visitor.environment, catchEnvironment)) {
+        visitor.environment = catchEnvironment;
+      }
       visitor.currentAsyncState = currentState;
       // Set currentFunction from the state - important for async callbacks
       // that may run after the original call() returns
@@ -3764,24 +3780,57 @@ class InterpretedFunction implements Callable {
       // and ready to handle potential rethrow statements
       state.isHandlingErrorForRethrow = true;
 
-      // Define the exception variable in the catch environment
-      // For now, define in the current environment (can cause collisions)
+      // SCE79: the catch block gets its OWN environment, as
+      // `visitTryStatement` has always given the synchronous path.
+      //
+      // This used to define the exception variable in the FUNCTION's
+      // environment — the comment here said "can cause collisions" — so the
+      // variable outlived its block and, in the shape that actually bites,
+      // silently overwrote a caller's local of the same name. Measured: with
+      // `var e = 'outer';` ahead of the try, an async function returned the
+      // exception where Dart and d4rt's own sync path return `'outer'`.
+      // Nothing threw and nothing logged.
+      //
+      // THE PARENT IS DERIVED, not taken from `visitor.environment`. That was
+      // the first attempt and it was wrong on the await-callback path: this
+      // runs from a Future continuation as well as from the state machine, and
+      // there `visitor.environment` is whatever the callback left set, so a
+      // catch block could not even assign to a local of its own function
+      // (`Assigning to undefined variable 'result'`).
+      //
+      // Derived from the state, in the order a scope actually nests: the
+      // enclosing catch clause's environment if this try sits inside one, then
+      // the innermost loop's, then the function's.
+      final enclosingCatchEnvironment = _catchEnvironmentFor(
+        state,
+        matchingCatchClause.parent,
+      );
+      final catchEnvironment = Environment(
+        enclosing:
+            enclosingCatchEnvironment ??
+            (state.loopEnvironmentStack.isNotEmpty
+                ? state.loopEnvironmentStack.last
+                : state.environment),
+      );
+      state.catchEnvironments[matchingCatchClause] = catchEnvironment;
+
       final exceptionParameter = matchingCatchClause.exceptionParameter;
       if (exceptionParameter != null) {
         final varName = exceptionParameter.name.lexeme;
-        // Use the state environment to define the catch variables
-        state.environment.define(varName, error);
+        catchEnvironment.define(varName, error);
         Logger.debug(
-          " [_handleAsyncError] Defined exception variable '$varName' in environment.",
+          " [_handleAsyncError] Defined exception variable '$varName' in the "
+          "catch block's own environment.",
         );
 
         // Handle the stack trace parameter if it exists
         final stackTraceParameter = matchingCatchClause.stackTraceParameter;
         if (stackTraceParameter != null) {
           final stackVarName = stackTraceParameter.name.lexeme;
-          state.environment.define(stackVarName, stackTrace);
+          catchEnvironment.define(stackVarName, stackTrace);
           Logger.debug(
-            "[_handleAsyncError] Defined stack trace variable '$stackVarName' in environment.",
+            "[_handleAsyncError] Defined stack trace variable '$stackVarName' "
+            "in the catch block's own environment.",
           );
         }
       }
@@ -3990,6 +4039,40 @@ class InterpretedFunction implements Callable {
       if (identical(current, owner.finallyBlock)) return true;
       if (current is FunctionBody) return false;
       current = current.parent;
+    }
+    return false;
+  }
+
+  /// The environment for the innermost catch clause [node] sits inside, or
+  /// null when it is in none that has one.
+  ///
+  /// SCE79. The lookup is structural — the AST says which clause a node is in —
+  /// which is why the binding needs no stack and no popping. Stops at a
+  /// `FunctionBody` so a closure written inside a catch block does not inherit
+  /// the clause's scope by accident.
+  static Environment? _catchEnvironmentFor(
+    AsyncExecutionState state,
+    AstNode? node,
+  ) {
+    if (state.catchEnvironments.isEmpty) return null;
+    AstNode? current = node;
+    while (current != null) {
+      if (current is CatchClause) {
+        final found = state.catchEnvironments[current];
+        if (found != null) return found;
+      }
+      if (current is FunctionBody) return null;
+      current = current.parent;
+    }
+    return null;
+  }
+
+  /// Whether [target] is [from] or one of its enclosing environments.
+  static bool _chainReaches(Environment? from, Environment target) {
+    Environment? current = from;
+    while (current != null) {
+      if (identical(current, target)) return true;
+      current = current.enclosing;
     }
     return false;
   }
