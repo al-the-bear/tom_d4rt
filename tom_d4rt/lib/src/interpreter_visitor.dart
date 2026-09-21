@@ -1111,6 +1111,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       } on RuntimeD4rtException catch (e) {
         throw RuntimeD4rtException(
           "Erreur lors de la récupération du membre '$memberName' de l'import préfixé '${node.prefix.toSource()}': ${e.message}",
+          originalException: e.originalException,
+          originalStackTrace: e.originalStackTrace,
         );
       }
     }
@@ -2796,6 +2798,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                     // If both direct setter, extension setter, and direct field set fail, THEN throw.
                     throw RuntimeD4rtException(
                       "Cannot assign to '$variableName' on implicit 'this': No setter (direct or extension) or assignable field found.",
+                      originalException: fieldSetError.originalException,
+                      originalStackTrace: fieldSetError.originalStackTrace,
                     );
                   }
                 }
@@ -3816,6 +3820,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               } on RuntimeD4rtException catch (e) {
                 throw RuntimeD4rtException(
                   'Cannot read current value for compound index assignment on ${targetValue.klass.name}: ${e.message}',
+                  originalException: e.originalException,
+                  originalStackTrace: e.originalStackTrace,
                 );
               }
             }
@@ -3886,6 +3892,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             } on RuntimeD4rtException catch (e) {
               throw RuntimeD4rtException(
                 'Cannot read current value for compound index assignment on type ${targetValue?.runtimeType}: ${e.message}',
+                originalException: e.originalException,
+                originalStackTrace: e.originalStackTrace,
               );
             }
           }
@@ -3962,6 +3970,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             } on RuntimeD4rtException catch (findError) {
               throw RuntimeD4rtException(
                 'Cannot assign to index on ${targetValue.klass.name}: ${findError.message}',
+                originalException: findError.originalException,
+                originalStackTrace: findError.originalStackTrace,
               );
             }
           }
@@ -4134,6 +4144,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         } on RuntimeD4rtException catch (e) {
           throw RuntimeD4rtException(
             "Method '$methodName' not found in imported module '${node.target!.toSource()}'. Error: ${e.message}",
+            originalException: e.originalException,
+            originalStackTrace: e.originalStackTrace,
           );
         }
         // calleeValue is now the function/method of the imported module.
@@ -4300,6 +4312,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
               throw RuntimeD4rtException(
                 "Instance of '${targetValue.klass.name}' has no method named '$methodName'. Error during extension lookup: ${findError.message}. Original error: (${e.message})",
+                originalException: findError.originalException,
+                originalStackTrace: findError.originalStackTrace,
               );
             }
           } else {
@@ -4384,6 +4398,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               );
               throw RuntimeD4rtException(
                 "Enum value '$targetValue' has no method named '$methodName'. Error during extension lookup: ${findError.message}. Original error: (${e.message})",
+                originalException: findError.originalException,
+                originalStackTrace: findError.originalStackTrace,
               );
             }
           } else {
@@ -4647,6 +4663,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           } on RuntimeD4rtException catch (findError) {
             throw RuntimeD4rtException(
               "Bridged class '${bridgedClass.name}' has no instance method named '$methodName'. Error during extension lookup: ${findError.message}",
+              originalException: findError.originalException,
+              originalStackTrace: findError.originalStackTrace,
             );
           }
         }
@@ -4709,6 +4727,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           } on RuntimeD4rtException catch (e) {
             throw RuntimeD4rtException(
               "Error during named constructor '$methodName' for class '${targetValue.name}': ${e.message}",
+              originalException: e.originalException,
+              originalStackTrace: e.originalStackTrace,
             );
           }
         } else {
@@ -4941,6 +4961,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             // Relaunch the adapter error
             throw RuntimeD4rtException(
               "Error during bridged constructor '$methodName' for class '${bridgedClass.name}': ${e.message}",
+              originalException: e.originalException,
+              originalStackTrace: e.originalStackTrace,
             );
           } catch (e, s) {
             // Catch native errors from the adapter/native constructor
@@ -5009,6 +5031,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             } on RuntimeD4rtException catch (e) {
               throw RuntimeD4rtException(
                 "Error during static bridged method call '$methodName' on ${bridgedClass.name}: ${e.message}",
+                originalException: e.originalException,
+                originalStackTrace: e.originalStackTrace,
               );
             } catch (e, s) {
               Logger.warn(
@@ -5418,6 +5442,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         } on RuntimeD4rtException catch (e) {
           throw RuntimeD4rtException(
             "Error during default bridged constructor for '${bridgedClass.name}': ${e.message}",
+            originalException: e.originalException,
+            originalStackTrace: e.originalStackTrace,
           );
         } catch (e, s) {
           Logger.error(
@@ -10966,6 +10992,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         } on RuntimeD4rtException catch (e) {
           throw RuntimeD4rtException(
             "Error executing constructor for enum value '$enumName.$valueName': ${e.message}",
+            originalException: e.originalException,
+            originalStackTrace: e.originalStackTrace,
           );
         } catch (e) {
           throw RuntimeD4rtException(
@@ -12110,7 +12138,11 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             // Propagate type lookup error
             // Wrap in InternalInterpreterException to be caught correctly
             throw InternalInterpreterD4rtException(
-              RuntimeD4rtException("Type check failed: ${e.message}"),
+              RuntimeD4rtException(
+                "Type check failed: ${e.message}",
+                originalException: e.originalException,
+                originalStackTrace: e.originalStackTrace,
+              ),
             );
           }
       }
@@ -12707,6 +12739,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         // Simplified error message
         throw RuntimeD4rtException(
           "Constructor execution error for '$constructorName.': ${e.message}",
+          originalException: e.originalException,
+          originalStackTrace: e.originalStackTrace,
         );
       }
     } else if (typeValue is BridgedClass) {
@@ -12886,6 +12920,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         throw RuntimeD4rtException(
           "Error during bridged constructor '$constructorLookupName' for class '$constructorName': ${e.message}",
           originalStackTrace: e.originalStackTrace,
+          originalException: e.originalException,
         );
       } catch (e, s) {
         // Catch potential native exceptions raised by the adapter or the native constructor
@@ -14578,8 +14613,16 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         }
       } else {
         // Propagate other RuntimeErrors (like the non-type error from above)
+        //
+        // SCE70: the sibling throw above is NOT given the payload, and the
+        // difference is the branch condition rather than an oversight. That one
+        // fires when `e is UndefinedNameD4rtException` — a name that resolved to
+        // nothing, which scc31 keeps deliberately uncatchable and which carries
+        // no preserved native exception. There is nothing there to forward.
         throw RuntimeD4rtException(
           "Could not resolve 'on' type '$onTypeName' for extension '${extensionName ?? '<unnamed>'}': ${e.message}",
+          originalException: e.originalException,
+          originalStackTrace: e.originalStackTrace,
         );
       }
     }

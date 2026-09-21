@@ -1669,6 +1669,8 @@ class Environment {
                 // Or, according to the desired semantics, we could raise a new error indicating that 'identifier' was not found IN 'prefix'.
                 throw RuntimeD4rtException(
                   "Undefined name '$identifier' in imported prefix '$prefix'. Original error: ${e.message}",
+                  originalException: e.originalException,
+                  originalStackTrace: e.originalStackTrace,
                 );
               }
             } else {

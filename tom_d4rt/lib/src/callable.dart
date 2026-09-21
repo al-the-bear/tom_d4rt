@@ -1365,6 +1365,7 @@ class InterpretedFunction implements Callable {
                   throw RuntimeD4rtException(
                     "Error during bridged super constructor '$superConstructorName': ${e.message}",
                     originalStackTrace: e.originalStackTrace,
+                    originalException: e.originalException,
                   );
                 } catch (e, s) {
                   throw RuntimeD4rtException(
@@ -1548,6 +1549,7 @@ class InterpretedFunction implements Callable {
               throw RuntimeD4rtException(
                 "Error during implicit bridged super constructor: ${e.message}",
                 originalStackTrace: e.originalStackTrace,
+                originalException: e.originalException,
               );
             } catch (e, s) {
               throw RuntimeD4rtException(

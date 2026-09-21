@@ -305,10 +305,18 @@ void main() {
       // assertion rather than a shortcut — the same shape as the two sweeps
       // above. Raise this only for that shape; a site that COULD name its
       // bridge should.
+      //
+      // SCE70 raised it 30 -> 33 for that same shape once more, and the
+      // symmetry is the justification:
+      // `runtime/stdlib_member_map_disjointness_test.dart` is this tree's twin
+      // of the very `scd196` file named above. It asks the identical question
+      // of the identical subject — every bridge — so there is again no bridge
+      // to name, and reading the six member maps off the loop variable IS the
+      // assertion. The AST tree had no disjointness guard at all until then.
       final unattributable = sites.length - attributed.length;
       expect(
         unattributable,
-        lessThanOrEqualTo(30),
+        lessThanOrEqualTo(33),
         reason:
             '$unattributable sites cannot be attributed to a bridge, against '
             '24 measured. Each is a site F-SCD151-1 cannot check. Prefer '

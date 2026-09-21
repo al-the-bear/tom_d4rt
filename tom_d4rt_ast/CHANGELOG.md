@@ -1,3 +1,45 @@
+## 0.127.0
+
+### Changed — a re-wrapped exception keeps what the first wrap preserved (sce70)
+
+A clause shaped
+
+```dart
+} on RuntimeD4rtException catch (e) {
+  throw RuntimeD4rtException("...: ${e.message}");
+}
+```
+
+re-wraps a wrapper that already carries `originalException` and
+`originalStackTrace`, and builds the new one from the MESSAGE ALONE. Everything
+SCC11 preserved one frame below is discarded at the re-wrap — which is why two
+of SCD34's three trace widenings were still invisible to a script after being
+applied.
+
+All such sites now forward both fields: 22 in `tom_d4rt`, 23 in `tom_d4rt_ast`.
+
+**THIS IS A SEMANTIC CORRECTION, NOT A NEW RULE.** `visitTryStatement` already
+prefers `originalException` over the wrapper when one survives (OPEN B.5), so a
+script's `catch (e)` receives the real native exception and `on <NativeType>`
+dispatch matches. The defect was that whether a script saw the real exception
+depended on HOW MANY WRAP LAYERS it had crossed. Where a payload survives, a
+script now catches the native exception rather than the `RuntimeD4rtException`
+wrapper, and a trace points at the native throw rather than at the interpreter.
+Where no payload was preserved, nothing changes.
+
+The message prefixes are kept rather than replaced by `rethrow`. They are the
+only thing the re-wrap contributes, and the payload outcome is identical either
+way: an inner wrapper carrying a native exception reaches the script as that
+exception whether it is rethrown or re-wrapped with the payload forwarded. The
+prefix is the difference, and it is worth keeping.
+
+Two sites were decided individually rather than by pattern. The type-check
+clause re-wraps inside an `InternalInterpreterD4rtException` and was invisible
+to a scan keyed on the outer throw. The extension `on`-type clause holds two
+throws, and only one is a re-wrap: its sibling fires when the caught error is an
+`UndefinedNameD4rtException`, a name that resolved to nothing, which scc31 keeps
+deliberately uncatchable and which carries no payload to forward.
+
 ## 0.126.0
 
 ### Changed — `io/socket.dart` is diffable against its twin again (sce69)

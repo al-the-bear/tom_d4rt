@@ -771,6 +771,7 @@ class InterpretedClass implements Callable, RuntimeType {
         throw RuntimeD4rtException(
           "Error during constructor execution for class '$name': ${e.message}",
           originalStackTrace: e.originalStackTrace,
+          originalException: e.originalException,
         );
       }
     } else {
