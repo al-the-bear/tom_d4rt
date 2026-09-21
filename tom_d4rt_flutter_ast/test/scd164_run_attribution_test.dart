@@ -225,6 +225,183 @@ void main() {
       );
     });
 
+    // ------------------------------------------------------------------
+    // SCE63: the header also says how far behind the working tree the
+    // resolution is.
+    //
+    // exec guards the same exposure by FAILING (F-SCC80-3): a run certifying
+    // an interpreter nobody is editing is a wasted run. That does not port.
+    // Here the gap is deliberate — the twins resolve from pub.dev so their
+    // corpora certify what a consumer gets — so a gate would refuse every
+    // legitimate run. What was missing is the RECORD, because both twins
+    // gitignore pubspec.lock and the gap is therefore per-machine and absent
+    // from every diff.
+    // ------------------------------------------------------------------
+
+    /// A sibling package tree beside [parentDir], as the twins are laid out.
+    Directory sibling(String name, String version, {String? libContent}) {
+      final dir = Directory('${root.path}/$name');
+      _package(dir, name: name, version: version, withLock: false);
+      if (libContent != null) {
+        File('${dir.path}/lib/x.dart')
+          ..createSync(recursive: true)
+          ..writeAsStringSync(libContent);
+      }
+      return dir;
+    }
+
+    /// A package config for [parentDir] naming [name] at [root].
+    void config(String name, Directory packageRoot) {
+      File('$parentDir/.dart_tool/package_config.json')
+        ..createSync(recursive: true)
+        ..writeAsStringSync(
+          '{"configVersion":2,"packages":[{"name":"$name",'
+          '"rootUri":"${packageRoot.uri}","packageUri":"lib/"}]}',
+        );
+    }
+
+    test('F-SCE63-1: a resolution behind its sibling tree is announced '
+        '[2026-09-21]', () {
+      _package(
+        Directory(parentDir),
+        name: 'zom_twin',
+        lockEntries: [_lockEntry('tom_zom_interp', '0.65.0')],
+      );
+      _package(Directory(appDir), name: 'zom_twin_app', withLock: false);
+      sibling('tom_zom_interp', '0.123.0');
+
+      final line = runAttributionLines(
+        parentDir: parentDir,
+        appDir: appDir,
+        runId: 'r',
+        startedAt: DateTime(2026, 9, 21),
+      ).singleWhere((l) => l.startsWith('# tree:'));
+
+      expect(line, contains('tom_zom_interp resolved 0.65.0, tree 0.123.0'));
+      expect(
+        line,
+        contains('TREE AHEAD'),
+        reason: 'the whole point is that a reader of testlog/ learns this '
+            'without opening a gitignored lock on the machine that ran it',
+      );
+    });
+
+    test('F-SCE63-2: the same version with different bytes is not "in step" '
+        '[2026-09-21]', () {
+      // The case a version comparison cannot see, and the reason the contents
+      // are diffed when the numbers already agree: a sibling edited without a
+      // bump reads as in step to every version-based check in the repo.
+      _package(
+        Directory(parentDir),
+        name: 'zom_twin',
+        lockEntries: [_lockEntry('tom_zom_interp', '1.0.0')],
+      );
+      _package(Directory(appDir), name: 'zom_twin_app', withLock: false);
+      final published = sibling('tom_zom_pub', '1.0.0', libContent: 'a');
+      config('tom_zom_interp', published);
+      sibling('tom_zom_interp', '1.0.0', libContent: 'DIFFERENT');
+
+      final line = runAttributionLines(
+        parentDir: parentDir,
+        appDir: appDir,
+        runId: 'r',
+        startedAt: DateTime(2026, 9, 21),
+      ).singleWhere((l) => l.startsWith('# tree:'));
+
+      expect(line, contains('SAME VERSION'));
+      expect(line, contains('1 FILE(S) DIFFER'));
+    });
+
+    test('F-SCE63-3: no sibling is reported as NONE, not omitted '
+        '[2026-09-21]', () {
+      // Same rule the resolved lines already follow: "asked and found none"
+      // must be distinguishable from "never asked", which shows as no line
+      // with this prefix at all.
+      _package(
+        Directory(parentDir),
+        name: 'zom_twin',
+        lockEntries: [_lockEntry('tom_zom_absent', '1.0.0')],
+      );
+      _package(Directory(appDir), name: 'zom_twin_app', withLock: false);
+
+      expect(
+        runAttributionLines(
+          parentDir: parentDir,
+          appDir: appDir,
+          runId: 'r',
+          startedAt: DateTime(2026, 9, 21),
+        ).singleWhere((l) => l.startsWith('# tree:')),
+        contains('NONE — no hosted tom_ package'),
+      );
+    });
+
+    test('F-SCE63-4: drift is announced on stderr, and silence means in step '
+        '[2026-09-21]', () async {
+      // END TO END, because the mechanism IS the stream split: every runner
+      // redirects this program's stdout into metrics.txt and nothing else, so
+      // the announcement only reaches a console if it is on stderr. A unit
+      // test of the formatting would pass with the writes going to stdout,
+      // which is the one arrangement that breaks all twelve runners at once
+      // (it would bury the banner in the metrics file and corrupt the header
+      // the Verification runs table is read from).
+      _package(
+        Directory(parentDir),
+        name: 'zom_twin',
+        lockEntries: [_lockEntry('tom_zom_interp', '0.65.0')],
+      );
+      _package(Directory(appDir), name: 'zom_twin_app', withLock: false);
+      final tree = sibling('tom_zom_interp', '0.123.0');
+
+      Future<ProcessResult> attribute() => Process.run('dart', [
+        'run',
+        'test/run_attribution.dart',
+        parentDir,
+        appDir,
+        'r',
+      ]);
+
+      final drifted = await attribute();
+      expect(
+        drifted.stderr,
+        allOf(
+          contains('does NOT measure the working tree'),
+          contains('tom_zom_interp resolved 0.65.0, tree 0.123.0'),
+        ),
+        reason: 'the console must say it without anyone opening metrics.txt',
+      );
+      expect(
+        drifted.stdout,
+        isNot(contains('does NOT measure')),
+        reason: 'stdout is metrics.txt — the header must stay parseable, and '
+            'F-SCD164-3 reads it',
+      );
+
+      // Versions brought into step AND the bytes comparable: nothing is
+      // announced. A banner printed on every run is one nobody reads by the
+      // third time.
+      //
+      // The published copy has to exist and be named by the package config,
+      // and that is not fixture ceremony — without it the verdict is
+      // "NOT COMPARED", which is UNKNOWN rather than in step and is announced
+      // on purpose. The first draft of this test omitted it and read the
+      // resulting banner as a bug in the code.
+      File('${tree.path}/pubspec.yaml')
+          .writeAsStringSync('name: tom_zom_interp\nversion: 0.65.0\n');
+      File('${tree.path}/lib/x.dart')
+        ..createSync(recursive: true)
+        ..writeAsStringSync('same');
+      final published = sibling('zom_published', '0.65.0', libContent: 'same');
+      config('tom_zom_interp', published);
+      final quiet = await attribute();
+      expect(quiet.stderr, isEmpty);
+      expect(
+        quiet.stdout,
+        contains('tom_zom_interp resolved 0.65.0, tree 0.65.0'),
+        reason: 'still RECORDED in the header — only the announcement is '
+            'conditional',
+      );
+    });
+
     test('F-SCD164-5: the tom_d4rt_flutter copy of run_attribution.dart is '
         'identical to this one [2026-09-15] (PASS)', () {
       final twin = File('../tom_d4rt_flutter/test/run_attribution.dart');

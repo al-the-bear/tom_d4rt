@@ -38,6 +38,7 @@
 /// `test/scd164_run_attribution_test.dart` fails when the copies differ.
 library;
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'companion_app_resolution.dart';
@@ -90,6 +91,148 @@ List<String> _resolvedLines(
   ];
 }
 
+/// One `tree: <name> <resolved> vs <sibling> <verdict>` line per hosted `tom_`
+/// package [packageDir] resolves that also has a sibling working tree.
+///
+/// WHY THIS IS ANNOUNCED AND NOT ENFORCED, which is the one thing that does
+/// NOT port from exec's F-SCC80-3. That case FAILS when the resolved
+/// `tom_d4rt_ast` differs from the working tree, because exec is a migration
+/// target and a run certifying an interpreter nobody is editing is a wasted
+/// run. Here the same gap is DELIBERATE: the twins resolve the interpreter
+/// from pub.dev so their corpora certify what a consumer actually gets, and
+/// the quest accepts the cost knowingly — nothing downstream can gate an
+/// interpreter fix before it ships. A check that refused to start would refuse
+/// every legitimate run, and would be switched off within a week.
+///
+/// What was missing is not a gate but a RECORD. Both twins gitignore
+/// `pubspec.lock`, so which interpreter a sweep measured is machine-local and
+/// appears in no diff; the resolved-version table in `Verification runs` is
+/// hand-written from whatever the author remembered. The header already fixed
+/// half of that by recording what was resolved. This is the other half: how
+/// far behind the working tree that resolution is, measured rather than
+/// recalled, so an entry can say "31 minors behind" from the log.
+///
+/// SAME VERSION IS STILL COMPARED, and that is not redundant. A sibling whose
+/// `pubspec.yaml` says 0.1.7 while the published 0.1.7 holds different bytes
+/// is a package edited without a bump, and it reads as "in step" to every
+/// version-based check. The contents are diffed only in that case — when the
+/// versions already differ, so do the files, and walking them proves nothing.
+List<String> _workingTreeLines(String prefix, String packageDir) {
+  // NORMALISE BEFORE TAKING THE PARENT. The runners pass `.`, whose absolute
+  // form ends `/.` — so `parent.parent` happened to land on the sibling root
+  // and would have climbed one level too high for any caller passing a real
+  // path. Normalising makes the answer the same for both.
+  final siblingRoot = Directory(
+    Directory(packageDir).absolute.uri.normalizePath().toFilePath(),
+  ).parent;
+  final recorded = [
+    for (final entry in readLockedPackages(packageDir).values)
+      if (entry.name.startsWith('tom_') && entry.source == 'hosted') entry,
+  ]..sort((a, b) => a.name.compareTo(b.name));
+  final lines = <String>[];
+  for (final entry in recorded) {
+    final sibling = Directory('${siblingRoot.path}/${entry.name}');
+    if (!sibling.existsSync()) continue;
+    final tree = readPubspecIdentity(sibling.path).version;
+    if (tree == null) continue;
+    final verdict = tree == entry.version
+        ? _sameVersionVerdict(packageDir, entry, sibling)
+        : 'TREE AHEAD — this run measures the published copy, not the tree';
+    lines.add(
+      '$attributionPrefix$prefix: ${entry.name} resolved ${entry.version}, '
+      'tree $tree — $verdict',
+    );
+  }
+  if (lines.isEmpty) {
+    return [
+      '$attributionPrefix$prefix: NONE — no hosted tom_ package this package '
+          'resolves has a sibling working tree beside it',
+    ];
+  }
+  return lines;
+}
+
+/// Where [package] is actually loaded from, per [packageDir]'s package config.
+///
+/// The CONFIG rather than a guess at the pub-cache layout: `PUB_CACHE` moves,
+/// and a path dependency or an override changes what is loaded without
+/// changing the lock's version at all — which is the case this line exists to
+/// notice. Returns null when the config is missing or does not name it, and
+/// the caller says NOT COMPARED rather than reporting a zero it did not
+/// establish.
+String? _resolvedRoot(String packageDir, String package) {
+  final config = File('$packageDir/.dart_tool/package_config.json');
+  if (!config.existsSync()) return null;
+  final Map<String, dynamic> decoded;
+  try {
+    decoded = jsonDecode(config.readAsStringSync()) as Map<String, dynamic>;
+  } on FormatException {
+    return null;
+  }
+  for (final entry in (decoded['packages'] as List? ?? const [])) {
+    final p = entry as Map<String, dynamic>;
+    if (p['name'] != package) continue;
+    final rootUri = Uri.parse(p['rootUri'] as String);
+    if (rootUri.hasScheme) return Directory.fromUri(rootUri).path;
+    return Directory(
+      '$packageDir/.dart_tool/${p['rootUri']}',
+    ).absolute.path;
+  }
+  return null;
+}
+
+/// Whether a resolved package and its equally-numbered sibling hold the same
+/// `lib/`, and how confidently that could be established.
+String _sameVersionVerdict(
+  String packageDir,
+  LockedPackage entry,
+  Directory sibling,
+) {
+  final root = _resolvedRoot(packageDir, entry.name);
+  if (root == null) {
+    return 'in step by version (lib/ NOT COMPARED — the package config does '
+        'not name ${entry.name})';
+  }
+  final resolved = Directory('$root/lib');
+  final tree = Directory('${sibling.path}/lib');
+  if (!resolved.existsSync() || !tree.existsSync()) {
+    return 'in step by version (lib/ NOT COMPARED — one side is absent)';
+  }
+  final differing = _differingFiles(resolved, tree);
+  if (differing == 0) return 'in step';
+  return 'SAME VERSION, $differing FILE(S) DIFFER — the sibling was edited '
+      'without a version bump, so every version-based check reads it as in '
+      'step';
+}
+
+/// The number of files under [a] and [b] that differ or exist on one side.
+int _differingFiles(Directory a, Directory b) {
+  Map<String, File> index(Directory root) {
+    final prefix = '${root.path}${Platform.pathSeparator}';
+    return {
+      for (final f in root.listSync(recursive: true).whereType<File>())
+        if (f.path.startsWith(prefix)) f.path.substring(prefix.length): f,
+    };
+  }
+
+  final left = index(a);
+  final right = index(b);
+  var differing = 0;
+  for (final path in {...left.keys, ...right.keys}) {
+    final x = left[path];
+    final y = right[path];
+    if (x == null || y == null) {
+      differing++;
+      continue;
+    }
+    if (x.readAsBytesSync().length != y.readAsBytesSync().length ||
+        x.readAsStringSync() != y.readAsStringSync()) {
+      differing++;
+    }
+  }
+  return differing;
+}
+
 /// The attribution header for one corpus run, one line per fact.
 ///
 /// [parentDir] is the twin being run and [appDir] its companion app, both as
@@ -112,7 +255,44 @@ List<String> runAttributionLines({
     '${attributionPrefix}app: $appDir',
     ..._resolvedLines('resolved', parentDir),
     ..._resolvedLines('app-resolved', appDir, alsoInclude: identity.name),
+    ..._workingTreeLines('tree', parentDir),
   ];
+}
+
+/// Writes the notable working-tree lines to STDERR, so a sweep says out loud
+/// which interpreter it is about to certify.
+///
+/// STDERR SPECIFICALLY, and that is the whole mechanism. Every runner — six
+/// shell scripts and six PowerShell ones across the two twins — redirects only
+/// this program's STDOUT into `metrics.txt`. Writing the summary to stderr
+/// therefore reaches the console of all twelve without editing any of them,
+/// and keeps the header in the file byte-for-byte what it was, which is what
+/// `scd164_run_attribution_test.dart` and the `Verification runs` table read.
+///
+/// Only DRIFT is announced. A sweep whose resolutions are all in step prints
+/// nothing here, because a banner that appears every run is one nobody reads
+/// by the third time — and the recorded header still carries the full picture
+/// for anyone who wants it.
+void _announceDrift(List<String> lines) {
+  final drifted = [
+    for (final line in lines)
+      if (line.startsWith('${attributionPrefix}tree: ') &&
+          !line.endsWith('— in step'))
+        line.substring(attributionPrefix.length),
+  ];
+  if (drifted.isEmpty) return;
+  stderr.writeln(
+    'ATTRIBUTION: this run does NOT measure the working tree for '
+    '${drifted.length} package(s):',
+  );
+  for (final line in drifted) {
+    stderr.writeln('  $line');
+  }
+  stderr.writeln(
+    '  This is expected — the twins resolve the interpreter from pub.dev so '
+    'the corpus certifies what a consumer gets. Quote these versions in the '
+    '`Verification runs` entry rather than recalling them.',
+  );
 }
 
 /// Prints the header for `<parentDir> <appDir> <runId>`.
@@ -129,16 +309,15 @@ void main(List<String> args) {
       );
       return;
     }
-    stdout.writeAll(
-      runAttributionLines(
-        parentDir: args[0],
-        appDir: args[1],
-        runId: args[2],
-        startedAt: DateTime.now(),
-      ),
-      '\n',
+    final lines = runAttributionLines(
+      parentDir: args[0],
+      appDir: args[1],
+      runId: args[2],
+      startedAt: DateTime.now(),
     );
+    stdout.writeAll(lines, '\n');
     stdout.writeln();
+    _announceDrift(lines);
   } catch (e) {
     stdout.writeln('${attributionPrefix}attribution: FAILED — $e');
   }

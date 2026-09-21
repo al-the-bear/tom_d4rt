@@ -109,6 +109,8 @@ the companion app is resolved and before the first test file:
 ...
 # app-resolved: tom_d4rt_ast 0.65.0 (hosted)
 # app-resolved: tom_d4rt_flutter_ast 0.5.2 (path)
+# tree: tom_d4rt resolved 1.77.0, tree 1.138.0 — TREE AHEAD — this run measures the published copy, not the tree
+# tree: tom_ast_model resolved 0.2.2, tree 0.2.2 — in step
 ```
 
 **Why it exists.** Both twins gitignore `pubspec.lock`, so the interpreter a run
@@ -131,6 +133,31 @@ source is what says the app is wired to this working tree.
 and found none" is distinguishable from "never asked". So is a failed
 attribution (`# attribution: FAILED — ...`): it never aborts the run, because a
 run whose attribution failed is still a run worth having.
+
+**How far behind the tree, not just what was resolved.** The `tree:` lines
+compare each hosted `tom_` resolution against the sibling working tree beside
+this package. exec guards the same exposure by FAILING — `F-SCC80-3` in
+`tom_d4rt_exec/test/conformance_drift_test.dart` refuses a run that would
+certify an interpreter nobody is editing. **That does not port, and copying it
+here would have been wrong.** The twins resolve from pub.dev *deliberately*, so
+their corpora certify what a consumer actually gets; a gate would refuse every
+legitimate run and be switched off within a week. What was missing was not a
+gate but the number, which the `Verification runs` table previously carried
+from memory.
+
+**Equal versions are still compared, byte for byte.** A sibling whose
+`pubspec.yaml` says 0.1.7 while the published 0.1.7 holds different bytes is a
+package edited without a bump, and it reads as in step to every version-based
+check in the repo. That case reports `SAME VERSION, N FILE(S) DIFFER`. Where
+the package config does not name the resolved copy the verdict is
+`NOT COMPARED` — unknown, which is announced, because unknown is not in step.
+
+**Drift is announced on stderr**, so a sweep says out loud which interpreter it
+is about to certify. Every runner redirects only the attribution program's
+*stdout* into `metrics.txt`, so stderr reaches the console of all twelve
+without any runner being edited, and the header in the file stays byte-for-byte
+what the table is read from. A run whose resolutions are all in step prints
+nothing — a banner that appears every time is one nobody reads by the third.
 
 `test/scd164_run_attribution_test.dart` fails if any runner in either twin
 writes `metrics.txt` without attributing it — globbed from disk, `.sh` and
