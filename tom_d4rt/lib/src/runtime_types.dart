@@ -411,7 +411,7 @@ class InterpretedClass implements Callable, RuntimeType {
       }
       return fieldValue;
     }
-    throw RuntimeD4rtException(
+    throw RuntimeD4rtException.resolutionFailure(
       "Undefined static field '$name' on class '$this.name'.",
     );
   }
@@ -2635,7 +2635,7 @@ class InterpretedExtension {
   // Helper to get a static field
   Object? getStaticField(String name) {
     if (!staticFields.containsKey(name)) {
-      throw RuntimeD4rtException(
+      throw RuntimeD4rtException.resolutionFailure(
         "Extension '${this.name ?? '<unnamed>'}' has no static field '$name'.",
       );
     }
@@ -2645,7 +2645,7 @@ class InterpretedExtension {
   // Helper to set a static field
   void setStaticField(String name, Object? value) {
     if (!staticFields.containsKey(name)) {
-      throw RuntimeD4rtException(
+      throw RuntimeD4rtException.resolutionFailure(
         "Extension '${this.name ?? '<unnamed>'}' has no static field '$name'.",
       );
     }
@@ -2969,7 +2969,7 @@ class InterpretedExtensionTypeInstance implements RuntimeValue {
       return method.bind(this);
     }
 
-    throw RuntimeD4rtException(
+    throw RuntimeD4rtException.resolutionFailure(
       "Extension type '${extensionType.name}' has no property '$propertyName'",
     );
   }
@@ -2987,7 +2987,7 @@ class InterpretedExtensionTypeInstance implements RuntimeValue {
       setter.bind(this).call(visitor, [value], {});
       return;
     }
-    throw RuntimeD4rtException(
+    throw RuntimeD4rtException.resolutionFailure(
       "Extension type '${extensionType.name}' has no setter '$name'",
     );
   }

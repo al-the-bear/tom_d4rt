@@ -77,10 +77,15 @@ import 'dart:mirrors';
 import 'package:tom_d4rt/d4rt.dart'
     show
         D4rt,
+        D4rtNoSuchMethodError,
         FilesystemPermission,
         IsolatePermission,
         NetworkPermission,
-        ProcessRunPermission;
+        ProcessRunPermission,
+        RuntimeD4rtException,
+        UndefinedMemberD4rtException,
+        UndefinedNameD4rtException,
+        UndefinedStaticMemberD4rtException;
 import 'package:tom_d4rt/src/bridge/bridged_types.dart';
 import 'package:tom_d4rt/src/unbridged_reasons.dart';
 import 'package:tom_d4rt/src/stdlib/core.dart';
@@ -1241,6 +1246,137 @@ bool namesProcessGlobal(String code, String token) => RegExp(
 /// The distinction is the whole point of the verification pass: an argument-count
 /// `TypeError` or an `UnsupportedError` from a fixed-length list both mean the
 /// member *resolved*, so the candidate is a false positive.
+/// The interpreter files whose resolution failures the audit classifies.
+const kResolutionThrowFiles = <String>[
+  'lib/src/interpreter_visitor.dart',
+  'lib/src/callable.dart',
+  'lib/src/environment.dart',
+  'lib/src/runtime_types.dart',
+];
+
+/// Wordings that LOOK like a resolution failure, used only to raise an alarm.
+///
+/// SCE77. This is text matching, and it is deliberately still text matching —
+/// but it has been moved off the load-bearing path. It no longer decides
+/// whether a member exists; [RuntimeD4rtException.isResolutionFailure] does
+/// that, structurally, at the throw site. What this decides is whether the
+/// audit still TRUSTS ITSELF: an untagged throw whose message reads like a
+/// resolution failure means somebody added a throw site without tagging it,
+/// and the columns that classify failures can no longer be believed.
+///
+/// The asymmetry is what makes text acceptable here. A false positive costs one
+/// register entry; a false negative costs nothing that was not already lost.
+final RegExp kResolutionShapedMessage = RegExp(
+  r"(has no |Undefined |Unsupported |Cannot access |no constructor or static|not found in)",
+  caseSensitive: false,
+);
+
+/// Untagged throw sites whose wording reads like a resolution failure, each
+/// with the reason tagging it would make the audit INVENT gaps.
+///
+/// This is the `unverified-with-a-reason` shape the member columns already use,
+/// applied to the instrument's own vocabulary: the guard cannot be "every throw
+/// site must be recognised", because some of these wordings genuinely do not
+/// mean a name was absent.
+const kUntaggedResolutionShapedSites = <String, String>{
+  'Unsupported operator (':
+      'AMBIGUOUS. It fires both when the operator does not resolve and when the '
+      'operand types are simply wrong. SCD39 could only start classifying on it '
+      "in the OPERATOR path, where the probe's operand is derived from the SDK "
+      'signature and is therefore known to type-check — which is why it lives '
+      'in _isUnreachableOperatorError and not in the shared classifier.',
+  'Unsupported binary operator':
+      'Operator dispatch. Recognised textually by _isUnreachableError, and safe '
+      'there for the same reason as above.',
+  'Compound assignment operator':
+      'As above — operator dispatch, recognised in the operator path.',
+  'Unsupported target for index':
+      'The TARGET TYPE is unsupported; no member was looked up. Tagging it '
+      'would report every indexing of a non-indexable value as a missing '
+      'member.',
+  'Index access not supported on':
+      'A judgement about the TARGET TYPE in the cascade path: nothing was '
+      'looked up, and the same receiver fails identically for every name.',
+  'Index assignment target must be':
+      'The target is not a List or Map. A type judgement, not a member lookup '
+      '— the operand fails the same way whatever the member name.',
+  'Compound index assignment target must be':
+      'As the plain index assignment above: a judgement about what the target '
+      'IS, reached before any member name is considered.',
+  'not supported in cascade context':
+      'A limitation of the cascade path, not an absent member — the member may '
+      'exist and be perfectly reachable outside a cascade.',
+  "Cannot invoke method '\$methodName' on":
+      'A target-type judgement in the cascade path: the receiver cannot carry'
+      ' methods at all, which is not the same as lacking this one.',
+  "Cannot set property '\$propertyName' on":
+      'A target-type judgement in the cascade path: the receiver cannot carry'
+      ' properties at all, which is not the same as lacking this one.',
+  "Cannot get property '\$propertyName' for compound assignment on":
+      'The compound-assignment form of the setter case above, excluded for th'
+      'e same reason: the receiver TYPE is what failed, before any name.',
+  "Cannot access property '\$propertyName' on null":
+      'A NULL RECEIVER. Tagging it would score every null dereference as a '
+      'missing member, which is the direction the tool must never move in.',
+  'is not callable':
+      'The name resolved; the value it resolved to cannot be called.',
+  'Attempted to call something that is not a function':
+      'The call-site form of `is not callable` — the callee was found and '
+      'cannot be called, so no member is missing.',
+  'Unsupported type annotation for constraint':
+      'An annotation FORM the interpreter does not implement. Nothing was '
+      'looked up.',
+  'because it has no superclass':
+      'A structural fact about the class being constructed, reported before '
+      'any member name is looked up in a superclass that does not exist.',
+  'bridgedSuperObject is null':
+      "A null check on the interpreter's own state while walking a bridged "
+      'superclass, not a statement about whether the property exists.',
+  'Internal error:':
+      'An interpreter invariant. A script cannot provoke it by naming a member '
+      'that does not exist.',
+  "No operator '[]":
+      'Operator absence, which the operator path handles; classifying it here '
+      'as well would double-count it into the member columns.',
+};
+
+/// Resolution-shaped throw sites that are neither tagged nor registered.
+///
+/// Empty is the only acceptable answer. A non-empty result means the audit's
+/// failure-classifying columns cannot be believed, and [Reach.unverified] is
+/// what they must report — see the call site in `main`.
+List<String> unrecognisedResolutionThrowSites(String packageRoot) {
+  final out = <String>[];
+  for (final rel in kResolutionThrowFiles) {
+    final file = File('$packageRoot/$rel');
+    if (!file.existsSync()) continue;
+    final src = file.readAsStringSync();
+    for (final m in RegExp(
+      r'throw\s+RuntimeD4rtException\s*\(',
+    ).allMatches(src)) {
+      final arg = _balancedArgument(src, m.end - 1);
+      if (!kResolutionShapedMessage.hasMatch(arg)) continue;
+      if (kUntaggedResolutionShapedSites.keys.any(arg.contains)) continue;
+      final line = '\n'.allMatches(src.substring(0, m.start)).length + 1;
+      out.add('$rel:$line  ${arg.replaceAll(RegExp(r'\s+'), ' ').trim()}');
+    }
+  }
+  return out;
+}
+
+/// The text of the parenthesised argument starting at [open].
+String _balancedArgument(String src, int open) {
+  var depth = 0;
+  for (var i = open; i < src.length; i++) {
+    if (src[i] == '(') depth++;
+    if (src[i] == ')') {
+      depth--;
+      if (depth == 0) return src.substring(open, i + 1);
+    }
+  }
+  return src.substring(open, (open + 400).clamp(0, src.length));
+}
+
 bool _isUnreachableError(String message) =>
     message.contains('has no instance method named') ||
     message.contains('Undefined static member') ||
@@ -1503,17 +1639,28 @@ String _recipeSource(Recipe recipe, String body, {String extraImport = ''}) {
 class _ProbeOutcome {
   const _ProbeOutcome.completed({required this.isFalse})
     : error = null,
-      answered = true;
-  const _ProbeOutcome.threw(this.error) : isFalse = false, answered = true;
+      answered = true,
+      structuralResolutionFailure = false;
+  const _ProbeOutcome.threw(
+    this.error, {
+    this.structuralResolutionFailure = false,
+  }) : isFalse = false,
+       answered = true;
   const _ProbeOutcome.noAnswer()
     : error = null,
       isFalse = false,
-      answered = false;
+      answered = false,
+      structuralResolutionFailure = false;
 
   /// False when the probe timed out or its isolate died without reporting —
   /// nothing was measured, whatever the caller was hoping to learn.
   final bool answered;
   final String? error;
+
+  /// SCE77: the child isolate's verdict, taken from the exception OBJECT.
+  /// `true` means a name did not resolve, decided structurally rather than by
+  /// matching the message text.
+  final bool structuralResolutionFailure;
 
   /// Whether the program evaluated to Dart `false`. Only the hierarchy audit
   /// reads it (`o is Supertype`); the member diff classifies on [error] alone.
@@ -1554,16 +1701,38 @@ void _probeEntry(_ProbeRequest request) {
       // parent hears about it.
       result.then(
         (v) => request.reply.send([_probeTag, 'ok', v == false]),
-        onError: (Object e) =>
-            request.reply.send([_probeTag, 'threw', e.toString()]),
+        onError: (Object e) => request.reply.send([
+          _probeTag,
+          'threw',
+          e.toString(),
+          _isResolutionFailure(e),
+        ]),
       );
       return;
     }
     request.reply.send([_probeTag, 'ok', result == false]);
   } catch (e) {
-    request.reply.send([_probeTag, 'threw', e.toString()]);
+    request.reply.send([
+      _probeTag,
+      'threw',
+      e.toString(),
+      _isResolutionFailure(e),
+    ]);
   }
 }
+
+/// Whether [e] means A NAME DID NOT RESOLVE, decided from the OBJECT.
+///
+/// SCE77, and the reason it runs here rather than in the parent: probes execute
+/// in their own isolate and only a message crosses back, so the exception
+/// object exists only on this side. Classifying here and sending the verdict is
+/// what lets the audit stop deciding on text.
+bool _isResolutionFailure(Object e) =>
+    (e is RuntimeD4rtException && e.isResolutionFailure) ||
+    e is UndefinedMemberD4rtException ||
+    e is UndefinedStaticMemberD4rtException ||
+    e is UndefinedNameD4rtException ||
+    e is D4rtNoSuchMethodError;
 
 /// Runs one probe program in its own isolate, with a watchdog that can actually
 /// stop it.
@@ -1595,10 +1764,14 @@ Future<_ProbeOutcome> _runProbe(String source) async {
       onTimeout: (sink) => sink.close(),
     );
     await for (final message in answers) {
-      if (message is List && message.length == 3 && message[0] == _probeTag) {
+      if (message is List && message.length >= 3 && message[0] == _probeTag) {
         outcome = message[1] == 'ok'
             ? _ProbeOutcome.completed(isFalse: message[2] == true)
-            : _ProbeOutcome.threw('${message[2]}');
+            : _ProbeOutcome.threw(
+                '${message[2]}',
+                structuralResolutionFailure:
+                    message.length > 3 && message[3] == true,
+              );
         break;
       }
       if (message is List && message.length == 2) {
@@ -1633,6 +1806,10 @@ Future<Reach> _probe(String source, {required Reach onTimeout}) async {
   if (!outcome.answered) return onTimeout;
   final error = outcome.error;
   if (error == null) return Reach.reachable;
+  // SCE77: the structural verdict first. The text classifier stays as the
+  // fallback for throw sites not yet tagged — it is no longer the only thing
+  // standing between a new wording and a silently unfalsifiable column.
+  if (outcome.structuralResolutionFailure) return Reach.confirmedMissing;
   return _isUnreachableError(error) ? Reach.confirmedMissing : Reach.reachable;
 }
 
@@ -3343,6 +3520,39 @@ String? _optionValue(List<String> args, String name) {
 
 Future<void> main(List<String> args) async {
   _trace = args.contains('--trace');
+
+  // SCE77, and it runs BEFORE any probe because the answer decides whether the
+  // run may publish a measurement at all.
+  //
+  // The audit classifies failures, so if a resolution-failure throw site exists
+  // that is neither tagged nor registered, the columns that classify failures
+  // cannot be falsified: the probe runs, the error arrives, and it is scored as
+  // *reachable*. That is not a number with a caveat, it is a number that cannot
+  // be wrong — which SCD36 and SCD39 both established is worse than no number,
+  // because it gets published and believed. Twice in consecutive todos a whole
+  // column was silently unfalsifiable and only a planted defect revealed it.
+  //
+  // So the run refuses to report those columns rather than failing a test
+  // somewhere else and leaving the numbers looking fine.
+  final unrecognised = unrecognisedResolutionThrowSites(Directory.current.path);
+  if (unrecognised.isNotEmpty) {
+    stderr.writeln(
+      'UNVERIFIED: ${unrecognised.length} resolution-failure throw site(s) are '
+      'neither tagged with RuntimeD4rtException.resolutionFailure nor recorded '
+      'in kUntaggedResolutionShapedSites with a reason. Every column that '
+      'classifies a failure is unfalsifiable until that is resolved, so this '
+      "run's member, operator and return-type figures are NOT a measurement:",
+    );
+    for (final site in unrecognised) {
+      stderr.writeln('  $site');
+    }
+    stderr.writeln(
+      'Tag the site if it means a name did not resolve; register it with the '
+      'reason if tagging it would make the audit invent gaps.',
+    );
+    exit(2);
+  }
+
   final env = buildFullyRegisteredEnvironment();
 
   if (args.contains('--returns')) {

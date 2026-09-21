@@ -1663,7 +1663,7 @@ class Environment {
               } on RuntimeD4rtException catch (e) {
                 // If the identifier is not found in the prefixed environment, we want the original error to be propagated.
                 // Or, according to the desired semantics, we could raise a new error indicating that 'identifier' was not found IN 'prefix'.
-                throw RuntimeD4rtException(
+                throw RuntimeD4rtException.resolutionFailure(
                   "Undefined name '$identifier' in imported prefix '$prefix'. Original error: ${e.message}",
                   originalException: e.originalException,
                   originalStackTrace: e.originalStackTrace,
@@ -1871,7 +1871,9 @@ class Environment {
     Logger.debug(
       "[Env.assign] Variable '$name' not found for assignment, throwing error.",
     );
-    throw RuntimeD4rtException("Assigning to undefined variable '$name'.");
+    throw RuntimeD4rtException.resolutionFailure(
+      "Assigning to undefined variable '$name'.",
+    );
   }
 
   // Check if a variable is defined in *this* specific scope

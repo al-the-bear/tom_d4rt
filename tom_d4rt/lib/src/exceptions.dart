@@ -261,7 +261,49 @@ class RuntimeD4rtException extends D4rtException {
     super.message, {
     this.originalException,
     this.originalStackTrace,
-  });
+  }) : isResolutionFailure = false;
+
+  /// Whether this error means A NAME DID NOT RESOLVE — a member, operator,
+  /// constructor or variable that the receiver does not have — as opposed to
+  /// something failing inside a member that was found.
+  ///
+  /// SCE77. The gap audit decides whether a member exists by classifying the
+  /// error the interpreter produced, and it did that by MATCHING THE TEXT
+  /// against a hand-written list of wordings. Nothing connected that list to
+  /// the places the interpreter throws from, so a wording the list did not
+  /// know made a whole column silently unfalsifiable: the probe ran, the error
+  /// arrived, and it was scored as *reachable*. That happened twice in
+  /// consecutive todos — SCD36's `Cannot access property 'x' on target of type
+  /// _Foo` left the return-type pass reporting 0 of 411 while blind to every
+  /// gap it existed to find, and SCD39's operator wording did the same to the
+  /// operator column. Both were found by planting a defect; no passing test
+  /// could have found either.
+  ///
+  /// This flag is the tie. It is set by [RuntimeD4rtException.resolutionFailure]
+  /// at the throw site, so the set of resolution failures is STRUCTURAL rather
+  /// than textual and a reworded message cannot silently leave it.
+  ///
+  /// WHY A FLAG AND A NAMED CONSTRUCTOR RATHER THAN A SUBTYPE. Every `catch`
+  /// clause and every `is RuntimeD4rtException` test in both trees keeps
+  /// working unchanged, which SCE67 established is load-bearing: the supertype
+  /// there was ADDED, not swapped, precisely because the hierarchy is consulted
+  /// for control flow in eight places per visitor. A new subtype would have
+  /// changed what those sites see.
+  final bool isResolutionFailure;
+
+  /// A runtime error meaning THE NAME DID NOT RESOLVE.
+  ///
+  /// Use this only where the failure is that a member, operator, constructor or
+  /// variable is ABSENT. Do NOT use it where the name resolved and the
+  /// operation then failed for another reason — an ill-typed operand, a null
+  /// receiver, an unsupported target type. The audit reads this flag as
+  /// "confirmed missing", so a mis-tagged site makes the tool invent gaps,
+  /// which is the one direction it must never move in.
+  RuntimeD4rtException.resolutionFailure(
+    super.message, {
+    this.originalException,
+    this.originalStackTrace,
+  }) : isResolutionFailure = true;
 
   @override
   String toString() => 'Runtime Error: $message';

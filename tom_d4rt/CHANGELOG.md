@@ -1,3 +1,38 @@
+## 1.145.0
+
+### Changed — resolution failures are now marked at the throw site (sce77)
+
+`RuntimeD4rtException.resolutionFailure` is a new named constructor setting a
+new `isResolutionFailure` flag. 52 throw sites across `interpreter_visitor`,
+`callable`, `environment` and `runtime_types` use it: the ones that mean A NAME
+DID NOT RESOLVE — an absent member, constructor, enum value or variable.
+
+Nothing about the hierarchy changed, and that is deliberate. Every `catch`
+clause and every `is RuntimeD4rtException` test keeps working unchanged, which
+sce67 established is load-bearing — the supertype there was ADDED rather than
+swapped precisely because the hierarchy is consulted for control flow in eight
+places per visitor. A new subtype would have changed what those sites see. The
+messages are untouched too.
+
+WHY. The gap audit decides whether a member exists by classifying the error the
+interpreter produced, and it did that by matching the TEXT against a
+hand-written list of wordings. Nothing connected that list to the places the
+interpreter throws from, so a wording the list did not know made a whole audit
+column silently unfalsifiable: the probe ran, the error arrived, and it was
+scored as *reachable*. That happened twice in consecutive todos — scd36's
+`Cannot access property 'x' on target of type _Foo` left the return-type pass
+reporting 0 of 411 while blind to every gap it existed to find, and scd39's
+operator wording did the same to the operator column. Both were found by
+planting a defect; no passing test could have found either.
+
+The flag ties the two together structurally, so a reworded message can no
+longer leave the set silently.
+
+Sites whose wording READS like a resolution failure but is not one are recorded
+rather than tagged — `Unsupported operator (...)` fires both when an operator
+does not resolve and when the operand types are wrong, and tagging it would make
+the audit report gaps it invented.
+
 ## 1.144.0
 
 ### Changed (BREAKING for TLS scripts) — installing key material now needs CertificatePermission (sce74h)

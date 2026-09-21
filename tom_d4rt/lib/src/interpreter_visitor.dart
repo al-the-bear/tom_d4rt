@@ -901,7 +901,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         );
         return thisInstance.get(name, this);
       }
-      throw RuntimeD4rtException(
+      throw RuntimeD4rtException.resolutionFailure(
         "Undefined variable: $name (this exists as native type ${thisInstance?.runtimeType}",
       );
     } on RuntimeD4rtException catch (thisErr) {
@@ -1609,7 +1609,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         if (record.namedFields.containsKey(memberName)) {
           return record.namedFields[memberName];
         } else {
-          throw RuntimeD4rtException(
+          throw RuntimeD4rtException.resolutionFailure(
             "Record has no field named '$memberName'. Available fields: ${record.namedFields.keys.join(', ')}",
           );
         }
@@ -1650,7 +1650,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       if (enumValue != null) {
         return enumValue; // Return the BridgedEnumValue
       } else {
-        throw RuntimeD4rtException(
+        throw RuntimeD4rtException.resolutionFailure(
           "Undefined enum value '$memberName' on bridged enum '${prefixValue.name}'.",
         );
       }
@@ -1699,7 +1699,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             name: 'toString',
           );
       }
-      throw RuntimeD4rtException(
+      throw RuntimeD4rtException.resolutionFailure(
         "Cannot access property '$memberName' on function. Functions only support 'hashCode', 'runtimeType', and 'toString'.",
       );
     } else {
@@ -1782,7 +1782,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         }
       }
 
-      throw RuntimeD4rtException(
+      throw RuntimeD4rtException.resolutionFailure(
         "Cannot access property '$memberName' on target of type ${prefixValue?.runtimeType}.",
       );
     }
@@ -2896,7 +2896,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             }
           } else {
             // 'this' exists but is not an InterpretedInstance or BridgedInstance
-            throw RuntimeD4rtException(
+            throw RuntimeD4rtException.resolutionFailure(
               "Assigning to undefined variable '$variableName'.",
             );
           }
@@ -2932,7 +2932,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               e is UndefinedStaticMemberD4rtException) {
             rethrow; // Propagate specific error from get/set
           }
-          throw RuntimeD4rtException(
+          throw RuntimeD4rtException.resolutionFailure(
             "Assigning to undefined variable '$variableName'.",
           );
         }
@@ -3041,7 +3041,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               instance.set(propertyName, rhsValue);
               return rhsValue;
             } catch (e) {
-              throw RuntimeD4rtException(
+              throw RuntimeD4rtException.resolutionFailure(
                 "Setter for '$propertyName' not found in superclass chain of '${instance.klass.name}' for 'super' assignment: $e",
               );
             }
@@ -3345,7 +3345,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             }
           } else {
             // No setter found
-            throw RuntimeD4rtException(
+            throw RuntimeD4rtException.resolutionFailure(
               "Setter for '$propertyName' not found in bridged superclass '${bridgedSuper.name}' for 'super' assignment.",
             );
           }
@@ -3525,7 +3525,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             propertyName,
           );
           if (staticSetter == null) {
-            throw RuntimeD4rtException(
+            throw RuntimeD4rtException.resolutionFailure(
               "Bridged class '${bridgedClass.name}' has no static setter named '$propertyName'.",
             );
           }
@@ -3584,7 +3584,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               "[Assignment] Assigned to static extension field '${extension.name ?? '<unnamed>'}.$propertyName'.",
             );
           } else {
-            throw RuntimeD4rtException(
+            throw RuntimeD4rtException.resolutionFailure(
               "Extension '${extension.name ?? '<unnamed>'}' has no static setter or field named '$propertyName'.",
             );
           }
@@ -4142,7 +4142,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           // but a function retrieved from this environment.
           // Functions obtained in this way are already "autonomous" or correctly bound if they come from classes.
         } on RuntimeD4rtException catch (e) {
-          throw RuntimeD4rtException(
+          throw RuntimeD4rtException.resolutionFailure(
             "Method '$methodName' not found in imported module '${node.target!.toSource()}'. Error: ${e.message}",
             originalException: e.originalException,
             originalStackTrace: e.originalStackTrace,
@@ -4310,7 +4310,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                 }
               }
 
-              throw RuntimeD4rtException(
+              throw RuntimeD4rtException.resolutionFailure(
                 "Instance of '${targetValue.klass.name}' has no method named '$methodName'. Error during extension lookup: ${findError.message}. Original error: (${e.message})",
                 originalException: findError.originalException,
                 originalStackTrace: findError.originalStackTrace,
@@ -4396,7 +4396,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               Logger.debug(
                 "[MethodInvocation] Error during extension lookup for '$methodName' on enum value: ${findError.message}. Rethrowing original error.",
               );
-              throw RuntimeD4rtException(
+              throw RuntimeD4rtException.resolutionFailure(
                 "Enum value '$targetValue' has no method named '$methodName'. Error during extension lookup: ${findError.message}. Original error: (${e.message})",
                 originalException: findError.originalException,
                 originalStackTrace: findError.originalStackTrace,
@@ -4661,7 +4661,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               );
             }
           } on RuntimeD4rtException catch (findError) {
-            throw RuntimeD4rtException(
+            throw RuntimeD4rtException.resolutionFailure(
               "Bridged class '${bridgedClass.name}' has no instance method named '$methodName'. Error during extension lookup: ${findError.message}",
               originalException: findError.originalException,
               originalStackTrace: findError.originalStackTrace,
@@ -4747,7 +4747,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                 node.argumentList.arguments.isEmpty) {
               return targetValue.name;
             }
-            throw RuntimeD4rtException(
+            throw RuntimeD4rtException.resolutionFailure(
               "Class '${targetValue.name}' has no static method or named constructor named '$methodName'.",
             );
           }
@@ -4775,7 +4775,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             // Before throwing, let's check if it's a built-in method call like 'values'
             // This could potentially be handled by the stdlib call later, but maybe check here?
             // For now, assume only user-defined static methods are intended.
-            throw RuntimeD4rtException(
+            throw RuntimeD4rtException.resolutionFailure(
               "Enum '${targetValue.name}' has no static method named '$methodName'.",
             );
           }
@@ -4790,7 +4790,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             "[MethodInvocation] Found static method '$methodName' on extension '${extension.name ?? '<unnamed>'}'",
           );
         } else {
-          throw RuntimeD4rtException(
+          throw RuntimeD4rtException.resolutionFailure(
             "Extension '${extension.name ?? '<unnamed>'}' has no static method named '$methodName'.",
           );
         }
@@ -4851,7 +4851,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           if (node.argumentList.arguments.isEmpty && methodName == 'toString') {
             return targetValue.name;
           }
-          throw RuntimeD4rtException(
+          throw RuntimeD4rtException.resolutionFailure(
             "Undefined static method '$methodName' on bridged enum '${targetValue.name}'.",
           );
         }
@@ -5062,7 +5062,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                 node.argumentList.arguments.isEmpty) {
               return bridgedClass.name;
             }
-            throw RuntimeD4rtException(
+            throw RuntimeD4rtException.resolutionFailure(
               "Bridged class '${bridgedClass.name}' has no constructor or static method named '$methodName'.",
             );
           }
@@ -5087,7 +5087,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           // Bind the found super method to the original instance ('this')
           calleeValue = superMethod.bind(instance);
         } else {
-          throw RuntimeD4rtException(
+          throw RuntimeD4rtException.resolutionFailure(
             "Method '$methodName' not found in superclass chain of '${instance.klass.name}'.",
           );
         }
@@ -5163,7 +5163,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             );
           }
         } else {
-          throw RuntimeD4rtException(
+          throw RuntimeD4rtException.resolutionFailure(
             "Method '$methodName' not found in bridged superclass '${bridgedSuper.name}'.",
           );
         }
@@ -5899,7 +5899,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       }
 
       // Not found
-      throw RuntimeD4rtException(
+      throw RuntimeD4rtException.resolutionFailure(
         "Undefined static property '$propertyName' on enum '${target.name}'.",
       );
     } else if (target is InterpretedClass) {
@@ -6209,7 +6209,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         if (record.namedFields.containsKey(propertyName)) {
           return record.namedFields[propertyName];
         } else {
-          throw RuntimeD4rtException(
+          throw RuntimeD4rtException.resolutionFailure(
             "Record has no field named '$propertyName'. Available fields: ${record.namedFields.keys.join(', ')}",
           );
         }
@@ -6229,7 +6229,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       if (enumValue != null) {
         return enumValue; // Return the BridgedEnumValue
       } else {
-        throw RuntimeD4rtException(
+        throw RuntimeD4rtException.resolutionFailure(
           "Undefined enum value '$propertyName' on bridged enum '${target.name}'.",
         );
       }
@@ -7580,12 +7580,12 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           if (getter != null) {
             actualTarget = getter(this, bridgedInstance.nativeObject);
           } else {
-            throw RuntimeD4rtException(
+            throw RuntimeD4rtException.resolutionFailure(
               "Property '$propertyName' not found on ${bridgedInstance.bridgedClass.name} in cascade.",
             );
           }
         } else {
-          throw RuntimeD4rtException(
+          throw RuntimeD4rtException.resolutionFailure(
             "Cannot access property '$propertyName' on ${targetValue.runtimeType} in cascade.",
           );
         }
@@ -7639,7 +7639,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           evaluatedTypeArguments,
         );
       } else {
-        throw RuntimeD4rtException(
+        throw RuntimeD4rtException.resolutionFailure(
           "Bridged instance method '$methodName' not found in cascade.",
         );
       }
@@ -7666,7 +7666,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           evaluatedTypeArguments,
         );
       } else {
-        throw RuntimeD4rtException(
+        throw RuntimeD4rtException.resolutionFailure(
           "Bridged instance method '$methodName' not found in cascade.",
         );
       }
@@ -7815,7 +7815,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         return getter(this, bridgedInstance.nativeObject);
       }
       // If no getter, maybe it's a method to be used in assignment? Unlikely.
-      throw RuntimeD4rtException(
+      throw RuntimeD4rtException.resolutionFailure(
         "Bridged instance property '$propertyName' (getter) not found in cascade.",
       );
     } else if (interpreted != null) {
@@ -7824,7 +7824,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       // properties; matches the legacy `else { return member; }` path).
       return interpreted.get(propertyName);
     } else {
-      throw RuntimeD4rtException(
+      throw RuntimeD4rtException.resolutionFailure(
         "property '$propertyName' (getter) not found in cascade.",
       );
     }
@@ -7943,7 +7943,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             final getter = bridgedInstance.bridgedClass
                 .findInstanceGetterAdapter(propertyName);
             if (getter == null) {
-              throw RuntimeD4rtException(
+              throw RuntimeD4rtException.resolutionFailure(
                 "No getter '$propertyName' for compound assignment in cascade.",
               );
             }
@@ -7982,7 +7982,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             propertyName,
           );
           if (setter == null) {
-            throw RuntimeD4rtException(
+            throw RuntimeD4rtException.resolutionFailure(
               "No setter '$propertyName' for assignment in cascade.",
             );
           }
@@ -8134,7 +8134,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             final getter = bridgedInstance.bridgedClass
                 .findInstanceGetterAdapter(propertyName);
             if (getter == null) {
-              throw RuntimeD4rtException(
+              throw RuntimeD4rtException.resolutionFailure(
                 "No getter '$propertyName' for compound assignment in cascade.",
               );
             }
@@ -8170,7 +8170,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             propertyName,
           );
           if (setter == null) {
-            throw RuntimeD4rtException(
+            throw RuntimeD4rtException.resolutionFailure(
               "No setter '$propertyName' for assignment in cascade.",
             );
           }
@@ -9370,7 +9370,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             } else if (extension.staticFields.containsKey(propertyName)) {
               currentValue = extension.getStaticField(propertyName);
             } else {
-              throw RuntimeD4rtException(
+              throw RuntimeD4rtException.resolutionFailure(
                 "Extension '${extension.name}' has no static field or getter named '$propertyName'.",
               );
             }
@@ -9394,7 +9394,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             } else if (extension.staticFields.containsKey(propertyName)) {
               extension.setStaticField(propertyName, newValue);
             } else {
-              throw RuntimeD4rtException(
+              throw RuntimeD4rtException.resolutionFailure(
                 "Extension '${extension.name}' has no static setter or field named '$propertyName'.",
               );
             }
@@ -9854,7 +9854,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         } else if (extension.staticFields.containsKey(propertyName)) {
           currentValue = extension.getStaticField(propertyName);
         } else {
-          throw RuntimeD4rtException(
+          throw RuntimeD4rtException.resolutionFailure(
             "Extension '${extension.name}' has no static field or getter named '$propertyName'.",
           );
         }
@@ -9880,7 +9880,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         } else if (extension.staticFields.containsKey(propertyName)) {
           extension.setStaticField(propertyName, newValue);
         } else {
-          throw RuntimeD4rtException(
+          throw RuntimeD4rtException.resolutionFailure(
             "Extension '${extension.name}' has no static setter or field named '$propertyName'.",
           );
         }
@@ -14925,7 +14925,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       constructorName,
     );
     if (constructorAdapter == null) {
-      throw RuntimeD4rtException(
+      throw RuntimeD4rtException.resolutionFailure(
         "Bridged superclass '${bridgedSuper.name}' has no constructor named '$constructorName'.",
       );
     }
@@ -15166,7 +15166,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             return dyn.$9;
         }
       } on NoSuchMethodError {
-        throw RuntimeD4rtException(
+        throw RuntimeD4rtException.resolutionFailure(
           "Native record has no positional field \$$index. Record: $record",
         );
       }
@@ -15174,7 +15174,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         "Native record positional field \$$index exceeds the supported arity (max 9).",
       );
     }
-    throw RuntimeD4rtException(
+    throw RuntimeD4rtException.resolutionFailure(
       "Cannot access named field '$fieldName' on a native Dart record. "
       "Native records expose positional fields ('\$1', '\$2', …) but their "
       "named fields are not reflectively accessible without `dart:mirrors`.",

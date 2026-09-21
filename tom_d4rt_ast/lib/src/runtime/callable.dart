@@ -2219,7 +2219,7 @@ class InterpretedFunction implements Callable {
       final klass = typeValue;
       final targetConstructor = klass.findConstructor(namedCtorPart);
       if (targetConstructor == null) {
-        throw RuntimeD4rtException(
+        throw RuntimeD4rtException.resolutionFailure(
           "Redirecting factory target '$className' has no constructor named '$namedCtorPart'.",
         );
       }
@@ -2240,7 +2240,7 @@ class InterpretedFunction implements Callable {
         namedCtorPart,
       );
       if (constructorAdapter == null) {
-        throw RuntimeD4rtException(
+        throw RuntimeD4rtException.resolutionFailure(
           "Redirecting factory target bridged class '$className' has no constructor named '$namedCtorPart'.",
         );
       }
