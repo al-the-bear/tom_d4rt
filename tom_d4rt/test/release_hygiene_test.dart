@@ -285,6 +285,125 @@ List<String> _libCommitsAfterLastBump(String package, String head) {
   return log.isEmpty ? const [] : log.split('\n');
 }
 
+/// Whether a lib change is covered, given the four facts that decide it.
+///
+/// SCE72. Pulled out as a pure function because the alternative — driving the
+/// decision by setting `PUB_CACHE` — does not work and LOOKS like it does:
+/// pointing `PUB_CACHE` at an empty directory breaks `dart test`'s own package
+/// resolution ("Could not find `bin/test.dart` in package `test`"), so the run
+/// dies before the case executes and a grep for a failure line reports a pass.
+/// The cold-cache behaviour was "verified" that way once and was measuring
+/// nothing; worse, it rewrote this package's config to point at a temporary
+/// directory, which `dart pub get` had to repair. A table over this function
+/// is checkable. An environment is not.
+bool _changeIsCovered({
+  required bool versionMoved,
+  required bool cacheUsable,
+  required bool headingUnpublished,
+  required bool changelogTouched,
+}) {
+  // A bump always covers: that is the pre-SCE72 rule and it still holds.
+  if (versionMoved) return true;
+  // The relaxation needs BOTH that the newest heading has not shipped and that
+  // this machine can establish it. A cold cache cannot, and guessing
+  // "unpublished" there would let a change ship inside a section already on
+  // pub.dev, which can never be edited — worse than the late report SCE72 is
+  // about. So a cold cache falls back to demanding the bump.
+  if (!cacheUsable || !headingUnpublished) return false;
+  return changelogTouched;
+}
+
+/// Whether this machine's pub cache can be used to tell published from not.
+///
+/// SCE72. The relaxation below needs to know whether the newest CHANGELOG
+/// heading has shipped. `scc45_resolution_guard_test.dart` settled how to ask
+/// that without a network call — a version is published when
+/// `~/.pub-cache/hosted/pub.dev/<pkg>-<ver>/` exists — and recorded the
+/// inference's one direction: a COLD cache proves nothing.
+///
+/// Here a cold cache is dangerous rather than merely uninformative. Treating a
+/// published version as unpublished would let a commit ship inside a section
+/// that is already on pub.dev and can never be edited, which is worse than the
+/// late report this todo is about. So an empty or missing cache falls back to
+/// the strict pre-SCE72 rule: the version identifier must move.
+bool _pubCacheIsUsable() {
+  final dir = _pubCacheDir();
+  return dir.existsSync() && dir.listSync().isNotEmpty;
+}
+
+Directory _pubCacheDir() {
+  final env = Platform.environment;
+  final home = env['HOME'] ?? env['USERPROFILE'] ?? '';
+  final override = env['PUB_CACHE'];
+  return Directory(
+    override != null && override.isNotEmpty
+        ? '$override/hosted/pub.dev'
+        : '$home/.pub-cache/hosted/pub.dev',
+  );
+}
+
+/// Whether `<package>-<version>` is on this machine's pub cache, i.e. shipped.
+bool _isPublished(String package, String version) =>
+    Directory('${_pubCacheDir().path}/$package-$version').existsSync();
+
+/// The version of the newest `## x.y.z` heading in [package]'s CHANGELOG.
+String? _newestChangelogVersion(String package) {
+  final file = File('${_packages[package]}/CHANGELOG.md');
+  if (!file.existsSync()) return null;
+  final match = RegExp(
+    r'^##\s+(\d+\.\d+\.\d+[^\s]*)\s*$',
+    multiLine: true,
+  ).firstMatch(file.readAsStringSync());
+  return match?.group(1);
+}
+
+/// Commits in `anchor..head` that touched [package]'s CHANGELOG.
+Set<String> _commitsTouchingChangelog(
+  String package,
+  String anchor,
+  String head,
+) {
+  final log = _git([
+    'log',
+    '--format=%h',
+    '$anchor..$head',
+    '--',
+    '${_gitPaths[package]}/CHANGELOG.md',
+  ]);
+  return log.isEmpty ? <String>{} : log.split('\n').toSet();
+}
+
+/// Library files of [package] changed in the WORKING TREE, staged or not.
+///
+/// The half F-SCC17-3 could not see. `git log` is blind to an edit that has
+/// not been committed, so the guard was green in the run that would have
+/// prevented the mistake and red only in the next todo's run, by which time
+/// the commit was pushed. Same path filter as the committed half, so the two
+/// agree about what "library code" means.
+List<String> _uncommittedLibChanges(String package) {
+  final out = _git([
+    'status',
+    '--porcelain',
+    '--',
+    '${_gitPaths[package]}/lib/*.dart',
+    ':(exclude)${_gitPaths[package]}/lib/src/version.versioner.dart',
+  ]);
+  if (out.isEmpty) return const [];
+  return out
+      .split('\n')
+      .where((l) => l.trim().isNotEmpty)
+      .map((l) => l.trim())
+      .toList();
+}
+
+/// Whether [package]'s CHANGELOG is modified in the working tree.
+bool _changelogTouchedInTree(String package) => _git([
+  'status',
+  '--porcelain',
+  '--',
+  '${_gitPaths[package]}/CHANGELOG.md',
+]).trim().isNotEmpty;
+
 String _declaredVersion(String package) {
   final pubspec = File('${_packages[package]}/pubspec.yaml').readAsLinesSync();
   for (final line in pubspec) {
@@ -409,13 +528,63 @@ void main() {
 
       test('F-SCC17-3/$package: no library change has landed since the last '
           'version bump [2026-09-04] (PASS)', () {
-        final orphans = _libCommitsAfterLastBump(package, 'HEAD');
+        // SCE72 changed WHEN this can speak and WHAT counts as covering a
+        // change. Both were measured defects, not preferences.
+        //
+        // WHEN. It read committed history only, so it could not fail in the
+        // run that would prevent the mistake. The workflow is change lib → run
+        // the suite → commit; at the run the offending commit does not exist,
+        // and nobody runs the suite again after committing. Observed twice in
+        // one session: scd34 committed a lib change under an already-written
+        // heading with a green suite behind it, and scd35's run reported it
+        // the next day, naming a commit that was already pushed. The working
+        // tree is now read too, so the ordinary pre-commit run is red.
+        //
+        // WHAT COUNTS. Requiring the version IDENTIFIER to move meant an
+        // unpublished version could absorb at most one commit before needing
+        // another bump — three unpublished versions were live at once while
+        // pub.dev sat a release behind. A commit is now covered when the
+        // newest CHANGELOG heading is UNPUBLISHED and the same commit added
+        // prose to it. That keeps the guarantee that matters — nothing ships
+        // undescribed — without minting a version per commit.
+        //
+        // The relaxation is refused on a cold pub cache, where "unpublished"
+        // cannot be established: see [_pubCacheIsUsable].
+        final anchor = _lastVersionBump(package, 'HEAD');
+        final newest = _newestChangelogVersion(package);
+        final relaxed =
+            _pubCacheIsUsable() &&
+            newest != null &&
+            !_isPublished(package, newest);
+
+        final described = relaxed
+            ? _commitsTouchingChangelog(package, anchor, 'HEAD')
+            : const <String>{};
+        final orphans = [
+          for (final line in _libCommitsAfterLastBump(package, 'HEAD'))
+            if (!described.contains(line.split(' ').first)) line,
+        ];
+
+        // The working-tree half. A lib edit with no bump AND no CHANGELOG
+        // prose beside it is the state that becomes the next orphan commit.
+        final treeLib = _uncommittedLibChanges(package);
+        final treeCovered = _changeIsCovered(
+          versionMoved:
+              _declaredVersion(package) != _versionAt(package, 'HEAD'),
+          cacheUsable: _pubCacheIsUsable(),
+          headingUnpublished: newest != null && !_isPublished(package, newest),
+          changelogTouched: _changelogTouchedInTree(package),
+        );
+        final treeOrphans = treeLib.isEmpty || treeCovered
+            ? const <String>[]
+            : ['(uncommitted) ${treeLib.join(', ')}'];
+
         expect(
-          orphans,
+          [...orphans, ...treeOrphans],
           isEmpty,
           reason: _orphanReason(
             package: package,
-            orphans: orphans,
+            orphans: [...orphans, ...treeOrphans],
             treeVersion: _declaredVersion(package),
             committedVersion: _versionAt(package, 'HEAD'),
           ),
@@ -427,6 +596,58 @@ void main() {
     // way to check that the message says which one it is, is to render it —
     // the reason string is built whether or not the expectation fails, so it is
     // reachable without manufacturing a red tree.
+    test('F-SCE72-1: the coverage rule, every row [2026-09-21]', () {
+      // The decision F-SCC17-3 makes, checked directly. Driving it through the
+      // environment is not an option — see [_changeIsCovered] — so the rule is
+      // a pure function and this is its truth table.
+      bool covered({
+        bool versionMoved = false,
+        bool cacheUsable = true,
+        bool headingUnpublished = true,
+        bool changelogTouched = false,
+      }) => _changeIsCovered(
+        versionMoved: versionMoved,
+        cacheUsable: cacheUsable,
+        headingUnpublished: headingUnpublished,
+        changelogTouched: changelogTouched,
+      );
+
+      // A bump covers unconditionally — the pre-SCE72 rule, unchanged.
+      expect(covered(versionMoved: true), isTrue);
+      expect(
+        covered(versionMoved: true, cacheUsable: false),
+        isTrue,
+        reason: 'a bump does not need the cache to be readable',
+      );
+
+      // The relaxation: unpublished heading + prose beside the change.
+      expect(covered(changelogTouched: true), isTrue);
+      expect(
+        covered(),
+        isFalse,
+        reason:
+            'an unpublished heading alone is not cover — something has to '
+            'describe the change, which is the guarantee being kept',
+      );
+
+      // Already published: the section cannot be edited, so only a bump will
+      // do. This is the row that matters most, because getting it wrong ships
+      // a change inside a release that is already on pub.dev.
+      expect(
+        covered(headingUnpublished: false, changelogTouched: true),
+        isFalse,
+        reason: 'prose cannot be added to a section that has already shipped',
+      );
+
+      // Cold cache: "unpublished" cannot be established, so fall back to
+      // demanding the bump rather than guessing in the dangerous direction.
+      expect(
+        covered(cacheUsable: false, changelogTouched: true),
+        isFalse,
+        reason: 'with no cache to read, the relaxation is refused',
+      );
+    });
+
     test('F-SCD150-1: the failure text distinguishes an uncommitted bump from '
         'a missing one [2026-09-15]', () {
       const orphans = ['abc1234 some lib change'];
