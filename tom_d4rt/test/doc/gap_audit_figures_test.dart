@@ -151,11 +151,16 @@ void main() {
       // Five rows were stale that way before SCD46, each naming members that
       // resolve from a script. A table that documents absent limitations
       // misleads exactly as much as one that omits present ones.
-      const exempt = {'F-SCC13-0', 'F-SCC13-1', 'F-SCC13-2', 'F-SCC13-3'};
+      // No exemption set, and there used to be one: `{'F-SCC13-0', ...}`,
+      // removed from every match before the difference was taken. It removed
+      // nothing it could ever have removed — the capture is `[A-Za-z_]\w*`,
+      // which has no hyphen, so a test id could not be among the matches in
+      // the first place. Protection that cannot fire reads as protection,
+      // which is the thing this corner of the tree exists to stop doing.
       final tableRows = RegExp(
         r'^\| `([A-Za-z_]\w*)` \| \d+ \| \d+ \| \d+ \|',
         multiLine: true,
-      ).allMatches(text).map((m) => m.group(1)!).toSet()..removeAll(exempt);
+      ).allMatches(text).map((m) => m.group(1)!).toSet();
       final stale = tableRows.difference(withGaps).toList()..sort();
       expect(
         stale,

@@ -1314,6 +1314,13 @@ const Map<String, int> _uncoveredBaseline = {
   'doc/gap_audit_figures_test.dart': 5,
   // NOT PORTABLE — `tool/stdlib_member_diff.dart`, as above.
   'scd39_operator_probe_operands_test.dart': 5,
+  // NOT PORTABLE — `tool/stdlib_member_diff.dart` again, and here the tool is
+  // the SUBJECT rather than an instrument: the cases render the two baseline
+  // sources from synthetic input and analyze the result, and drive the tool as
+  // a process to check that `--only` with `--baseline` refuses. exec has
+  // neither the tool nor the baselines it writes. pin-registered: n/a —
+  // nothing a publish can change.
+  'stdlib/sce86_baseline_renderer_test.dart': 6,
   // NOT PORTABLE — `tool/stdlib_member_diff.dart`, as above.
   'stdlib/typed_data/scd167_variant_parity_test.dart': 4,
   // SCD200's nine, and none of them is a guess: each was ported into ztmp and
