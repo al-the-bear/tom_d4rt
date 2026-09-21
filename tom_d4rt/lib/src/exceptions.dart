@@ -297,7 +297,40 @@ class RuntimeD4rtException extends D4rtException {
 /// failures raise — the ones reached after extension resolution and any user
 /// `noSuchMethod` have had their chance. This type marks the intermediate
 /// failures, the ones that are still a question rather than an answer.
-class UndefinedMemberD4rtException extends RuntimeD4rtException {
+/// **Catchable as `NoSuchMethodError`, like [D4rtNoSuchMethodError] (sce67).**
+/// Asking a receiver for a member it does not have used to report two ways
+/// decided by the member KIND rather than by anything a script can see: a
+/// missing METHOD raised [D4rtNoSuchMethodError] and was catchable as the SDK
+/// type, a missing GETTER raised this and was not. So
+/// `try { ... } on NoSuchMethodError catch (_)` handled one half of the same
+/// failure and missed the other. F-SCC8-5's reasoning — "a missing member is
+/// the same failure real Dart reports at runtime, and asserting the SDK
+/// supertype means a script can catch it the way it would catch the real one"
+/// — does not stop applying at getters.
+///
+/// The supertype is ADDED, not swapped: this stays a [RuntimeD4rtException],
+/// so every existing `on RuntimeD4rtException` clause and every internal
+/// `is UndefinedMemberD4rtException` test is unaffected. Those internal tests
+/// are why the intermediate/final distinction below still holds — they select
+/// on this exact type, never on the SDK supertype.
+///
+/// **STATIC member absence is deliberately NOT given this supertype**, and nor
+/// is [UndefinedNameD4rtException] (scc31). Real Dart rejects `Klass.missing`
+/// and a bare undefined name at COMPILE time, so there is no runtime
+/// `NoSuchMethodError` for a script to catch; inventing one would make d4rt
+/// strictly more catchable than the platform, which is the mistake
+/// [D4rtRangeError] records for `IndexError`. Instance access is different:
+/// d4rt receivers are effectively dynamic, and dynamic access to a missing
+/// member IS a runtime `NoSuchMethodError` in real Dart.
+class UndefinedMemberD4rtException extends RuntimeD4rtException
+    implements NoSuchMethodError {
+  /// The stack trace `Error` requires, sourced from the tracking field this
+  /// type already carries. Null when tracking was off, which is what the SDK
+  /// reports for an error that was never thrown through a zone that captured
+  /// one.
+  @override
+  StackTrace? get stackTrace => trackedStackTrace;
+
   /// The member that was not found. Compared by equality, never parsed.
   final String memberName;
 
@@ -364,6 +397,17 @@ class UndefinedMemberD4rtException extends RuntimeD4rtException {
 /// [UndefinedMemberD4rtException] documents: the `on RuntimeD4rtException`
 /// clauses between raise and inspection stay working, so the conversion could
 /// land site by site.
+///
+/// **NOT a `NoSuchMethodError`, and that is a decision (sce67).**
+/// [UndefinedMemberD4rtException] was given that SDK supertype so a script can
+/// catch a missing INSTANCE member the way it catches real Dart's. This one
+/// was deliberately left out: real Dart rejects `Klass.missing` at COMPILE
+/// time, so no runtime `NoSuchMethodError` exists for a script to catch, and
+/// adding one would make d4rt strictly more catchable than the platform — the
+/// mistake `D4rtRangeError` records for `IndexError`. Same reasoning as
+/// [UndefinedNameD4rtException], different from the instance case because a
+/// d4rt receiver is effectively dynamic and dynamic member access really does
+/// raise at runtime.
 class UndefinedStaticMemberD4rtException extends RuntimeD4rtException {
   /// The static member that was not found. Compared by equality, never parsed.
   final String memberName;

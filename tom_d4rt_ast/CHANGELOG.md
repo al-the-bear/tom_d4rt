@@ -1,3 +1,42 @@
+## 0.125.0
+
+### Changed — a missing member is catchable as `NoSuchMethodError` (sce67)
+
+Asking a receiver for something it does not have reported two ways, decided by
+the member KIND rather than by anything a script can see:
+
+```
+InternetAddressType.IPv4.host     -> UndefinedMemberD4rtException
+InternetAddressType.IPv4.lookup() -> D4rtNoSuchMethodError
+```
+
+Only the second `implements NoSuchMethodError`, so a script writing
+`try { ... } on NoSuchMethodError catch (_)` handled the method half of the
+same failure and missed the getter half. F-SCC8-5's reasoning — "a missing
+member is the same failure real Dart reports at runtime, and asserting the SDK
+supertype means a script can catch it the way it would catch the real one" —
+does not stop applying at getters.
+
+`UndefinedMemberD4rtException` now implements `NoSuchMethodError` as well.
+
+**The supertype is ADDED, not swapped.** It is still a
+`RuntimeD4rtException`, so every existing `on RuntimeD4rtException` clause
+keeps working, and every internal `is UndefinedMemberD4rtException` test — the
+typed signal several call sites read to decide whether to attempt extension
+lookup — is unaffected. Those sites select on the exact type, never on the SDK
+supertype.
+
+**STATIC member absence and undefined NAMES are deliberately left out.** Real
+Dart rejects `Klass.missing` and a bare undefined name at COMPILE time, so
+there is no runtime `NoSuchMethodError` for a script to catch; giving them the
+supertype would make d4rt strictly *more* catchable than the platform — the
+mistake `D4rtRangeError` records for `IndexError`, and the reason scc31 keeps
+the undefined-name case uncatchable. A control case pins that they stay out.
+
+Measured across the seven ways the interpreter reports an absence: five were
+uncatchable as `NoSuchMethodError` before this, and the two instance-getter
+rows are the ones real Dart says should not have been.
+
 ## 0.124.0
 
 ### Documentation — `asUint8ListView` records why it exists (sce65)

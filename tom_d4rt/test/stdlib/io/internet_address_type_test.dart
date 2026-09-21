@@ -22,23 +22,18 @@
 //
 // THESE FOUR CASES DO NOT ALL ASSERT THE SAME EXCEPTION, and the reason is a
 // finding rather than an inconsistency in the test. Measured 2026-09-12 on a
-// bridged instance:
+// bridged instance, a missing METHOD raised `D4rtNoSuchMethodError` (which
+// `implements NoSuchMethodError`) while a missing GETTER raised
+// `UndefinedMemberD4rtException` (which did not), so the same absence reported
+// differently by member KIND and only one half was catchable the way a script
+// would catch real Dart's.
 //
-//   * a missing METHOD  -> `D4rtNoSuchMethodError`, which
-//     `implements NoSuchMethodError`, so a script catches it exactly as it
-//     would catch real Dart's. This is what F-SCC8-5 asserts for
-//     `LinkedList.removeFirst`, and F-SCD24-4 asserts it here.
-//   * a missing GETTER  -> `UndefinedMemberD4rtException`, which extends
-//     `RuntimeD4rtException` and NOT `NoSuchMethodError`. A script cannot catch
-//     it the way it would catch the real one.
-//
-// So the same absence reports differently depending on the member kind, and
-// only one of the two matches Dart. F-SCD24-1..3 assert what is actually thrown
-// rather than what ought to be: a pin exists to stop the members being
-// reinstated and does that either way, whereas asserting an aspiration would
-// leave this file red and teach the next reader to discount it. The divergence
-// is sce67; when it is fixed, these three change to `NoSuchMethodError` and
-// this paragraph goes with them.
+// FIXED by sce67: `UndefinedMemberD4rtException` now implements
+// `NoSuchMethodError` too, so all five cases below assert the SDK supertype and
+// the caveat that used to sit here is gone. The supertype was ADDED rather than
+// swapped — these are still `RuntimeD4rtException`s — so the `memberName`
+// having-matcher still works and every internal `is UndefinedMemberD4rtException`
+// test the interpreter uses for extension-lookup control flow is unaffected.
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt/d4rt.dart';
@@ -76,22 +71,20 @@ void main() {
           '[2026-09-12] (PASS)', () {
         expect(
           () => run('return InternetAddressType.IPv4.$member;'),
-          // NOT `NoSuchMethodError`, which is what F-SCC8-5 asserts for the
-          // same shape of absence on `LinkedList`. Measured: a missing member
-          // on a BRIDGED instance raises `UndefinedMemberD4rtException`,
-          // which extends `RuntimeD4rtException` and not `NoSuchMethodError`,
-          // so a script cannot catch it the way it would catch the real one.
-          //
-          // Asserting what is actually thrown rather than what ought to be: a
-          // pin exists to stop the members being reinstated and does that
-          // either way, whereas asserting an aspiration leaves the file red
-          // and teaches the next reader to discount it. The divergence is
-          // sce67.
+          // `NoSuchMethodError`, the SDK supertype — the same thing F-SCC8-5
+          // asserts for the same shape of absence on `LinkedList`. Asserting
+          // the supertype rather than the concrete type is the point: it is
+          // what a SCRIPT can catch, and it is what would have to change if
+          // the absence ever stopped being reportable the way real Dart
+          // reports it.
           throwsA(
-            isA<UndefinedMemberD4rtException>().having(
-              (e) => e.memberName,
-              'memberName',
-              equals(member),
+            allOf(
+              isA<NoSuchMethodError>(),
+              isA<UndefinedMemberD4rtException>().having(
+                (e) => e.memberName,
+                'memberName',
+                equals(member),
+              ),
             ),
           ),
         );
