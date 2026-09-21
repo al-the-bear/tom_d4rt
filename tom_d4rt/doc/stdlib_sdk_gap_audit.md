@@ -1381,18 +1381,66 @@ range of the instrument rather than merely passing.
 
 The mirror-image question — a member that TAKES an SDK type no bridge knows is
 uncallable, and is equally invisible to a name-level diff — is asked in the
-same mode, statically. One finding:
+same mode, statically. It currently finds nothing.
 
-- `HttpServer.bindSecure` takes a `SecurityContext`, which has no bridge at
-  all. Verified from a script: `SecurityContext()` and
-  `SecurityContext.defaultContext` both raise `Undefined variable:
-  SecurityContext`, so the member is registered and uncallable. Tracked
-  separately — bridging it is a TLS-surface decision, not an audit change.
+Its one historical finding is worth keeping, because it is what the pass is
+for: `HttpServer.bindSecure` took a `SecurityContext` that had no bridge at
+all, so the member was registered and uncallable — `SecurityContext()` raised
+`Undefined variable: SecurityContext` from a script. SCD171 bridged the type
+and the count went to zero. A name-level member diff could never have seen it,
+because the member was present in the map the whole time.
 
 Function-type parameters are excluded: `FunctionTypeMirror` implements
 `ClassMirror`, so without that exclusion the pass reported each callback's
 whole signature as an unbridged type name — 525 findings, of which 485 were
 callbacks and the rest name-versus-`nativeType` mismatches.
+
+### The parameter shape no mirror can see
+
+That exclusion hides one thing, and hides it from every mirror-based pass in
+this document. **`dart:mirrors` ERASES the type parameters of a generic
+function type.** For
+
+    Set.castFrom<S, T>(Set<S> source, {Set<R> Function<R>()? newSet})
+
+the parameter's `FunctionTypeMirror` reports `simpleName` as
+`() -> dart.core.Set` and `typeVariables.length == 0` — indistinguishable from
+an ordinary `Set Function()` callback, which the bridge handles fine.
+
+The distinction matters because SCD37 established that a generic-function
+parameter is a shape the bridge CANNOT honour: the callee instantiates it at a
+type the caller never writes, and the callable model has no path for a
+caller-side instantiation. Such a member must REJECT the argument. Accepting
+and ignoring it returns the wrong concrete implementation, and the script then
+misbehaves far from the call.
+
+**The first attempt was the obvious one and was worse than useless.** A mirror
+sweep filtered on `FunctionTypeMirror.typeVariables` returned zero across the
+whole corpus, and would have been read as confirming there was nothing to look
+at.
+
+So the instrument reads the SDK SOURCES, where the information mirrors destroys
+still exists, and parses them rather than grepping:
+`test/sce76_generic_function_parameter_census_test.dart`. It walks the six
+bridged library directories, collects every parameter whose type is a
+`GenericFunctionType` CARRYING TYPE PARAMETERS OF ITS OWN, and requires the set
+of `(class, member, parameter)` triples to equal a declared register. A new hit
+fails the case and names the member.
+
+Parsing rather than grepping is not fastidiousness. The grep needs a
+word-boundary guard to stay honest — without it `_ZoneFunction<RunHandler>(`
+matches, giving 34 hits of which 33 are a class name that happens to end in
+`Function` — and even guarded it still reports 8, of which one is a line inside
+a `///` comment and six are `typedef` declarations for the `dart:async` zone
+handlers. A parser excludes all seven structurally: a comment is not a
+parameter and a typedef is not a member.
+
+Measured 2026-09-21 on SDK 3.12.2: **one** generic-function parameter on a
+bridged member, `Set.castFrom`'s `newSet`, already rejected by SCD37. The same
+sweep found 115 ordinary callback parameters, and that figure is asserted too —
+a census of one means nothing without the population it was drawn from, and a
+filter that had the nullable check backwards would report either all 116 or
+none.
 
 ## Not a gap: relaxer false-alarms (already fixed)
 
