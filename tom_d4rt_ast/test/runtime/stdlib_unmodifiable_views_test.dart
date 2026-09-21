@@ -469,6 +469,61 @@ void main() {
 
   group('SC3: the unmodifiable view bridges stay distinct', () {
     // Cross-family, so it belongs to none of the three groups above.
+    test('F-SC3-AST-20: each view declares exactly the surface it has '
+        'classified [2026-09-21] (PASS)', () {
+      // THE CASE THE `containsAll` NEIGHBOURS CANNOT BE. Set equality on the
+      // DECLARED map, per view, so a member appearing on one of these three
+      // bridges fails until somebody classifies it — read-through, or
+      // delegating with a call in the table.
+      //
+      // Deliberately NOT swept across the tree. `containsAll` is right for a
+      // bridge whose surface grows toward the SDK's, which is most of them,
+      // and turning every one into set equality would make adding an SDK
+      // member a red suite — the reflex-to-regenerate failure SCD50 and the
+      // member baseline both exist to avoid. These three are different
+      // because their surface is a DECISION: every member is either
+      // read-through or a delegating mutator, and there is no third kind.
+      //
+      // ABLATED BOTH WAYS, and the second is the one that shows why the
+      // neighbours cannot do this job: adding a method to the set view's
+      // bridge fires this case and nothing else, and DELETING `lookup` from
+      // it also fires this case and nothing else — F-SC3-AST-7 stays green
+      // through the deletion, because `lookup` is still REACHABLE through
+      // `Set`'s bridge. That is correct of a reachability assertion and is
+      // exactly the blind spot: what a script can call did not change, and
+      // what this bridge decided did.
+      for (final view in <(String, Set<String>, Iterable<String>)>[
+        ('UnmodifiableMapView', _readThroughMapMethods, _mutatingMapCalls.keys),
+        ('UnmodifiableSetView', _readThroughSetMethods, _mutatingSetCalls.keys),
+        (
+          'UnmodifiableListView',
+          _readThroughListMethods,
+          _mutatingListCalls.keys,
+        ),
+      ]) {
+        final (name, readThrough, mutators) = view;
+        final expected = {...readThrough, ...mutators}
+          ..removeAll(_mutatorsAnsweredByASupertype);
+        expect(
+          env.findBridgedClassByName(name)!.methods.keys.toSet(),
+          equals(expected),
+          reason:
+              'The $name bridge declares a different set of methods than the '
+              'one classified for it. A member that APPEARED has not been '
+              'through the read-through / delegating decision — read its '
+              'adapter, then add it to the read-through set or to '
+              '`_mutating${name == 'UnmodifiableMapView'
+                  ? 'Map'
+                  : name == 'UnmodifiableSetView'
+                  ? 'Set'
+                  : 'List'}Calls` '
+              'with a call. A member that VANISHED is either a correct SCC51 '
+              'deletion — record it in _mutatorsAnsweredByASupertype with the '
+              'bridge that answers now — or a lost adapter.',
+        );
+      }
+    });
+
     test('F-SC3-AST-10: the three views stay distinct bridges [2026-07-27]', () {
       // If one bridge captured another's native type, dispatch would offer the
       // wrong member surface for whichever type lost.
@@ -527,6 +582,115 @@ final _returnsValue = NativeFunction(
 /// report an argument problem and the delegation would never be reached — the
 /// case would then pass without having tested anything. Same for `putIfAbsent`,
 /// `removeWhere` and `updateAll`.
+/// The members each view bridge DECLARES that read through to the native view.
+///
+/// SCE96. The surface cases above assert REACHABILITY with `containsAll` —
+/// what a script can call, which is the contract — and that is right for them:
+/// most of the surface lives on `Map` / `Set` / `List` / `Iterable`, and a
+/// member arriving there is ordinary good news no guard should fire on.
+///
+/// It leaves one thing unwatched, and for these three bridges it matters. An
+/// unmodifiable view's contract is that its mutators DELEGATE rather than
+/// intercept, so a member DECLARED here is one that has been through that
+/// decision — or has not. `containsAll` cannot see an addition, and the
+/// generated delegation cases cannot either: they iterate the tables below
+/// rather than the bridge. SCB6 is the whole history of getting the
+/// classification wrong.
+///
+/// So the declared surface is pinned exactly, per view, and every member is on
+/// one side or the other: here if it reads through, in that view's mutating
+/// table if it delegates. Measured 2026-09-21 the two sets together are 15,
+/// 37 and 46 members — against the 15, 21 and 34 the reachability cases
+/// enumerate, because those list only what they need to claim coverage of.
+///
+/// A NEW MEMBER HERE IS A DECISION, not a regeneration. Add it to this list
+/// only after reading its adapter and confirming it delegates to the native
+/// view and returns its answer; if it mutates, it belongs in the table with a
+/// call recorded for it, which is what makes the delegation case exist.
+const _readThroughMapMethods = <String>{
+  '[]',
+  'cast',
+  'containsKey',
+  'containsValue',
+  'forEach',
+  'map',
+  'toString',
+};
+
+const _readThroughSetMethods = <String>{
+  'any',
+  'cast',
+  'contains',
+  'containsAll',
+  'difference',
+  'elementAt',
+  'every',
+  'expand',
+  'firstWhere',
+  'fold',
+  'followedBy',
+  'forEach',
+  'intersection',
+  'join',
+  'lastWhere',
+  'lookup',
+  'map',
+  'reduce',
+  'singleWhere',
+  'skip',
+  'skipWhile',
+  'take',
+  'takeWhile',
+  'toList',
+  'toSet',
+  'toString',
+  'union',
+  'where',
+  'whereType',
+};
+
+const _readThroughListMethods = <String>{
+  '[]',
+  'any',
+  'asMap',
+  'cast',
+  'contains',
+  'elementAt',
+  'every',
+  'expand',
+  'firstWhere',
+  'fold',
+  'followedBy',
+  'forEach',
+  'getRange',
+  'indexOf',
+  'join',
+  'lastIndexOf',
+  'lastWhere',
+  'map',
+  'reduce',
+  'singleWhere',
+  'skip',
+  'skipWhile',
+  'sublist',
+  'take',
+  'takeWhile',
+  'toList',
+  'toSet',
+  'where',
+};
+
+/// Members in a mutating table that the view does NOT declare, with why.
+///
+/// The tables record which members' DELEGATION is asserted, which is not the
+/// same set as what a bridge declares. `addEntries` is the one case: SCC51
+/// deleted the map view's local copy — it could not unwrap a
+/// `BridgedInstance<MapEntry>` — so `Map`'s adapter answers, and the
+/// delegation case still runs through the chain. Subtracted by name rather
+/// than by loosening the assertion, so a SECOND member leaving the bridge is
+/// still a failure.
+const _mutatorsAnsweredByASupertype = <String>{'addEntries'};
+
 final Map<String, List<Object?>> _mutatingMapCalls = {
   '[]=': ['c', 3],
   'addAll': [
