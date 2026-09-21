@@ -25,7 +25,19 @@
 // already implements all three (interpreter_visitor.dart, `_matchAndBind`).
 // They are pinned below rather than ported or skipped.
 //
-// FOUR FAMILIES ARE DELIBERATELY NOT COVERED HERE, and none of them can be:
+// TWO OF THE FIFTEEN ARE UNREACHABLE RATHER THAN UNTESTED, which is the
+// distinction the census exists to draw and which no amount of reading the
+// copier would have shown. `_convertConstructorReference` handles a node the
+// analyzer only builds when it RESOLVES; the copier front end calls
+// `parseString`, so one can never arrive. `_convertSwitchCase` handles the
+// pre-patterns switch case, and at language 3.0+ `case 1:` parses as
+// `SwitchPatternCase` — so that arm is dead for every script this interpreter
+// will ever see. Both were verified by walking the parsed tree, not inferred.
+// They are left in place rather than deleted: the mirror model still declares
+// the corresponding node types, and removing a transcription is a larger
+// decision than this todo carries.
+//
+// FOUR MORE ARE DELIBERATELY NOT COVERED HERE, and none of them can be:
 // `_convertComment` is trivia with no runtime effect; `_convertNativeFunctionBody`
 // is a VM-internal form no sandboxed script may use; `_convertPartDirective`
 // and `_convertPartOfDirective` need a second file, and `execute(source:)`
@@ -48,9 +60,12 @@ void main() {
         run('main() { var r = 0; switch (2) { case 1: r = 1; break; '
             'case 2: r = 2; break; default: r = 9; } return r; }'),
         2,
-        reason: 'SwitchCase — the old-style switch statement, as distinct '
-            'from the switch EXPRESSION and the pattern case that this '
-            "suite's other switch tests use",
+        reason: 'the old-style switch statement. NOTE: this does NOT drive '
+            '_convertSwitchCase, and measuring said so — at language 3.0+ '
+            'the analyzer parses `case 1:` as SwitchPatternCase, so '
+            '_convertSwitchCase is unreachable rather than untested. The '
+            'assertion is kept because the statement form is worth holding; '
+            'the census entry is answered by the note, not by this line.',
       );
       expect(
         run('main() { var s = 0; for (var (a, b) in [(1, 2), (3, 4)]) '
@@ -68,7 +83,10 @@ void main() {
         run('class A { final int v; A(this.v); }\n'
             'main() { var f = A.new; return f(4).v; }'),
         4,
-        reason: 'ConstructorReference',
+        reason: 'the `A.new` tear-off. Like the switch case above, this does '
+            'NOT drive _convertConstructorReference: that node exists only '
+            'in a RESOLVED tree, and the copier front end parses with '
+            'parseString, so nothing in this pipeline can produce one.',
       );
       expect(
         run('T id<T>(T v) => v;\nmain() { var f = id<int>; return f(9); }'),
