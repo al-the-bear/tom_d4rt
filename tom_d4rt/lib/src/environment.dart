@@ -330,6 +330,24 @@ class Environment {
   ///
   /// If a name is already defined or conflicts with a bridged type,
   /// a warning will be logged.
+  /// SCE103: the resolved declared type of a typed local, by name.
+  ///
+  /// Declaring `int x` and later assigning to it are two moments, and only the
+  /// first carries the annotation. The other three binding sites — a parameter,
+  /// a typed pattern, a for-each loop variable — check at a single moment and
+  /// need remember nothing; this one does, which is the whole reason it was the
+  /// last of the four to be closed.
+  ///
+  /// Null until a typed local is declared in THIS environment, so a frame with
+  /// none pays one null probe per assignment.
+  Map<String, ResolvedBinding>? _declaredTypes;
+
+  /// Records [binding] as the declared type of [name] in this environment, so
+  /// [assign] can hold later writes to it.
+  void declareType(String name, ResolvedBinding binding) {
+    (_declaredTypes ??= <String, ResolvedBinding>{})[name] = binding;
+  }
+
   void define(String name, Object? value, {String? sourceUri}) {
     if (_values.containsKey(name) ||
         _bridgedClasses.containsKey(name) ||
@@ -1835,6 +1853,12 @@ class Environment {
           " [Env.assign] Assigned '$name' locally in env: $hashCode",
         );
       }
+      // SCE103: a write to a typed local is checked against the type written
+      // at its DECLARATION. The binding may widen the value — Dart's `int` to
+      // `double` — so the checked value is what gets stored and returned, not
+      // the one that came in.
+      final declared = _declaredTypes?[name];
+      if (declared != null) value = declared.bind(this, value);
       _values[name] = value;
       // S3b additive: keep a slotted local's slot in sync when its value is set
       // through `assign` (async-init resume, late init) rather than the original

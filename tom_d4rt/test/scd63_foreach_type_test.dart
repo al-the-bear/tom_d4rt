@@ -57,14 +57,17 @@
 //   | F-SCD63-3  a homogeneous loop still runs       | passes    |
 //   | F-SCD63-4  irrefutable annotations             | passes    |
 //   | F-SCD63-9  unresolvable stays permissive       | passes    |
-//   | F-SCD63-13 the identifier form is not checked  | passes    |
+//   | F-SCD63-13 the identifier form (see below)     | passes    |
 //
 // The four that keep passing are the point of writing them. They are not
 // evidence about this defect; they are the rails. -3 and -4 stop the next
 // version of this check from rejecting correct loops, -9 stops it from turning
-// "I cannot resolve that" into "you are wrong", and -13 pins a known gap as a
-// gap, so closing it later is a decision somebody made rather than a silent
-// widening nobody noticed.
+// "I cannot resolve that" into "you are wrong", and -13 pinned a known gap as a
+// gap, so closing it later would be a decision somebody made rather than a
+// silent widening nobody noticed. SCE103 made that decision: the identifier
+// form is now checked at the DECLARATION's type, from the assignment side, and
+// -13 says so. It still passes on revert because reverting THIS check does not
+// reach that one.
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt/d4rt.dart';
@@ -451,19 +454,33 @@ void main() {
       }
     });
 
-    test('F-SCD63-13: the identifier form is deliberately NOT checked here '
+    test('F-SCD63-13: the identifier form is checked at the declaration '
         '[2026-09-12] (PASS)', () {
       // `for (x in xs)` carries no annotation on the loop: the type was
-      // written at `x`'s own declaration, which this node does not reach.
-      // Real Dart does reject this, so the case is a KNOWN GAP pinned as it
-      // stands — the same gap as a plain `int x = someString;`, which is a
-      // separate site with a far wider blast radius.
+      // written at `x`'s own declaration, which this node does not reach. So
+      // this case pinned a KNOWN GAP — and SCE103 closed it from the other
+      // end, by remembering the declared type and checking every write to `x`.
+      // The loop is not the checker here; the assignment is, which is why the
+      // message names `x` rather than the element.
+      //
+      // Kept rather than deleted, and inverted rather than rewritten: its job
+      // was to say the gap was deliberate, and the same case now says the gap
+      // is closed.
       expect(
-        runBody(
+        typeErrorFrom(
           "int x = 0; var out = []; "
           "for (x in [1, 'two']) { out.add(x); } return out;",
         ),
-        [1, 'two'],
+        "type 'String' is not a subtype of type 'int' of 'x'",
+      );
+      // The homogeneous loop still runs — the rail that stops the fix from
+      // being "reject the identifier form".
+      expect(
+        runBody(
+          'int x = 0; var out = []; '
+          'for (x in [1, 2]) { out.add(x); } return out;',
+        ),
+        [1, 2],
       );
     });
   });

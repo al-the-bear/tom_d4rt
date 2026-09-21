@@ -6670,6 +6670,26 @@ class ResolvedBinding {
     // accepts, because the literal widens.
     if (_declaredName == 'double' && value is int) return value.toDouble();
 
+    // SCE103: `{}` is a Map unless the CONTEXT type says Set — Dart's own rule,
+    // and the interpreter has no context type to consult, so the literal always
+    // evaluates to an empty Map and the disambiguation happens here, where the
+    // written type finally is.
+    //
+    // NOT a concession to the declaration check that surfaced it. Measured
+    // before that check existed: `Set<int> s = {}; s.add(1);` threw "Bridged
+    // class 'Map' has no instance method named 'add'", and `f(Set<int> s)`
+    // called with `{}` threw this very message through SCC29's parameter check.
+    // Only `isEmpty` worked, because a Map answers it too. So this makes a
+    // correct Dart program run where it previously threw at the second
+    // statement.
+    //
+    // EMPTY ONLY. A non-empty Map bound to a `Set` is a genuine error and still
+    // fails, which is what keeps this a disambiguation rather than a coercion
+    // that hides mistakes.
+    if (_declaredName == 'Set' && value is Map && value.isEmpty) {
+      return <Object?>{};
+    }
+
     final RuntimeType? valueType;
     try {
       valueType = env.getRuntimeType(value);

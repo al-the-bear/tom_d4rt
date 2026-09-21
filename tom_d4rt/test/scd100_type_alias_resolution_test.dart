@@ -198,14 +198,33 @@ void main() {
       },
     );
 
-    test('F-SCD100-10: a local through an alias is still unchecked, as a '
-        'local without one is [2026-09-14]', () {
-      // NOT alias-specific, which is why it is out of scope here: `int x = 'a'`
-      // is equally lenient. Local variable declarations are not type-checked at
-      // all — SCC29 covers parameters, SCD63 the for-each variable, and locals
-      // are the third site nobody wrote. sce131.
-      expect(execute("typedef I = int;\nmain() { I x = 'a'; return x; }"), 'a');
-      expect(execute("main() { int x = 'a'; return x; }"), 'a');
+    test('F-SCD100-10: a local through an alias is checked, as a local '
+        'without one is [2026-09-14]', () {
+      // NOT alias-specific, which is why it was out of scope here: `int x = 'a'`
+      // was equally lenient. SCE103 closed the local-declaration site — the
+      // fourth and last, after SCC29's parameters, SCC18's typed patterns and
+      // SCD63's for-each variable — and the alias comes along because the
+      // annotation is resolved before it is compared, which is the property
+      // this file exists to hold.
+      //
+      // The pair is the point: the alias must behave exactly as the bare name,
+      // in whichever direction that is.
+      for (final source in [
+        "typedef I = int;\nmain() { I x = 'a'; return x; }",
+        "main() { int x = 'a'; return x; }",
+      ]) {
+        expect(
+          () => execute(source),
+          throwsA(
+            isA<TypeError>().having(
+              (e) => e.toString(),
+              'message',
+              "type 'String' is not a subtype of type 'int' of 'x'",
+            ),
+          ),
+          reason: source,
+        );
+      }
     });
   });
 }

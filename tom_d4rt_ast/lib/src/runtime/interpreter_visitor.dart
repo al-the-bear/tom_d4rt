@@ -7327,6 +7327,32 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           }
         }
 
+        // SCE103: the fourth and last binding site. `int x = 'two';` bound the
+        // String; so did every later `x = 'two';`, and so did the for-each
+        // IDENTIFIER form `for (x in xs)`, which is an assignment to an
+        // already-declared variable and therefore the same job.
+        //
+        // Resolved ONCE per declaration and handed to the environment, because
+        // an assignment does not carry the annotation — the declaration is the
+        // only place the written type exists. `resolveBinding` returns null for
+        // everything it cannot answer confidently (unannotated, `dynamic`, a
+        // type parameter, an annotation that will not resolve), and a null
+        // binding is never recorded, so an untyped local costs one map probe at
+        // declaration and nothing afterwards.
+        final declaredBinding = InterpretedFunction.resolveBinding(
+          environment,
+          node.type,
+          describedAs: variableName,
+        );
+        // LATE IS OUT OF SCOPE, deliberately. A late declaration stores a
+        // `LateVariable` wrapper rather than the value, so the check here would
+        // reject the wrapper, and the moment the initializer actually runs is
+        // not an assignment this can see. Recording nothing leaves late locals
+        // exactly as permissive as they are today rather than half-checked.
+        if (declaredBinding != null && !isLate) {
+          environment.declareType(variableName, declaredBinding);
+        }
+
         if (isLate) {
           // Handle late variable
           if (variable.initializer != null) {
@@ -7364,7 +7390,15 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
               // If there are multiple async inits, the LAST suspension request wins.
             } else {
               // Sync initializer: Use the computed value
-              initValue = result;
+              // SCE103: checked HERE rather than inside `def`, because `def` is
+              // also the path for `int x;` and for an async initializer that
+              // has not produced its value yet — both of which define null, and
+              // neither of which is a write real Dart would reject. The
+              // declared type is still recorded for both, so the assignment
+              // that eventually supplies the value is held.
+              initValue = declaredBinding == null
+                  ? result
+                  : declaredBinding.bind(environment, result);
               if (Logger.isDebug) {
                 Logger.debug(
                   "[VariableDeclList] Sync init for '$variableName'. Defined as $initValue.",

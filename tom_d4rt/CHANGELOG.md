@@ -1,3 +1,49 @@
+## 1.156.0
+
+### Fixed — a typed local is checked, at its declaration and at every write (sce103)
+
+The fourth and last site that asks "does this value fit this written type", and
+the widest: every typed local in every script passes through it.
+
+| site                    | closed by |
+| ----------------------- | --------- |
+| parameter binding       | SCC29     |
+| typed patterns          | SCC18     |
+| for-each loop variable  | SCD63     |
+| **typed local**         | **SCE103** |
+
+`int x = 'two';` bound the String. So did every later `x = 'two';`, and so did
+`for (x in ['two'])` — the for-each IDENTIFIER form, which SCD63 pinned as a
+known gap precisely because it belongs here: the loop carries no annotation, the
+type was written at `x`'s own declaration, and checking it is the same job as
+checking any other write to `x`.
+
+WHY THIS SITE NEEDED MORE THAN A NEW CALL. The other three check at a single
+moment and remember nothing. A declaration and a later assignment are two
+moments, and only the first carries the annotation — so the resolved binding is
+recorded per name in the environment that declares it, and `assign` consults it.
+A frame with no typed local pays one null probe.
+
+`late` is out of scope and fields and top-level variables are not reached; both
+limits are pinned as cases rather than left to be discovered.
+
+THE BLAST RADIUS WAS MEASURED, NOT ASSUMED. Across the reference suite: ONE
+behavioural failure, and it was not a false positive. `Set<int> numbers = {};`
+evaluated to a **Map** — `{}` is a Map unless the context type says Set, Dart's
+rule, and the interpreter has no context type — and the test that failed had
+only ever passed because it asked `isEmpty`, which a Map answers too. Everything
+else about such a variable was already broken: `s.add(1)` threw "Bridged class
+'Map' has no instance method named 'add'", and `f(Set<int> s)` called with `{}`
+threw this very type error through SCC29's parameter check. So the new check did
+not break a working program; it found the fourth site of a defect three sites
+already had.
+
+The disambiguation now lives in `ResolvedBinding.bind`, beside the `int`→`double`
+widening that is there for the same reason. EMPTY ONLY — a non-empty Map bound
+to a `Set` is a real error and still fails.
+
+Name resolution: no.
+
 ## 1.155.0
 
 ### Fixed — an empty loop body inside `async` no longer ends the function (sce102)
