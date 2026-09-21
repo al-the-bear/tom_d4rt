@@ -47,6 +47,24 @@ List<E> coerceElements<E>(Object? arg, String member) {
       // The residue — a `List<int>` variable that Dart would refuse — is a
       // known consequence of erasure, not an oversight.
       //
+      // AND IT CANNOT BE LIFTED BY CARRYING THE TYPE, which is the obvious
+      // next thought and was measured rather than left open (SCE72). The
+      // analyzer does separate the two — resolved, `[1, 2]` is `List<double>`
+      // and `ints` is `List<int>` — but only under RESOLUTION. Every parse in
+      // this repo, both interpreters and the bundler, calls `parseString`,
+      // where `staticType` is null on both. So the mirror is not failing to
+      // carry something; it was never computed. Nor could it be at interpret
+      // time: `execute(source:)` takes a string with no file, and the Flutter
+      // line runs a bundle on a device with no analyzer.
+      //
+      // The bundler COULD resolve — it has a path — and it still would not
+      // help: this helper is shared by both lines and cannot know whether its
+      // caller came from a resolved bundle, so using a bundle-only type would
+      // make the Flutter line stricter than the source line for the same
+      // script. That divergence is what the mirror rule forbids. See
+      // `tom_d4rt/doc/stdlib_sdk_gap_audit.md`, "Could the bundle carry the
+      // static type?".
+      //
       // Deliberately narrow: only `int` -> `double`, only when that is what
       // `E` is. `double` -> `int` is lossy and stays refused, and no other
       // numeric pair is converted.

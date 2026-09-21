@@ -1,3 +1,39 @@
+## 1.142.0
+
+### Documentation — the must-not-widen exception, and why the bundle cannot lift it (sce72)
+
+`coerceElements` accepts an `int` where a `double` is wanted, which reads as the
+widening the audit's rule forbids. It is a measured exception, and the rule now
+says so beside itself rather than only in a comment here.
+
+Dart separates `Float32List.fromList([1, 2])` (compiles — an int literal in a
+double context IS a double) from a `List<int>` variable (does not) by the STATIC
+TYPE of the argument expression. d4rt erases element types, so both arrive
+indistinguishable and no rule written at that point can separate them. Accepting
+admits the common valid script; rejecting breaks it.
+
+SCE72 then measured the only thing that could lift the limit — could the mirror
+carry the static type? No, and not for want of effort:
+
+| parse mode | `[1, 2]` | `ints` |
+| --- | --- | --- |
+| `parseString` — what both interpreters AND the bundler use | `null` | `null` |
+| `AnalysisContextCollection` — resolved | `List<double>` | `List<int>` |
+
+The analyzer knows it only under RESOLUTION, which nothing in this repo
+performs. So the mirror is not failing to carry something it was given; the
+information is never computed. At interpret time it cannot be: `execute(source:)`
+takes a string with no file, and the Flutter line runs a bundle on a device with
+no analyzer.
+
+The bundler could resolve — it has a path — and it still would not help.
+`coerceElements` is one shared, mirrored helper serving both lines and cannot
+know whether its caller came from a resolved bundle, so a bundle-only type would
+make the Flutter line stricter than the source line for the same script. That
+divergence is what the mirror rule exists to prevent.
+
+Comment and documentation only; no behaviour changes.
+
 ## 1.141.0
 
 ### Changed — a re-wrapped exception keeps what the first wrap preserved (sce70)

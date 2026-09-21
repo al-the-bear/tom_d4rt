@@ -1893,6 +1893,76 @@ is the typed-data equivalent. Coercing must not *widen*: accepting an argument
 the SDK would reject makes a script green here that cannot compile as Dart,
 which is the one bridge defect no passing test can catch.
 
+#### The one measured exception to must-not-widen
+
+The rule above reads as absolute, and there is exactly one place it is
+knowingly bent. SCD29 measured Dart rather than assuming it:
+
+```dart
+Float32List.fromList([1, 2]);              // COMPILES — an int literal in a
+                                           // double context IS a double
+void f(List<int> ints) =>
+    Float32List.fromList(ints);            // DOES NOT COMPILE
+```
+
+Dart separates those by the **static type of the argument expression**. d4rt
+evaluates both to `List<Object?>` — element types are erased — so by the time
+either reaches `coerceElements` they are *indistinguishable*, and no rule
+written at that point can tell them apart. The choice is therefore between
+accepting both and rejecting both, and rejecting both breaks the common, valid
+script, which is the SCD26 defect shape rather than the widening one. So both
+are accepted, and the residue is that a `List<int>` variable Dart would refuse
+is accepted here.
+
+Read that as a **measured exception, not a violation**: accepting what the SDK
+rejects is forbidden EXCEPT where element-type erasure makes the accepted and
+rejected forms indistinguishable and the accepted one is the common valid
+script. A reader meeting `coerceElements` admitting an int to a double list is
+looking at this exception, not at the defect the rule forbids.
+
+#### Could the bundle carry the static type? Measured, and no
+
+SCE72 asked the only question that could actually lift the limit: `SAstNode`
+mirrors the analyzer AST, and the analyzer knows a list literal's static type —
+so could `tom_ast_generator` record it and the interpreter use it at the
+argument boundary? Measured 2026-09-21, the answer is no, for three reasons in
+increasing order of finality.
+
+**The analyzer does not know it in the mode d4rt parses in.** Both interpreters
+and the bundler call `parseString`, which is unresolved, and there is no
+`AnalysisContextCollection` or `getResolvedUnit` anywhere in `tom_d4rt/lib`.
+Measured on the two expressions above:
+
+| parse mode | `[1, 2]` | `ints` |
+| --- | --- | --- |
+| `parseString` — what d4rt uses | `null` | `null` |
+| `AnalysisContextCollection` — resolved | `List<double>` | `List<int>` |
+
+So this was never a case of the mirror failing to CARRY something the analyzer
+had. The information is never computed. (`tom_ast_model` has no `staticType`
+field either, but that is downstream of the same fact.)
+
+**At interpret time it cannot be computed.** `execute(source: …)` takes a
+string, frequently with no file and no package config; resolution needs both.
+The Flutter line is stronger still — it runs a pre-compiled bundle on a device
+with no analyzer at all, which is the whole strategic point of that line.
+
+**And the bundle branch would not lift the limit even if taken.** The bundler
+*could* resolve: it has a path and finds a project root. But `coerceElements`
+is one shared, mirrored helper serving both lines, and it cannot know whether
+its caller arrived from a resolved bundle or from `execute(source: …)`. Using a
+type that is present only in bundles would make the Flutter line stricter than
+the source line for the same script — a behavioural divergence between the
+twins, which is precisely what the mirror rule exists to prevent. The helper
+must keep accepting the erased case regardless, so the residue SCD29 accepted
+stays either way.
+
+This is the same family as the conditional-import `configurations` the copier
+used to drop (SCE49) — "the analyzer knew something the mirror does not carry"
+— but the two differ where it counts. Those configurations were present in the
+unresolved AST and simply not copied, which is why that one was fixable. A
+static type is not there to copy.
+
 ## Recommended next actions
 
 ### The disposition rule — read this before adding a row
