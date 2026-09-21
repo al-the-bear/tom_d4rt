@@ -84,6 +84,13 @@ const Map<String, String> kDivergentMirrors = <String, String>{
       '4 code lines, one site. $_permissionAccess',
   'stdlib/io/network_permission_helper.dart':
       '4 code lines, one site. $_permissionAccess',
+  // SCE74H added this one, deliberately as its own file rather than inline in
+  // `stdlib/io/tls.dart`, following SCD170's precedent directly above: the
+  // permission idiom is what diverges, so confining it to a helper keeps the
+  // 240-line `tls.dart` a textual mirror and leaves one three-line entry here
+  // instead of a large one.
+  'stdlib/io/certificate_permission_helper.dart':
+      '3 code lines, one site. $_permissionAccess',
   // SCD170 removed `stdlib/io/socket.dart` from this baseline. Its divergence
   // was this same permission-access idiom, written inline in
   // `_checkNetworkPermission`; both trees now route that through the network

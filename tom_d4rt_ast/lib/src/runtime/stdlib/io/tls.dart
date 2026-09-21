@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:tom_d4rt_ast/runtime.dart';
 
 import 'filesystem_permission_helper.dart';
+import 'certificate_permission_helper.dart';
 
 /// Bridged `dart:io` `X509Certificate`.
 ///
@@ -126,6 +127,7 @@ class SecurityContextIo {
     },
     methods: {
       'usePrivateKey': (visitor, target, positionalArgs, namedArgs, _) {
+        checkCertificatePermission(visitor, 'usePrivateKey');
         final file = _requirePath(positionalArgs, 'usePrivateKey');
         checkFilesystemReadPermission(
           visitor,
@@ -139,6 +141,7 @@ class SecurityContextIo {
         return null;
       },
       'useCertificateChain': (visitor, target, positionalArgs, namedArgs, _) {
+        checkCertificatePermission(visitor, 'useCertificateChain');
         final file = _requirePath(positionalArgs, 'useCertificateChain');
         checkFilesystemReadPermission(
           visitor,
@@ -153,6 +156,7 @@ class SecurityContextIo {
       },
       'setTrustedCertificates':
           (visitor, target, positionalArgs, namedArgs, _) {
+            checkCertificatePermission(visitor, 'setTrustedCertificates');
             final file = _requirePath(positionalArgs, 'setTrustedCertificates');
             checkFilesystemReadPermission(
               visitor,
@@ -166,6 +170,7 @@ class SecurityContextIo {
             return null;
           },
       'setClientAuthorities': (visitor, target, positionalArgs, namedArgs, _) {
+        checkCertificatePermission(visitor, 'setClientAuthorities');
         final file = _requirePath(positionalArgs, 'setClientAuthorities');
         checkFilesystemReadPermission(
           visitor,
@@ -179,6 +184,7 @@ class SecurityContextIo {
         return null;
       },
       'usePrivateKeyBytes': (visitor, target, positionalArgs, namedArgs, _) {
+        checkCertificatePermission(visitor, 'usePrivateKeyBytes');
         (target as SecurityContext).usePrivateKeyBytes(
           _requireBytes(positionalArgs, 'usePrivateKeyBytes'),
           password: namedArgs['password'] as String?,
@@ -187,6 +193,7 @@ class SecurityContextIo {
       },
       'useCertificateChainBytes':
           (visitor, target, positionalArgs, namedArgs, _) {
+            checkCertificatePermission(visitor, 'useCertificateChainBytes');
             (target as SecurityContext).useCertificateChainBytes(
               _requireBytes(positionalArgs, 'useCertificateChainBytes'),
               password: namedArgs['password'] as String?,
@@ -195,6 +202,7 @@ class SecurityContextIo {
           },
       'setTrustedCertificatesBytes':
           (visitor, target, positionalArgs, namedArgs, _) {
+            checkCertificatePermission(visitor, 'setTrustedCertificatesBytes');
             (target as SecurityContext).setTrustedCertificatesBytes(
               _requireBytes(positionalArgs, 'setTrustedCertificatesBytes'),
               password: namedArgs['password'] as String?,
@@ -203,6 +211,7 @@ class SecurityContextIo {
           },
       'setClientAuthoritiesBytes':
           (visitor, target, positionalArgs, namedArgs, _) {
+            checkCertificatePermission(visitor, 'setClientAuthoritiesBytes');
             (target as SecurityContext).setClientAuthoritiesBytes(
               _requireBytes(positionalArgs, 'setClientAuthoritiesBytes'),
               password: namedArgs['password'] as String?,

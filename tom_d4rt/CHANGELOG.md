@@ -1,3 +1,36 @@
+## 1.144.0
+
+### Changed (BREAKING for TLS scripts) — installing key material now needs CertificatePermission (sce74h)
+
+`SecurityContext`'s eight certificate- and key-loading members are gated by a
+new `CertificatePermission`. The four path variants (`usePrivateKey`,
+`useCertificateChain`, `setTrustedCertificates`, `setClientAuthorities`) keep
+their existing `FilesystemPermission` check as well; the four `*Bytes` variants
+were previously ungated entirely and are now gated too.
+
+WHY A CAPABILITY OF ITS OWN when `FilesystemPermission` already covered the
+read. It covered it as an ORDINARY read, and a private key is not an ordinary
+read: a script scoped to a directory that happens to hold one could hand it to
+a `SecurityContext` and serve traffic under the host's identity, with nothing
+in the grant list saying that was possible. Naming the capability separately is
+what lets an embedder allow a script to read its own data directory without
+also allowing it to impersonate the host.
+
+WHY THE BYTES VARIANTS ARE GATED, though they read nothing. The capability is
+"install key material into a TLS context", not "open a file" — scd171 left them
+ungated on the reasoning that a script holding the bytes had already passed a
+gated read, which is true of the FILE but not of the installation. Gating only
+the path forms leaves the shorter route to the same end wide open.
+
+A script that loads certificates needs one more grant:
+
+    d4rt.grant(CertificatePermission.load);
+
+The gate lives in `stdlib/io/certificate_permission_helper.dart` rather than
+inline, following scd170's precedent: the permission idiom differs between the
+twins, so confining it to a helper keeps `io/tls.dart` code-identical and
+leaves scd49 one small recorded divergence instead of a large one.
+
 ## 1.143.0
 
 ### Fixed — an SDK range error could not be caught across a bridged method (sce74)

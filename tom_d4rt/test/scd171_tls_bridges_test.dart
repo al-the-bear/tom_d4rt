@@ -40,7 +40,10 @@ void main() {
     /// An interpreter granted everything this file's scripts legitimately need.
     D4rt granted() => D4rt()
       ..grant(FilesystemPermission.any)
-      ..grant(NetworkPermission.any);
+      ..grant(NetworkPermission.any)
+      // SCE74H added the certificate gate. A round trip that installs a key
+      // and a chain now needs the capability as well as the file access.
+      ..grant(CertificatePermission.load);
 
     test('F-SCD171-1: a script reads every X509Certificate getter off a real '
         'HTTPS round trip [2026-09-15] (PASS)', () async {
@@ -131,7 +134,8 @@ Future<dynamic> main() async {
         // refusal is about scope rather than about holding no grant at all.
         final interpreter = D4rt()
           ..grant(FilesystemPermission.readPath(f.directory.parent.path))
-          ..grant(NetworkPermission.any);
+          ..grant(NetworkPermission.any)
+          ..grant(CertificatePermission.load);
         // `expect`, not `expectLater`: the script's `main` is synchronous, so
         // `execute` throws during the call rather than returning a Future that
         // completes with an error — an `expectLater` on its result never sees
@@ -196,14 +200,21 @@ Future<dynamic> main() async {
             "import 'dart:io';\n"
             "dynamic main() => File(r'${f.certificatePath}').readAsStringSync();",
       );
-      final interpreter = D4rt()..grant(NetworkPermission.any);
+      // SCE74H: the certificate capability is granted throughout this case so
+      // it still isolates the FILESYSTEM decision. Without it every call below
+      // would be refused by the certificate gate instead, and the case would
+      // keep passing while measuring something else entirely.
+      final interpreter = D4rt()
+        ..grant(NetworkPermission.any)
+        ..grant(CertificatePermission.load);
       // No FilesystemPermission at all — so `dart:io` cannot even be imported,
       // which is sce206's subject. Drive the bridge through a granted import
       // but an ungranted PATH instead: the bytes route must not consult the
       // path scope, because it has no path.
       final scoped = D4rt()
         ..grant(FilesystemPermission.readPath('/nonexistent-scope'))
-        ..grant(NetworkPermission.any);
+        ..grant(NetworkPermission.any)
+        ..grant(CertificatePermission.load);
       expect(interpreter, isNotNull);
       expect(
         await scoped.execute(
@@ -235,6 +246,102 @@ Future<dynamic> main() async {
         ),
         'SecurityContext|X509Certificate',
       );
+    });
+
+    group('SCE74H: installing key material needs CertificatePermission', () {
+      // WHY A SEPARATE CAPABILITY when FilesystemPermission already covers the
+      // read. It covers it as an ORDINARY read. A script scoped to a directory
+      // that happens to hold a key could otherwise hand it to a
+      // `SecurityContext` and serve traffic under the host's identity, with
+      // nothing in the grant list saying that was possible.
+
+      test('F-SCE74H-1: a path member is refused without the grant '
+          '[2026-09-21] (PASS)', () {
+        final f = fixture;
+        if (f == null) {
+          markTestSkipped('openssl is not on this host');
+          return;
+        }
+        // Filesystem access IS granted, so a refusal here can only come from
+        // the certificate gate. That is the whole point of the case: without
+        // the grant the two denials are indistinguishable.
+        final interpreter = D4rt()..grant(FilesystemPermission.any);
+        expect(
+          () => interpreter.execute(
+            source:
+                "import 'dart:io';\n"
+                'dynamic main() {\n'
+                '  var c = SecurityContext();\n'
+                "  c.useCertificateChain(r'${f.certificatePath}');\n"
+                '  return "installed";\n'
+                '}',
+          ),
+          throwsA(
+            predicate<Object>(
+              (e) => '$e'.contains('Certificate permission denied'),
+              'names the certificate gate, not the filesystem one',
+            ),
+          ),
+        );
+      });
+
+      test('F-SCE74H-2: the *Bytes route is refused too [2026-09-21] '
+          '(PASS)', () {
+        // The shorter route to the same end. Gating only the path variants
+        // would leave this one open, and the capability is "install key
+        // material", not "open a file". The bytes are read INSIDE the script
+        // so the case needs nothing from the host but the two grants.
+        final f = fixture;
+        if (f == null) {
+          markTestSkipped('openssl is not on this host');
+          return;
+        }
+        final interpreter = D4rt()..grant(FilesystemPermission.any);
+        expect(
+          () => interpreter.execute(
+            source:
+                "import 'dart:io';\n"
+                'dynamic main() {\n'
+                "  var bytes = File(r'${f.certificatePath}').readAsBytesSync();\n"
+                '  var c = SecurityContext();\n'
+                '  c.useCertificateChainBytes(bytes);\n'
+                '  return "installed";\n'
+                '}',
+          ),
+          throwsA(
+            predicate<Object>(
+              (e) => '$e'.contains('Certificate permission denied'),
+              'the bytes route is gated as well',
+            ),
+          ),
+        );
+      });
+
+      test('F-SCE74H-3 (control): granted, both routes install '
+          '[2026-09-21] (PASS)', () {
+        // Without this the two cases above would also pass if the members were
+        // simply broken. It separates "refused" from "does not work".
+        final f = fixture;
+        if (f == null) {
+          markTestSkipped('openssl is not on this host');
+          return;
+        }
+        expect(
+          granted().execute(
+            source:
+                "import 'dart:io';\n"
+                'dynamic main() {\n'
+                "  var bytes = File(r'${f.certificatePath}').readAsBytesSync();\n"
+                '  var c = SecurityContext();\n'
+                "  c.useCertificateChain(r'${f.certificatePath}');\n"
+                "  c.usePrivateKey(r'${f.keyPath}');\n"
+                '  c.useCertificateChainBytes(bytes);\n'
+                '  return "installed";\n'
+                '}',
+          ),
+          'installed',
+        );
+      });
     });
   });
 }

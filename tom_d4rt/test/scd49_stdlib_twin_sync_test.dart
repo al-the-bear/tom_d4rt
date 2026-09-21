@@ -125,6 +125,18 @@ const _networkHelperRef =
 const _networkHelperAst =
     'resolvedHost = _hostOf ( host ) ; final allowed = visitor . moduleContext';
 
+/// The same idiom once more in `certificate_permission_helper.dart` (SCE74H).
+/// This gate has no path to normalise and no host to resolve, so the trimmed
+/// region is the bare permission check and nothing around it — the smallest
+/// form the divergence takes anywhere.
+const _certificateHelperRef =
+    "final d4rt = visitor . moduleLoader . d4rt ; if ( d4rt == null ) "
+    "return ; if ( d4rt . checkPermission ( const { 'type' : 'certificate' } "
+    ") ) return ;";
+const _certificateHelperAst =
+    "if ( visitor . moduleContext . checkPermission ( const { 'type' : "
+    "'certificate' } ) ) { return ; }";
+
 /// Files allowed to differ, and exactly how. Anything else is a finding.
 ///
 /// SCD170 moved `io/socket.dart` OFF this list. Its divergence was the same
@@ -137,6 +149,10 @@ const _allowed = <String, (String, String)>{
   'io/process.dart': (_idiomRef, _idiomAst),
   'io/filesystem_permission_helper.dart': (_helperRef, _helperAst),
   'io/network_permission_helper.dart': (_networkHelperRef, _networkHelperAst),
+  'io/certificate_permission_helper.dart': (
+    _certificateHelperRef,
+    _certificateHelperAst,
+  ),
 };
 
 /// The executable tokens of [source]: no comments, no directives, no trailing

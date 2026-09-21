@@ -471,6 +471,48 @@ class IsolatePermission extends Permission {
   }
 }
 
+/// Certificate permissions govern loading X.509 certificates and private keys
+/// into a `SecurityContext`.
+///
+/// WHY THIS IS NOT `FilesystemPermission`, which already covers the file read.
+/// It covers it as an ORDINARY read, and a private key is not an ordinary
+/// read: a script scoped to a directory that happens to contain one could
+/// hand it to a `SecurityContext` and serve traffic under the host's identity,
+/// with nothing in the grant list saying that was possible. Naming the
+/// capability separately is what lets an embedder allow a script to read its
+/// own data directory without also allowing it to impersonate the host.
+///
+/// IT GATES THE BYTES VARIANTS TOO, which read nothing. The capability being
+/// granted is "install key material into a TLS context", not "open a file" —
+/// `usePrivateKeyBytes` reaches the same end with bytes the script already
+/// holds, so gating only the path variants would leave the shorter route open.
+/// The path variants are checked TWICE, here and by the filesystem gate, and
+/// that is deliberate: they genuinely do both things.
+class CertificatePermission extends Permission {
+  @override
+  final String type = 'certificate';
+
+  final bool _load;
+
+  CertificatePermission._(this._load);
+
+  /// Allows loading certificates and private keys into a `SecurityContext`.
+  static final CertificatePermission load = CertificatePermission._(true);
+
+  /// Allows all certificate operations.
+  static final CertificatePermission any = CertificatePermission._(true);
+
+  @override
+  String get description => 'load certificates and private keys';
+
+  @override
+  bool allows(dynamic operation) {
+    if (operation is! Map<String, dynamic>) return false;
+    if (operation['type'] != 'certificate') return false;
+    return _load;
+  }
+}
+
 /// Dangerous permissions that should be granted with extreme caution.
 class DangerousPermission extends Permission {
   @override
