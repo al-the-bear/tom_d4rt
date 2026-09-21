@@ -1,3 +1,18 @@
+## 0.126.0
+
+### Changed — `io/socket.dart` is diffable against its twin again (sce69)
+
+The two copies differed by thirteen lines where they should differ by one. The
+prose was identical; only the comment WRAP WIDTH differed, which no formatter
+normalises and no guard reports, and which defeats the `diff` the mirror rule
+exists to make readable.
+
+Rebuilt from `tom_d4rt`'s copy with only the canonical import changed —
+`package:tom_d4rt_ast/runtime.dart`, not `d4rt.dart`, which is the rewrite a
+blanket package-name substitution gets wrong and F-SCC92-3 rejects.
+
+Comment only; no behaviour changes.
+
 ## 0.125.0
 
 ### Changed — a missing member is catchable as `NoSuchMethodError` (sce67)

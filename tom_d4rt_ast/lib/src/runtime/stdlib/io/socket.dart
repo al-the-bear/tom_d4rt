@@ -847,11 +847,12 @@ class ServerSocketIo {
     staticMethods: {
       'bind': (visitor, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'ServerSocket.bind', atMost: 2);
-        // `dynamic address`, and deliberately so: the SDK accepts either a host
-        // string or an `InternetAddress`, and its own documentation uses the
-        // latter. A `toString()` here turned `InternetAddress.loopbackIPv4` into
-        // the literal text `InternetAddress('127.0.0.1', IPv4)` and handed that
-        // to the resolver, so the documented form failed a host lookup while the
+        // `dynamic address`, and deliberately so: the SDK accepts either a
+        // host string or an `InternetAddress`, and its own documentation
+        // uses the latter. A `toString()` here turned
+        // `InternetAddress.loopbackIPv4` into the literal text
+        // `InternetAddress('127.0.0.1', IPv4)` and handed that to the
+        // resolver, so the documented form failed a host lookup while the
         // string form worked. Pass the argument through and let `dart:io`
         // decide, exactly as every sibling bridge (`RawServerSocket.bind`,
         // `Socket.connect`, `RawDatagramSocket.bind`) already does.
