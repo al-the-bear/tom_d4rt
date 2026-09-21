@@ -55,11 +55,19 @@ import '../bridge_reachability.dart';
 /// PRESENT: that is the change `tom_d4rt_exec`'s drift guard recorded while the
 /// two trees disagreed, and the reason this list is written out rather than
 /// asserted with `containsAll`. A `containsAll` cannot say a member is gone.
+///
+/// `contains` is INHERITED from `Iterable` and declared here anyway — the one
+/// exception to the rule at the top of the bridge, and it is here because the
+/// entry a script holds and the entry the list holds are two carriers of one
+/// object. The inherited adapter compares them with `==` and answers false.
+/// Every other `Iterable` member takes a predicate or nothing, so this is the
+/// only one the difference reaches.
 const _linkedListMethods = <String>{
   'add',
   'addAll',
   'addFirst',
   'clear',
+  'contains',
   'remove',
 };
 
@@ -111,8 +119,8 @@ void main() {
 
     test('F-SCD57-2: exposes the getters that read through [2026-09-12]', () {
       final list = LinkedList<BridgedLinkedListEntry>()
-        ..add(BridgedLinkedListEntry('a'))
-        ..add(BridgedLinkedListEntry('b'));
+        ..add(BridgedLinkedListEntry())
+        ..add(BridgedLinkedListEntry());
       // REACHABILITY, not declaration: the claim is that a script reading
       // `list.length` gets an answer, and after SCC51 the answering bridge may
       // be `LinkedList` or `Iterable` without anything observable changing.
@@ -190,28 +198,24 @@ void main() {
       // sees that name — it sees `LinkedListEntry`.
       expect(bridge!.nativeType, BridgedLinkedListEntry);
       expect(bridge.typeParameterCount, 0);
-      expect(bridge.isAssignable?.call(BridgedLinkedListEntry('a')), isTrue);
+      expect(bridge.isAssignable?.call(BridgedLinkedListEntry()), isTrue);
       expect(bridge.isAssignable?.call('a'), isFalse);
     });
 
     test('F-SCD57-5: declares exactly the expected surface [2026-09-12]', () {
       final bridge = env.findBridgedClassByName('LinkedListEntry')!;
       expect(bridge.methods.keys.toSet(), equals(_linkedListEntryMethods));
-      expect(
-        bridge.getters.keys,
-        containsAll(['list', 'next', 'previous', 'value']),
-      );
+      expect(bridge.getters.keys, containsAll(['list', 'next', 'previous']));
     });
 
     test('F-SCD57-6: the getters read through to the native entry '
         '[2026-09-12]', () {
       final bridge = env.findBridgedClassByName('LinkedListEntry')!;
-      final first = BridgedLinkedListEntry('a');
-      final second = BridgedLinkedListEntry('b');
+      final first = BridgedLinkedListEntry();
+      final second = BridgedLinkedListEntry();
       LinkedList<BridgedLinkedListEntry>()
         ..add(first)
         ..add(second);
-      expect(bridge.getters['value']!(null, first), 'a');
       expect(bridge.getters['next']!(null, first), same(second));
       expect(bridge.getters['previous']!(null, second), same(first));
       // An attached entry knows its list; the getter must hand back the native
@@ -219,14 +223,22 @@ void main() {
       expect(bridge.getters['list']!(null, first), isNotNull);
     });
 
-    test('F-SCD57-8: exposes the value-taking constructor [2026-09-12]', () {
+    test('F-SCD57-8: exposes the SDK\'s zero-argument constructor '
+        '[2026-09-12]', () {
+      // The SDK's `LinkedListEntry` has an implicit zero-argument
+      // constructor, and a script reaches it only through the implicit
+      // `super()` of its own `class E extends LinkedListEntry<E>`. Until
+      // SCE84 this constructor REQUIRED a value argument, so that implicit
+      // super failed and the type could not be subclassed at all — the one
+      // way the SDK offers to use `LinkedList`.
       final bridge = env.findBridgedClassByName('LinkedListEntry')!;
       expect(bridge.constructors.keys, contains(''));
-      final made = bridge.constructors['']!(visitor, ['a'], {});
+      final made = bridge.constructors['']!(visitor, [], {});
       expect(made, isA<BridgedLinkedListEntry>());
-      expect((made as BridgedLinkedListEntry).value, 'a');
+      // And the value-taking form is refused, because the SDK has no such
+      // constructor: a script using it ran here and did not compile as Dart.
       expect(
-        () => bridge.constructors['']!(visitor, [], {}),
+        () => bridge.constructors['']!(visitor, ['a'], {}),
         throwsA(isA<RuntimeD4rtException>()),
       );
     });

@@ -289,7 +289,7 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpreterVisitor.resolveStaticCoordinates': '1c58137b',
     'InterpreterVisitor.visitAsExpression': '8d3fb462',
     'InterpreterVisitor.visitAssignmentExpression': '294abc8b',
-    'InterpreterVisitor.visitBinaryExpression': '2f8b6555',
+    'InterpreterVisitor.visitBinaryExpression': '4a8ad811',
     'InterpreterVisitor.visitClassDeclaration': '57fc0f99',
     'InterpreterVisitor.visitConstructorReference': 'eca261a7',
     'InterpreterVisitor.visitEnumDeclaration': '3ec3a1a1',

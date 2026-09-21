@@ -65,31 +65,32 @@ void main() {
     test('F-SCC74-AST-1: LinkedListEntry.insertAfter orders the list '
         '[2026-09-06]', () {
       final list = LinkedList<BridgedLinkedListEntry>();
-      final a = BridgedLinkedListEntry('a');
-      final c = BridgedLinkedListEntry('c');
+      final a = BridgedLinkedListEntry();
+      final b = BridgedLinkedListEntry();
+      final c = BridgedLinkedListEntry();
       list.addAll([a, c]);
-      invoke('LinkedListEntry', 'insertAfter', a, [
-        BridgedLinkedListEntry('b'),
-      ]);
-      expect(list.map((e) => e.value), equals(['a', 'b', 'c']));
+      invoke('LinkedListEntry', 'insertAfter', a, [b]);
+      // ORDER is the subject, and the entries themselves are what carries it:
+      // the SDK's `LinkedListEntry` holds no payload, so a script's subclass
+      // is where a value would live.
+      expect(list.toList(), equals([a, b, c]));
     });
 
     test('F-SCC74-AST-2: LinkedListEntry.insertBefore orders the list '
         '[2026-09-06]', () {
       final list = LinkedList<BridgedLinkedListEntry>();
-      final a = BridgedLinkedListEntry('a');
-      final c = BridgedLinkedListEntry('c');
+      final a = BridgedLinkedListEntry();
+      final b = BridgedLinkedListEntry();
+      final c = BridgedLinkedListEntry();
       list.addAll([a, c]);
-      invoke('LinkedListEntry', 'insertBefore', c, [
-        BridgedLinkedListEntry('b'),
-      ]);
-      expect(list.map((e) => e.value), equals(['a', 'b', 'c']));
+      invoke('LinkedListEntry', 'insertBefore', c, [b]);
+      expect(list.toList(), equals([a, b, c]));
     });
 
     test('F-SCC74-AST-3: insertAfter names itself when given a non-entry '
         '[2026-09-06]', () {
       final list = LinkedList<BridgedLinkedListEntry>();
-      final a = BridgedLinkedListEntry('a');
+      final a = BridgedLinkedListEntry();
       list.add(a);
       expect(
         () => invoke('LinkedListEntry', 'insertAfter', a, ['not an entry']),

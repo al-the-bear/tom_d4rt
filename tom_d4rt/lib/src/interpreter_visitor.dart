@@ -2310,6 +2310,18 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           return result;
         }
 
+        // SCE84: a native proxy and the interpreted instance behind it are
+        // ONE object. The two carriers are different Dart objects, so
+        // `list.first == theEntryIAdded` compared a BridgedInstance against
+        // an InterpretedInstance and answered false where Dart answers true.
+        // Fires only when one side really is a proxy; comparing two distinct
+        // proxies is unchanged.
+        final leftBehind = D4.interpretedBehind(leftOperandValue);
+        final rightBehind = D4.interpretedBehind(rightOperandValue);
+        if (leftBehind != null || rightBehind != null) {
+          return (leftBehind ?? leftOperandValue) ==
+              (rightBehind ?? rightOperandValue);
+        }
         return left == right;
       case '!=':
         // Special handling for BridgedEnumValue comparison
@@ -2332,6 +2344,13 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           return leftNative != rightNative;
         }
 
+        // SCE84: the mirror of the `==` arm above — see its comment.
+        final leftBehindNe = D4.interpretedBehind(leftOperandValue);
+        final rightBehindNe = D4.interpretedBehind(rightOperandValue);
+        if (leftBehindNe != null || rightBehindNe != null) {
+          return (leftBehindNe ?? leftOperandValue) !=
+              (rightBehindNe ?? rightOperandValue);
+        }
         return left != right;
       case '<':
         return left as dynamic < right;

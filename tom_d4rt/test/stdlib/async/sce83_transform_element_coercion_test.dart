@@ -140,16 +140,17 @@ void main() {
       // `File.openRead()` really is a `Stream<List<int>>`, so it worked before
       // this change and must still: a fix for the dynamic case that breaks the
       // typed one has moved the defect rather than closed it.
-      final self =
-          'test/stdlib/async/'
-          'sce83_transform_element_coercion_test.dart';
+      // `pubspec.yaml` rather than this file's own source: every package in
+      // the repo has one at the same relative path, so the case asks the same
+      // question wherever it runs. Reading its own source made the file
+      // unportable for a reason that has nothing to do with the subject.
       expect(
         await _run(
-          "return await File('$self')\n"
+          "return await File('pubspec.yaml')\n"
           '    .openRead()\n'
           '    .transform(utf8.decoder)\n'
           '    .join()\n'
-          "    .then((s) => s.contains('F-SCE83-5'));",
+          "    .then((s) => s.contains('name:'));",
         ),
         isTrue,
       );

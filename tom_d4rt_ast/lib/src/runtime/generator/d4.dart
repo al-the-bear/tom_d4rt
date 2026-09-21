@@ -84,6 +84,36 @@ typedef GenericConstructorFactory =
 /// final items = D4.coerceList<Item>(positional[0], 'items');
 /// ```
 class D4 {
+  /// The interpreted instance [value] is a native proxy for, or null when it
+  /// is not one.
+  ///
+  /// A native proxy and the interpreted instance behind it are ONE object as
+  /// far as a script is concerned: the proxy exists so native code has
+  /// something of the right Dart type to hold, and the instance is what the
+  /// script wrote. Anything asking "are these the same object" — `identical`,
+  /// `==`, a collection's membership test — has to be told, because the two
+  /// carriers are different Dart objects.
+  ///
+  /// Both carriers are accepted because both reach a binding: the bare proxy
+  /// object, and a [BridgedInstance] wrapping it — which of the two arrives
+  /// depends on the path the value took out of native code.
+  static Object? interpretedBehind(Object? value) {
+    if (value is D4InterpretedProxy) {
+      final inner = value.d4rtInstance;
+      // A proxy with nothing behind it answers with itself; that is not an
+      // interpreted instance and means "nothing to unwrap to".
+      return identical(inner, value) ? null : inner;
+    }
+    if (value is BridgedInstance) {
+      final native = value.nativeObject;
+      if (native is D4InterpretedProxy) {
+        final inner = native.d4rtInstance;
+        return identical(inner, native) ? null : inner;
+      }
+    }
+    return null;
+  }
+
   // Private constructor - all methods are static
   D4._();
 

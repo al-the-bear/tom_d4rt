@@ -145,7 +145,12 @@ class CoreStdlib {
           if (arguments.length != 2) {
             throw RuntimeD4rtException('identical requires two arguments.');
           }
-          return identical(arguments[0], arguments[1]);
+          // A native proxy and the interpreted instance behind it are one
+          // object to a script — `list.first` may arrive as the proxy while
+          // the script still holds the instance it added.
+          final left = D4.interpretedBehind(arguments[0]) ?? arguments[0];
+          final right = D4.interpretedBehind(arguments[1]) ?? arguments[1];
+          return identical(left, right);
         },
         arity: 2,
         name: 'identical',
@@ -160,7 +165,12 @@ class CoreStdlib {
               'identityHashCode requires one argument.',
             );
           }
-          return identityHashCode(arguments[0]);
+          // Same carrier rule as `identical` above: two carriers of one
+          // object must not hash differently, or a script's identity set
+          // holds both.
+          return identityHashCode(
+            D4.interpretedBehind(arguments[0]) ?? arguments[0],
+          );
         },
         arity: 1,
         name: 'identityHashCode',

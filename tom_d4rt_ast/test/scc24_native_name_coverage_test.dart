@@ -1385,7 +1385,11 @@ void main() {
       'Error': 4,
       'FileSystemEntity': 16,
       'Function': 4,
-      'LinkedListEntry': 7,
+      // 7 -> 6 with SCE84: the `value` getter went, because the SDK's
+      // entry has no such member and a script using it did not compile as
+      // Dart. The bridge is still unreachable in this sense — every heir
+      // declares its own — so the count moved rather than the entry.
+      'LinkedListEntry': 6,
       'Match': 11,
       'Pattern': 5,
       'TypedData': 4,

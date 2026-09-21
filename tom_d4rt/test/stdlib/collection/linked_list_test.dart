@@ -4,6 +4,13 @@
 // LinkedList's own and cannot be inherited from anywhere: `addAll` and
 // `addFirst`. The F-SCC8 cases below pin those two.
 //
+// SCE84 then made the type usable the way Dart requires. Every script here
+// declares `class E extends LinkedListEntry<E>` and constructs entries from
+// it, because that is the only entry point the SDK has. The bridge previously
+// offered `LinkedListEntry(value)` — a constructor the SDK does not have, on a
+// class it declares abstract — and these cases were written against it; the
+// same judgement below applies to a constructor as to a method, so it went.
+//
 // It also removed `removeFirst`, which the bridge offered and Dart's LinkedList
 // does not have. That direction of error has no test to fail: a member the SDK
 // lacks makes every script using it green here and uncompilable as Dart, and
@@ -24,6 +31,16 @@ void main() {
         '''
       import 'dart:collection';
 
+      // The entry type every script below uses. `LinkedList` is only usable
+      // through a subclass of `LinkedListEntry` — that is the whole design of
+      // the SDK type, whose declaration is
+      // `abstract class LinkedListEntry<E extends LinkedListEntry<E>>` — and
+      // the field is named `value` so these cases read as they always did.
+      class E extends LinkedListEntry<E> {
+        final value;
+        E(this.value);
+      }
+
       main() {
         $scriptBody
       }
@@ -41,8 +58,8 @@ void main() {
       () {
         final result = executeTestScript('''
         var list = LinkedList();
-        var entry1 = LinkedListEntry('apple');
-        var entry2 = LinkedListEntry(123);
+        var entry1 = E('apple');
+        var entry2 = E(123);
         
         list.add(entry1);
         list.add(entry2);
@@ -76,8 +93,8 @@ void main() {
     test('I-COLL-48: LinkedListEntry unlink. [2026-02-10 06:37] (PASS)', () {
       final result = executeTestScript('''
         var list = LinkedList();
-        var entry1 = LinkedListEntry('a');
-        var entry2 = LinkedListEntry('b');
+        var entry1 = E('a');
+        var entry2 = E('b');
         list.add(entry1);
         list.add(entry2);
         
@@ -101,9 +118,9 @@ void main() {
     test('I-COLL-49: LinkedList remove entry. [2026-02-10 06:37] (PASS)', () {
       final result = executeTestScript('''
         var list = LinkedList();
-        var entry1 = LinkedListEntry(1);
-        var entry2 = LinkedListEntry(2);
-        var entry3 = LinkedListEntry(3);
+        var entry1 = E(1);
+        var entry2 = E(2);
+        var entry3 = E(3);
         list.add(entry1);
         list.add(entry2);
         list.add(entry3);
@@ -138,8 +155,8 @@ void main() {
         // Dart accepts.
         final result = executeTestScript('''
         var list = LinkedList();
-        var entry1 = LinkedListEntry('x');
-        var entry2 = LinkedListEntry('y');
+        var entry1 = E('x');
+        var entry2 = E('y');
         list.add(entry1);
         list.add(entry2);
 
@@ -165,7 +182,7 @@ void main() {
     test('I-COLL-43: LinkedList clear. [2026-02-10 06:37] (PASS)', () {
       final result = executeTestScript('''
         var list = LinkedList();
-        var entry1 = LinkedListEntry(100);
+        var entry1 = E(100);
         list.add(entry1);
         list.clear();
         
@@ -205,9 +222,7 @@ void main() {
       () {
         // Unlinking an entry that was never added
         expect(
-          () => executeTestScript(
-            'var entry = LinkedListEntry(0); entry.unlink();',
-          ),
+          () => executeTestScript('var entry = E(0); entry.unlink();'),
           throwsA(isA<RuntimeD4rtException>()),
         );
 
@@ -215,7 +230,7 @@ void main() {
         expect(
           () => executeTestScript('''
           var list = LinkedList();
-          var entry = LinkedListEntry(0);
+          var entry = E(0);
           list.add(entry);
           entry.unlink(); // First unlink
           entry.unlink(); // Second unlink, should throw
@@ -233,9 +248,9 @@ void main() {
         // case starting from an empty list would pass either way.
         final result = executeTestScript('''
         var list = LinkedList();
-        var head = LinkedListEntry('head');
+        var head = E('head');
         list.add(head);
-        list.addAll([LinkedListEntry('a'), LinkedListEntry('b')]);
+        list.addAll([E('a'), E('b')]);
 
         var values = [];
         for (var entry in list) {
@@ -264,7 +279,7 @@ void main() {
         // mutate what it is iterating.
         final result = executeTestScript('''
         var list = LinkedList();
-        list.addAll([1, 2, 3].map((n) => LinkedListEntry(n * 10)));
+        list.addAll([1, 2, 3].map((n) => E(n * 10)));
         var values = [];
         for (var entry in list) {
           values.add(entry.value);
@@ -279,7 +294,7 @@ void main() {
     test('F-SCC8-3: addAll of an empty iterable is a no-op [2026-09-04]', () {
       final result = executeTestScript('''
         var list = LinkedList();
-        var only = LinkedListEntry('only');
+        var only = E('only');
         list.add(only);
         list.addAll([]);
         return {'length': list.length, 'firstValue': list.first.value};
@@ -293,9 +308,9 @@ void main() {
       () {
         final result = executeTestScript('''
         var list = LinkedList();
-        var second = LinkedListEntry('second');
+        var second = E('second');
         list.add(second);
-        var first = LinkedListEntry('first');
+        var first = E('first');
         list.addFirst(first);
 
         return {
@@ -326,7 +341,7 @@ void main() {
         expect(
           () => executeTestScript('''
           var list = LinkedList();
-          list.add(LinkedListEntry('x'));
+          list.add(E('x'));
           return list.removeFirst();
         '''),
           // `NoSuchMethodError`, not `RuntimeD4rtException`: a missing member is
@@ -354,7 +369,7 @@ void main() {
         // so validating up front costs nothing and removes it here too.
         final result = executeTestScript('''
         var list = LinkedList();
-        var ok = LinkedListEntry('ok');
+        var ok = E('ok');
         try {
           list.addAll([ok, 'not an entry']);
         } catch (e) {

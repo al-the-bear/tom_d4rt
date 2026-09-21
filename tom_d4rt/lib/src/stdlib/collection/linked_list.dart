@@ -9,6 +9,19 @@ import 'package:tom_d4rt/d4rt.dart';
 /// here. Do not add an adapter for an inherited member: it shadows the
 /// fallback with a second implementation that then has to be kept correct.
 ///
+/// `LinkedListEntry` IS THE ENTRY POINT, and the bridge follows the SDK's
+/// shape for it: an implicit zero-argument constructor and the six members
+/// `list`, `next`, `previous`, `insertAfter`, `insertBefore`, `unlink`. A
+/// script declares `class E extends LinkedListEntry<E>` — the SDK declares it
+/// `abstract base mixin class` over a self-referential type parameter, so
+/// there is no other way in — and carries its payload on that class, where
+/// Dart carries it.
+///
+/// A `LinkedListEntry(value)` CONSTRUCTOR AND A `value` GETTER are therefore
+/// both absent, and were both present until SCE84. Neither is in the SDK, so a
+/// script using them ran here and did not compile as Dart — the same judgement
+/// `removeFirst` gets below, applied to a constructor and a getter.
+///
 /// `removeFirst` is DELIBERATELY ABSENT. Dart's `LinkedList` has no such
 /// member — `Queue` does, which is where the expectation comes from — and the
 /// portable way to drop the head is `list.first.unlink()`. Bridging it made
@@ -33,11 +46,11 @@ class LinkedListCollection {
     },
     methods: {
       'add': (visitor, target, positionalArgs, namedArgs, _) {
-        if (target is LinkedList<BridgedLinkedListEntry> &&
-            positionalArgs.length == 1 &&
-            positionalArgs[0] is BridgedLinkedListEntry &&
-            namedArgs.isEmpty) {
-          target.add(positionalArgs[0] as BridgedLinkedListEntry);
+        final entry = positionalArgs.length == 1 && namedArgs.isEmpty
+            ? _nativeEntry(positionalArgs[0])
+            : null;
+        if (target is LinkedList<BridgedLinkedListEntry> && entry != null) {
+          target.add(entry);
           return null;
         }
         throw RuntimeD4rtException(
@@ -60,14 +73,12 @@ class LinkedListCollection {
             // Elements INSIDE an interpreted collection arrive wrapped;
             // single positional arguments do not, which is why `add` and
             // `addFirst` need no unwrapping and this does.
-            final entry = element is BridgedInstance
-                ? element.nativeObject
-                : element;
-            if (entry is! BridgedLinkedListEntry) {
+            final entry = _nativeEntry(element);
+            if (entry == null) {
               throw RuntimeD4rtException(
                 "Invalid arguments for LinkedList.addAll. Expected an "
                 "Iterable of LinkedListEntry, found "
-                "'${entry.runtimeType}'.",
+                "'${element.runtimeType}'.",
               );
             }
             entries.add(entry);
@@ -80,11 +91,11 @@ class LinkedListCollection {
         );
       },
       'addFirst': (visitor, target, positionalArgs, namedArgs, _) {
-        if (target is LinkedList<BridgedLinkedListEntry> &&
-            positionalArgs.length == 1 &&
-            positionalArgs[0] is BridgedLinkedListEntry &&
-            namedArgs.isEmpty) {
-          target.addFirst(positionalArgs[0] as BridgedLinkedListEntry);
+        final entry = positionalArgs.length == 1 && namedArgs.isEmpty
+            ? _nativeEntry(positionalArgs[0])
+            : null;
+        if (target is LinkedList<BridgedLinkedListEntry> && entry != null) {
+          target.addFirst(entry);
           return null;
         }
         throw RuntimeD4rtException(
@@ -92,14 +103,35 @@ class LinkedListCollection {
         );
       },
       'remove': (visitor, target, positionalArgs, namedArgs, _) {
-        if (target is LinkedList<BridgedLinkedListEntry> &&
-            positionalArgs.length == 1 &&
-            positionalArgs[0] is BridgedLinkedListEntry &&
-            namedArgs.isEmpty) {
-          return target.remove(positionalArgs[0] as BridgedLinkedListEntry);
+        final entry = positionalArgs.length == 1 && namedArgs.isEmpty
+            ? _nativeEntry(positionalArgs[0])
+            : null;
+        if (target is LinkedList<BridgedLinkedListEntry> && entry != null) {
+          return target.remove(entry);
         }
         throw RuntimeD4rtException(
           "Invalid arguments for LinkedList.remove. Expected a LinkedListEntry.",
+        );
+      },
+      'contains': (visitor, target, positionalArgs, namedArgs, _) {
+        // The ONE inherited member this bridge declares on purpose, against
+        // the rule at the top of this file. `Iterable.contains` takes an
+        // ELEMENT, and the element a script holds is its own entry object
+        // while the list holds the native entry behind it — so the inherited
+        // adapter compares two carriers of one object and answers false.
+        // Every other `Iterable` member takes a predicate or nothing, and the
+        // proxy marker on [BridgedLinkedListEntry] covers those: the entry
+        // they hand out reads as the script's own object.
+        D4.checkArity(positionalArgs, 'LinkedList.contains', exactly: 1);
+        final entry = namedArgs.isEmpty
+            ? _nativeEntry(positionalArgs[0])
+            : null;
+        if (target is LinkedList<BridgedLinkedListEntry> && entry != null) {
+          return identical(entry.list, target);
+        }
+        throw RuntimeD4rtException(
+          "Invalid arguments for LinkedList.contains. Expected a "
+          "LinkedListEntry.",
         );
       },
       'clear': (visitor, target, positionalArgs, namedArgs, _) {
@@ -141,15 +173,72 @@ class LinkedListCollection {
   );
 }
 
+/// The concrete stand-in this package ships for the SDK's abstract
+/// `LinkedListEntry`, and the bridge's native type.
+///
+/// Its surface is deliberately EXACTLY the SDK's — everything it has, it
+/// inherits from `LinkedListEntry` — because the member audit reflects over
+/// this class to decide what a script should be able to reach. A field added
+/// here reads as a member of `LinkedListEntry` that nothing bridges, which is
+/// why the owner link and the proxy marker live on [_OwnedLinkedListEntry]
+/// below rather than here.
 final class BridgedLinkedListEntry
-    extends LinkedListEntry<BridgedLinkedListEntry> {
-  final Object? value;
+    extends LinkedListEntry<BridgedLinkedListEntry> {}
 
-  BridgedLinkedListEntry(this.value);
+/// The entry the bridge mints, which can stand for a script's own subclass.
+///
+/// A script writes `class E extends LinkedListEntry<E>`; the interpreter calls
+/// the bridged constructor for the implicit `super()` and assigns the result
+/// as the instance's `bridgedSuperObject`. The adapter is called without
+/// `this`, so the tie is made later — when the entry ENTERS a list, the only
+/// moment both halves are in one place.
+///
+/// [D4InterpretedProxy] is what makes `list.first.myField` reach the script's
+/// class: the native list can only hold native entries, so `Iterable`'s
+/// adapters hand out THIS object, and the interpreter's existing proxy
+/// unwrapping turns it back into the instance on property access, member
+/// invocation and `as`.
+final class _OwnedLinkedListEntry extends BridgedLinkedListEntry
+    implements D4InterpretedProxy {
+  /// The script's own entry object, or null for an entry standing for nothing.
+  Object? owner;
+
+  /// Answers with itself when there is no owner. Every unwrap site tests the
+  /// result with `is InterpretedInstance` before using it, so a non-instance
+  /// answer means "nothing to unwrap to" and the site falls through to the
+  /// behaviour it had before.
+  @override
+  Object get d4rtInstance => owner ?? this;
 
   @override
-  String toString() => 'BridgedLinkedListEntry($value)';
+  String toString() => 'LinkedListEntry(${owner ?? 'unowned'})';
 }
+
+/// The native entry behind [arg], whichever way the script produced it, with
+/// its [BridgedLinkedListEntry.owner] linked.
+///
+/// A script writes `class E extends LinkedListEntry<E>`, so what arrives is an
+/// [InterpretedInstance] whose `bridgedSuperObject` is the native entry the
+/// implicit `super()` created. The native list can only hold native entries,
+/// so this is where the two are tied together.
+BridgedLinkedListEntry? _nativeEntry(Object? arg) {
+  final value = arg is BridgedInstance ? arg.nativeObject : arg;
+  if (value is BridgedLinkedListEntry) return value;
+  if (value is InterpretedInstance) {
+    final native = value.bridgedSuperObject;
+    if (native is _OwnedLinkedListEntry) {
+      native.owner = value;
+      return native;
+    }
+    if (native is BridgedLinkedListEntry) return native;
+  }
+  return null;
+}
+
+/// What a script should see for [entry]: its own object when it declared one,
+/// and the native entry otherwise.
+Object? _exposed(BridgedLinkedListEntry? entry) =>
+    entry is _OwnedLinkedListEntry ? entry.owner ?? entry : entry;
 
 class LinkedListEntryCollection {
   static BridgedClass get definition => BridgedClass(
@@ -159,35 +248,43 @@ class LinkedListEntryCollection {
     typeParameterCount: 0,
     constructors: {
       '': (visitor, positionalArgs, namedArgs) {
-        if (positionalArgs.length == 1 && namedArgs.isEmpty) {
-          return BridgedLinkedListEntry(positionalArgs[0]);
+        // The SDK's `LinkedListEntry` has an implicit ZERO-argument
+        // constructor, and a script reaches it through the implicit `super()`
+        // of its own `class E extends LinkedListEntry<E>` — the only way the
+        // type is usable, since `LinkedList` has no other entry point.
+        if (namedArgs.isEmpty && positionalArgs.isEmpty) {
+          return _OwnedLinkedListEntry();
         }
         throw RuntimeD4rtException(
-          "Constructor LinkedListEntry(value) expects one positional argument.",
+          "Constructor LinkedListEntry() takes no arguments. Declare an entry "
+          "type the way Dart requires — `class E extends LinkedListEntry<E>` "
+          "— and carry your value on it.",
         );
       },
     },
     methods: {
       'insertAfter': (visitor, target, positionalArgs, namedArgs, _) {
-        if (target is! BridgedLinkedListEntry ||
-            positionalArgs.length != 1 ||
-            positionalArgs[0] is! BridgedLinkedListEntry) {
+        final entry = positionalArgs.length == 1
+            ? _nativeEntry(positionalArgs[0])
+            : null;
+        if (target is! BridgedLinkedListEntry || entry == null) {
           throw RuntimeD4rtException(
             'LinkedListEntry.insertAfter(entry) expects one LinkedListEntry.',
           );
         }
-        target.insertAfter(positionalArgs[0] as BridgedLinkedListEntry);
+        target.insertAfter(entry);
         return null;
       },
       'insertBefore': (visitor, target, positionalArgs, namedArgs, _) {
-        if (target is! BridgedLinkedListEntry ||
-            positionalArgs.length != 1 ||
-            positionalArgs[0] is! BridgedLinkedListEntry) {
+        final entry = positionalArgs.length == 1
+            ? _nativeEntry(positionalArgs[0])
+            : null;
+        if (target is! BridgedLinkedListEntry || entry == null) {
           throw RuntimeD4rtException(
             'LinkedListEntry.insertBefore(entry) expects one LinkedListEntry.',
           );
         }
-        target.insertBefore(positionalArgs[0] as BridgedLinkedListEntry);
+        target.insertBefore(entry);
         return null;
       },
       'unlink': (visitor, target, positionalArgs, namedArgs, _) {
@@ -221,14 +318,6 @@ class LinkedListEntryCollection {
       },
     },
     getters: {
-      'value': (visitor, target) {
-        if (target is BridgedLinkedListEntry) {
-          return target.value;
-        }
-        throw RuntimeD4rtException(
-          "Target is not a LinkedListEntry for getter 'value'",
-        );
-      },
       'list': (visitor, target) {
         if (target is BridgedLinkedListEntry) {
           return target.list;
@@ -239,7 +328,7 @@ class LinkedListEntryCollection {
       },
       'previous': (visitor, target) {
         if (target is BridgedLinkedListEntry) {
-          return target.previous;
+          return _exposed(target.previous);
         }
         throw RuntimeD4rtException(
           "Target is not a LinkedListEntry for getter 'previous'",
@@ -247,7 +336,7 @@ class LinkedListEntryCollection {
       },
       'next': (visitor, target) {
         if (target is BridgedLinkedListEntry) {
-          return target.next;
+          return _exposed(target.next);
         }
         throw RuntimeD4rtException(
           "Target is not a LinkedListEntry for getter 'next'",

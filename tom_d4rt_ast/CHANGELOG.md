@@ -1,3 +1,43 @@
+## 0.138.0
+
+### Fixed (BREAKING for scripts using the old entry form) — `LinkedListEntry` can be subclassed (sce84)
+
+`LinkedList` is only usable through a subclass of `LinkedListEntry` — the SDK
+declares it `abstract base mixin class LinkedListEntry<E extends
+LinkedListEntry<E>>`, so there is no other way in. Interpreted code could not
+write one:
+
+    class E extends LinkedListEntry<E> { final int v; E(this.v); }
+    final l = LinkedList<E>(); l.add(E(1));
+
+    -> Error during implicit bridged super constructor:
+       Constructor LinkedListEntry(value) expects one positional argument.
+
+The bridge wrapped d4rt's own concrete stand-in, whose constructor carried the
+entry's value, so the implicit `super()` every subclass makes could never
+match. It now takes no arguments, as the SDK's does, and a script carries its
+payload on its own class where Dart carries it.
+
+**Two non-SDK members went with it, and this is breaking for any script that
+used them**: the `LinkedListEntry(value)` constructor and the `value` getter.
+The SDK's entry has `list`, `next`, `previous`, `insertAfter`, `insertBefore`,
+`unlink` and nothing else, so a script using either ran here and did not
+compile as Dart — the same judgement `removeFirst` got in SCC8, applied to a
+constructor and a getter. The diagnostic says what to write instead.
+
+**The list hands back the script's own objects.** A native `LinkedList` can
+only hold native entries, so `first`, `last`, iteration and `map` produce the
+entry the bridge minted; it carries the interpreted instance as a
+`D4InterpretedProxy`, and the interpreter's existing unwrapping makes
+`list.first.myField` reach the script's class.
+
+Identity follows, because two carriers of one object must not answer `false`
+to "is this the entry I added". `identical`, `identityHashCode` and the `==` /
+`!=` operators now see through a native proxy to the instance behind it, and
+`LinkedList.contains` — the one inherited member whose argument is an element —
+unwraps its argument. This is the first consumer of `D4.interpretedBehind`,
+promoted from a private helper in the binding checker.
+
 ## 0.137.0
 
 ### Fixed — `stream.transform(utf8.decoder)` failed for every stream a script made (sce83)

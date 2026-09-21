@@ -6702,14 +6702,8 @@ class ResolvedBinding {
   /// object, and a [BridgedInstance] wrapping it — which of the two arrives
   /// depends on the path the value took out of native code, and the unwrap
   /// sites in the visitor already handle the pair the same way.
-  static Object? _interpretedBehind(Object? value) {
-    if (value is D4InterpretedProxy) return value.d4rtInstance;
-    if (value is BridgedInstance) {
-      final native = value.nativeObject;
-      if (native is D4InterpretedProxy) return native.d4rtInstance;
-    }
-    return null;
-  }
+  static Object? _interpretedBehind(Object? value) =>
+      D4.interpretedBehind(value);
 
   /// SCD92: [value], once its own type arguments are known to satisfy the
   /// declared ones — or throws when they do not.

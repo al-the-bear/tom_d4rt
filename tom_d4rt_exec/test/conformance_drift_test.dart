@@ -1578,6 +1578,26 @@ const Map<String, int> _uncoveredBaseline = {
   // getter is widened, which cannot be done before the floor moves. Recorded
   // as scf20 rather than as a surprise for whoever runs the next publish.
   'stdlib/io/sce82_header_constants_test.dart': 7,
+  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.137.0.
+  // SCE83 made `stream.transform(utf8.decoder)` work for a stream a SCRIPT
+  // built: those are `Stream<dynamic>` carrying `List<Object?>` chunks, so a
+  // decoder rejected them with a host `TypeError` naming an interpreter
+  // internal. Measured 2026-09-21: 4 of 7 fail against the 0.65.0 exec
+  // resolves, each with `type '_MultiStream<dynamic>' is not a subtype of type
+  // 'Stream<List<int>>'` or its `_ControllerStream` / `Stream<String>`
+  // variants. The three that pass are the controls — a dart:io stream, a
+  // script-defined transformer, and the argument diagnostic — which is what
+  // they are for.
+  'stdlib/async/sce83_transform_element_coercion_test.dart': 7,
+  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.138.0.
+  // SCE84's behaviour suite: a script declaring the `LinkedListEntry` subclass
+  // the SDK requires, which is the only way `LinkedList` is usable at all.
+  // Measured 2026-09-21: 11 of 12 fail against the 0.65.0 exec resolves — ten
+  // in the implicit `super()` itself, and F-SCE84-12 because the removed
+  // `LinkedListEntry(value)` dialect is still accepted there. The twelfth,
+  // F-SCE84-11, passes either way: it is the control that hands `add` a
+  // string, which is refused by both interpreters.
+  'stdlib/collection/sce84_linked_list_subclass_test.dart': 12,
 };
 
 /// Why a [_divergentBaseline] entry is allowed to stand.
@@ -1717,11 +1737,6 @@ const Map<String, _Convergence> _convergenceLog = {
     "F-SC4-8 unary onError handler. Named beside unmodifiable_map_view, "
     'which went the other way — one commit, both directions, which is why '
     'a per-file record is worth more than a per-commit one.',
-  ),
-  'stdlib/collection/linked_list_test.dart': _Convergence(
-    _Direction.downstream,
-    'SCC35 (7aa21f302) names it: "ported verbatim per the flip recipe its '
-    'own header prescribed — the publish met its stated condition".',
   ),
   'interpreter_test.dart': _Convergence(
     _Direction.downstream,
@@ -2020,6 +2035,33 @@ const Map<String, _Divergence> _divergentBaseline = {
   //
   // Re-port when a publish raises exec's floor past 0.125.0.
   'interpreter2_test.dart': _Divergence.deliberate,
+  // SCE84 made `LinkedListEntry` subclassable — the SDK's implicit
+  // zero-argument constructor in place of a value-taking one — and removed the
+  // `LinkedListEntry(value)` constructor and the `value` getter, neither of
+  // which the SDK has. Every script in both reference files now declares
+  // `class E extends LinkedListEntry<E>`, which is the only way the SDK type
+  // is usable; against the interpreter this package resolves, that declaration
+  // fails in its own implicit `super()`.
+  //
+  // Measured 2026-09-21 against the resolved 0.65.0 by porting each file with
+  // `tool/remeasure_pins.dart --candidates`: 11 of 13 cases fail in
+  // `linked_list_test`, every one with `Error during implicit bridged super
+  // constructor: Constructor LinkedListEntry(value) expects one positional
+  // argument`, and 3 of 13 in `scc74_member_axis_gaps` — that file's other ten
+  // cases are about unrelated classes and pass either way.
+  //
+  // PUBLISH-BLOCKED, and expect the exec copies to need the same rewrite
+  // rather than a plain copy: their text asserts a dialect that will no longer
+  // exist.
+  //
+  // 11 of 13 cases here fail when ported, every one with `Error during
+  // implicit bridged super constructor`. Re-port when a publish raises exec's
+  // floor past 0.138.0.
+  'stdlib/collection/linked_list_test.dart': _Divergence.deliberate,
+  // 3 of 13 cases here fail when ported — this file's other ten are about
+  // unrelated classes and pass either way. Re-port when a publish raises
+  // exec's floor past 0.138.0.
+  'stdlib/scc74_member_axis_gaps_test.dart': _Divergence.deliberate,
 };
 
 /// The difference each [_divergentBaseline] entry actually sanctions.
@@ -2058,6 +2100,9 @@ const Map<String, String> _divergenceFingerprints = <String, String>{
   'scc32_bridged_value_key_test.dart': 'bf57cd97b77c0e83',
   'scc33_unhandled_node_test.dart': '1be2b48d0784ff46',
   'scc29_parameter_type_check_test.dart': 'a4c38e44ee9853e1',
+  // SCE84's two, recorded with the entries in `_divergentBaseline` above.
+  'stdlib/collection/linked_list_test.dart': 'a29fd59a29499657',
+  'stdlib/scc74_member_axis_gaps_test.dart': 'ff858ca3ac01f2c4',
   'interpreter2_test.dart': '072dd1096b1d280c',
 };
 
@@ -2283,6 +2328,14 @@ const Map<String, String> _pinnedInterpreterFloors = <String, String>{
   // written here.
   'stdlib/sce74_sdk_error_type_parity_test.dart': '0.129.0',
   'stdlib/io/sce82_header_constants_test.dart': '0.136.0',
+  // SCE84, pinned at the release carrying the fix rather than at a
+  // conservative working-tree version, and all three measured against the
+  // resolved 0.65.0 before being written here.
+  'stdlib/collection/linked_list_test.dart': '0.138.0',
+  'stdlib/scc74_member_axis_gaps_test.dart': '0.138.0',
+  'stdlib/collection/sce84_linked_list_subclass_test.dart': '0.138.0',
+  // SCE83, owed from the todo before it and measured the same way.
+  'stdlib/async/sce83_transform_element_coercion_test.dart': '0.137.0',
 };
 
 /// The `tom_d4rt_ast` floor exec's own `pubspec.yaml` currently declares.
