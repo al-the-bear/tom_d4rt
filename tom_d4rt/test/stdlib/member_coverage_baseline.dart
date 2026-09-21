@@ -7,7 +7,7 @@
 // claim this baseline was introduced to stop anyone making.
 //
 // Current state: 208 bridged classes registered; of those,
-// 51 confirmed-unreachable members across 4 classes,
+// 0 confirmed-unreachable members across 0 classes,
 // 5 members on 2 classes unreachable by decision,
 // and 36 members on 1 classes that cannot be measured at all.
 // Those totals are documentation, not assertions — the test derives them from the
@@ -19,63 +19,7 @@
 // regenerating hides a live defect.
 
 /// Members proven unreachable through the interpreter, per bridged class.
-const confirmedGaps = <String, List<String>>{
-  'ConnectionTask': [r'fromSocket'],
-  'HttpHeaders': [
-    r'acceptRangesHeader',
-    r'accessControlAllowCredentialsHeader',
-    r'accessControlAllowHeadersHeader',
-    r'accessControlAllowMethodsHeader',
-    r'accessControlAllowOriginHeader',
-    r'accessControlExposeHeadersHeader',
-    r'accessControlMaxAgeHeader',
-    r'accessControlRequestHeadersHeader',
-    r'accessControlRequestMethodHeader',
-    r'ageHeader',
-    r'allowHeader',
-    r'contentDisposition',
-    r'contentLanguageHeader',
-    r'contentLocationHeader',
-    r'contentMD5Header',
-    r'contentRangeHeader',
-    r'entityHeaders',
-    r'etagHeader',
-    r'expectHeader',
-    r'expiresHeader',
-    r'fromHeader',
-    r'generalHeaders',
-    r'ifMatchHeader',
-    r'ifNoneMatchHeader',
-    r'ifRangeHeader',
-    r'ifUnmodifiedSinceHeader',
-    r'lastModifiedHeader',
-    r'maxForwardsHeader',
-    r'pragmaHeader',
-    r'proxyAuthenticateHeader',
-    r'proxyAuthorizationHeader',
-    r'rangeHeader',
-    r'refererHeader',
-    r'requestHeaders',
-    r'responseHeaders',
-    r'retryAfterHeader',
-    r'serverHeader',
-    r'teHeader',
-    r'trailerHeader',
-    r'transferEncodingHeader',
-    r'upgradeHeader',
-    r'varyHeader',
-    r'viaHeader',
-    r'warningHeader',
-    r'wwwAuthenticateHeader',
-  ],
-  'Platform': [r'lineTerminator'],
-  'RawSocketOption': [
-    r'IPv4MulticastInterface',
-    r'IPv6MulticastInterface',
-    r'levelIPv4',
-    r'levelIPv6',
-  ],
-};
+const confirmedGaps = <String, List<String>>{};
 
 /// Members unreachable BY DECISION, per bridged class. Each carries its reason
 /// in `_declined` in the tool.

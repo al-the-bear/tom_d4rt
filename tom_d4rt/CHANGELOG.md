@@ -1,3 +1,39 @@
+## 1.150.0
+
+### Added — the last 51 confirmed member gaps are bridged (sce82)
+
+SCD44 widened the audit and took its confirmed-unreachable count from 0 to 51
+without touching `lib/`: every one was a member a script could never call, and
+the audit simply could not see them. They are now bridged, and the count is
+back to 0.
+
+| class | members |
+| ----- | ------- |
+| `HttpHeaders` | the 45 remaining static header-name constants |
+| `RawSocketOption` | `levelIPv4`, `levelIPv6`, `IPv4MulticastInterface`, `IPv6MulticastInterface` |
+| `ConnectionTask` | `fromSocket` |
+| `Platform` | `lineTerminator` |
+
+`HttpHeaders` was the bulk of it, and the half-bridged state was the worst one
+to be in: seventeen constants resolved and forty-five did not, so
+`headers.set(HttpHeaders.acceptRangesHeader, …)` failed while
+`HttpHeaders.acceptHeader` beside it worked — the ones that resolve teach the
+author to expect the rest.
+
+Each constant DELEGATES to the SDK's own (`(visitor) => HttpHeaders.teHeader`)
+rather than repeating its value, so a wrong name is a compile error rather than
+a bridge that resolves and quietly returns the wrong header. The cases assert
+against `dart:io` directly for the other half of that: that each bridge is
+wired to the constant it claims.
+
+`Platform.lineTerminator` goes through the same dangerous-permission gate as
+every other `Platform` getter. It is a pure value, but it is a host property,
+and bridging it ungated would have made it the one `Platform` member a script
+can read without a grant.
+
+What remains measured-unreachable is the five `ByteBuffer` and `RawSocket`
+members that are unreachable BY DECISION, each with its reason recorded.
+
 ## 1.149.0
 
 ### Fixed — a cascade section could not take an awaited argument (sce81)

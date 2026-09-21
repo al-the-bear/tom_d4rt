@@ -17,6 +17,14 @@ class PlatformIo {
         _checkDangerousPermission(visitor);
         return Platform.pathSeparator;
       },
+      // SCE82: `isWindows ? '\r\n' : '\n'` in the SDK — a pure value, but it
+      // is a host property like `pathSeparator` beside it, so it goes through
+      // the same gate rather than being the one Platform member a script can
+      // read ungated.
+      'lineTerminator': (visitor) {
+        _checkDangerousPermission(visitor);
+        return Platform.lineTerminator;
+      },
       'operatingSystem': (visitor) {
         _checkDangerousPermission(visitor);
         return Platform.operatingSystem;

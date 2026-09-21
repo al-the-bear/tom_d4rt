@@ -6,8 +6,8 @@
 // hand-edited entry is an assertion about the interpreter that nothing
 // measured, which is the claim this baseline exists to stop anyone making.
 //
-// Current state: 56 unreachable members across 6 classes,
-// over 202 classes the audit could diff. Those totals are
+// Current state: 5 unreachable members across 2 classes,
+// over 205 classes the audit could diff. Those totals are
 // documentation, not assertions — the test derives them from the tables below.
 //
 // Scope: ordinary named members only. Operators and the universal `Object`
@@ -18,62 +18,7 @@
 /// script can reach them.
 const unreachableMembers = <String, List<String>>{
   'ByteBuffer': [r'asFloat32x4List', r'asFloat64x2List', r'asInt32x4List'],
-  'ConnectionTask': [r'fromSocket'],
-  'HttpHeaders': [
-    r'acceptRangesHeader',
-    r'accessControlAllowCredentialsHeader',
-    r'accessControlAllowHeadersHeader',
-    r'accessControlAllowMethodsHeader',
-    r'accessControlAllowOriginHeader',
-    r'accessControlExposeHeadersHeader',
-    r'accessControlMaxAgeHeader',
-    r'accessControlRequestHeadersHeader',
-    r'accessControlRequestMethodHeader',
-    r'ageHeader',
-    r'allowHeader',
-    r'contentDisposition',
-    r'contentLanguageHeader',
-    r'contentLocationHeader',
-    r'contentMD5Header',
-    r'contentRangeHeader',
-    r'entityHeaders',
-    r'etagHeader',
-    r'expectHeader',
-    r'expiresHeader',
-    r'fromHeader',
-    r'generalHeaders',
-    r'ifMatchHeader',
-    r'ifNoneMatchHeader',
-    r'ifRangeHeader',
-    r'ifUnmodifiedSinceHeader',
-    r'lastModifiedHeader',
-    r'maxForwardsHeader',
-    r'pragmaHeader',
-    r'proxyAuthenticateHeader',
-    r'proxyAuthorizationHeader',
-    r'rangeHeader',
-    r'refererHeader',
-    r'requestHeaders',
-    r'responseHeaders',
-    r'retryAfterHeader',
-    r'serverHeader',
-    r'teHeader',
-    r'trailerHeader',
-    r'transferEncodingHeader',
-    r'upgradeHeader',
-    r'varyHeader',
-    r'viaHeader',
-    r'warningHeader',
-    r'wwwAuthenticateHeader',
-  ],
-  'Platform': [r'lineTerminator'],
   'RawSocket': [r'readMessage', r'sendMessage'],
-  'RawSocketOption': [
-    r'IPv4MulticastInterface',
-    r'IPv6MulticastInterface',
-    r'levelIPv4',
-    r'levelIPv6',
-  ],
 };
 
 /// Classes the audit could diff against an SDK surface. A class dropping out of
@@ -221,6 +166,7 @@ const auditedClasses = <String>{
   'RemoteError',
   'Runes',
   'SameSite',
+  'SecurityContext',
   'SendPort',
   'ServerSocket',
   'Set',
@@ -254,6 +200,7 @@ const auditedClasses = <String>{
   'Symbol',
   'TimeoutException',
   'Timer',
+  'TlsProtocolVersion',
   'TransferableTypedData',
   'Type',
   'TypeError',
@@ -277,6 +224,7 @@ const auditedClasses = <String>{
   'WebSocketException',
   'WebSocketStatus',
   'WebSocketTransformer',
+  'X509Certificate',
   'bool',
   'double',
   'int',

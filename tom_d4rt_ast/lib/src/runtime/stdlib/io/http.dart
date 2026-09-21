@@ -1155,6 +1155,71 @@ class HttpHeadersIo {
       'locationHeader': (visitor) => HttpHeaders.locationHeader,
       'setCookieHeader': (visitor) => HttpHeaders.setCookieHeader,
       'userAgentHeader': (visitor) => HttpHeaders.userAgentHeader,
+      // SCE82: the rest of the constant block. The audit reported 45 of these
+      // as confirmed-unreachable — a script writing
+      // `headers.set(HttpHeaders.acceptRangesHeader, …)` failed while the
+      // seventeen above resolved, which is the worst state to be half in:
+      // the ones that work teach the author to expect the rest.
+      //
+      // Each DELEGATES to the SDK constant rather than repeating its value,
+      // so a wrong name is a compile error here instead of a bridge that
+      // resolves and quietly returns the wrong header.
+      'acceptRangesHeader': (visitor) => HttpHeaders.acceptRangesHeader,
+      'accessControlAllowCredentialsHeader': (visitor) =>
+          HttpHeaders.accessControlAllowCredentialsHeader,
+      'accessControlAllowHeadersHeader': (visitor) =>
+          HttpHeaders.accessControlAllowHeadersHeader,
+      'accessControlAllowMethodsHeader': (visitor) =>
+          HttpHeaders.accessControlAllowMethodsHeader,
+      'accessControlAllowOriginHeader': (visitor) =>
+          HttpHeaders.accessControlAllowOriginHeader,
+      'accessControlExposeHeadersHeader': (visitor) =>
+          HttpHeaders.accessControlExposeHeadersHeader,
+      'accessControlMaxAgeHeader': (visitor) =>
+          HttpHeaders.accessControlMaxAgeHeader,
+      'accessControlRequestHeadersHeader': (visitor) =>
+          HttpHeaders.accessControlRequestHeadersHeader,
+      'accessControlRequestMethodHeader': (visitor) =>
+          HttpHeaders.accessControlRequestMethodHeader,
+      'ageHeader': (visitor) => HttpHeaders.ageHeader,
+      'allowHeader': (visitor) => HttpHeaders.allowHeader,
+      'contentDisposition': (visitor) => HttpHeaders.contentDisposition,
+      'contentLanguageHeader': (visitor) => HttpHeaders.contentLanguageHeader,
+      'contentLocationHeader': (visitor) => HttpHeaders.contentLocationHeader,
+      'contentMD5Header': (visitor) => HttpHeaders.contentMD5Header,
+      'contentRangeHeader': (visitor) => HttpHeaders.contentRangeHeader,
+      'entityHeaders': (visitor) => HttpHeaders.entityHeaders,
+      'etagHeader': (visitor) => HttpHeaders.etagHeader,
+      'expectHeader': (visitor) => HttpHeaders.expectHeader,
+      'expiresHeader': (visitor) => HttpHeaders.expiresHeader,
+      'fromHeader': (visitor) => HttpHeaders.fromHeader,
+      'generalHeaders': (visitor) => HttpHeaders.generalHeaders,
+      'ifMatchHeader': (visitor) => HttpHeaders.ifMatchHeader,
+      'ifNoneMatchHeader': (visitor) => HttpHeaders.ifNoneMatchHeader,
+      'ifRangeHeader': (visitor) => HttpHeaders.ifRangeHeader,
+      'ifUnmodifiedSinceHeader': (visitor) =>
+          HttpHeaders.ifUnmodifiedSinceHeader,
+      'lastModifiedHeader': (visitor) => HttpHeaders.lastModifiedHeader,
+      'maxForwardsHeader': (visitor) => HttpHeaders.maxForwardsHeader,
+      'pragmaHeader': (visitor) => HttpHeaders.pragmaHeader,
+      'proxyAuthenticateHeader': (visitor) =>
+          HttpHeaders.proxyAuthenticateHeader,
+      'proxyAuthorizationHeader': (visitor) =>
+          HttpHeaders.proxyAuthorizationHeader,
+      'rangeHeader': (visitor) => HttpHeaders.rangeHeader,
+      'refererHeader': (visitor) => HttpHeaders.refererHeader,
+      'requestHeaders': (visitor) => HttpHeaders.requestHeaders,
+      'responseHeaders': (visitor) => HttpHeaders.responseHeaders,
+      'retryAfterHeader': (visitor) => HttpHeaders.retryAfterHeader,
+      'serverHeader': (visitor) => HttpHeaders.serverHeader,
+      'teHeader': (visitor) => HttpHeaders.teHeader,
+      'trailerHeader': (visitor) => HttpHeaders.trailerHeader,
+      'transferEncodingHeader': (visitor) => HttpHeaders.transferEncodingHeader,
+      'upgradeHeader': (visitor) => HttpHeaders.upgradeHeader,
+      'varyHeader': (visitor) => HttpHeaders.varyHeader,
+      'viaHeader': (visitor) => HttpHeaders.viaHeader,
+      'warningHeader': (visitor) => HttpHeaders.warningHeader,
+      'wwwAuthenticateHeader': (visitor) => HttpHeaders.wwwAuthenticateHeader,
     },
     methods: {
       'add': (visitor, target, positionalArgs, namedArgs, _) {

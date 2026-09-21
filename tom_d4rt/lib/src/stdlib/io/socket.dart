@@ -1091,6 +1091,16 @@ class RawSocketOptionIo {
       'levelSocket': (visitor) => RawSocketOption.levelSocket,
       'levelTcp': (visitor) => RawSocketOption.levelTcp,
       'levelUdp': (visitor) => RawSocketOption.levelUdp,
+      // SCE82: the remaining level and interface constants. They are plain
+      // ints that name a socket option; a script cannot build an IP-multicast
+      // `RawSocketOption` without them, which is what made the three above and
+      // the constructors only half usable.
+      'levelIPv4': (visitor) => RawSocketOption.levelIPv4,
+      'levelIPv6': (visitor) => RawSocketOption.levelIPv6,
+      'IPv4MulticastInterface': (visitor) =>
+          RawSocketOption.IPv4MulticastInterface,
+      'IPv6MulticastInterface': (visitor) =>
+          RawSocketOption.IPv6MulticastInterface,
     },
     getters: {
       'level': (visitor, target) => (target as RawSocketOption).level,
@@ -1160,6 +1170,30 @@ class ConnectionTaskIo {
     name: 'ConnectionTask',
     isAssignable: (v) => v is ConnectionTask,
     typeParameterCount: 1,
+    staticMethods: {
+      // SCE82. Documented by the SDK for `HttpClient.connectionFactory`, which
+      // is bridged — so this is reachable from a script rather than an
+      // implementor-only hook, and both parameters are bridgeable: a
+      // `Future<Socket>` the script already holds, and a cancel callback.
+      'fromSocket': (visitor, positionalArgs, namedArgs, typeArgs) {
+        D4.checkArity(
+          positionalArgs,
+          'ConnectionTask.fromSocket',
+          atLeast: 1,
+          atMost: 2,
+        );
+        final socket = positionalArgs[0] as Future<dynamic>;
+        final onCancel = positionalArgs.length > 1 ? positionalArgs[1] : null;
+        return ConnectionTask.fromSocket<Socket>(
+          socket.then((s) => D4.unwrapAs<Socket>(s)),
+          () {
+            if (onCancel != null) {
+              D4.callInterpreterCallback(visitor, onCancel, const []);
+            }
+          },
+        );
+      },
+    },
     methods: {
       'cancel': (visitor, target, positionalArgs, namedArgs, _) =>
           (target as ConnectionTask).cancel(),

@@ -1540,6 +1540,44 @@ const Map<String, int> _uncoveredBaseline = {
   //
   // Re-port when a publish raises exec's floor past 0.82.0.
   'scd73_no_hook_unwrapping_test.dart': 8,
+  // NOT PORTABLE — `tool/stdlib_member_diff.dart` again, and this file is the
+  // one that tests the tool's own classifier. Its four cases plant a wording at
+  // a throw site and assert the audit notices, so its subject is the reference
+  // tree's tool rather than either interpreter. pin-registered: n/a — nothing
+  // a publish can change.
+  'sce77_resolution_throw_sites_test.dart': 4,
+  // NOT PORTABLE — a census over the SDK's own sources, asked on behalf of
+  // *tom_d4rt's* bridge registry: it finds every SDK member carrying a generic
+  // function parameter (a shape SCD37 established no bridge can honour) and
+  // checks the set against the reasons recorded in this tree's stdlib. Copied
+  // here it would re-assert the same SDK facts about a package that registers
+  // no bridges, which passes and measures nothing. pin-registered: n/a — its
+  // subject is not the interpreter.
+  'sce76_generic_function_parameter_census_test.dart': 2,
+  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.129.0.
+  // Measured 2026-09-21: 9 of 61 fail against the 0.65.0 exec resolves — the
+  // nine `Queue` / `ListQueue` / `DoubleLinkedQueue` cases where an empty
+  // receiver's IndexError or StateError arrives as something no script can
+  // catch. The other 52 pass against 0.65.0 and are in the file as controls.
+  'stdlib/sce74_sdk_error_type_parity_test.dart': 61,
+  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.136.0.
+  // Measured 2026-09-21: 6 of 7 fail against the 0.65.0 exec resolves, each
+  // with `Undefined static member` for the member it exists to reach —
+  // `HttpHeaders.acceptRangesHeader`, `generalHeaders`,
+  // `RawSocketOption.levelIPv4`, `Platform.lineTerminator` and
+  // `ConnectionTask.fromSocket`. The seventh is F-SCE82-3, which asserts the
+  // seventeen constants that were ALREADY bridged and so passes everywhere.
+  //
+  // THE TREE SIDE COULD NOT BE MEASURED, and the reason is worth carrying
+  // here because it blocks the re-port of both entries: under SCD66's
+  // pre-publish override exec resolves the 0.136.0 tree and exec's OWN
+  // `lib/src/d4rt_base.dart:783` stops compiling — `D4rtRunner.functionTypedefs`
+  // returns a wider record in the tree (`requiredPositional` / `maxPositional`,
+  // added with the typedef-arity work) than exec's forwarding getter declares.
+  // So the publish that frees these two entries also breaks exec until its
+  // getter is widened, which cannot be done before the floor moves. Recorded
+  // as scf20 rather than as a surprise for whoever runs the next publish.
+  'stdlib/io/sce82_header_constants_test.dart': 7,
 };
 
 /// Why a [_divergentBaseline] entry is allowed to stand.
@@ -2237,6 +2275,14 @@ const Map<String, String> _pinnedInterpreterFloors = <String, String>{
   // — the reference file has no counterpart here at all, which is F-SCC6-2's
   // business rather than this register's.
   'scc29_parameter_type_check_test.dart': '0.87.0',
+  // SCE74 and SCE82, each pinned at the release its fix actually landed in
+  // rather than at a conservative working-tree version: SCE74's narrowing of
+  // the `ArgumentError` catch in `BridgedMethodCallable` is 0.129.0, and
+  // SCE82's static-member bridging is 0.136.0. Both measured against the
+  // resolved 0.65.0 with `tool/remeasure_pins.dart --candidates` before being
+  // written here.
+  'stdlib/sce74_sdk_error_type_parity_test.dart': '0.129.0',
+  'stdlib/io/sce82_header_constants_test.dart': '0.136.0',
 };
 
 /// The `tom_d4rt_ast` floor exec's own `pubspec.yaml` currently declares.

@@ -448,7 +448,7 @@ baseline.
 
 ### Current measured state
 
-Measured 2026-09-12.
+Measured 2026-09-21.
 
 | Metric | Count |
 |--------|-------|
@@ -457,12 +457,21 @@ Measured 2026-09-12.
 | … reachable anyway via instance fallback | 651 |
 | … unverified — cannot be measured, reason stated | 36 in 1 class |
 | … unverified — no recipe yet | **0** |
-| **MEASURED unreachable** | **56** |
+| **MEASURED unreachable** | **5** |
 | … of those, unreachable **by decision** | 5 in 2 classes |
-| **CONFIRMED unreachable** (i.e. defects) | **51** |
+| **CONFIRMED unreachable** (i.e. defects) | **0** |
 
-**The confirmed count went 3 → 231 → 13 → 0, and only the last move touched
-adapters.** The rise was the unverified bucket closing: 228 members that no run
+**Everything the audit can measure is now either reachable or declared.** SCE82
+closed the 51 SCD44 exposed: 45 `HttpHeaders` constants, four `RawSocketOption`
+level/interface values, `ConnectionTask.fromSocket` and
+`Platform.lineTerminator`. The `HttpHeaders` block was the bulk of it and the
+half-bridged state was the worst one — seventeen constants resolved and
+forty-five did not, so the ones that worked taught a script author to expect the
+rest. What remains is the five `ByteBuffer` and `RawSocket` members that are
+unreachable BY DECISION, each with its reason in `kUnbridgedMemberReasons`.
+
+**The confirmed count went 3 → 231 → 13 → 0 → 51 → 0, and only the moves at
+each end touched adapters.** The rise was the unverified bucket closing: 228 members that no run
 had ever executed were measured for the first time, and they were already
 unreachable. The first fall was the `dart:io` supertype block being declared:
 218 of those 228 were `Stream` and `IOSink` members on stream- and sink-shaped
@@ -626,12 +635,16 @@ unattributed observation.
 | --- | --- | --- | --- | --- | --- |
 | `ByteBuffer` | 3 | 3 | 0 | The three SIMD views (`asFloat32x4List`, `asInt32x4List`, `asFloat64x2List`). This row **understates the finding** — see [Notes on the SIMD block](#notes-on-the-simd-block); it is nine names, not three. | **Boundary** — [limitations doc](d4rt_limitations.md#intentionally-unbridged-sdk-classes) + `F-SCB29-1..4` |
 | `RawSocket` | 2 | 2 | 0 | `readMessage`, `sendMessage` — file-descriptor passing over Unix domain sockets. A script holding a `ResourceHandle` has a working handle to a file or socket that no permission ever granted, and neither `FilesystemPermission` nor `NetworkPermission` can see it happen: a grant is checked when a path or host is *named*, and a descriptor names neither. | **Boundary** — [limitations doc](d4rt_limitations.md#intentionally-unbridged-sdk-classes) + `F-SCC74-1`; the refusal is carried in the diagnostic itself |
-| `HttpHeaders` | 45 | 0 | 45 | The static header-name constants (`acceptRangesHeader`, `accessControlAllowOriginHeader`, …). The class is half-bridged: `acceptHeader` and friends resolve, which is what makes the absence of the rest a trap rather than a plain gap. | Tracked — sce82 |
-| `RawSocketOption` | 4 | 0 | 4 | `IPv4MulticastInterface`, `IPv6MulticastInterface`, `levelIPv4`, `levelIPv6` — the socket-option level and interface constants. | Tracked — sce82 |
-| `ConnectionTask` | 1 | 0 | 1 | `fromSocket`. | Tracked — sce82 |
-| `Platform` | 1 | 0 | 1 | `lineTerminator`. | Tracked — sce82 |
 
-Six rows and 56 members, and the shape of the table changed completely in
+**SCE82 removed four rows**, and that is what the table is for: a row whose
+cause has been fixed documents a limitation that no longer exists, which
+misleads as much as omitting a present one. `HttpHeaders` (45),
+`RawSocketOption` (4), `ConnectionTask` (1) and `Platform` (1) were all
+`Tracked — sce82`; each member was verified from a script before its row came
+out, since leaving the candidate set only means the member is in the adapter
+map rather than that it works.
+
+Two rows and 5 members, and the shape of the table changed completely in
 September 2026. The seven rows it carried before were the classes' own residue
 after SCC57's supertype edges stripped 218 inherited members off the total.
 **Five of those seven are now closed** — `HttpClient`'s callback setters,

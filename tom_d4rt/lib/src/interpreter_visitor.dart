@@ -7594,9 +7594,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
   /// discarded value and an unfinished one are not the same thing, and
   /// `_evaluateArguments` signals the second by returning the suspension
   /// sentinel through a `as dynamic`. With nowhere to put it, the record
-  /// destructuring below failed and the script author saw `type
-  /// 'AsyncSuspensionRequest' is not a subtype of type '(List<Object?>,
-  /// Map<String, Object?>)'`.
+  /// destructuring below failed and the script author saw an internal cast
+  /// error naming `AsyncSuspensionRequest` and the argument-record type.
   Object? _executeCascadeMethodInvocation(
     Object? targetValue,
     MethodInvocation node,
