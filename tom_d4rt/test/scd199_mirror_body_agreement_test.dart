@@ -221,13 +221,17 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpretedFunction._handleAsyncError': 'a47ef623',
     'InterpretedFunction._instantiateRedirectedFactory': 'c9d9b3ba',
     'InterpretedFunction._isInsideCatchClauseOf': '3782eeaf',
+    // SCE78: the finally-block companion to the catch-clause predicate
+    // above, and divergent for the same architectural reason — the mirror
+    // AST has no `parent` getter, so the twin walks with `_parentOf`.
+    'InterpretedFunction._isInsideFinallyBlockOf': '34fd9762',
     'InterpretedFunction._jumpTarget': 'c5e2ff57',
     'InterpretedFunction._leaveLoopsFor': 'e47bcb14',
     'InterpretedFunction._nextEnclosingFinallyTry': 'fe832583',
     'InterpretedFunction._paramRuntimeType': '7b7a00d6',
     'InterpretedFunction._prepareExecutionEnvironment': 'e931c715',
     'InterpretedFunction._resolveTypeAnnotationDynamic': '2c861378',
-    'InterpretedFunction._runStateMachine': 'b92ceab2',
+    'InterpretedFunction._runStateMachine': '7f7f0dbc',
     'InterpretedFunction._tryOwningCatchClauseOf': 'f1617e03',
     'InterpretedFunction._tryOwningFinallyBlockOf': '34fd9762',
     'InterpretedFunction.bind': '78b56933',

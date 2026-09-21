@@ -1330,4 +1330,157 @@ void main() {
       );
     });
   });
+  group('SCE78: a return issued BY a finally', () {
+    // SCD43 closed the error half of this shape: a throw inside a finally is
+    // offered to the try ENCLOSING that try, and the pending return is dropped
+    // in the same step. A `return` is not an error, so it never reaches
+    // `_handleAsyncError` — it travels the ReturnException / returnAfterFinally
+    // path instead, which is why the two shapes looked identical and needed
+    // different fixes.
+    //
+    // THE SYMPTOM WAS A HANG, not a wrong answer. `activeTryStatement` was
+    // still the try whose finally was running, so the machine stored the value
+    // and jumped back to the first statement of the block that had just issued
+    // the return — and did it again. A starved event loop is invisible to the
+    // 10-second `onTimeout` in `run` above, so before the fix these cases
+    // WEDGED this file rather than failing it. Reproduce one in isolation with
+    // a wall-clock kill: `perl -e 'alarm 20; exec @ARGV' dart run <case>.dart`.
+
+    test('F-SCE78-1: a return in a finally discards a pending exception '
+        '[2026-09-21]', () async {
+      // The reported shape. Real Dart returns 5: the finally completes
+      // abruptly, and that replaces whatever the try body was doing.
+      expect(
+        await run('''
+          Future<dynamic> f() async {
+            try { throw StateError('x'); } finally { return 5; }
+          }
+          main() async => await f();
+        '''),
+        5,
+      );
+    });
+
+    test('F-SCE78-2: a return in a finally replaces a pending return '
+        '[2026-09-21]', () async {
+      expect(
+        await run('''
+          Future<dynamic> f() async {
+            try { return 7; } finally { return 5; }
+          }
+          main() async => await f();
+        '''),
+        5,
+      );
+    });
+
+    test('F-SCE78-3: the discarded exception does not resurface at an '
+        'enclosing catch [2026-09-21]', () async {
+      // The exception is GONE, not deferred. If the fix merely stopped the
+      // loop and left the error held, this would answer 9 — a fix that ends
+      // the hang and still answers wrongly, which is the trap SCD43 records
+      // for its own half.
+      expect(
+        await run('''
+          Future<dynamic> f() async {
+            try {
+              try { throw StateError('x'); } finally { return 5; }
+            } catch (e) { return 9; }
+          }
+          main() async => await f();
+        '''),
+        5,
+      );
+    });
+
+    test('F-SCE78-4: an ENCLOSING finally still runs, and its return wins '
+        '[2026-09-21]', () async {
+      // The case that caught the first attempt at this fix. Completing the
+      // function as soon as the inner finally returned answered 1; real Dart
+      // answers 2, because the return has to leave through the outer finally,
+      // which issues a return of its own that replaces it.
+      expect(
+        await run('''
+          Future<dynamic> f() async {
+            try {
+              try { throw StateError('x'); } finally { return 1; }
+            } finally { return 2; }
+          }
+          main() async => await f();
+        '''),
+        2,
+      );
+    });
+
+    test(
+      'F-SCE78-5: a finally that awaits before returning [2026-09-21]',
+      () async {
+        // The suspension is what this whole file is about, so the shape has to
+        // be exercised with one: a finally that yields and THEN returns puts the
+        // machine through a resumption before the return is issued.
+        expect(
+          await run('''
+          Future<dynamic> f() async {
+            try {
+              throw StateError('x');
+            } finally {
+              await Future.delayed(Duration.zero);
+              return 5;
+            }
+          }
+          main() async => await f();
+        '''),
+          5,
+        );
+      },
+    );
+
+    test('F-SCE78-6 (control): the finally still RUNS, it is not skipped '
+        '[2026-09-21]', () async {
+      // Every case above reads the returned value, and a machine that skipped
+      // the finally entirely and returned the literal would satisfy them all.
+      // This one reads a side effect the finally must have performed.
+      expect(
+        await run('''
+          Future<dynamic> f() async {
+            var log = [];
+            try { throw StateError('x'); } finally { log.add('ran'); return log; }
+          }
+          main() async => await f();
+        '''),
+        orderedEquals(['ran']),
+      );
+    });
+
+    test('F-SCE78-7 (control): a finally with no return still propagates the '
+        'exception [2026-09-21]', () async {
+      // The other direction. If the fix made every finally discard the pending
+      // error rather than only one that completes abruptly, this would answer
+      // instead of throwing.
+      await expectLater(
+        run('''
+          Future<dynamic> f() async {
+            var log = [];
+            try { throw StateError('x'); } finally { log.add('ran'); }
+          }
+          main() async => await f();
+        '''),
+        throwsA(isA<StateError>()),
+      );
+    });
+
+    test('F-SCE78-8: the SYNC path is unchanged [2026-09-21]', () async {
+      // It was already correct, and is the reference the async path is being
+      // made to match — so it is pinned rather than assumed.
+      expect(
+        await run('''
+          dynamic f() {
+            try { throw StateError('x'); } finally { return 5; }
+          }
+          main() async => f();
+        '''),
+        5,
+      );
+    });
+  });
 }

@@ -3466,6 +3466,62 @@ class InterpretedFunction implements Callable {
         );
         STryStatement? currentTry =
             currentState.activeTryStatement; // Use currentState
+        // SCE78: a return issued BY this try's own finally, rather than held
+        // FOR it.
+        //
+        // The branch below stores the value and jumps to the finally's first
+        // statement so the finally runs before the function completes. When the
+        // `return` is written INSIDE that same finally, `activeTryStatement` is
+        // still this try, so the jump went back to the top of the block that
+        // had just issued the return — and did it again, forever. That is why
+        // `try { throw StateError('x'); } finally { return 5; }` hung the async
+        // path while the synchronous path answered 5.
+        //
+        // Dart's rule is that the finally's abrupt completion REPLACES whatever
+        // the try body was doing, so the pending exception is discarded and the
+        // value is the function's result. The finally has already run — we are
+        // standing in it — so there is nothing left to run before completing.
+        //
+        // Structural, per SCD41's recorded decision and the way SCD43 fixed the
+        // error half of this: whether the return sits inside this try's finally
+        // is a property of the AST, not of what else has run, so it needs no
+        // new field on `AsyncExecutionState`.
+        if (currentTry != null &&
+            currentTry.finallyBlock != null &&
+            _isInsideFinallyBlockOf(currentNode, currentTry)) {
+          currentState.isHandlingErrorForRethrow = false;
+          currentState.originalErrorForRethrow = null;
+          currentState.currentError = null;
+          currentState.currentStackTrace = null;
+          currentState.returnAfterFinally = null;
+
+          // The return still has to leave through any ENCLOSING try's finally,
+          // exactly as SCD43's error half continues its search outside the try
+          // whose finally raised. Completing here instead was measurably wrong:
+          // `try { try { throw X } finally { return 1; } } finally { return 2; }`
+          // answered 1 where Dart answers 2, because the outer finally never
+          // ran and so never issued the return that replaces it.
+          STryStatement? outer = _findEnclosingTryStatement(
+            _parentOf(currentTry),
+          );
+          while (outer != null &&
+              (outer.finallyBlock == null ||
+                  outer.finallyBlock!.statements.isEmpty)) {
+            outer = _findEnclosingTryStatement(_parentOf(outer));
+          }
+          if (outer != null) {
+            currentState.returnAfterFinally = e.value;
+            currentState.activeTryStatement = outer;
+            currentNode = outer.finallyBlock!.statements.firstOrNull;
+            currentState.nextStateIdentifier = currentNode;
+            continue;
+          }
+
+          if (!currentState.completer.isCompleted) {
+            currentState.completer.complete(e.value);
+          }
+          return;
+        }
         if (currentTry != null && currentTry.finallyBlock != null) {
           // Check currentTry != null
           Logger.debug(
@@ -4103,6 +4159,24 @@ class InterpretedFunction implements Callable {
       if (current is SCatchClause && identical(_parentOf(current), owner)) {
         return true;
       }
+      if (current is SFunctionBody) return false;
+      current = _parentOf(current);
+    }
+    return false;
+  }
+
+  /// Whether [node] sits inside the finally block belonging to [owner].
+  ///
+  /// SCE78. The companion to [_isInsideCatchClauseOf], and it answers about a
+  /// SPECIFIC try for the same reason: the question is not "is this inside some
+  /// finally" but "is this inside the finally of the try that is currently
+  /// holding a return". A try nested inside a finally legitimately holds its
+  /// own returns for its own finally, so the nearest-enclosing form would
+  /// confuse the two.
+  static bool _isInsideFinallyBlockOf(SAstNode? node, STryStatement owner) {
+    SAstNode? current = node;
+    while (current != null) {
+      if (identical(current, owner.finallyBlock)) return true;
       if (current is SFunctionBody) return false;
       current = _parentOf(current);
     }

@@ -1,3 +1,43 @@
+## 0.132.0
+
+### Fixed — a `return` inside an async `finally` hung the interpreter (sce78)
+
+    Future<int> f() async {
+      try { throw StateError('x'); } finally { return 5; }
+    }
+
+Real Dart returns 5, and d4rt's synchronous path already did. The async state
+machine never completed the function's Future.
+
+CAUSE. When a `ReturnException` reached the state machine it asked whether
+`activeTryStatement` has a finally block, and if so stored the value and jumped
+to that block's first statement so the finally would run first. With the
+`return` written INSIDE that same finally, `activeTryStatement` was still that
+try — so the jump went back to the top of the block that had just issued the
+return, and did it again. The symptom is a HANG rather than an unresolved
+future, and no Dart-level timeout contains it: the machine reschedules through
+`Future.microtask`, so a starved event loop never runs the Timer.
+
+scd43 closed the other half of this shape — a throw inside a finally is offered
+to the try ENCLOSING that try — but a `return` is not an error and never enters
+`_handleAsyncError`, so it needed its own fix on the ReturnException path.
+
+FIXED STRUCTURALLY, per scd41's recorded preference and the way scd43 did its
+half: `_isInsideFinallyBlockOf` asks whether the return sits inside this try's
+own finally, which is a property of the AST rather than of what has run, so no
+new field on `AsyncExecutionState` was needed.
+
+The return does not complete the function on the spot. It discards the pending
+exception — Dart's rule is that the finally's abrupt completion replaces
+whatever the try body was doing — and then leaves through any ENCLOSING try's
+finally, whose own return replaces it in turn. Completing immediately answered
+1 for `try { try { throw X } finally { return 1; } } finally { return 2; }`
+where Dart answers 2.
+
+Eight cases in `test/scc12_await_in_finally_test.dart`, including two controls:
+the finally must still RUN (not be skipped), and a finally WITHOUT a return must
+still propagate the exception.
+
 ## 0.131.0
 
 ### Changed — resolution failures are now marked at the throw site (sce77)

@@ -1865,6 +1865,13 @@ const Map<String, _Divergence> _divergentBaseline = {
   // timeout able to stop it — the precise hazard the entry above already
   // describes, made worse. They come across with the rest of this file when
   // the floor moves.
+  //
+  // SCE78 widened it a third time, by eight cases, for the same reason and not
+  // as a choice. They pin `try { throw X } finally { return 5; }`, which the
+  // published interpreter does not answer wrongly — it HANGS, because the
+  // machine jumped back to the top of the finally that had just issued the
+  // return and did it again. Porting them now would wedge this suite exactly
+  // as the SCD169 batch would. The fix landed in `tom_d4rt_ast` 0.132.0.
   'scc12_await_in_finally_test.dart': _Divergence.deliberate,
   // `scd4_await_for_break`: SCE16 made `await for` lazy in the reference tree —
   // one `StreamIterator.moveNext()` per element, with the iterator cancelled
@@ -1987,7 +1994,7 @@ const Map<String, String> _divergenceFingerprints = <String, String>{
   'stdlib/collection/queue_test.dart': '19eee099a23916a8',
   'stdlib/cast_from_family_test.dart': 'c7a32ccddec5a069',
   'scd4_await_for_break_test.dart': '9d8fdd67890791db',
-  'scc12_await_in_finally_test.dart': '7c826ab0613fae0b',
+  'scc12_await_in_finally_test.dart': '366113dc15358546',
   'warm_parent_package_pool_test.dart': '971b6ff19185f442',
   'stdlib/intentionally_unbridged_test.dart': 'a11036cda720efcf',
   'scc31_undefined_name_uncatchable_test.dart': 'ad105fd6b643370f',
