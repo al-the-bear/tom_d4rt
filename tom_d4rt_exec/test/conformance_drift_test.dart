@@ -1885,6 +1885,12 @@ const Map<String, _Divergence> _divergentBaseline = {
   // `AsyncSuspensionRequest` as the element for every `await` in a collection
   // literal, so the assertions about CONTENTS are exactly what it cannot
   // satisfy. The fix landed in `tom_d4rt_ast` 0.134.0.
+  //
+  // SCE81 widened it a sixth time, by ten cases, and these would FAIL here too:
+  // the published interpreter cannot give a cascade section an awaited
+  // argument at all — it raises `type 'AsyncSuspensionRequest' is not a
+  // subtype of type '(List<Object?>, Map<String, Object?>)'`, an internal cast
+  // error. The fix landed in `tom_d4rt_ast` 0.135.0.
   'scc12_await_in_finally_test.dart': _Divergence.deliberate,
   // `scd4_await_for_break`: SCE16 made `await for` lazy in the reference tree —
   // one `StreamIterator.moveNext()` per element, with the iterator cancelled
@@ -2007,7 +2013,7 @@ const Map<String, String> _divergenceFingerprints = <String, String>{
   'stdlib/collection/queue_test.dart': '19eee099a23916a8',
   'stdlib/cast_from_family_test.dart': 'c7a32ccddec5a069',
   'scd4_await_for_break_test.dart': '9d8fdd67890791db',
-  'scc12_await_in_finally_test.dart': 'c24f6814c210a1ab',
+  'scc12_await_in_finally_test.dart': '38e7d44709353640',
   'warm_parent_package_pool_test.dart': '971b6ff19185f442',
   'stdlib/intentionally_unbridged_test.dart': 'a11036cda720efcf',
   'scc31_undefined_name_uncatchable_test.dart': 'ad105fd6b643370f',

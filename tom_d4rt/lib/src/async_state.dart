@@ -102,6 +102,34 @@ class AsyncExecutionState {
   final Map<CatchClause, Environment> catchEnvironments =
       Map<CatchClause, Environment>.identity();
 
+  /// A cascade's target value, memoised for the duration of that cascade.
+  ///
+  /// SCE81, and the reason option (b) was reachable at all. Dart evaluates a
+  /// cascade's target ONCE and then runs its sections in order for their side
+  /// effects. The interpreter drives `await` by REPLAY, so a section that
+  /// suspends means the cascade is re-entered — and without these two maps the
+  /// target would be re-evaluated and every earlier section re-run:
+  /// `sb..write('a')..write(await f())` would write `'a'` twice.
+  ///
+  /// Keyed by the cascade node, so each cascade in flight has its own entry.
+  /// Removed as soon as the cascade completes, which is what lets a cascade
+  /// inside a loop start fresh on the next iteration rather than skipping
+  /// every section it ran last time.
+  ///
+  /// KEYED BY IDENTITY, load-bearing in the `tom_d4rt_ast` twin for the reason
+  /// [doBodiesStarted] records: `SAstNode` overrides `==` with a structural
+  /// `toJson()` comparison, so a plain Map there would treat two
+  /// identical-looking cascades as one.
+  final Map<CascadeExpression, Object?> cascadeTargets =
+      Map<CascadeExpression, Object?>.identity();
+
+  /// The cascade sections that have already run to completion.
+  ///
+  /// SCE81. Replay skips these, which is what stops an earlier section's side
+  /// effect happening twice. Cleared per cascade by [cascadeTargets]'s owner
+  /// when that cascade finishes.
+  final Set<AstNode> completedCascadeSections = Set<AstNode>.identity();
+
   /// Stack of loop environments for nested loops
   final List<Environment> loopEnvironmentStack = [];
 

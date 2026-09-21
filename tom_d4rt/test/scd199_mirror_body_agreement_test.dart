@@ -211,7 +211,7 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpretedFunction._beginAwaitForIteration': '57e94918',
     'InterpretedFunction._callImpl': 'c0f390c5',
     'InterpretedFunction._containsAwait': 'ee448f09',
-    'InterpretedFunction._determineNextNodeAfterAwait': '8acff3fb',
+    'InterpretedFunction._determineNextNodeAfterAwait': '2bb4708b',
     'InterpretedFunction._extractTypeParameterBounds': '065705f9',
     'InterpretedFunction._extractTypeParameterNames': '065705f9',
     'InterpretedFunction._findEnclosingTryStatement': '64523cb5',
@@ -229,6 +229,10 @@ const _divergentBodies = <String, Map<String, String>>{
     // architectural reason as the two predicates around it — the mirror
     // AST has no `parent` getter, so the twin walks with `_parentOf`.
     'InterpretedFunction._catchEnvironmentFor': '34fd9762',
+    // SCE81: the cascade walker, divergent for the same architectural
+    // reason as its neighbours — the mirror AST has no `parent` getter, so
+    // the twin walks with `_parentOf`.
+    'InterpretedFunction._enclosingCascadeOf': '34fd9762',
     'InterpretedFunction._jumpTarget': 'c5e2ff57',
     'InterpretedFunction._leaveLoopsFor': 'e47bcb14',
     'InterpretedFunction._nextEnclosingFinallyTry': 'fe832583',

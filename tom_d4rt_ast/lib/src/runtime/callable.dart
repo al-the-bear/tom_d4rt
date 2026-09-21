@@ -4266,6 +4266,34 @@ class InterpretedFunction implements Callable {
     return false;
   }
 
+  /// The `CascadeExpression` whose SECTION list contains [node], or null.
+  ///
+  /// SCE81. Structural, like the try/catch walkers below: whether a node is a
+  /// cascade section is a property of the AST. Stops at a `FunctionBody` so a
+  /// closure written inside a section is not mistaken for one.
+  static SCascadeExpression? _enclosingCascadeOf(SAstNode? node) {
+    // The context node is sometimes the STATEMENT rather than the section —
+    // measured: an `await` in a cascade's method argument reports the section,
+    // an `await` on the right of `..[k] = v` reports the whole
+    // `ExpressionStatement`. Looking only upward found the first and missed the
+    // second, so that shape silently applied none of its sections.
+    if (node is SExpressionStatement) {
+      final expression = node.expression;
+      if (expression is SCascadeExpression) return expression;
+    }
+    SAstNode? current = node;
+    while (current != null) {
+      final parent = _parentOf(current);
+      if (parent is SCascadeExpression &&
+          parent.cascadeSections.any((s) => identical(s, current))) {
+        return parent;
+      }
+      if (current is SFunctionBody) return null;
+      current = parent;
+    }
+    return null;
+  }
+
   static STryStatement? _tryOwningCatchClauseOf(SAstNode? node) {
     SAstNode? current = node;
     while (current != null) {
@@ -4381,6 +4409,29 @@ class InterpretedFunction implements Callable {
       }
     }
 
+    // SCE81: a cascade SECTION cannot be re-executed on its own.
+    //
+    // The chain above lands on the nearest enclosing invocation, and for
+    // `sb..write(await f())` that is the `write(...)` section — whose target is
+    // implicit, so accepting it standalone resolves `write` as a bare name and
+    // the script author saw `Undefined variable: write`. The node that can be
+    // re-executed is the whole `CascadeExpression`.
+    //
+    // Re-executing it is SAFE rather than merely possible, and that is the
+    // other half of this fix: `visitCascadeExpression` memoises the target and
+    // records which sections have completed, so the replay evaluates the
+    // target once and skips the sections whose side effects already happened.
+    // Without that, lifting here would trade a wrong error for a doubled
+    // `write`.
+    final cascadeOwner = _enclosingCascadeOf(awaitContextNode);
+    if (cascadeOwner != null) {
+      Logger.debug(
+        "[_determineNextNodeAfterAwait] Await context is a cascade section; "
+        "re-executing the enclosing CascadeExpression instead.",
+      );
+      awaitContextNode = cascadeOwner;
+    }
+
     Logger.debug(
       "[_determineNextNodeAfterAwait] Determined await context: ${awaitContextNode.runtimeType}",
     );
@@ -4390,7 +4441,9 @@ class InterpretedFunction implements Callable {
     // Case: Method/Function/Constructor invocation with await in arguments
     if (awaitContextNode is SMethodInvocation ||
         awaitContextNode is SFunctionExpressionInvocation ||
-        awaitContextNode is SInstanceCreationExpression) {
+        awaitContextNode is SInstanceCreationExpression ||
+        // SCE81: a cascade is re-executed the same way, and must be.
+        awaitContextNode is SCascadeExpression) {
       Logger.debug(
         "[_determineNextNodeAfterAwait] Handling ${awaitContextNode.runtimeType} with await in arguments. Re-executing the invocation...",
       );

@@ -1,3 +1,40 @@
+## 1.149.0
+
+### Fixed — a cascade section could not take an awaited argument (sce81)
+
+    sb..write(await Future.value('a'))..write('b');
+
+failed with `type 'AsyncSuspensionRequest' is not a subtype of type
+'(List<Object?>, Map<String, Object?>)'` — an interpreter internal, surfaced to
+the script author. The same code without the cascade always worked.
+
+Two of the four `_executeCascade*` helpers returned `void`, because a cascade
+section's VALUE is deliberately discarded: the cascade evaluates to its target.
+But a discarded value and an unfinished one are not the same thing, and
+`_evaluateArguments` signals the second by returning the suspension sentinel,
+so the record destructuring failed.
+
+THE SECTIONS ARE NOW MEMOISED, which is what makes this a fix rather than a
+refusal. Dart evaluates a cascade's target once and runs its sections in order
+for their side effects, and the interpreter drives `await` by REPLAY — so a bare
+propagation would re-evaluate the target and re-run every earlier section:
+`sb..write('a')..write(await f())` would write `'a'` twice. The target and the
+completed sections are recorded on `AsyncExecutionState`, keyed by node, and
+dropped when the cascade finishes so a cascade inside a loop starts fresh each
+iteration.
+
+The resumption side needed two changes of its own. A cascade SECTION cannot be
+re-executed standalone — its target is implicit, so accepting it resolved the
+method name as a bare identifier — so the await context is lifted to the
+enclosing `CascadeExpression`, which then had to be admitted to the
+re-execution branch. Lifting without admitting left nothing to re-execute, and
+the machine completed the function with `lastAwaitResult`, skipping every
+statement after the cascade.
+
+Ten cases. One puts an observable side effect on both sides of the awaiting
+section and asserts each happened exactly once — without it a propagate-and-
+replay fix that silently doubles work passes everything else.
+
 ## 1.148.0
 
 ### Fixed — `await` in a collection literal stored the suspension sentinel (sce80)

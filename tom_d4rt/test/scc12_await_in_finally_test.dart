@@ -1905,4 +1905,194 @@ void main() {
       );
     });
   });
+  group('SCE81: a cascade section takes an awaited argument', () {
+    // `sb..write(await f())..write('b')` failed with `type
+    // 'AsyncSuspensionRequest' is not a subtype of type '(List<Object?>,
+    // Map<String, Object?>)'` — an interpreter internal, surfaced to the script
+    // author. The same code without the cascade always worked.
+    //
+    // OPTION (b) WAS REACHABLE, which the decision preferred: the target and
+    // the completed sections are memoised the way `await` results already are,
+    // so replay evaluates the target once and skips the sections whose side
+    // effects have happened. The alternative was to refuse the construct.
+    //
+    // THE SIDE-EFFECT QUESTION IS THE WHOLE POINT, so F-SCE81-4 puts an
+    // OBSERVABLE side effect before and after the awaiting section and asserts
+    // each happened exactly once. Without it a naive propagate-and-replay fix
+    // silently doubles work and every other case here still passes.
+
+    test('F-SCE81-1: an await in the first section [2026-09-21]', () async {
+      expect(
+        await run('''
+        Future<dynamic> f() async {
+          var sb = StringBuffer();
+          sb..write(await Future.value('a'))..write('b');
+          return sb.toString();
+        }
+        main() async => await f();
+      '''),
+        'ab',
+      );
+    });
+
+    test('F-SCE81-2: an await in a LATER section, after one has already run '
+        '[2026-09-21]', () async {
+      expect(
+        await run('''
+        Future<dynamic> f() async {
+          var sb = StringBuffer();
+          sb..write('a')..write(await Future.value('b'));
+          return sb.toString();
+        }
+        main() async => await f();
+      '''),
+        'ab',
+      );
+    });
+
+    test('F-SCE81-3: two awaiting sections [2026-09-21]', () async {
+      expect(
+        await run('''
+        Future<dynamic> f() async {
+          var sb = StringBuffer();
+          sb..write(await Future.value('p'))..write(await Future.value('q'));
+          return sb.toString();
+        }
+        main() async => await f();
+      '''),
+        'pq',
+      );
+    });
+
+    test('F-SCE81-4: sections around the awaiting one run EXACTLY ONCE '
+        '[2026-09-21]', () async {
+      // The case the notes demanded. `_t` appends to a log declared outside the
+      // cascade statement, so a re-run cannot hide behind a fresh object.
+      // Real Dart: 'xyz' and a log of 'x,z'.
+      expect(
+        await run('''
+        _t(l, s) { l.add(s); return s; }
+        Future<dynamic> f() async {
+          var log = [];
+          var sb = StringBuffer();
+          sb..write(_t(log, 'x'))..write(await Future.value('y'))..write(_t(log, 'z'));
+          return sb.toString() + ' / ' + log.join(',');
+        }
+        main() async => await f();
+      '''),
+        'xyz / x,z',
+      );
+    });
+
+    test(
+      'F-SCE81-5: statements AFTER the cascade still run [2026-09-21]',
+      () async {
+        // Lifting the resumption context to the cascade without admitting it to
+        // the re-execution branch left nothing to re-execute, so the machine
+        // completed the function with `lastAwaitResult` and everything after the
+        // cascade was skipped. That passed F-SCE81-1 by accident, because the
+        // value it completed with happened to be the target.
+        expect(
+          await run('''
+        Future<dynamic> f() async {
+          var log = [];
+          var sb = StringBuffer();
+          sb..write(await Future.value('a'))..write('b');
+          log.add('after');
+          return [sb.toString(), log.join()];
+        }
+        main() async => await f();
+      '''),
+          orderedEquals(['ab', 'after']),
+        );
+      },
+    );
+
+    test('F-SCE81-6: an index-assignment section [2026-09-21]', () async {
+      // A different resumption shape: here the context node is the whole
+      // `ExpressionStatement` rather than the section, so an upward-only walk
+      // missed the cascade and NONE of the sections were applied.
+      expect(
+        await run('''
+        Future<dynamic> f() async {
+          var g = {};
+          g..['k'] = await Future.value(1)..['m'] = 2;
+          return g.toString();
+        }
+        main() async => await f();
+      '''),
+        '{k: 1, m: 2}',
+      );
+    });
+
+    test('F-SCE81-7: a list cascade [2026-09-21]', () async {
+      expect(
+        await run('''
+        Future<dynamic> f() async {
+          var c = [];
+          c..add(await Future.value(1))..add(2);
+          return c;
+        }
+        main() async => await f();
+      '''),
+        orderedEquals([1, 2]),
+      );
+    });
+
+    test('F-SCE81-8: a cascade inside a LOOP starts fresh each iteration '
+        '[2026-09-21]', () async {
+      // The memo is dropped when the cascade completes, not at statement
+      // level. Holding it would make iteration two skip every section it ran
+      // in iteration one.
+      expect(
+        await run('''
+        Future<dynamic> f() async {
+          var out = [];
+          for (var i = 0; i < 2; i++) {
+            var s = StringBuffer();
+            s..write(i.toString())..write(await Future.value('!'));
+            out.add(s.toString());
+          }
+          return out.join(',');
+        }
+        main() async => await f();
+      '''),
+        '0!,1!',
+      );
+    });
+
+    test('F-SCE81-9 (control): a cascade with no await is unchanged '
+        '[2026-09-21]', () async {
+      expect(
+        await run('''
+        Future<dynamic> f() async {
+          var sb = StringBuffer();
+          sb..write('n')..write('o');
+          return sb.toString();
+        }
+        main() async => await f();
+      '''),
+        'no',
+      );
+    });
+
+    test('F-SCE81-10 (control): the same code without a cascade '
+        '[2026-09-21]', () async {
+      // The reference the cascade form is being made to agree with. It always
+      // worked, which is what made the cascade failure a d4rt defect rather
+      // than a limitation of the replay model.
+      expect(
+        await run('''
+        Future<dynamic> f() async {
+          var sb = StringBuffer();
+          sb.write(await Future.value('a'));
+          sb.write('b');
+          return sb.toString();
+        }
+        main() async => await f();
+      '''),
+        'ab',
+      );
+    });
+  });
 }

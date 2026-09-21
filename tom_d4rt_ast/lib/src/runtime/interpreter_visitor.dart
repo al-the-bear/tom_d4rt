@@ -7505,35 +7505,87 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
   @override
   Object? visitCascadeExpression(SCascadeExpression node) {
+    // SCE81. A section that awaits suspends the cascade, and the state machine
+    // replays the enclosing expression once the future completes. Dart
+    // evaluates the target ONCE and runs the sections in order for their side
+    // effects, so a bare replay would re-evaluate the target and re-run every
+    // earlier section: `sb..write('a')..write(await f())` would write `'a'`
+    // twice.
+    //
+    // So the target is memoised and completed sections are recorded, both
+    // keyed by node on the async state. That is what makes this option (b) —
+    // the target and the completed sections memoised the way `await` results
+    // already are — rather than a refusal.
+    //
+    // Null outside an async function: there is nothing to replay, so the
+    // bookkeeping is skipped entirely and this behaves exactly as before.
+    final asyncState = currentAsyncState;
+
     // 1. Evaluate the target expression ONCE.
-    final targetValue = node.target!.accept<Object?>(this);
+    final Object? targetValue;
+    if (asyncState != null && asyncState.cascadeTargets.containsKey(node)) {
+      targetValue = asyncState.cascadeTargets[node];
+    } else {
+      final evaluated = node.target!.accept<Object?>(this);
+      if (evaluated is AsyncSuspensionRequest) return evaluated;
+      targetValue = evaluated;
+      if (asyncState != null) asyncState.cascadeTargets[node] = targetValue;
+    }
 
     // 2. Execute each cascade section ON THE ORIGINAL targetValue.
     for (final section in node.cascadeSections) {
+      // Already run before an earlier suspension: its side effect has
+      // happened, and happening again is the defect this guards.
+      if (asyncState != null &&
+          asyncState.completedCascadeSections.contains(section)) {
+        continue;
+      }
+
       // We need to manually handle each section type, forcing the target.
+      final Object? outcome;
       if (section is SMethodInvocation) {
-        _executeCascadeMethodInvocation(targetValue, section);
+        outcome = _executeCascadeMethodInvocation(targetValue, section);
       } else if (section is SPropertyAccess) {
         // Evaluate property access for potential side effects (getters), but discard result.
-        _executeCascadePropertyAccess(targetValue, section);
+        outcome = _executeCascadePropertyAccess(targetValue, section);
       } else if (section is SAssignmentExpression) {
-        _executeCascadeAssignment(targetValue, section);
+        outcome = _executeCascadeAssignment(targetValue, section);
       } else if (section is SIndexExpression) {
         // Evaluate index expression for potential side effects (getters?), but discard result.
-        _executeCascadeIndexAccess(targetValue, section);
+        outcome = _executeCascadeIndexAccess(targetValue, section);
       } else {
         // Should not happen with valid cascade sections
         throw UnimplementedD4rtException(
           'Cascade section type not handled: ${section.runtimeType}',
         );
       }
+
+      // A section's VALUE is discarded by design — the cascade evaluates to
+      // its target — but a suspension is not a value.
+      if (outcome is AsyncSuspensionRequest) return outcome;
+      asyncState?.completedCascadeSections.add(section);
     }
 
     // 3. The cascade expression evaluates to the original target value.
+    //
+    // The memo is dropped here rather than at statement level, so a cascade
+    // inside a loop starts fresh on the next iteration instead of skipping
+    // every section it ran last time.
+    if (asyncState != null) {
+      asyncState.cascadeTargets.remove(node);
+      for (final section in node.cascadeSections) {
+        asyncState.completedCascadeSections.remove(section);
+      }
+    }
     return targetValue;
   }
 
-  void _executeCascadeMethodInvocation(
+  /// Runs one `..method(...)` section, or returns the suspension it hit.
+  ///
+  /// SCE81: this returned `void` because a cascade section's VALUE is
+  /// deliberately discarded, but a discarded value and an unfinished one are
+  /// not the same thing.
+  Object? _executeCascadeMethodInvocation(
     Object? targetValue,
     SMethodInvocation node,
   ) {
@@ -7543,11 +7595,14 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       Logger.debug(
         "[Cascade] Target is null, skipping method invocation section.",
       );
-      return;
+      return null;
     }
 
     final methodName = node.methodName!.name;
-    final (positionalArgs, namedArgs) = _evaluateArguments(node.argumentList);
+    final evaluated = _evaluateArgumentsAsync(node.argumentList);
+    if (evaluated is AsyncSuspensionRequest) return evaluated;
+    final (positionalArgs, namedArgs) =
+        evaluated as (List<Object?>, Map<String, Object?>);
     List<RuntimeType>? evaluatedTypeArguments;
     final typeArgsNode = node.typeArguments;
     if (typeArgsNode != null) {
@@ -7609,7 +7664,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       Logger.debug(
         "[Cascade] Actual target is null after property resolution, skipping.",
       );
-      return;
+      return null;
     }
 
     // Resolve and call method ON actualTarget (not the original cascade target)
@@ -7674,6 +7729,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       );
     }
     // Ignore the return value of the method call in a cascade
+    return null;
   }
 
   /// Helper to invoke List methods directly
@@ -7857,16 +7913,18 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     // Return the accessed value (needed for assignment LHS)
   }
 
-  void _executeCascadeAssignment(
+  /// Runs one `..x = v` section, or returns the suspension it hit.
+  Object? _executeCascadeAssignment(
     Object? targetValue,
     SAssignmentExpression node,
   ) {
     if (targetValue == null) {
       Logger.debug("[Cascade] Target is null, skipping assignment section.");
-      return;
+      return null;
     }
 
     final rhsValue = node.rightHandSide!.accept<Object?>(this);
+    if (rhsValue is AsyncSuspensionRequest) return rhsValue;
     final operatorType = node.operator;
     final lhs = node.leftHandSide;
 
@@ -8141,6 +8199,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       );
     }
     // Assignment in cascade doesn't produce a value to be used further.
+    return null;
   }
 
   /// A bridged value used as a hash key is stored as its wrapped native.
