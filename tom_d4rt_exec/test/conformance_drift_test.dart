@@ -2069,6 +2069,21 @@ const Map<String, _Divergence> _divergentBaseline = {
   // unrelated classes and pass either way. Re-port when a publish raises
   // exec's floor past 0.138.0.
   'stdlib/scc74_member_axis_gaps_test.dart': _Divergence.deliberate,
+  // SCE91. The reference asserts that `sub.onError(handler)` runs the handler,
+  // which it does in the working tree. This package resolves `tom_d4rt_ast`
+  // 0.65.0, where `onError` is registered as a SETTER rather than a method —
+  // SCD189 moved it, landing in 0.110.0 — so the call fails with "has no
+  // instance method named 'onError'" and the ported case asserted a behaviour
+  // the published interpreter does not have.
+  //
+  // Pinned as the published behaviour rather than skipped: it goes red at the
+  // publish that fixes it and prompts the re-port, where a skip would measure
+  // nothing and sit here indefinitely. The case name in the exec copy says
+  // what that copy asserts — a name claiming the reference's outcome over the
+  // opposite assertion is the defect SCD50 and SCE89 exist to stop.
+  //
+  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.110.0.
+  'scb9_error_handler_arity_test.dart': _Divergence.deliberate,
 };
 
 /// The difference each [_divergentBaseline] entry actually sanctions.
@@ -2095,6 +2110,7 @@ const Map<String, _Divergence> _divergentBaseline = {
 /// Recomputing without reading the new difference is the failure mode; the
 /// message says so.
 const Map<String, String> _divergenceFingerprints = <String, String>{
+  'scb9_error_handler_arity_test.dart': 'd880f1617d543ff7',
   'scc20_catch_clause_type_test.dart': 'cf854ab1616b9e5f',
   'stdlib/collection/list_queue_test.dart': '927a588334725bb2',
   'stdlib/collection/queue_test.dart': '19eee099a23916a8',
@@ -2242,6 +2258,9 @@ const Map<String, String> _divergenceFingerprints = <String, String>{
 /// being pinned. Measure before pinning and the pin survives; infer it and it
 /// rots.
 const Map<String, String> _pinnedInterpreterFloors = <String, String>{
+  // SCE91, pinned at the release that moved `StreamSubscription.onError` from
+  // a setter to a method rather than at a working-tree version.
+  'scb9_error_handler_arity_test.dart': '0.110.0',
   // SCE21's batch. Unlike SCD200's, these are pinned at the version each fix
   // ACTUALLY landed in rather than at one conservative working-tree version:
   // the four commits are known (0.117.0, 0.118.0, 0.119.0, 0.120.0), so the

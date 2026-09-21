@@ -178,11 +178,24 @@ void main() {
   });
 
   group('SCB9: Stream.handleError and subscription handlers', () {
-    test(
-      'F-SCB9-8: StreamSubscription.onError accepts a unary handler [2026-07-28]',
-      () async {
-        final result =
-            await executeAsync('''
+    test('F-SCB9-8: StreamSubscription.onError is not callable on the resolved '
+        'interpreter [2026-07-28]', () async {
+      // DIVERGENT FROM THE REFERENCE, and recorded as such in
+      // `conformance_drift_test.dart` — DGUC6. The reference asserts that
+      // `sub.onError(handler)` runs the handler, which it does in the
+      // working tree. This package resolves `tom_d4rt_ast` from pub.dev at
+      // 0.65.0, where `onError` is registered as a SETTER rather than a
+      // method: SCD189 moved it, and that landed in 0.110.0. Calling it
+      // therefore fails with "has no instance method named 'onError'".
+      //
+      // Pinned as the published behaviour rather than skipped, so it goes
+      // RED at the publish that fixes it and prompts the re-port — a skip
+      // would measure nothing and would sit here for ever. The case name
+      // says what this copy asserts, because a name claiming the reference's
+      // outcome over an assertion of the opposite is the defect SCD50 and
+      // SCE89 exist to stop.
+      await expectLater(
+        executeAsync('''
         import 'dart:async';
         main() async {
           final c = StreamController();
@@ -194,11 +207,20 @@ void main() {
           await Future.delayed(Duration(milliseconds: 10));
           return seen;
         }
-      ''')
-                as List;
-        expect(result, orderedEquals(['s:Bad state: boom']));
-      },
-    );
+      '''),
+        // Matched on the message rather than on `RuntimeD4rtException`, which
+        // would need an import the reference file does not have and would
+        // widen this divergence for no gain: the wording is unique to the miss
+        // being pinned.
+        throwsA(
+          isA<Object>().having(
+            (e) => e.toString(),
+            'message',
+            contains("has no instance method named 'onError'"),
+          ),
+        ),
+      );
+    });
 
     test(
       'F-SCB9-9: Stream.handleError returns a usable stream [2026-07-28]',
