@@ -864,6 +864,76 @@ so the property is held rather than merely measured. If a future instance is
 found by accident again — as this one was — that is the signal that the listed
 form is no longer enough and the generated form is worth its cost.
 
+#### Shape (2) has a detector, and the family did not stop at `Queue`
+
+The sweep above detects **shape (1) only**, and so does the standing nullable
+test: both read a RETURNED VALUE, which is the thing shape (1) changes. Shape
+(2) leaves the value contract identical and breaks only the catch, so nothing
+in the audit could see it. scd30 found its one instance by reading the file for
+another reason, and left the question open — *there is no evidence the family
+stops at `Queue`.*
+
+It does not. `test/stdlib/sce74_sdk_error_type_parity_test.dart` drives every
+state-dependent member of twelve empty collection receivers — 60 cases — and on
+2026-09-21 three of them diverged: `elementAt(0)` on an empty `Queue`,
+`ListQueue` and `DoubleLinkedQueue` answered `RuntimeD4rtException: Invalid
+arguments for bridged method 'ListQueue.elementAt'` where Dart answers
+`IndexError`.
+
+**The cause was not in `lib/src/stdlib` at all**, which is why grepping the
+bridges — the method this document's own sweep used — could not have found it,
+and did not. `BridgedMethodCallable` caught `ArgumentError` to improve the
+message for adapter arity problems. `RangeError extends ArgumentError` and
+`IndexError implements RangeError`, so that single clause swallowed every SDK
+range failure raised by *any* bridged method and reissued it as an uncatchable
+interpreter error. One catch clause, four lines from the bridges, accounted for
+a whole shape of defect.
+
+The arm was narrowed rather than deleted — a preceding `on RangeError { rethrow; }`
+— because the clause below it still earns its keep for a plain `ArgumentError`,
+which adapters raise for arity and argument-shape problems that have no SDK
+counterpart. Measured before narrowing: **zero** sites in `stdlib` throw a bare
+`RangeError` or `IndexError`, and the interpreter's own range failures use
+`Ranged4rtException`, so nothing interpreter-level leaks into a script's
+`on RangeError`.
+
+**The expectation is computed, not written down.** Each case runs the same
+operation twice — once on a native Dart collection to learn what the SDK throws,
+once inside an interpreted script that must catch exactly that type. A table of
+expected types would be a second thing to maintain and would go stale against
+the SDK. The assertion is a script-level catch for the reason scd30 gives: a
+host-side `throwsA(isA<StateError>())` cannot tell whether the interpreter
+wrapped on the way out.
+
+One methodology note worth keeping, because it produced a convincing false
+result first. Probing `reduce` on an untyped receiver reports `TypeError` for
+every row — the untyped closure, not the empty state, is what fails — and reads
+exactly like eight findings. The matrix types the receiver (`c as Iterable<int>`)
+so the empty state is what the SDK is asked about.
+
+#### Shape (3) is deliberately not detected
+
+Right type, wrong message. **No detector is planned, and this paragraph is the
+decision rather than an omission.**
+
+Matching on exception message text is something Dart itself does not support:
+messages are not part of any class's contract, they are not stable across SDK
+releases, and there is no `on` clause that dispatches on them. A script relying
+on one is already outside what the platform promises, so a bridge whose message
+differs has broken nothing a caller could have depended on.
+
+The cost is also the wrong shape. Asserting messages means pinning SDK prose
+into this repository for every bridged member — the exact artefact
+`I-COLL-69` turned out to be, a test that enshrined an invented message and
+thereby protected the defect that produced it. The audit's own rule is to assert
+CONTRACTS, and a message is not one.
+
+This is recorded here for the same reason stage 2's declination above is: a
+decision not to build something is only durable if it is written where the next
+sweep will read it. If a case ever appears where a message difference breaks
+something real, that case is the evidence this decision was wrong, and it
+belongs beside this paragraph.
+
 ### The other half of the diff: `extraBridged`
 
 The tool also reports the opposite direction — members the *bridge* offers that

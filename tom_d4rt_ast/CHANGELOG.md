@@ -1,3 +1,45 @@
+## 0.129.0
+
+### Fixed — an SDK range error could not be caught across a bridged method (sce74)
+
+`BridgedMethodCallable` caught `ArgumentError` to improve the message for
+adapter arity problems. `RangeError extends ArgumentError` and `IndexError
+implements RangeError`, so that one clause swallowed every SDK RANGE failure
+raised by any bridged method and reissued it as an uncatchable
+`RuntimeD4rtException`. A script written the idiomatic way —
+
+    try { q.elementAt(0); } on RangeError { ... }
+
+did not catch, and the recovery path its author wrote never ran. Measured on
+empty `Queue`, `ListQueue` and `DoubleLinkedQueue`, `elementAt(0)` answered
+`RuntimeD4rtException: Invalid arguments for bridged method
+'ListQueue.elementAt'` where Dart answers `IndexError`.
+
+The arm is narrowed, not deleted: a preceding `on RangeError { rethrow; }` in
+both the instance and static call paths. The clause below still earns its keep
+for a plain `ArgumentError`, which adapters raise for arity and argument-shape
+problems that have no SDK counterpart. Nothing in `stdlib` throws a bare
+`RangeError` or `IndexError` — zero sites, measured — and the interpreter's own
+range failures use `Ranged4rtException`, so no interpreter error leaks into a
+script's `on RangeError`.
+
+The same clause exists a third time, on the bridged-SUPERCLASS call path in
+`runtime_types.dart`, and is narrowed identically. No test reaches that one:
+measured, a `super.` call resolves only members the bridged superclass DECLARES,
+not ones it inherits, so `super.removeFirst()` works and answers `StateError`
+while `super.elementAt(0)` answers "Method 'elementAt' not found in bridged
+superclass 'ListQueue'" — and every RangeError-raising member is an inherited
+one. The arm is kept because fixing two of three call paths is the
+incompleteness the mirror rule exists to prevent, and rethrowing rather than
+rewrapping cannot break anything. That resolution gap is a separate defect.
+
+This is scd31's shape (2) — throws the WRONG TYPE where the SDK also throws —
+which until now had no detector: the sweep and the standing nullable test both
+read a returned value, which is what shape (1) changes and shape (2) leaves
+alone. `test/stdlib/sce74_sdk_error_type_parity_test.dart` drives 60 cases over
+twelve empty collection receivers, computing the expected type by running the
+same operation on a native collection rather than from a written-down table.
+
 ## 0.128.0
 
 ### Documentation — the must-not-widen exception, and why the bundle cannot lift it (sce72)

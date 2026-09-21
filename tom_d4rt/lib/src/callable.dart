@@ -6484,6 +6484,22 @@ class BridgedMethodCallable implements Callable {
           typeArguments,
         ),
       );
+    } on RangeError {
+      // SCE74. `RangeError extends ArgumentError` and `IndexError implements
+      // RangeError`, so without this arm the clause below swallows every SDK
+      // RANGE failure a bridged method raises and reissues it as an
+      // uncatchable `RuntimeD4rtException`. A script written the idiomatic way
+      // — `try { q.elementAt(0); } on RangeError { ... }` — did not catch, and
+      // the recovery path its author wrote never ran.
+      //
+      // Narrowed rather than deleted, which is the SCE67 shape: the clause
+      // below still earns its keep for a plain `ArgumentError`, which an
+      // ADAPTER raises for arity and argument-shape problems that have no SDK
+      // counterpart. Nothing in `stdlib` throws a bare RangeError or
+      // IndexError (measured 2026-09-21: zero sites) — the interpreter's own
+      // range failures use `Ranged4rtException` — so letting this one through
+      // cannot leak an interpreter error into a script's `on RangeError`.
+      rethrow;
     } on ArgumentError catch (e) {
       // Convert native ArgumentError to RuntimeError
       throw RuntimeD4rtException(
@@ -6541,6 +6557,22 @@ class BridgedStaticMethodCallable implements Callable {
         namedArguments,
         typeArguments,
       );
+    } on RangeError {
+      // SCE74. `RangeError extends ArgumentError` and `IndexError implements
+      // RangeError`, so without this arm the clause below swallows every SDK
+      // RANGE failure a bridged method raises and reissues it as an
+      // uncatchable `RuntimeD4rtException`. A script written the idiomatic way
+      // — `try { q.elementAt(0); } on RangeError { ... }` — did not catch, and
+      // the recovery path its author wrote never ran.
+      //
+      // Narrowed rather than deleted, which is the SCE67 shape: the clause
+      // below still earns its keep for a plain `ArgumentError`, which an
+      // ADAPTER raises for arity and argument-shape problems that have no SDK
+      // counterpart. Nothing in `stdlib` throws a bare RangeError or
+      // IndexError (measured 2026-09-21: zero sites) — the interpreter's own
+      // range failures use `Ranged4rtException` — so letting this one through
+      // cannot leak an interpreter error into a script's `on RangeError`.
+      rethrow;
     } on ArgumentError catch (e) {
       // Convert native ArgumentError to RuntimeError
       throw RuntimeD4rtException(

@@ -2688,6 +2688,28 @@ class BridgedSuperMethodCallable implements Callable {
         namedArguments,
         typeArguments,
       );
+    } on RangeError {
+      // SCE74, third call path. Same defect as the two arms in `callable.dart`:
+      // `RangeError extends ArgumentError`, so without this the clause below
+      // swallows an SDK range failure raised by a bridged SUPERCLASS method
+      // and reissues it as an uncatchable interpreter error. Narrowed, not
+      // deleted, for the same reason — a plain `ArgumentError` here is still
+      // an adapter's argument-shape complaint with no SDK counterpart.
+      //
+      // NO TEST REACHES THIS ARM, and that is a fact about a different gap
+      // rather than about this fix. Measured 2026-09-21: a `super.` call
+      // resolves only members the bridged superclass DECLARES, not ones it
+      // inherits from its own bridged supertypes — `super.removeFirst()` on a
+      // `ListQueue` subclass works and answers the SDK's `StateError`, while
+      // `super.elementAt(0)` answers "Method 'elementAt' not found in bridged
+      // superclass 'ListQueue'". Every member that raises a RangeError is an
+      // inherited one, so no script can currently drive this path to one.
+      //
+      // The arm stays anyway: it is the same defect in the third of three
+      // call paths, fixing two of three is the incompleteness this repo's
+      // mirror rule exists to prevent, and rethrowing instead of rewrapping
+      // cannot itself break anything. The resolution gap is filed separately.
+      rethrow;
     } on ArgumentError catch (e) {
       throw RuntimeD4rtException(
         "Invalid arguments for bridged superclass method '$bridgedClassName.$methodName': ${e.message}",
