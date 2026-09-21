@@ -37,6 +37,52 @@ StreamTransformer? _asStreamTransformer(
   return null;
 }
 
+/// Hand [source] to [transformer], coercing the stream's ELEMENT type when the
+/// transformer needs one the interpreter never produces.
+///
+/// A script's streams are natively `Stream<dynamic>` carrying `List<Object?>`
+/// chunks: the interpreter's values are dynamically typed and each bridge
+/// coerces at its own boundary. So `utf8.decoder` — a
+/// `StreamTransformer<List<int>, String>` — rejects a stream a script built,
+/// and the rejection arrives as a host `_TypeError` naming the internal
+/// `_MultiStream` class, which a script author cannot act on.
+///
+/// WHY NOT `transformer.cast()`, which is what the two `Socket.transform`
+/// adapters use. Those know their target's element type statically
+/// (`Stream<Uint8List>`), so the cast is computed against it. Here the target
+/// is a bare `Stream`, and a blanket `.cast()` inverts the problem: a
+/// genuinely typed stream — `File.openRead()`, an `HttpClientResponse` — then
+/// rejects the `CastConverter<List<int>, String, dynamic, dynamic>` it is
+/// handed, because `Stream<List<int>>.transform` wants a transformer whose
+/// input really is `List<int>`. Measured both ways round.
+///
+/// Coercing the SOURCE has neither failure: [D4.coerceByteStream] returns an
+/// already-correct stream untouched and maps a script's chunks element-wise,
+/// which the cast could not do either — a `List<Object?>` holding ints is not
+/// a `List<int>` and `cast` fails per chunk at the first event.
+///
+/// The two element types tested are the two the bridged transformers take:
+/// `dart:convert`'s codecs are `List<int>` <-> `String` in both directions.
+/// Anything else — a script transformer built from `bind`,
+/// `StreamTransformer.fromHandlers`, `WebSocketTransformer` over an
+/// `HttpServer` — has an input type the interpreter's own values already
+/// satisfy, and goes through untouched.
+Stream<Object?> _bindTransformer(
+  Stream source,
+  StreamTransformer transformer,
+  String member,
+) {
+  if (transformer is StreamTransformer<List<int>, Object?>) {
+    return transformer.bind(D4.coerceByteStream(source, member));
+  }
+  if (transformer is StreamTransformer<String, Object?>) {
+    return transformer.bind(
+      source is Stream<String> ? source : source.cast<String>(),
+    );
+  }
+  return source.transform(transformer);
+}
+
 class StreamAsync {
   static BridgedClass get definition => BridgedClass(
     nativeType: Stream,
@@ -240,7 +286,11 @@ class StreamAsync {
             'Stream.transform requires a StreamTransformer argument.',
           );
         }
-        return (target as Stream).transform(streamTransformer);
+        return _bindTransformer(
+          target as Stream,
+          streamTransformer,
+          'Stream.transform',
+        );
       },
       'take': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Stream.take', atMost: 1);

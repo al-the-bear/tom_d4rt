@@ -1,3 +1,36 @@
+## 1.151.0
+
+### Fixed — `stream.transform(utf8.decoder)` failed for every stream a script made (sce83)
+
+    final s = Stream<List<int>>.fromIterable([[104, 105]]);
+    await s.transform(utf8.decoder).join();
+
+raised `type '_MultiStream<dynamic>' is not a subtype of type
+'Stream<List<int>>' of 'stream'` — a host `TypeError` naming an interpreter
+internal, uncatchable as a `RuntimeD4rtException` and telling a script author
+nothing to do. SCD187 fixed the `dart:io` half of this by deleting a stub; the
+stream in that case comes from the SDK and really is a `Stream<List<int>>`.
+A stream the SCRIPT built is not.
+
+The cause is the interpreter's value model rather than this member. A script's
+values are dynamically typed natively — `Stream<List<int>>.fromIterable` is a
+`Stream<dynamic>` carrying `List<Object?>` chunks — and every bridge coerces at
+its own boundary instead. `utf8.decoder.bind(s)` worked on the same stream
+throughout, because `Utf8Decoder.bind` does exactly that coercion. So Dart's
+two spellings for one operation disagreed, and the broken one was the one every
+tutorial uses.
+
+`Stream.transform` now coerces the source the same way: element-wise to
+`List<int>` for a byte transformer, to `String` for a text one, and untouched
+for anything else — which includes script-defined transformers, whose input
+type the interpreter's own values already satisfy.
+
+Casting the TRANSFORMER instead, which is what the two `Socket.transform`
+adapters do, was tried first and inverts the defect: a `File.openRead()` stream
+then rejects the `CastConverter` it is handed. Those adapters are right for
+themselves because they know their element type statically; a bare `Stream`
+does not. Both directions were measured before either was written.
+
 ## 1.150.0
 
 ### Added — the last 51 confirmed member gaps are bridged (sce82)
