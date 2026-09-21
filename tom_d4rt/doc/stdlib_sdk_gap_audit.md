@@ -1284,16 +1284,49 @@ have missed both.
 
 ### Measured state
 
-Measured 2026-09-15.
+Measured 2026-09-21.
 
 | Metric | Count |
 |--------|-------|
-| Members whose return value was probed | 419 |
-| … usable (a witness read succeeded) | 419 |
+| Members whose return value was probed | 672 |
+| … usable (a witness read succeeded) | 672 |
 | … **RETURN-TYPE GAP** | **0** |
-| Not probed (no argument literal, or no witness on the return type) | 276 |
+| Not probed (no argument literal, or no witness on the return type) | 23 |
 | No answer (probe wedged) | 3 |
 | Parameter types with no bridge (static pass) | 0 |
+
+**The zero now covers 96% of the plan, where it used to cover 60%.** SCE75
+widened the pass twice, and both holes it closed were skewed rather than random
+— they excluded exactly the members most likely to be defective.
+
+The first was that `_argumentLiterals` is keyed by type NAME, and a callback's
+name is its whole signature (`(dart.core.int) -> dart.core.bool`), so no table
+entry could ever match one. That single hole accounted for 99 of the 137
+members the pass could not call, and they are `map`, `where`, `expand`,
+`skipWhile` and `takeWhile` — the members that return a LAZY SDK view, which is
+precisely the shape this pass exists to catch, because an unbridged view fails
+only when something reads it. A closure is now synthesised from the callback's
+declared return type, so the call arrives well-typed: a predicate gets `true`,
+an expander gets a one-element list, a transformer gets its first parameter
+back.
+
+The second was that `_witnessFor` demanded a GETTER. `Future` declares none —
+`asStream`, `then`, `timeout` are all methods — and `Future` alone was 103 of
+the 135 members with no witness. A zero-argument method is now accepted as a
+witness, returned with its parentheses so the caller's expression is unchanged.
+A called method proves the returned value reached a bridge exactly as a read
+getter does; `toString` stays excluded with the other universal members,
+because every type has one and it would witness nothing.
+
+**What remains unprobed is a thin tail with no single dominant cause**: 23
+members across thirteen reasons, the largest being 14 that take a `Stream`
+parameter the pass will not synthesise into a live socket. Types whose literal
+would have to open a socket, a file or a TLS context are deliberately absent
+from the table — the pass CALLS what it plans, so an argument that acts on the
+host is an argument that must not exist. Four more are `tryParse`-shaped
+members that correctly return null for the synthesised string, which the table
+cannot fix without becoming per-member — the property that would let the next
+defect of this class hide.
 
 ### The zero is load-bearing, so the instrument is tested for sensitivity
 

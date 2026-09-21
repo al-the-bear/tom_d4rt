@@ -2680,6 +2680,22 @@ const _argumentLiterals = <String, String>{
   'Map': "{'a': 1}",
   'Duration': 'Duration(seconds: 1)',
   'StackTrace': 'StackTrace.current',
+  // SCE75 added these from the unprobed histogram: each was named by at least
+  // one member the pass could not call. Types whose only literal would open a
+  // socket or a file are deliberately absent — the pass CALLS what it plans,
+  // so an argument that acts on the host is an argument that must not exist.
+  'BigInt': 'BigInt.two',
+  'DateTime': 'DateTime(2020)',
+  'Uri': "Uri.parse('http://a/b')",
+  'Queue': 'Queue()',
+  'Uint8List': 'Uint8List.fromList([1, 2, 3])',
+  'Codec': 'utf8',
+  'Rectangle': 'Rectangle(0, 0, 1, 1)',
+  // Both finite and self-completing on purpose: a Stream literal that
+  // never closes turns every member taking one into a wedge, which the
+  // pass scores as no-answer rather than as a gap.
+  'Stream': 'Stream.fromIterable([1, 2, 3])',
+  'Converter': 'utf8.encoder',
 };
 
 /// Members that must not be probed, because calling them ends or blocks the
@@ -2838,6 +2854,7 @@ String? _witnessFor(TypeMirror returnType) {
   }
 
   final available = <String>{};
+  final zeroArgMethods = <String>{};
   final seen = <ClassMirror>{};
   final queue = <ClassMirror>[cm];
   while (queue.isNotEmpty) {
@@ -2857,7 +2874,16 @@ String? _witnessFor(TypeMirror returnType) {
       final isGetter =
           (decl is MethodMirror && decl.isGetter && !decl.isStatic) ||
           (decl is VariableMirror && !decl.isStatic);
-      if (isGetter) available.add(name);
+      if (isGetter) {
+        available.add(name);
+      } else if (decl is MethodMirror &&
+          decl.isRegularMethod &&
+          !decl.isStatic &&
+          !decl.isOperator &&
+          decl.parameters.every((p) => p.isOptional)) {
+        // SCE75: callable with no arguments, so usable as a witness.
+        zeroArgMethods.add(name);
+      }
     }
     try {
       final sup = c.superclass;
@@ -2872,7 +2898,23 @@ String? _witnessFor(TypeMirror returnType) {
     if (available.contains(preferred)) return preferred;
   }
   final rest = available.toList()..sort();
-  return rest.isEmpty ? null : rest.first;
+  if (rest.isNotEmpty) return rest.first;
+
+  // SCE75: no getter, so fall back to a zero-argument METHOD, returned with
+  // its parentheses so the caller's `r.$witness` stays one expression.
+  //
+  // A CALLED METHOD PROVES USABILITY EXACTLY AS A READ GETTER DOES. The
+  // question the pass asks is whether the returned VALUE reached a bridge, and
+  // a member lookup that resolves answers it either way. Before this, a type
+  // exposing only methods was unreachable, and that was not a random sample:
+  // `Future` alone accounted for 103 of the 135 unprobed-for-want-of-a-witness
+  // rows, because it declares `asStream`, `then`, `timeout` and no getter at
+  // all. `Converter` (11 rows) is the same shape.
+  //
+  // `toString` is excluded with the other universal members above — every type
+  // has one, so it would witness nothing.
+  final methods = zeroArgMethods.toList()..sort();
+  return methods.isEmpty ? null : '${methods.first}()';
 }
 
 /// The argument list to call [m] with, or null when some required parameter
@@ -2881,11 +2923,43 @@ String? _argumentsFor(MethodMirror m) {
   final parts = <String>[];
   for (final p in m.parameters) {
     if (p.isOptional) continue; // optional parameters are simply not passed
-    final literal = _argumentLiterals[_bareTypeName(p.type)];
+    final literal =
+        _closureLiteral(p.type) ?? _argumentLiterals[_bareTypeName(p.type)];
     if (literal == null) return null;
     parts.add(p.isNamed ? '${_symbolName(p.simpleName)}: $literal' : literal);
   }
   return parts.join(', ');
+}
+
+/// A closure literal for a FUNCTION-TYPED parameter, or null when [t] is not
+/// one.
+///
+/// SCE75. `_argumentLiterals` is keyed by type NAME, and a callback's name is
+/// its whole signature — `(dart.core.int) -> dart.core.bool` — so no table
+/// could hold one. That single hole accounted for 99 of the 137 members the
+/// pass could not call, and they are the opposite of a random sample: they are
+/// `map`, `where`, `expand`, `skipWhile` and `takeWhile`, the members that
+/// RETURN a lazy SDK view. Those views are precisely the shape SCD36 was built
+/// to catch, since an unbridged one fails only when something reads it.
+///
+/// The body is chosen from the callback's declared RETURN type so the call is
+/// well-typed on arrival: a predicate gets `true`, an expander gets a one-
+/// element list, a transformer gets its first parameter back. Anything else
+/// gets the first parameter, or `null` when there is none — which is what a
+/// `void` callback wants anyway.
+String? _closureLiteral(TypeMirror t) {
+  if (t is! FunctionTypeMirror) return null;
+  final names = [for (var i = 0; i < t.parameters.length; i++) 'p$i'];
+  final ret = _bareTypeName(t.returnType);
+  final body = switch (ret) {
+    'bool' => 'true',
+    'int' || 'num' => '1',
+    'double' => '1.0',
+    'String' => "'a'",
+    'Iterable' || 'List' => names.isEmpty ? '[1]' : '[${names.first}]',
+    _ => names.isEmpty ? 'null' : names.first,
+  };
+  return '(${names.join(", ")}) => $body';
 }
 
 /// One member's result.
