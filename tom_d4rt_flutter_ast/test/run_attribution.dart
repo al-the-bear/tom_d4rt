@@ -174,9 +174,7 @@ String? _resolvedRoot(String packageDir, String package) {
     if (p['name'] != package) continue;
     final rootUri = Uri.parse(p['rootUri'] as String);
     if (rootUri.hasScheme) return Directory.fromUri(rootUri).path;
-    return Directory(
-      '$packageDir/.dart_tool/${p['rootUri']}',
-    ).absolute.path;
+    return Directory('$packageDir/.dart_tool/${p['rootUri']}').absolute.path;
   }
   return null;
 }

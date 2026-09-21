@@ -57,10 +57,13 @@ void main() {
       // suite before this one, which is the only thing they have in common —
       // so a regression in any of them would previously have been invisible.
       expect(
-        run('main() { var r = 0; switch (2) { case 1: r = 1; break; '
-            'case 2: r = 2; break; default: r = 9; } return r; }'),
+        run(
+          'main() { var r = 0; switch (2) { case 1: r = 1; break; '
+          'case 2: r = 2; break; default: r = 9; } return r; }',
+        ),
         2,
-        reason: 'the old-style switch statement. NOTE: this does NOT drive '
+        reason:
+            'the old-style switch statement. NOTE: this does NOT drive '
             '_convertSwitchCase, and measuring said so — at language 3.0+ '
             'the analyzer parses `case 1:` as SwitchPatternCase, so '
             '_convertSwitchCase is unreachable rather than untested. The '
@@ -68,22 +71,29 @@ void main() {
             'the census entry is answered by the note, not by this line.',
       );
       expect(
-        run('main() { var s = 0; for (var (a, b) in [(1, 2), (3, 4)]) '
-            '{ s += a + b; } return s; }'),
+        run(
+          'main() { var s = 0; for (var (a, b) in [(1, 2), (3, 4)]) '
+          '{ s += a + b; } return s; }',
+        ),
         10,
         reason: 'ForEachPartsWithPattern',
       );
       expect(
-        run('typedef int F(int x);\nmain() { F f = (int x) => x * 2; '
-            'return f(21); }'),
+        run(
+          'typedef int F(int x);\nmain() { F f = (int x) => x * 2; '
+          'return f(21); }',
+        ),
         42,
         reason: 'FunctionTypeAlias — the pre-2.13 typedef form',
       );
       expect(
-        run('class A { final int v; A(this.v); }\n'
-            'main() { var f = A.new; return f(4).v; }'),
+        run(
+          'class A { final int v; A(this.v); }\n'
+          'main() { var f = A.new; return f(4).v; }',
+        ),
         4,
-        reason: 'the `A.new` tear-off. Like the switch case above, this does '
+        reason:
+            'the `A.new` tear-off. Like the switch case above, this does '
             'NOT drive _convertConstructorReference: that node exists only '
             'in a RESOLVED tree, and the copier front end parses with '
             'parseString, so nothing in this pipeline can produce one.',
@@ -94,10 +104,13 @@ void main() {
         reason: 'FunctionReference — generic function instantiation',
       );
       expect(
-        run("import 'dart:math' if (dart.library.io) 'dart:math' as m;\n"
-            'main() => m.max(1, 2);'),
+        run(
+          "import 'dart:math' if (dart.library.io) 'dart:math' as m;\n"
+          'main() => m.max(1, 2);',
+        ),
         2,
-        reason: 'Configuration and DottedName — the conditional-import '
+        reason:
+            'Configuration and DottedName — the conditional-import '
             'branch sce49 taught the copier to carry, never driven since',
       );
     });
@@ -111,7 +124,8 @@ void main() {
       expect(
         run('library a.b.c;\nmain() => 7;'),
         7,
-        reason: 'three components — the name is flattened to one identifier '
+        reason:
+            'three components — the name is flattened to one identifier '
             'precisely so that this case is not special',
       );
     });

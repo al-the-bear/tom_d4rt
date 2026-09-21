@@ -58,7 +58,8 @@ void main() {
       expect(
         () => copy('library a.b.c;\nmain() => 42;'),
         returnsNormally,
-        reason: 'three components must work too -- SPrefixedIdentifier could '
+        reason:
+            'three components must work too -- SPrefixedIdentifier could '
             'have carried two, which is why the name is flattened instead',
       );
     });
@@ -78,7 +79,8 @@ void main() {
             ),
           ),
         ),
-        reason: 'a bare cast error named neither the construct nor where it '
+        reason:
+            'a bare cast error named neither the construct nor where it '
             'was; the reference interpreter answers the same source with '
             '"Unsupported AST node \'X\' at offset N"',
       );

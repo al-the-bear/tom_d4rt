@@ -281,7 +281,8 @@ void main() {
       expect(
         line,
         contains('TREE AHEAD'),
-        reason: 'the whole point is that a reader of testlog/ learns this '
+        reason:
+            'the whole point is that a reader of testlog/ learns this '
             'without opening a gitignored lock on the machine that ran it',
       );
     });
@@ -372,7 +373,8 @@ void main() {
       expect(
         drifted.stdout,
         isNot(contains('does NOT measure')),
-        reason: 'stdout is metrics.txt — the header must stay parseable, and '
+        reason:
+            'stdout is metrics.txt — the header must stay parseable, and '
             'F-SCD164-3 reads it',
       );
 
@@ -385,8 +387,9 @@ void main() {
       // "NOT COMPARED", which is UNKNOWN rather than in step and is announced
       // on purpose. The first draft of this test omitted it and read the
       // resulting banner as a bug in the code.
-      File('${tree.path}/pubspec.yaml')
-          .writeAsStringSync('name: tom_zom_interp\nversion: 0.65.0\n');
+      File(
+        '${tree.path}/pubspec.yaml',
+      ).writeAsStringSync('name: tom_zom_interp\nversion: 0.65.0\n');
       File('${tree.path}/lib/x.dart')
         ..createSync(recursive: true)
         ..writeAsStringSync('same');
@@ -397,7 +400,8 @@ void main() {
       expect(
         quiet.stdout,
         contains('tom_zom_interp resolved 0.65.0, tree 0.65.0'),
-        reason: 'still RECORDED in the header — only the announcement is '
+        reason:
+            'still RECORDED in the header — only the announcement is '
             'conditional',
       );
     });

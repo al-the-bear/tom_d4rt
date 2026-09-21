@@ -50,13 +50,16 @@ import 'package:tom_ast_generator/src/converter/ast_converter.dart';
 /// declaration and the next one has a non-zero hit count.
 Map<String, ({int start, int end})> _convertMethods(String source) {
   final lines = source.split('\n');
-  final decl = RegExp(r'^\s{2}[A-Za-z][A-Za-z0-9<>?,\s\.]*\s(_convert[A-Za-z]+)\(');
+  final decl = RegExp(
+    r'^\s{2}[A-Za-z][A-Za-z0-9<>?,\s\.]*\s(_convert[A-Za-z]+)\(',
+  );
   final found = <String, int>{};
   for (var i = 0; i < lines.length; i++) {
     final m = decl.firstMatch(lines[i]);
     if (m != null) found.putIfAbsent(m.group(1)!, () => i + 1);
   }
-  final starts = found.entries.toList()..sort((a, b) => a.value.compareTo(b.value));
+  final starts = found.entries.toList()
+    ..sort((a, b) => a.value.compareTo(b.value));
   final out = <String, ({int start, int end})>{};
   for (var i = 0; i < starts.length; i++) {
     final end = i + 1 < starts.length ? starts[i + 1].value - 1 : lines.length;
@@ -105,12 +108,14 @@ Set<String> _unknownTypes(String source) {
   final seen = <String>{};
   void walk(Object? node) {
     if (node is Map) {
-      if (node['nodeType'] == 'Unknown') seen.add(node['originalType'] as String);
+      if (node['nodeType'] == 'Unknown')
+        seen.add(node['originalType'] as String);
       node.values.forEach(walk);
     } else if (node is List) {
       node.forEach(walk);
     }
   }
+
   walk(mirror.toJson());
   return seen;
 }
@@ -122,9 +127,12 @@ Set<String> _unknownTypes(String source) {
 const Map<String, String> _probes = {
   'class type alias': 'class A {} mixin M {} class B = A with M;',
   'extension override': 'extension E on int { int get d => 1; } m() => E(1).d;',
-  'pattern for-loop': 'm(List<(int, int)> l) { for (var (a, b) in l) print(a + b); }',
-  'catch clause parameter': 'm() { try {} on Exception catch (e, s) { print("\$e\$s"); } }',
-  'enum with constructor': 'enum E { a(1), b(2); const E(this.v); final int v; }',
+  'pattern for-loop':
+      'm(List<(int, int)> l) { for (var (a, b) in l) print(a + b); }',
+  'catch clause parameter':
+      'm() { try {} on Exception catch (e, s) { print("\$e\$s"); } }',
+  'enum with constructor':
+      'enum E { a(1), b(2); const E(this.v); final int v; }',
   'record type annotation': '(int, {String s}) m() => (1, s: "x");',
   'record pattern': 'm(Object o) { if (o case (int a, int b)) print(a + b); }',
   'switch expression': 'm(int x) => switch (x) { 1 => "a", _ => "b" };',
@@ -136,21 +144,25 @@ const Map<String, String> _probes = {
   'export with combinators': "export 'a.dart' show A hide B; m() {}",
   'part directive': "part 'a.dart'; m() {}",
   'library directive': 'library foo; m() {}',
-  'spread and control-flow collection': 'm(List l, bool b) => [...l, if (b) 1, for (var x in l) x];',
+  'spread and control-flow collection':
+      'm(List l, bool b) => [...l, if (b) 1, for (var x in l) x];',
   'cascade': 'm(List l) => l..add(1)..add(2);',
   'named args and defaults': 'm({int a = 1, required int b}) => a + b;',
   'super parameter': 'class A { A(int x); } class B extends A { B(super.x); }',
-  'late final and covariant': 'class A { late final int x = 1; void m(covariant num n) {} }',
+  'late final and covariant':
+      'class A { late final int x = 1; void m(covariant num n) {} }',
   'typedef (new form)': 'typedef F = int Function(int); m(F f) => f(1);',
   'typedef (old form)': 'typedef int F(int x); m(F f) => f(1);',
-  'operator and factory': 'class A { factory A() => A._(); A._(); A operator +(A o) => this; }',
+  'operator and factory':
+      'class A { factory A() => A._(); A._(); A operator +(A o) => this; }',
   'async generator': 'Stream<int> m() async* { yield 1; yield* m(); }',
   'sync generator': 'Iterable<int> m() sync* { yield 1; }',
   'assert with message': 'm(int x) { assert(x > 0, "positive"); }',
   'labeled break and continue': 'm() { outer: for (;;) { break outer; } }',
   'string interpolation and adjacent': r'm(int x) => "a$x" "b";',
   'symbol and type literals': 'm() => [#foo, int];',
-  'is/as/throw/rethrow': 'm(Object o) { try { throw o is int ? o as int : 0; } catch (_) { rethrow; } }',
+  'is/as/throw/rethrow':
+      'm(Object o) { try { throw o is int ? o as int : 0; } catch (_) { rethrow; } }',
   'native clause': 'class A { void m() native "impl"; }',
   'dot shorthand': 'enum E { a } E m() { E e = .a; return e; }',
 };
@@ -169,9 +181,7 @@ File _resolve(String source, Directory coverageDir, String? configPath) {
   final rest = uri.pathSegments.skip(1).join('/');
   final candidates = <File>[
     if (configPath != null) File(configPath),
-    for (var d = coverageDir.absolute;
-        d.parent.path != d.path;
-        d = d.parent)
+    for (var d = coverageDir.absolute; d.parent.path != d.path; d = d.parent)
       File('${d.path}/.dart_tool/package_config.json'),
   ];
   for (final config in candidates) {
@@ -207,14 +217,15 @@ void main(List<String> args) {
   }
   final source = root.readAsStringSync();
   final methods = _convertMethods(source);
-  final handled = RegExp(r'node is analyzer\.([A-Za-z]+)')
-      .allMatches(source)
-      .map((m) => m.group(1)!)
-      .toSet();
+  final handled = RegExp(
+    r'node is analyzer\.([A-Za-z]+)',
+  ).allMatches(source).map((m) => m.group(1)!).toSet();
 
   stdout.writeln('copier census');
-  stdout.writeln('  ${methods.length} _convert* methods, '
-      '${handled.length} dispatch arms');
+  stdout.writeln(
+    '  ${methods.length} _convert* methods, '
+    '${handled.length} dispatch arms',
+  );
 
   if (args.contains('--probe')) {
     stdout.writeln('\nUNHANDLED NODE TYPES (reach _SUnknownNode)');
@@ -230,9 +241,12 @@ void main(List<String> args) {
       }
       if (unknown.isEmpty) continue;
       any = true;
-      stdout.writeln('  ${entry.key}: ${(unknown.toList()..sort()).join(', ')}');
+      stdout.writeln(
+        '  ${entry.key}: ${(unknown.toList()..sort()).join(', ')}',
+      );
     }
-    if (!any) stdout.writeln('  none -- every probe converted without a placeholder');
+    if (!any)
+      stdout.writeln('  none -- every probe converted without a placeholder');
   }
 
   final covIndex = args.indexOf('--coverage');
@@ -245,10 +259,12 @@ void main(List<String> args) {
     final measured = _coverageFor(dir, 'ast_converter.dart');
     final hits = measured.hits;
     if (hits.isEmpty) {
-      stderr.writeln('\nNO COVERAGE FOUND for ast_converter.dart in ${dir.path}.\n'
-          'That is a measurement failure, not a result of zero: a run that '
-          'resolved the copier from a different root, or one killed before it '
-          'wrote, looks exactly like a copier nothing exercises.');
+      stderr.writeln(
+        '\nNO COVERAGE FOUND for ast_converter.dart in ${dir.path}.\n'
+        'That is a measurement failure, not a result of zero: a run that '
+        'resolved the copier from a different root, or one killed before it '
+        'wrote, looks exactly like a copier nothing exercises.',
+      );
       exit(2);
     }
     // SPANS MUST COME FROM THE FILE THE COVERAGE MEASURED, not from the
