@@ -1,3 +1,57 @@
+## 0.1.8
+
+### Fixed — `library` directives crashed the copier (sce62)
+
+`_convertLibraryDirective` cast `node.name` to `SIdentifier?`, but the
+`LibraryIdentifier` that holds it had no dispatch arm in `convert()`. So it
+became the `_SUnknownNode` placeholder and the cast failed:
+
+```
+type '_SUnknownNode' is not a subtype of type 'SIdentifier?' in type cast
+```
+
+`library foo; main() => 42;` is valid Dart that the reference interpreter runs
+and returns 42 for — a library directive has no runtime effect. exec could not
+interpret it at all, which is a conformance break rather than a missing
+feature.
+
+The name is flattened to one `SSimpleIdentifier` carrying the dotted text.
+`SPrefixedIdentifier` could have carried two components but not three, so it
+would have worked until somebody wrote `library a.b.c`. Nothing reads the
+component structure; the flattening is recorded at the conversion site rather
+than left to be rediscovered.
+
+### Changed — an unhandled node now says what it is
+
+An unhandled node type reaches `_SUnknownNode`, and the two paths that consume
+converted nodes both failed badly:
+
+* `_as<T>` cast, producing `type '_SUnknownNode' is not a subtype of type
+  'SIdentifier?' in type cast` — naming neither the construct nor its position.
+* `_nodesAs<T>` filtered on a type pattern, so an unhandled node in a
+  statement, member or collection list was **silently dropped** and the script
+  ran without it.
+
+Both now raise `UnsupportedError` naming the analyzer node type, the offset and
+the source text, the way the reference interpreter's
+`Unsupported AST node 'X' at offset N` does. The two constructs this currently
+affects — `class B = A with M;` and dot shorthands — are unsupported by the
+reference interpreter too, so this changes the diagnosis rather than the
+capability.
+
+No construct reaches the `_nodesAs` drop today: every statement, class-member
+and collection-element type the analyzer parses is dispatched, and
+`Configuration`, the one list element that WAS dropped (0.1.7), has had an arm
+since. That path is closed for the next unhandled type rather than for a
+present defect.
+
+### Added — `tool/census_copier.dart`
+
+Which of the copier's 154 `_convert*` methods a test suite has never executed,
+and which node types reach the placeholder. See the file header for what the
+census can and cannot see — notably that it cannot see a handled node whose
+FIELD is silently not copied, which is what 0.1.7 fixed.
+
 ## 0.1.7
 
 ### Fixed — conditional import/export branches are no longer dropped (sce49)

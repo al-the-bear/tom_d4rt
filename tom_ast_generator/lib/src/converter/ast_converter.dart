@@ -18,14 +18,21 @@ class AstConverter {
     // Convert directives
     for (final directive in unit.directives) {
       final converted = convert(directive);
+      _rejectUnknown(converted, directive);
       if (converted != null) {
         directives.add(converted as SDirective);
       }
     }
 
     // Convert declarations
+    //
+    // The unit's own two loops cast directly rather than through `_as`, so an
+    // unhandled top-level form (`class B = A with M;` was the one the census
+    // found) failed here as a bare `_SUnknownNode is not SDeclaration` cast
+    // error. They get the same rejection as every other path.
     for (final declaration in unit.declarations) {
       final converted = convert(declaration);
+      _rejectUnknown(converted, declaration);
       if (converted != null) {
         declarations.add(converted as SDeclaration);
       }
@@ -109,6 +116,8 @@ class AstConverter {
     // Expressions
     if (node is analyzer.SimpleIdentifier)
       return _convertSimpleIdentifier(node);
+    if (node is analyzer.LibraryIdentifier)
+      return _convertLibraryIdentifier(node);
     if (node is analyzer.PrefixedIdentifier)
       return _convertPrefixedIdentifier(node);
     if (node is analyzer.BinaryExpression)
@@ -1530,6 +1539,28 @@ class AstConverter {
     );
   }
 
+  /// The dotted name of a `library` directive: `foo`, or `foo.bar.baz`.
+  ///
+  /// FLATTENED TO ONE IDENTIFIER, DELIBERATELY. The analyzer models this as a
+  /// `LibraryIdentifier` holding a list of components; the mirror has no
+  /// counterpart, and `SLibraryDirective.name` is typed `SIdentifier?`.
+  /// `SPrefixedIdentifier` could carry two components but not three, so it
+  /// would be a mapping that works until somebody writes `library a.b.c`.
+  ///
+  /// The component structure is not read by anything: a `library` directive
+  /// has no runtime effect, which is why the reference interpreter runs
+  /// `library foo; main() => 42;` and returns 42 while ignoring the name. This
+  /// is RECORDED rather than silent — sce49's dropped conditional-import
+  /// configurations were the same shape of decision taken without one, and
+  /// the difference between the two is only that this comment exists.
+  SSimpleIdentifier _convertLibraryIdentifier(analyzer.LibraryIdentifier node) {
+    return SSimpleIdentifier(
+      offset: node.offset,
+      length: node.length,
+      name: node.name,
+    );
+  }
+
   SLibraryDirective _convertLibraryDirective(analyzer.LibraryDirective node) {
     return SLibraryDirective(
       offset: node.offset,
@@ -2099,14 +2130,50 @@ class AstConverter {
   // ============================================================================
 
   /// Convert and cast to a specific node type. Returns null if source is null.
-  T? _as<T extends SAstNode>(analyzer.AstNode? node) => convert(node) as T?;
+  ///
+  /// An unhandled node reaches [_SUnknownNode], which satisfies no [T] the
+  /// callers ask for, so this used to fail as `type '_SUnknownNode' is not a
+  /// subtype of type 'SIdentifier?' in type cast` — a message naming neither
+  /// the construct nor where it was. The reference interpreter answers the
+  /// same source with "Unsupported AST node 'X' at offset N", and a consumer
+  /// cannot act on the first but can on the second.
+  T? _as<T extends SAstNode>(analyzer.AstNode? node) {
+    final converted = convert(node);
+    _rejectUnknown(converted, node);
+    return converted as T?;
+  }
 
   /// Convert a list of nodes and cast each to a specific type.
+  ///
+  /// The pattern this replaced — `if (convert(node) case final T result)` —
+  /// DROPPED anything that did not match, so an unsupported statement in a
+  /// block simply vanished and the script ran without it. A silent omission is
+  /// the worst of the three failure modes because the result is a tree that
+  /// interprets consistently and wrongly. Only [_SUnknownNode] is rejected:
+  /// a genuine type mismatch is still filtered, which is what callers passing
+  /// mixed lists rely on.
   List<T> _nodesAs<T extends SAstNode>(Iterable<analyzer.AstNode> nodes) {
-    return [
-      for (final node in nodes)
-        if (convert(node) case final T result) result,
-    ];
+    final result = <T>[];
+    for (final node in nodes) {
+      final converted = convert(node);
+      _rejectUnknown(converted, node);
+      if (converted is T) result.add(converted);
+    }
+    return result;
+  }
+
+  /// Throws when [converted] is the placeholder for a node type `convert` does
+  /// not handle, naming the analyzer type and offset the way the reference
+  /// interpreter does.
+  void _rejectUnknown(SAstNode? converted, analyzer.AstNode? source) {
+    if (converted is! _SUnknownNode) return;
+    throw UnsupportedError(
+      "Unsupported AST node '${converted.originalType}' at offset "
+      '${converted.offset}. The analyzer-to-mirror copier has no conversion '
+      'for this node type, so the construct cannot be interpreted. '
+      '${source is analyzer.AstNode ? 'Source: `${source.toSource()}`. ' : ''}'
+      'Add a dispatch arm in AstConverter.convert() for it.',
+    );
   }
 
   /// Convert a list of nodes
