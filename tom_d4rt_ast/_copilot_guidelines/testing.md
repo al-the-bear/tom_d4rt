@@ -120,6 +120,38 @@ with a model it cannot read.
 
 ---
 
+## Scanning the test tree — the trap this tree sprang
+
+A guard that asks "is this name mentioned anywhere in the tests?" is satisfied
+by a GENERATED file that enumerates the names, and the failure is silent and
+in the safe-looking direction: more things look covered.
+
+**This tree is where that was found.** `test/stdlib_member_baseline.dart`,
+written by `tool/stdlib_member_audit.dart`, lists every registered bridge in
+`auditedClasses` — so the first coverage scan here reported 0 uncovered out of
+205. Excluding that one file it was 23, and it is 53 today. The scan and the
+file that silenced it were written hours apart.
+
+The second half is the same trap one level in: a guard that PINS a list of
+names is itself a file full of them, so it satisfies its own scan.
+`scd58_bridge_coverage_baseline_test.dart` reported every pinned bridge as
+covered on its first run, because its own `uncoveredBridges` named them all.
+
+So, for any guard here that scans test sources:
+
+1. skip files carrying `GENERATED` **in their first three lines** — that is
+   what the detector reads, which is why prose like this paragraph, further
+   down a hand-written file, is not mistaken for one;
+2. skip yourself;
+3. assert each skip MATCHED something. The self-exclusion is by filename, so a
+   rename would silently stop applying it and every pinned name would read as
+   covered again. `F-SCD58-1` asserts the skip fired.
+
+The same section is in `tom_d4rt` and `tom_d4rt_exec`'s testing guidelines,
+worded for their trees.
+
+---
+
 ## Shared conventions, not restated here
 
 These are identical in both trees. Read them in

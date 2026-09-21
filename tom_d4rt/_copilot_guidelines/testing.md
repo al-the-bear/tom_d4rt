@@ -248,6 +248,60 @@ what such a case does — it passes.
 
 ---
 
+## Scanning the test tree — two exclusions, both load-bearing
+
+A guard that asks **"is this name mentioned anywhere in the tests?"** has a
+silent failure mode, and it fails in the safe-looking direction: more things
+look covered.
+
+**A generated artifact that enumerates names is indistinguishable, to a text
+scan, from a test that uses them.** `tom_d4rt_ast`'s `stdlib_member_baseline
+.dart` lists every registered bridge in `auditedClasses`, so the first
+coverage scan over that tree reported **0 uncovered out of 205** — perfectly
+green and perfectly meaningless. Excluding that one file, it was 23. The guard
+and the file that would have silenced it were written hours apart.
+
+**A guard that PINS a list of names is itself a file full of those names**, so
+it satisfies its own scan. The same run reported every pinned bridge as newly
+covered, because its own baseline mentioned all of them. A list *about* a gap
+is not coverage *of* it.
+
+### The rule
+
+1. A generated file under `test/` **carries `GENERATED` within its first three
+   lines**. Every one already opens `// GENERATED — regenerate with:`. Three
+   lines is not a style preference — it is what the detector reads, which is
+   also why prose explaining this rule further down a file is safe. This
+   section is below line 3 of a file that is not generated, and nothing
+   mistakes it for one.
+2. A guard that scans test sources **skips generated files, and skips
+   itself**. Both, not either: they are the same trap one level apart.
+3. **Assert that each skip matched something.** A self-exclusion by filename
+   stops applying the moment the file is renamed, and the guard then goes
+   green for the wrong reason. `F-SCD58-1` asserts the skip fired, which makes
+   a rename loud instead of silent.
+
+### Where this bites next
+
+Only one guard currently scans for mentions, and it handles both cases with
+controls proving each. The exposure is the next one — any new "is X named
+anywhere" check, in any of the four packages. The generated name-lists that
+would silence it are `tom_d4rt_ast/test/stdlib_member_baseline.dart`,
+`tom_d4rt/test/stdlib/member_coverage_baseline.dart` and
+`tom_d4rt/test/stdlib/hierarchy_baseline.dart`.
+
+Measured 2026-09-22, **five** files under a `test/` tree carry the marker in
+their first three lines — those three plus two `version.versioner.dart` stamps
+inside `tom_ast_generator`'s fixture projects. The stamps enumerate no bridge
+names, so they are exposure to rule 1 rather than to the hazard, and a
+conforming scan skips them anyway.
+
+Moving the name-lists out of `test/` would make them skippable by path, and is
+the wrong trade: the tests that read them import them as Dart libraries, so
+they must stay importable and inside the package. A one-line skip solves it.
+
+---
+
 ## Writing New Tests
 
 ### Test Structure

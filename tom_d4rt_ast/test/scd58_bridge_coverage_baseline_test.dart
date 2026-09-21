@@ -55,7 +55,8 @@ import 'package:tom_d4rt_ast/src/runtime/stdlib/math.dart';
 /// than a different question — so the old 23 was not a smaller gap, it was the
 /// same gap measured through prose.
 ///
-/// **IT IS 55 SINCE SCD78**, having been 63 after SCD71 and 65 after SCD70.
+/// **IT IS 53 SINCE SCD181**, having been 55 after SCD78, 63 after SCD71 and
+/// 65 after SCD70.
 /// Every name that has come off did so the way the list is meant to shrink: a
 /// test named it in code, F-SCD58-3 failed on the commit that added the
 /// coverage, and deleting the line was the fix. That is the ratchet working in
@@ -224,7 +225,7 @@ void main() {
   //   * a GENERATED file. `stdlib_member_baseline.dart` lists every registered
   //     name in `auditedClasses`, so counting it puts the unmentioned set at
   //     ZERO — green and meaningless. See the file header.
-  //   * THIS FILE. `uncoveredBridges` below names all 63 pinned bridges, so
+  //   * THIS FILE. `uncoveredBridges` below names every pinned bridge, so
   //     counting it makes every one of them read as covered and F-SCD58-3
   //     reports the entire baseline as stale on the first run. It did.
   //
