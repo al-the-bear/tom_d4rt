@@ -3554,6 +3554,36 @@ void main() {
 
     test('F-SCC6-5: every pinned known gap names an owner and exists in every '
         'recorded copy [2026-09-04] (PASS)', () {
+      // WHAT THIS GUARDS, MEASURED 2026-09-21, because three branches over a
+      // near-empty population invite the question and silence is a poor
+      // answer. Across all five packages the convention has seven uses:
+      // `WONT-FIX` once (the named-field record gap, in this file's reference
+      // twin and its port here), and `PUBLISH-PIN` five times, all DGUC6
+      // publish gaps naming sce119 and sce162. `KNOWN-GAP(<todo-id>)` has
+      // ZERO uses anywhere.
+      //
+      // SCE93 then asked the only question that makes that worth acting on:
+      // are gaps being pinned WITHOUT a marker? It read the 44 sites in the
+      // repo where a comment suggesting a limitation sits within eighteen
+      // lines of a negative assertion. Every one is a contract or a
+      // correction being held in place — the word "pinned" is used in this
+      // corpus for "asserted so it cannot silently change", not for "this is
+      // broken". The three that read otherwise resolve the same way on
+      // inspection: `F-SCC30-4` asserts the SDK's own bare
+      // `IntegerDivisionByZeroException`, which is parity rather than
+      // degradation; `F-SCB20-5` asserts that `BytesBuilder` is not
+      // `TypedData`, which is true in real Dart; and `F-SCD93-12` records a
+      // message-wording difference whose type and catchability already match,
+      // with no owner to name — and a marker there would invite the next
+      // reader to delete a live assertion.
+      //
+      // So the answer is nil, and it is the finding rather than a wasted
+      // afternoon: the convention is genuinely rare in this corpus, and this
+      // guard is ready for the first real use rather than over-built for it.
+      // The place a pin WOULD have hidden was checked first and is recorded
+      // in `dart_overview_failures2_test.dart`, which held stale prose
+      // instead — seven limitations described as live that had all been
+      // fixed.
       // Part one — shape. A `KNOWN-GAP()` with nothing between the brackets
       // is the marker equivalent of a bare `// TODO`: it records that someone
       // noticed, and nothing else. `WONT-FIX` carries its own decision and

@@ -6,7 +6,21 @@
 ///
 /// These failures were identified by re-running all 20 Dart Overview areas
 /// through the D4rt interpreter (run_overview_in_d4rt.dart) after the initial
-/// 12 G-DOV bug fixes. 7 areas still fail.
+/// 12 G-DOV bug fixes. 7 areas failed at the time.
+///
+/// ALL SEVEN ARE FIXED, measured 2026-09-21: every case below asserts
+/// `returnsNormally` and every one passes. The file is a regression gate now,
+/// not a record of open defects, and the per-case notes describe the ORIGINAL
+/// failure rather than what the interpreter does today — read them as history.
+///
+/// That distinction is the reason this paragraph exists. SCE93 audited the
+/// repo for tests pinning BROKEN behaviour without the `KNOWN-GAP(<todo-id>)`
+/// marker the convention requires, and this file — filed as a batch of
+/// generator gaps, and the least-reviewed corpus in the quest — was the first
+/// place it looked. It holds no pins. What it held instead was prose telling
+/// the reader that seven limitations were live, which is the same ambiguity
+/// from the other side: with no marker and no tense, "deliberately broken" and
+/// "fixed, nobody updated the comment" look identical.
 ///
 /// | ID       | Area       | Root Cause                                       |
 /// |----------|------------|--------------------------------------------------|
