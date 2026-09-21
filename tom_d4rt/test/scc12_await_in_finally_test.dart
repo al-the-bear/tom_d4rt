@@ -1672,4 +1672,237 @@ void main() {
       );
     });
   });
+  group('SCE80: await inside a collection literal', () {
+    // `_processCollectionElement` returned `void`, so it had no way to say
+    // "the element I was evaluating has not finished" — it stored the
+    // interpreter's own `AsyncSuspensionRequest` sentinel as the element
+    // instead. `[await Future.value(1)]` evaluated to a list containing one of
+    // those, silently, and only the spread case reported anything, and only
+    // because a sentinel is not an `Iterable`.
+    //
+    // EVERY CASE COMPARES CONTENTS, never a length and never absence-of-throw.
+    // A sentinel counts as an element perfectly well: a first probe of the map
+    // and set shapes checked `.length` and reported them healthy. SCD42 was
+    // caught by the same trap from the other side, where a hoisted-await case
+    // returned `1` instead of `[1]` and read as a pass.
+
+    test('F-SCE80-1: a list element [2026-09-21]', () async {
+      expect(
+        await run('''
+        Future<dynamic> f() async { return [await Future.value(1)]; }
+        main() async => await f();
+      '''),
+        orderedEquals([1]),
+      );
+    });
+
+    test('F-SCE80-2: a later element, with an earlier one already stored '
+        '[2026-09-21]', () async {
+      expect(
+        await run('''
+        Future<dynamic> f() async { return [1, await Future.value(2)]; }
+        main() async => await f();
+      '''),
+        orderedEquals([1, 2]),
+      );
+    });
+
+    test('F-SCE80-3: two awaits in one literal [2026-09-21]', () async {
+      // Replay resumes the whole literal, so the second await must suspend
+      // again rather than replay the first one's value — SCC40's per-site
+      // cache is what makes that work, and this is where it is exercised
+      // through a collection.
+      expect(
+        await run('''
+        Future<dynamic> f() async {
+          return [await Future.value(1), await Future.value(2)];
+        }
+        main() async => await f();
+      '''),
+        orderedEquals([1, 2]),
+      );
+    });
+
+    test('F-SCE80-4: a nested literal [2026-09-21]', () async {
+      expect(
+        await run('''
+        Future<dynamic> f() async { return [[await Future.value(1)]]; }
+        main() async => await f();
+      '''),
+        orderedEquals([
+          orderedEquals([1]),
+        ]),
+      );
+    });
+
+    test('F-SCE80-5: an `if` element, both branches [2026-09-21]', () async {
+      expect(
+        await run('''
+        Future<dynamic> f() async { return [if (true) await Future.value(1)]; }
+        main() async => await f();
+      '''),
+        orderedEquals([1]),
+      );
+      expect(
+        await run('''
+        Future<dynamic> f() async {
+          return [if (false) await Future.value(1) else await Future.value(9)];
+        }
+        main() async => await f();
+      '''),
+        orderedEquals([9]),
+      );
+    });
+
+    test('F-SCE80-6: a map KEY [2026-09-21]', () async {
+      // The key is checked before `_unwrapHashKey`, which would otherwise
+      // normalise the sentinel into a perfectly good map key.
+      expect(
+        await run('''
+        Future<dynamic> f() async { return {await Future.value('a'): 1}; }
+        main() async => await f();
+      '''),
+        equals({'a': 1}),
+      );
+    });
+
+    test('F-SCE80-7: a map VALUE, and two of them [2026-09-21]', () async {
+      expect(
+        await run('''
+        Future<dynamic> f() async { return {'a': await Future.value(1), 'b': 2}; }
+        main() async => await f();
+      '''),
+        equals({'a': 1, 'b': 2}),
+      );
+      expect(
+        await run('''
+        Future<dynamic> f() async {
+          return {'a': await Future.value(1), 'b': await Future.value(2)};
+        }
+        main() async => await f();
+      '''),
+        equals({'a': 1, 'b': 2}),
+      );
+    });
+
+    test('F-SCE80-8: a set element [2026-09-21]', () async {
+      expect(
+        await run('''
+        Future<dynamic> f() async { return {await Future.value(1), 2}; }
+        main() async => await f();
+      '''),
+        unorderedEquals([1, 2]),
+      );
+    });
+
+    test('F-SCE80-9: a spread [2026-09-21]', () async {
+      // The one shape that already reported something, and it reported the
+      // wrong thing: `requires an Iterable, but got AsyncSuspensionRequest`.
+      expect(
+        await run('''
+        Future<dynamic> f() async { return [...await Future.value([1, 2])]; }
+        main() async => await f();
+      '''),
+        orderedEquals([1, 2]),
+      );
+    });
+
+    test('F-SCE80-10: a null-aware element [2026-09-21]', () async {
+      expect(
+        await run('''
+        Future<dynamic> f() async { return [?await Future.value(1)]; }
+        main() async => await f();
+      '''),
+        orderedEquals([1]),
+      );
+    });
+
+    test('F-SCE80-11: a `for` element\'s ITERABLE [2026-09-21]', () async {
+      // The iterable is evaluated once, so it propagates like any other
+      // expression. Only the BODY is refused — see F-SCE80-12.
+      expect(
+        await run('''
+        Future<dynamic> f() async {
+          return [for (var i in await Future.value([1, 2])) i * 10];
+        }
+        main() async => await f();
+      '''),
+        orderedEquals([10, 20]),
+      );
+    });
+
+    test('F-SCE80-12: an await in a `for` BODY is refused, not corrupted '
+        '[2026-09-21]', () async {
+      // The one shape a suspension cannot propagate through. Replay
+      // re-evaluates the whole literal, so the loop would run its earlier
+      // iterations again — and `resolvedAwaitResults` is keyed by the
+      // `AwaitExpression` NODE, which every iteration shares, so the second
+      // iteration would replay the FIRST one's value. Before this todo the
+      // result was two sentinels; a naive propagation would have made it two
+      // copies of the same number, which is the same class of silent defect
+      // wearing a better disguise.
+      await expectLater(
+        run('''
+          Future<dynamic> f() async {
+            return [for (var i in [1, 2]) await Future.value(i)];
+          }
+          main() async => await f();
+        '''),
+        throwsA(
+          predicate<Object>(
+            (e) => '$e'.contains(
+              'not supported in the body of a '
+              'collection-literal `for` element',
+            ),
+            'names the construct and points at the statement form',
+          ),
+        ),
+      );
+    });
+
+    test('F-SCE80-13: the statement form the diagnostic recommends works '
+        '[2026-09-21]', () async {
+      // A refusal that points nowhere is not much better than a wrong answer.
+      expect(
+        await run('''
+        Future<dynamic> f() async {
+          var out = [];
+          for (var i in [1, 2]) { out.add(await Future.value(i * 10)); }
+          return out;
+        }
+        main() async => await f();
+      '''),
+        orderedEquals([10, 20]),
+      );
+    });
+
+    test('F-SCE80-14 (control): a `for` element with no await still works '
+        '[2026-09-21]', () async {
+      // The refusal is conditioned on the body actually suspending, not on the
+      // element being a `for`. Without this, refusing every collection `for`
+      // would pass F-SCE80-12 and break ordinary code.
+      expect(
+        await run('''
+        Future<dynamic> f() async {
+          return [1, 2, for (var i in [3, 4]) i, if (true) 5];
+        }
+        main() async => await f();
+      '''),
+        orderedEquals([1, 2, 3, 4, 5]),
+      );
+    });
+
+    test('F-SCE80-15 (control): a classic `for` element with no await '
+        '[2026-09-21]', () async {
+      expect(
+        await run('''
+        Future<dynamic> f() async {
+          return [for (var i = 0; i < 3; i++) i];
+        }
+        main() async => await f();
+      '''),
+        orderedEquals([0, 1, 2]),
+      );
+    });
+  });
 }

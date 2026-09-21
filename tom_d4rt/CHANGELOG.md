@@ -1,3 +1,39 @@
+## 1.148.0
+
+### Fixed — `await` in a collection literal stored the suspension sentinel (sce80)
+
+    [await Future.value(1)]        // was: [Instance of 'AsyncSuspensionRequest']
+
+Every collection-literal position had this, silently: list elements, map keys,
+map values, set elements, `if` elements, null-aware elements. Only the spread
+case reported anything, and only because a sentinel is not an `Iterable`.
+
+The cause was visible in the signature. The interpreter drives `await` by
+replay — `visitAwaitExpression` returns an `AsyncSuspensionRequest` and every
+visitor propagates it upward — but `_processCollectionElement` returned `void`,
+so it had no way to say "the element I was evaluating has not finished". It
+stored the sentinel instead, and the two literal visitors could not propagate
+either. It now returns `Object?`: the suspension, or null when the element
+completed.
+
+ONE SHAPE IS REFUSED RATHER THAN FIXED, and that is deliberate. An `await` in
+the BODY of a collection-literal `for` element cannot propagate: replay
+re-evaluates the whole literal, so the loop would run its earlier iterations
+again, and `resolvedAwaitResults` is keyed by the `AwaitExpression` NODE — which
+every iteration shares — so the second iteration would replay the first one's
+value. A list of duplicates is the same class of silent defect this change
+exists to remove, so the construct is diagnosed and the message names the
+statement form that does work:
+
+    var out = []; for (var x in xs) { out.add(await f(x)); }
+
+The `for` element's ITERABLE is evaluated once and propagates normally; only
+the body is refused, and only when it actually suspends.
+
+Fifteen cases. Every one compares the collection's CONTENTS: a sentinel counts
+as an element perfectly well, so a first probe of the map and set shapes checked
+`.length` and reported them healthy.
+
 ## 1.147.0
 
 ### Fixed — the async catch variable leaked out of its block (sce79)

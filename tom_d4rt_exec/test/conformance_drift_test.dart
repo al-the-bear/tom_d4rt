@@ -1879,6 +1879,12 @@ const Map<String, _Divergence> _divergentBaseline = {
   // and overwrites a caller's local of the same name. That is the defect they
   // pin, and it is still present in 0.65.0. The fix landed in `tom_d4rt_ast`
   // 0.133.0.
+  //
+  // SCE80 widened it a fifth time, by fifteen cases, and these would also FAIL
+  // here rather than hang: the published interpreter stores an
+  // `AsyncSuspensionRequest` as the element for every `await` in a collection
+  // literal, so the assertions about CONTENTS are exactly what it cannot
+  // satisfy. The fix landed in `tom_d4rt_ast` 0.134.0.
   'scc12_await_in_finally_test.dart': _Divergence.deliberate,
   // `scd4_await_for_break`: SCE16 made `await for` lazy in the reference tree —
   // one `StreamIterator.moveNext()` per element, with the iterator cancelled
@@ -2001,7 +2007,7 @@ const Map<String, String> _divergenceFingerprints = <String, String>{
   'stdlib/collection/queue_test.dart': '19eee099a23916a8',
   'stdlib/cast_from_family_test.dart': 'c7a32ccddec5a069',
   'scd4_await_for_break_test.dart': '9d8fdd67890791db',
-  'scc12_await_in_finally_test.dart': '3e45c775ab09d467',
+  'scc12_await_in_finally_test.dart': 'c24f6814c210a1ab',
   'warm_parent_package_pool_test.dart': '971b6ff19185f442',
   'stdlib/intentionally_unbridged_test.dart': 'a11036cda720efcf',
   'scc31_undefined_name_uncatchable_test.dart': 'ad105fd6b643370f',

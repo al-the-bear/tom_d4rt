@@ -7489,7 +7489,12 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
   Object? visitListLiteral(ListLiteral node) {
     final List<Object?> list = [];
     for (final element in node.elements) {
-      _processCollectionElement(element, list, isMap: false);
+      // SCE80: an element that suspended abandons the whole literal. The state
+      // machine replays the expression once the future completes, and the list
+      // is rebuilt from the top with the resolved value in place — which is why
+      // the partially-filled `list` here can simply be dropped.
+      final suspension = _processCollectionElement(element, list, isMap: false);
+      if (suspension != null) return suspension;
     }
 
     // If this is a const list, return an unmodifiable version
@@ -8229,13 +8234,65 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     return key;
   }
 
-  void _processCollectionElement(
+  /// Refuses an `await` in the BODY of a collection-literal `for` element.
+  ///
+  /// SCE80, and the one shape here that a suspension cannot simply propagate
+  /// through. Replay re-evaluates the whole literal from the top, so the loop
+  /// would run its earlier iterations again — and worse, `resolvedAwaitResults`
+  /// is keyed by the `AwaitExpression` NODE, which every iteration shares, so
+  /// the second iteration would replay the FIRST one's value. The result would
+  /// be a list of duplicates, silently, which is the same class of defect this
+  /// todo exists to remove rather than relocate.
+  ///
+  /// So it is diagnosed instead. The statement form does work, because the
+  /// state machine drives a `for` STATEMENT node by node with its own loop
+  /// stack rather than by replaying an expression:
+  ///
+  ///     var out = [];
+  ///     for (var i in xs) { out.add(await f(i)); }
+  ///
+  /// An explicit refusal beats silent corruption, and naming the alternative is
+  /// what makes it actionable.
+  Never _awaitInCollectionForBody() {
+    // A PLAIN RuntimeD4rtException, deliberately. SCE77's
+    // `.resolutionFailure` means A NAME DID NOT RESOLVE, and the gap audit
+    // reads it as "confirmed missing"; this is an unsupported CONSTRUCT, and
+    // tagging it would make the audit invent a gap.
+    throw RuntimeD4rtException(
+      "`await` is not supported in the body of a collection-literal `for` "
+      "element. "
+      "Replaying the literal would re-run earlier iterations and reuse the "
+      "first iteration's awaited value. Build the collection with a `for` "
+      "STATEMENT instead: `var out = []; for (var x in xs) "
+      "{ out.add(await f(x)); }`.",
+    );
+  }
+
+  /// Adds [element] to [collection], or returns the suspension it hit.
+  ///
+  /// SCE80. This returned `void`, and so had no way to say "the element I was
+  /// evaluating has not finished". `await` inside a collection literal
+  /// therefore STORED the interpreter's own `AsyncSuspensionRequest` sentinel
+  /// as the element: `[await Future.value(1)]` evaluated to a list containing
+  /// one of those, silently, and the damage surfaced wherever the value was
+  /// next used. Only the spread case reported anything, and only because a
+  /// sentinel is not an `Iterable`.
+  ///
+  /// Returning `Object?` lets the suspension propagate the way it does through
+  /// every other visitor — there are about fifty `if (x is
+  /// AsyncSuspensionRequest) return x;` sites — so the state machine suspends,
+  /// and on replay the literal is rebuilt with the resolved value in place.
+  ///
+  /// Null means the element completed. A non-null result is always the
+  /// suspension, and every caller must propagate it.
+  Object? _processCollectionElement(
     CollectionElement element,
     Object collection, {
     required bool isMap,
   }) {
     if (element is Expression) {
       final value = element.accept<Object?>(this);
+      if (value is AsyncSuspensionRequest) return value;
       if (isMap) {
         throw RuntimeD4rtException(
           "Expected a MapLiteralEntry ('key: value') but got an expression in map literal.",
@@ -8256,8 +8313,14 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         );
       }
       if (collection is Map) {
-        final key = _unwrapHashKey(element.key.accept<Object?>(this));
+        // The raw key is checked BEFORE `_unwrapHashKey`: that helper
+        // normalises a value for hashing and would happily normalise the
+        // sentinel into a perfectly good map key.
+        final rawKey = element.key.accept<Object?>(this);
+        if (rawKey is AsyncSuspensionRequest) return rawKey;
+        final key = _unwrapHashKey(rawKey);
         final value = element.value.accept<Object?>(this);
+        if (value is AsyncSuspensionRequest) return value;
         collection[key] = value;
       } else {
         // Should not happen if isMap is true
@@ -8267,9 +8330,10 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       }
     } else if (element is SpreadElement) {
       final expressionValue = element.expression.accept<Object?>(this);
+      if (expressionValue is AsyncSuspensionRequest) return expressionValue;
       if (element.isNullAware && expressionValue == null) {
         // Null-aware spread with null value, do nothing
-        return;
+        return null;
       }
       if (isMap) {
         Map? mapToAdd;
@@ -8323,6 +8387,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       }
     } else if (element is IfElement) {
       final conditionValue = element.expression.accept<Object?>(this);
+      if (conditionValue is AsyncSuspensionRequest) return conditionValue;
       bool conditionResult;
       final bridgedInstance = toBridgedInstance(conditionValue);
       if (conditionValue is bool) {
@@ -8337,13 +8402,15 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       }
 
       if (conditionResult) {
-        _processCollectionElement(
+        // Propagated, not swallowed: an `if` element evaluates its branch
+        // exactly once, so replay rebuilds it correctly.
+        return _processCollectionElement(
           element.thenElement,
           collection,
           isMap: isMap,
         );
       } else if (element.elseElement != null) {
-        _processCollectionElement(
+        return _processCollectionElement(
           element.elseElement!,
           collection,
           isMap: isMap,
@@ -8361,6 +8428,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             : (loopParts as ForEachPartsWithIdentifier).identifier;
 
         final iterableValue = iterableExpression.accept<Object?>(this);
+        if (iterableValue is AsyncSuspensionRequest) return iterableValue;
 
         // Cluster IT-1: collection-literal `for (final x in expr)` must
         // accept a `BridgedInstance` whose native value is an `Iterable`.
@@ -8405,7 +8473,12 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                 variableName,
                 binding == null ? item : binding.bind(environment, item),
               );
-              _processCollectionElement(element.body, collection, isMap: isMap);
+              final bodySuspension = _processCollectionElement(
+                element.body,
+                collection,
+                isMap: isMap,
+              );
+              if (bodySuspension != null) _awaitInCollectionForBody();
             }
           } finally {
             environment = previousEnvironment;
@@ -8423,6 +8496,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         final iterableExpression = loopParts.iterable;
         final pattern = loopParts.pattern;
         final iterableValue = iterableExpression.accept<Object?>(this);
+        if (iterableValue is AsyncSuspensionRequest) return iterableValue;
 
         Iterable<Object?> iterable;
         if (iterableValue is Iterable) {
@@ -8446,7 +8520,12 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             final iterationEnv = Environment(enclosing: previousEnvironment);
             environment = iterationEnv;
             _matchAndBind(pattern, item, iterationEnv);
-            _processCollectionElement(element.body, collection, isMap: isMap);
+            final bodySuspension = _processCollectionElement(
+              element.body,
+              collection,
+              isMap: isMap,
+            );
+            if (bodySuspension != null) _awaitInCollectionForBody();
           }
         } finally {
           environment = previousEnvironment;
@@ -8522,6 +8601,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             bool conditionResult = true;
             if (condition != null) {
               final evalResult = condition.accept<Object?>(this);
+              if (evalResult is AsyncSuspensionRequest) {
+                return evalResult;
+              }
               final bridgedInstance = toBridgedInstance(evalResult);
               if (evalResult is bool) {
                 conditionResult = evalResult;
@@ -8536,7 +8618,12 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             }
             if (!conditionResult) break;
 
-            _processCollectionElement(element.body, collection, isMap: isMap);
+            final bodySuspension = _processCollectionElement(
+              element.body,
+              collection,
+              isMap: isMap,
+            );
+            if (bodySuspension != null) _awaitInCollectionForBody();
 
             // Snapshot the body's view of the loop vars (in case the body
             // mutated them) — these are the inputs to the updater.
@@ -8571,6 +8658,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     } else if (element is NullAwareElement) {
       // Use element.expression as per analyzer AST definition
       final value = element.value.accept<Object?>(this);
+      if (value is AsyncSuspensionRequest) return value;
       if (value != null) {
         if (collection is List) {
           collection.add(value);
@@ -8589,6 +8677,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         'Collection element type not yet supported: ${element.runtimeType}',
       );
     }
+    return null;
   }
 
   @override
@@ -12277,7 +12366,14 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
     for (final element in node.elements) {
       try {
-        _processCollectionElement(element, collection, isMap: isMap);
+        // SCE80, as in `visitListLiteral`: abandon the literal and let the
+        // state machine replay it.
+        final suspension = _processCollectionElement(
+          element,
+          collection,
+          isMap: isMap,
+        );
+        if (suspension != null) return suspension;
       } on RuntimeD4rtException catch (e) {
         final literalType = isMap ? "Map" : "Set";
         // Check if error already contains context to avoid duplication
