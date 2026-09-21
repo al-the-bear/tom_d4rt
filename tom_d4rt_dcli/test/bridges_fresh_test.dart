@@ -9,6 +9,26 @@
 //
 // When it fails: run `dart run tom_d4rt_generator:d4rtgen` in this package and
 // commit what it changes.
+//
+// EXCEPT RIGHT NOW, AND THIS IS THE ONE CASE WHERE THAT INSTRUCTION IS WRONG.
+// Measured 2026-09-21: this test is RED on `lib/src/bridges/dcli_bridges.b.dart`
+// and a fresh generation is WORSE than what is committed, so following the
+// line above would commit a downgrade. The committed file was written by
+// generator 1.26.2; every generator since resolves `Env.scopeKey` to
+// `InvalidType` and emits `value as dynamic` where 1.26.2 emitted
+// `D4.extractBridgedArg<ScopeKey<Env>>(value, 'scopeKey')`. The second of those
+// is behavioural: it assigns whatever the interpreter passed, wrapper and all.
+//
+// The cause is the generator's move to summary-based element extraction —
+// `scope` is a direct dependency but no barrel re-exports `ScopeKey`, so it
+// falls outside the linked element universe the summaries build. The run says
+// so: "GEN-079 WARNING: ScopeKey is not re-exported by any barrel import".
+// Cache staleness, pub-cache damage and a hand-edited committed file were each
+// ruled out by measurement; the tree's 1.42.0 produces output identical to the
+// resolved 1.28.0's.
+//
+// So LEAVE THIS RED until `scf18` is fixed. It is doing its job — the red is
+// what stops the downgrade — and the failure is not a reason to regenerate.
 
 import 'dart:io';
 
