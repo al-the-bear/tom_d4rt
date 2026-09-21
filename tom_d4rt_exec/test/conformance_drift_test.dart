@@ -2899,6 +2899,54 @@ String _fnv1a(String input) {
   return hash.toRadixString(16).padLeft(16, '0');
 }
 
+/// The reference tests that declare themselves single-copy, pinned.
+///
+/// SCE88. [_selfAnchored] is SUBTRACTED from the missing-port census before
+/// F-SCC6-2 compares it against [_uncoveredBaseline], which is right — a test
+/// that resolves its paths against the package it runs in cannot be ported
+/// here. It also means ANCHORING A FILE REMOVES IT FROM THE CENSUS, with no
+/// entry, no reason and no case firing anywhere.
+///
+/// Measured rather than reasoned: a new reference test with no exec
+/// counterpart turns F-SCC6-2 red and demands one of its three remedies; the
+/// same file with `requirePackage('tom_d4rt', subject: 'nothing at all')`
+/// added is green everywhere. Nothing reads the subject string, so the
+/// cheapest way out of the census was to claim the exemption rather than to
+/// record why the port is missing.
+///
+/// So the set is pinned, and entering it is an edit here exactly as entering
+/// [_uncoveredBaseline] is. The per-file REASON is deliberately not
+/// duplicated: it is the `subject:` each file already passes, and `tom_d4rt`'s
+/// `scd158_structural_guard_anchoring_test.dart` requires that to be present
+/// and to say something. This register records WHICH files claim the
+/// exemption; that one records that each claim states what it is about.
+const _anchoredBaseline = <String>{
+  'release_hygiene_test.dart',
+  'scc22_error_handler_site_guard_test.dart',
+  'scc25_listen_duplication_guard_test.dart',
+  'scd110_doc_holds_no_runner_output_test.dart',
+  'scd129_repo_wide_guard_index_test.dart',
+  'scd134_barrel_surface_parity_test.dart',
+  'scd153_conformance_drift_mirror_test.dart',
+  'scd156_public_surface_parity_test.dart',
+  'scd158_structural_guard_anchoring_test.dart',
+  'scd165_overview_figures_test.dart',
+  'scd183_mirror_source_sync_test.dart',
+  'scd187_no_unimplemented_stubs_test.dart',
+  'scd199_mirror_body_agreement_test.dart',
+  'scd34_constructor_trace_forwarding_test.dart',
+  'scd35_bridged_tearoff_as_callback_test.dart',
+  'scd49_stdlib_twin_sync_test.dart',
+  'scd51_member_gap_parity_test.dart',
+  'scd67_hierarchy_edges_test.dart',
+  'scd70_no_container_arg_casts_test.dart',
+  'scd94_sdk_type_nameability_test.dart',
+  'sce45_todo_count_stamps_test.dart',
+  'stdlib/io/sce87_permission_gate_null_handle_test.dart',
+  'stdlib/scd204_surplus_arity_guard_test.dart',
+  'stdlib/stdlib_d4_boundary_test.dart',
+};
+
 /// Reference tests that DECLARE they must run in `tom_d4rt`, and are therefore
 /// structurally single-copy.
 ///
@@ -3165,6 +3213,75 @@ void main() {
         );
       },
     );
+
+    test('F-SCE88-1: the single-copy exemption is a recorded set '
+        '[2026-09-21] (PASS)', () {
+      // THE ONE WAY A FILE LEAVES THE CENSUS WITHOUT SAYING ANYTHING.
+      // F-SCC6-2 below subtracts the self-anchored files before comparing,
+      // which is correct — a test resolving its paths against the package it
+      // runs in cannot be ported here. The cost is that ADDING the anchor is
+      // an alternative to recording a missing port, and a cheaper one:
+      // measured, a new reference test with no counterpart turns F-SCC6-2 red
+      // and demands a decision, while the same file carrying
+      // `requirePackage('tom_d4rt', subject: 'nothing at all')` is green in
+      // every case here.
+      //
+      // Pinning the set makes claiming the exemption an edit in this file,
+      // the same act as recording an uncovered port. It does not judge
+      // whether a claim is right — `tom_d4rt`'s scd158 guard owns that, and
+      // the header above says which half is where.
+      final anchored = _selfAnchored(ref);
+      final claimed = anchored.difference(_anchoredBaseline);
+      final released = _anchoredBaseline.difference(anchored);
+
+      expect(
+        claimed,
+        isEmpty,
+        reason:
+            'These reference tests now declare themselves single-copy, which '
+            'removes them from the missing-port census. That may be right — '
+            'but it is the same decision as an _uncoveredBaseline entry and '
+            'is recorded the same way. Add them to _anchoredBaseline, having '
+            'read WHY each cannot be ported; the reason belongs in the '
+            "`subject:` the file passes.\n${claimed.join('\n')}",
+      );
+      expect(
+        released,
+        isEmpty,
+        reason:
+            'These are listed as single-copy but no longer declare it, so '
+            'they are back in the census — or they were deleted. Remove them '
+            'from _anchoredBaseline; a register naming files that do not '
+            'claim the exemption reads as a larger exemption than exists.\n'
+            "${released.join('\n')}",
+      );
+    });
+
+    test('F-SCE88-2 (control): the exemption set is non-empty and smaller '
+        'than the corpus [2026-09-21] (PASS)', () {
+      // Anti-vacuity for the case above, which is two emptiness assertions
+      // over derived sets: a `_selfAnchored` that matched nothing, or matched
+      // everything, satisfies neither direction visibly. 24 of 319 reference
+      // files were anchored when this was written.
+      final anchored = _selfAnchored(ref);
+      expect(
+        anchored.length,
+        greaterThanOrEqualTo(10),
+        reason:
+            'Only ${anchored.length} files were detected as self-anchored, '
+            'against 24 measured on 2026-09-21. The marker scan has probably '
+            'stopped matching, which makes F-SCE88-1 pass over nothing and '
+            'silently returns every anchored file to the census.',
+      );
+      expect(
+        anchored.length,
+        lessThan(ref.length ~/ 2),
+        reason:
+            '${anchored.length} of ${ref.length} reference files claim to be '
+            'single-copy. At that fraction the census is measuring very '
+            'little, whatever the other cases say.',
+      );
+    });
 
     test('F-SCC6-2: no reference test has appeared without a counterpart '
         '[2026-09-03] (PASS)', () {

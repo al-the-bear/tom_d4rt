@@ -115,10 +115,24 @@ Class-level coverage is audited by hand; **member-level** and
   behave differently if their interpreters do — it says the *adapter maps* are
   the same, not that executing them is. And it is a file-by-file comparison,
   so a class bridged in a file that exists in only one tree would be caught,
-  but a divergence in the interpreter beneath is out of scope entirely. A
-  direct oracle on `tom_d4rt_exec` remains the stronger measurement (sce88),
+  but a divergence in the interpreter beneath is out of scope entirely.
+
+  **What covers the interpreter instead is the conformance corpus, and it is
+  measured rather than assumed.** `tom_d4rt_exec` runs scripts against the
+  analyzer-free interpreter, so a reference test ported there asserts the same
+  behaviour of the other tree. Measured 2026-09-21: of 319 reference test
+  files, 24 declare themselves structurally single-copy, and **255 of the
+  remaining 295 — 86% — have a counterpart** there or in the twin. All 40 that
+  do not are recorded in `tom_d4rt_exec/test/conformance_drift_test.dart` with
+  a reason, most of them publish-blocked rather than unportable.
+
+  A direct oracle on `tom_d4rt_exec` — an audit run against the twin's own
+  registry rather than ported tests — remains the stronger measurement, and is
   delayed by DGUC6: that package resolves `tom_d4rt_ast` from pub.dev, so such
-  a suite certifies the published interpreter rather than the working tree.
+  a suite certifies the published interpreter rather than the working tree. The
+  corpus figure above carries the same caveat and is the reason the oracle is
+  not urgent: the coverage it would add is over a surface that is already 86%
+  paired.
 
   The registries were measured separately on 2026-09-12 and agree exactly:
   both trees register **205** bridge names, diffing clean. Additions must land

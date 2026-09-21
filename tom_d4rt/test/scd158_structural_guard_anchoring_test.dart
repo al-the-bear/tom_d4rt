@@ -138,6 +138,54 @@ void main() {
       );
     });
 
+    test('F-SCE88-1: every anchor says what it is about [2026-09-21]', () {
+      // THE ANCHOR IS ALSO AN EXEMPTION, which is what makes an empty
+      // `subject:` worth a case of its own. `conformance_drift_test`'s
+      // F-SCC6-2 subtracts the anchored files from its missing-port census,
+      // so adding the call is an alternative to recording why a port is
+      // missing — and a cheaper one. Measured: a reference test with no exec
+      // counterpart turns that case red; the same file carrying
+      // `requirePackage('tom_d4rt', subject: 'nothing at all')` is green
+      // everywhere.
+      //
+      // exec now pins WHICH files claim the exemption. This case is the other
+      // half: each claim has to state its subject, so the reason lives beside
+      // the code it is about rather than in a register in another package.
+      // It cannot judge whether the reason is GOOD — that is a reading, and
+      // the two registers together are what make somebody do it.
+      final bare = <String>[];
+      for (final file
+          in Directory('test')
+              .listSync(recursive: true)
+              .whereType<File>()
+              .where((f) => f.path.endsWith('_test.dart'))) {
+        final source = _stripComments(file.readAsStringSync());
+        final call = RegExp(
+          r"requirePackage\(\s*'tom_d4rt'\s*(,\s*subject:\s*(.*?))?\)",
+          dotAll: true,
+        ).firstMatch(source);
+        if (call == null) continue;
+        final subject = call.group(2)?.trim().replaceAll(',', '');
+        if (subject == null ||
+            subject.isEmpty ||
+            subject == "''" ||
+            subject == '""') {
+          bare.add(file.path);
+        }
+      }
+      expect(
+        bare,
+        isEmpty,
+        reason:
+            'These tests claim the single-copy exemption without saying what '
+            'they read. The subject is the only per-file record of why the '
+            'port is missing — exec\'s _anchoredBaseline names the file, not '
+            'the reason.\n\n'
+            "    requirePackage('tom_d4rt', subject: '<what it reads>');\n"
+            "\n${bare.join('\n')}",
+      );
+    });
+
     test('F-SCD158-2 (control): the scan found the files it asserts over '
         '[2026-09-15]', () {
       // A scan that matches nothing passes F-SCD158-1 over an empty list, and
