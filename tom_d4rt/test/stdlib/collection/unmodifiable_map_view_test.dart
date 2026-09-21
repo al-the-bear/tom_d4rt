@@ -144,17 +144,34 @@ void main() {
       },
     );
 
-    test(
-      'F-SC3-8: remove and clear also throw UnsupportedError [2026-07-27]',
-      () {
-        for (final mutation in <String>[
-          "view.remove('a');",
-          'view.clear();',
-          "view.addAll({'b': 2});",
-          "view.putIfAbsent('b', () => 2);",
-        ]) {
-          final result = d4rt.execute(
-            source: viewSource("{'a': 1}", '''
+    test('F-SC3-8: every other mutating member also throws UnsupportedError '
+        '[2026-07-27]', () {
+      // SCE95 took this from four members to seven. The four it had were the
+      // ones a reader thinks of first, and `Map`'s mutating surface is nine:
+      // `[]=` has its own case above, `addEntries` has its own below, and
+      // these seven are the rest. Measured before the change, a script
+      // reached 5 of the 9 — the ast twin's registration-level file had the
+      // same shallowness on the same view, which is what made it worth
+      // closing here too.
+      //
+      // THE ARGUMENTS ARE THE ONLY THINKING. Each adapter narrows its
+      // parameters before it reaches the native view, so an argument it
+      // rejects makes the case pass for the wrong reason: it would report
+      // the argument problem and never delegate. `update` takes a key and a
+      // one-argument callable, `removeWhere` and `updateAll` take a
+      // two-argument one. `tom_d4rt_ast`'s `_mutatingMapCalls` table records
+      // the same shapes for the adapter-level calls.
+      for (final mutation in <String>[
+        "view.remove('a');",
+        'view.clear();',
+        "view.addAll({'b': 2});",
+        "view.putIfAbsent('b', () => 2);",
+        'view.removeWhere((k, v) => true);',
+        "view.update('a', (v) => 2);",
+        'view.updateAll((k, v) => 2);',
+      ]) {
+        final result = d4rt.execute(
+          source: viewSource("{'a': 1}", '''
             try {
               $mutation
             } on UnsupportedError catch (e) {
@@ -164,11 +181,39 @@ void main() {
             }
             return 'no-throw';
           '''),
-          );
-          expect(result, 'unsupported', reason: 'for mutation `$mutation`');
-        }
-      },
-    );
+        );
+        expect(result, 'unsupported', reason: 'for mutation `$mutation`');
+      }
+    });
+
+    test('F-SC3-21: addEntries throws UnsupportedError, through Map\'s adapter '
+        '[2026-09-21]', () {
+      // ITS OWN CASE BECAUSE ITS RESOLUTION PATH IS ITS OWN. No bridge on
+      // the map view declares `addEntries`: SCC51 deleted the local copy,
+      // which could not unwrap a `BridgedInstance<MapEntry>`, so `Map`'s
+      // adapter answers. A script calling it therefore exercises a hop the
+      // other eight mutators do not, and it is the member most likely to
+      // break for a reason that has nothing to do with the view being
+      // unmodifiable — which is exactly why folding it into the loop above
+      // would hide what it tests.
+      //
+      // `{'c': 3}.entries` rather than a `MapEntry` literal: that is what a
+      // script writes, and it is the form whose elements arrive as native
+      // entries at the adapter boundary.
+      final result = d4rt.execute(
+        source: viewSource("{'a': 1}", '''
+          try {
+            view.addEntries({'c': 3}.entries);
+          } on UnsupportedError catch (e) {
+            return 'unsupported';
+          } catch (e) {
+            return 'wrong-type';
+          }
+          return 'no-throw';
+        '''),
+      );
+      expect(result, 'unsupported');
+    });
 
     test('F-SC3-9: an unmodifiable view is type-testable [2026-07-27]', () {
       // The exact type and the `Map` supertype are both testable. The
