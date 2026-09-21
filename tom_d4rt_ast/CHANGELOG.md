@@ -1,3 +1,54 @@
+## 0.139.0
+
+### Fixed — a generic element is asked the same question as `is` (sce101)
+
+`interpreter_visitor.dart` carries two predicates for "does this value have
+this type". `_valueHasType` answers the `is` operator, typed patterns, the
+declared-type check and `on` clauses. `_checkValueMatchesType` answers the
+ELEMENT and KEY/VALUE types of a generic collection, and it answered five
+questions differently:
+
+| question                                       | `x is T` | `[x] is List<T>` |
+| ---------------------------------------------- | -------- | ---------------- |
+| null against `Null`                            | true     | FALSE            |
+| null against `dynamic`                         | true     | FALSE            |
+| a class against `Type`                         | true     | FALSE            |
+| a NATIVE bridged value against its own class   | true     | FALSE            |
+| a WRAPPED bridged value against `List`         | true     | FALSE            |
+
+`Null`, `dynamic` and `Type` had no arm at all — `dynamic` shared `Object`'s
+"non-null", which is wrong for exactly the value `dynamic` exists to accept.
+
+THE LAST TWO ROWS ARE MIRROR IMAGES, and that is the part worth reading. The
+shape arms (`int`, `List`, `Map`, …) answer with the host's own `is`, so they
+needed a native and got the WRAPPED form wrong; the user-type arm required a
+`BridgedInstance` and got the NATIVE form wrong. A bridged value reaches the
+interpreter in both forms — `dart:collection`'s bridges hand back natives, a
+bridge whose constructor returns a `BridgedInstance` hands back a wrapper — so
+each arm was broken for the input the other one handled.
+
+That symmetry is also why the defect survived being looked for. The obvious
+probe is `UnmodifiableListView` and `HashMap`, as SCB7 used; measured, those
+now evaluate to native objects, so the probe comes back green and the missing
+unwrap looks like dead code. It is not — it needs a bridge that still wraps.
+
+The five arms are added in place, and `_nativeOrBridgedMatches` is extracted
+from `_valueHasType`'s bridged branch so both predicates share the reasoning
+about operand form rather than carrying a third copy of it. This is NOT a
+delegation of one predicate to the other: `_checkValueMatchesType` is
+deliberately lenient where `_valueHasType` is strict — an unresolvable type
+name returns true there and false here — so collapsing them changes answers on
+the hot path of every `is`, and is separate work.
+
+`void` stays divergent, deliberately: `x is void` does not parse, so the other
+predicate's `void` arm is unreachable from the operator and its own comment
+hedges about the right answer. Agreeing would mean choosing between two
+unreachable answers with no case to appeal to.
+
+Name resolution: no. `environment.get(typeName)` is unchanged and no lookup
+rule moves; what changed is what the resolved `BridgedClass` is compared
+against.
+
 ## 0.138.0
 
 ### Fixed (BREAKING for scripts using the old entry form) — `LinkedListEntry` can be subclassed (sce84)

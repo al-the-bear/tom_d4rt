@@ -11496,6 +11496,25 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
   }
 
   /// Check if a value matches a type annotation
+  ///
+  /// The ELEMENT-level half of the type test: reached only from
+  /// [_checkGenericListType] and [_checkGenericMapType], which the `List` and
+  /// `Map` arms of [_valueHasType] call once per element or entry.
+  ///
+  /// SCE101 MADE ITS ANSWERS AGREE WITH [_valueHasType]'s. The two ask the same
+  /// question about the same value, and five answers differed — `Null`,
+  /// `dynamic` and `Type` had no arm here at all, and the bridged handling was
+  /// wrong about whichever operand form the other one got right. It is still a
+  /// SECOND BODY rather than a delegation: this predicate is deliberately
+  /// LENIENT where [_valueHasType] is strict — an unresolvable type name
+  /// returns true here and false there — so pointing one at the other changes
+  /// answers on the hot path of every `is`, and is its own piece of work.
+  ///
+  /// `void` IS STILL DIVERGENT, deliberately. `x is void` does not parse, so
+  /// [_valueHasType]'s `void` arm cannot be reached through the operator and
+  /// its own comment hedges about what the answer should be. Here `void` falls
+  /// to the lenient default and `[1] is List<void>` is true. Agreeing would
+  /// mean choosing between two unreachable answers with no case to appeal to.
   bool _checkValueMatchesType(Object? value, TypeAnnotation typeNode) {
     if (typeNode is! NamedType) {
       // For now, only handle NamedType
@@ -11509,45 +11528,66 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       return true; // null matches nullable types
     }
 
+    // SCB7, mirrored from [_valueHasType]: the shape cases below answer with
+    // the host's own `is`, so they need the underlying native object. A bridge
+    // is free to hand back either form — `dart:collection`'s constructors
+    // return the native, a bridge whose constructor returns `BridgedInstance`
+    // returns the wrapper — and without this the wrapper is neither a `List`
+    // nor a `Map`, so `[WrappedBag([1])] is List<List>` was false.
+    //
+    // Only the shape cases use it. `Null`, `Object`, `dynamic`, `Type` and the
+    // `default` branch keep the operand as it arrived, because they ask about
+    // the value's identity or its bridge rather than its native shape.
+    final shapeValue = value is BridgedInstance ? value.nativeObject : value;
+
     // Check built-in types
     switch (typeName) {
       case 'int':
-        return value is int;
+        return shapeValue is int;
       case 'double':
-        return value is double;
+        return shapeValue is double;
       case 'num':
-        return value is num;
+        return shapeValue is num;
       case 'String':
-        return value is String;
+        return shapeValue is String;
       case 'bool':
-        return value is bool;
+        return shapeValue is bool;
       case 'List':
-        if (value is! List) return false;
+        if (shapeValue is! List) return false;
         // Check nested generic type if present
         if (typeNode.typeArguments != null &&
             typeNode.typeArguments!.arguments.isNotEmpty) {
           return _checkGenericListType(
-            value,
+            shapeValue,
             typeNode.typeArguments!.arguments[0],
           );
         }
         return true;
       case 'Map':
-        if (value is! Map) return false;
+        if (shapeValue is! Map) return false;
         // Check nested generic types if present
         if (typeNode.typeArguments != null &&
             typeNode.typeArguments!.arguments.length >= 2) {
           return _checkGenericMapType(
-            value,
+            shapeValue,
             typeNode.typeArguments!.arguments[0],
             typeNode.typeArguments!.arguments[1],
           );
         }
         return true;
+      case 'Null':
+        return value == null;
+      case 'Type':
+        // SCD198's arm, as [_valueHasType] carries it: a bare class name is a
+        // VALUE denoting a type, and it evaluates to a `BridgedClass` or an
+        // `InterpretedClass` rather than to a Dart `Type`.
+        return value is Type ||
+            value is BridgedClass ||
+            value is InterpretedClass;
       case 'Object':
+        return value != null; // Everything non-null is an Object
       case 'dynamic':
-        return value !=
-            null; // Everything matches Object/dynamic (except null for Object)
+        return true; // `is dynamic` is true for every value, null included
       default:
         // For user-defined types, try to resolve from environment
         try {
@@ -11556,8 +11596,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             return value is InterpretedInstance &&
                 value.klass.isSubtypeOf(targetType);
           } else if (targetType is BridgedClass) {
-            return value is BridgedInstance &&
-                value.bridgedClass.isSubtypeOf(targetType);
+            return _nativeOrBridgedMatches(value, targetType);
           }
         } catch (_) {
           // If type not found, assume it matches (lenient approach)
@@ -11565,6 +11604,40 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         }
         return true;
     }
+  }
+
+  /// Whether [value] satisfies [targetType], for an operand in ANY of the three
+  /// forms a bridged value arrives in.
+  ///
+  /// Extracted from [_valueHasType]'s `BridgedClass` branch so the element-level
+  /// predicate answers identically instead of carrying a third copy of the
+  /// reasoning. That branch was the only place that knew a raw native operand is
+  /// as ordinary as a wrapped one; [_checkValueMatchesType] required a
+  /// `BridgedInstance` and answered false for every unwrapped bridged element,
+  /// which is the exact inverse of the shape arms' old defect.
+  bool _nativeOrBridgedMatches(Object? value, BridgedClass targetType) {
+    Object? nativeValue;
+    if (value is BridgedInstance) {
+      if (value.bridgedClass.isSubtypeOf(targetType)) return true;
+      nativeValue = value.nativeObject;
+    } else if (value is InterpretedInstance) {
+      // RC-7: an interpreted class may extend or implement a bridged one.
+      return value.klass.isSubtypeOf(targetType, value: value);
+    } else if (value != null) {
+      nativeValue = value;
+    }
+    if (nativeValue == null) return false;
+    // `isAssignable` closes over the host's native `v is X`; authoritative when
+    // the bridge-name supertype walk misses or the operand was never wrapped.
+    if (targetType.isAssignable != null &&
+        targetType.isAssignable!(nativeValue)) {
+      return true;
+    }
+    // SC4: resolve the operand's own bridge the way dispatch does and re-run
+    // the subtype walk, for a bridge that declares no `isAssignable`.
+    final nativeRuntimeType = environment.getRuntimeType(nativeValue);
+    return nativeRuntimeType != null &&
+        nativeRuntimeType.isSubtypeOf(targetType, value: nativeValue);
   }
 
   @override
