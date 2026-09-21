@@ -10,6 +10,14 @@
 //
 // When it fails: `buildkit -v -p . :versioner` in this package, with the
 // current BuildKit from `tom_binaries/tom/<platform>/`.
+//
+// If that command reports success and this file does not change, the BuildKit
+// on your PATH predates the versioner's read-back check and is reporting its
+// intent rather than its outcome. The per-platform binaries under
+// `tom_binaries/tom/` are rebuilt independently, so one platform can lag the
+// others by months. Rebuild it; do not repair the stamp by hand. Every field
+// below describes a build, and inventing one produces a banner that is
+// believed and wrong.
 
 import 'dart:io';
 
@@ -30,7 +38,9 @@ void main() {
         declared,
         reason:
             'lib/src/version.versioner.dart says ${AstgenVersionInfo.version} but '
-            'pubspec.yaml says $declared — run `buildkit -v -p . :versioner`.',
+            'pubspec.yaml says $declared — run `buildkit -v -p . :versioner`. If '
+            'that reports success and changes nothing, the BuildKit on your '
+            'PATH is stale; rebuild it rather than editing a generated file.',
       );
     },
   );
