@@ -36,6 +36,23 @@
 // so it decides the 36 members the reference cannot measure at all for want of
 // an instance recipe.
 //
+// WHY THE OPERATORS DISAGREE ON ALL 63, established 2026-09-21. It is not a
+// fidelity problem in the walk. A `BridgedClass` has seven adapter maps —
+// constructors, methods, staticMethods, staticGetters, staticSetters, getters,
+// setters — and NO operator map at all, so a bridge cannot declare an operator
+// and no walk over the registry can ever find one. The interpreter reaches
+// them by unwrapping both operands to their native objects and invoking
+// dynamically: `left as dynamic < right`, `(target as dynamic)[index]`. The
+// registry is not consulted, and `Duration(seconds: 1) < Duration(seconds: 2)`
+// answers `true` from a script with no bridge declaring `<` anywhere.
+//
+// That settles what the exclusion can become. Teaching the walk "the
+// mechanism" is not possible — the mechanism is "call the native operator",
+// which is not a registry fact — so the only honest coverage for those 63 is
+// BEHAVIOURAL, running each operator from a script in both trees. F-SCE90-1
+// below pins the structural half: if a bridge ever gains an operator map, this
+// paragraph stops being true and the exclusion has to be reconsidered.
+//
 // EACH TEST HERE HAS BEEN SEEN TO FAIL:
 //
 //   | Injected fault                                       | Fires   |
@@ -84,7 +101,10 @@
 @Timeout(Duration(minutes: 2))
 library;
 
+import 'dart:mirrors';
+
 import 'package:test/test.dart';
+import 'package:tom_d4rt_ast/runtime.dart';
 
 import '../tool/stdlib_member_audit.dart';
 import 'stdlib_member_baseline.dart';
@@ -119,6 +139,46 @@ void main() {
         if (a.error == null) a.name,
     };
     observedReachable = audits.fold<int>(0, (s, a) => s + a.reachable.length);
+  });
+
+  test('F-SCE90-1: the bridge model still has no operator surface '
+      '[2026-09-21] (PASS)', () {
+    // WHY THE 63 ARE EXCLUDED, as a property of the code rather than a
+    // sentence in a header. The audit decides reachability by walking the
+    // registered supertype chain; an operator cannot be registered at all, so
+    // the walk reports every one unreachable while the interpreter reaches
+    // them through native dynamic dispatch. Including them would have the
+    // audit invent 63 defects.
+    //
+    // The exclusion is therefore load-bearing on this fact and nothing else.
+    // If a `BridgedClass` gains an operator map, operators become registry
+    // members, the walk can see them, and the scope written into every header
+    // here is wrong — so this fails then rather than the audit quietly
+    // continuing to skip a surface it could now measure.
+    final maps = <String>[];
+    for (final decl in reflectClass(BridgedClass).declarations.values) {
+      if (decl is VariableMirror && !decl.isStatic && !decl.isPrivate) {
+        maps.add(MirrorSystem.getName(decl.simpleName));
+      }
+    }
+    expect(
+      maps,
+      isNotEmpty,
+      reason:
+          'No instance fields were read off BridgedClass, so the check below '
+          'is asserting over nothing.',
+    );
+    expect(
+      maps.where((n) => n.toLowerCase().contains('operator')),
+      isEmpty,
+      reason:
+          'BridgedClass now carries an operator surface, so an operator can '
+          'be registered and the supertype walk can see one. The 63-member '
+          'exclusion this audit rests on was measured against a model where '
+          'that was impossible; re-run the calibration in '
+          "`tom_d4rt/test/scd51_member_gap_parity_test.dart` before widening "
+          'or keeping it.\n${maps.join(', ')}',
+    );
   });
 
   test('F-SCD51-1: the audit measured something [2026-09-12]', () {

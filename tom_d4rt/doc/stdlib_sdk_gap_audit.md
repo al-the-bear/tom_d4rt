@@ -157,12 +157,29 @@ Class-level coverage is audited by hand; **member-level** and
 
   **Scope: ordinary named members.** Measured 2026-09-12, the chain walk agreed
   with the probe on all 644 of them and disagreed on all 63 operators and
-  `Object` universals (`+`, `<`, `[]`, `==`, `toString`), which the interpreter
-  reaches through paths the registry does not model. Those stay covered here
-  and nowhere else, so the shipping tree's operator surface is still measured
-  only by inference (sce90). In the other direction the walk needs no instance,
-  so it decides the 36 members this tree cannot measure at all for want of a
-  recipe.
+  `Object` universals (`+`, `<`, `[]`, `==`, `toString`). Those stay covered
+  here and nowhere else, so the shipping tree's operator surface is measured
+  only by inference. In the other direction the walk needs no instance, so it
+  decides the 36 members this tree cannot measure at all for want of a recipe.
+
+  **The 63 disagree for a structural reason, and it rules out the obvious
+  fix.** Established 2026-09-21: a `BridgedClass` carries seven adapter maps —
+  constructors, methods, staticMethods, staticGetters, staticSetters, getters,
+  setters — and **no operator map**. A bridge cannot declare an operator, so no
+  walk over the registry can ever find one; the interpreter reaches them by
+  unwrapping both operands to their native objects and invoking dynamically
+  (`left as dynamic < right`, `(target as dynamic)[index]`). That is why the
+  probe reaches all 63 and the walk reaches none, and it is measurable from a
+  script: `Duration(seconds: 1) < Duration(seconds: 2)` answers `true` with no
+  bridge declaring `<` anywhere.
+
+  So teaching the walk the operator paths is not possible rather than not yet
+  done — the mechanism is "call the native operator", which is not a registry
+  fact. The only honest coverage for those 63 in the analyzer-free tree is
+  behavioural, running each operator from a script there, and that is unbuilt.
+  `F-SCE90-1` in `tom_d4rt_ast/test/scd51_member_coverage_test.dart` pins the
+  structural premise, so if a bridge ever gains an operator surface the
+  exclusion is reconsidered rather than inherited.
 - **A registered-but-unreachable class is its own failure mode.** Two
   `dart:convert` bridges had been written and exported but never passed
   to `defineBridge`, and `JsonUtf8Encoder` was reachable through a

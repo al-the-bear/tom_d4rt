@@ -37,10 +37,26 @@
 //
 // SCOPE: ordinary named members. Measured 2026-09-12, the chain walk agreed
 // with the probe on all 644 of them and disagreed on all 63 operators and
-// `Object` universals (`+`, `<`, `[]`, `==`, `toString`, ...), which the
-// interpreter reaches through paths the registry does not model. Those are
+// `Object` universals (`+`, `<`, `[]`, `==`, `toString`, ...). Those are
 // excluded here and remain covered by `member_coverage_baseline_test.dart`,
 // which measures them for real. The exclusion is a measurement, not a taste.
+//
+// AND THE 63 DISAGREE FOR A STRUCTURAL REASON, established 2026-09-21 rather
+// than left as "paths the registry does not model". A `BridgedClass` has seven
+// adapter maps — constructors, methods, staticMethods, staticGetters,
+// staticSetters, getters, setters — and no operator map, so a bridge CANNOT
+// declare an operator and no walk over the registry can find one. The
+// interpreter reaches them by unwrapping both operands to their native objects
+// and invoking dynamically (`left as dynamic < right`,
+// `(target as dynamic)[index]`), which is why the probe reaches all 63 while
+// the walk reaches none. Measured from a script: `Duration(seconds: 1) <
+// Duration(seconds: 2)` answers true with no bridge declaring `<` anywhere.
+//
+// So widening the walk to cover operators is not possible, as opposed to not
+// yet done: the mechanism is "call the native operator", which is not a
+// registry fact. Behavioural tests are the only honest coverage for that 63,
+// and `tom_d4rt_ast`'s F-SCE90-1 pins the structural premise so this paragraph
+// cannot quietly stop being true.
 //
 // NOTE ON DIRECTION. This tree's baseline splits its unreachable members into
 // `confirmedGaps` (work not yet done) and `declinedMembers` (a boundary that
