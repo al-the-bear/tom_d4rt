@@ -2362,6 +2362,13 @@ class InterpretedFunction implements Callable {
               // If the body is a block, take the first statement
               if (whileNode.body is SBlock) {
                 currentNode = (whileNode.body as SBlock).statements.firstOrNull;
+                // SCE102: an empty body leaves `currentNode` null, and this
+                // machine's own loop is `while (currentNode != null)` — so it
+                // would end the FUNCTION, not the loop. Fall back to the loop
+                // node, which is what SCE19 already does at the do-while entry.
+                // Re-entering the while re-evaluates the condition, which is
+                // exactly what `while (c) {}` means.
+                currentNode ??= whileNode;
               } else {
                 currentNode = whileNode.body;
               }
@@ -2443,6 +2450,13 @@ class InterpretedFunction implements Callable {
               );
               if (doNode.body is SBlock) {
                 currentNode = (doNode.body as SBlock).statements.firstOrNull;
+                // SCE102: an empty body leaves `currentNode` null, and this
+                // machine's own loop is `while (currentNode != null)` — so it
+                // would end the FUNCTION, not the loop. Fall back to the loop
+                // node, which is what SCE19 already does at the do-while entry.
+                // `doBodiesStarted` already holds this node, so re-entering it
+                // evaluates the condition rather than restarting the body.
+                currentNode ??= doNode;
               } else {
                 currentNode = doNode.body;
               }
@@ -2615,6 +2629,12 @@ class InterpretedFunction implements Callable {
 
                 if (forNode.body is SBlock) {
                   currentNode = (forNode.body as SBlock).statements.firstOrNull;
+                  // SCE102: an empty body leaves `currentNode` null, and this
+                  // machine's own loop is `while (currentNode != null)` — so it
+                  // would end the FUNCTION, not the loop. Fall back to the loop
+                  // node, which is what SCE19 already does at the do-while entry.
+                  // Re-entering the await-for awaits the next `moveNext`.
+                  currentNode ??= forNode;
                 } else {
                   currentNode = forNode.body;
                 }
@@ -2798,6 +2818,12 @@ class InterpretedFunction implements Callable {
                 );
                 if (forNode.body is SBlock) {
                   currentNode = (forNode.body as SBlock).statements.firstOrNull;
+                  // SCE102: an empty body leaves `currentNode` null, and this
+                  // machine's own loop is `while (currentNode != null)` — so it
+                  // would end the FUNCTION, not the loop. Fall back to the loop
+                  // node, which is what SCE19 already does at the do-while entry.
+                  // Re-entering the for-in advances the iterator.
+                  currentNode ??= forNode;
                 } else {
                   currentNode = forNode.body;
                 }
@@ -3071,8 +3097,14 @@ class InterpretedFunction implements Callable {
                   // Simulate that we came from the body to trigger the updaters
                   visitor.environment =
                       currentState.environment; // Restore before continuing
-                  currentState.nextStateIdentifier =
-                      forNode; // Go back to the SForStatement
+                  // SCE102: this branch had the intent and not the assignment.
+                  // `continue` re-tests `while (currentNode != null)` with
+                  // `currentNode` still null, so the machine exited here and
+                  // the function returned the condition it had just evaluated.
+                  // Setting the state identifier alone is half a fix, and at
+                  // the call site it reads exactly like a whole one.
+                  currentNode = forNode; // Go back to the SForStatement
+                  currentState.nextStateIdentifier = forNode;
                   continue;
                 } else {
                   currentState.nextStateIdentifier = currentNode;

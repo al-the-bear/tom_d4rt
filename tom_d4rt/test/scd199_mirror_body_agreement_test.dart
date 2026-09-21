@@ -239,7 +239,14 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpretedFunction._paramRuntimeType': '7b7a00d6',
     'InterpretedFunction._prepareExecutionEnvironment': 'e931c715',
     'InterpretedFunction._resolveTypeAnnotationDynamic': '2c861378',
-    'InterpretedFunction._runStateMachine': '7f7f0dbc',
+    // SCE102 moved this signature without changing what diverges. The
+    // empty-loop-body fallback landed symmetrically in both trees — the
+    // added lines are identical modulo the `S` prefix — and a symmetric
+    // edit to an ALREADY-divergent member still moves the pair's hash,
+    // because the hash is over both bodies. The divergence itself is
+    // unchanged: the mirror AST has no `parent` getter, so the twin walks
+    // with `_parentOf`.
+    'InterpretedFunction._runStateMachine': '6e5c3034',
     'InterpretedFunction._tryOwningCatchClauseOf': 'f1617e03',
     'InterpretedFunction._tryOwningFinallyBlockOf': '34fd9762',
     'InterpretedFunction.bind': '78b56933',

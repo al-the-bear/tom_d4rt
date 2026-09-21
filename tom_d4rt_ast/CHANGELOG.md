@@ -1,3 +1,50 @@
+## 0.140.0
+
+### Fixed — an empty loop body inside `async` no longer ends the function (sce102)
+
+The async state machine enters a loop body by taking the body's first
+statement:
+
+    currentNode = (node.body as Block).statements.firstOrNull;
+    currentState.nextStateIdentifier = currentNode;
+    continue;
+
+For `{}` that is null, and the machine's own loop is `while (currentNode !=
+null)` — so the FUNCTION ended there. Not the loop. Every statement after it
+was skipped and the declared return value never happened. Measured in an
+`async` function:
+
+| loop                                | returned | expected |
+| ----------------------------------- | -------- | -------- |
+| `for (final x in [1, 2]) {}`        | null     | `'ran'`  |
+| `for (var i = 0; i < 2; i++) {}`    | **true** | `'ran'`  |
+| `await for (final x in s) {}`       | **true** | `'ran'`  |
+| `while (i++ < 2) {}`                | null     | `'ran'`  |
+
+Three different wrong answers from one cause: the value is whatever
+`lastResult` held, which is null after a for-in and the CONDITION after the two
+forms that had just evaluated one. A reader who met only the `true` would go
+looking for a condition bug.
+
+THE RETURN VALUE IS THE SERIOUS PART. A loop that does nothing, doing nothing,
+is invisible. A function that silently returns the wrong thing is not: the
+caller gets it, and the failure surfaces wherever that value is finally used,
+with nothing pointing back at the empty body.
+
+THE FIX WAS ALREADY IN THE FILE. SCE19 met this at the do-while entry and
+solved it there — `currentNode ??= doNode`, fall back to the loop node and let
+the loop decide what comes next. The remaining five dispatch sites did not have
+it. The C-style `for` is the instructive one: it had the INTENT, under a
+comment explaining the empty-body case and setting `nextStateIdentifier =
+forNode`, but never assigned `currentNode` — so `continue` re-tested the
+machine's `while` against a null that was still null. Half a fix reads exactly
+like a whole one at the call site, and that site had read like a whole one
+since it was written.
+
+The synchronous path was never affected; it does not use the state machine.
+
+Name resolution: no.
+
 ## 0.139.0
 
 ### Fixed — a generic element is asked the same question as `is` (sce101)
