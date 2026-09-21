@@ -1110,6 +1110,15 @@ const Map<String, _Coverage> _coveredElsewhere = {
   ),
 };
 
+/// The two case counts an [_uncoveredBaseline] entry records.
+///
+/// A record rather than a bare `int` because the single number this map used
+/// to hold had two incompatible jobs: it is the pin a publish re-measures
+/// against, AND it was the only thing a guard could have compared to the file.
+/// Those want different measurements — see the map's own comment — so they are
+/// now two fields, and only one of them is machine-checkable.
+typedef _CaseCounts = ({int ran, int declared});
+
 /// Reference files with a twin in NEITHER exec nor tom_d4rt_ast: the real gap.
 ///
 /// This is a BASELINE, not an allowlist — every entry is a hole that should be
@@ -1195,23 +1204,35 @@ const Map<String, _Coverage> _coveredElsewhere = {
 /// first such entry since, and it is the shape to copy. What must never come
 /// back is the entry that states its flip condition in prose ALONE, because the
 /// prose is read only by whoever happens to reread it and never by the publish.
-/// WHAT THE NUMBERS ARE, because the obvious check over them does not work
-/// (SCD61). Each count is a RUNTIME measurement: how many cases actually ran
-/// when the file was ported and executed against the published interpreter.
-/// That is what makes it useful on a publish — "port it and confirm the count"
-/// is how you notice the reference side moved after the pin was taken.
+/// WHAT THE NUMBERS ARE. Each entry records TWO counts, because one number
+/// cannot be both the pin and the thing a cheap guard checks (SCD61).
 ///
-/// It is NOT a count of `test(` calls, and the two diverge for any file that
-/// generates cases in a loop. Measured 2026-09-12, three of the eight entries
-/// here do: `scc73_sdk_member_completeness_test.dart` (recorded 4, three
-/// static), `stdlib/member_coverage_baseline_test.dart` (recorded 4, six
-/// static) and `release_hygiene_test.dart` (recorded 10, five static — and 32
-/// at runtime since SCD60 widened it from three packages to ten).
+///   * `ran` — a RUNTIME measurement: how many cases actually ran when the
+///     file was executed. That is what makes it useful on a publish — "port it
+///     and confirm the count" is how you notice the reference side moved after
+///     the pin was taken. Confirming it is a RUN, so nothing here checks it,
+///     and it is never edited without one.
+///   * `declared` — `test(` declarations in the reference source, as
+///     [_countCases] counts them. [F-SCC6-10] checks it on every entry, every
+///     run, for the price of reading 40 files.
 ///
-/// So a static guard over this map would verify the five entries whose counts
-/// cannot drift and exempt the three that already have, which is worse than
-/// none. That is why [F-SCC6-6] checks [_coveredElsewhere] — whose counts ARE
-/// static-comparable — and stops there. Confirming a count here is a run.
+/// THE TWO DIVERGE for any file that generates its cases in a loop, and that
+/// divergence is why the second number had to be ADDED rather than the first
+/// simply checked. Measured 2026-09-22, 14 of the 40 entries differ —
+/// `stdlib/sce74_sdk_error_type_parity_test.dart` most sharply, 61 cases from
+/// two declarations. A guard over `ran` alone would have verified the 26
+/// entries whose counts cannot drift and exempted the 14 that do: not a weak
+/// guard but an INVERTED one, green precisely where the drift lives. That is
+/// also why [F-SCC6-6] checks [_coveredElsewhere] and stops there — its counts
+/// are static-comparable and need no second number.
+///
+/// WHAT [F-SCC6-10] CATCHES is a reference file gaining or losing a case while
+/// its entry stands. That is most of the drift and it happens at an ordinary
+/// working rate. What it does not catch is a loop whose iteration count moved
+/// with the source untouched; `ran` is the only witness to that, and only a
+/// run produces it. An entry whose two numbers are EQUAL says more than the
+/// others: nothing in it generates cases, so a change in `declared` means
+/// `ran` is stale by the same amount.
 ///
 /// RE-MEASURED IN FULL, 2026-09-15 (SCD126), with
 /// `dart run tool/remeasure_pins.dart --uncovered` — the same copy-rewrite-run
@@ -1249,7 +1270,7 @@ const Map<String, _Coverage> _coveredElsewhere = {
 /// its entry rather than contradicting it: the reason it is not ported is that
 /// a copy would ask the same questions about the same three packages and add a
 /// second red for one cause, not that it cannot run.
-const Map<String, int> _uncoveredBaseline = {
+const Map<String, _CaseCounts> _uncoveredBaseline = {
   // SCE21's batch: the four async state-machine fixes closed on 2026-09-18,
   // measured BOTH ways with `tool/remeasure_pins.dart --candidates` before
   // being pinned — against the 0.65.0 exec resolves, and against the 0.120.0
@@ -1264,34 +1285,40 @@ const Map<String, int> _uncoveredBaseline = {
   // PUBLISH-PIN(sce162_aioc-four-unpublished-base-corpus-regressions-block-the-publish)
   // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.117.0.
   // Measured 2026-09-18: 6 of 10 fail against 0.65.0, 0 of 10 against 0.120.0.
-  'sce17_await_in_expression_body_test.dart': 10,
+  'sce17_await_in_expression_body_test.dart': (ran: 10, declared: 10),
   // PUBLISH-PIN(sce162_aioc-four-unpublished-base-corpus-regressions-block-the-publish)
   // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.118.0.
   // Measured 2026-09-18: 4 of 9 fail against 0.65.0, 0 of 9 against 0.120.0.
-  'sce18_finally_on_abrupt_exit_test.dart': 9,
+  'sce18_finally_on_abrupt_exit_test.dart': (ran: 9, declared: 9),
   // PUBLISH-PIN(sce162_aioc-four-unpublished-base-corpus-regressions-block-the-publish)
   // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.119.0.
   // Measured 2026-09-18: 5 of 9 fail against 0.65.0, 0 of 9 against 0.120.0.
-  'sce19_do_while_first_body_run_test.dart': 9,
+  'sce19_do_while_first_body_run_test.dart': (ran: 9, declared: 9),
   // PUBLISH-PIN(sce162_aioc-four-unpublished-base-corpus-regressions-block-the-publish)
   // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.120.0.
   // Measured 2026-09-18: 7 of 9 fail against 0.65.0, 0 of 9 against 0.120.0.
-  'sce20_braceless_if_else_test.dart': 9,
+  'sce20_braceless_if_else_test.dart': (ran: 9, declared: 9),
   // SCD200's second batch, measured the same way — ported into ztmp and run
   // against 0.65.0 and then against the 0.113.0 working tree.
   //
   // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.113.0.
   // Measured 2026-09-15: 10 of 12 fail against 0.65.0, 0 of 12 against 0.113.0.
-  'stdlib/convert/chunked_sink_arg_adaptation_test.dart': 12,
+  'stdlib/convert/chunked_sink_arg_adaptation_test.dart': (
+    ran: 12,
+    declared: 5,
+  ),
   // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.113.0.
   // Measured 2026-09-15: 11 of 22 fail against 0.65.0, 0 of 22 against 0.113.0.
-  'stdlib/typed_data/buffer_is_a_getter_test.dart': 22,
+  'stdlib/typed_data/buffer_is_a_getter_test.dart': (ran: 22, declared: 2),
   // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.113.0.
   // Measured 2026-09-15: 8 of 13 fail against 0.65.0, 0 of 13 against 0.113.0.
-  'stdlib/typed_data/float_int_literal_test.dart': 13,
+  'stdlib/typed_data/float_int_literal_test.dart': (ran: 13, declared: 8),
   // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.113.0.
   // Measured 2026-09-15: 17 of 25 fail against 0.65.0, 0 of 25 against 0.113.0.
-  'stdlib/typed_data/typed_list_family_parity_test.dart': 25,
+  'stdlib/typed_data/typed_list_family_parity_test.dart': (
+    ran: 25,
+    declared: 6,
+  ),
   // PUBLISH-BLOCKED, and the port needs `tls_fixture.dart` copied beside it —
   // it is a sibling helper, not an interpreter import, so `port_recipe.dart`
   // has nothing to say about it and a port without it reads as
@@ -1299,30 +1326,30 @@ const Map<String, int> _uncoveredBaseline = {
   // Measured 2026-09-15: 6 of 6 fail against 0.65.0, 0 of 8 against 0.113.0 —
   // the case count itself moves, because two of the eight are skipped against
   // the older interpreter rather than failing.
-  'scd171_tls_bridges_test.dart': 6,
+  'scd171_tls_bridges_test.dart': (ran: 6, declared: 9),
   // NOT PORTABLE, and not blocked on anything: `dart:mirrors` over *tom_d4rt's
   // own* bridge registry, checking that a constructor adapter reading
   // `namedArgs['x']` is claiming a named parameter the SDK actually declares.
   // exec has a different registry, so a copy would reflect over the reference
   // tree while pretending to measure this one — the same family as the three
   // `stdlib_member_diff.dart` entries below.
-  'scd68_constructor_named_args_test.dart': 2,
+  'scd68_constructor_named_args_test.dart': (ran: 2, declared: 2),
   // NOT PORTABLE, same tool and same reason as the entries above: all three
   // import `tool/stdlib_member_diff.dart`, the `dart:mirrors` reflector over
   // tom_d4rt's registry. Measured 2026-09-15: does-not-compile against both
   // 0.65.0 and 0.113.0, which is what an absent tool looks like from here.
-  'doc/gap_audit_figures_test.dart': 5,
+  'doc/gap_audit_figures_test.dart': (ran: 5, declared: 5),
   // NOT PORTABLE — `tool/stdlib_member_diff.dart`, as above.
-  'scd39_operator_probe_operands_test.dart': 5,
+  'scd39_operator_probe_operands_test.dart': (ran: 5, declared: 5),
   // NOT PORTABLE — `tool/stdlib_member_diff.dart` again, and here the tool is
   // the SUBJECT rather than an instrument: the cases render the two baseline
   // sources from synthetic input and analyze the result, and drive the tool as
   // a process to check that `--only` with `--baseline` refuses. exec has
   // neither the tool nor the baselines it writes. pin-registered: n/a —
   // nothing a publish can change.
-  'stdlib/sce86_baseline_renderer_test.dart': 6,
+  'stdlib/sce86_baseline_renderer_test.dart': (ran: 6, declared: 6),
   // NOT PORTABLE — `tool/stdlib_member_diff.dart`, as above.
-  'stdlib/typed_data/scd167_variant_parity_test.dart': 4,
+  'stdlib/typed_data/scd167_variant_parity_test.dart': (ran: 4, declared: 4),
   // SCD200's nine, and none of them is a guess: each was ported into ztmp and
   // RUN twice — against the 0.65.0 exec resolves, and against the working tree
   // via `tom_d4rt_flutter_ast/tool/prepublish_overrides.dart --set`. The second
@@ -1332,22 +1359,25 @@ const Map<String, int> _uncoveredBaseline = {
   //
   // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.113.0.
   // Measured 2026-09-15: 1 of 5 fail against 0.65.0, 0 of 5 against 0.113.0.
-  'scd147_interpreter_owned_boundary_test.dart': 5,
+  'scd147_interpreter_owned_boundary_test.dart': (ran: 5, declared: 3),
   // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.113.0.
   // Measured 2026-09-15: 2 of 3 fail against 0.65.0, 0 of 3 against 0.113.0.
-  'bridge/scd138_native_callback_proxy_binding_test.dart': 3,
+  'bridge/scd138_native_callback_proxy_binding_test.dart': (
+    ran: 3,
+    declared: 3,
+  ),
   // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.113.0.
   // Measured 2026-09-15: 1 of 8 fail against 0.65.0, 0 of 8 against 0.113.0.
-  'scd176_enum_supertype_test.dart': 8,
+  'scd176_enum_supertype_test.dart': (ran: 8, declared: 4),
   // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.113.0.
   // Measured 2026-09-15: 6 of 15 fail against 0.65.0, 0 of 15 against 0.113.0.
-  'stdlib/collection/queue_empty_state_error_test.dart': 15,
+  'stdlib/collection/queue_empty_state_error_test.dart': (ran: 15, declared: 2),
   // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.113.0.
   // Measured 2026-09-15: 8 of 10 fail against 0.65.0, 0 of 10 against 0.113.0.
-  'stdlib/coerce_arguments_test.dart': 10,
+  'stdlib/coerce_arguments_test.dart': (ran: 10, declared: 18),
   // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.113.0.
   // Measured 2026-09-15: 4 of 5 fail against 0.65.0, 0 of 5 against 0.113.0.
-  'stdlib/io/internet_address_type_test.dart': 5,
+  'stdlib/io/internet_address_type_test.dart': (ran: 5, declared: 3),
   // PUBLISH-BLOCKED, AND THE RE-PORT NEEDS A SPLIT FIRST. Re-port when a
   // publish raises exec's floor past 0.113.0. Measured 2026-09-15: 17 of 20
   // fail against 0.65.0, and 1 of 20 still fails against 0.113.0 — F-SCD170-1,
@@ -1363,7 +1393,7 @@ const Map<String, int> _uncoveredBaseline = {
   // ported until the publish anyway, so it is recorded here rather than done —
   // but it must happen in the same pass as the re-port, or the re-port will
   // look like a divergence and get baselined as one.
-  'scd170_network_permission_gate_test.dart': 20,
+  'scd170_network_permission_gate_test.dart': (ran: 20, declared: 7),
   // NOT PORTABLE, and not blocked on anything. Both of these import
   // `tool/stdlib_member_diff.dart`, the `dart:mirrors` tool that reflects over
   // *tom_d4rt's own* bridge registry — the same reason already recorded above
@@ -1373,11 +1403,11 @@ const Map<String, int> _uncoveredBaseline = {
   // to measure this one. Measured 2026-09-15: does-not-compile against both
   // 0.65.0 and 0.113.0, which is what "the tool is absent" looks like from
   // here and is why no pin belongs on either.
-  'scd36_return_type_pass_test.dart': 5,
+  'scd36_return_type_pass_test.dart': (ran: 5, declared: 5),
   // NOT PORTABLE, same tool and same reason as the entry above — SCC13's
   // hierarchy baseline is generated by `tool/stdlib_member_diff.dart` from
   // tom_d4rt's registry, and exec has neither the tool nor that registry.
-  'stdlib/hierarchy_baseline_test.dart': 6,
+  'stdlib/hierarchy_baseline_test.dart': (ran: 6, declared: 6),
   // NOT PORTABLE YET, and the reason is the thing it tests. SCD173's four cases
   // pass a map literal to `ContentType`, `HeaderValue` and
   // `findProxyFromEnvironment`; the coercion that makes those work landed under
@@ -1391,7 +1421,7 @@ const Map<String, int> _uncoveredBaseline = {
   // failure is the evidence in sce209 that the defect is live in every shipped
   // interpreter, so this entry is a dated record of an unreleased fix rather
   // than a gap in the suite. It comes across when the floor moves.
-  'stdlib/io/scd173_collection_args_test.dart': 4,
+  'stdlib/io/scd173_collection_args_test.dart': (ran: 4, declared: 4),
   // NOT PORTABLE — and uniquely so: the subject itself cannot exist on the
   // analyzer-free line. `static_name_report.dart` resolves names over the
   // ANALYZER AST, which `tom_d4rt_ast` has no access to by construction, so
@@ -1406,7 +1436,7 @@ const Map<String, int> _uncoveredBaseline = {
   // behaviour, so a port would assert that a function exec never calls returns
   // the same list. When the enforcing half lands it changes what `execute()`
   // does, and that is when exec has something to conform about.
-  'scd95_static_name_report_test.dart': 11,
+  'scd95_static_name_report_test.dart': (ran: 11, declared: 11),
   // NOT PORTABLE — a throughput probe, not a conformance assertion. Its single
   // case measures how long a Conway generation takes; run on two interpreters
   // with different performance characteristics it yields a flaky failure rather
@@ -1418,7 +1448,7 @@ const Map<String, int> _uncoveredBaseline = {
   // would be a timing assertion on a second interpreter, which is a flake
   // waiting for a slow machine. Keep it, and keep the sentence above, because a
   // future re-measurement will report PASSES again.
-  '_conway_perf_probe_test.dart': 1,
+  '_conway_perf_probe_test.dart': (ran: 1, declared: 1),
   // NOT PORTABLE — SCC13's standing member-coverage audit. It imports
   // `../../tool/stdlib_member_diff.dart`, a `dart:mirrors` tool that reflects
   // over *tom_d4rt's own* bridge registry, and compares against a baseline
@@ -1451,7 +1481,7 @@ const Map<String, int> _uncoveredBaseline = {
   // for its own reason too and not only by the missing member.
   //
   // Re-port when a publish raises exec's floor past 0.108.0.
-  'scc73_sdk_member_completeness_test.dart': 4,
+  'scc73_sdk_member_completeness_test.dart': (ran: 4, declared: 3),
   // SCD186 bridged `Future.syncValue`, the one SDK member the floor gap was
   // hiding, and this file is its behaviour cover. It cannot be ported yet for
   // the same reason as the entry above: exec measures the PUBLISHED
@@ -1464,7 +1494,7 @@ const Map<String, int> _uncoveredBaseline = {
   // something else broke, and showing 1 of 5 would mean only the control ran.
   //
   // Re-port when a publish raises exec's floor past 0.108.0.
-  'stdlib/async/scd186_future_sync_value_test.dart': 5,
+  'stdlib/async/scd186_future_sync_value_test.dart': (ran: 5, declared: 5),
   // SCD187 deleted the `HttpClientResponse.transform` stub that was shadowing
   // the working inherited `Stream.transform`. This file is its cover, and it
   // cannot be ported until the deletion ships: exec measures the PUBLISHED
@@ -1477,7 +1507,7 @@ const Map<String, int> _uncoveredBaseline = {
   // re-port showing 5 of 5 failing would mean the fold broke too.
   //
   // Re-port when a publish raises exec's floor past 0.109.0.
-  'stdlib/io/scd187_http_response_transform_test.dart': 5,
+  'stdlib/io/scd187_http_response_transform_test.dart': (ran: 5, declared: 5),
   // SCD189's member-kind parity guard. It reads the SDK with the ANALYZER and
   // diffs it against the registered bridge set — a different registry here, so
   // a port would measure the analyzer-free line's bridges against the same SDK
@@ -1494,7 +1524,7 @@ const Map<String, int> _uncoveredBaseline = {
   // the six findings.
   //
   // Re-port when a publish raises exec's floor past 0.110.0.
-  'stdlib/scd189_member_kind_parity_test.dart': 3,
+  'stdlib/scd189_member_kind_parity_test.dart': (ran: 3, declared: 3),
   // SCD198 drives scripts through `D4rt.execute` to ask what a bare class name
   // evaluates to. Its three fixes — `BridgedClass` equality and hashing, the
   // hash-key normalisation, and the `is Type` arm — are all in the tree and in
@@ -1508,7 +1538,7 @@ const Map<String, int> _uncoveredBaseline = {
   // behaviour still holds.
   //
   // Re-port when a publish raises exec's floor past 0.113.0.
-  'scd198_class_name_as_type_value_test.dart': 7,
+  'scd198_class_name_as_type_value_test.dart': (ran: 7, declared: 7),
 
   // NOT PORTABLE, and confirmed FROM THE SOURCE rather than by a run — SCD126's
   // first rule, because a structural reason is cheaper to read than to measure
@@ -1523,7 +1553,7 @@ const Map<String, int> _uncoveredBaseline = {
   // Same structural reason as `scc73_sdk_member_completeness_test.dart` above,
   // and the same remedy: the analyzer-free line's equivalent has to be BUILT
   // against `tom_d4rt_ast`'s registry, not ported. [2026-09-15]
-  'stdlib/member_coverage_baseline_test.dart': 4,
+  'stdlib/member_coverage_baseline_test.dart': (ran: 4, declared: 13),
   // BLOCKED ON A PUBLISH, and measured rather than inferred — the register above
   // says a pin written from prose rots, so both of these were ported into
   // `test/` and run against published 0.65.0 before being recorded.
@@ -1535,7 +1565,7 @@ const Map<String, int> _uncoveredBaseline = {
   // exactly the five the fix bought.
   //
   // Re-port when a publish raises exec's floor past 0.81.0.
-  'scd72_instance_tostring_test.dart': 7,
+  'scd72_instance_tostring_test.dart': (ran: 7, declared: 7),
   // scd73 does not COMPILE against 0.65.0: six `undefined_function` errors for
   // `unwrapScriptError`, which SCD73 made a public top-level and which lands in
   // published 0.82.0. It cannot be worked around from here: `d4rt.dart`
@@ -1546,13 +1576,13 @@ const Map<String, int> _uncoveredBaseline = {
   // only the helper the test calls that is missing.
   //
   // Re-port when a publish raises exec's floor past 0.82.0.
-  'scd73_no_hook_unwrapping_test.dart': 8,
+  'scd73_no_hook_unwrapping_test.dart': (ran: 8, declared: 8),
   // NOT PORTABLE — `tool/stdlib_member_diff.dart` again, and this file is the
   // one that tests the tool's own classifier. Its four cases plant a wording at
   // a throw site and assert the audit notices, so its subject is the reference
   // tree's tool rather than either interpreter. pin-registered: n/a — nothing
   // a publish can change.
-  'sce77_resolution_throw_sites_test.dart': 4,
+  'sce77_resolution_throw_sites_test.dart': (ran: 4, declared: 4),
   // NOT PORTABLE — a census over the SDK's own sources, asked on behalf of
   // *tom_d4rt's* bridge registry: it finds every SDK member carrying a generic
   // function parameter (a shape SCD37 established no bridge can honour) and
@@ -1560,13 +1590,13 @@ const Map<String, int> _uncoveredBaseline = {
   // here it would re-assert the same SDK facts about a package that registers
   // no bridges, which passes and measures nothing. pin-registered: n/a — its
   // subject is not the interpreter.
-  'sce76_generic_function_parameter_census_test.dart': 2,
+  'sce76_generic_function_parameter_census_test.dart': (ran: 2, declared: 2),
   // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.129.0.
   // Measured 2026-09-21: 9 of 61 fail against the 0.65.0 exec resolves — the
   // nine `Queue` / `ListQueue` / `DoubleLinkedQueue` cases where an empty
   // receiver's IndexError or StateError arrives as something no script can
   // catch. The other 52 pass against 0.65.0 and are in the file as controls.
-  'stdlib/sce74_sdk_error_type_parity_test.dart': 61,
+  'stdlib/sce74_sdk_error_type_parity_test.dart': (ran: 61, declared: 2),
   // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.136.0.
   // Measured 2026-09-21: 6 of 7 fail against the 0.65.0 exec resolves, each
   // with `Undefined static member` for the member it exists to reach —
@@ -1584,7 +1614,7 @@ const Map<String, int> _uncoveredBaseline = {
   // So the publish that frees these two entries also breaks exec until its
   // getter is widened, which cannot be done before the floor moves. Recorded
   // as scf20 rather than as a surprise for whoever runs the next publish.
-  'stdlib/io/sce82_header_constants_test.dart': 7,
+  'stdlib/io/sce82_header_constants_test.dart': (ran: 7, declared: 7),
   // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.137.0.
   // SCE83 made `stream.transform(utf8.decoder)` work for a stream a SCRIPT
   // built: those are `Stream<dynamic>` carrying `List<Object?>` chunks, so a
@@ -1595,7 +1625,10 @@ const Map<String, int> _uncoveredBaseline = {
   // variants. The three that pass are the controls — a dart:io stream, a
   // script-defined transformer, and the argument diagnostic — which is what
   // they are for.
-  'stdlib/async/sce83_transform_element_coercion_test.dart': 7,
+  'stdlib/async/sce83_transform_element_coercion_test.dart': (
+    ran: 7,
+    declared: 7,
+  ),
   // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.138.0.
   // SCE84's behaviour suite: a script declaring the `LinkedListEntry` subclass
   // the SDK requires, which is the only way `LinkedList` is usable at all.
@@ -1604,7 +1637,10 @@ const Map<String, int> _uncoveredBaseline = {
   // `LinkedListEntry(value)` dialect is still accepted there. The twelfth,
   // F-SCE84-11, passes either way: it is the control that hands `add` a
   // string, which is refused by both interpreters.
-  'stdlib/collection/sce84_linked_list_subclass_test.dart': 12,
+  'stdlib/collection/sce84_linked_list_subclass_test.dart': (
+    ran: 12,
+    declared: 12,
+  ),
 };
 
 /// Why a [_divergentBaseline] entry is allowed to stand.
@@ -2485,13 +2521,17 @@ _PinVerdict _pinVerdict(
 Map<String, String> _floorsDeclaredInComments() {
   final lines = File('test/conformance_drift_test.dart').readAsLinesSync();
   final floorPattern = RegExp(r'floor past (\d+\.\d+\.\d+)');
-  // The value part is optional AND may be absent entirely, because `dart
-  // format` wraps an entry whose key and value do not fit in 80 columns onto
-  // two lines — leaving a key line that ends in a bare `:`. A pattern that only
-  // matched the one-line form would stop attributing such an entry the moment
-  // the formatter ran, and an unattributed entry reads here as a floor declared
-  // in prose with no register key: a failure whose cause is a line wrap.
-  final entryPattern = RegExp(r"^\s*'([^']+)'\s*(?::\s*[^,]*)?,?\s*$");
+  // Everything after the key is ignored, and that width is load-bearing twice
+  // over. `dart format` wraps an entry whose key and value do not fit in 80
+  // columns, leaving a key line that ends in a bare `:` or `: (` — so a
+  // pattern anchored to the one-line form stops attributing that entry the
+  // moment the formatter runs. And the value itself may contain commas:
+  // [_uncoveredBaseline] holds a [_CaseCounts] record, which an earlier
+  // `[^,]*` could not cross, so 22 of its 40 entries went unattributed and
+  // F-SCC43-1 reported every one as a floor declared in prose with no register
+  // key. Both failures have the same shape — a scanner that stops seeing an
+  // entry blames the entry — so the key is the only thing this reads.
+  final entryPattern = RegExp(r"^\s*'([^']+)'\s*(?::.*)?$");
   final declared = <String, String>{};
   var pending = <String>[];
   for (final line in lines) {
@@ -2563,8 +2603,12 @@ Map<String, String> _divergentEntryComments() => _entryComments(
 );
 
 /// The reason written above each [_uncoveredBaseline] entry.
-Map<String, String> _uncoveredEntryComments() =>
-    _entryComments('const Map<String, int> _uncoveredBaseline = {', r'\d+,');
+Map<String, String> _uncoveredEntryComments() => _entryComments(
+  'const Map<String, _CaseCounts> _uncoveredBaseline = {',
+  // Either the whole record, or the bare `(` the formatter leaves on the key
+  // line when the entry does not fit in 80 columns.
+  r'\(ran: \d+, declared: \d+\),|\(',
+);
 
 /// A `KNOWN-GAP(<todo-id>):` or `WONT-FIX:` marker, as written in the comment
 /// directly above a test case that PINS broken behaviour.
@@ -3443,6 +3487,75 @@ void main() {
             'partial, decide which kind it is — port the cases, or record a '
             '`whyPartial` — rather than leaving the count wrong to keep '
             'F-SCC6-3 quiet.',
+      );
+    });
+
+    test('F-SCC6-10: every _uncoveredBaseline entry declares the number '
+        'of cases its file has [2026-09-22] (PASS)', () {
+      // The sibling of F-SCC6-6, arriving late because the obvious version of
+      // it is inverted and had to be rejected first. `_uncoveredBaseline` held
+      // ONE number, a runtime count, and 14 of the 40 files generate cases in
+      // a loop — so comparing that number to the source would have passed on
+      // the 26 entries that cannot drift and reported a permanent, expected
+      // mismatch on the 14 that do. Green where nothing moves, noisy where
+      // everything does.
+      //
+      // The entries now carry both counts, and this checks the half that is a
+      // property of the file. It cannot see a loop whose iteration count
+      // changed on its own; that is stated on the map rather than papered
+      // over, because a guard read as covering more than it does is how the
+      // counts went unchecked in the first place.
+      //
+      // ABLATED, all three against `scd68_constructor_named_args_test.dart`,
+      // whose two numbers are equal:
+      //
+      //   set the entry's `declared` to 99      -> fails, names both numbers
+      //   add a `test(` to the reference file   -> fails, and adds the
+      //                                            equal-pair note below
+      //   set the entry's `ran` to 77           -> PASSES
+      //
+      // The third is the one worth keeping: it is the control that proves this
+      // checks only the half a file can answer for. If it ever starts failing,
+      // someone has quietly made `ran` machine-checkable without measuring it.
+      final drift = <String>[];
+      for (final entry in _uncoveredBaseline.entries) {
+        final file = File('${refTests.path}/${entry.key}');
+        if (!file.existsSync()) {
+          // F-SCC6-2 owns "this path is gone"; saying it twice would report
+          // one deletion as two findings.
+          continue;
+        }
+        final declared = _countCases(file.readAsStringSync());
+        if (declared != entry.value.declared) {
+          drift.add(
+            '${entry.key}: entry says declared ${entry.value.declared}, '
+            'the file has $declared'
+            '${entry.value.ran == entry.value.declared ? " — and its two "
+                      "numbers were equal, so `ran` is stale by the same amount" : ""}',
+          );
+        }
+      }
+
+      expect(
+        _uncoveredBaseline.length,
+        greaterThanOrEqualTo(20),
+        reason:
+            'Anti-vacuity: this is a loop over the baseline, so an empty map '
+            'would satisfy it while checking nothing. 40 entries when it was '
+            'written.',
+      );
+      expect(
+        drift,
+        isEmpty,
+        reason:
+            'These entries describe files that have since gained or lost '
+            'cases:\n${drift.join('\n')}\n\n'
+            'Set `declared` to what the file says. Do NOT touch `ran` to '
+            'match it — that number is a measurement, and the way to change '
+            'it is to re-run the port (`tool/remeasure_pins.dart '
+            '--uncovered`). Where the note above says the two were equal, the '
+            'file generates no cases and `ran` has drifted too, so the '
+            're-measurement is owed rather than optional.',
       );
     });
 
