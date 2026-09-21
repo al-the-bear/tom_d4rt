@@ -1112,6 +1112,30 @@ and this one it knows about and has chosen not to declare. It does not mean the
 registry is *complete* — the cross-reference is bounded by what `dart:mirrors`
 reports on the bridged native types.
 
+**And "0 confirmed" says nothing about the edges that ARE declared**, because
+candidates are what the registry does *not* already hold: a declared edge is
+subtracted before anything is verified. So the audit is equally silent about an
+edge it models correctly and one it could not see at all, and the only way to
+tell them apart is to ask whether the walk rediscovers the supertype. Measured
+2026-09-21: **3 of 239** registered bridged-to-bridged edges were invisible that
+way — `SplayTreeMap -> Map`, `SplayTreeSet -> Iterable`, `SplayTreeSet -> Set`.
+
+All three were one shape. The walk followed `superclass` and `superinterfaces`,
+and a MIXIN is on neither: for `class C extends B with M` the mirror inserts a
+synthetic `B&M` whose superclass is `B` and whose superinterfaces are empty, so
+the walk stopped at the application. `SplayTreeSet` reaches `Set` only through
+`SetMixin`. Following `mixin` closes all three, and the table above did not
+move — these edges are declared, so seeing them changes what a DELETION would
+report, not what today's registry says. `F-SCE85-1` in
+`test/stdlib/hierarchy_baseline_test.dart` now pins the count at zero.
+
+**The member walks were measured for the same omission and do not have it.**
+Following `mixin` there adds no member to any collection class, because the VM
+puts a mixin's declarations on the synthetic application itself. The omission
+cost *identity*, not surface — which is why it could hide for as long as it
+did: every member arrived, and only `is` and the audit's own candidate set were
+short.
+
 This table has now been measured seven times, and the movement is worth keeping
 because each step separates a *repair* from a change in what the audit can see
 — the two are indistinguishable from the confirmed count alone, and reading

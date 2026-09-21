@@ -2266,6 +2266,19 @@ Set<ClassMirror> _sdkSupertypeDeclarations(Type type) {
       final sup = cm.superclass;
       if (sup != null && sup.reflectedType != Object) queue.add(sup);
       queue.addAll(cm.superinterfaces);
+      // SCE85: a MIXIN is reached through neither of those. For `class C
+      // extends B with M`, the mirror inserts a synthetic application `B&M`
+      // whose `superclass` is `B` and whose `superinterfaces` are empty — `M`
+      // itself is only on `mixin`. Without this the walk stopped at the
+      // application and lost everything the mixin brings, which for
+      // `SplayTreeSet` is `SetMixin` and through it `Iterable` and `Set`: the
+      // audit could not raise those edges as candidates, so deleting either
+      // declaration was invisible to it.
+      //
+      // `mixin` returns the class itself for an ordinary class, hence the
+      // identity guard rather than a null check.
+      final mixin = cm.mixin;
+      if (!identical(mixin, cm)) queue.add(mixin);
     } catch (_) {
       // Partly-reflectable SDK class — keep whatever the rest of the walk found.
     }
@@ -2331,6 +2344,60 @@ List<HierarchyGap> auditHierarchy(Environment env) {
     return byCount != 0 ? byCount : a.name.compareTo(b.name);
   });
   return gaps;
+}
+
+/// Every REGISTERED edge the cross-reference could not rediscover, as
+/// `Class -> Supertype`.
+///
+/// SCE85. [auditHierarchy] builds its candidates from
+/// [_sdkSupertypeDeclarations] and then subtracts what the registry already
+/// holds, so a registered edge is never a candidate — which means the audit's
+/// "0 confirmed missing edges" says nothing about the edges that ARE declared.
+/// Delete one and the audit should raise it; for an edge this function reports,
+/// it would not, because the walk cannot see the supertype at all.
+///
+/// So this is the audit's BLIND SPOT measured directly, with no deletions: the
+/// registry says the edge exists, the walk says the SDK does not declare it,
+/// and only one of them can be right. It is the negative control for every
+/// future control — the `SplayTreeSet -> Set` row in
+/// `test/stdlib/hierarchy_baseline_test.dart`'s matrix is one of these.
+List<String> invisibleRegisteredEdges(Environment env) {
+  final names = env.bridgedClassNames..sort();
+  final byDeclaration = <ClassMirror, List<String>>{};
+  for (final name in names) {
+    final bc = env.findBridgedClassByName(name);
+    if (bc == null) continue;
+    try {
+      final t = reflectType(bc.nativeType);
+      if (t is! ClassMirror) continue;
+      byDeclaration
+          .putIfAbsent(t.originalDeclaration as ClassMirror, () => [])
+          .add(name);
+    } catch (_) {
+      // Not reflectable; it cannot participate either way.
+    }
+  }
+
+  final invisible = <String>[];
+  for (final name in names) {
+    final bc = env.findBridgedClassByName(name);
+    if (bc == null) continue;
+    final reachable = <String>{};
+    for (final decl in _sdkSupertypeDeclarations(bc.nativeType)) {
+      reachable.addAll(byDeclaration[decl] ?? const []);
+    }
+    for (final supertype in BridgedClass.transitiveSupertypeNames(name)) {
+      if (supertype == name) continue;
+      // Only edges to a BRIDGED supertype, for the same reason
+      // [auditHierarchy] reports only those: an edge to a name no bridge
+      // carries is unrepresentable as a candidate either way.
+      if (env.findBridgedClassByName(supertype) == null) continue;
+      if (reachable.contains(supertype)) continue;
+      invisible.add('$name -> $supertype');
+    }
+  }
+  invisible.sort();
+  return invisible;
 }
 
 /// Drives `o is Supertype` through the interpreter for each candidate edge.

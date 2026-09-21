@@ -2,6 +2,7 @@
 library;
 
 import 'package:test/test.dart';
+import 'package:tom_d4rt/d4rt.dart';
 
 import '../../tool/stdlib_member_diff.dart';
 import 'hierarchy_baseline.dart';
@@ -43,18 +44,28 @@ import 'hierarchy_baseline.dart';
 /// | --- | --- |
 /// | every probe unable to answer (1 µs timeout) | 1, 3 **and 4** |
 /// | `HttpClientResponse -> Stream` deleted from `io_hierarchy.dart` | 2 |
-/// | `SplayTreeSet -> Set` deleted from `collection_hierarchy.dart` | **nothing** |
+/// | `SplayTreeSet -> Set` deleted from `collection_hierarchy.dart` | 2 |
 /// | a baselined class's instance recipe broken | 3 |
 /// | the one `_declinedEdges` entry un-declined | 4 |
 ///
 /// Two rows are worth more than the others.
 ///
-/// **Not every declared edge is load-bearing.** Deleting `SplayTreeSet -> Set`
-/// changes nothing this audit can see: the cross-reference does not even raise
-/// it as a candidate, so no case fires and none should. A control has to pick an
-/// edge whose absence the instrument can actually observe, and the first one I
-/// picked was not — which is the whole reason this matrix records the fault
-/// that produced each row rather than a generic description of it.
+/// **The `SplayTreeSet` row used to read "nothing", and that was a defect in
+/// the walk rather than a property of the edge.** The cross-reference builds
+/// its candidates from a mirror walk over `superclass` and `superinterfaces`,
+/// and a MIXIN is on neither: for `class C extends B with M` the mirror
+/// inserts a synthetic `B&M` whose superclass is `B` and whose superinterfaces
+/// are empty, so the walk stopped there and never saw `M`. `SplayTreeSet`
+/// reaches `Set` only through `SetMixin`, so deleting the declaration was
+/// invisible — no case fired, and one should have. SCE85 taught the walk to
+/// follow `mixin`; the row now reads 2, the same case a deleted
+/// `HttpClientResponse -> Stream` fires.
+///
+/// The matrix keeps the fault that produced each row rather than a generic
+/// description of it, and this row is why: read as "not every declared edge is
+/// load-bearing", it stated a property of the EDGE for something that was a
+/// property of the INSTRUMENT. F-SCE85-1 below now measures that directly, so
+/// the next such blind spot fails a case instead of becoming a matrix row.
 ///
 /// **The timeout fault fires 4 as well as 1 and 3**, because a probe that
 /// cannot answer also stops the declined edge from being classified as
@@ -246,6 +257,68 @@ void main() {
           'dart run tool/stdlib_member_diff.dart --hierarchy --baseline\n'
           'Commit the regenerated baseline together with the change that caused '
           'it, so the diff shows which edges moved and why.',
+    );
+  });
+
+  test('F-SCE85-1: every declared edge is one the audit could raise '
+      '[2026-09-21]', () {
+    // THE AUDIT'S BLIND SPOT, measured directly rather than by deleting edges
+    // one at a time.
+    //
+    // `auditHierarchy` subtracts what the registry already holds, so a
+    // DECLARED edge is never a candidate — which means "0 confirmed missing
+    // edges" says nothing at all about the 239 edges that are declared. The
+    // only way to learn whether the audit could see one is to ask whether the
+    // walk rediscovers its supertype: if it does not, deleting the
+    // declaration would raise nothing, and the audit is silent about an edge
+    // it cannot observe either way.
+    //
+    // Measured 2026-09-21: 3 of 239 were invisible before SCE85 taught the
+    // walk to follow `mixin` — `SplayTreeMap -> Map`, `SplayTreeSet ->
+    // Iterable`, `SplayTreeSet -> Set`, all three the same mixin-application
+    // shape. The matrix row above is one of them.
+    //
+    // The fix raised no new candidates and moved no baseline figure, which is
+    // the outcome to expect: these edges are DECLARED, so the walk finding
+    // them changes what a deletion would do, not what today's registry says.
+    final env = buildFullyRegisteredEnvironment();
+    expect(
+      invisibleRegisteredEdges(env),
+      isEmpty,
+      reason:
+          'The registry declares these edges and the cross-reference cannot '
+          'rediscover them, so deleting any of them would raise nothing and '
+          'F-SCD47-2 could not fire. Either the walk lost a relation the SDK '
+          'expresses some way it does not follow — `mixin` was the one SCE85 '
+          'found — or the edge is registered for a relation the SDK does not '
+          'declare at all, which is a different defect in the same list.',
+    );
+  });
+
+  test('F-SCE85-2 (control): the blind-spot check has edges to be blind to '
+      '[2026-09-21]', () {
+    // Anti-vacuity, and not a formality: F-SCE85-1 is an emptiness assertion
+    // over a derived set, so a walk that returned everything, a registry that
+    // came up empty, or a filter that dropped every edge would all satisfy it
+    // while checking nothing. 239 bridged-to-bridged edges were registered
+    // when this was written.
+    final env = buildFullyRegisteredEnvironment();
+    var edges = 0;
+    for (final name in env.bridgedClassNames) {
+      for (final supertype in BridgedClass.transitiveSupertypeNames(name)) {
+        if (supertype != name &&
+            env.findBridgedClassByName(supertype) != null) {
+          edges++;
+        }
+      }
+    }
+    expect(
+      edges,
+      greaterThanOrEqualTo(150),
+      reason:
+          'Only $edges registered bridged-to-bridged edges were found, against '
+          '239 measured on 2026-09-21. F-SCE85-1 passes trivially over a set '
+          'this small, so read it as unmeasured rather than as green.',
     );
   });
 }
