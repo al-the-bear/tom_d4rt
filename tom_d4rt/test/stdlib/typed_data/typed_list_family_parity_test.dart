@@ -36,13 +36,31 @@ void main() {
     'Uint32List',
     'Uint64List',
   ];
+  const floatVariants = ['Float32List', 'Float64List'];
+  const variants = [...intVariants, ...floatVariants];
 
+  /// The element literal `type` accepts.
+  ///
+  /// SCE71. The two float variants were excluded from these groups because the
+  /// probe bodies hardcoded `1`, and an `int` into a double list is a type
+  /// error in Dart — correctly rejected, so one literal could not drive both
+  /// families. The exclusion was the right call for a shared literal and the
+  /// wrong one for the property: the floats reach the same
+  /// `inheritedListMethods<E>()` helper and the same setters as the other
+  /// nine, and nothing asserted that they do. A hand-rolled adapter on
+  /// `Float64List` is the SCD28 shape repeating, and F-SCD28-4 would not see
+  /// it. Parameterising the literal is all that was in the way.
+  String lit(String type) => type.startsWith('Float') ? '1.0' : '1';
+
+  /// Runs `body` on `type`, with `{v}` replaced by an element literal the
+  /// type accepts, so one probe drives all eleven variants.
   String outcome(String type, String body) {
+    final source = body.replaceAll('{v}', lit(type));
     try {
       D4rt().execute(
         source:
             "import 'dart:typed_data'; main() { var l = $type(2); "
-            "$body; return 0; }",
+            "$source; return 0; }",
       );
       return 'OK';
     } catch (e) {
@@ -50,19 +68,20 @@ void main() {
     }
   }
 
-  group('SCD28: length-preserving setters work on every int variant', () {
-    for (final type in intVariants) {
-      test('F-SCD28-1-$type: `l.first = 1` assigns [2026-09-12] (PASS)', () {
+  group('SCD28: length-preserving setters work on every variant', () {
+    for (final type in variants) {
+      test('F-SCD28-1-$type: `l.first = <element>` assigns [2026-09-12] '
+          '(PASS)', () {
         // Valid Dart on a fixed-LENGTH list: assigning an element does not
         // change the length. Before the refactor this worked on Uint8List and
         // raised on the other ten, because only Uint8List declared setters.
-        expect(outcome(type, 'l.first = 1'), equals('OK'));
+        expect(outcome(type, 'l.first = {v}'), equals('OK'));
       });
     }
   });
 
-  group('SCD28: length= raises UnsupportedError on every int variant', () {
-    for (final type in intVariants) {
+  group('SCD28: length= raises UnsupportedError on every variant', () {
+    for (final type in variants) {
       test('F-SCD28-2-$type: `l.length = 1` is unsupported, not unknown '
           '[2026-09-12] (PASS)', () {
         // The distinction that matters: `length` EXISTS on a fixed-length list
@@ -76,16 +95,17 @@ void main() {
 
   group('SCD28: the length-changing members agree across the family', () {
     for (final member in const [
-      'l.add(1)',
-      'l.addAll([1])',
+      'l.add({v})',
+      'l.addAll([{v}])',
       'l.clear()',
-      'l.insert(0, 1)',
+      'l.insert(0, {v})',
       'l.removeLast()',
-      'l.replaceRange(0, 1, [2])',
+      'l.replaceRange(0, 1, [{v}])',
     ]) {
-      test('F-SCD28-3-$member: every int variant raises UnsupportedError '
+      final label = member.replaceAll('{v}', '<e>');
+      test('F-SCD28-3-$label: every variant raises UnsupportedError '
           '[2026-09-12] (PASS)', () {
-        final answers = {for (final t in intVariants) t: outcome(t, member)};
+        final answers = {for (final t in variants) t: outcome(t, member)};
         expect(
           answers.values.toSet(),
           equals({'UnsupportedError'}),
@@ -96,6 +116,60 @@ void main() {
         );
       });
     }
+  });
+
+  group('SCE71: the float variants reject an int element, by name', () {
+    for (final type in floatVariants) {
+      test('F-SCE71-1-$type: `l.first = 1` is refused with the named message '
+          '[2026-09-21]', () {
+        // THE MUST-NOT-WIDEN HALF, in the same family as scd26's
+        // F-SCD26-6/-7/-8. The groups above assert that every variant ACCEPTS
+        // an element of its own type; this asserts that the floats still
+        // REFUSE one of the wrong type. Coercing an `int` into a double list
+        // would make a script green here that does not compile as Dart, which
+        // is the one bridge defect a passing test cannot catch.
+        //
+        // The MESSAGE is asserted, not merely the throw. A raw `_TypeError`
+        // from a failed cast and the named refusal SCD28 added are both
+        // failures, and only one of them tells a script author what is wrong.
+        // Matching on the type alone would go green if the named message were
+        // lost to a refactor — which is exactly how it would be lost.
+        String message(String body) {
+          try {
+            D4rt().execute(
+              source:
+                  "import 'dart:typed_data'; main() { var l = $type(2); "
+                  '$body; return 0; }',
+            );
+            return '<no throw>';
+          } catch (e) {
+            return e.toString();
+          }
+        }
+
+        expect(
+          message('l.first = 1'),
+          allOf(
+            contains('Cannot assign int to first'),
+            contains('this list holds double'),
+          ),
+          reason:
+              'An int assigned into a $type must be refused with the message '
+              'SCD28 named, not with a bare cast error.',
+        );
+      });
+    }
+
+    test('F-SCE71-2 (control): the same assignment SUCCEEDS on the int '
+        'variants [2026-09-21]', () {
+      // Anti-vacuity, and it is the case that makes F-SCE71-1 mean something:
+      // `l.first = 1` must be refused on a double list *because it is the
+      // wrong element type*, not because `first =` is broken everywhere. If
+      // the setter were simply unimplemented, F-SCE71-1 would still pass.
+      for (final type in intVariants) {
+        expect(outcome(type, 'l.first = 1'), equals('OK'), reason: type);
+      }
+    });
   });
 
   group('SCD28: Uint8List is no longer the special case', () {
@@ -109,25 +183,25 @@ void main() {
         'l.sort()',
         'l.shuffle()',
         'l.asUnmodifiableView()',
-        'l.followedBy([1]).toList()',
-        'l.setAll(0, [1])',
-        'l.setRange(0, 1, [1])',
+        'l.followedBy([{v}]).toList()',
+        'l.setAll(0, [{v}])',
+        'l.setRange(0, 1, [{v}])',
         'l.sublist(0, 1)',
-        'l.first = 1',
+        'l.first = {v}',
         'l.length = 1',
-        'l.add(1)',
+        'l.add({v})',
         'l.removeWhere((x) => true)',
       ];
       final divergent = <String, Map<String, String>>{};
       for (final probe in probes) {
-        final answers = {for (final t in intVariants) t: outcome(t, probe)};
+        final answers = {for (final t in variants) t: outcome(t, probe)};
         if (answers.values.toSet().length > 1) divergent[probe] = answers;
       }
       expect(
         divergent,
         isEmpty,
         reason:
-            'These members do not behave the same on every int variant, which '
+            'These members do not behave the same on every variant, which '
             'is the bug class SCD28 removed the duplicate to prevent:\n'
             '$divergent',
       );
