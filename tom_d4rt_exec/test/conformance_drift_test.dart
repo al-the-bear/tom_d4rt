@@ -327,9 +327,36 @@ const _partialTwinBudget = 1;
 /// than the tree — the same reason its own entry gives. The copier surface it
 /// would have added is list, set and map literals with type arguments, which
 /// the corpus already copies on every run.
-const _copierGapBudget = 32;
+///
+/// 32 -> 33: SCE67 added `sce67_missing_member_catchable_test.dart`, which runs
+/// source to ask what an interpreted `on NoSuchMethodError` clause catches.
+/// Porting it CANNOT pass today: it asserts the fix that makes a missing getter
+/// catchable, and exec resolves the 0.65.0 that predates it — so the port would
+/// go red until the release lands and then measure the release rather than the
+/// tree. Its ast twin holds the half that does not need a parser. The copier
+/// surface a port would have added is member access and try/catch over string
+/// literals, which the corpus copies on every run.
+const _copierGapBudget = 33;
 
 const Map<String, _Coverage> _coveredElsewhere = {
+  'sce67_missing_member_catchable_test.dart': _Coverage(
+    'ast:sce67_missing_member_catchable_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 4,
+    twinCases: 3,
+    whyPartial:
+        'the twin asserts the HIERARCHY (F-SCE67-AST-1..3: '
+        'UndefinedMemberD4rtException is a NoSuchMethodError, is still a '
+        'RuntimeD4rtException, and the deliberately-uncatchable types are not) '
+        'rather than running scripts, because tom_d4rt_ast has no parser. That '
+        'is the half worth holding there: it is the tree a Flutter app ships, '
+        'so the hierarchy being right in THAT copy is what decides whether an '
+        "app's catch clause works. The reference case it omits is F-SCE67-2, "
+        'which asks what an interpreted `on NoSuchMethodError` clause catches '
+        'and needs a real script to ask. Porting that to exec is what the '
+        '_uncoveredBaseline entry defers, not this.',
+  ),
   // ---- Renamed on the exec side -------------------------------------------
   // exec folded three tom_d4rt filesystem suites into one file, and says so in
   // its own header: "the exec-side mirror of dfub1_filesystem_import_basepath_test
@@ -1845,8 +1872,10 @@ const Map<String, _Divergence> _divergentBaseline = {
   // cannot pass. F-SCE16-1 loops over `Stream.periodic`, which under the old
   // `stream.toList()` implementation never completes, so that case does not
   // fail against 0.65.0, it HANGS; F-SCE16-2 asserts the body runs between
-  // elements rather than after all of them. Converges when the interpreter
-  // carrying SCE16 publishes, which sce162 currently blocks.
+  // elements rather than after all of them. Converges at a floor past 0.116.0,
+  // the version the commit carrying SCE16 declares — a publish sce162 blocks.
+  // Registered in [_pinnedInterpreterFloors] so F-SCC43-1 can retire it when
+  // that lands; before SCE68 it was pinned here in prose and nowhere else.
   'scd4_await_for_break_test.dart': _Divergence.deliberate,
   // The reference copy's four `(legacy)` cases reach into the analyzer `D4rt`'s
   // own environment chain — `enclosing`, the static warm-parent cache keyed on
@@ -2082,6 +2111,12 @@ const Map<String, String> _pinnedInterpreterFloors = <String, String>{
   // the four commits are known (0.117.0, 0.118.0, 0.119.0, 0.120.0), so the
   // earliest release carrying each is not a guess here. A pin that is later
   // than it needs to be keeps an available port out of reach.
+  // SCE16's `await for` laziness, pinned by SCE68 — it was PROSE-pinned in
+  // `_divergentBaseline` ("Converges when the interpreter carrying SCE16
+  // publishes") and registered nowhere, which is the gap F-SCE68-1 closes.
+  // 0.116.0 is the version the commit carrying SCE16 declares, not a
+  // conservative guess.
+  'scd4_await_for_break_test.dart': '0.116.0',
   'sce17_await_in_expression_body_test.dart': '0.117.0',
   'sce18_finally_on_abrupt_exit_test.dart': '0.118.0',
   'sce19_do_while_first_body_run_test.dart': '0.119.0',
@@ -2793,6 +2828,38 @@ const Map<String, String> _astWorkingTreeDrift = {
 // ignore: unnecessary_nullable_for_final_variable_declarations
 const String? _astPublishBlock =
     'sce162_aioc-four-unpublished-base-corpus-regressions-block-the-publish';
+
+/// One baseline entry and the comment block written directly above it.
+typedef _BaselineEntry = ({String path, String comment});
+
+/// Every entry of [register] in this file's source, with its leading comment.
+///
+/// Reads the SOURCE rather than the parsed map because the thing being checked
+/// is the PROSE, and a `const Map` keeps none of it. The block above an entry
+/// runs back to the previous entry, so a header comment introducing a batch is
+/// attached to the first entry of that batch — which is where a batch-wide
+/// "PUBLISH-BLOCKED" note is written.
+List<_BaselineEntry> _baselineEntriesWithComments(String register) {
+  final source = File('test/conformance_drift_test.dart').readAsStringSync();
+  final start = source.indexOf('$register = ');
+  if (start < 0) return const [];
+  final end = source.indexOf('\n};', start);
+  final body = source.substring(start, end);
+  final entryLine = RegExp(r"^\s*'([^']+)'\s*:", multiLine: true);
+
+  final out = <_BaselineEntry>[];
+  final buffer = StringBuffer();
+  for (final line in body.split('\n').skip(1)) {
+    final match = entryLine.firstMatch(line);
+    if (match == null) {
+      buffer.writeln(line);
+      continue;
+    }
+    out.add((path: match.group(1)!, comment: buffer.toString()));
+    buffer.clear();
+  }
+  return out;
+}
 
 /// The directory exec's own package config resolves `tom_d4rt_ast` to.
 ///
@@ -4039,6 +4106,84 @@ void main() {
       expect(
         _pinVerdict('0.40.0', floor: '0.65.0', resolved: '0.65.0'),
         isNot(_PinVerdict.due),
+      );
+    });
+
+    test('F-SCE68-1: a baseline entry pinned on a publish is registered as '
+        'one [2026-09-21]', () {
+      // F-SCC43-1 reads [_pinnedInterpreterFloors] and retires entries whose
+      // floor the resolved interpreter has reached. It cannot see an entry
+      // that was pinned in PROSE and never added to that register: nothing
+      // then connects the entry to the publish that frees it, and it outlives
+      // its cause exactly the way SCC44's seven did — "recorded from prose
+      // rather than from a run, and the pins outlived their cause by a full
+      // release".
+      //
+      // TWO CONVENTIONS, BOTH MATCHED, and finding the second is why the
+      // pattern is not simply "a version literal appears".
+      // `_divergentBaseline` writes prose — "Converges at a floor past
+      // 0.100.0" — while `_uncoveredBaseline` writes explicit
+      // `PUBLISH-BLOCKED` / `Re-port when ...` markers. A pattern built from
+      // either alone covers half the corpus and reports a confident zero over
+      // the other half.
+      //
+      // FORWARD-LOOKING PHRASING ONLY. "the published interpreter answers X"
+      // is evidence about today and appears in most entries; "converges when
+      // X publishes" is a claim about a future event that retires the entry.
+      // Matching the first would make nearly every entry a finding. Measured
+      // 2026-09-21: 30 entries are pin-shaped and 29 were registered — the one
+      // that was not is scd4, registered by this todo.
+      final pinPhrase = RegExp(
+        r'(PUBLISH-BLOCKED|re-?port\s+when|converges?\s+(at|when|once)'
+        r'|flips?\s+(at|when|once)|blocked\s+until|at\s+a\s+floor\s+past'
+        r'|raises?\s+\S+\s+floor\s+past|once\s+\S+\s+publishes)',
+        caseSensitive: false,
+      );
+      // An entry that genuinely cannot be pinned says so, rather than the
+      // check being switched off for the one case it cannot judge.
+      final exempt = RegExp(r'pin-registered:\s*n/a', caseSensitive: false);
+
+      final problems = <String>[];
+      var pinShaped = 0;
+      for (final register in const [
+        '_divergentBaseline',
+        '_uncoveredBaseline',
+      ]) {
+        for (final entry in _baselineEntriesWithComments(register)) {
+          final prose = entry.comment.replaceAll(RegExp(r'\s+'), ' ');
+          if (!pinPhrase.hasMatch(prose)) continue;
+          if (exempt.hasMatch(prose)) continue;
+          pinShaped++;
+          if (_pinnedInterpreterFloors.containsKey(entry.path)) continue;
+          problems.add(
+            '$register: ${entry.path} reads as waiting on a release '
+            '("${pinPhrase.firstMatch(prose)!.group(0)}") but has no '
+            '_pinnedInterpreterFloors entry',
+          );
+        }
+      }
+
+      expect(
+        pinShaped,
+        greaterThanOrEqualTo(20),
+        reason:
+            'Anti-vacuity: this case is a loop over pin-shaped entries, so a '
+            'pattern that matched nothing would satisfy it while checking '
+            'nothing. 30 matched when it was written; the floor asks only that '
+            'the prose still has the shape this reads.',
+      );
+      expect(
+        problems,
+        isEmpty,
+        reason:
+            'A baseline entry pinned on a publish must name its floor in '
+            '_pinnedInterpreterFloors, or F-SCC43-1 cannot retire it when the '
+            'publish lands:\n  ${problems.join('\n  ')}\n\n'
+            'Add the version the fix ACTUALLY landed in — the commit is '
+            'usually known, and a floor later than it needs to be keeps an '
+            'available port out of reach. If the entry genuinely cannot be '
+            'pinned to a version, write `pin-registered: n/a — <reason>` in '
+            'its comment.',
       );
     });
 
