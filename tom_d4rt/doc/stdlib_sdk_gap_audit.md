@@ -884,19 +884,40 @@ enum (`HttpClientResponseCompressionState`) reached `EnumName.name`:
 | Group | Count | Entries | Verdict |
 | --- | --- | --- | --- |
 | Real Dart **extension** members | 15 | `firstOrNull`/`lastOrNull`/`singleOrNull`/`elementAtOrNull`/`indexed` on `Iterable` and `List`; `List.byName`; `Enum.name` and `HttpClientResponseCompressionState.name`; `Future.ignore`/`onError` | **Correct** — the bridge is right and the oracle is blind. Re-verified 2026-09-12: all fifteen compile against the native types under `dart analyze` |
-| Declared conveniences | 15 | `FileSystemEvent.isCreate`/`isModify`/`isDelete`/`isMove`; `asUint8ListView` on **all eleven** typed lists | **Accepted, but see below** — not all are commented as deliberate |
+| Declared conveniences | 15 | `FileSystemEvent.isCreate`/`isModify`/`isDelete`/`isMove`; `asUint8ListView` on **all eleven** typed lists | **Accepted, and now commented as deliberate at every definition** — see below |
 | Fabricated members | ~~4~~ 0 | ~~`InternetAddressType.host`/`address`/`type`/`lookup`~~ | **FIXED 2026-09-12 (scd24)** — removed from both trees and pinned; see below |
 
 `Function.call` appeared in the 2026-09-04 table and no longer does.
 
-**A correction to the previous verdict.** The conveniences row used to read
-"each is commented as deliberate at its definition". Checked 2026-09-12, that is
-true of `FileSystemEvent` — its four sit under `// Convenience getters for type
-checking` — and **not** of `asUint8ListView`, whose eleven sit under
-`// Typed methods`, which says what they are and nothing about why they exist
-beyond the SDK. The members are still accepted; what was wrong was the claim
-that the acceptance is written down where the next reader meets it. Tracked as
-sce65.
+**A correction to the previous verdict, since closed.** The conveniences row
+used to read "each is commented as deliberate at its definition". Checked
+2026-09-12, that was true of `FileSystemEvent` — its four sit under
+`// Convenience getters for type checking` — and **not** of `asUint8ListView`,
+whose eleven sat under `// Typed methods`, which says what they are and nothing
+about why they exist beyond the SDK. The members were accepted; what was wrong
+was the claim that the acceptance is written down where the next reader meets
+it.
+
+**Closed 2026-09-21.** All eleven definitions in both trees now carry the
+reason, and the KEEP decision is recorded there rather than inherited:
+
+* **Kept, not removed.** The removal precedent is scd24's four
+  `InternetAddressType` members, and it does not apply. Those were wired to
+  unrelated `Object` members and returned wrong answers — `type.address` gave a
+  hash code. `asUint8ListView` returns exactly what its name says; it is a
+  convenience over `buffer.asUint8List(offsetInBytes, lengthInBytes)`.
+* **Nothing in this workspace calls it.** Measured: outside the 22 definitions
+  the only mentions are this document, `tool/stdlib_member_diff.dart`, the
+  `F-SCC60-3-*` presence tests and two CHANGELOGs. No corpus script uses it, so
+  removal would be a breaking interpreter change bought for no reader.
+* **The widening hazard is real and is named at each definition.** A script
+  using it is green here and does not compile as real Dart. That is the same
+  shape as the `buffer` CALL form, which *was* removed (`F-SCD27-*`) — the
+  difference is that `buffer` shadowed a real SDK getter with a wrong access
+  form, while this adds a member the SDK simply lacks.
+
+The comment is identical in both trees; the eleven pairs differ only by their
+import line, as the mirror rule requires.
 
 **The oracle cannot see extension members**, because `dart:mirrors` reports
 declarations on the type and an extension declares nothing on it. So every

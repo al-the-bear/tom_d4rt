@@ -1,3 +1,27 @@
+## 1.139.0
+
+### Documentation — `asUint8ListView` records why it exists (sce65)
+
+The eleven typed-list `asUint8ListView` adapters sat under a bare
+`// Typed methods` heading, which says what they are and nothing about why
+they exist beyond the SDK. No typed list declares the member: `dart analyze`
+on a native one answers "The method 'asUint8ListView' isn't defined".
+
+That makes it the WIDENING SHAPE — a script using it is green in the
+interpreter and does not compile as real Dart, so the error surfaces only when
+the script leaves here. The acceptance had been recorded, but in
+`doc/stdlib_sdk_gap_audit.md` rather than where a reader meets the member.
+
+Each definition now carries the reason, and the KEEP decision rather than
+inheriting it. The removal precedent — scd24's four `InternetAddressType`
+members — does not apply: those were wired to unrelated `Object` members and
+returned wrong answers, while this returns what its name says. Nothing in the
+workspace calls it, so removing it would be a breaking interpreter change
+bought for no reader, and all eleven variants are pinned present by
+`F-SCC60-3-*`.
+
+Comment only; no behaviour changes. Identical in both mirrored trees.
+
 ## 1.138.0
 
 ### Changed — doc comments that name a library are marked as prose (sce56)

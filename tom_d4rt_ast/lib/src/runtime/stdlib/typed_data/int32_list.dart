@@ -145,7 +145,26 @@ class Int32ListTypedData {
       // widening shape, where a script is green here and invalid there.
       // The getter registration below is the correct one and stays.
       // Absence pinned by F-SCD27-*.
-      // Typed methods
+      // NOT AN SDK MEMBER, and deliberately so. No typed list declares
+      // `asUint8ListView`: `dart analyze` on a native one answers "The method
+      // 'asUint8ListView' isn't defined". It is a convenience over
+      // `buffer.asUint8List(offsetInBytes, lengthInBytes)`, and it is the
+      // WIDENING SHAPE — a script using it is green in this interpreter and
+      // does not compile as real Dart, so the error surfaces only when the
+      // script leaves here.
+      //
+      // KEPT, and that is a decision rather than an inheritance (sce65). The
+      // gap audit accepts it, all eleven variants are pinned present by
+      // `F-SCC60-3-*`, and nothing in this workspace calls it — so removing it
+      // would be a breaking interpreter change bought for no reader. The
+      // precedent for deletion is scd24's four `InternetAddressType` members
+      // and it does not apply: those were wired to unrelated `Object` members
+      // and returned wrong answers, while this returns what its name says.
+      // `FileSystemEvent`'s four `is*` getters are the same accepted
+      // category, and were already commented this way — which is the whole
+      // defect sce65 names: the acceptance existed, in a document, and not
+      // where a reader meets the member.
+      // See `tom_d4rt/doc/stdlib_sdk_gap_audit.md`.
       'asUint8ListView': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Int32List.asUint8ListView', atMost: 2);
         final offsetInBytes = positionalArgs.isNotEmpty
