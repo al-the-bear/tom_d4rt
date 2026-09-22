@@ -122,7 +122,18 @@ foreach ($f in $files) {
   $m = Select-String -Path "$out/$base.log.txt" -Pattern '\+\d+( ~\d+)?( -\d+)?' |
     Select-Object -Last 1
   $summary = if ($m) { $m.Matches[0].Value } else { '<no summary>' }
-  $note = if ($rc -eq 124) { " (IDLE-KILLED after ${idle}s of no output)" } else { '' }
+  # SCE148: 124 means "a cap fired", and there are now two. The wrapper writes
+  # which one into the log; reporting a wall-clock kill as IDLE-KILLED would
+  # describe a run that was producing output the whole time as a silent one.
+  $note = ''
+  if ($rc -eq 124) {
+    $wallHit = Select-String -Path "$out/$base.log.txt" -Pattern '^== wall_timeout:' -Quiet
+    $note = if ($wallHit) {
+      " (WALL-KILLED after the per-file wall-clock cap)"
+    } else {
+      " (IDLE-KILLED after ${idle}s of no output)"
+    }
+  }
   Add-Content -Path "$out/metrics.txt" -Value "${base}: exit=$rc $summary$note"
 }
 

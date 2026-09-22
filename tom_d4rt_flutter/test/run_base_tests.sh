@@ -140,7 +140,18 @@ for f in "${FILES[@]}"; do
   # flutter test summary line looks like: "00:42 +45 ~2 -1: Some tests failed."
   summary="$(grep -oE '\+[0-9]+( ~[0-9]+)?( -[0-9]+)?' "${OUT}/${base}.log.txt" | tail -1)"
   note=""
-  [ "$rc" = "124" ] && note=" (IDLE-KILLED after ${IDLE_TIMEOUT}s of no output)"
+  # SCE148: 124 means "a cap fired", and there are two — the idle watchdog and
+  # `timeout 900`. Only the watchdog writes a marker, so its absence is what
+  # identifies a wall-clock kill. Reporting one as IDLE-KILLED describes a run
+  # that was producing output the whole time as a silent one, which sends the
+  # next reader after the wrong failure.
+  if [ "$rc" = "124" ]; then
+    if grep -q '^== idle_timeout:' "${OUT}/${base}.log.txt" 2>/dev/null; then
+      note=" (IDLE-KILLED after ${IDLE_TIMEOUT}s of no output)"
+    else
+      note=" (WALL-KILLED after the per-file wall-clock cap)"
+    fi
+  fi
   echo "${base}: exit=${rc} ${summary:-<no summary>}${note}" | tee -a "$OUT/metrics.txt"
 done
 

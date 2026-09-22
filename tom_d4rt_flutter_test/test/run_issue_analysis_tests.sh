@@ -33,7 +33,14 @@ PROJECT="$(basename "$PWD")"
 
 # Idle-output watchdog: kill a test file that produces NO output for this many
 # seconds. Override with IDLE_TIMEOUT=<seconds>.
-IDLE_TIMEOUT="${IDLE_TIMEOUT:-70}"
+#
+# SCE148: 300, not the 70 this still carried. SCD131 raised this default across
+# what it called "all ten runner scripts"; this is the eleventh, in the
+# standalone demo app rather than in a twin, and the count was the tell. 70 is
+# shorter than the thing it watches — `SendTestRunner.setUp` waits up to 120 s
+# for the companion app — so on a cold build cache the first file is killed with
+# exit 124 and zero tests, which reads as a hang and is not one.
+IDLE_TIMEOUT="${IDLE_TIMEOUT:-300}"
 
 ID="${1:-$(date +%Y%m%d-%H%M)-issue-analysis}"
 OUT="testlog/testlog_${ID}"
@@ -66,7 +73,18 @@ for f in "${FILES[@]}"; do
   rc=$?
   summary="$(grep -oE '\+[0-9]+( ~[0-9]+)?( -[0-9]+)?' "${OUT}/${base}.log.txt" | tail -1)"
   note=""
-  [ "$rc" = "124" ] && note=" (IDLE-KILLED after ${IDLE_TIMEOUT}s of no output)"
+  # SCE148: 124 means "a cap fired", and there are two — the idle watchdog and
+  # `timeout 900`. Only the watchdog writes a marker, so its absence is what
+  # identifies a wall-clock kill. Reporting one as IDLE-KILLED describes a run
+  # that was producing output the whole time as a silent one, which sends the
+  # next reader after the wrong failure.
+  if [ "$rc" = "124" ]; then
+    if grep -q '^== idle_timeout:' "${OUT}/${base}.log.txt" 2>/dev/null; then
+      note=" (IDLE-KILLED after ${IDLE_TIMEOUT}s of no output)"
+    else
+      note=" (WALL-KILLED after the per-file wall-clock cap)"
+    fi
+  fi
   echo "${base}: exit=${rc} ${summary:-<no summary>}${note}" | tee -a "$OUT/metrics.txt"
 done
 
