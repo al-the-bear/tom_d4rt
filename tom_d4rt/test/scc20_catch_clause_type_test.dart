@@ -301,21 +301,40 @@ main() {
       },
     );
 
-    test('F-SCC20-16: an unresolvable on-type misses instead of throwing '
-        '[2026-09-04]', () {
-      // The one thing the catch clause legitimately needs that `is` does not.
-      // `_valueHasType` reports a failed type lookup by THROWING; a catch
-      // clause must not do that, because the throw would replace the exception
-      // being dispatched with a lookup failure and lose the original. So the
-      // call is wrapped and a resolution failure means "this clause does not
-      // match" — which is exactly what the old warn-and-continue path did.
-      expect(
+    test('F-SCC20-16: an unresolvable on-type is an ERROR, and the dispatched '
+        'exception survives it [2026-09-04, flipped by SCE127 2026-09-22]', () {
+      // WAS `equals('fell-through')`. SCC20 recorded the miss as the one thing
+      // a catch clause legitimately needs that `is` does not, for a reason
+      // that was correct and is preserved: `_valueHasType` reports a failed
+      // lookup by THROWING, and letting that escape would replace the
+      // exception being dispatched with a lookup failure and lose the
+      // original.
+      //
+      // SCE127 kept the reason and changed the answer. Real Dart refuses to
+      // compile an `on` clause naming a non-type (`non_type_in_catch_clause`),
+      // and the miss made d4rt run a DIFFERENT BRANCH of a program Dart
+      // rejects — here, `fell-through` from a handler the author did not
+      // choose. The clause now fails, and the diagnostic carries BOTH halves,
+      // so nothing is lost: that is what this case pins now.
+      String thrown;
+      try {
         run('''
           try { throw 'boom'; }
           on NoSuchTypeAnywhere catch (e) { return 'on-missing'; }
           catch (e) { return 'fell-through'; }
-        '''),
-        equals('fell-through'),
+        ''');
+        thrown = 'no throw';
+      } catch (e) {
+        thrown = e.toString();
+      }
+      expect(thrown, contains('NoSuchTypeAnywhere'));
+      expect(thrown, contains('does not resolve to a type'));
+      expect(
+        thrown,
+        contains('boom'),
+        reason:
+            'the exception being dispatched is named too — the loss SCC20 '
+            'wrote this case to prevent still does not happen',
       );
     });
 

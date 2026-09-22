@@ -9,6 +9,7 @@
 import 'dart:io';
 
 import 'package:test/test.dart';
+import 'package:tom_d4rt/d4rt.dart';
 
 import 'sibling_trees.dart';
 import 'interpreter_test.dart' show execute;
@@ -25,7 +26,10 @@ import 'interpreter_test.dart' show execute;
 /// AN `on` CLAUSE NAMING AN UNREGISTERED TYPE DOES NOT ERROR. It never matches.
 /// The script falls through to the next clause, or to the bare `catch`, or out
 /// of the `try` entirely, and takes a branch it never meant to take. Measured
-/// here as F-SCD94-1, -2 and -3, because a hazard nobody has seen fire reads as
+/// here as F-SCD94-1, -2 and -3 — FLIPPED BY SCE127, which made the hazard a
+/// loud failure instead of a silent one; they now pin the diagnostic. Kept as a
+/// hazard section rather than deleted, because a hazard nobody has seen fire
+/// reads as
 /// theoretical.
 ///
 /// **Real Dart makes this a compile error.** `on NotARegisteredError` is
@@ -94,23 +98,38 @@ void main() {
     // The hazard itself. Every positive case below is only meaningful
     // because these three show what a MISSING registration looks like.
 
-    test('F-SCD94-1: an `on` clause naming an unregistered type falls through '
-        'silently [2026-09-14]', () {
-      // No error, no warning, nothing in the output that says the clause was
-      // inert. Real Dart refuses to compile this.
+    test('F-SCD94-1: an `on` clause naming an unregistered type FAILS '
+        '[2026-09-14, flipped by SCE127 2026-09-22]', () {
+      // WAS `startsWith('FELL-THROUGH')`. SCD94 recorded the silent
+      // fall-through as observed behaviour and said real Dart refuses to
+      // compile such a program; SCE127 made d4rt refuse to run it. The
+      // diagnostic names the unresolved type, so the author learns what is
+      // wrong rather than discovering a dead clause by testing that it fires.
       expect(
-        onClause('NotARegisteredError', 'var l = <int>[]; return l.first;'),
-        startsWith('FELL-THROUGH'),
+        () =>
+            onClause('NotARegisteredError', 'var l = <int>[]; return l.first;'),
+        throwsA(
+          isA<RuntimeD4rtException>().having(
+            (e) => e.toString(),
+            'message',
+            allOf(
+              contains('NotARegisteredError'),
+              contains('does not resolve to a type'),
+              contains('non_type_in_catch_clause'),
+            ),
+          ),
+        ),
       );
     });
 
-    test('F-SCD94-2: an inert clause lets a LATER clause take the branch '
-        '[2026-09-14]', () {
-      // The shape that makes this worse than a crash. The script runs, returns
-      // a value, and the value came from a handler the author did not intend
-      // to reach.
+    test('F-SCD94-2: an inert clause no longer lets a LATER clause take the '
+        'branch [2026-09-14, flipped by SCE127 2026-09-22]', () {
+      // WAS `'second'` — the shape that made this worse than a crash: the
+      // script ran, returned a value, and the value came from a handler the
+      // author did not intend to reach. The dead clause is now reported at the
+      // moment the wrong branch would have been taken.
       expect(
-        execute('''
+        () => execute('''
           main() {
             try { var l = <int>[]; return l.first; }
             on NotARegisteredError { return 'first'; }
@@ -118,12 +137,18 @@ void main() {
             return 'none';
           }
         '''),
-        'second',
+        throwsA(isA<RuntimeD4rtException>()),
       );
     });
 
-    test('F-SCD94-3: with no other clause the exception escapes the try '
-        '[2026-09-14]', () {
+    test('F-SCD94-3: the original exception is not lost [2026-09-14, flipped '
+        'by SCE127 2026-09-22]', () {
+      // WAS `throwsA(isA<StateError>())` — with no other clause the exception
+      // escaped the try as if the handler were not written. It still does not
+      // reach the dead clause, but the failure now says WHY, and the
+      // diagnostic carries the exception that was being dispatched so neither
+      // half is lost. That was the old code's stated concern about throwing
+      // here, and it is answered rather than discarded.
       expect(
         () => execute('''
           main() {
@@ -132,7 +157,19 @@ void main() {
             return 'NO THROW';
           }
         '''),
-        throwsA(isA<StateError>()),
+        throwsA(
+          isA<RuntimeD4rtException>().having(
+            (e) => e.toString(),
+            'message',
+            allOf(
+              contains('NotARegisteredError'),
+              // The exception that was in flight — `l.first` on an empty list
+              // — so the author sees what was being handled as well as what
+              // was misspelled.
+              contains('No element'),
+            ),
+          ),
+        ),
       );
     });
 

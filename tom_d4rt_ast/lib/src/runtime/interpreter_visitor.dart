@@ -11817,15 +11817,54 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     // `on c.HashSet` never resolved.
     try {
       return _valueHasType(typeNode, thrownValue);
-    } on InternalInterpreterD4rtException catch (e) {
-      // The one thing a catch clause needs that `is` does not: an unresolvable
-      // `on T` must MISS, not throw. Letting the lookup failure escape would
-      // replace the exception being dispatched and lose the original.
-      Logger.warn(
-        "[STryStatement] Could not resolve catch clause type "
-        "'$targetCatchTypeName': ${e.originalThrownValue}",
+    } on InternalInterpreterD4rtException {
+      // SCE127: an `on T` naming something that does not resolve to a type is
+      // a defect in the program text, and REAL DART REFUSES TO COMPILE IT
+      // (`non_type_in_catch_clause`). d4rt used to log a warning and answer
+      // `false`, which is the most dangerous available divergence: the clause
+      // is inert, a LATER clause takes the branch, and the script returns a
+      // value from a handler its author never meant to reach. With no later
+      // clause the exception escaped the `try` as if the handler were not
+      // written. Nothing in the output said so — a script author could only
+      // discover a dead clause by testing that it fires, which is exactly the
+      // test people skip, because catching by name is assumed to work.
+      //
+      // THE OLD COMMENT'S CONCERN IS REAL AND IS ANSWERED RATHER THAN
+      // DISCARDED: "letting the lookup failure escape would replace the
+      // exception being dispatched and lose the original". So the failure does
+      // not escape — a diagnostic is raised that names BOTH the unresolved
+      // type and the exception that was being dispatched when the dead clause
+      // was reached, so neither half is lost.
+      //
+      // WHEN, and why here: Dart checks at compile time over the whole
+      // program; d4rt resolves names lazily, so the analogue is to fail when
+      // the clause is REACHED. That is later than Dart and only fires on an
+      // exception that actually arrives — but it needs no new pass, and it
+      // converts the silent wrong branch into a loud failure at the exact
+      // moment the wrong branch would have been taken.
+      //
+      // MEASURED BEFORE CHANGING IT, because a legitimate unresolvable `on`
+      // type would make working scripts start throwing: a class declared after
+      // `main`, a class from another module, a prefixed `p.Other`, a generic
+      // `List<int>` and a `typedef` alias all resolve. The one shape that does
+      // not is a type from a library the script did not import — which Dart
+      // also rejects, so it is this same defect rather than an exception to it.
+      //
+      // `thrownValue`, NOT the lookup failure. The first draft reported
+      // `e.originalThrownValue` here, which is the resolution error itself —
+      // so the diagnostic ended "the exception being dispatched was: Undefined
+      // variable: X", naming the dead clause's own type back at the reader
+      // instead of the exception in flight. That is the very loss the old
+      // `return false` existed to prevent, reintroduced by the fix meant to
+      // preserve it. SCC20's F-SCC20-16 caught it.
+      throw RuntimeD4rtException.resolutionFailure(
+        "The `on` clause names '$targetCatchTypeName', which does not resolve "
+        "to a type, so it can never match and the exception would be handled "
+        "somewhere else or not at all. Real Dart rejects this program "
+        "(non_type_in_catch_clause). Import the library that declares "
+        "'$targetCatchTypeName', or register a bridge for it. The exception "
+        "being dispatched when the dead clause was reached was: $thrownValue",
       );
-      return false;
     } on UnimplementedD4rtException catch (e) {
       Logger.warn(
         "[STryStatement] Unsupported catch clause type node "

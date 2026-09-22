@@ -1,3 +1,43 @@
+## 1.171.0
+
+### Changed — an `on` clause naming an unresolvable type now fails (sce127)
+
+Real Dart refuses to compile it (`non_type_in_catch_clause`). d4rt logged a
+warning nobody sees and answered `false`, so the divergence ran in the most
+dangerous direction available — Dart rejects the program, d4rt silently runs a
+DIFFERENT BRANCH of it. With a later clause, that clause took the branch and
+the script returned a value from a handler its author never meant to reach;
+with no later clause, the exception escaped the `try` as if the handler were
+not written. A script author could only discover a dead clause by testing that
+it fires, which is exactly the test people skip.
+
+THE OLD CODE'S CONCERN IS ANSWERED RATHER THAN DISCARDED. Its comment read
+"letting the lookup failure escape would replace the exception being dispatched
+and lose the original" — true, and the reason it returned `false`. So the
+failure does not escape: the diagnostic names BOTH the unresolved type and the
+exception that was in flight, and points at the remedy.
+
+MEASURED BEFORE CHANGING IT, because a legitimate unresolvable `on` type would
+make working scripts start throwing. A class declared after `main`, a class
+from another module, a prefixed `p.Other`, a generic `List<int>` and a
+`typedef` alias all resolve. The only shape that does not is a type from a
+library the script did not import — which Dart also rejects, so it is this same
+defect rather than an exception to it. The other candidate, a bridge not
+finalized when the clause is reached, does not arise: `finalizeBridges` runs
+implicitly on first execute.
+
+The check fires when the clause is REACHED, which is later than Dart and leaves
+a dead clause nothing ever reaches silent. That is recorded in the test rather
+than hidden; closing it needs a whole-program pass, which this change does not
+add.
+
+SCD94's F-SCD94-1, -2, -3 and F-SCD94-AST-2 pinned the silent fall-through as
+observed behaviour and are flipped in the same commit, as that todo's successor
+required.
+
+Name resolution: no. How a name RESOLVES is unchanged — only the reaction to a
+resolution that fails, inside a catch clause.
+
 ## 1.170.0
 
 ### Fixed — `String.fromCharCodes` accepts any `Iterable`, as the SDK declares (sce126)

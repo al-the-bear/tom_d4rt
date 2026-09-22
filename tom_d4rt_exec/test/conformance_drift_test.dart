@@ -1480,6 +1480,13 @@ typedef _CaseCounts = ({int ran, int declared});
 /// a copy would ask the same questions about the same three packages and add a
 /// second red for one cause, not that it cannot run.
 const Map<String, _CaseCounts> _uncoveredBaseline = {
+  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.154.0.
+  // SCE127 made an `on` clause naming an unresolvable type FAIL instead of
+  // falling through; the published 0.65.0 still logs a warning and answers
+  // `false`, so -1 and -2 would assert the diagnostic against an interpreter
+  // that produces none. -3 and -4 would pass there, which is exactly why they
+  // are the safety evidence rather than the subject.
+  'sce127_dead_on_clause_test.dart': (ran: 4, declared: 4),
   // NOT PORTABLE, and not blocked on a publish. It compares what FIVE host
   // boundaries hand over for one script failure, and two of them — `invoke`
   // and `eval`'s statement form — are `tom_d4rt` API that exec's front end
@@ -2190,7 +2197,16 @@ const Map<String, _Divergence> _divergentBaseline = {
   // the nine unbaselined divergences SCD153 measured passed when ported and
   // were converged instead of landing here.
   //
-  // `scc20`: the reference copy asserts `['bad', 'src', 2]` from a caught
+  // `scc20`: TWO sanctioned differences now. SCE127 added the second — the
+  // reference copy's F-SCC20-16 asserts that an unresolvable `on` type is an
+  // ERROR naming the type and the exception in flight, while the published
+  // interpreter still logs a warning and lets the clause MISS, so this copy
+  // keeps `equals('fell-through')`. Converges at a floor past 0.154.0, the
+  // same publish the `_uncoveredBaseline` entry for
+  // `sce127_dead_on_clause_test.dart` waits on, and the floor this entry
+  // is registered at because it is the LATER of the two. The first
+  // difference, which converges at 0.79.0:
+  // the reference copy asserts `['bad', 'src', 2]` from a caught
   // `FormatException`; the published interpreter answers `['bad', null, null]`
   // because its bridge reads `source` and `offset` out of namedArgs while the
   // SDK constructor takes all three positionally. SCD68 fixed the adapter.
@@ -2439,7 +2455,7 @@ const Map<String, _Divergence> _divergentBaseline = {
 const Map<String, String> _divergenceFingerprints = <String, String>{
   'scd77_uri_is_scheme_test.dart': '7157029405e6bfda',
   'scb9_error_handler_arity_test.dart': 'd880f1617d543ff7',
-  'scc20_catch_clause_type_test.dart': 'cf854ab1616b9e5f',
+  'scc20_catch_clause_type_test.dart': '1f778a50235ef954',
   'stdlib/collection/list_queue_test.dart': '927a588334725bb2',
   'stdlib/collection/queue_test.dart': '19eee099a23916a8',
   'stdlib/cast_from_family_test.dart': 'c7a32ccddec5a069',
@@ -2587,6 +2603,7 @@ const Map<String, String> _divergenceFingerprints = <String, String>{
 /// being pinned. Measure before pinning and the pin survives; infer it and it
 /// rots.
 const Map<String, String> _pinnedInterpreterFloors = <String, String>{
+  'sce127_dead_on_clause_test.dart': '0.154.0',
   // SCE121 gave the `Function` bridge an `isAssignable` that answers with
   // the interpreter's own `Callable`, so `is Function` is true for a bridged
   // tear-off from this release on.
@@ -2663,7 +2680,10 @@ const Map<String, String> _pinnedInterpreterFloors = <String, String>{
   // from 0.68.0 up would have carried exec past the behaviour change WITHOUT
   // producing a checklist, and the two tests would have gone red with nothing
   // saying why — which is precisely the outcome that todo existed to prevent.
-  'scc20_catch_clause_type_test.dart': '0.79.0',
+  // TWO differences since SCE127; the LATER floor is the binding one,
+  // because the entry can only retire when both have converged. The
+  // SCD68 half converges at 0.79.0.
+  'scc20_catch_clause_type_test.dart': '0.154.0',
   'stdlib/collection/list_queue_test.dart': '0.68.0',
   'stdlib/collection/queue_test.dart': '0.68.0',
   'stdlib/cast_from_family_test.dart': '0.70.0',

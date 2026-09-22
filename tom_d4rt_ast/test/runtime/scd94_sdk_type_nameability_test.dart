@@ -159,12 +159,26 @@ void main() {
       expect(run('StateError'), 'CAUGHT');
     });
 
-    test('F-SCD94-AST-2: an unregistered type falls through silently '
-        '[2026-09-14] (PASS)', () {
-      // The hazard, and the control that makes -1 mean something. Real Dart
-      // rejects this at compile time (`non_type_in_catch_clause`); d4rt runs
-      // the program and takes another branch without saying anything.
-      expect(run('NotARegisteredError'), 'FELL-THROUGH');
+    test('F-SCD94-AST-2: an unregistered type FAILS LOUDLY [2026-09-14, '
+        'flipped by SCE127 2026-09-22]', () {
+      // WAS `'FELL-THROUGH'`. The hazard, and the control that makes -1 mean
+      // something: real Dart rejects this at compile time
+      // (`non_type_in_catch_clause`), and d4rt used to run the program and
+      // take another branch without saying anything. It now refuses, naming
+      // the type that does not resolve.
+      expect(
+        () => run('NotARegisteredError'),
+        throwsA(
+          isA<RuntimeD4rtException>().having(
+            (e) => e.toString(),
+            'message',
+            allOf(
+              contains('NotARegisteredError'),
+              contains('does not resolve to a type'),
+            ),
+          ),
+        ),
+      );
     });
 
     test('F-SCD94-AST-3: the supertype chain is walked [2026-09-14] (PASS)', () {
