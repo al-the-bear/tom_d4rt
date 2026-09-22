@@ -1501,6 +1501,18 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
   // that produces none. -3 and -4 would pass there, which is exactly why they
   // are the safety evidence rather than the subject.
   'sce127_dead_on_clause_test.dart': (ran: 4, declared: 4),
+  // PUBLISH-PIN(sce162_aioc-four-unpublished-base-corpus-regressions-block-the-publish)
+  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.157.0.
+  // SCE139 stopped the return and invocation resumption routes re-evaluating
+  // their node inside `_determineNextNodeAfterAwait`, which ran every
+  // not-yet-resolved await twice and ate the value the second site should have
+  // had. Measured 2026-09-22: 11 of 11 fail against 0.65.0, 0 of 11 against the
+  // 0.157.0 working tree. ALL ELEVEN, including the two cases written as
+  // controls — 0.65.0 predates SCD121 as well, so the declaration route it
+  // holds fixed is not fixed there either. That is a fact about how far behind
+  // exec's floor is, not a sign the controls are mis-chosen: they discriminate
+  // against the tree this change was made in, which is where they run.
+  'sce139_multi_await_resumption_test.dart': (ran: 11, declared: 11),
   // NOT PORTABLE, and not blocked on a publish. It compares what FIVE host
   // boundaries hand over for one script failure, and two of them — `invoke`
   // and `eval`'s statement form — are `tom_d4rt` API that exec's front end
@@ -2677,6 +2689,9 @@ const Map<String, String> _divergenceFingerprints = <String, String>{
 /// rots.
 const Map<String, String> _pinnedInterpreterFloors = <String, String>{
   'sce127_dead_on_clause_test.dart': '0.154.0',
+  // SCE139, pinned at the release carrying the fix rather than at a later
+  // working-tree version.
+  'sce139_multi_await_resumption_test.dart': '0.157.0',
   // SCE121 gave the `Function` bridge an `isAssignable` that answers with
   // the interpreter's own `Callable`, so `is Function` is true for a bridged
   // tear-off from this release on.

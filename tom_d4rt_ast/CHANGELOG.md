@@ -1,3 +1,49 @@
+## 0.157.0
+
+### Fixed — a `return` or an invocation with several awaits evaluated each of them twice (sce139)
+
+    Future<int> f() async => (await next()) + (await next());   // was: 4, not 3
+
+`next()` increments a counter, so the wrong answer and the wrong call count are
+the same defect seen twice. The resumption branches for a return statement and
+for an invocation with awaits in its arguments both re-evaluated the node inside
+`_determineNextNodeAfterAwait`. That evaluation's suspension CANNOT be
+registered with the state machine — the machine only ever attaches to a
+suspension raised by executing a node — so it was discarded and the node was
+executed again anyway. Every await site the machine had not yet resolved
+therefore ran twice per pass, and the discarded pass consumed the value its site
+should have received: two awaits answered 4 and cost three calls, three awaits
+answered 9 and cost five.
+
+SCD121 had already repaired the declaration route, by evaluating NOTHING in the
+resumption branch: hand the statement back to the state machine, let the
+resolved sites replay from `resolvedAwaitResults`, let the first site not yet
+reached suspend for real, and let the pass on which nothing suspends do the
+work. Its own comment recorded that the return route still carried the double
+evaluation and that it was invisible there only because its cases awaited
+side-effect-free futures. This is that route, and the invocation route, given
+the same shape.
+
+THE SECOND DEFECT, which falls out of WHO completes the function. Completing
+inside `_determineNextNodeAfterAwait` — set `lastAwaitResult`, return null —
+bypasses the state machine's `ReturnException` handler, and with it the jump
+into an enclosing `finally`:
+
+    try { return "${await f()}"; } finally { cleanup(); }   // cleanup never ran
+
+One await is enough for that one, so it was never a counting problem. Re-running
+the statement makes `visitReturnStatement` throw for real, and the handler
+routes the return through the finally. The return's declared type is checked on
+that pass too, which it previously was not.
+
+Only the statement kinds the machine can safely re-enter are handed back — a
+variable declaration, an expression statement, a return. Re-running an `if` or a
+loop would restart the construct, so those keep the local re-evaluation.
+
+Name resolution: no — which names bind to what is untouched; the change is
+which party evaluates an already-parsed statement, and how many times.
+
+
 ## 0.156.0
 
 ### Fixed — a generic bound written through a type alias threw (sce130)

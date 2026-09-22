@@ -211,7 +211,7 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpretedFunction._beginAwaitForIteration': '57e94918',
     'InterpretedFunction._callImpl': 'c0f390c5',
     'InterpretedFunction._containsAwait': 'ee448f09',
-    'InterpretedFunction._determineNextNodeAfterAwait': '2bb4708b',
+    'InterpretedFunction._determineNextNodeAfterAwait': '296f0d23',
     'InterpretedFunction._extractTypeParameterBounds': '065705f9',
     'InterpretedFunction._extractTypeParameterNames': '065705f9',
     'InterpretedFunction._findEnclosingTryStatement': '64523cb5',
@@ -239,6 +239,11 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpretedFunction._paramRuntimeType': '7b7a00d6',
     'InterpretedFunction._prepareExecutionEnvironment': 'e931c715',
     'InterpretedFunction._resolveTypeAnnotationDynamic': '2c861378',
+    // SCE139: the statement walker the return and invocation resumption
+    // routes hand their statement back through, divergent for the same
+    // architectural reason as its neighbours — the mirror AST has no
+    // `parent` getter, so the twin walks with `_parentOf`.
+    'InterpretedFunction._resumableStatementFor': 'ca3c88e4',
     // SCE102 moved this signature without changing what diverges. The
     // empty-loop-body fallback landed symmetrically in both trees — the
     // added lines are identical modulo the `S` prefix — and a symmetric
@@ -246,7 +251,7 @@ const _divergentBodies = <String, Map<String, String>>{
     // because the hash is over both bodies. The divergence itself is
     // unchanged: the mirror AST has no `parent` getter, so the twin walks
     // with `_parentOf`.
-    'InterpretedFunction._runStateMachine': '6e5c3034',
+    'InterpretedFunction._runStateMachine': 'a68fb2ac',
     'InterpretedFunction._tryOwningCatchClauseOf': 'f1617e03',
     'InterpretedFunction._tryOwningFinallyBlockOf': '34fd9762',
     'InterpretedFunction.bind': '78b56933',

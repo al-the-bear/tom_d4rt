@@ -3536,6 +3536,15 @@ class InterpretedFunction implements Callable {
         Logger.debug(
           " [StateMachine] Caught ReturnException. Completing with: ${e.value}",
         );
+        // SCE139: a `return` whose expression held awaits finishes by throwing
+        // from HERE, not through the `else` branch above, so this is the only
+        // place that can see that evaluation end. The per-site cache is scoped
+        // to one evaluation (SCC40) and must not outlive it — a finally block
+        // this return is about to be diverted into keeps the state running.
+        if (currentState.resumingStatementHasMoreAwaits) {
+          currentState.resumingStatementHasMoreAwaits = false;
+          currentState.resolvedAwaitResults.clear();
+        }
         STryStatement? currentTry =
             currentState.activeTryStatement; // Use currentState
         // SCE78: a return issued BY this try's own finally, rather than held
@@ -4376,6 +4385,27 @@ class InterpretedFunction implements Callable {
   }
 
   // Determine the next AST node to execute after the resolution of an awaited Future.
+  /// The statement the state machine can re-execute to finish evaluating
+  /// [node], or null when re-entering it would restart a construct.
+  ///
+  /// SCE139: a variable declaration, an expression statement and a return each
+  /// evaluate their expression once and then complete, so re-entering one
+  /// replays the await sites already resolved and finishes the statement. An
+  /// `if`, a loop or a switch would run its whole construct a second time, so
+  /// those keep the local re-evaluation below.
+  static SStatement? _resumableStatementFor(SAstNode node) {
+    SAstNode? parent = node;
+    while (parent != null && parent is! SStatement) {
+      parent = _parentOf(parent);
+    }
+    if (parent is SVariableDeclarationStatement ||
+        parent is SExpressionStatement ||
+        parent is SReturnStatement) {
+      return parent as SStatement;
+    }
+    return null;
+  }
+
   static SAstNode? _determineNextNodeAfterAwait(
     InterpreterVisitor visitor,
     AsyncExecutionState state,
@@ -4503,6 +4533,40 @@ class InterpretedFunction implements Callable {
       Logger.debug(
         "[_determineNextNodeAfterAwait] Handling ${awaitContextNode.runtimeType} with await in arguments. Re-executing the invocation...",
       );
+
+      // SCE139: evaluate NOTHING here when the state machine can re-run the
+      // statement instead.
+      //
+      // Re-executing the invocation below runs every await site the machine has
+      // not yet resolved a SECOND time. That evaluation's suspension cannot be
+      // registered with the machine — the machine only ever attaches to a
+      // suspension raised by executing a node — so it is discarded and the node
+      // is executed again anyway. With `next()` incrementing a counter,
+      // `return add(await next(), await next())` called it three times and
+      // answered 4 instead of 3: the discarded pass consumed the value the
+      // second site should have received, so this was never only a call-count
+      // bug.
+      //
+      // SCD121 repaired the declaration route by handing the statement back to
+      // the machine. The sites already resolved replay from
+      // `resolvedAwaitResults`, the first one not yet reached suspends for real,
+      // and the pass on which nothing suspends is the one that does the work —
+      // one evaluation per pass, which is what keeps the counts right.
+      final SStatement? resumableStatement = _resumableStatementFor(
+        awaitContextNode,
+      );
+      if (resumableStatement != null) {
+        Logger.debug(
+          "[_determineNextNodeAfterAwait] Re-running "
+          "${resumableStatement.runtimeType} so the resolved await sites "
+          "replay.",
+        );
+        state.resumingStatementHasMoreAwaits = true;
+        if (visitor.environment != currentExecutionEnvironment) {
+          visitor.environment = currentExecutionEnvironment;
+        }
+        return resumableStatement;
+      }
 
       // Re-execute the invocation with the resolved await value
       try {
@@ -5012,73 +5076,28 @@ class InterpretedFunction implements Callable {
         return null;
       } else {
         // Nested await: return 'Value: ${await f()}';
-        // Need to re-evaluate the return expression with resumption mode enabled
+        //
+        // SCE139: hand the return back to the state machine rather than
+        // re-evaluating its expression here — see the invocation branch above
+        // for why the local re-evaluation ran every not-yet-resolved await
+        // twice and answered 4 for `return (await next()) + (await next())`.
+        //
+        // Re-running the statement also puts the RIGHT party in charge of
+        // completing the function. Completing here meant setting
+        // `lastAwaitResult` and returning null, which bypasses the machine's
+        // `ReturnException` handler and with it the jump into any enclosing
+        // finally: `try { return "${await f()}"; } finally { ... }` never ran
+        // its finally. `visitReturnStatement` throws for real on the pass where
+        // nothing suspends, and that handler routes the return correctly.
         Logger.debug(
-          "[_determineNextNodeAfterAwait] Resuming SReturnStatement with nested await. Re-evaluating expression...",
+          "[_determineNextNodeAfterAwait] Resuming SReturnStatement with nested "
+          "await; re-running the statement so the resolved sites replay.",
         );
-
-        try {
-          // Temporarily restore the async state to enable await processing
-          final previousAsyncState = visitor.currentAsyncState;
-          visitor.currentAsyncState = state;
-
-          // Enable invocation resumption mode so await expressions return the resolved value
-          final previousResumptionMode = state.isInvocationResumptionMode;
-          state.isInvocationResumptionMode = true;
-
-          // SCC40: re-evaluating the expression means re-reading its operands,
-          // so it has to happen in the frame's own environment. That was
-          // invisible while every await in resumption mode short-circuited to
-          // `lastAwaitResult` — nothing was actually read. Now a not-yet-reached
-          // await evaluates its operand for real, and `return a + await b` fails
-          // with "Undefined variable: b" unless the scope is restored. Case 1
-          // (`_findNextSequentialNode` for a declaration) has always done this.
-          final previousVisitorEnv = visitor.environment;
+        state.resumingStatementHasMoreAwaits = true;
+        if (visitor.environment != currentExecutionEnvironment) {
           visitor.environment = currentExecutionEnvironment;
-
-          // Re-evaluate just the return expression
-          final expression = returnNode.expression;
-          if (expression == null) {
-            // return; statement - no expression to evaluate
-            state.isInvocationResumptionMode = previousResumptionMode;
-            visitor.currentAsyncState = previousAsyncState;
-            visitor.environment = previousVisitorEnv;
-            return null;
-          }
-
-          final result = expression.accept<Object?>(visitor);
-
-          // Restore the previous modes
-          state.isInvocationResumptionMode = previousResumptionMode;
-          visitor.currentAsyncState = previousAsyncState;
-          visitor.environment = previousVisitorEnv;
-
-          if (result is AsyncSuspensionRequest) {
-            Logger.debug(
-              "[_determineNextNodeAfterAwait] Another await encountered during return expression continuation.",
-            );
-            // SCC40: as above — the already-resolved sites must survive into the
-            // next pass over this return statement.
-            state.resumingStatementHasMoreAwaits = true;
-            return awaitContextNode; // Stay on the same node to handle the next await
-          }
-
-          // The expression completed successfully - store result for return
-          Logger.debug(
-            "[_determineNextNodeAfterAwait] Return expression completed with result: $result",
-          );
-          state.lastAwaitResult = result;
-          // Return null to signal completion - the state machine will use lastAwaitResult
-          return null;
-        } catch (e, s) {
-          Logger.error(
-            "[_determineNextNodeAfterAwait] Error during return expression continuation: $e\n$s",
-          );
-          if (!state.completer.isCompleted) {
-            state.completer.completeError(e, s);
-          }
-          return null; // Stop execution
         }
+        return returnNode;
       }
     }
     // Case 4: Function body expression (=> await f();)
