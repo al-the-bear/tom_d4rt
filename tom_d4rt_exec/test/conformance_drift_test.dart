@@ -336,9 +336,35 @@ const _partialTwinBudget = 1;
 /// tree. Its ast twin holds the half that does not need a parser. The copier
 /// surface a port would have added is member access and try/catch over string
 /// literals, which the corpus copies on every run.
-const _copierGapBudget = 33;
+/// 33 -> 34: SCE113 added `sce113_function_apply_symbol_keys_test.dart`, which
+/// runs source to ask which key type `Function.apply` accepts for its named
+/// arguments. Exec resolves tom_d4rt_ast from pub.dev, where the adapter still
+/// reads `Map<String, Object?>`, so a port would assert the SDK's Symbol keys
+/// against an interpreter that rejects them. Its ast twin holds the mechanism.
+/// The copier surface a port would have added is symbol literals as map keys,
+/// which nothing else here covers — the corpus copies map literals on every
+/// run, but not with a `SymbolLiteral` key.
+///
+const _copierGapBudget = 34;
 
 const Map<String, _Coverage> _coveredElsewhere = {
+  'sce113_function_apply_symbol_keys_test.dart': _Coverage(
+    'ast:runtime/sce113_function_apply_symbol_keys_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 9,
+    twinCases: 5,
+    whyPartial:
+        'the twin pins the mechanism — Symbol keys reaching the named '
+        'parameter, several of them in either order, a String key rejected '
+        'with the legal spelling in the message, and both argument lists '
+        'accepting null. The four the reference adds are a second route to '
+        'the same key (`Symbol(\'b\')` rather than `#b`), the non-Symbol '
+        'key types, the neighbours that were already Symbol-keyed '
+        '(`Invocation`, and the interpreter\'s own noSuchMethod path), and '
+        'the unknown-name error surviving the translation. Each is a further '
+        'script, and the twin pays a hand-built bundle for every one.',
+  ),
   'sce67_missing_member_catchable_test.dart': _Coverage(
     'ast:sce67_missing_member_catchable_test.dart',
     _astTwin,

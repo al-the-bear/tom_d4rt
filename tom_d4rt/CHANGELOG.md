@@ -1,3 +1,43 @@
+## 1.161.0
+
+### Fixed — `Function.apply` takes Symbol keys, as the SDK declares (sce113)
+
+`Function.apply(Function, List?, [Map<Symbol, dynamic>?])` is the SDK
+signature. The adapter read `Map<String, Object?>`, because that is what
+d4rt's own `Callable.call` takes — so `{#b: 2}`, the only spelling the
+analyzer accepts, threw, and `{'b': 2}`, which no Dart program can contain,
+was the one that worked. The named-argument half of `Function.apply` had
+therefore never worked for any legal program.
+
+That matters more than a wrong key type would suggest: `Function.apply` is how
+a script calls a function whose parameters it does not know statically, and
+there is no other route to it.
+
+Symbol keys are now translated to names in the adapter — `MirrorSystem.getName`
+is unavailable in the analyzer-free twin, so the name is read off
+`Symbol.toString()`, which is exact because every Symbol a script can produce
+is built at run time from a literal or through the `Symbol` bridge.
+
+String keys are REJECTED rather than accepted alongside Symbols, and the
+message names the legal spelling. d4rt matches the SDK per construct, so that
+a script ported from Dart behaves the same and a script written against d4rt
+still compiles as Dart. The loose spelling was one commit old and unpublished.
+
+Two smaller defects in the same adapter, found while measuring: both argument
+lists are nullable in the SDK and `null` was an error for each, and the
+adapter forwarded its own (always-empty) named arguments when the caller gave
+no map.
+
+SCD70 made the original visible rather than causing it — before that sweep the
+adapter cast and every call died with an opaque `_TypeError`.
+
+The neighbours were measured and are the counter-example: `Invocation.method`
+and `.genericMethod` take the same `Map<Symbol, …>` and keep it Symbol-keyed
+all the way through, which is correct, so the translation is scoped to this one
+adapter.
+
+Name resolution: no.
+
 ## 1.160.0
 
 ### Fixed — a module's parse errors are English, and on separate lines (sce111)
