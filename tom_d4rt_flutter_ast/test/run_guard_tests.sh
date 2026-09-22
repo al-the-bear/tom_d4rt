@@ -157,6 +157,14 @@ run "cluster log is derived, dated and blast-radius rated" \
 run "generator issues log is a derived register" \
   flutter test test/sce158_generator_issues_doc_test.dart
 
+# SCE159: the open-issues doc rates every open entry by blast radius and derives
+# its header register from the entries — including the red set and the
+# open-but-green set, which is the one cross-check the cluster log has no
+# equivalent of. Pure file I/O; it deliberately does not RUN the reproduction
+# suite, whose red is correct by design.
+run "open-issues doc is rated and derived" \
+  flutter test test/sce159_open_issues_doc_test.dart
+
 # SCE13: the harness's bridge step stays visible, content-decided and
 # uncommitted. Source-shape only, and deliberately so — the property it stands
 # for ("a fresh package is left untouched") needs a ~45 s generation to observe,

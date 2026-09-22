@@ -42,6 +42,41 @@ Numbering: **A.x** genuinely unfixable (→ add to
 `interpreter_limits_and_workarounds.md`), **B.x** interpreter-fixable,
 **C.x** generator-fixable.
 
+## Status register
+
+DERIVED FROM THE `### ` headings and the `**Repro:**` lines below — do not edit
+these numbers or lists by hand. `test/sce159_open_issues_doc_test.dart`
+recomputes them from the entries and fails when this block disagrees, the same
+arrangement `interpreter_issues.md` uses for its header table and for the same
+reason: a summary that can drift from its entries is worse than no summary,
+because it is believed.
+
+| state | count |
+| ----- | ----: |
+| entries (`### `) | 16 |
+| open | 13 |
+| marked resolved (✅) | 3 |
+
+**Still reproducing (the red set): A.2, A.3, A.5, C.1** — these are the entries
+whose reproduction in `test/interpreter_generator_open_issues_test.dart` is
+expected to FAIL, and does. Measured 2026-09-23 against `tom_d4rt_ast` 0.65.0,
+the interpreter the twins actually resolve (DGUC6): the suite reports 15 passed
+/ 9 skipped / 5 failed, and the five are A.2, A.3, A.5, C.1 — C.1 twice, once
+per subclass target.
+
+**Open entries whose reproduction is GREEN: A.4, C.5, C.6.** This is not
+drift and each entry says why on its own `**Repro:**` line — A.4's defect is
+fixed and only its integration gate keeps it open; C.5 and C.6 have a repro for
+the sub-part that was verified fixed and none for the remainder they stay open
+for. Recorded rather than left to be rediscovered: a green test under an open
+entry is exactly what looks like a stale document to the next reader.
+
+Every open entry carries a `**Blast radius:**` statement of what the defect can
+REACH, rather than a count of how many consumers currently trip over it. Counts
+belong under `**Measured:**` with the run that produced them. That convention is
+defined in `interpreter_issues.md` § `Writing a cluster entry` and is enforced
+here by the same rule its ISSUES-4/5 apply there.
+
 ---
 
 ## 1. Excluded — verified FIXED since the logs were written
@@ -85,6 +120,10 @@ below.
 
 ### A.1 — Test-app HTTP transport wedge cascade (W1–W5)
 
+**Blast radius:** Every multi-script run against a long-lived companion app, on both twins — the wedge lives in the shared HTTP transport, so any suite keeping one app alive long enough can hit it whatever scripts it runs. No interpreted program is affected: a script that wedges a suite runs clean in a fresh process.
+
+**Repro:** none — the reproduction suite skips it: the wedge needs ~13 minutes of accumulated process state and cannot be asserted as a single build.
+
 **Symptom:** Running certain scripts in-sequence against the long-lived test app
 wedges a later `/clear` or `/build` (HttpException / hang); each script passes
 cleanly in a fresh process.
@@ -101,6 +140,10 @@ buffer; never run multiple `flutter test` invocations in parallel in this
 package (already a standing quest rule).
 
 ### A.2 — Generic type-argument erasure at the d4rt→native bridge boundary
+
+**Blast radius:** Every script depending on a type argument surviving into native code, which is most of the Flutter ancestor-lookup surface — `findAncestorStateOfType`, `dependOnInheritedWidgetOfExactType`, `InheritedModel.inheritFrom`, `whereType`. Per-method interceptors cover the handful that mattered most; anything off that list silently sees `dynamic` rather than failing, so the reach is wider than the failures are.
+
+**Repro:** `open_issues/a2_generic_typearg_erasure_test.dart` — **red**, which is the correct result while the entry is open (measured 2026-09-23, `tom_d4rt_ast` 0.65.0).
 
 **Symptom:** `findAncestorStateOfType<T>()`, `Iterable.whereType<T>()`,
 `dependOnInheritedWidgetOfExactType<T>()` and similar lose `<T>` when they cross
@@ -119,6 +162,10 @@ down explicitly, filter/cast manually instead of `whereType<T>`.
 
 ### A.3 — Runtime mixin application & type-arg reification are impossible (proxy-explosion root)
 
+**Blast radius:** Every script subclassing a bridged abstract or mixin base with a mixin set or type argument nobody pre-generated a proxy for. This is the root of the proxy explosion, so its reach is the whole hand-written proxy table plus every combination not yet in it; C.1 reduces how many must be written by hand and cannot reduce how many must exist.
+
+**Repro:** `open_issues/a3_runtime_mixin_application_test.dart` — **red**, correct while open (measured 2026-09-23, `tom_d4rt_ast` 0.65.0).
+
 **Symptom:** A script `extends RenderBox with ContainerRenderObjectMixin`, or
 `extends CustomClipper<Path>`, needs a *distinct* native proxy per mixin-set and
 per type argument (`_InterpretedRenderBoxContainer`,
@@ -134,6 +181,10 @@ cannot be eliminated.
 `../../tom_d4rt/doc/manual_bridge_interventions.md` §3 for the automation path).
 
 ### A.4 — `vector_math_64` types — opt-in module shipped (generation done; integration/base-test gate pending)
+
+**Blast radius:** No interpreted program — the module ships and its bridged classes are live on both twins. What remains open is the integration and serial base-test gate, so the reach is the release process rather than any script, which is also why its reproduction is green.
+
+**Repro:** `open_issues/a4_vector_math_64_unreachable_test.dart` — **green**, and that is correct rather than drift: the defect is fixed and only the integration gate keeps this entry open (measured 2026-09-23, `tom_d4rt_ast` 0.65.0).
 
 **Symptom (historical):** `import 'package:vector_math/vector_math_64.dart';` was
 unresolvable; only `Matrix4` (re-exported by Flutter) was bridged. (U6, U21.)
@@ -160,6 +211,10 @@ safe but is no longer mandatory.
 
 ### A.5 — `@Deprecated` SDK symbols absent from the bridge surface — per-symbol allowlist shipped (regen/integration gate pending)
 
+**Blast radius:** Any script naming an SDK symbol Flutter has deprecated. The allowlist is per-symbol, so the reach grows with every Flutter release that deprecates something a script uses, and an unlisted symbol is absent rather than warned about.
+
+**Repro:** `open_issues/a5_deprecated_symbol_absent_test.dart` — **red**, correct while open (measured 2026-09-23, `tom_d4rt_ast` 0.65.0).
+
 **Symptom:** deprecated Flutter/Dart symbols are "undefined" in scripts. (U12.)
 **Root cause:** `ElementModeExtractor.generateDeprecatedElements = false` skips
 every `@Deprecated` element by default, to keep the bridge aligned with the
@@ -183,6 +238,8 @@ to the modern symbol name.
 
 ### A.6 — `MemoryImage(Uint8List)` PNG codec rejection (U29) — ✅ RESOLVED (2026-06-07)
 
+**Repro:** `open_issues/a6_memory_image_png_codec_test.dart` — skipped in the reproduction suite (non-fatal, not assertable as a build failure).
+
 **Resolution:** never a bridge bug. The `image_icon_test.dart` `_png1x1White` /
 `_png1x1Black` literals were **malformed PNGs** — the IDAT chunk carried an
 invalid CRC and the white literal's zlib stream would not inflate — so "Codec
@@ -199,6 +256,10 @@ companion-app sweep) to confirm zero captured codec banners end-to-end — see
 `todo_impossible.md` #11.
 
 ### A.7 — Empty `Text('')` / per-char non-Latin `TextSpan` → NaN layout assertion
+
+**Blast radius:** Cosmetic and bounded — a `NaN` banner from a zero-glyph paragraph or a per-character non-Latin span tree. No test fails and no value is wrong, but the banner appears in any run containing either shape, which is why it survives in runner output rather than in results.
+
+**Repro:** `open_issues/a7_empty_text_nan_layout_test.dart` — skipped in the reproduction suite (non-fatal/cosmetic, not assertable as a build failure).
 
 **Symptom:** non-fatal `Offset`/`Rect` `NaN` banner from an empty `Text` (U16) or
 a per-character non-Latin `TextSpan` stream (U19).
@@ -219,7 +280,7 @@ before the script-side workarounds and banner-suppression are removed — see
 `todo_impossible.md` #12. **U19 is not addressed** by a `Text`-level override (it
 cannot reach a `RichText`/`TextSpan` tree); it needs `TextSpan`/`RichText`
 normalization or a deeper bridged-paragraph trace.
-**Repro:** `test/.../send_ast_via_http_scripts/open_issues/a7_empty_text_nan_layout_test.dart`
+The reproduction script named above
 exercises both U16 (`Text('')`) and U19 (`Text.rich` per-char `'こんにちは'`).
 **Workaround:** substitute a single space for empty `Text`; avoid per-character
 non-Latin `TextSpan` construction.
@@ -239,6 +300,10 @@ and B.14 are timing/scheduling behaviours rather than evaluator bugs, and B.12
 and B.13 already carry their resolution inline.
 
 ### B.11 — No app-startup / parser warmup (cold-start flakiness) (U25)
+
+**Blast radius:** The first script after `setUpAll` in every suite on both twins, and only that one. The reach is per-run rather than per-script: the cost is flakiness under host load, not a defect any interpreted program can observe.
+
+**Repro:** none — skipped in the reproduction suite: cold-start flakiness is non-deterministic.
 The first script after `setUpAll` flakes under host load because the parser +
 interpreter infrastructure cold-starts mid-test. The shipped reset API does not
 warm anything. *Workaround:* re-run the first-after-setup script individually.
@@ -246,6 +311,8 @@ warm anything. *Workaround:* re-run the first-after-setup script individually.
 + bridge infrastructure before the first real build.
 
 ### B.12 — Framework/runtime state accumulates across `/build` cycles; reset API is a no-op (U28) — ✅ FIXED (2026-06-05)
+
+**Repro:** none — skipped in the reproduction suite; the entry carries its resolution inline.
 Repeated `/build` cycles accumulated native-side state. The audit
 (`interpreter_unfixable.md:7304-7326`) ranked the `D4._nativeToInterpreted`
 **Expando** as the #1 genuine cross-build accumulator: its entries are weak, but
@@ -280,6 +347,8 @@ belt-and-braces fallback.
   kept; the §U28 audit note updated. `dart analyze` clean on all touched files.
 
 ### B.13 — Interpreted-element dependent registrations not cleared on `/clear` (U30, latent) — ✅ ASSESSED / GUARDED
+
+**Repro:** none — skipped in the reproduction suite; latent, and the entry carries its assessment inline.
 Interpreted `InheritedElement` dependents leak across `/clear`; currently **no
 observable failure** (the one reproducing script was rewritten, `da4b3234`), so
 this is latent. §U30 is **FULLY CLOSED** — the historical reproducer is
@@ -298,6 +367,10 @@ registrations on `/clear` — stays deferred until the cascade resurfaces.
   the leak itself returns stays deferred with the fix.
 
 ### B.14 — Interpreter starves the embedder's input/frame pump during long sync runs (cooperative yielding)
+
+**Blast radius:** Every interpreted program doing sustained synchronous work — interpreted `paint`, `build`, and the non-Timer sync entry points. It starves the embedder itself rather than only the script: a pure-Dart key handler installed in the host `main()` is equally starved, so the reach is the whole application for as long as an interpreted frame is running.
+
+**Repro:** none — skipped in the reproduction suite: interactive input starvation is not observable from a single build.
 
 **Symptom:** Auto-ticker samples driven by `Timer.periodic` (snake, tron) ignore
 keyboard input mid-game. Verified below the script: a pure-Dart
@@ -390,6 +463,10 @@ remain open as **generator** work because the generator cannot yet emit the fix
 automatically.
 
 ### C.1 — Auto-synthesize interface proxies for unregistered script-subclassable abstract/mixin bases
+
+**Blast radius:** Every script subclassing one of the bridged abstract or mixin bases with no registered proxy — `Curve`, `NotchedShape`, `FloatingActionButtonLocation`, `Enum`, `RouteAware`, `HitTestTarget` today, and any base added tomorrow. The set is open-ended by construction: a base gains a proxy only when somebody writes one, so the reach grows with the bridge surface instead of shrinking.
+
+**Repro:** `open_issues/c1_curve_subclass_proxy_test.dart` and `open_issues/c1_notched_shape_subclass_proxy_test.dart` — both **red**, correct while open (measured 2026-09-23, `tom_d4rt_ast` 0.65.0).
 **Open targets** (no proxy registered, so script subclasses still fail to cross
 to native): `Curve` (U3), `NotchedShape` / `FloatingActionButtonLocation` (U5),
 `Enum` (U8), `RouteAware` (U9), `HitTestTarget` (U11). ~33 proxies exist but are
@@ -399,18 +476,30 @@ the non-templatable residue is A.3). See the automated-interface-proxy entry in
 `../../tom_d4rt/doc/manual_bridge_interventions.md` §3.
 
 ### C.3 — Non-wrappable arithmetic defaults on positional native ctors (U2)
+
+**Blast radius:** Any bridged constructor carrying a positional default that contains an operator. Narrow in count and awkward in shape — the generated default throws at the call site, so every caller must supply all preceding positionals explicitly even when it wants the default.
+
+**Repro:** none — skipped in the reproduction suite: it needs a specific bridged constructor with an operator-bearing positional default.
 `BridgeGenerator._wrapDefaultValue` returns null for any default containing an
 operator (`math.pi * 2`), emitting a throwing `getRequiredArgTodoDefault`.
 *Workaround:* at every call site supply all preceding positionals with literal
 defaults. *Fix:* evaluate/emit operator-bearing constant default expressions.
 
 ### C.4 — `getNamedArgWithDefault<T?>` collapses explicit `null` vs absent (G1)
+
+**Blast radius:** Every bridged call passing an explicit `null` to a parameter that has a bridge default. Silent rather than loud: the `null` is replaced by the default, so the script observes a wrong value instead of an error, which is what makes the reach impossible to bound from the failures alone.
+
+**Repro:** none — skipped in the reproduction suite: it needs a specific bridged parameter with a default to distinguish absent from explicit-null.
 The helper guards on `!named.containsKey(p) || named[p] == null`, conflating
 "argument absent" with "argument present-but-null", so an explicit `null` gets
 overwritten by the bridge default. *Workaround:* avoid passing explicit `null`.
 *Fix:* distinguish absence from explicit-null in the generated default guard.
 
 ### C.5 — Generic-`T` callback signature (Gap 7 residue)
+
+**Blast radius:** Callback parameters whose signature mentions a class-level `T`, of which `BasicMessageChannel<T>.setMessageHandler` is the live case, worked around today by a hand-written user bridge. Bounded to generic-carrying callbacks rather than callbacks generally, since the arity-preserving and `Future`-returning cases are fixed.
+
+**Repro:** `open_issues/c5_nullable_callback_param_coercion_test.dart` — **green**, and correct rather than drift: it covers the `semanticsBuilder` sub-part that was verified fixed. The open remainder (class-generic `T`, `VoidCallback?` idx 290) has no reproduction (measured 2026-09-23, `tom_d4rt_ast` 0.65.0).
 `Future<X>` callback-return wrapping is fixed (`239cf773`) and arity-preserving
 param closures work, but class-generic-`T` callback signatures
 (`BasicMessageChannel<T>.setMessageHandler`) are only worked around by a
@@ -420,6 +509,10 @@ class-level `T`. (The nullable `semanticsBuilder` param-coercion sub-part — id
 sub-part is not yet covered by a repro.)
 
 ### C.6 — Missing member / static exposure (Gap 8 residue)
+
+**Blast radius:** Two named members — `Key.label` and `ByteData` symbol resolution — and whatever shares their exposure gap. The reach is a lookup failure at the point of use, so it is loud and bounded: a script either names the member or it does not.
+
+**Repro:** `open_issues/c6_eager_gesture_recognizer_tearoff_test.dart` — **green**, and correct rather than drift: it covers the tearoff sub-part that was verified fixed. The open remainder (`Key.label`, `ByteData` symbol resolution) has no reproduction (measured 2026-09-23, `tom_d4rt_ast` 0.65.0).
 Still undefined: `Key.label` (idx 14), `ByteData` symbol resolution (idx 279).
 *Fix:* expose the missing members in the bridge.
 (`_ByteDataView.lengthInBytes` was A.8 — now non-reproducing, see §1.
