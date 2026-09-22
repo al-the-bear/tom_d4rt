@@ -21,12 +21,18 @@
 // by coincidence of which directory you happened to be in is worth its yield
 // times the probability somebody was in the right place.
 //
-// THE TODO SAID THREE; IT IS TWENTY-SEVEN, ACROSS SIX PACKAGES. Measured
-// 2026-09-15: 15 in `tom_d4rt`, 3 in `tom_d4rt_ast`, 4 in `tom_d4rt_exec`, 2 in
-// `tom_d4rt_generator`, 2 in `tom_d4rt_flutter_ast`, 1 in `tom_d4rt_flutter`.
-// The premise that they all live in `tom_d4rt_ast` was true when it was written
-// and is not now — which is precisely the failure mode a hand-maintained list
-// has, and the reason this file exists instead of one.
+// THE TODO SAID THREE; IT WAS TWENTY-SEVEN; IT IS FIFTY-FIVE. The premise that
+// they all live in `tom_d4rt_ast` was true when it was written and was already
+// false by 2026-09-15 — which is the failure mode a hand-maintained list has,
+// and the reason this file exists instead of one.
+//
+// THE NUMBER DOUBLED IN A WEEK AND NOTHING WENT RED, which is the finding
+// SCE146 came back with. The only quantitative check here was a floor of 20
+// that a HALVING would still have passed, so it could never see growth — and
+// growth is exactly what decides the question SCD129 deferred ("revisit if the
+// set keeps growing"). `_bannerCensus` below is one number per package and
+// fails on any move in either direction; the counts live there rather than in
+// this paragraph, because a figure in prose is what went stale.
 //
 // FOUR OF THE TWENTY-SEVEN WERE FOUND BY THIS FILE'S FIRST RUN, not by the
 // sweep that preceded it: the Flutter twins were outside the set I had thought
@@ -53,8 +59,18 @@
 // `mirror_maintenance.md` exists to keep the twins diffable — a file that is
 // deliberately identical in both is noise in every future diff. Not moved to a
 // repo-level test package either: that costs a package and an entry point to
-// solve what a convention plus a grep solves for free. Revisit if the set stops
-// fitting in one grep.
+// solve what a convention plus a grep solves for free.
+//
+// SCE146 REVISITED THE MOVE AND MEASURED IT CLOSED. Of the 55, only TEN read
+// nothing but files off disk. Fifteen import their host package's library —
+// `scc24_native_name_coverage` reaches nine private `src/` libraries, which a
+// move would have to make public — and thirty-nine import a relative test
+// helper (`sibling_trees.dart`, `interpreter_test.dart`,
+// `mirror_normalisation.dart`, `port_recipe.dart`, `../tool/*.dart`). So 48 of
+// 55 would need a real dependency or a moved helper, and thirteen of them are
+// in Flutter packages a plain Dart test package cannot run at all. The move is
+// not mechanical, which was the todo's own stated condition for it being
+// right. The full reasoning is in the quest overview beside the standing gate.
 
 @TestOn('vm')
 library;
@@ -72,11 +88,25 @@ import 'sibling_trees.dart';
 /// a ratchet, and the same choice SCC45 made with its pub-cache discriminator.
 /// A reach it invents would demand a banner on a file that does not need one,
 /// which is how a convention gets switched off.
+/// SCE146 widened `_repoRoot\b` to `repoRoot\b`, which is the same signal
+/// reaching one file more: `tom_d4rt_exec/test/hosted_drift_test.dart` calls the
+/// PUBLIC `repoRoot()` and the private-only pattern could not see it.
+///
+/// AND MEASURED ONE THAT LOOKED OBVIOUS AND IS WRONG, recorded because the next
+/// reader will have the same idea. Importing `sibling_trees.dart` looks like a
+/// reach signal — it is the helper that finds sibling trees — and adding it
+/// finds five more files. Two of those five are
+/// `stdlib/io/sce87_permission_gate_null_handle_test.dart` and
+/// `stdlib/stdlib_d4_boundary_test.dart`, which import it ONLY for
+/// `requirePackage`, SCD158's anchor. That call says "this test inspects THIS
+/// package's own tree and must run here" — the exact opposite of reaching. The
+/// signal would have demanded a banner on two files whose banner would be a
+/// false statement, which is the failure this list's second paragraph names.
 final List<RegExp> _reachSignals = [
   RegExp(r"\.\./tom_\w+"),
   RegExp(r"Directory\('\.\.'\)"),
   RegExp(r'rev-parse'),
-  RegExp(r'_repoRoot\b'),
+  RegExp(r'repoRoot\b'),
 ];
 
 /// The banner a reaching file must carry, capturing the package it claims.
@@ -90,6 +120,40 @@ final RegExp _banner = RegExp(
 /// Twelve rather than "anywhere": a banner buried at line 200 is not an
 /// announcement. All of them are written as the file's opening lines.
 const int _bannerWindow = 12;
+
+/// How many BANNERED guards each package carries, measured 2026-09-22 (SCE146).
+///
+/// WHY THE BANNER AND NOT THE DETECTOR is the whole point of this register.
+/// `_reachSignals` is syntactic and deliberately incomplete, and the gap is not
+/// small: 44 files trip it and **55 carry the banner**. The twelve it cannot see
+/// reach by SUBJECT rather than by a path literal — `scd195_registry_collision`
+/// in both Flutter twins asserts about a shared registry through an ordinary
+/// import; `scc24_native_name_coverage` reaches through nine `package:` URIs.
+/// Their authors announced them correctly and no syntactic detector will ever
+/// find them. So the detector answers "is an obvious reacher unannounced?" and
+/// the banner answers "how many guards are there?", and only the second is a
+/// census.
+///
+/// WHY A COUNT AT ALL, when this file's own header argues against enumerations.
+/// It still does — this is not a list of names, which is the thing that goes
+/// stale; it is one number per package, and the failure message says to update
+/// it. The argument FOR it is measured: SCD129 recorded 27 on 2026-09-15 and
+/// there are 55 a week later. The set doubled with nothing noticing, while the
+/// only quantitative check in this file was a floor of 20 that a halving would
+/// still have passed. A floor cannot see growth, and growth is what decides the
+/// question SCD129 deferred.
+///
+/// UPDATING IT IS THE POINT, not a chore. Adding a guard whose subject is the
+/// whole repository is a deliberate act with a cost — it runs only when its
+/// package's suite runs — so it should cost one line here.
+const Map<String, int> _bannerCensus = {
+  'tom_d4rt': 28,
+  'tom_d4rt_ast': 6,
+  'tom_d4rt_exec': 5,
+  'tom_d4rt_flutter': 3,
+  'tom_d4rt_flutter_ast': 10,
+  'tom_d4rt_generator': 3,
+};
 
 /// Sibling packages of `tom_d4rt`, which is this suite's working directory.
 List<Directory> _packages() {
@@ -125,10 +189,12 @@ void main() {
   group('SCD129: a repo-wide guard announces itself', () {
     late List<String> reaching;
     late List<String> unannounced;
+    late Map<String, int> bannered;
 
     setUp(() {
       reaching = <String>[];
       unannounced = <String>[];
+      bannered = <String, int>{};
       for (final package in _packages()) {
         final packageName = _name(package);
         final tests = Directory('${package.path}/test');
@@ -143,6 +209,11 @@ void main() {
             continue;
           }
           final source = entity.readAsStringSync();
+          if (_banner.hasMatch(
+            source.split('\n').take(_bannerWindow).join('\n'),
+          )) {
+            bannered[packageName] = (bannered[packageName] ?? 0) + 1;
+          }
           if (!_reachSignals.any((r) => r.hasMatch(source))) continue;
           final relative =
               '$packageName/test/${entity.path.split('/test/').last}';
@@ -181,20 +252,45 @@ void main() {
       );
     });
 
+    test('F-SCE146-1: the banner census still matches the repository '
+        '[2026-09-22]', () {
+      // WHAT REPLACED A FLOOR, and why. F-SCD129-2 below asserted only that the
+      // detector found at least 20 files against 27 measured — which cannot see
+      // GROWTH, and growth is what happened: 55 bannered guards a week later,
+      // more than double, with nothing red at any point. The question SCD129
+      // deferred ("revisit if the set keeps growing") had its trigger fire
+      // twice over before anyone looked, because nothing was counting.
+      expect(
+        bannered,
+        equals(_bannerCensus),
+        reason:
+            'The repo-wide guard census has moved. Update _bannerCensus, and '
+            'read the number before you do: a guard added here runs ONLY when '
+            'its own package suite runs, so each one widens the gap between '
+            'what this repository checks and what any one session reaches. '
+            'That is the cost the count exists to keep visible.\n'
+            'measured: $bannered\nrecorded: $_bannerCensus',
+      );
+    });
+
     test('F-SCD129-2 (control): the scan finds the set it is asserting over '
         '[2026-09-15]', () {
       // A source scan that matches nothing passes every assertion built on it.
       // This file's own subject makes that failure especially quiet: an empty
       // scan reads as "no repo-wide guards exist", which is the state SCD129
-      // was filed about. 27 were measured; the floor is set below that so a
-      // legitimate removal does not fail, and far enough above zero that a
-      // broken detector cannot pass.
+      // was filed about.
+      //
+      // SCE146 kept this as the DETECTOR's control and moved the census to
+      // F-SCE146-1. The two measure different things and the gap between them
+      // is large — 44 detected against 55 bannered — so one number cannot be
+      // both. The floor stays slack on purpose: its job is to catch a detector
+      // that stopped matching, not to track the set.
       expect(
         reaching.length,
         greaterThanOrEqualTo(20),
         reason:
-            'The reach detector found ${reaching.length} files where 27 were '
-            'measured on 2026-09-15. Either a large number of guards were '
+            'The reach detector found ${reaching.length} files where 44 were '
+            'measured on 2026-09-22. Either a large number of guards were '
             'removed — in which case lower this floor deliberately — or the '
             'detector stopped matching, in which case F-SCD129-1 above is '
             'passing over nothing.\n${reaching.join('\n')}',
