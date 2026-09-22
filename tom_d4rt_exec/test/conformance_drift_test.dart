@@ -2939,6 +2939,89 @@ _PinVerdict _pinVerdict(
   return _PinVerdict.waiting;
 }
 
+// ---------------------------------------------------------------------------
+// SCE140 — THE SOURCE SCANS IN THIS FILE, AND WHAT STOPS EACH PASSING OVER
+// NOTHING.
+//
+// This guard reads source — its own, the two corpora's, the guidelines', the
+// quest todo file's — and derives maps and sets from what it finds. A source
+// scan has one silent failure mode: it matches nothing, and every assertion
+// built on it passes. That has happened TWICE here, both times found by hand:
+// SCC44 changed `_divergentBaseline`'s value type and disarmed the floor
+// scanner; SCD122 found the same scanner returning the empty map because the
+// last entry written in the syntax it read had been converged away.
+//
+// So every scan is audited below and every row is confirmed by ABLATION —
+// break the pattern, run the suite, record what goes red. Reading the code is
+// not evidence; the two historical cases were both readable.
+//
+// | scan                        | subject set it must cover        | asserted by |
+// | --------------------------- | -------------------------------- | ----------- |
+// | _floorsDeclaredInComments   | _pinnedInterpreterFloors ∩ live  | F-SCC43-1 part two |
+// | _divergentEntryComments     | _divergentBaseline.keys          | F-SCC44-1 part one |
+// | _uncoveredEntryComments     | _uncoveredBaseline.keys          | F-SCD126-1 part one |
+// | _baselineEntriesWithComments| both registers' keys             | F-SCE68-1 part zero |
+// | _selfAnchored               | _anchoredBaseline                | F-SCE88-1, control F-SCE88-2 |
+// | _markers / _parityMarkers / _publishPins | _inlineMarkerCensus | F-SCE140-1 |
+// | _sections                   | _guidelineOneSided's headings    | F-SCC6-9 stale-record arm |
+// | _countCases                 | the recorded `declared` numbers  | F-SCC6-6, F-SCC6-10 |
+// | _questTodoStatus            | every pin id and _astPublishBlock| F-SCD103-1, F-SCC80-3 |
+// | _execAstFloor/_execAstResolved | n/a — `fail()` on a miss      | itself |
+// | _guidelineFiles             | _guidelineOneSidedFiles          | F-SCC6-9 |
+// | _filesUnder                 | _astWorkingTreeDrift + the block | F-SCC80-3 |
+//
+// ABLATION MATRIX, measured 2026-09-22. Each row: the edit, and every case
+// that went red. A scan whose row reads NOTHING WENT RED is a finding.
+//
+// | edit                                   | red                              |
+// | -------------------------------------- | -------------------------------- |
+// | _markerPattern stops matching (BEFORE)  | NOTHING                          |
+// | _markerPattern stops matching (after)   | F-SCE140-1                       |
+// | a PUBLISH-PIN is deleted from a file    | F-SCE140-1                       |
+// | a marker is added to tom_d4rt_ast       | F-SCE140-1                       |
+// | _uncoveredBaseline's opener moves       | F-SCE68-1, F-SCD126-1            |
+// | _floorsDeclaredInComments' floorPattern | F-SCC43-1                        |
+// | _entryComments' entryPattern            | F-SCC44-1, F-SCD126-1            |
+// | _anchorCall                             | F-SCC6-2, F-SCE88-1, F-SCE88-2   |
+// | _sections stops seeing headings         | F-SCC6-9                         |
+// | _countCases returns 0                   | F-SCC6-6, F-SCC6-10              |
+// | _questTodoStatus' status regex          | F-SCD103-1, F-SCC80-3            |
+// | _execAstFloor's pattern                 | F-SCC43-1, F-SCC80-1             |
+// | _guidelineFiles finds nothing           | F-SCC6-9                         |
+//
+// THE ONE ROW THAT WAS EMPTY, and why it was the one. Breaking the marker
+// pattern left F-SCC6-5, F-SCD103-1 and F-SCD103-2 all green — three cases,
+// including the RATCHET that retires a publish pin when its todo closes. The
+// corpus holds seven markers, so the scan was not vacuous for want of
+// subjects; nothing simply asked whether it had reached them. F-SCE140-1 and
+// [_inlineMarkerCensus] close that, and closing it was worth more than the
+// other twelve rows put together: sce119 and sce162 are open todos whose
+// closure is meant to turn six pins red, and until now a pattern change would
+// have deleted that consequence without deleting the pins.
+//
+// TWO ROWS WITH NO NAMED SET, recorded as findings rather than waved through:
+//
+//   * [_sections]. There is no register of the headings each guideline pair
+//     ought to share — only [_guidelineOneSided], which names the ones that
+//     legitimately exist on one side, and covers `testing.md` alone today. The
+//     scan is nonetheless fail-safe BY CONSTRUCTION rather than by assertion:
+//     it always emits at least a `''` preamble section, so a splitter that
+//     stops seeing headings compares the two files WHOLE, and the two copies
+//     differ. The ablation confirms it. What that costs is that the guarantee
+//     rests on the files differing — were two guideline copies ever byte
+//     identical, a broken splitter over them would be green and empty.
+//   * [_markers] part one, the `KNOWN-GAP()`-with-no-owner branch. The corpus
+//     holds no `KNOWN-GAP` marker of any kind (measured 2026-09-22), so that
+//     branch has no subject at all. It is kept for the first real use, and
+//     F-SCE140-1 now proves the scan underneath it is alive even while the
+//     branch itself is vacuous — which is the distinction that was missing.
+//
+// WHAT THIS AUDIT IS NOT. It is not a claim that every scan is correct, only
+// that a scan which stops SEEING its subject is now visible. A pattern that
+// matches the wrong thing, or a register that records a false fact, is the
+// business of the case that reads it.
+// ---------------------------------------------------------------------------
+
 /// Baseline entries in this file whose comment declares an interpreter floor,
 /// as `<entry path> -> <version>`.
 ///
@@ -3178,6 +3261,55 @@ String _trimSectionTail(String body) {
 final RegExp _markerPattern = RegExp(
   r'^//\s*(KNOWN-GAP\([^)]*\)|WONT-FIX|PUBLISH-PIN\([^)]*\))\s*:',
 );
+
+/// Every file in the three corpora that carries an inline marker, and how
+/// many, keyed `<tree>/<path relative to that tree's test/>`.
+///
+/// SCE140. THIS IS A COVERAGE REGISTER, not a policy one — it exists so that
+/// the three cases built on [_markers] cannot pass over nothing. All three are
+/// emptiness assertions over a derived set, and the corpus is small enough
+/// that a scanner which had stopped matching would look exactly like a corpus
+/// with no markers in it:
+///
+///   * [F-SCC6-5] part one reports `KNOWN-GAP()` with no owner. Measured
+///     2026-09-22: the corpus holds NO `KNOWN-GAP` marker of any kind, so that
+///     branch is vacuous today and is kept for the first real use.
+///   * [F-SCC6-5] parts two and three, and the recorded-pairing parity that
+///     follows, compare [_parityMarkers] between two copies. Two empty lists
+///     are equal, so a broken pattern is green.
+///   * [F-SCD103-1] is the RATCHET that retires a publish pin when its todo
+///     closes. It is the one that matters most and the one a silent scan
+///     disarms most completely — it iterates the pins it finds, so finding
+///     none is a full pass.
+///
+/// WHY AN EXACT CENSUS RATHER THAN A FLOOR. A floor ("at least six markers")
+/// answers "is the scanner alive"; it does not answer "did the scanner reach
+/// the files whose pins are load-bearing". Those are different questions, and
+/// the second is the one SCD122 found answered wrongly for the sibling floor
+/// scan: that map was going to be non-empty again as soon as any other entry
+/// was written, and was empty only for the entries that mattered.
+///
+/// WHAT MAKES THIS GO RED, and all three are the deliberate edit they should
+/// be: adding a pin, deleting one — which is what closing sce119 or sce162
+/// means — or a change to [_markerPattern] or the comment syntax that stops
+/// the scan seeing a file it used to.
+///
+/// NOTE THAT `conformance_drift_test.dart` IS NOT HERE even though it contains
+/// the string five times over. Those are `// PUBLISH-PIN(<id>)` lines above
+/// baseline entries, with no trailing colon, and [_markerPattern] requires one
+/// — the register and the inline marker are two different mechanisms and this
+/// is the line between them. A reader who greps will find eleven hits and
+/// should expect this register to name seven.
+const Map<String, int> _inlineMarkerCensus = {
+  'tom_d4rt/limitations_and_bugs_test.dart': 1,
+  'exec/limitations_and_bugs_test.dart': 1,
+  'exec/scd74_hook_covers_both_paths_test.dart': 1,
+  'exec/scd77_uri_is_scheme_test.dart': 1,
+  'exec/scd101_host_boundary_single_rule_test.dart': 1,
+  'exec/scd104_boundary_contract_test.dart': 2,
+  'exec/sce62_copier_node_family_test.dart': 1,
+  // tom_d4rt_ast carries none, and its absence from this map is the claim.
+};
 
 /// SCD103: markers that must MATCH across the two trees.
 ///
@@ -4100,14 +4232,61 @@ void main() {
       );
     });
 
+    test('F-SCE140-1: the inline-marker scan still reaches every file that '
+        'carries one [2026-09-22] (PASS)', () {
+      // COVERAGE BEFORE CONTENT, for the three cases below. Each of them is an
+      // emptiness assertion over what [_markers] returns, and this file has
+      // twice shipped a source scan that matched nothing and passed — SCC44's
+      // value-type change disarming the floor scanner, and the empty floor map
+      // SCD122 found. Both were found by hand. This is the same guarantee
+      // F-SCC44-1 part one and F-SCD126-1 part one give the two comment scans,
+      // for the scan that had none.
+      //
+      // ALL THREE TREES, because the marker cases read all three: part two
+      // compares tom_d4rt against exec at the same path, part three follows
+      // `_coveredElsewhere` into tom_d4rt_ast, and F-SCD103-1 walks tom_d4rt
+      // and exec. A tree the scan stopped reaching would take its pins out of
+      // the ratchet silently.
+      final found = <String, int>{};
+      for (final (tree, files) in [
+        ('tom_d4rt', ref),
+        ('exec', exec),
+        ('tom_d4rt_ast', _testFiles(astTests)),
+      ]) {
+        files.forEach((path, file) {
+          final count = _markers(file.readAsStringSync()).length;
+          if (count > 0) found['$tree/$path'] = count;
+        });
+      }
+
+      expect(
+        found,
+        equals(_inlineMarkerCensus),
+        reason:
+            'The inline-marker census does not match what the scan found. '
+            'Three things produce this, and they want opposite responses:\n'
+            '  * a marker was ADDED — record it here, which is the same '
+            'deliberate edit as recording a baseline entry;\n'
+            '  * a marker was DELETED, which is what closing the todo a '
+            'PUBLISH-PIN names looks like — delete the line here too, in the '
+            'same change;\n'
+            '  * neither, in which case _markerPattern or the comment syntax '
+            'has moved and F-SCC6-5, F-SCD103-1 and F-SCD103-2 are all '
+            'passing over nothing.',
+      );
+    });
+
     test('F-SCC6-5: every pinned known gap names an owner and exists in every '
         'recorded copy [2026-09-04] (PASS)', () {
       // WHAT THIS GUARDS, MEASURED 2026-09-21, because three branches over a
       // near-empty population invite the question and silence is a poor
       // answer. Across all five packages the convention has seven uses:
       // `WONT-FIX` once (the named-field record gap, in this file's reference
-      // twin and its port here), and `PUBLISH-PIN` five times, all DGUC6
-      // publish gaps naming sce119 and sce162. `KNOWN-GAP(<todo-id>)` has
+      // twin and its port here), and `PUBLISH-PIN` six times, all DGUC6
+      // publish gaps naming sce119 and sce162. That count is now kept in
+      // [_inlineMarkerCensus] rather than here: it was written as five on
+      // 2026-09-21 and was six a day later, which is a prose census doing what
+      // a prose census does. `KNOWN-GAP(<todo-id>)` has
       // ZERO uses anywhere.
       //
       // SCE93 then asked the only question that makes that worth acting on:
@@ -5015,12 +5194,34 @@ void main() {
       // check being switched off for the one case it cannot judge.
       final exempt = RegExp(r'pin-registered:\s*n/a', caseSensitive: false);
 
+      // SCE140, part zero — the scan reached both registers, BEFORE anything
+      // is concluded from it. [_baselineEntriesWithComments] returns `const []`
+      // when it cannot find the register's opening line, which is silent by
+      // construction: every loop below then runs zero times and every
+      // assertion passes. The floor further down would catch the total
+      // collapse, but not the half of it — one register found and the other
+      // not — which is the shape both of this file's historical empty scans
+      // actually took.
+      const registers = ['_divergentBaseline', '_uncoveredBaseline'];
+      final expectedKeys = {
+        '_divergentBaseline': _divergentBaseline.keys.toSet(),
+        '_uncoveredBaseline': _uncoveredBaseline.keys.toSet(),
+      };
+      for (final register in registers) {
+        expect(
+          _baselineEntriesWithComments(register).map((e) => e.path).toSet(),
+          equals(expectedKeys[register]),
+          reason:
+              'The entry scan did not pair up with $register. Either the map '
+              'literal moved out from under `indexOf(\'\$register = \')`, or '
+              'the entry syntax changed and the scan stopped seeing entries — '
+              'and in either case everything below this passes over nothing.',
+        );
+      }
+
       final problems = <String>[];
       var pinShaped = 0;
-      for (final register in const [
-        '_divergentBaseline',
-        '_uncoveredBaseline',
-      ]) {
+      for (final register in registers) {
         for (final entry in _baselineEntriesWithComments(register)) {
           final prose = entry.comment.replaceAll(RegExp(r'\s+'), ' ');
           if (!pinPhrase.hasMatch(prose)) continue;
