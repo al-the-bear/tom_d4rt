@@ -1380,6 +1380,16 @@ typedef _CaseCounts = ({int ran, int declared});
 /// a copy would ask the same questions about the same three packages and add a
 /// second red for one cause, not that it cannot run.
 const Map<String, _CaseCounts> _uncoveredBaseline = {
+  // NOT PORTABLE, and not blocked on a publish. It compares what FIVE host
+  // boundaries hand over for one script failure, and two of them — `invoke`
+  // and `eval`'s statement form — are `tom_d4rt` API that exec's front end
+  // exposes with a different established context (`_interpretedInstance` is
+  // set by a `main` returning an instance, which exec's own suite already
+  // covers elsewhere). The defect it pins is in `_tryFunction`, which exec
+  // HAS and which was fixed in the same commit; what cannot travel is the
+  // five-way comparison, not the fix.
+  // pin-registered: n/a - nothing a publish can change.
+  'sce118_host_error_shape_test.dart': (ran: 5, declared: 5),
   // SCE21's batch: the four async state-machine fixes closed on 2026-09-18,
   // measured BOTH ways with `tool/remeasure_pins.dart --candidates` before
   // being pinned — against the 0.65.0 exec resolves, and against the 0.120.0

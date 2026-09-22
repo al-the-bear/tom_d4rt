@@ -1,3 +1,33 @@
+## 1.166.0
+
+### Fixed — every host boundary hands over the same shape (sce118)
+
+SCE118 was filed against `execute()` handing a caller a
+`BridgedInstance<Object>` instead of the `StateError` the script threw. SCD96
+closed that; measured before anything was changed, `execute`, `eval`, the
+`onUncaughtError` hook and an embedder's own zone all deliver the SDK type.
+
+WHAT WAS STILL OPEN was the todo's own closing instruction — state that all
+delivery paths hand over the identical shape, because nothing did. Stating it
+found a live divergence.
+
+`invoke()` is the fourth boundary and was the last one deciding for itself. It
+goes through `_tryFunction`, whose catch peeled the interpreted-`throw` carrier
+by hand and stringified everything else into `"$error : $e"`. A script method
+that hit an ordinary interpreter fault therefore handed the host a **String**
+where `execute` and `eval` hand over a `RuntimeD4rtException` — nothing
+catchable by type, and nothing saying so. It is on `throwAsHostFacingError`
+now, so the context the message carried is in the preserved stack trace
+instead.
+
+Four hand-rolled peels became one seam: the two `eval` sites in this tree also
+carried their own, including a `RuntimeD4rtException` branch whose two arms are
+the same throw with different static types. Converging those changes no
+behaviour — measured — but they are how `eval` came to differ from the shared
+helper by one level in the first place.
+
+Name resolution: no.
+
 ## 1.165.0
 
 ### Fixed — the last route that handed an embedder the interpreter's wrapper (sce117)

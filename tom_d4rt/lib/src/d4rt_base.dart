@@ -2922,11 +2922,15 @@ class D4rt {
         if (evalFunc is Callable) {
           try {
             result = evalFunc.call(_visitor!, [], {});
-          } on InternalInterpreterD4rtException catch (e) {
-            if (e.originalThrownValue is RuntimeD4rtException) {
-              throw e.originalThrownValue as RuntimeD4rtException;
-            }
-            throw e.originalThrownValue ?? e;
+          } on InternalInterpreterD4rtException catch (e, s) {
+            // SCE118: `eval` is a host boundary too, so it answers to the same
+            // rule `execute` does. It carried its own peel, which is how it
+            // came to differ from the shared helper by one level (SCD96) —
+            // and the `RuntimeD4rtException` branch it also carried bought
+            // nothing: measured, the two arms are the same throw with
+            // different static types. `tom_d4rt_exec` converged these two
+            // sites at SCD101; this is the reference catching up.
+            throwAsHostFacingError(e, s);
           }
         }
 
@@ -2987,11 +2991,9 @@ class D4rt {
       if (evalFunc is Callable) {
         try {
           evalFunc.call(_visitor!, [], {});
-        } on InternalInterpreterD4rtException catch (e) {
-          if (e.originalThrownValue is RuntimeD4rtException) {
-            throw e.originalThrownValue as RuntimeD4rtException;
-          }
-          throw e.originalThrownValue ?? e;
+        } on InternalInterpreterD4rtException catch (e, s) {
+          // SCE118: same rule as the other `eval` site above.
+          throwAsHostFacingError(e, s);
         }
       }
 
@@ -3478,15 +3480,23 @@ class D4rt {
         return result.then((value) => _bridgeInterpreterValueToNative(value));
       }
       return _bridgeInterpreterValueToNative(result);
-    } catch (e) {
+    } catch (e, s) {
       if (e is ReturnException) {
         return _bridgeInterpreterValueToNative(e.value);
       }
-      if (e is InternalInterpreterD4rtException &&
-          e.originalThrownValue != null) {
-        throw e.originalThrownValue!;
-      }
-      throw "$error : $e";
+      // SCE118: `invoke` is the fourth host boundary and was the last one
+      // deciding for itself what crosses. Its own peel missed the
+      // `BridgedInstance` level, and — the part that showed — anything that
+      // was NOT the interpreted-`throw` carrier was stringified into
+      // `"$error : $e"`. So a script method that hit an ordinary interpreter
+      // fault handed the host a String where `execute` and `eval` hand over a
+      // `RuntimeD4rtException`, and nothing could be caught by type.
+      //
+      // The `$error` context is not lost by dropping it: it named the method
+      // and the class, which is what the preserved stack trace says, and
+      // `Error.throwWithStackTrace` inside the helper is what keeps that
+      // trace meaningful across the boundary.
+      throwAsHostFacingError(e, s);
     }
   }
 }
