@@ -76,6 +76,14 @@
 /// means the pin was never true, and on an uncovered entry means the port is
 /// available and the entry should go.
 ///
+/// That mode also prints RECORDED against RAN per entry and names every
+/// mismatch (SCE143). The register's `ran` field is a runtime measurement whose
+/// whole purpose is to make a reference file's growth visible — "port it and
+/// confirm the count" — and the tool had both numbers without ever comparing
+/// them. Entries that do not compile, hang, or have no twin are reported
+/// separately as UNCONFIRMABLE: their recorded figure is historical, which is a
+/// different thing from wrong and wants a different edit.
+///
 /// Usage, from `tom_d4rt_exec/`:
 ///
 ///     dart run tool/remeasure_pins.dart              # _pinnedInterpreterFloors
@@ -192,13 +200,57 @@ Future<int> main(List<String> args) async {
     (w, r) => r.path.length > w ? r.path.length : w,
   );
   stdout.writeln(
-    '${"ENTRY".padRight(width)}  ${(uncovered ? "CASES" : "PINNED").padRight(8)}  ${"FLOOR".padRight(8)}  VERDICT',
+    '${"ENTRY".padRight(width)}  ${(uncovered ? "RECORDED" : "PINNED").padRight(8)}  ${(uncovered ? "RAN" : "FLOOR").padRight(8)}  VERDICT',
   );
   for (final r in results) {
+    final second = uncovered ? (r.ran?.toString() ?? '\u2014') : floor;
     stdout.writeln(
       '${r.path.padRight(width)}  ${r.pinnedAt.padRight(8)}  '
-      '${floor.padRight(8)}  ${r.verdict}',
+      '${second.padRight(8)}  ${r.verdict}',
     );
+  }
+
+  // SCE143: the count comparison, as OUTPUT rather than as advice.
+  //
+  // `_uncoveredBaseline`'s `ran` is a RUNTIME measurement — how many cases
+  // actually executed when the file was last ported — and the map's header says
+  // what it is for: "port it and confirm the count" is how you notice the
+  // reference side moved after the entry was taken. A count that is wrong
+  // cannot do that job, and until now the tool had both numbers in hand and
+  // printed neither against the other.
+  //
+  // IT REPORTS, IT DOES NOT GATE, and the exit code is untouched. A count that
+  // has moved is usually the reference file gaining cases, which is good news
+  // about somebody else's work; the one verdict that means WORK IS AVAILABLE is
+  // still `PASSES NOW`, and that is what the exit code has always meant.
+  if (uncovered) {
+    final drifted = [
+      for (final r in results)
+        if (r.ran != null && int.tryParse(r.pinnedAt) != r.ran)
+          '  ${r.path}: recorded ${r.pinnedAt}, ran ${r.ran}',
+    ];
+    final unconfirmable = [
+      for (final r in results)
+        if (r.ran == null)
+          '  ${r.path}: ${r.verdict} — recorded ${r.pinnedAt} cannot be '
+              'confirmed here',
+    ];
+    if (drifted.isNotEmpty) {
+      stdout.writeln(
+        '\n${drifted.length} recorded case count(s) no longer match what ran. '
+        'Re-record them with today\'s date — a number written as a measurement '
+        'and known to be stale is the shape of defect this register exists to '
+        'prevent:\n${drifted.join('\n')}',
+      );
+    }
+    if (unconfirmable.isNotEmpty) {
+      stdout.writeln(
+        '\n${unconfirmable.length} entry/entries could not be counted at all. '
+        'Their recorded number is HISTORICAL, not current, and the entry should '
+        'say so rather than leaving a figure that reads as '
+        'measured:\n${unconfirmable.join('\n')}',
+      );
+    }
   }
 
   final stale = results.where((r) => r.verdict == _Verdict.passesNow).toList();
@@ -259,11 +311,20 @@ enum _Verdict {
 }
 
 class _Result {
-  _Result(this.path, this.pinnedAt, this.verdict, this.detail);
+  _Result(this.path, this.pinnedAt, this.verdict, this.detail, {this.ran});
   final String path;
   final String pinnedAt;
   final _Verdict verdict;
   final List<String> detail;
+
+  /// How many cases the port actually RAN, or null when nothing ran — it did
+  /// not compile, it hung, or there was no twin.
+  ///
+  /// SCE143: in `--uncovered` mode [pinnedAt] is the register's recorded `ran`
+  /// count, so the two numbers sit side by side and the comparison the map's
+  /// header asks for ("port it and confirm the count") becomes output rather
+  /// than a thing the reader is trusted to do.
+  final int? ran;
 }
 
 /// `_pinnedInterpreterFloors`, read out of [source].
@@ -440,13 +501,23 @@ Future<_Result> _remeasure(
   }
   if (report.failures.isEmpty && run.exitCode == 0) {
     stdout.writeln('    PASSES NOW (${report.passed} cases) — stale pin');
-    return _Result(path, pinnedAt, _Verdict.passesNow, const []);
+    return _Result(
+      path,
+      pinnedAt,
+      _Verdict.passesNow,
+      const [],
+      ran: report.passed,
+    );
   }
-  stdout.writeln(
-    '    still failing: ${report.failures.length} of '
-    '${report.failures.length + report.passed}',
+  final ran = report.failures.length + report.passed;
+  stdout.writeln('    still failing: ${report.failures.length} of $ran');
+  return _Result(
+    path,
+    pinnedAt,
+    _Verdict.stillFailing,
+    report.failures,
+    ran: ran,
   );
-  return _Result(path, pinnedAt, _Verdict.stillFailing, report.failures);
 }
 
 /// [source] with relative imports turned into absolute `file:` URIs anchored at

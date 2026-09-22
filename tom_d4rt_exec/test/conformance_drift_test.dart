@@ -1457,6 +1457,41 @@ typedef _CaseCounts = ({int ran, int declared});
 /// others: nothing in it generates cases, so a change in `declared` means
 /// `ran` is stale by the same amount.
 ///
+/// HOW TO CONFIRM A COUNT, and it is one command from `tom_d4rt_exec`:
+///
+///     dart run tool/remeasure_pins.dart --uncovered
+///
+/// It copies, rewrites and runs every entry against the resolved interpreter
+/// and prints RECORDED against RAN per entry, naming every mismatch and — a
+/// different finding — every entry whose count could not be confirmed at all
+/// (SCE143). The comparison used to be advice in this header that the tool had
+/// the numbers for and never made.
+///
+/// RE-MEASURED IN FULL, 2026-09-22 (SCE143), all 49 entries against resolved
+/// 0.65.0. **No count had drifted**: every one of the 35 entries that ran
+/// matched its recorded `ran` exactly. That is the register working — sce141
+/// had re-recorded the two that HAD drifted (`typed_list_family_parity` and
+/// `coerce_arguments`) the same day, and `release_hygiene_test.dart`, the
+/// example the todo was written around, had since moved to
+/// [_anchoredBaseline].
+///
+/// FOURTEEN ENTRIES COULD NOT BE COUNTED, which is the standing finding rather
+/// than a failure: their ports do not compile against the published
+/// interpreter, so their recorded `ran` is a HISTORICAL figure from whenever
+/// the file last built. Each now says so directly above its number, because a
+/// figure that reads as measured and cannot be is the shape of defect this
+/// register exists to prevent.
+///
+/// TWO ENTRIES PASS, and both are correctly overridden by a judgement the
+/// experiment cannot make: `_conway_perf_probe` is a timing assertion and
+/// `sce76_generic_function_parameter_census` measures nothing in a package that
+/// registers no bridges. Both entries said so in advance; both now record the
+/// measurement as well, so the next run meets a note rather than a surprise.
+///
+/// The older record below is kept because it is the run that established the
+/// ratio, not because it describes today's register — four of the nine entries
+/// it names have since left the map:
+///
 /// RE-MEASURED IN FULL, 2026-09-15 (SCD126), with
 /// `dart run tool/remeasure_pins.dart --uncovered` — the same copy-rewrite-run
 /// SCC44 did by hand on the other map, against resolved 0.65.0:
@@ -1588,6 +1623,8 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
   // one file and knows nothing about `tls_fixture.dart`, so its verdict here is
   // about the recipe's blind spot, not about the interpreter. The 6-of-6 figure
   // was taken with the fixture placed by hand and is the one to trust.
+  // `ran` IS HISTORICAL: this file does not compile against the resolved interpreter,
+  // so the number above cannot be confirmed here (measured 2026-09-22, sce143).
   'scd171_tls_bridges_test.dart': (ran: 6, declared: 9),
   // NOT PORTABLE, and not blocked on anything: `dart:mirrors` over *tom_d4rt's
   // own* bridge registry, checking that a constructor adapter reading
@@ -1595,13 +1632,19 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
   // exec has a different registry, so a copy would reflect over the reference
   // tree while pretending to measure this one — the same family as the three
   // `stdlib_member_diff.dart` entries below.
+  // `ran` IS HISTORICAL: this file does not compile against the resolved interpreter,
+  // so the number above cannot be confirmed here (measured 2026-09-22, sce143).
   'scd68_constructor_named_args_test.dart': (ran: 3, declared: 3),
   // NOT PORTABLE, same tool and same reason as the entries above: all three
   // import `tool/stdlib_member_diff.dart`, the `dart:mirrors` reflector over
   // tom_d4rt's registry. Measured 2026-09-15: does-not-compile against both
   // 0.65.0 and 0.113.0, which is what an absent tool looks like from here.
+  // `ran` IS HISTORICAL: this file does not compile against the resolved interpreter,
+  // so the number above cannot be confirmed here (measured 2026-09-22, sce143).
   'doc/gap_audit_figures_test.dart': (ran: 5, declared: 5),
   // NOT PORTABLE — `tool/stdlib_member_diff.dart`, as above.
+  // `ran` IS HISTORICAL: this file does not compile against the resolved interpreter,
+  // so the number above cannot be confirmed here (measured 2026-09-22, sce143).
   'scd39_operator_probe_operands_test.dart': (ran: 5, declared: 5),
   // NOT PORTABLE — `tool/stdlib_member_diff.dart` again, and here the tool is
   // the SUBJECT rather than an instrument: the cases render the two baseline
@@ -1609,8 +1652,12 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
   // a process to check that `--only` with `--baseline` refuses. exec has
   // neither the tool nor the baselines it writes. pin-registered: n/a —
   // nothing a publish can change.
+  // `ran` IS HISTORICAL: this file does not compile against the resolved interpreter,
+  // so the number above cannot be confirmed here (measured 2026-09-22, sce143).
   'stdlib/sce86_baseline_renderer_test.dart': (ran: 6, declared: 6),
   // NOT PORTABLE — `tool/stdlib_member_diff.dart`, as above.
+  // `ran` IS HISTORICAL: this file does not compile against the resolved interpreter,
+  // so the number above cannot be confirmed here (measured 2026-09-22, sce143).
   'stdlib/typed_data/scd167_variant_parity_test.dart': (ran: 4, declared: 4),
   // SCD200's nine, and none of them is a guess: each was ported into ztmp and
   // RUN twice — against the 0.65.0 exec resolves, and against the working tree
@@ -1667,10 +1714,14 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
   // to measure this one. Measured 2026-09-15: does-not-compile against both
   // 0.65.0 and 0.113.0, which is what "the tool is absent" looks like from
   // here and is why no pin belongs on either.
+  // `ran` IS HISTORICAL: this file does not compile against the resolved interpreter,
+  // so the number above cannot be confirmed here (measured 2026-09-22, sce143).
   'scd36_return_type_pass_test.dart': (ran: 5, declared: 5),
   // NOT PORTABLE, same tool and same reason as the entry above — SCC13's
   // hierarchy baseline is generated by `tool/stdlib_member_diff.dart` from
   // tom_d4rt's registry, and exec has neither the tool nor that registry.
+  // `ran` IS HISTORICAL: this file does not compile against the resolved interpreter,
+  // so the number above cannot be confirmed here (measured 2026-09-22, sce143).
   'stdlib/hierarchy_baseline_test.dart': (ran: 6, declared: 6),
   // NOT PORTABLE YET, and the reason is the thing it tests. SCD173's four cases
   // pass a map literal to `ContentType`, `HeaderValue` and
@@ -1707,6 +1758,8 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
   // --uncovered`, the port still DOES NOT COMPILE — it imports
   // `src/static_name_report.dart`, which resolves over the analyzer AST and
   // has no counterpart in the published interpreter.
+  // `ran` IS HISTORICAL: this file does not compile against the resolved interpreter,
+  // so the number above cannot be confirmed here (measured 2026-09-22, sce143).
   'scd95_static_name_report_test.dart': (ran: 12, declared: 12),
   // NOT PORTABLE — a throughput probe, not a conformance assertion. Its single
   // case measures how long a Conway generation takes; run on two interpreters
@@ -1752,6 +1805,8 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
   // for its own reason too and not only by the missing member.
   //
   // Re-port when a publish raises exec's floor past 0.108.0.
+  // `ran` IS HISTORICAL: this file does not compile against the resolved interpreter,
+  // so the number above cannot be confirmed here (measured 2026-09-22, sce143).
   'scc73_sdk_member_completeness_test.dart': (ran: 4, declared: 3),
   // SCD186 bridged `Future.syncValue`, the one SDK member the floor gap was
   // hiding, and this file is its behaviour cover. It cannot be ported yet for
@@ -1795,6 +1850,8 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
   // the six findings.
   //
   // Re-port when a publish raises exec's floor past 0.110.0.
+  // `ran` IS HISTORICAL: this file does not compile against the resolved interpreter,
+  // so the number above cannot be confirmed here (measured 2026-09-22, sce143).
   'stdlib/scd189_member_kind_parity_test.dart': (ran: 3, declared: 3),
   // SCD198 drives scripts through `D4rt.execute` to ask what a bare class name
   // evaluates to. Its three fixes — `BridgedClass` equality and hashing, the
@@ -1824,6 +1881,8 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
   // Same structural reason as `scc73_sdk_member_completeness_test.dart` above,
   // and the same remedy: the analyzer-free line's equivalent has to be BUILT
   // against `tom_d4rt_ast`'s registry, not ported. [2026-09-15]
+  // `ran` IS HISTORICAL: this file does not compile against the resolved interpreter,
+  // so the number above cannot be confirmed here (measured 2026-09-22, sce143).
   'stdlib/member_coverage_baseline_test.dart': (ran: 4, declared: 13),
   // BLOCKED ON A PUBLISH, and measured rather than inferred — the register above
   // says a pin written from prose rots, so both of these were ported into
@@ -1847,12 +1906,16 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
   // only the helper the test calls that is missing.
   //
   // Re-port when a publish raises exec's floor past 0.82.0.
+  // `ran` IS HISTORICAL: this file does not compile against the resolved interpreter,
+  // so the number above cannot be confirmed here (measured 2026-09-22, sce143).
   'scd73_no_hook_unwrapping_test.dart': (ran: 8, declared: 8),
   // NOT PORTABLE — `tool/stdlib_member_diff.dart` again, and this file is the
   // one that tests the tool's own classifier. Its four cases plant a wording at
   // a throw site and assert the audit notices, so its subject is the reference
   // tree's tool rather than either interpreter. pin-registered: n/a — nothing
   // a publish can change.
+  // `ran` IS HISTORICAL: this file does not compile against the resolved interpreter,
+  // so the number above cannot be confirmed here (measured 2026-09-22, sce143).
   'sce77_resolution_throw_sites_test.dart': (ran: 4, declared: 4),
   // NOT PORTABLE — a census over the SDK's own sources, asked on behalf of
   // *tom_d4rt's* bridge registry: it finds every SDK member carrying a generic
@@ -1861,6 +1924,12 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
   // here it would re-assert the same SDK facts about a package that registers
   // no bridges, which passes and measures nothing. pin-registered: n/a — its
   // subject is not the interpreter.
+  //
+  // MEASURED 2026-09-22 against resolved 0.65.0: it PASSES, exactly as the
+  // sentence above predicts — "which passes and measures nothing" is what a
+  // `PASSES NOW` verdict here means, not an available port. Recorded so the
+  // next re-measurement meets a note rather than a surprise, which is the same
+  // service `_conway_perf_probe`'s entry does.
   'sce76_generic_function_parameter_census_test.dart': (ran: 2, declared: 2),
   // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.129.0.
   // Measured 2026-09-21: 9 of 61 fail against the 0.65.0 exec resolves — the
