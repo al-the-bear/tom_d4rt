@@ -1012,20 +1012,26 @@ const Map<String, _Coverage> _coveredElsewhere = {
     'ast:runtime/scd92_applied_parameter_type_test.dart',
     _astTwin,
     layer: _Layer.script,
-    refCases: 22,
-    twinCases: 4,
+    // 22 -> 27 / 4 -> 6: SCE129 added the ALL-NULL collection to the
+    // permissive set on both sides. The reference gains four shapes (list,
+    // set, both halves of a map, a local declaration) plus an anti-vacuity
+    // control; the twin gains the claim and its control, which is the split
+    // `whyPartial` already describes.
+    refCases: 27,
+    twinCases: 6,
     whyPartial:
         'the twin is a different KIND of test, not this one with cases '
-        'dropped. The reference file spells twenty-two SHAPES -- empty, '
-        'heterogeneous, top-type, unbound and bound type parameters, '
-        'covariance, numeric widening -- because running source makes each '
-        'one three lines. The twin cannot run source at all: every case is a '
-        'hand-built bundle costing a couple of dozen lines, so it carries the '
-        'four that cannot pass by accident (mismatch throws, match binds, '
-        'empty stays permissive, raw annotation admits anything). Porting the '
-        'other eighteen would restate boundary arithmetic the shared '
-        '`ResolvedBinding._checkTypeArguments` decides in one place, at a '
-        'cost of some 500 lines of bundle construction.',
+        'dropped. The reference file spells twenty-seven SHAPES -- empty, '
+        'all-null, heterogeneous, top-type, unbound and bound type '
+        'parameters, covariance, numeric widening -- because running source '
+        'makes each one three lines. The twin cannot run source at all: '
+        'every case is a hand-built bundle costing a couple of dozen lines, '
+        'so it carries the six that cannot pass by accident (mismatch '
+        'throws, match binds, empty stays permissive, raw annotation admits '
+        'anything, all-null stays permissive, a wrong type still throws). '
+        'Porting the other twenty-one would restate boundary arithmetic the '
+        'shared `ResolvedBinding._checkTypeArguments` decides in one place, '
+        'at a cost of some 500 lines of bundle construction.',
   ),
   'scc28_typed_undefined_member_test.dart': _Coverage(
     'ast:runtime/scc28_typed_undefined_member_test.dart',
@@ -1662,7 +1668,14 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
   // behaviour, so a port would assert that a function exec never calls returns
   // the same list. When the enforcing half lands it changes what `execute()`
   // does, and that is when exec has something to conform about.
-  'scd95_static_name_report_test.dart': (ran: 11, declared: 11),
+  // 11 -> 12: SCE128 added F-SCD95-12 and F-SCD95-13 (a label reference and
+  // an extension type's representation are not undefined reads). Both
+  // numbers move together because nothing ran: re-measured 2026-09-22
+  // against resolved tom_d4rt_ast 0.65.0 by `tool/remeasure_pins.dart
+  // --uncovered`, the port still DOES NOT COMPILE — it imports
+  // `src/static_name_report.dart`, which resolves over the analyzer AST and
+  // has no counterpart in the published interpreter.
+  'scd95_static_name_report_test.dart': (ran: 12, declared: 12),
   // NOT PORTABLE — a throughput probe, not a conformance assertion. Its single
   // case measures how long a Conway generation takes; run on two interpreters
   // with different performance characteristics it yields a flaky failure rather

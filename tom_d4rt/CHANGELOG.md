@@ -1,3 +1,54 @@
+## 1.173.0
+
+### Fixed — an all-null collection was refused by the binding check it was written for (sce129)
+
+SCD92 made a declared parameter's TYPE ARGUMENTS a real check, deriving the
+argument's own arguments from its CONTENTS because a native collection carries
+no element type d4rt can read back. Its own entry lists where it therefore
+stays permissive — an empty collection, a heterogeneous one, a top type, an
+unbound type parameter, a raw generic, every bridged instance.
+
+ALL-NULL WAS MISSING FROM THAT LIST, and it is the same case as empty. `null`
+inhabits every nullable type, so a collection of nothing but nulls constrains
+its element type exactly as little as a collection of nothing does — but it
+derives `Null` rather than nothing, and `Null` was then compared literally:
+
+    int f(List<String?> xs) => xs.length;
+    f(List<String?>.filled(3, null));
+    // was: type 'List<Null>' is not a subtype of type 'List<String>' of 'xs'
+
+The annotation that produced the value refused it. Six sites: a parameter bind
+and a local variable declaration, over a list, a set, and either half of a map.
+A return and a for-in were unaffected — they reach the derivation by a
+different route.
+
+IT IS A WIDENING, NOT A SUBTYPE RULE, and the distinction is the whole of it.
+`Null` is not a subtype of `String`, only of `String?`; and
+`_appliedDeclaredType` resolves an argument node by NAME, so a declared
+`List<String?>` arrives with its nullability already gone — which is why the
+message above says `List<String>` for an annotation that was written
+`List<String?>`. No subtype rule could recover what was never carried. The
+comparison is relaxed instead, in the same shape and the same place as SCD92's
+existing int→double widening, and it widens the type used for the COMPARISON
+only.
+
+HOW IT WAS FOUND, because the route matters more than the fix. It is three of
+the base bridge corpus's failures — `widgets/table_test.dart`,
+`foundation/stack_filter_test.dart`, `gestures/tap_drag_start_details_test.dart`
+— which have blocked the interpreter publish since 2026-09-15 with every unit
+suite in three packages green. sce129 reproduced two of the three in ten lines
+of plain Dart with no Flutter, then bisected 103 commits in seven steps to
+`a31d6ff88` / 1.99.0. Both numbers are the point: the corpus found a defect no
+unit test could, and the defect was unit-testable all along.
+
+New: F-SCD92-23..26 (the four shapes) and F-SCD92-27 (anti-vacuity — a wrong
+non-null element type is still refused); F-SCD92-AST-5 and -6 in the twin.
+Ablated: without the fix, -23..-26 fail and -27 passes, which is what says -27
+is a control rather than a second copy of the claim.
+
+Name resolution: no — the binding check decides subtyping, not which
+declaration a name reaches.
+
 ## 1.172.0
 
 ### Fixed — two holes in the static name resolver (sce128, phase 2 groundwork)

@@ -38,6 +38,11 @@ import 'interpreter_test.dart' show execute;
 /// read. Everything below stays as permissive as before:
 ///
 ///   - an empty collection (F-SCD92-5) — no element to read a type from;
+///   - an ALL-NULL one (F-SCD92-23..26) — `null` inhabits every nullable
+///     type, so a derived element type of `Null` constrains nothing. This one
+///     was MISSING, and is why three base-corpus scripts regressed: the list
+///     `List<String?>.filled(n, null)` produces was refused against the very
+///     annotation that produced it (sce129);
 ///   - a heterogeneous one (F-SCD92-6, F-SCD92-9) — no single element type;
 ///   - a top-type argument (F-SCD92-7) — `List<dynamic>` admits anything, so
 ///     the applied check could only repeat the base one;
@@ -355,6 +360,100 @@ void main() {
             return 0;
           }
         '''),
+        throwsA(isA<TypeError>()),
+      );
+    });
+    test('F-SCD92-23: an all-null list binds to a nullable element type '
+        '[2026-09-22]', () {
+      // The shape that regressed `foundation/stack_filter_test.dart` in the
+      // bridge corpus. `null` is a member of `String?`, so this is a correct
+      // program; the derived element type is `Null`, and the declared one
+      // arrives with its nullability already erased by name resolution, so a
+      // literal comparison refuses it.
+      expect(
+        execute(r"""
+          int f(List<String?> xs) => xs.length;
+          main() => f(<String?>[null, null]);
+        """),
+        2,
+      );
+    });
+
+    test('F-SCD92-24: `List<T?>.filled(n, null)` binds to a `List<T?>` '
+        'parameter [2026-09-22]', () {
+      // Verbatim the corpus line: `List<String?>.filled(frames.length, null)`
+      // built the buffer that `filter(frames, reasons)` then refused.
+      expect(
+        execute(r"""
+          int f(List<String?> xs) => xs.length;
+          main() => f(List<String?>.filled(3, null));
+        """),
+        3,
+      );
+    });
+
+    test('F-SCD92-25: the same holds for a set and for both halves of a map '
+        '[2026-09-22]', () {
+      // `appliedRuntimeTypeOf` derives a set's element type and BOTH of a
+      // map's the same way, so all three arrive as `Null` and all three were
+      // refused. A fix that relaxed only the list branch passes -23 and -24
+      // and fails here.
+      expect(
+        execute(r"""
+          int f(Set<String?> xs) => xs.length;
+          main() => f(<String?>{null});
+        """),
+        1,
+      );
+      expect(
+        execute(r"""
+          int f(Map<String, String?> m) => m.length;
+          main() => f(<String, String?>{'a': null});
+        """),
+        1,
+      );
+      expect(
+        execute(r"""
+          int f(Map<String?, String> m) => m.length;
+          main() => f(<String?, String>{null: 'a'});
+        """),
+        1,
+      );
+    });
+
+    test('F-SCD92-26: a local variable declaration is relaxed too '
+        '[2026-09-22]', () {
+      // `ResolvedBinding` serves the declaration site as well as the parameter
+      // one, so the defect reached `final List<String?> x = ...` — a program
+      // that never calls anything.
+      expect(
+        execute(r"""
+          main() {
+            final List<String?> x = <String?>[null, null];
+            return x.length;
+          }
+        """),
+        2,
+      );
+    });
+
+    test('F-SCD92-27: the relaxation does not disable the check '
+        '[2026-09-22]', () {
+      // ANTI-VACUITY. Widening `Null` to the declared argument is one cell of
+      // the comparison, not a bypass of it: a wrong NON-null element type is
+      // still refused, and so is a wrong one sitting beside nulls.
+      expect(
+        () => execute(r"""
+          int f(List<String> xs) => xs.length;
+          main() => f(<int>[1, 2]);
+        """),
+        throwsA(isA<TypeError>()),
+      );
+      expect(
+        () => execute(r"""
+          int f(List<String?> xs) => xs.length;
+          main() => f(<int>[1, 2]);
+        """),
         throwsA(isA<TypeError>()),
       );
     });

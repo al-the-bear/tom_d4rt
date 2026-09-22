@@ -6777,14 +6777,57 @@ class ResolvedBinding {
       return value;
     }
     if (actual == null) return value;
-    if (actual.isSubtypeOf(declared)) return value;
-    if (_widenNumericArguments(actual, declared).isSubtypeOf(declared)) {
+    final comparable = _bottomOutNullArguments(actual, declared);
+    if (comparable.isSubtypeOf(declared)) return value;
+    if (_widenNumericArguments(comparable, declared).isSubtypeOf(declared)) {
       return value;
     }
     final declaredName = _isNullable ? '${declared.name}?' : declared.name;
     throw D4rtTypeError(
       "type '${actual.name}' is not a subtype of type '$declaredName'$_suffix",
     );
+  }
+
+  /// SCE129: [actual] with each `Null` type argument replaced by its declared
+  /// counterpart — or [actual] unchanged when none is `Null`.
+  ///
+  /// An ALL-NULL collection tells this check nothing, for the same reason an
+  /// EMPTY one does not — and [Environment.appliedRuntimeTypeOf] already
+  /// reports the empty case as unknown, because its element type is derived
+  /// from CONTENTS. `null` inhabits every nullable type, so
+  /// `List<String?>.filled(3, null)` and `<Widget?>[null, null]` derive `Null`
+  /// and were refused against the very annotation that produced them. That is
+  /// a false positive on correct code, which is the one outcome
+  /// [_checkTypeArguments] is written to avoid.
+  ///
+  /// It is a WIDENING rather than a subtype rule, and the distinction is the
+  /// whole of it: `Null` is NOT a subtype of `String`, only of `String?`, and
+  /// [InterpretedFunction._appliedDeclaredType] resolves an argument node by
+  /// name — so a declared `List<String?>` arrives here as `List<String>` with
+  /// the nullability already gone, and no subtype rule could recover it. d4rt
+  /// cannot read a reified type argument off a native collection either, so it
+  /// cannot tell `<String?>[null]` from a `List<String>` holding nulls.
+  /// Refusing on that ambiguity costs a working program; accepting it costs a
+  /// mistyping this check never claimed to catch.
+  static AppliedRuntimeType _bottomOutNullArguments(
+    AppliedRuntimeType actual,
+    AppliedRuntimeType declared,
+  ) {
+    if (actual.typeArguments.length != declared.typeArguments.length) {
+      return actual;
+    }
+    var relaxed = false;
+    final args = <RuntimeType>[];
+    for (var i = 0; i < actual.typeArguments.length; i++) {
+      final ours = actual.typeArguments[i];
+      if (ours.name == 'Null') {
+        args.add(declared.typeArguments[i]);
+        relaxed = true;
+      } else {
+        args.add(ours);
+      }
+    }
+    return relaxed ? AppliedRuntimeType(actual.baseType, args) : actual;
   }
 
   /// SCD92: [actual] with each `int` type argument whose declared counterpart is

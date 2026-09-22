@@ -24,6 +24,10 @@
 //   -4 a raw annotation binds             — the type arguments, not the
 //                                           collection, are what make the
 //                                           difference
+//   -5 an ALL-NULL collection binds        — sce129: the permissive fallback
+//                                           reached the case that derives an
+//                                           element type of `Null`
+//   -6 a wrong element type still throws   — anti-vacuity for -5
 //
 // A "throw whenever a generic parameter meets a collection" shortcut passes -1
 // and fails -2, -3 and -4. A check that compared arguments by name rather than
@@ -133,6 +137,7 @@ AstBundle appliedParameterBundle({
 SExpression intLit(int v) => SIntegerLiteral(offset: 0, length: 0, value: v);
 SExpression strLit(String v) =>
     SSimpleStringLiteral(offset: 0, length: 0, value: v);
+SExpression nullLit() => SNullLiteral(offset: 0, length: 0);
 
 void main() {
   Object? run(String? typeArgument, List<SExpression> elements) =>
@@ -176,6 +181,29 @@ void main() {
       // is what says the check keys off the written arguments rather than
       // firing on every collection parameter.
       expect(run(null, [intLit(1)]), [1]);
+    });
+    test('F-SCD92-AST-5: an all-null collection stays permissive '
+        '[2026-09-22] (PASS)', () {
+      // sce129. The empty case (-3) was already permissive; the ALL-NULL one
+      // was not, and three base-corpus scripts regressed on it. `null`
+      // inhabits every nullable type, so a derived element type of `Null`
+      // constrains nothing — the same epistemic position as an empty
+      // collection, which is why the two belong together.
+      //
+      // The bundle writes a NON-nullable `List<String>`, which is the harder
+      // half of the claim: d4rt cannot read a reified type argument off a
+      // native list, so it cannot tell this from the `List<String?>` a script
+      // would have written, and the check is relaxed rather than guessing.
+      expect(run('String', [nullLit(), nullLit()]), [null, null]);
+    });
+
+    test('F-SCD92-AST-6: a null beside a WRONG element type is still refused '
+        '[2026-09-22] (PASS)', () {
+      // ANTI-VACUITY for -5. The relaxation applies to a type argument that
+      // derived as `Null`, not to any collection containing a null: a mixed
+      // list has no single element type at all, so it takes the -3 route, and
+      // a homogeneous wrong one still throws.
+      expect(() => run('String', [intLit(1)]), throwsA(isA<TypeError>()));
     });
   });
 }
