@@ -1,3 +1,26 @@
+## 1.176.0
+
+### Verified — the PASS B narrowing measured against the Flutter corpus (sce149)
+
+SCD132 narrowed `Environment.toBridgedClass`'s prefix fallback to require
+corroboration — `nativeNames` or a supertype-registry edge — instead of claiming
+any bridge whose name prefixes the native type name. Both trees' full suites
+established that the old rule had no legitimate user; what they could not speak
+for is the Flutter corpus, which is the rule's heaviest consumer and which
+resolves the interpreter from pub.dev (DGUC6).
+
+Both twins' base corpus, run serially through SCD66's pre-publish path
+resolution: **926 / 1 / 1 each**, against the 927/1/0 hosted baseline. The
+single failure is the same script in both — scf26's `const <String>{}`
+resolving to Flutter's `View` widget — which is the SUFFIX pass, not this one.
+
+THE EXPECTED FINDING DID NOT MATERIALISE. The work predicted Flutter bridges
+would need `nativeNames` entries once the prefix coincidence stopped covering
+for them. None did: no corpus resolution was reaching PASS B uncorroborated.
+
+Name resolution: no — this release changes only the comment recording that
+measurement. The narrowing itself shipped in 1.108.0 / 0.95.0.
+
 ## 1.175.0
 
 ### Fixed — a `return` or an invocation with several awaits evaluated each of them twice (sce139)

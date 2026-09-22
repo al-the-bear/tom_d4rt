@@ -1299,6 +1299,24 @@ class Environment {
     // user, and the test that did rely on it now declares `nativeNames`, which
     // is the realignment rather than a workaround.
     //
+    // AND MEASURED AGAINST THE FLUTTER CORPUS (SCE149), which is where this
+    // rule's heaviest use lives and which the unit suites cannot speak for:
+    // the twins resolve the interpreter from pub.dev (DGUC6), so no corpus run
+    // had ever exercised the narrowing. Both twins' base corpus, run serially
+    // 2026-09-22 through SCD66's pre-publish path resolution at tom_d4rt
+    // 1.175.0 / tom_d4rt_ast 0.157.0: **926 / 1 / 1 each**, against the
+    // 927/1/0 hosted baseline, and the single failure is the same script in
+    // both — scf26's `const <String>{}` resolving to Flutter's `View` widget,
+    // which is the SUFFIX pass (`_longestNameSuffixMatch`) and not this one.
+    //
+    // THE EXPECTED FINDING DID NOT MATERIALISE, and that is the result. The
+    // todo predicted Flutter bridges would need `nativeNames` entries once the
+    // prefix coincidence stopped covering for them. NONE did: no corpus
+    // resolution was reaching PASS B uncorroborated. The two false positives
+    // this rule is infamous for (`MappedListIterable` → `Map`,
+    // `TextDirection` → `Text`) were both found BY the corpus, so the corpus
+    // was the right place to ask — it simply answered no.
+    //
     // When nothing corroborates, falling through to the throw below is more
     // honest than returning a wrong bridge: every caller already handles it,
     // and a wrong bridge is a silently wrong dispatch.
