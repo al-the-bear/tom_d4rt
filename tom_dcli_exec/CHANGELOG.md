@@ -1,3 +1,57 @@
+## 1.6.0
+
+### Fixed — three standing test failures, and the suite no longer contradicts itself (sce132)
+
+The suite had been 421 passing / 3 failing long enough that its exit code had
+stopped meaning anything, which is how the next real regression gets missed.
+
+**TWO WERE THE SAME STALE ASSERTION, one layer apart.** `tom_d4rt_exec` 1.16.0
+made `execute()` REJECT source that does not parse, where before it ran
+whatever fragment the parser salvaged. A test asserting the old leniency was
+never updated — and it sat eight lines above one asserting the new strictness:
+
+    should exit 0 on unclosed string (parser is lenient)   <- red since 1.16.0
+    should exit 2 on syntax error (incomplete expression)  <- green
+
+One said the parser was lenient, the next said it was strict, and a reader of
+either could not tell which was the contract. `test/stdin/test_stdin.sh`
+carried the same assertion in shell, which is the second failure — CONFIRMED
+rather than assumed, by running the fixture and finding 1 of its 23 checks
+failing on that one case.
+
+Both now state ONE rule — source that does not parse exits 2 — and are named
+for it. Measured against a freshly compiled `dclie`: an unclosed string and an
+incomplete expression both report `SourceCodeException: Fatal parsing errors`
+and exit 2, the same as a runtime error.
+
+**THE THIRD WAS STALE BRIDGES, and the first reading of it was wrong.**
+`BRIDGE-FRESH-01` reported `dcli_bridges.b.dart` differing from a fresh
+generation. The diff looked like a REGRESSION rather than staleness — a
+re-export edge dropped, and `Env.scopeKey` degrading from
+`D4.extractBridgedArg<ScopeKey<Env>>` to `value as dynamic` with its signature
+string becoming `InvalidType get scopeKey` — so the obvious move was to refuse
+to commit it.
+
+Three measurements said otherwise. The generator that WROTE the committed file
+(1.26.2), the one this package resolves (1.28.0) and the working tree's
+(1.42.0) all produce byte-identical output today, and
+`check_package_configs.py` reports the package's resolution healthy with
+`scope 5.1.0` present. So the output is a function of the current resolution
+rather than of the generator: the committed file records a resolution that no
+longer exists, and regenerating makes it describe reality.
+
+All eight `*.b.dart` files are now written by 1.28.0 — the generator this
+package's own resolution names — so its within-package mixed writers
+(1.26.2 x9) are gone rather than replaced by a mix of two.
+
+NOTED, NOT FIXED HERE: `InvalidType get scopeKey` is a meaningless signature
+string, and the setter has lost its type check. It is GEN-079 declining to
+wrap a type no barrel re-exports, it is one member, and three other committed
+bridge files in this repo already carry it — so this regeneration brings the
+package into line with them rather than introducing it.
+
+Suite: 424 passing, 0 failing.
+
 ## 1.5.0
 
 ### Removed — eight build_runner-era bridge files nothing imports or regenerates

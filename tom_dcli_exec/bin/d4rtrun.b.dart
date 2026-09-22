@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Test runner for tom_dcli_exec
-// Generated: 2026-09-18T04:57:22.496385 by tom_d4rt_generator 1.26.2
+// Generated: 2026-09-22T16:16:58.690070 by tom_d4rt_generator 1.28.0
 
 // ignore_for_file: avoid_print
 

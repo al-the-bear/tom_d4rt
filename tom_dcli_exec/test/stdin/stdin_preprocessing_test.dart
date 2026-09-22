@@ -209,25 +209,30 @@ void main() {
       expect(stderr, contains('No input'));
     }, timeout: processTimeout);
 
-    test(
-      'should exit 0 on unclosed string (parser is lenient)',
-      () async {
-        final r = await runDcliStdin('void main() { print("unclosed }');
-        expect(r.exitCode, 0);
-      },
-      timeout: processTimeout,
-    );
+    // ONE RULE, TWO SHAPES: source that does not parse exits 2.
+    //
+    // These two used to contradict each other. The first asserted exit 0 and
+    // was named "(parser is lenient)"; the second, eight lines down, asserted
+    // exit 2. `tom_d4rt_exec` 1.16.0 made `execute()` REJECT source that does
+    // not parse, where before it ran whatever fragment the parser salvaged —
+    // so the lenient one had been red ever since, and a reader of either could
+    // not tell which was the contract (sce132).
+    //
+    // Measured 2026-09-22 against a freshly compiled `dclie`: both report
+    // `SourceCodeException: Fatal parsing errors` and exit 2. The shell
+    // fixture `test_stdin.sh` carried the same stale assertion and was
+    // corrected in the same commit.
+    test('should exit 2 on an unclosed string', () async {
+      final r = await runDcliStdin('void main() { print("unclosed }');
+      expect(r.exitCode, 2);
+    }, timeout: processTimeout);
 
-    test(
-      'should exit 2 on syntax error (incomplete expression)',
-      () async {
-        final r = await runDcliStdin(
-          'void main() {\n  int x = 10 +;\n  print(x);\n}',
-        );
-        expect(r.exitCode, 2);
-      },
-      timeout: processTimeout,
-    );
+    test('should exit 2 on an incomplete expression', () async {
+      final r = await runDcliStdin(
+        'void main() {\n  int x = 10 +;\n  print(x);\n}',
+      );
+      expect(r.exitCode, 2);
+    }, timeout: processTimeout);
 
     test('should exit 2 on runtime error', () async {
       final r = await runDcliStdin('print(undefinedVariable123);');

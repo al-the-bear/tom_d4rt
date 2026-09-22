@@ -229,11 +229,15 @@ set -e
 assert_exit_code 1 "empty stdin exits 1"
 assert_stderr_contains "No input" "empty stdin error message"
 
-# Unclosed string — parser is lenient, treats as valid (prints partial)
+# ONE RULE, TWO SHAPES: source that does not parse exits 2. This pair used to
+# contradict itself — the unclosed string asserted exit 0 and was annotated
+# "parser is lenient", while the incomplete expression below asserted 2.
+# tom_d4rt_exec 1.16.0 made execute() reject source that does not parse, so the
+# lenient assertion had been failing ever since (sce132).
 run_dcli_stdin 'void main() { print("unclosed }'
-assert_exit_code 0 "unclosed string is lenient (parser recovers)"
+assert_exit_code 2 "unclosed string exits 2"
 
-# Actual syntax error — incomplete expression
+# Incomplete expression — the same rule, a different shape
 run_dcli_stdin 'void main() {
   int x = 10 +;
   print(x);
