@@ -2062,6 +2062,104 @@ class _Convergence {
   final String why;
 }
 
+/// Words a convergence reason shares with no other kind of sentence — the
+/// identifiers, type names and file names that say WHICH pair it is about.
+///
+/// SCE142. `_convergenceLog` records a direction and a reason, and two of its
+/// entries once had their reasons written against each other's file. Both were
+/// true sentences about SOME file, both entries passed every guard here, and a
+/// reader who does not open both reference headers has no way to notice. That
+/// is prose standing unchecked in the one register whose whole purpose is to
+/// make a decision reviewable.
+///
+/// WHAT IS EXTRACTED, and it is deliberately narrow: backticked identifiers,
+/// anything with an internal capital (`SAstNode`, `RecordTypeAnnotationField`),
+/// anything with an underscore (`tom_ast_generator`, `_normalise`), and `.dart`
+/// file names. Ordinary English carries none of those, so a reason written in
+/// plain prose yields NO terms and is reported as unscoreable rather than as a
+/// miss — those are different findings and collapsing them is how a check like
+/// this starts firing on correct entries and gets deleted.
+///
+/// The stop list removes the register's own vocabulary. Without it every reason
+/// scores on words like `converged` that say nothing about which pair it is.
+const Set<String> _reasonStopWords = {
+  'the',
+  'and',
+  'that',
+  'this',
+  'these',
+  'those',
+  'with',
+  'from',
+  'were',
+  'been',
+  'being',
+  'have',
+  'does',
+  'file',
+  'files',
+  'copy',
+  'copies',
+  'entry',
+  'entries',
+  'reference',
+  'exec',
+  'both',
+  'side',
+  'sides',
+  'tree',
+  'trees',
+  'converged',
+  'convergence',
+  'ported',
+  'port',
+  'taken',
+  'header',
+  'headers',
+  'same',
+  'shape',
+  'reason',
+  'which',
+  'what',
+  'when',
+  'whose',
+};
+
+Set<String> _distinctiveTerms(String reason) {
+  final out = <String>{};
+  void add(String w) {
+    if (w.length > 3 && !_reasonStopWords.contains(w.toLowerCase())) out.add(w);
+  }
+
+  for (final m in RegExp(r'`([^`]+)`').allMatches(reason)) {
+    for (final w in RegExp(
+      r'[A-Za-z_][A-Za-z0-9_.]*',
+    ).allMatches(m.group(1)!)) {
+      add(w.group(0)!);
+    }
+  }
+  for (final m in RegExp(
+    r'\b[A-Za-z_][A-Za-z0-9_]*(?:\.dart)?\b',
+  ).allMatches(reason)) {
+    final w = m.group(0)!;
+    if (w.endsWith('.dart') ||
+        w.contains('_') ||
+        RegExp(r'[a-z][A-Z]').hasMatch(w)) {
+      add(w);
+    }
+  }
+  return out;
+}
+
+/// What fraction of [reason]'s distinctive terms appear in [file], or null when
+/// the reason has no distinctive terms and the question cannot be asked.
+double? _reasonOverlap(String reason, File file) {
+  final terms = _distinctiveTerms(reason);
+  if (terms.isEmpty) return null;
+  final source = file.readAsStringSync();
+  return terms.where(source.contains).length / terms.length;
+}
+
 /// Pairs that were divergent and are now converged, with the direction taken.
 ///
 /// F-SCC44-2 checks that every entry is still TRUE — the file exists in both
@@ -2086,6 +2184,27 @@ class _Convergence {
 /// from a diff: a converged file looks the same whichever side won, so reading
 /// the outcome cannot recover the decision. New convergences add an
 /// entry; sce64 covers reconstructing what can still be established.
+///
+/// THE REASON IS CHECKED AGAINST THE FILE IT NAMES (SCE142), which is the one
+/// thing about this register that was prose standing alone. F-SCE142-1 fails
+/// when NONE of a reason's distinctive terms — backticked identifiers,
+/// CamelCase, underscored names, `.dart` file names — appears in the reference
+/// file the entry is keyed by, and names the entry whose file they do appear
+/// in.
+///
+/// THE OVERLAP ACROSS THE WHOLE REGISTER, measured 2026-09-22 before the check
+/// was written, because a guard that fires on correct entries gets deleted:
+/// five entries score 1.00, three score 0.50, six yield no distinctive term at
+/// all and are unscoreable. The three at 0.50 are correct and their misses are
+/// each legitimate — `d4_helpers` quotes exec's imports, `stream_consumer`
+/// deliberately names a sibling entry, `bridged_class` names this guard's own
+/// `_normalise` — so ZERO is the only gate that does not accuse them.
+///
+/// AND IT RANKS THE DEFECT IT WAS WRITTEN FOR, which is what the measurement
+/// was for. Against the pre-SCD125 text each swapped reason scores 0.00 on the
+/// entry it was attached to and 1.00 on the entry it belongs to: not merely
+/// detectable but localisable. F-SCE142-2 pins that with the two reasons
+/// verbatim, so the control can never become vacuous.
 const Map<String, _Convergence> _convergenceLog = {
   // SCE64 reconstructed the entries below from the commits that converged
   // them. Only convergences whose direction the COMMIT MESSAGE states are
@@ -3116,6 +3235,7 @@ _PinVerdict _pinVerdict(
 // | _execAstFloor/_execAstResolved | n/a — `fail()` on a miss      | itself |
 // | _guidelineFiles             | _guidelineOneSidedFiles          | F-SCC6-9 |
 // | _filesUnder                 | _astWorkingTreeDrift + the block | F-SCC80-3 |
+// | _distinctiveTerms/_reasonOverlap | _convergenceLog's reasons   | F-SCE142-1, control F-SCE142-2 |
 //
 // ABLATION MATRIX, measured 2026-09-22. Each row: the edit, and every case
 // that went red. A scan whose row reads NOTHING WENT RED is a finding.
@@ -3135,6 +3255,8 @@ _PinVerdict _pinVerdict(
 // | _questTodoStatus' status regex          | F-SCD103-1, F-SCC80-3            |
 // | _execAstFloor's pattern                 | F-SCC43-1, F-SCC80-1             |
 // | _guidelineFiles finds nothing           | F-SCC6-9                         |
+// | the pre-SCD125 reason swap, restored    | F-SCE142-1 (and NOTHING else)    |
+// | _distinctiveTerms stops matching        | F-SCE142-1, F-SCE142-2           |
 //
 // THE ONE ROW THAT WAS EMPTY, and why it was the one. Breaking the marker
 // pattern left F-SCC6-5, F-SCD103-1 and F-SCD103-2 all green — three cases,
@@ -5754,6 +5876,143 @@ void main() {
             'merely undone.\n${thin.join('\n')}',
       );
     });
+    test('F-SCE142-1: a convergence reason describes the file it is '
+        'attached to [2026-09-22] (PASS)', () {
+      // SCE142. F-SCC44-1 checks that an entry HAS a reason; F-SCC44-2 checks
+      // that the pair it names still agrees. Neither looks at what the reason
+      // SAYS — so when two entries had their reasons written against each
+      // other's file, every guard here passed and only a reader who opened both
+      // reference headers could notice. A reason attached to the wrong file is
+      // unreviewable in the most convincing way: it is a true sentence.
+      //
+      // THE GATE IS ZERO, AND THAT IS MEASURED RATHER THAN CHOSEN. Computing
+      // the overlap across the whole register on 2026-09-22 gave: three correct
+      // entries at 0.50 (`d4_helpers` names exec's imports, `stream_consumer`
+      // deliberately names a SIBLING entry, `bridged_class` names this guard's
+      // own `_normalise`), five at 1.00, and the two swapped entries at 0.00.
+      // Any threshold above zero fires on a correct entry, and a guard that
+      // fires on correct entries gets deleted — which is the failure this todo
+      // said to avoid ahead of building anything.
+      //
+      // A REASON WITH NO DISTINCTIVE TERMS IS UNSCOREABLE, not a miss. Six of
+      // the fourteen entries are plain prose citing a commit, and reporting
+      // those as zero-overlap would bury the finding in noise. They are counted
+      // in the control below so that "unscoreable" cannot quietly become the
+      // whole register.
+      final unrelated = <String>[];
+      var scored = 0;
+      _convergenceLog.forEach((path, entry) {
+        if (entry.why.contains('names-own-file: n/a')) return;
+        final refFile = File('${refTests.path}/$path');
+        if (!refFile.existsSync()) return; // F-SCC44-2's finding, not this one.
+        final score = _reasonOverlap(entry.why, refFile);
+        if (score == null) return;
+        scored++;
+        if (score > 0) return;
+
+        // Name the likely owner. The defect this was written for is a
+        // PERMUTATION — the reasons were swapped, not invented — so the entry
+        // whose file the terms DO match is the answer, and printing it turns a
+        // finding into a fix. Measured on the pre-correction text: each swapped
+        // reason scored 0.00 against its own file and 1.00 against the other's.
+        final better = <String>[];
+        for (final other in _convergenceLog.keys) {
+          if (other == path) continue;
+          final otherFile = File('${refTests.path}/$other');
+          if (!otherFile.existsSync()) continue;
+          if ((_reasonOverlap(entry.why, otherFile) ?? 0) > 0) {
+            better.add(other);
+          }
+        }
+        unrelated.add(
+          '$path: none of ${_distinctiveTerms(entry.why).toList()..sort()} '
+          'appears in its reference file'
+          '${better.isEmpty ? '' : '; they do appear in ${better.join(', ')}'}',
+        );
+      });
+
+      expect(
+        unrelated,
+        isEmpty,
+        reason:
+            'These convergence reasons name identifiers their own reference '
+            'file does not contain:\n  ${unrelated.join('\n  ')}\n\n'
+            'When another entry is named, that is almost certainly where the '
+            'reason belongs — two entries once had theirs swapped and both '
+            'read as true. Otherwise the reason may be about exec\'s copy or '
+            'about this guard, which is legitimate: say so by writing '
+            '`names-own-file: n/a — <why>` into the reason.',
+      );
+      expect(
+        scored,
+        greaterThanOrEqualTo(5),
+        reason:
+            'Only $scored of ${_convergenceLog.length} reasons yielded any '
+            'distinctive term, against 8 measured on 2026-09-22. The extractor '
+            'has probably stopped matching, which makes the case above pass '
+            'over nothing.',
+      );
+    });
+
+    test('F-SCE142-2 (control): the check ranks the defect it was written for '
+        '[2026-09-22] (PASS)', () {
+      // THE HISTORICAL DEFECT AS THE CONTROL, rather than a synthetic one. The
+      // todo asked for exactly this and asked for it BEFORE the guard was
+      // shipped: "do not ship a guard whose negative control is the defect it
+      // was written for and fails to rank it." These are the two reasons
+      // verbatim as they stood before SCD125 corrected them (commit 37ffe85e1).
+      //
+      // The result is stronger than ranking: the permutation is LOCALISABLE.
+      // Each reason scores 0.00 against the entry it was attached to and 1.00
+      // against the entry it belongs to, so the check does not merely flag the
+      // pair, it says which way round they go — which is what F-SCE142-1 prints.
+      const dfub5 = 'dfub5_function_record_runtime_type_test.dart';
+      const dfub6 = 'dfub6_applied_generic_runtime_types_test.dart';
+      const swappedOntoDfub5 =
+          'the exec copy carried an explanation the reference lacked — the '
+          'SAstNode tree has no parent pointers, so the applied return type is '
+          'captured at declaration time.';
+      const swappedOntoDfub6 =
+          'same shape as dfub5: the exec copy recorded that tom_ast_generator '
+          'used to flatten RecordTypeAnnotationField, which the reference '
+          'header did not say.';
+
+      final five = File('${refTests.path}/$dfub5');
+      final six = File('${refTests.path}/$dfub6');
+      expect(
+        five.existsSync() && six.existsSync(),
+        isTrue,
+        reason:
+            'both reference files must be present for this control to mean '
+            'anything',
+      );
+
+      expect(
+        _reasonOverlap(swappedOntoDfub5, five),
+        equals(0.0),
+        reason:
+            'the swapped reason must score zero against the entry it was '
+            'wrongly attached to — otherwise F-SCE142-1 would not have fired',
+      );
+      expect(
+        _reasonOverlap(swappedOntoDfub6, six),
+        equals(0.0),
+        reason: 'as above, for the other half of the swap',
+      );
+      expect(
+        _reasonOverlap(swappedOntoDfub5, six),
+        equals(1.0),
+        reason:
+            'and it must score FULL against the entry it belongs to, which '
+            'is what lets the failure message name the owner',
+      );
+      expect(
+        _reasonOverlap(swappedOntoDfub6, five),
+        equals(1.0),
+        reason: 'as above, for the other half',
+      );
+    });
+
     test('F-SCC44-2: every recorded convergence is still true [2026-09-12] '
         '(PASS)', () {
       // SCD22 item (5). The direction a pair converged in is a finding, and a
