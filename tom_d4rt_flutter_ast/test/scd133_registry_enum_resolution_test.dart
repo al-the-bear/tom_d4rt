@@ -97,6 +97,21 @@
 /// twin, so the tightest margin is the twin's 80 against 60. They exist to catch a
 /// registry that did not load, not to track the counts.
 ///
+/// ## F-SCD133-3 compares IDENTITY, and that was measured before it was chosen
+///
+/// The obvious assertion is `resolved.name == registered.name`, and it is too
+/// weak here for a reason specific to this registry: measured 2026-09-23, 151
+/// of the 213 enums are declared in TWO frames of the environment chain. A name
+/// match is therefore satisfiable by a second, equivalent registration — which
+/// would be a duplicate-registration defect that the name check cannot see at
+/// all. All 213 resolve to the very object `env.get(name)` returns, because
+/// registration is pooled and the two frames hold one instance, so identity is
+/// available as well as stronger.
+///
+/// Ablated rather than argued: replacing the held definition with a distinct
+/// object of the same name turns F-SCD133-3 RED under identity and leaves it
+/// GREEN under name equality. That pair is the whole case for the choice.
+///
 /// ## Why the twins report different numbers
 ///
 /// The same 18 bridge files, the same script, two different counts (213 here,
@@ -170,9 +185,15 @@ const Map<String, String> _historicalCaptures = <String, String>{
 
 /// One registered bridged enum, reduced to what this file asserts about it.
 class _RegisteredEnum {
-  _RegisteredEnum(this.name, this.nativeValues);
+  _RegisteredEnum(this.name, this.definition, this.nativeValues);
 
   final String name;
+
+  /// The `BridgedEnum` `env.get(name)` returned — held as `Object` for the
+  /// same reason the lookup is `dynamic` (see [_collectEnums]). F-SCD133-3
+  /// compares against THIS rather than against [name].
+  final Object definition;
+
   final List<Object> nativeValues;
 }
 
@@ -205,10 +226,17 @@ Future<(Environment, List<_RegisteredEnum>)> _liveRegistry() async {
 /// warm parent — so the chain has to be walked to see them from the child the
 /// script runs in.
 ///
-/// `dynamic` rather than `BridgedEnum`: `tom_d4rt/d4rt.dart` does not export
-/// `BridgedEnum` (its AST twin does), so naming the type would make the two
-/// files diverge for a reason unrelated to what they assert. scd134 closes
-/// that asymmetry; both can be tightened at once then.
+/// `dynamic` rather than `BridgedEnum`, and it is not an oversight.
+/// `tom_d4rt/d4rt.dart` gained that export in 1.109.0; both twins resolve
+/// their interpreter from pub.dev (DGUC6) and `tom_d4rt_flutter` still
+/// declares `tom_d4rt: "^1.77.0"`, so the source line cannot name the type
+/// yet. Typing only the AST twin would make the two files diverge for a reason
+/// unrelated to what they assert, which is the thing this pair exists not to
+/// do — so both wait, together.
+///
+/// The wait is not left to memory: when that floor moves past 1.109.0,
+/// `tom_d4rt_flutter_ast/test/sce157_typed_registry_pending_test.dart` goes
+/// red and says to type both files.
 List<_RegisteredEnum> _collectEnums(Environment env) {
   final names = <String>{};
   for (Environment? frame = env; frame != null; frame = frame.enclosing) {
@@ -228,7 +256,7 @@ List<_RegisteredEnum> _collectEnums(Environment env) {
       );
     }
     collected.add(
-      _RegisteredEnum(name, <Object>[
+      _RegisteredEnum(name, bridgedEnum as Object, <Object>[
         for (final dynamic value in valueMap.values)
           value.nativeValue as Object,
       ]),
@@ -347,9 +375,13 @@ void main() {
           final resolved = env.getRuntimeType(nativeValue);
           if (resolved == null) {
             violations.add('${registered.name}: $nativeValue -> <null>');
-          } else if (resolved.name != registered.name) {
+          } else if (!identical(resolved, registered.definition)) {
+            final sameName = resolved.name == registered.name;
             violations.add(
-              '${registered.name}: $nativeValue -> ${resolved.name}'
+              '${registered.name}: $nativeValue -> '
+              '${sameName ? 'a DIFFERENT object of the same name '
+                        '(@${identityHashCode(resolved)} vs '
+                        '@${identityHashCode(registered.definition)})' : resolved.name}'
               '${resolved is BridgedClass ? ' (a bridged CLASS)' : ''}',
             );
           }
@@ -364,7 +396,14 @@ void main() {
             'runtime type. Wherever `getRuntimeType` is consulted — the '
             'declared-parameter check in `callable.dart` is the loudest '
             'consumer — these turn correct code into "type X is not a '
-            'subtype of type Y":\n  ${violations.take(40).join('\n  ')}',
+            'subtype of type Y". The comparison is IDENTITY, not name '
+            'equality: 151 of the 213 enums here are declared in two frames of '
+            'the chain, so a name match can be satisfied by a second, '
+            'equivalent registration — which would be a duplicate-registration '
+            'defect that a name check cannot see. Measured 2026-09-23, all 213 '
+            'resolve to the very object `env.get(name)` returns, because '
+            'registration is pooled and both frames hold one instance:\n  '
+            '${violations.take(40).join('\n  ')}',
       );
     });
 

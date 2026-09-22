@@ -116,6 +116,13 @@ run "every test file is reachable from a runner" \
 run "the twins share one script corpus" \
   flutter test test/scd141_shared_corpus_test.dart
 
+# SCE157: the `dynamic` registry lookup in BOTH twins' scd133 is a deferral with
+# an expiry — `tom_d4rt` exports `BridgedEnum` from 1.109.0 and the sibling twin
+# still declares ^1.77.0. This fires the moment that floor moves, in the commit
+# that moves it. Pure file I/O over both `test/` dirs and one pubspec.
+run "the scd133 dynamic deferral has not expired" \
+  flutter test test/sce157_typed_registry_pending_test.dart
+
 # SCD140: every `skip:` in BOTH twins' corpus drivers states a mechanism and
 # names evidence a reader can check. A skip is a claim that the interpreter
 # cannot be measured here, and twice that claim has been false — SCC47 found one
