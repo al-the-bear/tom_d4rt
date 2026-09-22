@@ -108,7 +108,7 @@ class D4rt {
   /// [SCompilationUnit.hasParseErrors] set, because the expression paths try
   /// several parses in turn and need to inspect a failed one to decide whether
   /// to fall through to the next. Callers with no next strategy — an entry
-  /// script — must reject the unit themselves; [_parseDirectSource] does.
+  /// script — must reject the unit themselves; [_parseExecutableSource] does.
   ///
   /// When [diagnosticsOut] is supplied it receives one formatted line per
   /// error-severity diagnostic, so a caller that does reject can say what was
@@ -189,8 +189,18 @@ class D4rt {
       final where = path ?? 'the direct source';
       final detail = diagnostics.join('\n');
       Logger.error('Parsing errors for $where:\n$detail');
+      // SCE110/SCE111: one sentence per case, both matching the reference.
+      // This method serves two callers — an entry script, where `path` is null,
+      // and a module the loader is resolving, where it is the URI — and it used
+      // the direct-source phrasing for both. "Fatal parsing errors for
+      // package:m/bad.dart" reads oddly because `for the direct source` is the
+      // subject that phrasing was written around. The reference says
+      // "Parsing errors in module <uri>" from `module_loader.dart`, which is
+      // the better sentence and is now the shared one.
       throw SourceCodeD4rtException(
-        'Fatal parsing errors for $where:\n$detail',
+        path == null
+            ? 'Fatal parsing errors for $where:\n$detail'
+            : 'Parsing errors in module $where:\n$detail',
         source,
       );
     }

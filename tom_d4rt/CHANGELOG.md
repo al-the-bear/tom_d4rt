@@ -1,3 +1,24 @@
+## 1.160.0
+
+### Fixed — a module's parse errors are English, and on separate lines (sce111)
+
+The module path's diagnostics read `(ligne N, colonne M)` — the only French
+left in the package, and inconsistent with the direct-source path in
+`d4rt_base.dart`, which is the same report for the same event one caller over.
+
+And they were joined with `"\\n"`, which in a double-quoted Dart string is an
+escaped backslash followed by `n`, not a newline. A module with four syntax
+errors therefore arrived as ONE run-on line containing the characters `\n`,
+while the direct-source path — which joins on a real newline — printed one per
+line. A reader scanning a module failure for `line 1, column 19` found neither
+the word nor the line break.
+
+Both were found while converging the module-failure SENTENCE with
+`tom_d4rt_exec` (sce111), which is the more visible half of that todo and the
+smaller defect of the three.
+
+Name resolution: no.
+
 ## 1.159.0
 
 ### Fixed — seventeen adapters read an optional positional parameter as named (sce110)

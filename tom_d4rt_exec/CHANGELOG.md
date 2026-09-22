@@ -1,3 +1,27 @@
+## 1.28.0
+
+### Fixed — the module parse failure is worded as the reference words it (sce111)
+
+`_parseExecutableSource` serves two callers — an entry script, where `path` is
+null, and a module the loader is resolving, where it is the URI — and used the
+direct-source phrasing for both. "Fatal parsing errors for package:m/bad.dart"
+reads oddly because `for the direct source` is the subject that phrasing was
+built around. The module case now says `Parsing errors in module <uri>`, which
+is what `tom_d4rt` says, so the pair whose entire contract is to behave alike
+produces a byte-identical message for a malformed module.
+
+Adopting the reference's sentence meant first repairing what sat behind it:
+its diagnostics were in French and joined by a literal `\n` rather than a
+newline. Both are fixed in `tom_d4rt` 1.160.0; copying the sentence without
+them would have imported a defect.
+
+Also: `_parseSourceToAst`'s doc referred to `[_parseDirectSource]`, a name that
+has not existed since SCC35 renamed the rejecting wrapper to
+`_parseExecutableSource` — a dartdoc link resolving to nothing, and a reader
+sent looking for a method that is not there.
+
+Name resolution: no.
+
 ## 1.27.0
 
 ### Fixed — the `D4rt` facade now declares every public member the reference does

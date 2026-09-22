@@ -2150,12 +2150,20 @@ class ModuleLoader {
         .where((e) => e.diagnosticCode.severity == DiagnosticSeverity.ERROR)
         .toList();
     if (errors.isNotEmpty) {
+      // SCE111: two defects behind the sentence SCE111 went to converge on,
+      // both measured rather than inferred. The location read `ligne`/`colonne`
+      // — the only French left in the package, and inconsistent with the
+      // direct-source path in `d4rt_base.dart`, which is the same report for
+      // the same event one caller over. And `join("\\n")` in a double-quoted
+      // string is an escaped backslash followed by `n`, not a newline, so four
+      // diagnostics arrived as ONE run-on line containing the characters `\\n`.
+      // The direct-source path has always joined with a real newline.
       final errorMessages = errors
           .map((e) {
             final location = result.lineInfo.getLocation(e.offset);
-            return "- ${e.message} (ligne ${location.lineNumber}, colonne ${location.columnNumber})";
+            return "- ${e.message} (line ${location.lineNumber}, column ${location.columnNumber})";
           })
-          .join("\\n");
+          .join("\n");
       Logger.error(
         "[ModuleLoader] Parsing errors for $pathToReport:\n$errorMessages",
       );

@@ -216,13 +216,56 @@ void main() {
         7,
       );
 
-      // ASSERTED ON THE URI, NOT THE MESSAGE PREFIX, and deliberately:
-      // measured
-      // 2026-09-12, `tom_d4rt` says "Parsing errors in module <uri>" and
-      // `tom_d4rt_exec` says "Fatal parsing errors for <uri>". They agree
-      // exactly on direct source and diverge only here. What matters is that
-      // the failure names the MODULE rather than the entry script, which both
-      // do; the wording difference is recorded rather than pinned.
+      // ASSERTED ON THE URI, NOT THE MESSAGE PREFIX, and still deliberately —
+      // but no longer for the reason first recorded here. Measured 2026-09-12
+      // the two diverged: `tom_d4rt` said "Parsing errors in module <uri>",
+      // `tom_d4rt_exec` said "Fatal parsing errors for <uri>". SCE111 closed
+      // that, and closing it found two defects sitting behind the reference's
+      // sentence — its diagnostics read `ligne`/`colonne`, the only French in
+      // the package, and were joined with `"\\n"`, an escaped backslash rather
+      // than a newline, so a multi-error module arrived as one run-on line.
+      //
+      // The two are byte-identical now. The assertion stays on the URI anyway:
+      // what this case is FOR is that the failure names the MODULE rather than
+      // the entry script, and a case that pins the sentence would fail on the
+      // next rewording without anything being wrong.
+    });
+
+    test('F-SCE111-1: the two front ends word a module parse failure the same '
+        '[2026-09-22] (PASS)', () {
+      // The convergence itself, asserted rather than described. The comment
+      // above deliberately keeps F-SCD69-6 off the sentence — that case is
+      // about NAMING THE MODULE and should survive a rewording — so the
+      // sentence needs its own case or nothing holds it.
+      //
+      // This file is ported between the two trees, so the assertion runs
+      // against whichever front end it sits in and the pair is held by having
+      // one text in two places. A divergence reappears as a failure HERE, in
+      // the copy that drifted, rather than as a difference nobody compares.
+      String messageFor(String moduleSource) {
+        try {
+          D4rt().execute(
+            source: "import 'package:m/bad.dart';\nmain() => 1;",
+            name: 'main',
+            sources: {'package:m/bad.dart': moduleSource},
+          );
+          fail('expected the malformed module to be rejected');
+        } catch (e) {
+          return e.toString();
+        }
+      }
+
+      final message = messageFor('class A { void f( }');
+      expect(message, contains('Parsing errors in module package:m/bad.dart'));
+      // English, and one diagnostic per LINE. Both were wrong on the reference
+      // side until SCE111: `ligne`/`colonne`, and a join on the two characters
+      // `\\n` rather than a newline, so a multi-error module came out as one
+      // run-on line. A reader scanning for "line 1, column 19" found neither.
+      expect(message, contains('line 1, column 19'));
+      expect(message, isNot(contains('ligne')));
+      final twoErrors = messageFor('class A { void f( }\nclass B { void g( }');
+      expect(twoErrors, isNot(contains(r'\n')));
+      expect('\n'.allMatches(twoErrors).length, greaterThan(2));
     });
   });
 }
