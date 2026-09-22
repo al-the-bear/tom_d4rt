@@ -150,6 +150,13 @@ run "corpus runs record the interpreter they resolved" \
 run "cluster log is derived, dated and blast-radius rated" \
   flutter test test/interpreter_issues_doc_test.dart
 
+# SCE158: the generator issues log carries a state per entry and its header
+# register is derived from them. Same failure the cluster log had before its
+# header was derived, at twelve times the size — 36 written-out analyses and no
+# way to tell which were still outstanding. Pure file I/O, no transport.
+run "generator issues log is a derived register" \
+  flutter test test/sce158_generator_issues_doc_test.dart
+
 # SCE13: the harness's bridge step stays visible, content-decided and
 # uncommitted. Source-shape only, and deliberately so — the property it stands
 # for ("a fresh package is left untouched") needs a ~45 s generation to observe,
