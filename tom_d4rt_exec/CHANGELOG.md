@@ -1,3 +1,33 @@
+## 1.31.0
+
+### Fixed — the pre-publish pass could not compile this package (sce129)
+
+`functionTypedefs` returned `_runner.functionTypedefs` directly against a
+declared `List<({String name, String library})>`. The published `tom_d4rt_ast`
+declares that two-field record; the working tree declares a four-field one
+(`requiredPositional`, `maxPositional` added). So the line compiled against
+exactly one of them at a time, and the comment above it said as much — "this
+widens on the next publish".
+
+THE COST WAS NOT AT THE PUBLISH, IT WAS ALREADY BEING PAID. SCD66's
+pre-publish pass path-resolves this package at the tree precisely so exec's
+suite can be run before an irreversible release, and exec's suite is the one
+gate that sees behavioural drift neither interpreter tree can. Under the pass
+this package did not COMPILE, so that gate produced a loader error instead of
+a verdict — the pass's most valuable half, silently absent.
+
+The two fields are now projected rather than passed through. Reading only
+`name` and `library` compiles against both record shapes, so the widening
+stops being an event and the gate runs in both configurations.
+
+MEASURED under the pass at tom_d4rt_ast 0.155.0: analyze clean, suite
+3824 / 1 / 33. The 33 are pins to the PUBLISHED interpreter inverting because
+the tree is resolved — `F-SCC43-1` ("no pinned entry is waiting on a publish
+that already happened") is the clearest of them, and the list is the
+publish-time review this pass exists to produce.
+
+Name resolution: no — a record projection at the wrapper boundary.
+
 ## 1.30.0
 
 ### Fixed — every host boundary hands over the same shape (sce118)
