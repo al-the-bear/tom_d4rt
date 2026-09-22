@@ -18,5 +18,4 @@ example/**/bin/*
 **/test_results.*
 **/last_testrun.json
 **/all_tests.*
-doc/testlog_*/
 doc/baseline_*.csv

@@ -18,7 +18,6 @@ example/**/bin/*
 **/test_results.*
 **/last_testrun.json
 **/all_tests.*
-doc/testlog_*/
 doc/baseline_*.csv
 
 # Internal development docs — issue log (P5: not user-facing).

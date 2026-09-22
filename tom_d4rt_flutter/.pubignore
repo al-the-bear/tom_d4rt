@@ -12,6 +12,4 @@ ztmp/
 _copilot_guidelines/
 
 # Bug-fix-campaign test-run logs and orchestration dumps kept under doc/.
-doc/basetestlog_*/
-doc/testlog_*/
 doc/*.log.txt
