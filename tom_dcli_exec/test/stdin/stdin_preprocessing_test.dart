@@ -21,6 +21,8 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 
+import '../support/dclie_binary.dart';
+
 /// Project root for `tom_dcli_exec`.
 final _projectRoot = _findProjectRoot();
 
@@ -53,30 +55,6 @@ String _findProjectRoot() {
   return dir.path;
 }
 
-/// Compile the dcli binary if it doesn't exist or is outdated.
-Future<String> _ensureDcliBinary() async {
-  final binaryPath = p.join(_projectRoot, 'bin', 'dclie');
-  final sourcePath = p.join(_projectRoot, 'bin', 'dclie.dart');
-  final binary = File(binaryPath);
-  final source = File(sourcePath);
-
-  // Recompile if binary doesn't exist or source is newer.
-  if (!binary.existsSync() ||
-      source.lastModifiedSync().isAfter(binary.lastModifiedSync())) {
-    final result = await Process.run('dart', [
-      'compile',
-      'exe',
-      sourcePath,
-      '-o',
-      binaryPath,
-    ], workingDirectory: _projectRoot);
-    if (result.exitCode != 0) {
-      throw StateError('Failed to compile dcli_exec binary:\n${result.stderr}');
-    }
-  }
-  return binaryPath;
-}
-
 /// Run the compiled dcli_exec binary with `--stdin` and the given [input].
 Future<({String stdout, String stderr, int exitCode})> runDcliStdin(
   String input,
@@ -100,7 +78,7 @@ void main() {
   const processTimeout = Timeout(Duration(seconds: 30));
 
   setUpAll(() async {
-    _dcliBinaryPath = await _ensureDcliBinary();
+    _dcliBinaryPath = await ensureDclieBinary(_projectRoot);
   });
 
   group('stdin shell script', () {

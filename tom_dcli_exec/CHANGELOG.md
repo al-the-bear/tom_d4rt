@@ -50,6 +50,28 @@ wrap a type no barrel re-exports, it is one member, and three other committed
 bridge files in this repo already carry it — so this regeneration brings the
 package into line with them rather than introducing it.
 
+**AND THE HARNESS COULD REPORT A FALSE GREEN.** The two test files that drive
+the compiled `dclie` each carried their own copy of "rebuild it if stale", and
+the copies had DRIFTED: `dcli_example` rebuilt when anything under `bin/` or
+`lib/` changed, while `stdin` rebuilt only when `bin/dclie.dart` itself did —
+so the stdin suite could pass against a binary built before the change it was
+meant to test, which is worse than the red it was showing.
+
+Making them agree then exposed what the drift had hidden. `dart test` runs
+files concurrently, and with both copies willing to rebuild, one suite
+recompiled `bin/dclie` in place while another was executing it: the shell
+fixture hung until the ten-minute test timeout. The narrow trigger had been
+concealing a real race by almost never firing.
+
+So there is now ONE copy (`test/support/dclie_binary.dart`), it treats
+`pubspec.lock` as an input too — an upgraded dependency changes the binary
+without touching a file in this package — and it installs ATOMICALLY, compiling
+to `.dart_tool/` and renaming into place. Rename leaves a running process on
+the old inode, so a concurrent rebuild can neither corrupt a binary another
+test is running nor race a second rebuilder. Verified by forcing the exact
+condition that hung: with every input newer than the binary, the suite
+rebuilds mid-run and exits 0.
+
 Suite: 424 passing, 0 failing.
 
 ## 1.5.0

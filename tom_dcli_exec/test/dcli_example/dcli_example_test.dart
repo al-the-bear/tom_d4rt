@@ -17,6 +17,8 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 
+import '../support/dclie_binary.dart';
+
 /// Project root for `tom_dcli_exec`.
 final _projectRoot = _findProjectRoot();
 
@@ -44,48 +46,6 @@ String _findProjectRoot() {
     dir = parent;
   }
   return dir.path;
-}
-
-/// Compile the dclie binary if it doesn't exist or is outdated.
-///
-/// "Outdated" means: any `.dart` source under `bin/` or `lib/` has a newer
-/// `lastModified` timestamp than the binary. The previous gate only checked
-/// `bin/dclie.dart`, which left the binary stale whenever generated
-/// `*.b.dart` bridges were regenerated — see Cluster STRING-AS-PROCESS in
-/// the `20260502-1010-consol-rebaseline` run.
-Future<String> _ensureDclieBinary() async {
-  final binaryPath = p.join(_projectRoot, 'bin', 'dclie');
-  final sourcePath = p.join(_projectRoot, 'bin', 'dclie.dart');
-  final binary = File(binaryPath);
-
-  bool needsRebuild() {
-    if (!binary.existsSync()) return true;
-    final binMtime = binary.lastModifiedSync();
-    for (final dir in ['bin', 'lib']) {
-      final root = Directory(p.join(_projectRoot, dir));
-      if (!root.existsSync()) continue;
-      for (final entity in root.listSync(recursive: true, followLinks: false)) {
-        if (entity is! File) continue;
-        if (!entity.path.endsWith('.dart')) continue;
-        if (entity.lastModifiedSync().isAfter(binMtime)) return true;
-      }
-    }
-    return false;
-  }
-
-  if (needsRebuild()) {
-    final result = await Process.run('dart', [
-      'compile',
-      'exe',
-      sourcePath,
-      '-o',
-      binaryPath,
-    ], workingDirectory: _projectRoot);
-    if (result.exitCode != 0) {
-      throw StateError('Failed to compile dclie binary:\n${result.stderr}');
-    }
-  }
-  return binaryPath;
 }
 
 /// Run a script via the dclie binary and return results.
@@ -124,7 +84,7 @@ Future<({String stdout, String stderr, int exitCode})> _runScript(
 
 void main() {
   setUpAll(() async {
-    _dclieBinaryPath = await _ensureDclieBinary();
+    _dclieBinaryPath = await ensureDclieBinary(_projectRoot);
     print('Using dclie binary: $_dclieBinaryPath');
   });
 
