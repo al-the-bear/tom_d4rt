@@ -491,10 +491,18 @@ const int _corpusCaseCount = 28;
 
 void _scd127CountGuard() {
   group('SCD127: the withheld-case count is honest', () {
-    // NO setUpAll, deliberately: this group has to run on exactly the occasion
-    // the corpus above does not. The probe that established the behaviour above
-    // also established this — a sibling group with no fixture runs normally
-    // while the guarded one is skipped entirely.
+    // NOT INDEPENDENT OF THE FIXTURE HERE, corrected by SCE144 while carrying
+    // this guard to the other two packages. The sentence this comment used to
+    // carry — "a sibling group with no fixture runs normally while the guarded
+    // one is skipped entirely" — is true of `d4rt_coverage_test.dart`, whose
+    // `setUpAll` sits INSIDE the corpus group. In THIS file the `setUpAll` is
+    // declared at the root of `main`, so it runs before the first test in the
+    // FILE and this group is withheld with everything else.
+    //
+    // The guard is still worth having, and the reason is worth stating rather
+    // than leaving a claim that does not hold: its job is to keep the constant
+    // honest on every green run, so that the number is right on the one run
+    // where it is finally read.
     test('F-SCD127-2: _corpusCaseCount matches the cases above it '
         '[2026-09-15]', () {
       final source = File(

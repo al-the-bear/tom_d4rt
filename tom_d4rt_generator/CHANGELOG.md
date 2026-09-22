@@ -1,3 +1,38 @@
+## 1.43.0
+
+### Fixed — a broken fixture now says which versions it resolved (sce144)
+
+`D4rtTester.prepareBridges` drives a fixture package with its own gitignored
+lock while path-resolving a sibling from the working tree, so the fixture can
+FREEZE — `example/d4` did, at `tom_d4rt_ast` 0.19.0, whose exports lacked four
+symbols HEAD referenced. The compile failed, `prepareBridges` returned false,
+and the suite reported
+
+    418 passing, 2 failing — d4rt_coverage_test.dart (setUpAll),
+                             d4rt_tester_test.dart (setUpAll)
+
+with those two failures standing in for 122 withheld tests and nothing naming
+the versions. Twenty minutes of bisection for one line of data the method had
+in reach the whole time.
+
+The fixture's resolved `tom_*` versions and the remedy now go into
+`lastGenerationErrors` — IN it rather than beside it, so every caller gets them
+without changing — and FIRST, because a reader scanning compiler output stops
+at the top. `resolvedFixtureVersions` is public and static so the two
+test-local transcriptions of this pipeline can delegate here once they resolve
+a release carrying it.
+
+### Fixed — a missing project directory produced no diagnosis at all
+
+Step zero runs `dart pub get` with the project path as its working directory,
+and `Process.run` does not return a non-zero exit for a missing cwd — it THROWS
+`ProcessException: No such file or directory` straight out of
+`prepareBridges`. The caller's `expect` was never reached, so neither the
+versions NOR the withheld-case count reached the reader: the one route out of
+here that said nothing whatsoever. Found by writing the test for the paragraph
+above. A renamed fixture, or a suite run from the wrong directory, lands
+exactly there.
+
 ## 1.42.0
 
 ### Changed — two illustrative URIs in `bridge_generator.dart` marked as prose (sce56)

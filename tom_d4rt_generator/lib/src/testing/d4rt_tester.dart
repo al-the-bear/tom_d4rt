@@ -151,9 +151,28 @@ class D4rtTester {
     // keeps its last config, and generation then fails on a downstream symptom
     // — once an analyzer "API break" that was really a config naming a version
     // the pub cache no longer had. Pub's own message names the cause.
+    // SCE144: a project directory that is not there at all.
+    //
+    // `resolveIfUnresolved` runs `dart pub get` with this path as its working
+    // directory, and `Process.run` does not return a non-zero exit code for a
+    // missing cwd — it THROWS `ProcessException: No such file or directory`,
+    // straight out of `prepareBridges`. The caller's `expect` is never reached,
+    // so neither the fixture's resolved versions NOR the withheld-case count
+    // reaches the reader: the one route out of here that produces no diagnosis
+    // whatsoever. A renamed or moved fixture, or a suite run from the wrong
+    // directory, lands exactly here.
+    if (!Directory(projectPath).existsSync()) {
+      _lastGenerationErrors = _withFixtureContext([
+        'no such project directory: $projectPath',
+        'The fixture this suite prepares is missing. Check the path, and that '
+            'the suite is being run from its package root.',
+      ]);
+      return false;
+    }
+
     final unresolved = await resolveIfUnresolved(projectPath);
     if (unresolved != null) {
-      _lastGenerationErrors = [unresolved];
+      _lastGenerationErrors = _withFixtureContext([unresolved]);
       return false;
     }
 
@@ -166,7 +185,7 @@ class D4rtTester {
     // Step 2: Generate bridges
     final genResult = await _generateBridges(config);
     if (!genResult.isSuccess) {
-      _lastGenerationErrors = genResult.errors;
+      _lastGenerationErrors = _withFixtureContext(genResult.errors);
       return false;
     }
 
@@ -175,7 +194,7 @@ class D4rtTester {
     final runnerPath = _resolveRunnerPath();
     final compileErrors = await _ensureSuiteBinary(runnerPath, genResult);
     if (compileErrors != null) {
-      _lastGenerationErrors = compileErrors;
+      _lastGenerationErrors = _withFixtureContext(compileErrors);
       return false;
     }
 
@@ -442,6 +461,68 @@ class D4rtTester {
     }
 
     return _runBinary(['--test', scriptFile], timeout ?? defaultTimeout);
+  }
+
+  /// [errors], with the fixture's resolved `tom_*` versions in front.
+  ///
+  /// SCE144. THE DIAGNOSIS TRAVELS WITH THE ERRORS, because that is what the
+  /// caller reads. Every consumer asserts on the BOOL and prints
+  /// [lastGenerationErrors]; the compiler's own output says nothing about which
+  /// versions it was handed, and the fixture drives its own gitignored lock
+  /// while path-resolving a sibling from the working tree — so it can freeze at
+  /// a version that no longer compiles against HEAD. SCD127 measured the cost
+  /// of the missing line in the sibling copy of this pipeline: twenty minutes
+  /// of bisection for one line of data.
+  ///
+  /// FIRST, not appended. The resolved versions are the line that ends the
+  /// investigation, and a reader scanning a wall of compiler output stops at
+  /// the top.
+  List<String> _withFixtureContext(List<String> errors) => [
+    'fixture resolved: ${resolvedFixtureVersions(projectPath)}',
+    'If a tom_* version above is older than the working tree, the fixture '
+        'lock is frozen: run `dart pub upgrade` in $projectPath.',
+    ...errors,
+  ];
+
+  /// The `tom_*` packages [projectPath]'s lock resolved, as one line.
+  ///
+  /// The FIXTURE's lock, not the calling package's. `example/d4` is its own
+  /// package with its own gitignored lock while it path-resolves the
+  /// interpreter from the working tree, so it can freeze at a version that no
+  /// longer compiles against HEAD — which is what happened at tom_d4rt_ast
+  /// 0.19.0, whose exports lacked `ConvertStdlib`, `CollectionStdlib`,
+  /// `TypedDataStdlib` and `Logger`.
+  ///
+  /// Best-effort BY DESIGN: this runs on a path that has already failed, so a
+  /// missing or unparseable lock must degrade to a note rather than throw and
+  /// replace the real diagnosis with its own.
+  ///
+  /// Public and static so the two test-local copies of this pipeline
+  /// (`tom_d4rt_exec`'s `ExecTestSetup`, `tom_ast_generator`'s
+  /// `AstgenTestSetup`) can delegate here rather than keep a third and fourth
+  /// transcription — once they resolve a release carrying it. Measured
+  /// 2026-09-22: both resolve tom_d4rt_generator 1.28.0 hosted against a
+  /// working tree well past it, so until that publish they must duplicate
+  /// (DGUC6), and each says so where it does.
+  static String resolvedFixtureVersions(String projectPath) {
+    final lock = File(p.join(projectPath, 'pubspec.lock'));
+    if (!lock.existsSync()) {
+      return 'no pubspec.lock in $projectPath — the fixture was never resolved';
+    }
+    try {
+      final entry = RegExp(
+        r'^  (tom_\w+):\n(?:.*\n)*?    source: (\S+)\n    version: "([^"]+)"',
+        multiLine: true,
+      );
+      final found = [
+        for (final m in entry.allMatches(lock.readAsStringSync()))
+          '${m.group(1)} ${m.group(3)} (${m.group(2)})',
+      ];
+      if (found.isEmpty) return 'no tom_* packages in ${lock.path}';
+      return found.join(', ');
+    } catch (e) {
+      return 'could not read ${lock.path}: $e';
+    }
   }
 
   /// Errors from the last [prepareBridges] call, or `null` if successful.

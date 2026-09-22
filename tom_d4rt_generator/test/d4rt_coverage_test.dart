@@ -29,6 +29,8 @@ final String _generatorRoot = Directory.current.path;
 final String _exampleRoot = p.join(_generatorRoot, 'example');
 
 void main() {
+  _sce144CountGuard();
+
   // ── dart_overview: feature coverage ──────────────────────────────
 
   group('dart_overview coverage', () {
@@ -54,7 +56,21 @@ void main() {
 
       // Generate bridges once for all tests in this group.
       final ok = await tester.prepareBridges(config);
-      expect(ok, isTrue, reason: 'Bridge generation failed for dart_overview');
+      // SCE144: say what this abort COSTS and what caused it. A failing
+      // setUpAll never registers the cases below, so `dart test` reports one
+      // failure where $_corpusCaseCount are missing — and the cause is almost
+      // always the fixture's frozen lock, which `prepareBridges` now names at
+      // the head of `lastGenerationErrors`.
+      expect(
+        ok,
+        isTrue,
+        reason:
+            'Bridge generation failed for dart_overview. This withholds '
+            '$_corpusCaseCount cases in this file — they are not registered, '
+            'so the run reports one failure rather than $_corpusCaseCount '
+            'missing tests.\n'
+            '${tester.lastGenerationErrors}',
+      );
     });
 
     // ── Top-Level Exportables ──────────────────────────────────────
@@ -1228,4 +1244,47 @@ void _expectSuccess(D4rtTestResult result, String featureId) {
     }
     fail(buf.toString());
   }
+}
+
+// SCE144 GUARD — everything above this line is the corpus. Nothing below it may
+// add a `test(` to the count the guard checks.
+
+/// How many cases the corpus above registers, and therefore how many a failed
+/// `setUpAll` withholds.
+///
+/// WHY THE NUMBER IS WRITTEN DOWN. A `setUpAll` that throws does not merely
+/// fail its group — MEASURED by SCD127, the group's cases are never REGISTERED
+/// at all. `dart test` then reports one failure named `<group> (setUpAll)`, and
+/// a run missing a quarter of its coverage is indistinguishable from one
+/// missing two assertions. That is how a frozen fixture lock reported
+/// `418 passing, 2 failing` while withholding 122 tests.
+///
+/// So the count travels with the failure. It cannot be computed at runtime —
+/// the cases are gone by then — so it is recorded here and F-SCE144-1 keeps it
+/// honest against the file itself.
+const int _corpusCaseCount = 94;
+
+void _sce144CountGuard() {
+  group('SCE144: the withheld-case count is honest', () {
+    // NO setUpAll, deliberately: the fixture setUpAll above lives
+    // INSIDE the corpus group, so this sibling group runs normally on
+    // exactly the occasion the corpus is withheld entirely.
+    test('F-SCE144-1: _corpusCaseCount matches the cases above it '
+        '[2026-09-22]', () {
+      final source = File('test/d4rt_coverage_test.dart').readAsStringSync();
+      final corpus = source.substring(0, source.indexOf('// SCE144 GUARD'));
+      final actual = RegExp(
+        r'(?<![A-Za-z0-9_])test\(',
+      ).allMatches(corpus).length;
+      expect(
+        actual,
+        equals(_corpusCaseCount),
+        reason:
+            'The corpus above the guard marker registers $actual cases but '
+            '_corpusCaseCount says $_corpusCaseCount. A stale number here '
+            'understates what a broken fixture costs, which is the whole '
+            'defect this exists to stop. Update the constant.',
+      );
+    });
+  });
 }

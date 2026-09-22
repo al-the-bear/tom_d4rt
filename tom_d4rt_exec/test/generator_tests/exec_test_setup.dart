@@ -60,6 +60,9 @@ class ExecTestSetup {
     );
 
     if (!result.isSuccess) {
+      lastFailure =
+          'bridge generation failed in $projectPath: ${result.errors}\n'
+          'fixture resolved: ${resolvedInterpreterVersions(projectPath)}';
       stderr.writeln('BRIDGE GENERATION ERRORS: ${result.errors}');
       return false;
     }
@@ -83,13 +86,80 @@ class ExecTestSetup {
     ], workingDirectory: projectPath);
 
     if (compileResult.exitCode != 0) {
+      // SCE144, carrying SCD127's fix across to this copy: the resolved
+      // versions FIRST, because that is the line that ends the investigation.
+      // A compile failure here is far more often a frozen fixture lock than a
+      // defect in the generated code, and the compiler's own output says
+      // nothing about which versions it was given.
+      lastFailure =
+          '`dart compile exe $runnerPath` failed in $projectPath\n'
+                  'fixture resolved: ${resolvedInterpreterVersions(projectPath)}\n'
+                  'If a tom_* version above is older than the working tree, the fixture '
+                  'lock is frozen: run `dart pub upgrade` in $projectPath.\n'
+                  '${compileResult.stderr}'
+              .trim();
       stderr.writeln('COMPILATION FAILED:');
       stderr.writeln(compileResult.stdout);
       stderr.writeln(compileResult.stderr);
       return false;
     }
 
+    lastFailure = null;
     return true;
+  }
+
+  /// Why the last [prepareBridges] call returned false, or null if it did not.
+  ///
+  /// SCD127, carried here by SCE144: the diagnosis has to travel with the
+  /// BOOLEAN, because that is what the caller asserts on. `prepareBridges`
+  /// already wrote the compiler's stderr, and the `expect` that consumed its
+  /// result said only "Bridge generation/compilation failed for dart_overview"
+  /// — so the one fact that explained everything, the fixture's resolved
+  /// versions, never reached the reader. It cost twenty minutes of bisection to
+  /// recover in the sibling copy and is one line of data.
+  static String? lastFailure;
+
+  /// The `tom_*` packages [projectPath]'s lock resolved, as one line.
+  ///
+  /// The FIXTURE's lock, not this package's. `example/d4` is its own package
+  /// with its own gitignored lock while it path-resolves `tom_d4rt_exec` from
+  /// the working tree, so it can freeze at a version that no longer compiles
+  /// against HEAD — which is exactly what happened at tom_d4rt_ast 0.19.0,
+  /// whose exports lacked `ConvertStdlib`, `CollectionStdlib`,
+  /// `TypedDataStdlib` and `Logger`.
+  ///
+  /// Best-effort by design: this runs on a path that has already failed, so a
+  /// missing or unparseable lock must degrade to a note rather than throw and
+  /// replace the real diagnosis with its own.
+  ///
+  /// THIS IS THE THIRD TRANSCRIPTION OF THE SAME TWENTY LINES, and it is
+  /// deliberate rather than overlooked. `D4rtTester.resolvedFixtureVersions`
+  /// is the canonical copy and is public precisely so this one can be deleted
+  /// in favour of it — but this package resolves `tom_d4rt_generator` **hosted**
+  /// (1.28.0, measured 2026-09-22) against a working tree well past it, so
+  /// delegating today would compile against a release that does not carry the
+  /// method (DGUC6). Collapse the copies when a generator publish raises this
+  /// package's floor past the release carrying SCE144; `tom_ast_generator`'s
+  /// `AstgenTestSetup` holds the fourth copy and converges on the same event.
+  static String resolvedInterpreterVersions(String projectPath) {
+    final lock = File(p.join(projectPath, 'pubspec.lock'));
+    if (!lock.existsSync()) {
+      return 'no pubspec.lock in $projectPath — the fixture was never resolved';
+    }
+    try {
+      final entry = RegExp(
+        r'^  (tom_\w+):\n(?:.*\n)*?    source: (\S+)\n    version: "([^"]+)"',
+        multiLine: true,
+      );
+      final found = [
+        for (final m in entry.allMatches(lock.readAsStringSync()))
+          '${m.group(1)} ${m.group(3)} (${m.group(2)})',
+      ];
+      if (found.isEmpty) return 'no tom_* packages in ${lock.path}';
+      return found.join(', ');
+    } catch (e) {
+      return 'could not read ${lock.path}: $e';
+    }
   }
 
   /// Recursively post-process all `.b.dart` files in a directory.

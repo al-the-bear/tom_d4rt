@@ -47,6 +47,12 @@ void main() {
       compiledBinaryName: 'd4_sce35',
     );
     final ok = await tester.prepareBridges(config);
+    // SCE144 gave the two corpus suites a recorded `_corpusCaseCount`, because
+    // a failing setUpAll withholds their 94 and 28 cases without saying so.
+    // This file has ONE case, so the count would state what the failure line
+    // already shows and a guard over it would be noise. What this file does
+    // get is the other half: `lastGenerationErrors` now opens with the
+    // fixture's resolved versions and the remedy.
     expect(
       ok,
       isTrue,

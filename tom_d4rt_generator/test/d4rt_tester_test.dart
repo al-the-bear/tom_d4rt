@@ -63,12 +63,20 @@ void main() {
       // ignore: avoid_print
       print('BRIDGE ERRORS: ${tester.lastGenerationErrors}');
     }
+    // SCE144: name the cost and the cause. A failing setUpAll never registers
+    // the cases below it, so one reported failure stands in for all of them.
     expect(
       ok,
       isTrue,
-      reason: 'Bridge generation failed for d4: ${tester.lastGenerationErrors}',
+      reason:
+          'Bridge generation failed for d4. This withholds $_corpusCaseCount '
+          'cases in this file — they are not registered, so the run reports '
+          'one failure rather than $_corpusCaseCount missing tests.\n'
+          '${tester.lastGenerationErrors}',
     );
   });
+
+  _sce144CountGuard();
 
   group('D4rtTester end-to-end', () {
     // ── example_project ──────────────────────────────────────────────
@@ -467,4 +475,50 @@ void _expectSuccess(D4rtTestResult result, String projectName) {
     }
     fail(buf.toString());
   }
+}
+
+// SCE144 GUARD — everything above this line is the corpus. Nothing below it may
+// add a `test(` to the count the guard checks.
+
+/// How many cases the corpus above registers, and therefore how many a failed
+/// `setUpAll` withholds.
+///
+/// WHY THE NUMBER IS WRITTEN DOWN. A `setUpAll` that throws does not merely
+/// fail its group — MEASURED by SCD127, the group's cases are never REGISTERED
+/// at all. `dart test` then reports one failure named `<group> (setUpAll)`, and
+/// a run missing a quarter of its coverage is indistinguishable from one
+/// missing two assertions. That is how a frozen fixture lock reported
+/// `418 passing, 2 failing` while withholding 122 tests.
+///
+/// So the count travels with the failure. It cannot be computed at runtime —
+/// the cases are gone by then — so it is recorded here and F-SCE144-1 keeps it
+/// honest against the file itself.
+const int _corpusCaseCount = 28;
+
+void _sce144CountGuard() {
+  group('SCE144: the withheld-case count is honest', () {
+    // NOT INDEPENDENT OF THE FIXTURE, and worth saying rather than
+    // copying a claim that does not hold here: this file's setUpAll is
+    // declared at the root of `main`, so it runs before the first test
+    // in the FILE and this group is withheld with the corpus. Its job
+    // is therefore to keep the constant honest on every green run, so
+    // that the number is right on the run where it is finally read.
+    test('F-SCE144-1: _corpusCaseCount matches the cases above it '
+        '[2026-09-22]', () {
+      final source = File('test/d4rt_tester_test.dart').readAsStringSync();
+      final corpus = source.substring(0, source.indexOf('// SCE144 GUARD'));
+      final actual = RegExp(
+        r'(?<![A-Za-z0-9_])test\(',
+      ).allMatches(corpus).length;
+      expect(
+        actual,
+        equals(_corpusCaseCount),
+        reason:
+            'The corpus above the guard marker registers $actual cases but '
+            '_corpusCaseCount says $_corpusCaseCount. A stale number here '
+            'understates what a broken fixture costs, which is the whole '
+            'defect this exists to stop. Update the constant.',
+      );
+    });
+  });
 }
