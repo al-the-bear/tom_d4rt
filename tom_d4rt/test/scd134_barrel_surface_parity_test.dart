@@ -222,18 +222,15 @@ const _divergences = <String, _Divergence>{
     'same file and same reason as StaticResolver',
   ),
 
-  // ── Not structural. Two recorded gaps, each with a todo. ────────────────
-  'D4rtUserProxy': _Divergence(
-    _Side.refOnly,
-    'GAP, not a structural difference (sce154): the AST line has no proxy '
-    'annotation at all, yet its own `generator/d4.dart` doc comment tells '
-    'consumers to apply `@D4rtUserProxy`. An AST-line user bridge cannot '
-    'follow that instruction today',
-  ),
-  'D4rtUserRelaxer': _Divergence(
-    _Side.refOnly,
-    'GAP for the same reason as D4rtUserProxy (sce154)',
-  ),
+  // ── Not structural. One recorded gap, with a todo. ──────────────────────
+  //
+  // `D4rtUserProxy` / `D4rtUserRelaxer` were here and are gone: SCE154
+  // mirrored `d4rt_user_proxy_annotation.dart` into the AST tree and exported
+  // it from `runtime.dart`. Nothing about the analyzer-free design required
+  // their absence — an annotation is a marker class with no analyzer
+  // dependency — and their own `generator/d4.dart` doc comment had been
+  // telling AST-line consumers to apply an annotation their dependency did
+  // not declare.
   'BarrelMapping': _Divergence(
     _Side.refOnly,
     'reference-only AND referenced by no Dart file anywhere in the workspace '

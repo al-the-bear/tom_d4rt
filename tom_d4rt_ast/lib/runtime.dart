@@ -67,6 +67,7 @@ export 'src/runtime/introspection.dart';
 // Generator helpers
 export 'src/runtime/generator/d4.dart';
 export 'src/runtime/generator/d4rt_user_bridge_annotation.dart';
+export 'src/runtime/generator/d4rt_user_proxy_annotation.dart';
 
 // Utility extensions
 export 'src/runtime/utils/extensions/map.dart';

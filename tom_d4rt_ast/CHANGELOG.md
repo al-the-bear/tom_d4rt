@@ -1,3 +1,37 @@
+## 0.161.0
+
+### Added — `@D4rtUserProxy` / `@D4rtUserRelaxer` on the analyzer-free line (sce154)
+
+`generator/d4.dart` has always told consumers, in the doc comment on
+`D4UserProxy`, to "extend this class (and apply `@D4rtUserProxy`)". The
+annotations were declared only in `tom_d4rt`, so an AST-line bridge package
+could not follow the instruction its own dependency gave it — the marker bases
+`D4UserProxy` / `D4UserRelaxer` were here, the annotations that carry the
+directive were not.
+
+`d4rt_user_proxy_annotation.dart` is now mirrored into
+`lib/src/runtime/generator/` byte-identically and exported from `runtime.dart`,
+so it reaches `package:tom_d4rt_ast/d4rt.dart` — the import shape a generated
+bridge package already uses. Nothing about the analyzer-free design required
+the absence: an annotation is a marker class and has no analyzer dependency.
+
+THE GENERATOR SIDE WAS MEASURED FIRST, because mirroring the class while the
+scanner rejected it would have left the doc comment just as unfollowable and
+less obviously so. `UserProxyRelaxerScanner` matches on `type.element.name` and
+`supertype?.element.name` and asks nothing about the declaring library, so it
+needed no change — and `tom_d4rt_generator`'s new
+`sce154_annotation_uri_independence_test.dart` pins that, against a fixture
+whose annotations are declared in a library unrelated to either interpreter.
+Its existing scanner suite could not: every directive it had ever been tested
+against carried a `package:tom_d4rt` annotation, so it passes identically
+whether the scanner is URI-blind or hard-coded to that one URI.
+
+Found by `scd134_barrel_surface_parity_test.dart`, which recorded both names as
+reference-only GAPS rather than structural differences. Both entries are gone.
+
+Name resolution: no — two annotation classes with no runtime behaviour; nothing
+resolves a name differently.
+
 ## 0.160.0
 
 ### Recorded — the PASS B narrowing removes the wrong answer, not just most of it (sce153)
