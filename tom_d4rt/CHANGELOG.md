@@ -1,3 +1,36 @@
+## 1.177.0
+
+### Recorded — the PASS B narrowing removes the wrong answer, not just most of it (sce153)
+
+SCD132 made PASS B's prefix fallback require corroboration. SCE149 established
+that no Flutter-corpus resolution had been relying on the old rule. What
+neither measured is what the narrowed rule now does with the names it no longer
+claims — reduce the wrong answers, or end them.
+
+F-SCD133-4 in both Flutter twins answers that over a registry rather than an
+example: it ablates `getRuntimeType`'s enum branch and asks what the class path
+alone returns for every bridged enum the live Flutter environment holds.
+
+| line   | enums | mistyped, published | mistyped, narrowed |
+| ------ | ----: | ------------------: | -----------------: |
+| AST    |   213 |                 104 |                  0 |
+| source |   151 |                  82 |                  0 |
+
+Every one of the 213 and 151 now throws. The comment beside the fallthrough
+claimed a throw is "more honest than returning a wrong bridge"; this is that
+claim priced. Measured 2026-09-22 through SCD66's pre-publish path resolution —
+both twins resolve the interpreter from pub.dev (DGUC6), so the published
+column is what an ordinary run of that guard still reports until this ships.
+
+Comment-only in `lib/`. Both twins' `scd133_registry_enum_resolution_test.dart`
+headers carry the full table, and now `print` every number in it on a green run
+so the next refresh needs no edit — which is how the AST twin's recorded split
+was caught stating 103/110 against a measured 104/109 under an interpreter that
+had not moved.
+
+Name resolution: no — comment-only. The narrowing itself shipped in 1.108.0 /
+0.95.0; this records what it was measured to do.
+
 ## 1.176.0
 
 ### Verified — the PASS B narrowing measured against the Flutter corpus (sce149)

@@ -1320,6 +1320,16 @@ class Environment {
     // When nothing corroborates, falling through to the throw below is more
     // honest than returning a wrong bridge: every caller already handles it,
     // and a wrong bridge is a silently wrong dispatch.
+    //
+    // HOW MUCH MORE HONEST, MEASURED (SCE153). F-SCD133-4 in both Flutter
+    // twins ablates the enum branch of `getRuntimeType` and asks what THIS
+    // path alone would return for every bridged enum in the live Flutter
+    // registry. Under the published interpreter 104 of 213 came back as a
+    // DIFFERENT bridge on the AST line, and 82 of 151 on the source line.
+    // Under the narrowed rule, measured 2026-09-22 via SCD66's pre-publish
+    // path resolution: zero on both lines — all 213 and all 151 throw. The
+    // wrong-answer outcome is not reduced by the narrowing, it is gone. That
+    // is the sentence above, priced over a registry rather than argued.
     current = this;
     while (current != null) {
       final bridgedClass = current._bridgedClassesLookupByType.entries

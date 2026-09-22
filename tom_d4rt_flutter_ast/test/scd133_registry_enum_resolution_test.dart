@@ -30,23 +30,72 @@
 /// corpus files into a sixteen-minute suite that needs a companion app and a
 /// local HTTP server.
 ///
-/// ## Measured, tom_d4rt_ast 0.65.0 + Flutter 3.44.6
+/// ## Measured — the registry, then the ablation under two interpreters
 ///
-/// | measurement                                              | value |
-/// | -------------------------------------------------------- | ----: |
-/// | bridged enums reachable                                   |   213 |
-/// | native enum values across them                            |   857 |
-/// | enums shadowed by a >=3-char-prefix bridged CLASS name     |   103 |
-/// | of the 213, resolved correctly by the CLASS path alone     |     0 |
+/// Flutter 3.44.6. The first three rows are built by this package's BRIDGES
+/// and do not move with the interpreter — both columns below measured them
+/// identically. The ablation rows are the interpreter's answer, and they do
+/// move.
 ///
-/// The last row is the finding, and it is a stronger statement than the count
-/// of failures SCC46 happened to produce. `toBridgedClass` resolves **no**
-/// bridged enum correctly — a bridged enum is registered in the environment's
-/// enum table and never in its class table — so for all 213 the class path is
-/// either silently wrong (103: it returns a different type) or absent (110: it
-/// throws). The enum branch is not a patch for a handful of colliding names;
-/// it is the only thing that resolves any of them. F-SCD133-4 measures that
-/// live rather than recalling it.
+/// | measurement                                                   | value |
+/// | ------------------------------------------------------------- | ----: |
+/// | bridged enums reachable                                       |   213 |
+/// | native enum values across them                                |   857 |
+/// | enums shadowed by a >=3-char-prefix bridged CLASS name        |   103 |
+/// | ablation: resolved CORRECTLY by the class path — both columns |     0 |
+/// | ablation: silently mistyped — hosted `tom_d4rt_ast` 0.65.0    |   104 |
+/// | ablation: unclaimed, i.e. throws — hosted 0.65.0              |   109 |
+/// | ablation: silently mistyped — working tree 0.159.0            |     0 |
+/// | ablation: unclaimed, i.e. throws — working tree 0.159.0       |   213 |
+///
+/// The `correct` row is the finding, and it is a stronger statement than the
+/// count of failures SCC46 happened to produce: `toBridgedClass` resolves
+/// **no** bridged enum correctly, because a bridged enum is registered in the
+/// environment's enum table and never in its class table. The enum branch is
+/// not a patch for a handful of colliding names; it is the only thing that
+/// resolves any of them. It holds under both interpreters.
+///
+/// **SCD132 eliminated the silent-mistype outcome entirely.** Under the
+/// published interpreter 104 of the 213 come back as a DIFFERENT bridge;
+/// under the working tree none do — all 213 throw. That is PASS B's
+/// narrowing, which now requires a prefix match to be corroborated by
+/// `nativeNames` or a supertype-registry edge, and it is worth stating
+/// plainly: with the enum branch ablated the class path no longer returns a
+/// wrong answer, it returns no answer. The failure a regression would produce
+/// has changed from `type 'Text' is not a subtype of type 'TextDirection'`,
+/// raised ten frames from the cause by the declared-parameter check in
+/// `callable.dart`, into an error naming the unclaimed type at the point it
+/// was asked about. F-SCD133-4 asserts only `correct == 0` precisely so that
+/// this improvement does not read as a regression; both columns satisfy it.
+///
+/// **Which interpreter a column describes is load-bearing.** Both twins
+/// resolve the interpreter from pub.dev (DGUC6), so an ordinary run here
+/// measures the PUBLISHED one. The working-tree column was taken under the
+/// SCD66 pre-publish pass (`tom_d4rt_flutter_ast/tool/prepublish_overrides.dart
+/// --set`, restored afterwards) and is therefore not a recordable verification
+/// run — it is stated here as what the next publish will make the hosted
+/// column say.
+///
+/// **The hosted split recorded here had already drifted, and nobody could see
+/// it.** This file used to state 103 silently mistyped / 110 unclaimed. The
+/// measurement under the very same hosted 0.65.0 is 104 / 109. Note that 103
+/// is also, exactly, the prefix-shadowed count in the row above — and 103+110
+/// sums to 213, so the pair was internally consistent and wrong, which is what
+/// a hand-derivation from the row above looks like. (The source twin's split
+/// was measured rather than derived: its 82 does not equal its 80, and it
+/// still measures 82 today.) The two are different questions. `shadowed` asks
+/// whether some >=3-character prefix of the ENUM's name is a registered class;
+/// the ablation asks what `toBridgedClass` returns for the native VALUE's
+/// runtime type. They happen to be close here and are not the same set.
+///
+/// Every number above is now `print`ed by F-SCD133-1, -2 and -4 on a green
+/// run, so refreshing this table costs one `flutter test` of this file and no
+/// edit. That is the whole reason the drift above could be found at all.
+///
+/// The floors below were re-checked against these counts and left alone:
+/// 120/450/60 against 213/857/103 here and 151/589/80 on the source
+/// twin, so the tightest margin is the twin's 80 against 60. They exist to catch a
+/// registry that did not load, not to track the counts.
 ///
 /// ## Why the twins report different numbers
 ///
@@ -209,6 +258,23 @@ void main() {
   group('SCD133: registry-wide bridged-enum resolution', () {
     test('F-SCD133-1: the registry loaded — enough enums and values for the '
         'per-enum assertions to mean anything', () {
+      final valueCount = enums.fold<int>(
+        0,
+        (running, e) => running + e.nativeValues.length,
+      );
+
+      // `print`, not `printOnFailure`: the table in this file's header is
+      // DERIVED from these numbers, so refreshing it has to be something a
+      // run does rather than something a reader re-derives by patching the
+      // file. A measurement that surfaces only on failure cannot do that, and
+      // a header table nobody can cheaply re-measure is how one goes
+      // historical without anyone noticing.
+      // ignore: avoid_print
+      print(
+        'SCD133 inventory: ${enums.length} bridged enums, '
+        '$valueCount native values',
+      );
+
       expect(
         enums.length,
         greaterThanOrEqualTo(_minBridgedEnums),
@@ -218,10 +284,6 @@ void main() {
             'what makes F-SCD133-3 a claim rather than a tautology.',
       );
 
-      final valueCount = enums.fold<int>(
-        0,
-        (running, e) => running + e.nativeValues.length,
-      );
       expect(
         valueCount,
         greaterThanOrEqualTo(_minEnumValues),
@@ -259,6 +321,9 @@ void main() {
           for (final e in enums)
             if (_capturingClassName(env, e.name) != null) e.name,
         ];
+        // ignore: avoid_print
+        print('SCD133 inventory: ${shadowed.length} prefix-shadowed enums');
+
         expect(
           shadowed.length,
           greaterThanOrEqualTo(_minPrefixCollisions),
@@ -356,9 +421,17 @@ void main() {
       // without changing the conclusion — and an assertion on the split
       // would go red on that improvement. What matters is that neither
       // bucket is a correct answer, which `correct == 0` already says.
-      printOnFailure(
-        'ablation over $probed enums: $mistyped silently mistyped, '
-        '$unclaimed unclaimed. Examples: ${examples.join(', ')}',
+      //
+      // It is `print` for the reason given in F-SCD133-1: this split is the
+      // last row of the header table, and the split is exactly the number
+      // scd132 was expected to move. Under `printOnFailure` it was invisible
+      // on every green run — which is every run — so the only way to read it
+      // was to edit this file first.
+      // ignore: avoid_print
+      print(
+        'SCD133 ablation over $probed enums: $correct correct, '
+        '$mistyped silently mistyped, $unclaimed unclaimed. '
+        'Examples: ${examples.join(', ')}',
       );
     });
   });
