@@ -55,6 +55,35 @@
 // construction and no name list — it simply asks every getter for its value and
 // resolves whatever comes back. Members that take arguments cannot be reached
 // this way and are covered by the explicit probe tables below.
+//
+// WHY THERE IS NO METHOD SWEEP, MEASURED 2026-09-22 (SCE122)
+//
+// The obvious extension of F-SCC24-1 is to iterate `bridge.methods` as well as
+// `bridge.getters`. It was built and run — 470 zero-argument method returns
+// across 129 bridges, with a real `InterpreterVisitor` (which both trees can
+// construct; the "script-free" property this file is written around is about
+// not EXECUTING source, and a visitor is an object rather than a script).
+//
+// IT FOUND ZERO INERT RETURNS. That is the same answer SCD78 got when it
+// widened the getter sweep from 111 instances to 124 and found nothing: the
+// bridges are in good shape, and a method sweep's value would be the guard
+// rather than the findings.
+//
+// AND THE FIRST RUN DESTROYED A TRACKED SOURCE FILE. The instance recipes are
+// written for a sweep that only READS — `File` was `File('pubspec.yaml')`, the
+// package's own — and one zero-argument member of the `File` bridge opened it
+// for writing, truncating `tom_d4rt/pubspec.yaml` to zero bytes. `dart test`
+// then refused to start, because the runner reads that file before anything
+// else, so the damage presented as a broken toolchain rather than as a failing
+// test. A sweep that INVOKES needs disposable instances for every mutable and
+// every io bridge, or a read-only allowlist — and an allowlist is the
+// hand-kept list this file exists to replace.
+//
+// So: zero yield, and a cost that is not the machinery but the instance
+// recipes. The named probe tables below stay the way method returns are
+// covered. `_scratchPubspec` disarms the recipes that made the trap possible,
+// so the next person to have this idea meets the measurement rather than the
+// truncation.
 import 'dart:async';
 import 'dart:collection';
 import 'dart:convert';
@@ -301,10 +330,10 @@ Map<String, Object> _canonicalInstances() => {
   'TypedData': Uint8List(1),
   'Endian': Endian.little,
   // dart:io
-  'File': File('pubspec.yaml'),
+  'File': _scratchPubspec,
   'Directory': Directory('.'),
-  'FileStat': File('pubspec.yaml').statSync(),
-  'FileSystemEntity': File('pubspec.yaml'),
+  'FileStat': _scratchPubspec.statSync(),
+  'FileSystemEntity': _scratchPubspec,
   'HttpClient': HttpClient(),
   // A plain data holder with a default constructor — the only one of the six
   // types SCC62 bridged that can be built without a live connection. The other
@@ -352,7 +381,7 @@ Map<String, Object> _canonicalInstances() => {
   'ProcessSignal': ProcessSignal.sigint,
   'StdioType': StdioType.terminal,
   'ProcessResult': ProcessResult(0, 0, '', ''),
-  'RandomAccessFile': File('pubspec.yaml').openSync(),
+  'RandomAccessFile': _scratchPubspec.openSync(),
   'IOSink': IOSink(StreamController<List<int>>()),
   'Datagram': Datagram(Uint8List(1), InternetAddress.loopbackIPv4, 1),
   'RawSocketOption': RawSocketOption.fromInt(0, 0, 0),
@@ -592,6 +621,43 @@ Map<String, Object> _sweepInstances() => {
   ..._canonicalInstances(),
   ..._liveInstances,
 };
+
+/// A disposable copy of this package's `pubspec.yaml`, used wherever a bridge
+/// needs a real file.
+///
+/// SCE122. The recipes below pointed `File`, `FileStat`, `FileSystemEntity`
+/// and `RandomAccessFile` at `pubspec.yaml` ITSELF — the package's own,
+/// tracked, load-bearing one. That is safe for the getter sweep, because
+/// reading is safe, and it stayed safe only for as long as nothing in this
+/// file called a METHOD.
+///
+/// SCE122 tried exactly that (see the header) and the first run TRUNCATED
+/// `tom_d4rt/pubspec.yaml` to zero bytes: a zero-argument member of the `File`
+/// bridge opened it for writing. `dart test` then refused to start at all,
+/// because the runner reads that file before anything else — so the damage
+/// presented as a broken toolchain rather than as a test failure, which is the
+/// worst way for it to present.
+///
+/// The copy makes the recipes inert. It changes nothing the sweep measures —
+/// a temp file resolves to the same bridges as any other — and it removes a
+/// loaded gun that the NEXT person to have SCE122's idea would find pointed
+/// at the repository.
+File get _scratchPubspec => _scratchPubspecCache ??= (() {
+  final dir = Directory.systemTemp.createTempSync('scc24_sweep_');
+  final copy = File('${dir.path}/pubspec.yaml');
+  copy.writeAsStringSync(File('pubspec.yaml').readAsStringSync());
+  return copy;
+})();
+File? _scratchPubspecCache;
+
+/// Removes the scratch directory. Called from `tearDownAll`.
+void _disposeScratchPubspec() {
+  final copy = _scratchPubspecCache;
+  _scratchPubspecCache = null;
+  if (copy == null) return;
+  final dir = copy.parent;
+  if (dir.existsSync()) dir.deleteSync(recursive: true);
+}
 
 /// A minimal enum so the `Enum` bridge has a canonical instance.
 enum _CanonicalEnum { value }
@@ -852,10 +918,10 @@ final _beyondAsyncProbes = <_Probe>[
   _Probe('Codec.inverted (json)', () => json.inverted, 'Codec'),
   _Probe('Codec.inverted (base64)', () => base64.inverted, 'Codec'),
   // dart:io — a Stream implementation defined outside dart:async.
-  _Probe('File.openRead', () => File('pubspec.yaml').openRead(), 'Stream'),
+  _Probe('File.openRead', () => _scratchPubspec.openRead(), 'Stream'),
   _Probe(
     'File.openRead (ranged)',
-    () => File('pubspec.yaml').openRead(0, 4),
+    () => _scratchPubspec.openRead(0, 4),
     'Stream',
   ),
 ];
@@ -865,6 +931,7 @@ final _beyondAsyncProbes = <_Probe>[
 void main() {
   group('SCC24: native-name coverage', () {
     setUpAll(_captureLiveInstances);
+    tearDownAll(_disposeScratchPubspec);
 
     test('F-SCC24-1: every instance getter on every bridge returns a value that '
         'resolves [2026-09-04]', () {
