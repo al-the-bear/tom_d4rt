@@ -16,7 +16,7 @@ This document provides a comprehensive reference of all known D4rt interpreter l
 > deferred `dart:io` / `dart:math` entries — are not bugs and carry no ID; see
 > [Intentionally-Unbridged SDK Classes](#intentionally-unbridged-sdk-classes).
 
-**Last Updated:** 2026-09-04
+**Last Updated:** 2026-09-22
 
 ---
 
@@ -120,6 +120,7 @@ nothing to link to. Every other row's link resolves, and a test enforces that
 | Bug-99 | [Stream.handleError callback receives wrong argument count](#bug-99-streamhandleerror-callback-receives-wrong-argument-count) — `dart_overview_bugs_test: Bug-99` | Low | ✅ Fixed |
 | Lim-3 | [Isolate execution with interpreted code](#lim-3-isolate-execution-with-interpreted-code) — `limitations_and_bugs_test: Lim-3` (1) | Fundamental | ⚠️ Limited |
 | Lim-10 | [Per-step allocation rate drives stop-the-world major GC](#lim-10-per-step-allocation-rate-drives-major-gc) | Fundamental | ⚠️ Limited |
+| Lim-11 | [A native callable's `runtimeType` and typed `is` are not function types](#lim-11-native-callable-runtimetype-and-typed-is) | High | ⚠️ Limited |
 | Bug-14 | [Records with named fields or >9 positional fields return InterpretedRecord](#bug-14-records-with-named-fields-or-9-positional-fields) — `limitations_and_bugs_test: Bug-14` (2) | High | 🚫 Won't Fix |
 
 **Status Legend:**
@@ -2952,6 +2953,63 @@ Note: Dart's `handleError` accepts `Function(error)` OR `Function(error, stackTr
 Check the number of parameters the user's callback function accepts. If it accepts 1, pass only the error. If it accepts 2, pass both error and stack trace.
 
 ---
+
+---
+
+### Lim-11: Native Callable runtimeType and Typed is
+
+**Status:** ⚠️ Limited
+**Recorded:** 2026-09-22 (SCE121)
+**Complexity:** High
+
+#### What works
+
+`x is Function` answers correctly for every callable a script can hold, since
+SCE121 — a bridged instance-method tear-off (`'abc'.substring`), a bridged
+static (`int.parse`), a constructor tear-off (`Object.new`), a bridged
+top-level (`json.decode`), an interpreted function and a closure. So the guard
+a script actually writes works:
+
+```dart
+if (x is Function) x();   // reaches native callables too
+```
+
+A class that merely declares `call` is correctly **not** a `Function`, as in
+real Dart.
+
+#### What does not
+
+Two halves of the same underlying fact — the interpreter has no function TYPE
+for a native callable, only the knowledge that it can be invoked:
+
+```dart
+'abc'.substring.runtimeType          // BridgedMethodCallable, not (int) => String
+'abc'.substring is String Function(int)   // false
+```
+
+The typed form goes through the structural `GenericFunctionType` path, which
+compares the annotation against the value's runtime type; a bridged tear-off
+has none to compare. The bare `Function` test does not use that path, which is
+why one could be fixed without the other.
+
+Interpreted functions are only partly better: `f.runtimeType` on a closure or a
+script function renders `Function`, not `(String) => bool`, so nothing in the
+interpreter reports a function type today. The typed `is` DOES work for them,
+through the structural path.
+
+#### Why it is not simply fixed
+
+`runtimeType` must return a value whose `toString()` is the Dart function type
+without claiming to BE a Dart `Type` — the interpreter has no way to mint one —
+and the parameter types a bridged adapter carries are not always complete
+enough to render the signature faithfully. A half-right function type is worse
+than an honest class name, because a script comparing two of them would get
+silent wrong answers rather than a visible one.
+
+#### Workaround
+
+Test callability with `is Function`, which is the question a script can act on.
+Do not switch on `runtimeType.toString()` for a callable.
 
 ## Intentionally-Unbridged SDK Classes
 

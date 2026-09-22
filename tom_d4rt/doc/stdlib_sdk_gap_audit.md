@@ -1113,12 +1113,14 @@ is driven through the interpreter as `o is Supertype` and kept only if the
 answer is actually `false`. Measured 2026-09-06, after the `dart:io` and
 `dart:isolate` edges were declared:
 
-Measured 2026-09-07.
+Measured 2026-09-07; the `isAssignable` count re-measured 2026-09-22,
+when SCE121 gave the `Function` bridge one so that `is Function` answers for
+every value the interpreter can call.
 
 | Metric | Count |
 |--------|-------|
 | Bridged classes examined | 208 |
-| … declaring `isAssignable` | 181 |
+| … declaring `isAssignable` | 182 |
 | … with ≥ 1 registered edge | 120 |
 | Candidate edges from the cross-reference | 1 |
 | … satisfied anyway via `isAssignable` | 1 |

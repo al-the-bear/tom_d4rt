@@ -4,6 +4,30 @@ class FunctionCore {
   static BridgedClass get definition => BridgedClass(
     nativeType: Function,
     name: 'Function',
+    // SCE121: `is Function` is the ordinary way a script asks whether a value
+    // can be CALLED — a plugin registry, a callback table, `if (x is Function)
+    // x()`. It answered true for a script function or closure and false for
+    // every native one: a bridged method tear-off (`'abc'.substring`), a
+    // bridged static (`int.parse`), a constructor tear-off (`Object.new`) and
+    // a bridged top-level (`json.decode`) all read as not-a-Function.
+    //
+    // The damning measurement is not the `false`, it is the pair: `f(1)` on
+    // that same tear-off WORKS. So the guard rejected a value the interpreter
+    // was perfectly able to call, and a script written the Dart way silently
+    // took the else-branch for every native callable.
+    //
+    // `Callable` is the interpreter's own "can be invoked" interface and every
+    // tear-off shape implements it — `BridgedMethodCallable`,
+    // `InterpretedFunction`, `NativeFunction`. Answering with it makes the
+    // type test agree with what invocation already does, which is the only
+    // consistency a script can act on.
+    //
+    // It answers the BARE form. `x is String Function(int)` goes through the
+    // structural `GenericFunctionType` path, which compares against a
+    // callable's runtime type, and that stays false for a bridged tear-off —
+    // see `doc/d4rt_limitations.md`, which records both that and the
+    // `runtimeType` half.
+    isAssignable: (v) => v is Function || v is Callable,
     typeParameterCount: 0,
     constructors: {},
     staticMethods: {

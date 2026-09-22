@@ -25,7 +25,10 @@
 /// `BridgedMethodCallable` and all fail `is Function`, while a script function
 /// or closure passes it. So `isScheme` was the one accidental exception and this
 /// change removes the exception rather than creating one. The general defect —
-/// a bridged tear-off is not `is Function` — is filed as sce121_aimm.
+/// a bridged tear-off is not `is Function` — was fixed by SCE121 in the
+/// reference tree; this copy still measures the PUBLISHED interpreter, where
+/// it is unfixed, so F-SCD77-2 below keeps the old expectation under a
+/// PUBLISH-PIN.
 ///
 /// ## Control
 ///
@@ -101,6 +104,13 @@ void main() {
           "final u = Uri.parse('https://a.b/c'); return u.isScheme is Function;",
         ),
         isFalse,
+        // PUBLISH-PIN(sce119_aiml-exec-carries-a-fourth-unwrap-copy-until-the-ast-publish-lands):
+        // SCE121 made this `true` in the reference tree by giving the
+        // `Function` bridge an `isAssignable` that answers with the
+        // interpreter's own `Callable`. Exec resolves tom_d4rt_ast from
+        // pub.dev (DGUC6), whose `Function` bridge declares none, so the
+        // published answer is still `false`. Flip this with the reference's
+        // F-SCD77-2 when the constraint rises.
         reason:
             'asserted as it IS rather than as Dart would have it, and '
             'UNCHANGED by this todo: a native function value fails '

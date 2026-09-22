@@ -100,14 +100,16 @@ void main() {
         run(
           "final u = Uri.parse('https://a.b/c'); return u.isScheme is Function;",
         ),
-        isFalse,
+        isTrue,
         reason:
-            'asserted as it IS rather than as Dart would have it, and '
-            'UNCHANGED by this todo: a native function value fails '
-            '`is Function` in a script whether it arrived through a getter or a '
-            'method — measured on both shapes. sce121_aimm owns it; when that '
-            'is fixed this expectation flips, which is the point of writing it '
-            'down',
+            'FLIPPED BY SCE121, which is the point of having written the false '
+            'down rather than omitting it. A native function value used to '
+            'fail `is Function` in a script whether it arrived through a '
+            'getter or a method — measured on both shapes — so a script\'s '
+            '`if (x is Function) x()` guard rejected a value the interpreter '
+            'could call. The `Function` bridge answers with the interpreter\'s '
+            'own `Callable` interface now. `is String Function(int)` and '
+            '`runtimeType` are still not function types; see Lim-11',
       );
     });
 

@@ -385,9 +385,33 @@ const _partialTwinBudget = 1;
 /// `extends` clause carrying a type argument, a field formal parameter and a
 /// `toString` override — all of which the corpus copies on every run.
 ///
-const _copierGapBudget = 38;
+/// 38 -> 39: SCE121 added `sce121_is_function_test.dart`, which runs source to
+/// ask what `is Function` answers for each callable shape. Exec resolves
+/// tom_d4rt_ast from pub.dev, where the `Function` bridge declares no
+/// `isAssignable`, so a port would assert the fix against an interpreter that
+/// still answers false for every native callable. Its ast twin holds the
+/// mechanism. The copier surface a port would have added is `is` expressions
+/// over property accesses and closures, which the corpus copies on every run.
+///
+const _copierGapBudget = 39;
 
 const Map<String, _Coverage> _coveredElsewhere = {
+  'sce121_is_function_test.dart': _Coverage(
+    'ast:runtime/sce121_is_function_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 4,
+    twinCases: 3,
+    whyPartial:
+        'the twin pins the MECHANISM — that this tree\'s own `_valueHasType` '
+        'reaches the bridge\'s `isAssignable` at all — plus both rails. The '
+        'bridge file is code-identical between the trees (F-SCD49-2), so the '
+        'rule is the same source; what differs is the type-test path that has '
+        'to consult it. The reference\'s fourth case is the two halves left '
+        'standing (`is String Function(int)` and `runtimeType`), which are '
+        'documented in `doc/d4rt_limitations.md` Lim-11 and are the same '
+        'answer in both trees because neither has a function type to give.',
+  ),
   'sce120_linked_list_subclass_test.dart': _Coverage(
     'ast:runtime/sce120_linked_list_subclass_test.dart',
     _astTwin,
@@ -2101,6 +2125,14 @@ const Map<String, _Convergence> _convergenceLog = {
 /// re-measure the whole register when the floor moves, not the entry you
 /// happened to be reading.
 const Map<String, _Divergence> _divergentBaseline = {
+  // `scd77`: SCE121 made `is Function` true for every value the interpreter
+  // can call — a bridged tear-off included — by giving the `Function` bridge
+  // an `isAssignable` that answers with the interpreter's own `Callable`
+  // interface. The reference copy's F-SCD77-2 asserts the new `true`; the
+  // published interpreter's `Function` bridge declares no `isAssignable`, so
+  // here it is still `false` and this copy keeps the old expectation with a
+  // PUBLISH-PIN on it. Converges at a floor past 0.151.0.
+  'scd77_uri_is_scheme_test.dart': _Divergence.deliberate,
   // SCD153 found these five by opening this suite after three turns that had
   // no reason to — the lag this file's reference-side twin
   // (`tom_d4rt/test/scd153_conformance_drift_mirror_test.dart`) now closes.
@@ -2356,6 +2388,7 @@ const Map<String, _Divergence> _divergentBaseline = {
 /// Recomputing without reading the new difference is the failure mode; the
 /// message says so.
 const Map<String, String> _divergenceFingerprints = <String, String>{
+  'scd77_uri_is_scheme_test.dart': '7157029405e6bfda',
   'scb9_error_handler_arity_test.dart': 'd880f1617d543ff7',
   'scc20_catch_clause_type_test.dart': 'cf854ab1616b9e5f',
   'stdlib/collection/list_queue_test.dart': '927a588334725bb2',
@@ -2505,6 +2538,10 @@ const Map<String, String> _divergenceFingerprints = <String, String>{
 /// being pinned. Measure before pinning and the pin survives; infer it and it
 /// rots.
 const Map<String, String> _pinnedInterpreterFloors = <String, String>{
+  // SCE121 gave the `Function` bridge an `isAssignable` that answers with
+  // the interpreter's own `Callable`, so `is Function` is true for a bridged
+  // tear-off from this release on.
+  'scd77_uri_is_scheme_test.dart': '0.151.0',
   // SCE91, pinned at the release that moved `StreamSubscription.onError` from
   // a setter to a method rather than at a working-tree version.
   'scb9_error_handler_arity_test.dart': '0.110.0',

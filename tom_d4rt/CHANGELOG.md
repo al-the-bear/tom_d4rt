@@ -1,3 +1,37 @@
+## 1.168.0
+
+### Fixed — `is Function` answers for every value the interpreter can call (sce121)
+
+It answered `true` for a script function or a closure and `false` for every
+native one. The damning measurement is not the `false`, it is the pair:
+`var f = 'abc'.substring; f(1)` returns `'bc'`, and `f is Function` was false.
+So the guard rejected a value the interpreter was perfectly able to call, and a
+script written the Dart way — a plugin registry, a callback table,
+`if (x is Function) x()` — silently took the else-branch for every native
+callable. That reads as "d4rt cannot do that" rather than "the type test is
+wrong", which is why it survived.
+
+The population was enumerated before anything changed, as the todo asks:
+measured false were a bridged instance-method tear-off, a bridged static
+(`int.parse`), a constructor tear-off (`Object.new`) and a bridged top-level
+(`json.decode`).
+
+The fix is in the `Function` bridge rather than in the interpreter's type-test
+path: `Callable` is the interpreter's own "can be invoked" interface and every
+tear-off shape implements it, so `isAssignable` answers with it and the type
+test agrees with what invocation already does.
+
+A class that merely declares `call` is still NOT a `Function`, which is real
+Dart and the case a fix aimed at "anything callable" gets wrong.
+
+TWO HALVES STAY AND ARE WRITTEN DOWN: `'abc'.substring is String Function(int)`
+is false and `runtimeType` reports `BridgedMethodCallable`. Both are the same
+fact — there is no function TYPE for a native callable, only the knowledge that
+it can be invoked — and `doc/d4rt_limitations.md` Lim-11 records it, including
+why a half-right function type would be worse than an honest class name.
+
+Name resolution: no.
+
 ## 1.167.0
 
 ### Fixed — a read-back `LinkedListEntry` renders the script's own `toString` (sce120)
