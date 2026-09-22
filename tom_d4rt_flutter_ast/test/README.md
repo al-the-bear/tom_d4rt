@@ -343,9 +343,10 @@ default timeout purely because the host was busy, producing a spurious failure.
 
 The 60 s ceiling gives enough headroom that a momentarily busy host does not
 turn green tests red, while still bounding genuinely wedged tests so the run
-cannot hang indefinitely. It is a **per-test** limit; the shell script adds a
-separate ~15 min **per-file** wall-clock backstop (via `timeout`/`gtimeout` when
-available) so a wedged transport cannot stall the entire sequence.
+cannot hang indefinitely. It is a **per-test** limit; the runners add a separate
+~15 min **per-file** wall-clock backstop — `timeout`/`gtimeout` when available on
+the `.sh` side, built into `idle_timeout.ps1` on the `.ps1` side since SCE148 —
+so a wedged transport cannot stall the entire sequence.
 
 ## ⚠️ The idle-output watchdog (fail fast on a wedged run)
 
@@ -378,9 +379,38 @@ So the floor is not "the per-test maximum plus margin" but **the companion
 app's own start timeout plus margin**. Any future change to
 `SendTestRunner.setUp`'s 120 s has to move this default with it.
 
-A genuine stall is still caught: the `.sh` runners wrap each file in
-`timeout 900` regardless. The `.ps1` runners have no such backstop — see
-SCE148 — so there the watchdog is the only cap.
+A genuine stall is still caught on BOTH platforms: the `.sh` runners wrap each
+file in `timeout 900`, and since SCE148 `idle_timeout.ps1` applies its own
+equivalent (override with `$env:WALL_TIMEOUT`; `0` disables it). PowerShell has
+no `timeout` binary, so the cap is built into the watchdog rather than composed
+around it in each runner — one implementation, the same `taskkill /T /F` tree
+kill, and no three hand-rolled copies to drift apart.
+
+**The idle watchdog cannot catch a run that keeps printing while getting
+nowhere**, which is what the wall clock is for. It matters more on Windows than
+it reads: SCD131 raised the idle default to 300 for good reasons, and until
+SCE148 that left a wedged `.ps1` file surviving 300 s where a `.sh` one died at
+900 regardless of what it printed.
+
+**Both caps exit 124, and the LOG says which fired.** A wall-clock kill appends
+`== wall_timeout:` and an idle kill `== idle_timeout:`; the runners read the
+marker and annotate the metrics line `(WALL-KILLED ...)` or
+`(IDLE-KILLED after <n>s of no output)`. Before SCE148 every runner called any
+124 an idle kill, which describes a run that was producing output the whole time
+as a silent one — and on Windows neither marker ever reached the log at all,
+because `cmd /c "... > LOG 2>&1"` owns the file while it runs. The markers are
+now appended after the process tree is gone.
+
+Verified on legiondary01 (2026-09-22), `IDLE_POLL=2`:
+
+| probe | rc | elapsed | wall marker | idle marker | surviving children |
+| --- | --- | --- | --- | --- | --- |
+| noisy run, idle 60 / wall 15 | 124 | 17 s | yes | no | 0 |
+| silent run, idle 10 / wall 300 | 124 | 11 s | no | yes | 0 |
+| quick run, idle 60 / wall 60 | 0 | 1 s | no | no | 0 |
+
+Keep any probe's limits above `IDLE_POLL` (5 s by default) or the first poll
+already exceeds them.
 
 Override with the `IDLE_TIMEOUT` env var (and `IDLE_POLL` for the check cadence,
 which defaults to 5 s — an `IDLE_TIMEOUT` below that is meaningless because the
