@@ -265,12 +265,15 @@ Set<String> _declaredPathDependencies(Directory package) {
 /// 2026-09-15: 52 version directories, 23 distinct packages, 13 of them holding
 /// more than one version.
 ({int versions, int packages, int multiVersion}) _cacheSensitivity() {
-  final home =
-      Platform.environment['HOME'] ?? Platform.environment['USERPROFILE'];
-  final cache = home == null
-      ? null
-      : Directory('$home/.pub-cache/hosted/pub.dev');
-  if (cache == null || !cache.existsSync()) {
+  // SCE147: `pubCacheRoot()` rather than a second hand-rolled `$HOME` join.
+  // This one honoured neither `PUB_CACHE` nor the Windows default, so on
+  // legiondary01 it reported ZERO against a cache holding 60 `tom_*` packages —
+  // and the floor below then skipped the two cache-dependent cases with a
+  // message telling the reader to run `dart pub get`, which would not have
+  // helped. The first time this guard ran off mbp is the first time anyone
+  // could have known.
+  final cache = Directory('${pubCacheRoot().path}/hosted/pub.dev');
+  if (!cache.existsSync()) {
     return (versions: 0, packages: 0, multiVersion: 0);
   }
   final byPackage = <String, int>{};

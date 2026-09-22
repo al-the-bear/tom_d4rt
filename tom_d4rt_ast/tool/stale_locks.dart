@@ -169,12 +169,43 @@ int compareVersions(String a, String b) {
   return 0;
 }
 
+/// This machine's pub cache root, resolved the way pub itself resolves it.
+///
+/// SCE147, and it is a defect found by RUNNING somewhere else. Two callers
+/// resolved this independently and both were wrong on Windows: this file
+/// honoured `PUB_CACHE` but fell back to `$HOME/.pub-cache`, and the guard's
+/// own `_cacheSensitivity` honoured neither. On legiondary01 the cache lives at
+/// `%LOCALAPPDATA%\Pub\Cache` and holds 622 packages, 60 of them `tom_*` —
+/// and the guard reported **zero**, which SCD130's floor then turned into a
+/// SKIP whose message told the reader to run `dart pub get`. A correct
+/// mechanism firing on a false premise, and the remedy it printed could not
+/// have helped.
+///
+/// THE ORDER IS PUB'S OWN: `PUB_CACHE` when set, then the platform default —
+/// `%LOCALAPPDATA%\Pub\Cache` on Windows, `$HOME/.pub-cache` elsewhere. An
+/// EMPTY `PUB_CACHE` is treated as unset rather than as the root directory:
+/// legiondary01 reports it as an empty string through the Git-Bash wrapper, and
+/// taking that literally points the walk at the filesystem root.
+///
+/// One resolver with two callers rather than two that agree by coincidence —
+/// the argument `port_recipe.dart` makes for its table.
+Directory pubCacheRoot() {
+  final explicit = Platform.environment['PUB_CACHE'];
+  if (explicit != null && explicit.trim().isNotEmpty) {
+    return Directory(explicit);
+  }
+  if (Platform.isWindows) {
+    final localAppData = Platform.environment['LOCALAPPDATA'];
+    if (localAppData != null && localAppData.isNotEmpty) {
+      return Directory('$localAppData\\Pub\\Cache');
+    }
+  }
+  return Directory('${Platform.environment['HOME'] ?? ''}/.pub-cache');
+}
+
 /// Every version of [name] in this machine's hosted pub cache.
 List<String> cachedVersions(String name) {
-  final home =
-      Platform.environment['PUB_CACHE'] ??
-      '${Platform.environment['HOME'] ?? ''}/.pub-cache';
-  final dir = Directory('$home/hosted/pub.dev');
+  final dir = Directory('${pubCacheRoot().path}/hosted/pub.dev');
   if (!dir.existsSync()) return const [];
   final prefix = '$name-';
   return dir
