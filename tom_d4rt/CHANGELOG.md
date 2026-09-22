@@ -1,3 +1,37 @@
+## 1.178.0
+
+### Deprecated — the bridge-mapping types nobody ever used (sce155)
+
+`LibraryBridgeDefinition`, `BarrelMapping` and `ModuleBridgeInfo` in
+`lib/src/bridge/library_mapping.dart` describe a RUNTIME answer to barrel
+re-export deduplication: group bridged elements by the canonical library they
+came from, record which source libraries each barrel re-exports, let the
+interpreter recognise one element reached two ways.
+
+That deduplication happens — in the other layer. `PerPackageBridgeOrchestrator`
+in `tom_d4rt_generator` maps each source file to the barrel exporting it and
+emits one per-package bridge file plus delegating barrels, so the duplicate
+never reaches the runtime to be deduplicated. These types are a SUPERSEDED
+design, not an unfinished one, and there is no intent to recover.
+
+MEASURED RATHER THAN PRESUMED, in both directions. Workspace-wide, the only
+`.dart` files naming any of the three are the declaring file and the two guards
+that record them as dead. Outside it, pub.dev lists exactly four dependents of
+`tom_d4rt` — `tom_d4rt_generator`, `tom_d4rt_exec`, `tom_d4rt_dcli`,
+`tom_d4rt_flutter`, every one of them from this workspace — and no cached
+release of any of the four names one of these types. The API has never had a
+consumer anywhere.
+
+Deprecated rather than deleted: it is on a published surface and removal is
+breaking whether or not anybody is hurt. Removal is due at 2.0.0 and is not
+left to memory — `test/sce155_dead_surface_removal_test.dart` fails the moment
+this package's major reaches 2 with the file still present, and separately when
+a deprecation stops naming the release that removes it. A todo saying "remove
+at 2.0.0" would sit unread until the one release it applied to; a red test
+cannot.
+
+Name resolution: no — three unused data classes gain an annotation.
+
 ## 1.177.0
 
 ### Recorded — the PASS B narrowing removes the wrong answer, not just most of it (sce153)

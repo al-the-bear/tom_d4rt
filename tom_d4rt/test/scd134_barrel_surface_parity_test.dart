@@ -233,17 +233,23 @@ const _divergences = <String, _Divergence>{
   // not declare.
   'BarrelMapping': _Divergence(
     _Side.refOnly,
-    'reference-only AND referenced by no Dart file anywhere in the workspace '
-    '(sce155). Exported dead API rather than a twin divergence — removing '
-    'it is breaking, so it is recorded here rather than quietly kept',
+    'dead API, now DEPRECATED with a removal version (sce155). The runtime '
+    'deduplication these three describe happens at generation time instead, '
+    'in tom_d4rt_generator\'s PerPackageBridgeOrchestrator — superseded, not '
+    'unfinished. Measured 2026-09-23: no .dart file in the workspace names '
+    'them beyond this guard and the declaring file, and pub.dev\'s four '
+    'dependents of tom_d4rt are all this workspace\'s own and name none of '
+    'them. Removal is breaking, so it is due at 2.0.0 and held by '
+    'sce155_dead_surface_removal_test.dart rather than by a todo; these three '
+    'entries come out in the same commit as the file',
   ),
   'LibraryBridgeDefinition': _Divergence(
     _Side.refOnly,
-    'unused, same file as BarrelMapping (sce155)',
+    'deprecated dead API, same file as BarrelMapping (sce155)',
   ),
   'ModuleBridgeInfo': _Divergence(
     _Side.refOnly,
-    'unused, same file as BarrelMapping (sce155)',
+    'deprecated dead API, same file as BarrelMapping (sce155)',
   ),
 };
 

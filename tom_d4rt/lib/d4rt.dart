@@ -50,6 +50,11 @@ export 'package:tom_d4rt/src/introspection.dart';
 export 'package:tom_d4rt/src/generator/d4.dart';
 export 'package:tom_d4rt/src/generator/d4rt_user_bridge_annotation.dart';
 export 'package:tom_d4rt/src/generator/d4rt_user_proxy_annotation.dart';
+// DEPRECATED (SCE155), removal due at 2.0.0. All three types it declares
+// are superseded by generation-time deduplication in tom_d4rt_generator and
+// have never had a consumer, in this workspace or among pub.dev's four
+// dependents of this package. The export stays until the major so the
+// deprecation is visible to anyone who did reach for them.
 export 'package:tom_d4rt/src/bridge/library_mapping.dart';
 export 'package:tom_d4rt/src/script_execution.dart';
 

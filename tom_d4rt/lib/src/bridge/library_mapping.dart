@@ -1,7 +1,35 @@
 /// Library bridge mapping types for deduplicating elements across re-exports.
 ///
-/// These types enable D4rt to correctly handle barrels that re-export
-/// elements from other packages without registering duplicate bridges.
+/// These types describe a RUNTIME solution to barrel re-export deduplication:
+/// group bridged elements by the canonical library they came from, record
+/// which source libraries each barrel re-exports, and let the interpreter
+/// recognise that the same element reached through two barrels is one element.
+///
+/// ## Deprecated — the problem was solved in the other layer (SCE155)
+///
+/// That deduplication happens, and it happens at GENERATION time instead:
+/// `PerPackageBridgeOrchestrator` in `tom_d4rt_generator` maps each source
+/// file to the barrel that exports it (`sourceFileToBarrel`,
+/// `BarrelPackageMapping`) and emits one per-package bridge file plus
+/// delegating barrel files, so the duplicate never reaches the runtime to be
+/// deduplicated. Nothing here was ever wired up, and nothing needs to be: this
+/// is a SUPERSEDED design, not an unfinished one. There is no intent to
+/// recover.
+///
+/// MEASURED 2026-09-23, and the answer is conclusive rather than presumed.
+/// Workspace-wide, the only `.dart` files naming [LibraryBridgeDefinition],
+/// [BarrelMapping] or [ModuleBridgeInfo] are this file and the two guards that
+/// record them as dead. Outside it, pub.dev lists exactly four dependents of
+/// `tom_d4rt` — `tom_d4rt_generator`, `tom_d4rt_exec`, `tom_d4rt_dcli`,
+/// `tom_d4rt_flutter`, all of them this workspace's own — and no cached
+/// release of any of the four names one of these types. The API has never had
+/// a consumer, here or anywhere.
+///
+/// It is deprecated rather than deleted because it is on a PUBLISHED surface
+/// and removal is breaking whether or not anyone is hurt by it. The removal is
+/// due at 2.0.0, and is not left to memory:
+/// `tom_d4rt/test/sce155_dead_surface_removal_test.dart` fails the moment this
+/// package's major version reaches 2 while the file is still here.
 library;
 
 import 'package:tom_d4rt/src/bridge/bridged_types.dart';
@@ -32,6 +60,11 @@ import 'package:tom_d4rt/src/exceptions.dart';
 ///   enums: {},
 /// );
 /// ```
+@Deprecated(
+  'Superseded by generation-time deduplication in tom_d4rt_generator '
+  '(PerPackageBridgeOrchestrator). Never wired up and never used by any '
+  'consumer; scheduled for removal in tom_d4rt 2.0.0. See SCE155.',
+)
 class LibraryBridgeDefinition {
   /// The canonical package URI for this library.
   ///
@@ -161,6 +194,11 @@ class LibraryBridgeDefinition {
 ///   ],
 /// );
 /// ```
+@Deprecated(
+  'Superseded by generation-time deduplication in tom_d4rt_generator '
+  '(PerPackageBridgeOrchestrator). Never wired up and never used by any '
+  'consumer; scheduled for removal in tom_d4rt 2.0.0. See SCE155.',
+)
 class BarrelMapping {
   /// The barrel's package URI.
   ///
@@ -212,6 +250,11 @@ class BarrelMapping {
 ///
 /// Contains both the barrel-to-libraries mappings and the library-to-bridges
 /// definitions. This enables complete deduplication at registration time.
+@Deprecated(
+  'Superseded by generation-time deduplication in tom_d4rt_generator '
+  '(PerPackageBridgeOrchestrator). Never wired up and never used by any '
+  'consumer; scheduled for removal in tom_d4rt 2.0.0. See SCE155.',
+)
 class ModuleBridgeInfo {
   /// Mappings from barrel URIs to their source libraries.
   final List<BarrelMapping> barrelMappings;

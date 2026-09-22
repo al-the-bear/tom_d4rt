@@ -14,11 +14,22 @@
 // `tom_d4rt/d4rt.dart` does not, ZERO are declared anywhere in `tom_d4rt/lib`:
 // every one is an analyzer-free-line concept — the mirror AST (`SAstNode` and
 // its 180-odd subtypes), `D4rtRunner`, `AstBundle`, `ModuleContext`,
-// `AstBundler`. And of the six names `tom_d4rt/d4rt.dart`
-// exports that exec's does not — `BarrelMapping`, `D4rtUserProxy`,
-// `D4rtUserRelaxer`, `LibraryBridgeDefinition`, `ModuleBridgeInfo`,
-// `StaticCoord` — all six are absent from `tom_d4rt_ast` entirely. Neither side
-// is withholding; the two lines simply implement different things.
+// `AstBundler`. And of the six names `tom_d4rt/d4rt.dart` exports that exec's
+// does not — `BarrelMapping`, `D4rtUserProxy`, `D4rtUserRelaxer`,
+// `LibraryBridgeDefinition`, `ModuleBridgeInfo`, `StaticCoord` — none is a
+// withheld name. Neither side is withholding; the two lines simply implement
+// different things. Four of the six are absent from `tom_d4rt_ast` entirely,
+// three of those because they are dead API on their way out (SCE155 deprecated
+// `BarrelMapping`, `LibraryBridgeDefinition` and `ModuleBridgeInfo` for
+// removal at 2.0.0).
+//
+// The other two moved. SCE154 mirrored `D4rtUserProxy` / `D4rtUserRelaxer`
+// into `tom_d4rt_ast` and exported them from `runtime.dart`, because that
+// package's own `generator/d4.dart` told consumers to apply an annotation it
+// did not declare. This guard reads the trees off disk, so it sees them
+// already; exec's PUBLISHED surface does not, because exec resolves
+// `tom_d4rt_ast` from pub.dev (DGUC6) and the release carrying them is not out
+// yet. When it ships, the list above is four.
 //
 // SO WHAT IS ASSERTED is the property that made the worry worth checking: a
 // name one package DECLARES and the other EXPORTS must be exported by both. The
