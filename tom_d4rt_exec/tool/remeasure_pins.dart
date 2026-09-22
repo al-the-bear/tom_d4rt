@@ -124,8 +124,17 @@ Future<int> main(List<String> args) async {
       : uncovered
       ? _parseRegister(
           File(_guardPath).readAsStringSync(),
-          'const Map<String, int> _uncoveredBaseline = {',
-          "^\\s*'([^']+)':\\s*(\\d+),",
+          // SCE100 changed the value from a bare case count to a
+          // `_CaseCounts` record, so both the opener and the entry shape moved
+          // under this tool. The anti-vacuity check below is what turned that
+          // into a refusal rather than an empty, cheerful report — but a tool
+          // that reads a register has to be edited WITH it, which is the same
+          // rule the register applies to its own prose.
+          'const Map<String, _CaseCounts> _uncoveredBaseline = {',
+          // `ran` is the runtime count, which is what this tool re-measures;
+          // the formatter wraps long entries, so the two fields may be on the
+          // key's line or on their own.
+          "^\\s*'([^']+)':\\s*\\(?\\s*ran:\\s*(\\d+)",
         )
       : _parsePins(File(_guardPath).readAsStringSync());
   if (candidates && pins.isEmpty) {

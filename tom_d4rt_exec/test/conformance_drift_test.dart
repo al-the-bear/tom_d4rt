@@ -1641,6 +1641,48 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
     ran: 12,
     declared: 12,
   ),
+  // SCE101-SCE104: four interpreter fixes made in one session, each measured
+  // with `tool/remeasure_pins.dart --candidates` against the resolved 0.65.0
+  // before being recorded here. Every one is a silent WRONG ANSWER rather than
+  // a crash on the published copy, which is why the failing-case counts are
+  // worth reading: the cases that pass against 0.65.0 are the CONTROLS each
+  // file carries deliberately, and they pass on both sides by construction.
+  //
+  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.139.0.
+  // Measured 2026-09-22: 4 of 9 fail against 0.65.0 - F-SCE101-1, -2, -4 and
+  // the -9 agreement case. The element predicate answered `Null`, `dynamic`,
+  // `Type` and a wrapped bridged value differently from `is`.
+  'sce101_element_type_test.dart': (ran: 9, declared: 9),
+  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.140.0.
+  // Measured 2026-09-22: 7 of 11 fail against 0.65.0. An empty loop body ended
+  // the FUNCTION, so the published copy answers null after a for-in and the
+  // CONDITION after a C-style for - which is why -2 reports `true` and -3
+  // reports the stream's contents rather than both reporting null.
+  'sce102_empty_loop_body_async_test.dart': (ran: 11, declared: 11),
+  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.141.0.
+  // Measured 2026-09-22: 6 of 10 fail against 0.65.0. Five are the unchecked
+  // typed local; the sixth is F-SCE103-6, which fails with "Bridged class
+  // 'Map' has no instance method named 'add'" - the empty-`{}`-in-a-Set-context
+  // defect that check surfaced, and independent evidence that it predates the
+  // check rather than being caused by it.
+  'sce103_typed_local_test.dart': (ran: 10, declared: 10),
+  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.142.0.
+  // Measured 2026-09-22: 5 of 8 fail against 0.65.0. A failing cast pattern
+  // MISSED rather than throwing, so F-SCE104-3 answers 'miss' where the fix
+  // binds 'HIT:1.0', and the -4 agreement case reports the cast pattern and
+  // the cast expression disagreeing on the very first row.
+  'sce104_cast_pattern_test.dart': (ran: 8, declared: 8),
+  // NOT PORTABLE, and not blocked on anything: it reads
+  // `lib/src/interpreter_visitor.dart` - tom_d4rt's OWN dispatch source - and
+  // parses the analyzer's `DartPattern` hierarchy to check every kind has a
+  // branch. exec has no such file, so the port dies with
+  // `PathNotFoundException` (measured 2026-09-22, 3 of 3). The analyzer-free
+  // side of the same question is asked by
+  // `tom_d4rt_ast/test/runtime/sce105_pattern_kind_coverage_test.dart`, which
+  // derives its kinds from `tom_ast_model` instead - so the gap here is about
+  // which tree owns a dispatch, not missing coverage.
+  // pin-registered: n/a - nothing a publish can change.
+  'sce105_pattern_kind_coverage_test.dart': (ran: 3, declared: 3),
 };
 
 /// Why a [_divergentBaseline] entry is allowed to stand.
@@ -1916,24 +1958,24 @@ const Map<String, _Divergence> _divergentBaseline = {
   // `FormatException`; the published interpreter answers `['bad', null, null]`
   // because its bridge reads `source` and `offset` out of namedArgs while the
   // SDK constructor takes all three positionally. SCD68 fixed the adapter.
-  // Converges at a floor past 0.100.0.
+  // Converges at a floor past 0.79.0.
   'scc20_catch_clause_type_test.dart': _Divergence.deliberate,
   // `list_queue`: the reference copy expects the SDK's `StateError` from
   // `removeFirst` on an empty queue; the published interpreter still throws
   // `RuntimeD4rtException: Cannot removeFirst from an empty ListQueue.`, the
   // hand-written message SCD30 removed. A script written `on StateError` does
-  // not catch it there. Converges at a floor past 0.100.0.
+  // not catch it there. Converges at a floor past 0.68.0.
   'stdlib/collection/list_queue_test.dart': _Divergence.deliberate,
   // `queue`: the same SCD30 retarget on the `Queue` bridge — published answers
   // `RuntimeD4rtException: Cannot removeFirst from an empty queue.` where the
   // reference copy expects `StateError` containing 'No element'. Converges at a
-  // floor past 0.100.0.
+  // floor past 0.68.0.
   'stdlib/collection/queue_test.dart': _Divergence.deliberate,
   // `cast_from_family`: the reference copy carries SCD37's whole `newSet`
   // section — 111 lines this copy has never had — asserting that the one
   // bridged member taking a GENERIC function argument rejects it rather than
   // accepting and ignoring it. Ported, its first case answers false against the
-  // published interpreter. Converges at a floor past 0.100.0.
+  // published interpreter. Converges at a floor past 0.70.0.
   'stdlib/cast_from_family_test.dart': _Divergence.deliberate,
   // `scc12`: the only one of the five that does not fail — it HANGS. Ported and
   // run, it span at 100% CPU for twelve minutes before being killed, so the
@@ -1941,7 +1983,7 @@ const Map<String, _Divergence> _divergentBaseline = {
   // `finally`, it does not terminate. That makes this the most expensive entry
   // to re-port carelessly: `dart test` has no wall-clock kill for a
   // non-yielding isolate, and the run has to be killed by hand. Converges at a
-  // floor past 0.100.0.
+  // floor past 0.103.0.
   //
   // SCD168 widened the gap on purpose. The reference copy gained F-SCD168-1..4,
   // four cases asserting that an `on String` clause in an ASYNC body does not
@@ -2339,19 +2381,40 @@ const Map<String, String> _pinnedInterpreterFloors = <String, String>{
   'stdlib/io/internet_address_type_test.dart': '0.113.0',
   'scd170_network_permission_gate_test.dart': '0.113.0',
   // SCD153's five, all measured against the resolved interpreter before being
-  // pinned. 0.100.0 is the WORKING-TREE version rather than the earliest
-  // release containing each fix, which this todo did not determine: it is the
-  // conservative choice — every one of the five is certainly fixed by then, and
-  // a pin that is too late produces a re-port checklist a release later, where
-  // one that is too early produces a checklist that fails and teaches the next
-  // reader to distrust the register.
-  'scc20_catch_clause_type_test.dart': '0.100.0',
-  'stdlib/collection/list_queue_test.dart': '0.100.0',
-  'stdlib/collection/queue_test.dart': '0.100.0',
-  'stdlib/cast_from_family_test.dart': '0.100.0',
+  // pinned — and RE-PINNED by SCE107 at the release each fix actually landed
+  // in. They stood at 0.100.0, the working-tree version of the day, which that
+  // todo recorded as the conservative choice because it had not determined the
+  // real ones. They ARE determinable: each divergence names the todo that
+  // closed it, and `tom_d4rt_ast/CHANGELOG.md` says which version heading that
+  // todo sits under.
+  //
+  //     scc20             scd68        0.79.0
+  //     list_queue        scd30_aidb   0.68.0
+  //     queue             scd30_aidb   0.68.0
+  //     cast_from_family  scd37_aidc   0.70.0
+  //     scc12             scd169       0.103.0
+  //
+  // FOUR WERE TOO LATE AND ONE WAS TOO EARLY, which is why this was worth
+  // measuring rather than leaving conservative. The paragraph this replaces
+  // named both costs — a late pin delays the checklist by a release, an early
+  // one "produces a checklist that fails and teaches the next reader to
+  // distrust the register" — and `scc12` was the second kind: its fix landed
+  // in 0.103.0, so at any publish between 0.100.0 and 0.103.0 the checklist
+  // would have called for a re-port that does not fail but HANGS, for twelve
+  // minutes, with no Dart-level timeout. The entry's own prose already said
+  // 0.103.0; only the register disagreed.
+  //
+  // The two queue entries are what SCE107 was about. At 0.100.0, any publish
+  // from 0.68.0 up would have carried exec past the behaviour change WITHOUT
+  // producing a checklist, and the two tests would have gone red with nothing
+  // saying why — which is precisely the outcome that todo existed to prevent.
+  'scc20_catch_clause_type_test.dart': '0.79.0',
+  'stdlib/collection/list_queue_test.dart': '0.68.0',
+  'stdlib/collection/queue_test.dart': '0.68.0',
+  'stdlib/cast_from_family_test.dart': '0.70.0',
   // Re-port this one LAST and expect to babysit it: ported against 0.65.0 it
   // hangs rather than failing, so a green checklist run cannot be assumed.
-  'scc12_await_in_finally_test.dart': '0.100.0',
+  'scc12_await_in_finally_test.dart': '0.103.0',
   // SCD74 measured both of these against published 0.65.0 before pinning them.
   // When the floor reaches either version, F-SCC43-1 produces the re-port
   // checklist — and re-measure BOTH, not just the one that came due.
@@ -2398,6 +2461,13 @@ const Map<String, String> _pinnedInterpreterFloors = <String, String>{
   'stdlib/collection/sce84_linked_list_subclass_test.dart': '0.138.0',
   // SCE83, owed from the todo before it and measured the same way.
   'stdlib/async/sce83_transform_element_coercion_test.dart': '0.137.0',
+  // SCE101-SCE104, each pinned at the release its fix ACTUALLY landed in
+  // rather than at one conservative working-tree version - the versions are
+  // known because each fix bumped the interpreter in its own commit.
+  'sce101_element_type_test.dart': '0.139.0',
+  'sce102_empty_loop_body_async_test.dart': '0.140.0',
+  'sce103_typed_local_test.dart': '0.141.0',
+  'sce104_cast_pattern_test.dart': '0.142.0',
 };
 
 /// The `tom_d4rt_ast` floor exec's own `pubspec.yaml` currently declares.
