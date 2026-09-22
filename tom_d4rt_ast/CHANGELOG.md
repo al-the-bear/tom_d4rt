@@ -1,3 +1,47 @@
+## 0.143.0
+
+### Fixed — a runtime condition raises the SDK's Error, so `on RangeError` catches (sce109)
+
+Two adapters reported a runtime condition of the SCRIPT — an index out of
+range, no element matching a test — with an interpreter exception instead of
+the SDK's Error. `RuntimeD4rtException` is not an `Error` at all, so the
+idiomatic handler was skipped and the script fell through to a bare `catch`, or
+to nothing:
+
+    try { [1].elementAt(5); } on RangeError { … }   // did not catch
+
+THE TWO HAD DIFFERENT CAUSES, and only one was the hand-written guard the
+defect looked like from outside.
+
+`firstWhere` was a hand-rolled loop whose no-match branch threw
+`RuntimeD4rtException('No element found matching the test condition')` — an
+invented contract. Its neighbours `lastWhere` and `singleWhere` delegate to the
+native call and were already correct, which is what made the loop's stated
+reason ("éviter les problèmes de types génériques") checkable: all three wrap
+the callback identically. It delegates now.
+
+`elementAt` had no guard at all. SCB28 added a heuristic at the DISPATCH
+boundary: a bridged call that throws `RangeError` is assumed to be an adapter
+that read past the end of `positionalArgs`, and is restated as an arity
+failure. `[1].elementAt(5)` is one positional argument on a one-element list,
+so the reported range 0..0 matches the argument list's 0..0 and the heuristic
+fires on the script's own error.
+
+THE HEURISTIC CANNOT BE MADE EXACT, which is measured rather than assumed:
+`[1].elementAt(5)` and an adapter's `positionalArgs[5]` produce byte-identical
+`RangeError`s — same `name`, `start`, `end`, `invalidValue`, and neither is an
+`IndexError`, so there is no `indexable` back-reference to compare. Its own doc
+had judged the misattribution acceptable because it "only ever changes the
+wording of an error that was already being thrown". The wording was not the
+only thing that changed.
+
+So the fix makes being wrong cheap rather than pretending to be right: the
+detection and the arity message stay, the original error text leads, the arity
+reading follows as a hypothesis, and the TYPE is preserved at all nine throw
+sites. `on RangeError` now catches under either reading.
+
+Name resolution: no.
+
 ## 0.142.0
 
 ### Fixed — a failing cast pattern throws, and there is only one cast (sce104)

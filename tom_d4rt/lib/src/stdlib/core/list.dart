@@ -313,29 +313,44 @@ class ListCore {
         D4.checkArity(positionalArgs, 'List.firstWhere', atMost: 1);
         final test = positionalArgs[0] as Callable;
         final orElse = namedArgs['orElse'] as Callable?;
-
-        // Implémentation manuelle pour éviter les problèmes de types génériques
-        final list = target as List;
-        for (final element in list) {
-          if (test.call(visitor, [element], {}) as bool) {
-            return element;
-          }
-        }
-
-        // Si aucun élément trouvé, utilise orElse ou lance une exception
-        if (orElse != null) {
-          return orElse.call(visitor, [], {});
-        } else {
-          throw RuntimeD4rtException(
-            'No element found matching the test condition',
-          );
-        }
+        // SCE109: delegated, like `lastWhere` and `singleWhere` immediately
+        // below. This was a hand-rolled loop whose no-match branch threw
+        // `RuntimeD4rtException('No element found matching the test
+        // condition')` — an invented contract that is not an `Error`, so
+        // `on StateError` did not catch it and the idiomatic recovery path
+        // was dead. The SDK raises `StateError: No element`.
+        //
+        // The comment it replaces read "implémentation manuelle pour éviter
+        // les problèmes de types génériques". Its two neighbours delegate and
+        // have no such problem, which is what made the claim checkable: the
+        // callback is wrapped the same way in all three.
+        // SCE109: `cast<Object?>()` is what makes the delegation legal.
+        // The native `orElse` is typed `() => E`, so handing it a callback
+        // that returns `Object?` fails on any list whose element type is not
+        // `Object?` — `E.values.firstWhere(…, orElse: …)` threw
+        // "type '() => Object?' is not a subtype of type
+        // '(() => InterpretedEnumValue)?'". The cast view's element type IS
+        // `Object?`, so the callback fits and the SDK still owns the no-match
+        // behaviour.
+        //
+        // That defect was present in this adapter before SCE109 and unmeasured,
+        // because nothing passed `orElse` to it on a typed list. The
+        // hand-rolled loop `firstWhere` carried — whose comment said it existed
+        // "pour éviter les problèmes de types génériques" — was avoiding
+        // exactly this, and was right about it; what it got wrong was throwing
+        // an invented `RuntimeD4rtException` instead of the SDK's `StateError`
+        // when there was no match.
+        return (target as List).cast<Object?>().firstWhere(
+          (element) => test.call(visitor, [element], {}) as bool,
+          orElse: orElse == null ? null : () => orElse.call(visitor, [], {}),
+        );
       },
       'lastWhere': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'List.lastWhere', atMost: 1);
         final test = positionalArgs[0] as Callable;
         final orElse = namedArgs['orElse'] as Callable?;
-        return (target as List).lastWhere(
+        // SCE109: cast for the same reason as `firstWhere` above.
+        return (target as List).cast<Object?>().lastWhere(
           (element) => test.call(visitor, [element], {}) as bool,
           orElse: orElse == null ? null : () => orElse.call(visitor, [], {}),
         );
@@ -344,7 +359,8 @@ class ListCore {
         D4.checkArity(positionalArgs, 'List.singleWhere', atMost: 1);
         final test = positionalArgs[0] as Callable;
         final orElse = namedArgs['orElse'] as Callable?;
-        return (target as List).singleWhere(
+        // SCE109: cast for the same reason as `firstWhere` above.
+        return (target as List).cast<Object?>().singleWhere(
           (element) => test.call(visitor, [element], {}) as bool,
           orElse: orElse == null ? null : () => orElse.call(visitor, [], {}),
         );

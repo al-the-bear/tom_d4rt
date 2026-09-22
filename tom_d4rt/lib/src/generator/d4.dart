@@ -2246,8 +2246,19 @@ class D4 {
 
     final required = invalidValue + 1;
     final plural = required == 1 ? 'argument' : 'arguments';
-    return '$memberDescription expects at least $required positional $plural, '
-        'but was called with ${positional.length}.';
+    // SCE109: the ORIGINAL error text leads, and the arity reading follows as
+    // a hypothesis, because the two are indistinguishable here. Measured: a
+    // script's `[1].elementAt(5)` and an adapter's `positionalArgs[5]` on a
+    // one-argument call produce byte-identical `RangeError`s — same `name`,
+    // `start`, `end` and `invalidValue`, and neither is an `IndexError`, so
+    // there is no `indexable` back-reference to tell them apart. The doc above
+    // says misattribution "only ever changes the wording of an error that was
+    // already being thrown"; that was the part that was wrong, and this is the
+    // half of the repair that lives in the message. The other half is at the
+    // throw sites, which must not change the error's TYPE.
+    return '$error — or, if this call passed too few arguments, '
+        '$memberDescription expects at least $required positional $plural '
+        'and was called with ${positional.length}.';
   }
 
   /// SCC85: reject positional arguments the adapter would silently discard.

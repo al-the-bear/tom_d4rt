@@ -40,11 +40,19 @@ void main() {
       () {
         final args = <Object?>[];
         final error = _errorFrom(() => args[0]);
+        // SCE109: the message now LEADS with the native error and offers the
+        // arity reading as a hypothesis, because the dispatcher cannot tell an
+        // adapter reading past its arguments from a script's own out-of-range
+        // read — measured, the two produce identical `RangeError`s. `contains`
+        // rather than `equals` so the SDK's own wording, which is not this
+        // package's to pin, can change without failing here.
+        final message = D4.describeArityError(error, args, 'UriData.parse')!;
+        expect(message, startsWith('RangeError'));
         expect(
-          D4.describeArityError(error, args, 'UriData.parse'),
-          equals(
-            'UriData.parse expects at least 1 positional argument, '
-            'but was called with 0.',
+          message,
+          contains(
+            'UriData.parse expects at least 1 positional argument '
+            'and was called with 0.',
           ),
         );
       },
@@ -55,10 +63,10 @@ void main() {
       final args = <Object?>['a'];
       final error = _errorFrom(() => args[2]);
       expect(
-        D4.describeArityError(error, args, 'String.replaceRange'),
-        equals(
-          'String.replaceRange expects at least 3 positional arguments, '
-          'but was called with 1.',
+        D4.describeArityError(error, args, 'String.replaceRange')!,
+        contains(
+          'String.replaceRange expects at least 3 positional arguments '
+          'and was called with 1.',
         ),
       );
     });
@@ -68,7 +76,9 @@ void main() {
       final args = <Object?>[];
       final error = _errorFrom(() => args[0]);
       final message = D4.describeArityError(error, args, 'MyClass.myMember')!;
-      expect(message, startsWith('MyClass.myMember '));
+      // SCE109: no longer the START of the message — the native error leads —
+      // but still present verbatim, which is what this case is for.
+      expect(message, contains('MyClass.myMember '));
     });
   });
 

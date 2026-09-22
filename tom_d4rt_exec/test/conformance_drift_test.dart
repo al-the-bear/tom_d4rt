@@ -1683,6 +1683,15 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
   // which tree owns a dispatch, not missing coverage.
   // pin-registered: n/a - nothing a publish can change.
   'sce105_pattern_kind_coverage_test.dart': (ran: 3, declared: 3),
+  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.143.0.
+  // Measured 2026-09-22 with `tool/remeasure_pins.dart --candidates`: 4 of 6
+  // fail against 0.65.0. -1 and -2 answer 'fell through' because the published
+  // copy raises a `RuntimeD4rtException` the `on` clause cannot select; -6
+  // throws the generic-orElse error this fixed; and -5 is the one worth
+  // noticing — it fails because the published message still REPLACES the
+  // native error rather than leading with it, which is the same divergence
+  // `stdlib/bridge_arity_test.dart` records from the other side.
+  'sce109_sdk_error_types_test.dart': (ran: 6, declared: 6),
 };
 
 /// Why a [_divergentBaseline] entry is allowed to stand.
@@ -2162,6 +2171,19 @@ const Map<String, _Divergence> _divergentBaseline = {
   //
   // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.110.0.
   'scb9_error_handler_arity_test.dart': _Divergence.deliberate,
+  // SCE109: `stdlib/bridge_arity_test.dart`. SCB28's five too-few cases assert
+  // `isNot(contains('RangeError'))` here, and the reference copy now asserts
+  // the opposite. Both are right about the interpreter they run against: SCB28
+  // restated an adapter's short-argument `RangeError` as an arity failure AND
+  // replaced its TYPE, which is what the published copy still does; SCE109 kept
+  // the restatement and preserved the type, because the two readings are
+  // indistinguishable at the dispatch boundary and losing the type stopped
+  // `on RangeError` catching a script's own out-of-range read.
+  //
+  // F-SCB28-5 is NOT part of the divergence and is identical on both sides —
+  // it reaches a per-adapter guard, so no native error was ever raised there to
+  // preserve. Re-port when a publish raises exec's floor past 0.143.0.
+  'stdlib/bridge_arity_test.dart': _Divergence.deliberate,
 };
 
 /// The difference each [_divergentBaseline] entry actually sanctions.
@@ -2205,6 +2227,7 @@ const Map<String, String> _divergenceFingerprints = <String, String>{
   'stdlib/collection/linked_list_test.dart': 'a29fd59a29499657',
   'stdlib/scc74_member_axis_gaps_test.dart': 'ff858ca3ac01f2c4',
   'interpreter2_test.dart': '072dd1096b1d280c',
+  'stdlib/bridge_arity_test.dart': '51056fbde720e4dd',
 };
 
 /// The direct interpreter-package imports the port recipe legitimately rewrites,
@@ -2468,6 +2491,8 @@ const Map<String, String> _pinnedInterpreterFloors = <String, String>{
   'sce102_empty_loop_body_async_test.dart': '0.140.0',
   'sce103_typed_local_test.dart': '0.141.0',
   'sce104_cast_pattern_test.dart': '0.142.0',
+  'stdlib/bridge_arity_test.dart': '0.143.0',
+  'sce109_sdk_error_types_test.dart': '0.143.0',
 };
 
 /// The `tom_d4rt_ast` floor exec's own `pubspec.yaml` currently declares.

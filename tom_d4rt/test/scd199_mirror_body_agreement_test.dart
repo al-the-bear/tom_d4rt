@@ -319,7 +319,10 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpreterVisitor.visitInstanceCreationExpression': '57654813',
     'InterpreterVisitor.visitIsExpression': '6e0e258c',
     'InterpreterVisitor.visitListLiteral': 'f2dad9eb',
-    'InterpreterVisitor.visitMethodInvocation': '2560d6cd',
+    // SCE109 moved this signature without changing what diverges: the
+    // arity-heuristic throw sites inside it now raise `RangeError`
+    // rather than `RuntimeD4rtException`, symmetrically in both trees.
+    'InterpreterVisitor.visitMethodInvocation': '2435dba5',
     'InterpreterVisitor.visitMixinDeclaration': '945459ee',
     'InterpreterVisitor.visitNode': '9f50a531',
     'InterpreterVisitor.visitPostfixExpression': 'e253ea5d',

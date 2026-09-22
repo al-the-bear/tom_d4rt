@@ -4576,7 +4576,13 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               positionalArgs,
               '${bridgedClass.name}.$methodName',
             );
-            if (arityError != null) throw RuntimeD4rtException(arityError);
+            if (arityError != null) {
+              // SCE109: a RangeError stays a RangeError. Replacing the VALUE is
+              // SCB28's point; replacing the TYPE was not, and it made
+              // `on RangeError` stop catching a script's own out-of-range
+              // read — an error that was not an `Error` at all.
+              throw RangeError(arityError);
+            }
             throw RuntimeD4rtException(
               "Native error during bridged method call '$methodName' on ${bridgedClass.name}: $e",
               originalException: e,
@@ -4910,7 +4916,13 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             positionalArgs,
             '$targetValue.$methodName',
           );
-          if (arityError != null) throw RuntimeD4rtException(arityError);
+          if (arityError != null) {
+            // SCE109: a RangeError stays a RangeError. Replacing the VALUE is
+            // SCB28's point; replacing the TYPE was not, and it made
+            // `on RangeError` stop catching a script's own out-of-range
+            // read — an error that was not an `Error` at all.
+            throw RangeError(arityError);
+          }
           throw RuntimeD4rtException(
             "Native error during bridged enum method call '$methodName' on $targetValue: $e",
             originalException: e,
@@ -4976,7 +4988,13 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             positionalArgs,
             '${targetValue.name}.$methodName',
           );
-          if (arityError != null) throw RuntimeD4rtException(arityError);
+          if (arityError != null) {
+            // SCE109: a RangeError stays a RangeError. Replacing the VALUE is
+            // SCB28's point; replacing the TYPE was not, and it made
+            // `on RangeError` stop catching a script's own out-of-range
+            // read — an error that was not an `Error` at all.
+            throw RangeError(arityError);
+          }
           throw RuntimeD4rtException(
             "Native error during bridged enum static method '$methodName' on '${targetValue.name}': $e",
             originalException: e,
@@ -5061,7 +5079,13 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               positionalArgs,
               '${bridgedClass.name}.$methodName',
             );
-            if (arityError != null) throw RuntimeD4rtException(arityError);
+            if (arityError != null) {
+              // SCE109: a RangeError stays a RangeError. Replacing the VALUE is
+              // SCB28's point; replacing the TYPE was not, and it made
+              // `on RangeError` stop catching a script's own out-of-range
+              // read — an error that was not an `Error` at all.
+              throw RangeError(arityError);
+            }
             throw RuntimeD4rtException(
               "Native error during bridged constructor '$methodName' for class '${bridgedClass.name}': $e",
               originalException: e,
@@ -5130,7 +5154,13 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                 positionalArgs,
                 '${bridgedClass.name}.$methodName',
               );
-              if (arityError != null) throw RuntimeD4rtException(arityError);
+              if (arityError != null) {
+                // SCE109: a RangeError stays a RangeError. Replacing the VALUE is
+                // SCB28's point; replacing the TYPE was not, and it made
+                // `on RangeError` stop catching a script's own out-of-range
+                // read — an error that was not an `Error` at all.
+                throw RangeError(arityError);
+              }
               throw RuntimeD4rtException(
                 "Native error during static bridged method call '$methodName' on ${bridgedClass.name}: $e",
                 originalException: e,
@@ -5240,7 +5270,13 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               positionalArgs,
               '${bridgedSuper.name}.$methodName',
             );
-            if (arityError != null) throw RuntimeD4rtException(arityError);
+            if (arityError != null) {
+              // SCE109: a RangeError stays a RangeError. Replacing the VALUE is
+              // SCB28's point; replacing the TYPE was not, and it made
+              // `on RangeError` stop catching a script's own out-of-range
+              // read — an error that was not an `Error` at all.
+              throw RangeError(arityError);
+            }
             throw RuntimeD4rtException(
               "Native error during super call to bridged method '$methodName': $e",
               originalException: e,
@@ -5541,7 +5577,13 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             positionalArgs,
             '${bridgedClass.name}.new',
           );
-          if (arityError != null) throw RuntimeD4rtException(arityError);
+          if (arityError != null) {
+            // SCE109: a RangeError stays a RangeError. Replacing the VALUE is
+            // SCB28's point; replacing the TYPE was not, and it made
+            // `on RangeError` stop catching a script's own out-of-range
+            // read — an error that was not an `Error` at all.
+            throw RangeError(arityError);
+          }
           throw RuntimeD4rtException(
             "Native error during default bridged constructor for '${bridgedClass.name}': $e",
             originalException: e,
@@ -13293,7 +13335,11 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           // error as the *value* (SCB28), but the trace still belongs to the
           // adapter that indexed past the end -- which is the only frame that
           // says where.
-          throw RuntimeD4rtException(arityError, originalStackTrace: s);
+          // SCE109: type preserved, as at the eight sites above. SCD34's
+          // point about the stack trace is unaffected — a `RangeError`
+          // carries none, so the adapter frame is lost either way and
+          // the note below is now the only pointer to it.
+          throw RangeError(arityError);
         }
         throw RuntimeD4rtException(
           "Native error during bridged constructor '$constructorLookupName' for class '$constructorName': $e",
@@ -15272,7 +15318,13 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         positionalArgs,
         '${bridgedSuper.name}.$constructorName',
       );
-      if (arityError != null) throw RuntimeD4rtException(arityError);
+      if (arityError != null) {
+        // SCE109: a RangeError stays a RangeError. Replacing the VALUE is
+        // SCB28's point; replacing the TYPE was not, and it made
+        // `on RangeError` stop catching a script's own out-of-range
+        // read — an error that was not an `Error` at all.
+        throw RangeError(arityError);
+      }
       throw RuntimeD4rtException(
         "Native error during super constructor call '$constructorName': $e",
         originalException: e,

@@ -17,7 +17,24 @@
 /// Rather than hand-patch 601 adapters twice over, the too-few half is fixed
 /// generically at the dispatch boundary — [D4.describeArityError] recognises a
 /// `RangeError` raised by indexing the argument list itself and restates it in
-/// terms the script author can act on. The too-many half cannot be recognised
+/// terms the script author can act on.
+///
+/// SCE109 CHANGED WHAT "RESTATES" MEANS, and the five too-few cases moved with
+/// it. They asserted `isNot(contains('RangeError'))` — that the arity message
+/// REPLACED the native error. It replaced the error's TYPE as well, and that
+/// was not free: `[1].elementAt(5)` is one positional argument on a one-element
+/// list, so its reported range 0..0 matches the argument list's 0..0, the
+/// heuristic fired on the script's OWN out-of-range read, and `on RangeError`
+/// stopped catching it.
+///
+/// The two readings are indistinguishable here — measured, they produce
+/// identical `RangeError`s, neither an `IndexError`, so there is no `indexable`
+/// back-reference to compare — so the message now carries both and the type is
+/// preserved. These cases assert the arity half is still said; F-SCB28-8, which
+/// asserts a genuine native out-of-range is NOT restated as arity, is unchanged
+/// and is what keeps the two halves apart. F-SCB28-5 stayed `isNot` for a
+/// different reason worth keeping straight: it reaches a PER-ADAPTER guard, so
+/// no native error was ever raised there to preserve. The too-many half cannot be recognised
 /// generically (the dispatcher holds no arity metadata for an adapter), so it
 /// stays a per-adapter guard; `UriData` is guarded here as the reference.
 library;
@@ -44,20 +61,20 @@ void main() {
       expect(message, contains('DateTime.parse'));
       expect(message, contains('at least 1'));
       expect(message, contains('called with 0'));
-      expect(message, isNot(contains('RangeError')));
+      expect(message, contains('RangeError'));
     });
 
     test('F-SCB28-2: instance bridged method — "ab".padLeft() names the member '
         '[2026-09-03]', () {
       final message = _messageOf("main() { return 'ab'.padLeft(); }");
       expect(message, contains('String.padLeft'));
-      expect(message, isNot(contains('RangeError')));
+      expect(message, contains('RangeError'));
     });
 
     test('F-SCB28-3: static on a core scalar — int.parse() [2026-09-03]', () {
       final message = _messageOf("main() { return int.parse(); }");
       expect(message, contains('int.parse'));
-      expect(message, isNot(contains('RangeError')));
+      expect(message, contains('RangeError'));
     });
 
     test(
@@ -67,7 +84,7 @@ void main() {
           "main() { var l = [1,2,3]; return l.sublist(); }",
         );
         expect(message, contains('sublist'));
-        expect(message, isNot(contains('RangeError')));
+        expect(message, contains('RangeError'));
       },
     );
 
@@ -76,6 +93,11 @@ void main() {
       () {
         final message = _messageOf("main() { return UriData.fromString(); }");
         expect(message, contains('UriData.fromString'));
+        // SCE109: still NOT a RangeError, and that is the discriminator. This
+        // one reaches a PER-ADAPTER guard ("requires exactly one String
+        // argument") and never the generic heuristic, so nothing native was
+        // raised to preserve. Flipping it with its four neighbours is a
+        // mistake this case catches.
         expect(message, isNot(contains('RangeError')));
       },
     );
