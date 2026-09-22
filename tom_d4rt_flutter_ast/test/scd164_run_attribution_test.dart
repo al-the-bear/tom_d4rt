@@ -86,6 +86,45 @@ void _package(
   }
 }
 
+/// The Dart executable to shell out to, resolved from THIS package rather than
+/// from the ambient PATH.
+///
+/// SCE135: `Process.run('dart', ...)` works on the POSIX hosts and fails on
+/// Windows with `ProcessException: cannot find the specified file` — found the
+/// first time these guards were ever run on legiondary01. `Process.run` looks
+/// for `dart.exe`/`dart.bat` on the WINDOWS PATH, and the Flutter SDK reaches a
+/// Git Bash session through a shell profile that the Windows process
+/// environment does not carry. So the guard was not failing; it could not
+/// start, which is the shape this repo's pre-commit hook was already written
+/// against (see `.githooks/pre-commit`, "a git hook runs with a minimal PATH").
+///
+/// The answer is the hook's: read `flutterRoot` out of the package's OWN
+/// resolved `package_config.json`. It is machine-local and repo-derived, so it
+/// is correct per host with nothing hardcoded, and it is written by the same
+/// `pub get` that makes this package testable at all. Falls back to the bare
+/// name, which is what every POSIX host has always used.
+String _dartExecutable() {
+  final config = File('.dart_tool/package_config.json');
+  if (config.existsSync()) {
+    final match = RegExp(
+      r'"flutterRoot"\s*:\s*"file://([^"]*)"',
+    ).firstMatch(config.readAsStringSync());
+    final root = match?.group(1);
+    if (root != null && root.isNotEmpty) {
+      // Forward slashes on purpose: Windows accepts them everywhere Dart's
+      // `File` and `Process.run` are used, and this avoids pulling in
+      // `package:path` for two joins.
+      for (final candidate in [
+        '$root/bin/cache/dart-sdk/bin/dart.exe',
+        '$root/bin/cache/dart-sdk/bin/dart',
+      ]) {
+        if (File(candidate).existsSync()) return candidate;
+      }
+    }
+  }
+  return 'dart';
+}
+
 void main() {
   group('SCD164: corpus runs record the interpreter they resolved', () {
     late Directory root;
@@ -353,7 +392,7 @@ void main() {
       _package(Directory(appDir), name: 'zom_twin_app', withLock: false);
       final tree = sibling('tom_zom_interp', '0.123.0');
 
-      Future<ProcessResult> attribute() => Process.run('dart', [
+      Future<ProcessResult> attribute() => Process.run(_dartExecutable(), [
         'run',
         'test/run_attribution.dart',
         parentDir,
