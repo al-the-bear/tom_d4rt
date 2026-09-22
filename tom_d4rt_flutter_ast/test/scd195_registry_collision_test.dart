@@ -1,3 +1,4 @@
+// RUNNER BUCKET: guard — run_guard_tests.sh
 // REPO-WIDE GUARD (tom_d4rt_flutter_ast) — asserts a property of the INTERPRETER's
 // name resolution (`Environment.findAllBridgedClassesByName`) across this
 // package's entire bridge registry. It lives here for the same reason SCD133

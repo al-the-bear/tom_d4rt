@@ -1,3 +1,4 @@
+// RUNNER BUCKET: guard — run_guard_tests.sh
 // REPO-WIDE GUARD (tom_d4rt_flutter_ast) — each twin and its companion app resolve the same interpreter before the corpus runs.
 //
 // Its subject reaches OUTSIDE this package, so it runs only when tom_d4rt_flutter_ast's suite

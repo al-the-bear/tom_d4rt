@@ -1,3 +1,4 @@
+// RUNNER BUCKET: guard — run_guard_tests.sh
 /// Tests for the AST/non-AST user-bridge copy-generator pilot
 /// (`tool/sync_shared_user_bridges.dart`).
 ///

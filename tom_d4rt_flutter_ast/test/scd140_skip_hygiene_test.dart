@@ -1,3 +1,4 @@
+// RUNNER BUCKET: guard — run_guard_tests.sh
 // REPO-WIDE GUARD (tom_d4rt_flutter_ast) — every `skip:` in BOTH twins' corpus drivers states a mechanism and names its evidence.
 //
 // Its subject reaches OUTSIDE this package (the sibling twin's driver files), so

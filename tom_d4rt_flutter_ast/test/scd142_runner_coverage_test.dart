@@ -1,3 +1,4 @@
+// RUNNER BUCKET: guard — run_guard_tests.sh
 // REPO-WIDE GUARD (tom_d4rt_flutter_ast) — every test file in BOTH twins is reachable from some runner.
 //
 // Its subject reaches OUTSIDE this package (the sibling twin's test/ and its
@@ -84,6 +85,39 @@ const _exempt = <String, String>{
       'overview records.',
 };
 
+/// The bucket a file's own header declares, or null when it declares none.
+///
+/// SCE152. SCD142 below proves a file is REACHED by something; it does not
+/// tell the reader OPENING that file what reaches it, and that is the half a
+/// person actually needs. The classification used to live in a todo, which is
+/// a snapshot — so it is a line in the file instead, and F-SCE152-1 holds the
+/// line to what the runners actually say. A comment nothing checks is how the
+/// last inventory decayed.
+String? declaredBucket(String twin, String file) {
+  final head = File(
+    '$twin/test/$file',
+  ).readAsLinesSync().take(_bucketWindow).join('\n');
+  return RegExp(
+    r'^// RUNNER BUCKET: (\S+)',
+    multiLine: true,
+  ).firstMatch(head)?.group(1);
+}
+
+/// How many lines of a file the bucket line must appear in.
+///
+/// Four rather than one: a file may open with a `REPO-WIDE GUARD` banner
+/// (SCD129) or a shebang-ish first line, and requiring an exact position would
+/// make two conventions fight over line 1.
+const int _bucketWindow = 4;
+
+/// What the runners say a file's bucket IS, as the header should spell it.
+String measuredBucket(String twin, String file, Set<String> named) {
+  if (_corpusName.hasMatch(file)) return 'corpus';
+  if (named.contains(file)) return 'guard';
+  if (_harnessName.hasMatch(file)) return 'harness';
+  return 'exempt';
+}
+
 /// Every `*_test.dart` directly under a twin's `test/`.
 List<String> testFilesIn(String twin) {
   final dir = Directory('$twin/test');
@@ -155,6 +189,58 @@ void main() {
             'transport-free check, `run_harness_tests.sh` if it drives the '
             'companion app, a corpus runner if it is a corpus file), or record '
             'an exemption with its reason:\n  ${orphans.join('\n  ')}',
+      );
+    });
+
+    test('F-SCE152-1: every non-corpus test declares the bucket that actually '
+        'reaches it [2026-09-22]', () {
+      // THE CLASSIFICATION, MOVED OUT OF A TODO AND INTO THE FILES. SCE152
+      // audited both twins and found 26 non-corpus test files and ZERO
+      // orphans — F-SCD142-2 above had already made bucket four impossible.
+      // What was missing was that a reader opening one of them could not tell
+      // which sweep runs it, which is the question the audit was actually
+      // asked to answer.
+      //
+      // The line is checked against the runners rather than trusted, so it
+      // cannot drift: move a file from `run_guard_tests.sh` to a corpus glob
+      // and its header is wrong the same minute.
+      //
+      // `exempt` is what an unreached file declares; F-SCD142-3 above is what
+      // stops that being a free pass, by failing when a runner starts reaching
+      // it and the exemption stays.
+      final wrong = <String>[];
+      for (final twin in _twins) {
+        final named = namedByRunners(twin);
+        for (final file in testFilesIn(twin)) {
+          if (_corpusName.hasMatch(file)) continue; // its name is the bucket
+          final measured = measuredBucket(twin, file, named);
+          final declared = declaredBucket(twin, file);
+          if (declared == null) {
+            wrong.add(
+              '$twin/test/$file: no `// RUNNER BUCKET:` line in its first '
+              '$_bucketWindow lines (it is `$measured`)',
+            );
+          } else if (declared != measured) {
+            wrong.add(
+              '$twin/test/$file: declares `$declared`, the runners say '
+              '`$measured`',
+            );
+          }
+        }
+      }
+      expect(
+        wrong,
+        isEmpty,
+        reason:
+            'A non-corpus test file says which sweep runs it, on one of its '
+            'first $_bucketWindow lines:\n\n'
+            '    // RUNNER BUCKET: guard — run_guard_tests.sh\n'
+            '    // RUNNER BUCKET: harness — run_harness_tests.sh, by the '
+            '*_isolation_test.dart glob\n'
+            '    // RUNNER BUCKET: exempt — <why nothing runs it>\n\n'
+            'A corpus driver needs none: `flutter_base_07_test.dart` says it '
+            'in its name. Fix the line, or fix the runner — the mismatch says '
+            'which:\n  ${wrong.join('\n  ')}',
       );
     });
 

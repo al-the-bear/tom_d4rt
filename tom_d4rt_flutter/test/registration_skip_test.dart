@@ -1,3 +1,4 @@
+// RUNNER BUCKET: guard — run_guard_tests.sh
 // Import-optimization step #19 — registration-skip + lazy-thunk verification.
 //
 // Unlike every other test under this folder, this is a pure in-process unit

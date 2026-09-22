@@ -1,3 +1,4 @@
+// RUNNER BUCKET: guard — run_guard_tests.sh
 // REPO-WIDE GUARD (tom_d4rt_flutter_ast) — no tracked pubspec in the repo carries a dependency_overrides block, and the pre-publish pass still covers its five targets.
 //
 // Its subject reaches OUTSIDE this package, so it runs only when tom_d4rt_flutter_ast's suite

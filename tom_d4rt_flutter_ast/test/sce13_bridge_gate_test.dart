@@ -1,3 +1,4 @@
+// RUNNER BUCKET: guard — run_guard_tests.sh
 // The corpus harness must not regenerate bridges silently, and must not write
 // to the package when the generator's output has not changed.
 //

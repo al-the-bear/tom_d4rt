@@ -1,3 +1,6 @@
+// RUNNER BUCKET: exempt — a CORPUS AUDIT rather than a test of behaviour. It
+// needs the companion app and takes ~16 min, so it is invoked directly beside
+// the corpus sweep; see SCD142's _exempt entry.
 // REPO-WIDE GUARD (tom_d4rt_flutter) — the corpus scripts the two Flutter twins share have not been rewritten apart.
 //
 // Its subject reaches OUTSIDE this package, so it runs only when tom_d4rt_flutter's suite

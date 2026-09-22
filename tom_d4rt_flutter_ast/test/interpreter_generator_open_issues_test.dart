@@ -1,3 +1,5 @@
+// RUNNER BUCKET: exempt — EXPECTED TO FAIL. Red is its correct output, so a
+// runner including it would always report failure; see SCD142's _exempt entry.
 /// Interpreter & Generator — Verified Open Issues reproduction suite.
 ///
 /// Each test here drives a reproduction script that demonstrates an OPEN issue

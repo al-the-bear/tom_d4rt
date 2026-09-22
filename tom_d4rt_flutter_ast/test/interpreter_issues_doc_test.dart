@@ -1,3 +1,4 @@
+// RUNNER BUCKET: guard — run_guard_tests.sh
 // REPO-WIDE GUARD (tom_d4rt_flutter_ast) — the cluster log's header table matches its sections, and both twins' test/README.md agree on what the corpus certifies.
 //
 // Its subject reaches OUTSIDE this package, so it runs only when tom_d4rt_flutter_ast's suite

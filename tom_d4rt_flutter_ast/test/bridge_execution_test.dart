@@ -1,3 +1,4 @@
+// RUNNER BUCKET: guard — run_guard_tests.sh
 // ignore_for_file: avoid_print
 /// Integration test for Flutter bridge execution.
 ///

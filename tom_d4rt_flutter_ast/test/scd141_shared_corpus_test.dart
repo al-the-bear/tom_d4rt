@@ -1,3 +1,4 @@
+// RUNNER BUCKET: guard — run_guard_tests.sh
 // REPO-WIDE GUARD (tom_d4rt_flutter_ast) — the two twins execute ONE script corpus, and it lives here.
 //
 // Its subject reaches OUTSIDE this package (the sibling twin's runner and

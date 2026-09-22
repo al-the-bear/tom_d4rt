@@ -1,3 +1,4 @@
+// RUNNER BUCKET: harness — run_harness_tests.sh, by the *_isolation_test.dart glob
 /// SCC48: a script's verdict must depend only on the script itself.
 ///
 /// WHY THIS EXISTS. On 2026-07-28, `flutter_extended_22` improved from

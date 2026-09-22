@@ -1,3 +1,4 @@
+// RUNNER BUCKET: guard — run_guard_tests.sh
 // Import-optimization step #36 — first-run / per-execute timing confirmation.
 //
 // Like `registration_skip_test.dart`, this is a pure in-process unit test: it

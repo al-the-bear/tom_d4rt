@@ -1,3 +1,4 @@
+// RUNNER BUCKET: guard — run_guard_tests.sh
 // REPO-WIDE GUARD (tom_d4rt_flutter_ast) — every corpus runner in BOTH twins writes the attribution header, and both copies of the helper agree.
 //
 // Its subject reaches OUTSIDE this package, so it runs only when

@@ -1,3 +1,4 @@
+// RUNNER BUCKET: guard — run_guard_tests.sh
 // REPO-WIDE GUARD (tom_d4rt_flutter) — asserts a property of the
 // INTERPRETER (`Environment.getRuntimeType`) across this package's entire
 // bridge registry. It lives here because this is where a registry that large

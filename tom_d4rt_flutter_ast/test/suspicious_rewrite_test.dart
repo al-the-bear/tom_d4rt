@@ -1,3 +1,6 @@
+// RUNNER BUCKET: exempt — a CORPUS AUDIT rather than a test of behaviour. It
+// needs the companion app and takes ~16 min, so it is invoked directly beside
+// the corpus sweep; see SCD142's _exempt entry.
 /// Re-runs the 116 scripts flagged as suspicious in
 /// `tom_d4rt_flutter_ast/doc/suspicious_tests.md` —
 /// the entries that have been audited (`[x] checked`) but
