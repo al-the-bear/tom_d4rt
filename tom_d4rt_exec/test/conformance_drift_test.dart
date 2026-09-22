@@ -355,9 +355,37 @@ const _partialTwinBudget = 1;
 /// corpus copies on every run, the io calls it does not, and neither is a
 /// construct the mirror AST lacks.
 ///
-const _copierGapBudget = 35;
+/// 35 -> 36: SCE116 added `sce116_enum_and_extension_tostring_test.dart`, which
+/// runs source to ask what an enum value and an extension-type instance render
+/// as. Exec resolves tom_d4rt_ast from pub.dev, where neither dispatches to an
+/// override and an extension type still renders `<instance of X>`, so a port
+/// would assert the fix against an interpreter that does not have it. Its ast
+/// twin holds the dispatch half. The copier surface a port would have added is
+/// an enum declaration with members and an extension-type declaration with a
+/// representation — both of which the corpus copies on every run, and both of
+/// which the hand-built twin constructs directly.
+///
+const _copierGapBudget = 36;
 
 const Map<String, _Coverage> _coveredElsewhere = {
+  'sce116_enum_and_extension_tostring_test.dart': _Coverage(
+    'ast:runtime/sce116_enum_and_extension_tostring_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 9,
+    twinCases: 4,
+    whyPartial:
+        'the twin pins the four MECHANISMS — an enum override reaching the '
+        'host, an enum default unchanged, an extension-type override, and the '
+        'representation as the default. Each needs the `declaringVisitor` '
+        'wiring that tree assigns in its own `visitEnumDeclaration` / '
+        '`visitExtensionTypeDeclaration`, which is what only this side can '
+        'answer. The five the reference adds are the CONTRACT rather than the '
+        'dispatch — in-script interpolation, a mixin-supplied override, the '
+        'host path degrading on a throw, the in-script path still propagating, '
+        'and SCD72 re-asked after its mechanism moved — and each is another '
+        'hand-built bundle for a question whose answer is the same code.',
+  ),
   'sce114_transform_argument_test.dart': _Coverage(
     'ast:runtime/sce114_transform_argument_test.dart',
     _astTwin,

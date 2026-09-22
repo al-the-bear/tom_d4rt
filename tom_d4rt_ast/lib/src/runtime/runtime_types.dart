@@ -1172,6 +1172,104 @@ class InterpretedClass implements Callable, RuntimeType {
   }
 }
 
+/// Re-entry guard shared by every `toString()` that dispatches to interpreted
+/// code.
+///
+/// A script's `toString` can reach the same value again — most simply by
+/// interpolating a native container that holds it. Identity-keyed rather than
+/// `==`-keyed because a script may override `==` too, and asking a possibly
+/// broken `==` while rendering a possibly broken `toString` is how one defect
+/// becomes two.
+///
+/// ONE SET FOR ALL THREE TYPES, not one per class. A cycle can run through
+/// them — an enum value whose `toString` interpolates an instance whose
+/// `toString` interpolates the enum value — and three separate guards would
+/// each see a first visit and none would break it.
+final Set<Object> _renderingToString = Set<Object>.identity();
+
+/// Calls an interpreted `toString` and returns what it produced, unwrapping
+/// the `ReturnException` a block-bodied one throws.
+///
+/// The STRICT half: nothing is caught, so a throwing `toString` propagates and
+/// `toString() => '$this'` overflows the stack. That is Dart's behaviour and it
+/// is what [InterpreterVisitor.stringify] needs, because stringify renders
+/// interpolation INSIDE a script. [renderInterpretedToString] wraps this for
+/// the host-facing path, which needs the opposite.
+Object? callInterpretedToString(
+  InterpretedFunction method,
+  RuntimeValue target,
+  InterpreterVisitor visitor,
+) {
+  try {
+    return method
+        .bind(target)
+        .call(visitor, const <Object?>[], const <String, Object?>{});
+  } on ReturnException catch (e) {
+    return e.value;
+  }
+}
+
+/// Dispatches to a script's `toString()` when there is one, and falls back to
+/// [fallback] otherwise.
+///
+/// SCD72 wrote this for `InterpretedInstance` and SCE116 shared it with
+/// `InterpretedEnumValue` and `InterpretedExtensionTypeInstance`, which had the
+/// same defect in the same file. Every line is here for a measured reason and
+/// the reasons apply unchanged to all three; a third and fourth copy would have
+/// been three and four places for the next correction to land in.
+///
+/// THIS FUNCTION DOES NOT THROW FOR ANYTHING RECOVERABLE, and that is a
+/// deliberate divergence from [callInterpretedToString], which is what
+/// `stringify` uses and must keep Dart's semantics. This is the one HOST code
+/// reaches, including an `onUncaughtError` hook whose first act is to log the
+/// error. A second exception raised while reporting the first is worse than an
+/// imperfect string, which is the same reasoning behind the SDK's own
+/// `Error.safeToString`.
+///
+/// `StackOverflowError` AND `OutOfMemoryError` ARE RETHROWN, and the reason is
+/// measured rather than principled. SCD72's first draft caught everything, and
+/// a pair of mutually-interpolating objects (`A.toString() => 'A:$b'`,
+/// `B.toString() => 'B:$a'`) stopped raising `StackOverflowError` and started
+/// HANGING: the overflow unwound into this catch, the fallback was returned,
+/// the caller resumed on a stack that was still full, and it overflowed again —
+/// forever. Swallowing an unrecoverable VM error turns a fast crash into a
+/// livelock, which is the one outcome worse than the exception. Those two
+/// propagate; everything a script can actually do is caught.
+///
+/// [fallback] is a callback rather than a string because computing it can
+/// itself be work — an extension type's is its representation's own
+/// `toString()` — and the override path must not pay for it.
+String renderInterpretedToString({
+  required RuntimeValue target,
+  required InterpretedFunction? method,
+  required InterpreterVisitor? visitor,
+  required String Function() fallback,
+}) {
+  if (method == null) return fallback();
+  // No visitor means no way to run interpreted code. It is stored on the
+  // declaring TYPE rather than taken from the ambient `D4.activeVisitor`,
+  // which SCD72 measured to be null inside an `onUncaughtError` hook.
+  if (visitor == null) return fallback();
+  if (!_renderingToString.add(target)) return fallback();
+  try {
+    final result = callInterpretedToString(method, target, visitor);
+    if (result is String) return result;
+    if (result == null) return fallback();
+    return result.toString();
+  } on StackOverflowError {
+    rethrow;
+  } on OutOfMemoryError {
+    rethrow;
+  } catch (_) {
+    // Everything else: a script `toString` that throws, a bridge failure deep
+    // inside it, a cycle this guard did not see. All of it degrades to the
+    // fallback rather than escaping into whatever the host was doing.
+    return fallback();
+  } finally {
+    _renderingToString.remove(target);
+  }
+}
+
 /// Represents an instance of an InterpretedClass at runtime.
 class InterpretedInstance implements RuntimeValue {
   final InterpretedClass klass;
@@ -1452,16 +1550,6 @@ class InterpretedInstance implements RuntimeValue {
     }
   }
 
-  /// Re-entry guard for [toString].
-  ///
-  /// A script's `toString` can reach this instance again — most simply by
-  /// interpolating a native container that holds it. Identity-keyed rather than
-  /// `==`-keyed because a script may override `==` too, and asking a possibly
-  /// broken `==` while rendering a possibly broken `toString` is how one defect
-  /// becomes two.
-  static final Set<InterpretedInstance> _rendering =
-      Set<InterpretedInstance>.identity();
-
   /// The interpreter's own description of this instance, used when the script
   /// declares no `toString` and whenever dispatching to one is not safe.
   String get _diagnosticString {
@@ -1472,62 +1560,21 @@ class InterpretedInstance implements RuntimeValue {
     return '<instance of ${klass.name}>';
   }
 
-  /// SCD72: dispatches to the script's `toString()` when there is one, and
-  /// falls back to [_diagnosticString] otherwise.
+  /// Dispatches to the script's `toString()` when there is one, and falls back
+  /// to [_diagnosticString] otherwise.
   ///
-  /// THIS METHOD DOES NOT THROW FOR ANYTHING RECOVERABLE, and that is a
-  /// deliberate divergence from `InterpreterVisitor.stringify`, which handles
-  /// interpolation INSIDE a script and must keep Dart's semantics: there a
-  /// throwing `toString` propagates and `toString() => '$this'` overflows the
-  /// stack, exactly as real Dart does — measured, both already did before this
-  /// change and still do. This method is the one HOST code reaches, including
-  /// an `onUncaughtError` hook whose first act is to log the error. A second
-  /// exception raised while reporting the first is worse than an imperfect
-  /// string, which is the same reasoning behind the SDK's own
-  /// `Error.safeToString`.
-  ///
-  /// `StackOverflowError` AND `OutOfMemoryError` ARE RETHROWN, and the reason
-  /// is measured rather than principled. The first draft caught everything, and
-  /// a pair of mutually-interpolating objects (`A.toString() => 'A:$b'`,
-  /// `B.toString() => 'B:$a'`) stopped raising `StackOverflowError` and started
-  /// HANGING: the overflow unwound into this catch, the diagnostic form was
-  /// returned, the caller resumed on a stack that was still full, and it
-  /// overflowed again — forever. Swallowing an unrecoverable VM error turns a
-  /// fast crash into a livelock, which is the one outcome worse than the
-  /// exception. Those two propagate; everything a script can actually do is
-  /// caught.
+  /// SCD72 wrote the mechanism here; SCE116 moved it to
+  /// [renderInterpretedToString] so the enum and extension-type siblings in
+  /// this file could use it rather than carry a third and fourth copy. The
+  /// reasoning — why it never throws for anything a script can do, and why two
+  /// VM errors are the exception — lives on that function.
   @override
-  String toString() {
-    final method = klass.findInstanceMethod('toString');
-    if (method == null) return _diagnosticString;
-    final visitor = klass.declaringVisitor;
-    if (visitor == null) return _diagnosticString;
-    if (!_rendering.add(this)) return _diagnosticString;
-    try {
-      Object? result;
-      try {
-        result = method
-            .bind(this)
-            .call(visitor, const <Object?>[], const <String, Object?>{});
-      } on ReturnException catch (e) {
-        result = e.value;
-      }
-      if (result is String) return result;
-      if (result == null) return _diagnosticString;
-      return result.toString();
-    } on StackOverflowError {
-      rethrow;
-    } on OutOfMemoryError {
-      rethrow;
-    } catch (_) {
-      // Everything else: a script `toString` that throws, a bridge failure deep
-      // inside it, a cycle this guard did not see. All of it degrades to the
-      // diagnostic form rather than escaping into whatever the host was doing.
-      return _diagnosticString;
-    } finally {
-      _rendering.remove(this);
-    }
-  }
+  String toString() => renderInterpretedToString(
+    target: this,
+    method: klass.findInstanceMethod('toString'),
+    visitor: klass.declaringVisitor,
+    fallback: () => _diagnosticString,
+  );
 
   /// Non-throwing check: does this instance declare an instance member
   /// (field, getter, or method) named [name]?
@@ -2358,6 +2405,26 @@ class InterpretedEnum implements RuntimeType {
   List<InterpretedClass> mixins;
   List<BridgedClass> bridgedMixins;
 
+  /// The visitor that declared this enum, so [InterpretedEnumValue.toString]
+  /// can reach a script's `toString` override after the interpreter has
+  /// unwound. See [InterpretedClass.declaringVisitor] — same wiring, same
+  /// reason, assigned once per enum in `visitEnumDeclaration`.
+  InterpreterVisitor? declaringVisitor;
+
+  /// The instance method [name], searching this enum then its mixins.
+  ///
+  /// Same order as [InterpretedEnumValue.get] resolves one — own members first,
+  /// then mixins in reverse declaration order so the last applied wins.
+  InterpretedFunction? findInstanceMethod(String name) {
+    final own = methods[name];
+    if (own != null) return own;
+    for (final mixin in mixins.reversed) {
+      final fromMixin = mixin.methods[name];
+      if (fromMixin != null) return fromMixin;
+    }
+    return null;
+  }
+
   // Constructor used during Interpretation Pass (Populates members)
   InterpretedEnum(
     this.name,
@@ -2430,8 +2497,19 @@ class InterpretedEnumValue implements RuntimeValue /* Add RuntimeValue */ {
   // Constructor now needs the parent Enum definition
   InterpretedEnumValue(this.parentEnum, this.name, this.index);
 
+  /// The enum's own `toString` override when the script declares one, and
+  /// `EnumName.valueName` otherwise.
+  ///
+  /// SCE116. The DEFAULT was already right — which is why this was easy to
+  /// miss: `P.a` is what a host wants and what Dart prints, so nothing looked
+  /// broken until a script overrode `toString` and the override was ignored.
   @override
-  String toString() => '${parentEnum.name}.$name';
+  String toString() => renderInterpretedToString(
+    target: this,
+    method: parentEnum.findInstanceMethod('toString'),
+    visitor: parentEnum.declaringVisitor,
+    fallback: () => '${parentEnum.name}.$name',
+  );
 
   @override
   int get hashCode => Object.hash(parentEnum, index);
@@ -2931,6 +3009,12 @@ class InterpretedExtensionType implements Callable, RuntimeType {
     this.setters,
   );
 
+  /// The visitor that declared this extension type, so
+  /// [InterpretedExtensionTypeInstance.toString] can reach a script's
+  /// `toString` override after the interpreter has unwound. Assigned once in
+  /// `visitExtensionTypeDeclaration`.
+  InterpreterVisitor? declaringVisitor;
+
   @override
   int get arity => 1; // Extension types take one positional argument (the wrapped value)
 
@@ -3020,8 +3104,15 @@ class InterpretedExtensionTypeInstance implements RuntimeValue {
   String get _representationString =>
       representationValue == null ? 'null' : representationValue.toString();
 
+  /// The extension type's own `toString` override when the script declares
+  /// one, and [_representationString] otherwise.
   @override
-  String toString() => _representationString;
+  String toString() => renderInterpretedToString(
+    target: this,
+    method: extensionType.methods['toString'],
+    visitor: extensionType.declaringVisitor,
+    fallback: () => _representationString,
+  );
 
   @override
   void set(String name, Object? value, [InterpreterVisitor? visitor]) {

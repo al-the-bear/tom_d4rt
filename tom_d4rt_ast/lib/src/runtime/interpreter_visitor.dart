@@ -6557,23 +6557,30 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   String stringify(Object? value) {
     if (value == null) return 'null';
     if (value is bool) return value.toString();
-    if (value is InterpretedInstance) {
-      // Dispatch to the user-defined toString() method if present so string
-      // interpolation honours overrides like `class Foo { String toString() => ... }`.
-      final toStringMethod = value.klass.findInstanceMethod('toString');
-      if (toStringMethod != null) {
-        Object? result;
-        try {
-          result = toStringMethod
-              .bind(value)
-              .call(this, const <Object?>[], const <String, Object?>{});
-        } on ReturnException catch (e) {
-          result = e.value;
-        }
-        if (result is String) return result;
-        if (result == null) return 'null';
-        return result.toString();
-      }
+    // The three interpreted values that can carry a script `toString` override.
+    //
+    // SCE116 added the second and third. Without them an enum value or an
+    // extension-type instance would still render correctly — `toString()` on
+    // those types dispatches too — but through the HOST-facing path, which
+    // degrades instead of throwing. Interpolation inside a script must keep
+    // Dart's semantics, so it calls the strict form here; see
+    // [renderInterpretedToString] for the split and why it exists.
+    final InterpretedFunction? override = switch (value) {
+      InterpretedInstance() => value.klass.findInstanceMethod('toString'),
+      InterpretedEnumValue() => value.parentEnum.findInstanceMethod('toString'),
+      InterpretedExtensionTypeInstance() =>
+        value.extensionType.methods['toString'],
+      _ => null,
+    };
+    if (override != null) {
+      final result = callInterpretedToString(
+        override,
+        value as RuntimeValue,
+        this,
+      );
+      if (result is String) return result;
+      if (result == null) return 'null';
+      return result.toString();
     }
     return value.toString();
   }
@@ -11014,6 +11021,12 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       );
     }
 
+    // SCE116: same wiring `visitClassDeclaration` does, for the same reason —
+    // `InterpretedEnumValue.toString()` needs a visitor to dispatch to a
+    // script's override, and a host reads it after the interpreter has unwound.
+    // Once per enum, not per value.
+    enumObj.declaringVisitor = this;
+
     // Process Mixin Application (similar to class mixin handling)
     if (node.withClause != null) {
       Logger.debug(
@@ -15031,6 +15044,10 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       methods, // Will be populated below
       setters, // Will be populated below
     );
+
+    // SCE116: as for classes and enums — the instance's `toString()` needs a
+    // visitor to reach a script's override, and cannot be handed one.
+    extensionType.declaringVisitor = this;
 
     // Define it in the environment early so methods can reference the type
     environment.define(typeName, extensionType);

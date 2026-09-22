@@ -1,3 +1,39 @@
+## 1.164.0
+
+### Fixed — an enum value and an extension-type instance dispatch to their `toString` override (sce116)
+
+SCD72 taught `InterpretedInstance.toString()` to dispatch to a script's own
+override and left two siblings in the same file behind.
+`InterpretedEnumValue` got the DEFAULT right and the override wrong — which is
+why it was easy to miss, since `P.a` is what a host wants and what Dart prints
+— and `InterpretedExtensionTypeInstance` got both wrong.
+
+THE MECHANISM IS SHARED, NOT COPIED. SCD72's body — find the override, get a
+visitor, guard re-entry, dispatch, degrade on anything recoverable, rethrow
+`StackOverflowError` and `OutOfMemoryError` — is now
+`renderInterpretedToString`, called by all three. Every line of it was there
+for a measured reason and the reasons apply unchanged; a third and fourth copy
+would have been three and four places for the next correction to land in.
+
+The re-entry guard is ONE identity set for all three types, because a cycle can
+run through them and three separate guards would each see a first visit.
+
+`InterpretedEnum` and `InterpretedExtensionType` gained the
+`declaringVisitor` wiring `InterpretedClass` already had, assigned once per
+declaration — `toString()` is a plain `Object` override with nowhere to receive
+a visitor, and the ambient one is null by the time a host reads it.
+
+An enum's override may come from a mixin, so the lookup walks them in the same
+order `InterpretedEnumValue.get` does.
+
+THE CONTRACT STILL SPLITS BY CALLER. `stringify` — interpolation inside a
+script — keeps Dart's semantics and propagates; `toString()`, which host code
+reaches, degrades. Sharing a call between them is how that could have been
+lost, so `stringify` gained explicit branches for the two new types and calls
+the strict form.
+
+Name resolution: no.
+
 ## 1.163.0
 
 ### Fixed — an extension-type instance renders as the thing it wraps (sce116)
