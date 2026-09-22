@@ -27,6 +27,16 @@
 // there is a reason worth writing down. SCD134 added the exports; this file is
 // what stops the next one going unnoticed.
 //
+// AN ORACLE IS ALSO A CEILING, and the complement lives beside this file.
+// Because the twin decides, this check cannot see a type BOTH lines forget to
+// export. `sce156_public_type_nameability_test.dart` asks the stronger
+// question the three findings above were all instances of — is every type in a
+// public member's signature exported by the same barrel? — which needs no twin
+// and looks at members, where this one looks only at top-level names. The two
+// are separate because a resolved-analyzer walk costs seconds and this parse
+// costs milliseconds; folding them together would make the cheap check as
+// expensive as the thorough one.
+//
 // WHAT IS COMPARED. The set of public top-level names each barrel exports,
 // computed by PARSING (no resolution) and following `export` / `part`
 // directives within the owning package, honouring `show` / `hide`.
