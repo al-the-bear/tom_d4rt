@@ -2073,6 +2073,51 @@ const Map<String, _Convergence> _convergenceLog = {
   // dependency sense. This enum calls the same event [_Direction.downstream],
   // because the reference is mirrored DOWN into exec. "Taking upstream's
   // wording" in a commit message therefore means `downstream` here.
+  // SCE138. The five SCD153 (e9c37c1b1) converged rather than baselined, out
+  // of the nine unregistered content divergences it opened exec to find. The
+  // classification was already done and measured there — "THE NINE WERE
+  // MEASURED, NOT ASSUMED. Each was ported against the resolved interpreter
+  // before being classified" — but none reached this register, which is the
+  // one place a later reader looks to ask which way a settled question went.
+  //
+  // ALL FIVE ARE `downstream`, and the commit states it rather than the files
+  // implying it: the reference copy was PORTED into exec's spelling and passed,
+  // so exec's copy was the one replaced. That distinction matters here because
+  // a converged file looks identical whichever side won — this register's own
+  // stated hazard — so nothing below was read back from the resulting file.
+  'scd69_syntax_rejection_test.dart': _Convergence(
+    _Direction.downstream,
+    'SCD153 (e9c37c1b1): one of the four that "passed when ported and are '
+    'converged rather than baselined". SCE111 (a16fc3afc) later edited both '
+    'copies together, which is why this pair is the only one of the five '
+    'whose reference side has moved since.',
+  ),
+  'object_universal_members_test.dart': _Convergence(
+    _Direction.downstream,
+    'SCD153 (e9c37c1b1): named in the same sentence as scd69 — ported against '
+    'the resolved interpreter, passed, converged.',
+  ),
+  'doc/doc_anchors_test.dart': _Convergence(
+    _Direction.downstream,
+    'SCD153 (e9c37c1b1): named in the same sentence as scd69 — ported against '
+    'the resolved interpreter, passed, converged.',
+  ),
+  'scc46_native_enum_runtime_type_test.dart': _Convergence(
+    _Direction.downstream,
+    'SCD153 (e9c37c1b1): the fourth of that sentence. Absent from the nine '
+    'sce138 listed, because its divergence was found by the same opening of '
+    'exec rather than by the earlier count.',
+  ),
+  'bridge/d4_helpers_test.dart': _Convergence(
+    _Direction.downstream,
+    'SCD153 (e9c37c1b1), and the one with a cause of its own: it "converged '
+    'once its port recipe gained the core-stdlib import pair", and exec\'s '
+    'copy "had also been reaching past the public library to '
+    'tom_d4rt_ast/runtime.dart plus an explicit d4.dart, which exec\'s own '
+    'd4rt.dart re-exports". A port that imports a different public surface '
+    'from its reference is not measuring the same thing — so the repair was '
+    'on the exec side, which is what makes this downstream too.',
+  ),
   'stdlib/collection/unmodifiable_list_view_test.dart': _Convergence(
     _Direction.downstream,
     'SCC7 (756e47e12) names it: the copy "takes tom_d4rt\'s newer assertions '
