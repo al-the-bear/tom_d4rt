@@ -264,7 +264,10 @@ const _divergentBodies = <String, Map<String, String>>{
     '_LazySyncGeneratorIterator._executeForInWithYieldSuspension': 'd10a91e2',
   },
   'declaration_visitor.dart': {
-    'DeclarationVisitor.visitClassDeclaration': '81e4977d',
+    // SCE130: 81e4977d -> 954e4039. Pass 1 now passes `lenient: true` when
+    // extracting the class's type-parameter bounds, in both trees; the
+    // residue is the accessor difference this member already had.
+    'DeclarationVisitor.visitClassDeclaration': '954e4039',
     'DeclarationVisitor.visitEnumDeclaration': '10a0fbf5',
     'DeclarationVisitor.visitFunctionDeclaration': 'c120e983',
     'DeclarationVisitor.visitMixinDeclaration': '065705f9',
@@ -305,7 +308,10 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpreterVisitor.visitAsExpression': '749f9253',
     'InterpreterVisitor.visitAssignmentExpression': '510fd0b5',
     'InterpreterVisitor.visitBinaryExpression': '4a8ad811',
-    'InterpreterVisitor.visitClassDeclaration': '57fc0f99',
+    // SCE130: 57fc0f99 -> fffabfd5. Both trees gained the same call to
+    // `klass.resolveDeferredTypeParameterBounds`; the residue is the
+    // accessor difference this member already had.
+    'InterpreterVisitor.visitClassDeclaration': 'fffabfd5',
     'InterpreterVisitor.visitConstructorReference': 'eca261a7',
     'InterpreterVisitor.visitEnumDeclaration': '17c15a6b',
     'InterpreterVisitor.visitExtensionDeclaration': '9ebdafbe',
@@ -349,6 +355,14 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpretedClass.extractTypeParameterBounds': '065705f9',
     'InterpretedClass.extractTypeParameterNames': '065705f9',
     'InterpretedClass.getInstanceFieldNames': '77e37c53',
+    // SCE130. New in both trees, and divergent for the oldest architectural
+    // reason in this table: a type parameter's name is a `Token` with
+    // `.lexeme` on the reference and a nullable `SSimpleIdentifier` on the
+    // mirror, so `p.name.lexeme` cannot be written the same way twice. The
+    // reference also needs the `bridge.` prefix, because `TypeParameter` is
+    // ambiguous there between the analyzer's AST node and d4rt's own type.
+    // The bodies are otherwise token-for-token the same shape.
+    'InterpretedClass.resolveDeferredTypeParameterBounds': 'd241f09e',
     'InterpretedClass.resolveTypeAnnotationDynamic': '63de37c4',
     'InterpretedInstance.get': '286b1331',
   },

@@ -2493,6 +2493,33 @@ class D4rt {
       }
       Logger.debug("[_executeInEnvironment] Finished processing directives.");
 
+      /// Bind every type alias whose target resolves now, to a FIXPOINT so
+      /// declaration order does not matter: `typedef A = B;` written above
+      /// `typedef B = int;` resolves on the second round. Bounded by the
+      /// number of aliases, because each round either binds a new name or
+      /// stops. Idempotent — an already-bound alias is skipped — which is what
+      /// makes it safe to run more than once.
+      void registerTypeAliases() {
+        final typeAliases = compilationUnit.declarations.whereType<TypeAlias>();
+        for (var round = 0; round < typeAliases.length; round++) {
+          var bound = false;
+          for (final alias in typeAliases) {
+            if (_visitor!.registerTypeAlias(alias)) bound = true;
+          }
+          if (!bound) break;
+        }
+      }
+
+      // SCE130: run it HERE as well, before classes. A class's type-parameter
+      // bounds, and those of its methods, are resolved when the class is
+      // populated in step 2 and are never re-extracted, so an alias bound on
+      // either — `typedef N = num; class Box<T extends N>` — had to resolve by
+      // then or not at all. Imports have been processed and pass 1 has created
+      // every class placeholder, so an alias naming a core type, an imported
+      // type or a script class binds on this round; one naming an extension
+      // type still waits for the round at 3c, which is why both calls exist.
+      registerTypeAliases();
+
       // RC-4: Process declarations in dependency order (matching ModuleLoader).
       // The DeclarationVisitor (pass 1) only creates class/mixin placeholders
       // with empty constructor maps. We must populate class members before
@@ -2551,14 +2578,7 @@ class D4rt {
       //
       //     There was no type-alias phase at all before this, which is why
       //     `visitTypeAlias` was never even reached by the ordered walk.
-      final typeAliases = compilationUnit.declarations.whereType<TypeAlias>();
-      for (var round = 0; round < typeAliases.length; round++) {
-        var bound = false;
-        for (final alias in typeAliases) {
-          if (_visitor!.registerTypeAlias(alias)) bound = true;
-        }
-        if (!bound) break;
-      }
+      registerTypeAliases();
 
       // 4. Function declarations
       for (final declaration in compilationUnit.declarations) {

@@ -56,6 +56,12 @@ class DeclarationVisitor extends GeneralizingAstVisitor<void> {
     final typeParameterBounds = InterpretedClass.extractTypeParameterBounds(
       typeParameters,
       resolveEnvironment,
+      // SCE130: the placeholder pass runs before imports and type aliases, so
+      // `class Box<T extends N>` through `typedef N = num` could not resolve
+      // its bound here and threw. Pass 2 repairs the miss via
+      // `resolveDeferredTypeParameterBounds`, and reports a bound that is
+      // genuinely undefined.
+      lenient: true,
     );
 
     // Create a placeholder for the class with the required positional arguments
@@ -246,6 +252,17 @@ class DeclarationVisitor extends GeneralizingAstVisitor<void> {
       environment, // The function captures the environment it's declared in
       declaredReturnType,
       isNullable,
+      // SCE130: this is the PLACEHOLDER pass. The block above already
+      // substitutes a placeholder for a return type the environment cannot
+      // resolve yet, and says so in a log line; a type-parameter BOUND is the
+      // same kind of forward reference and used to be the one thing here that
+      // threw. It threw on `typedef N = num; T pick<T extends N>(T v)`,
+      // because type aliases are registered in pass 2 — they must be, since an
+      // alias may name a class whose placeholder this pass is still creating.
+      // Pass 2 rebuilds this function from the same declaration once aliases
+      // exist, and that build is strict, so the bound is still resolved and
+      // still enforced, and a genuinely undefined bound still throws.
+      lenientBounds: true,
     );
     Logger.debug(
       "[DeclarationVisitor.visitFunctionDeclaration]   Defining function '$functionName' with declaredReturnType: ${declaredReturnType.name} (Hash: ${declaredReturnType.hashCode})",

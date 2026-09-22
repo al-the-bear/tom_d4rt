@@ -1,4 +1,5 @@
 import 'package:test/test.dart';
+import 'package:tom_d4rt/d4rt.dart' show RuntimeD4rtException;
 import 'interpreter_test.dart' show execute;
 
 /// SCD100 — a type alias means its target.
@@ -51,10 +52,19 @@ import 'interpreter_test.dart' show execute;
 /// TWO LIMITS MEASURED AND LEFT, each with its reason:
 ///
 ///   - A generic bound written through an alias (`typedef N = num; T pick<T
-///     extends N>(T)`) still throws. Bounds are extracted in PASS 1, by
+///     extends N>(T)`) threw, because bounds are extracted in PASS 1, by
 ///     `DeclarationVisitor.visitFunctionDeclaration`, before any phase of pass
-///     2 can have registered an alias. Fixing it means reordering pass 1, which
-///     is its own change with its own blast radius — sce130.
+///     2 can have registered an alias. **CLOSED by sce130** — F-SCD100-11..16.
+///     The repair was not the reorder this note anticipated. Pass 1 is the
+///     PLACEHOLDER pass and is already lenient about an unresolvable RETURN
+///     type on the very same declaration; the bound was the one strict thing
+///     in it. Making it lenient there costs nothing, because pass 2 REBUILDS
+///     the function once the alias fixpoint has run and that build is strict —
+///     so the bound resolves, is enforced (F-SCD100-12), and a genuinely
+///     undefined bound still stops the program (F-SCD100-15). A class needed
+///     two further touches: the alias fixpoint now also runs BEFORE the class
+///     pass, and a class's own bounds, which nothing re-extracts, are repaired
+///     by `InterpretedClass.resolveDeferredTypeParameterBounds`.
 ///   - A local declared through an alias still accepts a mismatch. That is NOT
 ///     alias-specific: `int x = 'a'` is equally lenient, because local variable
 ///     declarations are not type-checked at all. SCC29 covers parameters and
@@ -226,5 +236,176 @@ void main() {
         );
       }
     });
+    // ------------------------------------------------------------------
+    // sce130: the first of the two limits above, now closed.
+
+    test('F-SCD100-11: a generic BOUND written through an alias runs '
+        '[2026-09-22]', () {
+      // The shape this file recorded as a standing limit. It threw
+      // `Undefined variable: N`, because bounds are resolved in pass 1 and
+      // aliases are registered in pass 2.
+      expect(
+        execute(r"""
+        typedef N = num;
+        T pick<T extends N>(T v) => v;
+        main() => pick(3);
+      """),
+        3,
+      );
+    });
+
+    test('F-SCD100-12: the bound is ENFORCED through the alias, not merely '
+        'skipped [2026-09-22]', () {
+      // The discriminator between the fix and a retreat. Making an
+      // unresolvable bound lenient would also let this program run, which is
+      // why the pair is tested rather than -11 alone: leniency lives in pass
+      // 1, and pass 2 REBUILDS the function once the alias exists, so the
+      // bound is real by the time anything consults it.
+      expect(
+        () => execute(r"""
+          typedef N = num;
+          T pick<T extends N>(T v) => v;
+          main() => pick<String>('a');
+        """),
+        throwsA(
+          isA<RuntimeD4rtException>().having(
+            (e) => e.toString(),
+            'message',
+            contains("does not satisfy bound 'num'"),
+          ),
+        ),
+      );
+      // ... and a satisfying argument still binds.
+      expect(
+        execute(r"""
+        typedef N = num;
+        T pick<T extends N>(T v) => v;
+        main() => pick<int>(3);
+      """),
+        3,
+      );
+    });
+
+    test('F-SCD100-13: every alias TARGET reaches a bound — core type, script '
+        'class, bridged type, another alias [2026-09-22]', () {
+      // One mechanism, so one test: the bound resolves through whatever the
+      // alias names. All four threw before.
+      expect(
+        execute(r"""
+        typedef N = num;
+        T pick<T extends N>(T v) => v;
+        main() => pick(3);
+      """),
+        3,
+      );
+      expect(
+        execute(r"""
+        class C { int get x => 7; }
+        typedef A = C;
+        T pick<T extends A>(T v) => v;
+        main() => pick(C()).x;
+      """),
+        7,
+      );
+      expect(
+        execute(r"""
+        typedef D = DateTime;
+        T pick<T extends D>(T v) => v;
+        main() => pick(DateTime(2020)).year;
+      """),
+        2020,
+      );
+      expect(
+        execute(r"""
+        typedef N = num;
+        typedef M = N;
+        T pick<T extends M>(T v) => v;
+        main() => pick(3);
+      """),
+        3,
+      );
+    });
+
+    test('F-SCD100-14: a CLASS and a METHOD type parameter get the same '
+        'treatment [2026-09-22]', () {
+      // A method's bounds are resolved when its class is populated, and a
+      // class's own bounds are resolved in pass 1 and never re-extracted —
+      // two more places the alias had not reached. The class case needs an
+      // explicit type argument for a reason that is NOT alias-specific: a
+      // bounded class with no written argument infers `dynamic` and fails its
+      // own bound, and `class Box<T extends num>` does exactly the same
+      // (scf27).
+      expect(
+        execute(r"""
+        typedef N = num;
+        class Holder { T pick<T extends N>(T v) => v; }
+        main() => Holder().pick(3);
+      """),
+        3,
+      );
+      expect(
+        execute(r"""
+        typedef N = num;
+        class Box<T extends N> { final T v; Box(this.v); }
+        main() => Box<int>(3).v;
+      """),
+        3,
+      );
+      expect(
+        () => execute(r"""
+          typedef N = num;
+          class Box<T extends N> { final T v; Box(this.v); }
+          main() => Box<String>('a').v;
+        """),
+        throwsA(
+          isA<RuntimeD4rtException>().having(
+            (e) => e.toString(),
+            'message',
+            contains("does not satisfy bound 'num'"),
+          ),
+        ),
+      );
+    });
+
+    test('F-SCD100-15: a genuinely undefined bound is still reported '
+        '[2026-09-22]', () {
+      // ANTI-VACUITY, and the reason pass 2 stays strict. `Nope` is not an
+      // alias anyone forgot to register; it is not defined at all, and the
+      // program must not start. Both the function and the class route.
+      for (final source in [
+        'T pick<T extends Nope>(T v) => v;\nmain() => pick(3);',
+        'class Box<T extends Nope> { final T v; Box(this.v); }\n'
+            'main() => Box<int>(3).v;',
+      ]) {
+        expect(
+          () => execute(source),
+          throwsA(
+            isA<RuntimeD4rtException>().having(
+              (e) => e.toString(),
+              'message',
+              contains('Nope'),
+            ),
+          ),
+          reason: source,
+        );
+      }
+    });
+
+    test(
+      'F-SCD100-16: declaration order still does not matter [2026-09-22]',
+      () {
+        // The fixpoint runs twice now — once before classes, once before
+        // functions — so an alias written BELOW the function that bounds on it
+        // still binds.
+        expect(
+          execute(r"""
+        T pick<T extends N>(T v) => v;
+        typedef N = num;
+        main() => pick(3);
+      """),
+          3,
+        );
+      },
+    );
   });
 }

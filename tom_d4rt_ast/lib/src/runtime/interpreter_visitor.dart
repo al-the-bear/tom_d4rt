@@ -10447,6 +10447,10 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     // is exactly when a host reads it (measured: `D4.activeVisitor` is null
     // inside an `onUncaughtError` hook). Once per class, not per instance.
     klass.declaringVisitor = this;
+    // SCE130: pass 1 resolved this class's type-parameter bounds before any
+    // import or type alias existed, and left behind whatever it could not
+    // resolve. Repair it now, before any member is populated.
+    klass.resolveDeferredTypeParameterBounds(node.typeParameters, environment);
     Logger.debug(
       "[Visitor.visitClassDeclaration] Retrieved placeholder for '$className' (hash: ${klass.hashCode})",
     );

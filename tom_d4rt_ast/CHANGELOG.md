@@ -1,3 +1,71 @@
+## 0.156.0
+
+### Fixed — a generic bound written through a type alias threw (sce130)
+
+    typedef N = num;
+    T pick<T extends N>(T v) => v;
+    main() => pick(3);          // was: Undefined variable: N
+
+A legal program that did not run. The direct form, `T pick<T extends num>`,
+always worked, so the fault was alias-specific: type-parameter bounds are
+resolved in PASS 1, by `DeclarationVisitor`, and type aliases are registered in
+PASS 2 — they must be, because an alias may name a class whose placeholder pass
+1 is still creating. `_extractTypeParameterBounds` rethrew on a bound it could
+not resolve, with a comment saying the rethrow was deliberate, so the miss
+became a hard failure instead of a deferral.
+
+THE MEASUREMENT CHANGED THE FIX, which is the part worth recording. SCD100 left
+this as a limit and predicted the repair would be a pass-1 reorder — "its own
+change with its own blast radius". Probing fourteen shapes first showed
+something cheaper and better founded: **pass 1 is the PLACEHOLDER pass, and it
+is already lenient about an unresolvable RETURN type on the very same
+declaration**, substituting a placeholder and logging that it did. The bound
+was the one strict thing in an otherwise lenient pass.
+
+So pass 1 is lenient now and pass 2 is not. Nothing is lost by that, because
+pass 2 REBUILDS the function from its declaration after the alias fixpoint has
+run, and that build is authoritative:
+
+  - an alias bound resolves and IS ENFORCED — `pick<String>('a')` still reports
+    `does not satisfy bound 'num'` (F-SCD100-12);
+  - a genuinely undefined bound still stops the program before `main` runs
+    (F-SCD100-15).
+
+That second point is why leniency alone would have been a retreat rather than a
+fix, and it is checked rather than asserted.
+
+A CLASS NEEDED TWO MORE TOUCHES, because a class is populated in place and its
+bounds are never re-extracted:
+
+  - the alias fixpoint now runs BEFORE the class pass as well as before the
+    function pass — in `d4rt_base.dart` AND in `module_loader.dart`, which are
+    separate entry points into the same ordering, a trap that file already
+    warned about and that the test suite caught;
+  - `InterpretedClass.resolveDeferredTypeParameterBounds` repairs a bound pass
+    1 had to skip, and throws there if it still does not resolve.
+
+AND A THIRD ENTRY POINT HAD NO ALIAS PHASE AT ALL. `AstModuleLoader` — the
+analyzer-free line's module loader — was never given one when SCD100 added the
+phase to the runner and to the reference tree's `module_loader.dart`, so a
+`typedef` declared in a non-entry MODULE bound nothing there and `1 is N` in
+that module threw `Undefined variable: N`. Found by writing this fix down
+rather than by a failure, because the reference's own comment about separate
+entry points is what prompted the check. F-SCE130-LOADER-1 pins it, and fails
+with that exact message when the phase is removed.
+
+MEASURED: every alias target reaches a bound — a core type, a script class, a
+bridged type, another alias, a generic target — on a function, a class and a
+method, in any declaration order. `class Box<T extends N>` now behaves exactly
+like `class Box<T extends num>`, including the pre-existing defect they share:
+neither infers a type argument, so both reject `Box(3)` with `Type argument
+'dynamic' ... does not satisfy bound 'num'`. That is scf27, not this.
+
+ABLATED, both halves: removing pass-1 leniency fails F-SCD100-11/-12/-13/-14/-16
+and leaves -15 green; removing the early alias fixpoint fails -14 alone.
+
+Name resolution: no — an alias was already bound to its target by SCD100; this
+changes WHEN a bound consults the environment, not what a name resolves to.
+
 ## 0.155.0
 
 ### Fixed — an all-null collection was refused by the binding check it was written for (sce129)

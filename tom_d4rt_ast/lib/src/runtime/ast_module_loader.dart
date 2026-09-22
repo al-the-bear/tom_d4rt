@@ -1036,6 +1036,33 @@ class AstModuleLoader implements ModuleContext {
     SCompilationUnit ast,
     InterpreterVisitor interpreter,
   ) {
+    /// Bind every type alias whose target resolves now, to a FIXPOINT so
+    /// declaration order does not matter. Idempotent — an already-bound alias
+    /// is skipped — which is what makes it safe to run more than once.
+    void registerTypeAliases() {
+      final typeAliases = ast.declarations.whereType<STypedefDeclaration>();
+      for (var round = 0; round < typeAliases.length; round++) {
+        var bound = false;
+        for (final alias in typeAliases) {
+          if (interpreter.registerTypeAlias(alias)) bound = true;
+        }
+        if (!bound) break;
+      }
+    }
+
+    // SCE130. This loader had NO type-alias phase at all — SCD100 added one to
+    // `D4rtRunner` and to the reference tree's `module_loader.dart`, and this
+    // third entry point was missed, so a `typedef` declared in a non-entry
+    // MODULE was never registered on the analyzer-free line. The reference's
+    // own comment names the trap: separate entry points into the same
+    // ordering, and a fix landing in one of them passes the probe it was
+    // written against while another path still fails.
+    //
+    // Twice, for the reason the other two run it twice: a class's
+    // type-parameter bounds, and those of its methods, are resolved when the
+    // class is populated below and are never re-extracted, so an alias bound
+    // on either has to resolve before that.
+    registerTypeAliases();
     for (final decl in ast.declarations) {
       if (decl is SEnumDeclaration) decl.accept<Object?>(interpreter);
     }
@@ -1056,6 +1083,7 @@ class AstModuleLoader implements ModuleContext {
       interpreter.deferStaticFieldInits = false;
     }
     interpreter.runDeferredStaticInitializers();
+    registerTypeAliases();
     for (final decl in ast.declarations) {
       if (decl is SFunctionDeclaration) decl.accept<Object?>(interpreter);
     }

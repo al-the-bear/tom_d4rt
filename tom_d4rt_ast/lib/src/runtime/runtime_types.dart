@@ -94,10 +94,14 @@ class InterpretedClass implements Callable, RuntimeType {
         .toList();
   }
 
+  /// SCE130: [lenient] records an unresolvable bound as `null` rather than
+  /// rethrowing. Pass 1 passes it, and [resolveDeferredTypeParameterBounds]
+  /// repairs the miss in pass 2 once imports and type aliases exist.
   static Map<String, RuntimeType?> extractTypeParameterBounds(
     STypeParameterList? typeParameters,
-    Environment? resolveEnvironment,
-  ) {
+    Environment? resolveEnvironment, {
+    bool lenient = false,
+  }) {
     final bounds = <String, RuntimeType?>{};
     if (typeParameters == null) return bounds;
 
@@ -123,7 +127,9 @@ class InterpretedClass implements Callable, RuntimeType {
           Logger.debug(
             "[InterpretedClass._extractTypeParameterBounds] Failed to resolve bound for '$paramName': $e",
           );
-          rethrow;
+          // SCE130: see the doc above — pass 1 defers, pass 2 repairs.
+          if (!lenient) rethrow;
+          bound = null;
         }
       }
 
@@ -131,6 +137,45 @@ class InterpretedClass implements Callable, RuntimeType {
     }
 
     return bounds;
+  }
+
+  /// SCE130: resolve any bound pass 1 had to leave unresolved.
+  ///
+  /// A class's type-parameter bounds are resolved once, when pass 1 creates
+  /// the placeholder, and nothing ever re-extracts them — so
+  /// `typedef N = num; class Box<T extends N>` had to resolve `N` before any
+  /// alias existed, and threw. A function does not need this because pass 2
+  /// REBUILDS it from its declaration; a class is populated in place, so the
+  /// repair has to be explicit and this is it.
+  ///
+  /// Called from pass 2's `visitClassDeclaration`, after imports and the type
+  /// alias fixpoint. A bound that still does not resolve throws HERE, which is
+  /// what keeps a genuinely undefined bound reportable.
+  void resolveDeferredTypeParameterBounds(
+    STypeParameterList? typeParameters,
+    Environment enclosing,
+  ) {
+    if (typeParameters == null) return;
+    Environment? scope;
+    for (final typeParam in typeParameters.typeParameters) {
+      final boundNode = typeParam.bound;
+      if (boundNode == null) continue;
+      final paramName = typeParam.name?.name ?? '';
+      if (typeParameterBounds[paramName] != null) continue;
+      // The class's own parameters must be visible to a bound that names one
+      // (`class P<A, B extends A>`), exactly as in pass 1.
+      if (scope == null) {
+        scope = Environment(enclosing: enclosing);
+        for (final p in typeParameters.typeParameters) {
+          final n = p.name?.name ?? '';
+          scope.define(n, TypeParameter(n));
+        }
+      }
+      typeParameterBounds[paramName] = resolveTypeAnnotationDynamic(
+        boundNode,
+        scope,
+      );
+    }
   }
 
   // Helper method for dynamic type resolution

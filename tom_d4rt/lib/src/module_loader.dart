@@ -1102,6 +1102,30 @@ class ModuleLoader {
       "[ModuleLoader loadModule for $uri] Executing InterpreterVisitor pass for initializers...",
     );
 
+    /// Bind every type alias whose target resolves now, to a FIXPOINT so
+    /// declaration order does not matter. Idempotent — an already-bound alias
+    /// is skipped — which is what makes it safe to run more than once.
+    void registerTypeAliases() {
+      final typeAliases = ast.declarations.whereType<TypeAlias>();
+      for (var round = 0; round < typeAliases.length; round++) {
+        var bound = false;
+        for (final alias in typeAliases) {
+          if (moduleInterpreter.registerTypeAlias(alias)) bound = true;
+        }
+        if (!bound) break;
+      }
+    }
+
+    // SCE130: run it HERE as well, before enums and classes. A class's
+    // type-parameter bounds, and those of its methods, are resolved when the
+    // class is populated below and are never re-extracted, so an alias bound
+    // on either — `typedef N = num; class Box<T extends N>` — had to resolve
+    // by then or not at all. The same warning the block below carries applies
+    // to this call: `d4rt_base.dart` has the twin of it, and a fix landing in
+    // only one entry point passes the probe it was written against while the
+    // test suite, which uses the other, still fails.
+    registerTypeAliases();
+
     // First, process enum declarations to populate enum values
     // This must happen before top-level variable declarations in case
     // const variables reference enum values
@@ -1144,14 +1168,7 @@ class ModuleLoader {
     // through that one, the `sources:`/`library:` form through this one, and a
     // fix landing in only one of them passes the probe it was written against
     // while the test suite — which uses the other — still fails.
-    final typeAliases = ast.declarations.whereType<TypeAlias>();
-    for (var round = 0; round < typeAliases.length; round++) {
-      var bound = false;
-      for (final alias in typeAliases) {
-        if (moduleInterpreter.registerTypeAlias(alias)) bound = true;
-      }
-      if (!bound) break;
-    }
+    registerTypeAliases();
 
     // Process function declarations to populate interpreted functions properly
     for (final declaration in ast.declarations) {

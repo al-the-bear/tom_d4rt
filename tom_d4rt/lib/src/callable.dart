@@ -94,11 +94,31 @@ class InterpretedFunction implements Callable {
         .toList();
   }
 
-  // Helper method to extract type parameter bounds from a TypeParameterList
+  /// Extract type parameter bounds from a [TypeParameterList].
+  ///
+  /// SCE130: [lenient] records an unresolvable bound as `null` instead of
+  /// rethrowing. PASS 1 passes it; pass 2 does not, and the asymmetry is the
+  /// fix rather than a softening of it.
+  ///
+  /// Pass 1 ([DeclarationVisitor]) runs before type aliases are registered —
+  /// it must, because an alias may name a class whose placeholder pass 1 is
+  /// still creating — so `typedef N = num; T pick<T extends N>(T v)` asked the
+  /// environment for `N` before anything had defined it and the rethrow turned
+  /// a legal program into a hard failure. Pass 1 ALREADY substitutes a
+  /// placeholder for an unresolvable RETURN type on the very same declaration,
+  /// with a log line saying so; the bound was the one strict thing in an
+  /// otherwise lenient pass.
+  ///
+  /// Nothing is lost by being lenient there, because pass 2 REBUILDS the
+  /// function from its declaration after the alias fixpoint has run, and that
+  /// build is authoritative and strict. So an alias bound resolves and is
+  /// enforced, while a genuinely undefined bound still throws before `main`
+  /// runs — both measured, not assumed.
   static Map<String, RuntimeType?> _extractTypeParameterBounds(
     TypeParameterList? typeParameters,
-    Environment? resolveEnvironment,
-  ) {
+    Environment? resolveEnvironment, {
+    bool lenient = false,
+  }) {
     final bounds = <String, RuntimeType?>{};
     if (typeParameters == null) return bounds;
 
@@ -126,8 +146,9 @@ class InterpretedFunction implements Callable {
           Logger.debug(
             "[InterpretedFunction._extractTypeParameterBounds] Failed to resolve bound for '$paramName': $e",
           );
-          // Re-throw the exception instead of silently ignoring it
-          rethrow;
+          // SCE130: lenient in pass 1, strict in pass 2. See the doc above.
+          if (!lenient) rethrow;
+          bound = null;
         }
       }
 
@@ -531,44 +552,48 @@ class InterpretedFunction implements Callable {
   }
 
   // Constructor for declared functions (top-level or nested, not methods)
+  /// SCE130: [lenientBounds] is passed by PASS 1 only — see
+  /// [_extractTypeParameterBounds] for why the two passes differ.
   InterpretedFunction.declaration(
     FunctionDeclaration declaration,
     Environment closure,
     RuntimeType? declaredReturnType,
-    bool isNullable,
-  ) : this._internal(
-        declaration.functionExpression.parameters,
-        declaration.functionExpression.body,
-        closure,
-        declaration.name.lexeme,
-        isGetter: declaration.isGetter, // Pass getter flag
-        isSetter: declaration.isSetter, // Pass setter flag
-        ownerType: null, // Not defined within a class/enum
-        isAbstract: false, // Non-method functions cannot be abstract
-        isAsync: declaration
-            .functionExpression
-            .body
-            .isAsynchronous, // Pass async flag
-        isGenerator: declaration
-            .functionExpression
-            .body
-            .isGenerator, // Pass generator flag
-        isAsyncGenerator:
-            declaration.functionExpression.body.isAsynchronous &&
-            declaration
-                .functionExpression
-                .body
-                .isGenerator, // Pass async generator flag
-        declaredReturnType: declaredReturnType,
-        isNullable: isNullable,
-        typeParameterNames: _extractTypeParameterNames(
-          declaration.functionExpression.typeParameters,
-        ),
-        typeParameterBounds: _extractTypeParameterBounds(
-          declaration.functionExpression.typeParameters,
-          closure,
-        ),
-      );
+    bool isNullable, {
+    bool lenientBounds = false,
+  }) : this._internal(
+         declaration.functionExpression.parameters,
+         declaration.functionExpression.body,
+         closure,
+         declaration.name.lexeme,
+         isGetter: declaration.isGetter, // Pass getter flag
+         isSetter: declaration.isSetter, // Pass setter flag
+         ownerType: null, // Not defined within a class/enum
+         isAbstract: false, // Non-method functions cannot be abstract
+         isAsync: declaration
+             .functionExpression
+             .body
+             .isAsynchronous, // Pass async flag
+         isGenerator: declaration
+             .functionExpression
+             .body
+             .isGenerator, // Pass generator flag
+         isAsyncGenerator:
+             declaration.functionExpression.body.isAsynchronous &&
+             declaration
+                 .functionExpression
+                 .body
+                 .isGenerator, // Pass async generator flag
+         declaredReturnType: declaredReturnType,
+         isNullable: isNullable,
+         typeParameterNames: _extractTypeParameterNames(
+           declaration.functionExpression.typeParameters,
+         ),
+         typeParameterBounds: _extractTypeParameterBounds(
+           declaration.functionExpression.typeParameters,
+           closure,
+           lenient: lenientBounds,
+         ),
+       );
 
   // Constructor for function expressions (anonymous)
   InterpretedFunction.expression(

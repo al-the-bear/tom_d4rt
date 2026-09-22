@@ -752,6 +752,90 @@ void main() {
       expect(result, 42);
     });
 
+    test('F-SCE130-LOADER-1: a typedef declared in a NON-ENTRY module is '
+        'registered [2026-09-22]', () {
+      // SCE130. This loader had no type-alias phase at all: SCD100 added one
+      // to `D4rtRunner` and to the reference tree's `module_loader.dart`, and
+      // this third entry point was missed. So `typedef N = num;` written in an
+      // imported module bound nothing, and `1 is N` in that module threw
+      // `Undefined variable: N` — on the analyzer-free line only.
+      //
+      // The probe lives in the IMPORTED module rather than the entry, because
+      // the entry's declarations go through `D4rtRunner`, which has had the
+      // phase since SCD100 and would pass either way.
+      final runner = D4rtRunner();
+      final bundle = AstBundle(
+        entryPointUri: 'package:app/main.dart',
+        modules: {
+          'package:app/main.dart': SCompilationUnit(
+            offset: 0,
+            length: 0,
+            directives: [importDirective('package:app/util.dart')],
+            declarations: [
+              SFunctionDeclaration(
+                offset: 0,
+                length: 0,
+                name: ident('main'),
+                functionExpression: SFunctionExpression(
+                  offset: 0,
+                  length: 0,
+                  parameters: SFormalParameterList(offset: 0, length: 0),
+                  body: SExpressionFunctionBody(
+                    offset: 0,
+                    length: 0,
+                    expression: SMethodInvocation(
+                      offset: 0,
+                      length: 0,
+                      methodName: ident('probe'),
+                      argumentList: SArgumentList(offset: 0, length: 0),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          'package:app/util.dart': SCompilationUnit(
+            offset: 0,
+            length: 0,
+            declarations: [
+              STypedefDeclaration(
+                offset: 0,
+                length: 0,
+                name: ident('N'),
+                type: SNamedType(offset: 0, length: 0, name: ident('num')),
+              ),
+              SFunctionDeclaration(
+                offset: 0,
+                length: 0,
+                name: ident('probe'),
+                functionExpression: SFunctionExpression(
+                  offset: 0,
+                  length: 0,
+                  parameters: SFormalParameterList(offset: 0, length: 0),
+                  body: SExpressionFunctionBody(
+                    offset: 0,
+                    length: 0,
+                    expression: SIsExpression(
+                      offset: 0,
+                      length: 0,
+                      expression: SIntegerLiteral(
+                        offset: 0,
+                        length: 1,
+                        value: 1,
+                      ),
+                      type: SNamedType(offset: 0, length: 0, name: ident('N')),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        },
+      );
+
+      expect(runner.executeBundle(bundle), isTrue);
+    });
+
     test('executes multi-module bundle with imports', () {
       final runner = D4rtRunner();
       final bundle = AstBundle(

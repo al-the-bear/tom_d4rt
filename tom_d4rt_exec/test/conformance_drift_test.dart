@@ -871,18 +871,26 @@ const Map<String, _Coverage> _coveredElsewhere = {
     'ast:runtime/scd100_type_alias_resolution_test.dart',
     _astTwin,
     layer: _Layer.script,
-    refCases: 10,
-    twinCases: 3,
+    // 10 -> 16 / 3 -> 6: SCE130 closed the first of the two limits this file
+    // recorded -- a generic BOUND written through an alias. The reference
+    // gains six cases (the shape itself, enforcement, every alias target, the
+    // class and method parameter, an anti-vacuity control for a genuinely
+    // undefined bound, and declaration order); the twin gains the claim, the
+    // enforcement discriminator and the control.
+    refCases: 16,
+    twinCases: 6,
     whyPartial:
         'the twin is a different KIND of test, not this one with cases '
-        'dropped. The reference file walks nineteen measured SHAPES across ten '
+        'dropped. The reference file walks the measured SHAPES across sixteen '
         'cases -- `is`, `as`, parameters, return types, collection literals, '
-        'alias chains, and the two limits left in place -- which are one line '
-        'each when you can run source and a couple of dozen when every case is '
-        'a hand-built bundle. The twin carries the three that cannot pass by '
-        'accident: `is` answering BOTH ways, the fixpoint that makes '
-        'declaration order irrelevant, and the non-alias control for the `as` '
-        'change.',
+        'alias chains, generic bounds on functions, classes and methods -- '
+        'which are one line each when you can run source and a couple of '
+        'dozen when every case is a hand-built bundle. The twin carries the '
+        'six that cannot pass by accident: `is` answering BOTH ways, the '
+        'fixpoint that makes declaration order irrelevant, the non-alias '
+        'control for the `as` change, a bound through an alias running, that '
+        'bound being ENFORCED rather than swallowed, and an undefined bound '
+        'still being reported.',
   ),
   // SCD99's runtimeType reporting. Script-level. The defect lived in shared
   // interpreter code (`visitBinaryExpression`), so the twin is what says the
