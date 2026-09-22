@@ -1,3 +1,45 @@
+## 1.159.0
+
+### Fixed — seventeen adapters read an optional positional parameter as named (sce110)
+
+SCD68 checked that every `namedArgs['x']` in a bridged CONSTRUCTOR is a claim
+the SDK signature supports, and scoped itself there on a stated hypothesis:
+a method adapter "is often a hand-written convenience over several SDK members
+and the one-to-one mapping this check relies on does not hold".
+
+Nobody had counted. Counted now, over 279 claims:
+
+| section        | claims | resolved one-to-one |
+| -------------- | -----: | ------------------: |
+| methods        |    145 |                 145 |
+| constructors   |     71 |                  70 |
+| staticMethods  |     63 |                  63 |
+
+The hypothesis was wrong by 278 to 1 — the single exception is `BytesBuilder`'s
+unnamed constructor, a factory on an abstract class mirrors does not expose.
+
+TWO LOOKUP FIXES WERE NEEDED TO SEE THAT, and both were the checker's fault
+rather than the bridges'. Resolving only through `superclass` reported 47
+unresolvable, because `HashSet` IMPLEMENTS `Set` and reaches `firstWhere`
+through no superclass at all; adding `superinterfaces` took it to 14. The
+remaining 13 were factory constructors exposed as statics — `List.filled`,
+`Map.fromIterable`, `int.fromEnvironment` — an ordinary bridge shape whose
+signature mirrors can read, so the static lookup now falls back to the
+constructor of the same name.
+
+The widening found 17 mismatches, all the same shape as SCD68's:
+`Uri.parse` / `tryParse` / `parseIPv6Address`, `RandomAccessFile.lock` /
+`lockSync` / `unlock` / `unlockSync`, and `HttpClientResponse.redirect` each
+read an optional POSITIONAL parameter out of `namedArgs`. Read that way they
+were unreachable — the only spelling that fills them is one Dart refuses to
+compile — so `Uri.parse(s, 5)` ignored its offset and every `lock()` took an
+exclusive whole-file lock whatever it asked for. All read positionally now,
+length-guarded, and the guard covers all three sections with its anti-vacuity
+floor raised from 55 to 210 so the two new thirds cannot stop being walked
+quietly.
+
+Name resolution: no.
+
 ## 1.158.0
 
 ### Fixed — a runtime condition raises the SDK's Error, so `on RangeError` catches (sce109)

@@ -80,22 +80,38 @@ class UriCore {
     // hard failure on an otherwise complete class.
     staticGetters: {'base': (visitor) => Uri.base},
     staticMethods: {
+      // SCE110: `start` and `end` are optional POSITIONAL parameters of
+      // `Uri.parse(String uri, [int start = 0, int? end])`, not named ones.
+      // Read as named they were unreachable — the only spelling that would
+      // have filled them is one Dart refuses to compile — so the legal call
+      // silently used the defaults. Same shape as SCD68's `FormatException`.
       'parse': (visitor, positionalArgs, namedArgs, _) {
-        final start = namedArgs['start'] as int? ?? 0;
-        final end = namedArgs['end'] as int?;
+        D4.checkArity(positionalArgs, 'Uri.parse', atMost: 3);
+        final start = positionalArgs.length > 1 ? positionalArgs[1] as int : 0;
+        final end = positionalArgs.length > 2
+            ? positionalArgs[2] as int?
+            : null;
         return Uri.parse(positionalArgs[0] as String, start, end);
       },
+      // SCE110: positional, as on `parse` above.
       'tryParse': (visitor, positionalArgs, namedArgs, _) {
-        final start = namedArgs['start'] as int? ?? 0;
-        final end = namedArgs['end'] as int?;
+        D4.checkArity(positionalArgs, 'Uri.tryParse', atMost: 3);
+        final start = positionalArgs.length > 1 ? positionalArgs[1] as int : 0;
+        final end = positionalArgs.length > 2
+            ? positionalArgs[2] as int?
+            : null;
         return Uri.tryParse(positionalArgs[0] as String, start, end);
       },
       'parseIPv4Address': (visitor, positionalArgs, namedArgs, _) {
         return Uri.parseIPv4Address(positionalArgs[0] as String);
       },
+      // SCE110: positional, as on `parse` above.
       'parseIPv6Address': (visitor, positionalArgs, namedArgs, _) {
-        final start = namedArgs['start'] as int? ?? 0;
-        final end = namedArgs['end'] as int?;
+        D4.checkArity(positionalArgs, 'Uri.parseIPv6Address', atMost: 3);
+        final start = positionalArgs.length > 1 ? positionalArgs[1] as int : 0;
+        final end = positionalArgs.length > 2
+            ? positionalArgs[2] as int?
+            : null;
         return Uri.parseIPv6Address(positionalArgs[0] as String, start, end);
       },
       'encodeComponent': (visitor, positionalArgs, namedArgs, _) {

@@ -1087,14 +1087,24 @@ class HttpClientResponseIo {
             namedArgs,
           ),
       'redirect': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'HttpClient.redirect', atMost: 2);
+        // SCE110: atMost 3, not 2. The third optional positional is
+        // `followLoops`, which this adapter was reading out of `namedArgs` —
+        // so the bound agreed with the defect rather than with the SDK, and
+        // would have rejected the argument the moment it became readable. The
+        // description named `HttpClient` for a member of `HttpClientResponse`.
+        D4.checkArity(positionalArgs, 'HttpClientResponse.redirect', atMost: 3);
         final method = positionalArgs.isNotEmpty
             ? positionalArgs[0] as String?
             : null;
         final url = positionalArgs.length > 1
             ? positionalArgs[1] as Uri?
             : null;
-        final followLoops = namedArgs['followLoops'] as bool?;
+        // SCE110: `followLoops` is the THIRD optional positional parameter
+        // of `HttpClientResponse.redirect`, not a named one — its two
+        // neighbours just above were already read positionally.
+        final followLoops = positionalArgs.length > 2
+            ? positionalArgs[2] as bool?
+            : null;
         return (target as HttpClientResponse).redirect(
           method,
           url,

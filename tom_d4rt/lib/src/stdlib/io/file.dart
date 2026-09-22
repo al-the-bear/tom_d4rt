@@ -249,27 +249,42 @@ class RandomAccessFileIo {
         (target as RandomAccessFile).flushSync();
         return null;
       },
+      // SCE110: `mode`, `start` and `end` are optional POSITIONAL parameters
+      // of `RandomAccessFile.lock([FileLock mode, int start, int end])`. Read
+      // as named they were unreachable, so every call locked the whole file
+      // exclusively whatever it asked for.
       'lock': (visitor, target, positionalArgs, namedArgs, _) {
-        final mode = namedArgs['mode'] as FileLock? ?? FileLock.exclusive;
-        final start = namedArgs['start'] as int? ?? 0;
-        final end = namedArgs['end'] as int? ?? -1;
+        D4.checkArity(positionalArgs, 'RandomAccessFile.lock', atMost: 3);
+        final mode = positionalArgs.isNotEmpty
+            ? positionalArgs[0] as FileLock
+            : FileLock.exclusive;
+        final start = positionalArgs.length > 1 ? positionalArgs[1] as int : 0;
+        final end = positionalArgs.length > 2 ? positionalArgs[2] as int : -1;
         return (target as RandomAccessFile).lock(mode, start, end);
       },
+      // SCE110: positional, as on `lock` above.
       'lockSync': (visitor, target, positionalArgs, namedArgs, _) {
-        final mode = namedArgs['mode'] as FileLock? ?? FileLock.exclusive;
-        final start = namedArgs['start'] as int? ?? 0;
-        final end = namedArgs['end'] as int? ?? -1;
+        D4.checkArity(positionalArgs, 'RandomAccessFile.lockSync', atMost: 3);
+        final mode = positionalArgs.isNotEmpty
+            ? positionalArgs[0] as FileLock
+            : FileLock.exclusive;
+        final start = positionalArgs.length > 1 ? positionalArgs[1] as int : 0;
+        final end = positionalArgs.length > 2 ? positionalArgs[2] as int : -1;
         (target as RandomAccessFile).lockSync(mode, start, end);
         return null;
       },
+      // SCE110: positional, as on `lock` above.
       'unlock': (visitor, target, positionalArgs, namedArgs, _) {
-        final start = namedArgs['start'] as int? ?? 0;
-        final end = namedArgs['end'] as int? ?? -1;
+        D4.checkArity(positionalArgs, 'RandomAccessFile.unlock', atMost: 2);
+        final start = positionalArgs.isNotEmpty ? positionalArgs[0] as int : 0;
+        final end = positionalArgs.length > 1 ? positionalArgs[1] as int : -1;
         return (target as RandomAccessFile).unlock(start, end);
       },
+      // SCE110: positional, as on `lock` above.
       'unlockSync': (visitor, target, positionalArgs, namedArgs, _) {
-        final start = namedArgs['start'] as int? ?? 0;
-        final end = namedArgs['end'] as int? ?? -1;
+        D4.checkArity(positionalArgs, 'RandomAccessFile.unlockSync', atMost: 2);
+        final start = positionalArgs.isNotEmpty ? positionalArgs[0] as int : 0;
+        final end = positionalArgs.length > 1 ? positionalArgs[1] as int : -1;
         (target as RandomAccessFile).unlockSync(start, end);
         return null;
       },

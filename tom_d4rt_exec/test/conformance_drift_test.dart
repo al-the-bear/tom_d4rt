@@ -1333,7 +1333,7 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
   // exec has a different registry, so a copy would reflect over the reference
   // tree while pretending to measure this one — the same family as the three
   // `stdlib_member_diff.dart` entries below.
-  'scd68_constructor_named_args_test.dart': (ran: 2, declared: 2),
+  'scd68_constructor_named_args_test.dart': (ran: 3, declared: 3),
   // NOT PORTABLE, same tool and same reason as the entries above: all three
   // import `tool/stdlib_member_diff.dart`, the `dart:mirrors` reflector over
   // tom_d4rt's registry. Measured 2026-09-15: does-not-compile against both
