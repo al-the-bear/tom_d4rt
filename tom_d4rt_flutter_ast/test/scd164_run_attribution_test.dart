@@ -107,13 +107,24 @@ String _dartExecutable() {
   final config = File('.dart_tool/package_config.json');
   if (config.existsSync()) {
     final match = RegExp(
-      r'"flutterRoot"\s*:\s*"file://([^"]*)"',
+      r'"flutterRoot"\s*:\s*"([^"]*)"',
     ).firstMatch(config.readAsStringSync());
-    final root = match?.group(1);
-    if (root != null && root.isNotEmpty) {
-      // Forward slashes on purpose: Windows accepts them everywhere Dart's
-      // `File` and `Process.run` are used, and this avoids pulling in
-      // `package:path` for two joins.
+    final uri = match?.group(1);
+    if (uri != null && uri.isNotEmpty) {
+      // `Uri.toFilePath()` rather than string surgery on the `file://` prefix,
+      // and that is the whole of the Windows fix. The first attempt captured
+      // everything after `file://` and got `/C:/flutter-sdk/flutter` there —
+      // a leading slash before the drive letter, which no `File` on Windows
+      // resolves — so the lookup silently fell through to the bare name and
+      // the guard failed exactly as before. On POSIX the same capture happens
+      // to be right, which is why it looked correct on the machine it was
+      // written on.
+      String root;
+      try {
+        root = Uri.parse(uri).toFilePath();
+      } on Object {
+        return 'dart';
+      }
       for (final candidate in [
         '$root/bin/cache/dart-sdk/bin/dart.exe',
         '$root/bin/cache/dart-sdk/bin/dart',
