@@ -249,11 +249,64 @@ void main() {
       );
     });
 
-    test('F-SCD95-11: the pass never throws [2026-09-14]', () {
-      // The contract that makes it safe to build before it is trusted: it is a
-      // report, and `execute()` does not call it.
-      expect(() => report('main() { return a + b + c; }'), returnsNormally);
-      expect(names('main() { return a + b + c; }'), ['a', 'b', 'c']);
+    test('F-SCD95-12: a label reference is not a read [2026-09-14, added by '
+        'SCE128 2026-09-22]', () {
+      // SCE128 tried to ENFORCE this pass and ran it over the reference suite
+      // — a broader corpus than either of phase 1's sweeps. A label reference
+      // was the single most frequent false positive: the DECLARATION is a
+      // `Label` node and was excluded, but `break outer;` puts the name in a
+      // bare `SimpleIdentifier` under a `BreakStatement`.
+      expect(
+        names('main() { outer: for (var i = 0; i < 1; i++) { break outer; } }'),
+        isEmpty,
+      );
+      expect(
+        names(
+          'main() { loop: for (var i = 0; i < 1; i++) { continue loop; } }',
+        ),
+        isEmpty,
+      );
+      expect(names('main() { block: { break block; } }'), isEmpty);
+    });
+
+    test('F-SCD95-13: an extension type declares its representation [2026-09-14, '
+        'added by SCE128 2026-09-22]', () {
+      // The second hole the reference suite found. An extension type's members
+      // read the representation bare, and nothing recorded it as declared, so
+      // every such read was reported — twelve distinct members across the
+      // suite, including the operator ones (`*`, `>`, `~`, `[]`).
+      expect(
+        names(
+          'extension type X(int value) { int get doubled => value * 2; }\n'
+          'main() { return X(1).doubled; }',
+        ),
+        isEmpty,
+      );
+      expect(
+        names(
+          'extension type X(List items) { int get sum => items.length; '
+          'Object operator [](int i) => items[i]; }\n'
+          'main() { return X([1]).sum; }',
+        ),
+        isEmpty,
+      );
+      // AND THE COVERAGE COST IS STATED RATHER THAN DISCOVERED: an extension
+      // type is now an OPEN class, like a mixin or an extension, because it
+      // `implements` types that can leave the unit. So a genuinely undefined
+      // name inside one is NOT reported either — the fix bought correctness at
+      // the price of reach, which is the trade every entry in `openClasses`
+      // makes.
+      const withBad =
+          'extension type X(int value) { int get bad => nope; }\n'
+          'main() { return X(1).bad; }';
+      expect(names(withBad), isEmpty);
+      expect(
+        report(withBad).openClasses,
+        contains('X'),
+        reason:
+            'and the count is visible in the data, which is what '
+            '`openClasses` exists for',
+      );
     });
   });
 }

@@ -267,6 +267,26 @@ class _NameReportVisitor extends GeneralizingAstVisitor<void> {
   }
 
   @override
+  void visitExtensionTypeDeclaration(ExtensionTypeDeclaration node) {
+    // SCE128. An extension type declares its REPRESENTATION as a name its
+    // members read bare — `int get doubled => value * 2` — and nothing here
+    // recorded it, so every such read was reported. It also `implements`
+    // types that can leave the unit, which is the same openness a class has.
+    openClasses.add(node.name.lexeme);
+    _openClassDepth++;
+    _push({
+      ..._typeParamNames(node.typeParameters),
+      node.representation.fieldName.lexeme,
+      for (final m in node.members)
+        if (m is MethodDeclaration) m.name.lexeme,
+      'this',
+    });
+    node.visitChildren(this);
+    _pop();
+    _openClassDepth--;
+  }
+
+  @override
   void visitEnumDeclaration(EnumDeclaration node) {
     openClasses.add(node.name.lexeme);
     _openClassDepth++;
@@ -481,6 +501,14 @@ class _NameReportVisitor extends GeneralizingAstVisitor<void> {
       case PropertyAccess() when parent.isCascaded:
         return false;
       // Names that are tags rather than reads.
+      //
+      // SCE128 added the first two. A label DECLARATION is a `Label` node and
+      // was already excluded; a label REFERENCE — the `outer` in
+      // `break outer;` — is a bare `SimpleIdentifier` whose parent is the
+      // break or continue, so it read as an undefined name. It was the single
+      // most frequent false positive when the pass was first enforced.
+      case BreakStatement():
+      case ContinueStatement():
       case Label():
       case ConstructorName():
       case ConstructorDeclaration():

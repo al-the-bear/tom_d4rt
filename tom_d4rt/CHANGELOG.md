@@ -1,3 +1,38 @@
+## 1.172.0
+
+### Fixed — two holes in the static name resolver (sce128, phase 2 groundwork)
+
+SCE128 wired SCD95's report-only pass to the environment and let it REFUSE a
+program, then ran it over the reference suite — a broader corpus than either of
+phase 1's sweeps. Enforcement is NOT landed (see the todo); what is landed is
+what that run found.
+
+TWO FALSE-POSITIVE CLASSES, both structural:
+
+* A LABEL REFERENCE. The declaration is a `Label` node and was excluded; the
+  `outer` in `break outer;` is a bare `SimpleIdentifier` under a
+  `BreakStatement`, so it read as an undefined name. The most frequent false
+  positive by a wide margin.
+* AN EXTENSION TYPE'S REPRESENTATION. Its members read the representation bare
+  — `int get doubled => value * 2` — and nothing recorded it as declared, so
+  every such read was reported, twelve distinct members across the suite
+  including the operator ones.
+
+An extension type is now an OPEN class alongside mixins and extensions, because
+it `implements` types that can leave the unit. That buys correctness at the
+price of reach, and F-SCD95-13 states the trade rather than leaving it to be
+discovered.
+
+MEASURED, both sweeps re-run: the inline sweep goes to 1045 clean of 1069
+(phase 1: 799 of 807, on a smaller corpus) and the flutter sweep to 2083 clean
+of 2085 with ONE dirty, down from two. Every remaining flag was read and is a
+true positive — a deliberately undefined name, an out-of-scope `catch` binding
+used after its block, or an intentionally-unbridged SDK type.
+
+The pass remains REPORT-ONLY; `execute()` does not call it.
+
+Name resolution: no — the pass is not wired into execution.
+
 ## 1.171.0
 
 ### Changed — an `on` clause naming an unresolvable type now fails (sce127)
