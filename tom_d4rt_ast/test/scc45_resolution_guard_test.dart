@@ -264,6 +264,33 @@ Set<String> _declaredPathDependencies(Directory package) {
 /// green result is a bounded claim rather than a word. Measured on mbp
 /// 2026-09-15: 52 version directories, 23 distinct packages, 13 of them holding
 /// more than one version.
+///
+/// THE FLEET WAS LAST COVERED 2026-09-22 (SCE147), and this is the first time
+/// this guard has run anywhere but mbp. All four hosts now pass 7 of 7; three
+/// of them did not before. What each one measured, after remediation:
+///
+///     mbp            68 versions / 23 packages / 15 multi   (was already green)
+///     bomber         89 / 18 / 13                           (was F-SCC45-1, -2)
+///     bigbeast       49 / 18 / 12                           (was -1, -2, -7)
+///     legiondary01   50 / 17 / 11                           (was -1, -7; -2/-4 SKIPPED)
+///
+/// THE SENSITIVITY LINE IS THE POINT OF RECORDING IT. bomber holds MORE cached
+/// `tom_*` versions than mbp and bigbeast fewer than either, so three greens
+/// that read identically are three different strengths of claim. And
+/// legiondary01's first run reported 0/0/0 against a cache holding 622
+/// packages — the guard could not find `%LOCALAPPDATA%\Pub\Cache`, so
+/// SCD130's floor skipped two cases on a false premise while printing a remedy
+/// (`dart pub get`) that could not have helped. `pubCacheRoot()` in
+/// `stale_locks.dart` is the fix, and that bug was reachable only by running
+/// here.
+///
+/// WHAT REMEDIATION COST, recorded because the next fleet pass will want it:
+/// 23 packages upgraded on bomber, 29 on bigbeast, 8 on legiondary01, plus
+/// `pub get` in five example fixtures whose locks still named a path
+/// dependency their pubspec had dropped. Two of bomber's needed a SECOND pass —
+/// the tool plans from the cache, and upgrading the early packages warms it, so
+/// entries that were current when the plan was made are stale by the end. The
+/// tool says so rather than hiding it; re-run it until it reports nothing.
 ({int versions, int packages, int multiVersion}) _cacheSensitivity() {
   // SCE147: `pubCacheRoot()` rather than a second hand-rolled `$HOME` join.
   // This one honoured neither `PUB_CACHE` nor the Windows default, so on
@@ -875,6 +902,32 @@ void main() {
       // it by `path:` — the per-package print in setUpAll shows them.
       if (root == null) {
         markTestSkipped('d4rt repo root not reachable — nothing to check');
+        return;
+      }
+
+      // SCE147: THE ANCHOR HAS TO HAVE BEEN RESOLVED, and on a host where it
+      // has not this case accused the wrong thing. `pathLinkedDependents`
+      // reads LOCKS, so a fixture nobody has run `pub get` in is invisible to
+      // it — and the failure below then reads "`pathLinkedDependents` missed a
+      // fixture … the second pass is a no-op that reads as working", which is
+      // a bug report about the tool. On legiondary01 the tool was fine and the
+      // fixture had simply never been resolved; 14 of the repo's 40-odd
+      // packages had locks at all.
+      //
+      // Same shape as SCD130's cache floor one case over: "the mechanism is
+      // broken" and "this host has not run it yet" are opposite diagnoses, and
+      // reporting them in one sentence sends the reader after the wrong one.
+      final anchorLock = File(
+        '${root.path}/tom_d4rt_exec/example/d4/pubspec.lock',
+      );
+      if (!anchorLock.existsSync()) {
+        markTestSkipped(
+          'F-SCC45-7 cannot answer on this machine: its anchor fixture '
+          'tom_d4rt_exec/example/d4 has no pubspec.lock, so '
+          '`pathLinkedDependents` has nothing to find there and an empty '
+          'result would read as a broken tool. Run `dart pub get` in that '
+          'fixture and re-run.',
+        );
         return;
       }
 
