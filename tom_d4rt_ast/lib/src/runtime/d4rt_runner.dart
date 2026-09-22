@@ -128,6 +128,32 @@ class LibraryExtension {
 /// switches the read path (a warm parent [Environment]) onto the pool. The
 /// shapes here are intentionally identical to the per-instance fields so the
 /// read-path switch is a mechanical change rather than a re-modelling.
+/// The read-side registries of one [D4rtRunner], merged across its own
+/// registrations and the pooled ones of every package it was granted.
+///
+/// SCE150. A record rather than seven cached fields: they are built together
+/// from one pool walk and invalidated together, so splitting them would be
+/// seven chances for one to go stale on its own.
+class _MergedRegistries {
+  _MergedRegistries({
+    required this.bridgedEnumDefinitions,
+    required this.bridgedClasses,
+    required this.bridgedExtensions,
+    required this.libraryFunctions,
+    required this.libraryVariables,
+    required this.libraryGetters,
+    required this.librarySetters,
+  });
+
+  final Map<String, Map<String, LibraryEnum>> bridgedEnumDefinitions;
+  final Map<String, Map<String, LibraryClass>> bridgedClasses;
+  final Map<String, List<LibraryExtension>> bridgedExtensions;
+  final Map<String, Map<String, LibraryFunction>> libraryFunctions;
+  final Map<String, Map<String, LibraryVariable>> libraryVariables;
+  final Map<String, Map<String, LibraryGetter>> libraryGetters;
+  final Map<String, Map<String, LibrarySetter>> librarySetters;
+}
+
 class _PackageBridgeBundle {
   final Map<String, Map<String, LibraryEnum>> bridgedEnumDefinitions = {};
   final Map<String, Map<String, LibraryClass>> bridgedClasses = {};
@@ -448,30 +474,39 @@ class D4rtRunner {
   // Bridge Data Access (for AstModuleLoader)
   // =========================================================================
 
+  // Each of these reads THROUGH the process-global pool — see [_merged] for
+  // why, and for the failure that made it necessary. They are READ views: the
+  // returned map may be a fresh merge, so writing to one is not a
+  // registration. Every `register*` method writes the instance field and the
+  // pooled bundle directly.
+
   /// Registered bridged enum definitions: URI → (name → enum).
   Map<String, Map<String, LibraryEnum>> get bridgedEnumDefinitions =>
-      _bridgedEnumDefinitions;
+      _merged.bridgedEnumDefinitions;
 
   /// Registered bridged class definitions: URI → (name → class).
-  Map<String, Map<String, LibraryClass>> get bridgedClasses => _bridgedClasses;
+  Map<String, Map<String, LibraryClass>> get bridgedClasses =>
+      _merged.bridgedClasses;
 
   /// Registered bridged extension definitions: URI → list of extensions.
   Map<String, List<LibraryExtension>> get bridgedExtensions =>
-      _bridgedExtensions;
+      _merged.bridgedExtensions;
 
   /// Registered library functions: URI → (name → function).
   Map<String, Map<String, LibraryFunction>> get libraryFunctions =>
-      _libraryFunctions;
+      _merged.libraryFunctions;
 
   /// Registered library variables: URI → (name → variable).
   Map<String, Map<String, LibraryVariable>> get libraryVariables =>
-      _libraryVariables;
+      _merged.libraryVariables;
 
   /// Registered library getters: URI → (name → getter).
-  Map<String, Map<String, LibraryGetter>> get libraryGetters => _libraryGetters;
+  Map<String, Map<String, LibraryGetter>> get libraryGetters =>
+      _merged.libraryGetters;
 
   /// Registered library setters: URI → (name → setter).
-  Map<String, Map<String, LibrarySetter>> get librarySetters => _librarySetters;
+  Map<String, Map<String, LibrarySetter>> get librarySetters =>
+      _merged.librarySetters;
 
   /// The set of library URIs that have at least one registered bridge
   /// (class, enum, extension, function, variable, getter, or setter).
@@ -484,15 +519,18 @@ class D4rtRunner {
   /// extra bookkeeping is required. Lives here (zero-dependency core) so the
   /// host parser can be any analyzer front-end without coupling the runtime
   /// to it.
-  Set<String> get bridgedLibraryUris => <String>{
-    ..._bridgedClasses.keys,
-    ..._bridgedEnumDefinitions.keys,
-    ..._bridgedExtensions.keys,
-    ..._libraryFunctions.keys,
-    ..._libraryVariables.keys,
-    ..._libraryGetters.keys,
-    ..._librarySetters.keys,
-  };
+  Set<String> get bridgedLibraryUris {
+    final m = _merged;
+    return <String>{
+      ...m.bridgedClasses.keys,
+      ...m.bridgedEnumDefinitions.keys,
+      ...m.bridgedExtensions.keys,
+      ...m.libraryFunctions.keys,
+      ...m.libraryVariables.keys,
+      ...m.libraryGetters.keys,
+      ...m.librarySetters.keys,
+    };
+  }
 
   // =========================================================================
   // Bridge Registration
@@ -567,10 +605,137 @@ class D4rtRunner {
   _PackageBridgeBundle _bundleFor([String? package]) {
     _instanceWarmParent = null;
     _instanceBridgedModuleEnvCache = null;
+    // SCE150: every `register*` goes through here, so this is also where the
+    // pool's revision moves. The merged read-side views below cache on it.
+    _poolRevision++;
     return _packagePool.putIfAbsent(
       package ?? _currentProvidingPackage ?? _defaultPackage,
       _PackageBridgeBundle.new,
     );
+  }
+
+  /// Bumped on every write into the process-global pool, so the merged
+  /// read-side registries can tell a stale cache from a current one.
+  ///
+  /// An int rather than a content hash: the choke point is [_bundleFor], which
+  /// runs once per `register*` call, so an increment there is exact and free.
+  static int _poolRevision = 0;
+
+  /// The merged read-side registries, rebuilt when the pool or this instance's
+  /// grants have moved.
+  ///
+  /// SCE150. Bridge registration is POOLED per process, so the second
+  /// `providePackage` for a package returns true and its caller skips the
+  /// `register*` block — and with it the dual-write into the instance maps.
+  /// The interpreter still resolved everything, because it reads the pool; the
+  /// public getters did not, because they read only the instance maps. A
+  /// second interpreter in one process therefore reported EMPTY registries
+  /// while working perfectly.
+  ///
+  /// THE FAILURE SURFACED LAYERS AWAY FROM ITS CAUSE, which is what made it
+  /// worth fixing rather than documenting: `AstBundler(bridgedLibraries:
+  /// runner.bridgedLibraryUris)` stopped skipping bridged imports and the
+  /// compile died with `Package import "package:flutter/material.dart" is not
+  /// bridged and not in the same package` — a message about a missing bridge,
+  /// for a bridge that was present. Nothing in the getters' names or doc
+  /// comments hinted at a dependence on construction order.
+  ///
+  /// So the getters read THROUGH the pool, which restores what their names
+  /// promise: what THIS interpreter has bridged, whoever constructed first.
+  /// Only [_allowedPackages] are merged — an instance sees the packages it was
+  /// granted and no others, which is the same whitelist the warm parent uses.
+  ///
+  /// NOT MIRRORED INTO `tom_d4rt`, and that is measured rather than skipped.
+  /// The mirror rule would normally carry a fix like this across, and the
+  /// bundle shapes ARE mirrored — but `D4rt` exposes no read-side registry
+  /// getter at all: its `_bridgedEnumDefinitions` and friends are private, and
+  /// its one consumer already reads the merged view
+  /// (`merged?.bridgedEnumDefinitions ?? _bridgedEnumDefinitions`, where the
+  /// `ModuleLoader` is built). There is nothing there that can report empty,
+  /// so there is nothing to mirror; a copy of this machinery would be dead
+  /// code held to the diff rule for ever.
+  _MergedRegistries get _merged {
+    final cached = _mergedRegistries;
+    if (cached != null &&
+        _mergedRevision == _poolRevision &&
+        _mergedAllowedCount == _allowedPackages.length) {
+      return cached;
+    }
+    final bundles = [
+      for (final package in _allowedPackages) ?_packagePool[package],
+    ];
+    final built = _MergedRegistries(
+      bridgedEnumDefinitions: _mergeByName(_bridgedEnumDefinitions, [
+        for (final b in bundles) b.bridgedEnumDefinitions,
+      ]),
+      bridgedClasses: _mergeByName(_bridgedClasses, [
+        for (final b in bundles) b.bridgedClasses,
+      ]),
+      bridgedExtensions: _mergeByList(_bridgedExtensions, [
+        for (final b in bundles) b.bridgedExtensions,
+      ]),
+      libraryFunctions: _mergeByName(_libraryFunctions, [
+        for (final b in bundles) b.libraryFunctions,
+      ]),
+      libraryVariables: _mergeByName(_libraryVariables, [
+        for (final b in bundles) b.libraryVariables,
+      ]),
+      libraryGetters: _mergeByName(_libraryGetters, [
+        for (final b in bundles) b.libraryGetters,
+      ]),
+      librarySetters: _mergeByName(_librarySetters, [
+        for (final b in bundles) b.librarySetters,
+      ]),
+    );
+    _mergedRegistries = built;
+    _mergedRevision = _poolRevision;
+    _mergedAllowedCount = _allowedPackages.length;
+    return built;
+  }
+
+  _MergedRegistries? _mergedRegistries;
+  int _mergedRevision = -1;
+  int _mergedAllowedCount = -1;
+
+  /// Pooled entries first, this instance's own last, so a registration made
+  /// directly on THIS runner wins a name collision with a pooled one.
+  static Map<String, Map<String, T>> _mergeByName<T>(
+    Map<String, Map<String, T>> instance,
+    List<Map<String, Map<String, T>>> pooled,
+  ) {
+    if (pooled.isEmpty) return instance;
+    final out = <String, Map<String, T>>{};
+    for (final source in [...pooled, instance]) {
+      source.forEach((uri, byName) {
+        (out[uri] ??= <String, T>{}).addAll(byName);
+      });
+    }
+    return out;
+  }
+
+  /// As [_mergeByName], for the one registry whose values are lists.
+  ///
+  /// Concatenated rather than replaced, and DE-DUPLICATED by identity: the
+  /// instance list and the pooled list are the same objects when the first
+  /// instance registered them, so a naive concatenation would double every
+  /// extension for the runner that did the registering.
+  static Map<String, List<T>> _mergeByList<T>(
+    Map<String, List<T>> instance,
+    List<Map<String, List<T>>> pooled,
+  ) {
+    if (pooled.isEmpty) return instance;
+    final out = <String, List<T>>{};
+    for (final source in [...pooled, instance]) {
+      source.forEach((uri, values) {
+        final target = out[uri] ??= <T>[];
+        for (final value in values) {
+          if (!target.any((existing) => identical(existing, value))) {
+            target.add(value);
+          }
+        }
+      });
+    }
+    return out;
   }
 
   /// Diagnostics / test introspection — the set of package names currently in
@@ -598,6 +763,7 @@ class D4rtRunner {
   /// Used only by tests that need a pristine pool (both are otherwise immortal
   /// for the life of the process). Not part of the normal runtime contract.
   static void debugResetPool() {
+    _poolRevision++;
     _packagePool.clear();
     _warmParentCache.clear();
     _bridgedModuleEnvCache.clear();

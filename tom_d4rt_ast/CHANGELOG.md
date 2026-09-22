@@ -1,3 +1,42 @@
+## 0.159.0
+
+### Fixed — a second interpreter reported empty bridge registries (sce150)
+
+Bridge registration is pooled per process, so the second `providePackage` for a
+package returns true and its caller skips the `register*` block — and with it
+the dual-write into the instance maps. The interpreter went on resolving
+everything, because it reads the pool. The public getters did not:
+
+    final second = FlutterD4rt();          // same process as the first
+    second.interpreter.bridgedLibraryUris  // {} — and everything still worked
+
+THE FAILURE SURFACED LAYERS FROM ITS CAUSE, which is what made it worth fixing
+rather than documenting. `AstBundler(bridgedLibraries: ...bridgedLibraryUris)`
+stopped skipping bridged imports and the compile died with `Package import
+"package:flutter/material.dart" is not bridged and not in the same package` — a
+message about a missing bridge, for a bridge that was present and working.
+Nothing in the getters' names or doc comments hinted at a dependence on
+construction order.
+
+`bridgedEnumDefinitions`, `bridgedClasses`, `bridgedExtensions`,
+`libraryFunctions`, `libraryVariables`, `libraryGetters`, `librarySetters` and
+`bridgedLibraryUris` now read THROUGH the pool, merged across the packages this
+instance was GRANTED and no others — the same whitelist the warm parent uses.
+The merge is cached against a pool revision bumped at `_bundleFor`, the choke
+point every `register*` passes through, so a later registration is visible
+without re-walking the pool on every read.
+
+They are read views: the returned map may be a fresh merge, so writing to one
+was never a registration and still is not. Every `register*` writes the
+instance field and the pooled bundle directly.
+
+Not mirrored into `tom_d4rt`: measured, it exposes no read-side registry getter
+at all and its one consumer already reads the merged view, so there is nothing
+there that can report empty.
+
+Name resolution: no — which bridge a name resolves to is untouched; this is
+what the instance REPORTS about its own registrations.
+
 ## 0.158.0
 
 ### Verified — the PASS B narrowing measured against the Flutter corpus (sce149)
