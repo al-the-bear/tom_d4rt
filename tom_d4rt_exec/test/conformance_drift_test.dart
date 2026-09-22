@@ -375,9 +375,36 @@ const _partialTwinBudget = 1;
 /// port would have added is stream and future chains over closures, which the
 /// corpus copies on every run.
 ///
-const _copierGapBudget = 37;
+/// 37 -> 38: SCE120 added `sce120_linked_list_subclass_test.dart`, which runs
+/// source to ask whether a script subclass of `LinkedListEntry` survives a
+/// round trip through a `LinkedList`. Exec resolves tom_d4rt_ast from pub.dev,
+/// where the entry bridge is still the value-wrapper shape that rejects the
+/// idiom outright, so a port would assert the fix against an interpreter whose
+/// constructor refuses the script's `super()`. Its ast twin holds the proxy
+/// half. The copier surface a port would have added is a class with an
+/// `extends` clause carrying a type argument, a field formal parameter and a
+/// `toString` override — all of which the corpus copies on every run.
+///
+const _copierGapBudget = 38;
 
 const Map<String, _Coverage> _coveredElsewhere = {
+  'sce120_linked_list_subclass_test.dart': _Coverage(
+    'ast:runtime/sce120_linked_list_subclass_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 5,
+    twinCases: 2,
+    whyPartial:
+        'the twin pins the two MECHANISMS only this tree can answer for '
+        'itself — the `D4InterpretedProxy` unwrap that makes `l.first.v` the '
+        'script\'s field, and the `toString` this commit fixed. The bridge '
+        'file is code-identical between the trees (F-SCD49-2), so nothing '
+        'about `_OwnedLinkedListEntry` differs; what differs is the '
+        'interpreter consulting it. The three the reference adds sweep the '
+        'SDK surface — addAll/addFirst/remove/unlink/contains/map/toList, '
+        'iteration, and the two gaps left standing — and each row is another '
+        'hand-built bundle over a question the same proxy already answered.',
+  ),
   'sce117_handle_error_unwrapping_test.dart': _Coverage(
     'ast:runtime/sce117_handle_error_unwrapping_test.dart',
     _astTwin,

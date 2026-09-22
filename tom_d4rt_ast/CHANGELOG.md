@@ -1,3 +1,34 @@
+## 0.150.0
+
+### Fixed — a read-back `LinkedListEntry` renders the script's own `toString` (sce120)
+
+`class E extends LinkedListEntry<E>` — the idiom the SDK documents — works end
+to end: the implicit `super()` constructs, `add` accepts the interpreted
+instance, and the list round-trips it, so `l.first.v`, `identical(l.first, e)`
+and `for (final e in l)` all reach the script's own class. That was closed by
+SCD75's follow-through; SCE120 found the one place it still leaked.
+
+The proxy unwrap is a FALLBACK: the interpreter tries the bridge's own members
+first and only reaches `D4InterpretedProxy.d4rtInstance` when they fail.
+`myField` fails and unwraps; `toString` SUCCEEDED, on the wrapper — so a script
+declaring `String toString() => 'E:' + v.toString()` read back
+`LinkedListEntry(E:1)`, its own rendering wrapped in the name of a class it
+never wrote, and the same object printed two different ways depending on
+whether it had been through a list.
+
+Fixed where the substitution is manufactured, in
+`_OwnedLinkedListEntry.toString`, rather than by reordering the general unwrap:
+the proxy exists to speak for the instance, so it answers with the instance's
+own `toString` — which dispatches to the script's override and degrades to the
+diagnostic form when there is none (SCD72, shared since SCE116).
+
+Two wider gaps are pinned rather than fixed, both measured: `l.first.runtimeType`
+reports the proxy type, which is a question about every `D4InterpretedProxy`;
+and an interpreted class declaring no `toString` cannot have one called at all,
+which is the universal-member path for every class.
+
+Name resolution: no.
+
 ## 0.149.0
 
 ### Fixed — the last route that handed an embedder the interpreter's wrapper (sce117)

@@ -210,8 +210,25 @@ final class _OwnedLinkedListEntry extends BridgedLinkedListEntry
   @override
   Object get d4rtInstance => owner ?? this;
 
+  /// The owner's own `toString` when there is one.
+  ///
+  /// SCE120. This used to read `LinkedListEntry(<owner>)`, and it is the one
+  /// place the proxy leaked: `list.first.myField` reaches the script's class
+  /// through [D4InterpretedProxy], but `toString` does not, because the
+  /// unwrap is a FALLBACK after the bridge's own members fail and this one
+  /// succeeded. A script that declares `String toString() => 'E:' + …` saw
+  /// `LinkedListEntry(E:1)` — its own rendering wrapped in the name of a class
+  /// it never mentioned.
+  ///
+  /// `owner` is an `InterpretedInstance`, whose `toString()` dispatches to the
+  /// script's override and degrades to the diagnostic form when there is none
+  /// (SCD72, shared since SCE116), so this is the script's answer or the
+  /// interpreter's — never the wrapper's.
+  ///
+  /// The unowned case keeps the old shape: there is no script object to
+  /// speak for, and the name is the useful thing to print.
   @override
-  String toString() => 'LinkedListEntry(${owner ?? 'unowned'})';
+  String toString() => owner?.toString() ?? 'LinkedListEntry(unowned)';
 }
 
 /// The native entry behind [arg], whichever way the script produced it, with
