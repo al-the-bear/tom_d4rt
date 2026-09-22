@@ -1,3 +1,29 @@
+## 0.153.0
+
+### Fixed — `String.fromCharCodes` accepts any `Iterable`, as the SDK declares (sce126)
+
+SCD93 swept `interpreter_visitor.dart` for guards that pre-empt a native
+operator; SCE126 swept the STDLIB BRIDGES with the same method, where 165 lines
+carry a matching shape. 63 expressions were compared against real Dart, error
+type for error type.
+
+THE YIELD IS ONE. `String.fromCharCodes` cast its argument to `List` where the
+SDK declares `Iterable<int>`, so a `Set`, a `.map(…)` or a `.where(…)` raised
+`_TypeError` for input real Dart accepts. The cast is now to `Iterable`, which
+is the SDK's own domain; a non-Iterable still raises the same `_TypeError`.
+
+TYPE AGREEMENT OVER BAD INPUT WAS NOT ENOUGH TO FIND IT, and that is the method
+worth recording: all 37 bad-input cases agreed, so a sweep that asks only "does
+the wrong argument raise the right error" reports nothing. The divergence is
+visible only over GOOD input — a value the SDK accepts and the bridge rejects —
+so a second pass fed twenty-six Iterable- and Pattern-taking members something
+legal. Twenty-three of the twenty-six already agreed.
+
+The agreements are pinned as well as the fix, because they are what stops the
+guards being reinstated.
+
+Name resolution: no.
+
 ## 0.152.0
 
 ### Fixed — a bare write to a static field from an instance method updates the static (sce125)

@@ -401,9 +401,33 @@ const _partialTwinBudget = 1;
 /// a port would have added is a class with a static field and a compound
 /// assignment to a bare name, both of which the corpus copies on every run.
 ///
-const _copierGapBudget = 40;
+/// 40 -> 41: SCE126 added `sce126_stdlib_guard_sweep_test.dart`, which runs
+/// source to compare what the stdlib bridges raise against what real Dart
+/// raises. Exec resolves tom_d4rt_ast from pub.dev, where `String.fromCharCodes`
+/// still casts to `List`, so a port would assert the widened domain against a
+/// bridge that rejects it. Its ast twin holds that case. The copier surface a
+/// port would have added is set literals and `.where(…)` over list literals,
+/// which the corpus copies on every run.
+///
+const _copierGapBudget = 41;
 
 const Map<String, _Coverage> _coveredElsewhere = {
+  'sce126_stdlib_guard_sweep_test.dart': _Coverage(
+    'ast:runtime/sce126_stdlib_guard_sweep_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 3,
+    twinCases: 2,
+    whyPartial:
+        'the twin pins the one DIVERGENCE the sweep found and its control. '
+        'The stdlib trees are code-identical (F-SCD49-2), so the cast is the '
+        'same source; what the twin adds is that this tree\'s own set literal '
+        'and closures produce an argument the widened cast accepts. The '
+        'reference\'s third case is the 63-expression agreement table, which '
+        'is a REAL-DART comparison rather than a property of either '
+        'interpreter — restating it as bundles would assert the SDK against '
+        'itself.',
+  ),
   'sce125_bare_static_write_test.dart': _Coverage(
     'ast:runtime/sce125_bare_static_write_test.dart',
     _astTwin,

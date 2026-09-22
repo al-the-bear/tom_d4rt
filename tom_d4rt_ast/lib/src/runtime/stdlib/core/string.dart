@@ -11,8 +11,15 @@ class StringCore {
         return String.fromCharCode(positionalArgs[0] as int);
       },
       'fromCharCodes': (visitor, positionalArgs, namedArgs, _) {
+        // SCE126: `Iterable`, not `List`. The SDK signature is
+        // `String.fromCharCodes(Iterable<int> charCodes, [int start, int? end])`,
+        // and casting to `List` narrowed the domain — a `Set`, a `.map(…)` or a
+        // `.where(…)` raised `_TypeError` where real Dart returns the string.
+        // The only one of the twenty-six Iterable- and Pattern-taking members
+        // swept that disagreed; the cast stays a cast, because a non-Iterable
+        // argument raises the same `_TypeError` the SDK does.
         return String.fromCharCodes(
-          (positionalArgs[0] as List).cast<int>(),
+          (positionalArgs[0] as Iterable).cast<int>(),
           positionalArgs.length > 1 ? positionalArgs[1] as int? ?? 0 : 0,
           positionalArgs.length > 2 ? positionalArgs[2] as int? : null,
         );
