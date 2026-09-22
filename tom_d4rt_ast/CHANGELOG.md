@@ -1,3 +1,22 @@
+## 0.147.0
+
+### Fixed — an extension-type instance renders as the thing it wraps (sce116)
+
+`extension type Y(int v) {}` declares no `toString`, so the call erases to
+`Object.toString()` on the value `Y` wraps and real Dart prints `7`. d4rt
+printed `<instance of Y>`.
+
+AN EXTENSION TYPE IS ITS REPRESENTATION AT RUN TIME, which is the whole
+reason: the wrapper is a static fiction with no runtime existence to describe.
+`<instance of Y>` was not an imprecise rendering of the right object, it was a
+rendering of the wrong one.
+
+This is the half of SCE116 that has nothing to do with overrides, and it lands
+on its own because it is a different defect that happens to live in the same
+method.
+
+Name resolution: no.
+
 ## 0.146.0
 
 ### Fixed — every `transform` adapter resolves its argument the same way (sce114)

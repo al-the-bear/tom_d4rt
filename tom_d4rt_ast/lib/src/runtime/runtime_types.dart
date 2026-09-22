@@ -3006,8 +3006,22 @@ class InterpretedExtensionTypeInstance implements RuntimeValue {
     );
   }
 
+  /// SCE116: an extension type IS its representation at run time, so this is
+  /// the representation's own `toString`.
+  ///
+  /// It used to be `<instance of Y>`, a diagnostic string. That is wrong for a
+  /// reason unrelated to overrides: `extension type Y(int v) {}` declares no
+  /// `toString`, so the call erases to `Object.toString()` on the value Y wraps
+  /// — real Dart prints `7`, not a description of the wrapper. The wrapper has
+  /// no runtime existence to describe.
+  ///
+  /// An override, when the script declares one, is dispatched to before this
+  /// point; see [toString].
+  String get _representationString =>
+      representationValue == null ? 'null' : representationValue.toString();
+
   @override
-  String toString() => '<instance of ${extensionType.name}>';
+  String toString() => _representationString;
 
   @override
   void set(String name, Object? value, [InterpreterVisitor? visitor]) {
