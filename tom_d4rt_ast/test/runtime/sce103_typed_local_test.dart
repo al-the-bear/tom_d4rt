@@ -53,6 +53,21 @@ void main() {
     ),
   );
 
+  /// `<type> <name>;` — SCE131: a declaration with NO initialiser.
+  SVariableDeclarationStatement declareNoInit(String type, String name) =>
+      SVariableDeclarationStatement(
+        offset: next(),
+        length: 0,
+        variables: SVariableDeclarationList(
+          offset: next(),
+          length: 0,
+          type: named(type),
+          variables: [
+            SVariableDeclaration(offset: next(), length: 0, name: id(name)),
+          ],
+        ),
+      );
+
   /// `<name> = <value>;`
   SExpressionStatement assign(String name, SExpression value) =>
       SExpressionStatement(
@@ -169,6 +184,36 @@ void main() {
       expect(
         run(bundleOf([declare('var', 'v', str('two')), returnName('v')])),
         'two',
+      );
+    });
+    test('F-SCE103-AST-4: an uninitialised declaration is not accused, and '
+        'still records its type [2026-09-22] (PASS)', () {
+      // sce131. The exemption and the half that keeps it from being a hole,
+      // in one case because the pair is the claim: `int x;` must bind null
+      // without complaint, and the write that eventually supplies the value
+      // must still be checked against the type the declaration left behind.
+      //
+      // main() { int x; return x; }
+      expect(
+        run(bundleOf([declareNoInit('int', 'x'), returnName('x')])),
+        isNull,
+      );
+      // main() { int x; x = 'two'; return x; }
+      expect(
+        () => run(
+          bundleOf([
+            declareNoInit('int', 'x'),
+            assign('x', str('two')),
+            returnName('x'),
+          ]),
+        ),
+        throwsA(
+          isA<TypeError>().having(
+            (e) => e.toString(),
+            'message',
+            "type 'String' is not a subtype of type 'int' of 'x'",
+          ),
+        ),
       );
     });
   });

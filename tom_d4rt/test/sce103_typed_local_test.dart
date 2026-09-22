@@ -48,6 +48,31 @@
 // and top-level variables are not reached — and they are what stops the next
 // version of this from being "reject anything that does not match by name".
 //
+// WHAT THE CHECK COSTS, measured 2026-09-22 (sce131), because this site runs
+// every time its enclosing block does and its todo asked for the number rather
+// than a guess. Per binding, on `tom_d4rt` at 1.174.0:
+//
+//   annotation            typed      untyped     overhead
+//   int v = i;            1.33 us     0.87 us     +0.46 us
+//   List<int> v = c;  n=0 3.20 us     0.93 us     +2.27 us
+//                     n=1 4.42 us     0.92 us     +3.51 us
+//                   n=100 13.9 us     0.96 us     +13.0 us
+//                  n=1000 99.8 us     0.98 us     +98.8 us
+//
+// TWO FINDINGS, and the first is the one that decided not to optimise here.
+// The PARAMETER site pays the same absolute price — +0.38 us for `g(int x)`
+// against `g(x)` on the same machine — so a typed local is not anomalous, it
+// is the standing cost of the shared check arriving at a fourth site. The
+// percentage looks alarming for locals only because a local declaration is
+// otherwise very cheap while a call is not.
+//
+// The second is not about this site at all: the overhead grows LINEARLY with
+// the collection's length, about 0.096 us per element per binding, because
+// SCD92's applied-type check derives a collection's type argument from its
+// CONTENTS and walks every element. A 5000-element list costs half a
+// millisecond every time it is bound, at all four sites. That is sce131's
+// measurement and scf28's problem.
+//
 // THE ABLATION ALSO CORRECTED ONE OF THESE CASES. -5 survived it at first,
 // because `double d = 1` returning an unwidened `1` satisfies `equals(1.0)` —
 // `1 == 1.0` in Dart. It asserts `isA<double>` now. A case that cannot fail is
@@ -205,6 +230,65 @@ void main() {
       // testing it.
       expect(run("class C { int v = 's'; }\nmain() { return C().v; }"), 's');
       expect(run("int g = 's';\nmain() { return g; }"), 's');
+    });
+    test('F-SCE103-11 (control): a declaration with NO initialiser is not '
+        'accused [2026-09-22]', () {
+      // sce131. The exemption this site makes deliberately, and the shape its
+      // own todo asked to measure before enforcing. `int x;` defines null, and
+      // null is not a write real Dart rejects there — the variable is simply
+      // unassigned, and d4rt has no definite-assignment analysis to say so.
+      // Accusing it would reject a correct program.
+      //
+      // A control in the strict sense: it survives the ablation, because it
+      // asserts what happens when the check does NOT fire. F-SCE103-12 is the
+      // half that makes the exemption safe rather than a hole.
+      expect(runBody('int x; return x;'), isNull);
+      expect(runBody('int? x; return x;'), isNull);
+      expect(runBody('int x; x = 1; return x;'), 1);
+      expect(runBody('int? x; x = null; return x;'), isNull);
+    });
+
+    test('F-SCE103-12: an uninitialised declaration still RECORDS its type, so '
+        'the write that supplies the value is checked [2026-09-22]', () {
+      // The other half of -11, and the reason the exemption is not a hole. A
+      // change that moved the check into `def` would keep -11 green and break
+      // this, which is exactly the pair worth having.
+      expect(
+        typeErrorFrom("int x; x = 'two'; return x;"),
+        "type 'String' is not a subtype of type 'int' of 'x'",
+      );
+      expect(
+        typeErrorFrom("int? x; x = 'two'; return x;"),
+        "type 'String' is not a subtype of type 'int?' of 'x'",
+      );
+    });
+
+    test('F-SCE103-13: `final`, `const` and multi-name declarations are '
+        'checked too [2026-09-22]', () {
+      // sce131. Three in-scope shapes nothing pinned. They are not separate
+      // mechanisms — a declaration list holds N names and the check runs per
+      // name — but "per name" is exactly the kind of thing a rewrite drops,
+      // and `final` / `const` reach the same site by a different keyword.
+      expect(
+        typeErrorFrom("final int x = 'two'; return x;"),
+        "type 'String' is not a subtype of type 'int' of 'x'",
+      );
+      expect(
+        typeErrorFrom("const int x = 'two'; return x;"),
+        "type 'String' is not a subtype of type 'int' of 'x'",
+      );
+      // The SECOND name in a list, so a check that only looked at the first
+      // would pass -1 and fail here.
+      expect(
+        typeErrorFrom("int a = 1, b = 'two'; return b;"),
+        "type 'String' is not a subtype of type 'int' of 'b'",
+      );
+      expect(runBody('int a = 1, b = 2; return a + b;'), 3);
+      // A write from a CLOSURE is the same write.
+      expect(
+        typeErrorFrom("int x = 1; f() { x = 'two'; } f(); return x;"),
+        "type 'String' is not a subtype of type 'int' of 'x'",
+      );
     });
   });
 }

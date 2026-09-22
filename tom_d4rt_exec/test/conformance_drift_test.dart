@@ -1912,7 +1912,14 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
   // 'Map' has no instance method named 'add'" - the empty-`{}`-in-a-Set-context
   // defect that check surfaced, and independent evidence that it predates the
   // check rather than being caused by it.
-  'sce103_typed_local_test.dart': (ran: 10, declared: 10),
+  //
+  // 10 -> 13: SCE131 added the shapes SCE103 decided about but did not pin -
+  // an uninitialised declaration (-11, the exemption; -12, the type it still
+  // records), and `final` / `const` / multi-name lists (-13). Re-measured the
+  // same day with `tool/remeasure_pins.dart --uncovered`: 8 of 13 fail against
+  // 0.65.0, the two new failures being -12 and -13, which is what a published
+  // interpreter with no local check should say.
+  'sce103_typed_local_test.dart': (ran: 13, declared: 13),
   // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.142.0.
   // Measured 2026-09-22: 5 of 8 fail against 0.65.0. A failing cast pattern
   // MISSED rather than throwing, so F-SCE104-3 answers 'miss' where the fix
