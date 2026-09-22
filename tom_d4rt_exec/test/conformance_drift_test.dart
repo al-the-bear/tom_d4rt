@@ -1567,8 +1567,13 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
   'stdlib/typed_data/float_int_literal_test.dart': (ran: 13, declared: 8),
   // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.113.0.
   // Measured 2026-09-15: 17 of 25 fail against 0.65.0, 0 of 25 against 0.113.0.
+  // RE-MEASURED 2026-09-22 (sce141, `tool/remeasure_pins.dart`): 24 of 32 fail
+  // against 0.65.0. The reference file gained seven cases since the pin was
+  // taken and every one of them fails too, so the entry stood while its
+  // evidence went seven cases out of date — the absorption property this
+  // register's header describes, caught by a run rather than by reading.
   'stdlib/typed_data/typed_list_family_parity_test.dart': (
-    ran: 25,
+    ran: 32,
     declared: 6,
   ),
   // PUBLISH-BLOCKED, and the port needs `tls_fixture.dart` copied beside it —
@@ -1578,6 +1583,11 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
   // Measured 2026-09-15: 6 of 6 fail against 0.65.0, 0 of 8 against 0.113.0 —
   // the case count itself moves, because two of the eight are skipped against
   // the older interpreter rather than failing.
+  // RE-MEASURED 2026-09-22 (sce141): the tool reports does-not-compile, which
+  // CONFIRMS the sentence above rather than contradicting it — the tool copies
+  // one file and knows nothing about `tls_fixture.dart`, so its verdict here is
+  // about the recipe's blind spot, not about the interpreter. The 6-of-6 figure
+  // was taken with the fixture placed by hand and is the one to trust.
   'scd171_tls_bridges_test.dart': (ran: 6, declared: 9),
   // NOT PORTABLE, and not blocked on anything: `dart:mirrors` over *tom_d4rt's
   // own* bridge registry, checking that a constructor adapter reading
@@ -1626,7 +1636,9 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
   'stdlib/collection/queue_empty_state_error_test.dart': (ran: 15, declared: 2),
   // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.113.0.
   // Measured 2026-09-15: 8 of 10 fail against 0.65.0, 0 of 10 against 0.113.0.
-  'stdlib/coerce_arguments_test.dart': (ran: 10, declared: 18),
+  // RE-MEASURED 2026-09-22 (sce141): 13 of 20 fail against 0.65.0 — the file
+  // doubled in size since the pin and the pin absorbed all of it silently.
+  'stdlib/coerce_arguments_test.dart': (ran: 20, declared: 18),
   // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.113.0.
   // Measured 2026-09-15: 4 of 5 fail against 0.65.0, 0 of 5 against 0.113.0.
   'stdlib/io/internet_address_type_test.dart': (ran: 5, declared: 3),
@@ -2322,6 +2334,14 @@ const Map<String, _Divergence> _divergentBaseline = {
   // non-yielding isolate, and the run has to be killed by hand. Converges at a
   // floor past 0.103.0.
   //
+  // SCE141 CONFIRMED THE HANG and stopped it costing a whole run. A full
+  // re-measurement of `_pinnedInterpreterFloors` on 2026-09-22 stalled HERE for
+  // eighteen minutes with twenty entries still to go, because the tool inherited
+  // the same absence of a wall-clock kill this entry describes. It now imposes
+  // its own four-minute per-entry deadline and reports `HANGS` — a verdict of
+  // its own, deliberately not folded into `does-not-compile`, because nothing
+  // was measured. This entry is the reason that deadline exists.
+  //
   // SCD168 widened the gap on purpose. The reference copy gained F-SCD168-1..4,
   // four cases asserting that an `on String` clause in an ASYNC body does not
   // catch a `FormatException` — the one shape SCD41's eleven cases do not
@@ -2687,18 +2707,70 @@ const Map<String, String> _divergenceFingerprints = <String, String>{
 /// while these eighteen were each measured against the published copy before
 /// being pinned. Measure before pinning and the pin survives; infer it and it
 /// rots.
-const Map<String, String> _pinnedInterpreterFloors = <String, String>{
-  'sce127_dead_on_clause_test.dart': '0.154.0',
+/// A pinned baseline entry: the interpreter release that will make it
+/// re-portable, and the release its verdict was last MEASURED against.
+///
+/// SCE141. [floor] alone answers WHEN an entry becomes reviewable, and
+/// F-SCC43-1 fires the moment exec's floor passes it. It cannot answer whether
+/// the entry was ever TRUE — SCC44 found six of seven pins that had been
+/// passing for a full release, each written from prose describing a
+/// working-tree behaviour that had in fact already shipped, and the floor never
+/// moved for any of them.
+///
+/// Only a run answers that, `tool/remeasure_pins.dart` is that run, and it
+/// takes minutes — so it stays manual and what becomes machine-checkable is the
+/// AGE OF ITS EVIDENCE. [measured] is the resolved interpreter the verdict was
+/// taken against; F-SCE141-1 fails when the suite resolves something newer,
+/// which is the same move SCC43 made for the flip condition one level down.
+///
+/// WHY A RECORD HERE WHEN [_divergenceFingerprints] IS A PARALLEL MAP. That
+/// decision is recorded a few hundred lines above and its reasoning is sound,
+/// so the divergence is worth stating rather than leaving to look like an
+/// oversight: widening `_divergentBaseline`'s value would have moved its
+/// entries onto two lines under the formatter and silently disarmed THREE text
+/// parsers that read that map — [_entryComments], [_floorsDeclaredInComments],
+/// and `tom_d4rt/test/scd153_conformance_drift_mirror_test.dart` from the other
+/// package.
+///
+/// This map has ONE text reader, `tool/remeasure_pins.dart`, and it was edited
+/// in the same change — its pattern now crosses the newline the formatter
+/// inserts, and it was confirmed to parse all 47 entries afterwards.
+/// [_floorsDeclaredInComments] reads the KEY line and ignores everything after
+/// it, by construction and for exactly this reason, so it is unaffected. A
+/// parallel map would have bought nothing here and cost a second key set to
+/// keep in step — which is the trade that paragraph makes in the other
+/// direction, on a map with three readers instead of one.
+typedef _Pin = ({String floor, String measured});
+
+/// RE-MEASURED IN FULL 2026-09-22 (sce141), against the resolved 0.65.0 — the
+/// first complete run of this register since it grew past three entries, and
+/// the answer that matters is a NEGATIVE one: 42 still-failing, 4
+/// does-not-compile, 1 HANGS, and **zero PASSES NOW**. Not one pin was stale.
+/// That is worth recording precisely because SCC44 found the opposite ratio
+/// (six of seven) on the register's predecessor: the discipline of measuring an
+/// entry before writing it, which this file has demanded since, is holding.
+///
+/// TWO ENTRIES HAD DRIFTED ANYWAY, in the way a floor check cannot see: their
+/// reference files had grown and the pins absorbed the new cases silently.
+/// `typed_list_family_parity` went 17-of-25 to 24-of-32 and `coerce_arguments`
+/// 8-of-10 to 13-of-20 — still wholly failing, so still justified, but their
+/// recorded evidence was seven and ten cases out of date. Both are re-stamped
+/// above their entries in `_uncoveredBaseline`.
+const Map<String, _Pin> _pinnedInterpreterFloors = <String, _Pin>{
+  'sce127_dead_on_clause_test.dart': (floor: '0.154.0', measured: '0.65.0'),
   // SCE139, pinned at the release carrying the fix rather than at a later
   // working-tree version.
-  'sce139_multi_await_resumption_test.dart': '0.157.0',
+  'sce139_multi_await_resumption_test.dart': (
+    floor: '0.157.0',
+    measured: '0.65.0',
+  ),
   // SCE121 gave the `Function` bridge an `isAssignable` that answers with
   // the interpreter's own `Callable`, so `is Function` is true for a bridged
   // tear-off from this release on.
-  'scd77_uri_is_scheme_test.dart': '0.151.0',
+  'scd77_uri_is_scheme_test.dart': (floor: '0.151.0', measured: '0.65.0'),
   // SCE91, pinned at the release that moved `StreamSubscription.onError` from
   // a setter to a method rather than at a working-tree version.
-  'scb9_error_handler_arity_test.dart': '0.110.0',
+  'scb9_error_handler_arity_test.dart': (floor: '0.110.0', measured: '0.65.0'),
   // SCE21's batch. Unlike SCD200's, these are pinned at the version each fix
   // ACTUALLY landed in rather than at one conservative working-tree version:
   // the four commits are known (0.117.0, 0.118.0, 0.119.0, 0.120.0), so the
@@ -2709,23 +2781,44 @@ const Map<String, String> _pinnedInterpreterFloors = <String, String>{
   // publishes") and registered nowhere, which is the gap F-SCE68-1 closes.
   // 0.116.0 is the version the commit carrying SCE16 declares, not a
   // conservative guess.
-  'scd4_await_for_break_test.dart': '0.116.0',
-  'sce17_await_in_expression_body_test.dart': '0.117.0',
-  'sce18_finally_on_abrupt_exit_test.dart': '0.118.0',
-  'sce19_do_while_first_body_run_test.dart': '0.119.0',
-  'sce20_braceless_if_else_test.dart': '0.120.0',
+  'scd4_await_for_break_test.dart': (floor: '0.116.0', measured: '0.65.0'),
+  'sce17_await_in_expression_body_test.dart': (
+    floor: '0.117.0',
+    measured: '0.65.0',
+  ),
+  'sce18_finally_on_abrupt_exit_test.dart': (
+    floor: '0.118.0',
+    measured: '0.65.0',
+  ),
+  'sce19_do_while_first_body_run_test.dart': (
+    floor: '0.119.0',
+    measured: '0.65.0',
+  ),
+  'sce20_braceless_if_else_test.dart': (floor: '0.120.0', measured: '0.65.0'),
   // SCE73's re-point. 0.125.0 is the version the commit giving
   // `UndefinedMemberD4rtException` its `NoSuchMethodError` supertype
   // declares, confirmed against the commit before it, not a conservative
   // working-tree guess.
-  'interpreter2_test.dart': '0.125.0',
+  'interpreter2_test.dart': (floor: '0.125.0', measured: '0.65.0'),
   // SCD200's second batch, all measured against the working tree before
   // pinning, all at the same 0.113.0 for the same conservative reason.
-  'stdlib/convert/chunked_sink_arg_adaptation_test.dart': '0.113.0',
-  'stdlib/typed_data/buffer_is_a_getter_test.dart': '0.113.0',
-  'stdlib/typed_data/float_int_literal_test.dart': '0.113.0',
-  'stdlib/typed_data/typed_list_family_parity_test.dart': '0.113.0',
-  'scd171_tls_bridges_test.dart': '0.113.0',
+  'stdlib/convert/chunked_sink_arg_adaptation_test.dart': (
+    floor: '0.113.0',
+    measured: '0.65.0',
+  ),
+  'stdlib/typed_data/buffer_is_a_getter_test.dart': (
+    floor: '0.113.0',
+    measured: '0.65.0',
+  ),
+  'stdlib/typed_data/float_int_literal_test.dart': (
+    floor: '0.113.0',
+    measured: '0.65.0',
+  ),
+  'stdlib/typed_data/typed_list_family_parity_test.dart': (
+    floor: '0.113.0',
+    measured: '0.65.0',
+  ),
+  'scd171_tls_bridges_test.dart': (floor: '0.113.0', measured: '0.65.0'),
   // SCD200's six clean publish blocks plus scd170, all measured against the
   // working tree before pinning: each PASSES there and fails against the
   // 0.65.0 exec resolves. 0.113.0 is the working-tree version rather than the
@@ -2733,13 +2826,28 @@ const Map<String, String> _pinnedInterpreterFloors = <String, String>{
   // the conservative choice, for the reason the SCD153 entries above give.
   // scd170 is pinned with them and carries one extra condition on its baseline
   // entry: a source-scanning case has to be split out before the re-port.
-  'scd147_interpreter_owned_boundary_test.dart': '0.113.0',
-  'bridge/scd138_native_callback_proxy_binding_test.dart': '0.113.0',
-  'scd176_enum_supertype_test.dart': '0.113.0',
-  'stdlib/collection/queue_empty_state_error_test.dart': '0.113.0',
-  'stdlib/coerce_arguments_test.dart': '0.113.0',
-  'stdlib/io/internet_address_type_test.dart': '0.113.0',
-  'scd170_network_permission_gate_test.dart': '0.113.0',
+  'scd147_interpreter_owned_boundary_test.dart': (
+    floor: '0.113.0',
+    measured: '0.65.0',
+  ),
+  'bridge/scd138_native_callback_proxy_binding_test.dart': (
+    floor: '0.113.0',
+    measured: '0.65.0',
+  ),
+  'scd176_enum_supertype_test.dart': (floor: '0.113.0', measured: '0.65.0'),
+  'stdlib/collection/queue_empty_state_error_test.dart': (
+    floor: '0.113.0',
+    measured: '0.65.0',
+  ),
+  'stdlib/coerce_arguments_test.dart': (floor: '0.113.0', measured: '0.65.0'),
+  'stdlib/io/internet_address_type_test.dart': (
+    floor: '0.113.0',
+    measured: '0.65.0',
+  ),
+  'scd170_network_permission_gate_test.dart': (
+    floor: '0.113.0',
+    measured: '0.65.0',
+  ),
   // SCD153's five, all measured against the resolved interpreter before being
   // pinned — and RE-PINNED by SCE107 at the release each fix actually landed
   // in. They stood at 0.100.0, the working-tree version of the day, which that
@@ -2771,18 +2879,21 @@ const Map<String, String> _pinnedInterpreterFloors = <String, String>{
   // TWO differences since SCE127; the LATER floor is the binding one,
   // because the entry can only retire when both have converged. The
   // SCD68 half converges at 0.79.0.
-  'scc20_catch_clause_type_test.dart': '0.154.0',
-  'stdlib/collection/list_queue_test.dart': '0.68.0',
-  'stdlib/collection/queue_test.dart': '0.68.0',
-  'stdlib/cast_from_family_test.dart': '0.70.0',
+  'scc20_catch_clause_type_test.dart': (floor: '0.154.0', measured: '0.65.0'),
+  'stdlib/collection/list_queue_test.dart': (
+    floor: '0.68.0',
+    measured: '0.65.0',
+  ),
+  'stdlib/collection/queue_test.dart': (floor: '0.68.0', measured: '0.65.0'),
+  'stdlib/cast_from_family_test.dart': (floor: '0.70.0', measured: '0.65.0'),
   // Re-port this one LAST and expect to babysit it: ported against 0.65.0 it
   // hangs rather than failing, so a green checklist run cannot be assumed.
-  'scc12_await_in_finally_test.dart': '0.103.0',
+  'scc12_await_in_finally_test.dart': (floor: '0.103.0', measured: '0.65.0'),
   // SCD74 measured both of these against published 0.65.0 before pinning them.
   // When the floor reaches either version, F-SCC43-1 produces the re-port
   // checklist — and re-measure BOTH, not just the one that came due.
-  'scd72_instance_tostring_test.dart': '0.81.0',
-  'scd73_no_hook_unwrapping_test.dart': '0.82.0',
+  'scd72_instance_tostring_test.dart': (floor: '0.81.0', measured: '0.65.0'),
+  'scd73_no_hook_unwrapping_test.dart': (floor: '0.82.0', measured: '0.65.0'),
   // SCD186 raised `tom_d4rt`'s SDK floor to `^3.10.4`, removing the
   // disagreement that made this file unshareable, and bridged the member the
   // gap was hiding. What is left is the publish: the file diffs the SDK against
@@ -2790,49 +2901,85 @@ const Map<String, String> _pinnedInterpreterFloors = <String, String>{
   // does-not-compile against the resolved interpreter on 2026-09-15 before
   // being pinned. 0.108.0 is the working-tree version carrying the member —
   // the conservative choice, per the SCD153 entries above.
-  'scc73_sdk_member_completeness_test.dart': '0.108.0',
+  'scc73_sdk_member_completeness_test.dart': (
+    floor: '0.108.0',
+    measured: '0.65.0',
+  ),
   // Same publish, same floor: this is SCD186's behaviour cover for the member
   // 0.108.0 adds. Recorded together so the re-port checklist produces both.
-  'stdlib/async/scd186_future_sync_value_test.dart': '0.108.0',
+  'stdlib/async/scd186_future_sync_value_test.dart': (
+    floor: '0.108.0',
+    measured: '0.65.0',
+  ),
   // SCD187's cover for the stub deletion — same publish family, one release
   // later because the deletion landed after the floor raise.
-  'stdlib/io/scd187_http_response_transform_test.dart': '0.109.0',
+  'stdlib/io/scd187_http_response_transform_test.dart': (
+    floor: '0.109.0',
+    measured: '0.65.0',
+  ),
   // SCD189's six kind fixes ship in 0.110.0; its guard reports every one of
   // them against anything older.
-  'stdlib/scd189_member_kind_parity_test.dart': '0.110.0',
+  'stdlib/scd189_member_kind_parity_test.dart': (
+    floor: '0.110.0',
+    measured: '0.65.0',
+  ),
   // SCD198's three fixes ship in 0.113.0.
-  'scd198_class_name_as_type_value_test.dart': '0.113.0',
+  'scd198_class_name_as_type_value_test.dart': (
+    floor: '0.113.0',
+    measured: '0.65.0',
+  ),
   // SCD92 shipped the applied-type-argument check in 0.87.0. At that floor,
   // re-port F-SCC29-21 from the reference copy (it expects a `TypeError`), and
   // check whether `scd92_applied_parameter_type_test.dart` should come with it
   // — the reference file has no counterpart here at all, which is F-SCC6-2's
   // business rather than this register's.
-  'scc29_parameter_type_check_test.dart': '0.87.0',
+  'scc29_parameter_type_check_test.dart': (floor: '0.87.0', measured: '0.65.0'),
   // SCE74 and SCE82, each pinned at the release its fix actually landed in
   // rather than at a conservative working-tree version: SCE74's narrowing of
   // the `ArgumentError` catch in `BridgedMethodCallable` is 0.129.0, and
   // SCE82's static-member bridging is 0.136.0. Both measured against the
   // resolved 0.65.0 with `tool/remeasure_pins.dart --candidates` before being
   // written here.
-  'stdlib/sce74_sdk_error_type_parity_test.dart': '0.129.0',
-  'stdlib/io/sce82_header_constants_test.dart': '0.136.0',
+  'stdlib/sce74_sdk_error_type_parity_test.dart': (
+    floor: '0.129.0',
+    measured: '0.65.0',
+  ),
+  'stdlib/io/sce82_header_constants_test.dart': (
+    floor: '0.136.0',
+    measured: '0.65.0',
+  ),
   // SCE84, pinned at the release carrying the fix rather than at a
   // conservative working-tree version, and all three measured against the
   // resolved 0.65.0 before being written here.
-  'stdlib/collection/linked_list_test.dart': '0.138.0',
-  'stdlib/scc74_member_axis_gaps_test.dart': '0.138.0',
-  'stdlib/collection/sce84_linked_list_subclass_test.dart': '0.138.0',
+  'stdlib/collection/linked_list_test.dart': (
+    floor: '0.138.0',
+    measured: '0.65.0',
+  ),
+  'stdlib/scc74_member_axis_gaps_test.dart': (
+    floor: '0.138.0',
+    measured: '0.65.0',
+  ),
+  'stdlib/collection/sce84_linked_list_subclass_test.dart': (
+    floor: '0.138.0',
+    measured: '0.65.0',
+  ),
   // SCE83, owed from the todo before it and measured the same way.
-  'stdlib/async/sce83_transform_element_coercion_test.dart': '0.137.0',
+  'stdlib/async/sce83_transform_element_coercion_test.dart': (
+    floor: '0.137.0',
+    measured: '0.65.0',
+  ),
   // SCE101-SCE104, each pinned at the release its fix ACTUALLY landed in
   // rather than at one conservative working-tree version - the versions are
   // known because each fix bumped the interpreter in its own commit.
-  'sce101_element_type_test.dart': '0.139.0',
-  'sce102_empty_loop_body_async_test.dart': '0.140.0',
-  'sce103_typed_local_test.dart': '0.141.0',
-  'sce104_cast_pattern_test.dart': '0.142.0',
-  'stdlib/bridge_arity_test.dart': '0.143.0',
-  'sce109_sdk_error_types_test.dart': '0.143.0',
+  'sce101_element_type_test.dart': (floor: '0.139.0', measured: '0.65.0'),
+  'sce102_empty_loop_body_async_test.dart': (
+    floor: '0.140.0',
+    measured: '0.65.0',
+  ),
+  'sce103_typed_local_test.dart': (floor: '0.141.0', measured: '0.65.0'),
+  'sce104_cast_pattern_test.dart': (floor: '0.142.0', measured: '0.65.0'),
+  'stdlib/bridge_arity_test.dart': (floor: '0.143.0', measured: '0.65.0'),
+  'sce109_sdk_error_types_test.dart': (floor: '0.143.0', measured: '0.65.0'),
 };
 
 /// The `tom_d4rt_ast` floor exec's own `pubspec.yaml` currently declares.
@@ -5260,6 +5407,99 @@ void main() {
       );
     });
 
+    test('F-SCE141-1: every pinned verdict was measured against the '
+        'interpreter this suite resolves [2026-09-22] (PASS)', () {
+      // THE OTHER HALF OF SCC43, and the expensive one.
+      //
+      // F-SCC43-1 answers WHEN an entry becomes reviewable: it reads exec's
+      // floor and fires the moment a pin's publish has landed. It cannot
+      // answer whether the entry was ever TRUE. SCC44 found six of the seven
+      // pins then standing had been passing for a full release — each written
+      // from prose describing a working-tree behaviour that had in fact
+      // already shipped — and the floor never moved for any of them, so
+      // nothing fired.
+      //
+      // Only a run answers that. `tool/remeasure_pins.dart` is that run and it
+      // takes half an hour over this register, so it stays manual — wiring it
+      // into a suite was considered and rejected, because a guard that takes
+      // minutes gets switched off. What CAN live in a suite is the age of its
+      // evidence: two strings compared, nothing executed.
+      //
+      // A VERDICT IS ABOUT ONE INTERPRETER. `measured` records which one. When
+      // the lock moves — a `pub upgrade` after a publish — every verdict taken
+      // against the older copy becomes a claim nobody has checked, and this
+      // case says so on the next run rather than on the next audit.
+      //
+      // THE LOCK, NOT THE FLOOR, for the reason SCD159 separated the two: the
+      // constraint moves when somebody edits `pubspec.yaml`, the resolved
+      // version moves on every upgrade, and the resolved one is what the
+      // verdicts were taken against.
+      final resolved = _execAstResolved();
+      final live = {..._uncoveredBaseline.keys, ..._divergentBaseline.keys};
+      final stale = [
+        for (final entry in _pinnedInterpreterFloors.entries)
+          if (live.contains(entry.key) &&
+              _versionExceeds(resolved, entry.value.measured))
+            '${entry.key}: last measured against '
+                '${entry.value.measured}, suite resolves $resolved',
+      ];
+
+      expect(
+        stale,
+        isEmpty,
+        reason:
+            'These pins record a verdict taken against an interpreter older '
+            'than the one this suite runs, so what they claim is unverified '
+            'against what is actually being measured:\n  '
+            '${stale.join('\n  ')}\n\n'
+            'Re-measure them and act on each verdict — that is\n'
+            '    dart run tool/remeasure_pins.dart\n'
+            'from tom_d4rt_exec, which reports still-failing (justified; paste '
+            'the case ids into the entry), does-not-compile or HANGS (also '
+            'justified, and say which — a hang is not a measurement), or '
+            'PASSES NOW (the pin was never true: port the file and delete '
+            'both the baseline entry and its register line). Then set '
+            '`measured:` to the resolved version on every entry the run '
+            'covered.\n\n'
+            'Do NOT simply bump `measured:` to silence this. The string is a '
+            'claim that a run happened; making it true without one is the '
+            'exact substitution — prose in the shape of a measurement — that '
+            'SCC44 found six times over.',
+      );
+    });
+
+    test('F-SCE141-2 (control): the register is non-empty and its stamps are '
+        'readable versions [2026-09-22] (PASS)', () {
+      // Anti-vacuity for the case above, which is an emptiness assertion over a
+      // comprehension: an empty register, or a `measured` string
+      // [_versionExceeds] cannot parse, satisfies it while checking nothing.
+      // 47 entries when this was written, every stamp 0.65.0.
+      expect(
+        _pinnedInterpreterFloors.length,
+        greaterThanOrEqualTo(20),
+        reason:
+            'Only ${_pinnedInterpreterFloors.length} pinned entries, against '
+            '47 measured on 2026-09-22. F-SCE141-1 is a loop over this map, so '
+            'a collapse here makes it pass over nothing.',
+      );
+      final malformed = [
+        for (final entry in _pinnedInterpreterFloors.entries)
+          if (!RegExp(r'^\d+\.\d+\.\d+$').hasMatch(entry.value.measured) ||
+              !RegExp(r'^\d+\.\d+\.\d+$').hasMatch(entry.value.floor))
+            '${entry.key}: floor "${entry.value.floor}", measured '
+                '"${entry.value.measured}"',
+      ];
+      expect(
+        malformed,
+        isEmpty,
+        reason:
+            'A stamp _versionExceeds cannot parse throws rather than comparing, '
+            'so these would take the whole case down with them — or, worse, be '
+            'made to compare equal by a defensive catch somebody adds '
+            'later:\n  ${malformed.join('\n  ')}',
+      );
+    });
+
     test('F-SCC43-1: no pinned entry is waiting on a publish that already '
         'happened [2026-09-05] (PASS)', () {
       final floor = _execAstFloor();
@@ -5303,7 +5543,8 @@ void main() {
         for (final path in livePins)
           if (declared[path] == null)
             '$path: registered as waiting on '
-                '${_pinnedInterpreterFloors[path]}, no comment above its '
+                '${_pinnedInterpreterFloors[path]!.floor}, no comment above '
+                'its '
                 'baseline entry says so',
       ];
       expect(
@@ -5325,7 +5566,7 @@ void main() {
       final unregistered = <String>[];
       declared.forEach((path, version) {
         if (!live.contains(path)) return;
-        final registered = _pinnedInterpreterFloors[path];
+        final registered = _pinnedInterpreterFloors[path]?.floor;
         if (registered == null) {
           unregistered.add('$path: comment says $version, not registered');
         } else if (registered != version) {
@@ -5359,7 +5600,8 @@ void main() {
       final resolved = _execAstResolved();
       final due = <String>[];
       final stalePins = <String>[];
-      _pinnedInterpreterFloors.forEach((path, waitingOn) {
+      _pinnedInterpreterFloors.forEach((path, pin) {
+        final waitingOn = pin.floor;
         switch (_pinVerdict(waitingOn, floor: floor, resolved: resolved)) {
           case _PinVerdict.floorRaised:
             stalePins.add(

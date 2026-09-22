@@ -55,6 +55,11 @@
 ///                     restatement.
 ///   does-not-compile  also justified, and more strongly: the port cannot even
 ///                     be built against the resolved interpreter.
+///   HANGS             justified, and a bug report as well as a verdict: the
+///                     port did not finish inside the deadline, so nothing was
+///                     measured. Record it as such; do NOT write it up as
+///                     "still failing", which claims a measurement that was
+///                     never taken.
 ///   PASSES NOW        the pin is stale. Port the file for real and delete both
 ///                     the baseline entry and its register line.
 ///   no-twin           the reference file is gone. The register is stale in a
@@ -93,6 +98,14 @@ import '../test/port_recipe.dart';
 /// in a test file, and moving it out would split the guard's knowledge across
 /// two files for the tool's convenience.
 const String _guardPath = 'test/conformance_drift_test.dart';
+
+/// How long one entry's port may run before it is killed and reported as
+/// [_Verdict.hangs].
+///
+/// Four minutes: the slowest entry that COMPLETES in this register is
+/// `interpreter2_test.dart` at 105 cases, well inside it, so the deadline
+/// separates "slow" from "wedged" rather than truncating honest work.
+const Duration _entryDeadline = Duration(minutes: 4);
 
 Future<int> main(List<String> args) async {
   if (!File('pubspec.yaml').existsSync() || !File(_guardPath).existsSync()) {
@@ -226,6 +239,16 @@ enum _Verdict {
   stillFailing('still-failing'),
   doesNotCompile('does-not-compile'),
   passesNow('PASSES NOW — stale pin'),
+
+  /// SCE141: the port never finished, so nothing was measured.
+  ///
+  /// Justifies the pin at least as strongly as `does-not-compile` — a port
+  /// that hangs is not a port — but it is NOT the same verdict and must not be
+  /// silently folded into one: the two say different things about what the
+  /// resolved interpreter does, and a hang is the shape SCE78 fixed (a state
+  /// machine re-entering a finally for ever), so it is also a datable bug
+  /// report about the published copy.
+  hangs('HANGS — nothing measured'),
   noTwin('no-twin');
 
   const _Verdict(this.label);
@@ -249,10 +272,17 @@ class _Result {
 /// `'x': 'y',` anywhere in the file: several other maps in that file have the
 /// same shape, and a parser that swept the whole file would report entries that
 /// are not pins at all.
+/// SCE141 changed the register's value from a bare version to a `_Pin` record,
+/// so both the opener and the entry shape moved under this parser. The
+/// anti-vacuity refusal in `main` is what turns that into an error rather than
+/// an empty, cheerful report — but a tool that reads a register has to be
+/// edited WITH it, which is the rule the register applies to its own prose.
+/// `\\s*` crosses the newline the formatter inserts when a long key pushes the
+/// record onto its own line.
 Map<String, String> _parsePins(String source) => _parseRegister(
   source,
-  'const Map<String, String> _pinnedInterpreterFloors',
-  "^\\s*'([^']+)':\\s*'([^']+)',",
+  'const Map<String, _Pin> _pinnedInterpreterFloors',
+  "^\\s*'([^']+)':\\s*\\(\\s*floor:\\s*'([^']+)'",
 );
 
 /// One register out of [source], as `path -> second capture group`.
@@ -357,14 +387,51 @@ Future<_Result> _remeasure(
   final candidate = File('${scratch.path}/${path.replaceAll('/', '__')}');
   candidate.writeAsStringSync(source);
 
-  final run = await Process.run('dart', [
-    'test',
-    '-r',
-    'json',
-    candidate.path,
-  ], workingDirectory: Directory.current.path);
+  // SCE141: A PER-ENTRY DEADLINE, and it is what makes this tool runnable at
+  // all over a register of this size.
+  //
+  // `dart test`'s own 30-second per-case timeout cannot fire on the failure
+  // that actually happens here. An interpreter that reschedules its async state
+  // machine for ever — the SCE78 shape — saturates the event loop, so the
+  // timer never gets a slot and the process runs until somebody notices. The
+  // first full run of this register stalled on
+  // `scc12_await_in_finally_test.dart` for eighteen minutes before being killed
+  // by hand, with twenty entries still unmeasured. A chore that cannot be
+  // completed is a chore nobody repeats, which is the whole subject of sce141.
+  //
+  // The whole process GROUP is killed, not the leader: `dart test` spawns the
+  // isolate that is actually wedged, and killing the parent alone leaves it.
+  final process = await Process.start(
+    'dart',
+    ['test', '-r', 'json', candidate.path],
+    workingDirectory: Directory.current.path,
+    runInShell: false,
+  );
+  final stdoutFuture = process.stdout.transform(utf8.decoder).join();
+  final stderrFuture = process.stderr.transform(utf8.decoder).join();
+  var timedOut = false;
+  final exitCode = await process.exitCode.timeout(
+    _entryDeadline,
+    onTimeout: () {
+      timedOut = true;
+      Process.killPid(process.pid, ProcessSignal.sigkill);
+      return -1;
+    },
+  );
+  final out = await stdoutFuture;
+  await stderrFuture;
+  if (timedOut) {
+    stdout.writeln(
+      '    HANGS — killed after ${_entryDeadline.inSeconds}s, nothing measured',
+    );
+    return _Result(path, pinnedAt, _Verdict.hangs, [
+      'the port did not finish within ${_entryDeadline.inSeconds}s against the '
+          'resolved interpreter',
+    ]);
+  }
+  final run = (stdout: out, exitCode: exitCode);
 
-  final report = _readJsonReport(run.stdout as String);
+  final report = _readJsonReport(run.stdout);
   if (report.compileError != null) {
     stdout.writeln('    does not compile against the resolved interpreter');
     return _Result(path, pinnedAt, _Verdict.doesNotCompile, [
