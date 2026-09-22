@@ -345,9 +345,36 @@ const _partialTwinBudget = 1;
 /// which nothing else here covers — the corpus copies map literals on every
 /// run, but not with a `SymbolLiteral` key.
 ///
-const _copierGapBudget = 34;
+/// 34 -> 35: SCE114 added `sce114_transform_argument_test.dart`, which runs
+/// source to ask which argument shapes the four `transform` adapters accept.
+/// Exec resolves tom_d4rt_ast from pub.dev, where both socket adapters still
+/// cast, so a port would assert the shared resolver against an interpreter
+/// that does not have it. Its ast twin holds the resolver half. The copier
+/// surface a port would have added is a class with a method whose body maps a
+/// stream, plus loopback socket and HTTP setup — the class and the closure the
+/// corpus copies on every run, the io calls it does not, and neither is a
+/// construct the mirror AST lacks.
+///
+const _copierGapBudget = 35;
 
 const Map<String, _Coverage> _coveredElsewhere = {
+  'sce114_transform_argument_test.dart': _Coverage(
+    'ast:runtime/sce114_transform_argument_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 6,
+    twinCases: 3,
+    whyPartial:
+        'the twin pins the RESOLVER, which is the code the fix moved and the '
+        'part only an analyzer-free interpreter can answer for itself — '
+        'reading `bind` off an `InterpretedInstance` and calling it through '
+        '`runAction`. Three of the reference\'s cases are the socket '
+        'adapters (`Socket.transform`, `ServerSocket.transform`) and the '
+        'HttpClientResponse round trip, each of which needs a live loopback '
+        'server AND a parsed script; a hand-built bundle that binds a socket '
+        'and awaits a connection buys the same resolver assertion at several '
+        'hundred nodes.',
+  ),
   'sce113_function_apply_symbol_keys_test.dart': _Coverage(
     'ast:runtime/sce113_function_apply_symbol_keys_test.dart',
     _astTwin,

@@ -1,3 +1,43 @@
+## 1.162.0
+
+### Fixed — every `transform` adapter resolves its argument the same way (sce114)
+
+There are four `transform` adapters and only one resolved its argument
+properly. `Stream.transform` went through `_asStreamTransformer`, which accepts
+a native transformer, a bridged one, and — the case `StreamTransformerBase`
+exists to enable — an interpreted class with a `bind` method. Both socket
+adapters wrote
+
+```dart
+final separator = positionalArgs[0] as StreamTransformer;
+```
+
+A cast admits the first two shapes and rejects the third with a host
+`_TypeError` naming `InterpretedInstance`. So the same script class worked on
+a stream and failed on a socket, and the failure named an interpreter-internal
+type rather than the argument.
+
+The resolver moved out of `async/stream.dart` into
+`stdlib/stream_transformer_arg.dart`, beside `run_action.dart` and
+`stream_listen.dart` — which were extracted from the same kind of duplication
+— and all four adapters now ask one function. A non-transformer argument, or
+a missing one, reaches one sentence naming the member the script called.
+
+`ServerSocket.transform` also reported itself as `Socket.transform`, copied
+along with the body it was copied from.
+
+THE `.cast()` IN THE SOCKET ADAPTERS STAYS. SCE83's `_bindTransformer` coerces
+the SOURCE instead, and the two sites differ for the reason its doc gives: a
+socket's element type is known statically so the cast is computed against it,
+while a bare `Stream` has the cast inverted on it. Only the argument
+resolution was shared.
+
+The two halves this was filed for had already been closed, by SCE83 and
+SCD187, and neither had a test — `response.transform(utf8.decoder)`, the line
+every Dart HTTP example contains, now has one.
+
+Name resolution: no.
+
 ## 1.161.0
 
 ### Fixed — `Function.apply` takes Symbol keys, as the SDK declares (sce113)

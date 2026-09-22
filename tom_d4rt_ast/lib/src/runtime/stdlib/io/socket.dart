@@ -7,6 +7,7 @@ import 'package:tom_d4rt_ast/runtime.dart';
 import '../error_handler_args.dart';
 import '../run_action.dart';
 import '../stream_listen.dart';
+import '../stream_transformer_arg.dart';
 import 'network_permission_helper.dart';
 
 /// Bridged implementation of dart:io Socket
@@ -68,8 +69,17 @@ class SocketIo {
       },
       'transform': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Socket.transform', atMost: 1);
-        final separator = positionalArgs[0] as StreamTransformer;
-        return (target as Socket).transform(separator.cast());
+        // `.cast()` and not `D4.coerceByteStream`, unlike `Stream.transform`:
+        // the target here is a native `Stream<Uint8List>`, so the element type
+        // the transformer must accept is known statically and the cast is
+        // computed against it. See `_bindTransformer` in async/stream.dart for
+        // why the bare-`Stream` case cannot use the same shape.
+        final transformer = requireStreamTransformer(
+          visitor,
+          positionalArgs.firstOrNull,
+          'Socket.transform',
+        );
+        return (target as Socket).transform(transformer.cast());
       },
       'addStream': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Socket.addStream', atMost: 1);
@@ -762,9 +772,13 @@ class ServerSocketIo {
         return (target as ServerSocket).join(separator);
       },
       'transform': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'Socket.transform', atMost: 1);
-        final separator = positionalArgs[0] as StreamTransformer;
-        return (target as ServerSocket).transform(separator.cast());
+        D4.checkArity(positionalArgs, 'ServerSocket.transform', atMost: 1);
+        final transformer = requireStreamTransformer(
+          visitor,
+          positionalArgs.firstOrNull,
+          'ServerSocket.transform',
+        );
+        return (target as ServerSocket).transform(transformer.cast());
       },
       'lastWhere': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Socket.lastWhere', atMost: 1);

@@ -4,38 +4,7 @@ import 'package:tom_d4rt_ast/runtime.dart';
 import '../error_handler_args.dart';
 import '../run_action.dart';
 import '../stream_listen.dart';
-
-/// Coerce a script-supplied transformer to a native [StreamTransformer].
-///
-/// Scripts reach `Stream.transform` from three directions: with a native
-/// transformer built by `StreamTransformer.fromBind` (already native), with a
-/// bridged one, and — the case `StreamTransformerBase` exists to enable — with
-/// an [InterpretedInstance] of a script class that extends
-/// `StreamTransformerBase` or implements `StreamTransformer`. The last shape
-/// has no native object at all; its `bind` lives only in the interpreter, so
-/// the only way to hand it to the SDK is to wrap the interpreted method in
-/// `StreamTransformer.fromBind`.
-///
-/// Returns `null` when the value is not a transformer in any of those senses,
-/// leaving the "what do I throw" decision to the call site.
-StreamTransformer? _asStreamTransformer(
-  InterpreterVisitor visitor,
-  Object? value,
-) {
-  if (value is StreamTransformer) return value;
-  if (value is BridgedInstance && value.nativeObject is StreamTransformer) {
-    return value.nativeObject as StreamTransformer;
-  }
-  if (value is InterpretedInstance) {
-    final bind = value.get('bind', visitor: visitor);
-    if (bind is Callable) {
-      return StreamTransformer.fromBind(
-        (stream) => runAction<Stream>(visitor, bind, [stream]) as Stream,
-      );
-    }
-  }
-  return null;
-}
+import '../stream_transformer_arg.dart';
 
 /// Hand [source] to [transformer], coercing the stream's ELEMENT type when the
 /// transformer needs one the interpreter never produces.
@@ -277,15 +246,11 @@ class StreamAsync {
         });
       },
       'transform': (visitor, target, positionalArgs, namedArgs, _) {
-        final streamTransformer = _asStreamTransformer(
+        final streamTransformer = requireStreamTransformer(
           visitor,
           positionalArgs.firstOrNull,
+          'Stream.transform',
         );
-        if (streamTransformer == null) {
-          throw RuntimeD4rtException(
-            'Stream.transform requires a StreamTransformer argument.',
-          );
-        }
         return _bindTransformer(
           target as Stream,
           streamTransformer,
