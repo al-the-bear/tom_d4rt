@@ -75,7 +75,6 @@ while (-not $proc.HasExited) {
   Start-Sleep -Seconds $poll
   Receive-Job $mirror -ErrorAction SilentlyContinue | Out-Host
   if ($wall -gt 0 -and ((Get-Date) - $started).TotalSeconds -ge $wall) {
-    Add-Content -Path $LogFile -Value "== wall_timeout: ran for >=${wall}s - killing test run (pid $($proc.Id)) =="
     $wallKilled = $true
     # Same tree kill as the idle path: cmd.exe + flutter + any child.
     & taskkill /T /F /PID $proc.Id 2>$null | Out-Null
@@ -83,7 +82,6 @@ while (-not $proc.HasExited) {
   }
   $mt = (Get-Item $LogFile).LastWriteTime
   if (((Get-Date) - $mt).TotalSeconds -ge $IdleSeconds) {
-    Add-Content -Path $LogFile -Value "== idle_timeout: no output for >=${IdleSeconds}s - killing test run (pid $($proc.Id)) =="
     $idleKilled = $true
     # Kill the whole tree (cmd.exe + flutter + any child it spawned).
     & taskkill /T /F /PID $proc.Id 2>$null | Out-Null
@@ -93,6 +91,25 @@ while (-not $proc.HasExited) {
 
 $proc.WaitForExit()
 Start-Sleep -Milliseconds 300
+
+# THE MARKER IS WRITTEN AFTER THE PROCESS IS DEAD, and that is not tidiness.
+#
+# SCE148 measured this: `cmd /c "... > LOG 2>&1"` holds LOG open with its own
+# file position, so an `Add-Content` from here while cmd is still running is
+# either refused or overwritten by cmd's next write. The marker therefore never
+# reached the log — including the IDLE marker, which had been written this way
+# since the file was created and which nothing had ever checked for. The probe
+# that found it is in the todo; the symptom was a kill with the right exit code
+# and no explanation in the file.
+#
+# Appending once the tree is gone has no such contention, and the marker is for
+# the reader and the runner's metrics line rather than for the live console.
+if ($wallKilled) {
+  Add-Content -Path $LogFile -Value "== wall_timeout: ran for >=${wall}s - killed test run (pid $($proc.Id)) =="
+}
+if ($idleKilled) {
+  Add-Content -Path $LogFile -Value "== idle_timeout: no output for >=${IdleSeconds}s - killed test run (pid $($proc.Id)) =="
+}
 Receive-Job $mirror -ErrorAction SilentlyContinue | Out-Host
 Stop-Job $mirror -ErrorAction SilentlyContinue
 Remove-Job $mirror -Force -ErrorAction SilentlyContinue
