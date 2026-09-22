@@ -303,7 +303,7 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpreterVisitor.registerTypeAlias': '2107b213',
     'InterpreterVisitor.resolveStaticCoordinates': '1c58137b',
     'InterpreterVisitor.visitAsExpression': '749f9253',
-    'InterpreterVisitor.visitAssignmentExpression': '294abc8b',
+    'InterpreterVisitor.visitAssignmentExpression': '510fd0b5',
     'InterpreterVisitor.visitBinaryExpression': '4a8ad811',
     'InterpreterVisitor.visitClassDeclaration': '57fc0f99',
     'InterpreterVisitor.visitConstructorReference': 'eca261a7',

@@ -1,3 +1,32 @@
+## 0.152.0
+
+### Fixed — a bare write to a static field from an instance method updates the static (sce125)
+
+```dart
+class Box { static int v = 1; void go() { v += 1; } }
+main() { Box().go(); return Box.v; }   // real Dart 2, d4rt 1
+```
+
+THE READ PATH WAS ALWAYS RIGHT, which is what made the two halves disagree
+rather than both being wrong. `InterpretedInstance.get` walks the class chain
+and finds the static when no instance field shadows it. The WRITE path reached
+`thisInstance.set(name, …)`, which CREATES a field when none exists — so the
+write minted a per-instance shadow, and the next bare read found that shadow.
+
+IT WAS SILENT BECAUSE THE METHOD COULD READ ITS OWN WRITE BACK. `v += 1;
+return v;` answered 2, so any test that checks the value inside the method
+passed; only a reader outside the instance saw the static unchanged. Two
+instances did not even agree with each other — `a` saw 2 and `b` saw 1, of a
+field the class declares `static`.
+
+The write now mirrors the read's walk. In Dart a class cannot declare a static
+and an instance member of the same name, so finding a static means there is no
+instance member to prefer and the check can come first; a local, a parameter
+and an instance setter still take precedence as they always did.
+
+Name resolution: no — this is assignment target resolution inside a class body,
+not the `Environment`/bridge lookup the corpus rule is about.
+
 ## 0.151.0
 
 ### Fixed — `is Function` answers for every value the interpreter can call (sce121)

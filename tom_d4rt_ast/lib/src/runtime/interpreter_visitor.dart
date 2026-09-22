@@ -2753,6 +2753,34 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     }
   }
 
+  /// The class in [klass]'s chain that declares a STATIC FIELD named [name].
+  ///
+  /// SCE125. A bare name written from inside an instance method used to land on
+  /// the INSTANCE — `thisInstance.set(name, …)` creates a field when none
+  /// exists — so `class Box { static int v = 1; void go() { v += 1; } }` left
+  /// `Box.v` at 1 and gave the instance a private `v` of 2. The method could
+  /// read its own write back, which is what made it silent: a test that checks
+  /// the value INSIDE the method passes, and only a reader outside the instance
+  /// sees the static unchanged. Two instances did not even agree with each
+  /// other.
+  ///
+  /// The READ path was always right — [InterpretedInstance.get] walks the class
+  /// chain and finds the static when no instance field shadows it — which is
+  /// why the two halves disagreed rather than both being wrong. This mirrors
+  /// that walk so a bare write resolves exactly where a bare read does.
+  ///
+  /// In Dart a class cannot declare a static and an instance member with the
+  /// same name, so finding a static means there is no instance member to
+  /// prefer; the check can come first.
+  InterpretedClass? _staticFieldOwner(InterpretedClass? klass, String name) {
+    var walk = klass;
+    while (walk != null) {
+      if (walk.staticFields.containsKey(name)) return walk;
+      walk = walk.superclass;
+    }
+    return null;
+  }
+
   @override
   Object? visitAssignmentExpression(SAssignmentExpression node) {
     final lhs = node.leftHandSide;
@@ -2831,6 +2859,25 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         try {
           final thisInstance = environment.get('this');
           if (thisInstance is InterpretedInstance) {
+            // SCE125: a bare name the class declares `static` is a write to the
+            // STATIC, not to this instance. See [_staticFieldOwner].
+            final staticOwner = _staticFieldOwner(
+              thisInstance.klass,
+              variableName,
+            );
+            if (staticOwner != null) {
+              if (operatorType == '=') {
+                staticOwner.setStaticField(variableName, rhsValue);
+                return rhsValue;
+              }
+              final newValue = computeCompoundValue(
+                staticOwner.getStaticField(variableName),
+                rhsValue,
+                operatorType,
+              );
+              staticOwner.setStaticField(variableName, newValue);
+              return newValue;
+            }
             if (operatorType == '=') {
               Logger.debug(
                 "[Assignment - implicit this] Checking for direct setter '$variableName' on ${thisInstance.runtimeType}",

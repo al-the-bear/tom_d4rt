@@ -393,9 +393,34 @@ const _partialTwinBudget = 1;
 /// mechanism. The copier surface a port would have added is `is` expressions
 /// over property accesses and closures, which the corpus copies on every run.
 ///
-const _copierGapBudget = 39;
+/// 39 -> 40: SCE125 added `sce125_bare_static_write_test.dart`, which runs
+/// source to ask where a bare write from an instance method lands. Exec
+/// resolves tom_d4rt_ast from pub.dev, where the write still mints a
+/// per-instance shadow, so a port would assert the fix against an interpreter
+/// that does not have it. Its ast twin holds the mechanism. The copier surface
+/// a port would have added is a class with a static field and a compound
+/// assignment to a bare name, both of which the corpus copies on every run.
+///
+const _copierGapBudget = 40;
 
 const Map<String, _Coverage> _coveredElsewhere = {
+  'sce125_bare_static_write_test.dart': _Coverage(
+    'ast:runtime/sce125_bare_static_write_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 6,
+    twinCases: 3,
+    whyPartial:
+        'the twin pins the MECHANISM and its rail — the static updated and '
+        'seen from a second instance, and a non-static field staying '
+        'per-instance — which is what only that tree can answer, since '
+        '`visitAssignmentExpression` and the class-chain walk it mirrors are '
+        'its own copies. The three the reference adds vary the SPELLING '
+        '(plain vs compound, bare vs qualified read-back, local and parameter '
+        'shadowing, the counter idiom, an inherited static), and each row is '
+        'another hand-built bundle over a decision the same short-circuit '
+        'already made.',
+  ),
   'sce121_is_function_test.dart': _Coverage(
     'ast:runtime/sce121_is_function_test.dart',
     _astTwin,
