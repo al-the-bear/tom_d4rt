@@ -58,6 +58,18 @@
 /// actually builds, which is the honest thing for it to do; the floors below
 /// are set to hold for both.
 ///
+/// SCE151 SETTLED WHAT THAT DIVERGENCE IS, and it is not enum-specific: with
+/// no import this line reaches 2414 bridged CLASSES against the source line's
+/// 84, so the classes diverge harder than the enums. The baseline was
+/// disabled and the base corpus re-run to price a tightening: 926/1/1 becomes
+/// 851/1/25. The twenty-four are not scripts using an unimported NAME — they
+/// fail with `No bridge claims this type` for native values returned from
+/// bridged calls (`PlatformDispatcher`, `SemanticsFlag`,
+/// `DeviceGestureSettings`), whose types no import ever named. The baseline is
+/// this line's mechanism for bridging a transitively-reached type, not laxity
+/// about imports, and it stands as a deliberate allowance. See
+/// `_copilot_guidelines/d4rt/mirror_maintenance.md`.
+///
 /// Twin of `tom_d4rt_flutter/test/scd133_registry_enum_resolution_test.dart`.
 /// The two differ only in how the throwaway script reaches the interpreter —
 /// a compiled `AstBundle` here, raw source there.
