@@ -28,6 +28,11 @@
 //   dart run tool/prepublish_overrides.dart            # status (default)
 //   dart run tool/prepublish_overrides.dart --set      # path-resolve, pub get
 //   dart run tool/prepublish_overrides.dart --restore  # remove, pub get
+//   dart run tool/prepublish_overrides.dart --pass     # set, gate, restore
+//
+// `--pass` is the one a publish runs: it sets the overrides, runs analyze in
+// both twins and exec plus exec's own suite, and restores hosted resolution
+// whatever the outcome. See [_gates] for what it does and does not cover.
 //
 // `--set` and `--restore` both re-resolve every target, because a twin and its
 // companion app have separate lockfiles and upgrading one without the other is
@@ -152,6 +157,77 @@ void _printStatus() {
   );
 }
 
+/// The gates `--pass` runs, in order, while the targets are path-resolved.
+///
+/// SCE108 made the pass a STEP OF THE PUBLISH rather than a tool somebody
+/// remembers. SCD66 built the mechanism and proved it pays — its first run
+/// found two exec tests the next `tom_d4rt_ast` publish would have broken
+/// (SCE107) — but it left `--set` / `--restore` as two commands with the work
+/// in between, which is the same shape as the `_bin/check_*.py` scripts the
+/// workspace describes as "scripts somebody has to remember to run". The
+/// answer there was to move the check into the toolchain; this is that move.
+///
+/// WHAT IS AND IS NOT HERE. Analyze catches an API break that would stop a
+/// consumer compiling, which is the most embarrassing class of bad release.
+/// exec's suite catches behavioural drift neither interpreter tree can see,
+/// because exec carries stdlib and conformance suites they do not — it is what
+/// found SCE107. The base CORPUS is deliberately absent: it costs about an hour
+/// per twin, the twins must not run in parallel, and it earns that only for a
+/// NAME-RESOLUTION change, which the quest already singles out. `--pass` says
+/// so on the way out rather than silently deciding for you.
+const _gates = <({String label, String dir, String exe, List<String> args})>[
+  (
+    label: 'analyze: tom_d4rt_flutter_ast',
+    dir: '.',
+    exe: 'flutter',
+    args: ['analyze', '--no-pub'],
+  ),
+  (
+    label: 'analyze: tom_d4rt_flutter',
+    dir: '../tom_d4rt_flutter',
+    exe: 'flutter',
+    args: ['analyze', '--no-pub'],
+  ),
+  (
+    label: 'analyze: tom_d4rt_exec',
+    dir: '../tom_d4rt_exec',
+    exe: 'dart',
+    args: ['analyze'],
+  ),
+  (
+    label: 'test: tom_d4rt_exec',
+    dir: '../tom_d4rt_exec',
+    exe: 'dart',
+    args: ['test', '-j', '4'],
+  ),
+];
+
+/// Runs [_gates], returning the labels that failed.
+///
+/// Streams nothing: a gate's output is printed only when it FAILS, because the
+/// useful form of this command's output is a short verdict, and burying it
+/// under four analyzer runs is how a gate stops being read.
+Future<List<String>> _runGates() async {
+  final failed = <String>[];
+  for (final gate in _gates) {
+    stdout.write('  ${gate.label} … ');
+    final result = await Process.run(
+      gate.exe,
+      gate.args,
+      workingDirectory: gate.dir,
+    );
+    if (result.exitCode == 0) {
+      stdout.writeln('ok');
+    } else {
+      stdout.writeln('FAILED');
+      failed.add(gate.label);
+      stdout.writeln(result.stdout);
+      stdout.writeln(result.stderr);
+    }
+  }
+  return failed;
+}
+
 Future<int> main(List<String> args) async {
   if (!File('pubspec.yaml').existsSync() ||
       !Directory('test/tom_d4rt_flutter_ast_app').existsSync()) {
@@ -162,9 +238,10 @@ Future<int> main(List<String> args) async {
     return 2;
   }
 
-  final set = args.contains('--set');
-  final restore = args.contains('--restore');
-  if (set && restore) {
+  final pass = args.contains('--pass');
+  final set = args.contains('--set') || pass;
+  final restore = args.contains('--restore') && !pass;
+  if (args.contains('--set') && args.contains('--restore')) {
     stderr.writeln('--set and --restore are mutually exclusive.');
     return 2;
   }
@@ -201,7 +278,56 @@ Future<int> main(List<String> args) async {
       '\nAt least one `pub get` failed — the targets are NOT in a consistent '
       'state. Fix the reported error and re-run the same command.',
     );
+    if (pass) await _restoreAll();
     return 1;
   }
-  return 0;
+  if (!pass) return 0;
+
+  stdout.writeln('\nPRE-PUBLISH PASS — gates against the working tree:\n');
+  List<String> failed;
+  try {
+    failed = await _runGates();
+  } finally {
+    // RESTORED WHATEVER HAPPENED. A failed gate that also leaves the tree
+    // path-resolved is strictly worse than not having run the pass: the next
+    // command anybody types — a corpus run, a `flutter test`, a publish dry
+    // run — then measures unpublished code without saying so. The restore is
+    // the one step that must not depend on the outcome.
+    stdout.writeln('\nrestoring hosted resolution …');
+    await _restoreAll();
+  }
+
+  stdout.writeln('');
+  if (failed.isEmpty) {
+    stdout.writeln(
+      'PRE-PUBLISH PASS: clean. Nothing here was recorded as a verification '
+      'run, and must not be — it measured a version nobody can install.\n'
+      'If this publish changes NAME RESOLUTION, the base corpus is still owed '
+      'before it: re-run with --set, drive both twins serially, then '
+      '--restore.',
+    );
+    return 0;
+  }
+  stderr.writeln(
+    'PRE-PUBLISH PASS: ${failed.length} gate(s) FAILED — do not publish.\n'
+    '  ${failed.join('\n  ')}\n\n'
+    'These ran against the working tree, so a failure here is a defect the '
+    'publish would have shipped and no downstream suite could have reported '
+    'first. Hosted resolution has been restored.',
+  );
+  return 1;
+}
+
+/// Removes every override and re-resolves, reporting but not throwing.
+Future<void> _restoreAll() async {
+  for (final t in targets) {
+    final file = _overrideOf(t);
+    if (file.existsSync()) {
+      file.deleteSync();
+      stdout.writeln('removed ${file.path}');
+    }
+  }
+  for (final t in targets) {
+    await _pubGet(t);
+  }
 }
