@@ -2264,7 +2264,9 @@ class D4rt {
   /// halves answer to different constraints.
   ZoneSpecification _scriptZoneSpecification() {
     // Unconditional: shed the wrapper as the callback throws, which needs no
-    // error zone. See [unwrapScriptError] for the one shape this cannot reach.
+    // error zone. `errorCallback` below covers the one shape these cannot
+    // reach; see [unwrapScriptError], which stays the documented remedy for a
+    // value that reaches an embedder by some route neither seam sees.
     R Function() registerCallback<R>(
       Zone self,
       ZoneDelegate parent,
@@ -2304,18 +2306,56 @@ class D4rt {
       }
     });
 
+    // SCE117: the one escape route the register hooks cannot reach.
+    //
+    // A `handleError` handler is invoked by the SDK with NO zone registration
+    // at all, so there is no `register*Callback` seam to wrap — measured, and
+    // adding `runUnary`/`runBinary` to this specification changed nothing
+    // except double-wrapping the `Stream.listen` case. `errorCallback` DOES
+    // fire for that shape, and it is not an error-zone hook: specifying it
+    // leaves `Zone.errorZone` resolving to the parent's, so the property
+    // F-SCD73-6 and F-SCB9-12 hold — an awaiting caller outside the zone still
+    // receives an ordinary script failure — is untouched.
+    //
+    // BLAST RADIUS WAS MEASURED, NOT REASONED. `errorCallback` is consulted
+    // for errors entering futures generally, so the concern was that an
+    // interpreted `catch` would start seeing a different value. A thirteen-row
+    // matrix of in-script shapes — `catch`, `on`-clause matching on native and
+    // script-declared types, `.message` access, `rethrow`, `catchError`,
+    // `await for`, and in-callback `try`/`catch` inside timers and stream
+    // handlers — is byte-identical with and without it. It is a standing test
+    // now rather than a one-off: `sce117_handle_error_unwrapping_test.dart`.
+    //
+    // It delegates when there is nothing to unwrap, so a non-interpreter error
+    // keeps whatever the parent zone decides about it.
+    AsyncError? errorCallback(
+      Zone self,
+      ZoneDelegate parent,
+      Zone zone,
+      Object error,
+      StackTrace? stackTrace,
+    ) {
+      final unwrapped = unwrapScriptError(error);
+      if (identical(unwrapped, error)) {
+        return parent.errorCallback(zone, error, stackTrace);
+      }
+      return AsyncError(unwrapped, stackTrace ?? StackTrace.current);
+    }
+
     // Conditional: this is the error-zone half.
     if (onUncaughtError == null) {
       return ZoneSpecification(
         registerCallback: registerCallback,
         registerUnaryCallback: registerUnaryCallback,
         registerBinaryCallback: registerBinaryCallback,
+        errorCallback: errorCallback,
       );
     }
     return ZoneSpecification(
       registerCallback: registerCallback,
       registerUnaryCallback: registerUnaryCallback,
       registerBinaryCallback: registerBinaryCallback,
+      errorCallback: errorCallback,
       handleUncaughtError: (self, parent, zone, error, stackTrace) {
         final scriptError = unwrapScriptError(error);
         final hook = onUncaughtError;

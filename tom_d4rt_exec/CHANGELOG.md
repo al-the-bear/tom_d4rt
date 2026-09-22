@@ -1,3 +1,32 @@
+## 1.29.0
+
+### Fixed — the last route that handed an embedder the interpreter's wrapper (sce117)
+
+SCD73 made the unwrapping of `InternalInterpreterD4rtException` unconditional
+for every callback the zone REGISTERS, and pinned the one shape it could not
+reach: a handler passed to `Stream.handleError`. The SDK invokes that handler
+with no zone registration at all, so there was no `register*Callback` seam to
+wrap — adding `runUnary` and `runBinary` was tried and changed nothing except
+double-wrapping the `Stream.listen` case.
+
+`Zone.errorCallback` fires for that shape and — this is why it is the right
+seam rather than merely an available one — IS NOT AN ERROR-ZONE HOOK.
+Specifying it leaves `Zone.errorZone` resolving to the parent's, so the
+property that ruled `handleUncaughtError` out does not arise: an awaiting
+caller outside the zone still receives an ordinary script failure rather than
+hanging.
+
+THE BLAST RADIUS WAS MEASURED, NOT REASONED. `errorCallback` is consulted for
+errors entering futures generally, so the question was whether an interpreted
+`catch` would start seeing a different value. A thirteen-row matrix of
+in-script shapes is byte-identical with and without the seam, and is a
+standing test now rather than a hand measurement nobody could re-run.
+
+`unwrapScriptError` stays public and stays correct on a value that no longer
+needs it, so an embedder's defensive call has not become a bug.
+
+Name resolution: no.
+
 ## 1.28.0
 
 ### Fixed — the module parse failure is worded as the reference words it (sce111)

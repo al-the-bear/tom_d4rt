@@ -46,11 +46,13 @@
 /// someone who can hold it, so unwrapping there could change what an
 /// interpreted `catch` receives.
 ///
-/// One shape stays wrapped: `Stream.handleError`'s handler, which the SDK
-/// invokes with no zone registration at all — wrapping `runUnary` and
+/// One shape stayed wrapped until SCE117: `Stream.handleError`'s handler, which
+/// the SDK invokes with no zone registration at all — wrapping `runUnary` and
 /// `runBinary` too was tried and changed nothing except double-wrapping the
-/// stream case. F-SCD73-5 pins that residue rather than leaving it to be
-/// discovered, and names the remedy.
+/// stream case. `Zone.errorCallback` reaches it and is not an error-zone hook,
+/// so the specification gained that instead. F-SCD73-5 pinned the residue while
+/// it existed and now pins its closure; the blast-radius control that decision
+/// needed lives in `sce117_handle_error_unwrapping_test.dart`.
 ///
 /// ## Why the transform is the FULL unwrap and not just the wrapper
 ///
@@ -79,7 +81,8 @@
 /// two halves of the zone change are not independently testable from here —
 /// they buy the same two cases, because either one alone leaves no seam.
 ///
-/// F-SCD73-3 and -5..8 are rails: they hold before and after. They exist so
+/// F-SCD73-3 and -6..8 are rails: they hold before and after. (-5 was one too,
+/// until SCE117 gave it something to say.) They exist so
 /// that a later change which buys the unwrapping by taking over the error zone,
 /// by isolating the script's zone, by regressing the async machinery's own
 /// unwrapping, or by breaking `unwrapScriptError`'s pass-through fails here
@@ -227,15 +230,22 @@ void main() {
       );
     });
 
-    test('F-SCD73-5: the one residue — a handleError handler still arrives '
-        'wrapped, and unwrapScriptError is the remedy [2026-09-13]', () async {
-      // Pins the LIMIT of the mechanism so nobody reads the four tests above
-      // as "d4rt always unwraps" and drops the defensive call. The SDK
-      // invokes a `handleError` handler without registering it with the
-      // zone, so there is no seam to wrap; reaching it needs either the
-      // error zone (which would break F-SCB9-12) or a guard inside the
-      // `handleError` adapter itself, which is the per-adapter answer SCC23
-      // rejected on purpose. Tracked as sce117_aiml.
+    test('F-SCD73-5: the residue is closed — a handleError handler arrives '
+        'unwrapped too [2026-09-13, inverted 2026-09-22]', () async {
+      // WAS THE LIMIT OF THE MECHANISM, and is now covered. SCD73 recorded
+      // that the SDK invokes a `handleError` handler without registering it
+      // with the zone, so there was no `register*Callback` seam to wrap, and
+      // named two ways out: the error zone (which would break F-SCB9-12) or a
+      // per-adapter guard (which SCC23 rejected on purpose). SCE117 found a
+      // third that the todo's own notes pointed at — `Zone.errorCallback`
+      // fires for this shape and is NOT an error-zone hook, so it costs
+      // nothing in error routing. See
+      // `sce117_handle_error_unwrapping_test.dart`, which carries the
+      // blast-radius control that decision needed.
+      //
+      // Kept here as well as there: this file is what a reader consults for
+      // "what does a no-hook embedder receive", and an entry saying `wrapped`
+      // would be the wrong answer to that question.
       final (_, zoneErrors) = await noHook('''
           import 'dart:async';
           main() async {
@@ -249,19 +259,17 @@ void main() {
 
       expect(
         zoneErrors.single,
-        isA<InternalInterpreterD4rtException>(),
-        reason:
-            'unchanged, and documented on unwrapScriptError rather than '
-            'left for an embedder to hit',
+        isNot(isA<InternalInterpreterD4rtException>()),
+        reason: 'SCE117 closed the last route the wrapper escaped by',
       );
+      expect(zoneErrors.single, isA<StateError>());
+      expect((zoneErrors.single as StateError).message, 'he');
       expect(
         unwrapScriptError(zoneErrors.single),
-        isA<StateError>(),
-        reason: 'the documented one-line remedy has to actually work',
-      );
-      expect(
-        (unwrapScriptError(zoneErrors.single) as StateError).message,
-        'he',
+        same(zoneErrors.single),
+        reason:
+            'the documented remedy is still correct on a value that no '
+            'longer needs it, so a defensive call is not now a bug',
       );
     });
 

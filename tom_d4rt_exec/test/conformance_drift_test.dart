@@ -365,9 +365,37 @@ const _partialTwinBudget = 1;
 /// representation — both of which the corpus copies on every run, and both of
 /// which the hand-built twin constructs directly.
 ///
-const _copierGapBudget = 36;
+/// 36 -> 37: SCE117 added `sce117_handle_error_unwrapping_test.dart`, which
+/// runs source to ask what a no-hook embedder receives from a `handleError`
+/// handler. A port is not blocked by the interpreter here — exec's front end
+/// carries its own copy of the zone specification and got the same fix — but
+/// by the in-script matrix, which measures the interpreter's async machinery;
+/// exec resolves tom_d4rt_ast from pub.dev, so thirteen rows would be asserted
+/// against a different one. Its ast twin holds the seam. The copier surface a
+/// port would have added is stream and future chains over closures, which the
+/// corpus copies on every run.
+///
+const _copierGapBudget = 37;
 
 const Map<String, _Coverage> _coveredElsewhere = {
+  'sce117_handle_error_unwrapping_test.dart': _Coverage(
+    'ast:runtime/sce117_handle_error_unwrapping_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 3,
+    twinCases: 1,
+    whyPartial:
+        'the twin pins the SEAM, which is the whole of what it can uniquely '
+        'answer: `D4rtRunner` carries its own copy of the zone '
+        'specification, and nothing in the reference suite runs a line of it. '
+        'The two the reference adds are CONTROLS over the seam\'s blast '
+        'radius — a thirteen-row in-script matrix, and a non-interpreter '
+        'error being delegated rather than repackaged — and neither is a '
+        'property of one tree: they are about what `Zone.errorCallback` does '
+        'to errors it was not aimed at, which is SDK behaviour both trees '
+        'inherit identically. Thirteen hand-built bundles would restate it, '
+        'not test it.',
+  ),
   'sce116_enum_and_extension_tostring_test.dart': _Coverage(
     'ast:runtime/sce116_enum_and_extension_tostring_test.dart',
     _astTwin,

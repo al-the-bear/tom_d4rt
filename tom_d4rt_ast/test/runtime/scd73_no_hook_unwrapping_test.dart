@@ -27,8 +27,16 @@
 /// or the unconditional fork — fails F-SCD73-AST-1. F-SCD73-AST-2 and -3 are
 /// rails: -2 is the property F-SCB9-12 failed on when the error-zone half was
 /// made unconditional during SCC23, asserted here because the fork is now
-/// unconditional; -3 covers `unwrapScriptError`, the documented remedy for the
-/// one escape route with no registration seam (`Stream.handleError`).
+/// unconditional; -3 covers `unwrapScriptError`, which stays the documented
+/// remedy for a value reaching an embedder by some route no seam sees.
+///
+/// SCE117 CLOSED THE ONE ROUTE SCD73 COULD NOT. `Stream.handleError`'s handler
+/// is invoked by the SDK with no zone registration, so there was nothing to
+/// wrap; `Zone.errorCallback` fires for it and is not an error-zone hook, so
+/// the specification gained that. -2 above is precisely the property that made
+/// `handleUncaughtError` unavailable and `errorCallback` usable, which is why
+/// it matters more after SCE117 than before it. See
+/// `sce117_handle_error_unwrapping_test.dart`.
 library;
 
 import 'dart:async';
@@ -235,10 +243,12 @@ void main() {
       'F-SCD73-AST-3: unwrapScriptError peels both levels and passes anything '
       'else through untouched [2026-09-13]',
       () {
-        // It is the documented remedy for `Stream.handleError`, whose handler
-        // the SDK invokes with no zone registration — so it has to work, and it
-        // runs on every callback registered while a script executes, so
-        // "leaves everything else alone" is a safety property.
+        // It runs on every callback registered while a script executes, and
+        // since SCE117 on every error entering a future too, so "leaves
+        // everything else alone" is a safety property rather than a nicety.
+        // It also has to stay correct on an already-unwrapped value: an
+        // embedder's defensive call must not become a bug now that the routes
+        // it guarded are covered.
         final native = StateError('native');
         expect(identical(unwrapScriptError(native), native), isTrue);
         expect(unwrapScriptError('a string'), 'a string');
