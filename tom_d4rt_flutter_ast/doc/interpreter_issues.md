@@ -25,7 +25,7 @@ reverse) fails the suite. Re-derive; do not hand-edit one side alone.
 | Marker | Section (heading text, verbatim) | What it is |
 | ------ | -------------------------------- | ---------- |
 | `[ ]` | Open (GEN-125) — an interpreted closure is rejected against a bridged function typedef (`VoidCallback`, `ValueChanged`) | An **interpreter / bridge** defect. Blast radius: every script closure passed to a parameter typed as a Flutter function typedef — which is every Flutter callback, on every widget, wherever a declared parameter type is checked. Nothing narrows it to the widgets the corpus happens to contain. Measured 2026-09-06 (run `20260906-scc46-fixed`); counts in the entry. |
-| `[ ]` | Open (GEN-126) — a bridged base class arrives where the script's own subclass is declared | Blast radius: every script-declared subclass of a bridged class, wherever the value returns through native code and meets a declared parameter of the script's own type — `getRuntimeType` answers with the bridge's name and the check refuses a value that works (`type 'Intent' is not a subtype of type '_GreetIntent'`). Measured 2026-09-06, identically in both twins; its failure count is zero, which is why it is recorded rather than dropped. |
+| `[ ]` | Open (GEN-126) — a bridged base class arrives where the script's own subclass is declared | Blast radius: every script-declared subclass of a bridged class, wherever the value returns through native code and meets a declared parameter of the script's own type — `getRuntimeType` answers with the bridge's name and the check refuses a value that works (`type 'Intent' is not a subtype of type '_GreetIntent'`). Measured 2026-09-06, identically in both twins. **Narrowed 2026-09-22 (sce137):** the nine `Intent` rows and the `ThemeExtension` row are closed in the tree, measured against a 0.65.0 control; what stays open is the case where NO proxy is registered for the base at all (`TwoDimensionalChildBuilderDelegate`, `RenderProxyBox`), which sce164 owns. The example the blast-radius sentence used to give — `type 'Intent' is not a subtype of type '_GreetIntent'` — is one of the closed ones; the live shape is now `type 'TwoDimensionalChildBuilderDelegate' is not a subtype of type '_TwoDMgrCountingDelegate'`. |
 | `[~]` | Partially fixed — script-side / Flutter framework limitations | **Not an interpreter defect** — a rolling sweep log of demo-script fixes (layout overflow, unbounded constraints, platform-unsupported services). Rows whose "After" column reads `1*` note a residual that *is* interpreter-side; each of those is tracked by its own cluster. Last sweep 2026-04-29. |
 
 ## No corpus numbers live in this header
@@ -4163,6 +4163,62 @@ along. **sce160** owns the published re-measurement that decides it.
 
 Tracked as **scd138** — as an investigation, not as a fix; scd119 answered
 its first question and narrowed what is left to the `Intent` rows.
+
+**The nine `Intent` rows are CLOSED, and the ThemeExtension row with them —
+measured 2026-09-22 (sce137), with a control.** The either/or this entry posed
+resolves to the first branch: `Actions.invoke` hands back the PROXY, so
+scd119's retry sees it and no unwrap/rewrap boundary repair is owed.
+
+| file | resolution | summary | `type 'Intent' is not a subtype of …` |
+| ---- | ---------- | ------- | ---: |
+| `flutter_extended_21` | hosted 0.65.0 | `+47` | **5** |
+| `flutter_extended_21` | tree 0.156.0 | `+47` | **0** |
+| `flutter_extended_13` | hosted 0.65.0 | `+61` | **4** |
+| `flutter_extended_13` | tree 0.156.0 | `+61` | **0** |
+
+5 + 4 is the nine, and the seven class names are the seven this entry lists —
+`ToggleIntent`, `PlainActionIntent`, `ThemeReadIntent`, `TreeClimbIntent`,
+`ShowInfoIntent` in `retest/widgets/context_action_test.dart`, `_GreetIntent`
+and `_UndoIntent` in `widgets/action_listener_test.dart`. The pass counts are
+IDENTICAL across the two resolutions, which is what this entry predicted ("No
+`+N` count will move — the affected tests already pass") and is also why the
+result is trustworthy: a corrupted run shows as failures, not as an unchanged
+pass count.
+
+`flutter_extended_07` carries the ThemeExtension row and goes `+45 -1` with the
+error to `+46` with none.
+
+**THE CONTROL MATTERED, and the first attempt was vacuous.** `widgets/actions_test.dart`
+is named above as the canonical shape, so it was measured first: `frameworkErrors=0`
+at the tree. It is also 0 at the PUBLISHED 0.65.0 — the whole of
+`flutter_extended_04`'s single framework error is a GEN-125 `ValueChanged` shape.
+So that zero said nothing, and the nine rows were never in that file. They are in
+`flutter_extended_21` and `_13`, which is where the control above was then taken.
+A grep for absent text always returns zero; the version that finds the errors at
+the old pair is the only one whose zero at the new pair means anything.
+
+**What remains open is the third row of the scd138 table, unchanged.** At the
+tree, `flutter_extended_20` still reports
+`TwoDimensionalChildBuilderDelegate → _TwoDMgrCountingDelegate` (3) and
+`RenderProxyBox → _RenderMeasureBox` (1) — no proxy is registered for those
+bases, so there is nothing for the retry to see. **sce164** owns them. A
+`List<StatelessWidget> → List<_VemBullet>` line appears there too, which is the
+fifth shape **sce161** carries.
+
+**Not measured here: whether `flutter_extended_20` regressed.** Its tree run
+reported 13 failures against a clean hosted run, and neither number is usable —
+the invocation used `flutter test`'s default 30-second per-test timeout where
+the corpus runners pass `--timeout 65s`, and the host had two other
+`flutter test` sessions running by then. Every one of the 13 was a
+`TimeoutException`, not a type error. Recorded as a non-result rather than as a
+regression, and rather than quietly dropped: the file is the one that carries
+the remaining GEN-126 shapes, so somebody will run it again.
+
+**Still owed: the PUBLISHED confirmation.** Everything above is a SCD66
+pre-publish path-resolved pass, so it describes a tree nobody can install and
+none of it belongs in `## Verification runs`. **sce160** owns the published
+re-measurement; the publish itself is blocked by the base-corpus regression
+**sce162** / **scf26**.
 
 **Verifying the fix.** These 14 framework errors go to 0. No `+N` count will
 move — the affected tests already pass.
