@@ -132,7 +132,7 @@ void main() {
 
     test('F-SCE62-7: three pattern forms await the interpreter publish '
         '[2026-09-21]', () {
-      // PUBLISH-PIN(sce162_aioc-four-unpublished-base-corpus-regressions-block-the-publish):
+      // PUBLISH-PIN(sce160_aioc-publish-scd136-and-record-the-corpus-run):
       // tom_d4rt_ast's working tree implements SNullCheckPattern,
       // SNullAssertPattern and SParenthesizedPattern in `_matchAndBind`; the
       // PUBLISHED 0.65.0 this package resolves does not, and sce162 forbids

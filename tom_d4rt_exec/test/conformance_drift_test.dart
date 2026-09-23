@@ -751,8 +751,8 @@ const Map<String, _Coverage> _coveredElsewhere = {
     // and `toBridgedClass` is asked which bridge claims a native type, so the
     // ast twin is the better test rather than a substitute for an exec one.
     layer: _Layer.registration,
-    refCases: 3,
-    twinCases: 3,
+    refCases: 4,
+    twinCases: 4,
   ),
   'bridge/scd119_interpreted_proxy_binding_test.dart': _Coverage(
     'ast:runtime/scd119_interpreted_proxy_binding_test.dart',
@@ -1555,7 +1555,7 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
   // that produces none. -3 and -4 would pass there, which is exactly why they
   // are the safety evidence rather than the subject.
   'sce127_dead_on_clause_test.dart': (ran: 4, declared: 4),
-  // PUBLISH-PIN(sce162_aioc-four-unpublished-base-corpus-regressions-block-the-publish)
+  // PUBLISH-PIN(sce160_aioc-publish-scd136-and-record-the-corpus-run)
   // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.157.0.
   // SCE139 stopped the return and invocation resumption routes re-evaluating
   // their node inside `_determineNextNodeAfterAwait`, which ran every
@@ -1588,19 +1588,19 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
   // against 0.65.0 are the shapes that were already right, and they are in each
   // file deliberately as controls.
   //
-  // PUBLISH-PIN(sce162_aioc-four-unpublished-base-corpus-regressions-block-the-publish)
+  // PUBLISH-PIN(sce160_aioc-publish-scd136-and-record-the-corpus-run)
   // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.117.0.
   // Measured 2026-09-18: 6 of 10 fail against 0.65.0, 0 of 10 against 0.120.0.
   'sce17_await_in_expression_body_test.dart': (ran: 10, declared: 10),
-  // PUBLISH-PIN(sce162_aioc-four-unpublished-base-corpus-regressions-block-the-publish)
+  // PUBLISH-PIN(sce160_aioc-publish-scd136-and-record-the-corpus-run)
   // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.118.0.
   // Measured 2026-09-18: 4 of 9 fail against 0.65.0, 0 of 9 against 0.120.0.
   'sce18_finally_on_abrupt_exit_test.dart': (ran: 9, declared: 9),
-  // PUBLISH-PIN(sce162_aioc-four-unpublished-base-corpus-regressions-block-the-publish)
+  // PUBLISH-PIN(sce160_aioc-publish-scd136-and-record-the-corpus-run)
   // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.119.0.
   // Measured 2026-09-18: 5 of 9 fail against 0.65.0, 0 of 9 against 0.120.0.
   'sce19_do_while_first_body_run_test.dart': (ran: 9, declared: 9),
-  // PUBLISH-PIN(sce162_aioc-four-unpublished-base-corpus-regressions-block-the-publish)
+  // PUBLISH-PIN(sce160_aioc-publish-scd136-and-record-the-corpus-run)
   // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.120.0.
   // Measured 2026-09-18: 7 of 9 fail against 0.65.0, 0 of 9 against 0.120.0.
   'sce20_braceless_if_else_test.dart': (ran: 9, declared: 9),
@@ -4017,12 +4017,17 @@ const Map<String, String> _astWorkingTreeDrift = {
 /// F-SCC80-1 still PRINTS the resolved version on every run, so "which
 /// interpreter did this measure" is answered whether or not a block is in
 /// force.
+// SCE162 CLEARED THE REGRESSIONS; IT DID NOT DO THE PUBLISH. These pins were
+// keyed on sce162, and closing it read to F-SCD103-1 and F-SCC80-3 as "the
+// publish landed" — which it has not. What they are actually waiting on is the
+// publish, which is sce160's, so they now name it. The distinction is the one
+// the pin machinery exists to keep: a pin names the todo that will DELETE it.
 // The type is the contract — `null` is how "nothing blocks the publish" is
 // expressed, and that is the state this constant returns to. The lint reasons
 // from today's value alone.
 // ignore: unnecessary_nullable_for_final_variable_declarations
 const String? _astPublishBlock =
-    'sce162_aioc-four-unpublished-base-corpus-regressions-block-the-publish';
+    'sce160_aioc-publish-scd136-and-record-the-corpus-run';
 
 /// One baseline entry and the comment block written directly above it.
 typedef _BaselineEntry = ({String path, String comment});

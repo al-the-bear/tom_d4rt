@@ -43,6 +43,12 @@ class UnmodifiableSetView<E> {
   const UnmodifiableSetView();
 }
 
+/// The MAP half of the same shape — `const <K,V>{...}` evaluates to an
+/// `UnmodifiableMapView`, whose longest suffix match is also `View`.
+class UnmodifiableMapView<K, V> {
+  const UnmodifiableMapView();
+}
+
 /// A bridge whose NAME is a suffix of the native type's name and which declares
 /// no relationship to it. Flutter's `View` widget, in the real registry.
 BridgedClass _suffixBridge() =>
@@ -116,6 +122,32 @@ void main() {
       expect(
         child.toBridgedClass(UnmodifiableSetView<String>).name,
         'NearerSet',
+      );
+    });
+
+    test('F-SCF26-AST-4: the MAP shape resolves the same way, and was never '
+        'exercised by a script [2026-09-23]', () {
+      // `const <String,int>{...}` evaluates to an `UnmodifiableMapView`, whose
+      // longest suffix match across the Flutter registry is also `View`. No
+      // corpus script had hit it, so it is pinned here rather than waited for:
+      // the property is about the SHAPE of the two names, not about Set, and a
+      // repair special-cased to one of them would pass F-SCF26-1 and fail here.
+      final parent = Environment();
+      parent.defineBridge(
+        BridgedClass(
+          nativeType: UnmodifiableMapView,
+          name: 'Map',
+          nativeNames: const ['UnmodifiableMapView'],
+          constructors: const {},
+        ),
+        sourceUri: 'package:probe/map.dart',
+      );
+      final child = Environment(enclosing: parent);
+      child.defineBridge(_suffixBridge(), sourceUri: 'package:probe/view.dart');
+
+      expect(
+        child.toBridgedClass(UnmodifiableMapView<String, int>).name,
+        'Map',
       );
     });
   });
