@@ -4154,12 +4154,75 @@ sentence above was the accurate part all along — *every* script-declared
 subclass of a bridged class — which is the same lesson GEN-124's post-mortem
 draws, arriving a second time in the same document.
 
-Counts are deliberately not quoted here: this was seen in a SCD66 pre-publish
-path-resolved pass, so it describes a tree nobody can install yet, and a
-number in that state is worse than none. **sce161** carries the
-characterisation and the one question the pass could not settle — whether one
-of `flutter_extended_23`'s four failures was misattributed to GEN-125 all
-along. **sce160** owns the published re-measurement that decides it.
+**THE MECHANISM IS ONE THING, AND IT IS `const` — measured 2026-09-23 (sce161).**
+The four-shape symptom list is four instances of a single condition, and the
+discriminator is not the base class at all. In process against the PUBLISHED
+interpreter (`tom_d4rt_ast` 0.65.0), with a script subclass bound to a
+parameter declared as that subclass:
+
+| construction | `StatelessWidget` | `StatefulWidget` | `Intent` |
+| ------------ | ----------------- | ---------------- | -------- |
+| `const`      | refused           | refused          | refused  |
+| non-`const`  | binds             | binds            | binds    |
+
+A `const` instance bound to a declared LOCAL binds; a typed `for-in` variable
+binds. Only the declared-PARAMETER and declared-COLLECTION sites refuse it.
+So the base class was never the variable — `Intent` and `ThemeExtension` are
+simply where the corpus happens to write `const`, and a widget tree writes
+`const` everywhere, which is why the fifth shape is the one that reached an
+assertion.
+
+**AND SCD119 HAD MOVED THE REJECTION ONE LEVEL DOWN RATHER THAN REMOVING IT.**
+At the working tree the scalar shapes above all bind — scd119 and scd138
+work — and the COLLECTION form does not:
+
+```
+type 'List<StatelessWidget>' is not a subtype of type 'List<_A11yNote>' of 'notes'
+```
+
+with every element individually bindable. The rejection had moved from the
+base check in `ResolvedBinding.bind` to the applied type-argument check
+(SCD92), which derives a collection's arguments from elements that each still
+answer with the bridge's name. Down is the commoner level, because a script
+that builds widgets builds LISTS of them.
+
+**Fixed in the tree (sce161).** `_checkTypeArguments` now retries the same
+subtype question with the interpreted instances substituted in, returning the
+ORIGINAL collection so the proxies native code expects are what travel. Same
+discipline as scd119's retry: it runs only after the check has already failed,
+so it can remove a rejection this check added and never add one, and an element
+standing for an unrelated class is still refused. Witnesses and rails in both
+trees — F-SCE161-1/-2 with control -3 in `tom_d4rt`, F-SCE161-AST-1 with
+control -2 in `tom_d4rt_ast` — every witness red with the retry removed, both
+controls green either way.
+
+**Measured in the corpus, at the tree, with an ablation control:**
+
+| `flutter_extended_20` | wall | result | `List<StatelessWidget> → List<_VemBullet>` |
+| --------------------- | ---- | ------ | ----------------------------------------: |
+| tree, retry ABLATED   | 3:27 | `+69 -1` | **1** |
+| tree, retry present   | 3:03 | `+69 -1` | **0** |
+
+The single failure is the same `TimeoutException` in both and is transport, not
+type. `flutter_extended_23` — the file sce161 was filed from — goes to `+45 ~1`
+with `navigation_destination_label_behavior_test.dart` at
+`status=success frameworkErrors=0` and no `StatelessWidget` line anywhere in the
+run. The `RenderProxyBox` (5) and `TwoDimensionalChildBuilderDelegate` (3)
+lines are unchanged, as expected: they are the no-proxy case and **sce164**
+owns them.
+
+**A CONTENDED RUN IS NOT A RESULT, and this file produced one again.** An
+earlier tree run of `flutter_extended_20` reported `+60 -10` in 9:18 with three
+`SocketException`s — against 3:03 and `+69 -1` for the same tree on a quiet
+host. The pass/fail numbers from the contended run are discarded rather than
+recorded, which is the same call the 2026-09-22 note above made about this same
+file for the same reason.
+
+Counts from a SCD66 pre-publish path-resolved pass describe a tree nobody can
+install yet, so none of the above belongs in `## Verification runs`. **sce160**
+owns the published re-measurement, and the one question it still has to settle
+is whether one of `flutter_extended_23`'s four failures was misattributed to
+GEN-125 all along — capture the per-test failure NAMES there, not just counts.
 
 Tracked as **scd138** — as an investigation, not as a fix; scd119 answered
 its first question and narrowed what is left to the `Intent` rows.

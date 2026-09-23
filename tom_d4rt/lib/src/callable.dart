@@ -6641,6 +6641,52 @@ class ResolvedBinding {
     if (_widenNumericArguments(comparable, declared).isSubtypeOf(declared)) {
       return value;
     }
+    // SCE161: THE SAME IDENTITY LOSS, ONE LEVEL DOWN. SCD119 taught the base
+    // check in [bind] to look behind a single proxy. This check reads the
+    // value's APPLIED arguments, and a collection derives those from elements
+    // that each still answer with the bridge's name — so a list of proxies
+    // standing for `MyShape` presents as `List<Shape>` and a declared
+    // `List<MyShape>` was refused, with every element individually bindable.
+    //
+    // Down is where the corpus mostly is: a script that builds widgets builds
+    // LISTS of them, which is why this surfaced as `List<StatelessWidget>`
+    // against `List<_A11yNote>` and reached an ASSERTION rather than the
+    // framework warning the scalar shapes produced.
+    //
+    // Same discipline as SCD119's retry. It runs only after the argument check
+    // has already failed, so it can remove a rejection this method added and
+    // never add one. It asks the SAME subtype question with the interpreted
+    // instances substituted in rather than waving the collection through, so an
+    // element standing for an unrelated class is still refused. And it returns
+    // the ORIGINAL collection, because the proxies are what native code
+    // downstream expects to receive.
+    if (value is Iterable && value.isNotEmpty) {
+      final elements = value.toList();
+      final behind = <Object?>[
+        for (final element in elements) _interpretedBehind(element) ?? element,
+      ];
+      final substituted = Iterable<int>.generate(
+        elements.length,
+      ).any((i) => !identical(behind[i], elements[i]));
+
+      if (substituted) {
+        final Object substitute = value is Set ? behind.toSet() : behind;
+        AppliedRuntimeType? substituteType;
+        try {
+          substituteType = env.appliedRuntimeTypeOf(substitute);
+        } catch (_) {
+          substituteType = null;
+        }
+        if (substituteType != null &&
+            _bottomOutNullArguments(
+              substituteType,
+              declared,
+            ).isSubtypeOf(declared)) {
+          return value;
+        }
+      }
+    }
+
     final declaredName = _isNullable ? '${declared.name}?' : declared.name;
     throw D4rtTypeError(
       "type '${actual.name}' is not a subtype of type '$declaredName'$_suffix",

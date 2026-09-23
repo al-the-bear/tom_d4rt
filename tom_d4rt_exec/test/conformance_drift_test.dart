@@ -743,18 +743,22 @@ const Map<String, _Coverage> _coveredElsewhere = {
     'ast:runtime/scd119_interpreted_proxy_binding_test.dart',
     _astTwin,
     layer: _Layer.script,
-    refCases: 4,
-    twinCases: 2,
+    refCases: 7,
+    twinCases: 4,
     whyPartial:
-        'the twin carries the claim (F-SCD119-AST-1: a proxy binds to a '
-        'parameter declared as the script class it wraps) and the one control '
-        'that can go wrong (F-SCD119-AST-2: an unrelated declared class is '
-        'still rejected, so the repair has not become unwrap-and-accept). The '
-        'two it omits are the reference tree\'s F-SCD119-2, which round-trips '
-        'the bound value through a second native boundary, and F-SCD119-4, '
-        'which checks a NON-proxy native value is still refused by the base '
-        'check — both reachable only by writing two more bundles for a branch '
-        'the first two already pin.',
+        'the twin carries each claim and the one control that can go wrong '
+        'beside it: F-SCD119-AST-1 (a proxy binds to a parameter declared as '
+        'the script class it wraps) with F-SCD119-AST-2, and SCE161\'s '
+        'F-SCE161-AST-1 (a LIST of proxies binds to a parameter declared as a '
+        'list of that class) with F-SCE161-AST-2. The list pair was worth two '
+        'more hand-built bundles where the others were not, because it is the '
+        'shape the flutter corpus actually hits and the only one that reached '
+        'an assertion. The three it omits are the reference tree\'s '
+        'F-SCD119-2, which round-trips the bound value through a second native '
+        'boundary, F-SCD119-4, which checks a NON-proxy native value is still '
+        'refused by the base check, and F-SCE161-2, the declared-LOCAL site of '
+        'the same binding path — all reachable only by writing more bundles '
+        'for branches the four already pin.',
   ),
   'dgub5_filesystem_permission_symlink_test.dart': _Coverage(
     'ast:runtime/dgub5_filesystem_permission_symlink_test.dart',

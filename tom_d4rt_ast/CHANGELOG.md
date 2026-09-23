@@ -1,3 +1,46 @@
+## 0.162.0
+
+### Fixed — a LIST of interpreted proxies was refused where each element was accepted (sce161)
+
+SCD119 taught the binding check to look behind a `D4InterpretedProxy`: a script
+class extending a bridged one is handed to Flutter as a proxy, `getRuntimeType`
+answers with the BRIDGE's name, and binding it back to a parameter declared as
+the script's own class was rejected. That repair reads ONE value.
+
+A COLLECTION of them was still refused, and this is where the corpus actually
+is — a script that builds widgets builds LISTS of them:
+
+    type 'List<StatelessWidget>' is not a subtype of type 'List<_A11yNote>'
+
+with every element individually bindable. The rejection came from the applied
+type-argument check (SCD92), which derives the collection's arguments from
+elements that each still answer with the bridge's name. So SCD119 moved the
+rejection one level down instead of removing it, and down is the commoner level.
+
+MEASURED, AND THE DISCRIMINATOR IS `const`. Reproduced in process against the
+published interpreter: a script subclass constructed with `const` and bound to a
+declared parameter fails; the same subclass constructed WITHOUT `const` passes.
+It is base-independent — `StatelessWidget`, `StatefulWidget` and `Intent` all
+fail under `const` and all pass without it — which is one mechanism rather than
+the four-shape symptom list GEN-126 was written around. A declared LOCAL takes
+the scalar value fine; only the declared-parameter and declared-collection sites
+refuse it.
+
+The retry keeps SCD119's discipline exactly. It runs only after the argument
+check has already failed, so it can remove a rejection this check added and
+never add one. It asks the SAME subtype question with the interpreted instances
+substituted in rather than waving the collection through, so an element standing
+for an unrelated class is still refused. And it returns the ORIGINAL collection,
+because the proxies are what native code downstream expects to receive.
+
+Witnesses and rails in both trees: F-SCE161-1/-2 (parameter and declared local)
+with F-SCE161-3 as the control in `tom_d4rt`, and F-SCE161-AST-1 with
+F-SCE161-AST-2 in `tom_d4rt_ast`. Ablated: every witness goes red with the retry
+removed and both controls stay green either way.
+
+Name resolution: no — a subtype verdict on a binding; which names bind to what
+is untouched.
+
 ## 0.161.0
 
 ### Added — `@D4rtUserProxy` / `@D4rtUserRelaxer` on the analyzer-free line (sce154)

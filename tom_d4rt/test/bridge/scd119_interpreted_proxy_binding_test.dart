@@ -167,6 +167,99 @@ void main() {
       expect(interpreter.execute(source: code), equals(11));
     });
 
+    // ---- SCE161: the same loss, one level down, inside a collection ----
+
+    test('F-SCE161-1: a LIST of proxies binds to a parameter declared as a '
+        'list of the script class [2026-09-23]', () {
+      // SCD119 taught the binding check to look behind a proxy. It looks at
+      // ONE value. A list of them derives as `List<Shape>` — each element
+      // still answers with the bridge's name — so `List<MyShape>` was refused
+      // with `type 'List<Shape>' is not a subtype of type 'List<MyShape>'`.
+      //
+      // Measured before the fix: the scalar shapes pass and this one does not,
+      // so SCD119 moved the rejection one level down rather than removing it.
+      // In the corpus this is the commoner shape by construction, because a
+      // script that builds widgets builds LISTS of them.
+      final code = '''
+          import 'package:test/shape.dart';
+
+          class MyShape extends Shape {
+            int size = 3;
+          }
+
+          int total(List<MyShape> shapes) {
+            var sum = 0;
+            for (final s in shapes) {
+              sum += s.size;
+            }
+            return sum;
+          }
+
+          int main() {
+            final a = Shape.wrap(MyShape());
+            final b = Shape.wrap(MyShape());
+            return total(<MyShape>[a, b]);
+          }
+        ''';
+      expect(interpreter.execute(source: code), equals(6));
+    });
+
+    test('F-SCE161-2: a declared LOCAL of list type takes it too '
+        '[2026-09-23]', () {
+      // The corpus reports this site rather than a parameter —
+      // `type 'List<StatelessWidget>' is not a subtype of type
+      // 'List<_A11yNote>' of 'notes'` names a local. Same binding path, pinned
+      // separately because it is the one a reader will have seen.
+      final code = '''
+          import 'package:test/shape.dart';
+
+          class MyShape extends Shape {
+            int size = 5;
+          }
+
+          int main() {
+            final List<MyShape> shapes = <MyShape>[
+              Shape.wrap(MyShape()),
+              Shape.wrap(MyShape()),
+            ];
+            return shapes.length * shapes.first.size;
+          }
+        ''';
+      expect(interpreter.execute(source: code), equals(10));
+    });
+
+    test('F-SCE161-3 (control): a list carrying an unrelated proxy is still '
+        'rejected [2026-09-23]', () {
+      // The element-wise retry must keep SCD119's property: it can remove a
+      // rejection and never add one, and it must not become a blanket
+      // exemption for anything that arrives inside a list.
+      final code = '''
+          import 'package:test/shape.dart';
+
+          class MyShape extends Shape {
+            int size = 1;
+          }
+
+          class OtherShape extends Shape {
+            int size = 2;
+          }
+
+          int total(List<MyShape> shapes) => shapes.length;
+
+          int main() {
+            return total(<MyShape>[Shape.wrap(OtherShape())]);
+          }
+        ''';
+      expect(
+        () => interpreter.execute(source: code),
+        throwsA(isA<Object>()),
+        reason:
+            'a list whose element stands for an unrelated script class must '
+            'still be refused, or the retry is an exemption rather than a '
+            'repair',
+      );
+    });
+
     test('F-SCD119-3 (control): a proxy does NOT bind to an unrelated script '
         'class [2026-09-14]', () {
       // Same proxy machinery, wrong declared class. If this passes, the fix

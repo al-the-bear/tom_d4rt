@@ -66,6 +66,18 @@ SSimpleIdentifier _id(String name) =>
 SNamedType _type(String name) =>
     SNamedType(offset: 0, length: 0, name: _id(name));
 
+/// `List<name>` — the SCE161 shape's declared type.
+SNamedType _listType(String name) => SNamedType(
+  offset: 0,
+  length: 0,
+  name: _id('List'),
+  typeArguments: STypeArgumentList(
+    offset: 0,
+    length: 0,
+    arguments: [_type(name)],
+  ),
+);
+
 SArgumentList _args([List<SExpression> arguments = const []]) =>
     SArgumentList(offset: 0, length: 0, arguments: arguments);
 
@@ -94,7 +106,11 @@ Object? _wrap(
 /// [declared] is the class the instance really is; [param] is what `take`
 /// declares. Passing the same name is the claim; passing a different one is the
 /// control.
-AstBundle proxyBundle({required String declared, required String param}) {
+AstBundle proxyBundle({
+  required String declared,
+  required String param,
+  bool asList = false,
+}) {
   const entry = 'package:probe/main.dart';
 
   SClassDeclaration shapeSubclass(String name) => SClassDeclaration(
@@ -151,7 +167,7 @@ AstBundle proxyBundle({required String declared, required String param}) {
             offset: 0,
             length: 0,
             name: _id('s'),
-            type: _type(param),
+            type: asList ? _listType(param) : _type(param),
             isPositional: true,
           ),
         ],
@@ -162,7 +178,15 @@ AstBundle proxyBundle({required String declared, required String param}) {
         expression: SMethodInvocation(
           offset: 0,
           length: 0,
-          target: _id('s'),
+          target: asList
+              ? SPropertyAccess(
+                  offset: 0,
+                  length: 0,
+                  target: _id('s'),
+                  operator: '.',
+                  propertyName: _id('first'),
+                )
+              : _id('s'),
           operator: '.',
           methodName: _id('size'),
           argumentList: _args(),
@@ -170,6 +194,43 @@ AstBundle proxyBundle({required String declared, required String param}) {
       ),
     ),
   );
+
+  final wrapped = SMethodInvocation(
+    offset: 0,
+    length: 0,
+    target: _id('Shape'),
+    operator: '.',
+    methodName: _id('wrap'),
+    argumentList: _args([
+      SInstanceCreationExpression(
+        offset: 0,
+        length: 0,
+        constructorName: SConstructorName(
+          offset: 0,
+          length: 0,
+          type: _type(declared),
+        ),
+        argumentList: _args(),
+      ),
+    ]),
+  );
+
+  // SCE161: `take(<param>[Shape.wrap(<declared>())])` rather than
+  // `take(Shape.wrap(<declared>()))`. The list literal carries its own type
+  // argument, which is what makes the declared `List<param>` a claim about the
+  // ELEMENTS rather than about the collection.
+  final SExpression argument = asList
+      ? SListLiteral(
+          offset: 0,
+          length: 0,
+          typeArguments: STypeArgumentList(
+            offset: 0,
+            length: 0,
+            arguments: [_type(param)],
+          ),
+          elements: [wrapped],
+        )
+      : wrapped;
 
   final mainFn = SFunctionDeclaration(
     offset: 0,
@@ -186,27 +247,7 @@ AstBundle proxyBundle({required String declared, required String param}) {
           offset: 0,
           length: 0,
           methodName: _id('take'),
-          argumentList: _args([
-            SMethodInvocation(
-              offset: 0,
-              length: 0,
-              target: _id('Shape'),
-              operator: '.',
-              methodName: _id('wrap'),
-              argumentList: _args([
-                SInstanceCreationExpression(
-                  offset: 0,
-                  length: 0,
-                  constructorName: SConstructorName(
-                    offset: 0,
-                    length: 0,
-                    type: _type(declared),
-                  ),
-                  argumentList: _args(),
-                ),
-              ]),
-            ),
-          ]),
+          argumentList: _args([argument]),
         ),
       ),
     ),
@@ -256,6 +297,41 @@ void main() {
           proxyBundle(declared: 'MyShape', param: 'MyShape'),
         ),
         equals(7),
+      );
+    });
+
+    test('F-SCE161-AST-1: a LIST of proxies binds to a parameter declared as a '
+        'list of the script class [2026-09-23]', () {
+      // The shape the corpus actually hits, and the one that reached an
+      // ASSERTION rather than a framework warning: a script that builds widgets
+      // builds LISTS of them. SCD119's retry reads one value; the collection's
+      // element type is derived from elements that each still answer with the
+      // bridge's name, so `List<MyShape>` was refused as
+      // `type 'List<Shape>' is not a subtype of type 'List<MyShape>'` with
+      // every element individually bindable.
+      expect(
+        runnerWithShape().executeBundleAs<Object?>(
+          proxyBundle(declared: 'MyShape', param: 'MyShape', asList: true),
+        ),
+        equals(7),
+      );
+    });
+
+    test('F-SCE161-AST-2 (control): a list whose element stands for an '
+        'unrelated class is still rejected [2026-09-23]', () {
+      // The rail, one level down. If this passes, the element-wise retry has
+      // stopped being a type check and become an unwrap-and-accept — the only
+      // way a repair of this shape goes wrong.
+      expect(
+        () => runnerWithShape().executeBundleAs<Object?>(
+          proxyBundle(declared: 'MyShape', param: 'OtherShape', asList: true),
+        ),
+        throwsA(
+          predicate(
+            (e) => e.toString().contains('is not a subtype of type'),
+            'a subtype rejection naming the declared type',
+          ),
+        ),
       );
     });
 
