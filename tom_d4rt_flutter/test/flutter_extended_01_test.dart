@@ -39,199 +39,199 @@ void main() {
       final result = await SendTestRunner.send(
         'animation/animation_behavior_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('animation_eager_listener_mixin_test.dart', () async {
       final result = await SendTestRunner.send(
         'animation/animation_eager_listener_mixin_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('animation_lazy_listener_mixin_test.dart', () async {
       final result = await SendTestRunner.send(
         'animation/animation_lazy_listener_mixin_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('animation_local_listeners_mixin_test.dart', () async {
       final result = await SendTestRunner.send(
         'animation/animation_local_listeners_mixin_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('animation_local_status_listeners_mixin_test.dart', () async {
       final result = await SendTestRunner.send(
         'animation/animation_local_status_listeners_mixin_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('animation_status_test.dart', () async {
       final result = await SendTestRunner.send(
         'animation/animation_status_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('catmull_rom_curve_test.dart', () async {
       final result = await SendTestRunner.send(
         'animation/catmull_rom_curve_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('catmull_rom_spline_test.dart', () async {
       final result = await SendTestRunner.send(
         'animation/catmull_rom_spline_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('class_test.dart', () async {
       final result = await SendTestRunner.send('animation/class_test.dart');
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('color_tween_test.dart', () async {
       final result = await SendTestRunner.send(
         'animation/color_tween_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('constant_tween_test.dart', () async {
       final result = await SendTestRunner.send(
         'animation/constant_tween_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('cubic_test.dart', () async {
       final result = await SendTestRunner.send('animation/cubic_test.dart');
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('curve2_d_sample_test.dart', () async {
       final result = await SendTestRunner.send(
         'animation/curve2_d_sample_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('curve2_d_test.dart', () async {
       final result = await SendTestRunner.send('animation/curve2_d_test.dart');
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('curve_tween_test.dart', () async {
       final result = await SendTestRunner.send(
         'animation/curve_tween_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('curves_test.dart', () async {
       final result = await SendTestRunner.send('animation/curves_test.dart');
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('elastic_in_curve_test.dart', () async {
       final result = await SendTestRunner.send(
         'animation/elastic_in_curve_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('elastic_in_out_curve_test.dart', () async {
       final result = await SendTestRunner.send(
         'animation/elastic_in_out_curve_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('elastic_out_curve_test.dart', () async {
       final result = await SendTestRunner.send(
         'animation/elastic_out_curve_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('flipped_curve_test.dart', () async {
       final result = await SendTestRunner.send(
         'animation/flipped_curve_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('int_tween_test.dart', () async {
       final result = await SendTestRunner.send('animation/int_tween_test.dart');
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('interval_test.dart', () async {
       final result = await SendTestRunner.send('animation/interval_test.dart');
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('parametric_curve_test.dart', () async {
       final result = await SendTestRunner.send(
         'animation/parametric_curve_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('rect_tween_test.dart', () async {
       final result = await SendTestRunner.send(
         'animation/rect_tween_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('reverse_tween_test.dart', () async {
       final result = await SendTestRunner.send(
         'animation/reverse_tween_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('saw_tooth_test.dart', () async {
       final result = await SendTestRunner.send('animation/saw_tooth_test.dart');
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('size_tween_test.dart', () async {
       final result = await SendTestRunner.send(
         'animation/size_tween_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('split_test.dart', () async {
       final result = await SendTestRunner.send('animation/split_test.dart');
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('step_tween_test.dart', () async {
       final result = await SendTestRunner.send(
         'animation/step_tween_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('three_point_cubic_test.dart', () async {
       final result = await SendTestRunner.send(
         'animation/three_point_cubic_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('threshold_test.dart', () async {
       final result = await SendTestRunner.send('animation/threshold_test.dart');
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
   });
 
@@ -245,105 +245,105 @@ void main() {
       // REMOVED. Script runs in ~3.5 s under normal load
       // (httpMs=3485, sourceChars=70095 — 70 KB / 1723-line script).
       final result = await SendTestRunner.send('cupertino/class_test.dart');
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('cupertino_button_size_test.dart', () async {
       final result = await SendTestRunner.send(
         'cupertino/cupertino_button_size_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('cupertino_desktop_text_selection_controls_test.dart', () async {
       final result = await SendTestRunner.send(
         'cupertino/cupertino_desktop_text_selection_controls_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('cupertino_expansion_tile_test.dart', () async {
       final result = await SendTestRunner.send(
         'cupertino/cupertino_expansion_tile_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('cupertino_focus_halo_test.dart', () async {
       final result = await SendTestRunner.send(
         'cupertino/cupertino_focus_halo_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('cupertino_linear_activity_indicator_test.dart', () async {
       final result = await SendTestRunner.send(
         'cupertino/cupertino_linear_activity_indicator_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('cupertino_list_section_type_test.dart', () async {
       final result = await SendTestRunner.send(
         'cupertino/cupertino_list_section_type_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('cupertino_list_tile_chevron_test.dart', () async {
       final result = await SendTestRunner.send(
         'cupertino/cupertino_list_tile_chevron_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('cupertino_text_selection_handle_controls_test.dart', () async {
       final result = await SendTestRunner.send(
         'cupertino/cupertino_text_selection_handle_controls_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('cupertino_thumb_painter_test.dart', () async {
       final result = await SendTestRunner.send(
         'cupertino/cupertino_thumb_painter_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('expansion_tile_transition_mode_test.dart', () async {
       final result = await SendTestRunner.send(
         'cupertino/expansion_tile_transition_mode_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('inherited_cupertino_theme_test.dart', () async {
       final result = await SendTestRunner.send(
         'cupertino/inherited_cupertino_theme_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('navigation_bar_bottom_mode_test.dart', () async {
       final result = await SendTestRunner.send(
         'cupertino/navigation_bar_bottom_mode_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('overlay_visibility_mode_test.dart', () async {
       final result = await SendTestRunner.send(
         'cupertino/overlay_visibility_mode_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('restorable_cupertino_tab_controller_test.dart', () async {
       final result = await SendTestRunner.send(
         'cupertino/restorable_cupertino_tab_controller_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
   });
 }

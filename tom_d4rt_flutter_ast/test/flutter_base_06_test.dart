@@ -40,33 +40,33 @@ void main() {
       final result = await SendTestRunner.send(
         'material/buttonstyle_popup_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('chip_variants_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/chip_variants_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('datetime_utils_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/datetime_utils_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('fablocation_messenger_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/fablocation_messenger_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('texttheme_test.dart', () async {
       final result = await SendTestRunner.send('material/texttheme_test.dart');
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     // --- Batch 2 ---
@@ -74,98 +74,98 @@ void main() {
       final result = await SendTestRunner.send(
         'material/input_borders_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('button_types_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/button_types_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('scaffold_advanced_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/scaffold_advanced_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('tab_indicator_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/tab_indicator_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('popup_advanced_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/popup_advanced_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('autocomplete_datepicker_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/autocomplete_datepicker_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('chip_attributes_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/chip_attributes_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('color_scheme_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/color_scheme_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('dialog_advanced_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/dialog_advanced_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('divider_listtile_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/divider_listtile_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('menu_advanced_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/menu_advanced_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('progress_sheet_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/progress_sheet_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('tooltip_feedback_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/tooltip_feedback_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('expansion_stepper_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/expansion_stepper_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     // --- Batch 3 ---
@@ -173,62 +173,62 @@ void main() {
       final result = await SendTestRunner.send(
         'material/nav_badge_advanced_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('search_filled_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/search_filled_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('themes_advanced_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/themes_advanced_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     // --- Batch 4 ---
     test('data_table_test.dart', () async {
       final result = await SendTestRunner.send('material/data_table_test.dart');
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('toggle_segmented_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/toggle_segmented_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('reorderable_material_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/reorderable_material_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('search_anchor_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/search_anchor_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('scaffold_internals_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/scaffold_internals_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('fab_location_types_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/fab_location_types_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     // --- Batch 5 ---
@@ -236,35 +236,35 @@ void main() {
       final result = await SendTestRunner.send(
         'material/bottom_app_bar_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('dropdown_menu_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/dropdown_menu_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('text_field_theme_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/text_field_theme_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('card_ink_splash_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/card_ink_splash_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('dialog_bottom_sheet_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/dialog_bottom_sheet_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     // --- Batch 6-9 ---
@@ -272,21 +272,21 @@ void main() {
       final result = await SendTestRunner.send(
         'material/scaffold_fab_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('button_styles_misc_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/button_styles_misc_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('autocomplete_chips_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/autocomplete_chips_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
   });
 
@@ -299,42 +299,42 @@ void main() {
       final result = await SendTestRunner.send(
         'painting/enums_painting_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('gradient_transform_test.dart', () async {
       final result = await SendTestRunner.send(
         'painting/gradient_transform_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('image_cache_test.dart', () async {
       final result = await SendTestRunner.send(
         'painting/image_cache_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('imagestream_misc_test.dart', () async {
       final result = await SendTestRunner.send(
         'painting/imagestream_misc_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('matrixutils_test.dart', () async {
       final result = await SendTestRunner.send(
         'painting/matrixutils_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('notched_shapes_test.dart', () async {
       final result = await SendTestRunner.send(
         'painting/notched_shapes_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     // --- Batch 3 ---
@@ -342,7 +342,7 @@ void main() {
       final result = await SendTestRunner.send(
         'painting/advanced_decorations_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     // --- Batch 6-9 ---
@@ -350,7 +350,7 @@ void main() {
       final result = await SendTestRunner.send(
         'painting/image_stream_adv_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
   });
 
@@ -362,7 +362,7 @@ void main() {
       final result = await SendTestRunner.send(
         'physics/springdescription_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
   });
 
@@ -375,7 +375,7 @@ void main() {
       final result = await SendTestRunner.send(
         'rendering/hittest_pipeline_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     // --- Batch 3 ---
@@ -383,28 +383,28 @@ void main() {
       final result = await SendTestRunner.send(
         'rendering/render_box_types_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('render_pointer_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_pointer_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('layer_types_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/layer_types_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('render_composite_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_composite_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     // --- Batch 4 ---
@@ -412,7 +412,7 @@ void main() {
       final result = await SendTestRunner.send(
         'rendering/render_objects_misc_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     // --- Batch 5 ---
@@ -420,7 +420,7 @@ void main() {
       final result = await SendTestRunner.send(
         'rendering/render_sliver_types_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     // --- Batch 6-9 ---
@@ -428,14 +428,14 @@ void main() {
       final result = await SendTestRunner.send(
         'rendering/render_mixins_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('render_layers_pipeline_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_layers_pipeline_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
   });
 
@@ -447,7 +447,7 @@ void main() {
       final result = await SendTestRunner.send(
         'scheduler/scheduler_misc_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
   });
 
@@ -460,7 +460,7 @@ void main() {
       final result = await SendTestRunner.send(
         'semantics/semantics_properties_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     // --- Batch 3 ---
@@ -468,14 +468,14 @@ void main() {
       final result = await SendTestRunner.send(
         'semantics/semantics_events_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('semantics_config_test.dart', () async {
       final result = await SendTestRunner.send(
         'semantics/semantics_config_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
   });
 
@@ -488,14 +488,14 @@ void main() {
       final result = await SendTestRunner.send(
         'services/system_chrome_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('text_editing_value_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/text_editing_value_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     // --- Batch 3 ---
@@ -503,20 +503,20 @@ void main() {
       final result = await SendTestRunner.send(
         'services/services_advanced_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('platform_channels_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/platform_channels_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     // --- Batch 5 ---
     test('key_events_test.dart', () async {
       final result = await SendTestRunner.send('services/key_events_test.dart');
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     // --- Batch 6-9 ---
@@ -524,14 +524,14 @@ void main() {
       final result = await SendTestRunner.send(
         'services/restoration_platform_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('key_events_adv_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/key_events_adv_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
   });
 }

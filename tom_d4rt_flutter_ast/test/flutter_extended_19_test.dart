@@ -39,140 +39,140 @@ void main() {
       final result = await SendTestRunner.send(
         'widgets/shortcut_serialization_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('single_activator_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/single_activator_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('size_changed_layout_notification_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/size_changed_layout_notification_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('size_changed_layout_notifier_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/size_changed_layout_notifier_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('sized_overflow_box_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/sized_overflow_box_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('sliver_animated_grid_state_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/sliver_animated_grid_state_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('sliver_animated_list_state_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/sliver_animated_list_state_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('sliver_child_builder_delegate_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/sliver_child_builder_delegate_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('sliver_child_delegate_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/sliver_child_delegate_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('sliver_child_list_delegate_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/sliver_child_list_delegate_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('sliver_ensure_semantics_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/sliver_ensure_semantics_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('sliver_fade_transition_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/sliver_fade_transition_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('sliver_multi_box_adaptor_element_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/sliver_multi_box_adaptor_element_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('sliver_multi_box_adaptor_widget_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/sliver_multi_box_adaptor_widget_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('sliver_overlap_absorber_handle_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/sliver_overlap_absorber_handle_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('sliver_overlap_absorber_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/sliver_overlap_absorber_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('sliver_overlap_injector_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/sliver_overlap_injector_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('sliver_persistent_header_delegate_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/sliver_persistent_header_delegate_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('sliver_reorderable_list_state_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/sliver_reorderable_list_state_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('sliver_with_keep_alive_widget_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/sliver_with_keep_alive_widget_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('slotted_container_render_object_mixin_test.dart', () async {
@@ -185,112 +185,112 @@ void main() {
       final result = await SendTestRunner.send(
         'widgets/slotted_container_render_object_mixin_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('slotted_multi_child_render_object_widget_mixin_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/slotted_multi_child_render_object_widget_mixin_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('slotted_multi_child_render_object_widget_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/slotted_multi_child_render_object_widget_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('slotted_render_object_element_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/slotted_render_object_element_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('snapshot_controller_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/snapshot_controller_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('snapshot_mode_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/snapshot_mode_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('snapshot_painter_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/snapshot_painter_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('snapshot_widget_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/snapshot_widget_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('standard_component_type_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/standard_component_type_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('static_selection_container_delegate_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/static_selection_container_delegate_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('status_transition_widget_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/status_transition_widget_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('stream_builder_base_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/stream_builder_base_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('stretch_effect_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/stretch_effect_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('system_context_menu_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/system_context_menu_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('system_text_scaler_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/system_text_scaler_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('tap_region_registry_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/tap_region_registry_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test(
@@ -299,7 +299,7 @@ void main() {
         final result = await SendTestRunner.send(
           'widgets/text_selection_gesture_detector_builder_delegate_test.dart',
         );
-        expect(result.success, isTrue, reason: result.error);
+        SendTestRunner.expectSuccess(result);
       },
     );
 
@@ -307,110 +307,110 @@ void main() {
       final result = await SendTestRunner.send(
         'widgets/text_selection_gesture_detector_builder_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('text_selection_handle_controls_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/text_selection_handle_controls_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('text_selection_toolbar_layout_delegate_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/text_selection_toolbar_layout_delegate_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('text_style_tween_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/text_style_tween_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('texture_test.dart', () async {
       final result = await SendTestRunner.send('widgets/texture_test.dart');
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('ticker_mode_data_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/ticker_mode_data_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('toggleable_painter_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/toggleable_painter_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('toggleable_state_mixin_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/toggleable_state_mixin_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('toolbar_items_parent_data_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/toolbar_items_parent_data_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('toolbar_options_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/toolbar_options_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('tooltip_position_context_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/tooltip_position_context_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('tooltip_window_controller_delegate_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/tooltip_window_controller_delegate_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('tooltip_window_controller_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/tooltip_window_controller_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('tooltip_window_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/tooltip_window_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('tracking_scroll_controller_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/tracking_scroll_controller_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('transformation_controller_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/transformation_controller_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('transition_delegate_test.dart', () async {
@@ -426,49 +426,49 @@ void main() {
       final result = await SendTestRunner.send(
         'widgets/transition_delegate_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('transition_route_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/transition_route_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('transpose_characters_intent_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/transpose_characters_intent_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('traversal_direction_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/traversal_direction_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('traversal_edge_behavior_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/traversal_edge_behavior_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('tree_sliver_controller_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/tree_sliver_controller_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('tree_sliver_node_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/tree_sliver_node_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
   });
 }

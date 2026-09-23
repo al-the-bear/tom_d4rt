@@ -93,6 +93,23 @@ To produce a number: `./test/run_base_tests.sh` for the 17-file base gate
 > **Green corpus ≠ no open clusters.** The corpus does not gate on
 > `frameworkErrors`, so a script can raise interpreter runtime errors and
 > still report `status=success`. Read the logs, not just the exit codes.
+>
+> That sentence used to be true of only HALF the files, which is worse than
+> either reading. Measured 2026-09-23: 3 of the 41 drivers gated and 38 did
+> not, so `widgets/android_view_test.dart` — which sits in `flutter_base_15`
+> and `flutter_extended_22` — got a PASS and a FAIL from one run. All 41 now
+> call `SendTestRunner.expectSuccess`, so there is ONE definition of a pass and
+> this note is true everywhere.
+>
+> **It is scheduled to stop being true.** Gating is the right answer — a
+> framework error is an interpreter runtime error the script survived, and
+> treating it as a pass is what let GEN-125 raise ~276 of them across 109
+> scripts while the corpus reported success. It is off today because switching
+> it on costs 47 scripts / 113 errors against the PUBLISHED interpreter and
+> nothing at all against the tree, which measures zero across all 910 base
+> scripts. So the flip belongs to the publish, and
+> `test/sce167_pass_verdict_convention_test.dart` goes red at the moment it
+> becomes free rather than leaving it to memory.
 
 When a cluster lands a fix, mark its checkbox, add a `**Resolved:**` line
 with the commit ref, re-run the suite to confirm, and delete its row from

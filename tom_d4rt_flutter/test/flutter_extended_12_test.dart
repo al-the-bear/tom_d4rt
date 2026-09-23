@@ -39,103 +39,103 @@ void main() {
       final result = await SendTestRunner.send(
         'services/restoration_bucket_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('scribble_client_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/scribble_client_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('selection_changed_cause_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/selection_changed_cause_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('selection_rect_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/selection_rect_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('sensitive_content_service_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/sensitive_content_service_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('services_service_extensions_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/services_service_extensions_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('smart_dashes_type_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/smart_dashes_type_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('smart_quotes_type_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/smart_quotes_type_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('swipe_edge_test.dart', () async {
       final result = await SendTestRunner.send('services/swipe_edge_test.dart');
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('system_context_menu_client_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/system_context_menu_client_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('system_context_menu_controller_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/system_context_menu_controller_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('system_sound_type_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/system_sound_type_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('system_ui_mode_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/system_ui_mode_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('system_ui_overlay_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/system_ui_overlay_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('text_capitalization_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/text_capitalization_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('text_editing_delta_deletion_test.dart', () async {
@@ -150,103 +150,103 @@ void main() {
       final result = await SendTestRunner.send(
         'services/text_editing_delta_deletion_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('text_editing_delta_insertion_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/text_editing_delta_insertion_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('text_editing_delta_non_text_update_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/text_editing_delta_non_text_update_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('text_editing_delta_replacement_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/text_editing_delta_replacement_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('text_editing_value_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/text_editing_value_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('text_input_action_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/text_input_action_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('text_input_client_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/text_input_client_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('text_input_configuration_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/text_input_configuration_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('text_input_connection_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/text_input_connection_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('text_input_control_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/text_input_control_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('text_input_test.dart', () async {
       final result = await SendTestRunner.send('services/text_input_test.dart');
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('text_input_type_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/text_input_type_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('text_selection_delegate_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/text_selection_delegate_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('text_selection_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/text_selection_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('undo_direction_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/undo_direction_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
   });
 }

@@ -39,21 +39,21 @@ void main() {
       final result = await SendTestRunner.send(
         'services/android_motion_event_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('android_pointer_coords_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/android_pointer_coords_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('android_pointer_properties_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/android_pointer_properties_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('application_switcher_description_test.dart', () async {
@@ -66,218 +66,218 @@ void main() {
       final result = await SendTestRunner.send(
         'services/application_switcher_description_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('autofill_client_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/autofill_client_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('autofill_hints_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/autofill_hints_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('autofill_scope_mixin_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/autofill_scope_mixin_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('background_isolate_binary_messenger_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/background_isolate_binary_messenger_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('binary_messenger_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/binary_messenger_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('class_test.dart', () async {
       final result = await SendTestRunner.send('services/class_test.dart');
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('content_sensitivity_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/content_sensitivity_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('deferred_component_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/deferred_component_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('delta_text_input_client_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/delta_text_input_client_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('device_orientation_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/device_orientation_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('floating_cursor_drag_state_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/floating_cursor_drag_state_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('g_l_f_w_key_helper_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/g_l_f_w_key_helper_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('gtk_key_helper_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/gtk_key_helper_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('i_o_s_system_context_menu_item_data_copy_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/i_o_s_system_context_menu_item_data_copy_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('i_o_s_system_context_menu_item_data_custom_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/i_o_s_system_context_menu_item_data_custom_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('i_o_s_system_context_menu_item_data_cut_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/i_o_s_system_context_menu_item_data_cut_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('i_o_s_system_context_menu_item_data_live_text_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/i_o_s_system_context_menu_item_data_live_text_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('i_o_s_system_context_menu_item_data_look_up_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/i_o_s_system_context_menu_item_data_look_up_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('i_o_s_system_context_menu_item_data_paste_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/i_o_s_system_context_menu_item_data_paste_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('i_o_s_system_context_menu_item_data_search_web_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/i_o_s_system_context_menu_item_data_search_web_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('i_o_s_system_context_menu_item_data_select_all_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/i_o_s_system_context_menu_item_data_select_all_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('i_o_s_system_context_menu_item_data_share_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/i_o_s_system_context_menu_item_data_share_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('i_o_s_system_context_menu_item_data_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/i_o_s_system_context_menu_item_data_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('key_data_transit_mode_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/key_data_transit_mode_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('key_down_event_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/key_down_event_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('key_event_manager_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/key_event_manager_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('key_event_test.dart', () async {
       final result = await SendTestRunner.send('services/key_event_test.dart');
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('key_helper_test.dart', () async {
       final result = await SendTestRunner.send('services/key_helper_test.dart');
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('key_message_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/key_message_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('key_repeat_event_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/key_repeat_event_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('key_up_event_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/key_up_event_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('keyboard_key_test.dart', () async {
@@ -290,112 +290,112 @@ void main() {
       final result = await SendTestRunner.send(
         'services/keyboard_key_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('keyboard_lock_mode_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/keyboard_lock_mode_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('keyboard_side_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/keyboard_side_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('max_length_enforcement_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/max_length_enforcement_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('message_codec_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/message_codec_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('method_codec_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/method_codec_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('missing_plugin_exception_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/missing_plugin_exception_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('modifier_key_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/modifier_key_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('mouse_cursor_manager_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/mouse_cursor_manager_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('mouse_cursor_session_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/mouse_cursor_session_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('mouse_tracker_annotation_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/mouse_tracker_annotation_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('platform_exception_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/platform_exception_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('raw_floating_cursor_point_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/raw_floating_cursor_point_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('raw_key_down_event_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/raw_key_down_event_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('raw_key_event_data_android_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/raw_key_event_data_android_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('raw_key_event_data_fuchsia_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/raw_key_event_data_fuchsia_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('raw_key_event_data_ios_test.dart', () async {
@@ -408,63 +408,63 @@ void main() {
       final result = await SendTestRunner.send(
         'services/raw_key_event_data_ios_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('raw_key_event_data_linux_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/raw_key_event_data_linux_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('raw_key_event_data_mac_os_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/raw_key_event_data_mac_os_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('raw_key_event_data_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/raw_key_event_data_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('raw_key_event_data_web_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/raw_key_event_data_web_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('raw_key_event_data_windows_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/raw_key_event_data_windows_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('raw_key_event_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/raw_key_event_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('raw_key_up_event_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/raw_key_up_event_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('raw_keyboard_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/raw_keyboard_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
   });
 }

@@ -39,195 +39,195 @@ void main() {
       final result = await SendTestRunner.send(
         'widgets/localizations_resolver_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('lock_state_test.dart', () async {
       final result = await SendTestRunner.send('widgets/lock_state_test.dart');
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('logical_key_set_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/logical_key_set_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('lookup_boundary_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/lookup_boundary_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('matrix4_tween_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/matrix4_tween_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('matrix_transition_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/matrix_transition_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('menu_controller_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/menu_controller_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('menu_serializable_shortcut_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/menu_serializable_shortcut_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('meta_data_test.dart', () async {
       final result = await SendTestRunner.send('widgets/meta_data_test.dart');
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('modal_barrier_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/modal_barrier_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('multi_selectable_selection_container_delegate_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/multi_selectable_selection_container_delegate_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('navigation_mode_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/navigation_mode_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('navigation_notification_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/navigation_notification_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('navigator_pop_handler_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/navigator_pop_handler_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('nested_scroll_view_state_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/nested_scroll_view_state_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('nested_scroll_view_viewport_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/nested_scroll_view_viewport_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('next_focus_action_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/next_focus_action_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('next_focus_intent_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/next_focus_intent_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('notifiable_element_mixin_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/notifiable_element_mixin_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('notification_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/notification_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('numeric_focus_order_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/numeric_focus_order_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('object_key_test.dart', () async {
       final result = await SendTestRunner.send('widgets/object_key_test.dart');
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('options_view_open_direction_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/options_view_open_direction_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('ordered_traversal_policy_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/ordered_traversal_policy_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('orientation_builder_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/orientation_builder_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('orientation_test.dart', () async {
       final result = await SendTestRunner.send('widgets/orientation_test.dart');
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('overflow_bar_alignment_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/overflow_bar_alignment_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('overlay_child_layout_info_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/overlay_child_layout_info_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('overlay_child_location_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/overlay_child_location_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('overlay_portal_controller_test.dart', () async {
@@ -240,35 +240,35 @@ void main() {
       final result = await SendTestRunner.send(
         'widgets/overlay_portal_controller_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('overlay_portal_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/overlay_portal_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('overlay_route_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/overlay_route_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('overlay_state_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/overlay_state_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('overscroll_indicator_notification_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/overscroll_indicator_notification_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('overscroll_notification_test.dart', () async {
@@ -281,78 +281,78 @@ void main() {
       final result = await SendTestRunner.send(
         'widgets/overscroll_notification_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('page_metrics_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/page_metrics_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('page_route_builder_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/page_route_builder_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('page_test.dart', () async {
       final result = await SendTestRunner.send('widgets/page_test.dart');
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('pan_axis_test.dart', () async {
       final result = await SendTestRunner.send('widgets/pan_axis_test.dart');
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('paste_text_intent_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/paste_text_intent_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('platform_menu_delegate_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/platform_menu_delegate_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('platform_provided_menu_item_type_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/platform_provided_menu_item_type_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('platform_route_information_provider_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/platform_route_information_provider_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('platform_selectable_region_context_menu_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/platform_selectable_region_context_menu_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('platform_view_creation_params_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/platform_view_creation_params_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('pop_entry_test.dart', () async {
       final result = await SendTestRunner.send('widgets/pop_entry_test.dart');
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
   });
 }

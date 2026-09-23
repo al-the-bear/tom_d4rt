@@ -177,6 +177,11 @@ run "proxy registries agree across the twins" \
 run "runtime registrations mirror below the prologue" \
   flutter test test/sce165_runtime_registrations_mirror_test.dart
 
+# SCE167: all 41 corpus drivers in BOTH twins ask one helper what a pass is, and
+# the gating flip is keyed to the floor that makes it free. Pure file I/O.
+run "one definition of a passing corpus script" \
+  flutter test test/sce167_pass_verdict_convention_test.dart
+
 # SCE13: the harness's bridge step stays visible, content-decided and
 # uncommitted. Source-shape only, and deliberately so — the property it stands
 # for ("a fresh package is left untouched") needs a ~45 s generation to observe,

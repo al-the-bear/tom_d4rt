@@ -39,7 +39,7 @@ void main() {
       final result = await SendTestRunner.send(
         'retest/widgets/android_view_surface_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     // 20260602 1944 TODO C.185 (TEST-side sibling of AST-side C.175):
@@ -52,7 +52,7 @@ void main() {
       final result = await SendTestRunner.send(
         'retest/widgets/app_kit_view_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     // testlog_20260529-1944 TODO C.186 — wrapper removed (was 50 s
@@ -64,7 +64,7 @@ void main() {
       final result = await SendTestRunner.send(
         'retest/widgets/back_button_listener_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     // testlog_20260529-1944 TODO C.187 — removed the 50 s httpBuildTimeout
@@ -77,26 +77,26 @@ void main() {
       final result = await SendTestRunner.send(
         'retest/widgets/box_scroll_view_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('retest: widgets/context_action_test.dart', () async {
       final result = await SendTestRunner.send(
         'retest/widgets/context_action_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('retest: widgets/default_selection_style_test.dart', () async {
       final result = await SendTestRunner.send(
         'retest/widgets/default_selection_style_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('scrollable_test.dart', () async {
       final result = await SendTestRunner.send('widgets/scrollable_test.dart');
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     // testlog_20260529-1944 TODO C.188 — removed the cold-start wrapper
@@ -108,117 +108,117 @@ void main() {
       final result = await SendTestRunner.send(
         'widgets/selectable_region_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('selection_container_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/selection_container_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('selection_listener_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/selection_listener_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('selection_overlay_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/selection_overlay_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('shader_mask_test.dart', () async {
       final result = await SendTestRunner.send('widgets/shader_mask_test.dart');
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('shared_app_data_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/shared_app_data_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('shrink_wrapping_viewport_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/shrink_wrapping_viewport_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('single_child_render_object_element_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/single_child_render_object_element_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('single_child_render_object_widget_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/single_child_render_object_widget_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('single_ticker_provider_state_mixin_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/single_ticker_provider_state_mixin_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('sliver_animated_grid_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/sliver_animated_grid_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('sliver_animated_list_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/sliver_animated_list_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('sliver_animated_opacity_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/sliver_animated_opacity_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('sliver_constrained_cross_axis_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/sliver_constrained_cross_axis_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('sliver_cross_axis_expanded_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/sliver_cross_axis_expanded_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('sliver_cross_axis_group_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/sliver_cross_axis_group_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('stateless_element_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/stateless_element_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
   });
 
@@ -235,7 +235,7 @@ void main() {
       final result = await SendTestRunner.send(
         'widgets/directionality_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test(
@@ -244,7 +244,7 @@ void main() {
         final result = await SendTestRunner.send(
           'widgets/extend_selection_to_line_break_intent_test.dart',
         );
-        expect(result.success, isTrue, reason: result.error);
+        SendTestRunner.expectSuccess(result);
       },
     );
 
@@ -255,7 +255,7 @@ void main() {
           'retest/widgets/live_text_input_status_test.dart',
           waitBeforeClear: const Duration(seconds: 10),
         );
-        expect(result.success, isTrue, reason: result.error);
+        SendTestRunner.expectSuccess(result);
       },
     );
 
@@ -263,14 +263,14 @@ void main() {
       final result = await SendTestRunner.send(
         'retest/widgets/lock_state_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('widgets/animated_switcher_test.dart (from blocking W5)', () async {
       final result = await SendTestRunner.send(
         'widgets/animated_switcher_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
   });
 

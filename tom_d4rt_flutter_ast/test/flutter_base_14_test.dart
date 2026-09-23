@@ -37,98 +37,98 @@ void main() {
       final result = await SendTestRunner.send(
         'services/android_view_controller_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('app_kit_view_controller_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/app_kit_view_controller_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('asset_manifest_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/asset_manifest_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('asset_metadata_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/asset_metadata_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('autofill_configuration_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/autofill_configuration_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('autofill_scope_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/autofill_scope_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('browser_context_menu_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/browser_context_menu_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('caching_asset_bundle_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/caching_asset_bundle_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('darwin_platform_view_controller_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/darwin_platform_view_controller_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('default_process_text_service_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/default_process_text_service_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('default_spell_check_service_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/default_spell_check_service_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('expensive_android_view_controller_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/expensive_android_view_controller_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('flutter_version_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/flutter_version_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('font_loader_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/font_loader_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('hybrid_android_view_controller_test.dart', () async {
@@ -138,143 +138,143 @@ void main() {
       final result = await SendTestRunner.send(
         'services/hybrid_android_view_controller_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('live_text_test.dart', () async {
       final result = await SendTestRunner.send('services/live_text_test.dart');
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('network_asset_bundle_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/network_asset_bundle_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('platform_asset_bundle_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/platform_asset_bundle_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('platform_view_controller_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/platform_view_controller_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('platform_views_registry_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/platform_views_registry_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('platform_views_service_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/platform_views_service_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('predictive_back_event_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/predictive_back_event_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('process_text_action_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/process_text_action_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('process_text_service_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/process_text_service_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('restoration_manager_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/restoration_manager_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('scribe_test.dart', () async {
       final result = await SendTestRunner.send('services/scribe_test.dart');
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('spell_check_service_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/spell_check_service_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('suggestion_span_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/suggestion_span_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('surface_android_view_controller_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/surface_android_view_controller_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('system_channels_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/system_channels_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('text_layout_metrics_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/text_layout_metrics_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('texture_android_view_controller_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/texture_android_view_controller_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('ui_kit_view_controller_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/ui_kit_view_controller_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('undo_manager_client_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/undo_manager_client_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('undo_manager_test.dart', () async {
       final result = await SendTestRunner.send(
         'services/undo_manager_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
   });
 }

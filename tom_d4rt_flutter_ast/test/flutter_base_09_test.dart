@@ -37,173 +37,173 @@ void main() {
       final result = await SendTestRunner.send(
         'gestures/base_tap_and_drag_gesture_recognizer_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('delayed_multi_drag_gesture_recognizer_test.dart', () async {
       final result = await SendTestRunner.send(
         'gestures/delayed_multi_drag_gesture_recognizer_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('device_gesture_settings_test.dart', () async {
       final result = await SendTestRunner.send(
         'gestures/device_gesture_settings_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('drag_gesture_recognizer_test.dart', () async {
       final result = await SendTestRunner.send(
         'gestures/drag_gesture_recognizer_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('drag_test.dart', () async {
       final result = await SendTestRunner.send('gestures/drag_test.dart');
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('eager_gesture_recognizer_test.dart', () async {
       final result = await SendTestRunner.send(
         'gestures/eager_gesture_recognizer_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('horizontal_multi_drag_gesture_recognizer_test.dart', () async {
       final result = await SendTestRunner.send(
         'gestures/horizontal_multi_drag_gesture_recognizer_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('immediate_multi_drag_gesture_recognizer_test.dart', () async {
       final result = await SendTestRunner.send(
         'gestures/immediate_multi_drag_gesture_recognizer_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('long_press_down_details_test.dart', () async {
       final result = await SendTestRunner.send(
         'gestures/long_press_down_details_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('multi_drag_gesture_recognizer_test.dart', () async {
       final result = await SendTestRunner.send(
         'gestures/multi_drag_gesture_recognizer_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('multi_drag_pointer_state_test.dart', () async {
       final result = await SendTestRunner.send(
         'gestures/multi_drag_pointer_state_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('multi_tap_gesture_recognizer_test.dart', () async {
       final result = await SendTestRunner.send(
         'gestures/multi_tap_gesture_recognizer_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('positioned_gesture_details_test.dart', () async {
       final result = await SendTestRunner.send(
         'gestures/positioned_gesture_details_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('serial_tap_cancel_details_test.dart', () async {
       final result = await SendTestRunner.send(
         'gestures/serial_tap_cancel_details_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('serial_tap_down_details_test.dart', () async {
       final result = await SendTestRunner.send(
         'gestures/serial_tap_down_details_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('serial_tap_gesture_recognizer_test.dart', () async {
       final result = await SendTestRunner.send(
         'gestures/serial_tap_gesture_recognizer_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('serial_tap_up_details_test.dart', () async {
       final result = await SendTestRunner.send(
         'gestures/serial_tap_up_details_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('tap_and_horizontal_drag_gesture_recognizer_test.dart', () async {
       final result = await SendTestRunner.send(
         'gestures/tap_and_horizontal_drag_gesture_recognizer_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('tap_and_pan_gesture_recognizer_test.dart', () async {
       final result = await SendTestRunner.send(
         'gestures/tap_and_pan_gesture_recognizer_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('tap_drag_down_details_test.dart', () async {
       final result = await SendTestRunner.send(
         'gestures/tap_drag_down_details_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('tap_drag_end_details_test.dart', () async {
       final result = await SendTestRunner.send(
         'gestures/tap_drag_end_details_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('tap_drag_start_details_test.dart', () async {
       final result = await SendTestRunner.send(
         'gestures/tap_drag_start_details_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('tap_drag_up_details_test.dart', () async {
       final result = await SendTestRunner.send(
         'gestures/tap_drag_up_details_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('tap_drag_update_details_test.dart', () async {
       final result = await SendTestRunner.send(
         'gestures/tap_drag_update_details_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('vertical_multi_drag_gesture_recognizer_test.dart', () async {
       final result = await SendTestRunner.send(
         'gestures/vertical_multi_drag_gesture_recognizer_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
   });
 }

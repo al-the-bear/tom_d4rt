@@ -93,11 +93,7 @@ void main() {
         interactDelay: const Duration(milliseconds: 500),
       );
 
-      expect(
-        result.build.success,
-        isTrue,
-        reason: 'Build should succeed: ${result.build.error}',
-      );
+      SendTestRunner.expectSuccess(result.build);
 
       if (result.interact != null) {
         print('Interaction result: ${result.interact}');
@@ -138,11 +134,7 @@ void main() {
           interactDelay: const Duration(milliseconds: 500),
         );
 
-        expect(
-          result.build.success,
-          isTrue,
-          reason: 'Build should succeed: ${result.build.error}',
-        );
+        SendTestRunner.expectSuccess(result.build);
 
         if (result.interact != null) {
           print('Interaction result: ${result.interact}');
@@ -173,11 +165,7 @@ void main() {
         interactDelay: const Duration(milliseconds: 500),
       );
 
-      expect(
-        result.build.success,
-        isTrue,
-        reason: 'Build should succeed: ${result.build.error}',
-      );
+      SendTestRunner.expectSuccess(result.build);
 
       if (result.interact != null) {
         print('Interaction result: ${result.interact}');
@@ -240,11 +228,7 @@ void main() {
         interactDelay: const Duration(milliseconds: 500),
       );
 
-      expect(
-        result.build.success,
-        isTrue,
-        reason: 'Build should succeed: ${result.build.error}',
-      );
+      SendTestRunner.expectSuccess(result.build);
 
       if (result.interact != null) {
         print('Interaction result: ${result.interact}');
@@ -275,11 +259,7 @@ void main() {
         interactDelay: const Duration(milliseconds: 500),
       );
 
-      expect(
-        result.build.success,
-        isTrue,
-        reason: 'Build should succeed: ${result.build.error}',
-      );
+      SendTestRunner.expectSuccess(result.build);
 
       if (result.interact != null) {
         print('Interaction result: ${result.interact}');

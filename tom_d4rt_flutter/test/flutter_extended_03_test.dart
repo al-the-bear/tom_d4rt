@@ -39,64 +39,64 @@ void main() {
       final result = await SendTestRunner.send(
         'dart_ui/text_affinity_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('text_align_test.dart', () async {
       final result = await SendTestRunner.send('dart_ui/text_align_test.dart');
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('text_baseline_test.dart', () async {
       final result = await SendTestRunner.send(
         'dart_ui/text_baseline_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('text_decoration_style_test.dart', () async {
       final result = await SendTestRunner.send(
         'dart_ui/text_decoration_style_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('text_direction_test.dart', () async {
       final result = await SendTestRunner.send(
         'dart_ui/text_direction_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('text_leading_distribution_test.dart', () async {
       final result = await SendTestRunner.send(
         'dart_ui/text_leading_distribution_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('tile_mode_test.dart', () async {
       final result = await SendTestRunner.send('dart_ui/tile_mode_test.dart');
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('transform_engine_layer_test.dart', () async {
       final result = await SendTestRunner.send(
         'dart_ui/transform_engine_layer_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('tristate_test.dart', () async {
       final result = await SendTestRunner.send('dart_ui/tristate_test.dart');
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('uniform_float_slot_test.dart', () async {
       final result = await SendTestRunner.send(
         'dart_ui/uniform_float_slot_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('uniform_vec2_slot_test.dart', () async {
@@ -107,40 +107,40 @@ void main() {
       final result = await SendTestRunner.send(
         'dart_ui/uniform_vec2_slot_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('uniform_vec3_slot_test.dart', () async {
       final result = await SendTestRunner.send(
         'dart_ui/uniform_vec3_slot_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('uniform_vec4_slot_test.dart', () async {
       final result = await SendTestRunner.send(
         'dart_ui/uniform_vec4_slot_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('vertex_mode_test.dart', () async {
       final result = await SendTestRunner.send('dart_ui/vertex_mode_test.dart');
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('view_focus_direction_test.dart', () async {
       final result = await SendTestRunner.send(
         'dart_ui/view_focus_direction_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('view_focus_state_test.dart', () async {
       final result = await SendTestRunner.send(
         'dart_ui/view_focus_state_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
   });
 
@@ -152,80 +152,80 @@ void main() {
       final result = await SendTestRunner.send(
         'foundation/abstract_node_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('caching_iterable_test.dart', () async {
       final result = await SendTestRunner.send(
         'foundation/caching_iterable_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('category_test.dart', () async {
       final result = await SendTestRunner.send('foundation/category_test.dart');
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('class_test.dart', () async {
       final result = await SendTestRunner.send('foundation/class_test.dart');
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('diagnostic_level_test.dart', () async {
       final result = await SendTestRunner.send(
         'foundation/diagnostic_level_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('diagnosticable_node_test.dart', () async {
       final result = await SendTestRunner.send(
         'foundation/diagnosticable_node_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('diagnosticable_test.dart', () async {
       final result = await SendTestRunner.send(
         'foundation/diagnosticable_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('diagnosticable_tree_mixin_test.dart', () async {
       final result = await SendTestRunner.send(
         'foundation/diagnosticable_tree_mixin_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('diagnosticable_tree_node_test.dart', () async {
       final result = await SendTestRunner.send(
         'foundation/diagnosticable_tree_node_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('diagnosticable_tree_test.dart', () async {
       final result = await SendTestRunner.send(
         'foundation/diagnosticable_tree_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('diagnostics_block_test.dart', () async {
       final result = await SendTestRunner.send(
         'foundation/diagnostics_block_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('diagnostics_property_test.dart', () async {
       final result = await SendTestRunner.send(
         'foundation/diagnostics_property_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('diagnostics_serialization_delegate_test.dart', () async {
@@ -236,117 +236,117 @@ void main() {
       final result = await SendTestRunner.send(
         'foundation/diagnostics_serialization_delegate_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('diagnostics_stack_trace_test.dart', () async {
       final result = await SendTestRunner.send(
         'foundation/diagnostics_stack_trace_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('diagnostics_tree_style_test.dart', () async {
       final result = await SendTestRunner.send(
         'foundation/diagnostics_tree_style_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('documentation_icon_test.dart', () async {
       final result = await SendTestRunner.send(
         'foundation/documentation_icon_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('double_property_test.dart', () async {
       final result = await SendTestRunner.send(
         'foundation/double_property_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('enum_property_test.dart', () async {
       final result = await SendTestRunner.send(
         'foundation/enum_property_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('error_spacer_test.dart', () async {
       final result = await SendTestRunner.send(
         'foundation/error_spacer_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('factory_test.dart', () async {
       final result = await SendTestRunner.send('foundation/factory_test.dart');
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('flag_property_test.dart', () async {
       final result = await SendTestRunner.send(
         'foundation/flag_property_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('flags_summary_test.dart', () async {
       final result = await SendTestRunner.send(
         'foundation/flags_summary_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('flutter_memory_allocations_test.dart', () async {
       final result = await SendTestRunner.send(
         'foundation/flutter_memory_allocations_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('foundation_service_extensions_test.dart', () async {
       final result = await SendTestRunner.send(
         'foundation/foundation_service_extensions_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('int_property_test.dart', () async {
       final result = await SendTestRunner.send(
         'foundation/int_property_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('iterable_property_test.dart', () async {
       final result = await SendTestRunner.send(
         'foundation/iterable_property_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('message_property_test.dart', () async {
       final result = await SendTestRunner.send(
         'foundation/message_property_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('object_created_test.dart', () async {
       final result = await SendTestRunner.send(
         'foundation/object_created_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('object_disposed_test.dart', () async {
       final result = await SendTestRunner.send(
         'foundation/object_disposed_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('object_event_test.dart', () async {
@@ -357,54 +357,54 @@ void main() {
       final result = await SendTestRunner.send(
         'foundation/object_event_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('object_flag_property_test.dart', () async {
       final result = await SendTestRunner.send(
         'foundation/object_flag_property_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('percent_property_test.dart', () async {
       final result = await SendTestRunner.send(
         'foundation/percent_property_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('string_property_test.dart', () async {
       final result = await SendTestRunner.send(
         'foundation/string_property_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('summary_test.dart', () async {
       final result = await SendTestRunner.send('foundation/summary_test.dart');
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('target_platform_test.dart', () async {
       final result = await SendTestRunner.send(
         'foundation/target_platform_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('text_tree_configuration_test.dart', () async {
       final result = await SendTestRunner.send(
         'foundation/text_tree_configuration_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('text_tree_renderer_test.dart', () async {
       final result = await SendTestRunner.send(
         'foundation/text_tree_renderer_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
   });
 }

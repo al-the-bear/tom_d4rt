@@ -37,245 +37,245 @@ void main() {
       final result = await SendTestRunner.send(
         'rendering/box_hit_test_entry_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('box_hit_test_result_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/box_hit_test_result_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('clip_path_layer_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/clip_path_layer_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('clip_r_superellipse_layer_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/clip_r_superellipse_layer_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('color_filter_layer_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/color_filter_layer_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('constraints_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/constraints_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('container_box_parent_data_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/container_box_parent_data_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('container_render_object_mixin_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/container_render_object_mixin_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('custom_painter_semantics_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/custom_painter_semantics_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('debug_overflow_indicator_mixin_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/debug_overflow_indicator_mixin_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('follower_layer_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/follower_layer_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('keep_alive_parent_data_mixin_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/keep_alive_parent_data_mixin_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('layer_handle_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/layer_handle_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('layer_link_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/layer_link_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('leader_layer_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/leader_layer_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('list_body_parent_data_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/list_body_parent_data_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('list_wheel_parent_data_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/list_wheel_parent_data_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('mouse_tracker_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/mouse_tracker_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('parent_data_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/parent_data_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('performance_overlay_layer_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/performance_overlay_layer_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('picture_layer_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/picture_layer_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('platform_view_layer_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/platform_view_layer_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('relayout_when_system_fonts_change_mixin_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/relayout_when_system_fonts_change_mixin_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('render_absorb_pointer_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_absorb_pointer_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('render_aligning_shifted_box_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_aligning_shifted_box_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('render_animated_opacity_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_animated_opacity_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('render_animated_size_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_animated_size_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('render_annotated_region_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_annotated_region_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('render_backdrop_filter_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_backdrop_filter_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('render_baseline_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_baseline_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('render_block_semantics_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_block_semantics_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('render_box_container_defaults_mixin_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_box_container_defaults_mixin_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('render_constrained_overflow_box_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_constrained_overflow_box_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('render_constraints_transform_box_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_constraints_transform_box_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('render_custom_multi_child_layout_box_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_custom_multi_child_layout_box_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('render_custom_paint_test.dart', () async {
@@ -285,7 +285,7 @@ void main() {
       final result = await SendTestRunner.send(
         'rendering/render_custom_paint_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('render_custom_single_child_layout_box_test.dart', () async {
@@ -296,49 +296,49 @@ void main() {
       final result = await SendTestRunner.send(
         'rendering/render_custom_single_child_layout_box_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('render_editable_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_editable_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('render_error_box_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_error_box_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('render_exclude_semantics_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_exclude_semantics_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('render_follower_layer_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_follower_layer_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('render_fractional_translation_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_fractional_translation_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('render_fractionally_sized_overflow_box_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_fractionally_sized_overflow_box_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('render_ignore_baseline_test.dart', () async {
@@ -348,105 +348,105 @@ void main() {
       final result = await SendTestRunner.send(
         'rendering/render_ignore_baseline_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('render_ignore_pointer_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_ignore_pointer_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('render_indexed_semantics_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_indexed_semantics_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('render_indexed_stack_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_indexed_stack_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('render_leader_layer_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_leader_layer_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('render_list_wheel_viewport_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_list_wheel_viewport_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('render_merge_semantics_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_merge_semantics_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('render_meta_data_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_meta_data_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('render_mouse_region_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_mouse_region_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('render_object_with_child_mixin_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_object_with_child_mixin_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('render_offstage_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_offstage_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('render_physical_model_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_physical_model_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('render_physical_shape_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_physical_shape_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('render_pointer_listener_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_pointer_listener_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('render_proxy_box_mixin_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_proxy_box_mixin_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('render_proxy_box_with_hit_test_behavior_test.dart', () async {
@@ -457,14 +457,14 @@ void main() {
       final result = await SendTestRunner.send(
         'rendering/render_proxy_box_with_hit_test_behavior_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
 
     test('render_repaint_boundary_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_repaint_boundary_test.dart',
       );
-      expect(result.success, isTrue, reason: result.error);
+      SendTestRunner.expectSuccess(result);
     });
   });
 }
