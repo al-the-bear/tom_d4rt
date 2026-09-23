@@ -214,6 +214,101 @@ decision honest, and a closed cluster has no decision left to make.
 
 ## Active clusters
 
+### [X] Fixed — SCE162: four base-corpus regressions that only the pre-publish pass could see
+
+**What this entry is really about.** Not the four defects — those are recorded
+below and are closed — but the fact that they existed at all. The published
+interpreter pair was dozens of minors behind the tree, and four base-corpus
+regressions had accumulated in that gap with **every interpreter unit suite
+green**. That is tcca19's shape: a blast radius invisible to unit tests, visible
+only to the corpus, and normally found only AFTER the release carrying it.
+
+SCD66's pre-publish path-resolution pass caught all four BEFORE the publish.
+This is its first payout, and it is the reason the pass exists rather than
+being a convenience.
+
+**The four, and what each turned out to be.** Measured against a 927/1/0 hosted
+baseline; the first pass measured 923/1/4.
+
+| file | script | signature | cause |
+| ---- | ------ | --------- | ---- |
+| `_03` | `widgets/table_test.dart` | `List<Null>` vs `List<_Slot>` | SCD92 |
+| `_08` | `foundation/stack_filter_test.dart` | `List<Null>` vs `List<String>` | SCD92 |
+| `_05` | `services/keyboard_test.dart` | `Cannot access property 'logicalKey'` | healed in the delta; never diagnosed |
+| `_09` | `gestures/tap_drag_start_details_test.dart` | `View<String>` vs `Set<String>` | suffix-match ordering |
+
+`_03` and `_08` were SCD92's type-argument check: its permissive list covered an
+empty collection and a heterogeneous one but not an ALL-NULL one, which is the
+same epistemic case because `null` inhabits every nullable type.
+
+`_05` healed on its own somewhere in the delta and was confirmed gone by its
+recorded signature rather than by a diagnosis. Recorded as healed, not as fixed.
+
+`_09` is the one this entry's own triage plan mis-predicted, and the correction
+is worth keeping. The plan said `_09` and `_05` were both "wrong-bridge
+resolution in `toBridgedClass` territory" and named **scd132** as the first
+version to try. The territory was right and the suspect was wrong — as it also
+was for `_03`/`_08`, where the family was predicted correctly and **scd92** was
+not the version named.
+
+**`_09`'s mechanism.** `toBridgedClass`'s PASS A walked the scope chain once,
+trying every strategy in each frame before moving outward — and one of those
+strategies is not precise. `_longestNameSuffixMatch` is anchored on the BRIDGE's
+name appearing inside the native type's name, not on any declared relationship.
+Under the lazy-bridge substrate the Flutter bridges sit in the child frame and
+the stdlib bridges in the warm parent, so `UnmodifiableSetView<String>` — named
+outright in the stdlib `Set` bridge's `nativeNames` — resolved to Flutter's
+`View` WIDGET, because `View` is the longest bridge name that is a suffix of
+`UnmodifiableSetView` and that frame was reached one sooner. A script passing
+`const <String>{'shiftLeft'}` to a `Set<String>` parameter was then refused.
+
+The suffix match is now PASS A2, a second chain walk after every precise
+strategy has been tried in every frame. **It is the same lesson as
+`MappedListIterable → Map`, arriving at the strategy that fix missed**: that one
+split resolution into a precise walk and a fuzzy one, and the suffix match —
+equally fuzzy — stayed inside the precise walk, so it alone kept resolving by
+proximity. The change can only move a resolution from a fuzzy answer to a
+precise one, because every candidate the new walk finds was already reachable,
+just later.
+
+**And the guess about how to find it was wrong in a useful direction.** The
+triage plan proposed a version bisect by re-running corpus files at about four
+minutes each. Both `List<Null>` failures turned out to reproduce in ten lines of
+plain Dart with no Flutter at all, which made the probe sub-second and let a
+103-commit bisect finish in seven steps. `_09` needed Flutter's registry — it
+does not reproduce in `tom_d4rt` alone, because no `View` bridge exists there —
+but it still reduced to a two-second in-process probe rather than a corpus run.
+**Reduce the reproduction before bisecting anything.**
+
+**Verified, both twins, base corpus, path-resolved to the working tree:**
+
+| twin | result | `flutter_base_09` |
+| ---- | ------ | ----------------- |
+| `tom_d4rt_flutter_ast` | **927 / 1 / 0** | `+26` |
+| `tom_d4rt_flutter` | **927 / 1 / 0** | `+26` |
+
+File-for-file identical to each other and to the 927/1/0 hosted baseline, with
+every file at `exit=0`. The twins agree, which is what makes the result
+trustworthy.
+
+These are SCD66 pre-publish numbers and describe a tree nobody can install yet,
+so they are deliberately NOT in `## Verification runs`. **sce160** owns the
+published re-measurement.
+
+**A SECOND BLOCKER surfaced in the same pass and is also closed.**
+`tom_d4rt_exec` did not COMPILE against the working tree, which removed the one
+gate that sees drift neither interpreter tree can. Fixed in `tom_d4rt_exec`
+1.31.0. With it compiling, the pass now produces a publish-time review list:
+exec path-resolved reports 34 failures against a clean hosted run, and they are
+pins to the PUBLISHED interpreter inverting because the tree is resolved —
+`F-SCC43-1` ("no pinned entry is waiting on a publish that already happened") is
+the plainest of them. **That list is what the publish has to walk**, and it
+could not be produced at all before. Measured by ablation that the 34 are
+untouched by the PASS A2 change: the failing set is identical with and without
+it, so none of them is a new defect.
+
+---
+
 ### [X] Fixed (Phase 1) — GEN-115 hierarchy-driven `BridgedClass` specificity
 
 **Resolution:** Phase 1 of the bridge-identification architectural fix.

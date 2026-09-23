@@ -1,3 +1,42 @@
+## 0.163.0
+
+### Fixed — a fuzzy SUFFIX match in a near frame beat a declared `nativeNames` match in an enclosing one (sce162 / scf26)
+
+`toBridgedClass`'s PASS A walked the scope chain once, trying every strategy in
+each frame before moving outward. One of those strategies is not precise:
+`_longestNameSuffixMatch` is anchored on the BRIDGE's name appearing inside the
+native type's name, not on any declared relationship. Running it frame-locally
+meant proximity beat precision.
+
+Under the lazy-bridge substrate the Flutter bridges sit in the child frame and
+the stdlib bridges in the warm parent, so:
+
+    const <String>{'shiftLeft'}   // an UnmodifiableSetView at runtime
+    Widget keyRow(String label, Set<String> mods, String hint) { ... }
+    // type 'View<String>' is not a subtype of type 'Set<String>' of 'mods'
+
+`UnmodifiableSetView` is named outright in the stdlib `Set` bridge's
+`nativeNames`. It resolved to Flutter's `View` WIDGET because `View` is the
+longest bridge name that is a suffix of `UnmodifiableSetView`, and that frame
+was reached one sooner.
+
+THE SAME LESSON AS THE PREFIX CASE, at the strategy it missed.
+`MappedListIterable` → `Map` was fixed by splitting resolution into a precise
+chain walk and a fuzzy one. The suffix match is equally fuzzy and stayed inside
+the precise walk, so it alone kept resolving by proximity. It is now PASS A2: a
+second chain walk, after every precise strategy has been tried in every frame.
+The change can only move a resolution from a fuzzy answer to a precise one —
+every candidate the new walk finds was already reachable, just later.
+
+MEASURED. Reproduced in two seconds in process against the working tree, and
+ABSENT at the published interpreter, so it is one of the regressions that
+accumulated in the unpublished delta rather than a long-standing defect. The
+empty `const <String>{}` case passes either way, which is why the corpus showed
+it as one failure in one file rather than everywhere.
+
+Name resolution: yes — it changes which bridge a native type resolves to when a
+fuzzy suffix match and a declared `nativeNames` match sit in different frames.
+
 ## 0.162.0
 
 ### Fixed — a LIST of interpreted proxies was refused where each element was accepted (sce161)

@@ -1235,17 +1235,6 @@ class Environment {
                   (e.value.nativeNames?.contains(baseTypeName) ?? false),
             )
             ?.value;
-        // Suffix match fallback: e.g., CastList → List, ListIterator → Iterator
-        // Handles types that embed the bridge name as a suffix.
-        //
-        // SCC49: the LONGEST matching suffix wins. This was a
-        // `firstWhereOrNull`, which returned whichever candidate happened to be
-        // registered first — so a type whose name ends with two bridge names
-        // (`_BodyBoxConstraints` ends with both `Constraints` and
-        // `BoxConstraints`) resolved by registration order rather than by
-        // specificity, and reordering two `registerBridgedClass` calls could
-        // silently change dispatch.
-        bridgedClass ??= _longestNameSuffixMatch(current, baseTypeName);
       }
       bridgedClass ??= current._bridgedClassesLookupByType.entries
           .firstWhereOrNull((e) => e.value.name == nativeTypeName)
@@ -1260,6 +1249,43 @@ class Environment {
       }
 
       current = current._enclosing;
+    }
+
+    // PASS A2 — the SUFFIX fallback, across the whole chain, AFTER every
+    // precise strategy has been tried in every frame.
+    //
+    // SCE162/SCF26: this used to run inside the loop above, so a FUZZY suffix
+    // match in a NEARER frame beat a PRECISE `nativeNames` match in an
+    // enclosing one. Under the lazy-bridge substrate the Flutter bridges sit in
+    // the child frame and the stdlib bridges in the warm parent, so
+    // `UnmodifiableSetView<String>` — named outright by the stdlib `Set`
+    // bridge's `nativeNames` — resolved to Flutter's `View` WIDGET, because
+    // `View` is the longest bridge name that is a suffix of
+    // `UnmodifiableSetView` and it was reached one frame sooner. A script
+    // passing `const <String>{'shiftLeft'}` to a `Set<String>` parameter was
+    // then refused with `type 'View<String>' is not a subtype of type
+    // 'Set<String>'`.
+    //
+    // THIS IS THE SAME LESSON AS THE PREFIX CASE, arriving at the strategy it
+    // missed. `MappedListIterable → Map` was fixed by splitting resolution into
+    // a precise chain walk and a fuzzy one; the suffix match is equally fuzzy —
+    // it is anchored on the BRIDGE's name appearing inside the native type's,
+    // not on any declared relationship — and it stayed frame-local, so
+    // proximity kept beating precision for it alone.
+    //
+    // It can only move a resolution from a fuzzy answer to a precise one: every
+    // candidate this walk can find was already reachable, just later.
+    if (nativeTypeNameFull.contains('<')) {
+      final suffixBase = nativeTypeNameFull.substring(
+        0,
+        nativeTypeNameFull.indexOf('<'),
+      );
+      current = this;
+      while (current != null) {
+        final match = _longestNameSuffixMatch(current, suffixBase);
+        if (match != null) return match;
+        current = current._enclosing;
+      }
     }
 
     // PASS B — prefix fallback across the whole scope chain, CORROBORATED.

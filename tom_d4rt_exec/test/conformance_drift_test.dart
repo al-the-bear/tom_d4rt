@@ -739,6 +739,21 @@ const Map<String, _Coverage> _coveredElsewhere = {
   // that: the fix ships in tom_d4rt_ast 0.93.0 and exec resolves 0.65.0, so the
   // port would assert behaviour nobody here is running (DGUC6). Revisit when
   // the floor moves — sce137 carries the publish.
+  // SCF26: three cases either side, byte-identical apart from the interpreter
+  // import and the `-AST-` in the two control ids. The twin is a full port
+  // rather than a partial one because the subject is `Environment` itself: the
+  // frames are built by hand, so nothing about the AST line makes a case
+  // unreachable.
+  'bridge/scf26_suffix_match_ordering_test.dart': _Coverage(
+    'ast:runtime/scf26_suffix_match_ordering_test.dart',
+    _astTwin,
+    // REGISTRATION, not script: no script runs. The frames are built directly
+    // and `toBridgedClass` is asked which bridge claims a native type, so the
+    // ast twin is the better test rather than a substitute for an exec one.
+    layer: _Layer.registration,
+    refCases: 3,
+    twinCases: 3,
+  ),
   'bridge/scd119_interpreted_proxy_binding_test.dart': _Coverage(
     'ast:runtime/scd119_interpreted_proxy_binding_test.dart',
     _astTwin,

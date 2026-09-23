@@ -66,6 +66,15 @@ const Map<String, String> _deferred = {
   '0.121.0': 'unpublished — sce162 publish block (sce25 same-name enums)',
   '1.137.0': 'unpublished — sce162 publish block (sce25 narrowed retrieval)',
   '0.122.0': 'unpublished — sce162 publish block (sce25 narrowed retrieval)',
+  // The release that CLOSES sce162's last base-corpus regression, and so the
+  // one the publish is waiting on. It cannot be certified by a corpus run
+  // before it ships, for exactly the reason it is deferred here — but it is the
+  // least blind entry in this map: the defect it fixes was measured absent at
+  // the published pair and present at the tree, and both twins' base corpus was
+  // run at the tree through SCD66's pre-publish path resolution before the
+  // version was written. See sce162's entry for those numbers.
+  '1.180.0': 'unpublished — sce162 publish block (scf26 suffix-match ordering)',
+  '0.163.0': 'unpublished — sce162 publish block (scf26 suffix-match ordering)',
 };
 
 List<int> _key(String v) => v.split('.').map(int.parse).toList();
