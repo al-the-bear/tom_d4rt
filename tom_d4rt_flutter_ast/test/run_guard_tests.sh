@@ -171,6 +171,12 @@ run "open-issues doc is rated and derived" \
 run "proxy registries agree across the twins" \
   flutter test test/sce164_proxy_registry_parity_test.dart
 
+# SCE165: the twins' ~200 KB hand-duplicated d4rt_runtime_registrations.dart
+# agrees line for line below its import prologue. The largest duplication in the
+# repo and, until now, the only one with no mechanism at all. Pure file I/O.
+run "runtime registrations mirror below the prologue" \
+  flutter test test/sce165_runtime_registrations_mirror_test.dart
+
 # SCE13: the harness's bridge step stays visible, content-decided and
 # uncommitted. Source-shape only, and deliberately so — the property it stands
 # for ("a fresh package is left untouched") needs a ~45 s generation to observe,

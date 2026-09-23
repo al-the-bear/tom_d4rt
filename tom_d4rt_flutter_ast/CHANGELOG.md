@@ -1,3 +1,34 @@
+## 0.8.0
+
+### Fixed — `AutomaticKeepAliveClientMixin` was structurally absent on this line (sce165)
+
+A script mixing `AutomaticKeepAliveClientMixin` into its `State` subclass
+"compiled" and did nothing: the proxy the framework mounted was a plain
+`State`, so `KeepAliveNotification` was never dispatched and any surrounding
+`TabBarView` / `PageView` / `KeepAlive` treated the child as disposable. The
+source twin has had `_InterpretedKeepAliveState` and the mixin detection since
+the twins were split; this line never got them. 28 corpus scripts use the mixin
+and it is bridged on both lines, so the gap was silent.
+
+Ported verbatim from `tom_d4rt_flutter`, together with two smaller divergences
+found by the same comparison: `const` on nine proxy constructors (measured —
+adding it analyzes clean, so it was drift, not a constraint) and one
+constructor-argument ordering.
+
+Found by comparing the two copies as CODE rather than as text. The twins'
+`d4rt_runtime_registrations.dart` is ~200 KB duplicated BY HAND with nothing
+checking it agreed; a raw diff showed 327 lines, which is mostly comments and
+wrapping. Compared with full-line comments stripped and the package layouts
+normalised, the real figure was 42 lines in three groups, of which this was
+one.
+
+`test/sce165_runtime_registrations_mirror_test.dart` now compares the two
+copies line for line below their import prologues, so the next edit that lands
+on one twin and not the other is a red test rather than a discovery.
+
+Base corpus, hosted, this twin: 927 / 1 / 0, every file `exit=0` — unchanged
+from the baseline.
+
 ## 0.7.0
 
 ### Documented — why GEN-126's last two bases have no interface proxy (sce164)
