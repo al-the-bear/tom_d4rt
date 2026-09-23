@@ -127,6 +127,49 @@ class AstModuleLoader implements ModuleContext {
     return runner.checkPermission(operation);
   }
 
+  /// Refuses a dangerous `dart:` import unless the embedder granted the
+  /// matching capability.
+  ///
+  /// SCE166 — THE MIRROR OF `ModuleLoader._checkModulePermissions`, which this
+  /// tree did not have. Both permission classes were DECLARED here and
+  /// consulted nowhere, so a bundle could import `dart:isolate`, build
+  /// `ReceivePort`s and call `Isolate.spawn` with nothing granted — and
+  /// `dart:io` was equally open.
+  ///
+  /// The place matters more than the gap. This is the tree that ships inside
+  /// Flutter apps executing bundles downloaded at runtime, which is exactly the
+  /// deployment where an ungated capability counts. A permission class present
+  /// in the public API but never consulted is worse than an absent one: an
+  /// embedder reading `IsolatePermission` reasonably concludes the capability
+  /// is gated.
+  ///
+  /// Called BEFORE the module cache is consulted, as the reference does, so a
+  /// second import of an already-loaded library is gated too. A check behind
+  /// the cache would admit everything after the first grant-then-revoke.
+  void _checkModulePermissions(Uri uri) {
+    final uriString = uri.toString();
+
+    if (uriString == 'dart:io') {
+      // The import gate asks only "is ANY filesystem access granted?" — it has
+      // no path to check, so it must not be measured against a scoped grant's
+      // path. The per-operation checks in `stdlib/io/` enforce the scope.
+      if (!checkPermission({'type': 'filesystem', 'pathAgnostic': true})) {
+        throw RuntimeD4rtException(
+          'Access to dart:io requires FilesystemPermission. '
+          'Use d4rt.grant(FilesystemPermission.any) to allow filesystem access.',
+        );
+      }
+    } else if (uriString == 'dart:isolate') {
+      if (!checkPermission({'type': 'isolate'})) {
+        throw RuntimeD4rtException(
+          'Access to dart:isolate requires IsolatePermission. '
+          'Use d4rt.grant(IsolatePermission.any) to allow isolate operations.',
+        );
+      }
+    }
+    // Add more dangerous modules as needed.
+  }
+
   /// Loads (or returns the cached) module for [uri].
   ///
   /// DFUB10 — the real work lives in [_loadModule]; this wrapper only
@@ -151,6 +194,9 @@ class AstModuleLoader implements ModuleContext {
     Set<String>? showNames,
     Set<String>? hideNames,
   }) {
+    // SCE166 — gate dangerous imports BEFORE the cache, as the reference does.
+    _checkModulePermissions(uri);
+
     // 1. Check cache
     if (_moduleCache.containsKey(uri)) {
       Logger.debug('[AstModuleLoader] Cache hit for module: $uri');

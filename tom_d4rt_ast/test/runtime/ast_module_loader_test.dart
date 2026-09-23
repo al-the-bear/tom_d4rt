@@ -291,16 +291,28 @@ void main() {
       expect(module.uri.toString(), 'dart:typed_data');
     });
 
-    test('loads dart:io', () {
-      final loader = createLoader();
+    // SCE166 — these two are GATED, and the grants below are the change
+    // rather than a workaround. Both cases used to call `createLoader()` with
+    // nothing granted and expect the load to succeed, which is precisely the
+    // ungated state this tree was in: they were asserting the absence of a
+    // permission check. What they are actually about — that the stdlib module
+    // loads and reports its own uri — is unchanged, and is now measured with
+    // the capability granted. `sce166_module_permission_gate_test.dart` holds
+    // the refusal side.
+    test('loads dart:io, with FilesystemPermission granted', () {
+      final loader = createLoader(
+        runner: D4rtRunner()..grant(FilesystemPermission.any),
+      );
       final module = loader.loadModule(Uri.parse('dart:io'));
 
       expect(module, isNotNull);
       expect(module.uri.toString(), 'dart:io');
     });
 
-    test('loads dart:isolate', () {
-      final loader = createLoader();
+    test('loads dart:isolate, with IsolatePermission granted', () {
+      final loader = createLoader(
+        runner: D4rtRunner()..grant(IsolatePermission.any),
+      );
       final module = loader.loadModule(Uri.parse('dart:isolate'));
 
       expect(module, isNotNull);

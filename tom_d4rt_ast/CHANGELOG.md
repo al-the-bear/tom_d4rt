@@ -1,3 +1,48 @@
+## 0.164.0
+
+### Fixed — SECURITY: the sandbox declared two permissions and enforced neither (sce166)
+
+`AstModuleLoader` had no counterpart to `ModuleLoader._checkModulePermissions`.
+A bundle could
+
+    import 'dart:isolate';   // ReceivePort, SendPort, Isolate.spawn
+    import 'dart:io';        // the whole filesystem surface
+
+with the embedder granting nothing, on the tree that ships inside Flutter apps
+executing bundles downloaded at runtime. `IsolatePermission` and
+`FilesystemPermission` were both declared in this package's public API and
+consulted nowhere.
+
+THE PERMISSION CLASS BEING PRESENT MADE IT WORSE, not better: an embedder
+reading `IsolatePermission` in the API reasonably concludes the capability is
+gated. The quest's own constraint is that the interpreter stays fully
+sandboxed, and this was the line without the gate.
+
+The reference tree's check is mirrored in, message for message, and called from
+`_loadModule` BEFORE the module cache is consulted — as the reference does, so
+a second import of an already-loaded library is gated too rather than riding in
+on the first grant.
+
+`dart:io` was not in the todo that filed this. It was found by the test written
+to reproduce the `dart:isolate` gap, which asked the same question of the other
+library the reference gates.
+
+F-SCE166-1..5 in `test/runtime/sce166_module_permission_gate_test.dart` execute
+bundles for both refusals, both grants, and an ungated `dart:math` control — a
+blanket refusal would pass the four and break every script in the corpus.
+`tom_d4rt/test/sce166_permission_enforcement_parity_test.dart` then holds the
+general property the single instance implies: every permission either tree
+DECLARES is referenced by an enforcement site in BOTH, and the two trees
+declare the same set. Measured across all six: they now agree file for file.
+
+Two pre-existing tests asserted the ABSENCE of these gates — they loaded
+`dart:io` and `dart:isolate` with nothing granted and expected success. They
+now grant first, which is the change rather than a workaround; what they are
+about, that the stdlib module loads, is unchanged.
+
+Name resolution: no — an import is refused or admitted; which names bind to
+what is untouched.
+
 ## 0.163.0
 
 ### Fixed — a fuzzy SUFFIX match in a near frame beat a declared `nativeNames` match in an enclosing one (sce162 / scf26)

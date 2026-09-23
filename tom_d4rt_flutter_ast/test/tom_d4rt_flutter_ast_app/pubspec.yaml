@@ -12,6 +12,12 @@ dependencies:
     sdk: flutter
   tom_d4rt_flutter_ast:
     path: ../..  # Go up from test/tom_d4rt_flutter_ast_app to tom_d4rt_flutter_ast
+  # SCE166 — declared because this app names `IsolatePermission` directly, to
+  # grant the corpus the `dart:isolate` access this line now gates. The version
+  # floor is deliberately loose: the parent library pins the interpreter, and a
+  # second constraint here would be a second thing to bump. Mirrors the source
+  # app, which declared the same dependency for the same reason under scd139.
+  tom_d4rt_ast: any
   vector_math: ^2.2.0
 
 dev_dependencies:

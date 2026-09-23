@@ -369,6 +369,16 @@ const Map<String, String> _caretExempt = <String, String>{
   'tom_d4rt_flutter/test/tom_d4rt_flutter_test_app:tom_d4rt':
       'defers to the parent library\'s caret; the companion-app resolution '
       'check enforces that they agree',
+  // SCE166 put the AST companion app in exactly the position the source one
+  // has been in since SCD139, and for the same reason: it names
+  // `IsolatePermission` directly, to grant the corpus the `dart:isolate`
+  // access this line now gates. The same deferral applies — its parent
+  // declares a caret, `any` cannot widen that, and
+  // `companion_app_resolution.dart` holds the app to resolving exactly what
+  // its parent resolves before the harness launches anything.
+  'tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app:tom_d4rt_ast':
+      'defers to the parent library\'s caret; the companion-app resolution '
+      'check enforces that they agree',
 };
 
 /// Top-level projects that are copy surfaces although no path segment says so:
