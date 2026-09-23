@@ -165,6 +165,12 @@ run "generator issues log is a derived register" \
 run "open-issues doc is rated and derived" \
   flutter test test/sce159_open_issues_doc_test.dart
 
+# SCE164: the twins' hand-duplicated proxy registries agree, every proxy exposes
+# its interpreted instance, and the two bases measured-and-withheld stay
+# unregistered. Pure file I/O over both registration files.
+run "proxy registries agree across the twins" \
+  flutter test test/sce164_proxy_registry_parity_test.dart
+
 # SCE13: the harness's bridge step stays visible, content-decided and
 # uncommitted. Source-shape only, and deliberately so — the property it stands
 # for ("a fresh package is left untouched") needs a ~45 s generation to observe,

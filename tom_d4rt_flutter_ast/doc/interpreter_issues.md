@@ -4227,10 +4227,64 @@ interface, so scd119's retry saw nothing and refused values that work — among
 them the two bases a script is most likely to extend. Each now does.
 
 For the third case the entry's ORIGINAL hypothesis is the correct one: with no
-proxy registered, the interpreted identity really is gone by the time the value
-returns, and the repair is a proxy registration rather than anything at the
-type check. `RenderProxyBox → _RenderMeasureBox` is a sixth shape, absent from
-the symptom list below. **sce164** owns that case.
+proxy, the interpreted identity really is gone by the time the value returns,
+and the repair is a proxy registration rather than anything at the type check.
+`RenderProxyBox → _RenderMeasureBox` is a sixth shape, absent from the symptom
+list below.
+
+**BUT A REGISTRATION IS NOT THE REPAIR, MEASURED 2026-09-23 (sce164).** Both
+proxies were written, registered in both twins, and reverted. The analysis is
+kept in full where the registrations would go in each twin's
+`d4rt_runtime_registrations.dart`; the three findings are:
+
+1. **A registration alone does nothing for these two.** `callable.dart`
+   consults the interface-proxy registry only when the bridged super class has
+   NO constructor adapter — the ABSTRACT bases. Both of these are CONCRETE, so
+   the native base is built directly and handed across and the proxy is never
+   constructed. Measured in process: a script extending abstract `RenderBox`
+   crosses as `_InterpretedRenderBox`; extending concrete `RenderProxyBox` it
+   crosses as a bare `RenderProxyBox`. `flutter_extended_20` did not move.
+
+2. **Flipping that preference fixes the binding and wedges the app.** Making a
+   registered proxy win over a usable constructor moves exactly FOUR names onto
+   the path the other 32 already take (`ChangeNotifier`, `ParentData` and these
+   two — the other 32 have no unnamed adapter). The `RenderProxyBox` type
+   errors go to zero and `rendering/render_shrink_wrapping_viewport_test.dart`
+   wedges the companion app, taking `flutter_base_13` from `+54` to `+52 -2`.
+   Reverting restores `+54` exactly, so the causation is established in both
+   directions. A subclass of a concrete RENDER base needs the real native super
+   object to lay out, and a proxy whose `performLayout` routes back through the
+   interpreter does not supply one.
+
+3. **The delegate proxy trades three errors for 408.** It removes the three
+   `TwoDimensionalChildBuilderDelegate` type errors outright — and makes the
+   script's `build` override RUN for the first time, because the native
+   delegate had been using the stub `builder` passed to `super(...)` and
+   ignoring the override entirely. The override calls setState during build:
+   `widgets/two_dimensional_child_manager_test.dart` goes from 5 framework
+   errors to 408. That one is arguably a defect in the SCRIPT, which passed
+   only because its override was dead code.
+
+So the third case is open for a different reason than this entry assumed, and
+the reason is now named: an interpreted subclass of a CONCRETE bridged base has
+to hold both a working native super object and a readable interpreted identity,
+and today the boundary picks one of the two fields rather than composing them.
+**scf31** owns it. `tom_d4rt_flutter_ast/test/sce164_proxy_registry_parity_test
+.dart` fails if either proxy is registered again without addressing that, and
+holds two properties worth having independently: the twins register the same
+proxy set — those two files are ~200 KB duplicated by hand with no sync
+mechanism — and every proxy class exposes its instance, which is the omission
+scd138 had to sweep across 21 classes per twin.
+
+**The scan sce164 proposed is NOT worth writing, and that is measured too.** The
+proposal was "for every bridged class a corpus script extends, assert a proxy is
+registered". Over 2 085 scripts and the live registry: 84 distinct bases
+extended, 76 of them bridged, and **36 of those have no proxy**. `State` alone
+is extended by 380 scripts, has no proxy, and the corpus is green — a proxy is
+needed only when the value crosses into native code AND returns to meet a
+parameter declared as the script's own class. The scan would have produced a
+36-entry allowlist that is mostly noise. The corpus already answers the question
+precisely, by producing this entry's signature.
 
 **The symptom list below is not the limit, and "0 failures" is not safe to
 rely on.** A fifth shape exists — a script's own `StatelessWidget` subclass,

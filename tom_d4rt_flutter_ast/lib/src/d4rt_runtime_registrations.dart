@@ -401,6 +401,45 @@ void _registerInterfaceProxies() {
   D4.markProxyCapturesSuperArgs('TwoDimensionalViewport');
   D4.markProxyCapturesSuperArgs('RenderTwoDimensionalViewport');
 
+  // GEN-126'S LAST TWO BASES ARE NOT REGISTERED HERE, AND THAT IS A MEASURED
+  // DECISION RATHER THAN AN OMISSION (SCE164).
+  //
+  // `RenderProxyBox` (`_RenderMeasureBox`) and
+  // `TwoDimensionalChildBuilderDelegate` (`_TwoDMgrCountingDelegate`) are the
+  // third case of GEN-126: no proxy carries the interpreted identity, so the
+  // value really is the bridged base when it returns and the declared-parameter
+  // check refuses it. Registering a proxy for each was tried, measured, and
+  // reverted. The analysis is the expensive half and is kept:
+  //
+  // 1. A REGISTRATION ALONE DOES NOTHING HERE. `callable.dart` consults the
+  //    proxy registry only when the bridged super class has NO constructor
+  //    adapter — the abstract bases. Both of these are CONCRETE, so the native
+  //    base is constructed directly and handed across, and the proxy is never
+  //    built. Measured: a script extending abstract `RenderBox` crosses as
+  //    `_InterpretedRenderBox`; extending concrete `RenderProxyBox` it crosses
+  //    as a bare `RenderProxyBox`.
+  //
+  // 2. FLIPPING THAT PREFERENCE FIXES THE BINDING AND BREAKS LAYOUT. Making a
+  //    registered proxy win over a usable constructor moves exactly four names
+  //    onto the path the other 32 already take (`ChangeNotifier`, `ParentData`,
+  //    and these two). The `RenderProxyBox` type errors go to zero — and
+  //    `rendering/render_shrink_wrapping_viewport_test.dart` then WEDGES the
+  //    companion app (45 s transport timeout, app recycle), taking
+  //    `flutter_base_13` from `+54` to `+52 -2`. A subclass of a concrete
+  //    render base needs the real native super object to lay out; a proxy whose
+  //    `performLayout` routes back through the interpreter does not supply it.
+  //
+  // 3. THE DELEGATE PROXY TRADES THREE ERRORS FOR 408. It removes the three
+  //    type errors and makes the script's `build` override run for the first
+  //    time — the native delegate had been using the stub `builder` passed to
+  //    `super(...)` and ignoring the override. The override then calls
+  //    setState during build: `widgets/two_dimensional_child_manager_test.dart`
+  //    goes from 5 framework errors to 408.
+  //
+  // Both are regressions by this quest's own rule, so neither is registered and
+  // the tree stays at 927/1/0. **scf31** carries the remaining work, which is a
+  // different shape from what SCE164 assumed: the repair is not a registration.
+
   // C20a follow-up — WidgetStatesConstraint. Scripts subclass it (typically
   // via `implements WidgetStatesConstraint`) to use a custom predicate as a
   // map key in `WidgetStateColor.fromMap` / `WidgetStatePropertyMap` /

@@ -1,3 +1,29 @@
+## 0.7.0
+
+### Documented — why GEN-126's last two bases have no interface proxy (sce164)
+
+`RenderProxyBox` and `TwoDimensionalChildBuilderDelegate` are the third and last
+case of GEN-126: a script subclass returns as its bridged base and the
+declared-parameter check refuses it. The obvious repair is a proxy registration.
+Both were written, registered, measured and reverted; the analysis is recorded
+in `d4rt_runtime_registrations.dart` where the registrations would go.
+
+* A registration alone does nothing for these two. The proxy registry is
+  consulted only when the bridged super class has NO constructor adapter — the
+  ABSTRACT bases. Both of these are concrete, so the native base is built
+  directly and handed across and the proxy is never constructed.
+* Flipping that preference fixes the binding and WEDGES the app:
+  `rendering/render_shrink_wrapping_viewport_test.dart` times out and
+  `flutter_base_13` goes `+54` → `+52 -2`. Reverting restores `+54` exactly.
+* The delegate proxy removes three type errors and produces 408 framework
+  errors, because it makes the script's `build` override run for the first time
+  and that override calls setState during build.
+
+Comment-only in `lib/`. `test/sce164_proxy_registry_parity_test.dart` (AST twin,
+covering both) fails if either is registered again, and independently holds that
+the two hand-duplicated registries agree and that every proxy class exposes its
+interpreted instance. scf31 owns the remaining work.
+
 ## 0.6.0
 
 ### Changed — bridges re-stamped at generator 1.26.2 (sce1)
