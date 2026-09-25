@@ -77,13 +77,25 @@ So a run is compared on **pass / skip / fail**, all three:
 | change | reading |
 | ------ | ------- |
 | fail rises | regression — the usual one |
-| **skip rises, pass unchanged** | **regression. A test stopped being measured.** Explain it in the entry exactly as a new failure would be |
+| **skip rises, pass unchanged** | **regression. A test stopped being measured.** Record it under a `**Rising skip:**` field in the entry, naming the file, exactly as a new failure would be |
 | skip rises, pass rises by the same amount | a test moved between files, or a driver was split. Say which |
 | skip falls, pass rises | a skip was audited and converted to a measured test — the SCD139 outcome, and the one worth calling out |
 | skip falls, fail rises | a masker was removed and the truth is red. Better than the skip, and it needs a cluster entry |
 
 `+44 ~2` and `+44 ~1 -1` describe the same amount of working software. Only one
 of them tells you so.
+
+**The field is what makes this checkable.** SCD140 wrote the rule into four
+places and guarded the shape of a skip's justification in the drivers; nothing
+checked that a run RECORDED here obeys it, which is how the 2026-07-28 case
+came to sit under a heading reading "no regressions" for six weeks. `SCE168` in
+`test/interpreter_issues_doc_test.dart` reads every entry's before/after table
+— both the dated per-file shape and the 2026-07-28 `ext NN` shape — and fails
+when a row's skip rose without the pass count rising by at least as much,
+unless the entry carries a `**Rising skip:**` paragraph naming that file. A
+file named in a scope sentence does not count: the mention has to be inside the
+field, because listing a file among those run is not an explanation of why one
+of its tests stopped being measured.
 
 To produce a number: `./test/run_base_tests.sh` for the 17-file base gate
 (`flutter_base_01..17`), `./test/run_issue_analysis_tests.sh` for the full
@@ -5232,7 +5244,7 @@ scripts, the three densest (`services/class_test.dart` 24,
 47 of ~67 occurrences) are extended-only, so base-only would have left
 roughly 70 % of the type-test surface unexercised.
 
-**Result — no regressions in either twin.**
+**Result — no failure regressions in either twin; one measurement regression, in `ext 23`.**
 
 | Suite | Baseline | 2026-07-28 |
 | --- | --- | --- |
@@ -5241,6 +5253,16 @@ roughly 70 % of the type-test surface unexercised.
 | ext 01, 02, 03, 11, 16 | `+47`, `+60 ~1`, `+54`, `+61`, `+47` | identical |
 | ext 22 | `+30 ~1 -12` | **`+42 ~1`** (12 recovered) |
 | ext 23 | `+44 ~1 -1` | **`+44 ~2`** (fail → skip) |
+
+**Rising skip:** `flutter_extended_23`, `~1` → `~2`, with the pass count
+unmoved at `+44`. `rendering/render_android_view_test.dart` stopped being
+measured: the commit that produced this run's numbers (`7817bcc31`,
+2026-06-24) added a `skip:` to it, so its failure disappeared from the
+column rather than being fixed. That is a regression in measurement, which
+the row's `+44 ~2` cell states and its bolding does not: the row above it is
+bolded for a genuine recovery. The provenance of both of this entry's skips
+is re-derived from git in the amendment below — one of the two was wrong and
+has been removed.
 
 Base baselines are `testlog/basetestlog_20260628-step2-{src,ast}/metrics.txt`
 (byte-identical between twins); extended baselines are

@@ -300,6 +300,162 @@ String? recordedVersion(List<String> entry, String appPath) {
   return null;
 }
 
+/// One `## Verification runs` entry: its `###` heading and its body lines.
+class VerificationRun {
+  VerificationRun(this.heading, this.body);
+  final String heading;
+  final List<String> body;
+}
+
+/// Every entry under `## Verification runs`, newest first.
+///
+/// [newestVerificationRun] answers the same question for one entry; SCE168
+/// needs all of them, because the rule it enforces is retrospective — the
+/// case that produced the rule is six weeks old.
+List<VerificationRun> verificationRuns(List<String> lines) {
+  final result = <VerificationRun>[];
+  final start = lines.indexWhere((l) => l.trim() == '## Verification runs');
+  if (start < 0) return result;
+  String? heading;
+  var body = <String>[];
+  for (var i = start + 1; i < lines.length; i++) {
+    final line = lines[i];
+    if (line.startsWith('## ')) break;
+    if (line.startsWith('### ')) {
+      if (heading != null) result.add(VerificationRun(heading, body));
+      heading = line.trim();
+      body = <String>[];
+      continue;
+    }
+    if (heading != null) body.add(line);
+  }
+  if (heading != null) result.add(VerificationRun(heading, body));
+  return result;
+}
+
+/// A pass / skip / fail triple read out of one table cell.
+class RunTriple {
+  const RunTriple(this.pass, this.skip, this.fail);
+  final int pass;
+  final int skip;
+  final int fail;
+
+  @override
+  String toString() => '+$pass ~$skip -$fail';
+}
+
+final _runnerSummary = RegExp(r'\+(\d+)(?:\s*~(\d+))?(?:\s*-(\d+))?');
+final _proseSummary = RegExp(
+  r'(\d+)\s*pass\s*/\s*(\d+)\s*skip\s*/\s*(\d+)\s*fail',
+);
+final _bareTriple = RegExp(r'(\d+)\s*/\s*(\d+)\s*/\s*(\d+)');
+
+/// The triple in [cell], or null when the cell carries none — or carries more
+/// than one.
+///
+/// More than one is rejected rather than guessed at: the 2026-07-28 entry has
+/// a row whose cell reads `` `+47`, `+60 ~1`, `+54`, `+61`, `+47` `` for five
+/// files at once, and no single before/after comparison describes it.
+/// [aggregate] admits the bare `**927 / 1 / 0**` form used by the suite-total
+/// rows, which is too loose to apply to a cell that might hold a date.
+RunTriple? parseRunTriple(String cell, {bool aggregate = false}) {
+  final prose = _proseSummary.allMatches(cell).toList();
+  if (prose.length > 1) return null;
+  if (prose.length == 1) {
+    final m = prose.single;
+    return RunTriple(
+      int.parse(m.group(1)!),
+      int.parse(m.group(2)!),
+      int.parse(m.group(3)!),
+    );
+  }
+  final runner = _runnerSummary.allMatches(cell).toList();
+  if (runner.length > 1) return null;
+  if (runner.length == 1) {
+    final m = runner.single;
+    return RunTriple(
+      int.parse(m.group(1)!),
+      int.parse(m.group(2) ?? '0'),
+      int.parse(m.group(3) ?? '0'),
+    );
+  }
+  if (!aggregate) return null;
+  final bare = _bareTriple.allMatches(cell).toList();
+  if (bare.length != 1) return null;
+  final m = bare.single;
+  return RunTriple(
+    int.parse(m.group(1)!),
+    int.parse(m.group(2)!),
+    int.parse(m.group(3)!),
+  );
+}
+
+/// The canonical corpus file a row label names, or null when the label covers
+/// more than one file (a range, a list, the suite total).
+///
+/// Two label shapes are in use and both are historical record, so both are
+/// read rather than one being rewritten: `` `flutter_extended_23` `` in the
+/// dated per-file tables, and `ext 23` in the 2026-07-28 entry.
+String? canonicalCorpusFile(String label) {
+  final bare = label.replaceAll(RegExp(r'[`*]'), '').trim();
+  final full = RegExp(
+    r'^(flutter_(?:base|extended)_\d+)(?:_test)?(?:\.dart)?$',
+  ).firstMatch(bare);
+  if (full != null) return full.group(1);
+  final short = RegExp(r'^(base|ext)\s+(\d+)$').firstMatch(bare);
+  if (short == null) return null;
+  final family = short.group(1) == 'ext' ? 'extended' : 'base';
+  return 'flutter_${family}_${short.group(2)}';
+}
+
+/// One before/after pair read out of a verification-run table.
+class RunComparison {
+  RunComparison(this.label, this.file, this.before, this.after);
+
+  /// The row label, verbatim.
+  final String label;
+
+  /// The corpus file [label] names, when it names exactly one.
+  final String? file;
+  final RunTriple before;
+  final RunTriple after;
+
+  /// The rule from "Compare all three numbers" (SCD140): a skip that rises
+  /// without the pass count rising by at least as much means a test stopped
+  /// being measured.
+  bool get skipRose =>
+      after.skip > before.skip &&
+      (after.pass - before.pass) < (after.skip - before.skip);
+}
+
+/// Every before/after pair in [body].
+///
+/// A row qualifies when it has at least three cells and both the second and
+/// third parse as a triple. A third cell reading `identical` — the
+/// 2026-07-28 shorthand — means the run reproduced the baseline.
+List<RunComparison> runComparisons(List<String> body) {
+  final result = <RunComparison>[];
+  for (final line in body) {
+    if (!line.trimLeft().startsWith('|')) continue;
+    final cells = line.split('|').map((c) => c.trim()).toList();
+    if (cells.length < 4) continue;
+    final label = cells[1];
+    if (label.isEmpty || label.startsWith('---')) continue;
+    final aggregate = label
+        .replaceAll(RegExp(r'[`*]'), '')
+        .trim()
+        .startsWith('pass / skip / fail');
+    final before = parseRunTriple(cells[2], aggregate: aggregate);
+    if (before == null) continue;
+    final after = cells[3].toLowerCase().contains('identical')
+        ? before
+        : parseRunTriple(cells[3], aggregate: aggregate);
+    if (after == null) continue;
+    result.add(RunComparison(label, canonicalCorpusFile(label), before, after));
+  }
+  return result;
+}
+
 void main() {
   final docFile = File('doc/interpreter_issues.md');
   late List<String> lines;
@@ -694,5 +850,129 @@ void main() {
             'here rather than leaving a guard that cannot fail.',
       );
     });
+  });
+
+  group('SCE168: a recorded run obeys the rising-skip rule', () {
+    // SCD140 wrote "a rising skip count is a regression" into four places and
+    // guarded the SHAPE of a skip's justification in the drivers. Nothing
+    // checked the rule itself — that a run RECORDED in this document obeys it.
+    // The case the rule was written from is in this very section and was
+    // tabulated beside genuine recoveries under a heading reading "no
+    // regressions in either twin"; it took six weeks and SCC47 to notice.
+    //
+    // The check is deliberately retrospective. It reads every entry, not the
+    // newest, because the failure it catches is a claim that ages into the
+    // record — and a dated cutoff would make that history permanently exempt.
+    // The repo has learned twice (scd49, F-SCD134-3) that an allow-list entry
+    // outliving its cause silently un-guards what it names.
+
+    /// A run whose skip rose must be explained in its OWN entry, under a
+    /// field a reader and this test can both find.
+    const field = '**Rising skip:**';
+
+    test(
+      'SCE168-1: both recorded table shapes parse, including the row the rule '
+      'was written from. [2026-09-25 00:00] (PASS)',
+      () {
+        // Anti-vacuity, and load-bearing rather than ceremonial: SCE168-2
+        // reports violations, so a parser that found no rows at all would
+        // make it pass while checking nothing. The two shapes are checked
+        // separately because they were added years apart and only one of
+        // them carries the violation.
+        final all = [
+          for (final run in verificationRuns(lines))
+            ...runComparisons(run.body),
+        ];
+        expect(
+          all.length,
+          greaterThanOrEqualTo(8),
+          reason:
+              'Fewer before/after rows parsed out of "## Verification runs" '
+              'than the document is known to carry. Either the tables changed '
+              'shape — in which case teach `runComparisons` the new one — or '
+              'the parser broke.',
+        );
+
+        // Shape A: the dated per-file tables, `| `flutter_extended_02` |
+        // `exit=0 +60 ~1` | `exit=0 +61` |`.
+        expect(
+          all.where((c) => c.file != null && c.label.contains('`')),
+          isNotEmpty,
+          reason: 'No backticked per-file rows parsed.',
+        );
+
+        // Shape B: the 2026-07-28 entry, `| ext 23 | `+44 ~1 -1` |
+        // **`+44 ~2`** (fail → skip) |`. This row IS the rule's origin, so
+        // it is pinned by value: if it ever stops parsing, the guard has
+        // stopped seeing the only violation the document contains and
+        // SCE168-2 would go quietly green.
+        final origin = all.firstWhere(
+          (c) => c.file == 'flutter_extended_23' && c.before.fail == 1,
+          orElse: () => throw StateError(
+            'The 2026-07-28 `ext 23` row no longer parses. It is the case '
+            'SCD140 was written from and the only violation in the document; '
+            'without it SCE168-2 asserts nothing.',
+          ),
+        );
+        expect(origin.before.toString(), '+44 ~1 -1');
+        expect(origin.after.toString(), '+44 ~2 -0');
+        expect(origin.skipRose, isTrue);
+      },
+    );
+
+    test(
+      'SCE168-2: every recorded run whose skip rose says so in its own entry. '
+      '[2026-09-25 00:00] (PASS)',
+      () {
+        final unexplained = <String>[];
+        var rising = 0;
+        for (final run in verificationRuns(lines)) {
+          final statement = fieldStatement(run.body, 'Rising skip');
+          for (final row in runComparisons(run.body)) {
+            if (!row.skipRose) continue;
+            rising++;
+            // What counts as an explanation: the entry carries the field, and
+            // — when the row names one file — the field names that file. A
+            // file listed in a scope sentence is not an explanation of its
+            // own skip rise, which is why the mention has to be inside the
+            // field rather than anywhere in the entry.
+            final named =
+                statement != null &&
+                (row.file == null ||
+                    statement.contains(row.file!) ||
+                    statement.contains(
+                      row.label.replaceAll(RegExp(r'[`*]'), '').trim(),
+                    ));
+            if (named) continue;
+            unexplained.add(
+              '${run.heading}\n      row `${row.label}`: '
+              '${row.before} -> ${row.after}',
+            );
+          }
+        }
+
+        expect(
+          unexplained,
+          isEmpty,
+          reason:
+              'These recorded runs have a skip count that rose without the '
+              'pass count rising by at least as much — a test stopped being '
+              'measured. Add a `$field` paragraph to the entry naming the '
+              'file and saying what became unmeasured and why. See "Compare '
+              'all three numbers" in this document:\n  '
+              '${unexplained.join('\n  ')}',
+        );
+        // Coverage: the document is expected to contain exactly the one
+        // historical case. Zero would mean the parser stopped finding it.
+        expect(
+          rising,
+          greaterThanOrEqualTo(1),
+          reason:
+              'No rising-skip row found anywhere in "## Verification runs". '
+              'That is not the state of this document — the 2026-07-28 entry '
+              'carries one — so the parser has stopped reading the tables.',
+        );
+      },
+    );
   });
 }

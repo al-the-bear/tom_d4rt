@@ -290,10 +290,15 @@ one of them tells you so.** So compare a run against its baseline on all three:
 | change | reading |
 | ------ | ------- |
 | fail rises | regression — the usual one |
-| **skip rises, pass unchanged** | **regression. A test stopped being measured.** Explain it in the verification entry exactly as a new failure would be |
+| **skip rises, pass unchanged** | **regression. A test stopped being measured.** Record it under a `**Rising skip:**` field in the verification entry, naming the file |
 | skip rises, pass rises by the same amount | a test moved between files, or a driver was split. Say which |
 | skip falls, pass rises | a skip was audited and became a measured test (SCD139) — worth calling out |
 | skip falls, fail rises | a masker was removed and the truth is red. Better than a skip, and it needs a cluster entry |
+
+`SCE168` in `interpreter_issues_doc_test.dart` reads the before/after tables
+under `## Verification runs` in `tom_d4rt_flutter_ast/doc/interpreter_issues.md`
+and fails when a recorded row breaks that second line without the entry saying
+so. The rule had been written down in four places and enforced in none of them.
 
 **Every `skip:` in a driver file must state the MECHANISM that makes the
 condition unobservable to the interpreter, and name its evidence** — a commit, a
