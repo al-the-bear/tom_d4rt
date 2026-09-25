@@ -196,6 +196,12 @@ run "bridge step is streamed and content-decided" \
 run "launch retry leaves no orphaned build" \
   flutter test test/sce14_launch_retry_test.dart
 
+# SCE170: every non-driver file both twins carry in test/ is classified, the
+# derivable ones agree as CODE modulo the twin parameters, and none carries the
+# other twin's parameter. Repo-wide (it reads the sibling's test/). Pure file I/O.
+run "shared test infrastructure agrees across the twins" \
+  flutter test test/sce170_twin_test_infrastructure_test.dart
+
 if [ "$status" -eq 0 ]; then
   echo "all guards passed"
 else

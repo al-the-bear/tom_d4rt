@@ -38,7 +38,7 @@ set -uo pipefail
 cd "$(dirname "$0")/.."
 PROJECT="$(basename "$PWD")"
 APP_DIR="test/tom_d4rt_flutter_ast_app"
-PORT="${TOM_D4RT_TEST_TEST_PORT:-4247}"
+PORT="${TOM_D4RT_AST_TEST_PORT:-4247}"
 
 MODE="${1:-${MODE:-profile}}"
 

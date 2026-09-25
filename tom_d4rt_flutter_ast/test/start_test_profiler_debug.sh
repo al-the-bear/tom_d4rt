@@ -18,5 +18,5 @@
 # Everything else (DevTools URLs, two-terminal workflow with run_test_profiler.sh,
 # the D4rtProfiler.enabled compile-time switch, logging to testlog/profiling/) is
 # exactly as documented in start_test_profiler.sh — this is a thin wrapper that
-# runs it in debug mode. Honors FLUTTER_DEVICE / TOM_D4RT_TEST_TEST_PORT too.
+# runs it in debug mode. Honors FLUTTER_DEVICE / TOM_D4RT_AST_TEST_PORT too.
 exec "$(dirname "$0")/start_test_profiler.sh" debug

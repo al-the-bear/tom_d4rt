@@ -35,7 +35,7 @@ set -uo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "$(dirname "$0")/.."
 PROJECT="$(basename "$PWD")"
-PORT="${TOM_D4RT_TEST_TEST_PORT:-4247}"
+PORT="${TOM_D4RT_AST_TEST_PORT:-4247}"
 # SCD131: 300, matching the corpus runners. Same reason: the watchdog must not
 # be shorter than `SendTestRunner.setUp`'s own 120 s wait for the companion app,
 # or a cold build cache reads as a hang.
