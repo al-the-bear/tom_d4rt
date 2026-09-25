@@ -64,6 +64,7 @@ import 'package:path/path.dart' as p;
 import '../bridge_api.dart';
 import '../bridge_config.dart';
 import 'd4rt_test_result.dart';
+import 'fixture_lock.dart';
 import 'package_resolution.dart';
 
 /// Runs D4rt scripts and evaluations with in-memory bridge generation
@@ -145,7 +146,17 @@ class D4rtTester {
   ///   _expectSuccess(result, 'feature X');
   /// });
   /// ```
-  Future<bool> prepareBridges(BridgeConfig config) async {
+  ///
+  /// Holds the project's fixture lock for the whole pipeline (see
+  /// [withFixtureLock]): suites that share a fixture project run concurrently
+  /// under `dart test`, and one must not resolve, generate or compile while
+  /// another is rewriting the same tree.
+  Future<bool> prepareBridges(BridgeConfig config) => withFixtureLock(
+    p.join(projectPath, '.dart_tool', 'd4rt_prepare_bridges.lock'),
+    () => _prepareBridges(config),
+  );
+
+  Future<bool> _prepareBridges(BridgeConfig config) async {
     // Step 0: Make sure the project still resolves. Checking only that a
     // package config exists is not enough: a project that stopped resolving
     // keeps its last config, and generation then fails on a downstream symptom

@@ -38,7 +38,76 @@ class ExecTestSetup {
   ///
   /// Returns `true` if all steps succeed, `false` otherwise.
   /// On failure, error details are printed to stderr.
-  static Future<bool> prepareBridges(
+  ///
+  /// SERIALISED ACROSS SUITES (sce190). `d4rt_tester_test.dart` and
+  /// `d4rt_coverage_test.dart` both prepare the SAME `example/d4` project,
+  /// and `dart test` runs them concurrently. Cluster K #32 gave them distinct
+  /// runner and binary names, which fixed ETXTBSY, but both still regenerate
+  /// and post-process the shared `lib/src/d4rt_bridges/` tree — so one suite
+  /// could analyze or compile it while the other was rewriting it. Measured
+  /// both ways it fails: a full run lost `d4rt_tester_test`'s setUpAll to an
+  /// analyzer link error ("Missing library: package:_fe_analyzer_shared/...",
+  /// a file that was never absent), and one of three paired runs compiled a
+  /// binary whose `dcli_bridges.b.dart` cast a script callback to a Dart
+  /// function type — six cases red, none of them about their subject. That is
+  /// the unattributed extra failure sce190 was filed over.
+  ///
+  /// The whole pipeline is inside [exclusive]: generation alone is not enough,
+  /// because the compile reads the tree the other suite may be rewriting.
+  static Future<bool> prepareBridges(D4rtTester tester, BridgeConfig config) =>
+      exclusive(
+        p.join(tester.projectPath, '.dart_tool', 'exec_prepare_bridges.lock'),
+        () => _prepareBridges(tester, config),
+      );
+
+  /// A lock held only while it has anything to hold, older than which it is
+  /// taken to belong to a holder that died without releasing it.
+  static const Duration staleLockAfter = Duration(minutes: 10);
+
+  /// Run [body] while holding the lock file at [lockPath].
+  ///
+  /// An `O_EXCL` create rather than `RandomAccessFile.lock`, deliberately:
+  /// `dart test` runs suites as ISOLATES of one process, and POSIX record
+  /// locks belong to the process, so two isolates would both "acquire" an
+  /// fcntl lock. Exclusive creation fails for the second caller wherever it
+  /// runs — another isolate, another `dart test`, another tool.
+  ///
+  /// Kept textually in step with `AstgenTestSetup.exclusive` and the
+  /// generator's `withFixtureLock` (tom_d4rt_generator 1.44.0), which this
+  /// package cannot import until that release is what it resolves.
+  static Future<T> exclusive<T>(
+    String lockPath,
+    Future<T> Function() body, {
+    Duration poll = const Duration(milliseconds: 200),
+  }) async {
+    final lock = File(lockPath);
+    lock.parent.createSync(recursive: true);
+    while (true) {
+      try {
+        lock.createSync(exclusive: true);
+        break;
+      } on FileSystemException {
+        try {
+          final age = DateTime.now().difference(lock.lastModifiedSync());
+          if (age > staleLockAfter) {
+            lock.deleteSync();
+            continue;
+          }
+        } on FileSystemException {
+          // Released between the create and the stat: try again at once.
+          continue;
+        }
+        await Future<void>.delayed(poll);
+      }
+    }
+    try {
+      return await body();
+    } finally {
+      if (lock.existsSync()) lock.deleteSync();
+    }
+  }
+
+  static Future<bool> _prepareBridges(
     D4rtTester tester,
     BridgeConfig config,
   ) async {

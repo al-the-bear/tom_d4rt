@@ -37,8 +37,16 @@ class AstgenTestSetup {
   /// Approximate start-time of the current test-suite VM.
   ///
   /// Cached lazily on first access. Used by [prepareBridges] to decide
-  /// whether the `.d4.ready` sentinel produced by a sibling test process
-  /// is younger than this process — i.e. "fresh enough to reuse".
+  /// whether the `.d4.ready` sentinel produced by a sibling suite is younger
+  /// than this suite — i.e. "fresh enough to reuse".
+  ///
+  /// SCE190: [prepareBridges] reads it on ENTRY, before waiting for the lock.
+  /// A lazy `static final` is initialised at first read, and the first read
+  /// used to sit inside the locked body — which never mattered while the lock
+  /// excluded nothing. Once it did, the waiting suite stamped its "start" AFTER
+  /// the holder had written the sentinel, judged the fresh binary stale, and
+  /// deleted and recompiled `bin/d4` while the holder's scripts were running
+  /// it: exit -9, or `dartaotruntime` refusing a half-written executable.
   static final DateTime _suiteStartTime = DateTime.now();
 
   /// Prepare bridges for the d4 project: generate, post-process, compile d4.
@@ -46,45 +54,84 @@ class AstgenTestSetup {
   /// Returns `true` if all steps succeed, `false` otherwise.
   /// On failure, error details are printed to stderr.
   ///
-  /// D4RT-TESTER-BUSY: `dart test` runs each test file in its own VM and
-  /// may execute multiple suites in parallel. `prepareBridges` writes to
-  /// `bin/<d4>` via `dart compile exe`, so two parallel callers race on
-  /// the same output path and the late-comer fails with
-  /// `ProcessException: Text file busy`.
+  /// D4RT-TESTER-BUSY: `dart test` may execute several suites at once, and
+  /// `prepareBridges` rewrites the shared bridge tree and writes `bin/<d4>`
+  /// via `dart compile exe`, so two parallel callers race on the same output
+  /// and the late-comer fails with `ProcessException: Text file busy` — or,
+  /// worse, compiles a half-rewritten bridge file.
   ///
-  /// To eliminate the race we (a) serialize callers via an exclusive
-  /// file lock on `bin/.d4-prepare.lock`, and (b) skip duplicated work
-  /// when a sibling test process in the same `dart test` invocation
-  /// already produced a fresh binary (detected via the `bin/.d4.ready`
-  /// sentinel being newer than [_suiteStartTime]).
-  static Future<bool> prepareBridges(
-    D4rtTester tester,
-    BridgeConfig config,
-  ) async {
-    final projectPath = tester.projectPath;
-    final binDir = Directory(p.join(projectPath, 'bin'));
-    await binDir.create(recursive: true);
+  /// To eliminate the race we (a) serialize callers on the lock file
+  /// `.dart_tool/astgen_prepare_bridges.lock`, and (b) skip duplicated work when a sibling
+  /// suite in the same `dart test` invocation already produced a fresh binary
+  /// (detected via the `bin/.d4.ready` sentinel being newer than
+  /// [_suiteStartTime]).
+  ///
+  /// SCE190: the lock is an `O_EXCL` create, not `RandomAccessFile.lock`.
+  /// This comment used to say `dart test` runs each file "in its own VM"; it
+  /// runs them as ISOLATES of one process, and a POSIX record lock belongs to
+  /// the process, so both suites acquired `FileLock.blockingExclusive` at the
+  /// same moment. Measured 2026-09-25: two probe suites printed the same pid
+  /// and held the "exclusive" lock simultaneously for three seconds. The lock
+  /// had never excluded anything within one run.
+  static Future<bool> prepareBridges(D4rtTester tester, BridgeConfig config) {
+    final startedAt = _suiteStartTime;
+    return exclusive(
+      // A new path on purpose: the fcntl version created
+      // `bin/.d4-prepare.lock` and never deleted it, so a leftover would read
+      // as a held lock for up to [staleLockAfter] on any host that ran the
+      // old helper. Under `.dart_tool/`, which is gitignored, a lock a
+      // crashed run leaves behind never shows up as a stray file.
+      p.join(tester.projectPath, '.dart_tool', 'astgen_prepare_bridges.lock'),
+      () => _prepareBridgesLocked(tester, config, startedAt),
+    );
+  }
 
-    final lockFile = File(p.join(binDir.path, '.d4-prepare.lock'));
-    final lockHandle = await lockFile.open(mode: FileMode.write);
-    try {
-      await lockHandle.lock(FileLock.blockingExclusive);
-      return await _prepareBridgesLocked(tester, config);
-    } finally {
+  /// A lock held only while it has anything to hold, older than which it is
+  /// taken to belong to a holder that died without releasing it.
+  static const Duration staleLockAfter = Duration(minutes: 10);
+
+  /// Run [body] while holding the lock file at [lockPath] — an exclusive
+  /// create, polled, released in `finally`. Kept textually in step with
+  /// `ExecTestSetup.exclusive` and the generator's `withFixtureLock`, which
+  /// this package cannot import until the generator carrying it is published.
+  static Future<T> exclusive<T>(
+    String lockPath,
+    Future<T> Function() body, {
+    Duration poll = const Duration(milliseconds: 200),
+  }) async {
+    final lock = File(lockPath);
+    lock.parent.createSync(recursive: true);
+    while (true) {
       try {
-        await lockHandle.unlock();
-      } catch (_) {
-        /* best effort */
+        lock.createSync(exclusive: true);
+        break;
+      } on FileSystemException {
+        try {
+          final age = DateTime.now().difference(lock.lastModifiedSync());
+          if (age > staleLockAfter) {
+            lock.deleteSync();
+            continue;
+          }
+        } on FileSystemException {
+          // Released between the create and the stat: try again at once.
+          continue;
+        }
+        await Future<void>.delayed(poll);
       }
-      await lockHandle.close();
+    }
+    try {
+      return await body();
+    } finally {
+      if (lock.existsSync()) lock.deleteSync();
     }
   }
 
   /// The body of [prepareBridges] that runs while the exclusive
-  /// `bin/.d4-prepare.lock` is held.
+  /// `.dart_tool/astgen_prepare_bridges.lock` is held.
   static Future<bool> _prepareBridgesLocked(
     D4rtTester tester,
     BridgeConfig config,
+    DateTime startedAt,
   ) async {
     final projectPath = tester.projectPath;
     final binaryPath = p.join(projectPath, 'bin', tester.compiledBinaryName);
@@ -99,7 +146,7 @@ class AstgenTestSetup {
     if (binary.existsSync() && sentinel.existsSync()) {
       try {
         final sentinelMtime = sentinel.lastModifiedSync();
-        if (sentinelMtime.isAfter(_suiteStartTime)) {
+        if (sentinelMtime.isAfter(startedAt)) {
           return true;
         }
       } catch (_) {

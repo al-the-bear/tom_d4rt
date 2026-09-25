@@ -1,3 +1,25 @@
+## 1.44.0
+
+### Fixed — suites sharing a fixture project no longer rewrite it under each other (sce190)
+
+`D4rtTester.prepareBridges` now holds a per-project lock
+(`<project>/.dart_tool/d4rt_prepare_bridges.lock`, via the new
+`withFixtureLock` in `src/testing/fixture_lock.dart`) for its whole pipeline:
+resolve, generate, post-process, compile. Several suites drive one fixture
+project — `d4rt_tester_test`, `d4rt_coverage_test` and
+`sce35_list_of_callbacks_test` all prepare `example/d4` — and `dart test` runs
+them concurrently. Distinct runner and binary names had stopped them
+overwriting each other's executable, but each still re-resolved the project and
+regenerated the shared bridge tree while another could be analyzing or
+compiling it. In `tom_d4rt_exec`'s copy of the pair that surfaced as an
+analyzer link error naming a pub-cache library that was never absent, and as a
+binary compiled from a half-rewritten bridge file.
+
+The lock is an exclusive file create, not `RandomAccessFile.lock`: `dart test`
+runs suites as isolates of one process, and a POSIX record lock belongs to the
+process, so two suites would both acquire it — measured, not assumed. A lock
+older than ten minutes is taken to belong to a holder that died.
+
 ## 1.43.0
 
 ### Fixed — a broken fixture now says which versions it resolved (sce144)
