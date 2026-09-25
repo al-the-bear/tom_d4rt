@@ -1114,7 +1114,10 @@ const Map<String, _Coverage> _coveredElsewhere = {
     twinCases: 6,
   ),
   // Both files read before pairing, and this one is a genuine full twin: the
-  // same eight case ids, `F-SCC51-1..8`, asserting the same thing on each side.
+  // same case ids on each side — `F-SCC51-1..8`, `F-SCD152-1` and, since
+  // SCE185 widened the walk to every shadowing bridge, `F-SCE185-1..7` —
+  // asserting the same thing. SCE185's `2..5` are scripts in the reference
+  // and adapter calls in the twin, the same split `F-SCC51-1..7` has.
   // It can be native because the subject is a native-side harness — it walks
   // every shadowed collection adapter and compares it against the `Iterable`
   // one it shadows — so it never needed a parser and did not have to be
@@ -1125,8 +1128,8 @@ const Map<String, _Coverage> _coveredElsewhere = {
     'ast:scc51_shadowed_adapter_test.dart',
     _astTwin,
     layer: _Layer.script,
-    refCases: 9,
-    twinCases: 9,
+    refCases: 16,
+    twinCases: 16,
   ),
   'warm_parent_lazy_class_test.dart': _Coverage(
     'ast:runtime/warm_parent_lazy_class_test.dart',

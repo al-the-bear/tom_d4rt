@@ -400,10 +400,17 @@ void main() {
       // of the identical subject — every bridge — so there is again no bridge
       // to name, and reading the six member maps off the loop variable IS the
       // assertion. The AST tree had no disjointness guard at all until then.
+      //
+      // SCE185 raised it 33 -> 35, for the same shape and nothing else: the
+      // two `.keys` reads in `F-SCE185-1` (`scc51_shadowed_adapter_test.dart`),
+      // whose subject is which bridges of the WHOLE registry shadow a
+      // supertype member. There is no bridge to name there either. The
+      // behaviour tests SCE185 added beside it name their bridges through
+      // `findReachableMethod` and are attributed.
       final unattributable = sites.length - attributed.length;
       expect(
         unattributable,
-        lessThanOrEqualTo(33),
+        lessThanOrEqualTo(35),
         reason:
             '$unattributable sites cannot be attributed to a bridge, against '
             '24 measured. Each is a site F-SCD151-1 cannot check. Prefer '

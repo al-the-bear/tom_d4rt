@@ -18,8 +18,12 @@ class SinkCore {
         if (positionalArgs.isNotEmpty || namedArgs.isNotEmpty) {
           throw RuntimeD4rtException('Sink.close expects no arguments.');
         }
-        (target as Sink).close();
-        return null;
+        // SCE185: `Sink.close` is declared `void`, but every implementation a
+        // script meets returns a `Future` (an IOSink, a socket, a controller),
+        // and the subtype adapters hand it back. Discarding it here made
+        // `await sink.close()` wait for nothing whenever dispatch reached this
+        // adapter. Forward whatever the native call produced.
+        return (target as dynamic).close();
       },
       'toString': (visitor, target, positionalArgs, namedArgs, _) =>
           (target as Sink).toString(),

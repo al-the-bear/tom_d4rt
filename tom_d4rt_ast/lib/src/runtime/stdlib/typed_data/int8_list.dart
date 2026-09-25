@@ -82,7 +82,9 @@ class Int8ListTypedData {
           final index = positionalArgs[0] as int;
           final value = positionalArgs[1] as int;
           target[index] = value;
-          return value;
+          // SCE185: void, like the SDK operator. The interpreter never reads
+          // this — an index assignment evaluates to the assigned value itself.
+          return null;
         }
         throw RuntimeD4rtException(
           "Int8List[index] = value expects int index and int value.",

@@ -15,6 +15,8 @@ import 'package:tom_d4rt_ast/src/runtime/stdlib/collection/linked_list.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/convert.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/io.dart';
 
+import '../bridge_reachability.dart';
+
 /// SCC74 mirror coverage for `tom_d4rt_ast` — the members the method/static
 /// axis of the coverage audit reported unreachable.
 ///
@@ -189,10 +191,22 @@ void main() {
 
     test('F-SCC74-AST-10: WebSocketTransformer.cast yields a transformer '
         '[2026-09-06]', () {
-      final transformer = WebSocketTransformer();
+      // Resolved the way a script's call is: SCE185 deleted the leaf copy,
+      // which hard-coded `cast<HttpRequest, WebSocket>()`, and the inherited
+      // `StreamTransformer.cast` answers — `cast()` without type arguments is
+      // `cast<dynamic, dynamic>()`. What this pins is the member's subject: the
+      // result is a transformer, and it binds a stream of requests.
+      final cast = findReachableMethod(env, 'WebSocketTransformer', 'cast')!(
+        visitor,
+        WebSocketTransformer(),
+        const [],
+        const {},
+        null,
+      );
+      expect(cast, isA<StreamTransformer<dynamic, dynamic>>());
       expect(
-        invoke('WebSocketTransformer', 'cast', transformer),
-        isA<StreamTransformer<HttpRequest, WebSocket>>(),
+        (cast as StreamTransformer).bind(Stream<HttpRequest>.empty()),
+        isA<Stream<dynamic>>(),
       );
     });
   });

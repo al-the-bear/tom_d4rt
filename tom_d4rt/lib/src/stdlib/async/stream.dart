@@ -49,7 +49,15 @@ Stream<Object?> _bindTransformer(
       source is Stream<String> ? source : source.cast<String>(),
     );
   }
-  return source.transform(transformer);
+  // SCE185: `bind`, not `source.transform`. `transform` is exactly
+  // `transformer.bind(this)`, but its parameter is `StreamTransformer<T, S>`
+  // for the SOURCE's `T`, so a natively typed stream (`Stream<Socket>`,
+  // `Stream<FileSystemEntity>`) rejected the `StreamTransformer<dynamic,
+  // dynamic>` a script builds with `fromHandlers` before any event flowed.
+  // `bind` takes the stream as its argument instead, and every stream is a
+  // `Stream<dynamic>`. A transformer with a genuinely narrower input still
+  // rejects a stream it cannot read — this widens nothing.
+  return transformer.bind(source);
 }
 
 class StreamAsync {
@@ -365,7 +373,11 @@ class StreamAsync {
             'Stream.reduce requires an Function combine argument.',
           );
         }
-        return (target as Stream).reduce(
+        // SCE185: through a `cast<Object?>()` view. A natively typed stream
+        // (`Stream<Uint8List>` from a socket) rejects the untyped closure this
+        // adapter can build — `reduce` wants `T Function(T, T)` — and threw a
+        // host `_TypeError`; the view accepts it and yields the same values.
+        return (target as Stream).cast<Object?>().reduce(
           (previous, element) =>
               runAction<dynamic>(visitor, combine, [previous, element]),
         );
@@ -1073,8 +1085,8 @@ class EventSinkAsync {
         return null;
       },
       'close': (visitor, target, positionalArgs, namedArgs, _) {
-        (target as EventSink).close();
-        return null;
+        // SCE185: forward the native result, as `Sink.close` does — see there.
+        return (target as dynamic).close();
       },
     },
     getters: {},

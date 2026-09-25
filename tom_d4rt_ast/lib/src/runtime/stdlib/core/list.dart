@@ -1,3 +1,5 @@
+import 'dart:math' show Random;
+
 import 'package:tom_d4rt_ast/runtime.dart';
 
 class ListCore {
@@ -258,7 +260,8 @@ class ListCore {
       'reduce': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'List.reduce', atMost: 1);
         final combine = positionalArgs[0] as Callable;
-        return (target as List).reduce(
+        // SCE185: through a `cast<Object?>()` view — see `Iterable.reduce`.
+        return (target as List).cast<Object?>().reduce(
           (value, element) => combine.call(visitor, [value, element], {}),
         );
       },
@@ -488,7 +491,13 @@ class ListCore {
         return null;
       },
       'shuffle': (visitor, target, positionalArgs, namedArgs, _) {
-        (target as List).shuffle();
+        // SCE185: the `Random` was dropped, so `list.shuffle(Random(seed))`
+        // was not reproducible — while every typed list honoured it.
+        D4.checkArity(positionalArgs, 'List.shuffle', atMost: 1);
+        final random = positionalArgs.isNotEmpty ? positionalArgs[0] : null;
+        (target as List).shuffle(
+          (random is BridgedInstance ? random.nativeObject : random) as Random?,
+        );
         return null;
       },
       'asMap': (visitor, target, positionalArgs, namedArgs, _) {
@@ -499,7 +508,10 @@ class ListCore {
       },
       'followedBy': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'List.followedBy', atMost: 1);
-        return (target as List).followedBy(positionalArgs[0] as Iterable);
+        // SCE185: through a `cast<Object?>()` view — see `Iterable.followedBy`.
+        return (target as List).cast<Object?>().followedBy(
+          positionalArgs[0] as Iterable,
+        );
       },
       'elementAt': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'List.elementAt', atMost: 1);
@@ -537,12 +549,28 @@ class ListCore {
         int skipCount = positionalArgs.length > 3
             ? positionalArgs[3] as int? ?? 0
             : 0;
-        (target as List).setRange(
-          positionalArgs[0] as int,
-          positionalArgs[1] as int,
-          positionalArgs[2] as Iterable,
-          skipCount,
-        );
+        // SCE185: copied element by element, as `setAll` already was. A
+        // script's list literal is `List<Object?>`, which a natively typed
+        // receiver (`List<int>`, `Int8List`) refuses as its `Iterable<E>`
+        // argument before copying anything. The source is snapshotted first,
+        // so a range copied within one list reads the values it started with,
+        // as the SDK guarantees.
+        final list = target as List;
+        final start = positionalArgs[0] as int;
+        final end = positionalArgs[1] as int;
+        RangeError.checkValidRange(start, end, list.length);
+        RangeError.checkNotNegative(skipCount, 'skipCount');
+        final source = (positionalArgs[2] as Iterable)
+            .skip(skipCount)
+            .take(end - start)
+            .map((e) => e is BridgedInstance ? e.nativeObject : e)
+            .toList();
+        if (source.length < end - start) {
+          throw StateError('Too few elements');
+        }
+        for (var i = 0; i < source.length; i++) {
+          list[start + i] = source[i];
+        }
         return null;
       },
       'getRange': (visitor, target, positionalArgs, namedArgs, _) {

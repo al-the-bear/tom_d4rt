@@ -1,3 +1,37 @@
+## 0.170.0
+
+### Fixed — ten stdlib adapters that disagreed with the adapter they shadow (sce185)
+
+The SCC51 differential compares every adapter a bridge redeclares from a
+registered supertype against the one it hides. It walked only the fourteen
+collection bridges — 537 of 2 076 shadowed pairs. Widened to every bridge that
+shadows anything, it found 128 divergences in seven families, each a defect in
+one of the two adapters:
+
+- `Runes`: thirteen callback members (`where`, `map`, `any`, `every`, `fold`,
+  `reduce`, `expand`, `forEach`, `firstWhere`, `lastWhere`, `singleWhere`,
+  `skipWhile`, `takeWhile`) cast the script's callback to a Dart function type,
+  which a `Callable` never is, so each threw `_TypeError` on every call.
+  Deleted; the inherited `Iterable` adapters serve them.
+- `Iterable.reduce`, `Iterable.followedBy`, `List.reduce`, `List.followedBy`,
+  `List.setRange`, `Stream.reduce` and `Stream.transform` rejected a script's
+  untyped callback, list literal or `fromHandlers` transformer on any natively
+  typed receiver (`'ab'.codeUnits.toList()`, `Stream<Socket>`), where the typed
+  leaves had coerced all along. They now go through a `cast<Object?>()` view,
+  an element-wise copy, or `transformer.bind(source)`.
+- `List.shuffle` dropped its `Random`, so a seeded shuffle was not
+  reproducible.
+- `Sink.close` and `EventSink.close` discarded the `Future` the sink returns.
+- `LinkedList.contains` threw on a non-entry instead of answering `false`.
+- `WebSocketTransformer.cast` hard-coded `<HttpRequest, WebSocket>`; deleted,
+  so `cast()` is `cast<dynamic, dynamic>()` as in Dart.
+- The eleven typed lists' `[]=` returned the stored value; the operator is
+  `void` (unobservable to a script, which evaluates an index assignment to the
+  assigned value itself).
+
+`F-SCE185-1` now holds the differential's fixture table to the registry, so
+the walk cannot shrink back to a subset without failing.
+
 ## 0.169.0
 
 ### Changed — the interpreter/native boundary is stated once, at the entry (sce179)

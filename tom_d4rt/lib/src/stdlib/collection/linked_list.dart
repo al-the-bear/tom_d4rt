@@ -126,8 +126,11 @@ class LinkedListCollection {
         final entry = namedArgs.isEmpty
             ? _nativeEntry(positionalArgs[0])
             : null;
-        if (target is LinkedList<BridgedLinkedListEntry> && entry != null) {
-          return identical(entry.list, target);
+        // SCE185: anything that is not an entry is simply not contained —
+        // the SDK's `contains(Object? entry)` answers `false`, and this used to
+        // throw, so `list.contains(1)` killed the script.
+        if (target is LinkedList<BridgedLinkedListEntry>) {
+          return entry != null && identical(entry.list, target);
         }
         throw RuntimeD4rtException(
           "Invalid arguments for LinkedList.contains. Expected a "

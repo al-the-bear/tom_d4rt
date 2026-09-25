@@ -32,29 +32,67 @@
 // SCB17 removed and is unobservable today only because `cast()` is lazy and the
 // view throws `UnsupportedError` before it ever iterates.
 //
+// WHAT WIDENING IT FOUND (SCE185, 2026-09-25). The walk above covered only
+// the collection bridges: 537 of 2 076 shadowed pairs. Walking every bridge
+// that shadows anything — typed data, numbers, `Runes`, the errors, the
+// `dart:async` sinks and every `dart:io` handle — turned up 128 divergences in
+// seven families, every one a defect in one of the two adapters:
+//
+// - `Runes` cast each script callback to a Dart function type, so all thirteen
+//   callback members threw on every call; deleted, the `Iterable` ones serve.
+// - `Iterable`/`List` `reduce` and `followedBy`, `List.setRange`,
+//   `Stream.reduce` and `Stream.transform` rejected a script's untyped
+//   argument on any NATIVELY TYPED receiver — `List<int>`, `Stream<Socket>` —
+//   where the typed leaves had coerced it all along.
+// - `List.shuffle` dropped its `Random`; `Sink.close` and `EventSink.close`
+//   dropped the `Future` the sink returned; `LinkedList.contains` threw on a
+//   non-entry instead of answering false; `WebSocketTransformer.cast`
+//   hard-coded its type arguments; the typed lists' `[]=` returned a value.
+//
+// `F-SCE185-1` now holds the fixture table to the registry, so the walk cannot
+// shrink back to a subset without failing.
+//
 // WHY THIS FILE IS ADAPTER-LEVEL, not script-level like its `tom_d4rt` twin:
 // this package has no parser, so there is no `execute(source: ...)` to write
 // `try { ... } on StateError catch` in. The adapters are invoked directly
 // instead, which measures exactly the same thing one layer down — the exception
 // family that escapes the adapter is the family the script's handler sees.
 
+import 'dart:async';
 import 'dart:collection';
+import 'dart:io';
+import 'dart:isolate';
+import 'dart:math';
+import 'dart:typed_data';
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt_ast/src/runtime/bridge/bridged_types.dart';
 import 'package:tom_d4rt_ast/src/runtime/callable.dart';
-import 'package:tom_d4rt_ast/src/runtime/environment.dart';
 import 'package:tom_d4rt_ast/src/runtime/interpreter_visitor.dart';
 import 'package:tom_d4rt_ast/src/runtime/module_context.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/collection.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/collection/linked_list.dart';
+import 'package:tom_d4rt_ast/src/runtime/stdlib/io.dart';
+import 'package:tom_d4rt_ast/src/runtime/stdlib/isolate.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/stdlib.dart';
 
-/// A fresh native fixture per call, so a mutating member cannot leak state from
-/// the subtype invocation into the supertype one.
-typedef Fixture = Object Function();
+import 'bridge_reachability.dart';
 
+/// A fresh native fixture per call, so a mutating member cannot leak state from
+/// the subtype invocation into the supertype one. SCE185: a fixture may be
+/// asynchronous, because the io bridges' receivers — a connected `Socket`, a
+/// server-side `HttpResponse` — only exist once a handshake has completed.
+typedef Fixture = FutureOr<Object> Function();
+
+/// SCE185. The fixture table used to list fourteen COLLECTION types, so the
+/// differential reached 537 of the 2 076 shadowed pairs the stdlib registry
+/// holds and never walked the typed-data lists, the numbers, `Runes`, the
+/// errors or anything in `dart:io` — while calling itself the guard for all of
+/// them. It now carries one row per bridge that shadows a supertype member,
+/// and `F-SCE185-1` fails when a shadowing bridge has neither a row here nor a
+/// reason in [_unwalked], so the table cannot quietly fall behind again.
 final Map<String, Fixture> _fixtures = {
+  // --- dart:collection, and the core collections they refine.
   'HashMap': () => HashMap<dynamic, dynamic>.from({'a': 1, 'b': 2}),
   'LinkedHashMap': () => LinkedHashMap<dynamic, dynamic>.from({'a': 1, 'b': 2}),
   'SplayTreeMap': () => SplayTreeMap<dynamic, dynamic>.from({'a': 1, 'b': 2}),
@@ -70,9 +108,257 @@ final Map<String, Fixture> _fixtures = {
   'UnmodifiableListView': () => UnmodifiableListView<dynamic>([3, 1, 2]),
   'DoubleLinkedQueue': () => DoubleLinkedQueue<dynamic>.of([3, 1, 2]),
   'ListQueue': () => ListQueue<dynamic>.of([3, 1, 2]),
+  'Queue': () => Queue<dynamic>.of([3, 1, 2]),
+  'LinkedList': () => LinkedList<BridgedLinkedListEntry>(),
   'Set': () => <dynamic>{3, 1, 2},
   'List': () => <dynamic>[3, 1, 2],
+  'Runes': () => 'abc'.runes,
+
+  // --- dart:typed_data. Eleven siblings carrying the same 81 adapters: the
+  // SCB17 shape, where a divergent copy on every sibling shows no asymmetry.
+  'Int8List': () => Int8List.fromList([3, 1, 2]),
+  'Int16List': () => Int16List.fromList([3, 1, 2]),
+  'Int32List': () => Int32List.fromList([3, 1, 2]),
+  'Int64List': () => Int64List.fromList([3, 1, 2]),
+  'Uint8List': () => Uint8List.fromList([3, 1, 2]),
+  'Uint8ClampedList': () => Uint8ClampedList.fromList([3, 1, 2]),
+  'Uint16List': () => Uint16List.fromList([3, 1, 2]),
+  'Uint32List': () => Uint32List.fromList([3, 1, 2]),
+  'Uint64List': () => Uint64List.fromList([3, 1, 2]),
+  'Float32List': () => Float32List.fromList([3, 1, 2]),
+  'Float64List': () => Float64List.fromList([3, 1, 2]),
+  'ByteData': () => ByteData(4),
+
+  // --- dart:core values.
+  'int': () => 7,
+  'double': () => 7.5,
+  'num': () => 7,
+  'BigInt': () => BigInt.from(7),
+  'String': () => 'abc',
+  'StringBuffer': () => StringBuffer('ab'),
+  'RegExp': () => RegExp('b'),
+  'RegExpMatch': () => RegExp('(b)').firstMatch('abc')!,
+  'DateTime': () => DateTime.utc(2020),
+  'Duration': () => const Duration(seconds: 5),
+
+  // --- errors and exceptions. Mostly `toString` / `message` over a shared
+  // base, which is exactly where a hand-written copy drifts unnoticed.
+  'ArgumentError': () => ArgumentError('x'),
+  'RangeError': () => RangeError.range(5, 0, 3, 'i'),
+  'IndexError': () => IndexError.withLength(5, 3, name: 'i'),
+  'StateError': () => StateError('x'),
+  'UnsupportedError': () => UnsupportedError('x'),
+  'UnimplementedError': () => UnimplementedError('x'),
+  'ConcurrentModificationError': () => ConcurrentModificationError(),
+  'TypeError': () => TypeError(),
+  'AssertionError': () => AssertionError('x'),
+  'NoSuchMethodError': () =>
+      NoSuchMethodError.withInvocation(null, Invocation.method(#x, const [])),
+  'StackOverflowError': () => StackOverflowError(),
+  'OutOfMemoryError': () => OutOfMemoryError(),
+  'IntegerDivisionByZeroException': () => _divisionByZero(),
+  'FormatException': () => const FormatException('x'),
+  'AsyncError': () => AsyncError('x', StackTrace.empty),
+  'TimeoutException': () => TimeoutException('x'),
+  'RemoteError': () => RemoteError('x', 'st'),
+  'IsolateSpawnException': () => IsolateSpawnException('x'),
+  'OSError': () => const OSError('x', 2),
+  'IOException': () => const FileSystemException('x'),
+  'FileSystemException': () => const FileSystemException('x', 'p'),
+  'PathNotFoundException': () =>
+      const PathNotFoundException('p', OSError('x', 2)),
+  'PathAccessException': () => const PathAccessException('p', OSError('x', 13)),
+  'PathExistsException': () => const PathExistsException('p', OSError('x', 17)),
+  'HttpException': () => const HttpException('x'),
+  'RedirectException': () => const RedirectException('x', []),
+  'WebSocketException': () => const WebSocketException('x'),
+  'SocketException': () => const SocketException('x'),
+  'ContentType': () => ContentType('text', 'plain', charset: 'utf-8'),
+
+  // --- dart:async sinks and controllers. Created unlistened: an `addError`
+  // is buffered rather than surfacing as an uncaught error.
+  'StreamController': () => StreamController<dynamic>(),
+  'StreamSink': () => StreamController<dynamic>().sink,
+  'EventSink': () => StreamController<dynamic>().sink,
+  'MultiStreamController': _multiStreamController,
+  'StreamTransformerBase': () =>
+      StreamTransformer<dynamic, dynamic>.fromHandlers(),
+  'ReceivePort': () => ReceivePort()..close(),
+  'SendPort': () => (ReceivePort()..close()).sendPort,
+
+  // --- dart:io. Every handle is tracked and closed by `_Net.close`.
+  'File': () => File(_absentPath),
+  'Directory': () => Directory(_absentPath),
+  'IOSink': () => _net.track(_ignoreDone(File(_sinkPath()).openWrite())),
+  'Socket': () async =>
+      _net.track(_ignoreDone(await Socket.connect(_loopback, _net.tcp.port))),
+  // Closed on creation, so its connection stream is DONE: every Stream member
+  // then terminates instead of waiting for a client that never comes.
+  'ServerSocket': () async => (await ServerSocket.bind(_loopback, 0))..close(),
+  // Against the SILENT peer: a RawSocket re-fires `read` for as long as unread
+  // bytes remain, and the walk's `listen` callback does not read, so a peer
+  // that sends anything spins the event loop and starves every later fixture.
+  'RawSocket': () async =>
+      _net.track(await RawSocket.connect(_loopback, _net.silent.port)),
+  'RawServerSocket': () async =>
+      _net.track(await RawServerSocket.bind(_loopback, 0)),
+  'RawDatagramSocket': () async =>
+      _net.track(await RawDatagramSocket.bind(_loopback, 0)),
+  'HttpServer': () async => _net.track(await HttpServer.bind(_loopback, 0)),
+  'HttpClientRequest': () async => _ignoreDone(
+    await _net.client.get(_loopback.address, _net.http.port, '/plain'),
+  ),
+  'HttpClientResponse': () async => (await _net.client.get(
+    _loopback.address,
+    _net.http.port,
+    '/plain',
+  )).close(),
+  'HttpRequest': () => _net.serverRequest(),
+  'HttpResponse': () async =>
+      _ignoreDone((await _net.serverRequest()).response),
+  'HttpSession': () async => (await _net.serverRequest()).session,
+  'WebSocket': () async => _net.track(
+    _ignoreDone(
+      await WebSocket.connect('ws://${_loopback.address}:${_net.http.port}/ws'),
+    ),
+  ),
+  'WebSocketTransformer': () => WebSocketTransformer(),
 };
+
+/// SCE185. Shadowing bridges the walk deliberately does not drive, each with
+/// the reason no fixture exists. `F-SCE185-1` holds this set and [_fixtures]
+/// to the registry's actual shadowing bridges in both directions.
+const Map<String, String> _unwalked = {
+  'Stdout':
+      'the only instances are the process\'s own stdout/stderr, and the '
+      'walk calls `close` and `addError` on every sink — closing the test '
+      'runner\'s output stream is not an experiment worth having.',
+  'Stdin':
+      'the only instance is the process\'s stdin, which is '
+      'single-subscription: the second `listen` of a pair would fail because '
+      'the first had consumed it, which reads as a divergence and is not one.',
+};
+
+final InternetAddress _loopback = InternetAddress.loopbackIPv4;
+
+/// A path under this package's `.dart_tool`, which nothing creates: `File` and
+/// `Directory` members then take their not-found branch on both sides.
+final String _absentPath =
+    '${Directory.current.path}/.dart_tool/scc51_absent/never_created';
+
+var _sinkCounter = 0;
+String _sinkPath() {
+  final dir = Directory('${Directory.current.path}/.dart_tool/scc51_sinks')
+    ..createSync(recursive: true);
+  return '${dir.path}/sink_${_sinkCounter++}';
+}
+
+Object _divisionByZero() {
+  try {
+    // A zero the analyzer cannot fold, so this compiles to a runtime division.
+    return 1 ~/ int.parse('0');
+    // The bridge still exists and still shadows, so it is walked; the SDK's
+    // deprecation says what scripts should catch, not what they can meet.
+    // ignore: deprecated_member_use
+  } on IntegerDivisionByZeroException catch (e) {
+    return e;
+  }
+}
+
+Object _multiStreamController() {
+  MultiStreamController<dynamic>? captured;
+  // Listened with an error handler: the walk calls `addError` on it, and a
+  // listener without one reports the error as uncaught.
+  Stream<dynamic>.multi(
+    (c) => captured = c,
+  ).listen(null, onError: (Object _) {});
+  return captured!;
+}
+
+/// A sink's `done` future fails once an `addError` reaches it. Nothing here
+/// awaits it, so it would surface as an uncaught error that says nothing about
+/// the adapters.
+T _ignoreDone<T extends Object>(T sink) {
+  final done = (sink as dynamic).done;
+  if (done is Future) done.ignore();
+  return sink;
+}
+
+/// The loopback peers the io fixtures talk to, and everything they create.
+class _Net {
+  _Net._(this.tcp, this.silent, this.http);
+
+  /// Accepts, writes two bytes and closes — so a connected `Socket` is a
+  /// finite stream and its Stream members terminate.
+  final ServerSocket tcp;
+
+  /// Accepts and never writes: the peer for `RawSocket`.
+  final ServerSocket silent;
+
+  /// `/ws` upgrades and echoes; a request that a fixture is waiting for is
+  /// handed over unanswered; anything else gets `ok`.
+  final HttpServer http;
+  final HttpClient client = HttpClient();
+  final List<Completer<HttpRequest>> _waiting = [];
+  final List<Object> _open = [];
+
+  static Future<_Net> start() async {
+    final tcp = await ServerSocket.bind(_loopback, 0);
+    tcp.listen((s) {
+      s.add([104, 105]);
+      s.close().ignore();
+      s.listen(null, onError: (Object _) {});
+    });
+    final silent = await ServerSocket.bind(_loopback, 0);
+    silent.listen((s) => s.listen(null, onError: (Object _) {}));
+    final http = await HttpServer.bind(_loopback, 0);
+    final net = _Net._(tcp, silent, http);
+    http.listen((req) async {
+      if (req.uri.path == '/ws') {
+        final ws = await WebSocketTransformer.upgrade(req);
+        ws.listen(ws.add, onError: (Object _) {});
+        net._open.add(ws);
+      } else if (req.uri.path == '/hold' && net._waiting.isNotEmpty) {
+        net._waiting.removeAt(0).complete(req);
+      } else {
+        req.response.write('ok');
+        await req.response.close();
+      }
+    });
+    return net;
+  }
+
+  T track<T extends Object>(T handle) {
+    _open.add(handle);
+    return handle;
+  }
+
+  /// The server side of a fresh request, left unanswered for the fixture.
+  Future<HttpRequest> serverRequest() async {
+    final waiter = Completer<HttpRequest>();
+    _waiting.add(waiter);
+    final request = await client.get(_loopback.address, http.port, '/hold');
+    request.close().then((r) => r.drain<void>()).ignore();
+    return waiter.future;
+  }
+
+  Future<void> close() async {
+    for (final h in _open) {
+      try {
+        final closing = (h as dynamic).close();
+        if (closing is Future) closing.ignore();
+      } catch (_) {
+        // Already closed by the walk itself — `close` is a shadowed member.
+      }
+    }
+    client.close(force: true);
+    await http.close(force: true);
+    await tcp.close();
+    await silent.close();
+  }
+}
+
+late _Net _net;
 
 /// Positional arguments by member name. Members absent here take none.
 final Map<String, List<Object?>> _args = {
@@ -171,6 +457,17 @@ final _expand1 = NativeFunction(
   arity: 1,
   name: 'expand1',
 );
+final _greaterThan97 = NativeFunction(
+  (visitor, positional, named, types) => (positional.first as int) > 97,
+  arity: 1,
+  name: 'greaterThan97',
+);
+final _sum2 = NativeFunction(
+  (visitor, positional, named, types) =>
+      (positional[0] as num) + (positional[1] as num),
+  arity: 2,
+  name: 'sum2',
+);
 final _supplier0 = NativeFunction(
   (visitor, positional, named, types) => 99,
   arity: 0,
@@ -219,6 +516,8 @@ List<Object?>? _callableArgs(String cls, String m) {
     case 'lastWhere':
     case 'singleWhere':
     case 'retainWhere':
+    case 'indexWhere':
+    case 'lastIndexWhere':
     case 'skipWhile':
     case 'takeWhile':
       return [_pred1];
@@ -238,7 +537,6 @@ List<Object?>? _callableArgs(String cls, String m) {
     // old skip set alongside the callback-takers, which is why the set was
     // never only about callables.
     case 'sort':
-    case 'shuffle':
     case 'asMap':
     case 'clear':
     case 'removeLast':
@@ -250,9 +548,13 @@ List<Object?>? _callableArgs(String cls, String m) {
     // `THROW == THROW` and read as agreement.
     case 'toList':
     case 'toSet':
+    case 'toString':
       return const <Object?>[];
     case 'elementAtOrNull':
       return [0];
+    // Seeded, so both sides shuffle the same way and the after-state compares.
+    case 'shuffle':
+      return [Random(1)];
     case 'followedBy':
       return [
         <dynamic>[7, 8],
@@ -298,6 +600,218 @@ List<Object?>? _callableArgs(String cls, String m) {
   return null;
 }
 
+/// SCE185. Receiver kinds whose members take different arguments from the
+/// collection members of the same name — `add` takes bytes on a `Socket`,
+/// `compareTo` a number on `int`, `[]` an index on a typed list.
+const _floatLists = {'Float32List', 'Float64List'};
+const _intLists = {
+  'Int8List',
+  'Int16List',
+  'Int32List',
+  'Int64List',
+  'Uint8List',
+  'Uint8ClampedList',
+  'Uint16List',
+  'Uint32List',
+  'Uint64List',
+};
+const _numbers = {'int', 'double', 'num'};
+const _byteSinks = {'Socket', 'IOSink', 'HttpResponse', 'HttpClientRequest'};
+const _sinks = {
+  ..._byteSinks,
+  'StreamController',
+  'StreamSink',
+  'EventSink',
+  'MultiStreamController',
+  'WebSocket',
+};
+const _streams = {
+  'Socket',
+  'ServerSocket',
+  'ReceivePort',
+  'HttpServer',
+  'HttpClientResponse',
+  'HttpRequest',
+  'RawSocket',
+  'RawServerSocket',
+  'RawDatagramSocket',
+  'WebSocket',
+};
+const _fileSystem = {'File', 'Directory'};
+
+final _stream1 = NativeFunction(
+  (visitor, positional, named, types) =>
+      Stream<dynamic>.value(positional.first),
+  arity: 1,
+  name: 'stream1',
+);
+
+/// Arguments that depend on what KIND of receiver the member is called on.
+/// Built fresh on every call, because the walk calls it once per side: an
+/// argument that is itself a single-subscription stream would otherwise be
+/// consumed by the subtype invocation and fail the supertype one.
+List<Object?>? _receiverArgs(String cls, String m) {
+  if (_intLists.contains(cls) || _floatLists.contains(cls)) {
+    final Object seven = _floatLists.contains(cls) ? 7.0 : 7;
+    final Object one = _floatLists.contains(cls) ? 1.0 : 1;
+    switch (m) {
+      case '[]':
+        return [0];
+      case '[]=':
+        return [0, seven];
+      case 'contains':
+      case 'indexOf':
+      case 'lastIndexOf':
+        return [one];
+      case 'fillRange':
+        return [0, 1, seven];
+      case 'setAll':
+        return [
+          0,
+          <dynamic>[seven],
+        ];
+      case 'setRange':
+        return [
+          0,
+          1,
+          <dynamic>[seven],
+        ];
+      // Doubles into a float list. A typed-list adapter applies Dart's rule
+      // that an int LITERAL in a `double` context is a double (SCD29); the
+      // generic `Iterable` adapter cannot know the element type and appends
+      // the ints as they are. A float list always dispatches to its own
+      // bridge, so that difference is unreachable from a script — the recipe
+      // states the argument a script's `[7.0, 8.0]` would be.
+      case 'followedBy':
+        return [
+          <dynamic>[seven, _floatLists.contains(cls) ? 8.0 : 8],
+        ];
+    }
+    return null;
+  }
+  if (_numbers.contains(cls)) {
+    switch (m) {
+      case '%':
+      case '*':
+      case '+':
+      case '-':
+      case '/':
+      case '~/':
+      case 'remainder':
+      case 'compareTo':
+      case 'toStringAsExponential':
+      case 'toStringAsFixed':
+        return [2];
+      case 'toStringAsPrecision':
+        return [3];
+      case 'clamp':
+        return [0, 5];
+      case 'unary-':
+      case 'abs':
+      case 'ceil':
+      case 'ceilToDouble':
+      case 'floor':
+      case 'floorToDouble':
+      case 'round':
+      case 'roundToDouble':
+      case 'toDouble':
+      case 'toInt':
+      case 'truncate':
+      case 'truncateToDouble':
+        return const <Object?>[];
+    }
+    return null;
+  }
+  switch ((cls, m)) {
+    case ('BigInt', 'compareTo'):
+      return [BigInt.two];
+    case ('DateTime', 'compareTo'):
+      return [DateTime.utc(2021)];
+    case ('Duration', 'compareTo'):
+      return [const Duration(seconds: 1)];
+    case ('String', 'compareTo'):
+      return ['abd'];
+    case ('String', 'allMatches'):
+      return ['b'];
+    case ('String', 'matchAsPrefix'):
+      return ['a'];
+    case ('RegExp', 'allMatches'):
+      return ['abcb'];
+    case ('RegExp', 'matchAsPrefix'):
+      return ['bc'];
+    case ('RegExpMatch', '[]'):
+    case ('RegExpMatch', 'group'):
+      return [1];
+    case ('RegExpMatch', 'groups'):
+      return [
+        <int>[0, 1],
+      ];
+    case ('WebSocketTransformer', 'bind'):
+      return [Stream<HttpRequest>.empty()];
+  }
+  if (_fileSystem.contains(cls)) {
+    return switch (m) {
+      'rename' || 'renameSync' => ['$_absentPath.renamed'],
+      _ => const <Object?>[],
+    };
+  }
+  if (cls == 'StringBuffer' || _sinks.contains(cls)) {
+    final bytes = _byteSinks.contains(cls);
+    switch (m) {
+      case 'add':
+        return [
+          bytes ? <int>[104] : 'x',
+        ];
+      case 'addError':
+        return ['boom'];
+      case 'addStream':
+        return [
+          bytes
+              ? Stream<List<int>>.value(<int>[104])
+              : Stream<dynamic>.value('x'),
+        ];
+      case 'write':
+      case 'writeln':
+        return ['x'];
+      case 'writeAll':
+        return [
+          <dynamic>['x', 'y'],
+        ];
+      case 'writeCharCode':
+        return [65];
+      case 'close':
+      case 'flush':
+        return const <Object?>[];
+    }
+  }
+  if (_streams.contains(cls)) {
+    switch (m) {
+      case 'listen':
+      case 'handleError':
+        return [_pred1];
+      case 'asyncMap':
+        return [_ident1];
+      case 'asyncExpand':
+        return [_stream1];
+      case 'timeout':
+        return [const Duration(milliseconds: 200)];
+      case 'pipe':
+        return [StreamController<dynamic>()..stream.listen(null)];
+      case 'transform':
+        return [
+          cls == 'Socket'
+              ? StreamTransformer<Uint8List, dynamic>.fromHandlers()
+              : StreamTransformer<dynamic, dynamic>.fromHandlers(),
+        ];
+      case 'distinct':
+      case 'drain':
+      case 'asBroadcastStream':
+        return const <Object?>[];
+    }
+  }
+  return null;
+}
+
 /// How a pair of outcomes is counted. Extracted from the walk so the third
 /// case is reachable without contriving a registry state that produces it:
 /// no ablation of the recipes yields two IDENTICAL `RuntimeD4rtException`s —
@@ -308,7 +822,9 @@ enum _PairVerdict { compared, divergent, vacuous }
 
 _PairVerdict _verdict(String subOutcome, String supOutcome) {
   if (subOutcome != supOutcome) return _PairVerdict.divergent;
-  if (subOutcome.startsWith('THROW RuntimeD4rtException')) {
+  // `contains`, not `startsWith`: SCE185's async members report a rejection
+  // as `Future(THROW RuntimeD4rtException)`, which is just as vacuous.
+  if (subOutcome.contains('THROW RuntimeD4rtException')) {
     return _PairVerdict.vacuous;
   }
   return _PairVerdict.compared;
@@ -317,21 +833,73 @@ _PairVerdict _verdict(String subOutcome, String supOutcome) {
 /// Stringifies an invocation so two adapters can be compared for behavioural
 /// equality — including which exception family escaped, which is the whole
 /// point of F-SCC51-1..5.
-String _outcome(Object? Function() f) {
+///
+/// SCE185: a `Future` result is awaited and a `Stream` result drained, each
+/// within [_settle], so an io member is compared by what it DELIVERS rather
+/// than by the type of its handle. When the receiver is a collection its state
+/// after the call is appended: a mutating member that returns `void` otherwise
+/// compares `Null(null)` with `Null(null)` whatever it did.
+Future<String> _outcome(
+  FutureOr<Object?> Function() f, [
+  Object? receiver,
+]) async {
+  String result;
   try {
-    final v = f();
-    if (v is Iterable) return 'Iterable(${v.toList()})';
-    if (v is Map) return 'Map($v)';
-    return '${v.runtimeType}($v)';
+    result = await _describe(f());
   } catch (e) {
-    return 'THROW ${e.runtimeType}';
+    result = 'THROW ${e.runtimeType}';
   }
+  if (receiver is Iterable || receiver is Map || receiver is StringBuffer) {
+    try {
+      result += ' | after: ${await _describe(receiver)}';
+    } catch (e) {
+      result += ' | after: THROW ${e.runtimeType}';
+    }
+  }
+  return result;
+}
+
+/// How long an io result may take to arrive. A result still outstanding is
+/// recorded as `pending` / `open` — a state, compared like any other.
+const _settle = Duration(milliseconds: 500);
+
+Future<String> _describe(Object? v) async {
+  if (v is Future) {
+    try {
+      return 'Future(${await _describe(await v.timeout(_settle))})';
+    } on TimeoutException {
+      return 'Future(pending)';
+    } catch (e) {
+      return 'Future(THROW ${e.runtimeType})';
+    }
+  }
+  if (v is Stream) {
+    try {
+      return 'Stream(${await _describe(await v.toList().timeout(_settle))})';
+    } on TimeoutException {
+      return 'Stream(open)';
+    } catch (e) {
+      return 'Stream(THROW ${e.runtimeType})';
+    }
+  }
+  if (v is Iterable) return 'Iterable(${v.toList()})';
+  // `Map.of`, not the map itself: an `HttpSession` prints its random session
+  // id, so two fresh sessions holding the same entries would never compare.
+  if (v is Map) return 'Map(${Map.of(v)})';
+  // Each IOSink fixture writes its own file, so a result naming the file names
+  // a different path on each side. What is compared is that it is a File.
+  if (v is FileSystemEntity) return v.runtimeType.toString();
+  return '${v.runtimeType}($v)';
 }
 
 Environment _stdlibEnvironment() {
   final env = Environment();
   Stdlib(env).register();
   CollectionStdlib.register(env);
+  // SCE185: the io and isolate bridges shadow Stream, sink and error members
+  // too, and are walked like every other bridge.
+  IoStdlib.register(env);
+  IsolateStdlib.register(env);
   return env;
 }
 
@@ -511,7 +1079,7 @@ void main() {
     });
 
     test('F-SCC51-8: no shadowed adapter behaves differently from the '
-        'supertype adapter it hides [2026-09-06]', () {
+        'supertype adapter it hides [2026-09-06]', () async {
       // The standing guard, and the reason this file is not a 300-name
       // allowlist. For every member a subtype bridge redeclares from a
       // registered supertype, invoke BOTH adapters on the SAME native object
@@ -531,64 +1099,109 @@ void main() {
       var vacuous = 0;
       final diffs = <String>[];
       final noRecipe = <String>{};
+      final noBridge = <String>[];
 
-      for (final name in _fixtures.keys) {
-        final sub = env.findBridgedClassByName(name);
-        if (sub == null) continue;
-        for (final sname in BridgedClass.transitiveSupertypeNames(name)) {
-          final sup = env.findBridgedClassByName(sname);
-          if (sup == null) continue;
+      // SCD152: a member with no recipe is COUNTED, never invoked with whatever
+      // `_args` happens to hold. An adapter called with the wrong arguments
+      // throws on both sides, and THROW == THROW would be recorded as agreement
+      // — the quietest way for this guard to hollow out as the bridges grow.
+      // SCE185: the recipe is evaluated once PER SIDE, so an argument that is
+      // itself single-use (a stream to `addStream`) reaches both adapters.
+      List<Object?>? recipe(String name, String m) =>
+          _receiverArgs(name, m) ??
+          _classArgs['$name.$m'] ??
+          _args[m] ??
+          _callableArgs(name, m);
 
-          for (final m in sub.methods.keys.toSet().intersection(
-            sup.methods.keys.toSet(),
-          )) {
-            // SCD152: a member with no recipe is COUNTED, never invoked with
-            // whatever `_args` happens to hold. An adapter called with the
-            // wrong arguments throws on both sides, and THROW == THROW would be
-            // recorded as agreement — the quietest way for this guard to hollow
-            // out as the bridges grow.
-            final args =
-                _classArgs['$name.$m'] ?? _args[m] ?? _callableArgs(name, m);
-            if (args == null) {
-              undrivable++;
-              noRecipe.add(m);
-              continue;
-            }
-            final a = _outcome(
-              () => sub.methods[m]!(visitor, _fixtures[name]!(), args, {}, []),
-            );
-            final b = _outcome(
-              () => sup.methods[m]!(visitor, _fixtures[name]!(), args, {}, []),
-            );
-            switch (_verdict(a, b)) {
-              case _PairVerdict.divergent:
-                diffs.add('$name -> $sname .$m()  sub: $a  sup: $b');
-              case _PairVerdict.vacuous:
-                // Both adapters rejected the arguments. That is agreement about
-                // nothing, so it is not counted as a comparison.
-                vacuous++;
-              case _PairVerdict.compared:
-                compared++;
-            }
+      _net = await _Net.start();
+      try {
+        for (final name in _fixtures.keys) {
+          final sub = env.findBridgedClassByName(name);
+          if (sub == null) {
+            noBridge.add(name);
+            continue;
           }
+          for (final sname in BridgedClass.transitiveSupertypeNames(name)) {
+            final sup = env.findBridgedClassByName(sname);
+            if (sup == null) continue;
 
-          for (final g in sub.getters.keys.toSet().intersection(
-            sup.getters.keys.toSet(),
-          )) {
-            // One shared instance: `hashCode` would differ on two separately
-            // constructed fixtures for reasons that say nothing about the
-            // adapters.
-            final shared = _fixtures[name]!();
-            final a = _outcome(() => sub.getters[g]!(visitor, shared));
-            final b = _outcome(() => sup.getters[g]!(visitor, shared));
-            compared++;
-            if (a != b) {
-              diffs.add('$name -> $sname .$g  sub: $a  sup: $b');
+            for (final m in sub.methods.keys.toSet().intersection(
+              sup.methods.keys.toSet(),
+            )) {
+              if (recipe(name, m) == null) {
+                undrivable++;
+                noRecipe.add('$name.$m');
+                continue;
+              }
+              final subTarget = await _fixtures[name]!();
+              final a = await _outcome(
+                () => sub.methods[m]!(
+                  visitor,
+                  subTarget,
+                  recipe(name, m)!,
+                  {},
+                  [],
+                ),
+                subTarget,
+              );
+              final supTarget = await _fixtures[name]!();
+              final b = await _outcome(
+                () => sup.methods[m]!(
+                  visitor,
+                  supTarget,
+                  recipe(name, m)!,
+                  {},
+                  [],
+                ),
+                supTarget,
+              );
+              switch (_verdict(a, b)) {
+                case _PairVerdict.divergent:
+                  diffs.add('$name -> $sname .$m()  sub: $a  sup: $b');
+                case _PairVerdict.vacuous:
+                  // Both adapters rejected the arguments. That is agreement
+                  // about nothing, so it is not counted as a comparison.
+                  vacuous++;
+                case _PairVerdict.compared:
+                  compared++;
+              }
+            }
+
+            for (final g in sub.getters.keys.toSet().intersection(
+              sup.getters.keys.toSet(),
+            )) {
+              // `hashCode` is read off ONE shared instance: two separately
+              // constructed fixtures differ for reasons that say nothing about
+              // the adapters. Everything else gets a fresh receiver per side,
+              // because a Stream getter (`first`, `length`) consumes a
+              // single-subscription receiver.
+              final shared = g == 'hashCode' ? await _fixtures[name]!() : null;
+              final subTarget = shared ?? await _fixtures[name]!();
+              final a = await _outcome(
+                () => sub.getters[g]!(visitor, subTarget),
+              );
+              final supTarget = shared ?? await _fixtures[name]!();
+              final b = await _outcome(
+                () => sup.getters[g]!(visitor, supTarget),
+              );
+              compared++;
+              if (a != b) {
+                diffs.add('$name -> $sname .$g  sub: $a  sup: $b');
+              }
             }
           }
         }
+      } finally {
+        await _net.close();
       }
 
+      expect(
+        noBridge,
+        isEmpty,
+        reason:
+            'These fixture rows name no registered bridge, so the walk skipped '
+            'them without comparing anything: $noBridge',
+      );
       expect(
         diffs,
         isEmpty,
@@ -604,19 +1217,19 @@ void main() {
       // registry that silently stopped returning supertypes would make the
       // assertion above pass by comparing nothing.
       //
-      // SCD152 raised this floor from 200 to 500. The old number was set when
-      // 261 of 542 pairs were skipped, so it had to sit below half the surface
-      // to pass at all; with every pair driven the walk compares 537 and the
-      // floor can sit just under that. The 5 missing from 542 are the shadowed
-      // pairs this todo DELETED — `map` on two map bridges and `[]=` on three —
-      // so the arithmetic is the audit trail.
+      // SCD152 raised this floor from 200 to 500, when the walk covered the
+      // fourteen collection bridges and compared 537 pairs of them. SCE185
+      // widened it to every shadowing bridge: 2 028 pairs compared, measured
+      // 2026-09-25 — the registry's 2 076 less the 34 on the two `_unwalked`
+      // bridges and the 14 shadowed copies SCE185 deleted (thirteen on `Runes`,
+      // `WebSocketTransformer.cast`).
       expect(
         compared,
-        greaterThan(500),
+        greaterThan(1950),
         reason:
             'compared=$compared undrivable=$undrivable vacuous=$vacuous — '
             'the differential walk found far fewer shadowed pairs than the '
-            '~537 known to exist, so the supertype registry or the bridge '
+            '~2 028 known to exist, so the supertype registry or the bridge '
             'registration changed shape.',
       );
 
@@ -644,6 +1257,159 @@ void main() {
             'harness supplied. Fix the recipe in `_callableArgs` rather than '
             'reading THROW == THROW as a passing comparison.',
       );
+    });
+
+    test('F-SCE185-1: every bridge that shadows a supertype member is walked, '
+        'or named in `_unwalked` with the reason it cannot be [2026-09-25]', () {
+      // The defect SCE185 fixed was not a wrong comparison but a MISSING one:
+      // the walk covered 537 of 2 076 shadowed pairs and nothing said so. This
+      // is the census that would have. It is computed from the registry, so a
+      // new bridge that shadows anything turns this red until it has a fixture.
+      final shadowing = <String>{};
+      for (final name in env.bridgedClassNames) {
+        final sub = env.findBridgedClassByName(name)!;
+        for (final sname in BridgedClass.transitiveSupertypeNames(name)) {
+          final sup = env.findBridgedClassByName(sname);
+          if (sup == null) continue;
+          if (sub.methods.keys.any(sup.methods.containsKey) ||
+              sub.getters.keys.any(sup.getters.containsKey)) {
+            shadowing.add(name);
+          }
+        }
+      }
+      final accounted = {..._fixtures.keys, ..._unwalked.keys};
+      expect(
+        shadowing.difference(accounted),
+        isEmpty,
+        reason:
+            'These bridges redeclare a supertype member and the differential '
+            'never compares them. Add a `_fixtures` row (and recipes), or an '
+            '`_unwalked` entry saying why no fixture can exist.',
+      );
+      expect(
+        accounted.difference(shadowing),
+        isEmpty,
+        reason:
+            'These rows name a bridge that no longer shadows anything; delete '
+            'them so the table stays a description of the registry.',
+      );
+      expect(
+        _fixtures.keys.toSet().intersection(_unwalked.keys.toSet()),
+        isEmpty,
+      );
+      // Control: the census itself must see the surface. Measured 2026-09-25:
+      // 92 shadowing bridges over the stdlib registry.
+      expect(shadowing.length, greaterThanOrEqualTo(85));
+    });
+  });
+
+  // SCE185's findings, asserted on the behaviour a script sees rather than only
+  // as agreement between two adapters. Each was a defect the widened walk
+  // reported, and each is resolved here the way a script's call resolves: by
+  // the receiver's own bridge first, then its registered supertypes.
+  Object? call(
+    String className,
+    Object target,
+    String member, [
+    List<Object?> args = const [],
+  ]) {
+    final adapter = findReachableMethod(env, className, member);
+    if (adapter == null) {
+      fail('no bridge on $className or its supertypes declares `$member`');
+    }
+    return adapter(visitor, target, args, {}, []);
+  }
+
+  group('SCE185: what the widened differential found', () {
+    test('F-SCE185-2: Runes members that take a callback run it '
+        '[2026-09-25]', () {
+      // Thirteen `Runes` copies cast the script's callback to a Dart function
+      // type, which a `Callable` never is, so every call threw `_TypeError`.
+      final runes = 'abc'.runes;
+      expect(
+        (call('Runes', runes, 'where', [_greaterThan97]) as Iterable).toList(),
+        [98, 99],
+      );
+      expect(call('Runes', runes, 'fold', [0, _sum2]), 294);
+      expect(call('Runes', runes, 'any', [_greaterThan97]), isTrue);
+      expect(call('Runes', runes, 'reduce', [_sum2]), 294);
+    });
+
+    test('F-SCE185-3: LinkedList.contains answers false for a non-entry '
+        '[2026-09-25]', () {
+      expect(
+        call('LinkedList', LinkedList<BridgedLinkedListEntry>(), 'contains', [
+          1,
+        ]),
+        isFalse,
+      );
+    });
+
+    test('F-SCE185-4: List.shuffle honours the Random it is given '
+        '[2026-09-25]', () {
+      final expected = [1, 2, 3, 4, 5, 6, 7, 8]..shuffle(Random(3));
+      final list = <dynamic>[1, 2, 3, 4, 5, 6, 7, 8];
+      call('List', list, 'shuffle', [Random(3)]);
+      expect(list, expected);
+    });
+
+    test('F-SCE185-5: a natively typed List<int> takes a script\'s list '
+        'literal and callback [2026-09-25]', () {
+      // `'ab'.codeUnits.toList()` is the shape: a real `List<int>` that
+      // dispatches to the `List` bridge, handed arguments that are
+      // `List<Object?>` and an untyped callback, as a script's always are.
+      final list = 'ab'.codeUnits.toList();
+      expect(
+        (call('List', list, 'followedBy', [
+                  <Object?>[1],
+                ])
+                as Iterable)
+            .toList(),
+        [97, 98, 1],
+      );
+      expect(call('List', list, 'reduce', [_sum2]), 195);
+      call('List', list, 'setRange', [
+        0,
+        1,
+        <Object?>[7],
+      ]);
+      expect(list, [7, 98]);
+      expect(
+        () => call('List', list, 'setRange', [
+          0,
+          2,
+          <Object?>[7],
+        ]),
+        throwsStateError,
+      );
+    });
+
+    test('F-SCE185-6: a natively typed Stream takes a script\'s transformer '
+        'and combine callback [2026-09-25]', () async {
+      Stream<int> stream() => Stream<int>.fromIterable([1, 2, 3]);
+      expect(await (call('Stream', stream(), 'reduce', [_sum2]) as Future), 6);
+      final transformed = call('Stream', stream(), 'transform', [
+        StreamTransformer<dynamic, dynamic>.fromHandlers(
+          handleData: (v, sink) => sink.add(v * 10),
+        ),
+      ]);
+      expect(await (transformed as Stream).toList(), [10, 20, 30]);
+    });
+
+    test('F-SCE185-7: Sink.close hands back the Future the sink returns '
+        '[2026-09-25]', () async {
+      final controller = StreamController<dynamic>();
+      final drained = controller.stream.toList();
+      final closing = findReachableMethod(env, 'Sink', 'close')!(
+        visitor,
+        controller,
+        const [],
+        {},
+        [],
+      );
+      expect(closing, isA<Future<void>>());
+      await (closing! as Future);
+      expect(await drained, isEmpty);
     });
   });
 }

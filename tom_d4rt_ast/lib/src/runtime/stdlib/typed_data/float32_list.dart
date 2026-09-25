@@ -82,7 +82,9 @@ class Float32ListTypedData {
           final index = positionalArgs[0] as int;
           final value = (positionalArgs[1] as num).toDouble();
           target[index] = value;
-          return value;
+          // SCE185: void, like the SDK operator. The interpreter never reads
+          // this — an index assignment evaluates to the assigned value itself.
+          return null;
         }
         throw RuntimeD4rtException(
           "Float32List[index] = value expects int index and num value.",

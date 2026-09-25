@@ -374,8 +374,10 @@ class WebSocketTransformerIo {
       // arguments, so the only cast a script can express is the identity one —
       // which is what `StreamTransformer.cast` does for a matching pair, and
       // is enough for the `transform` call the cast exists to type-check.
-      'cast': (visitor, target, positionalArgs, namedArgs, _) =>
-          (target as WebSocketTransformer).cast<HttpRequest, WebSocket>(),
+      // SCE185: no `cast` here. The copy returned `cast<HttpRequest,
+      // WebSocket>()` whatever the script asked for, where `cast()` without
+      // type arguments is `cast<dynamic, dynamic>()` — which the inherited
+      // `StreamTransformer` adapter returns.
       'bind': (visitor, target, positionalArgs, namedArgs, _) {
         if (positionalArgs.isEmpty || positionalArgs[0] is! Stream) {
           throw RuntimeD4rtException(

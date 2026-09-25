@@ -138,7 +138,12 @@ class IterableCore {
       'reduce': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Iterable.reduce', atMost: 1);
         final combine = positionalArgs[0] as Callable;
-        return (target as Iterable).reduce((value, element) {
+        // SCE185: through a `cast<Object?>()` view. A natively typed receiver
+        // (`Iterable<int>` — `Runes`, a typed list, a `List<int>` a bridge
+        // returned) wants `E Function(E, E)`, and the untyped closure this
+        // adapter builds was rejected with a host `_TypeError` before the
+        // callback ran once. The view accepts it and yields the same values.
+        return (target as Iterable).cast<Object?>().reduce((value, element) {
           return combine.call(visitor, [value, element]);
         });
       },
@@ -240,7 +245,13 @@ class IterableCore {
       },
       'followedBy': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Iterable.followedBy', atMost: 1);
-        return (target as Iterable).followedBy(positionalArgs[0] as Iterable);
+        // SCE185: through a `cast<Object?>()` view, for the same reason as
+        // `reduce`: `followedBy` wants an `Iterable<E>`, and a script's list
+        // literal is `List<Object?>`, so every natively typed receiver refused
+        // it. The elements, and the laziness, are unchanged.
+        return (target as Iterable).cast<Object?>().followedBy(
+          positionalArgs[0] as Iterable,
+        );
       },
       'whereType': (visitor, target, positionalArgs, namedArgs, _) {
         return (target as Iterable).whereType();
