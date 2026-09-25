@@ -164,12 +164,56 @@ const int _bannerWindow = 12;
 /// package's suite runs — so it should cost one line here.
 const Map<String, int> _bannerCensus = {
   'tom_d4rt': 30,
-  'tom_d4rt_ast': 6,
+  'tom_d4rt_ast': 7,
   'tom_d4rt_exec': 5,
   'tom_d4rt_flutter': 3,
-  'tom_d4rt_flutter_ast': 16,
+  'tom_d4rt_flutter_ast': 17,
   'tom_d4rt_generator': 3,
 };
+
+/// The CODE of every `tool/` script [testFile] imports by a relative path,
+/// joined — one hop, comment lines dropped (SCE182).
+///
+/// `_reachSignals` reads the test file's own source, so a guard that reaches
+/// outside its package through a helper matched nothing: the paths live in the
+/// helper. Two of the repo's most load-bearing cross-tree enforcers were
+/// invisible to this index that way — the tom_d4rt <-> tom_d4rt_ast mirror rule
+/// (`mirrored_sources_test.dart`, via `tool/check_mirrored_sources.dart`) and
+/// the shared-user-bridge derivation check (`sync_shared_user_bridges_test`,
+/// via `tool/sync_shared_user_bridges.dart`).
+///
+/// Measured before narrowing, and each narrowing has a reason:
+///
+///   * `tool/` only. Following EVERY relative import one hop flagged 46 files,
+///     44 of them corpus drivers importing `send_test_runner.dart`, which names
+///     the sibling twin's script corpus as harness plumbing rather than as
+///     anything the driver asserts. A `tool/` script imported by a test is a
+///     checker that test runs; a test helper is not.
+///   * one hop, not transitively: a transitive walk reaches `package:` barrels
+///     and would match everything.
+///   * comment lines dropped: a tool's usage comment ("dart run
+///     ../tom_d4rt_flutter_ast/tool/...") is prose, and the reach is in code.
+///
+/// With all three, the rule adds exactly those two files and nothing else.
+String _toolHelperCode(File testFile) {
+  final out = StringBuffer();
+  // Scheme-less paths only. Tests embed SCRIPTS as string literals, and a
+  // script's own `import 'test:beep';` sits at the start of a line too.
+  final imports = RegExp(
+    r"^import '(?![a-zA-Z][a-zA-Z0-9+.\-]*:)([^']+)'",
+    multiLine: true,
+  );
+  for (final m in imports.allMatches(testFile.readAsStringSync())) {
+    final target = File(
+      Uri.file(testFile.absolute.path).resolve(m.group(1)!).toFilePath(),
+    );
+    if (!target.path.contains('/tool/') || !target.existsSync()) continue;
+    for (final line in target.readAsLinesSync()) {
+      if (!line.trimLeft().startsWith('//')) out.writeln(line);
+    }
+  }
+  return out.toString();
+}
 
 /// Sibling packages of `tom_d4rt`, which is this suite's working directory.
 List<Directory> _packages() {
@@ -204,11 +248,13 @@ void main() {
 
   group('SCD129: a repo-wide guard announces itself', () {
     late List<String> reaching;
+    late List<String> reachingViaTool;
     late List<String> unannounced;
     late Map<String, int> bannered;
 
     setUp(() {
       reaching = <String>[];
+      reachingViaTool = <String>[];
       unannounced = <String>[];
       bannered = <String, int>{};
       for (final package in _packages()) {
@@ -230,10 +276,15 @@ void main() {
           )) {
             bannered[packageName] = (bannered[packageName] ?? 0) + 1;
           }
-          if (!_reachSignals.any((r) => r.hasMatch(source))) continue;
+          final viaTool = _toolHelperCode(entity);
+          final direct = _reachSignals.any((r) => r.hasMatch(source));
+          if (!direct && !_reachSignals.any((r) => r.hasMatch(viaTool))) {
+            continue;
+          }
           final relative =
               '$packageName/test/${entity.path.split('/test/').last}';
           reaching.add(relative);
+          if (!direct) reachingViaTool.add(relative);
 
           final head = source.split('\n').take(_bannerWindow).join('\n');
           final match = _banner.firstMatch(head);
@@ -305,11 +356,28 @@ void main() {
         reaching.length,
         greaterThanOrEqualTo(20),
         reason:
-            'The reach detector found ${reaching.length} files where 44 were '
-            'measured on 2026-09-22. Either a large number of guards were '
+            'The reach detector found ${reaching.length} files where 56 were '
+            'measured on 2026-09-25. Either a large number of guards were '
             'removed — in which case lower this floor deliberately — or the '
             'detector stopped matching, in which case F-SCD129-1 above is '
             'passing over nothing.\n${reaching.join('\n')}',
+      );
+    });
+
+    test('F-SCE182-1 (control): the scan follows a `tool/` import, so the '
+        'two helper-backed guards are found [2026-09-25]', () {
+      // Without the one-hop import following, both of these match no reach
+      // signal: the paths live in the tool they import. They are the mirror-rule
+      // enforcer and the shared-user-bridge derivation check — the two guards
+      // whose absence from the index a reader would least suspect. This goes
+      // red the moment `_toolHelperCode` stops contributing, which is what
+      // distinguishes the detector change from two hand-added banners.
+      expect(
+        reachingViaTool,
+        containsAll(<String>[
+          'tom_d4rt_ast/test/runtime/mirrored_sources_test.dart',
+          'tom_d4rt_flutter_ast/test/sync_shared_user_bridges_test.dart',
+        ]),
       );
     });
   });

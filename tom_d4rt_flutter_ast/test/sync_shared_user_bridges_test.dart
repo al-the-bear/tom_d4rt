@@ -1,4 +1,12 @@
 // RUNNER BUCKET: guard — run_guard_tests.sh
+// REPO-WIDE GUARD (tom_d4rt_flutter_ast) — tom_d4rt_flutter's shared user bridges are the ones this package derives, byte for byte after the import rewrite.
+//
+// Its subject reaches OUTSIDE this package — through the `tool/` script it
+// imports rather than a path in this file, which is why SCD129's index missed
+// it until SCE182 taught the detector to follow a `tool/` import one hop. It
+// runs only when tom_d4rt_flutter_ast's suite runs. `grep -rn 'REPO-WIDE GUARD' */test` lists
+// every one, and `tom_d4rt/test/scd129_repo_wide_guard_index_test.dart` fails
+// if a new one arrives without this banner.
 /// Tests for the AST/non-AST user-bridge copy-generator pilot
 /// (`tool/sync_shared_user_bridges.dart`).
 ///

@@ -1,3 +1,12 @@
+// REPO-WIDE GUARD (tom_d4rt_ast) — the tom_d4rt <-> tom_d4rt_ast mirror rule: the two interpreter trees' shared sources agree in code (SCC92).
+//
+// Its subject reaches OUTSIDE this package — through the `tool/` script it
+// imports rather than a path in this file, which is why SCD129's index missed
+// it until SCE182 taught the detector to follow a `tool/` import one hop. It
+// runs only when tom_d4rt_ast's suite runs. `grep -rn 'REPO-WIDE GUARD' */test` lists
+// every one, and `tom_d4rt/test/scd129_repo_wide_guard_index_test.dart` fails
+// if a new one arrives without this banner.
+
 import 'dart:io';
 
 import 'package:test/test.dart';
