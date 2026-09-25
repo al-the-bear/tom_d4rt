@@ -8,6 +8,16 @@ import 'package:tom_d4rt_ast/src/runtime/stdlib/convert.dart';
 
 /// SCB21 mirror coverage for `tom_d4rt_ast` — what a `dart:io` script can name.
 ///
+/// PARTIAL-REGISTRATION is this file's subject, and the token exempts it from
+/// SCE184's registrar audit (`scd151_reachability_discipline_test.dart`). Its
+/// dart:io-only cases register `IoStdlib` alone ON PURPOSE and assert that
+/// `LineSplitter` cannot be seen: that is how the flat registry models Dart's
+/// import rules. Demanding the convert registrar here would destroy the test.
+/// The audit judges the UNION of a file's registrar calls, and today this
+/// file's union (IoStdlib + ConvertStdlib) already covers every name it cites,
+/// so the token is not what keeps it green. It is here so that the next
+/// io-only case is not "fixed" by adding a registrar to it.
+///
 /// SCB21 claimed `import 'dart:io'; BytesBuilder()` fails, that `Uint8List` is
 /// likewise unreachable, and proposed a re-export aliasing mechanism in the
 /// module loader. **Both halves were wrong**; the script-level proof lives in

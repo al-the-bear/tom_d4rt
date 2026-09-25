@@ -5,6 +5,7 @@ import 'package:tom_d4rt_ast/runtime.dart';
 // The stdlib registrars are deliberately not re-exported from `runtime.dart`
 // — see the note in `stdlib_bytes_builder_test.dart`. Reaching for them by
 // same-package path keeps the published API unchanged.
+import 'package:tom_d4rt_ast/src/runtime/stdlib/core.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/convert.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/async.dart';
 
@@ -37,6 +38,10 @@ void main() {
 
   setUp(() {
     env = Environment();
+    // dart:core too: `ByteConversionSink` and the other conversion sinks
+    // inherit from `Sink`, which CoreStdlib owns, so without it their
+    // hierarchy is truncated at the leaf (SCE184).
+    CoreStdlib.register(env);
     // dart:async first: the convert bridges lean on its stream types.
     AsyncStdlib.register(env);
     ConvertStdlib.register(env);

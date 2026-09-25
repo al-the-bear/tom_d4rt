@@ -207,6 +207,93 @@ List<_Site> _scan() {
   return sites;
 }
 
+/// SCE184 — every registrar a test file calls, by the name it is called with.
+///
+/// Ownership is COMPUTED from these, by registering each into a fresh
+/// environment, rather than written down: a sub-registrar
+/// (`AsyncStreamStdlib`, `AsyncErrorStdlib`) registers a subset of what its
+/// parent does, and scd151's first hand audit reported `Stream` missing from
+/// a file that registered it because it modelled ownership per library. A
+/// registrar a test calls that is absent here fails F-SCE184-2 by name.
+final Map<String, void Function(Environment)> _registrars = {
+  'CoreStdlib': CoreStdlib.register,
+  'AsyncStdlib': AsyncStdlib.register,
+  'AsyncStreamStdlib': AsyncStreamStdlib.register,
+  'AsyncErrorStdlib': AsyncErrorStdlib.register,
+  'CollectionStdlib': CollectionStdlib.register,
+  'ConvertStdlib': ConvertStdlib.register,
+  'MathStdlib': MathStdlib.register,
+  'TypedDataStdlib': TypedDataStdlib.register,
+  'IoStdlib': IoStdlib.register,
+  'IsolateStdlib': IsolateStdlib.register,
+};
+
+/// What one test file registers and what its named bridges need.
+class _RegistrarAudit {
+  _RegistrarAudit(this.file, this.calls, this.wholeStdlib, this.exempt);
+  final String file;
+  final Set<String> calls;
+  final bool wholeStdlib;
+  final bool exempt;
+  final Set<String> named = {};
+  final List<String> missing = [];
+}
+
+final RegExp _registrarCall = RegExp(r'\b([A-Z][A-Za-z]*Stdlib)\.register\(');
+final RegExp _wholeStdlib = RegExp(r'\bStdlib\([^)]*\)\.register\(\)');
+final RegExp _namedBridge = RegExp(
+  r"findBridgedClassByName\(\s*'([^']+)'"
+  r"|(?:findReachable\w+|readReachable|reachable\w+Names)\(\s*\w+\s*,\s*'([^']+)'",
+);
+
+/// scd151's part (2) as a guard: for every bridge a file names, the file must
+/// call a registrar owning that bridge AND each of its registered supertypes.
+/// A hierarchy truncated at the leaf makes an inherited-member assertion
+/// structurally incapable of passing, while the test still looks green.
+List<_RegistrarAudit> _auditRegistration(Environment union) {
+  final owners = <String, Set<String>>{};
+  _registrars.forEach((name, register) {
+    final env = Environment();
+    register(env);
+    for (final bridge in env.bridgedClassNames) {
+      owners.putIfAbsent(bridge, () => {}).add(name);
+    }
+  });
+  final audits = <_RegistrarAudit>[];
+  for (final entity in Directory('test').listSync(recursive: true)) {
+    if (entity is! File) continue;
+    final name = entity.uri.pathSegments.last;
+    if (!name.endsWith('_test.dart') || name == _self) continue;
+    final raw = entity.readAsStringSync();
+    final src = _stripComments(raw);
+    final audit = _RegistrarAudit(
+      entity.path,
+      {for (final m in _registrarCall.allMatches(src)) m.group(1)!},
+      _wholeStdlib.hasMatch(src),
+      raw.contains('PARTIAL-REGISTRATION'),
+    );
+    for (final m in _namedBridge.allMatches(src)) {
+      final bridge = m.group(1) ?? m.group(2)!;
+      if (union.findBridgedClassByName(bridge) != null) audit.named.add(bridge);
+    }
+    if (audit.calls.isNotEmpty && !audit.wholeStdlib && !audit.exempt) {
+      final needed = <String>{
+        for (final bridge in audit.named) ...[
+          bridge,
+          ...BridgedClass.transitiveSupertypeNames(bridge),
+        ],
+      }.where((n) => owners.containsKey(n));
+      for (final n in needed.toList()..sort()) {
+        if (owners[n]!.intersection(audit.calls).isEmpty) {
+          audit.missing.add('$n (registered by ${owners[n]!.join(' or ')})');
+        }
+      }
+    }
+    audits.add(audit);
+  }
+  return audits;
+}
+
 void main() {
   final env = _unionRegistry();
   final sites = _scan();
@@ -323,6 +410,66 @@ void main() {
             'naming the bridge — `findReachableMethod(env, \'HashSet\', ...)` — '
             'over a receiver the scan has to infer.',
       );
+    });
+  });
+
+  group('SCE184: a registration test registers what its bridges inherit from', () {
+    final audits = _auditRegistration(env);
+
+    test('F-SCE184-1: every file calls a registrar for each bridge it names '
+        'and each of that bridge\'s supertypes [2026-09-25]', () {
+      final incomplete = [
+        for (final a in audits)
+          if (a.missing.isNotEmpty)
+            '${a.file}: missing ${a.missing.join(', ')}',
+      ];
+      expect(
+        incomplete,
+        isEmpty,
+        reason:
+            'These files name a bridge whose supertypes they do not register. '
+            'An assertion about an inherited member cannot pass there, and the '
+            'test still looks green by asserting against the leaf\'s own '
+            'copies — how three files sat wrong until scc51 and scd151 looked. '
+            'Call the registrar named, or `Stdlib(env).register()`. If partial '
+            'registration IS the subject, put the token PARTIAL-REGISTRATION in '
+            'a comment saying why:\n  ${incomplete.join('\n  ')}',
+      );
+    });
+
+    test('F-SCE184-2 (control): the audit sees the registrar calls it reasons '
+        'about, and knows every registrar a test calls [2026-09-25]', () {
+      // A scan that matches no `register(` call reports every file complete,
+      // which is this guard's quiet failure. Measured 2026-09-25: 29 files
+      // judged, 19 of them naming a bridge; the floors sit a little below.
+      final judged = audits
+          .where((a) => a.calls.isNotEmpty && !a.wholeStdlib && !a.exempt)
+          .toList();
+      expect(
+        judged.length,
+        greaterThanOrEqualTo(25),
+        reason: 'only ${judged.length} files were judged',
+      );
+      expect(
+        judged.where((a) => a.named.isNotEmpty).length,
+        greaterThanOrEqualTo(15),
+        reason: 'judged files that name a bridge are the ones that can fail',
+      );
+      final unknown = {
+        for (final a in audits)
+          ...a.calls.where((c) => !_registrars.containsKey(c)),
+      };
+      expect(
+        unknown,
+        isEmpty,
+        reason:
+            'add these to `_registrars` so their ownership is computed: '
+            '$unknown',
+      );
+      final consumer = audits.singleWhere(
+        (a) => a.file.endsWith('stdlib_stream_consumer_test.dart'),
+      );
+      expect(consumer.calls, containsAll(['CoreStdlib', 'AsyncStreamStdlib']));
     });
   });
 }
