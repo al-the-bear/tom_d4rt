@@ -198,6 +198,49 @@ Map<String, File> _filesUnder(Directory root) {
   return files;
 }
 
+/// SCE186. The three registers in exec's guard that account for a reference
+/// test with no same-path port, by the line that opens each. Read as data for
+/// the reason [_divergentBaselineKeys] is: one declaration, never a copy.
+/// Exec's `F-SCE186-3` asserts that this parse, applied to its own file,
+/// yields exactly the keys of the consts it declares.
+const List<String> _coverageRegisters = [
+  'const Map<String, _Coverage> _coveredElsewhere = {',
+  'const Map<String, _CaseCounts> _uncoveredBaseline = {',
+  'const _anchoredBaseline = <String>{',
+];
+
+/// A key of one of [_coverageRegisters]: a two-space-indented string literal
+/// followed by `:` (a map entry) or `,` (a set element). Deeper indentation is
+/// a value's contents, not a key.
+final RegExp _registerKey = RegExp(r"^  '([^']+)'\s*[:,]");
+
+/// The keys of the register opened by [declaration], or null when the line is
+/// not found — reported, not read as an empty register.
+Set<String>? _registerKeys(List<String> guardLines, String declaration) {
+  final start = guardLines.indexOf(declaration);
+  if (start < 0) return null;
+  final keys = <String>{};
+  for (final line in guardLines.skip(start + 1)) {
+    if (line.startsWith('};')) break;
+    if (_registerKey.firstMatch(line) case final m?) keys.add(m.group(1)!);
+  }
+  return keys;
+}
+
+/// Every `*_test.dart` under [root], keyed by its `/`-separated path relative
+/// to [root] — exec's `_testFiles`, which is how F-SCC6-2 keys its census.
+Set<String> _testPathsUnder(Directory root) {
+  if (!root.existsSync()) return {};
+  final prefix = '${root.path}${Platform.pathSeparator}';
+  return {
+    for (final entity in root.listSync(recursive: true))
+      if (entity is File && entity.path.endsWith('_test.dart'))
+        entity.path
+            .substring(prefix.length)
+            .replaceAll(Platform.pathSeparator, '/'),
+  };
+}
+
 void main() {
   // SCD158: this guard resolves its subject relative to the package it
   // runs in, so a copy anywhere else measures a different tree in silence.
@@ -360,6 +403,90 @@ void main() {
             'since the corpora were created. The file walk has probably '
             'stopped finding one of the two trees.',
       );
+    }, skip: skip);
+  });
+
+  group('SCE186: a new reference test is accounted for in exec', () {
+    // THE COVERAGE HALF OF SCD153, AND WHY IT HAS TO LIVE HERE. F-SCC6-2 in
+    // exec's guard fails when a test in this tree has no counterpart there:
+    // not ported under the same path, not paired in `_coveredElsewhere`, not
+    // recorded in `_uncoveredBaseline` or `_anchoredBaseline`. It is right,
+    // and it runs only when exec's suite runs. Every file it catches is
+    // authored HERE, by a turn with no reason to open exec — which is how 40
+    // unaccounted files accumulated before SCE186 was filed, and how SCE107
+    // later found five more that four consecutive turns had each reported
+    // green on this package's gate.
+    //
+    // So this asks F-SCC6-2's question at the moment the obligation comes
+    // due, from the same registers, read as data. It is deliberately the
+    // ACCOUNTING question only: whether an entry is right — a pairing that was
+    // really read, a baseline reason that is true, counts that match — stays
+    // in exec, which is the one suite that can see both trees' contents and
+    // the consts at once.
+    late List<String> guardLines;
+    late Set<String> ref;
+    late Set<String> ported;
+    late Map<String, Set<String>?> registers;
+
+    setUp(() {
+      if (skip != null) return;
+      guardLines = _execGuard.readAsLinesSync();
+      ref = _testPathsUnder(Directory('test'));
+      final exec = _testPathsUnder(Directory('${_execPackage.path}/test'));
+      ported = ref.intersection(exec);
+      registers = {
+        for (final d in _coverageRegisters) d: _registerKeys(guardLines, d),
+      };
+    });
+
+    test('F-SCE186-1: every test in this tree is ported to exec or recorded '
+        'in one of its coverage registers [2026-09-25]', () {
+      final recorded = {
+        for (final keys in registers.values) ...?keys,
+      };
+      final unaccounted = ref.difference(ported).difference(recorded).toList()
+        ..sort();
+      expect(
+        unaccounted,
+        isEmpty,
+        reason:
+            'These tests have no counterpart in tom_d4rt_exec and are not '
+            'recorded there, so exec\'s F-SCC6-2 is red for them already — it '
+            'just has not been run. Open ../tom_d4rt_exec/test/'
+            'conformance_drift_test.dart and make ONE deliberate edit per file:\n'
+            '  * port it, verbatim but for the interpreter import;\n'
+            '  * record its twin in _coveredElsewhere, having read both files;\n'
+            '  * or record in _uncoveredBaseline why it cannot be ported — a '
+            'repo-wide guard that calls requirePackage(\'tom_d4rt\') goes in '
+            '_anchoredBaseline instead.\n'
+            'Then run `dart test test/conformance_drift_test.dart` there.\n'
+            '${unaccounted.join('\n')}',
+      );
+    }, skip: skip);
+
+    test('F-SCE186-2 (control): the registers parsed and the census reached '
+        'both trees [2026-09-25]', () {
+      // A register whose opening line moved parses as null, and an empty
+      // parse accounts for nothing — both would turn F-SCE186-1 red for every
+      // unported file rather than hide one, but only this names the cause.
+      // Measured 2026-09-25: 64 / 49 / 28 register keys; 343 tests in this
+      // tree, 203 of them ported under the same path.
+      final missing = [
+        for (final e in registers.entries)
+          if (e.value == null) e.key,
+      ];
+      expect(
+        missing,
+        isEmpty,
+        reason:
+            'These register declarations were not found in exec\'s guard. If '
+            'one was renamed or retyped, update _coverageRegisters here — and '
+            'exec\'s F-SCE186-3, which checks the same parse against the '
+            'consts.',
+      );
+      expect(registers.values.map((k) => k!.length), everyElement(greaterThanOrEqualTo(20)));
+      expect(ref.length, greaterThanOrEqualTo(300));
+      expect(ported.length, greaterThanOrEqualTo(150));
     }, skip: skip);
   });
 }

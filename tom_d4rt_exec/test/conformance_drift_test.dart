@@ -4328,6 +4328,44 @@ void main() {
       );
     });
 
+    test('F-SCE186-3: the reference-side parse of the coverage registers '
+        'reads exactly their keys [2026-09-25] (PASS)', () {
+      // `tom_d4rt`'s scd153 guard asks F-SCC6-2's question in the tree where a
+      // new reference test is written, reading `_coveredElsewhere`,
+      // `_uncoveredBaseline` and `_anchoredBaseline` out of THIS file as text
+      // (an import would be a compile-time dependency on a sibling checkout).
+      // A text parse can drift from the declaration it reads — a key the
+      // formatter wraps differently, a register retyped — and there it would
+      // either miss an entry or invent one. This is the one place both the
+      // text and the consts are visible, so the parse is checked here, the
+      // same arrangement F-SCC44-2 has for `_divergentBaseline`.
+      //
+      // The declaration lines and the key pattern are copies of
+      // `_coverageRegisters` / `_registerKey` there; keep them identical.
+      final lines = File('test/conformance_drift_test.dart').readAsLinesSync();
+      final key = RegExp(r"^  '([^']+)'\s*[:,]");
+      Set<String> parse(String declaration) {
+        final start = lines.indexOf(declaration);
+        expect(start, isNot(-1), reason: 'not found: $declaration');
+        final keys = <String>{};
+        for (final line in lines.skip(start + 1)) {
+          if (line.startsWith('};')) break;
+          if (key.firstMatch(line) case final m?) keys.add(m.group(1)!);
+        }
+        return keys;
+      }
+
+      expect(
+        parse('const Map<String, _Coverage> _coveredElsewhere = {'),
+        _coveredElsewhere.keys.toSet(),
+      );
+      expect(
+        parse('const Map<String, _CaseCounts> _uncoveredBaseline = {'),
+        _uncoveredBaseline.keys.toSet(),
+      );
+      expect(parse('const _anchoredBaseline = <String>{'), _anchoredBaseline);
+    });
+
     test('F-SCC6-2: no reference test has appeared without a counterpart '
         '[2026-09-03] (PASS)', () {
       // SCD158. A reference test that declares it must run in `tom_d4rt` is
