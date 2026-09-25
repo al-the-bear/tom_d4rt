@@ -81,7 +81,7 @@ List<File> _drivers(String dir) {
   return [
     for (final e in d.listSync())
       if (e is File &&
-          e.path.split('/').last.startsWith('flutter_') &&
+          e.uri.pathSegments.last.startsWith('flutter_') &&
           e.path.endsWith('_test.dart'))
         e,
   ]..sort((a, b) => a.path.compareTo(b.path));
@@ -128,7 +128,7 @@ void main() {
           final source = driver.readAsStringSync();
           if (source.contains(_inlineVerdict)) {
             offenders.add(
-              '${entry.key}/${driver.path.split('/').last} asserts the verdict '
+              '${entry.key}/${driver.uri.pathSegments.last} asserts the verdict '
               'inline',
             );
           }
@@ -163,7 +163,7 @@ void main() {
           if (!driver.readAsStringSync().contains(
             'SendTestRunner.expectSuccess(',
           )) {
-            silent.add('${entry.key}/${driver.path.split('/').last}');
+            silent.add('${entry.key}/${driver.uri.pathSegments.last}');
           }
         }
       }

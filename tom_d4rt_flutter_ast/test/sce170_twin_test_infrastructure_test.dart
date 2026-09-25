@@ -118,6 +118,11 @@ const Map<String, String> divergent = {
       '69 vs 29 code lines. This twin runs the repo-wide guards for the pair '
       '(user-bridge sync, skip hygiene, this file); the source twin runs only '
       'its own.',
+  'run_guard_tests.ps1':
+      'the PowerShell flavour of run_guard_tests.sh (SCE198), divergent for '
+      'the same reason: this twin runs the pair guards, the source twin runs '
+      'its own four and reaches these through --pair. Held to its .sh by '
+      'scd142\'s F-SCE197-1 rather than by twin derivation.',
   'scd133_registry_enum_resolution_test.dart':
       '18 lines: the AST line compiles the probe through AstBundler before '
       'executing it, and each twin\'s floors cite its own measured counts.',
