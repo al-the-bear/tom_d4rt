@@ -1,3 +1,41 @@
+## 1.181.0
+
+### Fixed — calling a value that is not a function returned the value (sce176)
+
+A call through a variable fell through to `return calleeValue` whenever the
+value was non-null and not a function, so
+
+    var n = 3;
+    n();        // returned 3
+
+and the same for any object. Dart rejects the call; the interpreter now throws
+`'n' (type: int) is not callable ...`. The fallthrough had already hidden two
+defects (DFUB9, GEN-110), and it was hiding a third, below.
+
+### Added — Dart's callable-object rule for interpreted classes (sce176)
+
+`a(3)` means `a.call(3)` when `a`'s class, a superclass or a mixin declares an
+instance method named `call`. Through a variable this used to return the
+instance (the fallthrough above); through an expression (`fns[0](3)`) it threw
+"not a function". Both call paths now resolve the bound `call` method first.
+Bridged objects with a `call` adapter and `call` extensions already worked and
+are unchanged.
+
+### Changed — four more failing operations on an unbridged native name the missing bridge (sce176)
+
+scd145 made a member access or method call on a native object that no bridge
+claims say so. Indexing, a binary operator, both assignment forms (through a
+prefixed identifier and through a property access) and a call now append the
+same clause, e.g.
+
+    Unsupported target for indexing: Zqwx. No bridge claims this type: no
+    bridged class is registered for the native type Zqwx, ...
+
+Message only, on paths that were already throwing, with the exception types
+unchanged. `toString()` on such an object still does not throw: every Dart
+object has one, and string interpolation of an unbridged value is exactly how
+a script author finds out what it is.
+
 ## 1.180.0
 
 ### Fixed — a fuzzy SUFFIX match in a near frame beat a declared `nativeNames` match in an enclosing one (sce162 / scf26)

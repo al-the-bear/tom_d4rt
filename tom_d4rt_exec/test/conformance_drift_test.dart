@@ -1340,7 +1340,7 @@ const Map<String, _Coverage> _coveredElsewhere = {
     'ast:runtime/scd145_unbridged_native_diagnostic_test.dart',
     _astTwin,
     layer: _Layer.script,
-    refCases: 5,
+    refCases: 10,
     twinCases: 3,
     whyPartial:
         'the reference reaches an unbridged native by importing a fixture '
@@ -1348,7 +1348,14 @@ const Map<String, _Coverage> _coveredElsewhere = {
         'asks the same question of the diagnostic directly — a native no '
         'bridge claims earns the clause, a bridged one earns nothing, and an '
         'interpreter-internal value earns nothing — which is three controls '
-        'where the reference has one, and no fixture package at all.',
+        'where the reference has one, and no fixture package at all. SCE176 '
+        'added five reference cases through the same fixture: the clause on '
+        'indexing, operators, both assignment forms and calls, a call on a '
+        'non-function that must throw, and the callable-object rule for '
+        'interpreted classes. The call sites they exercise are held '
+        'code-identical in the two trees by F-SCD183-2 and F-SCD199-2, which '
+        'is the AST line\'s evidence until exec resolves a tom_d4rt_ast that '
+        'carries the change.',
   ),
 };
 

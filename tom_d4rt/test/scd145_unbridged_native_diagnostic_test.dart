@@ -92,21 +92,24 @@ D4rt _interpreter() {
   return interpreter;
 }
 
-Future<Object?> _run(String body) async => _interpreter().execute(
-  source:
-      '''
+/// [top] holds top-level declarations — a class, a function — that a body
+/// cannot declare itself.
+Future<Object?> _run(String body, {String top = ''}) async =>
+    _interpreter().execute(
+      source:
+          '''
 import '$_libUri';
-
+$top
 dynamic main() {
 $body
 }
 ''',
-);
+    );
 
 /// The message of whatever [body] throws.
-Future<String> _failureOf(String body) async {
+Future<String> _failureOf(String body, {String top = ''}) async {
   try {
-    await _run(body);
+    await _run(body, top: top);
   } catch (e) {
     return e.toString();
   }
@@ -181,10 +184,18 @@ void main() {
         // The case the absorbing catch exists for. A script-declared class has
         // no bridge and is not supposed to have one, so the new wording must
         // not appear.
+        // SCE176: this used to construct `Mine()` with no class `Mine`
+        // declared, so it failed on "Undefined variable: Mine" and never
+        // reached the member path it claims to control.
         final failure = await _failureOf('''
   var o = Mine();
   return o.absent;
-''').then((s) => s);
+''', top: 'class Mine {}');
+        expect(
+          failure,
+          contains("Undefined property 'absent' on Mine"),
+          reason: 'the control must reach the member path. Measured: $failure',
+        );
         expect(
           failure,
           isNot(contains('no bridged class is registered')),
@@ -194,5 +205,119 @@ void main() {
         );
       },
     );
+  });
+
+  // ───────────────────────────────────────────────────────────────────────
+  // SCE176 — the four other operations on an unbridged native, and the call
+  // that did not throw at all.
+  //
+  // Measured 2026-09-25 before the change:
+  //
+  // | operation | message | names the cause |
+  // | --- | --- | :-: |
+  // | `o[0]` | Unsupported target for indexing: Zqwx | no |
+  // | `o + 1` | Unsupported operator (PLUS) for types Zqwx and int | no |
+  // | `o.tally = 1` | Assignment target must be an instance or class for PrefixedIdentifier, got Zqwx. | no |
+  // | `f().tally = 1` | Assignment target must be an instance, class, or super property, got Zqwx. | no |
+  // | `f()()` | Attempted to call something that is not a function … Got type: Zqwx | no |
+  // | `o()` | DID NOT THROW — returned the object itself | — |
+  //
+  // The last row was not a diagnostic gap but a correctness bug, and a wide
+  // one: calling any local variable holding a non-function returned the
+  // value (`var n = 3; n()` gave 3). The `return calleeValue` fallthrough had
+  // already hidden two real defects (DFUB9, GEN-110), and it was hiding a
+  // third: Dart's callable-object rule was unimplemented for interpreted
+  // classes, so `a(3)` on a class declaring `call` returned the instance.
+  // ───────────────────────────────────────────────────────────────────────
+  group('SCE176: every failing operation on an unbridged native names the '
+      'missing bridge', () {
+    const clause = 'no bridged class is registered';
+    final cases = <String, String>{
+      'indexing': 'return Fixtures.unclaimed()[0];',
+      'a binary operator': 'return Fixtures.unclaimed() + 1;',
+      'assignment through a prefixed identifier':
+          'var o = Fixtures.unclaimed(); o.tally = 1; return 0;',
+      'assignment through a property access':
+          'Fixtures.unclaimed().tally = 1; return 0;',
+      'calling the value of an expression': 'return Fixtures.unclaimed()();',
+      'calling a local variable': 'var o = Fixtures.unclaimed(); return o();',
+    };
+    var n = 1;
+    for (final entry in cases.entries) {
+      final id = n++;
+      test('F-SCE176-$id: ${entry.key} names the bridge, and the type '
+          '[2026-09-25]', () async {
+        final failure = await _failureOf(entry.value);
+        expect(failure, contains(clause), reason: 'Measured: $failure');
+        expect(failure, contains('Zqwx'));
+      });
+    }
+
+    final controls = <String, String>{
+      'indexing': 'return Fixtures.gadget()[0];',
+      'a binary operator': 'return Fixtures.gadget() + 1;',
+      'assignment': 'var o = Fixtures.gadget(); o.x = 1; return 0;',
+      'a call': 'var o = Fixtures.gadget(); return o();',
+    };
+    for (final entry in controls.entries) {
+      test('F-SCE176-C (control): ${entry.key} on a BRIDGED object fails '
+          'without the clause [2026-09-25]', () async {
+        final failure = await _failureOf(entry.value);
+        expect(failure, isNot('<did not throw>'));
+        expect(
+          failure,
+          isNot(contains(clause)),
+          reason: '`Gadget` IS registered. Measured: $failure',
+        );
+      });
+    }
+
+    test('F-SCE176-7: calling a variable that holds a non-function throws '
+        'rather than returning the value [2026-09-25]', () async {
+      for (final body in [
+        'var n = 3; return n();',
+        'var s = "x"; return s();',
+      ]) {
+        final failure = await _failureOf(body);
+        expect(
+          failure,
+          contains('is not callable'),
+          reason:
+              'Dart rejects this. Pre-SCE176 it returned the value '
+              'itself. Measured for `$body`: $failure',
+        );
+      }
+    });
+
+    test(
+      'F-SCE176-8: an interpreted class declaring `call` is callable, '
+      'directly, through an expression, and when inherited [2026-09-25]',
+      () async {
+        const top = '''
+class Doubler { int call(int x) => x * 2; }
+class Tripler extends Doubler { int call(int x) => x * 3; }
+class Inherits extends Doubler {}
+''';
+        expect(await _run('var d = Doubler(); return d(3);', top: top), 6);
+        expect(
+          await _run('final fs = [Doubler()]; return fs[0](4);', top: top),
+          8,
+        );
+        expect(await _run('return (Tripler())(2);', top: top), 6);
+        expect(await _run('var i = Inherits(); return i(5);', top: top), 10);
+      },
+    );
+
+    test('F-SCE176-9: toString() on an unbridged native does not throw, and '
+        'that is correct [2026-09-25]', () async {
+      // Every Dart object has toString(); the interpreter answers it for any
+      // value without a bridge. Throwing here would break string
+      // interpolation of anything unbridged, which is exactly where a script
+      // author goes to find out what an object is.
+      expect(
+        await _run('return Fixtures.unclaimed().toString();'),
+        "Instance of 'Zqwx'",
+      );
+    });
   });
 }

@@ -69,6 +69,19 @@ extension InterpreterVisitorExtension on InterpreterVisitor {
   ///     noise on every script typo.
   ///   * **Types a bridge DOES claim.** There the member really is the problem
   ///     and the new wording would be a lie.
+  /// Dart's callable-object rule for an interpreted instance: `a(3)` means
+  /// `a.call(3)` when the class, a superclass or a mixin declares an
+  /// instance method named `call`. Returns that method bound to [value], or
+  /// null when [value] is not such an instance.
+  ///
+  /// Both call paths ask this before deciding a value is not callable. Until
+  /// SCE176 neither did: a call through a variable fell through to returning
+  /// the instance itself, and a call through an expression threw.
+  Callable? interpretedCallMethod(Object? value) {
+    if (value is! InterpretedInstance) return null;
+    return value.klass.findInstanceMethod('call')?.bind(value);
+  }
+
   String unbridgedNativeClause(Object? receiver) {
     if (receiver == null) return '';
     if (receiver is RuntimeValue ||

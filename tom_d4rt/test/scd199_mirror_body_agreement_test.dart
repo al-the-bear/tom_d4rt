@@ -311,7 +311,11 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpreterVisitor.registerTypeAlias': '2107b213',
     'InterpreterVisitor.resolveStaticCoordinates': '1c58137b',
     'InterpreterVisitor.visitAsExpression': '749f9253',
-    'InterpreterVisitor.visitAssignmentExpression': '510fd0b5',
+    // SCE176: 510fd0b5 -> fddd7587. Both trees appended the same
+    // unbridged-native clause to the same two assignment errors; the residue
+    // is still `PrefixedIdentifier` vs `SPrefixedIdentifier` in one message,
+    // which the new text now sits beside.
+    'InterpreterVisitor.visitAssignmentExpression': 'fddd7587',
     'InterpreterVisitor.visitBinaryExpression': '4a8ad811',
     // SCE130: 57fc0f99 -> fffabfd5. Both trees gained the same call to
     // `klass.resolveDeferredTypeParameterBounds`; the residue is the

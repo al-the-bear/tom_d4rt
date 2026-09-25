@@ -2502,7 +2502,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     }
 
     throw RuntimeD4rtException(
-      'Unsupported operator ($operator) for types ${leftOperandValue?.runtimeType} and ${rightOperandValue?.runtimeType}',
+      'Unsupported operator ($operator) for types ${leftOperandValue?.runtimeType} and ${rightOperandValue?.runtimeType}.'
+      '${unbridgedNativeClause(leftOperandValue)}',
     );
   }
 
@@ -2714,7 +2715,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     }
 
     throw RuntimeD4rtException(
-      'Unsupported target for indexing: ${targetValue?.runtimeType}',
+      'Unsupported target for indexing: ${targetValue?.runtimeType}.'
+      '${unbridgedNativeClause(targetValue)}',
     );
   }
 
@@ -3544,7 +3546,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         }
       } else {
         throw RuntimeD4rtException(
-          "Assignment target must be an instance, class, or super property, got ${targetValue?.runtimeType}.",
+          "Assignment target must be an instance, class, or super property, got ${targetValue?.runtimeType}."
+          '${unbridgedNativeClause(targetValue)}',
         );
       }
     }
@@ -3881,7 +3884,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         }
       } else {
         throw RuntimeD4rtException(
-          "Assignment target must be an instance or class for PrefixedIdentifier, got ${target?.runtimeType}.",
+          "Assignment target must be an instance or class for PrefixedIdentifier, got ${target?.runtimeType}."
+          '${unbridgedNativeClause(target)}',
         );
       }
     } else {
@@ -5450,6 +5454,10 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       }
     }
 
+    // SCE176: an interpreted instance whose class declares `call` is
+    // callable; resolve it to the bound method so the branch below runs it.
+    calleeValue = interpretedCallMethod(calleeValue) ?? calleeValue;
+
     // Check if the resolved value is callable
     if (calleeValue is Callable) {
       final evaluationResult = _evaluateArgumentsAsync(node.argumentList);
@@ -5816,11 +5824,13 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         }
       }
 
-      if (calleeValue != null) {
-        return calleeValue;
-      }
+      // SCE176: this used to `return calleeValue` for any non-null value, so
+      // calling a variable that held a non-function yielded the value itself
+      // (`var n = 3; n()` gave 3). It hid DFUB9 and GEN-110 before being
+      // removed; Dart rejects the call, and so does this.
       throw RuntimeD4rtException(
-        "'$nameForError' (type: ${calleeValue?.runtimeType}) is not callable and has no 'call' extension method.",
+        "'$nameForError' (type: ${calleeValue?.runtimeType}) is not callable and has no 'call' extension method."
+        '${unbridgedNativeClause(calleeValue)}',
       );
     }
   }
@@ -13630,7 +13640,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
   Object? visitFunctionExpressionInvocation(FunctionExpressionInvocation node) {
     // 1. Evaluate the function expression itself.
     // This should result in a Callable (like InterpretedFunction or NativeFunction).
-    final calleeValue = node.function.accept<Object?>(this);
+    // SCE176: an interpreted instance declaring `call` resolves to that method.
+    final evaluated = node.function.accept<Object?>(this);
+    final calleeValue = interpretedCallMethod(evaluated) ?? evaluated;
 
     // 2. Evaluate arguments (shared logic).
     final (positionalArgs, namedArgs) = _evaluateArguments(node.argumentList);
@@ -13777,7 +13789,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
       // Original Error: The expression evaluated did not yield a callable function or an object with a callable 'call' extension.
       throw RuntimeD4rtException(
-        "Attempted to call something that is not a function and has no 'call' extension method. Got type: ${calleeValue?.runtimeType}",
+        "Attempted to call something that is not a function and has no 'call' extension method. Got type: ${calleeValue?.runtimeType}."
+        '${unbridgedNativeClause(calleeValue)}',
       );
     }
   }
