@@ -9,10 +9,7 @@
 library;
 
 import 'package:test/test.dart';
-import 'package:tom_d4rt/src/bridge/bridged_enum.dart';
-import 'package:tom_d4rt/src/bridge/bridged_types.dart';
-import 'package:tom_d4rt/src/exceptions.dart';
-import 'package:tom_d4rt/src/generator/d4.dart';
+import 'package:tom_d4rt/d4rt.dart';
 
 class _NativeWidget {
   const _NativeWidget(this.label);
