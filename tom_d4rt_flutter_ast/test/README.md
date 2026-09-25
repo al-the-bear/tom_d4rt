@@ -42,8 +42,14 @@ A third runner is **not** part of the corpus and answers in seconds:
   `doc/`-holds-no-runner-output check, the pooled-registration skip path, and
   SCD133's registry-wide bridged-enum resolution guard.
 
-`tom_d4rt_flutter` has its own `run_guard_tests.sh` now, covering the checks
-that are genuinely per-twin. Run both; neither is a superset of the other.
+Each check here is tagged `run` (its subject is this package alone) or `pair`
+(its subject includes `tom_d4rt_flutter` too). `tom_d4rt_flutter` has its own
+`run_guard_tests.sh` for its per-twin checks, which then calls this one with
+`--pair`, so running the guards from either twin covers everything that guards
+that twin. A `pair` check lives here once; a second copy would report
+identically on every run. `scd142_runner_coverage_test.dart` fails when a check
+that reads the source twin is tagged `run`, and when the source twin's runner
+stops calling `--pair`.
 
 It is separate on purpose (SCD108). A test matching neither corpus glob is
 invoked by nothing, which is how `text_user_bridge.dart` stayed duplicated and

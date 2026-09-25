@@ -88,6 +88,17 @@ run "precise bridge match beats fuzzy prefix" \
 # twin's send_test_runner.dart too, and lives once as
 # tom_d4rt_flutter_ast/test/sce14_launch_retry_test.dart. The code it checks is
 # duplicated here by hand, like the rest of the harness.
+# The PAIR guards: sixteen checks whose subject includes this package — its
+# user-bridge copies, its drivers and runners, its duplicated registrations and
+# test infrastructure — but which live once, in the AST twin, because a second
+# copy would report identically on every run. Calling that runner's `--pair`
+# mode means this script covers them too, and reads its list from the one place
+# it is maintained. SCE171: before this, "run the guards" here meant four checks
+# and no sign that the rest existed.
+echo
+if ! ../tom_d4rt_flutter_ast/test/run_guard_tests.sh --pair; then
+  status=1
+fi
 
 if [ "$status" -eq 0 ]; then
   echo "all guards passed"

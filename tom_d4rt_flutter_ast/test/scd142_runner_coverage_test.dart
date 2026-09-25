@@ -151,6 +151,72 @@ bool isReachable(String twin, String file, Set<String> named) =>
     _harnessName.hasMatch(file) ||
     named.contains(file);
 
+/// One check in the AST twin's `run_guard_tests.sh`.
+class GuardInvocation {
+  GuardInvocation(this.kind, this.label, this.testFile);
+
+  /// `run` (subject is this package) or `pair` (subject includes the source
+  /// twin, so the source twin's runner reaches it through `--pair`).
+  final String kind;
+  final String label;
+
+  /// The test file the check runs, relative to this package root, or null
+  /// when the command runs no test file (the tool's `--check`).
+  final String? testFile;
+}
+
+/// Every `run` / `pair` invocation in the AST twin's guard runner.
+///
+/// A `sh -c 'cd <dir> && ...'` command resolves its test file against `<dir>`,
+/// which is how the runner reaches `tom_d4rt`'s SCD110.
+List<GuardInvocation> guardInvocations() {
+  final text = File('test/run_guard_tests.sh').readAsStringSync();
+  final call = RegExp(r'^(run|pair) "([^"]*)" \\\n\s+(.*)$', multiLine: true);
+  return [
+    for (final m in call.allMatches(text))
+      GuardInvocation(m.group(1)!, m.group(2)!, _testFileOf(m.group(3)!)),
+  ];
+}
+
+String? _testFileOf(String command) {
+  final test = RegExp(r'(test/[\w.]+_test\.dart)').firstMatch(command);
+  if (test == null) return null;
+  final cd = RegExp(r"cd (\S+) &&").firstMatch(command);
+  return cd == null ? test.group(1) : '${cd.group(1)}/${test.group(1)}';
+}
+
+/// Whether the check at [path] has a subject that includes the source twin.
+///
+/// Two signals, either sufficient:
+///
+/// - A PATH into the source twin, in code rather than a comment. A bare
+///   mention of `tom_d4rt_flutter` is not enough: scd133 quotes the source
+///   twin's measured counts in a comment while its subject is this package
+///   alone, and would be forced to a `pair` tag it should not carry.
+/// - The REPO-WIDE GUARD banner saying so: "both twins", "the two twins",
+///   "sibling twin", "twins'". This catches a check that names the twins by
+///   package rather than by path (sce14). Measured 2026-09-25: none of the
+///   nine `run` checks' banners uses these phrases.
+///
+/// The user-bridge sync test builds its path at run time and has no banner,
+/// so neither signal sees it; it is tagged `pair` by hand. Missing one is the
+/// safe direction for a ratchet.
+bool coversSourceTwin(String path) {
+  final file = File(path);
+  if (!file.existsSync()) return false;
+  final lines = file.readAsLinesSync();
+  final signal = RegExp(r'\.\./tom_d4rt_flutter(?![_a-z])');
+  if (lines.where((l) => !l.trimLeft().startsWith('//')).any(signal.hasMatch)) {
+    return true;
+  }
+  final start = lines.indexWhere((l) => l.contains('REPO-WIDE GUARD'));
+  if (start < 0) return false;
+  final banner = lines.skip(start).take(12).join(' ');
+  return RegExp(
+    r"\b([Bb]oth|[Tt]he two|BOTH) twins\b|sibling twin|twins' ",
+  ).hasMatch(banner);
+}
+
 void main() {
   group('SCD142: every test file is reachable from a runner', () {
     test('F-SCD142-1: both twins were scanned [2026-09-15]', () {
@@ -267,6 +333,60 @@ void main() {
         reason:
             'Delete these exemptions; each names a situation that no longer '
             'holds:\n  ${[...stale, ...absent].join('\n  ')}',
+      );
+    });
+  });
+
+  group('SCE171: the source twin\'s runner reaches the pair guards', () {
+    test('F-SCE171-1: the AST runner\'s checks were parsed, both kinds '
+        '[2026-09-25]', () {
+      // Anti-vacuity: a parser that found nothing would pass F-SCE171-2
+      // while checking nothing, and one that found only `run` would mean the
+      // tagging had been lost.
+      final all = guardInvocations();
+      expect(
+        all.where((g) => g.kind == 'pair').length,
+        greaterThanOrEqualTo(12),
+      );
+      expect(all.where((g) => g.kind == 'run').length, greaterThanOrEqualTo(5));
+    });
+
+    test('F-SCE171-2: a check whose test file reaches the source twin is '
+        'tagged `pair` [2026-09-25]', () {
+      final hidden = [
+        for (final g in guardInvocations())
+          if (g.kind == 'run' &&
+              g.testFile != null &&
+              coversSourceTwin(g.testFile!))
+            '"${g.label}" (${g.testFile})',
+      ];
+      expect(
+        hidden,
+        isEmpty,
+        reason:
+            'These checks cover the source twin (tom_d4rt_flutter) but are '
+            'invoked with `run`, so its own guard runner never reaches them. '
+            'Invoke them with `pair` in test/run_guard_tests.sh:\n  '
+            '${hidden.join('\n  ')}',
+      );
+    });
+
+    test('F-SCE171-3: the source twin\'s runner calls `--pair` and counts its '
+        'result [2026-09-25]', () {
+      final lines = File(
+        '../tom_d4rt_flutter/test/run_guard_tests.sh',
+      ).readAsLinesSync().where((l) => !l.trimLeft().startsWith('#'));
+      final call = RegExp(
+        r'^if ! \.\./tom_d4rt_flutter_ast/test/run_guard_tests\.sh --pair; then$',
+      );
+      expect(
+        lines.map((l) => l.trim()).any(call.hasMatch),
+        isTrue,
+        reason:
+            'tom_d4rt_flutter/test/run_guard_tests.sh no longer calls '
+            '`../tom_d4rt_flutter_ast/test/run_guard_tests.sh --pair` inside an '
+            '`if !` that sets its status. Without it, running the guards from '
+            'the source twin covers only its four own checks, silently.',
       );
     });
   });

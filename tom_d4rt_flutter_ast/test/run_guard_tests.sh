@@ -34,7 +34,28 @@ cd "$(dirname "$0")/.."
 
 status=0
 
-run() {
+# TWO KINDS OF CHECK. `run` is a check whose subject is THIS package alone.
+# `pair` is one whose subject includes the source twin (tom_d4rt_flutter): the
+# shared user bridges, both twins' drivers and runners, the duplicated
+# registrations and test infrastructure, the repo-wide doc/ and pubspec rules.
+#
+# The pair checks live here, once, because two copies of a cross-twin check
+# report identically on every run. The source twin's own runner calls this
+# script with `--pair`, so "run the guards" covers the same pair checks from
+# either side, with no second list of them to drift. Before this existed, a
+# session working in tom_d4rt_flutter got 4 checks and no sign that 16 more
+# covered the files it was editing.
+#
+# `scd142_runner_coverage_test.dart` (F-SCE171-*) fails when a check whose test
+# file names a path into ../tom_d4rt_flutter is tagged `run`, and when the
+# source twin's runner stops calling `--pair`.
+mode=all
+if [ "${1:-}" = "--pair" ]; then
+  mode=pair
+  echo "pair guards (live in tom_d4rt_flutter_ast; subject includes tom_d4rt_flutter):"
+fi
+
+check() {
   local label="$1"; shift
   printf '%s ... ' "$label"
   if out=$("$@" 2>&1); then
@@ -46,10 +67,19 @@ run() {
   fi
 }
 
+run() {
+  [ "$mode" = pair ] && return 0
+  check "$@"
+}
+
+pair() {
+  check "$@"
+}
+
 # The user-bridge de-dup. `--check` is the same code path the test asserts, and
 # is run directly so this script stays useful even when `dart test` cannot
 # start (no pub get, a broken lock).
-run "user-bridge sync (tool --check)" \
+pair "user-bridge sync (tool --check)" \
   dart run tool/sync_shared_user_bridges.dart --check
 
 # The test that pins the PROPERTY rather than the tool's exit code — SCC37
@@ -58,7 +88,7 @@ run "user-bridge sync (tool --check)" \
 # `flutter test`, not `dart test`: this is a Flutter package, and `package:test`
 # reaches it only through `flutter_test`. It is still transport-free — the file
 # does pure file I/O and needs no companion app.
-run "user-bridge sync (test)" \
+pair "user-bridge sync (test)" \
   flutter test test/sync_shared_user_bridges_test.dart
 
 # SCD110: `doc/` holds no runner output — tracked tree, this machine's disk, the
@@ -66,7 +96,7 @@ run "user-bridge sync (test)" \
 # is a REPO-wide invariant (the same reason `release_hygiene_test.dart` does),
 # and it is run from here because this is the repo's only assembled set of fast
 # guards. `dart test`, not `flutter test`: `tom_d4rt` is a plain Dart package.
-run "doc/ holds no runner output" \
+pair "doc/ holds no runner output" \
   sh -c 'cd ../tom_d4rt && dart test test/scd110_doc_holds_no_runner_output_test.dart'
 
 # SCD133: every bridged enum in the live registry resolves to itself. A
@@ -95,9 +125,9 @@ run "bridges execute in-process" \
   flutter test test/bridge_execution_test.dart
 run "import-optimization timings hold" \
   flutter test test/import_optimization_perf_test.dart
-run "companion app resolution is checked" \
+pair "companion app resolution is checked" \
   flutter test test/companion_app_resolution_test.dart
-run "hosted is the default resolution strategy" \
+pair "hosted is the default resolution strategy" \
   flutter test test/scd66_resolution_strategy_test.dart
 run "the package's own smoke test" \
   flutter test test/tom_d4rt_flutter_ast_test.dart
@@ -105,7 +135,7 @@ run "the package's own smoke test" \
 # SCD142: every test file is reachable from SOME runner. SCC48 named its
 # isolation test outside the corpus globs on purpose and it was then executed by
 # nothing for six weeks — this is what notices the next one.
-run "every test file is reachable from a runner" \
+pair "every test file is reachable from a runner" \
   flutter test test/scd142_runner_coverage_test.dart
 
 # SCD141: the two twins execute ONE script corpus, and it lives in this package.
@@ -113,14 +143,14 @@ run "every test file is reachable from a runner" \
 # `send_ast_via_http_scripts/` here. A missing path is already loud (the sibling
 # suite fails at run time); a SECOND, forked corpus is the silent case, and SCC47
 # nearly created one by hand. Pure file I/O.
-run "the twins share one script corpus" \
+pair "the twins share one script corpus" \
   flutter test test/scd141_shared_corpus_test.dart
 
 # SCE157: the `dynamic` registry lookup in BOTH twins' scd133 is a deferral with
 # an expiry — `tom_d4rt` exports `BridgedEnum` from 1.109.0 and the sibling twin
 # still declares ^1.77.0. This fires the moment that floor moves, in the commit
 # that moves it. Pure file I/O over both `test/` dirs and one pubspec.
-run "the scd133 dynamic deferral has not expired" \
+pair "the scd133 dynamic deferral has not expired" \
   flutter test test/sce157_typed_registry_pending_test.dart
 
 # SCD140: every `skip:` in BOTH twins' corpus drivers states a mechanism and
@@ -129,7 +159,7 @@ run "the scd133 dynamic deferral has not expired" \
 # asserting a bridge behaviour that does not exist, SCD139 another claiming a
 # capability gap that was really a permission gate. Neither named evidence, and
 # that is the part a test can check. Pure file I/O over both `test/` dirs.
-run "corpus skips state a mechanism and cite evidence" \
+pair "corpus skips state a mechanism and cite evidence" \
   flutter test test/scd140_skip_hygiene_test.dart
 
 # SCD164: every runner that writes metrics.txt attributes it. Both twins
@@ -138,7 +168,7 @@ run "corpus skips state a mechanism and cite evidence" \
 # it. The census is globbed from disk and covers `.ps1` as well as `.sh` — a
 # `.ps1` left behind is how this corpus once wrote to `doc/` on Windows and
 # `testlog/` everywhere else. Pure file I/O over both `test/` dirs.
-run "corpus runs record the interpreter they resolved" \
+pair "corpus runs record the interpreter they resolved" \
   flutter test test/scd164_run_attribution_test.dart
 
 # The cluster log is a status register, and these keep it honest: the header
@@ -147,7 +177,7 @@ run "corpus runs record the interpreter they resolved" \
 # this machine (SCD65), and every open cluster is rated by what the defect can
 # REACH rather than by how many consumers currently trip over it
 # (ISSUES-4/5/6). Pure file I/O — no companion app.
-run "cluster log is derived, dated and blast-radius rated" \
+pair "cluster log is derived, dated and blast-radius rated" \
   flutter test test/interpreter_issues_doc_test.dart
 
 # SCE158: the generator issues log carries a state per entry and its header
@@ -168,18 +198,18 @@ run "open-issues doc is rated and derived" \
 # SCE164: the twins' hand-duplicated proxy registries agree, every proxy exposes
 # its interpreted instance, and the two bases measured-and-withheld stay
 # unregistered. Pure file I/O over both registration files.
-run "proxy registries agree across the twins" \
+pair "proxy registries agree across the twins" \
   flutter test test/sce164_proxy_registry_parity_test.dart
 
 # SCE165: the twins' ~200 KB hand-duplicated d4rt_runtime_registrations.dart
 # agrees line for line below its import prologue. The largest duplication in the
 # repo and, until now, the only one with no mechanism at all. Pure file I/O.
-run "runtime registrations mirror below the prologue" \
+pair "runtime registrations mirror below the prologue" \
   flutter test test/sce165_runtime_registrations_mirror_test.dart
 
 # SCE167: all 41 corpus drivers in BOTH twins ask one helper what a pass is, and
 # the gating flip is keyed to the floor that makes it free. Pure file I/O.
-run "one definition of a passing corpus script" \
+pair "one definition of a passing corpus script" \
   flutter test test/sce167_pass_verdict_convention_test.dart
 
 # SCE13: the harness's bridge step stays visible, content-decided and
@@ -193,18 +223,23 @@ run "bridge step is streamed and content-decided" \
 # before retrying, and report both attempts. Repo-wide (it reads the sibling's
 # runner too) and source-shape only — the behaviour needs a ~3 min cold platform
 # build to observe, which is exactly the cost this runner keeps out.
-run "launch retry leaves no orphaned build" \
+pair "launch retry leaves no orphaned build" \
   flutter test test/sce14_launch_retry_test.dart
 
 # SCE170: every non-driver file both twins carry in test/ is classified, the
 # derivable ones agree as CODE modulo the twin parameters, and none carries the
 # other twin's parameter. Repo-wide (it reads the sibling's test/). Pure file I/O.
-run "shared test infrastructure agrees across the twins" \
+pair "shared test infrastructure agrees across the twins" \
   flutter test test/sce170_twin_test_infrastructure_test.dart
 
-if [ "$status" -eq 0 ]; then
-  echo "all guards passed"
+if [ "$mode" = pair ]; then
+  scope="pair guards"
 else
-  echo "one or more guards FAILED" >&2
+  scope="guards"
+fi
+if [ "$status" -eq 0 ]; then
+  echo "all $scope passed"
+else
+  echo "one or more $scope FAILED" >&2
 fi
 exit "$status"

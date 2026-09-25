@@ -20,8 +20,9 @@ regenerating split files needs no script edit.
 **This package's user bridges are DERIVED**, and the guard for that lives in
 the other twin. `lib/src/d4rt_user_bridges/` here is generated from
 `tom_d4rt_flutter_ast`'s copies by rewriting one import line — editing a file
-here directly is silently overwritten on the next sync. The check is
-`tom_d4rt_flutter_ast/test/run_guard_tests.sh` (seconds, no companion app), and
+here directly is silently overwritten on the next sync. The check lives in
+`tom_d4rt_flutter_ast/test/run_guard_tests.sh` and also runs from this
+package's own `test/run_guard_tests.sh` (seconds, no companion app), and
 enforcement is `.githooks/pre-commit` at the repo root, which refuses a commit
 that drifts the twins apart. Run `git config core.hooksPath .githooks` once per
 machine to enable it.
@@ -50,10 +51,16 @@ the gap SCD142 closes.
 
 A third runner here is **not** part of the corpus and answers in seconds:
 
-- `run_guard_tests.sh` — this package's own fast, transport-free guards
-  (no companion app, no HTTP server, no `concurrency: 1`): SCD133's
-  registry-wide bridged-enum resolution guard, the pooled-registration skip
-  path, and the precise-beats-fuzzy bridge-match regression.
+- `run_guard_tests.sh` — the fast, transport-free guards (no companion app,
+  no HTTP server, no `concurrency: 1`). First this package's own four: SCD133's
+  registry-wide bridged-enum resolution guard, SCD195's name-collision guard,
+  the pooled-registration skip path, and the precise-beats-fuzzy bridge-match
+  regression. Then the **pair guards**, the sixteen checks whose subject
+  includes this package: its derived user bridges, its drivers and runners, its
+  duplicated registrations and test infrastructure, the repo-wide `doc/` and
+  pubspec rules. Those live once, in the AST twin, and run from here through
+  that runner's `--pair` mode, so this script covers everything that guards
+  this package without a second list of them to drift.
 
 The AST twin grew its guard runner first, and the three files above sat here
 reachable by nothing in the meantime — the same SCD108 hole, in the twin that
@@ -203,10 +210,10 @@ cover the three moments the mistake can be made:
 
 Both match on the *shape* of a path — a `*log_*` run folder, a `.result.json`,
 a `.log.txt`, a `.console.log`, a `metrics.txt`, a testkit baseline — so a
-fourth folder name is caught on its first appearance. Run them together with
-`../tom_d4rt_flutter_ast/test/run_guard_tests.sh` — the assembled guards live in
-the AST twin because it owns the user-bridge sync they started with, and they
-are repo-wide, so running them from there covers this project too. If one goes
+fourth folder name is caught on its first appearance. Both run from
+`test/run_guard_tests.sh` here, among the pair guards. They live in the AST
+twin, which owns the user-bridge sync the assembled guards started with, and
+they are repo-wide, so one copy covers this project too. If one goes
 red on your machine, move the folder into `testlog/`; do not add a rule to hide
 it.
 
@@ -323,8 +330,9 @@ source location, or a reproduction. "Platform-dependent API" is not a mechanism:
 a script can guard a platform-dependent API and still be measured, and two of
 the three surviving skips were justified that way until SCD139 re-measured them.
 `tom_d4rt_flutter_ast/test/scd140_skip_hygiene_test.dart` enforces the shape
-over BOTH twins' drivers — including this package's — and runs from that twin's
-`test/run_guard_tests.sh`, for the same reason the user-bridge de-dup does: one
+over BOTH twins' drivers — including this package's — and lives in that twin's
+`test/run_guard_tests.sh`, which this package's runner calls with `--pair`, for
+the same reason the user-bridge de-dup does: one
 copy reporting on the pair, rather than two reporting identically.
 
 Why the shape and not the prose: SCC47 found a skip asserting that "the d4rt
