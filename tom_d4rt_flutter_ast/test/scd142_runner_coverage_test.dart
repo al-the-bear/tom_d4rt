@@ -129,7 +129,12 @@ List<String> testFilesIn(String twin) {
   ]..sort();
 }
 
-/// Filenames named by any `run_*.sh` in a twin's `test/`.
+/// Filenames named by any runner — `run_*.sh` or `run_*.ps1` — in a twin's
+/// `test/`.
+///
+/// SCE197: this read `.sh` only, while `scd164_run_attribution_test.dart` in
+/// the same directory counted both flavours as runners. A file reachable only
+/// from a `.ps1` would have been reported as reachable from nothing.
 Set<String> namedByRunners(String twin) {
   final dir = Directory('$twin/test');
   if (!dir.existsSync()) return const {};
@@ -137,14 +142,78 @@ Set<String> namedByRunners(String twin) {
   for (final e in dir.listSync()) {
     if (e is! File) continue;
     final name = e.uri.pathSegments.last;
-    if (!name.startsWith('run_') || !name.endsWith('.sh')) continue;
+    if (!name.startsWith('run_') ||
+        !(name.endsWith('.sh') || name.endsWith('.ps1'))) {
+      continue;
+    }
     named.addAll(
       RegExp(
-        r'test/([\w.]+_test\.dart)',
+        r'test[/\\]([\w.]+_test\.dart)',
       ).allMatches(e.readAsStringSync()).map((m) => m.group(1)!),
     );
   }
   return named;
+}
+
+/// The test files ONE flavour of a runner selects: its explicit names plus the
+/// files its globs match in [twin]'s `test/`, read from code lines only.
+///
+/// SCE197. The runners mostly select by GLOB — `test/flutter_base_*_test.dart`
+/// in bash, `-Filter 'flutter_base_*_test.dart'` in PowerShell — so comparing
+/// the names they spell out would compare nothing. What has to agree is the
+/// set each flavour would actually run, resolved against the real directory.
+Set<String> selectedByRunner(String twin, String runnerFile) {
+  final file = File('$twin/test/$runnerFile');
+  if (!file.existsSync()) return const {};
+  final code = file
+      .readAsLinesSync()
+      .where((l) => !l.trimLeft().startsWith('#'))
+      .join('\n');
+  // Globs come ONLY from the selection constructs — a bash `for … in …; do`
+  // header and a PowerShell `-Filter` — never from any line that happens to
+  // mention one. Both flavours print the glob in their "matched nothing"
+  // message, and reading that as selection made an ablated `-Filter` look
+  // unchanged. Explicit names (no `*`) are read from any code line.
+  final globs = <String>[
+    for (final header in RegExp(
+      r'^\s*for \w+ in (.+?); do',
+      multiLine: true,
+    ).allMatches(code))
+      ...RegExp(
+        r'test/([\w.*]+_test\.dart)',
+      ).allMatches(header.group(1)!).map((m) => m.group(1)!),
+    ...RegExp(
+      r"-Filter\s+'([\w.*]+_test\.dart)'",
+    ).allMatches(code).map((m) => m.group(1)!),
+    ...RegExp(
+      r'test[/\\]([\w.]+_test\.dart)',
+    ).allMatches(code).map((m) => m.group(1)!),
+  ];
+  final present = testFilesIn(twin);
+  final selected = <String>{};
+  for (final glob in globs) {
+    final pattern = RegExp(
+      '^${glob.split('*').map(RegExp.escape).join(r'[^/\\]*')}\$',
+    );
+    selected.addAll(present.where(pattern.hasMatch));
+  }
+  return selected;
+}
+
+/// Runner stems present in both flavours in [twin]'s `test/`.
+List<String> pairedRunnerStems(String twin) {
+  final dir = Directory('$twin/test');
+  if (!dir.existsSync()) return const [];
+  final names = {
+    for (final e in dir.listSync())
+      if (e is File) e.uri.pathSegments.last,
+  };
+  return [
+    for (final n in names)
+      if (n.startsWith('run_') && n.endsWith('.sh'))
+        if (names.contains('${n.substring(0, n.length - 3)}.ps1'))
+          n.substring(0, n.length - 3),
+  ]..sort();
 }
 
 bool isReachable(String twin, String file, Set<String> named) =>
@@ -264,6 +333,67 @@ void main() {
             'companion app, a corpus runner if it is a corpus file), or record '
             'an exemption with its reason:\n  ${orphans.join('\n  ')}',
       );
+    });
+
+    test('F-SCE197-1: both flavours of each runner select the same test files '
+        '[2026-09-25]', () {
+      // SCE197. Measured 2026-09-25: every runner that exists in both flavours
+      // selects by the same globs in `.sh` and `.ps1`, so the census above was
+      // right by COINCIDENCE — it read one flavour and the other happened to
+      // agree. This makes the agreement a checked invariant: the first file
+      // added to one flavour's selection and not the other's is named here,
+      // instead of reading as "reachable" on macOS and silently unrun on
+      // Windows, or the reverse.
+      final split = <String>[];
+      for (final twin in _twins) {
+        for (final stem in pairedRunnerStems(twin)) {
+          final sh = selectedByRunner(twin, '$stem.sh');
+          final ps1 = selectedByRunner(twin, '$stem.ps1');
+          for (final f in sh.difference(ps1)) {
+            split.add('$twin/test/$f: selected by $stem.sh, not by $stem.ps1');
+          }
+          for (final f in ps1.difference(sh)) {
+            split.add('$twin/test/$f: selected by $stem.ps1, not by $stem.sh');
+          }
+        }
+      }
+      split.sort();
+      expect(
+        split,
+        isEmpty,
+        reason:
+            'A runner exists for both platforms, and its two flavours no longer '
+            'run the same files. Make the selection agree — the same glob or '
+            'the same explicit name in both — or, if the difference is '
+            'deliberate, say so here rather than letting one platform run a '
+            'different suite under the same runner name:\n  ${split.join('\n  ')}',
+      );
+    });
+
+    test('F-SCE197-2 (control): the flavours were paired and their selections '
+        'resolved [2026-09-25]', () {
+      // An empty selection on both sides agrees perfectly, so F-SCE197-1 needs
+      // this. Measured 2026-09-25: three paired runners per twin (base, issue
+      // analysis, harness), each selecting a non-empty set.
+      for (final twin in _twins) {
+        final stems = pairedRunnerStems(twin);
+        expect(
+          stems,
+          containsAll([
+            'run_base_tests',
+            'run_harness_tests',
+            'run_issue_analysis_tests',
+          ]),
+          reason: twin,
+        );
+        for (final stem in stems) {
+          expect(
+            selectedByRunner(twin, '$stem.sh'),
+            isNotEmpty,
+            reason: '$twin/test/$stem.sh selected nothing',
+          );
+        }
+      }
     });
 
     test('F-SCE152-1: every non-corpus test declares the bucket that actually '
