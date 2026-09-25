@@ -84,6 +84,7 @@ import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:test/test.dart';
 
 import 'port_recipe.dart';
+import 'sibling_trees.dart';
 
 /// Why a reference file with no same-path exec counterpart is nevertheless
 /// covered, and where that coverage lives.
@@ -4223,6 +4224,14 @@ Map<String, File> _testFiles(Directory root) {
 }
 
 void main() {
+  // SCE191: this guard resolves its subject relative to the package it
+  // runs in, so a copy anywhere else measures a different tree in silence.
+  requirePackage(
+    'tom_d4rt_exec',
+    subject:
+        "exec's suite still mirrors tom_d4rt's, file for file and case for case",
+  );
+
   // Relative paths out of the package are justified exactly here: the guard's
   // subject IS the repo layout, not the package. A published consumer has no
   // sibling checkout, so the whole file skips rather than failing — item (2).

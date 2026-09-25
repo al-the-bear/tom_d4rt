@@ -36,6 +36,7 @@ library;
 import 'dart:io';
 
 import 'package:test/test.dart';
+import '../sibling_trees.dart';
 
 /// Pattern kinds with no branch in this tree's `_matchAndBind`, and why.
 ///
@@ -125,6 +126,13 @@ Set<String> _handledKinds(File file) {
 }
 
 void main() {
+  // SCE191: this guard resolves its subject relative to the package it
+  // runs in, so a copy anywhere else measures a different tree in silence.
+  requirePackage(
+    'tom_d4rt_ast',
+    subject: 'reads `../tom_ast_model/lib/src/ast/` and',
+  );
+
   group('SCE105/AST: every pattern kind reaches a branch', () {
     late Set<String> modelKinds;
     late Set<String> handled;

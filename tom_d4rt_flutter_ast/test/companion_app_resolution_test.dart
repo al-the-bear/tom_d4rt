@@ -18,6 +18,7 @@ import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'companion_app_resolution.dart';
+import 'sibling_trees.dart';
 
 String _lockEntry(String name, String version, {String source = 'hosted'}) =>
     '  $name:\n'
@@ -46,6 +47,14 @@ void _package(
 }
 
 void main() {
+  // SCE191: this guard resolves its subject relative to the package it
+  // runs in, so a copy anywhere else measures a different tree in silence.
+  requirePackage(
+    'tom_d4rt_flutter_ast',
+    subject:
+        'each twin and its companion app resolve the same interpreter before the corpus runs',
+  );
+
   late Directory root;
   late String parentDir;
   late String appDir;

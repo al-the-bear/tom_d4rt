@@ -441,9 +441,7 @@ void main() {
 
     test('F-SCE186-1: every test in this tree is ported to exec or recorded '
         'in one of its coverage registers [2026-09-25]', () {
-      final recorded = {
-        for (final keys in registers.values) ...?keys,
-      };
+      final recorded = {for (final keys in registers.values) ...?keys};
       final unaccounted = ref.difference(ported).difference(recorded).toList()
         ..sort();
       expect(
@@ -484,7 +482,10 @@ void main() {
             'exec\'s F-SCE186-3, which checks the same parse against the '
             'consts.',
       );
-      expect(registers.values.map((k) => k!.length), everyElement(greaterThanOrEqualTo(20)));
+      expect(
+        registers.values.map((k) => k!.length),
+        everyElement(greaterThanOrEqualTo(20)),
+      );
       expect(ref.length, greaterThanOrEqualTo(300));
       expect(ported.length, greaterThanOrEqualTo(150));
     }, skip: skip);

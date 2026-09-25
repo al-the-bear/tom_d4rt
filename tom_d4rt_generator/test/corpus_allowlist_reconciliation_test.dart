@@ -44,6 +44,7 @@ import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:tom_d4rt_generator/tom_d4rt_generator.dart';
 import 'package:yaml/yaml.dart';
+import 'sibling_trees.dart';
 
 /// Resolves a path relative to the `tom_d4rt_generator` package root, whatever
 /// the test runner's CWD happens to be.
@@ -77,6 +78,14 @@ Set<String> _readCommittedAllowlist(String path) {
 }
 
 void main() {
+  // SCE191: this guard resolves its subject relative to the package it
+  // runs in, so a copy anywhere else measures a different tree in silence.
+  requirePackage(
+    'tom_d4rt_generator',
+    subject:
+        'the committed corpus relaxer allowlist still reconciles against the corpus',
+  );
+
   group('Corpus allowlist reconciliation (static)', () {
     final corpusPath = _fromPackageRoot(_corpusRelative);
     final allowlistPath = _fromPackageRoot(_allowlistRelative);

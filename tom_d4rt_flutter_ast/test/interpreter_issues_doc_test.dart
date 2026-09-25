@@ -43,6 +43,7 @@ import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'companion_app_resolution.dart';
+import 'sibling_trees.dart';
 
 /// One open cluster: its state marker and the heading text that follows it.
 typedef OpenCluster = ({String marker, String section});
@@ -609,6 +610,14 @@ List<String> sharedCauseViolations(
 }
 
 void main() {
+  // SCE191: this guard resolves its subject relative to the package it
+  // runs in, so a copy anywhere else measures a different tree in silence.
+  requirePackage(
+    'tom_d4rt_flutter_ast',
+    subject:
+        "the cluster log's header table matches its sections, both twins' test/README.md agree on what the corpus certifies, and all four copies of the pass/skip/fail reading rule — including the quest overview, across the _ai mount — still state it",
+  );
+
   final docFile = File('doc/interpreter_issues.md');
   late List<String> lines;
 

@@ -32,6 +32,7 @@ import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'run_attribution.dart';
+import 'sibling_trees.dart';
 
 const _twins = <String>['.', '../tom_d4rt_flutter'];
 
@@ -138,6 +139,14 @@ String _dartExecutable() {
 }
 
 void main() {
+  // SCE191: this guard resolves its subject relative to the package it
+  // runs in, so a copy anywhere else measures a different tree in silence.
+  requirePackage(
+    'tom_d4rt_flutter_ast',
+    subject:
+        'every corpus runner in BOTH twins writes the attribution header, and both copies of the helper agree',
+  );
+
   group('SCD164: corpus runs record the interpreter they resolved', () {
     late Directory root;
     late String parentDir;

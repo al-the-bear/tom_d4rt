@@ -57,6 +57,7 @@ library;
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'sibling_trees.dart';
 
 /// Both twins' driver directories, relative to this package root.
 const _driverDirs = <String>['test', '../tom_d4rt_flutter/test'];
@@ -165,6 +166,14 @@ int countDrivers() {
 }
 
 void main() {
+  // SCE191: this guard resolves its subject relative to the package it
+  // runs in, so a copy anywhere else measures a different tree in silence.
+  requirePackage(
+    'tom_d4rt_flutter_ast',
+    subject:
+        "every `skip:` in BOTH twins' corpus drivers states a mechanism and names its evidence",
+  );
+
   group('SCD140: a skip states a mechanism and names its evidence', () {
     test('F-SCD140-1: the drivers were actually scanned [2026-09-15]', () {
       // Anti-vacuity, and the failure this file is most exposed to: F-SCD140-2

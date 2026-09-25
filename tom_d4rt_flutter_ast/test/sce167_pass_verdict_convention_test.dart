@@ -52,6 +52,7 @@ import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'send_test_runner.dart';
+import 'sibling_trees.dart';
 
 const _twins = <String, String>{
   'tom_d4rt_flutter_ast': 'test',
@@ -110,6 +111,13 @@ bool _atLeastCleared(({int major, int minor, int patch}) f) {
 }
 
 void main() {
+  // SCE191: this guard resolves its subject relative to the package it
+  // runs in, so a copy anywhere else measures a different tree in silence.
+  requirePackage(
+    'tom_d4rt_flutter_ast',
+    subject: 'every corpus driver in BOTH twins',
+  );
+
   group('SCE167: one definition of a passing corpus script', () {
     test('F-SCE167-1: every driver in both twins asks the shared helper', () {
       final offenders = <String>[];

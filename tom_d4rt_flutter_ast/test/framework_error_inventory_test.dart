@@ -29,6 +29,7 @@ import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../tool/framework_error_inventory.dart';
+import 'sibling_trees.dart';
 
 /// Two log files in run order, in the harness's shape.
 const _fileA =
@@ -59,6 +60,13 @@ const _fileB =
     "       type 'dynamic Function()' is not a subtype of type 'VoidCallback' of 'onTap'\r\n";
 
 void main() {
+  // SCE191: this guard resolves its subject relative to the package it
+  // runs in, so a copy anywhere else measures a different tree in silence.
+  requirePackage(
+    'tom_d4rt_flutter_ast',
+    subject: 'the inventory tool reads the format',
+  );
+
   final inv = parseLogs({
     'flutter_extended_01_test.log.txt': _fileA,
     'flutter_extended_02_test.log.txt': _fileB,

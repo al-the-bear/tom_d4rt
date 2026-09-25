@@ -63,6 +63,7 @@ library;
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'sibling_trees.dart';
 
 const _ast = 'lib/src/d4rt_runtime_registrations.dart';
 const _source = '../tom_d4rt_flutter/lib/src/d4rt_runtime_registrations.dart';
@@ -118,6 +119,13 @@ Map<String, bool> _proxyClasses(String source) {
 }
 
 void main() {
+  // SCE191: this guard resolves its subject relative to the package it
+  // runs in, so a copy anywhere else measures a different tree in silence.
+  requirePackage(
+    'tom_d4rt_flutter_ast',
+    subject: "the two twins' hand-duplicated",
+  );
+
   late String ast;
   late String source;
 

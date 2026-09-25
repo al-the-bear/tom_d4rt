@@ -46,6 +46,7 @@ library;
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'sibling_trees.dart';
 
 /// The sibling twin's runner, which declares where its scripts come from.
 const _siblingRunner = '../tom_d4rt_flutter/test/send_test_runner.dart';
@@ -83,6 +84,13 @@ List<String> siblingCorpusLookalikes() {
 }
 
 void main() {
+  // SCE191: this guard resolves its subject relative to the package it
+  // runs in, so a copy anywhere else measures a different tree in silence.
+  requirePackage(
+    'tom_d4rt_flutter_ast',
+    subject: 'the two twins execute ONE script corpus, and it lives here',
+  );
+
   group('SCD141: one shared script corpus', () {
     test(
       'F-SCD141-1: the sibling twin points at a corpus that exists, and it is '

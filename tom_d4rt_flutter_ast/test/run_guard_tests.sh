@@ -247,6 +247,12 @@ run "stdlib types route to the stdlib under Flutter scope" \
 pair "shared test infrastructure agrees across the twins" \
   flutter test test/sce170_twin_test_infrastructure_test.dart
 
+# SCE191: every test here that reads a sibling tree calls `requirePackage`, so
+# a hand-copy into the other twin aborts instead of measuring itself. Reads only
+# this package's own test/ — pure file I/O.
+run "sibling-tree guards declare where they must run" \
+  flutter test test/sce191_structural_guard_anchoring_test.dart
+
 if [ "$mode" = pair ]; then
   scope="pair guards"
 else

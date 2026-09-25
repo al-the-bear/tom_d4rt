@@ -164,11 +164,11 @@ const int _bannerWindow = 12;
 /// package's suite runs — so it should cost one line here.
 const Map<String, int> _bannerCensus = {
   'tom_d4rt': 30,
-  'tom_d4rt_ast': 7,
-  'tom_d4rt_exec': 5,
+  'tom_d4rt_ast': 8,
+  'tom_d4rt_exec': 6,
   'tom_d4rt_flutter': 3,
-  'tom_d4rt_flutter_ast': 17,
-  'tom_d4rt_generator': 3,
+  'tom_d4rt_flutter_ast': 18,
+  'tom_d4rt_generator': 4,
 };
 
 /// The CODE of every `tool/` script [testFile] imports by a relative path,

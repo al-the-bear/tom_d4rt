@@ -27,11 +27,19 @@ import 'dart:io';
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt_ast/runtime.dart';
+import '../sibling_trees.dart';
 
 /// The demo app's committed bundle assets.
 final _assets = Directory('../tom_d4rt_flutter_ast_test/assets/bundles');
 
 void main() {
+  // SCE191: this guard resolves its subject relative to the package it
+  // runs in, so a copy anywhere else measures a different tree in silence.
+  requirePackage(
+    'tom_d4rt_ast',
+    subject: 'the reader still loads the bundles already shipped',
+  );
+
   group('SCE15: bundles shipped before the generator key still load', () {
     test(
       'F-SCE15-7: every shipped bundle loads, with generator null '

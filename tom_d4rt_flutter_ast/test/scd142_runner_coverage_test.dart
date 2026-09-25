@@ -56,6 +56,7 @@ library;
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'sibling_trees.dart';
 
 /// Both twins, relative to this package root.
 const _twins = <String>['.', '../tom_d4rt_flutter'];
@@ -218,6 +219,13 @@ bool coversSourceTwin(String path) {
 }
 
 void main() {
+  // SCE191: this guard resolves its subject relative to the package it
+  // runs in, so a copy anywhere else measures a different tree in silence.
+  requirePackage(
+    'tom_d4rt_flutter_ast',
+    subject: 'every test file in BOTH twins is reachable from some runner',
+  );
+
   group('SCD142: every test file is reachable from a runner', () {
     test('F-SCD142-1: both twins were scanned [2026-09-15]', () {
       // Anti-vacuity: F-SCD142-2 iterates the file list, so an empty list

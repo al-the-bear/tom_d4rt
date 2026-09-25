@@ -39,6 +39,7 @@ library;
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'sibling_trees.dart';
 
 /// The release of `tom_d4rt` whose barrel first exported `BridgedEnum`.
 const _exportedFrom = (major: 1, minor: 109, patch: 0);
@@ -96,6 +97,13 @@ bool _atLeastExportRelease(({int major, int minor, int patch}) floor) {
 }
 
 void main() {
+  // SCE191: this guard resolves its subject relative to the package it
+  // runs in, so a copy anywhere else measures a different tree in silence.
+  requirePackage(
+    'tom_d4rt_flutter_ast',
+    subject: "both twins' scd133 reach the registry",
+  );
+
   late ({int major, int minor, int patch}) floor;
   late String astSource;
   late String sourceSource;

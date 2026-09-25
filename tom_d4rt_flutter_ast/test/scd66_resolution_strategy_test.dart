@@ -72,11 +72,20 @@ import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../tool/prepublish_overrides.dart';
+import 'sibling_trees.dart';
 
 /// The `.gitignore` at the repository root, two levels up from this package.
 final repoGitignore = File('../.gitignore');
 
 void main() {
+  // SCE191: this guard resolves its subject relative to the package it
+  // runs in, so a copy anywhere else measures a different tree in silence.
+  requirePackage(
+    'tom_d4rt_flutter_ast',
+    subject:
+        'no tracked pubspec in the repo carries a dependency_overrides block, and the pre-publish pass still covers its five targets',
+  );
+
   group('SCD66: hosted by default, path only as an opt-in pass', () {
     test('SCD66-1: no target commits a `dependency_overrides:` block. '
         '[2026-09-12 00:00] (PASS)', () {

@@ -86,6 +86,7 @@ import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
+import 'sibling_trees.dart';
 
 /// The mirrored front-end files, as `reference -> this package`.
 /// Every `lib/src/` file this package shares a name with in the reference
@@ -225,6 +226,14 @@ Set<String> _publicMembers(String path, String className) {
 }
 
 void main() {
+  // SCE191: this guard resolves its subject relative to the package it
+  // runs in, so a copy anywhere else measures a different tree in silence.
+  requirePackage(
+    'tom_d4rt_exec',
+    subject:
+        "exec's parsing front end stays in step with the interpreter pair it mirrors",
+  );
+
   final haveReference = File(_mirroredFiles.keys.first).existsSync();
   final skipReason = haveReference
       ? null

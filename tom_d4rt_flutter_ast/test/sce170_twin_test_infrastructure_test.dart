@@ -50,6 +50,7 @@ library;
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'sibling_trees.dart';
 
 /// The sibling twin's test directory, relative to this package root.
 const String siblingTest = '../tom_d4rt_flutter/test';
@@ -221,6 +222,13 @@ bool mentions(List<String> code, String value) {
 }
 
 void main() {
+  // SCE191: this guard resolves its subject relative to the package it
+  // runs in, so a copy anywhere else measures a different tree in silence.
+  requirePackage(
+    'tom_d4rt_flutter_ast',
+    subject: 'every non-driver file both twins',
+  );
+
   late Set<String> shared;
 
   setUpAll(() {
