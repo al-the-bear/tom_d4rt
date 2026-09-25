@@ -2206,7 +2206,12 @@ List<String> sdkReexportOwners(String patchUri, String typeName) {
 /// probe needs the supertype in scope, and a wrong guess would make a present
 /// edge look absent. Returns null for `dart:core` (always in scope) and for
 /// anything not reflectable.
-String? _importForType(Type type) {
+String? _importForType(
+  Type type, {
+  List<String> Function(String patchUri, String typeName) owners =
+      sdkReexportOwners,
+  Set<String>? unresolved,
+}) {
   try {
     final t = reflectType(type);
     if (t is! ClassMirror) return null;
@@ -2216,8 +2221,8 @@ String? _importForType(Type type) {
     var uri = raw;
     if (raw.startsWith('dart:_')) {
       final typeName = MirrorSystem.getName(t.simpleName);
-      final owners = sdkReexportOwners(raw, typeName);
-      uri = sdkReexportOverrides[raw] ?? (owners.isEmpty ? raw : owners.first);
+      final homes = owners(raw, typeName);
+      uri = sdkReexportOverrides[raw] ?? (homes.isEmpty ? raw : homes.first);
     }
     if (!uri.startsWith('dart:') || uri == 'dart:core') return null;
     // Still unresolvable: emit nothing rather than something that cannot
@@ -2227,7 +2232,7 @@ String? _importForType(Type type) {
     // which library it could not resolve rather than leaving the class in the
     // unverified bucket with a reason that reads as the class's own property.
     if (uri.startsWith('dart:_')) {
-      unresolvedPatchLibraries.add(
+      (unresolved ?? unresolvedPatchLibraries).add(
         '$uri.${MirrorSystem.getName(t.simpleName)}',
       );
       return null;
@@ -2236,6 +2241,43 @@ String? _importForType(Type type) {
   } catch (_) {
     return null;
   }
+}
+
+/// The import derivation run for EVERY bridged class declared in a `dart:_`
+/// library, not only for the supertypes a candidate edge happens to need.
+///
+/// SCE196. [_importForType]'s only caller is the confirmed-edge loop of
+/// [verifyHierarchy], which runs for a gap whose recipe works and only over the
+/// supertypes that gap is missing. Measured 2026-09-25, a `--hierarchy` run had
+/// ONE candidate edge, satisfied by `isAssignable` before any probe — so the
+/// derivation ran zero times, and [unresolvedPatchLibraries] was empty because
+/// nothing asked, not because everything resolved. It was also printed nowhere.
+/// A diagnostic that cannot tell "clean" from "never ran" is the shape this
+/// audit spends its design avoiding.
+///
+/// So the census is taken over the registry, the same walk F-SCD163-1 makes,
+/// and the report prints how many derivations it performed beside the names of
+/// any it could not complete. [owners] and [unresolved] are the seams the test
+/// uses to make a patch library unresolvable without editing the SDK.
+({int derived, List<String> unresolved}) patchLibraryImportCensus(
+  Environment env, {
+  List<String> Function(String patchUri, String typeName) owners =
+      sdkReexportOwners,
+}) {
+  var derived = 0;
+  final unresolved = <String>{};
+  for (final name in env.bridgedClassNames) {
+    final bridge = env.findBridgedClassByName(name);
+    if (bridge == null) continue;
+    final mirror = reflectType(bridge.nativeType);
+    if (mirror is! ClassMirror) continue;
+    final owner = mirror.owner;
+    if (owner is! LibraryMirror) continue;
+    if (!owner.uri.toString().startsWith('dart:_')) continue;
+    derived++;
+    _importForType(bridge.nativeType, owners: owners, unresolved: unresolved);
+  }
+  return (derived: derived, unresolved: unresolved.toList()..sort());
 }
 
 /// Every supertype of [type] the SDK declares — superclass chain plus
@@ -2617,6 +2659,20 @@ Future<void> runHierarchyAudit(Environment env, List<String> args) async {
     '  ... declaring isAssignable:        '
     '${gaps.where((g) => g.hasIsAssignable).length}',
   );
+  // SCE196: the patch-library import census, independent of how many
+  // candidate edges this run happened to have.
+  final census = patchLibraryImportCensus(env);
+  unresolvedPatchLibraries.addAll(census.unresolved);
+  stdout.writeln(
+    'Patch-library import derivations:    ${census.derived} '
+    '(every bridged class declared in a dart:_ library)',
+  );
+  stdout.writeln(
+    '  ... unresolved:                    ${unresolvedPatchLibraries.length}',
+  );
+  for (final entry in unresolvedPatchLibraries.toList()..sort()) {
+    stdout.writeln('      $entry — no public library re-exports it');
+  }
   stdout.writeln('Candidate edges from cross-reference: $candidateEdges');
   stdout.writeln(
     '  ... satisfied anyway (isAssignable): '

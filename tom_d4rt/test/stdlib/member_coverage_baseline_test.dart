@@ -601,6 +601,38 @@ void main() {
     );
   });
 
+  test('F-SCE196-1: the patch-library import census covers the registry, not '
+      'the candidate edges [2026-09-25]', () {
+    // SCE196. The derivation used to run only inside the hierarchy audit's
+    // confirmed-edge loop; measured 2026-09-25 a `--hierarchy` run had one
+    // candidate edge, satisfied before any probe, so it ran ZERO times and its
+    // unresolved list was empty because nothing asked. The census now runs it
+    // once per bridged class declared in a `dart:_` library.
+    final census = patchLibraryImportCensus(_registryForPatchScan);
+    // Measured 2026-09-25: 31 (F-SCD163-1's comment recorded 30; the registry
+    // grew). A floor, not an equality: the count is a property of the registry.
+    expect(census.derived, greaterThanOrEqualTo(30));
+    expect(census.unresolved, isEmpty);
+  });
+
+  test('F-SCE196-2: an unresolvable patch library is NAMED, with no hierarchy '
+      'loop involved [2026-09-25]', () {
+    // SCE196's DONE WHEN: the tool names a `dart:_` library it cannot resolve
+    // on a run whose edge loop would never have reached it. The resolver is
+    // replaced with one that finds nothing — the state a new SDK re-export
+    // shape would put the real one in — and every patch-declared class must
+    // then be named, by library and type.
+    final census = patchLibraryImportCensus(
+      _registryForPatchScan,
+      owners: (patchUri, typeName) => const [],
+    );
+    expect(census.unresolved, hasLength(census.derived));
+    expect(
+      census.unresolved,
+      containsAll(['dart:_http.HeaderValue', 'dart:_internal.BytesBuilder']),
+    );
+  });
+
   test('F-SCD163-2: the re-export derivation answers per type, not per library '
       '[2026-09-15]', () {
     // F-SCD163-1 is an emptiness assertion and would pass over a derivation

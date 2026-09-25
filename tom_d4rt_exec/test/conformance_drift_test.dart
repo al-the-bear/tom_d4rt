@@ -1938,7 +1938,7 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
   // against `tom_d4rt_ast`'s registry, not ported. [2026-09-15]
   // `ran` IS HISTORICAL: this file does not compile against the resolved interpreter,
   // so the number above cannot be confirmed here (measured 2026-09-22, sce143).
-  'stdlib/member_coverage_baseline_test.dart': (ran: 4, declared: 13),
+  'stdlib/member_coverage_baseline_test.dart': (ran: 4, declared: 15),
   // BLOCKED ON A PUBLISH, and measured rather than inferred — the register above
   // says a pin written from prose rots, so both of these were ported into
   // `test/` and run against published 0.65.0 before being recorded.
