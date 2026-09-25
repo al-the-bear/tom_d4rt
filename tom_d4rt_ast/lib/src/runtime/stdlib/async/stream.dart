@@ -63,11 +63,12 @@ class StreamAsync {
       // THIS bridge or they lose the whole inherited Stream surface. See
       // [StreamViewAsync] for the reasoning.
       'StreamView',
-      '_StreamIterator',
-      // An OVERRIDE, not an allowlist entry: the name reaches `EventSink` by
-      // suffix, and `EventSink` claims it too. Which one wins is sce178's to
-      // decide, so the SCE177 prune kept it.
-      '_HandlerEventSink',
+      // SCE178 removed two entries that sent a non-Stream here. Measured with
+      // the SDK: `_StreamIterator` is what `StreamIterator(...)` returns, and
+      // `_HandlerEventSink` implements `EventSink`. Neither is a Stream. The
+      // first never reached this bridge, because its name reaches
+      // `StreamIterator` first; the second did — it was also on `EventSink`'s
+      // list, and registration order picked this one.
     ],
     constructors: {},
     staticMethods: {
@@ -1045,7 +1046,7 @@ class EventSinkAsync {
     nativeType: EventSink,
     name: 'EventSink',
     typeParameterCount: 1,
-    nativeNames: ['_EventSinkWrapper', '_HandlerEventSink'],
+    nativeNames: ['_EventSinkWrapper'],
     constructors: {},
     staticMethods: {},
     methods: {

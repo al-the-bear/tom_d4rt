@@ -74,8 +74,12 @@
 /// | 3 — override (sce178's) | 2 |
 /// | 1 — redundant but KEPT, each for a stated reason | 3 |
 ///
-/// 24 entries across 10 bridges, from 109 across 28. The three kept ones are
-/// [_redundantButKept]; F-SCE177-1 keeps that list honest in both directions.
+/// 24 entries across 10 bridges, from 109 across 28. SCE178 then resolved
+/// the two overrides and the one duplicate they carried (see F-SCD146-3),
+/// which left 21 entries across 10 bridges (measured 2026-09-25): 19 the
+/// SDK abbreviates, and the two BytesBuilder entries kept for a stated
+/// reason. The kept ones are [_redundantButKept]; F-SCE177-1 keeps
+/// that list honest in both directions.
 ///
 /// The real resolution order has more arms than any static model should claim
 /// to reproduce (a private-name arm, an exact-name pass, a nativeName PREFIX
@@ -210,21 +214,13 @@ const Map<String, String> _redundantButKept = {
       'The same exposure as `_CopyingBytesBuilder` by name: `Builder` is a '
       'suffix. The guard measured only the copying variant being taken, but '
       'the two are one decision in one list.',
-  '_HandlerEventSink':
-      'The `EventSink` half of a duplicate whose other half is the `Stream` '
-      'override. Deleting only this half would hand the type to the override '
-      'silently; which bridge owns it is sce178\'s decision.',
 };
 
-const Map<String, String> _knownDuplicates = {
-  '_HandlerEventSink':
-      'Claimed by `Stream` (async/stream.dart:70) and `EventSink` '
-      '(async/stream.dart:1039). The name reaches `EventSink` by suffix, so the '
-      '`Stream` entry is the one that needs justifying — and it may already be '
-      'inert, exactly as the `Stream` bridge\'s `_StreamIterator` entry turned '
-      'out to be (F-SCD146-3). Neither was measured here because instantiating '
-      'the type needs a live `handleError` sink.',
-};
+// SCE178 resolved the only duplicate this census ever found:
+// `_HandlerEventSink` was on both `Stream` and `EventSink`, and registration
+// order made `Stream` win for a type that implements `EventSink`. Empty now,
+// and F-SCD146-4 fails on any new one.
+const Map<String, String> _knownDuplicates = {};
 
 void main() {
   late List<Census> census;
@@ -265,24 +261,20 @@ void main() {
       }
     });
 
-    test('F-SCD146-3 (ground truth): a type whose name reaches a MORE specific '
-        'bridge is classified as an override [2026-09-15]', () {
-      // `_StreamIterator` sits in the `Stream` bridge's list, and measured
-      // against a live interpreter it resolves to `StreamIterator` — a
-      // different, more specific bridge that claims it first. So the entry is
-      // inert, and the classifier must see the name pointing elsewhere.
-      final row = census.firstWhere((c) => c.entry == '_StreamIterator');
-      expect(row.owner, 'Stream');
-      expect(row.kind, EntryKind.override);
-      expect(
-        row.nameReaches,
-        'StreamIterator',
-        reason:
-            'the first draft of this census modelled only the structural '
-            'pass, which strips the leading underscore, and so reported '
-            '`Iterator`. Step 3 matches the unstripped name and gets '
-            '`StreamIterator`, which is what actually happens.',
-      );
+    test('F-SCD146-3: no override entry remains [2026-09-15, SCE178 '
+        '2026-09-25]', () {
+      // The census found two override entries, both on the `Stream` bridge.
+      // `_StreamIterator` was inert (its name reaches `StreamIterator` first);
+      // `_HandlerEventSink` was live and wrong (registration order sent an
+      // `EventSink` implementation to `Stream`). SCE178 removed both, and
+      // `sce178_stream_override_resolution_test.dart` pins what each resolves
+      // to in the live registry. A new override must earn its place there.
+      final overrides = [
+        for (final row in census)
+          if (row.kind == EntryKind.override)
+            '${row.entry} on ${row.owner} (the name reaches ${row.nameReaches})',
+      ];
+      expect(overrides, isEmpty);
     });
 
     test('F-SCD146-4: no entry is claimed by two bridges [2026-09-15]', () {

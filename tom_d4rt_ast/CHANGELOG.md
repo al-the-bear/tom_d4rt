@@ -1,3 +1,26 @@
+## 0.168.0
+
+### Fixed — the Stream bridge claimed two types that are not Streams (sce178)
+
+scd146's census found two override entries on the `Stream` bridge's
+`nativeNames`, both there since the first commit. Measured with the SDK and
+the live registry of both interpreters:
+
+- `_StreamIterator` (what `StreamIterator(...)` returns) was inert: its name
+  reaches the `StreamIterator` bridge first.
+- `_HandlerEventSink`, which implements `EventSink`, was on BOTH the Stream
+  and EventSink lists, and registration order made **Stream** win. The live
+  registry answered `Stream` for a type that is not one.
+
+Both entries are gone from Stream. With the duplicate resolved, EventSink's
+own entry was redundant, since its name reaches `EventSink` by suffix, so it
+went too. The type is never handed to script code, so no script changes
+behaviour; the registry simply stops giving a wrong answer.
+`sce178_stream_override_resolution_test` pins both resolutions in each tree's
+live registry.
+
+Name resolution: yes — `_HandlerEventSink` now resolves to EventSink rather than Stream (sce178).
+
 ## 0.167.0
 
 ### Changed — 85 redundant stdlib `nativeNames` entries removed (sce177)
