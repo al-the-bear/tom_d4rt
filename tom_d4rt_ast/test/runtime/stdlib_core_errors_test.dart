@@ -88,12 +88,36 @@ void main() {
     test('F-SC5-AST-3: the private VM subclasses route to their public bridge '
         '[2026-07-27]', () {
       // A failing cast raises `_TypeError`, a failing `assert` raises
-      // `_AssertionError`. Without `nativeNames` those values reach no bridge
-      // at all, so `on TypeError` could never see them.
-      expect(bridgeOf('TypeError').nativeNames, contains('_TypeError'));
+      // `_AssertionError`. If those values reached no bridge, `on TypeError`
+      // could never see them. SCE177: asserted on the real VM objects and the
+      // bridge they ROUTE to, not on list membership — the structural pass
+      // reaches both names by suffix, so their `nativeNames` entries went.
+      Object? caught(void Function() raise) {
+        try {
+          raise();
+        } catch (e) {
+          return e;
+        }
+        return null;
+      }
+
+      final typeError = caught(() => (1 as dynamic) as String);
+      final assertionError = caught(() {
+        assert(false, 'raised on purpose');
+      });
       expect(
-        bridgeOf('AssertionError').nativeNames,
-        contains('_AssertionError'),
+        typeError.runtimeType.toString(),
+        '_TypeError',
+        reason: 'the premise: the VM raises its private subclass',
+      );
+      expect(
+        env.toBridgedClass(typeError.runtimeType).name,
+        bridgeOf('TypeError').name,
+      );
+      expect(assertionError.runtimeType.toString(), '_AssertionError');
+      expect(
+        env.toBridgedClass(assertionError.runtimeType).name,
+        bridgeOf('AssertionError').name,
       );
     });
 

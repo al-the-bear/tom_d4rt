@@ -1,3 +1,23 @@
+## 0.167.0
+
+### Changed — 85 redundant stdlib `nativeNames` entries removed (sce177)
+
+Since SCC49 the structural pass reaches a private SDK type by the bridge name
+it ends with, so most allowlist entries were redundant: 85 of 109, including
+all 17 on `Iterator`. They are gone, and both interpreter suites pass. The
+analyzer-free line's routing tests now ask `toBridgedClass` which bridge a
+REAL SDK object reaches, not whether a name sits in a list.
+
+24 entries remain across 10 bridges: 19 the SDK abbreviates (no suffix rule
+reaches them), 2 overrides left to sce178, and 3 kept deliberately. Two of
+those are `BytesBuilder`'s: the suffix pass walks the nearest scope frame
+first, and in a Flutter app `Builder` (a widget) is a nearer suffix of
+`_CopyingBytesBuilder`. Measured with the entries removed, `BytesBuilder()`
+resolved to the Builder widget. The census now fails if a redundant entry
+survives without a stated reason.
+
+Name resolution: yes — stdlib private types now reach their bridge by suffix rather than by a precise entry (sce177).
+
 ## 0.166.0
 
 ### Fixed — a `StreamTransformer` was dispatched as a `Stream` on the analyzer-free line (sce160)

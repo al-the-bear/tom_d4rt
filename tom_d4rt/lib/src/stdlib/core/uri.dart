@@ -8,7 +8,6 @@ class UriCore {
     name: 'Uri',
     isAssignable: (v) => v is Uri,
     typeParameterCount: 0,
-    nativeNames: ['_SimpleUri'],
     constructors: {
       '': (visitor, positionalArgs, namedArgs) {
         return Uri(

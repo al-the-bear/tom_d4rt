@@ -61,6 +61,22 @@
 /// entry is INERT — a more specific bridge claims the type first — which no
 /// amount of reading the list would have shown.
 ///
+/// ## After the prune — measured 2026-09-25 (SCE177)
+///
+/// The 85 kind-1 entries with no reason to stay were deleted, and both
+/// interpreter suites ran green on the result — the analyzer-free line's
+/// routing cases rewritten to ask `toBridgedClass` which bridge a REAL SDK
+/// object reaches, rather than whether a name sits in a list. What is left:
+///
+/// | kind | count |
+/// | ---- | ----: |
+/// | 2 — SDK abbreviates | 19 |
+/// | 3 — override (sce178's) | 2 |
+/// | 1 — redundant but KEPT, each for a stated reason | 3 |
+///
+/// 24 entries across 10 bridges, from 109 across 28. The three kept ones are
+/// [_redundantButKept]; F-SCE177-1 keeps that list honest in both directions.
+///
 /// The real resolution order has more arms than any static model should claim
 /// to reproduce (a private-name arm, an exact-name pass, a nativeName PREFIX
 /// pass, PASS B's corroborated prefix, then the structural pass). So the honest
@@ -180,6 +196,26 @@ Future<List<Census>> takeCensus() async {
 /// attributable. Resolving one means deciding which bridge owns the type and
 /// proving the other entry was inert — a measurement, not an edit. sce178 owns
 /// it.
+/// Kind-1 entries — the name alone reaches the owning bridge — that SCE177's
+/// prune deliberately KEPT, with why. Anything redundant and not listed here is
+/// an entry nobody needs, and a trap for the next reader: it makes the
+/// mechanism look like it needs hand-maintenance when it does not.
+const Map<String, String> _redundantButKept = {
+  '_CopyingBytesBuilder':
+      'In a Flutter app the widget bridges are in the NEARER scope frame and '
+      '`Builder` is a suffix of this name, so without the precise entry '
+      '`BytesBuilder()` resolves to the Builder widget (measured, SCE177; '
+      'guarded by sce177_stdlib_routing_under_flutter_test.dart).',
+  '_BytesBuilder':
+      'The same exposure as `_CopyingBytesBuilder` by name: `Builder` is a '
+      'suffix. The guard measured only the copying variant being taken, but '
+      'the two are one decision in one list.',
+  '_HandlerEventSink':
+      'The `EventSink` half of a duplicate whose other half is the `Stream` '
+      'override. Deleting only this half would hand the type to the override '
+      'silently; which bridge owns it is sce178\'s decision.',
+};
+
 const Map<String, String> _knownDuplicates = {
   '_HandlerEventSink':
       'Claimed by `Stream` (async/stream.dart:70) and `EventSink` '
@@ -201,11 +237,12 @@ void main() {
       // satisfies all of them.
       expect(
         census.length,
-        greaterThanOrEqualTo(80),
+        greaterThanOrEqualTo(20),
         reason:
-            'only ${census.length} entries found; 106 across 84 bridges on '
-            '2026-09-15. Finding almost none means the stdlib did not register '
-            'and this file is classifying nothing.',
+            'only ${census.length} entries found; 24 across 10 bridges after '
+            "SCE177's prune on 2026-09-25 (106 across 84 before it). Finding "
+            'almost none means the stdlib did not register and this file is '
+            'classifying nothing.',
       );
     });
 
@@ -288,5 +325,33 @@ void main() {
       ];
       expect(stale, isEmpty, reason: stale.join('\n'));
     });
+
+    test(
+      'F-SCE177-1: every redundant entry that survives is kept for a '
+      'stated reason, and every stated reason still applies [2026-09-25]',
+      () {
+        final redundant = {
+          for (final row in census)
+            if (row.kind == EntryKind.redundant) row.entry,
+        };
+        expect(
+          redundant.difference(_redundantButKept.keys.toSet()),
+          isEmpty,
+          reason:
+              'These entries are reached by name alone and nothing records why '
+              'they are here. Delete them, or add them to `_redundantButKept` '
+              'with the reason — typically a nearer-frame suffix match that '
+              'would take the type (SCF26).',
+        );
+        expect(
+          _redundantButKept.keys.toSet().difference(redundant),
+          isEmpty,
+          reason:
+              'These are listed as kept-though-redundant but are no longer '
+              'redundant entries (gone, or reclassified). Remove them from '
+              '`_redundantButKept`.',
+        );
+      },
+    );
   });
 }

@@ -63,40 +63,11 @@ class StreamAsync {
       // THIS bridge or they lose the whole inherited Stream surface. See
       // [StreamViewAsync] for the reasoning.
       'StreamView',
-      '_MultiStream',
-      '_ControllerStream',
-      '_BroadcastStream',
-      '_SingleSubscriptionStream',
       '_StreamIterator',
-      '_EmptyStream',
-      '_SingleStream',
-      '_ErrorStream',
-      '_PeriodicStream',
-      '_FromIterableStream',
-      '_ForwardingStream',
-      // The stream `handleError` returns. Absent until SCB9, which made
-      // every member of a handleError result fail with "Undefined property
-      // or method ... on _HandleErrorStream" — and is why handleError's
-      // own arity handling had never been exercised by a test.
-      '_HandleErrorStream',
-      '_AsBroadcastStream',
-      '_BoundSinkStream',
+      // An OVERRIDE, not an allowlist entry: the name reaches `EventSink` by
+      // suffix, and `EventSink` claims it too. Which one wins is sce178's to
+      // decide, so the SCE177 prune kept it.
       '_HandlerEventSink',
-      '_TakeStream',
-      '_MapStream',
-      '_WhereStream',
-      '_ExpandStream',
-      '_SkipStream',
-      '_TakeWhileStream',
-      '_SkipWhileStream',
-      '_DistinctStream',
-      '_StdStream',
-      // What `File.openRead()` returns. A `dart:io` private type, but it is
-      // a Stream, so this bridge is the one that has to claim it. Missing
-      // until SCC24: the single use of `openRead` in the suite passed the
-      // result straight into `addStream` and so never called a member on
-      // it, which is exactly the blind spot an inert value creates.
-      '_FileStream',
     ],
     constructors: {},
     staticMethods: {
@@ -567,11 +538,8 @@ class StreamSubscriptionAsync {
     nativeNames: [
       '_ControllerSubscription',
       '_BroadcastSubscription',
-      '_BufferingStreamSubscription',
       '_StreamSubscriptionWrapper',
-      '_DoneStreamSubscription',
       '_SingleSubscription',
-      '_EmptyStreamSubscription',
     ],
     constructors: {},
     methods: {
@@ -766,7 +734,9 @@ class StreamTransformerAsync {
     // the SDK (sce160): `fromHandlers` -> _StreamHandlerTransformer, the
     // unnamed constructor -> _StreamSubscriptionTransformer, `fromBind` ->
     // _StreamBindTransformer, `cast` / `castFrom` -> CastStreamTransformer.
-    // None of them is a Stream. `_StreamHandlerTransformer` used to be listed
+    // None of them is a Stream. The first three are named here because no
+    // suffix rule reaches them; CastStreamTransformer is not, because its name
+    // already ends with this bridge's. `_StreamHandlerTransformer` used to be listed
     // on the STREAM bridge, so on the analyzer-free line, which resolves a
     // bare native by its runtime name alone, `t.cast<int, int>()` dispatched
     // to Stream.cast and failed "is not a subtype of type 'Stream<dynamic>'".
@@ -774,7 +744,6 @@ class StreamTransformerAsync {
       '_StreamHandlerTransformer',
       '_StreamSubscriptionTransformer',
       '_StreamBindTransformer',
-      'CastStreamTransformer',
     ],
     constructors: {
       '': (visitor, positionalArgs, namedArgs) {

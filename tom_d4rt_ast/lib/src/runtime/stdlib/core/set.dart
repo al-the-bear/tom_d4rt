@@ -10,12 +10,7 @@ class SetCore {
     nativeNames: [
       'UnmodifiableSetView',
       '_UnmodifiableSetView',
-      '_CompactLinkedHashSet',
-      'LinkedHashSet', // Explicit LinkedHashSet
       '_SetBase', // Internal Set base type
-      '_ConstSet', // Const set literals
-      '_HashSet', // HashSet internal type
-      'CompactLinkedIdentityHashSet', // Identity hash set
     ],
     isAssignable: (v) => v is Set,
     constructors: {

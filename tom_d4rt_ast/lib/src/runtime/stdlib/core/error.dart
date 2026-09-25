@@ -528,7 +528,6 @@ class TypeErrorCore {
   static BridgedClass get definition => BridgedClass(
     nativeType: TypeError,
     name: 'TypeError',
-    nativeNames: const ['_TypeError'],
     isAssignable: (v) => v is TypeError,
     typeParameterCount: 0,
     constructors: {'': (visitor, positionalArgs, namedArgs) => TypeError()},
@@ -551,7 +550,6 @@ class AssertionErrorCore {
   static BridgedClass get definition => BridgedClass(
     nativeType: AssertionError,
     name: 'AssertionError',
-    nativeNames: const ['_AssertionError'],
     isAssignable: (v) => v is AssertionError,
     typeParameterCount: 0,
     constructors: {

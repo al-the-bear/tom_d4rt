@@ -37,6 +37,12 @@ void main() {
   /// returns, so the test asks the SDK.
   String nameOf(Object? o) => o.runtimeType.toString().split('<').first;
 
+  // SCE177: these asserted that each implementation name sat in the bridge's
+  // `nativeNames`, which was the mechanism when they were written. Since SCC49
+  // the structural pass reaches these names by suffix, and the redundant
+  // entries were pruned; so the cases now ask the question their own failure
+  // messages always described — which bridge the real SDK type ROUTES to —
+  // through `toBridgedClass`, whatever mechanism answers it.
   group('SCB17: iterator and iterable implementation names', () {
     test('F-SCB17-AST-1: every bridged collection\'s iterator routes to the '
         'Iterator bridge [2026-07-28]', () {
@@ -56,8 +62,8 @@ void main() {
       };
       for (final entry in receivers.entries) {
         expect(
-          iterator.nativeNames,
-          contains(nameOf(entry.value.iterator)),
+          env.toBridgedClass(entry.value.iterator.runtimeType).name,
+          iterator.name,
           reason:
               '${entry.key}.iterator is a '
               '${nameOf(entry.value.iterator)}, which must route to Iterator '
@@ -86,8 +92,8 @@ void main() {
           'entries': entry.value.entries,
         }.entries) {
           expect(
-            iterator.nativeNames,
-            contains(nameOf(view.value.iterator)),
+            env.toBridgedClass(view.value.iterator.runtimeType).name,
+            iterator.name,
             reason:
                 '${entry.key}.${view.key}.iterator is a '
                 '${nameOf(view.value.iterator)}',
@@ -115,8 +121,8 @@ void main() {
           'entries': entry.value.entries,
         }.entries) {
           expect(
-            iterable.nativeNames,
-            contains(nameOf(view.value)),
+            env.toBridgedClass(view.value.runtimeType).name,
+            iterable.name,
             reason:
                 '${entry.key}.${view.key} is a ${nameOf(view.value)}; '
                 'SplayTreeMap.entries was the one that was missing',

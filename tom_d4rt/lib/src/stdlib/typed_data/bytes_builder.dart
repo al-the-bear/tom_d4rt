@@ -16,6 +16,17 @@ import 'package:tom_d4rt/d4rt.dart';
 /// omitting `_BytesBuilder` would leave `BytesBuilder(copy: false)` working at
 /// construction and broken on the first `addByte`.
 ///
+/// **Why the entries survived SCE177's prune.** Since SCC49 the structural
+/// pass reaches both names by suffix, so in a plain interpreter the entries
+/// are redundant. They are kept because that pass walks the NEAREST scope frame
+/// first (SCF26), and in a Flutter app the widget bridges sit in the nearer
+/// frame — where `Builder` is also a suffix of `_CopyingBytesBuilder`. Measured
+/// with the entries removed: `BytesBuilder()` resolved to the `Builder` widget.
+/// A precise entry wins before any suffix is tried, so it is what keeps this
+/// bridge's answer independent of what else is in scope.
+/// `tom_d4rt_flutter_ast/test/sce177_stdlib_routing_under_flutter_test.dart`
+/// is the guard.
+///
 /// Declaring `isAssignable` is safe here for the same reason it was safe on
 /// `DoubleLinkedQueue`: the two implementations are private, so no more
 /// specific bridge exists that this predicate could steal dispatch from.

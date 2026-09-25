@@ -82,6 +82,10 @@ const Map<String, String> _deferred = {
       'unpublished — sce160 publish in progress (StreamTransformer nativeNames)',
   '0.166.0':
       'unpublished — sce160 publish in progress (StreamTransformer nativeNames)',
+  '1.183.0':
+      'unpublished — sce160 publish in progress (sce177 nativeNames prune)',
+  '0.167.0':
+      'unpublished — sce160 publish in progress (sce177 nativeNames prune)',
 };
 
 List<int> _key(String v) => v.split('.').map(int.parse).toList();

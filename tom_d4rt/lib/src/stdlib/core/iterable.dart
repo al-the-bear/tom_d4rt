@@ -5,46 +5,6 @@ class IterableCore {
     nativeType: Iterable,
     name: 'Iterable',
     typeParameterCount: 1,
-    nativeNames: [
-      '_GeneratorIterable',
-      '_HashMapKeyIterable',
-      '_HashMapValueIterable',
-      '_CompactKeysIterable',
-      '_CompactEntriesIterable',
-      '_CompactValuesIterable',
-      '_SplayTreeKeyIterable',
-      '_SplayTreeValueIterable',
-      // `SplayTreeMap.entries` — the key and value views were listed but
-      // the entry view was not, so `.entries` was unusable on a
-      // `SplayTreeMap` while it worked on every other map.
-      '_SplayTreeMapEntryIterable',
-      '_AllMatchesIterable',
-      '_LineSplitIterable', // LineSplitter.split()
-      '_SyncGeneratorIterable', // D4rt interpreter sync* generator
-      '_SyncStarIterable', // Dart SDK sync* generator (from bridged code)
-      // List transformation iterables (returned by .map(), .where(), etc.)
-      'MappedListIterable',
-      'MappedIterable',
-      'WhereIterable',
-      'WhereTypeIterable',
-      'ExpandIterable',
-      'TakeIterable',
-      'TakeWhileIterable',
-      'SkipIterable',
-      'SkipWhileIterable',
-      'FollowedByIterable',
-      'ReversedListIterable',
-      'SubListIterable',
-      'CastIterable',
-      // `Iterable.castFrom` / `.cast()` return the *efficient-length*
-      // subtype whenever the source can report its length cheaply — which
-      // is the common case (a list). Listing only `CastIterable` left
-      // `.length` on a cast list unreachable.
-      '_EfficientLengthCastIterable',
-      'EfficientLengthMappedIterable',
-      'EfficientLengthSkipIterable',
-      'EfficientLengthTakeIterable',
-    ],
     constructors: {
       'withIterator': (visitor, positionalArgs, namedArgs) {
         if (positionalArgs.length != 1 || positionalArgs[0] is! Callable) {

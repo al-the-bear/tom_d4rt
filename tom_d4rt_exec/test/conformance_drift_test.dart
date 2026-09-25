@@ -2504,6 +2504,12 @@ const Map<String, _Convergence> _convergenceLog = {
 /// re-measure the whole register when the floor moves, not the entry you
 /// happened to be reading.
 const Map<String, _Divergence> _divergentBaseline = {
+  // `scd146`: SCE177 pruned 85 redundant stdlib `nativeNames` entries, so the
+  // reference census now expects 24 entries and asserts that every surviving
+  // redundant one is kept for a stated reason (F-SCE177-1). The published
+  // interpreter this package resolves still carries all 106, so here the old
+  // floor and no F-SCE177-1 stay. Converges at a floor past 0.167.0.
+  'scd146_native_names_census_test.dart': _Divergence.deliberate,
   // `scd77`: SCE121 made `is Function` true for every value the interpreter
   // can call — a bridged tear-off included — by giving the `Function` bridge
   // an `isAssignable` that answers with the interpreter's own `Callable`
@@ -2784,6 +2790,7 @@ const Map<String, _Divergence> _divergentBaseline = {
 /// Recomputing without reading the new difference is the failure mode; the
 /// message says so.
 const Map<String, String> _divergenceFingerprints = <String, String>{
+  'scd146_native_names_census_test.dart': '8fff6b7691fbec0c',
   'scd77_uri_is_scheme_test.dart': '7157029405e6bfda',
   'scb9_error_handler_arity_test.dart': 'd880f1617d543ff7',
   'scc20_catch_clause_type_test.dart': '1f778a50235ef954',
@@ -2983,6 +2990,11 @@ typedef _Pin = ({String floor, String measured});
 /// recorded evidence was seven and ten cases out of date. Both are re-stamped
 /// above their entries in `_uncoveredBaseline`.
 const Map<String, _Pin> _pinnedInterpreterFloors = <String, _Pin>{
+  // SCE177, pinned at the release carrying the prune.
+  'scd146_native_names_census_test.dart': (
+    floor: '0.167.0',
+    measured: '0.65.0',
+  ),
   'sce127_dead_on_clause_test.dart': (floor: '0.154.0', measured: '0.65.0'),
   // SCE139, pinned at the release carrying the fix rather than at a later
   // working-tree version.

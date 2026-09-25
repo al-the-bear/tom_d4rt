@@ -236,6 +236,11 @@ run "tool lookup picks a runnable file on Windows" \
 pair "framework-error inventory reads the harness format" \
   flutter test test/framework_error_inventory_test.dart
 
+# SCE177: private SDK types still reach their STDLIB bridge with the Flutter
+# bridges in the nearer scope frame (a suffix match there would take them).
+run "stdlib types route to the stdlib under Flutter scope" \
+  flutter test test/sce177_stdlib_routing_under_flutter_test.dart
+
 # SCE170: every non-driver file both twins carry in test/ is classified, the
 # derivable ones agree as CODE modulo the twin parameters, and none carries the
 # other twin's parameter. Repo-wide (it reads the sibling's test/). Pure file I/O.

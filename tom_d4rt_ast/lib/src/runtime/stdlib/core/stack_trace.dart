@@ -5,7 +5,6 @@ class StackTraceCore {
     nativeType: StackTrace,
     name: 'StackTrace',
     typeParameterCount: 0,
-    nativeNames: ['_StringStackTrace'],
     constructors: {
       'fromString': (visitor, positionalArgs, namedArgs) {
         if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
