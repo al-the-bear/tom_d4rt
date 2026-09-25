@@ -3276,6 +3276,18 @@ String _execAstFloor() {
 /// `pubspec.lock` is gitignored here (this is a package, not an app), so the
 /// number is per-machine and invisible in any diff or review. That is exactly
 /// why it has to be read at run time and printed, rather than written down.
+/// How `pubspec.lock` says tom_d4rt_ast was resolved — `hosted` normally,
+/// `path` under SCD66's pre-publish pass (a gitignored `pubspec_overrides.yaml`
+/// pointing at the working tree) — or null when the entry is unreadable.
+String? _execAstSource() {
+  final lock = File('pubspec.lock');
+  if (!lock.existsSync()) return null;
+  return RegExp(
+    '^  tom_d4rt_ast:\\n(?:    .*\\n|      .*\\n)*?    source: (\\w+)',
+    multiLine: true,
+  ).firstMatch(lock.readAsStringSync())?.group(1);
+}
+
 String _execAstResolved() {
   final lock = File('pubspec.lock');
   if (!lock.existsSync()) {
@@ -5437,7 +5449,7 @@ void main() {
     });
 
     test('F-SCC80-1: the resolved tom_d4rt_ast version is readable, printed '
-        'and not behind the declared floor [2026-09-07]', () {
+        'and exactly the declared floor [2026-09-07]', () {
       final floor = _execAstFloor();
       final resolved = _execAstResolved();
 
@@ -5466,6 +5478,49 @@ void main() {
             '$floor this package declares. Every result in this run therefore '
             'describes an interpreter the constraint itself calls too old. Run '
             '`dart pub upgrade`.',
+      );
+
+      // SCE192. Not behind is not enough: the lock may also be AHEAD. Then the
+      // only record of which interpreter a green run certified is a gitignored
+      // lockfile and the line printed above — per-machine, and unrecoverable
+      // once the lock moves again. Held to EQUALITY, the pubspec in the
+      // repository says which interpreter the suite measures, in every diff and
+      // every review. That is SCC80's own argument for a caret bound "on the
+      // version actually certified, so moving onto a new interpreter is a
+      // deliberate edit"; equality is what makes the edit happen.
+      //
+      // THE COST, MEASURED RATHER THAN FEARED. A caret on a 0.x version is
+      // minor-locked — `^0.65.0` is `>=0.65.0 <0.66.0` — so taking any new
+      // minor interpreter release already required editing this pubspec. What
+      // equality adds is the edit for a PATCH release, and the order is the
+      // one the failure below spells out: bump the constraint, then upgrade,
+      // in one commit.
+      //
+      // HOSTED ONLY. Under SCD66's pre-publish pass the lock resolves the
+      // working tree by path, at the tree's version; that is F-SCC80-3's
+      // finding, reported there, and one of the flips the pass expects. A
+      // second red here for the same cause would lengthen that list and say
+      // nothing new.
+      final source = _execAstSource();
+      if (source != 'hosted') {
+        // ignore: avoid_print
+        print(
+          'F-SCC80-1: tom_d4rt_ast resolves by `$source`, not from pub.dev — '
+          'the equality half does not apply; F-SCC80-3 reports the resolution.',
+        );
+        return;
+      }
+      expect(
+        resolved,
+        floor,
+        reason:
+            'pubspec.lock resolves tom_d4rt_ast $resolved, but this package '
+            'declares $floor. Every result in this run certifies $resolved, and '
+            'the repository records $floor — so which interpreter was measured '
+            'now lives only in a gitignored lockfile. Set the constraint to '
+            '"^$resolved" in pubspec.yaml, in the same commit as the upgrade '
+            'that moved the lock (or `dart pub downgrade` if the move was not '
+            'meant).',
       );
     });
 
