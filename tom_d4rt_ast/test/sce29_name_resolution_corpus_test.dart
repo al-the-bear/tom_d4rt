@@ -75,6 +75,13 @@ const Map<String, String> _deferred = {
   // version was written. See sce162's entry for those numbers.
   '1.180.0': 'unpublished — sce162 publish block (scf26 suffix-match ordering)',
   '0.163.0': 'unpublished — sce162 publish block (scf26 suffix-match ordering)',
+  // Found and fixed by sce160's pre-publish pass, and published by it. The
+  // post-publish full corpus run that sce160 records covers it; delete these
+  // two with the rest of this map when that run is written.
+  '1.182.0':
+      'unpublished — sce160 publish in progress (StreamTransformer nativeNames)',
+  '0.166.0':
+      'unpublished — sce160 publish in progress (StreamTransformer nativeNames)',
 };
 
 List<int> _key(String v) => v.split('.').map(int.parse).toList();

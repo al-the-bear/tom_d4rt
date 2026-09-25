@@ -1,3 +1,15 @@
+## 1.32.0
+
+### Fixed — the script-to-host boundary retyped typed-data lists (sce160)
+
+`_bridgeInterpreterValueToNative` rebuilt every List with `.map(...).toList()`
+and every Map with `.map`, which retypes unconditionally. A `Uint8List`
+returned by a method reached the host as `List<Object?>` and `as Uint8List`
+threw. scd98 had fixed the same function in `tom_d4rt`'s front end and in
+`tom_d4rt_ast`'s runner; this copy was missed. The boundary now rebuilds a
+collection only when an element actually changed, so a collection that is
+already native comes back as itself.
+
 ## 1.31.0
 
 ### Fixed — the pre-publish pass could not compile this package (sce129)

@@ -80,7 +80,6 @@ class StreamAsync {
       // own arity handling had never been exercised by a test.
       '_HandleErrorStream',
       '_AsBroadcastStream',
-      '_StreamHandlerTransformer',
       '_BoundSinkStream',
       '_HandlerEventSink',
       '_TakeStream',
@@ -763,6 +762,20 @@ class StreamTransformerAsync {
     nativeType: StreamTransformer,
     name: 'StreamTransformer',
     typeParameterCount: 2,
+    // What each StreamTransformer factory actually returns, measured against
+    // the SDK (sce160): `fromHandlers` -> _StreamHandlerTransformer, the
+    // unnamed constructor -> _StreamSubscriptionTransformer, `fromBind` ->
+    // _StreamBindTransformer, `cast` / `castFrom` -> CastStreamTransformer.
+    // None of them is a Stream. `_StreamHandlerTransformer` used to be listed
+    // on the STREAM bridge, so on the analyzer-free line, which resolves a
+    // bare native by its runtime name alone, `t.cast<int, int>()` dispatched
+    // to Stream.cast and failed "is not a subtype of type 'Stream<dynamic>'".
+    nativeNames: [
+      '_StreamHandlerTransformer',
+      '_StreamSubscriptionTransformer',
+      '_StreamBindTransformer',
+      'CastStreamTransformer',
+    ],
     constructors: {
       '': (visitor, positionalArgs, namedArgs) {
         if (positionalArgs.length != 1 || positionalArgs[0] is! Callable) {

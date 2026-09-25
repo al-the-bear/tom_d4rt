@@ -744,6 +744,18 @@ const Map<String, _Coverage> _coveredElsewhere = {
   // rather than a partial one because the subject is `Environment` itself: the
   // frames are built by hand, so nothing about the AST line makes a case
   // unreachable.
+  'sce160_stream_transformer_resolution_test.dart': _Coverage(
+    'ast:runtime/sce160_stream_transformer_resolution_test.dart',
+    _astTwin,
+    // REGISTRATION, not script: no script runs. The real Stream and
+    // StreamTransformer stdlib bridges are defined in a bare Environment and
+    // `toBridgedClass` is asked which one claims each SDK transformer type.
+    // The defect was visible only on the analyzer-free line, so the ast twin
+    // is the better test rather than a substitute for an exec one.
+    layer: _Layer.registration,
+    refCases: 2,
+    twinCases: 2,
+  ),
   'bridge/scf26_suffix_match_ordering_test.dart': _Coverage(
     'ast:runtime/scf26_suffix_match_ordering_test.dart',
     _astTwin,

@@ -1,3 +1,28 @@
+## 0.166.0
+
+### Fixed — a `StreamTransformer` was dispatched as a `Stream` on the analyzer-free line (sce160)
+
+`StreamTransformer.fromHandlers(...)` returns a `_StreamHandlerTransformer`,
+and that name sat on the **Stream** bridge's `nativeNames`, where it had been
+since the repository's first commit. The analyzer-free line resolves a bare
+native by its runtime name alone, so
+
+    final t = StreamTransformer<num, num>.fromHandlers(handleData: ...);
+    t.cast<int, int>();   // type '_StreamHandlerTransformer<...>' is not a
+                          // subtype of type 'Stream<dynamic>' in type cast
+
+The reference line escaped through static types. It surfaced once scd98 made a
+bridged constructor return the bare native, and the pre-publish pass found it.
+
+Measured against the SDK, none of the four transformer implementations is a
+`Stream`: `fromHandlers` -> `_StreamHandlerTransformer`, the unnamed
+constructor -> `_StreamSubscriptionTransformer`, `fromBind` ->
+`_StreamBindTransformer`, `cast` / `castFrom` -> `CastStreamTransformer`. All
+four are now claimed by the `StreamTransformer` bridge, and the wrong entry is
+gone from `Stream`'s list. The last three previously had no bridge at all.
+
+Name resolution: yes — it changes which bridge four native StreamTransformer types resolve to (sce160).
+
 ## 0.165.0
 
 ### Fixed — calling a value that is not a function returned the value (sce176)
