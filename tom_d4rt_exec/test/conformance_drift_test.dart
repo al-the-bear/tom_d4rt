@@ -2820,8 +2820,8 @@ const Map<String, String> _divergenceFingerprints = <String, String>{
   'scc12_await_in_finally_test.dart': '38e7d44709353640',
   'warm_parent_package_pool_test.dart': '971b6ff19185f442',
   'stdlib/intentionally_unbridged_test.dart': 'a11036cda720efcf',
-  'scc31_undefined_name_uncatchable_test.dart': 'ad105fd6b643370f',
-  'scc32_bridged_value_key_test.dart': 'bf57cd97b77c0e83',
+  'scc31_undefined_name_uncatchable_test.dart': '5cbda0053357426b',
+  'scc32_bridged_value_key_test.dart': '0a2b0b334d6eedaf',
   'scc33_unhandled_node_test.dart': '1be2b48d0784ff46',
   'scc29_parameter_type_check_test.dart': 'a4c38e44ee9853e1',
   // SCE84's two, recorded with the entries in `_divergentBaseline` above.

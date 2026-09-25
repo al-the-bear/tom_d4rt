@@ -442,8 +442,10 @@ void main() {
         final file = File('${repoRoot.path}/$relative');
         expect(file.existsSync(), isTrue, reason: '$relative should exist');
         final source = file.readAsStringSync();
-        if (!source.contains('selectCatchClause') ||
-            !source.contains('UndefinedNameD4rtException')) {
+        // Whole-word (SCE194): both are bare identifiers whose ABSENCE is the
+        // finding, so a longer name sharing the prefix must not satisfy them.
+        if (!_namesIdentifier(source, 'selectCatchClause') ||
+            !_namesIdentifier(source, 'UndefinedNameD4rtException')) {
           missingRule.add(relative);
         }
       }
@@ -477,7 +479,7 @@ void main() {
             .split('\n')
             .where((l) => !l.trimLeft().startsWith('//'))
             .any((l) => l.contains('catchClauses.first'));
-        if (!source.contains('selectCatchClause') || reimplements) {
+        if (!_namesIdentifier(source, 'selectCatchClause') || reimplements) {
           notDelegating.add(relative);
         }
       }
@@ -514,4 +516,23 @@ void main() {
       );
     });
   });
+}
+
+/// Whether [source] names [identifier] in CODE — a whole-word match over the
+/// non-comment lines.
+///
+/// SCE194. A bare identifier gated with `contains` accepts any longer
+/// identifier that starts with it: rename the helper to `<name>ForMaps` and a
+/// guard asserting the fix is present stays green while the name it checks
+/// for is gone. The same shape F-SCD161-1 was caught with by ablation. A
+/// multi-token phrase (`int get hashCode => nativeObject.hashCode`) cannot be
+/// a prefix of an unrelated identifier, so those checks keep `contains`.
+/// Comment lines are skipped for the reason `catchClauses.first` below is: a
+/// name also appears in the prose explaining it.
+bool _namesIdentifier(String source, String identifier) {
+  final code = source
+      .split('\n')
+      .where((l) => !l.trimLeft().startsWith('//'))
+      .join('\n');
+  return RegExp('\\b${RegExp.escape(identifier)}\\b').hasMatch(code);
 }
