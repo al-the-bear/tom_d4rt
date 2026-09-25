@@ -231,6 +231,11 @@ pair "launch retry leaves no orphaned build" \
 run "tool lookup picks a runnable file on Windows" \
   flutter test test/tool_resolution_test.dart
 
+# SCE173: the framework-error inventory tool parses the harness's output, and
+# BOTH twins' harness still prints the format it reads. Pure file I/O.
+pair "framework-error inventory reads the harness format" \
+  flutter test test/framework_error_inventory_test.dart
+
 # SCE170: every non-driver file both twins carry in test/ is classified, the
 # derivable ones agree as CODE modulo the twin parameters, and none carries the
 # other twin's parameter. Repo-wide (it reads the sibling's test/). Pure file I/O.

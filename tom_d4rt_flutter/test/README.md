@@ -17,6 +17,20 @@ The `.sh` variants are macOS / Linux (bash); the `.ps1` variants are Windows
 (PowerShell / pwsh). Each globs its file list in numeric order, so adding or
 regenerating split files needs no script edit.
 
+**Reading a run's framework errors.** A script can raise framework errors and
+still pass, so a run folder holds counts nobody sees unless they look. The
+per-script counts are in each `*.log.txt`, not in `metrics.txt`:
+
+```bash
+dart run ../tom_d4rt_flutter_ast/tool/framework_error_inventory.dart testlog/<run>
+dart run ../tom_d4rt_flutter_ast/tool/framework_error_inventory.dart testlog/<run> --order run
+```
+
+It prints one line per script that raised any, most first (or in run order),
+then the error texts grouped by signature with numbers normalised, and a total.
+Run order is the accumulation check the cluster-entry template asks for: a
+leaking cause grows along the run, independent defects do not. The tool lives once, in the AST twin, and reads only `dart:io`, so it runs from here by path on every fleet host.
+
 **This package's user bridges are DERIVED**, and the guard for that lives in
 the other twin. `lib/src/d4rt_user_bridges/` here is generated from
 `tom_d4rt_flutter_ast`'s copies by rewriting one import line — editing a file

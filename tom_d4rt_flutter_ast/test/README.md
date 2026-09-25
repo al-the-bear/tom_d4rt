@@ -17,6 +17,20 @@ The `.sh` variants are macOS / Linux (bash); the `.ps1` variants are Windows
 (PowerShell / pwsh). Each globs its file list in numeric order, so adding or
 regenerating split files needs no script edit.
 
+**Reading a run's framework errors.** A script can raise framework errors and
+still pass, so a run folder holds counts nobody sees unless they look. The
+per-script counts are in each `*.log.txt`, not in `metrics.txt`:
+
+```bash
+dart run tool/framework_error_inventory.dart testlog/<run>
+dart run tool/framework_error_inventory.dart testlog/<run> --order run
+```
+
+It prints one line per script that raised any, most first (or in run order),
+then the error texts grouped by signature with numbers normalised, and a total.
+Run order is the accumulation check the cluster-entry template asks for: a
+leaking cause grows along the run, independent defects do not. The tool reads only `dart:io`, so it runs on every fleet host, and the source twin invokes this copy by path.
+
 A **harness** runner covers the tests that drive the companion app but are not
 corpus files:
 

@@ -167,7 +167,7 @@ const Map<String, int> _bannerCensus = {
   'tom_d4rt_ast': 6,
   'tom_d4rt_exec': 5,
   'tom_d4rt_flutter': 3,
-  'tom_d4rt_flutter_ast': 15,
+  'tom_d4rt_flutter_ast': 16,
   'tom_d4rt_generator': 3,
 };
 

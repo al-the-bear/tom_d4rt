@@ -198,6 +198,9 @@ between them decided both corrections:
   accumulates; independent defects do not. SCC48's twelve were 11, 78, 23, 8, 2,
   2, 3, 11, 9, 6, 1, 6 — non-monotonic, which killed the accumulation
   hypothesis before any code was read.
+  `dart run tool/framework_error_inventory.dart testlog/<run> --order run`
+  prints those counts per script, in run order, straight from a run folder's
+  logs.
 - **`git log -S` the error string.** A real fix usually documents the exact
   delta you are staring at. `0f93ea375`'s message literally contained
   `flutter_extended_22 +30~1-12 -> +42~1`.
