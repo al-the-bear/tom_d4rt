@@ -4041,6 +4041,42 @@ const Map<String, String> _astWorkingTreeDrift = {
   'tom_d4rt_ast.dart': 'doc comment only (scd14_aicx), unpublished',
 };
 
+/// The difference each [_astWorkingTreeDrift] entry actually sanctions.
+///
+/// SCE187. Without it the register exempted by PATH, the blanket SCD154 removed
+/// from [_divergentBaseline]: once a file was listed, F-SCC80-3 stopped looking
+/// at it, so a SOURCE change landing in either barrel would have been absorbed
+/// by an entry asserting "doc comment only". Here the hazard is sharper than
+/// there — an entry absorbs drift in the interpreter the whole suite measures,
+/// not in one test — and the claim each entry makes is exactly the kind a
+/// fingerprint can hold still. F-SCE187-1 asserts the key sets are equal and
+/// that each listed file's difference is still the one recorded.
+///
+/// The algorithm is [_divergenceFingerprint]'s, reused rather than restated,
+/// with the PUBLISHED copy on the left and the working tree on the right. A
+/// parallel map for the reason [_divergenceFingerprints] is one.
+///
+/// THE LIFECYCLE DIFFERS FROM [_divergenceFingerprints], and in the direction
+/// that costs nothing. Those move only when somebody edits a file. These are
+/// computed against a PUBLISHED artifact, so a release changes their left-hand
+/// side — but a release of the working tree also makes the file stop
+/// differing, and F-SCC80-3 then fails until the entry is deleted, which the
+/// key-set check here turns into deleting its fingerprint too. So a publish
+/// RETIRES these rather than re-blessing them. The only entry that would ever
+/// be recomputed is one that still differs AFTER a publish, and that is a new
+/// difference to read, not an old one to refresh.
+///
+/// TO RECOMPUTE ONE: run this suite; F-SCE187-1 prints recorded beside
+/// observed. Read the new difference first — `diff` the pub-cache copy against
+/// `../tom_d4rt_ast/lib/<path>` — and paste only if it is still what the
+/// entry's reason says.
+const Map<String, String> _astDriftFingerprints = <String, String>{
+  // Read 2026-09-25 against published 0.65.0: both differences are `///`
+  // lines only, as the entries say.
+  'ast.dart': '3d3f4f561aba2a6b',
+  'tom_d4rt_ast.dart': 'e7fbb21bbb249a5c',
+};
+
 /// The todo blocking the `tom_d4rt_ast` publish that would clear F-SCC80-3,
 /// or `null` when nothing blocks it.
 ///
@@ -5338,6 +5374,59 @@ void main() {
   }, skip: skipReason);
 
   group('SCC80: the suite records which interpreter it measured', () {
+    test('F-SCE187-1: every accepted working-tree drift is still the '
+        'difference its entry describes [2026-09-25] (PASS)', () {
+      // Runs whatever [_astPublishBlock] says. The block excuses the
+      // UNEXPLAINED drift F-SCC80-3 reports while a publish is pending; it
+      // does not excuse an entry that claims one difference and now covers
+      // another.
+      expect(
+        _astDriftFingerprints.keys.toSet(),
+        _astWorkingTreeDrift.keys.toSet(),
+        reason:
+            'Every _astWorkingTreeDrift entry needs a fingerprint of the '
+            'difference it accepts, and no fingerprint may outlive its entry.',
+      );
+      final resolved = _resolvedAstRoot();
+      final sibling = Directory('../tom_d4rt_ast');
+      if (resolved == null || !sibling.existsSync()) {
+        markTestSkipped(
+          'needs both the resolved tom_d4rt_ast and the sibling working tree',
+        );
+        return;
+      }
+      final moved = <String>[];
+      for (final path in _astWorkingTreeDrift.keys) {
+        final published = File('${resolved.path}/lib/$path');
+        final working = File('${sibling.path}/lib/$path');
+        // A listed file that no longer differs, or exists on one side only,
+        // is F-SCC80-3's to report; fingerprinting it here would say it twice.
+        if (!published.existsSync() || !working.existsSync()) continue;
+        final a = published.readAsStringSync();
+        final b = working.readAsStringSync();
+        if (a == b) continue;
+        final observed = _divergenceFingerprint(a, b);
+        if (observed != _astDriftFingerprints[path]) {
+          moved.add(
+            '$path\n      recorded: ${_astDriftFingerprints[path]}\n'
+            '      observed: $observed',
+          );
+        }
+      }
+      expect(
+        moved,
+        isEmpty,
+        reason:
+            'The published and working-tree copies of these files now differ '
+            'by something other than what their _astWorkingTreeDrift entry '
+            'accepts. Diff them and read the change: if it is still what the '
+            'reason says (a doc comment, say), paste the observed value into '
+            '_astDriftFingerprints; if it touches an export, a declaration or '
+            'a body, the entry is false — remove it and let F-SCC80-3 report '
+            'the file.\n${moved.join('\n')}',
+      );
+    });
+
     test('F-SCC80-1: the resolved tom_d4rt_ast version is readable, printed '
         'and not behind the declared floor [2026-09-07]', () {
       final floor = _execAstFloor();
