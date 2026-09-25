@@ -102,11 +102,27 @@ import 'sibling_trees.dart';
 /// package's own tree and must run here" — the exact opposite of reaching. The
 /// signal would have demanded a banner on two files whose banner would be a
 /// false statement, which is the failure this list's second paragraph names.
+///
+/// SCE169 ADDED THE STRONGEST REACH THERE IS, which the list could not see.
+/// A path into `../../../_ai/` leaves the REPOSITORY, not merely the package:
+/// the `_ai` layer is a separate clone symlinked into the workspace, so such a
+/// guard reads a document no d4rt checkout contains. Four files do it today —
+/// the quest overview, the quest todo file — and all four were banner-tagged
+/// by convention rather than by this list, which is the shape of hole this
+/// file exists to close.
+///
+/// The signal is `\.\./_ai/` rather than the obvious `'../../../`, and that
+/// is measured rather than cautious: the bare triple-dot-dot matches
+/// `gen070_reexport_show_test.dart`, where `export '../../../dep/lib/dep.dart'`
+/// sits inside a FIXTURE SOURCE STRING the generator is asked to parse. It
+/// reaches nothing. Naming the mount keeps the signal on the one thing that
+/// is always a real reach.
 final List<RegExp> _reachSignals = [
   RegExp(r"\.\./tom_\w+"),
   RegExp(r"Directory\('\.\.'\)"),
   RegExp(r'rev-parse'),
   RegExp(r'repoRoot\b'),
+  RegExp(r'\.\./_ai/'),
 ];
 
 /// The banner a reaching file must carry, capturing the package it claims.

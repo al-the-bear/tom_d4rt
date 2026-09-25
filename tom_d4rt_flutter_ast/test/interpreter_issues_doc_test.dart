@@ -1,5 +1,5 @@
 // RUNNER BUCKET: guard — run_guard_tests.sh
-// REPO-WIDE GUARD (tom_d4rt_flutter_ast) — the cluster log's header table matches its sections, and both twins' test/README.md agree on what the corpus certifies.
+// REPO-WIDE GUARD (tom_d4rt_flutter_ast) — the cluster log's header table matches its sections, both twins' test/README.md agree on what the corpus certifies, and all four copies of the pass/skip/fail reading rule — including the quest overview, across the _ai mount — still state it.
 //
 // Its subject reaches OUTSIDE this package, so it runs only when tom_d4rt_flutter_ast's suite
 // runs and a session working elsewhere in the repo reaches none of it. SCD129
@@ -455,6 +455,90 @@ List<RunComparison> runComparisons(List<String> body) {
   }
   return result;
 }
+
+/// One of the four documents that state the pass / skip / fail reading rule.
+///
+/// They are written for different readers and must NOT be byte-identical —
+/// `mirror_maintenance.md` records why a deliberately duplicated file is noise
+/// in every future diff. What must not diverge is whether the rule is stated
+/// at all.
+class RuleCopy {
+  const RuleCopy(this.path, this.audience);
+
+  /// Relative to the `tom_d4rt_flutter_ast` package root.
+  final String path;
+
+  /// Who meets the rule here — named in the failure so the fix is obvious.
+  final String audience;
+}
+
+const ruleCopies = <RuleCopy>[
+  RuleCopy(
+    'doc/interpreter_issues.md',
+    'somebody comparing a run against its baseline',
+  ),
+  RuleCopy('test/README.md', 'somebody about to run the AST twin\'s corpus'),
+  RuleCopy(
+    '../tom_d4rt_flutter/test/README.md',
+    'somebody about to run the source twin\'s corpus',
+  ),
+  RuleCopy(
+    '../../../_ai/quests/d4rt/overview.d4rt.md',
+    'somebody planning a cluster fix, in the verification protocol',
+  ),
+];
+
+/// One thing every copy of the rule must say, however it words it.
+class RuleElement {
+  const RuleElement(this.name, this.pattern, this.whatItIs);
+  final String name;
+  final String pattern;
+
+  /// Why dropping it drops the rule — quoted in the failure.
+  final String whatItIs;
+
+  bool presentIn(String normalised) =>
+      RegExp(pattern, caseSensitive: false).hasMatch(normalised);
+}
+
+/// The rule, decomposed into what it ASSERTS rather than how it is worded.
+///
+/// Each element survives a copy being rewritten for its own audience and none
+/// survives the rule being dropped, which is the distinction the guard exists
+/// to make. The four copies differ legitimately — three carry the reading
+/// table, the overview carries a protocol paragraph — so the table itself is
+/// deliberately NOT an element.
+const ruleElements = <RuleElement>[
+  RuleElement(
+    'the three numbers are named together',
+    r'pass\s*[/,]\s*skip\s*[/,]\s*fail',
+    'a runner prints three numbers and only `-N` is habitually read as bad; '
+        'naming all three is the whole point',
+  ),
+  RuleElement(
+    'the verdict',
+    r'rising skip count.{0,80}?is a regression',
+    'without it the document describes the numbers without saying what they '
+        'mean, which is the state that let a fail→skip sit unexamined for six '
+        'weeks',
+  ),
+  RuleElement(
+    'the worked comparison',
+    r'\+44 ~1 -1.{0,40}?\+44 ~2|\+44 ~2.{0,40}?\+44 ~1 -1',
+    'the evidence the rule rests on — two triples describing the same amount '
+        'of working software, only one of which says so',
+  ),
+  RuleElement(
+    'how to record a rise',
+    r'\*\*Rising skip:\*\*',
+    'the actionable half: a reader who accepts the rule still has to know '
+        'what to write, and SCE168 fails a recorded run that omits the field',
+  ),
+];
+
+/// [text] with every run of whitespace collapsed, so a rule split across a
+/// line break reads the same as one on a single line.
+String normaliseProse(String text) => text.replaceAll(RegExp(r'\s+'), ' ');
 
 void main() {
   final docFile = File('doc/interpreter_issues.md');
@@ -974,5 +1058,82 @@ void main() {
         );
       },
     );
+  });
+
+  group('SCE169: all four copies of the reading rule still state it', () {
+    // The pass / skip / fail reading rule lives in four hand-maintained
+    // copies, and until now nothing checked that they agree. That is the
+    // duplication this repo keeps being bitten by — but consolidating to one
+    // statement plus three pointers is the wrong fix here, and deliberately
+    // not what this does. Each copy is where a DIFFERENT reader meets the
+    // rule: one planning a cluster fix, two about to run a corpus, one
+    // comparing a run against its baseline. A runner README that says "see
+    // the quest overview" is a README somebody stops reading.
+    //
+    // So: keep the four, guard the four. SCD65-3 one group up is the
+    // precedent — it asserts both twins' READMEs carry the DGUC6 rule by
+    // checking for a heading — and this is the same mechanism over four files
+    // and four assertions instead of one file-pair and one.
+    //
+    // NOT a byte-identity check, and the distinction is load-bearing.
+    // `mirror_maintenance.md` records why a deliberately duplicated file is
+    // noise in every future diff, and the copies legitimately differ: three
+    // carry the reading table, the overview carries a protocol paragraph.
+    // What is checked is what the rule ASSERTS, decomposed into four elements
+    // that each survive a rewrite and none survive a deletion.
+
+    test('SCE169-1: all four copies were found and read. [2026-09-25 00:00] '
+        '(PASS)', () {
+      // Anti-vacuity. SCE169-2 asks whether patterns are PRESENT, so a
+      // missing file fails loudly there too — but it fails naming the rule
+      // rather than the mount, and the overview lives across the `_ai`
+      // symlink where "absent" means a broken checkout rather than a
+      // missing rule. Separating them makes the failure say which.
+      for (final copy in ruleCopies) {
+        final file = File(copy.path);
+        expect(
+          file.existsSync(),
+          isTrue,
+          reason:
+              '${copy.path} not found. Run this from the '
+              'tom_d4rt_flutter_ast package root. The `_ai` layer is '
+              'symlinked into every workspace on every fleet machine, so '
+              'its absence is a broken checkout rather than a supported '
+              'configuration — fix the mount rather than dropping the '
+              'copy from this list.',
+        );
+        expect(
+          file.readAsLinesSync().length,
+          greaterThan(50),
+          reason: '${copy.path} is too short to be the document intended.',
+        );
+      }
+    });
+
+    test('SCE169-2: every copy states every element of the rule. '
+        '[2026-09-25 00:00] (PASS)', () {
+      final missing = <String>[];
+      for (final copy in ruleCopies) {
+        final text = normaliseProse(File(copy.path).readAsStringSync());
+        for (final element in ruleElements) {
+          if (element.presentIn(text)) continue;
+          missing.add(
+            '${copy.path}\n      missing: ${element.name}\n'
+            '      which is: ${element.whatItIs}\n'
+            '      read by:  ${copy.audience}',
+          );
+        }
+      }
+      expect(
+        missing,
+        isEmpty,
+        reason:
+            'A copy of the pass / skip / fail reading rule has stopped '
+            'stating part of it. Reword freely — these four are written '
+            'for different readers and must not be forced identical — but '
+            'each has to keep saying what the rule asserts:\n  '
+            '${missing.join('\n  ')}',
+      );
+    });
   });
 }
