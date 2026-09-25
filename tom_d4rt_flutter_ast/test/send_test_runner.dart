@@ -39,6 +39,7 @@ import 'package:tom_ast_generator/tom_ast_generator.dart' show AstBundler;
 import 'package:tom_d4rt_flutter_ast/tom_d4rt_flutter_ast.dart';
 
 import 'companion_app_resolution.dart';
+import 'tool_resolution.dart';
 
 /// Result of sending a D4rt script to the test app.
 class SendResult {
@@ -859,26 +860,15 @@ class SendTestRunner {
   static String _fmtTimestamp(DateTime value) => value.toIso8601String();
 
   static Future<String> _resolveDartExecutable() async {
-    final fromEnv = Platform.environment['DART_BIN'];
-    if (fromEnv != null && fromEnv.isNotEmpty && File(fromEnv).existsSync()) {
-      return fromEnv;
-    }
+    final resolved = await resolveTool('dart', envVar: 'DART_BIN');
+    if (resolved != null) return resolved;
 
-    try {
-      final which = await Process.run('which', ['dart']);
-      if (which.exitCode == 0) {
-        final resolved = (which.stdout as String).trim();
-        if (resolved.isNotEmpty) {
-          return resolved;
-        }
-      }
-    } catch (_) {
-      // Fall through to Flutter-adjacent dart resolution.
-    }
-
+    // The Flutter SDK ships dart beside flutter.
     final flutterExecutable = await _resolveFlutterExecutable();
-    final flutterBinDir = p.dirname(flutterExecutable);
-    final dartSibling = p.join(flutterBinDir, 'dart');
+    final dartSibling = p.join(
+      p.dirname(flutterExecutable),
+      siblingToolName('dart', windows: Platform.isWindows),
+    );
     if (File(dartSibling).existsSync()) {
       return dartSibling;
     }
@@ -1363,28 +1353,12 @@ class SendTestRunner {
   }
 
   static Future<String> _resolveFlutterExecutable() async {
-    final fromEnv = Platform.environment['FLUTTER_BIN'];
-    if (fromEnv != null && fromEnv.isNotEmpty && File(fromEnv).existsSync()) {
-      return fromEnv;
-    }
-
-    try {
-      final which = await Process.run('which', ['flutter']);
-      if (which.exitCode == 0) {
-        final resolved = (which.stdout as String).trim();
-        if (resolved.isNotEmpty) {
-          return resolved;
-        }
-      }
-    } catch (_) {
-      // Fall through to known workspace default path.
-    }
-
-    const fallback = '/srv/flutter/flutter/bin/flutter';
-    if (File(fallback).existsSync()) {
-      return fallback;
-    }
-
+    final resolved = await resolveTool(
+      'flutter',
+      envVar: 'FLUTTER_BIN',
+      fallbacks: const ['/srv/flutter/flutter/bin/flutter'],
+    );
+    if (resolved != null) return resolved;
     throw StateError(
       'Flutter executable not found. Set FLUTTER_BIN or ensure "flutter" '
       'is available in PATH.',

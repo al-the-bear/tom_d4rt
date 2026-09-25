@@ -19,8 +19,8 @@
 /// such edit was a chance to get one copy wrong with nothing to catch it.
 ///
 /// MEASURED BEFORE A MECHANISM WAS CHOSEN. Compared as CODE, modulo comments,
-/// directives and the twin parameters in [twinParameters], 16 of the 22 are
-/// identical. That decides the mechanism: those 16 are asserted identical, and
+/// directives and the twin parameters in [twinParameters], 16 of the 22 were
+/// identical. That decides the mechanism: those are asserted identical, and
 /// no sync tool is built. A generator would overwrite each twin's comments,
 /// which describe its own variant ("analyzer-free (AST)" versus
 /// "source-direct") and are right to differ.
@@ -100,6 +100,7 @@ const Set<String> derivable = {
   'run_test_profiler.sh',
   'start_test_profiler.sh',
   'start_test_profiler_debug.sh',
+  'tool_resolution.dart',
 };
 
 /// Shared files that diverge in code by design, with the measured reason.

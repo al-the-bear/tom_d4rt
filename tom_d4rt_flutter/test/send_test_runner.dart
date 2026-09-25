@@ -33,6 +33,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:path/path.dart' as p;
 
 import 'companion_app_resolution.dart';
+import 'tool_resolution.dart';
 
 /// Result of sending a D4rt source script to the test app.
 class SendResult {
@@ -863,21 +864,12 @@ class SendTestRunner {
   }
 
   static Future<String> _resolveFlutterExecutable() async {
-    final fromEnv = Platform.environment['FLUTTER_BIN'];
-    if (fromEnv != null && fromEnv.isNotEmpty && File(fromEnv).existsSync()) {
-      return fromEnv;
-    }
-    try {
-      final which = await Process.run('which', ['flutter']);
-      if (which.exitCode == 0) {
-        final resolved = (which.stdout as String).trim();
-        if (resolved.isNotEmpty) return resolved;
-      }
-    } catch (_) {
-      // fall through
-    }
-    const fallback = '/srv/flutter/flutter/bin/flutter';
-    if (File(fallback).existsSync()) return fallback;
+    final resolved = await resolveTool(
+      'flutter',
+      envVar: 'FLUTTER_BIN',
+      fallbacks: const ['/srv/flutter/flutter/bin/flutter'],
+    );
+    if (resolved != null) return resolved;
     throw StateError(
       'Flutter executable not found. Set FLUTTER_BIN or ensure "flutter" '
       'is available in PATH.',

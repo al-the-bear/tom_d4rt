@@ -226,6 +226,11 @@ run "bridge step is streamed and content-decided" \
 pair "launch retry leaves no orphaned build" \
   flutter test test/sce14_launch_retry_test.dart
 
+# SCE172: the harness's flutter/dart lookup, pinned to the `where` output
+# measured on legiondary01. Pure; its Windows branch otherwise runs only there.
+run "tool lookup picks a runnable file on Windows" \
+  flutter test test/tool_resolution_test.dart
+
 # SCE170: every non-driver file both twins carry in test/ is classified, the
 # derivable ones agree as CODE modulo the twin parameters, and none carries the
 # other twin's parameter. Repo-wide (it reads the sibling's test/). Pure file I/O.
