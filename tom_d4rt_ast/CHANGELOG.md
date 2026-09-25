@@ -1,3 +1,23 @@
+## 0.171.0
+
+### Removed — `ServerSocket`'s 28 copies of `Stream` members (sce195)
+
+`ServerSocket`'s bridge spelled out 21 methods (`listen`, `map`, `where`,
+`fold`, `toList`, `transform`, …) and 7 getters (`first`, `length`,
+`isEmpty`, …) that `Stream`'s bridge also declares. Since SCD38 registered
+`ServerSocket -> Stream`, each shadowed an inherited adapter that would answer
+if it were gone, and two implementations of one member on one type drift. They
+were deleted only after the SCC51 shadow differential could see them (sce185)
+and every pair agreed; `listen` — a server socket's primary use — is covered
+by a new case driving a real accepted connection through the inherited
+adapter.
+
+### Fixed — arity diagnostics that named the wrong class
+
+`ServerSocket`, `RawSocket` and `RawDatagramSocket` adapters reported arity
+errors as `Socket.<member>`, copied from the `Socket` bridge: twelve
+diagnostics across the three now name the class the script used.
+
 ## 0.170.0
 
 ### Fixed — ten stdlib adapters that disagreed with the adapter they shadow (sce185)

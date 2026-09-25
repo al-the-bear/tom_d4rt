@@ -192,9 +192,8 @@ final Map<String, Fixture> _fixtures = {
   'IOSink': () => _net.track(_ignoreDone(File(_sinkPath()).openWrite())),
   'Socket': () async =>
       _net.track(_ignoreDone(await Socket.connect(_loopback, _net.tcp.port))),
-  // Closed on creation, so its connection stream is DONE: every Stream member
-  // then terminates instead of waiting for a client that never comes.
-  'ServerSocket': () async => (await ServerSocket.bind(_loopback, 0))..close(),
+  // No 'ServerSocket' row: sce195 deleted its 28 Stream copies once every pair
+  // here agreed, so it shadows nothing and F-SCE185-1 forbids a row for it.
   // Against the SILENT peer: a RawSocket re-fires `read` for as long as unread
   // bytes remain, and the walk's `listen` callback does not read, so a peer
   // that sends anything spins the event loop and starves every later fixture.
@@ -627,7 +626,6 @@ const _sinks = {
 };
 const _streams = {
   'Socket',
-  'ServerSocket',
   'ReceivePort',
   'HttpServer',
   'HttpClientResponse',
@@ -1222,14 +1220,15 @@ void main() {
       // widened it to every shadowing bridge: 2 028 pairs compared, measured
       // 2026-09-25 — the registry's 2 076 less the 34 on the two `_unwalked`
       // bridges and the 14 shadowed copies SCE185 deleted (thirteen on `Runes`,
-      // `WebSocketTransformer.cast`).
+      // `WebSocketTransformer.cast`). SCE195 then deleted `ServerSocket`'s 28,
+      // leaving 2 000.
       expect(
         compared,
         greaterThan(1950),
         reason:
             'compared=$compared undrivable=$undrivable vacuous=$vacuous — '
             'the differential walk found far fewer shadowed pairs than the '
-            '~2 028 known to exist, so the supertype registry or the bridge '
+            '~2 000 known to exist, so the supertype registry or the bridge '
             'registration changed shape.',
       );
 
@@ -1321,6 +1320,56 @@ void main() {
   }
 
   group('SCE185: what the widened differential found', () {
+    test('F-SCE195-1: ServerSocket declares only what it adds over Stream, and '
+        'its connections still arrive through the inherited listen '
+        '[2026-09-25]', () async {
+      // LAYOUT: the bridge's own member map is the subject. sce195 deleted the
+      // 28 `Stream` copies `ServerSocket` spelled out, once F-SCC51-8 showed
+      // every pair agreeing. A deletion is protected only by an assertion that
+      // fails when the copy comes back — without this, the next reader restores
+      // them as an oversight.
+      final own = env.findBridgedClassByName('ServerSocket')!;
+      final base = env.findBridgedClassByName('Stream')!;
+      expect(
+        own.methods.keys.toSet().intersection(base.methods.keys.toSet()),
+        isEmpty,
+      );
+      expect(
+        own.getters.keys.toSet().intersection(base.getters.keys.toSet()),
+        isEmpty,
+      );
+
+      // `listen` is a server socket's primary use, so it is driven for real:
+      // a connection accepted through the inherited adapter.
+      final accepted = <Object?>[];
+      final accept = NativeFunction(
+        (visitor, positional, named, types) {
+          accepted.add(positional.first);
+          return null;
+        },
+        arity: 1,
+        name: 'accept',
+      );
+      final server = await ServerSocket.bind(InternetAddress.loopbackIPv4, 0);
+      final subscription =
+          findReachableMethod(env, 'ServerSocket', 'listen')!(
+                visitor,
+                server,
+                [accept],
+                {},
+                [],
+              )
+              as StreamSubscription;
+      final client = await Socket.connect(server.address, server.port);
+      await Future<void>.delayed(const Duration(milliseconds: 200));
+      expect(accepted, hasLength(1));
+      expect(accepted.single, isA<Socket>());
+      client.destroy();
+      (accepted.single as Socket).destroy();
+      await subscription.cancel();
+      await server.close();
+    });
+
     test('F-SCE185-2: Runes members that take a callback run it '
         '[2026-09-25]', () {
       // Thirteen `Runes` copies cast the script's callback to a Dart function

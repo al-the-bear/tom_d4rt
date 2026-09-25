@@ -661,35 +661,24 @@ class InternetAddressTypeIo {
 
 /// Bridged ServerSocket class.
 ///
-/// TWENTY-EIGHT OF ITS MEMBERS ARE ALSO ON `Stream`, AND THAT IS DELIBERATE FOR
-/// NOW. SCD38 registered `ServerSocket -> Stream`, which made every `Stream`
-/// adapter reachable through the walk — so the 21 methods and 7 getters this
-/// bridge spells out (`map`, `where`, `fold`, `toList`, `first`, `listen` and
-/// the rest) now shadow an inherited copy that would answer if they were gone.
-/// Measured 2026-09-15.
+/// ONLY WHAT `ServerSocket` ADDS OVER `Stream<Socket>` IS DECLARED HERE —
+/// `bind`, `address`, `port`, `close`. Every `Stream` member reaches it through
+/// the `ServerSocket -> Stream` edge SCD38 registered.
 ///
-/// THE DECISION, so nobody has to re-derive it: DELETE THEM, but not before the
-/// shadow differential can see them. `F-SCC51-8` invokes both adapters of a
-/// shadowed pair on one object and compares the outcomes — which is the only
-/// thing that can say these copies are redundant rather than subtly different —
-/// and its fixture table covers the COLLECTION bridges only. Until
-/// `ServerSocket` is in it, deleting 28 adapters would be a change nothing
-/// measured, on the package's migration target, unverifiable by the corpus
-/// until published (DGUC6). sce195 carries the deletion, gated on sce185
-/// extending the differential.
+/// sce195 deleted the 28 copies this bridge used to spell out (21 methods,
+/// including `listen`, and 7 getters). Each shadowed an inherited `Stream`
+/// adapter, and two implementations of one member on one type drift — the
+/// leaf wins, because the adapter map is consulted first. They were deleted
+/// only after the SCC51 shadow differential could see them: sce185 widened it
+/// to this bridge, and all 28 pairs agreed once `Stream.transform` bound a
+/// script transformer instead of rejecting it. SCC51 and SCD152 deleted such
+/// copies before; SCD152 is why the differential comes first, having found
+/// `HashMap.map` shipping a wrong answer from a copy that looked redundant.
 ///
-/// SCC51 AND SCD152 BOTH DELETED SUCH COPIES, so the direction is not in doubt;
-/// what is in doubt is only whether these 28 behave identically, and the
-/// evidence for that does not exist yet. SCD152 is why it matters: driving the
-/// previously-skipped half of that differential found `HashMap.map` rebuilding
-/// its result wrongly — a leaf copy that had looked like pure redundancy for as
-/// long as nobody invoked it.
-///
-/// ONE THING IS WRONG TODAY AND IS NOT WAITING ON ANY OF THAT: the arity
-/// diagnostics in this class say `Socket.map`, `Socket.where`, `Socket.fold`
-/// and so on. They were copied from the `Socket` bridge above and name the
-/// wrong class, so a script passing two arguments to `serverSocket.map` is told
-/// about a type it did not touch.
+/// The copies also carried arity diagnostics naming `Socket.map`,
+/// `Socket.where` and so on — copied from the `Socket` bridge above — so a
+/// script misusing `serverSocket.map` was told about a type it did not touch.
+/// The inherited adapters name `Stream`, which is the type that declares them.
 class ServerSocketIo {
   static BridgedClass get definition => BridgedClass(
     nativeType: ServerSocket,
@@ -700,162 +689,14 @@ class ServerSocketIo {
       'close': (visitor, target, positionalArgs, namedArgs, _) {
         return (target as ServerSocket).close();
       },
-      'listen': (visitor, target, positionalArgs, namedArgs, _) =>
-          bridgedStreamListen(
-            visitor,
-            target as ServerSocket,
-            positionalArgs,
-            namedArgs,
-          ),
-      'any': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'Socket.any', atMost: 1);
-        final test = positionalArgs[0] as Callable;
-        return (target as ServerSocket).any(
-          (element) => runAction<bool>(visitor, test, [element]) == true,
-        );
-      },
-      'contains': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'Socket.contains', atMost: 1);
-        return (target as ServerSocket).contains(positionalArgs[0]);
-      },
-      'elementAt': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'Socket.elementAt', atMost: 1);
-        return (target as ServerSocket).elementAt(positionalArgs[0] as int);
-      },
-      'every': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'Socket.every', atMost: 1);
-        final test = positionalArgs[0] as Callable;
-        return (target as ServerSocket).every(
-          (element) => runAction<bool>(visitor, test, [element]) == true,
-        );
-      },
-      'expand': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'Socket.expand', atMost: 1);
-        final toElements = positionalArgs[0] as Callable;
-        return (target as ServerSocket).expand(
-          (element) =>
-              runAction<Iterable>(visitor, toElements, [element]) ?? [],
-        );
-      },
-      'firstWhere': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'Socket.firstWhere', atMost: 1);
-        final test = positionalArgs[0] as Callable;
-        final orElse = namedArgs['orElse'] as Callable?;
-        return (target as ServerSocket).firstWhere(
-          (element) => runAction<bool>(visitor, test, [element]) == true,
-          orElse: orElse != null
-              ? () => runAction<Socket>(visitor, orElse, [])!
-              : null,
-        );
-      },
-      'fold': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'Socket.fold', atMost: 2);
-        final initialValue = positionalArgs[0];
-        final combine = positionalArgs[1] as Callable;
-        return (target as ServerSocket).fold(
-          initialValue,
-          (prev, element) => runAction(visitor, combine, [prev, element]),
-        );
-      },
-      'forEach': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'Socket.forEach', atMost: 1);
-        final action = positionalArgs[0] as Callable;
-        return (target as ServerSocket).forEach((element) {
-          runAction<void>(visitor, action, [element]);
-        });
-      },
-      'join': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'Socket.join', atMost: 1);
-        final separator = positionalArgs.isNotEmpty
-            ? positionalArgs[0] as String
-            : "";
-        return (target as ServerSocket).join(separator);
-      },
-      'transform': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'ServerSocket.transform', atMost: 1);
-        final transformer = requireStreamTransformer(
-          visitor,
-          positionalArgs.firstOrNull,
-          'ServerSocket.transform',
-        );
-        return (target as ServerSocket).transform(transformer.cast());
-      },
-      'lastWhere': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'Socket.lastWhere', atMost: 1);
-        final test = positionalArgs[0] as Callable;
-        final orElse = namedArgs['orElse'] as Callable?;
-        return (target as ServerSocket).lastWhere(
-          (element) => runAction<bool>(visitor, test, [element]) == true,
-          orElse: orElse != null
-              ? () => runAction<Socket>(visitor, orElse, [])!
-              : null,
-        );
-      },
-      'map': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'Socket.map', atMost: 1);
-        final toElement = positionalArgs[0] as Callable;
-        return (target as ServerSocket).map(
-          (element) => runAction(visitor, toElement, [element]),
-        );
-      },
       'noSuchMethod': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'Socket.noSuchMethod', atMost: 1);
+        D4.checkArity(positionalArgs, 'ServerSocket.noSuchMethod', atMost: 1);
         return (target as ServerSocket).noSuchMethod(
           positionalArgs[0] as Invocation,
         );
       },
-      'singleWhere': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'Socket.singleWhere', atMost: 1);
-        final test = positionalArgs[0] as Callable;
-        final orElse = namedArgs['orElse'] as Callable?;
-        return (target as ServerSocket).singleWhere(
-          (element) => runAction<bool>(visitor, test, [element]) == true,
-          orElse: orElse != null
-              ? () => runAction<Socket>(visitor, orElse, [])!
-              : null,
-        );
-      },
-      'skip': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'Socket.skip', atMost: 1);
-        return (target as ServerSocket).skip(positionalArgs[0] as int);
-      },
-      'skipWhile': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'Socket.skipWhile', atMost: 1);
-        final test = positionalArgs[0] as Callable;
-        return (target as ServerSocket).skipWhile(
-          (element) => runAction<bool>(visitor, test, [element]) == true,
-        );
-      },
-      'take': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'Socket.take', atMost: 1);
-        return (target as ServerSocket).take(positionalArgs[0] as int);
-      },
-      'takeWhile': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'Socket.takeWhile', atMost: 1);
-        final test = positionalArgs[0] as Callable;
-        return (target as ServerSocket).takeWhile(
-          (element) => runAction<bool>(visitor, test, [element]) == true,
-        );
-      },
-      'toList': (visitor, target, positionalArgs, namedArgs, _) {
-        return (target as ServerSocket).toList();
-      },
-      'toSet': (visitor, target, positionalArgs, namedArgs, _) {
-        return (target as ServerSocket).toSet();
-      },
       'toString': (visitor, target, positionalArgs, namedArgs, _) {
         return (target as ServerSocket).toString();
-      },
-      'where': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'Socket.where', atMost: 1);
-        final test = positionalArgs[0] as Callable;
-        return (target as ServerSocket).where(
-          (element) => runAction<bool>(visitor, test, [element]) == true,
-        );
-      },
-      '==': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'Socket.==', atMost: 1);
-        return (target as ServerSocket) == positionalArgs[0];
       },
     },
     staticMethods: {
@@ -894,13 +735,6 @@ class ServerSocketIo {
     getters: {
       'address': (visitor, target) => (target as ServerSocket).address,
       'port': (visitor, target) => (target as ServerSocket).port,
-      'hashCode': (visitor, target) => (target as ServerSocket).hashCode,
-      'first': (visitor, target) => (target as ServerSocket).first,
-      'isBroadcast': (visitor, target) => (target as ServerSocket).isBroadcast,
-      'isEmpty': (visitor, target) => (target as ServerSocket).isEmpty,
-      'last': (visitor, target) => (target as ServerSocket).last,
-      'length': (visitor, target) => (target as ServerSocket).length,
-      'single': (visitor, target) => (target as ServerSocket).single,
     },
   );
 }
@@ -916,21 +750,21 @@ class RawSocketIo {
       'available': (visitor, target, positionalArgs, namedArgs, _) =>
           (target as RawSocket).available(),
       'read': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'Socket.read', atMost: 1);
+        D4.checkArity(positionalArgs, 'RawSocket.read', atMost: 1);
         final len = positionalArgs.isNotEmpty
             ? positionalArgs[0] as int?
             : null;
         return (target as RawSocket).read(len);
       },
       'write': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'Socket.write', atMost: 1);
+        D4.checkArity(positionalArgs, 'RawSocket.write', atMost: 1);
         final data = D4.coerceList<int>(positionalArgs[0], 'data');
         return (target as RawSocket).write(data);
       },
       'close': (visitor, target, positionalArgs, namedArgs, _) =>
           (target as RawSocket).close(),
       'shutdown': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'Socket.shutdown', atMost: 1);
+        D4.checkArity(positionalArgs, 'RawSocket.shutdown', atMost: 1);
         final direction = positionalArgs[0] as SocketDirection;
         return (target as RawSocket).shutdown(direction);
       },
@@ -942,18 +776,18 @@ class RawSocketIo {
             namedArgs,
           ),
       'setOption': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'Socket.setOption', atMost: 2);
+        D4.checkArity(positionalArgs, 'RawSocket.setOption', atMost: 2);
         final option = positionalArgs[0] as SocketOption;
         final enabled = positionalArgs[1] as bool;
         return (target as RawSocket).setOption(option, enabled);
       },
       'getRawOption': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'Socket.getRawOption', atMost: 1);
+        D4.checkArity(positionalArgs, 'RawSocket.getRawOption', atMost: 1);
         final option = positionalArgs[0] as RawSocketOption;
         return (target as RawSocket).getRawOption(option);
       },
       'setRawOption': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'Socket.setRawOption', atMost: 1);
+        D4.checkArity(positionalArgs, 'RawSocket.setRawOption', atMost: 1);
         final option = positionalArgs[0] as RawSocketOption;
         return (target as RawSocket).setRawOption(option);
       },
@@ -1250,7 +1084,7 @@ class RawDatagramSocketIo {
       'receive': (visitor, target, positionalArgs, namedArgs, _) =>
           (target as RawDatagramSocket).receive(),
       'send': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'Socket.send', atMost: 3);
+        D4.checkArity(positionalArgs, 'RawDatagramSocket.send', atMost: 3);
         final data = D4.coerceList<int>(positionalArgs[0], 'data');
         final address = positionalArgs[1] as InternetAddress;
         final port = positionalArgs[2] as int;
@@ -1266,22 +1100,38 @@ class RawDatagramSocketIo {
             namedArgs,
           ),
       'joinMulticast': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'Socket.joinMulticast', atMost: 1);
+        D4.checkArity(
+          positionalArgs,
+          'RawDatagramSocket.joinMulticast',
+          atMost: 1,
+        );
         final group = positionalArgs[0] as InternetAddress;
         return (target as RawDatagramSocket).joinMulticast(group);
       },
       'leaveMulticast': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'Socket.leaveMulticast', atMost: 1);
+        D4.checkArity(
+          positionalArgs,
+          'RawDatagramSocket.leaveMulticast',
+          atMost: 1,
+        );
         final group = positionalArgs[0] as InternetAddress;
         return (target as RawDatagramSocket).leaveMulticast(group);
       },
       'getRawOption': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'Socket.getRawOption', atMost: 1);
+        D4.checkArity(
+          positionalArgs,
+          'RawDatagramSocket.getRawOption',
+          atMost: 1,
+        );
         final option = positionalArgs[0] as RawSocketOption;
         return (target as RawDatagramSocket).getRawOption(option);
       },
       'setRawOption': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'Socket.setRawOption', atMost: 1);
+        D4.checkArity(
+          positionalArgs,
+          'RawDatagramSocket.setRawOption',
+          atMost: 1,
+        );
         final option = positionalArgs[0] as RawSocketOption;
         return (target as RawDatagramSocket).setRawOption(option);
       },

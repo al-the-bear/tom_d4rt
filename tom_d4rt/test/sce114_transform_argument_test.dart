@@ -128,13 +128,16 @@ void main() {
       );
     });
 
-    test('F-SCE114-3: ServerSocket.transform reports its own name '
-        '[2026-09-22] (PASS)', () async {
+    test('F-SCE114-3: ServerSocket.transform does not report another '
+        "class's name [2026-09-22] (PASS)", () async {
       // It said `Socket.transform` — copied along with the body it was copied
       // from, which is the same defect shape SCE110 swept out of seventeen
-      // `dart:io` adapters.
-      expect(
-        await failure('''
+      // `dart:io` adapters. SCE114 renamed it `ServerSocket.transform`; sce195
+      // then deleted the copy with the rest of `ServerSocket`'s `Stream`
+      // shadows, so the inherited adapter answers and names `Stream` — the type
+      // that declares the member. What this pins is the property that
+      // survives both: never a sibling class the script did not touch.
+      final message = await failure('''
           import 'dart:io';
           main() async {
             var server = await ServerSocket.bind(InternetAddress.loopbackIPv4, 0);
@@ -144,11 +147,11 @@ void main() {
               await server.close();
             }
           }
-        '''),
-        contains(
-          'ServerSocket.transform requires a StreamTransformer '
-          'argument',
-        ),
+        ''');
+      expect(message, isNot(contains('Socket.transform')));
+      expect(
+        message,
+        contains('Stream.transform requires a StreamTransformer argument'),
       );
     });
 
