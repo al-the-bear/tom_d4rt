@@ -540,6 +540,74 @@ const ruleElements = <RuleElement>[
 /// line break reads the same as one on a single line.
 String normaliseProse(String text) => text.replaceAll(RegExp(r'\s+'), ' ');
 
+/// The shared-cause detector, verbatim from the sweep command in
+/// `## Writing a cluster entry`. SCE174-4 fails if the two copies part.
+///
+/// Deliberately generous: a false positive costs one line of evidence, a
+/// false negative cost five weeks (SCC48).
+const String sharedCauseDetector =
+    r'share[sd]? one|one cause|attributable|all [0-9]+ |cascade|propagat|leak';
+
+/// Entries dated on or after this must record their shared-cause evidence.
+///
+/// Why a cutoff here, when SCE168 refused one for the rising-skip rule: that
+/// rule's evidence was IN the document (the table rows), so the history could
+/// be annotated truthfully. This rule's evidence was not — every earlier
+/// entry's per-script counts lived in a gitignored `testlog/` folder that is
+/// gone, so a counts line written for one now would be invented rather than
+/// measured, which is worse than the gap. The two historical claims SCD143
+/// found under-evidenced are annotated in place instead. The date is the day
+/// the rule came into force; no entry existed on it.
+final DateTime sharedCauseCountsRequiredFrom = DateTime(2026, 9, 25);
+
+/// The date an entry's `### YYYY-MM-DD — ...` heading opens with, or null.
+DateTime? entryDate(String heading) {
+  final m = RegExp(r'^### (\d{4})-(\d{2})-(\d{2})\b').firstMatch(heading);
+  if (m == null) return null;
+  return DateTime(
+    int.parse(m.group(1)!),
+    int.parse(m.group(2)!),
+    int.parse(m.group(3)!),
+  );
+}
+
+/// Whether [statement] — the body of a `**Shared-cause counts:**` field —
+/// answers the rule: at least two counts, or an explicit statement that the
+/// detector's match is not a shared-cause claim.
+///
+/// Dates and version numbers are removed before counting, so a field reading
+/// "see the 2026-09-25 run at 1.80.0" does not pass as evidence.
+bool answersSharedCause(String statement) {
+  if (RegExp(
+    r'not a shared-cause claim',
+    caseSensitive: false,
+  ).hasMatch(statement)) {
+    return true;
+  }
+  final stripped = statement
+      .replaceAll(RegExp(r'\d{4}-\d{2}-\d{2}'), ' ')
+      .replaceAll(RegExp(r'\d+(?:\.\d+)+'), ' ');
+  return RegExp(r'\b\d+\b').allMatches(stripped).length >= 2;
+}
+
+/// The headings of [runs] dated on or after [from] whose text matches the
+/// detector and that do not answer it with a `**Shared-cause counts:**`
+/// field.
+List<String> sharedCauseViolations(
+  List<VerificationRun> runs, {
+  required DateTime from,
+}) {
+  final detector = RegExp(sharedCauseDetector, caseSensitive: false);
+  return [
+    for (final run in runs)
+      if (!(entryDate(run.heading)?.isBefore(from) ?? false) &&
+          [run.heading, ...run.body].any(detector.hasMatch))
+        if (fieldStatement(run.body, 'Shared-cause counts') case final s
+            when s == null || !answersSharedCause(s))
+          run.heading,
+  ];
+}
+
 void main() {
   final docFile = File('doc/interpreter_issues.md');
   late List<String> lines;
@@ -1133,6 +1201,144 @@ void main() {
             'for different readers and must not be forced identical — but '
             'each has to keep saying what the rule asserts:\n  '
             '${missing.join('\n  ')}',
+      );
+    });
+  });
+
+  group('SCE174: a shared-cause claim records its counts in the entry', () {
+    // An entry claiming that failures share a cause used to cite a run folder
+    // under `testlog/` — gitignored, per-machine, and gone. The document
+    // asserted "an inventory showed all 131 shared one signature" on exactly
+    // that basis. The claim happened to be true; nobody could have known it
+    // from the citation. SCD65 solved the same shape for interpreter pairs by
+    // making the entry the durable record, and this is that rule for the
+    // accumulation discriminator's input: the per-script counts.
+
+    test('SCE174-1: every entry heading carries a parseable date, so none can '
+        'fall outside the cutoff by accident. [2026-09-25 00:00] (PASS)', () {
+      final runs = verificationRuns(lines);
+      expect(runs.length, greaterThanOrEqualTo(8));
+      final undated = [
+        for (final run in runs)
+          if (entryDate(run.heading) == null) run.heading,
+      ];
+      expect(
+        undated,
+        isEmpty,
+        reason:
+            'These entries do not open with `### YYYY-MM-DD`. An entry '
+            'without a date is exempt from nothing: SCE174-2 treats it as '
+            'current. Give it its date:\n  ${undated.join('\n  ')}',
+      );
+    });
+
+    test(
+      'SCE174-2: every current entry that makes a shared-cause claim records '
+      'the counts. [2026-09-25 00:00] (PASS)',
+      () {
+        final missing = sharedCauseViolations(
+          verificationRuns(lines),
+          from: sharedCauseCountsRequiredFrom,
+        );
+        expect(
+          missing,
+          isEmpty,
+          reason:
+              'These entries match the shared-cause detector but carry no '
+              '`**Shared-cause counts:**` paragraph with the per-script '
+              'numbers. `testlog/` is gitignored, so the entry is the only '
+              'place the evidence survives. Take the counts with\n'
+              '  dart run tool/framework_error_inventory.dart testlog/<run> '
+              '--order run\n'
+              'and write them in run order. If the match is not a claim, say '
+              '"not a shared-cause claim" and why:\n  ${missing.join('\n  ')}',
+        );
+      },
+    );
+
+    test('SCE174-3: the rule catches a claim, and accepts both honest answers. '
+        '[2026-09-25 00:00] (PASS)', () {
+      // Anti-vacuity. When this landed no entry was dated on or after the
+      // cutoff, so SCE174-2 checked nothing on real entries; these fixtures
+      // are what prove it can fail.
+      VerificationRun entry(String date, List<String> body) =>
+          VerificationRun('### $date — fixture', body);
+      final from = sharedCauseCountsRequiredFrom;
+      final claim = 'All 12 failures share one cause: a leaked error.';
+
+      expect(
+        sharedCauseViolations([
+          entry('2026-09-30', [claim]),
+        ], from: from),
+        hasLength(1),
+        reason: 'a claim with no counts must fail',
+      );
+      expect(
+        sharedCauseViolations([
+          entry('2026-09-30', [
+            claim,
+            '',
+            '**Shared-cause counts:** 11, 78, 23, 8 — non-monotonic.',
+          ]),
+        ], from: from),
+        isEmpty,
+        reason: 'the counts answer it',
+      );
+      expect(
+        sharedCauseViolations([
+          entry('2026-09-30', [
+            'All 17 files ran.',
+            '',
+            '**Shared-cause counts:** not a shared-cause claim — a scope '
+                'statement.',
+          ]),
+        ], from: from),
+        isEmpty,
+        reason: 'an explicit not-a-claim answers it',
+      );
+      expect(
+        sharedCauseViolations([
+          entry('2026-09-30', [
+            claim,
+            '',
+            '**Shared-cause counts:** see the 2026-09-30 run at 1.80.0.',
+          ]),
+        ], from: from),
+        hasLength(1),
+        reason: 'a date and a version are not counts',
+      );
+      expect(
+        sharedCauseViolations([
+          entry('2026-09-18', [claim]),
+        ], from: from),
+        isEmpty,
+        reason: 'entries before the cutoff are exempt',
+      );
+
+      // And the detector does see the real history: the SCC48 entry and
+      // the 131-failure entry are exactly what it exists to catch.
+      final detector = RegExp(sharedCauseDetector, caseSensitive: false);
+      final flagged = [
+        for (final run in verificationRuns(lines))
+          if (run.body.any(detector.hasMatch)) entryDate(run.heading),
+      ];
+      expect(flagged, contains(DateTime(2026, 7, 28)));
+      expect(flagged, contains(DateTime(2026, 9, 6)));
+    });
+
+    test('SCE174-4: the guard\'s detector is the sweep the template tells a '
+        'writer to run. [2026-09-25 00:00] (PASS)', () {
+      final sweep = lines.firstWhere(
+        (l) => l.contains('grep -inE'),
+        orElse: () => '',
+      );
+      expect(
+        sweep,
+        contains("'$sharedCauseDetector'"),
+        reason:
+            'The shared-cause sweep in "## Writing a cluster entry" and '
+            '`sharedCauseDetector` in this file have parted. A writer runs '
+            'one and the guard enforces the other; change both together.',
       );
     });
   });

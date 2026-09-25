@@ -224,6 +224,26 @@ better evidence) and the 2026-09-14 generator attribution (true, but silent
 about the second variable). Re-run the sweep with
 `grep -inE 'share[sd]? one|one cause|attributable|all [0-9]+ |cascade|propagat|leak'`.
 
+**Record the counts in the entry; the run folder will not survive.** `testlog/`
+is gitignored and per-machine, so a claim that cites a run folder cites
+something that will be deleted — which is exactly how the 131-failure inventory
+became uncheckable. A `## Verification runs` entry whose text matches that sweep
+carries a paragraph giving the per-script numbers inline, in run order:
+
+```markdown
+**Shared-cause counts:** per-script frameworkErrors across the block, in run
+order: 11, 78, 23, 8, 2, 2, 3, 11, 9, 6, 1, 6 — non-monotonic, so not
+accumulation.
+```
+
+`dart run tool/framework_error_inventory.dart testlog/<run> --order run` prints
+them. When the sweep matches something that is not a claim ("all 17 files
+ran"), the paragraph says `not a shared-cause claim` and why; the sweep is
+deliberately generous, and one line is the price. `SCE174` in
+`test/interpreter_issues_doc_test.dart` enforces this for entries dated
+2026-09-25 or later. Earlier entries are exempt because their run folders are
+gone: numbers written for them now would be invented, not measured.
+
 ### The shape
 
 ```markdown
@@ -4473,7 +4493,11 @@ move — the affected tests already pass.
 
 Corpus runs made to certify an interpreter change rather than to
 discover new clusters. Each entry records what was measured, against
-which resolved package versions, and what moved.
+which resolved package versions, and what moved. It is the durable record:
+`testlog/` and the companion-app locks are gitignored, so anything an entry
+does not write down is gone once the run folder is. That includes a
+shared-cause claim's per-script counts, which go in a `**Shared-cause
+counts:**` paragraph (see "A shared-cause claim cites its measurement").
 
 ### 2026-09-18 — NO RUN MADE: the twins' locks moved to tom_d4rt_generator 1.28.0 and nothing they execute changed
 
