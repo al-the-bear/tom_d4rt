@@ -165,10 +165,12 @@ void main() {
 
     test('F-SCD147-2: no interpreter-owned type is claimed by a bridge '
         '[2026-09-15]', () {
-      // Asserted at `toBridgedClass` — the entry `_isInterpreterOwned` does
-      // NOT guard. Ablating SCD132's corroboration requirement makes
-      // `TypeParameter` resolve to the `Type` bridge here, which is what
-      // proves this test is load-bearing rather than decorative.
+      // Asserted at `toBridgedClass`, the Type-keyed API. It is given a
+      // `Type`, not a value, so `_isInterpreterOwned` cannot guard it; its
+      // boundary is still SCD132's corroboration requirement, and ablating
+      // that makes `TypeParameter` resolve to `Type` HERE. Every caller that
+      // holds a VALUE goes through the entry that does guard it — see the
+      // SCE179 group, which proves that without relying on SCD132.
       final claimed = <String>[];
       for (final type in _interpreterOwned) {
         try {
@@ -233,6 +235,77 @@ void main() {
             '`RuntimeValue` / `Callable` / `Enum` — if one is not, '
             '`_isInterpreterOwned` cannot see it and step 4 will guess a '
             'bridge for it:\n  ${blind.join("\n  ")}',
+      );
+    });
+  });
+
+  group('SCE179: the boundary is stated at the value-level entry', () {
+    // `_isInterpreterOwned` is now asked once, at `_toBridgedClassForValue`,
+    // which both `toBridgedInstance` and `getRuntimeType` go through. These
+    // cases prove the boundary there no longer depends on SCD132: they SUPPLY
+    // the corroboration SCD132 demands — a bridge that declares the name — and
+    // the value paths must refuse anyway. The `Type` API cannot refuse (it is
+    // given a `Type`, not a value), and F-SCE179-1 records that it does not.
+    Environment child() => Environment(enclosing: env);
+    final owned = <Object Function()>[
+      () => TypeParameter('T'),
+      () => const NamedRuntimeType('X'),
+    ];
+
+    test('F-SCE179-1: a bridge that DECLARES an interpreter-owned name still '
+        'cannot claim its values [2026-09-25]', () {
+      final e = child()
+        ..defineBridge(
+          BridgedClass(
+            nativeType: Object,
+            name: 'Type',
+            nativeNames: const ['TypeParameter', 'NamedRuntimeType'],
+          ),
+          sourceUri: 'package:probe/type.dart',
+        );
+      for (final make in owned) {
+        final value = make();
+        expect(
+          e.toBridgedClass(value.runtimeType).name,
+          'Type',
+          reason:
+              'the Type-keyed API follows the declaration — it cannot '
+              'see ownership, which is why the value entry exists',
+        );
+        expect(
+          () => e.toBridgedInstance(value),
+          throwsA(isA<RuntimeD4rtException>()),
+          reason:
+              '${value.runtimeType} is the interpreter'
+              's own value',
+        );
+        expect(
+          e.getRuntimeType(value),
+          isNull,
+          reason: '${value.runtimeType} must not be typed as a native bridge',
+        );
+      }
+    });
+
+    test('F-SCE179-2: an exact nativeType registration is still honoured — '
+        'that is a declaration, not a guess [2026-09-25]', () {
+      final e = child()
+        ..defineBridge(
+          BridgedClass(nativeType: TypeParameter, name: 'TypeParameterBridge'),
+          sourceUri: 'package:probe/tp.dart',
+        );
+      expect(
+        e.toBridgedInstance(TypeParameter('T'))!.bridgedClass.name,
+        'TypeParameterBridge',
+      );
+    });
+
+    test('F-SCE179-3 (control): a native private SDK type still reaches its '
+        'bridge by suffix through the same entry [2026-09-25]', () {
+      final iterator = <int>{1}.iterator;
+      expect(
+        child().toBridgedInstance(iterator)!.bridgedClass.name,
+        'Iterator',
       );
     });
   });

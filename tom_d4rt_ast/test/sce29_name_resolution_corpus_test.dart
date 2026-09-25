@@ -90,6 +90,10 @@ const Map<String, String> _deferred = {
       'unpublished — sce160 publish in progress (sce178 Stream overrides)',
   '0.168.0':
       'unpublished — sce160 publish in progress (sce178 Stream overrides)',
+  '1.185.0':
+      'unpublished — sce160 publish in progress (sce179 value-level entry)',
+  '0.169.0':
+      'unpublished — sce160 publish in progress (sce179 value-level entry)',
 };
 
 List<int> _key(String v) => v.split('.').map(int.parse).toList();

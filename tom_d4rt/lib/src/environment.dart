@@ -1009,69 +1009,15 @@ class Environment {
     //    [toBridgedClass] will throw if no bridge matches — try the structural
     //    fallback (step 4) before giving up, and negative-cache the miss so
     //    repeats short-circuit (T4, F3).
+    // 3) + 4) Name-shaped resolution, through the one entry that states the
+    //    interpreter/native boundary ([_toBridgedClassForValue], SCE179). A
+    //    miss is negative-cached so repeats short-circuit (T4, F3), and
+    //    rethrown: callers use the throw to fall through to the bridged-ENUM
+    //    registry.
     final BridgedClass bridgedClass;
     try {
-      bridgedClass = toBridgedClass(runtimeType);
+      bridgedClass = _toBridgedClassForValue(nativeObject, structural: true);
     } on RuntimeD4rtException {
-      // 4) Structural suffix fallback (SCC49). Dart names implementation types
-      //    after the interface they implement — `_CompactIterator`,
-      //    `_SplayTreeKeyIterator`, `_HashMapKeyIterator`, `RuneIterator`,
-      //    `_CompactKeysIterable` — and step 3 already exploits that, but only
-      //    for names that are BOTH public AND generic: the suffix rule sits in
-      //    the `else if (name.contains('<'))` arm of an
-      //    `if (name starts with '_') … else if …` chain, so it is unreachable
-      //    for private names (they take the first arm) and for non-generic
-      //    public names (they enter neither). Those two shapes are the entire
-      //    reason the stdlib bridges carry hand-maintained `nativeNames`
-      //    allowlists: the `Iterator` bridge alone enumerates seventeen private
-      //    SDK types, and the eighteenth an SDK release introduces surfaces to
-      //    the script author as "Undefined property or method 'moveNext' on
-      //    _CompactIterator".
-      //
-      //    WHY IT LIVES HERE AND NOT IN `toBridgedClass`. It was implemented
-      //    there first, as a fourth pass past the loose prefix fallback, on the
-      //    reasoning that a pass firing only where an exception is already
-      //    thrown cannot regress a working case. That reasoning is wrong, and
-      //    the suite said so: 43 tests failed, all of them enum dispatch. The
-      //    throw is not merely a failure report — callers USE it as a control
-      //    flow signal, catching it and falling through to the bridged-ENUM
-      //    registry, which is a different registry from bridged classes. A
-      //    bridged enum named `SimpleEnum` suffix-matches the `Enum` bridge, so
-      //    widening `toBridgedClass` silently claimed it and the fallthrough
-      //    never ran. Resolving here instead keeps `toBridgedClass` — which
-      //    `getRuntimeType` and others also call — exactly as it was, and
-      //    confines the widening to the one path that actually wraps a native
-      //    object.
-      //
-      //    INTERPRETER-OWNED VALUES ARE EXCLUDED for the same reason, and the
-      //    exclusion is wider than it first looks. The obvious guard —
-      //    "skip native Dart enum values" — was not enough: the object that
-      //    actually reached here in the enum tests was d4rt's own
-      //    `BridgedEnum`, whose NAME ends with `Enum`, so it was claimed by the
-      //    `Enum` bridge. Interpreter runtime objects (`RuntimeType`,
-      //    `RuntimeValue`, `Callable`) are not native objects awaiting a
-      //    bridge; they are the interpreter's own representation, and a
-      //    name-shaped guess about them is never meaningful. Nothing about a
-      //    suffix can distinguish them, so the guess must not be attempted.
-      //
-      //    `nativeNames` stays the fast path and the explicit-ownership
-      //    override: an entry there matches in step 3 and never reaches here,
-      //    so a bridge can still claim a type whose name points elsewhere —
-      //    which is required, because the SDK abbreviates often enough
-      //    (`_StreamSinkWrapper` for `StreamSink`, `_ControllerSubscription`
-      //    for `StreamSubscription`) that the naming convention alone is not
-      //    sufficient.
-      final BridgedClass? structural = _isInterpreterOwned(nativeObject)
-          ? null
-          : _structuralSuffixBridge(runtimeType);
-      if (structural != null) {
-        Logger.debug(
-          "[Environment] Matched native type '$runtimeType' to bridge "
-          "'${structural.name}' via structural suffix matching",
-        );
-        _resolvedTypeCacheOrNew[runtimeType] = structural;
-        return BridgedInstance(structural, nativeObject);
-      }
       _unbridgedTypeCacheOrNew.add(runtimeType);
       rethrow;
     }
@@ -1104,17 +1050,14 @@ class Environment {
       // name today (`BridgedEnum`/`InterpretedEnum` -> `Enum`,
       // `InterpretedFunction` -> `Function`, four `*RuntimeType` -> `Type`,
       // `TypeParameter` -> `Type` by PREFIX). All eight are `RuntimeType` or
-      // `Callable`, so this predicate covers them — but only at step 4 of
-      // [toBridgedInstance], the one site that consults it.
+      // `Callable`, so this predicate covers them.
       //
-      // `toBridgedClass` and its PASS B prefix fallback do not ask, and there
-      // the boundary is held by SCD132's corroboration requirement instead:
-      // ablate it and `TypeParameter` is claimed by the `Type` bridge at once.
-      // That protection is incidental — SCD132 was about bridge-to-bridge false
-      // positives — so it is pinned by
-      // `tom_d4rt/test/scd147_interpreter_owned_boundary_test.dart`, which
-      // asserts the property at `toBridgedClass` precisely because no predicate
-      // guards it there. sce179 carries moving the check to the entry.
+      // It is consulted at ONE place, [_toBridgedClassForValue], the entry to
+      // every name-shaped pass for a caller that holds a value: both
+      // [toBridgedInstance] and [getRuntimeType] come through it (SCE179).
+      // `toBridgedClass` itself cannot ask — it is given a `Type` — so its
+      // own boundary is still SCD132's corroboration requirement:
+      // `tom_d4rt/test/scd147_interpreter_owned_boundary_test.dart` pins both.
       nativeObject is InterpretedRecord;
 
   /// Resolves [nativeType] by the longest bridge name that is a suffix of its
@@ -1178,6 +1121,109 @@ class Environment {
         .where((m) => !supertypeUnion.contains(m.name))
         .toList(growable: false);
     return leaves;
+  }
+
+  /// The value-level entry to [toBridgedClass], and the one place the
+  /// interpreter/native boundary is stated (SCE179).
+  ///
+  /// Every caller that resolves a bridge FOR A VALUE comes through here:
+  /// step 3 of [toBridgedInstance] and both lookups in [getRuntimeType].
+  /// [toBridgedClass] itself cannot state the boundary. It is given a `Type`,
+  /// and Dart has no reflectionless way to ask whether a `Type` is one of the
+  /// interpreter's own representations; [_isInterpreterOwned] needs the value.
+  ///
+  /// An interpreter-owned value still gets a bridge REGISTERED for its exact
+  /// runtime type — that is a declaration, not a guess — but never one found
+  /// by name. Before this, the boundary on these paths was held by SCD132's
+  /// corroboration requirement in PASS B, which was written about
+  /// bridge-to-bridge false positives and does not know it is holding this
+  /// one. Measured: with that corroboration ablated, `TypeParameter` resolved
+  /// to the `Type` bridge through BOTH [toBridgedInstance] and
+  /// [getRuntimeType], because the claim came from PASS B, before the old
+  /// step-4 check could run.
+  ///
+  /// A miss THROWS, exactly as [toBridgedClass] does: callers use the throw as
+  /// a control-flow signal to fall through to the bridged-enum registry.
+  ///
+  /// [structural] adds SCC49's suffix fallback when every other pass misses.
+  /// Only [toBridgedInstance] asks for it; [getRuntimeType] keeps the passes
+  /// [toBridgedClass] has, unchanged.
+  BridgedClass _toBridgedClassForValue(
+    Object value, {
+    bool structural = false,
+  }) {
+    final runtimeType = value.runtimeType;
+    if (_isInterpreterOwned(value)) {
+      for (Environment? env = this; env != null; env = env._enclosing) {
+        final exact = env._bridgedClassesLookupByType[runtimeType];
+        if (exact != null) return exact;
+      }
+      throw RuntimeD4rtException(
+        'Cannot bridge native object: No registered bridged class found for '
+        'native type $runtimeType. It is owned by the interpreter, so no '
+        'bridge is guessed for it from its name.',
+      );
+    }
+    if (!structural) return toBridgedClass(runtimeType);
+    try {
+      return toBridgedClass(runtimeType);
+    } on RuntimeD4rtException {
+      // 4) Structural suffix fallback (SCC49). Dart names implementation types
+      //    after the interface they implement — `_CompactIterator`,
+      //    `_SplayTreeKeyIterator`, `_HashMapKeyIterator`, `RuneIterator`,
+      //    `_CompactKeysIterable` — and step 3 already exploits that, but only
+      //    for names that are BOTH public AND generic: the suffix rule sits in
+      //    the `else if (name.contains('<'))` arm of an
+      //    `if (name starts with '_') … else if …` chain, so it is unreachable
+      //    for private names (they take the first arm) and for non-generic
+      //    public names (they enter neither). Those two shapes are the entire
+      //    reason the stdlib bridges carry hand-maintained `nativeNames`
+      //    allowlists: the `Iterator` bridge alone enumerates seventeen private
+      //    SDK types, and the eighteenth an SDK release introduces surfaces to
+      //    the script author as "Undefined property or method 'moveNext' on
+      //    _CompactIterator".
+      //
+      //    WHY IT LIVES HERE AND NOT IN `toBridgedClass`. It was implemented
+      //    there first, as a fourth pass past the loose prefix fallback, on the
+      //    reasoning that a pass firing only where an exception is already
+      //    thrown cannot regress a working case. That reasoning is wrong, and
+      //    the suite said so: 43 tests failed, all of them enum dispatch. The
+      //    throw is not merely a failure report — callers USE it as a control
+      //    flow signal, catching it and falling through to the bridged-ENUM
+      //    registry, which is a different registry from bridged classes. A
+      //    bridged enum named `SimpleEnum` suffix-matches the `Enum` bridge, so
+      //    widening `toBridgedClass` silently claimed it and the fallthrough
+      //    never ran. Resolving here instead keeps `toBridgedClass` — which
+      //    `getRuntimeType` and others also call — exactly as it was, and
+      //    confines the widening to the one path that actually wraps a native
+      //    object.
+      //
+      //    INTERPRETER-OWNED VALUES ARE EXCLUDED for the same reason, and the
+      //    exclusion is wider than it first looks. The obvious guard —
+      //    "skip native Dart enum values" — was not enough: the object that
+      //    actually reached here in the enum tests was d4rt's own
+      //    `BridgedEnum`, whose NAME ends with `Enum`, so it was claimed by the
+      //    `Enum` bridge. Interpreter runtime objects (`RuntimeType`,
+      //    `RuntimeValue`, `Callable`) are not native objects awaiting a
+      //    bridge; they are the interpreter's own representation, and a
+      //    name-shaped guess about them is never meaningful. Nothing about a
+      //    suffix can distinguish them, so the guess must not be attempted.
+      //
+      //    `nativeNames` stays the fast path and the explicit-ownership
+      //    override: an entry there matches in step 3 and never reaches here,
+      //    so a bridge can still claim a type whose name points elsewhere —
+      //    which is required, because the SDK abbreviates often enough
+      //    (`_StreamSinkWrapper` for `StreamSink`, `_ControllerSubscription`
+      //    for `StreamSubscription`) that the naming convention alone is not
+      //    sufficient.
+      final match = _structuralSuffixBridge(runtimeType);
+      if (match == null) rethrow;
+      Logger.debug(
+        "[Environment] Matched native type '$runtimeType' to bridge "
+        "'${match.name}' via structural suffix matching",
+      );
+      return match;
+    }
   }
 
   BridgedClass toBridgedClass(Type nativeType) {
@@ -2195,7 +2241,7 @@ class Environment {
       // otherwise fall through to the generic lookup below.
       if (value != null && (typeName == 'List' || typeName == 'Map')) {
         try {
-          final specific = toBridgedClass(value.runtimeType);
+          final specific = _toBridgedClassForValue(value);
           if (specific.name != typeName) {
             return specific;
           }
@@ -2222,7 +2268,7 @@ class Environment {
     // For other native objects (e.g., DateTime, Duration, etc.), try to find their BridgedClass
     if (value != null) {
       try {
-        final bridgedClass = toBridgedClass(value.runtimeType);
+        final bridgedClass = _toBridgedClassForValue(value);
         return bridgedClass;
       } on RuntimeD4rtException {
         // No bridged class found for this type

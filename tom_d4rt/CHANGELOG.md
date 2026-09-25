@@ -1,3 +1,30 @@
+## 1.185.0
+
+### Changed — the interpreter/native boundary is stated once, at the entry (sce179)
+
+`Environment._isInterpreterOwned` (is this value the interpreter's own
+representation, such as a `RuntimeType`, `RuntimeValue`, `Callable`, native
+`Enum` or record?) was consulted at one branch: step 4 of `toBridgedInstance`.
+Everywhere else, the name-shaped passes were kept off the interpreter's own
+values only by SCD132's corroboration requirement in PASS B, which was
+written about bridge-to-bridge false positives. Measured: with that
+requirement ablated, `TypeParameter` resolved to the `Type` bridge through
+BOTH `toBridgedInstance` and `getRuntimeType`, because the claim came from
+PASS B before step 4 could run.
+
+There is now one value-level entry, `_toBridgedClassForValue`, which both
+paths go through and which asks the predicate once. An interpreter-owned
+value still gets a bridge registered for its exact runtime type, since that
+is a declaration, but never one found by name. The step-4 check is gone,
+and SCC49's structural fallback now runs inside the entry. With SCD132
+ablated, both value paths reject `TypeParameter`: the boundary no longer
+depends on it.
+
+`toBridgedClass(Type)` itself cannot ask, because it is given a `Type`, not a
+value. Its boundary is still SCD132's, and scd147's guard pins both.
+
+Name resolution: yes — bridge resolution for a value is routed through a new entry; no resolution measured today changes (sce179).
+
 ## 1.184.0
 
 ### Fixed — the Stream bridge claimed two types that are not Streams (sce178)

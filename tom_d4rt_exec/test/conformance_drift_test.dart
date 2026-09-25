@@ -1714,9 +1714,11 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
   // completely against the tree and fail against 0.65.0, which is the
   // definition of the condition and is what the pins below record.
   //
-  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.113.0.
+  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.169.0.
   // Measured 2026-09-15: 1 of 5 fail against 0.65.0, 0 of 5 against 0.113.0.
-  'scd147_interpreter_owned_boundary_test.dart': (ran: 5, declared: 3),
+  // SCE179 added three cases for the value-level entry; they need the release
+  // that carries it (0.169.0), which is why the floor moved from 0.113.0.
+  'scd147_interpreter_owned_boundary_test.dart': (ran: 8, declared: 6),
   // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.113.0.
   // Measured 2026-09-15: 2 of 3 fail against 0.65.0, 0 of 3 against 0.113.0.
   'bridge/scd138_native_callback_proxy_binding_test.dart': (
@@ -3078,7 +3080,7 @@ const Map<String, _Pin> _pinnedInterpreterFloors = <String, _Pin>{
   // scd170 is pinned with them and carries one extra condition on its baseline
   // entry: a source-scanning case has to be split out before the re-port.
   'scd147_interpreter_owned_boundary_test.dart': (
-    floor: '0.113.0',
+    floor: '0.169.0',
     measured: '0.65.0',
   ),
   'bridge/scd138_native_callback_proxy_binding_test.dart': (
