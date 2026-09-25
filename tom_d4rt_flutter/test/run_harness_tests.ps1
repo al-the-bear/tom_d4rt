@@ -24,10 +24,10 @@
 # gitignored, so without it a testlog folder cannot be matched to the
 # interpreter that produced it.
 #
-# UNVERIFIED ON WINDOWS. Written on macOS as a close adaptation of
-# run_base_tests.ps1, which is proven; every construct here appears there. It
-# has NOT been executed on legiondary01 — the fleet VPN was down when SCD142
-# landed — so treat the first Windows run as the verification. sce172 owns it.
+# Verified on legiondary01 on 2026-09-25: `exit=0 +4`, with the log, result
+# and metrics files written as on macOS. The run that verified it also found
+# that the harness could not locate flutter on Windows at all (it asked
+# `which`); test/tool_resolution.dart is the fix.
 #
 # A failing test file must not abort the rest, so errors are non-terminating.
 param(

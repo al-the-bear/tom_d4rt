@@ -37,10 +37,9 @@ corpus files:
 
 - `run_harness_tests.sh` / `.ps1` — globs `test/*_isolation_test.dart`, writes
   to `testlog/harnesslog_<ID>/` like the corpus runners, and is serial for the
-  same reason they are: one app, one local HTTP server. **The `.ps1` is
-  unverified on Windows** — written as a close adaptation of the proven
-  `run_base_tests.ps1` while the fleet VPN was down, so the first legiondary01
-  run is its verification (sce172).
+  same reason they are: one app, one local HTTP server. The `.ps1` runs on
+  Windows: measured on legiondary01 on 2026-09-25, `exit=0 +4` in both twins,
+  with the same three output files as the `.sh`.
 
 It is separate from the corpus runners on purpose, and that was SCC48's original
 call: `framework_error_isolation_test.dart` is named outside the
