@@ -320,3 +320,83 @@ void main(List<String> args) {
     stdout.writeln('${attributionPrefix}attribution: FAILED — $e');
   }
 }
+
+/// SCE199 — the READING half of this format, beside the half that writes it.
+///
+/// The `Verification runs` table in `doc/interpreter_issues.md` records the
+/// versions a certifying run resolved, and it used to be transcribed by a
+/// person reading lockfiles. The header above already holds exactly those
+/// facts, measured; `tool/verification_row.dart` turns a run folder into table
+/// rows through this parser. Kept here rather than in the tool so the format is
+/// written and read by one file, and a change to one half is a change beside
+/// the other.
+class RunAttribution {
+  RunAttribution({
+    required this.run,
+    required this.package,
+    required this.packageVersion,
+    required this.app,
+    required this.resolved,
+    required this.appResolved,
+    required this.failure,
+  });
+
+  final String? run;
+  final String? package;
+  final String? packageVersion;
+  final String? app;
+
+  /// `resolved:` lines — the twin's own lock — as name -> (version, source).
+  final Map<String, (String, String)> resolved;
+
+  /// `app-resolved:` lines — the companion app's lock.
+  final Map<String, (String, String)> appResolved;
+
+  /// The text after `attribution: FAILED — `, when the header says so.
+  final String? failure;
+}
+
+/// Parses the attribution header at the top of [metricsLines], or returns null
+/// when the file carries none — a run from before SCD164, or a file no runner
+/// wrote. Null and a [RunAttribution.failure] are different answers on
+/// purpose: "never attributed" and "attribution was attempted and failed".
+RunAttribution? parseRunAttribution(List<String> metricsLines) {
+  final header = [
+    for (final line in metricsLines.takeWhile(
+      (l) => l.startsWith(attributionPrefix),
+    ))
+      line.substring(attributionPrefix.length),
+  ];
+  if (header.isEmpty) return null;
+  String? field(String key) {
+    for (final line in header) {
+      if (line.startsWith('$key: ')) return line.substring(key.length + 2);
+    }
+    return null;
+  }
+
+  Map<String, (String, String)> packages(String key) {
+    final out = <String, (String, String)>{};
+    final entry = RegExp(r'^(\S+) (\S+) \((\w+)\)$');
+    for (final line in header) {
+      if (!line.startsWith('$key: ')) continue;
+      final m = entry.firstMatch(line.substring(key.length + 2));
+      if (m != null) out[m.group(1)!] = (m.group(2)!, m.group(3)!);
+    }
+    return out;
+  }
+
+  final package = field('package')?.split(' ');
+  final failed = field('attribution');
+  return RunAttribution(
+    run: field('run'),
+    package: package?.first,
+    packageVersion: package == null || package.length < 2 ? null : package[1],
+    app: field('app'),
+    resolved: packages('resolved'),
+    appResolved: packages('app-resolved'),
+    failure: failed != null && failed.startsWith('FAILED')
+        ? failed.replaceFirst(RegExp(r'^FAILED\s*[—-]?\s*'), '')
+        : null,
+  );
+}
