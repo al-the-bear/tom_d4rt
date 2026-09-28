@@ -4499,6 +4499,17 @@ does not write down is gone once the run folder is. That includes a
 shared-cause claim's per-script counts, which go in a `**Shared-cause
 counts:**` paragraph (see "A shared-cause claim cites its measurement").
 
+The resolved-version table is DERIVED, not typed. Every run's `metrics.txt`
+opens with an attribution header naming what the twin and its companion app
+resolved, and
+
+    dart run tool/verification_row.dart testlog/<ast run> ../tom_d4rt_flutter/testlog/<source run>
+
+prints the table ready to paste, in this document's row order. It refuses a
+folder with no header or a failed one rather than printing an empty row, and
+flags a package resolved by path — a pre-publish pass, which is not recorded
+here.
+
 ### 2026-09-18 — NO RUN MADE: the twins' locks moved to tom_d4rt_generator 1.28.0 and nothing they execute changed
 
 **Why this entry exists without a run.** SCE49 and SCE51 published

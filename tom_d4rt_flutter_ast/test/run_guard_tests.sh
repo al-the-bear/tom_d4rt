@@ -253,6 +253,10 @@ pair "shared test infrastructure agrees across the twins" \
 run "sibling-tree guards declare where they must run" \
   flutter test test/sce191_structural_guard_anchoring_test.dart
 
+# SCE199: the tool that turns a run header into Verification-runs rows.
+run "verification rows derive from the run header" \
+  flutter test test/sce199_verification_row_test.dart
+
 if [ "$mode" = pair ]; then
   scope="pair guards"
 else
