@@ -1324,8 +1324,14 @@ void main() {
         // F-SCC24-1 PASSES. A `Function` bridge exists (`stdlib/core/function.dart`),
         // so a tear-off resolves like any other value now, and the only thing
         // that ever made this shape visible to the value sweep — the resolution
-        // failing — is gone. This case is not a second opinion; since that
-        // bridge landed it is the only detector.
+        // failing — is gone. When this was written it was the only detector.
+        //
+        // IT IS NO LONGER THE ONLY ONE, and it is kept anyway (SCE225).
+        // `scd189_member_kind_parity_test` now checks all three kind
+        // directions from the SDK source, and the `Uri.isScheme` defect fires
+        // both. This case stays as an independent oracle — `dart:mirrors`
+        // against scd189's source walk, which is the fragile one — at about a
+        // second of runtime.
         //
         // Asking the mirror also found a SECOND instance that could not have
         // surfaced any other way:

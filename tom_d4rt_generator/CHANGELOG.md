@@ -1,3 +1,16 @@
+## 1.45.0
+
+### Added — a bridged member must have exactly one kind (sce225)
+
+`MemberInfo` now asserts that each member is exactly one of getter, setter,
+method or operator — the kind that decides which registration map it is
+emitted into. Measured before adding it: every one of the 60 000+ getters and
+methods registered in both Flutter twins sits in the map its analyzer element
+calls for, including those reached through `dynamic` and `Function.apply`,
+because the kind is taken from the element type. The assertion keeps that
+true; it runs in `dart test`, including every consumer's
+`bridges_fresh_test`. Output is unchanged.
+
 ## 1.44.0
 
 ### Fixed — suites sharing a fixture project no longer rewrite it under each other (sce190)

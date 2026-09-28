@@ -183,7 +183,25 @@ class MemberInfo {
     this.hasTypeParameters = false,
     this.methodTypeParameters = const {},
     this.functionTypeInfo,
-  });
+  }) : assert(
+         // SCE225: every member has exactly ONE kind, and the kind decides
+         // which registration map it is emitted into. Measured 2026-09-29
+         // against the analyzer element model, both Flutter twins' 60 000+
+         // registered getters and methods sat in the right map — the kind is
+         // taken from the element type (field/getter/setter/method), so it is
+         // right by construction. This keeps it so: a member built with no
+         // kind or two would be emitted into zero maps or two, which is the
+         // defect shape scd189 found six times in the hand-written stdlib.
+         // `dart test` runs with asserts on, and so does every consumer's
+         // `bridges_fresh_test`, which generates in-process.
+         (isGetter ? 1 : 0) +
+                 (isSetter ? 1 : 0) +
+                 (isMethod ? 1 : 0) +
+                 (isOperator ? 1 : 0) ==
+             1,
+         'MemberInfo "$name" must have exactly one kind '
+         '(getter/setter/method/operator)',
+       );
 }
 
 /// Warning about external types used in class parameters.

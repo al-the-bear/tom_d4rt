@@ -48,14 +48,13 @@ import 'package:tom_d4rt_generator/src/bridge_generator.dart';
 /// Each entry is a file that CANNOT be repaired from this package: the Flutter
 /// twins resolve the generator from pub.dev, so their bridges carry whatever
 /// the published generator wrote and only a regeneration after a publish can
-/// change them. SCF1 owns that sweep and names these four.
+/// change them. SCF1 owns that sweep. The AST twin's two came off with its
+/// regeneration at generator 1.44.0 (2026-09-28); the source twin's two remain.
 ///
 /// An entry comes off by regenerating the file, never by editing its header.
 const _absoluteHeaderBacklog = <String>{
   'tom_d4rt_flutter/lib/src/bridges/dart_ui_bridges.b.dart',
   'tom_d4rt_flutter/lib/src/bridges/vector_math_bridges.b.dart',
-  'tom_d4rt_flutter_ast/lib/src/bridges/dart_ui_bridges.b.dart',
-  'tom_d4rt_flutter_ast/lib/src/bridges/vector_math_bridges.b.dart',
 };
 
 /// The repo root — the parent of this package.

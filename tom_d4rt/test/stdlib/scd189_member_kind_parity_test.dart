@@ -45,6 +45,17 @@
 // Different oracle too: it reads the runtime registry, this reads the SDK
 // source. Both are kept.
 //
+// SCE225 COMPARED THEM, rather than leaving that as an assertion. Putting
+// `Uri.isScheme` back as a getter — SCD77's own defect — fires BOTH:
+// F-SCD77-4 and F-SCD189-1. So for that direction they overlap on the same
+// registry, and F-SCD77-4 is kept deliberately as an INDEPENDENT ORACLE
+// rather than as coverage: this file's SDK-source walk is the fragile one (it
+// needed class type aliases, mixins and `dart:_internal` before it stopped
+// making false accusations), while `dart:mirrors` answers from the running
+// SDK. If this walk ever silently loses a class, F-SCD77-4 still sees it. It
+// costs about a second. The GENERATED bridges' kinds were measured the same
+// way and are asserted in the generator (SCE225); nothing here covers them.
+//
 // WHAT IT FOUND — six, in two shapes.
 //
 // THE BLOCKING SHAPE. `StreamSubscription.onData`, `onDone` and `onError` were
