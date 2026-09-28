@@ -63,4 +63,4 @@ This package is published to pub.dev. See [Project Republishing](../../../../_co
 - `tom_d4rt_generator` - Code generator for bridges (see `../tom_d4rt_generator/_copilot_guidelines/`)
 - `tom_d4rt_dcli` - DCli integration for D4rt scripting
 - `tom_d4rt_ast` - 1:1 mirror of the analyzer AST (zero deps, serializable)
-- `tom_d4rt_astgen` - 1:1 copier: analyzer AST → mirror AST
+- `tom_ast_generator` - 1:1 copier: analyzer AST → mirror AST (formerly `tom_d4rt_astgen`)

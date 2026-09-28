@@ -26,14 +26,14 @@ This enables project auto-discovery when using `--scan`:
 
 ```bash
 # Scan a directory for astgen projects
-dart run tom_d4rt_astgen:astgen --scan test
+dart run tom_ast_generator:astgen --scan test
 
 # Process a specific project  
-dart run tom_d4rt_astgen:astgen --project path/to/project
+dart run tom_ast_generator:astgen --project path/to/project
 
 # Run from project root (auto-detects tom_build.yaml or build.yaml)
 cd my_project
-dart run tom_d4rt_astgen:astgen
+dart run tom_ast_generator:astgen
 ```
 
 ## 2. Conversion Configuration - build.yaml
@@ -270,19 +270,19 @@ There are no "continue on error" options - all errors must be fixed.
 
 ```bash
 # Use default build.yaml in current directory
-dart run tom_d4rt_astgen:astgen
+dart run tom_ast_generator:astgen
 
 # Specify custom config file
-dart run tom_d4rt_astgen:astgen -c my_build.yaml
+dart run tom_ast_generator:astgen -c my_build.yaml
 
 # Dry run (show what would be done)
-dart run tom_d4rt_astgen:astgen --dry-run
+dart run tom_ast_generator:astgen --dry-run
 
 # Verbose output
-dart run tom_d4rt_astgen:astgen -v
+dart run tom_ast_generator:astgen -v
 
 # Show help
-dart run tom_d4rt_astgen:astgen --help
+dart run tom_ast_generator:astgen --help
 ```
 
 ## Workspace Search Algorithm
@@ -305,7 +305,7 @@ For `project:name/path` notation:
 **Example workspace structure:**
 ```
 workspace/
-├── tom_d4rt_astgen/        ← Current directory
+├── tom_ast_generator/      ← Current directory
 │   └── build.yaml
 ├── tom_runtime/            ← Found as sibling
 │   └── pubspec.yaml (name: tom_runtime)

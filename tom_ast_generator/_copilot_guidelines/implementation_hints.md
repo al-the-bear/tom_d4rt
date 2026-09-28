@@ -1,10 +1,10 @@
 # Implementation Hints — tom_build_base Integration
 
-This document describes the relationship between `tom_d4rt_astgen` and the shared CLI infrastructure from `tom_build_base`.
+This document describes the relationship between `tom_ast_generator` and the shared CLI infrastructure from `tom_build_base`.
 
 ## Overview
 
-`tom_d4rt_astgen` provides the AST generator tooling:
+`tom_ast_generator` provides the AST generator tooling:
 - **astgen** CLI — Converts Dart source files to serialized AST YAML files
 - Supports workspace-wide processing with project discovery
 

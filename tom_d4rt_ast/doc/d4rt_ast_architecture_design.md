@@ -1,13 +1,28 @@
 # D4rt AST Architecture Design
 
+> **Status (2026-09-28): the split this document designed is complete and
+> published.** The architecture, package APIs, bundle format and usage sections
+> describe the packages as they are. The *Implementation Outline* near the end
+> is the phased plan the work followed, kept as a record of how it was reached.
+>
+> Three things were renamed or moved after this document was written, and the
+> text below uses the current names throughout:
+>
+> - the parser/bundler package planned as `tom_ast_generator` shipped as
+>   **`tom_ast_generator`**;
+> - its CLI, planned as `ast_convert`, is **`astgen`**;
+> - the serializable mirror AST (`SAstNode` and its subtypes) lives in its own
+>   zero-dependency package, **`tom_ast_model`**, which `tom_d4rt_ast` and
+>   `tom_ast_generator` both depend on.
+
 ## Overview
 
-This document describes the architecture for the D4rt interpreter package split, enabling execution of pre-parsed AST without requiring the Dart analyzer as a dependency.
+This document describes the architecture of the D4rt interpreter package split, which enables execution of pre-parsed AST without requiring the Dart analyzer as a dependency.
 
 ## Goals
 
 1. **tom_d4rt_ast** - Execute pre-parsed AST bundles without analyzer dependency (lightweight, embeddable)
-2. **tom_d4rt_astgen** - Parse Dart source to AST, bundle with import resolution (has analyzer)
+2. **tom_ast_generator** - Parse Dart source to AST, bundle with import resolution (has analyzer)
 3. **tom_d4rt_exec** - **100% API-compatible** drop-in replacement for tom_d4rt, coordinates parsing and execution
 
 ## API Compatibility
@@ -19,7 +34,7 @@ This document describes the architecture for the D4rt interpreter package split,
 - **Drop-in replacement**: Change import from `package:tom_d4rt/tom_d4rt.dart` to `package:tom_d4rt_exec/tom_d4rt_exec.dart`
 - **Same behavior**: Existing code works without modification
 
-The analyzer dependency is internal (via tom_d4rt_astgen) - users don't need to interact with it.
+The analyzer dependency is internal (via tom_ast_generator) - users don't need to interact with it.
 
 ## Package Architecture
 
@@ -38,10 +53,10 @@ graph TB
         COORD[Coordinator]
     end
     
-    subgraph "tom_d4rt_astgen"
+    subgraph "tom_ast_generator"
         CONV[AstConverter<br/>Source → AST]
         BUND[AstBundler<br/>Bundle with imports]
-        CLI[ast_convert CLI]
+        CLI[astgen CLI]
     end
     
     subgraph "tom_d4rt_ast"
@@ -87,8 +102,8 @@ graph TB
 sequenceDiagram
     participant User
     participant D4rt as D4rt (exec)
-    participant AstBundler as AstBundler (astgen)
-    participant AstConverter as AstConverter (astgen)
+    participant AstBundler as AstBundler (tom_ast_generator)
+    participant AstConverter as AstConverter (tom_ast_generator)
     participant D4rtRunner as D4rtRunner (ast)
     participant AstModuleLoader as AstModuleLoader (ast)
     
@@ -218,7 +233,7 @@ class AstModuleLoader implements ModuleContext {
 
 ---
 
-### tom_d4rt_astgen
+### tom_ast_generator
 
 Parsing and bundling. **Has analyzer dependency.**
 
@@ -275,7 +290,7 @@ class AstBundler {
 
 ### tom_d4rt_exec
 
-**100% backward-compatible** replacement for tom_d4rt. Has analyzer via astgen dependency.
+**100% backward-compatible** replacement for tom_d4rt. Has the analyzer via its tom_ast_generator dependency.
 
 #### D4rt
 
@@ -303,7 +318,7 @@ class D4rt {
   
   // ─── Execution ───
   
-  /// Execute source code (coordinates astgen → runner)
+  /// Execute source code (coordinates tom_ast_generator → runner)
   Future<Object?> execute({
     String? source,
     SCompilationUnit? ast,
@@ -354,6 +369,10 @@ my_script.ast (ZIP)
 
 ## Implementation Outline
 
+*Completed. This is the plan the split followed, not work still to do; file
+paths are as planned and some moved in the implementation (for example the
+bundler lives at `tom_ast_generator/lib/src/bundler/ast_bundler.dart`).*
+
 ### Phase 1: AstBundle in tom_d4rt_ast
 
 1. Create `lib/src/runtime/ast_bundle.dart`
@@ -374,14 +393,14 @@ my_script.ast (ZIP)
    - Add `executeBundle(AstBundle)` method
    - Create `AstModuleLoader` from bundle's modules
 
-### Phase 3: AstBundler in tom_d4rt_astgen
+### Phase 3: AstBundler in tom_ast_generator
 
 1. Create `lib/src/ast_bundler.dart`
    - `createFromSource()` - parse string and follow imports
    - `createFromFile()` - parse file and follow imports
    - Import resolution logic (bridged, same-package, explicit, error)
 
-2. Update `ast_convert` CLI to support bundle output
+2. Update the CLI (now `astgen`) to support bundle output
 
 ### Phase 4: Update tom_d4rt_exec
 
@@ -403,7 +422,7 @@ my_script.ast (ZIP)
 2. Unit tests for `AstBundler` import resolution
 3. Integration tests: source → bundle → execute
 4. Verify existing tom_d4rt_exec tests pass
-5. Verify existing tom_d4rt_astgen tests pass
+5. Verify existing tom_ast_generator tests pass
 
 ---
 
@@ -488,18 +507,23 @@ All existing code continues to work unchanged.
 ## Dependencies
 
 ```
+tom_ast_model
+└── (no dependencies)
+
 tom_d4rt_ast
+├── tom_ast_model
 ├── archive (ZIP handling)
 └── (no analyzer!)
 
-tom_d4rt_astgen
+tom_ast_generator
+├── tom_ast_model
 ├── tom_d4rt_ast
 └── analyzer
 
 tom_d4rt_exec
 ├── tom_d4rt_ast
-├── tom_d4rt_astgen
-└── analyzer (transitive via astgen)
+├── tom_ast_generator
+└── analyzer
 ```
 
-**Note**: tom_d4rt_exec users don't need to directly interact with analyzer or astgen - parsing is handled internally.
+**Note**: tom_d4rt_exec users don't need to directly interact with the analyzer or tom_ast_generator - parsing is handled internally.

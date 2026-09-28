@@ -71,7 +71,7 @@ scan: packages/               # Scan packages directory
 
 **CLI equivalent:** `--scan` or `-s`
 
-**Note:** When `scan` is set, the tool will search for all projects with `build.yaml` files containing `tom_d4rt_astgen:astgen` configuration.
+**Note:** When `scan` is set, the tool will search for all projects with `build.yaml` files containing an `astgen` configuration section.
 
 #### `recursive` (boolean, optional)
 
@@ -191,13 +191,13 @@ astgen:
 
 ```bash
 # Run with tom_build.yaml configuration
-dart run tom_d4rt_astgen:astgen
+dart run tom_ast_generator:astgen
 
 # Override configuration with CLI options
-dart run tom_d4rt_astgen:astgen --project=my_app --verbose
+dart run tom_ast_generator:astgen --project=my_app --verbose
 
 # Scan for projects
-dart run tom_d4rt_astgen:astgen --scan=. --recursive
+dart run tom_ast_generator:astgen --scan=. --recursive
 ```
 
 ### CLI Options
@@ -216,11 +216,11 @@ Project(s) to generate AST files for. Supports comma-separated values and glob p
 
 **Examples:**
 ```bash
-dart run tom_d4rt_astgen:astgen --project=.
-dart run tom_d4rt_astgen:astgen -p ../my_app
-dart run tom_d4rt_astgen:astgen --project=packages/core
-dart run tom_d4rt_astgen:astgen --project='tom_*_builder,my_app'
-dart run tom_d4rt_astgen:astgen --project='./*'
+dart run tom_ast_generator:astgen --project=.
+dart run tom_ast_generator:astgen -p ../my_app
+dart run tom_ast_generator:astgen --project=packages/core
+dart run tom_ast_generator:astgen --project='tom_*_builder,my_app'
+dart run tom_ast_generator:astgen --project='./*'
 ```
 
 **Overrides:** `astgen.project` in tom_build.yaml
@@ -231,9 +231,9 @@ Directory to scan for projects needing D4rt AST files.
 
 **Examples:**
 ```bash
-dart run tom_d4rt_astgen:astgen --scan=.
-dart run tom_d4rt_astgen:astgen -s ../
-dart run tom_d4rt_astgen:astgen --scan=packages/
+dart run tom_ast_generator:astgen --scan=.
+dart run tom_ast_generator:astgen -s ../
+dart run tom_ast_generator:astgen --scan=packages/
 ```
 
 **Overrides:** `astgen.scan` in tom_build.yaml
@@ -244,8 +244,8 @@ Process subprojects recursively.
 
 **Examples:**
 ```bash
-dart run tom_d4rt_astgen:astgen --scan=. --recursive
-dart run tom_d4rt_astgen:astgen -s ../ -r
+dart run tom_ast_generator:astgen --scan=. --recursive
+dart run tom_ast_generator:astgen -s ../ -r
 ```
 
 **Overrides:** `astgen.recursive` in tom_build.yaml
@@ -256,8 +256,8 @@ Glob pattern for projects to exclude. Can be specified multiple times.
 
 **Examples:**
 ```bash
-dart run tom_d4rt_astgen:astgen --scan=. --exclude='**/test/**'
-dart run tom_d4rt_astgen:astgen -e '**/node_modules/**' -e '**/build/**'
+dart run tom_ast_generator:astgen --scan=. --exclude='**/test/**'
+dart run tom_ast_generator:astgen -e '**/node_modules/**' -e '**/build/**'
 ```
 
 **Overrides:** `astgen.exclude` in tom_build.yaml
@@ -268,8 +268,8 @@ Glob pattern to exclude from recursive traversal. Can be specified multiple time
 
 **Examples:**
 ```bash
-dart run tom_d4rt_astgen:astgen --scan=. --recursion-exclude='**/.git/**'
-dart run tom_d4rt_astgen:astgen --recursion-exclude='**/node_modules/**'
+dart run tom_ast_generator:astgen --scan=. --recursion-exclude='**/.git/**'
+dart run tom_ast_generator:astgen --recursion-exclude='**/node_modules/**'
 ```
 
 **Overrides:** `astgen.recursion-exclude` in tom_build.yaml
@@ -280,8 +280,8 @@ Path for the generated AST file (relative to project root).
 
 **Examples:**
 ```bash
-dart run tom_d4rt_astgen:astgen --output=lib/ast.g.dart
-dart run tom_d4rt_astgen:astgen --output=lib/src/d4rt_ast.g.dart
+dart run tom_ast_generator:astgen --output=lib/ast.g.dart
+dart run tom_ast_generator:astgen --output=lib/src/d4rt_ast.g.dart
 ```
 
 **Overrides:** `astgen.output` in tom_build.yaml
@@ -292,8 +292,8 @@ Show detailed output including analyzed classes and generated registrations.
 
 **Examples:**
 ```bash
-dart run tom_d4rt_astgen:astgen --verbose
-dart run tom_d4rt_astgen:astgen -v --scan=.
+dart run tom_ast_generator:astgen --verbose
+dart run tom_ast_generator:astgen -v --scan=.
 ```
 
 **Overrides:** `astgen.verbose` in tom_build.yaml
@@ -311,7 +311,7 @@ Display help message with all available options.
 
 **Example:**
 ```bash
-dart run tom_d4rt_astgen:astgen --help
+dart run tom_ast_generator:astgen --help
 ```
 
 ### Workspace Navigation Options
@@ -325,10 +325,10 @@ Run from the workspace root. When used without a path argument (bare `-R`), the 
 **Examples:**
 ```bash
 # Auto-detect workspace root
-dart run tom_d4rt_astgen:astgen -R -l
+dart run tom_ast_generator:astgen -R -l
 
 # Specify workspace root
-dart run tom_d4rt_astgen:astgen -R /path/to/workspace -r
+dart run tom_ast_generator:astgen -R /path/to/workspace -r
 ```
 
 **Use case:** Run the tool from any subdirectory while processing the entire workspace.
@@ -339,8 +339,8 @@ Sort projects in dependency build order before processing. Projects that depend 
 
 **Examples:**
 ```bash
-dart run tom_d4rt_astgen:astgen --scan=. --recursive --build-order
-dart run tom_d4rt_astgen:astgen -R -b
+dart run tom_ast_generator:astgen --scan=. --recursive --build-order
+dart run tom_ast_generator:astgen -R -b
 ```
 
 **Use case:** Ensure dependent projects are processed in the correct order.
@@ -351,7 +351,7 @@ Shell out to sub-workspaces instead of skipping them. Sub-workspaces are directo
 
 **Examples:**
 ```bash
-dart run tom_d4rt_astgen:astgen -R -w
+dart run tom_ast_generator:astgen -R -w
 ```
 
 **Use case:** Process projects across sub-workspaces in a multi-workspace setup.
@@ -362,7 +362,7 @@ Scan for git repositories and process the innermost (deepest nested) repository 
 
 **Examples:**
 ```bash
-dart run tom_d4rt_astgen:astgen --scan=. -i
+dart run tom_ast_generator:astgen --scan=. -i
 ```
 
 **Use case:** Process nested git repos depth-first.
@@ -373,7 +373,7 @@ Scan for git repositories and process the outermost (shallowest) repository firs
 
 **Examples:**
 ```bash
-dart run tom_d4rt_astgen:astgen --scan=. -o
+dart run tom_ast_generator:astgen --scan=. -o
 ```
 
 **Use case:** Process git repos in breadth-first order.
@@ -384,7 +384,7 @@ Exclude patterns (path-based globs). Can be specified multiple times.
 
 **Examples:**
 ```bash
-dart run tom_d4rt_astgen:astgen -R -x '**/test/**' -x '**/example/**'
+dart run tom_ast_generator:astgen -R -x '**/test/**' -x '**/example/**'
 ```
 
 #### `--exclude-projects <pattern>`
@@ -393,8 +393,8 @@ Exclude projects by name or path. More specific than `--exclude`, matching proje
 
 **Examples:**
 ```bash
-dart run tom_d4rt_astgen:astgen -R --exclude-projects='zom_*,test_*'
-dart run tom_d4rt_astgen:astgen --exclude-projects='xternal/tom_module_basics/*'
+dart run tom_ast_generator:astgen -R --exclude-projects='zom_*,test_*'
+dart run tom_ast_generator:astgen --exclude-projects='xternal/tom_module_basics/*'
 ```
 
 #### `--recursion-exclude <pattern>`
@@ -403,7 +403,7 @@ Glob patterns to exclude during recursive directory traversal.
 
 **Examples:**
 ```bash
-dart run tom_d4rt_astgen:astgen --scan=. --recursion-exclude='**/.git/**'
+dart run tom_ast_generator:astgen --scan=. --recursion-exclude='**/.git/**'
 ```
 
 ### Default Behavior
@@ -415,7 +415,7 @@ When no explicit navigation options are provided, the tool applies these default
 
 This means running `astgen` without arguments is equivalent to:
 ```bash
-dart run tom_d4rt_astgen:astgen --scan=. --recursive --build-order
+dart run tom_ast_generator:astgen --scan=. --recursive --build-order
 ```
 
 ## Configuration Priority
@@ -437,7 +437,7 @@ astgen:
 
 ```bash
 # CLI overrides verbose, uses output from config
-dart run tom_d4rt_astgen:astgen --verbose
+dart run tom_ast_generator:astgen --verbose
 # Result: output=lib/d4rt_ast.g.dart, verbose=true
 ```
 
@@ -448,7 +448,7 @@ dart run tom_d4rt_astgen:astgen --verbose
 Generate AST file for a specific project:
 
 ```bash
-dart run tom_d4rt_astgen:astgen --project=my_app
+dart run tom_ast_generator:astgen --project=my_app
 ```
 
 Or with configuration:
@@ -460,7 +460,7 @@ astgen:
 ```
 
 ```bash
-dart run tom_d4rt_astgen:astgen
+dart run tom_ast_generator:astgen
 ```
 
 ### Pattern 2: Workspace Scanning
@@ -468,7 +468,7 @@ dart run tom_d4rt_astgen:astgen
 Generate AST files for all projects in a workspace:
 
 ```bash
-dart run tom_d4rt_astgen:astgen --scan=. --recursive --exclude='**/test/**'
+dart run tom_ast_generator:astgen --scan=. --recursive --exclude='**/test/**'
 ```
 
 Or with configuration:
@@ -483,7 +483,7 @@ astgen:
 ```
 
 ```bash
-dart run tom_d4rt_astgen:astgen
+dart run tom_ast_generator:astgen
 ```
 
 ### Pattern 3: Pre-Build AST Generation
@@ -493,7 +493,7 @@ Generate AST files before building:
 ```bash
 #!/bin/bash
 # build.sh
-dart run tom_d4rt_astgen:astgen --scan=packages --recursive
+dart run tom_ast_generator:astgen --scan=packages --recursive
 dart run build_runner build
 dart compile exe bin/app.dart
 ```
@@ -505,7 +505,7 @@ In CI/CD scripts:
 ```bash
 #!/bin/bash
 # ci_build.sh
-dart run tom_d4rt_astgen:astgen \
+dart run tom_ast_generator:astgen \
   --scan=packages \
   --recursive \
   --exclude='**/test/**' \
@@ -517,8 +517,8 @@ dart run tom_d4rt_astgen:astgen \
 Generate AST files only for specific projects:
 
 ```bash
-dart run tom_d4rt_astgen:astgen --project=packages/core
-dart run tom_d4rt_astgen:astgen --project=packages/utils
+dart run tom_ast_generator:astgen --project=packages/core
+dart run tom_ast_generator:astgen --project=packages/utils
 ```
 
 ### Pattern 6: Custom Output Location
@@ -531,23 +531,6 @@ astgen:
   scan: packages/
   output: lib/generated/d4rt_ast.g.dart
 ```
-
-## Integration with build_runner
-
-The AST generator can be integrated into your build_runner pipeline:
-
-```yaml
-# build.yaml
-targets:
-  $default:
-    builders:
-      tom_d4rt_astgen:astgen:
-        enabled: true
-        options:
-          output: lib/d4rt_ast.g.dart
-```
-
-**Note:** This is in addition to the standalone CLI tool. The builder runs automatically with `build_runner`, while the CLI tool is run manually or in scripts.
 
 ## Generated File Structure
 
@@ -581,7 +564,7 @@ A project is considered an "astgen project" if it:
 1. Contains a `pubspec.yaml` file
 2. Contains either:
    - A `tom_build.yaml` file with `astgen:` section, or
-   - A `build.yaml` file with `tom_d4rt_astgen:astgen` configuration
+   - A configuration file with an `astgen` section
 3. Is not a builder definition project itself
 
 ## Troubleshooting
@@ -591,7 +574,7 @@ A project is considered an "astgen project" if it:
 **Cause:** No projects with AST generator configuration found.
 
 **Solutions:**
-1. Verify `build.yaml` contains `tom_d4rt_astgen:astgen` configuration
+1. Verify the configuration file contains an `astgen` section
 2. Check `scan` path is correct
 3. Verify projects aren't excluded by `exclude` patterns
 4. Use `--verbose` to see which directories are being scanned
@@ -660,7 +643,7 @@ A project is considered an "astgen project" if it:
 
 1. **Generate before building**
    ```bash
-   dart run tom_d4rt_astgen:astgen
+   dart run tom_ast_generator:astgen
    dart run build_runner build
    ```
 
@@ -697,7 +680,7 @@ A project is considered an "astgen project" if it:
 
 6. **Use verbose for debugging**
    ```bash
-   dart run tom_d4rt_astgen:astgen --verbose
+   dart run tom_ast_generator:astgen --verbose
    ```
 
 ## See Also

@@ -1,6 +1,6 @@
 # Tom D4rt AST Generator Project Guidelines
 
-**Project:** `tom_d4rt_astgen`  
+**Project:** `tom_ast_generator` (formerly `tom_d4rt_astgen`)  
 **Type:** CLI Tool
 
 ## Global Guidelines
