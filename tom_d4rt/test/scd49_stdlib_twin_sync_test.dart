@@ -69,11 +69,9 @@
 
 import 'dart:io';
 
-import 'package:analyzer/dart/analysis/features.dart';
-import 'package:analyzer/dart/analysis/utilities.dart';
-import 'package:analyzer/dart/ast/token.dart';
 import 'package:test/test.dart';
 
+import '../tool/mirror_stdlib.dart' show codeTokens;
 import 'sibling_trees.dart';
 
 /// The reference tree's stdlib, relative to the package root.
@@ -167,29 +165,10 @@ const _allowed = <String, (String, String)>{
 };
 
 /// The executable tokens of [source]: no comments, no directives, no trailing
-/// commas.
-List<String> _codeTokens(String source) {
-  final unit = parseString(
-    content: source,
-    featureSet: FeatureSet.latestLanguageVersion(),
-    throwIfDiagnostics: false,
-  ).unit;
-  final directives = unit.directives;
-  // `Token.next` skips comments — they hang off `precedingComments` — so
-  // excluding them costs nothing here.
-  final start = directives.isEmpty
-      ? unit.beginToken
-      : directives.last.endToken.next!;
-  final out = <String>[];
-  for (Token? t = start; t != null && t.type != TokenType.EOF; t = t.next) {
-    if (t.lexeme == ',') {
-      final next = t.next;
-      if (next != null && const [')', ']', '}'].contains(next.lexeme)) continue;
-    }
-    out.add(t.lexeme);
-  }
-  return out;
-}
+/// commas. SCE219 moved the definition into `tool/mirror_stdlib.dart`, so the
+/// tool that writes the mirror and the guard that judges it cannot disagree
+/// about what "code-identical" means.
+List<String> _codeTokens(String source) => codeTokens(source);
 
 /// The two sides of where [a] and [b] stop agreeing, with the common prefix and
 /// suffix trimmed off. `null` when they agree everywhere.

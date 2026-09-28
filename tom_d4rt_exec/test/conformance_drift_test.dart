@@ -3208,6 +3208,7 @@ const _anchoredBaseline = <String>{
   'sce155_dead_surface_removal_test.dart',
   'sce156_public_type_nameability_test.dart',
   'sce166_permission_enforcement_parity_test.dart',
+  'sce219_mirror_stdlib_tool_test.dart',
   'sce45_todo_count_stamps_test.dart',
   'sce89_skip_tag_agreement_test.dart',
   'stdlib/io/sce87_permission_gate_null_handle_test.dart',
