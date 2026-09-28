@@ -1486,84 +1486,24 @@ class SendTestRunner {
     return _client!;
   }
 
-  /// Send a script to the test app and return the result.
-  ///
-  /// [scriptPath] is the path relative to the scripts directory, e.g.,
-  /// 'color_test.dart' or 'painting/border_test.dart'.
-  ///
-  /// The test app must be running on [host]:[port].
-  ///
-  /// If [clearFirst] is true (default), clears the app UI before sending.
-  ///
-  /// The corpus verdict rule: a script passed only when the build succeeded AND
-  /// no framework errors were captured.
-  ///
-  /// **This is the single most consequential piece of logic in the corpus** — it
-  /// is what converts a [SendResult] into the per-file `+N ~M -K` that every
-  /// cluster count and every `## Verification runs` entry is compared against.
-  ///
-  /// SCD144 moved it here. It had been defined PER TEST FILE, four copies per
-  /// twin (`flutter_extended_21/22/23`, `interpreter_generator_open_issues`), so
-  /// a change to what counts as a failure could land in one file and silently
-  /// not in the others, and a session auditing the rule had to know to look four
-  /// times — which is what SCC48 spent part of a session doing. All eight copies
-  /// were verified byte-identical before the collapse; had one diverged, the
-  /// divergence would have been a finding rather than something to average away.
-  ///
-  /// It lives beside [SendResult] because it is inseparable from the result it
-  /// interprets: the inputs to the verdict and the verdict itself belong in one
-  /// place.
-  ///
-  /// Whether a framework error makes a corpus script FAIL.
-  ///
-  /// SCE167 — THE SETTLEMENT, AND WHY IT IS A CONSTANT RATHER THAN A CHANGE.
-  ///
-  /// The drivers disagreed about what a pass is. Measured 2026-09-23: 3 of the
-  /// 41 files called [expectSuccess], which gates on `frameworkErrors`, and the
-  /// other 38 asserted `expect(result.success, isTrue)` inline, which does not
-  /// — 104 call sites against 2 018. `widgets/android_view_test.dart` sits in
-  /// both `flutter_base_15` and `flutter_extended_22` and got two verdicts from
-  /// one run. Every driver now calls this method, so there is ONE definition of
-  /// a pass and one place to change it.
-  ///
-  /// GATING IS THE RIGHT ANSWER: a framework error is an interpreter runtime
-  /// error the script happened to survive, and treating it as a pass is what
-  /// let GEN-125 raise ~276 of them across 109 scripts while the corpus
-  /// reported success.
-  ///
-  /// IT IS NOT SWITCHED ON YET, AND THE REASON IS MEASURED RATHER THAN
-  /// CAUTIOUS. Base corpus, AST twin, all 910 scripts:
-  ///
-  /// | interpreter                      | scripts with errors | errors |
-  /// | -------------------------------- | ------------------: | -----: |
-  /// | hosted `tom_d4rt_ast` 0.65.0     |                  47 |    113 |
-  /// | working tree 0.164.0             |                   0 |      0 |
-  ///
-  /// So switching it on today turns 47 scripts across 8 base files red against
-  /// the interpreter the twins actually resolve (DGUC6), and green only under
-  /// the pre-publish pass — the worst of both readings. Against the tree it
-  /// costs nothing: the unpublished delta has already fixed every one.
-  ///
-  /// The flip therefore belongs to the publish, and is not left to memory:
-  /// `sce167_pass_verdict_convention_test.dart` fails once the twins' declared
-  /// floor reaches 0.164.0 — the release measured at zero — with this still
-  /// false.
-  static const bool frameworkErrorsFailARun = false;
-
   /// The corpus's single definition of a passing script.
   ///
-  /// [frameworkErrorsFailARun] decides whether a surviving interpreter runtime
-  /// error counts against it; the errors are reported either way, so a run that
-  /// does not gate still SAYS what it saw rather than swallowing it.
+  /// A surviving interpreter runtime error — a framework error — FAILS the
+  /// script. It is an interpreter defect the script happened to survive, and
+  /// treating it as a pass is what let GEN-125 raise ~276 of them across 109
+  /// scripts while the corpus reported success.
+  ///
+  /// Gating became unconditional on 2026-09-28 (SCE212): the published pair
+  /// tom_d4rt 1.192.0 / tom_d4rt_ast 0.177.0 raises ZERO framework errors
+  /// across all 910 base-corpus scripts in both twins, so turning it on
+  /// changed no verdict. Against 0.65.0 it would have turned 47 scripts red.
   static void expectSuccess(SendResult result) {
     final errors = result.frameworkErrors.isNotEmpty
         ? result.frameworkErrors.join('; ')
         : null;
     final reason = result.error ?? errors;
     expect(
-      frameworkErrorsFailARun
-          ? result.success && !result.hasFrameworkErrors
-          : result.success,
+      result.success && !result.hasFrameworkErrors,
       isTrue,
       reason: reason,
     );

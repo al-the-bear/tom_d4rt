@@ -25,13 +25,13 @@
 ///
 /// All 41 now call the helper, in both twins. That is what this file holds.
 ///
-/// ## Why the verdict has not changed yet, and what flips it
+/// ## Gating, and why it waited for a publish
 ///
 /// Gating is the right answer — a framework error is an interpreter runtime
 /// error the script survived, and treating it as a pass is what let GEN-125
 /// raise ~276 of them across 109 scripts while the corpus reported success.
-/// `SendTestRunner.frameworkErrorsFailARun` is nonetheless still `false`, and
-/// the reason is a measurement rather than caution. Base corpus, AST twin, all
+/// It stayed off until the publish, and the reason was a measurement rather
+/// than caution. Base corpus, AST twin, all
 /// 910 scripts:
 ///
 /// | interpreter                    | scripts with errors | errors |
@@ -42,16 +42,16 @@
 /// Switching it on today turns 47 scripts across 8 base files red against the
 /// interpreter the twins actually resolve (DGUC6) and green only under the
 /// pre-publish pass, which is the worst of both readings. Against the tree it
-/// costs nothing. So the flip belongs to the publish — and F-SCE167-3 makes
-/// that a red test at the moment it becomes free, rather than a note somebody
-/// has to remember while doing something else.
+/// costs nothing. So the flip belonged to the publish, and a guard made it a
+/// red test at the moment it became free. SCE212's publish (tom_d4rt_ast
+/// 0.177.0) measured zero across both twins on 2026-09-28; the switch is gone
+/// and F-SCE167-3 now holds that the helper gates.
 library;
 
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 
-import 'send_test_runner.dart';
 import 'sibling_trees.dart';
 
 const _twins = <String, String>{
@@ -66,14 +66,6 @@ const _twins = <String, String>{
 /// approximate.
 const _inlineVerdict = 'expect(result.success, isTrue';
 
-/// The release measured at zero framework errors across the base corpus.
-///
-/// When the twins declare a floor at or past this, gating is free and
-/// [SendTestRunner.frameworkErrorsFailARun] must be on.
-const _clearedAt = (major: 0, minor: 164, patch: 0);
-
-const _astPubspec = 'pubspec.yaml';
-
 /// Every `flutter_*_test.dart` driver under [dir].
 List<File> _drivers(String dir) {
   final d = Directory(dir);
@@ -85,29 +77,6 @@ List<File> _drivers(String dir) {
           e.path.endsWith('_test.dart'))
         e,
   ]..sort((a, b) => a.path.compareTo(b.path));
-}
-
-/// The `tom_d4rt_ast:` floor this twin declares, as (major, minor, patch).
-({int major, int minor, int patch})? _declaredFloor() {
-  for (final line in File(_astPubspec).readAsLinesSync()) {
-    final m = RegExp(
-      r'''^\s*tom_d4rt_ast:\s*["']?[\^>=]*\s*(\d+)\.(\d+)\.(\d+)''',
-    ).firstMatch(line);
-    if (m != null) {
-      return (
-        major: int.parse(m.group(1)!),
-        minor: int.parse(m.group(2)!),
-        patch: int.parse(m.group(3)!),
-      );
-    }
-  }
-  return null;
-}
-
-bool _atLeastCleared(({int major, int minor, int patch}) f) {
-  if (f.major != _clearedAt.major) return f.major > _clearedAt.major;
-  if (f.minor != _clearedAt.minor) return f.minor > _clearedAt.minor;
-  return f.patch >= _clearedAt.patch;
 }
 
 void main() {
@@ -176,51 +145,29 @@ void main() {
       );
     });
 
-    test('F-SCE167-3: once the floor reaches the release measured at zero, '
-        'gating is on', () {
-      final floor = _declaredFloor();
-      expect(
-        floor,
-        isNotNull,
-        reason:
-            'no parseable `tom_d4rt_ast:` floor in $_astPubspec, so this guard '
-            'cannot decide anything and must be repaired rather than left '
-            'green',
-      );
-      final text = '${floor!.major}.${floor.minor}.${floor.patch}';
-
-      if (!_atLeastCleared(floor)) {
+    test('F-SCE167-3: the shared helper gates on framework errors '
+        '[2026-09-28]', () {
+      // Gating was a switch until SCE212's publish made it free: the published
+      // pair raises ZERO framework errors across all 910 base-corpus scripts
+      // in both twins. The switch was deleted, so what is left to hold is that
+      // the ONE definition of a pass still refuses a script that survived an
+      // interpreter runtime error.
+      for (final entry in _twins.entries) {
+        final runner = File(
+          '${entry.value}/send_test_runner.dart',
+        ).readAsStringSync();
         expect(
-          SendTestRunner.frameworkErrorsFailARun,
-          isFalse,
+          runner,
+          contains('result.success && !result.hasFrameworkErrors'),
           reason:
-              'gating is on while this twin still declares $text. Against the '
-              'interpreter it resolves, 47 base-corpus scripts raise 113 '
-              'framework errors — turning them red is a measurement change '
-              'indistinguishable from a regression. If this was deliberate, '
-              'raise the floor first',
+              '${entry.key}: expectSuccess no longer gates on framework '
+              'errors, so a script that survived an interpreter error passes',
         );
-        return;
+        expect(runner, isNot(contains('frameworkErrorsFailARun')));
       }
-
-      expect(
-        SendTestRunner.frameworkErrorsFailARun,
-        isTrue,
-        reason:
-            'this twin now declares a floor of $text, at or past the 0.164.0 '
-            'measured at ZERO framework errors across all 910 base-corpus '
-            'scripts. Gating is free: set '
-            '`SendTestRunner.frameworkErrorsFailARun` to true in BOTH twins, '
-            'run both base corpora to confirm, and delete this case together '
-            'with the constant it guards',
-      );
     });
 
-    test('F-SCE167-4 (control): the version comparison and the inline pattern '
-        'both discriminate', () {
-      expect(_atLeastCleared((major: 0, minor: 164, patch: 0)), isTrue);
-      expect(_atLeastCleared((major: 0, minor: 163, patch: 99)), isFalse);
-      expect(_atLeastCleared((major: 1, minor: 0, patch: 0)), isTrue);
+    test('F-SCE167-4 (control): the inline pattern discriminates', () {
       // And the string F-SCE167-1 looks for is the one the drivers used, not
       // something that matches the helper call too.
       expect(

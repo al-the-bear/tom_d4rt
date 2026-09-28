@@ -189,10 +189,9 @@ class _RegisteredEnum {
 
   final String name;
 
-  /// The `BridgedEnum` `env.get(name)` returned — held as `Object` for the
-  /// same reason the lookup is `dynamic` (see [_collectEnums]). F-SCD133-3
-  /// compares against THIS rather than against [name].
-  final Object definition;
+  /// The `BridgedEnum` `env.get(name)` returned. F-SCD133-3 compares against
+  /// THIS rather than against [name].
+  final BridgedEnum definition;
 
   final List<Object> nativeValues;
 }
@@ -225,18 +224,6 @@ Future<(Environment, List<_RegisteredEnum>)> _liveRegistry() async {
 /// `bridgedEnumNames` reports a single frame, and the definitions live in the
 /// warm parent — so the chain has to be walked to see them from the child the
 /// script runs in.
-///
-/// `dynamic` rather than `BridgedEnum`, and it is not an oversight.
-/// `tom_d4rt/d4rt.dart` gained that export in 1.109.0; both twins resolve
-/// their interpreter from pub.dev (DGUC6) and `tom_d4rt_flutter` still
-/// declares `tom_d4rt: "^1.77.0"`, so the source line cannot name the type
-/// yet. Typing only the AST twin would make the two files diverge for a reason
-/// unrelated to what they assert, which is the thing this pair exists not to
-/// do — so both wait, together.
-///
-/// The wait is not left to memory: when that floor moves past 1.109.0,
-/// `tom_d4rt_flutter_ast/test/sce157_typed_registry_pending_test.dart` goes
-/// red and says to type both files.
 List<_RegisteredEnum> _collectEnums(Environment env) {
   final names = <String>{};
   for (Environment? frame = env; frame != null; frame = frame.enclosing) {
@@ -245,9 +232,8 @@ List<_RegisteredEnum> _collectEnums(Environment env) {
 
   final collected = <_RegisteredEnum>[];
   for (final name in names.toList()..sort()) {
-    final dynamic bridgedEnum = env.get(name);
-    final Object? valueMap = bridgedEnum?.values;
-    if (valueMap is! Map) {
+    final bridgedEnum = env.get(name);
+    if (bridgedEnum is! BridgedEnum) {
       fail(
         'registry inventory: `$name` is listed by bridgedEnumNames but '
         '`env.get("$name")` did not yield a bridged enum (got '
@@ -256,9 +242,9 @@ List<_RegisteredEnum> _collectEnums(Environment env) {
       );
     }
     collected.add(
-      _RegisteredEnum(name, bridgedEnum as Object, <Object>[
-        for (final dynamic value in valueMap.values)
-          value.nativeValue as Object,
+      _RegisteredEnum(name, bridgedEnum, <Object>[
+        for (final value in bridgedEnum.values.values)
+          value.nativeValue,
       ]),
     );
   }

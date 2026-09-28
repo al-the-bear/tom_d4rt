@@ -68,7 +68,6 @@ pair 'hosted is the default resolution strategy' { flutter test test/scd66_resol
 run 'the package''s own smoke test' { flutter test test/tom_d4rt_flutter_ast_test.dart }
 pair 'every test file is reachable from a runner' { flutter test test/scd142_runner_coverage_test.dart }
 pair 'the twins share one script corpus' { flutter test test/scd141_shared_corpus_test.dart }
-pair 'the scd133 dynamic deferral has not expired' { flutter test test/sce157_typed_registry_pending_test.dart }
 pair 'corpus skips state a mechanism and cite evidence' { flutter test test/scd140_skip_hygiene_test.dart }
 pair 'corpus runs record the interpreter they resolved' { flutter test test/scd164_run_attribution_test.dart }
 pair 'cluster log is derived, dated and blast-radius rated' { flutter test test/interpreter_issues_doc_test.dart }
