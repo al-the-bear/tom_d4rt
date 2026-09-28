@@ -239,6 +239,28 @@ String hostedPackageDir(String pubCacheRoot, LockedPackage package) =>
 ///
 /// Derived from the `pubspec.yaml` files on disk, so the tool never carries a
 /// list of the repo's packages that could fall behind the repo.
+///
+/// NON-RECURSIVE ON PURPOSE, so a green `--check` speaks for the repo's
+/// top-level packages and for nothing nested (SCE214, option C). Measured
+/// 2026-09-28: a recursive walk adds 38 packages to the 12 top-level ones — 26
+/// example projects, 5 samples, 5 test fixtures and the 2 companion apps — and
+/// only the apps would ever be acted on, so recursing trades this gate's
+/// signal for reach it does not need, and excluding the rest would need
+/// exactly the written-down list this tool avoids. The nested packages are
+/// guarded where the right question is asked instead:
+///
+///   * the COMPANION APPS, which is where the corpus actually runs, by
+///     `tom_d4rt_flutter_ast/test/companion_app_resolution.dart` — the app must
+///     resolve what its twin resolves, checked by the AST twin's guard suite
+///     and refused at `setUpAll` by both twins' runners;
+///   * the EXAMPLES, SAMPLES AND FIXTURES by
+///     `tom_d4rt_ast/test/scc45_resolution_guard_test.dart` — no lock behind a
+///     version already in the pub cache (F-SCC45-2), no copy surface declaring
+///     a floor below one (F-SCC45-4).
+///
+/// If a second caller ever needs to address a nested package here, the shape
+/// is an explicit `--consumer <path>` mode, leaving discovery and `--check`
+/// as they are.
 Map<String, String> worktreePackages(String repoRoot) {
   final root = Directory(repoRoot);
   if (!root.existsSync()) {
