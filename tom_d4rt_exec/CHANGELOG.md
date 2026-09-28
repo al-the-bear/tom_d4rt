@@ -2,10 +2,15 @@
 
 ### Changed — resolves the current interpreters (sce212)
 
-`tom_d4rt_ast` ^0.177.0 (was ^0.65.0), `tom_d4rt` ^1.192.0 (was ^1.77.0),
-`tom_ast_generator` ^0.1.9 and `tom_d4rt_generator` >=1.44.0. Every exec
-suite measured the interpreter published on 2026-09-11 until now; the
-publish-blocked conformance files are ported and their pins deleted.
+`tom_d4rt_ast` ^0.177.0 (was ^0.65.0), `tom_d4rt` ^1.192.0 (was ^1.77.0)
+and `tom_d4rt_generator` >=1.44.0. Every exec suite measured the interpreter
+published on 2026-09-11 until now; the publish-blocked conformance files are
+ported and their pins deleted.
+
+`tom_ast_generator` stays `^0.1.5` for this release only: every published
+0.1.6-0.1.8 pins `tom_d4rt_ast ^0.65.0`, and astgen's own dev dependency on
+this package means the next astgen cannot resolve until this release exists.
+1.34.0 raises the floor once tom_ast_generator 0.1.9 is published.
 
 ### Fixed — `dart:io` imports with EITHER FilesystemPermission or NetworkPermission (sce206, exec's front end)
 
