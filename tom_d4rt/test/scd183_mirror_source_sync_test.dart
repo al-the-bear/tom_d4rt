@@ -352,7 +352,8 @@ const _memberDivergenceReasons = <String, String>{
       'that walk it. The reference reads node.parent and needs none of them.',
   'interpreter_visitor.dart':
       'the moduleLoader/moduleContext pair, the typedef node\'s different name '
-      'in the two ASTs (TypeAlias against TypedefDeclaration), the '
+      'in the two ASTs (TypeAlias against TypedefDeclaration — recorded, not '
+      'renamed, in tom_ast_generator\'s sce218_mirror_type_names_test), the '
       'slot/coordinate caches the analyzer front end populates, and the '
       'closure-presence walker the twin needs for want of a parent pointer.',
   'introspection.dart':
