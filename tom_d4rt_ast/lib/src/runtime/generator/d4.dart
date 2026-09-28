@@ -5,6 +5,7 @@
 /// NOTE: This is work in progress - API may change.
 library;
 
+import 'dart:async';
 import 'dart:typed_data';
 
 import '../bridge/bridged_types.dart';
@@ -1040,6 +1041,48 @@ class D4 {
       );
     }
     return value.map<List<int>>((chunk) => coerceList<int>(chunk, paramName));
+  }
+
+  /// Binds [source] with [bind] so that an ERROR on [source] reaches the
+  /// returned stream even when the native consumer [bind] hands it to drops
+  /// source errors.
+  ///
+  /// **Why this exists (SCE208).** [coerceStream] is lazy: a wrongly typed
+  /// element becomes an error EVENT on the mapped stream, which is the right
+  /// shape — every consumer that forwards source errors delivers the
+  /// diagnostic to the script. Measured 2026-09-28 across the eleven bridged
+  /// consumers of a coerced stream (the `dart:convert` binds,
+  /// `Encoding.decodeStream`, and the `IOSink` / `Socket` / `HttpResponse` /
+  /// `HttpClientRequest` `addStream`s), all eleven do. One does not:
+  /// `WebSocketTransformer.bind` listens to its source with no `onError`, so
+  /// the error went to the zone's uncaught-error handler and the script's
+  /// stream simply never produced another event — a hang, not a failure.
+  ///
+  /// So the errors are split off before [bind] sees the stream and merged
+  /// back into its output. The source is listened to exactly when [bind]
+  /// listens to it (eagerly, for the transformer above), and pause, resume
+  /// and cancel on the returned stream reach the bound stream's subscription.
+  /// This is NOT an eager check — nothing is drained ahead of the consumer.
+  static Stream<T> bindForwardingSourceErrors<S, T>(
+    Stream<S> source,
+    Stream<T> Function(Stream<S> source) bind,
+  ) {
+    final out = StreamController<T>();
+    final bound = bind(
+      source.handleError((Object error, StackTrace stack) {
+        if (!out.isClosed) out.addError(error, stack);
+      }),
+    );
+    final subscription = bound.listen(
+      out.add,
+      onError: out.addError,
+      onDone: out.close,
+    );
+    out
+      ..onPause = subscription.pause
+      ..onResume = subscription.resume
+      ..onCancel = subscription.cancel;
+    return out.stream;
   }
 
   /// Check if T is double or double? (nullable double)

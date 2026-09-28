@@ -413,6 +413,11 @@ const _partialTwinBudget = 1;
 const _copierGapBudget = 41;
 
 const Map<String, _Coverage> _coveredElsewhere = {
+  'sce208_bind_forwarding_source_errors_test.dart': _Coverage(
+    'ast:runtime/sce208_bind_forwarding_source_errors_test.dart',
+    _astTwin,
+    layer: _Layer.registration,
+  ),
   'stdlib/sce203_family_reachable_parity_test.dart': _Coverage(
     'ast:runtime/sce203_family_reachable_parity_test.dart',
     _astTwin,
@@ -2541,6 +2546,14 @@ const Map<String, _Convergence> _convergenceLog = {
 /// re-measure the whole register when the floor moves, not the entry you
 /// happened to be reading.
 const Map<String, _Divergence> _divergentBaseline = {
+  // `websocket`: SCE208 added F-SCE208-1/2, which assert that a coercion
+  // error on a script-reshaped stream bound by `WebSocketTransformer.bind`
+  // reaches `await stream.first` and a listener's `onError`. The published
+  // interpreter's bridge hands the coerced stream straight to the SDK
+  // transformer, which drops source errors, so both cases hang there. This
+  // copy keeps the SCD172 wording that records the hang.
+  // Converges at a floor past 0.176.0.
+  'stdlib/io/websocket_test.dart': _Divergence.deliberate,
   // `scd146`: SCE177 pruned 85 redundant stdlib `nativeNames` entries, so the
   // reference census now expects 24 entries and asserts that every surviving
   // redundant one is kept for a stated reason (F-SCE177-1). The published
@@ -2830,6 +2843,7 @@ const Map<String, _Divergence> _divergentBaseline = {
 /// Recomputing without reading the new difference is the failure mode; the
 /// message says so.
 const Map<String, String> _divergenceFingerprints = <String, String>{
+  'stdlib/io/websocket_test.dart': 'baae4e789bde769d',
   'scd146_native_names_census_test.dart': '132f7b21983f99e4',
   'scd77_uri_is_scheme_test.dart': '7157029405e6bfda',
   'scb9_error_handler_arity_test.dart': 'd880f1617d543ff7',
@@ -3030,6 +3044,8 @@ typedef _Pin = ({String floor, String measured});
 /// recorded evidence was seven and ten cases out of date. Both are re-stamped
 /// above their entries in `_uncoveredBaseline`.
 const Map<String, _Pin> _pinnedInterpreterFloors = <String, _Pin>{
+  // SCE208, pinned at the release routing bound-stream errors through.
+  'stdlib/io/websocket_test.dart': (floor: '0.176.0', measured: '0.65.0'),
   // SCE206, pinned at the release carrying the either-permission import gate.
   'sce206_network_only_io_import_test.dart': (
     floor: '0.175.0',

@@ -1,3 +1,19 @@
+## 0.176.0
+
+### Fixed — a coercion error inside `WebSocketTransformer.bind` reaches the script (sce208)
+
+`D4.coerceStream` turns a wrongly typed element into an error event on the
+mapped stream. Eleven of the twelve bridged consumers of a coerced stream
+forward that error to the script; `WebSocketTransformer.bind` did not — the
+SDK transformer listens to its source with no `onError`, so the diagnostic
+went to the zone and the bound stream never produced another event: the
+script hung. The bridge now binds through the new
+`D4.bindForwardingSourceErrors`, which splits source errors off before the
+native consumer and merges them into its output. `await upgraded.first`
+throws the diagnostic, a listener's `onError` receives it, and the stream
+keeps serving the next request. No eager check — nothing is drained ahead of
+the consumer.
+
 ## 0.175.0
 
 ### Changed — `dart:io` imports with EITHER FilesystemPermission or NetworkPermission (sce206)

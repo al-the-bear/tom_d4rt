@@ -521,22 +521,93 @@ void main() {
       ''';
       expect(await executeAsync(good), isTrue);
 
-      // THE FAILING HALF IS NOT HERE, and that is a finding rather than a gap
-      // in this case. Binding a stream whose elements are the wrong type is
-      // accepted by `bind`, and the coercion then raises
-      // `Invalid parameter "WebSocketTransformer.bind": expected a
-      // Stream<HttpRequest>, but an element was String` — but the script
-      // cannot observe it. It does not reach the listener's `onError` and it
-      // does not reach the future of `await stream.first`; both simply never
-      // complete, and the script hangs. Two drafts of this case were written
-      // against those two routes and each timed out with the diagnostic
-      // printed beside it.
-      //
-      // A test for that would be a test that HANGS, which SCD169 established
-      // wedges the whole suite rather than failing it — no Dart-level timeout
-      // contains a stream that never completes. It is filed as sce208 with the
-      // reproduction, and deliberately not pinned here.
+      // The failing half is F-SCE208-1/2 below; it used to hang, which is
+      // why it was once absent from this case.
     });
+
+    test(
+      'F-SCE208-1: a wrongly typed element on a bound stream reaches '
+      '`await stream.first` as the coercion diagnostic [2026-09-28] (PASS)',
+      () async {
+        // Before SCE208 this HUNG. `D4.coerceStream` turns a wrong element into
+        // an error event, but the SDK's `WebSocketTransformer.bind` listens to
+        // its source with no `onError`, so the error went to the zone and the
+        // bound stream never produced another event. Every other bridged
+        // consumer of a coerced stream forwards the error (measured across
+        // eleven); this one is routed through `D4.bindForwardingSourceErrors`.
+        const source = '''
+      import 'dart:io';
+      import 'dart:async';
+      main() async {
+        var server = await HttpServer.bind(InternetAddress.loopbackIPv4, 0);
+        var upgraded = WebSocketTransformer()
+            .bind(server.map((request) => 'not a request'));
+        var url = 'ws://127.0.0.1:' + server.port.toString() + '/';
+        WebSocket.connect(url).then((s) => null, onError: (e) => null);
+        try {
+          await upgraded.first;
+          return 'no error';
+        } catch (e) {
+          return e.toString();
+        } finally {
+          await server.close(force: true);
+        }
+      }
+      ''';
+        final result = await executeAsync(source);
+        expect(result, isA<String>());
+        expect(
+          result as String,
+          allOf(
+            contains('WebSocketTransformer.bind'),
+            contains('Stream<HttpRequest>'),
+            contains('String'),
+          ),
+        );
+      },
+    );
+
+    test(
+      'F-SCE208-2: the same error reaches a listener\'s onError, and the '
+      'stream stays usable for the next request [2026-09-28] (PASS)',
+      () async {
+        // The other route the todo tried. The bad element is only the FIRST
+        // one: the transformer keeps serving, so a correctly typed request that
+        // follows still upgrades — the error is an event, not a termination.
+        const source = '''
+      import 'dart:io';
+      import 'dart:async';
+      main() async {
+        var server = await HttpServer.bind(InternetAddress.loopbackIPv4, 0);
+        var seen = 0;
+        var errors = [];
+        var upgradedOne = Completer();
+        WebSocketTransformer()
+            .bind(server.map((request) {
+              seen = seen + 1;
+              return seen == 1 ? 'not a request' : request;
+            }))
+            .listen((socket) {
+              socket.close();
+              upgradedOne.complete(socket is WebSocket);
+            }, onError: (e) {
+              errors.add(e.toString().contains('but an element was String'));
+            });
+        var url = 'ws://127.0.0.1:' + server.port.toString() + '/';
+        WebSocket.connect(url).then((s) => null, onError: (e) => null);
+        var client = await WebSocket.connect(url);
+        var ok = await upgradedOne.future;
+        await client.close();
+        await server.close(force: true);
+        return [errors, ok];
+      }
+      ''';
+        expect(await executeAsync(source), [
+          [true],
+          true,
+        ]);
+      },
+    );
 
     test(
       'F-SCC63-11: the factory constructor builds a transformer [2026-09-06]',

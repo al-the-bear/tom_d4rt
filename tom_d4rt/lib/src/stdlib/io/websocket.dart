@@ -384,11 +384,16 @@ class WebSocketTransformerIo {
             'WebSocketTransformer.bind requires a Stream argument.',
           );
         }
-        return (target as WebSocketTransformer).bind(
+        // SCE208: the SDK transformer listens to its source with no
+        // `onError`, so a coercion error on a script-reshaped stream would
+        // reach nobody and the bound stream would hang. Route it through.
+        final transformer = target as WebSocketTransformer;
+        return D4.bindForwardingSourceErrors<HttpRequest, WebSocket>(
           D4.coerceStream<HttpRequest>(
             positionalArgs[0],
             'WebSocketTransformer.bind',
           ),
+          transformer.bind,
         );
       },
     },
