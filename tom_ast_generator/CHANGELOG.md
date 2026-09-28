@@ -1,3 +1,13 @@
+## 0.1.9
+
+### Changed — resolves the current interpreter (sce212)
+
+`tom_d4rt_ast` ^0.177.0 (was ^0.65.0). Every published 0.1.6-0.1.8 pinned
+0.65.0, so a consumer on a current interpreter could not resolve any of them
+and pub fell back to 0.1.5 — the copier from before sce62's `library`
+directive fix — without saying so. Dev dependencies follow: `tom_d4rt_exec`
+^1.33.0, `tom_d4rt_generator` >=1.44.0, and the examples' exec floors.
+
 ## 0.1.8
 
 ### Fixed — `library` directives crashed the copier (sce62)

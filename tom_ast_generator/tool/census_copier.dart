@@ -108,8 +108,9 @@ Set<String> _unknownTypes(String source) {
   final seen = <String>{};
   void walk(Object? node) {
     if (node is Map) {
-      if (node['nodeType'] == 'Unknown')
+      if (node['nodeType'] == 'Unknown') {
         seen.add(node['originalType'] as String);
+      }
       node.values.forEach(walk);
     } else if (node is List) {
       node.forEach(walk);
@@ -245,8 +246,9 @@ void main(List<String> args) {
         '  ${entry.key}: ${(unknown.toList()..sort()).join(', ')}',
       );
     }
-    if (!any)
+    if (!any) {
       stdout.writeln('  none -- every probe converted without a placeholder');
+    }
   }
 
   final covIndex = args.indexOf('--coverage');
