@@ -49,6 +49,9 @@
 //            is a no-op rather than a re-wrap
 // F-SCC26-3  the sibling `tom_d4rt` tree is formatted too — the half of the
 //            mirror this package cannot otherwise speak for
+// F-SCC26-4  every mirrored PAIR declares the same SDK floor (SCE222): the
+//            lower floor of a pair caps what both trees may bridge
+// F-SCC26-5  no recorded floor straddle outlives its cause
 //
 // F-SCC26-3 needs the sibling checkout, which exists in the workspace but not
 // in a consumer's pub cache. It skips when the sibling is absent rather than
@@ -70,8 +73,9 @@ const _mirroredPackages = [
   // SCD82 — the rest of the repo. `tom_d4rt_dcli` and `tom_dcli_exec` are twins
   // in the sense this suite cares about (the same REPL on the two interpreter
   // lines, kept in step by diffing); the other three are not mirrored, so for
-  // them the guard is hygiene rather than a correctness aid. All five declare an
-  // SDK floor of ^3.10.4, well above the tall-style boundary F-SCC26-1 checks.
+  // them the guard is hygiene rather than a correctness aid. Their floors are
+  // well above the tall-style boundary F-SCC26-1 checks; whether each MIRRORED
+  // PAIR declares the same floor is F-SCC26-4's question, over [_mirroredPairs].
   'tom_ast_generator',
   'tom_ast_model',
   'tom_d4rt_dcli',
@@ -86,6 +90,34 @@ const _mirroredPackages = [
   'tom_d4rt_flutter',
   'tom_d4rt_flutter_ast',
 ];
+
+/// Mirrored PAIRS, which must declare the same SDK floor (SCE222).
+///
+/// A flat package list cannot say "these two must agree", and the pair is the
+/// unit that matters: a guard such as `scc73_sdk_member_completeness_test`
+/// skips SDK members `@Since` a version above the READING package's floor, so
+/// the lower floor of a pair silently caps what the pair may bridge. That held
+/// `tom_d4rt_ast` back from `Future.syncValue` for months (scd186), and three
+/// Flutter-side pairs still straddled when this was written — each with the
+/// analyzer-free member lower, the one that ships inside apps. Includes the
+/// companion apps and the demo apps, which are twins of the same kind even
+/// though they are not formatted mirrors.
+const _mirroredPairs = <(String, String)>[
+  ('tom_d4rt', 'tom_d4rt_ast'),
+  ('tom_d4rt', 'tom_d4rt_exec'),
+  ('tom_d4rt_dcli', 'tom_dcli_exec'),
+  ('tom_d4rt_flutter', 'tom_d4rt_flutter_ast'),
+  (
+    'tom_d4rt_flutter/test/tom_d4rt_flutter_test_app',
+    'tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app',
+  ),
+  ('tom_d4rt_flutter_test', 'tom_d4rt_flutter_ast_test'),
+];
+
+/// Pairs allowed to declare different floors, with the reason. EMPTY: every
+/// straddle found by SCE222 was resolved by raising the lower side. An entry
+/// here is a permission, and F-SCC26-5 fails once its cause is gone.
+const _floorStraddles = <(String, String), String>{};
 
 /// File names that are GENERATOR OUTPUT and are therefore excluded everywhere.
 ///
@@ -173,6 +205,15 @@ Directory? _repoRoot() {
   ).firstMatch(pubspec.readAsStringSync());
   if (match == null) return null;
   return (major: int.parse(match.group(1)!), minor: int.parse(match.group(2)!));
+}
+
+/// The full `major.minor.patch` of the declared SDK floor, or null.
+String? _declaredSdkVersion(File pubspec) {
+  final match = RegExp(
+    r'^\s*sdk:\s*[">=^\s]*(\d+\.\d+\.\d+)',
+    multiLine: true,
+  ).firstMatch(pubspec.readAsStringSync());
+  return match?.group(1);
 }
 
 /// Paths under [package] that `dart format` should find nothing to do in.
@@ -283,6 +324,56 @@ void main() {
               'that checks the mirror stops being readable.',
         );
       }
+    });
+
+    test('F-SCC26-4: every mirrored pair declares the same SDK floor '
+        '[2026-09-29]', () {
+      expect(root, isNotNull, reason: 'd4rt repo root not found from cwd');
+      // Anti-vacuity first: this is an equality assertion over a derived set,
+      // so a pair list that resolved to nothing would pass it perfectly.
+      final floors = <(String, String), (String?, String?)>{
+        for (final pair in _mirroredPairs)
+          pair: (
+            _declaredSdkVersion(File('${root!.path}/${pair.$1}/pubspec.yaml')),
+            _declaredSdkVersion(File('${root.path}/${pair.$2}/pubspec.yaml')),
+          ),
+      };
+      final read = floors.values.where((f) => f.$1 != null && f.$2 != null);
+      expect(
+        read.length,
+        _mirroredPairs.length,
+        reason: 'a pubspec of a mirrored pair declares no readable sdk floor',
+      );
+      expect(_mirroredPairs.length, 6, reason: 'the pair census moved');
+
+      final straddles = [
+        for (final e in floors.entries)
+          if (e.value.$1 != e.value.$2 && !_floorStraddles.containsKey(e.key))
+            '${e.key.$1} ^${e.value.$1}  vs  ${e.key.$2} ^${e.value.$2}',
+      ];
+      expect(
+        straddles,
+        isEmpty,
+        reason:
+            'These mirrored pairs declare different SDK floors. The lower one '
+            'caps the pair: a member gated @Since above it is skipped for BOTH '
+            'trees (scd186 lost Future.syncValue this way). Raise the lower '
+            'floor, or record the pair in _floorStraddles with the reason it '
+            'cannot be raised.',
+      );
+    });
+
+    test('F-SCC26-5: no floor straddle permission outlives its cause '
+        '[2026-09-29]', () {
+      final stale = [
+        for (final pair in _floorStraddles.keys)
+          if (_declaredSdkVersion(
+                File('${root!.path}/${pair.$1}/pubspec.yaml'),
+              ) ==
+              _declaredSdkVersion(File('${root.path}/${pair.$2}/pubspec.yaml')))
+            '${pair.$1} / ${pair.$2}',
+      ];
+      expect(stale, isEmpty, reason: 'these pairs agree now; delete the entry');
     });
 
     test('F-SCC26-2: this package is formatted [2026-09-04]', () {

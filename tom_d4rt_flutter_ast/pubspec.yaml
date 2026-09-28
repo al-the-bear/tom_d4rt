@@ -5,7 +5,7 @@ repository: https://github.com/al-the-bear/tom_d4rt
 homepage: https://github.com/al-the-bear/tom_d4rt/tree/main/tom_d4rt_flutter_ast
 
 environment:
-  sdk: ^3.10.4
+  sdk: ^3.11.4
   flutter: ">=3.27.0"
 
 dependencies:
