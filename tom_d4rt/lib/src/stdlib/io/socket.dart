@@ -392,18 +392,9 @@ class SocketIo {
               runAction<dynamic>(visitor, combine, [previous, element]),
         );
       },
-      'pipe': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'Socket.pipe', atMost: 1);
-        final streamConsumer = positionalArgs[0];
-        if (streamConsumer is! StreamConsumer) {
-          throw RuntimeD4rtException(
-            'Socket.pipe requires a StreamConsumer argument.',
-          );
-        }
-        return (target as Socket).pipe(
-          streamConsumer as StreamConsumer<Uint8List>,
-        );
-      },
+      // SCE217: no `pipe` here. The copy guarded on StreamConsumer and cast to
+      // StreamConsumer<Uint8List>, which rejected every consumer a script can
+      // hold; the inherited Stream.pipe adapter does what the SDK does.
       'cast': (visitor, target, positionalArgs, namedArgs, _) =>
           (target as Socket).cast(),
       'drain': (visitor, target, positionalArgs, namedArgs, _) {

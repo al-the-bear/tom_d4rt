@@ -1,3 +1,19 @@
+## 1.194.0
+
+### Fixed — `pipe` accepts the consumers a script can hold (sce217)
+
+`Stream<X>.pipe(StreamConsumer<X>)` is a typed call, and Dart generics are
+covariant, so a consumer passed only if its element type is a subtype of `X`.
+No consumer a script holds is one: a script's `StreamController()` is
+`StreamController<dynamic>`, and an `IOSink` (a file's `openWrite()`, a
+`Socket`) is `StreamConsumer<List<int>>` where a socket streams `Uint8List`.
+So `socket.pipe(controller)` and the proxy `client.pipe(upstream)` threw a raw
+`_TypeError` — through `Socket.pipe`'s own guard-then-cast copy AND through the
+inherited `Stream.pipe` adapter. The `Socket` copy is deleted; `Stream.pipe`
+now runs the SDK's own body (`addStream`, then `close`) via the new
+`D4.pipeStream`, with the consumer's `addStream` dispatched dynamically. A
+consumer of an unrelated element type still fails inside its own `addStream`.
+
 ## 1.193.0
 
 ### Changed — `fuse` says why a script-defined converter is refused (sce216)

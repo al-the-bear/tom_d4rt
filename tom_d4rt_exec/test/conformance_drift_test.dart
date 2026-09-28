@@ -1677,6 +1677,13 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
     ran: 4,
     declared: 4,
   ),
+  // PUBLISH-BLOCKED (SCE217). Stream.pipe accepts script consumers from the release
+  // carrying `D4.pipeStream`; ported and run here on 2026-09-28
+  // against resolved tom_d4rt_ast 0.177.0, F-SCE217-1 fails with the raw
+  // `_TypeError` cast and F-SCE217-2 HANGS to its timeout (the echo client
+  // waits for data the failed pipe never sends); F-SCE217-3 passes.
+  // Re-port when a publish raises exec's floor past 0.179.0.
+  'stdlib/io/sce217_socket_pipe_test.dart': (ran: 3, declared: 3),
   // NOT PORTABLE — and uniquely so: the subject itself cannot exist on the
   // analyzer-free line. `static_name_report.dart` resolves names over the
   // ANALYZER AST, which `tom_d4rt_ast` has no access to by construction, so
@@ -2441,6 +2448,11 @@ const Map<String, _Pin> _pinnedInterpreterFloors = <String, _Pin>{
   // SCE216, pinned at the release carrying the fuse refusal helper.
   'stdlib/convert/sce216_fuse_script_converter_test.dart': (
     floor: '0.178.0',
+    measured: '0.177.0',
+  ),
+  // SCE217, pinned at the release carrying D4.pipeStream.
+  'stdlib/io/sce217_socket_pipe_test.dart': (
+    floor: '0.179.0',
     measured: '0.177.0',
   ),
 };

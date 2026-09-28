@@ -309,13 +309,13 @@ class StreamAsync {
       },
       'pipe': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Stream.pipe', atMost: 1);
-        final streamConsumer = positionalArgs[0];
-        if (streamConsumer is! StreamConsumer) {
-          throw RuntimeD4rtException(
-            'Stream.pipe requires a StreamConsumer argument.',
-          );
-        }
-        return (target as Stream).pipe(streamConsumer);
+        // SCE217: not `(target as Stream).pipe(...)` — that typed call rejects
+        // every consumer a script can hold. See D4.pipeStream.
+        return D4.pipeStream(
+          target as Stream,
+          positionalArgs.isEmpty ? null : positionalArgs[0],
+          'Stream.pipe',
+        );
       },
       'any': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Stream.any', atMost: 1);

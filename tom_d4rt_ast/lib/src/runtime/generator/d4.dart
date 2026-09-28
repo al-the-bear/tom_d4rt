@@ -978,6 +978,41 @@ class D4 {
     return _AdaptedSink<T>(value, paramName);
   }
 
+  /// `Stream.pipe`, without the typed call that rejects every consumer a
+  /// script can hold.
+  ///
+  /// SCE217. The SDK defines `pipe` as `consumer.addStream(this).then((_) =>
+  /// consumer.close())`, but the call itself is typed —
+  /// `Stream<X>.pipe(StreamConsumer<X>)` — and Dart generics are covariant: a consumer is only a
+  /// `StreamConsumer<X>` when its element type is a SUBTYPE of `X`. The
+  /// consumers a script holds sit the other way round — a script's
+  /// `StreamController()` is `StreamController<dynamic>`, and an `IOSink` (a
+  /// file's `openWrite()`, a `Socket`) is `StreamConsumer<List<int>>` where a
+  /// socket's stream is `Stream<Uint8List>`. So `socket.pipe(controller)` and
+  /// the proxy `client.pipe(upstream)` threw a raw `_TypeError` for every
+  /// reachable call.
+  ///
+  /// This runs the SDK's own body with the consumer's `addStream` dispatched
+  /// dynamically, so the only type check left is the one that means
+  /// something: the source must be a stream of the consumer's element type.
+  /// A consumer whose element type is unrelated still fails, inside its own
+  /// `addStream` — this widens nothing. A value that is not a `StreamConsumer`
+  /// at all is refused with [member]'s own message.
+  static Future<dynamic> pipeStream(
+    Stream<dynamic> source,
+    Object? consumer,
+    String member,
+  ) {
+    final value = consumer is BridgedInstance
+        ? consumer.nativeObject
+        : consumer;
+    if (value is! StreamConsumer) {
+      throw RuntimeD4rtException('$member requires a StreamConsumer argument.');
+    }
+    final added = (value as dynamic).addStream(source) as Future<dynamic>;
+    return added.then((_) => value.close());
+  }
+
   // ==========================================================================
   // Stream Coercion
   // ==========================================================================
