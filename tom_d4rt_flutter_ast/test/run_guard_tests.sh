@@ -257,6 +257,10 @@ run "sibling-tree guards declare where they must run" \
 run "verification rows derive from the run header" \
   flutter test test/sce199_verification_row_test.dart
 
+# SCE201: the overview's structural bridge counts match both twins' trees.
+pair "overview bridge counts match both twins" \
+  flutter test test/sce201_overview_structural_counts_test.dart
+
 if [ "$mode" = pair ]; then
   scope="pair guards"
 else

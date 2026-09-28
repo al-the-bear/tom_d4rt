@@ -84,6 +84,7 @@ run 'stdlib types route to the stdlib under Flutter scope' { flutter test test/s
 pair 'shared test infrastructure agrees across the twins' { flutter test test/sce170_twin_test_infrastructure_test.dart }
 run 'sibling-tree guards declare where they must run' { flutter test test/sce191_structural_guard_anchoring_test.dart }
 run 'verification rows derive from the run header' { flutter test test/sce199_verification_row_test.dart }
+pair 'overview bridge counts match both twins' { flutter test test/sce201_overview_structural_counts_test.dart }
 
 $scope = if ($pairOnly) { 'pair guards' } else { 'guards' }
 if ($script:status -eq 0) {
