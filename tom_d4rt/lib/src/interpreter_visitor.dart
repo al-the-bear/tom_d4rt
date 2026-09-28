@@ -14186,9 +14186,14 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         awaitNode: node,
       );
     } else {
-      // The argument to 'await' MUST be a Future.
-      throw RuntimeD4rtException(
-        "The argument to 'await' must be a Future, but received type: ${expressionValue?.runtimeType}",
+      // SCE223: Dart allows `await` on any value — `await 5` is 5 and
+      // `await null` is null — and still yields to the event loop. So a
+      // non-Future is wrapped and suspended on like any other; it used to be
+      // refused as an error.
+      return AsyncSuspensionRequest(
+        Future<Object?>.value(futureValue),
+        currentAsyncState!,
+        awaitNode: node,
       );
     }
   }

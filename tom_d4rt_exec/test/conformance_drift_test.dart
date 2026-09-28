@@ -1684,6 +1684,12 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
   // waits for data the failed pipe never sends); F-SCE217-3 passes.
   // Re-port when a publish raises exec's floor past 0.179.0.
   'stdlib/io/sce217_socket_pipe_test.dart': (ran: 3, declared: 3),
+  // PUBLISH-BLOCKED (SCE223). await on a non-Future, BridgedInstance.set and
+  // the multi-variable `for` message land in the release carrying them;
+  // ported and run here on 2026-09-29 against resolved tom_d4rt_ast 0.177.0,
+  // F-SCE223-4, -5 and -6 fail and -1..3 pass. Re-port when a publish raises
+  // exec's floor past 0.180.0.
+  'sce223_announced_gaps_test.dart': (ran: 6, declared: 6),
   // NOT PORTABLE — and uniquely so: the subject itself cannot exist on the
   // analyzer-free line. `static_name_report.dart` resolves names over the
   // ANALYZER AST, which `tom_d4rt_ast` has no access to by construction, so
@@ -2455,6 +2461,8 @@ const Map<String, _Pin> _pinnedInterpreterFloors = <String, _Pin>{
     floor: '0.179.0',
     measured: '0.177.0',
   ),
+  // SCE223, pinned at the release carrying the announced-gap fixes.
+  'sce223_announced_gaps_test.dart': (floor: '0.180.0', measured: '0.177.0'),
 };
 
 /// The `tom_d4rt_ast` floor exec's own `pubspec.yaml` currently declares.

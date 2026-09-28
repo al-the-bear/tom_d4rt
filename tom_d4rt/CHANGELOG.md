@@ -1,3 +1,21 @@
+## 1.195.0
+
+### Fixed — the interpreter no longer announces gaps that are not gaps (sce223)
+
+- `await` accepts a non-Future (`await 5` is 5, `await null` is null) and
+  still yields to the event loop, as Dart does. It was refused as an error.
+- `BridgedInstance.set` assigns through the bridged setter, as `get` reads
+  through the getter; a missing setter is an undefined member. It threw "not
+  implemented" whatever the class declared.
+- `o.x = await f()` / `l[i] = await f()` no longer log "Resumption for simple
+  assignment to complex LHS not implemented" — that path IS the
+  implementation, and it evaluates each side once.
+- `for (var i = await f(), j = 0; ...)` stays unsupported, now saying exactly
+  that shape and the workaround (declare the awaited variable before the
+  loop).
+- An `await` in a `super(...)` / `this(...)` initializer is reported as what it
+  is — a constructor cannot be async — instead of "not yet supported".
+
 ## 1.194.0
 
 ### Fixed — `pipe` accepts the consumers a script can hold (sce217)

@@ -211,7 +211,7 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpretedFunction._beginAwaitForIteration': '57e94918',
     'InterpretedFunction._callImpl': 'c0f390c5',
     'InterpretedFunction._containsAwait': 'ee448f09',
-    'InterpretedFunction._determineNextNodeAfterAwait': '296f0d23',
+    'InterpretedFunction._determineNextNodeAfterAwait': '5692e1df',
     'InterpretedFunction._extractTypeParameterBounds': '065705f9',
     'InterpretedFunction._extractTypeParameterNames': '065705f9',
     'InterpretedFunction._findEnclosingTryStatement': '64523cb5',

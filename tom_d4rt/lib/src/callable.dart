@@ -4802,8 +4802,13 @@ class InterpretedFunction implements Callable {
               Logger.error("Assigning simple await result: $e");
             }
           } else {
-            Logger.warn(
-              "[_determineNextNodeAfterAwait] Resumption for simple assignment to complex LHS not implemented (Case 2).",
+            // SCE223: this IS the implementation for `o.x = await f()` and
+            // `l[i] = await f()`, not a gap. Re-visiting the assignment
+            // resolves the await from the cached result, so the RHS is not
+            // re-run and the LHS is evaluated once (pinned by F-SCE223-1..3).
+            // It used to log "not implemented" on every such assignment.
+            Logger.debug(
+              "[_determineNextNodeAfterAwait] Resuming assignment to a non-identifier LHS by re-visiting it with the awaited value cached (Case 2).",
             );
             // Attempt: Re-execute the assignment now that RHS is known (may fail)
             // This approach is risky because it re-evaluates the LHS.
@@ -5218,8 +5223,15 @@ class InterpretedFunction implements Callable {
               " [_determineNextNodeAfterAwait] Assigned awaited result $awaitResult to for loop variable '$loopVarName' in env ${currentExecutionEnvironment.hashCode}.",
             );
           } else {
+            // SCE223: genuinely unsupported, and stated exactly. The awaited
+            // initializer suspended the declaration list partway, so the
+            // variables after it were never initialized; resuming them is not
+            // implemented. Pinned by F-SCE223-4.
             throw UnimplementedD4rtException(
-              "Async initialization for multiple variables in a single 'for' declaration not yet supported.",
+              "An 'await' in the initializer of a 'for' loop that declares more "
+              "than one variable is not supported (for example "
+              "`for (var i = await f(), j = 0; ...)`). Declare the awaited "
+              "variable before the loop.",
             );
           }
         } else if (parts is ForPartsWithExpression) {
@@ -5946,8 +5958,12 @@ class InterpretedFunction implements Callable {
           " [_evalArgs] Evaluated NAMED arg expression '$name' = $value (${value?.runtimeType})",
         );
         if (value is AsyncSuspensionRequest) {
-          throw UnimplementedD4rtException(
-            "'await' is not yet supported within $invocationType call arguments.",
+          // SCE223: not a gap — a constructor cannot be async, so Dart
+          // rejects an `await` in a `super(...)` / `this(...)` initializer.
+          // Only an invalid program reaches this.
+          throw RuntimeD4rtException(
+            "'await' cannot appear in the arguments of a $invocationType "
+            "constructor initializer: a constructor cannot be async.",
           );
         }
         if (namedArgs.containsKey(name)) {
@@ -5959,8 +5975,12 @@ class InterpretedFunction implements Callable {
       } else {
         final argValue = arg.accept<Object?>(visitor);
         if (argValue is AsyncSuspensionRequest) {
-          throw UnimplementedD4rtException(
-            "'await' is not yet supported within $invocationType call arguments.",
+          // SCE223: not a gap — a constructor cannot be async, so Dart
+          // rejects an `await` in a `super(...)` / `this(...)` initializer.
+          // Only an invalid program reaches this.
+          throw RuntimeD4rtException(
+            "'await' cannot appear in the arguments of a $invocationType "
+            "constructor initializer: a constructor cannot be async.",
           );
         }
         positionalArgs.add(argValue);

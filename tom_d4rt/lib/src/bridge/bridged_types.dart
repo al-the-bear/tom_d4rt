@@ -461,10 +461,18 @@ class BridgedInstance<T extends Object> implements RuntimeValue {
 
   @override
   void set(String name, Object? value, [InterpreterVisitor? visitor]) {
-    // Visitor is optional
-    throw UnimplementedD4rtException(
-      "set('$name', ...) not implemented for BridgedInstance of '${bridgedClass.name}'",
-    );
+    // SCE223: assign through the bridged setter, as [get] reads through the
+    // bridged getter. This used to throw "not implemented" whatever the class
+    // declared, so any caller reaching it lost a setter that exists.
+    final setter = bridgedClass.findInstanceSetterAdapter(name);
+    if (setter == null) {
+      throw UndefinedMemberD4rtException(
+        "No setter '$name' on bridged instance of '${bridgedClass.name}'",
+        memberName: name,
+        receiver: this,
+      );
+    }
+    setter(visitor, nativeObject, value);
   }
 
   @override
