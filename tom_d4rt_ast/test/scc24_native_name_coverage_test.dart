@@ -1,4 +1,4 @@
-// REPO-WIDE GUARD (tom_d4rt_ast) — no SDK private implementation type is left unclaimed by a nativeNames list.
+// REPO-WIDE GUARD (tom_d4rt_ast) — no SDK private implementation type is left unclaimed by any bridge-claiming route.
 //
 // Its subject reaches OUTSIDE this package, so it runs only when tom_d4rt_ast's suite
 // runs and a session working elsewhere in the repo reaches none of it. SCD129
@@ -10,12 +10,34 @@
 //
 // THE DEFECT SHAPE
 //
-// A `BridgedClass` claims the SDK's private implementation types by listing
-// their names in `nativeNames`. A type that is not listed resolves to no
-// bridge, so the value comes back from the interpreter successfully and is then
-// completely inert: every member on it fails with "Undefined property or method
-// 'x' on _Whatever". The value looks fine right up to the moment anything is
-// done with it.
+// A native value the interpreter hands back must be CLAIMED by some
+// `BridgedClass`. One that no bridge claims comes back from the interpreter
+// successfully and is then completely inert: every member on it fails with
+// "Undefined property or method 'x' on _Whatever". The value looks fine right
+// up to the moment anything is done with it.
+//
+// THERE ARE THREE CLAIMING ROUTES, NOT ONE. After an exact `nativeType`
+// lookup — which a private implementation type never satisfies —
+// [Environment.toBridgedInstance] tries them in this order:
+//
+//   1. the bridges' `isAssignable` predicates — a `value is T` test, which
+//      claims every implementation of `T` whatever the SDK calls it;
+//   2. the `nativeNames` list — the implementation type's name, spelled out;
+//   3. SCC49's structural suffix fallback — `_CompactIterator` reaches the
+//      `Iterator` bridge because `Iterator` is the longest bridge name that is
+//      a suffix of the stripped native name.
+//
+// Measured 2026-09-28 (SCE207) on the values this file probes: 15 bridges claim
+// through a predicate (Map, Set, StreamSubscription, Timer, BytesBuilder,
+// Uint8List, DoubleLinkedQueueEntry, IOSink, SecurityContext,
+// X509Certificate, RedirectInfo and the four HttpClientCredentials), and only
+// 4 depend on `nativeNames` ALONE — Stream (`StreamView`), StreamSink, EventSink
+// and StreamTransformer, whose implementations share no name with the public
+// type and whose bridges carry no predicate. So when a value comes back inert,
+// the fix is as likely to be a missing or wrong `isAssignable` as a missing
+// name, and ADDING a predicate is usually the more robust repair: it does not
+// break when the SDK renames an internal type. This file asserts on the
+// outcome — some route claimed the value — and does not care which one did.
 //
 // It had been found four times by accident before this file existed — SC4
 // (`_StreamSinkWrapper`, what `StreamController.sink` returns), SC9
@@ -1102,7 +1124,8 @@ void main() {
       // matter what was deleted from the lists.
       //
       // RETARGETED BY SCC49, and the reason matters. When this test was written
-      // (2026-09-04) the enumeration was the ONLY mechanism, so all 27
+      // (2026-09-04) the enumeration was the ONLY name-based mechanism, so
+      // all 27
       // stream-family values went inert once their entry was removed and the
       // control could simply sweep the lot. SCC49 added a structural suffix
       // fallback to `toBridgedClass` — Dart's implementation types end with the
@@ -1139,6 +1162,14 @@ void main() {
       // No private type name is hard-coded here either: the values come from
       // the same public calls, and the split above is a property of what the
       // SDK happens to name them.
+      //
+      // The bare bridges carry no `isAssignable` on purpose (SCE207). A
+      // predicate is the third claiming route and would claim every value
+      // here by `is`, so this control measures the NAME-based routes only —
+      // the enumeration and the suffix fallback — which is the subject of
+      // this file's allowlists. The production Stream / StreamSink /
+      // EventSink / StreamTransformer bridges carry no predicate either, so
+      // for them the enumeration is still load-bearing.
       final bare = Environment()
         ..defineBridge(
           BridgedClass(
