@@ -1600,32 +1600,6 @@ typedef _CaseCounts = ({int ran, int declared});
 /// a copy would ask the same questions about the same three packages and add a
 /// second red for one cause, not that it cannot run.
 const Map<String, _CaseCounts> _uncoveredBaseline = {
-  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.175.0.
-  // SCE206 lets EITHER FilesystemPermission or NetworkPermission admit a
-  // `dart:io` import; the published 0.65.0 asks for filesystem access only, so
-  // a network-only script cannot import the library at all there, and the
-  // refusal text names one permission. -4 (filesystem-only still imports) is
-  // the control and passes on both.
-  'sce206_network_only_io_import_test.dart': (ran: 4, declared: 4),
-  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.154.0.
-  // SCE127 made an `on` clause naming an unresolvable type FAIL instead of
-  // falling through; the published 0.65.0 still logs a warning and answers
-  // `false`, so -1 and -2 would assert the diagnostic against an interpreter
-  // that produces none. -3 and -4 would pass there, which is exactly why they
-  // are the safety evidence rather than the subject.
-  'sce127_dead_on_clause_test.dart': (ran: 4, declared: 4),
-  // PUBLISH-PIN(sce160_aioc-publish-scd136-and-record-the-corpus-run)
-  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.157.0.
-  // SCE139 stopped the return and invocation resumption routes re-evaluating
-  // their node inside `_determineNextNodeAfterAwait`, which ran every
-  // not-yet-resolved await twice and ate the value the second site should have
-  // had. Measured 2026-09-22: 11 of 11 fail against 0.65.0, 0 of 11 against the
-  // 0.157.0 working tree. ALL ELEVEN, including the two cases written as
-  // controls — 0.65.0 predates SCD121 as well, so the declaration route it
-  // holds fixed is not fixed there either. That is a fact about how far behind
-  // exec's floor is, not a sign the controls are mis-chosen: they discriminate
-  // against the tree this change was made in, which is where they run.
-  'sce139_multi_await_resumption_test.dart': (ran: 11, declared: 11),
   // NOT PORTABLE, and not blocked on a publish. It compares what FIVE host
   // boundaries hand over for one script failure, and two of them — `invoke`
   // and `eval`'s statement form — are `tom_d4rt` API that exec's front end
@@ -1636,74 +1610,6 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
   // five-way comparison, not the fix.
   // pin-registered: n/a - nothing a publish can change.
   'sce118_host_error_shape_test.dart': (ran: 5, declared: 5),
-  // SCE21's batch: the four async state-machine fixes closed on 2026-09-18,
-  // measured BOTH ways with `tool/remeasure_pins.dart --candidates` before
-  // being pinned — against the 0.65.0 exec resolves, and against the 0.120.0
-  // working tree through SCD66's pre-publish override, which was restored
-  // before anything here was written.
-  //
-  // Every one of them is a silent WRONG ANSWER rather than a crash, which is
-  // why the failing-case counts below are worth reading: the cases that pass
-  // against 0.65.0 are the shapes that were already right, and they are in each
-  // file deliberately as controls.
-  //
-  // PUBLISH-PIN(sce160_aioc-publish-scd136-and-record-the-corpus-run)
-  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.117.0.
-  // Measured 2026-09-18: 6 of 10 fail against 0.65.0, 0 of 10 against 0.120.0.
-  'sce17_await_in_expression_body_test.dart': (ran: 10, declared: 10),
-  // PUBLISH-PIN(sce160_aioc-publish-scd136-and-record-the-corpus-run)
-  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.118.0.
-  // Measured 2026-09-18: 4 of 9 fail against 0.65.0, 0 of 9 against 0.120.0.
-  'sce18_finally_on_abrupt_exit_test.dart': (ran: 9, declared: 9),
-  // PUBLISH-PIN(sce160_aioc-publish-scd136-and-record-the-corpus-run)
-  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.119.0.
-  // Measured 2026-09-18: 5 of 9 fail against 0.65.0, 0 of 9 against 0.120.0.
-  'sce19_do_while_first_body_run_test.dart': (ran: 9, declared: 9),
-  // PUBLISH-PIN(sce160_aioc-publish-scd136-and-record-the-corpus-run)
-  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.120.0.
-  // Measured 2026-09-18: 7 of 9 fail against 0.65.0, 0 of 9 against 0.120.0.
-  'sce20_braceless_if_else_test.dart': (ran: 9, declared: 9),
-  // SCD200's second batch, measured the same way — ported into ztmp and run
-  // against 0.65.0 and then against the 0.113.0 working tree.
-  //
-  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.113.0.
-  // Measured 2026-09-15: 10 of 12 fail against 0.65.0, 0 of 12 against 0.113.0.
-  'stdlib/convert/chunked_sink_arg_adaptation_test.dart': (
-    ran: 12,
-    declared: 5,
-  ),
-  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.113.0.
-  // Measured 2026-09-15: 11 of 22 fail against 0.65.0, 0 of 22 against 0.113.0.
-  'stdlib/typed_data/buffer_is_a_getter_test.dart': (ran: 22, declared: 2),
-  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.113.0.
-  // Measured 2026-09-15: 8 of 13 fail against 0.65.0, 0 of 13 against 0.113.0.
-  'stdlib/typed_data/float_int_literal_test.dart': (ran: 13, declared: 8),
-  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.113.0.
-  // Measured 2026-09-15: 17 of 25 fail against 0.65.0, 0 of 25 against 0.113.0.
-  // RE-MEASURED 2026-09-22 (sce141, `tool/remeasure_pins.dart`): 24 of 32 fail
-  // against 0.65.0. The reference file gained seven cases since the pin was
-  // taken and every one of them fails too, so the entry stood while its
-  // evidence went seven cases out of date — the absorption property this
-  // register's header describes, caught by a run rather than by reading.
-  'stdlib/typed_data/typed_list_family_parity_test.dart': (
-    ran: 32,
-    declared: 6,
-  ),
-  // PUBLISH-BLOCKED, and the port needs `tls_fixture.dart` copied beside it —
-  // it is a sibling helper, not an interpreter import, so `port_recipe.dart`
-  // has nothing to say about it and a port without it reads as
-  // does-not-compile. Re-port when a publish raises exec's floor past 0.113.0.
-  // Measured 2026-09-15: 6 of 6 fail against 0.65.0, 0 of 8 against 0.113.0 —
-  // the case count itself moves, because two of the eight are skipped against
-  // the older interpreter rather than failing.
-  // RE-MEASURED 2026-09-22 (sce141): the tool reports does-not-compile, which
-  // CONFIRMS the sentence above rather than contradicting it — the tool copies
-  // one file and knows nothing about `tls_fixture.dart`, so its verdict here is
-  // about the recipe's blind spot, not about the interpreter. The 6-of-6 figure
-  // was taken with the fixture placed by hand and is the one to trust.
-  // `ran` IS HISTORICAL: this file does not compile against the resolved interpreter,
-  // so the number above cannot be confirmed here (measured 2026-09-22, sce143).
-  'scd171_tls_bridges_test.dart': (ran: 6, declared: 9),
   // NOT PORTABLE, and not blocked on anything: `dart:mirrors` over *tom_d4rt's
   // own* bridge registry, checking that a constructor adapter reading
   // `namedArgs['x']` is claiming a named parameter the SDK actually declares.
@@ -1737,54 +1643,6 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
   // `ran` IS HISTORICAL: this file does not compile against the resolved interpreter,
   // so the number above cannot be confirmed here (measured 2026-09-22, sce143).
   'stdlib/typed_data/scd167_variant_parity_test.dart': (ran: 4, declared: 4),
-  // SCD200's nine, and none of them is a guess: each was ported into ztmp and
-  // RUN twice — against the 0.65.0 exec resolves, and against the working tree
-  // via `tom_d4rt_flutter_ast/tool/prepublish_overrides.dart --set`. The second
-  // run is what makes "publish-blocked" a measurement. Six of them pass
-  // completely against the tree and fail against 0.65.0, which is the
-  // definition of the condition and is what the pins below record.
-  //
-  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.169.0.
-  // Measured 2026-09-15: 1 of 5 fail against 0.65.0, 0 of 5 against 0.113.0.
-  // SCE179 added three cases for the value-level entry; they need the release
-  // that carries it (0.169.0), which is why the floor moved from 0.113.0.
-  'scd147_interpreter_owned_boundary_test.dart': (ran: 8, declared: 6),
-  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.113.0.
-  // Measured 2026-09-15: 2 of 3 fail against 0.65.0, 0 of 3 against 0.113.0.
-  'bridge/scd138_native_callback_proxy_binding_test.dart': (
-    ran: 3,
-    declared: 3,
-  ),
-  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.113.0.
-  // Measured 2026-09-15: 1 of 8 fail against 0.65.0, 0 of 8 against 0.113.0.
-  'scd176_enum_supertype_test.dart': (ran: 8, declared: 4),
-  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.113.0.
-  // Measured 2026-09-15: 6 of 15 fail against 0.65.0, 0 of 15 against 0.113.0.
-  'stdlib/collection/queue_empty_state_error_test.dart': (ran: 15, declared: 2),
-  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.113.0.
-  // Measured 2026-09-15: 8 of 10 fail against 0.65.0, 0 of 10 against 0.113.0.
-  // RE-MEASURED 2026-09-22 (sce141): 13 of 20 fail against 0.65.0 — the file
-  // doubled in size since the pin and the pin absorbed all of it silently.
-  'stdlib/coerce_arguments_test.dart': (ran: 20, declared: 18),
-  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.113.0.
-  // Measured 2026-09-15: 4 of 5 fail against 0.65.0, 0 of 5 against 0.113.0.
-  'stdlib/io/internet_address_type_test.dart': (ran: 5, declared: 3),
-  // PUBLISH-BLOCKED, AND THE RE-PORT NEEDS A SPLIT FIRST. Re-port when a
-  // publish raises exec's floor past 0.113.0. Measured 2026-09-15: 17 of 20
-  // fail against 0.65.0, and 1 of 20 still fails against 0.113.0 — F-SCD170-1,
-  // which is not a behaviour case at all. It reads
-  // `lib/src/stdlib/io/socket.dart` to check that every socket-acquiring native
-  // call has a permission gate above it, so ported it resolves that path
-  // against a package with no stdlib and dies with PathNotFoundException.
-  //
-  // So this file is nineteen portable behaviour cases plus one structurally
-  // single-copy source scan, and the remedy is SCD157's: split the scan into
-  // its own guard, anchor it with `requirePackage('tom_d4rt')`, and port the
-  // nineteen. Doing the split NOW would leave nineteen cases that cannot be
-  // ported until the publish anyway, so it is recorded here rather than done —
-  // but it must happen in the same pass as the re-port, or the re-port will
-  // look like a divergence and get baselined as one.
-  'scd170_network_permission_gate_test.dart': (ran: 20, declared: 7),
   // NOT PORTABLE, and not blocked on anything. Both of these import
   // `tool/stdlib_member_diff.dart`, the `dart:mirrors` tool that reflects over
   // *tom_d4rt's own* bridge registry — the same reason already recorded above
@@ -1817,6 +1675,13 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
   // interpreter, so this entry is a dated record of an unreleased fix rather
   // than a gap in the suite. It comes across when the floor moves.
   'stdlib/io/scd173_collection_args_test.dart': (ran: 4, declared: 4),
+  // NOT PORTABLE, structurally (SCE212). SCD170's source census, split out of
+  // `scd170_network_permission_gate_test.dart` so the nineteen behaviour cases
+  // could come across: it reads `lib/src/stdlib/io/*.dart` by path, and this
+  // package has no stdlib — ported, it would die with PathNotFoundException or
+  // scan the wrong tree. The gate behaviour it guards is measured here by the
+  // ported behaviour file. [2026-09-28]
+  'scd170_network_gate_census_test.dart': (ran: 1, declared: 1),
   // NOT PORTABLE — and uniquely so: the subject itself cannot exist on the
   // analyzer-free line. `static_name_report.dart` resolves names over the
   // ANALYZER AST, which `tom_d4rt_ast` has no access to by construction, so
@@ -1853,100 +1718,6 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
   // waiting for a slow machine. Keep it, and keep the sentence above, because a
   // future re-measurement will report PASSES again.
   '_conway_perf_probe_test.dart': (ran: 1, declared: 1),
-  // NOT PORTABLE — SCC13's standing member-coverage audit. It imports
-  // `../../tool/stdlib_member_diff.dart`, a `dart:mirrors` tool that reflects
-  // over *tom_d4rt's own* bridge registry, and compares against a baseline
-  // generated from it. exec has no such tool and its subject would be a
-  // different registry, so a copy here would measure the reference tree while
-  // pretending to measure this one. The analyzer-free line's equivalent has to
-  // be built against tom_d4rt_ast's registry, not ported.
-  // SCC75. The SDK-completeness guard reads the SDK source with the analyzer
-  // and diffs it against the registered bridge set — and it skips members
-  // annotated `@Since` a version above THE READING PACKAGE'S OWN SDK FLOOR,
-  // taken from its `pubspec.yaml`. That rule is what keeps it from turning red
-  // on every SDK upgrade, and it is also why the file cannot be shared: the
-  // reference tree declares `^3.9.0` and this one `^3.10.4`, so the two
-  // legitimately disagree about which members are in scope.
-  //
-  // THE FLOOR DISAGREEMENT IS GONE. SCD186 raised `tom_d4rt` to `^3.10.4` —
-  // the version this package, `tom_d4rt_ast` and every other in the repo
-  // already declared — and bridged the one member the gap was hiding,
-  // `Future.syncValue`. The two packages no longer disagree about which SDK
-  // members are in scope, so the reason this file could not be shared has
-  // expired.
-  //
-  // WHAT REMAINS IS THE PUBLISH, and it is a different blocker rather than the
-  // same one restated. The file diffs the SDK source against the REGISTERED
-  // bridge set, and the set this package gets is whatever `tom_d4rt_ast`
-  // published — 0.65.0, which has no `Future.syncValue`. A port today would
-  // correctly report a member that exists in the tree and not in the release.
-  // Measured 2026-09-15 with `dart run tool/remeasure_pins.dart --uncovered`:
-  // does-not-compile against the resolved interpreter, so the port is blocked
-  // for its own reason too and not only by the missing member.
-  //
-  // Re-port when a publish raises exec's floor past 0.108.0.
-  // `ran` IS HISTORICAL: this file does not compile against the resolved interpreter,
-  // so the number above cannot be confirmed here (measured 2026-09-22, sce143).
-  'scc73_sdk_member_completeness_test.dart': (ran: 4, declared: 3),
-  // SCD186 bridged `Future.syncValue`, the one SDK member the floor gap was
-  // hiding, and this file is its behaviour cover. It cannot be ported yet for
-  // the same reason as the entry above: exec measures the PUBLISHED
-  // `tom_d4rt_ast`, and 0.65.0 does not have the member.
-  //
-  // Measured 2026-09-15 with `dart run tool/remeasure_pins.dart --uncovered`:
-  // still failing 4 of 5. The one that passes is F-SCD186-4, the CONTROL —
-  // it asserts what `Future.value` does and needs no new member. That split is
-  // worth having recorded: a future re-port showing 5 of 5 failing would mean
-  // something else broke, and showing 1 of 5 would mean only the control ran.
-  //
-  // Re-port when a publish raises exec's floor past 0.108.0.
-  'stdlib/async/scd186_future_sync_value_test.dart': (ran: 5, declared: 5),
-  // SCD187 deleted the `HttpClientResponse.transform` stub that was shadowing
-  // the working inherited `Stream.transform`. This file is its cover, and it
-  // cannot be ported until the deletion ships: exec measures the PUBLISHED
-  // `tom_d4rt_ast`, where the stub is still present.
-  //
-  // Measured 2026-09-15 with `dart run tool/remeasure_pins.dart --uncovered`:
-  // still failing 4 of 5 — the same split as the SCD186 entry above, and for
-  // the same reason. The one that passes is F-SCD187-4, the CONTROL, which
-  // reads the body by folding chunks and never touches `transform`. A later
-  // re-port showing 5 of 5 failing would mean the fold broke too.
-  //
-  // Re-port when a publish raises exec's floor past 0.109.0.
-  'stdlib/io/scd187_http_response_transform_test.dart': (ran: 5, declared: 5),
-  // SCD189's member-kind parity guard. It reads the SDK with the ANALYZER and
-  // diffs it against the registered bridge set — a different registry here, so
-  // a port would measure the analyzer-free line's bridges against the same SDK
-  // and is a legitimate second measurement rather than a copy. It is blocked
-  // on the publish either way: the six kind fixes it was written for
-  // (StreamSubscription.onData/onDone/onError as methods, and the three
-  // fabricated methods) are in the tree and not in any release, so a port
-  // today would report them all.
-  //
-  // Measured 2026-09-15 with `dart run tool/remeasure_pins.dart --uncovered`:
-  // does-not-compile against the resolved interpreter — it imports the stdlib
-  // registrars by same-package path, and the port rewrite does not yet carry
-  // every one of them. That is a second thing to settle at the re-port, beyond
-  // the six findings.
-  //
-  // Re-port when a publish raises exec's floor past 0.110.0.
-  // `ran` IS HISTORICAL: this file does not compile against the resolved interpreter,
-  // so the number above cannot be confirmed here (measured 2026-09-22, sce143).
-  'stdlib/scd189_member_kind_parity_test.dart': (ran: 3, declared: 3),
-  // SCD198 drives scripts through `D4rt.execute` to ask what a bare class name
-  // evaluates to. Its three fixes — `BridgedClass` equality and hashing, the
-  // hash-key normalisation, and the `is Type` arm — are all in the tree and in
-  // no release, so a port would report every case it was written for.
-  //
-  // Measured 2026-09-15 with `dart run tool/remeasure_pins.dart --uncovered`:
-  // still failing 4 of 7. The three that pass are the ones the fix did not
-  // change — the `==` reconciliation that already worked, the interpreted
-  // path, and `toString`. That split is worth having recorded: at the re-port,
-  // 0 of 7 is the expected result and 3 of 7 would mean only the old
-  // behaviour still holds.
-  //
-  // Re-port when a publish raises exec's floor past 0.113.0.
-  'scd198_class_name_as_type_value_test.dart': (ran: 7, declared: 7),
 
   // NOT PORTABLE, and confirmed FROM THE SOURCE rather than by a run — SCD126's
   // first rule, because a structural reason is cheaper to read than to measure
@@ -1964,31 +1735,6 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
   // `ran` IS HISTORICAL: this file does not compile against the resolved interpreter,
   // so the number above cannot be confirmed here (measured 2026-09-22, sce143).
   'stdlib/member_coverage_baseline_test.dart': (ran: 4, declared: 15),
-  // BLOCKED ON A PUBLISH, and measured rather than inferred — the register above
-  // says a pin written from prose rots, so both of these were ported into
-  // `test/` and run against published 0.65.0 before being recorded.
-  //
-  // scd72 needs `InterpretedClass.declaringVisitor`, which lands in published
-  // 0.81.0. Ported today: 2 of 7 PASS, and which two is the useful part —
-  // F-SCD72-3 (the no-override rail) and -5 (Dart's in-script semantics) hold
-  // because they assert behaviour that predates the fix. The five that fail are
-  // exactly the five the fix bought.
-  //
-  // Re-port when a publish raises exec's floor past 0.81.0.
-  'scd72_instance_tostring_test.dart': (ran: 7, declared: 7),
-  // scd73 does not COMPILE against 0.65.0: six `undefined_function` errors for
-  // `unwrapScriptError`, which SCD73 made a public top-level and which lands in
-  // published 0.82.0. It cannot be worked around from here: `d4rt.dart`
-  // re-exports `package:tom_d4rt_ast/runtime.dart`, so a local public function
-  // of that name would become an ambiguous export the day the publish lands.
-  // This package's own seam DOES carry SCD73 (SCD74 mirrored it into the third
-  // copy of `_executeInEnvironment`), so the behaviour is present here — it is
-  // only the helper the test calls that is missing.
-  //
-  // Re-port when a publish raises exec's floor past 0.82.0.
-  // `ran` IS HISTORICAL: this file does not compile against the resolved interpreter,
-  // so the number above cannot be confirmed here (measured 2026-09-22, sce143).
-  'scd73_no_hook_unwrapping_test.dart': (ran: 8, declared: 8),
   // NOT PORTABLE — `tool/stdlib_member_diff.dart` again, and this file is the
   // one that tests the tool's own classifier. Its four cases plant a wording at
   // a throw site and assert the audit notices, so its subject is the reference
@@ -2011,94 +1757,6 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
   // next re-measurement meets a note rather than a surprise, which is the same
   // service `_conway_perf_probe`'s entry does.
   'sce76_generic_function_parameter_census_test.dart': (ran: 2, declared: 2),
-  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.129.0.
-  // Measured 2026-09-21: 9 of 61 fail against the 0.65.0 exec resolves — the
-  // nine `Queue` / `ListQueue` / `DoubleLinkedQueue` cases where an empty
-  // receiver's IndexError or StateError arrives as something no script can
-  // catch. The other 52 pass against 0.65.0 and are in the file as controls.
-  'stdlib/sce74_sdk_error_type_parity_test.dart': (ran: 61, declared: 2),
-  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.136.0.
-  // Measured 2026-09-21: 6 of 7 fail against the 0.65.0 exec resolves, each
-  // with `Undefined static member` for the member it exists to reach —
-  // `HttpHeaders.acceptRangesHeader`, `generalHeaders`,
-  // `RawSocketOption.levelIPv4`, `Platform.lineTerminator` and
-  // `ConnectionTask.fromSocket`. The seventh is F-SCE82-3, which asserts the
-  // seventeen constants that were ALREADY bridged and so passes everywhere.
-  //
-  // THE TREE SIDE COULD NOT BE MEASURED, and the reason is worth carrying
-  // here because it blocks the re-port of both entries: under SCD66's
-  // pre-publish override exec resolves the 0.136.0 tree and exec's OWN
-  // `lib/src/d4rt_base.dart:783` stops compiling — `D4rtRunner.functionTypedefs`
-  // returns a wider record in the tree (`requiredPositional` / `maxPositional`,
-  // added with the typedef-arity work) than exec's forwarding getter declares.
-  // So the publish that frees these two entries also breaks exec until its
-  // getter is widened, which cannot be done before the floor moves. Recorded
-  // as scf20 rather than as a surprise for whoever runs the next publish.
-  'stdlib/io/sce82_header_constants_test.dart': (ran: 7, declared: 7),
-  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.137.0.
-  // SCE83 made `stream.transform(utf8.decoder)` work for a stream a SCRIPT
-  // built: those are `Stream<dynamic>` carrying `List<Object?>` chunks, so a
-  // decoder rejected them with a host `TypeError` naming an interpreter
-  // internal. Measured 2026-09-21: 4 of 7 fail against the 0.65.0 exec
-  // resolves, each with `type '_MultiStream<dynamic>' is not a subtype of type
-  // 'Stream<List<int>>'` or its `_ControllerStream` / `Stream<String>`
-  // variants. The three that pass are the controls — a dart:io stream, a
-  // script-defined transformer, and the argument diagnostic — which is what
-  // they are for.
-  'stdlib/async/sce83_transform_element_coercion_test.dart': (
-    ran: 7,
-    declared: 7,
-  ),
-  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.138.0.
-  // SCE84's behaviour suite: a script declaring the `LinkedListEntry` subclass
-  // the SDK requires, which is the only way `LinkedList` is usable at all.
-  // Measured 2026-09-21: 11 of 12 fail against the 0.65.0 exec resolves — ten
-  // in the implicit `super()` itself, and F-SCE84-12 because the removed
-  // `LinkedListEntry(value)` dialect is still accepted there. The twelfth,
-  // F-SCE84-11, passes either way: it is the control that hands `add` a
-  // string, which is refused by both interpreters.
-  'stdlib/collection/sce84_linked_list_subclass_test.dart': (
-    ran: 12,
-    declared: 12,
-  ),
-  // SCE101-SCE104: four interpreter fixes made in one session, each measured
-  // with `tool/remeasure_pins.dart --candidates` against the resolved 0.65.0
-  // before being recorded here. Every one is a silent WRONG ANSWER rather than
-  // a crash on the published copy, which is why the failing-case counts are
-  // worth reading: the cases that pass against 0.65.0 are the CONTROLS each
-  // file carries deliberately, and they pass on both sides by construction.
-  //
-  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.139.0.
-  // Measured 2026-09-22: 4 of 9 fail against 0.65.0 - F-SCE101-1, -2, -4 and
-  // the -9 agreement case. The element predicate answered `Null`, `dynamic`,
-  // `Type` and a wrapped bridged value differently from `is`.
-  'sce101_element_type_test.dart': (ran: 9, declared: 9),
-  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.140.0.
-  // Measured 2026-09-22: 7 of 11 fail against 0.65.0. An empty loop body ended
-  // the FUNCTION, so the published copy answers null after a for-in and the
-  // CONDITION after a C-style for - which is why -2 reports `true` and -3
-  // reports the stream's contents rather than both reporting null.
-  'sce102_empty_loop_body_async_test.dart': (ran: 11, declared: 11),
-  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.141.0.
-  // Measured 2026-09-22: 6 of 10 fail against 0.65.0. Five are the unchecked
-  // typed local; the sixth is F-SCE103-6, which fails with "Bridged class
-  // 'Map' has no instance method named 'add'" - the empty-`{}`-in-a-Set-context
-  // defect that check surfaced, and independent evidence that it predates the
-  // check rather than being caused by it.
-  //
-  // 10 -> 13: SCE131 added the shapes SCE103 decided about but did not pin -
-  // an uninitialised declaration (-11, the exemption; -12, the type it still
-  // records), and `final` / `const` / multi-name lists (-13). Re-measured the
-  // same day with `tool/remeasure_pins.dart --uncovered`: 8 of 13 fail against
-  // 0.65.0, the two new failures being -12 and -13, which is what a published
-  // interpreter with no local check should say.
-  'sce103_typed_local_test.dart': (ran: 13, declared: 13),
-  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.142.0.
-  // Measured 2026-09-22: 5 of 8 fail against 0.65.0. A failing cast pattern
-  // MISSED rather than throwing, so F-SCE104-3 answers 'miss' where the fix
-  // binds 'HIT:1.0', and the -4 agreement case reports the cast pattern and
-  // the cast expression disagreeing on the very first row.
-  'sce104_cast_pattern_test.dart': (ran: 8, declared: 8),
   // NOT PORTABLE, and not blocked on anything: it reads
   // `lib/src/interpreter_visitor.dart` - tom_d4rt's OWN dispatch source - and
   // parses the analyzer's `DartPattern` hierarchy to check every kind has a
@@ -2110,15 +1768,6 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
   // which tree owns a dispatch, not missing coverage.
   // pin-registered: n/a - nothing a publish can change.
   'sce105_pattern_kind_coverage_test.dart': (ran: 3, declared: 3),
-  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.143.0.
-  // Measured 2026-09-22 with `tool/remeasure_pins.dart --candidates`: 4 of 6
-  // fail against 0.65.0. -1 and -2 answer 'fell through' because the published
-  // copy raises a `RuntimeD4rtException` the `on` clause cannot select; -6
-  // throws the generic-orElse error this fixed; and -5 is the one worth
-  // noticing — it fails because the published message still REPLACES the
-  // native error rather than leading with it, which is the same divergence
-  // `stdlib/bridge_arity_test.dart` records from the other side.
-  'sce109_sdk_error_types_test.dart': (ran: 6, declared: 6),
 };
 
 /// Why a [_divergentBaseline] entry is allowed to stand.
@@ -2546,143 +2195,6 @@ const Map<String, _Convergence> _convergenceLog = {
 /// re-measure the whole register when the floor moves, not the entry you
 /// happened to be reading.
 const Map<String, _Divergence> _divergentBaseline = {
-  // `websocket`: SCE208 added F-SCE208-1/2, which assert that a coercion
-  // error on a script-reshaped stream bound by `WebSocketTransformer.bind`
-  // reaches `await stream.first` and a listener's `onError`. The published
-  // interpreter's bridge hands the coerced stream straight to the SDK
-  // transformer, which drops source errors, so both cases hang there. This
-  // copy keeps the SCD172 wording that records the hang.
-  // Converges at a floor past 0.176.0.
-  'stdlib/io/websocket_test.dart': _Divergence.deliberate,
-  // `scd146`: SCE177 pruned 85 redundant stdlib `nativeNames` entries, so the
-  // reference census now expects 24 entries and asserts that every surviving
-  // redundant one is kept for a stated reason (F-SCE177-1). The published
-  // interpreter this package resolves still carries all 106, so here the old
-  // floor and no F-SCE177-1 stay. SCE178 then removed the Stream bridge's two
-  // override entries and emptied `_knownDuplicates`, which the published
-  // interpreter still has too, so this copy keeps the old F-SCD146-3/-4
-  // expectations as well. Converges at a floor past 0.168.0.
-  'scd146_native_names_census_test.dart': _Divergence.deliberate,
-  // `scd77`: SCE121 made `is Function` true for every value the interpreter
-  // can call — a bridged tear-off included — by giving the `Function` bridge
-  // an `isAssignable` that answers with the interpreter's own `Callable`
-  // interface. The reference copy's F-SCD77-2 asserts the new `true`; the
-  // published interpreter's `Function` bridge declares no `isAssignable`, so
-  // here it is still `false` and this copy keeps the old expectation with a
-  // PUBLISH-PIN on it. Converges at a floor past 0.151.0.
-  'scd77_uri_is_scheme_test.dart': _Divergence.deliberate,
-  // SCD153 found these five by opening this suite after three turns that had
-  // no reason to — the lag this file's reference-side twin
-  // (`tom_d4rt/test/scd153_conformance_drift_mirror_test.dart`) now closes.
-  // Every one was PORTED and RUN against the resolved interpreter before being
-  // recorded, per the discipline [_pinnedInterpreterFloors] demands; four of
-  // the nine unbaselined divergences SCD153 measured passed when ported and
-  // were converged instead of landing here.
-  //
-  // `scc20`: TWO sanctioned differences now. SCE127 added the second — the
-  // reference copy's F-SCC20-16 asserts that an unresolvable `on` type is an
-  // ERROR naming the type and the exception in flight, while the published
-  // interpreter still logs a warning and lets the clause MISS, so this copy
-  // keeps `equals('fell-through')`. Converges at a floor past 0.154.0, the
-  // same publish the `_uncoveredBaseline` entry for
-  // `sce127_dead_on_clause_test.dart` waits on, and the floor this entry
-  // is registered at because it is the LATER of the two. The first
-  // difference, which converges at 0.79.0:
-  // the reference copy asserts `['bad', 'src', 2]` from a caught
-  // `FormatException`; the published interpreter answers `['bad', null, null]`
-  // because its bridge reads `source` and `offset` out of namedArgs while the
-  // SDK constructor takes all three positionally. SCD68 fixed the adapter.
-  // Converges at a floor past 0.79.0.
-  'scc20_catch_clause_type_test.dart': _Divergence.deliberate,
-  // `list_queue`: the reference copy expects the SDK's `StateError` from
-  // `removeFirst` on an empty queue; the published interpreter still throws
-  // `RuntimeD4rtException: Cannot removeFirst from an empty ListQueue.`, the
-  // hand-written message SCD30 removed. A script written `on StateError` does
-  // not catch it there. Converges at a floor past 0.68.0.
-  'stdlib/collection/list_queue_test.dart': _Divergence.deliberate,
-  // `queue`: the same SCD30 retarget on the `Queue` bridge — published answers
-  // `RuntimeD4rtException: Cannot removeFirst from an empty queue.` where the
-  // reference copy expects `StateError` containing 'No element'. Converges at a
-  // floor past 0.68.0.
-  'stdlib/collection/queue_test.dart': _Divergence.deliberate,
-  // `cast_from_family`: the reference copy carries SCD37's whole `newSet`
-  // section — 111 lines this copy has never had — asserting that the one
-  // bridged member taking a GENERIC function argument rejects it rather than
-  // accepting and ignoring it. Ported, its first case answers false against the
-  // published interpreter. Converges at a floor past 0.70.0.
-  'stdlib/cast_from_family_test.dart': _Divergence.deliberate,
-  // `scc12`: the only one of the five that does not fail — it HANGS. Ported and
-  // run, it span at 100% CPU for twelve minutes before being killed, so the
-  // published interpreter does not merely answer differently about `await` in a
-  // `finally`, it does not terminate. That makes this the most expensive entry
-  // to re-port carelessly: `dart test` has no wall-clock kill for a
-  // non-yielding isolate, and the run has to be killed by hand. Converges at a
-  // floor past 0.103.0.
-  //
-  // SCE141 CONFIRMED THE HANG and stopped it costing a whole run. A full
-  // re-measurement of `_pinnedInterpreterFloors` on 2026-09-22 stalled HERE for
-  // eighteen minutes with twenty entries still to go, because the tool inherited
-  // the same absence of a wall-clock kill this entry describes. It now imposes
-  // its own four-minute per-entry deadline and reports `HANGS` — a verdict of
-  // its own, deliberately not folded into `does-not-compile`, because nothing
-  // was measured. This entry is the reason that deadline exists.
-  //
-  // SCD168 widened the gap on purpose. The reference copy gained F-SCD168-1..4,
-  // four cases asserting that an `on String` clause in an ASYNC body does not
-  // catch a `FormatException` — the one shape SCD41's eleven cases do not
-  // reach, since every one of those dispatches on an `Error` subclass. They sit
-  // beside the SCD41 group they extend rather than in a file of their own,
-  // because a new reference file with no counterpart here would cost an
-  // `_uncoveredBaseline` entry, and this file is already the entry that says
-  // why it cannot be ported yet. Nothing was added to this copy: the whole
-  // point of the entry above is that running this file against the published
-  // interpreter does not terminate.
-  //
-  // SCD169 widened it again, by eight cases, and this time the gap is not a
-  // choice: the fix they pin landed in `tom_d4rt_ast` 0.103.0 and this package
-  // resolves the published interpreter, on which those scripts SPIN. Porting
-  // them now would not fail here, it would hang the suite with no Dart-level
-  // timeout able to stop it — the precise hazard the entry above already
-  // describes, made worse. They come across with the rest of this file when
-  // the floor moves.
-  //
-  // SCE78 widened it a third time, by eight cases, for the same reason and not
-  // as a choice. They pin `try { throw X } finally { return 5; }`, which the
-  // published interpreter does not answer wrongly — it HANGS, because the
-  // machine jumped back to the top of the finally that had just issued the
-  // return and did it again. Porting them now would wedge this suite exactly
-  // as the SCD169 batch would. The fix landed in `tom_d4rt_ast` 0.132.0.
-  //
-  // SCE79 widened it a fourth time, by ten cases, and these would FAIL here
-  // rather than hang: the published interpreter binds a catch clause's
-  // exception variable in the FUNCTION's environment, so it outlives the block
-  // and overwrites a caller's local of the same name. That is the defect they
-  // pin, and it is still present in 0.65.0. The fix landed in `tom_d4rt_ast`
-  // 0.133.0.
-  //
-  // SCE80 widened it a fifth time, by fifteen cases, and these would also FAIL
-  // here rather than hang: the published interpreter stores an
-  // `AsyncSuspensionRequest` as the element for every `await` in a collection
-  // literal, so the assertions about CONTENTS are exactly what it cannot
-  // satisfy. The fix landed in `tom_d4rt_ast` 0.134.0.
-  //
-  // SCE81 widened it a sixth time, by ten cases, and these would FAIL here too:
-  // the published interpreter cannot give a cascade section an awaited
-  // argument at all — it raises `type 'AsyncSuspensionRequest' is not a
-  // subtype of type '(List<Object?>, Map<String, Object?>)'`, an internal cast
-  // error. The fix landed in `tom_d4rt_ast` 0.135.0.
-  'scc12_await_in_finally_test.dart': _Divergence.deliberate,
-  // `scd4_await_for_break`: SCE16 made `await for` lazy in the reference tree —
-  // one `StreamIterator.moveNext()` per element, with the iterator cancelled
-  // when the loop is left — and added two cases the published interpreter
-  // cannot pass. F-SCE16-1 loops over `Stream.periodic`, which under the old
-  // `stream.toList()` implementation never completes, so that case does not
-  // fail against 0.65.0, it HANGS; F-SCE16-2 asserts the body runs between
-  // elements rather than after all of them. Converges at a floor past 0.116.0,
-  // the version the commit carrying SCE16 declares — a publish sce162 blocks.
-  // Registered in [_pinnedInterpreterFloors] so F-SCC43-1 can retire it when
-  // that lands; before SCE68 it was pinned here in prose and nowhere else.
-  'scd4_await_for_break_test.dart': _Divergence.deliberate,
   // The reference copy's four `(legacy)` cases reach into the analyzer `D4rt`'s
   // own environment chain — `enclosing`, the static warm-parent cache keyed on
   // the allowed-set signature — and measured here they fail, because the exec
@@ -2720,103 +2232,6 @@ const Map<String, _Divergence> _divergentBaseline = {
   // natively (F-SCC33-AST-1/2) against its own node type, which is the only
   // place it can be pinned. The five behavioural cases are verbatim.
   'scc33_unhandled_node_test.dart': _Divergence.deliberate,
-  // SCD119 found this one SELF-INFLICTED and registered it the same day. The
-  // two copies were byte-identical until SCD92 (tom_d4rt_ast 0.87.0) tightened
-  // the binding check to compare declared TYPE ARGUMENTS, not just base types.
-  // F-SCC29-21 pinned the old limit — `f(List<String> xs)` accepting `f([1])`
-  // and returning 1 — so the reference copy had to be rewritten to expect a
-  // `TypeError`, and the exec copy was not.
-  //
-  // That asymmetry is correct rather than an oversight to repair by copying:
-  // this tree runs the PUBLISHED interpreter (0.65.0 today), where the
-  // permissive result really is what happens, and the exec copy PASSES
-  // asserting it. Porting the reference version now would make a green suite
-  // red about a behaviour nobody is running — DGUC6. The entry in
-  // [_pinnedInterpreterFloors] is what makes the flip condition
-  // machine-checkable instead of remembered.
-  //
-  // MEASURED 2026-09-14 against resolved 0.65.0 by
-  // `dart run tool/remeasure_pins.dart`: 25 of 26 pass, and the one that fails
-  // is F-SCC29-21 — `expected throws TypeError, returned 1`, which is the
-  // permissive result this copy asserts. So the pin is a measurement, not a
-  // restatement.
-  //
-  // Re-port when a publish raises exec's floor past 0.87.0.
-  'scc29_parameter_type_check_test.dart': _Divergence.deliberate,
-  // SCE73 re-pointed `I-MISC-335` (tear-off of an ABSENT INSTANCE METHOD)
-  // from the invented `RuntimeD4rtException` to the SDK type real Dart
-  // raises for it, asserted the way a script would — an interpreted
-  // `try` / `on NoSuchMethodError` whose recovery path returns a value the
-  // test reads. `I-MISC-336`, the static tear-off one word away, became its
-  // control and asserts `isNot(isA<NoSuchMethodError>())`: a missing static
-  // is a COMPILE error in Dart, so SCE67 withheld the supertype there on
-  // purpose and the two cases must keep landing on opposite sides.
-  //
-  // Ported and RUN against the resolved 0.65.0 before being recorded, per the
-  // discipline the header demands. The script-level case answers `escaped`
-  // rather than `caught`, and the host-side throw is an
-  // `UndefinedMemberD4rtException` with `is NoSuchMethodError` false — SCE67's
-  // supertype is in the working tree and has not shipped, so this copy cannot
-  // assert it yet. The control half already passes there and is not what
-  // pins this.
-  //
-  // Re-port when a publish raises exec's floor past 0.125.0.
-  'interpreter2_test.dart': _Divergence.deliberate,
-  // SCE84 made `LinkedListEntry` subclassable — the SDK's implicit
-  // zero-argument constructor in place of a value-taking one — and removed the
-  // `LinkedListEntry(value)` constructor and the `value` getter, neither of
-  // which the SDK has. Every script in both reference files now declares
-  // `class E extends LinkedListEntry<E>`, which is the only way the SDK type
-  // is usable; against the interpreter this package resolves, that declaration
-  // fails in its own implicit `super()`.
-  //
-  // Measured 2026-09-21 against the resolved 0.65.0 by porting each file with
-  // `tool/remeasure_pins.dart --candidates`: 11 of 13 cases fail in
-  // `linked_list_test`, every one with `Error during implicit bridged super
-  // constructor: Constructor LinkedListEntry(value) expects one positional
-  // argument`, and 3 of 13 in `scc74_member_axis_gaps` — that file's other ten
-  // cases are about unrelated classes and pass either way.
-  //
-  // PUBLISH-BLOCKED, and expect the exec copies to need the same rewrite
-  // rather than a plain copy: their text asserts a dialect that will no longer
-  // exist.
-  //
-  // 11 of 13 cases here fail when ported, every one with `Error during
-  // implicit bridged super constructor`. Re-port when a publish raises exec's
-  // floor past 0.138.0.
-  'stdlib/collection/linked_list_test.dart': _Divergence.deliberate,
-  // 3 of 13 cases here fail when ported — this file's other ten are about
-  // unrelated classes and pass either way. Re-port when a publish raises
-  // exec's floor past 0.138.0.
-  'stdlib/scc74_member_axis_gaps_test.dart': _Divergence.deliberate,
-  // SCE91. The reference asserts that `sub.onError(handler)` runs the handler,
-  // which it does in the working tree. This package resolves `tom_d4rt_ast`
-  // 0.65.0, where `onError` is registered as a SETTER rather than a method —
-  // SCD189 moved it, landing in 0.110.0 — so the call fails with "has no
-  // instance method named 'onError'" and the ported case asserted a behaviour
-  // the published interpreter does not have.
-  //
-  // Pinned as the published behaviour rather than skipped: it goes red at the
-  // publish that fixes it and prompts the re-port, where a skip would measure
-  // nothing and sit here indefinitely. The case name in the exec copy says
-  // what that copy asserts — a name claiming the reference's outcome over the
-  // opposite assertion is the defect SCD50 and SCE89 exist to stop.
-  //
-  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.110.0.
-  'scb9_error_handler_arity_test.dart': _Divergence.deliberate,
-  // SCE109: `stdlib/bridge_arity_test.dart`. SCB28's five too-few cases assert
-  // `isNot(contains('RangeError'))` here, and the reference copy now asserts
-  // the opposite. Both are right about the interpreter they run against: SCB28
-  // restated an adapter's short-argument `RangeError` as an arity failure AND
-  // replaced its TYPE, which is what the published copy still does; SCE109 kept
-  // the restatement and preserved the type, because the two readings are
-  // indistinguishable at the dispatch boundary and losing the type stopped
-  // `on RangeError` catching a script's own out-of-range read.
-  //
-  // F-SCB28-5 is NOT part of the divergence and is identical on both sides —
-  // it reaches a per-adapter guard, so no native error was ever raised there to
-  // preserve. Re-port when a publish raises exec's floor past 0.143.0.
-  'stdlib/bridge_arity_test.dart': _Divergence.deliberate,
 };
 
 /// The difference each [_divergentBaseline] entry actually sanctions.
@@ -2843,27 +2258,11 @@ const Map<String, _Divergence> _divergentBaseline = {
 /// Recomputing without reading the new difference is the failure mode; the
 /// message says so.
 const Map<String, String> _divergenceFingerprints = <String, String>{
-  'stdlib/io/websocket_test.dart': 'baae4e789bde769d',
-  'scd146_native_names_census_test.dart': '132f7b21983f99e4',
-  'scd77_uri_is_scheme_test.dart': '7157029405e6bfda',
-  'scb9_error_handler_arity_test.dart': 'd880f1617d543ff7',
-  'scc20_catch_clause_type_test.dart': '1f778a50235ef954',
-  'stdlib/collection/list_queue_test.dart': '927a588334725bb2',
-  'stdlib/collection/queue_test.dart': '19eee099a23916a8',
-  'stdlib/cast_from_family_test.dart': 'c7a32ccddec5a069',
-  'scd4_await_for_break_test.dart': '9d8fdd67890791db',
-  'scc12_await_in_finally_test.dart': '74401ef51d40afa8',
   'warm_parent_package_pool_test.dart': '971b6ff19185f442',
   'stdlib/intentionally_unbridged_test.dart': 'a11036cda720efcf',
   'scc31_undefined_name_uncatchable_test.dart': '5cbda0053357426b',
   'scc32_bridged_value_key_test.dart': '0a2b0b334d6eedaf',
   'scc33_unhandled_node_test.dart': '1be2b48d0784ff46',
-  'scc29_parameter_type_check_test.dart': 'a4c38e44ee9853e1',
-  // SCE84's two, recorded with the entries in `_divergentBaseline` above.
-  'stdlib/collection/linked_list_test.dart': 'a29fd59a29499657',
-  'stdlib/scc74_member_axis_gaps_test.dart': 'ff858ca3ac01f2c4',
-  'interpreter2_test.dart': '072dd1096b1d280c',
-  'stdlib/bridge_arity_test.dart': '51056fbde720e4dd',
 };
 
 /// The direct interpreter-package imports the port recipe legitimately rewrites,
@@ -3043,243 +2442,7 @@ typedef _Pin = ({String floor, String measured});
 /// 8-of-10 to 13-of-20 — still wholly failing, so still justified, but their
 /// recorded evidence was seven and ten cases out of date. Both are re-stamped
 /// above their entries in `_uncoveredBaseline`.
-const Map<String, _Pin> _pinnedInterpreterFloors = <String, _Pin>{
-  // SCE208, pinned at the release routing bound-stream errors through.
-  'stdlib/io/websocket_test.dart': (floor: '0.176.0', measured: '0.65.0'),
-  // SCE206, pinned at the release carrying the either-permission import gate.
-  'sce206_network_only_io_import_test.dart': (
-    floor: '0.175.0',
-    measured: '0.65.0',
-  ),
-  // SCE177, pinned at the release carrying the prune.
-  'scd146_native_names_census_test.dart': (
-    floor: '0.168.0',
-    measured: '0.65.0',
-  ),
-  'sce127_dead_on_clause_test.dart': (floor: '0.154.0', measured: '0.65.0'),
-  // SCE139, pinned at the release carrying the fix rather than at a later
-  // working-tree version.
-  'sce139_multi_await_resumption_test.dart': (
-    floor: '0.157.0',
-    measured: '0.65.0',
-  ),
-  // SCE121 gave the `Function` bridge an `isAssignable` that answers with
-  // the interpreter's own `Callable`, so `is Function` is true for a bridged
-  // tear-off from this release on.
-  'scd77_uri_is_scheme_test.dart': (floor: '0.151.0', measured: '0.65.0'),
-  // SCE91, pinned at the release that moved `StreamSubscription.onError` from
-  // a setter to a method rather than at a working-tree version.
-  'scb9_error_handler_arity_test.dart': (floor: '0.110.0', measured: '0.65.0'),
-  // SCE21's batch. Unlike SCD200's, these are pinned at the version each fix
-  // ACTUALLY landed in rather than at one conservative working-tree version:
-  // the four commits are known (0.117.0, 0.118.0, 0.119.0, 0.120.0), so the
-  // earliest release carrying each is not a guess here. A pin that is later
-  // than it needs to be keeps an available port out of reach.
-  // SCE16's `await for` laziness, pinned by SCE68 — it was PROSE-pinned in
-  // `_divergentBaseline` ("Converges when the interpreter carrying SCE16
-  // publishes") and registered nowhere, which is the gap F-SCE68-1 closes.
-  // 0.116.0 is the version the commit carrying SCE16 declares, not a
-  // conservative guess.
-  'scd4_await_for_break_test.dart': (floor: '0.116.0', measured: '0.65.0'),
-  'sce17_await_in_expression_body_test.dart': (
-    floor: '0.117.0',
-    measured: '0.65.0',
-  ),
-  'sce18_finally_on_abrupt_exit_test.dart': (
-    floor: '0.118.0',
-    measured: '0.65.0',
-  ),
-  'sce19_do_while_first_body_run_test.dart': (
-    floor: '0.119.0',
-    measured: '0.65.0',
-  ),
-  'sce20_braceless_if_else_test.dart': (floor: '0.120.0', measured: '0.65.0'),
-  // SCE73's re-point. 0.125.0 is the version the commit giving
-  // `UndefinedMemberD4rtException` its `NoSuchMethodError` supertype
-  // declares, confirmed against the commit before it, not a conservative
-  // working-tree guess.
-  'interpreter2_test.dart': (floor: '0.125.0', measured: '0.65.0'),
-  // SCD200's second batch, all measured against the working tree before
-  // pinning, all at the same 0.113.0 for the same conservative reason.
-  'stdlib/convert/chunked_sink_arg_adaptation_test.dart': (
-    floor: '0.113.0',
-    measured: '0.65.0',
-  ),
-  'stdlib/typed_data/buffer_is_a_getter_test.dart': (
-    floor: '0.113.0',
-    measured: '0.65.0',
-  ),
-  'stdlib/typed_data/float_int_literal_test.dart': (
-    floor: '0.113.0',
-    measured: '0.65.0',
-  ),
-  'stdlib/typed_data/typed_list_family_parity_test.dart': (
-    floor: '0.113.0',
-    measured: '0.65.0',
-  ),
-  'scd171_tls_bridges_test.dart': (floor: '0.113.0', measured: '0.65.0'),
-  // SCD200's six clean publish blocks plus scd170, all measured against the
-  // working tree before pinning: each PASSES there and fails against the
-  // 0.65.0 exec resolves. 0.113.0 is the working-tree version rather than the
-  // earliest release containing each fix, which this pass did not determine —
-  // the conservative choice, for the reason the SCD153 entries above give.
-  // scd170 is pinned with them and carries one extra condition on its baseline
-  // entry: a source-scanning case has to be split out before the re-port.
-  'scd147_interpreter_owned_boundary_test.dart': (
-    floor: '0.169.0',
-    measured: '0.65.0',
-  ),
-  'bridge/scd138_native_callback_proxy_binding_test.dart': (
-    floor: '0.113.0',
-    measured: '0.65.0',
-  ),
-  'scd176_enum_supertype_test.dart': (floor: '0.113.0', measured: '0.65.0'),
-  'stdlib/collection/queue_empty_state_error_test.dart': (
-    floor: '0.113.0',
-    measured: '0.65.0',
-  ),
-  'stdlib/coerce_arguments_test.dart': (floor: '0.113.0', measured: '0.65.0'),
-  'stdlib/io/internet_address_type_test.dart': (
-    floor: '0.113.0',
-    measured: '0.65.0',
-  ),
-  'scd170_network_permission_gate_test.dart': (
-    floor: '0.113.0',
-    measured: '0.65.0',
-  ),
-  // SCD153's five, all measured against the resolved interpreter before being
-  // pinned — and RE-PINNED by SCE107 at the release each fix actually landed
-  // in. They stood at 0.100.0, the working-tree version of the day, which that
-  // todo recorded as the conservative choice because it had not determined the
-  // real ones. They ARE determinable: each divergence names the todo that
-  // closed it, and `tom_d4rt_ast/CHANGELOG.md` says which version heading that
-  // todo sits under.
-  //
-  //     scc20             scd68        0.79.0
-  //     list_queue        scd30_aidb   0.68.0
-  //     queue             scd30_aidb   0.68.0
-  //     cast_from_family  scd37_aidc   0.70.0
-  //     scc12             scd169       0.103.0
-  //
-  // FOUR WERE TOO LATE AND ONE WAS TOO EARLY, which is why this was worth
-  // measuring rather than leaving conservative. The paragraph this replaces
-  // named both costs — a late pin delays the checklist by a release, an early
-  // one "produces a checklist that fails and teaches the next reader to
-  // distrust the register" — and `scc12` was the second kind: its fix landed
-  // in 0.103.0, so at any publish between 0.100.0 and 0.103.0 the checklist
-  // would have called for a re-port that does not fail but HANGS, for twelve
-  // minutes, with no Dart-level timeout. The entry's own prose already said
-  // 0.103.0; only the register disagreed.
-  //
-  // The two queue entries are what SCE107 was about. At 0.100.0, any publish
-  // from 0.68.0 up would have carried exec past the behaviour change WITHOUT
-  // producing a checklist, and the two tests would have gone red with nothing
-  // saying why — which is precisely the outcome that todo existed to prevent.
-  // TWO differences since SCE127; the LATER floor is the binding one,
-  // because the entry can only retire when both have converged. The
-  // SCD68 half converges at 0.79.0.
-  'scc20_catch_clause_type_test.dart': (floor: '0.154.0', measured: '0.65.0'),
-  'stdlib/collection/list_queue_test.dart': (
-    floor: '0.68.0',
-    measured: '0.65.0',
-  ),
-  'stdlib/collection/queue_test.dart': (floor: '0.68.0', measured: '0.65.0'),
-  'stdlib/cast_from_family_test.dart': (floor: '0.70.0', measured: '0.65.0'),
-  // Re-port this one LAST and expect to babysit it: ported against 0.65.0 it
-  // hangs rather than failing, so a green checklist run cannot be assumed.
-  'scc12_await_in_finally_test.dart': (floor: '0.103.0', measured: '0.65.0'),
-  // SCD74 measured both of these against published 0.65.0 before pinning them.
-  // When the floor reaches either version, F-SCC43-1 produces the re-port
-  // checklist — and re-measure BOTH, not just the one that came due.
-  'scd72_instance_tostring_test.dart': (floor: '0.81.0', measured: '0.65.0'),
-  'scd73_no_hook_unwrapping_test.dart': (floor: '0.82.0', measured: '0.65.0'),
-  // SCD186 raised `tom_d4rt`'s SDK floor to `^3.10.4`, removing the
-  // disagreement that made this file unshareable, and bridged the member the
-  // gap was hiding. What is left is the publish: the file diffs the SDK against
-  // the REGISTERED bridge set, and 0.65.0 has no `Future.syncValue`. Measured
-  // does-not-compile against the resolved interpreter on 2026-09-15 before
-  // being pinned. 0.108.0 is the working-tree version carrying the member —
-  // the conservative choice, per the SCD153 entries above.
-  'scc73_sdk_member_completeness_test.dart': (
-    floor: '0.108.0',
-    measured: '0.65.0',
-  ),
-  // Same publish, same floor: this is SCD186's behaviour cover for the member
-  // 0.108.0 adds. Recorded together so the re-port checklist produces both.
-  'stdlib/async/scd186_future_sync_value_test.dart': (
-    floor: '0.108.0',
-    measured: '0.65.0',
-  ),
-  // SCD187's cover for the stub deletion — same publish family, one release
-  // later because the deletion landed after the floor raise.
-  'stdlib/io/scd187_http_response_transform_test.dart': (
-    floor: '0.109.0',
-    measured: '0.65.0',
-  ),
-  // SCD189's six kind fixes ship in 0.110.0; its guard reports every one of
-  // them against anything older.
-  'stdlib/scd189_member_kind_parity_test.dart': (
-    floor: '0.110.0',
-    measured: '0.65.0',
-  ),
-  // SCD198's three fixes ship in 0.113.0.
-  'scd198_class_name_as_type_value_test.dart': (
-    floor: '0.113.0',
-    measured: '0.65.0',
-  ),
-  // SCD92 shipped the applied-type-argument check in 0.87.0. At that floor,
-  // re-port F-SCC29-21 from the reference copy (it expects a `TypeError`), and
-  // check whether `scd92_applied_parameter_type_test.dart` should come with it
-  // — the reference file has no counterpart here at all, which is F-SCC6-2's
-  // business rather than this register's.
-  'scc29_parameter_type_check_test.dart': (floor: '0.87.0', measured: '0.65.0'),
-  // SCE74 and SCE82, each pinned at the release its fix actually landed in
-  // rather than at a conservative working-tree version: SCE74's narrowing of
-  // the `ArgumentError` catch in `BridgedMethodCallable` is 0.129.0, and
-  // SCE82's static-member bridging is 0.136.0. Both measured against the
-  // resolved 0.65.0 with `tool/remeasure_pins.dart --candidates` before being
-  // written here.
-  'stdlib/sce74_sdk_error_type_parity_test.dart': (
-    floor: '0.129.0',
-    measured: '0.65.0',
-  ),
-  'stdlib/io/sce82_header_constants_test.dart': (
-    floor: '0.136.0',
-    measured: '0.65.0',
-  ),
-  // SCE84, pinned at the release carrying the fix rather than at a
-  // conservative working-tree version, and all three measured against the
-  // resolved 0.65.0 before being written here.
-  'stdlib/collection/linked_list_test.dart': (
-    floor: '0.138.0',
-    measured: '0.65.0',
-  ),
-  'stdlib/scc74_member_axis_gaps_test.dart': (
-    floor: '0.138.0',
-    measured: '0.65.0',
-  ),
-  'stdlib/collection/sce84_linked_list_subclass_test.dart': (
-    floor: '0.138.0',
-    measured: '0.65.0',
-  ),
-  // SCE83, owed from the todo before it and measured the same way.
-  'stdlib/async/sce83_transform_element_coercion_test.dart': (
-    floor: '0.137.0',
-    measured: '0.65.0',
-  ),
-  // SCE101-SCE104, each pinned at the release its fix ACTUALLY landed in
-  // rather than at one conservative working-tree version - the versions are
-  // known because each fix bumped the interpreter in its own commit.
-  'sce101_element_type_test.dart': (floor: '0.139.0', measured: '0.65.0'),
-  'sce102_empty_loop_body_async_test.dart': (
-    floor: '0.140.0',
-    measured: '0.65.0',
-  ),
-  'sce103_typed_local_test.dart': (floor: '0.141.0', measured: '0.65.0'),
-  'sce104_cast_pattern_test.dart': (floor: '0.142.0', measured: '0.65.0'),
-  'stdlib/bridge_arity_test.dart': (floor: '0.143.0', measured: '0.65.0'),
-  'sce109_sdk_error_types_test.dart': (floor: '0.143.0', measured: '0.65.0'),
-};
+const Map<String, _Pin> _pinnedInterpreterFloors = <String, _Pin>{};
 
 /// The `tom_d4rt_ast` floor exec's own `pubspec.yaml` currently declares.
 ///
@@ -3764,11 +2927,8 @@ final RegExp _markerPattern = RegExp(
 const Map<String, int> _inlineMarkerCensus = {
   'tom_d4rt/limitations_and_bugs_test.dart': 1,
   'exec/limitations_and_bugs_test.dart': 1,
-  'exec/scd74_hook_covers_both_paths_test.dart': 1,
-  'exec/scd77_uri_is_scheme_test.dart': 1,
-  'exec/scd101_host_boundary_single_rule_test.dart': 1,
-  'exec/scd104_boundary_contract_test.dart': 2,
-  'exec/sce62_copier_node_family_test.dart': 1,
+  // SCE212 deleted the five sce119 pins (scd74, scd77, scd101, scd104 x2) and
+  // sce62's sce160 pin when the constraint rose to a release carrying them.
   // tom_d4rt_ast carries none, and its absence from this map is the claim.
 };
 
@@ -4083,17 +3243,9 @@ final RegExp _anchorCall = RegExp(r"requirePackage\(\s*'tom_d4rt'");
 /// an entry that no longer differs, so the register cannot quietly outlive its
 /// cause the way the pinned floors in [_divergentBaseline] once did.
 const Map<String, String> _astWorkingTreeDrift = {
-  // scd14_aicx rewrote two barrel docstrings: `tom_d4rt_ast.dart` claimed the
-  // barrel "adds the D4rt runtime" when it re-exports the model alone, and
-  // `ast.dart` pointed readers at an `ast_converter.dart` this package does not
-  // have. Both are doc comments — no export list, no declaration and no body
-  // changed — so nothing an interpreter does differs between the two copies.
-  // The change was deliberately not published: it is prose, and a release adds
-  // a version every twin's lock then falls behind. These entries retire
-  // themselves at the next tom_d4rt_ast release, and this case says so by
-  // failing if they are still listed once the copies agree.
-  'ast.dart': 'doc comment only (scd14_aicx), unpublished',
-  'tom_d4rt_ast.dart': 'doc comment only (scd14_aicx), unpublished',
+  // EMPTY since SCE212 (2026-09-28): scd14_aicx's two barrel docstrings, the
+  // only entries this register ever held, shipped in tom_d4rt_ast 0.176.0 and
+  // F-SCC80-3 reported them settled. An empty register is its normal state.
 };
 
 /// The difference each [_astWorkingTreeDrift] entry actually sanctions.
@@ -4126,10 +3278,7 @@ const Map<String, String> _astWorkingTreeDrift = {
 /// `../tom_d4rt_ast/lib/<path>` — and paste only if it is still what the
 /// entry's reason says.
 const Map<String, String> _astDriftFingerprints = <String, String>{
-  // Read 2026-09-25 against published 0.65.0: both differences are `///`
-  // lines only, as the entries say.
-  'ast.dart': '3d3f4f561aba2a6b',
-  'tom_d4rt_ast.dart': 'e7fbb21bbb249a5c',
+  // EMPTY with [_astWorkingTreeDrift] (SCE212).
 };
 
 /// The todo blocking the `tom_d4rt_ast` publish that would clear F-SCC80-3,
@@ -4167,8 +3316,10 @@ const Map<String, String> _astDriftFingerprints = <String, String>{
 // expressed, and that is the state this constant returns to. The lint reasons
 // from today's value alone.
 // ignore: unnecessary_nullable_for_final_variable_declarations
-const String? _astPublishBlock =
-    'sce160_aioc-publish-scd136-and-record-the-corpus-run';
+// SCE212 PUBLISHED tom_d4rt 1.192.0 / tom_d4rt_ast 0.176.0 and raised exec's
+// constraint, so nothing blocks the publish and the constant is back at
+// `null` — the state this case demands a caught-up tree in.
+const String? _astPublishBlock = null;
 
 /// One baseline entry and the comment block written directly above it.
 typedef _BaselineEntry = ({String path, String comment});
@@ -4656,11 +3807,13 @@ void main() {
 
       expect(
         _uncoveredBaseline.length,
-        greaterThanOrEqualTo(20),
+        greaterThanOrEqualTo(10),
         reason:
             'Anti-vacuity: this is a loop over the baseline, so an empty map '
             'would satisfy it while checking nothing. 40 entries when it was '
-            'written.',
+            'written; 16 on 2026-09-28, after SCE212\'s publish discharged the '
+            'publish-blocked ones. What is left is structurally unportable, '
+            'so it does not shrink by publishing.',
       );
       expect(
         drift,
@@ -5883,14 +5036,22 @@ void main() {
         }
       }
 
+      // Anti-vacuity, tied to the register rather than to a count. It used to
+      // be a floor of 20 (30 matched when written), and SCE212's publish
+      // discharged that backlog — an empty-ish register is now the healthy
+      // state, not a collapse. What a broken pattern cannot do is miss an
+      // entry that IS pinned: every pinned path living in these two registers
+      // must itself read as pin-shaped.
+      final pinnedHere = _pinnedInterpreterFloors.keys
+          .where((k) => expectedKeys.values.any((keys) => keys.contains(k)))
+          .length;
       expect(
         pinShaped,
-        greaterThanOrEqualTo(20),
+        greaterThanOrEqualTo(pinnedHere),
         reason:
-            'Anti-vacuity: this case is a loop over pin-shaped entries, so a '
-            'pattern that matched nothing would satisfy it while checking '
-            'nothing. 30 matched when it was written; the floor asks only that '
-            'the prose still has the shape this reads.',
+            'Anti-vacuity: $pinnedHere registered pins live in these '
+            'registers, but only $pinShaped entries read as pin-shaped — the '
+            'pattern no longer recognises the prose it exists to read.',
       );
       expect(
         problems,
@@ -5974,14 +5135,12 @@ void main() {
       // comprehension: an empty register, or a `measured` string
       // [_versionExceeds] cannot parse, satisfies it while checking nothing.
       // 47 entries when this was written, every stamp 0.65.0.
-      expect(
-        _pinnedInterpreterFloors.length,
-        greaterThanOrEqualTo(20),
-        reason:
-            'Only ${_pinnedInterpreterFloors.length} pinned entries, against '
-            '47 measured on 2026-09-22. F-SCE141-1 is a loop over this map, so '
-            'a collapse here makes it pass over nothing.',
-      );
+      // The register MAY be empty: SCE212's publish discharged 47 pins, and an
+      // empty register is what a caught-up exec looks like. So the control
+      // asks the other half directly — that the comparator F-SCE141-1 relies
+      // on actually orders versions, which an unparseable stamp would defeat.
+      expect(_versionExceeds('0.176.0', '0.65.0'), isTrue);
+      expect(_versionExceeds('0.65.0', '0.176.0'), isFalse);
       final malformed = [
         for (final entry in _pinnedInterpreterFloors.entries)
           if (!RegExp(r'^\d+\.\d+\.\d+$').hasMatch(entry.value.measured) ||

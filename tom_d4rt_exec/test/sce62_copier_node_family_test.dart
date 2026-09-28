@@ -130,35 +130,32 @@ void main() {
       );
     });
 
-    test('F-SCE62-7: three pattern forms await the interpreter publish '
-        '[2026-09-21]', () {
-      // PUBLISH-PIN(sce160_aioc-publish-scd136-and-record-the-corpus-run):
-      // tom_d4rt_ast's working tree implements SNullCheckPattern,
-      // SNullAssertPattern and SParenthesizedPattern in `_matchAndBind`; the
-      // PUBLISHED 0.65.0 this package resolves does not, and sce162 forbids
-      // the publish that would close the gap. The reference interpreter
-      // answers all three correctly (5, 1, 3).
-      //
-      // This case asserts the DISAGREEMENT rather than the contract, which is
-      // this repo's established form for a publish gap — F-SCD74-5 is the
-      // same shape. When sce162 closes, F-SCD103-1 turns this file red and
-      // names it; invert the assertion then, to the values above.
-      for (final source in const [
-        'main() { Object? o = 5; if (o case int? x?) return x; return 0; }',
-        'main() { var (a!,) = (1,); return a; }',
-        'main() { Object o = 3; return switch (o) { (int x) => x, _ => 0 }; }',
-      ]) {
-        expect(
-          () => run(source),
-          throwsA(
-            predicate(
-              (e) => e.toString().contains('not yet supported'),
-              'an unimplemented-pattern error from the published interpreter',
-            ),
-          ),
-          reason: source,
-        );
-      }
+    test('F-SCE62-7: three pattern forms the interpreter now implements '
+        '[2026-09-28]', () {
+      // INVERTED BY SCE212. SNullCheckPattern, SNullAssertPattern and
+      // SParenthesizedPattern were implemented in tom_d4rt_ast's working tree
+      // but not in the published 0.65.0, so this case asserted the
+      // disagreement. Exec now resolves an interpreter carrying them, and the
+      // answers are the reference interpreter's.
+      expect(
+        run(
+          'main() { Object? o = 5; if (o case int? x?) return x; return 0; }',
+        ),
+        5,
+        reason: 'SNullCheckPattern',
+      );
+      expect(
+        run('main() { var (a!,) = (1,); return a; }'),
+        1,
+        reason: 'SNullAssertPattern',
+      );
+      expect(
+        run(
+          'main() { Object o = 3; return switch (o) { (int x) => x, _ => 0 }; }',
+        ),
+        3,
+        reason: 'SParenthesizedPattern',
+      );
     });
   });
 }

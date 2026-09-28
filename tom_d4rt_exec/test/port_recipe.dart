@@ -119,6 +119,47 @@ const List<PortImport> portImports = <PortImport>[
     'package:tom_d4rt/src/stdlib/io/stdio.dart',
     'package:tom_d4rt_ast/src/runtime/stdlib/io/stdio.dart',
   ),
+  // SCE212: the remaining stdlib registrar libraries, for the same reason as
+  // `@CORE_STDLIB@`. `scc73_sdk_member_completeness_test.dart` and
+  // `stdlib/scd189_member_kind_parity_test.dart` register each `dart:` library
+  // into a fresh `Environment` and compare its members against the SDK; with
+  // the `tom_d4rt` spellings left in place the port imported BOTH interpreters
+  // and `Environment` was ambiguous, so neither file compiled here.
+  PortImport(
+    '@ASYNC_STDLIB@',
+    'package:tom_d4rt/src/stdlib/async.dart',
+    'package:tom_d4rt_ast/src/runtime/stdlib/async.dart',
+  ),
+  PortImport(
+    '@COLLECTION_STDLIB@',
+    'package:tom_d4rt/src/stdlib/collection.dart',
+    'package:tom_d4rt_ast/src/runtime/stdlib/collection.dart',
+  ),
+  PortImport(
+    '@CONVERT_STDLIB@',
+    'package:tom_d4rt/src/stdlib/convert.dart',
+    'package:tom_d4rt_ast/src/runtime/stdlib/convert.dart',
+  ),
+  PortImport(
+    '@IO_STDLIB@',
+    'package:tom_d4rt/src/stdlib/io.dart',
+    'package:tom_d4rt_ast/src/runtime/stdlib/io.dart',
+  ),
+  PortImport(
+    '@ISOLATE_STDLIB@',
+    'package:tom_d4rt/src/stdlib/isolate.dart',
+    'package:tom_d4rt_ast/src/runtime/stdlib/isolate.dart',
+  ),
+  PortImport(
+    '@MATH_STDLIB@',
+    'package:tom_d4rt/src/stdlib/math.dart',
+    'package:tom_d4rt_ast/src/runtime/stdlib/math.dart',
+  ),
+  PortImport(
+    '@TYPED_DATA_STDLIB@',
+    'package:tom_d4rt/src/stdlib/typed_data.dart',
+    'package:tom_d4rt_ast/src/runtime/stdlib/typed_data.dart',
+  ),
 ];
 
 /// [source] with every interpreter import collapsed to its token, so the two

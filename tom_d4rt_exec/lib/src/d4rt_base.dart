@@ -1410,28 +1410,6 @@ class D4rt {
 
   void Function(Object error, StackTrace stackTrace)? _onUncaughtError;
 
-  /// Recovers the value the script actually threw from the interpreter's
-  /// internal wrappers.
-  ///
-  /// **A deliberate fourth copy, and a temporary one.** `tom_d4rt_ast` exposes
-  /// this as a public top-level `unwrapScriptError` from 0.82.0, but this
-  /// package resolves that one from pub.dev (DGUC6) and is currently on 0.65.0,
-  /// where it is private. It cannot be re-exported publicly from here either:
-  /// `d4rt.dart` re-exports `package:tom_d4rt_ast/runtime.dart`, so a public
-  /// top-level of the same name would become an ambiguous export the day the
-  /// publish lands. So it is private, and sce119 deletes it in favour of the
-  /// published one once the constraint is raised.
-  static Object _unwrapScriptError(Object error) {
-    var value = error;
-    if (value is InternalInterpreterD4rtException) {
-      value = value.originalThrownValue ?? value;
-    }
-    // A bridged exception's native object is the thing a host can catch on;
-    // the BridgedInstance shell means nothing outside the interpreter.
-    if (value is BridgedInstance) return value.nativeObject;
-    return value;
-  }
-
   /// Runs the script in a zone d4rt owns, so that errors escaping an
   /// interpreted callback have somewhere to be caught.
   ///
@@ -1474,7 +1452,7 @@ class D4rt {
   /// They run on every callback registered while a script executes, including
   /// callbacks belonging to native code a bridge called — so the transform has
   /// to leave anything that is not an interpreter type byte-identical, which
-  /// [_unwrapScriptError] does. That it is safe to apply here at all was
+  /// [unwrapScriptError] does. That it is safe to apply here at all was
   /// measured rather than assumed: a `Future.then` callback that throws is the
   /// one registered-callback escape an interpreted `catch` can still receive,
   /// and its `catch`, `on`-clause matching, member access and `rethrow` were
@@ -1487,7 +1465,7 @@ class D4rt {
   ZoneSpecification _scriptZoneSpecification() {
     // Unconditional: shed the wrapper as the callback throws, which needs no
     // error zone. `errorCallback` below covers the one shape these cannot
-    // reach; see [_unwrapScriptError], which stays the documented remedy for a
+    // reach; see [unwrapScriptError], which stays the documented remedy for a
     // value that reaches an embedder by some route neither seam sees.
     R Function() registerCallback<R>(
       Zone self,
@@ -1498,7 +1476,7 @@ class D4rt {
       try {
         return callback();
       } catch (error, stackTrace) {
-        Error.throwWithStackTrace(_unwrapScriptError(error), stackTrace);
+        Error.throwWithStackTrace(unwrapScriptError(error), stackTrace);
       }
     });
 
@@ -1511,7 +1489,7 @@ class D4rt {
       try {
         return callback(arg);
       } catch (error, stackTrace) {
-        Error.throwWithStackTrace(_unwrapScriptError(error), stackTrace);
+        Error.throwWithStackTrace(unwrapScriptError(error), stackTrace);
       }
     });
 
@@ -1524,7 +1502,7 @@ class D4rt {
       try {
         return callback(a, b);
       } catch (error, stackTrace) {
-        Error.throwWithStackTrace(_unwrapScriptError(error), stackTrace);
+        Error.throwWithStackTrace(unwrapScriptError(error), stackTrace);
       }
     });
 
@@ -1557,7 +1535,7 @@ class D4rt {
       Object error,
       StackTrace? stackTrace,
     ) {
-      final unwrapped = _unwrapScriptError(error);
+      final unwrapped = unwrapScriptError(error);
       if (identical(unwrapped, error)) {
         return parent.errorCallback(zone, error, stackTrace);
       }
@@ -1579,7 +1557,7 @@ class D4rt {
       registerBinaryCallback: registerBinaryCallback,
       errorCallback: errorCallback,
       handleUncaughtError: (self, parent, zone, error, stackTrace) {
-        final scriptError = _unwrapScriptError(error);
+        final scriptError = unwrapScriptError(error);
         final hook = onUncaughtError;
         if (hook == null) {
           // The field was cleared after the fork. Behave as the no-hook path.

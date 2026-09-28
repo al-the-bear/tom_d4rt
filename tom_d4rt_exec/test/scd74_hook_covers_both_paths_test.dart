@@ -170,19 +170,13 @@ void main() {
       },
     );
 
-    test('F-SCD74-5: the no-hook paths do NOT yet agree, and this is why '
-        '[2026-09-13]', () async {
-      // PUBLISH-PIN(sce119_aiml-exec-carries-a-fourth-unwrap-copy-until-the-ast-publish-lands): the bundle
-      // path's seam lives in the PUBLISHED tom_d4rt_ast (0.65.0, which
-      // predates SCD73), while this package's own seam carries the fix. So the
-      // two paths disagree for as long as the constraint names 0.65.0, and
-      // this case asserts the disagreement rather than the contract.
-      //
-      // SCD103 turned the prose that used to sit here into that marker. The
-      // difference is not cosmetic: F-SCD103-1 now reads the named todo's
-      // STATUS, so the day sce119 is marked complete this file goes red and
-      // names itself, instead of relying on somebody remembering. Invert the
-      // assertion then.
+    test('F-SCD74-5: the no-hook paths agree [2026-09-28]', () async {
+      // INVERTED BY SCE212 (sce119 item 2). This case used to assert that the
+      // paths DISAGREE with no hook set: the bundle path's seam lived in the
+      // published tom_d4rt_ast 0.65.0, which predates SCD73, so it handed an
+      // embedder the internal wrapper while exec's own seam unwrapped. Exec now
+      // resolves an interpreter carrying SCD73, and an embedder writing one
+      // handler must not have to ask which entry point produced the error.
       Future<List<Object>> noHook(Future<Object?> Function(D4rt) run) async {
         final zoneErrors = <Object>[];
         final finished = Completer<Object?>();
@@ -214,11 +208,11 @@ void main() {
       );
       expect(
         bundle.single,
-        isA<InternalInterpreterD4rtException>(),
+        isA<StateError>(),
         reason:
-            'the bundle path runs the interpreter this package RESOLVES, not '
-            'the one in the sibling working tree — DGUC6, and the reason exec '
-            'exists',
+            'the bundle path runs the interpreter this package RESOLVES, and '
+            'that one now unwraps too — the internal wrapper must not reach a '
+            'no-hook embedder on either path',
       );
     });
   });

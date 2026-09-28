@@ -117,13 +117,11 @@ void main() {
       // No native object to peel to, and the host cannot name a type the
       // script invented, so what it gets is the interpreted instance itself.
       //
-      // PUBLISH-PIN(sce119_aiml-exec-carries-a-fourth-unwrap-copy-until-the-ast-publish-lands):
-      // whether that instance renders its OWN `toString()` is SCD72's fix, and
-      // exec resolves an interpreter that predates it — `_pinnedInterpreterFloors`
-      // carries `scd72_instance_tostring_test.dart` at 0.81.0 against a
-      // resolved 0.65.0. So the reference tree answers `E!` here and exec
-      // answers `<instance of E>`. The TYPE is the contract this file is
-      // about and it already agrees; the rendering is the version gap.
+      //
+      // And it renders its OWN `toString()` — SCD72's fix, which exec's
+      // resolved interpreter carries since SCE212 raised the constraint. Before
+      // that the host saw `<instance of E>` here while the reference tree said
+      // `E!`.
       expect(
         () => D4rt().execute(
           source: '''
@@ -131,26 +129,28 @@ void main() {
           main() { throw E(); }
         ''',
         ),
-        throwsA(isA<InterpretedInstance>()),
+        throwsA(
+          isA<InterpretedInstance>().having(
+            (e) => e.toString(),
+            'toString()',
+            'E!',
+          ),
+        ),
       );
     });
 
-    test('F-SCD104-7: a BRIDGED exception is the one shape still gated on the '
-        'publish [2026-09-14]', () {
-      // PUBLISH-PIN(sce119_aiml-exec-carries-a-fourth-unwrap-copy-until-the-ast-publish-lands):
-      // exec resolves `throwAsHostFacingError` from pub.dev, and published
-      // 0.65.0 peels the interpreter's carrier ONCE where the working tree
-      // peels twice (SCD96 — a bridged exception holds its native object one
-      // level further in). So this is the single shape where exec and the
-      // reference tree disagree, and it is a version gap rather than a
-      // boundary defect. Asserted as it IS, so the day it changes is visible.
+    test('F-SCD104-7: a BRIDGED exception arrives as the native exception '
+        '[2026-09-28]', () {
+      // TIGHTENED BY SCE212 (sce119 item 5). This was the one shape where exec
+      // and the reference tree disagreed: published 0.65.0 peeled the carrier
+      // ONCE where the working tree peels twice (SCD96 — a bridged exception
+      // holds its native object one level further in), so the host got a
+      // shell it could not `catch` on. Exec now resolves an interpreter that
+      // peels twice.
       expect(
         () =>
             D4rt().execute(source: "main() { throw FormatException('boom'); }"),
-        throwsA(isNot(isA<FormatException>())),
-        reason:
-            'When the constraint is raised this becomes isA<FormatException>() '
-            '— see sce119. F-SCD103-1 will go red and name this file.',
+        throwsA(isA<FormatException>()),
       );
     });
 

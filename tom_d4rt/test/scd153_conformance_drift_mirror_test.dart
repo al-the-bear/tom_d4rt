@@ -482,9 +482,13 @@ void main() {
             'exec\'s F-SCE186-3, which checks the same parse against the '
             'consts.',
       );
+      // Floor 10, not 20: SCE212's publish discharged the publish-blocked
+      // `_uncoveredBaseline` entries (49 -> 16 on 2026-09-28). What remains is
+      // structurally unportable and does not shrink by publishing, so a count
+      // near 16 is the healthy state and a count near zero is a broken parse.
       expect(
         registers.values.map((k) => k!.length),
-        everyElement(greaterThanOrEqualTo(20)),
+        everyElement(greaterThanOrEqualTo(10)),
       );
       expect(ref.length, greaterThanOrEqualTo(300));
       expect(ported.length, greaterThanOrEqualTo(150));

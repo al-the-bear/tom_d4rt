@@ -218,7 +218,7 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpretedFunction._findInvocationWithAwaitInArguments': '5fedfaed',
     'InterpretedFunction._findNextSequentialNode': '00e07640',
     'InterpretedFunction._enclosingExpressionFunctionBody': '34fd9762',
-    'InterpretedFunction._handleAsyncError': '49083482',
+    'InterpretedFunction._handleAsyncError': '7d53bc37',
     'InterpretedFunction._instantiateRedirectedFactory': 'c9d9b3ba',
     'InterpretedFunction._isInsideCatchClauseOf': '3782eeaf',
     // SCE78: the finally-block companion to the catch-clause predicate

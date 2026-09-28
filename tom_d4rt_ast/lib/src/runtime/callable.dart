@@ -3902,8 +3902,14 @@ class InterpretedFunction implements Callable {
           ownerFinally != null &&
           ownerFinally.statements.isNotEmpty;
       if (!keepOwner) {
-        // Find the next enclosing try outside of the current one
-        enclosingTry = _findEnclosingTryStatement(currentTry);
+        // Find the next enclosing try outside the OWNER. SCE212: this used to
+        // start from `currentTry` — the mutable `state.activeTryStatement`
+        // SCD41 stopped trusting for the ownership test above. A try that ran
+        // inside the catch leaves that field pointing somewhere else, so the
+        // search started from the wrong place and the rethrow skipped the
+        // outer catch that should have caught it (F-SCD41-7 in exec's scc12).
+        // Walking from the owner itself is structural, like the test above.
+        enclosingTry = _findEnclosingTryStatement(enclosingTry);
       }
       // Reset the flag after handling
       state.isCurrentlyRethrowing = false;

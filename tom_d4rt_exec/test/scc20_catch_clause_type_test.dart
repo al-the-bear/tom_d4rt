@@ -301,21 +301,40 @@ main() {
       },
     );
 
-    test('F-SCC20-16: an unresolvable on-type misses instead of throwing '
-        '[2026-09-04]', () {
-      // The one thing the catch clause legitimately needs that `is` does not.
-      // `_valueHasType` reports a failed type lookup by THROWING; a catch
-      // clause must not do that, because the throw would replace the exception
-      // being dispatched with a lookup failure and lose the original. So the
-      // call is wrapped and a resolution failure means "this clause does not
-      // match" — which is exactly what the old warn-and-continue path did.
-      expect(
+    test('F-SCC20-16: an unresolvable on-type is an ERROR, and the dispatched '
+        'exception survives it [2026-09-04, flipped by SCE127 2026-09-22]', () {
+      // WAS `equals('fell-through')`. SCC20 recorded the miss as the one thing
+      // a catch clause legitimately needs that `is` does not, for a reason
+      // that was correct and is preserved: `_valueHasType` reports a failed
+      // lookup by THROWING, and letting that escape would replace the
+      // exception being dispatched with a lookup failure and lose the
+      // original.
+      //
+      // SCE127 kept the reason and changed the answer. Real Dart refuses to
+      // compile an `on` clause naming a non-type (`non_type_in_catch_clause`),
+      // and the miss made d4rt run a DIFFERENT BRANCH of a program Dart
+      // rejects — here, `fell-through` from a handler the author did not
+      // choose. The clause now fails, and the diagnostic carries BOTH halves,
+      // so nothing is lost: that is what this case pins now.
+      String thrown;
+      try {
         run('''
           try { throw 'boom'; }
           on NoSuchTypeAnywhere catch (e) { return 'on-missing'; }
           catch (e) { return 'fell-through'; }
-        '''),
-        equals('fell-through'),
+        ''');
+        thrown = 'no throw';
+      } catch (e) {
+        thrown = e.toString();
+      }
+      expect(thrown, contains('NoSuchTypeAnywhere'));
+      expect(thrown, contains('does not resolve to a type'));
+      expect(
+        thrown,
+        contains('boom'),
+        reason:
+            'the exception being dispatched is named too — the loss SCC20 '
+            'wrote this case to prevent still does not happen',
       );
     });
 
@@ -440,19 +459,24 @@ main() {
         // value, so one on a root type makes the root match everything in its
         // hierarchy and steal dispatch from its own subtypes. These getters live
         // on `FormatException` alone and would disappear if that happened.
-        // `source` and `offset` come back null, and that is a SEPARATE defect
-        // measured here rather than papered over: the `FormatException` bridge
-        // reads them from namedArgs while the SDK constructor takes them
-        // positionally, so the two positional arguments are dropped. Filed as
-        // SCD68. What this case proves is unaffected — the `Exception` bridge
-        // declares no `source` or `offset` getter at all, so reaching them and
-        // getting null means the FormatException bridge answered.
+        // This used to pin `['bad', null, null]` with a comment naming the
+        // defect: the bridge read `source` and `offset` out of namedArgs while
+        // the SDK constructor takes all three positionally, so the two extra
+        // arguments were dropped. SCD68 fixed the adapter and this case now
+        // asserts the values a script actually passed.
+        //
+        // It still proves what it was written to prove, and proves it BETTER.
+        // The `Exception` bridge declares no `source` or `offset` getter at
+        // all, so reaching them means the `FormatException` bridge answered —
+        // and reading back what was passed, rather than null, rules out the one
+        // reading the old assertion could not: that the getters were resolving
+        // somewhere that returns null for everything.
         expect(
           run("""
           var e = FormatException('bad', 'src', 2);
           return [e.message, e.source, e.offset];
         """),
-          equals(['bad', null, null]),
+          equals(['bad', 'src', 2]),
         );
       },
     );

@@ -115,23 +115,13 @@ void main() {
 
     test('F-SCD101-3: the boundary delivers what the RESOLVED interpreter '
         'peels [2026-09-14]', () {
-      // Behaviour, pinned as it actually is rather than as it will be.
-      //
-      // PUBLISH-PIN(sce119_aiml-exec-carries-a-fourth-unwrap-copy-until-the-ast-publish-lands): exec
-      // resolves `throwAsHostFacingError` from pub.dev, and published 0.65.0
-      // peels the interpreter's carrier ONCE where the working tree peels
-      // twice (SCD96). So the `FormatException` assertion this case would
-      // otherwise make is held back to what the published pair can deliver.
-      //
-      // `[].first` raises a native StateError, which never passes through a
-      // BridgedInstance, so it arrives as itself on any version. A script's
-      // `throw FormatException(...)` does pass through one, and arrives peeled
-      // only as far as the RESOLVED `throwAsHostFacingError` peels: published
-      // 0.65.0 peels once and hands back the shell; the working tree peels
-      // twice (SCD96). Exec resolves from pub.dev (DGUC6), so the second
-      // assertion below is a statement about the published pair and is
-      // expected to tighten to `isA<FormatException>()` when the constraint is
-      // raised — see sce119, which raises it.
+      // TIGHTENED BY SCE212 (sce119 item 4). Exec now resolves a
+      // `tom_d4rt_ast` that peels the interpreter's carrier twice (SCD96), so
+      // a script's `throw FormatException(...)` reaches the host as the
+      // `FormatException` itself rather than as the `BridgedInstance` shell
+      // the published 0.65.0 handed back. `[].first` raises a native
+      // StateError, which never passed through a shell, so it was always
+      // itself.
       expect(
         () => D4rt().execute(
           source: 'main() { var l = <int>[]; return l.first; }',
@@ -141,6 +131,12 @@ void main() {
       expect(
         () => D4rt().execute(source: "main() { throw 'plain'; }"),
         throwsA('plain'),
+      );
+      expect(
+        () =>
+            D4rt().execute(source: "main() { throw FormatException('boom'); }"),
+        throwsA(isA<FormatException>()),
+        reason: 'the shell is gone: the resolved interpreter peels twice',
       );
       expect(
         () => D4rt().execute(source: 'main() => totallyUndefinedThing;'),

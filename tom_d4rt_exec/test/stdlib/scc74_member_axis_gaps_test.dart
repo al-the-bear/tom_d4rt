@@ -40,6 +40,15 @@ Future<Object?> _run(String body) async {
           "import 'dart:collection';\n"
           "import 'dart:convert';\n"
           "import 'dart:io';\n"
+          // `LinkedList` is only usable through a subclass of
+          // `LinkedListEntry` — the SDK declares it `abstract base mixin
+          // class` over a self-referential type parameter — so the collection
+          // cases below declare one. `value` is this class's own field, not a
+          // bridged member: the SDK's entry has none.
+          'class E extends LinkedListEntry<E> {\n'
+          '  final value;\n'
+          '  E(this.value);\n'
+          '}\n'
           'Future<Object?> main() async {\n'
           '$body\n'
           '}\n',
@@ -54,11 +63,11 @@ void main() {
       expect(
         await _run('''
           final list = LinkedList();
-          final a = LinkedListEntry('a');
-          final c = LinkedListEntry('c');
+          final a = E('a');
+          final c = E('c');
           list.add(a);
           list.add(c);
-          a.insertAfter(LinkedListEntry('b'));
+          a.insertAfter(E('b'));
           return list.map((e) => e.value).toList();
         '''),
         equals(['a', 'b', 'c']),
@@ -70,11 +79,11 @@ void main() {
       expect(
         await _run('''
           final list = LinkedList();
-          final a = LinkedListEntry('a');
-          final c = LinkedListEntry('c');
+          final a = E('a');
+          final c = E('c');
           list.add(a);
           list.add(c);
-          c.insertBefore(LinkedListEntry('b'));
+          c.insertBefore(E('b'));
           return list.map((e) => e.value).toList();
         '''),
         equals(['a', 'b', 'c']),
@@ -86,7 +95,7 @@ void main() {
       await expectLater(
         _run('''
           final list = LinkedList();
-          final a = LinkedListEntry('a');
+          final a = E('a');
           list.add(a);
           a.insertAfter('not an entry');
           return null;

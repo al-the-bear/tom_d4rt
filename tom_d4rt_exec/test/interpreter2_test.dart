@@ -709,7 +709,27 @@ void main() {
        }
        ''';
 
-        expect(() => run(source), throwsA(isA<RuntimeD4rtException>()));
+        // A tear-off of an absent INSTANCE member is a runtime
+        // `NoSuchMethodError` in real Dart, and sce67 made the interpreter
+        // report it as one. Asserting only `RuntimeD4rtException` here pinned
+        // the invented supertype and left the SDK contract — the thing a
+        // script's `catch` actually dispatches on — unasserted on this path.
+        // The host-side type is not sufficient on its own: the interpreter may
+        // wrap on the way out, so the assertion that matters is the one the
+        // script itself can make.
+        expect(
+          run('''
+       class MyClass {}
+       main() {
+         var obj = MyClass();
+         try { var func = obj.missingMethod; return "not thrown"; }
+         on NoSuchMethodError catch (_) { return "caught"; }
+         catch (e) { return "escaped"; }
+       }
+       '''),
+          'caught',
+        );
+        expect(() => run(source), throwsA(isA<NoSuchMethodError>()));
       },
     );
 
@@ -724,7 +744,17 @@ void main() {
       }
       ''';
 
-        expect(() => run(source), throwsA(isA<RuntimeD4rtException>()));
+        // CONTROL for I-MISC-335, and the reason that case is not vacuous.
+        // Real Dart rejects a missing STATIC at compile time, so there is no
+        // runtime NoSuchMethodError to model and sce67 withheld the supertype
+        // here on purpose. The two tear-offs differ by one word of source and
+        // must keep landing on opposite sides of that line.
+        expect(
+          () => run(source),
+          throwsA(
+            allOf(isA<RuntimeD4rtException>(), isNot(isA<NoSuchMethodError>())),
+          ),
+        );
       },
     );
 

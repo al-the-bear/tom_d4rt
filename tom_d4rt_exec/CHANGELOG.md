@@ -1,3 +1,24 @@
+## 1.33.0
+
+### Changed — resolves the current interpreters (sce212)
+
+`tom_d4rt_ast` ^0.177.0 (was ^0.65.0), `tom_d4rt` ^1.192.0 (was ^1.77.0),
+`tom_ast_generator` ^0.1.9 and `tom_d4rt_generator` >=1.44.0. Every exec
+suite measured the interpreter published on 2026-09-11 until now; the
+publish-blocked conformance files are ported and their pins deleted.
+
+### Fixed — `dart:io` imports with EITHER FilesystemPermission or NetworkPermission (sce206, exec's front end)
+
+sce206 changed the import gate in both interpreters but not in exec's own
+`module_loader.dart`, so an exec script granted only `NetworkPermission`
+still could not import `dart:io`. Found by porting sce206's cases once exec
+could resolve an interpreter carrying the change.
+
+### Removed — exec's private `_unwrapScriptError` copy (sce119)
+
+The published `unwrapScriptError` is used instead, now that the resolved
+`tom_d4rt_ast` exposes it.
+
 ## 1.32.0
 
 ### Fixed — the script-to-host boundary retyped typed-data lists (sce160)

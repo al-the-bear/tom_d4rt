@@ -1,3 +1,26 @@
+## 0.177.0
+
+### Fixed — an async `rethrow` after a nested try inside the catch reaches the outer catch (sce212)
+
+```dart
+try {
+  try { throw StateError('x'); }
+  catch (e) {
+    try { await Future.value(0); } finally { log.add('if'); }
+    rethrow;
+  }
+} catch (e) { log.add('oc'); }
+```
+
+escaped the function instead of reaching the outer `catch`. When a rethrow
+leaves its owning try, `_handleAsyncError` searched for the next enclosing try
+starting from `state.activeTryStatement` — the mutable field SCD41 had already
+stopped trusting for the ownership test, and which a try completing inside the
+catch leaves pointing elsewhere. The search now starts from the owner itself,
+structurally, as `tom_d4rt` always did. Found by porting exec's copy of
+`scc12_await_in_finally_test.dart` (F-SCD41-7) once exec could resolve a
+current interpreter; `tom_d4rt` was never affected.
+
 ## 0.176.0
 
 ### Fixed — a coercion error inside `WebSocketTransformer.bind` reaches the script (sce208)

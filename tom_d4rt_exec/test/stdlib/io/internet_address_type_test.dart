@@ -1,0 +1,120 @@
+// SCD24: `InternetAddressType` bridged four members the SDK does not declare.
+//
+// `InternetAddressTypeIo` offered `lookup`, `host`, `address` and `type`, each
+// wired to whatever `Object` member came to hand: `host` returned `.name`,
+// `address` returned `.hashCode`, `type` returned `.runtimeType`, and `lookup`
+// returned `toString()`. They were copied from `InternetAddressIo`, which sits
+// directly above it in the same file and where all four ARE correct — the doc
+// comment above the class came across with them, still reading "Bridged
+// InternetAddress class", which is how the copy was eventually spotted.
+//
+// THIS DIRECTION OF ERROR HAS NO TEST TO FAIL. `type.address` handed back an
+// int and raised nothing, so a script doing arithmetic on a hash code was green
+// here and does not compile as Dart at all. Every other entry in the sweep that
+// found this either worked correctly or failed loudly.
+//
+// So the absence is pinned, per the rule SCC8 established: a deletion cannot be
+// protected by an assertion that passes, and without a pin the next reader
+// meets `InternetAddress.host` one screen up and restores the omission as an
+// oversight. `name` is asserted alongside because it is the one instance member
+// the enum really has (via the `EnumName` extension), and the same confusion
+// that added four could remove it.
+//
+// THESE FOUR CASES DO NOT ALL ASSERT THE SAME EXCEPTION, and the reason is a
+// finding rather than an inconsistency in the test. Measured 2026-09-12 on a
+// bridged instance, a missing METHOD raised `D4rtNoSuchMethodError` (which
+// `implements NoSuchMethodError`) while a missing GETTER raised
+// `UndefinedMemberD4rtException` (which did not), so the same absence reported
+// differently by member KIND and only one half was catchable the way a script
+// would catch real Dart's.
+//
+// FIXED by sce67: `UndefinedMemberD4rtException` now implements
+// `NoSuchMethodError` too, so all five cases below assert the SDK supertype and
+// the caveat that used to sit here is gone. The supertype was ADDED rather than
+// swapped — these are still `RuntimeD4rtException`s — so the `memberName`
+// having-matcher still works and every internal `is UndefinedMemberD4rtException`
+// test the interpreter uses for extension-lookup control flow is unaffected.
+
+import 'package:test/test.dart';
+import 'package:tom_d4rt_exec/d4rt.dart';
+
+void main() {
+  final d4rt = D4rt();
+  // `dart:io` sits behind an import gate keyed on FilesystemPermission, so the
+  // scripts below cannot even load without it. Worth noting that the grant is
+  // load-bearing for the NEGATIVE cases too: without it they still throw, but
+  // with a permission error rather than a NoSuchMethodError — which is why they
+  // assert the exact type instead of just `throwsA(anything)`.
+  d4rt.grant(FilesystemPermission.any);
+  const String testLibPath = 'd4rt-mem:/internet_address_type_test.dart';
+
+  dynamic run(String scriptBody) {
+    return d4rt.execute(
+      library: testLibPath,
+      sources: {
+        testLibPath:
+            '''
+      import 'dart:io';
+
+      main() {
+        $scriptBody
+      }
+    ''',
+      },
+    );
+  }
+
+  group('SCD24: InternetAddressType offers only what the SDK declares', () {
+    for (final member in const ['host', 'address', 'type']) {
+      test('F-SCD24-${const {'host': 1, 'address': 2, 'type': 3}[member]}: '
+          '$member is absent, because InternetAddressType has no such member '
+          '[2026-09-12] (PASS)', () {
+        expect(
+          () => run('return InternetAddressType.IPv4.$member;'),
+          // `NoSuchMethodError`, the SDK supertype — the same thing F-SCC8-5
+          // asserts for the same shape of absence on `LinkedList`. Asserting
+          // the supertype rather than the concrete type is the point: it is
+          // what a SCRIPT can catch, and it is what would have to change if
+          // the absence ever stopped being reportable the way real Dart
+          // reports it.
+          throwsA(
+            allOf(
+              isA<NoSuchMethodError>(),
+              isA<UndefinedMemberD4rtException>().having(
+                (e) => e.memberName,
+                'memberName',
+                equals(member),
+              ),
+            ),
+          ),
+        );
+      });
+    }
+
+    test(
+      'F-SCD24-4: lookup is absent, because it is a static on InternetAddress '
+      'rather than a member of the type enum [2026-09-12] (PASS)',
+      () {
+        expect(
+          () => run('return InternetAddressType.IPv4.lookup();'),
+          // A METHOD, and it behaves correctly: `D4rtNoSuchMethodError`
+          // implements `NoSuchMethodError`, so a script catches this exactly as
+          // it would catch real Dart's. That it differs from the three getters
+          // above is the point of sce67, and asserting the SDK supertype here
+          // keeps the correct half correct.
+          throwsA(isA<NoSuchMethodError>()),
+        );
+      },
+    );
+
+    test(
+      'F-SCD24-5: name is present, because EnumName really does give the enum '
+      'one [2026-09-12] (PASS)',
+      () {
+        // Anti-vacuity for the four above: they would pass just as happily
+        // against a class that bridges nothing at all.
+        expect(run("return InternetAddressType.IPv4.name;"), equals('IPv4'));
+      },
+    );
+  });
+}
