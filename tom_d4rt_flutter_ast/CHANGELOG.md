@@ -1,3 +1,15 @@
+## 0.9.0
+
+### Changed — resolves the current interpreter (sce212)
+
+`tom_d4rt_ast` ^0.177.0, `tom_d4rt_exec` ^1.34.0 and `tom_ast_generator`
+^0.1.9 — the first interpreter releases since 0.65.0. The bridges were
+regenerated at `tom_d4rt_generator` 1.44.0 with no change to executed code:
+the generator stamps, and two `// Source:` headers that now name `dart:ui` and
+a `package:` URI instead of an absolute machine path. The base corpus at this
+resolution is 927/1/0, equal to the previous run on every file; framework
+errors now fail a script, which changed no verdict (zero across all 910).
+
 ## 0.8.0
 
 ### Fixed — `AutomaticKeepAliveClientMixin` was structurally absent on this line (sce165)
