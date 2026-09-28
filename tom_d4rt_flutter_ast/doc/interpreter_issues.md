@@ -4510,6 +4510,46 @@ folder with no header or a failed one rather than printing an empty row, and
 flags a package resolved by path — a pre-publish pass, which is not recorded
 here.
 
+### 2026-09-28 — base corpus, both twins, at the first interpreter releases since 2026-09-11: tom_d4rt 1.192.0 / tom_d4rt_ast 0.177.0
+
+**Why this run exists.** SCE212 (with sce209) published `tom_d4rt` 1.192.0,
+`tom_d4rt_ast` 0.176.0 and then 0.177.0, `tom_d4rt_generator` 1.44.0,
+`tom_d4rt_exec` 1.33.0 / 1.34.0 and `tom_ast_generator` 0.1.9 — the first
+interpreter releases since 1.77.0 / 0.65.0. The release carries every
+`Name resolution: yes` section written in between, so the protocol's
+post-publish corpus run is owed, serially, on both twins. This is it, and it
+discharges the SCE29 deferrals that were waiting on the publish.
+
+**Before publishing**, the same corpus ran path-resolved to the working tree
+(the SCD66 pre-publish pass, not recordable) at 927/1/0 on both twins; the
+exec gate (`--pass`) was clean for the 0.177.0 publish.
+
+| Package | `tom_d4rt` | `tom_d4rt_ast` | `tom_d4rt_generator` |
+| ------- | ---------- | -------------- | -------------------- |
+| `tom_d4rt_flutter` | **1.192.0** | — | **1.44.0** |
+| `tom_d4rt_flutter/test/tom_d4rt_flutter_test_app` | **1.192.0** | — | — |
+| `tom_d4rt_flutter_ast` | **1.192.0** | **0.177.0** | **1.44.0** |
+| `tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app` | — | **0.177.0** | — |
+
+**Result.** `run_base_tests.sh` in each twin, AST twin first:
+
+| Twin | Run | pass / skip / fail | Before (2026-09-25 hosted base) |
+| ---- | --- | ------------------ | ------------------------------- |
+| `tom_d4rt_flutter_ast` | `basetestlog_sce212-ast` | 927 / 1 / 0 | 927 / 1 / 0 |
+| `tom_d4rt_flutter` | `basetestlog_sce212-src` | 927 / 1 / 0 | 927 / 1 / 0 |
+
+Every one of the seventeen files matches its previous count on all three
+numbers, including the one standing skip in `flutter_base_15`. No rising skip.
+
+**What moved in the bridges.** The AST twin's regeneration at generator
+1.44.0 changed no executed line: eighteen `// Generated:` stamps, and two
+`// Source:` headers that now read `dart:ui` and
+`package:vector_math/vector_math_64.dart` instead of absolute machine paths.
+
+**What it does not cover.** The FULL corpus (`run_issue_analysis_tests.sh`,
+the `flutter_extended_NN` files) — which GEN-125's verification asks for — is
+sce160's and was not run here; GEN-125 stays open until it is.
+
 ### 2026-09-18 — NO RUN MADE: the twins' locks moved to tom_d4rt_generator 1.28.0 and nothing they execute changed
 
 **Why this entry exists without a run.** SCE49 and SCE51 published

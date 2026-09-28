@@ -55,45 +55,11 @@ const _marker = 'Name resolution: yes';
 /// blocker lifts — the guard then holds the release to the same standard as
 /// every other.
 const Map<String, String> _deferred = {
-  // sce162 blocks publishing tom_d4rt / tom_d4rt_ast, and the twins resolve
-  // the interpreter from pub.dev (DGUC6), so no corpus run can measure these
-  // until they ship. Newest published when these were deferred: 1.77.0 / 0.65.0.
-  '1.108.0': 'unpublished — sce162 publish block (scd132 prefix fallback)',
-  '0.95.0': 'unpublished — sce162 publish block (scd132 prefix fallback)',
-  '1.125.0': 'unpublished — sce162 publish block (scd194 enum displacement)',
-  '0.111.0': 'unpublished — sce162 publish block (scd194 enum displacement)',
-  '1.136.0': 'unpublished — sce162 publish block (sce25 same-name enums)',
-  '0.121.0': 'unpublished — sce162 publish block (sce25 same-name enums)',
-  '1.137.0': 'unpublished — sce162 publish block (sce25 narrowed retrieval)',
-  '0.122.0': 'unpublished — sce162 publish block (sce25 narrowed retrieval)',
-  // The release that CLOSES sce162's last base-corpus regression, and so the
-  // one the publish is waiting on. It cannot be certified by a corpus run
-  // before it ships, for exactly the reason it is deferred here — but it is the
-  // least blind entry in this map: the defect it fixes was measured absent at
-  // the published pair and present at the tree, and both twins' base corpus was
-  // run at the tree through SCD66's pre-publish path resolution before the
-  // version was written. See sce162's entry for those numbers.
-  '1.180.0': 'unpublished — sce162 publish block (scf26 suffix-match ordering)',
-  '0.163.0': 'unpublished — sce162 publish block (scf26 suffix-match ordering)',
-  // Found and fixed by sce160's pre-publish pass, and published by it. The
-  // post-publish full corpus run that sce160 records covers it; delete these
-  // two with the rest of this map when that run is written.
-  '1.182.0':
-      'unpublished — sce160 publish in progress (StreamTransformer nativeNames)',
-  '0.166.0':
-      'unpublished — sce160 publish in progress (StreamTransformer nativeNames)',
-  '1.183.0':
-      'unpublished — sce160 publish in progress (sce177 nativeNames prune)',
-  '0.167.0':
-      'unpublished — sce160 publish in progress (sce177 nativeNames prune)',
-  '1.184.0':
-      'unpublished — sce160 publish in progress (sce178 Stream overrides)',
-  '0.168.0':
-      'unpublished — sce160 publish in progress (sce178 Stream overrides)',
-  '1.185.0':
-      'unpublished — sce160 publish in progress (sce179 value-level entry)',
-  '0.169.0':
-      'unpublished — sce160 publish in progress (sce179 value-level entry)',
+  // EMPTY since 2026-09-28. Every entry here waited on the same publish, which
+  // SCE212 made (tom_d4rt 1.192.0 / tom_d4rt_ast 0.177.0), and the post-publish
+  // base corpus of both twins is recorded under `Verification runs` at that
+  // pair — it covers every marked release up to it. An empty map is the
+  // normal state; a new entry is a new debt with its reason.
 };
 
 List<int> _key(String v) => v.split('.').map(int.parse).toList();
