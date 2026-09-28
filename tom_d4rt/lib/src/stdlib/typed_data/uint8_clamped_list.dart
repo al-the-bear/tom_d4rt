@@ -210,74 +210,7 @@ class Uint8ClampedListTypedData {
     staticGetters: typedListStaticGetters(Uint8ClampedList.bytesPerElement),
     setters: inheritedListSetters<int>((t) => t as Uint8ClampedList),
     getters: {
-      'length': (visitor, target) {
-        if (target is Uint8ClampedList) return target.length;
-        throw RuntimeD4rtException(
-          "Target is not an Uint8ClampedList for getter 'length'",
-        );
-      },
-      'lengthInBytes': (visitor, target) {
-        if (target is Uint8ClampedList) return target.lengthInBytes;
-        throw RuntimeD4rtException(
-          "Target is not an Uint8ClampedList for getter 'lengthInBytes'",
-        );
-      },
-      'elementSizeInBytes': (visitor, target) {
-        if (target is Uint8ClampedList) return target.elementSizeInBytes;
-        throw RuntimeD4rtException(
-          "Target is not an Uint8ClampedList for getter 'elementSizeInBytes'",
-        );
-      },
-      'offsetInBytes': (visitor, target) {
-        if (target is Uint8ClampedList) return target.offsetInBytes;
-        throw RuntimeD4rtException(
-          "Target is not an Uint8ClampedList for getter 'offsetInBytes'",
-        );
-      },
-      'buffer': (visitor, target) {
-        if (target is Uint8ClampedList) return target.buffer;
-        throw RuntimeD4rtException(
-          "Target is not an Uint8ClampedList for getter 'buffer'",
-        );
-      },
-      'first': (visitor, target) {
-        if (target is Uint8ClampedList) return target.first;
-        throw RuntimeD4rtException(
-          "Target is not an Uint8ClampedList for getter 'first'",
-        );
-      },
-      'last': (visitor, target) {
-        if (target is Uint8ClampedList) return target.last;
-        throw RuntimeD4rtException(
-          "Target is not an Uint8ClampedList for getter 'last'",
-        );
-      },
-      'isEmpty': (visitor, target) {
-        if (target is Uint8ClampedList) return target.isEmpty;
-        throw RuntimeD4rtException(
-          "Target is not an Uint8ClampedList for getter 'isEmpty'",
-        );
-      },
-      'isNotEmpty': (visitor, target) {
-        if (target is Uint8ClampedList) return target.isNotEmpty;
-        throw RuntimeD4rtException(
-          "Target is not an Uint8ClampedList for getter 'isNotEmpty'",
-        );
-      },
-      'hashCode': (visitor, target) {
-        if (target is Uint8ClampedList) return target.hashCode;
-        throw RuntimeD4rtException(
-          "Target is not an Uint8ClampedList for getter 'hashCode'",
-        );
-      },
-      'runtimeType': (visitor, target) {
-        if (target is Uint8ClampedList) return target.runtimeType;
-        throw RuntimeD4rtException(
-          "Target is not an Uint8ClampedList for getter 'runtimeType'",
-        );
-      },
-
-      // Inherited getters (single, iterator, reversed).
+      ...typedListGetters<int>((t) => t as Uint8ClampedList),
       ...inheritedListGetters<int>((t) => t as Uint8ClampedList),
     },
   );

@@ -1,3 +1,19 @@
+## 0.172.0
+
+### Changed — the eleven typed-data lists share one getter map (sce202)
+
+Ten typed-list bridges guarded each of their eleven getters with a
+wrong-target `RuntimeD4rtException`; `Uint8List` used a bare cast. Measured
+before deleting: all 176 guard branches (both trees) were instrumented, and
+4 092 interpreted calls — every variant, built six ways (including views and
+`sublistView`), through five static types — plus both full suites reached
+none. Dispatch selects the bridge from the value's own class and no variant
+subtypes another, so the branches were dead. They are gone; all eleven
+variants now take `length`, `lengthInBytes`, `elementSizeInBytes`,
+`offsetInBytes`, `buffer`, `first`, `last`, `isEmpty`, `isNotEmpty`,
+`hashCode` and `runtimeType` from the shared `typedListGetters`, whose
+comment records the measurement. No behaviour a script can reach changes.
+
 ## 0.171.0
 
 ### Removed — `ServerSocket`'s 28 copies of `Stream` members (sce195)

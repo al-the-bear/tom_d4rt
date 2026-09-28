@@ -204,74 +204,7 @@ class Int16ListTypedData {
     staticGetters: typedListStaticGetters(Int16List.bytesPerElement),
     setters: inheritedListSetters<int>((t) => t as Int16List),
     getters: {
-      'length': (visitor, target) {
-        if (target is Int16List) return target.length;
-        throw RuntimeD4rtException(
-          "Target is not an Int16List for getter 'length'",
-        );
-      },
-      'lengthInBytes': (visitor, target) {
-        if (target is Int16List) return target.lengthInBytes;
-        throw RuntimeD4rtException(
-          "Target is not an Int16List for getter 'lengthInBytes'",
-        );
-      },
-      'elementSizeInBytes': (visitor, target) {
-        if (target is Int16List) return target.elementSizeInBytes;
-        throw RuntimeD4rtException(
-          "Target is not an Int16List for getter 'elementSizeInBytes'",
-        );
-      },
-      'offsetInBytes': (visitor, target) {
-        if (target is Int16List) return target.offsetInBytes;
-        throw RuntimeD4rtException(
-          "Target is not an Int16List for getter 'offsetInBytes'",
-        );
-      },
-      'buffer': (visitor, target) {
-        if (target is Int16List) return target.buffer;
-        throw RuntimeD4rtException(
-          "Target is not an Int16List for getter 'buffer'",
-        );
-      },
-      'first': (visitor, target) {
-        if (target is Int16List) return target.first;
-        throw RuntimeD4rtException(
-          "Target is not an Int16List for getter 'first'",
-        );
-      },
-      'last': (visitor, target) {
-        if (target is Int16List) return target.last;
-        throw RuntimeD4rtException(
-          "Target is not an Int16List for getter 'last'",
-        );
-      },
-      'isEmpty': (visitor, target) {
-        if (target is Int16List) return target.isEmpty;
-        throw RuntimeD4rtException(
-          "Target is not an Int16List for getter 'isEmpty'",
-        );
-      },
-      'isNotEmpty': (visitor, target) {
-        if (target is Int16List) return target.isNotEmpty;
-        throw RuntimeD4rtException(
-          "Target is not an Int16List for getter 'isNotEmpty'",
-        );
-      },
-      'hashCode': (visitor, target) {
-        if (target is Int16List) return target.hashCode;
-        throw RuntimeD4rtException(
-          "Target is not an Int16List for getter 'hashCode'",
-        );
-      },
-      'runtimeType': (visitor, target) {
-        if (target is Int16List) return target.runtimeType;
-        throw RuntimeD4rtException(
-          "Target is not an Int16List for getter 'runtimeType'",
-        );
-      },
-
-      // Inherited getters (single, iterator, reversed).
+      ...typedListGetters<int>((t) => t as Int16List),
       ...inheritedListGetters<int>((t) => t as Int16List),
     },
   );

@@ -204,74 +204,7 @@ class Int8ListTypedData {
     staticGetters: typedListStaticGetters(Int8List.bytesPerElement),
     setters: inheritedListSetters<int>((t) => t as Int8List),
     getters: {
-      'length': (visitor, target) {
-        if (target is Int8List) return target.length;
-        throw RuntimeD4rtException(
-          "Target is not an Int8List for getter 'length'",
-        );
-      },
-      'lengthInBytes': (visitor, target) {
-        if (target is Int8List) return target.lengthInBytes;
-        throw RuntimeD4rtException(
-          "Target is not an Int8List for getter 'lengthInBytes'",
-        );
-      },
-      'elementSizeInBytes': (visitor, target) {
-        if (target is Int8List) return target.elementSizeInBytes;
-        throw RuntimeD4rtException(
-          "Target is not an Int8List for getter 'elementSizeInBytes'",
-        );
-      },
-      'offsetInBytes': (visitor, target) {
-        if (target is Int8List) return target.offsetInBytes;
-        throw RuntimeD4rtException(
-          "Target is not an Int8List for getter 'offsetInBytes'",
-        );
-      },
-      'buffer': (visitor, target) {
-        if (target is Int8List) return target.buffer;
-        throw RuntimeD4rtException(
-          "Target is not an Int8List for getter 'buffer'",
-        );
-      },
-      'first': (visitor, target) {
-        if (target is Int8List) return target.first;
-        throw RuntimeD4rtException(
-          "Target is not an Int8List for getter 'first'",
-        );
-      },
-      'last': (visitor, target) {
-        if (target is Int8List) return target.last;
-        throw RuntimeD4rtException(
-          "Target is not an Int8List for getter 'last'",
-        );
-      },
-      'isEmpty': (visitor, target) {
-        if (target is Int8List) return target.isEmpty;
-        throw RuntimeD4rtException(
-          "Target is not an Int8List for getter 'isEmpty'",
-        );
-      },
-      'isNotEmpty': (visitor, target) {
-        if (target is Int8List) return target.isNotEmpty;
-        throw RuntimeD4rtException(
-          "Target is not an Int8List for getter 'isNotEmpty'",
-        );
-      },
-      'hashCode': (visitor, target) {
-        if (target is Int8List) return target.hashCode;
-        throw RuntimeD4rtException(
-          "Target is not an Int8List for getter 'hashCode'",
-        );
-      },
-      'runtimeType': (visitor, target) {
-        if (target is Int8List) return target.runtimeType;
-        throw RuntimeD4rtException(
-          "Target is not an Int8List for getter 'runtimeType'",
-        );
-      },
-
-      // Inherited getters (single, iterator, reversed).
+      ...typedListGetters<int>((t) => t as Int8List),
       ...inheritedListGetters<int>((t) => t as Int8List),
     },
   );

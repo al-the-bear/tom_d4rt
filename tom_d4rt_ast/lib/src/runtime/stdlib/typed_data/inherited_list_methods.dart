@@ -1,4 +1,5 @@
 import 'dart:math' show Random;
+import 'dart:typed_data';
 
 import 'package:tom_d4rt_ast/runtime.dart';
 
@@ -355,6 +356,43 @@ Map<String, BridgedInstanceGetterAdapter> inheritedListGetters<E>(
     'single': (visitor, target) => coerce(target).single,
     'iterator': (visitor, target) => coerce(target).iterator,
     'reversed': (visitor, target) => coerce(target).reversed,
+  };
+}
+
+/// The getters every typed-data list variant declares for itself — the
+/// `TypedData` view (`lengthInBytes`, `elementSizeInBytes`, `offsetInBytes`,
+/// `buffer`) and the list basics — as one map per variant.
+///
+/// SCE202. Ten variants wrote each of these guarded —
+/// `if (target is Int8List) return …; throw RuntimeD4rtException(…)` — and
+/// `Uint8List` wrote them as a bare cast, so a wrong target would have meant a
+/// descriptive error from ten and a raw `_TypeError` from one. That question
+/// was MEASURED rather than argued, 2026-09-28: every one of the 176 guard
+/// branches (both trees) was instrumented, and 4 092 interpreted calls — all
+/// eleven variants, six ways of building each (fresh, `fromList`, `sublist`,
+/// `sublistView`, `asUnmodifiableView`, `view` over a buffer), fourteen
+/// getters, through the typed, `dynamic`, `List`, `TypedData` and `Iterable`
+/// static types — plus both full suites reached none of them. Dispatch picks
+/// the bridge from the value's own class, and no variant is a subtype of
+/// another (`typed_data_hierarchy.dart` gives each `['TypedData', 'List']`
+/// only), so a wrong target cannot arrive here: the guards were dead code, not
+/// a safety net. The branches are gone and the eleven share this map.
+Map<String, BridgedInstanceGetterAdapter> typedListGetters<E>(
+  List<E> Function(Object target) coerce,
+) {
+  TypedData data(Object target) => coerce(target) as TypedData;
+  return {
+    'length': (visitor, target) => coerce(target).length,
+    'lengthInBytes': (visitor, target) => data(target).lengthInBytes,
+    'elementSizeInBytes': (visitor, target) => data(target).elementSizeInBytes,
+    'offsetInBytes': (visitor, target) => data(target).offsetInBytes,
+    'buffer': (visitor, target) => data(target).buffer,
+    'first': (visitor, target) => coerce(target).first,
+    'last': (visitor, target) => coerce(target).last,
+    'isEmpty': (visitor, target) => coerce(target).isEmpty,
+    'isNotEmpty': (visitor, target) => coerce(target).isNotEmpty,
+    'hashCode': (visitor, target) => coerce(target).hashCode,
+    'runtimeType': (visitor, target) => coerce(target).runtimeType,
   };
 }
 

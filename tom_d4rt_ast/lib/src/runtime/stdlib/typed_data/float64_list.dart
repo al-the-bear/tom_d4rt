@@ -204,74 +204,7 @@ class Float64ListTypedData {
     staticGetters: typedListStaticGetters(Float64List.bytesPerElement),
     setters: inheritedListSetters<double>((t) => t as Float64List),
     getters: {
-      'length': (visitor, target) {
-        if (target is Float64List) return target.length;
-        throw RuntimeD4rtException(
-          "Target is not a Float64List for getter 'length'",
-        );
-      },
-      'lengthInBytes': (visitor, target) {
-        if (target is Float64List) return target.lengthInBytes;
-        throw RuntimeD4rtException(
-          "Target is not a Float64List for getter 'lengthInBytes'",
-        );
-      },
-      'elementSizeInBytes': (visitor, target) {
-        if (target is Float64List) return target.elementSizeInBytes;
-        throw RuntimeD4rtException(
-          "Target is not a Float64List for getter 'elementSizeInBytes'",
-        );
-      },
-      'offsetInBytes': (visitor, target) {
-        if (target is Float64List) return target.offsetInBytes;
-        throw RuntimeD4rtException(
-          "Target is not a Float64List for getter 'offsetInBytes'",
-        );
-      },
-      'buffer': (visitor, target) {
-        if (target is Float64List) return target.buffer;
-        throw RuntimeD4rtException(
-          "Target is not a Float64List for getter 'buffer'",
-        );
-      },
-      'first': (visitor, target) {
-        if (target is Float64List) return target.first;
-        throw RuntimeD4rtException(
-          "Target is not a Float64List for getter 'first'",
-        );
-      },
-      'last': (visitor, target) {
-        if (target is Float64List) return target.last;
-        throw RuntimeD4rtException(
-          "Target is not a Float64List for getter 'last'",
-        );
-      },
-      'isEmpty': (visitor, target) {
-        if (target is Float64List) return target.isEmpty;
-        throw RuntimeD4rtException(
-          "Target is not a Float64List for getter 'isEmpty'",
-        );
-      },
-      'isNotEmpty': (visitor, target) {
-        if (target is Float64List) return target.isNotEmpty;
-        throw RuntimeD4rtException(
-          "Target is not a Float64List for getter 'isNotEmpty'",
-        );
-      },
-      'hashCode': (visitor, target) {
-        if (target is Float64List) return target.hashCode;
-        throw RuntimeD4rtException(
-          "Target is not a Float64List for getter 'hashCode'",
-        );
-      },
-      'runtimeType': (visitor, target) {
-        if (target is Float64List) return target.runtimeType;
-        throw RuntimeD4rtException(
-          "Target is not a Float64List for getter 'runtimeType'",
-        );
-      },
-
-      // Inherited getters (single, iterator, reversed).
+      ...typedListGetters<double>((t) => t as Float64List),
       ...inheritedListGetters<double>((t) => t as Float64List),
     },
   );

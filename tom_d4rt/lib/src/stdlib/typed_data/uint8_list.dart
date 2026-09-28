@@ -202,27 +202,7 @@ class Uint8ListTypedData {
     // The static is the same for every variant.
     staticGetters: typedListStaticGetters(Uint8List.bytesPerElement),
     getters: {
-      'length': (visitor, target) => (target as Uint8List).length,
-      'elementSizeInBytes': (visitor, target) =>
-          (target as Uint8List).elementSizeInBytes,
-      'buffer': (visitor, target) => (target as Uint8List).buffer,
-      'lengthInBytes': (visitor, target) => (target as Uint8List).lengthInBytes,
-      'offsetInBytes': (visitor, target) => (target as Uint8List).offsetInBytes,
-      'first': (visitor, target) => (target as Uint8List).first,
-      'last': (visitor, target) => (target as Uint8List).last,
-      'isEmpty': (visitor, target) => (target as Uint8List).isEmpty,
-      'isNotEmpty': (visitor, target) => (target as Uint8List).isNotEmpty,
-      'hashCode': (visitor, target) => (target as Uint8List).hashCode,
-      'runtimeType': (visitor, target) => (target as Uint8List).runtimeType,
-
-      // Inherited getters (single, iterator, reversed).
-      //
-      // SCD28 folded this variant's methods and setters onto the shared
-      // helpers and left the getters hand-rolled, which kept Uint8List the one
-      // variant that would not receive the next getter added to
-      // inheritedListGetters. The three it declared were equivalent to the
-      // helper's, so nothing behaved differently — the exposure was the point,
-      // and it is the same exposure that produced SCB3 and SCC9.
+      ...typedListGetters<int>((t) => t as Uint8List),
       ...inheritedListGetters<int>((t) => t as Uint8List),
     },
     setters: inheritedListSetters<int>((t) => t as Uint8List),
