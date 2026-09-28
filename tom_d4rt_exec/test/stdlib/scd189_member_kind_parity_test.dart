@@ -27,7 +27,15 @@
 //     at least one marker                  1 039
 //
 // A thousand adapters is not a list anybody works through, so that split does
-// not turn an unbounded ask into a bounded one. And the decisive objection is
+// not turn an unbounded ask into a bounded one.
+//
+// SCE226 SUBTRACTED THE GUARDS THAT ALREADY EXIST, and 1 039 was the wrong
+// number: every marker except one comes to zero once its dedicated guard is
+// counted (callbacks -> SCD35, coercions -> SCD70, constructed results ->
+// SCC24/SCD36 and the test corpus). What is left is 123 adapters that discard
+// surplus positional arguments in silence — SCD204's defect, in files SCC85's
+// sweep did not reach — and scf36 owns it. `tool/stdlib_adapter_residue.dart`
+// recomputes it. And the decisive objection is
 // sharper: the body classifier would not have caught SCD189's OWN motivating
 // example. `Runes.iterator`'s body was `(target as Runes).iterator` — a single
 // forwarding expression, in the "cannot plausibly be wrong" bucket. The defect
