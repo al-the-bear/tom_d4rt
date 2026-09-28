@@ -1,3 +1,12 @@
+## 1.34.0
+
+### Changed — `tom_ast_generator` ^0.1.9 (sce212)
+
+The floor 1.33.0 could not raise. Every published astgen 0.1.6-0.1.8 pinned
+`tom_d4rt_ast ^0.65.0`, so exec on a current interpreter resolved 0.1.5 and
+lost the `library`-directive copier fix (F-SCE62-6). 0.1.9 resolves the
+current interpreter; with it this package's suite is fully green.
+
 ## 1.33.0
 
 ### Changed — resolves the current interpreters (sce212)
