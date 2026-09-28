@@ -1595,6 +1595,13 @@ typedef _CaseCounts = ({int ran, int declared});
 /// a copy would ask the same questions about the same three packages and add a
 /// second red for one cause, not that it cannot run.
 const Map<String, _CaseCounts> _uncoveredBaseline = {
+  // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.175.0.
+  // SCE206 lets EITHER FilesystemPermission or NetworkPermission admit a
+  // `dart:io` import; the published 0.65.0 asks for filesystem access only, so
+  // a network-only script cannot import the library at all there, and the
+  // refusal text names one permission. -4 (filesystem-only still imports) is
+  // the control and passes on both.
+  'sce206_network_only_io_import_test.dart': (ran: 4, declared: 4),
   // PUBLISH-BLOCKED. Re-port when a publish raises exec's floor past 0.154.0.
   // SCE127 made an `on` clause naming an unresolvable type FAIL instead of
   // falling through; the published 0.65.0 still logs a warning and answers
@@ -3023,6 +3030,11 @@ typedef _Pin = ({String floor, String measured});
 /// recorded evidence was seven and ten cases out of date. Both are re-stamped
 /// above their entries in `_uncoveredBaseline`.
 const Map<String, _Pin> _pinnedInterpreterFloors = <String, _Pin>{
+  // SCE206, pinned at the release carrying the either-permission import gate.
+  'sce206_network_only_io_import_test.dart': (
+    floor: '0.175.0',
+    measured: '0.65.0',
+  ),
   // SCE177, pinned at the release carrying the prune.
   'scd146_native_names_census_test.dart': (
     floor: '0.168.0',

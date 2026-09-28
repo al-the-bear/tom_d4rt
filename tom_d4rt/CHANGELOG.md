@@ -1,3 +1,16 @@
+## 1.191.0
+
+### Changed — `dart:io` imports with EITHER FilesystemPermission or NetworkPermission (sce206)
+
+`dart:io` holds the filesystem and every network class, but its import gate
+asked only for filesystem access, so a script granted `NetworkPermission`
+alone could not import the library its grant is for. The gate now admits
+either capability (decision (a)); no existing grant loses anything. The
+per-operation gates do the enforcing — `NetworkPermission` on every
+socket-acquiring call (SCD170), `FilesystemPermission` on every file
+operation — so a network-only script can name `File` and still cannot touch
+one. The refusal with neither now names both permissions.
+
 ## 1.190.0
 
 ### Fixed — a `rethrow` runs its own try's `finally` first (sce205)

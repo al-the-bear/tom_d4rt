@@ -150,13 +150,27 @@ class AstModuleLoader implements ModuleContext {
     final uriString = uri.toString();
 
     if (uriString == 'dart:io') {
-      // The import gate asks only "is ANY filesystem access granted?" — it has
-      // no path to check, so it must not be measured against a scoped grant's
-      // path. The per-operation checks in `stdlib/io/` enforce the scope.
-      if (!checkPermission({'type': 'filesystem', 'pathAgnostic': true})) {
+      // SCE206: EITHER capability admits the import. `dart:io` holds the
+      // filesystem AND every network class, and the gate used to ask only
+      // "is ANY filesystem access granted?" — so a script granted
+      // `NetworkPermission` and nothing else could not import the library its
+      // grant is for. SCD170 put a `NetworkPermission` check on every
+      // socket-acquiring call and a `FilesystemPermission` check already sits
+      // on every file operation, so the import is not where either capability
+      // is enforced: a network-only script names `File` and still cannot touch
+      // one. Both questions are scope-free — no path, no host, no operation —
+      // because the import has none to ask about.
+      final hasFilesystem = checkPermission({
+        'type': 'filesystem',
+        'pathAgnostic': true,
+      });
+      final hasNetwork = checkPermission({'type': 'network'});
+      if (!hasFilesystem && !hasNetwork) {
         throw RuntimeD4rtException(
-          'Access to dart:io requires FilesystemPermission. '
-          'Use d4rt.grant(FilesystemPermission.any) to allow filesystem access.',
+          'Access to dart:io requires FilesystemPermission or '
+          'NetworkPermission. Use d4rt.grant(FilesystemPermission.any) to '
+          'allow filesystem access, or d4rt.grant(NetworkPermission.any) for '
+          'sockets and HTTP.',
         );
       }
     } else if (uriString == 'dart:isolate') {
