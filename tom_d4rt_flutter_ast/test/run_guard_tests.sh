@@ -112,6 +112,11 @@ run "bridged enums resolve to themselves" \
 run "no bridged name covers two native classes" \
   flutter test test/scd195_registry_collision_test.dart
 
+# SCE210 — SCD175's class-shaped-binding rule over this package's registry
+# rather than the stdlib's. Registration-level, like SCD195.
+run "no class-shaped name bound to a value" \
+  flutter test test/sce210_class_shaped_binding_test.dart
+
 # Import-optimization step #20. In-process, no transport — and, until now,
 # invoked by nothing: it matches neither corpus runner's glob. Same SCD108
 # shape as the user-bridge check above.

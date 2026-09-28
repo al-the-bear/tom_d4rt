@@ -59,6 +59,7 @@ pair 'user-bridge sync (test)' { flutter test test/sync_shared_user_bridges_test
 pair 'doc/ holds no runner output' { Push-Location ../tom_d4rt; try { dart test test/scd110_doc_holds_no_runner_output_test.dart } finally { Pop-Location } }
 run 'bridged enums resolve to themselves' { flutter test test/scd133_registry_enum_resolution_test.dart }
 run 'no bridged name covers two native classes' { flutter test test/scd195_registry_collision_test.dart }
+run 'no class-shaped name bound to a value' { flutter test test/sce210_class_shaped_binding_test.dart }
 run 'bridge registration is pooled (step #20)' { flutter test test/registration_skip_test.dart }
 run 'bridges execute in-process' { flutter test test/bridge_execution_test.dart }
 run 'import-optimization timings hold' { flutter test test/import_optimization_perf_test.dart }
