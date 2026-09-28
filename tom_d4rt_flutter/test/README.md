@@ -119,7 +119,10 @@ Each run writes, per test file `<base>`, into a folder under `testlog/`:
 ### The attribution header
 
 Every runner writes a `# `-prefixed header at the top of `metrics.txt`, after
-the companion app is resolved and before the first test file:
+the companion app is resolved and before the first test file, and **prints the
+same header to the console** at that moment — so a sixteen-minute sweep says
+which interpreter it measures at its start, not in a gitignored file after it
+ends:
 
 ```
 # run: 20260915-1200-base
@@ -177,13 +180,23 @@ the package config does not name the resolved copy the verdict is
 
 **Drift is announced on stderr**, so a sweep says out loud which interpreter it
 is about to certify. Every runner redirects only the attribution program's
-*stdout* into `metrics.txt`, so stderr reaches the console of all twelve
-without any runner being edited, and the header in the file stays byte-for-byte
-what the table is read from. A run whose resolutions are all in step prints
+*stdout* into `metrics.txt` — captured, then printed and appended, rather
+than piped through `tee`, whose exit status would hide a failed attribution —
+so stderr reaches the console of all twelve and the header in the file stays
+byte-for-byte what the table is read from. (The `.ps1` runners used to merge
+stderr into the header with `2>&1`; SCE228 removed it.)
+
+**The profiling workflow attributes its session too.** `start_test_profiler.sh`
+prints the header after resolving the app and before launching it, and writes
+it as the first lines of `testlog/profiling/start_<ts>.log`, which is that
+session's record. It writes no `metrics.txt`: a manual profiling session is
+never cited as a verification run. A run whose resolutions are all in step prints
 nothing — a banner that appears every time is one nobody reads by the third.
 
 `test/scd164_run_attribution_test.dart` fails if any runner in either twin
-writes `metrics.txt` without attributing it — globbed from disk, `.sh` and
+writes `metrics.txt` without attributing it, or attributes it without printing
+the header (`F-SCE228-1`), or if the profiler launcher stops attributing its
+session (`F-SCE228-2`) — globbed from disk, `.sh` and
 `.ps1` alike, since a `.ps1` left behind is exactly how this corpus once ended
 up writing to `doc/` on Windows and `testlog/` everywhere else.
 

@@ -114,10 +114,19 @@ fi
 # `dart` may be absent on a machine that has only `flutter`; a run whose
 # attribution failed is still a run worth having, so this never aborts.
 if command -v dart >/dev/null 2>&1; then
-  dart run test/run_attribution.dart "." "$APP_DIR" "$ID" >> "$OUT/metrics.txt" \
-    || echo "# attribution: FAILED — dart run test/run_attribution.dart exited non-zero" >> "$OUT/metrics.txt"
+  # SCE228: capture, then print AND append — the operator sees which
+  # interpreter this run measures at its start, not after it ends. Not a bare
+  # `| tee -a`: that reports tee's status, and the FAILED line would stop
+  # appearing. stderr is deliberately not captured: it carries the SCE63
+  # drift announcement, which is for the console and must stay out of the
+  # header.
+  if attribution="$(dart run test/run_attribution.dart "." "$APP_DIR" "$ID")"; then
+    printf '%s\n' "$attribution" | tee -a "$OUT/metrics.txt"
+  else
+    echo "# attribution: FAILED — dart run test/run_attribution.dart exited non-zero" | tee -a "$OUT/metrics.txt"
+  fi
 else
-  echo "# attribution: FAILED — no dart on PATH" >> "$OUT/metrics.txt"
+  echo "# attribution: FAILED — no dart on PATH" | tee -a "$OUT/metrics.txt"
 fi
 
 for f in "${FILES[@]}"; do

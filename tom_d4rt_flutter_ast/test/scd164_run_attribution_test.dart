@@ -202,6 +202,82 @@ void main() {
       );
     });
 
+    test('F-SCE228-1: every runner that attributes a run also PRINTS the '
+        'header, and keeps stderr out of it [2026-09-29] (PASS)', () {
+      // SCD193 asked for the attribution "as the first line of output" AND in
+      // metrics.txt; only the file half shipped, so an operator watching a
+      // sixteen-minute run could not see which interpreter it measured until
+      // it ended. Checked per runner, on the census F-SCD164-2 iterates.
+      //
+      // .sh: the header goes through `tee -a` into metrics.txt, and the
+      //   attribution call is not redirected straight into the file (that is
+      //   the file-only shape). It is captured first so the FAILED line still
+      //   appears when dart exits non-zero — a bare pipe reports tee's status.
+      // .ps1: the call carries no `2>&1` — that merged the SCE63 drift
+      //   announcement into the header instead of the console — and the
+      //   captured header is written to the host.
+      final wrong = <String>[];
+      for (final twin in _twins) {
+        for (final script in metricsWriters(twin)) {
+          final text = script.readAsStringSync();
+          final call = text
+              .split('\n')
+              .where((l) => l.contains('dart run test/run_attribution.dart'))
+              .toList();
+          if (call.isEmpty) continue; // F-SCD164-2 reports it
+          if (script.path.endsWith('.sh')) {
+            final printed = text.contains('| tee -a "\$OUT/metrics.txt"');
+            final fileOnly = call.any((l) => l.contains('>>'));
+            final captured = call.any((l) => l.contains(r'attribution="$('));
+            if (!printed || fileOnly || !captured) wrong.add(script.path);
+          } else {
+            final merged = call.any((l) => l.contains('2>&1'));
+            final printed = RegExp(
+              r'\$attr\s*\|\s*ForEach-Object\s*\{\s*Write-Host',
+            ).hasMatch(text);
+            if (merged || !printed) wrong.add(script.path);
+          }
+        }
+      }
+      expect(
+        wrong,
+        isEmpty,
+        reason:
+            'these runners attribute the run to metrics.txt only (or bury the '
+            'drift announcement in it). Capture the header, then print AND '
+            'append it — see run_base_tests.sh / .ps1.',
+      );
+    });
+
+    test('F-SCE228-2: the profiler launcher prints the attribution at launch '
+        'and heads its session log with it [2026-09-29] (PASS)', () {
+      // The two-terminal profiling workflow writes no metrics.txt, by
+      // decision: a manual session is never cited as a verification run. Its
+      // record is testlog/profiling/start_<ts>.log, so that is where the
+      // header goes — first, with the flutter output APPENDED after it (a
+      // plain `tee` there would overwrite the header it follows).
+      for (final twin in _twins) {
+        final text = File(
+          '$twin/test/start_test_profiler.sh',
+        ).readAsStringSync();
+        expect(
+          text,
+          allOf(
+            contains('dart run test/run_attribution.dart'),
+            contains(r'| tee "$LOG"'),
+            contains(r'2>&1 | tee -a "$LOG"'),
+          ),
+          reason: '$twin/test/start_test_profiler.sh does not attribute the '
+              'session it launches',
+        );
+        expect(
+          text.indexOf('run_attribution.dart'),
+          lessThan(text.indexOf(r'flutter "${ARGS[@]}"')),
+          reason: 'the attribution must print BEFORE the app launches',
+        );
+      }
+    });
+
     test('F-SCD164-3: the header records every tom_ package both locks '
         'resolve, and no others [2026-09-15] (PASS)', () {
       _package(

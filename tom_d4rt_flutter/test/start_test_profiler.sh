@@ -85,7 +85,21 @@ if ! pub_out="$(cd "$APP_DIR" && flutter pub get 2>&1)"; then
   exit 1
 fi
 
+# SCE228: say which interpreter this session measures, at launch, and put the
+# same header at the top of the session log. A DevTools recording is otherwise
+# attributed only by terminal scrollback. The log is the record; this workflow
+# writes no metrics.txt, because a manual profiling session is never cited as a
+# verification run. Never aborts: a session whose attribution failed is still
+# a session worth having.
+if command -v dart >/dev/null 2>&1 &&
+  attribution="$(dart run test/run_attribution.dart "." "$APP_DIR" "profile_${TS}")"; then
+  printf '%s\n' "$attribution" | tee "$LOG"
+else
+  echo "# attribution: FAILED — dart run test/run_attribution.dart did not run" | tee "$LOG"
+fi
+echo ""
+
 cd "$APP_DIR"
 # stdout/stderr → console + logfile. stdin stays on the TTY so the flutter-run
 # interactive console (q/r/R) and Ctrl-C keep working.
-flutter "${ARGS[@]}" 2>&1 | tee "$LOG"
+flutter "${ARGS[@]}" 2>&1 | tee -a "$LOG"

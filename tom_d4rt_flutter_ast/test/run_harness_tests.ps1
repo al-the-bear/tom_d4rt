@@ -87,7 +87,10 @@ if ($pubRc -ne 0) {
 # `dart` may be absent on a machine that has only `flutter`; a run whose
 # attribution failed is still a run worth having, so this never aborts.
 if (Get-Command dart -ErrorAction SilentlyContinue) {
-  $attr = & dart run test/run_attribution.dart '.' $appDir $Id 2>&1
+  # SCE228: stdout only. `2>&1` put the SCE63 drift announcement into the
+  # header instead of on the console, which is the arrangement F-SCE63-4 says
+  # breaks every runner.
+  $attr = & dart run test/run_attribution.dart '.' $appDir $Id
   if ($LASTEXITCODE -ne 0) {
     $attr = '# attribution: FAILED - dart run test/run_attribution.dart exited non-zero'
   }
@@ -95,6 +98,8 @@ if (Get-Command dart -ErrorAction SilentlyContinue) {
   $attr = '# attribution: FAILED - no dart on PATH'
 }
 Add-Content -Path "$out/metrics.txt" -Value $attr
+# SCE228: and on the console, so the run says what it measures at its start.
+$attr | ForEach-Object { Write-Host $_ }
 
 $status = 0
 foreach ($f in $files) {
