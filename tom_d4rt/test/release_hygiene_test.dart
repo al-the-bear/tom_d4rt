@@ -178,15 +178,30 @@ Set<String> _declaredVersions(String package) {
   }..removeWhere((v) => v.isEmpty);
 }
 
-/// The `## <version>` headings a package's CHANGELOG carries.
+/// The `## <version>` headings a package's CHANGELOG carries — including its
+/// `CHANGELOG_ARCHIVE.md`, where SCE209 moved the published history once
+/// `CHANGELOG.md` outgrew pub.dev's size limit. A version's heading counts
+/// wherever it lives.
 Set<String> _changelogHeadings(String package) {
-  final file = File('${_packages[package]}/CHANGELOG.md');
-  if (!file.existsSync()) return {};
-  return RegExp(
-    r'^##\s+(\S+)',
-    multiLine: true,
-  ).allMatches(file.readAsStringSync()).map((m) => m.group(1)!).toSet();
+  final headings = <String>{};
+  for (final name in const ['CHANGELOG.md', 'CHANGELOG_ARCHIVE.md']) {
+    final file = File('${_packages[package]}/$name');
+    if (!file.existsSync()) continue;
+    headings.addAll(
+      RegExp(
+        r'^##\s+(\S+)',
+        multiLine: true,
+      ).allMatches(file.readAsStringSync()).map((m) => m.group(1)!),
+    );
+  }
+  return headings;
 }
+
+/// pub.dev's upper bound on `CHANGELOG.md`, in bytes. The server refuses the
+/// upload with "`CHANGELOG.md` exceeds the maximum content length (262144
+/// bytes)" — AFTER the dry run has passed with 0 warnings, which is what made
+/// it a surprise at the one moment a publish was finally being made (SCE209).
+const _pubChangelogLimit = 262144;
 
 /// Every git call runs from the repo root, so that the pathspecs above mean the
 /// same thing in both kinds of call. They are repo-root-relative because that is
@@ -769,6 +784,34 @@ void main() {
     // showed up only as that package's baselined versions reading "never
     // declared". A side effect is not a diagnosis, so the floor is per-package
     // now and names the package that went dark.
+    test('F-SCE209-1: every publishable CHANGELOG.md is under pub.dev\'s '
+        'size limit [2026-09-28] (PASS)', () {
+      // `dart pub publish --dry-run` does not check this; only the upload
+      // does. Both interpreter changelogs crossed the limit during the
+      // publish-blocked stretch (450 KB and 365 KB), and the release SCE209
+      // exists to make was refused by the server. The remedy is to move the
+      // oldest published sections into `CHANGELOG_ARCHIVE.md` — which
+      // `_changelogHeadings` reads, so F-SCC17-5 still sees them — never to
+      // shorten what a release says.
+      final over = <String>[];
+      for (final package in _packages.keys) {
+        final file = File('${_packages[package]}/CHANGELOG.md');
+        if (!file.existsSync()) continue;
+        final size = file.lengthSync();
+        if (size > _pubChangelogLimit) over.add('$package: $size bytes');
+      }
+      expect(
+        over,
+        isEmpty,
+        reason:
+            'pub.dev refuses a CHANGELOG.md over $_pubChangelogLimit bytes, '
+            'and only at upload time:\n  ${over.join('\n  ')}\n\n'
+            'Move the oldest PUBLISHED sections into CHANGELOG_ARCHIVE.md '
+            'beside it and leave a pointer under an "## Older releases" '
+            'heading.',
+      );
+    });
+
     test('F-SCC17-5: every version ever declared has a CHANGELOG heading '
         '[2026-09-12] (PASS)', () {
       final undocumented = <String>[];
