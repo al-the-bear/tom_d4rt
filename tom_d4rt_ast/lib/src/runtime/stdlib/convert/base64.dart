@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:tom_d4rt_ast/runtime.dart';
+import 'fuse_argument.dart';
 
 class Base64CodecConvert {
   static BridgedClass get definition => BridgedClass(
@@ -62,7 +63,11 @@ class Base64CodecConvert {
         if (positionalArgs.length != 1 ||
             positionalArgs[0] is! Codec<String, dynamic>) {
           throw RuntimeD4rtException(
-            'Base64Codec.fuse requires another Codec<String, dynamic> as argument.',
+            fuseArgumentMessage(
+              'Base64Codec.fuse',
+              'Codec<String, dynamic>',
+              positionalArgs.isEmpty ? null : positionalArgs[0],
+            ),
           );
         }
         return (target as Base64Codec).fuse(
@@ -140,7 +145,11 @@ class Base64EncoderConvert {
         if (positionalArgs.length != 1 ||
             positionalArgs[0] is! Converter<String, dynamic>) {
           throw RuntimeD4rtException(
-            'Base64Encoder.fuse requires another Converter<String, dynamic> as argument.',
+            fuseArgumentMessage(
+              'Base64Encoder.fuse',
+              'Converter<String, dynamic>',
+              positionalArgs.isEmpty ? null : positionalArgs[0],
+            ),
           );
         }
         return (target as Base64Encoder).fuse(
@@ -208,7 +217,11 @@ class Base64DecoderConvert {
         if (positionalArgs.length != 1 ||
             positionalArgs[0] is! Converter<List<int>, dynamic>) {
           throw RuntimeD4rtException(
-            'Base64Decoder.fuse requires another Converter<List<int>, dynamic> as argument.',
+            fuseArgumentMessage(
+              'Base64Decoder.fuse',
+              'Converter<List<int>, dynamic>',
+              positionalArgs.isEmpty ? null : positionalArgs[0],
+            ),
           );
         }
         return (target as Base64Decoder).fuse(

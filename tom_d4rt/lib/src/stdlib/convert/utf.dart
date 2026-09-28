@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:tom_d4rt/d4rt.dart';
+import 'fuse_argument.dart';
 
 class Utf8CodecConvert {
   static BridgedClass get definition => BridgedClass(
@@ -34,7 +35,11 @@ class Utf8CodecConvert {
         if (positionalArgs.length != 1 ||
             positionalArgs[0] is! Codec<List<int>, dynamic>) {
           throw RuntimeD4rtException(
-            'Utf8Codec.fuse requires another Codec<List<int>, dynamic> as argument.',
+            fuseArgumentMessage(
+              'Utf8Codec.fuse',
+              'Codec<List<int>, dynamic>',
+              positionalArgs.isEmpty ? null : positionalArgs[0],
+            ),
           );
         }
         return (target as Utf8Codec).fuse(
@@ -99,7 +104,11 @@ class Utf8EncoderConvert {
         if (positionalArgs.length != 1 ||
             positionalArgs[0] is! Converter<List<int>, dynamic>) {
           throw RuntimeD4rtException(
-            'Utf8Encoder.fuse requires another Converter<List<int>, dynamic> as argument.',
+            fuseArgumentMessage(
+              'Utf8Encoder.fuse',
+              'Converter<List<int>, dynamic>',
+              positionalArgs.isEmpty ? null : positionalArgs[0],
+            ),
           );
         }
         return (target as Utf8Encoder).fuse(
@@ -167,7 +176,11 @@ class Utf8DecoderConvert {
         if (positionalArgs.length != 1 ||
             positionalArgs[0] is! Converter<String, dynamic>) {
           throw RuntimeD4rtException(
-            'Utf8Decoder.fuse requires another Converter<String, dynamic> as argument.',
+            fuseArgumentMessage(
+              'Utf8Decoder.fuse',
+              'Converter<String, dynamic>',
+              positionalArgs.isEmpty ? null : positionalArgs[0],
+            ),
           );
         }
         return (target as Utf8Decoder).fuse(

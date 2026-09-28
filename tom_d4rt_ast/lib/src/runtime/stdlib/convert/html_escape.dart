@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:tom_d4rt_ast/runtime.dart';
+import 'fuse_argument.dart';
 
 class HtmlEscapeConvert {
   static BridgedClass get definition => BridgedClass(
@@ -49,7 +50,11 @@ class HtmlEscapeConvert {
         if (positionalArgs.length != 1 ||
             positionalArgs[0] is! Converter<String, dynamic>) {
           throw RuntimeD4rtException(
-            'HtmlEscape.fuse requires another Converter<String, dynamic> as argument.',
+            fuseArgumentMessage(
+              'HtmlEscape.fuse',
+              'Converter<String, dynamic>',
+              positionalArgs.isEmpty ? null : positionalArgs[0],
+            ),
           );
         }
         return (target as HtmlEscape).fuse(

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:tom_d4rt_ast/runtime.dart';
+import 'fuse_argument.dart';
 
 class CodecConvert {
   static BridgedClass get definition => BridgedClass(
@@ -28,7 +29,11 @@ class CodecConvert {
       'fuse': (visitor, target, positionalArgs, namedArgs, _) {
         if (positionalArgs.length != 1 || positionalArgs[0] is! Codec) {
           throw RuntimeD4rtException(
-            'Codec.fuse requires another Codec as argument.',
+            fuseArgumentMessage(
+              'Codec.fuse',
+              'Codec',
+              positionalArgs.isEmpty ? null : positionalArgs[0],
+            ),
           );
         }
         return (target as Codec).fuse(positionalArgs[0] as Codec);

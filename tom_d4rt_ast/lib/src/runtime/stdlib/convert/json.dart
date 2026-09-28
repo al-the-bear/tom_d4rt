@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:tom_d4rt_ast/runtime.dart';
+import 'fuse_argument.dart';
 
 class JsonCodecConvert {
   static BridgedClass get definition => BridgedClass(
@@ -61,7 +62,11 @@ class JsonCodecConvert {
         if (positionalArgs.length != 1 ||
             positionalArgs[0] is! Codec<String, dynamic>) {
           throw RuntimeD4rtException(
-            'JsonCodec.fuse requires another Codec<String, dynamic> as argument.',
+            fuseArgumentMessage(
+              'JsonCodec.fuse',
+              'Codec<String, dynamic>',
+              positionalArgs.isEmpty ? null : positionalArgs[0],
+            ),
           );
         }
         return (target as JsonCodec).fuse(
@@ -140,7 +145,11 @@ class JsonEncoderConvert {
         if (positionalArgs.length != 1 ||
             positionalArgs[0] is! Converter<String, dynamic>) {
           throw RuntimeD4rtException(
-            'JsonEncoder.fuse requires another Converter<String, dynamic> as argument.',
+            fuseArgumentMessage(
+              'JsonEncoder.fuse',
+              'Converter<String, dynamic>',
+              positionalArgs.isEmpty ? null : positionalArgs[0],
+            ),
           );
         }
         return (target as JsonEncoder).fuse(
@@ -210,7 +219,11 @@ class JsonDecoderConvert {
         if (positionalArgs.length != 1 ||
             positionalArgs[0] is! Converter<dynamic, dynamic>) {
           throw RuntimeD4rtException(
-            'JsonDecoder.fuse requires another Converter<dynamic, dynamic> as argument.',
+            fuseArgumentMessage(
+              'JsonDecoder.fuse',
+              'Converter<dynamic, dynamic>',
+              positionalArgs.isEmpty ? null : positionalArgs[0],
+            ),
           );
         }
         return (target as JsonDecoder).fuse(

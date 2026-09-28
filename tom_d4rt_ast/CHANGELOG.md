@@ -1,3 +1,17 @@
+## 0.178.0
+
+### Changed — `fuse` says why a script-defined converter is refused (sce216)
+
+A `Converter` or `Codec` a script defines is an interpreted instance, not a
+native one, and `fuse` builds a native pipeline the interpreter does not run,
+so every bridged `fuse` refuses it — a deliberate limit, not an erasure bug.
+The refusal used to read "requires another Converter<String, dynamic> as
+argument", which looked exactly like the SCD181 erasure defect. All twenty
+bridged `fuse` guards now go through one helper
+(`stdlib/convert/fuse_argument.dart`): a script-defined argument is told it
+cannot be fused and to call `convert` on each stage; any other wrong argument
+keeps the plain type requirement. Native-to-native fusion is unchanged.
+
 ## 0.177.0
 
 ### Fixed — an async `rethrow` after a nested try inside the catch reaches the outer catch (sce212)

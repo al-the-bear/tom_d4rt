@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:tom_d4rt/d4rt.dart';
+import 'fuse_argument.dart';
 
 /// `JsonUtf8Encoder` (dart:convert) — object to UTF-8 JSON bytes in one pass.
 ///
@@ -82,8 +83,11 @@ class JsonUtf8EncoderConvert {
         final other = positionalArgs.isNotEmpty ? positionalArgs[0] : null;
         if (other is! Converter<List<int>, dynamic>) {
           throw RuntimeD4rtException(
-            'JsonUtf8Encoder.fuse requires a Converter<List<int>, dynamic> '
-            'argument.',
+            fuseArgumentMessage(
+              'JsonUtf8Encoder.fuse',
+              'Converter<List<int>, dynamic>',
+              other,
+            ),
           );
         }
         return (target as JsonUtf8Encoder).fuse(other);

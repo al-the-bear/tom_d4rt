@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:tom_d4rt_ast/runtime.dart';
+import 'fuse_argument.dart';
 
 class ConverterConvert {
   static BridgedClass get definition => BridgedClass(
@@ -61,7 +62,11 @@ class ConverterConvert {
       'fuse': (visitor, target, positionalArgs, namedArgs, _) {
         if (positionalArgs.length != 1 || positionalArgs[0] is! Converter) {
           throw RuntimeD4rtException(
-            'fuse requires another Converter as argument.',
+            fuseArgumentMessage(
+              'Converter.fuse',
+              'Converter',
+              positionalArgs.isEmpty ? null : positionalArgs[0],
+            ),
           );
         }
         return (target as Converter).fuse(positionalArgs[0] as Converter);

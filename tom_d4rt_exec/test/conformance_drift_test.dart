@@ -1668,6 +1668,15 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
   // scan the wrong tree. The gate behaviour it guards is measured here by the
   // ported behaviour file. [2026-09-28]
   'scd170_network_gate_census_test.dart': (ran: 1, declared: 1),
+  // PUBLISH-BLOCKED (SCE216). The fuse refusal for a script-defined converter
+  // names the limit from the release carrying `fuse_argument.dart`; ported and
+  // run here on 2026-09-28 against resolved tom_d4rt_ast 0.177.0, F-SCE216-1
+  // and -2 fail (the old wording) and -3 / -4 pass. Re-port when a publish
+  // raises exec's floor past 0.178.0.
+  'stdlib/convert/sce216_fuse_script_converter_test.dart': (
+    ran: 4,
+    declared: 4,
+  ),
   // NOT PORTABLE — and uniquely so: the subject itself cannot exist on the
   // analyzer-free line. `static_name_report.dart` resolves names over the
   // ANALYZER AST, which `tom_d4rt_ast` has no access to by construction, so
@@ -2428,7 +2437,13 @@ typedef _Pin = ({String floor, String measured});
 /// 8-of-10 to 13-of-20 — still wholly failing, so still justified, but their
 /// recorded evidence was seven and ten cases out of date. Both are re-stamped
 /// above their entries in `_uncoveredBaseline`.
-const Map<String, _Pin> _pinnedInterpreterFloors = <String, _Pin>{};
+const Map<String, _Pin> _pinnedInterpreterFloors = <String, _Pin>{
+  // SCE216, pinned at the release carrying the fuse refusal helper.
+  'stdlib/convert/sce216_fuse_script_converter_test.dart': (
+    floor: '0.178.0',
+    measured: '0.177.0',
+  ),
+};
 
 /// The `tom_d4rt_ast` floor exec's own `pubspec.yaml` currently declares.
 ///
@@ -3302,10 +3317,14 @@ const Map<String, String> _astDriftFingerprints = <String, String>{
 // expressed, and that is the state this constant returns to. The lint reasons
 // from today's value alone.
 // ignore: unnecessary_nullable_for_final_variable_declarations
-// SCE212 PUBLISHED tom_d4rt 1.192.0 / tom_d4rt_ast 0.176.0 and raised exec's
-// constraint, so nothing blocks the publish and the constant is back at
-// `null` — the state this case demands a caught-up tree in.
-const String? _astPublishBlock = null;
+// SCE212 published tom_d4rt 1.192.0 / tom_d4rt_ast 0.177.0 and left this
+// `null`. Interpreter work landed after it (sce216 first), and the release that
+// carries it is scf34's: a 0.x caret means every tom_d4rt_ast minor has to be
+// walked through exec, astgen and the twins, so it is batched per release
+// rather than paid per fix. scf34 deletes this pin.
+// ignore: unnecessary_nullable_for_final_variable_declarations
+const String? _astPublishBlock =
+    'scf34_aiñx-publish-the-next-interpreter-release';
 
 /// One baseline entry and the comment block written directly above it.
 typedef _BaselineEntry = ({String path, String comment});

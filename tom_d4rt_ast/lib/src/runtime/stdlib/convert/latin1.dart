@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:tom_d4rt_ast/runtime.dart';
 import '../coerce_elements.dart';
+import 'fuse_argument.dart';
 
 class Latin1CodecConvert {
   static BridgedClass get definition => BridgedClass(
@@ -31,7 +32,11 @@ class Latin1CodecConvert {
         if (positionalArgs.length != 1 ||
             positionalArgs[0] is! Codec<List<int>, dynamic>) {
           throw RuntimeD4rtException(
-            'Latin1Codec.fuse requires another Codec<List<int>, dynamic> as argument.',
+            fuseArgumentMessage(
+              'Latin1Codec.fuse',
+              'Codec<List<int>, dynamic>',
+              positionalArgs.isEmpty ? null : positionalArgs[0],
+            ),
           );
         }
         return (target as Latin1Codec).fuse(
@@ -94,7 +99,11 @@ class Latin1EncoderConvert {
         if (positionalArgs.length != 1 ||
             positionalArgs[0] is! Converter<List<int>, dynamic>) {
           throw RuntimeD4rtException(
-            'Latin1Encoder.fuse requires another Converter<List<int>, dynamic> as argument.',
+            fuseArgumentMessage(
+              'Latin1Encoder.fuse',
+              'Converter<List<int>, dynamic>',
+              positionalArgs.isEmpty ? null : positionalArgs[0],
+            ),
           );
         }
         return (target as Latin1Encoder).fuse(
@@ -153,7 +162,11 @@ class Latin1DecoderConvert {
         if (positionalArgs.length != 1 ||
             positionalArgs[0] is! Converter<String, dynamic>) {
           throw RuntimeD4rtException(
-            'Latin1Decoder.fuse requires another Converter<String, dynamic> as argument.',
+            fuseArgumentMessage(
+              'Latin1Decoder.fuse',
+              'Converter<String, dynamic>',
+              positionalArgs.isEmpty ? null : positionalArgs[0],
+            ),
           );
         }
         return (target as Latin1Decoder).fuse(

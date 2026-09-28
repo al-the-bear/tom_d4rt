@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:tom_d4rt/d4rt.dart';
+import 'fuse_argument.dart';
 
 class EncodingConvert {
   static BridgedClass get definition => BridgedClass(
@@ -53,7 +54,11 @@ class EncodingConvert {
         if (positionalArgs.length != 1 ||
             positionalArgs[0] is! Codec<List<int>, dynamic>) {
           throw RuntimeD4rtException(
-            'Encoding.fuse requires another Codec<List<int>, dynamic> as argument.',
+            fuseArgumentMessage(
+              'Encoding.fuse',
+              'Codec<List<int>, dynamic>',
+              positionalArgs.isEmpty ? null : positionalArgs[0],
+            ),
           );
         }
         return (target as Encoding).fuse(

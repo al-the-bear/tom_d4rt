@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:tom_d4rt/d4rt.dart';
+import 'fuse_argument.dart';
 
 class AsciiCodecConvert {
   static BridgedClass get definition => BridgedClass(
@@ -38,7 +39,11 @@ class AsciiCodecConvert {
         if (positionalArgs.length != 1 ||
             positionalArgs[0] is! Codec<List<int>, dynamic>) {
           throw RuntimeD4rtException(
-            'AsciiCodec.fuse requires another Codec<List<int>, dynamic> as argument.',
+            fuseArgumentMessage(
+              'AsciiCodec.fuse',
+              'Codec<List<int>, dynamic>',
+              positionalArgs.isEmpty ? null : positionalArgs[0],
+            ),
           );
         }
         return (target as AsciiCodec).fuse(
@@ -107,7 +112,11 @@ class AsciiEncoderConvert {
         if (positionalArgs.length != 1 ||
             positionalArgs[0] is! Converter<List<int>, dynamic>) {
           throw RuntimeD4rtException(
-            'AsciiEncoder.fuse requires another Converter<List<int>, dynamic> as argument.',
+            fuseArgumentMessage(
+              'AsciiEncoder.fuse',
+              'Converter<List<int>, dynamic>',
+              positionalArgs.isEmpty ? null : positionalArgs[0],
+            ),
           );
         }
         return (target as AsciiEncoder).fuse(
@@ -175,7 +184,11 @@ class AsciiDecoderConvert {
         if (positionalArgs.length != 1 ||
             positionalArgs[0] is! Converter<String, dynamic>) {
           throw RuntimeD4rtException(
-            'AsciiDecoder.fuse requires another Converter<String, dynamic> as argument.',
+            fuseArgumentMessage(
+              'AsciiDecoder.fuse',
+              'Converter<String, dynamic>',
+              positionalArgs.isEmpty ? null : positionalArgs[0],
+            ),
           );
         }
         return (target as AsciiDecoder).fuse(
