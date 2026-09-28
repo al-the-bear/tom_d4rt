@@ -413,6 +413,19 @@ const _partialTwinBudget = 1;
 const _copierGapBudget = 41;
 
 const Map<String, _Coverage> _coveredElsewhere = {
+  'stdlib/sce203_family_reachable_parity_test.dart': _Coverage(
+    'ast:runtime/sce203_family_reachable_parity_test.dart',
+    _astTwin,
+    layer: _Layer.registration,
+    refCases: 3,
+    twinCases: 2,
+    whyPartial:
+        'F-SCE203-2 is a SCRIPT — it shows the interpreter answers toString '
+        'and hashCode for a bridge that declares neither, which is why Object '
+        'members are outside the comparison. The AST tree has no parser, so '
+        'that case lives in the reference alone; the parity check and the SDK '
+        'mirror check are in both.',
+  ),
   'sce126_stdlib_guard_sweep_test.dart': _Coverage(
     'ast:runtime/sce126_stdlib_guard_sweep_test.dart',
     _astTwin,

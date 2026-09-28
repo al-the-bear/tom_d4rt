@@ -2,6 +2,25 @@ import 'dart:collection';
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/src/stdlib/collection/map_named_constructors.dart';
 
+/// Bridged LinkedHashMap.
+///
+/// IT RE-DECLARES `Map` MEMBERS THAT THE `LinkedHashMap -> Map` EDGE WOULD ALREADY
+/// REACH — among them `cast`, `removeWhere`, `update` and `updateAll`, which
+/// `SplayTreeMap` leaves to the walk. That asymmetry is KEPT, as a decision
+/// (SCE203), not an oversight:
+///
+/// - The hazard shadowing carries is drift: two implementations of one member
+///   on one type, with the leaf winning. The SCC51 shadow differential
+///   (F-SCC51-8, widened by SCE185) invokes every such pair on the same object
+///   and fails on any divergence, so that hazard is now measured, not trusted.
+/// - Member PARITY across the map family is measured over REACHABLE members
+///   (`sce203_family_reachable_parity_test.dart`), where shadowing is
+///   invisible; the only difference it records is `SplayTreeMap`'s sorted-map
+///   API, which is the SDK's.
+///
+/// Deleting the copies would change nothing a script can observe, so it is a
+/// clean-up rather than a fix. `ServerSocket`'s 28 were deleted (sce195)
+/// because they were never covered by the differential; these are.
 class LinkedHashMapCollection {
   static BridgedClass get definition => BridgedClass(
     nativeType: LinkedHashMap,

@@ -1,3 +1,16 @@
+## 1.189.0
+
+### Documented — why `HashMap` and `LinkedHashMap` keep their `Map` shadows (sce203)
+
+Both bridges re-declare `Map` members (`cast`, `removeWhere`, `update`,
+`updateAll`, …) that `SplayTreeMap` leaves to the supertype walk. Their class
+docs now record that this is kept on purpose: the drift hazard is measured by
+the SCC51 shadow differential, and family parity is measured over REACHABLE
+members by the new `sce203_family_reachable_parity_test.dart`, where only the
+SDK's own interface differences (`SplayTreeMap`'s sorted-map API,
+`DoubleLinkedQueue`'s entry API) separate the collection families. No
+behaviour changes.
+
 ## 1.188.0
 
 ### Changed — the eleven typed-data lists share one getter map (sce202)
