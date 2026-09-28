@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 10 files
-// Generated: 2026-09-22T16:16:57.677624 by tom_d4rt_generator 1.28.0
+// Generated: 2026-09-28T22:10:22.425749 by tom_d4rt_generator 1.44.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -14,10 +14,12 @@ import 'package:tom_d4rt_ast/src/runtime/ast_bundle.dart' as $tom_d4rt_ast_1;
 import 'package:tom_d4rt_ast/src/runtime/bridge/bridged_types.dart' as $tom_d4rt_ast_2;
 import 'package:tom_d4rt_ast/src/runtime/bridge/registration.dart' as $tom_d4rt_ast_3;
 import 'package:tom_d4rt_ast/src/runtime/callable.dart' as $tom_d4rt_ast_4;
-import 'package:tom_d4rt_ast/src/runtime/interpreter_visitor.dart' as $tom_d4rt_ast_5;
-import 'package:tom_d4rt_ast/src/runtime/introspection.dart' as $tom_d4rt_ast_6;
-import 'package:tom_d4rt_ast/src/runtime/runtime_interfaces.dart' as $tom_d4rt_ast_7;
-import 'package:tom_d4rt_ast/src/runtime/security/permissions.dart' as $tom_d4rt_ast_8;
+import 'package:tom_d4rt_ast/src/runtime/generator/d4.dart' as $tom_d4rt_ast_5;
+import 'package:tom_d4rt_ast/src/runtime/interpreter_visitor.dart' as $tom_d4rt_ast_6;
+import 'package:tom_d4rt_ast/src/runtime/introspection.dart' as $tom_d4rt_ast_7;
+import 'package:tom_d4rt_ast/src/runtime/runtime_interfaces.dart' as $tom_d4rt_ast_8;
+import 'package:tom_d4rt_ast/src/runtime/runtime_types.dart' as $tom_d4rt_ast_9;
+import 'package:tom_d4rt_ast/src/runtime/security/permissions.dart' as $tom_d4rt_ast_10;
 import 'package:tom_d4rt_exec/src/d4rt_base.dart' as $tom_d4rt_exec_1;
 import 'package:tom_dcli_exec/src/api/cli_api.dart' as $tom_dcli_exec_1;
 import 'package:tom_dcli_exec/src/api/cli_bridge.dart' as $tom_dcli_exec_2;
@@ -192,6 +194,9 @@ class CliApiBridge {
   static List<String> functionTypedefs() {
     return [
       'NativeFunctionImpl',
+      'GenericTypeWrapperFactory',
+      'InterfaceProxyFactory',
+      'GenericConstructorFactory',
     ];
   }
 
@@ -2470,14 +2475,19 @@ BridgedClass _createD4rtBridge() {
     isAssignable: (v) => v is $tom_d4rt_exec_1.D4rt,
     constructors: {
       '': (visitor, positional, named) {
-        return $tom_d4rt_exec_1.D4rt();
+        final reuseAcrossRuns = D4.getNamedArgWithDefault<bool>(named, 'reuseAcrossRuns', true);
+        return $tom_d4rt_exec_1.D4rt(reuseAcrossRuns: reuseAcrossRuns);
       },
     },
     getters: {
+      'reuseAcrossRuns': (visitor, target) => D4.validateTarget<$tom_d4rt_exec_1.D4rt>(target, 'D4rt').reuseAcrossRuns,
       'visitor': (visitor, target) => D4.validateTarget<$tom_d4rt_exec_1.D4rt>(target, 'D4rt').visitor,
       'bridgedLibraryUris': (visitor, target) => D4.validateTarget<$tom_d4rt_exec_1.D4rt>(target, 'D4rt').bridgedLibraryUris,
       'libraryReExports': (visitor, target) => D4.validateTarget<$tom_d4rt_exec_1.D4rt>(target, 'D4rt').libraryReExports,
       'bridgesFinalized': (visitor, target) => D4.validateTarget<$tom_d4rt_exec_1.D4rt>(target, 'D4rt').bridgesFinalized,
+      'classAliases': (visitor, target) => D4.validateTarget<$tom_d4rt_exec_1.D4rt>(target, 'D4rt').classAliases,
+      'functionTypedefs': (visitor, target) => D4.validateTarget<$tom_d4rt_exec_1.D4rt>(target, 'D4rt').functionTypedefs,
+      'debugLoadedModuleCount': (visitor, target) => D4.validateTarget<$tom_d4rt_exec_1.D4rt>(target, 'D4rt').debugLoadedModuleCount,
       'allowedPackages': (visitor, target) => D4.validateTarget<$tom_d4rt_exec_1.D4rt>(target, 'D4rt').allowedPackages,
       'onUncaughtError': (visitor, target) => D4.validateTarget<$tom_d4rt_exec_1.D4rt>(target, 'D4rt').onUncaughtError,
     },
@@ -2567,7 +2577,7 @@ BridgedClass _createD4rtBridge() {
         final library = D4.getRequiredArg<String>(positional, 2, 'library', 'registertopLevelFunction');
         final sourceUri = D4.getOptionalNamedArg<String?>(named, 'sourceUri');
         final signature = D4.getOptionalNamedArg<String?>(named, 'signature');
-        t.registertopLevelFunction(name, (($tom_d4rt_ast_5.InterpreterVisitor p0, List<Object?> p1, Map<String, Object?> p2, List<$tom_d4rt_ast_7.RuntimeType>? p3) { return D4.castCallbackResult<Object?>(D4.callInterpreterCallback(visitor!, functionRaw, [p0, p1, p2, p3])); }) as Object? Function($tom_d4rt_ast_5.InterpreterVisitor, List<Object?>, Map<String, Object?>, List<$tom_d4rt_ast_7.RuntimeType>?), library, sourceUri: sourceUri, signature: signature);
+        t.registertopLevelFunction(name, (($tom_d4rt_ast_6.InterpreterVisitor p0, List<Object?> p1, Map<String, Object?> p2, List<$tom_d4rt_ast_8.RuntimeType>? p3) { return D4.castCallbackResult<Object?>(D4.callInterpreterCallback(visitor!, functionRaw, [p0, p1, p2, p3])); }) as Object? Function($tom_d4rt_ast_6.InterpreterVisitor, List<Object?>, Map<String, Object?>, List<$tom_d4rt_ast_8.RuntimeType>?), library, sourceUri: sourceUri, signature: signature);
         return null;
       },
       'registerGlobalVariable': (visitor, target, positional, named, typeArgs) {
@@ -2624,21 +2634,21 @@ BridgedClass _createD4rtBridge() {
       'grant': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_d4rt_exec_1.D4rt>(target, 'D4rt');
         D4.requireMinArgs(positional, 1, 'grant');
-        final permission = D4.getRequiredArg<$tom_d4rt_ast_8.Permission>(positional, 0, 'permission', 'grant');
+        final permission = D4.getRequiredArg<$tom_d4rt_ast_10.Permission>(positional, 0, 'permission', 'grant');
         t.grant(permission);
         return null;
       },
       'revoke': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_d4rt_exec_1.D4rt>(target, 'D4rt');
         D4.requireMinArgs(positional, 1, 'revoke');
-        final permission = D4.getRequiredArg<$tom_d4rt_ast_8.Permission>(positional, 0, 'permission', 'revoke');
+        final permission = D4.getRequiredArg<$tom_d4rt_ast_10.Permission>(positional, 0, 'permission', 'revoke');
         t.revoke(permission);
         return null;
       },
       'hasPermission': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_d4rt_exec_1.D4rt>(target, 'D4rt');
         D4.requireMinArgs(positional, 1, 'hasPermission');
-        final permission = D4.getRequiredArg<$tom_d4rt_ast_8.Permission>(positional, 0, 'permission', 'hasPermission');
+        final permission = D4.getRequiredArg<$tom_d4rt_ast_10.Permission>(positional, 0, 'permission', 'hasPermission');
         return t.hasPermission(permission);
       },
       'checkPermission': (visitor, target, positional, named, typeArgs) {
@@ -2671,6 +2681,45 @@ BridgedClass _createD4rtBridge() {
       'resetScriptDeclarations': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_d4rt_exec_1.D4rt>(target, 'D4rt');
         t.resetScriptDeclarations();
+        return null;
+      },
+      'dispose': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_d4rt_exec_1.D4rt>(target, 'D4rt');
+        (t as dynamic).dispose();
+        return null;
+      },
+      'registerRelaxerFactory': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_d4rt_exec_1.D4rt>(target, 'D4rt');
+        D4.requireMinArgs(positional, 2, 'registerRelaxerFactory');
+        final baseTypeName = D4.getRequiredArg<String>(positional, 0, 'baseTypeName', 'registerRelaxerFactory');
+        if (positional.length <= 1) {
+          throw ArgumentError('registerRelaxerFactory: Missing required argument "factory" at position 1');
+        }
+        final factoryRaw = positional[1];
+        t.registerRelaxerFactory(baseTypeName, ((Object p0, String p1) { return D4.castCallbackResult<Object?>(D4.callInterpreterCallback(visitor!, factoryRaw, [p0, p1])); }) as Object? Function(Object, String));
+        return null;
+      },
+      'registerInterfaceProxy': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_d4rt_exec_1.D4rt>(target, 'D4rt');
+        D4.requireMinArgs(positional, 2, 'registerInterfaceProxy');
+        final bridgedTypeName = D4.getRequiredArg<String>(positional, 0, 'bridgedTypeName', 'registerInterfaceProxy');
+        if (positional.length <= 1) {
+          throw ArgumentError('registerInterfaceProxy: Missing required argument "factory" at position 1');
+        }
+        final factoryRaw = positional[1];
+        t.registerInterfaceProxy(bridgedTypeName, (($tom_d4rt_ast_6.InterpreterVisitor p0, $tom_d4rt_ast_9.InterpretedInstance p1) { return D4.castCallbackResult<Object?>(D4.callInterpreterCallback(visitor!, factoryRaw, [p0, p1])); }) as Object? Function($tom_d4rt_ast_6.InterpreterVisitor, $tom_d4rt_ast_9.InterpretedInstance));
+        return null;
+      },
+      'registerGenericConstructor': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_d4rt_exec_1.D4rt>(target, 'D4rt');
+        D4.requireMinArgs(positional, 3, 'registerGenericConstructor');
+        final className = D4.getRequiredArg<String>(positional, 0, 'className', 'registerGenericConstructor');
+        final constructorName = D4.getRequiredArg<String>(positional, 1, 'constructorName', 'registerGenericConstructor');
+        if (positional.length <= 2) {
+          throw ArgumentError('registerGenericConstructor: Missing required argument "factory" at position 2');
+        }
+        final factoryRaw = positional[2];
+        t.registerGenericConstructor(className, constructorName, (($tom_d4rt_ast_6.InterpreterVisitor p0, List<Object?> p1, Map<String, Object?> p2, List<$tom_d4rt_ast_8.RuntimeType>? p3) { return D4.castCallbackResult<Object?>(D4.callInterpreterCallback(visitor!, factoryRaw, [p0, p1, p2, p3])); }) as Object? Function($tom_d4rt_ast_6.InterpreterVisitor, List<Object?>, Map<String, Object?>, List<$tom_d4rt_ast_8.RuntimeType>?));
         return null;
       },
       'providePackage': (visitor, target, positional, named, typeArgs) {
@@ -2789,6 +2838,7 @@ BridgedClass _createD4rtBridge() {
       },
     },
     staticGetters: {
+      'debugBridgedModuleEnvBuildCount': (visitor) => $tom_d4rt_exec_1.D4rt.debugBridgedModuleEnvBuildCount,
       'debugPooledPackages': (visitor) => $tom_d4rt_exec_1.D4rt.debugPooledPackages,
       'debugWarmParentCacheSize': (visitor) => $tom_d4rt_exec_1.D4rt.debugWarmParentCacheSize,
     },
@@ -2803,7 +2853,7 @@ BridgedClass _createD4rtBridge() {
       },
     },
     constructorSignatures: {
-      '': 'D4rt()',
+      '': 'D4rt({bool reuseAcrossRuns = true})',
     },
     methodSignatures: {
       'registerBridgedEnum': 'void registerBridgedEnum(BridgedEnumDefinition<Enum> definition, String library, {String? sourceUri})',
@@ -2827,6 +2877,10 @@ BridgedClass _createD4rtBridge() {
       'finalizeBridges': 'void finalizeBridges()',
       'warmup': 'void warmup()',
       'resetScriptDeclarations': 'void resetScriptDeclarations()',
+      'dispose': 'void dispose()',
+      'registerRelaxerFactory': 'void registerRelaxerFactory(String baseTypeName, GenericTypeWrapperFactory factory)',
+      'registerInterfaceProxy': 'void registerInterfaceProxy(String bridgedTypeName, InterfaceProxyFactory factory)',
+      'registerGenericConstructor': 'void registerGenericConstructor(String className, String constructorName, GenericConstructorFactory factory)',
       'providePackage': 'bool providePackage(String packageName)',
       'getConfiguration': 'D4rtConfiguration getConfiguration()',
       'getEnvironmentState': 'EnvironmentState? getEnvironmentState()',
@@ -2842,10 +2896,14 @@ BridgedClass _createD4rtBridge() {
       'invoke': 'dynamic invoke(String name, List<Object?> positionalArgs, [Map<String, Object?> namedArgs = const {}, Map<String, String>? sources])',
     },
     getterSignatures: {
+      'reuseAcrossRuns': 'bool get reuseAcrossRuns',
       'visitor': 'InterpreterVisitor? get visitor',
       'bridgedLibraryUris': 'Set<String> get bridgedLibraryUris',
       'libraryReExports': 'Map<String, List<({Set<String>? hide, Set<String>? show, String uri})>> get libraryReExports',
       'bridgesFinalized': 'bool get bridgesFinalized',
+      'classAliases': 'List<({String aliasName, String library, String targetName})> get classAliases',
+      'functionTypedefs': 'List<({String library, String name})> get functionTypedefs',
+      'debugLoadedModuleCount': 'int get debugLoadedModuleCount',
       'allowedPackages': 'Set<String> get allowedPackages',
       'onUncaughtError': 'void Function(Object error, StackTrace stackTrace)? get onUncaughtError',
     },
@@ -2857,6 +2915,7 @@ BridgedClass _createD4rtBridge() {
       'debugResetPool': 'void debugResetPool()',
     },
     staticGetterSignatures: {
+      'debugBridgedModuleEnvBuildCount': 'int get debugBridgedModuleEnvBuildCount',
       'debugPooledPackages': 'Set<String> get debugPooledPackages',
       'debugWarmParentCacheSize': 'int get debugWarmParentCacheSize',
     },

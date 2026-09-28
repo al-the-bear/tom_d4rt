@@ -1,3 +1,14 @@
+## 1.7.0
+
+### Changed — resolves the current interpreter; bridges regenerated (sce212)
+
+Resolves tom_d4rt_exec 1.34.0 / tom_d4rt_ast 0.177.0 (the first interpreter releases since
+2026-09-11) and tom_d4rt_generator 1.44.0. `bridges_fresh_test` went red on the
+upgrade, as it should: the regenerated `*.b.dart` now bridge the interpreter
+API that landed in between (for example `registerFunctionTypedef`'s arity
+parameters, `reuseAcrossRuns`, `dispose`). Regenerated with `d4rtgen` and
+committed with the upgrade.
+
 ## 1.6.0
 
 ### Fixed — three standing test failures, and the suite no longer contradicts itself (sce132)

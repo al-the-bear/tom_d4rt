@@ -1661,20 +1661,6 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
   // `ran` IS HISTORICAL: this file does not compile against the resolved interpreter,
   // so the number above cannot be confirmed here (measured 2026-09-22, sce143).
   'stdlib/hierarchy_baseline_test.dart': (ran: 6, declared: 6),
-  // NOT PORTABLE YET, and the reason is the thing it tests. SCD173's four cases
-  // pass a map literal to `ContentType`, `HeaderValue` and
-  // `findProxyFromEnvironment`; the coercion that makes those work landed under
-  // SCD70 and is NOT PUBLISHED, so against the interpreter this package
-  // resolves all four fail with exactly the error they exist to prevent —
-  // `type '_Map<Object?, Object?>' is not a subtype of type
-  // 'Map<String, String?>?' in type cast`, thrown from
-  // `tom_d4rt_ast/src/runtime/stdlib/io/http.dart`.
-  //
-  // Measured, not assumed: the copy was written, run here, and removed. That
-  // failure is the evidence in sce209 that the defect is live in every shipped
-  // interpreter, so this entry is a dated record of an unreleased fix rather
-  // than a gap in the suite. It comes across when the floor moves.
-  'stdlib/io/scd173_collection_args_test.dart': (ran: 4, declared: 4),
   // NOT PORTABLE, structurally (SCE212). SCD170's source census, split out of
   // `scd170_network_permission_gate_test.dart` so the nineteen behaviour cases
   // could come across: it reads `lib/src/stdlib/io/*.dart` by path, and this
