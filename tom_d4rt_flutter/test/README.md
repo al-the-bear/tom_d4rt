@@ -64,7 +64,7 @@ the gap SCD142 closes.
 
 A third runner here is **not** part of the corpus and answers in seconds:
 
-- `run_guard_tests.sh` — the fast, transport-free guards (no companion app,
+- `run_guard_tests.sh` / `run_guard_tests.ps1` — the fast, transport-free guards (no companion app,
   no HTTP server, no `concurrency: 1`). First this package's own four: SCD133's
   registry-wide bridged-enum resolution guard, SCD195's name-collision guard,
   the pooled-registration skip path, and the precise-beats-fuzzy bridge-match
@@ -74,6 +74,9 @@ A third runner here is **not** part of the corpus and answers in seconds:
   pubspec rules. Those live once, in the AST twin, and run from here through
   that runner's `--pair` mode, so this script covers everything that guards
   this package without a second list of them to drift.
+  The `.ps1` is the Windows flavour (SCE198): same checks, same order, same
+  `--pair` mode, verified on legiondary01, and held to the `.sh` by scd142's
+  F-SCE197-1.
 
 The AST twin grew its guard runner first, and the three files above sat here
 reachable by nothing in the meantime — the same SCD108 hole, in the twin that

@@ -54,10 +54,13 @@ for transport-FREE checks; a test that needs the app cannot answer in a second.
 
 A third runner is **not** part of the corpus and answers in seconds:
 
-- `run_guard_tests.sh` — the fast, transport-free guards (no companion app, no
+- `run_guard_tests.sh` / `run_guard_tests.ps1` — the fast, transport-free guards (no companion app, no
   HTTP server, no `concurrency: 1`): the AST/non-AST user-bridge de-dup, the
   `doc/`-holds-no-runner-output check, the pooled-registration skip path, and
   SCD133's registry-wide bridged-enum resolution guard.
+  The `.ps1` is the Windows flavour (SCE198): same checks, same order, same
+  `--pair` mode, verified on legiondary01, and held to the `.sh` by scd142's
+  F-SCE197-1.
 
 Each check here is tagged `run` (its subject is this package alone) or `pair`
 (its subject includes `tom_d4rt_flutter` too). `tom_d4rt_flutter` has its own
