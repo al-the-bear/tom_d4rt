@@ -567,6 +567,39 @@ class Recipe {
   final String teardown;
 }
 
+/// When a [_notAuditable] reason stops being true (SCE224).
+sealed class AuditExpiry {
+  const AuditExpiry();
+}
+
+/// The reason expires the moment the bridge named [className] exposes any of
+/// [members] — as a getter, a method or a setter. Checkable, and checked.
+final class ExpiresWhenBridged extends AuditExpiry {
+  const ExpiresWhenBridged(this.className, this.members);
+
+  /// The bridge whose surface the reason depends on.
+  final String className;
+
+  /// Members whose arrival on that bridge makes the reason false.
+  final Set<String> members;
+}
+
+/// The reason has no mechanical expiry condition; [why] says why, so the
+/// absence is a decision rather than an omission.
+final class NoMechanicalExpiry extends AuditExpiry {
+  const NoMechanicalExpiry(this.why);
+
+  /// Why no condition a guard could check exists.
+  final String why;
+}
+
+/// A [_notAuditable] entry: the reason the class cannot be measured, and the
+/// condition under which that reason expires.
+typedef NotAuditable = ({String reason, AuditExpiry expiry});
+
+/// A read-only view of [_notAuditable], for the guards that evaluate it.
+Map<String, NotAuditable> get notAuditableEntries => _notAuditable;
+
 /// Classes that cannot be measured, and why.
 ///
 /// This is the other half of an honest UNVERIFIED bucket. A class listed here is
@@ -575,7 +608,18 @@ class Recipe {
 /// a recipe yet. Every reason here is a bridge defect blocking the measurement,
 /// so each entry is a pointer at work to do rather than a permanent exemption:
 /// fix the defect and the class becomes auditable.
-const _notAuditable = <String, String>{
+///
+/// EVERY ENTRY STATES WHEN IT EXPIRES (SCE224). The table once held four
+/// entries and three of the four reasons were false — each believed, quoted in
+/// other documents, and found only by a dedicated piece of work (SCD44, SCD45).
+/// The surviving one differs in one respect: it names the condition under which
+/// it stops being true, and a condition can be checked where prose cannot. So
+/// [expiry] is a required field, and `member_coverage_baseline_test.dart`
+/// evaluates every checkable one against the live bridge. Where no mechanical
+/// condition exists, [NoMechanicalExpiry] says so and why — which distinguishes
+/// "thought about, none exists" from "nobody thought about it", the same line
+/// this table draws between UNVERIFIED's two causes.
+const _notAuditable = <String, NotAuditable>{
   // The one entry here that is NOT a bridge defect, and the one that had to be
   // learned the hard way. `Stdin` has no constructor: the only instance in
   // existence is the process's own standard input, so a recipe cannot sandbox
@@ -592,11 +636,23 @@ const _notAuditable = <String, String>{
   // failures in `test/stdlib` alone, none of them near the audit. The probe
   // timeout does not help — the damage is done by the subscription, not by the
   // hang it causes.
-  'Stdin':
-      'the only instance is the process\'s own standard input, which has '
-      'no constructor and cannot be sandboxed; a bare read of any inherited '
-      '`Stream` getter subscribes to fd 0 and destroys it for every later '
-      'suite in the same `dart test` process',
+  'Stdin': (
+    reason:
+        'the only instance is the process\'s own standard input, which has '
+        'no constructor and cannot be sandboxed; a bare read of any inherited '
+        '`Stream` getter subscribes to fd 0 and destroys it for every later '
+        'suite in the same `dart test` process',
+    // The `Stream` getters whose BARE READ subscribes. The audit's probe reads
+    // getters and calls methods, and `listen` needs an argument the probe
+    // cannot supply, so it is not one of them (F-SCD188-2).
+    expiry: ExpiresWhenBridged('Stdin', {
+      'first',
+      'last',
+      'single',
+      'length',
+      'isEmpty',
+    }),
+  ),
 };
 
 /// Members measured as unreachable ON PURPOSE, keyed `Class.member`.
@@ -1953,7 +2009,7 @@ Future<Reach> _probeStatic(String className, String source) async {
 final staticProbeSkips = <String, String>{};
 
 Future<void> verify(ClassDiff diff) async {
-  diff.notAuditableReason = _notAuditable[diff.name];
+  diff.notAuditableReason = _notAuditable[diff.name]?.reason;
   final canProbeInstances = await recipeWorks(diff.name);
   diff.recipeUsable = canProbeInstances;
 
@@ -2451,7 +2507,7 @@ List<String> invisibleRegisteredEdges(Environment env) {
 /// Publishing that as a defect would send someone to fix working code.
 Future<void> verifyHierarchy(HierarchyGap gap, Environment env) async {
   gap.verified = true;
-  gap.notAuditableReason = _notAuditable[gap.name];
+  gap.notAuditableReason = _notAuditable[gap.name]?.reason;
   final recipe = _instanceRecipes[gap.name];
   if (recipe == null || !await recipeWorks(gap.name)) {
     gap.unverifiedEdges

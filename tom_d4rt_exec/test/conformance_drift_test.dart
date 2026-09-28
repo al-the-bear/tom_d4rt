@@ -1742,7 +1742,7 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
   // against `tom_d4rt_ast`'s registry, not ported. [2026-09-15]
   // `ran` IS HISTORICAL: this file does not compile against the resolved interpreter,
   // so the number above cannot be confirmed here (measured 2026-09-22, sce143).
-  'stdlib/member_coverage_baseline_test.dart': (ran: 4, declared: 15),
+  'stdlib/member_coverage_baseline_test.dart': (ran: 4, declared: 17),
   // NOT PORTABLE — `tool/stdlib_member_diff.dart` again, and this file is the
   // one that tests the tool's own classifier. Its four cases plant a wording at
   // a throw site and assert the audit notices, so its subject is the reference
@@ -2203,6 +2203,16 @@ const Map<String, _Convergence> _convergenceLog = {
 /// re-measure the whole register when the floor moves, not the entry you
 /// happened to be reading.
 const Map<String, _Divergence> _divergentBaseline = {
+  // `scd188`: SCE224 made the reference copy DERIVE its subscribing-getter set
+  // from the `Stdin` entry's expiry condition in `tom_d4rt/tool/
+  // stdlib_member_diff.dart`, so the set has one home. That tool is
+  // `tom_d4rt`'s own and is not importable here, so this copy keeps the set
+  // written out and checks it against the `Stdin` bridge of the interpreter
+  // this package resolves — a real second measurement, of the AST line.
+  // pin-registered: n/a — the difference is where the set is read from, which
+  // no publish changes.
+  'stdlib/io/scd188_stdin_audit_reason_expiry_test.dart':
+      _Divergence.deliberate,
   // The reference copy's four `(legacy)` cases reach into the analyzer `D4rt`'s
   // own environment chain — `enclosing`, the static warm-parent cache keyed on
   // the allowed-set signature — and measured here they fail, because the exec
@@ -2266,6 +2276,7 @@ const Map<String, _Divergence> _divergentBaseline = {
 /// Recomputing without reading the new difference is the failure mode; the
 /// message says so.
 const Map<String, String> _divergenceFingerprints = <String, String>{
+  'stdlib/io/scd188_stdin_audit_reason_expiry_test.dart': '46be47f827711c3a',
   'warm_parent_package_pool_test.dart': '971b6ff19185f442',
   'stdlib/intentionally_unbridged_test.dart': 'a11036cda720efcf',
   'scc31_undefined_name_uncatchable_test.dart': '5cbda0053357426b',

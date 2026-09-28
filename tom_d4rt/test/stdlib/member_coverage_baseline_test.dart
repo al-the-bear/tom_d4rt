@@ -446,6 +446,78 @@ void main() {
     );
   });
 
+  test('F-SCE224-1: every _notAuditable entry states when it expires '
+      '[2026-09-29] (PASS)', () {
+    // SCE224. Three of the table's four original reasons were false, and each
+    // was believed until a dedicated piece of work tested it. The one that was
+    // right named the condition under which it would stop being right. So the
+    // expiry is a required field of every entry; this asserts each one is
+    // usable — a checkable condition that names real members, or an explicit
+    // "no mechanical condition" with the reason, which is a decision rather
+    // than an omission.
+    expect(
+      notAuditableEntries,
+      isNotEmpty,
+      reason: 'the table is empty, so the checks below measure nothing',
+    );
+    final malformed = <String>[];
+    notAuditableEntries.forEach((name, entry) {
+      switch (entry.expiry) {
+        case ExpiresWhenBridged(:final className, :final members):
+          if (members.isEmpty) malformed.add('$name: names no members');
+          if (_registryForPatchScan.findBridgedClassByName(className) == null) {
+            malformed.add(
+              '$name: its expiry watches `$className`, which is '
+              'not a registered bridge',
+            );
+          }
+        case NoMechanicalExpiry(:final why):
+          if (why.trim().length < 20) {
+            malformed.add('$name: "no mechanical expiry" without a reason');
+          }
+      }
+      if (entry.reason.trim().isEmpty) malformed.add('$name: no reason');
+    });
+    expect(malformed, isEmpty, reason: malformed.join('\n'));
+  });
+
+  test('F-SCE224-2: no checkable _notAuditable expiry has fired '
+      '[2026-09-29] (PASS)', () {
+    // The condition an entry states is evaluated against the live bridge. When
+    // it fires, the reason has stopped being true and the entry must be
+    // rewritten or removed — before the audit is widened over the class, since
+    // for `Stdin` the audit would then subscribe to fd 0 (SCD188).
+    final fired = <String>[];
+    notAuditableEntries.forEach((name, entry) {
+      final expiry = entry.expiry;
+      if (expiry is! ExpiresWhenBridged) return;
+      final bridge = _registryForPatchScan.findBridgedClassByName(
+        expiry.className,
+      );
+      if (bridge == null) return; // F-SCE224-1's finding, not this one's
+      final surface = {
+        ...bridge.getters.keys,
+        ...bridge.methods.keys,
+        ...bridge.setters.keys,
+      };
+      final arrived = surface.intersection(expiry.members);
+      if (arrived.isNotEmpty) {
+        fired.add(
+          '$name: `${expiry.className}` now exposes '
+          '${arrived.join(', ')}, so "${entry.reason}" no longer holds',
+        );
+      }
+    });
+    expect(
+      fired,
+      isEmpty,
+      reason:
+          'These _notAuditable reasons have expired:\n'
+          '  ${fired.join('\n  ')}\n\nRewrite the entry to say what is true '
+          'now, or remove it and write the recipe.',
+    );
+  });
+
   test('F-SCC13-3: the baseline still describes reality [2026-09-04]', () {
     // The bookkeeping test, and the only one "just regenerate it" answers. It
     // can only be provoked by improvements: a gap that closed, or a blind spot

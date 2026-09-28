@@ -61,20 +61,19 @@
 import 'package:test/test.dart';
 import 'package:tom_d4rt/src/stdlib/io/stdio.dart';
 
+import '../../../tool/stdlib_member_diff.dart'
+    show ExpiresWhenBridged, notAuditableEntries;
+
 /// `Stream` getters whose BARE READ subscribes to the stream.
 ///
-/// Reading any of these off `stdin` consumes the process's standard input. They
-/// are named explicitly rather than derived from the `Stream` bridge, because
-/// the subject is which members a PROBE would bare-read, and the audit's probe
-/// reads getters — so deriving the set from the bridge would silently widen it
-/// to methods, which the probe calls rather than reads.
-const _subscribingGetters = <String>{
-  'first',
-  'last',
-  'single',
-  'length',
-  'isEmpty',
-};
+/// Reading any of these off `stdin` consumes the process's standard input.
+/// SCE224: DERIVED from the `Stdin` entry's expiry condition in `_notAuditable`
+/// rather than written here — this file used to hard-code the set, which is a
+/// second copy of the condition the entry states, free to drift from it. The
+/// set is named explicitly THERE, not derived from the `Stream` bridge, because
+/// the audit's probe reads getters and calls methods (see F-SCD188-2).
+final Set<String> _subscribingGetters =
+    (notAuditableEntries['Stdin']!.expiry as ExpiresWhenBridged).members;
 
 void main() {
   group('SCD188: the Stdin audit reason has not expired', () {
