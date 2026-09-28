@@ -12161,14 +12161,23 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               catchInternalError,
               _originalCaughtInternalExceptionForRethrow,
             )) {
-              // This is the exception rethrown by 'rethrow'. It must be allowed to propagate.
+              // This is the exception rethrown by 'rethrow'. It propagates —
+              // but only AFTER this try's finally block has run. SCE205: it
+              // used to be relaunched right here, from inside the catch
+              // handling, which left the statement before step 3 below ever
+              // reached the finally; `try … catch (e) { rethrow; } finally {…}`
+              // never cleaned up, while the caller saw exactly the right
+              // exception. Held like an unhandled one instead, so the finally
+              // runs and the post-finally step throws it on.
               Logger.debug(
-                "[TryStatement] Identified rethrown exception. Propagating.",
+                "[TryStatement] Identified rethrown exception. Holding it "
+                "until the finally block has run.",
               );
-              // IMPORTANT: Clean the rethrow state BEFORE rethrowing
               _isInCatchBlock = false;
               _originalCaughtInternalExceptionForRethrow = null;
-              rethrow; // Relaunch to let the outer mechanism handle it
+              caughtInternalException = catchInternalError;
+              caughtStackTrace = catchStack;
+              returnValue = null;
             } else {
               // This is a NEW internal exception coming from the catch body.
               Logger.debug(

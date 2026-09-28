@@ -1,3 +1,19 @@
+## 0.174.0
+
+### Fixed — a `rethrow` runs its own try's `finally` first (sce205)
+
+`try { … } catch (e) { rethrow; } finally { cleanup(); }` propagated the right
+exception and never ran `cleanup()` — in synchronous AND async functions, for
+two unrelated reasons. The synchronous `visitTryStatement` relaunched the
+rethrow from inside the catch handling, before reaching the finally; it now
+holds it and throws it on after the finally, like an unhandled exception. The
+async `_handleAsyncError` advanced its search past the owning try outright
+(SCD41's skip); it now keeps an owner that has a non-empty finally, and
+SCD169's rule — no clause of a try may match an error from its own catch —
+runs that finally and releases the error outward. F-SCE205-1..4 in
+`scc12_await_in_finally_test.dart` pin the sync, async and nested orders and a
+non-rethrowing control, each self-limiting against a re-entry spin.
+
 ## 0.173.0
 
 ### Documented — why `HashMap` and `LinkedHashMap` keep their `Map` shadows (sce203)

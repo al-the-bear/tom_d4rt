@@ -2095,4 +2095,102 @@ void main() {
       );
     });
   });
+
+  /// SCE205. Dart runs a try's `finally` before an exception leaves it —
+  /// including when it leaves by `rethrow` from that try's own catch block.
+  /// Both paths skipped it: the synchronous one propagated the rethrow from
+  /// inside the catch handling, before reaching the finally; the async one
+  /// advanced its search past the owning try outright (SCD41's skip), so SCD169's
+  /// "stay in the search when there is a finally" rule never saw it. Two causes,
+  /// one symptom, measured separately. The exception the caller saw was always
+  /// right, which is why nobody noticed the cleanup never happened.
+  ///
+  /// Self-limiting like SCD169's: a wrong fix can re-offer the error to the
+  /// clause that rethrew it, and a spinning isolate ignores Dart timeouts.
+  group('SCE205: a rethrow runs its own try\'s finally first', () {
+    for (final isAsync in [false, true]) {
+      final label = isAsync ? 'async' : 'sync';
+      final kw = isAsync ? 'async' : '';
+      final call = isAsync ? 'await f()' : 'f()';
+      final ret = isAsync ? 'Future<dynamic>' : 'dynamic';
+
+      test('F-SCE205-${isAsync ? 2 : 1}: $label — the finally runs, then the '
+          'rethrow reaches the caller [2026-09-28]', () async {
+        expect(
+          await run("""
+            var log = <String>[];
+            int entries = 0;
+            $ret f() $kw {
+              try { throw StateError('x'); }
+              catch (e) {
+                entries = entries + 1;
+                if (entries > 1) { log.add('LOOPED'); return null; }
+                rethrow;
+              }
+              finally { log.add('F-RAN'); }
+            }
+            $ret main() $kw {
+              try { $call; } on StateError { log.add('caught'); }
+              return log.join(',');
+            }
+          """),
+          'F-RAN,caught',
+        );
+      });
+    }
+
+    test('F-SCE205-3: async — nested rethrows run each finally, innermost '
+        'first [2026-09-28]', () async {
+      expect(
+        await run(r"""
+          var log = <String>[];
+          int entries = 0;
+          Future<dynamic> f() async {
+            try {
+              try { throw StateError('x'); }
+              catch (e) {
+                entries = entries + 1;
+                if (entries > 2) { log.add('LOOPED'); return null; }
+                rethrow;
+              }
+              finally { log.add('inner'); }
+            } catch (e) {
+              entries = entries + 1;
+              if (entries > 2) { log.add('LOOPED'); return null; }
+              rethrow;
+            } finally { log.add('outer'); }
+          }
+          Future<dynamic> main() async {
+            try { await f(); } on StateError { log.add('caught'); }
+            return log.join(',');
+          }
+        """),
+        'inner,outer,caught',
+      );
+    });
+
+    test('F-SCE205-4 (control): a catch that does not rethrow is unaffected '
+        '— handled, finally once, caller never sees it [2026-09-28]', () async {
+      for (final kw in ['', 'async']) {
+        final ret = kw.isEmpty ? 'dynamic' : 'Future<dynamic>';
+        final call = kw.isEmpty ? 'f()' : 'await f()';
+        expect(
+          await run("""
+            var log = <String>[];
+            $ret f() $kw {
+              try { throw StateError('x'); }
+              catch (e) { log.add('handled'); }
+              finally { log.add('F-RAN'); }
+            }
+            $ret main() $kw {
+              try { $call; } on StateError { log.add('caught'); }
+              return log.join(',');
+            }
+          """),
+          'handled,F-RAN',
+          reason: kw.isEmpty ? 'sync' : 'async',
+        );
+      }
+    });
+  });
 }

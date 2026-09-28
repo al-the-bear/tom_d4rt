@@ -218,7 +218,7 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpretedFunction._findInvocationWithAwaitInArguments': '5fedfaed',
     'InterpretedFunction._findNextSequentialNode': '00e07640',
     'InterpretedFunction._enclosingExpressionFunctionBody': '34fd9762',
-    'InterpretedFunction._handleAsyncError': '44cf6fc0',
+    'InterpretedFunction._handleAsyncError': '49083482',
     'InterpretedFunction._instantiateRedirectedFactory': 'c9d9b3ba',
     'InterpretedFunction._isInsideCatchClauseOf': '3782eeaf',
     // SCE78: the finally-block companion to the catch-clause predicate
@@ -351,7 +351,7 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpreterVisitor.visitSwitchStatement': '059a026e',
     'InterpreterVisitor.visitSymbolLiteral': 'd18a2bb6',
     'InterpreterVisitor.visitTopLevelVariableDeclaration': 'ac8d1025',
-    'InterpreterVisitor.visitTryStatement': 'da0501a5',
+    'InterpreterVisitor.visitTryStatement': 'd00d2d11',
     'InterpreterVisitor.visitVariableDeclarationList': '5bb0fd50',
     'InterpreterVisitor.visitYieldStatement': '51c9c740',
   },

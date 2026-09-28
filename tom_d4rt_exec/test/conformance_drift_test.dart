@@ -2831,7 +2831,7 @@ const Map<String, String> _divergenceFingerprints = <String, String>{
   'stdlib/collection/queue_test.dart': '19eee099a23916a8',
   'stdlib/cast_from_family_test.dart': 'c7a32ccddec5a069',
   'scd4_await_for_break_test.dart': '9d8fdd67890791db',
-  'scc12_await_in_finally_test.dart': '38e7d44709353640',
+  'scc12_await_in_finally_test.dart': '74401ef51d40afa8',
   'warm_parent_package_pool_test.dart': '971b6ff19185f442',
   'stdlib/intentionally_unbridged_test.dart': 'a11036cda720efcf',
   'scc31_undefined_name_uncatchable_test.dart': '5cbda0053357426b',

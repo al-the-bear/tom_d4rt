@@ -3703,8 +3703,24 @@ class InterpretedFunction implements Callable {
       Logger.debug(
         " [_handleAsyncError] Rethrow detected - skipping current try/catch and looking for outer one",
       );
-      // Find the next enclosing try outside of the current one
-      enclosingTry = _findEnclosingTryStatement(enclosingTry.parent);
+      // SCE205: NOT past a try that still has a finally to run. Dart runs a
+      // try's finally before an exception leaves it, including one leaving by
+      // `rethrow` from that try's own catch; stepping over the owner skipped
+      // it by construction. Kept in the search instead, SCD169's rule takes
+      // over: the error came from one of this try's catch clauses, so none of
+      // them may match, and the `matchingCatchClause == null` branch runs the
+      // finally and then releases the error outward. Only when the owner is
+      // known LEXICALLY — the fallback `currentTry` owner has no catch clause
+      // containing the rethrow, so the selection guard could not protect it.
+      final ownerFinally = enclosingTry.finallyBlock;
+      final keepOwner =
+          rethrowOwner != null &&
+          ownerFinally != null &&
+          ownerFinally.statements.isNotEmpty;
+      if (!keepOwner) {
+        // Find the next enclosing try outside of the current one
+        enclosingTry = _findEnclosingTryStatement(enclosingTry.parent);
+      }
       // Reset the flag after handling
       state.isCurrentlyRethrowing = false;
     }
