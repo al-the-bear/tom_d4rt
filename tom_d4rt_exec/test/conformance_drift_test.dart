@@ -1303,15 +1303,10 @@ const Map<String, _Coverage> _coveredElsewhere = {
     'ast:runtime/scd196_member_map_disjointness_test.dart',
     _astTwin,
     layer: _Layer.registration,
+    // 2 -> 3 with SCE239: the twin now runs F-SCD196-3's programs as a
+    // hand-built bundle through D4rtRunner.
     refCases: 3,
-    twinCases: 2,
-    whyPartial:
-        'the twin carries F-SCD196-1 and its control, which is the whole of '
-        'the registration-level question — no bridge declares one member in '
-        'two maps. The reference\'s third case, F-SCD196-3, runs a SCRIPT to '
-        'assert `MapEntry.hashCode` evaluates rather than tearing off, which '
-        'is the behavioural consequence of the defect rather than the defect. '
-        'A bundle-driven equivalent is writable and is sce239.',
+    twinCases: 3,
   ),
   // The six below are script-level and publish-blocked, which is the shape
   // already recorded for scd99/scd100/scd119/scd121 above. Each one PASSES

@@ -350,7 +350,7 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpreterVisitor._nodeExcerpt': 'b5e37909',
     'InterpreterVisitor.visitPostfixExpression': 'bcfb2c65',
     'InterpreterVisitor.visitPrefixExpression': 'd18482f4',
-    'InterpreterVisitor.visitPrefixedIdentifier': 'c95921c9',
+    'InterpreterVisitor.visitPrefixedIdentifier': '8998a214',
     'InterpreterVisitor.visitPropertyAccess': 'fa905cfd',
     'InterpreterVisitor.visitReturnStatement': 'b0d7b56c',
     'InterpreterVisitor.visitSetOrMapLiteral': '1a33a2d6',

@@ -77,7 +77,17 @@
 //   | ---------------------------------------------------- | ----- |
 //   | `hashCode` put back in `Sink`'s methods map           | 1     |
 //   | the registrars not run, leaving an empty environment  | 2     |
-//   | `MapEntry.hashCode` moved back to the methods map     | 3     |
+//   | `MapEntry.hashCode` moved back to the methods map     | none* |
+//   | ... and the GEN-075 `hashCode` read removed            | 3     |
+//
+// * Since SCE239 both trees answer `hashCode` and `runtimeType` on a bridged
+//   value natively before consulting any member map (GEN-075, in
+//   `visitPropertyAccess` and `visitPrefixedIdentifier`). So a misregistered
+//   `hashCode` is invisible to a program, which is what F-SCD196-3 asserts, and
+//   it is caught instead where the registration is the subject: F-SCD189-1,
+//   member-kind parity (measured: it fires). Until SCE239 the reference's
+//   `visitPrefixedIdentifier` lacked that read, and `e.hashCode` exposed the
+//   defect there while the twin masked it, one line of mirror divergence.
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt/d4rt.dart';
@@ -180,9 +190,9 @@ void main() {
           'Delete the other.\n\n'
           'Nothing may be visibly broken — the interpreter reads getters first, '
           'so a duplicate method is inert on the paths a script takes. '
-          '`BridgedInstance.get` is methods-first, and a caller reaching the '
-          'member through it gets the bound callable instead of the value, '
-          'which is SCC73\'s `Runes.iterator` failure with a getter masking it.',
+          '`BridgedInstance.get` reads getters first too since SCE232, but '
+          'only because no name is in both maps — this case is what keeps it '
+          'so.',
     );
   });
 

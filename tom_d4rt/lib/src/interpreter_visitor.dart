@@ -1509,6 +1509,14 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       }
     } else if (toBridgedInstance(prefixValue).$2) {
       final bridgedInstance = toBridgedInstance(prefixValue).$1!;
+      // GEN-075: Check universal Object properties first
+      switch (memberName) {
+        case 'hashCode':
+          return bridgedInstance.nativeObject.hashCode;
+        case 'runtimeType':
+          return bridgedInstance.nativeObject.runtimeType;
+        default:
+      }
       // Getter first, then method: the same order as `BridgedInstance.get`
       // (SCE232). It matters only for a name in both maps, which
       // scd196_member_map_disjointness_test forbids.

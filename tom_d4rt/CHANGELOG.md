@@ -1,3 +1,16 @@
+## 1.200.0
+
+### Fixed — `e.hashCode` / `e.runtimeType` answer natively on a bridged value (sce239)
+
+`visitPrefixedIdentifier` now answers `hashCode` and `runtimeType` on a
+bridged value from the native object before consulting any member map, as
+`visitPropertyAccess` already did (SCC78) and as `tom_d4rt_ast` has in both
+places (GEN-075). A bridge that declared either one as a method (the shape
+of SCD196's `MapEntry.hashCode` defect) made `e.hashCode` return the bound
+method instead of an int in this tree, while `(expr).hashCode` and the
+analyzer-free tree answered correctly. That was one line of mirror
+divergence with a behavioural consequence.
+
 ## 1.199.0
 
 ### Changed — the unsupported-node message has one shape in both trees (sce236)

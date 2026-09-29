@@ -68,11 +68,10 @@
 //     e.hashCode()    ->  an int       (uncompilable as Dart)
 //
 // Nothing masked it — no getter existed to answer first — so
-// `map.entries.first.hashCode` silently was not a hash. The behaviour case that
-// pins the repaired reads is F-SCD196-3 in the reference twin; it cannot live
-// here, because `tom_d4rt_exec` is the only runner that could execute a script
-// against this tree and it resolves the interpreter from pub.dev (DGUC6).
-// What IS measurable here is the registration, which is what this file asks.
+// `map.entries.first.hashCode` silently was not a hash. F-SCD196-3 pins the
+// repaired reads here too (SCE239). This package has no parser, so it runs a
+// hand-built BUNDLE through `D4rtRunner`: the same programs as the reference
+// twin's scripts, and the interpreter this tree's working copy actually is.
 //
 // EACH CASE HAS BEEN SEEN TO FAIL:
 //
@@ -80,9 +79,17 @@
 //   | ---------------------------------------------------- | ----- |
 //   | `hashCode` put back in `Sink`'s methods map           | 1     |
 //   | the registrars not run, leaving an empty environment  | 2     |
+//   | `MapEntry.hashCode` moved back to the methods map     | none* |
+//   | ... and the GEN-075 `hashCode` read removed            | 3     |
 //
-// (The reference twin adds a third case for the repaired `MapEntry.hashCode`
-// reads; see above for why it has no counterpart here.)
+// * Since SCE239 both trees answer `hashCode` and `runtimeType` on a bridged
+//   value natively before consulting any member map (GEN-075, in
+//   `visitPropertyAccess` and `visitPrefixedIdentifier`). So a misregistered
+//   `hashCode` is invisible to a program, which is what F-SCD196-3 asserts, and
+//   it is caught instead where the registration is the subject: F-SCD189-1,
+//   member-kind parity (measured: it fires). Until SCE239 the reference's
+//   `visitPrefixedIdentifier` lacked that read, and `e.hashCode` exposed the
+//   defect there while the twin masked it, one line of mirror divergence.
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt_ast/runtime.dart';
@@ -185,9 +192,117 @@ void main() {
           'Delete the other.\n\n'
           'Nothing may be visibly broken — the interpreter reads getters first, '
           'so a duplicate method is inert on the paths a script takes. '
-          '`BridgedInstance.get` is methods-first, and a caller reaching the '
-          'member through it gets the bound callable instead of the value, '
-          'which is SCC73\'s `Runes.iterator` failure with a getter masking it.',
+          '`BridgedInstance.get` reads getters first too since SCE232, but '
+          'only because no name is in both maps — this case is what keeps it '
+          'so.',
     );
   });
+
+  test('F-SCD196-3: MapEntry.hashCode reads as a value [2026-09-29] '
+      '(PASS)', () {
+    // SCE239: the behavioural half, which this tree lacked. `hashCode` was in
+    // the METHODS map with no getter beside it, so reading it returned the
+    // bound callable. The registration check above says which map it is in;
+    // this says what a program sees.
+    expect(
+      _run(_isInt(_get(_mapEntry(), 'hashCode'))),
+      isTrue,
+      reason: "MapEntry('a', 1).hashCode is int",
+    );
+    // `{'a': 1}.entries.first.hashCode is int` — the ordinary way to reach
+    // a MapEntry.
+    final map = SSetOrMapLiteral(
+      offset: 0,
+      length: 0,
+      isMap: true,
+      elements: [
+        SMapLiteralEntry(offset: 0, length: 0, key: _str('a'), value: _int(1)),
+      ],
+    );
+    expect(
+      _run(_isInt(_get(_get(_get(map, 'entries'), 'first'), 'hashCode'))),
+      isTrue,
+      reason: 'the ordinary way to reach a MapEntry',
+    );
+    // `toString` stays a method, which is what the SDK declares.
+    expect(
+      _run(
+        SMethodInvocation(
+          offset: 0,
+          length: 0,
+          target: _mapEntry(),
+          operator: '.',
+          methodName: _id('toString'),
+          argumentList: SArgumentList(offset: 0, length: 0),
+        ),
+      ),
+      'MapEntry(a: 1)',
+    );
+  });
+}
+
+SSimpleIdentifier _id(String n) =>
+    SSimpleIdentifier(offset: 0, length: n.length, name: n);
+
+SNamedType _type(String n) => SNamedType(offset: 0, length: 0, name: _id(n));
+
+SSimpleStringLiteral _str(String v) =>
+    SSimpleStringLiteral(offset: 0, length: 0, value: v);
+
+SIntegerLiteral _int(int v) => SIntegerLiteral(offset: 0, length: 0, value: v);
+
+SPropertyAccess _get(SExpression target, String name) => SPropertyAccess(
+  offset: 0,
+  length: 0,
+  target: target,
+  operator: '.',
+  propertyName: _id(name),
+);
+
+/// `MapEntry('a', 1)`
+SExpression _mapEntry() => SInstanceCreationExpression(
+  offset: 0,
+  length: 0,
+  constructorName: SConstructorName(
+    offset: 0,
+    length: 0,
+    type: _type('MapEntry'),
+  ),
+  argumentList: SArgumentList(
+    offset: 0,
+    length: 0,
+    arguments: [_str('a'), _int(1)],
+  ),
+);
+
+/// `x is int`
+SExpression _isInt(SExpression x) =>
+    SIsExpression(offset: 0, length: 0, expression: x, type: _type('int'));
+
+/// Runs a bundle whose `main` is `=> [expression]`, and returns the result.
+Object? _run(SExpression expression) {
+  final unit = SCompilationUnit(
+    offset: 0,
+    length: 0,
+    declarations: [
+      SFunctionDeclaration(
+        offset: 0,
+        length: 0,
+        name: _id('main'),
+        functionExpression: SFunctionExpression(
+          offset: 0,
+          length: 0,
+          parameters: SFormalParameterList(offset: 0, length: 0),
+          body: SExpressionFunctionBody(
+            offset: 0,
+            length: 0,
+            expression: expression,
+          ),
+        ),
+      ),
+    ],
+  );
+  return D4rtRunner().executeBundle(
+    AstBundle(entryPointUri: 'main.dart', modules: {'main.dart': unit}),
+  );
 }
