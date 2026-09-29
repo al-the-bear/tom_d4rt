@@ -7061,7 +7061,14 @@ class ResolvedBinding {
       }
       if (interpretedType != null &&
           interpretedType.isSubtypeOf(_declaredType, value: interpreted)) {
-        return value;
+        // SCF31: a bare bridged SUPER OBJECT binds as its instance. A proxy
+        // is kept because it answers every member the instance does; the
+        // native base of a concrete bridged class does not — it has none of
+        // the script's fields — so binding it would pass the check and fail
+        // at the first `renderObject.onLayout` or `d.telemetry`. Native code
+        // loses nothing: handing the instance back out yields this same
+        // object again, through `bridgedSuperObject`.
+        return D4.ownerOfSuperObject(_nativeOf(value)) ?? value;
       }
     }
 
@@ -7080,6 +7087,10 @@ class ResolvedBinding {
   /// sites in the visitor already handle the pair the same way.
   static Object? _interpretedBehind(Object? value) =>
       D4.interpretedBehind(value);
+
+  /// [value] itself, or the native object a [BridgedInstance] wraps.
+  static Object? _nativeOf(Object? value) =>
+      value is BridgedInstance ? value.nativeObject : value;
 
   /// SCD92: [value], once its own type arguments are known to satisfy the
   /// declared ones — or throws when they do not.

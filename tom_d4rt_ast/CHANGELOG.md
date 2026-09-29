@@ -1,3 +1,27 @@
+## 0.195.0
+
+### Fixed — a script subclass of a concrete bridged class is recognised when native code hands it back (scf31)
+
+`class _RenderMeasureBox extends RenderProxyBox` has no proxy: the base is
+constructed natively and that native object is what the framework holds and
+hands back — to `updateRenderObject(..., covariant _RenderMeasureBox r)`, or
+through a viewport's `delegate` getter. Every check that asked for the script
+class refused it (`type 'RenderProxyBox' is not a subtype of type
+'_RenderMeasureBox'`), and `delegate as _TwoDMgrCountingDelegate` returned the
+native base, which has none of the script's members.
+
+Setting `InterpretedInstance.bridgedSuperObject` now records the pairing, and
+`D4.interpretedBehind` answers for a bridged super object as it does for a
+proxy. A parameter declared as the script class binds the INSTANCE, `as`
+yields it, `is` answers for it, and `identical` / `==` treat the two as one
+object. What crosses to native code is unchanged — handing the instance back
+out yields the same native object — so layout and paint are untouched, which
+is what the proxy-based attempts (SCE164) broke. An unrelated script class and
+a base nobody subclassed are still refused.
+
+`D4.ownerOfSuperObject` is new. `D4.registerInterpretedForNative` is now a
+no-op for values an `Expando` cannot key on, instead of throwing.
+
 ## 0.194.0
 
 ### Fixed — four await-resumption routes that re-evaluated or dropped an await (scf29)

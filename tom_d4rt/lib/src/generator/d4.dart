@@ -85,8 +85,8 @@ typedef GenericConstructorFactory =
 /// final items = D4.coerceList<Item>(positional[0], 'items');
 /// ```
 class D4 {
-  /// The interpreted instance [value] is a native proxy for, or null when it
-  /// is not one.
+  /// The interpreted instance [value] is a native proxy for — or the bridged
+  /// super object of, see [ownerOfSuperObject] — or null when it is neither.
   ///
   /// A native proxy and the interpreted instance behind it are ONE object as
   /// far as a script is concerned: the proxy exists so native code has
@@ -111,8 +111,31 @@ class D4 {
         final inner = native.d4rtInstance;
         return identical(inner, native) ? null : inner;
       }
+      return ownerOfSuperObject(native);
     }
-    return null;
+    return ownerOfSuperObject(value);
+  }
+
+  /// The interpreted instance whose bridged super object [value] is, or null.
+  ///
+  /// SCF31. A script class extending a CONCRETE bridged class — `class
+  /// _RenderMeasureBox extends RenderProxyBox` — gets no proxy: the base is
+  /// constructed natively and that object is what native code holds, because
+  /// only the real object lays out and paints. When it comes back (a
+  /// framework-passed `renderObject`, a viewport's `delegate` getter) it is
+  /// the bare base, and the script's own class was unreadable on it. The
+  /// native object and its instance are one object to the script, exactly as
+  /// a proxy and its instance are, so [interpretedBehind] answers for both —
+  /// the carrier differs, the identity does not.
+  ///
+  /// Recorded by [InterpretedInstance.bridgedSuperObject]'s setter, so every
+  /// constructed super object is covered, not only one that happened to cross
+  /// through [extractBridgedArg] first.
+  static InterpretedInstance? ownerOfSuperObject(Object? value) {
+    if (value == null || !_canKey(value)) return null;
+    final owner = _nativeToInterpreted[value];
+    if (owner is! InterpretedInstance) return null;
+    return identical(owner.bridgedSuperObject, value) ? owner : null;
   }
 
   // Private constructor - all methods are static
@@ -248,12 +271,20 @@ class D4 {
   /// [resetNativeAccumulators] (OPEN B.12 / §U28 instrumentation).
   static int get nativeRegistrationCount => _nativeRegistrationCount;
 
+  /// Whether [value] can key [_nativeToInterpreted]. An [Expando] throws on
+  /// these, and none of them can be a super object native code hands back —
+  /// but [interpretedBehind] is asked about every operand of `==`, so the
+  /// lookups must refuse them rather than throw.
+  static bool _canKey(Object value) =>
+      value is! num && value is! String && value is! bool && value is! Record;
+
   /// Records that [nativeObject] is the bridged-super of [interpretedInstance].
-  /// No-op for non-Object keys (Expandos require Object keys).
+  /// No-op for keys an [Expando] refuses (numbers, strings, booleans, records).
   static void registerInterpretedForNative(
     Object nativeObject,
     Object interpretedInstance,
   ) {
+    if (!_canKey(nativeObject)) return;
     _nativeToInterpreted[nativeObject] = interpretedInstance;
     _nativeRegistrationCount++;
   }
@@ -263,7 +294,7 @@ class D4 {
   /// avoid a cross-module import of `InterpretedInstance` here; callers in
   /// the interpreter cast to `InterpretedInstance`.
   static Object? interpretedForNative(Object? nativeObject) {
-    if (nativeObject == null) return null;
+    if (nativeObject == null || !_canKey(nativeObject)) return null;
     return _nativeToInterpreted[nativeObject];
   }
 

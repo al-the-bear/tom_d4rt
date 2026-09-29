@@ -612,12 +612,16 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           // so subsequent property/method access dispatches against the
           // scripted class (which knows about user-defined fields and
           // methods that the bridged proxy alone cannot serve).
-          if (value is D4InterpretedProxy) {
-            final inner = value.d4rtInstance;
-            if (inner is InterpretedInstance &&
-                _interpretedClassChainHasName(inner.klass, typeName)) {
-              return inner;
-            }
+          //
+          // SCF31: the same for a bare bridged SUPER OBJECT — the native base
+          // a concrete bridged class was constructed as, handed back by
+          // framework code (`delegate as _CountingDelegate`). It is the
+          // instance to the script, and without this the cast returned the
+          // native base, which has none of the script's members.
+          final inner = D4.interpretedBehind(value);
+          if (inner is InterpretedInstance &&
+              _interpretedClassChainHasName(inner.klass, typeName)) {
+            return inner;
           }
           // For custom/interpreted types, we can add logic here
           // For now, we accept all (permissive behavior)
@@ -12555,7 +12559,14 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             if (targetType is BridgedClass) {
               result = _nativeOrBridgedMatches(expressionValue, targetType);
             } else if (targetType is InterpretedClass) {
-              if (expressionValue is InterpretedInstance) {
+              // SCF31: a proxy or a bridged super object IS its interpreted
+              // instance to the script, so `x is ScriptClass` asks about the
+              // instance. It answered false for both, while `x as ScriptClass`
+              // on the same value succeeded.
+              final instance = expressionValue is InterpretedInstance
+                  ? expressionValue
+                  : D4.interpretedBehind(expressionValue);
+              if (instance is InterpretedInstance) {
                 // DFUB6: when the test carries applied type arguments
                 // (`is Box<int>`), compare the value's applied runtime type
                 // against an `AppliedRuntimeType(targetClass, resolvedArgs)`
@@ -12571,9 +12582,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
                     targetType,
                     resolvedArgs,
                   );
-                  result = expressionValue.valueType.isSubtypeOf(appliedTarget);
+                  result = instance.valueType.isSubtypeOf(appliedTarget);
                 } else {
-                  result = expressionValue.klass.isSubtypeOf(targetType);
+                  result = instance.klass.isSubtypeOf(targetType);
                 }
               } else {
                 // A non-instance value cannot be a subtype of a user-defined class

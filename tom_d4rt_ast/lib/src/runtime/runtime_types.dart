@@ -1330,8 +1330,19 @@ class InterpretedInstance implements RuntimeValue {
   // Fields are stored here, mapping name to value
   final Map<String, Object?> _fields = {};
 
-  // Store the native object created by a bridged superclass constructor
-  Object? bridgedSuperObject;
+  /// The native object created by a bridged superclass constructor.
+  ///
+  /// SCF31: setting it records the pair, so a native object handed back by
+  /// framework code can be recognised as this instance — see
+  /// [D4.ownerOfSuperObject]. Recorded here rather than where the object
+  /// crosses out, because it can come back through a path that never sent it.
+  Object? get bridgedSuperObject => _bridgedSuperObject;
+  set bridgedSuperObject(Object? value) {
+    _bridgedSuperObject = value;
+    if (value != null) D4.registerInterpretedForNative(value, this);
+  }
+
+  Object? _bridgedSuperObject;
 
   // Store a native proxy that wraps this instance (e.g., _InterpretedTickerProviderState).
   // Used by extractBridgedArg to return the proxy when the target type matches,
