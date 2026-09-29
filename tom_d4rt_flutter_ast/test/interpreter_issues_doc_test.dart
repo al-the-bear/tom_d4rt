@@ -561,6 +561,88 @@ const String sharedCauseDetector =
 /// the rule came into force; no entry existed on it.
 final DateTime sharedCauseCountsRequiredFrom = DateTime(2026, 9, 25);
 
+/// The corpus scopes an entry covers, read from its heading (SCE255).
+///
+/// "BOTH corpora" covers both; a `NO RUN MADE` entry covers neither, because
+/// it records a decision not to run. Headings that name neither scope (the
+/// oldest entries) cover neither.
+Set<String> corpusScopes(String heading) {
+  final h = heading.toLowerCase();
+  if (h.contains('no run made')) return const {};
+  final scopes = <String>{};
+  if (h.contains('both corpora')) scopes.addAll(['full', 'base']);
+  if (h.contains('full corpus') || h.contains('full-corpus')) {
+    scopes.add('full');
+  }
+  if (h.contains('base corpus')) scopes.add('base');
+  return scopes;
+}
+
+/// Every way [runs] break the one-marker-per-scope rule (SCE255).
+///
+/// Per scope: exactly one entry carries the scope's marker (`**Current
+/// full-corpus baseline.**` or its base-corpus twin), and its heading DATE is
+/// the newest of that scope's entries.
+/// By date and not by file order, because entries are prepended by hand and a
+/// reordering must not satisfy this by accident. The unscoped legacy marker
+/// `**This is the current baseline.**` is a finding wherever it appears.
+List<String> baselineMarkerFindings(List<VerificationRun> runs) {
+  final findings = <String>[];
+  for (final run in runs) {
+    if (run.body.any((l) => l.contains('This is the current baseline.'))) {
+      findings.add(
+        '${run.heading}: carries the unscoped legacy marker — use '
+        '`**Current full-corpus baseline.**` or `**Current base-corpus '
+        'baseline.**`',
+      );
+    }
+  }
+  for (final scope in const ['full', 'base']) {
+    final marker = '**Current $scope-corpus baseline.**';
+    final inScope = [
+      for (final run in runs)
+        if (corpusScopes(run.heading).contains(scope)) run,
+    ];
+    final marked = [
+      for (final run in runs)
+        if (run.body.any((l) => l.trimLeft().startsWith(marker))) run,
+    ];
+    if (marked.length != 1) {
+      findings.add(
+        '$scope: ${marked.length} entries carry `$marker`, expected exactly '
+        'one:\n    ${marked.map((r) => r.heading).join('\n    ')}',
+      );
+      continue;
+    }
+    final holder = marked.single;
+    if (!inScope.contains(holder)) {
+      findings.add(
+        '$scope: `$marker` sits on an entry whose heading does not name the '
+        '$scope corpus: ${holder.heading}',
+      );
+      continue;
+    }
+    final newest = inScope
+        .map((r) => entryDate(r.heading))
+        .whereType<DateTime>()
+        .reduce((a, b) => a.isAfter(b) ? a : b);
+    final holderDate = entryDate(holder.heading);
+    if (holderDate == null || holderDate.isBefore(newest)) {
+      final newer = [
+        for (final r in inScope)
+          if (entryDate(r.heading)?.isAfter(holderDate ?? DateTime(0)) ?? false)
+            r.heading,
+      ];
+      findings.add(
+        '$scope: `$marker` was left on ${holder.heading}, but newer '
+        '$scope-corpus runs are recorded — move it to the newest and mark this '
+        'one Superseded:\n    ${newer.join('\n    ')}',
+      );
+    }
+  }
+  return findings;
+}
+
 /// The date an entry's `### YYYY-MM-DD — ...` heading opens with, or null.
 DateTime? entryDate(String heading) {
   final m = RegExp(r'^### (\d{4})-(\d{2})-(\d{2})\b').firstMatch(heading);
@@ -1349,6 +1431,77 @@ void main() {
             '`sharedCauseDetector` in this file have parted. A writer runs '
             'one and the guard enforces the other; change both together.',
       );
+    });
+  });
+  group('SCE255: one current-baseline marker per corpus scope', () {
+    // "This is the current baseline." sat on the 2026-09-06 full run while two
+    // newer full runs, at a pair eleven minors on, sat above it. A reader
+    // comparing a new run against the marked entry was, by SCD65's own rule,
+    // comparing against a pair nobody could reproduce. Moving the marker alone
+    // is how it got there; this is what makes leaving it behind fail.
+
+    test('SCE255-1: both scopes have several dated entries to choose among. '
+        '[2026-09-29] (PASS)', () {
+      final runs = verificationRuns(lines);
+      for (final scope in const ['full', 'base']) {
+        final n = runs
+            .where((r) => corpusScopes(r.heading).contains(scope))
+            .where((r) => entryDate(r.heading) != null)
+            .length;
+        expect(
+          n,
+          greaterThan(1),
+          reason:
+              'Only $n dated "$scope" entries parsed — SCE255-2 would be '
+              'choosing the newest of nothing.',
+        );
+      }
+    });
+
+    test('SCE255-2: each scope\'s marker sits on its newest entry, exactly '
+        'once. [2026-09-29] (PASS)', () {
+      final findings = baselineMarkerFindings(verificationRuns(lines));
+      expect(findings, isEmpty, reason: findings.join('\n'));
+    });
+
+    test('SCE255-3: a marker left on an older entry, a duplicate, and the '
+        'legacy marker are each reported. [2026-09-29] (PASS)', () {
+      VerificationRun entry(String date, String scope, List<String> body) =>
+          VerificationRun('### $date — $scope corpus, fixture', body);
+      const full = '**Current full-corpus baseline.**';
+      const base = '**Current base-corpus baseline.**';
+      final good = [
+        entry('2026-09-20', 'base', [base]),
+        entry('2026-09-15', 'full', [full]),
+        entry('2026-09-10', 'base', []),
+      ];
+      expect(baselineMarkerFindings(good), isEmpty);
+
+      final leftBehind = [
+        entry('2026-09-20', 'full', []),
+        entry('2026-09-15', 'full', [full]),
+        entry('2026-09-10', 'base', [base]),
+      ];
+      expect(
+        baselineMarkerFindings(leftBehind).single,
+        contains('was left on'),
+      );
+
+      final duplicated = [
+        entry('2026-09-20', 'full', [full]),
+        entry('2026-09-15', 'full', [full]),
+        entry('2026-09-10', 'base', [base]),
+      ];
+      expect(
+        baselineMarkerFindings(duplicated).single,
+        contains('2 entries carry'),
+      );
+
+      final legacy = [
+        ...good,
+        entry('2026-09-01', 'full', ['**This is the current baseline.**']),
+      ];
+      expect(baselineMarkerFindings(legacy).single, contains('legacy marker'));
     });
   });
 }

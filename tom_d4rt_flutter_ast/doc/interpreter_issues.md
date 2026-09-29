@@ -4521,7 +4521,20 @@ against the entry before, not failed on. A run whose runner predates the
 trailer is named rather than printed as zero; count it with
 `dart run tool/framework_error_inventory.dart <run> --summary`.
 
+**Which entry is the baseline** is marked, once per corpus scope, because base
+runs are far more frequent and the newest entry is usually not a full one: a
+reader after the full-corpus figure must not land on a base run. The newest
+entry covering the full corpus opens with `**Current full-corpus baseline.**`,
+the newest covering the base corpus with `**Current base-corpus baseline.**`
+(a "BOTH corpora" entry covers both), and the entry a marker leaves says
+`**Superseded ...**` and by what. Recording a new run means moving its scope's
+marker in the same edit; SCE255 in `test/interpreter_issues_doc_test.dart`
+fails when a marker is left on an older entry.
+
 ### 2026-09-28 — base corpus, both twins, at the first interpreter releases since 2026-09-11: tom_d4rt 1.192.0 / tom_d4rt_ast 0.177.0
+
+**Current base-corpus baseline.** The newest run of the base corpus; a new base
+run is compared against this one, and moves the marker.
 
 **Why this run exists.** SCE212 (with sce209) published `tom_d4rt` 1.192.0,
 `tom_d4rt_ast` 0.176.0 and then 0.177.0, `tom_d4rt_generator` 1.44.0,
@@ -4667,6 +4680,9 @@ sweep is exactly the shape a real regression takes, and the discriminator is
 the log, not the number.
 
 ### 2026-09-15 — BOTH corpora, BOTH twins at tom_d4rt 1.77.0 / tom_d4rt_ast 0.65.0: SCC29 has no corpus fallout of its own (GEN-125 is all of it), and SCC33's backstop fires nowhere
+
+**Current full-corpus baseline.** The newest run of the full corpus; a new full
+run is compared against this one, and moves the marker.
 
 **Why this run exists.** SCD91 held SCC29's DONE WHEN clause — the bridge
 corpus run its landing commit could not make, because the twins resolve the
@@ -5057,7 +5073,9 @@ occurrence in the whole run; the remaining 16 files exited 0.
 
 ### 2026-09-06 — full corpus, BOTH twins: GEN-124 fixed; the corpus's exit codes understated the damage by 20×
 
-**This is the current baseline.** Supersedes the 2026-08-12 run below.
+**Superseded as the full-corpus baseline by the 2026-09-15 run above.** Its
+figures stand as the evidence for what changed since; it in turn superseded the
+2026-08-12 run below.
 
 **Resolved interpreter versions** — read from the lockfiles after
 `flutter pub upgrade`, per DGUC6, because the twins consume the interpreter
