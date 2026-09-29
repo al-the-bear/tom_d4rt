@@ -1,3 +1,16 @@
+## 0.1.11
+
+### Added — every bundle names the astgen that wrote it (scf3, sce15)
+
+`AstBundler` now sets `AstBundle.generator` to `tom_ast_generator <version>`
+on every bundle it builds, from `createFromSource` and `createFromFile`
+alike. The version is the versioner stamp, the same value `astgen --version`
+prints, so a bundle cannot disagree with the tool's banner. It reaches the
+plain JSON, the gzip bytes and the ZIP manifest. A bundle that misbehaves on
+a device can now say which tool produced it. Older bundles still load, with
+`generator` null. This uses the field `tom_d4rt_ast` published in the
+0.115.0 line, which the existing `^0.177.0` constraint already requires.
+
 ## 0.1.10
 
 ### Added — `AstBundlerConfig.includeSources` (sce236)

@@ -12,6 +12,7 @@ import 'package:tom_d4rt_ast/ast.dart';
 import 'package:tom_d4rt_ast/runtime.dart' show AstBundle;
 
 import 'package:tom_ast_generator/src/converter/ast_converter.dart';
+import 'package:tom_ast_generator/src/version.versioner.dart';
 
 // =============================================================================
 // Configuration
@@ -290,6 +291,11 @@ class AstBundler {
       entryPointUri: entryUri,
       modules: modules,
       sources: sources,
+      // SCF3 / SCE15: name the producer, so a bundle that misbehaves on a
+      // device can say which astgen built it. The versioner stamp is the value
+      // `astgen --version` prints and that version_stamp_test holds equal to
+      // pubspec.yaml, so a bundle cannot disagree with the tool's banner.
+      generator: 'tom_ast_generator ${AstgenVersionInfo.version}',
     );
   }
 
