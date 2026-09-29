@@ -1,3 +1,21 @@
+## 0.2.0
+
+### Changed — conditional imports are resolved for the bundle's target (scf16)
+
+`AstBundler` followed only a directive's default URI, so
+`import 'stub.dart' if (dart.library.io) 'io.dart';` bundled the stub on every
+platform although the tree carried both branches (since sce49). The bundler
+now resolves configurations when it builds: `AstBundlerConfig.target`, a
+`BundleTarget` naming the platform's `dart:` libraries and environment
+declarations, selects the first branch whose condition holds (else the
+default), only that module is bundled, and the import or export is rewritten
+to it with its configurations dropped.
+
+**The default target is `BundleTarget.vm`, so a VM bundle of a source tree
+with conditional imports now carries the `dart.library.io` branch where it
+used to carry the default.** Build with `BundleTarget.web` for a bundle a web
+app loads. A bundle is therefore specific to its target.
+
 ## 0.1.11
 
 ### Changed — resolves the current interpreter (sce237)

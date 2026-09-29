@@ -65,8 +65,17 @@ dart pub add tom_ast_generator
 The public library export is `package:tom_ast_generator/tom_ast_generator.dart`
 (also importable as `package:tom_ast_generator/tom_d4rt_astgen.dart` for
 legacy compatibility). Both re-export `AstConverter`, `AstBundler`,
-`AstBundlerConfig`, `ImportResolution`, `ImportAction`, and the full
-`tom_d4rt_ast` surface (`SCompilationUnit`, `SAstNode`, `AstBundle`, etc.).
+`AstBundlerConfig`, `BundleTarget`, `ImportResolution`, `ImportAction`, and
+the full `tom_d4rt_ast` surface (`SCompilationUnit`, `SAstNode`, `AstBundle`,
+etc.).
+
+A bundle is built for one platform. Conditional imports and exports
+(`import 'stub.dart' if (dart.library.io) 'io.dart';`) are resolved when the
+bundle is built: `AstBundlerConfig.target` (default `BundleTarget.vm`) picks
+the branch, only that module is bundled, and the directive is rewritten to it.
+Build with `AstBundlerConfig(target: BundleTarget.web)` for a bundle a web app
+will load, or pass a custom `BundleTarget` naming its `dart:` libraries and
+environment declarations.
 
 ### As a CLI tool
 

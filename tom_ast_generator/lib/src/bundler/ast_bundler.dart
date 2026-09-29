@@ -18,6 +18,91 @@ import 'package:tom_ast_generator/src/version.versioner.dart';
 // Configuration
 // =============================================================================
 
+/// The platform a bundle is built for, as conditional imports see it.
+///
+/// A configuration `import 'a.dart' if (dart.library.io) 'b.dart';` is decided
+/// by the environment declarations of the platform that loads the library.
+/// The bundler resolves configurations when it builds the bundle (SCF16,
+/// decided for bundle time), so a bundle is specific to its target: one built
+/// for [vm] carries the `dart.library.io` branch, one built for [web] carries
+/// the default.
+///
+/// `dart.library.<name>` holds (as `'true'`) when [libraries] contains
+/// `<name>`; any other name is looked up in [declarations].
+class BundleTarget {
+  /// Label for diagnostics, e.g. `vm`.
+  final String name;
+
+  /// The `dart:` libraries the platform provides, without the `dart:` prefix.
+  final Set<String> libraries;
+
+  /// Further environment declarations a condition may test.
+  final Map<String, String> declarations;
+
+  /// A target with the given [libraries] and [declarations].
+  const BundleTarget(
+    this.name, {
+    required this.libraries,
+    this.declarations = const {},
+  });
+
+  /// The Dart VM, including Flutter on mobile and desktop.
+  static const vm = BundleTarget(
+    'vm',
+    libraries: {
+      'async',
+      'collection',
+      'convert',
+      'core',
+      'developer',
+      'ffi',
+      'io',
+      'isolate',
+      'math',
+      'typed_data',
+    },
+  );
+
+  /// Web compilers (dart2js / dart2wasm), including Flutter web.
+  static const web = BundleTarget(
+    'web',
+    libraries: {
+      'async',
+      'collection',
+      'convert',
+      'core',
+      'developer',
+      'html',
+      'js',
+      'js_interop',
+      'js_interop_unsafe',
+      'js_util',
+      'math',
+      'typed_data',
+    },
+  );
+
+  /// The value the platform declares for [declaration], or null.
+  String? valueOf(String declaration) {
+    const prefix = 'dart.library.';
+    if (declaration.startsWith(prefix) &&
+        libraries.contains(declaration.substring(prefix.length))) {
+      return 'true';
+    }
+    return declarations[declaration];
+  }
+
+  /// Whether `if (<declaration> == '<value>')` holds on this platform; a
+  /// missing [value] is Dart's implicit `== 'true'`.
+  bool holds(String declaration, String? value) {
+    final actual = valueOf(declaration);
+    return actual != null && actual == (value ?? 'true');
+  }
+
+  @override
+  String toString() => 'BundleTarget($name)';
+}
+
 /// Configuration for [AstBundler] import resolution behavior.
 ///
 /// Controls which import schemes are auto-resolved, which are skipped,
@@ -51,12 +136,25 @@ class AstBundlerConfig {
   /// Default: `false`.
   final bool includeSources;
 
+  /// The platform conditional imports and exports are resolved for.
+  ///
+  /// Each configured directive is rewritten to the URI of its first branch
+  /// whose condition holds on this target, or its default URI when none does,
+  /// and only that module is bundled. The rewritten directive carries no
+  /// configurations: the bundle has already chosen.
+  ///
+  /// Default: [BundleTarget.vm] — the platform the bundler itself runs on and
+  /// the one `tom_d4rt_exec` executes on. Build with [BundleTarget.web] for a
+  /// bundle a web app will load.
+  final BundleTarget target;
+
   /// Default configuration.
   const AstBundlerConfig({
     this.stdlibSchemes = const {'dart'},
     this.maxImportDepth = 64,
     this.followPartDirectives = true,
     this.includeSources = false,
+    this.target = BundleTarget.vm,
   });
 }
 
@@ -531,7 +629,71 @@ class AstBundler {
       throw FormatException('Parse errors in ${path ?? "<source>"}:\n$errors');
     }
 
-    return _converter.convertCompilationUnit(parseResult.unit);
+    return _resolveConfigurations(
+      _converter.convertCompilationUnit(parseResult.unit),
+    );
+  }
+
+  /// [unit] with every conditional import and export rewritten to the branch
+  /// [AstBundlerConfig.target] selects. The unit is returned unchanged when it
+  /// has no configured directive.
+  SCompilationUnit _resolveConfigurations(SCompilationUnit unit) {
+    if (!unit.directives.any(
+      (d) =>
+          (d is SImportDirective && d.configurations.isNotEmpty) ||
+          (d is SExportDirective && d.configurations.isNotEmpty),
+    )) {
+      return unit;
+    }
+    return SCompilationUnit(
+      offset: unit.offset,
+      length: unit.length,
+      scriptTag: unit.scriptTag,
+      directives: [
+        for (final d in unit.directives)
+          switch (d) {
+            SImportDirective(:final configurations)
+                when configurations.isNotEmpty =>
+              SImportDirective(
+                offset: d.offset,
+                length: d.length,
+                metadata: d.metadata,
+                uri: _selectBranch(d.uri, configurations),
+                prefix: d.prefix,
+                combinators: d.combinators,
+                isDeferred: d.isDeferred,
+              ),
+            SExportDirective(:final configurations)
+                when configurations.isNotEmpty =>
+              SExportDirective(
+                offset: d.offset,
+                length: d.length,
+                metadata: d.metadata,
+                uri: _selectBranch(d.uri, configurations),
+                combinators: d.combinators,
+              ),
+            _ => d,
+          },
+      ],
+      declarations: unit.declarations,
+      comments: unit.comments,
+      hasParseErrors: unit.hasParseErrors,
+    );
+  }
+
+  /// The URI Dart would load: the first configuration whose condition holds on
+  /// the target, else [defaultUri].
+  SStringLiteral? _selectBranch(
+    SStringLiteral? defaultUri,
+    List<SConfiguration> configurations,
+  ) {
+    for (final configuration in configurations) {
+      final name = configuration.name?.name;
+      if (name == null) continue;
+      final value = _extractUriString(configuration.value);
+      if (config.target.holds(name, value)) return configuration.uri;
+    }
+    return defaultUri;
   }
 
   /// Detects the project root by searching upward for `pubspec.yaml`.
