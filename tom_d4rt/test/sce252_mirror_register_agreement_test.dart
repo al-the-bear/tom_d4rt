@@ -33,21 +33,20 @@
 //   1. The stdlib half of the file-level register is exactly SCD49's register.
 //      Both read code with comments and directives stripped; a stdlib file one
 //      calls divergent and the other does not is a defect in one of them.
-//   2. Every file SCD183 exempts is in the file-level register. SCD183 reads
-//      AFTER normalising `SFoo` to `Foo`, the file-level check before, so a
-//      file that differs after normalisation must differ before it.
-//   3. The converse gap — a file the file-level check calls divergent while
-//      SCD183 proves it identical after normalisation — is exactly
-//      [renameOnly]. Those files differ ONLY by the mirror rename; naming them
-//      here is what stops an entry like `environment.dart`'s from claiming a
-//      real divergence SCD183 has already disproved.
+//   2. Every file SCD183 exempts is in the file-level register.
+//   3. And the converse: every non-stdlib file the file-level register lists
+//      is one SCD183 exempts. Both now read AFTER normalising `SFoo` to `Foo`
+//      (the file-level check since SCE253), so a file one finds divergent and
+//      the other identical is a wrong entry — the `environment.dart` case,
+//      whose file-level reason SCD183 had disproved. Before SCE253 this was a
+//      declared rename-only exception set, because the file-level check read
+//      raw code; normalising there removed its only member and the need for it.
 //   4. Every file SCD199 lists a divergent body for is one SCD183 exempts. A
 //      body that disagrees under the same normalisation is a file that does.
 //
 // SEEN TO FAIL, as the todo required: F-SCE252-6 deletes one entry from each
 // register in turn and asserts the comparison reports it. It was also seen
-// against the real files on 2026-09-29 — removing `async_state.dart` from
-// [renameOnly] fired F-SCE252-4, and removing `callable.dart` from SCD183's
+// against the real files on 2026-09-29: removing `callable.dart` from SCD183's
 // `_structural` fired F-SCE252-4 and F-SCE252-5 — the file-level register and
 // the body census both still named it.
 library;
@@ -57,13 +56,6 @@ import 'dart:io';
 import 'package:test/test.dart';
 
 import 'sibling_trees.dart';
-
-/// Files the file-level check calls divergent although SCD183 — which
-/// normalises the mirror type names — finds them identical. Their whole raw
-/// difference is `AstNode` against `SAstNode` and the imports that supply
-/// them. A file joins this set only when `check_mirrored_sources.dart --show`
-/// confirms that.
-const Set<String> renameOnly = {'async_state.dart'};
 
 const _fileLevelPath = '../tom_d4rt_ast/tool/check_mirrored_sources.dart';
 const _scd49Path = 'test/scd49_stdlib_twin_sync_test.dart';
@@ -146,7 +138,6 @@ List<String> registerDisagreements({
   required Set<String> regions,
   required Set<String> structural,
   required Set<String> bodies,
-  required Set<String> renameOnly,
 }) {
   final findings = <String>[];
   final stdlib = {for (final k in stdlibPinned) 'stdlib/$k'};
@@ -172,19 +163,13 @@ List<String> registerDisagreements({
       'kDivergentMirrors does not list it',
     );
   }
-  final gap = fileRest.difference(scd183);
-  for (final f in gap.difference(renameOnly)) {
+  for (final f in fileRest.difference(scd183)) {
     findings.add(
       '$f: kDivergentMirrors calls it divergent but SCD183 finds it identical '
-      'after normalising the mirror type names. Either the difference is the '
-      'rename alone — add it to `renameOnly` here — or the file-level reason '
-      'describes a divergence SCD183 has disproved, and the entry is wrong',
-    );
-  }
-  for (final f in renameOnly.difference(gap)) {
-    findings.add(
-      '$f: in `renameOnly` but no longer in that gap — delete it from '
-      '`renameOnly`',
+      'after the same `SFoo`→`Foo` normalisation. Either the file-level reason '
+      'describes a divergence SCD183 has disproved and the entry is wrong, or '
+      'the two differ only in layout (line breaks), which SCD183 ignores and '
+      'the line-based check does not — reformat the pair',
     );
   }
   for (final f in bodies.difference(scd183)) {
@@ -218,14 +203,12 @@ void main() {
     Set<String>? r,
     Set<String>? st,
     Set<String>? b,
-    Set<String>? ro,
   }) => registerDisagreements(
     fileLevel: f ?? fileLevel,
     stdlibPinned: s ?? stdlibPinned,
     regions: r ?? regions,
     structural: st ?? structural,
     bodies: b ?? bodies,
-    renameOnly: ro ?? renameOnly,
   );
 
   group('SCE252: the mirror-divergence registers agree', () {
@@ -254,9 +237,12 @@ void main() {
       );
     });
 
-    test('F-SCE252-4: what kDivergentMirrors lists beyond SCD183 is exactly '
-        'the rename-only set [2026-09-29] (PASS)', () {
-      expect(disagreements().where((f) => f.contains('renameOnly')), isEmpty);
+    test('F-SCE252-4: every non-stdlib file kDivergentMirrors lists is one '
+        'SCD183 exempts [2026-09-29] (PASS)', () {
+      expect(
+        disagreements().where((f) => f.contains('SCD183 finds it identical')),
+        isEmpty,
+      );
     });
 
     test('F-SCE252-5: every file with a divergent body in SCD199 is exempted '
@@ -281,7 +267,9 @@ void main() {
         'SCD199 _divergentBodies (added stray)': disagreements(
           b: {...bodies, 'no_such_file.dart'},
         ),
-        'renameOnly': disagreements(ro: without(renameOnly)),
+        'kDivergentMirrors (added stray)': disagreements(
+          f: {...fileLevel, 'no_such_file.dart'},
+        ),
       };
       for (final entry in cases.entries) {
         expect(entry.value, isNotEmpty, reason: '${entry.key} went unnoticed');

@@ -25,6 +25,12 @@
 // for.
 import 'dart:io';
 
+// The rename map SCD199 already applies per member body. It is plain
+// `dart:io` and reads `../tom_ast_model/lib`, which is a sibling of both
+// packages, so the relative path is right from either root and this tool
+// keeps zero dependencies.
+import '../../tom_d4rt/test/mirror_normalisation.dart';
+
 /// Where the two trees keep the sources that must agree.
 const String kReferenceRoot = '../tom_d4rt/lib/src';
 const String kAstRoot = 'lib/src/runtime';
@@ -67,17 +73,11 @@ const String kAstRoot = 'lib/src/runtime';
 /// be textual mirrors\" is true either way; \"almost nothing in them matches\"
 /// is not.
 const Map<String, String> kDivergentMirrors = <String, String>{
-  'interpreter_visitor.dart': '2319 of 11548 code lines. $_astNodeTypes',
-  'callable.dart': '1457 of 4981 code lines. $_astNodeTypes',
-  'declaration_visitor.dart': '82 of 203 code lines. $_astNodeTypes',
-  'runtime_types.dart': '62 of 2035 code lines. $_astNodeTypes',
-  'introspection.dart': '57 of 609 code lines. $_astNodeTypes',
-  'async_state.dart':
-      '28 of 124 code lines, and ALL of them are the rename alone — every '
-      'divergent line is `AstNode`/`ForStatement` against '
-      '`SAstNode`/`SForStatement`, or the import that supplies them. No '
-      'accessor differs and no statement differs. SCD199, which normalises '
-      'the rename, reports 0 divergent bodies here. $_astNodeTypes',
+  'interpreter_visitor.dart': '1498 of 11743 code lines. $_astNodeTypes',
+  'callable.dart': '821 of 5170 code lines. $_astNodeTypes',
+  'declaration_visitor.dart': '62 of 203 code lines. $_astNodeTypes',
+  'runtime_types.dart': '55 of 2100 code lines. $_astNodeTypes',
+  'introspection.dart': '48 of 608 code lines. $_astNodeTypes',
   'bridge/bridged_enum.dart':
       '4 code lines at two sites, and nothing else: the reference passes '
       '`moduleLoader: ModuleLoader(env, {}, {}, {})` where the twin passes '
@@ -104,6 +104,13 @@ const Map<String, String> kDivergentMirrors = <String, String>{
   // helper above, so the file is a textual mirror again and the idiom lives
   // only in the two helpers whose job it is.
   //
+  // SCE253 removed `async_state.dart`. Its whole divergence was the mirror
+  // rename and the import supplying it; once [stripToCode] normalised both,
+  // the pair agreed. The same normalisation re-measured every entry above on
+  // 2026-09-29 — `interpreter_visitor.dart` went from 2312 differing lines to
+  // 1498 and `callable.dart` from 1517 to 821, so roughly a third of what these
+  // entries used to record was spelling.
+  //
   // SCD208 removed `environment.dart` and `bridge/bridged_types.dart`, the two
   // entries that said SUSPECTED ONE-SIDED EDIT. Neither was one. The first
   // declared the same method in a different POSITION, which the guard's
@@ -113,11 +120,12 @@ const Map<String, String> kDivergentMirrors = <String, String>{
 };
 
 const String _astNodeTypes =
-    'The analyzer AST and the mirror AST are different types — `AstNode` vs '
-    '`SAstNode` — and the accessors differ with them (`node.name.lexeme` '
-    "against `node.name?.name ?? ''`). These files cannot be textual mirrors "
-    'even in principle; this is the divergence the whole analyzer-free line '
-    'exists to have. What HOLDS them is not this entry but '
+    'The `SAstNode`/`AstNode` rename is normalised before comparing (SCE253), '
+    'so what remains is the accessors, which differ with the two ASTs '
+    "(`node.name.lexeme` against `node.name?.name ?? ''`), and the parent "
+    'pointer the mirror AST does not have. These files cannot be textual '
+    'mirrors even in principle; this is the divergence the whole '
+    'analyzer-free line exists to have. What HOLDS them is not this entry but '
     '`scd199_mirror_body_agreement_test.dart`, which compares each shared '
     'member body separately after normalising the rename, and pins every one '
     'that disagrees — 107 of 726, so 85 % of the bodies in these files are '
@@ -129,8 +137,42 @@ const String _permissionAccess =
     'on it, where the twin calls `visitor.moduleContext.checkPermission` '
     'directly — three lines against one, and no other difference in the file.';
 
+/// Every type `tom_ast_model` declares, read once from the sibling checkout.
+///
+/// Empty when the model is not beside this package, in which case nothing is
+/// normalised and every AST-typed file reads as divergent: the counts in
+/// [kDivergentMirrors] and `F-SCC92-4` then say so loudly rather than pass.
+final Set<String> _mirrorTypes = mirrorTypeNames();
+
+final RegExp _identifier = RegExp(r'\b[A-Za-z_][A-Za-z0-9_]*\b');
+
+/// The imports that SUPPLY the two ASTs: the analyzer in the reference; the
+/// mirror model in the twin, directly or through `package:tom_d4rt_ast/ast.dart`,
+/// whose whole content is `export 'package:tom_ast_model/ast.dart'`. They
+/// differ by construction and name nothing else, so after the rename is
+/// normalised they are the only lines left in a file whose whole difference
+/// is the rename.
+final RegExp _astSupplierImport = RegExp(
+  r"^\s*import\s+'package:(analyzer/|tom_ast_model/|tom_d4rt_ast/ast\.dart')",
+);
+
 /// The code of [source], with comments removed and the two package layouts
 /// normalised so only real differences survive.
+///
+/// The twin's mirror types are also de-prefixed — `SAstNode` reads as
+/// `AstNode`, `GeneralizingSAstVisitor` as `GeneralizingAstVisitor` — with the
+/// same map SCD199 uses per member (sce253). Without it `async_state.dart`
+/// was baselined under the reason that the two ASTs "cannot be textual
+/// mirrors", when every one of its divergent lines was the rename.
+///
+/// THE TRADE, restated rather than inherited from SCD199: the map hides a
+/// twin that uses a mirror type where the reference uses an UNRELATED
+/// analyzer type of the same base name. That is the 1:1-mirror claim itself
+/// being false, which `tom_ast_model`'s suite owns and a line diff could not
+/// have diagnosed anyway. A twin naming the wrong mirror type is still caught
+/// whenever the reference names the right one: `SBlock` against `Statement`
+/// normalises to `Block` against `Statement`, which differs. What the map buys
+/// is that this guard reports only differences in what the code DOES.
 ///
 /// Comments are stripped because the two trees document themselves separately
 /// and should keep doing so. Package paths are normalised because
@@ -154,6 +196,13 @@ List<String> stripToCode(String source, {required bool ast}) {
       line = line.substring(0, open);
     }
     if (RegExp(r'^\s*//').hasMatch(line)) continue;
+    if (_astSupplierImport.hasMatch(line)) continue;
+    if (ast) {
+      line = line.replaceAllMapped(
+        _identifier,
+        (m) => denormaliseMirrorType(m[0]!, _mirrorTypes),
+      );
+    }
     line = ast
         ? line
               .replaceAll('package:tom_d4rt_ast/runtime.dart', '@BARREL@')
