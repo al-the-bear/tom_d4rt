@@ -28,6 +28,7 @@ import 'file_writer.dart';
 import 'sdk_utils.dart' show getSdkPath;
 import 'user_bridge_scanner.dart';
 import 'generated_stamp.dart';
+import 'source_package.dart';
 
 // =============================================================================
 // OPERATOR DETECTION
@@ -1851,31 +1852,12 @@ class BridgeGenerator {
   /// Given `/path/to/.pub-cache/dcli_core-1.0.0/lib/src/util/line_file.dart`,
   /// returns `dcli_core`.
   String? _extractPackageFromPath(String filePath) {
-    final libIndex = filePath.indexOf('/lib/');
-    if (libIndex == -1) return null;
-
-    final packageDir = filePath.substring(0, libIndex);
-    final pubspecPath = '$packageDir/pubspec.yaml';
-
-    try {
-      final pubspecFile = File(pubspecPath);
-      if (pubspecFile.existsSync()) {
-        final content = pubspecFile.readAsStringSync();
-        final nameMatch = RegExp(
-          r'^name:\s*(\S+)',
-          multiLine: true,
-        ).firstMatch(content);
-        if (nameMatch != null) {
-          return nameMatch.group(1);
-        }
-      }
-    } catch (_) {
-      // Fall back to directory name
-    }
-
-    // Fall back to directory name (may include version suffix like dcli_core-1.0.0)
-    final dirName = p.basename(packageDir);
-    // Strip version suffix if present
+    final package = SourcePackage.of(filePath);
+    if (package == null) return null;
+    if (package.name != null) return package.name;
+    // Fall back to directory name (may include version suffix like
+    // dcli_core-1.0.0), with the version suffix stripped.
+    final dirName = p.posix.basename(package.root);
     final versionMatch = RegExp(r'^(.+?)-\d+\.\d+').firstMatch(dirName);
     return versionMatch?.group(1) ?? dirName;
   }
@@ -2235,7 +2217,14 @@ class BridgeGenerator {
                 }
                 continue;
               }
-              absolutePath = '$externalPackagePath/lib/$exportRelativePath';
+              // SCF32: joined, not interpolated. Every key of the returned
+              // map is matched against the analyzer's native, normalised path;
+              // `'$root/lib/$path'` is `C:\...\pkg/lib/...` on Windows (and
+              // `pkg//lib/...` for a root written with a trailing slash), no
+              // lookup hits it, and the export's show/hide filter fails open.
+              absolutePath = p.normalize(
+                p.join(externalPackagePath, 'lib', exportRelativePath),
+              );
             } else {
               // External package not configured to be followed, skip
               if (verbose) {
@@ -4129,27 +4118,14 @@ class BridgeGenerator {
   /// Converts an absolute source-file path under `/lib/` to a `package:` URI
   /// by reading the neighbouring `pubspec.yaml`. Returns `null` if the path
   /// cannot be mapped (e.g., it's not under a package's `lib/` directory).
-  String? _packageUriForFilePath(String sourceFile) {
-    final libIndex = sourceFile.indexOf('/lib/');
-    if (libIndex == -1) return null;
-    final packageDir = sourceFile.substring(0, libIndex);
-    final pubspecPath = '$packageDir/pubspec.yaml';
-    try {
-      final pubspecFile = File(pubspecPath);
-      if (!pubspecFile.existsSync()) return null;
-      final content = pubspecFile.readAsStringSync();
-      final nameMatch = RegExp(
-        r'^name:\s*(\S+)',
-        multiLine: true,
-      ).firstMatch(content);
-      final pkgName = nameMatch?.group(1);
-      if (pkgName == null) return null;
-      final relativePath = sourceFile.substring(libIndex + 5);
-      return 'package:$pkgName/$relativePath';
-    } catch (_) {
-      return null;
-    }
-  }
+  String? _packageUriForFilePath(String sourceFile) =>
+      SourcePackage.of(sourceFile)?.packageUri;
+
+  /// Test-only accessor for [_packageUriForFilePath] — the URI the
+  /// element-mode walker resolves a library by (SCF32).
+  @visibleForTesting
+  String? libraryUriForFilePathForTesting(String sourceFile) =>
+      _packageUriForFilePath(sourceFile);
 
   /// Resolves a [LibraryElement] for [normalizedPath], preferring the
   /// summary-friendly `getLibraryByUri(package:...)` path and falling back to
@@ -8303,14 +8279,11 @@ class BridgeGenerator {
 
     // Convert path like /path/to/package/lib/src/foo/bar.dart
     // to package:package_name/src/foo/bar.dart
-    final libIndex = normalizedPath.indexOf('/lib/');
-    if (libIndex != -1) {
-      final pkgName = _getPackageNameFromPath(normalizedPath) ?? packageName;
+    final sourcePackage = SourcePackage.of(normalizedPath);
+    if (sourcePackage != null) {
+      final pkgName = sourcePackage.name ?? packageName;
       if (pkgName != null) {
-        final relativePath = normalizedPath.substring(
-          libIndex + 5,
-        ); // Skip '/lib/'
-        return 'package:$pkgName/$relativePath';
+        return 'package:$pkgName/${sourcePackage.libRelativePath}';
       }
     }
 
@@ -8352,33 +8325,8 @@ class BridgeGenerator {
   /// Detects the package name from a file path by looking at pubspec.yaml.
   ///
   /// Given /path/to/tom_core_kernel/lib/src/foo.dart, returns 'tom_core_kernel'.
-  String? _getPackageNameFromPath(String filePath) {
-    final libIndex = filePath.indexOf('/lib/');
-    if (libIndex == -1) return null;
-
-    // Path up to /lib/
-    final packageDir = filePath.substring(0, libIndex);
-    final pubspecPath = '$packageDir/pubspec.yaml';
-
-    try {
-      final pubspecFile = File(pubspecPath);
-      if (pubspecFile.existsSync()) {
-        final content = pubspecFile.readAsStringSync();
-        // Simple regex to extract package name
-        final nameMatch = RegExp(
-          r'^name:\s*(\S+)',
-          multiLine: true,
-        ).firstMatch(content);
-        if (nameMatch != null) {
-          return nameMatch.group(1);
-        }
-      }
-    } catch (_) {
-      // Ignore errors, fall back to null
-    }
-
-    return null;
-  }
+  String? _getPackageNameFromPath(String filePath) =>
+      SourcePackage.of(filePath)?.name;
 
   /// Generates a bridge function for a single class.
   /// Returns list of warnings for skipped members.

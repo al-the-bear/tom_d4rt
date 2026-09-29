@@ -19,6 +19,7 @@ library;
 
 import 'dart:io';
 
+import 'package:meta/meta.dart' show visibleForTesting;
 import 'package:path/path.dart' as p;
 
 import 'bridge_config.dart';
@@ -3013,8 +3014,21 @@ bool _rc2IsInlineFunctionType(String type) {
 /// cannot be used as type arguments in the generated relaxer file because
 /// they're not imported. Only types from the module's own packages or
 /// dart:core are safe to use.
-bool _isTypeInScope(ClassInfo classInfo, Set<String> inScopePackagePrefixes) {
-  final src = classInfo.sourceFile;
+bool _isTypeInScope(ClassInfo classInfo, Set<String> inScopePackagePrefixes) =>
+    _isSourceInScope(classInfo.sourceFile, inScopePackagePrefixes);
+
+/// Test-only accessor for the scope check behind [_isTypeInScope] (SCF32).
+@visibleForTesting
+bool isSourceInScopeForTesting(
+  String sourceFile,
+  Set<String> inScopePackagePrefixes,
+) => _isSourceInScope(sourceFile, inScopePackagePrefixes);
+
+bool _isSourceInScope(String sourceFile, Set<String> inScopePackagePrefixes) {
+  // SCF32: the path fragments below are `/`-separated, and a Windows source
+  // path is not. Unnormalised, every Flutter class read as out of scope there
+  // and the relaxer came out as an empty stub.
+  final src = sourceFile.replaceAll(r'\', '/');
   if (src.startsWith('dart:')) return true; // dart:core, dart:ui, etc.
   for (final prefix in inScopePackagePrefixes) {
     if (src.startsWith(prefix)) return true;

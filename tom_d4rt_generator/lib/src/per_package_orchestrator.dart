@@ -21,6 +21,7 @@ import 'file_generators.dart' show ensureBDartExtension, toImportUri;
 import 'file_writer.dart';
 import 'generated_stamp.dart';
 import 'sdk_utils.dart' show getSdkPath;
+import 'source_package.dart';
 import 'user_bridge_scanner.dart';
 
 /// Information about a source package and its elements.
@@ -894,32 +895,10 @@ class PerPackageBridgeOrchestrator {
 
   /// Extracts package name from a source file path.
   String? _extractPackageName(String sourceFile) {
-    final libIndex = sourceFile.indexOf('/lib/');
-    if (libIndex == -1) return null;
-
-    // Look for pubspec.yaml to get accurate package name
-    final packageDir = sourceFile.substring(0, libIndex);
-    final pubspecPath = '$packageDir/pubspec.yaml';
-
-    try {
-      // Try reading pubspec.yaml
-      final file = io.File(pubspecPath);
-      if (file.existsSync()) {
-        final content = file.readAsStringSync();
-        final nameMatch = RegExp(
-          r'^name:\s*(\S+)',
-          multiLine: true,
-        ).firstMatch(content);
-        if (nameMatch != null) {
-          return nameMatch.group(1);
-        }
-      }
-    } catch (_) {
-      // Fall back to directory name
-    }
-
-    // Fall back to directory name
-    return p.basename(packageDir);
+    final package = SourcePackage.of(sourceFile);
+    if (package == null) return null;
+    // Fall back to the directory name when the pubspec cannot be read.
+    return package.name ?? p.posix.basename(package.root);
   }
 
   /// Extracts package name from a package URI (e.g., 'package:dcli_core/dcli_core.dart' -> 'dcli_core').

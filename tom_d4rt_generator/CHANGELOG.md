@@ -1,3 +1,32 @@
+## 1.50.0
+
+### Fixed — the generator emitted 24 classes on Windows where macOS emits 2015 (scf32)
+
+Measured on legiondary01 with the AST flutter twin's `buildkit.yaml`. Three
+path defects, each Windows-only, each silent:
+
+- **Library resolution missed every SDK and pub-cache library.** The
+  element-mode walker resolves a library by its `package:` URI, and the URI
+  came from a search for `'/lib/'` in the native path. A Windows path holds
+  `\lib\`, the search missed, and the fallback — resolving by path — finds
+  nothing outside the project. The same raw lookup was written out six times
+  (bridge generator, element-mode extractor, per-package orchestrator); it now
+  lives once, in `SourcePackage`, which normalises separators first.
+- **A followed external re-export was keyed unnormalised.**
+  `'$root/lib/$path'` is `C:\...\vector_math-2.2.0/lib/...` on Windows. The
+  class lookup uses the analyzer's native path, missed the key, and the
+  export's `show` filter failed open: all of `vector_math` landed in the
+  painting module. The path is now joined and normalised.
+- **The relaxer saw no Flutter type as in scope.** Its path-to-package mapping
+  matched `/`-separated fragments only, so the relaxer came out as an empty
+  stub. The source path is normalised first.
+
+With these and tom_analyzer_shared 0.7.6 (package roots from
+`package_config.json`, and no summary linked against a dependency without
+one), the twin's bridge freshness gate on Windows reports all 18 generated
+files fresh — byte-identical to the macOS-committed bridges. Output on macOS
+is unchanged.
+
 ## 1.49.0
 
 ### Added — `@D4rtUserProxy` directives emit proxies (scf15)

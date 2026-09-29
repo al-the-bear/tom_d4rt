@@ -16,8 +16,6 @@ library;
 
 // ignore_for_file: unintended_html_in_doc_comment
 
-import 'dart:io';
-
 // ignore: implementation_imports
 import 'package:analyzer/src/dart/element/element.dart'
     show ElementAnnotationImpl;
@@ -42,6 +40,7 @@ import 'bridge_generator.dart'
         ParameterInfo,
         mapPrivateSdkLibrary,
         normalizeLibraryIdentifier;
+import 'source_package.dart';
 import 'type_rendering.dart' as shared_type_rendering;
 
 /// Walks a resolved `LibraryElement` and fills collections equivalent to the
@@ -392,38 +391,12 @@ class ElementModeExtractor {
     return '$returnType Function($sb)';
   }
 
-  String _getPackageUriFromFilePath(String sourceFile) {
-    final libIndex = sourceFile.indexOf('/lib/');
-    if (libIndex != -1) {
-      final pkgName = _getPackageNameFromPath(sourceFile);
-      if (pkgName != null) {
-        final relativePath = sourceFile.substring(libIndex + 5);
-        return 'package:$pkgName/$relativePath';
-      }
-    }
-    return sourceFile;
-  }
-
-  String? _getPackageNameFromPath(String filePath) {
-    final libIndex = filePath.indexOf('/lib/');
-    if (libIndex == -1) return null;
-    final packageDir = filePath.substring(0, libIndex);
-    final pubspecPath = '$packageDir/pubspec.yaml';
-    try {
-      final pubspecFile = File(pubspecPath);
-      if (pubspecFile.existsSync()) {
-        final content = pubspecFile.readAsStringSync();
-        final nameMatch = RegExp(
-          r'^name:\s*(\S+)',
-          multiLine: true,
-        ).firstMatch(content);
-        if (nameMatch != null) return nameMatch.group(1);
-      }
-    } catch (_) {
-      return null;
-    }
-    return null;
-  }
+  /// The `package:` URI of [sourceFile], or the file path itself —
+  /// `/`-separated, since it lands in generated source — when the file is not
+  /// in a package with a readable pubspec (SCF32).
+  String _getPackageUriFromFilePath(String sourceFile) =>
+      SourcePackage.of(sourceFile)?.packageUri ??
+      sourceFile.replaceAll(r'\', '/');
 
   // ---------------------------------------------------------------------------
   // Parameter / annotation source extraction
