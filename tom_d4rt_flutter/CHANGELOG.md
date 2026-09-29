@@ -1,3 +1,14 @@
+## 1.4.2
+
+### Changed — the withheld GEN-126 registrations are documented as settled (scf31)
+
+Comment only. The note where the `RenderProxyBox` and
+`TwoDimensionalChildBuilderDelegate` proxies would be registered now records
+that scf31 repaired the case in the interpreter (tom_d4rt 1.210.0 /
+tom_d4rt_ast 0.195.0) by recognising a bridged super object when it comes
+back, and why the two proxies must therefore stay unregistered. No behaviour
+changes in this package.
+
 ## 1.4.1
 
 ### Changed — bridges regenerated with tom_d4rt_generator 1.47.0 (scf17)
