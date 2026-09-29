@@ -1,3 +1,25 @@
+## 0.1.13
+
+### Fixed — a failed project fails the run whether or not `--verbose` is set (scf33)
+
+A conversion whose `output` could not be resolved (a `project:` name not in
+the workspace) printed an error and counted it, but only a `--verbose` run
+turned the count into a failure: the same configuration exited 0 without the
+flag — including under `--dry-run`, the way a new configuration is checked.
+The project's verdict is now the error count, whatever was printed.
+
+### Docs — the `astgen` reference describes the shipped tool (scf33)
+
+`doc/astgen_build_yaml.md` is rewritten from `lib/src/v2/`: the `astgen:`
+section of `buildkit.yaml` is the only configuration, every `convert` key with
+its default, the three `output` forms and the project lookup, the output
+naming (`hello.runner.dart` → `hello.runner.ast.yaml`), what fails a project,
+and the command-line options. `doc/tom_build_configuration_and_cli.md` is
+removed: it described `tom_build.yaml` / `build.yaml` configuration and a
+registration-code generator, none of which the package has.
+`test/v2/scf33_astgen_doc_examples_test.dart` runs every `astgen:` example in
+the doc through the executor.
+
 ## 0.1.12
 
 ### Changed — conditional imports are resolved for the bundle's target (scf16)

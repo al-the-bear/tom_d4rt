@@ -208,14 +208,15 @@ Future<bool> _processProject(
       print('\n${dryRun ? 'Would convert' : 'Converted'} $totalFiles file(s)');
       if (!dryRun) {
         print('  Success: $successCount');
-        if (errorCount > 0) {
-          print('  Errors: $errorCount');
-          return false;
-        }
+        if (errorCount > 0) print('  Errors: $errorCount');
       }
     }
 
-    return true;
+    // SCF33: the verdict does not depend on how much was printed. An
+    // unresolvable output used to fail the run only under --verbose, so the
+    // same configuration exited 0 without it — and in a dry run, which is
+    // exactly where a user checks a new configuration.
+    return errorCount == 0;
   } finally {
     // Restore original directory
     Directory.current = originalDir;

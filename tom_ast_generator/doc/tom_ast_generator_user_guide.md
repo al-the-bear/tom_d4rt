@@ -120,10 +120,9 @@ For converting many files across a workspace, the `astgen` CLI emits
 on the shared `tom_build_base` navigation (project discovery, `--scan`,
 `--recursive`, `--dry-run`, `--verbose`). The full configuration reference —
 output path formats, `preserve_structure`, `include_sourcemap`, exclusion
-patterns — lives in
-[astgen_build_yaml.md](astgen_build_yaml.md) and
-[tom_build_configuration_and_cli.md](tom_build_configuration_and_cli.md); the
-README's "astgen CLI" section has the quick-start.
+patterns, command-line options — lives in
+[astgen_build_yaml.md](astgen_build_yaml.md); the README's "astgen CLI"
+section has the quick-start.
 
 ## Limitations
 

@@ -33,8 +33,7 @@
 - Integration with D4rt runtime
 
 **Documentation:**
-- [AST Build Configuration](../doc/astgen_build_yaml.md) — build.yaml configuration
-- [CLI Reference](../doc/tom_build_configuration_and_cli.md) — CLI options and tom_build.yaml
+- [astgen CLI](../doc/astgen_build_yaml.md) — the `astgen:` section of `buildkit.yaml`, CLI options and errors
 - [README](../README.md) — Quick start guide
 
 ## Related Packages

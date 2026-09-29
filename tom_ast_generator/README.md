@@ -150,9 +150,9 @@ Key CLI options (standard `tom_build_base` flags):
 | Option | Description |
 |--------|-------------|
 | `--scan <dir>` / `-s` | Scan directory for projects with `astgen:` config |
-| `--project <path>` / `-p` | Process a single project |
+| `--project <pattern>` / `-p` | Only the named projects (names, paths or globs) |
 | `--recursive` / `-r` | Recurse into sub-projects during scan |
-| `--dry-run` | Show what would be converted, write nothing |
+| `--dry-run` / `-n` | Show what would be converted, write nothing |
 | `--verbose` / `-v` | Show per-file detail |
 | `--list` | List projects that have astgen config; combine with `--show` to print their config sections |
 | `--version` / `-V` | Print version |
@@ -341,12 +341,12 @@ that is not a `dart:*` stdlib module or a bridged native library is included.
 The resulting bundle is serialized via `toJson()` / `toBytes()` and can be
 reconstructed with `fromJson()` / `fromBytes()` — with no analyzer involvement.
 
-### `buildkit.yaml` vs `tom_build.yaml`
+### One configuration file
 
-The `astgen` CLI uses two configuration files:
-
-- **`buildkit.yaml`** (or `build.yaml`) — per-project conversion rules (`astgen: convert: [...]`). This is what drives file-to-file conversion.
-- **`tom_build.yaml`** — workspace-level project discovery marker. Projects that have this file with an `astgen:` section are discovered automatically when running `astgen --scan`.
+The `astgen` CLI reads only the `astgen:` section of each project's
+`buildkit.yaml`. That section is both the conversion rules and the marker:
+when astgen walks a workspace, a project without it is skipped. There is no
+`tom_build.yaml` and no `build.yaml`.
 
 ### YAML output format
 
@@ -376,8 +376,7 @@ homes. For runnable language/bridging samples, see
 |----------|---------|
 | [doc/tom_ast_generator_user_guide.md](doc/tom_ast_generator_user_guide.md) | Differences-only guide: role in the pipeline (1:1 copy + bundling), `astgen` vs the bridge generator, when to bundle, bundle emission. |
 | [doc/tom_ast_generator_limitations.md](doc/tom_ast_generator_limitations.md) | Conversion/bundling deltas; backlinks to the canonical interpreter limitations. |
-| [doc/astgen_build_yaml.md](doc/astgen_build_yaml.md) | Full `astgen` `buildkit.yaml` configuration reference. |
-| [doc/tom_build_configuration_and_cli.md](doc/tom_build_configuration_and_cli.md) | CLI usage, options, and execution modes. |
+| [doc/astgen_build_yaml.md](doc/astgen_build_yaml.md) | The `astgen` CLI: its `buildkit.yaml` configuration, command-line options and errors. |
 
 Shared interpreter semantics are documented once in the base projects — this
 package adds no interpreter behaviour of its own:
