@@ -83,6 +83,15 @@ const Map<String, String> _deferred = {
   '0.187.0':
       'unpublished (scf42): the post-publish base corpus of both twins is '
       'owed once 0.187.0 is on pub.dev',
+  // SCF19: an interpreted subclass of a bridged class now reaches the members
+  // its bridged superclass inherits. Mirrored, so tom_d4rt 1.203.0 carries the
+  // marker too. Unpublished, and owed by the same scf42 pass.
+  '0.188.0':
+      'unpublished (scf42): the post-publish base corpus of both twins is '
+      'owed once 0.188.0 is on pub.dev',
+  '1.203.0':
+      'tom_d4rt, unpublished (scf42): the reference half of the scf19 '
+      'change, certified by the same post-publish run as 0.188.0',
 };
 
 List<int> _key(String v) => v.split('.').map(int.parse).toList();

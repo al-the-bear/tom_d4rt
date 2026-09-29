@@ -3160,7 +3160,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           } else {
             // Try to get field value directly
             try {
-              currentValue = instance.get(propertyName);
+              currentValue = instance.get(propertyName, visitor: this);
             } catch (e) {
               throw RuntimeD4rtException(
                 "Cannot read '$propertyName' from superclass chain of '${instance.klass.name}' for compound 'super' assignment: $e",
@@ -3426,7 +3426,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                 );
                 final Object? currentValue = getter != null
                     ? getter.bind(interpretedObj).call(this, [], {})
-                    : interpretedObj.get(propertyName);
+                    : interpretedObj.get(propertyName, visitor: this);
                 final Object? newValue = computeCompoundValue(
                   currentValue,
                   rhsValue,
@@ -3467,8 +3467,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         }
 
         // Find the bridged setter adapter
-        final setterAdapter = bridgedSuper.findInstanceSetterAdapter(
+        final setterAdapter = bridgedSuper.findReachableSetterAdapter(
           propertyName,
+          this,
         );
 
         if (operatorType == TokenType.EQ) {
@@ -3500,8 +3501,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         } else {
           // Compound assignment: super.property += rhsValue, etc.
           // Need both getter and setter
-          final getterAdapter = bridgedSuper.findInstanceGetterAdapter(
+          final getterAdapter = bridgedSuper.findReachableGetterAdapter(
             propertyName,
+            this,
           );
           if (getterAdapter == null) {
             throw RuntimeD4rtException(
@@ -3613,7 +3615,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           return rhsValue; // Simple Assignment returns RHS value
         } else {
           // Compound assignment: target.property op= rhsValue
-          final currentValue = target.get(propertyName);
+          final currentValue = target.get(propertyName, visitor: this);
           Object? newValue = computeCompoundValue(
             currentValue,
             rhsValue,
@@ -3861,7 +3863,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                 );
                 final Object? currentValue = getter != null
                     ? getter.bind(interpretedObj).call(this, [], {})
-                    : interpretedObj.get(propertyName);
+                    : interpretedObj.get(propertyName, visitor: this);
                 final Object? newValue = computeCompoundValue(
                   currentValue,
                   rhsValue,
@@ -4304,7 +4306,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         // Instance method call
         try {
           // Get should return the BOUND method
-          calleeValue = targetValue.get(methodName);
+          calleeValue = targetValue.getForInvocation(methodName, visitor: this);
           Logger.debug(
             "[MethodInvocation] Found direct instance member '$methodName' on ${targetValue.klass.name}. Type: ${calleeValue?.runtimeType}",
           );
@@ -4717,7 +4719,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             final inner = nativeTarget.d4rtInstance;
             if (inner is InterpretedInstance) {
               try {
-                final bound = inner.get(methodName);
+                final bound = inner.getForInvocation(methodName, visitor: this);
                 if (bound is Callable) {
                   final evaluationResult = _evaluateArgumentsAsync(
                     node.argumentList,
@@ -5293,8 +5295,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         }
 
         // Find the method adapter in the bridged class
-        final methodAdapter = bridgedSuper.findInstanceMethodAdapter(
+        final methodAdapter = bridgedSuper.findReachableMethodAdapter(
           methodName,
+          this,
         );
 
         if (methodAdapter != null) {
@@ -6447,8 +6450,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       }
 
       // Try the bridged getter
-      final getterAdapter = bridgedSuper.findInstanceGetterAdapter(
+      final getterAdapter = bridgedSuper.findReachableGetterAdapter(
         propertyName,
+        this,
       );
       if (getterAdapter != null) {
         try {
@@ -6466,8 +6470,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       }
 
       // Try the bridged method (for tear-off)
-      final methodAdapter = bridgedSuper.findInstanceMethodAdapter(
+      final methodAdapter = bridgedSuper.findReachableMethodAdapter(
         propertyName,
+        this,
       );
       if (methodAdapter != null) {
         // Return a callable bound to the native object

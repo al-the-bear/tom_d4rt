@@ -2202,6 +2202,19 @@ const Map<String, _Convergence> _convergenceLog = {
 /// re-measure the whole register when the floor moves, not the entry you
 /// happened to be reading.
 const Map<String, _Divergence> _divergentBaseline = {
+  // SCF19: an interpreted subclass of a bridged class now reaches the members
+  // its bridged superclass inherits (`class MyQ extends ListQueue` answering
+  // `elementAt`). The published interpreter does not, so this port carries the
+  // reference verbatim but for a group-level skip.
+  // PUBLISH-BLOCKED — re-port when exec's tom_d4rt_ast floor passes 0.188.0,
+  // by copying the reference file down; converges at a floor past 0.188.0.
+  'scf19_inherited_bridged_member_test.dart': _Divergence.deliberate,
+  // SCF19: the reference copy added F-SCE74-3, `super.elementAt(0)` from an
+  // interpreted ListQueue subclass. That case cannot pass against the
+  // published interpreter, so this copy keeps the file without it.
+  // PUBLISH-BLOCKED — re-port when exec's tom_d4rt_ast floor passes 0.188.0,
+  // by copying the reference file down; converges at a floor past 0.188.0.
+  'stdlib/sce74_sdk_error_type_parity_test.dart': _Divergence.deliberate,
   // SCF6: the reference copy now asserts that an async break / continue runs
   // the finallys it crosses (F-SCE18-8/9 rewritten from the old wrong answers,
   // F-SCF6-1..7 added). The published interpreter still skips them, so this
@@ -2289,6 +2302,8 @@ const Map<String, _Divergence> _divergentBaseline = {
 /// Recomputing without reading the new difference is the failure mode; the
 /// message says so.
 const Map<String, String> _divergenceFingerprints = <String, String>{
+  'scf19_inherited_bridged_member_test.dart': 'f6bcc3d645a83127',
+  'stdlib/sce74_sdk_error_type_parity_test.dart': '781b5194a45404e2',
   'sce18_finally_on_abrupt_exit_test.dart': 'ed38f75775d721c1',
   'scd4_await_for_break_test.dart': 'd55f7afda3086484',
   'stdlib/io/scd188_stdin_audit_reason_expiry_test.dart': '46be47f827711c3a',
@@ -2477,6 +2492,15 @@ typedef _Pin = ({String floor, String measured});
 /// recorded evidence was seven and ten cases out of date. Both are re-stamped
 /// above their entries in `_uncoveredBaseline`.
 const Map<String, _Pin> _pinnedInterpreterFloors = <String, _Pin>{
+  // SCF19, pinned at the release carrying the inherited bridged-member walk.
+  'scf19_inherited_bridged_member_test.dart': (
+    floor: '0.188.0',
+    measured: '0.184.0',
+  ),
+  'stdlib/sce74_sdk_error_type_parity_test.dart': (
+    floor: '0.188.0',
+    measured: '0.184.0',
+  ),
   // SCF4, pinned at the release carrying the generator's listener gate.
   'scd4_await_for_break_test.dart': (floor: '0.185.0', measured: '0.184.0'),
   // SCF6, pinned at the release carrying the async jump-through-finally.

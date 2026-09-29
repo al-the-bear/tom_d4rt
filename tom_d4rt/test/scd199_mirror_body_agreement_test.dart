@@ -326,7 +326,7 @@ const _divergentBodies = <String, Map<String, String>>{
     // unbridged-native clause to the same two assignment errors; the residue
     // is still `PrefixedIdentifier` vs `SPrefixedIdentifier` in one message,
     // which the new text now sits beside.
-    'InterpreterVisitor.visitAssignmentExpression': '47927a67',
+    'InterpreterVisitor.visitAssignmentExpression': '012921db',
     'InterpreterVisitor.visitBinaryExpression': 'c2f2a78f',
     // SCE130: 57fc0f99 -> fffabfd5. Both trees gained the same call to
     // `klass.resolveDeferredTypeParameterBounds`; the residue is the
@@ -346,7 +346,7 @@ const _divergentBodies = <String, Map<String, String>>{
     // SCE109 moved this signature without changing what diverges: the
     // arity-heuristic throw sites inside it now raise `RangeError`
     // rather than `RuntimeD4rtException`, symmetrically in both trees.
-    'InterpreterVisitor.visitMethodInvocation': '2435dba5',
+    'InterpreterVisitor.visitMethodInvocation': '82a3e919',
     // SCE236: the two `visitNode` bodies are identical now. Only the excerpt
     // helper differs: `toSource()` here, the bundled source in the twin.
     'InterpreterVisitor._nodeExcerpt': 'b5e37909',
@@ -380,7 +380,7 @@ const _divergentBodies = <String, Map<String, String>>{
     // The bodies are otherwise token-for-token the same shape.
     'InterpretedClass.resolveDeferredTypeParameterBounds': '93cf914e',
     'InterpretedClass.resolveTypeAnnotationDynamic': 'b27475b4',
-    'InterpretedInstance.get': '286b1331',
+    'InterpretedInstance._get': '286b1331',
   },
 };
 

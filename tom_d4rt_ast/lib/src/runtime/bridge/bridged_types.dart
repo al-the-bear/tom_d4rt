@@ -377,6 +377,51 @@ class BridgedClass implements RuntimeType {
     return setters[name];
   }
 
+  /// [findInstanceMethodAdapter] as a subclass of this bridge sees it: this
+  /// bridge's own adapter, else that of the first registered supertype bridge,
+  /// in [transitiveSupertypeNames] order, that declares [memberName].
+  ///
+  /// A bridge carries only the members its class DECLARES, so the `ListQueue`
+  /// bridge has no `elementAt`. A bare `ListQueue` instance reaches
+  /// `Iterable.elementAt` through the visitor's supertype walk; an interpreted
+  /// `class MyQ extends ListQueue` needs the same walk, or every member the
+  /// bridged superclass inherits is absent from `this`, bare and `super.`
+  /// access alike. Supertype names resolve in [visitor]'s environment; with no
+  /// visitor only this bridge's own adapter is found.
+  BridgedMethodAdapter? findReachableMethodAdapter(
+    String memberName,
+    InterpreterVisitor? visitor,
+  ) => _findReachable(visitor, (b) => b.findInstanceMethodAdapter(memberName));
+
+  /// [findInstanceGetterAdapter] with the supertype walk of
+  /// [findReachableMethodAdapter].
+  BridgedInstanceGetterAdapter? findReachableGetterAdapter(
+    String memberName,
+    InterpreterVisitor? visitor,
+  ) => _findReachable(visitor, (b) => b.findInstanceGetterAdapter(memberName));
+
+  /// [findInstanceSetterAdapter] with the supertype walk of
+  /// [findReachableMethodAdapter].
+  BridgedInstanceSetterAdapter? findReachableSetterAdapter(
+    String memberName,
+    InterpreterVisitor? visitor,
+  ) => _findReachable(visitor, (b) => b.findInstanceSetterAdapter(memberName));
+
+  T? _findReachable<T>(
+    InterpreterVisitor? visitor,
+    T? Function(BridgedClass bridge) pick,
+  ) {
+    final own = pick(this);
+    if (own != null || visitor == null) return own;
+    for (final superName in transitiveSupertypeNames(name)) {
+      final superBridge = visitor.environment.findBridgedClassByName(superName);
+      if (superBridge == null) continue;
+      final found = pick(superBridge);
+      if (found != null) return found;
+    }
+    return null;
+  }
+
   /// SCD198 — a bare class name is a VALUE in a script, and it has to hash like
   /// the `Type` it denotes.
   ///

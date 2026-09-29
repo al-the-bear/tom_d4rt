@@ -1,3 +1,25 @@
+## 1.203.0
+
+### Fixed — an interpreted subclass reaches its bridged superclass's INHERITED members (scf19)
+
+A bridge carries the members its class declares, so the `ListQueue` bridge
+has `removeFirst` and no `elementAt` — that one is `Iterable`'s. A bare
+`ListQueue()` reached it through the supertype walk; `class MyQ extends
+ListQueue {}` did not, because every path from an interpreted instance to its
+bridged superclass asked that bridge's own maps. `elementAt`, `first`, `map`,
+`fold` were absent through `q.`, bare inside a method and `super.` alike, each
+failing with a different exception type.
+
+`BridgedClass.findReachableMethodAdapter` / `…GetterAdapter` /
+`…SetterAdapter` return the bridge's own adapter, else the first registered
+supertype bridge's, resolving supertype names in the visitor's environment.
+They replace the own-map lookups on the bridged-superclass paths of
+`InterpretedInstance.get` / `set` and of `super.` access, and the method
+invocation path now supplies the visitor (`InterpretedInstance.getForInvocation`,
+which leaves a miss to the invocation site's own `noSuchMethod` handling).
+
+Name resolution: yes — a bare name inside an interpreted subclass of a bridged class now resolves to a member the bridged superclass inherits (scf19).
+
 ## 1.202.0
 
 ### Fixed — `break` / `continue` in an async body run the finallys they cross (scf6)

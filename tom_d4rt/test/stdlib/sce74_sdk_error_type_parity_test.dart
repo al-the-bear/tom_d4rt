@@ -214,6 +214,34 @@ void main() {
       );
     });
 
+    test('F-SCE74-3: `super.elementAt(0)` from an interpreted subclass of '
+        'ListQueue raises the SDK type and a script catches it '
+        '[2026-09-29] (PASS)', () {
+      // The bridged-SUPERCLASS call path has its own `on RangeError` arm.
+      // Every member that raises a RangeError there is an inherited one, and
+      // until SCF19 an interpreted subclass could not reach inherited members
+      // at all, so this arm was correct and undrivable.
+      final sdk = _sdkThrows(
+        _members.firstWhere((m) => m.name == 'elementAt(0)'),
+        _receivers.firstWhere((r) => r.name == 'ListQueue'),
+      );
+      expect(sdk, isNotNull, reason: 'the SDK throws on an empty ListQueue');
+      expect(
+        D4rt().execute(
+          source:
+              """
+import 'dart:collection';
+class MyQ extends ListQueue { f() => super.elementAt(0); }
+main() {
+  try { MyQ().f(); return "no throw"; }
+  on $sdk catch (_) { return "caught"; }
+  catch (e) { return "escaped"; }
+}""",
+        ),
+        'caught',
+      );
+    });
+
     for (final (r, m, sdk) in cases) {
       test('F-SCE74-2[${r.name}.${m.name}]: an empty receiver raises $sdk '
           'and a script catches it [2026-09-21] (PASS)', () {

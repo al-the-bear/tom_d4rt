@@ -1646,7 +1646,29 @@ class InterpretedInstance implements RuntimeValue {
 
   // Get: Field -> Getter -> Method (now includes inheritance)
   @override
-  Object? get(String name, {InterpreterVisitor? visitor}) {
+  Object? get(String name, {InterpreterVisitor? visitor}) =>
+      _get(name, visitor, answerMissWithNoSuchMethod: true);
+
+  /// [get] for the callee of a method invocation `x.name(...)`.
+  ///
+  /// Resolves exactly what [get] resolves, with [visitor] supplied so the
+  /// bridged-superclass lookup can walk the bridge's registered supertypes
+  /// (SCF19). The one difference is a miss: [get] answers a missing name by
+  /// calling `noSuchMethod` with a GETTER `Invocation`, which is right for a
+  /// property read and wrong here — a call `x.name(a)` must reach
+  /// `noSuchMethod` as `Invocation.method` with its arguments, and the
+  /// invocation site builds that itself. So a miss throws, as [get] does
+  /// without a visitor.
+  Object? getForInvocation(
+    String name, {
+    required InterpreterVisitor visitor,
+  }) => _get(name, visitor, answerMissWithNoSuchMethod: false);
+
+  Object? _get(
+    String name,
+    InterpreterVisitor? visitor, {
+    required bool answerMissWithNoSuchMethod,
+  }) {
     Logger.debug(
       "[Instance.get] Looking for '$name' on instance $hashCode of '${klass.name}'. Fields: ${_fields.keys}",
     );
@@ -1762,7 +1784,10 @@ class InterpretedInstance implements RuntimeValue {
           final bridgedSuper = currentClass.bridgedSuperclass!;
 
           // Try getter first — may use `nativeStateProxy` as fallback.
-          final getterAdapter = bridgedSuper.findInstanceGetterAdapter(name);
+          final getterAdapter = bridgedSuper.findReachableGetterAdapter(
+            name,
+            visitor,
+          );
           if (getterAdapter != null && getterTarget != null) {
             Logger.debug(
               "[Instance.get] Found getter '$name' in bridged superclass '${bridgedSuper.name}' at level '${currentClass.name}'. Calling adapter.",
@@ -1796,7 +1821,10 @@ class InterpretedInstance implements RuntimeValue {
           // fallback) — see Bug-45.
           if (nativeTarget != null) {
             // Try method next
-            final methodAdapter = bridgedSuper.findInstanceMethodAdapter(name);
+            final methodAdapter = bridgedSuper.findReachableMethodAdapter(
+              name,
+              visitor,
+            );
             if (methodAdapter != null) {
               Logger.debug(
                 "[Instance.get] Found method '$name' in bridged superclass '${bridgedSuper.name}' at level '${currentClass.name}'. Returning bound callable.",
@@ -1964,7 +1992,7 @@ class InterpretedInstance implements RuntimeValue {
 
     // Check for noSuchMethod before throwing an error
     final noSuchMethod = klass.findInstanceMethod('noSuchMethod');
-    if (noSuchMethod != null && visitor != null) {
+    if (answerMissWithNoSuchMethod && noSuchMethod != null && visitor != null) {
       Logger.debug(
         "[Instance.get] Property '$name' not found but noSuchMethod exists. Invoking noSuchMethod...",
       );
@@ -1983,7 +2011,10 @@ class InterpretedInstance implements RuntimeValue {
       while (walkClass != null) {
         final bridgedSuper = walkClass.bridgedSuperclass;
         if (bridgedSuper != null) {
-          final methodAdapter = bridgedSuper.findInstanceMethodAdapter(name);
+          final methodAdapter = bridgedSuper.findReachableMethodAdapter(
+            name,
+            visitor,
+          );
           if (methodAdapter != null) {
             // GEN-112 — when an interpreted `State<T>` subclass owns a
             // native `_InterpretedState` proxy (stored on
@@ -2023,7 +2054,10 @@ class InterpretedInstance implements RuntimeValue {
               name: name,
             );
           }
-          final getterAdapter = bridgedSuper.findInstanceGetterAdapter(name);
+          final getterAdapter = bridgedSuper.findReachableGetterAdapter(
+            name,
+            visitor,
+          );
           if (getterAdapter != null) {
             // Cluster B (RC-9b): When a bridged-mixin's getter adapter
             // rejected the native proxy via `validateTarget` (because the
@@ -2129,7 +2163,10 @@ class InterpretedInstance implements RuntimeValue {
         final nativeTarget = bridgedSuperObject ?? nativeProxy;
         if (nativeTarget != null) {
           final bridgedSuper = currentClass.bridgedSuperclass!;
-          final setterAdapter = bridgedSuper.findInstanceSetterAdapter(name);
+          final setterAdapter = bridgedSuper.findReachableSetterAdapter(
+            name,
+            visitor,
+          );
 
           if (setterAdapter != null) {
             Logger.debug(
