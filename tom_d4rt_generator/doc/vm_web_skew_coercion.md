@@ -181,7 +181,7 @@ Both pass under `dart test test/vm_web_skew_test.dart`.
 | This documentation | **Shipped.** |
 | Both-twin regen with the gate **ON** | **Deferred** — blocked by the stale committed `.b.dart` baseline: a no-op regen of `tom_d4rt_flutter_ast` already churns ~16 files (incl. a 985-line `vector_math` `_createMatrix4Bridge()` deletion), so a gate-on regen cannot be committed as a clean scoped diff until that baseline is reconciled under the serial base-test gate. |
 | Deleting `SceneBuilderUserBridge.overrideMethodPushOpacity` | **Deferred** — depends on the gate-on regen landing first (removing it before the generated adapter is web-safe would regress `SceneBuilder.pushOpacity`). |
-| Serial base-test gate + dart2js/web smoke | **Deferred** — `flutter test` in the twins must run serially (shared HTTP companion app); the full 14-file corpus across both twins is a multi-hour sweep, run via `tom_d4rt_flutter_ast/tool/sweep_both_projects.sh`. |
+| Serial base-test gate + dart2js/web smoke | **Deferred** — `flutter test` in the twins must run serially (shared HTTP companion app); the full corpus across both twins is a multi-hour sweep, run with `./test/run_issue_analysis_tests.sh` in each twin, one twin after the other. |
 
 The deferred tail is tracked in `_ai/quests/d4rt/todo_impossible.md` (#7) and,
 as a live entry, in `_ai/quests/d4rt/todos.d4rt.todo.yaml`.
