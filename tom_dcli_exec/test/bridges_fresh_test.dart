@@ -10,25 +10,31 @@
 // When it fails: run `dart run tom_d4rt_generator:d4rtgen` in this package and
 // commit what it changes.
 //
-// EXCEPT RIGHT NOW, AND THIS IS THE ONE CASE WHERE THAT INSTRUCTION IS WRONG.
-// Measured 2026-09-21: this test is RED on `lib/src/bridges/dcli_bridges.b.dart`
-// and a fresh generation is WORSE than what is committed, so following the
-// line above would commit a downgrade. The committed file was written by
-// generator 1.26.2; every generator since resolves `Env.scopeKey` to
-// `InvalidType` and emits `value as dynamic` where 1.26.2 emitted
-// `D4.extractBridgedArg<ScopeKey<Env>>(value, 'scopeKey')`. The second of those
-// is behavioural: it assigns whatever the interpreter passed, wrapper and all.
+// ONE CASE WHERE THAT INSTRUCTION CAN BE WRONG, and the second test below is
+// what makes it safe. From 2026-09-18 to at least 2026-09-21 a fresh
+// generation was WORSE than the committed file: `SettingsYaml` came back as
+// `InvalidType` / `dynamic` (scf7) and `Env.scopeKey`'s `ScopeKey<Env>` as
+// `value as dynamic` (scf18), identically in both REPL tools, so following the
+// message would have committed a downgrade.
 //
-// The cause is the generator's move to summary-based element extraction —
-// `scope` is a direct dependency but no barrel re-exports `ScopeKey`, so it
-// falls outside the linked element universe the summaries build. The run says
-// so: "GEN-079 WARNING: ScopeKey is not re-exported by any barrel import".
-// Cache staleness, pub-cache damage and a hand-edited committed file were each
-// ruled out by measurement; the tree's 1.42.0 produces output identical to the
-// resolved 1.28.0's.
+// The cause was in the environment, not in either tool or the generator's
+// code: no generator release between 1.42.0 and 1.44.0 and no
+// `tom_analyzer_shared` change since 2026-08-04 touches type resolution, yet
+// sce212's regeneration on 2026-09-28 (generator 1.44.0) reproduced the real
+// types, and 1.46.0 does too. The one input that moved is the analyzer summary
+// cache (`<workspace>/.tom/analyzer-cache/<analyzer major>/<sdk>/`), which
+// `dart pub get` never touches and which relinks a bundle when any version in
+// its dependency closure changes — sce212 moved these locks, and the
+// `scope`, `settings_yaml` and `dcli_core` summaries were rebuilt. So a
+// summary linked against a superseded closure is the explanation that fits
+// every measurement; the "ScopeKey is not re-exported by any barrel import"
+// warning still prints and the type still resolves, so the barrel gap first
+// blamed was not it. Ruled out earlier, and still ruled out: dcli 8 vs 10, the
+// project's `.dart_tool`, a missing package.
 //
-// So LEAVE THIS RED until `scf18` is fixed. It is doing its job — the red is
-// what stops the downgrade — and the failure is not a reason to regenerate.
+// IF IT RECURS: delete the affected `*.sum` files under that cache directory
+// and regenerate before believing a fresh generation over the committed file.
+// BRIDGE-FRESH-02 below refuses a committed downgrade either way.
 
 import 'dart:io';
 
@@ -69,4 +75,32 @@ void main() {
           '${freshness.orphaned.join('\n  ')}',
     );
   }, timeout: const Timeout(Duration(minutes: 10)));
+
+  test('BRIDGE-FRESH-02: the committed dcli bridge keeps the types a degraded '
+      'generation loses [2026-09-29] (PASS)', () {
+    // scf7 / scf18: a generation run against a stale analyzer summary resolved
+    // these to `InvalidType` / `dynamic`. BRIDGE-FRESH-01 would then go red
+    // and tell the reader to regenerate and commit — which would commit the
+    // downgrade. This refuses that commit.
+    final bridge = File(
+      'lib/src/bridges/dcli_bridges.b.dart',
+    ).readAsStringSync();
+    expect(
+      bridge.contains('InvalidType'),
+      isFalse,
+      reason:
+          'a type the analyzer could not resolve reached the bridge; see the '
+          'header of this file before committing it',
+    );
+    expect(
+      bridge,
+      contains(r'D4.getRequiredArg<$settings_yaml_1.SettingsYaml>('),
+      reason: 'getExcludedPaths lost its SettingsYaml parameter type (scf7)',
+    );
+    expect(
+      RegExp(r'D4\.extractBridgedArg<\$scope_1\.ScopeKey<').allMatches(bridge),
+      hasLength(greaterThanOrEqualTo(3)),
+      reason: 'Env.scopeKey lost its ScopeKey<Env> type (scf18)',
+    );
+  });
 }
