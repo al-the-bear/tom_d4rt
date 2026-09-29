@@ -44,6 +44,19 @@
 // is sce245; answering it WRONGLY is worse than not answering, because the
 // number it produces is then quoted as a residue.
 //
+// SCE245 ANSWERED IT, with the analyzer rather than a third regex:
+// `tool/stdlib_surplus_census.dart` finds each adapter's highest literal index,
+// sets aside operators (their arity is fixed by syntax) and adapters that use
+// the whole list, and counts a hand-written guard only when its throwing branch
+// is DEFINITELY selected at `length == maxIndex + 2`, evaluated three-valued so
+// an undecidable condition never counts. Measured 2026-09-29, identical in
+// both trees: of 1 018 non-operator argument-reading adapters, 447 carry
+// `D4.checkArity`, 221 a hand-written guard, 35 are variadic, and **315 drop a
+// surplus in silence**. sce226's regex had said 123. F-SCE245-1 ratchets the
+// 315. scf36 owns lowering it, bounding each at the SDK's own positional
+// count, not at maxIndex + 1, which would reject a legal call to an optional
+// argument the adapter does not read.
+//
 // SO THE CEILING BELOW IS A CEILING AND SAYS SO. 566 adapters per tree read an
 // index without an explicit bound. Some of them are correctly guarded by a
 // hand-written test this scan cannot recognise. What the number is good for is
@@ -63,6 +76,8 @@
 //   | the same deleted from the TWIN's copy only                   | 2     |
 //   | a new unguarded adapter added outside the three files        | 3     |
 //   | the twin's stdlib root pointed at a path that is not there   | 1     |
+//   | `Set.add`'s bound removed from the REFERENCE tree only       | SCE245-1 |
+//   |   (reported as "tom_d4rt only: core/set.dart add")          |          |
 //
 // THE SECOND ROW IS WHY F-SCD204-2 NAMES THE PACKAGE. A bound present in one
 // tree and missing in the other is the mirror rule broken; SCD49 reports the
@@ -72,6 +87,7 @@ import 'dart:io';
 
 import 'package:test/test.dart';
 
+import '../../tool/stdlib_surplus_census.dart';
 import '../sibling_trees.dart';
 
 /// The two stdlib roots, keyed by the package they belong to.
@@ -94,6 +110,12 @@ const _closedFiles = <String>[
 /// guarded by a hand-written test (see the header). Lowering it is good news
 /// and has to be recorded in the commit that earns it.
 const _noExplicitBoundCeiling = 566;
+
+/// Adapters that drop a surplus positional argument, per tree, by the
+/// analyzer census (`tool/stdlib_surplus_census.dart`, SCE245), 2026-09-29.
+/// Unlike [_noExplicitBoundCeiling] this is a count rather than a ceiling:
+/// F-SCE245-1 holds it exactly.
+const _unguardedCensus = 315;
 
 /// A floor on the adapters examined, so an emptiness assertion over a walk
 /// that found nothing cannot read as a pass.
@@ -249,5 +271,51 @@ void main() {
             'go away.',
       );
     }
+  });
+
+  test('F-SCE245-1: the surplus census has not grown, and both trees agree '
+      '[2026-09-29] (PASS)', () {
+    // The honest count this file's ceiling could not give. It must not grow:
+    // an adapter added without a guard is a failure here. It must not SHRINK
+    // unrecorded either, so the number keeps describing the stdlib: lower
+    // `_unguardedCensus` in the commit that bounds adapters.
+    final unguarded = <String, List<String>>{};
+    for (final MapEntry(key: package, value: root) in _stdlibRoots.entries) {
+      final census = surplusCensus(root);
+      expect(
+        census.length,
+        greaterThanOrEqualTo(_minAdaptersScanned),
+        reason: 'the census walked too little of $package to be believed',
+      );
+      unguarded[package] = [
+        for (final f in census)
+          if (f.verdict == Verdict.unguarded) '${f.file} ${f.key}',
+      ]..sort();
+    }
+    final ref = unguarded['tom_d4rt']!;
+    final ast = unguarded['tom_d4rt_ast']!;
+    final onlyOne = [
+      ...ref.where((e) => !ast.contains(e)).map((e) => 'tom_d4rt only: $e'),
+      ...ast.where((e) => !ref.contains(e)).map((e) => 'tom_d4rt_ast only: $e'),
+    ];
+    expect(
+      onlyOne,
+      isEmpty,
+      reason:
+          '${onlyOne.length} adapter(s) are guarded in one tree and not the '
+          'other, which is the mirror rule broken:\n${onlyOne.join('\n')}',
+    );
+    expect(
+      ref.length,
+      _unguardedCensus,
+      reason: ref.length > _unguardedCensus
+          ? '${ref.length} adapters now drop a surplus positional argument in '
+                'silence, against $_unguardedCensus recorded. Bound the new ones '
+                'with D4.checkArity(positionalArgs, \'Class.member\', atMost: N), '
+                'N the SDK\'s positional count. All ${ref.length}:\n'
+                '${ref.join('\n')}'
+          : 'The census fell to ${ref.length}. Lower _unguardedCensus to '
+                '${ref.length} in this commit.',
+    );
   });
 }

@@ -30,6 +30,12 @@
 /// reach. Callback, coercion and construction come to zero once the rules
 /// above are applied. scf36 owns closing the 123.
 ///
+/// THE ARITY FIGURE BELOW IS SUPERSEDED (SCE245). Its rule, a surplus test
+/// plus any `throw` in the body, is one of the two regex rules SCD204 showed
+/// to under-report. The analyzer census, `tool/stdlib_surplus_census.dart`,
+/// measured 315 adapters per tree that drop a surplus (2026-09-29), not 123.
+/// The callback, coercion and construction figures are unaffected.
+///
 /// A MEASUREMENT, NOT A GUARD. SCD204 explains why a whole-stdlib arity guard is
 /// harder than it looks; this is regex over adapter source and is advice.
 library;

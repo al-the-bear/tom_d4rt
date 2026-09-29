@@ -32,10 +32,11 @@
 // SCE226 SUBTRACTED THE GUARDS THAT ALREADY EXIST, and 1 039 was the wrong
 // number: every marker except one comes to zero once its dedicated guard is
 // counted (callbacks -> SCD35, coercions -> SCD70, constructed results ->
-// SCC24/SCD36 and the test corpus). What is left is 123 adapters that discard
-// surplus positional arguments in silence — SCD204's defect, in files SCC85's
-// sweep did not reach — and scf36 owns it. `tool/stdlib_adapter_residue.dart`
-// recomputes it. And the decisive objection is
+// SCC24/SCD36 and the test corpus). What is left is the adapters that discard
+// surplus positional arguments in silence, SCD204's defect, which scf36 owns.
+// SCE226 counted 123 of them with a regex rule. SCE245's analyzer census
+// (`tool/stdlib_surplus_census.dart`) measured 315 per tree, and
+// scd204_surplus_arity_guard_test.dart's F-SCE245-1 now holds that number. And the decisive objection is
 // sharper: the body classifier would not have caught SCD189's OWN motivating
 // example. `Runes.iterator`'s body was `(target as Runes).iterator` — a single
 // forwarding expression, in the "cannot plausibly be wrong" bucket. The defect
