@@ -1,3 +1,26 @@
+## 1.196.0
+
+### Changed — `BridgedInstance.get` reads bridged getters (sce232)
+
+`BridgedInstance.get` now resolves a member in the same order as the
+interpreter's property readers: bridged getter first, then the bound instance
+method, then `name` / `index` on a wrapped enum. It used to look up methods
+only, so a getter-only name threw `UndefinedMemberD4rtException`. The 1.195.0
+note that `set` works "as `get` reads through the getter" was not true when it
+was written, and is true from this release.
+
+`get` takes an optional visitor and passes it to the getter adapter, as `set`
+already did for setters. The change is invisible to scripts:
+
+- the full `tom_d4rt` suite (4 416 tests) never calls this method;
+- no name may be both a getter and a method on one class
+  (`scd196_member_map_disjointness_test.dart`), so no method name answers
+  differently;
+- none of the 824 stdlib or 20 901 Flutter getters reads its visitor.
+
+Measured 2026-09-29. The change matters to host code that calls the primitive
+directly. Comments at both reader sites point back to this method.
+
 ## 1.195.0
 
 ### Fixed — the interpreter no longer announces gaps that are not gaps (sce223)

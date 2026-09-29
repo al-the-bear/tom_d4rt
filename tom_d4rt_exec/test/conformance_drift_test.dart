@@ -1690,6 +1690,11 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
   // F-SCE223-4, -5 and -6 fail and -1..3 pass. Re-port when a publish raises
   // exec's floor past 0.180.0.
   'sce223_announced_gaps_test.dart': (ran: 6, declared: 6),
+  // PUBLISH-BLOCKED (SCE232). BridgedInstance.get reads getters from the
+  // release carrying it; ported and run here on 2026-09-29 against resolved
+  // tom_d4rt_ast 0.177.0, F-SCE232-1 and -2 fail and -3, -4 pass. Re-port when
+  // a publish raises exec's floor past 0.181.0.
+  'sce232_bridged_instance_get_test.dart': (ran: 4, declared: 4),
   // NOT PORTABLE — and uniquely so: the subject itself cannot exist on the
   // analyzer-free line. `static_name_report.dart` resolves names over the
   // ANALYZER AST, which `tom_d4rt_ast` has no access to by construction, so
@@ -2474,6 +2479,11 @@ const Map<String, _Pin> _pinnedInterpreterFloors = <String, _Pin>{
   ),
   // SCE223, pinned at the release carrying the announced-gap fixes.
   'sce223_announced_gaps_test.dart': (floor: '0.180.0', measured: '0.177.0'),
+  // SCE232, pinned at the release carrying the getter-first BridgedInstance.get.
+  'sce232_bridged_instance_get_test.dart': (
+    floor: '0.181.0',
+    measured: '0.177.0',
+  ),
 };
 
 /// The `tom_d4rt_ast` floor exec's own `pubspec.yaml` currently declares.

@@ -1534,6 +1534,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           return bridgedInstance.nativeObject.runtimeType;
         default:
       }
+      // Getter first, then method: the same order as `BridgedInstance.get`
+      // (SCE232). It matters only for a name in both maps, which
+      // scd196_member_map_disjointness_test forbids.
       final getterAdapter = bridgedInstance.bridgedClass
           .findInstanceGetterAdapter(memberName);
       if (getterAdapter != null) {
@@ -6253,6 +6256,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           return bridgedInstance.nativeObject.hashCode;
         default:
       }
+      // Getter first, then method: the same order as `BridgedInstance.get`
+      // (SCE232). It matters only for a name in both maps, which
+      // scd196_member_map_disjointness_test forbids.
       final getterAdapter = bridgedInstance.bridgedClass
           .findInstanceGetterAdapter(propertyName);
       if (getterAdapter != null) {

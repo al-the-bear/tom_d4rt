@@ -20,6 +20,13 @@
 // fine until something calls it — differing only in that a getter also exists
 // to mask it on the other paths.
 //
+// SCE232 LATER MADE `BridgedInstance.get` GETTERS-FIRST, and this guard is why
+// that was safe. Nothing in the interpreter calls it, and no getter reads its
+// visitor, so the change was free WHILE the intersection below is empty: no
+// method name could answer differently. The paragraph above describes the
+// primitive as it was. This guard is still what keeps the two read paths in
+// agreement.
+//
 // WHY THIS GUARD AND NOT A RE-ORDERING. SCD196 offered making
 // `BridgedInstance.get` getters-first as the deeper fix, and it is the wrong
 // trade here. It is a behaviour change on a public primitive, so it needs its

@@ -434,19 +434,39 @@ class BridgedInstance<T extends Object> implements RuntimeValue {
   @override
   RuntimeType get valueType => bridgedClass;
 
+  /// Resolves [name] the way the interpreter's readers do: bridged GETTER
+  /// first, then bound instance METHOD, then `name` / `index` on a wrapped
+  /// enum.
+  ///
+  /// This is the order `visitPropertyAccess`, `visitPrefixedIdentifier` and
+  /// the cascade branch use for a bridged member. SCE232 made the primitive
+  /// agree with them. It used to be methods-only and threw for a getter.
+  ///
+  /// **The order can only matter for a name that is both a getter and a
+  /// method, and no bridge may declare one.** `scd196_member_map_disjointness_test.dart`,
+  /// in both interpreter trees, fails on any name in two of a class's member
+  /// maps. That test is what made the change a no-op for every method name.
+  ///
+  /// [visitor] is forwarded to the getter adapter, as [set] forwards it to the
+  /// setter. The adapter type allows `null`, and on 2026-09-29 none of the 824
+  /// stdlib getters or the 20 901 Flutter getters read it. Nothing in the
+  /// interpreter calls this method either (0 calls across the `tom_d4rt` suite
+  /// of 4 416 tests): it is a primitive for host code.
   @override
-  Object? get(String name) {
-    // 1. Check if it's a BRIDGED instance METHOD
+  Object? get(String name, [InterpreterVisitor? visitor]) {
+    final getterAdapter = bridgedClass.findInstanceGetterAdapter(name);
+    if (getterAdapter != null) {
+      return getterAdapter(visitor, nativeObject);
+    }
+
     final methodAdapter = bridgedClass.findInstanceMethodAdapter(name);
     if (methodAdapter != null) {
-      // Return a Callable bound to this instance and the adapter
       return BridgedMethodCallable(this, methodAdapter, name);
     }
 
-    // RC-7: If the wrapped native object is an Enum, handle .name and .index
-    // This covers cases where a bridged getter returns a native enum value
-    // wrapped in BridgedInstance (e.g., paint.blendMode returns BlendMode.srcOver
-    // as a BridgedInstance, then .name is requested).
+    // RC-7: a bridged getter can return a native enum value wrapped in a
+    // BridgedInstance (e.g. `paint.blendMode`), and `.name` / `.index` are then
+    // asked of the wrapper.
     if (nativeObject is Enum) {
       switch (name) {
         case 'name':
@@ -456,12 +476,6 @@ class BridgedInstance<T extends Object> implements RuntimeValue {
       }
     }
 
-    // This should be handled by visitors (PrefixedIdentifier, PropertyAccess)
-    // for them to have access to the visitor if necessary.
-    // The logic here is simplified and could be incorrect if a getter
-    // would need to be returned as a value.
-
-    // 3. If neither method nor getter found, throw an error
     throw UndefinedMemberD4rtException(
       "Undefined property or method '$name' on bridged instance of '${bridgedClass.name}'",
       memberName: name,
@@ -471,9 +485,10 @@ class BridgedInstance<T extends Object> implements RuntimeValue {
 
   @override
   void set(String name, Object? value, [InterpreterVisitor? visitor]) {
-    // SCE223: assign through the bridged setter, as [get] reads through the
-    // bridged getter. This used to throw "not implemented" whatever the class
-    // declared, so any caller reaching it lost a setter that exists.
+    // SCE223: assign through the bridged setter adapter, as [get] reads
+    // through the getter adapter (SCE232). This used to throw "not
+    // implemented" whatever the class declared, so any caller reaching it lost
+    // a setter that exists.
     final setter = bridgedClass.findInstanceSetterAdapter(name);
     if (setter == null) {
       throw UndefinedMemberD4rtException(
