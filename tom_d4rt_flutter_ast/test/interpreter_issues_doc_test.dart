@@ -643,6 +643,69 @@ List<String> baselineMarkerFindings(List<VerificationRun> runs) {
   return findings;
 }
 
+/// The newest `YYYY-MM-DD` date cited anywhere in [text], or null.
+DateTime? newestCitedDate(String text) {
+  DateTime? newest;
+  for (final m in RegExp(r'\b(\d{4})-(\d{2})-(\d{2})\b').allMatches(text)) {
+    final d = DateTime(
+      int.parse(m.group(1)!),
+      int.parse(m.group(2)!),
+      int.parse(m.group(3)!),
+    );
+    if (newest == null || d.isAfter(newest)) newest = d;
+  }
+  return newest;
+}
+
+/// The "What is still open" rows as `(section cell, what-it-is cell)`.
+List<(String, String)> openTableRows(List<String> lines) {
+  final start = lines.indexWhere((l) => l.trim() == '## What is still open');
+  if (start < 0) return const [];
+  final rows = <(String, String)>[];
+  for (var i = start + 1; i < lines.length; i++) {
+    final line = lines[i];
+    if (line.startsWith('## ')) break;
+    if (!line.startsWith('| `')) continue;
+    final cells = line.split(' | ');
+    if (cells.length < 3) continue;
+    rows.add((cells[1].trim(), cells.sublist(2).join(' | ').trim()));
+  }
+  return rows;
+}
+
+/// Rows whose newest cited date is older than their section's (SCE256).
+///
+/// A cheap proxy for "the row still says what the section says": it cannot
+/// read meaning, but a row that cites nothing as recent as its own section
+/// has, by construction, not been read against the section's newest finding.
+/// That is the exact defect SCE256 was filed for — GEN-125's row cited a
+/// 2026-09-06 run while its section held a 2026-09-15 re-measurement.
+List<String> staleRowFindings(
+  List<(String, String)> rows,
+  List<ClusterBody> clusters,
+) {
+  final findings = <String>[];
+  for (final (section, what) in rows) {
+    final matches = clusters.where((c) => c.heading.endsWith(section));
+    if (matches.isEmpty) continue; // ISSUES-2 owns a row with no section.
+    final sectionDate = newestCitedDate(matches.first.body.join('\n'));
+    if (sectionDate == null) continue;
+    final rowDate = newestCitedDate(what);
+    if (rowDate == null || rowDate.isBefore(sectionDate)) {
+      findings.add(
+        '$section: the row cites ${rowDate == null ? 'no date' : _ymd(rowDate)}, '
+        'its section ${_ymd(sectionDate)} — bring the row up to the section\'s '
+        'newest finding',
+      );
+    }
+  }
+  return findings;
+}
+
+String _ymd(DateTime d) =>
+    '${d.year}-${d.month.toString().padLeft(2, '0')}-'
+    '${d.day.toString().padLeft(2, '0')}';
+
 /// The date an entry's `### YYYY-MM-DD — ...` heading opens with, or null.
 DateTime? entryDate(String heading) {
   final m = RegExp(r'^### (\d{4})-(\d{2})-(\d{2})\b').firstMatch(heading);
@@ -1502,6 +1565,59 @@ void main() {
         entry('2026-09-01', 'full', ['**This is the current baseline.**']),
       ];
       expect(baselineMarkerFindings(legacy).single, contains('legacy marker'));
+    });
+  });
+  group('SCE256: a table row is not older than its section', () {
+    // The header table is what a reader meets first, and it was the stalest
+    // statement about each open cluster: rows citing 2026-09-06 runs above
+    // sections re-measured since. ISSUES-2 proves a row EXISTS for each
+    // section; nothing asked whether it still says what the section says.
+
+    test('SCE256-1: every open cluster has a row and every row a dated '
+        'section. [2026-09-29] (PASS)', () {
+      final rows = openTableRows(lines);
+      final clusters = parseOpenClusterBodies(lines);
+      expect(rows.length, greaterThanOrEqualTo(2));
+      expect(clusters.length, rows.length);
+      expect(
+        clusters.where((c) => newestCitedDate(c.body.join('\n')) != null),
+        hasLength(clusters.length),
+        reason: 'a section citing no date would make SCE256-2 vacuous for it',
+      );
+    });
+
+    test('SCE256-2: no row cites a measurement older than its section\'s '
+        'newest. [2026-09-29] (PASS)', () {
+      final findings = staleRowFindings(
+        openTableRows(lines),
+        parseOpenClusterBodies(lines),
+      );
+      expect(findings, isEmpty, reason: findings.join('\n'));
+    });
+
+    test('SCE256-3: a row left behind its section is reported. '
+        '[2026-09-29] (PASS)', () {
+      final clusters = <ClusterBody>[
+        (
+          heading: '[ ] Open (GEN-1) — fixture',
+          body: ['**Found:** 2026-09-06.', '**Re-measured 2026-09-15.**'],
+        ),
+      ];
+      expect(
+        staleRowFindings([
+          ('Open (GEN-1) — fixture', 'Measured 2026-09-06.'),
+        ], clusters),
+        hasLength(1),
+      );
+      expect(
+        staleRowFindings([
+          (
+            'Open (GEN-1) — fixture',
+            'Found 2026-09-06; re-measured 2026-09-15.',
+          ),
+        ], clusters),
+        isEmpty,
+      );
     });
   });
 }

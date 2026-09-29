@@ -24,8 +24,8 @@ reverse) fails the suite. Re-derive; do not hand-edit one side alone.
 
 | Marker | Section (heading text, verbatim) | What it is |
 | ------ | -------------------------------- | ---------- |
-| `[ ]` | Open (GEN-125) — an interpreted closure is rejected against a bridged function typedef (`VoidCallback`, `ValueChanged`) | An **interpreter / bridge** defect. Blast radius: every script closure passed to a parameter typed as a Flutter function typedef — which is every Flutter callback, on every widget, wherever a declared parameter type is checked. Nothing narrows it to the widgets the corpus happens to contain. Measured 2026-09-06 (run `20260906-scc46-fixed`); counts in the entry. |
-| `[ ]` | Open (GEN-126) — a bridged base class arrives where the script's own subclass is declared | Blast radius: every script-declared subclass of a bridged class, wherever the value returns through native code and meets a declared parameter of the script's own type — `getRuntimeType` answers with the bridge's name and the check refuses a value that works (`type 'Intent' is not a subtype of type '_GreetIntent'`). Measured 2026-09-06, identically in both twins. **Narrowed 2026-09-22 (sce137):** the nine `Intent` rows and the `ThemeExtension` row are closed in the tree, measured against a 0.65.0 control; what stays open is the case where NO proxy is registered for the base at all (`TwoDimensionalChildBuilderDelegate`, `RenderProxyBox`), which sce164 owns. The example the blast-radius sentence used to give — `type 'Intent' is not a subtype of type '_GreetIntent'` — is one of the closed ones; the live shape is now `type 'TwoDimensionalChildBuilderDelegate' is not a subtype of type '_TwoDMgrCountingDelegate'`. |
+| `[ ]` | Open (GEN-125) — an interpreted closure is rejected against a bridged function typedef (`VoidCallback`, `ValueChanged`) | An **interpreter / bridge** defect. Blast radius: every script closure passed to a parameter typed as a Flutter function typedef — which is every Flutter callback, on every widget, wherever a declared parameter type is checked. Nothing narrows it to the widgets the corpus happens to contain. Found 2026-09-06. **Fixed in the interpreter (scd136) and published in 1.192.0 / 0.177.0; re-measured 2026-09-28**, base corpus, both twins: 0 refused callbacks across 910 scripts, against 117 on 2026-09-15. Open until a FULL-corpus run at a published fix confirms the 4 failing extended files (sce160). |
+| `[ ]` | Open (GEN-126) — a bridged base class arrives where the script's own subclass is declared | Blast radius: every script-declared subclass of a bridged class, wherever the value returns through native code and meets a declared parameter of the script's own type — `getRuntimeType` answers with the bridge's name and the check refuses a value that works (`type 'Intent' is not a subtype of type '_GreetIntent'`). Measured 2026-09-06, identically in both twins. **Narrowed 2026-09-22 (sce137):** the nine `Intent` rows and the `ThemeExtension` row are closed in the tree, measured against a 0.65.0 control; what stays open is the case where NO proxy is registered for the base at all (`TwoDimensionalChildBuilderDelegate`, `RenderProxyBox`), which sce164 owns. The example the blast-radius sentence used to give — `type 'Intent' is not a subtype of type '_GreetIntent'` — is one of the closed ones; the live shape is now `type 'TwoDimensionalChildBuilderDelegate' is not a subtype of type '_TwoDMgrCountingDelegate'`. **2026-09-23:** the mechanism behind the closed rows is one thing, `const`, and is fixed in the tree (sce161), measured pre-publish only; registering a proxy does NOT repair the no-proxy case (sce164), which scf31 owns. |
 | `[~]` | Partially fixed — script-side / Flutter framework limitations | **Not an interpreter defect** — a rolling sweep log of demo-script fixes (layout overflow, unbounded constraints, platform-unsupported services). Rows whose "After" column reads `1*` note a residual that *is* interpreter-side; each of those is tracked by its own cluster. Last sweep 2026-04-29. |
 
 ## No corpus numbers live in this header
@@ -4058,6 +4058,16 @@ regression gate carries over a hundred refused callbacks and says nothing,
 which is worth knowing before a green base run is quoted as evidence that
 callbacks work.
 
+**Re-measured 2026-09-28, at the published fix, and the base band is gone.**
+scd136's fix shipped in `tom_d4rt` 1.192.0 / `tom_d4rt_ast` 0.177.0 (SCE212).
+The base corpus at that pair, both twins, reports **0 refused callbacks and 0
+framework errors across all 910 scripts**, where 2026-09-15 had 117 — read with
+`dart run tool/framework_error_inventory.dart testlog/basetestlog_sce212-ast
+--summary` and the same over `basetestlog_sce212-src`, afterwards. What is
+still unmeasured is the FULL corpus, which holds the 4 failing files the
+verification below names, so the cluster stays open until a full run at a
+published fix (sce160) says otherwise.
+
 **Symptom**
 
 Passing a script-declared closure to a parameter whose type is a Flutter
@@ -4564,6 +4574,15 @@ exec gate (`--pass`) was clean for the 0.177.0 publish.
 
 Every one of the seventeen files matches its previous count on all three
 numbers, including the one standing skip in `flutter_base_15`. No rising skip.
+
+**Framework errors** (SCE247, counted afterwards with `--summary`; these runs
+predate the trailer):
+
+- `tom_d4rt_flutter_ast`: 0 framework error(s) in 0 of 910 script(s); 0 refused callback(s)
+- `tom_d4rt_flutter`: 0 framework error(s) in 0 of 910 script(s); 0 refused callback(s)
+
+Against 117 refused callbacks in the base subset on 2026-09-15: GEN-125's base
+band is gone at this pair.
 
 **What moved in the bridges.** The AST twin's regeneration at generator
 1.44.0 changed no executed line: eighteen `// Generated:` stamps, and two
