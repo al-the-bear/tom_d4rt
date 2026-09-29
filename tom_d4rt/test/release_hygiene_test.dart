@@ -156,6 +156,12 @@ const _versionsWithoutHeading = <String, Set<String>>{
     // come looking.
     '1.8.7',
   },
+  'tom_ast_generator': {
+    // Declared by d5b9b7cae (sce236), never published; renumbered to 0.1.10
+    // by sce241 because 0.2.0 could not resolve against its own dev
+    // dependency tom_d4rt_exec (^0.1.x). The 0.1.10 section says so.
+    '0.2.0',
+  },
 };
 
 /// Every version string this package's pubspec has ever declared.

@@ -48,7 +48,7 @@ dev_dependencies:
   # Floor 1.15.3: below it, a regeneration from a relative scan root writes
   # `bridgeReExports()` source keys as `lib/…` instead of `package:…`, which no
   # script import can ever match (GEN-125).
-  tom_d4rt_generator: ">=1.15.3"
+  tom_d4rt_generator: "^1.44.0"
 
 flutter:
   uses-material-design: true

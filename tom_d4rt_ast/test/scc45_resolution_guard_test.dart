@@ -347,6 +347,22 @@ const _interpreterPackages = {
   'tom_ast_model',
 };
 
+/// The packages F-SCC45-5 holds libraries to a caret on: the interpreter line
+/// PLUS the bridge generator (SCE241).
+///
+/// The generator is not in [_interpreterPackages], because that set also
+/// drives F-SCC45-4's hold on every example's floor, and chasing each
+/// generator release through every copy surface is churn that buys no truth.
+/// A LIBRARY's constraint is a different claim. `tom_d4rt_generator` decides
+/// what a consumer's `bridges_fresh_test` regenerates with, so an open lower
+/// bound (`>=1.15.3` was the oldest, measured 2026-09-29) let a lock freeze and
+/// report stale bridges that were not stale. SCD201 carreted the interpreter
+/// line and left this one out on purpose, pending the regeneration sweep;
+/// that sweep has happened, and every library resolves one generator.
+/// Seen to fire (2026-09-29): `tom_d4rt_flutter` put back to `">=1.15.3"`
+/// turned F-SCC45-5 red, naming it.
+const _caretPackages = {..._interpreterPackages, 'tom_d4rt_generator'};
+
 /// Libraries permitted a non-caret interpreter constraint, keyed
 /// `<repo-relative package>:<dependency>`, with the reason.
 ///
@@ -421,7 +437,10 @@ List<Directory> _pubspecsUnder(Directory root) {
 /// Hand-rolled for the same reason as [lockedTomPackages]. A dependency with
 /// an inline constraint sits at two spaces under `dependencies:` or
 /// `dev_dependencies:`, which the scan tracks by the last top-level key.
-Map<String, String> _declaredInterpreterConstraints(Directory package) {
+Map<String, String> _declaredInterpreterConstraints(
+  Directory package, {
+  Set<String> names = _interpreterPackages,
+}) {
   final lines = File('${package.path}/pubspec.yaml').readAsLinesSync();
   final sectionPattern = RegExp(r'^([A-Za-z_]+):');
   final depPattern = RegExp(r'''^  ([A-Za-z0-9_]+):\s*(.*)$''');
@@ -435,7 +454,7 @@ Map<String, String> _declaredInterpreterConstraints(Directory package) {
     }
     if (section != 'dependencies' && section != 'dev_dependencies') continue;
     final m = depPattern.firstMatch(line);
-    if (m == null || !_interpreterPackages.contains(m.group(1))) continue;
+    if (m == null || !names.contains(m.group(1))) continue;
     final constraint = m
         .group(2)!
         .split('#')
@@ -793,7 +812,10 @@ void main() {
       for (final package in libraries) {
         final rel = relativeTo(root, package);
         for (final MapEntry(key: name, value: constraint)
-            in _declaredInterpreterConstraints(package).entries) {
+            in _declaredInterpreterConstraints(
+              package,
+              names: _caretPackages,
+            ).entries) {
           if (_caretExempt['$rel:$name'] != null) continue;
           if (constraint.trim().startsWith('^')) continue;
           offenders.add('$rel declares $name "$constraint"');
@@ -821,7 +843,10 @@ void main() {
             .where((p) => relativeTo(root, p) == parts.first)
             .firstOrNull;
         if (package == null) return true;
-        final constraint = _declaredInterpreterConstraints(package)[parts.last];
+        final constraint = _declaredInterpreterConstraints(
+          package,
+          names: _caretPackages,
+        )[parts.last];
         return constraint == null || constraint.trim().startsWith('^');
       }).toList();
 

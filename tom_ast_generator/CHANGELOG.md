@@ -1,6 +1,12 @@
-## 0.2.0
+## 0.1.10
 
 ### Added — `AstBundlerConfig.includeSources` (sce236)
+
+(This release was first numbered 0.2.0 in the working tree and never published
+as that. A patch release on purpose. The option is additive and off by default, and a
+0.2.0 would fall outside the `^0.1.x` that every published `tom_d4rt_exec`
+declares. `tom_d4rt_exec` is this package's own dev dependency, so 0.2.0
+could not resolve at all (sce241).)
 
 The bundler can now fill `AstBundle.sources` with every bundled module's
 source text. The analyzer-free interpreter uses it to quote the script in a
