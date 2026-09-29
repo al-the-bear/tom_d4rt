@@ -20,7 +20,8 @@
 # Output (per test file <base>):
 #   testlog/testlog_<ID>/<base>.result.json  machine-readable (--file-reporter json)
 #   testlog/testlog_<ID>/<base>.log.txt       full stdout incl. framework/overflow errors
-#   testlog/testlog_<ID>/metrics.txt          per-file exit code + pass/skip/fail summary
+#   testlog/testlog_<ID>/metrics.txt          per-file exit code + pass/skip/fail summary,
+#                                              closing with the framework-error trailer (SCE247)
 #
 # metrics.txt opens with an ATTRIBUTION HEADER (SCD164) — `# `-prefixed
 # lines naming the run id, its start time, this package, and every `tom_`
@@ -167,6 +168,19 @@ for f in "${FILES[@]}"; do
   fi
   echo "${base}: exit=${rc} ${summary:-<no summary>}${note}" | tee -a "$OUT/metrics.txt"
 done
+
+# SCE247: the run's own framework-error total and its refused-callback count,
+# by signature. A callback the interpreter cannot bind to a typed parameter
+# does not fail the script — the widget still builds — so pass / skip / fail
+# cannot move with it, and a gate reading only those numbers is blind to the
+# whole family. This trailer is the number that does move. `## `-prefixed so
+# the attribution header's `# ` reader never sees it.
+INVENTORY="tool/framework_error_inventory.dart"
+if command -v dart >/dev/null 2>&1 && trailer="$(dart run "$INVENTORY" "$OUT" --summary)"; then
+  printf '%s\n' "$trailer" | tee -a "$OUT/metrics.txt"
+else
+  echo "## framework-errors: FAILED — dart run $INVENTORY --summary did not complete" | tee -a "$OUT/metrics.txt"
+fi
 
 echo ""
 echo "== done. metrics: ${OUT}/metrics.txt =="

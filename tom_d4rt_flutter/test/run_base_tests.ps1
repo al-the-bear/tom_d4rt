@@ -25,7 +25,8 @@
 # Output (per test file <base>):
 #   testlog/basetestlog_<Id>/<base>.result.json  machine-readable (--file-reporter json)
 #   testlog/basetestlog_<Id>/<base>.log.txt        full stdout incl. framework errors
-#   testlog/basetestlog_<Id>/metrics.txt           per-file exit code + pass/skip/fail summary
+#   testlog/basetestlog_<Id>/metrics.txt           per-file exit code + pass/skip/fail summary,
+#                                                  closing with the framework-error trailer (SCE247)
 #
 # metrics.txt opens with an ATTRIBUTION HEADER (SCD164) — `# `-prefixed
 # lines naming the run id, its start time, this package, and every `tom_`
@@ -143,6 +144,24 @@ foreach ($f in $files) {
   }
   Add-Content -Path "$out/metrics.txt" -Value "${base}: exit=$rc $summary$note"
 }
+
+# SCE247: the run's own framework-error total and its refused-callback count,
+# by signature. A callback the interpreter cannot bind to a typed parameter
+# does not fail the script — the widget still builds — so pass / skip / fail
+# cannot move with it, and a gate reading only those numbers is blind to the
+# whole family. This trailer is the number that does move. `## `-prefixed so
+# the attribution header's `# ` reader never sees it.
+$inventory = '../tom_d4rt_flutter_ast/tool/framework_error_inventory.dart'
+$trailer = $null
+if (Get-Command dart -ErrorAction SilentlyContinue) {
+  $trailer = & dart run $inventory $out --summary
+  if ($LASTEXITCODE -ne 0) { $trailer = $null }
+}
+if (-not $trailer) {
+  $trailer = "## framework-errors: FAILED - dart run $inventory --summary did not complete"
+}
+Add-Content -Path "$out/metrics.txt" -Value $trailer
+$trailer | ForEach-Object { Write-Host $_ }
 
 Write-Host ''
 Write-Host "== done. metrics: $out/metrics.txt =="

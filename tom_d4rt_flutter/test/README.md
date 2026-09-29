@@ -19,7 +19,13 @@ regenerating split files needs no script edit.
 
 **Reading a run's framework errors.** A script can raise framework errors and
 still pass, so a run folder holds counts nobody sees unless they look. The
-per-script counts are in each `*.log.txt`, not in `metrics.txt`:
+TOTALS are in `metrics.txt`: the base and sweep runners close it with a
+`## `-prefixed trailer (SCE247) giving the run's framework-error total and
+its refused callbacks — `type 'X' is not a subtype of type 'Y' of 'p'`, the
+GEN-125 family — broken down by signature. That trailer is the number a
+callback-binding fix moves, because a refused callback does not fail its
+script and pass / skip / fail cannot see it. The per-script counts are in each
+`*.log.txt`:
 
 ```bash
 dart run ../tom_d4rt_flutter_ast/tool/framework_error_inventory.dart testlog/<run>
@@ -114,7 +120,7 @@ Each run writes, per test file `<base>`, into a folder under `testlog/`:
 | ---- | -------- |
 | `<base>.result.json` | Machine-readable results (`flutter test --file-reporter json`) — includes per-test timing **metrics**. |
 | `<base>.log.txt` | Full stdout, including Flutter framework output (overflow errors, assertion banners, transport errors) that does **not** necessarily fail a test. |
-| `metrics.txt` | An ATTRIBUTION HEADER, then one line per file: exit code + the `+passed ~skipped -failed` summary. |
+| `metrics.txt` | An ATTRIBUTION HEADER, then one line per file: exit code + the `+passed ~skipped -failed` summary, then the framework-error trailer (SCE247). |
 
 ### The attribution header
 

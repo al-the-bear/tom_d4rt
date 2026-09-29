@@ -2,6 +2,10 @@
 //
 //     dart run tool/framework_error_inventory.dart testlog/<run>
 //     dart run tool/framework_error_inventory.dart testlog/<run> --order run
+//     dart run tool/framework_error_inventory.dart testlog/<run> --summary
+//
+// `--summary` prints the machine-readable trailer every corpus runner appends
+// to its `metrics.txt` (SCE247), described at [renderSummary].
 //
 // From the source twin, by path (the tool needs nothing but dart:io, so it
 // runs from either package and on every fleet host, Windows included):
@@ -226,14 +230,108 @@ String render(Inventory inv, {required String folder, bool runOrder = false}) {
   return out.toString();
 }
 
+/// The rejection family: a value refused at an argument or parameter
+/// binding, `type 'X' is not a subtype of type 'Y' of 'p'`. A script callback
+/// the interpreter could not hand to a typed Flutter parameter (GEN-125) is
+/// reported this way, and it does not fail the script — the widget still
+/// builds, so the script reports success and the file's pass count cannot
+/// move. The trailing `of 'p'` is what separates a binding refusal from any
+/// other failed cast.
+final RegExp rejectionPattern = RegExp(
+  r"is not a subtype of type '[^']+' of '[^']+'",
+);
+
+/// Prefix of every line [renderSummary] writes. The attribution header at the
+/// top of `metrics.txt` is `# `-prefixed and read with `takeWhile`, so a
+/// trailer with its own prefix cannot be mistaken for it.
+const String summaryPrefix = '## ';
+
+/// The `metrics.txt` trailer (SCE247): the run's own framework-error total and
+/// the rejection family broken down by signature, most first.
+///
+///     ## framework-errors: total=117 scripts=47 measured=910
+///     ## rejections: total=117 signatures=6
+///     ## rejection: 64  type 'dynamic Function(dynamic)' is not a subtype of type 'ValueChanged' of 'onChanged'
+///
+/// The base gate's pass / skip / fail cannot see a refused callback, because
+/// the script still succeeds; these lines are the number that does move. A
+/// run with none still writes the first two lines, so an absent trailer means
+/// a runner that predates it rather than a clean run.
+String renderSummary(Inventory inv) {
+  final raising = inv.raising.toList();
+  final occurrences = <String, int>{};
+  for (final s in raising) {
+    for (final text in s.texts) {
+      if (!rejectionPattern.hasMatch(text)) continue;
+      final sig = signatureOf(text);
+      occurrences[sig] = (occurrences[sig] ?? 0) + 1;
+    }
+  }
+  final signatures = occurrences.keys.toList()
+    ..sort((a, b) {
+      final byCount = occurrences[b]!.compareTo(occurrences[a]!);
+      return byCount != 0 ? byCount : a.compareTo(b);
+    });
+  final rejections = occurrences.values.fold(0, (sum, n) => sum + n);
+  final out = StringBuffer()
+    ..writeln(
+      '${summaryPrefix}framework-errors: total=${inv.total} '
+      'scripts=${raising.length} measured=${inv.scripts.length}',
+    )
+    ..writeln(
+      '${summaryPrefix}rejections: total=$rejections '
+      'signatures=${signatures.length}',
+    );
+  for (final sig in signatures) {
+    out.writeln('${summaryPrefix}rejection: ${occurrences[sig]}  $sig');
+  }
+  return out.toString();
+}
+
+/// What a `metrics.txt` trailer says, or null when it has none.
+typedef RunSummary = ({
+  int frameworkErrors,
+  int scripts,
+  int measured,
+  int rejections,
+  Map<String, int> bySignature,
+});
+
+/// Reads the trailer [renderSummary] wrote from [metricsLines].
+RunSummary? parseRunSummary(List<String> metricsLines) {
+  final fe = RegExp(
+    r'^## framework-errors: total=(\d+) scripts=(\d+) measured=(\d+)$',
+  );
+  final rj = RegExp(r'^## rejections: total=(\d+) signatures=\d+$');
+  final one = RegExp(r'^## rejection: (\d+)  (.*)$');
+  RegExpMatch? feMatch;
+  RegExpMatch? rjMatch;
+  final bySignature = <String, int>{};
+  for (final line in metricsLines) {
+    feMatch ??= fe.firstMatch(line);
+    rjMatch ??= rj.firstMatch(line);
+    final m = one.firstMatch(line);
+    if (m != null) bySignature[m.group(2)!] = int.parse(m.group(1)!);
+  }
+  if (feMatch == null || rjMatch == null) return null;
+  return (
+    frameworkErrors: int.parse(feMatch.group(1)!),
+    scripts: int.parse(feMatch.group(2)!),
+    measured: int.parse(feMatch.group(3)!),
+    rejections: int.parse(rjMatch.group(1)!),
+    bySignature: bySignature,
+  );
+}
+
 void main(List<String> args) {
+  final summary = args.contains('--summary');
   final runOrder =
       args.contains('--order') &&
       args.indexOf('--order') + 1 < args.length &&
       args[args.indexOf('--order') + 1] == 'run';
   final positional = [
     for (var i = 0; i < args.length; i++)
-      if (args[i] == '--order')
+      if (args[i] == '--order' || args[i] == '--summary')
         null
       else if (i > 0 && args[i - 1] == '--order')
         null
@@ -245,7 +343,7 @@ void main(List<String> args) {
       args.contains('--help')) {
     stderr.writeln(
       'usage: dart run tool/framework_error_inventory.dart <run folder> '
-      '[--order run]',
+      '[--order run | --summary]',
     );
     exitCode = 64;
     return;
@@ -283,5 +381,9 @@ void main(List<String> args) {
     exitCode = 65;
     return;
   }
-  stdout.write(render(inventory, folder: folder.path, runOrder: runOrder));
+  stdout.write(
+    summary
+        ? renderSummary(inventory)
+        : render(inventory, folder: folder.path, runOrder: runOrder),
+  );
 }

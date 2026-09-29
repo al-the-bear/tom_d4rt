@@ -89,4 +89,25 @@ void main() {
     expect(result.warnings, hasLength(2));
     expect(result.warnings.first, contains('must not record'));
   });
+
+  test('F-SCE247-1: each run gets a framework-error line from its trailer, and '
+      'a run without one is named rather than printed as zero [2026-09-29]', () {
+    final withTrailer = [
+      ..._astHosted,
+      '## framework-errors: total=3 scripts=2 measured=910',
+      '## rejections: total=2 signatures=1',
+      "## rejection: 2  type 'dynamic Function()' is not a subtype of type "
+          "'VoidCallback' of 'onTap'",
+    ];
+    expect(
+      frameworkErrorLines([('ast', withTrailer), ('src', _sourceHosted)]),
+      [
+        "- `tom_d4rt_flutter_ast`: 3 framework error(s) in 2 of 910 script(s); "
+            "2 refused callback(s) — 2 × `type 'dynamic Function()' is not a "
+            "subtype of type 'VoidCallback' of 'onTap'`",
+        '- `tom_d4rt_flutter`: NO TRAILER — the runner predates SCE247; count '
+            'with `dart run tool/framework_error_inventory.dart src --summary`',
+      ],
+    );
+  });
 }

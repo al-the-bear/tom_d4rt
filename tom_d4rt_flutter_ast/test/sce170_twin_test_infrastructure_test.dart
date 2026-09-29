@@ -81,6 +81,13 @@ const List<(String, String, String)> twinParameters = [
   ),
   ('D4rtRunner', 'D4rt', 'each interpreter\'s runner class'),
   ('FlutterD4rt', 'SourceFlutterD4rt', 'each twin\'s Flutter-bridged runner'),
+  // Last, so the package rename above cannot rewrite the path it produces.
+  (
+    'tool/framework_error_inventory.dart',
+    '../tom_d4rt_flutter_ast/tool/framework_error_inventory.dart',
+    'where each twin reaches the framework-error inventory, which lives only '
+        'in the AST twin (SCE247)',
+  ),
 ];
 
 /// Shared files whose code must be identical modulo [twinParameters].

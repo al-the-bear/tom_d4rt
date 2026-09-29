@@ -18,6 +18,13 @@
 /// PATH is printed with its source and flagged: that is a pre-publish pass,
 /// whose results `Verification runs` must not record.
 ///
+/// After the table it prints one `**Framework errors:**` line per run, read
+/// from the trailer every corpus runner appends to `metrics.txt` (SCE247): the
+/// framework-error total and the refused-callback count by signature. Those
+/// are the numbers a callback-binding fix moves while pass / skip / fail stays
+/// put, so an entry records them beside the table. A run whose runner
+/// predates the trailer is named instead of printed as zero.
+///
 /// Deliberately NOT a guard over the document: comparing it against a
 /// `testlog/` folder would pass or fail on whether this machine still holds
 /// the run.
@@ -26,6 +33,7 @@ library;
 import 'dart:io';
 
 import '../test/run_attribution.dart';
+import 'framework_error_inventory.dart';
 
 /// The columns of the table, in the document's order.
 const List<String> verificationColumns = [
@@ -97,6 +105,29 @@ verificationRows(List<(String, List<String>?)> runs) {
   return (rows: rows, problems: problems, warnings: warnings);
 }
 
+/// The `**Framework errors:**` line for each of [runs], labelled by the
+/// package its header names (or the folder when it names none).
+List<String> frameworkErrorLines(List<(String, List<String>?)> runs) => [
+  for (final (folder, lines) in runs)
+    if (lines != null) _frameworkErrorLine(folder, lines),
+];
+
+String _frameworkErrorLine(String folder, List<String> lines) {
+  final label = parseRunAttribution(lines)?.package ?? folder;
+  final summary = parseRunSummary(lines);
+  if (summary == null) {
+    return '- `$label`: NO TRAILER — the runner predates SCE247; count with '
+        '`dart run tool/framework_error_inventory.dart $folder --summary`';
+  }
+  final signatures = summary.bySignature.entries
+      .map((e) => '${e.value} × `${e.key}`')
+      .join('; ');
+  return '- `$label`: ${summary.frameworkErrors} framework error(s) in '
+      '${summary.scripts} of ${summary.measured} script(s); '
+      '${summary.rejections} refused callback(s)'
+      '${signatures.isEmpty ? '' : ' — $signatures'}';
+}
+
 void main(List<String> args) {
   if (args.isEmpty) {
     stderr.writeln(
@@ -123,6 +154,11 @@ void main(List<String> args) {
       '| ------- | ${verificationColumns.map((c) => '-' * (c.length + 2)).join(' | ')} |',
     );
     result.rows.forEach(stdout.writeln);
+    stdout
+      ..writeln()
+      ..writeln('**Framework errors** (SCE247 trailer):')
+      ..writeln();
+    frameworkErrorLines(runs).forEach(stdout.writeln);
   }
   for (final w in result.warnings) {
     stderr.writeln('WARNING: $w');

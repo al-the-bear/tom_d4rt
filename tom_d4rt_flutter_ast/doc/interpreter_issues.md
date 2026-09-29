@@ -4510,6 +4510,17 @@ folder with no header or a failed one rather than printing an empty row, and
 flags a package resolved by path — a pre-publish pass, which is not recorded
 here.
 
+The same command prints a `**Framework errors**` list after the table, one
+line per run, read from the trailer the runners append to `metrics.txt`
+(SCE247): the framework-error total and the refused-callback count by
+signature. Paste it into the entry. It is the number that moves when a
+callback-binding fix (GEN-125, the bridged-typedef family) works and pass /
+skip / fail does not. It is reported rather than ratcheted: the count moves
+with corpus edits as well as interpreter changes, so a change in it is read
+against the entry before, not failed on. A run whose runner predates the
+trailer is named rather than printed as zero; count it with
+`dart run tool/framework_error_inventory.dart <run> --summary`.
+
 ### 2026-09-28 — base corpus, both twins, at the first interpreter releases since 2026-09-11: tom_d4rt 1.192.0 / tom_d4rt_ast 0.177.0
 
 **Why this run exists.** SCE212 (with sce209) published `tom_d4rt` 1.192.0,

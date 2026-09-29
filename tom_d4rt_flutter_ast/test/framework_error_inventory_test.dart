@@ -29,6 +29,7 @@ import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../tool/framework_error_inventory.dart';
+import 'run_attribution.dart';
 import 'sibling_trees.dart';
 
 /// Two log files in run order, in the harness's shape.
@@ -162,6 +163,71 @@ void main() {
       });
       expect(render(clean, folder: 'x'), contains('no framework errors'));
     });
+  });
+
+  group('metrics.txt trailer (SCE247)', () {
+    test('FEI-10: the trailer states the framework-error total and the '
+        'rejection family by signature, most first [2026-09-29] (PASS)', () {
+      expect(renderSummary(inv).trimRight().split('\n'), [
+        '## framework-errors: total=6 scripts=3 measured=4',
+        '## rejections: total=3 signatures=2',
+        "## rejection: 2  type 'dynamic Function(double)' is not a subtype of "
+            "type 'ValueChanged' of 'onChanged'",
+        "## rejection: 1  type 'dynamic Function()' is not a subtype of type "
+            "'VoidCallback' of 'onTap'",
+      ]);
+    });
+
+    test('FEI-11: a clean run still writes its two count lines, so an absent '
+        'trailer means an old runner rather than a clean run '
+        '[2026-09-29] (PASS)', () {
+      final clean = parseLogs({
+        'a.log.txt': _fileA.split('\n').take(2).join('\n'),
+      });
+      final summary = parseRunSummary(renderSummary(clean).split('\n'))!;
+      expect(summary.frameworkErrors, 0);
+      expect(summary.rejections, 0);
+      expect(summary.measured, 1);
+      expect(
+        parseRunSummary(['# run: x', 'flutter_base_01_test: exit=0 +5']),
+        isNull,
+      );
+    });
+
+    test('FEI-12: the trailer parses back to what was rendered, and leaves the '
+        'attribution header readable [2026-09-29] (PASS)', () {
+      final metrics = [
+        '# run: x',
+        '# package: tom_d4rt_flutter_ast 0.9.0',
+        'flutter_base_01_test: exit=0 +45',
+        ...renderSummary(inv).trimRight().split('\n'),
+      ];
+      final summary = parseRunSummary(metrics)!;
+      expect(summary.frameworkErrors, 6);
+      expect(summary.scripts, 3);
+      expect(summary.rejections, 3);
+      expect(summary.bySignature.values, [2, 1]);
+      expect(parseRunAttribution(metrics)!.package, 'tom_d4rt_flutter_ast');
+    });
+
+    // The trailer only exists if the runners write it. A runner that stopped
+    // would leave every later run looking like one from before SCE247, which
+    // is the silent state the todo was filed about.
+    for (final twin in const ['.', '../tom_d4rt_flutter']) {
+      for (final runner in const [
+        'run_base_tests.sh',
+        'run_base_tests.ps1',
+        'run_issue_analysis_tests.sh',
+        'run_issue_analysis_tests.ps1',
+      ]) {
+        test('FEI-13 ($twin/$runner): the corpus runner appends the trailer '
+            '[2026-09-29] (PASS)', () {
+          final source = File('$twin/test/$runner').readAsStringSync();
+          expect(source, contains('framework_error_inventory.dart'));
+          expect(source, contains('--summary'));
+        });
+      }
+    }
   });
 
   group('the harness still prints what the tool reads', () {
