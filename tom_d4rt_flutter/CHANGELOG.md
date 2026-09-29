@@ -1,3 +1,11 @@
+## 1.4.1
+
+### Changed — bridges regenerated with tom_d4rt_generator 1.47.0 (scf17)
+
+All 18 generated bridge files were rewritten by one generator, the same one tom_d4rt_flutter_ast 0.9.1 uses, so the twins record a single writer. Only the header lines changed; every bridge body is byte-identical, so no script behaviour moves.
+
+Two of them, `dart_ui_bridges.b.dart` and `vector_math_bridges.b.dart`, still named this machine in their `// Source:` header (`/Users/.../sky_engine/lib/ui/ui.dart`, a pub-cache path) — output from before the generator emitted `dart:` / `package:` URIs there. They now read `dart:ui` and `package:vector_math/vector_math_64.dart`.
+
 ## 1.4.0
 
 ### Documented — why GEN-126's last two bases have no interface proxy (sce164)

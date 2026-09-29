@@ -1,3 +1,9 @@
+## 0.9.1
+
+### Changed — bridges regenerated with tom_d4rt_generator 1.47.0 (scf17)
+
+All 18 generated bridge files were rewritten by one generator, the same one tom_d4rt_flutter 1.4.1 uses, so the twins record a single writer. Only the header lines changed; every bridge body is byte-identical, so no script behaviour moves.
+
 ## 0.9.0
 
 ### Changed — resolves the current interpreter (sce212)
