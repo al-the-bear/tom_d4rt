@@ -4,6 +4,13 @@ class ComparableCore {
   static BridgedClass get definition => BridgedClass(
     nativeType: Comparable,
     name: 'Comparable',
+    // SCE233 KEEP. No value resolves here today: `Comparable` is an interface
+    // class, so nothing extends it, and every stdlib implementor has its own
+    // bridge declaring these members. A native type named after the interface
+    // (`_FooComparable`) would still reach it through SCC49's suffix fallback,
+    // and these adapters forward to the interface, so they are right for any
+    // implementor. Deleting them would turn that case into "undefined method".
+    // scc24 SCD197 pins the count.
     typeParameterCount: 0,
     constructors: {},
     staticMethods: {

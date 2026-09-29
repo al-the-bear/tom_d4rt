@@ -62,6 +62,8 @@ class ExceptionCore {
   static BridgedClass get definition => BridgedClass(
     nativeType: Exception,
     name: 'Exception',
+    // SCE233 KEEP. Partly reached (scc24 SCD197 pins the fraction), and fully
+    // reached for `Exception('x')`, whose `_Exception` has no bridge of its own.
     typeParameterCount: 0,
     constructors: {
       '': (visitor, positionalArgs, namedArgs) {

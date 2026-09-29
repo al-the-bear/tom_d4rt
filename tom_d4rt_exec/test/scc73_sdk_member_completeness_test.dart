@@ -300,6 +300,10 @@ Map<String, List<BridgedClass>> _bridgesByName(Environment env) {
 /// `StateError`, not an undefined-member error — but a populated one keeps the
 /// probe's own output readable when a member does resolve.
 const _instanceExpressions = <String, String>{
+  // SCE233: `num`'s bridge carries no instance members, since every value is
+  // an `int` or a `double` and both declare them all. The probe asks the
+  // interpreter, which answers through `int`, and that is the right question.
+  'num': '(7 as num)',
   'Runes': "'ab'.runes",
   'StreamController': 'StreamController()',
   'StreamView': 'StreamView(StreamController().stream)',

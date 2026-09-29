@@ -4,6 +4,8 @@ class SinkCore {
   static BridgedClass get definition => BridgedClass(
     nativeType: Sink,
     name: 'Sink',
+    // SCE233 KEEP. Partly reached (scc24 SCD197 pins the fraction): sinks
+    // whose bridges do not declare a member fall through to here.
     typeParameterCount: 1,
     constructors: {},
     methods: {

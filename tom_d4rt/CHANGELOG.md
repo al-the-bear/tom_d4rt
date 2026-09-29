@@ -1,3 +1,27 @@
+## 1.197.0
+
+### Removed — the `num` bridge's instance members (sce233)
+
+The `num` bridge no longer declares instance methods or getters. It keeps
+`isAssignable`, `num.parse` and `num.tryParse`. Scripts see no change: every
+`num` value is an `int` or a `double`, Dart forbids any other class to
+implement `num`, and both of those bridges already declare every member. The
+32 adapters removed had never run. A test now checks that `int` and `double`
+keep declaring all of them. The member audits in both trees treat `num` as
+sealed to those two heirs (`sealedToHeirs`), so they do not report its
+members as unreachable.
+
+Every other bridge that SCD197 recorded as unreachable is kept, and its
+source says why beside its member maps. The measurement undercounted in two
+ways:
+
+- It stood one instance in for each bridged type. `Match` and
+  `FileSystemEntity` are reached by values whose own class has no bridge: a
+  `String.allMatches` result, and a `Link`.
+- It followed bridged heirs only. An interpreted subclass of
+  `LinkedListEntry` or `Error` reads inherited members through the bridged
+  superclass.
+
 ## 1.196.0
 
 ### Changed — `BridgedInstance.get` reads bridged getters (sce232)

@@ -6,6 +6,9 @@ class ConverterConvert {
   static BridgedClass get definition => BridgedClass(
     nativeType: Converter,
     name: 'Converter',
+    // SCE233 KEEP. Partly reached (scc24 SCD197 pins the fraction): concrete
+    // converters shadow most members today, and `Converter` is extendable, so
+    // a converter that does not override one is answered here.
     typeParameterCount: 2, // Converter<S, T>
     // What `Converter.fuse` returns. `_FusedConverter` is the general case;
     // `_JsonUtf8Decoder` is the SDK's special-cased result for

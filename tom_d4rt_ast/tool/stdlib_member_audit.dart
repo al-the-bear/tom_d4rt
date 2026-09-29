@@ -200,6 +200,23 @@ class ClassAudit {
   final unreachable = <String>[];
 }
 
+/// Types the LANGUAGE seals to a fixed set of heirs, each of which has a bridge.
+///
+/// No value can resolve to such a type's bridge; every value is one of the
+/// heirs. So one of its instance members is answered exactly when EVERY heir
+/// declares it, and the bridge itself carries no instance members (SCE233).
+/// Without this table the audit would call `num.abs` unreachable, which a
+/// script disproves.
+///
+/// `num` is the only entry: Dart forbids any class but `int` and `double` to
+/// extend or implement it. The same table is in `tom_d4rt`'s
+/// `tool/stdlib_member_diff.dart`, and F-SCE233-1 in
+/// `test/scc24_native_name_coverage_test.dart` checks that both heirs stay
+/// complete.
+const Map<String, List<String>> sealedToHeirs = {
+  'num': ['int', 'double'],
+};
+
 /// Walks every bridged class and classifies every ordinary named member the SDK
 /// offers and the registry does not declare directly.
 List<ClassAudit> auditMembers(Environment env) {
@@ -212,6 +229,17 @@ List<ClassAudit> auditMembers(Environment env) {
       if (bc != null && _declaredBy(bc).contains(member)) return true;
     }
     return false;
+  }
+
+  // SCE233: a member of a type sealed to its heirs is answered when every
+  // heir declares it. See [sealedToHeirs].
+  bool heirsAnswer(String cls, String member) {
+    final heirs = sealedToHeirs[cls];
+    if (heirs == null) return false;
+    return heirs.every((h) {
+      final heir = env.findBridgedClassByName(h);
+      return heir != null && _declaredBy(heir).contains(member);
+    });
   }
 
   for (final name in names) {
@@ -240,7 +268,8 @@ List<ClassAudit> auditMembers(Environment env) {
       if (declared.contains(m)) continue;
       if (_isOperator(m) || universalObjectMembers.contains(m)) continue;
       if (bc.constructors.containsKey(m)) continue;
-      (chainDeclares(name, m) ? audit.reachable : audit.unreachable).add(m);
+      final answered = chainDeclares(name, m) || heirsAnswer(name, m);
+      (answered ? audit.reachable : audit.unreachable).add(m);
     }
     audit.reachable.sort();
     audit.unreachable.sort();

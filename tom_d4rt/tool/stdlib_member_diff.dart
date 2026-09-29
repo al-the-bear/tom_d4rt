@@ -313,10 +313,41 @@ List<ClassDiff> collectMemberDiffs(Environment env, {Set<String>? only}) {
     if (only != null && !only.contains(name)) continue;
     final bc = env.findBridgedClassByName(name);
     if (bc == null) continue;
-    diffs.add(diffClass(name, bc));
+    final diff = diffClass(name, bc);
+    final heirs = sealedToHeirs[name];
+    if (heirs != null) {
+      bool everyHeirDeclares(String m) => heirs.every((h) {
+        final heir = env.findBridgedClassByName(h);
+        return heir != null &&
+            (heir.methods.containsKey(m) ||
+                heir.getters.containsKey(m) ||
+                heir.setters.containsKey(m));
+      });
+      diff.missingInstance.removeWhere(everyHeirDeclares);
+      diff.missingOperators.removeWhere(everyHeirDeclares);
+      diff.missingUniversal.removeWhere(everyHeirDeclares);
+    }
+    diffs.add(diff);
   }
   return diffs;
 }
+
+/// Types the LANGUAGE seals to a fixed set of heirs, each of which has a bridge.
+///
+/// No value can resolve to such a type's bridge; every value is one of the
+/// heirs. So one of its instance members is answered exactly when EVERY heir
+/// declares it, and the bridge itself carries no instance members (SCE233).
+/// Without this table the audit would call `num.abs` unreachable, which a
+/// script disproves.
+///
+/// `num` is the only entry: Dart forbids any class but `int` and `double` to
+/// extend or implement it. The same table is in `tom_d4rt_ast`'s
+/// `tool/stdlib_member_audit.dart`, and F-SCE233-1 in
+/// `test/scc24_native_name_coverage_test.dart` checks that both heirs stay
+/// complete.
+const Map<String, List<String>> sealedToHeirs = {
+  'num': ['int', 'double'],
+};
 
 /// Phase 2 over [diffs], in place: classifies every candidate as confirmed,
 /// reachable-anyway or unverified.

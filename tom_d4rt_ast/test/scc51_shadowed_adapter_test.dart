@@ -132,7 +132,6 @@ final Map<String, Fixture> _fixtures = {
   // --- dart:core values.
   'int': () => 7,
   'double': () => 7.5,
-  'num': () => 7,
   'BigInt': () => BigInt.from(7),
   'String': () => 'abc',
   'StringBuffer': () => StringBuffer('ab'),
@@ -1221,10 +1220,12 @@ void main() {
       // 2026-09-25 — the registry's 2 076 less the 34 on the two `_unwalked`
       // bridges and the 14 shadowed copies SCE185 deleted (thirteen on `Runes`,
       // `WebSocketTransformer.cast`). SCE195 then deleted `ServerSocket`'s 28,
-      // leaving 2 000.
+      // leaving 2 000. SCE233 deleted `num`'s 32 instance adapters, which `int`
+      // and `double` had shadowed and which themselves shadowed `Comparable`:
+      // 1 931 compared, measured 2026-09-29, and `num` left `_fixtures`.
       expect(
         compared,
-        greaterThan(1950),
+        greaterThan(1900),
         reason:
             'compared=$compared undrivable=$undrivable vacuous=$vacuous — '
             'the differential walk found far fewer shadowed pairs than the '

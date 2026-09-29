@@ -15,109 +15,16 @@ class NumCore {
         return num.tryParse(positionalArgs[0] as String);
       },
     },
-    methods: {
-      'abs': (visitor, target, positionalArgs, namedArgs, _) {
-        return (target as num).abs();
-      },
-      'ceil': (visitor, target, positionalArgs, namedArgs, _) {
-        return (target as num).ceil();
-      },
-      'floor': (visitor, target, positionalArgs, namedArgs, _) {
-        return (target as num).floor();
-      },
-      'round': (visitor, target, positionalArgs, namedArgs, _) {
-        return (target as num).round();
-      },
-      'truncate': (visitor, target, positionalArgs, namedArgs, _) {
-        return (target as num).truncate();
-      },
-      'ceilToDouble': (visitor, target, positionalArgs, namedArgs, _) {
-        return (target as num).ceilToDouble();
-      },
-      'floorToDouble': (visitor, target, positionalArgs, namedArgs, _) {
-        return (target as num).floorToDouble();
-      },
-      'roundToDouble': (visitor, target, positionalArgs, namedArgs, _) {
-        return (target as num).roundToDouble();
-      },
-      'truncateToDouble': (visitor, target, positionalArgs, namedArgs, _) {
-        return (target as num).truncateToDouble();
-      },
-      'toDouble': (visitor, target, positionalArgs, namedArgs, _) {
-        return (target as num).toDouble();
-      },
-      'toInt': (visitor, target, positionalArgs, namedArgs, _) {
-        return (target as num).toInt();
-      },
-      'toString': (visitor, target, positionalArgs, namedArgs, _) {
-        return (target as num).toString();
-      },
-      'toStringAsFixed': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'num.toStringAsFixed', atMost: 1);
-        return (target as num).toStringAsFixed(positionalArgs[0] as int);
-      },
-      'toStringAsExponential': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'num.toStringAsExponential', atMost: 1);
-        final fractionDigits = positionalArgs.isNotEmpty
-            ? positionalArgs[0] as int?
-            : null;
-        return (target as num).toStringAsExponential(fractionDigits);
-      },
-      'toStringAsPrecision': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'num.toStringAsPrecision', atMost: 1);
-        return (target as num).toStringAsPrecision(positionalArgs[0] as int);
-      },
-      'compareTo': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'num.compareTo', atMost: 1);
-        return (target as num).compareTo(positionalArgs[0] as num);
-      },
-      'clamp': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'num.clamp', atMost: 2);
-        return (target as num).clamp(
-          positionalArgs[0] as num,
-          positionalArgs[1] as num,
-        );
-      },
-      'remainder': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'num.remainder', atMost: 1);
-        return (target as num).remainder(positionalArgs[0] as num);
-      },
-      '+': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'num.+', atMost: 1);
-        return (target as num) + (positionalArgs[0] as num);
-      },
-      '-': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'num.-', atMost: 1);
-        return (target as num) - (positionalArgs[0] as num);
-      },
-      '*': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'num.*', atMost: 1);
-        return (target as num) * (positionalArgs[0] as num);
-      },
-      '/': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'num./', atMost: 1);
-        return (target as num) / (positionalArgs[0] as num);
-      },
-      '~/': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'num.~/', atMost: 1);
-        return (target as num) ~/ (positionalArgs[0] as num);
-      },
-      '%': (visitor, target, positionalArgs, namedArgs, _) {
-        D4.checkArity(positionalArgs, 'num.%', atMost: 1);
-        return (target as num) % (positionalArgs[0] as num);
-      },
-      'unary-': (visitor, target, positionalArgs, namedArgs, _) {
-        return -(target as num);
-      },
-    },
-    getters: {
-      'hashCode': (visitor, target) => (target as num).hashCode,
-      'runtimeType': (visitor, target) => (target as num).runtimeType,
-      'sign': (visitor, target) => (target as num).sign,
-      'isFinite': (visitor, target) => (target as num).isFinite,
-      'isInfinite': (visitor, target) => (target as num).isInfinite,
-      'isNaN': (visitor, target) => (target as num).isNaN,
-      'isNegative': (visitor, target) => (target as num).isNegative,
-    },
+    // SCE233: NO INSTANCE MEMBERS, on purpose. Every `num` value is an `int` or
+    // a `double`; Dart forbids any other class to extend or implement `num`,
+    // and both of those bridges declare every `num` instance member
+    // themselves. So no value ever resolves to this bridge and no member lookup
+    // falls through to it. The 32 adapters that used to be here had never run
+    // (SCD197), and an unreachable list is where drift hides (SCB26).
+    //
+    // A new `num` member belongs on the `int` AND `double` bridges.
+    // F-SCE233-1 in `scc24_native_name_coverage_test.dart` checks that both
+    // still declare every member this list held. The bridge stays for
+    // `is num`, `num.parse` and `num.tryParse`.
   );
 }

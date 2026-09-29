@@ -7,6 +7,8 @@ class EncodingConvert {
   static BridgedClass get definition => BridgedClass(
     nativeType: Encoding,
     name: 'Encoding',
+    // SCE233 KEEP. Partly reached (scc24 SCD197 pins the fraction), and fully
+    // reached for `systemEncoding`, whose class has no bridge of its own.
     typeParameterCount: 0,
     staticMethods: {
       'getByName': (visitor, positionalArgs, namedArgs, _) {

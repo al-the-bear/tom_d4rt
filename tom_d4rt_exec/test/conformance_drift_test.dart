@@ -714,8 +714,16 @@ const Map<String, _Coverage> _coveredElsewhere = {
     // belongs beside the native-name sweep because both need the same fully
     // registered environment and the same canonical-instance table, and a
     // third copy of either would measure nothing new.
-    refCases: 14,
-    twinCases: 14,
+    //
+    // 14 -> 16 / 15 with SCE233: F-SCE233-1 (`int` and `double` hold every
+    // `num` member, since `num`'s own were deleted) is in both copies.
+    refCases: 16,
+    twinCases: 15,
+    whyPartial:
+        'F-SCE233-2 is a SCRIPT: an interpreted `LinkedListEntry` subclass '
+        'reaching its bridged superclass\'s adapters, the route that makes '
+        'KEEP necessary for an extendable bridge. The AST tree has no parser, '
+        'so that case lives in the reference alone.',
   ),
   // SCD121 made a variable declaration keep every `await` in its initializer,
   // and made `a + b` stop evaluating `b` while `a` is suspended. The reference

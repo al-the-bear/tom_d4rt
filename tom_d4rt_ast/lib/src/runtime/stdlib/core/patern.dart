@@ -5,6 +5,12 @@ class PatternCore {
   static BridgedClass get definition => BridgedClass(
     nativeType: Pattern,
     name: 'Pattern',
+    // SCE233 KEEP. No value resolves here today: `Pattern` is an interface
+    // class, so nothing extends it, and `String` and `RegExp` declare these
+    // members themselves. A native type named after the interface would still
+    // reach it through SCC49's suffix fallback, as `_StringMatch` reaches
+    // `Match`, and these adapters forward to the interface, so they are right
+    // for any implementor. scc24 SCD197 pins the count.
     typeParameterCount: 0,
     constructors: {},
     methods: {

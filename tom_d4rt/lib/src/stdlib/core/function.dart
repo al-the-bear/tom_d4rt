@@ -4,6 +4,11 @@ class FunctionCore {
   static BridgedClass get definition => BridgedClass(
     nativeType: Function,
     name: 'Function',
+    // SCE233 KEEP. Native closures are what should reach these members. Today
+    // SCC49's suffix fallback claims a closure by its RETURN type first (a
+    // `() => Map<...>` resolves to `Map`, an `(int) => int` to `int`), so
+    // nothing arrives here. scf38 fixes that, and then these adapters are the
+    // ones that answer.
     // SCE121: `is Function` is the ordinary way a script asks whether a value
     // can be CALLED — a plugin registry, a callback table, `if (x is Function)
     // x()`. It answered true for a script function or closure and false for

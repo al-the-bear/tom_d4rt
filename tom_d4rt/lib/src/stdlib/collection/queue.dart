@@ -5,6 +5,10 @@ class QueueCollection {
   static BridgedClass get definition => BridgedClass(
     nativeType: Queue,
     name: 'Queue',
+    // SCE233 KEEP. Partly reached (scc24 SCD197 pins the fraction): `ListQueue`
+    // and `DoubleLinkedQueue` shadow most members because they happen to
+    // declare them, not because they must. A queue whose bridge declares less
+    // falls through to here.
     isAssignable: (v) => v is Queue,
     typeParameterCount: 1,
     constructors: {

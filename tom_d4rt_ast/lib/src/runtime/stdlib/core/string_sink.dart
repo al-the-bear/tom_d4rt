@@ -28,6 +28,9 @@ class StringSinkCore {
   static BridgedClass get definition => BridgedClass(
     nativeType: StringSink,
     name: 'StringSink',
+    // SCE233 KEEP. Partly reached, 1 of 7 (scc24 SCD197 pins it): heirs
+    // declare the rest. See the class comment for why there is no
+    // `isAssignable`.
     typeParameterCount: 0,
     constructors: {},
     methods: {

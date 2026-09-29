@@ -6,6 +6,10 @@ class SetCore {
   static BridgedClass get definition => BridgedClass(
     nativeType: Set,
     name: 'Set',
+    // SCE233 KEEP. Partly reached (scc24 SCD197 pins the fraction):
+    // `LinkedHashSet` and the other set bridges shadow nearly everything
+    // because they happen to declare it, not because they must. A set whose
+    // bridge declares less falls through to here.
     typeParameterCount: 1,
     nativeNames: [
       'UnmodifiableSetView',

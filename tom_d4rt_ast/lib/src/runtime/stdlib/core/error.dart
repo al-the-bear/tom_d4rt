@@ -4,6 +4,11 @@ class ErrorCore {
   static BridgedClass get definition => BridgedClass(
     nativeType: Error,
     name: 'Error',
+    // SCE233 KEEP. No canonical instance resolves here, because every common
+    // SDK error has its own bridge. But `Error` is extendable: an interpreted
+    // `class MyError extends Error` reads these members through its bridged
+    // superclass, and a native error with no bridge of its own lands here. The
+    // heir walk in scc24 SCD197 counts neither route.
     typeParameterCount: 0,
     constructors: {
       '': (visitor, positionalArgs, namedArgs) {

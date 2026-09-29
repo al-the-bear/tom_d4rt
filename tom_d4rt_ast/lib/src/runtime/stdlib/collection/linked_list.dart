@@ -264,6 +264,11 @@ class LinkedListEntryCollection {
   static BridgedClass get definition => BridgedClass(
     nativeType: BridgedLinkedListEntry,
     name: 'LinkedListEntry',
+    // SCE233 KEEP. No bridged heir reaches these members, but every real
+    // `LinkedListEntry` is a subclass, and an interpreted subclass reads
+    // `next`, `previous`, `list` and `unlink` through these adapters.
+    // F-SCE233-2 in tom_d4rt's scc24 runs exactly that; the heir walk there
+    // cannot see it.
     isAssignable: (v) => v is BridgedLinkedListEntry,
     typeParameterCount: 0,
     constructors: {

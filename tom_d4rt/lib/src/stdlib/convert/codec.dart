@@ -6,6 +6,10 @@ class CodecConvert {
   static BridgedClass get definition => BridgedClass(
     nativeType: Codec,
     name: 'Codec',
+    // SCE233 KEEP. Partly reached (scc24 SCD197 pins the fraction): the
+    // concrete codecs declare most members, and the rest fall through to here.
+    // `Codec` is extendable, and a codec that does not override a member is
+    // answered here.
     typeParameterCount: 2, // Codec<S, T>
     // `_FusedCodec` is what `Codec.fuse` returns; `_InvertedCodec` is what
     // `Codec.inverted` returns. SCC24 found the second one missing, which

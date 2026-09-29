@@ -31,6 +31,11 @@ class TypedDataTypedData {
   static BridgedClass get definition => BridgedClass(
     nativeType: TypedData,
     name: 'TypedData',
+    // SCE233 KEEP. Every typed list and view the stdlib bridges declares
+    // these members itself, so none falls through to here today. They stay for
+    // a typed-data value with no bridge of its own; SIMD lists are the known
+    // case, and they currently resolve to `List`. The adapters forward to the
+    // interface, so they are right for any implementor.
     getters: {
       'buffer': (visitor, target) => (target as TypedData).buffer,
       'lengthInBytes': (visitor, target) => (target as TypedData).lengthInBytes,

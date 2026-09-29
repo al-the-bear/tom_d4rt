@@ -115,6 +115,7 @@ import 'dart:typed_data';
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt/src/bridge/bridged_types.dart';
+import 'package:tom_d4rt/src/d4rt_base.dart' show D4rt;
 // `Environment.toBridgedInstance` is this file's entire subject, so the
 // dependency is declared directly rather than leaning on a stdlib barrel that
 // happens to re-export it today.
@@ -234,7 +235,12 @@ Map<String, Object> _canonicalInstances() => {
   'Uri': Uri.parse('https://example.com/a?b=c'),
   'RegExp': RegExp('a'),
   'RegExpMatch': RegExp('a').firstMatch('a')!,
-  'Match': RegExp('a').firstMatch('a')!,
+  // SCE233: a STRING-pattern match. A RegExp match is a `_RegExpMatch`, which
+  // the `RegExpMatch` bridge claims, so it never measured `Match` at all. Every
+  // `String.allMatches` / `matchAsPrefix` result is a `_StringMatch`, and the
+  // `Match` bridge is what claims it. SCD197 recorded `Match` as fully
+  // unreachable because the instance standing in for it was the wrong one.
+  'Match': 'a'.matchAsPrefix('a')!,
   'StringBuffer': StringBuffer('a'),
   'Stopwatch': Stopwatch(),
   'Error': StateError('x'),
@@ -351,11 +357,26 @@ Map<String, Object> _canonicalInstances() => {
   'ByteBuffer': Uint8List(1).buffer,
   'TypedData': Uint8List(1),
   'Endian': Endian.little,
+  // SCE233: cheap instances for bridges SCD197 could not measure for want of
+  // one. Each resolves to the bridge it is filed under (checked 2026-09-29).
+  // None has instance getters, so the getter sweep never needed them.
+  'ChunkedConversionSink': ChunkedConversionSink<int>.withCallback((_) {}),
+  'StreamTransformer': StreamTransformer<int, int>.fromHandlers(),
+  'FileSystemEntityType': FileSystemEntityType.file,
+  'ProcessStartMode': ProcessStartMode.normal,
+  // `StdoutException` has no bridge of its own, so `IOException` claims it.
+  'IOException': const StdoutException('x'),
+  'WebSocketTransformer': WebSocketTransformer(),
   // dart:io
   'File': _scratchPubspec,
   'Directory': Directory('.'),
   'FileStat': _scratchPubspec.statSync(),
-  'FileSystemEntity': _scratchPubspec,
+  // SCE233: a `Link`. `Link` has no bridge (see `doc/d4rt_limitations.md`), so
+  // a link, including one `Directory.list` hands a script, is claimed by the
+  // `FileSystemEntity` bridge. A `File` resolves to `File` and never measured
+  // it, which is how SCD197 came to record it as unreachable. Constructing a
+  // `Link` touches nothing on disk.
+  'FileSystemEntity': Link('${_scratchPubspec.parent.path}/scc24_link'),
   'HttpClient': HttpClient(),
   // A plain data holder with a default constructor — the only one of the six
   // types SCC62 bridged that can be built without a live connection. The other
@@ -1463,12 +1484,51 @@ void main() {
   // reachable, not 0/7 — one member does fall through. The seven are not all
   // dead, which is worth knowing before anyone deletes them.
   //
-  // WHAT THIS GROUP DOES NOT DO, deliberately: it does not delete anything.
-  // SCD197 asked to measure first and then decide per bridge, and the deciding
-  // is judgement-heavy — twenty-nine bridges, some of which want their adapters
-  // kept and guarded rather than removed. This is the measurement plus the
-  // ratchet that stops the set growing while that is decided; the deletions are
-  // sce233.
+  // SCE233 DECIDED EACH BRIDGE, AND THE MEASUREMENT HAD TWO BLIND SPOTS.
+  //
+  // (a) ONE INSTANCE PER BRIDGED TYPE MISSES THE UNBRIDGED IMPLEMENTOR. A
+  //     native value whose own class has no bridge resolves to its nearest
+  //     bridged supertype. `Match` stood in as a `_RegExpMatch` (claimed by
+  //     `RegExpMatch`), but every `String.allMatches` / `matchAsPrefix` result
+  //     is a `_StringMatch`, and the `Match` bridge is what claims it.
+  //     `FileSystemEntity` stood in as a `File`, while a `Link`, which has no
+  //     bridge, resolves to it. With the right instances both are fully
+  //     reachable. The todo had named `Match` the clearest DELETE candidate;
+  //     deleting it would have broken every string-pattern match.
+  // (b) THE WALK FOLLOWS BRIDGE HEIRS ONLY. An INTERPRETED subclass reads
+  //     inherited members through the bridged superclass: an interpreted
+  //     `LinkedListEntry` subclass's `next`, `previous`, `list` and `unlink`
+  //     all run the adapters this walk calls unreachable (F-SCE233-2).
+  //
+  // So "no canonical instance reaches it" is a LOWER bound on reachability,
+  // and the rule is: DELETE a member list only when the LANGUAGE rules out
+  // every other route. That is `num` alone. Dart forbids extending or
+  // implementing it, and `int` and `double` both declare every member, so its
+  // 32 adapters are gone and F-SCE233-1 holds the heirs complete. Every other
+  // bridge below is KEEP: an unbridged native implementor, an interpreted
+  // subclass, or a future SDK type can reach it. Each such bridge's source says
+  // so beside its member maps, where somebody adding a member would read it.
+  //
+  //   | Bridge          | Decision | Route that reaches it                    |
+  //   | --------------- | -------- | ---------------------------------------- |
+  //   | num             | DELETE   | none: sealed to int/double by Dart       |
+  //   | Match           | reached  | `_StringMatch` (measured, now counted)   |
+  //   | FileSystemEntity| reached  | `Link`, unbridged (measured, now counted)|
+  //   | LinkedListEntry | KEEP     | interpreted subclasses (F-SCE233-2)      |
+  //   | Error           | KEEP     | unbridged native errors; subclasses      |
+  //   | Comparable      | KEEP     | unbridged native implementors            |
+  //   | Pattern         | KEEP     | unbridged native implementors            |
+  //   | TypedData       | KEEP     | unbridged typed views (SIMD lists today  |
+  //   |                 |          | resolve to `List`, not here)             |
+  //   | Function        | KEEP     | native closures, once scf38 stops the    |
+  //   |                 |          | suffix fallback claiming them by return  |
+  //   |                 |          | type (`() => Map` resolves to `Map`)     |
+  //   | the 8 partly reachable ones | KEEP | already reached in part           |
+  //
+  // Six of the twelve unmeasured bridges now have cheap canonical instances,
+  // and each resolves to its own bridge. The six left need a process, a
+  // watcher, `null`, or an abstract type no native uses without a more
+  // specific bridge.
   //
   // BOTH RATCHETS HAVE BEEN SEEN TO FAIL:
   //
@@ -1488,17 +1548,17 @@ void main() {
     const measuredUnreachable = <String, int>{
       'Comparable': 4,
       'Error': 4,
-      'FileSystemEntity': 16,
       'Function': 4,
       // 7 -> 6 with SCE84: the `value` getter went, because the SDK's
       // entry has no such member and a script using it did not compile as
       // Dart. The bridge is still unreachable in this sense — every heir
       // declares its own — so the count moved rather than the entry.
       'LinkedListEntry': 6,
-      'Match': 11,
       'Pattern': 5,
       'TypedData': 4,
-      'num': 32,
+      // `num` left with SCE233: its instance adapters were deleted. `Match`
+      // and `FileSystemEntity` left because the instances standing in for
+      // them were the wrong ones.
     };
 
     /// Bridges some of whose members ARE reached. Pinned as a fraction because
@@ -1521,18 +1581,12 @@ void main() {
     /// distinction is on the record and nobody reads the nine above as the
     /// whole set.
     const unmeasuredForWantOfAnInstance = <String>{
-      'ChunkedConversionSink',
       'EventSink',
-      'FileSystemEntityType',
       'FileSystemEvent',
-      'IOException',
       'Null',
       'Process',
-      'ProcessStartMode',
       'StreamConsumer',
-      'StreamTransformer',
       'StreamTransformerBase',
-      'WebSocketTransformer',
     };
 
     late Environment env;
@@ -1736,6 +1790,101 @@ void main() {
             'Re-run the measurement and move each into measuredUnreachable or '
             'partlyReachable, or delete its entry if it resolves.',
       );
+    });
+
+    test('F-SCE233-1: int and double each declare every num instance member '
+        '[2026-09-29] (PASS)', () {
+      // `num`'s instance adapters were deleted because Dart seals it to these
+      // two and both are complete. That is only true while both stay complete:
+      // a member missing here would have nothing to fall through to.
+      const numInstanceMembers = <String>{
+        'abs',
+        'ceil',
+        'floor',
+        'round',
+        'truncate',
+        'ceilToDouble',
+        'floorToDouble',
+        'roundToDouble',
+        'truncateToDouble',
+        'toDouble',
+        'toInt',
+        'toString',
+        'toStringAsFixed',
+        'toStringAsExponential',
+        'toStringAsPrecision',
+        'compareTo',
+        'clamp',
+        'remainder',
+        '+',
+        '-',
+        '*',
+        '/',
+        '~/',
+        '%',
+        'unary-',
+        'hashCode',
+        'runtimeType',
+        'sign',
+        'isFinite',
+        'isInfinite',
+        'isNaN',
+        'isNegative',
+      };
+      final missing = <String>[];
+      for (final heir in const ['int', 'double']) {
+        final bridge = env.findBridgedClassByName(heir)!;
+        for (final member in numInstanceMembers) {
+          if (!bridge.methods.containsKey(member) &&
+              !bridge.getters.containsKey(member)) {
+            missing.add('$heir.$member');
+          }
+        }
+      }
+      expect(
+        missing,
+        isEmpty,
+        reason:
+            'The `num` bridge carries no instance members (SCE233), so these '
+            'are unreachable on the values that lack them. Add them to the '
+            'heir, not back to `num`.',
+      );
+      // LAYOUT: the declaring bridge IS the subject. The claim is that `num`
+      // itself declares nothing, which reachability cannot express, because
+      // `int` and `double` still make every member reachable.
+      final numBridge = env.findBridgedClassByName('num')!;
+      expect(
+        [...numBridge.methods.keys, ...numBridge.getters.keys],
+        isEmpty,
+        reason: 'a member list on `num` is unreachable by construction',
+      );
+    });
+
+    test('F-SCE233-2: an interpreted subclass reaches its bridged '
+        'superclass\'s adapters, which the heir walk cannot see '
+        '[2026-09-29] (PASS)', () {
+      // The route that makes KEEP necessary for an extendable bridge: the
+      // walk above counts `LinkedListEntry` 0/6 reachable, and all four of
+      // these run its adapters.
+      final result = D4rt().execute(
+        source: '''
+import 'dart:collection';
+final class E extends LinkedListEntry<E> {
+  final int v;
+  E(this.v);
+}
+Object? main() {
+  final l = LinkedList<E>();
+  final a = E(1);
+  l.add(a);
+  l.add(E(2));
+  final seen = '\${a.next?.v} \${a.previous} \${identical(a.list, l)}';
+  a.unlink();
+  return '\$seen \${l.length}';
+}
+''',
+      );
+      expect(result, '2 null true 1');
     });
   });
 }
