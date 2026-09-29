@@ -39,14 +39,8 @@ int add(int a, int b) => a + b;
 Future<Object?> _run(String body) =>
     D4rt().execute(source: _pre + body) as Future<Object?>;
 
-/// PUBLISH-BLOCKED (DGUC6): exec resolves `tom_d4rt_ast` from pub.dev, and
-/// the release carrying scf29 is 0.194.0. Remove the skips — which makes the
-/// file the reference verbatim again — when exec's floor passes it.
-const _publishBlocked =
-    'PUBLISH-BLOCKED: needs tom_d4rt_ast 0.194.0 (scf29, published by scf42)';
-
 void main() {
-  group('SCF29: the four routes the todo measured', skip: _publishBlocked, () {
+  group('SCF29: the four routes the todo measured', () {
     test('F-SCF29-1 (Q): an `=>` body whose invocation holds two awaits '
         '[2026-09-29] (PASS)', () async {
       expect(
@@ -92,7 +86,7 @@ void main() {
     });
   });
 
-  group('SCF29: neighbours of the same cause', skip: _publishBlocked, () {
+  group('SCF29: neighbours of the same cause', () {
     test('F-SCF29-5: a loop condition with two awaits over several '
         'iterations — the replay cache ends with each evaluation '
         '[2026-09-29] (PASS)', () async {
@@ -159,7 +153,7 @@ void main() {
     });
   });
 
-  group('SCF29: controls on the routes that were already right', skip: _publishBlocked, () {
+  group('SCF29: controls on the routes that were already right', () {
     test('F-SCF29-8: declaration, return, plain `=>`, expression statement, '
         'direct-await conditions and `x = await f()` [2026-09-29] (PASS)', () async {
       final cases = <String, String>{

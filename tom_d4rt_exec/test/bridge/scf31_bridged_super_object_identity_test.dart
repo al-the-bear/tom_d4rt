@@ -25,12 +25,6 @@ library;
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
-/// PUBLISH-BLOCKED (DGUC6): exec resolves `tom_d4rt_ast` from pub.dev, and
-/// the release carrying scf31 is 0.195.0. Remove the skip — which makes the
-/// file the reference verbatim again — when exec's floor passes it.
-const _publishBlocked =
-    'PUBLISH-BLOCKED: needs tom_d4rt_ast 0.195.0 (scf31, published by scf42)';
-
 /// `RenderProxyBox`'s stand-in: a concrete bridged class with a constructor.
 class _NativeBox {
   _NativeBox(this.value);
@@ -83,149 +77,141 @@ class OtherBox extends Box {
 ''';
 
 void main() {
-  group(
-    'SCF31: a bridged super object is recognised as its instance',
-    skip: _publishBlocked,
-    () {
-      late D4rt interpreter;
+  group('SCF31: a bridged super object is recognised as its instance', () {
+    late D4rt interpreter;
 
-      setUp(() {
-        _held = null;
-        interpreter = D4rt();
-        interpreter.registerBridgedClass(
-          BridgedClass(
-            nativeType: _NativeBox,
-            name: 'Box',
-            constructors: {
-              '': (visitor, positional, named) =>
-                  _NativeBox(positional[0] as int),
-            },
-            getters: {
-              'value': (visitor, target) => (target as _NativeBox).value,
-            },
-            staticMethods: {
-              'stash': _stash,
-              'last': _last,
-              'dispatch': _dispatch,
-            },
-          ),
-          'package:test/box.dart',
-        );
-      });
+    setUp(() {
+      _held = null;
+      interpreter = D4rt();
+      interpreter.registerBridgedClass(
+        BridgedClass(
+          nativeType: _NativeBox,
+          name: 'Box',
+          constructors: {
+            '': (visitor, positional, named) =>
+                _NativeBox(positional[0] as int),
+          },
+          getters: {'value': (visitor, target) => (target as _NativeBox).value},
+          staticMethods: {
+            'stash': _stash,
+            'last': _last,
+            'dispatch': _dispatch,
+          },
+        ),
+        'package:test/box.dart',
+      );
+    });
 
-      Object? run(String body) =>
-          interpreter.execute(source: '$_classes\n$body');
+    Object? run(String body) => interpreter.execute(source: '$_classes\n$body');
 
-      test('F-SCF31-1: a parameter declared as the script class binds the '
-          'native object handed back [2026-09-29] (PASS)', () {
-        // Before SCF31: `type 'Box' is not a subtype of type 'MeasureBox'`.
-        expect(
-          run('''
+    test('F-SCF31-1: a parameter declared as the script class binds the '
+        'native object handed back [2026-09-29] (PASS)', () {
+      // Before SCF31: `type 'Box' is not a subtype of type 'MeasureBox'`.
+      expect(
+        run('''
 int size(MeasureBox b) => b.extra;
 int main() { Box.stash(MeasureBox(3)); return size(Box.last()); }
 '''),
-          7,
-        );
-      });
+        7,
+      );
+    });
 
-      test('F-SCF31-2: the same binding on a native-to-interpreted callback '
-          '[2026-09-29] (PASS)', () {
-        expect(
-          run('''
+    test('F-SCF31-2: the same binding on a native-to-interpreted callback '
+        '[2026-09-29] (PASS)', () {
+      expect(
+        run('''
 int size(MeasureBox b) => b.extra + b.value;
 int main() { Box.stash(MeasureBox(3)); return Box.dispatch(size); }
 '''),
-          10,
-        );
-      });
+        10,
+      );
+    });
 
-      test('F-SCF31-3: `as` yields the instance, so script members are '
-          'reachable after the cast [2026-09-29] (PASS)', () {
-        // Before SCF31 the cast was permissive and returned the native base, so
-        // `.extra` was an undefined member.
-        expect(
-          run('''
+    test('F-SCF31-3: `as` yields the instance, so script members are '
+        'reachable after the cast [2026-09-29] (PASS)', () {
+      // Before SCF31 the cast was permissive and returned the native base, so
+      // `.extra` was an undefined member.
+      expect(
+        run('''
 int main() { Box.stash(MeasureBox(3)); return (Box.last() as MeasureBox).extra; }
 '''),
-          7,
-        );
-      });
+        7,
+      );
+    });
 
-      test('F-SCF31-4: `is` answers for the instance [2026-09-29] (PASS)', () {
-        expect(
-          run('''
+    test('F-SCF31-4: `is` answers for the instance [2026-09-29] (PASS)', () {
+      expect(
+        run('''
 bool main() { Box.stash(MeasureBox(3)); return Box.last() is MeasureBox; }
 '''),
-          isTrue,
-        );
-      });
+        isTrue,
+      );
+    });
 
-      test('F-SCF31-5: the native object and the instance are one object '
-          '[2026-09-29] (PASS)', () {
-        expect(
-          run('''
+    test('F-SCF31-5: the native object and the instance are one object '
+        '[2026-09-29] (PASS)', () {
+      expect(
+        run('''
 List<bool> main() {
   final b = MeasureBox(3);
   Box.stash(b);
   return [identical(Box.last(), b), Box.last() == b];
 }
 '''),
-          [true, true],
-        );
-      });
+        [true, true],
+      );
+    });
 
-      test('F-SCF31-6: control — an unrelated script class is still refused '
-          '[2026-09-29] (PASS)', () {
-        expect(
-          () => run('''
+    test('F-SCF31-6: control — an unrelated script class is still refused '
+        '[2026-09-29] (PASS)', () {
+      expect(
+        () => run('''
 int size(OtherBox b) => 0;
 int main() { Box.stash(MeasureBox(3)); return size(Box.last()); }
 '''),
-          throwsA(predicate((e) => '$e'.contains("'OtherBox'"))),
-        );
-        expect(
-          run('''
+        throwsA(predicate((e) => '$e'.contains("'OtherBox'"))),
+      );
+      expect(
+        run('''
 bool main() { Box.stash(MeasureBox(3)); return Box.last() is OtherBox; }
 '''),
-          isFalse,
-        );
-      });
+        isFalse,
+      );
+    });
 
-      test('F-SCF31-7: control — a base nobody subclassed is still a base '
-          '[2026-09-29] (PASS)', () {
-        expect(
-          run('''
+    test('F-SCF31-7: control — a base nobody subclassed is still a base '
+        '[2026-09-29] (PASS)', () {
+      expect(
+        run('''
 bool main() { Box.stash(Box(1)); return Box.last() is MeasureBox; }
 '''),
-          isFalse,
-        );
-        expect(
-          () => run('''
+        isFalse,
+      );
+      expect(
+        () => run('''
 int size(MeasureBox b) => b.extra;
 int main() { Box.stash(Box(1)); return size(Box.last()); }
 '''),
-          throwsA(predicate((e) => '$e'.contains("'MeasureBox'"))),
-        );
-      });
+        throwsA(predicate((e) => '$e'.contains("'MeasureBox'"))),
+      );
+    });
 
-      test('F-SCF31-8: the pairing is recorded when the super object is set, '
-          'not when it first crosses out [2026-09-29] (PASS)', () {
-        final native = _NativeBox(1);
-        final instance = interpreter.execute(
-          source: '$_classes\nObject main() => MeasureBox(3);',
-        );
-        expect(instance, isA<InterpretedInstance>());
-        final superObject =
-            (instance as InterpretedInstance).bridgedSuperObject;
-        expect(D4.interpretedBehind(superObject), same(instance));
-        expect(D4.interpretedBehind(native), isNull);
-        // The values an Expando refuses are never recorded rather than thrown.
-        expect(
-          () => D4.registerInterpretedForNative(1, instance),
-          returnsNormally,
-        );
-        expect(D4.interpretedBehind(1), isNull);
-      });
-    },
-  );
+    test('F-SCF31-8: the pairing is recorded when the super object is set, '
+        'not when it first crosses out [2026-09-29] (PASS)', () {
+      final native = _NativeBox(1);
+      final instance = interpreter.execute(
+        source: '$_classes\nObject main() => MeasureBox(3);',
+      );
+      expect(instance, isA<InterpretedInstance>());
+      final superObject = (instance as InterpretedInstance).bridgedSuperObject;
+      expect(D4.interpretedBehind(superObject), same(instance));
+      expect(D4.interpretedBehind(native), isNull);
+      // The values an Expando refuses are never recorded rather than thrown.
+      expect(
+        () => D4.registerInterpretedForNative(1, instance),
+        returnsNormally,
+      );
+      expect(D4.interpretedBehind(1), isNull);
+    });
+  });
 }

@@ -21,10 +21,9 @@
 // package disagreeing about `finally` is the strongest possible statement that
 // one of them is wrong, and it costs one extra `expect` per case.
 //
-// STILL BROKEN, DELIBERATELY NOT FIXED HERE: `break` and `continue` out of a
-// try in an async body still skip its finally — see the last group, which pins
-// today's wrong answers so the next change to this machinery cannot move them
-// silently. That is scf6.
+// THE JUMP ROUTE (scf6): `break` and `continue` out of a try in an async body
+// used to skip its finally, and the last group pinned those wrong answers. It
+// now asserts the sync oracle's answers, for the jump shapes as well.
 
 import 'package:test/test.dart';
 
@@ -127,55 +126,129 @@ void main() {
     );
   });
 
-  group('SCE18: break and continue still skip their finally (scf6)', () {
-    // NOT aspirational tests. They record what the interpreter does TODAY, so
-    // that the next change to this machinery cannot move it without saying so —
-    // and so that whoever takes scf6 has the before-picture already written
-    // down. Each expectation names the Dart answer it is not yet giving.
+  group('SCF6: break and continue run the finallys they cross', () {
+    // These pinned TODAY'S WRONG ANSWERS until scf6 ('after' and 'f2,b2'); the
+    // synchronous visitor has always been right and is the oracle for every
+    // case, so each asserts async == sync == Dart.
+    Future<void> agree(String body, String dart) async {
+      final r = await both(body);
+      expect(r.sync, equals(dart), reason: 'the sync oracle');
+      expect(r.async, equals(dart));
+    }
+
     test(
-      'F-SCE18-8: break skips the finally — today [2026-09-18] (PASS)',
+      'F-SCE18-8: break runs the finally it crosses [2026-09-29] (PASS)',
       () async {
-        final r = await both(
+        await agree(
           "var log = [];"
-          " for (var i in [1, 2]) { try { if (i == 1) break; }"
-          " finally { log.add('f' + i.toString()); } }"
-          " log.add('after');"
-          " return log.join(',');",
-        );
-        expect(
-          r.async,
-          equals('after'),
-          reason: 'Dart and the sync visitor answer f1,after — scf6',
-        );
-        expect(
-          r.sync,
-          equals('f1,after'),
-          reason: 'the sync oracle is correct',
+              " for (var i in [1, 2]) { try { if (i == 1) break; }"
+              " finally { log.add('f' + i.toString()); } }"
+              " log.add('after');"
+              " return log.join(',');",
+          'f1,after',
         );
       },
     );
 
-    test(
-      'F-SCE18-9: continue skips the finally — today [2026-09-18] (PASS)',
-      () async {
-        final r = await both(
-          "var log = [];"
-          " for (var i in [1, 2]) { try { if (i == 1) continue; }"
-          " finally { log.add('f' + i.toString()); }"
-          " log.add('b' + i.toString()); }"
-          " return log.join(',');",
-        );
-        expect(
-          r.async,
-          equals('f2,b2'),
-          reason: 'Dart and the sync visitor answer f1,f2,b2 — scf6',
-        );
-        expect(
-          r.sync,
-          equals('f1,f2,b2'),
-          reason: 'the sync oracle is correct',
-        );
-      },
-    );
+    test('F-SCE18-9: continue runs the finally, then the next iteration '
+        '[2026-09-29] (PASS)', () async {
+      await agree(
+        "var log = [];"
+            " for (var i in [1, 2]) { try { if (i == 1) continue; }"
+            " finally { log.add('f' + i.toString()); }"
+            " log.add('b' + i.toString()); }"
+            " return log.join(',');",
+        'f1,f2,b2',
+      );
+    });
+
+    test('F-SCF6-1: two tries between the break and its loop run innermost '
+        'first, and nothing between them [2026-09-29] (PASS)', () async {
+      await agree(
+        "var log = [];"
+            " for (var i in [1, 2]) {"
+            "   try { try { break; } finally { log.add('A'); } log.add('MID'); }"
+            "   finally { log.add('B'); }"
+            " }"
+            " log.add('after');"
+            " return log.join(',');",
+        'A,B,after',
+      );
+    });
+
+    test('F-SCF6-2: a return inside the crossed finally overrides the break '
+        '[2026-09-29] (PASS)', () async {
+      await agree(
+        "var log = [];"
+            " for (var i in [1, 2]) { try { break; } finally { return 'r'; } }"
+            " return 'after';",
+        'r',
+      );
+    });
+
+    test('F-SCF6-3: a labelled break out of two loops runs a finally that is '
+        'not inside the inner loop [2026-09-29] (PASS)', () async {
+      await agree(
+        "var log = [];"
+            " outer: for (var i in [1, 2]) {"
+            "   try { for (var j in [1, 2]) { if (j == 2) break outer; log.add('j' + j.toString()); } }"
+            "   finally { log.add('f' + i.toString()); }"
+            " }"
+            " log.add('after');"
+            " return log.join(',');",
+        'j1,f1,after',
+      );
+    });
+
+    test('F-SCF6-4: a finally whose try is OUTSIDE the target loop does not '
+        'run on the break [2026-09-29] (PASS)', () async {
+      await agree(
+        "var log = [];"
+            " try { for (var i in [1, 2]) { if (i == 1) break; } log.add('after'); }"
+            " finally { log.add('F'); }"
+            " return log.join(',');",
+        'after,F',
+      );
+    });
+
+    test('F-SCF6-5: a break local to a loop INSIDE the running finally keeps '
+        'the pending jump [2026-09-29] (PASS)', () async {
+      await agree(
+        "var log = [];"
+            " for (var i in [1, 2]) {"
+            "   try { break; }"
+            "   finally { for (var k in [1, 2]) { log.add('k' + k.toString()); break; } }"
+            "   log.add('body');"
+            " }"
+            " log.add('after');"
+            " return log.join(',');",
+        'k1,after',
+      );
+    });
+
+    test('F-SCF6-6: a throw inside the crossed finally overrides the break '
+        '[2026-09-29] (PASS)', () async {
+      await agree(
+        "var log = [];"
+            " try {"
+            "   for (var i in [1, 2]) { try { break; } finally { throw 'x'; } }"
+            "   log.add('after');"
+            " } catch (e) { log.add('caught ' + e.toString()); }"
+            " return log.join(',');",
+        'caught x',
+      );
+    });
+
+    test('F-SCF6-7: an await inside the crossed finally is resumed, then the '
+        'jump completes [2026-09-29] (PASS)', () async {
+      final r = await executeAsync(
+        "main() async { var log = [];"
+        " for (var i in [1, 2]) { try { if (i == 1) break; }"
+        " finally { await Future.value(0); log.add('f' + i.toString()); } }"
+        " log.add('after');"
+        " return log.join(','); }",
+      );
+      expect(r, equals('f1,after'));
+    });
   });
 }

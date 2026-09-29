@@ -213,13 +213,11 @@ void main() {
       expect(result, equals('1:10,1:20'));
     });
 
-    test(
-      'F-SCD4-10: break stops the stream — the generator does not run '
-      'past the element that was broken on [2026-09-11] (SKIP)',
-      () async {
-        // Dart cancels the subscription when an await-for is left early, so an
-        // async* generator paused at `yield 2` never resumes.
-        final result = await executeAsync('''
+    test('F-SCD4-10: break stops the stream — the generator does not run '
+        'past the element that was broken on [2026-09-11] (PASS)', () async {
+      // Dart cancels the subscription when an await-for is left early, so an
+      // async* generator paused at `yield 2` never resumes.
+      final result = await executeAsync('''
         var log = <String>[];
         Stream<int> gen() async* {
           yield 1;
@@ -236,16 +234,80 @@ void main() {
           return log.join(',');
         }
       ''');
-        expect(result, equals('v1,v2'));
-      },
-      skip:
-          'scf4: SCE16 made `await for` lazy — one `moveNext()` per element, '
-          'and the iterator is cancelled when the loop is left — so the '
-          'interleaving is now right: this returns "v1,v2,resumed" where it '
-          'used to return "resumed,v1,v2". What is left is the other half: an '
-          '`async*` generator still ignores its listener, so cancelling the '
-          'subscription does not stop the body and "resumed" still runs.',
-    );
+      expect(result, equals('v1,v2'));
+    });
+
+    test('F-SCF4-1: a generator\'s finally runs when its consumer breaks '
+        '[2026-09-29] (PASS)', () async {
+      // Dart ends a cancelled async* body as if by `return` at the pending
+      // yield: its finally blocks run, and nothing after the yield does.
+      final result = await executeAsync('''
+        var log = <String>[];
+        Stream<int> gen() async* {
+          try {
+            yield 1;
+            yield 2;
+            log.add('after');
+          } finally {
+            log.add('finally');
+          }
+        }
+        main() async {
+          await for (var v in gen()) {
+            log.add('v\$v');
+            if (v == 1) break;
+          }
+          await Future.delayed(Duration(milliseconds: 5));
+          return log.join(',');
+        }
+      ''');
+      expect(result, equals('v1,finally'));
+    });
+
+    test('F-SCF4-2: no catch clause in the generator claims the cancellation '
+        '[2026-09-29] (PASS)', () async {
+      // The return-like unwind, not an error: a `catch` around the yield must
+      // not run, or a generator could swallow its own cancellation.
+      final result = await executeAsync('''
+        var log = <String>[];
+        Stream<int> gen() async* {
+          try {
+            yield 1;
+            yield 2;
+          } catch (e) {
+            log.add('caught');
+          } finally {
+            log.add('finally');
+          }
+        }
+        main() async {
+          await for (var v in gen()) {
+            log.add('v\$v');
+            break;
+          }
+          await Future.delayed(Duration(milliseconds: 5));
+          return log.join(',');
+        }
+      ''');
+      expect(result, equals('v1,finally'));
+    });
+
+    test('F-SCF4-3: a listener that never pauses still receives every element '
+        '[2026-09-29] (PASS)', () async {
+      final result = await executeAsync('''
+        Stream<int> gen() async* {
+          for (var i = 0; i < 5; i++) {
+            yield i;
+          }
+        }
+        main() async {
+          final seen = <int>[];
+          await gen().forEach(seen.add);
+          return seen.join(',');
+        }
+      ''');
+      expect(result, equals('0,1,2,3,4'));
+    });
 
     test('F-SCE16-1: an await for over an INFINITE stream runs its body and '
         'can be broken out of [2026-09-18] (PASS)', () async {

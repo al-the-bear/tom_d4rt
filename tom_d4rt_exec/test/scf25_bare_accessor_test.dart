@@ -33,83 +33,72 @@ class Box {
 }
 ''';
 
-/// PUBLISH-BLOCKED (DGUC6): exec resolves `tom_d4rt_ast` from pub.dev, and
-/// the release carrying scf25 is 0.191.0. Remove this skip — which makes the
-/// file the reference verbatim again — when exec's floor passes it.
-const _publishBlocked =
-    'PUBLISH-BLOCKED: needs tom_d4rt_ast 0.191.0 (scf25, published by scf42)';
-
 void main() {
-  group(
-    'SCF25: bare accessors are called, not rebound',
-    skip: _publishBlocked,
-    () {
-      test('F-SCF25-1: the qualified write still reaches the setter '
-          '[2026-09-29] (PASS)', () {
-        expect(_run('$_box main() { Box.v = 5; return Box.v; }'), 105);
-      });
+  group('SCF25: bare accessors are called, not rebound', () {
+    test('F-SCF25-1: the qualified write still reaches the setter '
+        '[2026-09-29] (PASS)', () {
+      expect(_run('$_box main() { Box.v = 5; return Box.v; }'), 105);
+    });
 
-      test('F-SCF25-2: a bare write inside a STATIC method reaches the setter '
-          '[2026-09-29] (PASS)', () {
-        expect(_run('$_box main() { Box.sm(); return Box.v; }'), 105);
-      });
+    test('F-SCF25-2: a bare write inside a STATIC method reaches the setter '
+        '[2026-09-29] (PASS)', () {
+      expect(_run('$_box main() { Box.sm(); return Box.v; }'), 105);
+    });
 
-      test('F-SCF25-3: a bare write inside an INSTANCE method reaches the '
-          'static setter [2026-09-29] (PASS)', () {
-        expect(_run('$_box main() { Box().im(); return Box.v; }'), 105);
-      });
+    test('F-SCF25-3: a bare write inside an INSTANCE method reaches the '
+        'static setter [2026-09-29] (PASS)', () {
+      expect(_run('$_box main() { Box().im(); return Box.v; }'), 105);
+    });
 
-      test('F-SCF25-4: a bare read of a static getter inside a static method '
-          'calls it [2026-09-29] (PASS)', () {
-        expect(_run('$_box main() { Box.v = 5; return Box.sread(); }'), 210);
-      });
+    test('F-SCF25-4: a bare read of a static getter inside a static method '
+        'calls it [2026-09-29] (PASS)', () {
+      expect(_run('$_box main() { Box.v = 5; return Box.sread(); }'), 210);
+    });
 
-      test('F-SCF25-5: a bare compound write reads through the getter and '
-          'writes through the setter [2026-09-29] (PASS)', () {
-        // _x = 0; v += 1 reads v (0) and sets 1, so _x = 101.
-        expect(_run('$_box main() { Box.compound(); return Box.v; }'), 101);
-      });
+    test('F-SCF25-5: a bare compound write reads through the getter and '
+        'writes through the setter [2026-09-29] (PASS)', () {
+      // _x = 0; v += 1 reads v (0) and sets 1, so _x = 101.
+      expect(_run('$_box main() { Box.compound(); return Box.v; }'), 101);
+    });
 
-      test('F-SCF25-6: top-level getters and setters, including a pair of one '
-          'name [2026-09-29] (PASS)', () {
-        expect(_run('int get g => 1; main() => g;'), 1);
-        expect(
-          _run(
-            'List<int> log = []; set s(int v) { log.add(v); } '
-            'main() { s = 3; return log; }',
-          ),
-          [3],
-        );
-        expect(
-          _run(
-            'int _x = 0; int get v => _x; set v(int n) { _x = n * 10; } '
-            'main() { v = 2; return [v, _x]; }',
-          ),
-          [20, 20],
-        );
-      });
+    test('F-SCF25-6: top-level getters and setters, including a pair of one '
+        'name [2026-09-29] (PASS)', () {
+      expect(_run('int get g => 1; main() => g;'), 1);
+      expect(
+        _run(
+          'List<int> log = []; set s(int v) { log.add(v); } '
+          'main() { s = 3; return log; }',
+        ),
+        [3],
+      );
+      expect(
+        _run(
+          'int _x = 0; int get v => _x; set v(int n) { _x = n * 10; } '
+          'main() { v = 2; return [v, _x]; }',
+        ),
+        [20, 20],
+      );
+    });
 
-      test('F-SCF25-8: `++v`, `v--` and `v ??= x` go through the accessor pair '
-          '[2026-09-29] (PASS)', () {
-        const pair =
-            'int? _x = 0; int? get v => _x; set v(int? n) { _x = n; } ';
-        expect(_run('$pair main() { ++v; v++; v--; return [v, _x]; }'), [1, 1]);
-        expect(_run('$pair main() { _x = null; v ??= 4; return [v, _x]; }'), [
-          4,
-          4,
-        ]);
-      });
+    test('F-SCF25-8: `++v`, `v--` and `v ??= x` go through the accessor pair '
+        '[2026-09-29] (PASS)', () {
+      const pair = 'int? _x = 0; int? get v => _x; set v(int? n) { _x = n; } ';
+      expect(_run('$pair main() { ++v; v++; v--; return [v, _x]; }'), [1, 1]);
+      expect(_run('$pair main() { _x = null; v ??= 4; return [v, _x]; }'), [
+        4,
+        4,
+      ]);
+    });
 
-      test('F-SCF25-7 (rail): a closer local still shadows the accessor '
-          '[2026-09-29] (PASS)', () {
-        expect(
-          _run(
-            'int _x = 0; set v(int n) { _x = n; } '
-            'main() { var v = 1; v = 2; return [v, _x]; }',
-          ),
-          [2, 0],
-        );
-      });
-    },
-  );
+    test('F-SCF25-7 (rail): a closer local still shadows the accessor '
+        '[2026-09-29] (PASS)', () {
+      expect(
+        _run(
+          'int _x = 0; set v(int n) { _x = n; } '
+          'main() { var v = 1; v = 2; return [v, _x]; }',
+        ),
+        [2, 0],
+      );
+    });
+  });
 }

@@ -22,12 +22,6 @@ import 'package:tom_d4rt_exec/d4rt.dart';
 /// what lets exec carry a copy of it.
 const _sample = 8;
 
-/// PUBLISH-BLOCKED (DGUC6): exec resolves `tom_d4rt_ast` from pub.dev, and
-/// the release carrying scf28 is 0.193.0. Remove this skip — which makes the
-/// file the reference verbatim again — when exec's floor passes it.
-const _publishBlocked =
-    'PUBLISH-BLOCKED: needs tom_d4rt_ast 0.193.0 (scf28, published by scf42)';
-
 /// A native list that counts how often an element is read.
 class CountingList extends ListBase<Object?> {
   CountingList(this._inner);
@@ -71,57 +65,53 @@ void main() {
     source: "import 'package:probe/counting.dart';\nmain() {\n$body\n}",
   );
 
-  group(
-    'SCF28: the element-type derivation reads a bounded prefix',
-    skip: _publishBlocked,
-    () {
-      test('F-SCF28-1: binding a 5000-element typed list reads at most '
-          '$_sample elements [2026-09-29] (PASS)', () {
-        final c = run('return CountingList.ints(5000);');
-        expect(c, isA<CountingList>());
-        CountingList.reads = 0;
-        d4rt.execute(
-          source:
-              "import 'package:probe/counting.dart';\n"
-              'check(List<int> v) => v.length;\n'
-              'main() { var c = CountingList.ints(5000); '
-              'var n = 0; for (var i = 0; i < 10; i++) { n = check(c); } '
-              'return n; }',
-        );
-        // Ten bindings of one list: the full walk read 50 000 elements.
-        expect(CountingList.reads, lessThanOrEqualTo(10 * _sample));
-      });
+  group('SCF28: the element-type derivation reads a bounded prefix', () {
+    test('F-SCF28-1: binding a 5000-element typed list reads at most '
+        '$_sample elements [2026-09-29] (PASS)', () {
+      final c = run('return CountingList.ints(5000);');
+      expect(c, isA<CountingList>());
+      CountingList.reads = 0;
+      d4rt.execute(
+        source:
+            "import 'package:probe/counting.dart';\n"
+            'check(List<int> v) => v.length;\n'
+            'main() { var c = CountingList.ints(5000); '
+            'var n = 0; for (var i = 0; i < 10; i++) { n = check(c); } '
+            'return n; }',
+      );
+      // Ten bindings of one list: the full walk read 50 000 elements.
+      expect(CountingList.reads, lessThanOrEqualTo(10 * _sample));
+    });
 
-      test('F-SCF28-2: a long homogeneous list of the wrong type is still '
-          'refused [2026-09-29] (PASS)', () {
-        expect(
-          () => run('List<String> v = CountingList.ints(5000); return v;'),
-          throwsA(anything),
-        );
-        expect(
-          run('List<int> v = CountingList.ints(5000); return v.length;'),
-          5000,
-        );
-      });
+    test('F-SCF28-2: a long homogeneous list of the wrong type is still '
+        'refused [2026-09-29] (PASS)', () {
+      expect(
+        () => run('List<String> v = CountingList.ints(5000); return v;'),
+        throwsA(anything),
+      );
+      expect(
+        run('List<int> v = CountingList.ints(5000); return v.length;'),
+        5000,
+      );
+    });
 
-      test('F-SCF28-3: a list that disagrees within the prefix still passes as '
-          'heterogeneous [2026-09-29] (PASS)', () {
-        // F-SCD92-6's shape, unchanged.
-        expect(run("List<String> v = [1, 'a']; return v.length;"), 2);
-      });
+    test('F-SCF28-3: a list that disagrees within the prefix still passes as '
+        'heterogeneous [2026-09-29] (PASS)', () {
+      // F-SCD92-6's shape, unchanged.
+      expect(run("List<String> v = [1, 'a']; return v.length;"), 2);
+    });
 
-      test('F-SCF28-4: a list that disagrees only AFTER the prefix is checked '
-          'against the prefix [2026-09-29] (PASS)', () {
-        // The one answer the bound changes. The full walk called this list
-        // heterogeneous and let `List<String>` bind it; the prefix is eight
-        // ints, which are provably not Strings — and Dart refuses it too.
-        const list = "<Object>[1, 2, 3, 4, 5, 6, 7, 8, 'late']";
-        expect(
-          () => run('List<String> v = $list; return v.length;'),
-          throwsA(anything),
-        );
-        expect(run('List<Object> v = $list; return v.length;'), 9);
-      });
-    },
-  );
+    test('F-SCF28-4: a list that disagrees only AFTER the prefix is checked '
+        'against the prefix [2026-09-29] (PASS)', () {
+      // The one answer the bound changes. The full walk called this list
+      // heterogeneous and let `List<String>` bind it; the prefix is eight
+      // ints, which are provably not Strings — and Dart refuses it too.
+      const list = "<Object>[1, 2, 3, 4, 5, 6, 7, 8, 'late']";
+      expect(
+        () => run('List<String> v = $list; return v.length;'),
+        throwsA(anything),
+      );
+      expect(run('List<Object> v = $list; return v.length;'), 9);
+    });
+  });
 }

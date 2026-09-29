@@ -33,59 +33,46 @@ main() { var q = MyQ(); q.addLast(7); $body }
 ''',
 );
 
-/// PUBLISH-BLOCKED (DGUC6): exec resolves `tom_d4rt_ast` from pub.dev, and
-/// the release carrying scf19 is 0.188.0. Remove this skip — which makes the
-/// file the reference verbatim again — when exec's floor passes it.
-const _publishBlocked =
-    'PUBLISH-BLOCKED: needs tom_d4rt_ast 0.188.0 (scf19, published by scf42)';
-
 void main() {
-  group(
-    'SCF19: an interpreted subclass reaches inherited bridged members',
-    skip: _publishBlocked,
-    () {
-      test(
-        'F-SCF19-1: `q.elementAt(0)` on the subclass [2026-09-29] (PASS)',
-        () {
-          expect(_run('return q.elementAt(0);'), 7);
-        },
+  group('SCF19: an interpreted subclass reaches inherited bridged members', () {
+    test('F-SCF19-1: `q.elementAt(0)` on the subclass [2026-09-29] (PASS)', () {
+      expect(_run('return q.elementAt(0);'), 7);
+    });
+
+    test('F-SCF19-2: bare `elementAt(0)` inside a method '
+        '[2026-09-29] (PASS)', () {
+      expect(_run('return q.bare();'), 7);
+    });
+
+    test('F-SCF19-3: `super.elementAt(0)` [2026-09-29] (PASS)', () {
+      expect(_run('return q.viaSuper();'), 7);
+    });
+
+    test('F-SCF19-4: an inherited getter, `q.first` [2026-09-29] (PASS)', () {
+      expect(_run('return q.first;'), 7);
+    });
+
+    test('F-SCF19-5: inherited members taking a callback, `map` and a bare '
+        '`fold` [2026-09-29] (PASS)', () {
+      expect(_run('return q.map((e) => e + 1).toList();'), [8]);
+      expect(_run('q.addLast(3); return q.sum();'), 10);
+    });
+
+    test('F-SCF19-6: a DECLARED member still resolves, '
+        '`super.removeFirst()` [2026-09-29] (PASS)', () {
+      // The control: this worked before, through the bridge's own map.
+      expect(_run('return q.declared();'), 7);
+    });
+
+    test('F-SCF19-7: a name no bridge in the chain has is still an '
+        'undefined member [2026-09-29] (PASS)', () {
+      // The walk must end where the chain ends, not invent a member.
+      expect(
+        () => _run('return q.noSuchThing(0);'),
+        throwsA(
+          predicate((e) => '$e'.contains("no method named 'noSuchThing'")),
+        ),
       );
-
-      test('F-SCF19-2: bare `elementAt(0)` inside a method '
-          '[2026-09-29] (PASS)', () {
-        expect(_run('return q.bare();'), 7);
-      });
-
-      test('F-SCF19-3: `super.elementAt(0)` [2026-09-29] (PASS)', () {
-        expect(_run('return q.viaSuper();'), 7);
-      });
-
-      test('F-SCF19-4: an inherited getter, `q.first` [2026-09-29] (PASS)', () {
-        expect(_run('return q.first;'), 7);
-      });
-
-      test('F-SCF19-5: inherited members taking a callback, `map` and a bare '
-          '`fold` [2026-09-29] (PASS)', () {
-        expect(_run('return q.map((e) => e + 1).toList();'), [8]);
-        expect(_run('q.addLast(3); return q.sum();'), 10);
-      });
-
-      test('F-SCF19-6: a DECLARED member still resolves, '
-          '`super.removeFirst()` [2026-09-29] (PASS)', () {
-        // The control: this worked before, through the bridge's own map.
-        expect(_run('return q.declared();'), 7);
-      });
-
-      test('F-SCF19-7: a name no bridge in the chain has is still an '
-          'undefined member [2026-09-29] (PASS)', () {
-        // The walk must end where the chain ends, not invent a member.
-        expect(
-          () => _run('return q.noSuchThing(0);'),
-          throwsA(
-            predicate((e) => '$e'.contains("no method named 'noSuchThing'")),
-          ),
-        );
-      });
-    },
-  );
+    });
+  });
 }

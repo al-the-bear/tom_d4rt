@@ -2202,83 +2202,6 @@ const Map<String, _Convergence> _convergenceLog = {
 /// re-measure the whole register when the floor moves, not the entry you
 /// happened to be reading.
 const Map<String, _Divergence> _divergentBaseline = {
-  // SCF31: a native object handed back where the script's own subclass of a
-  // CONCRETE bridged class is declared is recognised as that instance. The
-  // published interpreter refuses it, so this port carries the reference
-  // verbatim but for a group-level skip.
-  // PUBLISH-BLOCKED — re-port when exec's tom_d4rt_ast floor passes 0.195.0,
-  // by copying the reference file down; converges at a floor past 0.195.0.
-  'bridge/scf31_bridged_super_object_identity_test.dart':
-      _Divergence.deliberate,
-  // SCF29: four await-resumption routes (an `=>` body, `if` / `while`
-  // conditions, an assignment) resume without re-evaluating or dropping an
-  // await. The published interpreter still does, so this port carries the
-  // reference verbatim but for group-level skips.
-  // PUBLISH-BLOCKED — re-port when exec's tom_d4rt_ast floor passes 0.194.0,
-  // by copying the reference file down; converges at a floor past 0.194.0.
-  'scf29_await_resumption_routes_test.dart': _Divergence.deliberate,
-  // SCF28: binding a typed collection reads a bounded prefix of it. The
-  // published interpreter reads every element, so F-SCF28-1's read count and
-  // F-SCF28-4's post-prefix check fail; this port carries the reference
-  // verbatim but for a group-level skip.
-  // PUBLISH-BLOCKED — re-port when exec's tom_d4rt_ast floor passes 0.193.0,
-  // by copying the reference file down; converges at a floor past 0.193.0.
-  'scf28_bounded_element_sample_test.dart': _Divergence.deliberate,
-  // SCF27: a bounded generic class constructed without a written type
-  // argument runs; the published interpreter refuses it against the bound, so
-  // this port carries the reference verbatim but for a group-level skip.
-  // PUBLISH-BLOCKED — re-port when exec's tom_d4rt_ast floor passes 0.192.0,
-  // by copying the reference file down; converges at a floor past 0.192.0.
-  'scf27_bounded_class_construction_test.dart': _Divergence.deliberate,
-  // SCF25: a bare name bound to a getter is read through it and a bare write
-  // calls the setter (bound under `v=`). The published interpreter answers the
-  // getter function and drops the write, so this port carries the reference
-  // verbatim but for a group-level skip.
-  // PUBLISH-BLOCKED — re-port when exec's tom_d4rt_ast floor passes 0.191.0,
-  // by copying the reference file down; converges at a floor past 0.191.0.
-  'scf25_bare_accessor_test.dart': _Divergence.deliberate,
-  // SCF24: a script class that declares no `toString` answers `Object`'s,
-  // including `super.toString()` / `super.noSuchMethod(i)` where the
-  // superclass is `Object`. The published interpreter raises instead, so this
-  // port carries the reference verbatim but for a group-level skip.
-  // PUBLISH-BLOCKED — re-port when exec's tom_d4rt_ast floor passes 0.190.0,
-  // by copying the reference file down; converges at a floor past 0.190.0.
-  'scf24_object_members_test.dart': _Divergence.deliberate,
-  // SCF22: the reference copy added F-SCE101-10, which requires `[x] is
-  // List<T>` to answer as `x is T` across 14 values x 22 types. The published
-  // interpreter still asks elements a second, lenient predicate, so an
-  // unresolvable element type answers true there and 14 rows disagree; this
-  // copy keeps the file without the new case.
-  // PUBLISH-BLOCKED — re-port when exec's tom_d4rt_ast floor passes 0.189.0,
-  // by copying the reference file down; converges at a floor past 0.189.0.
-  'sce101_element_type_test.dart': _Divergence.deliberate,
-  // SCF19: an interpreted subclass of a bridged class now reaches the members
-  // its bridged superclass inherits (`class MyQ extends ListQueue` answering
-  // `elementAt`). The published interpreter does not, so this port carries the
-  // reference verbatim but for a group-level skip.
-  // PUBLISH-BLOCKED — re-port when exec's tom_d4rt_ast floor passes 0.188.0,
-  // by copying the reference file down; converges at a floor past 0.188.0.
-  'scf19_inherited_bridged_member_test.dart': _Divergence.deliberate,
-  // SCF19: the reference copy added F-SCE74-3, `super.elementAt(0)` from an
-  // interpreted ListQueue subclass. That case cannot pass against the
-  // published interpreter, so this copy keeps the file without it.
-  // PUBLISH-BLOCKED — re-port when exec's tom_d4rt_ast floor passes 0.188.0,
-  // by copying the reference file down; converges at a floor past 0.188.0.
-  'stdlib/sce74_sdk_error_type_parity_test.dart': _Divergence.deliberate,
-  // SCF6: the reference copy now asserts that an async break / continue runs
-  // the finallys it crosses (F-SCE18-8/9 rewritten from the old wrong answers,
-  // F-SCF6-1..7 added). The published interpreter still skips them, so this
-  // copy keeps asserting the old answers.
-  // PUBLISH-BLOCKED — re-port when exec's tom_d4rt_ast floor passes 0.186.0,
-  // by copying the reference file down; converges at a floor past 0.186.0.
-  'sce18_finally_on_abrupt_exit_test.dart': _Divergence.deliberate,
-  // SCF4: the reference copy un-skipped F-SCD4-10 and added F-SCF4-1..3 —
-  // a cancelled `async*` generator now stops at its pending yield and runs its
-  // `finally`. The published interpreter this package resolves still runs the
-  // body on, so this copy keeps the old skip until a release carries the fix:
-  // PUBLISH-BLOCKED — re-port when exec's tom_d4rt_ast floor passes 0.185.0,
-  // by copying the reference file down; converges at a floor past 0.185.0.
-  'scd4_await_for_break_test.dart': _Divergence.deliberate,
   // `scd188`: SCE224 made the reference copy DERIVE its subscribing-getter set
   // from the `Stdin` entry's expiry condition in `tom_d4rt/tool/
   // stdlib_member_diff.dart`, so the set has one home. That tool is
@@ -2352,17 +2275,6 @@ const Map<String, _Divergence> _divergentBaseline = {
 /// Recomputing without reading the new difference is the failure mode; the
 /// message says so.
 const Map<String, String> _divergenceFingerprints = <String, String>{
-  'bridge/scf31_bridged_super_object_identity_test.dart': 'e3f24395909f5304',
-  'scf29_await_resumption_routes_test.dart': '90d6a7c786e2567d',
-  'scf28_bounded_element_sample_test.dart': '08d113648392ceab',
-  'scf27_bounded_class_construction_test.dart': '716c04e6ebf1d909',
-  'scf25_bare_accessor_test.dart': '4b8b46d8dff418b1',
-  'scf24_object_members_test.dart': 'cbfe98a21f396777',
-  'sce101_element_type_test.dart': '4f88b5f451909a1b',
-  'scf19_inherited_bridged_member_test.dart': 'f6bcc3d645a83127',
-  'stdlib/sce74_sdk_error_type_parity_test.dart': '781b5194a45404e2',
-  'sce18_finally_on_abrupt_exit_test.dart': 'ed38f75775d721c1',
-  'scd4_await_for_break_test.dart': 'd55f7afda3086484',
   'stdlib/io/scd188_stdin_audit_reason_expiry_test.dart': '46be47f827711c3a',
   'warm_parent_package_pool_test.dart': '971b6ff19185f442',
   'stdlib/intentionally_unbridged_test.dart': 'a11036cda720efcf',
@@ -2548,50 +2460,7 @@ typedef _Pin = ({String floor, String measured});
 /// 8-of-10 to 13-of-20 — still wholly failing, so still justified, but their
 /// recorded evidence was seven and ten cases out of date. Both are re-stamped
 /// above their entries in `_uncoveredBaseline`.
-const Map<String, _Pin> _pinnedInterpreterFloors = <String, _Pin>{
-  // SCF31, pinned at the release that recognises a bridged super object.
-  'bridge/scf31_bridged_super_object_identity_test.dart': (
-    floor: '0.195.0',
-    measured: '0.184.0',
-  ),
-  // SCF29, pinned at the release that re-runs the four resumption routes.
-  'scf29_await_resumption_routes_test.dart': (
-    floor: '0.194.0',
-    measured: '0.184.0',
-  ),
-  // SCF28, pinned at the release that samples the element-type derivation.
-  'scf28_bounded_element_sample_test.dart': (
-    floor: '0.193.0',
-    measured: '0.184.0',
-  ),
-  // SCF27, pinned at the release that checks only written class type args.
-  'scf27_bounded_class_construction_test.dart': (
-    floor: '0.192.0',
-    measured: '0.184.0',
-  ),
-  // SCF25, pinned at the release that binds setters under `v=`.
-  'scf25_bare_accessor_test.dart': (floor: '0.191.0', measured: '0.184.0'),
-  // SCF24, pinned at the release carrying `InterpretedInstance.objectMember`.
-  'scf24_object_members_test.dart': (floor: '0.190.0', measured: '0.184.0'),
-  // SCF22, pinned at the release that collapses the two type-test predicates.
-  'sce101_element_type_test.dart': (floor: '0.189.0', measured: '0.184.0'),
-  // SCF19, pinned at the release carrying the inherited bridged-member walk.
-  'scf19_inherited_bridged_member_test.dart': (
-    floor: '0.188.0',
-    measured: '0.184.0',
-  ),
-  'stdlib/sce74_sdk_error_type_parity_test.dart': (
-    floor: '0.188.0',
-    measured: '0.184.0',
-  ),
-  // SCF4, pinned at the release carrying the generator's listener gate.
-  'scd4_await_for_break_test.dart': (floor: '0.185.0', measured: '0.184.0'),
-  // SCF6, pinned at the release carrying the async jump-through-finally.
-  'sce18_finally_on_abrupt_exit_test.dart': (
-    floor: '0.186.0',
-    measured: '0.184.0',
-  ),
-};
+const Map<String, _Pin> _pinnedInterpreterFloors = <String, _Pin>{};
 
 /// The `tom_d4rt_ast` floor exec's own `pubspec.yaml` currently declares.
 ///
@@ -3485,8 +3354,7 @@ const Map<String, String> _astDriftFingerprints = <String, String>{
 // 2026-09-29 (sce237). SCF4 then landed interpreter work behind it (the
 // async* listener gate), so the tree is ahead of the release again; scf42 owns
 // the release that carries it and deletes this pin.
-const String? _astPublishBlock =
-    'scf42_aiöq-publish-the-interpreter-release-carrying-scf4';
+const String? _astPublishBlock = null;
 
 /// One baseline entry and the comment block written directly above it.
 typedef _BaselineEntry = ({String path, String comment});

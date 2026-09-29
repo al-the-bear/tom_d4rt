@@ -1,3 +1,16 @@
+## 1.38.0
+
+### Changed — resolves the published tom_d4rt_ast 0.195.0 (scf34)
+
+`tom_d4rt_ast` ^0.195.0, dev `tom_d4rt` ^1.210.0 and `tom_d4rt_generator`
+^1.50.0. The eleven test files that were publish-blocked on those releases are
+now the reference files verbatim, and the pin register is empty.
+
+`tom_ast_generator` is constrained `^0.1.5` for this one release: every astgen
+from 0.1.6 pins an older `tom_d4rt_ast`, and astgen 0.1.13 cannot resolve
+until an exec on 0.195.0 exists. One test depends on astgen 0.1.8's copier fix
+(F-SCE62-6) and fails here; the next release raises the astgen floor.
+
 ## 1.37.0
 
 ### Changed — `functionTypedefs` and `registerFunctionTypedef` match the reference (scf20)

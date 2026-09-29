@@ -250,5 +250,84 @@ void main() {
             'type as a generic element:\n${disagreements.join('\n')}',
       );
     });
+
+    test('F-SCE101-10: `is T` and `is List<T>` of a one-element list agree '
+        'across every value and type below [2026-09-29] (PASS)', () {
+      // SCF22's agreement guard. F-SCE101-9 pins the seven cases SCE101 fixed;
+      // this asks the same question over a cross product, so a divergence
+      // nobody has thought of yet is caught rather than found. The rule it
+      // holds is the language's: a one-element list is a `List<T>` exactly
+      // when its element is a `T`. An exception is an answer too — a type the
+      // interpreter cannot resolve must fail the same way in both positions.
+      const values = [
+        'null',
+        '1',
+        '1.5',
+        "'s'",
+        'true',
+        '[1]',
+        '<int>[1]',
+        '{1: 2}',
+        'Foo()',
+        'int',
+        'Foo',
+        'Bag([1])',
+        'WrappedBag([1])',
+        '() => 1',
+      ];
+      const types = [
+        'int',
+        'double',
+        'num',
+        'String',
+        'bool',
+        'List',
+        'Map',
+        'Null',
+        'Object',
+        'dynamic',
+        'Type',
+        'Foo',
+        'Bag',
+        'WrappedBag',
+        'int?',
+        'String?',
+        'Object?',
+        'List<int>',
+        'Map<int, int>',
+        'Function',
+        'Iterable',
+        'NoSuchTypeAnywhere',
+      ];
+      Object? outcome(String body) {
+        try {
+          return run(body);
+        } catch (e) {
+          return 'throws';
+        }
+      }
+
+      final disagreements = <String>[];
+      for (final expr in values) {
+        for (final type in types) {
+          final direct = outcome('Object? v = $expr; return v is $type;');
+          final element = outcome(
+            'var l = <Object?>[$expr]; return l is List<$type>;',
+          );
+          if (direct != element) {
+            disagreements.add(
+              '$expr is $type: direct=$direct element=$element',
+            );
+          }
+        }
+      }
+      expect(
+        disagreements,
+        isEmpty,
+        reason:
+            'These values are answered differently by `is` and by the same '
+            'type as a generic element:\n${disagreements.join('\n')}',
+      );
+    });
   });
 }

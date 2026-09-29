@@ -24,65 +24,54 @@ Object? _run(String source) => D4rt().execute(source: source);
 
 const _box = 'class Box<T extends num> { final T v; Box(this.v); } ';
 
-/// PUBLISH-BLOCKED (DGUC6): exec resolves `tom_d4rt_ast` from pub.dev, and
-/// the release carrying scf27 is 0.192.0. Remove this skip — which makes the
-/// file the reference verbatim again — when exec's floor passes it.
-const _publishBlocked =
-    'PUBLISH-BLOCKED: needs tom_d4rt_ast 0.192.0 (scf27, published by scf42)';
-
 void main() {
-  group(
-    'SCF27: a bounded generic class without a written argument',
-    skip: _publishBlocked,
-    () {
-      test('F-SCF27-1: `Box(3)` constructs [2026-09-29] (PASS)', () {
-        expect(_run('$_box main() => Box(3).v;'), 3);
-      });
+  group('SCF27: a bounded generic class without a written argument', () {
+    test('F-SCF27-1: `Box(3)` constructs [2026-09-29] (PASS)', () {
+      expect(_run('$_box main() => Box(3).v;'), 3);
+    });
 
-      test('F-SCF27-2: a no-argument constructor of a bounded class '
-          '[2026-09-29] (PASS)', () {
+    test('F-SCF27-2: a no-argument constructor of a bounded class '
+        '[2026-09-29] (PASS)', () {
+      expect(
+        _run('class Box<T extends num> { Box(); } main() => Box() is Box;'),
+        isTrue,
+      );
+    });
+
+    test('F-SCF27-3 (control): a WRITTEN argument outside the bound is still '
+        'refused, `dynamic` included [2026-09-29] (PASS)', () {
+      // The anti-vacuity half. A fix that dropped the bound check outright
+      // would pass F-SCF27-1/-2 and fail here.
+      for (final arg in ['String', 'dynamic']) {
         expect(
-          _run('class Box<T extends num> { Box(); } main() => Box() is Box;'),
-          isTrue,
-        );
-      });
-
-      test('F-SCF27-3 (control): a WRITTEN argument outside the bound is still '
-          'refused, `dynamic` included [2026-09-29] (PASS)', () {
-        // The anti-vacuity half. A fix that dropped the bound check outright
-        // would pass F-SCF27-1/-2 and fail here.
-        for (final arg in ['String', 'dynamic']) {
-          expect(
-            () => _run("$_box main() => Box<$arg>('a').v;"),
-            throwsA(
-              predicate(
-                (e) => '$e'.contains(
-                  "Type argument '$arg' for type parameter 'T' does not "
-                  "satisfy bound 'num' in class 'Box'",
-                ),
+          () => _run("$_box main() => Box<$arg>('a').v;"),
+          throwsA(
+            predicate(
+              (e) => '$e'.contains(
+                "Type argument '$arg' for type parameter 'T' does not "
+                "satisfy bound 'num' in class 'Box'",
               ),
             ),
-            reason: 'Box<$arg>',
-          );
-        }
-      });
-
-      test('F-SCF27-4 (control): a written argument inside the bound '
-          '[2026-09-29] (PASS)', () {
-        expect(_run('$_box main() => Box<int>(3).v;'), 3);
-      });
-
-      test('F-SCF27-5: the class and function paths now agree — an unwritten '
-          'argument is not checked, a written one is [2026-09-29] (PASS)', () {
-        expect(_run('T id<T extends num>(T x) => x; main() => id(3);'), 3);
-        expect(
-          () =>
-              _run("T id<T extends num>(T x) => x; main() => id<String>('a');"),
-          throwsA(
-            predicate((e) => '$e'.contains("does not satisfy bound 'num'")),
           ),
+          reason: 'Box<$arg>',
         );
-      });
-    },
-  );
+      }
+    });
+
+    test('F-SCF27-4 (control): a written argument inside the bound '
+        '[2026-09-29] (PASS)', () {
+      expect(_run('$_box main() => Box<int>(3).v;'), 3);
+    });
+
+    test('F-SCF27-5: the class and function paths now agree — an unwritten '
+        'argument is not checked, a written one is [2026-09-29] (PASS)', () {
+      expect(_run('T id<T extends num>(T x) => x; main() => id(3);'), 3);
+      expect(
+        () => _run("T id<T extends num>(T x) => x; main() => id<String>('a');"),
+        throwsA(
+          predicate((e) => '$e'.contains("does not satisfy bound 'num'")),
+        ),
+      );
+    });
+  });
 }
