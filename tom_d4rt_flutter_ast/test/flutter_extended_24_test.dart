@@ -187,11 +187,9 @@ void main() {
         'material/showdialog_test.dart',
       );
 
-      expect(
-        buildResult.success,
-        isTrue,
-        reason: 'Build should succeed: ${buildResult.error}',
-      );
+      // SCE175: through the shared rule, like every other build here. The
+      // inline `buildResult.success` check did not gate on framework errors.
+      SendTestRunner.expectSuccess(buildResult);
 
       await Future<void>.delayed(const Duration(milliseconds: 500));
 

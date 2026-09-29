@@ -79,6 +79,82 @@ List<File> _drivers(String dir) {
   ]..sort((a, b) => a.path.compareTo(b.path));
 }
 
+/// The source of every `test(...)` call in [source], with string literals and
+/// comments skipped while matching parentheses, so a `(` inside a test name
+/// or a comment cannot end a call early.
+///
+/// A scanner rather than `package:analyzer`, which this package reaches only
+/// transitively: the driver files are one regular shape, and a guard that
+/// imported an undeclared dependency would trip `depend_on_referenced_packages`.
+List<String> testCalls(String source) {
+  final calls = <String>[];
+  final start = RegExp(r'(?<![A-Za-z0-9_.$])test\(');
+  for (final m in start.allMatches(source)) {
+    var depth = 0;
+    var i = m.end - 1;
+    while (i < source.length) {
+      final c = source[i];
+      if (c == '/' && i + 1 < source.length && source[i + 1] == '/') {
+        i = source.indexOf('\n', i);
+        if (i < 0) break;
+        continue;
+      }
+      if (c == '/' && i + 1 < source.length && source[i + 1] == '*') {
+        final end = source.indexOf('*/', i + 2);
+        i = end < 0 ? source.length : end + 2;
+        continue;
+      }
+      if (c == "'" || c == '"') {
+        final triple = source.startsWith(c * 3, i);
+        final quote = triple ? c * 3 : c;
+        var j = i + quote.length;
+        while (j < source.length && !source.startsWith(quote, j)) {
+          j += source[j] == '\\' ? 2 : 1;
+        }
+        i = j + quote.length;
+        continue;
+      }
+      if (c == '(') depth++;
+      if (c == ')') {
+        depth--;
+        if (depth == 0) {
+          calls.add(source.substring(m.start, i + 1));
+          break;
+        }
+      }
+      i++;
+    }
+  }
+  return calls;
+}
+
+/// SCE175: the finding for one driver's [source], named by [label]. A test
+/// that SENDS a script must reach its verdict through the shared helper, and
+/// nothing may call an `expectSuccess` that is not the shared one.
+List<String> verdictFindings(String label, String source) {
+  final findings = <String>[];
+  for (final call in testCalls(source)) {
+    if (!call.contains('SendTestRunner.send')) continue;
+    if (!call.contains('SendTestRunner.expectSuccess(')) {
+      final name = RegExp(r"test\(\s*'([^']*)'").firstMatch(call)?.group(1);
+      findings.add(
+        '$label: test ${name ?? '<unnamed>'} sends a script and '
+        'never asks SendTestRunner.expectSuccess',
+      );
+    }
+  }
+  for (final m in RegExp(
+    r'(?<!SendTestRunner\.)\bexpectSuccess\s*\(',
+  ).allMatches(source)) {
+    final line = source.substring(0, m.start).split('\n').length;
+    findings.add(
+      '$label:$line: an expectSuccess that is not the shared one '
+      '(a local definition or an unqualified call)',
+    );
+  }
+  return findings;
+}
+
 void main() {
   // SCE191: this guard resolves its subject relative to the package it
   // runs in, so a copy anywhere else measures a different tree in silence.
@@ -183,6 +259,89 @@ void main() {
         ),
         isTrue,
       );
+    });
+  });
+
+  group('SCE175: every script-sending test reaches the shared verdict', () {
+    // SCE167 holds the FILE: no driver uses the old inline spelling, and each
+    // calls the helper at least once. That leaves two ways back in, which is
+    // what this group closes. One: a single test in a file that calls the
+    // helper elsewhere can assert in any other spelling, or not at all, and
+    // the file still passes. Two: a driver can define its own
+    // `expectSuccess`, and every call in it then looks right. So the unit
+    // here is the TEST: one that sends a script must reach its verdict
+    // through `SendTestRunner.expectSuccess`. Tests that send nothing (the
+    // "app is running" health checks) carry no verdict and are not asked.
+    // `interpreter_generator_open_issues_test.dart` is not a `flutter_*`
+    // driver, so its deliberately failing tests are out of scope by
+    // construction, as SCD142 records.
+    //
+    // SEEN TO FIRE ON REAL DATA (2026-09-29): its first run named one test in
+    // both twins, `flutter_extended_24`'s "interaction - dismiss modal via
+    // barrier tap", which asserted `expect(buildResult.success, isTrue, ...)`.
+    // That is the old non-gating verdict, spelled with `buildResult`, so
+    // F-SCE167-1's exact-string match never saw it. Converted to
+    // `SendTestRunner.expectSuccess(buildResult)`; the build passes the gating
+    // rule in both twins (frameworkErrors=0).
+    test('F-SCE175-1: every test that sends a script asks the shared helper, '
+        'and no driver defines its own [2026-09-29] (PASS)', () {
+      final findings = <String>[];
+      var sending = 0;
+      for (final entry in _twins.entries) {
+        for (final driver in _drivers(entry.value)) {
+          final source = driver.readAsStringSync();
+          sending += testCalls(
+            source,
+          ).where((c) => c.contains('SendTestRunner.send')).length;
+          findings.addAll(
+            verdictFindings(
+              '${entry.key}/${driver.uri.pathSegments.last}',
+              source,
+            ),
+          );
+        }
+      }
+      // Anti-vacuity: 4 036 helper call sites were measured across the twins
+      // when SCE167 unified them. A scanner that stopped finding test calls
+      // would pass everything below.
+      expect(
+        sending,
+        greaterThanOrEqualTo(3500),
+        reason: 'only $sending script-sending tests found; the scan is broken',
+      );
+      expect(
+        findings,
+        isEmpty,
+        reason:
+            '${findings.length} finding(s), all of them:\n'
+            '${findings.join('\n')}',
+      );
+    });
+
+    test('F-SCE175-2 (control): the scanner flags a bad test, passes a good '
+        'one, and is not fooled by parentheses in names or comments '
+        '[2026-09-29] (PASS)', () {
+      const good = """
+test('a (tricky) name', () async {
+  // a comment with a ) in it
+  final result = await SendTestRunner.send('x.dart');
+  SendTestRunner.expectSuccess(result);
+});
+test('app is running', () async { expect(true, isTrue); });
+""";
+      const bad = """
+test('drifted (one)', () async {
+  final result = await SendTestRunner.send('y.dart');
+  expect(result.success == true, isTrue);
+});
+void expectSuccess(r) {}
+""";
+      expect(testCalls(good), hasLength(2));
+      expect(verdictFindings('good', good), isEmpty);
+      final flagged = verdictFindings('bad', bad);
+      expect(flagged, hasLength(2));
+      expect(flagged.first, contains('drifted (one)'));
+      expect(flagged.last, contains('not the shared one'));
     });
   });
 }
