@@ -40,7 +40,7 @@ This package is published to pub.dev. See [Project Republishing](../../../../_co
 | [example.md](example.md) | Guidelines for creating and maintaining example files |
 | [documentation.md](documentation.md) | Documentation standards for this package |
 | [build.md](build.md) | Build, test, and publishing guidelines |
-| [d4rt_interpreter_vs_d4rt_generator.md](d4rt_interpreter_vs_d4rt_generator.md) | Clarifies which tom_d4rt code is generator support vs interpreter logic |
+| [d4rt_interpreter_vs_d4rt_generator.md](d4rt_interpreter_vs_d4rt_generator.md) | Which interpreter code is generator support vs interpreter logic, and where a bug belongs (the maintained copy; exec and the global folder point here) |
 | [same_name_class_resolution.md](../../tom_d4rt_generator/_copilot_guidelines/same_name_class_resolution.md) | Resolution rule for two packages declaring the same class name (implemented in `Environment` here; the canonical doc lives with the generator) |
 
 ## Quick Reference

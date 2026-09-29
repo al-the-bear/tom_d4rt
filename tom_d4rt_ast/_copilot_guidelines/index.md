@@ -48,7 +48,7 @@ which is which — the reason this section exists at all is that the absence of
 |----------------|-------------|
 | `build.md` | **Partly covered.** Its publishing half — publish in step, order, run both suites first — is [sync_with_tom_d4rt.md](sync_with_tom_d4rt.md), which is stricter than theirs because these two packages must be published together. Its analyzer/test half is two commands and is in [testing.md](testing.md). |
 | `documentation.md` | **Not needed.** Nothing about doc placement differs from the workspace rule, and a third copy is a third thing to keep in step. See the global [Documentation Guidelines](../../../../_copilot_guidelines/documentation_guidelines.md). |
-| `d4rt_interpreter_vs_d4rt_generator.md` | **Not applicable.** It is about choosing between the interpreter and the generator, a question asked from outside this package. |
+| `d4rt_interpreter_vs_d4rt_generator.md` | **Kept in `tom_d4rt`**, and it applies here too: `lib/src/runtime/generator/` mirrors the generator support code it describes, and the issue-routing rule is the same. Read `tom_d4rt/_copilot_guidelines/d4rt_interpreter_vs_d4rt_generator.md`. |
 | `example.md` | **A real gap, not a decision.** `example/` here holds one `README.md` and no runnable example, and an example for this package has a constraint the other two do not: it cannot parse source, so it needs a pre-built `AstBundle`. Nobody has written that, and nothing here says so until now. |
 
 `testing.md` is the one that was most missing: four conventions in this tree

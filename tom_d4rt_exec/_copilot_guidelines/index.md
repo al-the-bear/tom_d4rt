@@ -49,7 +49,7 @@ test records which files are waiting on a version that has not shipped, and
 | [example.md](example.md) | Example file conventions |
 | [hosted_drift.md](hosted_drift.md) | `tool/hosted_drift.dart` — telling a genuine interpreter bug apart from a stale published copy |
 | [testing.md](testing.md) | Test layout and conventions |
-| [d4rt_interpreter_vs_d4rt_generator.md](d4rt_interpreter_vs_d4rt_generator.md) | When to reach for the interpreter vs the generator |
+| [d4rt_interpreter_vs_d4rt_generator.md](d4rt_interpreter_vs_d4rt_generator.md) | Pointer to `tom_d4rt`'s guide: generator support vs interpreter logic, and where a bug belongs |
 
 ## Related Packages
 

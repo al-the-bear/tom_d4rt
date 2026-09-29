@@ -1,27 +1,56 @@
 # D4rt Interpreter vs Generator Boundary
 
-This document clarifies which code in tom_d4rt is **generator support code** (placed here for convenience) versus **pure interpreter logic**.
+Which code in the interpreter packages is **generator support code** — it lives
+there because every generated bridge calls it — and which is **pure interpreter
+logic**. The distinction decides where a bug is tracked, and who has to be told.
+
+This is the maintained copy. `tom_d4rt_exec/_copilot_guidelines/` and the
+workspace's `_copilot_guidelines/d4rt/` carry pointers to it.
 
 ---
 
-## Why This Matters
+## The packages involved
 
-When bugs are found, they need to be tracked in the correct issue tracker:
+| Package | What it is | Path |
+| ------- | ---------- | ---- |
+| `tom_d4rt` | The analyzer-based interpreter, and the reference | `tom_ai/d4rt/tom_d4rt` |
+| `tom_d4rt_ast` | Its analyzer-free twin; every file named below has a mirror under `lib/src/runtime/` except `script_execution.dart` and `module_loader.dart`, which read source and so have no analyzer-free counterpart | `tom_ai/d4rt/tom_d4rt_ast` |
+| `tom_d4rt_generator` | The bridge generator — writes the `*.b.dart` files that call into the code below | `tom_ai/d4rt/tom_d4rt_generator` |
 
-| Issue Type | Track In |
-|------------|----------|
-| Generator support code bugs | `tom_d4rt_generator/doc/issues.md` |
-| Interpreter logic bugs | `tom_d4rt/doc/issues.md` or `tom_d4rt/doc/d4rt_limitations.md` |
+Generator support code sits in the INTERPRETER packages, not in the generator,
+because it runs inside the interpreter at execution time: generated bridges
+call it. That is also why a fix to it is an interpreter fix for release and
+mirroring purposes — it lands in both `tom_d4rt` and `tom_d4rt_ast` (see
+`_copilot_guidelines/d4rt/mirror_maintenance.md`) — while being a generator
+concern for tracking purposes.
 
 ---
 
-## Generator Support Code (in this package)
+## Where a bug is tracked
 
-The `lib/src/generator/` folder contains code that **supports generated bridges**, not the interpreter itself.
+| The defect is in | Track it in |
+| ---------------- | ----------- |
+| Generator support code (below), or the shape of generated bridge code | `tom_d4rt_generator/doc/issues.md` |
+| Pure interpreter logic (below) | `tom_d4rt/doc/issues.md`, or `tom_d4rt/doc/d4rt_limitations.md` for a documented limitation |
+| A failure seen in the Flutter bridge corpus | `tom_d4rt_flutter_ast/doc/interpreter_issues.md` (the cluster log), whichever side the cause turns out to be on |
 
-### `generator/d4.dart` — D4 Helper Class
+Typical generator-support defects: an argument extractor in `D4` that does not
+coerce a value a script legitimately passes (a numeric promotion, a collection
+of a bridged element type, a record); a user-bridge annotation the generator's
+scanner misreads. Check `tom_d4rt_generator/doc/issues.md` for what is open —
+this guide deliberately carries no list of current issues, because one written
+here went stale while the code it described was being fixed.
 
-Static methods used by all generated bridge code:
+---
+
+## Generator support code
+
+In `tom_d4rt/lib/src/generator/`, mirrored at
+`tom_d4rt_ast/lib/src/runtime/generator/`.
+
+### `generator/d4.dart` — the `D4` helper class
+
+Static helpers that all generated bridge code calls:
 
 ```dart
 // In generated bridge code:
@@ -30,91 +59,81 @@ final name = D4.getRequiredArg<String>(positional, 0, 'name', 'MyClass');
 final items = D4.coerceList<Item>(positional[0], 'items');
 ```
 
-**Key methods:**
-- `D4.validateTarget<T>()` — Validate instance method target
-- `D4.getRequiredArg<T>()` / `D4.getOptionalArg<T>()` — Extract positional args
-- `D4.getNamedArg<T>()` — Extract named args
-- `D4.coerceList<T>()` / `D4.coerceMap<K,V>()` — Type coercion for collections
-- `D4.extractBridgedArg<T>()` — Extract and validate bridged argument
-
-**Current issues in D4 class:**
-- `extractBridgedArg<double>` doesn't handle int→double promotion
-- `extractBridgedArg<List<T>>` doesn't handle collection type casting
-- `extractBridgedArg` doesn't handle InterpretedRecord→native record conversion
-
-These are logged in `tom_d4rt_generator/doc/issues.md` (not here) because they affect bridge behavior.
+| Method | Purpose |
+| ------ | ------- |
+| `D4.validateTarget<T>()` | Validate an instance method's target type |
+| `D4.getRequiredArg<T>()` / `D4.getOptionalArg<T>()` | Extract a positional argument with type checking |
+| `D4.getNamedArg<T>()` | Extract a named argument |
+| `D4.coerceList<T>()` / `D4.coerceMap<K,V>()` | Coerce `List<Object?>` / `Map<Object?,Object?>` to the typed collection |
+| `D4.requireMinArgs()` / `D4.requireExactArgs()` | Validate the argument count |
+| `D4.extractBridgedArg<T>()` | Extract a bridged argument, unwrapping and coercing it |
 
 ### `generator/d4rt_user_bridge_annotation.dart`
 
-Annotations for user-defined bridge overrides:
+Annotations for hand-written bridge overrides, which the generator's scanner
+picks up:
 
-- `@D4rtUserBridge(libraryPath)` — Mark a class as a user bridge override
-- `@D4rtGlobalsUserBridge(libraryPath)` — Mark a class as a globals bridge override
-- `D4UserBridge` — Base class for user bridge implementations
+| Annotation | Purpose |
+| ---------- | ------- |
+| `@D4rtUserBridge(libraryPath)` | Mark a class as a user bridge override |
+| `@D4rtGlobalsUserBridge(libraryPath)` | Mark a class as a globals bridge override |
+| `D4UserBridge` | Base class for user bridge implementations |
 
 ---
 
-## Bridge Type Infrastructure
+## Bridge type infrastructure
 
-These files define types used by **both** generated code and the interpreter:
+Types that generated code and the interpreter both use. A defect here is
+usually an interpreter defect, because the interpreter is what gives these
+types their behaviour; track it by where the cause is.
 
 ### `bridge/registration.dart`
 
-Adapter type definitions:
-- `BridgedConstructorCallable` — Constructor adapters
-- `BridgedMethodAdapter` — Instance method adapters
-- `BridgedStaticMethodAdapter` — Static method adapters
-- `BridgedInstanceGetterAdapter` / `BridgedInstanceSetterAdapter` — Property adapters
-- `BridgedStaticGetterAdapter` / `BridgedStaticSetterAdapter` — Static property adapters
+Adapter typedefs: `BridgedConstructorCallable`, `BridgedMethodAdapter`,
+`BridgedStaticMethodAdapter`, `BridgedInstanceGetterAdapter`,
+`BridgedInstanceSetterAdapter`, `BridgedStaticGetterAdapter`,
+`BridgedStaticSetterAdapter`.
 
 ### `bridge/bridged_types.dart`
 
-Core bridge types:
-- `BridgedClass` — Definition of a bridged native class
-- `BridgedInstance` — Runtime wrapper for bridged object instances
-- `BridgedMixin` — Definition of a bridged native mixin
-- `BridgedExtension` — Definition of a bridged extension
+`BridgedClass` (the definition of a bridged native class), `BridgedInstance`
+(the runtime wrapper for a bridged object), `BridgedMixin`, `BridgedExtension`.
 
 ### `bridge/bridged_enum.dart`
 
-Enum types:
-- `BridgedEnum` — Definition of a bridged enum
-- `BridgedEnumValue` — Runtime wrapper for enum values
+`BridgedEnum` (the definition of a bridged enum) and `BridgedEnumValue` (the
+runtime wrapper for one of its values).
 
 ---
 
-## Script Execution Support
+## Script execution support
 
-The `script_execution.dart` file provides utilities for file-based script execution, useful for **testing**:
-
-- `executeFile()` — Execute a script file with fresh interpreter state
-- `executeFileContinued()` — Execute a script file in current environment
-- `resolveImportsRecursively()` — Resolve relative imports
-- `ScriptExecutionResult` — Result container
+`script_execution.dart` provides file-based script execution, mainly for tests:
+`executeFile()` (fresh interpreter state), `executeFileContinued()` (the
+current environment), `resolveImportsRecursively()` (relative imports of a
+multi-file script), and `ScriptExecutionResult`.
 
 ---
 
-## Pure Interpreter Logic
+## Pure interpreter logic
 
-Everything else in `lib/src/` is pure interpreter code:
+Everything else in `lib/src/`:
 
 | File | Purpose |
-|------|---------|
-| `interpreter_visitor.dart` | Main AST evaluation visitor |
-| `runtime_types.dart` | Interpreted class/function runtime types |
-| `environment.dart` | Variable binding and scope management |
-| `callable.dart` | Function/method invocation handling |
+| ---- | ------- |
+| `interpreter_visitor.dart` | AST evaluation |
+| `runtime_types.dart` | Interpreted class and function types |
+| `environment.dart` | Variable binding and scope |
+| `callable.dart` | Function and method invocation, the async state machine |
 | `declaration_visitor.dart` | Declaration processing |
-| `module_loader.dart` | Import/export handling |
-| `stdlib/` | Standard library bridges |
-
-Bugs in these files should be tracked in `tom_d4rt/doc/issues.md` or `tom_d4rt/doc/d4rt_limitations.md`.
+| `module_loader.dart` | Imports and exports |
+| `stdlib/` | The standard-library bridges |
 
 ---
 
-## See Also
+## See also
 
-- Global guidelines: `_copilot_guidelines/d4rt_interpreter_vs_d4rt_generator.md`
 - Generator issues: `tom_d4rt_generator/doc/issues.md`
 - Interpreter issues: `tom_d4rt/doc/issues.md`
-- Fixed bugs/limitations: `tom_d4rt/doc/d4rt_limitations.md`
+- Documented limitations: `tom_d4rt/doc/d4rt_limitations.md`
+- Keeping the twins in step: `_copilot_guidelines/d4rt/mirror_maintenance.md`
