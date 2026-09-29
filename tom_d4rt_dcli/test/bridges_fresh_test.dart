@@ -23,17 +23,20 @@
 // sce212's regeneration on 2026-09-28 (generator 1.44.0) reproduced the real
 // types, and 1.46.0 does too. The one input that moved is the analyzer summary
 // cache (`<workspace>/.tom/analyzer-cache/<analyzer major>/<sdk>/`), which
-// `dart pub get` never touches and which relinks a bundle when any version in
-// its dependency closure changes — sce212 moved these locks, and the
-// `scope`, `settings_yaml` and `dcli_core` summaries were rebuilt. So a
-// summary linked against a superseded closure is the explanation that fits
-// every measurement; the "ScopeKey is not re-exported by any barrel import"
-// warning still prints and the type still resolves, so the barrel gap first
-// blamed was not it. Ruled out earlier, and still ruled out: dcli 8 vs 10, the
+// `dart pub get` never touches. The type is resolved through the bundles that
+// LINK against `scope` and `settings_yaml`, not through their own summaries:
+// scf18 rebuilt `scope@5.1.0.sum` alone on 2026-09-21 and the output did not
+// change, while `dcli_core@10.0.0.sum` was rebuilt on 2026-09-25 — between the
+// last red and the first green. A dependent bundle linked against a superseded
+// closure is the explanation that fits every measurement. The "ScopeKey is not
+// re-exported by any barrel import" warning still prints and the type still
+// resolves, so the barrel gap first blamed was not it. Ruled out earlier, and still ruled out: dcli 8 vs 10, the
 // project's `.dart_tool`, a missing package.
 //
-// IF IT RECURS: delete the affected `*.sum` files under that cache directory
-// and regenerate before believing a fresh generation over the committed file.
+// IF IT RECURS: delete the affected `*.sum` files under that cache directory —
+// the dependents (`dcli_core@*`, `dcli@*`), not only the package that owns the
+// lost type — and regenerate before believing a fresh generation over the
+// committed file.
 // BRIDGE-FRESH-02 below refuses a committed downgrade either way.
 
 import 'dart:io';
