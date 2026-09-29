@@ -1618,6 +1618,12 @@ typedef _CaseCounts = ({int ran, int declared});
 /// its entry rather than contradicting it: the reason it is not ported is that
 /// a copy would ask the same questions about the same three packages and add a
 /// second red for one cause, not that it cannot run.
+/// The size of the uncovered backlog when it was last worked (SCE238): every
+/// reference test with no counterpart, recorded or not. F-SCE238-1 fails when
+/// the backlog moves from it in either direction. Measured 2026-09-29: 20,
+/// all recorded in [_uncoveredBaseline].
+const _uncoveredHighWater = 20;
+
 const Map<String, _CaseCounts> _uncoveredBaseline = {
   // NOT PORTABLE, and not blocked on a publish. It compares what FIVE host
   // boundaries hand over for one script failure, and two of them — `invoke`
@@ -3693,21 +3699,35 @@ void main() {
       expect(parse('const _anchoredBaseline = <String>{'), _anchoredBaseline);
     });
 
+    /// Reference tests with no counterpart and no self-anchoring: the backlog
+    /// F-SCC6-2 and F-SCE238-1 both read.
+    ///
+    /// SCD158. A reference test that declares it must run in `tom_d4rt` is
+    /// structurally single-copy: ported here it would resolve its paths
+    /// against exec and measure a different tree. Subtracted rather than
+    /// listed, so the category stops being rediscovered one file at a time by
+    /// whoever ports the next one.
+    Set<String> uncoveredNow() => unmatched.entries
+        .where((e) => e.value.where.isEmpty)
+        .map((e) => e.key)
+        .toSet()
+        .difference(_selfAnchored(ref));
+
     test('F-SCC6-2: no reference test has appeared without a counterpart '
         '[2026-09-03] (PASS)', () {
-      // SCD158. A reference test that declares it must run in `tom_d4rt` is
-      // structurally single-copy: ported here it would resolve its paths
-      // against exec and measure a different tree. Subtracted rather than
-      // listed, so the category stops being rediscovered one file at a time by
-      // whoever ports the next one.
-      final anchored = _selfAnchored(ref);
-      final uncovered = unmatched.entries
-          .where((e) => e.value.where.isEmpty)
-          .map((e) => e.key)
-          .toSet()
-          .difference(anchored);
-      final appeared = uncovered.difference(_uncoveredBaseline.keys.toSet());
-      final closed = _uncoveredBaseline.keys.toSet().difference(uncovered);
+      final uncovered = uncoveredNow();
+      // SCE238: sorted and counted in the REASON, never left to the matcher.
+      // `expect(set, isEmpty)` renders `Actual:` through a pretty-printer
+      // that truncates a long collection with no marker; when this case
+      // reported forty files it displayed twenty-four, and a session resolved
+      // exactly those and re-ran expecting green. The reason string is not
+      // truncated, so it carries the whole list and says how long it is.
+      final appeared =
+          uncovered.difference(_uncoveredBaseline.keys.toSet()).toList()
+            ..sort();
+      final closed =
+          _uncoveredBaseline.keys.toSet().difference(uncovered).toList()
+            ..sort();
 
       expect(
         appeared,
@@ -3721,7 +3741,9 @@ void main() {
             '  * it already has a twin under a different name or path -> '
             'record the pairing in _coveredElsewhere, having READ both files;\n'
             '  * it cannot be ported -> add it to _uncoveredBaseline with the '
-            'reason.\n${appeared.join('\n')}',
+            'reason.\n'
+            '${appeared.length} file(s), all of them:\n'
+            '${appeared.join('\n')}',
       );
       expect(
         closed,
@@ -3729,7 +3751,51 @@ void main() {
         reason:
             'These files now have a counterpart but are still listed in '
             '_uncoveredBaseline. Remove them: a stale baseline is how the '
-            'ratchet loosens.\n${closed.join('\n')}',
+            'ratchet loosens.\n'
+            '${closed.length} file(s), all of them:\n'
+            '${closed.join('\n')}',
+      );
+    });
+
+    test('F-SCE238-1: the uncovered backlog is at its recorded high-water '
+        'mark [2026-09-29] (PASS)', () {
+      // SCE238. A failing test is exactly as red with forty entries as with
+      // four. F-SCC6-2 went red on 2026-09-06 naming four files and named
+      // forty by 2026-09-15, and nothing changed colour in between, so every
+      // session that added a reference test without a counterpart added to a
+      // pile nobody could see growing.
+      //
+      // This case counts the WHOLE backlog: recorded in _uncoveredBaseline,
+      // plus whatever F-SCC6-2 is currently reporting. It fails when that
+      // number moves from [_uncoveredHighWater] in either direction:
+      //   * UP: growth, reportable even while F-SCC6-2 is standing red. That
+      //     is the property a ratchet cannot express about itself. Raising
+      //     the mark is how growth is ACCEPTED, and it is a visible edit.
+      //   * DOWN: raise nothing, lower the mark, so the ratchet tightens with
+      //     the work instead of leaving slack for the next file to fill.
+      //
+      // SEEN TO FAIL, 2026-09-29:
+      //
+      //   | Injected fault                                   | Fires            |
+      //   | ------------------------------------------------ | ---------------- |
+      //   | a new tom_d4rt test with no counterpart          | F-SCC6-2 ("1     |
+      //   |                                                  | file(s), all of  |
+      //   |                                                  | them"), and this |
+      //   |                                                  | ("GREW 20 to 21")|
+      //   | the mark set one above the real backlog          | this ("SHRANK")  |
+      final uncovered = uncoveredNow().toList()..sort();
+      expect(
+        uncovered.length,
+        _uncoveredHighWater,
+        reason: uncovered.length > _uncoveredHighWater
+            ? 'The backlog of reference tests with no counterpart GREW, from '
+                  '$_uncoveredHighWater to ${uncovered.length}. Port the new '
+                  'ones or record them (see F-SCC6-2), and raise '
+                  '_uncoveredHighWater only as a decision that the backlog may '
+                  'be larger. All ${uncovered.length}:\n${uncovered.join('\n')}'
+            : 'The backlog SHRANK, from $_uncoveredHighWater to '
+                  '${uncovered.length}. Lower _uncoveredHighWater to '
+                  '${uncovered.length} so the ratchet keeps the ground.',
       );
     });
 
