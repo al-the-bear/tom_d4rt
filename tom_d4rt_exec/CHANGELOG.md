@@ -1,3 +1,11 @@
+## 1.39.0
+
+### Changed — `tom_ast_generator` ^0.1.13 (scf34)
+
+The floor 1.38.0 had to drop to reach `tom_d4rt_ast` 0.195.0 is back, now at
+the release that carries conditional-import resolution (scf16) and the
+`astgen` fixes of scf33. F-SCE62-6 passes again; the suite is fully green.
+
 ## 1.38.0
 
 ### Changed — resolves the published tom_d4rt_ast 0.195.0 (scf34)
