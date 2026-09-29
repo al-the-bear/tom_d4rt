@@ -226,6 +226,7 @@ void main() {
             returnType: 'void',
             hasTypeParameters: true,
             methodTypeParameters: {'T': 'Object', 'E': null},
+            isMethod: true,
           );
           expect(info.hasTypeParameters, isTrue);
           expect(info.methodTypeParameters['T'], equals('Object'));

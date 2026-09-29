@@ -1,5 +1,10 @@
 ## 0.1.11
 
+### Changed — resolves the current interpreter (sce237)
+
+Requires `tom_d4rt_ast` ^0.184.0 (published 2026-09-29). Dev dependencies
+follow: `tom_d4rt_exec` ^1.35.0 and `tom_d4rt_generator` ^1.46.0.
+
 ### Added — every bundle names the astgen that wrote it (scf3, sce15)
 
 `AstBundler` now sets `AstBundle.generator` to `tom_ast_generator <version>`
@@ -9,7 +14,7 @@ prints, so a bundle cannot disagree with the tool's banner. It reaches the
 plain JSON, the gzip bytes and the ZIP manifest. A bundle that misbehaves on
 a device can now say which tool produced it. Older bundles still load, with
 `generator` null. This uses the field `tom_d4rt_ast` published in the
-0.115.0 line, which the existing `^0.177.0` constraint already requires.
+0.115.0 line, which every release this package accepts carries.
 
 ## 0.1.10
 
