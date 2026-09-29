@@ -1,3 +1,19 @@
+## 1.202.0
+
+### Fixed — `break` / `continue` in an async body run the finallys they cross (scf6)
+
+SCE18 fixed the `return` route; the jump route still went straight to its
+target, so `for (..) { try { if (i == 1) break; } finally { log.add('f1'); } }`
+never logged, and a `continue` skipped the finally for that iteration. The
+synchronous visitor was always right and is the oracle.
+
+A jump that leaves a try with a non-empty finally now parks on
+`AsyncExecutionState.pendingJump` and runs the finallys between it and its
+target, innermost first and nothing in between; after the last one it
+completes exactly as before (loops left, next node). A `return`, a `throw`
+that escapes the finally, or another jump that leaves it replaces the pending
+jump, as in Dart; a jump or catch local to the running finally does not.
+
 ## 1.201.0
 
 ### Fixed — an `async*` generator obeys its listener (scf4)

@@ -528,4 +528,79 @@ void main() {
       });
     },
   );
+  // SCF6: a break / continue out of a try in an async body runs the finallys
+  // it crosses, innermost first, and only those inside its target. The
+  // reference tree pins the same shapes against its synchronous visitor in
+  // `tom_d4rt/test/sce18_finally_on_abrupt_exit_test.dart`.
+  group('SCF6/AST: an async jump runs the finallys it crosses', () {
+    test('F-SCF6-AST-1: break runs the finally, then leaves the loop '
+        '[2026-09-29] (PASS)', () async {
+      // for (var i in [1, 2]) { try { if (i == 1) break; } finally { log.add(100); } }
+      // log.add(0);
+      final a = _Ast();
+      final bundle = a.program([
+        a.declare('log', a.list([])),
+        a.forIn('i', a.list([a.int_(1), a.int_(2)]), [
+          a.try_(
+            [a.ifThen(a.equals('i', 1), a.break_())],
+            onFinally: [a.add('log', a.int_(100))],
+          ),
+        ]),
+        a.add('log', a.int_(0)),
+        a.return_(a.id('log')),
+      ], isAsync: true);
+      // Before SCF6: [0] — the finally was skipped.
+      final result = await D4rtRunner().executeBundleAsAsync<Object?>(bundle);
+      expect(result, equals([100, 0]));
+    });
+
+    test('F-SCF6-AST-2: continue runs the finally before the next iteration '
+        '[2026-09-29] (PASS)', () async {
+      // for (var i in [1, 2]) {
+      //   try { if (i == 1) continue; } finally { log.add(100); }
+      //   log.add(i);
+      // }
+      final a = _Ast();
+      final bundle = a.program([
+        a.declare('log', a.list([])),
+        a.forIn('i', a.list([a.int_(1), a.int_(2)]), [
+          a.try_(
+            [a.ifThen(a.equals('i', 1), a.continue_())],
+            onFinally: [a.add('log', a.int_(100))],
+          ),
+          a.add('log', a.id('i')),
+        ]),
+        a.return_(a.id('log')),
+      ], isAsync: true);
+      // Before SCF6: [100, 2].
+      final result = await D4rtRunner().executeBundleAsAsync<Object?>(bundle);
+      expect(result, equals([100, 100, 2]));
+    });
+
+    test('F-SCF6-AST-3: two crossed finallys run innermost first, and nothing '
+        'between them [2026-09-29] (PASS)', () async {
+      // for (var i in [1, 2]) {
+      //   try { try { break; } finally { log.add(1); } log.add(50); }
+      //   finally { log.add(2); }
+      // }
+      // log.add(0);
+      final a = _Ast();
+      final bundle = a.program([
+        a.declare('log', a.list([])),
+        a.forIn('i', a.list([a.int_(1), a.int_(2)]), [
+          a.try_(
+            [
+              a.try_([a.break_()], onFinally: [a.add('log', a.int_(1))]),
+              a.add('log', a.int_(50)),
+            ],
+            onFinally: [a.add('log', a.int_(2))],
+          ),
+        ]),
+        a.add('log', a.int_(0)),
+        a.return_(a.id('log')),
+      ], isAsync: true);
+      final result = await D4rtRunner().executeBundleAsAsync<Object?>(bundle);
+      expect(result, equals([1, 2, 0]));
+    });
+  });
 }

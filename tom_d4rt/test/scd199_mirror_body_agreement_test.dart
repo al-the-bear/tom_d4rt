@@ -229,12 +229,13 @@ const _divergentBodies = <String, Map<String, String>>{
   'callable.dart': {
     'InterpretedExtensionMethod.call': '04fc6741',
     'InterpretedFunction._beginAwaitForIteration': 'f361cfa9',
+    'InterpretedFunction._isWithin': 'a8bc018c',
     'InterpretedFunction._callImpl': 'c0f390c5',
     'InterpretedFunction._containsAwait': 'ee448f09',
     'InterpretedFunction._determineNextNodeAfterAwait': 'b311adb9',
     'InterpretedFunction._findEnclosingTryStatement': '64523cb5',
     'InterpretedFunction._findInvocationWithAwaitInArguments': '5fedfaed',
-    'InterpretedFunction._findNextSequentialNode': '00e07640',
+    'InterpretedFunction._findNextSequentialNode': 'f20b7114',
     'InterpretedFunction._enclosingExpressionFunctionBody': '34fd9762',
     'InterpretedFunction._handleAsyncError': '7e829bf3',
     'InterpretedFunction._instantiateRedirectedFactory': '92a6e173',
@@ -254,6 +255,7 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpretedFunction._jumpTarget': 'c5e2ff57',
     'InterpretedFunction._leaveLoopsFor': 'e47bcb14',
     'InterpretedFunction._nextEnclosingFinallyTry': 'fe832583',
+    'InterpretedFunction._nextFinallyTryBefore': '5b8b6fab',
     'InterpretedFunction._prepareExecutionEnvironment': '01cdcb72',
     'InterpretedFunction._resolveTypeAnnotationDynamic': 'ea018cda',
     // SCE139: the statement walker the return and invocation resumption
@@ -268,7 +270,7 @@ const _divergentBodies = <String, Map<String, String>>{
     // because the hash is over both bodies. The divergence itself is
     // unchanged: the mirror AST has no `parent` getter, so the twin walks
     // with `_parentOf`.
-    'InterpretedFunction._runStateMachine': '04f98399',
+    'InterpretedFunction._runStateMachine': 'ae751c99',
     'InterpretedFunction._tryOwningCatchClauseOf': 'f1617e03',
     'InterpretedFunction._tryOwningFinallyBlockOf': '34fd9762',
     'InterpretedFunction.bind': '78b56933',

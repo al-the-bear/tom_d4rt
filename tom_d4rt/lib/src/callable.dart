@@ -3352,6 +3352,10 @@ class InterpretedFunction implements Callable {
           currentState.nextStateIdentifier = currentNode;
         }
       } on ReturnException catch (e) {
+        // SCF6: a return replaces any break / continue still waiting for the
+        // finallys it crossed — Dart's rule for an abrupt completion raised
+        // inside a finally.
+        currentState.pendingJump = null;
         // The function returned a value
         Logger.debug(
           " [StateMachine] Caught ReturnException. Completing with: ${e.value}",
@@ -3462,9 +3466,11 @@ class InterpretedFunction implements Callable {
           }
           return;
         }
-        _leaveLoopsFor(currentState, from, target, leaveTarget: true);
-        currentState.activeTryStatement = _findEnclosingTryStatement(target);
-        currentNode = _findNextSequentialNode(visitor, target);
+        currentNode = _startJump(
+          visitor,
+          currentState,
+          PendingJump(from: from, target: target, isContinue: false),
+        );
         currentState.nextStateIdentifier = currentNode;
         continue;
       } on ContinueException catch (e) {
@@ -3488,11 +3494,11 @@ class InterpretedFunction implements Callable {
           }
           return;
         }
-        // Loops nested inside the target are left; the target itself goes on
-        // to its next iteration: its condition, its updaters, its next element.
-        _leaveLoopsFor(currentState, from, target, leaveTarget: false);
-        currentState.activeTryStatement = _findEnclosingTryStatement(target);
-        currentNode = target;
+        currentNode = _startJump(
+          visitor,
+          currentState,
+          PendingJump(from: from, target: target, isContinue: true),
+        );
         currentState.nextStateIdentifier = currentNode;
         continue;
       } catch (error, stackTrace) {
@@ -3660,6 +3666,19 @@ class InterpretedFunction implements Callable {
     AsyncExecutionState state,
     AstNode nodeWhereErrorOccurred,
   ) {
+    // SCF6: an error that escapes the finally a pending break / continue is
+    // running replaces the jump, as Dart replaces any abrupt completion. One
+    // caught by a try written INSIDE that finally is local to it and leaves
+    // the jump waiting.
+    if (state.pendingJump != null) {
+      final running = _tryOwningFinallyBlockOf(nodeWhereErrorOccurred);
+      final handler = _findEnclosingTryStatement(nodeWhereErrorOccurred);
+      final local =
+          running != null &&
+          handler != null &&
+          _isWithin(handler, running.finallyBlock!);
+      if (!local) state.pendingJump = null;
+    }
     Object? error = state.currentError;
     if (error is InternalInterpreterD4rtException) {
       error = error.originalThrownValue;
@@ -4012,6 +4031,109 @@ class InterpretedFunction implements Callable {
       }
     }
     return null;
+  }
+
+  /// The next node after a `break` / `continue` [jump] has been raised.
+  ///
+  /// SCF6: a jump that leaves a try with a non-empty finally runs that finally
+  /// first, as Dart does — innermost first, and only the finallys between the
+  /// jump and its target. The jump is parked on [AsyncExecutionState.pendingJump]
+  /// and resumed by [_completeOrContinueJump] where each finally ends. It used
+  /// to go straight to its target, so
+  /// `for (..) { try { break; } finally { log.add('f'); } }` never logged.
+  ///
+  /// A new jump replaces a pending one only when it LEAVES the finally that is
+  /// running; a jump whose target sits inside that finally — a loop written
+  /// in it — is local to it and leaves the pending jump alone.
+  static AstNode? _startJump(
+    InterpreterVisitor visitor,
+    AsyncExecutionState state,
+    PendingJump jump,
+  ) {
+    final pending = state.pendingJump;
+    if (pending != null) {
+      final running = _tryOwningFinallyBlockOf(jump.from);
+      final local =
+          running != null && _isWithin(jump.target, running.finallyBlock!);
+      if (!local) state.pendingJump = null;
+    }
+    final crossed = _nextFinallyTryBefore(jump.from, jump.target);
+    if (crossed == null) return _finishJump(visitor, state, jump);
+    state.pendingJump = jump;
+    state.activeTryStatement = crossed;
+    return crossed.finallyBlock!.statements.first;
+  }
+
+  /// Where a finally that a pending jump crossed has ended: run the next
+  /// crossed finally, or complete the jump.
+  static AstNode? _completeOrContinueJump(
+    InterpreterVisitor visitor,
+    AsyncExecutionState state,
+    TryStatement endedTry,
+  ) {
+    final jump = state.pendingJump!;
+    final next = _nextFinallyTryBefore(endedTry, jump.target);
+    if (next != null) {
+      state.activeTryStatement = next;
+      return next.finallyBlock!.statements.first;
+    }
+    state.pendingJump = null;
+    return _finishJump(visitor, state, jump);
+  }
+
+  /// Complete [jump]: leave the loops it crosses and go to the node after its
+  /// target (`break`) or back to the target (`continue`).
+  static AstNode? _finishJump(
+    InterpreterVisitor visitor,
+    AsyncExecutionState state,
+    PendingJump jump,
+  ) {
+    _leaveLoopsFor(
+      state,
+      jump.from,
+      jump.target,
+      leaveTarget: !jump.isContinue,
+    );
+    state.activeTryStatement = _findEnclosingTryStatement(jump.target);
+    // Loops nested inside a continue's target are left; the target itself
+    // goes on to its next iteration: its condition, its updaters, its next
+    // element.
+    return jump.isContinue
+        ? jump.target
+        : _findNextSequentialNode(visitor, jump.target);
+  }
+
+  /// The innermost `try` with a non-empty finally that [from] leaves on its
+  /// way to [target], or null when [target] is reached first.
+  ///
+  /// [_nextEnclosingFinallyTry] with the walk bounded by the jump's target
+  /// rather than the function: a `return` crosses every finally up to the
+  /// function boundary, a jump only those inside the statement it leaves. A
+  /// try whose finally contains [from] is skipped, as there: that finally is
+  /// the one running.
+  static TryStatement? _nextFinallyTryBefore(AstNode from, AstNode target) {
+    AstNode? child = from;
+    for (
+      AstNode? current = from.parent;
+      current != null && !identical(current, target);
+      child = current, current = current.parent
+    ) {
+      if (current is FunctionBody) return null;
+      if (current is! TryStatement) continue;
+      final finallyBlock = current.finallyBlock;
+      if (finallyBlock == null || finallyBlock.statements.isEmpty) continue;
+      if (identical(child, finallyBlock)) continue;
+      return current;
+    }
+    return null;
+  }
+
+  /// Whether [node] is [ancestor] or lies inside it.
+  static bool _isWithin(AstNode node, AstNode ancestor) {
+    for (AstNode? n = node; n != null; n = n.parent) {
+      if (identical(n, ancestor)) return true;
+    }
+    return false;
   }
 
   /// Unwinds the loop stacks for a jump from [from] to [target]: every loop
@@ -5681,6 +5803,11 @@ class InterpretedFunction implements Callable {
                 "stopping so the loop completes with the stored value.",
               );
               return null;
+            }
+
+            // SCF6: a break / continue was deferred into this finally.
+            if (state.pendingJump != null) {
+              return _completeOrContinueJump(visitor, state, blockParent);
             }
           }
           return _findNextSequentialNode(visitor, blockParent);

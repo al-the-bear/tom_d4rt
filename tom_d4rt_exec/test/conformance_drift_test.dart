@@ -2202,6 +2202,13 @@ const Map<String, _Convergence> _convergenceLog = {
 /// re-measure the whole register when the floor moves, not the entry you
 /// happened to be reading.
 const Map<String, _Divergence> _divergentBaseline = {
+  // SCF6: the reference copy now asserts that an async break / continue runs
+  // the finallys it crosses (F-SCE18-8/9 rewritten from the old wrong answers,
+  // F-SCF6-1..7 added). The published interpreter still skips them, so this
+  // copy keeps asserting the old answers.
+  // PUBLISH-BLOCKED — re-port when exec's tom_d4rt_ast floor passes 0.186.0,
+  // by copying the reference file down; converges at a floor past 0.186.0.
+  'sce18_finally_on_abrupt_exit_test.dart': _Divergence.deliberate,
   // SCF4: the reference copy un-skipped F-SCD4-10 and added F-SCF4-1..3 —
   // a cancelled `async*` generator now stops at its pending yield and runs its
   // `finally`. The published interpreter this package resolves still runs the
@@ -2282,6 +2289,7 @@ const Map<String, _Divergence> _divergentBaseline = {
 /// Recomputing without reading the new difference is the failure mode; the
 /// message says so.
 const Map<String, String> _divergenceFingerprints = <String, String>{
+  'sce18_finally_on_abrupt_exit_test.dart': 'ed38f75775d721c1',
   'scd4_await_for_break_test.dart': 'd55f7afda3086484',
   'stdlib/io/scd188_stdin_audit_reason_expiry_test.dart': '46be47f827711c3a',
   'warm_parent_package_pool_test.dart': '971b6ff19185f442',
@@ -2471,6 +2479,11 @@ typedef _Pin = ({String floor, String measured});
 const Map<String, _Pin> _pinnedInterpreterFloors = <String, _Pin>{
   // SCF4, pinned at the release carrying the generator's listener gate.
   'scd4_await_for_break_test.dart': (floor: '0.185.0', measured: '0.184.0'),
+  // SCF6, pinned at the release carrying the async jump-through-finally.
+  'sce18_finally_on_abrupt_exit_test.dart': (
+    floor: '0.186.0',
+    measured: '0.184.0',
+  ),
 };
 
 /// The `tom_d4rt_ast` floor exec's own `pubspec.yaml` currently declares.

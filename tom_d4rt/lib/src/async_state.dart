@@ -336,6 +336,13 @@ class AsyncExecutionState {
   /// For async* generators: flag indicating this is a generator execution
   bool get isGenerator => generatorStreamController != null;
 
+  /// A `break` or `continue` waiting for the `finally` blocks it crosses
+  /// (SCF6). Set when the jump leaves a try with a non-empty finally on its
+  /// way to [PendingJump.target]; consulted where each of those finallys ends;
+  /// replaced by a `return`, a `throw` or another jump that leaves the
+  /// running finally, as Dart replaces an abrupt completion.
+  PendingJump? pendingJump;
+
   /// For async* generators: what the listener has asked for (SCF4). Null
   /// outside a generator.
   AsyncGeneratorGate? generatorGate;
@@ -471,4 +478,21 @@ class AsyncSuspensionRequest {
     this.isYieldSuspension = false,
     this.awaitNode,
   });
+}
+
+/// A jump deferred until the finallys between it and its target have run.
+class PendingJump {
+  const PendingJump({
+    required this.from,
+    required this.target,
+    required this.isContinue,
+  });
+
+  /// The `break` / `continue` statement that started the jump.
+  final AstNode from;
+
+  /// The loop (or `switch`) it leaves or restarts.
+  final AstNode target;
+
+  final bool isContinue;
 }
