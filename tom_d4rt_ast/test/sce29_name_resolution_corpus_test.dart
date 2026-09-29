@@ -92,6 +92,14 @@ const Map<String, String> _deferred = {
   '1.203.0':
       'tom_d4rt, unpublished (scf42): the reference half of the scf19 '
       'change, certified by the same post-publish run as 0.188.0',
+  // SCF25: bare accessors are called rather than rebound, and setters bind
+  // under `v=`. Unpublished; owed by the same scf42 pass.
+  '0.191.0':
+      'unpublished (scf42): the post-publish base corpus of both twins is '
+      'owed once 0.191.0 is on pub.dev',
+  '1.206.0':
+      'tom_d4rt, unpublished (scf42): the reference half of the scf25 '
+      'change, certified by the same post-publish run as 0.191.0',
 };
 
 List<int> _key(String v) => v.split('.').map(int.parse).toList();

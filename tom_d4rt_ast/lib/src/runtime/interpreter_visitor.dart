@@ -798,6 +798,13 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         return value.value;
       }
 
+      // SCF25: a bare name bound to a GETTER — top-level, or a static one the
+      // owner class's statics were snapshotted into — is a read of the getter,
+      // not the getter function. It used to answer `<fn g>`.
+      if (value is InterpretedFunction && value.isGetter) {
+        return value.call(this, const [], const {});
+      }
+
       // FIX-20260613-1038-C: instance members shadow bridged top-level /
       // library declarations. The lexical walk above also reaches the global
       // scope, so a bridged top-level name (e.g. vector_math's
@@ -2805,6 +2812,40 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     return null;
   }
 
+  /// The setter a bare write to [name] reaches through the lexical scope, or
+  /// null when there is none or a closer binding of the plain name shadows it.
+  ///
+  /// SCF25. A setter is bound under `v=` ([Environment.setterKey]) — top-level
+  /// ones by the declaration passes, a class's static ones by the static
+  /// snapshot a static member runs in. A binding of `v` itself that sits
+  /// strictly INSIDE the setter's scope (a local, a parameter) is what the
+  /// bare name means, as in Dart; one in the same scope is the getter of the
+  /// pair, and does not shadow its own setter.
+  Callable? _bareSetterFor(String name) {
+    final key = Environment.setterKey(name);
+    final setterEnv = environment.findDefiningEnvironment(key);
+    if (setterEnv == null) return null;
+    final plainEnv = environment.findDefiningEnvironment(name);
+    for (Environment? e = environment; e != null; e = e.enclosing) {
+      if (identical(e, setterEnv)) break;
+      if (identical(e, plainEnv)) return null;
+    }
+    final setter = setterEnv.get(key);
+    return setter is Callable ? setter : null;
+  }
+
+  /// The STATIC SETTER named [name] in [klass]'s chain, or null — the setter
+  /// counterpart of [_staticFieldOwner] (SCF25).
+  InterpretedFunction? _staticSetterFor(InterpretedClass? klass, String name) {
+    var walk = klass;
+    while (walk != null) {
+      final setter = walk.findStaticSetter(name);
+      if (setter != null) return setter;
+      walk = walk.superclass;
+    }
+    return null;
+  }
+
   @override
   Object? visitAssignmentExpression(SAssignmentExpression node) {
     final lhs = node.leftHandSide;
@@ -2827,6 +2868,21 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     // Case 1: Simple variable assignment (lexical or implicit this)
     if (lhs is SSimpleIdentifier) {
       final variableName = lhs.name;
+
+      // SCF25: a bare write to a name the scope binds a SETTER for calls it.
+      // It used to rebind the name and drop the write. See [_bareSetterFor].
+      final bareSetter = _bareSetterFor(variableName);
+      if (bareSetter != null) {
+        final Object? newValue = operatorType == '='
+            ? rhsValue
+            : computeCompoundValue(
+                lhs.accept<Object?>(this),
+                rhsValue,
+                operatorType,
+              );
+        bareSetter.call(this, [newValue], {});
+        return newValue;
+      }
 
       Environment? definingEnv = environment.findDefiningEnvironment(
         variableName,
@@ -2900,6 +2956,23 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
                 operatorType,
               );
               staticOwner.setStaticField(variableName, newValue);
+              return newValue;
+            }
+            // SCF25: and a bare name the class chain declares a static SETTER
+            // for calls it, as the static field above is written.
+            final staticSetter = _staticSetterFor(
+              thisInstance.klass,
+              variableName,
+            );
+            if (staticSetter != null) {
+              final Object? newValue = operatorType == '='
+                  ? rhsValue
+                  : computeCompoundValue(
+                      lhs.accept<Object?>(this),
+                      rhsValue,
+                      operatorType,
+                    );
+              staticSetter.call(this, [newValue], {});
               return newValue;
             }
             if (operatorType == '=') {
@@ -9059,8 +9132,12 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       isNullable,
       declaredReturnTypeApplied: declaredReturnTypeApplied,
     );
-    // Define the function in the current environment
-    environment.define(node.name!.name, function);
+    // Define the function in the current environment. SCF25: a setter under
+    // its setter name, `v=`.
+    environment.define(
+      node.isSetter ? Environment.setterKey(node.name!.name) : node.name!.name,
+      function,
+    );
     return null; // Declaration itself doesn't return a value
   }
 
@@ -9578,6 +9655,17 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           // We need the current value (already got it as assignOperand)
           final currentValue = assignOperand;
 
+          // SCF25: `++v` / `--v` on a bare name bound to a setter goes through
+          // it; `currentValue` was read through the getter.
+          final prefixSetter = _bareSetterFor(variableName);
+          if (prefixSetter != null && currentValue is num) {
+            final newValue = operatorType == '++'
+                ? currentValue + 1
+                : currentValue - 1;
+            prefixSetter.call(this, [newValue], {});
+            return newValue;
+          }
+
           if (currentValue is num) {
             final newValue = operatorType == '++'
                 ? currentValue + 1
@@ -9985,6 +10073,21 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     // Check if operand is assignable (SSimpleIdentifier or SPropertyAccess)
     if (node.operand is SSimpleIdentifier) {
       final variableName = (node.operand as SSimpleIdentifier).name;
+
+      // SCF25: `v++` / `v--` on a bare name bound to a setter reads through the
+      // getter and writes through the setter.
+      final postfixSetter = _bareSetterFor(variableName);
+      if (postfixSetter != null) {
+        final original = (node.operand as SSimpleIdentifier).accept<Object?>(
+          this,
+        );
+        if (original is num) {
+          postfixSetter.call(this, [
+            operatorType == '++' ? original + 1 : original - 1,
+          ], {});
+          return original;
+        }
+      }
       Object? operandValue;
       InterpretedInstance? thisInstance;
       bool isInstanceField = false;

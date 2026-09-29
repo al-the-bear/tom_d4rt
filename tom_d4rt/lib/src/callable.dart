@@ -916,7 +916,9 @@ class InterpretedFunction implements Callable {
       for (final entry in ownerClass.staticSetters.entries) {
         final setterName = entry.key;
         final setter = entry.value;
-        executionEnvironment.define(setterName, setter);
+        // SCF25: under its setter name, `v=`, so a static getter of the same
+        // name keeps its binding and a bare `v = x` finds the setter.
+        executionEnvironment.define(Environment.setterKey(setterName), setter);
         if (Logger.isDebug) {
           Logger.debug(
             "[InterpretedFunction._prepareExecutionEnvironment] Added static setter '$setterName' to execution environment.",

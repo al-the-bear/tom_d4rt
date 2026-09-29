@@ -1,3 +1,27 @@
+## 1.206.0
+
+### Fixed — a bare name reaches the getter or setter it names (scf25)
+
+Top-level accessors and a class's static ones (inside a static member, where
+the class's statics resolve without a prefix) were bound as the getter and
+setter FUNCTIONS under the plain name. So:
+
+- a bare read of a getter answered the function — `int get g => 1;
+  main() => g;` returned `<fn g>`;
+- a bare write rebound the name and never called the setter — `s = 3` left
+  `set s` unrun, and a static `set v` normalising its input was skipped;
+- a getter and a setter of one name replaced each other;
+- `++v` read through a getter and then overwrote its binding.
+
+A setter is now bound under Dart's setter name, `v=` (`Environment.setterKey`),
+which `show` / `hide` treat as `v`. A bare read of a getter calls it. A bare
+write — `=`, compound, `??=`, `++` / `--` either side — calls the setter unless
+a closer binding of `v` (a local, a parameter) shadows it. From an instance
+method a bare write reaches a static setter in the class chain, as SCE125 made
+it reach a static field.
+
+Name resolution: yes — a bare name bound to a getter or setter now resolves to a call of it, and `v=` is a new binding a bare write consults (scf25).
+
 ## 1.205.0
 
 ### Fixed — a script class that declares no `toString` still has `Object`'s (scf24)

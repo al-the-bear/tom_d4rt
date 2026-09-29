@@ -326,7 +326,7 @@ const _divergentBodies = <String, Map<String, String>>{
     // unbridged-native clause to the same two assignment errors; the residue
     // is still `PrefixedIdentifier` vs `SPrefixedIdentifier` in one message,
     // which the new text now sits beside.
-    'InterpreterVisitor.visitAssignmentExpression': '012921db',
+    'InterpreterVisitor.visitAssignmentExpression': 'e8f2ce0b',
     'InterpreterVisitor.visitBinaryExpression': 'c2f2a78f',
     // SCE130: 57fc0f99 -> fffabfd5. Both trees gained the same call to
     // `klass.resolveDeferredTypeParameterBounds`; the residue is the
@@ -350,13 +350,13 @@ const _divergentBodies = <String, Map<String, String>>{
     // SCE236: the two `visitNode` bodies are identical now. Only the excerpt
     // helper differs: `toSource()` here, the bundled source in the twin.
     'InterpreterVisitor._nodeExcerpt': 'b5e37909',
-    'InterpreterVisitor.visitPostfixExpression': 'bcfb2c65',
-    'InterpreterVisitor.visitPrefixExpression': 'd18482f4',
+    'InterpreterVisitor.visitPostfixExpression': 'b327ada1',
+    'InterpreterVisitor.visitPrefixExpression': '60bcc308',
     'InterpreterVisitor.visitPrefixedIdentifier': '8998a214',
     'InterpreterVisitor.visitPropertyAccess': 'f38664e1',
     'InterpreterVisitor.visitReturnStatement': 'b0d7b56c',
     'InterpreterVisitor.visitSetOrMapLiteral': '1a33a2d6',
-    'InterpreterVisitor.visitSimpleIdentifier': '2cd8b958',
+    'InterpreterVisitor.visitSimpleIdentifier': 'c243901e',
     'InterpreterVisitor.visitSwitchExpression': '0e2ec45a',
     'InterpreterVisitor.visitSwitchStatement': '059a026e',
     'InterpreterVisitor.visitSymbolLiteral': '971210c9',

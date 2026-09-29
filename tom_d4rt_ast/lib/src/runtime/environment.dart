@@ -315,6 +315,21 @@ class Environment {
   /// Gets the enclosing (parent) environment, if any.
   Environment? get enclosing => _enclosing;
 
+  /// The name a SETTER is bound under: Dart's own setter name, `v=`.
+  ///
+  /// A getter and a setter of one name are two declarations, and binding both
+  /// under the plain name made the second replace the first. The setter lives
+  /// under `v=`, which no identifier can spell, so a bare read of `v` finds the
+  /// getter and a bare write asks for `v=` (SCF25).
+  static String setterKey(String name) => '$name=';
+
+  /// The plain name a binding answers to for `show` / `hide`: a setter's `v=`
+  /// is `v`, so `show v` imports the getter and the setter together.
+  static String _combinatorName(String bindingName) =>
+      bindingName.length > 1 && bindingName.endsWith('=')
+      ? bindingName.substring(0, bindingName.length - 1)
+      : bindingName;
+
   /// Gets the map of variable bindings in this environment.
   Map<String, Object?> get values => _values;
 
@@ -2385,10 +2400,11 @@ class Environment {
     // Filter _values
     _values.forEach((name, value) {
       bool include = true;
+      final shownAs = _combinatorName(name);
       if (showNames != null) {
-        include = showNames.contains(name);
+        include = showNames.contains(shownAs);
       } else if (hideNames != null) {
-        include = !hideNames.contains(name);
+        include = !hideNames.contains(shownAs);
       }
       if (include) {
         newEnv._values[name] = value;

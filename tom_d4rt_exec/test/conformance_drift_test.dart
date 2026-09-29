@@ -2202,6 +2202,13 @@ const Map<String, _Convergence> _convergenceLog = {
 /// re-measure the whole register when the floor moves, not the entry you
 /// happened to be reading.
 const Map<String, _Divergence> _divergentBaseline = {
+  // SCF25: a bare name bound to a getter is read through it and a bare write
+  // calls the setter (bound under `v=`). The published interpreter answers the
+  // getter function and drops the write, so this port carries the reference
+  // verbatim but for a group-level skip.
+  // PUBLISH-BLOCKED — re-port when exec's tom_d4rt_ast floor passes 0.191.0,
+  // by copying the reference file down; converges at a floor past 0.191.0.
+  'scf25_bare_accessor_test.dart': _Divergence.deliberate,
   // SCF24: a script class that declares no `toString` answers `Object`'s,
   // including `super.toString()` / `super.noSuchMethod(i)` where the
   // superclass is `Object`. The published interpreter raises instead, so this
@@ -2317,6 +2324,7 @@ const Map<String, _Divergence> _divergentBaseline = {
 /// Recomputing without reading the new difference is the failure mode; the
 /// message says so.
 const Map<String, String> _divergenceFingerprints = <String, String>{
+  'scf25_bare_accessor_test.dart': '4b8b46d8dff418b1',
   'scf24_object_members_test.dart': 'cbfe98a21f396777',
   'sce101_element_type_test.dart': '4f88b5f451909a1b',
   'scf19_inherited_bridged_member_test.dart': 'f6bcc3d645a83127',
@@ -2509,6 +2517,8 @@ typedef _Pin = ({String floor, String measured});
 /// recorded evidence was seven and ten cases out of date. Both are re-stamped
 /// above their entries in `_uncoveredBaseline`.
 const Map<String, _Pin> _pinnedInterpreterFloors = <String, _Pin>{
+  // SCF25, pinned at the release that binds setters under `v=`.
+  'scf25_bare_accessor_test.dart': (floor: '0.191.0', measured: '0.184.0'),
   // SCF24, pinned at the release carrying `InterpretedInstance.objectMember`.
   'scf24_object_members_test.dart': (floor: '0.190.0', measured: '0.184.0'),
   // SCF22, pinned at the release that collapses the two type-test predicates.

@@ -286,7 +286,12 @@ class DeclarationVisitor extends GeneralizingSAstVisitor<void> {
     Logger.debug(
       "[DeclarationVisitor.visitFunctionDeclaration]   Defining function '$functionName' with declaredReturnType: ${declaredReturnType.name} (Hash: ${declaredReturnType.hashCode})",
     );
-    environment.define(functionName, function);
+    // SCF25: a setter is bound under its setter name, `v=`, so a getter and a
+    // setter of one name no longer replace each other.
+    environment.define(
+      node.isSetter ? Environment.setterKey(functionName) : functionName,
+      function,
+    );
   }
 
   @override
