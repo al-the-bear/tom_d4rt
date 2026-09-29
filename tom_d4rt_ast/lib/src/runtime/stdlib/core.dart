@@ -148,9 +148,10 @@ class CoreStdlib {
           // A native proxy and the interpreted instance behind it are one
           // object to a script — `list.first` may arrive as the proxy while
           // the script still holds the instance it added.
-          final left = D4.interpretedBehind(arguments[0]) ?? arguments[0];
-          final right = D4.interpretedBehind(arguments[1]) ?? arguments[1];
-          return identical(left, right);
+          return identical(
+            _identityCarrier(arguments[0]),
+            _identityCarrier(arguments[1]),
+          );
         },
         arity: 2,
         name: 'identical',
@@ -168,9 +169,7 @@ class CoreStdlib {
           // Same carrier rule as `identical` above: two carriers of one
           // object must not hash differently, or a script's identity set
           // holds both.
-          return identityHashCode(
-            D4.interpretedBehind(arguments[0]) ?? arguments[0],
-          );
+          return identityHashCode(_identityCarrier(arguments[0]));
         },
         arity: 1,
         name: 'identityHashCode',
@@ -182,4 +181,25 @@ class CoreStdlib {
     // reads bottom-up is one nobody has to check the ordering of.
     CoreHierarchyCore.register();
   }
+}
+
+/// The object `identical` and `identityHashCode` compare, for a value that
+/// reaches the interpreter through more than one carrier.
+///
+/// A native proxy and the interpreted instance behind it are one object to a
+/// script, so the instance answers for both.
+///
+/// A bare bridged CLASS NAME and the native `Type` it denotes are one object
+/// too (SCE234). `String` evaluates to its `BridgedClass`, and
+/// `'x'.runtimeType` is the native `Type`. Dart answers
+/// `identical(String, 'x'.runtimeType)` true. SCD198 made the two compare equal
+/// and hash alike; this makes them one identity, by answering with the native
+/// `Type`, which the VM canonicalises. An interpreted class needs nothing
+/// here, because its name and an instance's `runtimeType` are already the same
+/// `InterpretedClass`.
+Object? _identityCarrier(Object? value) {
+  final behind = D4.interpretedBehind(value);
+  if (behind != null) return behind;
+  if (value is BridgedClass) return value.nativeType;
+  return value;
 }

@@ -1703,6 +1703,12 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
   // tom_d4rt_ast 0.177.0, F-SCE232-1 and -2 fail and -3, -4 pass. Re-port when
   // a publish raises exec's floor past 0.181.0.
   'sce232_bridged_instance_get_test.dart': (ran: 4, declared: 4),
+  // PUBLISH-BLOCKED (SCE234). identical/identityHashCode treat a class name
+  // and its Type as one object from the release carrying it; ported and run
+  // here on 2026-09-29 against resolved tom_d4rt_ast 0.177.0, F-SCE234-1 and
+  // -2 fail and -3, -4 pass.
+  // Re-port when a publish raises exec's floor past 0.183.0.
+  'sce234_class_name_identity_test.dart': (ran: 4, declared: 4),
   // NOT PORTABLE — and uniquely so: the subject itself cannot exist on the
   // analyzer-free line. `static_name_report.dart` resolves names over the
   // ANALYZER AST, which `tom_d4rt_ast` has no access to by construction, so
@@ -2490,6 +2496,11 @@ const Map<String, _Pin> _pinnedInterpreterFloors = <String, _Pin>{
   // SCE232, pinned at the release carrying the getter-first BridgedInstance.get.
   'sce232_bridged_instance_get_test.dart': (
     floor: '0.181.0',
+    measured: '0.177.0',
+  ),
+  // SCE234, pinned at the release carrying the identity carrier rule.
+  'sce234_class_name_identity_test.dart': (
+    floor: '0.183.0',
     measured: '0.177.0',
   ),
 };

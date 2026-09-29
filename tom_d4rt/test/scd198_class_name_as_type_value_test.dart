@@ -60,9 +60,10 @@
 // second leaves the two map spellings disagreeing.
 //
 // EVERY EXPECTATION HERE WAS COMPUTED AGAINST REAL DART. `identical(String,
-// 'x'.runtimeType)` is TRUE in Dart and is deliberately not asserted: this fix
-// makes the two compare equal and hash alike, not become one object, and
-// pinning identity would pin something the fix does not deliver.
+// 'x'.runtimeType)` is TRUE in Dart and is deliberately not asserted here: this
+// fix makes the two compare equal and hash alike, not become one object.
+// SCE234 later made `identical` and `identityHashCode` treat them as one
+// object, and `sce234_class_name_identity_test.dart` pins that.
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt/d4rt.dart';

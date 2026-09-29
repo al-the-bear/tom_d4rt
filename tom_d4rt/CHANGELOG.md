@@ -1,3 +1,21 @@
+## 1.198.0
+
+### Fixed — a class name is identical to the Type it denotes (sce234)
+
+`identical(String, 'x'.runtimeType)` is now true, as in Dart, and
+`identityHashCode(String) == identityHashCode('x'.runtimeType)` holds.
+SCD198 had made the two equal with the same hash code, but not one object.
+`identical` and `identityHashCode` already treat a native proxy and the
+interpreted instance behind it as one object. A bridged class name and its
+native `Type` now join that rule. Interpreted classes already agreed.
+Different types still compare non-identical, and `identical(List,
+[1].runtimeType)` is false, as it is in Dart.
+
+Making every class-name expression evaluate to the native `Type` (the
+todo's option (a)) was measured and not taken. Scripts can observe the
+difference only through identity, and that option would have changed every
+place that consumes a class name.
+
 ## 1.197.0
 
 ### Removed — the `num` bridge's instance members (sce233)
