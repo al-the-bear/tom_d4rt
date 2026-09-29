@@ -431,7 +431,7 @@ Map<String, Object> _canonicalInstances() => {
   'ProcessSignal': ProcessSignal.sigint,
   'StdioType': StdioType.terminal,
   'ProcessResult': ProcessResult(0, 0, '', ''),
-  'RandomAccessFile': _scratchPubspec.openSync(),
+  'RandomAccessFile': _scratchHandle,
   'IOSink': IOSink(StreamController<List<int>>()),
   'Datagram': Datagram(Uint8List(1), InternetAddress.loopbackIPv4, 1),
   'RawSocketOption': RawSocketOption.fromInt(0, 0, 0),
@@ -692,8 +692,22 @@ File get _scratchPubspec => _scratchPubspecCache ??= (() {
 })();
 File? _scratchPubspecCache;
 
-/// Removes the scratch directory. Called from `tearDownAll`.
+/// The one open handle on [_scratchPubspec], shared by every call that builds
+/// the instance map.
+///
+/// SCF30. Each call used to `openSync()` afresh and nothing closed the result.
+/// On macOS and Linux an open file does not stop its directory being removed,
+/// so the leak was invisible; Windows refuses to delete a file another handle
+/// holds, and `tearDownAll` failed there with errno 32 on every run.
+RandomAccessFile get _scratchHandle =>
+    _scratchHandleCache ??= _scratchPubspec.openSync();
+RandomAccessFile? _scratchHandleCache;
+
+/// Closes the handle and removes the scratch directory. Called from
+/// `tearDownAll`.
 void _disposeScratchPubspec() {
+  _scratchHandleCache?.closeSync();
+  _scratchHandleCache = null;
   final copy = _scratchPubspecCache;
   _scratchPubspecCache = null;
   if (copy == null) return;

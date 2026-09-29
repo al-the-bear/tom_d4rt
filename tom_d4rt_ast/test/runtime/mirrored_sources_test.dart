@@ -91,6 +91,22 @@ const x = 1; // trailing comments are NOT stripped, and need not be
       );
     });
 
+    test('F-SCF30-5: every baselined divergence is among the walked paths '
+        '[2026-09-29] (PASS)', () {
+      // The registers are keyed by `/`-separated paths. The walk yielded the
+      // platform separator until SCF30, so on Windows no key matched, the
+      // baseline silently applied to nothing, and F-SCC92-3 reported every
+      // recorded divergence as fresh drift. Asking for the keys by name makes
+      // that failure say what it is.
+      final walked = mirroredPaths().toSet();
+      expect(walked.where((p) => p.contains(r'\')), isEmpty);
+      expect(
+        kDivergentMirrors.keys.where((k) => !walked.contains(k)),
+        isEmpty,
+        reason: 'these baselined paths are not among the pairs the walk found',
+      );
+    });
+
     test('F-SCC92-3: every mirrored pair agrees, or is baselined with a reason '
         '[2026-09-07]', () {
       final drifted = <String>[];

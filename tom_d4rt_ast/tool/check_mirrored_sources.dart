@@ -229,7 +229,13 @@ List<String> mirroredPaths({
   final out = <String>[];
   for (final entity in ref.listSync(recursive: true)) {
     if (entity is! File || !entity.path.endsWith('.dart')) continue;
-    final rel = entity.path.substring(referenceRoot.length + 1);
+    // Always `/`-separated. `kDivergentMirrors` and every other register
+    // keyed by these paths is written that way, and on Windows `listSync`
+    // yields backslashes, so an unnormalised key matched nothing there and
+    // every baselined divergence was reported as drift (SCF30).
+    final rel = entity.path
+        .substring(referenceRoot.length + 1)
+        .replaceAll(r'\', '/');
     if (File('$astRoot/$rel').existsSync()) out.add(rel);
   }
   out.sort();

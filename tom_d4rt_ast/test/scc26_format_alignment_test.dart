@@ -225,7 +225,7 @@ String? _declaredSdkVersion(File pubspec) {
 /// would go stale the first time somebody adds a file and would then pass by
 /// omission — which is the failure mode this whole suite exists to prevent.
 List<String> _formatTargets(Directory package) {
-  final name = package.path.split(Platform.pathSeparator).last;
+  final name = _lastSegment(package.path);
 
   // Whole directories where that is possible, because a directory check cannot
   // pass by omission. SCD82 widened the set from `lib test` to include `bin` and
@@ -242,7 +242,6 @@ List<String> _formatTargets(Directory package) {
   // Enumerated only where an exclusion is needed, because `dart format` takes
   // paths and has no exclude flag. Both exclusions are name-based and re-derived
   // on every run, so a file added to the package is covered automatically.
-  final prefix = '${package.path}${Platform.pathSeparator}';
   final targets = <String>[];
   for (final dir in roots) {
     final root = Directory('${package.path}/$dir');
@@ -255,9 +254,7 @@ List<String> _formatTargets(Directory package) {
       final path = file.path;
       if (!path.endsWith('.dart')) continue;
       if (excluded.contains(path)) continue;
-      targets.add(
-        path.startsWith(prefix) ? path.substring(prefix.length) : path,
-      );
+      targets.add(_relativeTo(package, path));
     }
   }
   return targets..sort();
@@ -270,7 +267,7 @@ List<String> _generatedFiles(Directory package) {
     final root = Directory('${package.path}/$dir');
     if (!root.existsSync()) continue;
     for (final file in root.listSync(recursive: true).whereType<File>()) {
-      final last = file.path.split(Platform.pathSeparator).last;
+      final last = _lastSegment(file.path);
       if (last.endsWith('.b.dart') || _generatedFileNames.contains(last)) {
         out.add(file.path);
       }
@@ -279,22 +276,103 @@ List<String> _generatedFiles(Directory package) {
   return out;
 }
 
+/// The last segment of [path], whichever separator it uses.
+///
+/// SCF30. Paths here are built by interpolation with `/` and then extended by
+/// `listSync`, which uses the PLATFORM separator — so on Windows one path
+/// holds both. Splitting on `Platform.pathSeparator` alone turned
+/// `…\d4rt/tom_d4rt_flutter` into the name `d4rt/tom_d4rt_flutter`, which
+/// matched no entry in [_generatedOutputPackages]; the twins' `test/` corpus
+/// was then formatted as code and failed F-SCD81-1 on Windows only.
+String _lastSegment(String path) => path.split(RegExp(r'[/\\]')).last;
+
+/// [path] relative to [package], or [path] unchanged when it is not inside.
+///
+/// Relative on purpose: the targets become the formatter's command line, and
+/// absolute paths are what pushed it past Windows' length limit (SCF30).
+String _relativeTo(Directory package, String path) {
+  final base = package.path;
+  if (!path.startsWith(base) || path.length == base.length) return path;
+  final sep = path[base.length];
+  return sep == '/' || sep == r'\' ? path.substring(base.length + 1) : path;
+}
+
+/// The `--language-version` the formatter is run at: [package]'s DECLARED
+/// floor, as `major.minor`, or null when it declares none.
+///
+/// SCF30. Without the flag the formatter reads the version from
+/// `.dart_tool/package_config.json`, which is the floor as of the LAST
+/// `pub get`, not as declared. bomber's `tom_d4rt` config was two months old
+/// and still said 3.5, so the formatter chose the pre-3.7 style there and
+/// reported every file in the package as unformatted — while the same tree
+/// passed on mbp. This suite's claim is about the declared floor
+/// (F-SCC26-1 checks it), so that is the version to format at; a stale
+/// resolution is a machine's state, not the tree's.
+String? _formatLanguageVersion(Directory package) {
+  final floor = _declaredSdkFloor(File('${package.path}/pubspec.yaml'));
+  return floor == null ? null : '${floor.major}.${floor.minor}';
+}
+
+/// Upper bound on the characters of paths passed to one formatter run.
+///
+/// Windows caps a command line at 32 767 characters; this stays well under it
+/// whatever the working-directory prefix, and costs a handful of extra
+/// processes on the one package (a Flutter twin's enumerated `lib/`) that
+/// needs more than one batch.
+const _maxBatchChars = 8000;
+
+/// [targets] split into runs whose joined length stays under [maxChars].
+List<List<String>> _batches(
+  List<String> targets, {
+  int maxChars = _maxBatchChars,
+}) {
+  final out = <List<String>>[];
+  var current = <String>[];
+  var length = 0;
+  for (final target in targets) {
+    if (current.isNotEmpty && length + target.length + 1 > maxChars) {
+      out.add(current);
+      current = <String>[];
+      length = 0;
+    }
+    current.add(target);
+    length += target.length + 1;
+  }
+  if (current.isNotEmpty) out.add(current);
+  return out;
+}
+
 /// Runs the formatter in check mode and returns the files it would rewrite.
 List<String> _unformattedFiles(Directory package) {
   final roots = _formatTargets(package);
   if (roots.isEmpty) return const [];
-  final result = Process.runSync('dart', [
-    'format',
-    '--output=none',
-    '--set-exit-if-changed',
-    ...roots,
-  ], workingDirectory: package.path);
-  if (result.exitCode == 0) return const [];
-  return (result.stdout as String)
-      .split('\n')
-      .where((l) => l.startsWith('Changed '))
-      .map((l) => l.substring('Changed '.length))
-      .toList();
+  final version = _formatLanguageVersion(package);
+  final changed = <String>[];
+  for (final batch in _batches(roots)) {
+    final result = Process.runSync('dart', [
+      'format',
+      '--output=none',
+      '--set-exit-if-changed',
+      if (version != null) '--language-version=$version',
+      ...batch,
+    ], workingDirectory: package.path);
+    if (result.exitCode == 0) continue;
+    final names = (result.stdout as String)
+        .split('\n')
+        .where((l) => l.startsWith('Changed '))
+        .map((l) => l.substring('Changed '.length).trimRight())
+        .toList();
+    // A non-zero exit with no `Changed` line is the formatter failing, not a
+    // finding — report it as such rather than as a clean package.
+    if (names.isEmpty) {
+      throw StateError(
+        'dart format exited ${result.exitCode} in ${package.path} without '
+        'naming a file:\n${result.stderr}',
+      );
+    }
+    changed.addAll(names);
+  }
+  return changed;
 }
 
 void main() {
@@ -446,11 +524,7 @@ void main() {
               'generator output must not be in the target list — sce123_aimn',
         );
         expect(
-          targets.any(
-            (t) => _generatedFileNames.contains(
-              t.split(Platform.pathSeparator).last,
-            ),
-          ),
+          targets.any((t) => _generatedFileNames.contains(_lastSegment(t))),
           isFalse,
           reason:
               'the version stamp is generator output too, and unformatted for '
@@ -487,9 +561,7 @@ void main() {
         markTestSkipped('d4rt repo root not found — siblings not reachable');
         return;
       }
-      final here = Directory.current.absolute.path
-          .split(Platform.pathSeparator)
-          .last;
+      final here = _lastSegment(Directory.current.absolute.path);
       final unformatted = <String, List<String>>{};
       var checked = 0;
       for (final name in _mirroredPackages) {
@@ -516,6 +588,73 @@ void main() {
             'will rewrite them and bury whatever real edit lands alongside:\n'
             '${unformatted.entries.map((e) => '${e.key}: ${e.value.join(', ')}').join('\n')}',
       );
+    });
+  });
+
+  // SCF30 — the guard measured the MACHINE on two hosts, not the tree. Each
+  // case pins one of the causes against a platform that does not show it, so
+  // a regression is caught on mbp rather than on the next Windows run.
+  group('SCF30: the guard measures the tree, not the host', () {
+    test('F-SCF30-1: a package name is found whichever separator a path uses '
+        '[2026-09-29] (PASS)', () {
+      expect(
+        _lastSegment(r'C:\Code\d4rt/tom_d4rt_flutter'),
+        'tom_d4rt_flutter',
+      );
+      expect(_lastSegment('/srv/d4rt/tom_d4rt_flutter'), 'tom_d4rt_flutter');
+      expect(_lastSegment(r'd4rt/tom_d4rt_flutter/lib\src\x.dart'), 'x.dart');
+    });
+
+    test('F-SCF30-2: targets are relative to the package on either separator '
+        '[2026-09-29] (PASS)', () {
+      final package = Directory(r'C:\r\d4rt/tom_d4rt_flutter');
+      expect(
+        _relativeTo(package, r'C:\r\d4rt/tom_d4rt_flutter/lib\src\x.dart'),
+        r'lib\src\x.dart',
+      );
+      expect(
+        _relativeTo(package, r'C:\r\d4rt/tom_d4rt_flutter\lib\a.dart'),
+        r'lib\a.dart',
+      );
+      // A sibling whose name merely STARTS with the package name is outside.
+      expect(
+        _relativeTo(package, r'C:\r\d4rt/tom_d4rt_flutter_ast/lib/a.dart'),
+        r'C:\r\d4rt/tom_d4rt_flutter_ast/lib/a.dart',
+      );
+    });
+
+    test('F-SCF30-3: the formatter runs at the DECLARED floor, not the '
+        'resolved one [2026-09-29] (PASS)', () {
+      expect(root, isNotNull, reason: 'd4rt repo root not found from cwd');
+      for (final name in _mirroredPackages) {
+        final package = Directory('${root!.path}/$name');
+        final floor = _declaredSdkFloor(File('${package.path}/pubspec.yaml'))!;
+        expect(
+          _formatLanguageVersion(package),
+          '${floor.major}.${floor.minor}',
+          reason: name,
+        );
+      }
+    });
+
+    test('F-SCF30-4: batches cover every target in order and stay under the '
+        'bound [2026-09-29] (PASS)', () {
+      final targets = [for (var i = 0; i < 500; i++) 'lib/src/file_$i.dart'];
+      final batches = _batches(targets, maxChars: 1000);
+      expect(batches.length, greaterThan(1));
+      expect(batches.expand((b) => b).toList(), targets);
+      for (final batch in batches) {
+        expect(
+          batch.fold<int>(0, (n, t) => n + t.length + 1),
+          lessThanOrEqualTo(1000),
+        );
+      }
+      expect(_batches(const []), isEmpty);
+      // One target longer than the bound still gets a batch of its own rather
+      // than being dropped.
+      expect(_batches(['x' * 50], maxChars: 10), [
+        ['x' * 50],
+      ]);
     });
   });
 }
