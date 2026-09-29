@@ -6187,8 +6187,12 @@ class InterpretedFunction implements Callable {
     bool redirected,
   ) {
     late StreamController<Object?> controller;
+    // SCF4: the body's link to what its listener asks for.
+    final gate = AsyncGeneratorGate();
 
     controller = StreamController<Object?>(
+      onResume: gate.resume,
+      onCancel: gate.cancel,
       onListen: () async {
         try {
           final previousVisitorEnv = visitor.environment;
@@ -6216,6 +6220,7 @@ class InterpretedFunction implements Callable {
                 bodyToExecute,
                 controller,
                 executionEnvironment,
+                gate,
               );
             } else if (bodyToExecute is SExpressionFunctionBody) {
               final result = bodyToExecute.expression!.accept<Object?>(visitor);
@@ -6235,8 +6240,12 @@ class InterpretedFunction implements Callable {
             visitor.currentAsyncState = previousAsyncState;
           }
         } catch (e, stackTrace) {
-          controller.addError(e, stackTrace);
+          // SCF4: a cancelled generator ends quietly — its listener is gone.
+          if (e is! GeneratorCancelledSignal) {
+            controller.addError(e, stackTrace);
+          }
         } finally {
+          gate.finished();
           if (!controller.isClosed) controller.close();
         }
       },
@@ -6251,6 +6260,7 @@ class InterpretedFunction implements Callable {
     SBlockFunctionBody body,
     StreamController<Object?> controller,
     Environment executionEnvironment,
+    AsyncGeneratorGate gate,
   ) async {
     final completer = Completer<Object?>();
 
@@ -6264,6 +6274,7 @@ class InterpretedFunction implements Callable {
       nextStateIdentifier: initialStateIdentifier,
       function: this,
       generatorStreamController: controller, // Enable generator mode
+      generatorGate: gate,
     );
 
     // Set the async state in visitor

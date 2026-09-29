@@ -336,6 +336,10 @@ class AsyncExecutionState {
   /// For async* generators: flag indicating this is a generator execution
   bool get isGenerator => generatorStreamController != null;
 
+  /// For async* generators: what the listener has asked for (SCF4). Null
+  /// outside a generator.
+  AsyncGeneratorGate? generatorGate;
+
   /// Creates a new async execution state.
   ///
   /// [environment] The execution environment for the async function.
@@ -362,7 +366,59 @@ class AsyncExecutionState {
     this.originalErrorForRethrow,
     this.isHandlingContinue = false,
     this.generatorStreamController,
+    this.generatorGate,
   });
+}
+
+/// The link from an `async*` body back to its listener (SCF4).
+///
+/// Without it a generator ran to completion whatever its subscriber did: a
+/// `yield` added its value and suspended on an already-completed future, so
+/// nothing could pause the body and nothing could stop it. The stream's
+/// `onResume` / `onCancel` now reach the body through this object.
+class AsyncGeneratorGate {
+  /// Set by the subscription's `onCancel`; read at every `yield`.
+  bool cancelled = false;
+
+  Completer<void>? _resume;
+  final Completer<void> _done = Completer<void>();
+
+  /// The subscription resumed; a `yield` waiting on a pause continues.
+  void resume() {
+    final resume = _resume;
+    _resume = null;
+    if (resume != null && !resume.isCompleted) resume.complete();
+  }
+
+  /// The subscription was cancelled. A waiting `yield` wakes and unwinds; the
+  /// returned future completes once the body has run its `finally` blocks,
+  /// which is when Dart completes `StreamSubscription.cancel()`.
+  Future<void> cancel() {
+    cancelled = true;
+    resume();
+    return _done.future;
+  }
+
+  /// The body has finished, by any route.
+  void finished() {
+    if (!_done.isCompleted) _done.complete();
+  }
+
+  /// What a `yield` waits on after adding its value.
+  ///
+  /// One microtask first, so the value is delivered and a consumer that pauses
+  /// on receipt — a `StreamIterator`, which is what `await for` uses — has
+  /// done so before the body looks. Then it waits for as long as the
+  /// subscription stays paused, which is what `async*` backpressure is. A
+  /// cancellation, before or during the wait, completes it with
+  /// [GeneratorCancelledSignal].
+  Future<void> afterYield(StreamController<Object?> controller) async {
+    await Future<void>.microtask(() {});
+    while (!cancelled && controller.isPaused) {
+      await (_resume ??= Completer<void>()).future;
+    }
+    if (cancelled) throw const GeneratorCancelledSignal();
+  }
 }
 
 /// The depth of each loop stack at the moment a loop was entered; see

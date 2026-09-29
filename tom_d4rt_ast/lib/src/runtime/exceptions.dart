@@ -893,3 +893,24 @@ class D4UnwrapException extends D4rtException {
   @override
   String toString() => 'D4UnwrapException: $message';
 }
+
+/// SCF4: the unwind that ends an `async*` body whose subscription was
+/// cancelled.
+///
+/// Dart finishes a cancelled generator as if by `return` at the pending
+/// `yield`: its `finally` blocks run, its `catch` clauses do not, and nothing
+/// after the yield executes. The state machine has one route that already
+/// behaves that way — the SCC31 "no clause may claim it" route — so this rides
+/// it: [InterpreterVisitor.selectCatchClause] and the synchronous try path
+/// decline to match it, `finally` still runs, and the generator's stream
+/// drops it rather than reporting it, since nobody is listening.
+///
+/// Not a [RuntimeD4rtException]: nothing may treat it as an ordinary runtime
+/// condition and try the next strategy, which is exactly what that type is
+/// caught for.
+class GeneratorCancelledSignal {
+  const GeneratorCancelledSignal();
+
+  @override
+  String toString() => 'GeneratorCancelledSignal';
+}

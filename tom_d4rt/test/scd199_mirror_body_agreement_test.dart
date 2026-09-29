@@ -358,9 +358,9 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpreterVisitor.visitSwitchExpression': '0e2ec45a',
     'InterpreterVisitor.visitSwitchStatement': '059a026e',
     'InterpreterVisitor.visitSymbolLiteral': '971210c9',
-    'InterpreterVisitor.visitTryStatement': '467cf501',
+    'InterpreterVisitor.visitTryStatement': 'a0a6d8d1',
     'InterpreterVisitor.visitVariableDeclarationList': '9282373f',
-    'InterpreterVisitor.visitYieldStatement': '51c9c740',
+    'InterpreterVisitor.visitYieldStatement': '344aa778',
   },
   'introspection.dart': {
     'IntrospectionBuilder._buildClassInfo': 'b394ab44',

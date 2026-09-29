@@ -168,6 +168,65 @@ class _Ast {
   SReturnStatement return_(SExpression value) =>
       SReturnStatement(offset: _next(), length: 1, expression: value);
 
+  SYieldStatement yield_(SExpression value) =>
+      SYieldStatement(offset: _next(), length: 1, expression: value);
+
+  /// `try { body } catch (e) { onCatch } finally { onFinally }`; the catch
+  /// clause is omitted when [onCatch] is null.
+  STryStatement try_(
+    List<SStatement> body, {
+    List<SStatement>? onCatch,
+    required List<SStatement> onFinally,
+  }) => STryStatement(
+    offset: _next(),
+    length: 1,
+    body: block(body),
+    catchClauses: [
+      if (onCatch != null)
+        SCatchClause(
+          offset: _next(),
+          length: 1,
+          exceptionParameter: id('e'),
+          body: block(onCatch),
+        ),
+    ],
+    finallyBlock: block(onFinally),
+  );
+
+  /// A local `gen() async* { ... }`, closing over whatever `main` declared.
+  SFunctionDeclarationStatement asyncGenerator(
+    String name,
+    List<SStatement> statements,
+  ) => SFunctionDeclarationStatement(
+    offset: _next(),
+    length: 1,
+    functionDeclaration: SFunctionDeclaration(
+      offset: _next(),
+      length: 1,
+      name: id(name),
+      functionExpression: SFunctionExpression(
+        offset: _next(),
+        length: 1,
+        parameters: SFormalParameterList(offset: _next(), length: 1),
+        body: SBlockFunctionBody(
+          offset: _next(),
+          length: 1,
+          block: block(statements),
+          isAsync: true,
+          isGenerator: true,
+        ),
+      ),
+    ),
+  );
+
+  /// `<name>()`
+  SMethodInvocation invoke(String name) => SMethodInvocation(
+    offset: _next(),
+    length: 1,
+    methodName: id(name),
+    argumentList: SArgumentList(offset: _next(), length: 1, arguments: []),
+  );
+
   /// A bundle whose `main` runs [statements].
   AstBundle program(List<SStatement> statements, {required bool isAsync}) {
     const entryUri = 'package:t/main.dart';
@@ -354,4 +413,119 @@ void main() {
       expect(result, equals([10, 10]));
     });
   });
+  // SCE16 / SCF4: the two halves of `async*` streaming, which the reference
+  // tree pins in `tom_d4rt/test/scd4_await_for_break_test.dart`. `main` returns
+  // the live `log` list and the test reads it after a turn: the iterator an
+  // `await for` leaves is cancelled without being awaited (see
+  // `AsyncExecutionState.truncateLoopStacks`), so a generator's `finally` may
+  // run just after the loop exits rather than before.
+  group(
+    'SCE16/SCF4/AST: await for is lazy and a generator obeys its listener',
+    () {
+      Future<List<Object?>> run(AstBundle bundle) async {
+        final log =
+            await D4rtRunner().executeBundleAsAsync<Object?>(bundle) as List;
+        await Future<void>.delayed(const Duration(milliseconds: 5));
+        return log;
+      }
+
+      test('F-SCF4-AST-1: the consumer sees element 1 before element 2 is '
+          'produced [2026-09-29] (PASS)', () async {
+        // var log = [];
+        // Stream gen() async* { log.add(10); yield 1; log.add(20); yield 2; }
+        // await for (var v in gen()) { log.add(v); }
+        // return log;
+        final a = _Ast();
+        final bundle = a.program([
+          a.declare('log', a.list([])),
+          a.asyncGenerator('gen', [
+            a.add('log', a.int_(10)),
+            a.yield_(a.int_(1)),
+            a.add('log', a.int_(20)),
+            a.yield_(a.int_(2)),
+          ]),
+          a.forIn('v', a.invoke('gen'), [
+            a.add('log', a.id('v')),
+          ], isAwait: true),
+          a.return_(a.id('log')),
+        ], isAsync: true);
+        // Eager was [10, 20, 1, 2].
+        expect(await run(bundle), equals([10, 1, 20, 2]));
+      });
+
+      test('F-SCF4-AST-2: break stops the generator at its pending yield '
+          '[2026-09-29] (PASS)', () async {
+        // Stream gen() async* { yield 1; yield 2; log.add(99); yield 3; }
+        // await for (var v in gen()) { log.add(v); if (v == 2) break; }
+        final a = _Ast();
+        final bundle = a.program([
+          a.declare('log', a.list([])),
+          a.asyncGenerator('gen', [
+            a.yield_(a.int_(1)),
+            a.yield_(a.int_(2)),
+            a.add('log', a.int_(99)),
+            a.yield_(a.int_(3)),
+          ]),
+          a.forIn('v', a.invoke('gen'), [
+            a.add('log', a.id('v')),
+            a.ifThen(a.equals('v', 2), a.break_()),
+          ], isAwait: true),
+          a.return_(a.id('log')),
+        ], isAsync: true);
+        // Before SCF4 the body ran on: [1, 2, 99].
+        expect(await run(bundle), equals([1, 2]));
+      });
+
+      test('F-SCF4-AST-3: the cancelled generator runs its finally and nothing '
+          'after the yield [2026-09-29] (PASS)', () async {
+        // Stream gen() async* {
+        //   try { yield 1; yield 2; log.add(99); } finally { log.add(100); }
+        // }
+        // await for (var v in gen()) { log.add(v); if (v == 1) break; }
+        final a = _Ast();
+        final bundle = a.program([
+          a.declare('log', a.list([])),
+          a.asyncGenerator('gen', [
+            a.try_(
+              [
+                a.yield_(a.int_(1)),
+                a.yield_(a.int_(2)),
+                a.add('log', a.int_(99)),
+              ],
+              onFinally: [a.add('log', a.int_(100))],
+            ),
+          ]),
+          a.forIn('v', a.invoke('gen'), [
+            a.add('log', a.id('v')),
+            a.ifThen(a.equals('v', 1), a.break_()),
+          ], isAwait: true),
+          a.return_(a.id('log')),
+        ], isAsync: true);
+        expect(await run(bundle), equals([1, 100]));
+      });
+
+      test('F-SCF4-AST-4: no catch clause claims the cancellation '
+          '[2026-09-29] (PASS)', () async {
+        // try { yield 1; yield 2; } catch (e) { log.add(50); }
+        // finally { log.add(100); }
+        final a = _Ast();
+        final bundle = a.program([
+          a.declare('log', a.list([])),
+          a.asyncGenerator('gen', [
+            a.try_(
+              [a.yield_(a.int_(1)), a.yield_(a.int_(2))],
+              onCatch: [a.add('log', a.int_(50))],
+              onFinally: [a.add('log', a.int_(100))],
+            ),
+          ]),
+          a.forIn('v', a.invoke('gen'), [
+            a.add('log', a.id('v')),
+            a.break_(),
+          ], isAwait: true),
+          a.return_(a.id('log')),
+        ], isAsync: true);
+        expect(await run(bundle), equals([1, 100]));
+      });
+    },
+  );
 }

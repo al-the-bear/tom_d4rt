@@ -1,3 +1,22 @@
+## 1.201.0
+
+### Fixed — an `async*` generator obeys its listener (scf4)
+
+A generator ran to completion whatever its subscriber did: `yield` added its
+value and suspended on an already-completed future, and the stream controller
+had no `onPause`/`onResume`/`onCancel`. So a consumer's `break` out of an
+`await for` cancelled the subscription while the body ran on — SCE16 had fixed
+the consumer's interleaving and left exactly this. Now:
+
+- `yield` waits for the listener: one microtask so a consumer that pauses on
+  receipt has done so, then for as long as the subscription is paused, which is
+  `async*` backpressure.
+- cancelling the subscription ends the body at its pending `yield` as if by
+  `return`: `finally` blocks run, and no `catch` clause may claim it
+  (`GeneratorCancelledSignal`, riding the same route as SCC31's uncatchable
+  undefined name). `cancel()` completes once the body has finished.
+- `yield*` stops forwarding once the listener is gone.
+
 ## 1.200.0
 
 ### Fixed — `e.hashCode` / `e.runtimeType` answer natively on a bridged value (sce239)

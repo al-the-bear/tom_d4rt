@@ -7659,19 +7659,32 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     if (currentAsyncState?.isGenerator == true) {
       final controller = currentAsyncState!.generatorStreamController!;
 
+      final gate = currentAsyncState!.generatorGate;
+
+      // SCF4: a subscription cancelled while the body was elsewhere ends it at
+      // this yield, before the value is added.
+      if (gate != null && gate.cancelled) {
+        return AsyncSuspensionRequest(
+          Future<Object?>.error(const GeneratorCancelledSignal()),
+          currentAsyncState!,
+          isYieldSuspension: true,
+        );
+      }
+
       if (node.star != null) {
         // yield* - handle asynchronously
         return AsyncSuspensionRequest(
-          _handleYieldStarAsync(value, controller),
+          _handleYieldStarAsync(value, controller, gate),
           currentAsyncState!,
           isYieldSuspension: true,
         );
       } else {
-        // regular yield - send to stream and create minimal suspension
         controller.add(value);
-        // Create a completed future suspension to continue execution
+        // SCF4: wait for the listener. The suspension used to be on an
+        // already-completed future, so the body ran on regardless of pauses
+        // and of cancellation.
         return AsyncSuspensionRequest(
-          Future.value(null),
+          gate?.afterYield(controller) ?? Future<void>.value(),
           currentAsyncState!,
           isYieldSuspension: true,
         );
@@ -7707,14 +7720,19 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
   // Handle yield* in async generator context asynchronously
   Future<Object?> _handleYieldStarAsync(
     Object? value,
-    StreamController<Object?> controller,
-  ) async {
+    StreamController<Object?> controller, [
+    AsyncGeneratorGate? gate,
+  ]) async {
     if (value is Stream) {
       await for (final item in value) {
+        // SCF4: stop forwarding once the listener has gone; the next yield
+        // ends the body.
+        if (gate?.cancelled ?? false) break;
         controller.add(item);
       }
     } else if (value is Iterable) {
       for (final item in value) {
+        if (gate?.cancelled ?? false) break;
         controller.add(item);
       }
     } else {
@@ -11985,6 +12003,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
   /// handler exists to run.
   CatchClause? selectCatchClause(TryStatement node, Object? thrownValue) {
     if (thrownValue is UndefinedNameD4rtException) return null;
+    // SCF4: a cancelled generator unwinds like a `return` — finally runs, no
+    // catch clause may claim it.
+    if (thrownValue is GeneratorCancelledSignal) return null;
     for (final clause in node.catchClauses) {
       if (catchClauseMatches(clause, thrownValue)) return clause;
     }
@@ -12093,7 +12114,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       // handler to the host. Skipping the loop rather than short-circuiting the
       // whole block is deliberate: `caughtInternalException` stays non-null, so
       // the finally block below still runs and the error still rethrows.
-      final isUnhandleable = originalThrownValue is UndefinedNameD4rtException;
+      final isUnhandleable =
+          originalThrownValue is UndefinedNameD4rtException ||
+          originalThrownValue is GeneratorCancelledSignal;
 
       for (final clause
           in isUnhandleable ? const <CatchClause>[] : node.catchClauses) {

@@ -2202,6 +2202,13 @@ const Map<String, _Convergence> _convergenceLog = {
 /// re-measure the whole register when the floor moves, not the entry you
 /// happened to be reading.
 const Map<String, _Divergence> _divergentBaseline = {
+  // SCF4: the reference copy un-skipped F-SCD4-10 and added F-SCF4-1..3 —
+  // a cancelled `async*` generator now stops at its pending yield and runs its
+  // `finally`. The published interpreter this package resolves still runs the
+  // body on, so this copy keeps the old skip until a release carries the fix:
+  // PUBLISH-BLOCKED — re-port when exec's tom_d4rt_ast floor passes 0.185.0,
+  // by copying the reference file down; converges at a floor past 0.185.0.
+  'scd4_await_for_break_test.dart': _Divergence.deliberate,
   // `scd188`: SCE224 made the reference copy DERIVE its subscribing-getter set
   // from the `Stdin` entry's expiry condition in `tom_d4rt/tool/
   // stdlib_member_diff.dart`, so the set has one home. That tool is
@@ -2275,6 +2282,7 @@ const Map<String, _Divergence> _divergentBaseline = {
 /// Recomputing without reading the new difference is the failure mode; the
 /// message says so.
 const Map<String, String> _divergenceFingerprints = <String, String>{
+  'scd4_await_for_break_test.dart': 'd55f7afda3086484',
   'stdlib/io/scd188_stdin_audit_reason_expiry_test.dart': '46be47f827711c3a',
   'warm_parent_package_pool_test.dart': '971b6ff19185f442',
   'stdlib/intentionally_unbridged_test.dart': 'a11036cda720efcf',
@@ -2460,7 +2468,10 @@ typedef _Pin = ({String floor, String measured});
 /// 8-of-10 to 13-of-20 — still wholly failing, so still justified, but their
 /// recorded evidence was seven and ten cases out of date. Both are re-stamped
 /// above their entries in `_uncoveredBaseline`.
-const Map<String, _Pin> _pinnedInterpreterFloors = <String, _Pin>{};
+const Map<String, _Pin> _pinnedInterpreterFloors = <String, _Pin>{
+  // SCF4, pinned at the release carrying the generator's listener gate.
+  'scd4_await_for_break_test.dart': (floor: '0.185.0', measured: '0.184.0'),
+};
 
 /// The `tom_d4rt_ast` floor exec's own `pubspec.yaml` currently declares.
 ///
@@ -3344,8 +3355,11 @@ const Map<String, String> _astDriftFingerprints = <String, String>{
 // rather than paid per fix. scf34 deletes this pin.
 // ignore: unnecessary_nullable_for_final_variable_declarations
 // scf34's release (tom_d4rt 1.200.0 / tom_d4rt_ast 0.184.0) landed
-// 2026-09-29 (sce237): exec resolves the working tree's interpreter again.
-const String? _astPublishBlock = null;
+// 2026-09-29 (sce237). SCF4 then landed interpreter work behind it (the
+// async* listener gate), so the tree is ahead of the release again; scf42 owns
+// the release that carries it and deletes this pin.
+const String? _astPublishBlock =
+    'scf42_aiöq-publish-the-interpreter-release-carrying-scf4';
 
 /// One baseline entry and the comment block written directly above it.
 typedef _BaselineEntry = ({String path, String comment});
