@@ -63,7 +63,7 @@ dependencies:
   # version — otherwise a stale `.sum` throws "Missing library" while linking a
   # subclass's supertype, which the generator swallows and silently drops the
   # affected classes (observed: the JWT bridge surface vanishing, RCJ6).
-  tom_analyzer_shared: ">=0.7.2"
+  tom_analyzer_shared: ">=0.7.6"
 
 executables:
   d4rtgen: d4rtgen
