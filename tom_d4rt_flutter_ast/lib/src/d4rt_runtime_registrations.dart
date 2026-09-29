@@ -437,9 +437,20 @@ void _registerInterfaceProxies() {
   //    setState during build: `widgets/two_dimensional_child_manager_test.dart`
   //    goes from 5 framework errors to 408.
   //
-  // Both are regressions by this quest's own rule, so neither is registered and
-  // the tree stays at 927/1/0. **scf31** carries the remaining work, which is a
-  // different shape from what SCE164 assumed: the repair is not a registration.
+  // Both are regressions by this quest's own rule, so neither is registered.
+  //
+  // SCF31 REPAIRED THE CASE WITHOUT A REGISTRATION, AND THAT IS WHY THESE TWO
+  // MUST STAY UNREGISTERED. What crosses is unchanged — the real native base,
+  // which lays out and paints. What changed is recognition: setting an
+  // instance's `bridgedSuperObject` records the pair, so when the framework
+  // hands the native base back, a binding declared as the script class gets
+  // the instance, `as` yields it and `is` answers for it
+  // (`D4.ownerOfSuperObject`). Measured pre-publish 2026-09-29:
+  // `flutter_extended_20` `+70` with zero GEN-126 errors, and
+  // `widgets/two_dimensional_child_manager_test.dart` at 0 framework errors,
+  // down from 5 — its layout now runs far enough to paint, which exposed a
+  // page Scrollbar with no controller, fixed in the script. Registering either
+  // proxy now would bring back exactly the regressions above for nothing.
 
   // C20a follow-up — WidgetStatesConstraint. Scripts subclass it (typically
   // via `implements WidgetStatesConstraint`) to use a custom predicate as a

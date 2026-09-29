@@ -25,7 +25,7 @@ reverse) fails the suite. Re-derive; do not hand-edit one side alone.
 | Marker | Section (heading text, verbatim) | What it is |
 | ------ | -------------------------------- | ---------- |
 | `[ ]` | Open (GEN-125) — an interpreted closure is rejected against a bridged function typedef (`VoidCallback`, `ValueChanged`) | An **interpreter / bridge** defect. Blast radius: every script closure passed to a parameter typed as a Flutter function typedef — which is every Flutter callback, on every widget, wherever a declared parameter type is checked. Nothing narrows it to the widgets the corpus happens to contain. Found 2026-09-06. **Fixed in the interpreter (scd136) and published in 1.192.0 / 0.177.0; re-measured 2026-09-28**, base corpus, both twins: 0 refused callbacks across 910 scripts, against 117 on 2026-09-15. Open until a FULL-corpus run at a published fix confirms the 4 failing extended files (sce160). |
-| `[ ]` | Open (GEN-126) — a bridged base class arrives where the script's own subclass is declared | Blast radius: every script-declared subclass of a bridged class, wherever the value returns through native code and meets a declared parameter of the script's own type — `getRuntimeType` answers with the bridge's name and the check refuses a value that works (`type 'Intent' is not a subtype of type '_GreetIntent'`). Measured 2026-09-06, identically in both twins. **Narrowed 2026-09-22 (sce137):** the nine `Intent` rows and the `ThemeExtension` row are closed in the tree, measured against a 0.65.0 control; what stays open is the case where NO proxy is registered for the base at all (`TwoDimensionalChildBuilderDelegate`, `RenderProxyBox`), which sce164 owns. The example the blast-radius sentence used to give — `type 'Intent' is not a subtype of type '_GreetIntent'` — is one of the closed ones; the live shape is now `type 'TwoDimensionalChildBuilderDelegate' is not a subtype of type '_TwoDMgrCountingDelegate'`. **2026-09-23:** the mechanism behind the closed rows is one thing, `const`, and is fixed in the tree (sce161), measured pre-publish only; registering a proxy does NOT repair the no-proxy case (sce164), which scf31 owns. |
+| `[ ]` | Open (GEN-126) — a bridged base class arrives where the script's own subclass is declared | Blast radius: every script-declared subclass of a bridged class, wherever the value returns through native code and meets a declared parameter of the script's own type — `getRuntimeType` answers with the bridge's name and the check refuses a value that works (`type 'Intent' is not a subtype of type '_GreetIntent'`). Measured 2026-09-06, identically in both twins. **Narrowed 2026-09-22 (sce137):** the nine `Intent` rows and the `ThemeExtension` row are closed in the tree, measured against a 0.65.0 control; what stays open is the case where NO proxy is registered for the base at all (`TwoDimensionalChildBuilderDelegate`, `RenderProxyBox`), which sce164 owns. The example the blast-radius sentence used to give — `type 'Intent' is not a subtype of type '_GreetIntent'` — is one of the closed ones; the live shape is now `type 'TwoDimensionalChildBuilderDelegate' is not a subtype of type '_TwoDMgrCountingDelegate'`. **2026-09-23:** the mechanism behind the closed rows is one thing, `const`, and is fixed in the tree (sce161), measured pre-publish only; registering a proxy does NOT repair the no-proxy case (sce164). **2026-09-29:** scf31 repaired it in the tree by recognising the native super object when it comes back — no registration, layout untouched; measured pre-publish only (`flutter_extended_20` `+70`, zero GEN-126), so the row closes on the first hosted run after scf42 publishes. |
 | `[~]` | Partially fixed — script-side / Flutter framework limitations | **Not an interpreter defect** — a rolling sweep log of demo-script fixes (layout overflow, unbounded constraints, platform-unsupported services). Rows whose "After" column reads `1*` note a residual that *is* interpreter-side; each of those is tracked by its own cluster. Last sweep 2026-04-29. |
 
 ## No corpus numbers live in this header
@@ -4282,7 +4282,7 @@ behind one — so a row closes exactly when a proxy exists AND exposes it:
 | ---- | ----- | ---- |
 | proxy exists and implements `D4InterpretedProxy` | works | `ThemeExtension`; the nine `Intent` rows, measured clean |
 | proxy exists but did NOT implement it | fixed by scd138 | `StatelessWidget`, `StatefulWidget` and 19 more |
-| **no proxy registered for the base at all** | **still open** | `TwoDimensionalChildBuilderDelegate`, `RenderProxyBox` |
+| **no proxy registered for the base at all** | **fixed in the tree by scf31, pre-publish** | `TwoDimensionalChildBuilderDelegate`, `RenderProxyBox` |
 
 Twenty-one of the twins' forty interpreted proxies did not implement the
 interface, so scd119's retry saw nothing and refused values that work — among
@@ -4337,6 +4337,36 @@ holds two properties worth having independently: the twins register the same
 proxy set — those two files are ~200 KB duplicated by hand with no sync
 mechanism — and every proxy class exposes its instance, which is the omission
 scd138 had to sweep across 21 classes per twin.
+
+**SCF31 COMPOSED THE TWO FIELDS RATHER THAN CHOOSING — measured 2026-09-29,
+pre-publish.** Nothing about what crosses changed: the concrete base is still
+constructed natively and handed over, so layout and paint are the native
+object's own, which is exactly what both proxy attempts broke. What changed is
+that the native object is RECOGNISED when it comes back. Setting
+`InterpretedInstance.bridgedSuperObject` records the pair, and
+`D4.interpretedBehind` answers for a bridged super object as it already did for
+a proxy (`D4.ownerOfSuperObject`). A parameter declared as the script class
+then binds the instance, `as` yields it, `is` answers for it, and `identical`
+and `==` treat the two as one object. Handing the instance back out yields the
+same native object again, so native code sees no difference. An unrelated
+script class and a base nobody subclassed are still refused — the controls in
+`tom_d4rt/test/bridge/scf31_bridged_super_object_identity_test.dart` and its
+AST twin.
+
+Run through `prepublish_overrides.dart --set` against `tom_d4rt_ast` 0.195.0 /
+`tom_d4rt` 1.210.0 (so NOT a verification run): `flutter_extended_20` `+70`
+in both twins with no GEN-126 signature left; both twins' base corpus
+**927 / 1 / 0** with `flutter_base_13` at `+54` and zero framework errors; and
+`widgets/two_dimensional_child_manager_test.dart` at 0 framework errors, down
+from 5. Its layout now runs far enough to PAINT, and that exposed a latent
+script defect the type errors had been hiding: a page `Scrollbar` with no
+controller over a `SingleChildScrollView` that is not `primary` on desktop,
+the one script in the corpus with that shape. The script now passes one
+controller to both. The script's `build` override on its delegate still does
+not run — the native delegate uses the builder given to `super(...)` — which is
+unchanged behaviour and why the 408 errors of finding 3 do not return.
+
+**The row closes on the first hosted run after scf42 publishes the pair.**
 
 **The scan sce164 proposed is NOT worth writing, and that is measured too.** The
 proposal was "for every bridged class a corpus script extends, assert a proxy is

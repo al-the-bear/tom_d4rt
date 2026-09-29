@@ -217,8 +217,8 @@ void main() {
                 'flutter_base_13 from +54 to +52 -2; '
                 '`TwoDimensionalChildBuilderDelegate` trades three type errors '
                 'for 408 framework errors. Read the note where the registration '
-                'would go before adding one — scf31 owns the case, and the '
-                'repair it needs is not a registration',
+                'would go before adding one — scf31 repaired the case by '
+                'recognising the native super object, without a registration',
           );
         }
       },

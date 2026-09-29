@@ -2062,9 +2062,14 @@ class _TwoDMgrRootState extends State<_TwoDMgrRoot> {
   final _TwoDMgrTelemetry _primary = _TwoDMgrTelemetry('primary');
   final _TwoDMgrTelemetry _recycling = _TwoDMgrTelemetry('recycling-on');
   final _TwoDMgrTelemetry _noRecycling = _TwoDMgrTelemetry('recycling-off');
+  // The page scrollbar needs a controller of its own: on desktop a
+  // SingleChildScrollView is not `primary`, so a Scrollbar falling back to
+  // the PrimaryScrollController paints with no position attached.
+  final ScrollController _pageCtrl = ScrollController();
 
   @override
   void dispose() {
+    _pageCtrl.dispose();
     _primary.dispose();
     _recycling.dispose();
     _noRecycling.dispose();
@@ -2097,8 +2102,10 @@ class _TwoDMgrRootState extends State<_TwoDMgrRoot> {
         ),
       ),
       body: Scrollbar(
+        controller: _pageCtrl,
         thumbVisibility: true,
         child: SingleChildScrollView(
+          controller: _pageCtrl,
           padding: const EdgeInsets.all(14),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
