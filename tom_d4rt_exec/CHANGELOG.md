@@ -1,3 +1,17 @@
+## 1.37.0
+
+### Changed — `functionTypedefs` and `registerFunctionTypedef` match the reference (scf20)
+
+`D4rt.functionTypedefs` returns the runner's list as-is, typed
+`({String name, String library, int? requiredPositional, int? maxPositional})`
+as `tom_d4rt`'s is, instead of projecting it to `name` and `library`.
+`registerFunctionTypedef` takes the optional `requiredPositional` /
+`maxPositional` named parameters and forwards them, so a host can register a
+typedef's positional arity and have the interpreter refuse a callable that
+cannot be invoked through it. The projection existed only while exec could
+resolve a `tom_d4rt_ast` whose record was narrower; the floor (^0.184.0) is
+past that.
+
 ## 1.36.0
 
 ### Changed — `tom_ast_generator` ^0.1.11 (sce237)

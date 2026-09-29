@@ -305,8 +305,22 @@ class D4rt {
   ///
   /// [name] The typedef name (e.g., 'VoidCallback').
   /// [library] The library path where this typedef is exported from.
-  void registerFunctionTypedef(String name, String library) {
-    _runner.registerFunctionTypedef(name, library);
+  /// [requiredPositional] / [maxPositional] carry the typedef's positional
+  /// arity (SCD137), as on the reference: with them the interpreter refuses a
+  /// callable that provably cannot be invoked through the typedef; without
+  /// them it accepts any callable.
+  void registerFunctionTypedef(
+    String name,
+    String library, {
+    int? requiredPositional,
+    int? maxPositional,
+  }) {
+    _runner.registerFunctionTypedef(
+      name,
+      library,
+      requiredPositional: requiredPositional,
+      maxPositional: maxPositional,
+    );
   }
 
   /// GEN-107: Registered library re-exports keyed by source library URI.
@@ -782,26 +796,10 @@ class D4rt {
   ///
   /// Mirrors `D4rt.functionTypedefs` on the reference and
   /// [D4rtRunner.functionTypedefs] here.
-  ///
-  /// NOTE — this record is NARROWER than the reference's, which also carries
-  /// `requiredPositional` and `maxPositional`. That is a real divergence
-  /// between the lines, not an omission here. The parity guard compares member
-  /// NAMES, so it stays green either way.
-  ///
-  /// SCE129: the two fields are PROJECTED rather than the runner's list
-  /// returned as-is, and that is the whole point of the line. The published
-  /// `tom_d4rt_ast` declares a two-field record and the working tree declares
-  /// a four-field one, so `=> _runner.functionTypedefs` compiles against
-  /// exactly one of them at a time — which made this package fail to COMPILE
-  /// under the SCD66 pre-publish pass, taking exec's suite (the one gate that
-  /// sees behavioural drift neither interpreter tree can) out of the pass
-  /// entirely, and leaving a break that would land with the publish. Reading
-  /// only `name` and `library` compiles against both shapes, so the widening
-  /// is no longer an event.
-  List<({String name, String library})> get functionTypedefs => _runner
-      .functionTypedefs
-      .map((t) => (name: t.name, library: t.library))
-      .toList();
+  List<
+    ({String name, String library, int? requiredPositional, int? maxPositional})
+  >
+  get functionTypedefs => _runner.functionTypedefs;
 
   /// Number of source modules whose parsed unit this instance currently
   /// retains. `0` before the first execute or after [dispose].
