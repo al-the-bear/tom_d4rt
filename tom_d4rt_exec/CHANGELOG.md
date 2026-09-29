@@ -1,3 +1,18 @@
+## 1.35.0
+
+### Changed — resolves the current interpreter (sce237)
+
+Resolves `tom_d4rt_ast` ^0.184.0, `tom_d4rt` ^1.200.0 (dev) and
+`tom_d4rt_generator` ^1.46.0. The five tests that were pinned waiting for these
+releases are ported and pass: SCE216's fuse-converter refusal, SCE217's
+`Socket.pipe`, SCE223's announced gaps, SCE232's getter-first
+`BridgedInstance.get` and SCE234's class-name identity.
+
+`tom_ast_generator` is constrained `^0.1.5` in this release only. Every
+published 0.1.6-0.1.9 pins an older `tom_d4rt_ast`, and 0.1.11, which admits
+0.184.0, cannot publish until this release exists, because it dev-depends on
+exec. 1.36.0 raises the floor again.
+
 ## 1.34.0
 
 ### Changed — `tom_ast_generator` ^0.1.9 (sce212)

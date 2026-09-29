@@ -1,6 +1,6 @@
 name: tom_d4rt_exec
 description: "D4rt Exec - Analyzer-free D4rt interpreter running on mirror AST (tom_d4rt_ast). Migration target from tom_d4rt for Flutter/server use."
-version: 1.34.0
+version: 1.35.0
 repository: https://github.com/al-the-bear/tom_d4rt
 homepage: https://github.com/al-the-bear/tom_d4rt/tree/main/tom_d4rt_exec
 topics:
@@ -25,8 +25,8 @@ dependencies:
   # The interpreter this package fronts. Resolved from pub.dev, not by path, so
   # this floor is also what any exec test suite actually measures (DGUC6) —
   # raising it is how upstream interpreter work becomes visible here at all.
-  tom_d4rt_ast: "^0.177.0"
-  tom_ast_generator: "^0.1.9"
+  tom_d4rt_ast: "^0.184.0"
+  tom_ast_generator: "^0.1.5"
 
 dev_dependencies:
   lints: ^6.0.0
@@ -46,7 +46,7 @@ dev_dependencies:
   # test/example_resolution_test.dart use `package:tom_d4rt_generator/testing.dart`;
   # 1.19.0 is the first whose `resolveIfUnresolved` asks pub whether a project
   # resolves instead of only checking that a package config exists.
-  tom_d4rt_generator: "^1.44.0"
+  tom_d4rt_generator: "^1.46.0"
 
   # The analyzer-tree interpreter that `test/generator_tests/` compares the
   # analyzer-free tree against. It is declared here ONLY to record the reference
@@ -56,4 +56,4 @@ dev_dependencies:
   # floor — and for a long time that accident was 1.11.0. Keep the two floors in
   # step; a conformance suite should not have to be reverse-engineered from
   # `dart pub deps` to find out what it is measuring.
-  tom_d4rt: "^1.192.0"
+  tom_d4rt: "^1.200.0"

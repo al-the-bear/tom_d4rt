@@ -223,6 +223,7 @@ void main() {
           final info = MemberInfo(
             name: 'test',
             returnType: 'void',
+            isMethod: true,
             hasTypeParameters: true,
             methodTypeParameters: {'T': 'Object', 'E': null},
           );

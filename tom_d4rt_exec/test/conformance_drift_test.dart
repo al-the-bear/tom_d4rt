@@ -1616,8 +1616,9 @@ typedef _CaseCounts = ({int ran, int declared});
 /// The size of the uncovered backlog when it was last worked (SCE238): every
 /// reference test with no counterpart, recorded or not. F-SCE238-1 fails when
 /// the backlog moves from it in either direction. Measured 2026-09-29: 20,
-/// all recorded in [_uncoveredBaseline].
-const _uncoveredHighWater = 20;
+/// all recorded in [_uncoveredBaseline]; 15 after sce237's publish ported the
+/// five that were only waiting on it.
+const _uncoveredHighWater = 15;
 
 const Map<String, _CaseCounts> _uncoveredBaseline = {
   // NOT PORTABLE, and not blocked on a publish. It compares what FIVE host
@@ -1688,39 +1689,6 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
   // scan the wrong tree. The gate behaviour it guards is measured here by the
   // ported behaviour file. [2026-09-28]
   'scd170_network_gate_census_test.dart': (ran: 1, declared: 1),
-  // PUBLISH-BLOCKED (SCE216). The fuse refusal for a script-defined converter
-  // names the limit from the release carrying `fuse_argument.dart`; ported and
-  // run here on 2026-09-28 against resolved tom_d4rt_ast 0.177.0, F-SCE216-1
-  // and -2 fail (the old wording) and -3 / -4 pass. Re-port when a publish
-  // raises exec's floor past 0.178.0.
-  'stdlib/convert/sce216_fuse_script_converter_test.dart': (
-    ran: 4,
-    declared: 4,
-  ),
-  // PUBLISH-BLOCKED (SCE217). Stream.pipe accepts script consumers from the release
-  // carrying `D4.pipeStream`; ported and run here on 2026-09-28
-  // against resolved tom_d4rt_ast 0.177.0, F-SCE217-1 fails with the raw
-  // `_TypeError` cast and F-SCE217-2 HANGS to its timeout (the echo client
-  // waits for data the failed pipe never sends); F-SCE217-3 passes.
-  // Re-port when a publish raises exec's floor past 0.179.0.
-  'stdlib/io/sce217_socket_pipe_test.dart': (ran: 3, declared: 3),
-  // PUBLISH-BLOCKED (SCE223). await on a non-Future, BridgedInstance.set and
-  // the multi-variable `for` message land in the release carrying them;
-  // ported and run here on 2026-09-29 against resolved tom_d4rt_ast 0.177.0,
-  // F-SCE223-4, -5 and -6 fail and -1..3 pass. Re-port when a publish raises
-  // exec's floor past 0.180.0.
-  'sce223_announced_gaps_test.dart': (ran: 6, declared: 6),
-  // PUBLISH-BLOCKED (SCE232). BridgedInstance.get reads getters from the
-  // release carrying it; ported and run here on 2026-09-29 against resolved
-  // tom_d4rt_ast 0.177.0, F-SCE232-1 and -2 fail and -3, -4 pass. Re-port when
-  // a publish raises exec's floor past 0.181.0.
-  'sce232_bridged_instance_get_test.dart': (ran: 4, declared: 4),
-  // PUBLISH-BLOCKED (SCE234). identical/identityHashCode treat a class name
-  // and its Type as one object from the release carrying it; ported and run
-  // here on 2026-09-29 against resolved tom_d4rt_ast 0.177.0, F-SCE234-1 and
-  // -2 fail and -3, -4 pass.
-  // Re-port when a publish raises exec's floor past 0.183.0.
-  'sce234_class_name_identity_test.dart': (ran: 4, declared: 4),
   // NOT PORTABLE — and uniquely so: the subject itself cannot exist on the
   // analyzer-free line. `static_name_report.dart` resolves names over the
   // ANALYZER AST, which `tom_d4rt_ast` has no access to by construction, so
@@ -2492,30 +2460,7 @@ typedef _Pin = ({String floor, String measured});
 /// 8-of-10 to 13-of-20 — still wholly failing, so still justified, but their
 /// recorded evidence was seven and ten cases out of date. Both are re-stamped
 /// above their entries in `_uncoveredBaseline`.
-const Map<String, _Pin> _pinnedInterpreterFloors = <String, _Pin>{
-  // SCE216, pinned at the release carrying the fuse refusal helper.
-  'stdlib/convert/sce216_fuse_script_converter_test.dart': (
-    floor: '0.178.0',
-    measured: '0.177.0',
-  ),
-  // SCE217, pinned at the release carrying D4.pipeStream.
-  'stdlib/io/sce217_socket_pipe_test.dart': (
-    floor: '0.179.0',
-    measured: '0.177.0',
-  ),
-  // SCE223, pinned at the release carrying the announced-gap fixes.
-  'sce223_announced_gaps_test.dart': (floor: '0.180.0', measured: '0.177.0'),
-  // SCE232, pinned at the release carrying the getter-first BridgedInstance.get.
-  'sce232_bridged_instance_get_test.dart': (
-    floor: '0.181.0',
-    measured: '0.177.0',
-  ),
-  // SCE234, pinned at the release carrying the identity carrier rule.
-  'sce234_class_name_identity_test.dart': (
-    floor: '0.183.0',
-    measured: '0.177.0',
-  ),
-};
+const Map<String, _Pin> _pinnedInterpreterFloors = <String, _Pin>{};
 
 /// The `tom_d4rt_ast` floor exec's own `pubspec.yaml` currently declares.
 ///
@@ -3397,8 +3342,9 @@ const Map<String, String> _astDriftFingerprints = <String, String>{
 // walked through exec, astgen and the twins, so it is batched per release
 // rather than paid per fix. scf34 deletes this pin.
 // ignore: unnecessary_nullable_for_final_variable_declarations
-const String? _astPublishBlock =
-    'scf34_aiñx-publish-the-next-interpreter-release';
+// scf34's release (tom_d4rt 1.200.0 / tom_d4rt_ast 0.184.0) landed
+// 2026-09-29 (sce237): exec resolves the working tree's interpreter again.
+const String? _astPublishBlock = null;
 
 /// One baseline entry and the comment block written directly above it.
 typedef _BaselineEntry = ({String path, String comment});
