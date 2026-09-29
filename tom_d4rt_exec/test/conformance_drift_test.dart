@@ -2202,6 +2202,14 @@ const Map<String, _Convergence> _convergenceLog = {
 /// re-measure the whole register when the floor moves, not the entry you
 /// happened to be reading.
 const Map<String, _Divergence> _divergentBaseline = {
+  // SCF22: the reference copy added F-SCE101-10, which requires `[x] is
+  // List<T>` to answer as `x is T` across 14 values x 22 types. The published
+  // interpreter still asks elements a second, lenient predicate, so an
+  // unresolvable element type answers true there and 14 rows disagree; this
+  // copy keeps the file without the new case.
+  // PUBLISH-BLOCKED — re-port when exec's tom_d4rt_ast floor passes 0.189.0,
+  // by copying the reference file down; converges at a floor past 0.189.0.
+  'sce101_element_type_test.dart': _Divergence.deliberate,
   // SCF19: an interpreted subclass of a bridged class now reaches the members
   // its bridged superclass inherits (`class MyQ extends ListQueue` answering
   // `elementAt`). The published interpreter does not, so this port carries the
@@ -2302,6 +2310,7 @@ const Map<String, _Divergence> _divergentBaseline = {
 /// Recomputing without reading the new difference is the failure mode; the
 /// message says so.
 const Map<String, String> _divergenceFingerprints = <String, String>{
+  'sce101_element_type_test.dart': '4f88b5f451909a1b',
   'scf19_inherited_bridged_member_test.dart': 'f6bcc3d645a83127',
   'stdlib/sce74_sdk_error_type_parity_test.dart': '781b5194a45404e2',
   'sce18_finally_on_abrupt_exit_test.dart': 'ed38f75775d721c1',
@@ -2492,6 +2501,8 @@ typedef _Pin = ({String floor, String measured});
 /// recorded evidence was seven and ten cases out of date. Both are re-stamped
 /// above their entries in `_uncoveredBaseline`.
 const Map<String, _Pin> _pinnedInterpreterFloors = <String, _Pin>{
+  // SCF22, pinned at the release that collapses the two type-test predicates.
+  'sce101_element_type_test.dart': (floor: '0.189.0', measured: '0.184.0'),
   // SCF19, pinned at the release carrying the inherited bridged-member walk.
   'scf19_inherited_bridged_member_test.dart': (
     floor: '0.188.0',

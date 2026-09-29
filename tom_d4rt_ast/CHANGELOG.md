@@ -1,3 +1,26 @@
+## 0.189.0
+
+### Changed — a generic element is type-tested by the same predicate as `is` (scf22)
+
+`[x] is List<T>` and `m is Map<K, V>` asked each element, key and value a
+second, smaller copy of the type test. Every divergence found between the two
+copies had been a defect in one of them, in both directions, so the element
+checks now ask `_valueHasType` — the predicate behind `is`, typed patterns and
+`on` clauses — and the second copy is gone.
+
+**Three element-position answers change, each to what `is` already answers:**
+
+- a type name the interpreter cannot resolve now fails as `x is Unknown`
+  does — it raises the same error — where it used to answer `true`;
+- a function or record element type (`List<int Function(int)>`,
+  `List<(int, String)>`) is checked structurally, where any element used to
+  match;
+- `List<void>` is false for a non-empty list, where it used to be true.
+
+`F-SCE101-10` (`tom_d4rt/test/sce101_element_type_test.dart`) holds the rule
+over 14 values × 22 types: a one-element list is a `List<T>` exactly when its
+element is a `T`.
+
 ## 0.188.0
 
 ### Fixed — an interpreted subclass reaches its bridged superclass's INHERITED members (scf19)
