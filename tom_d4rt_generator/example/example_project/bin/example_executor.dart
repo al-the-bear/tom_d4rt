@@ -17,13 +17,9 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:tom_d4rt/d4rt.dart';
 
-import 'package:d4rt_generator_example/d4rt_bridges/basic_bridge.dart';
-import 'package:d4rt_generator_example/d4rt_bridges/generic_bridge.dart';
-import 'package:d4rt_generator_example/d4rt_bridges/inheritance_bridge.dart';
-import 'package:d4rt_generator_example/d4rt_bridges/callback_bridge.dart';
-import 'package:d4rt_generator_example/d4rt_bridges/operator_bridge.dart';
-
-const importPath = 'package:d4rt_generator_example/test_classes.dart';
+// The registration d4rtgen writes from buildkit.yaml (`dartscriptPath`), so
+// the executor runs exactly the bridges a regeneration produces.
+import 'package:d4rt_generator_example/dartscript.b.dart';
 
 void main(List<String> args) async {
   final scriptName = args.isEmpty ? 'all' : args.first;
@@ -161,11 +157,7 @@ D4rt createInterpreter() {
   final interpreter = D4rt();
 
   // Register all bridges
-  BasicBridge.registerBridges(interpreter, importPath);
-  GenericBridge.registerBridges(interpreter, importPath);
-  InheritanceBridge.registerBridges(interpreter, importPath);
-  CallbackBridge.registerBridges(interpreter, importPath);
-  OperatorBridge.registerBridges(interpreter, importPath);
+  D4rtGeneratorExampleBridges.register(interpreter);
 
   return interpreter;
 }

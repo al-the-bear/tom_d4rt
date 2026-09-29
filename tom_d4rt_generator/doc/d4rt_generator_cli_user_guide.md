@@ -233,7 +233,7 @@ targets:
             - name: all
               barrelFiles:
                 - lib/my_package.dart
-              outputPath: lib/d4rt_bridges/
+              outputPath: lib/src/d4rt_bridges/my_package_bridges.b.dart
 ```
 
 ### 4. d4rt_bridging.json (Per-Project Fallback)
@@ -249,7 +249,7 @@ If no `build.yaml` is found, the CLI looks for `d4rt_bridging.json`:
     {
       "name": "all",
       "barrelFiles": ["lib/my_package.dart"],
-      "outputPath": "lib/d4rt_bridges/"
+      "outputPath": "lib/src/d4rt_bridges/my_package_bridges.b.dart"
     }
   ]
 }

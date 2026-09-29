@@ -140,7 +140,7 @@ When working with generator code, start here:
 3. **Generated code examples**
    - Show realistic bridge output
    - Include comments explaining key parts
-   - Reference actual generated files in `example/lib/d4rt_bridges/`
+   - Reference actual generated files in `example/example_project/lib/src/d4rt_bridges/`
 
 4. **Examples from docs should have corresponding files:**
    - README.md examples → `example/readme/` (if applicable)
@@ -166,7 +166,7 @@ When documenting what the generator produces:
 
 3. **Reference actual generated files:**
    ```markdown
-   See [basic_bridge.dart](../example/lib/d4rt_bridges/basic_bridge.dart) for a generated example.
+   See [example_bridges.b.dart](../example/example_project/lib/src/d4rt_bridges/example_bridges.b.dart) for a generated example.
    ```
 
 ## UserBridge Documentation

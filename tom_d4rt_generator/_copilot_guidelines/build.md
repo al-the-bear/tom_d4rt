@@ -118,10 +118,11 @@ The example project includes test classes and generated bridges:
 
 | Directory | Purpose |
 |-----------|---------|
-| `example/lib/test_classes/` | Source classes to be bridged |
-| `example/lib/d4rt_bridges/` | Generated bridge files |
-| `example/scripts/` | D4rt scripts that use the bridges |
-| `example/test/` | Unit tests for bridges |
+| `example/example_project/lib/test_classes/` | Source classes to be bridged |
+| `example/example_project/lib/src/d4rt_bridges/` | Generated bridge files (`example_bridges.b.dart`, `relaxers.b.dart`) |
+| `example/example_project/lib/dartscript.b.dart` | Generated registration the executor calls |
+| `example/example_project/scripts/` | D4rt scripts that use the bridges |
+| `example/example_project/test/` | Unit tests for bridges |
 
 ## Publishing
 
