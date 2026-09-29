@@ -43,6 +43,17 @@
 /// and `scc45_resolution_guard_test.dart` imports the same file. A tool that
 /// clears a red the guard still reports is worse than either alone.
 ///
+/// ## It is run by hand, per machine — decided (sce251, option C)
+///
+/// Every fleet host holds its own gitignored locks, so this clears only the
+/// machine it runs on. Wiring it into the fleet reconcile was considered and
+/// declined: it would put a d4rt-specific `pub upgrade` of every package on
+/// every host into a fleet-generic orchestrator, on every reconcile whether
+/// or not anything published. `F-SCC45-2` is the reminder instead — it reports
+/// per machine, names the host's cache as its evidence, and skips rather than
+/// passes when that cache is too thin to tell. Run this after a publish on
+/// any host that runs these suites.
+///
 /// ## What a green run does NOT mean
 ///
 /// Upgrading a Flutter twin's lock moves the bridge corpus onto a new
@@ -56,6 +67,12 @@ library;
 import 'dart:io';
 
 import 'stale_locks.dart';
+
+/// On Windows `flutter` is `flutter.bat`, which `Process.run` cannot launch
+/// without a shell — it throws "The system cannot find the file specified"
+/// for every Flutter package (sce251). `dart` is a real `.exe`, so the Dart
+/// packages would have gone on working and hidden it.
+final bool _windows = Platform.isWindows;
 
 /// Packages whose lock moving invalidates a recorded corpus run.
 const _corpusPackages = <String>{
@@ -129,10 +146,12 @@ Future<int> main(List<String> args) async {
     if (_corpusPackages.contains(rel)) corpusTouched.add(rel);
     if (dryRun) continue;
 
-    final result = await Process.run(command, [
-      'pub',
-      'upgrade',
-    ], workingDirectory: package.path);
+    final result = await Process.run(
+      command,
+      ['pub', 'upgrade'],
+      workingDirectory: package.path,
+      runInShell: _windows,
+    );
     if (result.exitCode == 0) {
       upgraded++;
       final name = packageName(package);
@@ -181,10 +200,12 @@ Future<int> main(List<String> args) async {
       final rel = relativeTo(root, fixture);
       final command = isFlutterPackage(fixture) ? 'flutter' : 'dart';
       stdout.writeln('  $rel  \$ $command pub upgrade');
-      final result = await Process.run(command, [
-        'pub',
-        'upgrade',
-      ], workingDirectory: fixture.path);
+      final result = await Process.run(
+        command,
+        ['pub', 'upgrade'],
+        workingDirectory: fixture.path,
+        runInShell: _windows,
+      );
       if (result.exitCode != 0) {
         failed++;
         stdout.writeln('      FAILED (exit ${result.exitCode})');

@@ -229,6 +229,11 @@ pair "launch retry leaves no orphaned build" \
 run "tool lookup picks a runnable file on Windows" \
   flutter test test/tool_resolution_test.dart
 
+# SCE251: the pre-publish pass starts `flutter` with a shell on Windows, where
+# it is flutter.bat and cannot be launched without one. Source-shape only.
+run "pre-publish pass can launch flutter on Windows" \
+  flutter test test/sce251_windows_launch_test.dart
+
 # SCE173: the framework-error inventory tool parses the harness's output, and
 # BOTH twins' harness still prints the format it reads. Pure file I/O.
 pair "framework-error inventory reads the harness format" \

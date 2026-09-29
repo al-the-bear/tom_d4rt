@@ -100,10 +100,12 @@ File _overrideOf(Target t) => File('${t.dir}/$_overrideFile');
 Future<bool> _pubGet(Target t) async {
   final exe = t.isFlutter ? 'flutter' : 'dart';
   stdout.write('  $exe pub get in ${t.dir} … ');
-  final result = await Process.run(exe, [
-    'pub',
-    'get',
-  ], workingDirectory: t.dir);
+  final result = await Process.run(
+    exe,
+    ['pub', 'get'],
+    workingDirectory: t.dir,
+    runInShell: Platform.isWindows,
+  );
   if (result.exitCode != 0) {
     stdout.writeln('FAILED');
     stdout.writeln(result.stdout);
@@ -215,6 +217,9 @@ Future<List<String>> _runGates() async {
       gate.exe,
       gate.args,
       workingDirectory: gate.dir,
+      // `flutter` is `flutter.bat` on Windows; without a shell it cannot be
+      // launched (sce251).
+      runInShell: Platform.isWindows,
     );
     if (result.exitCode == 0) {
       stdout.writeln('ok');

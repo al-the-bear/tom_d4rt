@@ -80,6 +80,7 @@ run 'bridge step is streamed and content-decided' { flutter test test/sce13_brid
 pair 'launch retry leaves no orphaned build' { flutter test test/sce14_launch_retry_test.dart }
 run 'tool lookup picks a runnable file on Windows' { flutter test test/tool_resolution_test.dart }
 pair 'framework-error inventory reads the harness format' { flutter test test/framework_error_inventory_test.dart }
+run 'pre-publish pass can launch flutter on Windows' { flutter test test/sce251_windows_launch_test.dart }
 run 'stdlib types route to the stdlib under Flutter scope' { flutter test test/sce177_stdlib_routing_under_flutter_test.dart }
 pair 'shared test infrastructure agrees across the twins' { flutter test test/sce170_twin_test_infrastructure_test.dart }
 run 'sibling-tree guards declare where they must run' { flutter test test/sce191_structural_guard_anchoring_test.dart }
