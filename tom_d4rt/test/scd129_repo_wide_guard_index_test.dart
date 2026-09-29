@@ -163,7 +163,7 @@ const int _bannerWindow = 12;
 /// whole repository is a deliberate act with a cost — it runs only when its
 /// package's suite runs — so it should cost one line here.
 const Map<String, int> _bannerCensus = {
-  'tom_d4rt': 31,
+  'tom_d4rt': 32,
   'tom_d4rt_ast': 8,
   'tom_d4rt_exec': 6,
   'tom_d4rt_flutter': 3,
