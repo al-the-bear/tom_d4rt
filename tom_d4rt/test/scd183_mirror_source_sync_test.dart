@@ -52,7 +52,8 @@
 //      what the mirror rule is about in practice. SCD169 added
 //      `_isInsideCatchClauseOf` to `callable.dart`; had it landed in one tree
 //      only, THIS is the assertion that would have said so. Token identity
-//      could not have: `callable.dart` is 99 % divergent by tokens.
+//      could not have: `callable.dart` is 99 % divergent by the trimmed token
+//      reading (16 % by LCS lines — see `_structural` for the difference).
 //
 // WHAT IS DELIBERATELY NOT COMPARED — the same three exclusions SCD49 argues
 // for, for the same reasons: comments (a doc comment naming the twin's own test
@@ -277,29 +278,52 @@ const _allowedRegions = <String, (String, String)>{
 /// parity by F-SCD183-5 — "the same fix landed in both" is first a claim about
 /// what a file declares — and, since SCD199, to per-BODY agreement by
 /// `scd199_mirror_body_agreement_test.dart`, which compares each shared member
-/// separately so that one early difference no longer swallows the file. The
-/// percentages quoted below are what THIS file's whole-stream comparison sees;
-/// per body the same five files are 249 of 354 members identical. Both readings
-/// are of the same trees, and the second is where a one-line divergence is
-/// visible.
+/// separately so that one early difference no longer swallows the file.
+///
+/// EACH REASON STATES TWO FIGURES, and says which comparison produced which,
+/// because they answer different questions and the larger one misleads when
+/// quoted alone (SCE254, measured 2026-09-29):
+///
+/// - TRIMMED: the share of the token stream left between the first and the
+///   last disagreement, after this file's common prefix and suffix are cut.
+///   It measures where the two files STOP agreeing, and after the first
+///   desynchronisation that is nearly everything whatever follows. It is the
+///   right evidence for THIS classification — the divergence cannot be pinned
+///   to one region, so the file is `_structural` rather than `_allowedRegions`
+///   — and F-SCD183-4 relies on the same trimming.
+/// - LCS: differing code lines over a longest-common-subsequence line diff of
+///   the same normalised sources, `check_mirrored_sources.dart --show <file>`.
+///   It measures how much actually differs, and is the figure that describes
+///   the file. `runtime_types.dart` at 3 % is a file in which a one-sided edit
+///   would stand out, which its trimmed 55 % alone says the opposite of.
+///
+/// Per body, SCD199 is the third reading and the one that pins: 249 of 354
+/// members of these five files are held identical.
 const _structural = <String, String>{
   'callable.dart':
       'the mirror AST has no parent pointer, so the twin reconstructs one '
       '(_buildParentMap, _parentOf, _ChildCollectorVisitor) where the '
-      'reference walks node.parent directly. 99 % of the tokens differ.',
+      'reference walks node.parent directly. Trimmed: 99 % of the token '
+      'stream lies between the first and last disagreement. LCS: 821 of '
+      '5170 code lines differ (16 %).',
   'declaration_visitor.dart':
       'node accessors differ throughout: node.name.lexeme against '
-      "node.name?.name ?? ''. 96 % of the tokens differ.",
+      "node.name?.name ?? ''. Trimmed: 96 % of the token stream lies between "
+      'the first and last disagreement. LCS: 62 of 203 code lines differ '
+      '(31 %).',
   'interpreter_visitor.dart':
       'the same accessor divergence across the whole evaluator, plus '
-      'moduleLoader against moduleContext at every permission site. 99 % of '
-      'the tokens differ.',
+      'moduleLoader against moduleContext at every permission site. '
+      'Trimmed: 99 % of the token stream lies between the first and last '
+      'disagreement. LCS: 1498 of 11743 code lines differ (13 %).',
   'introspection.dart':
       'reads declarations off the AST, so it is accessor-shaped throughout. '
-      '65 % of the tokens differ.',
+      'Trimmed: 65 % of the token stream lies between the first and last '
+      'disagreement. LCS: 48 of 608 code lines differ (8 %).',
   'runtime_types.dart':
       'resolves type annotations from AST nodes; same accessor divergence. '
-      '55 % of the tokens differ.',
+      'Trimmed: 55 % of the token stream lies between the first and last '
+      'disagreement. LCS: 55 of 2100 code lines differ (3 %).',
 };
 
 /// Members declared in one tree and not the other, and why that is correct.
