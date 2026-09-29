@@ -1,3 +1,13 @@
+## 0.9.3
+
+### Changed — resolves tom_d4rt_ast 0.195.0; bridges regenerated with tom_d4rt_generator 1.50.0 (scf34)
+
+`tom_d4rt_ast` ^0.195.0, `tom_d4rt_exec` ^1.39.0, `tom_ast_generator`
+^0.1.13, `tom_d4rt_generator` ^1.50.0. The regeneration changes only each
+file's `// Generated:` line. Generator 1.50.0 is also the release that produces
+the same bridges on Windows (scf32), so the `D4RT_SKIP_BRIDGE_REGEN`
+workaround for Windows is no longer needed once a host resolves it.
+
 ## 0.9.2
 
 ### Changed — the withheld GEN-126 registrations are documented as settled (scf31)

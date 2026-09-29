@@ -1,3 +1,13 @@
+## 1.8.0
+
+### Changed — resolves the published tom_d4rt_exec 1.39.0 / tom_d4rt_ast 0.195.0 (scf34)
+
+`tom_d4rt_exec` ^1.39.0, `tom_d4rt_ast` ^0.195.0, `tom_ast_generator`
+^0.1.13, dev `tom_d4rt_generator` ^1.50.0. `cli_api_bridges.b.dart` is
+regenerated: it bridges exec's own API, where `registerFunctionTypedef` gained
+`requiredPositional` / `maxPositional` and `functionTypedefs` records them
+(exec 1.37.0, scf20).
+
 ## 1.7.0
 
 ### Changed — resolves the current interpreter; bridges regenerated (sce212)

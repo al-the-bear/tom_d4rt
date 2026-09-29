@@ -1,6 +1,6 @@
 name: tom_d4rt_flutter_ast
 description: "D4rt Flutter Material bridge — execute D4rt scripts that return Flutter widget trees."
-version: 0.9.2
+version: 0.9.3
 repository: https://github.com/al-the-bear/tom_d4rt
 homepage: https://github.com/al-the-bear/tom_d4rt/tree/main/tom_d4rt_flutter_ast
 
@@ -25,7 +25,7 @@ dependencies:
   # same-name rule to `dart:*` declarations too, so `TextStyle` — declared by
   # both `dart:ui` and painting — is rejected unqualified and 17 base-corpus
   # scripts fail. 0.20.1 restores Dart's platform-library precedence.
-  tom_d4rt_ast: "^0.184.0"
+  tom_d4rt_ast: "^0.195.0"
   archive: ^4.0.9
   # Explicit transitive Flutter deps used in generated bridge code
   characters: ^1.4.0
@@ -50,14 +50,14 @@ dev_dependencies:
   # mtime; 1.18.0 is where that check refuses an unresolved package outright
   # rather than running `pub get` for it. The gate runs against a package it
   # must not modify, so not-writing is the property being depended on.
-  tom_d4rt_generator: "^1.44.0"
+  tom_d4rt_generator: "^1.50.0"
   # Analyzer front-end + 1:1 AST copier. Used ONLY by the bridge
   # regeneration tool (tool/regenerate_bridges.dart) and the test
   # driver — never by lib/ runtime code. The bridges and FlutterD4rt
   # resolve entirely within tom_d4rt_ast, keeping the runtime
   # analyzer-free and web-safe.
-  tom_d4rt_exec: "^1.36.0"
-  tom_ast_generator: "^0.1.11"
+  tom_d4rt_exec: "^1.39.0"
+  tom_ast_generator: "^0.1.13"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

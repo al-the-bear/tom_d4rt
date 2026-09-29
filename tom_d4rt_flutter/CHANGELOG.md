@@ -1,3 +1,11 @@
+## 1.4.3
+
+### Changed — resolves tom_d4rt 1.210.0; bridges regenerated with tom_d4rt_generator 1.50.0 (scf34)
+
+`tom_d4rt` ^1.210.0 and dev `tom_d4rt_generator` ^1.50.0. The regeneration
+changes only each file's `// Generated:` line: 1.50.0's output on macOS is the
+same as 1.47.0's.
+
 ## 1.4.2
 
 ### Changed — the withheld GEN-126 registrations are documented as settled (scf31)

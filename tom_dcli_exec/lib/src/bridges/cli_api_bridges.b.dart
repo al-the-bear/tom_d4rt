@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 10 files
-// Generated: 2026-09-28T22:10:22.425749 by tom_d4rt_generator 1.44.0
+// Generated: 2026-09-30T01:43:32.087251 by tom_d4rt_generator 1.50.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -2544,7 +2544,9 @@ BridgedClass _createD4rtBridge() {
         D4.requireMinArgs(positional, 2, 'registerFunctionTypedef');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'registerFunctionTypedef');
         final library = D4.getRequiredArg<String>(positional, 1, 'library', 'registerFunctionTypedef');
-        t.registerFunctionTypedef(name, library);
+        final requiredPositional = D4.getOptionalNamedArg<int?>(named, 'requiredPositional');
+        final maxPositional = D4.getOptionalNamedArg<int?>(named, 'maxPositional');
+        t.registerFunctionTypedef(name, library, requiredPositional: requiredPositional, maxPositional: maxPositional);
         return null;
       },
       'registerLibraryReExport': (visitor, target, positional, named, typeArgs) {
@@ -2860,7 +2862,7 @@ BridgedClass _createD4rtBridge() {
       'registerBridgedClass': 'void registerBridgedClass(BridgedClass definition, String library, {String? sourceUri})',
       'registerBridgedClassLazy': 'void registerBridgedClassLazy(String name, Type nativeType, BridgedClass Function() thunk, String library, {String? sourceUri})',
       'registerClassAlias': 'void registerClassAlias(String aliasName, String targetName, String library)',
-      'registerFunctionTypedef': 'void registerFunctionTypedef(String name, String library)',
+      'registerFunctionTypedef': 'void registerFunctionTypedef(String name, String library, {int? requiredPositional, int? maxPositional})',
       'registerLibraryReExport': 'void registerLibraryReExport(String sourceUri, String targetUri, {Set<String>? show, Set<String>? hide})',
       'registerBridgedExtension': 'void registerBridgedExtension(BridgedExtensionDefinition definition, String library, {String? sourceUri})',
       'registertopLevelFunction': 'void registertopLevelFunction(String? name, NativeFunctionImpl function, String library, {String? sourceUri, String? signature})',
@@ -2902,7 +2904,7 @@ BridgedClass _createD4rtBridge() {
       'libraryReExports': 'Map<String, List<({Set<String>? hide, Set<String>? show, String uri})>> get libraryReExports',
       'bridgesFinalized': 'bool get bridgesFinalized',
       'classAliases': 'List<({String aliasName, String library, String targetName})> get classAliases',
-      'functionTypedefs': 'List<({String library, String name})> get functionTypedefs',
+      'functionTypedefs': 'List<({String library, int? maxPositional, String name, int? requiredPositional})> get functionTypedefs',
       'debugLoadedModuleCount': 'int get debugLoadedModuleCount',
       'allowedPackages': 'Set<String> get allowedPackages',
       'onUncaughtError': 'void Function(Object error, StackTrace stackTrace)? get onUncaughtError',
