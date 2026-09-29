@@ -69,7 +69,26 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     throw UnimplementedD4rtException(
       "Unsupported AST node '${node.runtimeType}' at offset ${node.offset}. "
       "The interpreter has no handler for this construct, so it cannot be "
-      "evaluated.",
+      "evaluated. Source: ${_nodeExcerpt(node)}.",
+    );
+  }
+
+  /// Where [node] is and what it says, for the diagnostic (SCE236).
+  ///
+  /// The reference tree renders the node with the analyzer's `toSource()`.
+  /// The mirror model has no renderer, so this quotes the bundle's own source
+  /// when it was bundled, and otherwise names the module and offset. A bundle
+  /// compiled elsewhere leaves the script's author no file to count an offset
+  /// into, so the module is the least the message can carry.
+  String _nodeExcerpt(SAstNode node) {
+    final context = moduleContext;
+    if (context is! AstModuleLoader) {
+      return '(not available: no bundle is loaded; offset ${node.offset})';
+    }
+    return describeNodeSource(
+      node,
+      modules: context.modules,
+      sources: context.sources,
     );
   }
 

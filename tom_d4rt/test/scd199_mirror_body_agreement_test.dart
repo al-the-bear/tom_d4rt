@@ -345,7 +345,9 @@ const _divergentBodies = <String, Map<String, String>>{
     // arity-heuristic throw sites inside it now raise `RangeError`
     // rather than `RuntimeD4rtException`, symmetrically in both trees.
     'InterpreterVisitor.visitMethodInvocation': '2435dba5',
-    'InterpreterVisitor.visitNode': '9f50a531',
+    // SCE236: the two `visitNode` bodies are identical now. Only the excerpt
+    // helper differs: `toSource()` here, the bundled source in the twin.
+    'InterpreterVisitor._nodeExcerpt': 'b5e37909',
     'InterpreterVisitor.visitPostfixExpression': 'bcfb2c65',
     'InterpreterVisitor.visitPrefixExpression': 'd18482f4',
     'InterpreterVisitor.visitPrefixedIdentifier': 'c95921c9',

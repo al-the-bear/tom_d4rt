@@ -418,6 +418,17 @@ const Map<String, _Coverage> _coveredElsewhere = {
     _astTwin,
     layer: _Layer.registration,
   ),
+  // SCE236. The reference case calls `visitNode` with an ANALYZER node and
+  // asserts the `toSource()` excerpt; the twin's quotes the bundled source.
+  // Same message, two mechanisms, each tested where it lives. A port here
+  // would feed exec's mirror visitor an analyzer node, which it cannot take.
+  'sce236_unsupported_node_source_test.dart': _Coverage(
+    'ast:runtime/sce236_node_source_test.dart',
+    _astTwin,
+    layer: _Layer.registration,
+    refCases: 1,
+    twinCases: 4,
+  ),
   'stdlib/sce203_family_reachable_parity_test.dart': _Coverage(
     'ast:runtime/sce203_family_reachable_parity_test.dart',
     _astTwin,

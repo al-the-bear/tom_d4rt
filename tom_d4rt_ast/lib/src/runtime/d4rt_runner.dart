@@ -1884,6 +1884,7 @@ class D4rtRunner {
     }
     final moduleLoader = AstModuleLoader(
       modules: bundle.modules,
+      sources: bundle.sources,
       globalEnvironment: executionEnvironment,
       runner: this,
       sharedBridgedModuleEnvironments: sharedBridgedModuleEnvs,

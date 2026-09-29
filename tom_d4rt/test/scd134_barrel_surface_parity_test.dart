@@ -148,6 +148,15 @@ const _divergences = <String, _Divergence>{
   ),
   'AstBundleFormat': _Divergence(_Side.astOnly, 'part of AstBundle'),
   'AstBundleManifest': _Divergence(_Side.astOnly, 'part of AstBundle'),
+  'describeNodeSource': _Divergence(
+    _Side.astOnly,
+    'quotes a node from the bundle\'s source for a diagnostic (SCE236); the '
+    'reference renders with the analyzer\'s toSource() and has no bundle',
+  ),
+  'moduleContaining': _Divergence(
+    _Side.astOnly,
+    'part of describeNodeSource: finds which bundled module holds a node',
+  ),
 
   // ── One concept, two names ──────────────────────────────────────────────
   'AstModuleLoader': _Divergence(

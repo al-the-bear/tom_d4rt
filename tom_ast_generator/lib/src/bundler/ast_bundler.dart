@@ -38,11 +38,24 @@ class AstBundlerConfig {
   /// Default: `true`.
   final bool followPartDirectives;
 
+  /// Whether each module's source text is carried in the bundle
+  /// (`AstBundle.sources`).
+  ///
+  /// The analyzer-free interpreter has no `toSource()`, so a diagnostic about
+  /// a node can only QUOTE the script when the bundle carries its source; the
+  /// node's offset and length index into it. Without it, a message names the
+  /// module and offset only (SCE236). Off by default: it costs bundle size,
+  /// and a release bundle may not want to ship its own source.
+  ///
+  /// Default: `false`.
+  final bool includeSources;
+
   /// Default configuration.
   const AstBundlerConfig({
     this.stdlibSchemes = const {'dart'},
     this.maxImportDepth = 64,
     this.followPartDirectives = true,
+    this.includeSources = false,
   });
 }
 
@@ -219,11 +232,12 @@ class AstBundler {
     // Parse and collect entry point
     final entryAst = _parseSourceCode(source, path: sourcePath);
     modules[entryUri] = entryAst;
+    _collectedSources = config.includeSources ? {entryUri: source} : null;
 
     // Recursively resolve imports
     await _resolveImports(entryAst, Uri.parse(entryUri), modules, depth: 0);
 
-    return AstBundle(entryPointUri: entryUri, modules: modules);
+    return _bundle(entryUri, modules);
   }
 
   /// Creates an [AstBundle] from a file path.
@@ -250,6 +264,7 @@ class AstBundler {
     // Parse entry point
     final entryAst = _parseSourceCode(source, path: entryPointPath);
     modules[entryUri] = entryAst;
+    _collectedSources = config.includeSources ? {entryUri: source} : null;
 
     // Recursively resolve imports
     await _resolveImports(
@@ -260,7 +275,22 @@ class AstBundler {
       fileSystemRoot: root,
     );
 
-    return AstBundle(entryPointUri: entryUri, modules: modules);
+    return _bundle(entryUri, modules);
+  }
+
+  /// Source text by module URI for the bundle being built, when
+  /// [AstBundlerConfig.includeSources] is on; `null` otherwise. Reset at the
+  /// start of every `create*` call.
+  Map<String, String>? _collectedSources;
+
+  AstBundle _bundle(String entryUri, Map<String, SCompilationUnit> modules) {
+    final sources = _collectedSources;
+    _collectedSources = null;
+    return AstBundle(
+      entryPointUri: entryUri,
+      modules: modules,
+      sources: sources,
+    );
   }
 
   // ===========================================================================
@@ -321,6 +351,7 @@ class AstBundler {
             path: resolution.canonicalUri,
           );
           modules[resolution.canonicalUri] = importedAst;
+          _collectedSources?[resolution.canonicalUri] = resolution.value!;
 
           // Recurse into the imported module's imports
           await _resolveImports(

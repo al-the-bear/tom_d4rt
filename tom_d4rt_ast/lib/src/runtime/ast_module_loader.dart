@@ -48,6 +48,11 @@ class AstModuleLoader implements ModuleContext {
   /// Pre-parsed modules from the bundle, keyed by URI string.
   final Map<String, SCompilationUnit> modules;
 
+  /// The bundle's source text by module URI, when it was built with it
+  /// (`AstBundle.sources`). Read only by diagnostics that quote source
+  /// (SCE236); execution never needs it.
+  final Map<String, String>? sources;
+
   @override
   final Environment globalEnvironment;
 
@@ -99,6 +104,7 @@ class AstModuleLoader implements ModuleContext {
     required this.modules,
     required this.globalEnvironment,
     required this.runner,
+    this.sources,
     this.sharedBridgedModuleEnvironments,
     this.sharedModuleEnclosing,
     this.onBridgedModuleEnvBuilt,

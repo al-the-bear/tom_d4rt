@@ -43,17 +43,20 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     throw UnimplementedD4rtException(
       "Unsupported AST node '${node.runtimeType}' at offset ${node.offset}. "
       "The interpreter has no handler for this construct, so it cannot be "
-      "evaluated. Source: '${_nodeExcerpt(node)}'.",
+      "evaluated. Source: ${_nodeExcerpt(node)}.",
     );
   }
 
-  /// A short, single-line excerpt of [node]'s source, for the diagnostic.
+  /// A short, single-line, quoted excerpt of [node]'s source, for the
+  /// diagnostic.
   ///
   /// Truncated because an unhandled node can be an entire declaration, and a
-  /// multi-line dump buries the node type that is the actual message.
+  /// multi-line dump buries the node type that is the actual message. The twin
+  /// has no `toSource()` and quotes the bundle's source instead (SCE236); the
+  /// two `visitNode` bodies are identical, and only this helper differs.
   static String _nodeExcerpt(AstNode node) {
     final text = node.toSource().replaceAll(RegExp(r'\s+'), ' ');
-    return text.length <= 60 ? text : '${text.substring(0, 57)}...';
+    return "'${text.length <= 60 ? text : '${text.substring(0, 57)}...'}'";
   }
 
   /// A named argument evaluates to its expression — the label is a name, not a

@@ -51,6 +51,7 @@ export 'src/runtime/module_context.dart';
 
 // Module loader for AST bundles
 export 'src/runtime/ast_module_loader.dart';
+export 'src/runtime/node_source.dart';
 
 // Main runner API
 export 'src/runtime/d4rt_runner.dart';

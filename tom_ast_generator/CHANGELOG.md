@@ -1,3 +1,20 @@
+## 0.2.0
+
+### Added — `AstBundlerConfig.includeSources` (sce236)
+
+The bundler can now fill `AstBundle.sources` with every bundled module's
+source text. The analyzer-free interpreter uses it to quote the script in a
+diagnostic. The option is off by default: it costs bundle size, and a release
+bundle may not want to ship its own source.
+
+Measured 2026-09-29 on a 26 KB corpus script
+(`material/animated_theme_test.dart`):
+
+| | Without sources | With sources | Change |
+| --- | ---: | ---: | ---: |
+| JSON | 308 KB | 335 KB | +9% |
+| Gzipped | 26.7 KB | 30.9 KB | +16% |
+
 ## 0.1.9
 
 ### Changed — resolves the current interpreter (sce212)

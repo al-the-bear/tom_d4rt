@@ -1,3 +1,12 @@
+## 1.199.0
+
+### Changed — the unsupported-node message has one shape in both trees (sce236)
+
+`visitNode` builds its message identically in this tree and in
+`tom_d4rt_ast`. Only the excerpt helper differs: it still renders with the
+analyzer's `toSource()`, now quoted by the helper itself. The text is
+unchanged: `Source: '<excerpt>'.`
+
 ## 1.198.0
 
 ### Fixed — a class name is identical to the Type it denotes (sce234)

@@ -1,3 +1,21 @@
+## 0.184.0
+
+### Fixed — an unsupported construct names where it is in the script (sce236)
+
+The "Unsupported AST node" error gave only a node type and an offset. Someone
+running a bundle compiled elsewhere has no file to count that offset into. It
+now ends with `Source: ...`:
+
+- when the bundle carries its sources: `'<excerpt>' (<module uri>:<line>:<column>)`;
+- when it does not: the module URI and offset, and how to get the excerpt.
+
+The module is found by walking the loaded modules for the node **by
+identity**. An offset is only meaningful within one module, and mirror nodes
+compare structurally. `AstModuleLoader` takes the bundle's optional
+`sources`, and `D4rtRunner` passes `bundle.sources` to it.
+`describeNodeSource` and `moduleContaining` are exported for host code that
+reports its own errors about a node.
+
 ## 0.183.0
 
 ### Fixed — a class name is identical to the Type it denotes (sce234)

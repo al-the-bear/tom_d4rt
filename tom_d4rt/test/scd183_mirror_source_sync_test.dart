@@ -171,6 +171,9 @@ const _astOnly = <String, String>{
       'module_loader.dart.',
   'd4rt_runner.dart':
       'the bundle entry point — the twin\'s answer to d4rt_base.dart.',
+  'node_source.dart':
+      'quotes a node from the bundle\'s own source for a diagnostic (SCE236). '
+      'The reference has `toSource()` and no bundle.',
   'module_context.dart':
       'the non-nullable permission/module surface the twin reaches through '
       'visitor.moduleContext, where the reference reaches '
@@ -325,7 +328,6 @@ const _memberDivergence = <String, (List<String>, List<String>)>{
   ),
   'interpreter_visitor.dart': (
     <String>[
-      'InterpreterVisitor._nodeExcerpt',
       'InterpreterVisitor.declSlots',
       'InterpreterVisitor.moduleLoader',
       'InterpreterVisitor.staticCoords',
