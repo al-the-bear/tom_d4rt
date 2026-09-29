@@ -48,6 +48,20 @@ Directory? _repoRoot() {
 /// The marker a name-resolution release carries, directly under its heading.
 const _marker = 'Name resolution: yes';
 
+/// Marked `tom_d4rt_ast` releases with NO `tom_d4rt` counterpart, each with
+/// the reason.
+///
+/// F-SCE29-2 expects the marked releases to pair up because a name-resolution
+/// change is normally mirrored. A change that brings the twin INTO line with
+/// the reference is the exception: the reference already behaves that way, so
+/// it has no release to mark, and a marker there would claim a change that
+/// never happened. Every entry must be a marked release (F-SCE29-2 checks).
+const Map<String, String> _twinOnlyRealignments = {
+  '0.187.0':
+      'scf9: the AST warm parent registers bridge types only, as tom_d4rt\'s '
+      'always has — the reference did not change',
+};
+
 /// Releases that are marked but cannot yet be certified, each with the reason.
 ///
 /// An entry here is a debt, not an exemption: it says a corpus run is owed and
@@ -60,6 +74,15 @@ const Map<String, String> _deferred = {
   // base corpus of both twins is recorded under `Verification runs` at that
   // pair — it covers every marked release up to it. An empty map is the
   // normal state; a new entry is a new debt with its reason.
+  //
+  // SCF9 switched the warm parent to types only. Unpublished: the twins
+  // resolve the interpreter from pub.dev (DGUC6), so no corpus run can measure
+  // it until scf42 publishes the release. The pre-publish base corpus with the
+  // parent reduced to types (2026-09-18, sce24) lost no script to an undefined
+  // name — a decision input under SCD66, not a verification run.
+  '0.187.0':
+      'unpublished (scf42): the post-publish base corpus of both twins is '
+      'owed once 0.187.0 is on pub.dev',
 };
 
 List<int> _key(String v) => v.split('.').map(int.parse).toList();
@@ -225,10 +248,18 @@ void main() {
       );
       expect(ast, isNotEmpty, reason: 'same for tom_d4rt_ast');
 
-      // The two trees are mirrors, so a marked change lands in both.
+      // Every twin-only entry names a marked release, or it is stale.
+      expect(
+        _twinOnlyRealignments.keys.where((v) => !ast.contains(v)),
+        isEmpty,
+        reason: 'a _twinOnlyRealignments entry names no marked release',
+      );
+
+      // The two trees are mirrors, so a marked change lands in both — except a
+      // realignment of the twin to the reference, recorded above.
       expect(
         source.length,
-        ast.length,
+        ast.where((v) => !_twinOnlyRealignments.containsKey(v)).length,
         reason:
             'a name-resolution change is mirrored, so each marked tom_d4rt '
             'release has a tom_d4rt_ast counterpart:\n'

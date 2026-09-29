@@ -1,3 +1,25 @@
+## 0.187.0
+
+### Changed — the runner's warm parent registers bridge TYPES only (scf9)
+
+`D4rtRunner`'s warm parent used to be a name baseline: every bridged class,
+enum, function, variable and accessor of every registered library was bound
+into one environment that every script encloses. So a bare name the script
+never imported still resolved — to whichever library declared it, or to an
+ambiguity between libraries the script never named — and
+`executeBundleAs` answered where `tom_d4rt_exec`'s `execute(source:)` said
+`Undefined variable`, for the same registration and the same program.
+
+It now registers the type lookup alone (`registerBridgeTypeLazy`), which is
+what `toBridgedInstance` needs, as `tom_d4rt`'s warm parent always has. A
+script's bare names come from its imports, as in Dart.
+
+**A host whose bundles name a bridged class they do not import will now see
+`Undefined variable`.** Add the import the name comes from. Measured before
+the switch: the AST base corpus lost no script to an undefined name.
+
+Name resolution: yes — a bare bridged name resolves only through the script's imports; the warm parent no longer binds every registered name (scf9).
+
 ## 0.186.0
 
 ### Fixed — `break` / `continue` in an async body run the finallys they cross (scf6)

@@ -1,25 +1,47 @@
 /// SCD4 (scd4_aicv) — a bridged name two packages share is judged over what
 /// the SCRIPT imports, not over everything the host registered.
 ///
-/// `D4rtRunner`'s warm parent is a name baseline: it registers every bridged
-/// class of every registered library into one environment, which every script
-/// encloses. Two libraries declaring `MarkdownParser` therefore made the bare
-/// name ambiguous there — in every script, whatever it imported.
+/// Until SCF9 `D4rtRunner`'s warm parent was a NAME baseline: every bridged
+/// class of every registered library was bound in one environment every script
+/// enclosed, so a name no import carried still resolved through it — the
+/// shape `cupertino/contextmenu_test.dart` met with `TextStyle`. These cases
+/// used to pin that baseline. SCF9 made the warm parent register bridge TYPES
+/// only, as `tom_d4rt`'s always has, and they now assert what the reference
+/// answers: a bare name resolves only through the script's own imports.
 ///
-/// A name the script's imports bring in is found in the script's own scope
-/// first, so this only surfaces when an import's recorded export surface is
-/// missing the name and the lookup falls through to the baseline. That is not
-/// hypothetical: `cupertino/contextmenu_test.dart` hit it with `TextStyle`
-/// while importing only cupertino, foundation and material (the platform
-/// half of that case is AMBIG-P*; this file is the package-vs-package half).
-/// Here the barrel re-exports nothing, and the class is registered under the
-/// package's `src/` library — the same shape, reproduced.
+///   * F-SCD4A-AST-1 — importing one barrel that exports the class gets it.
+///   * F-SCD4A-AST-2 — importing both is refused, as Dart refuses it.
+///   * F-SCD4A-AST-3 — a PREFIXED import brings no bare name at all: undefined.
+///     (Against the baseline this answered "ambiguous", from classes the script
+///     never imported.)
+///   * F-SCD4A-AST-4 — a barrel that does not export the class leaves it
+///     undefined. (Against the baseline it resolved anyway.)
 library;
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt_ast/runtime.dart';
 
 class _ScannerParser {}
+
+/// An error naming [name] as undefined — the reference's answer for a bare
+/// name no import of the script carries.
+Matcher _undefined(String name) => predicate<Object>(
+  (e) => '$e'.contains('Undefined') && '$e'.contains(name),
+  'an undefined-name error for $name',
+);
+
+extension on D4rtRunner {
+  /// [registerBridgedClass] when [condition] holds; keeps the fixture's
+  /// cascade linear.
+  void registerBridgedClassIf(
+    bool condition,
+    BridgedClass bridged,
+    String library,
+    String sourceUri,
+  ) {
+    if (condition) registerBridgedClass(bridged, library, sourceUri: sourceUri);
+  }
+}
 
 class _LatexParser {}
 
@@ -38,10 +60,11 @@ void main() {
     staticMethods: {'id': (visitor, positional, named, typeArgs) => answer},
   );
 
-  /// Both packages register a `MarkdownParser` under their `src/` library;
-  /// each barrel carries only a marker, so importing the barrel does not
-  /// bring `MarkdownParser` into the script's own scope.
-  D4rtRunner runner() => D4rtRunner()
+  /// Both packages register a `MarkdownParser` under their `src/` library.
+  /// When [barrelsExport], each barrel re-exports it as well (registered under
+  /// the barrel with the `src/` source URI, which is how a re-export is
+  /// recorded); otherwise the barrel carries only a marker.
+  D4rtRunner runner({bool barrelsExport = true}) => D4rtRunner()
     ..registerBridgedClass(
       BridgedClass(nativeType: Object, name: 'DocScanner'),
       scannerBarrel,
@@ -61,6 +84,18 @@ void main() {
       parser(_LatexParser, 'latex'),
       latexSrc,
       sourceUri: latexSrc,
+    )
+    ..registerBridgedClassIf(
+      barrelsExport,
+      parser(_ScannerParser, 'scanner'),
+      scannerBarrel,
+      scannerSrc,
+    )
+    ..registerBridgedClassIf(
+      barrelsExport,
+      parser(_LatexParser, 'latex'),
+      latexBarrel,
+      latexSrc,
     );
 
   SImportDirective importOf(String uri, {String? prefix}) => SImportDirective(
@@ -150,13 +185,23 @@ void main() {
       );
     });
 
-    test('F-SCD4A-AST-3: a prefixed import does not put its package in scope '
-        'for bare names [2026-09-11] (PASS)', () {
+    test('F-SCD4A-AST-3: a prefixed import brings no bare name — undefined, '
+        'not ambiguous [2026-09-29] (PASS)', () {
       expect(
         () => runner().executeBundleAs<Object?>(
           bundle([importOf(scannerBarrel, prefix: 'ds')]),
         ),
-        throwsA(isA<AmbiguousBridgedNameException>()),
+        throwsA(_undefined('MarkdownParser')),
+      );
+    });
+
+    test('F-SCD4A-AST-4: a barrel that does not export the class leaves the '
+        'bare name undefined [2026-09-29] (PASS)', () {
+      expect(
+        () => runner(
+          barrelsExport: false,
+        ).executeBundleAs<Object?>(bundle([importOf(scannerBarrel)])),
+        throwsA(_undefined('MarkdownParser')),
       );
     });
   });

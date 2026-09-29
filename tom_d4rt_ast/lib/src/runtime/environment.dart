@@ -841,9 +841,9 @@ class Environment {
   /// native objects returned by bridge methods regardless of whether the
   /// script's imports have been processed yet.
   ///
-  /// In practice [D4rtRunner._registerBridgedDefinitions] calls [defineBridge]
-  /// (which also sets the type entry), so this method is provided as a
-  /// type-only counterpart for callers that want to avoid name-scope pollution.
+  /// The runner's warm parent registers bridges through this (lazy) route
+  /// only (SCF9): the type lookup without the name binding, so a script's
+  /// bare names come from its imports.
   /// Mirrors [tom_d4rt:Environment.registerBridgeType].
   void registerBridgeType(BridgedClass bridgedClass) {
     registerBridgeTypeLazy(bridgedClass.nativeType, () => bridgedClass);

@@ -13,11 +13,19 @@
 ///
 /// F-SCD5A-AST-1 is the regression itself, in the shape the corpus met it:
 /// `cupertino/contextmenu_test.dart` imports cupertino, foundation and
-/// material, none of whose recorded surfaces carry `TextStyle`, so the name
-/// comes from the runner's baseline — where `dart:ui` and painting both
-/// declare it. Measured red when platform precedence is disabled
+/// material, and material's surface carries painting's `TextStyle` (through
+/// widgets) while its `Color` re-export keeps `dart:ui` among the packages the
+/// imports reach — so both declarations stand and only platform precedence
+/// settles it. Measured red when precedence is disabled
 /// (`Environment._peersAfterPlatformPrecedence` returning every candidate),
 /// with the same `Ambiguous Name Error` the corpus reported.
+///
+/// UNTIL SCF9 this case reached `TextStyle` through the runner's warm parent,
+/// a NAME baseline holding every bridged class, because the fixture's material
+/// surface did not carry it. The warm parent now registers types only, as
+/// `tom_d4rt`'s does, so a name no import carries is undefined —
+/// F-SCD5A-AST-5 pins that — and the fixture gives material the surface the
+/// real library has.
 ///
 /// The package-vs-package half of the rule — a script importing one of two
 /// packages gets that package's class — is `scd4a_ambiguity_import_scope_test`.
@@ -95,6 +103,11 @@ void main() {
     )
     ..registerBridgedClass(marker('MaterialApp'), material, sourceUri: material)
     ..registerBridgedClass(
+      declaring('TextStyle', _PaintingTextStyle, 'painting'),
+      material,
+      sourceUri: paintingSrc,
+    )
+    ..registerBridgedClass(
       BridgedClass(nativeType: int, name: 'Color'),
       material,
       sourceUri: uiLib,
@@ -160,8 +173,8 @@ void main() {
 
   group('SCD5A/AST: a script naming TextStyle gets the right one', () {
     test('F-SCD5A-AST-1: the tcca19 shape — cupertino, foundation and '
-        'material imported, TextStyle from the baseline — is painting\'s '
-        '[2026-09-11] (PASS)', () {
+        'material imported, both TextStyles reachable — is painting\'s '
+        '[2026-09-29] (PASS)', () {
       expect(
         run(flutterShapedRunner(), [cupertino, foundation, material]),
         'painting',
@@ -196,6 +209,20 @@ void main() {
       expect(
         runner.executeBundleAs<Object?>(bundle([pkg], className: 'Duration')),
         'timekeeping',
+      );
+    });
+
+    test('F-SCD5A-AST-5: a TextStyle no import of the script carries is '
+        'undefined, not reached through the runner [2026-09-29] (PASS)', () {
+      // cupertino and foundation carry only markers.
+      expect(
+        () => run(flutterShapedRunner(), [cupertino, foundation]),
+        throwsA(
+          predicate<Object>(
+            (e) => '$e'.contains('Undefined') && '$e'.contains('TextStyle'),
+            'an undefined-name error for TextStyle',
+          ),
+        ),
       );
     });
   });

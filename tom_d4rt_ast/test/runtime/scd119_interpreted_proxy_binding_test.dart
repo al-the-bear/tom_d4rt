@@ -259,7 +259,19 @@ AstBundle proxyBundle({
       entry: SCompilationUnit(
         offset: 0,
         length: 0,
-        directives: const [],
+        // SCF9: the script imports what it names; the runner no longer binds
+        // every registered class into a baseline every script encloses.
+        directives: [
+          SImportDirective(
+            offset: 0,
+            length: 0,
+            uri: SSimpleStringLiteral(
+              offset: 0,
+              length: 0,
+              value: 'package:probe/shape.dart',
+            ),
+          ),
+        ],
         declarations: [
           shapeSubclass(declared),
           if (param != declared) shapeSubclass(param),

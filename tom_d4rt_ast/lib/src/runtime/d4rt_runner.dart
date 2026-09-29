@@ -1442,7 +1442,7 @@ class D4rtRunner {
   }
 
   /// Builds a warm parent from this instance's per-instance registration maps
-  /// (legacy path). Stdlib + the full bridged-definition baseline.
+  /// (legacy path). Stdlib + the bridge TYPE lookup (SCF9).
   Environment _buildWarmParentFromInstanceMaps() {
     final parent = Environment();
     final swStdlib = D4rtProfiler.enabled ? (Stopwatch()..start()) : null;
@@ -1454,7 +1454,7 @@ class D4rtRunner {
       );
     }
     final swBridged = D4rtProfiler.enabled ? (Stopwatch()..start()) : null;
-    _registerBridgedDefinitions(parent);
+    _registerBridgeTypesInto(parent, _bridgedClasses);
     if (D4rtProfiler.enabled) {
       D4rtProfiler.record(
         'warmParent.registerBridgedDefinitions',
@@ -1465,8 +1465,8 @@ class D4rtRunner {
   }
 
   /// Builds a warm parent from the pooled bridge bundles for this instance's
-  /// granted packages (migrated path). Stdlib + the bridged definitions of the
-  /// allowed packages only, in sorted package order for determinism.
+  /// granted packages (migrated path). Stdlib + the bridge TYPE lookup of the
+  /// allowed packages only, in sorted package order for determinism (SCF9).
   Environment _buildWarmParentFromPool() {
     final parent = Environment();
     final swStdlib = D4rtProfiler.enabled ? (Stopwatch()..start()) : null;
@@ -1481,7 +1481,7 @@ class D4rtRunner {
     for (final packageName in _allowedPackages.toList()..sort()) {
       final bundle = _packagePool[packageName];
       if (bundle != null) {
-        _registerBridgedDefinitionsFromBundle(parent, bundle);
+        _registerBridgeTypesInto(parent, bundle.bridgedClasses);
       }
     }
     if (D4rtProfiler.enabled) {
@@ -1576,166 +1576,31 @@ class D4rtRunner {
     _visitor = null;
   }
 
-  /// Registers all bridged definitions into the environment.
+  /// Seeds [env] with the bridge TYPE lookup of [classes] — and nothing else.
   ///
-  /// Step 1 (import-optimization plan): iterates the URI-keyed registries
-  /// (`uri → name → element`) directly. Iteration is grouped by URI
-  /// (outer-map insertion order) then by name (inner-map insertion order);
-  /// this eager global dump is only a baseline for name resolution — import
-  /// directives later register the authoritative per-module surface.
-  void _registerBridgedDefinitions(Environment env) => _registerDefsInto(
-    env,
-    enumDefinitions: _bridgedEnumDefinitions,
-    classes: _bridgedClasses,
-    functionTypedefs: _functionTypedefs,
-    libraryFunctions: _libraryFunctions,
-    libraryVariables: _libraryVariables,
-    libraryGetters: _libraryGetters,
-    librarySetters: _librarySetters,
-  );
-
-  /// Step 8 — registers the bridged definitions of a single pooled
-  /// [_PackageBridgeBundle] into [env]. The bundle holds the same collection
-  /// shapes as the per-instance maps, so this delegates to [_registerDefsInto]
-  /// with the bundle's slices. Used by the migrated warm-parent build path
-  /// ([_buildWarmParentFromPool]).
-  void _registerBridgedDefinitionsFromBundle(
+  /// SCF9. The warm parent used to be a NAME baseline: it bound every bridged
+  /// class, enum, function, variable and accessor of every registered library
+  /// into one environment every script encloses, so a bare name no import of
+  /// the script carried still resolved — to whichever library happened to
+  /// declare it, or to an ambiguity between libraries the script never named.
+  /// `tom_d4rt`'s warm parent has always registered types only
+  /// (`registerBridgeTypeLazy`), leaving name binding to the import
+  /// directives, which is what Dart does. This is that, mirrored.
+  ///
+  /// The parent still needs the TYPES: `toBridgedInstance` wraps a native value
+  /// a bridge returns by its runtime type, before any import is processed.
+  ///
+  /// Measured before the switch (sce24 / scf9, 2026-09-18): the AST base corpus
+  /// run with the parent reduced to types lost no script to an undefined name.
+  void _registerBridgeTypesInto(
     Environment env,
-    _PackageBridgeBundle bundle,
-  ) => _registerDefsInto(
-    env,
-    enumDefinitions: bundle.bridgedEnumDefinitions,
-    classes: bundle.bridgedClasses,
-    functionTypedefs: bundle.functionTypedefs,
-    libraryFunctions: bundle.libraryFunctions,
-    libraryVariables: bundle.libraryVariables,
-    libraryGetters: bundle.libraryGetters,
-    librarySetters: bundle.librarySetters,
-  );
-
-  /// Shared baseline-registration logic for both the per-instance maps
-  /// ([_registerBridgedDefinitions]) and the pooled bundles
-  /// ([_registerBridgedDefinitionsFromBundle]). Iterates the URI-keyed
-  /// registries (`uri → name → element`) grouped by URI then by name; this
-  /// eager dump is only a baseline for name resolution — import directives
-  /// later register the authoritative per-module surface into the child env.
-  void _registerDefsInto(
-    Environment env, {
-    required Map<String, Map<String, LibraryEnum>> enumDefinitions,
-    required Map<String, Map<String, LibraryClass>> classes,
-    required List<
-      ({
-        String name,
-        String library,
-        int? requiredPositional,
-        int? maxPositional,
-      })
-    >
-    functionTypedefs,
-    required Map<String, Map<String, LibraryFunction>> libraryFunctions,
-    required Map<String, Map<String, LibraryVariable>> libraryVariables,
-    required Map<String, Map<String, LibraryGetter>> libraryGetters,
-    required Map<String, Map<String, LibrarySetter>> librarySetters,
-  }) {
-    // Register bridged enums.
-    //
-    // SCE25: the declaring URI travels with each registration, so two packages
-    // that both bridge an enum `Mode` make the bare name AMBIGUOUS rather than
-    // silently binding it to whichever registered last. Ambiguity recorded here
-    // is narrowed at the read by the reading script's imports
-    // (`_resolveAmbiguityInImportScope`, scd4_aicv), which is the same
-    // arrangement the class registration below has had since tcca19.
-    enumDefinitions.forEach((uri, byName) {
-      for (final libEnum in byName.values) {
-        final bridgedEnum = libEnum.enumDefinition.buildBridgedEnum();
-        env.defineBridgedEnum(bridgedEnum, sourceUri: libEnum.sourceUri ?? uri);
-      }
-    });
-
-    // Register bridged classes (Step #17 — lazily, so the class's member maps
-    // + adapter closures are only built when the env first resolves it).
-    // The declaring source URI travels with each registration: it is what a
-    // same-name collision is reported against and what the `<package>.Name`
-    // qualifier is derived from (see [Environment.defineBridgeLazy]).
-    classes.forEach((uri, byName) {
+    Map<String, Map<String, LibraryClass>> classes,
+  ) {
+    for (final byName in classes.values) {
       for (final libClass in byName.values) {
-        env.defineBridgeLazy(
-          libClass.name,
-          libClass.nativeType,
-          libClass.thunk,
-          sourceUri: libClass.sourceUri ?? uri,
-        );
-      }
-    });
-
-    // Register function typedefs as BridgedClass(nativeType: Function)
-    // so they can be resolved in type annotations and type arguments.
-    for (final typedef in functionTypedefs) {
-      env.defineBridge(
-        BridgedClass(nativeType: Function, name: typedef.name),
-        sourceUri: typedef.library,
-      );
-    }
-
-    // Register library functions
-    for (final byName in libraryFunctions.values) {
-      for (final libFunc in byName.values) {
-        final name = libFunc.function.name;
-        // Skip default "<native>" names - only define named functions
-        if (name != '<native>') {
-          env.define(name, libFunc.function);
-        }
-      }
-    }
-
-    // Register library variables
-    for (final byName in libraryVariables.values) {
-      for (final libVar in byName.values) {
-        env.define(libVar.name, libVar.value);
-      }
-    }
-
-    // Register library getters (with optional setters)
-    // Match getter and setter by name
-    final setterMap = <String, LibrarySetter>{};
-    for (final byName in librarySetters.values) {
-      for (final libSetter in byName.values) {
-        setterMap[libSetter.name] = libSetter;
-      }
-    }
-
-    for (final byName in libraryGetters.values) {
-      for (final getter in byName.values) {
-        final setter = setterMap[getter.name];
-        env.define(
-          getter.name,
-          GlobalGetter(getter.getter, setter: setter?.setter),
-        );
-      }
-    }
-
-    // Register any remaining setters without corresponding getters
-    // (These would be write-only properties, which is unusual but supported)
-    final registeredGetterNames = <String>{};
-    for (final byName in libraryGetters.values) {
-      for (final getter in byName.values) {
-        registeredGetterNames.add(getter.name);
-      }
-    }
-    for (final byName in librarySetters.values) {
-      for (final libSetter in byName.values) {
-        if (!registeredGetterNames.contains(libSetter.name)) {
-          // Write-only property - use a GlobalGetter with null getter
-          env.define(
-            libSetter.name,
-            GlobalGetter(
-              () => throw RuntimeD4rtException(
-                'Property ${libSetter.name} is write-only',
-              ),
-              setter: libSetter.setter,
-            ),
-          );
-        }
+        // Step #17 — deferred: the bridge body is built only if a native value
+        // of this type is actually wrapped at runtime.
+        env.registerBridgeTypeLazy(libClass.nativeType, libClass.thunk);
       }
     }
   }

@@ -25,6 +25,20 @@ library;
 import 'package:test/test.dart';
 import 'package:tom_d4rt_ast/runtime.dart';
 
+/// AClass's own native type, so a warm parent can be asked whether it knows
+/// the TYPE — which is all a warm parent holds since SCF9.
+class _AClass {}
+
+/// Whether [env]'s type lookup can wrap an `_AClass`. `toBridgedInstance`
+/// throws rather than returning null for a type nothing registered.
+bool _knowsAClass(Environment env) {
+  try {
+    return env.toBridgedInstance(_AClass()) != null;
+  } on RuntimeD4rtException {
+    return false;
+  }
+}
+
 void main() {
   /// Builds an [AstBundle] whose `main` returns the literal [returnValue] and
   /// additionally defines a top-level function named [extraName] so the test
@@ -127,17 +141,19 @@ void main() {
       final first = D4rtRunner();
       expect(first.providePackage('pkg_a'), isFalse);
       first.registerBridgedClass(
-        marker('AClass'),
+        BridgedClass(nativeType: _AClass, name: 'AClass'),
         'package:a/a.dart',
         sourceUri: 'package:a/a.dart',
       );
       first.executeBundleAs<int>(bundleWith(1, extraName: 'f1'));
 
-      // Positive control: instance 1's warm parent DOES expose AClass.
+      // Positive control: instance 1's warm parent DOES know AClass. Asked by
+      // TYPE: since SCF9 the warm parent binds no names, only the type lookup
+      // `toBridgedInstance` needs, as tom_d4rt's always has.
       final firstParent = first.visitor!.globalEnvironment.enclosing!;
       expect(
-        firstParent.findBridgedClassByName('AClass'),
-        isNotNull,
+        _knowsAClass(firstParent),
+        isTrue,
         reason: 'the granting instance sees its own pooled class',
       );
 
@@ -157,8 +173,8 @@ void main() {
       // SECURITY: AClass must NOT be visible in instance 2's warm parent.
       final secondParent = second.visitor!.globalEnvironment.enclosing!;
       expect(
-        secondParent.findBridgedClassByName('AClass'),
-        isNull,
+        _knowsAClass(secondParent),
+        isFalse,
         reason: 'instance 2 was not granted pkg_a — AClass is out of scope',
       );
 
@@ -168,8 +184,8 @@ void main() {
       third.executeBundleAs<int>(bundleWith(3, extraName: 't1'));
       final thirdParent = third.visitor!.globalEnvironment.enclosing!;
       expect(
-        thirdParent.findBridgedClassByName('AClass'),
-        isNull,
+        _knowsAClass(thirdParent),
+        isFalse,
         reason:
             'a legacy instance never pulls pooled bridges it did not '
             'register itself',
