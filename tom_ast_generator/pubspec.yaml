@@ -21,7 +21,7 @@ dependencies:
   # In-workspace components are pinned to a lower bound only (no upper cap) so
   # `pub upgrade` always tracks our latest published versions during active
   # development.
-  tom_d4rt_ast: "^0.184.0"
+  tom_d4rt_ast: "^0.195.0"
   tom_ast_model: "^0.2.2"
   tom_build_base: ">=2.10.0"
 
@@ -36,5 +36,5 @@ dev_dependencies:
   # test/example_resolution_test.dart use `package:tom_d4rt_generator/testing.dart`;
   # 1.19.0 is the first whose `resolveIfUnresolved` asks pub whether a project
   # resolves instead of only checking that a package config exists.
-  tom_d4rt_generator: "^1.46.0"
-  tom_d4rt_exec: "^1.35.0"
+  tom_d4rt_generator: "^1.50.0"
+  tom_d4rt_exec: "^1.38.0"
