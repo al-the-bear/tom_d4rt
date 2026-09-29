@@ -5270,6 +5270,16 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             );
           }
         }
+      } else if (targetValue is BoundObjectSuper) {
+        // SCF24: `super.toString()` / `super.noSuchMethod(i)` where the
+        // superclass is `Object`.
+        final member = targetValue.instance.objectMember(methodName);
+        if (member is! Callable) {
+          throw RuntimeD4rtException.resolutionFailure(
+            "Method '$methodName' not found in superclass chain of '${targetValue.instance.klass.name}'.",
+          );
+        }
+        calleeValue = member;
       } else if (targetValue is BoundSuper) {
         final instance = targetValue.instance;
         final startClass = targetValue.startLookupClass;
@@ -5286,9 +5296,23 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           currentClass = currentClass.superclass;
         }
 
+        // SCF24: a chain that ends at `Object` — its topmost class has no
+        // bridged superclass or mixin — inherits `Object`'s members.
+        var topClass = startClass;
+        while (topClass.superclass != null) {
+          topClass = topClass.superclass!;
+        }
+        final objectMember =
+            superMethod == null &&
+                topClass.bridgedSuperclass == null &&
+                topClass.bridgedMixins.isEmpty
+            ? instance.objectMember(methodName)
+            : null;
         if (superMethod != null) {
           // Bind the found super method to the original instance ('this')
           calleeValue = superMethod.bind(instance);
+        } else if (objectMember is Callable) {
+          calleeValue = objectMember;
         } else {
           throw RuntimeD4rtException.resolutionFailure(
             "Method '$methodName' not found in superclass chain of '${instance.klass.name}'.",
@@ -6188,6 +6212,19 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           );
         }
       }
+    } else if (target is BoundObjectSuper) {
+      // SCF24: `super.hashCode` / `super.runtimeType`, and a `super.toString`
+      // tear-off, where the superclass is `Object`.
+      final member = target.instance.objectMember(propertyName);
+      if (member == null) {
+        throw UndefinedMemberD4rtException(
+          "Undefined property '$propertyName' on 'super' of "
+          "'${target.instance.klass.name}'.",
+          memberName: propertyName,
+          receiver: target.instance,
+        );
+      }
+      return member;
     } else if (target is BoundSuper) {
       // Super Property Access
       final instance = target.instance;
@@ -10419,6 +10456,13 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     }
 
     if (standardSuperclass == null && bridgedSuperclass == null) {
+      // SCF24: the superclass is `Object`, which is a real superclass — a
+      // class declaring no `extends` still has `super.toString()` and
+      // `super.noSuchMethod(i)`, and an override commonly calls them.
+      final thisInstance = environment.get('this');
+      if (thisInstance is InterpretedInstance) {
+        return BoundObjectSuper(thisInstance);
+      }
       throw RuntimeD4rtException(
         "Class '${definingClass.name}' does not have a standard or bridged superclass, cannot use 'super'.",
       );

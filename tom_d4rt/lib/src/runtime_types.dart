@@ -1612,6 +1612,56 @@ class InterpretedInstance implements RuntimeValue {
     return '<instance of ${klass.name}>';
   }
 
+  /// What `Object` itself answers for [name] on this instance, or null when
+  /// [name] is not one of `Object`'s members that can be asked of an instance
+  /// by name.
+  ///
+  /// The answers every class inherits and a script class need not declare:
+  /// `toString` renders as `'$this'` does for a class with no override
+  /// ([_diagnosticString], never re-dispatching to a script `toString`, so
+  /// `super.toString()` inside an override cannot recurse into it);
+  /// `noSuchMethod` raises a catchable `NoSuchMethodError`, which is what
+  /// `super.noSuchMethod(invocation)` inside an override means; `hashCode` and
+  /// `runtimeType` are the values [get] answers.
+  Object? objectMember(String name) {
+    switch (name) {
+      case 'toString':
+        return NativeFunction(
+          (v, positionalArgs, namedArgs, typeArgs) => _diagnosticString,
+          arity: 0,
+          name: 'toString',
+        );
+      case 'noSuchMethod':
+        return NativeFunction(
+          (v, positionalArgs, namedArgs, typeArgs) {
+            final invocation = positionalArgs.isEmpty
+                ? null
+                : positionalArgs.first;
+            final member = invocation is Invocation
+                ? _symbolText(invocation.memberName)
+                : '?';
+            throw D4rtNoSuchMethodError(
+              "Instance of '${klass.name}' has no member named '$member'.",
+            );
+          },
+          arity: 1,
+          name: 'noSuchMethod',
+        );
+      case 'hashCode':
+        return hashCode;
+      case 'runtimeType':
+        return klass;
+    }
+    return null;
+  }
+
+  /// The text of [symbol] — `#foo` gives `foo` — without `dart:mirrors`.
+  static String _symbolText(Symbol symbol) {
+    final text = symbol.toString();
+    final match = RegExp(r'^Symbol\("(.*)"\)$').firstMatch(text);
+    return match?.group(1) ?? text;
+  }
+
   /// Dispatches to the script's `toString()` when there is one, and falls back
   /// to [_diagnosticString] otherwise.
   ///
@@ -1990,6 +2040,16 @@ class InterpretedInstance implements RuntimeValue {
       }
     }
 
+    // SCF24: `Object`'s own `toString` and `noSuchMethod`, which every object
+    // inherits. Reached only when nothing above answered — no script member of
+    // that name in the class, its mixins or its interpreted supers, and no
+    // bridged super that declares one; each of those is looked up first and
+    // wins. It precedes the `noSuchMethod` consultation below because in Dart
+    // an inherited member is found before `noSuchMethod` is asked.
+    if (name == 'toString' || name == 'noSuchMethod') {
+      return objectMember(name);
+    }
+
     // Check for noSuchMethod before throwing an error
     final noSuchMethod = klass.findInstanceMethod('noSuchMethod');
     if (answerMissWithNoSuchMethod && noSuchMethod != null && visitor != null) {
@@ -2349,6 +2409,15 @@ class BoundBridgedSuper {
   startLookupClass; // The bridged superclass where lookup begins
 
   BoundBridgedSuper(this.instance, this.startLookupClass);
+}
+
+/// Represents 'super' bound to an instance whose class's superclass is
+/// `Object`: no interpreted superclass, no bridged superclass and no bridged
+/// mixin. Its members are `Object`'s ([InterpretedInstance.objectMember]).
+class BoundObjectSuper {
+  final InterpretedInstance instance; // The actual 'this' instance
+
+  BoundObjectSuper(this.instance);
 }
 
 /// Represents an interpreted record value.

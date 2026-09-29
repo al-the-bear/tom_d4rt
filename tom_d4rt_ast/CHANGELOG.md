@@ -1,3 +1,23 @@
+## 0.190.0
+
+### Fixed — a script class that declares no `toString` still has `Object`'s (scf24)
+
+`class C {}` answered `hashCode`, `runtimeType`, `==` and `'$c'`, but an
+explicit `C().toString()`, its tear-off and a call through an `Object`
+parameter raised a no-such-method error naming a member the script correctly
+did not write. So did `super.toString()` and `super.noSuchMethod(i)` from a
+class whose superclass is `Object` — the forms an override commonly uses.
+
+`InterpretedInstance.objectMember(name)` holds `Object`'s answers:
+`toString` renders as `'$c'` does, without re-dispatching to a script
+override, so `super.toString()` inside one cannot recurse; `noSuchMethod`
+raises a catchable `NoSuchMethodError`. `InterpretedInstance.get` consults it
+last, after the script's own members, mixins, interpreted supers and a
+bridged super. `super` in a class whose superclass is `Object` binds to a new
+`BoundObjectSuper`, and a `super` chain through interpreted classes that ends
+at `Object` falls back to the same answers. A declared `toString` and a
+bridged super's still win.
+
 ## 0.189.0
 
 ### Changed — a generic element is type-tested by the same predicate as `is` (scf22)
