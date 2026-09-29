@@ -2211,6 +2211,7 @@ class InterpretedFunction implements Callable {
             lastResult =
                 conditionResult; // Update lastResult for the processing below
           } else if (conditionResult is bool) {
+            _endReplayedEvaluation(currentState);
             // Synchronous condition
             if (conditionResult) {
               // True condition: the next state is the body of the loop
@@ -2300,6 +2301,7 @@ class InterpretedFunction implements Callable {
             lastResult =
                 conditionResult; // Update lastResult for the processing below
           } else if (conditionResult is bool) {
+            _endReplayedEvaluation(currentState);
             // Synchronous condition
             if (conditionResult) {
               // True condition: the next state is the beginning of the loop body
@@ -3069,6 +3071,7 @@ class InterpretedFunction implements Callable {
                 conditionResult; // Update lastResult for the processing below
             // The general suspension logic will handle the await and resume
           } else if (conditionResult is bool) {
+            _endReplayedEvaluation(currentState);
             // Synchronous condition
             if (conditionResult) {
               // Condition true: the next state is the 'then' branch
@@ -4340,25 +4343,62 @@ class InterpretedFunction implements Callable {
   }
 
   // Determine the next AST node to execute after the resolution of an awaited Future.
-  /// The statement the state machine can re-execute to finish evaluating
-  /// [node], or null when re-entering it would restart a construct.
+  /// The node the state machine can re-execute to finish evaluating [node],
+  /// or null when re-entering it would restart a construct.
   ///
   /// SCE139: a variable declaration, an expression statement and a return each
   /// evaluate their expression once and then complete, so re-entering one
-  /// replays the await sites already resolved and finishes the statement. An
-  /// `if`, a loop or a switch would run its whole construct a second time, so
-  /// those keep the local re-evaluation below.
-  static Statement? _resumableStatementFor(AstNode node) {
+  /// replays the await sites already resolved and finishes the statement.
+  ///
+  /// SCF29 added the rest of what the machine can safely re-enter:
+  ///
+  /// * an `=>` body, whose unit of re-execution is its EXPRESSION — the same
+  ///   node the expression-body tail of [_determineNextNodeAfterAwait] hands
+  ///   back when no invocation is involved;
+  /// * an `if`, a `while` or a `do` reached from its CONDITION. Reaching one
+  ///   of these before any other statement means the await sits in the
+  ///   condition — a body's statements are statements of their own and are
+  ///   met first. The machine's branch for each is stateless on re-entry: an
+  ///   `if` and a `while` just evaluate the condition, and a `do` whose body
+  ///   has started (`doBodiesStarted`) evaluates it rather than restarting
+  ///   the body. Each clears the replay cache when the condition completes.
+  ///
+  /// A `for` is not re-entered: its node initialises the loop on arrival.
+  static AstNode? _resumableNodeFor(AstNode node) {
     AstNode? parent = node;
-    while (parent != null && parent is! Statement) {
+    while (parent != null &&
+        parent is! Statement &&
+        parent is! ExpressionFunctionBody) {
       parent = parent.parent;
     }
+    if (parent is ExpressionFunctionBody) return parent.expression;
     if (parent is VariableDeclarationStatement ||
         parent is ExpressionStatement ||
-        parent is ReturnStatement) {
-      return parent as Statement;
+        parent is ReturnStatement ||
+        parent is IfStatement ||
+        parent is WhileStatement ||
+        parent is DoStatement) {
+      return parent;
     }
     return null;
+  }
+
+  /// Whether [expression] is an `await` and nothing more, parentheses aside —
+  /// the one shape whose value `lastAwaitResult` already is (SCF29).
+  static bool _isTheAwait(Expression expression) =>
+      expression is AwaitExpression ||
+      (expression is ParenthesizedExpression &&
+          _isTheAwait(expression.expression));
+
+  /// SCF29: ends a replayed evaluation that finished without suspending, so
+  /// its per-site cache (SCC40) cannot leak into the next evaluation of the
+  /// same node — a loop condition re-evaluates the identical AST every
+  /// iteration.
+  static void _endReplayedEvaluation(AsyncExecutionState state) {
+    if (state.resumingStatementHasMoreAwaits) {
+      state.resumingStatementHasMoreAwaits = false;
+      state.resolvedAwaitResults.clear();
+    }
   }
 
   static AstNode? _determineNextNodeAfterAwait(
@@ -4510,20 +4550,18 @@ class InterpretedFunction implements Callable {
       // `resolvedAwaitResults`, the first one not yet reached suspends for real,
       // and the pass on which nothing suspends is the one that does the work —
       // one evaluation per pass, which is what keeps the counts right.
-      final Statement? resumableStatement = _resumableStatementFor(
-        awaitContextNode,
-      );
-      if (resumableStatement != null) {
+      final AstNode? resumableNode = _resumableNodeFor(awaitContextNode);
+      if (resumableNode != null) {
         Logger.debug(
           "[_determineNextNodeAfterAwait] Re-running "
-          "${resumableStatement.runtimeType} so the resolved await sites "
+          "${resumableNode.runtimeType} so the resolved await sites "
           "replay.",
         );
         state.resumingStatementHasMoreAwaits = true;
         if (visitor.environment != currentExecutionEnvironment) {
           visitor.environment = currentExecutionEnvironment;
         }
-        return resumableStatement;
+        return resumableNode;
       }
 
       // Re-execute the invocation with the resolved await value
@@ -4864,6 +4902,34 @@ class InterpretedFunction implements Callable {
         // Case: x += await f(); or x = await f();
         // This is the primary handler now as the context is the ExpressionStatement.
         final assignmentNode = expression; // Already cast
+
+        // SCF29: the code below assigns `lastAwaitResult` — the value of ONE
+        // await — as the whole right-hand side. That is right only when the
+        // RHS IS that await. `s = (await a) + (await b);` bound `s` to the
+        // first await's value and never reached the second at all (one call,
+        // not two): SCD121's original defect, on the assignment route rather
+        // than the declaration route. The repair is SCD121's: evaluate
+        // nothing here, hand the statement back, and let the resolved sites
+        // replay. `(await f).prop` keeps its fast path below, as it does in
+        // the declaration route.
+        final rhs = assignmentNode.rightHandSide;
+        final rhsIsTheAwait =
+            rhs is AwaitExpression ||
+            (rhs is ParenthesizedExpression &&
+                rhs.expression is AwaitExpression);
+        final rhsIsHandledPropertyAccess =
+            rhs is PropertyAccess && rhs.target is ParenthesizedExpression;
+        if (!rhsIsTheAwait && !rhsIsHandledPropertyAccess) {
+          Logger.debug(
+            "[_determineNextNodeAfterAwait] Assignment RHS contains more than "
+            "the await; re-running the statement so the resolved sites replay.",
+          );
+          state.resumingStatementHasMoreAwaits = true;
+          if (visitor.environment != currentExecutionEnvironment) {
+            visitor.environment = currentExecutionEnvironment;
+          }
+          return awaitContextNode;
+        }
         Object? resolvedRhs = state.lastAwaitResult; // La valeur résolue
         final operatorType = assignmentNode.operator.type;
         final lhs = assignmentNode.leftHandSide;
@@ -5182,6 +5248,17 @@ class InterpretedFunction implements Callable {
     else if (awaitContextNode is IfStatement && awaitExpression != null) {
       // ... (unchanged logic, but ensure it uses awaitContextNode) ...
     } else if (awaitContextNode is WhileStatement) {
+      // SCF29: the code below reads `lastAwaitResult` as the WHOLE condition,
+      // which is right only when the condition IS the await. Anything more —
+      // `(await a) + (await b) == 3`, `!await f()` — is re-entered so the
+      // machine re-evaluates the condition with the resolved sites replaying.
+      if (!_isTheAwait(awaitContextNode.condition)) {
+        state.resumingStatementHasMoreAwaits = true;
+        if (visitor.environment != currentExecutionEnvironment) {
+          visitor.environment = currentExecutionEnvironment;
+        }
+        return awaitContextNode;
+      }
       // The await was in the condition
       final conditionResult = state.lastAwaitResult;
       Logger.debug(
@@ -5216,6 +5293,17 @@ class InterpretedFunction implements Callable {
         return _findNextSequentialNode(visitor, awaitContextNode);
       }
     } else if (awaitContextNode is DoStatement) {
+      // SCF29: the code below reads `lastAwaitResult` as the WHOLE condition,
+      // which is right only when the condition IS the await. Anything more —
+      // `(await a) + (await b) == 3`, `!await f()` — is re-entered so the
+      // machine re-evaluates the condition with the resolved sites replaying.
+      if (!_isTheAwait(awaitContextNode.condition)) {
+        state.resumingStatementHasMoreAwaits = true;
+        if (visitor.environment != currentExecutionEnvironment) {
+          visitor.environment = currentExecutionEnvironment;
+        }
+        return awaitContextNode;
+      }
       // The await was in the condition
       final conditionResult = state.lastAwaitResult;
       Logger.debug(
@@ -5250,6 +5338,17 @@ class InterpretedFunction implements Callable {
         return _findNextSequentialNode(visitor, awaitContextNode);
       }
     } else if (awaitContextNode is IfStatement) {
+      // SCF29: the code below reads `lastAwaitResult` as the WHOLE condition,
+      // which is right only when the condition IS the await. Anything more —
+      // `(await a) + (await b) == 3`, `!await f()` — is re-entered so the
+      // machine re-evaluates the condition with the resolved sites replaying.
+      if (!_isTheAwait(awaitContextNode.expression)) {
+        state.resumingStatementHasMoreAwaits = true;
+        if (visitor.environment != currentExecutionEnvironment) {
+          visitor.environment = currentExecutionEnvironment;
+        }
+        return awaitContextNode;
+      }
       // The await was in the condition
       final ifNode = awaitContextNode;
       final conditionResult = state.lastAwaitResult;

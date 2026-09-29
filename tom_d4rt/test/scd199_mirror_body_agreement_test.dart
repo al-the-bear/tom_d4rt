@@ -232,7 +232,7 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpretedFunction._isWithin': 'a8bc018c',
     'InterpretedFunction._callImpl': 'c0f390c5',
     'InterpretedFunction._containsAwait': 'ee448f09',
-    'InterpretedFunction._determineNextNodeAfterAwait': 'b311adb9',
+    'InterpretedFunction._determineNextNodeAfterAwait': '3dd47cca',
     'InterpretedFunction._findEnclosingTryStatement': '64523cb5',
     'InterpretedFunction._findInvocationWithAwaitInArguments': '5fedfaed',
     'InterpretedFunction._findNextSequentialNode': 'f20b7114',
@@ -258,11 +258,12 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpretedFunction._nextFinallyTryBefore': '5b8b6fab',
     'InterpretedFunction._prepareExecutionEnvironment': '01cdcb72',
     'InterpretedFunction._resolveTypeAnnotationDynamic': 'ea018cda',
-    // SCE139: the statement walker the return and invocation resumption
-    // routes hand their statement back through, divergent for the same
-    // architectural reason as its neighbours — the mirror AST has no
-    // `parent` getter, so the twin walks with `_parentOf`.
-    'InterpretedFunction._resumableStatementFor': 'ca3c88e4',
+    // SCE139 / SCF29: the walker that finds the unit an await resumption
+    // hands back to the state machine (a statement, an `=>` body's
+    // expression, or an if / while / do reached from its condition),
+    // divergent for the same architectural reason as its neighbours — the
+    // mirror AST has no `parent` getter, so the twin walks with `_parentOf`.
+    'InterpretedFunction._resumableNodeFor': 'ca3c88e4',
     // SCE102 moved this signature without changing what diverges. The
     // empty-loop-body fallback landed symmetrically in both trees — the
     // added lines are identical modulo the `S` prefix — and a symmetric
@@ -270,7 +271,7 @@ const _divergentBodies = <String, Map<String, String>>{
     // because the hash is over both bodies. The divergence itself is
     // unchanged: the mirror AST has no `parent` getter, so the twin walks
     // with `_parentOf`.
-    'InterpretedFunction._runStateMachine': 'ae751c99',
+    'InterpretedFunction._runStateMachine': '20316ac1',
     'InterpretedFunction._tryOwningCatchClauseOf': 'f1617e03',
     'InterpretedFunction._tryOwningFinallyBlockOf': '34fd9762',
     'InterpretedFunction.bind': '78b56933',
@@ -351,7 +352,7 @@ const _divergentBodies = <String, Map<String, String>>{
     // helper differs: `toSource()` here, the bundled source in the twin.
     'InterpreterVisitor._nodeExcerpt': 'b5e37909',
     'InterpreterVisitor.visitPostfixExpression': 'b327ada1',
-    'InterpreterVisitor.visitPrefixExpression': '60bcc308',
+    'InterpreterVisitor.visitPrefixExpression': 'd0305f8e',
     'InterpreterVisitor.visitPrefixedIdentifier': '8998a214',
     'InterpreterVisitor.visitPropertyAccess': 'f38664e1',
     'InterpreterVisitor.visitReturnStatement': 'b0d7b56c',

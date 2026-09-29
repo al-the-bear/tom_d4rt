@@ -9453,6 +9453,10 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     final operatorType = node.operator.type;
     final operandNode = node.operand;
     final operandValue = operandNode.accept<Object?>(this);
+    // SCF29: an awaited operand (`!await f()`, `-await g()`) suspends. Hand
+    // the suspension up to the machine instead of applying the operator to
+    // the interpreter's own request object, which is what `!` used to try.
+    if (operandValue is AsyncSuspensionRequest) return operandValue;
     final bridgedInstance = toBridgedInstance(operandValue);
     final operand = bridgedInstance.$2
         ? bridgedInstance.$1!.nativeObject

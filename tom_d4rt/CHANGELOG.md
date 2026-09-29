@@ -1,3 +1,26 @@
+## 1.209.0
+
+### Fixed — four await-resumption routes that re-evaluated or dropped an await (scf29)
+
+Measured with a `next()` that counts its calls:
+
+- `=> add(await next(), await next())` answered 4 with three calls;
+- `if (add(await next(), await next()) == 3)` took the false branch;
+- `while (add(await next(), 0) < 2)` never ran its body;
+- `s = (await next()) + (await next());` bound the first await's value and
+  never evaluated the second.
+
+Each now hands its unit back to the state machine so the resolved await sites
+replay: an `=>` body's expression, and an `if` / `while` / `do` reached from
+its condition, join the statements SCE139 re-runs (`_resumableNodeFor`), and
+an assignment whose right-hand side is more than the await is re-run as
+SCD121 re-runs a declaration. The machine's `if` / `while` / `do` branches end
+the replay cache when their condition completes, so a loop condition does not
+replay a previous iteration's values. The same reading of one await's value as
+the whole condition broke `if ((await a) + (await b) == 3)` and
+`while (!await f())`; both are re-entered the same way, and a prefix operator
+now propagates an awaited operand's suspension instead of applying `!` to it.
+
 ## 1.208.0
 
 ### Changed — binding a typed collection is O(1) in its length (scf28)

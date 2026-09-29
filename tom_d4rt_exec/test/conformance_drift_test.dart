@@ -2202,6 +2202,13 @@ const Map<String, _Convergence> _convergenceLog = {
 /// re-measure the whole register when the floor moves, not the entry you
 /// happened to be reading.
 const Map<String, _Divergence> _divergentBaseline = {
+  // SCF29: four await-resumption routes (an `=>` body, `if` / `while`
+  // conditions, an assignment) resume without re-evaluating or dropping an
+  // await. The published interpreter still does, so this port carries the
+  // reference verbatim but for group-level skips.
+  // PUBLISH-BLOCKED — re-port when exec's tom_d4rt_ast floor passes 0.194.0,
+  // by copying the reference file down; converges at a floor past 0.194.0.
+  'scf29_await_resumption_routes_test.dart': _Divergence.deliberate,
   // SCF28: binding a typed collection reads a bounded prefix of it. The
   // published interpreter reads every element, so F-SCF28-1's read count and
   // F-SCF28-4's post-prefix check fail; this port carries the reference
@@ -2337,6 +2344,7 @@ const Map<String, _Divergence> _divergentBaseline = {
 /// Recomputing without reading the new difference is the failure mode; the
 /// message says so.
 const Map<String, String> _divergenceFingerprints = <String, String>{
+  'scf29_await_resumption_routes_test.dart': '90d6a7c786e2567d',
   'scf28_bounded_element_sample_test.dart': '08d113648392ceab',
   'scf27_bounded_class_construction_test.dart': '716c04e6ebf1d909',
   'scf25_bare_accessor_test.dart': '4b8b46d8dff418b1',
@@ -2532,6 +2540,11 @@ typedef _Pin = ({String floor, String measured});
 /// recorded evidence was seven and ten cases out of date. Both are re-stamped
 /// above their entries in `_uncoveredBaseline`.
 const Map<String, _Pin> _pinnedInterpreterFloors = <String, _Pin>{
+  // SCF29, pinned at the release that re-runs the four resumption routes.
+  'scf29_await_resumption_routes_test.dart': (
+    floor: '0.194.0',
+    measured: '0.184.0',
+  ),
   // SCF28, pinned at the release that samples the element-type derivation.
   'scf28_bounded_element_sample_test.dart': (
     floor: '0.193.0',
