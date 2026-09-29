@@ -2815,13 +2815,20 @@ Map<String, String> _uncoveredEntryComments() => _entryComments(
 /// the exec twin red on a tree nobody was looking at.
 /// Shared guideline files that are NOT expected to match, and why.
 ///
-/// SCD55. One entry, and it is permanent: `index.md` lists each package's own
-/// contents, so the two copies describe different file sets by construction.
+/// SCD55. `index.md` is permanent: it lists each package's own contents, so
+/// the two copies describe different file sets by construction. The other
+/// kind of entry is a POINTER — a file kept in one tree whose copy in the other
+/// is a short redirect to it, so the two are different documents on purpose
+/// and the maintained copy is compared with nothing.
 const Map<String, String> _guidelineExempt = {
   'index.md':
       'each package indexes its own folder — tom_d4rt has '
       'sync_with_tom_d4rt_ast.md and exec has hosted_drift.md, so the two '
       'lists are different documents about different things',
+  'd4rt_interpreter_vs_d4rt_generator.md':
+      'a POINTER in exec (scf10): the guide is maintained in tom_d4rt, whose '
+      'copy and the global one had diverged in both directions from the '
+      'byte-identical exec copy; three copies became one and two redirects',
 };
 
 /// Guideline FILES that legitimately exist in one tree only.
