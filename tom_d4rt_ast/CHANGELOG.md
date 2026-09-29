@@ -1,3 +1,24 @@
+## 0.193.0
+
+### Changed — binding a typed collection is O(1) in its length (scf28)
+
+SCD92 checks a declared `List<T>` / `Set<T>` / `Map<K, V>` against the type a
+native collection's contents share, because a native collection carries no
+element type the interpreter can read back. That derivation read every
+element on every binding — parameters, typed locals, typed patterns, for-each
+variables — about 0.096 us per element, half a millisecond per binding of a
+5000-element list. It now reads the first `Environment.elementTypeSample` (8)
+elements: the overhead of `List<int> v = c;` over `var v = c;` is flat at
+about 4 us from 100 to 5000 elements, where it was 98 us and 474 us.
+
+The bound is 8 because both suites pass at 2 and 4 and exactly one case
+(a disagreement at index 1) fails at 1. One answer changes: a collection that
+agrees for the whole prefix and disagrees later used to count as
+heterogeneous and pass; it is now checked against the prefix's type, and
+refused only when a prefix element is provably not the declared argument —
+which Dart refuses too. A top-type argument (`List<dynamic>`) was already
+exempt before any element is read.
+
 ## 0.192.0
 
 ### Fixed — a bounded generic class accepts its own constructor (scf27)

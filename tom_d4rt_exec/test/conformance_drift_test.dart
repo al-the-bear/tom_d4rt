@@ -2202,6 +2202,13 @@ const Map<String, _Convergence> _convergenceLog = {
 /// re-measure the whole register when the floor moves, not the entry you
 /// happened to be reading.
 const Map<String, _Divergence> _divergentBaseline = {
+  // SCF28: binding a typed collection reads a bounded prefix of it. The
+  // published interpreter reads every element, so F-SCF28-1's read count and
+  // F-SCF28-4's post-prefix check fail; this port carries the reference
+  // verbatim but for a group-level skip.
+  // PUBLISH-BLOCKED — re-port when exec's tom_d4rt_ast floor passes 0.193.0,
+  // by copying the reference file down; converges at a floor past 0.193.0.
+  'scf28_bounded_element_sample_test.dart': _Divergence.deliberate,
   // SCF27: a bounded generic class constructed without a written type
   // argument runs; the published interpreter refuses it against the bound, so
   // this port carries the reference verbatim but for a group-level skip.
@@ -2330,6 +2337,7 @@ const Map<String, _Divergence> _divergentBaseline = {
 /// Recomputing without reading the new difference is the failure mode; the
 /// message says so.
 const Map<String, String> _divergenceFingerprints = <String, String>{
+  'scf28_bounded_element_sample_test.dart': '08d113648392ceab',
   'scf27_bounded_class_construction_test.dart': '716c04e6ebf1d909',
   'scf25_bare_accessor_test.dart': '4b8b46d8dff418b1',
   'scf24_object_members_test.dart': 'cbfe98a21f396777',
@@ -2524,6 +2532,11 @@ typedef _Pin = ({String floor, String measured});
 /// recorded evidence was seven and ten cases out of date. Both are re-stamped
 /// above their entries in `_uncoveredBaseline`.
 const Map<String, _Pin> _pinnedInterpreterFloors = <String, _Pin>{
+  // SCF28, pinned at the release that samples the element-type derivation.
+  'scf28_bounded_element_sample_test.dart': (
+    floor: '0.193.0',
+    measured: '0.184.0',
+  ),
   // SCF27, pinned at the release that checks only written class type args.
   'scf27_bounded_class_construction_test.dart': (
     floor: '0.192.0',
