@@ -1,3 +1,21 @@
+## 1.48.0
+
+### Fixed — barrel `show` / `hide` clauses are honoured whatever form the project path takes (scf1)
+
+`generateBridges` produced different bridges for a relative and an absolute
+`projectPath`: 110 classes against 97 on `example/dart_overview`. The export
+map was keyed by the barrel path in the caller's form, while every lookup used
+the parse step's always-absolute `sourceFile`, so a relative path — what
+`d4rtgen -p .` passes — matched nothing and the export-clause filter failed
+OPEN. `parseExportFiles` now keys by the absolute normalised path. Both forms
+produce identical output, and a class the barrel does not export from its file
+is no longer bridged.
+
+**This changes generated output for any package generated with a relative
+path whose barrel uses `show` or `hide`: classes the barrel does not export
+disappear from its bridges.** Regenerate, and check that no script depended on
+a class the barrel never exported.
+
 ## 1.47.0
 
 ### Fixed — the fixture-parity report names a repair that works (sce250)

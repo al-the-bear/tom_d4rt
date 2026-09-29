@@ -2122,8 +2122,15 @@ class BridgeGenerator {
     );
 
     for (final barrelPath in barrelFiles) {
-      // Normalize path for comparison
-      final normalizedPath = p.normalize(barrelPath);
+      // SCF1: ABSOLUTE and normalised, never the form the caller handed in.
+      // Every key of the returned map derives from this path, and the lookups
+      // against it use `ClassInfo.sourceFile` & co., which the parse step
+      // always absolutises. A relative barrel therefore produced relative keys
+      // that no lookup could hit: the `show`/`hide` filter failed OPEN, and
+      // `d4rtgen -p .` generated classes the barrel never exports (110 against
+      // 97 on `example/dart_overview`) while the same config given an
+      // absolute path filtered correctly.
+      final normalizedPath = p.normalize(p.absolute(barrelPath));
       // For top-level barrel files, allow re-processing even if already visited
       // during recursive export chain from another barrel. This ensures each
       // top-level barrel gets its own barrelUri assigned correctly.
@@ -2197,7 +2204,9 @@ class BridgeGenerator {
               continue;
             }
             // Convert package: to relative path for current package
-            absolutePath = '$workspacePath/lib/$exportRelativePath';
+            absolutePath = p.normalize(
+              p.absolute(p.join(workspacePath, 'lib', exportRelativePath)),
+            );
           } else {
             // Determine if we should follow this external package's re-exports
             bool shouldFollow;
