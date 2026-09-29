@@ -1,3 +1,24 @@
+## 1.49.0
+
+### Added — `@D4rtUserProxy` directives emit proxies (scf15)
+
+A proxy directive used to be discovered and then only warned about:
+`generateProxies` was keyed by class name and could not express a concrete
+instantiation. `ProxyClassConfig` gains `instantiations` (a list of
+type-argument tuples, also readable from `buildkit.yaml`) and `libraryPath`.
+For each tuple the proxy file carries
+`typedef D4rt<Base><Args> = D4rt<Base><Args...>;`, and the base's
+`registerInterfaceProxy` factory selects that alias by the type arguments the
+script wrote in its `extends` clause, falling back to the erased proxy as
+before. `generateBridges` folds every proxy directive into `proxyClasses`
+(`proxyClassesWithDirectives`). A directive is itself the request: the proxy
+stage runs without `generateProxies: true`, and `proxiesOutputPath` defaults to
+`proxies.b.dart` beside the relaxer output. The "discovered but not emitted"
+warning is gone.
+
+Generated output changes only for packages that carry a proxy directive or
+configure `instantiations`; no package in the workspace does today.
+
 ## 1.48.0
 
 ### Fixed — barrel `show` / `hide` clauses are honoured whatever form the project path takes (scf1)

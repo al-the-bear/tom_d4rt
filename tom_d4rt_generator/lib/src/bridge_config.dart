@@ -340,12 +340,39 @@ class ProxyClassConfig {
   /// ```
   final Map<String, String> superArgDefaults;
 
+  /// Concrete type-argument tuples for which a named, fully instantiated
+  /// proxy should be emitted in addition to the generic one.
+  ///
+  /// Each tuple produces a `typedef D4rt<Base><Args> = D4rt<Base><Args...>;`
+  /// alias and one arm of the `registerInterfaceProxy` factory, selected by the
+  /// script's reified `extends Base<...>` type arguments. A script subclass of
+  /// an invariant generic base therefore gets a native proxy whose reified type
+  /// matches what it declared, rather than the `<Object>` fallback.
+  ///
+  /// Normally filled from `@D4rtUserProxy` directives (see
+  /// `proxyClassesForDirectives`), but also readable from buildkit.yaml:
+  /// ```yaml
+  /// d4rtgen:
+  ///   proxyClasses:
+  ///     - className: TomFormList
+  ///       instantiations:
+  ///         - [Customer, CustomerForm]
+  /// ```
+  final List<List<String>> instantiations;
+
+  /// The library declaring [className], when it is known and may not be
+  /// exported by any module barrel — a `@D4rtUserProxy` directive names it.
+  /// Searched before the module barrels.
+  final String? libraryPath;
+
   const ProxyClassConfig({
     required this.className,
     this.proxyName,
     this.mixinVariants = const [],
     this.typeArgVariants = const [],
     this.superArgDefaults = const {},
+    this.instantiations = const [],
+    this.libraryPath,
   });
 
   factory ProxyClassConfig.fromJson(Map<String, dynamic> json) {
@@ -365,6 +392,12 @@ class ProxyClassConfig {
               (k, v) => MapEntry(k.toString(), v.toString()),
             ) ??
             const {},
+        instantiations:
+            (json['instantiations'] as List?)
+                ?.map((e) => (e as List).map((a) => a.toString()).toList())
+                .toList() ??
+            const [],
+        libraryPath: json['libraryPath'] as String?,
       );
     }
     throw ArgumentError('ProxyClassConfig requires className: $json');
@@ -391,11 +424,22 @@ class ProxyClassConfig {
       if (typeArgVariants.isNotEmpty)
         'typeArgVariants': typeArgVariants.map((v) => v.toJson()).toList(),
       if (superArgDefaults.isNotEmpty) 'superArgDefaults': superArgDefaults,
+      if (instantiations.isNotEmpty) 'instantiations': instantiations,
+      if (libraryPath != null) 'libraryPath': libraryPath,
     };
   }
 
   /// The name of the generated proxy class.
   String get effectiveProxyName => proxyName ?? 'D4rt$className';
+
+  /// The name of the alias emitted for one of [instantiations]:
+  /// [effectiveProxyName] followed by each type argument with everything that
+  /// is not an identifier character dropped — `[Customer, CustomerForm]` gives
+  /// `D4rtTomFormListCustomerCustomerForm`, `[List<int>]` gives
+  /// `D4rtBoxListint`.
+  String instantiationProxyName(List<String> typeArgs) =>
+      effectiveProxyName +
+      typeArgs.map((a) => a.replaceAll(RegExp(r'[^A-Za-z0-9_$]'), '')).join();
 }
 
 /// A single generic type-argument variant of a [ProxyClassConfig].

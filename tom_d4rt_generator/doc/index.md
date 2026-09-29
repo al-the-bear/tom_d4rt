@@ -79,11 +79,9 @@ knobs let a consumer trade generate-everything for a scanned allowlist.
   The doc covers the variant syntax, three worked examples
   (explicit multi-param, wildcard, single-param), the expansion/rendering API,
   the `UserProxyRelaxerScanner` element-walker, the unit/resolution tests
-  (`G-UVP-*`, `G-UPR-*`, `G-UPS-*`), and the deferred emission/regen/integration
-  tail. The parsing/expansion engine (`lib/src/user_variant_pattern.dart`),
-  annotations, directive core, and scanner shipped alongside `mixinVariants`
-  and `typeArgVariants`; the **annotation-driven emission** is part of the
-  deferred tail (see Status below).
+  (`G-UVP-*`, `G-UPR-*`, `G-UPS-*`, `G-SCE47-*`, `G-SCF15-*`), and what each
+  directive kind emits — proxy directives as typed proxy aliases with a
+  type-argument selector, relaxer directives as extraction sites.
 
 ### Deprecated-symbol allowlist (`@Deprecated` opt-in)
 

@@ -7,11 +7,9 @@ editing `buildkit.yaml`. They mirror the `@D4rtUserBridge` convention: a const
 annotation carrying string-syntax arguments, applied to a class extending a
 marker base (`D4UserProxy` / `D4UserRelaxer`) that the generator pre-scans.
 
-This doc covers the **directive-discovery + variant-expansion core**: how the
-annotations are parsed into concrete generic
-instantiations. The live wiring into `generateProxies` / `generateRelaxers` and
-the `lib/src/d4rt_user_proxies/` + `…_user_relaxers/` folder pre-scan is the
-deferred tail (see *Status* below).
+This doc covers how the annotations are discovered, how their variants expand
+into concrete generic instantiations, and what the generator emits for each
+(see *Emission* below).
 
 ---
 
@@ -23,6 +21,8 @@ deferred tail (see *Status* below).
 | `D4UserProxy` / `D4UserRelaxer` marker bases | `tom_d4rt/lib/src/generator/d4.dart` (mirrored in `tom_d4rt_ast`) |
 | Variant-pattern engine (analyzer-free) | `tom_d4rt_generator/lib/src/user_variant_pattern.dart` |
 | Directive core + element-walker | `tom_d4rt_generator/lib/src/user_proxy_relaxer_scanner.dart` |
+| Folder pre-scan | `tom_d4rt_generator/lib/src/user_bridge_prescan.dart` (`preScanUserVariantDirectives`) |
+| Directive → emitter input | `tom_d4rt_generator/lib/src/user_variant_sites.dart` |
 
 All four are re-exported from `package:tom_d4rt/d4rt.dart` (annotations +
 markers) and `package:tom_d4rt_generator/tom_d4rt_generator.dart` (engine +
@@ -155,8 +155,8 @@ and is not duplicated.
 `renderUserVariantInstantiationBlock(directives, candidatePool)` renders a
 deterministic, golden-stable block grouping each directive's instantiations
 under a `// <kind> <baseClass>` header, noting `//   (no matching candidates)`
-when a directive expands to nothing — the regen-independent artifact the future
-emission wiring will consume.
+when a directive expands to nothing — a regen-independent view of what a set of
+directives asks for.
 
 ---
 
@@ -181,6 +181,45 @@ Directive classes belong in `lib/src/d4rt_user_proxies/` (proxy) and
 
 ---
 
+## Emission
+
+`generateBridges` pre-scans the directive folders before generating, then
+hands each kind to its emitter. The candidate pool a wildcard expands against
+is every class the package bridges.
+
+**Proxy directives** become `ProxyClassConfig.instantiations` — merged into an
+existing `proxyClasses` entry for the same base (keeping its proxy name), or a
+new entry carrying the directive's library. A directive is itself the request,
+so a package gets its proxy file even without `generateProxies: true`; an unset
+`proxiesOutputPath` defaults to `proxies.b.dart` beside the relaxer output. For
+worked example 1 the file carries the generic proxy plus one alias per variant:
+
+```dart
+class D4rtTomFormList<TElement, TForm> extends TomFormList<TElement, TForm> { … }
+
+typedef D4rtTomFormListCustomerCustomerDetailForm =
+    D4rtTomFormList<Customer, CustomerDetailForm>;
+typedef D4rtTomFormListOrderOrderForm = D4rtTomFormList<Order, OrderForm>;
+```
+
+and its `registerInterfaceProxy('TomFormList', …)` factory switches on the
+type arguments the script wrote in its `extends` clause
+(`InterpretedClass.bridgedSuperTypeArgNames`), constructing the matching alias
+so the native object's reified type is the one the script declared. Any other
+instantiation falls back to the erased `D4rtTomFormList<Object, Object>`.
+
+An alias name is the proxy name followed by each type argument with
+non-identifier characters dropped (`[List<int>]` → `…Listint`). A variant whose
+type arguments are exported by none of the module barrels, the base's library
+or `dart:core` is reported as an error and skipped, since the alias would not
+compile.
+
+**Relaxer directives** become generic extraction sites, the input the relaxer
+emitter already consumes. It builds wrappers for single-type-parameter classes
+only and warns by name on a multi-parameter variant.
+
+---
+
 ## Tests
 
 | Suite | File | Covers |
@@ -188,30 +227,17 @@ Directive classes belong in `lib/src/d4rt_user_proxies/` (proxy) and
 | `G-UVP-1..24` | `test/user_variant_pattern_test.dart` | The wildcard / capture / spec engine (pure). |
 | `G-UPR-1..16` | `test/user_proxy_relaxer_directive_test.dart` | Directive parse / expand / render + golden block (pure). |
 | `G-UPS-1..7` | `test/user_proxy_relaxer_scanner_test.dart` | The element-walker against a resolved fixture. |
+| `G-SCE47-1..7` | `test/sce47_directive_wiring_test.dart` | The folder pre-scan, and relaxer directives → extraction sites. |
+| `G-SCF15-1..7` | `test/scf15_user_proxy_emission_test.dart` | Proxy directives → instantiations, end to end through `generateBridges`, with the output analysed and an anti-vacuity twin without the directive. |
 
 ---
 
-## Status — shipped core vs. deferred tail
+## Status
 
-**Shipped:** the variant-pattern engine, the annotations + marker
-bases, the directive core (`UserVariantDirective` parse / expand / render), the
-instantiation-block emitter, and the `UserProxyRelaxerScanner` element-walker —
-all with unit + resolution tests. None of this touches a live `*.b.dart` or any
-generation entry point.
-
-**Deferred (flutter-gated tail):**
-
-- Wiring the scanner into `bridge_api.dart` / `per_package_orchestrator.dart`
-  folder pre-scan and excluding directive classes from normal generation
-  in the pre-scan.
-- Splicing the expanded instantiations into live `generateProxies` /
-  `generateRelaxers` output, including the genuinely new multi-type-parameter
-  relaxer generation — the **emission** half.
-- Component golden of a real generated proxy/relaxer file from a fixture
-  project.
-- Both-twin regeneration + serial `flutter test` base-test gate.
-- End-to-end integration of a `TomFormList<TElement, TForm>` script and a
-  wildcard-pattern case.
+Discovery, expansion and emission are wired for both kinds. What no test
+covers yet is a script: no Flutter-twin package carries a directive, so
+nothing runs an interpreted `extends TomFormList<Customer, CustomerDetailForm>`
+against a generated proxy.
 
 The still-required manual interventions and what the generator now automates
 are catalogued in `../../tom_d4rt/doc/manual_bridge_interventions.md`.

@@ -17,7 +17,8 @@ import 'd4rtgen_logging.dart';
 import 'file_generators.dart';
 import 'proxy_generator.dart';
 import 'relaxer_generator.dart';
-import 'user_variant_sites.dart' show userVariantExtractionSites;
+import 'user_variant_sites.dart'
+    show proxyClassesWithDirectives, userVariantExtractionSites;
 import 'user_bridge_prescan.dart'
     show preScanUserBridges, preScanUserVariantDirectives;
 
@@ -513,15 +514,38 @@ Future<GenerationResult> generateBridges({
       outputFiles.add(testRunnerPath);
     }
 
-    // Generate proxy classes if requested (GEN-083)
-    if (bridgeConfig.generateProxies && bridgeConfig.proxyClasses.isNotEmpty) {
+    // Generate proxy classes if requested (GEN-083).
+    //
+    // SCF15: `@D4rtUserProxy` directives are folded in as concrete
+    // instantiations. A directive is itself the request, so a package that
+    // carries one gets its proxies even without `generateProxies: true`, and
+    // an unset output path falls back to `proxies.b.dart` beside the relaxer
+    // output — the same way the relaxer stage derives its own.
+    final proxyDirectives = userVariantScanner.proxyDirectives;
+    final proxyConfig = proxyDirectives.isEmpty
+        ? bridgeConfig
+        : bridgeConfig.copyWith(
+            generateProxies: true,
+            proxiesOutputPath:
+                bridgeConfig.proxiesOutputPath ??
+                p.join(
+                  p.dirname(bridgeConfig.relaxerOutputPath),
+                  'proxies.b.dart',
+                ),
+            proxyClasses: proxyClassesWithDirectives(
+              bridgeConfig.proxyClasses,
+              proxyDirectives,
+              globalClassLookup.keys.toList()..sort(),
+            ),
+          );
+    if (proxyConfig.generateProxies && proxyConfig.proxyClasses.isNotEmpty) {
       // Phase 4 / summary-refactoring-plan: reuse the analysis context
       // already built by the bridge-generation loop. When no modules were
       // processed (e.g., a proxy-only run), `lastGenerator` is null and
       // `generateProxies` will build its own summary-backed context from
       // [summaryPaths] / [sdkSummaryPath] as before.
       final proxyResult = await generateProxies(
-        config: bridgeConfig,
+        config: proxyConfig,
         projectPath: projectDir,
         librarySummaryPaths: summaryPaths,
         sdkSummaryPath: sdkSummaryPath,
@@ -549,24 +573,14 @@ Future<GenerationResult> generateBridges({
     // WHAT THIS DOES NOT REACH, so the silence does not simply move: the
     // relaxer emitter generates wrappers for SINGLE-type-parameter classes
     // only, and warns by name on anything else — so a multi-parameter variant
-    // is reported rather than dropped. `@D4rtUserProxy` has no path at all:
-    // `generateProxies` is driven by `config.proxyClasses`, which carries no
-    // type-argument variants, so those directives are warned about below
-    // instead of being silently ignored as they were before.
+    // is reported rather than dropped. `@D4rtUserProxy` directives went to
+    // the proxy stage above, as instantiations.
     allExtractionSites.addAll(
       userVariantExtractionSites(
         userVariantScanner.relaxerDirectives,
         globalClassLookup.keys.toList()..sort(),
       ),
     );
-    for (final directive in userVariantScanner.proxyDirectives) {
-      warnings.add(
-        '@D4rtUserProxy for ${directive.baseClass} '
-        '(${directive.libraryPath}) was discovered but not emitted: '
-        'generateProxies is driven by proxyClasses, which carries no '
-        'type-argument variants. See SCF15.',
-      );
-    }
 
     // Generate relaxer wrappers (GEN-079) — always runs, output path
     // auto-derived from first module when not explicitly configured.

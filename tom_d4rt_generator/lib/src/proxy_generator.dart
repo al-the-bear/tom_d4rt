@@ -151,6 +151,14 @@ class ProxyGenerationInfo {
   /// Parallel to [typeParameterNames].
   final List<bool> typeParameterIsFBounded;
 
+  /// The concrete instantiations emitted as named aliases, each with the
+  /// alias name. Empty for a plain generic (or non-generic) proxy. Parallel
+  /// lists: `instantiations[i]` is aliased as `instantiationProxyNames[i]`.
+  final List<List<String>> instantiations;
+
+  /// Alias names for [instantiations], e.g. `D4rtZomBoxZomCustomer`.
+  final List<String> instantiationProxyNames;
+
   const ProxyGenerationInfo({
     required this.className,
     required this.proxyName,
@@ -160,6 +168,8 @@ class ProxyGenerationInfo {
     this.overridableMethods = const [],
     this.typeParameterNames = const [],
     this.typeParameterIsFBounded = const [],
+    this.instantiations = const [],
+    this.instantiationProxyNames = const [],
   });
 }
 
@@ -263,7 +273,7 @@ Future<ProxyGenerationResult> generateProxies({
   for (final proxyConfig in config.proxyClasses) {
     var found = false;
 
-    for (final barrelUri in barrelUris) {
+    for (final barrelUri in [?proxyConfig.libraryPath, ...barrelUris]) {
       final element = await _findClassInBarrel(
         collection,
         barrelUri,
@@ -323,11 +333,53 @@ Future<ProxyGenerationResult> generateProxies({
   // configured, matching pre-fix behaviour.
   importUris.add(config.d4rtImport ?? 'package:tom_d4rt_ast/runtime.dart');
 
+  // SCF15: the concrete instantiations each proxy is emitted for, after
+  // dropping any whose type arguments cannot be resolved — an alias naming a
+  // type the file does not import would not compile. Keyed by class name.
+  final resolvedInstantiations = <String, List<List<String>>>{};
+
   for (final (proxyConfig, element, barrelUri) in proxyEntries) {
     // Determine the best import for this class
     final importUri = _getBestImportUri(element, barrelUri);
     importUris.add(importUri);
     classImportMap[proxyConfig.className] = importUri;
+
+    final kept = <List<String>>[];
+    for (final tuple in proxyConfig.instantiations) {
+      if (tuple.length != element.typeParameters.length) {
+        errors.add(
+          'Proxy instantiation ${proxyConfig.className}<${tuple.join(', ')}> '
+          'supplies ${tuple.length} type argument(s); the class declares '
+          '${element.typeParameters.length}',
+        );
+        continue;
+      }
+      final tupleImports = <String>{};
+      String? missing;
+      for (final name in {for (final arg in tuple) ..._typeNamesIn(arg)}) {
+        final uri = await _findTypeImportUri(collection, name, [
+          ?proxyConfig.libraryPath,
+          barrelUri,
+          ...barrelUris,
+        ]);
+        if (uri == null) {
+          missing = name;
+          break;
+        }
+        if (!uri.startsWith('dart:core')) tupleImports.add(uri);
+      }
+      if (missing != null) {
+        errors.add(
+          'Proxy instantiation ${proxyConfig.className}<${tuple.join(', ')}>: '
+          'type "$missing" is exported by none of the module barrels or the '
+          "class's own library, so the alias could not be imported",
+        );
+        continue;
+      }
+      importUris.addAll(tupleImports);
+      kept.add(tuple);
+    }
+    resolvedInstantiations[proxyConfig.className] = kept;
 
     // Also collect imports for parameter types used in abstract and
     // overridable methods
@@ -472,6 +524,23 @@ Future<ProxyGenerationResult> generateProxies({
     buffer.writeln('}');
     buffer.writeln();
 
+    // SCF15: one named alias per concrete instantiation. An alias rather than
+    // a subclass: the generic proxy already carries every override and the
+    // callback constructor, and an alias of it is constructible, so the only
+    // thing a variant adds is its reified type arguments.
+    final instantiations = resolvedInstantiations[className] ?? const [];
+    final instantiationNames = [
+      for (final tuple in instantiations)
+        proxyConfig.instantiationProxyName(tuple),
+    ];
+    for (var i = 0; i < instantiations.length; i++) {
+      final args = instantiations[i].join(', ');
+      buffer.writeln('/// D4rt proxy for [$className] instantiated as');
+      buffer.writeln('/// `$className<$args>`.');
+      buffer.writeln('typedef ${instantiationNames[i]} = $proxyName<$args>;');
+      buffer.writeln();
+    }
+
     proxies.add(
       ProxyGenerationInfo(
         className: className,
@@ -498,6 +567,8 @@ Future<ProxyGenerationResult> generateProxies({
           // followed by `<` to skip unrelated identifiers.
           return boundStr.contains('$className<');
         }).toList(),
+        instantiations: instantiations,
+        instantiationProxyNames: instantiationNames,
       ),
     );
 
@@ -540,36 +611,26 @@ Future<ClassElement?> _findClassInBarrel(
   String className,
   String projectPath,
 ) async {
-  try {
-    // Get the analysis context for the project
-    final context = collection.contexts.first;
+  final element = await _findExportedElement(collection, barrelUri, className);
+  return element is ClassElement ? element : null;
+}
 
-    // Resolve the barrel URI to a library element
-    LibraryElement? libraryElement;
-
-    if (barrelUri.startsWith('dart:')) {
-      // SDK library — resolve via the analysis session
-      final result = await context.currentSession.getLibraryByUri(barrelUri);
-      if (result is LibraryElementResult) {
-        libraryElement = result.element;
-      }
-    } else if (barrelUri.startsWith('package:')) {
-      final result = await context.currentSession.getLibraryByUri(barrelUri);
-      if (result is LibraryElementResult) {
-        libraryElement = result.element;
-      }
-    }
-
-    if (libraryElement == null) return null;
-
-    // Search the library's exported namespace for the class
-    final exportNamespace = libraryElement.exportNamespace;
-    final element = exportNamespace.get2(className);
-    if (element is ClassElement) {
-      return element;
-    }
-
+/// Finds any element named [name] in the export namespace of the `dart:` or
+/// `package:` library [libraryUri]; null when the library does not resolve or
+/// does not export it.
+Future<Element?> _findExportedElement(
+  AnalysisContextCollection collection,
+  String libraryUri,
+  String name,
+) async {
+  if (!libraryUri.startsWith('dart:') && !libraryUri.startsWith('package:')) {
     return null;
+  }
+  try {
+    final context = collection.contexts.first;
+    final result = await context.currentSession.getLibraryByUri(libraryUri);
+    if (result is! LibraryElementResult) return null;
+    return result.element.exportNamespace.get2(name);
   } catch (e) {
     // Barrel might not be resolvable — skip silently
     return null;
@@ -984,30 +1045,30 @@ void _generateProxyFactoryRegistration(
     final typeArgList = proxy.typeParameterNames.isEmpty
         ? ''
         : '<${typeParameterReplacements.join(', ')}>';
+
+    // SCF15: a proxy with concrete instantiations picks the one the script
+    // declared (`extends Base<A, B>`), read from the reified type-argument
+    // names the interpreter records on the class. Those are bare names, so
+    // the case key drops any nested arguments and nullability. Anything else
+    // falls through to the erased proxy below, exactly as before.
+    if (proxy.instantiations.isNotEmpty) {
+      buffer.writeln(
+        '    final typeArgNames = '
+        "instance.klass.bridgedSuperTypeArgNames?.join(', ') ?? '';",
+      );
+      buffer.writeln('    switch (typeArgNames) {');
+      for (var i = 0; i < proxy.instantiations.length; i++) {
+        final tuple = proxy.instantiations[i];
+        buffer.writeln("      case '${_selectorKey(tuple)}':");
+        buffer.writeln('        return ${proxy.instantiationProxyNames[i]}(');
+        _generateFactoryCallbacks(buffer, proxy, tuple, indent: '    ');
+        buffer.writeln('        );');
+      }
+      buffer.writeln('    }');
+    }
+
     buffer.writeln('    return ${proxy.proxyName}$typeArgList(');
-
-    // Abstract methods — always provide a callback
-    for (final method in proxy.abstractMethods) {
-      _generateFactoryCallback(
-        buffer,
-        method,
-        isRequired: true,
-        typeParameterNames: proxy.typeParameterNames,
-        typeParameterReplacements: typeParameterReplacements,
-      );
-    }
-
-    // Overridable methods — provide callback only if interpreted class overrides
-    for (final method in proxy.overridableMethods) {
-      _generateFactoryCallback(
-        buffer,
-        method,
-        isRequired: false,
-        typeParameterNames: proxy.typeParameterNames,
-        typeParameterReplacements: typeParameterReplacements,
-      );
-    }
-
+    _generateFactoryCallbacks(buffer, proxy, typeParameterReplacements);
     buffer.writeln('    );');
     buffer.writeln('  });');
     buffer.writeln();
@@ -1015,6 +1076,76 @@ void _generateProxyFactoryRegistration(
 
   buffer.writeln('}');
   buffer.writeln();
+}
+
+/// The callbacks of one proxy constructor call, with the class's type
+/// parameters replaced by [typeParameterReplacements].
+void _generateFactoryCallbacks(
+  StringBuffer buffer,
+  ProxyGenerationInfo proxy,
+  List<String> typeParameterReplacements, {
+  String indent = '',
+}) {
+  final callbacks = StringBuffer();
+  // Abstract methods — always provide a callback
+  for (final method in proxy.abstractMethods) {
+    _generateFactoryCallback(
+      callbacks,
+      method,
+      isRequired: true,
+      typeParameterNames: proxy.typeParameterNames,
+      typeParameterReplacements: typeParameterReplacements,
+    );
+  }
+  // Overridable methods — provide callback only if interpreted class overrides
+  for (final method in proxy.overridableMethods) {
+    _generateFactoryCallback(
+      callbacks,
+      method,
+      isRequired: false,
+      typeParameterNames: proxy.typeParameterNames,
+      typeParameterReplacements: typeParameterReplacements,
+    );
+  }
+  if (indent.isEmpty) {
+    buffer.write(callbacks);
+    return;
+  }
+  for (final line in callbacks.toString().trimRight().split('\n')) {
+    if (line.isEmpty) {
+      buffer.writeln();
+    } else {
+      buffer.writeln('$indent$line');
+    }
+  }
+}
+
+/// The key `bridgedSuperTypeArgNames` produces for a script extending the
+/// instantiation [tuple]: the interpreter records each argument's bare name,
+/// so `[List<int>, Foo?]` is matched as `'List, Foo'`.
+String _selectorKey(List<String> tuple) => tuple
+    .map((a) => a.replaceAll(RegExp(r'<.*>'), '').replaceAll('?', '').trim())
+    .join(', ');
+
+/// The type names a type-argument string mentions: `Map<String, Foo?>` gives
+/// `Map`, `String`, `Foo`.
+Iterable<String> _typeNamesIn(String typeArg) => RegExp(
+  r'[A-Za-z_$][A-Za-z0-9_$]*',
+).allMatches(typeArg).map((m) => m.group(0)!);
+
+/// The import URI that brings type [name] into scope, or null when none of
+/// [libraryUris] nor `dart:core` exports it. `dart:core` is reported as such
+/// so the caller can skip the import.
+Future<String?> _findTypeImportUri(
+  AnalysisContextCollection collection,
+  String name,
+  List<String> libraryUris,
+) async {
+  if (const {'dynamic', 'void', 'Never'}.contains(name)) return 'dart:core';
+  for (final uri in ['dart:core', ...libraryUris]) {
+    if (await _findExportedElement(collection, uri, name) != null) return uri;
+  }
+  return null;
 }
 
 /// Generates a single callback argument for a proxy factory.
