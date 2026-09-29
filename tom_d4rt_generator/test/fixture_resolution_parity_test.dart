@@ -192,7 +192,10 @@ void main() {
           ),
         );
 
-        expect(report, contains('dart pub get'));
+        expect(
+          report,
+          contains('cd ${fixture.path} && dart pub upgrade tom_d4rt_ast'),
+        );
         expect(report, contains('tom_d4rt_ast'));
         expect(
           report,
@@ -203,5 +206,59 @@ void main() {
         );
       },
     );
+
+    test('G-PARITY-7: the repair is pub UPGRADE, and the message says why pub '
+        'get cannot work [2026-09-29] (PASS)', () {
+      writeLock(host, {'archive': ('transitive', '4.3.0')});
+      writeLock(fixture, {'archive': ('transitive', '4.2.0')});
+      final report = describeMismatches(
+        compareFixtureResolution(
+          hostProjectPath: host.path,
+          fixtureProjectPath: fixture.path,
+        ),
+      );
+      // The measured failure (sce250): `dart pub get` in d4_test_scripts
+      // left archive at 4.2.0 and the guard failed identically.
+      expect(report, isNot(contains('Repair: `dart pub get`')));
+      expect(report, contains('pub upgrade archive'));
+      expect(report, contains('lock-preserving'));
+    });
+
+    test('G-PARITY-8: when the HOST is behind, the repair names the host '
+        '[2026-09-29] (PASS)', () {
+      writeLock(host, {'tom_d4rt': ('direct main', '1.192.0')});
+      writeLock(fixture, {'tom_d4rt': ('direct main', '1.200.0')});
+      final mismatches = compareFixtureResolution(
+        hostProjectPath: host.path,
+        fixtureProjectPath: fixture.path,
+      );
+      expect(mismatches.single.hostIsBehind, isTrue);
+      final report = describeMismatches(mismatches);
+      expect(report, contains('cd ${host.path} && dart pub upgrade tom_d4rt'));
+      expect(report, isNot(contains('cd ${fixture.path}')));
+    });
+
+    test('G-PARITY-9: a Flutter project is repaired with flutter pub '
+        '[2026-09-29] (PASS)', () {
+      writeLock(host, {'archive': ('transitive', '4.3.0')});
+      writeLock(fixture, {'archive': ('transitive', '4.2.0')});
+      File(p.join(fixture.path, 'pubspec.yaml')).writeAsStringSync(
+        'name: f\ndependencies:\n  flutter:\n    sdk: flutter\n',
+      );
+      final report = describeMismatches(
+        compareFixtureResolution(
+          hostProjectPath: host.path,
+          fixtureProjectPath: fixture.path,
+        ),
+      );
+      expect(report, contains('flutter pub upgrade archive'));
+    });
+
+    test('G-PARITY-10: compareVersions orders by the numeric core '
+        '[2026-09-29] (PASS)', () {
+      expect(compareVersions('1.192.0', '1.200.0'), lessThan(0));
+      expect(compareVersions('0.10.0', '0.9.9'), greaterThan(0));
+      expect(compareVersions('4.3.0', '4.3.0'), 0);
+    });
   });
 }

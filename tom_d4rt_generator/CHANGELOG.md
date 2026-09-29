@@ -1,3 +1,17 @@
+## 1.47.0
+
+### Fixed — the fixture-parity report names a repair that works (sce250)
+
+`describeMismatches` (`package:tom_d4rt_generator/testing.dart`, behind every
+`*-PARITY-EX` guard) told the reader to run `dart pub get` in the fixture.
+`pub get` is lock-preserving: a stale lock that still satisfies its
+constraints stays exactly where it is, so the guard failed again with the
+identical message. It now names `pub upgrade <packages>` in the side that is
+BEHIND — the host as well as the fixture, since a fixture upgraded after a
+publish can lead its host — using `flutter pub` for a Flutter project, and
+says why `get` cannot work. `ResolutionMismatch` gains `hostPath` and
+`hostIsBehind`; `compareVersions` orders two pub versions.
+
 ## 1.46.0
 
 ### Fixed — `generateBridges` no longer drops name-collision warnings (sce231)
