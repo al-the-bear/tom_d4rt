@@ -44,6 +44,13 @@ class GenerationResult {
   /// without capturing stdout.
   final List<String> warnings;
 
+  /// What the class-name dedup did across modules on this run (SCE231).
+  ///
+  /// Not a warning: every multi-module run has one, and [warnings] is empty
+  /// for a clean configuration. `null` when generation stopped before any
+  /// module ran.
+  final DedupReport? dedup;
+
   const GenerationResult({
     required this.totalClasses,
     required this.totalModules,
@@ -51,10 +58,44 @@ class GenerationResult {
     required this.config,
     this.errors = const [],
     this.warnings = const [],
+    this.dedup,
   });
 
   /// Whether generation was successful (no errors).
   bool get isSuccess => errors.isEmpty;
+}
+
+/// The two halves of `generateBridges`' class-name dedup (SCE231).
+///
+/// Re-exports are skipped (GEN-076: same name AND same source file as a class
+/// an earlier module generated). A name an earlier module generated from a
+/// DIFFERENT source file is kept in both modules — Dart disambiguates such a
+/// pair by import (`dart:ui` `Image` and the widgets `Image`), so it is
+/// reported, not refused. Within one module GEN-045 keeps the first of two
+/// same-name classes and reports it as a `NAME COLLISION` warning instead.
+class DedupReport {
+  /// Classes skipped because an earlier module generated the same class.
+  final int crossModuleReExports;
+
+  /// name -> the distinct source files that generated a class under it, in
+  /// module order, for every name generated from more than one.
+  final Map<String, List<String>> crossModuleSameName;
+
+  const DedupReport({
+    required this.crossModuleReExports,
+    required this.crossModuleSameName,
+  });
+
+  /// One line, printed at the end of every run.
+  String get summary {
+    final names = crossModuleSameName.keys.toList()..sort();
+    final listed = names.isEmpty
+        ? ''
+        : ': ${names.map((n) => '$n <- ${crossModuleSameName[n]!.join(' | ')}').join('; ')}';
+    return 'Dedup: $crossModuleReExports class(es) skipped as cross-module '
+        're-exports; ${names.length} class name(s) generated from different '
+        'source files in different modules$listed';
+  }
 }
 
 /// Options a `d4rtgen:` block may set that ONLY the build_runner builder reads.
@@ -236,6 +277,7 @@ Future<GenerationResult> generateBridges({
   var totalClasses = 0;
   final outputFiles = <String>[];
   final errors = <String>[];
+  DedupReport? dedup;
   final effectivePackageName =
       BuildConfigLoader.getPackageName(projectDir) ?? bridgeConfig.name;
 
@@ -277,6 +319,13 @@ Future<GenerationResult> generateBridges({
 
     // GEN-079: Collect class lookup across modules for relaxer generation.
     final globalClassLookup = <String, ClassInfo>{};
+
+    // SCE231: what the name dedup did, both halves, so it is observable.
+    // Re-exports GEN-076 skipped (same name AND source as an earlier module),
+    // and names an earlier module generated from a DIFFERENT source file —
+    // kept in both modules. name -> distinct source files, arrival order.
+    var crossModuleReExports = 0;
+    final crossModuleSameName = <String, List<String>>{};
 
     // GEN-079: Collect generic extraction sites and GEN-075 classes
     // across all modules for relaxer generation.
@@ -376,6 +425,29 @@ Future<GenerationResult> generateBridges({
       // have analysed a path that does not exist while reporting "clean".
       outputFiles.addAll(result.outputFiles);
       errors.addAll(result.errors);
+      // SCE231: carry GEN-045's within-module NAME COLLISION warnings out.
+      // The module result was dropped here, so on the path that regenerates
+      // the Flutter corpus a collision was silent. The other per-module
+      // warnings are skip reports — thousands per Flutter run — and are
+      // counted rather than forwarded.
+      for (final warning in result.warnings) {
+        if (warning.contains('NAME COLLISION')) {
+          warnings.add(warning);
+          print(warning);
+        } else if (warning.contains('(cross-module dedup)')) {
+          crossModuleReExports++;
+        }
+      }
+      for (final entry in result.generatedClassSources.entries) {
+        final prior = globallyGeneratedClasses[entry.key];
+        if (prior != null && prior != entry.value) {
+          final files = crossModuleSameName.putIfAbsent(
+            entry.key,
+            () => [prior],
+          );
+          if (!files.contains(entry.value)) files.add(entry.value);
+        }
+      }
       // GEN-076: Accumulate generated class sources for next module
       globallyGeneratedClasses.addAll(result.generatedClassSources);
       // GEN-079: Accumulate class lookup for relaxer generation
@@ -389,6 +461,15 @@ Future<GenerationResult> generateBridges({
         'global total: ${globallyGeneratedClasses.length}',
       );
     }
+
+    // SCE231: one summary line per run. A build-time refusal of colliding
+    // names is deferred until the runtime guard (scd195 in both twins) is
+    // red; this is the generator-side evidence that decision wanted.
+    dedup = DedupReport(
+      crossModuleReExports: crossModuleReExports,
+      crossModuleSameName: crossModuleSameName,
+    );
+    print('  ${dedup.summary}');
 
     // Generate barrel file if requested
     if (bridgeConfig.generateBarrel && bridgeConfig.barrelPath != null) {
@@ -523,6 +604,7 @@ Future<GenerationResult> generateBridges({
     config: bridgeConfig,
     errors: errors,
     warnings: warnings,
+    dedup: dedup,
   );
 }
 

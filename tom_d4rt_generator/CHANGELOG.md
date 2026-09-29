@@ -1,3 +1,33 @@
+## 1.46.0
+
+### Fixed — `generateBridges` no longer drops name-collision warnings (sce231)
+
+`generateBridges` discarded each module's warnings, including GEN-045's
+`NAME COLLISION`, so on the path that regenerates the Flutter twins a
+same-name collision inside one module was reported nowhere. It now carries
+those warnings on `GenerationResult.warnings` and prints them. The per-module
+skip reports are counted, not forwarded, because a Flutter run produces
+thousands of them.
+
+### Added — the name dedup reports what it did
+
+Every `generateBridges` run now prints one `Dedup:` line and returns the same
+counts as `GenerationResult.dedup` (a `DedupReport`). They are not added to
+`warnings`, which stays empty for a clean configuration. The line gives the number of classes skipped as
+cross-module re-exports (same name and same source file, GEN-076) and names
+every class that was generated from different source files in different
+modules. `PerPackageBridgeOrchestrator.buildGlobalClassLookup` (the
+build_runner path) reports the same two numbers, and exposes them as
+`reExportedSourceFileCount` and `classNameCollisions`.
+
+Measured over `tom_d4rt_flutter_ast` on 2026-09-29: 1 455 re-exports, 0
+collisions inside a module, and 5 names shared across modules. The five are
+`Colors` (material and vector_math), plus `Gradient`, `Image`, `StrutStyle`
+and `TextStyle` (dart:ui and Flutter). Dart tells each pair apart by import,
+and the runtime collision guard sees no two native types competing for one
+name. So a build-time refusal of shared names would reject five legitimate
+pairs and catch nothing, and none is added. Generated output is unchanged.
+
 ## 1.45.0
 
 ### Added — a bridged member must have exactly one kind (sce225)

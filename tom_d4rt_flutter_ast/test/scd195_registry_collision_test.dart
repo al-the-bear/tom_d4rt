@@ -198,9 +198,12 @@ void main() {
             'is one class reached through several barrels, which '
             '`defineBridgeLazy` deduplicates on purpose and which describes '
             '1 659 of the names here.\n\n'
-            'Fix the GENERATOR, not the `.b.dart` — and consider whether '
-            '`PerPackageBridgeOrchestrator` should refuse the name at build '
-            'time, since it already holds the whole-corpus view.',
+            'Fix the GENERATOR, not the `.b.dart`. Its `Dedup:` line names '
+            'every class generated from different sources under one name. A '
+            'build-time refusal was decided against while this case was '
+            'green (sce231: the five shared names then were legitimate '
+            'dart:ui/Flutter and material/vector_math pairs). This case going '
+            'red is the moment to revisit that.',
       );
     });
 

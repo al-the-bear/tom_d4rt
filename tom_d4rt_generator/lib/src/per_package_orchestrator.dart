@@ -119,6 +119,32 @@ class PerPackageBridgeOrchestrator {
   /// Key is class name, value is ClassInfo.
   final Map<String, ClassInfo> _globalClassLookup = {};
 
+  /// Every barrel each source file was reached through, across all modules.
+  ///
+  /// SCE231: the orchestrator's dedup is keyed by SOURCE FILE, so a class
+  /// re-exported through several barrels is one entry and never meets a name
+  /// comparison. Recorded so that dedup is observable rather than inferred.
+  final Map<String, Set<String>> _barrelsBySourceFile = {};
+
+  /// Class names declared by more than one source file, collected by
+  /// [buildGlobalClassLookup]: name -> the distinct declaring source files, in
+  /// arrival order.
+  final Map<String, List<String>> _classNameCollisions = {};
+
+  /// Source files reached through more than one barrel — the re-exports the
+  /// path-keyed dedup absorbs. Populated by [collectPackageInfo].
+  int get reExportedSourceFileCount =>
+      _barrelsBySourceFile.values.where((b) => b.length > 1).length;
+
+  /// Class names that more than one source file declares, as seen by
+  /// [buildGlobalClassLookup]. These are NOT re-exports (those were absorbed
+  /// per source file before any name was compared): they are distinct classes
+  /// sharing a simple name, and the global lookup keeps the last one parsed.
+  /// Within one package GEN-045 already reports and resolves this (first
+  /// wins); this is the cross-package view nothing else reports.
+  Map<String, List<String>> get classNameCollisions =>
+      Map.unmodifiable(_classNameCollisions);
+
   /// Generic extraction sites accumulated across every per-package generator
   /// run by [generatePerPackageFiles]. Consumed by `generateRelaxers` on the
   /// build_runner path so the orchestrator emits the same `relaxers.b.dart`
@@ -326,6 +352,9 @@ class PerPackageBridgeOrchestrator {
         );
 
         for (final sourceFile in exports.keys) {
+          _barrelsBySourceFile
+              .putIfAbsent(sourceFile, () => <String>{})
+              .add(barrelUri);
           // Track which barrel exports this source file
           // Preference order:
           // 1. Primary barrel (barrelImport) - always preferred for consistency
@@ -440,6 +469,7 @@ class PerPackageBridgeOrchestrator {
   /// Call this after [collectPackageInfo] and before [generatePerPackageFiles].
   Future<void> buildGlobalClassLookup() async {
     _globalClassLookup.clear();
+    _classNameCollisions.clear();
 
     for (final entry in _packageInfoMap.entries) {
       final pkgName = entry.key;
@@ -472,6 +502,14 @@ class PerPackageBridgeOrchestrator {
         try {
           final classes = await generator.parseFile(sourceFile);
           for (final cls in classes) {
+            final prior = _globalClassLookup[cls.name];
+            if (prior != null && prior.sourceFile != cls.sourceFile) {
+              final files = _classNameCollisions.putIfAbsent(
+                cls.name,
+                () => [prior.sourceFile],
+              );
+              if (!files.contains(cls.sourceFile)) files.add(cls.sourceFile);
+            }
             // Add to global lookup (later packages may override earlier ones)
             _globalClassLookup[cls.name] = cls;
           }
@@ -486,6 +524,21 @@ class PerPackageBridgeOrchestrator {
     onWarning?.call(
       'Built global class lookup with ${_globalClassLookup.length} classes',
     );
+    // SCE231: say what the dedup did, both halves. A build-time refusal of
+    // colliding names was deferred until something is red; these two numbers
+    // are the evidence that decision wanted.
+    onWarning?.call(
+      'Dedup: $reExportedSourceFileCount source file(s) reached through more '
+      'than one barrel (re-exports, absorbed per source file); '
+      '${_classNameCollisions.length} class name(s) declared by more than one '
+      'source file (the global lookup keeps the last)',
+    );
+    for (final name in (_classNameCollisions.keys.toList()..sort())) {
+      onWarning?.call(
+        '  NAME COLLISION (cross-package lookup): $name <- '
+        '${_classNameCollisions[name]!.join(' | ')}',
+      );
+    }
   }
 
   /// Generates per-package bridge files.
