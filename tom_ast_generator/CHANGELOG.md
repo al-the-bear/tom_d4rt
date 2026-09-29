@@ -1,4 +1,4 @@
-## 0.2.0
+## 0.1.12
 
 ### Changed — conditional imports are resolved for the bundle's target (scf16)
 
@@ -15,6 +15,10 @@ to it with its configurations dropped.
 with conditional imports now carries the `dart.library.io` branch where it
 used to carry the default.** Build with `BundleTarget.web` for a bundle a web
 app loads. A bundle is therefore specific to its target.
+
+Numbered 0.1.12 rather than 0.2.0 for the reason sce241 gave:
+`tom_d4rt_exec`, a dev dependency here, constrains this package to `^0.1.x`,
+so a 0.2.0 could not resolve its own dev dependencies.
 
 ## 0.1.11
 

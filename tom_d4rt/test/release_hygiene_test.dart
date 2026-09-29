@@ -159,7 +159,9 @@ const _versionsWithoutHeading = <String, Set<String>>{
   'tom_ast_generator': {
     // Declared by d5b9b7cae (sce236), never published; renumbered to 0.1.10
     // by sce241 because 0.2.0 could not resolve against its own dev
-    // dependency tom_d4rt_exec (^0.1.x). The 0.1.10 section says so.
+    // dependency tom_d4rt_exec (^0.1.x). The 0.1.10 section says so. Declared
+    // again by 65b061a8b (scf16) and renumbered to 0.1.12 for the same reason,
+    // which the 0.1.12 section says.
     '0.2.0',
   },
 };
