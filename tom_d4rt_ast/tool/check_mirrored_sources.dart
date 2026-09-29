@@ -31,6 +31,13 @@ const String kAstRoot = 'lib/src/runtime';
 
 /// Pairs allowed to differ, with why.
 ///
+/// This is one of four registers of mirror divergence, and
+/// `tom_d4rt/test/sce252_mirror_register_agreement_test.dart` holds their keys
+/// in agreement (SCE252): the `stdlib/` entries must be exactly SCD49's, every
+/// file SCD183 exempts must be here, and anything here that SCD183 finds
+/// identical must be a rename-only file recorded there. Adding or deleting an
+/// entry means reading that file's findings, not only this one's.
+///
 /// The same shape as the conformance guard's `_divergentBaseline`, and for the
 /// same reason: an entry here is a decision, and a file that stops diverging
 /// should leave rather than sit here claiming a difference it no longer has.
