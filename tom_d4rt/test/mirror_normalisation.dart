@@ -86,6 +86,68 @@ String denormaliseLogPrefix(String lexeme, Set<String> mirrorTypes) =>
           : m.group(0)!,
     );
 
+/// `tom_ast_model`'s accessor vocabulary, as sequence rewrites.
+///
+/// SCE235 decided (option (b)) that the model keeps its own member names where
+/// they read better than the analyzer's. It says `isNot` where the analyzer
+/// exposes a `notOperator` token to null-test, `name` where the analyzer has
+/// `lexeme`, and so on. So the twin MUST spell those accessors differently, as
+/// it must spell `SFoo` for `Foo`. Measured 2026-09-29, these rewrites were
+/// most of the small end of SCD199's recorded body divergences.
+///
+/// Each row is `from -> to`. They are applied in order, to BOTH trees' tokens.
+/// Applying one pure function to both sides is what makes this safe for the
+/// bodies that already agree: equal inputs give equal outputs, so a
+/// normalisation here can only turn a divergence into agreement, never the
+/// reverse. The cost is the usual one, and is stated as for SCD199's other
+/// rules: two bodies that differ ONLY by one of these spellings are reported
+/// as agreeing.
+///
+/// The last row is the NULLABILITY rule. The model's identifier `name` is
+/// nullable, where the analyzer's token is not, and the twin writes
+/// `x?.name ?? ''` for the reference's `x.lexeme`. SCE235 also decided that the
+/// nullability difference is permanent rather than something the copier
+/// should close. This row matches that exact spelling, and nothing looser:
+/// a different default, or `?.` on any other member, is still a divergence.
+const accessorVocabulary = <(List<String>, List<String>)>[
+  (['notOperator', '!=', 'null'], ['isNot']),
+  (['constKeyword', '!=', 'null'], ['isConst']),
+  (['.', 'question', '!=', 'null'], ['.', 'isNullable']),
+  // The analyzer's `DefaultFormalParameter.parameter` must be cast to reach a
+  // `NormalFormalParameter`, and the model's field is already that type.
+  (['as', 'NormalFormalParameter'], []),
+  (['lexeme'], ['name']),
+  // The analyzer's `DeclaredIdentifier.name` is a token; the model's is an
+  // `SSimpleIdentifier` field called `identifier`. After the row above the
+  // reference reads `name . name` and the twin `identifier . name`.
+  (['identifier', '.', 'name'], ['name', '.', 'name']),
+  (['?.', 'name', '??', "''"], ['.', 'name']),
+];
+
+/// [tokens] with every [accessorVocabulary] row applied, in order.
+List<String> normaliseAccessorVocabulary(List<String> tokens) {
+  var current = tokens;
+  for (final (from, to) in accessorVocabulary) {
+    final next = <String>[];
+    var i = 0;
+    while (i < current.length) {
+      var match = i + from.length <= current.length;
+      for (var j = 0; match && j < from.length; j++) {
+        if (current[i + j] != from[j]) match = false;
+      }
+      if (match) {
+        next.addAll(to);
+        i += from.length;
+      } else {
+        next.add(current[i]);
+        i++;
+      }
+    }
+    current = next;
+  }
+  return current;
+}
+
 /// The two sides of where [a] and [b] stop agreeing, with the common prefix and
 /// suffix trimmed off. `null` when they agree everywhere.
 ///

@@ -77,6 +77,26 @@
 //      log prefix names the node type being logged, so the rename reaches into
 //      strings where the token map cannot. Worth 7.
 //
+//   4. `tom_ast_model`'s ACCESSOR VOCABULARY (SCE235), applied to BOTH trees:
+//      `notOperator != null` -> `isNot`, `constKeyword != null` -> `isConst`,
+//      `.question != null` -> `.isNullable`, `as NormalFormalParameter`
+//      dropped, `lexeme` -> `name`, `identifier . name` -> `name . name`, and
+//      the twin's nullable `?. name ?? ''` -> `. name`. SCE235 decided the
+//      model keeps its own names (option (b)) and that the nullability
+//      difference is permanent, so these spellings are required rather than
+//      incidental. The table lives in `mirror_normalisation.dart`
+//      (`accessorVocabulary`). Because it is applied to both sides, it can only
+//      turn a divergence into agreement, never break an agreeing body.
+//      Measured 2026-09-29: 116 divergent -> 98, with the 18 moved into the
+//      checked set.
+//
+//   CENSUS AFTER SCE235 (2026-09-29): 755 shared bodies, 657 identical, 98
+//   divergent, in the same six files. The small end of the 98 is now design
+//   rather than spelling: the model has no `parent` pointers (`_parentOf`), a
+//   reconstructed parent map, a stored `SymbolLiteral` value, the module
+//   context type, and two residues too narrow for a safe rule (an import
+//   prefix `bridge.` and the model's flattened `onClause`).
+//
 // THE RISK EACH CARRIES, stated rather than hidden. (1) would mask a divergence
 // where the twin names a mirror type and the reference names an unrelated
 // analyzer type of the same base name — that is the 1:1 claim being false, a
@@ -85,12 +105,13 @@
 // difference, not a wrong-answer one. (3) is bounded to a whole bracketed token
 // whose S-form is a declared type, so `[Setup]` survives.
 //
-// WHAT WAS DELIBERATELY NOT NORMALISED, having been measured: `?.` -> `.` is
-// worth 0 bodies, `.lexeme` -> `.name` is worth 3, and `moduleLoader` ->
-// `moduleContext` is worth 0. Each is a semantic rewrite that could hide a
-// genuinely wrong accessor, and none of them pays for that.
+// WHAT WAS DELIBERATELY NOT NORMALISED, having been measured: a bare `?.` ->
+// `.` is worth 0 bodies, and `moduleLoader` -> `moduleContext` is worth 0.
+// `.lexeme` -> `.name` measured 3 on its own; SCE235 took it as part of the
+// vocabulary table above, where together with the rows beside it it is worth
+// 18.
 //
-// THE 107 ARE PINNED BY THEIR DIVERGENCE, not merely listed. Each entry holds a
+// THE RECORDED BODIES ARE PINNED BY THEIR DIVERGENCE, not merely listed. Each entry holds a
 // hash of the trimmed residue — what the two sides say where they stop
 // agreeing. That is what makes this a detector for SCC78's shape rather than
 // only for new ones:
@@ -102,7 +123,7 @@
 //
 // WHAT IT STILL CANNOT SEE, so that a green run is not read as more than it
 // is: a divergence that was present when the list was written is recorded, not
-// resolved. SCC78's own line is among the 107. This guard freezes the
+// resolved. SCC78's own line is among the recorded ones. This guard freezes the
 // disagreement at a known shape and reports every movement in it; it does not
 // adjudicate which of the two sides is right. Shrinking the list is
 // ordinary work, and F-SCD199-3 is what makes that work visible.
@@ -191,8 +212,8 @@ const _minMirrorTypes = 150;
 /// the pin exact and cheap; the failure message prints the live residue, so the
 /// reader still sees the divergence itself at the moment it matters.
 ///
-/// NO PER-ENTRY REASON, also deliberate. 107 individually-worded reasons would
-/// be 107 restatements of five facts, and the five facts are recorded once
+/// NO PER-ENTRY REASON, also deliberate. ~100 individually-worded reasons would
+/// be ~100 restatements of five facts, and the five facts are recorded once
 /// where they belong — SCD183's `_structural` and `_allowedRegions` say why
 /// each of these six files cannot be compared whole. This map is a census of
 /// WHAT diverges, so that a change in it is visible.
@@ -206,20 +227,17 @@ const _divergentBodies = <String, Map<String, String>>{
     'BridgedEnumValue.toString': '184efa79',
   },
   'callable.dart': {
-    'BoundExtensionMethodCallable.call': '1154620a',
-    'InterpretedExtensionMethod.call': 'c2d7ab35',
-    'InterpretedFunction._beginAwaitForIteration': '57e94918',
+    'InterpretedExtensionMethod.call': '04fc6741',
+    'InterpretedFunction._beginAwaitForIteration': 'f361cfa9',
     'InterpretedFunction._callImpl': 'c0f390c5',
     'InterpretedFunction._containsAwait': 'ee448f09',
-    'InterpretedFunction._determineNextNodeAfterAwait': '5692e1df',
-    'InterpretedFunction._extractTypeParameterBounds': '065705f9',
-    'InterpretedFunction._extractTypeParameterNames': '065705f9',
+    'InterpretedFunction._determineNextNodeAfterAwait': 'b311adb9',
     'InterpretedFunction._findEnclosingTryStatement': '64523cb5',
     'InterpretedFunction._findInvocationWithAwaitInArguments': '5fedfaed',
     'InterpretedFunction._findNextSequentialNode': '00e07640',
     'InterpretedFunction._enclosingExpressionFunctionBody': '34fd9762',
-    'InterpretedFunction._handleAsyncError': '7d53bc37',
-    'InterpretedFunction._instantiateRedirectedFactory': 'c9d9b3ba',
+    'InterpretedFunction._handleAsyncError': '7e829bf3',
+    'InterpretedFunction._instantiateRedirectedFactory': '92a6e173',
     'InterpretedFunction._isInsideCatchClauseOf': '3782eeaf',
     // SCE78: the finally-block companion to the catch-clause predicate
     // above, and divergent for the same architectural reason — the mirror
@@ -236,9 +254,8 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpretedFunction._jumpTarget': 'c5e2ff57',
     'InterpretedFunction._leaveLoopsFor': 'e47bcb14',
     'InterpretedFunction._nextEnclosingFinallyTry': 'fe832583',
-    'InterpretedFunction._paramRuntimeType': '7b7a00d6',
-    'InterpretedFunction._prepareExecutionEnvironment': 'e931c715',
-    'InterpretedFunction._resolveTypeAnnotationDynamic': '2c861378',
+    'InterpretedFunction._prepareExecutionEnvironment': '01cdcb72',
+    'InterpretedFunction._resolveTypeAnnotationDynamic': 'ea018cda',
     // SCE139: the statement walker the return and invocation resumption
     // routes hand their statement back through, divergent for the same
     // architectural reason as its neighbours — the mirror AST has no
@@ -251,44 +268,38 @@ const _divergentBodies = <String, Map<String, String>>{
     // because the hash is over both bodies. The divergence itself is
     // unchanged: the mirror AST has no `parent` getter, so the twin walks
     // with `_parentOf`.
-    'InterpretedFunction._runStateMachine': 'a68fb2ac',
+    'InterpretedFunction._runStateMachine': '04f98399',
     'InterpretedFunction._tryOwningCatchClauseOf': 'f1617e03',
     'InterpretedFunction._tryOwningFinallyBlockOf': '34fd9762',
     'InterpretedFunction.bind': '78b56933',
     'InterpretedFunction.get arity': 'c0481db8',
-    'InterpretedFunction.get callableRuntimeType': 'cc843066',
+    'InterpretedFunction.get callableRuntimeType': 'e7ec5fa0',
     'InterpretedFunction.get canCallWithoutArgs': 'ef0e0484',
     'InterpretedFunction.get maxPositionalArity': '8f421c1b',
-    'InterpretedFunction.get namedParameterNames': 'a22a70a7',
-    'InterpretedFunction.get positionalParameterNames': 'b1eea3ef',
-    'InterpretedFunction.new constructor': '49d18ddc',
-    'InterpretedFunction.new declaration': '65a26fb0',
+    'InterpretedFunction.get namedParameterNames': 'f3029fc8',
+    'InterpretedFunction.get positionalParameterNames': '0a8695ab',
+    'InterpretedFunction.new constructor': 'aab4d189',
+    'InterpretedFunction.new declaration': '3060dbb6',
     'InterpretedFunction.new expression': '73245b03',
-    'InterpretedFunction.new method': '77b0bad1',
-    'InterpretedFunction.resolveBinding': 'fe2646f7',
-    '_LazySyncGeneratorIterator._executeForInWithYieldSuspension': 'd10a91e2',
+    'InterpretedFunction.new method': '3847e56b',
+    '_LazySyncGeneratorIterator._executeForInWithYieldSuspension': '2f4748e3',
   },
   'declaration_visitor.dart': {
     // SCE130: 81e4977d -> 954e4039. Pass 1 now passes `lenient: true` when
     // extracting the class's type-parameter bounds, in both trees; the
     // residue is the accessor difference this member already had.
-    'DeclarationVisitor.visitClassDeclaration': '954e4039',
-    'DeclarationVisitor.visitEnumDeclaration': '10a0fbf5',
-    'DeclarationVisitor.visitFunctionDeclaration': 'c120e983',
-    'DeclarationVisitor.visitMixinDeclaration': '065705f9',
-    'DeclarationVisitor.visitTopLevelVariableDeclaration': '22ca34c5',
+    'DeclarationVisitor.visitClassDeclaration': '246afb3b',
+    'DeclarationVisitor.visitFunctionDeclaration': '4ebc6925',
+    'DeclarationVisitor.visitTopLevelVariableDeclaration': '17090fd4',
   },
   'interpreter_visitor.dart': {
-    'InterpreterVisitor._chainHasNullAwareSelector': 'a28a7690',
+    'InterpreterVisitor._chainHasNullAwareSelector': 'c135924e',
     'InterpreterVisitor._checkAppliedGenericReturn': '04ded847',
-    'InterpreterVisitor._checkValueMatchesType': 'aa296ffe',
     'InterpreterVisitor._evaluateArguments': '0df79830',
     'InterpreterVisitor._evaluateArgumentsAsync': '0df79830',
     'InterpreterVisitor._executeCascadeAssignment': '24682899',
-    'InterpreterVisitor._executeClassicFor': '89d506ba',
-    'InterpreterVisitor._executeForIn': '9e90b956',
-    'InterpreterVisitor._executeForInWithItems': '9e90b956',
-    'InterpreterVisitor._functionRuntimeTypeFromParts': '13a969d0',
+    'InterpreterVisitor._executeClassicFor': 'cc48545f',
+    'InterpreterVisitor._functionRuntimeTypeFromParts': '0c32ea02',
     'InterpreterVisitor._mapCompoundToOperatorName': 'd728ed84',
     // SCE104 extracted both from `visitAsExpression`, whose divergence they
     // inherit: the mirror AST carries an `importPrefix` and an `isNullable`
@@ -297,73 +308,65 @@ const _divergentBodies = <String, Map<String, String>>{
     // `_castTypeDescription` exists to keep that one difference in one member
     // instead of at both call sites.
     'InterpreterVisitor._castTypeDescription': '8ab45b85',
-    'InterpreterVisitor._tryCast': '15d1bc02',
-    'InterpreterVisitor._matchAndBind': '83c84f07',
-    'InterpreterVisitor._processCollectionElement': '2043ae78',
-    'InterpreterVisitor._resolveFormalParameterRuntimeType': '7b7a00d6',
-    'InterpreterVisitor._resolveTypeAnnotationWithEnvironment': 'ff411f95',
+    'InterpreterVisitor._tryCast': 'c54f1a19',
+    'InterpreterVisitor._matchAndBind': 'bcdd64fd',
+    'InterpreterVisitor._processCollectionElement': 'a7ca0a72',
+    'InterpreterVisitor._resolveTypeAnnotationWithEnvironment': '6111216b',
     'InterpreterVisitor._statementsIntroduceBindings': '73f8180e',
     'InterpreterVisitor._subtreeContainsClosure': 'b6e41360',
-    'InterpreterVisitor._valueHasType': 'e8b1caf9',
-    'InterpreterVisitor.catchClauseMatches': '1154620a',
+    'InterpreterVisitor._valueHasType': '716e1f67',
     'InterpreterVisitor.computeCompoundValue': 'aab15c4a',
     'InterpreterVisitor.new': '2cc4e641',
-    'InterpreterVisitor.registerTypeAlias': '2107b213',
+    'InterpreterVisitor.registerTypeAlias': '8b81a27c',
     'InterpreterVisitor.resolveStaticCoordinates': '1c58137b',
     'InterpreterVisitor.visitAsExpression': '749f9253',
     // SCE176: 510fd0b5 -> fddd7587. Both trees appended the same
     // unbridged-native clause to the same two assignment errors; the residue
     // is still `PrefixedIdentifier` vs `SPrefixedIdentifier` in one message,
     // which the new text now sits beside.
-    'InterpreterVisitor.visitAssignmentExpression': 'fddd7587',
-    'InterpreterVisitor.visitBinaryExpression': '4a8ad811',
+    'InterpreterVisitor.visitAssignmentExpression': '47927a67',
+    'InterpreterVisitor.visitBinaryExpression': 'c2f2a78f',
     // SCE130: 57fc0f99 -> fffabfd5. Both trees gained the same call to
     // `klass.resolveDeferredTypeParameterBounds`; the residue is the
     // accessor difference this member already had.
-    'InterpreterVisitor.visitClassDeclaration': 'fffabfd5',
-    'InterpreterVisitor.visitConstructorReference': 'eca261a7',
-    'InterpreterVisitor.visitEnumDeclaration': '17c15a6b',
-    'InterpreterVisitor.visitExtensionDeclaration': '9ebdafbe',
-    'InterpreterVisitor.visitExtensionTypeDeclaration': 'eb245e2e',
+    'InterpreterVisitor.visitClassDeclaration': 'b90ed00a',
+    'InterpreterVisitor.visitConstructorReference': '1d51b6d4',
+    'InterpreterVisitor.visitEnumDeclaration': '67060d95',
+    'InterpreterVisitor.visitExtensionDeclaration': 'e26fd9f6',
+    'InterpreterVisitor.visitExtensionTypeDeclaration': 'a9daed3a',
     'InterpreterVisitor.visitForStatement': '1df0d7d7',
-    'InterpreterVisitor.visitFunctionDeclaration': '3eb87faa',
+    'InterpreterVisitor.visitFunctionDeclaration': 'a398e655',
     'InterpreterVisitor.visitFunctionDeclarationStatement': '1a8fa2ed',
     'InterpreterVisitor.visitIdentifier': '0b2aded7',
     'InterpreterVisitor.visitIfStatement': 'f881cee4',
     'InterpreterVisitor.visitImportDirective': '9958469b',
-    'InterpreterVisitor.visitInstanceCreationExpression': '57654813',
-    'InterpreterVisitor.visitIsExpression': '6e0e258c',
-    'InterpreterVisitor.visitListLiteral': 'f2dad9eb',
+    'InterpreterVisitor.visitInstanceCreationExpression': '942d3194',
     // SCE109 moved this signature without changing what diverges: the
     // arity-heuristic throw sites inside it now raise `RangeError`
     // rather than `RuntimeD4rtException`, symmetrically in both trees.
     'InterpreterVisitor.visitMethodInvocation': '2435dba5',
-    'InterpreterVisitor.visitMixinDeclaration': '945459ee',
     'InterpreterVisitor.visitNode': '9f50a531',
-    'InterpreterVisitor.visitPostfixExpression': 'e253ea5d',
-    'InterpreterVisitor.visitPrefixExpression': 'a6f310ca',
+    'InterpreterVisitor.visitPostfixExpression': 'bcfb2c65',
+    'InterpreterVisitor.visitPrefixExpression': 'd18482f4',
     'InterpreterVisitor.visitPrefixedIdentifier': 'c95921c9',
     'InterpreterVisitor.visitPropertyAccess': 'fa905cfd',
-    'InterpreterVisitor.visitReturnStatement': '769cc75d',
-    'InterpreterVisitor.visitSetOrMapLiteral': 'c55d6070',
+    'InterpreterVisitor.visitReturnStatement': 'b0d7b56c',
+    'InterpreterVisitor.visitSetOrMapLiteral': '1a33a2d6',
     'InterpreterVisitor.visitSimpleIdentifier': '2cd8b958',
     'InterpreterVisitor.visitSwitchExpression': '0e2ec45a',
     'InterpreterVisitor.visitSwitchStatement': '059a026e',
-    'InterpreterVisitor.visitSymbolLiteral': 'd18a2bb6',
-    'InterpreterVisitor.visitTopLevelVariableDeclaration': 'ac8d1025',
-    'InterpreterVisitor.visitTryStatement': 'd00d2d11',
-    'InterpreterVisitor.visitVariableDeclarationList': '5bb0fd50',
+    'InterpreterVisitor.visitSymbolLiteral': '971210c9',
+    'InterpreterVisitor.visitTryStatement': '467cf501',
+    'InterpreterVisitor.visitVariableDeclarationList': '9282373f',
     'InterpreterVisitor.visitYieldStatement': '51c9c740',
   },
   'introspection.dart': {
-    'IntrospectionBuilder._buildClassInfo': 'ae54b734',
-    'IntrospectionBuilder.buildFromEnvironment': '74b793ea',
+    'IntrospectionBuilder._buildClassInfo': 'b394ab44',
+    'IntrospectionBuilder.buildFromEnvironment': 'c4bccd11',
   },
   'runtime_types.dart': {
-    'InterpretedClass.createAndInitializeInstance': '44fa7495',
-    'InterpretedClass.extractTypeParameterBounds': '065705f9',
-    'InterpretedClass.extractTypeParameterNames': '065705f9',
-    'InterpretedClass.getInstanceFieldNames': '77e37c53',
+    'InterpretedClass.createAndInitializeInstance': '06adb03e',
+    'InterpretedClass.getInstanceFieldNames': 'de802187',
     // SCE130. New in both trees, and divergent for the oldest architectural
     // reason in this table: a type parameter's name is a `Token` with
     // `.lexeme` on the reference and a nullable `SSimpleIdentifier` on the
@@ -371,8 +374,8 @@ const _divergentBodies = <String, Map<String, String>>{
     // reference also needs the `bridge.` prefix, because `TypeParameter` is
     // ambiguous there between the analyzer's AST node and d4rt's own type.
     // The bodies are otherwise token-for-token the same shape.
-    'InterpretedClass.resolveDeferredTypeParameterBounds': 'd241f09e',
-    'InterpretedClass.resolveTypeAnnotationDynamic': '63de37c4',
+    'InterpretedClass.resolveDeferredTypeParameterBounds': '93cf914e',
+    'InterpretedClass.resolveTypeAnnotationDynamic': 'b27475b4',
     'InterpretedInstance.get': '286b1331',
   },
 };
@@ -557,6 +560,8 @@ void main() {
   for (final rel in shared) {
     final ref = _memberBodies('$_refRoot/$rel', false, mirrorTypes);
     final ast = _memberBodies('$_astRoot/$rel', true, mirrorTypes);
+    ref.updateAll((_, t) => normaliseAccessorVocabulary(t));
+    ast.updateAll((_, t) => normaliseAccessorVocabulary(t));
     final members = (ref.keys.toSet().intersection(ast.keys.toSet()).toList())
       ..sort();
     sharedBodies += members.length;
