@@ -567,7 +567,16 @@ class InterpretedClass implements Callable, RuntimeType {
   ) {
     List<RuntimeType> effective;
     if (providedTypeArguments == null || providedTypeArguments.isEmpty) {
-      effective = List.generate(
+      // SCF27: no type argument was WRITTEN (`Box(3)`), and a class type
+      // argument is not inferred here, so each parameter is `dynamic` — the
+      // interpreter's "unknown", not a claim that the argument is `Object`.
+      // Measuring an unknown against a bound refused every construction of a
+      // bounded class that did not spell its argument out, so the bound check
+      // below is for WRITTEN arguments only: `Box<String>('a')` and
+      // `Box<dynamic>(3)` are still checked and still refused. A bounded
+      // generic FUNCTION already behaves this way — an unwritten argument
+      // there is not checked either.
+      return List.generate(
         typeParameterNames.length,
         (_) => BridgedClass(nativeType: Object, name: 'dynamic'),
       );

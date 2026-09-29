@@ -1,3 +1,15 @@
+## 1.207.0
+
+### Fixed — a bounded generic class accepts its own constructor (scf27)
+
+`class Box<T extends num> { final T v; Box(this.v); }` refused `Box(3)`:
+a class type argument that is not written is not inferred, is filled with
+`dynamic` — the interpreter's "unknown" — and that unknown was measured
+against the bound. The bound is now checked for WRITTEN arguments only, as it
+already was for generic functions: `Box(3)` constructs, and `Box<String>('a')`
+and `Box<dynamic>(3)` are still refused with the unsatisfied-bound message. A
+bounded mixin and a bounded extension type were not affected.
+
 ## 1.206.0
 
 ### Fixed — a bare name reaches the getter or setter it names (scf25)

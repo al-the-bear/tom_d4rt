@@ -2202,6 +2202,12 @@ const Map<String, _Convergence> _convergenceLog = {
 /// re-measure the whole register when the floor moves, not the entry you
 /// happened to be reading.
 const Map<String, _Divergence> _divergentBaseline = {
+  // SCF27: a bounded generic class constructed without a written type
+  // argument runs; the published interpreter refuses it against the bound, so
+  // this port carries the reference verbatim but for a group-level skip.
+  // PUBLISH-BLOCKED — re-port when exec's tom_d4rt_ast floor passes 0.192.0,
+  // by copying the reference file down; converges at a floor past 0.192.0.
+  'scf27_bounded_class_construction_test.dart': _Divergence.deliberate,
   // SCF25: a bare name bound to a getter is read through it and a bare write
   // calls the setter (bound under `v=`). The published interpreter answers the
   // getter function and drops the write, so this port carries the reference
@@ -2324,6 +2330,7 @@ const Map<String, _Divergence> _divergentBaseline = {
 /// Recomputing without reading the new difference is the failure mode; the
 /// message says so.
 const Map<String, String> _divergenceFingerprints = <String, String>{
+  'scf27_bounded_class_construction_test.dart': '716c04e6ebf1d909',
   'scf25_bare_accessor_test.dart': '4b8b46d8dff418b1',
   'scf24_object_members_test.dart': 'cbfe98a21f396777',
   'sce101_element_type_test.dart': '4f88b5f451909a1b',
@@ -2517,6 +2524,11 @@ typedef _Pin = ({String floor, String measured});
 /// recorded evidence was seven and ten cases out of date. Both are re-stamped
 /// above their entries in `_uncoveredBaseline`.
 const Map<String, _Pin> _pinnedInterpreterFloors = <String, _Pin>{
+  // SCF27, pinned at the release that checks only written class type args.
+  'scf27_bounded_class_construction_test.dart': (
+    floor: '0.192.0',
+    measured: '0.184.0',
+  ),
   // SCF25, pinned at the release that binds setters under `v=`.
   'scf25_bare_accessor_test.dart': (floor: '0.191.0', measured: '0.184.0'),
   // SCF24, pinned at the release carrying `InterpretedInstance.objectMember`.
