@@ -1,3 +1,11 @@
+## 1.36.0
+
+### Changed — `tom_ast_generator` ^0.1.11 (sce237)
+
+Closes the cascade 1.35.0 opened: astgen 0.1.11 resolves `tom_d4rt_ast`
+0.184.0, so the copier and the interpreter are the same pair again.
+F-SCE62-6 (a library directive is interpreted) passes on it.
+
 ## 1.35.0
 
 ### Changed — resolves the current interpreter (sce237)
