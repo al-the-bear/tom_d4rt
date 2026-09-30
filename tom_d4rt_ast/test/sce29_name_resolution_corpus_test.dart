@@ -69,11 +69,16 @@ const Map<String, String> _twinOnlyRealignments = {
 /// blocker lifts — the guard then holds the release to the same standard as
 /// every other.
 const Map<String, String> _deferred = {
-  // EMPTY since 2026-09-30. Every entry waited on the scf42 publish, which
-  // SCF34 made (tom_d4rt 1.210.0 / tom_d4rt_ast 0.195.0), and the post-publish
-  // base corpus of both twins is recorded under `Verification runs` at that
-  // pair — it covers every marked release up to it. An empty map is the
-  // normal state; a new entry is a new debt with its reason.
+  // Every release up to tom_d4rt 1.210.0 / tom_d4rt_ast 0.195.0 is covered by
+  // the post-publish base corpus recorded under `Verification runs` at that
+  // pair (SCF34). An empty map is the normal state; each entry below is a
+  // debt with its reason, deleted when the run is made.
+  '1.214.0':
+      'scf38 — unpublished; the twins resolve tom_d4rt from pub.dev (DGUC6). '
+      'Owed by the scf42 publish and its post-publish corpus run.',
+  '0.199.0':
+      'scf38 — unpublished; the twins resolve tom_d4rt_ast from pub.dev '
+      '(DGUC6). Owed by the scf42 publish and its post-publish corpus run.',
 };
 
 List<int> _key(String v) => v.split('.').map(int.parse).toList();

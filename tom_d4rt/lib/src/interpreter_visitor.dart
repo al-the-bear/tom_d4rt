@@ -5800,8 +5800,13 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         }
       }
 
-      // INTER-001 FIX: Check for BridgedInstance with call() method
-      final bridgedResult = toBridgedInstance(calleeValue);
+      // INTER-001 FIX: Check for BridgedInstance with call() method.
+      // A native Function is not routed here (SCF38): it resolves to the
+      // `Function` bridge, whose `call` serves interpreted Callables only,
+      // and GEN-110 below calls it natively with its arguments coerced.
+      final bridgedResult = calleeValue is Function
+          ? (null, false)
+          : toBridgedInstance(calleeValue);
       if (bridgedResult.$2) {
         final bridgedInstance = bridgedResult.$1!;
         final callMethodAdapter = bridgedInstance.bridgedClass
@@ -13809,8 +13814,12 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       }
     }
 
-    // INTER-001 FIX: Check if it's a BridgedInstance with a call() method
-    final bridgedResult = toBridgedInstance(calleeValue);
+    // INTER-001 FIX: Check if it's a BridgedInstance with a call() method.
+    // A native Function is called natively below (SCF38, GEN-110), not
+    // through the `Function` bridge's `call`, which serves Callables only.
+    final bridgedResult = calleeValue is Function
+        ? (null, false)
+        : toBridgedInstance(calleeValue);
     if (bridgedResult.$2) {
       final bridgedInstance = bridgedResult.$1!;
       final callMethodAdapter = bridgedInstance.bridgedClass

@@ -1520,9 +1520,7 @@ void main() {
   //   | Pattern         | KEEP     | unbridged native implementors            |
   //   | TypedData       | KEEP     | unbridged typed views (SIMD lists today  |
   //   |                 |          | resolve to `List`, not here)             |
-  //   | Function        | KEEP     | native closures, once scf38 stops the    |
-  //   |                 |          | suffix fallback claiming them by return  |
-  //   |                 |          | type (`() => Map` resolves to `Map`)     |
+  //   | Function        | reached  | native closures (scf38, now counted)     |
   //   | the 8 partly reachable ones | KEEP | already reached in part           |
   //
   // Six of the twelve unmeasured bridges now have cheap canonical instances,
@@ -1548,7 +1546,8 @@ void main() {
     const measuredUnreachable = <String, int>{
       'Comparable': 4,
       'Error': 4,
-      'Function': 4,
+      // `Function` left with SCF38: a native closure now resolves to it
+      // instead of to the bridge named like its return type.
       // 7 -> 6 with SCE84: the `value` getter went, because the SDK's
       // entry has no such member and a script using it did not compile as
       // Dart. The bridge is still unreachable in this sense — every heir

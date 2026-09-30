@@ -1180,6 +1180,21 @@ class Environment {
       );
     }
     if (!structural) return toBridgedClass(runtimeType);
+    // A FUNCTION IS NOT A CLASS NAME (SCF38). A function type prints as
+    // `(params) => Ret`, and every name-shaped pass reads its RETURN type:
+    // step 3's generic suffix rule gave `() => Map<String, Object>` to `Map`,
+    // step 4 below gave `(int) => int` to `int`, and a host callback
+    // `(BuildContext) => Widget` went to `Widget`, whose adapters then ran
+    // against a closure. A function value belongs to the `Function` bridge.
+    // Only an EXACT registration for its type outranks that.
+    if (value is Function) {
+      for (Environment? env = this; env != null; env = env._enclosing) {
+        final exact = env._bridgedClassesLookupByType[runtimeType];
+        if (exact != null) return exact;
+      }
+      final functionBridge = findBridgedClassByName('Function');
+      if (functionBridge != null) return functionBridge;
+    }
     try {
       return toBridgedClass(runtimeType);
     } on RuntimeD4rtException {

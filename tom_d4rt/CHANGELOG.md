@@ -1,3 +1,21 @@
+## 1.214.0
+
+### Fixed — a native closure resolves to the `Function` bridge (scf38)
+
+A function type prints as `(params) => Ret`, and the name-shaped bridge
+passes read its RETURN type. A host-built `(int x) => x` was claimed by the
+`int` bridge and a `() => Map<String, Object>` tear-off by `Map`, so a member
+read on the closure ran that bridge's adapters against a function: `f.length`
+on the tear-off failed inside the Map bridge's cast. In the Flutter twins that
+is every callback read off a host-built widget, since `(BuildContext) =>
+Widget` matched `Widget`. A function value now resolves to the `Function`
+bridge; only an exact registration for its type outranks that. Calling such a
+closure stays a native call, with its arguments coerced as before (GEN-110):
+the invocation sites no longer route a native function through the bridge's
+`call`, which serves interpreted Callables.
+
+Name resolution: yes — a native function value resolves to the `Function` bridge instead of the bridge named like its return type (scf38).
+
 ## 1.213.0
 
 ### Fixed — `obj.v++` and `++obj.v` on a bridged object's property (scf37)
