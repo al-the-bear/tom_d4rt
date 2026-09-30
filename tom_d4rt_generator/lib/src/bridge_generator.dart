@@ -29,6 +29,7 @@ import 'sdk_utils.dart' show getSdkPath;
 import 'user_bridge_scanner.dart';
 import 'generated_stamp.dart';
 import 'source_package.dart';
+import 'generated_code_formatter.dart';
 
 // =============================================================================
 // OPERATOR DETECTION
@@ -1318,6 +1319,9 @@ class BridgeGenerator {
   /// Used to fall back to the definition when a typedef is not exported from the barrel.
   /// Key is the typedef name, value is the expanded signature (e.g., 'Object? Function(Object?)').
   final Map<String, String> _typedefExpansions = {};
+
+  /// Positional arity per function typedef, from the extractor (SCD137).
+  final Map<String, ({int required, int max})> _typedefArity = {};
 
   /// GEN-074: Type alias records for class aliases (non-function typedefs).
   /// Key: alias name, Value: target class name.
@@ -3024,7 +3028,9 @@ class BridgeGenerator {
           // file, so look up re-exports for that single file only.
           reExportSourceFiles: [sourceFile],
         );
-        await File(outFile).writeAsString(code);
+        await File(
+          outFile,
+        ).writeAsString(formatGeneratedDart(code, outputPath: outFile));
         outputFiles.add(outFile);
       }
     } else {
@@ -3227,7 +3233,9 @@ class BridgeGenerator {
       final outFile = outputPath.endsWith('.dart')
           ? outputPath
           : '$outputPath.dart';
-      await File(outFile).writeAsString(code);
+      await File(
+        outFile,
+      ).writeAsString(formatGeneratedDart(code, outputPath: outFile));
       outputFiles.add(outFile);
     }
 
@@ -3748,7 +3756,13 @@ class BridgeGenerator {
     );
 
     // Write using the FileWriter
-    await fileWriter.writeFile(outputFileId, code);
+    await fileWriter.writeFile(
+      outputFileId,
+      formatGeneratedDart(
+        code,
+        outputPath: fileWriter.absolutePath(outputFileId),
+      ),
+    );
     outputFiles.add(fileWriter.absolutePath(outputFileId));
 
     return BridgeGeneratorResult(
@@ -4193,6 +4207,7 @@ class BridgeGenerator {
 
     skippedDeprecatedCount += extractor.skippedDeprecatedCount;
     _typedefExpansions.addAll(extractor.typedefExpansions);
+    _typedefArity.addAll(extractor.typedefArity);
     _typeAliases.addAll(extractor.typeAliases);
     _globalTypeToUri.addAll(extractor.globalTypeToUri);
 
@@ -4271,6 +4286,7 @@ class BridgeGenerator {
 
     skippedDeprecatedCount += extractor.skippedDeprecatedCount;
     _typedefExpansions.addAll(extractor.typedefExpansions);
+    _typedefArity.addAll(extractor.typedefArity);
     _typeAliases.addAll(extractor.typeAliases);
     _globalTypeToUri.addAll(extractor.globalTypeToUri);
 
@@ -6580,6 +6596,27 @@ class BridgeGenerator {
     buffer.writeln('  }');
     buffer.writeln();
 
+    // SCD137: the positional arity of each function typedef, so the
+    // interpreter can check a script closure against the typedef's shape
+    // rather than accepting any closure for any typedef.
+    buffer.writeln(
+      '  /// Positional arity of each function typedef in [functionTypedefs].',
+    );
+    buffer.writeln(
+      '  static Map<String, ({int required, int max})> functionTypedefArity() {',
+    );
+    buffer.writeln('    return {');
+    for (final name in _typedefExpansions.keys) {
+      final arity = _typedefArity[name];
+      if (arity == null) continue;
+      buffer.writeln(
+        "      '$name': (required: ${arity.required}, max: ${arity.max}),",
+      );
+    }
+    buffer.writeln('    };');
+    buffer.writeln('  }');
+    buffer.writeln();
+
     // Always generate bridgedEnums method (returns empty list if no enums)
     // This is required for delegating barrel files to compile
     buffer.writeln('  /// Returns all bridged enum definitions.');
@@ -7036,10 +7073,15 @@ class BridgeGenerator {
       buffer.writeln();
       buffer.writeln('    // Register function typedefs for type resolution');
       buffer.writeln('    final typedefs = functionTypedefs();');
+      buffer.writeln('    final typedefArity = functionTypedefArity();');
       buffer.writeln('    for (final name in typedefs) {');
-      buffer.writeln(
-        '      interpreter.registerFunctionTypedef(name, importPath);',
-      );
+      buffer.writeln('      final arity = typedefArity[name];');
+      buffer.writeln('      interpreter.registerFunctionTypedef(');
+      buffer.writeln('        name,');
+      buffer.writeln('        importPath,');
+      buffer.writeln('        requiredPositional: arity?.required,');
+      buffer.writeln('        maxPositional: arity?.max,');
+      buffer.writeln('      );');
       buffer.writeln('    }');
     }
     // GEN-107 Phase 2: Register library re-exports.

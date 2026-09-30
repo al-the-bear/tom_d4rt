@@ -5,7 +5,7 @@
 #
 # This script:
 # 1. Runs dart pub get
-# 2. Runs build_runner to regenerate bridges
+# 2. Runs d4rtgen to regenerate bridges (configured in buildkit.yaml)
 # 3. Compiles the dcli binary
 
 set -e
@@ -56,14 +56,11 @@ echo "📦 Getting dependencies..."
 dart pub get
 echo ""
 
-# Delete bridges_trigger.g.dart to force bridge regeneration
-echo "🗑️  Removing trigger file to force bridge regeneration..."
-rm -f lib/src/d4rt_library_bridges/bridges_trigger.g.dart
-echo ""
-
-# Run build_runner to regenerate bridges
-echo "🔧 Running build_runner..."
-dart run build_runner build --delete-conflicting-outputs
+# Regenerate bridges with d4rtgen, which reads the `d4rtgen:` block of
+# buildkit.yaml. There is no build_runner step: the builder-era output it
+# produced is gone, and the generator is a dev dependency for this command.
+echo "🔧 Running d4rtgen..."
+dart run tom_d4rt_generator:d4rtgen -p .
 echo ""
 
 # Compile

@@ -15,23 +15,22 @@ cd tom_ai/d4rt/tom_d4rt_dcli
 
 The script automatically:
 1. Gets dependencies (`dart pub get`)
-2. Runs build_runner to regenerate bridges
+2. Runs `d4rtgen` to regenerate bridges
 3. Compiles the executable to `~/.tom/bin/{platform}/dcli`
 
 ### Manual Build Steps
 
 If you need to build manually:
-1. **Delete generated files**: Delete all `*.g.dart` files in the project to ensure a clean build.
-   ```bash
-   find . -name "*.g.dart" -delete
-   ```
-
-2. **Run build_runner** (regenerates bridge code):
+1. **Regenerate bridges** with `d4rtgen`, which reads the `d4rtgen:` block of
+   `buildkit.yaml` (the generator is a dev dependency for this command):
    ```bash
    cd tom_ai/d4rt/tom_d4rt_dcli
    dart pub get
-   dart run build_runner build --delete-conflicting-outputs
+   dart run tom_d4rt_generator:d4rtgen -p .
    ```
+
+2. **Check freshness**: `dart test test/bridges_fresh_test.dart` fails when the
+   committed `*.b.dart` differ from what the generator writes.
 
 3. **Compile the executable**:
    ```bash
@@ -40,10 +39,13 @@ If you need to build manually:
 
 ### What Gets Generated
 
-- `lib/src/d4rt_library_bridges/package_dcli_bridges.dart` - Bridge code for dcli package
-- `lib/src/d4rt_library_bridges/package_dcli_core_bridges.dart` - Bridge code for dcli_core
-- `lib/src/d4rt_library_bridges/package_dcli_terminal_bridges.dart` - Bridge code for dcli_terminal
-- `lib/src/d4rt_library_bridges/package_crypto_bridges.dart` - Bridge code for crypto
+Every output is a `*.b.dart` file, formatted as `dart format` would format it:
+
+- `lib/src/bridges/*_bridges.b.dart` - one file per module in `buildkit.yaml`
+  (`cli_api`, `dcli`, `path`, `tom_chattools`, `tom_vscode_scripting_api`)
+- `lib/src/bridges/relaxers.b.dart` - relaxer wrappers
+- `lib/d4rt_bridges.b.dart` - the barrel over the module bridges
+- `lib/dartscript.b.dart` - the combined registration class
 
 ### Version Management
 
@@ -57,8 +59,8 @@ To update the version, manually edit the `dcliVersion` constant.
 
 ### Common Issues
 
-- **Missing bridges**: If bridged classes aren't available, run build_runner
-- **Compile errors about missing generated files**: Run build_runner first
+- **Missing bridges**: If bridged classes aren't available, run `dart run tom_d4rt_generator:d4rtgen -p .`
+- **Compile errors about missing generated files**: Run `d4rtgen` first
 - **Dependency issues**: Run `dart pub get` first
 
 ### Architecture-Specific Binaries

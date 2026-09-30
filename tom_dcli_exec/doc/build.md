@@ -2,12 +2,9 @@
 
 To build the `tom_d4rt_dcli` (dcli) tool, follow these steps:
 
-1. **Delete generated files**: Delete all `*.g.dart` files in the project to ensure a clean build.
+1. **Generate bridges**: Run `d4rtgen`, which reads the `d4rtgen:` block of
+   `buildkit.yaml`.
    ```bash
-   find . -name "*.g.dart" -delete
-   ```
-2. **Generate bridges**: Run the build runner to generate the necessary target bridges.
-   ```bash
-   dart run build_runner build --delete-conflicting-outputs
+   dart run tom_d4rt_generator:d4rtgen -p .
    ```
 3. **Compile**: Compile the tool using the local `compile.sh` script or the workspace build tools.

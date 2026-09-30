@@ -22,6 +22,7 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:tom_d4rt_generator/tom_d4rt_generator.dart';
+import 'support/generated_code.dart';
 
 void main() {
   late String fixturesDir;
@@ -59,7 +60,7 @@ void main() {
     );
     expect(result.outputFiles, isNotEmpty);
 
-    generatedCode = await File(result.outputFiles.first).readAsString();
+    generatedCode = await readGeneratedCode(result.outputFiles.first);
   });
 
   tearDownAll(() {

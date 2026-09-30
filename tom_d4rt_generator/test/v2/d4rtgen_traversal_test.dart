@@ -12,6 +12,7 @@ import 'package:test/test.dart';
 import 'package:tom_build_base/tom_build_base_v2.dart';
 import 'package:tom_d4rt_generator/src/v2/d4rtgen_tool.dart';
 import 'package:tom_d4rt_generator/src/v2/d4rtgen_executor.dart';
+import '../support/generated_code.dart';
 
 // =============================================================================
 // Test Helpers
@@ -219,7 +220,7 @@ class CoreType {
             tempDir.path,
             'test/bridge_test_runner.b.dart',
           );
-          final runnerContent = await File(runnerPath).readAsString();
+          final runnerContent = await readGeneratedCode(runnerPath);
 
           expect(
             runnerContent,

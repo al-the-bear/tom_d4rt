@@ -13,6 +13,7 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:tom_d4rt_generator/tom_d4rt_generator.dart';
+import 'support/generated_code.dart';
 
 void main() {
   late String testFixturesDir;
@@ -64,7 +65,7 @@ void main() {
       expect(result.errors, isEmpty, reason: 'Should generate without errors');
       expect(result.outputFiles, isNotEmpty);
 
-      generatedCode = await File(result.outputFiles.first).readAsString();
+      generatedCode = await readGeneratedCode(result.outputFiles.first);
     });
 
     test('G-ENM-10: Detects simple enums. [2026-02-10 06:37] (PASS)', () {
@@ -264,7 +265,7 @@ class SimpleClass {
         );
 
         expect(result.errors, isEmpty);
-        final code = await File(result.outputFiles.first).readAsString();
+        final code = await readGeneratedCode(result.outputFiles.first);
 
         // bridgedEnums() is always generated for API consistency,
         // but returns empty list when no enums exist
@@ -307,7 +308,7 @@ class PublicClass {
         );
 
         expect(result.errors, isEmpty);
-        final code = await File(result.outputFiles.first).readAsString();
+        final code = await readGeneratedCode(result.outputFiles.first);
 
         // Should not include private enum
         expect(code, isNot(contains('_PrivateEnum')));
@@ -351,7 +352,7 @@ class DummyHolder {
         );
 
         expect(result.errors, isEmpty);
-        final code = await File(result.outputFiles.first).readAsString();
+        final code = await readGeneratedCode(result.outputFiles.first);
 
         // The static method must be emitted into a staticMethods: block,
         // dispatched on the enum TYPE (not an instance receiver `t`).
@@ -407,7 +408,7 @@ class DummyClass {
           isNotEmpty,
           reason: 'Should generate output file',
         );
-        final code = await File(result.outputFiles.first).readAsString();
+        final code = await readGeneratedCode(result.outputFiles.first);
 
         expect(code, contains("name: 'SingletonEnum'"));
         // Edge case: temp dir source files don't generate package imports, so no prefix

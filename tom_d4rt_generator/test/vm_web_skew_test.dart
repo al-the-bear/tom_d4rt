@@ -19,6 +19,7 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:tom_d4rt_generator/tom_d4rt_generator.dart';
+import 'support/generated_code.dart';
 
 Future<String> _generate({required bool enableSkew}) async {
   final testFixturesDir = p.join(Directory.current.path, 'test', 'fixtures');
@@ -48,7 +49,7 @@ Future<String> _generate({required bool enableSkew}) async {
   expect(result.errors, isEmpty, reason: 'Should generate without errors');
   expect(result.outputFiles, isNotEmpty);
 
-  final code = await File(result.outputFiles.first).readAsString();
+  final code = await readGeneratedCode(result.outputFiles.first);
   try {
     Directory(tempOutputDir).deleteSync(recursive: true);
   } catch (_) {}

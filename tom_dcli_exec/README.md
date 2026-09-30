@@ -376,7 +376,7 @@ Options
 
 | Document | What it covers |
 |---|---|
-| [`doc/build.md`](doc/build.md) | Building and compiling the `dclie` binary; bridge regeneration via `build_runner`. |
+| [`doc/build.md`](doc/build.md) | Building and compiling the `dclie` binary; bridge regeneration via `d4rtgen`. |
 | [`doc/testing.md`](doc/testing.md) | Test layout and how to run the suite with `testkit`. |
 
 ### Related packages

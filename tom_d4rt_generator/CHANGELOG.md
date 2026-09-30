@@ -1,3 +1,31 @@
+## 1.51.0
+
+### Added — generated bridges carry each function typedef's positional arity (scg5, from sce163)
+
+`functionTypedefArity()` is emitted beside `functionTypedefs()`, and the
+registration loop passes `requiredPositional:` / `maxPositional:` to
+`registerFunctionTypedef`. The interpreter half (scd137, tom_d4rt 1.111.0 /
+tom_d4rt_ast 0.97.0) had been inert for lack of an emitter: a closure could be
+accepted for any function typedef whatever its shape. The count is the
+POSITIONAL parameters only, required and total. Named parameters are not
+counted, because Dart passes a named argument only when the callee declares
+it. The `tom_d4rt` floor is raised to the current published interpreter.
+
+### Changed — every generated Dart file is `dart format`-clean when written (scg5, from sce123)
+
+The emitter assembles bridges by string concatenation, and `dart format`
+rewrote most of what it wrote, so the repo's format guards had to exclude
+`*.b.dart`. Every writer (bridge modules, relaxers, proxies, barrel,
+dartscript and test runner) now runs its output through `DartFormatter`. It
+uses the language version of the package that RECEIVES the file, read from
+that package's `.dart_tool/package_config.json` (else the pubspec's SDK
+floor), because that version decides which style `dart format` applies there.
+Output the formatter cannot parse is written unchanged, so the consumer's
+analyzer reports it with a location.
+
+Regenerating a consumer with this release changes the layout of every
+committed `*.b.dart`, and nothing else.
+
 ## 1.50.0
 
 ### Fixed — the generator emitted 24 classes on Windows where macOS emits 2015 (scf32)

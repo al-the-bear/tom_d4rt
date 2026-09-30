@@ -79,6 +79,12 @@ class ElementModeExtractor {
   /// Typedef name → expanded function signature (for barrel-fallback).
   final Map<String, String> typedefExpansions = {};
 
+  /// Positional arity of each function typedef in [typedefExpansions]: how many
+  /// positional parameters are required, and how many there are in total
+  /// (SCD137). The interpreter reads these through `registerFunctionTypedef`
+  /// to check a script closure against the typedef's shape.
+  final Map<String, ({int required, int max})> typedefArity = {};
+
   /// GEN-074: Non-function type aliases. Alias name → target class name.
   final Map<String, String> typeAliases = {};
 
@@ -242,6 +248,7 @@ class ElementModeExtractor {
           }
           if (!typedefExpansions.containsKey(aliasName)) {
             typedefExpansions[aliasName] = _expandFunctionType(dartType);
+            typedefArity[aliasName] = _positionalArity(dartType);
           }
         }
       }
@@ -370,6 +377,17 @@ class ElementModeExtractor {
   String _renderDartType(DartType type) =>
       shared_type_rendering.renderDartType(type);
 
+  /// The positional arity of [funcType]: required positional parameters, and
+  /// all positional ones (required plus optional). Named parameters are not
+  /// positional and are counted in neither.
+  ({int required, int max}) _positionalArity(FunctionType funcType) {
+    final positional = funcType.formalParameters.where((p) => !p.isNamed);
+    return (
+      required: positional.where((p) => p.isRequiredPositional).length,
+      max: positional.length,
+    );
+  }
+
   String _expandFunctionType(FunctionType funcType) {
     final returnType = funcType.returnType.getDisplayString();
     final positionalParams = funcType.formalParameters
@@ -471,6 +489,7 @@ class ElementModeExtractor {
         return;
       }
       typedefExpansions[name] = _expandFunctionType(aliased);
+      typedefArity[name] = _positionalArity(aliased);
       return;
     }
 

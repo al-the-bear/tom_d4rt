@@ -34,6 +34,7 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:tom_d4rt_generator/tom_d4rt_generator.dart';
+import 'support/generated_code.dart';
 
 /// Writes a minimal package whose barrel re-exports two `src/` libraries, one
 /// of which re-exports the other behind a `show` combinator.
@@ -135,9 +136,9 @@ Future<String> generateWith(
   );
   expect(result.errors, isEmpty, reason: 'fixture must generate cleanly');
 
-  final code = File(
+  final code = readGeneratedCodeSync(
     p.join(outDir.path, 'zom_reexp_bridges.dart'),
-  ).readAsStringSync();
+  );
   try {
     outDir.deleteSync(recursive: true);
   } catch (_) {}

@@ -26,6 +26,7 @@ import 'package:tom_d4rt_generator/src/user_proxy_relaxer_scanner.dart';
 import 'package:tom_d4rt_generator/src/user_variant_sites.dart';
 import 'package:tom_d4rt_generator/src/verification/generated_output_analysis.dart';
 
+import 'support/generated_code.dart';
 import 'synthesised_package.dart';
 
 const _package = 'zom_scf15';
@@ -232,7 +233,7 @@ void main() {
             'the directive is the request: no generateProxies flag and no '
             'proxiesOutputPath were configured',
       );
-      final source = file.readAsStringSync();
+      final source = readGeneratedCodeSync(file.path);
       expect(
         source,
         contains('class D4rtZomFormList<T, F> extends ZomFormList<T, F>'),

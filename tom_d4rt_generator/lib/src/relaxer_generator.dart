@@ -35,6 +35,7 @@ import 'file_generators.dart' show ensureBDartExtension;
 import 'generated_stamp.dart';
 import 'generic_constructor_generator.dart' show generateGenericConstructor;
 import 'generic_interceptor_generator.dart' show generateGenericInterceptor;
+import 'generated_code_formatter.dart';
 
 // =============================================================================
 // Result types
@@ -138,7 +139,11 @@ Future<RelaxerGenerationResult> generateRelaxers({
 
   // Writes [content] to the relaxer output, honouring the [writeFile] sink
   // when provided (build_runner) and falling back to direct `dart:io` writes.
-  Future<String> emit(String content) async {
+  Future<String> emit(String unformatted) async {
+    final content = formatGeneratedDart(
+      unformatted,
+      outputPath: p.join(projectPath, relaxerRelPath),
+    );
     if (writeFile != null) {
       await writeFile(relaxerRelPath, content);
       return relaxerRelPath;

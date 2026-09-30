@@ -17,6 +17,7 @@ import 'd4rtgen_logging.dart';
 import 'file_generators.dart';
 import 'proxy_generator.dart';
 import 'relaxer_generator.dart';
+import 'generated_code_formatter.dart';
 import 'user_variant_sites.dart'
     show proxyClassesWithDirectives, userVariantExtractionSites;
 import 'user_bridge_prescan.dart'
@@ -629,7 +630,12 @@ Future<void> _generateBarrelFile(
   bool verbose = false,
 }) async {
   if (verbose) print('  Generating barrel: $barrelPath');
-  await File(barrelPath).writeAsString(generateBarrelFileContent(config));
+  await File(barrelPath).writeAsString(
+    formatGeneratedDart(
+      generateBarrelFileContent(config),
+      outputPath: barrelPath,
+    ),
+  );
 }
 
 /// Generate dartscript file with combined bridge registration.
@@ -644,10 +650,13 @@ Future<void> _generateDartscriptFile(
       ? ensureBDartExtension(config.dartscriptPath!)
       : null;
   await File(dartscriptPath).writeAsString(
-    generateDartscriptFileContent(
-      config,
-      dartscriptPath: normalizedDartscriptPath,
-      packageName: packageName,
+    formatGeneratedDart(
+      generateDartscriptFileContent(
+        config,
+        dartscriptPath: normalizedDartscriptPath,
+        packageName: packageName,
+      ),
+      outputPath: dartscriptPath,
     ),
   );
 }
@@ -668,10 +677,13 @@ Future<void> _generateTestRunnerFile(
       ? ensureBDartExtension(config.testRunnerPath!)
       : null;
   await File(testRunnerPath).writeAsString(
-    generateTestRunnerContent(
-      config,
-      testRunnerPath: normalizedTestRunnerPath,
-      packageName: packageName,
+    formatGeneratedDart(
+      generateTestRunnerContent(
+        config,
+        testRunnerPath: normalizedTestRunnerPath,
+        packageName: packageName,
+      ),
+      outputPath: testRunnerPath,
     ),
   );
 }

@@ -31,6 +31,7 @@ import 'file_generators.dart' show ensureBDartExtension;
 import 'generated_stamp.dart';
 import 'sdk_utils.dart' show getSdkPath;
 import 'type_rendering.dart' show renderDartType, renderDartTypeExpanded;
+import 'generated_code_formatter.dart';
 
 /// Information about a method that needs proxying.
 class _AbstractMethodInfo {
@@ -595,7 +596,9 @@ Future<ProxyGenerationResult> generateProxies({
   if (!outputDir.existsSync()) {
     outputDir.createSync(recursive: true);
   }
-  await File(outputPath).writeAsString(buffer.toString());
+  await File(outputPath).writeAsString(
+    formatGeneratedDart(buffer.toString(), outputPath: outputPath),
+  );
 
   return ProxyGenerationResult(
     outputFile: outputPath,

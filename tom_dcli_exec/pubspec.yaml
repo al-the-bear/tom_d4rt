@@ -77,12 +77,12 @@ dependencies:
   stack_trace: ^1.12.1
 
 dev_dependencies:
-  build_runner: ^2.4.15
   lints: ^6.0.0
   test: ^1.25.6
   # analyzer-10: tom_d4rt_generator 1.10.0 is the analyzer-10 build (cli_tools
   # quest, migration plan Phase 4), so it now shares this package's analyzer ^10
-  # resolution and bridge regeneration via build_runner is available again.
+  # resolution. Bridges are regenerated with `d4rtgen`; there is no
+  # build_runner step.
   # Floor 1.15.3: below it, a regeneration from a relative scan root writes
   # `bridgeReExports()` source keys as `lib/…` instead of `package:…`, which no
   # script import can ever match (GEN-125).

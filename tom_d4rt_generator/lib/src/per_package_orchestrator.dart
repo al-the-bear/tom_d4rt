@@ -23,6 +23,7 @@ import 'generated_stamp.dart';
 import 'sdk_utils.dart' show getSdkPath;
 import 'source_package.dart';
 import 'user_bridge_scanner.dart';
+import 'generated_code_formatter.dart';
 
 /// Information about a source package and its elements.
 class PackageInfo {
@@ -654,9 +655,13 @@ class PerPackageBridgeOrchestrator {
   ) async {
     for (final mapping in _barrelMappings.values) {
       final content = _generateDelegatingBarrelContent(mapping, packageFiles);
+      final fileId = FileId(buildPackageName, mapping.outputPath);
       await fileWriter.writeFile(
-        FileId(buildPackageName, mapping.outputPath),
-        content,
+        fileId,
+        formatGeneratedDart(
+          content,
+          outputPath: fileWriter.absolutePath(fileId),
+        ),
       );
     }
   }

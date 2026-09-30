@@ -12,6 +12,7 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:tom_d4rt_generator/tom_d4rt_generator.dart';
+import 'support/generated_code.dart';
 
 void main() {
   late String testFixturesDir;
@@ -56,7 +57,7 @@ void main() {
       expect(result.errors, isEmpty, reason: 'Should generate without errors');
       expect(result.outputFiles, isNotEmpty);
 
-      generatedCode = await File(result.outputFiles.first).readAsString();
+      generatedCode = await readGeneratedCode(result.outputFiles.first);
 
       // Debug output
       final debugPath = p.join(
@@ -193,7 +194,7 @@ void main() {
       );
 
       expect(result.errors, isEmpty);
-      generatedCode = await File(result.outputFiles.first).readAsString();
+      generatedCode = await readGeneratedCode(result.outputFiles.first);
     });
 
     test('ENG-011-01: SyncFutureMock is bridged. [2026-03-07] (PASS)', () {
@@ -259,7 +260,7 @@ void main() {
       );
 
       expect(result.errors, isEmpty);
-      generatedCode = await File(result.outputFiles.first).readAsString();
+      generatedCode = await readGeneratedCode(result.outputFiles.first);
     });
 
     test('ENG-007-01: TextStyleMock is bridged. [2026-03-07] (PASS)', () {

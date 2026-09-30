@@ -24,6 +24,7 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:tom_d4rt_generator/tom_d4rt_generator.dart';
+import 'support/generated_code.dart';
 
 void main() {
   late String testFixturesDir;
@@ -66,7 +67,7 @@ void main() {
     );
     expect(result.errors, isEmpty, reason: 'Should generate without errors');
     expect(result.outputFiles, isNotEmpty);
-    return File(result.outputFiles.first).readAsString();
+    return readGeneratedCode(result.outputFiles.first);
   }
 
   group('DGU3 typeMappings generator escape hatch', () {
