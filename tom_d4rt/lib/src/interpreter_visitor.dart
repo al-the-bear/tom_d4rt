@@ -9853,6 +9853,13 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             // Return the *new* value for prefix operators
             return newValue;
           } else {
+            // SCF37: a bridged receiver, as the compound path handles it.
+            final stepped = _stepBridgedProperty(
+              targetValue,
+              propertyName,
+              operatorType,
+            );
+            if (stepped != null) return stepped.$2;
             throw RuntimeD4rtException(
               "Cannot increment/decrement property on non-instance object of type '${targetValue?.runtimeType}'.",
             );
@@ -9956,6 +9963,13 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             // Return the *new* value for prefix operators
             return newValue;
           } else {
+            // SCF37: a bridged receiver, as the compound path handles it.
+            final stepped = _stepBridgedProperty(
+              targetValue,
+              propertyName,
+              operatorType,
+            );
+            if (stepped != null) return stepped.$2;
             throw RuntimeD4rtException(
               "Cannot increment/decrement property on non-instance object of type '${targetValue?.runtimeType}'.",
             );
@@ -10349,6 +10363,13 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         // Return the *original* value for postfix operators
         return originalValue;
       } else {
+        // SCF37: a bridged receiver, as the compound path handles it.
+        final stepped = _stepBridgedProperty(
+          targetValue,
+          propertyName,
+          operatorType,
+        );
+        if (stepped != null) return stepped.$1;
         throw RuntimeD4rtException(
           "Cannot increment/decrement property on non-instance object of type '${targetValue?.runtimeType}'.",
         );
@@ -10457,6 +10478,13 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         // Return the *original* value for postfix operators
         return originalValue;
       } else {
+        // SCF37: a bridged receiver, as the compound path handles it.
+        final stepped = _stepBridgedProperty(
+          targetValue,
+          propertyName,
+          operatorType,
+        );
+        if (stepped != null) return stepped.$1;
         throw RuntimeD4rtException(
           "Cannot increment/decrement property on non-instance object of type '${targetValue?.runtimeType}'.",
         );
@@ -11648,6 +11676,45 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
   }
 
   // Helper function to compute compound assignment values
+  /// `obj.p++` / `++obj.p` (and `--`) on a BRIDGED receiver, or null when
+  /// [target] is not one (SCF37).
+  ///
+  /// Reads through the getter adapter and writes through the setter adapter,
+  /// as `obj.p += 1` does, with the step computed by [computeCompoundValue].
+  /// Both adapters come from the reachable walk (SCF19), so a property the
+  /// bridged class inherits steps too. Returns `(old, new)`: postfix yields
+  /// the first, prefix the second.
+  (Object?, Object?)? _stepBridgedProperty(
+    Object? target,
+    String propertyName,
+    TokenType operatorType,
+  ) {
+    final (bridged, isBridged) = toBridgedInstance(target);
+    if (!isBridged) return null;
+    final bridgedClass = bridged!.bridgedClass;
+    final getter = bridgedClass.findReachableGetterAdapter(propertyName, this);
+    final setter = bridgedClass.findReachableSetterAdapter(propertyName, this);
+    if (getter == null || setter == null) {
+      throw RuntimeD4rtException(
+        "Cannot increment/decrement '${bridgedClass.name}.$propertyName': "
+        "the bridge has ${getter == null ? 'no getter' : 'no setter'} for it.",
+      );
+    }
+    final oldValue = getter(this, bridged.nativeObject);
+    final newValue = computeCompoundValue(
+      oldValue,
+      1,
+      operatorType == TokenType.PLUS_PLUS
+          ? TokenType.PLUS_EQ
+          : TokenType.MINUS_EQ,
+    );
+    D4.withActiveVisitor<void>(
+      this,
+      () => setter(this, bridged.nativeObject, newValue),
+    );
+    return (oldValue, newValue);
+  }
+
   Object? computeCompoundValue(
     Object? currentValue,
     Object? rhsValue,

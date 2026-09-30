@@ -351,8 +351,13 @@ const _divergentBodies = <String, Map<String, String>>{
     // SCE236: the two `visitNode` bodies are identical now. Only the excerpt
     // helper differs: `toSource()` here, the bundled source in the twin.
     'InterpreterVisitor._nodeExcerpt': 'b5e37909',
-    'InterpreterVisitor.visitPostfixExpression': 'b327ada1',
-    'InterpreterVisitor.visitPrefixExpression': 'd0305f8e',
+    // SCF37: both bodies gained the bridged-receiver branch, identically.
+    'InterpreterVisitor.visitPostfixExpression': '015157a9',
+    'InterpreterVisitor.visitPrefixExpression': '0548d45a',
+    // SCF37: the bridged step. The only difference is the operator spelling —
+    // `TokenType.PLUS_PLUS` / `PLUS_EQ` here, the strings `'++'` / `'+='` in
+    // the twin, as in [computeCompoundValue] which it calls.
+    'InterpreterVisitor._stepBridgedProperty': '15618af1',
     'InterpreterVisitor.visitPrefixedIdentifier': '8998a214',
     'InterpreterVisitor.visitPropertyAccess': 'f38664e1',
     'InterpreterVisitor.visitReturnStatement': 'b0d7b56c',

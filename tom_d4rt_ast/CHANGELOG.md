@@ -1,3 +1,16 @@
+## 0.198.0
+
+### Fixed — `obj.v++` and `++obj.v` on a bridged object's property (scf37)
+
+`b.v += 1` worked on a bridged getter/setter pair, but `b.v++`, `b.v--`,
+`++b.v` and `--b.v` threw `Cannot increment/decrement property on
+non-instance object`: the four increment/decrement sites accepted only an
+interpreted instance as the receiver. A bridged receiver now steps through
+its getter and setter adapters, as the compound path does. The walk reaches
+adapters the bridged class inherits (SCF19), and the step is computed by the
+same `computeCompoundValue`. Postfix yields the old value, prefix the new; a
+property with no setter is refused by name.
+
 ## 0.197.0
 
 ### Fixed — a surplus positional argument is an error, in every stdlib adapter (scf36)

@@ -2202,6 +2202,12 @@ const Map<String, _Convergence> _convergenceLog = {
 /// re-measure the whole register when the floor moves, not the entry you
 /// happened to be reading.
 const Map<String, _Divergence> _divergentBaseline = {
+  // SCF37: `obj.v++` / `++obj.v` step a bridged receiver's property. The
+  // published interpreter throws, so this port carries the reference verbatim
+  // but for a group-level skip.
+  // PUBLISH-BLOCKED — re-port when exec's tom_d4rt_ast floor passes 0.198.0,
+  // by copying the reference file down; converges at a floor past 0.198.0.
+  'bridge/scf37_bridged_property_increment_test.dart': _Divergence.deliberate,
   // SCF36: every stdlib adapter bounds a surplus positional argument at the
   // SDK's count. The published interpreter drops the surplus, so this port
   // carries the reference verbatim but for group-level skips.
@@ -2297,6 +2303,7 @@ const Map<String, _Divergence> _divergentBaseline = {
 /// Recomputing without reading the new difference is the failure mode; the
 /// message says so.
 const Map<String, String> _divergenceFingerprints = <String, String>{
+  'bridge/scf37_bridged_property_increment_test.dart': '699f24c0f6d03090',
   'stdlib/scf36_surplus_arity_bounded_test.dart': 'eb79eb8b24309084',
   'scf35_schedule_microtask_test.dart': '8fe0bd3f4874c8ce',
   'scc73_sdk_member_completeness_test.dart': '300d552b19b4fa8c',
@@ -2486,6 +2493,11 @@ typedef _Pin = ({String floor, String measured});
 /// recorded evidence was seven and ten cases out of date. Both are re-stamped
 /// above their entries in `_uncoveredBaseline`.
 const Map<String, _Pin> _pinnedInterpreterFloors = <String, _Pin>{
+  // SCF37, pinned at the release that steps a bridged property.
+  'bridge/scf37_bridged_property_increment_test.dart': (
+    floor: '0.198.0',
+    measured: '0.195.0',
+  ),
   // SCF36, pinned at the release that bounds the surplus-arity adapters.
   'stdlib/scf36_surplus_arity_bounded_test.dart': (
     floor: '0.197.0',
