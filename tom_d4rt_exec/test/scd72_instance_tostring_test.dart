@@ -130,8 +130,13 @@ void main() {
         'throws':
             "class T { String toString() => throw StateError('x'); }\n"
             'main() => T();',
-        'reads an undefined name':
-            'class M { String toString() => nope; }\nmain() => M();',
+        // A lookup failure inside the override, rather than a thrown error.
+        // It read a bare undefined `nope` until SCG6, which refuses that
+        // program before `main`; a member read after a `.` still fails at
+        // runtime, inside the override, which is the case being pinned.
+        'reads an undefined member':
+            'class M { String toString() => (this as dynamic).nope; }\n'
+            'main() => M();',
       };
       cases.forEach((label, source) {
         final instance = run(source);
