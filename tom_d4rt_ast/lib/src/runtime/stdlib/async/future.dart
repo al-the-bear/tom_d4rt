@@ -307,5 +307,34 @@ class FutureStdlib {
     environment.defineBridge(FutureAsync.definition);
     environment.defineBridge(TimeoutExceptionAsync.definition);
     environment.defineBridge(UnawaitedAsync.definition);
+    environment.define('scheduleMicrotask', _scheduleMicrotask);
   }
+
+  /// `dart:async`'s `scheduleMicrotask` (SCF35).
+  ///
+  /// The callback runs under the same discipline as a Timer body (SCD73): it
+  /// is the one kind of interpreted callback whose outcome nobody can await,
+  /// so an error it throws leaves unwrapped and the zone the script runs in —
+  /// an embedder's `onUncaughtError` — receives what the script threw (SCC23).
+  static final NativeFunction _scheduleMicrotask = NativeFunction(
+    (visitor, arguments, namedArguments, typeArguments) {
+      if (arguments.length != 1 || arguments[0] is! Callable) {
+        throw RuntimeD4rtException(
+          'scheduleMicrotask requires one positional argument '
+          '(void Function() callback).',
+        );
+      }
+      final callback = arguments[0] as Callable;
+      scheduleMicrotask(() {
+        try {
+          callback.call(visitor, []);
+        } catch (error, stackTrace) {
+          Error.throwWithStackTrace(unwrapScriptError(error), stackTrace);
+        }
+      });
+      return null;
+    },
+    arity: 1,
+    name: 'scheduleMicrotask',
+  );
 }

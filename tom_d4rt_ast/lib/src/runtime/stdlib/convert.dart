@@ -124,6 +124,12 @@ class ConvertStdlib {
     environment.define('ascii', ascii);
     environment.define('utf8', utf8);
     environment.define('latin1', latin1);
+    // SCF35: dart:convert's two rune constants, found by F-SCC73-5.
+    environment.define('unicodeBomCharacterRune', unicodeBomCharacterRune);
+    environment.define(
+      'unicodeReplacementCharacterRune',
+      unicodeReplacementCharacterRune,
+    );
 
     // Register global functions
     environment.define(
@@ -145,6 +151,24 @@ class ConvertStdlib {
         },
         arity: 1,
         name: 'base64Encode',
+      ),
+    );
+
+    // SCF35: the URL-safe twin of base64Encode, found by F-SCC73-5.
+    environment.define(
+      'base64UrlEncode',
+      NativeFunction(
+        (visitor, arguments, namedArguments, typeArguments) {
+          if (arguments.length != 1 || arguments[0] is! List) {
+            throw RuntimeD4rtException(
+              'base64UrlEncode requires one positional argument '
+              '(List<int> bytes).',
+            );
+          }
+          return base64UrlEncode((arguments[0] as List).cast<int>());
+        },
+        arity: 1,
+        name: 'base64UrlEncode',
       ),
     );
 

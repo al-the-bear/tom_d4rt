@@ -1,3 +1,23 @@
+## 0.196.0
+
+### Added — `scheduleMicrotask`, and the rest of the top-level surface nothing checked (scf35)
+
+`scheduleMicrotask(() => ...)` failed with `Undefined variable`, and the name
+was not recorded as deliberately unbridged either. It is now a `dart:async`
+global. The callback runs under the discipline a Timer body uses: queued as a
+real microtask, and an error it throws leaves unwrapped, so an embedder's
+`onUncaughtError` receives what the script threw.
+
+The gap existed because the SDK-surface guard (`scc73`) read only the
+constructors and getters of classes. Its new axis, F-SCC73-5, reads every
+public top-level function, getter and variable of the eight bridged `dart:`
+libraries and resolves each from a script. On its first run it found four more
+names, now bridged: `base64UrlEncode`, `unicodeBomCharacterRune` and
+`unicodeReplacementCharacterRune` (`dart:convert`), and `systemEncoding`
+(`dart:io`). Six names are deliberately not bridged, each with a recorded
+reason: `exit`, `sleep`, `exitCode` and `pid` (`dart:io`), and the
+`deprecated` / `override` annotation constants.
+
 ## 0.195.0
 
 ### Fixed — a script subclass of a concrete bridged class is recognised when native code hands it back (scf31)

@@ -2202,6 +2202,22 @@ const Map<String, _Convergence> _convergenceLog = {
 /// re-measure the whole register when the floor moves, not the entry you
 /// happened to be reading.
 const Map<String, _Divergence> _divergentBaseline = {
+  // SCF35: scheduleMicrotask, base64UrlEncode, the dart:convert rune
+  // constants and systemEncoding are bridged. The published interpreter has
+  // none of them, so this port carries the reference verbatim but for
+  // group-level skips.
+  // PUBLISH-BLOCKED — re-port when exec's tom_d4rt_ast floor passes 0.196.0,
+  // by copying the reference file down; converges at a floor past 0.196.0.
+  'scf35_schedule_microtask_test.dart': _Divergence.deliberate,
+  // SCF35 added F-SCC73-5, which reads the SDK's top-level functions, getters
+  // and variables and fails on any a script cannot reach. Against the
+  // published interpreter it fails on the names scf35 bridges, so this port
+  // lacks the case (and its helpers); it is otherwise the reference with the
+  // interpreter imports rewritten.
+  // PUBLISH-BLOCKED — re-port when exec's tom_d4rt_ast floor passes 0.196.0,
+  // by copying the reference file down and rewriting its imports as before;
+  // converges at a floor past 0.196.0.
+  'scc73_sdk_member_completeness_test.dart': _Divergence.deliberate,
   // `scd188`: SCE224 made the reference copy DERIVE its subscribing-getter set
   // from the `Stdin` entry's expiry condition in `tom_d4rt/tool/
   // stdlib_member_diff.dart`, so the set has one home. That tool is
@@ -2275,6 +2291,8 @@ const Map<String, _Divergence> _divergentBaseline = {
 /// Recomputing without reading the new difference is the failure mode; the
 /// message says so.
 const Map<String, String> _divergenceFingerprints = <String, String>{
+  'scf35_schedule_microtask_test.dart': '8fe0bd3f4874c8ce',
+  'scc73_sdk_member_completeness_test.dart': '300d552b19b4fa8c',
   'stdlib/io/scd188_stdin_audit_reason_expiry_test.dart': '46be47f827711c3a',
   'warm_parent_package_pool_test.dart': '971b6ff19185f442',
   'stdlib/intentionally_unbridged_test.dart': 'a11036cda720efcf',
@@ -2460,7 +2478,15 @@ typedef _Pin = ({String floor, String measured});
 /// 8-of-10 to 13-of-20 — still wholly failing, so still justified, but their
 /// recorded evidence was seven and ten cases out of date. Both are re-stamped
 /// above their entries in `_uncoveredBaseline`.
-const Map<String, _Pin> _pinnedInterpreterFloors = <String, _Pin>{};
+const Map<String, _Pin> _pinnedInterpreterFloors = <String, _Pin>{
+  // SCF35, pinned at the release that bridges scheduleMicrotask.
+  'scf35_schedule_microtask_test.dart': (floor: '0.196.0', measured: '0.195.0'),
+  // SCF35's F-SCC73-5, pinned at the same release.
+  'scc73_sdk_member_completeness_test.dart': (
+    floor: '0.196.0',
+    measured: '0.195.0',
+  ),
+};
 
 /// The `tom_d4rt_ast` floor exec's own `pubspec.yaml` currently declares.
 ///
@@ -3354,7 +3380,8 @@ const Map<String, String> _astDriftFingerprints = <String, String>{
 // 2026-09-29 (sce237). SCF4 then landed interpreter work behind it (the
 // async* listener gate), so the tree is ahead of the release again; scf42 owns
 // the release that carries it and deletes this pin.
-const String? _astPublishBlock = null;
+const String? _astPublishBlock =
+    'scf42_aiöq-publish-the-interpreter-release-carrying-scf4';
 
 /// One baseline entry and the comment block written directly above it.
 typedef _BaselineEntry = ({String path, String comment});

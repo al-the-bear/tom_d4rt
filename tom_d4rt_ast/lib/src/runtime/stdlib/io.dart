@@ -1,3 +1,5 @@
+import 'dart:io' show systemEncoding;
+
 import 'package:tom_d4rt_ast/src/runtime/environment.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/io/directory.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/io/file_system_entity.dart';
@@ -29,6 +31,10 @@ export 'package:tom_d4rt_ast/src/runtime/stdlib/io/websocket.dart';
 
 class IoStdlib {
   static void register(Environment environment) {
+    // SCF35: the platform's text encoding, found by F-SCC73-5. It is a value
+    // describing the host, not a handle on it, like `Platform.isWindows`.
+    environment.define('systemEncoding', systemEncoding);
+
     // Register FileSystemEntity classes (converted)
     environment.defineBridge(FileSystemEntityIo.definition);
     environment.defineBridge(FileStatIo.definition);
