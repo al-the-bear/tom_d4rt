@@ -2202,6 +2202,13 @@ const Map<String, _Convergence> _convergenceLog = {
 /// re-measure the whole register when the floor moves, not the entry you
 /// happened to be reading.
 const Map<String, _Divergence> _divergentBaseline = {
+  // SCF39: an interpreted `Error` subclass renders as its own class and
+  // records `stackTrace` on its first throw. The published interpreter
+  // answers from the native super-object, so this port carries the reference
+  // verbatim but for group-level skips.
+  // PUBLISH-BLOCKED — re-port when exec's tom_d4rt_ast floor passes 0.200.0,
+  // by copying the reference file down; converges at a floor past 0.200.0.
+  'scf39_interpreted_error_subclass_test.dart': _Divergence.deliberate,
   // SCF38: a native closure resolves to the `Function` bridge, not to the
   // bridge named like its return type. The published interpreter still
   // suffix-matches, so this port carries the reference verbatim but for a
@@ -2310,6 +2317,7 @@ const Map<String, _Divergence> _divergentBaseline = {
 /// Recomputing without reading the new difference is the failure mode; the
 /// message says so.
 const Map<String, String> _divergenceFingerprints = <String, String>{
+  'scf39_interpreted_error_subclass_test.dart': 'c817b4397bbd9b84',
   'bridge/scf38_native_closure_bridge_test.dart': '9e676d43c0d18732',
   'bridge/scf37_bridged_property_increment_test.dart': '699f24c0f6d03090',
   'stdlib/scf36_surplus_arity_bounded_test.dart': 'eb79eb8b24309084',
@@ -2501,6 +2509,11 @@ typedef _Pin = ({String floor, String measured});
 /// recorded evidence was seven and ten cases out of date. Both are re-stamped
 /// above their entries in `_uncoveredBaseline`.
 const Map<String, _Pin> _pinnedInterpreterFloors = <String, _Pin>{
+  // SCF39, pinned at the release that answers an Error subclass as its class.
+  'scf39_interpreted_error_subclass_test.dart': (
+    floor: '0.200.0',
+    measured: '0.195.0',
+  ),
   // SCF38, pinned at the release that resolves a native closure to Function.
   'bridge/scf38_native_closure_bridge_test.dart': (
     floor: '0.199.0',

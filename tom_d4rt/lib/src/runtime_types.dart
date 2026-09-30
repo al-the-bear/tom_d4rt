@@ -1352,6 +1352,51 @@ class InterpretedInstance implements RuntimeValue {
 
   Object? _bridgedSuperObject;
 
+  /// The stack trace recorded when this instance was first thrown, for an
+  /// instance whose bridged super-object is an [Error] (SCF39).
+  ///
+  /// Dart sets `Error.stackTrace` on the first throw. The native super-object
+  /// is never thrown — the interpreter throws this instance — and its
+  /// `stackTrace` cannot be assigned, so the record lives here and the
+  /// `stackTrace` read answers it when the native one is null.
+  StackTrace? thrownStackTrace;
+
+  /// Records [thrownStackTrace] if this is the first throw of an instance
+  /// extending [Error]; a later throw keeps the first, as Dart does.
+  void recordThrowIfError(StackTrace stackTrace) {
+    if (_bridgedSuperObject is Error) thrownStackTrace ??= stackTrace;
+  }
+
+  /// Whether [native]'s `toString` is `Object`'s own, unoverridden answer.
+  ///
+  /// A bridged super-object that does not override `toString` — a plain
+  /// `Error` — renders as `Instance of 'Error'`, describing the NATIVE class.
+  /// Dart's default names the runtime class, which is the interpreted one, so
+  /// that answer must not reach the script (SCF39).
+  static bool _isObjectDefaultToString(Object native) =>
+      native.toString() == "Instance of '${native.runtimeType}'";
+
+  /// This instance's own default rendering when [native] — its bridged
+  /// super-object or proxy — answers `Object`'s default `toString`, and null
+  /// when [native] overrides it (`ArgumentError`'s message is a real answer).
+  ///
+  /// The one place the rule lives: a member read, `super.toString()` and
+  /// interpolation all ask it (SCF39).
+  String? defaultToStringOver(Object native) =>
+      _isObjectDefaultToString(native) ? _diagnosticString : null;
+
+  /// What an instance with no script `toString` renders as. An `Error`
+  /// subclass answers its native super-object's `toString` when that is a
+  /// real override (`ArgumentError`, `StateError`), as the inherited member
+  /// does in Dart; otherwise the interpreter's default.
+  String get _defaultString {
+    final native = _bridgedSuperObject;
+    if (native is Error) {
+      return defaultToStringOver(native) ?? native.toString();
+    }
+    return _diagnosticString;
+  }
+
   // Store a native proxy that wraps this instance (e.g., _InterpretedTickerProviderState).
   // Used by extractBridgedArg to return the proxy when the target type matches,
   // instead of creating a new delegation wrapper.
@@ -1695,7 +1740,7 @@ class InterpretedInstance implements RuntimeValue {
     target: this,
     method: klass.findInstanceMethod('toString'),
     visitor: klass.declaringVisitor,
-    fallback: () => _diagnosticString,
+    fallback: () => _defaultString,
   );
 
   /// Non-throwing check: does this instance declare an instance member
@@ -1853,6 +1898,12 @@ class InterpretedInstance implements RuntimeValue {
         if (getterTarget != null || nativeTarget != null) {
           final bridgedSuper = currentClass.bridgedSuperclass!;
 
+          // SCF39: Dart sets `Error.stackTrace` on the first throw; the
+          // native super-object was never thrown, so answer the record.
+          if (name == 'stackTrace' && getterTarget is Error) {
+            return getterTarget.stackTrace ?? thrownStackTrace;
+          }
+
           // Try getter first — may use `nativeStateProxy` as fallback.
           final getterAdapter = bridgedSuper.findReachableGetterAdapter(
             name,
@@ -1895,6 +1946,13 @@ class InterpretedInstance implements RuntimeValue {
               name,
               visitor,
             );
+            // SCF39: a native `toString` that is `Object`'s default names the
+            // native class; the interpreted class answers its own default.
+            if (name == 'toString' &&
+                methodAdapter != null &&
+                defaultToStringOver(nativeTarget) != null) {
+              return objectMember('toString');
+            }
             if (methodAdapter != null) {
               Logger.debug(
                 "[Instance.get] Found method '$name' in bridged superclass '${bridgedSuper.name}' at level '${currentClass.name}'. Returning bound callable.",

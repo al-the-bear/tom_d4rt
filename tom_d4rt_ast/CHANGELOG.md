@@ -1,3 +1,22 @@
+## 0.200.0
+
+### Fixed — an interpreted `Error` subclass answers as its own class (scf39)
+
+`class MyError extends Error {}` is built on a native `Error` super-object,
+and two answers came from that object instead of the script's class.
+`MyError().toString()` printed `Instance of 'Error'`, naming the native class,
+while `'$e'` on the same value printed `<instance of MyError>`. A native
+super-object or proxy whose `toString` is `Object`'s default now yields the
+instance's own default, for a member read and for `super.toString()` inside
+an override alike. A super-object that overrides `toString` is still the
+answer, and now for interpolation too: an `ArgumentError` subclass
+interpolates as its message.
+
+`stackTrace` stayed null after the error was thrown. Dart sets it on the
+first throw; the native super-object is never thrown and its `stackTrace`
+cannot be assigned, so the instance records the stack trace of its first
+throw, and a later throw keeps it.
+
 ## 0.199.0
 
 ### Fixed — a native closure resolves to the `Function` bridge (scf38)

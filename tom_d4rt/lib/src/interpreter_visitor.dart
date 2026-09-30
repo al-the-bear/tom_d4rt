@@ -5395,6 +5395,13 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           return null;
         }
 
+        // SCF39: `super.toString()` over a native `Object` default names the
+        // native class; Dart's answer names the runtime class.
+        if (methodName == 'toString') {
+          final ownDefault = instance.defaultToStringOver(nativeSuperObject);
+          if (ownDefault != null) return ownDefault;
+        }
+
         // Find the method adapter in the bridged class
         final methodAdapter = bridgedSuper.findReachableMethodAdapter(
           methodName,
@@ -12495,6 +12502,11 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     // 2. Create and throw an InternalInterpreterException.
     final message = stringify(thrownValue); // Keep for debug log
     Logger.debug("[ThrowExpression] Throwing (original value): $message");
+    // SCF39: an interpreted `Error` subclass gets its `stackTrace` on the
+    // first throw, as Dart sets it.
+    if (thrownValue is InterpretedInstance) {
+      thrownValue.recordThrowIfError(StackTrace.current);
+    }
     // Throw the specific internal exception, wrapping the original value
     throw InternalInterpreterD4rtException(thrownValue);
     // We don't capture stack trace here, the 'catch' block does it.
