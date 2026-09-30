@@ -300,7 +300,7 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpreterVisitor._checkAppliedGenericReturn': '04ded847',
     'InterpreterVisitor._evaluateArguments': '0df79830',
     'InterpreterVisitor._evaluateArgumentsAsync': '0df79830',
-    'InterpreterVisitor._executeCascadeAssignment': '24682899',
+    'InterpreterVisitor._executeCascadeAssignment': '6ba592d9',
     'InterpreterVisitor._executeClassicFor': 'cc48545f',
     'InterpreterVisitor._functionRuntimeTypeFromParts': '0c32ea02',
     'InterpreterVisitor._mapCompoundToOperatorName': 'd728ed84',
@@ -313,7 +313,7 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpreterVisitor._castTypeDescription': '8ab45b85',
     'InterpreterVisitor._tryCast': 'c54f1a19',
     'InterpreterVisitor._matchAndBind': 'bcdd64fd',
-    'InterpreterVisitor._processCollectionElement': 'a7ca0a72',
+    'InterpreterVisitor._processCollectionElement': '48b7d194',
     'InterpreterVisitor._resolveTypeAnnotationWithEnvironment': '6111216b',
     'InterpreterVisitor._statementsIntroduceBindings': '73f8180e',
     'InterpreterVisitor._subtreeContainsClosure': 'b6e41360',
@@ -352,8 +352,8 @@ const _divergentBodies = <String, Map<String, String>>{
     // helper differs: `toSource()` here, the bundled source in the twin.
     'InterpreterVisitor._nodeExcerpt': 'b5e37909',
     // SCF37: both bodies gained the bridged-receiver branch, identically.
-    'InterpreterVisitor.visitPostfixExpression': '015157a9',
-    'InterpreterVisitor.visitPrefixExpression': '0548d45a',
+    'InterpreterVisitor.visitPostfixExpression': '9f53f453',
+    'InterpreterVisitor.visitPrefixExpression': 'c98a6df0',
     // SCF37: the bridged step. The only difference is the operator spelling —
     // `TokenType.PLUS_PLUS` / `PLUS_EQ` here, the strings `'++'` / `'+='` in
     // the twin, as in [computeCompoundValue] which it calls.

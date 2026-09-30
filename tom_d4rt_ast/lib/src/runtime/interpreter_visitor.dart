@@ -2638,11 +2638,10 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     if (indexValue is AsyncSuspensionRequest) return indexValue;
 
     if (targetValue is Map) {
-      // Unwrap BridgedEnumValue keys to nativeValue so lookups work
-      // regardless of whether the map was built with native or wrapped keys.
-      final key = indexValue is BridgedEnumValue
-          ? indexValue.nativeValue
-          : indexValue;
+      // A lookup key normalises as a stored key does (SCC32, SCF40): a
+      // wrapped enum or instance becomes its native, and a class name its
+      // native `Type`, which an identity map needs to find it.
+      final key = _unwrapHashKey(indexValue);
       return targetValue[key];
     }
     if (targetValue is String && indexValue is int) {
@@ -2706,7 +2705,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           return methodAdapter(
             this,
             bridgedInstance.nativeObject,
-            [indexValue],
+            [_bridgeInterpreterValueToNative(indexValue)],
             {},
             null,
           );
@@ -4167,7 +4166,10 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
         // Now, perform the assignment with finalValueToAssign
         if (targetValue is Map) {
-          targetValue[indexValue] = finalValueToAssign;
+          // A stored key normalises as a literal's does (SCC32, SCD198):
+          // `m[String] = v` must reach the entry `m[x.runtimeType]` reads
+          // (SCF40). Every `[]=` store on a Map below does the same.
+          targetValue[_unwrapHashKey(indexValue)] = finalValueToAssign;
           return finalValueToAssign;
         } else if (targetValue is List) {
           // SCD93: the SDK decides — see `visitIndexExpression`.
@@ -4275,7 +4277,10 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
               methodAdapter(
                 this,
                 bridgedInstance.nativeObject,
-                [indexValue, finalValueToAssign],
+                [
+                  _bridgeInterpreterValueToNative(indexValue),
+                  finalValueToAssign,
+                ],
                 {},
                 null,
               );
@@ -8480,7 +8485,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         // SCD93: the SDK decides — see `visitIndexExpression`.
         (indexTarget as dynamic)[indexValue] = newValue;
       } else if (indexTarget is Map) {
-        indexTarget[indexValue] = newValue;
+        indexTarget[_unwrapHashKey(indexValue)] = newValue;
       } else if (toBridgedInstance(indexTarget).$2) {
         // C13: bridged operator[]= in cascade (e.g. dart:foundation
         // BitField<T> used via `..[key] = value`).
@@ -8496,7 +8501,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         setAdapter(
           this,
           bridgedInstance.nativeObject,
-          [indexValue, newValue],
+          [_bridgeInterpreterValueToNative(indexValue), newValue],
           {},
           null,
         );
@@ -9042,7 +9047,12 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         // A list is not hash-keyed, so its elements keep their representation:
         // `contains` and `indexOf` reach the wrapper's own `==`, which now
         // answers correctly on its own.
-        collection.add(value);
+        //
+        // A bare CLASS NAME is the exception (SCF40): it is a value, not a
+        // wrapper, and its one representation in any collection is the native
+        // `Type` — otherwise `<Type>{}..addAll([String])` copies a
+        // `BridgedClass` into a hash set, where a `runtimeType` lookup misses.
+        collection.add(value is BridgedClass ? value.nativeType : value);
       } else if (collection is Set) {
         // A set element IS a hash key, so it normalizes like a map key.
         collection.add(_unwrapHashKey(value));
@@ -10005,7 +10015,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             final index = indexValue as int;
             targetValue[index] = newValue;
           } else if (targetValue is Map) {
-            targetValue[indexValue] = newValue;
+            targetValue[_unwrapHashKey(indexValue)] = newValue;
           } else if (targetValue is InterpretedInstance) {
             // Use class operator []= if available
             final operatorMethod = targetValue.findOperator('[]=');
@@ -10515,7 +10525,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         final index = indexValue as int;
         targetValue[index] = newValue;
       } else if (targetValue is Map) {
-        targetValue[indexValue] = newValue;
+        targetValue[_unwrapHashKey(indexValue)] = newValue;
       } else if (targetValue is InterpretedInstance) {
         // Use class operator []= if available
         final operatorMethod = targetValue.findOperator('[]=');
@@ -13548,6 +13558,19 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     //   * value as-is otherwise (the `value is T` branch matches Object? for
     //     every non-null value, including InterpretedInstance / Callable)
     // — exactly the original three-branch contract.
+    //
+    // SCF40: a bare CLASS NAME is normalised too, to its native `Type`. It
+    // evaluates to its `BridgedClass`, and SCD198 already stores the native
+    // `Type` when a set or map LITERAL holds one (`_unwrapHashKey`). A key
+    // that reached a native collection through a METHOD (`add`, `[]=`,
+    // `putIfAbsent`) arrived here instead and was stored as the
+    // `BridgedClass`, so a lookup by `x.runtimeType` asked `Type ==
+    // BridgedClass` — which `Type.==` refuses — and an identity collection
+    // compared identities natively. Every call's arguments cross this one
+    // boundary, so no collection has to be listed. ENG-002's `D4.coerce*`
+    // conversion for Type-typed parameters is the same rule, which bridges
+    // now receive already applied.
+    if (interpreterValue is BridgedClass) return interpreterValue.nativeType;
     return D4.unwrapAs<Object?>(interpreterValue, visitor: this);
   }
 

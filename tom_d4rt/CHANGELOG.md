@@ -1,3 +1,22 @@
+## 1.216.0
+
+### Fixed — a class name stored by a method or `[]=` reaches a `runtimeType` lookup (scf40)
+
+A bare bridged class name evaluates to its `BridgedClass`. SCD198 stored the
+native `Type` when a set or map literal held one, but a key that reached the
+collection any other way stayed a `BridgedClass`:
+`(<Type, int>{}..[String] = 1)['x'.runtimeType]` was null, and
+`(<Type>{}..add(String)).contains('x'.runtimeType)` false. That broke the
+`Map<Type, Handler>` registry idiom whenever the registry was built rather
+than written as a literal. Identity collections missed both ways.
+
+A class name now has one representation in every collection, its native
+`Type`. It is converted at the argument boundary every call crosses (the
+same rule ENG-002 applied only to Type-typed parameters), at the index
+operators (`m[k]`, `m[k] = v`, the cascade and `++`/`--` forms, and a
+bridged `[]`/`[]=`), and in a list literal's elements. A wrapped instance in
+a list still keeps its representation, as before.
+
 ## 1.215.0
 
 ### Fixed — an interpreted `Error` subclass answers as its own class (scf39)
