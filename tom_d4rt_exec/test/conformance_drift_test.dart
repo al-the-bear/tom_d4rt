@@ -3369,17 +3369,11 @@ const Map<String, String> _astDriftFingerprints = <String, String>{
 // The type is the contract — `null` is how "nothing blocks the publish" is
 // expressed, and that is the state this constant returns to. The lint reasons
 // from today's value alone.
+// tom_d4rt 1.210.0 / tom_d4rt_ast 0.195.0 are published (scf34), and scf35
+// landed interpreter work behind them (scheduleMicrotask, 0.196.0), so the
+// tree is ahead of the release again. scf42 owns the next release and sets
+// this back to `null`.
 // ignore: unnecessary_nullable_for_final_variable_declarations
-// SCE212 published tom_d4rt 1.192.0 / tom_d4rt_ast 0.177.0 and left this
-// `null`. Interpreter work landed after it (sce216 first), and the release that
-// carries it is scf34's: a 0.x caret means every tom_d4rt_ast minor has to be
-// walked through exec, astgen and the twins, so it is batched per release
-// rather than paid per fix. scf34 deletes this pin.
-// ignore: unnecessary_nullable_for_final_variable_declarations
-// scf34's release (tom_d4rt 1.200.0 / tom_d4rt_ast 0.184.0) landed
-// 2026-09-29 (sce237). SCF4 then landed interpreter work behind it (the
-// async* listener gate), so the tree is ahead of the release again; scf42 owns
-// the release that carries it and deletes this pin.
 const String? _astPublishBlock =
     'scf42_aiöq-publish-the-interpreter-release-carrying-scf4';
 
