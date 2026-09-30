@@ -46,13 +46,13 @@
 // show a small non-zero number and still look alive. The floors are set against
 // the measured figures, well below them.
 //
-// THE ENUM AXIS IS PUBLISH-BLOCKED, and that is recorded rather than skipped.
-// SCD194 added `findAllBridgedEnumsByName`, which is what can see an enum
-// displaced WITHIN a frame; this package resolves `tom_d4rt_ast` from pub.dev
-// (DGUC6), and the published copy predates it. So F-SCD195-3 asks the question
-// the published API can answer — no name in both namespaces — and the sharper
-// one waits for the release. Counting enum names per frame instead would look
-// like the same check and silently miss the only case worth catching.
+// THE ENUM AXIS has two cases. F-SCD195-3 asks the cross-namespace question —
+// no name registered as both a class and an enum. F-SCD195-4 asks the sharper
+// one, through SCD194's `findAllBridgedEnumsByName`, which is the only thing
+// that can see an enum displaced WITHIN a frame. A per-frame walk of
+// `bridgedEnumNames` returns each frame's PRIMARY binding and would look like
+// the same check while missing exactly that case. It waited for a published
+// `tom_d4rt_ast` carrying the API (DGUC6) and was added by SCG4.
 //
 // EACH CASE HAS BEEN SEEN TO FAIL:
 //
@@ -61,6 +61,7 @@
 //   | a second bridge for a different native type, one name  | 1     |
 //   | the registry replaced with a bare Environment          | 2     |
 //   | a bridged class registered under an existing enum name | 3     |
+//   | a second enum, different native type, one name         | 4     |
 
 library;
 
@@ -114,6 +115,33 @@ Set<String> _enumNames(Environment env) {
 /// barrels, which `defineBridgeLazy` deduplicates on purpose. Two or more is
 /// the defect — the last registration wins and the other class's members are
 /// unreachable under that name, which is SCB26's shape.
+/// `enum name -> the distinct native enum types registered under it`, for
+/// every enum name with more than one.
+///
+/// The enum counterpart of [_candidateTypes], and it compares NATIVE TYPES for
+/// the same reason: a re-export can arrive as a second `BridgedEnum` object for
+/// one native enum, which is not a collision. A native enum's type is read
+/// from its values, since a `BridgedEnum` carries no `nativeType` of its own;
+/// an enum with no values is keyed by its bridge name, which keeps it
+/// distinct rather than hiding it.
+Map<String, List<String>> _enumCandidateTypes(Environment env) {
+  final out = <String, List<String>>{};
+  for (final name in _enumNames(env)) {
+    final candidates = env.findAllBridgedEnumsByName(name);
+    if (candidates.length <= 1) continue;
+    out[name] = (candidates
+        .map(
+          (e) => e.values.isEmpty
+              ? '<no values: ${e.name}>'
+              : e.values.values.first.nativeValue.runtimeType.toString(),
+        )
+        .toSet()
+        .toList()
+      ..sort());
+  }
+  return out;
+}
+
 Map<String, List<String>> _candidateTypes(Environment env) {
   final out = <String, List<String>>{};
   for (final name in _classNames(env)) {
@@ -175,6 +203,16 @@ void main() {
             'findAllBridgedClassesByName is not seeing the shadowed entries '
             'and F-SCD195-1 is passing over nothing.',
       );
+      // The enum floor, shared by F-SCD195-3 and F-SCD195-4: both are
+      // emptinesses over the enum names, so an enum registry that did not load
+      // would satisfy either.
+      expect(
+        _enumNames(env).length,
+        greaterThanOrEqualTo(_minEnumNames),
+        reason:
+            'Only ${_enumNames(env).length} bridged enums are reachable, so '
+            'F-SCD195-3 and F-SCD195-4 are passing over an empty set.',
+      );
     });
 
     test('F-SCD195-1: no bridged name covers two different native classes '
@@ -211,23 +249,9 @@ void main() {
         '[2026-09-15] (PASS)', () {
       // The cross-namespace case `defineBridgedEnum` warns about and then
       // registers anyway, so which one a bare name reaches depends on lookup
-      // order rather than on any rule. Neither registry can see it alone.
-      //
-      // The SHARPER enum question — two definitions competing for one enum name
-      // — needs `findAllBridgedEnumsByName`, which SCD194 added to the
-      // interpreter and no release carries yet (DGUC6). Counting enum names per
-      // frame would look like that check and miss every within-frame
-      // displacement, which is the only case worth catching, so it is left to
-      // the publish rather than approximated.
+      // order rather than on any rule. Neither registry can see it alone. The
+      // enum floor it relies on is asserted in F-SCD195-2.
       final enums = _enumNames(env);
-      expect(
-        enums.length,
-        greaterThanOrEqualTo(_minEnumNames),
-        reason:
-            'Only ${enums.length} bridged enums are reachable, so the '
-            'intersection below is over an empty set.',
-      );
-
       final both = (enums.intersection(_classNames(env)).toList()..sort());
       expect(
         both,
@@ -237,6 +261,31 @@ void main() {
             '${both.join(', ')}.\n'
             'Which one a bare name reaches depends on lookup order. Register '
             'the enum as a BridgedClass, or rename one of them.',
+      );
+    });
+
+    test('F-SCD195-4: no enum name covers two different native enums '
+        '[2026-09-30] (PASS)', () {
+      // Two definitions competing for one enum name within a frame: the later
+      // registration displaces the earlier, and every value the loser declared
+      // is unreachable under that name. Only `findAllBridgedEnumsByName` sees
+      // the displaced one; a per-frame name walk sees the winner alone.
+      final enumCandidates = _enumCandidateTypes(env);
+      final real = <String>[
+        for (final name in (enumCandidates.keys.toList()..sort()))
+          if (enumCandidates[name]!.length > 1)
+            '  $name -> ${enumCandidates[name]!.join(' | ')}',
+      ];
+      expect(
+        real,
+        isEmpty,
+        reason:
+            'These bridged ENUM names resolve to more than one native enum:\n'
+            '${real.join('\n')}\n\n'
+            'The last registration wins and the other enum\'s values are '
+            'unreachable under that name. Candidates sharing one native type '
+            'are re-exports and are not reported. Fix the generator, not the '
+            '`.b.dart`.',
       );
     });
   });
