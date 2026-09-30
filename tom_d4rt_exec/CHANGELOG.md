@@ -1,3 +1,17 @@
+## 1.41.0
+
+### Added — exec carries the static name pass (sch1, first half)
+
+`lib/src/static_name_report.dart` is now in exec as a byte-identical copy of
+tom_d4rt's, held so by `front_end_parity_test.dart`'s F-SCD10-7, and
+`scd95_static_name_report_test.dart` is ported verbatim. The pass reports
+names a program reads and nothing defines.
+
+It does not enforce yet. tom_d4rt 1.220.0 refuses such a program before
+`main`, and confirms each candidate through `Environment.isDefined`, which
+exec reaches only once tom_d4rt_ast 0.204.0 is published. The enforcement
+lands with that release.
+
 ## 1.40.0
 
 ### Fixed — the host `invoke` path reaches inherited bridged members (scf42)

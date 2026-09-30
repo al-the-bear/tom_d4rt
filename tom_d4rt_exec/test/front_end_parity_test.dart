@@ -90,12 +90,15 @@ import 'sibling_trees.dart';
 
 /// The mirrored front-end files, as `reference -> this package`.
 /// Every `lib/src/` file this package shares a name with in the reference
-/// tree. There are exactly three, and all three are covered: a pair that is
-/// mirrored but unguarded is how this incident happened.
+/// tree. All of them are covered: a pair that is mirrored but unguarded is how
+/// this incident happened.
 const _mirroredFiles = <String, String>{
   '../tom_d4rt/lib/src/d4rt_base.dart': 'lib/src/d4rt_base.dart',
   '../tom_d4rt/lib/src/module_loader.dart': 'lib/src/module_loader.dart',
   '../tom_d4rt/lib/src/script_execution.dart': 'lib/src/script_execution.dart',
+  // SCH1: held byte-identical rather than vocabulary-equal (F-SCD10-7).
+  '../tom_d4rt/lib/src/static_name_report.dart':
+      'lib/src/static_name_report.dart',
 };
 
 /// Call sites whose named arguments must survive the port, by file.
@@ -117,6 +120,13 @@ const _expectedAbsences = <String, Map<String, String>>{
         'registerExtensions/finalizeBridges delegate to D4rtRunner '
         'in tom_d4rt_ast, which is where the StateError is thrown; this file '
         'only forwards.',
+    'UndefinedNameD4rtException':
+        'tom_d4rt refuses a statically undefined name before `main` (scg6), '
+        'catching this type to refuse only on the name it confirmed. exec '
+        'does not enforce yet: the confirm stage needs '
+        '`Environment.isDefined`, first published in tom_d4rt_ast 0.204.0, and '
+        'sch1_aißr-exec-front-end-enforces-the-static-name-pass ports it '
+        'and deletes this entry.',
   },
 };
 
@@ -456,6 +466,25 @@ void main() {
         reason:
             'the reference now declares these too, so they are no longer '
             'exec-only. Delete them from _execOnlyMembers.',
+      );
+    }, skip: skipReason);
+
+    test('F-SCD10-7: the static name pass is the reference file, byte for byte '
+        '[2026-09-30] (PASS)', () {
+      // SCH1. `lib/src/static_name_report.dart` resolves over the ANALYZER
+      // AST and imports nothing but the analyzer, so exec, which parses with
+      // the analyzer too, carries it as a copy rather than a variant. Two
+      // hand-kept resolvers would drift, and a drift here changes which
+      // programs one front end refuses and the other runs. So the copy is held
+      // identical, and a change lands in tom_d4rt and is copied down.
+      const reference = '../tom_d4rt/lib/src/static_name_report.dart';
+      const ported = 'lib/src/static_name_report.dart';
+      expect(
+        File(ported).readAsStringSync(),
+        File(reference).readAsStringSync(),
+        reason:
+            '$ported differs from $reference. Copy the reference over it '
+            '(`cp $reference $ported`): the pass is kept in ONE place.',
       );
     }, skip: skipReason);
   });

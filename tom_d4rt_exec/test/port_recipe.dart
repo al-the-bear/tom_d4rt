@@ -160,6 +160,16 @@ const List<PortImport> portImports = <PortImport>[
     'package:tom_d4rt/src/stdlib/typed_data.dart',
     'package:tom_d4rt_ast/src/runtime/stdlib/typed_data.dart',
   ),
+  // SCH1: the static name pass is FRONT-END code, so, like `d4rt.dart` and
+  // unlike the runtime pairs above, it ports to exec rather than to
+  // `tom_d4rt_ast`. exec carries a byte-identical copy of
+  // `lib/src/static_name_report.dart` (held by `front_end_parity_test.dart`'s
+  // F-SCD10-7), and `scd95_static_name_report_test.dart` is its verbatim port.
+  PortImport(
+    '@STATIC_NAME_REPORT@',
+    'package:tom_d4rt/src/static_name_report.dart',
+    'package:tom_d4rt_exec/src/static_name_report.dart',
+  ),
 ];
 
 /// [source] with every interpreter import collapsed to its token, so the two

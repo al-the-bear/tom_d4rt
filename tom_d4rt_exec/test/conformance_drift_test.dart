@@ -1618,7 +1618,7 @@ typedef _CaseCounts = ({int ran, int declared});
 /// the backlog moves from it in either direction. Measured 2026-09-29: 20,
 /// all recorded in [_uncoveredBaseline]; 15 after sce237's publish ported the
 /// five that were only waiting on it.
-const _uncoveredHighWater = 16;
+const _uncoveredHighWater = 15;
 
 const Map<String, _CaseCounts> _uncoveredBaseline = {
   // NOT PORTABLE, and not blocked on a publish. It compares what FIVE host
@@ -1689,30 +1689,6 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
   // scan the wrong tree. The gate behaviour it guards is measured here by the
   // ported behaviour file. [2026-09-28]
   'scd170_network_gate_census_test.dart': (ran: 1, declared: 1),
-  // NOT PORTABLE — and uniquely so: the subject itself cannot exist on the
-  // analyzer-free line. `static_name_report.dart` resolves names over the
-  // ANALYZER AST, which `tom_d4rt_ast` has no access to by construction, so
-  // there is no twin to write rather than one nobody has written yet. The
-  // analyzer-free line would get this check at BUNDLE-BUILD time instead (in
-  // `tom_ast_generator`, which does have the analyzer), which is arguably the
-  // better home for it — a bundle is compiled once on a server and shipped.
-  // That is recorded in sce128 rather than assumed here.
-  //
-  // Exec DOES have an analyzer front end, so a port is possible in principle.
-  // It is not written because the pass is REPORT-ONLY: it changes no observable
-  // behaviour, so a port would assert that a function exec never calls returns
-  // the same list. When the enforcing half lands it changes what `execute()`
-  // does, and that is when exec has something to conform about.
-  // 11 -> 12: SCE128 added F-SCD95-12 and F-SCD95-13 (a label reference and
-  // an extension type's representation are not undefined reads). 12 -> 13:
-  // SCG6 added F-SCD95-14 (a constructor named in an initializer is not a
-  // read). Re-measured 2026-09-30 by `tool/remeasure_pins.dart --uncovered`:
-  // the port now COMPILES against the resolved interpreter and runs all 13
-  // cases, which all still fail, because exec has no static name pass of its
-  // own for `src/static_name_report.dart` to describe. It is still not
-  // portable; sch1_aißr-exec-front-end-enforces-the-static-name-pass owns
-  // giving exec that pass.
-  'scd95_static_name_report_test.dart': (ran: 13, declared: 13),
   // NOT PORTED YET: tom_d4rt's static-name ENFORCEMENT (SCG6), which refuses
   // a program reading an undefined name before `main` runs. exec parses with
   // the analyzer too, so the same pass can run in its front end, but it does
