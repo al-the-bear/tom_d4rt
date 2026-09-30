@@ -1,3 +1,28 @@
+## 1.221.0
+
+### Added — `D4rt.parse` and `D4rt.executeProgram`: parse once, run many times (woneprpd132)
+
+`execute` parsed its source on every call, and no public API accepted or
+returned a parsed unit, so an embedder that re-runs one script paid for the
+parse on every run. `parse(source, {basePath})` now returns a `D4rtProgram`,
+and `executeProgram(program, {name, positionalArgs, namedArgs, sources,
+allowFileSystemImports})` runs it exactly as `execute` runs its source,
+without parsing again.
+
+A program carries only syntax: `executeProgram` resets the global environment
+and rebuilds declarations and static coordinates per run, as `execute` does,
+so two runs of one program share no state, and one program may be run by
+several interpreters. A program also survives `dispose()`, which releases
+only what the interpreter retains, so an embedder can cache programs and still
+dispose between runs. The parse is the one `execute` uses (it moved into
+`_parseDirectSource`, which both call), so a parse error is the same
+`SourceCodeD4rtException`, raised by `parse`. `basePath` belongs to the
+program because the unit is anchored at `<basePath>/main.dart`. A root loaded
+by `library` URI goes through the module loader and stays with `execute`.
+
+The AST line needs no counterpart: `D4rtRunner` already runs a pre-built
+bundle, which is this split's other half.
+
 ## 1.220.0
 
 ### Changed — a program reading an undefined name is refused before `main` runs (scg6)

@@ -2112,6 +2112,56 @@ class D4rt {
   }
 
   /// Parse source code into a CompilationUnit.
+  /// Parses [source] once into a [D4rtProgram] that [executeProgram] can run
+  /// any number of times, on this interpreter or another.
+  ///
+  /// This is [execute] split at its one expensive step that does not depend on
+  /// the run: an embedder that runs the same script repeatedly caches the
+  /// program and pays for the parse once. A parse error is raised here, as the
+  /// [SourceCodeD4rtException] [execute] would raise.
+  ///
+  /// [basePath] is part of the program rather than of the run because the
+  /// parsed unit is anchored at `<basePath>/main.dart`, exactly as [execute]
+  /// anchors it; [executeProgram] resolves relative imports against it.
+  ///
+  /// The program carries only syntax. Everything a run derives from it —
+  /// declarations, static coordinates, the environment — is rebuilt by each
+  /// [executeProgram], so two runs of one program share no state.
+  D4rtProgram parse(String source, {String? basePath}) => D4rtProgram._(
+    source: source,
+    basePath: basePath,
+    unit: _parseDirectSource(source, basePath),
+  );
+
+  /// Runs a [program] from [parse] exactly as [execute] would run its source,
+  /// without parsing it again.
+  ///
+  /// Like [execute], this resets the global environment first; the arguments
+  /// mean what they mean there. Only a direct source string can be a program —
+  /// a root loaded by `library` URI goes through the module loader and stays
+  /// with [execute].
+  dynamic executeProgram(
+    D4rtProgram program, {
+    String name = 'main',
+    List<Object?>? positionalArgs,
+    Map<String, Object?>? namedArgs,
+    Map<String, String>? sources,
+    bool allowFileSystemImports = false,
+  }) {
+    _moduleLoader = _initModule(
+      sources,
+      basePath: program.basePath,
+      allowFileSystemImports: allowFileSystemImports,
+    );
+    return _executeInEnvironment(
+      compilationUnit: program._unit,
+      executionEnvironment: _moduleLoader.globalEnvironment,
+      name: name,
+      positionalArgs: positionalArgs,
+      namedArgs: namedArgs,
+    );
+  }
+
   CompilationUnit _parseSource({String? source, String? library}) {
     if (library != null) {
       Logger.debug(
@@ -2158,56 +2208,61 @@ class D4rt {
       if (source == null) {
         throw RuntimeD4rtException('Source content must be provided');
       }
-      Logger.debug(
-        "[D4rt._parseSource] Parsing the provided source string directly (no source URI).",
-      );
-      // DFUB1 — when a basePath is configured, anchor the parsed unit at
-      // `<basePath>/main.dart` so downstream tooling that inspects the unit's
-      // path resolves relative filesystem imports against the same base the
-      // ModuleLoader uses.
-      final basePath = _moduleLoader.basePath;
-      final result = parseString(
-        content: source,
-        throwIfDiagnostics: false,
-        path: basePath != null
-            ? Directory(basePath).absolute.uri.resolve('main.dart').toFilePath()
-            : null,
-        featureSet: FeatureSet.fromEnableFlags2(
-          sdkLanguageVersion: Version(3, 10, 0),
-          flags: [
-            'non-nullable',
-            'null-aware-elements',
-            'triple-shift',
-            'spread-collections',
-            'control-flow-collections',
-            'extension-methods',
-            'extension-types',
-            'digit-separators',
-          ],
-        ),
-      );
-
-      final errors = result.errors
-          .where((e) => e.diagnosticCode.severity == DiagnosticSeverity.ERROR)
-          .toList();
-      if (errors.isNotEmpty) {
-        final errorMessages = errors
-            .map((e) {
-              final location = result.lineInfo.getLocation(e.offset);
-              return "- ${e.message} (line ${location.lineNumber}, column ${location.columnNumber})";
-            })
-            .join("\n");
-        Logger.error("Parsing errors for the direct source:\n$errorMessages");
-        throw SourceCodeD4rtException(
-          'Fatal parsing errors for the direct source:\n$errorMessages',
-          source,
-        );
-      }
-      Logger.debug(
-        "[D4rt._parseSource] Direct source string parsed successfully.",
-      );
-      return result.unit;
+      return _parseDirectSource(source, _moduleLoader.basePath);
     }
+  }
+
+  /// Parses a direct source string — the one parse [_parseSource] and [parse]
+  /// share, so a [D4rtProgram] is parsed exactly as [execute] would parse it.
+  static CompilationUnit _parseDirectSource(String source, String? basePath) {
+    Logger.debug(
+      "[D4rt._parseSource] Parsing the provided source string directly (no source URI).",
+    );
+    // DFUB1 — when a basePath is configured, anchor the parsed unit at
+    // `<basePath>/main.dart` so downstream tooling that inspects the unit's
+    // path resolves relative filesystem imports against the same base the
+    // ModuleLoader uses.
+    final result = parseString(
+      content: source,
+      throwIfDiagnostics: false,
+      path: basePath != null
+          ? Directory(basePath).absolute.uri.resolve('main.dart').toFilePath()
+          : null,
+      featureSet: FeatureSet.fromEnableFlags2(
+        sdkLanguageVersion: Version(3, 10, 0),
+        flags: [
+          'non-nullable',
+          'null-aware-elements',
+          'triple-shift',
+          'spread-collections',
+          'control-flow-collections',
+          'extension-methods',
+          'extension-types',
+          'digit-separators',
+        ],
+      ),
+    );
+
+    final errors = result.errors
+        .where((e) => e.diagnosticCode.severity == DiagnosticSeverity.ERROR)
+        .toList();
+    if (errors.isNotEmpty) {
+      final errorMessages = errors
+          .map((e) {
+            final location = result.lineInfo.getLocation(e.offset);
+            return "- ${e.message} (line ${location.lineNumber}, column ${location.columnNumber})";
+          })
+          .join("\n");
+      Logger.error("Parsing errors for the direct source:\n$errorMessages");
+      throw SourceCodeD4rtException(
+        'Fatal parsing errors for the direct source:\n$errorMessages',
+        source,
+      );
+    }
+    Logger.debug(
+      "[D4rt._parseSource] Direct source string parsed successfully.",
+    );
+    return result.unit;
   }
 
   /// Execute a parsed CompilationUnit in the given environment.
@@ -3591,4 +3646,24 @@ class D4rt {
       throwAsHostFacingError(e, s);
     }
   }
+}
+
+/// A script parsed once by [D4rt.parse], to be run by [D4rt.executeProgram].
+///
+/// Immutable and holding no interpreter state, so one program may be cached
+/// and run repeatedly — and by different [D4rt] instances.
+final class D4rtProgram {
+  D4rtProgram._({
+    required this.source,
+    required this.basePath,
+    required CompilationUnit unit,
+  }) : _unit = unit;
+
+  /// The source this program was parsed from.
+  final String source;
+
+  /// The base path relative imports resolve against, or null.
+  final String? basePath;
+
+  final CompilationUnit _unit;
 }

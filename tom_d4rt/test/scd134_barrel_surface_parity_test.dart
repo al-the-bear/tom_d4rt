@@ -203,6 +203,12 @@ const _divergences = <String, _Divergence>{
     'interpreter stays analyzer-free',
   ),
   'executeFile': _Divergence(_Side.refOnly, 'part of the source front end'),
+  'D4rtProgram': _Divergence(
+    _Side.refOnly,
+    'a source string parsed once by `D4rt.parse`; the AST line has no source '
+    'front end, and its pre-built bundle is already the parsed half',
+    counterpart: 'AstBundle',
+  ),
   'executeFileContinued': _Divergence(
     _Side.refOnly,
     'part of the source front end',

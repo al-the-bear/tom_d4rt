@@ -1587,8 +1587,9 @@ typedef _CaseCounts = ({int ran, int declared});
 /// reference test with no counterpart, recorded or not. F-SCE238-1 fails when
 /// the backlog moves from it in either direction. Measured 2026-09-29: 20,
 /// all recorded in [_uncoveredBaseline]; 15 after sce237's publish ported the
-/// five that were only waiting on it.
-const _uncoveredHighWater = 15;
+/// five that were only waiting on it; 16 with woneprpd132's embedder-API
+/// test, which exec's front end has no counterpart for.
+const _uncoveredHighWater = 16;
 
 const Map<String, _CaseCounts> _uncoveredBaseline = {
   // NOT PORTABLE, and not blocked on a publish. It compares what FIVE host
@@ -1665,6 +1666,14 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
   // not yet; every case here would fail. sch1_aißr-exec-front-end-enforces-the-static-name-pass owns the port.
   // pin-registered: n/a - exec's own front end, not a publish.
   'scg6_static_name_enforcement_test.dart': (ran: 5, declared: 5),
+  // NOT PORTED YET: `D4rt.parse` + `D4rt.executeProgram` (woneprpd132), the
+  // parse/execute split of the SOURCE front end. exec has its own front end
+  // and no such split, so every case would fail on a missing member; it is an
+  // embedder API rather than interpreter behaviour, and the behaviour a run
+  // exercises is covered by the ported execute cases. Port it if exec grows
+  // the split. [2026-09-30]
+  // pin-registered: n/a - exec's own front end, not a publish.
+  'woneprpd132_parse_execute_split_test.dart': (ran: 7, declared: 7),
   // NOT PORTABLE — a throughput probe, not a conformance assertion. Its single
   // case measures how long a Conway generation takes; run on two interpreters
   // with different performance characteristics it yields a flaky failure rather
