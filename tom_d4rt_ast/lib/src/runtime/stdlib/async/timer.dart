@@ -63,6 +63,7 @@ class TimerAsync {
     },
     staticMethods: {
       'periodic': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Timer.periodic', atMost: 2);
         final duration = positionalArgs[0] as Duration;
         final callback = positionalArgs[1] as Callable;
         return Timer.periodic(duration, (timer) async {

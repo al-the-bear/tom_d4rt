@@ -68,12 +68,14 @@ class LinkedHashSetCollection {
       // supertype fallback for instance methods is not uniform.
       ...setAlgebraMethods('LinkedHashSet', (t) => t as Set),
       'add': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'LinkedHashSet.add', atMost: 1);
         if (target is LinkedHashSet && positionalArgs.length == 1) {
           return target.add(positionalArgs[0]);
         }
         throw RuntimeD4rtException("Invalid arguments for LinkedHashSet.add");
       },
       'addAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'LinkedHashSet.addAll', atMost: 1);
         if (target is LinkedHashSet && positionalArgs.length == 1) {
           final elements = positionalArgs[0];
           if (elements is Iterable) {
@@ -98,6 +100,7 @@ class LinkedHashSetCollection {
         throw RuntimeD4rtException("Invalid arguments for LinkedHashSet.clear");
       },
       'contains': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'LinkedHashSet.contains', atMost: 1);
         if (target is LinkedHashSet && positionalArgs.length == 1) {
           return target.contains(positionalArgs[0]);
         }
@@ -106,6 +109,7 @@ class LinkedHashSetCollection {
         );
       },
       'containsAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'LinkedHashSet.containsAll', atMost: 1);
         if (target is LinkedHashSet && positionalArgs.length == 1) {
           final elements = positionalArgs[0];
           if (elements is Iterable) {
@@ -120,6 +124,7 @@ class LinkedHashSetCollection {
         );
       },
       'forEach': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'LinkedHashSet.forEach', atMost: 1);
         if (target is LinkedHashSet && positionalArgs.length == 1) {
           final action = positionalArgs[0];
           if (action is Callable) {
@@ -137,6 +142,7 @@ class LinkedHashSetCollection {
         );
       },
       'remove': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'LinkedHashSet.remove', atMost: 1);
         if (target is LinkedHashSet && positionalArgs.length == 1) {
           return target.remove(positionalArgs[0]);
         }
@@ -145,6 +151,7 @@ class LinkedHashSetCollection {
         );
       },
       'removeAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'LinkedHashSet.removeAll', atMost: 1);
         if (target is LinkedHashSet && positionalArgs.length == 1) {
           final elements = positionalArgs[0];
           if (elements is Iterable) {
@@ -160,6 +167,7 @@ class LinkedHashSetCollection {
         );
       },
       'retainAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'LinkedHashSet.retainAll', atMost: 1);
         if (target is LinkedHashSet && positionalArgs.length == 1) {
           final elements = positionalArgs[0];
           if (elements is Iterable) {
@@ -175,6 +183,7 @@ class LinkedHashSetCollection {
         );
       },
       'removeWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'LinkedHashSet.removeWhere', atMost: 1);
         if (target is LinkedHashSet && positionalArgs.length == 1) {
           final test = positionalArgs[0];
           if (test is Callable) {
@@ -193,6 +202,7 @@ class LinkedHashSetCollection {
         );
       },
       'retainWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'LinkedHashSet.retainWhere', atMost: 1);
         if (target is LinkedHashSet && positionalArgs.length == 1) {
           final test = positionalArgs[0];
           if (test is Callable) {
@@ -211,6 +221,7 @@ class LinkedHashSetCollection {
         );
       },
       'any': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'LinkedHashSet.any', atMost: 1);
         if (target is LinkedHashSet && positionalArgs.length == 1) {
           final test = positionalArgs[0];
           if (test is Callable) {
@@ -226,6 +237,7 @@ class LinkedHashSetCollection {
         throw RuntimeD4rtException("Invalid arguments for LinkedHashSet.any");
       },
       'every': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'LinkedHashSet.every', atMost: 1);
         if (target is LinkedHashSet && positionalArgs.length == 1) {
           final test = positionalArgs[0];
           if (test is Callable) {
@@ -241,6 +253,7 @@ class LinkedHashSetCollection {
         throw RuntimeD4rtException("Invalid arguments for LinkedHashSet.every");
       },
       'where': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'LinkedHashSet.where', atMost: 1);
         if (target is LinkedHashSet && positionalArgs.length == 1) {
           final test = positionalArgs[0];
           if (test is Callable) {
@@ -256,6 +269,7 @@ class LinkedHashSetCollection {
         throw RuntimeD4rtException("Invalid arguments for LinkedHashSet.where");
       },
       'map': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'LinkedHashSet.map', atMost: 1);
         if (target is LinkedHashSet && positionalArgs.length == 1) {
           final f = positionalArgs[0];
           if (f is Callable) {
@@ -268,6 +282,7 @@ class LinkedHashSetCollection {
         throw RuntimeD4rtException("Invalid arguments for LinkedHashSet.map");
       },
       'expand': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'LinkedHashSet.expand', atMost: 1);
         if (target is LinkedHashSet && positionalArgs.length == 1) {
           final f = positionalArgs[0];
           if (f is Callable) {
@@ -285,6 +300,7 @@ class LinkedHashSetCollection {
         );
       },
       'fold': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'LinkedHashSet.fold', atMost: 2);
         if (target is LinkedHashSet && positionalArgs.length == 2) {
           final initialValue = positionalArgs[0];
           final combine = positionalArgs[1];
@@ -302,6 +318,7 @@ class LinkedHashSetCollection {
         throw RuntimeD4rtException("Invalid arguments for LinkedHashSet.fold");
       },
       'reduce': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'LinkedHashSet.reduce', atMost: 1);
         if (target is LinkedHashSet && positionalArgs.length == 1) {
           final combine = positionalArgs[0];
           if (combine is Callable) {
@@ -318,6 +335,7 @@ class LinkedHashSetCollection {
         );
       },
       'lookup': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'LinkedHashSet.lookup', atMost: 1);
         if (target is LinkedHashSet && positionalArgs.length == 1) {
           return target.lookup(positionalArgs[0]);
         }
@@ -332,6 +350,7 @@ class LinkedHashSetCollection {
         throw RuntimeD4rtException("Invalid arguments for LinkedHashSet.cast");
       },
       'followedBy': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'LinkedHashSet.followedBy', atMost: 1);
         if (target is LinkedHashSet && positionalArgs.length == 1) {
           final other = positionalArgs[0];
           if (other is Iterable) {
@@ -346,6 +365,7 @@ class LinkedHashSetCollection {
         );
       },
       'take': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'LinkedHashSet.take', atMost: 1);
         if (target is LinkedHashSet && positionalArgs.length == 1) {
           final count = positionalArgs[0] as int;
           return target.take(count);
@@ -353,6 +373,7 @@ class LinkedHashSetCollection {
         throw RuntimeD4rtException("Invalid arguments for LinkedHashSet.take");
       },
       'skip': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'LinkedHashSet.skip', atMost: 1);
         if (target is LinkedHashSet && positionalArgs.length == 1) {
           final count = positionalArgs[0] as int;
           return target.skip(count);
@@ -360,6 +381,7 @@ class LinkedHashSetCollection {
         throw RuntimeD4rtException("Invalid arguments for LinkedHashSet.skip");
       },
       'takeWhile': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'LinkedHashSet.takeWhile', atMost: 1);
         if (target is LinkedHashSet && positionalArgs.length == 1) {
           final test = positionalArgs[0];
           if (test is Callable) {
@@ -377,6 +399,7 @@ class LinkedHashSetCollection {
         );
       },
       'skipWhile': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'LinkedHashSet.skipWhile', atMost: 1);
         if (target is LinkedHashSet && positionalArgs.length == 1) {
           final test = positionalArgs[0];
           if (test is Callable) {
@@ -394,6 +417,7 @@ class LinkedHashSetCollection {
         );
       },
       'firstWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'LinkedHashSet.firstWhere', atMost: 1);
         if (target is LinkedHashSet && positionalArgs.length == 1) {
           final test = positionalArgs[0];
           final orElse = namedArgs['orElse'] as Callable?;
@@ -412,6 +436,7 @@ class LinkedHashSetCollection {
         );
       },
       'lastWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'LinkedHashSet.lastWhere', atMost: 1);
         if (target is LinkedHashSet && positionalArgs.length == 1) {
           final test = positionalArgs[0];
           final orElse = namedArgs['orElse'] as Callable?;
@@ -430,6 +455,7 @@ class LinkedHashSetCollection {
         );
       },
       'singleWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'LinkedHashSet.singleWhere', atMost: 1);
         if (target is LinkedHashSet && positionalArgs.length == 1) {
           final test = positionalArgs[0];
           final orElse = namedArgs['orElse'] as Callable?;
@@ -448,6 +474,7 @@ class LinkedHashSetCollection {
         );
       },
       'elementAt': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'LinkedHashSet.elementAt', atMost: 1);
         if (target is LinkedHashSet && positionalArgs.length == 1) {
           final index = positionalArgs[0] as int;
           return target.elementAt(index);
@@ -457,6 +484,7 @@ class LinkedHashSetCollection {
         );
       },
       'join': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'LinkedHashSet.join', atMost: 1);
         if (target is LinkedHashSet) {
           final separator = positionalArgs.isNotEmpty
               ? positionalArgs[0] as String

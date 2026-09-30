@@ -81,12 +81,14 @@ class StreamAsync {
     constructors: {},
     staticMethods: {
       'value': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Stream.value', atMost: 1);
         if (positionalArgs.isEmpty) {
           throw RuntimeD4rtException('Stream.value requires one argument.');
         }
         return Stream.value(positionalArgs[0]);
       },
       'error': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Stream.error', atMost: 2);
         if (positionalArgs.isEmpty) {
           throw RuntimeD4rtException(
             'Stream.error requires at least one argument.',
@@ -114,6 +116,7 @@ class StreamAsync {
         return Stream.fromIterable(positionalArgs[0] as Iterable);
       },
       'periodic': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Stream.periodic', atMost: 2);
         if (positionalArgs.isEmpty || positionalArgs[0] is! Duration) {
           throw RuntimeD4rtException(
             'Stream.periodic requires a Duration argument.',
@@ -144,6 +147,7 @@ class StreamAsync {
         return Stream.fromFutures((positionalArgs[0] as Iterable).cast());
       },
       'multi': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Stream.multi', atMost: 1);
         if (positionalArgs.isEmpty || positionalArgs[0] is! Callable) {
           throw RuntimeD4rtException(
             'Stream.multi requires an onListen function.',
@@ -157,6 +161,7 @@ class StreamAsync {
         );
       },
       'eventTransformed': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Stream.eventTransformed', atMost: 2);
         if (positionalArgs.length < 2) {
           throw RuntimeD4rtException(
             'Stream.eventTransformed requires source and mapSink.',
@@ -170,6 +175,7 @@ class StreamAsync {
         });
       },
       'castFrom': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Stream.castFrom', atMost: 1);
         if (positionalArgs.isEmpty) {
           throw RuntimeD4rtException(
             'Stream.castFrom requires a source stream.',
@@ -331,6 +337,7 @@ class StreamAsync {
         });
       },
       'contains': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Stream.contains', atMost: 1);
         if (positionalArgs.isEmpty) {
           throw RuntimeD4rtException(
             'Stream.contains requires an element argument.',
@@ -352,6 +359,7 @@ class StreamAsync {
         });
       },
       'fold': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Stream.fold', atMost: 2);
         if (positionalArgs.length < 2 || positionalArgs[1] is! Callable) {
           throw RuntimeD4rtException(
             'Stream.fold requires initial value and function combine arguments.',
@@ -409,6 +417,7 @@ class StreamAsync {
         );
       },
       'asyncMap': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Stream.asyncMap', atMost: 1);
         if (positionalArgs.isEmpty || positionalArgs[0] is! Callable) {
           throw RuntimeD4rtException(
             'Stream.asyncMap requires a convert function.',
@@ -420,6 +429,7 @@ class StreamAsync {
         );
       },
       'asyncExpand': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Stream.asyncExpand', atMost: 1);
         if (positionalArgs.isEmpty || positionalArgs[0] is! Callable) {
           throw RuntimeD4rtException(
             'Stream.asyncExpand requires a convert function.',
@@ -432,6 +442,7 @@ class StreamAsync {
         });
       },
       'handleError': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Stream.handleError', atMost: 1);
         if (positionalArgs.isEmpty || positionalArgs[0] is! Callable) {
           throw RuntimeD4rtException(
             'Stream.handleError requires an onError function.',
@@ -462,6 +473,7 @@ class StreamAsync {
         );
       },
       'timeout': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Stream.timeout', atMost: 1);
         if (positionalArgs.isEmpty || positionalArgs[0] is! Duration) {
           throw RuntimeD4rtException('Stream.timeout requires a Duration.');
         }
@@ -475,6 +487,7 @@ class StreamAsync {
         );
       },
       'firstWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Stream.firstWhere', atMost: 1);
         if (positionalArgs.isEmpty || positionalArgs[0] is! Callable) {
           throw RuntimeD4rtException(
             'Stream.firstWhere requires a test function.',
@@ -488,6 +501,7 @@ class StreamAsync {
         );
       },
       'lastWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Stream.lastWhere', atMost: 1);
         if (positionalArgs.isEmpty || positionalArgs[0] is! Callable) {
           throw RuntimeD4rtException(
             'Stream.lastWhere requires a test function.',
@@ -501,6 +515,7 @@ class StreamAsync {
         );
       },
       'singleWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Stream.singleWhere', atMost: 1);
         if (positionalArgs.isEmpty || positionalArgs[0] is! Callable) {
           throw RuntimeD4rtException(
             'Stream.singleWhere requires a test function.',
@@ -514,6 +529,7 @@ class StreamAsync {
         );
       },
       'elementAt': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Stream.elementAt', atMost: 1);
         if (positionalArgs.isEmpty || positionalArgs[0] is! int) {
           throw RuntimeD4rtException('Stream.elementAt requires an int index.');
         }
@@ -694,6 +710,7 @@ class StreamSinkAsync {
     constructors: {},
     methods: {
       'add': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'StreamSink.add', atMost: 1);
         if (positionalArgs.isEmpty) {
           throw RuntimeD4rtException(
             'StreamSink.add requires an event argument.',
@@ -703,6 +720,7 @@ class StreamSinkAsync {
         return null;
       },
       'addError': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'StreamSink.addError', atMost: 2);
         if (positionalArgs.isEmpty) {
           throw RuntimeD4rtException(
             'StreamSink.addError requires an error argument.',
@@ -943,6 +961,7 @@ class MultiStreamControllerAsync {
     constructors: {},
     methods: {
       'add': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'MultiStreamController.add', atMost: 1);
         if (positionalArgs.isEmpty) {
           throw RuntimeD4rtException(
             'MultiStreamController.add requires an event argument.',
@@ -952,6 +971,11 @@ class MultiStreamControllerAsync {
         return null;
       },
       'addSync': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'MultiStreamController.addSync',
+          atMost: 1,
+        );
         if (positionalArgs.isEmpty) {
           throw RuntimeD4rtException(
             'MultiStreamController.addSync requires an event argument.',
@@ -961,6 +985,11 @@ class MultiStreamControllerAsync {
         return null;
       },
       'addError': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'MultiStreamController.addError',
+          atMost: 2,
+        );
         if (positionalArgs.isEmpty) {
           throw RuntimeD4rtException(
             'MultiStreamController.addError requires an error argument.',
@@ -979,6 +1008,11 @@ class MultiStreamControllerAsync {
         return null;
       },
       'addErrorSync': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'MultiStreamController.addErrorSync',
+          atMost: 2,
+        );
         if (positionalArgs.isEmpty) {
           throw RuntimeD4rtException(
             'MultiStreamController.addErrorSync requires an error argument.',
@@ -1003,6 +1037,11 @@ class MultiStreamControllerAsync {
         return null;
       },
       'addStream': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'MultiStreamController.addStream',
+          atMost: 1,
+        );
         if (positionalArgs.isEmpty || positionalArgs[0] is! Stream) {
           throw RuntimeD4rtException(
             'MultiStreamController.addStream requires a Stream argument.',
@@ -1063,6 +1102,7 @@ class EventSinkAsync {
     staticMethods: {},
     methods: {
       'add': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'EventSink.add', atMost: 1);
         if (positionalArgs.isEmpty) {
           throw RuntimeD4rtException(
             'EventSink.add requires a value argument.',
@@ -1072,6 +1112,7 @@ class EventSinkAsync {
         return null;
       },
       'addError': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'EventSink.addError', atMost: 2);
         if (positionalArgs.isEmpty) {
           throw RuntimeD4rtException(
             'EventSink.addError requires an error argument.',

@@ -46,6 +46,7 @@ class LinkedListCollection {
     },
     methods: {
       'add': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'LinkedList.add', atMost: 1);
         final entry = positionalArgs.length == 1 && namedArgs.isEmpty
             ? _nativeEntry(positionalArgs[0])
             : null;
@@ -58,6 +59,7 @@ class LinkedListCollection {
         );
       },
       'addAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'LinkedList.addAll', atMost: 1);
         if (target is LinkedList<BridgedLinkedListEntry> &&
             positionalArgs.length == 1 &&
             positionalArgs[0] is Iterable &&
@@ -91,6 +93,7 @@ class LinkedListCollection {
         );
       },
       'addFirst': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'LinkedList.addFirst', atMost: 1);
         final entry = positionalArgs.length == 1 && namedArgs.isEmpty
             ? _nativeEntry(positionalArgs[0])
             : null;
@@ -103,6 +106,7 @@ class LinkedListCollection {
         );
       },
       'remove': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'LinkedList.remove', atMost: 1);
         final entry = positionalArgs.length == 1 && namedArgs.isEmpty
             ? _nativeEntry(positionalArgs[0])
             : null;
@@ -289,6 +293,7 @@ class LinkedListEntryCollection {
     },
     methods: {
       'insertAfter': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'LinkedListEntry.insertAfter', atMost: 1);
         final entry = positionalArgs.length == 1
             ? _nativeEntry(positionalArgs[0])
             : null;
@@ -301,6 +306,11 @@ class LinkedListEntryCollection {
         return null;
       },
       'insertBefore': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'LinkedListEntry.insertBefore',
+          atMost: 1,
+        );
         final entry = positionalArgs.length == 1
             ? _nativeEntry(positionalArgs[0])
             : null;

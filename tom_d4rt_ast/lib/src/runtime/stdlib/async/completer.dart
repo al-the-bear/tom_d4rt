@@ -24,6 +24,7 @@ class CompleterAsync {
     },
     methods: {
       'complete': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Completer.complete', atMost: 1);
         (target as Completer).complete(positionalArgs.get<dynamic>(0));
         return null;
       },

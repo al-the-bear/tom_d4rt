@@ -98,6 +98,7 @@ class HashMapCollection {
         throw RuntimeD4rtException("Invalid arguments for HashMap[] getter");
       },
       'addAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HashMap.addAll', atMost: 1);
         if (target is HashMap && positionalArgs.length == 1) {
           final otherMap = positionalArgs[0];
           if (otherMap is Map) {
@@ -118,12 +119,14 @@ class HashMapCollection {
         throw RuntimeD4rtException("Invalid arguments for HashMap.clear");
       },
       'containsKey': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HashMap.containsKey', atMost: 1);
         if (target is HashMap && positionalArgs.length == 1) {
           return target.containsKey(positionalArgs[0]);
         }
         throw RuntimeD4rtException("Invalid arguments for HashMap.containsKey");
       },
       'containsValue': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HashMap.containsValue', atMost: 1);
         if (target is HashMap && positionalArgs.length == 1) {
           return target.containsValue(positionalArgs[0]);
         }
@@ -132,6 +135,7 @@ class HashMapCollection {
         );
       },
       'forEach': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HashMap.forEach', atMost: 1);
         if (target is HashMap && positionalArgs.length == 1) {
           final action = positionalArgs[0];
           if (action is Callable) {
@@ -147,6 +151,7 @@ class HashMapCollection {
         throw RuntimeD4rtException("Invalid arguments for HashMap.forEach");
       },
       'putIfAbsent': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HashMap.putIfAbsent', atMost: 2);
         if (target is HashMap && positionalArgs.length == 2) {
           final key = positionalArgs[0];
           final ifAbsent = positionalArgs[1];
@@ -163,12 +168,14 @@ class HashMapCollection {
         throw RuntimeD4rtException("Invalid arguments for HashMap.putIfAbsent");
       },
       'remove': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HashMap.remove', atMost: 1);
         if (target is HashMap && positionalArgs.length == 1) {
           return target.remove(positionalArgs[0]);
         }
         throw RuntimeD4rtException("Invalid arguments for HashMap.remove");
       },
       'removeWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HashMap.removeWhere', atMost: 1);
         if (target is HashMap && positionalArgs.length == 1) {
           final test = positionalArgs[0];
           if (test is Callable) {
@@ -185,6 +192,7 @@ class HashMapCollection {
         throw RuntimeD4rtException("Invalid arguments for HashMap.removeWhere");
       },
       'update': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HashMap.update', atMost: 2);
         if (target is HashMap && positionalArgs.length == 2) {
           final key = positionalArgs[0];
           final update = positionalArgs[1];
@@ -205,6 +213,7 @@ class HashMapCollection {
         throw RuntimeD4rtException("Invalid arguments for HashMap.update");
       },
       'updateAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HashMap.updateAll', atMost: 1);
         if (target is HashMap && positionalArgs.length == 1) {
           final update = positionalArgs[0];
           if (update is Callable) {

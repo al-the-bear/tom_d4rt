@@ -58,6 +58,7 @@ class StdoutIo {
         return null;
       },
       'writeAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Stdout.writeAll', atMost: 2);
         final stdout = target as Stdout;
         if (positionalArgs.isEmpty || positionalArgs[0] is! Iterable) {
           throw RuntimeD4rtException('writeAll requires an Iterable argument.');
@@ -93,6 +94,7 @@ class StdoutIo {
       'close': (visitor, target, positionalArgs, namedArgs, _) =>
           (target as Stdout).close(),
       'addError': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Stdout.addError', atMost: 2);
         final stdout = target as Stdout;
         if (positionalArgs.isEmpty) {
           throw RuntimeD4rtException(

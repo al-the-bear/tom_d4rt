@@ -28,6 +28,7 @@ class IOSinkIo {
     },
     methods: {
       'add': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'IOSink.add', atMost: 1);
         if (positionalArgs.isEmpty) {
           throw ArgumentD4rtException('IOSink.add requires data');
         }
@@ -36,6 +37,7 @@ class IOSinkIo {
         return null;
       },
       'addError': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'IOSink.addError', atMost: 2);
         if (positionalArgs.isEmpty) {
           throw ArgumentD4rtException('IOSink.addError requires error');
         }
@@ -46,6 +48,7 @@ class IOSinkIo {
         return null;
       },
       'addStream': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'IOSink.addStream', atMost: 1);
         if (positionalArgs.isEmpty) {
           throw ArgumentD4rtException('IOSink.addStream requires stream');
         }
@@ -54,6 +57,7 @@ class IOSinkIo {
         );
       },
       'write': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'IOSink.write', atMost: 1);
         if (positionalArgs.isEmpty) {
           throw ArgumentD4rtException('IOSink.write requires object');
         }
@@ -67,6 +71,7 @@ class IOSinkIo {
         return null;
       },
       'writeAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'IOSink.writeAll', atMost: 2);
         if (positionalArgs.isEmpty) {
           throw ArgumentD4rtException('IOSink.writeAll requires objects');
         }
@@ -78,6 +83,7 @@ class IOSinkIo {
         return null;
       },
       'writeCharCode': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'IOSink.writeCharCode', atMost: 1);
         if (positionalArgs.isEmpty) {
           throw ArgumentD4rtException('IOSink.writeCharCode requires charCode');
         }

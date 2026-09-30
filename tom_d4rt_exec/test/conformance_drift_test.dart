@@ -2202,6 +2202,12 @@ const Map<String, _Convergence> _convergenceLog = {
 /// re-measure the whole register when the floor moves, not the entry you
 /// happened to be reading.
 const Map<String, _Divergence> _divergentBaseline = {
+  // SCF36: every stdlib adapter bounds a surplus positional argument at the
+  // SDK's count. The published interpreter drops the surplus, so this port
+  // carries the reference verbatim but for group-level skips.
+  // PUBLISH-BLOCKED — re-port when exec's tom_d4rt_ast floor passes 0.197.0,
+  // by copying the reference file down; converges at a floor past 0.197.0.
+  'stdlib/scf36_surplus_arity_bounded_test.dart': _Divergence.deliberate,
   // SCF35: scheduleMicrotask, base64UrlEncode, the dart:convert rune
   // constants and systemEncoding are bridged. The published interpreter has
   // none of them, so this port carries the reference verbatim but for
@@ -2291,6 +2297,7 @@ const Map<String, _Divergence> _divergentBaseline = {
 /// Recomputing without reading the new difference is the failure mode; the
 /// message says so.
 const Map<String, String> _divergenceFingerprints = <String, String>{
+  'stdlib/scf36_surplus_arity_bounded_test.dart': 'eb79eb8b24309084',
   'scf35_schedule_microtask_test.dart': '8fe0bd3f4874c8ce',
   'scc73_sdk_member_completeness_test.dart': '300d552b19b4fa8c',
   'stdlib/io/scd188_stdin_audit_reason_expiry_test.dart': '46be47f827711c3a',
@@ -2479,6 +2486,11 @@ typedef _Pin = ({String floor, String measured});
 /// recorded evidence was seven and ten cases out of date. Both are re-stamped
 /// above their entries in `_uncoveredBaseline`.
 const Map<String, _Pin> _pinnedInterpreterFloors = <String, _Pin>{
+  // SCF36, pinned at the release that bounds the surplus-arity adapters.
+  'stdlib/scf36_surplus_arity_bounded_test.dart': (
+    floor: '0.197.0',
+    measured: '0.195.0',
+  ),
   // SCF35, pinned at the release that bridges scheduleMicrotask.
   'scf35_schedule_microtask_test.dart': (floor: '0.196.0', measured: '0.195.0'),
   // SCF35's F-SCC73-5, pinned at the same release.

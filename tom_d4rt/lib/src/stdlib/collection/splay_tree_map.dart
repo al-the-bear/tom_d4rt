@@ -132,6 +132,7 @@ class SplayTreeMapCollection {
         );
       },
       'addAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'SplayTreeMap.addAll', atMost: 1);
         if (target is SplayTreeMap && positionalArgs.length == 1) {
           final otherMap = positionalArgs[0];
           if (otherMap is Map) {
@@ -154,6 +155,7 @@ class SplayTreeMapCollection {
         throw RuntimeD4rtException("Invalid arguments for SplayTreeMap.clear");
       },
       'containsKey': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'SplayTreeMap.containsKey', atMost: 1);
         if (target is SplayTreeMap && positionalArgs.length == 1) {
           return target.containsKey(positionalArgs[0]);
         }
@@ -162,6 +164,7 @@ class SplayTreeMapCollection {
         );
       },
       'containsValue': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'SplayTreeMap.containsValue', atMost: 1);
         if (target is SplayTreeMap && positionalArgs.length == 1) {
           return target.containsValue(positionalArgs[0]);
         }
@@ -170,6 +173,7 @@ class SplayTreeMapCollection {
         );
       },
       'forEach': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'SplayTreeMap.forEach', atMost: 1);
         if (target is SplayTreeMap && positionalArgs.length == 1) {
           final action = positionalArgs[0];
           if (action is Callable) {
@@ -187,6 +191,7 @@ class SplayTreeMapCollection {
         );
       },
       'putIfAbsent': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'SplayTreeMap.putIfAbsent', atMost: 2);
         if (target is SplayTreeMap && positionalArgs.length == 2) {
           final key = positionalArgs[0];
           final ifAbsent = positionalArgs[1];
@@ -202,6 +207,7 @@ class SplayTreeMapCollection {
         );
       },
       'remove': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'SplayTreeMap.remove', atMost: 1);
         if (target is SplayTreeMap && positionalArgs.length == 1) {
           return target.remove(positionalArgs[0]);
         }
@@ -228,6 +234,7 @@ class SplayTreeMapCollection {
         );
       },
       'firstKeyAfter': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'SplayTreeMap.firstKeyAfter', atMost: 1);
         if (target is SplayTreeMap && positionalArgs.length == 1) {
           return target.firstKeyAfter(positionalArgs[0]);
         }
@@ -236,6 +243,7 @@ class SplayTreeMapCollection {
         );
       },
       'lastKeyBefore': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'SplayTreeMap.lastKeyBefore', atMost: 1);
         if (target is SplayTreeMap && positionalArgs.length == 1) {
           return target.lastKeyBefore(positionalArgs[0]);
         }

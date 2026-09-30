@@ -40,6 +40,8 @@ StreamSubscription<Object?> bridgedStreamListen(
   List<Object?> positionalArgs,
   Map<String, Object?> namedArgs,
 ) {
+  // SCF36: `listen` takes one positional argument; a second was dropped.
+  D4.checkArity(positionalArgs, 'Stream.listen', atMost: 1);
   // Bounds-checked: `io/socket.dart` indexed `positionalArgs[0]` directly, so a
   // script writing `socket.listen()` got a RangeError out of the interpreter
   // rather than a diagnosable error. Reading it as absent-means-null matches

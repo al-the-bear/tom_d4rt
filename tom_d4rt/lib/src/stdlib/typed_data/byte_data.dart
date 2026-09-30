@@ -73,6 +73,7 @@ class ByteDataTypedData {
 
       // 8-bit integer methods
       'getInt8': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ByteData.getInt8', atMost: 1);
         if (target is ByteData &&
             positionalArgs.length == 1 &&
             positionalArgs[0] is int) {
@@ -83,6 +84,7 @@ class ByteDataTypedData {
         );
       },
       'setInt8': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ByteData.setInt8', atMost: 2);
         if (target is ByteData &&
             positionalArgs.length == 2 &&
             positionalArgs[0] is int &&
@@ -95,6 +97,7 @@ class ByteDataTypedData {
         );
       },
       'getUint8': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ByteData.getUint8', atMost: 1);
         if (target is ByteData &&
             positionalArgs.length == 1 &&
             positionalArgs[0] is int) {
@@ -105,6 +108,7 @@ class ByteDataTypedData {
         );
       },
       'setUint8': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ByteData.setUint8', atMost: 2);
         if (target is ByteData &&
             positionalArgs.length == 2 &&
             positionalArgs[0] is int &&
@@ -119,6 +123,7 @@ class ByteDataTypedData {
 
       // 16-bit integer methods
       'getInt16': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ByteData.getInt16', atMost: 2);
         if (target is ByteData &&
             positionalArgs.isNotEmpty &&
             positionalArgs[0] is int) {
@@ -133,6 +138,7 @@ class ByteDataTypedData {
         );
       },
       'setInt16': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ByteData.setInt16', atMost: 3);
         if (target is ByteData &&
             positionalArgs.length >= 2 &&
             positionalArgs[0] is int &&
@@ -150,6 +156,7 @@ class ByteDataTypedData {
         );
       },
       'getUint16': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ByteData.getUint16', atMost: 2);
         if (target is ByteData &&
             positionalArgs.isNotEmpty &&
             positionalArgs[0] is int) {
@@ -164,6 +171,7 @@ class ByteDataTypedData {
         );
       },
       'setUint16': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ByteData.setUint16', atMost: 3);
         if (target is ByteData &&
             positionalArgs.length >= 2 &&
             positionalArgs[0] is int &&
@@ -183,6 +191,7 @@ class ByteDataTypedData {
 
       // 32-bit integer methods
       'getInt32': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ByteData.getInt32', atMost: 2);
         if (target is ByteData &&
             positionalArgs.isNotEmpty &&
             positionalArgs[0] is int) {
@@ -197,6 +206,7 @@ class ByteDataTypedData {
         );
       },
       'setInt32': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ByteData.setInt32', atMost: 3);
         if (target is ByteData &&
             positionalArgs.length >= 2 &&
             positionalArgs[0] is int &&
@@ -214,6 +224,7 @@ class ByteDataTypedData {
         );
       },
       'getUint32': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ByteData.getUint32', atMost: 2);
         if (target is ByteData &&
             positionalArgs.isNotEmpty &&
             positionalArgs[0] is int) {
@@ -228,6 +239,7 @@ class ByteDataTypedData {
         );
       },
       'setUint32': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ByteData.setUint32', atMost: 3);
         if (target is ByteData &&
             positionalArgs.length >= 2 &&
             positionalArgs[0] is int &&
@@ -247,6 +259,7 @@ class ByteDataTypedData {
 
       // 64-bit integer methods
       'getInt64': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ByteData.getInt64', atMost: 2);
         if (target is ByteData &&
             positionalArgs.isNotEmpty &&
             positionalArgs[0] is int) {
@@ -261,6 +274,7 @@ class ByteDataTypedData {
         );
       },
       'setInt64': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ByteData.setInt64', atMost: 3);
         if (target is ByteData &&
             positionalArgs.length >= 2 &&
             positionalArgs[0] is int &&
@@ -278,6 +292,7 @@ class ByteDataTypedData {
         );
       },
       'getUint64': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ByteData.getUint64', atMost: 2);
         if (target is ByteData &&
             positionalArgs.isNotEmpty &&
             positionalArgs[0] is int) {
@@ -292,6 +307,7 @@ class ByteDataTypedData {
         );
       },
       'setUint64': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ByteData.setUint64', atMost: 3);
         if (target is ByteData &&
             positionalArgs.length >= 2 &&
             positionalArgs[0] is int &&
@@ -311,6 +327,7 @@ class ByteDataTypedData {
 
       // Float methods
       'getFloat32': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ByteData.getFloat32', atMost: 2);
         if (target is ByteData &&
             positionalArgs.isNotEmpty &&
             positionalArgs[0] is int) {
@@ -325,6 +342,7 @@ class ByteDataTypedData {
         );
       },
       'setFloat32': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ByteData.setFloat32', atMost: 3);
         if (target is ByteData &&
             positionalArgs.length >= 2 &&
             positionalArgs[0] is int &&
@@ -342,6 +360,7 @@ class ByteDataTypedData {
         );
       },
       'getFloat64': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ByteData.getFloat64', atMost: 2);
         if (target is ByteData &&
             positionalArgs.isNotEmpty &&
             positionalArgs[0] is int) {
@@ -356,6 +375,7 @@ class ByteDataTypedData {
         );
       },
       'setFloat64': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ByteData.setFloat64', atMost: 3);
         if (target is ByteData &&
             positionalArgs.length >= 2 &&
             positionalArgs[0] is int &&

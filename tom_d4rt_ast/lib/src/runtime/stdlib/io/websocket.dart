@@ -194,6 +194,7 @@ class WebSocketIo {
     },
     staticMethods: {
       'connect': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'WebSocket.connect', atMost: 1);
         if (positionalArgs.isEmpty || positionalArgs[0] is! String) {
           throw RuntimeD4rtException(
             'WebSocket.connect requires a url String argument.',
@@ -253,6 +254,7 @@ class WebSocketIo {
             namedArgs,
           ),
       'add': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'WebSocket.add', atMost: 1);
         if (positionalArgs.isEmpty) {
           throw RuntimeD4rtException(
             'add requires a String or List<int> argument.',
@@ -262,6 +264,7 @@ class WebSocketIo {
         return null;
       },
       'addUtf8Text': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'WebSocket.addUtf8Text', atMost: 1);
         if (positionalArgs.isEmpty || positionalArgs[0] is! List) {
           throw RuntimeD4rtException(
             'addUtf8Text requires a List<int> argument.',
@@ -273,6 +276,7 @@ class WebSocketIo {
         return null;
       },
       'addError': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'WebSocket.addError', atMost: 2);
         if (positionalArgs.isEmpty) {
           throw RuntimeD4rtException(
             'addError requires at least one argument (error).',
@@ -285,6 +289,7 @@ class WebSocketIo {
         return null;
       },
       'addStream': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'WebSocket.addStream', atMost: 1);
         if (positionalArgs.isEmpty || positionalArgs[0] is! Stream) {
           throw RuntimeD4rtException('addStream requires a Stream argument.');
         }
@@ -292,11 +297,13 @@ class WebSocketIo {
           positionalArgs[0] as Stream<Object?>,
         );
       },
-      'close': (visitor, target, positionalArgs, namedArgs, _) =>
-          (target as WebSocket).close(
-            positionalArgs.isNotEmpty ? positionalArgs[0] as int? : null,
-            positionalArgs.length > 1 ? positionalArgs[1] as String? : null,
-          ),
+      'close': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'WebSocket.close', atMost: 2);
+        return (target as WebSocket).close(
+          positionalArgs.isNotEmpty ? positionalArgs[0] as int? : null,
+          positionalArgs.length > 1 ? positionalArgs[1] as String? : null,
+        );
+      },
       'toString': (visitor, target, positionalArgs, namedArgs, _) =>
           (target as WebSocket).toString(),
     },
@@ -346,6 +353,11 @@ class WebSocketTransformerIo {
     },
     staticMethods: {
       'upgrade': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'WebSocketTransformer.upgrade',
+          atMost: 1,
+        );
         if (positionalArgs.isEmpty || positionalArgs[0] is! HttpRequest) {
           throw RuntimeD4rtException(
             'WebSocketTransformer.upgrade requires an HttpRequest argument.',
@@ -358,6 +370,11 @@ class WebSocketTransformerIo {
         );
       },
       'isUpgradeRequest': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'WebSocketTransformer.isUpgradeRequest',
+          atMost: 1,
+        );
         if (positionalArgs.isEmpty || positionalArgs[0] is! HttpRequest) {
           throw RuntimeD4rtException(
             'WebSocketTransformer.isUpgradeRequest requires an HttpRequest '
@@ -379,6 +396,7 @@ class WebSocketTransformerIo {
       // type arguments is `cast<dynamic, dynamic>()` — which the inherited
       // `StreamTransformer` adapter returns.
       'bind': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'WebSocketTransformer.bind', atMost: 1);
         if (positionalArgs.isEmpty || positionalArgs[0] is! Stream) {
           throw RuntimeD4rtException(
             'WebSocketTransformer.bind requires a Stream argument.',

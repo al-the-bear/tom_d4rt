@@ -17,6 +17,7 @@ class ErrorCore {
     },
     staticMethods: {
       'safeToString': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Error.safeToString', atMost: 1);
         return Error.safeToString(positionalArgs[0]);
       },
       // Rethrows `error` while keeping an *earlier* stack trace. Forwarding

@@ -297,6 +297,11 @@ class UnmodifiableListViewCollection {
         return null;
       },
       'elementAt': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'UnmodifiableListView.elementAt',
+          atMost: 1,
+        );
         final t = target as UnmodifiableListView;
         if (positionalArgs.length == 1 && positionalArgs[0] is int) {
           return t.elementAt(positionalArgs[0] as int);
@@ -306,6 +311,11 @@ class UnmodifiableListViewCollection {
         );
       },
       'followedBy': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'UnmodifiableListView.followedBy',
+          atMost: 1,
+        );
         final t = target as UnmodifiableListView;
         if (positionalArgs.length == 1 && positionalArgs[0] is Iterable) {
           return t.followedBy(positionalArgs[0] as Iterable);
@@ -315,6 +325,11 @@ class UnmodifiableListViewCollection {
         );
       },
       'forEach': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'UnmodifiableListView.forEach',
+          atMost: 1,
+        );
         final t = target as UnmodifiableListView;
         if (positionalArgs.length == 1 && positionalArgs[0] is Callable) {
           final action = positionalArgs[0] as Callable;
@@ -328,6 +343,7 @@ class UnmodifiableListViewCollection {
         );
       },
       'map': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'UnmodifiableListView.map', atMost: 1);
         final t = target as UnmodifiableListView;
         if (positionalArgs.length == 1 && positionalArgs[0] is Callable) {
           final toElement = positionalArgs[0] as Callable;
@@ -338,6 +354,7 @@ class UnmodifiableListViewCollection {
         );
       },
       'where': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'UnmodifiableListView.where', atMost: 1);
         final t = target as UnmodifiableListView;
         if (positionalArgs.length == 1 && positionalArgs[0] is Callable) {
           final test = positionalArgs[0] as Callable;
@@ -354,6 +371,7 @@ class UnmodifiableListViewCollection {
         );
       },
       'any': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'UnmodifiableListView.any', atMost: 1);
         final t = target as UnmodifiableListView;
         if (positionalArgs.length == 1 && positionalArgs[0] is Callable) {
           final test = positionalArgs[0] as Callable;
@@ -370,6 +388,7 @@ class UnmodifiableListViewCollection {
         );
       },
       'every': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'UnmodifiableListView.every', atMost: 1);
         final t = target as UnmodifiableListView;
         if (positionalArgs.length == 1 && positionalArgs[0] is Callable) {
           final test = positionalArgs[0] as Callable;
@@ -386,6 +405,11 @@ class UnmodifiableListViewCollection {
         );
       },
       'contains': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'UnmodifiableListView.contains',
+          atMost: 1,
+        );
         final t = target as UnmodifiableListView;
         if (positionalArgs.length == 1) {
           return t.contains(positionalArgs[0]);
@@ -395,6 +419,11 @@ class UnmodifiableListViewCollection {
         );
       },
       'indexOf': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'UnmodifiableListView.indexOf',
+          atMost: 2,
+        );
         final t = target as UnmodifiableListView;
         if (positionalArgs.isNotEmpty) {
           final element = positionalArgs[0];
@@ -408,6 +437,11 @@ class UnmodifiableListViewCollection {
         );
       },
       'lastIndexOf': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'UnmodifiableListView.lastIndexOf',
+          atMost: 2,
+        );
         final t = target as UnmodifiableListView;
         if (positionalArgs.isNotEmpty) {
           final element = positionalArgs[0];
@@ -430,6 +464,11 @@ class UnmodifiableListViewCollection {
         return t.join(separator);
       },
       'getRange': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'UnmodifiableListView.getRange',
+          atMost: 2,
+        );
         final t = target as UnmodifiableListView;
         if (positionalArgs.length == 2 &&
             positionalArgs[0] is int &&
@@ -441,6 +480,11 @@ class UnmodifiableListViewCollection {
         );
       },
       'sublist': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'UnmodifiableListView.sublist',
+          atMost: 2,
+        );
         final t = target as UnmodifiableListView;
         if (positionalArgs.isNotEmpty && positionalArgs[0] is int) {
           final start = positionalArgs[0] as int;
@@ -478,6 +522,11 @@ class UnmodifiableListViewCollection {
         return UnmodifiableListView(castedSource.toList());
       },
       'singleWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'UnmodifiableListView.singleWhere',
+          atMost: 1,
+        );
         final t = target as UnmodifiableListView;
         if (positionalArgs.length == 1 && positionalArgs[0] is Callable) {
           final test = positionalArgs[0] as Callable;
@@ -495,6 +544,11 @@ class UnmodifiableListViewCollection {
         );
       },
       'firstWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'UnmodifiableListView.firstWhere',
+          atMost: 1,
+        );
         final t = target as UnmodifiableListView;
         if (positionalArgs.length == 1 && positionalArgs[0] is Callable) {
           final test = positionalArgs[0] as Callable;
@@ -512,6 +566,11 @@ class UnmodifiableListViewCollection {
         );
       },
       'lastWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'UnmodifiableListView.lastWhere',
+          atMost: 1,
+        );
         final t = target as UnmodifiableListView;
         if (positionalArgs.length == 1 && positionalArgs[0] is Callable) {
           final test = positionalArgs[0] as Callable;
@@ -529,6 +588,7 @@ class UnmodifiableListViewCollection {
         );
       },
       'skip': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'UnmodifiableListView.skip', atMost: 1);
         final t = target as UnmodifiableListView;
         if (positionalArgs.length == 1 && positionalArgs[0] is int) {
           return t.skip(positionalArgs[0] as int);
@@ -538,6 +598,7 @@ class UnmodifiableListViewCollection {
         );
       },
       'take': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'UnmodifiableListView.take', atMost: 1);
         final t = target as UnmodifiableListView;
         if (positionalArgs.length == 1 && positionalArgs[0] is int) {
           return t.take(positionalArgs[0] as int);
@@ -547,6 +608,11 @@ class UnmodifiableListViewCollection {
         );
       },
       'skipWhile': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'UnmodifiableListView.skipWhile',
+          atMost: 1,
+        );
         final t = target as UnmodifiableListView;
         if (positionalArgs.length == 1 && positionalArgs[0] is Callable) {
           final test = positionalArgs[0] as Callable;
@@ -563,6 +629,11 @@ class UnmodifiableListViewCollection {
         );
       },
       'takeWhile': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'UnmodifiableListView.takeWhile',
+          atMost: 1,
+        );
         final t = target as UnmodifiableListView;
         if (positionalArgs.length == 1 && positionalArgs[0] is Callable) {
           final test = positionalArgs[0] as Callable;
@@ -579,6 +650,7 @@ class UnmodifiableListViewCollection {
         );
       },
       'expand': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'UnmodifiableListView.expand', atMost: 1);
         final t = target as UnmodifiableListView;
         if (positionalArgs.length == 1 && positionalArgs[0] is Callable) {
           final toElements = positionalArgs[0] as Callable;
@@ -595,6 +667,7 @@ class UnmodifiableListViewCollection {
         );
       },
       'fold': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'UnmodifiableListView.fold', atMost: 2);
         final t = target as UnmodifiableListView;
         if (positionalArgs.length == 2 && positionalArgs[1] is Callable) {
           final initialValue = positionalArgs[0];
@@ -609,6 +682,7 @@ class UnmodifiableListViewCollection {
         );
       },
       'reduce': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'UnmodifiableListView.reduce', atMost: 1);
         final t = target as UnmodifiableListView;
         if (positionalArgs.length == 1 && positionalArgs[0] is Callable) {
           final combine = positionalArgs[0] as Callable;

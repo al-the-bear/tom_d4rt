@@ -10,6 +10,7 @@ class ByteBufferTypedData {
     constructors: {},
     methods: {
       'asUint8List': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ByteBuffer.asUint8List', atMost: 2);
         if (target is ByteBuffer) {
           int offsetInBytes = 0;
           int? length;
@@ -40,6 +41,11 @@ class ByteBufferTypedData {
       // The sole missing member of the asXxxList family — a buffer could be
       // reinterpreted as every typed list except this one.
       'asUint8ClampedList': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'ByteBuffer.asUint8ClampedList',
+          atMost: 2,
+        );
         if (target is ByteBuffer) {
           int offsetInBytes = 0;
           int? length;
@@ -68,6 +74,7 @@ class ByteBufferTypedData {
         );
       },
       'asByteData': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ByteBuffer.asByteData', atMost: 2);
         if (target is ByteBuffer) {
           int offsetInBytes = 0;
           int? length;

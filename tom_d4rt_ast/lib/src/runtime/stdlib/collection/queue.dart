@@ -49,6 +49,7 @@ class QueueCollection {
     },
     methods: {
       'add': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Queue.add', atMost: 1);
         if (target is Queue &&
             positionalArgs.length == 1 &&
             namedArgs.isEmpty) {
@@ -58,6 +59,7 @@ class QueueCollection {
         throw RuntimeD4rtException("Invalid arguments for Queue.add");
       },
       'addAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Queue.addAll', atMost: 1);
         if (target is Queue &&
             positionalArgs.length == 1 &&
             namedArgs.isEmpty) {
@@ -73,6 +75,7 @@ class QueueCollection {
         throw RuntimeD4rtException("Invalid arguments for Queue.addAll");
       },
       'addFirst': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Queue.addFirst', atMost: 1);
         if (target is Queue &&
             positionalArgs.length == 1 &&
             namedArgs.isEmpty) {
@@ -82,6 +85,7 @@ class QueueCollection {
         throw RuntimeD4rtException("Invalid arguments for Queue.addFirst");
       },
       'addLast': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Queue.addLast', atMost: 1);
         if (target is Queue &&
             positionalArgs.length == 1 &&
             namedArgs.isEmpty) {
@@ -129,6 +133,7 @@ class QueueCollection {
         throw RuntimeD4rtException("Invalid arguments for Queue.clear");
       },
       'contains': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Queue.contains', atMost: 1);
         if (target is Queue &&
             positionalArgs.length == 1 &&
             namedArgs.isEmpty) {
@@ -142,6 +147,7 @@ class QueueCollection {
       // was missing. Registering them here also reaches `ListQueue` and
       // `DoubleLinkedQueue`, both of which declare a `-> Queue` edge.
       'remove': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Queue.remove', atMost: 1);
         if (target is Queue &&
             positionalArgs.length == 1 &&
             namedArgs.isEmpty) {
@@ -150,6 +156,7 @@ class QueueCollection {
         throw RuntimeD4rtException("Invalid arguments for Queue.remove");
       },
       'removeWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Queue.removeWhere', atMost: 1);
         if (target is Queue && positionalArgs.length == 1) {
           final test = positionalArgs[0];
           if (test is Callable) {
@@ -166,6 +173,7 @@ class QueueCollection {
         throw RuntimeD4rtException("Invalid arguments for Queue.removeWhere");
       },
       'retainWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Queue.retainWhere', atMost: 1);
         if (target is Queue && positionalArgs.length == 1) {
           final test = positionalArgs[0];
           if (test is Callable) {

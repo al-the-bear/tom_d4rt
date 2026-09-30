@@ -81,15 +81,18 @@ class SetCore {
         return Set.castFrom<dynamic, dynamic>(source);
       },
       'from': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Set.from', atMost: 1);
         return Set.from(positionalArgs[0] as Iterable);
       },
       'of': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Set.of', atMost: 1);
         return Set.of(positionalArgs[0] as Iterable);
       },
       'identity': (visitor, positionalArgs, namedArgs, _) {
         return Set.identity();
       },
       'unmodifiable': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Set.unmodifiable', atMost: 1);
         return Set.unmodifiable(positionalArgs[0] as Iterable);
       },
     },

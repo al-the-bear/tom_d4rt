@@ -74,6 +74,7 @@ class RandomAccessFileIo {
         return (target as RandomAccessFile).readSync(positionalArgs[0] as int);
       },
       'readInto': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'RandomAccessFile.readInto', atMost: 3);
         if (positionalArgs.isEmpty || positionalArgs[0] is! List) {
           throw RuntimeD4rtException(
             'RandomAccessFile.readInto requires a List<int> buffer.',
@@ -98,6 +99,11 @@ class RandomAccessFileIo {
         return (target as RandomAccessFile).readInto(buffer, start, end);
       },
       'readIntoSync': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'RandomAccessFile.readIntoSync',
+          atMost: 3,
+        );
         if (positionalArgs.isEmpty || positionalArgs[0] is! List) {
           throw RuntimeD4rtException(
             'RandomAccessFile.readIntoSync requires a List<int> buffer.',
@@ -140,6 +146,7 @@ class RandomAccessFileIo {
         );
       },
       'writeFrom': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'RandomAccessFile.writeFrom', atMost: 3);
         if (positionalArgs.isEmpty || positionalArgs[0] is! List) {
           throw RuntimeD4rtException(
             'RandomAccessFile.writeFrom requires a List<int> buffer.',
@@ -159,6 +166,11 @@ class RandomAccessFileIo {
         return (target as RandomAccessFile).writeFrom(buffer, start, end);
       },
       'writeFromSync': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'RandomAccessFile.writeFromSync',
+          atMost: 3,
+        );
         if (positionalArgs.isEmpty || positionalArgs[0] is! List) {
           throw RuntimeD4rtException(
             'RandomAccessFile.writeFromSync requires a List<int> buffer.',

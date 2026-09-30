@@ -52,6 +52,7 @@ class IsolateIsolate {
     },
     staticMethods: {
       'run': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Isolate.run', atMost: 1);
         final computation = positionalArgs[0];
         if (computation is! Callable) {
           throw RuntimeD4rtException(
@@ -79,6 +80,7 @@ class IsolateIsolate {
         return Future.microtask(() => computation.call(visitor, []));
       },
       'spawn': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Isolate.spawn', atMost: 2);
         final entryPoint = positionalArgs[0];
         positionalArgs[1]; // message (ignored in this stub implementation)
         if (entryPoint is! Callable) {
@@ -93,6 +95,7 @@ class IsolateIsolate {
         );
       },
       'spawnUri': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Isolate.spawnUri', atMost: 3);
         final uri = positionalArgs[0] as Uri;
         // SCD70: coerce, not cast — see `Socket.add` in io/socket.dart.
         final args = D4.coerceList<String>(positionalArgs[1], 'args');
@@ -124,15 +127,22 @@ class IsolateIsolate {
         );
       },
       'exit': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Isolate.exit', atMost: 2);
         final finalMessagePort = positionalArgs.get<SendPort?>(0);
         final message = positionalArgs.get<Object?>(1);
         Isolate.exit(finalMessagePort, message);
       },
       'resolvePackageUri': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Isolate.resolvePackageUri', atMost: 1);
         final packageUri = positionalArgs[0] as Uri;
         return Isolate.resolvePackageUri(packageUri);
       },
       'resolvePackageUriSync': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'Isolate.resolvePackageUriSync',
+          atMost: 1,
+        );
         final packageUri = positionalArgs[0] as Uri;
         return Isolate.resolvePackageUriSync(packageUri);
       },
@@ -157,6 +167,7 @@ class IsolateIsolate {
     },
     methods: {
       'pause': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Isolate.pause', atMost: 1);
         final resumeCapability = positionalArgs.get<Capability?>(0);
         return (target as Isolate).pause(resumeCapability);
       },
@@ -293,6 +304,7 @@ class ReceivePortIsolate {
     },
     methods: {
       'listen': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ReceivePort.listen', atMost: 1);
         final onData = positionalArgs.get<Callable?>(0);
         final onError = namedArgs.get<Callable?>('onError');
         final onDone = namedArgs.get<Callable?>('onDone');

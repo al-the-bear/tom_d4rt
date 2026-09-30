@@ -55,12 +55,14 @@ class HashSetCollection {
       // supertype fallback for instance methods is not uniform.
       ...setAlgebraMethods('HashSet', (t) => t as Set),
       'add': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HashSet.add', atMost: 1);
         if (target is HashSet && positionalArgs.length == 1) {
           return target.add(positionalArgs[0]);
         }
         throw RuntimeD4rtException("Invalid arguments for HashSet.add");
       },
       'addAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HashSet.addAll', atMost: 1);
         if (target is HashSet && positionalArgs.length == 1) {
           final elements = positionalArgs[0];
           if (elements is Iterable) {
@@ -81,12 +83,14 @@ class HashSetCollection {
         throw RuntimeD4rtException("Invalid arguments for HashSet.clear");
       },
       'contains': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HashSet.contains', atMost: 1);
         if (target is HashSet && positionalArgs.length == 1) {
           return target.contains(positionalArgs[0]);
         }
         throw RuntimeD4rtException("Invalid arguments for HashSet.contains");
       },
       'containsAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HashSet.containsAll', atMost: 1);
         if (target is HashSet && positionalArgs.length == 1) {
           final elements = positionalArgs[0];
           if (elements is Iterable) {
@@ -99,6 +103,7 @@ class HashSetCollection {
         throw RuntimeD4rtException("Invalid arguments for HashSet.containsAll");
       },
       'forEach': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HashSet.forEach', atMost: 1);
         if (target is HashSet && positionalArgs.length == 1) {
           final action = positionalArgs[0];
           if (action is Callable) {
@@ -114,12 +119,14 @@ class HashSetCollection {
         throw RuntimeD4rtException("Invalid arguments for HashSet.forEach");
       },
       'remove': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HashSet.remove', atMost: 1);
         if (target is HashSet && positionalArgs.length == 1) {
           return target.remove(positionalArgs[0]);
         }
         throw RuntimeD4rtException("Invalid arguments for HashSet.remove");
       },
       'removeAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HashSet.removeAll', atMost: 1);
         if (target is HashSet && positionalArgs.length == 1) {
           final elements = positionalArgs[0];
           if (elements is Iterable) {
@@ -133,6 +140,7 @@ class HashSetCollection {
         throw RuntimeD4rtException("Invalid arguments for HashSet.removeAll");
       },
       'retainAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HashSet.retainAll', atMost: 1);
         if (target is HashSet && positionalArgs.length == 1) {
           final elements = positionalArgs[0];
           if (elements is Iterable) {
@@ -146,6 +154,7 @@ class HashSetCollection {
         throw RuntimeD4rtException("Invalid arguments for HashSet.retainAll");
       },
       'removeWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HashSet.removeWhere', atMost: 1);
         if (target is HashSet && positionalArgs.length == 1) {
           final test = positionalArgs[0];
           if (test is Callable) {
@@ -162,6 +171,7 @@ class HashSetCollection {
         throw RuntimeD4rtException("Invalid arguments for HashSet.removeWhere");
       },
       'retainWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HashSet.retainWhere', atMost: 1);
         if (target is HashSet && positionalArgs.length == 1) {
           final test = positionalArgs[0];
           if (test is Callable) {
@@ -178,6 +188,7 @@ class HashSetCollection {
         throw RuntimeD4rtException("Invalid arguments for HashSet.retainWhere");
       },
       'any': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HashSet.any', atMost: 1);
         if (target is HashSet && positionalArgs.length == 1) {
           final test = positionalArgs[0];
           if (test is Callable) {
@@ -193,6 +204,7 @@ class HashSetCollection {
         throw RuntimeD4rtException("Invalid arguments for HashSet.any");
       },
       'every': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HashSet.every', atMost: 1);
         if (target is HashSet && positionalArgs.length == 1) {
           final test = positionalArgs[0];
           if (test is Callable) {
@@ -208,6 +220,7 @@ class HashSetCollection {
         throw RuntimeD4rtException("Invalid arguments for HashSet.every");
       },
       'where': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HashSet.where', atMost: 1);
         if (target is HashSet && positionalArgs.length == 1) {
           final test = positionalArgs[0];
           if (test is Callable) {
@@ -223,6 +236,7 @@ class HashSetCollection {
         throw RuntimeD4rtException("Invalid arguments for HashSet.where");
       },
       'map': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HashSet.map', atMost: 1);
         if (target is HashSet && positionalArgs.length == 1) {
           final f = positionalArgs[0];
           if (f is Callable) {
@@ -235,6 +249,7 @@ class HashSetCollection {
         throw RuntimeD4rtException("Invalid arguments for HashSet.map");
       },
       'expand': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HashSet.expand', atMost: 1);
         if (target is HashSet && positionalArgs.length == 1) {
           final f = positionalArgs[0];
           if (f is Callable) {
@@ -250,6 +265,7 @@ class HashSetCollection {
         throw RuntimeD4rtException("Invalid arguments for HashSet.expand");
       },
       'fold': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HashSet.fold', atMost: 2);
         if (target is HashSet && positionalArgs.length == 2) {
           final initialValue = positionalArgs[0];
           final combine = positionalArgs[1];
@@ -267,6 +283,7 @@ class HashSetCollection {
         throw RuntimeD4rtException("Invalid arguments for HashSet.fold");
       },
       'reduce': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HashSet.reduce', atMost: 1);
         if (target is HashSet && positionalArgs.length == 1) {
           final combine = positionalArgs[0];
           if (combine is Callable) {
@@ -281,6 +298,7 @@ class HashSetCollection {
         throw RuntimeD4rtException("Invalid arguments for HashSet.reduce");
       },
       'lookup': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HashSet.lookup', atMost: 1);
         if (target is HashSet && positionalArgs.length == 1) {
           return target.lookup(positionalArgs[0]);
         }
@@ -293,6 +311,7 @@ class HashSetCollection {
         throw RuntimeD4rtException("Invalid arguments for HashSet.cast");
       },
       'followedBy': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HashSet.followedBy', atMost: 1);
         if (target is HashSet && positionalArgs.length == 1) {
           final other = positionalArgs[0];
           if (other is Iterable) {
@@ -305,6 +324,7 @@ class HashSetCollection {
         throw RuntimeD4rtException("Invalid arguments for HashSet.followedBy");
       },
       'take': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HashSet.take', atMost: 1);
         if (target is HashSet && positionalArgs.length == 1) {
           final count = positionalArgs[0] as int;
           return target.take(count);
@@ -312,6 +332,7 @@ class HashSetCollection {
         throw RuntimeD4rtException("Invalid arguments for HashSet.take");
       },
       'skip': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HashSet.skip', atMost: 1);
         if (target is HashSet && positionalArgs.length == 1) {
           final count = positionalArgs[0] as int;
           return target.skip(count);
@@ -319,6 +340,7 @@ class HashSetCollection {
         throw RuntimeD4rtException("Invalid arguments for HashSet.skip");
       },
       'takeWhile': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HashSet.takeWhile', atMost: 1);
         if (target is HashSet && positionalArgs.length == 1) {
           final test = positionalArgs[0];
           if (test is Callable) {
@@ -334,6 +356,7 @@ class HashSetCollection {
         throw RuntimeD4rtException("Invalid arguments for HashSet.takeWhile");
       },
       'skipWhile': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HashSet.skipWhile', atMost: 1);
         if (target is HashSet && positionalArgs.length == 1) {
           final test = positionalArgs[0];
           if (test is Callable) {
@@ -349,6 +372,7 @@ class HashSetCollection {
         throw RuntimeD4rtException("Invalid arguments for HashSet.skipWhile");
       },
       'firstWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HashSet.firstWhere', atMost: 1);
         if (target is HashSet && positionalArgs.length == 1) {
           final test = positionalArgs[0];
           final orElse = namedArgs['orElse'] as Callable?;
@@ -365,6 +389,7 @@ class HashSetCollection {
         throw RuntimeD4rtException("Invalid arguments for HashSet.firstWhere");
       },
       'lastWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HashSet.lastWhere', atMost: 1);
         if (target is HashSet && positionalArgs.length == 1) {
           final test = positionalArgs[0];
           final orElse = namedArgs['orElse'] as Callable?;
@@ -381,6 +406,7 @@ class HashSetCollection {
         throw RuntimeD4rtException("Invalid arguments for HashSet.lastWhere");
       },
       'singleWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HashSet.singleWhere', atMost: 1);
         if (target is HashSet && positionalArgs.length == 1) {
           final test = positionalArgs[0];
           final orElse = namedArgs['orElse'] as Callable?;
@@ -397,6 +423,7 @@ class HashSetCollection {
         throw RuntimeD4rtException("Invalid arguments for HashSet.singleWhere");
       },
       'elementAt': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HashSet.elementAt', atMost: 1);
         if (target is HashSet && positionalArgs.length == 1) {
           final index = positionalArgs[0] as int;
           return target.elementAt(index);
@@ -404,6 +431,7 @@ class HashSetCollection {
         throw RuntimeD4rtException("Invalid arguments for HashSet.elementAt");
       },
       'join': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HashSet.join', atMost: 1);
         if (target is HashSet) {
           final separator = positionalArgs.isNotEmpty
               ? positionalArgs[0] as String

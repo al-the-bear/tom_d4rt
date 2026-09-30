@@ -8,9 +8,11 @@ class StringCore {
     typeParameterCount: 0,
     staticMethods: {
       'fromCharCode': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'String.fromCharCode', atMost: 1);
         return String.fromCharCode(positionalArgs[0] as int);
       },
       'fromCharCodes': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'String.fromCharCodes', atMost: 3);
         // SCE126: `Iterable`, not `List`. The SDK signature is
         // `String.fromCharCodes(Iterable<int> charCodes, [int start, int? end])`,
         // and casting to `List` narrowed the domain — a `Set`, a `.map(…)` or a
@@ -25,6 +27,7 @@ class StringCore {
         );
       },
       'fromEnvironment': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'String.fromEnvironment', atMost: 1);
         return String.fromEnvironment(
           positionalArgs[0] as String,
           defaultValue: namedArgs['defaultValue'] as String? ?? '',
@@ -209,6 +212,7 @@ class StringCore {
         });
       },
       'replaceFirstMapped': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'String.replaceFirstMapped', atMost: 3);
         final pattern = positionalArgs[0] as Pattern;
         final replace = positionalArgs[1];
         if (replace is! Callable) {

@@ -9,9 +9,20 @@ class NumCore {
     constructors: {},
     staticMethods: {
       'parse': (visitor, positionalArgs, namedArgs, _) {
-        return num.parse(positionalArgs[0] as String);
+        D4.checkArity(positionalArgs, 'num.parse', atMost: 2);
+        final source = positionalArgs[0] as String;
+        // SCF36: the SDK's deprecated second parameter, `onError`, was
+        // accepted and ignored. It is honoured by the behaviour it names —
+        // called with the input when the input does not parse — rather than
+        // by passing it to the deprecated parameter.
+        final onError = positionalArgs.length > 1
+            ? positionalArgs[1] as Callable?
+            : null;
+        if (onError == null) return num.parse(source);
+        return num.tryParse(source) ?? onError.call(visitor, [source]);
       },
       'tryParse': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'num.tryParse', atMost: 1);
         return num.tryParse(positionalArgs[0] as String);
       },
     },

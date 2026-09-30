@@ -104,6 +104,7 @@ class LinkedHashMapCollection {
         );
       },
       'addAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'LinkedHashMap.addAll', atMost: 1);
         if (target is LinkedHashMap && positionalArgs.length == 1) {
           final otherMap = positionalArgs[0];
           if (otherMap is Map) {
@@ -128,6 +129,7 @@ class LinkedHashMapCollection {
         throw RuntimeD4rtException("Invalid arguments for LinkedHashMap.clear");
       },
       'containsKey': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'LinkedHashMap.containsKey', atMost: 1);
         if (target is LinkedHashMap && positionalArgs.length == 1) {
           return target.containsKey(positionalArgs[0]);
         }
@@ -136,6 +138,7 @@ class LinkedHashMapCollection {
         );
       },
       'containsValue': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'LinkedHashMap.containsValue', atMost: 1);
         if (target is LinkedHashMap && positionalArgs.length == 1) {
           return target.containsValue(positionalArgs[0]);
         }
@@ -144,6 +147,7 @@ class LinkedHashMapCollection {
         );
       },
       'forEach': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'LinkedHashMap.forEach', atMost: 1);
         if (target is LinkedHashMap && positionalArgs.length == 1) {
           final action = positionalArgs[0];
           if (action is Callable) {
@@ -161,6 +165,7 @@ class LinkedHashMapCollection {
         );
       },
       'putIfAbsent': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'LinkedHashMap.putIfAbsent', atMost: 2);
         if (target is LinkedHashMap && positionalArgs.length == 2) {
           final key = positionalArgs[0];
           final ifAbsent = positionalArgs[1];
@@ -176,6 +181,7 @@ class LinkedHashMapCollection {
         );
       },
       'remove': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'LinkedHashMap.remove', atMost: 1);
         if (target is LinkedHashMap && positionalArgs.length == 1) {
           return target.remove(positionalArgs[0]);
         }
@@ -184,6 +190,7 @@ class LinkedHashMapCollection {
         );
       },
       'removeWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'LinkedHashMap.removeWhere', atMost: 1);
         if (target is LinkedHashMap && positionalArgs.length == 1) {
           final test = positionalArgs[0];
           if (test is Callable) {
@@ -202,6 +209,7 @@ class LinkedHashMapCollection {
         );
       },
       'update': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'LinkedHashMap.update', atMost: 2);
         if (target is LinkedHashMap && positionalArgs.length == 2) {
           final key = positionalArgs[0];
           final update = positionalArgs[1];
@@ -224,6 +232,7 @@ class LinkedHashMapCollection {
         );
       },
       'updateAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'LinkedHashMap.updateAll', atMost: 1);
         if (target is LinkedHashMap && positionalArgs.length == 1) {
           final update = positionalArgs[0];
           if (update is Callable) {

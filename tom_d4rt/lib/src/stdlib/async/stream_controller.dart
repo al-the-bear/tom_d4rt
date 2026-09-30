@@ -50,6 +50,7 @@ class StreamControllerAsync {
     },
     methods: {
       'add': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'StreamController.add', atMost: 1);
         if (positionalArgs.isEmpty) {
           throw RuntimeD4rtException(
             'StreamController.add requires an event argument.',
@@ -59,6 +60,7 @@ class StreamControllerAsync {
         return null;
       },
       'addError': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'StreamController.addError', atMost: 2);
         if (positionalArgs.isEmpty) {
           throw RuntimeD4rtException(
             'StreamController.addError requires an error argument.',

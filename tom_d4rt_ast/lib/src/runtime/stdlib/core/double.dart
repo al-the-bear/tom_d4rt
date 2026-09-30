@@ -9,9 +9,11 @@ class DoubleCore {
     constructors: {},
     staticMethods: {
       'parse': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'double.parse', atMost: 1);
         return double.parse(positionalArgs[0] as String);
       },
       'tryParse': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'double.tryParse', atMost: 1);
         return double.tryParse(positionalArgs[0] as String);
       },
     },

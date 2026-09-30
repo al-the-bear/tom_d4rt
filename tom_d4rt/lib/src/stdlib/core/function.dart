@@ -37,6 +37,7 @@ class FunctionCore {
     constructors: {},
     staticMethods: {
       'apply': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Function.apply', atMost: 3);
         if (positionalArgs.isEmpty || positionalArgs[0] is! Callable) {
           throw RuntimeD4rtException(
             'Function.apply requires a Callable as the first argument.',

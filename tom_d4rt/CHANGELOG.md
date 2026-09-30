@@ -1,3 +1,26 @@
+## 1.212.0
+
+### Fixed — a surplus positional argument is an error, in every stdlib adapter (scf36)
+
+SCE245's census measured 315 adapters per tree that read `positionalArgs[k]`
+and never checked the length, so an extra argument was dropped in silence:
+`Stream.value(1).asyncMap((x) => x + 1, 99)` yielded `[2]`,
+`Stream.value(1).contains(1, 2)` answered `true`, `Error.safeToString(1, 2)`
+formatted the `1`. Native Dart rejects all of these at compile time. Every
+one now opens with `D4.checkArity(positionalArgs, '<Class>.<member>',
+atMost: N)`.
+
+N is the SDK's own positional count, read through `dart:mirrors` by
+`tool/bound_surplus_arity.dart`. It is not the highest index the adapter
+happens to read, so a member with an optional positional parameter keeps
+accepting it. Two adapters turned out to ignore such a parameter, and now
+honour it:
+- `num.parse`'s `onError` is called with the input when the input does not
+  parse.
+- `Uri.parseIPv4Address` forwards `start` and `end`.
+
+The census reports 0 unguarded adapters in both trees.
+
 ## 1.211.0
 
 ### Added — `scheduleMicrotask`, and the rest of the top-level surface nothing checked (scf35)

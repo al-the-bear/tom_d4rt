@@ -68,6 +68,11 @@ class JsonUtf8EncoderConvert {
       },
       'startChunkedConversion':
           (visitor, target, positionalArgs, namedArgs, _) {
+            D4.checkArity(
+              positionalArgs,
+              'JsonUtf8Encoder.startChunkedConversion',
+              atMost: 1,
+            );
             final sink = positionalArgs.isNotEmpty ? positionalArgs[0] : null;
             if (sink is! Sink) {
               throw RuntimeD4rtException(
@@ -80,6 +85,7 @@ class JsonUtf8EncoderConvert {
             );
           },
       'fuse': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'JsonUtf8Encoder.fuse', atMost: 1);
         final other = positionalArgs.isNotEmpty ? positionalArgs[0] : null;
         if (other is! Converter<List<int>, dynamic>) {
           throw RuntimeD4rtException(
@@ -93,6 +99,7 @@ class JsonUtf8EncoderConvert {
         return (target as JsonUtf8Encoder).fuse(other);
       },
       'bind': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'JsonUtf8Encoder.bind', atMost: 1);
         final stream = positionalArgs.isNotEmpty ? positionalArgs[0] : null;
         if (stream is! Stream<Object?>) {
           throw RuntimeD4rtException(

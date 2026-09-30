@@ -62,6 +62,11 @@ class ClosableStringSinkConvert {
         return null;
       },
       'writeCharCode': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'ClosableStringSink.writeCharCode',
+          atMost: 1,
+        );
         final code = positionalArgs.isNotEmpty ? positionalArgs[0] : null;
         if (code is! int) {
           throw RuntimeD4rtException(
@@ -72,6 +77,7 @@ class ClosableStringSinkConvert {
         return null;
       },
       'writeAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ClosableStringSink.writeAll', atMost: 2);
         final objects = positionalArgs.isNotEmpty ? positionalArgs[0] : null;
         if (objects is! Iterable) {
           throw RuntimeD4rtException(

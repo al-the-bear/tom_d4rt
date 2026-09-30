@@ -9,14 +9,17 @@ class BigIntCore {
     constructors: {},
     staticMethods: {
       'from': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'BigInt.from', atMost: 1);
         return BigInt.from(positionalArgs[0] as num);
       },
       'parse': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'BigInt.parse', atMost: 1);
         final source = positionalArgs[0] as String;
         final radix = namedArgs['radix'] as int?;
         return BigInt.parse(source, radix: radix);
       },
       'tryParse': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'BigInt.tryParse', atMost: 1);
         final source = positionalArgs[0] as String;
         final radix = namedArgs['radix'] as int?;
         return BigInt.tryParse(source, radix: radix);

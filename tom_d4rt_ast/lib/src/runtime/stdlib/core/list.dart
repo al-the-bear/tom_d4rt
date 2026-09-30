@@ -56,9 +56,11 @@ class ListCore {
     },
     staticMethods: {
       'castFrom': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.castFrom', atMost: 1);
         return List.castFrom<dynamic, dynamic>(positionalArgs[0] as List);
       },
       'from': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.from', atMost: 1);
         return List<dynamic>.from(
           positionalArgs[0] as Iterable,
           growable: namedArgs['growable'] as bool? ?? true,
@@ -70,6 +72,7 @@ class ListCore {
         );
       },
       'generate': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.generate', atMost: 2);
         final generator = positionalArgs[1];
         if (generator is! Callable) {
           throw RuntimeD4rtException('Expected a function for generate');
@@ -81,6 +84,7 @@ class ListCore {
         );
       },
       'copyRange': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.copyRange', atMost: 5);
         List.copyRange(
           positionalArgs[0] as List,
           positionalArgs[1] as int,
@@ -91,6 +95,7 @@ class ListCore {
         return null;
       },
       'filled': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.filled', atMost: 2);
         return List.filled(
           positionalArgs[0] as int,
           positionalArgs[1],
@@ -98,15 +103,18 @@ class ListCore {
         );
       },
       'of': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.of', atMost: 1);
         return List.of(
           positionalArgs[0] as Iterable,
           growable: namedArgs['growable'] as bool? ?? true,
         );
       },
       'unmodifiable': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.unmodifiable', atMost: 1);
         return List<dynamic>.unmodifiable(positionalArgs[0] as Iterable);
       },
       'writeIterable': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.writeIterable', atMost: 3);
         List.writeIterable(
           positionalArgs[0] as List,
           positionalArgs[1] as int,
@@ -443,6 +451,7 @@ class ListCore {
         return null;
       },
       'sort': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.sort', atMost: 1);
         if (positionalArgs.isEmpty) {
           final list = target as List;
           if (list.isEmpty) return null;
@@ -522,6 +531,7 @@ class ListCore {
         return (target as List).elementAtOrNull(positionalArgs[0] as int);
       },
       'byName': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.byName', atMost: 1);
         // byName is used on List<Enum>.values to find enum by name
         // For interpreted enums, elements are InterpretedEnumValue
         final name = positionalArgs[0] as String;

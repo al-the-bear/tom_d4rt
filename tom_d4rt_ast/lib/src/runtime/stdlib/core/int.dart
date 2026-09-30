@@ -9,11 +9,13 @@ class IntCore {
     constructors: {},
     staticMethods: {
       'parse': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'int.parse', atMost: 1);
         final source = positionalArgs[0] as String;
         final radix = namedArgs['radix'] as int?;
         return int.parse(source, radix: radix);
       },
       'tryParse': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'int.tryParse', atMost: 1);
         final source = positionalArgs[0] as String;
         final radix = namedArgs['radix'] as int?;
         return int.tryParse(source, radix: radix);

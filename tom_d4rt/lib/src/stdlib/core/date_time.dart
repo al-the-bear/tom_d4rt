@@ -94,9 +94,11 @@ class DateTimeCore {
     },
     staticMethods: {
       'parse': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'DateTime.parse', atMost: 1);
         return DateTime.parse(positionalArgs[0] as String);
       },
       'tryParse': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'DateTime.tryParse', atMost: 1);
         return DateTime.tryParse(positionalArgs[0] as String);
       },
     },

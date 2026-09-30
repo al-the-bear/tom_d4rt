@@ -25,6 +25,7 @@ class RegExpCore {
     },
     staticMethods: {
       'escape': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'RegExp.escape', atMost: 1);
         return RegExp.escape(positionalArgs[0] as String);
       },
     },

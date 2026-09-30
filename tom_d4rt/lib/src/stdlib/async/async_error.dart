@@ -39,6 +39,11 @@ class AsyncErrorAsync {
     },
     staticMethods: {
       'defaultStackTrace': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'AsyncError.defaultStackTrace',
+          atMost: 1,
+        );
         if (positionalArgs.isEmpty || positionalArgs[0] == null) {
           throw RuntimeD4rtException(
             'AsyncError.defaultStackTrace requires a non-null error.',

@@ -103,19 +103,23 @@ const _closedFiles = <String>[
   'io/socket.dart',
 ];
 
-/// Argument-reading adapters elsewhere with no explicit bound, per tree, on
-/// 2026-09-15.
+/// Argument-reading adapters elsewhere with no explicit bound, per tree: 566 on
+/// 2026-09-15, 256 on 2026-09-30 after SCF36 gave 315 of them a
+/// `D4.checkArity` bound (the rest carry hand-written guards, which the
+/// census in F-SCE245-1 recognises and this scan deliberately does not).
 ///
 /// A CEILING, not a residue: an adapter counted here may still be correctly
 /// guarded by a hand-written test (see the header). Lowering it is good news
 /// and has to be recorded in the commit that earns it.
-const _noExplicitBoundCeiling = 566;
+const _noExplicitBoundCeiling = 256;
 
 /// Adapters that drop a surplus positional argument, per tree, by the
-/// analyzer census (`tool/stdlib_surplus_census.dart`, SCE245), 2026-09-29.
-/// Unlike [_noExplicitBoundCeiling] this is a count rather than a ceiling:
-/// F-SCE245-1 holds it exactly.
-const _unguardedCensus = 315;
+/// analyzer census (`tool/stdlib_surplus_census.dart`, SCE245). 315 on
+/// 2026-09-29; 0 since 2026-09-30, when SCF36 bounded every one at the SDK's
+/// positional count (`tool/bound_surplus_arity.dart`). Unlike
+/// [_noExplicitBoundCeiling] this is a count rather than a ceiling:
+/// F-SCE245-1 holds it exactly, so a new unguarded adapter fails here.
+const _unguardedCensus = 0;
 
 /// A floor on the adapters examined, so an emptiness assertion over a walk
 /// that found nothing cannot read as a pass.

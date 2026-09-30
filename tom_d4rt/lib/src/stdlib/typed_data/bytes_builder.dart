@@ -53,6 +53,7 @@ class BytesBuilderTypedData {
     },
     methods: {
       'addByte': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'BytesBuilder.addByte', atMost: 1);
         final byte = positionalArgs.isNotEmpty ? positionalArgs[0] : null;
         if (byte is! int) {
           throw RuntimeD4rtException(
@@ -63,6 +64,7 @@ class BytesBuilderTypedData {
         return null;
       },
       'add': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'BytesBuilder.add', atMost: 1);
         final bytes = positionalArgs.isNotEmpty ? positionalArgs[0] : null;
         if (bytes is! List) {
           throw RuntimeD4rtException(

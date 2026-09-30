@@ -66,18 +66,22 @@ class MapCore {
         return Map.castFrom<dynamic, dynamic, dynamic, dynamic>(source);
       },
       'from': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Map.from', atMost: 1);
         return Map.from(positionalArgs[0] as Map);
       },
       'of': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Map.of', atMost: 1);
         return Map.of(positionalArgs[0] as Map);
       },
       'unmodifiable': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Map.unmodifiable', atMost: 1);
         return Map.unmodifiable(positionalArgs[0] as Map);
       },
       'identity': (visitor, positionalArgs, namedArgs, _) {
         return Map.identity();
       },
       'fromIterable': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Map.fromIterable', atMost: 1);
         final iterable = positionalArgs[0] as Iterable;
         final key = namedArgs['key'] as Callable?;
         final value = namedArgs['value'] as Callable?;
@@ -91,12 +95,14 @@ class MapCore {
         );
       },
       'fromIterables': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Map.fromIterables', atMost: 2);
         return Map.fromIterables(
           positionalArgs[0] as Iterable,
           positionalArgs[1] as Iterable,
         );
       },
       'fromEntries': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Map.fromEntries', atMost: 1);
         final entries = positionalArgs[0] as Iterable;
         // Unwrap BridgedInstance<MapEntry> to get native MapEntry objects
         final nativeEntries = entries.map((entry) {

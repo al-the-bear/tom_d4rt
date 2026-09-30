@@ -102,7 +102,14 @@ class UriCore {
         return Uri.tryParse(positionalArgs[0] as String, start, end);
       },
       'parseIPv4Address': (visitor, positionalArgs, namedArgs, _) {
-        return Uri.parseIPv4Address(positionalArgs[0] as String);
+        D4.checkArity(positionalArgs, 'Uri.parseIPv4Address', atMost: 3);
+        // SCF36: `start` / `end` were accepted and ignored; forwarded as
+        // `parseIPv6Address` below forwards them.
+        final start = positionalArgs.length > 1 ? positionalArgs[1] as int : 0;
+        final end = positionalArgs.length > 2
+            ? positionalArgs[2] as int?
+            : null;
+        return Uri.parseIPv4Address(positionalArgs[0] as String, start, end);
       },
       // SCE110: positional, as on `parse` above.
       'parseIPv6Address': (visitor, positionalArgs, namedArgs, _) {
@@ -114,9 +121,11 @@ class UriCore {
         return Uri.parseIPv6Address(positionalArgs[0] as String, start, end);
       },
       'encodeComponent': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uri.encodeComponent', atMost: 1);
         return Uri.encodeComponent(positionalArgs[0] as String);
       },
       'encodeQueryComponent': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uri.encodeQueryComponent', atMost: 1);
         final encoding = namedArgs['encoding'] as Encoding? ?? utf8;
         return Uri.encodeQueryComponent(
           positionalArgs[0] as String,
@@ -124,9 +133,11 @@ class UriCore {
         );
       },
       'decodeComponent': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uri.decodeComponent', atMost: 1);
         return Uri.decodeComponent(positionalArgs[0] as String);
       },
       'decodeQueryComponent': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uri.decodeQueryComponent', atMost: 1);
         final encoding = namedArgs['encoding'] as Encoding? ?? utf8;
         return Uri.decodeQueryComponent(
           positionalArgs[0] as String,
@@ -134,12 +145,15 @@ class UriCore {
         );
       },
       'encodeFull': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uri.encodeFull', atMost: 1);
         return Uri.encodeFull(positionalArgs[0] as String);
       },
       'decodeFull': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uri.decodeFull', atMost: 1);
         return Uri.decodeFull(positionalArgs[0] as String);
       },
       'splitQueryString': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uri.splitQueryString', atMost: 1);
         final encoding = namedArgs['encoding'] as Encoding? ?? utf8;
         return Uri.splitQueryString(
           positionalArgs[0] as String,
@@ -156,6 +170,7 @@ class UriCore {
       // is a function resolves to no bridge, so the entry had to be exempted,
       // and an exemption is a member the sweep cannot check.
       'isScheme': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uri.isScheme', atMost: 1);
         return (target as Uri).isScheme(positionalArgs[0] as String);
       },
       'replace': (visitor, target, positionalArgs, namedArgs, _) {

@@ -69,6 +69,7 @@ class FutureAsync {
     },
     staticMethods: {
       'delayed': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Future.delayed', atMost: 2);
         final duration = positionalArgs[0] as Duration;
         final computation = positionalArgs.get<Callable?>(1);
         return Future.delayed(
@@ -77,15 +78,18 @@ class FutureAsync {
         );
       },
       'value': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Future.value', atMost: 1);
         return Future.value(positionalArgs.get<dynamic>(0));
       },
       // Registered in both maps for the reason the comment above the named
       // factories gives: `Future<T>.syncValue(v)` routes through constructor
       // lookup and `Future.syncValue(v)` through the static path.
       'syncValue': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Future.syncValue', atMost: 1);
         return Future<Object?>.syncValue(positionalArgs.get<dynamic>(0));
       },
       'error': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Future.error', atMost: 2);
         final error = positionalArgs[0];
         if (error == null) {
           throw RuntimeD4rtException(
@@ -96,6 +100,7 @@ class FutureAsync {
         return Future.error(error, stackTrace);
       },
       'microtask': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Future.microtask', atMost: 1);
         final computation = positionalArgs[0];
         if (computation is! Callable) {
           throw RuntimeD4rtException('Future.microtask requires an Function.');
@@ -103,6 +108,7 @@ class FutureAsync {
         return Future.microtask(() => computation.call(visitor, []));
       },
       'sync': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Future.sync', atMost: 1);
         final computation = positionalArgs[0];
         if (computation is! Callable) {
           throw RuntimeD4rtException('Future.sync requires an Function.');
@@ -110,6 +116,7 @@ class FutureAsync {
         return Future.sync(() => computation.call(visitor, []));
       },
       'wait': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Future.wait', atMost: 1);
         final futures = positionalArgs[0];
         if (futures is! Iterable) {
           throw RuntimeD4rtException('Future.wait requires an Iterable.');
@@ -125,6 +132,7 @@ class FutureAsync {
         );
       },
       'any': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Future.any', atMost: 1);
         final futures = positionalArgs[0];
         if (futures is! Iterable) {
           throw RuntimeD4rtException('Future.any requires an Iterable.');
@@ -132,6 +140,7 @@ class FutureAsync {
         return Future.any(futures.cast<Future>());
       },
       'forEach': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Future.forEach', atMost: 2);
         final elements = positionalArgs[0] as Iterable;
         final action = positionalArgs[1];
         if (action is! Callable) {
@@ -145,6 +154,7 @@ class FutureAsync {
         );
       },
       'doWhile': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Future.doWhile', atMost: 1);
         final action = positionalArgs[0];
         if (action is! Callable) {
           throw RuntimeD4rtException(

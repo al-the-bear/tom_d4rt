@@ -712,6 +712,7 @@ class HttpResponseIo {
         return null;
       },
       'writeAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HttpResponse.writeAll', atMost: 2);
         if (positionalArgs.isEmpty || positionalArgs[0] is! Iterable) {
           throw RuntimeD4rtException('writeAll requires an Iterable argument.');
         }
@@ -722,6 +723,7 @@ class HttpResponseIo {
         return null;
       },
       'writeCharCode': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HttpResponse.writeCharCode', atMost: 1);
         if (positionalArgs.isEmpty || positionalArgs[0] is! int) {
           throw RuntimeD4rtException('writeCharCode requires an int argument.');
         }
@@ -750,6 +752,7 @@ class HttpResponseIo {
         );
       },
       'addError': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HttpResponse.addError', atMost: 2);
         if (positionalArgs.isEmpty) {
           throw RuntimeD4rtException(
             'addError requires at least one argument (error).',
@@ -766,6 +769,7 @@ class HttpResponseIo {
       'close': (visitor, target, positionalArgs, namedArgs, _) =>
           (target as HttpResponse).close(),
       'redirect': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HttpResponse.redirect', atMost: 1);
         if (positionalArgs.isEmpty || positionalArgs[0] is! Uri) {
           throw RuntimeD4rtException('redirect requires a Uri argument.');
         }
@@ -968,6 +972,7 @@ class HttpClientRequestIo {
         return null;
       },
       'writeAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HttpClientRequest.writeAll', atMost: 2);
         if (positionalArgs.isEmpty || positionalArgs[0] is! Iterable) {
           throw RuntimeD4rtException('writeAll requires an Iterable argument.');
         }
@@ -1002,6 +1007,7 @@ class HttpClientRequestIo {
       'close': (visitor, target, positionalArgs, namedArgs, _) =>
           (target as HttpClientRequest).close(),
       'addError': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HttpClientRequest.addError', atMost: 2);
         if (positionalArgs.isEmpty) {
           throw RuntimeD4rtException(
             'addError requires at least one argument (error).',
@@ -1233,6 +1239,7 @@ class HttpHeadersIo {
     },
     methods: {
       'add': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HttpHeaders.add', atMost: 2);
         if (positionalArgs.length < 2) {
           throw RuntimeD4rtException('add requires name and value arguments.');
         }
@@ -1244,6 +1251,7 @@ class HttpHeadersIo {
         return null;
       },
       'set': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HttpHeaders.set', atMost: 2);
         if (positionalArgs.length < 2) {
           throw RuntimeD4rtException('set requires name and value arguments.');
         }
@@ -1255,6 +1263,7 @@ class HttpHeadersIo {
         return null;
       },
       'remove': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HttpHeaders.remove', atMost: 2);
         if (positionalArgs.length < 2) {
           throw RuntimeD4rtException(
             'remove requires name and value arguments.',
@@ -1267,6 +1276,7 @@ class HttpHeadersIo {
         return null;
       },
       'removeAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HttpHeaders.removeAll', atMost: 1);
         if (positionalArgs.isEmpty) {
           throw RuntimeD4rtException('removeAll requires name argument.');
         }
@@ -1274,12 +1284,14 @@ class HttpHeadersIo {
         return null;
       },
       'value': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HttpHeaders.value', atMost: 1);
         if (positionalArgs.isEmpty) {
           throw RuntimeD4rtException('value requires name argument.');
         }
         return (target as HttpHeaders).value(positionalArgs[0] as String);
       },
       'forEach': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HttpHeaders.forEach', atMost: 1);
         if (positionalArgs.isEmpty || positionalArgs[0] is! Callable) {
           throw RuntimeD4rtException('forEach requires a function argument.');
         }
@@ -1290,6 +1302,7 @@ class HttpHeadersIo {
         return null;
       },
       'noFolding': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HttpHeaders.noFolding', atMost: 1);
         if (positionalArgs.isEmpty) {
           throw RuntimeD4rtException('noFolding requires name argument.');
         }
@@ -1560,6 +1573,7 @@ class HeaderValueIo {
     },
     staticMethods: {
       'parse': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HeaderValue.parse', atMost: 1);
         if (positionalArgs.isEmpty || positionalArgs[0] is! String) {
           throw RuntimeD4rtException(
             'HeaderValue.parse requires a String argument.',

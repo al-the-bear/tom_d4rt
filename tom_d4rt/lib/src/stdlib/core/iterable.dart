@@ -83,6 +83,7 @@ class IterableCore {
         );
       },
       'generate': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Iterable.generate', atMost: 2);
         final count = positionalArgs[0] as int;
         final generator = positionalArgs.length > 1
             ? positionalArgs[1] as Callable?

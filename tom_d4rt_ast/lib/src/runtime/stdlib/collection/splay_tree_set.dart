@@ -103,12 +103,14 @@ class SplayTreeSetCollection {
       // supertype fallback for instance methods is not uniform.
       ...setAlgebraMethods('SplayTreeSet', (t) => t as Set),
       'add': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'SplayTreeSet.add', atMost: 1);
         if (target is SplayTreeSet && positionalArgs.length == 1) {
           return target.add(positionalArgs[0]);
         }
         throw RuntimeD4rtException("Invalid arguments for SplayTreeSet.add");
       },
       'addAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'SplayTreeSet.addAll', atMost: 1);
         if (target is SplayTreeSet && positionalArgs.length == 1) {
           final elements = positionalArgs[0];
           if (elements is Iterable) {
@@ -131,6 +133,7 @@ class SplayTreeSetCollection {
         throw RuntimeD4rtException("Invalid arguments for SplayTreeSet.clear");
       },
       'contains': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'SplayTreeSet.contains', atMost: 1);
         if (target is SplayTreeSet && positionalArgs.length == 1) {
           return target.contains(positionalArgs[0]);
         }
@@ -139,6 +142,7 @@ class SplayTreeSetCollection {
         );
       },
       'containsAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'SplayTreeSet.containsAll', atMost: 1);
         if (target is SplayTreeSet && positionalArgs.length == 1) {
           final elements = positionalArgs[0];
           if (elements is Iterable) {
@@ -153,6 +157,7 @@ class SplayTreeSetCollection {
         );
       },
       'forEach': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'SplayTreeSet.forEach', atMost: 1);
         if (target is SplayTreeSet && positionalArgs.length == 1) {
           final action = positionalArgs[0];
           if (action is Callable) {
@@ -170,12 +175,14 @@ class SplayTreeSetCollection {
         );
       },
       'remove': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'SplayTreeSet.remove', atMost: 1);
         if (target is SplayTreeSet && positionalArgs.length == 1) {
           return target.remove(positionalArgs[0]);
         }
         throw RuntimeD4rtException("Invalid arguments for SplayTreeSet.remove");
       },
       'removeAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'SplayTreeSet.removeAll', atMost: 1);
         if (target is SplayTreeSet && positionalArgs.length == 1) {
           final elements = positionalArgs[0];
           if (elements is Iterable) {
@@ -191,6 +198,7 @@ class SplayTreeSetCollection {
         );
       },
       'retainAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'SplayTreeSet.retainAll', atMost: 1);
         if (target is SplayTreeSet && positionalArgs.length == 1) {
           final elements = positionalArgs[0];
           if (elements is Iterable) {
@@ -206,6 +214,7 @@ class SplayTreeSetCollection {
         );
       },
       'removeWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'SplayTreeSet.removeWhere', atMost: 1);
         if (target is SplayTreeSet && positionalArgs.length == 1) {
           final test = positionalArgs[0];
           if (test is Callable) {
@@ -224,6 +233,7 @@ class SplayTreeSetCollection {
         );
       },
       'retainWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'SplayTreeSet.retainWhere', atMost: 1);
         if (target is SplayTreeSet && positionalArgs.length == 1) {
           final test = positionalArgs[0];
           if (test is Callable) {
@@ -242,6 +252,7 @@ class SplayTreeSetCollection {
         );
       },
       'any': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'SplayTreeSet.any', atMost: 1);
         if (target is SplayTreeSet && positionalArgs.length == 1) {
           final test = positionalArgs[0];
           if (test is Callable) {
@@ -257,6 +268,7 @@ class SplayTreeSetCollection {
         throw RuntimeD4rtException("Invalid arguments for SplayTreeSet.any");
       },
       'every': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'SplayTreeSet.every', atMost: 1);
         if (target is SplayTreeSet && positionalArgs.length == 1) {
           final test = positionalArgs[0];
           if (test is Callable) {
@@ -272,6 +284,7 @@ class SplayTreeSetCollection {
         throw RuntimeD4rtException("Invalid arguments for SplayTreeSet.every");
       },
       'where': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'SplayTreeSet.where', atMost: 1);
         if (target is SplayTreeSet && positionalArgs.length == 1) {
           final test = positionalArgs[0];
           if (test is Callable) {
@@ -287,6 +300,7 @@ class SplayTreeSetCollection {
         throw RuntimeD4rtException("Invalid arguments for SplayTreeSet.where");
       },
       'map': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'SplayTreeSet.map', atMost: 1);
         if (target is SplayTreeSet && positionalArgs.length == 1) {
           final f = positionalArgs[0];
           if (f is Callable) {
@@ -299,6 +313,7 @@ class SplayTreeSetCollection {
         throw RuntimeD4rtException("Invalid arguments for SplayTreeSet.map");
       },
       'expand': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'SplayTreeSet.expand', atMost: 1);
         if (target is SplayTreeSet && positionalArgs.length == 1) {
           final f = positionalArgs[0];
           if (f is Callable) {
@@ -314,6 +329,7 @@ class SplayTreeSetCollection {
         throw RuntimeD4rtException("Invalid arguments for SplayTreeSet.expand");
       },
       'fold': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'SplayTreeSet.fold', atMost: 2);
         if (target is SplayTreeSet && positionalArgs.length == 2) {
           final initialValue = positionalArgs[0];
           final combine = positionalArgs[1];
@@ -331,6 +347,7 @@ class SplayTreeSetCollection {
         throw RuntimeD4rtException("Invalid arguments for SplayTreeSet.fold");
       },
       'reduce': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'SplayTreeSet.reduce', atMost: 1);
         if (target is SplayTreeSet && positionalArgs.length == 1) {
           final combine = positionalArgs[0];
           if (combine is Callable) {
@@ -345,6 +362,7 @@ class SplayTreeSetCollection {
         throw RuntimeD4rtException("Invalid arguments for SplayTreeSet.reduce");
       },
       'lookup': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'SplayTreeSet.lookup', atMost: 1);
         if (target is SplayTreeSet && positionalArgs.length == 1) {
           return target.lookup(positionalArgs[0]);
         }
@@ -357,6 +375,7 @@ class SplayTreeSetCollection {
         throw RuntimeD4rtException("Invalid arguments for SplayTreeSet.cast");
       },
       'followedBy': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'SplayTreeSet.followedBy', atMost: 1);
         if (target is SplayTreeSet && positionalArgs.length == 1) {
           final other = positionalArgs[0];
           if (other is Iterable) {
@@ -371,6 +390,7 @@ class SplayTreeSetCollection {
         );
       },
       'take': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'SplayTreeSet.take', atMost: 1);
         if (target is SplayTreeSet && positionalArgs.length == 1) {
           final count = positionalArgs[0] as int;
           return target.take(count);
@@ -378,6 +398,7 @@ class SplayTreeSetCollection {
         throw RuntimeD4rtException("Invalid arguments for SplayTreeSet.take");
       },
       'skip': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'SplayTreeSet.skip', atMost: 1);
         if (target is SplayTreeSet && positionalArgs.length == 1) {
           final count = positionalArgs[0] as int;
           return target.skip(count);
@@ -385,6 +406,7 @@ class SplayTreeSetCollection {
         throw RuntimeD4rtException("Invalid arguments for SplayTreeSet.skip");
       },
       'takeWhile': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'SplayTreeSet.takeWhile', atMost: 1);
         if (target is SplayTreeSet && positionalArgs.length == 1) {
           final test = positionalArgs[0];
           if (test is Callable) {
@@ -402,6 +424,7 @@ class SplayTreeSetCollection {
         );
       },
       'skipWhile': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'SplayTreeSet.skipWhile', atMost: 1);
         if (target is SplayTreeSet && positionalArgs.length == 1) {
           final test = positionalArgs[0];
           if (test is Callable) {
@@ -419,6 +442,7 @@ class SplayTreeSetCollection {
         );
       },
       'firstWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'SplayTreeSet.firstWhere', atMost: 1);
         if (target is SplayTreeSet && positionalArgs.length == 1) {
           final test = positionalArgs[0];
           final orElse = namedArgs['orElse'] as Callable?;
@@ -437,6 +461,7 @@ class SplayTreeSetCollection {
         );
       },
       'lastWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'SplayTreeSet.lastWhere', atMost: 1);
         if (target is SplayTreeSet && positionalArgs.length == 1) {
           final test = positionalArgs[0];
           final orElse = namedArgs['orElse'] as Callable?;
@@ -455,6 +480,7 @@ class SplayTreeSetCollection {
         );
       },
       'singleWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'SplayTreeSet.singleWhere', atMost: 1);
         if (target is SplayTreeSet && positionalArgs.length == 1) {
           final test = positionalArgs[0];
           final orElse = namedArgs['orElse'] as Callable?;
@@ -473,6 +499,7 @@ class SplayTreeSetCollection {
         );
       },
       'elementAt': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'SplayTreeSet.elementAt', atMost: 1);
         if (target is SplayTreeSet && positionalArgs.length == 1) {
           final index = positionalArgs[0] as int;
           return target.elementAt(index);
@@ -482,6 +509,7 @@ class SplayTreeSetCollection {
         );
       },
       'join': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'SplayTreeSet.join', atMost: 1);
         if (target is SplayTreeSet) {
           final separator = positionalArgs.isNotEmpty
               ? positionalArgs[0] as String

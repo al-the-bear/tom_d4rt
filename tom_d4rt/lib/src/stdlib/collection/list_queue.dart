@@ -51,6 +51,7 @@ class ListQueueCollection {
     },
     methods: {
       'add': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ListQueue.add', atMost: 1);
         if (target is ListQueue && positionalArgs.length == 1) {
           target.add(positionalArgs[0]);
           return null;
@@ -58,6 +59,7 @@ class ListQueueCollection {
         throw RuntimeD4rtException("Invalid arguments for ListQueue.add");
       },
       'addFirst': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ListQueue.addFirst', atMost: 1);
         if (target is ListQueue && positionalArgs.length == 1) {
           target.addFirst(positionalArgs[0]);
           return null;
@@ -65,6 +67,7 @@ class ListQueueCollection {
         throw RuntimeD4rtException("Invalid arguments for ListQueue.addFirst");
       },
       'addLast': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ListQueue.addLast', atMost: 1);
         if (target is ListQueue && positionalArgs.length == 1) {
           target.addLast(positionalArgs[0]);
           return null;
@@ -72,6 +75,7 @@ class ListQueueCollection {
         throw RuntimeD4rtException("Invalid arguments for ListQueue.addLast");
       },
       'addAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ListQueue.addAll', atMost: 1);
         if (target is ListQueue && positionalArgs.length == 1) {
           final elements = positionalArgs[0];
           if (elements is Iterable) {
@@ -126,12 +130,14 @@ class ListQueueCollection {
         );
       },
       'remove': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ListQueue.remove', atMost: 1);
         if (target is ListQueue && positionalArgs.length == 1) {
           return target.remove(positionalArgs[0]);
         }
         throw RuntimeD4rtException("Invalid arguments for ListQueue.remove");
       },
       'forEach': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ListQueue.forEach', atMost: 1);
         if (target is ListQueue && positionalArgs.length == 1) {
           final action = positionalArgs[0];
           if (action is Callable) {

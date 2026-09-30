@@ -270,6 +270,7 @@ class ObjectCore {
         }
       },
       'hashAll': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Object.hashAll', atMost: 1);
         if (positionalArgs.isEmpty) {
           throw RuntimeD4rtException(
             'Object.hashAll requires an Iterable argument.',
@@ -279,6 +280,7 @@ class ObjectCore {
         return Object.hashAll(iter);
       },
       'hashAllUnordered': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Object.hashAllUnordered', atMost: 1);
         if (positionalArgs.isEmpty) {
           throw RuntimeD4rtException(
             'Object.hashAllUnordered requires an Iterable argument.',
