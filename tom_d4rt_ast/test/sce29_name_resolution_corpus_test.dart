@@ -69,37 +69,11 @@ const Map<String, String> _twinOnlyRealignments = {
 /// blocker lifts — the guard then holds the release to the same standard as
 /// every other.
 const Map<String, String> _deferred = {
-  // EMPTY since 2026-09-28. Every entry here waited on the same publish, which
-  // SCE212 made (tom_d4rt 1.192.0 / tom_d4rt_ast 0.177.0), and the post-publish
+  // EMPTY since 2026-09-30. Every entry waited on the scf42 publish, which
+  // SCF34 made (tom_d4rt 1.210.0 / tom_d4rt_ast 0.195.0), and the post-publish
   // base corpus of both twins is recorded under `Verification runs` at that
   // pair — it covers every marked release up to it. An empty map is the
   // normal state; a new entry is a new debt with its reason.
-  //
-  // SCF9 switched the warm parent to types only. Unpublished: the twins
-  // resolve the interpreter from pub.dev (DGUC6), so no corpus run can measure
-  // it until scf42 publishes the release. The pre-publish base corpus with the
-  // parent reduced to types (2026-09-18, sce24) lost no script to an undefined
-  // name — a decision input under SCD66, not a verification run.
-  '0.187.0':
-      'unpublished (scf42): the post-publish base corpus of both twins is '
-      'owed once 0.187.0 is on pub.dev',
-  // SCF19: an interpreted subclass of a bridged class now reaches the members
-  // its bridged superclass inherits. Mirrored, so tom_d4rt 1.203.0 carries the
-  // marker too. Unpublished, and owed by the same scf42 pass.
-  '0.188.0':
-      'unpublished (scf42): the post-publish base corpus of both twins is '
-      'owed once 0.188.0 is on pub.dev',
-  '1.203.0':
-      'tom_d4rt, unpublished (scf42): the reference half of the scf19 '
-      'change, certified by the same post-publish run as 0.188.0',
-  // SCF25: bare accessors are called rather than rebound, and setters bind
-  // under `v=`. Unpublished; owed by the same scf42 pass.
-  '0.191.0':
-      'unpublished (scf42): the post-publish base corpus of both twins is '
-      'owed once 0.191.0 is on pub.dev',
-  '1.206.0':
-      'tom_d4rt, unpublished (scf42): the reference half of the scf25 '
-      'change, certified by the same post-publish run as 0.191.0',
 };
 
 List<int> _key(String v) => v.split('.').map(int.parse).toList();
