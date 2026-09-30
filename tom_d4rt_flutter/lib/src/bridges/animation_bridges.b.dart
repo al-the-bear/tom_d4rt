@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 11 files
-// Generated: 2026-09-30T01:37:40.942231 by tom_d4rt_generator 1.50.0
+// Generated: 2026-09-30T19:19:07.204980 by tom_d4rt_generator 1.51.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -23,10 +23,14 @@ import 'package:flutter/src/physics/simulation.dart' as $flutter_11;
 import 'package:flutter/src/physics/spring_simulation.dart' as $flutter_12;
 import 'package:flutter/src/physics/tolerance.dart' as $flutter_13;
 import 'package:flutter/src/scheduler/ticker.dart' as $flutter_14;
-import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/basic_message_channel_user_bridge.dart' as $tom_d4rt_flutter_1;
-import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/state_user_bridge.dart' as $tom_d4rt_flutter_2;
-import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/strut_style_user_bridge.dart' as $tom_d4rt_flutter_3;
-import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/text_user_bridge.dart' as $tom_d4rt_flutter_4;
+import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/basic_message_channel_user_bridge.dart'
+    as $tom_d4rt_flutter_1;
+import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/state_user_bridge.dart'
+    as $tom_d4rt_flutter_2;
+import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/strut_style_user_bridge.dart'
+    as $tom_d4rt_flutter_3;
+import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/text_user_bridge.dart'
+    as $tom_d4rt_flutter_4;
 import 'package:flutter/cupertino.dart' as $aux_flutter;
 
 /// Bridge class for flutter_animation module.
@@ -147,7 +151,8 @@ class FlutterAnimationBridge {
       'AnimationLazyListenerMixin': _createAnimationLazyListenerMixinBridge,
       'AnimationEagerListenerMixin': _createAnimationEagerListenerMixinBridge,
       'AnimationLocalListenersMixin': _createAnimationLocalListenersMixinBridge,
-      'AnimationLocalStatusListenersMixin': _createAnimationLocalStatusListenersMixinBridge,
+      'AnimationLocalStatusListenersMixin':
+          _createAnimationLocalStatusListenersMixinBridge,
       'TweenSequence': _createTweenSequenceBridge,
       'FlippedTweenSequence': _createFlippedTweenSequenceBridge,
       'TweenSequenceItem': _createTweenSequenceItemBridge,
@@ -207,7 +212,8 @@ class FlutterAnimationBridge {
       'AnimationLazyListenerMixin': $flutter_6.AnimationLazyListenerMixin,
       'AnimationEagerListenerMixin': $flutter_6.AnimationEagerListenerMixin,
       'AnimationLocalListenersMixin': $flutter_6.AnimationLocalListenersMixin,
-      'AnimationLocalStatusListenersMixin': $flutter_6.AnimationLocalStatusListenersMixin,
+      'AnimationLocalStatusListenersMixin':
+          $flutter_6.AnimationLocalStatusListenersMixin,
       'TweenSequence': $flutter_8.TweenSequence,
       'FlippedTweenSequence': $flutter_8.FlippedTweenSequence,
       'TweenSequenceItem': $flutter_8.TweenSequenceItem,
@@ -253,7 +259,8 @@ class FlutterAnimationBridge {
       'CurveTween': 'package:flutter/src/animation/tween.dart',
       'Simulation': 'package:flutter/src/physics/simulation.dart',
       'SpringDescription': 'package:flutter/src/physics/spring_simulation.dart',
-      'AnimationController': 'package:flutter/src/animation/animation_controller.dart',
+      'AnimationController':
+          'package:flutter/src/animation/animation_controller.dart',
       'AnimationStyle': 'package:flutter/src/animation/animation_style.dart',
       'AlwaysStoppedAnimation': 'package:flutter/src/animation/animations.dart',
       'ProxyAnimation': 'package:flutter/src/animation/animations.dart',
@@ -264,13 +271,19 @@ class FlutterAnimationBridge {
       'AnimationMean': 'package:flutter/src/animation/animations.dart',
       'AnimationMax': 'package:flutter/src/animation/animations.dart',
       'AnimationMin': 'package:flutter/src/animation/animations.dart',
-      'AnimationWithParentMixin': 'package:flutter/src/animation/animations.dart',
-      'AnimationLazyListenerMixin': 'package:flutter/src/animation/listener_helpers.dart',
-      'AnimationEagerListenerMixin': 'package:flutter/src/animation/listener_helpers.dart',
-      'AnimationLocalListenersMixin': 'package:flutter/src/animation/listener_helpers.dart',
-      'AnimationLocalStatusListenersMixin': 'package:flutter/src/animation/listener_helpers.dart',
+      'AnimationWithParentMixin':
+          'package:flutter/src/animation/animations.dart',
+      'AnimationLazyListenerMixin':
+          'package:flutter/src/animation/listener_helpers.dart',
+      'AnimationEagerListenerMixin':
+          'package:flutter/src/animation/listener_helpers.dart',
+      'AnimationLocalListenersMixin':
+          'package:flutter/src/animation/listener_helpers.dart',
+      'AnimationLocalStatusListenersMixin':
+          'package:flutter/src/animation/listener_helpers.dart',
       'TweenSequence': 'package:flutter/src/animation/tween_sequence.dart',
-      'FlippedTweenSequence': 'package:flutter/src/animation/tween_sequence.dart',
+      'FlippedTweenSequence':
+          'package:flutter/src/animation/tween_sequence.dart',
       'TweenSequenceItem': 'package:flutter/src/animation/tween_sequence.dart',
     };
   }
@@ -310,17 +323,80 @@ class FlutterAnimationBridge {
       'StepTween': ['Tween', 'Animatable'],
       'ConstantTween': ['Tween', 'Animatable'],
       'CurveTween': ['Animatable'],
-      'AnimationController': ['Animation', 'Listenable', 'ValueListenable', 'AnimationEagerListenerMixin', 'AnimationLocalListenersMixin', 'AnimationLocalStatusListenersMixin'],
+      'AnimationController': [
+        'Animation',
+        'Listenable',
+        'ValueListenable',
+        'AnimationEagerListenerMixin',
+        'AnimationLocalListenersMixin',
+        'AnimationLocalStatusListenersMixin',
+      ],
       'AnimationStyle': ['Diagnosticable'],
       'AlwaysStoppedAnimation': ['Animation', 'Listenable', 'ValueListenable'],
-      'ProxyAnimation': ['Animation', 'Listenable', 'ValueListenable', 'AnimationLazyListenerMixin', 'AnimationLocalListenersMixin', 'AnimationLocalStatusListenersMixin'],
-      'ReverseAnimation': ['Animation', 'Listenable', 'ValueListenable', 'AnimationLazyListenerMixin', 'AnimationLocalStatusListenersMixin'],
-      'CurvedAnimation': ['Animation', 'Listenable', 'ValueListenable', 'AnimationWithParentMixin'],
-      'TrainHoppingAnimation': ['Animation', 'Listenable', 'ValueListenable', 'AnimationEagerListenerMixin', 'AnimationLocalListenersMixin', 'AnimationLocalStatusListenersMixin'],
-      'CompoundAnimation': ['Animation', 'Listenable', 'ValueListenable', 'AnimationLazyListenerMixin', 'AnimationLocalListenersMixin', 'AnimationLocalStatusListenersMixin'],
-      'AnimationMean': ['CompoundAnimation', 'Animation', 'Listenable', 'ValueListenable', 'AnimationLazyListenerMixin', 'AnimationLocalListenersMixin', 'AnimationLocalStatusListenersMixin'],
-      'AnimationMax': ['CompoundAnimation', 'Animation', 'Listenable', 'ValueListenable', 'AnimationLazyListenerMixin', 'AnimationLocalListenersMixin', 'AnimationLocalStatusListenersMixin'],
-      'AnimationMin': ['CompoundAnimation', 'Animation', 'Listenable', 'ValueListenable', 'AnimationLazyListenerMixin', 'AnimationLocalListenersMixin', 'AnimationLocalStatusListenersMixin'],
+      'ProxyAnimation': [
+        'Animation',
+        'Listenable',
+        'ValueListenable',
+        'AnimationLazyListenerMixin',
+        'AnimationLocalListenersMixin',
+        'AnimationLocalStatusListenersMixin',
+      ],
+      'ReverseAnimation': [
+        'Animation',
+        'Listenable',
+        'ValueListenable',
+        'AnimationLazyListenerMixin',
+        'AnimationLocalStatusListenersMixin',
+      ],
+      'CurvedAnimation': [
+        'Animation',
+        'Listenable',
+        'ValueListenable',
+        'AnimationWithParentMixin',
+      ],
+      'TrainHoppingAnimation': [
+        'Animation',
+        'Listenable',
+        'ValueListenable',
+        'AnimationEagerListenerMixin',
+        'AnimationLocalListenersMixin',
+        'AnimationLocalStatusListenersMixin',
+      ],
+      'CompoundAnimation': [
+        'Animation',
+        'Listenable',
+        'ValueListenable',
+        'AnimationLazyListenerMixin',
+        'AnimationLocalListenersMixin',
+        'AnimationLocalStatusListenersMixin',
+      ],
+      'AnimationMean': [
+        'CompoundAnimation',
+        'Animation',
+        'Listenable',
+        'ValueListenable',
+        'AnimationLazyListenerMixin',
+        'AnimationLocalListenersMixin',
+        'AnimationLocalStatusListenersMixin',
+      ],
+      'AnimationMax': [
+        'CompoundAnimation',
+        'Animation',
+        'Listenable',
+        'ValueListenable',
+        'AnimationLazyListenerMixin',
+        'AnimationLocalListenersMixin',
+        'AnimationLocalStatusListenersMixin',
+      ],
+      'AnimationMin': [
+        'CompoundAnimation',
+        'Animation',
+        'Listenable',
+        'ValueListenable',
+        'AnimationLazyListenerMixin',
+        'AnimationLocalListenersMixin',
+        'AnimationLocalStatusListenersMixin',
+      ],
       'TweenSequence': ['Animatable'],
       'FlippedTweenSequence': ['TweenSequence', 'Animatable'],
     };
@@ -332,8 +408,7 @@ class FlutterAnimationBridge {
   /// are registered so that code using the alias name can resolve to the
   /// bridged class under its canonical name.
   static Map<String, String> classAliases() {
-    return {
-    };
+    return {};
   }
 
   /// Returns the list of function typedef names declared in this library.
@@ -358,6 +433,25 @@ class FlutterAnimationBridge {
     ];
   }
 
+  /// Positional arity of each function typedef in [functionTypedefs].
+  static Map<String, ({int required, int max})> functionTypedefArity() {
+    return {
+      'FrameCallback': (required: 1, max: 1),
+      'TaskCallback': (required: 0, max: 0),
+      'SchedulingStrategy': (required: 0, max: 0),
+      'TimingsCallback': (required: 1, max: 1),
+      'AsyncCallback': (required: 0, max: 0),
+      'AsyncValueGetter': (required: 0, max: 0),
+      'AsyncValueSetter': (required: 1, max: 1),
+      'ServiceExtensionCallback': (required: 1, max: 1),
+      'TickerCallback': (required: 1, max: 1),
+      'VoidCallback': (required: 0, max: 0),
+      'AnimationStatusListener': (required: 1, max: 1),
+      'ValueListenableTransformer': (required: 1, max: 1),
+      'AnimatableCallback': (required: 1, max: 1),
+    };
+  }
+
   /// Returns all bridged enum definitions.
   static List<BridgedEnumDefinition> bridgedEnums() {
     return [
@@ -365,10 +459,14 @@ class FlutterAnimationBridge {
         name: 'AnimationStatus',
         values: $flutter_1.AnimationStatus.values,
         getters: {
-          'isDismissed': (visitor, target) => (target as $flutter_1.AnimationStatus).isDismissed,
-          'isCompleted': (visitor, target) => (target as $flutter_1.AnimationStatus).isCompleted,
-          'isAnimating': (visitor, target) => (target as $flutter_1.AnimationStatus).isAnimating,
-          'isForwardOrCompleted': (visitor, target) => (target as $flutter_1.AnimationStatus).isForwardOrCompleted,
+          'isDismissed': (visitor, target) =>
+              (target as $flutter_1.AnimationStatus).isDismissed,
+          'isCompleted': (visitor, target) =>
+              (target as $flutter_1.AnimationStatus).isCompleted,
+          'isAnimating': (visitor, target) =>
+              (target as $flutter_1.AnimationStatus).isAnimating,
+          'isForwardOrCompleted': (visitor, target) =>
+              (target as $flutter_1.AnimationStatus).isForwardOrCompleted,
         },
       ),
       BridgedEnumDefinition<$flutter_2.AnimationBehavior>(
@@ -385,74 +483,300 @@ class FlutterAnimationBridge {
   static Map<String, String> enumSourceUris() {
     return {
       'AnimationStatus': 'package:flutter/src/animation/animation.dart',
-      'AnimationBehavior': 'package:flutter/src/animation/animation_controller.dart',
+      'AnimationBehavior':
+          'package:flutter/src/animation/animation_controller.dart',
     };
   }
 
   /// Returns all bridged extension definitions.
   static List<BridgedExtensionDefinition> bridgedExtensions() {
-    return [
-    ];
+    return [];
   }
 
   /// Returns a map of extension identifiers to their canonical source URIs.
   static Map<String, String> extensionSourceUris() {
-    return {
-    };
+    return {};
   }
 
   /// GEN-107: Library re-exports declared by the bridged source
   /// libraries. Each tuple mirrors a Dart `export '…'` directive.
   /// Consumed by `registerBridges` via `D4rt.registerLibraryReExport`
   /// (mirrored on `D4rtRunner` in tom_d4rt_ast).
-  static List<({String source, String target, Set<String>? show, Set<String>? hide})>
+  static List<
+    ({String source, String target, Set<String>? show, Set<String>? hide})
+  >
   bridgeReExports() {
     return [
-      (source: 'package:flutter/animation.dart', target: 'package:flutter/scheduler.dart', show: {'TickerCanceled'}, hide: null),
-      (source: 'package:flutter/animation.dart', target: 'package:flutter/src/animation/animation.dart', show: null, hide: null),
-      (source: 'package:flutter/animation.dart', target: 'package:flutter/src/animation/animation_controller.dart', show: null, hide: null),
-      (source: 'package:flutter/animation.dart', target: 'package:flutter/src/animation/animation_style.dart', show: null, hide: null),
-      (source: 'package:flutter/animation.dart', target: 'package:flutter/src/animation/animations.dart', show: null, hide: null),
-      (source: 'package:flutter/animation.dart', target: 'package:flutter/src/animation/curves.dart', show: null, hide: null),
-      (source: 'package:flutter/animation.dart', target: 'package:flutter/src/animation/listener_helpers.dart', show: null, hide: null),
-      (source: 'package:flutter/animation.dart', target: 'package:flutter/src/animation/tween.dart', show: null, hide: null),
-      (source: 'package:flutter/animation.dart', target: 'package:flutter/src/animation/tween_sequence.dart', show: null, hide: null),
-      (source: 'package:flutter/src/scheduler/binding.dart', target: 'dart:ui', show: {'AppLifecycleState', 'FrameTiming', 'TimingsCallback'}, hide: null),
-      (source: 'package:flutter/src/scheduler/binding.dart', target: 'package:flutter/src/scheduler/priority.dart', show: {'Priority'}, hide: null),
-      (source: 'package:flutter/src/scheduler/ticker.dart', target: 'dart:ui', show: {'VoidCallback'}, hide: null),
-      (source: 'package:flutter/src/scheduler/ticker.dart', target: 'package:flutter/foundation.dart', show: {'DiagnosticsNode'}, hide: null),
-      (source: 'package:flutter/scheduler.dart', target: 'package:flutter/src/scheduler/binding.dart', show: null, hide: null),
-      (source: 'package:flutter/scheduler.dart', target: 'package:flutter/src/scheduler/debug.dart', show: null, hide: null),
-      (source: 'package:flutter/scheduler.dart', target: 'package:flutter/src/scheduler/priority.dart', show: null, hide: null),
-      (source: 'package:flutter/scheduler.dart', target: 'package:flutter/src/scheduler/service_extensions.dart', show: null, hide: null),
-      (source: 'package:flutter/scheduler.dart', target: 'package:flutter/src/scheduler/ticker.dart', show: null, hide: null),
-      (source: 'package:flutter/src/animation/animation.dart', target: 'dart:ui', show: {'VoidCallback'}, hide: null),
-      (source: 'package:flutter/src/animation/animation.dart', target: 'package:flutter/src/animation/tween.dart', show: {'Animatable'}, hide: null),
-      (source: 'package:flutter/src/animation/curves.dart', target: 'dart:ui', show: {'Offset'}, hide: null),
-      (source: 'package:flutter/src/animation/tween.dart', target: 'dart:ui', show: {'Color', 'Rect', 'Size'}, hide: null),
-      (source: 'package:flutter/src/animation/tween.dart', target: 'package:flutter/src/animation/animation.dart', show: {'Animation'}, hide: null),
-      (source: 'package:flutter/src/animation/tween.dart', target: 'package:flutter/src/animation/curves.dart', show: {'Curve'}, hide: null),
-      (source: 'package:flutter/src/physics/simulation.dart', target: 'package:flutter/src/physics/tolerance.dart', show: {'Tolerance'}, hide: null),
-      (source: 'package:flutter/src/physics/clamped_simulation.dart', target: 'package:flutter/src/physics/simulation.dart', show: {'Simulation'}, hide: null),
-      (source: 'package:flutter/src/physics/friction_simulation.dart', target: 'package:flutter/src/physics/tolerance.dart', show: {'Tolerance'}, hide: null),
-      (source: 'package:flutter/src/physics/spring_simulation.dart', target: 'package:flutter/src/physics/tolerance.dart', show: {'Tolerance'}, hide: null),
-      (source: 'package:flutter/physics.dart', target: 'package:flutter/src/physics/clamped_simulation.dart', show: null, hide: null),
-      (source: 'package:flutter/physics.dart', target: 'package:flutter/src/physics/friction_simulation.dart', show: null, hide: null),
-      (source: 'package:flutter/physics.dart', target: 'package:flutter/src/physics/gravity_simulation.dart', show: null, hide: null),
-      (source: 'package:flutter/physics.dart', target: 'package:flutter/src/physics/simulation.dart', show: null, hide: null),
-      (source: 'package:flutter/physics.dart', target: 'package:flutter/src/physics/spring_simulation.dart', show: null, hide: null),
-      (source: 'package:flutter/physics.dart', target: 'package:flutter/src/physics/tolerance.dart', show: null, hide: null),
-      (source: 'package:flutter/physics.dart', target: 'package:flutter/src/physics/utils.dart', show: null, hide: null),
-      (source: 'package:flutter/src/animation/animation_controller.dart', target: 'package:flutter/physics.dart', show: {'Simulation', 'SpringDescription'}, hide: null),
-      (source: 'package:flutter/src/animation/animation_controller.dart', target: 'package:flutter/scheduler.dart', show: {'TickerFuture', 'TickerProvider'}, hide: null),
-      (source: 'package:flutter/src/animation/animation_controller.dart', target: 'package:flutter/src/animation/animation.dart', show: {'Animation', 'AnimationStatus'}, hide: null),
-      (source: 'package:flutter/src/animation/animation_controller.dart', target: 'package:flutter/src/animation/curves.dart', show: {'Curve'}, hide: null),
-      (source: 'package:flutter/src/animation/animations.dart', target: 'dart:ui', show: {'VoidCallback'}, hide: null),
-      (source: 'package:flutter/src/animation/animations.dart', target: 'package:flutter/src/animation/animation.dart', show: {'Animation', 'AnimationStatus', 'AnimationStatusListener'}, hide: null),
-      (source: 'package:flutter/src/animation/animations.dart', target: 'package:flutter/src/animation/curves.dart', show: {'Curve'}, hide: null),
-      (source: 'package:flutter/src/animation/listener_helpers.dart', target: 'dart:ui', show: {'VoidCallback'}, hide: null),
-      (source: 'package:flutter/src/animation/listener_helpers.dart', target: 'package:flutter/src/animation/animation.dart', show: {'AnimationStatus', 'AnimationStatusListener'}, hide: null),
-      (source: 'package:flutter/src/animation/tween_sequence.dart', target: 'package:flutter/src/animation/tween.dart', show: {'Animatable'}, hide: null),
+      (
+        source: 'package:flutter/animation.dart',
+        target: 'package:flutter/scheduler.dart',
+        show: {'TickerCanceled'},
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/animation.dart',
+        target: 'package:flutter/src/animation/animation.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/animation.dart',
+        target: 'package:flutter/src/animation/animation_controller.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/animation.dart',
+        target: 'package:flutter/src/animation/animation_style.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/animation.dart',
+        target: 'package:flutter/src/animation/animations.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/animation.dart',
+        target: 'package:flutter/src/animation/curves.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/animation.dart',
+        target: 'package:flutter/src/animation/listener_helpers.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/animation.dart',
+        target: 'package:flutter/src/animation/tween.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/animation.dart',
+        target: 'package:flutter/src/animation/tween_sequence.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/src/scheduler/binding.dart',
+        target: 'dart:ui',
+        show: {'AppLifecycleState', 'FrameTiming', 'TimingsCallback'},
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/src/scheduler/binding.dart',
+        target: 'package:flutter/src/scheduler/priority.dart',
+        show: {'Priority'},
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/src/scheduler/ticker.dart',
+        target: 'dart:ui',
+        show: {'VoidCallback'},
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/src/scheduler/ticker.dart',
+        target: 'package:flutter/foundation.dart',
+        show: {'DiagnosticsNode'},
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/scheduler.dart',
+        target: 'package:flutter/src/scheduler/binding.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/scheduler.dart',
+        target: 'package:flutter/src/scheduler/debug.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/scheduler.dart',
+        target: 'package:flutter/src/scheduler/priority.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/scheduler.dart',
+        target: 'package:flutter/src/scheduler/service_extensions.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/scheduler.dart',
+        target: 'package:flutter/src/scheduler/ticker.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/src/animation/animation.dart',
+        target: 'dart:ui',
+        show: {'VoidCallback'},
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/src/animation/animation.dart',
+        target: 'package:flutter/src/animation/tween.dart',
+        show: {'Animatable'},
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/src/animation/curves.dart',
+        target: 'dart:ui',
+        show: {'Offset'},
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/src/animation/tween.dart',
+        target: 'dart:ui',
+        show: {'Color', 'Rect', 'Size'},
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/src/animation/tween.dart',
+        target: 'package:flutter/src/animation/animation.dart',
+        show: {'Animation'},
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/src/animation/tween.dart',
+        target: 'package:flutter/src/animation/curves.dart',
+        show: {'Curve'},
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/src/physics/simulation.dart',
+        target: 'package:flutter/src/physics/tolerance.dart',
+        show: {'Tolerance'},
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/src/physics/clamped_simulation.dart',
+        target: 'package:flutter/src/physics/simulation.dart',
+        show: {'Simulation'},
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/src/physics/friction_simulation.dart',
+        target: 'package:flutter/src/physics/tolerance.dart',
+        show: {'Tolerance'},
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/src/physics/spring_simulation.dart',
+        target: 'package:flutter/src/physics/tolerance.dart',
+        show: {'Tolerance'},
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/physics.dart',
+        target: 'package:flutter/src/physics/clamped_simulation.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/physics.dart',
+        target: 'package:flutter/src/physics/friction_simulation.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/physics.dart',
+        target: 'package:flutter/src/physics/gravity_simulation.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/physics.dart',
+        target: 'package:flutter/src/physics/simulation.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/physics.dart',
+        target: 'package:flutter/src/physics/spring_simulation.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/physics.dart',
+        target: 'package:flutter/src/physics/tolerance.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/physics.dart',
+        target: 'package:flutter/src/physics/utils.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/src/animation/animation_controller.dart',
+        target: 'package:flutter/physics.dart',
+        show: {'Simulation', 'SpringDescription'},
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/src/animation/animation_controller.dart',
+        target: 'package:flutter/scheduler.dart',
+        show: {'TickerFuture', 'TickerProvider'},
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/src/animation/animation_controller.dart',
+        target: 'package:flutter/src/animation/animation.dart',
+        show: {'Animation', 'AnimationStatus'},
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/src/animation/animation_controller.dart',
+        target: 'package:flutter/src/animation/curves.dart',
+        show: {'Curve'},
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/src/animation/animations.dart',
+        target: 'dart:ui',
+        show: {'VoidCallback'},
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/src/animation/animations.dart',
+        target: 'package:flutter/src/animation/animation.dart',
+        show: {'Animation', 'AnimationStatus', 'AnimationStatusListener'},
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/src/animation/animations.dart',
+        target: 'package:flutter/src/animation/curves.dart',
+        show: {'Curve'},
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/src/animation/listener_helpers.dart',
+        target: 'dart:ui',
+        show: {'VoidCallback'},
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/src/animation/listener_helpers.dart',
+        target: 'package:flutter/src/animation/animation.dart',
+        show: {'AnimationStatus', 'AnimationStatusListener'},
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/src/animation/tween_sequence.dart',
+        target: 'package:flutter/src/animation/tween.dart',
+        show: {'Animatable'},
+        hide: null,
+      ),
     ];
   }
 
@@ -486,7 +810,11 @@ class FlutterAnimationBridge {
     final enums = bridgedEnums();
     final enumSources = enumSourceUris();
     for (final enumDef in enums) {
-      interpreter.registerBridgedEnum(enumDef, importPath, sourceUri: enumSources[enumDef.name]);
+      interpreter.registerBridgedEnum(
+        enumDef,
+        importPath,
+        sourceUri: enumSources[enumDef.name],
+      );
     }
 
     // Register global variables
@@ -494,13 +822,25 @@ class FlutterAnimationBridge {
 
     // Register function typedefs for type resolution
     final typedefs = functionTypedefs();
+    final typedefArity = functionTypedefArity();
     for (final name in typedefs) {
-      interpreter.registerFunctionTypedef(name, importPath);
+      final arity = typedefArity[name];
+      interpreter.registerFunctionTypedef(
+        name,
+        importPath,
+        requiredPositional: arity?.required,
+        maxPositional: arity?.max,
+      );
     }
 
     // GEN-107: Register library re-exports
     for (final r in bridgeReExports()) {
-      interpreter.registerLibraryReExport(r.source, r.target, show: r.show, hide: r.hide);
+      interpreter.registerLibraryReExport(
+        r.source,
+        r.target,
+        show: r.show,
+        hide: r.hide,
+      );
     }
   }
 
@@ -513,18 +853,30 @@ class FlutterAnimationBridge {
     final errors = <String>[];
 
     try {
-      interpreter.registerGlobalVariable('kAlwaysCompleteAnimation', $flutter_4.kAlwaysCompleteAnimation, importPath, sourceUri: 'package:flutter/src/animation/animations.dart');
+      interpreter.registerGlobalVariable(
+        'kAlwaysCompleteAnimation',
+        $flutter_4.kAlwaysCompleteAnimation,
+        importPath,
+        sourceUri: 'package:flutter/src/animation/animations.dart',
+      );
     } catch (e) {
       errors.add('Failed to register variable "kAlwaysCompleteAnimation": $e');
     }
     try {
-      interpreter.registerGlobalVariable('kAlwaysDismissedAnimation', $flutter_4.kAlwaysDismissedAnimation, importPath, sourceUri: 'package:flutter/src/animation/animations.dart');
+      interpreter.registerGlobalVariable(
+        'kAlwaysDismissedAnimation',
+        $flutter_4.kAlwaysDismissedAnimation,
+        importPath,
+        sourceUri: 'package:flutter/src/animation/animations.dart',
+      );
     } catch (e) {
       errors.add('Failed to register variable "kAlwaysDismissedAnimation": $e');
     }
 
     if (errors.isNotEmpty) {
-      throw StateError('Bridge registration errors (flutter_animation):\n${errors.join("\n")}');
+      throw StateError(
+        'Bridge registration errors (flutter_animation):\n${errors.join("\n")}',
+      );
     }
   }
 
@@ -583,11 +935,7 @@ class FlutterAnimationBridge {
   }
 
   /// Returns a list of bridged enum names.
-  static List<String> get enumNames => [
-    'AnimationStatus',
-    'AnimationBehavior',
-  ];
-
+  static List<String> get enumNames => ['AnimationStatus', 'AnimationBehavior'];
 }
 
 // =============================================================================
@@ -600,17 +948,23 @@ BridgedClass _createTickerProviderBridge() {
     name: 'TickerProvider',
     isAssignable: (v) => v is $flutter_14.TickerProvider,
     isAbstract: true,
-    constructors: {
-    },
+    constructors: {},
     methods: {
       'createTicker': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.TickerProvider>(target, 'TickerProvider');
+        final t = D4.validateTarget<$flutter_14.TickerProvider>(
+          target,
+          'TickerProvider',
+        );
         D4.requireMinArgs(positional, 1, 'createTicker');
         if (positional.isEmpty) {
-          throw ArgumentError('createTicker: Missing required argument "onTick" at position 0');
+          throw ArgumentError(
+            'createTicker: Missing required argument "onTick" at position 0',
+          );
         }
         final onTickRaw = positional[0];
-        return t.createTicker((Duration p0) { D4.callInterpreterCallback(visitor!, onTickRaw, [p0]); });
+        return t.createTicker((Duration p0) {
+          D4.callInterpreterCallback(visitor!, onTickRaw, [p0]);
+        });
       },
     },
     methodSignatures: {
@@ -635,76 +989,155 @@ BridgedClass _createTickerFutureBridge() {
       },
     },
     getters: {
-      'orCancel': (visitor, target) => D4.validateTarget<$flutter_14.TickerFuture>(target, 'TickerFuture').orCancel,
+      'orCancel': (visitor, target) => D4
+          .validateTarget<$flutter_14.TickerFuture>(target, 'TickerFuture')
+          .orCancel,
     },
     methods: {
       'whenCompleteOrCancel': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.TickerFuture>(target, 'TickerFuture');
+        final t = D4.validateTarget<$flutter_14.TickerFuture>(
+          target,
+          'TickerFuture',
+        );
         D4.requireMinArgs(positional, 1, 'whenCompleteOrCancel');
         if (positional.isEmpty) {
-          throw ArgumentError('whenCompleteOrCancel: Missing required argument "callback" at position 0');
+          throw ArgumentError(
+            'whenCompleteOrCancel: Missing required argument "callback" at position 0',
+          );
         }
         final callbackRaw = positional[0];
-        t.whenCompleteOrCancel(() { D4.callInterpreterCallback(visitor!, callbackRaw, []); });
+        t.whenCompleteOrCancel(() {
+          D4.callInterpreterCallback(visitor!, callbackRaw, []);
+        });
         return null;
       },
       'asStream': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.TickerFuture>(target, 'TickerFuture');
+        final t = D4.validateTarget<$flutter_14.TickerFuture>(
+          target,
+          'TickerFuture',
+        );
         return t.asStream();
       },
       'catchError': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.TickerFuture>(target, 'TickerFuture');
+        final t = D4.validateTarget<$flutter_14.TickerFuture>(
+          target,
+          'TickerFuture',
+        );
         D4.requireMinArgs(positional, 1, 'catchError');
-        final onError = D4.getRequiredArg<Function>(positional, 0, 'onError', 'catchError');
+        final onError = D4.getRequiredArg<Function>(
+          positional,
+          0,
+          'onError',
+          'catchError',
+        );
         final testRaw = named['test'];
-        return t.catchError(onError, test: testRaw == null ? null : ((Object p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }) as bool Function(Object));
+        return t.catchError(
+          onError,
+          test: testRaw == null
+              ? null
+              : ((Object p0) {
+                      return D4.callInterpreterCallback(visitor!, testRaw, [p0])
+                          as bool;
+                    })
+                    as bool Function(Object),
+        );
       },
       'then': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.TickerFuture>(target, 'TickerFuture');
+        final t = D4.validateTarget<$flutter_14.TickerFuture>(
+          target,
+          'TickerFuture',
+        );
         D4.requireMinArgs(positional, 1, 'then');
         if (positional.isEmpty) {
-          throw ArgumentError('then: Missing required argument "onValue" at position 0');
+          throw ArgumentError(
+            'then: Missing required argument "onValue" at position 0',
+          );
         }
         final onValueRaw = positional[0];
         final onError = D4.getOptionalNamedArg<Function?>(named, 'onError');
-        return t.then<Object?>(((void p0) { return D4.castCallbackResult<FutureOr<Object?>>(D4.callInterpreterCallback(visitor!, onValueRaw, [null])); }) as FutureOr<Object?> Function(void), onError: onError);
+        return t.then<Object?>(
+          ((void p0) {
+                return D4.castCallbackResult<FutureOr<Object?>>(
+                  D4.callInterpreterCallback(visitor!, onValueRaw, [null]),
+                );
+              })
+              as FutureOr<Object?> Function(void),
+          onError: onError,
+        );
       },
       'timeout': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.TickerFuture>(target, 'TickerFuture');
+        final t = D4.validateTarget<$flutter_14.TickerFuture>(
+          target,
+          'TickerFuture',
+        );
         D4.requireMinArgs(positional, 1, 'timeout');
-        final timeLimit = D4.getRequiredArg<Duration>(positional, 0, 'timeLimit', 'timeout');
+        final timeLimit = D4.getRequiredArg<Duration>(
+          positional,
+          0,
+          'timeLimit',
+          'timeout',
+        );
         final onTimeoutRaw = named['onTimeout'];
-        return t.timeout(timeLimit, onTimeout: onTimeoutRaw == null ? null : (() { return D4.extractBridgedArg<FutureOr<void>>(D4.callInterpreterCallback(visitor!, onTimeoutRaw, []), 'callback', visitor) as FutureOr<void>; }) as FutureOr<void> Function());
+        return t.timeout(
+          timeLimit,
+          onTimeout: onTimeoutRaw == null
+              ? null
+              : (() {
+                      return D4.extractBridgedArg<FutureOr<void>>(
+                            D4.callInterpreterCallback(
+                              visitor!,
+                              onTimeoutRaw,
+                              [],
+                            ),
+                            'callback',
+                            visitor,
+                          )
+                          as FutureOr<void>;
+                    })
+                    as FutureOr<void> Function(),
+        );
       },
       'whenComplete': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.TickerFuture>(target, 'TickerFuture');
+        final t = D4.validateTarget<$flutter_14.TickerFuture>(
+          target,
+          'TickerFuture',
+        );
         D4.requireMinArgs(positional, 1, 'whenComplete');
         if (positional.isEmpty) {
-          throw ArgumentError('whenComplete: Missing required argument "action" at position 0');
+          throw ArgumentError(
+            'whenComplete: Missing required argument "action" at position 0',
+          );
         }
         final actionRaw = positional[0];
-        return t.whenComplete(() { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, actionRaw, [])); });
+        return t.whenComplete(() {
+          return D4.castCallbackResult<dynamic>(
+            D4.callInterpreterCallback(visitor!, actionRaw, []),
+          );
+        });
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.TickerFuture>(target, 'TickerFuture');
+        final t = D4.validateTarget<$flutter_14.TickerFuture>(
+          target,
+          'TickerFuture',
+        );
         return t.toString();
       },
     },
-    constructorSignatures: {
-      'complete': 'TickerFuture.complete()',
-    },
+    constructorSignatures: {'complete': 'TickerFuture.complete()'},
     methodSignatures: {
-      'whenCompleteOrCancel': 'void whenCompleteOrCancel(VoidCallback callback)',
+      'whenCompleteOrCancel':
+          'void whenCompleteOrCancel(VoidCallback callback)',
       'asStream': 'Stream<void> asStream()',
-      'catchError': 'Future<void> catchError(Function onError, {bool Function(Object)? test})',
-      'then': 'Future<R> then(FutureOr<R> Function(void value) onValue, {Function? onError})',
-      'timeout': 'Future<void> timeout(Duration timeLimit, {FutureOr<void> Function()? onTimeout})',
+      'catchError':
+          'Future<void> catchError(Function onError, {bool Function(Object)? test})',
+      'then':
+          'Future<R> then(FutureOr<R> Function(void value) onValue, {Function? onError})',
+      'timeout':
+          'Future<void> timeout(Duration timeLimit, {FutureOr<void> Function()? onTimeout})',
       'whenComplete': 'Future<void> whenComplete(dynamic Function() action)',
       'toString': 'String toString()',
     },
-    getterSignatures: {
-      'orCancel': 'Future<void> get orCancel',
-    },
+    getterSignatures: {'orCancel': 'Future<void> get orCancel'},
   );
 }
 
@@ -720,28 +1153,31 @@ BridgedClass _createTickerCanceledBridge() {
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
-        final ticker = D4.getOptionalArg<$flutter_14.Ticker?>(positional, 0, 'ticker');
+        final ticker = D4.getOptionalArg<$flutter_14.Ticker?>(
+          positional,
+          0,
+          'ticker',
+        );
         return $flutter_14.TickerCanceled(ticker);
       },
     },
     getters: {
-      'ticker': (visitor, target) => D4.validateTarget<$flutter_14.TickerCanceled>(target, 'TickerCanceled').ticker,
+      'ticker': (visitor, target) => D4
+          .validateTarget<$flutter_14.TickerCanceled>(target, 'TickerCanceled')
+          .ticker,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.TickerCanceled>(target, 'TickerCanceled');
+        final t = D4.validateTarget<$flutter_14.TickerCanceled>(
+          target,
+          'TickerCanceled',
+        );
         return t.toString();
       },
     },
-    constructorSignatures: {
-      '': 'const TickerCanceled([Ticker? ticker])',
-    },
-    methodSignatures: {
-      'toString': 'String toString()',
-    },
-    getterSignatures: {
-      'ticker': 'Ticker? get ticker',
-    },
+    constructorSignatures: {'': 'const TickerCanceled([Ticker? ticker])'},
+    methodSignatures: {'toString': 'String toString()'},
+    getterSignatures: {'ticker': 'Ticker? get ticker'},
   );
 }
 
@@ -759,64 +1195,110 @@ BridgedClass _createAnimationBridge() {
     constructors: {
       'fromValueListenable': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Animation');
-        final listenable = D4.getRequiredArg<$flutter_9.ValueListenable<dynamic>>(positional, 0, 'listenable', 'Animation');
+        final listenable = D4
+            .getRequiredArg<$flutter_9.ValueListenable<dynamic>>(
+              positional,
+              0,
+              'listenable',
+              'Animation',
+            );
         final transformerRaw = named['transformer'];
-        return $flutter_1.Animation.fromValueListenable(listenable, transformer: transformerRaw == null ? null : (dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, transformerRaw, [p0])); });
+        return $flutter_1.Animation.fromValueListenable(
+          listenable,
+          transformer: transformerRaw == null
+              ? null
+              : (dynamic p0) {
+                  return D4.castCallbackResult<dynamic>(
+                    D4.callInterpreterCallback(visitor!, transformerRaw, [p0]),
+                  );
+                },
+        );
       },
     },
     getters: {
-      'status': (visitor, target) => D4.validateTarget<$flutter_1.Animation>(target, 'Animation').status,
-      'value': (visitor, target) => D4.validateTarget<$flutter_1.Animation>(target, 'Animation').value,
-      'isDismissed': (visitor, target) => D4.validateTarget<$flutter_1.Animation>(target, 'Animation').isDismissed,
-      'isCompleted': (visitor, target) => D4.validateTarget<$flutter_1.Animation>(target, 'Animation').isCompleted,
-      'isAnimating': (visitor, target) => D4.validateTarget<$flutter_1.Animation>(target, 'Animation').isAnimating,
-      'isForwardOrCompleted': (visitor, target) => D4.validateTarget<$flutter_1.Animation>(target, 'Animation').isForwardOrCompleted,
+      'status': (visitor, target) =>
+          D4.validateTarget<$flutter_1.Animation>(target, 'Animation').status,
+      'value': (visitor, target) =>
+          D4.validateTarget<$flutter_1.Animation>(target, 'Animation').value,
+      'isDismissed': (visitor, target) => D4
+          .validateTarget<$flutter_1.Animation>(target, 'Animation')
+          .isDismissed,
+      'isCompleted': (visitor, target) => D4
+          .validateTarget<$flutter_1.Animation>(target, 'Animation')
+          .isCompleted,
+      'isAnimating': (visitor, target) => D4
+          .validateTarget<$flutter_1.Animation>(target, 'Animation')
+          .isAnimating,
+      'isForwardOrCompleted': (visitor, target) => D4
+          .validateTarget<$flutter_1.Animation>(target, 'Animation')
+          .isForwardOrCompleted,
     },
     methods: {
       'addListener': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_1.Animation>(target, 'Animation');
         D4.requireMinArgs(positional, 1, 'addListener');
         if (positional.isEmpty) {
-          throw ArgumentError('addListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'addListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.addListener(() { D4.callInterpreterCallback(visitor!, listenerRaw, []); });
+        t.addListener(() {
+          D4.callInterpreterCallback(visitor!, listenerRaw, []);
+        });
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_1.Animation>(target, 'Animation');
         D4.requireMinArgs(positional, 1, 'removeListener');
         if (positional.isEmpty) {
-          throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'removeListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.removeListener(() { D4.callInterpreterCallback(visitor!, listenerRaw, []); });
+        t.removeListener(() {
+          D4.callInterpreterCallback(visitor!, listenerRaw, []);
+        });
         return null;
       },
       'addStatusListener': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_1.Animation>(target, 'Animation');
         D4.requireMinArgs(positional, 1, 'addStatusListener');
         if (positional.isEmpty) {
-          throw ArgumentError('addStatusListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'addStatusListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.addStatusListener(($flutter_1.AnimationStatus p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
+        t.addStatusListener(($flutter_1.AnimationStatus p0) {
+          D4.callInterpreterCallback(visitor!, listenerRaw, [p0]);
+        });
         return null;
       },
       'removeStatusListener': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_1.Animation>(target, 'Animation');
         D4.requireMinArgs(positional, 1, 'removeStatusListener');
         if (positional.isEmpty) {
-          throw ArgumentError('removeStatusListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'removeStatusListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.removeStatusListener(($flutter_1.AnimationStatus p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
+        t.removeStatusListener(($flutter_1.AnimationStatus p0) {
+          D4.callInterpreterCallback(visitor!, listenerRaw, [p0]);
+        });
         return null;
       },
       'drive': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_1.Animation>(target, 'Animation');
         D4.requireMinArgs(positional, 1, 'drive');
-        final child = D4.getRequiredArg<$flutter_7.Animatable<dynamic>>(positional, 0, 'child', 'drive');
+        final child = D4.getRequiredArg<$flutter_7.Animatable<dynamic>>(
+          positional,
+          0,
+          'child',
+          'drive',
+        );
         return t.drive(child);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -829,13 +1311,16 @@ BridgedClass _createAnimationBridge() {
       },
     },
     constructorSignatures: {
-      'fromValueListenable': 'factory Animation.fromValueListenable(ValueListenable<T> listenable, {ValueListenableTransformer<T>? transformer})',
+      'fromValueListenable':
+          'factory Animation.fromValueListenable(ValueListenable<T> listenable, {ValueListenableTransformer<T>? transformer})',
     },
     methodSignatures: {
       'addListener': 'void addListener(VoidCallback listener)',
       'removeListener': 'void removeListener(VoidCallback listener)',
-      'addStatusListener': 'void addStatusListener(AnimationStatusListener listener)',
-      'removeStatusListener': 'void removeStatusListener(AnimationStatusListener listener)',
+      'addStatusListener':
+          'void addStatusListener(AnimationStatusListener listener)',
+      'removeStatusListener':
+          'void removeStatusListener(AnimationStatusListener listener)',
       'drive': 'Animation<U> drive(Animatable<U> child)',
       'toString': 'String toString()',
       'toStringDetails': 'String toStringDetails()',
@@ -861,23 +1346,36 @@ BridgedClass _createParametricCurveBridge() {
     name: 'ParametricCurve',
     isAssignable: (v) => v is $flutter_5.ParametricCurve,
     isAbstract: true,
-    constructors: {
-    },
+    constructors: {},
     methods: {
       'transform': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.ParametricCurve>(target, 'ParametricCurve');
+        final t = D4.validateTarget<$flutter_5.ParametricCurve>(
+          target,
+          'ParametricCurve',
+        );
         D4.requireMinArgs(positional, 1, 'transform');
         final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transform');
         return t.transform(t_);
       },
       'transformInternal': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.ParametricCurve>(target, 'ParametricCurve');
+        final t = D4.validateTarget<$flutter_5.ParametricCurve>(
+          target,
+          'ParametricCurve',
+        );
         D4.requireMinArgs(positional, 1, 'transformInternal');
-        final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transformInternal');
+        final t_ = D4.getRequiredArg<double>(
+          positional,
+          0,
+          't',
+          'transformInternal',
+        );
         return t.transformInternal(t_);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.ParametricCurve>(target, 'ParametricCurve');
+        final t = D4.validateTarget<$flutter_5.ParametricCurve>(
+          target,
+          'ParametricCurve',
+        );
         return t.toString();
       },
     },
@@ -900,10 +1398,10 @@ BridgedClass _createCurveBridge() {
     isAssignable: (v) => v is $flutter_5.Curve,
     hierarchyDepth: 1,
     isAbstract: true,
-    constructors: {
-    },
+    constructors: {},
     getters: {
-      'flipped': (visitor, target) => D4.validateTarget<$flutter_5.Curve>(target, 'Curve').flipped,
+      'flipped': (visitor, target) =>
+          D4.validateTarget<$flutter_5.Curve>(target, 'Curve').flipped,
     },
     methods: {
       'transform': (visitor, target, positional, named, typeArgs) {
@@ -915,7 +1413,12 @@ BridgedClass _createCurveBridge() {
       'transformInternal': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_5.Curve>(target, 'Curve');
         D4.requireMinArgs(positional, 1, 'transformInternal');
-        final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transformInternal');
+        final t_ = D4.getRequiredArg<double>(
+          positional,
+          0,
+          't',
+          'transformInternal',
+        );
         return t.transformInternal(t_);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -928,9 +1431,7 @@ BridgedClass _createCurveBridge() {
       'transformInternal': 'double transformInternal(double t)',
       'toString': 'String toString()',
     },
-    getterSignatures: {
-      'flipped': 'Curve get flipped',
-    },
+    getterSignatures: {'flipped': 'Curve get flipped'},
   );
 }
 
@@ -947,13 +1448,20 @@ BridgedClass _createSawToothBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'SawTooth');
-        final count = D4.getRequiredArg<int>(positional, 0, 'count', 'SawTooth');
+        final count = D4.getRequiredArg<int>(
+          positional,
+          0,
+          'count',
+          'SawTooth',
+        );
         return $flutter_5.SawTooth(count);
       },
     },
     getters: {
-      'flipped': (visitor, target) => D4.validateTarget<$flutter_5.SawTooth>(target, 'SawTooth').flipped,
-      'count': (visitor, target) => D4.validateTarget<$flutter_5.SawTooth>(target, 'SawTooth').count,
+      'flipped': (visitor, target) =>
+          D4.validateTarget<$flutter_5.SawTooth>(target, 'SawTooth').flipped,
+      'count': (visitor, target) =>
+          D4.validateTarget<$flutter_5.SawTooth>(target, 'SawTooth').count,
     },
     methods: {
       'transform': (visitor, target, positional, named, typeArgs) {
@@ -965,7 +1473,12 @@ BridgedClass _createSawToothBridge() {
       'transformInternal': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_5.SawTooth>(target, 'SawTooth');
         D4.requireMinArgs(positional, 1, 'transformInternal');
-        final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transformInternal');
+        final t_ = D4.getRequiredArg<double>(
+          positional,
+          0,
+          't',
+          'transformInternal',
+        );
         return t.transformInternal(t_);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -973,9 +1486,7 @@ BridgedClass _createSawToothBridge() {
         return t.toString();
       },
     },
-    constructorSignatures: {
-      '': 'const SawTooth(int count)',
-    },
+    constructorSignatures: {'': 'const SawTooth(int count)'},
     methodSignatures: {
       'transform': 'double transform(double t)',
       'transformInternal': 'double transformInternal(double t)',
@@ -1001,17 +1512,30 @@ BridgedClass _createIntervalBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Interval');
-        final begin = D4.getRequiredArg<double>(positional, 0, 'begin', 'Interval');
+        final begin = D4.getRequiredArg<double>(
+          positional,
+          0,
+          'begin',
+          'Interval',
+        );
         final end = D4.getRequiredArg<double>(positional, 1, 'end', 'Interval');
-        final curve = D4.getNamedArgWithDefault<$flutter_5.Curve>(named, 'curve', $aux_flutter.Curves.linear);
+        final curve = D4.getNamedArgWithDefault<$flutter_5.Curve>(
+          named,
+          'curve',
+          $aux_flutter.Curves.linear,
+        );
         return $flutter_5.Interval(begin, end, curve: curve);
       },
     },
     getters: {
-      'flipped': (visitor, target) => D4.validateTarget<$flutter_5.Interval>(target, 'Interval').flipped,
-      'begin': (visitor, target) => D4.validateTarget<$flutter_5.Interval>(target, 'Interval').begin,
-      'end': (visitor, target) => D4.validateTarget<$flutter_5.Interval>(target, 'Interval').end,
-      'curve': (visitor, target) => D4.validateTarget<$flutter_5.Interval>(target, 'Interval').curve,
+      'flipped': (visitor, target) =>
+          D4.validateTarget<$flutter_5.Interval>(target, 'Interval').flipped,
+      'begin': (visitor, target) =>
+          D4.validateTarget<$flutter_5.Interval>(target, 'Interval').begin,
+      'end': (visitor, target) =>
+          D4.validateTarget<$flutter_5.Interval>(target, 'Interval').end,
+      'curve': (visitor, target) =>
+          D4.validateTarget<$flutter_5.Interval>(target, 'Interval').curve,
     },
     methods: {
       'transform': (visitor, target, positional, named, typeArgs) {
@@ -1023,7 +1547,12 @@ BridgedClass _createIntervalBridge() {
       'transformInternal': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_5.Interval>(target, 'Interval');
         D4.requireMinArgs(positional, 1, 'transformInternal');
-        final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transformInternal');
+        final t_ = D4.getRequiredArg<double>(
+          positional,
+          0,
+          't',
+          'transformInternal',
+        );
         return t.transformInternal(t_);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -1061,17 +1590,38 @@ BridgedClass _createSplitBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Split');
-        final split = D4.getRequiredArg<double>(positional, 0, 'split', 'Split');
-        final beginCurve = D4.getNamedArgWithDefault<$flutter_5.Curve>(named, 'beginCurve', $aux_flutter.Curves.linear);
-        final endCurve = D4.getNamedArgWithDefault<$flutter_5.Curve>(named, 'endCurve', $aux_flutter.Curves.easeOutCubic);
-        return $flutter_5.Split(split, beginCurve: beginCurve, endCurve: endCurve);
+        final split = D4.getRequiredArg<double>(
+          positional,
+          0,
+          'split',
+          'Split',
+        );
+        final beginCurve = D4.getNamedArgWithDefault<$flutter_5.Curve>(
+          named,
+          'beginCurve',
+          $aux_flutter.Curves.linear,
+        );
+        final endCurve = D4.getNamedArgWithDefault<$flutter_5.Curve>(
+          named,
+          'endCurve',
+          $aux_flutter.Curves.easeOutCubic,
+        );
+        return $flutter_5.Split(
+          split,
+          beginCurve: beginCurve,
+          endCurve: endCurve,
+        );
       },
     },
     getters: {
-      'flipped': (visitor, target) => D4.validateTarget<$flutter_5.Split>(target, 'Split').flipped,
-      'split': (visitor, target) => D4.validateTarget<$flutter_5.Split>(target, 'Split').split,
-      'beginCurve': (visitor, target) => D4.validateTarget<$flutter_5.Split>(target, 'Split').beginCurve,
-      'endCurve': (visitor, target) => D4.validateTarget<$flutter_5.Split>(target, 'Split').endCurve,
+      'flipped': (visitor, target) =>
+          D4.validateTarget<$flutter_5.Split>(target, 'Split').flipped,
+      'split': (visitor, target) =>
+          D4.validateTarget<$flutter_5.Split>(target, 'Split').split,
+      'beginCurve': (visitor, target) =>
+          D4.validateTarget<$flutter_5.Split>(target, 'Split').beginCurve,
+      'endCurve': (visitor, target) =>
+          D4.validateTarget<$flutter_5.Split>(target, 'Split').endCurve,
     },
     methods: {
       'transform': (visitor, target, positional, named, typeArgs) {
@@ -1083,7 +1633,12 @@ BridgedClass _createSplitBridge() {
       'transformInternal': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_5.Split>(target, 'Split');
         D4.requireMinArgs(positional, 1, 'transformInternal');
-        final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transformInternal');
+        final t_ = D4.getRequiredArg<double>(
+          positional,
+          0,
+          't',
+          'transformInternal',
+        );
         return t.transformInternal(t_);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -1121,13 +1676,21 @@ BridgedClass _createThresholdBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Threshold');
-        final threshold = D4.getRequiredArg<double>(positional, 0, 'threshold', 'Threshold');
+        final threshold = D4.getRequiredArg<double>(
+          positional,
+          0,
+          'threshold',
+          'Threshold',
+        );
         return $flutter_5.Threshold(threshold);
       },
     },
     getters: {
-      'flipped': (visitor, target) => D4.validateTarget<$flutter_5.Threshold>(target, 'Threshold').flipped,
-      'threshold': (visitor, target) => D4.validateTarget<$flutter_5.Threshold>(target, 'Threshold').threshold,
+      'flipped': (visitor, target) =>
+          D4.validateTarget<$flutter_5.Threshold>(target, 'Threshold').flipped,
+      'threshold': (visitor, target) => D4
+          .validateTarget<$flutter_5.Threshold>(target, 'Threshold')
+          .threshold,
     },
     methods: {
       'transform': (visitor, target, positional, named, typeArgs) {
@@ -1139,7 +1702,12 @@ BridgedClass _createThresholdBridge() {
       'transformInternal': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_5.Threshold>(target, 'Threshold');
         D4.requireMinArgs(positional, 1, 'transformInternal');
-        final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transformInternal');
+        final t_ = D4.getRequiredArg<double>(
+          positional,
+          0,
+          't',
+          'transformInternal',
+        );
         return t.transformInternal(t_);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -1147,9 +1715,7 @@ BridgedClass _createThresholdBridge() {
         return t.toString();
       },
     },
-    constructorSignatures: {
-      '': 'const Threshold(double threshold)',
-    },
+    constructorSignatures: {'': 'const Threshold(double threshold)'},
     methodSignatures: {
       'transform': 'double transform(double t)',
       'transformInternal': 'double transformInternal(double t)',
@@ -1183,11 +1749,16 @@ BridgedClass _createCubicBridge() {
       },
     },
     getters: {
-      'flipped': (visitor, target) => D4.validateTarget<$flutter_5.Cubic>(target, 'Cubic').flipped,
-      'a': (visitor, target) => D4.validateTarget<$flutter_5.Cubic>(target, 'Cubic').a,
-      'b': (visitor, target) => D4.validateTarget<$flutter_5.Cubic>(target, 'Cubic').b,
-      'c': (visitor, target) => D4.validateTarget<$flutter_5.Cubic>(target, 'Cubic').c,
-      'd': (visitor, target) => D4.validateTarget<$flutter_5.Cubic>(target, 'Cubic').d,
+      'flipped': (visitor, target) =>
+          D4.validateTarget<$flutter_5.Cubic>(target, 'Cubic').flipped,
+      'a': (visitor, target) =>
+          D4.validateTarget<$flutter_5.Cubic>(target, 'Cubic').a,
+      'b': (visitor, target) =>
+          D4.validateTarget<$flutter_5.Cubic>(target, 'Cubic').b,
+      'c': (visitor, target) =>
+          D4.validateTarget<$flutter_5.Cubic>(target, 'Cubic').c,
+      'd': (visitor, target) =>
+          D4.validateTarget<$flutter_5.Cubic>(target, 'Cubic').d,
     },
     methods: {
       'transform': (visitor, target, positional, named, typeArgs) {
@@ -1199,7 +1770,12 @@ BridgedClass _createCubicBridge() {
       'transformInternal': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_5.Cubic>(target, 'Cubic');
         D4.requireMinArgs(positional, 1, 'transformInternal');
-        final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transformInternal');
+        final t_ = D4.getRequiredArg<double>(
+          positional,
+          0,
+          't',
+          'transformInternal',
+        );
         return t.transformInternal(t_);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -1238,37 +1814,88 @@ BridgedClass _createThreePointCubicBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 5, 'ThreePointCubic');
-        final a1 = D4.getRequiredArg<Offset>(positional, 0, 'a1', 'ThreePointCubic');
-        final b1 = D4.getRequiredArg<Offset>(positional, 1, 'b1', 'ThreePointCubic');
-        final midpoint = D4.getRequiredArg<Offset>(positional, 2, 'midpoint', 'ThreePointCubic');
-        final a2 = D4.getRequiredArg<Offset>(positional, 3, 'a2', 'ThreePointCubic');
-        final b2 = D4.getRequiredArg<Offset>(positional, 4, 'b2', 'ThreePointCubic');
+        final a1 = D4.getRequiredArg<Offset>(
+          positional,
+          0,
+          'a1',
+          'ThreePointCubic',
+        );
+        final b1 = D4.getRequiredArg<Offset>(
+          positional,
+          1,
+          'b1',
+          'ThreePointCubic',
+        );
+        final midpoint = D4.getRequiredArg<Offset>(
+          positional,
+          2,
+          'midpoint',
+          'ThreePointCubic',
+        );
+        final a2 = D4.getRequiredArg<Offset>(
+          positional,
+          3,
+          'a2',
+          'ThreePointCubic',
+        );
+        final b2 = D4.getRequiredArg<Offset>(
+          positional,
+          4,
+          'b2',
+          'ThreePointCubic',
+        );
         return $flutter_5.ThreePointCubic(a1, b1, midpoint, a2, b2);
       },
     },
     getters: {
-      'flipped': (visitor, target) => D4.validateTarget<$flutter_5.ThreePointCubic>(target, 'ThreePointCubic').flipped,
-      'a1': (visitor, target) => D4.validateTarget<$flutter_5.ThreePointCubic>(target, 'ThreePointCubic').a1,
-      'b1': (visitor, target) => D4.validateTarget<$flutter_5.ThreePointCubic>(target, 'ThreePointCubic').b1,
-      'midpoint': (visitor, target) => D4.validateTarget<$flutter_5.ThreePointCubic>(target, 'ThreePointCubic').midpoint,
-      'a2': (visitor, target) => D4.validateTarget<$flutter_5.ThreePointCubic>(target, 'ThreePointCubic').a2,
-      'b2': (visitor, target) => D4.validateTarget<$flutter_5.ThreePointCubic>(target, 'ThreePointCubic').b2,
+      'flipped': (visitor, target) => D4
+          .validateTarget<$flutter_5.ThreePointCubic>(target, 'ThreePointCubic')
+          .flipped,
+      'a1': (visitor, target) => D4
+          .validateTarget<$flutter_5.ThreePointCubic>(target, 'ThreePointCubic')
+          .a1,
+      'b1': (visitor, target) => D4
+          .validateTarget<$flutter_5.ThreePointCubic>(target, 'ThreePointCubic')
+          .b1,
+      'midpoint': (visitor, target) => D4
+          .validateTarget<$flutter_5.ThreePointCubic>(target, 'ThreePointCubic')
+          .midpoint,
+      'a2': (visitor, target) => D4
+          .validateTarget<$flutter_5.ThreePointCubic>(target, 'ThreePointCubic')
+          .a2,
+      'b2': (visitor, target) => D4
+          .validateTarget<$flutter_5.ThreePointCubic>(target, 'ThreePointCubic')
+          .b2,
     },
     methods: {
       'transform': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.ThreePointCubic>(target, 'ThreePointCubic');
+        final t = D4.validateTarget<$flutter_5.ThreePointCubic>(
+          target,
+          'ThreePointCubic',
+        );
         D4.requireMinArgs(positional, 1, 'transform');
         final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transform');
         return t.transform(t_);
       },
       'transformInternal': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.ThreePointCubic>(target, 'ThreePointCubic');
+        final t = D4.validateTarget<$flutter_5.ThreePointCubic>(
+          target,
+          'ThreePointCubic',
+        );
         D4.requireMinArgs(positional, 1, 'transformInternal');
-        final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transformInternal');
+        final t_ = D4.getRequiredArg<double>(
+          positional,
+          0,
+          't',
+          'transformInternal',
+        );
         return t.transformInternal(t_);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.ThreePointCubic>(target, 'ThreePointCubic');
+        final t = D4.validateTarget<$flutter_5.ThreePointCubic>(
+          target,
+          'ThreePointCubic',
+        );
         return t.toString();
       },
     },
@@ -1302,10 +1929,10 @@ BridgedClass _createCurve2DBridge() {
     isAssignable: (v) => v is $flutter_5.Curve2D,
     hierarchyDepth: 1,
     isAbstract: true,
-    constructors: {
-    },
+    constructors: {},
     getters: {
-      'samplingSeed': (visitor, target) => D4.validateTarget<$flutter_5.Curve2D>(target, 'Curve2D').samplingSeed,
+      'samplingSeed': (visitor, target) =>
+          D4.validateTarget<$flutter_5.Curve2D>(target, 'Curve2D').samplingSeed,
     },
     methods: {
       'transform': (visitor, target, positional, named, typeArgs) {
@@ -1317,7 +1944,12 @@ BridgedClass _createCurve2DBridge() {
       'transformInternal': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_5.Curve2D>(target, 'Curve2D');
         D4.requireMinArgs(positional, 1, 'transformInternal');
-        final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transformInternal');
+        final t_ = D4.getRequiredArg<double>(
+          positional,
+          0,
+          't',
+          'transformInternal',
+        );
         return t.transformInternal(t_);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -1328,7 +1960,11 @@ BridgedClass _createCurve2DBridge() {
         final t = D4.validateTarget<$flutter_5.Curve2D>(target, 'Curve2D');
         final start = D4.getNamedArgWithDefault<double>(named, 'start', 0.0);
         final end = D4.getNamedArgWithDefault<double>(named, 'end', 1.0);
-        final tolerance = D4.getNamedArgWithDefault<double>(named, 'tolerance', 1e-10);
+        final tolerance = D4.getNamedArgWithDefault<double>(
+          named,
+          'tolerance',
+          1e-10,
+        );
         return t.generateSamples(start: start, end: end, tolerance: tolerance);
       },
       'findInverse': (visitor, target, positional, named, typeArgs) {
@@ -1342,12 +1978,11 @@ BridgedClass _createCurve2DBridge() {
       'transform': 'Offset transform(double t)',
       'transformInternal': 'Offset transformInternal(double t)',
       'toString': 'String toString()',
-      'generateSamples': 'Iterable<Curve2DSample> generateSamples({double start = 0.0, double end = 1.0, double tolerance = 1e-10})',
+      'generateSamples':
+          'Iterable<Curve2DSample> generateSamples({double start = 0.0, double end = 1.0, double tolerance = 1e-10})',
       'findInverse': 'double findInverse(double x)',
     },
-    getterSignatures: {
-      'samplingSeed': 'int get samplingSeed',
-    },
+    getterSignatures: {'samplingSeed': 'int get samplingSeed'},
   );
 }
 
@@ -1363,31 +1998,41 @@ BridgedClass _createCurve2DSampleBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Curve2DSample');
-        final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'Curve2DSample');
-        final value = D4.getRequiredArg<Offset>(positional, 1, 'value', 'Curve2DSample');
+        final t_ = D4.getRequiredArg<double>(
+          positional,
+          0,
+          't',
+          'Curve2DSample',
+        );
+        final value = D4.getRequiredArg<Offset>(
+          positional,
+          1,
+          'value',
+          'Curve2DSample',
+        );
         return $flutter_5.Curve2DSample(t_, value);
       },
     },
     getters: {
-      't': (visitor, target) => D4.validateTarget<$flutter_5.Curve2DSample>(target, 'Curve2DSample').t,
-      'value': (visitor, target) => D4.validateTarget<$flutter_5.Curve2DSample>(target, 'Curve2DSample').value,
+      't': (visitor, target) => D4
+          .validateTarget<$flutter_5.Curve2DSample>(target, 'Curve2DSample')
+          .t,
+      'value': (visitor, target) => D4
+          .validateTarget<$flutter_5.Curve2DSample>(target, 'Curve2DSample')
+          .value,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.Curve2DSample>(target, 'Curve2DSample');
+        final t = D4.validateTarget<$flutter_5.Curve2DSample>(
+          target,
+          'Curve2DSample',
+        );
         return t.toString();
       },
     },
-    constructorSignatures: {
-      '': 'const Curve2DSample(double t, Offset value)',
-    },
-    methodSignatures: {
-      'toString': 'String toString()',
-    },
-    getterSignatures: {
-      't': 'double get t',
-      'value': 'Offset get value',
-    },
+    constructorSignatures: {'': 'const Curve2DSample(double t, Offset value)'},
+    methodSignatures: {'toString': 'String toString()'},
+    getterSignatures: {'t': 'double get t', 'value': 'Offset get value'},
   );
 }
 
@@ -1405,55 +2050,118 @@ BridgedClass _createCatmullRomSplineBridge() {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'CatmullRomSpline');
         if (positional.isEmpty) {
-          throw ArgumentError('CatmullRomSpline: Missing required argument "controlPoints" at position 0');
+          throw ArgumentError(
+            'CatmullRomSpline: Missing required argument "controlPoints" at position 0',
+          );
         }
-        final controlPoints = D4.coerceList<Offset>(positional[0], 'controlPoints');
-        final tension = D4.getNamedArgWithDefault<double>(named, 'tension', 0.0);
-        final startHandle = D4.getOptionalNamedArg<Offset?>(named, 'startHandle');
+        final controlPoints = D4.coerceList<Offset>(
+          positional[0],
+          'controlPoints',
+        );
+        final tension = D4.getNamedArgWithDefault<double>(
+          named,
+          'tension',
+          0.0,
+        );
+        final startHandle = D4.getOptionalNamedArg<Offset?>(
+          named,
+          'startHandle',
+        );
         final endHandle = D4.getOptionalNamedArg<Offset?>(named, 'endHandle');
-        return $flutter_5.CatmullRomSpline(controlPoints, tension: tension, startHandle: startHandle, endHandle: endHandle);
+        return $flutter_5.CatmullRomSpline(
+          controlPoints,
+          tension: tension,
+          startHandle: startHandle,
+          endHandle: endHandle,
+        );
       },
       'precompute': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'CatmullRomSpline');
         if (positional.isEmpty) {
-          throw ArgumentError('CatmullRomSpline: Missing required argument "controlPoints" at position 0');
+          throw ArgumentError(
+            'CatmullRomSpline: Missing required argument "controlPoints" at position 0',
+          );
         }
-        final controlPoints = D4.coerceList<Offset>(positional[0], 'controlPoints');
-        final tension = D4.getNamedArgWithDefault<double>(named, 'tension', 0.0);
-        final startHandle = D4.getOptionalNamedArg<Offset?>(named, 'startHandle');
+        final controlPoints = D4.coerceList<Offset>(
+          positional[0],
+          'controlPoints',
+        );
+        final tension = D4.getNamedArgWithDefault<double>(
+          named,
+          'tension',
+          0.0,
+        );
+        final startHandle = D4.getOptionalNamedArg<Offset?>(
+          named,
+          'startHandle',
+        );
         final endHandle = D4.getOptionalNamedArg<Offset?>(named, 'endHandle');
-        return $flutter_5.CatmullRomSpline.precompute(controlPoints, tension: tension, startHandle: startHandle, endHandle: endHandle);
+        return $flutter_5.CatmullRomSpline.precompute(
+          controlPoints,
+          tension: tension,
+          startHandle: startHandle,
+          endHandle: endHandle,
+        );
       },
     },
     getters: {
-      'samplingSeed': (visitor, target) => D4.validateTarget<$flutter_5.CatmullRomSpline>(target, 'CatmullRomSpline').samplingSeed,
+      'samplingSeed': (visitor, target) => D4
+          .validateTarget<$flutter_5.CatmullRomSpline>(
+            target,
+            'CatmullRomSpline',
+          )
+          .samplingSeed,
     },
     methods: {
       'transform': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.CatmullRomSpline>(target, 'CatmullRomSpline');
+        final t = D4.validateTarget<$flutter_5.CatmullRomSpline>(
+          target,
+          'CatmullRomSpline',
+        );
         D4.requireMinArgs(positional, 1, 'transform');
         final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transform');
         return t.transform(t_);
       },
       'transformInternal': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.CatmullRomSpline>(target, 'CatmullRomSpline');
+        final t = D4.validateTarget<$flutter_5.CatmullRomSpline>(
+          target,
+          'CatmullRomSpline',
+        );
         D4.requireMinArgs(positional, 1, 'transformInternal');
-        final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transformInternal');
+        final t_ = D4.getRequiredArg<double>(
+          positional,
+          0,
+          't',
+          'transformInternal',
+        );
         return t.transformInternal(t_);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.CatmullRomSpline>(target, 'CatmullRomSpline');
+        final t = D4.validateTarget<$flutter_5.CatmullRomSpline>(
+          target,
+          'CatmullRomSpline',
+        );
         return t.toString();
       },
       'generateSamples': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.CatmullRomSpline>(target, 'CatmullRomSpline');
+        final t = D4.validateTarget<$flutter_5.CatmullRomSpline>(
+          target,
+          'CatmullRomSpline',
+        );
         final start = D4.getNamedArgWithDefault<double>(named, 'start', 0.0);
         final end = D4.getNamedArgWithDefault<double>(named, 'end', 1.0);
-        final tolerance = D4.getNamedArgWithDefault<double>(named, 'tolerance', 1e-10);
+        final tolerance = D4.getNamedArgWithDefault<double>(
+          named,
+          'tolerance',
+          1e-10,
+        );
         return t.generateSamples(start: start, end: end, tolerance: tolerance);
       },
       'findInverse': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.CatmullRomSpline>(target, 'CatmullRomSpline');
+        final t = D4.validateTarget<$flutter_5.CatmullRomSpline>(
+          target,
+          'CatmullRomSpline',
+        );
         D4.requireMinArgs(positional, 1, 'findInverse');
         final x = D4.getRequiredArg<double>(positional, 0, 'x', 'findInverse');
         return t.findInverse(x);
@@ -1461,18 +2169,18 @@ BridgedClass _createCatmullRomSplineBridge() {
     },
     constructorSignatures: {
       '': 'CatmullRomSpline(List<Offset> controlPoints, {double tension = 0.0, Offset? startHandle, Offset? endHandle})',
-      'precompute': 'CatmullRomSpline.precompute(List<Offset> controlPoints, {double tension = 0.0, Offset? startHandle, Offset? endHandle})',
+      'precompute':
+          'CatmullRomSpline.precompute(List<Offset> controlPoints, {double tension = 0.0, Offset? startHandle, Offset? endHandle})',
     },
     methodSignatures: {
       'transform': 'Offset transform(double t)',
       'transformInternal': 'Offset transformInternal(double t)',
       'toString': 'String toString()',
-      'generateSamples': 'Iterable<Curve2DSample> generateSamples({double start = 0.0, double end = 1.0, double tolerance = 1e-10})',
+      'generateSamples':
+          'Iterable<Curve2DSample> generateSamples({double start = 0.0, double end = 1.0, double tolerance = 1e-10})',
       'findInverse': 'double findInverse(double x)',
     },
-    getterSignatures: {
-      'samplingSeed': 'int get samplingSeed',
-    },
+    getterSignatures: {'samplingSeed': 'int get samplingSeed'},
   );
 }
 
@@ -1490,42 +2198,83 @@ BridgedClass _createCatmullRomCurveBridge() {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'CatmullRomCurve');
         if (positional.isEmpty) {
-          throw ArgumentError('CatmullRomCurve: Missing required argument "controlPoints" at position 0');
+          throw ArgumentError(
+            'CatmullRomCurve: Missing required argument "controlPoints" at position 0',
+          );
         }
-        final controlPoints = D4.coerceList<Offset>(positional[0], 'controlPoints');
-        final tension = D4.getNamedArgWithDefault<double>(named, 'tension', 0.0);
+        final controlPoints = D4.coerceList<Offset>(
+          positional[0],
+          'controlPoints',
+        );
+        final tension = D4.getNamedArgWithDefault<double>(
+          named,
+          'tension',
+          0.0,
+        );
         return $flutter_5.CatmullRomCurve(controlPoints, tension: tension);
       },
       'precompute': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'CatmullRomCurve');
         if (positional.isEmpty) {
-          throw ArgumentError('CatmullRomCurve: Missing required argument "controlPoints" at position 0');
+          throw ArgumentError(
+            'CatmullRomCurve: Missing required argument "controlPoints" at position 0',
+          );
         }
-        final controlPoints = D4.coerceList<Offset>(positional[0], 'controlPoints');
-        final tension = D4.getNamedArgWithDefault<double>(named, 'tension', 0.0);
-        return $flutter_5.CatmullRomCurve.precompute(controlPoints, tension: tension);
+        final controlPoints = D4.coerceList<Offset>(
+          positional[0],
+          'controlPoints',
+        );
+        final tension = D4.getNamedArgWithDefault<double>(
+          named,
+          'tension',
+          0.0,
+        );
+        return $flutter_5.CatmullRomCurve.precompute(
+          controlPoints,
+          tension: tension,
+        );
       },
     },
     getters: {
-      'flipped': (visitor, target) => D4.validateTarget<$flutter_5.CatmullRomCurve>(target, 'CatmullRomCurve').flipped,
-      'controlPoints': (visitor, target) => D4.validateTarget<$flutter_5.CatmullRomCurve>(target, 'CatmullRomCurve').controlPoints,
-      'tension': (visitor, target) => D4.validateTarget<$flutter_5.CatmullRomCurve>(target, 'CatmullRomCurve').tension,
+      'flipped': (visitor, target) => D4
+          .validateTarget<$flutter_5.CatmullRomCurve>(target, 'CatmullRomCurve')
+          .flipped,
+      'controlPoints': (visitor, target) => D4
+          .validateTarget<$flutter_5.CatmullRomCurve>(target, 'CatmullRomCurve')
+          .controlPoints,
+      'tension': (visitor, target) => D4
+          .validateTarget<$flutter_5.CatmullRomCurve>(target, 'CatmullRomCurve')
+          .tension,
     },
     methods: {
       'transform': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.CatmullRomCurve>(target, 'CatmullRomCurve');
+        final t = D4.validateTarget<$flutter_5.CatmullRomCurve>(
+          target,
+          'CatmullRomCurve',
+        );
         D4.requireMinArgs(positional, 1, 'transform');
         final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transform');
         return t.transform(t_);
       },
       'transformInternal': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.CatmullRomCurve>(target, 'CatmullRomCurve');
+        final t = D4.validateTarget<$flutter_5.CatmullRomCurve>(
+          target,
+          'CatmullRomCurve',
+        );
         D4.requireMinArgs(positional, 1, 'transformInternal');
-        final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transformInternal');
+        final t_ = D4.getRequiredArg<double>(
+          positional,
+          0,
+          't',
+          'transformInternal',
+        );
         return t.transformInternal(t_);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.CatmullRomCurve>(target, 'CatmullRomCurve');
+        final t = D4.validateTarget<$flutter_5.CatmullRomCurve>(
+          target,
+          'CatmullRomCurve',
+        );
         return t.toString();
       },
     },
@@ -1533,17 +2282,34 @@ BridgedClass _createCatmullRomCurveBridge() {
       'validateControlPoints': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'validateControlPoints');
         if (positional.isEmpty) {
-          throw ArgumentError('validateControlPoints: Missing required argument "controlPoints" at position 0');
+          throw ArgumentError(
+            'validateControlPoints: Missing required argument "controlPoints" at position 0',
+          );
         }
-        final controlPoints = D4.coerceListOrNull<Offset>(positional[0], 'controlPoints');
-        final tension = D4.getNamedArgWithDefault<double>(named, 'tension', 0.0);
-        final reasons = D4.coerceListOrNull<String>(named['reasons'], 'reasons');
-        return $flutter_5.CatmullRomCurve.validateControlPoints(controlPoints, tension: tension, reasons: reasons);
+        final controlPoints = D4.coerceListOrNull<Offset>(
+          positional[0],
+          'controlPoints',
+        );
+        final tension = D4.getNamedArgWithDefault<double>(
+          named,
+          'tension',
+          0.0,
+        );
+        final reasons = D4.coerceListOrNull<String>(
+          named['reasons'],
+          'reasons',
+        );
+        return $flutter_5.CatmullRomCurve.validateControlPoints(
+          controlPoints,
+          tension: tension,
+          reasons: reasons,
+        );
       },
     },
     constructorSignatures: {
       '': 'CatmullRomCurve(List<Offset> controlPoints, {double tension = 0.0})',
-      'precompute': 'CatmullRomCurve.precompute(List<Offset> controlPoints, {double tension = 0.0})',
+      'precompute':
+          'CatmullRomCurve.precompute(List<Offset> controlPoints, {double tension = 0.0})',
     },
     methodSignatures: {
       'transform': 'double transform(double t)',
@@ -1556,7 +2322,8 @@ BridgedClass _createCatmullRomCurveBridge() {
       'tension': 'double get tension',
     },
     staticMethodSignatures: {
-      'validateControlPoints': 'bool validateControlPoints(List<Offset>? controlPoints, {double tension = 0.0, List<String>? reasons})',
+      'validateControlPoints':
+          'bool validateControlPoints(List<Offset>? controlPoints, {double tension = 0.0, List<String>? reasons})',
     },
   );
 }
@@ -1574,35 +2341,56 @@ BridgedClass _createFlippedCurveBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FlippedCurve');
-        final curve = D4.getRequiredArg<$flutter_5.Curve>(positional, 0, 'curve', 'FlippedCurve');
+        final curve = D4.getRequiredArg<$flutter_5.Curve>(
+          positional,
+          0,
+          'curve',
+          'FlippedCurve',
+        );
         return $flutter_5.FlippedCurve(curve);
       },
     },
     getters: {
-      'flipped': (visitor, target) => D4.validateTarget<$flutter_5.FlippedCurve>(target, 'FlippedCurve').flipped,
-      'curve': (visitor, target) => D4.validateTarget<$flutter_5.FlippedCurve>(target, 'FlippedCurve').curve,
+      'flipped': (visitor, target) => D4
+          .validateTarget<$flutter_5.FlippedCurve>(target, 'FlippedCurve')
+          .flipped,
+      'curve': (visitor, target) => D4
+          .validateTarget<$flutter_5.FlippedCurve>(target, 'FlippedCurve')
+          .curve,
     },
     methods: {
       'transform': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.FlippedCurve>(target, 'FlippedCurve');
+        final t = D4.validateTarget<$flutter_5.FlippedCurve>(
+          target,
+          'FlippedCurve',
+        );
         D4.requireMinArgs(positional, 1, 'transform');
         final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transform');
         return t.transform(t_);
       },
       'transformInternal': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.FlippedCurve>(target, 'FlippedCurve');
+        final t = D4.validateTarget<$flutter_5.FlippedCurve>(
+          target,
+          'FlippedCurve',
+        );
         D4.requireMinArgs(positional, 1, 'transformInternal');
-        final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transformInternal');
+        final t_ = D4.getRequiredArg<double>(
+          positional,
+          0,
+          't',
+          'transformInternal',
+        );
         return t.transformInternal(t_);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.FlippedCurve>(target, 'FlippedCurve');
+        final t = D4.validateTarget<$flutter_5.FlippedCurve>(
+          target,
+          'FlippedCurve',
+        );
         return t.toString();
       },
     },
-    constructorSignatures: {
-      '': 'const FlippedCurve(Curve curve)',
-    },
+    constructorSignatures: {'': 'const FlippedCurve(Curve curve)'},
     methodSignatures: {
       'transform': 'double transform(double t)',
       'transformInternal': 'double transformInternal(double t)',
@@ -1627,35 +2415,56 @@ BridgedClass _createElasticInCurveBridge() {
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
-        final period = D4.getOptionalArgWithDefault<double>(positional, 0, 'period', 0.4);
+        final period = D4.getOptionalArgWithDefault<double>(
+          positional,
+          0,
+          'period',
+          0.4,
+        );
         return $flutter_5.ElasticInCurve(period);
       },
     },
     getters: {
-      'flipped': (visitor, target) => D4.validateTarget<$flutter_5.ElasticInCurve>(target, 'ElasticInCurve').flipped,
-      'period': (visitor, target) => D4.validateTarget<$flutter_5.ElasticInCurve>(target, 'ElasticInCurve').period,
+      'flipped': (visitor, target) => D4
+          .validateTarget<$flutter_5.ElasticInCurve>(target, 'ElasticInCurve')
+          .flipped,
+      'period': (visitor, target) => D4
+          .validateTarget<$flutter_5.ElasticInCurve>(target, 'ElasticInCurve')
+          .period,
     },
     methods: {
       'transform': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.ElasticInCurve>(target, 'ElasticInCurve');
+        final t = D4.validateTarget<$flutter_5.ElasticInCurve>(
+          target,
+          'ElasticInCurve',
+        );
         D4.requireMinArgs(positional, 1, 'transform');
         final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transform');
         return t.transform(t_);
       },
       'transformInternal': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.ElasticInCurve>(target, 'ElasticInCurve');
+        final t = D4.validateTarget<$flutter_5.ElasticInCurve>(
+          target,
+          'ElasticInCurve',
+        );
         D4.requireMinArgs(positional, 1, 'transformInternal');
-        final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transformInternal');
+        final t_ = D4.getRequiredArg<double>(
+          positional,
+          0,
+          't',
+          'transformInternal',
+        );
         return t.transformInternal(t_);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.ElasticInCurve>(target, 'ElasticInCurve');
+        final t = D4.validateTarget<$flutter_5.ElasticInCurve>(
+          target,
+          'ElasticInCurve',
+        );
         return t.toString();
       },
     },
-    constructorSignatures: {
-      '': 'const ElasticInCurve([double period = 0.4])',
-    },
+    constructorSignatures: {'': 'const ElasticInCurve([double period = 0.4])'},
     methodSignatures: {
       'transform': 'double transform(double t)',
       'transformInternal': 'double transformInternal(double t)',
@@ -1680,35 +2489,56 @@ BridgedClass _createElasticOutCurveBridge() {
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
-        final period = D4.getOptionalArgWithDefault<double>(positional, 0, 'period', 0.4);
+        final period = D4.getOptionalArgWithDefault<double>(
+          positional,
+          0,
+          'period',
+          0.4,
+        );
         return $flutter_5.ElasticOutCurve(period);
       },
     },
     getters: {
-      'flipped': (visitor, target) => D4.validateTarget<$flutter_5.ElasticOutCurve>(target, 'ElasticOutCurve').flipped,
-      'period': (visitor, target) => D4.validateTarget<$flutter_5.ElasticOutCurve>(target, 'ElasticOutCurve').period,
+      'flipped': (visitor, target) => D4
+          .validateTarget<$flutter_5.ElasticOutCurve>(target, 'ElasticOutCurve')
+          .flipped,
+      'period': (visitor, target) => D4
+          .validateTarget<$flutter_5.ElasticOutCurve>(target, 'ElasticOutCurve')
+          .period,
     },
     methods: {
       'transform': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.ElasticOutCurve>(target, 'ElasticOutCurve');
+        final t = D4.validateTarget<$flutter_5.ElasticOutCurve>(
+          target,
+          'ElasticOutCurve',
+        );
         D4.requireMinArgs(positional, 1, 'transform');
         final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transform');
         return t.transform(t_);
       },
       'transformInternal': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.ElasticOutCurve>(target, 'ElasticOutCurve');
+        final t = D4.validateTarget<$flutter_5.ElasticOutCurve>(
+          target,
+          'ElasticOutCurve',
+        );
         D4.requireMinArgs(positional, 1, 'transformInternal');
-        final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transformInternal');
+        final t_ = D4.getRequiredArg<double>(
+          positional,
+          0,
+          't',
+          'transformInternal',
+        );
         return t.transformInternal(t_);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.ElasticOutCurve>(target, 'ElasticOutCurve');
+        final t = D4.validateTarget<$flutter_5.ElasticOutCurve>(
+          target,
+          'ElasticOutCurve',
+        );
         return t.toString();
       },
     },
-    constructorSignatures: {
-      '': 'const ElasticOutCurve([double period = 0.4])',
-    },
+    constructorSignatures: {'': 'const ElasticOutCurve([double period = 0.4])'},
     methodSignatures: {
       'transform': 'double transform(double t)',
       'transformInternal': 'double transformInternal(double t)',
@@ -1733,29 +2563,58 @@ BridgedClass _createElasticInOutCurveBridge() {
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
-        final period = D4.getOptionalArgWithDefault<double>(positional, 0, 'period', 0.4);
+        final period = D4.getOptionalArgWithDefault<double>(
+          positional,
+          0,
+          'period',
+          0.4,
+        );
         return $flutter_5.ElasticInOutCurve(period);
       },
     },
     getters: {
-      'flipped': (visitor, target) => D4.validateTarget<$flutter_5.ElasticInOutCurve>(target, 'ElasticInOutCurve').flipped,
-      'period': (visitor, target) => D4.validateTarget<$flutter_5.ElasticInOutCurve>(target, 'ElasticInOutCurve').period,
+      'flipped': (visitor, target) => D4
+          .validateTarget<$flutter_5.ElasticInOutCurve>(
+            target,
+            'ElasticInOutCurve',
+          )
+          .flipped,
+      'period': (visitor, target) => D4
+          .validateTarget<$flutter_5.ElasticInOutCurve>(
+            target,
+            'ElasticInOutCurve',
+          )
+          .period,
     },
     methods: {
       'transform': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.ElasticInOutCurve>(target, 'ElasticInOutCurve');
+        final t = D4.validateTarget<$flutter_5.ElasticInOutCurve>(
+          target,
+          'ElasticInOutCurve',
+        );
         D4.requireMinArgs(positional, 1, 'transform');
         final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transform');
         return t.transform(t_);
       },
       'transformInternal': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.ElasticInOutCurve>(target, 'ElasticInOutCurve');
+        final t = D4.validateTarget<$flutter_5.ElasticInOutCurve>(
+          target,
+          'ElasticInOutCurve',
+        );
         D4.requireMinArgs(positional, 1, 'transformInternal');
-        final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transformInternal');
+        final t_ = D4.getRequiredArg<double>(
+          positional,
+          0,
+          't',
+          'transformInternal',
+        );
         return t.transformInternal(t_);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.ElasticInOutCurve>(target, 'ElasticInOutCurve');
+        final t = D4.validateTarget<$flutter_5.ElasticInOutCurve>(
+          target,
+          'ElasticInOutCurve',
+        );
         return t.toString();
       },
     },
@@ -1784,13 +2643,14 @@ BridgedClass _createCurvesBridge() {
     name: 'Curves',
     isAssignable: (v) => v is $flutter_5.Curves,
     isAbstract: true,
-    constructors: {
-    },
+    constructors: {},
     staticGetters: {
       'linear': (visitor) => $flutter_5.Curves.linear,
       'decelerate': (visitor) => $flutter_5.Curves.decelerate,
-      'fastLinearToSlowEaseIn': (visitor) => $flutter_5.Curves.fastLinearToSlowEaseIn,
-      'fastEaseInToSlowEaseOut': (visitor) => $flutter_5.Curves.fastEaseInToSlowEaseOut,
+      'fastLinearToSlowEaseIn': (visitor) =>
+          $flutter_5.Curves.fastLinearToSlowEaseIn,
+      'fastEaseInToSlowEaseOut': (visitor) =>
+          $flutter_5.Curves.fastEaseInToSlowEaseOut,
       'ease': (visitor) => $flutter_5.Curves.ease,
       'easeIn': (visitor) => $flutter_5.Curves.easeIn,
       'easeInToLinear': (visitor) => $flutter_5.Curves.easeInToLinear,
@@ -1816,7 +2676,8 @@ BridgedClass _createCurvesBridge() {
       'easeInOutSine': (visitor) => $flutter_5.Curves.easeInOutSine,
       'easeInOutQuad': (visitor) => $flutter_5.Curves.easeInOutQuad,
       'easeInOutCubic': (visitor) => $flutter_5.Curves.easeInOutCubic,
-      'easeInOutCubicEmphasized': (visitor) => $flutter_5.Curves.easeInOutCubicEmphasized,
+      'easeInOutCubicEmphasized': (visitor) =>
+          $flutter_5.Curves.easeInOutCubicEmphasized,
       'easeInOutQuart': (visitor) => $flutter_5.Curves.easeInOutQuart,
       'easeInOutQuint': (visitor) => $flutter_5.Curves.easeInOutQuint,
       'easeInOutExpo': (visitor) => $flutter_5.Curves.easeInOutExpo,
@@ -1861,7 +2722,8 @@ BridgedClass _createCurvesBridge() {
       'easeInOutSine': 'Cubic get easeInOutSine',
       'easeInOutQuad': 'Cubic get easeInOutQuad',
       'easeInOutCubic': 'Cubic get easeInOutCubic',
-      'easeInOutCubicEmphasized': 'ThreePointCubic get easeInOutCubicEmphasized',
+      'easeInOutCubicEmphasized':
+          'ThreePointCubic get easeInOutCubicEmphasized',
       'easeInOutQuart': 'Cubic get easeInOutQuart',
       'easeInOutQuint': 'Cubic get easeInOutQuint',
       'easeInOutExpo': 'Cubic get easeInOutExpo',
@@ -1893,40 +2755,74 @@ BridgedClass _createAnimatableBridge() {
       'fromCallback': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Animatable');
         if (positional.isEmpty) {
-          throw ArgumentError('Animatable: Missing required argument "callback" at position 0');
+          throw ArgumentError(
+            'Animatable: Missing required argument "callback" at position 0',
+          );
         }
         final callbackRaw = positional[0];
-        return $flutter_7.Animatable.fromCallback((double p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0])); });
+        return $flutter_7.Animatable.fromCallback((double p0) {
+          return D4.castCallbackResult<dynamic>(
+            D4.callInterpreterCallback(visitor!, callbackRaw, [p0]),
+          );
+        });
       },
     },
     methods: {
       'transform': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.Animatable>(target, 'Animatable');
+        final t = D4.validateTarget<$flutter_7.Animatable>(
+          target,
+          'Animatable',
+        );
         D4.requireMinArgs(positional, 1, 'transform');
         final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transform');
         return t.transform(t_);
       },
       'evaluate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.Animatable>(target, 'Animatable');
+        final t = D4.validateTarget<$flutter_7.Animatable>(
+          target,
+          'Animatable',
+        );
         D4.requireMinArgs(positional, 1, 'evaluate');
-        final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'animation', 'evaluate');
+        final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(
+          positional,
+          0,
+          'animation',
+          'evaluate',
+        );
         return t.evaluate(animation);
       },
       'animate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.Animatable>(target, 'Animatable');
+        final t = D4.validateTarget<$flutter_7.Animatable>(
+          target,
+          'Animatable',
+        );
         D4.requireMinArgs(positional, 1, 'animate');
-        final parent = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'parent', 'animate');
+        final parent = D4.getRequiredArg<$flutter_1.Animation<double>>(
+          positional,
+          0,
+          'parent',
+          'animate',
+        );
         return t.animate(parent);
       },
       'chain': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.Animatable>(target, 'Animatable');
+        final t = D4.validateTarget<$flutter_7.Animatable>(
+          target,
+          'Animatable',
+        );
         D4.requireMinArgs(positional, 1, 'chain');
-        final parent = D4.getRequiredArg<$flutter_7.Animatable<double>>(positional, 0, 'parent', 'chain');
+        final parent = D4.getRequiredArg<$flutter_7.Animatable<double>>(
+          positional,
+          0,
+          'parent',
+          'chain',
+        );
         return t.chain(parent);
       },
     },
     constructorSignatures: {
-      'fromCallback': 'const factory Animatable.fromCallback(AnimatableCallback<T> callback)',
+      'fromCallback':
+          'const factory Animatable.fromCallback(AnimatableCallback<T> callback)',
     },
     methodSignatures: {
       'transform': 'T transform(double t)',
@@ -1955,14 +2851,18 @@ BridgedClass _createTweenBridge() {
       },
     },
     getters: {
-      'begin': (visitor, target) => D4.validateTarget<$flutter_7.Tween>(target, 'Tween').begin,
-      'end': (visitor, target) => D4.validateTarget<$flutter_7.Tween>(target, 'Tween').end,
+      'begin': (visitor, target) =>
+          D4.validateTarget<$flutter_7.Tween>(target, 'Tween').begin,
+      'end': (visitor, target) =>
+          D4.validateTarget<$flutter_7.Tween>(target, 'Tween').end,
     },
     setters: {
-      'begin': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.Tween>(target, 'Tween').begin = D4.extractBridgedArgOrNull<Object?>(value, 'begin'),
-      'end': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.Tween>(target, 'Tween').end = D4.extractBridgedArgOrNull<Object?>(value, 'end'),
+      'begin': (visitor, target, value) =>
+          D4.validateTarget<$flutter_7.Tween>(target, 'Tween').begin = D4
+              .extractBridgedArgOrNull<Object?>(value, 'begin'),
+      'end': (visitor, target, value) =>
+          D4.validateTarget<$flutter_7.Tween>(target, 'Tween').end = D4
+              .extractBridgedArgOrNull<Object?>(value, 'end'),
     },
     methods: {
       'transform': (visitor, target, positional, named, typeArgs) {
@@ -1974,19 +2874,34 @@ BridgedClass _createTweenBridge() {
       'evaluate': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_7.Tween>(target, 'Tween');
         D4.requireMinArgs(positional, 1, 'evaluate');
-        final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'animation', 'evaluate');
+        final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(
+          positional,
+          0,
+          'animation',
+          'evaluate',
+        );
         return t.evaluate(animation);
       },
       'animate': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_7.Tween>(target, 'Tween');
         D4.requireMinArgs(positional, 1, 'animate');
-        final parent = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'parent', 'animate');
+        final parent = D4.getRequiredArg<$flutter_1.Animation<double>>(
+          positional,
+          0,
+          'parent',
+          'animate',
+        );
         return t.animate(parent);
       },
       'chain': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_7.Tween>(target, 'Tween');
         D4.requireMinArgs(positional, 1, 'chain');
-        final parent = D4.getRequiredArg<$flutter_7.Animatable<double>>(positional, 0, 'parent', 'chain');
+        final parent = D4.getRequiredArg<$flutter_7.Animatable<double>>(
+          positional,
+          0,
+          'parent',
+          'chain',
+        );
         return t.chain(parent);
       },
       'lerp': (visitor, target, positional, named, typeArgs) {
@@ -2000,9 +2915,7 @@ BridgedClass _createTweenBridge() {
         return t.toString();
       },
     },
-    constructorSignatures: {
-      '': 'Tween({T? begin, T? end})',
-    },
+    constructorSignatures: {'': 'Tween({T? begin, T? end})'},
     methodSignatures: {
       'transform': 'T transform(double t)',
       'evaluate': 'T evaluate(Animation<double> animation)',
@@ -2011,10 +2924,7 @@ BridgedClass _createTweenBridge() {
       'lerp': 'T lerp(double t)',
       'toString': 'String toString()',
     },
-    getterSignatures: {
-      'begin': 'T? get begin',
-      'end': 'T? get end',
-    },
+    getterSignatures: {'begin': 'T? get begin', 'end': 'T? get end'},
     setterSignatures: {
       'begin': 'set begin(dynamic value)',
       'end': 'set end(dynamic value)',
@@ -2035,60 +2945,112 @@ BridgedClass _createReverseTweenBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ReverseTween');
-        final parent = D4.getRequiredArg<$flutter_7.Tween<Object?>>(positional, 0, 'parent', 'ReverseTween');
+        final parent = D4.getRequiredArg<$flutter_7.Tween<Object?>>(
+          positional,
+          0,
+          'parent',
+          'ReverseTween',
+        );
         return $flutter_7.ReverseTween(parent);
       },
     },
     getters: {
-      'begin': (visitor, target) => D4.validateTarget<$flutter_7.ReverseTween>(target, 'ReverseTween').begin,
-      'end': (visitor, target) => D4.validateTarget<$flutter_7.ReverseTween>(target, 'ReverseTween').end,
-      'parent': (visitor, target) => D4.validateTarget<$flutter_7.ReverseTween>(target, 'ReverseTween').parent,
+      'begin': (visitor, target) => D4
+          .validateTarget<$flutter_7.ReverseTween>(target, 'ReverseTween')
+          .begin,
+      'end': (visitor, target) => D4
+          .validateTarget<$flutter_7.ReverseTween>(target, 'ReverseTween')
+          .end,
+      'parent': (visitor, target) => D4
+          .validateTarget<$flutter_7.ReverseTween>(target, 'ReverseTween')
+          .parent,
     },
     setters: {
-      'begin': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.ReverseTween>(target, 'ReverseTween').begin = D4.extractBridgedArg<Object?>(value, 'begin'),
-      'end': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.ReverseTween>(target, 'ReverseTween').end = D4.extractBridgedArg<Object?>(value, 'end'),
+      'begin': (visitor, target, value) =>
+          D4
+              .validateTarget<$flutter_7.ReverseTween>(target, 'ReverseTween')
+              .begin = D4.extractBridgedArg<Object?>(
+            value,
+            'begin',
+          ),
+      'end': (visitor, target, value) =>
+          D4
+              .validateTarget<$flutter_7.ReverseTween>(target, 'ReverseTween')
+              .end = D4.extractBridgedArg<Object?>(
+            value,
+            'end',
+          ),
     },
     methods: {
       'transform': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.ReverseTween>(target, 'ReverseTween');
+        final t = D4.validateTarget<$flutter_7.ReverseTween>(
+          target,
+          'ReverseTween',
+        );
         D4.requireMinArgs(positional, 1, 'transform');
         final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transform');
         return t.transform(t_);
       },
       'evaluate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.ReverseTween>(target, 'ReverseTween');
+        final t = D4.validateTarget<$flutter_7.ReverseTween>(
+          target,
+          'ReverseTween',
+        );
         D4.requireMinArgs(positional, 1, 'evaluate');
-        final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'animation', 'evaluate');
+        final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(
+          positional,
+          0,
+          'animation',
+          'evaluate',
+        );
         return t.evaluate(animation);
       },
       'animate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.ReverseTween>(target, 'ReverseTween');
+        final t = D4.validateTarget<$flutter_7.ReverseTween>(
+          target,
+          'ReverseTween',
+        );
         D4.requireMinArgs(positional, 1, 'animate');
-        final parent = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'parent', 'animate');
+        final parent = D4.getRequiredArg<$flutter_1.Animation<double>>(
+          positional,
+          0,
+          'parent',
+          'animate',
+        );
         return t.animate(parent);
       },
       'chain': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.ReverseTween>(target, 'ReverseTween');
+        final t = D4.validateTarget<$flutter_7.ReverseTween>(
+          target,
+          'ReverseTween',
+        );
         D4.requireMinArgs(positional, 1, 'chain');
-        final parent = D4.getRequiredArg<$flutter_7.Animatable<double>>(positional, 0, 'parent', 'chain');
+        final parent = D4.getRequiredArg<$flutter_7.Animatable<double>>(
+          positional,
+          0,
+          'parent',
+          'chain',
+        );
         return t.chain(parent);
       },
       'lerp': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.ReverseTween>(target, 'ReverseTween');
+        final t = D4.validateTarget<$flutter_7.ReverseTween>(
+          target,
+          'ReverseTween',
+        );
         D4.requireMinArgs(positional, 1, 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'lerp');
         return t.lerp(t_);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.ReverseTween>(target, 'ReverseTween');
+        final t = D4.validateTarget<$flutter_7.ReverseTween>(
+          target,
+          'ReverseTween',
+        );
         return t.toString();
       },
     },
-    constructorSignatures: {
-      '': 'ReverseTween(Tween<T> parent)',
-    },
+    constructorSignatures: {'': 'ReverseTween(Tween<T> parent)'},
     methodSignatures: {
       'transform': 'T transform(double t)',
       'evaluate': 'T evaluate(Animation<double> animation)',
@@ -2127,54 +3089,89 @@ BridgedClass _createColorTweenBridge() {
       },
     },
     getters: {
-      'begin': (visitor, target) => D4.validateTarget<$flutter_7.ColorTween>(target, 'ColorTween').begin,
-      'end': (visitor, target) => D4.validateTarget<$flutter_7.ColorTween>(target, 'ColorTween').end,
+      'begin': (visitor, target) =>
+          D4.validateTarget<$flutter_7.ColorTween>(target, 'ColorTween').begin,
+      'end': (visitor, target) =>
+          D4.validateTarget<$flutter_7.ColorTween>(target, 'ColorTween').end,
     },
     setters: {
-      'begin': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.ColorTween>(target, 'ColorTween').begin = D4.extractBridgedArgOrNull<Color>(value, 'begin'),
-      'end': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.ColorTween>(target, 'ColorTween').end = D4.extractBridgedArgOrNull<Color>(value, 'end'),
+      'begin': (visitor, target, value) =>
+          D4.validateTarget<$flutter_7.ColorTween>(target, 'ColorTween').begin =
+              D4.extractBridgedArgOrNull<Color>(value, 'begin'),
+      'end': (visitor, target, value) =>
+          D4.validateTarget<$flutter_7.ColorTween>(target, 'ColorTween').end =
+              D4.extractBridgedArgOrNull<Color>(value, 'end'),
     },
     methods: {
       'transform': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.ColorTween>(target, 'ColorTween');
+        final t = D4.validateTarget<$flutter_7.ColorTween>(
+          target,
+          'ColorTween',
+        );
         D4.requireMinArgs(positional, 1, 'transform');
         final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transform');
         return t.transform(t_);
       },
       'evaluate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.ColorTween>(target, 'ColorTween');
+        final t = D4.validateTarget<$flutter_7.ColorTween>(
+          target,
+          'ColorTween',
+        );
         D4.requireMinArgs(positional, 1, 'evaluate');
-        final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'animation', 'evaluate');
+        final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(
+          positional,
+          0,
+          'animation',
+          'evaluate',
+        );
         return t.evaluate(animation);
       },
       'animate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.ColorTween>(target, 'ColorTween');
+        final t = D4.validateTarget<$flutter_7.ColorTween>(
+          target,
+          'ColorTween',
+        );
         D4.requireMinArgs(positional, 1, 'animate');
-        final parent = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'parent', 'animate');
+        final parent = D4.getRequiredArg<$flutter_1.Animation<double>>(
+          positional,
+          0,
+          'parent',
+          'animate',
+        );
         return t.animate(parent);
       },
       'chain': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.ColorTween>(target, 'ColorTween');
+        final t = D4.validateTarget<$flutter_7.ColorTween>(
+          target,
+          'ColorTween',
+        );
         D4.requireMinArgs(positional, 1, 'chain');
-        final parent = D4.getRequiredArg<$flutter_7.Animatable<double>>(positional, 0, 'parent', 'chain');
+        final parent = D4.getRequiredArg<$flutter_7.Animatable<double>>(
+          positional,
+          0,
+          'parent',
+          'chain',
+        );
         return t.chain(parent);
       },
       'lerp': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.ColorTween>(target, 'ColorTween');
+        final t = D4.validateTarget<$flutter_7.ColorTween>(
+          target,
+          'ColorTween',
+        );
         D4.requireMinArgs(positional, 1, 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'lerp');
         return t.lerp(t_);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.ColorTween>(target, 'ColorTween');
+        final t = D4.validateTarget<$flutter_7.ColorTween>(
+          target,
+          'ColorTween',
+        );
         return t.toString();
       },
     },
-    constructorSignatures: {
-      '': 'ColorTween({Color? begin, Color? end})',
-    },
+    constructorSignatures: {'': 'ColorTween({Color? begin, Color? end})'},
     methodSignatures: {
       'transform': 'Color? transform(double t)',
       'evaluate': 'Color? evaluate(Animation<double> animation)',
@@ -2183,10 +3180,7 @@ BridgedClass _createColorTweenBridge() {
       'lerp': 'Color? lerp(double t)',
       'toString': 'String toString()',
     },
-    getterSignatures: {
-      'begin': 'Color? get begin',
-      'end': 'Color? get end',
-    },
+    getterSignatures: {'begin': 'Color? get begin', 'end': 'Color? get end'},
     setterSignatures: {
       'begin': 'set begin(Color? value)',
       'end': 'set end(Color? value)',
@@ -2212,14 +3206,18 @@ BridgedClass _createSizeTweenBridge() {
       },
     },
     getters: {
-      'begin': (visitor, target) => D4.validateTarget<$flutter_7.SizeTween>(target, 'SizeTween').begin,
-      'end': (visitor, target) => D4.validateTarget<$flutter_7.SizeTween>(target, 'SizeTween').end,
+      'begin': (visitor, target) =>
+          D4.validateTarget<$flutter_7.SizeTween>(target, 'SizeTween').begin,
+      'end': (visitor, target) =>
+          D4.validateTarget<$flutter_7.SizeTween>(target, 'SizeTween').end,
     },
     setters: {
-      'begin': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SizeTween>(target, 'SizeTween').begin = D4.extractBridgedArgOrNull<Size>(value, 'begin'),
-      'end': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SizeTween>(target, 'SizeTween').end = D4.extractBridgedArgOrNull<Size>(value, 'end'),
+      'begin': (visitor, target, value) =>
+          D4.validateTarget<$flutter_7.SizeTween>(target, 'SizeTween').begin =
+              D4.extractBridgedArgOrNull<Size>(value, 'begin'),
+      'end': (visitor, target, value) =>
+          D4.validateTarget<$flutter_7.SizeTween>(target, 'SizeTween').end = D4
+              .extractBridgedArgOrNull<Size>(value, 'end'),
     },
     methods: {
       'transform': (visitor, target, positional, named, typeArgs) {
@@ -2231,19 +3229,34 @@ BridgedClass _createSizeTweenBridge() {
       'evaluate': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_7.SizeTween>(target, 'SizeTween');
         D4.requireMinArgs(positional, 1, 'evaluate');
-        final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'animation', 'evaluate');
+        final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(
+          positional,
+          0,
+          'animation',
+          'evaluate',
+        );
         return t.evaluate(animation);
       },
       'animate': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_7.SizeTween>(target, 'SizeTween');
         D4.requireMinArgs(positional, 1, 'animate');
-        final parent = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'parent', 'animate');
+        final parent = D4.getRequiredArg<$flutter_1.Animation<double>>(
+          positional,
+          0,
+          'parent',
+          'animate',
+        );
         return t.animate(parent);
       },
       'chain': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_7.SizeTween>(target, 'SizeTween');
         D4.requireMinArgs(positional, 1, 'chain');
-        final parent = D4.getRequiredArg<$flutter_7.Animatable<double>>(positional, 0, 'parent', 'chain');
+        final parent = D4.getRequiredArg<$flutter_7.Animatable<double>>(
+          positional,
+          0,
+          'parent',
+          'chain',
+        );
         return t.chain(parent);
       },
       'lerp': (visitor, target, positional, named, typeArgs) {
@@ -2257,9 +3270,7 @@ BridgedClass _createSizeTweenBridge() {
         return t.toString();
       },
     },
-    constructorSignatures: {
-      '': 'SizeTween({Size? begin, Size? end})',
-    },
+    constructorSignatures: {'': 'SizeTween({Size? begin, Size? end})'},
     methodSignatures: {
       'transform': 'Size? transform(double t)',
       'evaluate': 'Size? evaluate(Animation<double> animation)',
@@ -2268,10 +3279,7 @@ BridgedClass _createSizeTweenBridge() {
       'lerp': 'Size? lerp(double t)',
       'toString': 'String toString()',
     },
-    getterSignatures: {
-      'begin': 'Size? get begin',
-      'end': 'Size? get end',
-    },
+    getterSignatures: {'begin': 'Size? get begin', 'end': 'Size? get end'},
     setterSignatures: {
       'begin': 'set begin(Size? value)',
       'end': 'set end(Size? value)',
@@ -2297,14 +3305,18 @@ BridgedClass _createRectTweenBridge() {
       },
     },
     getters: {
-      'begin': (visitor, target) => D4.validateTarget<$flutter_7.RectTween>(target, 'RectTween').begin,
-      'end': (visitor, target) => D4.validateTarget<$flutter_7.RectTween>(target, 'RectTween').end,
+      'begin': (visitor, target) =>
+          D4.validateTarget<$flutter_7.RectTween>(target, 'RectTween').begin,
+      'end': (visitor, target) =>
+          D4.validateTarget<$flutter_7.RectTween>(target, 'RectTween').end,
     },
     setters: {
-      'begin': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.RectTween>(target, 'RectTween').begin = D4.extractBridgedArgOrNull<Rect>(value, 'begin'),
-      'end': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.RectTween>(target, 'RectTween').end = D4.extractBridgedArgOrNull<Rect>(value, 'end'),
+      'begin': (visitor, target, value) =>
+          D4.validateTarget<$flutter_7.RectTween>(target, 'RectTween').begin =
+              D4.extractBridgedArgOrNull<Rect>(value, 'begin'),
+      'end': (visitor, target, value) =>
+          D4.validateTarget<$flutter_7.RectTween>(target, 'RectTween').end = D4
+              .extractBridgedArgOrNull<Rect>(value, 'end'),
     },
     methods: {
       'transform': (visitor, target, positional, named, typeArgs) {
@@ -2316,19 +3328,34 @@ BridgedClass _createRectTweenBridge() {
       'evaluate': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_7.RectTween>(target, 'RectTween');
         D4.requireMinArgs(positional, 1, 'evaluate');
-        final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'animation', 'evaluate');
+        final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(
+          positional,
+          0,
+          'animation',
+          'evaluate',
+        );
         return t.evaluate(animation);
       },
       'animate': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_7.RectTween>(target, 'RectTween');
         D4.requireMinArgs(positional, 1, 'animate');
-        final parent = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'parent', 'animate');
+        final parent = D4.getRequiredArg<$flutter_1.Animation<double>>(
+          positional,
+          0,
+          'parent',
+          'animate',
+        );
         return t.animate(parent);
       },
       'chain': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_7.RectTween>(target, 'RectTween');
         D4.requireMinArgs(positional, 1, 'chain');
-        final parent = D4.getRequiredArg<$flutter_7.Animatable<double>>(positional, 0, 'parent', 'chain');
+        final parent = D4.getRequiredArg<$flutter_7.Animatable<double>>(
+          positional,
+          0,
+          'parent',
+          'chain',
+        );
         return t.chain(parent);
       },
       'lerp': (visitor, target, positional, named, typeArgs) {
@@ -2342,9 +3369,7 @@ BridgedClass _createRectTweenBridge() {
         return t.toString();
       },
     },
-    constructorSignatures: {
-      '': 'RectTween({Rect? begin, Rect? end})',
-    },
+    constructorSignatures: {'': 'RectTween({Rect? begin, Rect? end})'},
     methodSignatures: {
       'transform': 'Rect? transform(double t)',
       'evaluate': 'Rect? evaluate(Animation<double> animation)',
@@ -2353,10 +3378,7 @@ BridgedClass _createRectTweenBridge() {
       'lerp': 'Rect? lerp(double t)',
       'toString': 'String toString()',
     },
-    getterSignatures: {
-      'begin': 'Rect? get begin',
-      'end': 'Rect? get end',
-    },
+    getterSignatures: {'begin': 'Rect? get begin', 'end': 'Rect? get end'},
     setterSignatures: {
       'begin': 'set begin(Rect? value)',
       'end': 'set end(Rect? value)',
@@ -2382,14 +3404,18 @@ BridgedClass _createIntTweenBridge() {
       },
     },
     getters: {
-      'begin': (visitor, target) => D4.validateTarget<$flutter_7.IntTween>(target, 'IntTween').begin,
-      'end': (visitor, target) => D4.validateTarget<$flutter_7.IntTween>(target, 'IntTween').end,
+      'begin': (visitor, target) =>
+          D4.validateTarget<$flutter_7.IntTween>(target, 'IntTween').begin,
+      'end': (visitor, target) =>
+          D4.validateTarget<$flutter_7.IntTween>(target, 'IntTween').end,
     },
     setters: {
-      'begin': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.IntTween>(target, 'IntTween').begin = D4.extractBridgedArg<int>(value, 'begin'),
-      'end': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.IntTween>(target, 'IntTween').end = D4.extractBridgedArg<int>(value, 'end'),
+      'begin': (visitor, target, value) =>
+          D4.validateTarget<$flutter_7.IntTween>(target, 'IntTween').begin = D4
+              .extractBridgedArg<int>(value, 'begin'),
+      'end': (visitor, target, value) =>
+          D4.validateTarget<$flutter_7.IntTween>(target, 'IntTween').end = D4
+              .extractBridgedArg<int>(value, 'end'),
     },
     methods: {
       'transform': (visitor, target, positional, named, typeArgs) {
@@ -2401,19 +3427,34 @@ BridgedClass _createIntTweenBridge() {
       'evaluate': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_7.IntTween>(target, 'IntTween');
         D4.requireMinArgs(positional, 1, 'evaluate');
-        final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'animation', 'evaluate');
+        final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(
+          positional,
+          0,
+          'animation',
+          'evaluate',
+        );
         return t.evaluate(animation);
       },
       'animate': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_7.IntTween>(target, 'IntTween');
         D4.requireMinArgs(positional, 1, 'animate');
-        final parent = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'parent', 'animate');
+        final parent = D4.getRequiredArg<$flutter_1.Animation<double>>(
+          positional,
+          0,
+          'parent',
+          'animate',
+        );
         return t.animate(parent);
       },
       'chain': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_7.IntTween>(target, 'IntTween');
         D4.requireMinArgs(positional, 1, 'chain');
-        final parent = D4.getRequiredArg<$flutter_7.Animatable<double>>(positional, 0, 'parent', 'chain');
+        final parent = D4.getRequiredArg<$flutter_7.Animatable<double>>(
+          positional,
+          0,
+          'parent',
+          'chain',
+        );
         return t.chain(parent);
       },
       'lerp': (visitor, target, positional, named, typeArgs) {
@@ -2427,9 +3468,7 @@ BridgedClass _createIntTweenBridge() {
         return t.toString();
       },
     },
-    constructorSignatures: {
-      '': 'IntTween({int? begin, int? end})',
-    },
+    constructorSignatures: {'': 'IntTween({int? begin, int? end})'},
     methodSignatures: {
       'transform': 'int transform(double t)',
       'evaluate': 'int evaluate(Animation<double> animation)',
@@ -2438,10 +3477,7 @@ BridgedClass _createIntTweenBridge() {
       'lerp': 'int lerp(double t)',
       'toString': 'String toString()',
     },
-    getterSignatures: {
-      'begin': 'int get begin',
-      'end': 'int get end',
-    },
+    getterSignatures: {'begin': 'int get begin', 'end': 'int get end'},
     setterSignatures: {
       'begin': 'set begin(int value)',
       'end': 'set end(int value)',
@@ -2467,14 +3503,18 @@ BridgedClass _createStepTweenBridge() {
       },
     },
     getters: {
-      'begin': (visitor, target) => D4.validateTarget<$flutter_7.StepTween>(target, 'StepTween').begin,
-      'end': (visitor, target) => D4.validateTarget<$flutter_7.StepTween>(target, 'StepTween').end,
+      'begin': (visitor, target) =>
+          D4.validateTarget<$flutter_7.StepTween>(target, 'StepTween').begin,
+      'end': (visitor, target) =>
+          D4.validateTarget<$flutter_7.StepTween>(target, 'StepTween').end,
     },
     setters: {
-      'begin': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.StepTween>(target, 'StepTween').begin = D4.extractBridgedArg<int>(value, 'begin'),
-      'end': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.StepTween>(target, 'StepTween').end = D4.extractBridgedArg<int>(value, 'end'),
+      'begin': (visitor, target, value) =>
+          D4.validateTarget<$flutter_7.StepTween>(target, 'StepTween').begin =
+              D4.extractBridgedArg<int>(value, 'begin'),
+      'end': (visitor, target, value) =>
+          D4.validateTarget<$flutter_7.StepTween>(target, 'StepTween').end = D4
+              .extractBridgedArg<int>(value, 'end'),
     },
     methods: {
       'transform': (visitor, target, positional, named, typeArgs) {
@@ -2486,19 +3526,34 @@ BridgedClass _createStepTweenBridge() {
       'evaluate': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_7.StepTween>(target, 'StepTween');
         D4.requireMinArgs(positional, 1, 'evaluate');
-        final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'animation', 'evaluate');
+        final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(
+          positional,
+          0,
+          'animation',
+          'evaluate',
+        );
         return t.evaluate(animation);
       },
       'animate': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_7.StepTween>(target, 'StepTween');
         D4.requireMinArgs(positional, 1, 'animate');
-        final parent = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'parent', 'animate');
+        final parent = D4.getRequiredArg<$flutter_1.Animation<double>>(
+          positional,
+          0,
+          'parent',
+          'animate',
+        );
         return t.animate(parent);
       },
       'chain': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_7.StepTween>(target, 'StepTween');
         D4.requireMinArgs(positional, 1, 'chain');
-        final parent = D4.getRequiredArg<$flutter_7.Animatable<double>>(positional, 0, 'parent', 'chain');
+        final parent = D4.getRequiredArg<$flutter_7.Animatable<double>>(
+          positional,
+          0,
+          'parent',
+          'chain',
+        );
         return t.chain(parent);
       },
       'lerp': (visitor, target, positional, named, typeArgs) {
@@ -2512,9 +3567,7 @@ BridgedClass _createStepTweenBridge() {
         return t.toString();
       },
     },
-    constructorSignatures: {
-      '': 'StepTween({int? begin, int? end})',
-    },
+    constructorSignatures: {'': 'StepTween({int? begin, int? end})'},
     methodSignatures: {
       'transform': 'int transform(double t)',
       'evaluate': 'int evaluate(Animation<double> animation)',
@@ -2523,10 +3576,7 @@ BridgedClass _createStepTweenBridge() {
       'lerp': 'int lerp(double t)',
       'toString': 'String toString()',
     },
-    getterSignatures: {
-      'begin': 'int get begin',
-      'end': 'int get end',
-    },
+    getterSignatures: {'begin': 'int get begin', 'end': 'int get end'},
     setterSignatures: {
       'begin': 'set begin(int value)',
       'end': 'set end(int value)',
@@ -2547,117 +3597,251 @@ BridgedClass _createConstantTweenBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ConstantTween');
-        final value = D4.getRequiredArg<dynamic>(positional, 0, 'value', 'ConstantTween');
+        final value = D4.getRequiredArg<dynamic>(
+          positional,
+          0,
+          'value',
+          'ConstantTween',
+        );
         // GEN-075: Preserve generic type parameter from runtime value
         switch (value) {
-          case double _: return $flutter_7.ConstantTween<double>(value);
-          case int _: return $flutter_7.ConstantTween<int>(value);
-          case String _: return $flutter_7.ConstantTween<String>(value);
-          case bool _: return $flutter_7.ConstantTween<bool>(value);
-          case $flutter_4.AnimationMax _: return $flutter_7.ConstantTween<$flutter_4.AnimationMax>(value);
-          case $flutter_4.AnimationMean _: return $flutter_7.ConstantTween<$flutter_4.AnimationMean>(value);
-          case $flutter_4.AnimationMin _: return $flutter_7.ConstantTween<$flutter_4.AnimationMin>(value);
-          case $flutter_2.AnimationController _: return $flutter_7.ConstantTween<$flutter_2.AnimationController>(value);
-          case $flutter_4.CompoundAnimation _: return $flutter_7.ConstantTween<$flutter_4.CompoundAnimation>(value);
-          case $flutter_4.ProxyAnimation _: return $flutter_7.ConstantTween<$flutter_4.ProxyAnimation>(value);
-          case $flutter_4.TrainHoppingAnimation _: return $flutter_7.ConstantTween<$flutter_4.TrainHoppingAnimation>(value);
-          case $flutter_4.ReverseAnimation _: return $flutter_7.ConstantTween<$flutter_4.ReverseAnimation>(value);
-          case $flutter_4.CurvedAnimation _: return $flutter_7.ConstantTween<$flutter_4.CurvedAnimation>(value);
-          case $flutter_4.AlwaysStoppedAnimation _: return $flutter_7.ConstantTween<$flutter_4.AlwaysStoppedAnimation>(value);
-          case $flutter_1.Animation _: return $flutter_7.ConstantTween<$flutter_1.Animation>(value);
-          case $flutter_5.CatmullRomCurve _: return $flutter_7.ConstantTween<$flutter_5.CatmullRomCurve>(value);
-          case $flutter_5.CatmullRomSpline _: return $flutter_7.ConstantTween<$flutter_5.CatmullRomSpline>(value);
-          case $flutter_7.ColorTween _: return $flutter_7.ConstantTween<$flutter_7.ColorTween>(value);
-          case $flutter_5.Cubic _: return $flutter_7.ConstantTween<$flutter_5.Cubic>(value);
-          case $flutter_5.ElasticInCurve _: return $flutter_7.ConstantTween<$flutter_5.ElasticInCurve>(value);
-          case $flutter_5.ElasticInOutCurve _: return $flutter_7.ConstantTween<$flutter_5.ElasticInOutCurve>(value);
-          case $flutter_5.ElasticOutCurve _: return $flutter_7.ConstantTween<$flutter_5.ElasticOutCurve>(value);
-          case $flutter_5.FlippedCurve _: return $flutter_7.ConstantTween<$flutter_5.FlippedCurve>(value);
-          case $flutter_8.FlippedTweenSequence _: return $flutter_7.ConstantTween<$flutter_8.FlippedTweenSequence>(value);
-          case $flutter_7.IntTween _: return $flutter_7.ConstantTween<$flutter_7.IntTween>(value);
-          case $flutter_5.Interval _: return $flutter_7.ConstantTween<$flutter_5.Interval>(value);
-          case $flutter_7.RectTween _: return $flutter_7.ConstantTween<$flutter_7.RectTween>(value);
-          case $flutter_7.ReverseTween _: return $flutter_7.ConstantTween<$flutter_7.ReverseTween>(value);
-          case $flutter_5.SawTooth _: return $flutter_7.ConstantTween<$flutter_5.SawTooth>(value);
-          case $flutter_7.SizeTween _: return $flutter_7.ConstantTween<$flutter_7.SizeTween>(value);
-          case $flutter_5.Split _: return $flutter_7.ConstantTween<$flutter_5.Split>(value);
-          case $flutter_7.StepTween _: return $flutter_7.ConstantTween<$flutter_7.StepTween>(value);
-          case $flutter_5.ThreePointCubic _: return $flutter_7.ConstantTween<$flutter_5.ThreePointCubic>(value);
-          case $flutter_5.Threshold _: return $flutter_7.ConstantTween<$flutter_5.Threshold>(value);
-          case $flutter_3.AnimationStyle _: return $flutter_7.ConstantTween<$flutter_3.AnimationStyle>(value);
-          case $flutter_5.Curve _: return $flutter_7.ConstantTween<$flutter_5.Curve>(value);
-          case $flutter_5.Curve2D _: return $flutter_7.ConstantTween<$flutter_5.Curve2D>(value);
-          case $flutter_7.CurveTween _: return $flutter_7.ConstantTween<$flutter_7.CurveTween>(value);
-          case $flutter_14.TickerCanceled _: return $flutter_7.ConstantTween<$flutter_14.TickerCanceled>(value);
-          case $flutter_14.TickerFuture _: return $flutter_7.ConstantTween<$flutter_14.TickerFuture>(value);
-          case $flutter_7.Tween _: return $flutter_7.ConstantTween<$flutter_7.Tween>(value);
-          case $flutter_8.TweenSequence _: return $flutter_7.ConstantTween<$flutter_8.TweenSequence>(value);
-          case $flutter_7.Animatable _: return $flutter_7.ConstantTween<$flutter_7.Animatable>(value);
-          case $flutter_6.AnimationEagerListenerMixin _: return $flutter_7.ConstantTween<$flutter_6.AnimationEagerListenerMixin>(value);
-          case $flutter_6.AnimationLazyListenerMixin _: return $flutter_7.ConstantTween<$flutter_6.AnimationLazyListenerMixin>(value);
-          case $flutter_6.AnimationLocalListenersMixin _: return $flutter_7.ConstantTween<$flutter_6.AnimationLocalListenersMixin>(value);
-          case $flutter_6.AnimationLocalStatusListenersMixin _: return $flutter_7.ConstantTween<$flutter_6.AnimationLocalStatusListenersMixin>(value);
-          case $flutter_4.AnimationWithParentMixin _: return $flutter_7.ConstantTween<$flutter_4.AnimationWithParentMixin>(value);
-          case $flutter_5.Curve2DSample _: return $flutter_7.ConstantTween<$flutter_5.Curve2DSample>(value);
-          case $flutter_5.Curves _: return $flutter_7.ConstantTween<$flutter_5.Curves>(value);
-          case $flutter_5.ParametricCurve _: return $flutter_7.ConstantTween<$flutter_5.ParametricCurve>(value);
-          case $flutter_11.Simulation _: return $flutter_7.ConstantTween<$flutter_11.Simulation>(value);
-          case $flutter_12.SpringDescription _: return $flutter_7.ConstantTween<$flutter_12.SpringDescription>(value);
-          case $flutter_14.TickerProvider _: return $flutter_7.ConstantTween<$flutter_14.TickerProvider>(value);
-          case $flutter_8.TweenSequenceItem _: return $flutter_7.ConstantTween<$flutter_8.TweenSequenceItem>(value);
-          default: return $flutter_7.ConstantTween(value);
+          case double _:
+            return $flutter_7.ConstantTween<double>(value);
+          case int _:
+            return $flutter_7.ConstantTween<int>(value);
+          case String _:
+            return $flutter_7.ConstantTween<String>(value);
+          case bool _:
+            return $flutter_7.ConstantTween<bool>(value);
+          case $flutter_4.AnimationMax _:
+            return $flutter_7.ConstantTween<$flutter_4.AnimationMax>(value);
+          case $flutter_4.AnimationMean _:
+            return $flutter_7.ConstantTween<$flutter_4.AnimationMean>(value);
+          case $flutter_4.AnimationMin _:
+            return $flutter_7.ConstantTween<$flutter_4.AnimationMin>(value);
+          case $flutter_2.AnimationController _:
+            return $flutter_7.ConstantTween<$flutter_2.AnimationController>(
+              value,
+            );
+          case $flutter_4.CompoundAnimation _:
+            return $flutter_7.ConstantTween<$flutter_4.CompoundAnimation>(
+              value,
+            );
+          case $flutter_4.ProxyAnimation _:
+            return $flutter_7.ConstantTween<$flutter_4.ProxyAnimation>(value);
+          case $flutter_4.TrainHoppingAnimation _:
+            return $flutter_7.ConstantTween<$flutter_4.TrainHoppingAnimation>(
+              value,
+            );
+          case $flutter_4.ReverseAnimation _:
+            return $flutter_7.ConstantTween<$flutter_4.ReverseAnimation>(value);
+          case $flutter_4.CurvedAnimation _:
+            return $flutter_7.ConstantTween<$flutter_4.CurvedAnimation>(value);
+          case $flutter_4.AlwaysStoppedAnimation _:
+            return $flutter_7.ConstantTween<$flutter_4.AlwaysStoppedAnimation>(
+              value,
+            );
+          case $flutter_1.Animation _:
+            return $flutter_7.ConstantTween<$flutter_1.Animation>(value);
+          case $flutter_5.CatmullRomCurve _:
+            return $flutter_7.ConstantTween<$flutter_5.CatmullRomCurve>(value);
+          case $flutter_5.CatmullRomSpline _:
+            return $flutter_7.ConstantTween<$flutter_5.CatmullRomSpline>(value);
+          case $flutter_7.ColorTween _:
+            return $flutter_7.ConstantTween<$flutter_7.ColorTween>(value);
+          case $flutter_5.Cubic _:
+            return $flutter_7.ConstantTween<$flutter_5.Cubic>(value);
+          case $flutter_5.ElasticInCurve _:
+            return $flutter_7.ConstantTween<$flutter_5.ElasticInCurve>(value);
+          case $flutter_5.ElasticInOutCurve _:
+            return $flutter_7.ConstantTween<$flutter_5.ElasticInOutCurve>(
+              value,
+            );
+          case $flutter_5.ElasticOutCurve _:
+            return $flutter_7.ConstantTween<$flutter_5.ElasticOutCurve>(value);
+          case $flutter_5.FlippedCurve _:
+            return $flutter_7.ConstantTween<$flutter_5.FlippedCurve>(value);
+          case $flutter_8.FlippedTweenSequence _:
+            return $flutter_7.ConstantTween<$flutter_8.FlippedTweenSequence>(
+              value,
+            );
+          case $flutter_7.IntTween _:
+            return $flutter_7.ConstantTween<$flutter_7.IntTween>(value);
+          case $flutter_5.Interval _:
+            return $flutter_7.ConstantTween<$flutter_5.Interval>(value);
+          case $flutter_7.RectTween _:
+            return $flutter_7.ConstantTween<$flutter_7.RectTween>(value);
+          case $flutter_7.ReverseTween _:
+            return $flutter_7.ConstantTween<$flutter_7.ReverseTween>(value);
+          case $flutter_5.SawTooth _:
+            return $flutter_7.ConstantTween<$flutter_5.SawTooth>(value);
+          case $flutter_7.SizeTween _:
+            return $flutter_7.ConstantTween<$flutter_7.SizeTween>(value);
+          case $flutter_5.Split _:
+            return $flutter_7.ConstantTween<$flutter_5.Split>(value);
+          case $flutter_7.StepTween _:
+            return $flutter_7.ConstantTween<$flutter_7.StepTween>(value);
+          case $flutter_5.ThreePointCubic _:
+            return $flutter_7.ConstantTween<$flutter_5.ThreePointCubic>(value);
+          case $flutter_5.Threshold _:
+            return $flutter_7.ConstantTween<$flutter_5.Threshold>(value);
+          case $flutter_3.AnimationStyle _:
+            return $flutter_7.ConstantTween<$flutter_3.AnimationStyle>(value);
+          case $flutter_5.Curve _:
+            return $flutter_7.ConstantTween<$flutter_5.Curve>(value);
+          case $flutter_5.Curve2D _:
+            return $flutter_7.ConstantTween<$flutter_5.Curve2D>(value);
+          case $flutter_7.CurveTween _:
+            return $flutter_7.ConstantTween<$flutter_7.CurveTween>(value);
+          case $flutter_14.TickerCanceled _:
+            return $flutter_7.ConstantTween<$flutter_14.TickerCanceled>(value);
+          case $flutter_14.TickerFuture _:
+            return $flutter_7.ConstantTween<$flutter_14.TickerFuture>(value);
+          case $flutter_7.Tween _:
+            return $flutter_7.ConstantTween<$flutter_7.Tween>(value);
+          case $flutter_8.TweenSequence _:
+            return $flutter_7.ConstantTween<$flutter_8.TweenSequence>(value);
+          case $flutter_7.Animatable _:
+            return $flutter_7.ConstantTween<$flutter_7.Animatable>(value);
+          case $flutter_6.AnimationEagerListenerMixin _:
+            return $flutter_7.ConstantTween<
+              $flutter_6.AnimationEagerListenerMixin
+            >(value);
+          case $flutter_6.AnimationLazyListenerMixin _:
+            return $flutter_7.ConstantTween<
+              $flutter_6.AnimationLazyListenerMixin
+            >(value);
+          case $flutter_6.AnimationLocalListenersMixin _:
+            return $flutter_7.ConstantTween<
+              $flutter_6.AnimationLocalListenersMixin
+            >(value);
+          case $flutter_6.AnimationLocalStatusListenersMixin _:
+            return $flutter_7.ConstantTween<
+              $flutter_6.AnimationLocalStatusListenersMixin
+            >(value);
+          case $flutter_4.AnimationWithParentMixin _:
+            return $flutter_7.ConstantTween<
+              $flutter_4.AnimationWithParentMixin
+            >(value);
+          case $flutter_5.Curve2DSample _:
+            return $flutter_7.ConstantTween<$flutter_5.Curve2DSample>(value);
+          case $flutter_5.Curves _:
+            return $flutter_7.ConstantTween<$flutter_5.Curves>(value);
+          case $flutter_5.ParametricCurve _:
+            return $flutter_7.ConstantTween<$flutter_5.ParametricCurve>(value);
+          case $flutter_11.Simulation _:
+            return $flutter_7.ConstantTween<$flutter_11.Simulation>(value);
+          case $flutter_12.SpringDescription _:
+            return $flutter_7.ConstantTween<$flutter_12.SpringDescription>(
+              value,
+            );
+          case $flutter_14.TickerProvider _:
+            return $flutter_7.ConstantTween<$flutter_14.TickerProvider>(value);
+          case $flutter_8.TweenSequenceItem _:
+            return $flutter_7.ConstantTween<$flutter_8.TweenSequenceItem>(
+              value,
+            );
+          default:
+            return $flutter_7.ConstantTween(value);
         }
       },
     },
     getters: {
-      'begin': (visitor, target) => D4.validateTarget<$flutter_7.ConstantTween>(target, 'ConstantTween').begin,
-      'end': (visitor, target) => D4.validateTarget<$flutter_7.ConstantTween>(target, 'ConstantTween').end,
+      'begin': (visitor, target) => D4
+          .validateTarget<$flutter_7.ConstantTween>(target, 'ConstantTween')
+          .begin,
+      'end': (visitor, target) => D4
+          .validateTarget<$flutter_7.ConstantTween>(target, 'ConstantTween')
+          .end,
     },
     setters: {
-      'begin': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.ConstantTween>(target, 'ConstantTween').begin = value as dynamic,
-      'end': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.ConstantTween>(target, 'ConstantTween').end = value as dynamic,
+      'begin': (visitor, target, value) =>
+          D4
+                  .validateTarget<$flutter_7.ConstantTween>(
+                    target,
+                    'ConstantTween',
+                  )
+                  .begin =
+              value as dynamic,
+      'end': (visitor, target, value) =>
+          D4
+                  .validateTarget<$flutter_7.ConstantTween>(
+                    target,
+                    'ConstantTween',
+                  )
+                  .end =
+              value as dynamic,
     },
     methods: {
       'transform': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.ConstantTween>(target, 'ConstantTween');
+        final t = D4.validateTarget<$flutter_7.ConstantTween>(
+          target,
+          'ConstantTween',
+        );
         D4.requireMinArgs(positional, 1, 'transform');
         final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transform');
         return t.transform(t_);
       },
       'evaluate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.ConstantTween>(target, 'ConstantTween');
+        final t = D4.validateTarget<$flutter_7.ConstantTween>(
+          target,
+          'ConstantTween',
+        );
         D4.requireMinArgs(positional, 1, 'evaluate');
-        final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'animation', 'evaluate');
+        final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(
+          positional,
+          0,
+          'animation',
+          'evaluate',
+        );
         return t.evaluate(animation);
       },
       'animate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.ConstantTween>(target, 'ConstantTween');
+        final t = D4.validateTarget<$flutter_7.ConstantTween>(
+          target,
+          'ConstantTween',
+        );
         D4.requireMinArgs(positional, 1, 'animate');
-        final parent = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'parent', 'animate');
+        final parent = D4.getRequiredArg<$flutter_1.Animation<double>>(
+          positional,
+          0,
+          'parent',
+          'animate',
+        );
         return t.animate(parent);
       },
       'chain': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.ConstantTween>(target, 'ConstantTween');
+        final t = D4.validateTarget<$flutter_7.ConstantTween>(
+          target,
+          'ConstantTween',
+        );
         D4.requireMinArgs(positional, 1, 'chain');
-        final parent = D4.getRequiredArg<$flutter_7.Animatable<double>>(positional, 0, 'parent', 'chain');
+        final parent = D4.getRequiredArg<$flutter_7.Animatable<double>>(
+          positional,
+          0,
+          'parent',
+          'chain',
+        );
         return t.chain(parent);
       },
       'lerp': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.ConstantTween>(target, 'ConstantTween');
+        final t = D4.validateTarget<$flutter_7.ConstantTween>(
+          target,
+          'ConstantTween',
+        );
         D4.requireMinArgs(positional, 1, 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'lerp');
         return t.lerp(t_);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.ConstantTween>(target, 'ConstantTween');
+        final t = D4.validateTarget<$flutter_7.ConstantTween>(
+          target,
+          'ConstantTween',
+        );
         return t.toString();
       },
     },
-    constructorSignatures: {
-      '': 'ConstantTween(T value)',
-    },
+    constructorSignatures: {'': 'ConstantTween(T value)'},
     methodSignatures: {
       'transform': 'T transform(double t)',
       'evaluate': 'T evaluate(Animation<double> animation)',
@@ -2666,10 +3850,7 @@ BridgedClass _createConstantTweenBridge() {
       'lerp': 'T lerp(double t)',
       'toString': 'String toString()',
     },
-    getterSignatures: {
-      'begin': 'T get begin',
-      'end': 'T get end',
-    },
+    getterSignatures: {'begin': 'T get begin', 'end': 'T get end'},
     setterSignatures: {
       'begin': 'set begin(T value)',
       'end': 'set end(T value)',
@@ -2689,50 +3870,84 @@ BridgedClass _createCurveTweenBridge() {
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
-        final curve = D4.getRequiredNamedArg<$flutter_5.Curve>(named, 'curve', 'CurveTween');
+        final curve = D4.getRequiredNamedArg<$flutter_5.Curve>(
+          named,
+          'curve',
+          'CurveTween',
+        );
         return $flutter_7.CurveTween(curve: curve);
       },
     },
     getters: {
-      'curve': (visitor, target) => D4.validateTarget<$flutter_7.CurveTween>(target, 'CurveTween').curve,
+      'curve': (visitor, target) =>
+          D4.validateTarget<$flutter_7.CurveTween>(target, 'CurveTween').curve,
     },
     setters: {
-      'curve': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.CurveTween>(target, 'CurveTween').curve = D4.extractBridgedArg<$flutter_5.Curve>(value, 'curve'),
+      'curve': (visitor, target, value) =>
+          D4.validateTarget<$flutter_7.CurveTween>(target, 'CurveTween').curve =
+              D4.extractBridgedArg<$flutter_5.Curve>(value, 'curve'),
     },
     methods: {
       'transform': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.CurveTween>(target, 'CurveTween');
+        final t = D4.validateTarget<$flutter_7.CurveTween>(
+          target,
+          'CurveTween',
+        );
         D4.requireMinArgs(positional, 1, 'transform');
         final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transform');
         return t.transform(t_);
       },
       'evaluate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.CurveTween>(target, 'CurveTween');
+        final t = D4.validateTarget<$flutter_7.CurveTween>(
+          target,
+          'CurveTween',
+        );
         D4.requireMinArgs(positional, 1, 'evaluate');
-        final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'animation', 'evaluate');
+        final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(
+          positional,
+          0,
+          'animation',
+          'evaluate',
+        );
         return t.evaluate(animation);
       },
       'animate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.CurveTween>(target, 'CurveTween');
+        final t = D4.validateTarget<$flutter_7.CurveTween>(
+          target,
+          'CurveTween',
+        );
         D4.requireMinArgs(positional, 1, 'animate');
-        final parent = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'parent', 'animate');
+        final parent = D4.getRequiredArg<$flutter_1.Animation<double>>(
+          positional,
+          0,
+          'parent',
+          'animate',
+        );
         return t.animate(parent);
       },
       'chain': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.CurveTween>(target, 'CurveTween');
+        final t = D4.validateTarget<$flutter_7.CurveTween>(
+          target,
+          'CurveTween',
+        );
         D4.requireMinArgs(positional, 1, 'chain');
-        final parent = D4.getRequiredArg<$flutter_7.Animatable<double>>(positional, 0, 'parent', 'chain');
+        final parent = D4.getRequiredArg<$flutter_7.Animatable<double>>(
+          positional,
+          0,
+          'parent',
+          'chain',
+        );
         return t.chain(parent);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_7.CurveTween>(target, 'CurveTween');
+        final t = D4.validateTarget<$flutter_7.CurveTween>(
+          target,
+          'CurveTween',
+        );
         return t.toString();
       },
     },
-    constructorSignatures: {
-      '': 'CurveTween({required Curve curve})',
-    },
+    constructorSignatures: {'': 'CurveTween({required Curve curve})'},
     methodSignatures: {
       'transform': 'double transform(double t)',
       'evaluate': 'double evaluate(Animation<double> animation)',
@@ -2740,12 +3955,8 @@ BridgedClass _createCurveTweenBridge() {
       'chain': 'Animatable<double> chain(Animatable<double> parent)',
       'toString': 'String toString()',
     },
-    getterSignatures: {
-      'curve': 'Curve get curve',
-    },
-    setterSignatures: {
-      'curve': 'set curve(dynamic value)',
-    },
+    getterSignatures: {'curve': 'Curve get curve'},
+    setterSignatures: {'curve': 'set curve(dynamic value)'},
   );
 }
 
@@ -2759,36 +3970,54 @@ BridgedClass _createSimulationBridge() {
     name: 'Simulation',
     isAssignable: (v) => v is $flutter_11.Simulation,
     isAbstract: true,
-    constructors: {
-    },
+    constructors: {},
     getters: {
-      'tolerance': (visitor, target) => D4.validateTarget<$flutter_11.Simulation>(target, 'Simulation').tolerance,
+      'tolerance': (visitor, target) => D4
+          .validateTarget<$flutter_11.Simulation>(target, 'Simulation')
+          .tolerance,
     },
     setters: {
-      'tolerance': (visitor, target, value) => 
-        D4.validateTarget<$flutter_11.Simulation>(target, 'Simulation').tolerance = D4.extractBridgedArg<$flutter_13.Tolerance>(value, 'tolerance'),
+      'tolerance': (visitor, target, value) =>
+          D4
+              .validateTarget<$flutter_11.Simulation>(target, 'Simulation')
+              .tolerance = D4.extractBridgedArg<$flutter_13.Tolerance>(
+            value,
+            'tolerance',
+          ),
     },
     methods: {
       'x': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_11.Simulation>(target, 'Simulation');
+        final t = D4.validateTarget<$flutter_11.Simulation>(
+          target,
+          'Simulation',
+        );
         D4.requireMinArgs(positional, 1, 'x');
         final time = D4.getRequiredArg<double>(positional, 0, 'time', 'x');
         return t.x(time);
       },
       'dx': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_11.Simulation>(target, 'Simulation');
+        final t = D4.validateTarget<$flutter_11.Simulation>(
+          target,
+          'Simulation',
+        );
         D4.requireMinArgs(positional, 1, 'dx');
         final time = D4.getRequiredArg<double>(positional, 0, 'time', 'dx');
         return t.dx(time);
       },
       'isDone': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_11.Simulation>(target, 'Simulation');
+        final t = D4.validateTarget<$flutter_11.Simulation>(
+          target,
+          'Simulation',
+        );
         D4.requireMinArgs(positional, 1, 'isDone');
         final time = D4.getRequiredArg<double>(positional, 0, 'time', 'isDone');
         return t.isDone(time);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_11.Simulation>(target, 'Simulation');
+        final t = D4.validateTarget<$flutter_11.Simulation>(
+          target,
+          'Simulation',
+        );
         return t.toString();
       },
     },
@@ -2798,12 +4027,8 @@ BridgedClass _createSimulationBridge() {
       'isDone': 'bool isDone(double time)',
       'toString': 'String toString()',
     },
-    getterSignatures: {
-      'tolerance': 'Tolerance get tolerance',
-    },
-    setterSignatures: {
-      'tolerance': 'set tolerance(dynamic value)',
-    },
+    getterSignatures: {'tolerance': 'Tolerance get tolerance'},
+    setterSignatures: {'tolerance': 'set tolerance(dynamic value)'},
   );
 }
 
@@ -2818,44 +4043,107 @@ BridgedClass _createSpringDescriptionBridge() {
     isAssignable: (v) => v is $flutter_12.SpringDescription,
     constructors: {
       '': (visitor, positional, named) {
-        final mass = D4.getRequiredNamedArg<double>(named, 'mass', 'SpringDescription');
-        final stiffness = D4.getRequiredNamedArg<double>(named, 'stiffness', 'SpringDescription');
-        final damping = D4.getRequiredNamedArg<double>(named, 'damping', 'SpringDescription');
-        return $flutter_12.SpringDescription(mass: mass, stiffness: stiffness, damping: damping);
+        final mass = D4.getRequiredNamedArg<double>(
+          named,
+          'mass',
+          'SpringDescription',
+        );
+        final stiffness = D4.getRequiredNamedArg<double>(
+          named,
+          'stiffness',
+          'SpringDescription',
+        );
+        final damping = D4.getRequiredNamedArg<double>(
+          named,
+          'damping',
+          'SpringDescription',
+        );
+        return $flutter_12.SpringDescription(
+          mass: mass,
+          stiffness: stiffness,
+          damping: damping,
+        );
       },
       'withDampingRatio': (visitor, positional, named) {
-        final mass = D4.getRequiredNamedArg<double>(named, 'mass', 'SpringDescription');
-        final stiffness = D4.getRequiredNamedArg<double>(named, 'stiffness', 'SpringDescription');
+        final mass = D4.getRequiredNamedArg<double>(
+          named,
+          'mass',
+          'SpringDescription',
+        );
+        final stiffness = D4.getRequiredNamedArg<double>(
+          named,
+          'stiffness',
+          'SpringDescription',
+        );
         final ratio = D4.getNamedArgWithDefault<double>(named, 'ratio', 1.0);
-        return $flutter_12.SpringDescription.withDampingRatio(mass: mass, stiffness: stiffness, ratio: ratio);
+        return $flutter_12.SpringDescription.withDampingRatio(
+          mass: mass,
+          stiffness: stiffness,
+          ratio: ratio,
+        );
       },
       'withDurationAndBounce': (visitor, positional, named) {
-        final duration = D4.getNamedArgWithDefault<Duration>(named, 'duration', const Duration(milliseconds: 500));
+        final duration = D4.getNamedArgWithDefault<Duration>(
+          named,
+          'duration',
+          const Duration(milliseconds: 500),
+        );
         final bounce = D4.getNamedArgWithDefault<double>(named, 'bounce', 0.0);
-        return $flutter_12.SpringDescription.withDurationAndBounce(duration: duration, bounce: bounce);
+        return $flutter_12.SpringDescription.withDurationAndBounce(
+          duration: duration,
+          bounce: bounce,
+        );
       },
     },
     getters: {
-      'mass': (visitor, target) => D4.validateTarget<$flutter_12.SpringDescription>(target, 'SpringDescription').mass,
-      'stiffness': (visitor, target) => D4.validateTarget<$flutter_12.SpringDescription>(target, 'SpringDescription').stiffness,
-      'damping': (visitor, target) => D4.validateTarget<$flutter_12.SpringDescription>(target, 'SpringDescription').damping,
-      'duration': (visitor, target) => D4.validateTarget<$flutter_12.SpringDescription>(target, 'SpringDescription').duration,
-      'bounce': (visitor, target) => D4.validateTarget<$flutter_12.SpringDescription>(target, 'SpringDescription').bounce,
+      'mass': (visitor, target) => D4
+          .validateTarget<$flutter_12.SpringDescription>(
+            target,
+            'SpringDescription',
+          )
+          .mass,
+      'stiffness': (visitor, target) => D4
+          .validateTarget<$flutter_12.SpringDescription>(
+            target,
+            'SpringDescription',
+          )
+          .stiffness,
+      'damping': (visitor, target) => D4
+          .validateTarget<$flutter_12.SpringDescription>(
+            target,
+            'SpringDescription',
+          )
+          .damping,
+      'duration': (visitor, target) => D4
+          .validateTarget<$flutter_12.SpringDescription>(
+            target,
+            'SpringDescription',
+          )
+          .duration,
+      'bounce': (visitor, target) => D4
+          .validateTarget<$flutter_12.SpringDescription>(
+            target,
+            'SpringDescription',
+          )
+          .bounce,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.SpringDescription>(target, 'SpringDescription');
+        final t = D4.validateTarget<$flutter_12.SpringDescription>(
+          target,
+          'SpringDescription',
+        );
         return t.toString();
       },
     },
     constructorSignatures: {
       '': 'const SpringDescription({required double mass, required double stiffness, required double damping})',
-      'withDampingRatio': 'SpringDescription.withDampingRatio({required double mass, required double stiffness, double ratio = 1.0})',
-      'withDurationAndBounce': 'factory SpringDescription.withDurationAndBounce({Duration duration = const Duration(milliseconds: 500), double bounce = 0.0})',
+      'withDampingRatio':
+          'SpringDescription.withDampingRatio({required double mass, required double stiffness, double ratio = 1.0})',
+      'withDurationAndBounce':
+          'factory SpringDescription.withDurationAndBounce({Duration duration = const Duration(milliseconds: 500), double bounce = 0.0})',
     },
-    methodSignatures: {
-      'toString': 'String toString()',
-    },
+    methodSignatures: {'toString': 'String toString()'},
     getterSignatures: {
       'mass': 'double get mass',
       'stiffness': 'double get stiffness',
@@ -2880,228 +4168,545 @@ BridgedClass _createAnimationControllerBridge() {
       '': (visitor, positional, named) {
         final value = D4.getOptionalNamedArg<double?>(named, 'value');
         final duration = D4.getOptionalNamedArg<Duration?>(named, 'duration');
-        final reverseDuration = D4.getOptionalNamedArg<Duration?>(named, 'reverseDuration');
+        final reverseDuration = D4.getOptionalNamedArg<Duration?>(
+          named,
+          'reverseDuration',
+        );
         final debugLabel = D4.getOptionalNamedArg<String?>(named, 'debugLabel');
-        final lowerBound = D4.getNamedArgWithDefault<double>(named, 'lowerBound', 0.0);
-        final upperBound = D4.getNamedArgWithDefault<double>(named, 'upperBound', 1.0);
-        final animationBehavior = D4.getNamedArgWithDefault<$flutter_2.AnimationBehavior>(named, 'animationBehavior', $flutter_2.AnimationBehavior.normal);
-        final vsync = D4.getRequiredNamedArg<$flutter_14.TickerProvider>(named, 'vsync', 'AnimationController');
-        return $flutter_2.AnimationController(value: value, duration: duration, reverseDuration: reverseDuration, debugLabel: debugLabel, lowerBound: lowerBound, upperBound: upperBound, animationBehavior: animationBehavior, vsync: vsync);
+        final lowerBound = D4.getNamedArgWithDefault<double>(
+          named,
+          'lowerBound',
+          0.0,
+        );
+        final upperBound = D4.getNamedArgWithDefault<double>(
+          named,
+          'upperBound',
+          1.0,
+        );
+        final animationBehavior = D4
+            .getNamedArgWithDefault<$flutter_2.AnimationBehavior>(
+              named,
+              'animationBehavior',
+              $flutter_2.AnimationBehavior.normal,
+            );
+        final vsync = D4.getRequiredNamedArg<$flutter_14.TickerProvider>(
+          named,
+          'vsync',
+          'AnimationController',
+        );
+        return $flutter_2.AnimationController(
+          value: value,
+          duration: duration,
+          reverseDuration: reverseDuration,
+          debugLabel: debugLabel,
+          lowerBound: lowerBound,
+          upperBound: upperBound,
+          animationBehavior: animationBehavior,
+          vsync: vsync,
+        );
       },
       'unbounded': (visitor, positional, named) {
         final value = D4.getNamedArgWithDefault<double>(named, 'value', 0.0);
         final duration = D4.getOptionalNamedArg<Duration?>(named, 'duration');
-        final reverseDuration = D4.getOptionalNamedArg<Duration?>(named, 'reverseDuration');
+        final reverseDuration = D4.getOptionalNamedArg<Duration?>(
+          named,
+          'reverseDuration',
+        );
         final debugLabel = D4.getOptionalNamedArg<String?>(named, 'debugLabel');
-        final vsync = D4.getRequiredNamedArg<$flutter_14.TickerProvider>(named, 'vsync', 'AnimationController');
-        final animationBehavior = D4.getNamedArgWithDefault<$flutter_2.AnimationBehavior>(named, 'animationBehavior', $flutter_2.AnimationBehavior.preserve);
-        return $flutter_2.AnimationController.unbounded(value: value, duration: duration, reverseDuration: reverseDuration, debugLabel: debugLabel, vsync: vsync, animationBehavior: animationBehavior);
+        final vsync = D4.getRequiredNamedArg<$flutter_14.TickerProvider>(
+          named,
+          'vsync',
+          'AnimationController',
+        );
+        final animationBehavior = D4
+            .getNamedArgWithDefault<$flutter_2.AnimationBehavior>(
+              named,
+              'animationBehavior',
+              $flutter_2.AnimationBehavior.preserve,
+            );
+        return $flutter_2.AnimationController.unbounded(
+          value: value,
+          duration: duration,
+          reverseDuration: reverseDuration,
+          debugLabel: debugLabel,
+          vsync: vsync,
+          animationBehavior: animationBehavior,
+        );
       },
     },
     getters: {
-      'status': (visitor, target) => D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController').status,
-      'value': (visitor, target) => D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController').value,
-      'isDismissed': (visitor, target) => D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController').isDismissed,
-      'isCompleted': (visitor, target) => D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController').isCompleted,
-      'isAnimating': (visitor, target) => D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController').isAnimating,
-      'isForwardOrCompleted': (visitor, target) => D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController').isForwardOrCompleted,
-      'lowerBound': (visitor, target) => D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController').lowerBound,
-      'upperBound': (visitor, target) => D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController').upperBound,
-      'debugLabel': (visitor, target) => D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController').debugLabel,
-      'animationBehavior': (visitor, target) => D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController').animationBehavior,
-      'duration': (visitor, target) => D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController').duration,
-      'reverseDuration': (visitor, target) => D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController').reverseDuration,
-      'view': (visitor, target) => D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController').view,
-      'velocity': (visitor, target) => D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController').velocity,
-      'lastElapsedDuration': (visitor, target) => D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController').lastElapsedDuration,
+      'status': (visitor, target) => D4
+          .validateTarget<$flutter_2.AnimationController>(
+            target,
+            'AnimationController',
+          )
+          .status,
+      'value': (visitor, target) => D4
+          .validateTarget<$flutter_2.AnimationController>(
+            target,
+            'AnimationController',
+          )
+          .value,
+      'isDismissed': (visitor, target) => D4
+          .validateTarget<$flutter_2.AnimationController>(
+            target,
+            'AnimationController',
+          )
+          .isDismissed,
+      'isCompleted': (visitor, target) => D4
+          .validateTarget<$flutter_2.AnimationController>(
+            target,
+            'AnimationController',
+          )
+          .isCompleted,
+      'isAnimating': (visitor, target) => D4
+          .validateTarget<$flutter_2.AnimationController>(
+            target,
+            'AnimationController',
+          )
+          .isAnimating,
+      'isForwardOrCompleted': (visitor, target) => D4
+          .validateTarget<$flutter_2.AnimationController>(
+            target,
+            'AnimationController',
+          )
+          .isForwardOrCompleted,
+      'lowerBound': (visitor, target) => D4
+          .validateTarget<$flutter_2.AnimationController>(
+            target,
+            'AnimationController',
+          )
+          .lowerBound,
+      'upperBound': (visitor, target) => D4
+          .validateTarget<$flutter_2.AnimationController>(
+            target,
+            'AnimationController',
+          )
+          .upperBound,
+      'debugLabel': (visitor, target) => D4
+          .validateTarget<$flutter_2.AnimationController>(
+            target,
+            'AnimationController',
+          )
+          .debugLabel,
+      'animationBehavior': (visitor, target) => D4
+          .validateTarget<$flutter_2.AnimationController>(
+            target,
+            'AnimationController',
+          )
+          .animationBehavior,
+      'duration': (visitor, target) => D4
+          .validateTarget<$flutter_2.AnimationController>(
+            target,
+            'AnimationController',
+          )
+          .duration,
+      'reverseDuration': (visitor, target) => D4
+          .validateTarget<$flutter_2.AnimationController>(
+            target,
+            'AnimationController',
+          )
+          .reverseDuration,
+      'view': (visitor, target) => D4
+          .validateTarget<$flutter_2.AnimationController>(
+            target,
+            'AnimationController',
+          )
+          .view,
+      'velocity': (visitor, target) => D4
+          .validateTarget<$flutter_2.AnimationController>(
+            target,
+            'AnimationController',
+          )
+          .velocity,
+      'lastElapsedDuration': (visitor, target) => D4
+          .validateTarget<$flutter_2.AnimationController>(
+            target,
+            'AnimationController',
+          )
+          .lastElapsedDuration,
     },
     setters: {
-      'duration': (visitor, target, value) => 
-        D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController').duration = D4.extractBridgedArgOrNull<Duration>(value, 'duration'),
-      'reverseDuration': (visitor, target, value) => 
-        D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController').reverseDuration = D4.extractBridgedArgOrNull<Duration>(value, 'reverseDuration'),
-      'value': (visitor, target, value) => 
-        D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController').value = D4.extractBridgedArg<double>(value, 'value'),
+      'duration': (visitor, target, value) =>
+          D4
+              .validateTarget<$flutter_2.AnimationController>(
+                target,
+                'AnimationController',
+              )
+              .duration = D4.extractBridgedArgOrNull<Duration>(
+            value,
+            'duration',
+          ),
+      'reverseDuration': (visitor, target, value) =>
+          D4
+              .validateTarget<$flutter_2.AnimationController>(
+                target,
+                'AnimationController',
+              )
+              .reverseDuration = D4.extractBridgedArgOrNull<Duration>(
+            value,
+            'reverseDuration',
+          ),
+      'value': (visitor, target, value) =>
+          D4
+              .validateTarget<$flutter_2.AnimationController>(
+                target,
+                'AnimationController',
+              )
+              .value = D4.extractBridgedArg<double>(
+            value,
+            'value',
+          ),
     },
     methods: {
       'addListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController');
+        final t = D4.validateTarget<$flutter_2.AnimationController>(
+          target,
+          'AnimationController',
+        );
         D4.requireMinArgs(positional, 1, 'addListener');
         if (positional.isEmpty) {
-          throw ArgumentError('addListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'addListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.addListener(() { D4.callInterpreterCallback(visitor!, listenerRaw, []); });
+        t.addListener(() {
+          D4.callInterpreterCallback(visitor!, listenerRaw, []);
+        });
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController');
+        final t = D4.validateTarget<$flutter_2.AnimationController>(
+          target,
+          'AnimationController',
+        );
         D4.requireMinArgs(positional, 1, 'removeListener');
         if (positional.isEmpty) {
-          throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'removeListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.removeListener(() { D4.callInterpreterCallback(visitor!, listenerRaw, []); });
+        t.removeListener(() {
+          D4.callInterpreterCallback(visitor!, listenerRaw, []);
+        });
         return null;
       },
       'addStatusListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController');
+        final t = D4.validateTarget<$flutter_2.AnimationController>(
+          target,
+          'AnimationController',
+        );
         D4.requireMinArgs(positional, 1, 'addStatusListener');
         if (positional.isEmpty) {
-          throw ArgumentError('addStatusListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'addStatusListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.addStatusListener(($flutter_1.AnimationStatus p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
+        t.addStatusListener(($flutter_1.AnimationStatus p0) {
+          D4.callInterpreterCallback(visitor!, listenerRaw, [p0]);
+        });
         return null;
       },
       'removeStatusListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController');
+        final t = D4.validateTarget<$flutter_2.AnimationController>(
+          target,
+          'AnimationController',
+        );
         D4.requireMinArgs(positional, 1, 'removeStatusListener');
         if (positional.isEmpty) {
-          throw ArgumentError('removeStatusListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'removeStatusListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.removeStatusListener(($flutter_1.AnimationStatus p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
+        t.removeStatusListener(($flutter_1.AnimationStatus p0) {
+          D4.callInterpreterCallback(visitor!, listenerRaw, [p0]);
+        });
         return null;
       },
       'drive': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController');
+        final t = D4.validateTarget<$flutter_2.AnimationController>(
+          target,
+          'AnimationController',
+        );
         D4.requireMinArgs(positional, 1, 'drive');
-        final child = D4.getRequiredArg<$flutter_7.Animatable<dynamic>>(positional, 0, 'child', 'drive');
+        final child = D4.getRequiredArg<$flutter_7.Animatable<dynamic>>(
+          positional,
+          0,
+          'child',
+          'drive',
+        );
         return t.drive(child);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController');
+        final t = D4.validateTarget<$flutter_2.AnimationController>(
+          target,
+          'AnimationController',
+        );
         return t.toString();
       },
       'toStringDetails': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController');
+        final t = D4.validateTarget<$flutter_2.AnimationController>(
+          target,
+          'AnimationController',
+        );
         return t.toStringDetails();
       },
       'resync': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController');
+        final t = D4.validateTarget<$flutter_2.AnimationController>(
+          target,
+          'AnimationController',
+        );
         D4.requireMinArgs(positional, 1, 'resync');
-        final vsync = D4.getRequiredArg<$flutter_14.TickerProvider>(positional, 0, 'vsync', 'resync');
+        final vsync = D4.getRequiredArg<$flutter_14.TickerProvider>(
+          positional,
+          0,
+          'vsync',
+          'resync',
+        );
         t.resync(vsync);
         return null;
       },
       'reset': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController');
+        final t = D4.validateTarget<$flutter_2.AnimationController>(
+          target,
+          'AnimationController',
+        );
         t.reset();
         return null;
       },
       'forward': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController');
+        final t = D4.validateTarget<$flutter_2.AnimationController>(
+          target,
+          'AnimationController',
+        );
         final from = D4.getOptionalNamedArg<double?>(named, 'from');
         return t.forward(from: from);
       },
       'reverse': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController');
+        final t = D4.validateTarget<$flutter_2.AnimationController>(
+          target,
+          'AnimationController',
+        );
         final from = D4.getOptionalNamedArg<double?>(named, 'from');
         return t.reverse(from: from);
       },
       'toggle': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController');
+        final t = D4.validateTarget<$flutter_2.AnimationController>(
+          target,
+          'AnimationController',
+        );
         final from = D4.getOptionalNamedArg<double?>(named, 'from');
         return t.toggle(from: from);
       },
       'animateTo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController');
+        final t = D4.validateTarget<$flutter_2.AnimationController>(
+          target,
+          'AnimationController',
+        );
         D4.requireMinArgs(positional, 1, 'animateTo');
-        final target_ = D4.getRequiredArg<double>(positional, 0, 'target', 'animateTo');
+        final target_ = D4.getRequiredArg<double>(
+          positional,
+          0,
+          'target',
+          'animateTo',
+        );
         final duration = D4.getOptionalNamedArg<Duration?>(named, 'duration');
-        final curve = D4.getNamedArgWithDefault<$flutter_5.Curve>(named, 'curve', $flutter_5.Curves.linear);
+        final curve = D4.getNamedArgWithDefault<$flutter_5.Curve>(
+          named,
+          'curve',
+          $flutter_5.Curves.linear,
+        );
         return t.animateTo(target_, duration: duration, curve: curve);
       },
       'animateBack': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController');
+        final t = D4.validateTarget<$flutter_2.AnimationController>(
+          target,
+          'AnimationController',
+        );
         D4.requireMinArgs(positional, 1, 'animateBack');
-        final target_ = D4.getRequiredArg<double>(positional, 0, 'target', 'animateBack');
+        final target_ = D4.getRequiredArg<double>(
+          positional,
+          0,
+          'target',
+          'animateBack',
+        );
         final duration = D4.getOptionalNamedArg<Duration?>(named, 'duration');
-        final curve = D4.getNamedArgWithDefault<$flutter_5.Curve>(named, 'curve', $flutter_5.Curves.linear);
+        final curve = D4.getNamedArgWithDefault<$flutter_5.Curve>(
+          named,
+          'curve',
+          $flutter_5.Curves.linear,
+        );
         return t.animateBack(target_, duration: duration, curve: curve);
       },
       'repeat': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController');
+        final t = D4.validateTarget<$flutter_2.AnimationController>(
+          target,
+          'AnimationController',
+        );
         final min = D4.getOptionalNamedArg<double?>(named, 'min');
         final max = D4.getOptionalNamedArg<double?>(named, 'max');
-        final reverse = D4.getNamedArgWithDefault<bool>(named, 'reverse', false);
+        final reverse = D4.getNamedArgWithDefault<bool>(
+          named,
+          'reverse',
+          false,
+        );
         final period = D4.getOptionalNamedArg<Duration?>(named, 'period');
         final count = D4.getOptionalNamedArg<int?>(named, 'count');
-        return t.repeat(min: min, max: max, reverse: reverse, period: period, count: count);
+        return t.repeat(
+          min: min,
+          max: max,
+          reverse: reverse,
+          period: period,
+          count: count,
+        );
       },
       'fling': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController');
-        final velocity = D4.getNamedArgWithDefault<double>(named, 'velocity', 1.0);
-        final springDescription = D4.getOptionalNamedArg<$flutter_12.SpringDescription?>(named, 'springDescription');
-        final animationBehavior = D4.getOptionalNamedArg<$flutter_2.AnimationBehavior?>(named, 'animationBehavior');
-        return t.fling(velocity: velocity, springDescription: springDescription, animationBehavior: animationBehavior);
+        final t = D4.validateTarget<$flutter_2.AnimationController>(
+          target,
+          'AnimationController',
+        );
+        final velocity = D4.getNamedArgWithDefault<double>(
+          named,
+          'velocity',
+          1.0,
+        );
+        final springDescription = D4
+            .getOptionalNamedArg<$flutter_12.SpringDescription?>(
+              named,
+              'springDescription',
+            );
+        final animationBehavior = D4
+            .getOptionalNamedArg<$flutter_2.AnimationBehavior?>(
+              named,
+              'animationBehavior',
+            );
+        return t.fling(
+          velocity: velocity,
+          springDescription: springDescription,
+          animationBehavior: animationBehavior,
+        );
       },
       'animateWith': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController');
+        final t = D4.validateTarget<$flutter_2.AnimationController>(
+          target,
+          'AnimationController',
+        );
         D4.requireMinArgs(positional, 1, 'animateWith');
-        final simulation = D4.getRequiredArg<$flutter_11.Simulation>(positional, 0, 'simulation', 'animateWith');
+        final simulation = D4.getRequiredArg<$flutter_11.Simulation>(
+          positional,
+          0,
+          'simulation',
+          'animateWith',
+        );
         return t.animateWith(simulation);
       },
       'animateBackWith': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController');
+        final t = D4.validateTarget<$flutter_2.AnimationController>(
+          target,
+          'AnimationController',
+        );
         D4.requireMinArgs(positional, 1, 'animateBackWith');
-        final simulation = D4.getRequiredArg<$flutter_11.Simulation>(positional, 0, 'simulation', 'animateBackWith');
+        final simulation = D4.getRequiredArg<$flutter_11.Simulation>(
+          positional,
+          0,
+          'simulation',
+          'animateBackWith',
+        );
         return t.animateBackWith(simulation);
       },
       'stop': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController');
-        final canceled = D4.getNamedArgWithDefault<bool>(named, 'canceled', true);
+        final t = D4.validateTarget<$flutter_2.AnimationController>(
+          target,
+          'AnimationController',
+        );
+        final canceled = D4.getNamedArgWithDefault<bool>(
+          named,
+          'canceled',
+          true,
+        );
         t.stop(canceled: canceled);
         return null;
       },
       'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController');
+        final t = D4.validateTarget<$flutter_2.AnimationController>(
+          target,
+          'AnimationController',
+        );
         (t as dynamic).dispose();
         return null;
       },
       'didRegisterListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController');
+        final t = D4.validateTarget<$flutter_2.AnimationController>(
+          target,
+          'AnimationController',
+        );
         t.didRegisterListener();
         return null;
       },
       'didUnregisterListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController');
+        final t = D4.validateTarget<$flutter_2.AnimationController>(
+          target,
+          'AnimationController',
+        );
         t.didUnregisterListener();
         return null;
       },
       'clearListeners': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController');
+        final t = D4.validateTarget<$flutter_2.AnimationController>(
+          target,
+          'AnimationController',
+        );
         t.clearListeners();
         return null;
       },
       'notifyListeners': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController');
+        final t = D4.validateTarget<$flutter_2.AnimationController>(
+          target,
+          'AnimationController',
+        );
         t.notifyListeners();
         return null;
       },
       'clearStatusListeners': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController');
+        final t = D4.validateTarget<$flutter_2.AnimationController>(
+          target,
+          'AnimationController',
+        );
         t.clearStatusListeners();
         return null;
       },
       'notifyStatusListeners': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController');
+        final t = D4.validateTarget<$flutter_2.AnimationController>(
+          target,
+          'AnimationController',
+        );
         D4.requireMinArgs(positional, 1, 'notifyStatusListeners');
-        final status = D4.getRequiredArg<$flutter_1.AnimationStatus>(positional, 0, 'status', 'notifyStatusListeners');
+        final status = D4.getRequiredArg<$flutter_1.AnimationStatus>(
+          positional,
+          0,
+          'status',
+          'notifyStatusListeners',
+        );
         t.notifyStatusListeners(status);
         return null;
       },
     },
     constructorSignatures: {
       '': 'AnimationController({double? value, Duration? duration, Duration? reverseDuration, String? debugLabel, double lowerBound = 0.0, double upperBound = 1.0, AnimationBehavior animationBehavior = AnimationBehavior.normal, required TickerProvider vsync})',
-      'unbounded': 'AnimationController.unbounded({double value = 0.0, Duration? duration, Duration? reverseDuration, String? debugLabel, required TickerProvider vsync, AnimationBehavior animationBehavior = AnimationBehavior.preserve})',
+      'unbounded':
+          'AnimationController.unbounded({double value = 0.0, Duration? duration, Duration? reverseDuration, String? debugLabel, required TickerProvider vsync, AnimationBehavior animationBehavior = AnimationBehavior.preserve})',
     },
     methodSignatures: {
       'addListener': 'void addListener(VoidCallback listener)',
       'removeListener': 'void removeListener(VoidCallback listener)',
-      'addStatusListener': 'void addStatusListener(AnimationStatusListener listener)',
-      'removeStatusListener': 'void removeStatusListener(AnimationStatusListener listener)',
+      'addStatusListener':
+          'void addStatusListener(AnimationStatusListener listener)',
+      'removeStatusListener':
+          'void removeStatusListener(AnimationStatusListener listener)',
       'drive': 'Animation<U> drive(Animatable<U> child)',
       'toString': 'String toString()',
       'toStringDetails': 'String toStringDetails()',
@@ -3110,10 +4715,14 @@ BridgedClass _createAnimationControllerBridge() {
       'forward': 'TickerFuture forward({double? from})',
       'reverse': 'TickerFuture reverse({double? from})',
       'toggle': 'TickerFuture toggle({double? from})',
-      'animateTo': 'TickerFuture animateTo(double target, {Duration? duration, Curve curve = Curves.linear})',
-      'animateBack': 'TickerFuture animateBack(double target, {Duration? duration, Curve curve = Curves.linear})',
-      'repeat': 'TickerFuture repeat({double? min, double? max, bool reverse = false, Duration? period, int? count})',
-      'fling': 'TickerFuture fling({double velocity = 1.0, SpringDescription? springDescription, AnimationBehavior? animationBehavior})',
+      'animateTo':
+          'TickerFuture animateTo(double target, {Duration? duration, Curve curve = Curves.linear})',
+      'animateBack':
+          'TickerFuture animateBack(double target, {Duration? duration, Curve curve = Curves.linear})',
+      'repeat':
+          'TickerFuture repeat({double? min, double? max, bool reverse = false, Duration? period, int? count})',
+      'fling':
+          'TickerFuture fling({double velocity = 1.0, SpringDescription? springDescription, AnimationBehavior? animationBehavior})',
       'animateWith': 'TickerFuture animateWith(Simulation simulation)',
       'animateBackWith': 'TickerFuture animateBackWith(Simulation simulation)',
       'stop': 'void stop({bool canceled = true})',
@@ -3123,7 +4732,8 @@ BridgedClass _createAnimationControllerBridge() {
       'clearListeners': 'void clearListeners()',
       'notifyListeners': 'void notifyListeners()',
       'clearStatusListeners': 'void clearStatusListeners()',
-      'notifyStatusListeners': 'void notifyStatusListeners(AnimationStatus status)',
+      'notifyStatusListeners':
+          'void notifyStatusListeners(AnimationStatus status)',
     },
     getterSignatures: {
       'status': 'AnimationStatus get status',
@@ -3164,54 +4774,122 @@ BridgedClass _createAnimationStyleBridge() {
       '': (visitor, positional, named) {
         final curve = D4.getOptionalNamedArg<$flutter_5.Curve?>(named, 'curve');
         final duration = D4.getOptionalNamedArg<Duration?>(named, 'duration');
-        final reverseCurve = D4.getOptionalNamedArg<$flutter_5.Curve?>(named, 'reverseCurve');
-        final reverseDuration = D4.getOptionalNamedArg<Duration?>(named, 'reverseDuration');
-        return $flutter_3.AnimationStyle(curve: curve, duration: duration, reverseCurve: reverseCurve, reverseDuration: reverseDuration);
+        final reverseCurve = D4.getOptionalNamedArg<$flutter_5.Curve?>(
+          named,
+          'reverseCurve',
+        );
+        final reverseDuration = D4.getOptionalNamedArg<Duration?>(
+          named,
+          'reverseDuration',
+        );
+        return $flutter_3.AnimationStyle(
+          curve: curve,
+          duration: duration,
+          reverseCurve: reverseCurve,
+          reverseDuration: reverseDuration,
+        );
       },
     },
     getters: {
-      'curve': (visitor, target) => D4.validateTarget<$flutter_3.AnimationStyle>(target, 'AnimationStyle').curve,
-      'duration': (visitor, target) => D4.validateTarget<$flutter_3.AnimationStyle>(target, 'AnimationStyle').duration,
-      'reverseCurve': (visitor, target) => D4.validateTarget<$flutter_3.AnimationStyle>(target, 'AnimationStyle').reverseCurve,
-      'reverseDuration': (visitor, target) => D4.validateTarget<$flutter_3.AnimationStyle>(target, 'AnimationStyle').reverseDuration,
-      'hashCode': (visitor, target) => D4.validateTarget<$flutter_3.AnimationStyle>(target, 'AnimationStyle').hashCode,
+      'curve': (visitor, target) => D4
+          .validateTarget<$flutter_3.AnimationStyle>(target, 'AnimationStyle')
+          .curve,
+      'duration': (visitor, target) => D4
+          .validateTarget<$flutter_3.AnimationStyle>(target, 'AnimationStyle')
+          .duration,
+      'reverseCurve': (visitor, target) => D4
+          .validateTarget<$flutter_3.AnimationStyle>(target, 'AnimationStyle')
+          .reverseCurve,
+      'reverseDuration': (visitor, target) => D4
+          .validateTarget<$flutter_3.AnimationStyle>(target, 'AnimationStyle')
+          .reverseDuration,
+      'hashCode': (visitor, target) => D4
+          .validateTarget<$flutter_3.AnimationStyle>(target, 'AnimationStyle')
+          .hashCode,
     },
     methods: {
       'copyWith': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_3.AnimationStyle>(target, 'AnimationStyle');
+        final t = D4.validateTarget<$flutter_3.AnimationStyle>(
+          target,
+          'AnimationStyle',
+        );
         final curve = D4.getOptionalNamedArg<$flutter_5.Curve?>(named, 'curve');
         final duration = D4.getOptionalNamedArg<Duration?>(named, 'duration');
-        final reverseCurve = D4.getOptionalNamedArg<$flutter_5.Curve?>(named, 'reverseCurve');
-        final reverseDuration = D4.getOptionalNamedArg<Duration?>(named, 'reverseDuration');
-        return t.copyWith(curve: curve, duration: duration, reverseCurve: reverseCurve, reverseDuration: reverseDuration);
+        final reverseCurve = D4.getOptionalNamedArg<$flutter_5.Curve?>(
+          named,
+          'reverseCurve',
+        );
+        final reverseDuration = D4.getOptionalNamedArg<Duration?>(
+          named,
+          'reverseDuration',
+        );
+        return t.copyWith(
+          curve: curve,
+          duration: duration,
+          reverseCurve: reverseCurve,
+          reverseDuration: reverseDuration,
+        );
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_3.AnimationStyle>(target, 'AnimationStyle');
+        final t = D4.validateTarget<$flutter_3.AnimationStyle>(
+          target,
+          'AnimationStyle',
+        );
         D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final properties = D4.getRequiredArg<$flutter_10.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        final properties = D4
+            .getRequiredArg<$flutter_10.DiagnosticPropertiesBuilder>(
+              positional,
+              0,
+              'properties',
+              'debugFillProperties',
+            );
         (t as dynamic).debugFillProperties(properties);
         return null;
       },
       'toStringShort': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_3.AnimationStyle>(target, 'AnimationStyle');
+        final t = D4.validateTarget<$flutter_3.AnimationStyle>(
+          target,
+          'AnimationStyle',
+        );
         return t.toStringShort();
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_3.AnimationStyle>(target, 'AnimationStyle');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_10.DiagnosticLevel>(named, 'minLevel', $flutter_10.DiagnosticLevel.info);
+        final t = D4.validateTarget<$flutter_3.AnimationStyle>(
+          target,
+          'AnimationStyle',
+        );
+        final minLevel = D4.getNamedArgWithDefault<$flutter_10.DiagnosticLevel>(
+          named,
+          'minLevel',
+          $flutter_10.DiagnosticLevel.info,
+        );
         return t.toString(minLevel: minLevel);
       },
       'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_3.AnimationStyle>(target, 'AnimationStyle');
+        final t = D4.validateTarget<$flutter_3.AnimationStyle>(
+          target,
+          'AnimationStyle',
+        );
         final name = D4.getOptionalNamedArg<String?>(named, 'name');
-        final style = D4.getOptionalNamedArg<$flutter_10.DiagnosticsTreeStyle?>(named, 'style');
+        final style = D4.getOptionalNamedArg<$flutter_10.DiagnosticsTreeStyle?>(
+          named,
+          'style',
+        );
         return t.toDiagnosticsNode(name: name, style: style);
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_3.AnimationStyle>(target, 'AnimationStyle');
+        final t = D4.validateTarget<$flutter_3.AnimationStyle>(
+          target,
+          'AnimationStyle',
+        );
         // GEN-103: Dart spec — non-null == null is always false.
         if (positional.isEmpty || positional[0] == null) return false;
-        final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
+        final other = D4.getRequiredArg<Object>(
+          positional,
+          0,
+          'other',
+          'operator==',
+        );
         return t == other;
       },
     },
@@ -3221,8 +4899,18 @@ BridgedClass _createAnimationStyleBridge() {
     staticMethods: {
       'lerp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerp');
-        final a = D4.getRequiredArg<$flutter_3.AnimationStyle?>(positional, 0, 'a', 'lerp');
-        final b = D4.getRequiredArg<$flutter_3.AnimationStyle?>(positional, 1, 'b', 'lerp');
+        final a = D4.getRequiredArg<$flutter_3.AnimationStyle?>(
+          positional,
+          0,
+          'a',
+          'lerp',
+        );
+        final b = D4.getRequiredArg<$flutter_3.AnimationStyle?>(
+          positional,
+          1,
+          'b',
+          'lerp',
+        );
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerp');
         return $flutter_3.AnimationStyle.lerp(a, b, t_);
       },
@@ -3231,11 +4919,15 @@ BridgedClass _createAnimationStyleBridge() {
       '': 'const AnimationStyle({Curve? curve, Duration? duration, Curve? reverseCurve, Duration? reverseDuration})',
     },
     methodSignatures: {
-      'copyWith': 'AnimationStyle copyWith({Curve? curve, Duration? duration, Curve? reverseCurve, Duration? reverseDuration})',
-      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'copyWith':
+          'AnimationStyle copyWith({Curve? curve, Duration? duration, Curve? reverseCurve, Duration? reverseDuration})',
+      'debugFillProperties':
+          'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
       'toStringShort': 'String toStringShort()',
-      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
-      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+      'toString':
+          'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode':
+          'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
     },
     getterSignatures: {
       'curve': 'Curve? get curve',
@@ -3245,11 +4937,10 @@ BridgedClass _createAnimationStyleBridge() {
       'hashCode': 'int get hashCode',
     },
     staticMethodSignatures: {
-      'lerp': 'AnimationStyle? lerp(AnimationStyle? a, AnimationStyle? b, double t)',
+      'lerp':
+          'AnimationStyle? lerp(AnimationStyle? a, AnimationStyle? b, double t)',
     },
-    staticGetterSignatures: {
-      'noAnimation': 'AnimationStyle get noAnimation',
-    },
+    staticGetterSignatures: {'noAnimation': 'AnimationStyle get noAnimation'},
   );
 }
 
@@ -3266,140 +4957,363 @@ BridgedClass _createAlwaysStoppedAnimationBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'AlwaysStoppedAnimation');
-        final value = D4.getRequiredArg<dynamic>(positional, 0, 'value', 'AlwaysStoppedAnimation');
+        final value = D4.getRequiredArg<dynamic>(
+          positional,
+          0,
+          'value',
+          'AlwaysStoppedAnimation',
+        );
         // GEN-075: Preserve generic type parameter from runtime value
         switch (value) {
-          case double _: return $flutter_4.AlwaysStoppedAnimation<double>(value);
-          case int _: return $flutter_4.AlwaysStoppedAnimation<int>(value);
-          case String _: return $flutter_4.AlwaysStoppedAnimation<String>(value);
-          case bool _: return $flutter_4.AlwaysStoppedAnimation<bool>(value);
-          case $flutter_4.AnimationMax _: return $flutter_4.AlwaysStoppedAnimation<$flutter_4.AnimationMax>(value);
-          case $flutter_4.AnimationMean _: return $flutter_4.AlwaysStoppedAnimation<$flutter_4.AnimationMean>(value);
-          case $flutter_4.AnimationMin _: return $flutter_4.AlwaysStoppedAnimation<$flutter_4.AnimationMin>(value);
-          case $flutter_2.AnimationController _: return $flutter_4.AlwaysStoppedAnimation<$flutter_2.AnimationController>(value);
-          case $flutter_4.CompoundAnimation _: return $flutter_4.AlwaysStoppedAnimation<$flutter_4.CompoundAnimation>(value);
-          case $flutter_4.ProxyAnimation _: return $flutter_4.AlwaysStoppedAnimation<$flutter_4.ProxyAnimation>(value);
-          case $flutter_4.TrainHoppingAnimation _: return $flutter_4.AlwaysStoppedAnimation<$flutter_4.TrainHoppingAnimation>(value);
-          case $flutter_4.ReverseAnimation _: return $flutter_4.AlwaysStoppedAnimation<$flutter_4.ReverseAnimation>(value);
-          case $flutter_4.CurvedAnimation _: return $flutter_4.AlwaysStoppedAnimation<$flutter_4.CurvedAnimation>(value);
-          case $flutter_1.Animation _: return $flutter_4.AlwaysStoppedAnimation<$flutter_1.Animation>(value);
-          case $flutter_5.CatmullRomCurve _: return $flutter_4.AlwaysStoppedAnimation<$flutter_5.CatmullRomCurve>(value);
-          case $flutter_5.CatmullRomSpline _: return $flutter_4.AlwaysStoppedAnimation<$flutter_5.CatmullRomSpline>(value);
-          case $flutter_7.ColorTween _: return $flutter_4.AlwaysStoppedAnimation<$flutter_7.ColorTween>(value);
-          case $flutter_7.ConstantTween _: return $flutter_4.AlwaysStoppedAnimation<$flutter_7.ConstantTween>(value);
-          case $flutter_5.Cubic _: return $flutter_4.AlwaysStoppedAnimation<$flutter_5.Cubic>(value);
-          case $flutter_5.ElasticInCurve _: return $flutter_4.AlwaysStoppedAnimation<$flutter_5.ElasticInCurve>(value);
-          case $flutter_5.ElasticInOutCurve _: return $flutter_4.AlwaysStoppedAnimation<$flutter_5.ElasticInOutCurve>(value);
-          case $flutter_5.ElasticOutCurve _: return $flutter_4.AlwaysStoppedAnimation<$flutter_5.ElasticOutCurve>(value);
-          case $flutter_5.FlippedCurve _: return $flutter_4.AlwaysStoppedAnimation<$flutter_5.FlippedCurve>(value);
-          case $flutter_8.FlippedTweenSequence _: return $flutter_4.AlwaysStoppedAnimation<$flutter_8.FlippedTweenSequence>(value);
-          case $flutter_7.IntTween _: return $flutter_4.AlwaysStoppedAnimation<$flutter_7.IntTween>(value);
-          case $flutter_5.Interval _: return $flutter_4.AlwaysStoppedAnimation<$flutter_5.Interval>(value);
-          case $flutter_7.RectTween _: return $flutter_4.AlwaysStoppedAnimation<$flutter_7.RectTween>(value);
-          case $flutter_7.ReverseTween _: return $flutter_4.AlwaysStoppedAnimation<$flutter_7.ReverseTween>(value);
-          case $flutter_5.SawTooth _: return $flutter_4.AlwaysStoppedAnimation<$flutter_5.SawTooth>(value);
-          case $flutter_7.SizeTween _: return $flutter_4.AlwaysStoppedAnimation<$flutter_7.SizeTween>(value);
-          case $flutter_5.Split _: return $flutter_4.AlwaysStoppedAnimation<$flutter_5.Split>(value);
-          case $flutter_7.StepTween _: return $flutter_4.AlwaysStoppedAnimation<$flutter_7.StepTween>(value);
-          case $flutter_5.ThreePointCubic _: return $flutter_4.AlwaysStoppedAnimation<$flutter_5.ThreePointCubic>(value);
-          case $flutter_5.Threshold _: return $flutter_4.AlwaysStoppedAnimation<$flutter_5.Threshold>(value);
-          case $flutter_3.AnimationStyle _: return $flutter_4.AlwaysStoppedAnimation<$flutter_3.AnimationStyle>(value);
-          case $flutter_5.Curve _: return $flutter_4.AlwaysStoppedAnimation<$flutter_5.Curve>(value);
-          case $flutter_5.Curve2D _: return $flutter_4.AlwaysStoppedAnimation<$flutter_5.Curve2D>(value);
-          case $flutter_7.CurveTween _: return $flutter_4.AlwaysStoppedAnimation<$flutter_7.CurveTween>(value);
-          case $flutter_14.TickerCanceled _: return $flutter_4.AlwaysStoppedAnimation<$flutter_14.TickerCanceled>(value);
-          case $flutter_14.TickerFuture _: return $flutter_4.AlwaysStoppedAnimation<$flutter_14.TickerFuture>(value);
-          case $flutter_7.Tween _: return $flutter_4.AlwaysStoppedAnimation<$flutter_7.Tween>(value);
-          case $flutter_8.TweenSequence _: return $flutter_4.AlwaysStoppedAnimation<$flutter_8.TweenSequence>(value);
-          case $flutter_7.Animatable _: return $flutter_4.AlwaysStoppedAnimation<$flutter_7.Animatable>(value);
-          case $flutter_6.AnimationEagerListenerMixin _: return $flutter_4.AlwaysStoppedAnimation<$flutter_6.AnimationEagerListenerMixin>(value);
-          case $flutter_6.AnimationLazyListenerMixin _: return $flutter_4.AlwaysStoppedAnimation<$flutter_6.AnimationLazyListenerMixin>(value);
-          case $flutter_6.AnimationLocalListenersMixin _: return $flutter_4.AlwaysStoppedAnimation<$flutter_6.AnimationLocalListenersMixin>(value);
-          case $flutter_6.AnimationLocalStatusListenersMixin _: return $flutter_4.AlwaysStoppedAnimation<$flutter_6.AnimationLocalStatusListenersMixin>(value);
-          case $flutter_4.AnimationWithParentMixin _: return $flutter_4.AlwaysStoppedAnimation<$flutter_4.AnimationWithParentMixin>(value);
-          case $flutter_5.Curve2DSample _: return $flutter_4.AlwaysStoppedAnimation<$flutter_5.Curve2DSample>(value);
-          case $flutter_5.Curves _: return $flutter_4.AlwaysStoppedAnimation<$flutter_5.Curves>(value);
-          case $flutter_5.ParametricCurve _: return $flutter_4.AlwaysStoppedAnimation<$flutter_5.ParametricCurve>(value);
-          case $flutter_11.Simulation _: return $flutter_4.AlwaysStoppedAnimation<$flutter_11.Simulation>(value);
-          case $flutter_12.SpringDescription _: return $flutter_4.AlwaysStoppedAnimation<$flutter_12.SpringDescription>(value);
-          case $flutter_14.TickerProvider _: return $flutter_4.AlwaysStoppedAnimation<$flutter_14.TickerProvider>(value);
-          case $flutter_8.TweenSequenceItem _: return $flutter_4.AlwaysStoppedAnimation<$flutter_8.TweenSequenceItem>(value);
-          default: return $flutter_4.AlwaysStoppedAnimation(value);
+          case double _:
+            return $flutter_4.AlwaysStoppedAnimation<double>(value);
+          case int _:
+            return $flutter_4.AlwaysStoppedAnimation<int>(value);
+          case String _:
+            return $flutter_4.AlwaysStoppedAnimation<String>(value);
+          case bool _:
+            return $flutter_4.AlwaysStoppedAnimation<bool>(value);
+          case $flutter_4.AnimationMax _:
+            return $flutter_4.AlwaysStoppedAnimation<$flutter_4.AnimationMax>(
+              value,
+            );
+          case $flutter_4.AnimationMean _:
+            return $flutter_4.AlwaysStoppedAnimation<$flutter_4.AnimationMean>(
+              value,
+            );
+          case $flutter_4.AnimationMin _:
+            return $flutter_4.AlwaysStoppedAnimation<$flutter_4.AnimationMin>(
+              value,
+            );
+          case $flutter_2.AnimationController _:
+            return $flutter_4.AlwaysStoppedAnimation<
+              $flutter_2.AnimationController
+            >(value);
+          case $flutter_4.CompoundAnimation _:
+            return $flutter_4.AlwaysStoppedAnimation<
+              $flutter_4.CompoundAnimation
+            >(value);
+          case $flutter_4.ProxyAnimation _:
+            return $flutter_4.AlwaysStoppedAnimation<$flutter_4.ProxyAnimation>(
+              value,
+            );
+          case $flutter_4.TrainHoppingAnimation _:
+            return $flutter_4.AlwaysStoppedAnimation<
+              $flutter_4.TrainHoppingAnimation
+            >(value);
+          case $flutter_4.ReverseAnimation _:
+            return $flutter_4.AlwaysStoppedAnimation<
+              $flutter_4.ReverseAnimation
+            >(value);
+          case $flutter_4.CurvedAnimation _:
+            return $flutter_4.AlwaysStoppedAnimation<
+              $flutter_4.CurvedAnimation
+            >(value);
+          case $flutter_1.Animation _:
+            return $flutter_4.AlwaysStoppedAnimation<$flutter_1.Animation>(
+              value,
+            );
+          case $flutter_5.CatmullRomCurve _:
+            return $flutter_4.AlwaysStoppedAnimation<
+              $flutter_5.CatmullRomCurve
+            >(value);
+          case $flutter_5.CatmullRomSpline _:
+            return $flutter_4.AlwaysStoppedAnimation<
+              $flutter_5.CatmullRomSpline
+            >(value);
+          case $flutter_7.ColorTween _:
+            return $flutter_4.AlwaysStoppedAnimation<$flutter_7.ColorTween>(
+              value,
+            );
+          case $flutter_7.ConstantTween _:
+            return $flutter_4.AlwaysStoppedAnimation<$flutter_7.ConstantTween>(
+              value,
+            );
+          case $flutter_5.Cubic _:
+            return $flutter_4.AlwaysStoppedAnimation<$flutter_5.Cubic>(value);
+          case $flutter_5.ElasticInCurve _:
+            return $flutter_4.AlwaysStoppedAnimation<$flutter_5.ElasticInCurve>(
+              value,
+            );
+          case $flutter_5.ElasticInOutCurve _:
+            return $flutter_4.AlwaysStoppedAnimation<
+              $flutter_5.ElasticInOutCurve
+            >(value);
+          case $flutter_5.ElasticOutCurve _:
+            return $flutter_4.AlwaysStoppedAnimation<
+              $flutter_5.ElasticOutCurve
+            >(value);
+          case $flutter_5.FlippedCurve _:
+            return $flutter_4.AlwaysStoppedAnimation<$flutter_5.FlippedCurve>(
+              value,
+            );
+          case $flutter_8.FlippedTweenSequence _:
+            return $flutter_4.AlwaysStoppedAnimation<
+              $flutter_8.FlippedTweenSequence
+            >(value);
+          case $flutter_7.IntTween _:
+            return $flutter_4.AlwaysStoppedAnimation<$flutter_7.IntTween>(
+              value,
+            );
+          case $flutter_5.Interval _:
+            return $flutter_4.AlwaysStoppedAnimation<$flutter_5.Interval>(
+              value,
+            );
+          case $flutter_7.RectTween _:
+            return $flutter_4.AlwaysStoppedAnimation<$flutter_7.RectTween>(
+              value,
+            );
+          case $flutter_7.ReverseTween _:
+            return $flutter_4.AlwaysStoppedAnimation<$flutter_7.ReverseTween>(
+              value,
+            );
+          case $flutter_5.SawTooth _:
+            return $flutter_4.AlwaysStoppedAnimation<$flutter_5.SawTooth>(
+              value,
+            );
+          case $flutter_7.SizeTween _:
+            return $flutter_4.AlwaysStoppedAnimation<$flutter_7.SizeTween>(
+              value,
+            );
+          case $flutter_5.Split _:
+            return $flutter_4.AlwaysStoppedAnimation<$flutter_5.Split>(value);
+          case $flutter_7.StepTween _:
+            return $flutter_4.AlwaysStoppedAnimation<$flutter_7.StepTween>(
+              value,
+            );
+          case $flutter_5.ThreePointCubic _:
+            return $flutter_4.AlwaysStoppedAnimation<
+              $flutter_5.ThreePointCubic
+            >(value);
+          case $flutter_5.Threshold _:
+            return $flutter_4.AlwaysStoppedAnimation<$flutter_5.Threshold>(
+              value,
+            );
+          case $flutter_3.AnimationStyle _:
+            return $flutter_4.AlwaysStoppedAnimation<$flutter_3.AnimationStyle>(
+              value,
+            );
+          case $flutter_5.Curve _:
+            return $flutter_4.AlwaysStoppedAnimation<$flutter_5.Curve>(value);
+          case $flutter_5.Curve2D _:
+            return $flutter_4.AlwaysStoppedAnimation<$flutter_5.Curve2D>(value);
+          case $flutter_7.CurveTween _:
+            return $flutter_4.AlwaysStoppedAnimation<$flutter_7.CurveTween>(
+              value,
+            );
+          case $flutter_14.TickerCanceled _:
+            return $flutter_4.AlwaysStoppedAnimation<
+              $flutter_14.TickerCanceled
+            >(value);
+          case $flutter_14.TickerFuture _:
+            return $flutter_4.AlwaysStoppedAnimation<$flutter_14.TickerFuture>(
+              value,
+            );
+          case $flutter_7.Tween _:
+            return $flutter_4.AlwaysStoppedAnimation<$flutter_7.Tween>(value);
+          case $flutter_8.TweenSequence _:
+            return $flutter_4.AlwaysStoppedAnimation<$flutter_8.TweenSequence>(
+              value,
+            );
+          case $flutter_7.Animatable _:
+            return $flutter_4.AlwaysStoppedAnimation<$flutter_7.Animatable>(
+              value,
+            );
+          case $flutter_6.AnimationEagerListenerMixin _:
+            return $flutter_4.AlwaysStoppedAnimation<
+              $flutter_6.AnimationEagerListenerMixin
+            >(value);
+          case $flutter_6.AnimationLazyListenerMixin _:
+            return $flutter_4.AlwaysStoppedAnimation<
+              $flutter_6.AnimationLazyListenerMixin
+            >(value);
+          case $flutter_6.AnimationLocalListenersMixin _:
+            return $flutter_4.AlwaysStoppedAnimation<
+              $flutter_6.AnimationLocalListenersMixin
+            >(value);
+          case $flutter_6.AnimationLocalStatusListenersMixin _:
+            return $flutter_4.AlwaysStoppedAnimation<
+              $flutter_6.AnimationLocalStatusListenersMixin
+            >(value);
+          case $flutter_4.AnimationWithParentMixin _:
+            return $flutter_4.AlwaysStoppedAnimation<
+              $flutter_4.AnimationWithParentMixin
+            >(value);
+          case $flutter_5.Curve2DSample _:
+            return $flutter_4.AlwaysStoppedAnimation<$flutter_5.Curve2DSample>(
+              value,
+            );
+          case $flutter_5.Curves _:
+            return $flutter_4.AlwaysStoppedAnimation<$flutter_5.Curves>(value);
+          case $flutter_5.ParametricCurve _:
+            return $flutter_4.AlwaysStoppedAnimation<
+              $flutter_5.ParametricCurve
+            >(value);
+          case $flutter_11.Simulation _:
+            return $flutter_4.AlwaysStoppedAnimation<$flutter_11.Simulation>(
+              value,
+            );
+          case $flutter_12.SpringDescription _:
+            return $flutter_4.AlwaysStoppedAnimation<
+              $flutter_12.SpringDescription
+            >(value);
+          case $flutter_14.TickerProvider _:
+            return $flutter_4.AlwaysStoppedAnimation<
+              $flutter_14.TickerProvider
+            >(value);
+          case $flutter_8.TweenSequenceItem _:
+            return $flutter_4.AlwaysStoppedAnimation<
+              $flutter_8.TweenSequenceItem
+            >(value);
+          default:
+            return $flutter_4.AlwaysStoppedAnimation(value);
         }
       },
     },
     getters: {
-      'status': (visitor, target) => D4.validateTarget<$flutter_4.AlwaysStoppedAnimation>(target, 'AlwaysStoppedAnimation').status,
-      'value': (visitor, target) => D4.validateTarget<$flutter_4.AlwaysStoppedAnimation>(target, 'AlwaysStoppedAnimation').value,
-      'isDismissed': (visitor, target) => D4.validateTarget<$flutter_4.AlwaysStoppedAnimation>(target, 'AlwaysStoppedAnimation').isDismissed,
-      'isCompleted': (visitor, target) => D4.validateTarget<$flutter_4.AlwaysStoppedAnimation>(target, 'AlwaysStoppedAnimation').isCompleted,
-      'isAnimating': (visitor, target) => D4.validateTarget<$flutter_4.AlwaysStoppedAnimation>(target, 'AlwaysStoppedAnimation').isAnimating,
-      'isForwardOrCompleted': (visitor, target) => D4.validateTarget<$flutter_4.AlwaysStoppedAnimation>(target, 'AlwaysStoppedAnimation').isForwardOrCompleted,
+      'status': (visitor, target) => D4
+          .validateTarget<$flutter_4.AlwaysStoppedAnimation>(
+            target,
+            'AlwaysStoppedAnimation',
+          )
+          .status,
+      'value': (visitor, target) => D4
+          .validateTarget<$flutter_4.AlwaysStoppedAnimation>(
+            target,
+            'AlwaysStoppedAnimation',
+          )
+          .value,
+      'isDismissed': (visitor, target) => D4
+          .validateTarget<$flutter_4.AlwaysStoppedAnimation>(
+            target,
+            'AlwaysStoppedAnimation',
+          )
+          .isDismissed,
+      'isCompleted': (visitor, target) => D4
+          .validateTarget<$flutter_4.AlwaysStoppedAnimation>(
+            target,
+            'AlwaysStoppedAnimation',
+          )
+          .isCompleted,
+      'isAnimating': (visitor, target) => D4
+          .validateTarget<$flutter_4.AlwaysStoppedAnimation>(
+            target,
+            'AlwaysStoppedAnimation',
+          )
+          .isAnimating,
+      'isForwardOrCompleted': (visitor, target) => D4
+          .validateTarget<$flutter_4.AlwaysStoppedAnimation>(
+            target,
+            'AlwaysStoppedAnimation',
+          )
+          .isForwardOrCompleted,
     },
     methods: {
       'addListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AlwaysStoppedAnimation>(target, 'AlwaysStoppedAnimation');
+        final t = D4.validateTarget<$flutter_4.AlwaysStoppedAnimation>(
+          target,
+          'AlwaysStoppedAnimation',
+        );
         D4.requireMinArgs(positional, 1, 'addListener');
         if (positional.isEmpty) {
-          throw ArgumentError('addListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'addListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.addListener(() { D4.callInterpreterCallback(visitor!, listenerRaw, []); });
+        t.addListener(() {
+          D4.callInterpreterCallback(visitor!, listenerRaw, []);
+        });
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AlwaysStoppedAnimation>(target, 'AlwaysStoppedAnimation');
+        final t = D4.validateTarget<$flutter_4.AlwaysStoppedAnimation>(
+          target,
+          'AlwaysStoppedAnimation',
+        );
         D4.requireMinArgs(positional, 1, 'removeListener');
         if (positional.isEmpty) {
-          throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'removeListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.removeListener(() { D4.callInterpreterCallback(visitor!, listenerRaw, []); });
+        t.removeListener(() {
+          D4.callInterpreterCallback(visitor!, listenerRaw, []);
+        });
         return null;
       },
       'addStatusListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AlwaysStoppedAnimation>(target, 'AlwaysStoppedAnimation');
+        final t = D4.validateTarget<$flutter_4.AlwaysStoppedAnimation>(
+          target,
+          'AlwaysStoppedAnimation',
+        );
         D4.requireMinArgs(positional, 1, 'addStatusListener');
         if (positional.isEmpty) {
-          throw ArgumentError('addStatusListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'addStatusListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.addStatusListener(($flutter_1.AnimationStatus p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
+        t.addStatusListener(($flutter_1.AnimationStatus p0) {
+          D4.callInterpreterCallback(visitor!, listenerRaw, [p0]);
+        });
         return null;
       },
       'removeStatusListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AlwaysStoppedAnimation>(target, 'AlwaysStoppedAnimation');
+        final t = D4.validateTarget<$flutter_4.AlwaysStoppedAnimation>(
+          target,
+          'AlwaysStoppedAnimation',
+        );
         D4.requireMinArgs(positional, 1, 'removeStatusListener');
         if (positional.isEmpty) {
-          throw ArgumentError('removeStatusListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'removeStatusListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.removeStatusListener(($flutter_1.AnimationStatus p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
+        t.removeStatusListener(($flutter_1.AnimationStatus p0) {
+          D4.callInterpreterCallback(visitor!, listenerRaw, [p0]);
+        });
         return null;
       },
       'drive': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AlwaysStoppedAnimation>(target, 'AlwaysStoppedAnimation');
+        final t = D4.validateTarget<$flutter_4.AlwaysStoppedAnimation>(
+          target,
+          'AlwaysStoppedAnimation',
+        );
         D4.requireMinArgs(positional, 1, 'drive');
-        final child = D4.getRequiredArg<$flutter_7.Animatable<dynamic>>(positional, 0, 'child', 'drive');
+        final child = D4.getRequiredArg<$flutter_7.Animatable<dynamic>>(
+          positional,
+          0,
+          'child',
+          'drive',
+        );
         return t.drive(child);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AlwaysStoppedAnimation>(target, 'AlwaysStoppedAnimation');
+        final t = D4.validateTarget<$flutter_4.AlwaysStoppedAnimation>(
+          target,
+          'AlwaysStoppedAnimation',
+        );
         return t.toString();
       },
       'toStringDetails': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AlwaysStoppedAnimation>(target, 'AlwaysStoppedAnimation');
+        final t = D4.validateTarget<$flutter_4.AlwaysStoppedAnimation>(
+          target,
+          'AlwaysStoppedAnimation',
+        );
         return t.toStringDetails();
       },
     },
-    constructorSignatures: {
-      '': 'const AlwaysStoppedAnimation(T value)',
-    },
+    constructorSignatures: {'': 'const AlwaysStoppedAnimation(T value)'},
     methodSignatures: {
       'addListener': 'void addListener(VoidCallback listener)',
       'removeListener': 'void removeListener(VoidCallback listener)',
-      'addStatusListener': 'void addStatusListener(AnimationStatusListener listener)',
-      'removeStatusListener': 'void removeStatusListener(AnimationStatusListener listener)',
+      'addStatusListener':
+          'void addStatusListener(AnimationStatusListener listener)',
+      'removeStatusListener':
+          'void removeStatusListener(AnimationStatusListener listener)',
       'drive': 'Animation<U> drive(Animatable<U> child)',
       'toString': 'String toString()',
       'toStringDetails': 'String toStringDetails()',
@@ -3427,118 +5341,218 @@ BridgedClass _createProxyAnimationBridge() {
     hierarchyDepth: 6,
     constructors: {
       '': (visitor, positional, named) {
-        final animation = D4.getOptionalArg<$flutter_1.Animation<double>?>(positional, 0, 'animation');
+        final animation = D4.getOptionalArg<$flutter_1.Animation<double>?>(
+          positional,
+          0,
+          'animation',
+        );
         return $flutter_4.ProxyAnimation(animation);
       },
     },
     getters: {
-      'status': (visitor, target) => D4.validateTarget<$flutter_4.ProxyAnimation>(target, 'ProxyAnimation').status,
-      'value': (visitor, target) => D4.validateTarget<$flutter_4.ProxyAnimation>(target, 'ProxyAnimation').value,
-      'isDismissed': (visitor, target) => D4.validateTarget<$flutter_4.ProxyAnimation>(target, 'ProxyAnimation').isDismissed,
-      'isCompleted': (visitor, target) => D4.validateTarget<$flutter_4.ProxyAnimation>(target, 'ProxyAnimation').isCompleted,
-      'isAnimating': (visitor, target) => D4.validateTarget<$flutter_4.ProxyAnimation>(target, 'ProxyAnimation').isAnimating,
-      'isForwardOrCompleted': (visitor, target) => D4.validateTarget<$flutter_4.ProxyAnimation>(target, 'ProxyAnimation').isForwardOrCompleted,
-      'parent': (visitor, target) => D4.validateTarget<$flutter_4.ProxyAnimation>(target, 'ProxyAnimation').parent,
-      'isListening': (visitor, target) => D4.validateTarget<$flutter_4.ProxyAnimation>(target, 'ProxyAnimation').isListening,
+      'status': (visitor, target) => D4
+          .validateTarget<$flutter_4.ProxyAnimation>(target, 'ProxyAnimation')
+          .status,
+      'value': (visitor, target) => D4
+          .validateTarget<$flutter_4.ProxyAnimation>(target, 'ProxyAnimation')
+          .value,
+      'isDismissed': (visitor, target) => D4
+          .validateTarget<$flutter_4.ProxyAnimation>(target, 'ProxyAnimation')
+          .isDismissed,
+      'isCompleted': (visitor, target) => D4
+          .validateTarget<$flutter_4.ProxyAnimation>(target, 'ProxyAnimation')
+          .isCompleted,
+      'isAnimating': (visitor, target) => D4
+          .validateTarget<$flutter_4.ProxyAnimation>(target, 'ProxyAnimation')
+          .isAnimating,
+      'isForwardOrCompleted': (visitor, target) => D4
+          .validateTarget<$flutter_4.ProxyAnimation>(target, 'ProxyAnimation')
+          .isForwardOrCompleted,
+      'parent': (visitor, target) => D4
+          .validateTarget<$flutter_4.ProxyAnimation>(target, 'ProxyAnimation')
+          .parent,
+      'isListening': (visitor, target) => D4
+          .validateTarget<$flutter_4.ProxyAnimation>(target, 'ProxyAnimation')
+          .isListening,
     },
     setters: {
-      'parent': (visitor, target, value) => 
-        D4.validateTarget<$flutter_4.ProxyAnimation>(target, 'ProxyAnimation').parent = D4.extractBridgedArgOrNull<$flutter_1.Animation<double>>(value, 'parent'),
+      'parent': (visitor, target, value) =>
+          D4
+              .validateTarget<$flutter_4.ProxyAnimation>(
+                target,
+                'ProxyAnimation',
+              )
+              .parent = D4
+              .extractBridgedArgOrNull<$flutter_1.Animation<double>>(
+                value,
+                'parent',
+              ),
     },
     methods: {
       'addListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.ProxyAnimation>(target, 'ProxyAnimation');
+        final t = D4.validateTarget<$flutter_4.ProxyAnimation>(
+          target,
+          'ProxyAnimation',
+        );
         D4.requireMinArgs(positional, 1, 'addListener');
         if (positional.isEmpty) {
-          throw ArgumentError('addListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'addListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.addListener(() { D4.callInterpreterCallback(visitor!, listenerRaw, []); });
+        t.addListener(() {
+          D4.callInterpreterCallback(visitor!, listenerRaw, []);
+        });
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.ProxyAnimation>(target, 'ProxyAnimation');
+        final t = D4.validateTarget<$flutter_4.ProxyAnimation>(
+          target,
+          'ProxyAnimation',
+        );
         D4.requireMinArgs(positional, 1, 'removeListener');
         if (positional.isEmpty) {
-          throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'removeListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.removeListener(() { D4.callInterpreterCallback(visitor!, listenerRaw, []); });
+        t.removeListener(() {
+          D4.callInterpreterCallback(visitor!, listenerRaw, []);
+        });
         return null;
       },
       'addStatusListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.ProxyAnimation>(target, 'ProxyAnimation');
+        final t = D4.validateTarget<$flutter_4.ProxyAnimation>(
+          target,
+          'ProxyAnimation',
+        );
         D4.requireMinArgs(positional, 1, 'addStatusListener');
         if (positional.isEmpty) {
-          throw ArgumentError('addStatusListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'addStatusListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.addStatusListener(($flutter_1.AnimationStatus p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
+        t.addStatusListener(($flutter_1.AnimationStatus p0) {
+          D4.callInterpreterCallback(visitor!, listenerRaw, [p0]);
+        });
         return null;
       },
       'removeStatusListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.ProxyAnimation>(target, 'ProxyAnimation');
+        final t = D4.validateTarget<$flutter_4.ProxyAnimation>(
+          target,
+          'ProxyAnimation',
+        );
         D4.requireMinArgs(positional, 1, 'removeStatusListener');
         if (positional.isEmpty) {
-          throw ArgumentError('removeStatusListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'removeStatusListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.removeStatusListener(($flutter_1.AnimationStatus p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
+        t.removeStatusListener(($flutter_1.AnimationStatus p0) {
+          D4.callInterpreterCallback(visitor!, listenerRaw, [p0]);
+        });
         return null;
       },
       'drive': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.ProxyAnimation>(target, 'ProxyAnimation');
+        final t = D4.validateTarget<$flutter_4.ProxyAnimation>(
+          target,
+          'ProxyAnimation',
+        );
         D4.requireMinArgs(positional, 1, 'drive');
-        final child = D4.getRequiredArg<$flutter_7.Animatable<dynamic>>(positional, 0, 'child', 'drive');
+        final child = D4.getRequiredArg<$flutter_7.Animatable<dynamic>>(
+          positional,
+          0,
+          'child',
+          'drive',
+        );
         return t.drive(child);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.ProxyAnimation>(target, 'ProxyAnimation');
+        final t = D4.validateTarget<$flutter_4.ProxyAnimation>(
+          target,
+          'ProxyAnimation',
+        );
         return t.toString();
       },
       'toStringDetails': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.ProxyAnimation>(target, 'ProxyAnimation');
+        final t = D4.validateTarget<$flutter_4.ProxyAnimation>(
+          target,
+          'ProxyAnimation',
+        );
         return t.toStringDetails();
       },
       'didStartListening': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.ProxyAnimation>(target, 'ProxyAnimation');
+        final t = D4.validateTarget<$flutter_4.ProxyAnimation>(
+          target,
+          'ProxyAnimation',
+        );
         t.didStartListening();
         return null;
       },
       'didStopListening': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.ProxyAnimation>(target, 'ProxyAnimation');
+        final t = D4.validateTarget<$flutter_4.ProxyAnimation>(
+          target,
+          'ProxyAnimation',
+        );
         t.didStopListening();
         return null;
       },
       'didRegisterListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.ProxyAnimation>(target, 'ProxyAnimation');
+        final t = D4.validateTarget<$flutter_4.ProxyAnimation>(
+          target,
+          'ProxyAnimation',
+        );
         t.didRegisterListener();
         return null;
       },
       'didUnregisterListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.ProxyAnimation>(target, 'ProxyAnimation');
+        final t = D4.validateTarget<$flutter_4.ProxyAnimation>(
+          target,
+          'ProxyAnimation',
+        );
         t.didUnregisterListener();
         return null;
       },
       'clearListeners': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.ProxyAnimation>(target, 'ProxyAnimation');
+        final t = D4.validateTarget<$flutter_4.ProxyAnimation>(
+          target,
+          'ProxyAnimation',
+        );
         t.clearListeners();
         return null;
       },
       'notifyListeners': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.ProxyAnimation>(target, 'ProxyAnimation');
+        final t = D4.validateTarget<$flutter_4.ProxyAnimation>(
+          target,
+          'ProxyAnimation',
+        );
         t.notifyListeners();
         return null;
       },
       'clearStatusListeners': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.ProxyAnimation>(target, 'ProxyAnimation');
+        final t = D4.validateTarget<$flutter_4.ProxyAnimation>(
+          target,
+          'ProxyAnimation',
+        );
         t.clearStatusListeners();
         return null;
       },
       'notifyStatusListeners': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.ProxyAnimation>(target, 'ProxyAnimation');
+        final t = D4.validateTarget<$flutter_4.ProxyAnimation>(
+          target,
+          'ProxyAnimation',
+        );
         D4.requireMinArgs(positional, 1, 'notifyStatusListeners');
-        final status = D4.getRequiredArg<$flutter_1.AnimationStatus>(positional, 0, 'status', 'notifyStatusListeners');
+        final status = D4.getRequiredArg<$flutter_1.AnimationStatus>(
+          positional,
+          0,
+          'status',
+          'notifyStatusListeners',
+        );
         t.notifyStatusListeners(status);
         return null;
       },
@@ -3549,8 +5563,10 @@ BridgedClass _createProxyAnimationBridge() {
     methodSignatures: {
       'addListener': 'void addListener(VoidCallback listener)',
       'removeListener': 'void removeListener(VoidCallback listener)',
-      'addStatusListener': 'void addStatusListener(AnimationStatusListener listener)',
-      'removeStatusListener': 'void removeStatusListener(AnimationStatusListener listener)',
+      'addStatusListener':
+          'void addStatusListener(AnimationStatusListener listener)',
+      'removeStatusListener':
+          'void removeStatusListener(AnimationStatusListener listener)',
       'drive': 'Animation<U> drive(Animatable<U> child)',
       'toString': 'String toString()',
       'toStringDetails': 'String toStringDetails()',
@@ -3561,7 +5577,8 @@ BridgedClass _createProxyAnimationBridge() {
       'clearListeners': 'void clearListeners()',
       'notifyListeners': 'void notifyListeners()',
       'clearStatusListeners': 'void clearStatusListeners()',
-      'notifyStatusListeners': 'void notifyStatusListeners(AnimationStatus status)',
+      'notifyStatusListeners':
+          'void notifyStatusListeners(AnimationStatus status)',
     },
     getterSignatures: {
       'status': 'AnimationStatus get status',
@@ -3573,9 +5590,7 @@ BridgedClass _createProxyAnimationBridge() {
       'parent': 'Animation<double>? get parent',
       'isListening': 'bool get isListening',
     },
-    setterSignatures: {
-      'parent': 'set parent(Animation<double>? value)',
-    },
+    setterSignatures: {'parent': 'set parent(Animation<double>? value)'},
   );
 }
 
@@ -3592,116 +5607,226 @@ BridgedClass _createReverseAnimationBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ReverseAnimation');
-        final parent = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'parent', 'ReverseAnimation');
+        final parent = D4.getRequiredArg<$flutter_1.Animation<double>>(
+          positional,
+          0,
+          'parent',
+          'ReverseAnimation',
+        );
         return $flutter_4.ReverseAnimation(parent);
       },
     },
     getters: {
-      'status': (visitor, target) => D4.validateTarget<$flutter_4.ReverseAnimation>(target, 'ReverseAnimation').status,
-      'value': (visitor, target) => D4.validateTarget<$flutter_4.ReverseAnimation>(target, 'ReverseAnimation').value,
-      'isDismissed': (visitor, target) => D4.validateTarget<$flutter_4.ReverseAnimation>(target, 'ReverseAnimation').isDismissed,
-      'isCompleted': (visitor, target) => D4.validateTarget<$flutter_4.ReverseAnimation>(target, 'ReverseAnimation').isCompleted,
-      'isAnimating': (visitor, target) => D4.validateTarget<$flutter_4.ReverseAnimation>(target, 'ReverseAnimation').isAnimating,
-      'isForwardOrCompleted': (visitor, target) => D4.validateTarget<$flutter_4.ReverseAnimation>(target, 'ReverseAnimation').isForwardOrCompleted,
-      'parent': (visitor, target) => D4.validateTarget<$flutter_4.ReverseAnimation>(target, 'ReverseAnimation').parent,
-      'isListening': (visitor, target) => D4.validateTarget<$flutter_4.ReverseAnimation>(target, 'ReverseAnimation').isListening,
+      'status': (visitor, target) => D4
+          .validateTarget<$flutter_4.ReverseAnimation>(
+            target,
+            'ReverseAnimation',
+          )
+          .status,
+      'value': (visitor, target) => D4
+          .validateTarget<$flutter_4.ReverseAnimation>(
+            target,
+            'ReverseAnimation',
+          )
+          .value,
+      'isDismissed': (visitor, target) => D4
+          .validateTarget<$flutter_4.ReverseAnimation>(
+            target,
+            'ReverseAnimation',
+          )
+          .isDismissed,
+      'isCompleted': (visitor, target) => D4
+          .validateTarget<$flutter_4.ReverseAnimation>(
+            target,
+            'ReverseAnimation',
+          )
+          .isCompleted,
+      'isAnimating': (visitor, target) => D4
+          .validateTarget<$flutter_4.ReverseAnimation>(
+            target,
+            'ReverseAnimation',
+          )
+          .isAnimating,
+      'isForwardOrCompleted': (visitor, target) => D4
+          .validateTarget<$flutter_4.ReverseAnimation>(
+            target,
+            'ReverseAnimation',
+          )
+          .isForwardOrCompleted,
+      'parent': (visitor, target) => D4
+          .validateTarget<$flutter_4.ReverseAnimation>(
+            target,
+            'ReverseAnimation',
+          )
+          .parent,
+      'isListening': (visitor, target) => D4
+          .validateTarget<$flutter_4.ReverseAnimation>(
+            target,
+            'ReverseAnimation',
+          )
+          .isListening,
     },
     methods: {
       'addListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.ReverseAnimation>(target, 'ReverseAnimation');
+        final t = D4.validateTarget<$flutter_4.ReverseAnimation>(
+          target,
+          'ReverseAnimation',
+        );
         D4.requireMinArgs(positional, 1, 'addListener');
         if (positional.isEmpty) {
-          throw ArgumentError('addListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'addListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.addListener(() { D4.callInterpreterCallback(visitor!, listenerRaw, []); });
+        t.addListener(() {
+          D4.callInterpreterCallback(visitor!, listenerRaw, []);
+        });
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.ReverseAnimation>(target, 'ReverseAnimation');
+        final t = D4.validateTarget<$flutter_4.ReverseAnimation>(
+          target,
+          'ReverseAnimation',
+        );
         D4.requireMinArgs(positional, 1, 'removeListener');
         if (positional.isEmpty) {
-          throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'removeListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.removeListener(() { D4.callInterpreterCallback(visitor!, listenerRaw, []); });
+        t.removeListener(() {
+          D4.callInterpreterCallback(visitor!, listenerRaw, []);
+        });
         return null;
       },
       'addStatusListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.ReverseAnimation>(target, 'ReverseAnimation');
+        final t = D4.validateTarget<$flutter_4.ReverseAnimation>(
+          target,
+          'ReverseAnimation',
+        );
         D4.requireMinArgs(positional, 1, 'addStatusListener');
         if (positional.isEmpty) {
-          throw ArgumentError('addStatusListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'addStatusListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.addStatusListener(($flutter_1.AnimationStatus p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
+        t.addStatusListener(($flutter_1.AnimationStatus p0) {
+          D4.callInterpreterCallback(visitor!, listenerRaw, [p0]);
+        });
         return null;
       },
       'removeStatusListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.ReverseAnimation>(target, 'ReverseAnimation');
+        final t = D4.validateTarget<$flutter_4.ReverseAnimation>(
+          target,
+          'ReverseAnimation',
+        );
         D4.requireMinArgs(positional, 1, 'removeStatusListener');
         if (positional.isEmpty) {
-          throw ArgumentError('removeStatusListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'removeStatusListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.removeStatusListener(($flutter_1.AnimationStatus p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
+        t.removeStatusListener(($flutter_1.AnimationStatus p0) {
+          D4.callInterpreterCallback(visitor!, listenerRaw, [p0]);
+        });
         return null;
       },
       'drive': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.ReverseAnimation>(target, 'ReverseAnimation');
+        final t = D4.validateTarget<$flutter_4.ReverseAnimation>(
+          target,
+          'ReverseAnimation',
+        );
         D4.requireMinArgs(positional, 1, 'drive');
-        final child = D4.getRequiredArg<$flutter_7.Animatable<dynamic>>(positional, 0, 'child', 'drive');
+        final child = D4.getRequiredArg<$flutter_7.Animatable<dynamic>>(
+          positional,
+          0,
+          'child',
+          'drive',
+        );
         return t.drive(child);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.ReverseAnimation>(target, 'ReverseAnimation');
+        final t = D4.validateTarget<$flutter_4.ReverseAnimation>(
+          target,
+          'ReverseAnimation',
+        );
         return t.toString();
       },
       'toStringDetails': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.ReverseAnimation>(target, 'ReverseAnimation');
+        final t = D4.validateTarget<$flutter_4.ReverseAnimation>(
+          target,
+          'ReverseAnimation',
+        );
         return t.toStringDetails();
       },
       'didStartListening': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.ReverseAnimation>(target, 'ReverseAnimation');
+        final t = D4.validateTarget<$flutter_4.ReverseAnimation>(
+          target,
+          'ReverseAnimation',
+        );
         t.didStartListening();
         return null;
       },
       'didStopListening': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.ReverseAnimation>(target, 'ReverseAnimation');
+        final t = D4.validateTarget<$flutter_4.ReverseAnimation>(
+          target,
+          'ReverseAnimation',
+        );
         t.didStopListening();
         return null;
       },
       'didRegisterListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.ReverseAnimation>(target, 'ReverseAnimation');
+        final t = D4.validateTarget<$flutter_4.ReverseAnimation>(
+          target,
+          'ReverseAnimation',
+        );
         t.didRegisterListener();
         return null;
       },
       'didUnregisterListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.ReverseAnimation>(target, 'ReverseAnimation');
+        final t = D4.validateTarget<$flutter_4.ReverseAnimation>(
+          target,
+          'ReverseAnimation',
+        );
         t.didUnregisterListener();
         return null;
       },
       'clearStatusListeners': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.ReverseAnimation>(target, 'ReverseAnimation');
+        final t = D4.validateTarget<$flutter_4.ReverseAnimation>(
+          target,
+          'ReverseAnimation',
+        );
         t.clearStatusListeners();
         return null;
       },
       'notifyStatusListeners': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.ReverseAnimation>(target, 'ReverseAnimation');
+        final t = D4.validateTarget<$flutter_4.ReverseAnimation>(
+          target,
+          'ReverseAnimation',
+        );
         D4.requireMinArgs(positional, 1, 'notifyStatusListeners');
-        final status = D4.getRequiredArg<$flutter_1.AnimationStatus>(positional, 0, 'status', 'notifyStatusListeners');
+        final status = D4.getRequiredArg<$flutter_1.AnimationStatus>(
+          positional,
+          0,
+          'status',
+          'notifyStatusListeners',
+        );
         t.notifyStatusListeners(status);
         return null;
       },
     },
-    constructorSignatures: {
-      '': 'ReverseAnimation(Animation<double> parent)',
-    },
+    constructorSignatures: {'': 'ReverseAnimation(Animation<double> parent)'},
     methodSignatures: {
       'addListener': 'void addListener(VoidCallback listener)',
       'removeListener': 'void removeListener(VoidCallback listener)',
-      'addStatusListener': 'void addStatusListener(AnimationStatusListener listener)',
-      'removeStatusListener': 'void removeStatusListener(AnimationStatusListener listener)',
+      'addStatusListener':
+          'void addStatusListener(AnimationStatusListener listener)',
+      'removeStatusListener':
+          'void removeStatusListener(AnimationStatusListener listener)',
       'drive': 'Animation<U> drive(Animatable<U> child)',
       'toString': 'String toString()',
       'toStringDetails': 'String toStringDetails()',
@@ -3710,7 +5835,8 @@ BridgedClass _createReverseAnimationBridge() {
       'didRegisterListener': 'void didRegisterListener()',
       'didUnregisterListener': 'void didUnregisterListener()',
       'clearStatusListeners': 'void clearStatusListeners()',
-      'notifyStatusListeners': 'void notifyStatusListeners(AnimationStatus status)',
+      'notifyStatusListeners':
+          'void notifyStatusListeners(AnimationStatus status)',
     },
     getterSignatures: {
       'status': 'AnimationStatus get status',
@@ -3737,89 +5863,193 @@ BridgedClass _createCurvedAnimationBridge() {
     hierarchyDepth: 4,
     constructors: {
       '': (visitor, positional, named) {
-        final parent = D4.getRequiredNamedArg<$flutter_1.Animation<double>>(named, 'parent', 'CurvedAnimation');
-        final curve = D4.getRequiredNamedArg<$flutter_5.Curve>(named, 'curve', 'CurvedAnimation');
-        final reverseCurve = D4.getOptionalNamedArg<$flutter_5.Curve?>(named, 'reverseCurve');
-        return $flutter_4.CurvedAnimation(parent: parent, curve: curve, reverseCurve: reverseCurve);
+        final parent = D4.getRequiredNamedArg<$flutter_1.Animation<double>>(
+          named,
+          'parent',
+          'CurvedAnimation',
+        );
+        final curve = D4.getRequiredNamedArg<$flutter_5.Curve>(
+          named,
+          'curve',
+          'CurvedAnimation',
+        );
+        final reverseCurve = D4.getOptionalNamedArg<$flutter_5.Curve?>(
+          named,
+          'reverseCurve',
+        );
+        return $flutter_4.CurvedAnimation(
+          parent: parent,
+          curve: curve,
+          reverseCurve: reverseCurve,
+        );
       },
     },
     getters: {
-      'status': (visitor, target) => D4.validateTarget<$flutter_4.CurvedAnimation>(target, 'CurvedAnimation').status,
-      'value': (visitor, target) => D4.validateTarget<$flutter_4.CurvedAnimation>(target, 'CurvedAnimation').value,
-      'isDismissed': (visitor, target) => D4.validateTarget<$flutter_4.CurvedAnimation>(target, 'CurvedAnimation').isDismissed,
-      'isCompleted': (visitor, target) => D4.validateTarget<$flutter_4.CurvedAnimation>(target, 'CurvedAnimation').isCompleted,
-      'isAnimating': (visitor, target) => D4.validateTarget<$flutter_4.CurvedAnimation>(target, 'CurvedAnimation').isAnimating,
-      'isForwardOrCompleted': (visitor, target) => D4.validateTarget<$flutter_4.CurvedAnimation>(target, 'CurvedAnimation').isForwardOrCompleted,
-      'parent': (visitor, target) => D4.validateTarget<$flutter_4.CurvedAnimation>(target, 'CurvedAnimation').parent,
-      'curve': (visitor, target) => D4.validateTarget<$flutter_4.CurvedAnimation>(target, 'CurvedAnimation').curve,
-      'reverseCurve': (visitor, target) => D4.validateTarget<$flutter_4.CurvedAnimation>(target, 'CurvedAnimation').reverseCurve,
-      'isDisposed': (visitor, target) => D4.validateTarget<$flutter_4.CurvedAnimation>(target, 'CurvedAnimation').isDisposed,
+      'status': (visitor, target) => D4
+          .validateTarget<$flutter_4.CurvedAnimation>(target, 'CurvedAnimation')
+          .status,
+      'value': (visitor, target) => D4
+          .validateTarget<$flutter_4.CurvedAnimation>(target, 'CurvedAnimation')
+          .value,
+      'isDismissed': (visitor, target) => D4
+          .validateTarget<$flutter_4.CurvedAnimation>(target, 'CurvedAnimation')
+          .isDismissed,
+      'isCompleted': (visitor, target) => D4
+          .validateTarget<$flutter_4.CurvedAnimation>(target, 'CurvedAnimation')
+          .isCompleted,
+      'isAnimating': (visitor, target) => D4
+          .validateTarget<$flutter_4.CurvedAnimation>(target, 'CurvedAnimation')
+          .isAnimating,
+      'isForwardOrCompleted': (visitor, target) => D4
+          .validateTarget<$flutter_4.CurvedAnimation>(target, 'CurvedAnimation')
+          .isForwardOrCompleted,
+      'parent': (visitor, target) => D4
+          .validateTarget<$flutter_4.CurvedAnimation>(target, 'CurvedAnimation')
+          .parent,
+      'curve': (visitor, target) => D4
+          .validateTarget<$flutter_4.CurvedAnimation>(target, 'CurvedAnimation')
+          .curve,
+      'reverseCurve': (visitor, target) => D4
+          .validateTarget<$flutter_4.CurvedAnimation>(target, 'CurvedAnimation')
+          .reverseCurve,
+      'isDisposed': (visitor, target) => D4
+          .validateTarget<$flutter_4.CurvedAnimation>(target, 'CurvedAnimation')
+          .isDisposed,
     },
     setters: {
-      'curve': (visitor, target, value) => 
-        D4.validateTarget<$flutter_4.CurvedAnimation>(target, 'CurvedAnimation').curve = D4.extractBridgedArg<$flutter_5.Curve>(value, 'curve'),
-      'reverseCurve': (visitor, target, value) => 
-        D4.validateTarget<$flutter_4.CurvedAnimation>(target, 'CurvedAnimation').reverseCurve = D4.extractBridgedArgOrNull<$flutter_5.Curve>(value, 'reverseCurve'),
-      'isDisposed': (visitor, target, value) => 
-        D4.validateTarget<$flutter_4.CurvedAnimation>(target, 'CurvedAnimation').isDisposed = D4.extractBridgedArg<bool>(value, 'isDisposed'),
+      'curve': (visitor, target, value) =>
+          D4
+              .validateTarget<$flutter_4.CurvedAnimation>(
+                target,
+                'CurvedAnimation',
+              )
+              .curve = D4.extractBridgedArg<$flutter_5.Curve>(
+            value,
+            'curve',
+          ),
+      'reverseCurve': (visitor, target, value) =>
+          D4
+              .validateTarget<$flutter_4.CurvedAnimation>(
+                target,
+                'CurvedAnimation',
+              )
+              .reverseCurve = D4.extractBridgedArgOrNull<$flutter_5.Curve>(
+            value,
+            'reverseCurve',
+          ),
+      'isDisposed': (visitor, target, value) =>
+          D4
+              .validateTarget<$flutter_4.CurvedAnimation>(
+                target,
+                'CurvedAnimation',
+              )
+              .isDisposed = D4.extractBridgedArg<bool>(
+            value,
+            'isDisposed',
+          ),
     },
     methods: {
       'addListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.CurvedAnimation>(target, 'CurvedAnimation');
+        final t = D4.validateTarget<$flutter_4.CurvedAnimation>(
+          target,
+          'CurvedAnimation',
+        );
         D4.requireMinArgs(positional, 1, 'addListener');
         if (positional.isEmpty) {
-          throw ArgumentError('addListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'addListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.addListener(() { D4.callInterpreterCallback(visitor!, listenerRaw, []); });
+        t.addListener(() {
+          D4.callInterpreterCallback(visitor!, listenerRaw, []);
+        });
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.CurvedAnimation>(target, 'CurvedAnimation');
+        final t = D4.validateTarget<$flutter_4.CurvedAnimation>(
+          target,
+          'CurvedAnimation',
+        );
         D4.requireMinArgs(positional, 1, 'removeListener');
         if (positional.isEmpty) {
-          throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'removeListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.removeListener(() { D4.callInterpreterCallback(visitor!, listenerRaw, []); });
+        t.removeListener(() {
+          D4.callInterpreterCallback(visitor!, listenerRaw, []);
+        });
         return null;
       },
       'addStatusListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.CurvedAnimation>(target, 'CurvedAnimation');
+        final t = D4.validateTarget<$flutter_4.CurvedAnimation>(
+          target,
+          'CurvedAnimation',
+        );
         D4.requireMinArgs(positional, 1, 'addStatusListener');
         if (positional.isEmpty) {
-          throw ArgumentError('addStatusListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'addStatusListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.addStatusListener(($flutter_1.AnimationStatus p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
+        t.addStatusListener(($flutter_1.AnimationStatus p0) {
+          D4.callInterpreterCallback(visitor!, listenerRaw, [p0]);
+        });
         return null;
       },
       'removeStatusListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.CurvedAnimation>(target, 'CurvedAnimation');
+        final t = D4.validateTarget<$flutter_4.CurvedAnimation>(
+          target,
+          'CurvedAnimation',
+        );
         D4.requireMinArgs(positional, 1, 'removeStatusListener');
         if (positional.isEmpty) {
-          throw ArgumentError('removeStatusListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'removeStatusListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.removeStatusListener(($flutter_1.AnimationStatus p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
+        t.removeStatusListener(($flutter_1.AnimationStatus p0) {
+          D4.callInterpreterCallback(visitor!, listenerRaw, [p0]);
+        });
         return null;
       },
       'drive': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.CurvedAnimation>(target, 'CurvedAnimation');
+        final t = D4.validateTarget<$flutter_4.CurvedAnimation>(
+          target,
+          'CurvedAnimation',
+        );
         D4.requireMinArgs(positional, 1, 'drive');
-        final child = D4.getRequiredArg<$flutter_7.Animatable<dynamic>>(positional, 0, 'child', 'drive');
+        final child = D4.getRequiredArg<$flutter_7.Animatable<dynamic>>(
+          positional,
+          0,
+          'child',
+          'drive',
+        );
         return t.drive(child);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.CurvedAnimation>(target, 'CurvedAnimation');
+        final t = D4.validateTarget<$flutter_4.CurvedAnimation>(
+          target,
+          'CurvedAnimation',
+        );
         return t.toString();
       },
       'toStringDetails': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.CurvedAnimation>(target, 'CurvedAnimation');
+        final t = D4.validateTarget<$flutter_4.CurvedAnimation>(
+          target,
+          'CurvedAnimation',
+        );
         return t.toStringDetails();
       },
       'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.CurvedAnimation>(target, 'CurvedAnimation');
+        final t = D4.validateTarget<$flutter_4.CurvedAnimation>(
+          target,
+          'CurvedAnimation',
+        );
         (t as dynamic).dispose();
         return null;
       },
@@ -3830,8 +6060,10 @@ BridgedClass _createCurvedAnimationBridge() {
     methodSignatures: {
       'addListener': 'void addListener(VoidCallback listener)',
       'removeListener': 'void removeListener(VoidCallback listener)',
-      'addStatusListener': 'void addStatusListener(AnimationStatusListener listener)',
-      'removeStatusListener': 'void removeStatusListener(AnimationStatusListener listener)',
+      'addStatusListener':
+          'void addStatusListener(AnimationStatusListener listener)',
+      'removeStatusListener':
+          'void removeStatusListener(AnimationStatusListener listener)',
       'drive': 'Animation<U> drive(Animatable<U> child)',
       'toString': 'String toString()',
       'toStringDetails': 'String toStringDetails()',
@@ -3870,117 +6102,255 @@ BridgedClass _createTrainHoppingAnimationBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'TrainHoppingAnimation');
-        final currentTrain = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, '_currentTrain', 'TrainHoppingAnimation');
-        final nextTrain = D4.getRequiredArg<$flutter_1.Animation<double>?>(positional, 1, '_nextTrain', 'TrainHoppingAnimation');
+        final currentTrain = D4.getRequiredArg<$flutter_1.Animation<double>>(
+          positional,
+          0,
+          '_currentTrain',
+          'TrainHoppingAnimation',
+        );
+        final nextTrain = D4.getRequiredArg<$flutter_1.Animation<double>?>(
+          positional,
+          1,
+          '_nextTrain',
+          'TrainHoppingAnimation',
+        );
         final onSwitchedTrainRaw = named['onSwitchedTrain'];
-        return $flutter_4.TrainHoppingAnimation(currentTrain, nextTrain, onSwitchedTrain: onSwitchedTrainRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onSwitchedTrainRaw, []); });
+        return $flutter_4.TrainHoppingAnimation(
+          currentTrain,
+          nextTrain,
+          onSwitchedTrain: onSwitchedTrainRaw == null
+              ? null
+              : () {
+                  D4.callInterpreterCallback(visitor!, onSwitchedTrainRaw, []);
+                },
+        );
       },
     },
     getters: {
-      'status': (visitor, target) => D4.validateTarget<$flutter_4.TrainHoppingAnimation>(target, 'TrainHoppingAnimation').status,
-      'value': (visitor, target) => D4.validateTarget<$flutter_4.TrainHoppingAnimation>(target, 'TrainHoppingAnimation').value,
-      'isDismissed': (visitor, target) => D4.validateTarget<$flutter_4.TrainHoppingAnimation>(target, 'TrainHoppingAnimation').isDismissed,
-      'isCompleted': (visitor, target) => D4.validateTarget<$flutter_4.TrainHoppingAnimation>(target, 'TrainHoppingAnimation').isCompleted,
-      'isAnimating': (visitor, target) => D4.validateTarget<$flutter_4.TrainHoppingAnimation>(target, 'TrainHoppingAnimation').isAnimating,
-      'isForwardOrCompleted': (visitor, target) => D4.validateTarget<$flutter_4.TrainHoppingAnimation>(target, 'TrainHoppingAnimation').isForwardOrCompleted,
-      'onSwitchedTrain': (visitor, target) => D4.validateTarget<$flutter_4.TrainHoppingAnimation>(target, 'TrainHoppingAnimation').onSwitchedTrain,
-      'currentTrain': (visitor, target) => D4.validateTarget<$flutter_4.TrainHoppingAnimation>(target, 'TrainHoppingAnimation').currentTrain,
+      'status': (visitor, target) => D4
+          .validateTarget<$flutter_4.TrainHoppingAnimation>(
+            target,
+            'TrainHoppingAnimation',
+          )
+          .status,
+      'value': (visitor, target) => D4
+          .validateTarget<$flutter_4.TrainHoppingAnimation>(
+            target,
+            'TrainHoppingAnimation',
+          )
+          .value,
+      'isDismissed': (visitor, target) => D4
+          .validateTarget<$flutter_4.TrainHoppingAnimation>(
+            target,
+            'TrainHoppingAnimation',
+          )
+          .isDismissed,
+      'isCompleted': (visitor, target) => D4
+          .validateTarget<$flutter_4.TrainHoppingAnimation>(
+            target,
+            'TrainHoppingAnimation',
+          )
+          .isCompleted,
+      'isAnimating': (visitor, target) => D4
+          .validateTarget<$flutter_4.TrainHoppingAnimation>(
+            target,
+            'TrainHoppingAnimation',
+          )
+          .isAnimating,
+      'isForwardOrCompleted': (visitor, target) => D4
+          .validateTarget<$flutter_4.TrainHoppingAnimation>(
+            target,
+            'TrainHoppingAnimation',
+          )
+          .isForwardOrCompleted,
+      'onSwitchedTrain': (visitor, target) => D4
+          .validateTarget<$flutter_4.TrainHoppingAnimation>(
+            target,
+            'TrainHoppingAnimation',
+          )
+          .onSwitchedTrain,
+      'currentTrain': (visitor, target) => D4
+          .validateTarget<$flutter_4.TrainHoppingAnimation>(
+            target,
+            'TrainHoppingAnimation',
+          )
+          .currentTrain,
     },
     setters: {
       'onSwitchedTrain': (visitor, target, value) {
-        final onSwitchedTrainRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onSwitchedTrain');
-        D4.validateTarget<$flutter_4.TrainHoppingAnimation>(target, 'TrainHoppingAnimation').onSwitchedTrain = onSwitchedTrainRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onSwitchedTrainRaw, []); };
+        final onSwitchedTrainRaw = D4.extractBridgedArgOrNull<dynamic>(
+          value,
+          'onSwitchedTrain',
+        );
+        D4
+            .validateTarget<$flutter_4.TrainHoppingAnimation>(
+              target,
+              'TrainHoppingAnimation',
+            )
+            .onSwitchedTrain = onSwitchedTrainRaw == null
+            ? null
+            : () {
+                D4.callInterpreterCallback(visitor!, onSwitchedTrainRaw, []);
+              };
       },
     },
     methods: {
       'addListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.TrainHoppingAnimation>(target, 'TrainHoppingAnimation');
+        final t = D4.validateTarget<$flutter_4.TrainHoppingAnimation>(
+          target,
+          'TrainHoppingAnimation',
+        );
         D4.requireMinArgs(positional, 1, 'addListener');
         if (positional.isEmpty) {
-          throw ArgumentError('addListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'addListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.addListener(() { D4.callInterpreterCallback(visitor!, listenerRaw, []); });
+        t.addListener(() {
+          D4.callInterpreterCallback(visitor!, listenerRaw, []);
+        });
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.TrainHoppingAnimation>(target, 'TrainHoppingAnimation');
+        final t = D4.validateTarget<$flutter_4.TrainHoppingAnimation>(
+          target,
+          'TrainHoppingAnimation',
+        );
         D4.requireMinArgs(positional, 1, 'removeListener');
         if (positional.isEmpty) {
-          throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'removeListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.removeListener(() { D4.callInterpreterCallback(visitor!, listenerRaw, []); });
+        t.removeListener(() {
+          D4.callInterpreterCallback(visitor!, listenerRaw, []);
+        });
         return null;
       },
       'addStatusListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.TrainHoppingAnimation>(target, 'TrainHoppingAnimation');
+        final t = D4.validateTarget<$flutter_4.TrainHoppingAnimation>(
+          target,
+          'TrainHoppingAnimation',
+        );
         D4.requireMinArgs(positional, 1, 'addStatusListener');
         if (positional.isEmpty) {
-          throw ArgumentError('addStatusListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'addStatusListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.addStatusListener(($flutter_1.AnimationStatus p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
+        t.addStatusListener(($flutter_1.AnimationStatus p0) {
+          D4.callInterpreterCallback(visitor!, listenerRaw, [p0]);
+        });
         return null;
       },
       'removeStatusListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.TrainHoppingAnimation>(target, 'TrainHoppingAnimation');
+        final t = D4.validateTarget<$flutter_4.TrainHoppingAnimation>(
+          target,
+          'TrainHoppingAnimation',
+        );
         D4.requireMinArgs(positional, 1, 'removeStatusListener');
         if (positional.isEmpty) {
-          throw ArgumentError('removeStatusListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'removeStatusListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.removeStatusListener(($flutter_1.AnimationStatus p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
+        t.removeStatusListener(($flutter_1.AnimationStatus p0) {
+          D4.callInterpreterCallback(visitor!, listenerRaw, [p0]);
+        });
         return null;
       },
       'drive': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.TrainHoppingAnimation>(target, 'TrainHoppingAnimation');
+        final t = D4.validateTarget<$flutter_4.TrainHoppingAnimation>(
+          target,
+          'TrainHoppingAnimation',
+        );
         D4.requireMinArgs(positional, 1, 'drive');
-        final child = D4.getRequiredArg<$flutter_7.Animatable<dynamic>>(positional, 0, 'child', 'drive');
+        final child = D4.getRequiredArg<$flutter_7.Animatable<dynamic>>(
+          positional,
+          0,
+          'child',
+          'drive',
+        );
         return t.drive(child);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.TrainHoppingAnimation>(target, 'TrainHoppingAnimation');
+        final t = D4.validateTarget<$flutter_4.TrainHoppingAnimation>(
+          target,
+          'TrainHoppingAnimation',
+        );
         return t.toString();
       },
       'toStringDetails': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.TrainHoppingAnimation>(target, 'TrainHoppingAnimation');
+        final t = D4.validateTarget<$flutter_4.TrainHoppingAnimation>(
+          target,
+          'TrainHoppingAnimation',
+        );
         return t.toStringDetails();
       },
       'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.TrainHoppingAnimation>(target, 'TrainHoppingAnimation');
+        final t = D4.validateTarget<$flutter_4.TrainHoppingAnimation>(
+          target,
+          'TrainHoppingAnimation',
+        );
         (t as dynamic).dispose();
         return null;
       },
       'didRegisterListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.TrainHoppingAnimation>(target, 'TrainHoppingAnimation');
+        final t = D4.validateTarget<$flutter_4.TrainHoppingAnimation>(
+          target,
+          'TrainHoppingAnimation',
+        );
         t.didRegisterListener();
         return null;
       },
       'didUnregisterListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.TrainHoppingAnimation>(target, 'TrainHoppingAnimation');
+        final t = D4.validateTarget<$flutter_4.TrainHoppingAnimation>(
+          target,
+          'TrainHoppingAnimation',
+        );
         t.didUnregisterListener();
         return null;
       },
       'clearListeners': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.TrainHoppingAnimation>(target, 'TrainHoppingAnimation');
+        final t = D4.validateTarget<$flutter_4.TrainHoppingAnimation>(
+          target,
+          'TrainHoppingAnimation',
+        );
         t.clearListeners();
         return null;
       },
       'notifyListeners': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.TrainHoppingAnimation>(target, 'TrainHoppingAnimation');
+        final t = D4.validateTarget<$flutter_4.TrainHoppingAnimation>(
+          target,
+          'TrainHoppingAnimation',
+        );
         t.notifyListeners();
         return null;
       },
       'clearStatusListeners': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.TrainHoppingAnimation>(target, 'TrainHoppingAnimation');
+        final t = D4.validateTarget<$flutter_4.TrainHoppingAnimation>(
+          target,
+          'TrainHoppingAnimation',
+        );
         t.clearStatusListeners();
         return null;
       },
       'notifyStatusListeners': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.TrainHoppingAnimation>(target, 'TrainHoppingAnimation');
+        final t = D4.validateTarget<$flutter_4.TrainHoppingAnimation>(
+          target,
+          'TrainHoppingAnimation',
+        );
         D4.requireMinArgs(positional, 1, 'notifyStatusListeners');
-        final status = D4.getRequiredArg<$flutter_1.AnimationStatus>(positional, 0, 'status', 'notifyStatusListeners');
+        final status = D4.getRequiredArg<$flutter_1.AnimationStatus>(
+          positional,
+          0,
+          'status',
+          'notifyStatusListeners',
+        );
         t.notifyStatusListeners(status);
         return null;
       },
@@ -3991,8 +6361,10 @@ BridgedClass _createTrainHoppingAnimationBridge() {
     methodSignatures: {
       'addListener': 'void addListener(VoidCallback listener)',
       'removeListener': 'void removeListener(VoidCallback listener)',
-      'addStatusListener': 'void addStatusListener(AnimationStatusListener listener)',
-      'removeStatusListener': 'void removeStatusListener(AnimationStatusListener listener)',
+      'addStatusListener':
+          'void addStatusListener(AnimationStatusListener listener)',
+      'removeStatusListener':
+          'void removeStatusListener(AnimationStatusListener listener)',
       'drive': 'Animation<U> drive(Animatable<U> child)',
       'toString': 'String toString()',
       'toStringDetails': 'String toStringDetails()',
@@ -4002,7 +6374,8 @@ BridgedClass _createTrainHoppingAnimationBridge() {
       'clearListeners': 'void clearListeners()',
       'notifyListeners': 'void notifyListeners()',
       'clearStatusListeners': 'void clearStatusListeners()',
-      'notifyStatusListeners': 'void notifyStatusListeners(AnimationStatus status)',
+      'notifyStatusListeners':
+          'void notifyStatusListeners(AnimationStatus status)',
     },
     getterSignatures: {
       'status': 'AnimationStatus get status',
@@ -4014,9 +6387,7 @@ BridgedClass _createTrainHoppingAnimationBridge() {
       'onSwitchedTrain': 'VoidCallback? get onSwitchedTrain',
       'currentTrain': 'Animation<double>? get currentTrain',
     },
-    setterSignatures: {
-      'onSwitchedTrain': 'set onSwitchedTrain(dynamic value)',
-    },
+    setterSignatures: {'onSwitchedTrain': 'set onSwitchedTrain(dynamic value)'},
   );
 }
 
@@ -4031,113 +6402,228 @@ BridgedClass _createCompoundAnimationBridge() {
     isAssignable: (v) => v is $flutter_4.CompoundAnimation,
     hierarchyDepth: 6,
     isAbstract: true,
-    constructors: {
-    },
+    constructors: {},
     getters: {
-      'status': (visitor, target) => D4.validateTarget<$flutter_4.CompoundAnimation>(target, 'CompoundAnimation').status,
-      'value': (visitor, target) => D4.validateTarget<$flutter_4.CompoundAnimation>(target, 'CompoundAnimation').value,
-      'isDismissed': (visitor, target) => D4.validateTarget<$flutter_4.CompoundAnimation>(target, 'CompoundAnimation').isDismissed,
-      'isCompleted': (visitor, target) => D4.validateTarget<$flutter_4.CompoundAnimation>(target, 'CompoundAnimation').isCompleted,
-      'isAnimating': (visitor, target) => D4.validateTarget<$flutter_4.CompoundAnimation>(target, 'CompoundAnimation').isAnimating,
-      'isForwardOrCompleted': (visitor, target) => D4.validateTarget<$flutter_4.CompoundAnimation>(target, 'CompoundAnimation').isForwardOrCompleted,
-      'first': (visitor, target) => D4.validateTarget<$flutter_4.CompoundAnimation>(target, 'CompoundAnimation').first,
-      'next': (visitor, target) => D4.validateTarget<$flutter_4.CompoundAnimation>(target, 'CompoundAnimation').next,
-      'isListening': (visitor, target) => D4.validateTarget<$flutter_4.CompoundAnimation>(target, 'CompoundAnimation').isListening,
+      'status': (visitor, target) => D4
+          .validateTarget<$flutter_4.CompoundAnimation>(
+            target,
+            'CompoundAnimation',
+          )
+          .status,
+      'value': (visitor, target) => D4
+          .validateTarget<$flutter_4.CompoundAnimation>(
+            target,
+            'CompoundAnimation',
+          )
+          .value,
+      'isDismissed': (visitor, target) => D4
+          .validateTarget<$flutter_4.CompoundAnimation>(
+            target,
+            'CompoundAnimation',
+          )
+          .isDismissed,
+      'isCompleted': (visitor, target) => D4
+          .validateTarget<$flutter_4.CompoundAnimation>(
+            target,
+            'CompoundAnimation',
+          )
+          .isCompleted,
+      'isAnimating': (visitor, target) => D4
+          .validateTarget<$flutter_4.CompoundAnimation>(
+            target,
+            'CompoundAnimation',
+          )
+          .isAnimating,
+      'isForwardOrCompleted': (visitor, target) => D4
+          .validateTarget<$flutter_4.CompoundAnimation>(
+            target,
+            'CompoundAnimation',
+          )
+          .isForwardOrCompleted,
+      'first': (visitor, target) => D4
+          .validateTarget<$flutter_4.CompoundAnimation>(
+            target,
+            'CompoundAnimation',
+          )
+          .first,
+      'next': (visitor, target) => D4
+          .validateTarget<$flutter_4.CompoundAnimation>(
+            target,
+            'CompoundAnimation',
+          )
+          .next,
+      'isListening': (visitor, target) => D4
+          .validateTarget<$flutter_4.CompoundAnimation>(
+            target,
+            'CompoundAnimation',
+          )
+          .isListening,
     },
     methods: {
       'addListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.CompoundAnimation>(target, 'CompoundAnimation');
+        final t = D4.validateTarget<$flutter_4.CompoundAnimation>(
+          target,
+          'CompoundAnimation',
+        );
         D4.requireMinArgs(positional, 1, 'addListener');
         if (positional.isEmpty) {
-          throw ArgumentError('addListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'addListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.addListener(() { D4.callInterpreterCallback(visitor!, listenerRaw, []); });
+        t.addListener(() {
+          D4.callInterpreterCallback(visitor!, listenerRaw, []);
+        });
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.CompoundAnimation>(target, 'CompoundAnimation');
+        final t = D4.validateTarget<$flutter_4.CompoundAnimation>(
+          target,
+          'CompoundAnimation',
+        );
         D4.requireMinArgs(positional, 1, 'removeListener');
         if (positional.isEmpty) {
-          throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'removeListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.removeListener(() { D4.callInterpreterCallback(visitor!, listenerRaw, []); });
+        t.removeListener(() {
+          D4.callInterpreterCallback(visitor!, listenerRaw, []);
+        });
         return null;
       },
       'addStatusListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.CompoundAnimation>(target, 'CompoundAnimation');
+        final t = D4.validateTarget<$flutter_4.CompoundAnimation>(
+          target,
+          'CompoundAnimation',
+        );
         D4.requireMinArgs(positional, 1, 'addStatusListener');
         if (positional.isEmpty) {
-          throw ArgumentError('addStatusListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'addStatusListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.addStatusListener(($flutter_1.AnimationStatus p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
+        t.addStatusListener(($flutter_1.AnimationStatus p0) {
+          D4.callInterpreterCallback(visitor!, listenerRaw, [p0]);
+        });
         return null;
       },
       'removeStatusListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.CompoundAnimation>(target, 'CompoundAnimation');
+        final t = D4.validateTarget<$flutter_4.CompoundAnimation>(
+          target,
+          'CompoundAnimation',
+        );
         D4.requireMinArgs(positional, 1, 'removeStatusListener');
         if (positional.isEmpty) {
-          throw ArgumentError('removeStatusListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'removeStatusListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.removeStatusListener(($flutter_1.AnimationStatus p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
+        t.removeStatusListener(($flutter_1.AnimationStatus p0) {
+          D4.callInterpreterCallback(visitor!, listenerRaw, [p0]);
+        });
         return null;
       },
       'drive': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.CompoundAnimation>(target, 'CompoundAnimation');
+        final t = D4.validateTarget<$flutter_4.CompoundAnimation>(
+          target,
+          'CompoundAnimation',
+        );
         D4.requireMinArgs(positional, 1, 'drive');
-        final child = D4.getRequiredArg<$flutter_7.Animatable<dynamic>>(positional, 0, 'child', 'drive');
+        final child = D4.getRequiredArg<$flutter_7.Animatable<dynamic>>(
+          positional,
+          0,
+          'child',
+          'drive',
+        );
         return t.drive(child);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.CompoundAnimation>(target, 'CompoundAnimation');
+        final t = D4.validateTarget<$flutter_4.CompoundAnimation>(
+          target,
+          'CompoundAnimation',
+        );
         return t.toString();
       },
       'toStringDetails': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.CompoundAnimation>(target, 'CompoundAnimation');
+        final t = D4.validateTarget<$flutter_4.CompoundAnimation>(
+          target,
+          'CompoundAnimation',
+        );
         return t.toStringDetails();
       },
       'didStartListening': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.CompoundAnimation>(target, 'CompoundAnimation');
+        final t = D4.validateTarget<$flutter_4.CompoundAnimation>(
+          target,
+          'CompoundAnimation',
+        );
         t.didStartListening();
         return null;
       },
       'didStopListening': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.CompoundAnimation>(target, 'CompoundAnimation');
+        final t = D4.validateTarget<$flutter_4.CompoundAnimation>(
+          target,
+          'CompoundAnimation',
+        );
         t.didStopListening();
         return null;
       },
       'didRegisterListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.CompoundAnimation>(target, 'CompoundAnimation');
+        final t = D4.validateTarget<$flutter_4.CompoundAnimation>(
+          target,
+          'CompoundAnimation',
+        );
         t.didRegisterListener();
         return null;
       },
       'didUnregisterListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.CompoundAnimation>(target, 'CompoundAnimation');
+        final t = D4.validateTarget<$flutter_4.CompoundAnimation>(
+          target,
+          'CompoundAnimation',
+        );
         t.didUnregisterListener();
         return null;
       },
       'clearListeners': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.CompoundAnimation>(target, 'CompoundAnimation');
+        final t = D4.validateTarget<$flutter_4.CompoundAnimation>(
+          target,
+          'CompoundAnimation',
+        );
         t.clearListeners();
         return null;
       },
       'notifyListeners': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.CompoundAnimation>(target, 'CompoundAnimation');
+        final t = D4.validateTarget<$flutter_4.CompoundAnimation>(
+          target,
+          'CompoundAnimation',
+        );
         t.notifyListeners();
         return null;
       },
       'clearStatusListeners': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.CompoundAnimation>(target, 'CompoundAnimation');
+        final t = D4.validateTarget<$flutter_4.CompoundAnimation>(
+          target,
+          'CompoundAnimation',
+        );
         t.clearStatusListeners();
         return null;
       },
       'notifyStatusListeners': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.CompoundAnimation>(target, 'CompoundAnimation');
+        final t = D4.validateTarget<$flutter_4.CompoundAnimation>(
+          target,
+          'CompoundAnimation',
+        );
         D4.requireMinArgs(positional, 1, 'notifyStatusListeners');
-        final status = D4.getRequiredArg<$flutter_1.AnimationStatus>(positional, 0, 'status', 'notifyStatusListeners');
+        final status = D4.getRequiredArg<$flutter_1.AnimationStatus>(
+          positional,
+          0,
+          'status',
+          'notifyStatusListeners',
+        );
         t.notifyStatusListeners(status);
         return null;
       },
@@ -4145,8 +6631,10 @@ BridgedClass _createCompoundAnimationBridge() {
     methodSignatures: {
       'addListener': 'void addListener(VoidCallback listener)',
       'removeListener': 'void removeListener(VoidCallback listener)',
-      'addStatusListener': 'void addStatusListener(AnimationStatusListener listener)',
-      'removeStatusListener': 'void removeStatusListener(AnimationStatusListener listener)',
+      'addStatusListener':
+          'void addStatusListener(AnimationStatusListener listener)',
+      'removeStatusListener':
+          'void removeStatusListener(AnimationStatusListener listener)',
       'drive': 'Animation<U> drive(Animatable<U> child)',
       'toString': 'String toString()',
       'toStringDetails': 'String toStringDetails()',
@@ -4157,7 +6645,8 @@ BridgedClass _createCompoundAnimationBridge() {
       'clearListeners': 'void clearListeners()',
       'notifyListeners': 'void notifyListeners()',
       'clearStatusListeners': 'void clearStatusListeners()',
-      'notifyStatusListeners': 'void notifyStatusListeners(AnimationStatus status)',
+      'notifyStatusListeners':
+          'void notifyStatusListeners(AnimationStatus status)',
     },
     getterSignatures: {
       'status': 'AnimationStatus get status',
@@ -4185,116 +6674,213 @@ BridgedClass _createAnimationMeanBridge() {
     hierarchyDepth: 7,
     constructors: {
       '': (visitor, positional, named) {
-        final left = D4.getRequiredNamedArg<$flutter_1.Animation<double>>(named, 'left', 'AnimationMean');
-        final right = D4.getRequiredNamedArg<$flutter_1.Animation<double>>(named, 'right', 'AnimationMean');
+        final left = D4.getRequiredNamedArg<$flutter_1.Animation<double>>(
+          named,
+          'left',
+          'AnimationMean',
+        );
+        final right = D4.getRequiredNamedArg<$flutter_1.Animation<double>>(
+          named,
+          'right',
+          'AnimationMean',
+        );
         return $flutter_4.AnimationMean(left: left, right: right);
       },
     },
     getters: {
-      'status': (visitor, target) => D4.validateTarget<$flutter_4.AnimationMean>(target, 'AnimationMean').status,
-      'value': (visitor, target) => D4.validateTarget<$flutter_4.AnimationMean>(target, 'AnimationMean').value,
-      'isDismissed': (visitor, target) => D4.validateTarget<$flutter_4.AnimationMean>(target, 'AnimationMean').isDismissed,
-      'isCompleted': (visitor, target) => D4.validateTarget<$flutter_4.AnimationMean>(target, 'AnimationMean').isCompleted,
-      'isAnimating': (visitor, target) => D4.validateTarget<$flutter_4.AnimationMean>(target, 'AnimationMean').isAnimating,
-      'isForwardOrCompleted': (visitor, target) => D4.validateTarget<$flutter_4.AnimationMean>(target, 'AnimationMean').isForwardOrCompleted,
-      'first': (visitor, target) => D4.validateTarget<$flutter_4.AnimationMean>(target, 'AnimationMean').first,
-      'next': (visitor, target) => D4.validateTarget<$flutter_4.AnimationMean>(target, 'AnimationMean').next,
-      'isListening': (visitor, target) => D4.validateTarget<$flutter_4.AnimationMean>(target, 'AnimationMean').isListening,
+      'status': (visitor, target) => D4
+          .validateTarget<$flutter_4.AnimationMean>(target, 'AnimationMean')
+          .status,
+      'value': (visitor, target) => D4
+          .validateTarget<$flutter_4.AnimationMean>(target, 'AnimationMean')
+          .value,
+      'isDismissed': (visitor, target) => D4
+          .validateTarget<$flutter_4.AnimationMean>(target, 'AnimationMean')
+          .isDismissed,
+      'isCompleted': (visitor, target) => D4
+          .validateTarget<$flutter_4.AnimationMean>(target, 'AnimationMean')
+          .isCompleted,
+      'isAnimating': (visitor, target) => D4
+          .validateTarget<$flutter_4.AnimationMean>(target, 'AnimationMean')
+          .isAnimating,
+      'isForwardOrCompleted': (visitor, target) => D4
+          .validateTarget<$flutter_4.AnimationMean>(target, 'AnimationMean')
+          .isForwardOrCompleted,
+      'first': (visitor, target) => D4
+          .validateTarget<$flutter_4.AnimationMean>(target, 'AnimationMean')
+          .first,
+      'next': (visitor, target) => D4
+          .validateTarget<$flutter_4.AnimationMean>(target, 'AnimationMean')
+          .next,
+      'isListening': (visitor, target) => D4
+          .validateTarget<$flutter_4.AnimationMean>(target, 'AnimationMean')
+          .isListening,
     },
     methods: {
       'addListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMean>(target, 'AnimationMean');
+        final t = D4.validateTarget<$flutter_4.AnimationMean>(
+          target,
+          'AnimationMean',
+        );
         D4.requireMinArgs(positional, 1, 'addListener');
         if (positional.isEmpty) {
-          throw ArgumentError('addListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'addListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.addListener(() { D4.callInterpreterCallback(visitor!, listenerRaw, []); });
+        t.addListener(() {
+          D4.callInterpreterCallback(visitor!, listenerRaw, []);
+        });
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMean>(target, 'AnimationMean');
+        final t = D4.validateTarget<$flutter_4.AnimationMean>(
+          target,
+          'AnimationMean',
+        );
         D4.requireMinArgs(positional, 1, 'removeListener');
         if (positional.isEmpty) {
-          throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'removeListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.removeListener(() { D4.callInterpreterCallback(visitor!, listenerRaw, []); });
+        t.removeListener(() {
+          D4.callInterpreterCallback(visitor!, listenerRaw, []);
+        });
         return null;
       },
       'addStatusListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMean>(target, 'AnimationMean');
+        final t = D4.validateTarget<$flutter_4.AnimationMean>(
+          target,
+          'AnimationMean',
+        );
         D4.requireMinArgs(positional, 1, 'addStatusListener');
         if (positional.isEmpty) {
-          throw ArgumentError('addStatusListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'addStatusListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.addStatusListener(($flutter_1.AnimationStatus p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
+        t.addStatusListener(($flutter_1.AnimationStatus p0) {
+          D4.callInterpreterCallback(visitor!, listenerRaw, [p0]);
+        });
         return null;
       },
       'removeStatusListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMean>(target, 'AnimationMean');
+        final t = D4.validateTarget<$flutter_4.AnimationMean>(
+          target,
+          'AnimationMean',
+        );
         D4.requireMinArgs(positional, 1, 'removeStatusListener');
         if (positional.isEmpty) {
-          throw ArgumentError('removeStatusListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'removeStatusListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.removeStatusListener(($flutter_1.AnimationStatus p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
+        t.removeStatusListener(($flutter_1.AnimationStatus p0) {
+          D4.callInterpreterCallback(visitor!, listenerRaw, [p0]);
+        });
         return null;
       },
       'drive': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMean>(target, 'AnimationMean');
+        final t = D4.validateTarget<$flutter_4.AnimationMean>(
+          target,
+          'AnimationMean',
+        );
         D4.requireMinArgs(positional, 1, 'drive');
-        final child = D4.getRequiredArg<$flutter_7.Animatable<dynamic>>(positional, 0, 'child', 'drive');
+        final child = D4.getRequiredArg<$flutter_7.Animatable<dynamic>>(
+          positional,
+          0,
+          'child',
+          'drive',
+        );
         return t.drive(child);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMean>(target, 'AnimationMean');
+        final t = D4.validateTarget<$flutter_4.AnimationMean>(
+          target,
+          'AnimationMean',
+        );
         return t.toString();
       },
       'toStringDetails': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMean>(target, 'AnimationMean');
+        final t = D4.validateTarget<$flutter_4.AnimationMean>(
+          target,
+          'AnimationMean',
+        );
         return t.toStringDetails();
       },
       'didStartListening': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMean>(target, 'AnimationMean');
+        final t = D4.validateTarget<$flutter_4.AnimationMean>(
+          target,
+          'AnimationMean',
+        );
         t.didStartListening();
         return null;
       },
       'didStopListening': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMean>(target, 'AnimationMean');
+        final t = D4.validateTarget<$flutter_4.AnimationMean>(
+          target,
+          'AnimationMean',
+        );
         t.didStopListening();
         return null;
       },
       'didRegisterListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMean>(target, 'AnimationMean');
+        final t = D4.validateTarget<$flutter_4.AnimationMean>(
+          target,
+          'AnimationMean',
+        );
         t.didRegisterListener();
         return null;
       },
       'didUnregisterListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMean>(target, 'AnimationMean');
+        final t = D4.validateTarget<$flutter_4.AnimationMean>(
+          target,
+          'AnimationMean',
+        );
         t.didUnregisterListener();
         return null;
       },
       'clearListeners': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMean>(target, 'AnimationMean');
+        final t = D4.validateTarget<$flutter_4.AnimationMean>(
+          target,
+          'AnimationMean',
+        );
         t.clearListeners();
         return null;
       },
       'notifyListeners': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMean>(target, 'AnimationMean');
+        final t = D4.validateTarget<$flutter_4.AnimationMean>(
+          target,
+          'AnimationMean',
+        );
         t.notifyListeners();
         return null;
       },
       'clearStatusListeners': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMean>(target, 'AnimationMean');
+        final t = D4.validateTarget<$flutter_4.AnimationMean>(
+          target,
+          'AnimationMean',
+        );
         t.clearStatusListeners();
         return null;
       },
       'notifyStatusListeners': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMean>(target, 'AnimationMean');
+        final t = D4.validateTarget<$flutter_4.AnimationMean>(
+          target,
+          'AnimationMean',
+        );
         D4.requireMinArgs(positional, 1, 'notifyStatusListeners');
-        final status = D4.getRequiredArg<$flutter_1.AnimationStatus>(positional, 0, 'status', 'notifyStatusListeners');
+        final status = D4.getRequiredArg<$flutter_1.AnimationStatus>(
+          positional,
+          0,
+          'status',
+          'notifyStatusListeners',
+        );
         t.notifyStatusListeners(status);
         return null;
       },
@@ -4305,8 +6891,10 @@ BridgedClass _createAnimationMeanBridge() {
     methodSignatures: {
       'addListener': 'void addListener(VoidCallback listener)',
       'removeListener': 'void removeListener(VoidCallback listener)',
-      'addStatusListener': 'void addStatusListener(AnimationStatusListener listener)',
-      'removeStatusListener': 'void removeStatusListener(AnimationStatusListener listener)',
+      'addStatusListener':
+          'void addStatusListener(AnimationStatusListener listener)',
+      'removeStatusListener':
+          'void removeStatusListener(AnimationStatusListener listener)',
       'drive': 'Animation<U> drive(Animatable<U> child)',
       'toString': 'String toString()',
       'toStringDetails': 'String toStringDetails()',
@@ -4317,7 +6905,8 @@ BridgedClass _createAnimationMeanBridge() {
       'clearListeners': 'void clearListeners()',
       'notifyListeners': 'void notifyListeners()',
       'clearStatusListeners': 'void clearStatusListeners()',
-      'notifyStatusListeners': 'void notifyStatusListeners(AnimationStatus status)',
+      'notifyStatusListeners':
+          'void notifyStatusListeners(AnimationStatus status)',
     },
     getterSignatures: {
       'status': 'AnimationStatus get status',
@@ -4346,116 +6935,215 @@ BridgedClass _createAnimationMaxBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'AnimationMax');
-        final first = D4.getRequiredArg<$flutter_1.Animation<num>>(positional, 0, 'first', 'AnimationMax');
-        final next = D4.getRequiredArg<$flutter_1.Animation<num>>(positional, 1, 'next', 'AnimationMax');
+        final first = D4.getRequiredArg<$flutter_1.Animation<num>>(
+          positional,
+          0,
+          'first',
+          'AnimationMax',
+        );
+        final next = D4.getRequiredArg<$flutter_1.Animation<num>>(
+          positional,
+          1,
+          'next',
+          'AnimationMax',
+        );
         return $flutter_4.AnimationMax(first, next);
       },
     },
     getters: {
-      'status': (visitor, target) => D4.validateTarget<$flutter_4.AnimationMax>(target, 'AnimationMax').status,
-      'value': (visitor, target) => D4.validateTarget<$flutter_4.AnimationMax>(target, 'AnimationMax').value,
-      'isDismissed': (visitor, target) => D4.validateTarget<$flutter_4.AnimationMax>(target, 'AnimationMax').isDismissed,
-      'isCompleted': (visitor, target) => D4.validateTarget<$flutter_4.AnimationMax>(target, 'AnimationMax').isCompleted,
-      'isAnimating': (visitor, target) => D4.validateTarget<$flutter_4.AnimationMax>(target, 'AnimationMax').isAnimating,
-      'isForwardOrCompleted': (visitor, target) => D4.validateTarget<$flutter_4.AnimationMax>(target, 'AnimationMax').isForwardOrCompleted,
-      'first': (visitor, target) => D4.validateTarget<$flutter_4.AnimationMax>(target, 'AnimationMax').first,
-      'next': (visitor, target) => D4.validateTarget<$flutter_4.AnimationMax>(target, 'AnimationMax').next,
-      'isListening': (visitor, target) => D4.validateTarget<$flutter_4.AnimationMax>(target, 'AnimationMax').isListening,
+      'status': (visitor, target) => D4
+          .validateTarget<$flutter_4.AnimationMax>(target, 'AnimationMax')
+          .status,
+      'value': (visitor, target) => D4
+          .validateTarget<$flutter_4.AnimationMax>(target, 'AnimationMax')
+          .value,
+      'isDismissed': (visitor, target) => D4
+          .validateTarget<$flutter_4.AnimationMax>(target, 'AnimationMax')
+          .isDismissed,
+      'isCompleted': (visitor, target) => D4
+          .validateTarget<$flutter_4.AnimationMax>(target, 'AnimationMax')
+          .isCompleted,
+      'isAnimating': (visitor, target) => D4
+          .validateTarget<$flutter_4.AnimationMax>(target, 'AnimationMax')
+          .isAnimating,
+      'isForwardOrCompleted': (visitor, target) => D4
+          .validateTarget<$flutter_4.AnimationMax>(target, 'AnimationMax')
+          .isForwardOrCompleted,
+      'first': (visitor, target) => D4
+          .validateTarget<$flutter_4.AnimationMax>(target, 'AnimationMax')
+          .first,
+      'next': (visitor, target) => D4
+          .validateTarget<$flutter_4.AnimationMax>(target, 'AnimationMax')
+          .next,
+      'isListening': (visitor, target) => D4
+          .validateTarget<$flutter_4.AnimationMax>(target, 'AnimationMax')
+          .isListening,
     },
     methods: {
       'addListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMax>(target, 'AnimationMax');
+        final t = D4.validateTarget<$flutter_4.AnimationMax>(
+          target,
+          'AnimationMax',
+        );
         D4.requireMinArgs(positional, 1, 'addListener');
         if (positional.isEmpty) {
-          throw ArgumentError('addListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'addListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.addListener(() { D4.callInterpreterCallback(visitor!, listenerRaw, []); });
+        t.addListener(() {
+          D4.callInterpreterCallback(visitor!, listenerRaw, []);
+        });
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMax>(target, 'AnimationMax');
+        final t = D4.validateTarget<$flutter_4.AnimationMax>(
+          target,
+          'AnimationMax',
+        );
         D4.requireMinArgs(positional, 1, 'removeListener');
         if (positional.isEmpty) {
-          throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'removeListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.removeListener(() { D4.callInterpreterCallback(visitor!, listenerRaw, []); });
+        t.removeListener(() {
+          D4.callInterpreterCallback(visitor!, listenerRaw, []);
+        });
         return null;
       },
       'addStatusListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMax>(target, 'AnimationMax');
+        final t = D4.validateTarget<$flutter_4.AnimationMax>(
+          target,
+          'AnimationMax',
+        );
         D4.requireMinArgs(positional, 1, 'addStatusListener');
         if (positional.isEmpty) {
-          throw ArgumentError('addStatusListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'addStatusListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.addStatusListener(($flutter_1.AnimationStatus p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
+        t.addStatusListener(($flutter_1.AnimationStatus p0) {
+          D4.callInterpreterCallback(visitor!, listenerRaw, [p0]);
+        });
         return null;
       },
       'removeStatusListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMax>(target, 'AnimationMax');
+        final t = D4.validateTarget<$flutter_4.AnimationMax>(
+          target,
+          'AnimationMax',
+        );
         D4.requireMinArgs(positional, 1, 'removeStatusListener');
         if (positional.isEmpty) {
-          throw ArgumentError('removeStatusListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'removeStatusListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.removeStatusListener(($flutter_1.AnimationStatus p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
+        t.removeStatusListener(($flutter_1.AnimationStatus p0) {
+          D4.callInterpreterCallback(visitor!, listenerRaw, [p0]);
+        });
         return null;
       },
       'drive': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMax>(target, 'AnimationMax');
+        final t = D4.validateTarget<$flutter_4.AnimationMax>(
+          target,
+          'AnimationMax',
+        );
         D4.requireMinArgs(positional, 1, 'drive');
-        final child = D4.getRequiredArg<$flutter_7.Animatable<dynamic>>(positional, 0, 'child', 'drive');
+        final child = D4.getRequiredArg<$flutter_7.Animatable<dynamic>>(
+          positional,
+          0,
+          'child',
+          'drive',
+        );
         return t.drive(child);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMax>(target, 'AnimationMax');
+        final t = D4.validateTarget<$flutter_4.AnimationMax>(
+          target,
+          'AnimationMax',
+        );
         return t.toString();
       },
       'toStringDetails': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMax>(target, 'AnimationMax');
+        final t = D4.validateTarget<$flutter_4.AnimationMax>(
+          target,
+          'AnimationMax',
+        );
         return t.toStringDetails();
       },
       'didStartListening': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMax>(target, 'AnimationMax');
+        final t = D4.validateTarget<$flutter_4.AnimationMax>(
+          target,
+          'AnimationMax',
+        );
         t.didStartListening();
         return null;
       },
       'didStopListening': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMax>(target, 'AnimationMax');
+        final t = D4.validateTarget<$flutter_4.AnimationMax>(
+          target,
+          'AnimationMax',
+        );
         t.didStopListening();
         return null;
       },
       'didRegisterListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMax>(target, 'AnimationMax');
+        final t = D4.validateTarget<$flutter_4.AnimationMax>(
+          target,
+          'AnimationMax',
+        );
         t.didRegisterListener();
         return null;
       },
       'didUnregisterListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMax>(target, 'AnimationMax');
+        final t = D4.validateTarget<$flutter_4.AnimationMax>(
+          target,
+          'AnimationMax',
+        );
         t.didUnregisterListener();
         return null;
       },
       'clearListeners': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMax>(target, 'AnimationMax');
+        final t = D4.validateTarget<$flutter_4.AnimationMax>(
+          target,
+          'AnimationMax',
+        );
         t.clearListeners();
         return null;
       },
       'notifyListeners': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMax>(target, 'AnimationMax');
+        final t = D4.validateTarget<$flutter_4.AnimationMax>(
+          target,
+          'AnimationMax',
+        );
         t.notifyListeners();
         return null;
       },
       'clearStatusListeners': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMax>(target, 'AnimationMax');
+        final t = D4.validateTarget<$flutter_4.AnimationMax>(
+          target,
+          'AnimationMax',
+        );
         t.clearStatusListeners();
         return null;
       },
       'notifyStatusListeners': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMax>(target, 'AnimationMax');
+        final t = D4.validateTarget<$flutter_4.AnimationMax>(
+          target,
+          'AnimationMax',
+        );
         D4.requireMinArgs(positional, 1, 'notifyStatusListeners');
-        final status = D4.getRequiredArg<$flutter_1.AnimationStatus>(positional, 0, 'status', 'notifyStatusListeners');
+        final status = D4.getRequiredArg<$flutter_1.AnimationStatus>(
+          positional,
+          0,
+          'status',
+          'notifyStatusListeners',
+        );
         t.notifyStatusListeners(status);
         return null;
       },
@@ -4466,8 +7154,10 @@ BridgedClass _createAnimationMaxBridge() {
     methodSignatures: {
       'addListener': 'void addListener(VoidCallback listener)',
       'removeListener': 'void removeListener(VoidCallback listener)',
-      'addStatusListener': 'void addStatusListener(AnimationStatusListener listener)',
-      'removeStatusListener': 'void removeStatusListener(AnimationStatusListener listener)',
+      'addStatusListener':
+          'void addStatusListener(AnimationStatusListener listener)',
+      'removeStatusListener':
+          'void removeStatusListener(AnimationStatusListener listener)',
       'drive': 'Animation<U> drive(Animatable<U> child)',
       'toString': 'String toString()',
       'toStringDetails': 'String toStringDetails()',
@@ -4478,7 +7168,8 @@ BridgedClass _createAnimationMaxBridge() {
       'clearListeners': 'void clearListeners()',
       'notifyListeners': 'void notifyListeners()',
       'clearStatusListeners': 'void clearStatusListeners()',
-      'notifyStatusListeners': 'void notifyStatusListeners(AnimationStatus status)',
+      'notifyStatusListeners':
+          'void notifyStatusListeners(AnimationStatus status)',
     },
     getterSignatures: {
       'status': 'AnimationStatus get status',
@@ -4507,116 +7198,215 @@ BridgedClass _createAnimationMinBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'AnimationMin');
-        final first = D4.getRequiredArg<$flutter_1.Animation<num>>(positional, 0, 'first', 'AnimationMin');
-        final next = D4.getRequiredArg<$flutter_1.Animation<num>>(positional, 1, 'next', 'AnimationMin');
+        final first = D4.getRequiredArg<$flutter_1.Animation<num>>(
+          positional,
+          0,
+          'first',
+          'AnimationMin',
+        );
+        final next = D4.getRequiredArg<$flutter_1.Animation<num>>(
+          positional,
+          1,
+          'next',
+          'AnimationMin',
+        );
         return $flutter_4.AnimationMin(first, next);
       },
     },
     getters: {
-      'status': (visitor, target) => D4.validateTarget<$flutter_4.AnimationMin>(target, 'AnimationMin').status,
-      'value': (visitor, target) => D4.validateTarget<$flutter_4.AnimationMin>(target, 'AnimationMin').value,
-      'isDismissed': (visitor, target) => D4.validateTarget<$flutter_4.AnimationMin>(target, 'AnimationMin').isDismissed,
-      'isCompleted': (visitor, target) => D4.validateTarget<$flutter_4.AnimationMin>(target, 'AnimationMin').isCompleted,
-      'isAnimating': (visitor, target) => D4.validateTarget<$flutter_4.AnimationMin>(target, 'AnimationMin').isAnimating,
-      'isForwardOrCompleted': (visitor, target) => D4.validateTarget<$flutter_4.AnimationMin>(target, 'AnimationMin').isForwardOrCompleted,
-      'first': (visitor, target) => D4.validateTarget<$flutter_4.AnimationMin>(target, 'AnimationMin').first,
-      'next': (visitor, target) => D4.validateTarget<$flutter_4.AnimationMin>(target, 'AnimationMin').next,
-      'isListening': (visitor, target) => D4.validateTarget<$flutter_4.AnimationMin>(target, 'AnimationMin').isListening,
+      'status': (visitor, target) => D4
+          .validateTarget<$flutter_4.AnimationMin>(target, 'AnimationMin')
+          .status,
+      'value': (visitor, target) => D4
+          .validateTarget<$flutter_4.AnimationMin>(target, 'AnimationMin')
+          .value,
+      'isDismissed': (visitor, target) => D4
+          .validateTarget<$flutter_4.AnimationMin>(target, 'AnimationMin')
+          .isDismissed,
+      'isCompleted': (visitor, target) => D4
+          .validateTarget<$flutter_4.AnimationMin>(target, 'AnimationMin')
+          .isCompleted,
+      'isAnimating': (visitor, target) => D4
+          .validateTarget<$flutter_4.AnimationMin>(target, 'AnimationMin')
+          .isAnimating,
+      'isForwardOrCompleted': (visitor, target) => D4
+          .validateTarget<$flutter_4.AnimationMin>(target, 'AnimationMin')
+          .isForwardOrCompleted,
+      'first': (visitor, target) => D4
+          .validateTarget<$flutter_4.AnimationMin>(target, 'AnimationMin')
+          .first,
+      'next': (visitor, target) => D4
+          .validateTarget<$flutter_4.AnimationMin>(target, 'AnimationMin')
+          .next,
+      'isListening': (visitor, target) => D4
+          .validateTarget<$flutter_4.AnimationMin>(target, 'AnimationMin')
+          .isListening,
     },
     methods: {
       'addListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMin>(target, 'AnimationMin');
+        final t = D4.validateTarget<$flutter_4.AnimationMin>(
+          target,
+          'AnimationMin',
+        );
         D4.requireMinArgs(positional, 1, 'addListener');
         if (positional.isEmpty) {
-          throw ArgumentError('addListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'addListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.addListener(() { D4.callInterpreterCallback(visitor!, listenerRaw, []); });
+        t.addListener(() {
+          D4.callInterpreterCallback(visitor!, listenerRaw, []);
+        });
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMin>(target, 'AnimationMin');
+        final t = D4.validateTarget<$flutter_4.AnimationMin>(
+          target,
+          'AnimationMin',
+        );
         D4.requireMinArgs(positional, 1, 'removeListener');
         if (positional.isEmpty) {
-          throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'removeListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.removeListener(() { D4.callInterpreterCallback(visitor!, listenerRaw, []); });
+        t.removeListener(() {
+          D4.callInterpreterCallback(visitor!, listenerRaw, []);
+        });
         return null;
       },
       'addStatusListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMin>(target, 'AnimationMin');
+        final t = D4.validateTarget<$flutter_4.AnimationMin>(
+          target,
+          'AnimationMin',
+        );
         D4.requireMinArgs(positional, 1, 'addStatusListener');
         if (positional.isEmpty) {
-          throw ArgumentError('addStatusListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'addStatusListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.addStatusListener(($flutter_1.AnimationStatus p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
+        t.addStatusListener(($flutter_1.AnimationStatus p0) {
+          D4.callInterpreterCallback(visitor!, listenerRaw, [p0]);
+        });
         return null;
       },
       'removeStatusListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMin>(target, 'AnimationMin');
+        final t = D4.validateTarget<$flutter_4.AnimationMin>(
+          target,
+          'AnimationMin',
+        );
         D4.requireMinArgs(positional, 1, 'removeStatusListener');
         if (positional.isEmpty) {
-          throw ArgumentError('removeStatusListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'removeStatusListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.removeStatusListener(($flutter_1.AnimationStatus p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
+        t.removeStatusListener(($flutter_1.AnimationStatus p0) {
+          D4.callInterpreterCallback(visitor!, listenerRaw, [p0]);
+        });
         return null;
       },
       'drive': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMin>(target, 'AnimationMin');
+        final t = D4.validateTarget<$flutter_4.AnimationMin>(
+          target,
+          'AnimationMin',
+        );
         D4.requireMinArgs(positional, 1, 'drive');
-        final child = D4.getRequiredArg<$flutter_7.Animatable<dynamic>>(positional, 0, 'child', 'drive');
+        final child = D4.getRequiredArg<$flutter_7.Animatable<dynamic>>(
+          positional,
+          0,
+          'child',
+          'drive',
+        );
         return t.drive(child);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMin>(target, 'AnimationMin');
+        final t = D4.validateTarget<$flutter_4.AnimationMin>(
+          target,
+          'AnimationMin',
+        );
         return t.toString();
       },
       'toStringDetails': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMin>(target, 'AnimationMin');
+        final t = D4.validateTarget<$flutter_4.AnimationMin>(
+          target,
+          'AnimationMin',
+        );
         return t.toStringDetails();
       },
       'didStartListening': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMin>(target, 'AnimationMin');
+        final t = D4.validateTarget<$flutter_4.AnimationMin>(
+          target,
+          'AnimationMin',
+        );
         t.didStartListening();
         return null;
       },
       'didStopListening': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMin>(target, 'AnimationMin');
+        final t = D4.validateTarget<$flutter_4.AnimationMin>(
+          target,
+          'AnimationMin',
+        );
         t.didStopListening();
         return null;
       },
       'didRegisterListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMin>(target, 'AnimationMin');
+        final t = D4.validateTarget<$flutter_4.AnimationMin>(
+          target,
+          'AnimationMin',
+        );
         t.didRegisterListener();
         return null;
       },
       'didUnregisterListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMin>(target, 'AnimationMin');
+        final t = D4.validateTarget<$flutter_4.AnimationMin>(
+          target,
+          'AnimationMin',
+        );
         t.didUnregisterListener();
         return null;
       },
       'clearListeners': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMin>(target, 'AnimationMin');
+        final t = D4.validateTarget<$flutter_4.AnimationMin>(
+          target,
+          'AnimationMin',
+        );
         t.clearListeners();
         return null;
       },
       'notifyListeners': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMin>(target, 'AnimationMin');
+        final t = D4.validateTarget<$flutter_4.AnimationMin>(
+          target,
+          'AnimationMin',
+        );
         t.notifyListeners();
         return null;
       },
       'clearStatusListeners': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMin>(target, 'AnimationMin');
+        final t = D4.validateTarget<$flutter_4.AnimationMin>(
+          target,
+          'AnimationMin',
+        );
         t.clearStatusListeners();
         return null;
       },
       'notifyStatusListeners': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationMin>(target, 'AnimationMin');
+        final t = D4.validateTarget<$flutter_4.AnimationMin>(
+          target,
+          'AnimationMin',
+        );
         D4.requireMinArgs(positional, 1, 'notifyStatusListeners');
-        final status = D4.getRequiredArg<$flutter_1.AnimationStatus>(positional, 0, 'status', 'notifyStatusListeners');
+        final status = D4.getRequiredArg<$flutter_1.AnimationStatus>(
+          positional,
+          0,
+          'status',
+          'notifyStatusListeners',
+        );
         t.notifyStatusListeners(status);
         return null;
       },
@@ -4627,8 +7417,10 @@ BridgedClass _createAnimationMinBridge() {
     methodSignatures: {
       'addListener': 'void addListener(VoidCallback listener)',
       'removeListener': 'void removeListener(VoidCallback listener)',
-      'addStatusListener': 'void addStatusListener(AnimationStatusListener listener)',
-      'removeStatusListener': 'void removeStatusListener(AnimationStatusListener listener)',
+      'addStatusListener':
+          'void addStatusListener(AnimationStatusListener listener)',
+      'removeStatusListener':
+          'void removeStatusListener(AnimationStatusListener listener)',
       'drive': 'Animation<U> drive(Animatable<U> child)',
       'toString': 'String toString()',
       'toStringDetails': 'String toStringDetails()',
@@ -4639,7 +7431,8 @@ BridgedClass _createAnimationMinBridge() {
       'clearListeners': 'void clearListeners()',
       'notifyListeners': 'void notifyListeners()',
       'clearStatusListeners': 'void clearStatusListeners()',
-      'notifyStatusListeners': 'void notifyStatusListeners(AnimationStatus status)',
+      'notifyStatusListeners':
+          'void notifyStatusListeners(AnimationStatus status)',
     },
     getterSignatures: {
       'status': 'AnimationStatus get status',
@@ -4666,59 +7459,98 @@ BridgedClass _createAnimationWithParentMixinBridge() {
     isAssignable: (v) => v is $flutter_4.AnimationWithParentMixin,
     canBeUsedAsMixin: true,
     isAbstract: true,
-    constructors: {
-    },
+    constructors: {},
     getters: {
-      'parent': (visitor, target) => D4.validateTarget<$flutter_4.AnimationWithParentMixin>(target, 'AnimationWithParentMixin').parent,
-      'status': (visitor, target) => D4.validateTarget<$flutter_4.AnimationWithParentMixin>(target, 'AnimationWithParentMixin').status,
+      'parent': (visitor, target) => D4
+          .validateTarget<$flutter_4.AnimationWithParentMixin>(
+            target,
+            'AnimationWithParentMixin',
+          )
+          .parent,
+      'status': (visitor, target) => D4
+          .validateTarget<$flutter_4.AnimationWithParentMixin>(
+            target,
+            'AnimationWithParentMixin',
+          )
+          .status,
     },
     methods: {
       'addListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationWithParentMixin>(target, 'AnimationWithParentMixin');
+        final t = D4.validateTarget<$flutter_4.AnimationWithParentMixin>(
+          target,
+          'AnimationWithParentMixin',
+        );
         D4.requireMinArgs(positional, 1, 'addListener');
         if (positional.isEmpty) {
-          throw ArgumentError('addListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'addListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.addListener(() { D4.callInterpreterCallback(visitor!, listenerRaw, []); });
+        t.addListener(() {
+          D4.callInterpreterCallback(visitor!, listenerRaw, []);
+        });
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationWithParentMixin>(target, 'AnimationWithParentMixin');
+        final t = D4.validateTarget<$flutter_4.AnimationWithParentMixin>(
+          target,
+          'AnimationWithParentMixin',
+        );
         D4.requireMinArgs(positional, 1, 'removeListener');
         if (positional.isEmpty) {
-          throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'removeListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.removeListener(() { D4.callInterpreterCallback(visitor!, listenerRaw, []); });
+        t.removeListener(() {
+          D4.callInterpreterCallback(visitor!, listenerRaw, []);
+        });
         return null;
       },
       'addStatusListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationWithParentMixin>(target, 'AnimationWithParentMixin');
+        final t = D4.validateTarget<$flutter_4.AnimationWithParentMixin>(
+          target,
+          'AnimationWithParentMixin',
+        );
         D4.requireMinArgs(positional, 1, 'addStatusListener');
         if (positional.isEmpty) {
-          throw ArgumentError('addStatusListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'addStatusListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.addStatusListener(($flutter_1.AnimationStatus p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
+        t.addStatusListener(($flutter_1.AnimationStatus p0) {
+          D4.callInterpreterCallback(visitor!, listenerRaw, [p0]);
+        });
         return null;
       },
       'removeStatusListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationWithParentMixin>(target, 'AnimationWithParentMixin');
+        final t = D4.validateTarget<$flutter_4.AnimationWithParentMixin>(
+          target,
+          'AnimationWithParentMixin',
+        );
         D4.requireMinArgs(positional, 1, 'removeStatusListener');
         if (positional.isEmpty) {
-          throw ArgumentError('removeStatusListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'removeStatusListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.removeStatusListener(($flutter_1.AnimationStatus p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
+        t.removeStatusListener(($flutter_1.AnimationStatus p0) {
+          D4.callInterpreterCallback(visitor!, listenerRaw, [p0]);
+        });
         return null;
       },
     },
     methodSignatures: {
       'addListener': 'void addListener(VoidCallback listener)',
       'removeListener': 'void removeListener(VoidCallback listener)',
-      'addStatusListener': 'void addStatusListener(AnimationStatusListener listener)',
-      'removeStatusListener': 'void removeStatusListener(AnimationStatusListener listener)',
+      'addStatusListener':
+          'void addStatusListener(AnimationStatusListener listener)',
+      'removeStatusListener':
+          'void removeStatusListener(AnimationStatusListener listener)',
     },
     getterSignatures: {
       'parent': 'Animation<T> get parent',
@@ -4738,29 +7570,45 @@ BridgedClass _createAnimationLazyListenerMixinBridge() {
     isAssignable: (v) => v is $flutter_6.AnimationLazyListenerMixin,
     canBeUsedAsMixin: true,
     isAbstract: true,
-    constructors: {
-    },
+    constructors: {},
     getters: {
-      'isListening': (visitor, target) => D4.validateTarget<$flutter_6.AnimationLazyListenerMixin>(target, 'AnimationLazyListenerMixin').isListening,
+      'isListening': (visitor, target) => D4
+          .validateTarget<$flutter_6.AnimationLazyListenerMixin>(
+            target,
+            'AnimationLazyListenerMixin',
+          )
+          .isListening,
     },
     methods: {
       'didRegisterListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.AnimationLazyListenerMixin>(target, 'AnimationLazyListenerMixin');
+        final t = D4.validateTarget<$flutter_6.AnimationLazyListenerMixin>(
+          target,
+          'AnimationLazyListenerMixin',
+        );
         t.didRegisterListener();
         return null;
       },
       'didUnregisterListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.AnimationLazyListenerMixin>(target, 'AnimationLazyListenerMixin');
+        final t = D4.validateTarget<$flutter_6.AnimationLazyListenerMixin>(
+          target,
+          'AnimationLazyListenerMixin',
+        );
         t.didUnregisterListener();
         return null;
       },
       'didStartListening': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.AnimationLazyListenerMixin>(target, 'AnimationLazyListenerMixin');
+        final t = D4.validateTarget<$flutter_6.AnimationLazyListenerMixin>(
+          target,
+          'AnimationLazyListenerMixin',
+        );
         t.didStartListening();
         return null;
       },
       'didStopListening': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.AnimationLazyListenerMixin>(target, 'AnimationLazyListenerMixin');
+        final t = D4.validateTarget<$flutter_6.AnimationLazyListenerMixin>(
+          target,
+          'AnimationLazyListenerMixin',
+        );
         t.didStopListening();
         return null;
       },
@@ -4771,9 +7619,7 @@ BridgedClass _createAnimationLazyListenerMixinBridge() {
       'didStartListening': 'void didStartListening()',
       'didStopListening': 'void didStopListening()',
     },
-    getterSignatures: {
-      'isListening': 'bool get isListening',
-    },
+    getterSignatures: {'isListening': 'bool get isListening'},
   );
 }
 
@@ -4788,21 +7634,29 @@ BridgedClass _createAnimationEagerListenerMixinBridge() {
     isAssignable: (v) => v is $flutter_6.AnimationEagerListenerMixin,
     canBeUsedAsMixin: true,
     isAbstract: true,
-    constructors: {
-    },
+    constructors: {},
     methods: {
       'didRegisterListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.AnimationEagerListenerMixin>(target, 'AnimationEagerListenerMixin');
+        final t = D4.validateTarget<$flutter_6.AnimationEagerListenerMixin>(
+          target,
+          'AnimationEagerListenerMixin',
+        );
         t.didRegisterListener();
         return null;
       },
       'didUnregisterListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.AnimationEagerListenerMixin>(target, 'AnimationEagerListenerMixin');
+        final t = D4.validateTarget<$flutter_6.AnimationEagerListenerMixin>(
+          target,
+          'AnimationEagerListenerMixin',
+        );
         t.didUnregisterListener();
         return null;
       },
       'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.AnimationEagerListenerMixin>(target, 'AnimationEagerListenerMixin');
+        final t = D4.validateTarget<$flutter_6.AnimationEagerListenerMixin>(
+          target,
+          'AnimationEagerListenerMixin',
+        );
         (t as dynamic).dispose();
         return null;
       },
@@ -4826,46 +7680,71 @@ BridgedClass _createAnimationLocalListenersMixinBridge() {
     isAssignable: (v) => v is $flutter_6.AnimationLocalListenersMixin,
     canBeUsedAsMixin: true,
     isAbstract: true,
-    constructors: {
-    },
+    constructors: {},
     methods: {
       'didRegisterListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.AnimationLocalListenersMixin>(target, 'AnimationLocalListenersMixin');
+        final t = D4.validateTarget<$flutter_6.AnimationLocalListenersMixin>(
+          target,
+          'AnimationLocalListenersMixin',
+        );
         t.didRegisterListener();
         return null;
       },
       'didUnregisterListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.AnimationLocalListenersMixin>(target, 'AnimationLocalListenersMixin');
+        final t = D4.validateTarget<$flutter_6.AnimationLocalListenersMixin>(
+          target,
+          'AnimationLocalListenersMixin',
+        );
         t.didUnregisterListener();
         return null;
       },
       'addListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.AnimationLocalListenersMixin>(target, 'AnimationLocalListenersMixin');
+        final t = D4.validateTarget<$flutter_6.AnimationLocalListenersMixin>(
+          target,
+          'AnimationLocalListenersMixin',
+        );
         D4.requireMinArgs(positional, 1, 'addListener');
         if (positional.isEmpty) {
-          throw ArgumentError('addListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'addListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.addListener(() { D4.callInterpreterCallback(visitor!, listenerRaw, []); });
+        t.addListener(() {
+          D4.callInterpreterCallback(visitor!, listenerRaw, []);
+        });
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.AnimationLocalListenersMixin>(target, 'AnimationLocalListenersMixin');
+        final t = D4.validateTarget<$flutter_6.AnimationLocalListenersMixin>(
+          target,
+          'AnimationLocalListenersMixin',
+        );
         D4.requireMinArgs(positional, 1, 'removeListener');
         if (positional.isEmpty) {
-          throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'removeListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.removeListener(() { D4.callInterpreterCallback(visitor!, listenerRaw, []); });
+        t.removeListener(() {
+          D4.callInterpreterCallback(visitor!, listenerRaw, []);
+        });
         return null;
       },
       'clearListeners': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.AnimationLocalListenersMixin>(target, 'AnimationLocalListenersMixin');
+        final t = D4.validateTarget<$flutter_6.AnimationLocalListenersMixin>(
+          target,
+          'AnimationLocalListenersMixin',
+        );
         t.clearListeners();
         return null;
       },
       'notifyListeners': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.AnimationLocalListenersMixin>(target, 'AnimationLocalListenersMixin');
+        final t = D4.validateTarget<$flutter_6.AnimationLocalListenersMixin>(
+          target,
+          'AnimationLocalListenersMixin',
+        );
         t.notifyListeners();
         return null;
       },
@@ -4892,48 +7771,84 @@ BridgedClass _createAnimationLocalStatusListenersMixinBridge() {
     isAssignable: (v) => v is $flutter_6.AnimationLocalStatusListenersMixin,
     canBeUsedAsMixin: true,
     isAbstract: true,
-    constructors: {
-    },
+    constructors: {},
     methods: {
       'didRegisterListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.AnimationLocalStatusListenersMixin>(target, 'AnimationLocalStatusListenersMixin');
+        final t = D4
+            .validateTarget<$flutter_6.AnimationLocalStatusListenersMixin>(
+              target,
+              'AnimationLocalStatusListenersMixin',
+            );
         t.didRegisterListener();
         return null;
       },
       'didUnregisterListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.AnimationLocalStatusListenersMixin>(target, 'AnimationLocalStatusListenersMixin');
+        final t = D4
+            .validateTarget<$flutter_6.AnimationLocalStatusListenersMixin>(
+              target,
+              'AnimationLocalStatusListenersMixin',
+            );
         t.didUnregisterListener();
         return null;
       },
       'addStatusListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.AnimationLocalStatusListenersMixin>(target, 'AnimationLocalStatusListenersMixin');
+        final t = D4
+            .validateTarget<$flutter_6.AnimationLocalStatusListenersMixin>(
+              target,
+              'AnimationLocalStatusListenersMixin',
+            );
         D4.requireMinArgs(positional, 1, 'addStatusListener');
         if (positional.isEmpty) {
-          throw ArgumentError('addStatusListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'addStatusListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.addStatusListener(($flutter_1.AnimationStatus p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
+        t.addStatusListener(($flutter_1.AnimationStatus p0) {
+          D4.callInterpreterCallback(visitor!, listenerRaw, [p0]);
+        });
         return null;
       },
       'removeStatusListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.AnimationLocalStatusListenersMixin>(target, 'AnimationLocalStatusListenersMixin');
+        final t = D4
+            .validateTarget<$flutter_6.AnimationLocalStatusListenersMixin>(
+              target,
+              'AnimationLocalStatusListenersMixin',
+            );
         D4.requireMinArgs(positional, 1, 'removeStatusListener');
         if (positional.isEmpty) {
-          throw ArgumentError('removeStatusListener: Missing required argument "listener" at position 0');
+          throw ArgumentError(
+            'removeStatusListener: Missing required argument "listener" at position 0',
+          );
         }
         final listenerRaw = positional[0];
-        t.removeStatusListener(($flutter_1.AnimationStatus p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
+        t.removeStatusListener(($flutter_1.AnimationStatus p0) {
+          D4.callInterpreterCallback(visitor!, listenerRaw, [p0]);
+        });
         return null;
       },
       'clearStatusListeners': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.AnimationLocalStatusListenersMixin>(target, 'AnimationLocalStatusListenersMixin');
+        final t = D4
+            .validateTarget<$flutter_6.AnimationLocalStatusListenersMixin>(
+              target,
+              'AnimationLocalStatusListenersMixin',
+            );
         t.clearStatusListeners();
         return null;
       },
       'notifyStatusListeners': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_6.AnimationLocalStatusListenersMixin>(target, 'AnimationLocalStatusListenersMixin');
+        final t = D4
+            .validateTarget<$flutter_6.AnimationLocalStatusListenersMixin>(
+              target,
+              'AnimationLocalStatusListenersMixin',
+            );
         D4.requireMinArgs(positional, 1, 'notifyStatusListeners');
-        final status = D4.getRequiredArg<$flutter_1.AnimationStatus>(positional, 0, 'status', 'notifyStatusListeners');
+        final status = D4.getRequiredArg<$flutter_1.AnimationStatus>(
+          positional,
+          0,
+          'status',
+          'notifyStatusListeners',
+        );
         t.notifyStatusListeners(status);
         return null;
       },
@@ -4941,10 +7856,13 @@ BridgedClass _createAnimationLocalStatusListenersMixinBridge() {
     methodSignatures: {
       'didRegisterListener': 'void didRegisterListener()',
       'didUnregisterListener': 'void didUnregisterListener()',
-      'addStatusListener': 'void addStatusListener(AnimationStatusListener listener)',
-      'removeStatusListener': 'void removeStatusListener(AnimationStatusListener listener)',
+      'addStatusListener':
+          'void addStatusListener(AnimationStatusListener listener)',
+      'removeStatusListener':
+          'void removeStatusListener(AnimationStatusListener listener)',
       'clearStatusListeners': 'void clearStatusListeners()',
-      'notifyStatusListeners': 'void notifyStatusListeners(AnimationStatus status)',
+      'notifyStatusListeners':
+          'void notifyStatusListeners(AnimationStatus status)',
     },
   );
 }
@@ -4963,39 +7881,74 @@ BridgedClass _createTweenSequenceBridge() {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'TweenSequence');
         if (positional.isEmpty) {
-          throw ArgumentError('TweenSequence: Missing required argument "items" at position 0');
+          throw ArgumentError(
+            'TweenSequence: Missing required argument "items" at position 0',
+          );
         }
-        final items = D4.coerceList<$flutter_8.TweenSequenceItem<dynamic>>(positional[0], 'items');
+        final items = D4.coerceList<$flutter_8.TweenSequenceItem<dynamic>>(
+          positional[0],
+          'items',
+        );
         return $flutter_8.TweenSequence(items);
       },
     },
     methods: {
       'transform': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.TweenSequence>(target, 'TweenSequence');
+        final t = D4.validateTarget<$flutter_8.TweenSequence>(
+          target,
+          'TweenSequence',
+        );
         D4.requireMinArgs(positional, 1, 'transform');
         final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transform');
         return t.transform(t_);
       },
       'evaluate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.TweenSequence>(target, 'TweenSequence');
+        final t = D4.validateTarget<$flutter_8.TweenSequence>(
+          target,
+          'TweenSequence',
+        );
         D4.requireMinArgs(positional, 1, 'evaluate');
-        final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'animation', 'evaluate');
+        final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(
+          positional,
+          0,
+          'animation',
+          'evaluate',
+        );
         return t.evaluate(animation);
       },
       'animate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.TweenSequence>(target, 'TweenSequence');
+        final t = D4.validateTarget<$flutter_8.TweenSequence>(
+          target,
+          'TweenSequence',
+        );
         D4.requireMinArgs(positional, 1, 'animate');
-        final parent = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'parent', 'animate');
+        final parent = D4.getRequiredArg<$flutter_1.Animation<double>>(
+          positional,
+          0,
+          'parent',
+          'animate',
+        );
         return t.animate(parent);
       },
       'chain': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.TweenSequence>(target, 'TweenSequence');
+        final t = D4.validateTarget<$flutter_8.TweenSequence>(
+          target,
+          'TweenSequence',
+        );
         D4.requireMinArgs(positional, 1, 'chain');
-        final parent = D4.getRequiredArg<$flutter_7.Animatable<double>>(positional, 0, 'parent', 'chain');
+        final parent = D4.getRequiredArg<$flutter_7.Animatable<double>>(
+          positional,
+          0,
+          'parent',
+          'chain',
+        );
         return t.chain(parent);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.TweenSequence>(target, 'TweenSequence');
+        final t = D4.validateTarget<$flutter_8.TweenSequence>(
+          target,
+          'TweenSequence',
+        );
         return t.toString();
       },
     },
@@ -5026,39 +7979,74 @@ BridgedClass _createFlippedTweenSequenceBridge() {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FlippedTweenSequence');
         if (positional.isEmpty) {
-          throw ArgumentError('FlippedTweenSequence: Missing required argument "items" at position 0');
+          throw ArgumentError(
+            'FlippedTweenSequence: Missing required argument "items" at position 0',
+          );
         }
-        final items = D4.coerceList<$flutter_8.TweenSequenceItem<double>>(positional[0], 'items');
+        final items = D4.coerceList<$flutter_8.TweenSequenceItem<double>>(
+          positional[0],
+          'items',
+        );
         return $flutter_8.FlippedTweenSequence(items);
       },
     },
     methods: {
       'transform': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.FlippedTweenSequence>(target, 'FlippedTweenSequence');
+        final t = D4.validateTarget<$flutter_8.FlippedTweenSequence>(
+          target,
+          'FlippedTweenSequence',
+        );
         D4.requireMinArgs(positional, 1, 'transform');
         final t_ = D4.getRequiredArg<double>(positional, 0, 't', 'transform');
         return t.transform(t_);
       },
       'evaluate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.FlippedTweenSequence>(target, 'FlippedTweenSequence');
+        final t = D4.validateTarget<$flutter_8.FlippedTweenSequence>(
+          target,
+          'FlippedTweenSequence',
+        );
         D4.requireMinArgs(positional, 1, 'evaluate');
-        final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'animation', 'evaluate');
+        final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(
+          positional,
+          0,
+          'animation',
+          'evaluate',
+        );
         return t.evaluate(animation);
       },
       'animate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.FlippedTweenSequence>(target, 'FlippedTweenSequence');
+        final t = D4.validateTarget<$flutter_8.FlippedTweenSequence>(
+          target,
+          'FlippedTweenSequence',
+        );
         D4.requireMinArgs(positional, 1, 'animate');
-        final parent = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 0, 'parent', 'animate');
+        final parent = D4.getRequiredArg<$flutter_1.Animation<double>>(
+          positional,
+          0,
+          'parent',
+          'animate',
+        );
         return t.animate(parent);
       },
       'chain': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.FlippedTweenSequence>(target, 'FlippedTweenSequence');
+        final t = D4.validateTarget<$flutter_8.FlippedTweenSequence>(
+          target,
+          'FlippedTweenSequence',
+        );
         D4.requireMinArgs(positional, 1, 'chain');
-        final parent = D4.getRequiredArg<$flutter_7.Animatable<double>>(positional, 0, 'parent', 'chain');
+        final parent = D4.getRequiredArg<$flutter_7.Animatable<double>>(
+          positional,
+          0,
+          'parent',
+          'chain',
+        );
         return t.chain(parent);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.FlippedTweenSequence>(target, 'FlippedTweenSequence');
+        final t = D4.validateTarget<$flutter_8.FlippedTweenSequence>(
+          target,
+          'FlippedTweenSequence',
+        );
         return t.toString();
       },
     },
@@ -5086,14 +8074,32 @@ BridgedClass _createTweenSequenceItemBridge() {
     isAssignable: (v) => v is $flutter_8.TweenSequenceItem,
     constructors: {
       '': (visitor, positional, named) {
-        final tween = D4.getRequiredNamedArg<$flutter_7.Animatable<dynamic>>(named, 'tween', 'TweenSequenceItem');
-        final weight = D4.getRequiredNamedArg<double>(named, 'weight', 'TweenSequenceItem');
+        final tween = D4.getRequiredNamedArg<$flutter_7.Animatable<dynamic>>(
+          named,
+          'tween',
+          'TweenSequenceItem',
+        );
+        final weight = D4.getRequiredNamedArg<double>(
+          named,
+          'weight',
+          'TweenSequenceItem',
+        );
         return $flutter_8.TweenSequenceItem(tween: tween, weight: weight);
       },
     },
     getters: {
-      'tween': (visitor, target) => D4.validateTarget<$flutter_8.TweenSequenceItem>(target, 'TweenSequenceItem').tween,
-      'weight': (visitor, target) => D4.validateTarget<$flutter_8.TweenSequenceItem>(target, 'TweenSequenceItem').weight,
+      'tween': (visitor, target) => D4
+          .validateTarget<$flutter_8.TweenSequenceItem>(
+            target,
+            'TweenSequenceItem',
+          )
+          .tween,
+      'weight': (visitor, target) => D4
+          .validateTarget<$flutter_8.TweenSequenceItem>(
+            target,
+            'TweenSequenceItem',
+          )
+          .weight,
     },
     constructorSignatures: {
       '': 'const TweenSequenceItem({required Animatable<T> tween, required double weight})',
@@ -5104,4 +8110,3 @@ BridgedClass _createTweenSequenceItemBridge() {
     },
   );
 }
-

@@ -1,15 +1,18 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 3 files
-// Generated: 2026-09-17T23:35:22.505965 by tom_d4rt_generator 1.26.2
+// Generated: 2026-09-30T19:40:39.113999 by tom_d4rt_generator 1.51.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
 
-import 'package:d4rt_advanced_sample/src/geometry/physics_world.dart' as $d4rt_advanced_sample_1;
-import 'package:d4rt_advanced_sample/src/geometry/shapes.dart' as $d4rt_advanced_sample_2;
-import 'package:d4rt_advanced_sample/src/geometry/vector2.dart' as $d4rt_advanced_sample_3;
+import 'package:d4rt_advanced_sample/src/geometry/physics_world.dart'
+    as $d4rt_advanced_sample_1;
+import 'package:d4rt_advanced_sample/src/geometry/shapes.dart'
+    as $d4rt_advanced_sample_2;
+import 'package:d4rt_advanced_sample/src/geometry/vector2.dart'
+    as $d4rt_advanced_sample_3;
 
 /// Bridge class for geometry module.
 class GeometryBridge {
@@ -69,7 +72,8 @@ class GeometryBridge {
       'Circle': 'package:d4rt_advanced_sample/src/geometry/shapes.dart',
       'Rect': 'package:d4rt_advanced_sample/src/geometry/shapes.dart',
       'Body': 'package:d4rt_advanced_sample/src/geometry/physics_world.dart',
-      'PhysicsWorld': 'package:d4rt_advanced_sample/src/geometry/physics_world.dart',
+      'PhysicsWorld':
+          'package:d4rt_advanced_sample/src/geometry/physics_world.dart',
     };
   }
 
@@ -93,8 +97,7 @@ class GeometryBridge {
   /// are registered so that code using the alias name can resolve to the
   /// bridged class under its canonical name.
   static Map<String, String> classAliases() {
-    return {
-    };
+    return {};
   }
 
   /// Returns the list of function typedef names declared in this library.
@@ -102,14 +105,17 @@ class GeometryBridge {
   /// Function typedefs like `typedef VoidCallback = void Function()` are
   /// registered so that they can be used as type arguments in D4rt scripts.
   static List<String> functionTypedefs() {
-    return [
-    ];
+    return [];
+  }
+
+  /// Positional arity of each function typedef in [functionTypedefs].
+  static Map<String, ({int required, int max})> functionTypedefArity() {
+    return {};
   }
 
   /// Returns all bridged enum definitions.
   static List<BridgedEnumDefinition> bridgedEnums() {
-    return [
-    ];
+    return [];
   }
 
   /// Returns a map of enum names to their canonical source URIs.
@@ -117,32 +123,49 @@ class GeometryBridge {
   /// Used for deduplication when the same enum is exported through
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> enumSourceUris() {
-    return {
-    };
+    return {};
   }
 
   /// Returns all bridged extension definitions.
   static List<BridgedExtensionDefinition> bridgedExtensions() {
-    return [
-    ];
+    return [];
   }
 
   /// Returns a map of extension identifiers to their canonical source URIs.
   static Map<String, String> extensionSourceUris() {
-    return {
-    };
+    return {};
   }
 
   /// GEN-107: Library re-exports declared by the bridged source
   /// libraries. Each tuple mirrors a Dart `export '…'` directive.
   /// Consumed by `registerBridges` via `D4rt.registerLibraryReExport`
   /// (mirrored on `D4rtRunner` in tom_d4rt_ast).
-  static List<({String source, String target, Set<String>? show, Set<String>? hide})>
-  bridgeReExports() {
+  static List<
+      ({
+        String source,
+        String target,
+        Set<String>? show,
+        Set<String>? hide
+      })> bridgeReExports() {
     return [
-      (source: 'package:d4rt_advanced_sample/d4rt_advanced_sample.dart', target: 'package:d4rt_advanced_sample/src/geometry/vector2.dart', show: null, hide: null),
-      (source: 'package:d4rt_advanced_sample/d4rt_advanced_sample.dart', target: 'package:d4rt_advanced_sample/src/geometry/shapes.dart', show: null, hide: null),
-      (source: 'package:d4rt_advanced_sample/d4rt_advanced_sample.dart', target: 'package:d4rt_advanced_sample/src/geometry/physics_world.dart', show: null, hide: null),
+      (
+        source: 'package:d4rt_advanced_sample/d4rt_advanced_sample.dart',
+        target: 'package:d4rt_advanced_sample/src/geometry/vector2.dart',
+        show: null,
+        hide: null
+      ),
+      (
+        source: 'package:d4rt_advanced_sample/d4rt_advanced_sample.dart',
+        target: 'package:d4rt_advanced_sample/src/geometry/shapes.dart',
+        show: null,
+        hide: null
+      ),
+      (
+        source: 'package:d4rt_advanced_sample/d4rt_advanced_sample.dart',
+        target: 'package:d4rt_advanced_sample/src/geometry/physics_world.dart',
+        show: null,
+        hide: null
+      ),
     ];
   }
 
@@ -174,7 +197,8 @@ class GeometryBridge {
 
     // GEN-107: Register library re-exports
     for (final r in bridgeReExports()) {
-      interpreter.registerLibraryReExport(r.source, r.target, show: r.show, hide: r.hide);
+      interpreter.registerLibraryReExport(r.source, r.target,
+          show: r.show, hide: r.hide);
     }
   }
 
@@ -223,7 +247,6 @@ class GeometryBridge {
   static List<String> subPackageBarrels() {
     return [];
   }
-
 }
 
 // =============================================================================
@@ -247,38 +270,54 @@ BridgedClass _createVector2Bridge() {
       },
     },
     getters: {
-      'x': (visitor, target) => D4.validateTarget<$d4rt_advanced_sample_3.Vector2>(target, 'Vector2').x,
-      'y': (visitor, target) => D4.validateTarget<$d4rt_advanced_sample_3.Vector2>(target, 'Vector2').y,
-      'magnitude': (visitor, target) => D4.validateTarget<$d4rt_advanced_sample_3.Vector2>(target, 'Vector2').magnitude,
+      'x': (visitor, target) => D4
+          .validateTarget<$d4rt_advanced_sample_3.Vector2>(target, 'Vector2')
+          .x,
+      'y': (visitor, target) => D4
+          .validateTarget<$d4rt_advanced_sample_3.Vector2>(target, 'Vector2')
+          .y,
+      'magnitude': (visitor, target) => D4
+          .validateTarget<$d4rt_advanced_sample_3.Vector2>(target, 'Vector2')
+          .magnitude,
     },
     methods: {
       'normalized': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4rt_advanced_sample_3.Vector2>(target, 'Vector2');
+        final t = D4.validateTarget<$d4rt_advanced_sample_3.Vector2>(
+            target, 'Vector2');
         return t.normalized();
       },
       'dot': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4rt_advanced_sample_3.Vector2>(target, 'Vector2');
+        final t = D4.validateTarget<$d4rt_advanced_sample_3.Vector2>(
+            target, 'Vector2');
         D4.requireMinArgs(positional, 1, 'dot');
-        final other = D4.getRequiredArg<$d4rt_advanced_sample_3.Vector2>(positional, 0, 'other', 'dot');
+        final other = D4.getRequiredArg<$d4rt_advanced_sample_3.Vector2>(
+            positional, 0, 'other', 'dot');
         return t.dot(other);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4rt_advanced_sample_3.Vector2>(target, 'Vector2');
+        final t = D4.validateTarget<$d4rt_advanced_sample_3.Vector2>(
+            target, 'Vector2');
         return t.toString();
       },
       '+': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4rt_advanced_sample_3.Vector2>(target, 'Vector2');
-        final other = D4.getRequiredArg<$d4rt_advanced_sample_3.Vector2>(positional, 0, 'other', 'operator+');
+        final t = D4.validateTarget<$d4rt_advanced_sample_3.Vector2>(
+            target, 'Vector2');
+        final other = D4.getRequiredArg<$d4rt_advanced_sample_3.Vector2>(
+            positional, 0, 'other', 'operator+');
         return t + other;
       },
       '-': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4rt_advanced_sample_3.Vector2>(target, 'Vector2');
-        final other = D4.getRequiredArg<$d4rt_advanced_sample_3.Vector2>(positional, 0, 'other', 'operator-');
+        final t = D4.validateTarget<$d4rt_advanced_sample_3.Vector2>(
+            target, 'Vector2');
+        final other = D4.getRequiredArg<$d4rt_advanced_sample_3.Vector2>(
+            positional, 0, 'other', 'operator-');
         return t - other;
       },
       '*': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4rt_advanced_sample_3.Vector2>(target, 'Vector2');
-        final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator*');
+        final t = D4.validateTarget<$d4rt_advanced_sample_3.Vector2>(
+            target, 'Vector2');
+        final other =
+            D4.getRequiredArg<double>(positional, 0, 'other', 'operator*');
         return t * other;
       },
     },
@@ -309,21 +348,27 @@ BridgedClass _createShapeBridge() {
     name: 'Shape',
     isAssignable: (v) => v is $d4rt_advanced_sample_2.Shape,
     isAbstract: true,
-    constructors: {
-    },
+    constructors: {},
     getters: {
-      'center': (visitor, target) => D4.validateTarget<$d4rt_advanced_sample_2.Shape>(target, 'Shape').center,
-      'area': (visitor, target) => D4.validateTarget<$d4rt_advanced_sample_2.Shape>(target, 'Shape').area,
+      'center': (visitor, target) => D4
+          .validateTarget<$d4rt_advanced_sample_2.Shape>(target, 'Shape')
+          .center,
+      'area': (visitor, target) => D4
+          .validateTarget<$d4rt_advanced_sample_2.Shape>(target, 'Shape')
+          .area,
     },
     methods: {
       'contains': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4rt_advanced_sample_2.Shape>(target, 'Shape');
+        final t =
+            D4.validateTarget<$d4rt_advanced_sample_2.Shape>(target, 'Shape');
         D4.requireMinArgs(positional, 1, 'contains');
-        final point = D4.getRequiredArg<$d4rt_advanced_sample_3.Vector2>(positional, 0, 'point', 'contains');
+        final point = D4.getRequiredArg<$d4rt_advanced_sample_3.Vector2>(
+            positional, 0, 'point', 'contains');
         return t.contains(point);
       },
       'describe': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4rt_advanced_sample_2.Shape>(target, 'Shape');
+        final t =
+            D4.validateTarget<$d4rt_advanced_sample_2.Shape>(target, 'Shape');
         return t.describe();
       },
     },
@@ -351,25 +396,36 @@ BridgedClass _createCircleBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Circle');
-        final center = D4.getRequiredArg<$d4rt_advanced_sample_3.Vector2>(positional, 0, 'center', 'Circle');
-        final radius = D4.getRequiredArg<double>(positional, 1, 'radius', 'Circle');
+        final center = D4.getRequiredArg<$d4rt_advanced_sample_3.Vector2>(
+            positional, 0, 'center', 'Circle');
+        final radius =
+            D4.getRequiredArg<double>(positional, 1, 'radius', 'Circle');
         return $d4rt_advanced_sample_2.Circle(center, radius);
       },
     },
     getters: {
-      'center': (visitor, target) => D4.validateTarget<$d4rt_advanced_sample_2.Circle>(target, 'Circle').center,
-      'area': (visitor, target) => D4.validateTarget<$d4rt_advanced_sample_2.Circle>(target, 'Circle').area,
-      'radius': (visitor, target) => D4.validateTarget<$d4rt_advanced_sample_2.Circle>(target, 'Circle').radius,
+      'center': (visitor, target) => D4
+          .validateTarget<$d4rt_advanced_sample_2.Circle>(target, 'Circle')
+          .center,
+      'area': (visitor, target) => D4
+          .validateTarget<$d4rt_advanced_sample_2.Circle>(target, 'Circle')
+          .area,
+      'radius': (visitor, target) => D4
+          .validateTarget<$d4rt_advanced_sample_2.Circle>(target, 'Circle')
+          .radius,
     },
     methods: {
       'contains': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4rt_advanced_sample_2.Circle>(target, 'Circle');
+        final t =
+            D4.validateTarget<$d4rt_advanced_sample_2.Circle>(target, 'Circle');
         D4.requireMinArgs(positional, 1, 'contains');
-        final point = D4.getRequiredArg<$d4rt_advanced_sample_3.Vector2>(positional, 0, 'point', 'contains');
+        final point = D4.getRequiredArg<$d4rt_advanced_sample_3.Vector2>(
+            positional, 0, 'point', 'contains');
         return t.contains(point);
       },
       'describe': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4rt_advanced_sample_2.Circle>(target, 'Circle');
+        final t =
+            D4.validateTarget<$d4rt_advanced_sample_2.Circle>(target, 'Circle');
         return t.describe();
       },
     },
@@ -401,27 +457,38 @@ BridgedClass _createRectBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'Rect');
-        final center = D4.getRequiredArg<$d4rt_advanced_sample_3.Vector2>(positional, 0, 'center', 'Rect');
+        final center = D4.getRequiredArg<$d4rt_advanced_sample_3.Vector2>(
+            positional, 0, 'center', 'Rect');
         final width = D4.getRequiredArg<double>(positional, 1, 'width', 'Rect');
-        final height = D4.getRequiredArg<double>(positional, 2, 'height', 'Rect');
+        final height =
+            D4.getRequiredArg<double>(positional, 2, 'height', 'Rect');
         return $d4rt_advanced_sample_2.Rect(center, width, height);
       },
     },
     getters: {
-      'center': (visitor, target) => D4.validateTarget<$d4rt_advanced_sample_2.Rect>(target, 'Rect').center,
-      'area': (visitor, target) => D4.validateTarget<$d4rt_advanced_sample_2.Rect>(target, 'Rect').area,
-      'width': (visitor, target) => D4.validateTarget<$d4rt_advanced_sample_2.Rect>(target, 'Rect').width,
-      'height': (visitor, target) => D4.validateTarget<$d4rt_advanced_sample_2.Rect>(target, 'Rect').height,
+      'center': (visitor, target) => D4
+          .validateTarget<$d4rt_advanced_sample_2.Rect>(target, 'Rect')
+          .center,
+      'area': (visitor, target) =>
+          D4.validateTarget<$d4rt_advanced_sample_2.Rect>(target, 'Rect').area,
+      'width': (visitor, target) =>
+          D4.validateTarget<$d4rt_advanced_sample_2.Rect>(target, 'Rect').width,
+      'height': (visitor, target) => D4
+          .validateTarget<$d4rt_advanced_sample_2.Rect>(target, 'Rect')
+          .height,
     },
     methods: {
       'contains': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4rt_advanced_sample_2.Rect>(target, 'Rect');
+        final t =
+            D4.validateTarget<$d4rt_advanced_sample_2.Rect>(target, 'Rect');
         D4.requireMinArgs(positional, 1, 'contains');
-        final point = D4.getRequiredArg<$d4rt_advanced_sample_3.Vector2>(positional, 0, 'point', 'contains');
+        final point = D4.getRequiredArg<$d4rt_advanced_sample_3.Vector2>(
+            positional, 0, 'point', 'contains');
         return t.contains(point);
       },
       'describe': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4rt_advanced_sample_2.Rect>(target, 'Rect');
+        final t =
+            D4.validateTarget<$d4rt_advanced_sample_2.Rect>(target, 'Rect');
         return t.describe();
       },
     },
@@ -453,26 +520,40 @@ BridgedClass _createBodyBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'Body');
-        final position = D4.getRequiredArg<$d4rt_advanced_sample_3.Vector2>(positional, 0, 'position', 'Body');
-        final velocity = D4.getRequiredArg<$d4rt_advanced_sample_3.Vector2>(positional, 1, 'velocity', 'Body');
+        final position = D4.getRequiredArg<$d4rt_advanced_sample_3.Vector2>(
+            positional, 0, 'position', 'Body');
+        final velocity = D4.getRequiredArg<$d4rt_advanced_sample_3.Vector2>(
+            positional, 1, 'velocity', 'Body');
         final mass = D4.getRequiredArg<double>(positional, 2, 'mass', 'Body');
         return $d4rt_advanced_sample_1.Body(position, velocity, mass);
       },
     },
     getters: {
-      'position': (visitor, target) => D4.validateTarget<$d4rt_advanced_sample_1.Body>(target, 'Body').position,
-      'velocity': (visitor, target) => D4.validateTarget<$d4rt_advanced_sample_1.Body>(target, 'Body').velocity,
-      'mass': (visitor, target) => D4.validateTarget<$d4rt_advanced_sample_1.Body>(target, 'Body').mass,
+      'position': (visitor, target) => D4
+          .validateTarget<$d4rt_advanced_sample_1.Body>(target, 'Body')
+          .position,
+      'velocity': (visitor, target) => D4
+          .validateTarget<$d4rt_advanced_sample_1.Body>(target, 'Body')
+          .velocity,
+      'mass': (visitor, target) =>
+          D4.validateTarget<$d4rt_advanced_sample_1.Body>(target, 'Body').mass,
     },
     setters: {
-      'position': (visitor, target, value) => 
-        D4.validateTarget<$d4rt_advanced_sample_1.Body>(target, 'Body').position = D4.extractBridgedArg<$d4rt_advanced_sample_3.Vector2>(value, 'position'),
-      'velocity': (visitor, target, value) => 
-        D4.validateTarget<$d4rt_advanced_sample_1.Body>(target, 'Body').velocity = D4.extractBridgedArg<$d4rt_advanced_sample_3.Vector2>(value, 'velocity'),
+      'position': (visitor, target, value) => D4
+              .validateTarget<$d4rt_advanced_sample_1.Body>(target, 'Body')
+              .position =
+          D4.extractBridgedArg<$d4rt_advanced_sample_3.Vector2>(
+              value, 'position'),
+      'velocity': (visitor, target, value) => D4
+              .validateTarget<$d4rt_advanced_sample_1.Body>(target, 'Body')
+              .velocity =
+          D4.extractBridgedArg<$d4rt_advanced_sample_3.Vector2>(
+              value, 'velocity'),
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4rt_advanced_sample_1.Body>(target, 'Body');
+        final t =
+            D4.validateTarget<$d4rt_advanced_sample_1.Body>(target, 'Body');
         return t.toString();
       },
     },
@@ -505,30 +586,49 @@ BridgedClass _createPhysicsWorldBridge() {
     isAssignable: (v) => v is $d4rt_advanced_sample_1.PhysicsWorld,
     constructors: {
       '': (visitor, positional, named) {
-        final gravity = D4.getNamedArgWithDefault<$d4rt_advanced_sample_3.Vector2>(named, 'gravity', const $d4rt_advanced_sample_3.Vector2(0, -9.81));
+        final gravity =
+            D4.getNamedArgWithDefault<$d4rt_advanced_sample_3.Vector2>(named,
+                'gravity', const $d4rt_advanced_sample_3.Vector2(0, -9.81));
         return $d4rt_advanced_sample_1.PhysicsWorld(gravity: gravity);
       },
     },
     getters: {
-      'gravity': (visitor, target) => D4.validateTarget<$d4rt_advanced_sample_1.PhysicsWorld>(target, 'PhysicsWorld').gravity,
-      'bodyCount': (visitor, target) => D4.validateTarget<$d4rt_advanced_sample_1.PhysicsWorld>(target, 'PhysicsWorld').bodyCount,
-      'bodies': (visitor, target) => D4.validateTarget<$d4rt_advanced_sample_1.PhysicsWorld>(target, 'PhysicsWorld').bodies,
+      'gravity': (visitor, target) => D4
+          .validateTarget<$d4rt_advanced_sample_1.PhysicsWorld>(
+              target, 'PhysicsWorld')
+          .gravity,
+      'bodyCount': (visitor, target) => D4
+          .validateTarget<$d4rt_advanced_sample_1.PhysicsWorld>(
+              target, 'PhysicsWorld')
+          .bodyCount,
+      'bodies': (visitor, target) => D4
+          .validateTarget<$d4rt_advanced_sample_1.PhysicsWorld>(
+              target, 'PhysicsWorld')
+          .bodies,
     },
     setters: {
-      'gravity': (visitor, target, value) => 
-        D4.validateTarget<$d4rt_advanced_sample_1.PhysicsWorld>(target, 'PhysicsWorld').gravity = D4.extractBridgedArg<$d4rt_advanced_sample_3.Vector2>(value, 'gravity'),
+      'gravity': (visitor, target, value) => D4
+              .validateTarget<$d4rt_advanced_sample_1.PhysicsWorld>(
+                  target, 'PhysicsWorld')
+              .gravity =
+          D4.extractBridgedArg<$d4rt_advanced_sample_3.Vector2>(
+              value, 'gravity'),
     },
     methods: {
       'addBody': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4rt_advanced_sample_1.PhysicsWorld>(target, 'PhysicsWorld');
+        final t = D4.validateTarget<$d4rt_advanced_sample_1.PhysicsWorld>(
+            target, 'PhysicsWorld');
         D4.requireMinArgs(positional, 2, 'addBody');
-        final position = D4.getRequiredArg<$d4rt_advanced_sample_3.Vector2>(positional, 0, 'position', 'addBody');
-        final velocity = D4.getRequiredArg<$d4rt_advanced_sample_3.Vector2>(positional, 1, 'velocity', 'addBody');
+        final position = D4.getRequiredArg<$d4rt_advanced_sample_3.Vector2>(
+            positional, 0, 'position', 'addBody');
+        final velocity = D4.getRequiredArg<$d4rt_advanced_sample_3.Vector2>(
+            positional, 1, 'velocity', 'addBody');
         final mass = D4.getNamedArgWithDefault<double>(named, 'mass', 1.0);
         return t.addBody(position, velocity, mass: mass);
       },
       'step': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4rt_advanced_sample_1.PhysicsWorld>(target, 'PhysicsWorld');
+        final t = D4.validateTarget<$d4rt_advanced_sample_1.PhysicsWorld>(
+            target, 'PhysicsWorld');
         D4.requireMinArgs(positional, 1, 'step');
         final dt = D4.getRequiredArg<double>(positional, 0, 'dt', 'step');
         t.step(dt);
@@ -539,7 +639,8 @@ BridgedClass _createPhysicsWorldBridge() {
       '': 'PhysicsWorld({Vector2 gravity = const Vector2(0, -9.81)})',
     },
     methodSignatures: {
-      'addBody': 'Body addBody(Vector2 position, Vector2 velocity, {double mass = 1.0})',
+      'addBody':
+          'Body addBody(Vector2 position, Vector2 velocity, {double mass = 1.0})',
       'step': 'void step(double dt)',
     },
     getterSignatures: {
@@ -552,4 +653,3 @@ BridgedClass _createPhysicsWorldBridge() {
     },
   );
 }
-

@@ -1,6 +1,6 @@
 name: tom_d4rt_flutter_ast
 description: "D4rt Flutter Material bridge — execute D4rt scripts that return Flutter widget trees."
-version: 0.9.3
+version: 0.9.4
 repository: https://github.com/al-the-bear/tom_d4rt
 homepage: https://github.com/al-the-bear/tom_d4rt/tree/main/tom_d4rt_flutter_ast
 
@@ -50,7 +50,7 @@ dev_dependencies:
   # mtime; 1.18.0 is where that check refuses an unresolved package outright
   # rather than running `pub get` for it. The gate runs against a package it
   # must not modify, so not-writing is the property being depended on.
-  tom_d4rt_generator: "^1.50.0"
+  tom_d4rt_generator: "^1.51.0"
   # Analyzer front-end + 1:1 AST copier. Used ONLY by the bridge
   # regeneration tool (tool/regenerate_bridges.dart) and the test
   # driver — never by lib/ runtime code. The bridges and FlutterD4rt

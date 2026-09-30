@@ -1,4 +1,4 @@
-// Generated: 2026-09-17T23:36:21.577076 by tom_d4rt_generator 1.26.2
+// Generated: 2026-09-30T19:41:59.922970 by tom_d4rt_generator 1.51.0
 /// D4rt Bridges for d4rt_userbridges_sample
 library;
 

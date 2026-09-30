@@ -1,6 +1,6 @@
 name: tom_d4rt_dcli
 description: Base D4rt CLI with dcli bridges. Extensible foundation for D4rt tools.
-version: 1.7.0
+version: 1.7.1
 repository: https://github.com/al-the-bear/tom_d4rt
 homepage: https://github.com/al-the-bear/tom_d4rt/tree/main/tom_d4rt_dcli
 topics:
@@ -68,4 +68,4 @@ dev_dependencies:
   # `dart run tom_d4rt_generator:d4rtgen` works and `bridges_fresh_test.dart`
   # can run: without it this was one of two consumers configuring d4rtgen that
   # could neither regenerate nor check what they had committed (SCE3).
-  tom_d4rt_generator: "^1.50.0"
+  tom_d4rt_generator: "^1.51.0"

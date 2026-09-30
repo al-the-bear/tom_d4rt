@@ -101,7 +101,11 @@ void main() {
       reason: 'getExcludedPaths lost its SettingsYaml parameter type (scf7)',
     );
     expect(
-      RegExp(r'D4\.extractBridgedArg<\$scope_1\.ScopeKey<').allMatches(bridge),
+      // `\s*`: generator 1.51.0 formats its output, which can break the chain
+      // before `.extractBridgedArg`. The assertion is about the TYPE argument.
+      RegExp(
+        r'D4\s*\.extractBridgedArg<\$scope_1\.ScopeKey<',
+      ).allMatches(bridge),
       hasLength(greaterThanOrEqualTo(3)),
       reason: 'Env.scopeKey lost its ScopeKey<Env> type (scf18)',
     );

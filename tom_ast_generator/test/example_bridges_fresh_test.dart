@@ -29,28 +29,11 @@ import 'package:tom_d4rt_generator/tom_d4rt_generator.dart';
 /// Examples whose committed bridges predate the generator this package
 /// resolves.
 const knownStale = <String>{
-  // NOT STALE — the two-generator disagreement recorded in
-  // `tom_d4rt_generator`'s own example guard, reaching the same example name
-  // for the third time. SCE1 regenerated it to a fixed point with
-  // `bin/d4rtgen.dart`; this check runs `generateBridges`
-  // (`src/bridge_api.dart`), and the two implementations have drifted: the
-  // tool emits 5960 code lines here and the check's path 5144, the missing
-  // 816 being every abstract, sealed, generic and mixin class.
-  //
-  // SCF1 owns collapsing them into one; this entry goes when it lands. The two
-  // that left this list — `example_project` and `userbridge_user_guide` — were
-  // among the three whose `buildkit.yaml` pointed `helpersImport` at the
-  // `tom_d4rt` line while the package depends on `tom_d4rt_exec`. SCE1
-  // corrected the configuration before regenerating, so they are now generated
-  // against the interpreter they actually run on.
-  //
-  // `d4` is here for the same reason. Note the other two packages' `d4`
-  // examples LEFT this list in the same sweep: theirs carry two extra
-  // generated test-runner variants that their own generator tests rewrite,
-  // and refreshing those was enough to bring the two paths back into
-  // agreement. This copy has only `bin/d4rtrun.b.dart`, so it has no such
-  // lever — which is a useful datum for SCF1, not a difference in kind.
-  'dart_overview',
+  // EMPTY since SCH3 (2026-09-30). The dart_overview entry recorded the
+  // path-form divergence SCE37 measured between `d4rtgen -p .` and this
+  // check's absolute path (SCF1). Regenerated to a fixed point with
+  // tom_d4rt_generator 1.51.0, it is fresh here, as it became in the
+  // generator's own ratchet. Every example must now stay fresh.
 };
 
 /// Examples whose generated output is NOT VERSIONED, so freshness cannot be a

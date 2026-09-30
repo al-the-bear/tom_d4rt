@@ -1,3 +1,11 @@
+## 1.8.1
+
+### Changed — bridges regenerated with tom_d4rt_generator 1.51.0 (sch3)
+
+dev `tom_d4rt_generator` ^1.51.0. 1.51.0 formats its output at this package's language version, so every generated `*.b.dart` is now `dart format`-clean as written. The generator's other 1.51.0 changes are in its own CHANGELOG.
+
+`bridges_fresh_test`'s BRIDGE-FRESH-02 now matches `D4\s*.extractBridgedArg`: the formatter may break the call across lines, and the old literal pattern stopped finding it.
+
 ## 1.8.0
 
 ### Changed — resolves the published tom_d4rt_exec 1.39.0 / tom_d4rt_ast 0.195.0 (scf34)

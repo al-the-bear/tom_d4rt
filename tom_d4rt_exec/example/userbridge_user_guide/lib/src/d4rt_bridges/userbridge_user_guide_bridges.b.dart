@@ -1,16 +1,20 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 2 files
-// Generated: 2026-09-17T23:17:40.458318 by tom_d4rt_generator 1.26.2
+// Generated: 2026-09-30T19:36:57.688733 by tom_d4rt_generator 1.51.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
 import 'package:tom_d4rt_exec/d4rt.dart';
 import 'package:tom_d4rt_exec/tom_d4rt.dart';
 
-import 'package:userbridge_user_guide_example/src/matrix2x2.dart' as $userbridge_user_guide_example_1;
-import 'package:userbridge_user_guide_example/src/matrix2x2_user_bridge.dart' as $userbridge_user_guide_example_2;
-import 'package:userbridge_user_guide_example/src/vector2d.dart' as $userbridge_user_guide_example_3;
-import 'package:userbridge_user_guide_example/src/vector2d_user_bridge.dart' as $userbridge_user_guide_example_4;
+import 'package:userbridge_user_guide_example/src/matrix2x2.dart'
+    as $userbridge_user_guide_example_1;
+import 'package:userbridge_user_guide_example/src/matrix2x2_user_bridge.dart'
+    as $userbridge_user_guide_example_2;
+import 'package:userbridge_user_guide_example/src/vector2d.dart'
+    as $userbridge_user_guide_example_3;
+import 'package:userbridge_user_guide_example/src/vector2d_user_bridge.dart'
+    as $userbridge_user_guide_example_4;
 
 /// Bridge class for all module.
 class AllBridge {
@@ -20,10 +24,7 @@ class AllBridge {
   /// [bridgeClassTypes] for lazy registration (Step #17); this remains
   /// for diagnostics and callers that need the full list.
   static List<BridgedClass> bridgeClasses() {
-    return [
-      _createVector2DBridge(),
-      _createMatrix2x2Bridge(),
-    ];
+    return [_createVector2DBridge(), _createMatrix2x2Bridge()];
   }
 
   /// Returns deferred factory thunks keyed by class name.
@@ -66,8 +67,7 @@ class AllBridge {
   /// ancestors and the interface-proxy supertype walk resolves up the
   /// chain.
   static Map<String, List<String>> classSupertypes() {
-    return {
-    };
+    return {};
   }
 
   /// Returns a map of type alias names to their target class names.
@@ -76,8 +76,7 @@ class AllBridge {
   /// are registered so that code using the alias name can resolve to the
   /// bridged class under its canonical name.
   static Map<String, String> classAliases() {
-    return {
-    };
+    return {};
   }
 
   /// Returns the list of function typedef names declared in this library.
@@ -85,14 +84,17 @@ class AllBridge {
   /// Function typedefs like `typedef VoidCallback = void Function()` are
   /// registered so that they can be used as type arguments in D4rt scripts.
   static List<String> functionTypedefs() {
-    return [
-    ];
+    return [];
+  }
+
+  /// Positional arity of each function typedef in [functionTypedefs].
+  static Map<String, ({int required, int max})> functionTypedefArity() {
+    return {};
   }
 
   /// Returns all bridged enum definitions.
   static List<BridgedEnumDefinition> bridgedEnums() {
-    return [
-    ];
+    return [];
   }
 
   /// Returns a map of enum names to their canonical source URIs.
@@ -100,33 +102,58 @@ class AllBridge {
   /// Used for deduplication when the same enum is exported through
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> enumSourceUris() {
-    return {
-    };
+    return {};
   }
 
   /// Returns all bridged extension definitions.
   static List<BridgedExtensionDefinition> bridgedExtensions() {
-    return [
-    ];
+    return [];
   }
 
   /// Returns a map of extension identifiers to their canonical source URIs.
   static Map<String, String> extensionSourceUris() {
-    return {
-    };
+    return {};
   }
 
   /// GEN-107: Library re-exports declared by the bridged source
   /// libraries. Each tuple mirrors a Dart `export '…'` directive.
   /// Consumed by `registerBridges` via `D4rt.registerLibraryReExport`
   /// (mirrored on `D4rtRunner` in tom_d4rt_ast).
-  static List<({String source, String target, Set<String>? show, Set<String>? hide})>
+  static List<
+    ({String source, String target, Set<String>? show, Set<String>? hide})
+  >
   bridgeReExports() {
     return [
-      (source: 'package:userbridge_user_guide_example/userbridge_user_guide_example.dart', target: 'package:userbridge_user_guide_example/src/vector2d.dart', show: null, hide: null),
-      (source: 'package:userbridge_user_guide_example/userbridge_user_guide_example.dart', target: 'package:userbridge_user_guide_example/src/matrix2x2.dart', show: null, hide: null),
-      (source: 'package:userbridge_user_guide_example/userbridge_user_guide_example.dart', target: 'package:userbridge_user_guide_example/src/vector2d_user_bridge.dart', show: null, hide: null),
-      (source: 'package:userbridge_user_guide_example/userbridge_user_guide_example.dart', target: 'package:userbridge_user_guide_example/src/matrix2x2_user_bridge.dart', show: null, hide: null),
+      (
+        source:
+            'package:userbridge_user_guide_example/userbridge_user_guide_example.dart',
+        target: 'package:userbridge_user_guide_example/src/vector2d.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source:
+            'package:userbridge_user_guide_example/userbridge_user_guide_example.dart',
+        target: 'package:userbridge_user_guide_example/src/matrix2x2.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source:
+            'package:userbridge_user_guide_example/userbridge_user_guide_example.dart',
+        target:
+            'package:userbridge_user_guide_example/src/vector2d_user_bridge.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source:
+            'package:userbridge_user_guide_example/userbridge_user_guide_example.dart',
+        target:
+            'package:userbridge_user_guide_example/src/matrix2x2_user_bridge.dart',
+        show: null,
+        hide: null,
+      ),
     ];
   }
 
@@ -158,7 +185,12 @@ class AllBridge {
 
     // GEN-107: Register library re-exports
     for (final r in bridgeReExports()) {
-      interpreter.registerLibraryReExport(r.source, r.target, show: r.show, hide: r.hide);
+      interpreter.registerLibraryReExport(
+        r.source,
+        r.target,
+        show: r.show,
+        hide: r.hide,
+      );
     }
   }
 
@@ -206,7 +238,6 @@ class AllBridge {
   static List<String> subPackageBarrels() {
     return [];
   }
-
 }
 
 // =============================================================================
@@ -230,32 +261,83 @@ BridgedClass _createVector2DBridge() {
       },
     },
     getters: {
-      'x': (visitor, target) => D4.validateTarget<$userbridge_user_guide_example_3.Vector2D>(target, 'Vector2D').x,
-      'y': (visitor, target) => D4.validateTarget<$userbridge_user_guide_example_3.Vector2D>(target, 'Vector2D').y,
-      'hashCode': (visitor, target) => D4.validateTarget<$userbridge_user_guide_example_3.Vector2D>(target, 'Vector2D').hashCode,
-      'magnitude': (visitor, target) => D4.validateTarget<$userbridge_user_guide_example_3.Vector2D>(target, 'Vector2D').magnitude,
-      'normalized': (visitor, target) => D4.validateTarget<$userbridge_user_guide_example_3.Vector2D>(target, 'Vector2D').normalized,
+      'x': (visitor, target) => D4
+          .validateTarget<$userbridge_user_guide_example_3.Vector2D>(
+            target,
+            'Vector2D',
+          )
+          .x,
+      'y': (visitor, target) => D4
+          .validateTarget<$userbridge_user_guide_example_3.Vector2D>(
+            target,
+            'Vector2D',
+          )
+          .y,
+      'hashCode': (visitor, target) => D4
+          .validateTarget<$userbridge_user_guide_example_3.Vector2D>(
+            target,
+            'Vector2D',
+          )
+          .hashCode,
+      'magnitude': (visitor, target) => D4
+          .validateTarget<$userbridge_user_guide_example_3.Vector2D>(
+            target,
+            'Vector2D',
+          )
+          .magnitude,
+      'normalized': (visitor, target) => D4
+          .validateTarget<$userbridge_user_guide_example_3.Vector2D>(
+            target,
+            'Vector2D',
+          )
+          .normalized,
     },
     methods: {
-      'dot': $userbridge_user_guide_example_4.Vector2DUserBridge.overrideMethodDot,
+      'dot':
+          $userbridge_user_guide_example_4.Vector2DUserBridge.overrideMethodDot,
       'scale': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$userbridge_user_guide_example_3.Vector2D>(target, 'Vector2D');
+        final t = D4.validateTarget<$userbridge_user_guide_example_3.Vector2D>(
+          target,
+          'Vector2D',
+        );
         D4.requireMinArgs(positional, 1, 'scale');
-        final factor = D4.getRequiredArg<double>(positional, 0, 'factor', 'scale');
+        final factor = D4.getRequiredArg<double>(
+          positional,
+          0,
+          'factor',
+          'scale',
+        );
         return t.scale(factor);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$userbridge_user_guide_example_3.Vector2D>(target, 'Vector2D');
+        final t = D4.validateTarget<$userbridge_user_guide_example_3.Vector2D>(
+          target,
+          'Vector2D',
+        );
         return t.toString();
       },
-      '+': $userbridge_user_guide_example_4.Vector2DUserBridge.overrideOperatorPlus,
-      '-': $userbridge_user_guide_example_4.Vector2DUserBridge.overrideOperatorMinus,
-      '*': $userbridge_user_guide_example_4.Vector2DUserBridge.overrideOperatorMultiply,
+      '+': $userbridge_user_guide_example_4
+          .Vector2DUserBridge
+          .overrideOperatorPlus,
+      '-': $userbridge_user_guide_example_4
+          .Vector2DUserBridge
+          .overrideOperatorMinus,
+      '*': $userbridge_user_guide_example_4
+          .Vector2DUserBridge
+          .overrideOperatorMultiply,
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$userbridge_user_guide_example_3.Vector2D>(target, 'Vector2D');
+        final t = D4.validateTarget<$userbridge_user_guide_example_3.Vector2D>(
+          target,
+          'Vector2D',
+        );
         // GEN-103: Dart spec — non-null == null is always false.
         if (positional.isEmpty || positional[0] == null) return false;
-        final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
+        final other = D4.getRequiredArg<Object>(
+          positional,
+          0,
+          'other',
+          'operator==',
+        );
         return t == other;
       },
     },
@@ -301,22 +383,42 @@ BridgedClass _createMatrix2x2Bridge() {
       },
     },
     getters: {
-      'determinant': (visitor, target) => D4.validateTarget<$userbridge_user_guide_example_1.Matrix2x2>(target, 'Matrix2x2').determinant,
-      'trace': (visitor, target) => D4.validateTarget<$userbridge_user_guide_example_1.Matrix2x2>(target, 'Matrix2x2').trace,
+      'determinant': (visitor, target) => D4
+          .validateTarget<$userbridge_user_guide_example_1.Matrix2x2>(
+            target,
+            'Matrix2x2',
+          )
+          .determinant,
+      'trace': (visitor, target) => D4
+          .validateTarget<$userbridge_user_guide_example_1.Matrix2x2>(
+            target,
+            'Matrix2x2',
+          )
+          .trace,
     },
     methods: {
       'row': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$userbridge_user_guide_example_1.Matrix2x2>(target, 'Matrix2x2');
+        final t = D4.validateTarget<$userbridge_user_guide_example_1.Matrix2x2>(
+          target,
+          'Matrix2x2',
+        );
         D4.requireMinArgs(positional, 1, 'row');
         final index = D4.getRequiredArg<int>(positional, 0, 'index', 'row');
         return t.row(index);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$userbridge_user_guide_example_1.Matrix2x2>(target, 'Matrix2x2');
+        final t = D4.validateTarget<$userbridge_user_guide_example_1.Matrix2x2>(
+          target,
+          'Matrix2x2',
+        );
         return t.toString();
       },
-      '[]': $userbridge_user_guide_example_2.Matrix2x2UserBridge.overrideOperatorIndex,
-      '[]=': $userbridge_user_guide_example_2.Matrix2x2UserBridge.overrideOperatorIndexAssign,
+      '[]': $userbridge_user_guide_example_2
+          .Matrix2x2UserBridge
+          .overrideOperatorIndex,
+      '[]=': $userbridge_user_guide_example_2
+          .Matrix2x2UserBridge
+          .overrideOperatorIndexAssign,
     },
     constructorSignatures: {
       '': 'Matrix2x2(double a, double b, double c, double d)',
@@ -332,4 +434,3 @@ BridgedClass _createMatrix2x2Bridge() {
     },
   );
 }
-

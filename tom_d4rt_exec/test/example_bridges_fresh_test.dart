@@ -29,20 +29,11 @@ import 'package:tom_d4rt_generator/tom_d4rt_generator.dart';
 /// Examples whose committed bridges predate the generator this package
 /// resolves.
 const knownStale = <String>{
-  // NOT STALE — the same two-generator disagreement `tom_d4rt_generator`'s own
-  // example guard records, and the same two example names, which is what makes
-  // it a property of the examples rather than of this package. SCE1
-  // regenerated both to a fixed point with `bin/d4rtgen.dart`; this check runs
-  // `generateBridges` (`src/bridge_api.dart`) instead, and the two
-  // implementations have drifted. Measured on the sibling `dart_overview`: the
-  // tool emits 5960 code lines and the check's path 5144, the missing 816
-  // being every abstract, sealed, generic and mixin class.
-  //
-  // These two entries therefore record a disagreement between two generators,
-  // not a stale file. SCF1 owns collapsing them into one; both entries go when
-  // it lands. The five that left this list pass because their generation
-  // happens to agree across both paths.
-  'dart_overview/dart_overview',
+  // EMPTY since SCH3 (2026-09-30). The dart_overview entry recorded the
+  // path-form divergence SCE37 measured between `d4rtgen -p .` and this
+  // check's absolute path (SCF1). Regenerated to a fixed point with
+  // tom_d4rt_generator 1.51.0, it is fresh here, as it became in the
+  // generator's own ratchet. Every example must now stay fresh.
 };
 
 /// Examples whose generated output is NOT VERSIONED, so freshness cannot be a

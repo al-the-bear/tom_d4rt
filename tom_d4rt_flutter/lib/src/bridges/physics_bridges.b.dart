@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 6 files
-// Generated: 2026-09-30T01:37:41.330420 by tom_d4rt_generator 1.50.0
+// Generated: 2026-09-30T19:19:08.046185 by tom_d4rt_generator 1.51.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -15,10 +15,14 @@ import 'package:flutter/src/physics/simulation.dart' as $flutter_4;
 import 'package:flutter/src/physics/spring_simulation.dart' as $flutter_5;
 import 'package:flutter/src/physics/tolerance.dart' as $flutter_6;
 import 'package:flutter/src/physics/utils.dart' as $flutter_7;
-import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/basic_message_channel_user_bridge.dart' as $tom_d4rt_flutter_1;
-import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/state_user_bridge.dart' as $tom_d4rt_flutter_2;
-import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/strut_style_user_bridge.dart' as $tom_d4rt_flutter_3;
-import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/text_user_bridge.dart' as $tom_d4rt_flutter_4;
+import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/basic_message_channel_user_bridge.dart'
+    as $tom_d4rt_flutter_1;
+import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/state_user_bridge.dart'
+    as $tom_d4rt_flutter_2;
+import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/strut_style_user_bridge.dart'
+    as $tom_d4rt_flutter_3;
+import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/text_user_bridge.dart'
+    as $tom_d4rt_flutter_4;
 
 /// Bridge class for flutter_physics module.
 class FlutterPhysicsBridge {
@@ -77,12 +81,17 @@ class FlutterPhysicsBridge {
   static Map<String, String> classSourceUris() {
     return {
       'Tolerance': 'package:flutter/src/physics/tolerance.dart',
-      'ClampedSimulation': 'package:flutter/src/physics/clamped_simulation.dart',
-      'FrictionSimulation': 'package:flutter/src/physics/friction_simulation.dart',
-      'BoundedFrictionSimulation': 'package:flutter/src/physics/friction_simulation.dart',
-      'GravitySimulation': 'package:flutter/src/physics/gravity_simulation.dart',
+      'ClampedSimulation':
+          'package:flutter/src/physics/clamped_simulation.dart',
+      'FrictionSimulation':
+          'package:flutter/src/physics/friction_simulation.dart',
+      'BoundedFrictionSimulation':
+          'package:flutter/src/physics/friction_simulation.dart',
+      'GravitySimulation':
+          'package:flutter/src/physics/gravity_simulation.dart',
       'SpringSimulation': 'package:flutter/src/physics/spring_simulation.dart',
-      'ScrollSpringSimulation': 'package:flutter/src/physics/spring_simulation.dart',
+      'ScrollSpringSimulation':
+          'package:flutter/src/physics/spring_simulation.dart',
     };
   }
 
@@ -110,8 +119,7 @@ class FlutterPhysicsBridge {
   /// are registered so that code using the alias name can resolve to the
   /// bridged class under its canonical name.
   static Map<String, String> classAliases() {
-    return {
-    };
+    return {};
   }
 
   /// Returns the list of function typedef names declared in this library.
@@ -119,8 +127,12 @@ class FlutterPhysicsBridge {
   /// Function typedefs like `typedef VoidCallback = void Function()` are
   /// registered so that they can be used as type arguments in D4rt scripts.
   static List<String> functionTypedefs() {
-    return [
-    ];
+    return [];
+  }
+
+  /// Positional arity of each function typedef in [functionTypedefs].
+  static Map<String, ({int required, int max})> functionTypedefArity() {
+    return {};
   }
 
   /// Returns all bridged enum definitions.
@@ -138,41 +150,94 @@ class FlutterPhysicsBridge {
   /// Used for deduplication when the same enum is exported through
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> enumSourceUris() {
-    return {
-      'SpringType': 'package:flutter/src/physics/spring_simulation.dart',
-    };
+    return {'SpringType': 'package:flutter/src/physics/spring_simulation.dart'};
   }
 
   /// Returns all bridged extension definitions.
   static List<BridgedExtensionDefinition> bridgedExtensions() {
-    return [
-    ];
+    return [];
   }
 
   /// Returns a map of extension identifiers to their canonical source URIs.
   static Map<String, String> extensionSourceUris() {
-    return {
-    };
+    return {};
   }
 
   /// GEN-107: Library re-exports declared by the bridged source
   /// libraries. Each tuple mirrors a Dart `export '…'` directive.
   /// Consumed by `registerBridges` via `D4rt.registerLibraryReExport`
   /// (mirrored on `D4rtRunner` in tom_d4rt_ast).
-  static List<({String source, String target, Set<String>? show, Set<String>? hide})>
+  static List<
+    ({String source, String target, Set<String>? show, Set<String>? hide})
+  >
   bridgeReExports() {
     return [
-      (source: 'package:flutter/physics.dart', target: 'package:flutter/src/physics/clamped_simulation.dart', show: null, hide: null),
-      (source: 'package:flutter/physics.dart', target: 'package:flutter/src/physics/friction_simulation.dart', show: null, hide: null),
-      (source: 'package:flutter/physics.dart', target: 'package:flutter/src/physics/gravity_simulation.dart', show: null, hide: null),
-      (source: 'package:flutter/physics.dart', target: 'package:flutter/src/physics/simulation.dart', show: null, hide: null),
-      (source: 'package:flutter/physics.dart', target: 'package:flutter/src/physics/spring_simulation.dart', show: null, hide: null),
-      (source: 'package:flutter/physics.dart', target: 'package:flutter/src/physics/tolerance.dart', show: null, hide: null),
-      (source: 'package:flutter/physics.dart', target: 'package:flutter/src/physics/utils.dart', show: null, hide: null),
-      (source: 'package:flutter/src/physics/simulation.dart', target: 'package:flutter/src/physics/tolerance.dart', show: {'Tolerance'}, hide: null),
-      (source: 'package:flutter/src/physics/clamped_simulation.dart', target: 'package:flutter/src/physics/simulation.dart', show: {'Simulation'}, hide: null),
-      (source: 'package:flutter/src/physics/friction_simulation.dart', target: 'package:flutter/src/physics/tolerance.dart', show: {'Tolerance'}, hide: null),
-      (source: 'package:flutter/src/physics/spring_simulation.dart', target: 'package:flutter/src/physics/tolerance.dart', show: {'Tolerance'}, hide: null),
+      (
+        source: 'package:flutter/physics.dart',
+        target: 'package:flutter/src/physics/clamped_simulation.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/physics.dart',
+        target: 'package:flutter/src/physics/friction_simulation.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/physics.dart',
+        target: 'package:flutter/src/physics/gravity_simulation.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/physics.dart',
+        target: 'package:flutter/src/physics/simulation.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/physics.dart',
+        target: 'package:flutter/src/physics/spring_simulation.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/physics.dart',
+        target: 'package:flutter/src/physics/tolerance.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/physics.dart',
+        target: 'package:flutter/src/physics/utils.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/src/physics/simulation.dart',
+        target: 'package:flutter/src/physics/tolerance.dart',
+        show: {'Tolerance'},
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/src/physics/clamped_simulation.dart',
+        target: 'package:flutter/src/physics/simulation.dart',
+        show: {'Simulation'},
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/src/physics/friction_simulation.dart',
+        target: 'package:flutter/src/physics/tolerance.dart',
+        show: {'Tolerance'},
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/src/physics/spring_simulation.dart',
+        target: 'package:flutter/src/physics/tolerance.dart',
+        show: {'Tolerance'},
+        hide: null,
+      ),
     ];
   }
 
@@ -206,7 +271,11 @@ class FlutterPhysicsBridge {
     final enums = bridgedEnums();
     final enumSources = enumSourceUris();
     for (final enumDef in enums) {
-      interpreter.registerBridgedEnum(enumDef, importPath, sourceUri: enumSources[enumDef.name]);
+      interpreter.registerBridgedEnum(
+        enumDef,
+        importPath,
+        sourceUri: enumSources[enumDef.name],
+      );
     }
 
     // Register global functions with source URIs for deduplication
@@ -214,12 +283,23 @@ class FlutterPhysicsBridge {
     final funcSources = globalFunctionSourceUris();
     final funcSigs = globalFunctionSignatures();
     for (final entry in funcs.entries) {
-      interpreter.registertopLevelFunction(entry.key, entry.value, importPath, sourceUri: funcSources[entry.key], signature: funcSigs[entry.key]);
+      interpreter.registertopLevelFunction(
+        entry.key,
+        entry.value,
+        importPath,
+        sourceUri: funcSources[entry.key],
+        signature: funcSigs[entry.key],
+      );
     }
 
     // GEN-107: Register library re-exports
     for (final r in bridgeReExports()) {
-      interpreter.registerLibraryReExport(r.source, r.target, show: r.show, hide: r.hide);
+      interpreter.registerLibraryReExport(
+        r.source,
+        r.target,
+        show: r.show,
+        hide: r.hide,
+      );
     }
   }
 
@@ -230,13 +310,23 @@ class FlutterPhysicsBridge {
         D4.requireMinArgs(positional, 3, 'nearEqual');
         final a = D4.getRequiredArg<double?>(positional, 0, 'a', 'nearEqual');
         final b = D4.getRequiredArg<double?>(positional, 1, 'b', 'nearEqual');
-        final epsilon = D4.getRequiredArg<double>(positional, 2, 'epsilon', 'nearEqual');
+        final epsilon = D4.getRequiredArg<double>(
+          positional,
+          2,
+          'epsilon',
+          'nearEqual',
+        );
         return $flutter_7.nearEqual(a, b, epsilon);
       },
       'nearZero': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'nearZero');
         final a = D4.getRequiredArg<double>(positional, 0, 'a', 'nearZero');
-        final epsilon = D4.getRequiredArg<double>(positional, 1, 'epsilon', 'nearZero');
+        final epsilon = D4.getRequiredArg<double>(
+          positional,
+          1,
+          'epsilon',
+          'nearZero',
+        );
         return $flutter_7.nearZero(a, epsilon);
       },
     };
@@ -296,10 +386,7 @@ class FlutterPhysicsBridge {
   }
 
   /// Returns a list of bridged enum names.
-  static List<String> get enumNames => [
-    'SpringType',
-  ];
-
+  static List<String> get enumNames => ['SpringType'];
 }
 
 // =============================================================================
@@ -313,49 +400,122 @@ BridgedClass _createToleranceBridge() {
     isAssignable: (v) => v is $flutter_6.Tolerance,
     constructors: {
       '': (visitor, positional, named) {
-        if (!named.containsKey('distance') && !named.containsKey('time') && !named.containsKey('velocity')) {
+        if (!named.containsKey('distance') &&
+            !named.containsKey('time') &&
+            !named.containsKey('velocity')) {
           return $flutter_6.Tolerance();
         }
-        if (named.containsKey('distance') && !named.containsKey('time') && !named.containsKey('velocity')) {
-          final distance = D4.getRequiredNamedArg<double>(named, 'distance', 'Tolerance');
+        if (named.containsKey('distance') &&
+            !named.containsKey('time') &&
+            !named.containsKey('velocity')) {
+          final distance = D4.getRequiredNamedArg<double>(
+            named,
+            'distance',
+            'Tolerance',
+          );
           return $flutter_6.Tolerance(distance: distance);
         }
-        if (!named.containsKey('distance') && named.containsKey('time') && !named.containsKey('velocity')) {
-          final time = D4.getRequiredNamedArg<double>(named, 'time', 'Tolerance');
+        if (!named.containsKey('distance') &&
+            named.containsKey('time') &&
+            !named.containsKey('velocity')) {
+          final time = D4.getRequiredNamedArg<double>(
+            named,
+            'time',
+            'Tolerance',
+          );
           return $flutter_6.Tolerance(time: time);
         }
-        if (named.containsKey('distance') && named.containsKey('time') && !named.containsKey('velocity')) {
-          final distance = D4.getRequiredNamedArg<double>(named, 'distance', 'Tolerance');
-          final time = D4.getRequiredNamedArg<double>(named, 'time', 'Tolerance');
+        if (named.containsKey('distance') &&
+            named.containsKey('time') &&
+            !named.containsKey('velocity')) {
+          final distance = D4.getRequiredNamedArg<double>(
+            named,
+            'distance',
+            'Tolerance',
+          );
+          final time = D4.getRequiredNamedArg<double>(
+            named,
+            'time',
+            'Tolerance',
+          );
           return $flutter_6.Tolerance(distance: distance, time: time);
         }
-        if (!named.containsKey('distance') && !named.containsKey('time') && named.containsKey('velocity')) {
-          final velocity = D4.getRequiredNamedArg<double>(named, 'velocity', 'Tolerance');
+        if (!named.containsKey('distance') &&
+            !named.containsKey('time') &&
+            named.containsKey('velocity')) {
+          final velocity = D4.getRequiredNamedArg<double>(
+            named,
+            'velocity',
+            'Tolerance',
+          );
           return $flutter_6.Tolerance(velocity: velocity);
         }
-        if (named.containsKey('distance') && !named.containsKey('time') && named.containsKey('velocity')) {
-          final distance = D4.getRequiredNamedArg<double>(named, 'distance', 'Tolerance');
-          final velocity = D4.getRequiredNamedArg<double>(named, 'velocity', 'Tolerance');
+        if (named.containsKey('distance') &&
+            !named.containsKey('time') &&
+            named.containsKey('velocity')) {
+          final distance = D4.getRequiredNamedArg<double>(
+            named,
+            'distance',
+            'Tolerance',
+          );
+          final velocity = D4.getRequiredNamedArg<double>(
+            named,
+            'velocity',
+            'Tolerance',
+          );
           return $flutter_6.Tolerance(distance: distance, velocity: velocity);
         }
-        if (!named.containsKey('distance') && named.containsKey('time') && named.containsKey('velocity')) {
-          final time = D4.getRequiredNamedArg<double>(named, 'time', 'Tolerance');
-          final velocity = D4.getRequiredNamedArg<double>(named, 'velocity', 'Tolerance');
+        if (!named.containsKey('distance') &&
+            named.containsKey('time') &&
+            named.containsKey('velocity')) {
+          final time = D4.getRequiredNamedArg<double>(
+            named,
+            'time',
+            'Tolerance',
+          );
+          final velocity = D4.getRequiredNamedArg<double>(
+            named,
+            'velocity',
+            'Tolerance',
+          );
           return $flutter_6.Tolerance(time: time, velocity: velocity);
         }
-        if (named.containsKey('distance') && named.containsKey('time') && named.containsKey('velocity')) {
-          final distance = D4.getRequiredNamedArg<double>(named, 'distance', 'Tolerance');
-          final time = D4.getRequiredNamedArg<double>(named, 'time', 'Tolerance');
-          final velocity = D4.getRequiredNamedArg<double>(named, 'velocity', 'Tolerance');
-          return $flutter_6.Tolerance(distance: distance, time: time, velocity: velocity);
+        if (named.containsKey('distance') &&
+            named.containsKey('time') &&
+            named.containsKey('velocity')) {
+          final distance = D4.getRequiredNamedArg<double>(
+            named,
+            'distance',
+            'Tolerance',
+          );
+          final time = D4.getRequiredNamedArg<double>(
+            named,
+            'time',
+            'Tolerance',
+          );
+          final velocity = D4.getRequiredNamedArg<double>(
+            named,
+            'velocity',
+            'Tolerance',
+          );
+          return $flutter_6.Tolerance(
+            distance: distance,
+            time: time,
+            velocity: velocity,
+          );
         }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        throw StateError(
+          'Unreachable: all named parameter combinations should be covered',
+        );
       },
     },
     getters: {
-      'distance': (visitor, target) => D4.validateTarget<$flutter_6.Tolerance>(target, 'Tolerance').distance,
-      'time': (visitor, target) => D4.validateTarget<$flutter_6.Tolerance>(target, 'Tolerance').time,
-      'velocity': (visitor, target) => D4.validateTarget<$flutter_6.Tolerance>(target, 'Tolerance').velocity,
+      'distance': (visitor, target) =>
+          D4.validateTarget<$flutter_6.Tolerance>(target, 'Tolerance').distance,
+      'time': (visitor, target) =>
+          D4.validateTarget<$flutter_6.Tolerance>(target, 'Tolerance').time,
+      'velocity': (visitor, target) =>
+          D4.validateTarget<$flutter_6.Tolerance>(target, 'Tolerance').velocity,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -369,9 +529,7 @@ BridgedClass _createToleranceBridge() {
     constructorSignatures: {
       '': 'const Tolerance({double distance = _epsilonDefault, double time = _epsilonDefault, double velocity = _epsilonDefault})',
     },
-    methodSignatures: {
-      'toString': 'String toString()',
-    },
+    methodSignatures: {'toString': 'String toString()'},
     getterSignatures: {
       'distance': 'double get distance',
       'time': 'double get time',
@@ -396,47 +554,124 @@ BridgedClass _createClampedSimulationBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ClampedSimulation');
-        final simulation = D4.getRequiredArg<$flutter_4.Simulation>(positional, 0, 'simulation', 'ClampedSimulation');
-        final xMin = D4.getNamedArgWithDefault<double>(named, 'xMin', double.negativeInfinity);
-        final xMax = D4.getNamedArgWithDefault<double>(named, 'xMax', double.infinity);
-        final dxMin = D4.getNamedArgWithDefault<double>(named, 'dxMin', double.negativeInfinity);
-        final dxMax = D4.getNamedArgWithDefault<double>(named, 'dxMax', double.infinity);
-        return $flutter_1.ClampedSimulation(simulation, xMin: xMin, xMax: xMax, dxMin: dxMin, dxMax: dxMax);
+        final simulation = D4.getRequiredArg<$flutter_4.Simulation>(
+          positional,
+          0,
+          'simulation',
+          'ClampedSimulation',
+        );
+        final xMin = D4.getNamedArgWithDefault<double>(
+          named,
+          'xMin',
+          double.negativeInfinity,
+        );
+        final xMax = D4.getNamedArgWithDefault<double>(
+          named,
+          'xMax',
+          double.infinity,
+        );
+        final dxMin = D4.getNamedArgWithDefault<double>(
+          named,
+          'dxMin',
+          double.negativeInfinity,
+        );
+        final dxMax = D4.getNamedArgWithDefault<double>(
+          named,
+          'dxMax',
+          double.infinity,
+        );
+        return $flutter_1.ClampedSimulation(
+          simulation,
+          xMin: xMin,
+          xMax: xMax,
+          dxMin: dxMin,
+          dxMax: dxMax,
+        );
       },
     },
     getters: {
-      'tolerance': (visitor, target) => D4.validateTarget<$flutter_1.ClampedSimulation>(target, 'ClampedSimulation').tolerance,
-      'simulation': (visitor, target) => D4.validateTarget<$flutter_1.ClampedSimulation>(target, 'ClampedSimulation').simulation,
-      'xMin': (visitor, target) => D4.validateTarget<$flutter_1.ClampedSimulation>(target, 'ClampedSimulation').xMin,
-      'xMax': (visitor, target) => D4.validateTarget<$flutter_1.ClampedSimulation>(target, 'ClampedSimulation').xMax,
-      'dxMin': (visitor, target) => D4.validateTarget<$flutter_1.ClampedSimulation>(target, 'ClampedSimulation').dxMin,
-      'dxMax': (visitor, target) => D4.validateTarget<$flutter_1.ClampedSimulation>(target, 'ClampedSimulation').dxMax,
+      'tolerance': (visitor, target) => D4
+          .validateTarget<$flutter_1.ClampedSimulation>(
+            target,
+            'ClampedSimulation',
+          )
+          .tolerance,
+      'simulation': (visitor, target) => D4
+          .validateTarget<$flutter_1.ClampedSimulation>(
+            target,
+            'ClampedSimulation',
+          )
+          .simulation,
+      'xMin': (visitor, target) => D4
+          .validateTarget<$flutter_1.ClampedSimulation>(
+            target,
+            'ClampedSimulation',
+          )
+          .xMin,
+      'xMax': (visitor, target) => D4
+          .validateTarget<$flutter_1.ClampedSimulation>(
+            target,
+            'ClampedSimulation',
+          )
+          .xMax,
+      'dxMin': (visitor, target) => D4
+          .validateTarget<$flutter_1.ClampedSimulation>(
+            target,
+            'ClampedSimulation',
+          )
+          .dxMin,
+      'dxMax': (visitor, target) => D4
+          .validateTarget<$flutter_1.ClampedSimulation>(
+            target,
+            'ClampedSimulation',
+          )
+          .dxMax,
     },
     setters: {
-      'tolerance': (visitor, target, value) => 
-        D4.validateTarget<$flutter_1.ClampedSimulation>(target, 'ClampedSimulation').tolerance = D4.extractBridgedArg<$flutter_6.Tolerance>(value, 'tolerance'),
+      'tolerance': (visitor, target, value) =>
+          D4
+              .validateTarget<$flutter_1.ClampedSimulation>(
+                target,
+                'ClampedSimulation',
+              )
+              .tolerance = D4.extractBridgedArg<$flutter_6.Tolerance>(
+            value,
+            'tolerance',
+          ),
     },
     methods: {
       'x': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_1.ClampedSimulation>(target, 'ClampedSimulation');
+        final t = D4.validateTarget<$flutter_1.ClampedSimulation>(
+          target,
+          'ClampedSimulation',
+        );
         D4.requireMinArgs(positional, 1, 'x');
         final time = D4.getRequiredArg<double>(positional, 0, 'time', 'x');
         return t.x(time);
       },
       'dx': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_1.ClampedSimulation>(target, 'ClampedSimulation');
+        final t = D4.validateTarget<$flutter_1.ClampedSimulation>(
+          target,
+          'ClampedSimulation',
+        );
         D4.requireMinArgs(positional, 1, 'dx');
         final time = D4.getRequiredArg<double>(positional, 0, 'time', 'dx');
         return t.dx(time);
       },
       'isDone': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_1.ClampedSimulation>(target, 'ClampedSimulation');
+        final t = D4.validateTarget<$flutter_1.ClampedSimulation>(
+          target,
+          'ClampedSimulation',
+        );
         D4.requireMinArgs(positional, 1, 'isDone');
         final time = D4.getRequiredArg<double>(positional, 0, 'time', 'isDone');
         return t.isDone(time);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_1.ClampedSimulation>(target, 'ClampedSimulation');
+        final t = D4.validateTarget<$flutter_1.ClampedSimulation>(
+          target,
+          'ClampedSimulation',
+        );
         return t.toString();
       },
     },
@@ -457,9 +692,7 @@ BridgedClass _createClampedSimulationBridge() {
       'dxMin': 'double get dxMin',
       'dxMax': 'double get dxMax',
     },
-    setterSignatures: {
-      'tolerance': 'set tolerance(Tolerance value)',
-    },
+    setterSignatures: {'tolerance': 'set tolerance(Tolerance value)'},
   );
 }
 
@@ -476,55 +709,142 @@ BridgedClass _createFrictionSimulationBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'FrictionSimulation');
-        final drag = D4.getRequiredArg<double>(positional, 0, 'drag', 'FrictionSimulation');
-        final position = D4.getRequiredArg<double>(positional, 1, 'position', 'FrictionSimulation');
-        final velocity = D4.getRequiredArg<double>(positional, 2, 'velocity', 'FrictionSimulation');
-        final tolerance = D4.getNamedArgWithDefault<$flutter_6.Tolerance>(named, 'tolerance', $flutter_6.Tolerance.defaultTolerance);
-        final constantDeceleration = D4.getNamedArgWithDefault<double>(named, 'constantDeceleration', 0);
-        return $flutter_2.FrictionSimulation(drag, position, velocity, tolerance: tolerance, constantDeceleration: constantDeceleration);
+        final drag = D4.getRequiredArg<double>(
+          positional,
+          0,
+          'drag',
+          'FrictionSimulation',
+        );
+        final position = D4.getRequiredArg<double>(
+          positional,
+          1,
+          'position',
+          'FrictionSimulation',
+        );
+        final velocity = D4.getRequiredArg<double>(
+          positional,
+          2,
+          'velocity',
+          'FrictionSimulation',
+        );
+        final tolerance = D4.getNamedArgWithDefault<$flutter_6.Tolerance>(
+          named,
+          'tolerance',
+          $flutter_6.Tolerance.defaultTolerance,
+        );
+        final constantDeceleration = D4.getNamedArgWithDefault<double>(
+          named,
+          'constantDeceleration',
+          0,
+        );
+        return $flutter_2.FrictionSimulation(
+          drag,
+          position,
+          velocity,
+          tolerance: tolerance,
+          constantDeceleration: constantDeceleration,
+        );
       },
       'through': (visitor, positional, named) {
         D4.requireMinArgs(positional, 4, 'FrictionSimulation');
-        final startPosition = D4.getRequiredArg<double>(positional, 0, 'startPosition', 'FrictionSimulation');
-        final endPosition = D4.getRequiredArg<double>(positional, 1, 'endPosition', 'FrictionSimulation');
-        final startVelocity = D4.getRequiredArg<double>(positional, 2, 'startVelocity', 'FrictionSimulation');
-        final endVelocity = D4.getRequiredArg<double>(positional, 3, 'endVelocity', 'FrictionSimulation');
-        return $flutter_2.FrictionSimulation.through(startPosition, endPosition, startVelocity, endVelocity);
+        final startPosition = D4.getRequiredArg<double>(
+          positional,
+          0,
+          'startPosition',
+          'FrictionSimulation',
+        );
+        final endPosition = D4.getRequiredArg<double>(
+          positional,
+          1,
+          'endPosition',
+          'FrictionSimulation',
+        );
+        final startVelocity = D4.getRequiredArg<double>(
+          positional,
+          2,
+          'startVelocity',
+          'FrictionSimulation',
+        );
+        final endVelocity = D4.getRequiredArg<double>(
+          positional,
+          3,
+          'endVelocity',
+          'FrictionSimulation',
+        );
+        return $flutter_2.FrictionSimulation.through(
+          startPosition,
+          endPosition,
+          startVelocity,
+          endVelocity,
+        );
       },
     },
     getters: {
-      'tolerance': (visitor, target) => D4.validateTarget<$flutter_2.FrictionSimulation>(target, 'FrictionSimulation').tolerance,
-      'finalX': (visitor, target) => D4.validateTarget<$flutter_2.FrictionSimulation>(target, 'FrictionSimulation').finalX,
+      'tolerance': (visitor, target) => D4
+          .validateTarget<$flutter_2.FrictionSimulation>(
+            target,
+            'FrictionSimulation',
+          )
+          .tolerance,
+      'finalX': (visitor, target) => D4
+          .validateTarget<$flutter_2.FrictionSimulation>(
+            target,
+            'FrictionSimulation',
+          )
+          .finalX,
     },
     setters: {
-      'tolerance': (visitor, target, value) => 
-        D4.validateTarget<$flutter_2.FrictionSimulation>(target, 'FrictionSimulation').tolerance = D4.extractBridgedArg<$flutter_6.Tolerance>(value, 'tolerance'),
+      'tolerance': (visitor, target, value) =>
+          D4
+              .validateTarget<$flutter_2.FrictionSimulation>(
+                target,
+                'FrictionSimulation',
+              )
+              .tolerance = D4.extractBridgedArg<$flutter_6.Tolerance>(
+            value,
+            'tolerance',
+          ),
     },
     methods: {
       'x': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.FrictionSimulation>(target, 'FrictionSimulation');
+        final t = D4.validateTarget<$flutter_2.FrictionSimulation>(
+          target,
+          'FrictionSimulation',
+        );
         D4.requireMinArgs(positional, 1, 'x');
         final time = D4.getRequiredArg<double>(positional, 0, 'time', 'x');
         return t.x(time);
       },
       'dx': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.FrictionSimulation>(target, 'FrictionSimulation');
+        final t = D4.validateTarget<$flutter_2.FrictionSimulation>(
+          target,
+          'FrictionSimulation',
+        );
         D4.requireMinArgs(positional, 1, 'dx');
         final time = D4.getRequiredArg<double>(positional, 0, 'time', 'dx');
         return t.dx(time);
       },
       'isDone': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.FrictionSimulation>(target, 'FrictionSimulation');
+        final t = D4.validateTarget<$flutter_2.FrictionSimulation>(
+          target,
+          'FrictionSimulation',
+        );
         D4.requireMinArgs(positional, 1, 'isDone');
         final time = D4.getRequiredArg<double>(positional, 0, 'time', 'isDone');
         return t.isDone(time);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.FrictionSimulation>(target, 'FrictionSimulation');
+        final t = D4.validateTarget<$flutter_2.FrictionSimulation>(
+          target,
+          'FrictionSimulation',
+        );
         return t.toString();
       },
       'timeAtX': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.FrictionSimulation>(target, 'FrictionSimulation');
+        final t = D4.validateTarget<$flutter_2.FrictionSimulation>(
+          target,
+          'FrictionSimulation',
+        );
         D4.requireMinArgs(positional, 1, 'timeAtX');
         final x = D4.getRequiredArg<double>(positional, 0, 'x', 'timeAtX');
         return t.timeAtX(x);
@@ -532,7 +852,8 @@ BridgedClass _createFrictionSimulationBridge() {
     },
     constructorSignatures: {
       '': 'FrictionSimulation(double drag, double position, double velocity, {Tolerance tolerance = Tolerance.defaultTolerance, double constantDeceleration = 0})',
-      'through': 'factory FrictionSimulation.through(double startPosition, double endPosition, double startVelocity, double endVelocity)',
+      'through':
+          'factory FrictionSimulation.through(double startPosition, double endPosition, double startVelocity, double endVelocity)',
     },
     methodSignatures: {
       'x': 'double x(double time)',
@@ -545,9 +866,7 @@ BridgedClass _createFrictionSimulationBridge() {
       'tolerance': 'Tolerance get tolerance',
       'finalX': 'double get finalX',
     },
-    setterSignatures: {
-      'tolerance': 'set tolerance(Tolerance value)',
-    },
+    setterSignatures: {'tolerance': 'set tolerance(Tolerance value)'},
   );
 }
 
@@ -564,47 +883,111 @@ BridgedClass _createBoundedFrictionSimulationBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 5, 'BoundedFrictionSimulation');
-        final drag = D4.getRequiredArg<double>(positional, 0, 'drag', 'BoundedFrictionSimulation');
-        final position = D4.getRequiredArg<double>(positional, 1, 'position', 'BoundedFrictionSimulation');
-        final velocity = D4.getRequiredArg<double>(positional, 2, 'velocity', 'BoundedFrictionSimulation');
-        final minX = D4.getRequiredArg<double>(positional, 3, '_minX', 'BoundedFrictionSimulation');
-        final maxX = D4.getRequiredArg<double>(positional, 4, '_maxX', 'BoundedFrictionSimulation');
-        return $flutter_2.BoundedFrictionSimulation(drag, position, velocity, minX, maxX);
+        final drag = D4.getRequiredArg<double>(
+          positional,
+          0,
+          'drag',
+          'BoundedFrictionSimulation',
+        );
+        final position = D4.getRequiredArg<double>(
+          positional,
+          1,
+          'position',
+          'BoundedFrictionSimulation',
+        );
+        final velocity = D4.getRequiredArg<double>(
+          positional,
+          2,
+          'velocity',
+          'BoundedFrictionSimulation',
+        );
+        final minX = D4.getRequiredArg<double>(
+          positional,
+          3,
+          '_minX',
+          'BoundedFrictionSimulation',
+        );
+        final maxX = D4.getRequiredArg<double>(
+          positional,
+          4,
+          '_maxX',
+          'BoundedFrictionSimulation',
+        );
+        return $flutter_2.BoundedFrictionSimulation(
+          drag,
+          position,
+          velocity,
+          minX,
+          maxX,
+        );
       },
     },
     getters: {
-      'tolerance': (visitor, target) => D4.validateTarget<$flutter_2.BoundedFrictionSimulation>(target, 'BoundedFrictionSimulation').tolerance,
-      'finalX': (visitor, target) => D4.validateTarget<$flutter_2.BoundedFrictionSimulation>(target, 'BoundedFrictionSimulation').finalX,
+      'tolerance': (visitor, target) => D4
+          .validateTarget<$flutter_2.BoundedFrictionSimulation>(
+            target,
+            'BoundedFrictionSimulation',
+          )
+          .tolerance,
+      'finalX': (visitor, target) => D4
+          .validateTarget<$flutter_2.BoundedFrictionSimulation>(
+            target,
+            'BoundedFrictionSimulation',
+          )
+          .finalX,
     },
     setters: {
-      'tolerance': (visitor, target, value) => 
-        D4.validateTarget<$flutter_2.BoundedFrictionSimulation>(target, 'BoundedFrictionSimulation').tolerance = D4.extractBridgedArg<$flutter_6.Tolerance>(value, 'tolerance'),
+      'tolerance': (visitor, target, value) =>
+          D4
+              .validateTarget<$flutter_2.BoundedFrictionSimulation>(
+                target,
+                'BoundedFrictionSimulation',
+              )
+              .tolerance = D4.extractBridgedArg<$flutter_6.Tolerance>(
+            value,
+            'tolerance',
+          ),
     },
     methods: {
       'x': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.BoundedFrictionSimulation>(target, 'BoundedFrictionSimulation');
+        final t = D4.validateTarget<$flutter_2.BoundedFrictionSimulation>(
+          target,
+          'BoundedFrictionSimulation',
+        );
         D4.requireMinArgs(positional, 1, 'x');
         final time = D4.getRequiredArg<double>(positional, 0, 'time', 'x');
         return t.x(time);
       },
       'dx': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.BoundedFrictionSimulation>(target, 'BoundedFrictionSimulation');
+        final t = D4.validateTarget<$flutter_2.BoundedFrictionSimulation>(
+          target,
+          'BoundedFrictionSimulation',
+        );
         D4.requireMinArgs(positional, 1, 'dx');
         final time = D4.getRequiredArg<double>(positional, 0, 'time', 'dx');
         return t.dx(time);
       },
       'isDone': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.BoundedFrictionSimulation>(target, 'BoundedFrictionSimulation');
+        final t = D4.validateTarget<$flutter_2.BoundedFrictionSimulation>(
+          target,
+          'BoundedFrictionSimulation',
+        );
         D4.requireMinArgs(positional, 1, 'isDone');
         final time = D4.getRequiredArg<double>(positional, 0, 'time', 'isDone');
         return t.isDone(time);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.BoundedFrictionSimulation>(target, 'BoundedFrictionSimulation');
+        final t = D4.validateTarget<$flutter_2.BoundedFrictionSimulation>(
+          target,
+          'BoundedFrictionSimulation',
+        );
         return t.toString();
       },
       'timeAtX': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_2.BoundedFrictionSimulation>(target, 'BoundedFrictionSimulation');
+        final t = D4.validateTarget<$flutter_2.BoundedFrictionSimulation>(
+          target,
+          'BoundedFrictionSimulation',
+        );
         D4.requireMinArgs(positional, 1, 'timeAtX');
         final x = D4.getRequiredArg<double>(positional, 0, 'x', 'timeAtX');
         return t.timeAtX(x);
@@ -624,9 +1007,7 @@ BridgedClass _createBoundedFrictionSimulationBridge() {
       'tolerance': 'Tolerance get tolerance',
       'finalX': 'double get finalX',
     },
-    setterSignatures: {
-      'tolerance': 'set tolerance(Tolerance value)',
-    },
+    setterSignatures: {'tolerance': 'set tolerance(Tolerance value)'},
   );
 }
 
@@ -643,41 +1024,91 @@ BridgedClass _createGravitySimulationBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 4, 'GravitySimulation');
-        final acceleration = D4.getRequiredArg<double>(positional, 0, 'acceleration', 'GravitySimulation');
-        final distance = D4.getRequiredArg<double>(positional, 1, 'distance', 'GravitySimulation');
-        final endDistance = D4.getRequiredArg<double>(positional, 2, 'endDistance', 'GravitySimulation');
-        final velocity = D4.getRequiredArg<double>(positional, 3, 'velocity', 'GravitySimulation');
-        return $flutter_3.GravitySimulation(acceleration, distance, endDistance, velocity);
+        final acceleration = D4.getRequiredArg<double>(
+          positional,
+          0,
+          'acceleration',
+          'GravitySimulation',
+        );
+        final distance = D4.getRequiredArg<double>(
+          positional,
+          1,
+          'distance',
+          'GravitySimulation',
+        );
+        final endDistance = D4.getRequiredArg<double>(
+          positional,
+          2,
+          'endDistance',
+          'GravitySimulation',
+        );
+        final velocity = D4.getRequiredArg<double>(
+          positional,
+          3,
+          'velocity',
+          'GravitySimulation',
+        );
+        return $flutter_3.GravitySimulation(
+          acceleration,
+          distance,
+          endDistance,
+          velocity,
+        );
       },
     },
     getters: {
-      'tolerance': (visitor, target) => D4.validateTarget<$flutter_3.GravitySimulation>(target, 'GravitySimulation').tolerance,
+      'tolerance': (visitor, target) => D4
+          .validateTarget<$flutter_3.GravitySimulation>(
+            target,
+            'GravitySimulation',
+          )
+          .tolerance,
     },
     setters: {
-      'tolerance': (visitor, target, value) => 
-        D4.validateTarget<$flutter_3.GravitySimulation>(target, 'GravitySimulation').tolerance = D4.extractBridgedArg<$flutter_6.Tolerance>(value, 'tolerance'),
+      'tolerance': (visitor, target, value) =>
+          D4
+              .validateTarget<$flutter_3.GravitySimulation>(
+                target,
+                'GravitySimulation',
+              )
+              .tolerance = D4.extractBridgedArg<$flutter_6.Tolerance>(
+            value,
+            'tolerance',
+          ),
     },
     methods: {
       'x': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_3.GravitySimulation>(target, 'GravitySimulation');
+        final t = D4.validateTarget<$flutter_3.GravitySimulation>(
+          target,
+          'GravitySimulation',
+        );
         D4.requireMinArgs(positional, 1, 'x');
         final time = D4.getRequiredArg<double>(positional, 0, 'time', 'x');
         return t.x(time);
       },
       'dx': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_3.GravitySimulation>(target, 'GravitySimulation');
+        final t = D4.validateTarget<$flutter_3.GravitySimulation>(
+          target,
+          'GravitySimulation',
+        );
         D4.requireMinArgs(positional, 1, 'dx');
         final time = D4.getRequiredArg<double>(positional, 0, 'time', 'dx');
         return t.dx(time);
       },
       'isDone': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_3.GravitySimulation>(target, 'GravitySimulation');
+        final t = D4.validateTarget<$flutter_3.GravitySimulation>(
+          target,
+          'GravitySimulation',
+        );
         D4.requireMinArgs(positional, 1, 'isDone');
         final time = D4.getRequiredArg<double>(positional, 0, 'time', 'isDone');
         return t.isDone(time);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_3.GravitySimulation>(target, 'GravitySimulation');
+        final t = D4.validateTarget<$flutter_3.GravitySimulation>(
+          target,
+          'GravitySimulation',
+        );
         return t.toString();
       },
     },
@@ -690,12 +1121,8 @@ BridgedClass _createGravitySimulationBridge() {
       'isDone': 'bool isDone(double time)',
       'toString': 'String toString()',
     },
-    getterSignatures: {
-      'tolerance': 'Tolerance get tolerance',
-    },
-    setterSignatures: {
-      'tolerance': 'set tolerance(Tolerance value)',
-    },
+    getterSignatures: {'tolerance': 'Tolerance get tolerance'},
+    setterSignatures: {'tolerance': 'set tolerance(Tolerance value)'},
   );
 }
 
@@ -712,44 +1139,109 @@ BridgedClass _createSpringSimulationBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 4, 'SpringSimulation');
-        final spring = D4.getRequiredArg<$flutter_5.SpringDescription>(positional, 0, 'spring', 'SpringSimulation');
-        final start = D4.getRequiredArg<double>(positional, 1, 'start', 'SpringSimulation');
-        final end = D4.getRequiredArg<double>(positional, 2, 'end', 'SpringSimulation');
-        final velocity = D4.getRequiredArg<double>(positional, 3, 'velocity', 'SpringSimulation');
-        final snapToEnd = D4.getNamedArgWithDefault<bool>(named, 'snapToEnd', false);
-        final tolerance = D4.getNamedArgWithDefault<$flutter_6.Tolerance>(named, 'tolerance', $flutter_6.Tolerance.defaultTolerance);
-        return $flutter_5.SpringSimulation(spring, start, end, velocity, snapToEnd: snapToEnd, tolerance: tolerance);
+        final spring = D4.getRequiredArg<$flutter_5.SpringDescription>(
+          positional,
+          0,
+          'spring',
+          'SpringSimulation',
+        );
+        final start = D4.getRequiredArg<double>(
+          positional,
+          1,
+          'start',
+          'SpringSimulation',
+        );
+        final end = D4.getRequiredArg<double>(
+          positional,
+          2,
+          'end',
+          'SpringSimulation',
+        );
+        final velocity = D4.getRequiredArg<double>(
+          positional,
+          3,
+          'velocity',
+          'SpringSimulation',
+        );
+        final snapToEnd = D4.getNamedArgWithDefault<bool>(
+          named,
+          'snapToEnd',
+          false,
+        );
+        final tolerance = D4.getNamedArgWithDefault<$flutter_6.Tolerance>(
+          named,
+          'tolerance',
+          $flutter_6.Tolerance.defaultTolerance,
+        );
+        return $flutter_5.SpringSimulation(
+          spring,
+          start,
+          end,
+          velocity,
+          snapToEnd: snapToEnd,
+          tolerance: tolerance,
+        );
       },
     },
     getters: {
-      'tolerance': (visitor, target) => D4.validateTarget<$flutter_5.SpringSimulation>(target, 'SpringSimulation').tolerance,
-      'type': (visitor, target) => D4.validateTarget<$flutter_5.SpringSimulation>(target, 'SpringSimulation').type,
+      'tolerance': (visitor, target) => D4
+          .validateTarget<$flutter_5.SpringSimulation>(
+            target,
+            'SpringSimulation',
+          )
+          .tolerance,
+      'type': (visitor, target) => D4
+          .validateTarget<$flutter_5.SpringSimulation>(
+            target,
+            'SpringSimulation',
+          )
+          .type,
     },
     setters: {
-      'tolerance': (visitor, target, value) => 
-        D4.validateTarget<$flutter_5.SpringSimulation>(target, 'SpringSimulation').tolerance = D4.extractBridgedArg<$flutter_6.Tolerance>(value, 'tolerance'),
+      'tolerance': (visitor, target, value) =>
+          D4
+              .validateTarget<$flutter_5.SpringSimulation>(
+                target,
+                'SpringSimulation',
+              )
+              .tolerance = D4.extractBridgedArg<$flutter_6.Tolerance>(
+            value,
+            'tolerance',
+          ),
     },
     methods: {
       'x': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.SpringSimulation>(target, 'SpringSimulation');
+        final t = D4.validateTarget<$flutter_5.SpringSimulation>(
+          target,
+          'SpringSimulation',
+        );
         D4.requireMinArgs(positional, 1, 'x');
         final time = D4.getRequiredArg<double>(positional, 0, 'time', 'x');
         return t.x(time);
       },
       'dx': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.SpringSimulation>(target, 'SpringSimulation');
+        final t = D4.validateTarget<$flutter_5.SpringSimulation>(
+          target,
+          'SpringSimulation',
+        );
         D4.requireMinArgs(positional, 1, 'dx');
         final time = D4.getRequiredArg<double>(positional, 0, 'time', 'dx');
         return t.dx(time);
       },
       'isDone': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.SpringSimulation>(target, 'SpringSimulation');
+        final t = D4.validateTarget<$flutter_5.SpringSimulation>(
+          target,
+          'SpringSimulation',
+        );
         D4.requireMinArgs(positional, 1, 'isDone');
         final time = D4.getRequiredArg<double>(positional, 0, 'time', 'isDone');
         return t.isDone(time);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.SpringSimulation>(target, 'SpringSimulation');
+        final t = D4.validateTarget<$flutter_5.SpringSimulation>(
+          target,
+          'SpringSimulation',
+        );
         return t.toString();
       },
     },
@@ -766,9 +1258,7 @@ BridgedClass _createSpringSimulationBridge() {
       'tolerance': 'Tolerance get tolerance',
       'type': 'SpringType get type',
     },
-    setterSignatures: {
-      'tolerance': 'set tolerance(Tolerance value)',
-    },
+    setterSignatures: {'tolerance': 'set tolerance(Tolerance value)'},
   );
 }
 
@@ -785,43 +1275,103 @@ BridgedClass _createScrollSpringSimulationBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 4, 'ScrollSpringSimulation');
-        final spring = D4.getRequiredArg<$flutter_5.SpringDescription>(positional, 0, 'spring', 'ScrollSpringSimulation');
-        final start = D4.getRequiredArg<double>(positional, 1, 'start', 'ScrollSpringSimulation');
-        final end = D4.getRequiredArg<double>(positional, 2, 'end', 'ScrollSpringSimulation');
-        final velocity = D4.getRequiredArg<double>(positional, 3, 'velocity', 'ScrollSpringSimulation');
-        final tolerance = D4.getNamedArgWithDefault<$flutter_6.Tolerance>(named, 'tolerance', $flutter_6.Tolerance.defaultTolerance);
-        return $flutter_5.ScrollSpringSimulation(spring, start, end, velocity, tolerance: tolerance);
+        final spring = D4.getRequiredArg<$flutter_5.SpringDescription>(
+          positional,
+          0,
+          'spring',
+          'ScrollSpringSimulation',
+        );
+        final start = D4.getRequiredArg<double>(
+          positional,
+          1,
+          'start',
+          'ScrollSpringSimulation',
+        );
+        final end = D4.getRequiredArg<double>(
+          positional,
+          2,
+          'end',
+          'ScrollSpringSimulation',
+        );
+        final velocity = D4.getRequiredArg<double>(
+          positional,
+          3,
+          'velocity',
+          'ScrollSpringSimulation',
+        );
+        final tolerance = D4.getNamedArgWithDefault<$flutter_6.Tolerance>(
+          named,
+          'tolerance',
+          $flutter_6.Tolerance.defaultTolerance,
+        );
+        return $flutter_5.ScrollSpringSimulation(
+          spring,
+          start,
+          end,
+          velocity,
+          tolerance: tolerance,
+        );
       },
     },
     getters: {
-      'tolerance': (visitor, target) => D4.validateTarget<$flutter_5.ScrollSpringSimulation>(target, 'ScrollSpringSimulation').tolerance,
-      'type': (visitor, target) => D4.validateTarget<$flutter_5.ScrollSpringSimulation>(target, 'ScrollSpringSimulation').type,
+      'tolerance': (visitor, target) => D4
+          .validateTarget<$flutter_5.ScrollSpringSimulation>(
+            target,
+            'ScrollSpringSimulation',
+          )
+          .tolerance,
+      'type': (visitor, target) => D4
+          .validateTarget<$flutter_5.ScrollSpringSimulation>(
+            target,
+            'ScrollSpringSimulation',
+          )
+          .type,
     },
     setters: {
-      'tolerance': (visitor, target, value) => 
-        D4.validateTarget<$flutter_5.ScrollSpringSimulation>(target, 'ScrollSpringSimulation').tolerance = D4.extractBridgedArg<$flutter_6.Tolerance>(value, 'tolerance'),
+      'tolerance': (visitor, target, value) =>
+          D4
+              .validateTarget<$flutter_5.ScrollSpringSimulation>(
+                target,
+                'ScrollSpringSimulation',
+              )
+              .tolerance = D4.extractBridgedArg<$flutter_6.Tolerance>(
+            value,
+            'tolerance',
+          ),
     },
     methods: {
       'x': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.ScrollSpringSimulation>(target, 'ScrollSpringSimulation');
+        final t = D4.validateTarget<$flutter_5.ScrollSpringSimulation>(
+          target,
+          'ScrollSpringSimulation',
+        );
         D4.requireMinArgs(positional, 1, 'x');
         final time = D4.getRequiredArg<double>(positional, 0, 'time', 'x');
         return t.x(time);
       },
       'dx': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.ScrollSpringSimulation>(target, 'ScrollSpringSimulation');
+        final t = D4.validateTarget<$flutter_5.ScrollSpringSimulation>(
+          target,
+          'ScrollSpringSimulation',
+        );
         D4.requireMinArgs(positional, 1, 'dx');
         final time = D4.getRequiredArg<double>(positional, 0, 'time', 'dx');
         return t.dx(time);
       },
       'isDone': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.ScrollSpringSimulation>(target, 'ScrollSpringSimulation');
+        final t = D4.validateTarget<$flutter_5.ScrollSpringSimulation>(
+          target,
+          'ScrollSpringSimulation',
+        );
         D4.requireMinArgs(positional, 1, 'isDone');
         final time = D4.getRequiredArg<double>(positional, 0, 'time', 'isDone');
         return t.isDone(time);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_5.ScrollSpringSimulation>(target, 'ScrollSpringSimulation');
+        final t = D4.validateTarget<$flutter_5.ScrollSpringSimulation>(
+          target,
+          'ScrollSpringSimulation',
+        );
         return t.toString();
       },
     },
@@ -838,9 +1388,6 @@ BridgedClass _createScrollSpringSimulationBridge() {
       'tolerance': 'Tolerance get tolerance',
       'type': 'SpringType get type',
     },
-    setterSignatures: {
-      'tolerance': 'set tolerance(Tolerance value)',
-    },
+    setterSignatures: {'tolerance': 'set tolerance(Tolerance value)'},
   );
 }
-

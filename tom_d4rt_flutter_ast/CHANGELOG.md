@@ -1,3 +1,9 @@
+## 0.9.4
+
+### Changed — bridges regenerated with tom_d4rt_generator 1.51.0 (sch3)
+
+`tom_d4rt_generator` ^1.51.0. 1.51.0 formats its output at this package's language version, so every generated `*.b.dart` is now `dart format`-clean as written. The generator's other 1.51.0 changes are in its own CHANGELOG.
+
 ## 0.9.3
 
 ### Changed — resolves tom_d4rt_ast 0.195.0; bridges regenerated with tom_d4rt_generator 1.50.0 (scf34)

@@ -157,18 +157,16 @@ const _floorStraddles = <(String, String), String>{};
 /// an ignored file cannot bury a real edit, because it never reaches a commit.
 const _generatedFileNames = {'version.versioner.dart', 'version.g.dart'};
 
-/// The packages whose formatted surface is `lib/` MINUS the generator's output.
+/// The packages whose formatted surface is `lib/` only.
 ///
-/// SCD81 checked the thing that could have invalidated the whole approach, and
-/// it did invalidate half of it: `tom_d4rt_generator` emits `*.b.dart` by string
-/// concatenation and depends on no formatter at all, so `dart format` rewrites
-/// all 18 in each twin. Formatting them would start a permanent fight — format,
-/// regenerate, and the diff is back — which is why the generated files are
-/// excluded here rather than reformatted. Teaching the generator to format its
-/// own output is sce123_aimn, and it has to come with a workspace-wide
-/// regeneration because every consumer's freshness guard reads committed output.
+/// Their `lib/` includes the generator's output. `tom_d4rt_generator` 1.51.0
+/// formats every `*.b.dart` it writes, at the receiving package's language
+/// version (`formatGeneratedDart`, SCG5), and SCH3 regenerated both twins with
+/// it. So the bridges are checked like hand-written code: a bridge that
+/// `dart format` would rewrite now means it was written by an older generator,
+/// or edited by hand, and both are worth a red test.
 ///
-/// `test/` is excluded for these two as well, and for a different reason: the
+/// `test/` is excluded for these two for a different reason: the
 /// ~2080-script cluster corpus under `test/tom_d4rt_flutter_ast_app/test/` is
 /// D4rt FIXTURES driven over HTTP against a live companion app, not code.
 /// Reformatting them changes what the corpus feeds the interpreter.
@@ -221,7 +219,7 @@ String? _declaredSdkVersion(File pubspec) {
 /// Two shapes, because the two kinds of package have different surfaces. For the
 /// interpreter trees it is whole directories, which is what makes the check
 /// total. For the Flutter twins it is an explicit FILE list, derived rather than
-/// recorded: every `.dart` under `lib` that is not `*.b.dart`. A recorded list
+/// recorded: every `.dart` under `lib`, generated bridges included. A recorded list
 /// would go stale the first time somebody adds a file and would then pass by
 /// omission — which is the failure mode this whole suite exists to prevent.
 List<String> _formatTargets(Directory package) {
@@ -260,7 +258,8 @@ List<String> _formatTargets(Directory package) {
   return targets..sort();
 }
 
-/// Every generated file under [package]: the bridges and the version stamp.
+/// Every version stamp under [package] — the only generated files still
+/// excluded, because the versioner (not the bridge generator) writes them.
 List<String> _generatedFiles(Directory package) {
   final out = <String>[];
   for (final dir in const ['lib', 'test', 'bin', 'tool']) {
@@ -268,7 +267,7 @@ List<String> _generatedFiles(Directory package) {
     if (!root.existsSync()) continue;
     for (final file in root.listSync(recursive: true).whereType<File>()) {
       final last = _lastSegment(file.path);
-      if (last.endsWith('.b.dart') || _generatedFileNames.contains(last)) {
+      if (_generatedFileNames.contains(last)) {
         out.add(file.path);
       }
     }
@@ -478,8 +477,8 @@ void main() {
       expect(_unformattedFiles(sibling), isEmpty);
     });
 
-    test('F-SCD81-1: the Flutter twins are formatted where they are not '
-        'generator output [2026-09-13]', () {
+    test('F-SCD81-1: the Flutter twins are formatted, generated bridges '
+        'included [2026-09-13]', () {
       if (root == null) {
         markTestSkipped('d4rt repo root not found — twins not reachable');
         return;
@@ -491,11 +490,11 @@ void main() {
           continue;
         }
 
-        // Anti-vacuity, in both directions, because this is the one case here
-        // whose subject is DERIVED rather than named. An empty target list would
-        // pass by checking nothing; a list with no exclusions would mean the
-        // `.b.dart` files had vanished — in which case the exclusion is stale
-        // and someone should know, rather than the check quietly widening.
+        // Anti-vacuity, because this is the one case here whose subject is
+        // DERIVED rather than named. An empty target list would pass by
+        // checking nothing, and a list without the bridges would mean they had
+        // moved — the files most likely to regress, since a generator older
+        // than 1.51.0 writes them unformatted (SCH3).
         final targets = _formatTargets(twin);
         expect(
           targets.length,
@@ -513,15 +512,15 @@ void main() {
           generated,
           greaterThan(0),
           reason:
-              'no `*.b.dart` found in $name, so the exclusion above is '
-              'excluding nothing — either the bridges moved or they are gone, '
-              'and either way the target list needs rereading',
+              'no `*.b.dart` found in $name — either the bridges moved or they '
+              'are gone, and either way the target list needs rereading',
         );
         expect(
-          targets.any((t) => t.endsWith('.b.dart')),
-          isFalse,
+          targets.where((t) => t.endsWith('.b.dart')).length,
+          generated,
           reason:
-              'generator output must not be in the target list — sce123_aimn',
+              'every generated bridge must be a format target — tom_d4rt_generator '
+              '1.51.0 writes them formatted (SCH3)',
         );
         expect(
           targets.any((t) => _generatedFileNames.contains(_lastSegment(t))),
