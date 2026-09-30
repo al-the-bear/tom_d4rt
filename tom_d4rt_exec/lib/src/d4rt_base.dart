@@ -2300,8 +2300,12 @@ class D4rt {
         );
 
         if (nativeSuperObject != null) {
-          final methodAdapter = bridgedSuperclass.findInstanceMethodAdapter(
+          // SCF42: the walk SCF19 put under every script path — a member the
+          // bridged superclass INHERITS (`Iterable.elementAt` under a
+          // `ListQueue` subclass) is reachable from the host too.
+          final methodAdapter = bridgedSuperclass.findReachableMethodAdapter(
             name,
+            _visitor,
           );
 
           if (methodAdapter != null) {
@@ -2319,8 +2323,9 @@ class D4rt {
             );
           }
 
-          final getterAdapter = bridgedSuperclass.findInstanceGetterAdapter(
+          final getterAdapter = bridgedSuperclass.findReachableGetterAdapter(
             name,
+            _visitor,
           );
           if (getterAdapter != null) {
             return _tryFunction(
@@ -2330,8 +2335,9 @@ class D4rt {
               "Error invoking bridged getter '$name' on superclass '${bridgedSuperclass.name}'",
             );
           }
-          final setterAdapter = bridgedSuperclass.findInstanceSetterAdapter(
+          final setterAdapter = bridgedSuperclass.findReachableSetterAdapter(
             name,
+            _visitor,
           );
           if (setterAdapter != null) {
             return _tryFunction(

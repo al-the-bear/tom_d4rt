@@ -1,3 +1,15 @@
+## 1.217.0
+
+### Fixed — the host `invoke` path reaches inherited bridged members (scf42)
+
+`D4rt.invoke(name, args)` on an interpreted instance whose class extends a
+bridged class asked only that bridge's own maps. So for
+`class MyQ extends ListQueue`, `invoke('elementAt', [1])` and
+`invoke('first', [])` failed with "Method or getter not found", though the
+same members worked inside the script (SCF19). The bridged-superclass branch
+now uses `BridgedClass.findReachable*Adapter`, the walk every script path
+uses.
+
 ## 1.216.0
 
 ### Fixed — a class name stored by a method or `[]=` reaches a `runtimeType` lookup (scf40)

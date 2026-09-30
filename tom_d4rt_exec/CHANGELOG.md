@@ -1,3 +1,12 @@
+## 1.40.0
+
+### Fixed — the host `invoke` path reaches inherited bridged members (scf42)
+
+The mirror of tom_d4rt 1.217.0: `D4rt.invoke` on an interpreted subclass of
+a bridged class now reaches the members that class inherits (`elementAt` and
+`first` under a `ListQueue` subclass), through
+`BridgedClass.findReachable*Adapter`.
+
 ## 1.39.0
 
 ### Changed — `tom_ast_generator` ^0.1.13 (scf34)
