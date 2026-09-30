@@ -23,10 +23,12 @@ import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
 /// PUBLISH-BLOCKED (DGUC6): exec resolves `tom_d4rt_ast` from pub.dev, and
-/// the release carrying scf35 is 0.196.0. Remove the skips — which makes the
+/// the release carrying scf35 is 0.196.0, and its systemEncoding case also
+/// needs scf44's 0.203.0. Remove the skips — which makes the
 /// file the reference verbatim again — when exec's floor passes it.
 const _publishBlocked =
-    'PUBLISH-BLOCKED: needs tom_d4rt_ast 0.196.0 (scf35, published by scf42)';
+    'PUBLISH-BLOCKED: needs tom_d4rt_ast 0.203.0 (scf35 and scf44, published '
+    'by scf42)';
 
 Future<Object?> _run(String source, {List<Object>? escapes}) async {
   // dart:io needs a grant to import at all; nothing here touches the host.
@@ -132,12 +134,10 @@ List<Object> main() => [
           ],
         );
         expect(
-          // dart:convert is imported for `Encoding`'s members: reading a member
-          // of a value whose bridge lives in a library the script did not
-          // import fails (`stdout.encoding.name` too) — scf44, not this todo.
+          // Only dart:io: `Encoding`'s members reach a value whose bridge lives
+          // in dart:convert without that import (SCF44).
           await _run('''
 import 'dart:io';
-import 'dart:convert';
 String main() => systemEncoding.name;
 '''),
           isA<String>(),

@@ -889,6 +889,39 @@ class Environment {
   /// lexical name `Random` into globalEnvironment.
   ///
   /// Mirror of `tom_d4rt` `Environment.propagateBridgeTypesTo`.
+  /// The bridges of the stdlib libraries the script did NOT import, asked for
+  /// a native value's type when every other pass misses (SCF44).
+  ///
+  /// Imports govern which NAMES a script can write, not which members a value
+  /// it already holds exposes: `stdout.encoding` is a `Utf8Codec` whatever the
+  /// script imported. [propagateBridgeTypesTo] copies a module's type→bridge
+  /// mappings here only when the module is imported, so without this a value
+  /// whose bridge lives in an unimported library had no members at all. Set on
+  /// the global environment by the module loader; the nearest one in the chain
+  /// answers. Names are untouched — `Utf8Codec` stays unresolvable as a name.
+  ///
+  /// [structural] asks for SCC49's suffix rule instead of a precise match; the
+  /// caller asks it only after the imported scope's own suffix rule missed.
+  BridgedClass? Function(Type nativeType, {bool structural})?
+  latentBridgeLookup;
+
+  BridgedClass? _latentBridgeFor(Type nativeType, {bool structural = false}) {
+    for (Environment? env = this; env != null; env = env._enclosing) {
+      final lookup = env.latentBridgeLookup;
+      if (lookup != null) return lookup(nativeType, structural: structural);
+    }
+    return null;
+  }
+
+  /// The type→bridge mappings this environment itself registered.
+  Map<Type, BridgedClass> get registeredBridgeTypes =>
+      Map.unmodifiable(_bridgedClassesLookupByType);
+
+  /// SCC49's structural suffix rule over this environment's chain, for a
+  /// registry that is not a script scope (SCF44's latent stdlib registry).
+  BridgedClass? structuralSuffixBridge(Type nativeType) =>
+      _structuralSuffixBridge(nativeType);
+
   void propagateBridgeTypesTo(Environment target) {
     if (identical(target, this)) return;
     var added = false;
@@ -1242,7 +1275,14 @@ class Environment {
       //    (`_StreamSinkWrapper` for `StreamSink`, `_ControllerSubscription`
       //    for `StreamSubscription`) that the naming convention alone is not
       //    sufficient.
-      final match = _structuralSuffixBridge(runtimeType);
+      //    A LATENT BRIDGE (SCF44) is asked before the suffix guess: it is a
+      //    precise match against a library the script did not import, and a
+      //    precise answer beats a name-shaped one.
+      final latent = _latentBridgeFor(runtimeType);
+      if (latent != null) return latent;
+      final match =
+          _structuralSuffixBridge(runtimeType) ??
+          _latentBridgeFor(runtimeType, structural: true);
       if (match == null) rethrow;
       Logger.debug(
         "[Environment] Matched native type '$runtimeType' to bridge "

@@ -1,3 +1,23 @@
+## 1.219.0
+
+### Fixed — reading a member of a value needs no import of its type's library (scf44)
+
+`import 'dart:io'; main() => stdout.encoding.name;` failed with "Undefined
+property or method 'name' on Utf8Codec. No bridge claims this type" until the
+script also imported `dart:convert`. Imports govern which NAMES a script can
+write, not which members a value it holds exposes. A stdlib module's
+type→bridge mapping reached the lookup only when the module was imported.
+
+A latent registry of every stdlib library's bridges now answers a native
+value's bridge when the imported scope misses. It is asked in two tiers,
+each after the imported scope's own: a precise match (exact type, or the name
+or `nativeNames`) before SCC49's suffix guess, and the suffix guess after
+it. An imported library therefore still wins at each tier, and the widening
+never lets a guess outrank a declared match. Names are untouched: `Utf8Codec`
+still does not resolve as a name without `dart:convert`.
+
+Name resolution: yes — a native value whose bridge lives in an unimported stdlib library now resolves to that bridge (scf44).
+
 ## 1.218.0
 
 ### Fixed — `await` in the body of a collection-literal `for` element (scf43)

@@ -2202,6 +2202,12 @@ const Map<String, _Convergence> _convergenceLog = {
 /// re-measure the whole register when the floor moves, not the entry you
 /// happened to be reading.
 const Map<String, _Divergence> _divergentBaseline = {
+  // SCF44: a value's bridge is found in a stdlib library the script did not
+  // import. The published interpreter misses it, so this port carries the
+  // reference verbatim but for a group-level skip.
+  // PUBLISH-BLOCKED — re-port when exec's tom_d4rt_ast floor passes 0.203.0,
+  // by copying the reference file down; converges at a floor past 0.203.0.
+  'scf44_member_access_without_import_test.dart': _Divergence.deliberate,
   // SCF43: an `await` in a collection-literal `for` BODY evaluates instead of
   // being refused. The reference inverted F-SCE80-12 and added F-SCE80-12b..e;
   // the published interpreter still refuses, so this port keeps asserting the
@@ -2244,9 +2250,10 @@ const Map<String, _Divergence> _divergentBaseline = {
   // SCF35: scheduleMicrotask, base64UrlEncode, the dart:convert rune
   // constants and systemEncoding are bridged. The published interpreter has
   // none of them, so this port carries the reference verbatim but for
-  // group-level skips.
-  // PUBLISH-BLOCKED — re-port when exec's tom_d4rt_ast floor passes 0.196.0,
-  // by copying the reference file down; converges at a floor past 0.196.0.
+  // group-level skips. Its systemEncoding case imports only dart:io, which
+  // needs SCF44's latent stdlib registry too.
+  // PUBLISH-BLOCKED — re-port when exec's tom_d4rt_ast floor passes 0.203.0,
+  // by copying the reference file down; converges at a floor past 0.203.0.
   'scf35_schedule_microtask_test.dart': _Divergence.deliberate,
   // SCF35 added F-SCC73-5, which reads the SDK's top-level functions, getters
   // and variables and fails on any a script cannot reach. Against the
@@ -2331,12 +2338,13 @@ const Map<String, _Divergence> _divergentBaseline = {
 /// message says so.
 const Map<String, String> _divergenceFingerprints = <String, String>{
   'scc12_await_in_finally_test.dart': 'ade6072e1955b12f',
+  'scf44_member_access_without_import_test.dart': '3641dbeb9c8a48ea',
   'scf40_class_name_stored_by_method_test.dart': '77d5eec0f1e23f5c',
   'scf39_interpreted_error_subclass_test.dart': 'c817b4397bbd9b84',
   'bridge/scf38_native_closure_bridge_test.dart': '9e676d43c0d18732',
   'bridge/scf37_bridged_property_increment_test.dart': '699f24c0f6d03090',
   'stdlib/scf36_surplus_arity_bounded_test.dart': 'eb79eb8b24309084',
-  'scf35_schedule_microtask_test.dart': '8fe0bd3f4874c8ce',
+  'scf35_schedule_microtask_test.dart': 'fca7bb0f00396167',
   'scc73_sdk_member_completeness_test.dart': '300d552b19b4fa8c',
   'stdlib/io/scd188_stdin_audit_reason_expiry_test.dart': '46be47f827711c3a',
   'warm_parent_package_pool_test.dart': '971b6ff19185f442',
@@ -2524,6 +2532,11 @@ typedef _Pin = ({String floor, String measured});
 /// recorded evidence was seven and ten cases out of date. Both are re-stamped
 /// above their entries in `_uncoveredBaseline`.
 const Map<String, _Pin> _pinnedInterpreterFloors = <String, _Pin>{
+  // SCF44, pinned at the release with the latent stdlib bridge registry.
+  'scf44_member_access_without_import_test.dart': (
+    floor: '0.203.0',
+    measured: '0.195.0',
+  ),
   // SCF43, pinned at the release that evaluates an await in a `for` body.
   'scc12_await_in_finally_test.dart': (floor: '0.202.0', measured: '0.195.0'),
   // SCF40, pinned at the release that stores a class name as its Type.
@@ -2552,7 +2565,7 @@ const Map<String, _Pin> _pinnedInterpreterFloors = <String, _Pin>{
     measured: '0.195.0',
   ),
   // SCF35, pinned at the release that bridges scheduleMicrotask.
-  'scf35_schedule_microtask_test.dart': (floor: '0.196.0', measured: '0.195.0'),
+  'scf35_schedule_microtask_test.dart': (floor: '0.203.0', measured: '0.195.0'),
   // SCF35's F-SCC73-5, pinned at the same release.
   'scc73_sdk_member_completeness_test.dart': (
     floor: '0.196.0',

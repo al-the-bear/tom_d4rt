@@ -190,6 +190,7 @@ class ModuleLoader {
     this.sharedModuleEnclosing,
     this.onBridgedModuleEnvBuilt,
   }) {
+    globalEnvironment.latentBridgeLookup ??= latentStdlibBridgeFor;
     Logger.debug(
       "[ModuleLoader] Initialized with ${sources.length} preloaded sources.",
     );
@@ -338,6 +339,65 @@ class ModuleLoader {
   /// this list in a test would decay silently — which is the same failure the
   /// guard itself exists to prevent, one level up.
   static Iterable<String> get stdlibModuleNames => _stdlibRegistrars.keys;
+
+  /// Every stdlib library's bridges in one environment, built once per
+  /// process (SCF44). See [Environment.latentBridgeLookup]. One environment is
+  /// sound because SCC76 holds the stdlib modules free of duplicate names.
+  static final Environment _latentStdlib = () {
+    final all = Environment();
+    for (final register in _stdlibRegistrars.values) {
+      register(all);
+    }
+    return all;
+  }();
+
+  /// Answers by native type, cached, so a type no bridge claims is looked up
+  /// once rather than on every speculative wrap. Keyed by
+  /// `(type, structural)`.
+  static final Map<Type, BridgedClass?> _latentPrecise = {};
+  static final Map<Type, BridgedClass?> _latentStructural = {};
+
+  /// The stdlib bridge for [nativeType] from any stdlib library, imported or
+  /// not.
+  ///
+  /// Precise (the default): the exact type, else the bridge whose name or
+  /// `nativeNames` equals the type's name (without type arguments, a leading
+  /// underscore or an `Impl` suffix). [structural]: SCC49's suffix rule, which
+  /// the caller asks only after the imported scope's own suffix rule missed —
+  /// so an imported library still wins at each tier, and widening to every
+  /// library never lets a guess outrank a declared match.
+  static BridgedClass? latentStdlibBridgeFor(
+    Type nativeType, {
+    bool structural = false,
+  }) {
+    final cache = structural ? _latentStructural : _latentPrecise;
+    if (cache.containsKey(nativeType)) return cache[nativeType];
+    if (structural) {
+      return cache[nativeType] = _latentStdlib.structuralSuffixBridge(
+        nativeType,
+      );
+    }
+    final byType = _latentStdlib.registeredBridgeTypes;
+    BridgedClass? found = byType[nativeType];
+    if (found == null) {
+      final full = nativeType.toString();
+      final generic = full.indexOf('<');
+      final raw = generic < 0 ? full : full.substring(0, generic);
+      var clean = raw.startsWith('_') ? raw.substring(1) : raw;
+      if (clean.endsWith('Impl')) {
+        clean = clean.substring(0, clean.length - 'Impl'.length);
+      }
+      for (final bridge in byType.values) {
+        final names = bridge.nativeNames;
+        if (bridge.name == clean ||
+            (names != null && (names.contains(raw) || names.contains(clean)))) {
+          found = bridge;
+          break;
+        }
+      }
+    }
+    return cache[nativeType] = found;
+  }
 
   static final Map<String, void Function(Environment)> _stdlibRegistrars = {
     'math': MathStdlib.register,

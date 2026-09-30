@@ -123,12 +123,10 @@ List<Object> main() => [
         ],
       );
       expect(
-        // dart:convert is imported for `Encoding`'s members: reading a member
-        // of a value whose bridge lives in a library the script did not
-        // import fails (`stdout.encoding.name` too) — scf44, not this todo.
+        // Only dart:io: `Encoding`'s members reach a value whose bridge lives
+        // in dart:convert without that import (SCF44).
         await _run('''
 import 'dart:io';
-import 'dart:convert';
 String main() => systemEncoding.name;
 '''),
         isA<String>(),
