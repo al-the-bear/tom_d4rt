@@ -14,6 +14,7 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:tom_d4rt_generator/tom_d4rt_generator.dart';
+import 'support/generated_code.dart';
 
 void main() {
   late String testFixturesDir;
@@ -73,7 +74,7 @@ void main() {
         reason: 'Generator should produce output files',
       );
 
-      generatedCode = await File(result.outputFiles.first).readAsString();
+      generatedCode = await readGeneratedCode(result.outputFiles.first);
     });
 
     group('Simple Functions', () {
@@ -236,7 +237,7 @@ void main() {
         moduleName: 'globals',
       );
 
-      generatedCode = await File(outputFile).readAsString();
+      generatedCode = await readGeneratedCode(outputFile);
     });
 
     group('Constants', () {
@@ -315,7 +316,7 @@ void main() {
         moduleName: 'test',
       );
 
-      generatedCode = await File(outputFile).readAsString();
+      generatedCode = await readGeneratedCode(outputFile);
     });
 
     test(
@@ -379,7 +380,7 @@ void main() {
         moduleName: 'funcs',
       );
 
-      generatedCode = await File(outputFile).readAsString();
+      generatedCode = await readGeneratedCode(outputFile);
     });
 
     test(
@@ -442,7 +443,7 @@ void main() {
         moduleName: 'vars',
       );
 
-      generatedCode = await File(outputFile).readAsString();
+      generatedCode = await readGeneratedCode(outputFile);
     });
 
     test(
@@ -504,7 +505,7 @@ void main() {
         moduleName: 'getters',
       );
 
-      generatedCode = await File(outputFile).readAsString();
+      generatedCode = await readGeneratedCode(outputFile);
     });
 
     group('Regular Variables use registerGlobalVariable', () {

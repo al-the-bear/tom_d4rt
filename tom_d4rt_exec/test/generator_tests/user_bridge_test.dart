@@ -13,6 +13,7 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:tom_d4rt_generator/tom_d4rt_generator.dart';
+import 'support/generated_code.dart';
 
 /// Library path used in the test fixture's @D4rtUserBridge annotation.
 const testLibraryPath = 'package:test_package/user_bridge_test_source.dart';
@@ -71,7 +72,7 @@ void main() {
       expect(result.errors, isEmpty, reason: 'Should generate without errors');
       expect(result.outputFiles, isNotEmpty);
 
-      generatedCode = await File(result.outputFiles.first).readAsString();
+      generatedCode = await readGeneratedCode(result.outputFiles.first);
     });
 
     test(
@@ -387,7 +388,7 @@ void main() {
       );
 
       expect(result.errors, isEmpty);
-      generatedCode = await File(result.outputFiles.first).readAsString();
+      generatedCode = await readGeneratedCode(result.outputFiles.first);
     });
 
     group('Scanner Detection', () {

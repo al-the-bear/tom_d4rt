@@ -18,6 +18,7 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:tom_d4rt_generator/tom_d4rt_generator.dart';
+import 'support/generated_code.dart';
 
 /// Helper to extract a section from generated code using regex
 String? _extractSection(String code, String sectionName) {
@@ -90,7 +91,7 @@ void main() {
       expect(result.errors, isEmpty, reason: 'Should generate without errors');
       expect(result.outputFiles, isNotEmpty);
 
-      generatedCode = await File(result.outputFiles.first).readAsString();
+      generatedCode = await readGeneratedCode(result.outputFiles.first);
 
       // Debug: print generated code for inspection
       // print('Generated code:\n$generatedCode');
