@@ -1,17 +1,17 @@
-/// SCD95 — a REPORT-ONLY static pass that finds names a program reads and
-/// nothing defines.
+/// SCD95 — a static pass that finds names a program reads and nothing
+/// defines.
 ///
-/// **It reports; it never throws, and nothing in `execute()` calls it.** That
-/// is the whole risk-management strategy of the todo that produced it, and it
-/// is deliberate rather than unfinished. Real Dart rejects an undefined name at
-/// compile time, so the program never runs at all; d4rt runs everything up to
-/// the bad line first, and a script that writes a file on line 3 and mistypes a
-/// name on line 9 has already written the file. Closing that gap means adding a
-/// pass that can REFUSE to run a program — and a resolver that is wrong in the
-/// aggressive direction rejects working scripts, which is far worse than the
-/// bug it fixes. So the pass is built report-only, swept over corpora of
-/// programs known to work, and only allowed to fail anything once that sweep is
-/// clean. See `scd95_static_name_report_test.dart` for the measurement.
+/// **The pass itself only reports; it never throws.** Enforcement is the
+/// caller's: since SCG6, `D4rt._refuseStaticallyUndefinedNames` runs it before
+/// `main`, and refuses a program only for a name the populated environment
+/// confirms is undefined. Real Dart rejects an undefined name at compile time,
+/// so the program never runs at all; before SCG6 d4rt ran everything up to the
+/// bad line first. A resolver wrong in the aggressive direction would reject
+/// working scripts, so the pass was built report-only, swept over corpora of
+/// programs known to work, and enforced only through that confirming second
+/// stage, under which a hole here costs a missed diagnostic, never a rejected
+/// script. See `scd95_static_name_report_test.dart` for the measurement and
+/// `scg6_static_name_enforcement_test.dart` for the enforcement.
 ///
 /// WHAT IT CANNOT SEE, and therefore never reports
 ///
@@ -45,7 +45,7 @@
 /// Every one of those is a deliberate FALSE NEGATIVE. The pass exists to be
 /// trusted when it does speak, which means it must stay silent whenever it
 /// might be wrong — the SCC31 runtime guard remains the backstop for everything
-/// listed above, and would remain so even after this pass starts enforcing.
+/// listed above, and does so with enforcement on.
 library;
 
 import 'package:analyzer/dart/ast/ast.dart';
@@ -53,7 +53,7 @@ import 'package:analyzer/dart/ast/visitor.dart';
 
 /// One name the program reads that this pass could not find a definition for.
 class UnresolvedName {
-  UnresolvedName(this.name, this.offset, {required this.enclosing});
+  UnresolvedName(this.name, this.offset, {required this.enclosing, this.node});
 
   /// The identifier as written.
   final String name;
@@ -63,6 +63,11 @@ class UnresolvedName {
 
   /// The declaration the use sits in, for a legible report.
   final String enclosing;
+
+  /// The identifier itself. SCG6's enforcement evaluates it to raise the error
+  /// the interpreter raises at that use, so a refused program reads exactly
+  /// as it would have failed at the line.
+  final SimpleIdentifier? node;
 
   @override
   String toString() => '$name (at $offset, in $enclosing)';
@@ -472,7 +477,9 @@ class _NameReportVisitor extends GeneralizingAstVisitor<void> {
     final name = node.name;
     if (name.isEmpty || name == '_') return;
     if (_isKnown(name)) return;
-    unresolved.add(UnresolvedName(name, node.offset, enclosing: _enclosing));
+    unresolved.add(
+      UnresolvedName(name, node.offset, enclosing: _enclosing, node: node),
+    );
   }
 
   /// Whether [node] is a bare name the program READS — as opposed to a name it
@@ -513,6 +520,12 @@ class _NameReportVisitor extends GeneralizingAstVisitor<void> {
       case ConstructorName():
       case ConstructorDeclaration():
       case ConstructorFieldInitializer():
+      // SCG6: the constructor named by `: this.named()` / `: super.named()` is
+      // looked up on the class, not in scope. Enforcement surfaced it: a
+      // redirect to a missing constructor was refused as an undefined
+      // variable instead of raising its own "no constructor named" error.
+      case RedirectingConstructorInvocation():
+      case SuperConstructorInvocation():
       case ShowCombinator():
       case HideCombinator():
       case ImportDirective():

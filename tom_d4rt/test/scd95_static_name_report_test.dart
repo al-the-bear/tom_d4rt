@@ -3,7 +3,9 @@ import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:test/test.dart';
 import 'package:tom_d4rt/src/static_name_report.dart';
 
-/// SCD95 — the report-only static name pass, and what sweeping it measured.
+/// SCD95 — the static name pass, and what sweeping it measured. The pass
+/// reports; SCG6 enforces it through a confirming second stage
+/// (`scg6_static_name_enforcement_test.dart`).
 ///
 /// SCC31 made an undefined name unswallowable: it is raised as
 /// `UndefinedNameD4rtException`, and both catch-dispatch sites decline to match
@@ -246,6 +248,26 @@ void main() {
         reason:
             'a suppressed report is not a clean one; callers must read '
             '`suppressed` before believing `isClean`',
+      );
+    });
+
+    test('F-SCD95-14: the constructor a redirecting or super initializer '
+        'names is not a read [2026-09-30, added by SCG6] (PASS)', () {
+      // Enforcement surfaced it: `: this.nonExistent()` was refused as an
+      // undefined VARIABLE instead of raising "no constructor named".
+      expect(
+        names('''
+class Box {
+  Box() : this.nonExistent();
+  Box.other() : this.make();
+  Box.make();
+}
+class Sub extends Box {
+  Sub() : super.make();
+}
+main() => Sub();
+'''),
+        isEmpty,
       );
     });
 

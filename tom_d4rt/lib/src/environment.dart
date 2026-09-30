@@ -1789,6 +1789,29 @@ class Environment {
     return value;
   }
 
+  /// Whether [name] is defined anywhere in this environment's chain, WITHOUT
+  /// evaluating it (SCG6).
+  ///
+  /// [lookup] answers the same question but returns the VALUE, and for a
+  /// registered global getter that means calling the host's getter. A
+  /// pre-execution check that asks about every candidate name must not run
+  /// host code, so it asks here. Every scope [lookup] consults is consulted:
+  /// prefixed imports, values (a getter counts, uncalled), bridged classes and
+  /// bridged enums, and an ambiguous name counts as defined — the ambiguity is
+  /// reported where it is used.
+  bool isDefined(String name) {
+    for (Environment? env = this; env != null; env = env._enclosing) {
+      if (env._prefixedImports.containsKey(name) ||
+          env._values.containsKey(name) ||
+          env._bridgedClasses.containsKey(name) ||
+          env._bridgedEnums.containsKey(name) ||
+          (env._ambiguousBridgeNamesRaw?.containsKey(name) ?? false)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   /// Non-throwing variant of [get]: resolves [name] across the lexical chain
   /// (locals, bridged classes/enums, prefixed imports) and returns [kNotFound]
   /// instead of throwing when nothing matches.

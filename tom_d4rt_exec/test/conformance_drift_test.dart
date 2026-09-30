@@ -1618,7 +1618,7 @@ typedef _CaseCounts = ({int ran, int declared});
 /// the backlog moves from it in either direction. Measured 2026-09-29: 20,
 /// all recorded in [_uncoveredBaseline]; 15 after sce237's publish ported the
 /// five that were only waiting on it.
-const _uncoveredHighWater = 15;
+const _uncoveredHighWater = 16;
 
 const Map<String, _CaseCounts> _uncoveredBaseline = {
   // NOT PORTABLE, and not blocked on a publish. It compares what FIVE host
@@ -1704,15 +1704,21 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
   // the same list. When the enforcing half lands it changes what `execute()`
   // does, and that is when exec has something to conform about.
   // 11 -> 12: SCE128 added F-SCD95-12 and F-SCD95-13 (a label reference and
-  // an extension type's representation are not undefined reads). Both
-  // numbers move together because nothing ran: re-measured 2026-09-22
-  // against resolved tom_d4rt_ast 0.65.0 by `tool/remeasure_pins.dart
-  // --uncovered`, the port still DOES NOT COMPILE — it imports
-  // `src/static_name_report.dart`, which resolves over the analyzer AST and
-  // has no counterpart in the published interpreter.
-  // `ran` IS HISTORICAL: this file does not compile against the resolved interpreter,
-  // so the number above cannot be confirmed here (measured 2026-09-22, sce143).
-  'scd95_static_name_report_test.dart': (ran: 12, declared: 12),
+  // an extension type's representation are not undefined reads). 12 -> 13:
+  // SCG6 added F-SCD95-14 (a constructor named in an initializer is not a
+  // read). Re-measured 2026-09-30 by `tool/remeasure_pins.dart --uncovered`:
+  // the port now COMPILES against the resolved interpreter and runs all 13
+  // cases, which all still fail, because exec has no static name pass of its
+  // own for `src/static_name_report.dart` to describe. It is still not
+  // portable; sch1_aißr-exec-front-end-enforces-the-static-name-pass owns
+  // giving exec that pass.
+  'scd95_static_name_report_test.dart': (ran: 13, declared: 13),
+  // NOT PORTED YET: tom_d4rt's static-name ENFORCEMENT (SCG6), which refuses
+  // a program reading an undefined name before `main` runs. exec parses with
+  // the analyzer too, so the same pass can run in its front end, but it does
+  // not yet; every case here would fail. sch1_aißr-exec-front-end-enforces-the-static-name-pass owns the port.
+  // pin-registered: n/a - exec's own front end, not a publish.
+  'scg6_static_name_enforcement_test.dart': (ran: 5, declared: 5),
   // NOT PORTABLE — a throughput probe, not a conformance assertion. Its single
   // case measures how long a Conway generation takes; run on two interpreters
   // with different performance characteristics it yields a flaky failure rather
@@ -2300,6 +2306,14 @@ const Map<String, _Divergence> _divergentBaseline = {
   // would read the same files and reach the same verdict, so a dropped guard
   // would turn two suites red for one cause and the extra red would say
   // nothing the first did not. Permanent, not a shortfall.
+  //
+  // SCG6 ADDED A SECOND DIFFERENCE, owned by exec's own front end rather
+  // than by any publish. The reference's F-SCC31-10 now asserts that a
+  // statically undefined name is refused before `main` runs, so no `finally`
+  // runs. That is tom_d4rt's static-name enforcement, which exec's front end
+  // does not perform yet, so this copy keeps the old assertion (the `finally`
+  // runs). sch1_aißr-exec-front-end-enforces-the-static-name-pass ports the enforcement into exec and removes this
+  // paragraph.
   'scc31_undefined_name_uncatchable_test.dart': _Divergence.deliberate,
   // The same deliberate subtraction, for the same reason: F-SCC32-20/21 are a
   // source scan over both mirrored trees rather than script runs.
@@ -2349,7 +2363,7 @@ const Map<String, String> _divergenceFingerprints = <String, String>{
   'stdlib/io/scd188_stdin_audit_reason_expiry_test.dart': '46be47f827711c3a',
   'warm_parent_package_pool_test.dart': '971b6ff19185f442',
   'stdlib/intentionally_unbridged_test.dart': 'a11036cda720efcf',
-  'scc31_undefined_name_uncatchable_test.dart': '5cbda0053357426b',
+  'scc31_undefined_name_uncatchable_test.dart': '70f68bd63f47de1d',
   'scc32_bridged_value_key_test.dart': '0a2b0b334d6eedaf',
   'scc33_unhandled_node_test.dart': '1be2b48d0784ff46',
 };
@@ -3456,11 +3470,11 @@ const Map<String, String> _astDriftFingerprints = <String, String>{
 // from today's value alone.
 // tom_d4rt 1.210.0 / tom_d4rt_ast 0.195.0 are published (scf34), and scf35
 // landed interpreter work behind them (scheduleMicrotask, 0.196.0), so the
-// tree is ahead of the release again. scf42 owns the next release and sets
-// this back to `null`.
+// tree is ahead of the release again. scg2 (which absorbed scf42) owns the
+// next release and sets this back to `null`.
 // ignore: unnecessary_nullable_for_final_variable_declarations
 const String? _astPublishBlock =
-    'scf42_aiöq-publish-the-interpreter-release-carrying-scf4';
+    'scg2_aißo-publish-the-final-interpreter-release';
 
 /// One baseline entry and the comment block written directly above it.
 typedef _BaselineEntry = ({String path, String comment});

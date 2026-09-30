@@ -85,6 +85,12 @@ const Map<String, String> _deferred = {
   '0.203.0':
       'scf44 — unpublished; the twins resolve tom_d4rt_ast from pub.dev '
       '(DGUC6). Owed by the scf42 publish and its post-publish corpus run.',
+  '1.220.0':
+      'scg6 — unpublished; the twins resolve tom_d4rt from pub.dev (DGUC6). '
+      'Owed by the scg2 publish and its post-publish corpus run.',
+  '0.204.0':
+      'scg6 — unpublished; the twins resolve tom_d4rt_ast from pub.dev '
+      '(DGUC6). Owed by the scg2 publish and its post-publish corpus run.',
 };
 
 List<int> _key(String v) => v.split('.').map(int.parse).toList();

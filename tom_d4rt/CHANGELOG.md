@@ -1,3 +1,28 @@
+## 1.220.0
+
+### Changed — a program reading an undefined name is refused before `main` runs (scg6)
+
+Dart rejects an undefined name at compile time, so such a program never runs.
+d4rt ran everything up to the bad line: a script that recorded a side effect
+on its first line and misspelled a name on its second had already recorded
+it. After imports and declarations are registered, and before `main`,
+`_refuseStaticallyUndefinedNames` now runs SCD95's static pass in two stages.
+The pass narrows to candidates. The populated environment confirms, through
+the new non-evaluating `Environment.isDefined` (which, unlike `lookup`, never
+calls a registered global getter). Only a name both agree on is refused, and
+the refusal evaluates that identifier, so the error is exactly the one the
+line would have raised (`UndefinedNameD4rtException`, including a "not
+bridged" reason). A name the runtime would resolve some other way, an
+assignment target (whose runtime message differs), and everything the pass
+cannot see (after a `.`, class bodies whose supertype leaves the unit,
+extension members, type positions) stay with the runtime guards. Top-level
+initializers have already run at that point, so the guarantee is about `main`.
+
+The pass no longer treats the constructor named by `: this.x()` /
+`: super.x()` as a read.
+
+Name resolution: yes — an undefined name is now raised before `main` rather than at its use (scg6).
+
 ## 1.219.0
 
 ### Fixed — reading a member of a value needs no import of its type's library (scf44)

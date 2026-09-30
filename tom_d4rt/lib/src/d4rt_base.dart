@@ -11,6 +11,7 @@ import 'package:tom_d4rt/src/bridge/bridged_types.dart';
 import 'package:tom_d4rt/src/runtime_types.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:tom_d4rt/src/environment.dart';
+import 'package:tom_d4rt/src/static_name_report.dart';
 import 'package:tom_d4rt/src/interpreter_visitor.dart';
 import 'package:tom_d4rt/src/module_loader.dart';
 import 'package:tom_d4rt/src/exceptions.dart';
@@ -2417,6 +2418,67 @@ class D4rt {
     return bridged.future;
   }
 
+  /// Refuses a program that reads a name nothing defines, before `main` runs
+  /// (SCG6, phase 2 of SCD95).
+  ///
+  /// TWO STAGES, so neither half has to be perfect. The syntactic pass
+  /// ([reportUnresolvedNames]) NARROWS to candidates; the fully populated
+  /// environment CONFIRMS. A name the pass flags that [Environment.lookup]
+  /// finds is a hole in the pass and stays silent, so a resolver hole costs a
+  /// missed diagnostic and can never reject a working script. Only a name both
+  /// agree on is refused.
+  ///
+  /// THE ERROR IS THE INTERPRETER'S OWN. The refusal evaluates the offending
+  /// identifier, which raises exactly what the line would have raised — the
+  /// `UndefinedNameD4rtException`, including the reason an SDK type is not
+  /// bridged — only earlier. It refuses only on that exception for that name:
+  /// if evaluation succeeds or fails in any other way, a runtime fallback owns
+  /// the name and the pass stays silent. An assignment target is left to the
+  /// runtime, whose message for a write differs from the one for a read.
+  ///
+  /// WHAT IT DOES NOT COVER, by the pass's design: anything after a `.`, the
+  /// bodies of classes whose supertype chain leaves the unit (counted in
+  /// `NameReport.openClasses`), extension members, and type positions. The
+  /// runtime guards (SCC31) remain the backstop for all of those. Top-level
+  /// variable initializers have already run by this point, so the guarantee is
+  /// about `main`: no statement of it executes.
+  void _refuseStaticallyUndefinedNames(
+    CompilationUnit unit,
+    Environment environment,
+  ) {
+    final report = reportUnresolvedNames(unit, const <String>{});
+    for (final candidate in report.unresolved) {
+      // `isDefined`, not `lookup`: `lookup` calls a registered global getter,
+      // and nothing here may run host code before `main`.
+      if (environment.isDefined(candidate.name)) continue;
+      final node = candidate.node;
+      if (node == null) continue;
+      // An assignment TARGET is left to the runtime, which raises its own
+      // "Assigning to undefined variable" there. Evaluating the target as a
+      // read would refuse the program under the wrong message, and
+      // evaluating the whole assignment would run its right-hand side.
+      final parent = node.parent;
+      if (parent is AssignmentExpression &&
+          identical(parent.leftHandSide, node)) {
+        continue;
+      }
+      final previous = _visitor!.environment;
+      _visitor!.environment = environment;
+      try {
+        node.accept<Object?>(_visitor!);
+      } on UndefinedNameD4rtException catch (e) {
+        // Refuse only with the error for THIS name. Anything else, or no
+        // error at all, means a runtime fallback resolves the name, and the
+        // pass stays silent.
+        if (e.name == candidate.name) rethrow;
+      } on RuntimeD4rtException {
+        // Not an undefined name; the runtime decides this use.
+      } finally {
+        _visitor!.environment = previous;
+      }
+    }
+  }
+
   dynamic _executeInEnvironmentInZone({
     required CompilationUnit compilationUnit,
     required Environment executionEnvironment,
@@ -2600,6 +2662,10 @@ class D4rt {
           swPass2!.elapsedMicroseconds,
         );
       }
+      // SCG6: a name the program reads and nothing defines is refused HERE,
+      // after every import and declaration is registered and before `main`
+      // runs a single statement — as Dart rejects it at compile time.
+      _refuseStaticallyUndefinedNames(compilationUnit, executionEnvironment);
       Logger.debug("[_executeInEnvironment] Looking for $name function");
       final functionCallable = executionEnvironment.get(name);
       if (functionCallable is Callable) {

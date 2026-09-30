@@ -1,3 +1,13 @@
+## 0.204.0
+
+### Added — `Environment.isDefined` (scg6)
+
+The non-evaluating twin of `lookup`: whether a name is defined anywhere in
+the chain, without calling a registered global getter. Mirrors tom_d4rt
+1.220.0, whose pre-`main` static-name check uses it.
+
+Name resolution: yes — the environment half of tom_d4rt 1.220.0's pre-`main` undefined-name check (`isDefined`); the static pass itself resolves over the analyzer AST and runs in tom_d4rt only (scg6).
+
 ## 0.203.0
 
 ### Fixed — reading a member of a value needs no import of its type's library (scf44)

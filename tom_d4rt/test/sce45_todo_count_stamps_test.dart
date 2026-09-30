@@ -158,7 +158,13 @@ void main() {
             'checkout rather than a supported configuration.',
       );
       final todos = readTodos(file.readAsStringSync());
-      expect(todos.length, greaterThan(100));
+      // A floor, not a count: it tells "parsed the file" from "parsed an
+      // empty or truncated file". It was 100 while the live file held several
+      // hundred entries; the 2026-09-30 consolidation (the scg round) moved all
+      // but 29 of them (measured 2026-09-30) to the archived and deleted
+      // siblings, so the floor follows the file's new size. The open-todo
+      // check below is what keeps the rule from applying to nothing.
+      expect(todos.length, greaterThan(10));
       expect(
         todos.where((t) => _openStatuses.contains(t.status)),
         isNotEmpty,
