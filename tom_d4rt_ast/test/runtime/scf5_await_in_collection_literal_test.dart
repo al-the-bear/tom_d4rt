@@ -51,6 +51,54 @@ class _Ast {
     ),
   );
 
+  /// `await Future.value(<value>)` for any expression.
+  SAwaitExpression awaitOf(SExpression value) => SAwaitExpression(
+    offset: _next(),
+    length: 20,
+    expression: SMethodInvocation(
+      offset: _next(),
+      length: 14,
+      target: id('Future'),
+      operator: '.',
+      methodName: id('value'),
+      argumentList: SArgumentList(
+        offset: _next(),
+        length: 3,
+        arguments: [value],
+      ),
+    ),
+  );
+
+  /// `<name> * <factor>`
+  SBinaryExpression times(String name, int factor) => SBinaryExpression(
+    offset: _next(),
+    length: 5,
+    leftOperand: id(name),
+    operator: '*',
+    rightOperand: int_(factor),
+  );
+
+  /// `for (var <name> in <iterable>) <body>`
+  SForElement forIn(
+    String name,
+    SExpression iterable,
+    SCollectionElement body,
+  ) => SForElement(
+    offset: _next(),
+    length: 1,
+    forLoopParts: SForEachPartsWithDeclaration(
+      offset: _next(),
+      length: 1,
+      loopVariable: SDeclaredIdentifier(
+        offset: _next(),
+        length: name.length,
+        identifier: id(name),
+      ),
+      iterable: iterable,
+    ),
+    body: body,
+  );
+
   SListLiteral list(List<SCollectionElement> elements) =>
       SListLiteral(offset: _next(), length: 1, elements: elements);
 
@@ -212,6 +260,72 @@ void main() {
         a.return_(a.list([a.await_(2), a.await_(3), a.int_(9)])),
       ]);
       expect(await _run(bundle), orderedEquals([2, 3, 9]));
+    });
+  });
+
+  group('SCF43/AST: an await in a collection-`for` BODY', () {
+    test('F-SCF43-AST-1: [for (var i in [1, 2]) await Future.value(i)] '
+        '[2026-09-30] (PASS)', () async {
+      // Refused before SCF43: replay would have re-run iteration 1 and handed
+      // iteration 2 the node-cached value of iteration 1.
+      final a = _Ast();
+      final bundle = a.blockBody([
+        a.return_(
+          a.list([
+            a.forIn('i', a.list([a.int_(1), a.int_(2)]), a.awaitOf(a.id('i'))),
+          ]),
+        ),
+      ]);
+      expect(await _run(bundle), orderedEquals([1, 2]));
+    });
+
+    test('F-SCF43-AST-2: iterations await different values, around fixed '
+        'elements [2026-09-30] (PASS)', () async {
+      final a = _Ast();
+      final bundle = a.blockBody([
+        a.return_(
+          a.list([
+            a.int_(0),
+            a.forIn(
+              'i',
+              a.list([a.int_(1), a.int_(2), a.int_(3)]),
+              a.awaitOf(a.times('i', 10)),
+            ),
+            a.int_(9),
+          ]),
+        ),
+      ]);
+      expect(await _run(bundle), orderedEquals([0, 10, 20, 30, 9]));
+    });
+
+    test('F-SCF43-AST-3: a nested `for`, each level awaiting '
+        '[2026-09-30] (PASS)', () async {
+      // [for (i in [1, 2]) for (j in [10, 20]) await Future.value(i * j)]
+      final a = _Ast();
+      final bundle = a.blockBody([
+        a.return_(
+          a.list([
+            a.forIn(
+              'i',
+              a.list([a.int_(1), a.int_(2)]),
+              a.forIn(
+                'j',
+                a.list([a.int_(10), a.int_(20)]),
+                a.awaitOf(
+                  SBinaryExpression(
+                    offset: 900,
+                    length: 5,
+                    leftOperand: a.id('i'),
+                    operator: '*',
+                    rightOperand: a.id('j'),
+                  ),
+                ),
+              ),
+            ),
+          ]),
+        ),
+      ]);
+      expect(await _run(bundle), orderedEquals([10, 20, 20, 40]));
     });
   });
 }

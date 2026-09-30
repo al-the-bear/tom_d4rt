@@ -1831,38 +1831,117 @@ void main() {
       );
     });
 
-    test('F-SCE80-12: an await in a `for` BODY is refused, not corrupted '
-        '[2026-09-21]', () async {
-      // The one shape a suspension cannot propagate through. Replay
-      // re-evaluates the whole literal, so the loop would run its earlier
-      // iterations again — and `resolvedAwaitResults` is keyed by the
-      // `AwaitExpression` NODE, which every iteration shares, so the second
-      // iteration would replay the FIRST one's value. Before this todo the
-      // result was two sentinels; a naive propagation would have made it two
-      // copies of the same number, which is the same class of silent defect
-      // wearing a better disguise.
-      await expectLater(
-        run('''
+    test('F-SCE80-12: an await in a `for` BODY evaluates as Dart does '
+        '[2026-09-30] (PASS)', () async {
+      // SCF43. This was refused: replay re-evaluates the whole literal, and
+      // `resolvedAwaitResults` is keyed by the `AwaitExpression` NODE, which
+      // every iteration shares, so a naive propagation replayed the first
+      // iteration's value in the second. The literal now records what each
+      // completed iteration produced and replays THAT, and an iteration's
+      // await sites leave the node cache when the iteration completes.
+      expect(
+        await run('''
           Future<dynamic> f() async {
             return [for (var i in [1, 2]) await Future.value(i)];
           }
           main() async => await f();
         '''),
-        throwsA(
-          predicate<Object>(
-            (e) => '$e'.contains(
-              'not supported in the body of a '
-              'collection-literal `for` element',
-            ),
-            'names the construct and points at the statement form',
-          ),
-        ),
+        orderedEquals([1, 2]),
       );
     });
 
+    test('F-SCE80-12b: iterations await different values, in every loop form '
+        'and collection kind [2026-09-30] (PASS)', () async {
+      expect(
+        await run('''
+          Future<int> twice(int x) async => x * 2;
+          Future<dynamic> f() async {
+            final a = [0, for (var i in [1, 2, 3]) await twice(i), 9];
+            final b = [for (var i = 0; i < 3; i++) await twice(i)];
+            final c = [for (final (x, y) in [(1, 2), (3, 4)]) await twice(x + y)];
+            final d = {for (var i in [1, 2, 1]) await twice(i)};
+            final e = {for (var i in [1, 2]) 'k\$i': await twice(i)};
+            return [a, b, c, d.toList(), e];
+          }
+          main() async => await f();
+        '''),
+        [
+          [0, 2, 4, 6, 9],
+          [0, 2, 4],
+          [6, 14],
+          [2, 4],
+          {'k1': 2, 'k2': 4},
+        ],
+      );
+    });
+
+    test('F-SCE80-12c: two awaits per iteration, a nested `for`, and an await '
+        'after the literal [2026-09-30] (PASS)', () async {
+      expect(
+        await run('''
+          Future<int> v(int x) async => x;
+          Future<dynamic> f() async {
+            final a = [for (var i in [1, 2]) (await v(i)) + (await v(i * 10))];
+            final b = [
+              for (var i in [1, 2]) for (var j in [10, 20]) await v(i * j),
+            ];
+            final c = [for (var i in [1, 2]) await v(i)] + [await v(3)];
+            return [a, b, c];
+          }
+          main() async => await f();
+        '''),
+        [
+          [11, 22],
+          [10, 20, 20, 40],
+          [1, 2, 3],
+        ],
+      );
+    });
+
+    test('F-SCE80-12d: a completed iteration is not re-run on replay '
+        '[2026-09-30] (PASS)', () async {
+      // The body's side effect counts how often it ran. A replay that re-ran
+      // earlier iterations would count more than two.
+      expect(
+        await run('''
+          var runs = 0;
+          int tick(int x) { runs++; return x; }
+          Future<dynamic> f() async {
+            final l = [for (var i in [1, 2]) tick(await Future.value(i))];
+            return [l, runs];
+          }
+          main() async => await f();
+        '''),
+        [
+          [1, 2],
+          2,
+        ],
+      );
+    });
+
+    test(
+      'F-SCE80-12e: the same `for` node evaluated twice in one suspending '
+      'statement keeps each evaluation its own [2026-09-30] (PASS)',
+      () async {
+        // The replay record is written only by a suspending body, so a sync
+        // helper's literal, which never suspends, cannot hand one call's output
+        // to the next.
+        expect(
+          await run('''
+          List<int> build(List<int> xs) => [for (var x in xs) x * 2];
+          Future<dynamic> f() async {
+            return [...build([1]), await Future.value(0), ...build([2, 3])];
+          }
+          main() async => await f();
+        '''),
+          orderedEquals([2, 0, 4, 6]),
+        );
+      },
+    );
+
     test('F-SCE80-13: the statement form the diagnostic recommends works '
         '[2026-09-21]', () async {
-      // A refusal that points nowhere is not much better than a wrong answer.
+      // The statement form, which the element form now matches.
       expect(
         await run('''
         Future<dynamic> f() async {
@@ -1878,9 +1957,8 @@ void main() {
 
     test('F-SCE80-14 (control): a `for` element with no await still works '
         '[2026-09-21]', () async {
-      // The refusal is conditioned on the body actually suspending, not on the
-      // element being a `for`. Without this, refusing every collection `for`
-      // would pass F-SCE80-12 and break ordinary code.
+      // The replay record exists only once a body has suspended; a `for`
+      // whose body never awaits takes the same path it always did.
       expect(
         await run('''
         Future<dynamic> f() async {

@@ -55,6 +55,26 @@ class AsyncExecutionState {
   final Map<SAstNode, Object?> resolvedAwaitResults =
       Map<SAstNode, Object?>.identity();
 
+  /// What the completed iterations of a suspended collection-literal `for`
+  /// element produced, keyed by the element node (SCF43).
+  ///
+  /// Replay re-evaluates the whole literal, so without this a loop would run
+  /// its earlier iterations again, and [resolvedAwaitResults], keyed by the
+  /// await NODE every iteration shares, would hand the second iteration the
+  /// first one's value. An entry is written only when an iteration SUSPENDS
+  /// and is deleted when the literal completes, so it lives exactly across the
+  /// replay window: a `for` element that never suspends (a sync helper called
+  /// twice in one statement, a loop condition) never records anything.
+  final Map<SAstNode, List<Object>> collectionForReplay =
+      Map<SAstNode, List<Object>>.identity();
+
+  /// Ends the replay scope of the statement in flight: both per-evaluation
+  /// caches go together, because both describe that one evaluation.
+  void clearStatementReplay() {
+    resolvedAwaitResults.clear();
+    collectionForReplay.clear();
+  }
+
   /// Set while resuming a statement that still has an unreached await site.
   ///
   /// The state machine consults it after `_determineNextNodeAfterAwait` to

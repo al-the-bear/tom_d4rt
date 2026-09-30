@@ -2202,6 +2202,13 @@ const Map<String, _Convergence> _convergenceLog = {
 /// re-measure the whole register when the floor moves, not the entry you
 /// happened to be reading.
 const Map<String, _Divergence> _divergentBaseline = {
+  // SCF43: an `await` in a collection-literal `for` BODY evaluates instead of
+  // being refused. The reference inverted F-SCE80-12 and added F-SCE80-12b..e;
+  // the published interpreter still refuses, so this port keeps asserting the
+  // refusal.
+  // PUBLISH-BLOCKED — re-port when exec's tom_d4rt_ast floor passes 0.202.0,
+  // by copying the reference file down; converges at a floor past 0.202.0.
+  'scc12_await_in_finally_test.dart': _Divergence.deliberate,
   // SCF40: a class name stored by a method or `[]=` is stored as its native
   // `Type`. The published interpreter stores the `BridgedClass`, so this port
   // carries the reference verbatim but for a group-level skip.
@@ -2323,6 +2330,7 @@ const Map<String, _Divergence> _divergentBaseline = {
 /// Recomputing without reading the new difference is the failure mode; the
 /// message says so.
 const Map<String, String> _divergenceFingerprints = <String, String>{
+  'scc12_await_in_finally_test.dart': 'ade6072e1955b12f',
   'scf40_class_name_stored_by_method_test.dart': '77d5eec0f1e23f5c',
   'scf39_interpreted_error_subclass_test.dart': 'c817b4397bbd9b84',
   'bridge/scf38_native_closure_bridge_test.dart': '9e676d43c0d18732',
@@ -2516,6 +2524,8 @@ typedef _Pin = ({String floor, String measured});
 /// recorded evidence was seven and ten cases out of date. Both are re-stamped
 /// above their entries in `_uncoveredBaseline`.
 const Map<String, _Pin> _pinnedInterpreterFloors = <String, _Pin>{
+  // SCF43, pinned at the release that evaluates an await in a `for` body.
+  'scc12_await_in_finally_test.dart': (floor: '0.202.0', measured: '0.195.0'),
   // SCF40, pinned at the release that stores a class name as its Type.
   'scf40_class_name_stored_by_method_test.dart': (
     floor: '0.201.0',

@@ -271,7 +271,7 @@ const _divergentBodies = <String, Map<String, String>>{
     // because the hash is over both bodies. The divergence itself is
     // unchanged: the mirror AST has no `parent` getter, so the twin walks
     // with `_parentOf`.
-    'InterpretedFunction._runStateMachine': '20316ac1',
+    'InterpretedFunction._runStateMachine': '25b5cd5d',
     'InterpretedFunction._tryOwningCatchClauseOf': 'f1617e03',
     'InterpretedFunction._tryOwningFinallyBlockOf': '34fd9762',
     'InterpretedFunction.bind': '78b56933',
@@ -313,7 +313,7 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpreterVisitor._castTypeDescription': '8ab45b85',
     'InterpreterVisitor._tryCast': 'c54f1a19',
     'InterpreterVisitor._matchAndBind': 'bcdd64fd',
-    'InterpreterVisitor._processCollectionElement': '48b7d194',
+    'InterpreterVisitor._processCollectionElement': '14f71e24',
     'InterpreterVisitor._resolveTypeAnnotationWithEnvironment': '6111216b',
     'InterpreterVisitor._statementsIntroduceBindings': '73f8180e',
     'InterpreterVisitor._subtreeContainsClosure': 'b6e41360',

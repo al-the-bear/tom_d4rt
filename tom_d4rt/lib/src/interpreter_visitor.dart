@@ -203,6 +203,10 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
   /// is keyed by AST node identity and is only populated for const literals;
   /// non-const literals must still allocate fresh each time. The returned
   /// views are unmodifiable, so sharing one instance across hits is safe.
+  /// The await sites each collection-literal `for` body in flight has
+  /// reached, innermost last (SCF43). See [_CollectionForReplay].
+  final List<Set<Object>> _collectionForAwaitScopes = [];
+
   final Map<SetOrMapLiteral, Object> _constCollectionCache =
       <SetOrMapLiteral, Object>{};
 
@@ -8695,40 +8699,6 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     return key;
   }
 
-  /// Refuses an `await` in the BODY of a collection-literal `for` element.
-  ///
-  /// SCE80, and the one shape here that a suspension cannot simply propagate
-  /// through. Replay re-evaluates the whole literal from the top, so the loop
-  /// would run its earlier iterations again — and worse, `resolvedAwaitResults`
-  /// is keyed by the `AwaitExpression` NODE, which every iteration shares, so
-  /// the second iteration would replay the FIRST one's value. The result would
-  /// be a list of duplicates, silently, which is the same class of defect this
-  /// todo exists to remove rather than relocate.
-  ///
-  /// So it is diagnosed instead. The statement form does work, because the
-  /// state machine drives a `for` STATEMENT node by node with its own loop
-  /// stack rather than by replaying an expression:
-  ///
-  ///     var out = [];
-  ///     for (var i in xs) { out.add(await f(i)); }
-  ///
-  /// An explicit refusal beats silent corruption, and naming the alternative is
-  /// what makes it actionable.
-  Never _awaitInCollectionForBody() {
-    // A PLAIN RuntimeD4rtException, deliberately. SCE77's
-    // `.resolutionFailure` means A NAME DID NOT RESOLVE, and the gap audit
-    // reads it as "confirmed missing"; this is an unsupported CONSTRUCT, and
-    // tagging it would make the audit invent a gap.
-    throw RuntimeD4rtException(
-      "`await` is not supported in the body of a collection-literal `for` "
-      "element. "
-      "Replaying the literal would re-run earlier iterations and reuse the "
-      "first iteration's awaited value. Build the collection with a `for` "
-      "STATEMENT instead: `var out = []; for (var x in xs) "
-      "{ out.add(await f(x)); }`.",
-    );
-  }
-
   /// Adds [element] to [collection], or returns the suspension it hit.
   ///
   /// SCE80. This returned `void`, and so had no way to say "the element I was
@@ -8933,19 +8903,23 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             }
 
             final binding = _forEachBinding(loopVariableNode);
+            final replay = _CollectionForReplay(this, element);
+            var iteration = 0;
 
             for (final item in unwrappedIterable) {
               environment.assign(
                 variableName,
                 binding == null ? item : binding.bind(environment, item),
               );
-              final bodySuspension = _processCollectionElement(
+              final bodySuspension = replay.runIteration(
+                iteration++,
                 element.body,
                 collection,
                 isMap: isMap,
               );
-              if (bodySuspension != null) _awaitInCollectionForBody();
+              if (bodySuspension != null) return bodySuspension;
             }
+            replay.finish();
           } finally {
             environment = previousEnvironment;
           }
@@ -8979,6 +8953,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         }
 
         final previousEnvironment = environment;
+        final replay = _CollectionForReplay(this, element);
+        var iteration = 0;
         try {
           for (final item in iterable) {
             // Fresh per-iteration env so pattern-declared variables are
@@ -8986,13 +8962,15 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             final iterationEnv = Environment(enclosing: previousEnvironment);
             environment = iterationEnv;
             _matchAndBind(pattern, item, iterationEnv);
-            final bodySuspension = _processCollectionElement(
+            final bodySuspension = replay.runIteration(
+              iteration++,
               element.body,
               collection,
               isMap: isMap,
             );
-            if (bodySuspension != null) _awaitInCollectionForBody();
+            if (bodySuspension != null) return bodySuspension;
           }
+          replay.finish();
         } finally {
           environment = previousEnvironment;
         }
@@ -9056,6 +9034,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         final currentValues = <String, Object?>{
           for (final name in loopVarNames) name: scratchEnv.get(name),
         };
+        final replay = _CollectionForReplay(this, element);
+        var iteration = 0;
         try {
           while (true) {
             final iterEnv = Environment(enclosing: outerEnv);
@@ -9084,12 +9064,13 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             }
             if (!conditionResult) break;
 
-            final bodySuspension = _processCollectionElement(
+            final bodySuspension = replay.runIteration(
+              iteration++,
               element.body,
               collection,
               isMap: isMap,
             );
-            if (bodySuspension != null) _awaitInCollectionForBody();
+            if (bodySuspension != null) return bodySuspension;
 
             // Snapshot the body's view of the loop vars (in case the body
             // mutated them) — these are the inputs to the updater.
@@ -9113,6 +9094,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               }
             }
           }
+          replay.finish();
         } finally {
           environment = outerEnv;
         }
@@ -14294,6 +14276,12 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     // through when the site is absent from the map is the other half of the
     // fix: an await that has not been reached yet must still suspend, rather
     // than silently adopting a neighbour's value.
+    // SCF43: every collection-`for` body in flight records the await sites
+    // it reaches, so a completed iteration can drop them from the node cache
+    // and the next iteration suspends afresh.
+    for (final scope in _collectionForAwaitScopes) {
+      scope.add(node);
+    }
     final resolvedAwaits = currentAsyncState!.resolvedAwaitResults;
     if (resolvedAwaits.containsKey(node)) {
       Logger.debug(
@@ -15993,4 +15981,123 @@ class _BridgedConstructorTearOff implements Callable {
   String toString() => _constructorName.isEmpty
       ? '${_bridgedClass.name}.new'
       : '${_bridgedClass.name}.$_constructorName';
+}
+
+/// One evaluation of a collection-literal `for` element in an async body, and
+/// what makes an `await` in its BODY replayable (SCF43).
+///
+/// The interpreter drives `await` by replay: a suspension re-evaluates the
+/// whole literal once the future completes. Two things go wrong for a loop
+/// body, and this answers both.
+///
+///  * EARLIER ITERATIONS WOULD RUN AGAIN. Each iteration evaluates into a
+///    fresh buffer. A completed buffer is kept, and merged into the literal
+///    only then, so a suspended iteration leaves nothing behind. When an
+///    iteration suspends, the completed buffers are filed in
+///    [AsyncExecutionState.collectionForReplay], and the replay emits them
+///    instead of re-running those bodies.
+///  * THE NODE CACHE WOULD REPLAY THE WRONG VALUE. `resolvedAwaitResults` is
+///    keyed by the await NODE, which every iteration shares. The await sites
+///    an iteration reached leave that cache when it completes, so the next
+///    iteration suspends for its own value.
+///
+/// The record exists only between a suspension and the literal's completion.
+/// A `for` element that never suspends allocates a buffer per iteration and
+/// records nothing, so evaluating the same node twice in one statement (a sync
+/// helper called twice) cannot read another evaluation's record.
+///
+/// A replayed iteration skips its body. The loop variable is still bound and a
+/// classic loop's updaters still run; only the body's own side effects, and
+/// any body-side write to the loop variable, are not repeated, which is the
+/// point.
+class _CollectionForReplay {
+  _CollectionForReplay(this._visitor, this._element)
+    : _state = _visitor.currentAsyncState,
+      _recorded =
+          _visitor.currentAsyncState?.collectionForReplay[_element] ??
+          const <Object>[];
+
+  final InterpreterVisitor _visitor;
+  final AstNode _element;
+  final AsyncExecutionState? _state;
+  final List<Object> _recorded;
+  final List<Object> _completed = [];
+
+  /// Runs iteration [index] of [body] into [collection]. Returns the
+  /// suspension that must propagate, or null when the iteration completed.
+  Object? runIteration(
+    int index,
+    CollectionElement body,
+    Object collection, {
+    required bool isMap,
+  }) {
+    final state = _state;
+    if (state == null) {
+      // Outside an async body there is no await, so nothing can suspend.
+      final suspension = _visitor._processCollectionElement(
+        body,
+        collection,
+        isMap: isMap,
+      );
+      if (suspension != null) {
+        throw StateD4rtException(
+          'Internal error: a collection-literal `for` body suspended outside '
+          'an async execution state.',
+        );
+      }
+      return null;
+    }
+    if (index < _recorded.length) {
+      final output = _recorded[index];
+      _completed.add(output);
+      _merge(collection, output);
+      return null;
+    }
+    final Object buffer = collection is List
+        ? <Object?>[]
+        : collection is Set
+        ? <Object?>{}
+        : <Object?, Object?>{};
+    final awaitSites = <Object>{};
+    _visitor._collectionForAwaitScopes.add(awaitSites);
+    final Object? suspension;
+    try {
+      suspension = _visitor._processCollectionElement(
+        body,
+        buffer,
+        isMap: isMap,
+      );
+    } finally {
+      _visitor._collectionForAwaitScopes.removeLast();
+    }
+    if (suspension != null) {
+      state.collectionForReplay[_element] = _completed;
+      return suspension;
+    }
+    for (final site in awaitSites) {
+      state.resolvedAwaitResults.remove(site);
+    }
+    _completed.add(buffer);
+    _merge(collection, buffer);
+    return null;
+  }
+
+  /// The literal's loop is done: its record, if any, has served its replay.
+  void finish() => _state?.collectionForReplay.remove(_element);
+
+  /// Adds one element at a time, so a typed target (`<int>[...]`) checks
+  /// each, as the direct path did.
+  static void _merge(Object collection, Object output) {
+    if (collection is List) {
+      for (final value in output as List) {
+        collection.add(value);
+      }
+    } else if (collection is Set) {
+      for (final value in output as Set) {
+        collection.add(value);
+      }
+    } else if (collection is Map) {
+      (output as Map).forEach((key, value) => collection[key] = value);
+    }
+  }
 }

@@ -3474,7 +3474,7 @@ class InterpretedFunction implements Callable {
                     // identical AST node and would otherwise replay the previous
                     // iteration's value.
                     if (!currentState.resumingStatementHasMoreAwaits) {
-                      currentState.resolvedAwaitResults.clear();
+                      currentState.clearStatementReplay();
                     }
                   }
 
@@ -3524,7 +3524,7 @@ class InterpretedFunction implements Callable {
           // that can see it end.
           if (currentState.resumingStatementHasMoreAwaits) {
             currentState.resumingStatementHasMoreAwaits = false;
-            currentState.resolvedAwaitResults.clear();
+            currentState.clearStatementReplay();
           }
 
           // Determine the next sequential normal state
@@ -3552,7 +3552,7 @@ class InterpretedFunction implements Callable {
         // this return is about to be diverted into keeps the state running.
         if (currentState.resumingStatementHasMoreAwaits) {
           currentState.resumingStatementHasMoreAwaits = false;
-          currentState.resolvedAwaitResults.clear();
+          currentState.clearStatementReplay();
         }
         STryStatement? currentTry =
             currentState.activeTryStatement; // Use currentState
@@ -4588,7 +4588,7 @@ class InterpretedFunction implements Callable {
   static void _endReplayedEvaluation(AsyncExecutionState state) {
     if (state.resumingStatementHasMoreAwaits) {
       state.resumingStatementHasMoreAwaits = false;
-      state.resolvedAwaitResults.clear();
+      state.clearStatementReplay();
     }
   }
 

@@ -1,3 +1,22 @@
+## 1.218.0
+
+### Fixed — `await` in the body of a collection-literal `for` element (scf43)
+
+`[for (var x in xs) await f(x)]` is valid Dart and was refused with "`await`
+is not supported in the body of a collection-literal `for` element". The
+refusal was deliberate, because the interpreter drives `await` by replay.
+Re-evaluating the literal would have re-run the earlier iterations, and the
+await-site cache, keyed by the node every iteration shares, would have handed
+the second iteration the first one's value.
+
+Both are now handled. Each iteration evaluates into a buffer that is merged
+only when the iteration completes. The completed buffers are recorded when a
+later iteration suspends, and the replay emits them instead of re-running those
+bodies. The await sites an iteration reached leave the cache when it completes.
+This covers for-in, pattern and classic `for` elements, nesting, lists, sets
+and maps. The record exists only from a suspension to the literal's
+completion, so a `for` element that never suspends behaves as before.
+
 ## 1.217.0
 
 ### Fixed — the host `invoke` path reaches inherited bridged members (scf42)
