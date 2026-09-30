@@ -202,16 +202,14 @@ const _astStdlibPrefix =
 /// to anything. A partial whose entry carries a [_Coverage.whyPartial] is now
 /// simply not counted here, and its reason sits where a reader meets it.
 ///
-/// Which leaves the shortfalls nobody has explained. There is one:
-/// `scc28_typed_undefined_member_test.dart`, six cases short, and its entry
-/// records that the block on porting them is gone and SCD88 owns the port. That
-/// is a closable gap with an owner, NOT a twin that is legitimately smaller, so
-/// giving it a `whyPartial` would be a lie of exactly the kind that field
-/// invites -- see the field's own doc.
+/// Which leaves the shortfalls nobody has explained, and there are none. The
+/// last was `scc28_typed_undefined_member_test.dart`, six cases short of its ast
+/// twin; SCH2 ported its behavioural cases (SCD88's job), so the pair is now a
+/// port and no longer a partial twin.
 ///
-/// Lower it when SCD88 lands. Raising it needs a new unexplained shortfall
-/// somebody has decided to tolerate, which should be rare enough to argue about.
-const _partialTwinBudget = 1;
+/// Raising it needs a new unexplained shortfall somebody has decided to
+/// tolerate, which should be rare enough to argue about.
+const _partialTwinBudget = 0;
 
 /// How many script-level suites may rest on an `ast:` twin alone (F-SCC6-7).
 ///
@@ -912,22 +910,6 @@ const Map<String, _Coverage> _coveredElsewhere = {
     refCases: 3,
     twinCases: 3,
   ),
-  // The deficit is 6, and HALF of it is not a shortfall to close by porting.
-  // The reference file's primary guard (F-SCC28-1) is a SOURCE SCAN that reads
-  // both mirrored visitors from one process, so a second copy of it here would
-  // assert the identical thing about the identical two files — a duplicate
-  // failure, not a second measurement. That half stays where it is.
-  //
-  // The other half — six behavioural cases that run scripts — was blocked on a
-  // publish, and THAT BLOCK IS GONE. It was recorded here as `UndefinedMember`
-  // `D4rtException` being absent from the resolved tom_d4rt_ast, measured at
-  // 0.20.1. Re-measured 2026-09-05: this package resolves 0.40.0, whose
-  // `lib/src/runtime/exceptions.dart:298` declares the class, and that copy is
-  // byte-identical to the working tree. So a verbatim port now compiles and the
-  // six cases are portable. SCD88 already owns that port and its trigger — "the
-  // next ast publish" — has now fired. Until it lands the ast twin pins the half
-  // the scan cannot see, that the signal survives being re-wrapped, and this
-  // entry records a real, closable gap rather than a structural one.
   // SCD90's top-type matrix. Registration-level by nature — it constructs
   // `RuntimeType` implementations directly and asks them a predicate question,
   // so it needs no parser and the twin runs the identical file. Not ported to
@@ -1119,18 +1101,6 @@ const Map<String, _Coverage> _coveredElsewhere = {
         'Porting the other twenty-one would restate boundary arithmetic the '
         'shared `ResolvedBinding._checkTypeArguments` decides in one place, '
         'at a cost of some 500 lines of bundle construction.',
-  ),
-  'scc28_typed_undefined_member_test.dart': _Coverage(
-    'ast:runtime/scc28_typed_undefined_member_test.dart',
-    _astTwin,
-    layer: _Layer.script,
-    // 9 -> 13: SCD86 added three cases naming the static signal, SCD87 one
-    // asserting the receiver survives a rewrap. The twin stays at three — its
-    // F-SCC28-AST-2 gained the receiver assertion rather than a fourth case,
-    // because it is the same seam and the twin's value here is that it can
-    // check it without a parser.
-    refCases: 13,
-    twinCases: 3,
   ),
   // Both files read before pairing. The twin is FULL — six cases against six —
   // but it is not a port, and the reason is the one SCC24 first recorded: the
@@ -2184,6 +2154,26 @@ const Map<String, _Convergence> _convergenceLog = {
 /// re-measure the whole register when the floor moves, not the entry you
 /// happened to be reading.
 const Map<String, _Divergence> _divergentBaseline = {
+  // SCH2: the three repo-wide guards below are ported WITHOUT their source
+  // scans. Each scan reads both interpreter trees off disk, so a second copy
+  // here would re-read the identical files and produce a duplicate failure,
+  // not a second measurement; the scans stay in tom_d4rt. What is ported is
+  // every case that runs a script or asks the interpreter a question, and here
+  // those run through exec's pipeline on the published tom_d4rt_ast. The
+  // subtraction is permanent: the port also drops the REPO-WIDE banner and the
+  // `requirePackage('tom_d4rt')` anchor, because nothing it keeps reaches
+  // outside this package. The REFERENCES keep that anchor, so scd34 and scd35
+  // stay in `_anchoredBaseline`, which records the reference files; the port
+  // beside them is this entry's business.
+  //
+  // scd34 drops F-SCD34-7/8 and F-SCE70-1/2 (the wrap-site census).
+  'scd34_constructor_trace_forwarding_test.dart': _Divergence.deliberate,
+  // scd35 drops F-SCD35-9, -13 and -14 (the stdlib and generated-bridge
+  // narrowing scans).
+  'scd35_bridged_tearoff_as_callback_test.dart': _Divergence.deliberate,
+  // scc28 drops F-SCC28-1 (the scan of both mirrored visitors for message
+  // sniffing). Its twelve other cases are the port SCD88 was filed for.
+  'scc28_typed_undefined_member_test.dart': _Divergence.deliberate,
   // SCF44: a value's bridge is found in a stdlib library the script did not
   // import. The published interpreter misses it, so this port carries the
   // reference verbatim but for a group-level skip.
@@ -2328,6 +2318,9 @@ const Map<String, _Divergence> _divergentBaseline = {
 /// message says so.
 const Map<String, String> _divergenceFingerprints = <String, String>{
   'scc12_await_in_finally_test.dart': 'ade6072e1955b12f',
+  'scd34_constructor_trace_forwarding_test.dart': '239ecf0a3afc35f2',
+  'scd35_bridged_tearoff_as_callback_test.dart': '2af9f62cc4643311',
+  'scc28_typed_undefined_member_test.dart': '26138b224ded3701',
   'scf44_member_access_without_import_test.dart': '3641dbeb9c8a48ea',
   'scf40_class_name_stored_by_method_test.dart': '77d5eec0f1e23f5c',
   'scf39_interpreted_error_subclass_test.dart': 'c817b4397bbd9b84',
