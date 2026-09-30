@@ -3470,11 +3470,11 @@ const Map<String, String> _astDriftFingerprints = <String, String>{
 // from today's value alone.
 // tom_d4rt 1.210.0 / tom_d4rt_ast 0.195.0 are published (scf34), and scf35
 // landed interpreter work behind them (scheduleMicrotask, 0.196.0), so the
-// tree is ahead of the release again. scg2 (which absorbed scf42) owns the
-// next release and sets this back to `null`.
+// tree is ahead of the release again. sch4 (which absorbed scf42 and then
+// scg2) owns the next release and sets this back to `null`.
 // ignore: unnecessary_nullable_for_final_variable_declarations
 const String? _astPublishBlock =
-    'scg2_aißo-publish-the-final-interpreter-release';
+    'sch4_aißs-publish-the-interpreter-release-and-certify-it';
 
 /// One baseline entry and the comment block written directly above it.
 typedef _BaselineEntry = ({String path, String comment});
