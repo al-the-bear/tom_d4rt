@@ -1,3 +1,4 @@
+import 'call_stack.dart';
 import 'environment.dart';
 import 'package:tom_d4rt_ast/ast.dart';
 
@@ -50,6 +51,9 @@ abstract class ModuleContext {
   /// The global environment shared across all modules.
   Environment get globalEnvironment;
 
+  /// The interpreted call stack of the run this context serves.
+  D4rtCallStack get callStack;
+
   /// Checks if a permission is granted for the given operation.
   ///
   /// The operation can be any object (typically a Map or enum describing
@@ -99,6 +103,10 @@ class NoOpModuleContext implements ModuleContext {
 
   @override
   Environment get globalEnvironment => _globalEnvironment;
+
+  /// No sources to locate a statement in, so a trace here is empty.
+  @override
+  late final D4rtCallStack callStack = D4rtCallStack((_) => null);
 
   @override
   bool checkPermission(dynamic operation) {

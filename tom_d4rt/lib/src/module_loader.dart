@@ -52,6 +52,34 @@ class ModuleLoader {
   final Map<String, String> sources;
   final Map<Uri, LoadedModule> _moduleCache = {};
 
+  /// The interpreted call stack of the run this loader serves.
+  ///
+  /// On the loader rather than on a visitor because a run has several
+  /// visitors — one per loaded module — and every one of them calls into the
+  /// others' functions; the loader is what they share, and a new run gets a
+  /// new one.
+  late final D4rtCallStack callStack = D4rtCallStack(_locateStatement);
+
+  /// The line, column and library of [statement], for a trace.
+  ({int line, int column, Uri? source})? _locateStatement(Object statement) {
+    if (statement is! AstNode) return null;
+    final root = statement.root;
+    if (root is! CompilationUnit) return null;
+    final location = root.lineInfo.getLocation(statement.offset);
+    Uri? source;
+    for (final module in _moduleCache.values) {
+      if (identical(module.ast, root)) {
+        source = module.uri;
+        break;
+      }
+    }
+    return (
+      line: location.lineNumber,
+      column: location.columnNumber,
+      source: source,
+    );
+  }
+
   /// DFUB10 — modules currently being loaded, keyed by the same identity URI as
   /// [_moduleCache]. A URI is present here only between the start of its
   /// directive processing and its completion.

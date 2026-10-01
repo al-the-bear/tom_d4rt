@@ -1,3 +1,13 @@
+## 0.205.0
+
+### Added — `D4rtRunner.lastErrorTrace` and `D4rtCallStack` (woneprpd153)
+
+The twin of tom_d4rt 1.222.0's interpreted call stack. Positions come from the
+bundle's sources (`locateNode`); a bundle built without them yields an empty
+trace rather than a wrong one.
+
+Name resolution: no.
+
 ## 0.204.0
 
 ### Added — `Environment.isDefined` (scg6)

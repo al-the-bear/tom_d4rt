@@ -157,6 +157,12 @@ const _divergences = <String, _Divergence>{
     _Side.astOnly,
     'part of describeNodeSource: finds which bundled module holds a node',
   ),
+  'locateNode': _Divergence(
+    _Side.astOnly,
+    'the twin\'s D4rtCallStack locator: a node\'s line and column from the '
+    'bundle\'s source (WONEPRPD153); the reference reads them from the '
+    'analyzer\'s lineInfo inside ModuleLoader',
+  ),
 
   // ── One concept, two names ──────────────────────────────────────────────
   'AstModuleLoader': _Divergence(

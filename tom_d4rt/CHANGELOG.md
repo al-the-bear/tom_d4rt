@@ -1,3 +1,22 @@
+## 1.222.0
+
+### Added — `D4rt.lastErrorTrace`: the interpreted frames an error left (woneprpd153)
+
+A script that threw reached the host with the interpreter's own Dart trace —
+frames of the visitor — and no position in the script. The interpreter now
+keeps an interpreted call stack (`D4rtCallStack`, on the run's `ModuleLoader`):
+which interpreted functions are active and which statement each is executing.
+The first time an error leaves an interpreted call the stack is snapshotted
+against it, and `D4rt.lastErrorTrace` hands the host those frames, innermost
+first — `D4rtStackFrame(member, line, column, source)`. A run that succeeds,
+or fails outside any interpreted call, leaves it empty.
+
+Synchronous call chains are traced in full. An async function's frames are
+known only until its first suspension: a continuation resumes outside the call
+that started it.
+
+Name resolution: no.
+
 ## 1.221.0
 
 ### Added — `D4rt.parse` and `D4rt.executeProgram`: parse once, run many times (woneprpd132)

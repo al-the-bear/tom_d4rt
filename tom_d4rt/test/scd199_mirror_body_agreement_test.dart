@@ -296,6 +296,10 @@ const _divergentBodies = <String, Map<String, String>>{
     'DeclarationVisitor.visitTopLevelVariableDeclaration': '17090fd4',
   },
   'interpreter_visitor.dart': {
+    // WONEPRPD153: the one place the call stack is reached, so the two bodies
+    // that use it (executeBlock, InterpretedFunction.call) stay identical.
+    // The run's loader is `moduleLoader` here and `moduleContext` in the twin.
+    'InterpreterVisitor.get callStack': 'e8f05235',
     'InterpreterVisitor._chainHasNullAwareSelector': 'c135924e',
     'InterpreterVisitor._checkAppliedGenericReturn': '04ded847',
     'InterpreterVisitor._evaluateArguments': '0df79830',

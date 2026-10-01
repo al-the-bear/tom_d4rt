@@ -362,6 +362,11 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     return false;
   }
 
+  /// The interpreted call stack of the run this visitor serves
+  /// (D4rtCallStack), held by the run's loader so every module's visitor
+  /// shares it.
+  D4rtCallStack get callStack => moduleLoader.callStack;
+
   Object? executeBlock(
     List<Statement> statements,
     Environment blockEnvironment,
@@ -370,7 +375,10 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     Object? lastValue;
     try {
       environment = blockEnvironment;
+      final callStack = this.callStack;
       for (final statement in statements) {
+        // The position a trace reports for this frame, if an error leaves it.
+        callStack.current = statement;
         // Explicitly handle declarations within blocks
         if (statement is FunctionDeclaration ||
             statement is ClassDeclaration ||

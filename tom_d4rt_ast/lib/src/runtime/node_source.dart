@@ -52,6 +52,23 @@ String describeNodeSource(
   return "'$excerpt' ($uri:$line:$column)";
 }
 
+/// Where [node] is — line, column and module — for a D4rtCallStack trace, or
+/// null when its module's source was not bundled.
+({int line, int column, Uri? source})? locateNode(
+  SAstNode node, {
+  required Map<String, SCompilationUnit> modules,
+  Map<String, String>? sources,
+}) {
+  final uri = moduleContaining(node, modules);
+  if (uri == null) return null;
+  final source = sources?[uri];
+  if (source == null || node.offset < 0 || node.offset > source.length) {
+    return null;
+  }
+  final (line, column) = _lineAndColumn(source, node.offset);
+  return (line: line, column: column, source: Uri.tryParse(uri));
+}
+
 /// The URI of the module in [modules] whose tree contains [node], by identity.
 String? moduleContaining(SAstNode node, Map<String, SCompilationUnit> modules) {
   for (final entry in modules.entries) {

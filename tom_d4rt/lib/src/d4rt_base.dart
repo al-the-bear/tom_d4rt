@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:analyzer/dart/analysis/features.dart';
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/error/error.dart';
+import 'package:tom_d4rt/src/call_stack.dart';
 import 'package:tom_d4rt/src/bridge/bridged_enum.dart';
 import 'package:tom_d4rt/src/utils/logger/logger.dart';
 import 'package:pub_semver/pub_semver.dart';
@@ -2431,6 +2432,24 @@ class D4rt {
     );
   }
 
+  /// The interpreted frames the last error to leave this interpreter passed
+  /// through, innermost first — empty when the last run succeeded, or failed
+  /// outside any interpreted call.
+  ///
+  /// Read after an `execute`, `executeProgram`, `eval` or method call threw.
+  /// A host maps these to its own positions; the frames name the script's
+  /// functions and its lines, not the interpreter's.
+  List<D4rtStackFrame> get lastErrorTrace => _lastErrorTrace;
+  List<D4rtStackFrame> _lastErrorTrace = const [];
+
+  /// [throwAsHostFacingError], after keeping the trace [e] carries — read from
+  /// the interpreter's own carrier, before the boundary unwraps it to the
+  /// value the script threw.
+  Never _toHost(Object e, StackTrace s) {
+    _lastErrorTrace = D4rtCallStack.traceOf(e);
+    throwAsHostFacingError(e, s);
+  }
+
   dynamic _executeInEnvironment({
     required CompilationUnit compilationUnit,
     required Environment executionEnvironment,
@@ -2439,6 +2458,7 @@ class D4rt {
     Map<String, Object?>? namedArgs,
     String? library,
   }) {
+    _lastErrorTrace = const [];
     run() => _executeInEnvironmentInZone(
       compilationUnit: compilationUnit,
       executionEnvironment: executionEnvironment,
@@ -2769,7 +2789,7 @@ class D4rt {
       // SDK-shaped errors, and the interpreted-`throw` carrier used to be named
       // here one by one; the boundary now states one rule, so a reader no
       // longer has to check a list to predict what crosses it.
-      throwAsHostFacingError(e, s);
+      _toHost(e, s);
     }
     if (functionResult is InterpretedInstance) {
       _interpretedInstance = functionResult;
@@ -2788,10 +2808,10 @@ class D4rt {
           // never through the enclosing try, so the boundary has to be applied
           // here as well. Without it the async half of the API kept relabelling
           // what the sync half had stopped relabelling.
-          onError: throwAsHostFacingError,
+          onError: _toHost,
         );
       } catch (e, s) {
-        throwAsHostFacingError(e, s);
+        _toHost(e, s);
       }
     }
     _hasExecutedOnce = true;
@@ -3071,7 +3091,7 @@ class D4rt {
             // nothing: measured, the two arms are the same throw with
             // different static types. `tom_d4rt_exec` converged these two
             // sites at SCD101; this is the reference catching up.
-            throwAsHostFacingError(e, s);
+            _toHost(e, s);
           }
         }
 
@@ -3134,7 +3154,7 @@ class D4rt {
           evalFunc.call(_visitor!, [], {});
         } on InternalInterpreterD4rtException catch (e, s) {
           // SCE118: same rule as the other `eval` site above.
-          throwAsHostFacingError(e, s);
+          _toHost(e, s);
         }
       }
 
@@ -3643,7 +3663,7 @@ class D4rt {
       // and the class, which is what the preserved stack trace says, and
       // `Error.throwWithStackTrace` inside the helper is what keeps that
       // trace meaningful across the boundary.
-      throwAsHostFacingError(e, s);
+      _toHost(e, s);
     }
   }
 }

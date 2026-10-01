@@ -29,6 +29,7 @@ export 'src/runtime/runtime_interfaces.dart';
 export 'src/runtime/runtime_types.dart';
 
 // Function calling infrastructure
+export 'src/runtime/call_stack.dart';
 export 'src/runtime/callable.dart';
 
 // Interpreter visitors

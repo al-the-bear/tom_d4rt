@@ -1,5 +1,6 @@
 import 'package:tom_d4rt_ast/ast.dart';
 import 'package:tom_d4rt_ast/src/runtime/bridge/bridged_types.dart';
+import 'package:tom_d4rt_ast/src/runtime/call_stack.dart';
 import 'package:tom_d4rt_ast/src/runtime/runtime_interfaces.dart'
     show RuntimeType;
 import 'package:tom_d4rt_ast/src/runtime/d4rt_runner.dart';
@@ -7,6 +8,7 @@ import 'package:tom_d4rt_ast/src/runtime/declaration_visitor.dart';
 import 'package:tom_d4rt_ast/src/runtime/exceptions.dart';
 import 'package:tom_d4rt_ast/src/runtime/interpreter_visitor.dart';
 import 'package:tom_d4rt_ast/src/runtime/module_context.dart';
+import 'package:tom_d4rt_ast/src/runtime/node_source.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/collection.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/convert.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/isolate.dart';
@@ -55,6 +57,15 @@ class AstModuleLoader implements ModuleContext {
 
   @override
   final Environment globalEnvironment;
+
+  /// The interpreted call stack of the run this loader serves, located through
+  /// the bundle's [sources] — a bundle built without them yields empty traces.
+  @override
+  late final D4rtCallStack callStack = D4rtCallStack(
+    (statement) => statement is SAstNode
+        ? locateNode(statement, modules: modules, sources: sources)
+        : null,
+  );
 
   @override
   Uri? currentLibrary;

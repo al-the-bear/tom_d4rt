@@ -1962,6 +1962,13 @@ class InterpretedFunction implements Callable {
     // every interpreted function call. The save/set/restore semantics are
     // identical (nesting included).
     final previousActiveVisitor = D4.pushActiveVisitor(visitor);
+    // The interpreted call stack (D4rtCallStack): an error leaving this call
+    // is snapshotted against the stack as it stood when it was raised.
+    final callStack = visitor.callStack;
+    callStack.enter(_name ?? '<anonymous>');
+    // Until the body's first statement runs, the frame is at the body — which
+    // is all an expression-bodied function ever has.
+    callStack.current = _body;
     try {
       return _callImpl(
         visitor,
@@ -1969,7 +1976,11 @@ class InterpretedFunction implements Callable {
         namedArguments,
         typeArguments,
       );
+    } catch (error) {
+      callStack.recordEscape(error);
+      rethrow;
     } finally {
+      callStack.exit();
       D4.popActiveVisitor(previousActiveVisitor);
     }
   }

@@ -27,6 +27,7 @@ library;
 
 export 'package:tom_d4rt/src/bridge/bridged_types.dart';
 export 'package:tom_d4rt/src/runtime_types.dart';
+export 'package:tom_d4rt/src/call_stack.dart';
 export 'package:tom_d4rt/src/callable.dart';
 export 'package:tom_d4rt/src/declaration_visitor.dart';
 export 'package:tom_d4rt/src/environment.dart';

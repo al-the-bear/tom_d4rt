@@ -5,6 +5,7 @@ import 'package:archive/archive.dart';
 
 import 'package:tom_d4rt_ast/ast.dart';
 import 'package:tom_d4rt_ast/src/runtime/ast_bundle.dart';
+import 'package:tom_d4rt_ast/src/runtime/call_stack.dart';
 import 'package:tom_d4rt_ast/src/runtime/ast_module_loader.dart';
 import 'package:tom_d4rt_ast/src/runtime/bridge/bridged_enum.dart';
 import 'package:tom_d4rt_ast/src/runtime/bridge/bridged_types.dart';
@@ -2021,6 +2022,19 @@ class D4rtRunner {
   }
 
   /// Execute in the given environment.
+  /// The interpreted frames the last error to leave this runner passed
+  /// through, innermost first — empty when the last run succeeded, failed
+  /// outside any interpreted call, or ran a bundle built without its sources.
+  List<D4rtStackFrame> get lastErrorTrace => _lastErrorTrace;
+  List<D4rtStackFrame> _lastErrorTrace = const [];
+
+  /// [throwAsHostFacingError], after keeping the trace [e] carries — read from
+  /// the interpreter's own carrier, before the boundary unwraps it.
+  Never _toHost(Object e, StackTrace s) {
+    _lastErrorTrace = D4rtCallStack.traceOf(e);
+    throwAsHostFacingError(e, s);
+  }
+
   dynamic _executeInEnvironment({
     required SCompilationUnit compilationUnit,
     required Environment executionEnvironment,
@@ -2029,6 +2043,7 @@ class D4rtRunner {
     List<Object?>? positionalArgs,
     Map<String, Object?>? namedArgs,
   }) {
+    _lastErrorTrace = const [];
     run() => _executeInEnvironmentInZone(
       compilationUnit: compilationUnit,
       executionEnvironment: executionEnvironment,
@@ -2293,7 +2308,7 @@ class D4rtRunner {
       // `RuntimeD4rtException('Native error during …')` wrapper the bridged call
       // site builds. So `on FormatException` worked inside a script and not at
       // the call site that ran it. The boundary now states one rule for both.
-      throwAsHostFacingError(e, s);
+      _toHost(e, s);
     }
 
     _hasExecutedOnce = true;
@@ -2314,7 +2329,7 @@ class D4rtRunner {
       // through the try above, so the boundary has to be applied here as well.
       return functionResult.then(
         _bridgeInterpreterValueToNative,
-        onError: throwAsHostFacingError,
+        onError: _toHost,
       );
     }
     return _bridgeInterpreterValueToNative(functionResult);

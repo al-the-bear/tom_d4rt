@@ -1674,6 +1674,15 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
   // the split. [2026-09-30]
   // pin-registered: n/a - exec's own front end, not a publish.
   'woneprpd132_parse_execute_split_test.dart': (ran: 7, declared: 7),
+  // NOT PORTED YET: `D4rt.lastErrorTrace` (woneprpd153), the interpreted call
+  // stack an error leaves. The stack itself is runtime code mirrored in
+  // tom_d4rt_ast (its twin test, runtime/woneprpd153_interpreted_trace_test,
+  // asserts it there); what exec lacks is the front-end getter, and it cannot
+  // gain one until it resolves a tom_d4rt_ast that carries `D4rtCallStack`.
+  // Port it then — `lastErrorTrace` reads `D4rtCallStack.traceOf` at the
+  // boundary, as both other front ends do. [2026-10-01]
+  // pin-registered: n/a - exec's own front end, not a publish.
+  'woneprpd153_interpreted_trace_test.dart': (ran: 5, declared: 5),
   // NOT PORTABLE — a throughput probe, not a conformance assertion. Its single
   // case measures how long a Conway generation takes; run on two interpreters
   // with different performance characteristics it yields a flaky failure rather
