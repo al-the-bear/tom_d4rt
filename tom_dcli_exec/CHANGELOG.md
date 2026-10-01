@@ -1,3 +1,9 @@
+## 1.8.2
+
+### Changed — resolves the interpreter releases sci1/sci2 published (sci3)
+
+`tom_d4rt_exec` ^1.43.0, `tom_d4rt_ast` ^0.206.0, `tom_ast_generator` ^0.1.14. No code change; the bridges are unchanged.
+
 ## 1.8.1
 
 ### Changed — bridges regenerated with tom_d4rt_generator 1.51.0 (sch3)
