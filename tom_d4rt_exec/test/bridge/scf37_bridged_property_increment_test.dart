@@ -14,12 +14,6 @@
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
-/// PUBLISH-BLOCKED (DGUC6): exec resolves `tom_d4rt_ast` from pub.dev, and
-/// the release carrying scf37 is 0.198.0. Remove the skip — which makes the
-/// file the reference verbatim again — when exec's floor passes it.
-const _publishBlocked =
-    'PUBLISH-BLOCKED: needs tom_d4rt_ast 0.198.0 (scf37, published by scf42)';
-
 class _NativeBox {
   _NativeBox(this.v);
   num v;
@@ -56,7 +50,7 @@ $body
 }
 
 void main() {
-  group('SCF37: ++ and -- on a bridged property', skip: _publishBlocked, () {
+  group('SCF37: ++ and -- on a bridged property', () {
     test('F-SCF37-1: postfix on a prefixed identifier yields the old value '
         'and stores the new [2026-09-30] (PASS)', () {
       expect(

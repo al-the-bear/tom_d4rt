@@ -1,3 +1,43 @@
+## 1.42.0
+
+### Changed — resolves tom_d4rt_ast 0.206.0 / tom_d4rt 1.223.0 (sci2)
+
+`tom_d4rt_ast` ^0.206.0 and dev `tom_d4rt` ^1.223.0. `tom_ast_generator` is
+^0.1.5 for this release only, the route scf34 used: every published astgen
+pins `tom_d4rt_ast` below 0.196.0 and dev-depends on an exec that does too, so
+astgen can only follow once this release exists. F-SCE62-6 needs astgen 0.1.8
+and fails until the next exec release raises the floor.
+
+Ten publish-blocked ports are now the reference verbatim and their register
+entries are gone: scc12, scc73, scf35, scf36, scf37, scf38, scf39, scf40,
+scf44 and sci1. `_astPublishBlock` is null.
+
+### Fixed — exec's module loader catches up with the reference (sci2)
+
+Three behaviours the two interpreters' loaders have and this front end's own
+copy did not:
+
+- A value's members need no import of its type's library (scf44). The global
+  environment answers from tom_d4rt_ast's process-wide stdlib registry
+  (`AstModuleLoader.latentStdlibBridgeFor`) and from a type-only baseline of
+  every host bridge, the baseline tom_d4rt's warm parent seeds. Names are
+  untouched: imports still govern them.
+- Bridged class aliases are registered (GEN-078). This loader never had the
+  pass, so no alias resolved in exec; with tom_d4rt_ast 0.206.0 an alias of an
+  enum resolves too (`MaterialState`).
+
+Name resolution: yes — bridged aliases now define, and a value's members no longer depend on the script's imports.
+
+### Added — `lastErrorTrace`, `parse` and `executeProgram` (sci1)
+
+Mirrors tom_d4rt 1.221.0 / 1.222.0. `D4rt.lastErrorTrace` hands the host the
+interpreted frames an error passed through, innermost first. The loader keeps
+the run's `D4rtCallStack` (now required by tom_d4rt_ast's `ModuleContext`) and
+locates a frame through the text each unit was parsed from, since the mirror
+AST carries offsets but no line table. `D4rt.parse` / `D4rt.executeProgram`
+split `execute` at its parse, so an embedder pays for it once. Both reference
+tests are ported verbatim.
+
 ## 1.41.0
 
 ### Added — exec carries the static name pass (sch1, first half)

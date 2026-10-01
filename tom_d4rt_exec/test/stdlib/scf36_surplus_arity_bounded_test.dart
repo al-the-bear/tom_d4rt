@@ -19,12 +19,6 @@
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
-/// PUBLISH-BLOCKED (DGUC6): exec resolves `tom_d4rt_ast` from pub.dev, and
-/// the release carrying scf36 is 0.197.0. Remove the skips — which makes the
-/// file the reference verbatim again — when exec's floor passes it.
-const _publishBlocked =
-    'PUBLISH-BLOCKED: needs tom_d4rt_ast 0.197.0 (scf36, published by scf42)';
-
 Future<Object?> _run(String body) async {
   final raw = D4rt().execute(
     source:
@@ -44,89 +38,81 @@ Matcher _arityError(String member) => throwsA(
 );
 
 void main() {
-  group(
-    'SCF36: a surplus positional argument is an error',
-    skip: _publishBlocked,
-    () {
-      test('F-SCF36-1: Stream.asyncMap [2026-09-30] (PASS)', () {
-        expect(
-          () => _run(
-            'Future<List> main() => '
-            'Stream.value(1).asyncMap((x) => x + 1, 99).toList();',
-          ),
-          _arityError('Stream.asyncMap'),
-        );
-      });
+  group('SCF36: a surplus positional argument is an error', () {
+    test('F-SCF36-1: Stream.asyncMap [2026-09-30] (PASS)', () {
+      expect(
+        () => _run(
+          'Future<List> main() => '
+          'Stream.value(1).asyncMap((x) => x + 1, 99).toList();',
+        ),
+        _arityError('Stream.asyncMap'),
+      );
+    });
 
-      test('F-SCF36-2: Stream.contains [2026-09-30] (PASS)', () {
-        expect(
-          () => _run('Future<bool> main() => Stream.value(1).contains(1, 2);'),
-          _arityError('Stream.contains'),
-        );
-      });
+    test('F-SCF36-2: Stream.contains [2026-09-30] (PASS)', () {
+      expect(
+        () => _run('Future<bool> main() => Stream.value(1).contains(1, 2);'),
+        _arityError('Stream.contains'),
+      );
+    });
 
-      test('F-SCF36-3: Error.safeToString [2026-09-30] (PASS)', () {
-        expect(
-          () => _run('String main() => Error.safeToString(1, 2);'),
-          _arityError('Error.safeToString'),
-        );
-      });
+    test('F-SCF36-3: Error.safeToString [2026-09-30] (PASS)', () {
+      expect(
+        () => _run('String main() => Error.safeToString(1, 2);'),
+        _arityError('Error.safeToString'),
+      );
+    });
 
-      test('F-SCF36-4: a collection adapter, from the heaviest file '
-          '[2026-09-30] (PASS)', () {
-        expect(
-          () => _run(
-            "import 'dart:collection';\n"
-            'bool main() => SplayTreeSet.of([1]).contains(1, 2);',
-          ),
-          _arityError('SplayTreeSet.contains'),
-        );
-      });
-    },
-  );
+    test('F-SCF36-4: a collection adapter, from the heaviest file '
+        '[2026-09-30] (PASS)', () {
+      expect(
+        () => _run(
+          "import 'dart:collection';\n"
+          'bool main() => SplayTreeSet.of([1]).contains(1, 2);',
+        ),
+        _arityError('SplayTreeSet.contains'),
+      );
+    });
+  });
 
-  group(
-    'SCF36: the bound is the SDK count, not the indices read',
-    skip: _publishBlocked,
-    () {
-      test('F-SCF36-5: optional positional parameters are still accepted '
-          '[2026-09-30] (PASS)', () async {
-        // Each passes the SDK's full positional count.
-        expect(
-          await _run(
-            'Future<List> main() => '
-            "Stream.periodic(Duration(milliseconds: 1), (i) => i).take(2).toList();",
-          ),
-          [0, 1],
-        );
-        expect(
-          await _run(
-            'Future<int> main() => Stream.fromIterable([1, 2, 3]).fold(10, '
-            '(a, b) => a + b);',
-          ),
-          16,
-        );
-      });
+  group('SCF36: the bound is the SDK count, not the indices read', () {
+    test('F-SCF36-5: optional positional parameters are still accepted '
+        '[2026-09-30] (PASS)', () async {
+      // Each passes the SDK's full positional count.
+      expect(
+        await _run(
+          'Future<List> main() => '
+          "Stream.periodic(Duration(milliseconds: 1), (i) => i).take(2).toList();",
+        ),
+        [0, 1],
+      );
+      expect(
+        await _run(
+          'Future<int> main() => Stream.fromIterable([1, 2, 3]).fold(10, '
+          '(a, b) => a + b);',
+        ),
+        16,
+      );
+    });
 
-      test('F-SCF36-6: num.parse honours its onError parameter '
-          '[2026-09-30] (PASS)', () async {
-        expect(await _run("num main() => num.parse('x', (s) => -1);"), -1);
-        expect(await _run("num main() => num.parse('2.5', (s) => -1);"), 2.5);
-        expect(
-          () => _run("num main() => num.parse('x');"),
-          throwsA(predicate((e) => '$e'.contains('FormatException'))),
-        );
-      });
+    test('F-SCF36-6: num.parse honours its onError parameter '
+        '[2026-09-30] (PASS)', () async {
+      expect(await _run("num main() => num.parse('x', (s) => -1);"), -1);
+      expect(await _run("num main() => num.parse('2.5', (s) => -1);"), 2.5);
+      expect(
+        () => _run("num main() => num.parse('x');"),
+        throwsA(predicate((e) => '$e'.contains('FormatException'))),
+      );
+    });
 
-      test('F-SCF36-7: Uri.parseIPv4Address forwards start and end '
-          '[2026-09-30] (PASS)', () async {
-        expect(
-          await _run(
-            "List<int> main() => Uri.parseIPv4Address('ip=10.0.0.7;', 3, 11);",
-          ),
-          [10, 0, 0, 7],
-        );
-      });
-    },
-  );
+    test('F-SCF36-7: Uri.parseIPv4Address forwards start and end '
+        '[2026-09-30] (PASS)', () async {
+      expect(
+        await _run(
+          "List<int> main() => Uri.parseIPv4Address('ip=10.0.0.7;', 3, 11);",
+        ),
+        [10, 0, 0, 7],
+      );
+    });
+  });
 }

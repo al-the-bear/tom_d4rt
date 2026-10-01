@@ -20,12 +20,6 @@
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
-/// PUBLISH-BLOCKED (DGUC6): exec resolves `tom_d4rt_ast` from pub.dev, and
-/// the release carrying scf40 is 0.201.0. Remove the skip — which makes the
-/// file the reference verbatim again — when exec's floor passes it.
-const _publishBlocked =
-    'PUBLISH-BLOCKED: needs tom_d4rt_ast 0.201.0 (scf40, published by scf42)';
-
 Object? _run(String expression) => D4rt().execute(
   source:
       '''
@@ -35,79 +29,65 @@ main() => $expression;
 );
 
 void main() {
-  group(
-    'SCF40: a class name stored by method or index reaches a runtimeType '
-    'lookup',
-    skip: _publishBlocked,
-    () {
-      test('F-SCF40-1: map index assignment [2026-09-30] (PASS)', () {
-        expect(_run("(<Type, int>{}..[String] = 1)['x'.runtimeType]"), 1);
-      });
+  group('SCF40: a class name stored by method or index reaches a runtimeType '
+      'lookup', () {
+    test('F-SCF40-1: map index assignment [2026-09-30] (PASS)', () {
+      expect(_run("(<Type, int>{}..[String] = 1)['x'.runtimeType]"), 1);
+    });
 
-      test('F-SCF40-2: Set.add and Set.addAll [2026-09-30] (PASS)', () {
-        expect(_run("(<Type>{}..add(String)).contains('x'.runtimeType)"), true);
-        expect(
-          _run("(<Type>{}..addAll([String])).contains('x'.runtimeType)"),
-          true,
-        );
-      });
-
-      test('F-SCF40-3: identity collections [2026-09-30] (PASS)', () {
-        expect(
-          _run(
-            "(Set<Object>.identity()..add(String)).contains('x'.runtimeType)",
-          ),
-          true,
-        );
-        expect(
-          _run("(Map<Object, int>.identity()..[String] = 1)['x'.runtimeType]"),
-          1,
-        );
-        expect(
-          _run("(Map<Object, int>.identity()..['x'.runtimeType] = 1)[String]"),
-          1,
-        );
-      });
-
-      test(
-        'F-SCF40-4: putIfAbsent and addAll on a map [2026-09-30] (PASS)',
-        () {
-          expect(
-            _run(
-              "(<Type, int>{}..putIfAbsent(String, () => 1))['x'.runtimeType]",
-            ),
-            1,
-          );
-          expect(
-            _run("(<Type, int>{}..addAll({String: 1}))['x'.runtimeType]"),
-            1,
-          );
-        },
+    test('F-SCF40-2: Set.add and Set.addAll [2026-09-30] (PASS)', () {
+      expect(_run("(<Type>{}..add(String)).contains('x'.runtimeType)"), true);
+      expect(
+        _run("(<Type>{}..addAll([String])).contains('x'.runtimeType)"),
+        true,
       );
+    });
 
-      test('F-SCF40-5: the two spellings are one key [2026-09-30] (PASS)', () {
-        expect(
-          _run(
-            '() { final m = Map<Object, int>.identity(); m[String] = 1; '
-            "m['x'.runtimeType] = 2; return [m.length, m[String]]; }()",
-          ),
-          [1, 2],
-        );
-      });
+    test('F-SCF40-3: identity collections [2026-09-30] (PASS)', () {
+      expect(
+        _run("(Set<Object>.identity()..add(String)).contains('x'.runtimeType)"),
+        true,
+      );
+      expect(
+        _run("(Map<Object, int>.identity()..[String] = 1)['x'.runtimeType]"),
+        1,
+      );
+      expect(
+        _run("(Map<Object, int>.identity()..['x'.runtimeType] = 1)[String]"),
+        1,
+      );
+    });
 
-      test('F-SCF40-6: control — an interpreted class name, and the '
-          'already-working direction [2026-09-30] (PASS)', () {
-        expect(
-          D4rt().execute(
-            source:
-                'class A {} '
-                'main() { final m = <Type, int>{}; m[A] = 1; '
-                'return m[A().runtimeType]; }',
-          ),
-          1,
-        );
-        expect(_run("(<Type>{}..add('x'.runtimeType)).contains(String)"), true);
-      });
-    },
-  );
+    test('F-SCF40-4: putIfAbsent and addAll on a map [2026-09-30] (PASS)', () {
+      expect(
+        _run("(<Type, int>{}..putIfAbsent(String, () => 1))['x'.runtimeType]"),
+        1,
+      );
+      expect(_run("(<Type, int>{}..addAll({String: 1}))['x'.runtimeType]"), 1);
+    });
+
+    test('F-SCF40-5: the two spellings are one key [2026-09-30] (PASS)', () {
+      expect(
+        _run(
+          '() { final m = Map<Object, int>.identity(); m[String] = 1; '
+          "m['x'.runtimeType] = 2; return [m.length, m[String]]; }()",
+        ),
+        [1, 2],
+      );
+    });
+
+    test('F-SCF40-6: control — an interpreted class name, and the '
+        'already-working direction [2026-09-30] (PASS)', () {
+      expect(
+        D4rt().execute(
+          source:
+              'class A {} '
+              'main() { final m = <Type, int>{}; m[A] = 1; '
+              'return m[A().runtimeType]; }',
+        ),
+        1,
+      );
+      expect(_run("(<Type>{}..add('x'.runtimeType)).contains(String)"), true);
+    });
+  });
 }

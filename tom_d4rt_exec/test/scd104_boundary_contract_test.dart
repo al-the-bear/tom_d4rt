@@ -169,8 +169,20 @@ void main() {
         '${Directory.current.path}/lib/src/d4rt_base.dart',
       ).readAsStringSync();
 
+      // `_toHost` (woneprpd153) keeps the interpreted trace and then calls
+      // `throwAsHostFacingError`, so a boundary routed through it still
+      // delegates — and the delegate itself must keep doing so.
       expect(
-        RegExp(r'throwAsHostFacingError\s*[(,]').allMatches(source).length,
+        RegExp(
+          r'Never _toHost\(Object e, StackTrace s\) \{[^}]*throwAsHostFacingError\(e, s\);',
+        ).hasMatch(source),
+        isTrue,
+        reason: '`_toHost` must end in `throwAsHostFacingError(e, s)`',
+      );
+      expect(
+        RegExp(
+          r'(throwAsHostFacingError|_toHost)\s*[(,]',
+        ).allMatches(source).length,
         greaterThanOrEqualTo(4),
         reason:
             'exec\'s boundary stopped delegating to the shared rule. Its '

@@ -71,7 +71,11 @@ void main() {
         final body = lines
             .sublist(i + 1, (i + 6).clamp(0, lines.length))
             .join('\n');
-        if (!body.contains('throwAsHostFacingError')) {
+        // `_toHost` (woneprpd153) is the one delegate allowed between: it keeps
+        // the interpreted trace the carrier holds and then calls
+        // `throwAsHostFacingError`, so the rule is still applied once.
+        if (!body.contains('throwAsHostFacingError') &&
+            !body.contains('_toHost(')) {
           offenders.add('  line ${i + 1}: ${lines[i].trim()}');
         }
       }

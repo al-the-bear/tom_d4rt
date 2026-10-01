@@ -516,8 +516,21 @@ class D4rt {
     bool allowFileSystemImports = false,
     bool collectRegistrationErrors = false,
   }) {
+    // SCF44 (sci2): the type-only baseline tom_d4rt's warm parent seeds —
+    // every host bridge answers `toBridgedInstance` for a native value of its
+    // type, whether or not the script imported the library that names it.
+    // Type lookups only; names stay governed by imports.
+    final globalEnvironment = Environment();
+    for (final byLibrary in _bridgedClases) {
+      for (final libClass in byLibrary.values) {
+        globalEnvironment.registerBridgeTypeLazy(
+          libClass.nativeType,
+          libClass.thunk,
+        );
+      }
+    }
     final moduleLoader = ModuleLoader(
-      Environment(),
+      globalEnvironment,
       sources ?? {},
       _bridgedEnumDefinitions,
       _bridgedClases,
@@ -1221,6 +1234,52 @@ class D4rt {
     );
   }
 
+  /// Parses [source] once into a [D4rtProgram] that [executeProgram] can run
+  /// any number of times, on this interpreter or another (woneprpd132, mirrors
+  /// tom_d4rt).
+  ///
+  /// This is [execute] split at its one expensive step that does not depend on
+  /// the run: an embedder that runs the same script repeatedly caches the
+  /// program and pays for the parse once. A parse error is raised here, as the
+  /// [SourceCodeD4rtException] [execute] would raise.
+  ///
+  /// The program carries only syntax. Everything a run derives from it —
+  /// declarations, static coordinates, the environment — is rebuilt by each
+  /// [executeProgram], so two runs of one program share no state.
+  D4rtProgram parse(String source, {String? basePath}) => D4rtProgram._(
+    source: source,
+    basePath: basePath,
+    unit: _parseExecutableSource(source),
+  );
+
+  /// Runs [program] as [execute] would run its source, without parsing it.
+  ///
+  /// [basePath] comes from the program; the other arguments mean what they
+  /// mean on [execute].
+  dynamic executeProgram(
+    D4rtProgram program, {
+    String name = 'main',
+    List<Object?>? positionalArgs,
+    Map<String, Object?>? namedArgs,
+    Map<String, String>? sources,
+    bool allowFileSystemImports = false,
+  }) {
+    InterpretedFunction.clearParentMap();
+    _moduleLoader = _initModule(
+      sources,
+      basePath: program.basePath,
+      allowFileSystemImports: allowFileSystemImports,
+    );
+    _moduleLoader.recordEntrySource(program._unit, program.source);
+    return _executeInEnvironment(
+      compilationUnit: program._unit,
+      executionEnvironment: _moduleLoader.globalEnvironment,
+      name: name,
+      positionalArgs: positionalArgs,
+      namedArgs: namedArgs,
+    );
+  }
+
   /// Execute additional source code in the existing global context.
   ///
   /// Unlike [execute], this method does NOT reset the global environment.
@@ -1353,6 +1412,7 @@ class D4rt {
         "[D4rt._parseSource] Parsing the provided source string directly (no source URI).",
       );
       final unit = _parseExecutableSource(source);
+      _moduleLoader.recordEntrySource(unit, source);
       Logger.debug(
         "[D4rt._parseSource] Direct source string parsed successfully.",
       );
@@ -1573,6 +1633,24 @@ class D4rt {
     );
   }
 
+  /// The interpreted frames the last error to leave this interpreter passed
+  /// through, innermost first — empty when the last run succeeded, or failed
+  /// outside any interpreted call.
+  ///
+  /// Read after an `execute`, `executeProgram`, `eval` or method call threw.
+  /// A host maps these to its own positions; the frames name the script's
+  /// functions and its lines, not the interpreter's.
+  List<D4rtStackFrame> get lastErrorTrace => _lastErrorTrace;
+  List<D4rtStackFrame> _lastErrorTrace = const [];
+
+  /// [throwAsHostFacingError], after keeping the trace [e] carries — read from
+  /// the interpreter's own carrier, before the boundary unwraps it to the
+  /// value the script threw.
+  Never _toHost(Object e, StackTrace s) {
+    _lastErrorTrace = D4rtCallStack.traceOf(e);
+    throwAsHostFacingError(e, s);
+  }
+
   dynamic _executeInEnvironment({
     required SCompilationUnit compilationUnit,
     required Environment executionEnvironment,
@@ -1581,6 +1659,7 @@ class D4rt {
     Map<String, Object?>? namedArgs,
     String? library,
   }) {
+    _lastErrorTrace = const [];
     run() => _executeInEnvironmentInZone(
       compilationUnit: compilationUnit,
       executionEnvironment: executionEnvironment,
@@ -1743,7 +1822,7 @@ class D4rt {
       // rethrew the *wrapper*, so `on FormatException` matched inside a script
       // but not at the call site that ran it. `throwAsHostFacingError` unwraps
       // it.
-      throwAsHostFacingError(e, s);
+      _toHost(e, s);
     }
     if (functionResult is InterpretedInstance) {
       _interpretedInstance = functionResult;
@@ -1762,14 +1841,14 @@ class D4rt {
           // `RuntimeD4rtException: Native error during static bridged method
           // call 'parse' on int: FormatException …` where the synchronous path
           // already handed back the `FormatException` itself.
-          onError: throwAsHostFacingError,
+          onError: _toHost,
         );
         // SCD101: same deletion as the synchronous boundary above — one rule,
         // one implementation.
       } catch (e, s) {
         // SCC27 — same rule as the synchronous boundary above. See the comment
         // there for why the explicit type list is gone.
-        throwAsHostFacingError(e, s);
+        _toHost(e, s);
       }
     }
     _hasExecutedOnce = true;
@@ -2173,7 +2252,7 @@ class D4rt {
             // SCD101: `eval` is a host boundary too, so it answers to the same
             // rule `execute` does. It carried its own peel, which is how it
             // came to differ from the shared helper by one level (SCD96).
-            throwAsHostFacingError(e, s);
+            _toHost(e, s);
           }
         }
 
@@ -2220,7 +2299,7 @@ class D4rt {
           evalFunc.call(_visitor!, [], {});
         } on InternalInterpreterD4rtException catch (e, s) {
           // SCD101: same rule as the other `eval` site above.
-          throwAsHostFacingError(e, s);
+          _toHost(e, s);
         }
       }
 
@@ -2725,7 +2804,27 @@ class D4rt {
       // and the class, which is what the preserved stack trace says, and
       // `Error.throwWithStackTrace` inside the helper is what keeps that
       // trace meaningful across the boundary.
-      throwAsHostFacingError(e, s);
+      _toHost(e, s);
     }
   }
+}
+
+/// A script parsed once by [D4rt.parse], to be run by [D4rt.executeProgram].
+///
+/// Immutable and holding no interpreter state, so one program may be cached
+/// and run repeatedly — and by different [D4rt] instances.
+final class D4rtProgram {
+  D4rtProgram._({
+    required this.source,
+    required this.basePath,
+    required SCompilationUnit unit,
+  }) : _unit = unit;
+
+  /// The source this program was parsed from.
+  final String source;
+
+  /// The base path relative imports resolve against, or null.
+  final String? basePath;
+
+  final SCompilationUnit _unit;
 }

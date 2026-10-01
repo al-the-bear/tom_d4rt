@@ -1588,9 +1588,10 @@ typedef _CaseCounts = ({int ran, int declared});
 /// the backlog moves from it in either direction. Measured 2026-09-29: 20,
 /// all recorded in [_uncoveredBaseline]; 15 after sce237's publish ported the
 /// five that were only waiting on it; 16 with woneprpd132's embedder-API
-/// test, which exec's front end has no counterpart for; 17 with woneprpd153's
-/// trace test, which waits on exec resolving tom_d4rt_ast 0.205.0.
-const _uncoveredHighWater = 17;
+/// test, which exec's front end had no counterpart for; 17 with woneprpd153's
+/// trace test; 15 once sci1 gave exec `parse` / `executeProgram` and
+/// `lastErrorTrace` and ported both.
+const _uncoveredHighWater = 15;
 
 const Map<String, _CaseCounts> _uncoveredBaseline = {
   // NOT PORTABLE, and not blocked on a publish. It compares what FIVE host
@@ -1667,23 +1668,6 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
   // not yet; every case here would fail. sch1_aißr-exec-front-end-enforces-the-static-name-pass owns the port.
   // pin-registered: n/a - exec's own front end, not a publish.
   'scg6_static_name_enforcement_test.dart': (ran: 5, declared: 5),
-  // NOT PORTED YET: `D4rt.parse` + `D4rt.executeProgram` (woneprpd132), the
-  // parse/execute split of the SOURCE front end. exec has its own front end
-  // and no such split, so every case would fail on a missing member; it is an
-  // embedder API rather than interpreter behaviour, and the behaviour a run
-  // exercises is covered by the ported execute cases. Port it if exec grows
-  // the split. [2026-09-30]
-  // pin-registered: n/a - exec's own front end, not a publish.
-  'woneprpd132_parse_execute_split_test.dart': (ran: 7, declared: 7),
-  // NOT PORTED YET: `D4rt.lastErrorTrace` (woneprpd153), the interpreted call
-  // stack an error leaves. The stack itself is runtime code mirrored in
-  // tom_d4rt_ast (its twin test, runtime/woneprpd153_interpreted_trace_test,
-  // asserts it there); what exec lacks is the front-end getter, and it cannot
-  // gain one until it resolves a tom_d4rt_ast that carries `D4rtCallStack`.
-  // Port it then — `lastErrorTrace` reads `D4rtCallStack.traceOf` at the
-  // boundary, as both other front ends do. [2026-10-01]
-  // pin-registered: n/a - exec's own front end, not a publish.
-  'woneprpd153_interpreted_trace_test.dart': (ran: 5, declared: 5),
   // NOT PORTABLE — a throughput probe, not a conformance assertion. Its single
   // case measures how long a Conway generation takes; run on two interpreters
   // with different performance characteristics it yields a flaky failure rather
@@ -2193,74 +2177,6 @@ const Map<String, _Divergence> _divergentBaseline = {
   // scc28 drops F-SCC28-1 (the scan of both mirrored visitors for message
   // sniffing). Its twelve other cases are the port SCD88 was filed for.
   'scc28_typed_undefined_member_test.dart': _Divergence.deliberate,
-  // SCF44: a value's bridge is found in a stdlib library the script did not
-  // import. The published interpreter misses it, so this port carries the
-  // reference verbatim but for a group-level skip.
-  // PUBLISH-BLOCKED — re-port when exec's tom_d4rt_ast floor passes 0.203.0,
-  // by copying the reference file down; converges at a floor past 0.203.0.
-  'scf44_member_access_without_import_test.dart': _Divergence.deliberate,
-  // SCF43: an `await` in a collection-literal `for` BODY evaluates instead of
-  // being refused. The reference inverted F-SCE80-12 and added F-SCE80-12b..e;
-  // the published interpreter still refuses, so this port keeps asserting the
-  // refusal.
-  // PUBLISH-BLOCKED — re-port when exec's tom_d4rt_ast floor passes 0.202.0,
-  // by copying the reference file down; converges at a floor past 0.202.0.
-  'scc12_await_in_finally_test.dart': _Divergence.deliberate,
-  // SCF40: a class name stored by a method or `[]=` is stored as its native
-  // `Type`. The published interpreter stores the `BridgedClass`, so this port
-  // carries the reference verbatim but for a group-level skip.
-  // PUBLISH-BLOCKED — re-port when exec's tom_d4rt_ast floor passes 0.201.0,
-  // by copying the reference file down; converges at a floor past 0.201.0.
-  'scf40_class_name_stored_by_method_test.dart': _Divergence.deliberate,
-  // SCF39: an interpreted `Error` subclass renders as its own class and
-  // records `stackTrace` on its first throw. The published interpreter
-  // answers from the native super-object, so this port carries the reference
-  // verbatim but for group-level skips.
-  // PUBLISH-BLOCKED — re-port when exec's tom_d4rt_ast floor passes 0.200.0,
-  // by copying the reference file down; converges at a floor past 0.200.0.
-  'scf39_interpreted_error_subclass_test.dart': _Divergence.deliberate,
-  // SCF38: a native closure resolves to the `Function` bridge, not to the
-  // bridge named like its return type. The published interpreter still
-  // suffix-matches, so this port carries the reference verbatim but for a
-  // group-level skip.
-  // PUBLISH-BLOCKED — re-port when exec's tom_d4rt_ast floor passes 0.199.0,
-  // by copying the reference file down; converges at a floor past 0.199.0.
-  'bridge/scf38_native_closure_bridge_test.dart': _Divergence.deliberate,
-  // SCF37: `obj.v++` / `++obj.v` step a bridged receiver's property. The
-  // published interpreter throws, so this port carries the reference verbatim
-  // but for a group-level skip.
-  // PUBLISH-BLOCKED — re-port when exec's tom_d4rt_ast floor passes 0.198.0,
-  // by copying the reference file down; converges at a floor past 0.198.0.
-  'bridge/scf37_bridged_property_increment_test.dart': _Divergence.deliberate,
-  // SCF36: every stdlib adapter bounds a surplus positional argument at the
-  // SDK's count. The published interpreter drops the surplus, so this port
-  // carries the reference verbatim but for group-level skips.
-  // PUBLISH-BLOCKED — re-port when exec's tom_d4rt_ast floor passes 0.197.0,
-  // by copying the reference file down; converges at a floor past 0.197.0.
-  'stdlib/scf36_surplus_arity_bounded_test.dart': _Divergence.deliberate,
-  // SCF35: scheduleMicrotask, base64UrlEncode, the dart:convert rune
-  // constants and systemEncoding are bridged. The published interpreter has
-  // none of them, so this port carries the reference verbatim but for
-  // group-level skips. Its systemEncoding case imports only dart:io, which
-  // needs SCF44's latent stdlib registry too.
-  // PUBLISH-BLOCKED — re-port when exec's tom_d4rt_ast floor passes 0.203.0,
-  // by copying the reference file down; converges at a floor past 0.203.0.
-  'scf35_schedule_microtask_test.dart': _Divergence.deliberate,
-  // SCF35 added F-SCC73-5, which reads the SDK's top-level functions, getters
-  // and variables and fails on any a script cannot reach. Against the
-  // published interpreter it fails on the names scf35 bridges, so this port
-  // lacks the case (and its helpers); it is otherwise the reference with the
-  // interpreter imports rewritten.
-  // PUBLISH-BLOCKED — re-port when exec's tom_d4rt_ast floor passes 0.196.0,
-  // by copying the reference file down and rewriting its imports as before;
-  // converges at a floor past 0.196.0.
-  'scc73_sdk_member_completeness_test.dart': _Divergence.deliberate,
-  // SCI1: an alias of a bridged enum (`typedef MaterialState = WidgetState;`)
-  // defines. The published interpreter drops such an alias, so this port
-  // carries the reference verbatim but for a group-level skip.
-  // PUBLISH-BLOCKED — re-port when exec's tom_d4rt_ast floor passes 0.206.0,
-  // by copying the reference file down; converges at a floor past 0.206.0.
-  'sci1_enum_alias_test.dart': _Divergence.deliberate,
   // `scd188`: SCE224 made the reference copy DERIVE its subscribing-getter set
   // from the `Stdin` entry's expiry condition in `tom_d4rt/tool/
   // stdlib_member_diff.dart`, so the set has one home. That tool is
@@ -2342,19 +2258,9 @@ const Map<String, _Divergence> _divergentBaseline = {
 /// Recomputing without reading the new difference is the failure mode; the
 /// message says so.
 const Map<String, String> _divergenceFingerprints = <String, String>{
-  'scc12_await_in_finally_test.dart': 'ade6072e1955b12f',
   'scd34_constructor_trace_forwarding_test.dart': '239ecf0a3afc35f2',
   'scd35_bridged_tearoff_as_callback_test.dart': '2af9f62cc4643311',
   'scc28_typed_undefined_member_test.dart': '26138b224ded3701',
-  'scf44_member_access_without_import_test.dart': '3641dbeb9c8a48ea',
-  'scf40_class_name_stored_by_method_test.dart': '77d5eec0f1e23f5c',
-  'scf39_interpreted_error_subclass_test.dart': 'c817b4397bbd9b84',
-  'bridge/scf38_native_closure_bridge_test.dart': '9e676d43c0d18732',
-  'bridge/scf37_bridged_property_increment_test.dart': '699f24c0f6d03090',
-  'stdlib/scf36_surplus_arity_bounded_test.dart': 'eb79eb8b24309084',
-  'scf35_schedule_microtask_test.dart': 'fca7bb0f00396167',
-  'scc73_sdk_member_completeness_test.dart': '300d552b19b4fa8c',
-  'sci1_enum_alias_test.dart': 'c9b92baff0afe1c7',
   'stdlib/io/scd188_stdin_audit_reason_expiry_test.dart': '46be47f827711c3a',
   'warm_parent_package_pool_test.dart': '971b6ff19185f442',
   'stdlib/intentionally_unbridged_test.dart': 'a11036cda720efcf',
@@ -2540,48 +2446,7 @@ typedef _Pin = ({String floor, String measured});
 /// 8-of-10 to 13-of-20 — still wholly failing, so still justified, but their
 /// recorded evidence was seven and ten cases out of date. Both are re-stamped
 /// above their entries in `_uncoveredBaseline`.
-const Map<String, _Pin> _pinnedInterpreterFloors = <String, _Pin>{
-  'sci1_enum_alias_test.dart': (floor: '0.206.0', measured: '0.195.0'),
-  // SCF44, pinned at the release with the latent stdlib bridge registry.
-  'scf44_member_access_without_import_test.dart': (
-    floor: '0.203.0',
-    measured: '0.195.0',
-  ),
-  // SCF43, pinned at the release that evaluates an await in a `for` body.
-  'scc12_await_in_finally_test.dart': (floor: '0.202.0', measured: '0.195.0'),
-  // SCF40, pinned at the release that stores a class name as its Type.
-  'scf40_class_name_stored_by_method_test.dart': (
-    floor: '0.201.0',
-    measured: '0.195.0',
-  ),
-  // SCF39, pinned at the release that answers an Error subclass as its class.
-  'scf39_interpreted_error_subclass_test.dart': (
-    floor: '0.200.0',
-    measured: '0.195.0',
-  ),
-  // SCF38, pinned at the release that resolves a native closure to Function.
-  'bridge/scf38_native_closure_bridge_test.dart': (
-    floor: '0.199.0',
-    measured: '0.195.0',
-  ),
-  // SCF37, pinned at the release that steps a bridged property.
-  'bridge/scf37_bridged_property_increment_test.dart': (
-    floor: '0.198.0',
-    measured: '0.195.0',
-  ),
-  // SCF36, pinned at the release that bounds the surplus-arity adapters.
-  'stdlib/scf36_surplus_arity_bounded_test.dart': (
-    floor: '0.197.0',
-    measured: '0.195.0',
-  ),
-  // SCF35, pinned at the release that bridges scheduleMicrotask.
-  'scf35_schedule_microtask_test.dart': (floor: '0.203.0', measured: '0.195.0'),
-  // SCF35's F-SCC73-5, pinned at the same release.
-  'scc73_sdk_member_completeness_test.dart': (
-    floor: '0.196.0',
-    measured: '0.195.0',
-  ),
-};
+const Map<String, _Pin> _pinnedInterpreterFloors = <String, _Pin>{};
 
 /// The `tom_d4rt_ast` floor exec's own `pubspec.yaml` currently declares.
 ///
@@ -3469,8 +3334,7 @@ const Map<String, String> _astDriftFingerprints = <String, String>{
 // tree is ahead of the release again. sch4 (which absorbed scf42 and then
 // scg2) owns the next release and sets this back to `null`.
 // ignore: unnecessary_nullable_for_final_variable_declarations
-const String? _astPublishBlock =
-    'sci2_ajak-raise-exec-enforce-the-static-name-pass-and-publish';
+const String? _astPublishBlock = null;
 
 /// One baseline entry and the comment block written directly above it.
 typedef _BaselineEntry = ({String path, String comment});

@@ -13,12 +13,6 @@
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
-/// PUBLISH-BLOCKED (DGUC6): exec resolves `tom_d4rt_ast` from pub.dev, and
-/// the release carrying sci1's alias fix is 0.206.0. Remove the skip — which
-/// makes the file the reference verbatim again — when exec's floor passes it.
-const _publishBlocked =
-    'PUBLISH-BLOCKED: needs tom_d4rt_ast 0.206.0 (sci1, published by sci1)';
-
 enum _Phase { idle, pressed, selected }
 
 const _library = 'package:sci1/phase.dart';
@@ -34,7 +28,7 @@ D4rt _interpreter() {
 }
 
 void main() {
-  group('SCI1: an alias of a bridged enum', skip: _publishBlocked, () {
+  group('SCI1: an alias of a bridged enum', () {
     test('SCI1-1: the alias names the enum in a script, as a value and as a '
         'type argument [2026-10-01]', () {
       final result = _interpreter().execute(

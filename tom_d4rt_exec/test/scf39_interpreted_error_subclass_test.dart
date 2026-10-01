@@ -26,116 +26,102 @@
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
-/// PUBLISH-BLOCKED (DGUC6): exec resolves `tom_d4rt_ast` from pub.dev, and
-/// the release carrying scf39 is 0.200.0. Remove the skips — which makes the
-/// file the reference verbatim again — when exec's floor passes it.
-const _publishBlocked =
-    'PUBLISH-BLOCKED: needs tom_d4rt_ast 0.200.0 (scf39, published by scf42)';
-
 Object? _run(String source) => D4rt().execute(source: source);
 
 void main() {
-  group(
-    'SCF39: toString of an interpreted Error subclass',
-    skip: _publishBlocked,
-    () {
-      test('F-SCF39-1: no override renders as the script class, both ways '
-          '[2026-09-30] (PASS)', () {
-        expect(
-          _run(
-            'class MyError extends Error {} '
-            "List main() { final e = MyError(); return [e.toString(), '\$e', "
-            '[e].toString()]; }',
-          ),
-          [
-            '<instance of MyError>',
-            '<instance of MyError>',
-            '[<instance of MyError>]',
-          ],
-        );
-      });
+  group('SCF39: toString of an interpreted Error subclass', () {
+    test('F-SCF39-1: no override renders as the script class, both ways '
+        '[2026-09-30] (PASS)', () {
+      expect(
+        _run(
+          'class MyError extends Error {} '
+          "List main() { final e = MyError(); return [e.toString(), '\$e', "
+          '[e].toString()]; }',
+        ),
+        [
+          '<instance of MyError>',
+          '<instance of MyError>',
+          '[<instance of MyError>]',
+        ],
+      );
+    });
 
-      test('F-SCF39-2: an override still wins, and its super.toString() names '
-          'the script class [2026-09-30] (PASS)', () {
-        expect(
-          _run(
-            'class MyError extends Error { String toString() => "mine"; } '
-            'String main() => MyError().toString();',
-          ),
-          'mine',
-        );
-        expect(
-          _run(
-            'class MyError extends Error { '
-            'String toString() => "X:" + super.toString(); } '
-            'String main() => MyError().toString();',
-          ),
-          'X:<instance of MyError>',
-        );
-      });
+    test('F-SCF39-2: an override still wins, and its super.toString() names '
+        'the script class [2026-09-30] (PASS)', () {
+      expect(
+        _run(
+          'class MyError extends Error { String toString() => "mine"; } '
+          'String main() => MyError().toString();',
+        ),
+        'mine',
+      );
+      expect(
+        _run(
+          'class MyError extends Error { '
+          'String toString() => "X:" + super.toString(); } '
+          'String main() => MyError().toString();',
+        ),
+        'X:<instance of MyError>',
+      );
+    });
 
-      test('F-SCF39-3: a super-object that overrides toString is the answer, '
-          'both ways [2026-09-30] (PASS)', () {
-        expect(
-          _run(
-            "class MyError extends ArgumentError { MyError() : super('x'); } "
-            "List main() { final e = MyError(); return [e.toString(), '\$e']; }",
-          ),
-          ['Invalid argument(s): x', 'Invalid argument(s): x'],
-        );
-        expect(
-          _run(
-            "class MyError extends StateError { MyError() : super('x'); } "
-            'String main() => MyError().toString();',
-          ),
-          'Bad state: x',
-        );
-      });
-    },
-  );
+    test('F-SCF39-3: a super-object that overrides toString is the answer, '
+        'both ways [2026-09-30] (PASS)', () {
+      expect(
+        _run(
+          "class MyError extends ArgumentError { MyError() : super('x'); } "
+          "List main() { final e = MyError(); return [e.toString(), '\$e']; }",
+        ),
+        ['Invalid argument(s): x', 'Invalid argument(s): x'],
+      );
+      expect(
+        _run(
+          "class MyError extends StateError { MyError() : super('x'); } "
+          'String main() => MyError().toString();',
+        ),
+        'Bad state: x',
+      );
+    });
+  });
 
-  group(
-    'SCF39: stackTrace of an interpreted Error subclass',
-    skip: _publishBlocked,
-    () {
-      test('F-SCF39-4: null before a throw, set by the throw '
-          '[2026-09-30] (PASS)', () {
-        expect(
-          _run(
-            'class MyError extends Error {} '
-            'List main() { final e = MyError(); final before = e.stackTrace; '
-            'try { throw e; } catch (c) { '
-            'return [before == null, (c as MyError).stackTrace != null]; } }',
-          ),
-          [true, true],
-        );
-      });
+  group('SCF39: stackTrace of an interpreted Error subclass', () {
+    test('F-SCF39-4: null before a throw, set by the throw '
+        '[2026-09-30] (PASS)', () {
+      expect(
+        _run(
+          'class MyError extends Error {} '
+          'List main() { final e = MyError(); final before = e.stackTrace; '
+          'try { throw e; } catch (c) { '
+          'return [before == null, (c as MyError).stackTrace != null]; } }',
+        ),
+        [true, true],
+      );
+    });
 
-      test('F-SCF39-5: a second throw keeps the first stack trace '
-          '[2026-09-30] (PASS)', () {
-        expect(
-          _run(
-            'class MyError extends Error {} '
-            'bool main() { final e = MyError(); '
-            'try { throw e; } catch (_) {} final first = e.stackTrace; '
-            'try { throw e; } catch (_) {} '
-            'return first != null && identical(first, e.stackTrace); }',
-          ),
-          isTrue,
-        );
-      });
+    test('F-SCF39-5: a second throw keeps the first stack trace '
+        '[2026-09-30] (PASS)', () {
+      expect(
+        _run(
+          'class MyError extends Error {} '
+          'bool main() { final e = MyError(); '
+          'try { throw e; } catch (_) {} final first = e.stackTrace; '
+          'try { throw e; } catch (_) {} '
+          'return first != null && identical(first, e.stackTrace); }',
+        ),
+        isTrue,
+      );
+    });
 
-      test('F-SCF39-6: control — a class that is not an Error gets no '
-          'stackTrace member [2026-09-30] (PASS)', () {
-        expect(
-          () => _run(
-            'class NotAnError {} '
-            'main() { try { throw NotAnError(); } catch (e) { '
-            'return (e as dynamic).stackTrace; } }',
-          ),
-          throwsA(predicate((e) => '$e'.contains('stackTrace'))),
-        );
-      });
-    },
-  );
+    test('F-SCF39-6: control — a class that is not an Error gets no '
+        'stackTrace member [2026-09-30] (PASS)', () {
+      expect(
+        () => _run(
+          'class NotAnError {} '
+          'main() { try { throw NotAnError(); } catch (e) { '
+          'return (e as dynamic).stackTrace; } }',
+        ),
+        throwsA(predicate((e) => '$e'.contains('stackTrace'))),
+      );
+    });
+  });
 }

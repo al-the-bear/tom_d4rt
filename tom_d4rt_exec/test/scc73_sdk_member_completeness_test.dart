@@ -83,6 +83,7 @@ import 'package:tom_d4rt_exec/d4rt.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/collection.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/convert.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/io.dart';
+import 'package:tom_d4rt/src/unbridged_reasons.dart';
 
 // ---------------------------------------------------------------------------
 // The SDK side
@@ -219,6 +220,93 @@ class _SdkClass {
 ///     floor is 3.9; bridging it fails `dart analyze` with `sdk_version_since`.
 ///     Raising the floor is the way to pick these up, and doing so makes them
 ///     appear here on their own.
+/// Every public top-level function, getter and variable in `dart:<library>`.
+///
+/// SCF35. The two class axes never looked outside a class, so a top-level
+/// function was invisible to this file: `scheduleMicrotask` was neither
+/// bridged nor recorded as unbridged, and nothing could say so. The same
+/// deprecation and `@Since` rules as for class members apply, for the same
+/// reasons.
+Set<String> _sdkTopLevel(String libRoot, String dartLibrary) {
+  final floor = _packageSdkFloor();
+  final names = <String>{};
+  bool admitted(NodeList<Annotation> metadata) {
+    if (_isDeprecated(metadata)) return false;
+    final since = _since(metadata);
+    return since == null ||
+        since.$1 < floor.$1 ||
+        (since.$1 == floor.$1 && since.$2 <= floor.$2);
+  }
+
+  for (final path in _sdkSourceFiles(libRoot, dartLibrary)) {
+    for (final declaration in _parse(path).declarations) {
+      if (!admitted(declaration.metadata)) continue;
+      if (declaration is FunctionDeclaration) {
+        // A top-level setter has its getter's name; the getter is the probe.
+        if (declaration.isSetter) continue;
+        names.add(declaration.name.lexeme);
+      } else if (declaration is TopLevelVariableDeclaration) {
+        for (final variable in declaration.variables.variables) {
+          names.add(variable.name.lexeme);
+        }
+      }
+    }
+  }
+  return names..removeWhere((n) => n.startsWith('_'));
+}
+
+/// The top-level names of [candidates] (`library` to names) that a script
+/// importing that library cannot resolve, with the error it got.
+///
+/// Like the getter axis, this performs the lookup rather than modelling it:
+/// a top-level name reaches a script through `define`, a callable bridge, or
+/// an extension of the import surface, and only a real script sees all three.
+Map<String, String> _probeTopLevel(Map<String, Set<String>> candidates) {
+  final failures = <String, String>{};
+  for (final entry in candidates.entries) {
+    for (final name in entry.value) {
+      final d4rt = D4rt()
+        ..grant(FilesystemPermission.any)
+        ..grant(NetworkPermission.any)
+        ..grant(ProcessRunPermission.any);
+      try {
+        d4rt.execute(
+          source: "import 'dart:${entry.key}'; main() { final v = $name; }",
+        );
+      } catch (error) {
+        final message = '$error';
+        if (message.contains('Undefined variable')) {
+          failures['dart:${entry.key}  $name'] = message.split('\n').first;
+        }
+      }
+    }
+  }
+  return failures;
+}
+
+/// Top-level names deliberately not bridged, keyed `dart:<library> <name>`,
+/// that `kUnbridgedReasons` does not already carry. Same contract as
+/// [_allowed]: an entry is a decision on the record, and silence is not.
+const _allowedTopLevel = <String, String>{
+  'dart:io exit':
+      'terminates the embedding process, not the script — a script ends by '
+      'returning from main or throwing',
+  'dart:io sleep':
+      'blocks the whole isolate, embedder included; a script that has to wait '
+      'awaits Future.delayed, which leaves the host responsive',
+  'dart:io exitCode':
+      'setting it changes how the embedding program exits after the script is '
+      'gone — host process state the sandbox does not hand out',
+  'dart:io pid':
+      "the embedding process's id, which identifies the host process to "
+      'anything the script can reach; no permission grants it',
+  'dart:core deprecated':
+      'an annotation constant: the interpreter reads metadata as syntax and '
+      'never evaluates it, and it has no use as a value',
+  'dart:core override':
+      'an annotation constant, for the same reason as `deprecated`',
+};
+
 Map<String, _SdkClass> _sdkClasses(String libRoot, String dartLibrary) {
   final floor = _packageSdkFloor();
   final classes = <String, _SdkClass>{};
@@ -430,6 +518,54 @@ void main() {
             'vacuously. Check $libRoot/libraries.json.',
       );
     }
+  });
+
+  test('F-SCC73-5: every SDK top-level function, getter and variable is '
+      'reachable or recorded as unbridged [2026-09-30]', () {
+    final candidates = <String, Set<String>>{};
+    var total = 0;
+    for (final library in _libraries) {
+      final names = _sdkTopLevel(libRoot, library);
+      total += names.length;
+      candidates[library] = {
+        for (final name in names)
+          if (!kUnbridgedReasons.containsKey(name) &&
+              !_allowedTopLevel.containsKey('dart:$library $name'))
+            name,
+      };
+    }
+    // Anti-vacuity: 55 names across the eight libraries on 2026-09-30.
+    expect(
+      total,
+      greaterThan(30),
+      reason: 'the SDK top level parsed to $total',
+    );
+
+    final missing = _probeTopLevel(candidates);
+    expect(
+      missing.keys.toList()..sort(),
+      isEmpty,
+      reason:
+          'These top-level names are declared by the SDK and a script importing '
+          'the library cannot use them. Bridge them, or record the omission — '
+          'in kUnbridgedReasons if it is a documented SDK limitation, else in '
+          '`_allowedTopLevel` with the reason:\n'
+          '${missing.entries.map((e) => '${e.key}: ${e.value}').join('\n')}',
+    );
+
+    // The allowlist cannot outlive its cause: an entry for a name that now
+    // resolves is stale.
+    final stale = <String>[];
+    for (final key in _allowedTopLevel.keys) {
+      final parts = key.split(' ');
+      final library = parts.first.substring('dart:'.length);
+      if (_probeTopLevel({
+        library: {parts.last},
+      }).isEmpty) {
+        stale.add(key);
+      }
+    }
+    expect(stale, isEmpty, reason: 'these resolve now; delete the entries');
   });
 
   test('F-SCC73-1: every SDK constructor on a bridged class is reachable '

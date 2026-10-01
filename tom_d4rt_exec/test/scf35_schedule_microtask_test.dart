@@ -22,14 +22,6 @@ import 'dart:convert';
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
-/// PUBLISH-BLOCKED (DGUC6): exec resolves `tom_d4rt_ast` from pub.dev, and
-/// the release carrying scf35 is 0.196.0, and its systemEncoding case also
-/// needs scf44's 0.203.0. Remove the skips — which makes the
-/// file the reference verbatim again — when exec's floor passes it.
-const _publishBlocked =
-    'PUBLISH-BLOCKED: needs tom_d4rt_ast 0.203.0 (scf35 and scf44, published '
-    'by scf42)';
-
 Future<Object?> _run(String source, {List<Object>? escapes}) async {
   // dart:io needs a grant to import at all; nothing here touches the host.
   final d4rt = D4rt()
@@ -48,7 +40,7 @@ Future<Object?> _run(String source, {List<Object>? escapes}) async {
 }
 
 void main() {
-  group('SCF35: scheduleMicrotask', skip: _publishBlocked, () {
+  group('SCF35: scheduleMicrotask', () {
     test('F-SCF35-1: the microtask runs before the code after an await '
         '[2026-09-30] (PASS)', () async {
       expect(
@@ -112,14 +104,11 @@ main() => scheduleMicrotask(5);
     });
   });
 
-  group(
-    'SCF35: the rest of the top-level surface F-SCC73-5 found',
-    skip: _publishBlocked,
-    () {
-      test('F-SCF35-5: base64UrlEncode, the rune constants, systemEncoding '
-          '[2026-09-30] (PASS)', () async {
-        expect(
-          await _run('''
+  group('SCF35: the rest of the top-level surface F-SCC73-5 found', () {
+    test('F-SCF35-5: base64UrlEncode, the rune constants, systemEncoding '
+        '[2026-09-30] (PASS)', () async {
+      expect(
+        await _run('''
 import 'dart:convert';
 List<Object> main() => [
   base64UrlEncode([251, 255]),
@@ -127,22 +116,21 @@ List<Object> main() => [
   unicodeReplacementCharacterRune,
 ];
 '''),
-          [
-            base64UrlEncode([251, 255]),
-            0xFEFF,
-            0xFFFD,
-          ],
-        );
-        expect(
-          // Only dart:io: `Encoding`'s members reach a value whose bridge lives
-          // in dart:convert without that import (SCF44).
-          await _run('''
+        [
+          base64UrlEncode([251, 255]),
+          0xFEFF,
+          0xFFFD,
+        ],
+      );
+      expect(
+        // Only dart:io: `Encoding`'s members reach a value whose bridge lives
+        // in dart:convert without that import (SCF44).
+        await _run('''
 import 'dart:io';
 String main() => systemEncoding.name;
 '''),
-          isA<String>(),
-        );
-      });
-    },
-  );
+        isA<String>(),
+      );
+    });
+  });
 }

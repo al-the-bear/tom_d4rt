@@ -20,12 +20,6 @@
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
-/// PUBLISH-BLOCKED (DGUC6): exec resolves `tom_d4rt_ast` from pub.dev, and
-/// the release carrying scf38 is 0.199.0. Remove the skip — which makes the
-/// file the reference verbatim again — when exec's floor passes it.
-const _publishBlocked =
-    'PUBLISH-BLOCKED: needs tom_d4rt_ast 0.199.0 (scf38, published by scf42)';
-
 class _Host {}
 
 /// Closures built by HOST code, the shape a Flutter widget's `onPressed` or
@@ -61,7 +55,7 @@ $body
 }
 
 void main() {
-  group('SCF38: a host-built closure is a Function', skip: _publishBlocked, () {
+  group('SCF38: a host-built closure is a Function', () {
     test('F-SCF38-1: toBridgedInstance resolves (int) => int and a () => Map '
         'tear-off to Function [2026-09-30] (PASS)', () {
       final env = Environment();

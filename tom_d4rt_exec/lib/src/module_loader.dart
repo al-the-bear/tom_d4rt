@@ -73,6 +73,47 @@ class ModuleLoader implements context.ModuleContext {
   final Map<String, String> sources;
   final Map<Uri, LoadedModule> _moduleCache = {};
 
+  /// The interpreted call stack of the run this loader serves (woneprpd153).
+  ///
+  /// On the loader rather than on a visitor because a run has several
+  /// visitors — one per loaded module — and every one of them calls into the
+  /// others' functions; the loader is what they share, and a new run gets a
+  /// new one.
+  @override
+  late final D4rtCallStack callStack = D4rtCallStack(_locateStatement);
+
+  /// Every unit a trace can point into, with the text it was parsed from,
+  /// keyed alike. The mirror AST carries offsets but no line table, so a
+  /// position needs the text; tom_d4rt reads the analyzer's `lineInfo`
+  /// instead, which is why this has no counterpart there.
+  final Map<String, SCompilationUnit> _locatableUnits = {};
+  final Map<String, String> _locatableTexts = {};
+
+  /// The key the entry script is filed under. A frame in it reports no
+  /// source, as tom_d4rt's does: the entry was never a module.
+  static const String _entryKey = '#entry';
+
+  /// Makes the entry script [unit], parsed from [source], locatable.
+  void recordEntrySource(SCompilationUnit unit, String source) {
+    _locatableUnits[_entryKey] = unit;
+    _locatableTexts[_entryKey] = source;
+  }
+
+  /// The line, column and library of [statement], for a trace.
+  ({int line, int column, Uri? source})? _locateStatement(Object statement) {
+    if (statement is! SAstNode) return null;
+    final where = locateNode(
+      statement,
+      modules: _locatableUnits,
+      sources: _locatableTexts,
+    );
+    if (where == null) return null;
+    if (where.source?.toString() == _entryKey) {
+      return (line: where.line, column: where.column, source: null);
+    }
+    return where;
+  }
+
   /// DFUB10 — modules currently being loaded, keyed like [_moduleCache]. A URI
   /// is present here only between the start of its directive processing and its
   /// completion.
@@ -204,6 +245,12 @@ class ModuleLoader implements context.ModuleContext {
     this.basePath,
     this.allowFileSystemImports = false,
   }) {
+    // SCF44 (sci2): a value's members need no import of its type's library.
+    // tom_d4rt_ast's loader owns the process-wide stdlib registry; its stdlib
+    // set is this loader's, so exec installs the same lookup rather than a
+    // copy of it.
+    globalEnvironment.latentBridgeLookup ??=
+        AstModuleLoader.latentStdlibBridgeFor;
     Logger.debug(
       "[ModuleLoader] Initialized with ${sources.length} preloaded sources.",
     );
@@ -665,6 +712,8 @@ class ModuleLoader implements context.ModuleContext {
 
     String sourceCode = _fetchModuleSource(uri);
     SCompilationUnit ast = _parseSource(uri, sourceCode);
+    _locatableUnits[uri.toString()] = ast;
+    _locatableTexts[uri.toString()] = sourceCode;
 
     Environment moduleEnvironment = Environment(enclosing: globalEnvironment);
     // Must also enclose globalEnvironment. DFUB10 — created here rather than
@@ -1243,6 +1292,35 @@ class ModuleLoader implements context.ModuleContext {
             Logger.error("registering bridged class '$className': $e");
             registrationErrors.add(
               "Failed to register bridged class '$className': $e",
+            );
+          }
+        }
+      }
+
+      // GEN-078: class aliases (e.g. MaterialStateProperty → WidgetStateProperty),
+      // mirroring tom_d4rt's loader (sci2). This copy never registered them,
+      // so no bridged alias — class or enum — resolved in exec.
+      if (d4rt != null) {
+        for (final alias in d4rt!.classAliases) {
+          if (alias.library != uriString) continue;
+          if (!_shouldRegisterName(
+            alias.aliasName,
+            showNames: showNames,
+            hideNames: hideNames,
+          )) {
+            continue;
+          }
+          try {
+            targetEnvironment.defineBridgeAlias(
+              alias.aliasName,
+              alias.targetName,
+            );
+            Logger.debug(
+              ' [execute] Registered alias: ${alias.aliasName} → ${alias.targetName} from $uriString',
+            );
+          } catch (e) {
+            Logger.error(
+              "registering alias '${alias.aliasName}' into module env: $e",
             );
           }
         }
