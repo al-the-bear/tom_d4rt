@@ -15,6 +15,7 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:tom_d4rt_generator/tom_d4rt_generator.dart';
+import 'support/generated_code.dart';
 
 void main() {
   late String testFixturesDir;
@@ -65,7 +66,7 @@ void main() {
       expect(result.errors, isEmpty, reason: 'Should generate without errors');
       expect(result.outputFiles, isNotEmpty);
 
-      generatedCode = await File(result.outputFiles.first).readAsString();
+      generatedCode = await readGeneratedCode(result.outputFiles.first);
     });
 
     group('Simple Classes', () {
@@ -424,7 +425,7 @@ void main() {
         moduleName: 'test_module',
       );
 
-      generatedCode = await File(outputFile).readAsString();
+      generatedCode = await readGeneratedCode(outputFile);
 
       // Cleanup
       addTearDown(() {
@@ -524,7 +525,7 @@ void main() {
         moduleName: 'props',
       );
 
-      generatedCode = await File(outputFile).readAsString();
+      generatedCode = await readGeneratedCode(outputFile);
 
       addTearDown(() {
         try {

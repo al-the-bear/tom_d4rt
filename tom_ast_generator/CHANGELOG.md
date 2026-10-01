@@ -1,3 +1,12 @@
+## 0.1.14
+
+### Changed — resolves tom_d4rt_ast 0.206.0 and tom_d4rt_exec 1.42.0 (sci2)
+
+`tom_d4rt_ast` ^0.206.0 and dev `tom_d4rt_exec` ^1.42.0. The generator tests
+read generated code through `test/generator_tests/support/generated_code.dart`,
+the helper tom_d4rt_generator's own suite uses, because tom_d4rt_generator
+1.51.0 formats what it writes.
+
 ## 0.1.13
 
 ### Fixed — a failed project fails the run whether or not `--verbose` is set (scf33)
