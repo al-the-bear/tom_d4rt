@@ -532,6 +532,10 @@ class _NameReportVisitor extends GeneralizingAstVisitor<void> {
       case ExportDirective():
       case PartDirective():
       case LibraryIdentifier():
+      // sci2: the `dart.library.io` of a conditional import's configuration
+      // names a platform flag, not a variable. Read as one, it refused every
+      // program with a conditional import.
+      case DottedName():
       case EnumConstantDeclaration():
       case DeclaredIdentifier():
       case NamedType():

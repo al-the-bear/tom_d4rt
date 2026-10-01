@@ -1590,8 +1590,9 @@ typedef _CaseCounts = ({int ran, int declared});
 /// five that were only waiting on it; 16 with woneprpd132's embedder-API
 /// test, which exec's front end had no counterpart for; 17 with woneprpd153's
 /// trace test; 15 once sci1 gave exec `parse` / `executeProgram` and
-/// `lastErrorTrace` and ported both.
-const _uncoveredHighWater = 15;
+/// `lastErrorTrace` and ported both; 14 once sci2 gave exec scg6's
+/// enforcement and ported its test.
+const _uncoveredHighWater = 14;
 
 const Map<String, _CaseCounts> _uncoveredBaseline = {
   // NOT PORTABLE, and not blocked on a publish. It compares what FIVE host
@@ -1662,12 +1663,6 @@ const Map<String, _CaseCounts> _uncoveredBaseline = {
   // scan the wrong tree. The gate behaviour it guards is measured here by the
   // ported behaviour file. [2026-09-28]
   'scd170_network_gate_census_test.dart': (ran: 1, declared: 1),
-  // NOT PORTED YET: tom_d4rt's static-name ENFORCEMENT (SCG6), which refuses
-  // a program reading an undefined name before `main` runs. exec parses with
-  // the analyzer too, so the same pass can run in its front end, but it does
-  // not yet; every case here would fail. sch1_aißr-exec-front-end-enforces-the-static-name-pass owns the port.
-  // pin-registered: n/a - exec's own front end, not a publish.
-  'scg6_static_name_enforcement_test.dart': (ran: 5, declared: 5),
   // NOT PORTABLE — a throughput probe, not a conformance assertion. Its single
   // case measures how long a Conway generation takes; run on two interpreters
   // with different performance characteristics it yields a flaky failure rather
@@ -2213,14 +2208,6 @@ const Map<String, _Divergence> _divergentBaseline = {
   // would read the same files and reach the same verdict, so a dropped guard
   // would turn two suites red for one cause and the extra red would say
   // nothing the first did not. Permanent, not a shortfall.
-  //
-  // SCG6 ADDED A SECOND DIFFERENCE, owned by exec's own front end rather
-  // than by any publish. The reference's F-SCC31-10 now asserts that a
-  // statically undefined name is refused before `main` runs, so no `finally`
-  // runs. That is tom_d4rt's static-name enforcement, which exec's front end
-  // does not perform yet, so this copy keeps the old assertion (the `finally`
-  // runs). sch1_aißr-exec-front-end-enforces-the-static-name-pass ports the enforcement into exec and removes this
-  // paragraph.
   'scc31_undefined_name_uncatchable_test.dart': _Divergence.deliberate,
   // The same deliberate subtraction, for the same reason: F-SCC32-20/21 are a
   // source scan over both mirrored trees rather than script runs.
@@ -2264,7 +2251,7 @@ const Map<String, String> _divergenceFingerprints = <String, String>{
   'stdlib/io/scd188_stdin_audit_reason_expiry_test.dart': '46be47f827711c3a',
   'warm_parent_package_pool_test.dart': '971b6ff19185f442',
   'stdlib/intentionally_unbridged_test.dart': 'a11036cda720efcf',
-  'scc31_undefined_name_uncatchable_test.dart': '70f68bd63f47de1d',
+  'scc31_undefined_name_uncatchable_test.dart': '5cbda0053357426b',
   'scc32_bridged_value_key_test.dart': '0a2b0b334d6eedaf',
   'scc33_unhandled_node_test.dart': '1be2b48d0784ff46',
 };

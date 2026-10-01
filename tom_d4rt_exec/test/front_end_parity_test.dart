@@ -120,13 +120,6 @@ const _expectedAbsences = <String, Map<String, String>>{
         'registerExtensions/finalizeBridges delegate to D4rtRunner '
         'in tom_d4rt_ast, which is where the StateError is thrown; this file '
         'only forwards.',
-    'UndefinedNameD4rtException':
-        'tom_d4rt refuses a statically undefined name before `main` (scg6), '
-        'catching this type to refuse only on the name it confirmed. exec '
-        'does not enforce yet: the confirm stage needs '
-        '`Environment.isDefined`, first published in tom_d4rt_ast 0.204.0, and '
-        'sch1_aißr-exec-front-end-enforces-the-static-name-pass ports it '
-        'and deletes this entry.',
   },
 };
 

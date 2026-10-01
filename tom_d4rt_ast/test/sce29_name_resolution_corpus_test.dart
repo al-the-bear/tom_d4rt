@@ -62,6 +62,17 @@ const Map<String, String> _twinOnlyRealignments = {
       'always has — the reference did not change',
 };
 
+/// The other direction: a marked tom_d4rt release whose change has no twin to
+/// mirror into, because the mechanism it changes exists only in the analyzer
+/// line. The static name pass (scg6) reads the analyzer AST, which the
+/// analyzer-free twin does not have. Every entry must be a marked release
+/// (F-SCE29-2 checks).
+const Map<String, String> _referenceOnly = {
+  '1.224.0':
+      'sci2: the static name pass reads a DottedName as a tag; the pass runs '
+      'over the analyzer AST, so tom_d4rt_ast has no copy to change',
+};
+
 /// Releases that are marked but cannot yet be certified, each with the reason.
 ///
 /// An entry here is a debt, not an exemption: it says a corpus run is owed and
@@ -94,6 +105,9 @@ const Map<String, String> _deferred = {
   '1.223.0':
       'sci1 — unpublished; the twins resolve tom_d4rt from pub.dev (DGUC6). '
       'Owed by the sci1 publish and sci3\'s post-publish corpus run.',
+  '1.224.0':
+      'sci2 — published with exec 1.43.0; the twins resolve tom_d4rt from '
+      'pub.dev (DGUC6). Owed by sci3\'s post-publish corpus run.',
   '0.206.0':
       'sci1 — unpublished; the twins resolve tom_d4rt_ast from pub.dev '
       '(DGUC6). Owed by the sci1 publish and sci3\'s post-publish corpus run.',
@@ -269,10 +283,17 @@ void main() {
         reason: 'a _twinOnlyRealignments entry names no marked release',
       );
 
-      // The two trees are mirrors, so a marked change lands in both — except a
-      // realignment of the twin to the reference, recorded above.
       expect(
-        source.length,
+        _referenceOnly.keys.where((v) => !source.contains(v)),
+        isEmpty,
+        reason: 'a _referenceOnly entry names no marked release',
+      );
+
+      // The two trees are mirrors, so a marked change lands in both — except a
+      // realignment of the twin to the reference, or a change to a mechanism
+      // only the reference has, both recorded above.
+      expect(
+        source.where((v) => !_referenceOnly.containsKey(v)).length,
         ast.where((v) => !_twinOnlyRealignments.containsKey(v)).length,
         reason:
             'a name-resolution change is mirrored, so each marked tom_d4rt '

@@ -1,3 +1,15 @@
+## 1.224.0
+
+### Fixed — a conditional import is not refused as an undefined name (sci2)
+
+scg6's static pass read the `dart.library.io` of
+`import 'x.dart' if (dart.library.io) 'y.dart';` as a variable named `dart`,
+so 1.220.0 through 1.223.0 refused every program with a conditional import
+before `main`. A `DottedName` is now a tag, like the other directive parts.
+tom_d4rt_exec's suite found it while taking over the enforcement.
+
+Name resolution: yes — a conditional import's configuration is no longer read as a name (sci2).
+
 ## 1.223.0
 
 ### Fixed — an alias of a bridged enum defines (SCI1)

@@ -2,11 +2,13 @@ import 'dart:async';
 
 import 'package:analyzer/dart/analysis/features.dart';
 import 'package:analyzer/dart/analysis/utilities.dart';
+import 'package:analyzer/dart/ast/ast.dart' show AssignmentExpression;
 import 'package:analyzer/error/error.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:tom_d4rt_ast/runtime.dart';
 import 'package:tom_ast_generator/tom_ast_generator.dart';
 import 'package:tom_d4rt_exec/src/module_loader.dart';
+import 'package:tom_d4rt_exec/src/static_name_report.dart';
 
 /// The main D4rt interpreter class.
 ///
@@ -117,6 +119,7 @@ class D4rt {
     String sourceCode, {
     String? path,
     List<String>? diagnosticsOut,
+    bool reportNames = false,
   }) {
     final result = parseString(
       content: sourceCode,
@@ -154,6 +157,26 @@ class D4rt {
 
     // Convert analyzer AST to serializable AST
     final cu = _converter.convertCompilationUnit(result.unit);
+    if (!hasErrors && reportNames) {
+      _staticNameCandidates[cu] = [
+        for (final c in reportUnresolvedNames(
+          result.unit,
+          const <String>{},
+        ).unresolved)
+          if (c.node != null)
+            (
+              name: c.name,
+              offset: c.node!.offset,
+              length: c.node!.length,
+              isAssignmentTarget:
+                  c.node!.parent is AssignmentExpression &&
+                  identical(
+                    (c.node!.parent! as AssignmentExpression).leftHandSide,
+                    c.node,
+                  ),
+            ),
+      ];
+    }
 
     if (hasErrors) {
       return SCompilationUnit(
@@ -184,6 +207,7 @@ class D4rt {
       source,
       path: path,
       diagnosticsOut: diagnostics,
+      reportNames: true,
     );
     if (unit.hasParseErrors) {
       final where = path ?? 'the direct source';
@@ -1633,6 +1657,63 @@ class D4rt {
     );
   }
 
+  /// The static pass's candidates for each executable unit, recorded while
+  /// the analyzer unit still exists (sci2). exec converts the analyzer AST to
+  /// the mirror AST and keeps only the latter, so the pass runs at parse time
+  /// and its answer travels with the converted unit.
+  static final Expando<
+    List<({String name, int offset, int length, bool isAssignmentTarget})>
+  >
+  _staticNameCandidates = Expando();
+
+  /// Refuses a program that reads a name nothing defines, before `main` runs
+  /// (SCG6, mirrors tom_d4rt).
+  ///
+  /// TWO STAGES, so neither half has to be perfect. The syntactic pass
+  /// ([reportUnresolvedNames]) NARROWS to candidates; the fully populated
+  /// environment CONFIRMS. A name the pass flags that the environment defines
+  /// is a hole in the pass and stays silent, so a resolver hole costs a missed
+  /// diagnostic and can never reject a working script. Only a name both agree
+  /// on is refused.
+  ///
+  /// THE ERROR IS THE INTERPRETER'S OWN. The refusal evaluates the offending
+  /// identifier, which raises exactly what the line would have raised, only
+  /// earlier. It refuses only on `UndefinedNameD4rtException` for that name;
+  /// an assignment target is left to the runtime, whose message for a write
+  /// differs from the one for a read.
+  void _refuseStaticallyUndefinedNames(
+    SCompilationUnit unit,
+    Environment environment,
+  ) {
+    final candidates = _staticNameCandidates[unit];
+    if (candidates == null) return;
+    for (final candidate in candidates) {
+      // `isDefined`, not `lookup`: `lookup` calls a registered global getter,
+      // and nothing here may run host code before `main`.
+      if (environment.isDefined(candidate.name)) continue;
+      if (candidate.isAssignmentTarget) continue;
+      final node = SSimpleIdentifier(
+        offset: candidate.offset,
+        length: candidate.length,
+        name: candidate.name,
+      );
+      final previous = _visitor!.environment;
+      _visitor!.environment = environment;
+      try {
+        node.accept<Object?>(_visitor!);
+      } on UndefinedNameD4rtException catch (e) {
+        // Refuse only with the error for THIS name. Anything else, or no
+        // error at all, means a runtime fallback resolves the name, and the
+        // pass stays silent.
+        if (e.name == candidate.name) rethrow;
+      } on RuntimeD4rtException {
+        // Not an undefined name; the runtime decides this use.
+      } finally {
+        _visitor!.environment = previous;
+      }
+    }
+  }
+
   /// The interpreted frames the last error to leave this interpreter passed
   /// through, innermost first — empty when the last run succeeded, or failed
   /// outside any interpreted call.
@@ -1755,6 +1836,10 @@ class D4rt {
         declaration.accept<Object?>(_visitor!);
       }
       Logger.debug("[_executeInEnvironment] Finished processing declarations");
+      // SCG6: a name the program reads and nothing defines is refused HERE,
+      // after every import and declaration is registered and before `main`
+      // runs a single statement — as Dart rejects it at compile time.
+      _refuseStaticallyUndefinedNames(compilationUnit, executionEnvironment);
       Logger.debug("[_executeInEnvironment] Looking for $name function");
       final functionCallable = executionEnvironment.get(name);
       if (functionCallable is Callable) {

@@ -10,7 +10,7 @@
 // evaluating it so the error is the one the line would have raised.
 
 import 'package:test/test.dart';
-import 'package:tom_d4rt/d4rt.dart';
+import 'package:tom_d4rt_exec/d4rt.dart';
 
 /// Host-owned record of what the script did.
 final _log = <Object?>[];

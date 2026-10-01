@@ -222,11 +222,16 @@ void main() {
   });
 
   group('SCC31: what deliberately still works', () {
-    test('F-SCC31-10: a finally block still runs on the way out '
-        '[2026-09-05]', () {
-      // Emptying the clause list, rather than skipping the whole catch/finally
-      // block, is what keeps this true. The list is owned by the host and
-      // passed in, so what the finally wrote is readable after the throw.
+    test('F-SCC31-10: a statically undefined name is refused before main, so '
+        'no finally runs at all [2026-09-30]', () {
+      // REWRITTEN BY SCG6. This case pinned that the runtime guard kept a
+      // `finally` running while an undefined name escaped: emptying the clause
+      // list, rather than skipping the whole block, is what kept it true. A
+      // name written in `main` is now refused BEFORE `main` runs, as Dart
+      // rejects it at compile time, so the program never enters the `try` and
+      // the host-owned list stays empty. The runtime guard is unchanged and
+      // still owns every name the static pass cannot judge; there, the
+      // clause-emptying that kept `finally` running still applies.
       final ran = <String>[];
       expect(
         () => execute(
@@ -243,7 +248,11 @@ void main() {
         ),
         throwsA(isA<UndefinedNameD4rtException>()),
       );
-      expect(ran, ['cleanup'], reason: 'the finally block must still run');
+      expect(
+        ran,
+        isEmpty,
+        reason: 'the program must be refused before main enters the try',
+      );
     });
 
     test('F-SCC31-11: an ordinary error in the same try is still catchable '

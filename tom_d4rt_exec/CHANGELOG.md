@@ -1,3 +1,24 @@
+## 1.43.0
+
+### Added — exec refuses a statically undefined name before `main` (sch1, sci2)
+
+The second half of sch1, mirroring tom_d4rt's scg6. The static name pass's
+candidates are recorded when exec parses executable source, since exec keeps
+only the mirror AST after that, and are confirmed through
+`Environment.isDefined` after imports and declarations, before `main` runs. A
+name both stages agree on is refused with the error its line would have
+raised. The scg6 test is ported and scc31's F-SCC31-10 re-ported.
+
+`lib/src/static_name_report.dart` takes tom_d4rt 1.224.0's fix: the
+`dart.library.io` of a conditional import is not a read. Without it, every
+program with a conditional import was refused (F-SCE62-5 found it).
+
+### Changed — tom_ast_generator ^0.1.14
+
+The floor 1.42.0 lowered for the scf34 route is back; F-SCE62-6 passes.
+
+Name resolution: yes — a name the program reads and nothing defines is refused before `main`.
+
 ## 1.42.0
 
 ### Changed — resolves tom_d4rt_ast 0.206.0 / tom_d4rt 1.223.0 (sci2)
