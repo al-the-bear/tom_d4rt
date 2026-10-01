@@ -949,9 +949,25 @@ class Environment {
       current = current._enclosing;
     }
     if (target == null) {
+      // SCI1: an alias may name an ENUM — `typedef MaterialState =
+      // WidgetState;` — and the generator emits it beside the class aliases.
+      // Looking among classes only defined nothing, so the alias was undefined
+      // in every run.
+      BridgedEnum? targetEnum;
+      for (Environment? env = this; env != null; env = env._enclosing) {
+        targetEnum = env._bridgedEnums[targetName];
+        if (targetEnum != null) break;
+      }
+      if (targetEnum != null) {
+        _bridgedEnumsOrNew[aliasName] = targetEnum;
+        Logger.debug(
+          "[Environment] Defined bridge alias: $aliasName -> enum $targetName",
+        );
+        return;
+      }
       Logger.warn(
         "[Environment] Cannot register alias '$aliasName' -> '$targetName': "
-        "target class not found",
+        "target class or enum not found",
       );
       return;
     }

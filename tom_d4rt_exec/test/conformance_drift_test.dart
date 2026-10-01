@@ -1588,8 +1588,9 @@ typedef _CaseCounts = ({int ran, int declared});
 /// the backlog moves from it in either direction. Measured 2026-09-29: 20,
 /// all recorded in [_uncoveredBaseline]; 15 after sce237's publish ported the
 /// five that were only waiting on it; 16 with woneprpd132's embedder-API
-/// test, which exec's front end has no counterpart for.
-const _uncoveredHighWater = 16;
+/// test, which exec's front end has no counterpart for; 17 with woneprpd153's
+/// trace test, which waits on exec resolving tom_d4rt_ast 0.205.0.
+const _uncoveredHighWater = 17;
 
 const Map<String, _CaseCounts> _uncoveredBaseline = {
   // NOT PORTABLE, and not blocked on a publish. It compares what FIVE host
@@ -2254,6 +2255,12 @@ const Map<String, _Divergence> _divergentBaseline = {
   // by copying the reference file down and rewriting its imports as before;
   // converges at a floor past 0.196.0.
   'scc73_sdk_member_completeness_test.dart': _Divergence.deliberate,
+  // SCI1: an alias of a bridged enum (`typedef MaterialState = WidgetState;`)
+  // defines. The published interpreter drops such an alias, so this port
+  // carries the reference verbatim but for a group-level skip.
+  // PUBLISH-BLOCKED — re-port when exec's tom_d4rt_ast floor passes 0.206.0,
+  // by copying the reference file down; converges at a floor past 0.206.0.
+  'sci1_enum_alias_test.dart': _Divergence.deliberate,
   // `scd188`: SCE224 made the reference copy DERIVE its subscribing-getter set
   // from the `Stdin` entry's expiry condition in `tom_d4rt/tool/
   // stdlib_member_diff.dart`, so the set has one home. That tool is
@@ -2347,6 +2354,7 @@ const Map<String, String> _divergenceFingerprints = <String, String>{
   'stdlib/scf36_surplus_arity_bounded_test.dart': 'eb79eb8b24309084',
   'scf35_schedule_microtask_test.dart': 'fca7bb0f00396167',
   'scc73_sdk_member_completeness_test.dart': '300d552b19b4fa8c',
+  'sci1_enum_alias_test.dart': 'c9b92baff0afe1c7',
   'stdlib/io/scd188_stdin_audit_reason_expiry_test.dart': '46be47f827711c3a',
   'warm_parent_package_pool_test.dart': '971b6ff19185f442',
   'stdlib/intentionally_unbridged_test.dart': 'a11036cda720efcf',
@@ -2533,6 +2541,7 @@ typedef _Pin = ({String floor, String measured});
 /// recorded evidence was seven and ten cases out of date. Both are re-stamped
 /// above their entries in `_uncoveredBaseline`.
 const Map<String, _Pin> _pinnedInterpreterFloors = <String, _Pin>{
+  'sci1_enum_alias_test.dart': (floor: '0.206.0', measured: '0.195.0'),
   // SCF44, pinned at the release with the latent stdlib bridge registry.
   'scf44_member_access_without_import_test.dart': (
     floor: '0.203.0',
@@ -3461,7 +3470,7 @@ const Map<String, String> _astDriftFingerprints = <String, String>{
 // scg2) owns the next release and sets this back to `null`.
 // ignore: unnecessary_nullable_for_final_variable_declarations
 const String? _astPublishBlock =
-    'sch4_aißs-publish-the-interpreter-release-and-certify-it';
+    'sci2_ajak-raise-exec-enforce-the-static-name-pass-and-publish';
 
 /// One baseline entry and the comment block written directly above it.
 typedef _BaselineEntry = ({String path, String comment});

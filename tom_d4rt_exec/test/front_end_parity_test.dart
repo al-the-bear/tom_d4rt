@@ -190,7 +190,17 @@ Set<String> _namedArguments(String source, String function) {
 /// `D4rtRunner`, so "record it" would have meant writing down that a working
 /// capability is unreachable through the facade. An entry here needs a reason
 /// that survives being read aloud.
-const _expectedClassAbsences = <String, String>{};
+const _expectedClassAbsences = <String, String>{
+  // woneprpd132. exec implements both in the working tree; they compile only
+  // against tom_d4rt_ast 0.205.0+ (the same change carries `lastErrorTrace`),
+  // and land with sci2's floor raise, which deletes these entries.
+  'parse':
+      'woneprpd132 — lands with exec\'s raise to tom_d4rt_ast 0.205.0 (sci2)',
+  'executeProgram':
+      'woneprpd132 — lands with exec\'s raise to tom_d4rt_ast 0.205.0 (sci2)',
+  'lastErrorTrace':
+      'woneprpd153 — needs tom_d4rt_ast 0.205.0\'s D4rtCallStack (sci2)',
+};
 
 /// Members this facade adds that the reference does not have.
 ///

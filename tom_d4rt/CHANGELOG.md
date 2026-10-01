@@ -1,3 +1,20 @@
+## 1.223.0
+
+### Fixed — an alias of a bridged enum defines (SCI1)
+
+`typedef MaterialState = WidgetState;` is Flutter's deprecated name for an
+enum, and the generator emits it in `classAliases()` beside the class aliases.
+`Environment.defineBridgeAlias` looked the target up among bridged classes
+only, logged "target class not found" and defined nothing, so `MaterialState`
+was undefined in every run. Scripts naming it passed only while that line went
+unevaluated, until scg6's static name pass refused them before `main` (the
+pre-publish base corpus found it in `material/datatable_test.dart`). The alias
+now falls back to a bridged enum of that name anywhere on the scope chain, and
+resolves to the same `BridgedEnum`. Of the 14 aliases in the Flutter bridges,
+it is the only one whose target is an enum.
+
+Name resolution: yes — an alias whose target is a bridged enum now defines the alias name (SCI1).
+
 ## 1.222.0
 
 ### Added — `D4rt.lastErrorTrace`: the interpreted frames an error left (woneprpd153)
