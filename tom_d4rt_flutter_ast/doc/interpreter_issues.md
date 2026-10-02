@@ -4575,10 +4575,61 @@ the newest covering the base corpus with `**Current base-corpus baseline.**`
 marker in the same edit; SCE255 in `test/interpreter_issues_doc_test.dart`
 fails when a marker is left on an older entry.
 
-### 2026-09-30 — base corpus, both twins, at tom_d4rt 1.210.0 / tom_d4rt_ast 0.195.0
+### 2026-10-01 — base corpus, both twins, at tom_d4rt 1.224.0 / tom_d4rt_ast 0.206.0
 
 **Current base-corpus baseline.** The newest run of the base corpus; a new base
 run is compared against this one, and moves the marker.
+
+**Why this run exists.** SCI1 and SCI2 published `tom_d4rt` 1.223.0 → 1.224.0,
+`tom_d4rt_ast` 0.206.0, `tom_d4rt_exec` 1.42.0 → 1.43.0 and
+`tom_ast_generator` 0.1.14, at `tom_d4rt_generator` 1.51.0 (whose formatted
+bridges SCH3 swept into both twins). The releases carry every
+`Name resolution: yes` section since 1.210.0 / 0.195.0: scf38 (1.214.0 /
+0.199.0), scf44 (1.219.0 / 0.203.0), scg6 (1.220.0 / 0.204.0), sci1's alias of a
+bridged enum (1.223.0 / 0.206.0) and sci2's conditional-import fix to the static
+name pass (1.224.0, reference-only). So the protocol's post-publish run is owed,
+serially, on both twins. This is it, and it discharges every SCE29 deferral.
+
+**Before publishing**, the same trees ran path-resolved at 927/1/0 in both twins
+with 0 framework errors and 0 refused callbacks (SCI1, not recordable). That
+pre-publish run is what found the defect 1.223.0 fixes: the source twin's
+`material/datatable_test.dart` was refused by scg6's static pass for reading
+`MaterialState`, an alias of the bridged enum `WidgetState` that
+`defineBridgeAlias` had never defined.
+
+| Package | `tom_d4rt` | `tom_d4rt_ast` | `tom_d4rt_generator` |
+| ------- | ---------- | -------------- | -------------------- |
+| `tom_d4rt_flutter` | **1.224.0** | — | **1.51.0** |
+| `tom_d4rt_flutter/test/tom_d4rt_flutter_test_app` | **1.224.0** | — | — |
+| `tom_d4rt_flutter_ast` | **1.224.0** | **0.206.0** | **1.51.0** |
+| `tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app` | — | **0.206.0** | — |
+
+**Result.** `run_base_tests.sh` in each twin, AST twin first, hosted, with the
+host checked free of other `flutter test` processes (and the webwork session
+holding its own runs) for the whole run:
+
+| Twin | Run | pass / skip / fail | Before (2026-09-30 hosted base) |
+| ---- | --- | ------------------ | ------------------------------- |
+| `tom_d4rt_flutter_ast` | `basetestlog_20261001-1346-base` | 927 / 1 / 0 | 927 / 1 / 0 |
+| `tom_d4rt_flutter` | `basetestlog_20261001-1346-base` | 927 / 1 / 0 | 927 / 1 / 0 |
+
+Every one of the seventeen files matches its previous count on all three
+numbers, including the one standing skip in `flutter_base_15`. No rising skip.
+
+**Framework errors** (SCE247 trailer):
+
+- `tom_d4rt_flutter_ast`: 0 framework error(s) in 0 of 910 script(s); 0 refused callback(s)
+- `tom_d4rt_flutter`: 0 framework error(s) in 0 of 910 script(s); 0 refused callback(s)
+
+**What moved in the bridges.** Nothing since SCH3's regeneration at generator
+1.51.0, which formatted every `*.b.dart`.
+
+**What it does not cover.** The FULL corpus (`run_issue_analysis_tests.sh`)
+is sce160's and was not run here.
+
+### 2026-09-30 — base corpus, both twins, at tom_d4rt 1.210.0 / tom_d4rt_ast 0.195.0
+
+**Superseded as the base-corpus baseline by the 2026-10-01 run above.**
 
 **Why this run exists.** SCF34 published `tom_d4rt` 1.210.0 and `tom_d4rt_ast`
 0.195.0 — the first releases since 1.192.0 / 0.177.0 to be measured here

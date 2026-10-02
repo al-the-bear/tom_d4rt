@@ -80,37 +80,10 @@ const Map<String, String> _referenceOnly = {
 /// blocker lifts — the guard then holds the release to the same standard as
 /// every other.
 const Map<String, String> _deferred = {
-  // Every release up to tom_d4rt 1.210.0 / tom_d4rt_ast 0.195.0 is covered by
+  // Every release up to tom_d4rt 1.224.0 / tom_d4rt_ast 0.206.0 is covered by
   // the post-publish base corpus recorded under `Verification runs` at that
-  // pair (SCF34). An empty map is the normal state; each entry below is a
-  // debt with its reason, deleted when the run is made.
-  '1.214.0':
-      'scf38 — unpublished; the twins resolve tom_d4rt from pub.dev (DGUC6). '
-      'Owed by the scf42 publish and its post-publish corpus run.',
-  '0.199.0':
-      'scf38 — unpublished; the twins resolve tom_d4rt_ast from pub.dev '
-      '(DGUC6). Owed by the scf42 publish and its post-publish corpus run.',
-  '1.219.0':
-      'scf44 — unpublished; the twins resolve tom_d4rt from pub.dev (DGUC6). '
-      'Owed by the scf42 publish and its post-publish corpus run.',
-  '0.203.0':
-      'scf44 — unpublished; the twins resolve tom_d4rt_ast from pub.dev '
-      '(DGUC6). Owed by the scf42 publish and its post-publish corpus run.',
-  '1.220.0':
-      'scg6 — unpublished; the twins resolve tom_d4rt from pub.dev (DGUC6). '
-      'Owed by the sci1 publish and sci3\'s post-publish corpus run.',
-  '0.204.0':
-      'scg6 — unpublished; the twins resolve tom_d4rt_ast from pub.dev '
-      '(DGUC6). Owed by the sci1 publish and sci3\'s post-publish corpus run.',
-  '1.223.0':
-      'sci1 — unpublished; the twins resolve tom_d4rt from pub.dev (DGUC6). '
-      'Owed by the sci1 publish and sci3\'s post-publish corpus run.',
-  '1.224.0':
-      'sci2 — published with exec 1.43.0; the twins resolve tom_d4rt from '
-      'pub.dev (DGUC6). Owed by sci3\'s post-publish corpus run.',
-  '0.206.0':
-      'sci1 — unpublished; the twins resolve tom_d4rt_ast from pub.dev '
-      '(DGUC6). Owed by the sci1 publish and sci3\'s post-publish corpus run.',
+  // pair (SCI3). An empty map is the normal state; each entry is a debt with
+  // its reason, deleted when the run is made.
 };
 
 List<int> _key(String v) => v.split('.').map(int.parse).toList();
