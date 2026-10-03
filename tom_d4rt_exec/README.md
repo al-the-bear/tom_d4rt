@@ -62,7 +62,7 @@ one they just installed.
 - **Configuration introspection** — `getConfiguration()` returns a `D4rtConfiguration` snapshot of all registered bridges, permissions, and globals.
 - **Environment introspection** — `getEnvironmentState()` returns the live global environment after execution.
 - **Debug logging** — `setDebug(true)` enables detailed trace output for all interpreter passes.
-- **Multi-platform** — declared for Android, iOS, Linux, macOS, Web, and Windows.
+- **Multi-platform** — declared for Android, iOS, Linux, macOS and Windows. Not the web: this package depends on `analyzer` and uses `dart:io`. On the web, run pre-built bundles with [`tom_d4rt_ast`](../tom_d4rt_ast/).
 
 ## Quick Start
 

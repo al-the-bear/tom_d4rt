@@ -1,5 +1,11 @@
 ## 1.45.0
 
+### Changed — no web platform claim (dfin4)
+
+`platforms:` no longer lists `web`. This package depends on `analyzer` and
+uses `dart:io`, so it cannot run on the web; pub.dev showed a web badge it
+could not honour. Web embeddings use tom_d4rt_ast's bundle runtime.
+
 ### Changed — exec's own dart:io import gate admits ProcessRunPermission (dfin3)
 
 Mirrors tom_d4rt 1.226.0's import gate. The process and working-directory
