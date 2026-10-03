@@ -1,6 +1,6 @@
 name: tom_ast_generator
 description: AST converter from Dart analyzer AST to serializable AST model.
-version: 0.1.15
+version: 0.1.16
 repository: https://github.com/al-the-bear/tom_d4rt
 homepage: https://github.com/al-the-bear/tom_d4rt/tree/main/tom_ast_generator
 topics:
@@ -21,7 +21,7 @@ dependencies:
   # In-workspace components are pinned to a lower bound only (no upper cap) so
   # `pub upgrade` always tracks our latest published versions during active
   # development.
-  tom_d4rt_ast: "^0.207.0"
+  tom_d4rt_ast: "^0.209.0"
   tom_ast_model: "^0.2.2"
   tom_build_base: ">=2.10.0"
 
@@ -37,4 +37,4 @@ dev_dependencies:
   # 1.19.0 is the first whose `resolveIfUnresolved` asks pub whether a project
   # resolves instead of only checking that a package config exists.
   tom_d4rt_generator: "^1.51.0"
-  tom_d4rt_exec: "^1.45.0"
+  tom_d4rt_exec: "^1.48.0"
