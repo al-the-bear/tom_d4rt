@@ -1,3 +1,9 @@
+## 1.4.6
+
+### Changed — resolves the security release (dfin4)
+
+`tom_d4rt` ^1.226.0. No code change; the bridges are unchanged.
+
 ## 1.4.5
 
 ### Changed — resolves the interpreter releases sci1/sci2 published (sci3)

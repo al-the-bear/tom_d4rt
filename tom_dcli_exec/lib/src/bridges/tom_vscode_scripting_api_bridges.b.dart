@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 31 files
-// Generated: 2026-10-01T13:43:33.119948 by tom_d4rt_generator 1.51.0
+// Generated: 2026-10-03T14:10:02.495170 by tom_d4rt_generator 1.51.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -12965,10 +12965,12 @@ BridgedClass _createMcpSdkServerConfigBridge() {
                 'tools',
               )
             : const <$tom_vscode_scripting_api_2.SdkMcpTool>[];
+        final alwaysLoad = D4.getOptionalNamedArg<bool?>(named, 'alwaysLoad');
         return $tom_vscode_scripting_api_2.McpSdkServerConfig(
           name: name,
           version: version,
           tools: tools,
+          alwaysLoad: alwaysLoad,
         );
       },
       'fromJson': (visitor, positional, named) {
@@ -13007,6 +13009,12 @@ BridgedClass _createMcpSdkServerConfigBridge() {
             'McpSdkServerConfig',
           )
           .tools,
+      'alwaysLoad': (visitor, target) => D4
+          .validateTarget<$tom_vscode_scripting_api_2.McpSdkServerConfig>(
+            target,
+            'McpSdkServerConfig',
+          )
+          .alwaysLoad,
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
@@ -13019,7 +13027,7 @@ BridgedClass _createMcpSdkServerConfigBridge() {
       },
     },
     constructorSignatures: {
-      '': 'McpSdkServerConfig({required String name, String version = \'1.0.0\', List<SdkMcpTool> tools = const []})',
+      '': 'McpSdkServerConfig({required String name, String version = \'1.0.0\', List<SdkMcpTool> tools = const [], bool? alwaysLoad})',
       'fromJson':
           'factory McpSdkServerConfig.fromJson(Map<String, dynamic> json)',
     },
@@ -13029,6 +13037,7 @@ BridgedClass _createMcpSdkServerConfigBridge() {
       'name': 'String get name',
       'version': 'String get version',
       'tools': 'List<SdkMcpTool> get tools',
+      'alwaysLoad': 'bool? get alwaysLoad',
     },
   );
 }

@@ -1,3 +1,9 @@
+## 0.9.6
+
+### Changed — resolves the security release (dfin4)
+
+`tom_d4rt_ast` ^0.207.0, `tom_d4rt_exec` ^1.46.0, `tom_ast_generator` ^0.1.15. No code change; the bridges are unchanged.
+
 ## 0.9.5
 
 ### Changed — resolves the interpreter releases sci1/sci2 published (sci3)

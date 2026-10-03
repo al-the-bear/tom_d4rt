@@ -1,6 +1,6 @@
 name: tom_d4rt_flutter
 description: "Source-based D4rt interpreter with the full Flutter Material bridge surface (SourceFlutterD4rt), plus the bridge conformance test suite and HTTP test harness."
-version: 1.4.5
+version: 1.4.6
 repository: https://github.com/al-the-bear/tom_d4rt
 homepage: https://github.com/al-the-bear/tom_d4rt/tree/main/tom_d4rt_flutter
 
@@ -26,7 +26,7 @@ dependencies:
   # same-name rule to `dart:*` declarations too, so `TextStyle` — declared by
   # both `dart:ui` and painting — is rejected unqualified and 17 base-corpus
   # scripts fail. 1.30.1 restores Dart's platform-library precedence.
-  tom_d4rt: "^1.224.0"
+  tom_d4rt: "^1.226.0"
   path: ^1.9.0
   # A.4: opt-in vector_math_64 bridge surface (Quad / Vector3 / Vector4 / …).
   # Direct dependency required so the generated vector_math_bridges.b.dart can

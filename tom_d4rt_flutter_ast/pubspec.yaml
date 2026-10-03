@@ -1,6 +1,6 @@
 name: tom_d4rt_flutter_ast
 description: "D4rt Flutter Material bridge — execute D4rt scripts that return Flutter widget trees."
-version: 0.9.5
+version: 0.9.6
 repository: https://github.com/al-the-bear/tom_d4rt
 homepage: https://github.com/al-the-bear/tom_d4rt/tree/main/tom_d4rt_flutter_ast
 
@@ -25,7 +25,7 @@ dependencies:
   # same-name rule to `dart:*` declarations too, so `TextStyle` — declared by
   # both `dart:ui` and painting — is rejected unqualified and 17 base-corpus
   # scripts fail. 0.20.1 restores Dart's platform-library precedence.
-  tom_d4rt_ast: "^0.206.0"
+  tom_d4rt_ast: "^0.207.0"
   archive: ^4.0.9
   # Explicit transitive Flutter deps used in generated bridge code
   characters: ^1.4.0
@@ -56,8 +56,8 @@ dev_dependencies:
   # driver — never by lib/ runtime code. The bridges and FlutterD4rt
   # resolve entirely within tom_d4rt_ast, keeping the runtime
   # analyzer-free and web-safe.
-  tom_d4rt_exec: "^1.43.0"
-  tom_ast_generator: "^0.1.14"
+  tom_d4rt_exec: "^1.46.0"
+  tom_ast_generator: "^0.1.15"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

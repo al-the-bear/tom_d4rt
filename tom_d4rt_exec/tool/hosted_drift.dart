@@ -452,14 +452,23 @@ PackageDrift compareLibTrees({
 
 String _normalise(String text) => text.replaceAll('\r\n', '\n');
 
-/// Map of `lib/`-relative path to absolute path for every `.dart` file below [dir].
+/// The versioner stamp: derived FROM the version, rewritten by every build
+/// (build time, build number, commit), so a difference in it is not drift.
+/// `release_hygiene_test.dart` leaves it out of "library changes" for the same
+/// reason (DFIN4).
+const _versionStamp = 'src/version.versioner.dart';
+
+/// Map of `lib/`-relative path to absolute path for every `.dart` file below
+/// [dir], the version stamp excepted.
 Map<String, String> _dartFilesUnder(Directory dir) {
   final prefix = '${dir.path}/'.replaceAll(r'\', '/');
   final result = <String, String>{};
   for (final file in dir.listSync(recursive: true).whereType<File>()) {
     final normalised = file.path.replaceAll(r'\', '/');
     if (!normalised.endsWith('.dart')) continue;
-    result[normalised.substring(prefix.length)] = file.path;
+    final relative = normalised.substring(prefix.length);
+    if (relative == _versionStamp) continue;
+    result[relative] = file.path;
   }
   return result;
 }
