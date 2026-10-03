@@ -1,5 +1,13 @@
 ## 1.45.0
 
+### Changed — resolves tom_d4rt_ast 0.207.0 / tom_d4rt 1.226.0 (dfin4)
+
+`tom_d4rt_ast` ^0.207.0 and dev `tom_d4rt` ^1.226.0. `tom_ast_generator` is
+^0.1.5 for this release only (the scf34 route: every published astgen pins
+`tom_d4rt_ast` below 0.207.0); F-SCE62-6 fails until the next exec release
+raises it again. `dfin3_cwd_and_execute_permission_test.dart` is the reference
+verbatim; its publish pin is gone and `_astPublishBlock` is null.
+
 ### Changed — no web platform claim (dfin4)
 
 `platforms:` no longer lists `web`. This package depends on `analyzer` and

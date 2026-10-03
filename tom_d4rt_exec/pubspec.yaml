@@ -24,8 +24,8 @@ dependencies:
   # The interpreter this package fronts. Resolved from pub.dev, not by path, so
   # this floor is also what any exec test suite actually measures (DGUC6) —
   # raising it is how upstream interpreter work becomes visible here at all.
-  tom_d4rt_ast: "^0.206.0"
-  tom_ast_generator: "^0.1.14"
+  tom_d4rt_ast: "^0.207.0"
+  tom_ast_generator: "^0.1.5"
 
 dev_dependencies:
   lints: ^6.0.0
@@ -55,4 +55,4 @@ dev_dependencies:
   # floor — and for a long time that accident was 1.11.0. Keep the two floors in
   # step; a conformance suite should not have to be reverse-engineered from
   # `dart pub deps` to find out what it is measuring.
-  tom_d4rt: "^1.223.0"
+  tom_d4rt: "^1.226.0"

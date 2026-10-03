@@ -15,12 +15,6 @@ import 'dart:io' as io;
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
-/// PUBLISH-BLOCKED (DGUC6): exec resolves `tom_d4rt_ast` from pub.dev, and
-/// the release carrying DFIN3's gates is 0.207.0. Remove the skips — which
-/// makes the file the reference verbatim again — when exec's floor passes it.
-const _publishBlocked =
-    'PUBLISH-BLOCKED: needs tom_d4rt_ast 0.207.0 (dfin3, published by dfin4)';
-
 /// `/bin/echo` and friends exist on the macOS and Linux fleet hosts; the
 /// process cases are skipped on Windows, where the executable differs.
 final _onPosix = !io.Platform.isWindows;
@@ -34,7 +28,7 @@ String _echoPath() {
 }
 
 void main() {
-  group('DFIN3: Directory.current', skip: _publishBlocked, () {
+  group('DFIN3: Directory.current', () {
     late io.Directory saved;
     late io.Directory root;
 
@@ -96,7 +90,7 @@ void main() { Directory.current = Directory('$here'); }
     });
   });
 
-  group('DFIN3: process execution', skip: _publishBlocked, () {
+  group('DFIN3: process execution', () {
     String run(D4rt d4rt, String executable) =>
         d4rt.execute(
               source:
