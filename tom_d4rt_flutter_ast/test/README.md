@@ -44,14 +44,10 @@ corpus files:
   to `testlog/harnesslog_<ID>/` like the corpus runners, and is serial for the
   same reason they are: one app, one local HTTP server. The `.ps1` runs on
   Windows: measured on legiondary01 on 2026-09-25, `exit=0 +4` in both twins,
-  with the same three output files as the `.sh`. **On Windows this twin needs
-  `D4RT_SKIP_BRIDGE_REGEN=1` until it resolves tom_d4rt_generator 1.50.0 and
-  tom_analyzer_shared 0.7.6**: the harness regenerates bridges before a run,
-  and the generator it resolves today emits 24 of 2015 classes on Windows, so
-  the freshness gate fails in `setUpAll`. scf32 fixed that in both packages;
-  measured on legiondary01 before either was published, the gate reports all
-  18 generated files fresh. Drop the variable, and this paragraph, with the
-  constraint raise that brings those releases in (scf42).
+  with the same three output files as the `.sh`. The bridge freshness gate the
+  harness runs first needs no `D4RT_SKIP_BRIDGE_REGEN` on Windows: measured on
+  legiondary01 on 2026-10-03 at tom_d4rt_generator 1.51.0, all 18 generated
+  files fresh.
 
 It is separate from the corpus runners on purpose, and that was SCC48's original
 call: `framework_error_isolation_test.dart` is named outside the
