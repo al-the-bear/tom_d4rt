@@ -10,6 +10,15 @@ the module declares at its top level plus what its `export` directives name
 (with their `show` / `hide`). Cyclic imports still load. Unnamed extensions are
 still carried, as before.
 
+### Changed — resolves tom_d4rt_ast 0.209.0 / tom_d4rt 1.228.0 (dfin7)
+
+`tom_d4rt_ast` ^0.209.0 and dev `tom_d4rt` ^1.228.0. `tom_ast_generator` is
+^0.1.5 for this release only (the scf34 route: every published astgen pins
+`tom_d4rt_ast` below 0.208.0); F-SCE62-6 fails until the next exec release
+raises it again. `dfin5_record_type_test.dart` and
+`dfin5_record_casts_and_parameters_test.dart` are the reference verbatim; their
+publish pins are gone and `_astPublishBlock` is null.
+
 Name resolution: yes — names an import of an import declares are no longer visible to the importer (dfin6).
 
 ## 1.47.0

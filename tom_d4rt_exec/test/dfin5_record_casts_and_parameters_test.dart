@@ -8,84 +8,73 @@
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
-/// PUBLISH-BLOCKED (DGUC6): exec resolves `tom_d4rt_ast` from pub.dev, and
-/// the release carrying DFIN5's interpreter changes is 0.208.0. Remove the
-/// skip — which makes the file the reference verbatim again — when exec's
-/// floor passes it.
-const _publishBlocked =
-    'PUBLISH-BLOCKED: needs tom_d4rt_ast 0.208.0 (dfin5, published by dfin7)';
-
 Object? execute(String code) => D4rt().execute(source: code);
 
 void main() {
   // The twin's cast message named an AST node class ("SRecordTypeAnnotation")
   // where Dart prints the type.
-  group(
-    'DFIN5: record and function casts and parameter shapes',
-    skip: _publishBlocked,
-    () {
-      test('F-DFIN5-C1: `as` a matching record type passes [2026-10-03]', () {
-        expect(execute("int main() => ((1, 'a') as (int, String)).\$1;"), 1);
-      });
+  group('DFIN5: record and function casts and parameter shapes', () {
+    test('F-DFIN5-C1: `as` a matching record type passes [2026-10-03]', () {
+      expect(execute("int main() => ((1, 'a') as (int, String)).\$1;"), 1);
+    });
 
-      test('F-DFIN5-C2: `as` a mismatched record type throws, naming the type '
-          '[2026-10-03]', () {
-        expect(
-          () => execute("Object main() => (1, 'a') as (String, int);"),
-          throwsA(predicate((e) => '$e'.contains('(String, int)'))),
-        );
-      });
+    test('F-DFIN5-C2: `as` a mismatched record type throws, naming the type '
+        '[2026-10-03]', () {
+      expect(
+        () => execute("Object main() => (1, 'a') as (String, int);"),
+        throwsA(predicate((e) => '$e'.contains('(String, int)'))),
+      );
+    });
 
-      test('F-DFIN5-C3: `as` a function type: a matching tear-off passes, a '
-          'mismatched one throws naming the type [2026-10-03]', () {
-        expect(
-          execute(
-            'int twice(int x) => x * 2;\n'
-            'int main() => (twice as int Function(int))(4);',
+    test('F-DFIN5-C3: `as` a function type: a matching tear-off passes, a '
+        'mismatched one throws naming the type [2026-10-03]', () {
+      expect(
+        execute(
+          'int twice(int x) => x * 2;\n'
+          'int main() => (twice as int Function(int))(4);',
+        ),
+        8,
+      );
+      expect(
+        () => execute(
+          'int twice(int x) => x * 2;\n'
+          'Object main() => twice as String Function(int);',
+        ),
+        throwsA(predicate((e) => '$e'.contains('String Function(int)'))),
+      );
+    });
+
+    test('F-DFIN5-C4: a record-typed parameter accepts its shape and refuses '
+        'another [2026-10-03]', () {
+      const fn = r'int sum((int, int) p) => p.$1 + p.$2;';
+      expect(execute('$fn\nint main() => sum((1, 2));'), 3);
+      expect(
+        () => execute("$fn\nObject main() => sum(('a', 2) as dynamic);"),
+        throwsA(
+          predicate(
+            (e) =>
+                '$e'.contains("is not a subtype of type '(int, int)' of 'p'"),
           ),
-          8,
-        );
-        expect(
-          () => execute(
-            'int twice(int x) => x * 2;\n'
-            'Object main() => twice as String Function(int);',
-          ),
-          throwsA(predicate((e) => '$e'.contains('String Function(int)'))),
-        );
-      });
+        ),
+      );
+    });
 
-      test('F-DFIN5-C4: a record-typed parameter accepts its shape and refuses '
-          'another [2026-10-03]', () {
-        const fn = r'int sum((int, int) p) => p.$1 + p.$2;';
-        expect(execute('$fn\nint main() => sum((1, 2));'), 3);
-        expect(
-          () => execute("$fn\nObject main() => sum(('a', 2) as dynamic);"),
-          throwsA(
-            predicate(
-              (e) =>
-                  '$e'.contains("is not a subtype of type '(int, int)' of 'p'"),
-            ),
-          ),
-        );
-      });
-
-      test('F-DFIN5-C5: a function-typed parameter accepts a matching tear-off; '
-          'a mismatched one is NOT refused, by design [2026-10-03]', () {
-        // Unlike a record, a function annotation is not checked at a parameter
-        // (`InterpretedFunction.resolveBinding`): the interpreter infers no
-        // context type for a closure literal, so `(x) => x + 1` passed where
-        // `int Function(int)` is declared has the runtime type
-        // `dynamic Function(dynamic)`, and a structural check would refuse a
-        // correct callback. This pins that boundary so a change to it is a
-        // decision rather than an accident.
-        const fns =
-            'int apply(int Function(int) f) => f(3);\n'
-            'int inc(int x) => x + 1;\n'
-            r"String show(int x) => '$x';"
-            '\n';
-        expect(execute('${fns}int main() => apply(inc);'), 4);
-        expect(execute('${fns}Object main() => apply(show as dynamic);'), '3');
-      });
-    },
-  );
+    test('F-DFIN5-C5: a function-typed parameter accepts a matching tear-off; '
+        'a mismatched one is NOT refused, by design [2026-10-03]', () {
+      // Unlike a record, a function annotation is not checked at a parameter
+      // (`InterpretedFunction.resolveBinding`): the interpreter infers no
+      // context type for a closure literal, so `(x) => x + 1` passed where
+      // `int Function(int)` is declared has the runtime type
+      // `dynamic Function(dynamic)`, and a structural check would refuse a
+      // correct callback. This pins that boundary so a change to it is a
+      // decision rather than an accident.
+      const fns =
+          'int apply(int Function(int) f) => f(3);\n'
+          'int inc(int x) => x + 1;\n'
+          r"String show(int x) => '$x';"
+          '\n';
+      expect(execute('${fns}int main() => apply(inc);'), 4);
+      expect(execute('${fns}Object main() => apply(show as dynamic);'), '3');
+    });
+  });
 }

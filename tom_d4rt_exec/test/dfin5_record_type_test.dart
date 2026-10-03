@@ -9,17 +9,10 @@
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
-/// PUBLISH-BLOCKED (DGUC6): exec resolves `tom_d4rt_ast` from pub.dev, and
-/// the release carrying DFIN5's interpreter changes is 0.208.0. Remove the
-/// skip — which makes the file the reference verbatim again — when exec's
-/// floor passes it.
-const _publishBlocked =
-    'PUBLISH-BLOCKED: needs tom_d4rt_ast 0.208.0 (dfin5, published by dfin7)';
-
 Object? _run(String source) => D4rt().execute(source: source);
 
 void main() {
-  group('DFIN5: Record', skip: _publishBlocked, () {
+  group('DFIN5: Record', () {
     test('DFIN5-R1: a record is a Record, a non-record is not '
         '[2026-10-03]', () {
       expect(
