@@ -72,6 +72,11 @@
 //              `StateError`, `print`, …), and a rule that noisy gets muted.
 //   F-SCD10-6  every recorded class-surface absence is still absent, so an
 //              entry cannot outlive its reason.
+//   F-DFIN9-1  the five filesystem-import helpers of `ModuleLoader` (import
+//              resolution, cache identity, the source-read permission check,
+//              the missing-module error) are the reference bodies byte for
+//              byte. The module-read security check exists in two files, and
+//              before DFIN9 nothing held them in step.
 //
 // Comments are stripped before comparing: `module_loader.dart` mentions
 // `AmbiguousBridgedNameException` in a comment explaining where the throw
@@ -226,6 +231,53 @@ Set<String> _publicMembers(String path, String className) {
     }
   }
   return names;
+}
+
+/// `ModuleLoader` members held byte-identical to the reference, by name.
+///
+/// DFIN9. These five are the filesystem-import path: where a relative import
+/// resolves, which spelling of a file is its cache identity, the
+/// `FilesystemPermission` read check that runs before any byte of module source
+/// is read, and the error that names why a module could not be loaded. They are
+/// the module-read security check, so two copies that drift would mean the two
+/// front ends grant different reads. Both trees parse with the analyzer and read
+/// files through `dart:io`, so the bodies are the same code rather than variants;
+/// a shared home would need a new package both can depend on, which this layer
+/// does not have. They are held the way F-SCD10-7 holds the static name pass: a
+/// change lands in `tom_d4rt` and is copied down.
+const _heldIdenticalMembers = <String>[
+  '_resolveFileSystemUri',
+  '_canonicalizeModuleUri',
+  '_moduleIdentityUri',
+  '_checkFileSystemSourceReadPermission',
+  '_missingModuleSourceError',
+];
+
+/// The source of [className].[member] in [path], from its signature to its
+/// closing brace.
+///
+/// The doc comment is excluded, and only it: each tree's comment names its own
+/// history (`DGUB3 (mirrors tom_d4rt DFUB2)` here), so equal comments are not
+/// the property. Comments INSIDE the body are compared with the code. Returns
+/// `null` when the member is not declared, so a deletion is a finding too.
+String? _memberSource(String path, String className, String member) {
+  final source = File(path).readAsStringSync();
+  final unit = parseString(
+    content: source,
+    path: p.normalize(p.absolute(path)),
+    featureSet: FeatureSet.latestLanguageVersion(),
+  ).unit;
+  for (final decl in unit.declarations.whereType<ClassDeclaration>()) {
+    if (decl.name.lexeme != className) continue;
+    for (final m in decl.members.whereType<MethodDeclaration>()) {
+      if (m.name.lexeme != member) continue;
+      return source.substring(
+        m.firstTokenAfterCommentAndMetadata.offset,
+        m.end,
+      );
+    }
+  }
+  return null;
 }
 
 void main() {
@@ -478,6 +530,34 @@ void main() {
         reason:
             '$ported differs from $reference. Copy the reference over it '
             '(`cp $reference $ported`): the pass is kept in ONE place.',
+      );
+    }, skip: skipReason);
+
+    test('F-DFIN9-1: the filesystem-import helpers are the reference code, '
+        'byte for byte [2026-10-03] (PASS)', () {
+      const reference = '../tom_d4rt/lib/src/module_loader.dart';
+      const ported = 'lib/src/module_loader.dart';
+      final findings = <String>[];
+      for (final member in _heldIdenticalMembers) {
+        final want = _memberSource(reference, 'ModuleLoader', member);
+        final got = _memberSource(ported, 'ModuleLoader', member);
+        if (want == null || got == null) {
+          findings.add(
+            '$member is not declared in '
+            '${want == null ? reference : ported}',
+          );
+        } else if (want != got) {
+          findings.add('$member differs');
+        }
+      }
+      expect(
+        findings,
+        isEmpty,
+        reason:
+            'These ModuleLoader members are the module-read security check and '
+            'are kept as ONE body in two files. Make the change in $reference '
+            'and copy the member over the one in $ported (doc comments may '
+            'differ; nothing else may).',
       );
     }, skip: skipReason);
   });
