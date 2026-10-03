@@ -80,22 +80,10 @@ const Map<String, String> _referenceOnly = {
 /// blocker lifts — the guard then holds the release to the same standard as
 /// every other.
 const Map<String, String> _deferred = {
-  // Every release up to tom_d4rt 1.224.0 / tom_d4rt_ast 0.206.0 is covered by
+  // Every release up to tom_d4rt 1.228.0 / tom_d4rt_ast 0.209.0 is covered by
   // the post-publish base corpus recorded under `Verification runs` at that
-  // pair (SCI3). An empty map is the normal state; each entry is a debt with
+  // pair (DFIN7). An empty map is the normal state; each entry is a debt with
   // its reason, deleted when the run is made.
-  '1.227.0':
-      'dfin5 — unpublished; the twins resolve tom_d4rt from pub.dev (DGUC6). '
-      'Owed by dfin7\'s publish and post-publish corpus run.',
-  '0.208.0':
-      'dfin5 — unpublished; the twins resolve tom_d4rt_ast from pub.dev '
-      '(DGUC6). Owed by dfin7\'s publish and post-publish corpus run.',
-  '1.228.0':
-      'dfin6 — unpublished; the twins resolve tom_d4rt from pub.dev (DGUC6). '
-      'Owed by dfin7\'s publish and post-publish corpus run.',
-  '0.209.0':
-      'dfin6 — unpublished; the twins resolve tom_d4rt_ast from pub.dev '
-      '(DGUC6). Owed by dfin7\'s publish and post-publish corpus run.',
 };
 
 List<int> _key(String v) => v.split('.').map(int.parse).toList();
