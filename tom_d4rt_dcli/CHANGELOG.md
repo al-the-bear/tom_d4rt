@@ -1,3 +1,14 @@
+## 1.7.2
+
+### Changed — resolves the security release; bridges regenerated (dfin4)
+
+Resolves `tom_d4rt` 1.226.0. `cli_api_bridges` carries the interpreter's new public surface
+(`loadedSourceModuleCount`), and `tom_vscode_scripting_api_bridges` its 1.1.3
+API. Scripts run through the REPL keep every permission they had: the REPL
+grants FilesystemPermission.any and ProcessRunPermission.any, so neither the
+script-runner import check nor the execute rule narrows what a REPL script can
+do.
+
 ## 1.7.1
 
 ### Changed — bridges regenerated with tom_d4rt_generator 1.51.0 (sch3)
