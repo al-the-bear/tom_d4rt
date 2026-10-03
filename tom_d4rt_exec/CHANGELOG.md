@@ -1,3 +1,11 @@
+## 1.51.0
+
+### Changed — tom_ast_generator ^0.1.17 (dfin9)
+
+The floor 1.50.0 lowered for the scf34 route is back; F-SCE62-6 passes.
+
+Name resolution: no.
+
 ## 1.50.0
 
 ### Changed — resolves tom_d4rt_ast 0.210.0 / tom_d4rt 1.229.0 (dfin9)
