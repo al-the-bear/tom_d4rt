@@ -1,3 +1,10 @@
+## 0.1.17
+
+### Changed — resolves tom_d4rt_ast 0.210.0 and tom_d4rt_exec 1.50.0 (dfin9)
+
+`tom_d4rt_ast` ^0.210.0 and dev `tom_d4rt_exec` ^1.50.0, carrying the web
+`int` fix.
+
 ## 0.1.16
 
 ### Changed — resolves tom_d4rt_ast 0.209.0 and tom_d4rt_exec 1.48.0 (dfin7)
