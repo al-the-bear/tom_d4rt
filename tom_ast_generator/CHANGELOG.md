@@ -1,3 +1,9 @@
+## 0.1.15
+
+### Changed — resolves tom_d4rt_ast 0.207.0 and tom_d4rt_exec 1.45.0 (dfin4)
+
+`tom_d4rt_ast` ^0.207.0 and dev `tom_d4rt_exec` ^1.45.0, the security release.
+
 ## 0.1.14
 
 ### Changed — resolves tom_d4rt_ast 0.206.0 and tom_d4rt_exec 1.42.0 (sci2)
