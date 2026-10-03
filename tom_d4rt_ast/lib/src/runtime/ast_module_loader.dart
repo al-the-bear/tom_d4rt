@@ -292,14 +292,18 @@ class AstModuleLoader implements ModuleContext {
     // natively by a bridge. The available-modules list stays: in a bundle
     // (unlike a filesystem loader) the complete set of candidates is known, so
     // showing it turns a typo into a one-glance fix.
+    //
+    // DFIN5 (dgub20): a SourceCodeD4rtException, as tom_d4rt and tom_d4rt_exec
+    // raise for the same missing module, so `on SourceCodeD4rtException`
+    // catches it on every line.
     if (uri.scheme == 'package') {
-      throw RuntimeD4rtException(
+      throw SourceCodeD4rtException(
         'Package module "$uriString" not found in bundle. Include that package '
         'library when building the bundle, or register a bridge for it. '
         'Available: ${modules.keys.join(", ")}',
       );
     }
-    throw RuntimeD4rtException(
+    throw SourceCodeD4rtException(
       'Module "$uriString" not found in bundle. '
       'Available: ${modules.keys.join(", ")}',
     );

@@ -368,7 +368,7 @@ void main() {
       expect(
         () => loader.loadModule(Uri.parse('package:app/missing.dart')),
         throwsA(
-          isA<RuntimeD4rtException>().having(
+          isA<SourceCodeD4rtException>().having(
             (e) => e.toString(),
             'message',
             contains('not found in bundle'),
@@ -388,7 +388,7 @@ void main() {
       expect(
         () => loader.loadModule(Uri.parse('package:app/missing.dart')),
         throwsA(
-          isA<RuntimeD4rtException>().having(
+          isA<SourceCodeD4rtException>().having(
             (e) => e.toString(),
             'message',
             allOf(

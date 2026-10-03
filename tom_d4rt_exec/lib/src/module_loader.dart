@@ -886,12 +886,23 @@ class ModuleLoader implements context.ModuleContext {
     // Process class and mixin declarations to populate their members (methods, constructors, etc.)
     // The DeclarationVisitor only creates placeholders with empty constructor maps.
     // Bug-59: Without this, imported classes have no constructors available!
-    for (final declaration in ast.declarations) {
-      if (declaration is SClassDeclaration ||
-          declaration is SMixinDeclaration) {
-        declaration.accept(moduleInterpreter);
+    //
+    // DFIN5 (dgub14, mirrors AstModuleLoader): static-field initializers are
+    // deferred until EVERY class and mixin is populated, so a `static final`
+    // list that constructs a class declared later in the module does not fail
+    // with "does not have an unnamed constructor".
+    moduleInterpreter.deferStaticFieldInits = true;
+    try {
+      for (final declaration in ast.declarations) {
+        if (declaration is SClassDeclaration ||
+            declaration is SMixinDeclaration) {
+          declaration.accept(moduleInterpreter);
+        }
       }
+    } finally {
+      moduleInterpreter.deferStaticFieldInits = false;
     }
+    moduleInterpreter.runDeferredStaticInitializers();
 
     // Process function declarations to populate interpreted functions properly
     for (final declaration in ast.declarations) {
@@ -904,6 +915,15 @@ class ModuleLoader implements context.ModuleContext {
     // Extensions need to be processed by the interpreter to be available for imported modules
     for (final declaration in ast.declarations) {
       if (declaration is SExtensionDeclaration) {
+        declaration.accept(moduleInterpreter);
+      }
+    }
+
+    // DFIN5 (dgub14, mirrors AstModuleLoader): extension type declarations.
+    // Without this pass an imported extension type's wrapper is never
+    // registered, and its importer sees "Undefined variable".
+    for (final declaration in ast.declarations) {
+      if (declaration is SExtensionTypeDeclaration) {
         declaration.accept(moduleInterpreter);
       }
     }

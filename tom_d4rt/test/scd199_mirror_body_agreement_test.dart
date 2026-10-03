@@ -313,12 +313,14 @@ const _divergentBodies = <String, Map<String, String>>{
     // flag where the analyzer's node carries a token and a `question`, and it
     // cannot print itself, so the twin rebuilds the type's spelling by hand.
     // `_castTypeDescription` exists to keep that one difference in one member
-    // instead of at both call sites.
-    'InterpreterVisitor._castTypeDescription': '8ab45b85',
+    // instead of at both call sites. DFIN5 extended the twin's half for record
+    // and function types, which it now spells through their resolved runtime
+    // type, as the reference's `toSource()` does.
+    'InterpreterVisitor._castTypeDescription': '81b8f29e',
     'InterpreterVisitor._tryCast': 'c54f1a19',
     'InterpreterVisitor._matchAndBind': 'bcdd64fd',
     'InterpreterVisitor._processCollectionElement': '14f71e24',
-    'InterpreterVisitor._resolveTypeAnnotationWithEnvironment': '6111216b',
+    'InterpreterVisitor._resolveTypeAnnotationWithEnvironment': '7c7642bd',
     'InterpreterVisitor._statementsIntroduceBindings': '73f8180e',
     'InterpreterVisitor._subtreeContainsClosure': 'b6e41360',
     'InterpreterVisitor._valueHasType': '716e1f67',

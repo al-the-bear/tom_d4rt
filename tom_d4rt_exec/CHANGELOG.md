@@ -1,3 +1,14 @@
+## 1.47.0
+
+### Fixed — imported modules: forward static fields and extension types (dfin5, dgub14)
+
+exec's own module loader lacked two passes the other two loaders have. An
+imported class whose static field constructs a class declared later in the
+module failed with "does not have an unnamed constructor", and an imported
+extension type was undefined in its importer. Both work now.
+
+Name resolution: no.
+
 ## 1.46.0
 
 ### Changed — tom_ast_generator ^0.1.15 (dfin4)

@@ -1,3 +1,19 @@
+## 1.227.0
+
+### Fixed — `Record` is a type; record parameters are checked (dfin5)
+
+`x is Record` raised "Undefined variable: Record", and a `Record` return or
+parameter type raised "Type 'Record' not found.", although every record is a
+`Record` in Dart. Both now work, and `x as Record` refuses a non-record
+(dguc7). A RECORD-typed parameter is now checked structurally:
+`sum((int, int) p)` called with `('a', 2)` raises
+`type '(String, int)' is not a subtype of type '(int, int)' of 'p'`.
+FUNCTION-typed parameters stay unchecked on purpose: the interpreter infers no
+context type for a closure literal, so a structural check would refuse correct
+callbacks (dguc8).
+
+Name resolution: yes — `Record` resolves in `is`, `as` and type annotations (dfin5).
+
 ## 1.226.0
 
 ### Changed — no web platform claim (dfin4)

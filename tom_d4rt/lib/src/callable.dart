@@ -403,9 +403,29 @@ class InterpretedFunction implements Callable {
   }) {
     // An unannotated binding admits anything.
     if (typeNode == null) return null;
-    // Only nominal annotations are checked. `int Function(String)` and
-    // `(int, String)` need a structural comparison against a callable or a
-    // record, and getting that wrong rejects working callbacks.
+    // DFIN5 (dguc8): a RECORD annotation is checked structurally. A record's
+    // runtime type is exact (its fields' values are known), so the comparison
+    // cannot reject a correct program the way a function-type check would.
+    if (typeNode is RecordTypeAnnotation) {
+      final RuntimeType declaredType;
+      try {
+        declaredType = _resolveTypeAnnotationDynamic(typeNode, env);
+      } catch (_) {
+        return null;
+      }
+      return ResolvedBinding._(
+        declaredType,
+        declaredType.name,
+        typeNode.question != null,
+        describedAs == null ? '' : " of '$describedAs'",
+        null,
+      );
+    }
+    // Function annotations stay unchecked: the interpreter infers no context
+    // type for a closure literal, so `(x) => x + 1` passed where an
+    // `int Function(int)` is declared has the runtime type
+    // `dynamic Function(dynamic)`, and a structural check would reject a
+    // correct callback.
     if (typeNode is! NamedType) return null;
 
     // Cheap spelling-level exit, before the environment lookup below. The same

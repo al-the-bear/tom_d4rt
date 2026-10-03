@@ -1,3 +1,28 @@
+## 0.208.0
+
+### Fixed — `Record` is a type; record parameters are checked; the cast message names the type (dfin5)
+
+`x is Record` raised "Undefined variable: Record", and a `Record` return or
+parameter type raised "Type 'Record' not found.", although every record is a
+`Record` in Dart. Both now work, and `x as Record` refuses a non-record
+(dguc7). A RECORD-typed parameter is now checked structurally:
+`sum((int, int) p)` called with `('a', 2)` raises
+`type '(String, int)' is not a subtype of type '(int, int)' of 'p'`.
+FUNCTION-typed parameters stay unchecked on purpose: the interpreter infers no
+context type for a closure literal, so a structural check would refuse correct
+callbacks (dguc8). A failed cast to a record or function type names the type
+as Dart writes it, "(String, int)" or "String Function(int)", where it named
+the AST node class ("SRecordTypeAnnotation").
+
+### Changed — a missing module is a SourceCodeD4rtException (dfin5, dgub20)
+
+The bundle loader raised `RuntimeD4rtException` for a module not in the
+bundle, where tom_d4rt and tom_d4rt_exec raise `SourceCodeD4rtException` for
+the same condition. It now raises the latter, so one `on` clause catches it on
+every line.
+
+Name resolution: yes — `Record` resolves in `is`, `as` and type annotations (dfin5).
+
 ## 0.207.0
 
 ### Changed — the working directory and process execution are permission-checked (dfin3)
