@@ -1,3 +1,11 @@
+## 1.49.0
+
+### Changed — tom_ast_generator ^0.1.16 (dfin7)
+
+The floor 1.48.0 lowered for the scf34 route is back; F-SCE62-6 passes.
+
+Name resolution: no.
+
 ## 1.48.0
 
 ### Changed — a module exports only its own declarations and its `export`s (dfin6)
