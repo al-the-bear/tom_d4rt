@@ -1,3 +1,9 @@
+## 1.8.4
+
+### Changed — resolves the correctness release (dfin7)
+
+`tom_d4rt_exec` ^1.49.0, `tom_d4rt_ast` ^0.209.0, `tom_ast_generator` ^0.1.16. No code change; the bridges are fresh against the new release and the suite passes, so no REPL script relied on a name only an import of an import declares (dfin6).
+
 ## 1.8.3
 
 ### Changed — resolves the security release; bridges regenerated (dfin4)
