@@ -1,3 +1,17 @@
+## 1.228.0
+
+### Changed — a module exports only its own declarations and its `export`s (dfin6)
+
+BREAKING for a script that relied on the leak. A module's exported environment
+used to receive its whole module environment, imports included, so with
+`main -> a -> b` the entry could call a name only `b` declares. Dart rejects
+that ("Undefined name"), and so does the interpreter now: an importer sees what
+the module declares at its top level plus what its `export` directives name
+(with their `show` / `hide`). Cyclic imports still load. Unnamed extensions are
+still carried, as before.
+
+Name resolution: yes — names an import of an import declares are no longer visible to the importer (dfin6).
+
 ## 1.227.0
 
 ### Fixed — `Record` is a type; record parameters are checked (dfin5)

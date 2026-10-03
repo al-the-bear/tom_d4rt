@@ -159,20 +159,32 @@ void main() {
       );
       final todos = readTodos(file.readAsStringSync());
       // A floor, not a count: it tells "parsed the file" from "parsed an
-      // empty or truncated file". It was 100 while the live file held several
-      // hundred entries; the 2026-09-30 consolidation (the scg round) moved all
-      // but 29 of them (measured 2026-09-30) to the archived and deleted
-      // siblings, and the 2026-10-03 consolidation (the dfin round) left ten
-      // (measured 2026-10-03), so the floor follows the file's new size. The
-      // open-todo check below is what keeps the rule from applying to nothing.
-      expect(todos.length, greaterThanOrEqualTo(5));
+      // empty or truncated file". It followed the file's size down through two
+      // consolidations (100, then 5); the dfin round (2026-10-03) finishes the
+      // quest's list, so the live file legitimately shrinks toward nothing as
+      // its last todos are archived, and the floor is now one entry. The
+      // open-todo check below keeps the rule from applying to nothing.
+      expect(todos, isNotEmpty);
       expect(
         todos.where((t) => _openStatuses.contains(t.status)),
         isNotEmpty,
         reason: 'no OPEN todo was parsed, so the rule below applies to nothing',
       );
+      // The patterns' own anti-vacuity reads the ARCHIVED sibling too: a short
+      // live list may hold no count at all (measured 2026-10-03: none of the
+      // last five does), and that says nothing about whether the patterns still
+      // recognise one. The archive holds hundreds of entries that do.
+      final archived = File(
+        file.path.replaceFirst(
+          'todos.d4rt.todo.yaml',
+          'todos-archived.d4rt.todo.yaml',
+        ),
+      );
       expect(
-        todos.where((t) => citesSuiteCount(t.text)),
+        [
+          ...todos,
+          if (archived.existsSync()) ...readTodos(archived.readAsStringSync()),
+        ].where((t) => citesSuiteCount(t.text)),
         isNotEmpty,
         reason:
             'no todo anywhere cites a count, which means the patterns stopped '

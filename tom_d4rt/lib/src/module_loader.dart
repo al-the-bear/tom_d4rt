@@ -1320,7 +1320,15 @@ class ModuleLoader {
     // `exportedEnvironment` was created up-front (DFUB10) so cyclic importers
     // hold a live reference; here it finally receives this module's own
     // declarations, now that moduleEnvironment holds their initialized values.
-    exportedEnvironment.importEnvironment(moduleEnvironment);
+    // DFIN6 (dgub15): ONLY this module's own declarations. moduleEnvironment
+    // also holds everything the module IMPORTED, and merging all of it
+    // re-exported every import: with main -> a -> b, main could call a name
+    // only b declares, which Dart rejects. What a module re-exports is what
+    // its `export` directives name, merged below.
+    exportedEnvironment.importEnvironment(
+      moduleEnvironment,
+      show: _ownTopLevelNames(ast),
+    );
     Logger.debug(
       "[ModuleLoader loadModule for $uri] Initialized exportedEnvironment with local declarations (post-initialization).",
     );
@@ -2397,4 +2405,26 @@ class ModuleLoader {
       _mergeReExportsGlobal(re.uri, visited);
     }
   }
+}
+
+/// The names a module declares at its top level (DFIN6): what its exported
+/// environment carries before its `export` directives are applied. Imported
+/// names are not among them.
+Set<String> _ownTopLevelNames(CompilationUnit unit) {
+  final names = <String>{};
+  for (final d in unit.declarations) {
+    switch (d) {
+      case NamedCompilationUnitMember():
+        names.add(d.name.lexeme);
+      case ExtensionDeclaration(:final name?):
+        names.add(name.lexeme);
+      case TopLevelVariableDeclaration():
+        for (final v in d.variables.variables) {
+          names.add(v.name.lexeme);
+        }
+      default:
+        break;
+    }
+  }
+  return names;
 }
