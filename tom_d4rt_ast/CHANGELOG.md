@@ -1,3 +1,23 @@
+## 0.210.0
+
+### Added — a browser test (dfin8)
+
+`test/web/bundle_in_browser_test.dart` decodes a bundle the analyzer front end
+produced and `dart:io` gzipped on a host, then runs it, compiled to JavaScript
+(`dart test -P browser`, Chrome). `dart_test.yaml` keeps the default platform
+`vm`, so a host without Chrome passes the suite.
+
+### Fixed — integers are typed `int`, not `double`, on the web (dfin8)
+
+`Environment.getRuntimeType` tested `is int` and then `is double` with no
+`else`, so the later test won. Compiled to JavaScript every number is a double
+and `1 is double` is true there, so every integer was typed `double`, and
+`[1, 2]` was refused where a `List<int>` parameter is declared. The test chain
+now stops at the first match, with `int` before `double`. No change on the VM,
+where `1 is double` is false. Found by tom_d4rt_ast's new browser test.
+
+Name resolution: no.
+
 ## 0.209.0
 
 ### Changed — a module exports only its own declarations and its `export`s (dfin6)

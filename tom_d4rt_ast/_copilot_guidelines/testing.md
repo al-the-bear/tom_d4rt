@@ -101,6 +101,23 @@ bearing and both have guards:
   conditional imports, and fails if any path reaches it. Its third case is the
   anti-vacuity control: it asserts the walk actually follows conditional
   imports rather than stopping at them.
+* **A bundle must load and run in a browser.** Import-graph safety does not
+  prove that gzip decodes on the web (`package:archive`'s pure-Dart ZLib there,
+  not the native codec) or that the interpreter behaves once compiled to
+  JavaScript. `test/web/bundle_in_browser_test.dart` (`F-DFIN8-1..4`,
+  `@TestOn('browser')`) decodes a bundle the analyzer front end produced and
+  `dart:io` gzipped on a host, then runs it. Run it with
+
+      dart test -P browser        # Chrome, or CHROME_EXECUTABLE
+
+  `dart_test.yaml` keeps the default platform `vm`, so a host without Chrome
+  filters the file out rather than failing it; `bundle_fixture_vm_test.dart`
+  runs the same fixture on the VM on every run. The fixture
+  (`test/web/support/bundle_fixture.dart`) is a persisted artifact written by
+  `tom_d4rt_exec/tool/write_web_bundle_fixture.dart`; do not regenerate it to
+  make a test pass. Its first run found a real web defect: integers typed as
+  `double` because `1 is double` is true on JavaScript. Number tests must
+  check `int` first.
 * **`lib/` must not import `dart:mirrors`.** It does not, and the four
   mentions of mirrors in `lib/` are comments explaining why a member is
   reflected some other way.
@@ -201,6 +218,7 @@ and what it asserts.
 cd tom_d4rt_ast
 dart test                 # ~950 cases, about ten seconds
 dart test -j 4            # the usual full run
+dart test -P browser      # the browser test; needs Chrome
 ```
 
 There is no companion app and no corpus here — those belong to the Flutter

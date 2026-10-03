@@ -1,0 +1,13 @@
+# The default run is VM-only, so a host without Chrome passes the suite. The
+# browser test (test/web/bundle_in_browser_test.dart, @TestOn('browser')) is
+# filtered out there rather than failed; run it with
+#
+#     dart test -P browser
+#
+# which needs Chrome (or CHROME_EXECUTABLE pointing at a Chromium).
+platforms: [vm]
+
+presets:
+  browser:
+    platforms: [chrome]
+    paths: [test/web/]
