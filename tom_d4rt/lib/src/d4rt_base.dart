@@ -647,6 +647,12 @@ class D4rt {
   int get debugLoadedModuleCount =>
       _hasExecutedOnce ? _moduleLoader.loadedModuleCount : 0;
 
+  /// The number of source files (`file:` modules, entry script included) the
+  /// last run loaded. `0` before the first execute. `executeFile` reports it as
+  /// `sourcesLoaded` (DFIN2).
+  int get loadedSourceModuleCount =>
+      _hasExecutedOnce ? _moduleLoader.loadedSourceModuleCount : 0;
+
   /// Step 9 — returns the merged per-module registry bundle for a **migrated**
   /// instance (one that has called [providePackage] at least once), or `null`
   /// for the **legacy** path (which reads the per-instance maps directly).

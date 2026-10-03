@@ -845,7 +845,8 @@ const Map<String, _Coverage> _coveredElsewhere = {
         'not-yet-created path, and one under a symlinked ancestor). The three '
         'it omits — F-DGUB5-1..3 — assert what an IMPORT is allowed to read, '
         'which needs module resolution over source, and tom_d4rt_ast has no '
-        'parser. Only exec can run those, and it does, at its own path.',
+        'parser. Only exec can run those, and it does: DFIN2 ported the '
+        'reference file verbatim to the same path.',
   ),
   'environment_lazy_bridge_test.dart': _Coverage(
     'ast:environment_lazy_bridge_test.dart',

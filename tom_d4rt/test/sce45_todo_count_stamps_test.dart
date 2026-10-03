@@ -162,9 +162,10 @@ void main() {
       // empty or truncated file". It was 100 while the live file held several
       // hundred entries; the 2026-09-30 consolidation (the scg round) moved all
       // but 29 of them (measured 2026-09-30) to the archived and deleted
-      // siblings, so the floor follows the file's new size. The open-todo
-      // check below is what keeps the rule from applying to nothing.
-      expect(todos.length, greaterThan(10));
+      // siblings, and the 2026-10-03 consolidation (the dfin round) left ten
+      // (measured 2026-10-03), so the floor follows the file's new size. The
+      // open-todo check below is what keeps the rule from applying to nothing.
+      expect(todos.length, greaterThanOrEqualTo(5));
       expect(
         todos.where((t) => _openStatuses.contains(t.status)),
         isNotEmpty,

@@ -187,6 +187,12 @@ class ModuleLoader {
   /// accumulated. Bridged-module envs (which carry no user AST) are not counted.
   int get loadedModuleCount => _moduleCache.length;
 
+  /// How many SOURCE modules (`file:` URIs, the entry script included) this
+  /// loader holds — what a script runner reports as `sourcesLoaded`. Stdlib and
+  /// bridged modules are cached here too and are not counted.
+  int get loadedSourceModuleCount =>
+      _moduleCache.keys.where((uri) => uri.scheme == 'file').length;
+
   /// Step #3 (retention) — drops the per-loader parsed-module cache so a
   /// finished run's [CompilationUnit]s become collectable. Only the per-loader
   /// [_moduleCache] is cleared; the process-global shared bridge caches (pool,

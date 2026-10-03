@@ -19,9 +19,9 @@
 // different route — `resolveImportsRecursively`, a regex-based pre-walk in
 // script_execution.dart that reads every transitive import off disk with NO
 // permission check and folds them into `sources` before the interpreter runs.
-// That path is older than this change and its reads stay ungated; F-DGUB3-7
-// pins the boundary so nobody mistakes the gate below for whole-package
-// coverage. Closing it is DGUC1.
+// That path used to bypass the gate with its own regex pre-walk. Since DFIN2
+// the loader reads every executeFile import, and F-DGUB3-7 pins the boundary
+// that replaced it.
 
 import 'dart:io' as io;
 
@@ -251,20 +251,19 @@ String main() => "unreachable";
 
   group('DGUB3: the gate applies to the loader path only', () {
     test(
-      'F-DGUB3-7: executeFile still reads transitive imports without a grant, '
-      'because its pre-walk bypasses the loader [2026-07-27] (PASS)',
+      'F-DGUB3-7: executeFile reads imports through the loader — beside the '
+      'script with no grant, outside it only with one [2026-10-03] (PASS)',
       () {
-        // NOT an endorsement — a boundary pin. `executeFile` resolves imports
-        // itself (regex pre-walk in script_execution.dart) and hands the result
-        // to `sources`, so the loader never reaches the filesystem branch and
-        // the F-DGUB3-4 gate never runs. Asserting the CURRENT behaviour keeps
-        // the gap visible and gives DGUC1 a test to invert: when the pre-walk
-        // is gated this test must be rewritten to expect a denial, and the
-        // rewrite is the signal that consumers need grants.
+        // DFIN2 inverted this pin. The regex pre-walk that read imports
+        // without a grant is gone; the loader reads them, under one implicit
+        // grant for the run (READ on the script's directory tree).
         final appDir = io.Directory('${tempRoot.path}/unguarded')
           ..createSync(recursive: true);
         io.File('${appDir.path}/dep.dart').writeAsStringSync('''
-String depValue() => "read-without-grant";
+String depValue() => "beside-the-script";
+''');
+        io.File('${tempRoot.path}/outside.dart').writeAsStringSync('''
+String outsideValue() => "outside";
 ''');
         final mainFile = io.File('${appDir.path}/main.dart')
           ..writeAsStringSync('''
@@ -273,19 +272,19 @@ import './dep.dart';
 String main() => depValue();
 ''');
 
-        // No FilesystemPermission granted anywhere.
-        final d4rt = D4rt();
-        final result = executeFile(d4rt, mainFile.path);
-
-        expect(
-          result.success,
-          isTrue,
-          reason:
-              'executeFile pre-walk is ungated today; if this now fails, '
-              'DGUC1 has landed and this test must be inverted',
-        );
-        expect(result.result, equals('read-without-grant'));
+        final result = executeFile(D4rt(), mainFile.path);
+        expect(result.error, isNull);
+        expect(result.result, equals('beside-the-script'));
         expect(result.sourcesLoaded, equals(2));
+
+        mainFile.writeAsStringSync('''
+import '../outside.dart';
+
+String main() => outsideValue();
+''');
+        final refused = executeFile(D4rt(), mainFile.path);
+        expect(refused.success, isFalse);
+        expect(refused.error, contains('FilesystemPermission'));
       },
     );
   });

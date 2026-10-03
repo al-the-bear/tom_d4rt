@@ -1,3 +1,29 @@
+## 1.225.0
+
+### Changed — the script runners read imports through the interpreter's permissions (dfin2)
+
+BREAKING for a script that imports from outside its own directory without a
+grant. `executeFile`, `executeSource` and `executeFileContinued` used to
+resolve imports with a regex pre-walk that read every transitive import off
+disk directly, so a scoped FilesystemPermission did not hold, a symlink
+inside the script directory read outside it, and a run with no grant at all
+could read anything the process could. `executeFile` and `executeSource` now
+hand the interpreter only the entry source, and the module loader reads
+every import under FilesystemPermission on the file's real path.
+`executeFileContinued` evaluates file by file, so it keeps its own walk, but
+every read goes through the same check.
+
+Each run adds one implicit grant: READ on the entry script's directory tree
+(the `basePath` for `executeSource`), added and removed by identity, so a
+host grant is never touched. An import beside or below the script runs as
+before, and anything outside needs the host's own grant.
+`resolveImportsRecursively` remains a host-side utility (no sandbox), now
+resolving paths with `Uri.resolve` and taking an optional `readFile`.
+`D4rt.loadedSourceModuleCount` reports the `file:` modules of the last run;
+`sourcesLoaded` is read from it.
+
+Name resolution: no — the loader resolves the same imports; only who reads the files changed.
+
 ## 1.224.0
 
 ### Fixed — a conditional import is not refused as an undefined name (sci2)
