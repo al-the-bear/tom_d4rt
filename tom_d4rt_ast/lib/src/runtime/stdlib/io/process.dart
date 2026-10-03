@@ -12,28 +12,19 @@ class ProcessIo {
     typeParameterCount: 0,
     staticMethods: {
       'start': (visitor, positionalArgs, namedArgs, _) {
-        _checkProcessPermission(
-          visitor,
-          positionalArgs.isNotEmpty ? positionalArgs[0].toString() : '',
-        );
+        _checkProcessPermission(visitor, positionalArgs);
         return _start(positionalArgs, namedArgs);
       },
       'run': (visitor, positionalArgs, namedArgs, _) {
-        _checkProcessPermission(
-          visitor,
-          positionalArgs.isNotEmpty ? positionalArgs[0].toString() : '',
-        );
+        _checkProcessPermission(visitor, positionalArgs);
         return _run(positionalArgs, namedArgs);
       },
       'runSync': (visitor, positionalArgs, namedArgs, _) {
-        _checkProcessPermission(
-          visitor,
-          positionalArgs.isNotEmpty ? positionalArgs[0].toString() : '',
-        );
+        _checkProcessPermission(visitor, positionalArgs);
         return _runSync(positionalArgs, namedArgs);
       },
       'killPid': (visitor, positionalArgs, namedArgs, _) {
-        _checkProcessPermission(visitor, 'kill');
+        _checkKillPermission(visitor);
         return _killPid(positionalArgs, namedArgs);
       },
     },
@@ -182,18 +173,95 @@ class ProcessIo {
     return instance.kill(signal);
   }
 
-  /// Helper method to check if ProcessRunPermission is granted
+  /// The permission check for [visitor]'s run, or null when nothing is
+  /// enforced.
+  static bool Function(dynamic)? _permissionCheck(InterpreterVisitor visitor) {
+    // The module context answers; with no checker wired it is permissive,
+    // as the reference tree is with no interpreter instance.
+    return visitor.moduleContext.checkPermission;
+  }
+
+  /// Asserts the script may start the process [positionalArgs] describes
+  /// (DFIN3).
+  ///
+  /// THE RULE: a ProcessRunPermission covering the command and its arguments,
+  /// OR a FilesystemPermission with `execute` on the executable. Either one is
+  /// enough. The executable is the command itself when it names a path, else
+  /// the first match on `PATH`, and the check reads its REAL path so a symlink
+  /// cannot borrow another file's grant. A command that resolves to no file
+  /// can only be allowed by ProcessRunPermission.
   static void _checkProcessPermission(
     InterpreterVisitor visitor,
-    String command,
+    List<Object?> positionalArgs,
   ) {
-    // Check for ProcessRunPermission via moduleContext
-    if (!visitor.moduleContext.checkPermission({'type': 'process'})) {
-      throw RuntimeD4rtException(
-        'Process execution requires ProcessRunPermission. '
-        'Use d4rt.grant(ProcessRunPermission.any) to allow process execution.',
-      );
+    final check = _permissionCheck(visitor);
+    if (check == null) return;
+
+    final command = positionalArgs.isNotEmpty
+        ? positionalArgs[0].toString()
+        : '';
+    final args = positionalArgs.length > 1 && positionalArgs[1] is List
+        ? [for (final a in positionalArgs[1] as List) a.toString()]
+        : <String>[];
+
+    if (check({'type': 'process', 'command': command, 'args': args})) return;
+
+    final executable = resolveExecutable(command);
+    if (executable != null &&
+        check({
+          'type': 'filesystem',
+          'path': executable,
+          'read': false,
+          'write': false,
+          'execute': true,
+        })) {
+      return;
     }
+
+    throw RuntimeD4rtException(
+      'Running "$command" requires a ProcessRunPermission for the command, '
+      'or a FilesystemPermission with execute on '
+      '${executable == null ? 'its executable' : '"$executable"'}.',
+    );
+  }
+
+  /// `Process.killPid` names no executable, so only ProcessRunPermission can
+  /// allow it.
+  static void _checkKillPermission(InterpreterVisitor visitor) {
+    final check = _permissionCheck(visitor);
+    if (check == null) return;
+    if (check({'type': 'process'})) return;
+    throw RuntimeD4rtException(
+      'Process.killPid requires ProcessRunPermission. '
+      'Use d4rt.grant(ProcessRunPermission.any) to allow it.',
+    );
+  }
+
+  /// The real path of the executable [command] runs, or null when none is
+  /// found: the command itself when it names a path, else the first match on
+  /// `PATH` (with `PATHEXT` on Windows).
+  static String? resolveExecutable(String command) {
+    if (command.isEmpty) return null;
+    String? real(File f) =>
+        f.existsSync() ? f.resolveSymbolicLinksSync() : null;
+    if (command.contains('/') || command.contains(Platform.pathSeparator)) {
+      return real(File(command).absolute);
+    }
+    final pathVar = Platform.environment['PATH'] ?? '';
+    final extensions = Platform.isWindows
+        ? [
+            '',
+            ...(Platform.environment['PATHEXT'] ?? '.EXE;.BAT;.CMD').split(';'),
+          ]
+        : const [''];
+    for (final dir in pathVar.split(Platform.isWindows ? ';' : ':')) {
+      if (dir.isEmpty) continue;
+      for (final ext in extensions) {
+        final found = real(File('$dir${Platform.pathSeparator}$command$ext'));
+        if (found != null) return found;
+      }
+    }
+    return null;
   }
 }
 

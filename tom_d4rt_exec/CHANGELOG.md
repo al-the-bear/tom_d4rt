@@ -1,3 +1,14 @@
+## 1.45.0
+
+### Changed — exec's own dart:io import gate admits ProcessRunPermission (dfin3)
+
+Mirrors tom_d4rt 1.226.0's import gate. The process and working-directory
+gates themselves live in tom_d4rt_ast's stdlib and reach exec with
+tom_d4rt_ast 0.207.0; `dfin3_cwd_and_execute_permission_test.dart` is ported
+publish-blocked until then.
+
+Name resolution: no.
+
 ## 1.44.0
 
 ### Changed — the script runners read imports through the interpreter's permissions (dfin2)

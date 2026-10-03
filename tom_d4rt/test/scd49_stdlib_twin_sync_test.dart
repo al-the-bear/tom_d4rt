@@ -114,6 +114,15 @@ const _idiomRef =
     'return ; if ( ! d4rt';
 const _idiomAst = 'if ( ! visitor . moduleContext';
 
+/// The same idiom in `io/process.dart` since DFIN3, which acquires the check
+/// once in `_permissionCheck` and returns it (null in the reference when no
+/// `D4rt` is wired, the context's permissive check in the twin), so the gates
+/// that use it carry no divergence of their own.
+const _processRef =
+    'final d4rt = visitor . moduleLoader . d4rt ; if ( d4rt == null ) '
+    'return null ; return d4rt';
+const _processAst = 'return visitor . moduleContext';
+
 /// The same idiom in `filesystem_permission_helper.dart`, where the shared
 /// prefix ends one token earlier (the `final` binds a different variable), so
 /// the trimmed region picks up the statement around it.
@@ -155,7 +164,7 @@ const _certificateHelperAst =
 /// whose job it is.
 const _allowed = <String, (String, String)>{
   'io/platform.dart': (_idiomRef, _idiomAst),
-  'io/process.dart': (_idiomRef, _idiomAst),
+  'io/process.dart': (_processRef, _processAst),
   'io/filesystem_permission_helper.dart': (_helperRef, _helperAst),
   'io/network_permission_helper.dart': (_networkHelperRef, _networkHelperAst),
   'io/certificate_permission_helper.dart': (

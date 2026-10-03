@@ -1,3 +1,29 @@
+## 1.226.0
+
+### Changed — the working directory and process execution are permission-checked (dfin3)
+
+`Directory.current = x` is a WRITE on `x`. Changing the working directory
+moves every relative path a grant is checked against, process-wide and for
+every later script, so it needs the standing of a write there. The `current`
+and `systemTemp` getters stay unchecked: each returns a `Directory`, and
+every operation on that is checked.
+
+A process starts when EITHER a ProcessRunPermission covers the command and its
+arguments, OR a FilesystemPermission with `execute` covers the executable. The
+executable is the command itself when it names a path, else the first match on
+`PATH` (`PATHEXT` on Windows), checked on its real path. `Process.killPid`
+names no executable and needs ProcessRunPermission. Until now the gate passed
+neither the command nor its arguments, so `ProcessRunPermission.command(...)`
+and `.commandWithArgs(...)` allowed nothing, and the `execute` flag gated
+nothing. BEHAVIOUR CHANGE: `FilesystemPermission.any` and
+`FilesystemPermission.path(...)` carry `execute`, so a script holding either can
+now run an executable. A host that wants file access only should grant
+`FilesystemPermission.read` / `.write` (or the `readPath` / `writePath`
+forms). The `dart:io` import gate also admits a script holding only a
+ProcessRunPermission (`commandAgnostic`, as `pathAgnostic` is for files).
+
+Name resolution: no.
+
 ## 1.225.0
 
 ### Changed — the script runners read imports through the interpreter's permissions (dfin2)

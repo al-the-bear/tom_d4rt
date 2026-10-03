@@ -253,12 +253,24 @@ class DirectoryIo {
       'parent': (visitor, target) => (target as Directory).parent,
       'isAbsolute': (visitor, target) => (target as Directory).isAbsolute,
     },
+    // Ungated on purpose: each returns a `Directory`, and every operation on
+    // it is checked like any other. `current` reveals the working directory's
+    // path, which is no grant.
     staticGetters: {
       'systemTemp': (visitor) => Directory.systemTemp,
       'current': (visitor) => Directory.current,
     },
     staticSetters: {
+      // DFIN3: a WRITE on the target. Changing the working directory moves
+      // every relative path a grant is checked against, process-wide and for
+      // every later script, so it needs the same standing as writing there.
       'current': (visitor, value) {
+        final target = value is Directory ? value.path : value.toString();
+        checkFilesystemWritePermission(
+          visitor,
+          target,
+          operation: 'change the working directory',
+        );
         Directory.current = value;
         return;
       },

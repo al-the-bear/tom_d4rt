@@ -2220,6 +2220,13 @@ const Map<String, _Divergence> _divergentBaseline = {
   // natively (F-SCC33-AST-1/2) against its own node type, which is the only
   // place it can be pinned. The five behavioural cases are verbatim.
   'scc33_unhandled_node_test.dart': _Divergence.deliberate,
+  // DFIN3: Directory.current is a WRITE on its target, and a process starts
+  // under a ProcessRunPermission for the command or a FilesystemPermission
+  // with execute on the executable. The published interpreter has neither
+  // gate, so this port carries the reference verbatim but for group skips.
+  // PUBLISH-BLOCKED — re-port when exec's tom_d4rt_ast floor passes 0.207.0,
+  // by copying the reference file down; converges at a floor past 0.207.0.
+  'dfin3_cwd_and_execute_permission_test.dart': _Divergence.deliberate,
 };
 
 /// The difference each [_divergentBaseline] entry actually sanctions.
@@ -2255,6 +2262,7 @@ const Map<String, String> _divergenceFingerprints = <String, String>{
   'scc31_undefined_name_uncatchable_test.dart': '5cbda0053357426b',
   'scc32_bridged_value_key_test.dart': '0a2b0b334d6eedaf',
   'scc33_unhandled_node_test.dart': '1be2b48d0784ff46',
+  'dfin3_cwd_and_execute_permission_test.dart': '262ef43f8b3fd25f',
 };
 
 /// The direct interpreter-package imports the port recipe legitimately rewrites,
@@ -2434,7 +2442,12 @@ typedef _Pin = ({String floor, String measured});
 /// 8-of-10 to 13-of-20 — still wholly failing, so still justified, but their
 /// recorded evidence was seven and ten cases out of date. Both are re-stamped
 /// above their entries in `_uncoveredBaseline`.
-const Map<String, _Pin> _pinnedInterpreterFloors = <String, _Pin>{};
+const Map<String, _Pin> _pinnedInterpreterFloors = <String, _Pin>{
+  'dfin3_cwd_and_execute_permission_test.dart': (
+    floor: '0.207.0',
+    measured: '0.206.0',
+  ),
+};
 
 /// The `tom_d4rt_ast` floor exec's own `pubspec.yaml` currently declares.
 ///
@@ -3322,7 +3335,7 @@ const Map<String, String> _astDriftFingerprints = <String, String>{
 // tree is ahead of the release again. sch4 (which absorbed scf42 and then
 // scg2) owns the next release and sets this back to `null`.
 // ignore: unnecessary_nullable_for_final_variable_declarations
-const String? _astPublishBlock = null;
+const String? _astPublishBlock = 'dfin4_ajcm-publish-the-security-release';
 
 /// One baseline entry and the comment block written directly above it.
 typedef _BaselineEntry = ({String path, String comment});

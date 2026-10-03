@@ -327,10 +327,16 @@ class ModuleLoader {
         'pathAgnostic': true,
       });
       final hasNetwork = d4rt!.checkPermission({'type': 'network'});
-      if (!hasFilesystem && !hasNetwork) {
+      // DFIN3: process execution lives in dart:io too, so a script granted
+      // only ProcessRunPermission can import the library its grant is for.
+      final hasProcess = d4rt!.checkPermission({
+        'type': 'process',
+        'commandAgnostic': true,
+      });
+      if (!hasFilesystem && !hasNetwork && !hasProcess) {
         throw RuntimeD4rtException(
-          'Access to dart:io requires FilesystemPermission or '
-          'NetworkPermission. Use d4rt.grant(FilesystemPermission.any) to '
+          'Access to dart:io requires FilesystemPermission, NetworkPermission or '
+          'ProcessRunPermission. Use d4rt.grant(FilesystemPermission.any) to '
           'allow filesystem access, or d4rt.grant(NetworkPermission.any) for '
           'sockets and HTTP.',
         );

@@ -252,9 +252,12 @@ void main() {
       'I-NET-5: Process execution without permission fails. [2026-02-10 06:37] (PASS)',
       () {
         final interpreter = D4rt();
-        interpreter.grant(
-          FilesystemPermission.any,
-        ); // IO needed but not process
+        // IO needed but not process. read + write, not `any`: since DFIN3
+        // FilesystemPermission's execute flag (which `any` carries) is
+        // enough to run an executable.
+        interpreter
+          ..grant(FilesystemPermission.read)
+          ..grant(FilesystemPermission.write);
 
         expect(
           () => interpreter.execute(
@@ -724,8 +727,10 @@ void main() {
       test(
         'I-NET-19: Network fails without permission. [2026-02-10 06:37] (PASS)',
         () {
-          final interpreter = D4rt();
-          interpreter.grant(FilesystemPermission.any);
+          final interpreter = D4rt()
+            // Not `any`: its execute flag runs executables since DFIN3.
+            ..grant(FilesystemPermission.read)
+            ..grant(FilesystemPermission.write);
 
           expect(
             () => interpreter.execute(
@@ -773,8 +778,10 @@ void main() {
       test(
         'I-NET-22: Process fails without permission. [2026-02-10 06:37] (PASS)',
         () {
-          final interpreter = D4rt();
-          interpreter.grant(FilesystemPermission.any);
+          final interpreter = D4rt()
+            // Not `any`: its execute flag runs executables since DFIN3.
+            ..grant(FilesystemPermission.read)
+            ..grant(FilesystemPermission.write);
 
           expect(
             () => interpreter.execute(
