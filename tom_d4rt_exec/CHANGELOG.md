@@ -1,3 +1,16 @@
+## 1.50.0
+
+### Changed — resolves tom_d4rt_ast 0.210.0 / tom_d4rt 1.229.0 (dfin9)
+
+`tom_d4rt_ast` ^0.210.0 and dev `tom_d4rt` ^1.229.0, which carry dfin8's fix
+for integers typed as `double` on the web. `tom_ast_generator` is ^0.1.5 for
+this release only (the scf34 route: astgen 0.1.16 pins `tom_d4rt_ast` below
+0.210.0); F-SCE62-6 fails until the next exec release raises it again.
+`front_end_parity_test.dart` gains F-DFIN9-1, which holds the five
+filesystem-import helpers of `ModuleLoader` byte-identical to `tom_d4rt`'s.
+
+Name resolution: no.
+
 ## 1.49.0
 
 ### Changed — tom_ast_generator ^0.1.16 (dfin7)
