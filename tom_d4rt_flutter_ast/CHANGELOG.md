@@ -1,3 +1,9 @@
+## 0.9.8
+
+### Changed — resolves the web int fix release (dfin9)
+
+`tom_d4rt_ast` ^0.210.0, `tom_d4rt_exec` ^1.51.0, `tom_ast_generator` ^0.1.17, carrying the fix for integers typed as `double` on the web. No code change; the bridges are unchanged.
+
 ## 0.9.7
 
 ### Changed — resolves the correctness release (dfin7)

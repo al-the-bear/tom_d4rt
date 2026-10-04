@@ -1,3 +1,9 @@
+## 1.8.5
+
+### Changed — resolves the web int fix release (dfin9)
+
+`tom_d4rt_exec` ^1.51.0, `tom_d4rt_ast` ^0.210.0, `tom_ast_generator` ^0.1.17. No code change.
+
 ## 1.8.4
 
 ### Changed — resolves the correctness release (dfin7)
