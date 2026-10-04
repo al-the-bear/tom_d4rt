@@ -295,6 +295,9 @@ Future<GenerationResult> generateBridges({
       projectDir,
       summaryPaths: summaryPaths,
       sdkSummaryPath: sdkSummaryPath,
+      // DFIN10: a missing annotation, or two user bridges for one target, is
+      // reported rather than dropped in silence.
+      onWarning: warnings.add,
     );
 
     // sce47: the annotation-driven directive scan, beside the user-bridge one.

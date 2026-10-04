@@ -1,3 +1,24 @@
+## 1.52.0
+
+### Added — two user bridges for one target are reported (dfin10)
+
+`UserBridgeScanner` keys user bridges by (library, class) and globals bridges
+by library, and silently overwrote an existing entry, so with two
+`@D4rtUserBridge` classes for the same target the one scanned last won and the
+other was dropped without a word. It now warns, naming both bridges, their
+files, and the one it keeps. Which one is kept is unchanged (the later), so no
+generated output moves. The same bridge registered twice, as the pre-scan and
+the generator's own library scan both do, is not reported.
+
+The warning reaches the caller: `preScanUserBridges` takes an `onWarning`
+callback, and `generateBridges` passes its project-level warning list, so the
+scanner's existing "no annotation" warning is surfaced there too instead of
+being dropped.
+
+Per-member overrides need no change: several user bridges for DIFFERENT
+targets, and per-method / getter / setter / operator / constructor overrides
+within one bridge, already work.
+
 ## 1.51.0
 
 ### Added — generated bridges carry each function typedef's positional arity (scg5, from sce163)

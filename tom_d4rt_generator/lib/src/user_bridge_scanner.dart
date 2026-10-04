@@ -25,6 +25,7 @@ library;
 
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
+import 'package:path/path.dart' as p;
 
 /// Information about a user bridge class and its overrides.
 class UserBridgeInfo {
@@ -227,7 +228,8 @@ class UserBridgeScanner {
   /// Creates a new UserBridgeScanner.
   ///
   /// [onWarning] is called when a D4UserBridge class is found without
-  /// the required annotation.
+  /// the required annotation, and when two user bridges target the same class
+  /// or the same library's globals (DFIN10).
   UserBridgeScanner({this.onWarning});
 
   /// Get all discovered user bridges.
@@ -320,23 +322,67 @@ class UserBridgeScanner {
 
     if (annotation != null) {
       final (libraryPath, targetClass) = annotation;
-      _userBridges[(libraryPath, targetClass)] = _extractUserBridgeInfo(
+      final info = _extractUserBridgeInfo(
         classElement,
         libraryPath,
         targetClass,
         className,
       );
+      final previous = _userBridges[(libraryPath, targetClass)];
+      if (previous != null) {
+        _reportDuplicate(
+          target: '${targetClass ?? '<any class>'} in $libraryPath',
+          kept: (info.userBridgeClassName, info.sourceFile),
+          dropped: (previous.userBridgeClassName, previous.sourceFile),
+        );
+      }
+      _userBridges[(libraryPath, targetClass)] = info;
     } else if (globalsAnnotation != null) {
-      _globalsUserBridges[globalsAnnotation] = _extractGlobalsUserBridgeInfo(
+      final info = _extractGlobalsUserBridgeInfo(
         classElement,
         globalsAnnotation,
         className,
       );
+      final previous = _globalsUserBridges[globalsAnnotation];
+      if (previous != null) {
+        _reportDuplicate(
+          target: 'the globals of $globalsAnnotation',
+          kept: (info.userBridgeClassName, info.sourceFile),
+          dropped: (previous.userBridgeClassName, previous.sourceFile),
+        );
+      }
+      _globalsUserBridges[globalsAnnotation] = info;
     } else {
       onWarning?.call(
         'UserBridge $className has no @D4rtUserBridge or @D4rtGlobalsUserBridge annotation, ignoring',
       );
     }
+  }
+
+  /// DFIN10: warns that a second user bridge took [target] from the first.
+  ///
+  /// The later one is kept, as it always was, so no project's output changes;
+  /// what changes is that the dropped one is named. Which one comes later
+  /// depends on the order files are listed in, so the author should remove one.
+  ///
+  /// The same class seen again is not a duplicate: the generator scans
+  /// libraries itself as well as through the pre-scan, so one bridge can be
+  /// registered more than once.
+  void _reportDuplicate({
+    required String target,
+    required (String name, String file) kept,
+    required (String name, String file) dropped,
+  }) {
+    if (kept.$1 == dropped.$1 &&
+        p.normalize(p.absolute(kept.$2)) ==
+            p.normalize(p.absolute(dropped.$2))) {
+      return;
+    }
+    onWarning?.call(
+      'Two user bridges target $target: ${dropped.$1} (${dropped.$2}) and '
+      '${kept.$1} (${kept.$2}); keeping ${kept.$1}. Remove one of them — '
+      'which is kept depends on file order.',
+    );
   }
 
   /// Returns true if [classElement]'s direct supertype is `D4UserBridge`.
