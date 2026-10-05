@@ -187,6 +187,12 @@ class ModuleLoader {
   /// accumulated. Bridged-module envs (which carry no user AST) are not counted.
   int get loadedModuleCount => _moduleCache.length;
 
+  /// How many SOURCE modules (`file:` URIs, the entry script included) this
+  /// loader holds — what a script runner reports as `sourcesLoaded`. Stdlib and
+  /// bridged modules are cached here too and are not counted.
+  int get loadedSourceModuleCount =>
+      _moduleCache.keys.where((uri) => uri.scheme == 'file').length;
+
   /// Step #3 (retention) — drops the per-loader parsed-module cache so a
   /// finished run's [CompilationUnit]s become collectable. Only the per-loader
   /// [_moduleCache] is cleared; the process-global shared bridge caches (pool,
@@ -321,10 +327,16 @@ class ModuleLoader {
         'pathAgnostic': true,
       });
       final hasNetwork = d4rt!.checkPermission({'type': 'network'});
-      if (!hasFilesystem && !hasNetwork) {
+      // DFIN3: process execution lives in dart:io too, so a script granted
+      // only ProcessRunPermission can import the library its grant is for.
+      final hasProcess = d4rt!.checkPermission({
+        'type': 'process',
+        'commandAgnostic': true,
+      });
+      if (!hasFilesystem && !hasNetwork && !hasProcess) {
         throw RuntimeD4rtException(
-          'Access to dart:io requires FilesystemPermission or '
-          'NetworkPermission. Use d4rt.grant(FilesystemPermission.any) to '
+          'Access to dart:io requires FilesystemPermission, NetworkPermission or '
+          'ProcessRunPermission. Use d4rt.grant(FilesystemPermission.any) to '
           'allow filesystem access, or d4rt.grant(NetworkPermission.any) for '
           'sockets and HTTP.',
         );
@@ -1308,7 +1320,15 @@ class ModuleLoader {
     // `exportedEnvironment` was created up-front (DFUB10) so cyclic importers
     // hold a live reference; here it finally receives this module's own
     // declarations, now that moduleEnvironment holds their initialized values.
-    exportedEnvironment.importEnvironment(moduleEnvironment);
+    // DFIN6 (dgub15): ONLY this module's own declarations. moduleEnvironment
+    // also holds everything the module IMPORTED, and merging all of it
+    // re-exported every import: with main -> a -> b, main could call a name
+    // only b declares, which Dart rejects. What a module re-exports is what
+    // its `export` directives name, merged below.
+    exportedEnvironment.importEnvironment(
+      moduleEnvironment,
+      show: _ownTopLevelNames(ast),
+    );
     Logger.debug(
       "[ModuleLoader loadModule for $uri] Initialized exportedEnvironment with local declarations (post-initialization).",
     );
@@ -2385,4 +2405,26 @@ class ModuleLoader {
       _mergeReExportsGlobal(re.uri, visited);
     }
   }
+}
+
+/// The names a module declares at its top level (DFIN6): what its exported
+/// environment carries before its `export` directives are applied. Imported
+/// names are not among them.
+Set<String> _ownTopLevelNames(CompilationUnit unit) {
+  final names = <String>{};
+  for (final d in unit.declarations) {
+    switch (d) {
+      case NamedCompilationUnitMember():
+        names.add(d.name.lexeme);
+      case ExtensionDeclaration(:final name?):
+        names.add(name.lexeme);
+      case TopLevelVariableDeclaration():
+        for (final v in d.variables.variables) {
+          names.add(v.name.lexeme);
+        }
+      default:
+        break;
+    }
+  }
+  return names;
 }

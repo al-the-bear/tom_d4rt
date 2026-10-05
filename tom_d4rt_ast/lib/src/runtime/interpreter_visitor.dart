@@ -516,11 +516,26 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   /// rebuilds the name from the node. Confined to this method on purpose —
   /// both call sites (the `as` expression and the cast pattern) go through it,
   /// so the difference is one recorded member rather than four inline copies.
-  String _castTypeDescription(SAstNode? typeNode) => typeNode is SNamedType
-      ? (typeNode.importPrefix != null
-            ? '${typeNode.importPrefix!.name}.${typeNode.name?.name ?? '?'}'
-            : typeNode.name?.name ?? '?')
-      : typeNode.runtimeType.toString();
+  String _castTypeDescription(SAstNode? typeNode) {
+    if (typeNode is SNamedType) {
+      return typeNode.importPrefix != null
+          ? '${typeNode.importPrefix!.name}.${typeNode.name?.name ?? '?'}'
+          : typeNode.name?.name ?? '?';
+    }
+    // DFIN5 (dguc8): a record or function type has no source text on the
+    // mirror AST, so it was described by its NODE class
+    // ("SRecordTypeAnnotation"). Its resolved runtime type spells it as Dart
+    // does — "(String, int)", "String Function(int)" — as the reference's
+    // `toSource()` does.
+    if (typeNode is STypeAnnotation) {
+      try {
+        return _resolveTypeAnnotation(typeNode).toString();
+      } on Object {
+        // An unresolvable type keeps the old description.
+      }
+    }
+    return typeNode.runtimeType.toString();
+  }
 
   /// [value] cast to [typeNode], or [_castFailed] when the cast cannot succeed.
   ///
@@ -609,6 +624,10 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           break;
         case 'Null':
           if (value == null) return value;
+          break;
+        case 'Record':
+          // DFIN5 (dguc7): every record is a `Record`.
+          if (value is InterpretedRecord || value is Record) return value;
           break;
         case 'Object':
           // G-DOV2-1 FIX: For Object?, null is valid (handled above)
@@ -12611,6 +12630,11 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         case 'Null':
           result = expressionValue == null;
           break;
+        case 'Record':
+          // DFIN5 (dguc7): every record is a `Record`; the name was undefined.
+          result =
+              expressionValue is InterpretedRecord || expressionValue is Record;
+          break;
         case 'Type':
           // SCD198: a bare class name is a VALUE denoting a type, and
           // `SomeClass is Type` is the check a script writes before using one
@@ -12944,6 +12968,11 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             nativeType: Object,
             name: 'dynamic',
           ); // Corrected placeholder
+        }
+        // DFIN5 (dguc7): `Record` is the supertype of every record type, which
+        // RecordRuntimeType.isSubtypeOf already recognises by name.
+        if (typeName == 'Record') {
+          return BridgedClass(nativeType: Record, name: 'Record');
         }
         throw RuntimeD4rtException("Type '$typeName' not found.");
       }

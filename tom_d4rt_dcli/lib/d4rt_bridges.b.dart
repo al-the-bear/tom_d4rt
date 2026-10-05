@@ -1,4 +1,4 @@
-// Generated: 2026-09-30T19:29:57.004079 by tom_d4rt_generator 1.51.0
+// Generated: 2026-10-03T14:10:22.828045 by tom_d4rt_generator 1.51.0
 /// D4rt Bridges for tom_d4rt_dcli
 library;
 

@@ -184,10 +184,16 @@ class AstModuleLoader implements ModuleContext {
         'pathAgnostic': true,
       });
       final hasNetwork = checkPermission({'type': 'network'});
-      if (!hasFilesystem && !hasNetwork) {
+      // DFIN3: process execution lives in dart:io too, so a script granted
+      // only ProcessRunPermission can import the library its grant is for.
+      final hasProcess = checkPermission({
+        'type': 'process',
+        'commandAgnostic': true,
+      });
+      if (!hasFilesystem && !hasNetwork && !hasProcess) {
         throw RuntimeD4rtException(
-          'Access to dart:io requires FilesystemPermission or '
-          'NetworkPermission. Use d4rt.grant(FilesystemPermission.any) to '
+          'Access to dart:io requires FilesystemPermission, NetworkPermission or '
+          'ProcessRunPermission. Use d4rt.grant(FilesystemPermission.any) to '
           'allow filesystem access, or d4rt.grant(NetworkPermission.any) for '
           'sockets and HTTP.',
         );
@@ -286,14 +292,18 @@ class AstModuleLoader implements ModuleContext {
     // natively by a bridge. The available-modules list stays: in a bundle
     // (unlike a filesystem loader) the complete set of candidates is known, so
     // showing it turns a typo into a one-glance fix.
+    //
+    // DFIN5 (dgub20): a SourceCodeD4rtException, as tom_d4rt and tom_d4rt_exec
+    // raise for the same missing module, so `on SourceCodeD4rtException`
+    // catches it on every line.
     if (uri.scheme == 'package') {
-      throw RuntimeD4rtException(
+      throw SourceCodeD4rtException(
         'Package module "$uriString" not found in bundle. Include that package '
         'library when building the bundle, or register a bridge for it. '
         'Available: ${modules.keys.join(", ")}',
       );
     }
-    throw RuntimeD4rtException(
+    throw SourceCodeD4rtException(
       'Module "$uriString" not found in bundle. '
       'Available: ${modules.keys.join(", ")}',
     );
@@ -967,7 +977,12 @@ class AstModuleLoader implements ModuleContext {
     // Build exported environment. `exportedEnv` was created up-front (DFUB10);
     // here it finally receives this module's own declarations, now that
     // moduleEnv holds their initialized values.
-    exportedEnv.importEnvironment(moduleEnv);
+    // DFIN6 (dgub15): ONLY this module's own declarations. moduleEnv
+    // also holds everything the module IMPORTED, and merging all of it
+    // re-exported every import: with main -> a -> b, main could call a name
+    // only b declares, which Dart rejects. What a module re-exports is what
+    // its `export` directives name, merged below.
+    exportedEnv.importEnvironment(moduleEnv, show: _ownTopLevelNames(ast));
 
     // Process export directives
     _processExports(uri, ast, exportedEnv);
@@ -1266,4 +1281,42 @@ class _InFlightModule {
   final List<void Function()> deferredMerges = [];
 
   _InFlightModule(this.partial);
+}
+
+/// The names a module declares at its top level (DFIN6): what its exported
+/// environment carries before its `export` directives are applied. Imported
+/// names are not among them.
+Set<String> _ownTopLevelNames(SCompilationUnit unit) {
+  final names = <String>{};
+  void add(SSimpleIdentifier? id) {
+    final name = id?.name;
+    if (name != null && name.isNotEmpty) names.add(name);
+  }
+
+  for (final d in unit.declarations) {
+    switch (d) {
+      case SFunctionDeclaration():
+        add(d.name);
+      case SClassDeclaration():
+        add(d.name);
+      case SMixinDeclaration():
+        add(d.name);
+      case SEnumDeclaration():
+        add(d.name);
+      case SExtensionDeclaration():
+        add(d.name);
+      case STypedefDeclaration():
+        add(d.name);
+      case SExtensionTypeDeclaration():
+        add(d.name);
+      case STopLevelVariableDeclaration():
+        for (final v
+            in d.variables?.variables ?? const <SVariableDeclaration>[]) {
+          add(v.name);
+        }
+      default:
+        break;
+    }
+  }
+  return names;
 }

@@ -1,7 +1,17 @@
 /// Script execution utilities for D4rt.
 ///
-/// Provides file-based script execution with automatic import resolution.
-/// This enables executing Dart scripts from files with support for relative imports.
+/// Provides file-based script execution with import resolution.
+///
+/// THE SANDBOX BOUNDARY (DFIN2). [executeFile] and [executeSource] hand the
+/// interpreter only the entry source; every import is read by the module
+/// loader, which checks [FilesystemPermission] on the file's real path, so a
+/// symlink cannot carry a read outside the grant. For the duration of the run
+/// they add one implicit grant: READ on the entry script's directory tree.
+/// Imports beside or below the script work without a grant, as they always
+/// did, and an import outside that tree needs the host's own permission.
+/// [executeFileContinued] cannot use the loader (it evaluates each file into a
+/// shared environment), so it reads imports itself, but through the same
+/// permission check and under the same implicit grant.
 library;
 
 import 'dart:io';
@@ -61,16 +71,29 @@ class ScriptExecutionResult {
   }
 }
 
+/// Runs [body] with READ granted on [directory]'s tree, then removes exactly
+/// that grant. A permission the host granted itself is left alone: grants are
+/// held by identity, so revoking this instance cannot remove the host's.
+T _withScriptDirectoryGrant<T>(D4rt d4rt, String directory, T Function() body) {
+  final grant = FilesystemPermission.readPath(directory);
+  d4rt.grant(grant);
+  try {
+    return body();
+  } finally {
+    d4rt.revoke(grant);
+  }
+}
+
 /// Execute a Dart script file with fresh interpreter state.
 ///
-/// This method:
-/// 1. Reads the script from the file
-/// 2. Recursively resolves all relative imports
-/// 3. Executes using [D4rt.execute] (replaces initialization)
+/// The module loader resolves every import from disk under
+/// [FilesystemPermission] (see the library comment): READ on the script's own
+/// directory tree is granted for the run, and anything outside it needs a
+/// grant the host made.
 ///
 /// [d4rt] The D4rt interpreter instance.
 /// [filePath] Path to the Dart script file.
-/// [log] Optional logging function for debugging import resolution.
+/// [log] Optional logging function.
 ///
 /// Returns a [ScriptExecutionResult] with the execution outcome.
 ScriptExecutionResult executeFile(
@@ -84,27 +107,26 @@ ScriptExecutionResult executeFile(
     return ScriptExecutionResult.failure('File not found: $filePath');
   }
 
-  // Use resolveSymbolicLinksSync to normalize path (removes ./ and ..)
+  // The real path: the implicit grant is anchored where the script actually
+  // lives, so a symlinked entry point cannot widen it.
   final fullPath = file.resolveSymbolicLinksSync();
+  final scriptDirectory = File(fullPath).parent.path;
+  final libraryUri = Uri.file(fullPath).toString();
 
   try {
-    final source = file.readAsStringSync();
-    final basePath = file.parent.path;
-    final libraryUri = 'file://$fullPath';
-
-    // Pre-resolve all imports into sources map
-    final sources = <String, String>{};
-    resolveImportsRecursively(source, libraryUri, sources, log);
-
-    // Execute with sources
-    final result = d4rt.execute(
-      library: libraryUri,
-      sources: sources,
-      basePath: basePath,
-      allowFileSystemImports: true,
+    final source = File(fullPath).readAsStringSync();
+    log?.call('Executing $libraryUri');
+    final result = _withScriptDirectoryGrant(
+      d4rt,
+      scriptDirectory,
+      () => d4rt.execute(
+        library: libraryUri,
+        sources: {libraryUri: source},
+        basePath: scriptDirectory,
+        allowFileSystemImports: true,
+      ),
     );
-
-    return ScriptExecutionResult.success(result, sources.length);
+    return ScriptExecutionResult.success(result, d4rt.loadedSourceModuleCount);
   } catch (e, stackTrace) {
     return ScriptExecutionResult.failure(e.toString(), stackTrace: stackTrace);
   }
@@ -112,15 +134,10 @@ ScriptExecutionResult executeFile(
 
 /// Execute a Dart script file in the current interpreter environment.
 ///
-/// This method:
-/// 1. Reads the script from the file
-/// 2. Recursively resolves all relative imports
-/// 3. Evaluates each imported file using [D4rt.eval]
-/// 4. Evaluates the main script using [D4rt.eval]
-///
-/// Note: Unlike [executeFile], this uses eval() for each file, which means
-/// each file's declarations are added to the global environment. The imports
-/// are processed in dependency order (deepest first).
+/// Evaluates each imported file with [D4rt.eval], dependencies first, then the
+/// main script, so every file's declarations land in the global environment.
+/// Imports are read through [FilesystemPermission] on their real paths, with
+/// READ on the script's directory tree granted for the run.
 ///
 /// [d4rt] The D4rt interpreter instance.
 /// [filePath] Path to the Dart script file.
@@ -138,57 +155,69 @@ ScriptExecutionResult executeFileContinued(
     return ScriptExecutionResult.failure('File not found: $filePath');
   }
 
-  // Use resolveSymbolicLinksSync to normalize path (removes ./ and ..)
   final fullPath = file.resolveSymbolicLinksSync();
+  final scriptDirectory = File(fullPath).parent.path;
 
   try {
-    final source = file.readAsStringSync();
-    final libraryUri = 'file://$fullPath';
+    final source = File(fullPath).readAsStringSync();
+    final libraryUri = Uri.file(fullPath).toString();
 
-    // Pre-resolve all imports into sources map
-    final sources = <String, String>{};
-    resolveImportsRecursively(source, libraryUri, sources, log);
+    return _withScriptDirectoryGrant(d4rt, scriptDirectory, () {
+      final sources = <String, String>{};
+      resolveImportsRecursively(
+        source,
+        libraryUri,
+        sources,
+        log,
+        readFile: (path) => _readPermitted(d4rt, path),
+      );
 
-    // Eval each imported file in reverse order (dependencies first, main last)
-    // Skip the main file itself - we'll eval it at the end
-    final orderedUris = sources.keys.toList();
-
-    for (final uri in orderedUris) {
-      if (uri == libraryUri) continue; // Skip main file
-
-      final importSource = sources[uri]!;
-      log?.call('Evaluating import: $uri');
-
-      // Wrap in a try-catch to get better error messages
-      try {
-        d4rt.eval(importSource);
-      } catch (e) {
-        log?.call('Error evaluating $uri: $e');
-        rethrow;
+      for (final uri in sources.keys) {
+        if (uri == libraryUri) continue; // The main file runs last.
+        log?.call('Evaluating import: $uri');
+        try {
+          d4rt.eval(sources[uri]!);
+        } catch (e) {
+          log?.call('Error evaluating $uri: $e');
+          rethrow;
+        }
       }
-    }
 
-    // Finally eval the main file
-    log?.call('Evaluating main: $libraryUri');
-    final result = d4rt.eval(source);
-
-    return ScriptExecutionResult.success(result, sources.length);
+      log?.call('Evaluating main: $libraryUri');
+      final result = d4rt.eval(source);
+      return ScriptExecutionResult.success(result, sources.length);
+    });
   } catch (e, stackTrace) {
     return ScriptExecutionResult.failure(e.toString(), stackTrace: stackTrace);
   }
 }
 
+/// Reads [path] only if the interpreter may read its REAL path.
+String _readPermitted(D4rt d4rt, String path) {
+  final realPath = File(path).resolveSymbolicLinksSync();
+  if (!d4rt.checkPermission({
+    'type': 'filesystem',
+    'path': realPath,
+    'read': true,
+  })) {
+    throw RuntimeD4rtException(
+      'Reading module source from "$realPath" requires FilesystemPermission.',
+    );
+  }
+  return File(realPath).readAsStringSync();
+}
+
 /// Execute a Dart script from source code with a basePath for import resolution.
 ///
-/// This method:
-/// 1. Recursively resolves all relative imports from the source
-/// 2. Executes using [D4rt.execute] (replaces initialization)
+/// The module loader resolves imports from disk under [FilesystemPermission],
+/// with READ on [basePath]'s tree granted for the run (see the library
+/// comment).
 ///
 /// [d4rt] The D4rt interpreter instance.
 /// [source] The Dart source code to execute.
 /// [basePath] Base directory path for resolving relative imports.
 /// [scriptName] Optional name for the script (defaults to '__script__.dart').
-/// [log] Optional logging function for debugging import resolution.
+/// [log] Optional logging function.
 ///
 /// Returns a [ScriptExecutionResult] with the execution outcome.
 ScriptExecutionResult executeSource(
@@ -199,127 +228,83 @@ ScriptExecutionResult executeSource(
   void Function(String)? log,
 }) {
   try {
-    final libraryUri = 'file://$basePath/$scriptName';
-
-    // Pre-resolve all imports into sources map
-    final sources = <String, String>{};
-    resolveImportsRecursively(source, libraryUri, sources, log);
-
-    // Execute with sources
-    final result = d4rt.execute(
-      library: libraryUri,
-      sources: sources,
-      basePath: basePath,
-      allowFileSystemImports: true,
+    final directory = Directory(basePath).absolute.path;
+    final libraryUri = Uri.file('$directory/$scriptName').toString();
+    log?.call('Executing $libraryUri');
+    final result = _withScriptDirectoryGrant(
+      d4rt,
+      directory,
+      () => d4rt.execute(
+        library: libraryUri,
+        sources: {libraryUri: source},
+        basePath: directory,
+        allowFileSystemImports: true,
+      ),
     );
-
-    return ScriptExecutionResult.success(result, sources.length);
+    return ScriptExecutionResult.success(result, d4rt.loadedSourceModuleCount);
   } catch (e, stackTrace) {
     return ScriptExecutionResult.failure(e.toString(), stackTrace: stackTrace);
   }
 }
 
-/// Recursively resolves imports from a Dart source file.
+/// Recursively collects a Dart source file and its relative imports.
 ///
-/// This function:
-/// 1. Adds the source to the sources map with its URI
-/// 2. Extracts all import statements from the source
-/// 3. For file: and relative imports, loads the file and recursively processes its imports
+/// A HOST-SIDE utility, not a sandbox boundary: by default it reads whatever
+/// the host process can read. The script runners above route their reads
+/// through the interpreter's permissions instead; [readFile] is how
+/// [executeFileContinued] does that. Hosts use it to bundle trusted sources
+/// (tom_d4rt_flutter's sample loader).
 ///
 /// [source] The Dart source code to analyze.
-/// [sourceUri] The URI of the source file (used as key in sources map and for resolving relative imports).
+/// [sourceUri] The URI of the source file (used as key in sources map and for
+/// resolving relative imports).
 /// [sources] The map to populate with URI -> source code pairs.
 /// [log] Optional logging function for debugging.
+/// [readFile] Reads one imported file by path; defaults to a plain read.
 void resolveImportsRecursively(
   String source,
   String sourceUri,
   Map<String, String> sources,
-  void Function(String)? log,
-) {
-  // Skip if already processed
-  if (sources.containsKey(sourceUri)) {
-    return;
-  }
+  void Function(String)? log, {
+  String Function(String path)? readFile,
+}) {
+  if (sources.containsKey(sourceUri)) return;
 
-  // Add this source to the map
   sources[sourceUri] = source;
   log?.call('Added to sources: $sourceUri');
 
-  // Parse the URI to get the base directory for resolving relative imports
-  final uri = Uri.parse(sourceUri);
-  final baseDir = uri.scheme == 'file'
-      ? File(uri.toFilePath()).parent.path
-      : null;
+  final base = Uri.parse(sourceUri);
+  if (base.scheme != 'file') return;
 
-  // Extract all imports
-  final matches = _importRegex.allMatches(source);
-
-  for (final match in matches) {
+  for (final match in _importRegex.allMatches(source)) {
     final importPath = match.group(1)!;
 
-    // Skip package: and dart: imports - these are handled by D4rt's bridge system
+    // package: and dart: imports are handled by D4rt's bridge system.
     if (importPath.startsWith('package:') || importPath.startsWith('dart:')) {
       continue;
     }
 
-    String? resolvedUri;
-    String? filePath;
+    // `Uri.resolve` handles `.`, `..` and absolute paths per RFC 3986.
+    final resolved = base.resolve(importPath);
+    if (resolved.scheme != 'file') continue;
+    final resolvedUri = resolved.toString();
+    if (sources.containsKey(resolvedUri)) continue;
 
-    if (importPath.startsWith('file://')) {
-      // Absolute file URI
-      resolvedUri = importPath;
-      filePath = Uri.parse(importPath).toFilePath();
-    } else if (importPath.startsWith('/')) {
-      // Absolute path without scheme
-      resolvedUri = 'file://$importPath';
-      filePath = importPath;
-    } else if (baseDir != null) {
-      // Relative path - resolve against base directory
-      final resolvedPath = _resolvePath(baseDir, importPath);
-      resolvedUri = 'file://$resolvedPath';
-      filePath = resolvedPath;
+    final filePath = resolved.toFilePath();
+    if (!File(filePath).existsSync()) {
+      log?.call('Warning: Imported file not found: $filePath');
+      continue;
     }
-
-    if (resolvedUri != null &&
-        filePath != null &&
-        !sources.containsKey(resolvedUri)) {
-      final file = File(filePath);
-      if (file.existsSync()) {
-        try {
-          final importedSource = file.readAsStringSync();
-          log?.call('Loading imported file: $filePath');
-          // Recursively process the imported file
-          resolveImportsRecursively(importedSource, resolvedUri, sources, log);
-        } catch (e) {
-          log?.call('Warning: Failed to read import $filePath: $e');
-        }
-      } else {
-        log?.call('Warning: Imported file not found: $filePath');
-      }
-    }
+    final importedSource = (readFile ?? _readPlain)(filePath);
+    log?.call('Loading imported file: $filePath');
+    resolveImportsRecursively(
+      importedSource,
+      resolvedUri,
+      sources,
+      log,
+      readFile: readFile,
+    );
   }
 }
 
-/// Resolves a relative path against a base directory.
-/// Handles '..' and '.' path segments.
-String _resolvePath(String baseDir, String relativePath) {
-  final baseParts = baseDir.split('/').where((p) => p.isNotEmpty).toList();
-  final relativeParts = relativePath
-      .split('/')
-      .where((p) => p.isNotEmpty)
-      .toList();
-
-  final resultParts = List<String>.from(baseParts);
-
-  for (final part in relativeParts) {
-    if (part == '..') {
-      if (resultParts.isNotEmpty) {
-        resultParts.removeLast();
-      }
-    } else if (part != '.') {
-      resultParts.add(part);
-    }
-  }
-
-  return '/${resultParts.join('/')}';
-}
+String _readPlain(String path) => File(path).readAsStringSync();

@@ -581,6 +581,10 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         case 'Null':
           if (value == null) return value;
           break;
+        case 'Record':
+          // DFIN5 (dguc7): every record is a `Record`.
+          if (value is InterpretedRecord || value is Record) return value;
+          break;
         case 'Object':
           // G-DOV2-1 FIX: For Object?, null is valid (handled above)
           // For Object, any non-null value is valid
@@ -12681,6 +12685,11 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         case 'Null':
           result = expressionValue == null;
           break;
+        case 'Record':
+          // DFIN5 (dguc7): every record is a `Record`; the name was undefined.
+          result =
+              expressionValue is InterpretedRecord || expressionValue is Record;
+          break;
         case 'Type':
           // SCD198: a bare class name is a VALUE denoting a type, and
           // `SomeClass is Type` is the check a script writes before using one
@@ -13011,6 +13020,11 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             nativeType: Object,
             name: 'dynamic',
           ); // Corrected placeholder
+        }
+        // DFIN5 (dguc7): `Record` is the supertype of every record type, which
+        // RecordRuntimeType.isSubtypeOf already recognises by name.
+        if (typeName == 'Record') {
+          return BridgedClass(nativeType: Record, name: 'Record');
         }
         throw RuntimeD4rtException("Type '$typeName' not found.");
       }

@@ -1,3 +1,21 @@
+## 1.4.8
+
+### Changed — resolves the web int fix release (dfin9)
+
+`tom_d4rt` ^1.229.0. No code change; the bridges are unchanged.
+
+## 1.4.7
+
+### Changed — resolves the correctness release (dfin7)
+
+`tom_d4rt` ^1.228.0. No code change; the bridges are unchanged.
+
+## 1.4.6
+
+### Changed — resolves the security release (dfin4)
+
+`tom_d4rt` ^1.226.0. No code change; the bridges are unchanged.
+
 ## 1.4.5
 
 ### Changed — resolves the interpreter releases sci1/sci2 published (sci3)

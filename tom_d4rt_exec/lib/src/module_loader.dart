@@ -215,6 +215,12 @@ class ModuleLoader implements context.ModuleContext {
   /// `D4rt.debugLoadedModuleCount` could not be forwarded.
   int get loadedModuleCount => _moduleCache.length;
 
+  /// How many SOURCE modules (`file:` URIs, the entry script included) this
+  /// loader holds — what a script runner reports as `sourcesLoaded`. Stdlib and
+  /// bridged modules are cached here too and are not counted.
+  int get loadedSourceModuleCount =>
+      _moduleCache.keys.where((uri) => uri.scheme == 'file').length;
+
   /// Step #3 (retention) — drops the per-loader parsed-module cache so a
   /// finished run's parsed units become collectable. Only the per-loader
   /// [_moduleCache] is cleared; the process-global shared bridge caches hold
@@ -439,10 +445,16 @@ class ModuleLoader implements context.ModuleContext {
         'pathAgnostic': true,
       });
       final hasNetwork = d4rt!.checkPermission({'type': 'network'});
-      if (!hasFilesystem && !hasNetwork) {
+      // DFIN3: process execution lives in dart:io too, so a script granted
+      // only ProcessRunPermission can import the library its grant is for.
+      final hasProcess = d4rt!.checkPermission({
+        'type': 'process',
+        'commandAgnostic': true,
+      });
+      if (!hasFilesystem && !hasNetwork && !hasProcess) {
         throw RuntimeD4rtException(
-          'Access to dart:io requires FilesystemPermission or '
-          'NetworkPermission. Use d4rt.grant(FilesystemPermission.any) to '
+          'Access to dart:io requires FilesystemPermission, NetworkPermission or '
+          'ProcessRunPermission. Use d4rt.grant(FilesystemPermission.any) to '
           'allow filesystem access, or d4rt.grant(NetworkPermission.any) for '
           'sockets and HTTP.',
         );
@@ -874,12 +886,23 @@ class ModuleLoader implements context.ModuleContext {
     // Process class and mixin declarations to populate their members (methods, constructors, etc.)
     // The DeclarationVisitor only creates placeholders with empty constructor maps.
     // Bug-59: Without this, imported classes have no constructors available!
-    for (final declaration in ast.declarations) {
-      if (declaration is SClassDeclaration ||
-          declaration is SMixinDeclaration) {
-        declaration.accept(moduleInterpreter);
+    //
+    // DFIN5 (dgub14, mirrors AstModuleLoader): static-field initializers are
+    // deferred until EVERY class and mixin is populated, so a `static final`
+    // list that constructs a class declared later in the module does not fail
+    // with "does not have an unnamed constructor".
+    moduleInterpreter.deferStaticFieldInits = true;
+    try {
+      for (final declaration in ast.declarations) {
+        if (declaration is SClassDeclaration ||
+            declaration is SMixinDeclaration) {
+          declaration.accept(moduleInterpreter);
+        }
       }
+    } finally {
+      moduleInterpreter.deferStaticFieldInits = false;
     }
+    moduleInterpreter.runDeferredStaticInitializers();
 
     // Process function declarations to populate interpreted functions properly
     for (final declaration in ast.declarations) {
@@ -892,6 +915,15 @@ class ModuleLoader implements context.ModuleContext {
     // Extensions need to be processed by the interpreter to be available for imported modules
     for (final declaration in ast.declarations) {
       if (declaration is SExtensionDeclaration) {
+        declaration.accept(moduleInterpreter);
+      }
+    }
+
+    // DFIN5 (dgub14, mirrors AstModuleLoader): extension type declarations.
+    // Without this pass an imported extension type's wrapper is never
+    // registered, and its importer sees "Undefined variable".
+    for (final declaration in ast.declarations) {
+      if (declaration is SExtensionTypeDeclaration) {
         declaration.accept(moduleInterpreter);
       }
     }
@@ -911,7 +943,15 @@ class ModuleLoader implements context.ModuleContext {
     // `exportedEnvironment` was created up-front (DFUB10) so cyclic importers
     // hold a live reference; here it finally receives this module's own
     // declarations, now that moduleEnvironment holds their initialized values.
-    exportedEnvironment.importEnvironment(moduleEnvironment);
+    // DFIN6 (dgub15): ONLY this module's own declarations. moduleEnvironment
+    // also holds everything the module IMPORTED, and merging all of it
+    // re-exported every import: with main -> a -> b, main could call a name
+    // only b declares, which Dart rejects. What a module re-exports is what
+    // its `export` directives name, merged below.
+    exportedEnvironment.importEnvironment(
+      moduleEnvironment,
+      show: _ownTopLevelNames(ast),
+    );
     Logger.debug(
       "[ModuleLoader loadModule for $uri] Initialized exportedEnvironment with local declarations (post-initialization).",
     );
@@ -1802,4 +1842,42 @@ class ModuleLoader implements context.ModuleContext {
     );
     return result;
   }
+}
+
+/// The names a module declares at its top level (DFIN6): what its exported
+/// environment carries before its `export` directives are applied. Imported
+/// names are not among them.
+Set<String> _ownTopLevelNames(SCompilationUnit unit) {
+  final names = <String>{};
+  void add(SSimpleIdentifier? id) {
+    final name = id?.name;
+    if (name != null && name.isNotEmpty) names.add(name);
+  }
+
+  for (final d in unit.declarations) {
+    switch (d) {
+      case SFunctionDeclaration():
+        add(d.name);
+      case SClassDeclaration():
+        add(d.name);
+      case SMixinDeclaration():
+        add(d.name);
+      case SEnumDeclaration():
+        add(d.name);
+      case SExtensionDeclaration():
+        add(d.name);
+      case STypedefDeclaration():
+        add(d.name);
+      case SExtensionTypeDeclaration():
+        add(d.name);
+      case STopLevelVariableDeclaration():
+        for (final v
+            in d.variables?.variables ?? const <SVariableDeclaration>[]) {
+          add(v.name);
+        }
+      default:
+        break;
+    }
+  }
+  return names;
 }

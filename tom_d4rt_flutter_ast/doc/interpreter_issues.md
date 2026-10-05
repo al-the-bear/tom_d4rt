@@ -4575,10 +4575,65 @@ the newest covering the base corpus with `**Current base-corpus baseline.**`
 marker in the same edit; SCE255 in `test/interpreter_issues_doc_test.dart`
 fails when a marker is left on an older entry.
 
-### 2026-10-01 — base corpus, both twins, at tom_d4rt 1.224.0 / tom_d4rt_ast 0.206.0
+### 2026-10-03 — base corpus, both twins, at tom_d4rt 1.228.0 / tom_d4rt_ast 0.209.0
 
 **Current base-corpus baseline.** The newest run of the base corpus; a new base
 run is compared against this one, and moves the marker.
+
+**Why this run exists.** DFIN4 published the security release (`tom_d4rt`
+1.226.0, `tom_d4rt_ast` 0.207.0) and DFIN7 the correctness release:
+`tom_d4rt` 1.228.0, `tom_d4rt_ast` 0.209.0, `tom_d4rt_exec` 1.48.0 → 1.49.0
+and `tom_ast_generator` 0.1.16. They carry DFIN5's fixes (1.227.0 / 0.208.0)
+and DFIN6's tightened export visibility (1.228.0 / 0.209.0): a module now
+exports only its own declarations and what its `export` directives name. That
+is `Name resolution: yes`, so the protocol's post-publish run is owed,
+serially, on both twins. This is it, and it discharges every SCE29 deferral.
+
+**Before publishing**, the same trees ran path-resolved at 927/1/0 in both twins
+with 0 framework errors and 0 refused callbacks (DFIN7, run
+`20261003-1516-dfin7pre`, not recordable), so no corpus script relied on a name
+only an import of an import declares.
+
+| Package | `tom_d4rt` | `tom_d4rt_ast` | `tom_d4rt_generator` |
+| ------- | ---------- | -------------- | -------------------- |
+| `tom_d4rt_flutter` | **1.228.0** | — | **1.51.0** |
+| `tom_d4rt_flutter/test/tom_d4rt_flutter_test_app` | **1.228.0** | — | — |
+| `tom_d4rt_flutter_ast` | **1.228.0** | **0.209.0** | **1.51.0** |
+| `tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app` | — | **0.209.0** | — |
+
+**Result.** `run_base_tests.sh` in each twin, hosted, one twin at a time:
+
+| Twin | Run | pass / skip / fail | Before (2026-10-01 hosted base) |
+| ---- | --- | ------------------ | ------------------------------- |
+| `tom_d4rt_flutter_ast` | `basetestlog_20261003-dfin7post3` | 927 / 1 / 0 | 927 / 1 / 0 |
+| `tom_d4rt_flutter` | `basetestlog_20261003-dfin7post2` | 927 / 1 / 0 | 927 / 1 / 0 |
+
+Every one of the seventeen files matches its previous count on all three
+numbers, including the one standing skip in `flutter_base_15`. No rising skip.
+
+**The AST twin's figure is its second run.** In `basetestlog_20261003-dfin7post2`
+the AST twin's `flutter_base_05`, `_08` and `_09` died in `setUpAll` within a
+second (`exit=79 +0`: every case "did not complete", no script reached), while
+this session was running the full `tom_d4rt` / `tom_d4rt_ast` suites and a
+Chrome test on the same host. A launch that measured nothing is not a result,
+so the twin was re-run alone as `dfin7post3`, where all seventeen files passed
+with every script measured. The source twin's `dfin7post2` run was complete
+and is the one recorded.
+
+**Framework errors** (SCE247 trailer):
+
+- `tom_d4rt_flutter_ast`: 0 framework error(s) in 0 of 910 script(s); 0 refused callback(s)
+- `tom_d4rt_flutter`: 0 framework error(s) in 0 of 910 script(s); 0 refused callback(s)
+
+**What moved in the bridges.** Nothing since SCH3's regeneration at generator
+1.51.0.
+
+**What it does not cover.** The FULL corpus (`run_issue_analysis_tests.sh`)
+was not run here.
+
+### 2026-10-01 — base corpus, both twins, at tom_d4rt 1.224.0 / tom_d4rt_ast 0.206.0
+
+**Superseded as the base-corpus baseline by the 2026-10-03 run above.**
 
 **Why this run exists.** SCI1 and SCI2 published `tom_d4rt` 1.223.0 → 1.224.0,
 `tom_d4rt_ast` 0.206.0, `tom_d4rt_exec` 1.42.0 → 1.43.0 and

@@ -126,6 +126,37 @@ void main() {
     );
   }
 
+  /// Creates a top-level variable that READS another name: `var name = ref;`.
+  /// DFIN6: a module's export no longer carries what it imported, so an
+  /// import is observed through a declaration that uses it.
+  STopLevelVariableDeclaration refDecl(String name, String ref) {
+    return STopLevelVariableDeclaration(
+      offset: 0,
+      length: 0,
+      variables: SVariableDeclarationList(
+        offset: 0,
+        length: 0,
+        variables: [
+          SVariableDeclaration(
+            offset: 0,
+            length: 0,
+            name: ident(name),
+            initializer: ident(ref),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// DFIN6: [name] is not in [env] — a module does not re-export its imports.
+  void expectNotExported(Environment env, String name) {
+    expect(
+      () => env.get(name),
+      throwsA(anything),
+      reason: '"$name" was imported, not declared or exported, by this module',
+    );
+  }
+
   /// Creates an [Environment] with stdlib pre-registered (like D4rtRunner does).
   Environment initStdlibEnvironment() {
     final env = Environment();
@@ -368,7 +399,7 @@ void main() {
       expect(
         () => loader.loadModule(Uri.parse('package:app/missing.dart')),
         throwsA(
-          isA<RuntimeD4rtException>().having(
+          isA<SourceCodeD4rtException>().having(
             (e) => e.toString(),
             'message',
             contains('not found in bundle'),
@@ -388,7 +419,7 @@ void main() {
       expect(
         () => loader.loadModule(Uri.parse('package:app/missing.dart')),
         throwsA(
-          isA<RuntimeD4rtException>().having(
+          isA<SourceCodeD4rtException>().having(
             (e) => e.toString(),
             'message',
             allOf(
@@ -472,7 +503,10 @@ void main() {
         offset: 0,
         length: 0,
         directives: [importDirective('package:app/b.dart')],
-        declarations: [functionDecl('mainFunc', 1)],
+        declarations: [
+          functionDecl('mainFunc', 1),
+          refDecl('seen', 'getValue'),
+        ],
       );
 
       final modules = {
@@ -482,9 +516,10 @@ void main() {
       final loader = createLoader(modules: modules);
       final loaded = loader.loadModule(Uri.parse('package:app/a.dart'));
 
-      // Module A should have both its own function and B's function
+      // A uses B's function (the import worked) and exports only its own.
       expect(loaded.exportedEnvironment.get('mainFunc'), isNotNull);
-      expect(loaded.exportedEnvironment.get('getValue'), isNotNull);
+      expect(loaded.exportedEnvironment.get('seen'), isNotNull);
+      expectNotExported(loaded.exportedEnvironment, 'getValue');
     });
 
     test('processes import with dart:math stdlib', () {
@@ -492,15 +527,16 @@ void main() {
         offset: 0,
         length: 0,
         directives: [importDirective('dart:math')],
-        declarations: [functionDecl('myFunc', 1)],
+        declarations: [functionDecl('myFunc', 1), refDecl('myPi', 'pi')],
       );
 
       final modules = {'package:app/a.dart': moduleA};
       final loader = createLoader(modules: modules);
       final loaded = loader.loadModule(Uri.parse('package:app/a.dart'));
 
-      // Module A should have imported dart:math symbols
-      expect(loaded.exportedEnvironment.get('pi'), isNotNull);
+      // A reads dart:math's `pi` and does not re-export it.
+      expect(loaded.exportedEnvironment.get('myPi'), closeTo(3.14159, 1e-5));
+      expectNotExported(loaded.exportedEnvironment, 'pi');
     });
 
     test('handles chained imports (A imports B, B imports C)', () {
@@ -519,7 +555,7 @@ void main() {
         offset: 0,
         length: 0,
         directives: [importDirective('package:app/b.dart')],
-        declarations: [varDecl('aValue', 300)],
+        declarations: [varDecl('aValue', 300), refDecl('aSawB', 'bValue')],
       );
 
       final modules = {
@@ -530,11 +566,13 @@ void main() {
       final loader = createLoader(modules: modules);
       final loaded = loader.loadModule(Uri.parse('package:app/a.dart'));
 
-      // A gets its own value + B's exported values (which includes C's via import)
+      // A sees B's own value through its import, and exports only its own
+      // names. Neither B's value nor C's (B imports C, it does not export it)
+      // is in A's export.
       expect(loaded.exportedEnvironment.get('aValue'), 300);
-      expect(loaded.exportedEnvironment.get('bValue'), 200);
-      // Note: C's values are not directly exported from B (no re-export),
-      // but they are imported into B's module environment
+      expect(loaded.exportedEnvironment.get('aSawB'), 200);
+      expectNotExported(loaded.exportedEnvironment, 'bValue');
+      expectNotExported(loaded.exportedEnvironment, 'cValue');
     });
   });
 
@@ -645,7 +683,10 @@ void main() {
         // Relative import from package:app/src/main.dart to ../utils/helper.dart
         // resolves to package:app/utils/helper.dart
         directives: [importDirective('../utils/helper.dart')],
-        declarations: [varDecl('mainVal', 11)],
+        declarations: [
+          varDecl('mainVal', 11),
+          refDecl('sawHelper', 'helperVal'),
+        ],
       );
 
       final modules = {
@@ -656,7 +697,7 @@ void main() {
       final loaded = loader.loadModule(Uri.parse('package:app/src/main.dart'));
 
       expect(loaded.exportedEnvironment.get('mainVal'), 11);
-      expect(loaded.exportedEnvironment.get('helperVal'), 55);
+      expect(loaded.exportedEnvironment.get('sawHelper'), 55);
     });
 
     test('absolute package: URIs are not resolved relatively', () {
@@ -669,7 +710,7 @@ void main() {
         offset: 0,
         length: 0,
         directives: [importDirective('package:other/util.dart')],
-        declarations: [varDecl('mainVal', 22)],
+        declarations: [varDecl('mainVal', 22), refDecl('sawUtil', 'utilVal')],
       );
 
       final modules = {
@@ -679,7 +720,7 @@ void main() {
       final loader = createLoader(modules: modules);
       final loaded = loader.loadModule(Uri.parse('package:app/main.dart'));
 
-      expect(loaded.exportedEnvironment.get('utilVal'), 66);
+      expect(loaded.exportedEnvironment.get('sawUtil'), 66);
     });
   });
 
@@ -700,7 +741,7 @@ void main() {
         directives: [
           importDirective('package:app/b.dart', show: ['visible']),
         ],
-        declarations: [varDecl('aVal', 3)],
+        declarations: [varDecl('aVal', 3), refDecl('sawVisible', 'visible')],
       );
 
       final modules = {
@@ -711,8 +752,8 @@ void main() {
       final loaded = loader.loadModule(Uri.parse('package:app/a.dart'));
 
       expect(loaded.exportedEnvironment.get('aVal'), 3);
-      // 'visible' from B should be accessible in A's environment
-      expect(loaded.exportedEnvironment.get('visible'), 1);
+      // 'visible' from B is in scope in A (A's declaration reads it).
+      expect(loaded.exportedEnvironment.get('sawVisible'), 1);
     });
 
     test('import with hide combinator', () {
@@ -727,7 +768,7 @@ void main() {
         directives: [
           importDirective('package:app/b.dart', hide: ['excluded']),
         ],
-        declarations: [varDecl('aVal', 30)],
+        declarations: [varDecl('aVal', 30), refDecl('sawKept', 'kept')],
       );
 
       final modules = {
@@ -738,7 +779,7 @@ void main() {
       final loaded = loader.loadModule(Uri.parse('package:app/a.dart'));
 
       expect(loaded.exportedEnvironment.get('aVal'), 30);
-      expect(loaded.exportedEnvironment.get('kept'), 10);
+      expect(loaded.exportedEnvironment.get('sawKept'), 10);
     });
   });
 

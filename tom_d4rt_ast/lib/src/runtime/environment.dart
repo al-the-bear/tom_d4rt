@@ -2327,14 +2327,22 @@ class Environment {
     }
     // Handle Dart primitive/core types by looking them up in the environment
     // Assumes core types (String, int, bool, List, Map, etc.) are registered as BridgedClass
-    String? typeName;
-    if (value == null) typeName = 'Null';
-    if (value is String) typeName = 'String';
-    if (value is int) typeName = 'int';
-    if (value is double) typeName = 'double';
-    if (value is bool) typeName = 'bool';
-    if (value is List) typeName = 'List';
-    if (value is Map) typeName = 'Map';
+    // `int` is tested before `double` and the chain stops at the first match:
+    // compiled to JavaScript every number is a double, so `1 is double` is
+    // true there, and testing both let `double` overwrite `int` — every
+    // integer then typed as `double` and `[1, 2]` was refused where a
+    // `List<int>` is declared (DFIN8, found by the browser test). `1.0 is int`
+    // is also true on the web; that is Dart's own web semantics.
+    final String? typeName = switch (value) {
+      null => 'Null',
+      String() => 'String',
+      int() => 'int',
+      double() => 'double',
+      bool() => 'bool',
+      List() => 'List',
+      Map() => 'Map',
+      _ => null,
+    };
 
     if (typeName != null) {
       // Cluster C26 FIX: For List/Map, prefer a more-specific bridged class

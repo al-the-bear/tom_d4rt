@@ -1,8 +1,1112 @@
 # tom_d4rt — archived changelog
 
-Releases 1.77.0 and earlier, moved out of `CHANGELOG.md` because pub.dev
+Releases 1.101.0 and earlier, moved out of `CHANGELOG.md` because pub.dev
 refuses a changelog over 262144 bytes (SCE209). Newer releases are in
 [CHANGELOG.md](CHANGELOG.md).
+
+## 1.101.0
+
+### Added — a report-only static pass that finds undefined names (scd95, phase 1)
+
+`lib/src/static_name_report.dart`. **It reports; it never throws, and nothing in
+`execute()` calls it.** That is deliberate, and it is the whole risk-management
+strategy of the work it belongs to.
+
+SCC31 made an undefined name unswallowable — raised as
+`UndefinedNameD4rtException`, declined by both catch-dispatch sites — which
+removed the harm but not the divergence. Real Dart rejects the program at
+COMPILE time, so it never runs; d4rt runs everything up to the bad line first.
+A script that writes a file on line 3 and mistypes a name on line 9 has already
+written the file. Closing that needs a pass that can REFUSE to run a program,
+and a resolver wrong in the aggressive direction rejects working scripts —
+which is far worse than the bug it fixes. So the resolver is built report-only
+and swept over corpora of programs known to work first.
+
+**What the sweep measured** (`tool/scd95_sweep.dart`,
+`tool/scd95_sweep_inline.dart`):
+
+| corpus                         | units | clean | flagged |
+| ------------------------------ | ----: | ----: | ------: |
+| flutter-material cluster       |  2085 |  2083 |       1 |
+| tom_d4rt inline `execute(...)` |   807 |   799 |       8 |
+
+Every remaining flag is a TRUE positive, in a script written on purpose to
+contain one: `ButtonBar` in `a5_deprecated_symbol_absent_test.dart`,
+`totallyUndefinedThing` in SCC31's own fixture, `notDefinedAnywhere` in SCD69's,
+and `Zone`/`Zoen` in `intentionally_unbridged_test.dart`.
+
+Reaching that state meant closing four real resolver holes, each of which had
+produced a page of false positives and each of which is now pinned:
+
+- **Cascade sections.** `x..moveTo(0, 0)` has no target in the AST — the
+  receiver is the cascade's. Reading `MethodInvocation.target` alone reported
+  `moveTo`, `lineTo`, `setEntry`, `scale`, `sort`, `writeln` and `add` as
+  undefined: 833 hits from one missing `isCascaded`.
+- **Switch EXPRESSION patterns.** Handling only `SwitchPatternCase` left every
+  `switch (s) { Circle(:var radius) => radius * radius }` reporting the name it
+  had just bound.
+- **Extension-opened classes.** An extension member is reachable through
+  implicit `this` by a route no class body mentions, so a class an extension
+  targets is open — and an extension on `Object` opens every class.
+- **Import prefixes.** `import ... as m` puts `m` in scope as a name.
+
+A fifth was a fault in the SWEEP rather than the resolver, and is the one worth
+repeating: suppressing a unit because it merely HAS an import made the first run
+report nothing, look clean, and examine none of the 2085 files. `NameReport`
+now carries `suppressed`, so a suppressed report is distinguishable from a clean
+one, and `openClasses`, so the 12 201 class bodies the flutter sweep skips are
+visible in the data rather than only in a comment.
+
+**Why it is not yet enforcing.** The sweeps supply the registration set by
+regex-harvesting bridge and stdlib sources — good enough to measure a syntactic
+resolver, not good enough to reject a program. The real set lives in the
+`Environment` at execute time. See sce128, which records the design this
+measurement arrived at, including the two facts that make it viable:
+`registerBridgedClassLazy` is name-eager, and directives are processed before
+any statement of `main` runs.
+
+## 1.100.0
+
+### Fixed — guards that pre-empted a native operator now hand it to the SDK (scd93)
+
+SCC30 removed six divergences from `~/` and `%` with one deletion, and only two
+of the six were the ones it went looking for. That ratio asked for a sweep, and
+this is it. The anti-pattern is not "d4rt throws the wrong exception" — it is
+**d4rt hand-writing a check in front of an operand that is ALREADY NATIVE**, so
+the SDK operator never gets to decide. Twenty-one sites, in five families, each
+measured by running the same one-line program in real Dart and in d4rt.
+
+**The six bitwise and shift arms** (`& | ^ << >> >>>`) threw
+`RuntimeD4rtException('Unsupported binary operator "AMPERSAND"')` — a d4rt-only
+type no `on` clause can name, whose message printed the TokenType rather than
+the operator. The comparison arms twenty lines above them (`< <= > >=`) had
+delegated to the SDK since they were written; these six were the ones nobody
+converted. They now fall back to the SDK too, which answers better than any
+table could: the expected type follows the RECEIVER (`1 & 2.0` names `int`,
+`true & 1` names `bool`, `BigInt << 1.0` names the parameter `shiftAmount`), and
+a receiver that declares no such operator raises `NoSuchMethodError` rather than
+a type error at all.
+
+**The six list-bounds guards** recomputed `index < 0 || index >= length` in
+front of a native list. Right type, wrong in three ways the SDK gets right for
+free: a read reports `RangeError (length)` where the guard said `(index)`; a
+compound assignment reports the READ error because the read happens first, where
+the compound arm's own copy of the guard reported the write's — the same
+self-disagreement SCC30 found between `/` and `/=`; and an out-of-range write to
+an unmodifiable list raises `UnsupportedError`, which the bounds test used to
+pre-empt with a RangeError.
+
+**The four list-index `is int` guards** and **the `String.[]` bridge's `is! int`
+guard** threw `RuntimeD4rtException` where the SDK raises `TypeError`.
+
+**Five guards stay**, because there is nothing to delegate to: `&&`/`||`
+(short-circuiting is control flow, not a method), unary `-`/`~` and `++`/`--`
+(the throw is the last resort after extension-operator lookup, and the increment
+sites must assign back). Those now raise the SDK's TYPE carrying d4rt's own
+message — the pattern `sdk_errors.dart` exists for. Their DOMAIN was measured
+and already matched: `true || 1` is `true`, not an error.
+
+`indexRangeError` keeps its place in `sdk_errors.dart` as API a bridge can use
+for a container the SDK cannot be asked about, but no longer stands in front of
+a native list.
+
+**Not one existing test failed when all of this changed**, which is the finding
+behind the new guard file: none of these types or messages was pinned anywhere,
+so any of them could have drifted in either direction unobserved.
+`scd93_native_operator_guards_test.dart` (18 cases) pins the divergences that
+were fixed AND the cases where d4rt and the SDK already agreed — the latter are
+what stop a guard being reinstated "for a better message" — plus the two limits
+kept deliberately: a non-int String index carries the SDK's cast wording rather
+than its parameter wording, and `x++` on a non-num raises TypeError where the
+SDK splits TypeError/NoSuchMethodError by whether the operand's type declares
+`+`. A four-case bundle-built twin covers the analyzer-free tree.
+
+## 1.99.0
+
+### Fixed — a binding check compares declared type arguments (scd92)
+
+`f(List<String> xs)` accepted `f([1])`. SCC29 made a declared parameter type a
+real check and SCD63 extended it to a typed for-each variable, but both compared
+BASE types only, so every generic annotation was erased to its base before the
+comparison ever happened.
+
+Erased on both sides, for different reasons.
+`InterpretedFunction._resolveTypeAnnotationDynamic` reads a `NamedType`'s name
+and ignores its `typeArguments`, so `List<String>` resolved to the bare `List`
+bridge. And `Environment.getRuntimeType` answers `List` for every list, because
+a native list carries no element type d4rt can read back — `<int>[1]`, `[1]` and
+`<dynamic>[1]` are the same object at runtime, and all three report
+`List<Object?>` for their script-visible `runtimeType`. The machinery to decide
+the question was already present: `AppliedRuntimeType.isSubtypeOf` has compared
+arguments element-wise since DFUB6. Nothing ever handed it two applied types.
+
+DFUB6 had solved the identical problem for the RETURN path, by deriving a
+collection's element type from its CONTENTS rather than from a static type. That
+derivation moved out of the visitor onto `Environment.appliedRuntimeTypeOf`, and
+the binding check now feeds it — so a parameter, a for-each variable and a
+return decide the same question the same way. The declared arguments are
+resolved alongside the base type in `resolveBinding`, not inside
+`_resolveTypeAnnotationDynamic`, whose result is also a type parameter's bound
+and a callable's structural type.
+
+The check runs only after the base check has already passed, so it can add a
+rejection but never remove one, and it is permissive wherever either side has
+nothing to read: an empty or heterogeneous collection, a top-type argument, an
+UNBOUND type parameter (`f<T>(List<T> xs)` called as `f([1])`), a raw generic
+instance, every bridged instance, and anything more than one level deep. A type
+parameter the caller BOUND is checked — `f<String>([1])` is an error real Dart
+reports too.
+
+That permissiveness is the point rather than a caveat: unlike the return check,
+this one runs on every argument of every call, and a false positive rejects a
+correct program, which is worse than the silent pass it replaces. Two class
+tests that had passed since February proved it. Dart widens an int literal to a
+double from its surrounding context, so `Points.fromJson({'x': 3, 'y': 4})`
+against a `Map<String, double>` parameter really does pass a map of doubles —
+d4rt's map holds the ints it was written with, and the literal comparison
+rejected it. The comparison now allows the same widening `bind` already allowed
+one level out, on the type used for the comparison only: the collection is
+passed through untouched.
+
+F-SCC29-21 pinned the old limit and now asserts the throw.
+`scd92_applied_parameter_type_test.dart` (22 cases) carries the boundary, with a
+four-case bundle-built twin in `tom_d4rt_ast`.
+
+## 1.98.0
+
+### Fixed — `dynamic` is a top type for `BridgedClass.isSubtypeOf` (scd90)
+
+`BridgedClass('int').isSubtypeOf(BridgedClass('dynamic'))` was `false` — the
+predicate reported that an `int` cannot inhabit `dynamic`, which is wrong about
+Dart for every value in the language. Measured across the implementations of
+`RuntimeType`:
+
+| subject                   | BC(Object) | BC(dynamic) | BC(void) | NRT(Object) | NRT(dynamic) | NRT(void) |
+| ------------------------- | ---------- | ----------- | -------- | ----------- | ------------ | --------- |
+| `BridgedClass('int')`     | true       | **false**   | **false**| **false**   | **false**    | **false** |
+| `NamedRuntimeType('int')` | true       | true        | true     | true        | true         | true      |
+| `TypeParameter('T')`      | true       | true        | true     | true        | true         | true      |
+
+So this was never a missing case — it was one implementation disagreeing with
+its peers, in five of six cells. The `NamedRuntimeType` column is the half the
+filing todo did not mention and is the worse one: `BridgedClass.isSubtypeOf`
+reached a name test only inside its `other is BridgedClass` block and fell
+through to `return false` for every other kind of target — including the
+sentinel `runtime_interfaces.dart` documents as how `dynamic` is spelled when a
+richer type object is unavailable.
+
+`isTopTypeName` is now the single answer all three ask, covering `dynamic`,
+`Object`, `Object?` and `void`. It replaces two private spellings of the same
+idea (`_isWildcardTypeName`, `TypeParameter._isTopType`) that did not agree with
+the third implementation, which had neither.
+
+The by-name workaround in `_checkArgumentType` — `declaredName == 'dynamic' ||
+declaredName == 'void'` on the RESOLVED type — is removed, because the predicate
+answers that question itself now. F-SCC29-19 still passes, and reverting only
+the predicate fix makes it fail alone, which is what says it passes for the
+right reason rather than through a name test.
+
+**One rule had to stay by name.** Returning a value from a `void` function is
+rejected at the declaration in Dart, not because the value fails to inhabit the
+type — `void` IS a top type for assignability. The return check previously
+entered its error path only because `int <: void` answered false, so making the
+predicate correct silently deleted that diagnostic (`I-MISC-209`). The check now
+names `void` explicitly, as it already named `dynamic`.
+
+## 1.97.0
+
+### Fixed — an extension member no longer answers for an error raised on a different receiver (scd87)
+
+A genuine error inside a member that EXISTS was being swallowed and replaced by
+an unrelated value, with nothing logged:
+
+```dart
+class Inner {}
+class Outer { String get tag => Inner().tag; }
+extension OuterX on Outer { String get tag => 'extension'; }
+main() => Outer().tag;   // returned 'extension'
+```
+
+`Outer.tag` exists and runs. Its body fails because `Inner` has no `tag`. That
+failure escaped the getter, reached the caller's member-lookup handler, was read
+as "`tag` is absent on this receiver", and `OuterX.tag` answered.
+
+SCC28's typed signal could not separate the two — both are genuine
+`UndefinedMemberD4rtException`s carrying `memberName == 'tag'`. What separates
+them is WHICH OBJECT the lookup failed on. `UndefinedMemberD4rtException` now
+carries `receiver`, set at all eleven raise sites, and the seven
+extension-lookup decision sites compare it with `identical`.
+
+**Identity, not a description.** Two instances of the same class describe
+identically, so a receiver string could not separate the failure raised for the
+object in hand from one raised for a different object of the same class deeper
+in the stack. A null receiver — a static or prefix lookup, where no receiver
+object exists — never matches, so the branch is not taken and the failure
+propagates, which is the conservative direction.
+
+**One of the eight sites is deliberately left alone**, and the direction is the
+reason. At the seven extension sites the branch means "treat the member as
+absent and look for an extension", so admitting a same-named inner failure lets
+an extension answer for a real error. At the compound-assignment site the branch
+means "propagate the specific error instead of relabelling it as `Assigning to
+undefined variable`" — narrowing it would send MORE failures to the relabelling
+path. Same defect, opposite direction. The comment sits beside the code.
+
+`F-SCC28-9` was written asserting the WRONG answer so that fixing this would
+invert it. It is flipped here, and the flip is the proof.
+
+## 1.96.0
+
+### Changed — the last message test in the visitor is typed (scd86)
+
+SCC28 removed every site that decided control flow by reading a member-lookup
+diagnostic, with one deliberate exception in the compound-assignment path:
+
+```dart
+if ((e is UndefinedMemberD4rtException && e.memberName == variableName) ||
+    e.message.contains("Undefined static member")) {
+```
+
+`UndefinedStaticMemberD4rtException` replaces that string test, carrying
+`memberName`. Six raise sites convert with it — the four sentences the
+interpreter composes (`on class`, `on enum`, `on bridged class`, `on
+extension`) plus the two property-access sites — and every one had to keep
+starting with those three words for the branch to be taken.
+
+**Deliberately a second type, not a reuse.** The two failures answer different
+questions: instance-member absence gates extension-method lookup, static-member
+absence gates the compound-assignment fallback. Collapsing them would let one
+branch answer for the other, which is the defect SCC28 removed, reintroduced
+through the type system instead of through a message. F-SCD86-3 pins the
+distinction.
+
+**The decision site does not read `memberName`, and that is the conversion being
+faithful rather than incomplete.** The string test it replaced carried no name
+check, so comparing a name here would have narrowed the branch instead of typing
+it.
+
+F-SCC28-1's source scan was the other half. It matched only on "Undefined
+property", so this line passed it, and a seventh static-member raise site worded
+differently would have passed too — while silently never taking the branch. The
+matcher now covers both phrasings. Both controls were run: with it widened,
+restoring the string test fails the scan; with the matcher narrowed back to its
+old form, the same restored string test passes green, which is the blindness
+being fixed.
+
+## 1.95.1
+
+### Removed — `_executeClassic`, which was dead code pinning a retired contract (scd85)
+
+A ~310-line private copy of the original `execute()` implementation, kept
+behind `// ignore: unused_element` under a banner reading `PRESERVED FOR
+DEBUGGING REFERENCE` / `DO NOT MODIFY OR DELETE THIS METHOD!`. Nothing called
+it — that is what the ignore was for.
+
+**The problem was the word "reference".** SCC27 rewrote the live boundary so an
+`Error` or `Exception` leaves `execute()` as itself; this copy was deliberately
+left alone, because the banner forbade editing it and a dead method cannot fail
+a test. Its two catch-alls therefore still said
+`throw RuntimeD4rtException('Unexpected error: $e')` — a boundary contract that
+holds nowhere — while the banner told the reader it was authoritative. A stale
+document that announces itself as current is worse than no copy, and the same
+objection would have applied to every future change to the live path.
+
+The banner also contradicted itself: alongside `DO NOT MODIFY OR DELETE` it
+carried `TODO: Remove this legacy method once all code uses the new execution
+path`. Deleting it follows the second instruction; keeping it accurate was
+forbidden by the first.
+
+Git history serves the stated purpose without the risk — `git log -S
+_executeClassic` finds it, unambiguously dated, which an in-tree copy is not.
+Checked before deleting: nothing in the workspace calls it, and no doc or
+guideline names it. The other hits a naive grep finds are `_executeClassicFor`
+and `_executeClassicForWithYieldSuspension`, which are about C-style `for` loops
+and unrelated.
+
+No behaviour changes: the method was unreachable, and both suites are unchanged
+(3648 pass, 0 fail).
+
+## 1.95.0
+
+### Changed — `Uri.isScheme` is a method, and a shadowed `TimeoutException.toString` getter is gone (scd77)
+
+`Uri.isScheme` is `bool isScheme(String)` in the SDK and was registered in the
+`Uri` bridge's `getters` map, returning the native tear-off. **No script
+behaviour changes**: `uri.isScheme('https')` worked before and works now,
+because the interpreter tears a bridged method off just as it tore the native
+closure off. What the wrong member kind cost was checkability — SCC24's sweep
+invokes every registered getter and resolves the value, a tear-off is not a
+value it can resolve, so the member had to be exempted, and an exemption is a
+member the sweep cannot check. That map is now **empty**.
+
+Sweeping for siblings first, as the todo required, found a second instance the
+value sweep could not have surfaced: `TimeoutException.toString` was registered
+as a getter AND as a method, the method shadowing the getter. Nothing ever
+reached the getter, and its value — a `String` — would have resolved fine. It is
+deleted.
+
+**The exemption had already gone stale**, which is the argument for the new
+check. Measured by restoring the getter with the map empty: SCC24's value sweep
+now PASSES, because a `Function` bridge exists and a tear-off resolves like any
+other value. The only thing that ever made this shape visible to it is gone. So
+`F-SCD77-4` reads the DECLARATION instead — `dart:mirrors` over each bridge's
+native type, flagging any getter the SDK declares purely as a method — and that
+is what found the second instance.
+
+One observable difference, and it is a string: `uri.isScheme.runtimeType` read
+`(String) => bool` and now reads `BridgedMethodCallable`, which is what every
+other bridged method already reads. An earlier draft of this entry also claimed
+`uri.isScheme is Function` flipped from `true` to `false`; measured on both
+shapes, it is **false either way** — a script cannot see a native function value
+as a `Function` regardless of which map it came from, while script functions and
+closures can. That is pre-existing and untouched here.
+
+## 1.94.0
+
+### Fixed — a no-hook embedder no longer sees the interpreter's exception wrapper (scd73)
+
+An error escaping an interpreted callback reached an embedder's own
+`runZonedGuarded` as `InternalInterpreterD4rtException`, with the thrown value
+buried two levels in (`originalThrownValue`, then a `BridgedInstance`'s
+`nativeObject`). Unwrapping only happened in the zone d4rt forked, and the fork
+only happened when `onUncaughtError` was set — so the shape a host saw depended on
+whether it used the hook or its own zone.
+
+The reason this was recorded as unfixable turns out to be half right. Unwrapping
+does require *observing* the error, and the only error-interception point Dart
+offers is `ZoneSpecification.handleUncaughtError`, which makes the zone a new
+**error zone** — and Dart refuses to carry an error across an error-zone
+boundary, so owning it unconditionally stops an ordinary script failure from ever
+reaching the caller of `execute` (a hang, not a failure). What the analysis
+missed is that a callback can be observed **at registration** instead of by
+handling what it throws, and a zone specifying only the `register*Callback`
+hooks is *not* an error zone. Measured: `identical(zone.errorZone,
+parent.errorZone)` stays true, and an ordinary future error still crosses to an
+awaiter outside.
+
+So the two halves are now separate. The zone is forked **always** and sheds the
+wrapper; the error-zone half stays opt-in behind `onUncaughtError`. A `Timer` body
+needed a second seam, found by a failing test rather than a probe: d4rt's own
+adapter is `() async { callback.call(...); await _yieldEventLoop(); }`, so the
+throw completes the adapter's unheld future instead of escaping the registered
+callback, and `Zone.errorCallback` is not consulted for an `async` body's
+completion. The three `Timer` adapters therefore unwrap themselves — a bounded
+set, counted: of the five stdlib adapters that invoke a `Callable` inside a
+native `async` closure, the other two hand their future to someone who can hold
+it.
+
+One escape route keeps the wrapper: `Stream.handleError`'s handler, which the SDK
+invokes with no zone registration at all. `unwrapScriptError` is therefore now
+**public** (top-level, exported) and documented as the remedy — two peels, not
+one, which is why it is not left to the caller to write. It returns anything
+that is neither wrapper nor `BridgedInstance` unchanged, so applying it twice or
+to a native error is a no-op.
+
+That the full unwrap is safe at the callback seam was measured, not assumed: a
+`Future.then` callback that throws is the one registered-callback escape an
+interpreted `catch` can still receive, and twelve in-script cases — `catch`,
+`on`-clause matching against native and script-declared types, `e.message`,
+`rethrow`, and in-callback `try`/`catch` inside timers and stream handlers — were
+recorded before the change and are byte-identical after it.
+
+`F-SCC23-10` asserted the old behaviour on purpose and is inverted here, keeping
+its other half: d4rt still does not take over the embedder's error zone.
+
+## 1.93.0
+
+### Fixed — `InterpretedInstance.toString()` reaches the script's override (scd72)
+
+`'$e'` on a script-defined exception printed `<instance of MyErr>` rather than
+the `MyErr: boom` the script wrote. Inside a script, interpolation already
+honoured the override — `InterpreterVisitor.stringify` has dispatched for a long
+time — so the gap showed only where an instance reaches native code, which is
+why it survived. Measured, that was three places and not one: a host
+interpolating a value returned by `execute`, a `D4rt.onUncaughtError` hook, and
+any native container holding the instance (`'${[e]}'` gave
+`[<instance of MyErr>]`, because `List.toString()` is native).
+
+Dispatching needs an `InterpreterVisitor` and `toString()` has nowhere to receive
+one. `D4.activeVisitor` — the ambient one the interpreter already maintains — is
+not enough: measured, it is NULL inside an `onUncaughtError` hook, because the
+interpreter has unwound before the embedder runs. So the visitor is stored on the
+CLASS (`InterpretedClass.declaringVisitor`), one reference per class rather than
+per instance, assigned once from `visitClassDeclaration` / `visitMixinDeclaration`.
+
+The contract splits by caller, and the split is deliberate. `stringify`
+(interpolation inside a script) keeps Dart's semantics: a throwing `toString`
+propagates and `toString() => '$this'` overflows the stack, both before this
+change and after. `toString()` — what host code reaches — does not throw for
+anything recoverable, because a host's first act on receiving an error is to log
+it and a second exception raised while reporting the first is worse than an
+imperfect string. A re-entry guard terminates a cycle that returns through a
+native container.
+
+`StackOverflowError` and `OutOfMemoryError` are rethrown rather than swallowed,
+and that is measured rather than principled: the first draft caught everything,
+and a pair of mutually-interpolating objects then stopped raising
+`StackOverflowError` and started HANGING — the overflow unwound into the catch,
+the fallback was returned, the caller resumed on a still-full stack and
+overflowed again, forever.
+
+## 1.92.0
+
+### Fixed — adapter arguments are coerced, not cast (scd70)
+
+`s.add([65, 66])` threw `type 'List<Object?>' is not a subtype of type
+'List<int>' in type cast`, and `s.add(<int>[65, 66])` threw the same thing: a
+list literal written in a script is a `List<Object?>` whatever its elements hold
+and whatever the author annotated, because the interpreter checks the element
+type without reifying it. There was no spelling of `Socket.add` a script could
+reach. Maps arrive the same way, as `Map<Object?, Object?>`.
+
+Seventeen adapters had that cast, against a report that named two — five in
+`io/socket.dart`, four in `io/file.dart`, four in `io/http.dart`, one each in
+`io/stdio.dart`, `io/io_sink.dart`, `isolate/isolate.dart`, and one in
+`core/function.dart`: `Function.apply` with named arguments, which is not io at
+all. Each was independently unusable from a script. They now use
+`D4.coerceList` / `D4.coerceMap`, which unwrap bridged elements and report a bad
+element by parameter name.
+
+`RandomAccessFile.readInto` and `readIntoSync` are the exception and use
+`List.cast<int>()` instead. They are OUT parameters — the native writes into the
+caller's list — and an eager coercion hands it a copy: measured, that returns
+the byte count while leaving the script's buffer untouched, which is quieter
+than the cast error it replaced and worse. `cast` returns a writable view.
+
+`test/scd70_no_container_arg_casts_test.dart` derives the rule rather than
+listing the sites: an adapter may not cast an argument to a parameterised
+container whose type arguments are not top types. Run against the trees as they
+stood it reports all thirty-four rows.
+
+## 1.91.0
+
+### Fixed — `FormatException`'s source and offset are positional (scd68)
+
+`FormatException('bad', 'src', 2)` produced an exception whose `source` and
+`offset` were both null. The adapter read them out of `namedArgs` while the SDK
+declares `FormatException([String message = "", this.source, this.offset])` —
+three POSITIONAL parameters, none of them named. So there was no spelling that
+worked: the named form the adapter wanted is not legal Dart, and the legal
+positional form reached arguments the adapter never read.
+
+Silent in both directions, which is why it lasted. Extra positional arguments
+are discarded rather than reported as an arity error, so the exception looked
+right until something read `.offset` — and `toString()`, which the SDK builds
+from all three, could only ever print the message. It now reports the position
+and the caret line the SDK puts under it.
+
+A guard now checks the general claim rather than this instance:
+`test/scd68_constructor_named_args_test.dart` reads every `namedArgs['x']` in a
+bridged CONSTRUCTOR adapter and asks `dart:mirrors` whether the SDK constructor
+declares a named parameter `x`. Measured: 70 such claims across 17 stdlib files,
+zero mismatches after this fix, and exactly the two false ones reported when run
+against the adapter as it was. Every other exception adapter in both `dart:core`
+and `dart:io` was checked the same way and is correct.
+
+## 1.90.0
+
+### Changed — every supertype edge is one SDK hop (scd67)
+
+The `_supertypeRegistry` blocks used to restate whole closures:
+`'IndexError': ['RangeError', 'ArgumentError', 'Error']` where the SDK says
+`class IndexError extends RangeError` and the other two were already reachable.
+That was not a style choice — until SCC19 the registry walk went only one hop
+past the direct supertypes, so a two-hop answer had to be written out. SCC19
+removed the constraint; the comments explaining it outlived it by months, in
+files whose next reader would have copied the shape.
+
+Swept the three blocks that still carried it: `dart:async`'s `StreamController`,
+`dart:typed_data`'s eleven list views, and the `dart:core` error chain. Measured,
+that removed exactly 18 redundant edges — 155 direct edges became 137 — and the
+transitive closure of all 94 registered names is byte-identical before and
+after. `test/scd67_hierarchy_edges_test.dart` now derives the invariant instead
+of recording it: a parent already reachable through another parent of the same
+key does not belong in that key's list. Run against the pre-sweep tree it
+reports all 18 by name.
+
+### Fixed — `List -> Iterable` is a `dart:core` edge and is now declared there
+
+`List` and `Set` are `dart:core` types, but their edge to `Iterable` was
+declared by `dart:collection`'s registrar — so a script that never imported
+`dart:collection` had no path from `List` to `Iterable` at all. That is why
+every typed-data view restated the whole closure: it was the only way those
+views could reach `Iterable` on their own imports. The edge now lives in
+`CoreHierarchyCore`, which always registers, and the eleven views declare the
+two edges the SDK gives them.
+
+Purely additive: with `dart:collection` loaded nothing changes, and without it
+`List` and `Set` gain a closure they should always have had.
+
+## 1.89.0
+
+### Fixed — the three pattern kinds `_matchAndBind` had no branch for (scd64)
+
+`case (int _)` threw `Unimplemented Error: Pattern type not yet supported in
+_matchAndBind: ParenthesizedPatternImpl`, and so did `var (int a) = ...`.
+Auditing the rest of the dispatch — every `DartPattern` subtype the analyzer
+defines, through five contexts, in one pass — found two more kinds in the same
+state rather than one:
+
+| pattern kind         | spelled | before        |
+| -------------------- | ------- | ------------- |
+| ParenthesizedPattern | `(p)`   | Unimplemented |
+| NullCheckPattern     | `p?`    | Unimplemented |
+| NullAssertPattern    | `p!`    | Unimplemented |
+
+The other twelve were implemented and answered correctly in all five contexts.
+
+All three are now live in every pattern position: switch statement, switch
+expression, `if (v case ...)`, destructuring declaration, pattern assignment
+and pattern for-each. `(p)` is pure grouping and recurses. The two null
+patterns are the same syntax with OPPOSITE answers for null, measured against
+the SDK rather than assumed: `case int n?` with a null scrutinee falls quietly
+to the next arm, while `case int n!` raises a `TypeError` with the null-check
+operator's own wording and cannot select an arm at all. The exception type is
+load-bearing — arm selection catches pattern-match failures and nothing else —
+so a null-assert signalled as a non-match would silently take `default`.
+
+The two irrefutable sites (declaration, assignment) also stopped wrapping a
+`TypeError` raised during binding in a generic runtime error. `var (a!) =
+maybeNull;` is legal Dart whose entire purpose is to raise one, and a script's
+`on TypeError` has to see it.
+
+A failing CAST pattern is a separate, unfixed divergence, now pinned: `case var
+n as int` over a String signals a non-match and takes `default`, where real
+Dart throws.
+
+## 1.88.0
+
+### Fixed — a typed for-each loop variable is checked against what it binds (scd63)
+
+`for (final int x in [1, 'two', 3])` bound the String and kept going. The body
+then ran with a value its own declaration rules out — and, measured, did not
+fail there either: `x + 1` reached `String.+` and produced `'two1'`. A silently
+wrong value, not an error a few frames away. Real Dart raises a `TypeError` on
+the offending element, after the earlier iterations have run, which is what
+this now does, with the SDK's own wording so a script's `on TypeError` sees
+what Dart would have shown it.
+
+SEVEN PATHS, ONE CONSTRUCT. The same loop was checked or unchecked depending on
+things a reader of the loop cannot see. The visitor has three for-each
+implementations (statement, collection-literal element, await-for item list),
+the async state machine two more, and the sync generator a seventh — so whether
+a given loop was covered came down to whether its enclosing function was
+`async`. All seven now share one rule.
+
+IT IS A BINDING CHECK, NOT `is`. The obvious implementation — the `is`
+predicate SCC18 extracted — is wrong twice over. `for (final double d in
+[1, 2.5])` is a program real Dart ACCEPTS, because the literal widens, and
+`1 is double` is false; and `is` must answer "no" to a type it cannot resolve,
+where a binding check has to wave that same type through or a script using an
+unbridged library stops running. The check reused is the one SCC29 wrote for
+parameter binding, which had already settled both. Its value-independent half
+is now split out so a loop resolves its annotation once: measured, that
+resolution was ~86% of the check's cost, and hoisting it took the overhead on a
+200 000-element typed loop from +16% to +2%.
+
+Two cases are deliberately left as they were: `for (x in xs)` over a variable
+declared elsewhere (the annotation is not on this node), and a type name the
+interpreter cannot resolve. Both are pinned as they stand.
+
+## 1.87.0
+
+### Fixed — `is` honours the nullable `?` suffix, and so do typed patterns (scd62)
+
+`_valueHasType` switched on the type NAME and dropped the suffix, so `String?`
+reached the `String` case and asked the host's own `is` — false for null.
+Measured: `null is String?`, `null is int?` and `null is Object?` were all
+false. The last is the sharpest form of it, since every value satisfies
+`Object?` and there was no input for which that answer was right.
+
+It was not only the operator. SCC18 extracted this predicate out of
+`visitIsExpression` and routed typed PATTERNS through it, so the same defect
+decided pattern arms: `case String? _` did not match null and the null fell to
+a later arm or to `default`. All three pattern contexts — a `switch`
+expression arm, `if (v case ...)`, and a `case T? name:` label with its
+binding — are fixed and pinned.
+
+Scoped to null deliberately. A non-null value still tests against the bare
+type, which was always correct (`'hi' is String?` was true before this), and
+`Null`, `dynamic` and `void` keep their own branches rather than being
+collapsed into the nullable question.
+
+## 1.86.0
+
+### Fixed — a `throw` inside an async `finally` never completed (scd43_aide)
+
+    Future<dynamic> main() async {
+      try { } finally { throw StateError('fin'); }
+    }
+
+hung. `_handleAsyncError` asked `_findEnclosingTryStatement` which try protects
+the throwing node, and for a node inside a finally block that is the try whose
+finally is currently running. It has a finally, so the machine scheduled that
+finally again — which threw again, for ever. **A finally block is not protected
+by its own try**, so the search now continues at the try's parent.
+
+Every async shape hung: with an outer catch and without, with an `await` before
+the throw and without, and whether or not the finally's exception was replacing
+one already in flight. The synchronous path was correct throughout and is the
+reference the nine new cases are written against.
+
+**The replacement rule is the half that a naive fix gets wrong.** Dart specifies
+that an exception raised in a finally REPLACES one propagating from the try
+body, and the replaced one is lost. Stopping the loop while leaving scd40's
+`errorAfterFinally` hold in place would have surfaced the ORIGINAL exception at
+the state machine's terminal exits — a program that no longer hangs and still
+answers wrongly. The hold is dropped in the same step, and so is a pending
+return: `try { return 7; } finally { throw … }` now throws, as real Dart does.
+
+The rule is read from the AST, not recorded on the state, which is the decision
+scd41 made for the rethrow case and for the same reason — whether a node sits
+inside a given finally block is a fact no amount of prior execution can change.
+Like `_tryOwningCatchClauseOf`, it stops at the FIRST enclosing finally, so a
+`try` written inside a finally block still handles its own errors (F-SCD43-9).
+
+These cases HANG when they regress rather than failing: the machine reschedules
+through `Future.microtask`, so a loop starves the event loop and the file's own
+timeout never fires. Seeing the red state needs a wall clock
+(`perl -e 'alarm 90; exec @ARGV' dart test …`), which is stated in the group's
+doc comment.
+
+## 1.85.0
+
+### Fixed — a bare block lost its locals across an `await` (scd42_aide)
+
+    main() async {
+      { var log = []; log.add(await Future.value(1)); return log; }
+    }
+
+reported `Undefined variable: log` for a local plainly in scope. The same code
+at the top level of a function body, or inside an `if`, `for` or `while` body,
+worked — which is what made it look like an unrelated scoping bug each of the
+three separate times SCC12 hit it.
+
+The distinguishing condition is a **bare block**, and it is not the one the
+report named. The async state machine flattens the statement tree: it steps into
+if/for/while bodies and runs their statements in the function's own frame, so a
+declaration there survives a resumption. A standalone `{ … }` had no such
+handler, so it was handed to `visitBlock`, which opens a CHILD environment and
+runs the statements synchronously. An `await` inside then suspended, the machine
+resumed at a statement *inside* the block, and that child environment was gone.
+
+A bare block is now stepped into like every sibling construct, for the reason
+the `LabeledStatement` case next to it already gives: accepting the node whole
+hands it to the synchronous visitor, which cannot suspend. This carries the
+limitation those cases already have — the machine flattens, so block-scoped
+shadowing is not honoured in async code — and that is a much smaller problem
+than a hard error on ordinary code.
+
+**It was not only failing loudly.** The hoisted form that looks like a
+workaround,
+
+    { var log = []; final v = await Future.value(1); log.add(v); return log; }
+
+returned `1` rather than `[1]` — the awaited value instead of the list. A test
+that checked only for the absence of an exception would have called the bare
+block healthy, so `F-SCD42-5` asserts the value.
+
+The report's framing — "an `await` in ARGUMENT position loses the environment" —
+points at the wrong expression. What is lost is the method **target**:
+`F-SCD42-3` has no local in the argument list at all and failed identically,
+while `F-SCD42-4` passes an awaited argument to a top-level function and always
+worked, because the callee is resolved globally.
+
+## 1.84.0
+
+### Fixed — async try/catch now decides like the synchronous path (scd41_aide)
+
+Two defects with one cause: the async state machine approximated two decisions
+that `visitTryStatement` already made properly, so the same script behaved
+differently depending only on whether the enclosing function was `async`.
+
+**Typed catch clauses were chosen by position.** `_handleAsyncError` took
+`enclosingTry.catchClauses.first`, with a comment admitting it was
+"simplified". In an async function
+
+    try { throw ArgumentError('a'); }
+    on StateError catch (e) { ... }        // ran
+    on ArgumentError catch (e) { ... }     // did not
+
+and, worse, a lone `on StateError catch` **caught** an `ArgumentError` that had
+to propagate — so the error surfaced nowhere at all. The synchronous path had
+converged on one predicate in SCC20 (`on T` asks exactly what `x is T` asks);
+the matching rules are now extracted into `catchClauseMatches` /
+`selectCatchClause` and both paths call them. The SCC31 undefined-name rule
+moves there too, so it exists once instead of at every dispatch site.
+
+**A `rethrow` could not tell which try it was already inside.** The async path
+read that from `AsyncExecutionState.activeTryStatement`, a single mutable field,
+and tested whether it equalled the try found for the rethrow node. Any try that
+completed in between cleared the field, the test then failed, the error was
+re-offered to the *same* try, and its catch rethrew again — so the function
+**hung**. A nested `try` inside a catch block is enough:
+
+    try { throw StateError('x'); }
+    catch (e) {
+      try { await Future.value(0); } finally { }   // clears the field
+      rethrow;                                      // never escapes
+    }
+
+The answer is now read from the AST: the try to skip is the one whose catch
+clause lexically contains the rethrow.
+
+**The choice between patching and deriving, recorded.** SCD41 proposed turning
+`activeTryStatement` into a stack, and asked whether the async path should be
+derived from `visitTryStatement` wholesale rather than reimplementing it. What
+landed is the middle answer, and deliberately so:
+
+- The **decision procedures** are now shared. "Which clause matches this error"
+  and "which try does this rethrow target" are not suspension concerns, and both
+  were already answered correctly next door. Sharing them makes this class of
+  divergence impossible rather than fixing its instances.
+- The **executors** stay separate. The state machine exists because any
+  statement may suspend, and `visitTryStatement` runs its blocks synchronously;
+  deriving execution from it means rewriting the suspension model, which is a
+  rewrite rather than a refactor.
+- `activeTryStatement` is **not** made a stack. Its only fragile read was the
+  rethrow test, and that answer is structural. A stack would add push/pop
+  obligations to every suspension and resumption path in a machine that has now
+  produced six defects — maintaining the dependence instead of removing it.
+
+Eleven cases join the family file. Four were red (`on`-clause selection) and one
+**hung**; six were controls, several correct for a different reason than the
+fixed cases — a try nested inside a catch must still handle its own errors, and
+that is precisely what an over-eager rethrow skip would break.
+
+`F-SCC31-17` is rewritten rather than deleted. It used to assert the
+undefined-name rule appeared in all four dispatch files, because there were two
+implementations of matching; now it asserts the stronger pair — the rule lives
+in the one decision, and `callable.dart` routes to it and does not re-implement
+the choice. Verified non-vacuous by reinstating `catchClauses.first`.
+
+## 1.83.0
+
+### Fixed — an async function silently returned its finally block's value instead of throwing (scd40_aide)
+
+The shape is what a careful programmer writes: acquire a resource, use it,
+release it in a `finally`. In an `async` function, if anything in the `try` body
+raised and there was no `catch`, the error was **discarded** and the function
+completed normally with the finally block's last evaluated value.
+
+    Future<dynamic> main() async {
+      final o = Thing();
+      try { return o.nonsenseXyz; } finally { await o.tidy(); }
+    }
+
+returned `42` — `tidy()`'s result — where it must throw `Undefined property
+'nonsenseXyz'`. With a `ServerSocket` teardown it returned the socket. This is
+the dangerous member of the family SCC12 opened: it does not hang and does not
+throw, **it answers, and the answer is wrong**.
+
+SCC12 already parked such an error on `AsyncExecutionState.errorAfterFinally`,
+because the main loop clears `currentError` after every statement that completes
+normally and the error would not survive even the first statement of the
+finally. `_findNextSequentialNode` re-raises it when the block ends — by handing
+it to the NEXT node. When the `try` is the last thing in the function there is
+no next node: the loop simply ends, and its terminal exits consulted
+`returnAfterFinally` and `currentError` and never the hold. The error was
+dropped and the function completed with `lastResult`.
+
+The terminal exits now honour the hold, ahead of a pending return: the two are
+set by different abrupt completions of the same `try`, and when the try body
+threw, Dart propagates that error.
+
+**The preconditions were broader than the report.** `await` in the finally is
+not one of them — a wholly synchronous finally in an async function failed
+identically, so the fix belongs at the state machine's exits rather than on the
+await path. Nor is `return`-in-try: a bare `throw` was discarded the same way.
+What matters is an async function, an uncaught error in a `try`, a non-empty
+`finally`, and nothing after the `try`. That last condition is why the defect
+survived: every existing case in the family had a statement after the try, and
+`F-SCC12-12` uses the assign-then-return shape the audit tool had been forced
+into precisely by this bug.
+
+A **successful** return is not affected and never was — `try { return 7; }
+finally { await … }` returns 7. Establishing that first is what says this is an
+error-handling defect rather than "a finally overwrites the pending return",
+which would have been broader and worse. `F-SCD40-8` keeps it that way.
+
+Eleven cases in `test/scc12_await_in_finally_test.dart` pin the family: four
+were red and seven were already green *for a different reason* — the error takes
+another path — which is exactly the set a widened hold would have captured too.
+
+## 1.82.0
+
+### Fixed — an unknown named argument to `Set.castFrom` blamed `newSet` (scd37_aidc)
+
+`Set.castFrom<S, T>(Set<S> source, {Set<R> Function<R>()? newSet})` is the only
+member in the whole bridged surface whose parameter is a *generic* function —
+one the callee instantiates at a type the caller never writes. Interpreted code
+cannot express that, so 1.34.0 made the bridge reject `newSet` rather than
+accept and ignore it, and that remains the right answer: a dropped `newSet`
+returns a view over a `LinkedHashSet` where the caller asked for a
+`SplayTreeSet`, and the script then misbehaves far from the call.
+
+The rejection was implemented as `namedArgs.isNotEmpty`, so ANY named argument
+produced the `newSet` explanation. `Set.castFrom(s, newFoo: 1)` was answered
+with a paragraph about generic functions — a limitation that has nothing to do
+with what the author wrote, and the kind of misdirection that costs a debugging
+round. The two cases are now separate: `newSet` gets the reason, anything else
+is told it is not a parameter of `castFrom`. The `newSet` message also now says
+what to do instead (`SplayTreeSet<T>.of(source.cast<T>())`).
+
+**`Map.castFrom` does not have this shape**, contrary to what the tracking todo
+assumed. SDK 3.12.2 declares `Map.castFrom<K, V, K2, V2>(Map<K, V> source)`
+with no named parameter at all, so the bridge refusing one is correct rather
+than the same defect — a bridge must not accept what the SDK rejects. Pinned by
+F-SCD37-5 so the claim stays measured.
+
+`newSet` is the *only* instance: swept against the SDK sources of `core`,
+`collection`, `convert`, `async`, `typed_data` and `io`. The sweep has to read
+the sources because `dart:mirrors` erases the `<R>` and reports the parameter
+as a plain `() -> Set`, which is indistinguishable from an ordinary callback —
+so no mirror-based audit can find this shape.
+
+F-SCD37-1 is written as a throw rather than a value comparison on purpose: the
+bridge could accept `newSet` and ignore it, and every other assertion here
+would still pass.
+
+## 1.81.0
+
+### Fixed — a bridged method tear-off is a function everywhere now (scd35_aidc)
+
+`stream.listen(seen.add)` did not run. `seen.add` tears off a method from a
+bridged `List` and yields a `BridgedMethodCallable`; sixty-two stdlib bridge
+files cast their callback argument to `InterpretedFunction`, which that is not
+a subtype of, so the cast threw. Adapters that guarded with
+`is! InterpretedFunction` instead reported `requires a Function` — the same
+defect wearing a more confusing message, since the argument *is* a function.
+The workaround was to wrap the tear-off in a lambda, which is exactly the kind
+of rewrite a script author has no way to predict is necessary.
+
+`Callable` is the supertype `InterpretedFunction` and every bridged callable
+already implement, so no new type was needed. Two files had converged on it
+independently — `core/list.dart` in the Bug-95 fix and
+`collection/unmodifiable_list_view.dart`, whose helper already documented
+"accepts any `Callable`, not just `InterpretedFunction`". This finishes that
+job across the stdlib rather than adding a third case at each site: every
+`as` / `is` narrowing in `lib/src/stdlib` is now `Callable`, in both twins.
+
+Two things were deliberately left narrow. The `InterpretedFunction` checks
+outside the stdlib — in `interpreter_visitor.dart`, `callable.dart`,
+`environment.dart` — are genuine dispatch on interpreted-only state such as
+`isGetter`, not argument coercion, and are untouched. And `errorHandlerArgs`
+keeps one `is InterpretedFunction`, because deciding whether an error handler
+takes a stack trace means reading `maxPositionalArity`, which only an
+interpreted function can answer: `BridgedMethodCallable.arity` is a hardcoded
+0 precisely because the adapter validates arity itself. A bridged tear-off
+used as `onError` is therefore called with the error alone — the shape every
+SDK error handler accepts, where passing a second argument to a one-parameter
+tear-off would fail inside the adapter.
+
+Every assertion in `scd35_bridged_tearoff_as_callback_test.dart` is the bare
+tear-off. The wrapped form appears once, labelled a control: it passed before
+this fix too, so a test written that way measures nothing. Six of the twelve
+cases were confirmed red beforehand; the six that were already green document
+paths that were never broken — the interpreter's own argument binding accepts
+any `Callable` and always did.
+
+F-SCD35-9 is a ratchet rather than a case about today's members. The surface
+of this bug grew with the bridge corpus: every newly bridged member is another
+tear-off, and every newly written adapter another chance to narrow the type
+back. The scan covers the adapters nobody has written yet.
+
+### Fixed — the last three bridged-constructor wrap sites drop the trace (scd34_aidc)
+
+SCC11 gave `RuntimeD4rtException` an `originalStackTrace` so an interpreted
+`catch (e, st)` reports where the *native* throw happened rather than where the
+interpreter caught it. Three wrap sites were left binding only `catch (e)` and
+so had nothing to forward — all three on the bridged-constructor paths: the
+explicit `super.named()` call, the implicit super call, and
+`visitInstanceCreationExpression`. All three now bind `catch (e, s)` and pass
+`originalStackTrace: s`.
+
+The site in `visitInstanceCreationExpression` had a second defect that says how
+it got this way: its `Logger.error` line read `\$e\n\$s` — escaped, so it
+logged the literal text `$e\n$s` instead of the exception and its trace. That
+is what narrowing the binder to `catch (e)` leaves behind when the message is
+made to compile rather than fixed. Its sibling twenty lines away still had the
+unescaped form, which is what the line should have said all along.
+
+Widening the three was necessary but not sufficient, and only a negative
+control could show that. Two of the three sit under a re-wrap in
+`InterpretedClass.call` that catches `on RuntimeD4rtException` and builds a
+fresh one out of `e.message` alone — discarding the trace that had just been
+preserved one frame below. Four re-wraps on the constructor path now carry
+`originalStackTrace: e.originalStackTrace` across. They deliberately do **not**
+carry `originalException`: that would change which type a script's `on` clause
+matches, which is a behavioural question and not this change.
+
+The arity-error throw in the same clause (SCB28) now forwards the trace too. It
+replaces the native error as the *value* on purpose, but the adapter frame that
+indexed past the end of the argument list is still the only one that says where.
+
+Verified by negative control rather than by a green run: each adapter in
+`scd34_constructor_trace_forwarding_test.dart` throws via
+`Error.throwWithStackTrace` carrying a `StackTrace.fromString` sentinel, so a
+trace manufactured at the wrap site cannot satisfy the assertion by accident.
+Removing the forwarding at each of the three sites individually was confirmed
+to turn exactly that site's case red.
+
+## 1.80.0
+
+### Changed — the invented-error-contract sweep, and its one survivor (scd31_aidb)
+
+A hand-written adapter that invents an error contract the SDK does not have is a
+defect no reachability check can see: the member is registered, it resolves, and
+the member diff counts the class complete.
+
+Swept. Of 1138 `throw RuntimeD4rtException` sites under `lib/src/stdlib`, the
+argument, target-type and callback-return guards — the overwhelming majority and
+all correct — leave 37, of which exactly one is conditioned on the RECEIVER's
+state rather than its arguments, which is the shape both known instances had.
+
+That one is `LinkedListEntry.unlink()` on an unlinked entry, and it STAYS: Dart
+has no contract there to contradict, throwing an internal
+`_TypeError: Null check operator used on a null value` rather than a documented
+failure. Where the SDK has no contract, a legible error is the better answer.
+The reasoning now sits at the definition so a later sweep matching on shape
+alone does not remove it.
+
+`test/stdlib/nullable_returns_do_not_throw_test.dart` holds the property going
+forward: sixteen nullable-returning collection members, each driven in the state
+that should yield null. It would have caught the `SplayTreeMap.firstKey()` case
+that prompted the sweep.
+
+### Fixed — an empty queue raises a catchable `StateError` (scd30_aidb)
+
+`removeFirst` and `removeLast` guarded the empty case by hand and threw
+`RuntimeD4rtException` with a message the bridge invented. Dart throws
+`StateError` with `Bad state: No element`, so a script written the idiomatic
+
+    try { q.removeFirst(); } on StateError { … }
+
+did not catch, and the failure surfaced as an uncaught interpreter error instead
+of the recovery path its author wrote.
+
+The guards are removed rather than corrected: the native call raises the SDK's
+error unaided. Six sites — `Queue`, `ListQueue` and `DoubleLinkedQueue`, in both
+trees.
+
+`first` and `last` were listed in the report and turned out to be fine already;
+they resolve through the supertype edge and were never guarded.
+
+This is a better hiding place than the sibling defect it came from. The
+`SplayTreeMap` guard threw where Dart RETURNS, so it changed the value contract
+and one probe found it. This one throws where Dart THROWS, so the two behave
+identically until a script tries to CATCH — which is why the new cases assert
+the catch from inside an interpreted script rather than asserting a throw from
+the host.
+
+Three existing cases asserted the old contract and had their PREMISE corrected,
+which is noted here because it is a different act from loosening them: I-COLL-69
+pinned the invented message verbatim, I-COLL-50 pinned the interpreter's
+exception type, and F-SC7-AST-6 expected `removeFirst` to disagree with `first`
+in the same bridge.
+
+## 1.79.0
+
+### Fixed — the float typed lists accept int literals, as Dart does (scd29_aidb)
+
+`Float32List.fromList([1, 2])` worked while `setAll(0, [7, 8])` did not, so the
+same script could build a float list from int literals and then fail to write
+int literals into it.
+
+**Measured against the analyzer, `fromList` was the correct one.** In a context
+expecting `double`, an integer LITERAL is a double: `fromList([1, 2])`,
+`setAll(0, [7, 8])`, `setRange(0, 2, [7, 8])`, `followedBy([9])` and
+`Float32List(1) + [9]` all compile. The other four were rejecting valid Dart,
+which is an over-narrow guard rather than a widening.
+
+The conversion is narrow: `int` to `double` only, only where that is the element
+type. `double` to `int` is lossy and stays refused, and no other element type is
+converted.
+
+One limit is recorded rather than hidden. Dart accepts the literal and refuses a
+genuine `List<int>` variable; d4rt erases element types, so the two arrive
+indistinguishable and one side has to be chosen. Accepting admits the common,
+valid form.
+
+### Changed — the eleven typed lists share one adapter map (scd28_aidb)
+
+`Uint8List` hand-rolled the whole inherited-`List` surface that the other ten
+reached through `inheritedListMethods<E>()`. That one structural fact had
+already produced two defects in opposite directions (SCB3, SCC9), and both were
+hard to see for the same reason: `Uint8List` is the variant most likely to be
+probed and the one least representative of the others.
+
+Its 45 duplicate adapters are gone; it uses the shared helper like its siblings.
+Measured through the interpreter before and after, **`Uint8List`'s resolvable
+surface is identical on all 24 probes** — this removes a duplicate
+implementation, not surface.
+
+### Fixed — `first`, `last` and `length` are assignable on every typed list
+
+The same measurement found the asymmetry running the other way. `Uint8List`
+declared the three `List` setters and the other ten declared none, so
+`l.first = 1` worked on `Uint8List` and raised "undefined setter" on its
+siblings — with `Uint8List` being the CORRECT one. All three are valid Dart on
+every typed list: `first`/`last` are length-preserving, and `length` exists and
+throws `UnsupportedError`, which a script can catch. A missing-member error sends
+`try { … } on UnsupportedError { … }` down the wrong path.
+
+Now provided by a shared `inheritedListSetters<E>()`, so the eleven cannot
+disagree again. A wrong element type still fails — assigning an `int` into a
+`Float64List` is a type error in Dart and stays one — but reports which member
+and which element type instead of a raw `_TypeError`.
+
+## 1.78.0
+
+### Fixed — `buffer` was callable as a method on every typed list (scd27_aidb)
+
+`buffer` was registered in the `methods:` map as well as the `getters:` map on
+all eleven typed lists, so `list.buffer()` resolved. In the SDK it is a getter
+inherited from `TypedData`, and that call does not compile as Dart.
+
+**This removes script-visible surface.** A script written `list.buffer()` stops
+working here — and it never worked as Dart, which is the point: the widening
+shape makes a script green in the interpreter and invalid outside it, and it is
+the one bridge defect no passing test catches, because every assertion anyone
+would write uses `list.buffer`, the form that was always correct.
+
+The duplicate is also why it lasted: `list.buffer` read correctly throughout, so
+there was nothing broken to trip over — the extra surface simply sat beside the
+correct surface.
+
+Both directions are pinned — `F-SCD27-1-*` that the property reads on every
+variant, `F-SCD27-2-*` that the call does not resolve — because a deletion
+cannot be protected by an assertion that passes.
+
+### Fixed — collection arguments in `core` and `convert` are coerced, not cast (scd26_aidb)
+
+d4rt evaluates a list literal to `List<Object?>` and a map literal to
+`Map<Object?, Object?>`, so an adapter written `positionalArgs[0] as
+Iterable<int>` tested the CONTAINER's type argument — which never matches —
+rather than its CONTENTS, which usually do. `Runes('ab').followedBy([99])` threw
+where `Runes('ab').followedBy(Runes('c'))` passed, which is why these survived
+review.
+
+Fixed at `Runes.followedBy`, `RegExpMatch.groups`, `Match.groups`,
+`latin1.decode`, and `Uri`'s `pathSegments` and `queryParameters`. Two further
+sites were probed and found already correct (`Function.apply`, `latin1.encode`)
+and are now pinned so a later sweep cannot "fix" them into a regression.
+
+`coerceElements` moves from `typed_data/inherited_list_methods.dart` to
+`stdlib/coerce_elements.dart` — it was never typed-data-specific — and gains
+`coerceMapArg` and `coerceElementsOrNull`. None of them widens: an element, key
+or value whose type genuinely does not fit still fails.
+
+### Fixed — `InternetAddressType` offered four members the SDK does not declare (scd24_aida)
+
+`lookup`, `host`, `address` and `type` were bridged on the enum, each wired to
+an unrelated `Object` member: `host` returned `.name`, `address` returned
+`.hashCode`, `type` returned `.runtimeType`, `lookup` returned `toString()`. So
+`type.address` handed back a hash code and raised nothing.
+
+They were copied from `InternetAddress`, which sits beside it in the same file
+and really does declare all four. Removed, and their absence pinned by
+`F-SCD24-1..5`.
 
 ## 1.77.0
 

@@ -1,6 +1,6 @@
 name: tom_d4rt_exec
 description: "D4rt Exec - Analyzer-free D4rt interpreter running on mirror AST (tom_d4rt_ast). Migration target from tom_d4rt for Flutter/server use."
-version: 1.43.0
+version: 1.51.0
 repository: https://github.com/al-the-bear/tom_d4rt
 homepage: https://github.com/al-the-bear/tom_d4rt/tree/main/tom_d4rt_exec
 topics:
@@ -13,7 +13,6 @@ platforms:
   ios:
   linux:
   macos:
-  web:
   windows:
 
 environment:
@@ -25,8 +24,8 @@ dependencies:
   # The interpreter this package fronts. Resolved from pub.dev, not by path, so
   # this floor is also what any exec test suite actually measures (DGUC6) —
   # raising it is how upstream interpreter work becomes visible here at all.
-  tom_d4rt_ast: "^0.206.0"
-  tom_ast_generator: "^0.1.14"
+  tom_d4rt_ast: "^0.210.0"
+  tom_ast_generator: "^0.1.17"
 
 dev_dependencies:
   lints: ^6.0.0
@@ -56,4 +55,4 @@ dev_dependencies:
   # floor — and for a long time that accident was 1.11.0. Keep the two floors in
   # step; a conformance suite should not have to be reverse-engineered from
   # `dart pub deps` to find out what it is measuring.
-  tom_d4rt: "^1.223.0"
+  tom_d4rt: "^1.229.0"

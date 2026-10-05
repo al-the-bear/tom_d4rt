@@ -39,6 +39,10 @@ import 'user_proxy_relaxer_scanner.dart';
 /// collected file paths absolute by construction rather than by remembering
 /// to convert them at three later call sites.
 ///
+/// [onWarning] receives the scanner's warnings — a `D4UserBridge` without an
+/// annotation, and two user bridges for one target (DFIN10). Without it they
+/// are dropped.
+///
 /// [summaryPaths] / [sdkSummaryPath] forward the shared summary bundles so
 /// that `D4UserBridge` and the overridden target types resolve against the
 /// same `.sum` cache the downstream generator uses.
@@ -47,8 +51,9 @@ Future<UserBridgeScanner> preScanUserBridges(
   List<String>? summaryPaths,
   String? sdkSummaryPath,
   bool verbose = false,
+  WarningCallback? onWarning,
 }) async {
-  final scanner = UserBridgeScanner();
+  final scanner = UserBridgeScanner(onWarning: onWarning);
   final normalizedProjectDir = analysisIncludedPath(projectDir);
 
   final userBridgeDirs = [

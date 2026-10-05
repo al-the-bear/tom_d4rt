@@ -1,3 +1,123 @@
+## 1.51.0
+
+### Changed — tom_ast_generator ^0.1.17 (dfin9)
+
+The floor 1.50.0 lowered for the scf34 route is back; F-SCE62-6 passes.
+
+Name resolution: no.
+
+## 1.50.0
+
+### Changed — resolves tom_d4rt_ast 0.210.0 / tom_d4rt 1.229.0 (dfin9)
+
+`tom_d4rt_ast` ^0.210.0 and dev `tom_d4rt` ^1.229.0, which carry dfin8's fix
+for integers typed as `double` on the web. `tom_ast_generator` is ^0.1.5 for
+this release only (the scf34 route: astgen 0.1.16 pins `tom_d4rt_ast` below
+0.210.0); F-SCE62-6 fails until the next exec release raises it again.
+`front_end_parity_test.dart` gains F-DFIN9-1, which holds the five
+filesystem-import helpers of `ModuleLoader` byte-identical to `tom_d4rt`'s.
+
+Name resolution: no.
+
+## 1.49.0
+
+### Changed — tom_ast_generator ^0.1.16 (dfin7)
+
+The floor 1.48.0 lowered for the scf34 route is back; F-SCE62-6 passes.
+
+Name resolution: no.
+
+## 1.48.0
+
+### Changed — a module exports only its own declarations and its `export`s (dfin6)
+
+BREAKING for a script that relied on the leak. A module's exported environment
+used to receive its whole module environment, imports included, so with
+`main -> a -> b` the entry could call a name only `b` declares. Dart rejects
+that ("Undefined name"), and so does the interpreter now: an importer sees what
+the module declares at its top level plus what its `export` directives name
+(with their `show` / `hide`). Cyclic imports still load. Unnamed extensions are
+still carried, as before.
+
+### Changed — resolves tom_d4rt_ast 0.209.0 / tom_d4rt 1.228.0 (dfin7)
+
+`tom_d4rt_ast` ^0.209.0 and dev `tom_d4rt` ^1.228.0. `tom_ast_generator` is
+^0.1.5 for this release only (the scf34 route: every published astgen pins
+`tom_d4rt_ast` below 0.208.0); F-SCE62-6 fails until the next exec release
+raises it again. `dfin5_record_type_test.dart` and
+`dfin5_record_casts_and_parameters_test.dart` are the reference verbatim; their
+publish pins are gone and `_astPublishBlock` is null.
+
+Name resolution: yes — names an import of an import declares are no longer visible to the importer (dfin6).
+
+## 1.47.0
+
+### Fixed — imported modules: forward static fields and extension types (dfin5, dgub14)
+
+exec's own module loader lacked two passes the other two loaders have. An
+imported class whose static field constructs a class declared later in the
+module failed with "does not have an unnamed constructor", and an imported
+extension type was undefined in its importer. Both work now.
+
+Name resolution: no.
+
+## 1.46.0
+
+### Changed — tom_ast_generator ^0.1.15 (dfin4)
+
+The floor 1.45.0 lowered for the scf34 route is back; F-SCE62-6 passes.
+
+## 1.45.0
+
+### Changed — resolves tom_d4rt_ast 0.207.0 / tom_d4rt 1.226.0 (dfin4)
+
+`tom_d4rt_ast` ^0.207.0 and dev `tom_d4rt` ^1.226.0. `tom_ast_generator` is
+^0.1.5 for this release only (the scf34 route: every published astgen pins
+`tom_d4rt_ast` below 0.207.0); F-SCE62-6 fails until the next exec release
+raises it again. `dfin3_cwd_and_execute_permission_test.dart` is the reference
+verbatim; its publish pin is gone and `_astPublishBlock` is null.
+
+### Changed — no web platform claim (dfin4)
+
+`platforms:` no longer lists `web`. This package depends on `analyzer` and
+uses `dart:io`, so it cannot run on the web; pub.dev showed a web badge it
+could not honour. Web embeddings use tom_d4rt_ast's bundle runtime.
+
+### Changed — exec's own dart:io import gate admits ProcessRunPermission (dfin3)
+
+Mirrors tom_d4rt 1.226.0's import gate. The process and working-directory
+gates themselves live in tom_d4rt_ast's stdlib and reach exec with
+tom_d4rt_ast 0.207.0; `dfin3_cwd_and_execute_permission_test.dart` is ported
+publish-blocked until then.
+
+Name resolution: no.
+
+## 1.44.0
+
+### Changed — the script runners read imports through the interpreter's permissions (dfin2)
+
+BREAKING for a script that imports from outside its own directory without a
+grant. `executeFile`, `executeSource` and `executeFileContinued` used to
+resolve imports with a regex pre-walk that read every transitive import off
+disk directly, so a scoped FilesystemPermission did not hold, a symlink
+inside the script directory read outside it, and a run with no grant at all
+could read anything the process could. `executeFile` and `executeSource` now
+hand the interpreter only the entry source, and the module loader reads
+every import under FilesystemPermission on the file's real path.
+`executeFileContinued` evaluates file by file, so it keeps its own walk, but
+every read goes through the same check.
+
+Each run adds one implicit grant: READ on the entry script's directory tree
+(the `basePath` for `executeSource`), added and removed by identity, so a
+host grant is never touched. An import beside or below the script runs as
+before, and anything outside needs the host's own grant.
+`resolveImportsRecursively` remains a host-side utility (no sandbox), now
+resolving paths with `Uri.resolve` and taking an optional `readFile`.
+`D4rt.loadedSourceModuleCount` reports the `file:` modules of the last run;
+`sourcesLoaded` is read from it.
+
+Name resolution: no — the loader resolves the same imports; only who reads the files changed.
+
 ## 1.43.0
 
 ### Added — exec refuses a statically undefined name before `main` (sch1, sci2)

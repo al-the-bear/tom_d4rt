@@ -1,15 +1,11 @@
 // DFUB13 (AST tree): a failed import/export must produce an ACTIONABLE
 // diagnostic — the twin of `tom_d4rt/test/dfub13_import_export_diagnostics_test.dart`.
 //
-// The bundle loader differs from the filesystem loader in one way that matters
-// here: a module it cannot find is reported as a `RuntimeD4rtException`, where
-// the filesystem loader raises a `SourceCodeD4rtException`. That divergence is
-// why `wrapDirectiveError` keys off the `D4rtException` base class and
-// reconstructs the concrete type — a wrap written against one subtype only
-// would be dead code in this tree, which is exactly what the first draft was.
-//
-// The type divergence itself is left alone here and tracked separately; these
-// tests pin the *diagnostics*, not the taxonomy.
+// A module the bundle loader cannot find is a `SourceCodeD4rtException`, as in
+// the filesystem loaders (DFIN5 aligned the type; it was a
+// `RuntimeD4rtException` here). `wrapDirectiveError` still keys off the
+// `D4rtException` base class and reconstructs the concrete type, so a wrap
+// does not depend on which subtype a loader raises.
 //
 // THERE ARE THREE LOADERS, NOT TWO, and the DFUB13 todo scoped itself to two.
 // `tom_d4rt`, `tom_d4rt_ast` and `tom_d4rt_exec` each carry their own copy of
@@ -57,7 +53,7 @@ void main() {
       expect(
         () => loader.loadModule(Uri.parse('package:nope/missing.dart')),
         throwsA(
-          isA<RuntimeD4rtException>().having(
+          isA<SourceCodeD4rtException>().having(
             (e) => e.toString(),
             'message',
             allOf(
@@ -83,7 +79,7 @@ void main() {
       expect(
         () => loader.loadModule(Uri.parse('package:app/helper.dart')),
         throwsA(
-          isA<RuntimeD4rtException>().having(
+          isA<SourceCodeD4rtException>().having(
             (e) => e.toString(),
             'message',
             allOf(
@@ -109,7 +105,7 @@ void main() {
       expect(
         () => loader.loadModule(Uri.parse('package:app/barrel.dart')),
         throwsA(
-          isA<RuntimeD4rtException>().having(
+          isA<SourceCodeD4rtException>().having(
             (e) => e.toString(),
             'message',
             allOf(

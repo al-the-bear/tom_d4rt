@@ -407,6 +407,11 @@ class ProcessRunPermission extends Permission {
 
     if (opType != 'process') return false;
 
+    // DFIN3: a scope-free question ("is ANY process execution granted?") —
+    // the `dart:io` import gate asks it — waives the command and argument
+    // checks, as `pathAgnostic` does for a filesystem grant.
+    if (operation['commandAgnostic'] == true) return true;
+
     // Check command restrictions
     if (_command != null && opCommand != _command) {
       return false;

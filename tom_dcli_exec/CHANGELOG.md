@@ -1,3 +1,26 @@
+## 1.8.5
+
+### Changed — resolves the web int fix release (dfin9)
+
+`tom_d4rt_exec` ^1.51.0, `tom_d4rt_ast` ^0.210.0, `tom_ast_generator` ^0.1.17. No code change.
+
+## 1.8.4
+
+### Changed — resolves the correctness release (dfin7)
+
+`tom_d4rt_exec` ^1.49.0, `tom_d4rt_ast` ^0.209.0, `tom_ast_generator` ^0.1.16. No code change; the bridges are fresh against the new release and the suite passes, so no REPL script relied on a name only an import of an import declares (dfin6).
+
+## 1.8.3
+
+### Changed — resolves the security release; bridges regenerated (dfin4)
+
+`tom_d4rt_exec` ^1.46.0, `tom_d4rt_ast` ^0.207.0, `tom_ast_generator` ^0.1.15. `cli_api_bridges` carries the interpreter's new public surface
+(`loadedSourceModuleCount`), and `tom_vscode_scripting_api_bridges` its 1.1.3
+API. Scripts run through the REPL keep every permission they had: the REPL
+grants FilesystemPermission.any and ProcessRunPermission.any, so neither the
+script-runner import check nor the execute rule narrows what a REPL script can
+do.
+
 ## 1.8.2
 
 ### Changed — resolves the interpreter releases sci1/sci2 published (sci3)
