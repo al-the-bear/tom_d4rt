@@ -42,5 +42,5 @@ This package is published to pub.dev. See [Project Republishing](../../../../_co
 
 ## Related Packages
 
-- [tom_d4rt](../tom_d4rt/) — Core D4rt interpreter
-- [tom_d4rt_generator](../tom_d4rt_generator/) — Bridge code generator
+- [tom_d4rt](../../tom_d4rt/) — Core D4rt interpreter
+- [tom_d4rt_generator](../../tom_d4rt_generator/) — Bridge code generator

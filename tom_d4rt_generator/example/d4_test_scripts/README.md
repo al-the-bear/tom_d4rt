@@ -4,7 +4,7 @@
 > d4rt project by Moustapha Kodjo Amadou, initially published in 2025. The
 > complete interpreter is based on his idea.
 
-This folder contains runnable examples extracted from the [DCli Scripting Guide](../../../_copilot_guidelines/dcli_scripting_guide.md).
+This folder contains runnable examples extracted from the [DCli Scripting Guide](../../../../../_copilot_guidelines/d4rt/dcli_scripting_guide.md).
 
 **Purpose:** These examples serve as test cases for D4rt/DCli bridge coverage. They should run unmodified in both `dart run` and `dcli`/`d4rt`.
 

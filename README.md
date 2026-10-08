@@ -98,7 +98,6 @@ is the navigation hub for the bridging mechanism docs (categories A–D).
 
 | Package | What it is |
 | --- | --- |
-| [`tom_d4rt_test`](tom_d4rt_test/README.md) | Behavioural conformance suite for `tom_d4rt` (scaffold today). The same fixtures double as the cross-engine reference the analyzer-free twin must reproduce. |
 
 ### Samples
 
@@ -252,7 +251,6 @@ tom_d4rt_generator/    bridge generator (d4rtgen)               (tooling)
 tom_d4rt_dcli/         dcli REPL on the source-based engine     (foreground)
 tom_d4rt_flutter/      source-based Flutter Material bridges    (foreground)
 tom_d4rt_flutter_test/ demo/test app for tom_d4rt_flutter
-tom_d4rt_test/         conformance suite for tom_d4rt
 tom_d4rt_samples/      runnable learning-path samples
 
 tom_d4rt_ast/          analyzer-free interpreter + AST runtime  (background)
