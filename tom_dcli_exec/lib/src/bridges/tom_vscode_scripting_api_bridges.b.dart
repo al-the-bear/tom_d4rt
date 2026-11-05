@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 32 files
-// Generated: 2026-10-21T14:42:35.077895 by tom_d4rt_generator 1.51.0
+// Generated: 2026-11-05T21:20:35.389066 by tom_d4rt_generator 1.51.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -94,6 +94,7 @@ class TomVscodeScriptingApiBridge {
       _createVSCodeExtensionsBridge(),
       _createVSCodeLanguageModelBridge(),
       _createLanguageModelChatBridge(),
+      _createLanguageModelCallExceptionBridge(),
       _createLanguageModelChatMessageBridge(),
       _createLanguageModelChatResponseBridge(),
       _createLanguageModelToolResultBridge(),
@@ -266,6 +267,7 @@ class TomVscodeScriptingApiBridge {
       'VSCodeExtensions': _createVSCodeExtensionsBridge,
       'VSCodeLanguageModel': _createVSCodeLanguageModelBridge,
       'LanguageModelChat': _createLanguageModelChatBridge,
+      'LanguageModelCallException': _createLanguageModelCallExceptionBridge,
       'LanguageModelChatMessage': _createLanguageModelChatMessageBridge,
       'LanguageModelChatResponse': _createLanguageModelChatResponseBridge,
       'LanguageModelToolResult': _createLanguageModelToolResultBridge,
@@ -439,6 +441,8 @@ class TomVscodeScriptingApiBridge {
       'VSCodeExtensions': $tom_vscode_scripting_api_26.VSCodeExtensions,
       'VSCodeLanguageModel': $tom_vscode_scripting_api_28.VSCodeLanguageModel,
       'LanguageModelChat': $tom_vscode_scripting_api_28.LanguageModelChat,
+      'LanguageModelCallException':
+          $tom_vscode_scripting_api_28.LanguageModelCallException,
       'LanguageModelChatMessage':
           $tom_vscode_scripting_api_28.LanguageModelChatMessage,
       'LanguageModelChatResponse':
@@ -638,6 +642,8 @@ class TomVscodeScriptingApiBridge {
       'VSCodeLanguageModel':
           'package:tom_vscode_scripting_api/src/vscode_lm.dart',
       'LanguageModelChat':
+          'package:tom_vscode_scripting_api/src/vscode_lm.dart',
+      'LanguageModelCallException':
           'package:tom_vscode_scripting_api/src/vscode_lm.dart',
       'LanguageModelChatMessage':
           'package:tom_vscode_scripting_api/src/vscode_lm.dart',
@@ -917,6 +923,7 @@ class TomVscodeScriptingApiBridge {
       'VSCodeBridgeAdapter': ['VSCodeAdapter'],
       'LazyVSCodeBridgeAdapter': ['VSCodeAdapter'],
       'BridgeWorkspaceNotFoundException': ['Exception'],
+      'LanguageModelCallException': ['Exception'],
       'Selection': ['Range'],
       'SdkAssistantMessage': ['SdkMessage'],
       'SdkUserMessage': ['SdkMessage'],
@@ -4868,7 +4875,8 @@ BridgedClass _createVSCodeBridgeClientBridge() {
           );
         }
         final params = D4.coerceMap<String, dynamic>(positional[1], 'params');
-        return t.sendRequest(method, params);
+        final timeout = D4.getOptionalNamedArg<Duration?>(named, 'timeout');
+        return t.sendRequest(method, params, timeout: timeout);
       },
       'registerRequestHandler': (visitor, target, positional, named, typeArgs) {
         final t = D4
@@ -4997,7 +5005,7 @@ BridgedClass _createVSCodeBridgeClientBridge() {
       'connect': 'Future<bool> connect()',
       'disconnect': 'Future<void> disconnect()',
       'sendRequest':
-          'Future<Map<String, dynamic>> sendRequest(String method, Map<String, dynamic> params)',
+          'Future<Map<String, dynamic>> sendRequest(String method, Map<String, dynamic> params, {Duration? timeout})',
       'registerRequestHandler':
           'void registerRequestHandler(String method, BridgeRequestHandler handler)',
       'unregisterRequestHandler':
@@ -6504,6 +6512,70 @@ BridgedClass _createLanguageModelChatBridge() {
       'version': 'String get version',
       'name': 'String get name',
       'maxInputTokens': 'int get maxInputTokens',
+    },
+  );
+}
+
+// =============================================================================
+// LanguageModelCallException Bridge
+// =============================================================================
+
+BridgedClass _createLanguageModelCallExceptionBridge() {
+  return BridgedClass(
+    nativeType: $tom_vscode_scripting_api_28.LanguageModelCallException,
+    name: 'LanguageModelCallException',
+    isAssignable: (v) =>
+        v is $tom_vscode_scripting_api_28.LanguageModelCallException,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'LanguageModelCallException');
+        final operation = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'operation',
+          'LanguageModelCallException',
+        );
+        final message = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'message',
+          'LanguageModelCallException',
+        );
+        return $tom_vscode_scripting_api_28.LanguageModelCallException(
+          operation,
+          message,
+        );
+      },
+    },
+    getters: {
+      'operation': (visitor, target) => D4
+          .validateTarget<
+            $tom_vscode_scripting_api_28.LanguageModelCallException
+          >(target, 'LanguageModelCallException')
+          .operation,
+      'message': (visitor, target) => D4
+          .validateTarget<
+            $tom_vscode_scripting_api_28.LanguageModelCallException
+          >(target, 'LanguageModelCallException')
+          .message,
+    },
+    methods: {
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4
+            .validateTarget<
+              $tom_vscode_scripting_api_28.LanguageModelCallException
+            >(target, 'LanguageModelCallException');
+        return t.toString();
+      },
+    },
+    constructorSignatures: {
+      '': 'LanguageModelCallException(String operation, String message)',
+    },
+    methodSignatures: {'toString': 'String toString()'},
+    getterSignatures: {
+      'operation': 'String get operation',
+      'message': 'String get message',
     },
   );
 }
@@ -18989,6 +19061,10 @@ BridgedClass _createTomTodoBridge() {
             named.containsKey('blockedBy') && named['blockedBy'] != null
             ? D4.coerceList<String>(named['blockedBy'], 'blockedBy')
             : const <String>[];
+        final blocking =
+            named.containsKey('blocking') && named['blocking'] != null
+            ? D4.coerceList<String>(named['blocking'], 'blocking')
+            : const <String>[];
         final blockedUntil =
             named.containsKey('blockedUntil') && named['blockedUntil'] != null
             ? D4.coerceList<String>(named['blockedUntil'], 'blockedUntil')
@@ -19025,6 +19101,11 @@ BridgedClass _createTomTodoBridge() {
           named,
           'feedbackSource',
         );
+        final userAction = D4.getNamedArgWithDefault<bool>(
+          named,
+          'userAction',
+          false,
+        );
         return $tom_todo_model_1.TomTodo(
           id: id,
           title: title,
@@ -19039,6 +19120,7 @@ BridgedClass _createTomTodoBridge() {
           references: references,
           dependencies: dependencies,
           blockedBy: blockedBy,
+          blocking: blocking,
           blockedUntil: blockedUntil,
           notes: notes,
           created: created,
@@ -19054,6 +19136,7 @@ BridgedClass _createTomTodoBridge() {
           bundleId: bundleId,
           derivedFrom: derivedFrom,
           feedbackSource: feedbackSource,
+          userAction: userAction,
         );
       },
     },
@@ -19090,6 +19173,9 @@ BridgedClass _createTomTodoBridge() {
       'blockedBy': (visitor, target) => D4
           .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
           .blockedBy,
+      'blocking': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
+          .blocking,
       'blockedUntil': (visitor, target) => D4
           .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
           .blockedUntil,
@@ -19119,6 +19205,9 @@ BridgedClass _createTomTodoBridge() {
       'feedbackSource': (visitor, target) => D4
           .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
           .feedbackSource,
+      'userAction': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
+          .userAction,
       'due': (visitor, target) =>
           D4.validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo').due,
       'created': (visitor, target) => D4
@@ -19225,6 +19314,13 @@ BridgedClass _createTomTodoBridge() {
             value,
             'blockedBy',
           ),
+      'blocking': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
+              .blocking = D4.coerceList<String>(
+            value,
+            'blocking',
+          ),
       'blockedUntil': (visitor, target, value) =>
           D4
               .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
@@ -19294,6 +19390,13 @@ BridgedClass _createTomTodoBridge() {
               .feedbackSource = D4.extractBridgedArgOrNull<String>(
             value,
             'feedbackSource',
+          ),
+      'userAction': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
+              .userAction = D4.extractBridgedArg<bool>(
+            value,
+            'userAction',
           ),
       'due': (visitor, target, value) =>
           D4.validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo').due =
@@ -19447,7 +19550,7 @@ BridgedClass _createTomTodoBridge() {
       },
     },
     constructorSignatures: {
-      '': 'TomTodo({required String id, required String title, String? description, TomTodoStatus status = TomTodoStatus.notStarted, TomTodoPriority? priority, DateTime? due, String? estimate, List<String> tags = const [], TomTodoScope? scope, List<TomTodoDecision> decisions = const [], List<TomTodoReference> references = const [], List<String> dependencies = const [], List<String> blockedBy = const [], List<String> blockedUntil = const [], String? notes, DateTime? created, DateTime? updated, DateTime? completedDate, String? author, String? completedBy, DateTime? archived, DateTime? deleted, String? executionRole, String? qaRole, String? orchestrationRole, String? bundleId, String? derivedFrom, String? feedbackSource})',
+      '': 'TomTodo({required String id, required String title, String? description, TomTodoStatus status = TomTodoStatus.notStarted, TomTodoPriority? priority, DateTime? due, String? estimate, List<String> tags = const [], TomTodoScope? scope, List<TomTodoDecision> decisions = const [], List<TomTodoReference> references = const [], List<String> dependencies = const [], List<String> blockedBy = const [], List<String> blocking = const [], List<String> blockedUntil = const [], String? notes, DateTime? created, DateTime? updated, DateTime? completedDate, String? author, String? completedBy, DateTime? archived, DateTime? deleted, String? executionRole, String? qaRole, String? orchestrationRole, String? bundleId, String? derivedFrom, String? feedbackSource, bool userAction = false})',
     },
     methodSignatures: {
       'recordCreation':
@@ -19471,6 +19574,7 @@ BridgedClass _createTomTodoBridge() {
       'references': 'List<TomTodoReference> get references',
       'dependencies': 'List<String> get dependencies',
       'blockedBy': 'List<String> get blockedBy',
+      'blocking': 'List<String> get blocking',
       'blockedUntil': 'List<String> get blockedUntil',
       'notes': 'String? get notes',
       'author': 'String? get author',
@@ -19481,6 +19585,7 @@ BridgedClass _createTomTodoBridge() {
       'bundleId': 'String? get bundleId',
       'derivedFrom': 'String? get derivedFrom',
       'feedbackSource': 'String? get feedbackSource',
+      'userAction': 'bool get userAction',
       'due': 'DateTime? get due',
       'created': 'DateTime? get created',
       'updated': 'DateTime? get updated',
@@ -19504,6 +19609,7 @@ BridgedClass _createTomTodoBridge() {
       'references': 'set references(dynamic value)',
       'dependencies': 'set dependencies(dynamic value)',
       'blockedBy': 'set blockedBy(dynamic value)',
+      'blocking': 'set blocking(dynamic value)',
       'blockedUntil': 'set blockedUntil(dynamic value)',
       'notes': 'set notes(dynamic value)',
       'author': 'set author(dynamic value)',
@@ -19514,6 +19620,7 @@ BridgedClass _createTomTodoBridge() {
       'bundleId': 'set bundleId(dynamic value)',
       'derivedFrom': 'set derivedFrom(dynamic value)',
       'feedbackSource': 'set feedbackSource(dynamic value)',
+      'userAction': 'set userAction(dynamic value)',
       'due': 'set due(DateTime? value)',
       'created': 'set created(DateTime? value)',
       'updated': 'set updated(DateTime? value)',

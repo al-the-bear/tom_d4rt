@@ -1,3 +1,24 @@
+## 1.9.0
+
+### Changed — bridges regenerated against `tom_todo_model` 1.2.0 and `tom_vscode_scripting_api` 2.0.3
+
+`tom_todo_model` is now `^1.2.0` (was `^1.0.1`) and `tom_vscode_scripting_api`
+`^2.0.3` (was `^2.0.0`). An older todo model read a todo carrying `blocking`
+(1.2.0) or `user_action` (1.1.0) as an unknown key, and the VS Code extension
+writes `blocking` on every save of a todo file. `tom_vscode_scripting_api_bridges`
+is regenerated for both, so a script now sees:
+
+- `TomTodo.blocking` and `TomTodo.userAction`, as getters and as named
+  constructor parameters;
+- `LanguageModelCallException`, which `LanguageModelChat.sendRequest`,
+  `countTokens` and `VSCodeLanguageModel.invokeTool` throw when the window
+  reports a failed call (scripting API 2.0.2);
+- the optional `timeout` on `VSCodeBridgeClient.sendRequest` (scripting API
+  2.0.1).
+
+Both floors are what the regenerated bridge needs: it reads members only those
+releases have.
+
 ## 1.8.0
 
 ### Changed — the VS Code scripting API's todos are the shared todo model
