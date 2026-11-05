@@ -71,6 +71,7 @@
 //   | `isFlutterPackage` guesses from the path         | -6, both apps  |
 //   | `pathLinkedDependents` matches `hosted`          | -7, misses `d4`|
 //   | its self-exclusion deleted                       | -7, returns d4 |
+//   | a hold's `from` raised past every cached version | -2 and -8      |
 //
 // THE LAST TWO ARE WHY -7 NAMES A PACKAGE RATHER THAN ASSERTING isNotEmpty.
 // It was written as an emptiness check first, and NEITHER fault fired:
@@ -135,6 +136,9 @@
 //            this machine's pub cache — SCC45
 // F-SCC45-3  every entry in F-SCC45-2's exception list is still load-bearing,
 //            so the list cannot outlive its reasons
+// F-SCC45-8  every held-back version range (`heldBackVersions` in
+//            tool/stale_locks.dart) still holds a lock back, so a hold cannot
+//            outlive the constraint that made it necessary
 // F-SCC45-4  no example, sample or demo-app pubspec DECLARES a hosted
 //            interpreter floor below a version already in the pub cache
 //
@@ -675,6 +679,39 @@ void main() {
             'reader inherits a set of names nobody can justify but nobody '
             'dares remove.\n'
             '${obsolete.join(', ')}',
+      );
+    });
+
+    test('F-SCC45-8: every held-back version range still holds a lock back '
+        '[2026-11-05]', () {
+      if (root == null) {
+        markTestSkipped('d4rt repo root not reachable — nothing to check');
+        return;
+      }
+      if (!canDiscriminate('F-SCC45-8')) return;
+
+      // Measured with NO holds applied, for the reason F-SCC45-3 measures
+      // without exceptions: the question is which locks still lag a held-back
+      // version, and applying the holds would hide exactly those.
+      final lagging = staleLocks(root, heldBack: const {});
+      final obsolete = [
+        for (final entry in heldBackVersions.entries)
+          if (!lagging.any(
+            (s) =>
+                s.dependency == entry.key &&
+                compareVersions(s.cached, entry.value.from) >= 0,
+          ))
+            '${entry.key} >= ${entry.value.from} (owner ${entry.value.owner})',
+      ];
+      expect(
+        obsolete,
+        isEmpty,
+        reason:
+            'These holds in tool/stale_locks.dart `heldBackVersions` no longer '
+            'hold any lock back: every package now resolves the held-back '
+            'range, so its constraint has been lifted. Delete the entries; a '
+            'hold that outlives its reason hides the next real lag.\n'
+            '${obsolete.join('\n')}',
       );
     });
 

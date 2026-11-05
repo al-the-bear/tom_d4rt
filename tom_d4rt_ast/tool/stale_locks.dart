@@ -217,13 +217,54 @@ List<String> cachedVersions(String name) {
       .toList();
 }
 
-/// The newest STABLE version of [name] in the cache, or null.
-String? newestCachedVersion(String name) {
-  final stable = cachedVersions(name).where((v) => !v.contains('-')).toList();
+/// The newest STABLE version of [name] in the cache, or null; with [below],
+/// the newest one older than it.
+String? newestCachedVersion(String name, {String? below}) {
+  final stable = cachedVersions(name)
+      .where((v) => !v.contains('-'))
+      .where((v) => below == null || compareVersions(v, below) < 0)
+      .toList();
   if (stable.isEmpty) return null;
   stable.sort(compareVersions);
   return stable.last;
 }
+
+/// A range of cached versions of one package that no lock here can take.
+class HeldBack {
+  const HeldBack({
+    required this.from,
+    required this.owner,
+    required this.reason,
+  });
+
+  /// The first held-back version: it and every later one are ignored.
+  final String from;
+
+  /// The todo whose work lets the locks take them, and deletes this entry.
+  final String owner;
+
+  /// Why no lock here can resolve them.
+  final String reason;
+}
+
+/// Cached versions the staleness check ignores, by package name.
+///
+/// THE CACHE PROVES A VERSION WAS ON HAND, NOT THAT IT WAS ADMISSIBLE. A newer
+/// release can require something every package here excludes: a lock then
+/// lags it however often it is upgraded, and `upgrade_stale_locks` reports it
+/// "still stale" every run. A hold names that range, the todo that lifts it,
+/// and why, so the check stays red for everything else in those packages.
+/// F-SCC45-8 fails once a hold no longer holds anything back.
+const Map<String, HeldBack> heldBackVersions = <String, HeldBack>{
+  'tom_analyzer_shared': HeldBack(
+    from: '0.8.0',
+    owner: 'vstdm3_akex-d4rt-repo-to-analyzer-14',
+    reason:
+        'tom_analyzer_shared 0.8.0 requires analyzer ^14.1, and every package '
+        'of this repo with an analyzer dependency (tom_d4rt above all, which '
+        'the generator depends on) is on analyzer ^10',
+  ),
+};
 
 /// [root]-relative path of [dir], always `/`-separated.
 String relativeTo(Directory root, Directory dir) {
@@ -242,9 +283,13 @@ String relativeTo(Directory root, Directory dir) {
 /// behind". A newer version sitting in the cache proves pub HAD it available
 /// and did not take it. The cost is that a cold cache under-reports, so every
 /// count this returns is a floor rather than a total.
+///
+/// [heldBack] ranges are ignored (default [heldBackVersions]): a lock is behind
+/// the newest cached version older than the held-back range.
 List<StaleLock> staleLocks(
   Directory root, {
   Map<String, String> exceptions = const {},
+  Map<String, HeldBack> heldBack = heldBackVersions,
 }) {
   final out = <StaleLock>[];
   for (final package in packagesUnder(root)) {
@@ -254,7 +299,10 @@ List<StaleLock> staleLocks(
     if (exceptions.containsKey(rel.split('/').first)) continue;
     for (final res in lockedTomPackages(package)) {
       if (res.source != 'hosted') continue;
-      final newest = newestCachedVersion(res.name);
+      final newest = newestCachedVersion(
+        res.name,
+        below: heldBack[res.name]?.from,
+      );
       if (newest == null) continue;
       if (compareVersions(res.version, newest) < 0) {
         out.add(StaleLock(rel, res.name, res.version, newest));
