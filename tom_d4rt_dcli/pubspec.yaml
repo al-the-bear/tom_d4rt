@@ -43,7 +43,7 @@ dependencies:
   tom_todo_model: ^1.2.0
 
   # Chat tools for Telegram integration
-  tom_chattools: ">=1.0.2"
+  tom_chattools: ^1.0.2
 
   # External packages for CLI
   dcli: ^10.0.0

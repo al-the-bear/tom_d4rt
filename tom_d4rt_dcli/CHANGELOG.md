@@ -19,6 +19,9 @@ is regenerated for both, so a script now sees:
 Both floors are what the regenerated bridge needs: it reads members only those
 releases have.
 
+`tom_chattools` is `^1.0.2` (was `>=1.0.2`, which pub.dev flags for its missing
+upper bound); it resolves the same 1.0.2.
+
 ## 1.8.0
 
 ### Changed — the VS Code scripting API's todos are the shared todo model
