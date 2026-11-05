@@ -398,7 +398,11 @@ void _registerAllFactories() {
   SAstNodeFactory.register('IsExpression', SIsExpression.fromJson);
   SAstNodeFactory.register('CascadeExpression', SCascadeExpression.fromJson);
   SAstNodeFactory.register('RethrowExpression', SRethrowExpression.fromJson);
-  SAstNodeFactory.register('NamedExpression', SNamedExpression.fromJson);
+  SAstNodeFactory.register('NamedArgument', SNamedArgument.fromJson);
+  SAstNodeFactory.register(
+    'RecordLiteralNamedField',
+    SRecordLiteralNamedField.fromJson,
+  );
   SAstNodeFactory.register('SpreadElement', SSpreadElement.fromJson);
   SAstNodeFactory.register('NullAwareElement', SNullAwareElement.fromJson);
   SAstNodeFactory.register('IfElement', SIfElement.fromJson);
@@ -453,20 +457,20 @@ void _registerAllFactories() {
     SFormalParameterList.fromJson,
   );
   SAstNodeFactory.register(
-    'SimpleFormalParameter',
-    SSimpleFormalParameter.fromJson,
+    'RegularFormalParameter',
+    SRegularFormalParameter.fromJson,
   );
   SAstNodeFactory.register(
-    'DefaultFormalParameter',
-    SDefaultFormalParameter.fromJson,
+    'FormalParameterDefaultClause',
+    SFormalParameterDefaultClause.fromJson,
   );
   SAstNodeFactory.register(
     'FieldFormalParameter',
     SFieldFormalParameter.fromJson,
   );
   SAstNodeFactory.register(
-    'FunctionTypedFormalParameter',
-    SFunctionTypedFormalParameter.fromJson,
+    'FunctionTypedFormalParameterSuffix',
+    SFunctionTypedFormalParameterSuffix.fromJson,
   );
   SAstNodeFactory.register(
     'SuperFormalParameter',
@@ -512,6 +516,7 @@ void _registerAllFactories() {
   SAstNodeFactory.register('ShowCombinator', SShowCombinator.fromJson);
   SAstNodeFactory.register('HideCombinator', SHideCombinator.fromJson);
   SAstNodeFactory.register('Label', SLabel.fromJson);
+  SAstNodeFactory.register('LabelReference', SLabelReference.fromJson);
   SAstNodeFactory.register('ExtendsClause', SExtendsClause.fromJson);
   SAstNodeFactory.register('ImplementsClause', SImplementsClause.fromJson);
   SAstNodeFactory.register('WithClause', SWithClause.fromJson);
@@ -578,9 +583,17 @@ void _registerAllFactories() {
     SExtensionTypeDeclaration.fromJson,
   );
   SAstNodeFactory.register(
-    'RepresentationDeclaration',
-    SRepresentationDeclaration.fromJson,
+    'NameWithTypeParameters',
+    SNameWithTypeParameters.fromJson,
   );
+  SAstNodeFactory.register(
+    'PrimaryConstructorDeclaration',
+    SPrimaryConstructorDeclaration.fromJson,
+  );
+  SAstNodeFactory.register('BlockClassBody', SBlockClassBody.fromJson);
+  SAstNodeFactory.register('EmptyClassBody', SEmptyClassBody.fromJson);
+  SAstNodeFactory.register('BlockEnumBody', SBlockEnumBody.fromJson);
+  SAstNodeFactory.register('EmptyEnumBody', SEmptyEnumBody.fromJson);
 }
 
 // ============================================================================

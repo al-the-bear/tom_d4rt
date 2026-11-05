@@ -23,24 +23,143 @@ abstract class SCollectionElement extends SAstNode {}
 /// Mirrors analyzer's `Statement`.
 abstract class SStatement extends SAstNode {}
 
-/// Base class for formal parameters.
-/// Mirrors analyzer's `FormalParameter`.
+/// Base class for formal parameters. Mirrors analyzer's `FormalParameter`,
+/// which holds every parameter's fields itself: the kind subclasses
+/// ([SRegularFormalParameter], [SFieldFormalParameter],
+/// [SSuperFormalParameter]) add nothing but their kind.
 abstract class SFormalParameter extends SAstNode {
-  /// Whether this parameter is named.
-  bool get isNamed;
+  @override
+  final int offset;
+  @override
+  final int length;
 
-  /// Whether this parameter is positional.
-  bool get isPositional;
+  /// The parameter's name; null only in invalid code.
+  final SSimpleIdentifier? name;
 
-  /// Whether this parameter is required.
-  bool get isRequired;
+  /// The declared type, or for a function-typed parameter its return type.
+  final STypeAnnotation? type;
+  final List<SAnnotation> metadata;
+  final bool isConst;
+  final bool isFinal;
+  final bool isCovariant;
 
-  /// Whether this parameter is optional.
-  bool get isOptional;
+  /// A positional parameter outside `[]`, or a named one marked `required`.
+  final bool isRequired;
 
-  /// The name of the parameter, if any.
-  String? get parameterName;
+  /// Whether the parameter is declared inside `{}`.
+  final bool isNamed;
+
+  /// `= value`, when the parameter declares a default.
+  final SFormalParameterDefaultClause? defaultClause;
+
+  /// `(params)` after the name of a function-typed parameter.
+  final SFunctionTypedFormalParameterSuffix? functionTypedSuffix;
+
+  SFormalParameter({
+    required this.offset,
+    required this.length,
+    this.name,
+    this.type,
+    this.metadata = const [],
+    this.isConst = false,
+    this.isFinal = false,
+    this.isCovariant = false,
+    this.isRequired = true,
+    this.isNamed = false,
+    this.defaultClause,
+    this.functionTypedSuffix,
+  });
+
+  bool get isPositional => !isNamed;
+  bool get isOptional => !isRequired;
+  bool get isRequiredPositional => isRequired && !isNamed;
+  bool get isOptionalPositional => !isRequired && !isNamed;
+  bool get isRequiredNamed => isRequired && isNamed;
+  bool get isOptionalNamed => !isRequired && isNamed;
+
+  @override
+  Map<String, dynamic> toJson() => {
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (name != null) 'name': name!.toJson(),
+    if (type != null) 'type': type!.toJson(),
+    'metadata': metadata.map((a) => a.toJson()).toList(),
+    'isConst': isConst,
+    'isFinal': isFinal,
+    'isCovariant': isCovariant,
+    'isRequired': isRequired,
+    'isNamed': isNamed,
+    if (defaultClause != null) 'defaultClause': defaultClause!.toJson(),
+    if (functionTypedSuffix != null)
+      'functionTypedSuffix': functionTypedSuffix!.toJson(),
+  };
+
+  /// The fields every kind reads back the same way.
+  static ({
+    int offset,
+    int length,
+    SSimpleIdentifier? name,
+    STypeAnnotation? type,
+    List<SAnnotation> metadata,
+    bool isConst,
+    bool isFinal,
+    bool isCovariant,
+    bool isRequired,
+    bool isNamed,
+    SFormalParameterDefaultClause? defaultClause,
+    SFunctionTypedFormalParameterSuffix? functionTypedSuffix,
+  })
+  _fieldsFromJson(Map<String, dynamic> json) => (
+    offset: json['offset'] as int,
+    length: json['length'] as int,
+    name: json['name'] != null
+        ? SSimpleIdentifier.fromJson(json['name'] as Map<String, dynamic>)
+        : null,
+    type:
+        SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?)
+            as STypeAnnotation?,
+    metadata:
+        (json['metadata'] as List?)
+            ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
+            .toList() ??
+        <SAnnotation>[],
+    isConst: json['isConst'] as bool? ?? false,
+    isFinal: json['isFinal'] as bool? ?? false,
+    isCovariant: json['isCovariant'] as bool? ?? false,
+    isRequired: json['isRequired'] as bool? ?? true,
+    isNamed: json['isNamed'] as bool? ?? false,
+    defaultClause: json['defaultClause'] != null
+        ? SFormalParameterDefaultClause.fromJson(
+            json['defaultClause'] as Map<String, dynamic>,
+          )
+        : null,
+    functionTypedSuffix: json['functionTypedSuffix'] != null
+        ? SFunctionTypedFormalParameterSuffix.fromJson(
+            json['functionTypedSuffix'] as Map<String, dynamic>,
+          )
+        : null,
+  );
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    for (final child in metadata) {
+      child.accept(visitor);
+    }
+    type?.accept(visitor);
+    name?.accept(visitor);
+    functionTypedSuffix?.accept(visitor);
+    defaultClause?.accept(visitor);
+  }
 }
+
+/// An entry of an argument list: an expression or a [SNamedArgument].
+/// Mirrors analyzer's `Argument`.
+abstract interface class SArgument implements SAstNode {}
+
+/// A field of a record literal: an expression or a
+/// [SRecordLiteralNamedField]. Mirrors analyzer's `RecordLiteralField`.
+abstract interface class SRecordLiteralField implements SAstNode {}
 
 /// Base class for function bodies.
 /// Mirrors analyzer's `FunctionBody`.
@@ -96,7 +215,8 @@ abstract class SForLoopParts extends SAstNode {}
 /// Base class for all expressions. Extends CollectionElement because
 /// expressions can appear in collection literals.
 /// Mirrors analyzer's `Expression`.
-abstract class SExpression extends SCollectionElement {}
+abstract class SExpression extends SCollectionElement
+    implements SArgument, SRecordLiteralField {}
 
 /// Base class for all declarations.
 /// Mirrors analyzer's `Declaration`.
@@ -105,10 +225,6 @@ abstract class SDeclaration extends SAnnotatedNode {}
 /// Base class for all directives (import, export, part, library).
 /// Mirrors analyzer's `Directive`.
 abstract class SDirective extends SAnnotatedNode {}
-
-/// Base class for normal (non-default) formal parameters.
-/// Mirrors analyzer's `NormalFormalParameter`.
-abstract class SNormalFormalParameter extends SFormalParameter {}
 
 /// Base class for for-each loop parts.
 /// Mirrors analyzer's `ForEachParts`.
@@ -166,10 +282,6 @@ abstract class SInvocationExpression extends SExpression {
 // ============================================================================
 // Level 4: Deepest sub-categories
 // ============================================================================
-
-/// Base class for named compilation unit members.
-/// Mirrors analyzer's `NamedCompilationUnitMember`.
-abstract class SNamedCompilationUnitMember extends SCompilationUnitMember {}
 
 /// Base class for typed literals (list, set/map).
 /// Mirrors analyzer's `TypedLiteral`.

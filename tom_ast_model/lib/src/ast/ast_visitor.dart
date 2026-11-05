@@ -101,8 +101,12 @@ abstract class SAstVisitor<T> {
   /// Visit a [SRethrowExpression].
   T? visitRethrowExpression(SRethrowExpression node) => visitNode(node);
 
-  /// Visit a [SNamedExpression].
-  T? visitNamedExpression(SNamedExpression node) => visitNode(node);
+  /// Visit a [SNamedArgument].
+  T? visitNamedArgument(SNamedArgument node) => visitNode(node);
+
+  /// Visit a [SRecordLiteralNamedField].
+  T? visitRecordLiteralNamedField(SRecordLiteralNamedField node) =>
+      visitNode(node);
 
   /// Visit a [SSpreadElement].
   T? visitSpreadElement(SSpreadElement node) => visitNode(node);
@@ -320,19 +324,21 @@ abstract class SAstVisitor<T> {
   // Formal parameters
   // --------------------------------------------------------------------------
 
-  /// Visit a [SSimpleFormalParameter].
-  T? visitSimpleFormalParameter(SSimpleFormalParameter node) => visitNode(node);
+  /// Visit a [SRegularFormalParameter].
+  T? visitRegularFormalParameter(SRegularFormalParameter node) =>
+      visitNode(node);
 
-  /// Visit a [SDefaultFormalParameter].
-  T? visitDefaultFormalParameter(SDefaultFormalParameter node) =>
+  /// Visit a [SFormalParameterDefaultClause].
+  T? visitFormalParameterDefaultClause(SFormalParameterDefaultClause node) =>
       visitNode(node);
 
   /// Visit a [SFieldFormalParameter].
   T? visitFieldFormalParameter(SFieldFormalParameter node) => visitNode(node);
 
-  /// Visit a [SFunctionTypedFormalParameter].
-  T? visitFunctionTypedFormalParameter(SFunctionTypedFormalParameter node) =>
-      visitNode(node);
+  /// Visit a [SFunctionTypedFormalParameterSuffix].
+  T? visitFunctionTypedFormalParameterSuffix(
+    SFunctionTypedFormalParameterSuffix node,
+  ) => visitNode(node);
 
   /// Visit a [SSuperFormalParameter].
   T? visitSuperFormalParameter(SSuperFormalParameter node) => visitNode(node);
@@ -497,6 +503,9 @@ abstract class SAstVisitor<T> {
   /// Visit a [SLabel].
   T? visitLabel(SLabel node) => visitNode(node);
 
+  /// Visit a [SLabelReference].
+  T? visitLabelReference(SLabelReference node) => visitNode(node);
+
   /// Visit a [SExtendsClause].
   T? visitExtendsClause(SExtendsClause node) => visitNode(node);
 
@@ -565,9 +574,25 @@ abstract class SAstVisitor<T> {
   /// Visit a [SParenthesizedPattern].
   T? visitParenthesizedPattern(SParenthesizedPattern node) => visitNode(node);
 
-  /// Visit a [SRepresentationDeclaration].
-  T? visitRepresentationDeclaration(SRepresentationDeclaration node) =>
+  /// Visit a [SNameWithTypeParameters].
+  T? visitNameWithTypeParameters(SNameWithTypeParameters node) =>
       visitNode(node);
+
+  /// Visit a [SPrimaryConstructorDeclaration].
+  T? visitPrimaryConstructorDeclaration(SPrimaryConstructorDeclaration node) =>
+      visitNode(node);
+
+  /// Visit a [SBlockClassBody].
+  T? visitBlockClassBody(SBlockClassBody node) => visitNode(node);
+
+  /// Visit a [SEmptyClassBody].
+  T? visitEmptyClassBody(SEmptyClassBody node) => visitNode(node);
+
+  /// Visit a [SBlockEnumBody].
+  T? visitBlockEnumBody(SBlockEnumBody node) => visitNode(node);
+
+  /// Visit a [SEmptyEnumBody].
+  T? visitEmptyEnumBody(SEmptyEnumBody node) => visitNode(node);
 }
 
 // ============================================================================
@@ -605,14 +630,12 @@ abstract class SAstVisitor<T> {
 /// │   ├── visitDeclaration
 /// │   │   ├── visitClassMember
 /// │   │   ├── visitCompilationUnitMember
-/// │   │   │   └── visitNamedCompilationUnitMember
 /// │   │   └── (other declarations)
 /// │   └── visitDirective
 /// │       └── visitUriBasedDirective
 /// │           └── visitNamespaceDirective
 /// ├── visitStatement
 /// ├── visitFormalParameter
-/// │   └── visitNormalFormalParameter
 /// ├── visitFunctionBody
 /// ├── visitTypeAnnotation
 /// ├── visitDartPattern
@@ -681,10 +704,6 @@ class GeneralizingSAstVisitor<T> extends SAstVisitor<T> {
   /// Category fallback for all directive nodes.
   T? visitDirective(SDirective node) => visitAnnotatedNode(node);
 
-  /// Category fallback for normal (non-default) formal parameters.
-  T? visitNormalFormalParameter(SNormalFormalParameter node) =>
-      visitFormalParameter(node);
-
   /// Category fallback for for-each parts.
   T? visitForEachParts(SForEachParts node) => visitForLoopParts(node);
 
@@ -721,10 +740,6 @@ class GeneralizingSAstVisitor<T> extends SAstVisitor<T> {
       visitUriBasedDirective(node);
 
   // --- Level 4: deepest sub-categories ---
-
-  /// Category fallback for named compilation unit members.
-  T? visitNamedCompilationUnitMember(SNamedCompilationUnitMember node) =>
-      visitCompilationUnitMember(node);
 
   /// Category fallback for typed literals (list, set/map).
   T? visitTypedLiteral(STypedLiteral node) => visitLiteral(node);
@@ -815,9 +830,6 @@ class GeneralizingSAstVisitor<T> extends SAstVisitor<T> {
 
   @override
   T? visitRethrowExpression(SRethrowExpression node) => visitExpression(node);
-
-  @override
-  T? visitNamedExpression(SNamedExpression node) => visitExpression(node);
 
   @override
   T? visitSwitchExpression(SSwitchExpression node) => visitExpression(node);
@@ -976,22 +988,22 @@ class GeneralizingSAstVisitor<T> extends SAstVisitor<T> {
 
   @override
   T? visitFunctionDeclaration(SFunctionDeclaration node) =>
-      visitNamedCompilationUnitMember(node);
+      visitCompilationUnitMember(node);
 
   @override
   T? visitMethodDeclaration(SMethodDeclaration node) => visitClassMember(node);
 
   @override
   T? visitClassDeclaration(SClassDeclaration node) =>
-      visitNamedCompilationUnitMember(node);
+      visitCompilationUnitMember(node);
 
   @override
   T? visitMixinDeclaration(SMixinDeclaration node) =>
-      visitNamedCompilationUnitMember(node);
+      visitCompilationUnitMember(node);
 
   @override
   T? visitEnumDeclaration(SEnumDeclaration node) =>
-      visitNamedCompilationUnitMember(node);
+      visitCompilationUnitMember(node);
 
   @override
   T? visitExtensionDeclaration(SExtensionDeclaration node) =>
@@ -999,7 +1011,7 @@ class GeneralizingSAstVisitor<T> extends SAstVisitor<T> {
 
   @override
   T? visitExtensionTypeDeclaration(SExtensionTypeDeclaration node) =>
-      visitNamedCompilationUnitMember(node);
+      visitCompilationUnitMember(node);
 
   @override
   T? visitVariableDeclaration(SVariableDeclaration node) =>
@@ -1022,7 +1034,7 @@ class GeneralizingSAstVisitor<T> extends SAstVisitor<T> {
 
   @override
   T? visitTypedefDeclaration(STypedefDeclaration node) =>
-      visitNamedCompilationUnitMember(node);
+      visitCompilationUnitMember(node);
 
   @override
   T? visitEnumConstantDeclaration(SEnumConstantDeclaration node) =>
@@ -1088,24 +1100,16 @@ class GeneralizingSAstVisitor<T> extends SAstVisitor<T> {
   // --------------------------------------------------------------------------
 
   @override
-  T? visitSimpleFormalParameter(SSimpleFormalParameter node) =>
-      visitNormalFormalParameter(node);
-
-  @override
-  T? visitDefaultFormalParameter(SDefaultFormalParameter node) =>
+  T? visitRegularFormalParameter(SRegularFormalParameter node) =>
       visitFormalParameter(node);
 
   @override
   T? visitFieldFormalParameter(SFieldFormalParameter node) =>
-      visitNormalFormalParameter(node);
-
-  @override
-  T? visitFunctionTypedFormalParameter(SFunctionTypedFormalParameter node) =>
-      visitNormalFormalParameter(node);
+      visitFormalParameter(node);
 
   @override
   T? visitSuperFormalParameter(SSuperFormalParameter node) =>
-      visitNormalFormalParameter(node);
+      visitFormalParameter(node);
 
   // --------------------------------------------------------------------------
   // Function bodies → visitFunctionBody

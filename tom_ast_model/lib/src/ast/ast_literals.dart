@@ -667,7 +667,7 @@ class SRecordLiteral extends SLiteral {
   @override
   final int length;
 
-  final List<SExpression> fields;
+  final List<SRecordLiteralField> fields;
   final bool isConst;
 
   SRecordLiteral({
@@ -693,7 +693,7 @@ class SRecordLiteral extends SLiteral {
     return SRecordLiteral(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      fields: SAstNodeFactory.listFromJson<SExpression>(
+      fields: SAstNodeFactory.listFromJson<SRecordLiteralField>(
         json['fields'] as List?,
       ),
       isConst: json['isConst'] as bool? ?? false,

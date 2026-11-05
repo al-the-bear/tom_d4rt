@@ -22,7 +22,7 @@ mixin SFunctionBodyOwner on SAstNode {
 // Function Declaration
 // ============================================================================
 
-class SFunctionDeclaration extends SNamedCompilationUnitMember
+class SFunctionDeclaration extends SCompilationUnitMember
     with SNamedDeclaration {
   @override
   final int offset;
@@ -262,15 +262,13 @@ class SMethodDeclaration extends SClassMember with SNamedDeclaration {
 // Class Declaration
 // ============================================================================
 
-class SClassDeclaration extends SNamedCompilationUnitMember
-    with SNamedDeclaration {
+/// A class declaration. Mirrors analyzer's `ClassDeclaration`.
+class SClassDeclaration extends SCompilationUnitMember {
   @override
   final int offset;
   @override
   final int length;
-  @override
-  final SSimpleIdentifier? name;
-  @override
+
   @override
   final List<SAnnotation> metadata;
 
@@ -282,25 +280,18 @@ class SClassDeclaration extends SNamedCompilationUnitMember
   final bool isFinal;
   final bool isMixin;
 
-  /// Type parameters
-  final STypeParameterList? typeParameters;
-
-  /// Extends clause
+  /// The name and type parameters.
+  final SClassNamePart namePart;
   final SExtendsClause? extendsClause;
-
-  /// Implements clause
+  final SWithClause? withClause;
   final SImplementsClause? implementsClause;
 
-  /// With clause
-  final SWithClause? withClause;
-
-  /// Class members (fields, methods, constructors)
-  final List<SClassMember> members;
+  /// The members (fields, methods, constructors).
+  final SClassBody body;
 
   SClassDeclaration({
     required this.offset,
     required this.length,
-    this.name,
     this.metadata = const [],
     this.isAbstract = false,
     this.isSealed = false,
@@ -308,11 +299,11 @@ class SClassDeclaration extends SNamedCompilationUnitMember
     this.isInterface = false,
     this.isFinal = false,
     this.isMixin = false,
-    this.typeParameters,
+    required this.namePart,
     this.extendsClause,
-    this.implementsClause,
     this.withClause,
-    this.members = const [],
+    this.implementsClause,
+    required this.body,
   });
 
   @override
@@ -323,29 +314,25 @@ class SClassDeclaration extends SNamedCompilationUnitMember
     'nodeType': nodeType,
     'offset': offset,
     'length': length,
-    if (name != null) 'name': name!.toJson(),
-    'metadata': metadata.map((a) => a.toJson()).toList(),
+    'metadata': metadata.map((e) => e.toJson()).toList(),
     'isAbstract': isAbstract,
     'isSealed': isSealed,
     'isBase': isBase,
     'isInterface': isInterface,
     'isFinal': isFinal,
     'isMixin': isMixin,
-    if (typeParameters != null) 'typeParameters': typeParameters!.toJson(),
+    'namePart': namePart.toJson(),
     if (extendsClause != null) 'extendsClause': extendsClause!.toJson(),
+    if (withClause != null) 'withClause': withClause!.toJson(),
     if (implementsClause != null)
       'implementsClause': implementsClause!.toJson(),
-    if (withClause != null) 'withClause': withClause!.toJson(),
-    'members': members.map((m) => m.toJson()).toList(),
+    'body': body.toJson(),
   };
 
   factory SClassDeclaration.fromJson(Map<String, dynamic> json) {
     return SClassDeclaration(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      name: json['name'] != null
-          ? SSimpleIdentifier.fromJson(json['name'] as Map<String, dynamic>)
-          : null,
       metadata:
           (json['metadata'] as List?)
               ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
@@ -357,27 +344,25 @@ class SClassDeclaration extends SNamedCompilationUnitMember
       isInterface: json['isInterface'] as bool? ?? false,
       isFinal: json['isFinal'] as bool? ?? false,
       isMixin: json['isMixin'] as bool? ?? false,
-      typeParameters: json['typeParameters'] != null
-          ? STypeParameterList.fromJson(
-              json['typeParameters'] as Map<String, dynamic>,
-            )
-          : null,
-      extendsClause: json['extendsClause'] != null
-          ? SExtendsClause.fromJson(
-              json['extendsClause'] as Map<String, dynamic>,
-            )
-          : null,
-      implementsClause: json['implementsClause'] != null
-          ? SImplementsClause.fromJson(
-              json['implementsClause'] as Map<String, dynamic>,
-            )
-          : null,
-      withClause: json['withClause'] != null
-          ? SWithClause.fromJson(json['withClause'] as Map<String, dynamic>)
-          : null,
-      members: SAstNodeFactory.listFromJson<SClassMember>(
-        json['members'] as List?,
-      ),
+      namePart:
+          SAstNodeFactory.fromJson(json['namePart'] as Map<String, dynamic>)
+              as SClassNamePart,
+      extendsClause:
+          SAstNodeFactory.fromJson(
+                json['extendsClause'] as Map<String, dynamic>?,
+              )
+              as SExtendsClause?,
+      withClause:
+          SAstNodeFactory.fromJson(json['withClause'] as Map<String, dynamic>?)
+              as SWithClause?,
+      implementsClause:
+          SAstNodeFactory.fromJson(
+                json['implementsClause'] as Map<String, dynamic>?,
+              )
+              as SImplementsClause?,
+      body:
+          SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>)
+              as SClassBody,
     );
   }
 
@@ -386,17 +371,14 @@ class SClassDeclaration extends SNamedCompilationUnitMember
 
   @override
   void visitChildren(SAstVisitor visitor) {
-    name?.accept(visitor);
     for (final child in metadata) {
       child.accept(visitor);
     }
-    typeParameters?.accept(visitor);
+    namePart.accept(visitor);
     extendsClause?.accept(visitor);
-    implementsClause?.accept(visitor);
     withClause?.accept(visitor);
-    for (final child in members) {
-      child.accept(visitor);
-    }
+    implementsClause?.accept(visitor);
+    body.accept(visitor);
   }
 }
 
@@ -404,23 +386,22 @@ class SClassDeclaration extends SNamedCompilationUnitMember
 // Mixin Declaration
 // ============================================================================
 
-class SMixinDeclaration extends SNamedCompilationUnitMember
-    with SNamedDeclaration {
+/// A mixin declaration. Mirrors analyzer's `MixinDeclaration`.
+class SMixinDeclaration extends SCompilationUnitMember with SNamedDeclaration {
   @override
   final int offset;
   @override
   final int length;
+
   @override
   final SSimpleIdentifier? name;
   @override
-  @override
   final List<SAnnotation> metadata;
-
   final bool isBase;
   final STypeParameterList? typeParameters;
   final SOnClause? onClause;
   final SImplementsClause? implementsClause;
-  final List<SClassMember> members;
+  final SClassBody body;
 
   SMixinDeclaration({
     required this.offset,
@@ -431,7 +412,7 @@ class SMixinDeclaration extends SNamedCompilationUnitMember
     this.typeParameters,
     this.onClause,
     this.implementsClause,
-    this.members = const [],
+    required this.body,
   });
 
   @override
@@ -443,44 +424,44 @@ class SMixinDeclaration extends SNamedCompilationUnitMember
     'offset': offset,
     'length': length,
     if (name != null) 'name': name!.toJson(),
-    'metadata': metadata.map((a) => a.toJson()).toList(),
+    'metadata': metadata.map((e) => e.toJson()).toList(),
     'isBase': isBase,
     if (typeParameters != null) 'typeParameters': typeParameters!.toJson(),
     if (onClause != null) 'onClause': onClause!.toJson(),
     if (implementsClause != null)
       'implementsClause': implementsClause!.toJson(),
-    'members': members.map((m) => m.toJson()).toList(),
+    'body': body.toJson(),
   };
 
   factory SMixinDeclaration.fromJson(Map<String, dynamic> json) {
     return SMixinDeclaration(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      name: json['name'] != null
-          ? SSimpleIdentifier.fromJson(json['name'] as Map<String, dynamic>)
-          : null,
+      name:
+          SAstNodeFactory.fromJson(json['name'] as Map<String, dynamic>?)
+              as SSimpleIdentifier?,
       metadata:
           (json['metadata'] as List?)
               ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
               .toList() ??
           [],
       isBase: json['isBase'] as bool? ?? false,
-      typeParameters: json['typeParameters'] != null
-          ? STypeParameterList.fromJson(
-              json['typeParameters'] as Map<String, dynamic>,
-            )
-          : null,
-      onClause: json['onClause'] != null
-          ? SOnClause.fromJson(json['onClause'] as Map<String, dynamic>)
-          : null,
-      implementsClause: json['implementsClause'] != null
-          ? SImplementsClause.fromJson(
-              json['implementsClause'] as Map<String, dynamic>,
-            )
-          : null,
-      members: SAstNodeFactory.listFromJson<SClassMember>(
-        json['members'] as List?,
-      ),
+      typeParameters:
+          SAstNodeFactory.fromJson(
+                json['typeParameters'] as Map<String, dynamic>?,
+              )
+              as STypeParameterList?,
+      onClause:
+          SAstNodeFactory.fromJson(json['onClause'] as Map<String, dynamic>?)
+              as SOnClause?,
+      implementsClause:
+          SAstNodeFactory.fromJson(
+                json['implementsClause'] as Map<String, dynamic>?,
+              )
+              as SImplementsClause?,
+      body:
+          SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>)
+              as SClassBody,
     );
   }
 
@@ -496,9 +477,7 @@ class SMixinDeclaration extends SNamedCompilationUnitMember
     typeParameters?.accept(visitor);
     onClause?.accept(visitor);
     implementsClause?.accept(visitor);
-    for (final child in members) {
-      child.accept(visitor);
-    }
+    body.accept(visitor);
   }
 }
 
@@ -506,34 +485,32 @@ class SMixinDeclaration extends SNamedCompilationUnitMember
 // Enum Declaration
 // ============================================================================
 
-class SEnumDeclaration extends SNamedCompilationUnitMember
-    with SNamedDeclaration {
+/// An enum declaration. Mirrors analyzer's `EnumDeclaration`.
+class SEnumDeclaration extends SCompilationUnitMember {
   @override
   final int offset;
   @override
   final int length;
-  @override
-  final SSimpleIdentifier? name;
-  @override
+
   @override
   final List<SAnnotation> metadata;
 
-  final STypeParameterList? typeParameters;
-  final SImplementsClause? implementsClause;
+  /// The name and type parameters.
+  final SClassNamePart namePart;
   final SWithClause? withClause;
-  final List<SEnumConstantDeclaration> constants;
-  final List<SClassMember> members;
+  final SImplementsClause? implementsClause;
+
+  /// The constants and members.
+  final SEnumBody body;
 
   SEnumDeclaration({
     required this.offset,
     required this.length,
-    this.name,
     this.metadata = const [],
-    this.typeParameters,
-    this.implementsClause,
+    required this.namePart,
     this.withClause,
-    this.constants = const [],
-    this.members = const [],
+    this.implementsClause,
+    required this.body,
   });
 
   @override
@@ -544,53 +521,37 @@ class SEnumDeclaration extends SNamedCompilationUnitMember
     'nodeType': nodeType,
     'offset': offset,
     'length': length,
-    if (name != null) 'name': name!.toJson(),
-    'metadata': metadata.map((a) => a.toJson()).toList(),
-    if (typeParameters != null) 'typeParameters': typeParameters!.toJson(),
+    'metadata': metadata.map((e) => e.toJson()).toList(),
+    'namePart': namePart.toJson(),
+    if (withClause != null) 'withClause': withClause!.toJson(),
     if (implementsClause != null)
       'implementsClause': implementsClause!.toJson(),
-    if (withClause != null) 'withClause': withClause!.toJson(),
-    'constants': constants.map((c) => c.toJson()).toList(),
-    'members': members.map((m) => m.toJson()).toList(),
+    'body': body.toJson(),
   };
 
   factory SEnumDeclaration.fromJson(Map<String, dynamic> json) {
     return SEnumDeclaration(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      name: json['name'] != null
-          ? SSimpleIdentifier.fromJson(json['name'] as Map<String, dynamic>)
-          : null,
       metadata:
           (json['metadata'] as List?)
               ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
               .toList() ??
           [],
-      typeParameters: json['typeParameters'] != null
-          ? STypeParameterList.fromJson(
-              json['typeParameters'] as Map<String, dynamic>,
-            )
-          : null,
-      implementsClause: json['implementsClause'] != null
-          ? SImplementsClause.fromJson(
-              json['implementsClause'] as Map<String, dynamic>,
-            )
-          : null,
-      withClause: json['withClause'] != null
-          ? SWithClause.fromJson(json['withClause'] as Map<String, dynamic>)
-          : null,
-      constants:
-          (json['constants'] as List?)
-              ?.map(
-                (c) => SEnumConstantDeclaration.fromJson(
-                  c as Map<String, dynamic>,
-                ),
+      namePart:
+          SAstNodeFactory.fromJson(json['namePart'] as Map<String, dynamic>)
+              as SClassNamePart,
+      withClause:
+          SAstNodeFactory.fromJson(json['withClause'] as Map<String, dynamic>?)
+              as SWithClause?,
+      implementsClause:
+          SAstNodeFactory.fromJson(
+                json['implementsClause'] as Map<String, dynamic>?,
               )
-              .toList() ??
-          [],
-      members: SAstNodeFactory.listFromJson<SClassMember>(
-        json['members'] as List?,
-      ),
+              as SImplementsClause?,
+      body:
+          SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>)
+              as SEnumBody,
     );
   }
 
@@ -599,19 +560,13 @@ class SEnumDeclaration extends SNamedCompilationUnitMember
 
   @override
   void visitChildren(SAstVisitor visitor) {
-    name?.accept(visitor);
     for (final child in metadata) {
       child.accept(visitor);
     }
-    typeParameters?.accept(visitor);
-    implementsClause?.accept(visitor);
+    namePart.accept(visitor);
     withClause?.accept(visitor);
-    for (final child in constants) {
-      child.accept(visitor);
-    }
-    for (final child in members) {
-      child.accept(visitor);
-    }
+    implementsClause?.accept(visitor);
+    body.accept(visitor);
   }
 }
 
@@ -694,21 +649,23 @@ class SEnumConstantDeclaration extends SDeclaration with SNamedDeclaration {
 // Extension Declaration
 // ============================================================================
 
+/// An extension declaration. Mirrors analyzer's `ExtensionDeclaration`.
 class SExtensionDeclaration extends SCompilationUnitMember
     with SNamedDeclaration {
   @override
   final int offset;
   @override
   final int length;
+
   @override
   final SSimpleIdentifier? name;
   @override
-  @override
   final List<SAnnotation> metadata;
-
   final STypeParameterList? typeParameters;
+
+  /// The `on` type.
   final STypeAnnotation? extendedType;
-  final List<SClassMember> members;
+  final SClassBody body;
 
   SExtensionDeclaration({
     required this.offset,
@@ -717,7 +674,7 @@ class SExtensionDeclaration extends SCompilationUnitMember
     this.metadata = const [],
     this.typeParameters,
     this.extendedType,
-    this.members = const [],
+    required this.body,
   });
 
   @override
@@ -729,37 +686,37 @@ class SExtensionDeclaration extends SCompilationUnitMember
     'offset': offset,
     'length': length,
     if (name != null) 'name': name!.toJson(),
-    'metadata': metadata.map((a) => a.toJson()).toList(),
+    'metadata': metadata.map((e) => e.toJson()).toList(),
     if (typeParameters != null) 'typeParameters': typeParameters!.toJson(),
     if (extendedType != null) 'extendedType': extendedType!.toJson(),
-    'members': members.map((m) => m.toJson()).toList(),
+    'body': body.toJson(),
   };
 
   factory SExtensionDeclaration.fromJson(Map<String, dynamic> json) {
     return SExtensionDeclaration(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      name: json['name'] != null
-          ? SSimpleIdentifier.fromJson(json['name'] as Map<String, dynamic>)
-          : null,
+      name:
+          SAstNodeFactory.fromJson(json['name'] as Map<String, dynamic>?)
+              as SSimpleIdentifier?,
       metadata:
           (json['metadata'] as List?)
               ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
               .toList() ??
           [],
-      typeParameters: json['typeParameters'] != null
-          ? STypeParameterList.fromJson(
-              json['typeParameters'] as Map<String, dynamic>,
-            )
-          : null,
+      typeParameters:
+          SAstNodeFactory.fromJson(
+                json['typeParameters'] as Map<String, dynamic>?,
+              )
+              as STypeParameterList?,
       extendedType:
           SAstNodeFactory.fromJson(
                 json['extendedType'] as Map<String, dynamic>?,
               )
               as STypeAnnotation?,
-      members: SAstNodeFactory.listFromJson<SClassMember>(
-        json['members'] as List?,
-      ),
+      body:
+          SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>)
+              as SClassBody,
     );
   }
 
@@ -775,9 +732,7 @@ class SExtensionDeclaration extends SCompilationUnitMember
     }
     typeParameters?.accept(visitor);
     extendedType?.accept(visitor);
-    for (final child in members) {
-      child.accept(visitor);
-    }
+    body.accept(visitor);
   }
 }
 
@@ -1122,8 +1077,8 @@ class SConstructorDeclaration extends SClassMember with SNamedDeclaration {
   @override
   final List<SAnnotation> metadata;
 
-  /// Return type (class name)
-  final SSimpleIdentifier? returnType;
+  /// The class name the constructor is declared with.
+  final SSimpleIdentifier? typeName;
 
   /// Whether factory constructor
   final bool isFactory;
@@ -1151,7 +1106,7 @@ class SConstructorDeclaration extends SClassMember with SNamedDeclaration {
     required this.length,
     this.name,
     this.metadata = const [],
-    this.returnType,
+    this.typeName,
     this.isFactory = false,
     this.isConst = false,
     this.isExternal = false,
@@ -1171,7 +1126,7 @@ class SConstructorDeclaration extends SClassMember with SNamedDeclaration {
     'length': length,
     if (name != null) 'name': name!.toJson(),
     'metadata': metadata.map((a) => a.toJson()).toList(),
-    if (returnType != null) 'returnType': returnType!.toJson(),
+    if (typeName != null) 'typeName': typeName!.toJson(),
     'isFactory': isFactory,
     'isConst': isConst,
     'isExternal': isExternal,
@@ -1194,10 +1149,8 @@ class SConstructorDeclaration extends SClassMember with SNamedDeclaration {
               ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
               .toList() ??
           [],
-      returnType: json['returnType'] != null
-          ? SSimpleIdentifier.fromJson(
-              json['returnType'] as Map<String, dynamic>,
-            )
+      typeName: json['typeName'] != null
+          ? SSimpleIdentifier.fromJson(json['typeName'] as Map<String, dynamic>)
           : null,
       isFactory: json['isFactory'] as bool? ?? false,
       isConst: json['isConst'] as bool? ?? false,
@@ -1231,7 +1184,7 @@ class SConstructorDeclaration extends SClassMember with SNamedDeclaration {
     for (final child in metadata) {
       child.accept(visitor);
     }
-    returnType?.accept(visitor);
+    typeName?.accept(visitor);
     parameters?.accept(visitor);
     for (final child in initializers) {
       child.accept(visitor);
@@ -1245,7 +1198,7 @@ class SConstructorDeclaration extends SClassMember with SNamedDeclaration {
 // Typedef Declaration
 // ============================================================================
 
-class STypedefDeclaration extends SNamedCompilationUnitMember
+class STypedefDeclaration extends SCompilationUnitMember
     with SNamedDeclaration {
   @override
   final int offset;
@@ -1324,45 +1277,34 @@ class STypedefDeclaration extends SNamedCompilationUnitMember
 // Extension Type Declaration
 // ============================================================================
 
-/// An extension type declaration: `extension type MyType(int value) implements int { ... }`
-class SExtensionTypeDeclaration extends SNamedCompilationUnitMember
-    with SNamedDeclaration {
+/// An extension type declaration, such as
+/// `extension type const Foo<T>(int it) implements int { ... }`. Mirrors analyzer's `ExtensionTypeDeclaration`.
+class SExtensionTypeDeclaration extends SCompilationUnitMember {
   @override
   final int offset;
   @override
   final int length;
-  @override
-  final SSimpleIdentifier? name;
-  @override
+
   @override
   final List<SAnnotation> metadata;
 
-  /// Optional type parameters
-  final STypeParameterList? typeParameters;
-
-  /// The representation declaration (e.g., `int value`)
-  final SRepresentationDeclaration representation;
-
-  /// Optional implements clause
+  /// The primary constructor, which names the type.
+  final SClassNamePart namePart;
   final SImplementsClause? implementsClause;
-
-  /// Members (methods, getters, etc.)
-  final List<SClassMember> members;
-
-  /// Whether declared with `const` keyword
-  final bool isConst;
+  final SClassBody body;
 
   SExtensionTypeDeclaration({
     required this.offset,
     required this.length,
-    this.name,
     this.metadata = const [],
-    this.typeParameters,
-    required this.representation,
+    required this.namePart,
     this.implementsClause,
-    this.members = const [],
-    this.isConst = false,
+    required this.body,
   });
+
+  /// The primary constructor; its one parameter is the representation field.
+  SPrimaryConstructorDeclaration get primaryConstructor =>
+      namePart as SPrimaryConstructorDeclaration;
 
   @override
   String get nodeType => 'ExtensionTypeDeclaration';
@@ -1372,47 +1314,33 @@ class SExtensionTypeDeclaration extends SNamedCompilationUnitMember
     'nodeType': nodeType,
     'offset': offset,
     'length': length,
-    if (name != null) 'name': name!.toJson(),
-    'metadata': metadata.map((a) => a.toJson()).toList(),
-    if (typeParameters != null) 'typeParameters': typeParameters!.toJson(),
-    'representation': representation.toJson(),
+    'metadata': metadata.map((e) => e.toJson()).toList(),
+    'namePart': namePart.toJson(),
     if (implementsClause != null)
       'implementsClause': implementsClause!.toJson(),
-    'members': members.map((m) => m.toJson()).toList(),
-    'isConst': isConst,
+    'body': body.toJson(),
   };
 
   factory SExtensionTypeDeclaration.fromJson(Map<String, dynamic> json) {
     return SExtensionTypeDeclaration(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      name: json['name'] != null
-          ? SSimpleIdentifier.fromJson(json['name'] as Map<String, dynamic>)
-          : null,
       metadata:
           (json['metadata'] as List?)
               ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
               .toList() ??
           [],
-      typeParameters: json['typeParameters'] != null
-          ? STypeParameterList.fromJson(
-              json['typeParameters'] as Map<String, dynamic>,
-            )
-          : null,
-      representation:
+      namePart:
+          SAstNodeFactory.fromJson(json['namePart'] as Map<String, dynamic>)
+              as SClassNamePart,
+      implementsClause:
           SAstNodeFactory.fromJson(
-                json['representation'] as Map<String, dynamic>?,
+                json['implementsClause'] as Map<String, dynamic>?,
               )
-              as SRepresentationDeclaration,
-      implementsClause: json['implementsClause'] != null
-          ? SImplementsClause.fromJson(
-              json['implementsClause'] as Map<String, dynamic>,
-            )
-          : null,
-      members: SAstNodeFactory.listFromJson<SClassMember>(
-        json['members'] as List?,
-      ),
-      isConst: json['isConst'] as bool? ?? false,
+              as SImplementsClause?,
+      body:
+          SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>)
+              as SClassBody,
     );
   }
 
@@ -1422,72 +1350,357 @@ class SExtensionTypeDeclaration extends SNamedCompilationUnitMember
 
   @override
   void visitChildren(SAstVisitor visitor) {
-    name?.accept(visitor);
     for (final child in metadata) {
       child.accept(visitor);
     }
-    typeParameters?.accept(visitor);
-    representation.accept(visitor);
+    namePart.accept(visitor);
     implementsClause?.accept(visitor);
-    for (final child in members) {
-      child.accept(visitor);
-    }
+    body.accept(visitor);
   }
 }
 
 // ============================================================================
-// Representation Declaration
+// Class name parts and bodies
 // ============================================================================
 
-/// The representation declaration of an extension type: `(int value)`
-class SRepresentationDeclaration extends SAstNode {
+/// The name of a class-like declaration with its type parameters: `Foo<T>`,
+/// or for an extension type its primary constructor `Foo<T>(int it)`.
+/// Mirrors analyzer's `ClassNamePart`.
+abstract class SClassNamePart extends SAstNode {
+  SSimpleIdentifier get typeName;
+  STypeParameterList? get typeParameters;
+}
+
+/// The members of a class, mixin, extension or extension type. Mirrors
+/// analyzer's `ClassBody`.
+abstract class SClassBody extends SAstNode {
+  List<SClassMember> get members;
+}
+
+/// The constants and members of an enum. Mirrors analyzer's `EnumBody`.
+abstract class SEnumBody extends SAstNode {
+  List<SEnumConstantDeclaration> get constants;
+  List<SClassMember> get members;
+}
+
+/// A plain class name part: `Foo<T>`. Mirrors analyzer's
+/// `NameWithTypeParameters`.
+class SNameWithTypeParameters extends SClassNamePart {
   @override
   final int offset;
   @override
   final int length;
 
-  /// Name of the representation field
-  final String fieldName;
+  @override
+  final SSimpleIdentifier typeName;
+  @override
+  final STypeParameterList? typeParameters;
 
-  /// Type annotation of the representation field
-  final STypeAnnotation fieldType;
-
-  SRepresentationDeclaration({
+  SNameWithTypeParameters({
     required this.offset,
     required this.length,
-    required this.fieldName,
-    required this.fieldType,
+    required this.typeName,
+    this.typeParameters,
   });
 
   @override
-  String get nodeType => 'RepresentationDeclaration';
+  String get nodeType => 'NameWithTypeParameters';
 
   @override
   Map<String, dynamic> toJson() => {
     'nodeType': nodeType,
     'offset': offset,
     'length': length,
-    'fieldName': fieldName,
-    'fieldType': fieldType.toJson(),
+    'typeName': typeName.toJson(),
+    if (typeParameters != null) 'typeParameters': typeParameters!.toJson(),
   };
 
-  factory SRepresentationDeclaration.fromJson(Map<String, dynamic> json) {
-    return SRepresentationDeclaration(
+  factory SNameWithTypeParameters.fromJson(Map<String, dynamic> json) {
+    return SNameWithTypeParameters(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      fieldName: json['fieldName'] as String,
-      fieldType:
-          SAstNodeFactory.fromJson(json['fieldType'] as Map<String, dynamic>?)
-              as STypeAnnotation,
+      typeName:
+          SAstNodeFactory.fromJson(json['typeName'] as Map<String, dynamic>)
+              as SSimpleIdentifier,
+      typeParameters:
+          SAstNodeFactory.fromJson(
+                json['typeParameters'] as Map<String, dynamic>?,
+              )
+              as STypeParameterList?,
     );
   }
 
   @override
   T? accept<T>(SAstVisitor<T> visitor) =>
-      visitor.visitRepresentationDeclaration(this);
+      visitor.visitNameWithTypeParameters(this);
 
   @override
   void visitChildren(SAstVisitor visitor) {
-    fieldType.accept(visitor);
+    typeName.accept(visitor);
+    typeParameters?.accept(visitor);
   }
+}
+
+/// A primary constructor as a class name part: `const Foo<T>.named(int it)`.
+/// Mirrors analyzer's `PrimaryConstructorDeclaration`.
+class SPrimaryConstructorDeclaration extends SClassNamePart {
+  @override
+  final int offset;
+  @override
+  final int length;
+
+  @override
+  final SSimpleIdentifier typeName;
+  @override
+  final STypeParameterList? typeParameters;
+
+  /// Whether declared `const`.
+  final bool isConst;
+
+  /// The `.named` part, when there is one.
+  final SSimpleIdentifier? constructorName;
+  final SFormalParameterList formalParameters;
+
+  SPrimaryConstructorDeclaration({
+    required this.offset,
+    required this.length,
+    required this.typeName,
+    this.typeParameters,
+    this.isConst = false,
+    this.constructorName,
+    required this.formalParameters,
+  });
+
+  @override
+  String get nodeType => 'PrimaryConstructorDeclaration';
+
+  @override
+  Map<String, dynamic> toJson() => {
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'typeName': typeName.toJson(),
+    if (typeParameters != null) 'typeParameters': typeParameters!.toJson(),
+    'isConst': isConst,
+    if (constructorName != null) 'constructorName': constructorName!.toJson(),
+    'formalParameters': formalParameters.toJson(),
+  };
+
+  factory SPrimaryConstructorDeclaration.fromJson(Map<String, dynamic> json) {
+    return SPrimaryConstructorDeclaration(
+      offset: json['offset'] as int,
+      length: json['length'] as int,
+      typeName:
+          SAstNodeFactory.fromJson(json['typeName'] as Map<String, dynamic>)
+              as SSimpleIdentifier,
+      typeParameters:
+          SAstNodeFactory.fromJson(
+                json['typeParameters'] as Map<String, dynamic>?,
+              )
+              as STypeParameterList?,
+      isConst: json['isConst'] as bool? ?? false,
+      constructorName:
+          SAstNodeFactory.fromJson(
+                json['constructorName'] as Map<String, dynamic>?,
+              )
+              as SSimpleIdentifier?,
+      formalParameters:
+          SAstNodeFactory.fromJson(
+                json['formalParameters'] as Map<String, dynamic>,
+              )
+              as SFormalParameterList,
+    );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitPrimaryConstructorDeclaration(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    typeName.accept(visitor);
+    typeParameters?.accept(visitor);
+    constructorName?.accept(visitor);
+    formalParameters.accept(visitor);
+  }
+}
+
+/// A class body in braces. Mirrors analyzer's `BlockClassBody`.
+class SBlockClassBody extends SClassBody {
+  @override
+  final int offset;
+  @override
+  final int length;
+
+  @override
+  final List<SClassMember> members;
+
+  SBlockClassBody({
+    required this.offset,
+    required this.length,
+    this.members = const [],
+  });
+
+  @override
+  String get nodeType => 'BlockClassBody';
+
+  @override
+  Map<String, dynamic> toJson() => {
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'members': members.map((e) => e.toJson()).toList(),
+  };
+
+  factory SBlockClassBody.fromJson(Map<String, dynamic> json) {
+    return SBlockClassBody(
+      offset: json['offset'] as int,
+      length: json['length'] as int,
+      members: SAstNodeFactory.listFromJson<SClassMember>(
+        json['members'] as List?,
+      ),
+    );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitBlockClassBody(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    for (final child in members) {
+      child.accept(visitor);
+    }
+  }
+}
+
+/// The body `;` of a class-like declaration without members. Mirrors
+/// analyzer's `EmptyClassBody`.
+class SEmptyClassBody extends SClassBody {
+  @override
+  final int offset;
+  @override
+  final int length;
+
+  SEmptyClassBody({required this.offset, required this.length});
+
+  @override
+  List<SClassMember> get members => const [];
+
+  @override
+  String get nodeType => 'EmptyClassBody';
+
+  @override
+  Map<String, dynamic> toJson() => {
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+  };
+
+  factory SEmptyClassBody.fromJson(Map<String, dynamic> json) =>
+      SEmptyClassBody(
+        offset: json['offset'] as int,
+        length: json['length'] as int,
+      );
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitEmptyClassBody(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {}
+}
+
+/// An enum body in braces. Mirrors analyzer's `BlockEnumBody`.
+class SBlockEnumBody extends SEnumBody {
+  @override
+  final int offset;
+  @override
+  final int length;
+
+  @override
+  final List<SEnumConstantDeclaration> constants;
+  @override
+  final List<SClassMember> members;
+
+  SBlockEnumBody({
+    required this.offset,
+    required this.length,
+    this.constants = const [],
+    this.members = const [],
+  });
+
+  @override
+  String get nodeType => 'BlockEnumBody';
+
+  @override
+  Map<String, dynamic> toJson() => {
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'constants': constants.map((e) => e.toJson()).toList(),
+    'members': members.map((e) => e.toJson()).toList(),
+  };
+
+  factory SBlockEnumBody.fromJson(Map<String, dynamic> json) {
+    return SBlockEnumBody(
+      offset: json['offset'] as int,
+      length: json['length'] as int,
+      constants: SAstNodeFactory.listFromJson<SEnumConstantDeclaration>(
+        json['constants'] as List?,
+      ),
+      members: SAstNodeFactory.listFromJson<SClassMember>(
+        json['members'] as List?,
+      ),
+    );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitBlockEnumBody(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    for (final child in constants) {
+      child.accept(visitor);
+    }
+    for (final child in members) {
+      child.accept(visitor);
+    }
+  }
+}
+
+/// The body `;` of an enum without constants or members (invalid code).
+/// Mirrors analyzer's `EmptyEnumBody`.
+class SEmptyEnumBody extends SEnumBody {
+  @override
+  final int offset;
+  @override
+  final int length;
+
+  SEmptyEnumBody({required this.offset, required this.length});
+
+  @override
+  List<SEnumConstantDeclaration> get constants => const [];
+
+  @override
+  List<SClassMember> get members => const [];
+
+  @override
+  String get nodeType => 'EmptyEnumBody';
+
+  @override
+  Map<String, dynamic> toJson() => {
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+  };
+
+  factory SEmptyEnumBody.fromJson(Map<String, dynamic> json) => SEmptyEnumBody(
+    offset: json['offset'] as int,
+    length: json['length'] as int,
+  );
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitEmptyEnumBody(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {}
 }

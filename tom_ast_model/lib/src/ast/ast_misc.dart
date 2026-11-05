@@ -13,7 +13,7 @@ class SArgumentList extends SAstNode {
   @override
   final int length;
 
-  final List<SExpression> arguments;
+  final List<SArgument> arguments;
 
   SArgumentList({
     required this.offset,
@@ -36,7 +36,7 @@ class SArgumentList extends SAstNode {
     return SArgumentList(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      arguments: SAstNodeFactory.listFromJson<SExpression>(
+      arguments: SAstNodeFactory.listFromJson<SArgument>(
         json['arguments'] as List?,
       ),
     );
@@ -178,15 +178,17 @@ class SComment extends SAstNode {
 // Label
 // ============================================================================
 
+/// A label declaration: `name:` before a statement or switch member.
+/// Mirrors analyzer's `Label`.
 class SLabel extends SAstNode {
   @override
   final int offset;
   @override
   final int length;
 
-  final SSimpleIdentifier? label;
+  final SSimpleIdentifier name;
 
-  SLabel({required this.offset, required this.length, this.label});
+  SLabel({required this.offset, required this.length, required this.name});
 
   @override
   String get nodeType => 'Label';
@@ -196,16 +198,14 @@ class SLabel extends SAstNode {
     'nodeType': nodeType,
     'offset': offset,
     'length': length,
-    if (label != null) 'label': label!.toJson(),
+    'name': name.toJson(),
   };
 
   factory SLabel.fromJson(Map<String, dynamic> json) {
     return SLabel(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      label: json['label'] != null
-          ? SSimpleIdentifier.fromJson(json['label'] as Map<String, dynamic>)
-          : null,
+      name: SSimpleIdentifier.fromJson(json['name'] as Map<String, dynamic>),
     );
   }
 
@@ -214,7 +214,51 @@ class SLabel extends SAstNode {
 
   @override
   void visitChildren(SAstVisitor visitor) {
-    label?.accept(visitor);
+    name.accept(visitor);
+  }
+}
+
+/// The label a `break` or `continue` names. Mirrors analyzer's
+/// `LabelReference`.
+class SLabelReference extends SAstNode {
+  @override
+  final int offset;
+  @override
+  final int length;
+
+  final SSimpleIdentifier name;
+
+  SLabelReference({
+    required this.offset,
+    required this.length,
+    required this.name,
+  });
+
+  @override
+  String get nodeType => 'LabelReference';
+
+  @override
+  Map<String, dynamic> toJson() => {
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'name': name.toJson(),
+  };
+
+  factory SLabelReference.fromJson(Map<String, dynamic> json) {
+    return SLabelReference(
+      offset: json['offset'] as int,
+      length: json['length'] as int,
+      name: SSimpleIdentifier.fromJson(json['name'] as Map<String, dynamic>),
+    );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitLabelReference(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    name.accept(visitor);
   }
 }
 

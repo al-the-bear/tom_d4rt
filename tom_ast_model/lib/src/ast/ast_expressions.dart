@@ -1251,54 +1251,110 @@ class SRethrowExpression extends SExpression {
 // Named Expression
 // ============================================================================
 
-class SNamedExpression extends SExpression {
+/// A named argument: `name: expression`. Mirrors analyzer's
+/// `NamedArgument`.
+class SNamedArgument extends SAstNode implements SArgument {
   @override
   final int offset;
   @override
   final int length;
 
-  final SLabel? name;
-  final SExpression? expression;
+  final SSimpleIdentifier name;
+  final SExpression argumentExpression;
 
-  SNamedExpression({
+  SNamedArgument({
     required this.offset,
     required this.length,
-    this.name,
-    this.expression,
+    required this.name,
+    required this.argumentExpression,
   });
 
   @override
-  String get nodeType => 'NamedExpression';
+  String get nodeType => 'NamedArgument';
 
   @override
   Map<String, dynamic> toJson() => {
     'nodeType': nodeType,
     'offset': offset,
     'length': length,
-    if (name != null) 'name': name!.toJson(),
-    if (expression != null) 'expression': expression!.toJson(),
+    'name': name.toJson(),
+    'argumentExpression': argumentExpression.toJson(),
   };
 
-  factory SNamedExpression.fromJson(Map<String, dynamic> json) {
-    return SNamedExpression(
+  factory SNamedArgument.fromJson(Map<String, dynamic> json) {
+    return SNamedArgument(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      name: json['name'] != null
-          ? SLabel.fromJson(json['name'] as Map<String, dynamic>)
-          : null,
-      expression:
-          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?)
-              as SExpression?,
+      name: SSimpleIdentifier.fromJson(json['name'] as Map<String, dynamic>),
+      argumentExpression:
+          SAstNodeFactory.fromJson(
+                json['argumentExpression'] as Map<String, dynamic>,
+              )
+              as SExpression,
     );
   }
 
   @override
-  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitNamedExpression(this);
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitNamedArgument(this);
 
   @override
   void visitChildren(SAstVisitor visitor) {
-    name?.accept(visitor);
-    expression?.accept(visitor);
+    name.accept(visitor);
+    argumentExpression.accept(visitor);
+  }
+}
+
+/// A named field of a record literal: `name: expression`. Mirrors
+/// analyzer's `RecordLiteralNamedField`.
+class SRecordLiteralNamedField extends SAstNode implements SRecordLiteralField {
+  @override
+  final int offset;
+  @override
+  final int length;
+
+  final SSimpleIdentifier name;
+  final SExpression fieldExpression;
+
+  SRecordLiteralNamedField({
+    required this.offset,
+    required this.length,
+    required this.name,
+    required this.fieldExpression,
+  });
+
+  @override
+  String get nodeType => 'RecordLiteralNamedField';
+
+  @override
+  Map<String, dynamic> toJson() => {
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'name': name.toJson(),
+    'fieldExpression': fieldExpression.toJson(),
+  };
+
+  factory SRecordLiteralNamedField.fromJson(Map<String, dynamic> json) {
+    return SRecordLiteralNamedField(
+      offset: json['offset'] as int,
+      length: json['length'] as int,
+      name: SSimpleIdentifier.fromJson(json['name'] as Map<String, dynamic>),
+      fieldExpression:
+          SAstNodeFactory.fromJson(
+                json['fieldExpression'] as Map<String, dynamic>,
+              )
+              as SExpression,
+    );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitRecordLiteralNamedField(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    name.accept(visitor);
+    fieldExpression.accept(visitor);
   }
 }
 

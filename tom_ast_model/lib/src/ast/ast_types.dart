@@ -492,466 +492,250 @@ class SFormalParameterList extends SAstNode {
   }
 }
 
-class SSimpleFormalParameter extends SNormalFormalParameter {
+/// The default clause of an optional parameter: `= value` (or `: value` in
+/// old named-parameter syntax). Mirrors analyzer's
+/// `FormalParameterDefaultClause`.
+class SFormalParameterDefaultClause extends SAstNode {
   @override
   final int offset;
   @override
   final int length;
 
-  final SSimpleIdentifier? name;
-  final STypeAnnotation? type;
-  final List<SAnnotation> metadata;
-  final bool isConst;
-  final bool isFinal;
-  @override
-  final bool isRequired;
-  final bool isCovariant;
-  @override
-  final bool isPositional;
-  @override
-  final bool isNamed;
+  final SExpression value;
 
-  @override
-  bool get isOptional => !isRequired;
-
-  @override
-  String? get parameterName => name?.name;
-
-  SSimpleFormalParameter({
+  SFormalParameterDefaultClause({
     required this.offset,
     required this.length,
-    this.name,
-    this.type,
-    this.metadata = const [],
-    this.isConst = false,
-    this.isFinal = false,
-    this.isRequired = false,
-    this.isCovariant = false,
-    this.isPositional = true,
-    this.isNamed = false,
+    required this.value,
   });
 
   @override
-  String get nodeType => 'SimpleFormalParameter';
+  String get nodeType => 'FormalParameterDefaultClause';
 
   @override
   Map<String, dynamic> toJson() => {
     'nodeType': nodeType,
     'offset': offset,
     'length': length,
-    if (name != null) 'name': name!.toJson(),
-    if (type != null) 'type': type!.toJson(),
-    'metadata': metadata.map((a) => a.toJson()).toList(),
-    'isConst': isConst,
-    'isFinal': isFinal,
-    'isRequired': isRequired,
-    'isCovariant': isCovariant,
-    'isPositional': isPositional,
-    'isNamed': isNamed,
+    'value': value.toJson(),
   };
 
-  factory SSimpleFormalParameter.fromJson(Map<String, dynamic> json) {
-    return SSimpleFormalParameter(
+  factory SFormalParameterDefaultClause.fromJson(Map<String, dynamic> json) {
+    return SFormalParameterDefaultClause(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      name: json['name'] != null
-          ? SSimpleIdentifier.fromJson(json['name'] as Map<String, dynamic>)
+      value:
+          SAstNodeFactory.fromJson(json['value'] as Map<String, dynamic>)
+              as SExpression,
+    );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitFormalParameterDefaultClause(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    value.accept(visitor);
+  }
+}
+
+/// What follows the name of a function-typed parameter: `<T>(params)?` in
+/// `int cb<T>(T x)?`. Mirrors analyzer's
+/// `FunctionTypedFormalParameterSuffix`; the parameter's `type` is then the
+/// function's return type.
+class SFunctionTypedFormalParameterSuffix extends SAstNode {
+  @override
+  final int offset;
+  @override
+  final int length;
+
+  final STypeParameterList? typeParameters;
+  final SFormalParameterList formalParameters;
+
+  /// Whether the suffix ends in `?` (a nullable function type).
+  final bool isNullable;
+
+  SFunctionTypedFormalParameterSuffix({
+    required this.offset,
+    required this.length,
+    this.typeParameters,
+    required this.formalParameters,
+    this.isNullable = false,
+  });
+
+  @override
+  String get nodeType => 'FunctionTypedFormalParameterSuffix';
+
+  @override
+  Map<String, dynamic> toJson() => {
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (typeParameters != null) 'typeParameters': typeParameters!.toJson(),
+    'formalParameters': formalParameters.toJson(),
+    'isNullable': isNullable,
+  };
+
+  factory SFunctionTypedFormalParameterSuffix.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    return SFunctionTypedFormalParameterSuffix(
+      offset: json['offset'] as int,
+      length: json['length'] as int,
+      typeParameters: json['typeParameters'] != null
+          ? STypeParameterList.fromJson(
+              json['typeParameters'] as Map<String, dynamic>,
+            )
           : null,
-      type:
-          SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?)
-              as STypeAnnotation?,
-      metadata:
-          (json['metadata'] as List?)
-              ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
-              .toList() ??
-          [],
-      isConst: json['isConst'] as bool? ?? false,
-      isFinal: json['isFinal'] as bool? ?? false,
-      isRequired: json['isRequired'] as bool? ?? false,
-      isCovariant: json['isCovariant'] as bool? ?? false,
-      isPositional: json['isPositional'] as bool? ?? true,
-      isNamed: json['isNamed'] as bool? ?? false,
+      formalParameters: SFormalParameterList.fromJson(
+        json['formalParameters'] as Map<String, dynamic>,
+      ),
+      isNullable: json['isNullable'] as bool? ?? false,
     );
   }
 
   @override
   T? accept<T>(SAstVisitor<T> visitor) =>
-      visitor.visitSimpleFormalParameter(this);
+      visitor.visitFunctionTypedFormalParameterSuffix(this);
 
   @override
   void visitChildren(SAstVisitor visitor) {
-    name?.accept(visitor);
-    type?.accept(visitor);
-    for (final child in metadata) {
-      child.accept(visitor);
-    }
+    typeParameters?.accept(visitor);
+    formalParameters.accept(visitor);
   }
 }
 
-class SDefaultFormalParameter extends SFormalParameter {
-  @override
-  final int offset;
-  @override
-  final int length;
-
-  final SNormalFormalParameter? parameter;
-  final SExpression? defaultValue;
-  @override
-  final bool isPositional;
-  @override
-  final bool isNamed;
-
-  @override
-  bool get isOptional => true;
-
-  @override
-  bool get isRequired => false;
-
-  @override
-  String? get parameterName => null;
-
-  SDefaultFormalParameter({
-    required this.offset,
-    required this.length,
-    this.parameter,
-    this.defaultValue,
-    this.isPositional = true,
-    this.isNamed = false,
+/// A parameter declared by name: `int x`, `[int x = 0]`, `{required int x}`,
+/// `int cb(String s)`. Mirrors analyzer's `RegularFormalParameter`.
+class SRegularFormalParameter extends SFormalParameter {
+  SRegularFormalParameter({
+    required super.offset,
+    required super.length,
+    super.name,
+    super.type,
+    super.metadata,
+    super.isConst,
+    super.isFinal,
+    super.isCovariant,
+    super.isRequired,
+    super.isNamed,
+    super.defaultClause,
+    super.functionTypedSuffix,
   });
 
   @override
-  String get nodeType => 'DefaultFormalParameter';
+  String get nodeType => 'RegularFormalParameter';
 
-  @override
-  Map<String, dynamic> toJson() => {
-    'nodeType': nodeType,
-    'offset': offset,
-    'length': length,
-    if (parameter != null) 'parameter': parameter!.toJson(),
-    if (defaultValue != null) 'defaultValue': defaultValue!.toJson(),
-    'isPositional': isPositional,
-    'isNamed': isNamed,
-  };
-
-  factory SDefaultFormalParameter.fromJson(Map<String, dynamic> json) {
-    return SDefaultFormalParameter(
-      offset: json['offset'] as int,
-      length: json['length'] as int,
-      parameter:
-          SAstNodeFactory.fromJson(json['parameter'] as Map<String, dynamic>?)
-              as SNormalFormalParameter?,
-      defaultValue:
-          SAstNodeFactory.fromJson(
-                json['defaultValue'] as Map<String, dynamic>?,
-              )
-              as SExpression?,
-      isPositional: json['isPositional'] as bool? ?? true,
-      isNamed: json['isNamed'] as bool? ?? false,
+  factory SRegularFormalParameter.fromJson(Map<String, dynamic> json) {
+    final f = SFormalParameter._fieldsFromJson(json);
+    return SRegularFormalParameter(
+      offset: f.offset,
+      length: f.length,
+      name: f.name,
+      type: f.type,
+      metadata: f.metadata,
+      isConst: f.isConst,
+      isFinal: f.isFinal,
+      isCovariant: f.isCovariant,
+      isRequired: f.isRequired,
+      isNamed: f.isNamed,
+      defaultClause: f.defaultClause,
+      functionTypedSuffix: f.functionTypedSuffix,
     );
   }
 
   @override
   T? accept<T>(SAstVisitor<T> visitor) =>
-      visitor.visitDefaultFormalParameter(this);
-
-  @override
-  void visitChildren(SAstVisitor visitor) {
-    parameter?.accept(visitor);
-    defaultValue?.accept(visitor);
-  }
+      visitor.visitRegularFormalParameter(this);
 }
 
-class SFieldFormalParameter extends SNormalFormalParameter {
-  @override
-  final int offset;
-  @override
-  final int length;
-
-  final SSimpleIdentifier? name;
-  final STypeAnnotation? type;
-  final SFormalParameterList? parameters;
-  final List<SAnnotation> metadata;
-  final bool isConst;
-  final bool isFinal;
-  @override
-  final bool isRequired;
-
-  @override
-  bool get isNamed => false;
-
-  @override
-  bool get isPositional => true;
-
-  @override
-  bool get isOptional => !isRequired;
-
-  @override
-  String? get parameterName => name?.name;
-
+/// A field-initializing parameter: `this.x`. Mirrors analyzer's
+/// `FieldFormalParameter`.
+class SFieldFormalParameter extends SFormalParameter {
   SFieldFormalParameter({
-    required this.offset,
-    required this.length,
-    this.name,
-    this.type,
-    this.parameters,
-    this.metadata = const [],
-    this.isConst = false,
-    this.isFinal = false,
-    this.isRequired = false,
+    required super.offset,
+    required super.length,
+    super.name,
+    super.type,
+    super.metadata,
+    super.isConst,
+    super.isFinal,
+    super.isCovariant,
+    super.isRequired,
+    super.isNamed,
+    super.defaultClause,
+    super.functionTypedSuffix,
   });
 
   @override
   String get nodeType => 'FieldFormalParameter';
 
-  @override
-  Map<String, dynamic> toJson() => {
-    'nodeType': nodeType,
-    'offset': offset,
-    'length': length,
-    if (name != null) 'name': name!.toJson(),
-    if (type != null) 'type': type!.toJson(),
-    if (parameters != null) 'parameters': parameters!.toJson(),
-    'metadata': metadata.map((a) => a.toJson()).toList(),
-    'isConst': isConst,
-    'isFinal': isFinal,
-    'isRequired': isRequired,
-  };
-
   factory SFieldFormalParameter.fromJson(Map<String, dynamic> json) {
+    final f = SFormalParameter._fieldsFromJson(json);
     return SFieldFormalParameter(
-      offset: json['offset'] as int,
-      length: json['length'] as int,
-      name: json['name'] != null
-          ? SSimpleIdentifier.fromJson(json['name'] as Map<String, dynamic>)
-          : null,
-      type:
-          SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?)
-              as STypeAnnotation?,
-      parameters: json['parameters'] != null
-          ? SFormalParameterList.fromJson(
-              json['parameters'] as Map<String, dynamic>,
-            )
-          : null,
-      metadata:
-          (json['metadata'] as List?)
-              ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
-              .toList() ??
-          [],
-      isConst: json['isConst'] as bool? ?? false,
-      isFinal: json['isFinal'] as bool? ?? false,
-      isRequired: json['isRequired'] as bool? ?? false,
+      offset: f.offset,
+      length: f.length,
+      name: f.name,
+      type: f.type,
+      metadata: f.metadata,
+      isConst: f.isConst,
+      isFinal: f.isFinal,
+      isCovariant: f.isCovariant,
+      isRequired: f.isRequired,
+      isNamed: f.isNamed,
+      defaultClause: f.defaultClause,
+      functionTypedSuffix: f.functionTypedSuffix,
     );
   }
 
   @override
   T? accept<T>(SAstVisitor<T> visitor) =>
       visitor.visitFieldFormalParameter(this);
-
-  @override
-  void visitChildren(SAstVisitor visitor) {
-    name?.accept(visitor);
-    type?.accept(visitor);
-    parameters?.accept(visitor);
-    for (final child in metadata) {
-      child.accept(visitor);
-    }
-  }
 }
 
-class SFunctionTypedFormalParameter extends SNormalFormalParameter {
-  @override
-  final int offset;
-  @override
-  final int length;
-
-  final SSimpleIdentifier? name;
-  final STypeAnnotation? returnType;
-  final STypeParameterList? typeParameters;
-  final SFormalParameterList? parameters;
-  final List<SAnnotation> metadata;
-  @override
-  final bool isRequired;
-
-  @override
-  bool get isNamed => false;
-
-  @override
-  bool get isPositional => true;
-
-  @override
-  bool get isOptional => !isRequired;
-
-  @override
-  String? get parameterName => name?.name;
-
-  SFunctionTypedFormalParameter({
-    required this.offset,
-    required this.length,
-    this.name,
-    this.returnType,
-    this.typeParameters,
-    this.parameters,
-    this.metadata = const [],
-    this.isRequired = false,
-  });
-
-  @override
-  String get nodeType => 'FunctionTypedFormalParameter';
-
-  @override
-  Map<String, dynamic> toJson() => {
-    'nodeType': nodeType,
-    'offset': offset,
-    'length': length,
-    if (name != null) 'name': name!.toJson(),
-    if (returnType != null) 'returnType': returnType!.toJson(),
-    if (typeParameters != null) 'typeParameters': typeParameters!.toJson(),
-    if (parameters != null) 'parameters': parameters!.toJson(),
-    'metadata': metadata.map((a) => a.toJson()).toList(),
-    'isRequired': isRequired,
-  };
-
-  factory SFunctionTypedFormalParameter.fromJson(Map<String, dynamic> json) {
-    return SFunctionTypedFormalParameter(
-      offset: json['offset'] as int,
-      length: json['length'] as int,
-      name: json['name'] != null
-          ? SSimpleIdentifier.fromJson(json['name'] as Map<String, dynamic>)
-          : null,
-      returnType:
-          SAstNodeFactory.fromJson(json['returnType'] as Map<String, dynamic>?)
-              as STypeAnnotation?,
-      typeParameters: json['typeParameters'] != null
-          ? STypeParameterList.fromJson(
-              json['typeParameters'] as Map<String, dynamic>,
-            )
-          : null,
-      parameters: json['parameters'] != null
-          ? SFormalParameterList.fromJson(
-              json['parameters'] as Map<String, dynamic>,
-            )
-          : null,
-      metadata:
-          (json['metadata'] as List?)
-              ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
-              .toList() ??
-          [],
-      isRequired: json['isRequired'] as bool? ?? false,
-    );
-  }
-
-  @override
-  T? accept<T>(SAstVisitor<T> visitor) =>
-      visitor.visitFunctionTypedFormalParameter(this);
-
-  @override
-  void visitChildren(SAstVisitor visitor) {
-    name?.accept(visitor);
-    returnType?.accept(visitor);
-    typeParameters?.accept(visitor);
-    parameters?.accept(visitor);
-    for (final child in metadata) {
-      child.accept(visitor);
-    }
-  }
-}
-
-class SSuperFormalParameter extends SNormalFormalParameter {
-  @override
-  final int offset;
-  @override
-  final int length;
-
-  final SSimpleIdentifier? name;
-  final STypeAnnotation? type;
-  final STypeParameterList? typeParameters;
-  final SFormalParameterList? parameters;
-  final List<SAnnotation> metadata;
-  @override
-  final bool isRequired;
-
-  @override
-  bool get isNamed => false;
-
-  @override
-  bool get isPositional => true;
-
-  @override
-  bool get isOptional => !isRequired;
-
-  @override
-  String? get parameterName => name?.name;
-
+/// A super-forwarding parameter: `super.x`. Mirrors analyzer's
+/// `SuperFormalParameter`.
+class SSuperFormalParameter extends SFormalParameter {
   SSuperFormalParameter({
-    required this.offset,
-    required this.length,
-    this.name,
-    this.type,
-    this.typeParameters,
-    this.parameters,
-    this.metadata = const [],
-    this.isRequired = false,
+    required super.offset,
+    required super.length,
+    super.name,
+    super.type,
+    super.metadata,
+    super.isConst,
+    super.isFinal,
+    super.isCovariant,
+    super.isRequired,
+    super.isNamed,
+    super.defaultClause,
+    super.functionTypedSuffix,
   });
 
   @override
   String get nodeType => 'SuperFormalParameter';
 
-  @override
-  Map<String, dynamic> toJson() => {
-    'nodeType': nodeType,
-    'offset': offset,
-    'length': length,
-    if (name != null) 'name': name!.toJson(),
-    if (type != null) 'type': type!.toJson(),
-    if (typeParameters != null) 'typeParameters': typeParameters!.toJson(),
-    if (parameters != null) 'parameters': parameters!.toJson(),
-    'metadata': metadata.map((a) => a.toJson()).toList(),
-    'isRequired': isRequired,
-  };
-
   factory SSuperFormalParameter.fromJson(Map<String, dynamic> json) {
+    final f = SFormalParameter._fieldsFromJson(json);
     return SSuperFormalParameter(
-      offset: json['offset'] as int,
-      length: json['length'] as int,
-      name: json['name'] != null
-          ? SSimpleIdentifier.fromJson(json['name'] as Map<String, dynamic>)
-          : null,
-      type:
-          SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?)
-              as STypeAnnotation?,
-      typeParameters: json['typeParameters'] != null
-          ? STypeParameterList.fromJson(
-              json['typeParameters'] as Map<String, dynamic>,
-            )
-          : null,
-      parameters: json['parameters'] != null
-          ? SFormalParameterList.fromJson(
-              json['parameters'] as Map<String, dynamic>,
-            )
-          : null,
-      metadata:
-          (json['metadata'] as List?)
-              ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
-              .toList() ??
-          [],
-      isRequired: json['isRequired'] as bool? ?? false,
+      offset: f.offset,
+      length: f.length,
+      name: f.name,
+      type: f.type,
+      metadata: f.metadata,
+      isConst: f.isConst,
+      isFinal: f.isFinal,
+      isCovariant: f.isCovariant,
+      isRequired: f.isRequired,
+      isNamed: f.isNamed,
+      defaultClause: f.defaultClause,
+      functionTypedSuffix: f.functionTypedSuffix,
     );
   }
 
   @override
   T? accept<T>(SAstVisitor<T> visitor) =>
       visitor.visitSuperFormalParameter(this);
-
-  @override
-  void visitChildren(SAstVisitor visitor) {
-    name?.accept(visitor);
-    type?.accept(visitor);
-    typeParameters?.accept(visitor);
-    parameters?.accept(visitor);
-    for (final child in metadata) {
-      child.accept(visitor);
-    }
-  }
 }
 
 // ============================================================================

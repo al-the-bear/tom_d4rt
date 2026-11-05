@@ -1286,7 +1286,7 @@ class SBreakStatement extends SStatement {
   @override
   final int length;
 
-  final SSimpleIdentifier? label;
+  final SLabelReference? label;
 
   SBreakStatement({required this.offset, required this.length, this.label});
 
@@ -1306,7 +1306,7 @@ class SBreakStatement extends SStatement {
       offset: json['offset'] as int,
       length: json['length'] as int,
       label: json['label'] != null
-          ? SSimpleIdentifier.fromJson(json['label'] as Map<String, dynamic>)
+          ? SLabelReference.fromJson(json['label'] as Map<String, dynamic>)
           : null,
     );
   }
@@ -1326,7 +1326,7 @@ class SContinueStatement extends SStatement {
   @override
   final int length;
 
-  final SSimpleIdentifier? label;
+  final SLabelReference? label;
 
   SContinueStatement({required this.offset, required this.length, this.label});
 
@@ -1346,7 +1346,7 @@ class SContinueStatement extends SStatement {
       offset: json['offset'] as int,
       length: json['length'] as int,
       label: json['label'] != null
-          ? SSimpleIdentifier.fromJson(json['label'] as Map<String, dynamic>)
+          ? SLabelReference.fromJson(json['label'] as Map<String, dynamic>)
           : null,
     );
   }

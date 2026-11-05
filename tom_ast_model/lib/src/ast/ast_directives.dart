@@ -239,7 +239,7 @@ class SPartOfDirective extends SDirective {
   @override
   final List<SAnnotation> metadata;
   final SStringLiteral? uri;
-  final SIdentifier? libraryName;
+  final SDottedName? libraryName;
 
   SPartOfDirective({
     required this.offset,
@@ -276,7 +276,7 @@ class SPartOfDirective extends SDirective {
               as SStringLiteral?,
       libraryName:
           SAstNodeFactory.fromJson(json['libraryName'] as Map<String, dynamic>?)
-              as SIdentifier?,
+              as SDottedName?,
     );
   }
 
@@ -305,7 +305,7 @@ class SLibraryDirective extends SDirective {
 
   @override
   final List<SAnnotation> metadata;
-  final SIdentifier? name;
+  final SDottedName? name;
 
   SLibraryDirective({
     required this.offset,
@@ -337,7 +337,7 @@ class SLibraryDirective extends SDirective {
           [],
       name:
           SAstNodeFactory.fromJson(json['name'] as Map<String, dynamic>?)
-              as SIdentifier?,
+              as SDottedName?,
     );
   }
 

@@ -1,3 +1,42 @@
+## 0.3.0
+
+### Changed (breaking) — the model mirrors analyzer 14's AST shapes (vstdm3)
+
+analyzer 13 and 14 reshaped several node families. The model follows them, so
+`tom_ast_generator` can keep copying 1:1 and the analyzer-free interpreter can
+read the same structure as `tom_d4rt`. **Bundles written with 0.2.x do not
+load;** they are regenerated from source with a matching toolchain.
+
+- **Formal parameters.** `SSimpleFormalParameter`, `SDefaultFormalParameter`,
+  `SFunctionTypedFormalParameter` and `SNormalFormalParameter` are gone.
+  `SFormalParameter` holds every parameter's fields itself (`name`, `type`,
+  `metadata`, `isConst` / `isFinal` / `isCovariant`, `isRequired`, `isNamed`
+  and the derived `isRequiredPositional` / `isOptionalPositional` /
+  `isRequiredNamed` / `isOptionalNamed` / `isPositional` / `isOptional`), a
+  default value is an `SFormalParameterDefaultClause`, and the `(params)` of a
+  function-typed parameter an `SFunctionTypedFormalParameterSuffix`. The kinds
+  are `SRegularFormalParameter`, `SFieldFormalParameter` and
+  `SSuperFormalParameter`. `parameterName` is gone; read `name?.name`.
+- **Named arguments.** `SNamedExpression` is gone: an argument list holds
+  `SArgument`s (an `SExpression` or an `SNamedArgument` with `name` and
+  `argumentExpression`), and a record literal `SRecordLiteralField`s (an
+  `SExpression` or an `SRecordLiteralNamedField` with `name` and
+  `fieldExpression`).
+- **Labels.** `SLabel.label` is now `SLabel.name`, non-null; `break` and
+  `continue` name an `SLabelReference`.
+- **Class-like declarations.** `SClassDeclaration` and `SEnumDeclaration`
+  carry their name and type parameters in `namePart` (`SClassNamePart`:
+  `SNameWithTypeParameters` or `SPrimaryConstructorDeclaration`) and their
+  members in `body` (`SClassBody`: `SBlockClassBody` / `SEmptyClassBody`;
+  `SEnumBody`: `SBlockEnumBody` / `SEmptyEnumBody`, with the constants).
+  `SMixinDeclaration` and `SExtensionDeclaration` carry their members in
+  `body`. `SExtensionTypeDeclaration` is named by its primary constructor
+  (`namePart`, also `primaryConstructor`), whose one parameter is the
+  representation field; `SRepresentationDeclaration` is gone.
+- `SNamedCompilationUnitMember` is gone, as in analyzer.
+- `SLibraryDirective.name` and `SPartOfDirective.libraryName` are
+  `SDottedName`s; `SConstructorDeclaration.returnType` is `typeName`.
+
 ## 0.2.2
 
 ### Added — `SConfiguration` and `SDottedName`: conditional import/export branches (sce49)
