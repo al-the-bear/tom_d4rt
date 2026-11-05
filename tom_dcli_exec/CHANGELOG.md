@@ -1,3 +1,18 @@
+## 1.11.0
+
+### Changed — `tom_todo_model` ^1.3.0, bridges regenerated; generator ^1.52.0
+
+`tom_todo_model` is `^1.3.0` (was `^1.2.0`). 1.3.0 adds `TomTodo.lastAnswer`,
+the schema's `last_answer` field, which the VS Code extension writes when a
+prompt-queue run completes a todo; an older model reads a todo carrying it as
+an unknown key. `tom_vscode_scripting_api_bridges` is regenerated, so a script
+sees `TomTodo.lastAnswer` as a getter, a setter and a named constructor
+parameter;
+the bridge reads it, which is why the floor rises.
+
+The `tom_d4rt_generator` dev floor is `^1.52.0`, the release the bridges were
+regenerated with.
+
 ## 1.10.0
 
 ### Changed — bridges regenerated against `tom_todo_model` 1.2.0 and `tom_vscode_scripting_api` 2.0.3

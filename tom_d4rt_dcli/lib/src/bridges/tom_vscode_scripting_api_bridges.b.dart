@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 32 files
-// Generated: 2026-11-05T21:19:48.491909 by tom_d4rt_generator 1.51.0
+// Generated: 2026-11-05T23:04:27.538256 by tom_d4rt_generator 1.52.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -19081,6 +19081,7 @@ BridgedClass _createTomTodoBridge() {
           named,
           'completedBy',
         );
+        final lastAnswer = D4.getOptionalNamedArg<String?>(named, 'lastAnswer');
         final archived = D4.getOptionalNamedArg<DateTime?>(named, 'archived');
         final deleted = D4.getOptionalNamedArg<DateTime?>(named, 'deleted');
         final executionRole = D4.getOptionalNamedArg<String?>(
@@ -19128,6 +19129,7 @@ BridgedClass _createTomTodoBridge() {
           completedDate: completedDate,
           author: author,
           completedBy: completedBy,
+          lastAnswer: lastAnswer,
           archived: archived,
           deleted: deleted,
           executionRole: executionRole,
@@ -19187,6 +19189,9 @@ BridgedClass _createTomTodoBridge() {
       'completedBy': (visitor, target) => D4
           .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
           .completedBy,
+      'lastAnswer': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
+          .lastAnswer,
       'executionRole': (visitor, target) => D4
           .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
           .executionRole,
@@ -19348,6 +19353,13 @@ BridgedClass _createTomTodoBridge() {
               .completedBy = D4.extractBridgedArgOrNull<String>(
             value,
             'completedBy',
+          ),
+      'lastAnswer': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
+              .lastAnswer = D4.extractBridgedArgOrNull<String>(
+            value,
+            'lastAnswer',
           ),
       'executionRole': (visitor, target, value) =>
           D4
@@ -19550,7 +19562,7 @@ BridgedClass _createTomTodoBridge() {
       },
     },
     constructorSignatures: {
-      '': 'TomTodo({required String id, required String title, String? description, TomTodoStatus status = TomTodoStatus.notStarted, TomTodoPriority? priority, DateTime? due, String? estimate, List<String> tags = const [], TomTodoScope? scope, List<TomTodoDecision> decisions = const [], List<TomTodoReference> references = const [], List<String> dependencies = const [], List<String> blockedBy = const [], List<String> blocking = const [], List<String> blockedUntil = const [], String? notes, DateTime? created, DateTime? updated, DateTime? completedDate, String? author, String? completedBy, DateTime? archived, DateTime? deleted, String? executionRole, String? qaRole, String? orchestrationRole, String? bundleId, String? derivedFrom, String? feedbackSource, bool userAction = false})',
+      '': 'TomTodo({required String id, required String title, String? description, TomTodoStatus status = TomTodoStatus.notStarted, TomTodoPriority? priority, DateTime? due, String? estimate, List<String> tags = const [], TomTodoScope? scope, List<TomTodoDecision> decisions = const [], List<TomTodoReference> references = const [], List<String> dependencies = const [], List<String> blockedBy = const [], List<String> blocking = const [], List<String> blockedUntil = const [], String? notes, DateTime? created, DateTime? updated, DateTime? completedDate, String? author, String? completedBy, String? lastAnswer, DateTime? archived, DateTime? deleted, String? executionRole, String? qaRole, String? orchestrationRole, String? bundleId, String? derivedFrom, String? feedbackSource, bool userAction = false})',
     },
     methodSignatures: {
       'recordCreation':
@@ -19579,6 +19591,7 @@ BridgedClass _createTomTodoBridge() {
       'notes': 'String? get notes',
       'author': 'String? get author',
       'completedBy': 'String? get completedBy',
+      'lastAnswer': 'String? get lastAnswer',
       'executionRole': 'String? get executionRole',
       'qaRole': 'String? get qaRole',
       'orchestrationRole': 'String? get orchestrationRole',
@@ -19614,6 +19627,7 @@ BridgedClass _createTomTodoBridge() {
       'notes': 'set notes(dynamic value)',
       'author': 'set author(dynamic value)',
       'completedBy': 'set completedBy(dynamic value)',
+      'lastAnswer': 'set lastAnswer(dynamic value)',
       'executionRole': 'set executionRole(dynamic value)',
       'qaRole': 'set qaRole(dynamic value)',
       'orchestrationRole': 'set orchestrationRole(dynamic value)',
