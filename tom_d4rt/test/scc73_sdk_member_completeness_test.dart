@@ -313,12 +313,12 @@ Map<String, _SdkClass> _sdkClasses(String libRoot, String dartLibrary) {
   for (final path in _sdkSourceFiles(libRoot, dartLibrary)) {
     for (final declaration in _parse(path).declarations) {
       if (declaration is! ClassDeclaration) continue;
-      final className = declaration.name.lexeme;
+      final className = declaration.namePart.typeName.lexeme;
       if (className.startsWith('_')) continue;
       final isAbstract = declaration.abstractKeyword != null;
       final entry = classes.putIfAbsent(className, _SdkClass.new);
 
-      for (final member in declaration.members) {
+      for (final member in declaration.body.members) {
         if (_isDeprecated(member.metadata)) continue;
         final since = _since(member.metadata);
         if (since != null &&

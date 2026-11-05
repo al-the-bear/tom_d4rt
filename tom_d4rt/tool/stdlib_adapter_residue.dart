@@ -176,9 +176,9 @@ class _W extends RecursiveAstVisitor<void> {
   _W(this.cb);
   final void Function(String, String, AstNode) cb;
   @override
-  void visitNamedExpression(NamedExpression n) {
-    final k = n.name.label.name;
-    final e = n.expression;
+  void visitNamedArgument(NamedArgument n) {
+    final k = n.name.lexeme;
+    final e = n.argumentExpression;
     if (_maps.contains(k) && e is SetOrMapLiteral) {
       for (final el in e.elements) {
         if (el is MapLiteralEntry &&
@@ -192,6 +192,6 @@ class _W extends RecursiveAstVisitor<void> {
         }
       }
     }
-    super.visitNamedExpression(n);
+    super.visitNamedArgument(n);
   }
 }

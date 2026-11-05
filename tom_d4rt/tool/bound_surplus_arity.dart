@@ -168,15 +168,15 @@ class _SiteWalker extends RecursiveAstVisitor<void> {
     if (entry is! MapLiteralEntry || entry.key is! SimpleStringLiteral) return;
     final map = entry.parent;
     final named = map?.parent;
-    if (named is! NamedExpression) return;
+    if (named is! NamedArgument) return;
     final args = named.parent;
     if (args is! ArgumentList) return;
     String? className;
     for (final a in args.arguments) {
-      if (a is NamedExpression &&
-          a.name.label.name == 'name' &&
-          a.expression is SimpleStringLiteral) {
-        className = (a.expression as SimpleStringLiteral).value;
+      if (a is NamedArgument &&
+          a.name.lexeme == 'name' &&
+          a.argumentExpression is SimpleStringLiteral) {
+        className = (a.argumentExpression as SimpleStringLiteral).value;
       }
     }
     if (className == null) return;
@@ -184,7 +184,7 @@ class _SiteWalker extends RecursiveAstVisitor<void> {
       Site(
         file,
         className,
-        named.name.label.name,
+        named.name.lexeme,
         (entry.key as SimpleStringLiteral).value,
         node,
       ),

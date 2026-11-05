@@ -35,7 +35,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
   /// Raising here converts that class of defect from "wrong answer, blamed
   /// elsewhere" into "named diagnostic, at the offset". Everything the
   /// inherited default was legitimately doing now has an explicit handler —
-  /// see [visitNamedExpression], [visitFunctionDeclarationStatement] and
+  /// see [visitNamedArgument], [visitFunctionDeclarationStatement] and
   /// [visitTypeAlias], each of which was found by instrumenting this method
   /// and running the suite rather than by reading the code.
   @override
@@ -59,19 +59,23 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     return "'${text.length <= 60 ? text : '${text.substring(0, 57)}...'}'";
   }
 
-  /// A named argument evaluates to its expression — the label is a name, not a
+  /// A named argument evaluates to its expression — the name is a name, not a
   /// value.
   ///
-  /// Without this, the generalizing default recursed into the children, which
-  /// walked the [Label] and tried to *resolve its identifier as a variable*.
-  /// That is why `super(a: 7)` failed with "Undefined variable: a" while
-  /// `super(a: a)` appeared to work: in the second form a variable of that name
-  /// happened to be in scope, so the accidental lookup succeeded and the real
-  /// value arrived by a different route. Every existing test wrote the
-  /// forwarding form, which is why the suite never caught it.
+  /// Call sites that evaluate a whole argument list dispatch every argument,
+  /// named ones included, so without this a named argument would reach
+  /// [visitNode] instead of producing its value. `super(a: 7)` failing with
+  /// "Undefined variable: a" while `super(a: a)` appeared to work was this
+  /// defect once: the second form found a variable of that name by accident.
   @override
-  Object? visitNamedExpression(NamedExpression node) =>
-      node.expression.accept<Object?>(this);
+  Object? visitNamedArgument(NamedArgument node) =>
+      node.argumentExpression.accept<Object?>(this);
+
+  /// A named record field evaluates to its expression, as a named argument
+  /// does. [visitRecordLiteral] reads its name itself.
+  @override
+  Object? visitRecordLiteralNamedField(RecordLiteralNamedField node) =>
+      node.fieldExpression.accept<Object?>(this);
 
   /// A local function declaration is executed by evaluating the declaration it
   /// wraps.
@@ -7781,7 +7785,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
   @override
   Object? visitBreakStatement(BreakStatement node) {
-    final label = node.label?.name;
+    final label = node.label?.name.lexeme;
     Logger.debug(
       "[BreakStatement] BREAKING: About to throw BreakException (label: $label). Current async state: ${currentAsyncState?.hashCode}",
     );
@@ -7793,7 +7797,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
   @override
   Object? visitContinueStatement(ContinueStatement node) {
-    final label = node.label?.name;
+    final label = node.label?.name.lexeme;
     Logger.debug(
       "[ContinueStatement] Throwing ContinueException (label: $label)",
     );
@@ -10717,7 +10721,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
   @override
   Object? visitLabeledStatement(LabeledStatement node) {
-    final labelNames = node.labels.map((l) => l.label.name).toSet();
+    final labelNames = node.labels.map((l) => l.name.lexeme).toSet();
     // A statement written `a: b: ...` may arrive as nested labelled
     // statements; the statement they wrap answers to every one of them.
     if (identical(node, _labelledStatement)) {
@@ -10753,7 +10757,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
   @override
   Object? visitClassDeclaration(ClassDeclaration node) {
-    final className = node.name.lexeme;
+    final className = node.namePart.typeName.lexeme;
     Logger.debug(
       "[Visitor.visitClassDeclaration] START for '$className' in env: ${environment.hashCode}",
     );
@@ -10775,7 +10779,10 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     // SCE130: pass 1 resolved this class's type-parameter bounds before any
     // import or type alias existed, and left behind whatever it could not
     // resolve. Repair it now, before any member is populated.
-    klass.resolveDeferredTypeParameterBounds(node.typeParameters, environment);
+    klass.resolveDeferredTypeParameterBounds(
+      node.namePart.typeParameters,
+      environment,
+    );
     Logger.debug(
       "[Visitor.visitClassDeclaration] Retrieved placeholder for '$className' (hash: ${klass.hashCode})",
     );
@@ -10969,7 +10976,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       "[Visitor.visitClassDeclaration] Processing members for '$className' (hash: ${klass.hashCode})",
     );
 
-    for (final member in node.members) {
+    for (final member in node.body.members) {
       if (member is MethodDeclaration) {
         final methodName = member.name.lexeme;
         // Pass the ALREADY RETRIEVED klass object
@@ -11044,7 +11051,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     final staticFieldDecls = <VariableDeclaration>[];
     final staticFieldMeta =
         <String, (bool isLate, bool isFinal, Expression? initializer)>{};
-    for (final member in node.members) {
+    for (final member in node.body.members) {
       if (member is FieldDeclaration && member.isStatic) {
         final isLate = member.fields.lateKeyword != null;
         final isFinal = member.fields.keyword?.lexeme == 'final';
@@ -11325,7 +11332,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
     try {
       environment = declarationEnv;
-      for (final member in node.members) {
+      for (final member in node.body.members) {
         if (member is MethodDeclaration) {
           final methodName = member.name.lexeme;
           // Methods capture the GLOBAL environment via the mixinClass
@@ -11384,7 +11391,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
   @override
   Object? visitEnumDeclaration(EnumDeclaration node) {
-    final enumName = node.name.lexeme;
+    final enumName = node.namePart.typeName.lexeme;
     Logger.debug(
       "[Visitor.visitEnumDeclaration] START (Pass 2) for '$enumName'",
     );
@@ -11462,7 +11469,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     try {
       // Members are defined in the enum's declaration scope
       environment = enumObj.declarationEnvironment;
-      for (final member in node.members) {
+      for (final member in node.body.members) {
         if (member is MethodDeclaration) {
           final methodName = member.name.lexeme;
           // Methods capture the enum's declaration environment implicitly
@@ -11566,8 +11573,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     Logger.debug(
       "[Visitor.visitEnumDeclaration]   Instantiating enum values...",
     );
-    for (int i = 0; i < node.constants.length; i++) {
-      final constantDecl = node.constants[i];
+    for (int i = 0; i < node.body.constants.length; i++) {
+      final constantDecl = node.body.constants[i];
       final valueName = constantDecl.name.lexeme;
 
       if (enumObj.values.containsKey(valueName)) {
@@ -13121,17 +13128,12 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     FormalParameter param,
     Environment env,
   ) {
-    final normal = param is DefaultFormalParameter
-        ? param.parameter
-        : param as NormalFormalParameter;
-    TypeAnnotation? typeNode;
-    if (normal is SimpleFormalParameter) {
-      typeNode = normal.type;
-    } else if (normal is FieldFormalParameter) {
-      typeNode = normal.type;
-    } else if (normal is SuperFormalParameter) {
-      typeNode = normal.type;
-    }
+    // A function-typed parameter (`int cb(String)`) carries its RETURN type in
+    // `type`, so it has no single annotation to resolve here.
+    final TypeAnnotation? typeNode =
+        param is RegularFormalParameter && param.functionTypedSuffix != null
+        ? null
+        : param.type;
     if (typeNode == null) {
       return const NamedRuntimeType('dynamic');
     }
@@ -13630,9 +13632,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     // arguments are appended in source order; named arguments are keyed by
     // name, so interleaving them produces well-defined results.
     for (final arg in argumentList.arguments) {
-      if (arg is NamedExpression) {
-        final name = arg.name.label.name;
-        final value = arg.expression.accept<Object?>(this);
+      if (arg is NamedArgument) {
+        final name = arg.name.lexeme;
+        final value = arg.argumentExpression.accept<Object?>(this);
 
         // Check for async suspension in named arguments
         if (value is AsyncSuspensionRequest) {
@@ -13752,9 +13754,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     // arguments are appended in source order; named arguments are keyed by
     // name, so interleaving them produces well-defined results.
     for (final arg in argumentList.arguments) {
-      if (arg is NamedExpression) {
-        final name = arg.name.label.name;
-        final value = arg.expression.accept<Object?>(this);
+      if (arg is NamedArgument) {
+        final name = arg.name.lexeme;
+        final value = arg.argumentExpression.accept<Object?>(this);
 
         // Check for async suspension in named arguments
         if (value is AsyncSuspensionRequest) {
@@ -14038,7 +14040,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     for (int i = 0; i < node.members.length; i++) {
       final member = node.members[i];
       for (final label in member.labels) {
-        labelToIndex[label.label.name] = i;
+        labelToIndex[label.name.lexeme] = i;
       }
     }
 
@@ -15062,9 +15064,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     final named = <String, Object?>{};
 
     for (final field in node.fields) {
-      if (field is NamedExpression) {
-        final name = field.name.label.name;
-        final value = field.expression.accept<Object?>(this);
+      if (field is RecordLiteralNamedField) {
+        final name = field.name.lexeme;
+        final value = field.fieldExpression.accept<Object?>(this);
         if (named.containsKey(name)) {
           throw RuntimeD4rtException(
             "Record literal field '$name' specified more than once.",
@@ -15294,7 +15296,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     final staticSetters = <String, Callable>{};
     final staticFields = <String, Object?>{};
 
-    for (final member in node.members) {
+    for (final member in node.body.members) {
       if (member is MethodDeclaration) {
         final methodName = member
             .name
@@ -15409,18 +15411,19 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
   /// Lim-1 FIX: Handle extension type declarations (Dart 3.3+)
   @override
   Object? visitExtensionTypeDeclaration(ExtensionTypeDeclaration node) {
-    final typeName = node.name.lexeme;
+    final typeName = node.namePart.typeName.lexeme;
     Logger.debug(
       "[visitExtensionTypeDeclaration] Declaring extension type: $typeName",
     );
 
-    // Get the representation field name and type
-    final representation = node.representation;
-    final representationFieldName = representation.fieldName.lexeme;
-    final representationTypeNode = representation.fieldType;
+    // The representation field is the primary constructor's one parameter.
+    final representation =
+        node.primaryConstructor.formalParameters.parameters.first;
+    final representationFieldName = representation.name!.lexeme;
+    final representationTypeNode = representation.type;
 
     Logger.debug(
-      "[visitExtensionTypeDeclaration] Representation field: $representationFieldName, type: ${representationTypeNode.toSource()}",
+      "[visitExtensionTypeDeclaration] Representation field: $representationFieldName, type: ${representationTypeNode?.toSource()}",
     );
 
     // Resolve the representation type
@@ -15464,7 +15467,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     // Define it in the environment early so methods can reference the type
     environment.define(typeName, extensionType);
 
-    for (final member in node.members) {
+    for (final member in node.body.members) {
       if (member is MethodDeclaration) {
         final methodName = member.name.lexeme;
         final isGetter = member.isGetter;

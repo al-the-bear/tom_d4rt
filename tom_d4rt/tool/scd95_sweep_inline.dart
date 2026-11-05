@@ -17,8 +17,8 @@ class _ScriptHarvester extends GeneralizingAstVisitor<void> {
       // (`run(body, prelude: 'class MyEx ...')`) hands this harvester only
       // half a program. Sweeping that half reports the prelude's own class
       // names as undefined — a harness artifact, not a finding.
-      final hasSeparateSource = args.whereType<NamedExpression>().any(
-        (a) => a.expression is StringLiteral,
+      final hasSeparateSource = args.whereType<NamedArgument>().any(
+        (a) => a.argumentExpression is StringLiteral,
       );
       if (args.isNotEmpty && !hasSeparateSource) {
         final first = args.first;

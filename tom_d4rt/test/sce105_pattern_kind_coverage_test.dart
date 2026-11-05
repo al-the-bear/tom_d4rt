@@ -124,7 +124,7 @@ Map<String, Set<String>> _classSupertypes(String source) {
       for (final m in declaration.withClause?.mixinTypes ?? const [])
         m.name.lexeme,
     };
-    result[declaration.name.lexeme] = supers;
+    result[declaration.namePart.typeName.lexeme] = supers;
   }
   return result;
 }
@@ -178,7 +178,7 @@ Set<String> _handledKinds() {
   final unit = parseString(content: source, throwIfDiagnostics: false).unit;
   for (final declaration in unit.declarations) {
     if (declaration is! ClassDeclaration) continue;
-    for (final member in declaration.members) {
+    for (final member in declaration.body.members) {
       if (member is! MethodDeclaration) continue;
       if (member.name.lexeme != '_matchAndBind') continue;
       final collector = _PatternIsCollector();

@@ -176,8 +176,8 @@ class _ArgUses extends RecursiveAstVisitor<void> {
         node.methodName.name == 'checkArity' &&
         args.any(
           (a) =>
-              a is NamedExpression &&
-              (a.name.label.name == 'atMost' || a.name.label.name == 'exactly'),
+              a is NamedArgument &&
+              (a.name.lexeme == 'atMost' || a.name.lexeme == 'exactly'),
         )) {
       checkArityBound = true;
     }
@@ -218,8 +218,7 @@ class _ArgUses extends RecursiveAstVisitor<void> {
           (p is ArgumentList &&
               p.parent is MethodInvocation &&
               (p.parent as MethodInvocation).methodName.name == 'checkArity') ||
-          node.parent is FormalParameter ||
-          node.parent is SimpleFormalParameter;
+          node.parent is FormalParameter;
       if (!benign) wholesale = true;
     }
     super.visitSimpleIdentifier(node);

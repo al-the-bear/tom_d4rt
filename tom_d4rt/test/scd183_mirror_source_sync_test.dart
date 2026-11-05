@@ -437,7 +437,7 @@ class _DeclaredMembers extends GeneralizingAstVisitor<void> {
 
   @override
   void visitClassDeclaration(ClassDeclaration node) => _scoped(
-    node.name.lexeme,
+    node.namePart.typeName.lexeme,
     'class',
     () => super.visitClassDeclaration(node),
   );
@@ -457,8 +457,11 @@ class _DeclaredMembers extends GeneralizingAstVisitor<void> {
   );
 
   @override
-  void visitEnumDeclaration(EnumDeclaration node) =>
-      _scoped(node.name.lexeme, 'enum', () => super.visitEnumDeclaration(node));
+  void visitEnumDeclaration(EnumDeclaration node) => _scoped(
+    node.namePart.typeName.lexeme,
+    'enum',
+    () => super.visitEnumDeclaration(node),
+  );
 
   @override
   void visitMethodDeclaration(MethodDeclaration node) {

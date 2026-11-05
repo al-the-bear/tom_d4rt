@@ -362,9 +362,6 @@ class StaticResolver extends GeneralizingAstVisitor<void> {
     if (parent is MethodInvocation && identical(parent.methodName, node)) {
       return false;
     }
-    if (parent is NamedExpression && identical(parent.name.label, node)) {
-      return false;
-    }
     if (parent is Label) return false;
     if (parent is ConstructorName) return false;
     if (parent is NamedType) return false;

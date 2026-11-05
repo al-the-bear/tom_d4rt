@@ -461,16 +461,20 @@ class _MemberBodies extends GeneralizingAstVisitor<void> {
   }
 
   @override
-  void visitClassDeclaration(ClassDeclaration node) =>
-      _scoped(node.name.lexeme, () => super.visitClassDeclaration(node));
+  void visitClassDeclaration(ClassDeclaration node) => _scoped(
+    node.namePart.typeName.lexeme,
+    () => super.visitClassDeclaration(node),
+  );
 
   @override
   void visitMixinDeclaration(MixinDeclaration node) =>
       _scoped(node.name.lexeme, () => super.visitMixinDeclaration(node));
 
   @override
-  void visitEnumDeclaration(EnumDeclaration node) =>
-      _scoped(node.name.lexeme, () => super.visitEnumDeclaration(node));
+  void visitEnumDeclaration(EnumDeclaration node) => _scoped(
+    node.namePart.typeName.lexeme,
+    () => super.visitEnumDeclaration(node),
+  );
 
   @override
   void visitExtensionDeclaration(ExtensionDeclaration node) => _scoped(

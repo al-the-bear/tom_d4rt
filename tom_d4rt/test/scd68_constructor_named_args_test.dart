@@ -158,9 +158,9 @@ class _BridgeVisitor extends RecursiveAstVisitor<void> {
     String? nativeType;
     final sections = <String, SetOrMapLiteral>{};
     for (final arg in arguments.arguments) {
-      if (arg is! NamedExpression) continue;
-      final label = arg.name.label.name;
-      final value = arg.expression;
+      if (arg is! NamedArgument) continue;
+      final label = arg.name.lexeme;
+      final value = arg.argumentExpression;
       if (label == 'nativeType' && value is Identifier) {
         nativeType = value.name;
       } else if (_sections.contains(label) && value is SetOrMapLiteral) {

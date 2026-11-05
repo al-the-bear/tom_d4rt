@@ -334,8 +334,8 @@ Set<String> _exportedNames(String barrel, Map<String, String> roots) {
     }
 
     for (final declaration in unit.declarations) {
-      if (declaration is NamedCompilationUnitMember) {
-        emit(declaration.name.lexeme);
+      if (_namedMemberName(declaration) case final name?) {
+        emit(name);
       } else if (declaration is TopLevelVariableDeclaration) {
         for (final variable in declaration.variables.variables) {
           emit(variable.name.lexeme);
@@ -520,3 +520,15 @@ void main() {
     });
   });
 }
+
+/// The name a top-level declaration introduces: a class, enum, extension
+/// type, mixin, function or type alias; null for any other declaration.
+String? _namedMemberName(CompilationUnitMember d) => switch (d) {
+  ClassDeclaration(:final namePart) => namePart.typeName.lexeme,
+  EnumDeclaration(:final namePart) => namePart.typeName.lexeme,
+  ExtensionTypeDeclaration(:final namePart) => namePart.typeName.lexeme,
+  MixinDeclaration(:final name) => name.lexeme,
+  FunctionDeclaration(:final name) => name.lexeme,
+  TypeAlias(:final name) => name.lexeme,
+  _ => null,
+};

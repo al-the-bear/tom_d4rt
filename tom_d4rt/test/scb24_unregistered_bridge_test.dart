@@ -67,8 +67,8 @@ class _BridgeNameFinder extends RecursiveAstVisitor<void> {
 
   void _scan(ArgumentList args) {
     for (final argument in args.arguments) {
-      if (argument is NamedExpression && argument.name.label.name == 'name') {
-        final value = argument.expression;
+      if (argument is NamedArgument && argument.name.lexeme == 'name') {
+        final value = argument.argumentExpression;
         if (value is SimpleStringLiteral) name ??= value.value;
       }
     }
@@ -112,7 +112,7 @@ List<_Declaration> _declaredDefinitions() {
     ).unit;
     for (final declaration in unit.declarations) {
       if (declaration is! ClassDeclaration) continue;
-      for (final member in declaration.members) {
+      for (final member in declaration.body.members) {
         if (member is! MethodDeclaration) continue;
         if (!member.isStatic || !member.isGetter) continue;
         if (member.returnType?.toSource() != 'BridgedClass') continue;
@@ -120,7 +120,7 @@ List<_Declaration> _declaredDefinitions() {
         member.accept(finder);
         found.add(
           _Declaration(
-            '${declaration.name.lexeme}.${member.name.lexeme}',
+            '${declaration.namePart.typeName.lexeme}.${member.name.lexeme}',
             file.path,
             finder.name,
           ),

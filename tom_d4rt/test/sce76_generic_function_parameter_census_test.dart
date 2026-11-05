@@ -95,7 +95,7 @@ class _Census extends RecursiveAstVisitor<void> {
 
   @override
   void visitClassDeclaration(ClassDeclaration node) {
-    _class = node.name.lexeme;
+    _class = node.namePart.typeName.lexeme;
     super.visitClassDeclaration(node);
     _class = null;
   }
@@ -122,8 +122,11 @@ class _Census extends RecursiveAstVisitor<void> {
   void _scan(FormalParameterList? params, String member) {
     if (params == null) return;
     for (final p in params.parameters) {
-      final inner = p is DefaultFormalParameter ? p.parameter : p;
-      if (inner is! SimpleFormalParameter) continue;
+      // A plain parameter: not `this.x` / `super.x`, not function-typed.
+      if (p is! RegularFormalParameter || p.functionTypedSuffix != null) {
+        continue;
+      }
+      final inner = p;
       final type = inner.type;
       // The discriminator, and the whole point of the file: a `GenericFunction
       // Type` with type parameters of its own. `Set Function()` is the same

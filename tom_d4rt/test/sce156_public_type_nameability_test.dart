@@ -248,17 +248,23 @@ Future<_Surface> _measure(String absolutePath, String label) async {
       required List<MethodElement> methods,
     }) {
       for (final field in fields) {
-        if (field.isSynthetic || !_isPublic(field.name)) continue;
+        // A field a getter or setter induced, or an enum's `values`.
+        if (field.isOriginGetterSetter ||
+            field.isOriginEnumValues ||
+            !_isPublic(field.name)) {
+          continue;
+        }
         surface.membersWalked++;
         check('$owner.${field.name}', field.type);
       }
       for (final getter in getters) {
-        if (getter.isSynthetic || !_isPublic(getter.name)) continue;
+        // An accessor a field or top-level variable induced.
+        if (getter.isOriginVariable || !_isPublic(getter.name)) continue;
         surface.membersWalked++;
         check('$owner.${getter.name}', getter.returnType);
       }
       for (final setter in setters) {
-        if (setter.isSynthetic || !_isPublic(setter.name)) continue;
+        if (setter.isOriginVariable || !_isPublic(setter.name)) continue;
         surface.membersWalked++;
         for (final parameter in setter.formalParameters) {
           check('$owner.${setter.name}=', parameter.type);
@@ -283,7 +289,11 @@ Future<_Surface> _measure(String absolutePath, String label) async {
           methods: element.methods,
         );
         for (final constructor in element.constructors) {
-          if (constructor.isSynthetic || !_isPublic(constructor.name)) continue;
+          // An implicit default or mixin-application constructor.
+          if (!constructor.isOriginDeclaration ||
+              !_isPublic(constructor.name)) {
+            continue;
+          }
           surface.membersWalked++;
           for (final parameter in constructor.formalParameters) {
             check(

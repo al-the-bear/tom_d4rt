@@ -1,5 +1,6 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:tom_d4rt/d4rt.dart';
+import 'package:tom_d4rt/src/declared_names.dart';
 
 /// Represents information about a declaration in the executed code.
 /// This is the base class for all introspection results.
@@ -333,7 +334,7 @@ class IntrospectionBuilder {
           final onType = onTypeNode?.toSource() ?? 'unknown';
           final methodNames = <String>[];
 
-          for (final member in declaration.members) {
+          for (final member in declaration.body.members) {
             if (member is MethodDeclaration) {
               methodNames.add(member.name.lexeme);
             }
@@ -352,10 +353,8 @@ class IntrospectionBuilder {
             userDeclaredNames!.add(extName);
           }
           processedExtensions.add(extName);
-        } else if (declaration is NamedCompilationUnitMember) {
-          // ClassDeclaration, EnumDeclaration, FunctionDeclaration,
-          // MixinDeclaration, ExtensionTypeDeclaration — all expose `name`.
-          userDeclaredNames!.add(declaration.name.lexeme);
+        } else if (namedMemberName(declaration) case final name?) {
+          userDeclaredNames!.add(name);
         }
       }
     }

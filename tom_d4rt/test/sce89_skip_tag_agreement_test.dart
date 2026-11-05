@@ -160,8 +160,8 @@ class _DeclCollector extends RecursiveAstVisitor<void> {
       if (name != null) {
         Expression? skip;
         for (final a in args) {
-          if (a is NamedExpression && a.name.label.name == 'skip') {
-            skip = a.expression;
+          if (a is NamedArgument && a.name.lexeme == 'skip') {
+            skip = a.argumentExpression;
           }
         }
         // `skip: false` and `skip: null` mean "not skipped", so neither is an

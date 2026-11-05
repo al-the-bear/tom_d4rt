@@ -5,6 +5,7 @@ import 'package:tom_d4rt/d4rt.dart';
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/analysis/features.dart';
 import 'package:tom_d4rt/src/stdlib/convert.dart';
+import 'package:tom_d4rt/src/declared_names.dart';
 import 'package:tom_d4rt/src/stdlib/isolate.dart';
 import 'package:tom_d4rt/src/stdlib/math.dart';
 import 'package:tom_d4rt/src/stdlib/collection.dart';
@@ -2414,10 +2415,10 @@ Set<String> _ownTopLevelNames(CompilationUnit unit) {
   final names = <String>{};
   for (final d in unit.declarations) {
     switch (d) {
-      case NamedCompilationUnitMember():
-        names.add(d.name.lexeme);
       case ExtensionDeclaration(:final name?):
         names.add(name.lexeme);
+      case CompilationUnitMember() when namedMemberName(d) != null:
+        names.add(namedMemberName(d)!);
       case TopLevelVariableDeclaration():
         for (final v in d.variables.variables) {
           names.add(v.name.lexeme);
