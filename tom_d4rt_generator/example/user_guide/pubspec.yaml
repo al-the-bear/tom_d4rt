@@ -21,4 +21,4 @@ dev_dependencies:
   # Keep in step with this package's own version: an example that resolves
   # an older published generator than the tree it lives in demonstrates
   # behaviour the tree no longer has.
-  tom_d4rt_generator: ">=1.16.0"
+  tom_d4rt_generator: ">=1.52.0"

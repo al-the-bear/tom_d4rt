@@ -25,6 +25,8 @@ dev_dependencies:
   # Floor 1.17.0: test/bridges_fresh_test.dart calls `checkBridgeFreshness`,
   # which first ships in 1.17.0. (1.17.0 also carries the GEN-125 fix that set
   # the previous floor, 1.15.3.)
-  tom_d4rt_generator: ">=1.28.0"
+  # Declared at the current release: a sample is what a new project copies,
+  # so it names the generator it was last checked against.
+  tom_d4rt_generator: ">=1.52.0"
   lints: ^4.0.0
   test: ^1.25.0
