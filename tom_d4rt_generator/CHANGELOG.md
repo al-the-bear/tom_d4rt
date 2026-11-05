@@ -1,5 +1,12 @@
 ## 1.52.0
 
+### Changed — upper bounds on tom_build_base and tom_analyzer_shared
+
+`tom_build_base` is `^2.16.0` (was `>=2.16.0`) and `tom_analyzer_shared`
+`^0.7.6` (was `>=0.7.6`). The second states a real limit rather than a style
+point: `tom_analyzer_shared` 0.8.0 requires analyzer ^14, and this release is
+built on analyzer ^10.
+
 ### Added — two user bridges for one target are reported (dfin10)
 
 `UserBridgeScanner` keys user bridges by (library, class) and globals bridges

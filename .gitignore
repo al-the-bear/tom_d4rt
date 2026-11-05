@@ -34,6 +34,8 @@ desktop.ini
 
 # Logs and databases
 *.log
+# Input data of the log_report sample, not a log this repo writes.
+!tom_d4rt_samples/d4rt_dcli_sample/example/log_report/sample.log
 *.sql
 *.sqlite
 *.sqlite3
@@ -70,6 +72,12 @@ htmlcov/
 .dart_tool/
 .packages
 pubspec.lock
+# Tracked on purpose: the SCE144 fixture's lock is frozen, and its staleness is
+# what the frozen-fixture diagnostic tests measure (generator and exec's port).
+# Not ignoring a tracked file keeps pub's "checked-in file is gitignored"
+# warning off both packages' publish.
+!tom_d4rt_generator/test/sce144_frozen_fixture/pubspec.lock
+!tom_d4rt_exec/test/generator_tests/sce144_frozen_fixture/pubspec.lock
 
 # Pub cache
 .pub-cache/
