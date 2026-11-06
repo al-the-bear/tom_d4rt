@@ -1403,6 +1403,21 @@ void _generateGetterDelegation(
   );
 }
 
+/// The `T` of a `Future<T>` / `Future<T>?` return type that needs re-typing,
+/// or null when [returnType] is not a future or its element type is a top
+/// type every future already satisfies (`void`, `dynamic`, `Object?`).
+String? _futureElementType(String returnType) {
+  final m = RegExp(r'^Future<(.+)>\??$').firstMatch(returnType.trim());
+  if (m == null) return null;
+  final inner = m.group(1)!.trim();
+  const topTypes = {'void', 'dynamic', 'Object?'};
+  if (topTypes.contains(inner)) return null;
+  // A function-typed element would need the typed-closure path; leave it to
+  // extractBridgedArg as before.
+  if (inner.contains('Function(')) return null;
+  return inner;
+}
+
 /// Emit `return ...;` for an interpreter call result, choosing between a
 /// plain `extractBridgedArg<T>` and — for function-typed `T` — a typed
 /// closure that wraps the returned `Callable` and constructs a Dart
@@ -1419,6 +1434,23 @@ void _emitTypedReturn(
   String memberName, {
   required String indent,
 }) {
+  // VSTDM3: an interpreted `async` method returns `Future<Object?>` whatever
+  // it declares, and `extractBridgedArg` cannot make that a `Future<T>`. Map
+  // the completion through `then`, extracting it as `T`, which yields a
+  // genuine `Future<T>`; an already typed future passes through unchanged.
+  final futureInner = _futureElementType(returnType);
+  if (futureInner != null) {
+    if (returnType.endsWith('?')) {
+      buffer.writeln('$indent if ($resultVar == null) return null;');
+    }
+    buffer.writeln(
+      '$indent if ($resultVar is Future && $resultVar is! Future<$futureInner>) {',
+    );
+    buffer.writeln(
+      "$indent   return $resultVar.then((v) => D4.extractBridgedArg<$futureInner>(v, '$memberName', visitor));",
+    );
+    buffer.writeln('$indent }');
+  }
   final fn = _parseFunctionType(returnType);
   if (fn == null) {
     // GEN-117 (Cluster B #5): forward the proxy-factory `visitor` so the
