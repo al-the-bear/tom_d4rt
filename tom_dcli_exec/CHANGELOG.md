@@ -1,3 +1,12 @@
+## 1.14.0
+
+### Changed — on tom_d4rt_exec 1.53.0, tom_d4rt_ast 0.212.0, tom_ast_generator 0.2.1
+
+Follows the interpreter release with the async entry points
+(`executeAsync`, `executeAsAsync<T>`, `executeProgramAsync`) and the fix that
+keeps a suspended `async` run's result when another run starts. No code
+changed here.
+
 ## 1.13.1
 
 ### Changed — generated-file headers name tom_d4rt_generator 1.53.0
