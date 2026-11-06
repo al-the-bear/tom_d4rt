@@ -1,3 +1,13 @@
+## 0.3.1
+
+### Changed — two more analyzer 14 shapes (vstdm3)
+
+`SSwitchMember` declares `labels` (a `List<SLabel>`), as analyzer's
+`SwitchMember` does, so a switch's labels are read without a per-kind cast;
+and `SCompilationUnit.declarations` is a `List<SCompilationUnitMember>`, as
+analyzer's `CompilationUnit.declarations` is. 0.3.0 was not published; this is
+the first 0.3 release.
+
 ## 0.3.0
 
 ### Changed (breaking) — the model mirrors analyzer 14's AST shapes (vstdm3)
