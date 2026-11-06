@@ -1,3 +1,10 @@
+## 0.2.1
+
+### Changed — on tom_d4rt_ast 0.212.0
+
+Follows the interpreter release that adds the async entry points and keeps a
+suspended `async` run's result when another run starts. No code changed here.
+
 ## 0.2.0
 
 ### Changed (breaking) — analyzer ^14.5.0 into tom_ast_model 0.3 (vstdm3)
