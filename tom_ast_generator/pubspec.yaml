@@ -37,7 +37,4 @@ dev_dependencies:
   # 1.19.0 is the first whose `resolveIfUnresolved` asks pub whether a project
   # resolves instead of only checking that a package config exists.
   tom_d4rt_generator: "^1.53.0"
-  # PUBLISH CYCLE (vstdm3): tom_d4rt_exec 1.52.0 depends on this release, so
-  # this dev dependency is out while 0.2.0 is published and back right after
-  # exec 1.52.0 is (the scf34 route).
-  # tom_d4rt_exec: "^1.52.0"
+  tom_d4rt_exec: "^1.52.0"
