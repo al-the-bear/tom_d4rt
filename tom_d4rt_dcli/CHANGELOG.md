@@ -1,3 +1,11 @@
+## 1.12.1
+
+### Changed — generated-file headers name tom_d4rt_generator 1.53.0
+
+The bridges' `// Generated:` headers were re-stamped by the published
+`tom_d4rt_generator` 1.53.0 after the 1.12.0 version commit; this release's
+version covers that commit. No code changed.
+
 ## 1.12.0
 
 ### Removed — the Telegram bot mode and tom_chattools (vstdm3)
