@@ -1,3 +1,22 @@
+## 1.230.0
+
+### Changed (breaking for analyzer consumers) — analyzer ^14.5.0 (vstdm3)
+
+The interpreter reads analyzer 14's AST. analyzer 13/14 reshaped it: one
+`FormalParameter` with a default clause and a function-typed suffix replaces
+the parameter wrappers, `NamedExpression` splits into `NamedArgument` and
+`RecordLiteralNamedField`, labels hold a token and `break` / `continue` name a
+`LabelReference`, and class, enum, extension, mixin and extension type
+declarations carry their name in `namePart` and their members in `body`.
+`declared_names.dart` names the declaration kinds analyzer 14 no longer groups
+under `NamedCompilationUnitMember`. Script behaviour is unchanged: positional
+and named parameter names still leave out `super.x`, as before.
+
+A Flutter application resolves this only on Flutter 3.47 or later: Flutter
+3.44 pins `meta` 1.18.0 and analyzer 14.5 needs `meta` ^1.18.3.
+
+Name resolution: yes — top-level declared names are collected per declaration kind (declared_names.dart) instead of through NamedCompilationUnitMember.
+
 ## 1.229.0
 
 ### Fixed — integers are typed `int`, not `double`, on the web (dfin8)

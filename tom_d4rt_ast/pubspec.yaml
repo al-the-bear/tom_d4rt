@@ -1,6 +1,6 @@
 name: tom_d4rt_ast
 description: Analyzer-free Dart interpreter runtime that executes pre-compiled SAstNode bundles with full bridging, sandboxing, and standard library support.
-version: 0.210.0
+version: 0.211.0
 repository: https://github.com/al-the-bear/tom_d4rt
 homepage: https://github.com/al-the-bear/tom_d4rt/tree/main/tom_d4rt_ast
 topics:
@@ -17,8 +17,7 @@ dependencies:
   # Upper-bounded deliberately: this package interprets `SAstNode` trees, so a
   # breaking change to the model is a breaking change here. An open constraint
   # would let pub pair an interpreter with a model it cannot read.
-  tom_ast_model: ^0.3.0
-
+  tom_ast_model: "^0.3.0"
 dev_dependencies:
   lints: ^6.0.0
   test: ^1.25.6

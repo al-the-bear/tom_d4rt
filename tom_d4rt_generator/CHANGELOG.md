@@ -1,3 +1,25 @@
+## 1.53.0
+
+### Changed — analyzer ^14.5.0, tom_analyzer_shared ^0.8.0 (vstdm3)
+
+The generator runs on analyzer 14 (`build` up to 5, `dart_style` ^3.1.11).
+analyzer 14 drops `Element.isSynthetic`; the extractor reads the `isOrigin*`
+flags instead: a field is synthetic when it comes from a getter/setter or is
+an enum's `values`, a getter or setter when it is induced by a variable, a
+method or constructor when it is not a declaration. The Flutter twins'
+regenerated bridges keep their full surface.
+
+### Fixed — proxies re-type the Future an interpreted async override returns
+
+An interpreted `async` method returns `Future<Object?>` whatever it declares,
+so when native code called such an override through a generated proxy,
+`extractBridgedArg<Future<T>>` threw ("expected Future<T>, got
+Future<Object?>"). Flutter 3.47 calls a script's
+`SpellCheckService.fetchSpellCheckSuggestions` from the text field it
+configures, which is how it surfaced. For a `Future<T>` return with a non-top
+`T`, the proxy now maps an untyped future through `then`, extracting each
+completion as `T`.
+
 ## 1.52.0
 
 ### Changed — upper bounds on tom_build_base and tom_analyzer_shared

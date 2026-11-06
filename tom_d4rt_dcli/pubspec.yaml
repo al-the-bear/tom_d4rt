@@ -1,6 +1,6 @@
 name: tom_d4rt_dcli
 description: Base D4rt CLI with dcli bridges. Extensible foundation for D4rt tools.
-version: 1.11.0
+version: 1.12.0
 repository: https://github.com/al-the-bear/tom_d4rt
 homepage: https://github.com/al-the-bear/tom_d4rt/tree/main/tom_d4rt_dcli
 topics:
@@ -35,8 +35,7 @@ dependencies:
   # the list is cumulative, and the comment above it used to name 1.29.0 while
   # the constraint said ^1.77.0, which reads as an invitation to do exactly
   # that.
-  tom_d4rt: "^1.77.0"
-
+  tom_d4rt: "^1.230.0"
   # VS Code scripting API (for bridge support)
   tom_vscode_scripting_api: ^3.0.0
   # The generated scripting-API bridges import the todo model directly.
@@ -67,4 +66,4 @@ dev_dependencies:
   # `dart run tom_d4rt_generator:d4rtgen` works and `bridges_fresh_test.dart`
   # can run: without it this was one of two consumers configuring d4rtgen that
   # could neither regenerate nor check what they had committed (SCE3).
-  tom_d4rt_generator: "^1.52.0"
+  tom_d4rt_generator: "^1.53.0"

@@ -1,3 +1,13 @@
+## 1.52.0
+
+### Changed — analyzer ^14.5.0; tom_d4rt_ast 0.211.0, tom_ast_generator 0.2.0 (vstdm3)
+
+The analyzer front end is on analyzer 14 and hands its AST to the analyzer-free
+interpreter through `tom_ast_generator` 0.2. `static_name_report.dart` follows
+`tom_d4rt`'s copy byte for byte.
+
+Name resolution: yes — through tom_d4rt_ast 0.211.0.
+
 ## 1.51.0
 
 ### Changed — tom_ast_generator ^0.1.17 (dfin9)

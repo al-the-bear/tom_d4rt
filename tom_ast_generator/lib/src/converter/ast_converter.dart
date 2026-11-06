@@ -3,8 +3,7 @@
 // ignore_for_file: curly_braces_in_flow_control_structures
 
 import 'package:analyzer/dart/ast/ast.dart' as analyzer;
-import 'package:analyzer/dart/ast/token.dart' as analyzer
-    show Token, TokenType;
+import 'package:analyzer/dart/ast/token.dart' as analyzer show Token, TokenType;
 
 import 'package:tom_ast_model/src/ast/ast_core.dart';
 

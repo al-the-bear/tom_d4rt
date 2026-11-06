@@ -1,3 +1,20 @@
+## 0.2.0
+
+### Changed (breaking) — analyzer ^14.5.0 into tom_ast_model 0.3 (vstdm3)
+
+The copier walks analyzer 14's AST and writes `tom_ast_model` 0.3 node for
+node: one formal parameter with its default clause and function-typed suffix,
+named arguments and named record fields, labels and label references, name
+parts and bodies, the extension type's primary constructor, and dotted names
+without their period tokens. Bundles are written in format 2.0.
+
+### Fixed — named arguments are no longer dropped
+
+The argument list collected `SExpression` nodes and the list helper dropped
+every converted node of another type, so each named argument would have
+vanished. The helper now throws, naming the analyzer node and the type it
+became, instead of filtering.
+
 ## 0.1.17
 
 ### Changed — resolves tom_d4rt_ast 0.210.0 and tom_d4rt_exec 1.50.0 (dfin9)

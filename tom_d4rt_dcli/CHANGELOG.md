@@ -1,3 +1,13 @@
+## 1.12.0
+
+### Removed — the Telegram bot mode and tom_chattools (vstdm3)
+
+Same reason and scope as `tom_dcli_exec` 1.13.0: `tom_chattools` -> `televerse`
+-> `freezed` 3.x caps the analyzer at 12, so the Telegram features go to let
+this package take `tom_d4rt` on analyzer 14.
+
+### Changed — tom_d4rt 1.230.0, bridges regenerated
+
 ## 1.11.0
 
 ### Changed — `tom_vscode_scripting_api` ^3.0.0, bridges regenerated

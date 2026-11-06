@@ -1,3 +1,17 @@
+## 1.13.0
+
+### Removed — the Telegram bot mode and tom_chattools (vstdm3)
+
+`tom_chattools` pulls in `televerse`, every release of which lists `freezed`
+^3.2.5 as a regular dependency, and freezed 3.x caps the analyzer at 12, so
+this package could not follow the interpreter to analyzer 14. Decided: the
+Telegram features go. Gone are `--bot-mode` / `--bot-config`, the bot server
+and its configuration, security manager, conversation trail and Telegram
+formatter, the bot-mode help sections, the `tom_chattools` re-export and its
+bridges.
+
+### Changed — analyzer ^14.5.0; tom_d4rt_exec 1.52.0, bridges regenerated
+
 ## 1.12.0
 
 ### Changed — `tom_vscode_scripting_api` ^3.0.0, bridges regenerated

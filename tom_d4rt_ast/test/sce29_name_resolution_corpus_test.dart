@@ -84,6 +84,16 @@ const Map<String, String> _deferred = {
   // the post-publish base corpus recorded under `Verification runs` at that
   // pair (DFIN7). An empty map is the normal state; each entry is a debt with
   // its reason, deleted when the run is made.
+  //
+  // VSTDM3: the analyzer 14 releases. Run path-resolved before publishing on
+  // 2026-11-06 at 927 / 1 / 0 in both twins (basetestlog_20261106-1303-base,
+  // -1326-base); the recorded run needs the published pair.
+  '1.230.0':
+      'tom_d4rt 1.230.0 (analyzer 14) is not yet published; the post-publish '
+      'base corpus of both twins is owed (vstdm3)',
+  '0.211.0':
+      'tom_d4rt_ast 0.211.0 (tom_ast_model 0.3, bundle format 2.0) is not yet '
+      'published; the post-publish base corpus of both twins is owed (vstdm3)',
 };
 
 List<int> _key(String v) => v.split('.').map(int.parse).toList();
