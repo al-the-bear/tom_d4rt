@@ -2089,7 +2089,27 @@ class InterpretedFunction implements Callable {
 
   // Main engine of the async state machine
   // Scheduled via Future.microtask to start execution
+  //
+  // DASY1: an async function resumed after an await runs outside the `call`
+  // that started it, so its interpreted frame is no longer on the call stack
+  // and an error raised now would leave no trace. Each resumption re-enters
+  // the frame for the segment it runs. The segment never awaits (it suspends
+  // by returning), so it has finished — and the frame is exited — before
+  // anything else can run on this visitor.
   static Future<void> _runStateMachine(
+    InterpreterVisitor visitor,
+    AsyncExecutionState currentState,
+  ) {
+    final callStack = visitor.callStack;
+    callStack.enter(currentState.function._name ?? '<anonymous>');
+    try {
+      return _runStateMachineSegment(visitor, currentState);
+    } finally {
+      callStack.exit();
+    }
+  }
+
+  static Future<void> _runStateMachineSegment(
     InterpreterVisitor visitor,
     AsyncExecutionState currentState,
   ) async {
@@ -2129,6 +2149,8 @@ class InterpretedFunction implements Callable {
       // Set currentFunction from the state - important for async callbacks
       // that may run after the original call() returns
       visitor.currentFunction = currentState.function;
+      // The position a trace reports for this frame, if an error leaves it.
+      visitor.callStack.current = currentNode;
 
       // SCC12: an error that was only passing through a `finally` block resumes
       // here, now that the block has finished — see
@@ -3473,6 +3495,8 @@ class InterpretedFunction implements Callable {
       } catch (error, stackTrace) {
         // Other error during state execution (SYNC)
 
+        _recordAsyncEscape(visitor, error);
+
         // Check if the error comes from rethrow
         if (error is InternalInterpreterD4rtException) {
           // This is an exception rethrown by rethrow. Do not handle it here.
@@ -3630,11 +3654,28 @@ class InterpretedFunction implements Callable {
     });
   }
 
+  /// DASY1: an error raised in an async function's resumed segment is traced
+  /// like one leaving a synchronous call, against the frame [_runStateMachine]
+  /// re-entered for the segment. The value the function's Future fails with is
+  /// the unwrapped one, so that carries the trace as well. An error that
+  /// already has a trace — one an awaited interpreted call raised — keeps it.
+  static void _recordAsyncEscape(InterpreterVisitor visitor, Object? error) {
+    if (error == null) return;
+    final callStack = visitor.callStack;
+    callStack.recordEscape(error);
+    callStack.recordEscape(
+      error is InternalInterpreterD4rtException
+          ? _unwrapExceptionForPropagation(error.originalThrownValue)
+          : _unwrapExceptionForPropagation(error),
+    );
+  }
+
   static void _handleAsyncError(
     InterpreterVisitor visitor,
     AsyncExecutionState state,
     AstNode nodeWhereErrorOccurred,
   ) {
+    _recordAsyncEscape(visitor, state.currentError);
     // SCF6: an error that escapes the finally a pending break / continue is
     // running replaces the jump, as Dart replaces any abrupt completion. One
     // caught by a try written INSIDE that finally is local to it and leaves

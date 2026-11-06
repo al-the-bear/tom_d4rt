@@ -226,6 +226,34 @@ void main() {
     );
   });
 
+  group('DASY1: an async error keeps its frames', () {
+    test(
+      'DASY1-7: an error raised after an await is traced to the async function '
+      'and statement it was raised in [2026-11-06]',
+      () async {
+        final d4rt = _interpreter();
+        await expectLater(
+          d4rt.executeAsync(
+            source: '''
+Future<void> inner() async {
+  await Future.delayed(Duration(milliseconds: 5));
+  throw StateError('later');
+}
+Future<void> main() async {
+  await inner();
+}
+''',
+          ),
+          throwsA(isA<StateError>()),
+        );
+        expect(d4rt.lastErrorTrace, isNotEmpty);
+        final innermost = d4rt.lastErrorTrace.first;
+        expect(innermost.member, 'inner');
+        expect(innermost.line, 3);
+      },
+    );
+  });
+
   group('TDIMPA1: awaiting a host Future from a script', () {
     test(
       'TDIMPA1-1: await on a bridged method returning Future<int> gives the value [2026-11-06]',

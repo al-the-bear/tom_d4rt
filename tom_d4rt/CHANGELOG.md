@@ -1,3 +1,18 @@
+## 1.231.1
+
+### Fixed — an async error keeps its frames (dasy1)
+
+An error raised in an `async` function after an `await` left no interpreted
+trace: the function's frame had been left when its `call` returned the
+Future, and the resumed state machine ran outside it, so `lastErrorTrace` was
+empty where a synchronous error reports the function and line. Each resumed
+segment now re-enters the async function's frame, and an error raised in it —
+or an awaited Future that fails there — is traced to that function and the
+statement it was raised at. An error that already carries a trace, from an
+awaited interpreted call, keeps it.
+
+Name resolution: no
+
 ## 1.231.0
 
 ### Added — async entry points (dasy1)

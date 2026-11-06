@@ -369,6 +369,90 @@ void main() {
     }
   });
 
+  group('DASY1/AST: an async error keeps its frames', () {
+    // Positions come from the bundle's sources, so the script is written out
+    // and every statement carries its real offset.
+    const source =
+        'Future<void> inner() async {\n'
+        '  await AsyncService.wait(5);\n'
+        '  throw StateError(\'later\');\n'
+        '}\n'
+        '\n'
+        'Future<void> main() async {\n'
+        '  await inner();\n'
+        '}\n';
+
+    SFunctionDeclaration asyncFunction(String name, List<SStatement> body) =>
+        SFunctionDeclaration(
+          offset: source.indexOf('Future<void> $name'),
+          length: 0,
+          name: _id(name),
+          functionExpression: SFunctionExpression(
+            offset: 0,
+            length: 0,
+            parameters: _noParams(),
+            body: SBlockFunctionBody(
+              offset: 0,
+              length: 0,
+              isAsync: true,
+              block: _block(body),
+            ),
+          ),
+        );
+
+    SExpressionStatement at(String text, SExpression expression) =>
+        SExpressionStatement(
+          offset: source.indexOf(text),
+          length: text.length,
+          expression: expression,
+        );
+
+    test('DASY1-AST-6: an error raised after an await is traced to the async '
+        'function and statement it was raised in [2026-11-06]', () async {
+      final bundle = AstBundle(
+        entryPointUri: _entry,
+        modules: {
+          _entry: SCompilationUnit(
+            offset: 0,
+            length: source.length,
+            directives: [
+              SImportDirective(offset: 0, length: 0, uri: _string(_library)),
+            ],
+            declarations: [
+              asyncFunction('inner', [
+                at(
+                  'await AsyncService.wait(5);',
+                  _await(_call(_id('AsyncService'), 'wait', [_int(5)])),
+                ),
+                at(
+                  "throw StateError('later');",
+                  SThrowExpression(
+                    offset: 0,
+                    length: 0,
+                    expression: _call(null, 'StateError', [_string('later')]),
+                  ),
+                ),
+              ]),
+              asyncFunction('main', [
+                at('await inner();', _await(_call(null, 'inner'))),
+              ]),
+            ],
+          ),
+        },
+        sources: {_entry: source},
+      );
+      final runner = _runner();
+      await expectLater(
+        runner.executeBundleAsAsync<Object?>(bundle),
+        throwsA(isA<StateError>()),
+      );
+      expect(runner.lastErrorTrace, isNotEmpty);
+      final innermost = runner.lastErrorTrace.first;
+      expect(innermost.member, 'inner');
+      expect(innermost.line, 3);
+    });
+  });
+
   group('TDIMPA1/AST: awaiting a host Future from a script', () {
     test(
       'TDIMPA1-AST-1: await on a bridged method returning Future<int> gives the value [2026-11-06]',
