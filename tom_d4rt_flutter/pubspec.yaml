@@ -41,10 +41,11 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
-  # Bridge regeneration (tool/regenerate_bridges.dart). 1.11.0 is analyzer-10
-  # (matching tom_d4rt's analyzer ^10) and emits the lazy bridge-factory thunks
-  # (bridgeClassThunks/bridgeClassTypes) the import-optimization guard pairs
-  # with. The earlier analyzer-8 conflict that deferred regen is resolved.
+  # Bridge regeneration (tool/regenerate_bridges.dart). The generator is on
+  # analyzer ^14 like tom_d4rt (from 1.53.0), which is why this package needs
+  # Flutter 3.47+ (analyzer 14 needs meta ^1.18.3; Flutter 3.44 pins 1.18.0).
+  # It emits the lazy bridge-factory thunks (bridgeClassThunks /
+  # bridgeClassTypes) the import-optimization guard pairs with.
   # Floor 1.15.3: below it, a regeneration from a relative scan root writes
   # `bridgeReExports()` source keys as `lib/…` instead of `package:…`, which no
   # script import can ever match (GEN-125).
