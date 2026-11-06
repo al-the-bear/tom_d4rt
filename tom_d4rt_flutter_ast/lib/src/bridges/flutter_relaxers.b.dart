@@ -1,4 +1,4 @@
-// Generated: 2026-11-06T09:59:42.828118 by tom_d4rt_generator 1.52.0
+// Generated: 2026-11-06T12:59:41.807029 by tom_d4rt_generator 1.52.0
 /// D4rt GEN-079 Relaxer Wrappers for flutter_material_bridges
 ///
 /// Auto-generated wrapper classes and factory functions for generic

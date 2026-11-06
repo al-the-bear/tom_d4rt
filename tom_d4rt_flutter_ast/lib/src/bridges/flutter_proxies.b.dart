@@ -1,4 +1,4 @@
-// Generated: 2026-11-06T09:59:41.254759 by tom_d4rt_generator 1.52.0
+// Generated: 2026-11-06T12:59:41.535798 by tom_d4rt_generator 1.52.0
 /// D4rt Proxy Classes for flutter_material_bridges
 ///
 /// Generated proxy/adapter subclasses that delegate abstract methods
@@ -1765,6 +1765,15 @@ void registerProxyFactories() {
             locale,
             text,
           ], {});
+          if (result is Future && result is! Future<List<SuggestionSpan>?>) {
+            return result.then(
+              (v) => D4.extractBridgedArg<List<SuggestionSpan>?>(
+                v,
+                'fetchSpellCheckSuggestions',
+                visitor,
+              ),
+            );
+          }
           return D4.extractBridgedArg<Future<List<SuggestionSpan>?>>(
             result,
             'fetchSpellCheckSuggestions',
@@ -1988,6 +1997,15 @@ void registerProxyFactories() {
                 final result = method.bind(instance).call(visitor, [
                   routeInformation,
                 ], {});
+                if (result is Future && result is! Future<Object>) {
+                  return result.then(
+                    (v) => D4.extractBridgedArg<Object>(
+                      v,
+                      'parseRouteInformation',
+                      visitor,
+                    ),
+                  );
+                }
                 return D4.extractBridgedArg<Future<Object>>(
                   result,
                   'parseRouteInformation',
@@ -2013,6 +2031,15 @@ void registerProxyFactories() {
                   routeInformation,
                   context,
                 ], {});
+                if (result is Future && result is! Future<Object>) {
+                  return result.then(
+                    (v) => D4.extractBridgedArg<Object>(
+                      v,
+                      'parseRouteInformationWithDependencies',
+                      visitor,
+                    ),
+                  );
+                }
                 return D4.extractBridgedArg<Future<Object>>(
                   result,
                   'parseRouteInformationWithDependencies',
@@ -2071,6 +2098,11 @@ void registerProxyFactories() {
         final method = instance.klass.findInstanceMethod('popRoute');
         if (method != null) {
           final result = method.bind(instance).call(visitor, [], {});
+          if (result is Future && result is! Future<bool>) {
+            return result.then(
+              (v) => D4.extractBridgedArg<bool>(v, 'popRoute', visitor),
+            );
+          }
           return D4.extractBridgedArg<Future<bool>>(
             result,
             'popRoute',
