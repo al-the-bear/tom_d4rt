@@ -1,3 +1,12 @@
+## 1.13.0
+
+### Changed — on tom_d4rt 1.231.1; the D4rt bridge has the async entry points
+
+The `cli_api` bridges are regenerated against `tom_d4rt` 1.231.1, so a script
+reaches `D4rt.executeAsync`, `executeAsAsync` and `executeProgramAsync` on a
+bridged interpreter. 1.231.1 also keeps the frames of an error raised after an
+`await`.
+
 ## 1.12.1
 
 ### Changed — generated-file headers name tom_d4rt_generator 1.53.0

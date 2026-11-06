@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 10 files
-// Generated: 2026-11-06T14:32:29.671441 by tom_d4rt_generator 1.53.0
+// Generated: 2026-11-06T21:21:41.221365 by tom_d4rt_generator 1.53.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -5000,6 +5000,110 @@ BridgedClass _createD4rtBridge() {
           allowFileSystemImports: allowFileSystemImports,
         );
       },
+      'executeAsync': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_d4rt_5.D4rt>(target, 'D4rt');
+        final source = D4.getOptionalNamedArg<String?>(named, 'source');
+        final name = D4.getNamedArgWithDefault<String>(named, 'name', 'main');
+        final positionalArgs = D4.coerceListOrNull<Object?>(
+          named['positionalArgs'],
+          'positionalArgs',
+        );
+        final namedArgs = D4.coerceMapOrNull<String, Object?>(
+          named['namedArgs'],
+          'namedArgs',
+        );
+        final library = D4.getOptionalNamedArg<String?>(named, 'library');
+        final sources = D4.coerceMapOrNull<String, String>(
+          named['sources'],
+          'sources',
+        );
+        final basePath = D4.getOptionalNamedArg<String?>(named, 'basePath');
+        final allowFileSystemImports = D4.getNamedArgWithDefault<bool>(
+          named,
+          'allowFileSystemImports',
+          false,
+        );
+        return t.executeAsync(
+          source: source,
+          name: name,
+          positionalArgs: positionalArgs,
+          namedArgs: namedArgs,
+          library: library,
+          sources: sources,
+          basePath: basePath,
+          allowFileSystemImports: allowFileSystemImports,
+        );
+      },
+      'executeAsAsync': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_d4rt_5.D4rt>(target, 'D4rt');
+        final source = D4.getOptionalNamedArg<String?>(named, 'source');
+        final name = D4.getNamedArgWithDefault<String>(named, 'name', 'main');
+        final positionalArgs = D4.coerceListOrNull<Object?>(
+          named['positionalArgs'],
+          'positionalArgs',
+        );
+        final namedArgs = D4.coerceMapOrNull<String, Object?>(
+          named['namedArgs'],
+          'namedArgs',
+        );
+        final library = D4.getOptionalNamedArg<String?>(named, 'library');
+        final sources = D4.coerceMapOrNull<String, String>(
+          named['sources'],
+          'sources',
+        );
+        final basePath = D4.getOptionalNamedArg<String?>(named, 'basePath');
+        final allowFileSystemImports = D4.getNamedArgWithDefault<bool>(
+          named,
+          'allowFileSystemImports',
+          false,
+        );
+        return t.executeAsAsync(
+          source: source,
+          name: name,
+          positionalArgs: positionalArgs,
+          namedArgs: namedArgs,
+          library: library,
+          sources: sources,
+          basePath: basePath,
+          allowFileSystemImports: allowFileSystemImports,
+        );
+      },
+      'executeProgramAsync': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_d4rt_5.D4rt>(target, 'D4rt');
+        D4.requireMinArgs(positional, 1, 'executeProgramAsync');
+        final program = D4.getRequiredArg<$tom_d4rt_5.D4rtProgram>(
+          positional,
+          0,
+          'program',
+          'executeProgramAsync',
+        );
+        final name = D4.getNamedArgWithDefault<String>(named, 'name', 'main');
+        final positionalArgs = D4.coerceListOrNull<Object?>(
+          named['positionalArgs'],
+          'positionalArgs',
+        );
+        final namedArgs = D4.coerceMapOrNull<String, Object?>(
+          named['namedArgs'],
+          'namedArgs',
+        );
+        final sources = D4.coerceMapOrNull<String, String>(
+          named['sources'],
+          'sources',
+        );
+        final allowFileSystemImports = D4.getNamedArgWithDefault<bool>(
+          named,
+          'allowFileSystemImports',
+          false,
+        );
+        return t.executeProgramAsync(
+          program,
+          name: name,
+          positionalArgs: positionalArgs,
+          namedArgs: namedArgs,
+          sources: sources,
+          allowFileSystemImports: allowFileSystemImports,
+        );
+      },
       'analyze': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_d4rt_5.D4rt>(target, 'D4rt');
         final source = D4.getRequiredNamedArg<String>(
@@ -5130,6 +5234,12 @@ BridgedClass _createD4rtBridge() {
       'parse': 'D4rtProgram parse(String source, {String? basePath})',
       'executeProgram':
           'dynamic executeProgram(D4rtProgram program, {String name = \'main\', List<Object?>? positionalArgs, Map<String, Object?>? namedArgs, Map<String, String>? sources, bool allowFileSystemImports = false})',
+      'executeAsync':
+          'Future<Object?> executeAsync({String? source, String name = \'main\', List<Object?>? positionalArgs, Map<String, Object?>? namedArgs, String? library, Map<String, String>? sources, String? basePath, bool allowFileSystemImports = false})',
+      'executeAsAsync':
+          'Future<T> executeAsAsync({String? source, String name = \'main\', List<Object?>? positionalArgs, Map<String, Object?>? namedArgs, String? library, Map<String, String>? sources, String? basePath, bool allowFileSystemImports = false})',
+      'executeProgramAsync':
+          'Future<Object?> executeProgramAsync(D4rtProgram program, {String name = \'main\', List<Object?>? positionalArgs, Map<String, Object?>? namedArgs, Map<String, String>? sources, bool allowFileSystemImports = false})',
       'analyze':
           'IntrospectionResult analyze({required String source, Map<String, String>? sources, bool includeBuiltins = false})',
       'eval': 'dynamic eval(String expression)',
