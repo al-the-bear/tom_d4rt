@@ -5,7 +5,6 @@
 library;
 
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:path/path.dart' as p;
@@ -14,7 +13,6 @@ import 'package:tom_d4rt_exec/tom_d4rt_exec.dart';
 import 'package:console_markdown/console_markdown.dart';
 
 import '../api/cli_test_utils.dart';
-import '../bot_mode/bot_mode.dart';
 import 'cli_integration.dart';
 import 'help_text.dart';
 import 'persistent_history.dart';
@@ -148,9 +146,7 @@ abstract class D4rtReplBase {
   <yellow>**-init-source**</yellow> <file>           Use custom init source file
   <yellow>**-no-init-source**</yellow>               Don't load custom init source
   <yellow>**--dump-configuration**</yellow>          Dump registered bridges and configuration
-  <yellow>**--debug**</yellow>                       Print init source and debug information
-  <yellow>**--bot-mode**</yellow>                    Run as Telegram bot server
-  <yellow>**--bot-config**</yellow> <file>           Bot mode configuration file''';
+  <yellow>**--debug**</yellow>                       Print init source and debug information''';
   }
 
   /// Returns the CLI examples section (for --help).
@@ -171,7 +167,6 @@ abstract class D4rtReplBase {
   <yellow>$name -replay setup.$ext -session x</yellow>   Replay file and start session
   <yellow>$name -list-sessions</yellow>                   List available sessions
   <yellow>$name --dump-configuration</yellow>             Dump configuration
-  <yellow>$name --bot-mode</yellow>                       Run as Telegram bot server
   <yellow>echo 'print(42);' | $name --stdin</yellow>     Execute code from stdin (auto-wrapped)
   <yellow>cat script.dart | $name --stdin</yellow>        Pipe a complete script via stdin
   <yellow>echo 'return 5+6;' | $name --stdin</yellow>    Bare expression, exit code = result''';
@@ -244,10 +239,6 @@ abstract class D4rtReplBase {
     print('');
     print(getD4rtSyntaxHelp());
     print('');
-    print(getTrailCommandsHelp());
-    print('');
-    print(getCopilotPromptsHelp());
-    print('');
     print(getBridgesHelp(d4rt));
   }
 
@@ -314,13 +305,10 @@ abstract class D4rtReplBase {
     String? runReplayFile;
     String? customInitSource;
     String? testOutputPath;
-    String? botModeConfigFile;
     var replaceSession = false;
     final listSessions =
         arguments.contains('-list-sessions') ||
         arguments.contains('--list-sessions');
-    final botMode =
-        arguments.contains('-bot-mode') || arguments.contains('--bot-mode');
     final stdinMode =
         arguments.contains('-stdin') || arguments.contains('--stdin');
 
@@ -356,10 +344,6 @@ abstract class D4rtReplBase {
       '--test',
       '-output',
       '--output',
-      '-bot-mode',
-      '--bot-mode',
-      '-bot-config',
-      '--bot-config',
       '-stdin',
       '--stdin',
     };
@@ -402,16 +386,6 @@ abstract class D4rtReplBase {
           arguments[i].startsWith('--output=')) {
         testOutputPath = arguments[i].split('=').skip(1).join('=');
       }
-      if (arguments[i] == '-bot-config' || arguments[i] == '--bot-config') {
-        if (i + 1 < arguments.length) {
-          botModeConfigFile = arguments[i + 1];
-        }
-      }
-      // Also support -bot-config=path format
-      if (arguments[i].startsWith('-bot-config=') ||
-          arguments[i].startsWith('--bot-config=')) {
-        botModeConfigFile = arguments[i].split('=').skip(1).join('=');
-      }
     }
 
     // Collect option values that should be excluded from non-option args
@@ -421,7 +395,6 @@ abstract class D4rtReplBase {
     if (runReplayFile != null) optionValues.add(runReplayFile);
     if (customInitSource != null) optionValues.add(customInitSource);
     if (testOutputPath != null) optionValues.add(testOutputPath);
-    if (botModeConfigFile != null) optionValues.add(botModeConfigFile);
 
     // Get non-option arguments
     final nonOptionArgs = arguments.where((arg) {
@@ -480,12 +453,6 @@ abstract class D4rtReplBase {
 
     if (listSessions) {
       _listSessions();
-      return;
-    }
-
-    // Bot mode - run as Telegram bot server
-    if (botMode) {
-      await _runBotMode(d4rt, configFile: botModeConfigFile);
       return;
     }
 
@@ -662,177 +629,6 @@ void main() {}
       print('    Modified: $modified');
       print('    Size: $size bytes, $lines lines');
       print('');
-    }
-  }
-
-  /// Run in bot mode - start Telegram bot server
-  Future<void> _runBotMode(D4rt d4rt, {String? configFile}) async {
-    // Determine config file location
-    final configPath = configFile ?? '$dataDirectory/bot_config.yaml';
-    final configFileObj = File(configPath);
-
-    if (!configFileObj.existsSync()) {
-      stderr.writeln('Bot mode configuration file not found: $configPath');
-      stderr.writeln('');
-      stderr.writeln(
-        'Create a configuration file with the following structure:',
-      );
-      stderr.writeln('''
-# Bot Mode Configuration
-bots:
-  - name: MyBot
-    token_env: TELEGRAM_BOT_TOKEN  # Environment variable containing the token
-    allowed_users:
-      - 123456789  # Your Telegram user ID
-    
-security:
-  mode: blacklist  # whitelist or blacklist
-  allowed_paths:
-    - ~/.tom
-  blocked_commands:
-    - rm
-    - sudo
-    
-output:
-  max_length: 4000
-  file_threshold: 1000
-
-polling:
-  timeout_seconds: 30
-''');
-      exit(1);
-    }
-
-    // Load configuration
-    BotModeConfig config;
-    try {
-      config = await BotModeConfig.loadFromFile(configPath);
-    } catch (e) {
-      stderr.writeln('Error loading bot configuration: $e');
-      exit(1);
-    }
-
-    // Initialize the init source for REPL execution
-    final defaultInitSource =
-        '''
-${getImportBlock()}
-void main() {}
-''';
-
-    d4rt.execute(source: defaultInitSource);
-
-    // Create ReplState for bot mode processing using the overridable method
-    // This ensures subclasses can customize state initialization (e.g., VS Code integration)
-    final state = createReplState();
-    state.currentDirectory = Directory.current.path;
-
-    // Create execution callback that uses processInput with zone-based output capture
-    Future<ExecutionResult> executeCommand(String command) async {
-      final outputBuffer = StringBuffer();
-
-      // Strip ANSI escape codes
-      String stripAnsi(String text) {
-        return text.replaceAll(RegExp(r'\x1B\[[0-9;]*[a-zA-Z]'), '');
-      }
-
-      // Create custom stdout/stderr that capture output (no markdown conversion - done by formatter)
-      final capturedStdout = _CaptureStdout(outputBuffer, (s) => s, stripAnsi);
-      final capturedStderr = _CaptureStdout(
-        outputBuffer,
-        (s) => s,
-        stripAnsi,
-        isError: true,
-      );
-
-      try {
-        // Use IOOverrides to capture ALL stdout/stderr, including Console writes
-        await IOOverrides.runZoned(
-          () async {
-            // Also override print within the zone
-            await runZoned(
-              () async {
-                await processInput(d4rt, state, command, silent: false);
-              },
-              zoneSpecification: ZoneSpecification(
-                print: (self, parent, zone, line) {
-                  // Write raw line with tags directly to buffer - bypass _CaptureStdout
-                  outputBuffer.writeln(line);
-                },
-              ),
-            );
-          },
-          stdout: () => capturedStdout,
-          stderr: () => capturedStderr,
-        );
-
-        final output = outputBuffer.toString().trim();
-
-        // DEBUG: Log captured output and check for color tags
-        stdout.writeln('[executeCommand] command: "$command"');
-        stdout.writeln(
-          '[executeCommand] outputBuffer length: ${output.length}',
-        );
-        stdout.writeln(
-          '[executeCommand] has <cyan>: ${output.contains('<cyan>')}',
-        );
-        stdout.writeln(
-          '[executeCommand] has <yellow>: ${output.contains('<yellow>')}',
-        );
-        if (output.isNotEmpty) {
-          stdout.writeln(
-            '[executeCommand] first 300 chars: ${output.substring(0, output.length > 300 ? 300 : output.length)}',
-          );
-        }
-
-        // Detect formatted text commands (help, info) that should render markdown
-        final isFormattedText =
-            command == 'help' ||
-            command.startsWith('info ') ||
-            command == 'classes' ||
-            command == 'enums' ||
-            command == 'methods' ||
-            command == 'variables' ||
-            command == 'defines' ||
-            command.startsWith('classes ') ||
-            command.startsWith('enums ') ||
-            command.startsWith('methods ') ||
-            command.startsWith('variables ') ||
-            command.startsWith('defines ');
-
-        return ExecutionResult(
-          output: output,
-          isError: false,
-          isFormattedText: isFormattedText,
-        );
-      } catch (e) {
-        // Include captured output along with the error
-        final capturedOutput = outputBuffer.toString().trim();
-        final errorMsg = stripAnsi(e.toString());
-        return ExecutionResult(
-          output: capturedOutput.isNotEmpty
-              ? '$capturedOutput\n\n❌ $errorMsg'
-              : '',
-          isError: true,
-          errorMessage: errorMsg,
-        );
-      }
-    }
-
-    // Create and start the bot server
-    final server = TelegramBotServer(
-      config: config,
-      executeCommand: executeCommand,
-      toolName: toolName,
-      toolVersion: toolVersion,
-    );
-
-    try {
-      await server.start();
-      await server.waitForShutdown();
-      exit(0);
-    } catch (e) {
-      stderr.writeln('Bot server error: $e');
-      exit(1);
     }
   }
 
@@ -3435,105 +3231,4 @@ String prepareProgramSource(String source, {required String importBlock}) {
       ? 'Future<Object?> main(List<String> args) async'
       : 'Object? main(List<String> args)';
   return '$prefix$signature {\n$source\n}\n';
-}
-
-/// Stdout/Stderr capture wrapper for bot mode output capture.
-///
-/// Captures all writes to stdout/stderr and converts them to Telegram format.
-class _CaptureStdout implements Stdout {
-  final StringBuffer _buffer;
-  final String Function(String) _convertMarkdown;
-  final String Function(String) _stripAnsi;
-  final bool isError;
-
-  _CaptureStdout(
-    this._buffer,
-    this._convertMarkdown,
-    this._stripAnsi, {
-    this.isError = false,
-  });
-
-  @override
-  void write(Object? object) {
-    final text = _convertMarkdown(_stripAnsi(object?.toString() ?? ''));
-    if (isError && text.isNotEmpty) {
-      _buffer.write('❌ $text');
-    } else {
-      _buffer.write(text);
-    }
-  }
-
-  @override
-  void writeln([Object? object = '']) {
-    final text = _convertMarkdown(_stripAnsi(object?.toString() ?? ''));
-    if (isError && text.isNotEmpty) {
-      _buffer.writeln('❌ $text');
-    } else {
-      _buffer.writeln(text);
-    }
-  }
-
-  @override
-  void writeAll(Iterable objects, [String separator = '']) {
-    write(objects.map((o) => o.toString()).join(separator));
-  }
-
-  @override
-  void writeCharCode(int charCode) {
-    write(String.fromCharCode(charCode));
-  }
-
-  @override
-  void add(List<int> data) {
-    write(String.fromCharCodes(data));
-  }
-
-  @override
-  void addError(Object error, [StackTrace? stackTrace]) {
-    writeln('Error: $error');
-  }
-
-  @override
-  Future addStream(Stream<List<int>> stream) async {
-    await for (final data in stream) {
-      add(data);
-    }
-  }
-
-  @override
-  Future close() async {}
-
-  @override
-  Future get done => Future.value();
-
-  @override
-  Future flush() async {}
-
-  // Stub implementations for remaining Stdout interface
-  @override
-  Encoding get encoding => utf8;
-
-  @override
-  set encoding(Encoding encoding) {}
-
-  @override
-  String get lineTerminator => '\n';
-
-  @override
-  set lineTerminator(String lineTerminator) {}
-
-  @override
-  bool get hasTerminal => false;
-
-  @override
-  IOSink get nonBlocking => this;
-
-  @override
-  bool get supportsAnsiEscapes => false;
-
-  @override
-  int get terminalColumns => 80;
-
-  @override
-  int get terminalLines => 24;
 }

@@ -12,12 +12,8 @@ import 'src/cli/vscode_integration.dart';
 import 'src/version.versioner.dart';
 
 export 'dartscript.b.dart';
-export 'src/bot_mode/bot_mode.dart';
 export 'src/cli/repl_base.dart';
 export 'src/cli/vscode_integration.dart';
-
-// Re-export tom_chattools for consumers using bot mode
-export 'package:tom_chattools/tom_chattools.dart';
 
 /// DCLI REPL implementation.
 ///

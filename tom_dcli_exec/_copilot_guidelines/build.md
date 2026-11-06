@@ -42,7 +42,7 @@ If you need to build manually:
 Every output is a `*.b.dart` file, formatted as `dart format` would format it:
 
 - `lib/src/bridges/*_bridges.b.dart` - one file per module in `buildkit.yaml`
-  (`cli_api`, `dcli`, `path`, `tom_chattools`, `tom_vscode_scripting_api`)
+  (`cli_api`, `dcli`, `path`, `tom_vscode_scripting_api`)
 - `lib/src/bridges/relaxers.b.dart` - relaxer wrappers
 - `lib/d4rt_bridges.b.dart` - the barrel over the module bridges
 - `lib/dartscript.b.dart` - the combined registration class

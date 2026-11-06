@@ -120,30 +120,6 @@ String getD4rtSyntaxHelp() {
   <yellow>class Foo {}</yellow>           Define class *(persists)*''';
 }
 
-/// Returns the bot mode trail commands section (for help command).
-String getTrailCommandsHelp() {
-  return '''
-<cyan>**Trail Commands**</cyan> *(Bot Mode)*
-  <yellow>**list-attachments**</yellow>              List all attachments from conversation trail
-  <yellow>**list-references**</yellow>               List all references from conversation trail
-  <yellow>**get-attachments**</yellow> <ids>         Retrieve specific attachments by ID
-  <yellow>**get-references**</yellow> <ids>          Retrieve specific references by ID
-  
-  *Example:* <yellow>get-attachments A000, A001</yellow>''';
-}
-
-/// Returns the Copilot prompts section (for help command).
-String getCopilotPromptsHelp() {
-  return '''
-<cyan>**Copilot Integration**</cyan> *(Bot Mode)*
-  Messages are sent to VS Code Copilot Chat when:
-  • Prefixed with <yellow>**?**</yellow> *(e.g., <yellow>? explain this code</yellow>)*
-  • Starting with <yellow>**TODO:**</yellow> or <yellow>**QUESTION:**</yellow>
-  • Ending with <yellow>**.**</yellow>, <yellow>**?**</yellow>, or <yellow>**---**</yellow>
-  
-  All other messages are processed as REPL commands.''';
-}
-
 /// Returns the file conventions section (for --help).
 String getFileConventionsHelp(String toolName, String dataPath) {
   final initFile = '${toolName}_init_source.dart';

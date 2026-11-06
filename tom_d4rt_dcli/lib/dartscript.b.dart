@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Dartscript registration for tom_d4rt_dcli
-// Generated: 2026-10-03T14:10:22.831226 by tom_d4rt_generator 1.51.0
+// Generated: 2026-11-06T02:10:39.393469 by tom_d4rt_generator 1.52.0
 
 /// D4rt Bridge Registration for tom_d4rt_dcli
 library;
@@ -11,7 +11,6 @@ import 'src/bridges/tom_vscode_scripting_api_bridges.b.dart'
     as tom_vscode_scripting_api_bridges;
 import 'src/bridges/dcli_bridges.b.dart' as dcli_bridges;
 import 'src/bridges/path_bridges.b.dart' as path_bridges;
-import 'src/bridges/tom_chattools_bridges.b.dart' as tom_chattools_bridges;
 import 'src/bridges/relaxers.b.dart' as relaxer_factories;
 
 /// Combined bridge registration for tom_d4rt_dcli.
@@ -50,15 +49,6 @@ class TomD4rtDcliBridge {
     for (final barrel in path_bridges.PathBridge.subPackageBarrels()) {
       path_bridges.PathBridge.registerBridges(d4rt, barrel);
     }
-    tom_chattools_bridges.TomChattoolsBridge.registerBridges(
-      d4rt,
-      'package:tom_chattools/tom_chattools.dart',
-    );
-    // Register under sub-package barrels for direct imports
-    for (final barrel
-        in tom_chattools_bridges.TomChattoolsBridge.subPackageBarrels()) {
-      tom_chattools_bridges.TomChattoolsBridge.registerBridges(d4rt, barrel);
-    }
 
     // RC-2: Register generic constructor factories
     relaxer_factories.registerGenericConstructors();
@@ -76,7 +66,6 @@ class TomD4rtDcliBridge {
     );
     buffer.writeln(dcli_bridges.DcliBridge.getImportBlock());
     buffer.writeln(path_bridges.PathBridge.getImportBlock());
-    buffer.writeln(tom_chattools_bridges.TomChattoolsBridge.getImportBlock());
     return buffer.toString();
   }
 }

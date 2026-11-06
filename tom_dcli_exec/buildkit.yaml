@@ -59,15 +59,6 @@ d4rtgen:
         - package:path/path.dart
       barrelImport: package:path/path.dart
       outputPath: lib/src/bridges/path_bridges.b.dart
-    - name: tom_chattools
-      barrelFiles:
-        - package:tom_chattools/tom_chattools.dart
-      barrelImport: package:tom_chattools/tom_chattools.dart
-      outputPath: lib/src/bridges/tom_chattools_bridges.b.dart
-      followAllReExports: false
-      excludePatterns:
-        - "**/*_bridge.dart"
-        - "**/*_generated.dart"
 
 compiler:
   compiles:
