@@ -28,10 +28,11 @@ dependencies:
 dev_dependencies:
   lints: ^6.0.0
   test: ^1.25.6
-  # Re-enabled now that tom_d4rt_generator / tom_d4rt_exec are on analyzer 10:
-  # the generator-driven cross-package tests in test/generator_tests/ can again
-  # share a resolution with this package's analyzer ^10 constraint. Lower-bound
-  # only (no upper cap) to track our latest published components.
+  # tom_d4rt_generator and tom_d4rt_exec are on analyzer ^14 like this
+  # package, so the generator-driven cross-package tests in
+  # test/generator_tests/ share its resolution. tom_d4rt_exec depends on this
+  # package, so publishing a release that exec's floor must follow takes the
+  # exec entry out for the publish and back after it (the scf34 route).
   # Floor 1.19.0: test/example_bridges_fresh_test.dart and
   # test/example_resolution_test.dart use `package:tom_d4rt_generator/testing.dart`;
   # 1.19.0 is the first whose `resolveIfUnresolved` asks pub whether a project

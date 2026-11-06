@@ -78,9 +78,8 @@ dependencies:
 dev_dependencies:
   lints: ^6.0.0
   test: ^1.25.6
-  # analyzer-10: tom_d4rt_generator 1.10.0 is the analyzer-10 build (cli_tools
-  # quest, migration plan Phase 4), so it now shares this package's analyzer ^10
-  # resolution. Bridges are regenerated with `d4rtgen`; there is no
+  # The generator is on analyzer ^14 like this package (from 1.53.0), so the
+  # two share a resolution. Bridges are regenerated with `d4rtgen`; there is no
   # build_runner step.
   # Floor 1.15.3: below it, a regeneration from a relative scan root writes
   # `bridgeReExports()` source keys as `lib/…` instead of `package:…`, which no
