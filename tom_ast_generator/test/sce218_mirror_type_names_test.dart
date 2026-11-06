@@ -103,10 +103,10 @@ void main() {
       // catch a regex that stopped matching modifiers — the exact way the
       // earlier oracles went wrong.
       expect(analyzerClasses.length, greaterThanOrEqualTo(200));
-      expect(analyzerClasses, containsAll(['NamedExpression', 'Expression']));
-      expect(analyzerClasses, isNot(contains('NamedExpressionImpl')));
+      expect(analyzerClasses, containsAll(['NamedArgument', 'Expression']));
+      expect(analyzerClasses, isNot(contains('NamedArgumentImpl')));
       expect(modelClasses.length, greaterThanOrEqualTo(150));
-      expect(modelClasses, contains('SNamedExpression'));
+      expect(modelClasses, contains('SNamedArgument'));
     });
 
     test('F-SCE218-2: every model S-class is S + an analyzer AST name, or '

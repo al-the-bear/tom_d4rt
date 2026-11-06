@@ -108,9 +108,12 @@ void main() {
 
     test('F-SCE15-5: the format version did not bump for an additive key '
         '[2026-09-18]', () {
+      // VSTDM3 changed this expectation deliberately: 2.0 is analyzer 14's
+      // AST (tom_ast_model 0.3), a change that is NOT backwards compatible.
+      // The generator key itself still did not bump anything.
       expect(
         AstBundleFormat.version,
-        equals('1.0'),
+        equals('2.0'),
         reason:
             'Adding an optional key is backwards compatible: old readers ignore '
             'it, old bundles still load (F-SCE15-4). A format stamp bumps only '

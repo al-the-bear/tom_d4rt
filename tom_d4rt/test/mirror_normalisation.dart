@@ -113,9 +113,6 @@ const accessorVocabulary = <(List<String>, List<String>)>[
   (['notOperator', '!=', 'null'], ['isNot']),
   (['constKeyword', '!=', 'null'], ['isConst']),
   (['.', 'question', '!=', 'null'], ['.', 'isNullable']),
-  // The analyzer's `DefaultFormalParameter.parameter` must be cast to reach a
-  // `NormalFormalParameter`, and the model's field is already that type.
-  (['as', 'NormalFormalParameter'], []),
   (['lexeme'], ['name']),
   // The analyzer's `DeclaredIdentifier.name` is a token; the model's is an
   // `SSimpleIdentifier` field called `identifier`. After the row above the

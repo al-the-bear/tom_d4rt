@@ -8,8 +8,10 @@
 /// codec agrees with itself.
 ///
 /// The output is a persisted artifact, like any shipped `.ast` bundle, so it is
-/// NOT regenerated on every release: a bundle written by an older build must
-/// still load. Re-run this only when the fixture's script has to change.
+/// NOT regenerated on every release: within one format version
+/// (`AstBundleFormat.version`) a bundle written by an older build must still
+/// load. Re-run this when the fixture's script has to change, or when the
+/// format version moves — readers do not carry bundles across format versions.
 ///
 ///     cd tom_d4rt_exec && dart run tool/write_web_bundle_fixture.dart
 library;

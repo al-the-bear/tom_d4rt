@@ -3,7 +3,8 @@
 // ignore_for_file: curly_braces_in_flow_control_structures
 
 import 'package:analyzer/dart/ast/ast.dart' as analyzer;
-import 'package:analyzer/dart/ast/token.dart' as analyzer show Token;
+import 'package:analyzer/dart/ast/token.dart' as analyzer
+    show Token, TokenType;
 
 import 'package:tom_ast_model/src/ast/ast_core.dart';
 
@@ -1624,7 +1625,12 @@ class AstConverter {
     return SDottedName(
       offset: node.offset,
       length: node.length,
-      components: node.tokens.map(_nameToken).toList(),
+      // analyzer 14's `tokens` include the periods; the mirror keeps the
+      // names only, as analyzer 10's `components` did.
+      components: node.tokens
+          .where((t) => t.type != analyzer.TokenType.PERIOD)
+          .map(_nameToken)
+          .toList(),
     );
   }
 

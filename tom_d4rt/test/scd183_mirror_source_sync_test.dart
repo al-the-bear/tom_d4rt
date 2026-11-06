@@ -306,6 +306,13 @@ const _structural = <String, String>{
       'reference walks node.parent directly. Trimmed: 99 % of the token '
       'stream lies between the first and last disagreement. LCS: 821 of '
       '5170 code lines differ (16 %).',
+  'declared_names.dart':
+      'VSTDM3: names the six declaration kinds analyzer 14 stopped grouping '
+      'under NamedCompilationUnitMember. Two differences only: the typedef '
+      'node is TypeAlias against TypedefDeclaration (recorded, not renamed, in '
+      "tom_ast_generator's sce218_mirror_type_names_test), and the model's "
+      'mixin, function and typedef `name` is nullable, so the twin reads '
+      '`name?.name`. 2 of 12 code lines differ.',
   'declaration_visitor.dart':
       'node accessors differ throughout: node.name.lexeme against '
       "node.name?.name ?? ''. Trimmed: 96 % of the token stream lies between "
@@ -338,7 +345,6 @@ const _memberDivergence = <String, (List<String>, List<String>)>{
       'InterpretedFunction._isBodyAsync',
       'InterpretedFunction._isBodyGenerator',
       'InterpretedFunction._loopVarName',
-      'InterpretedFunction._paramName',
       'InterpretedFunction._parentMap',
       'InterpretedFunction._parentOf',
       'InterpretedFunction._resolveRecordFieldTypeDynamic',
@@ -358,7 +364,6 @@ const _memberDivergence = <String, (List<String>, List<String>)>{
       'InterpreterVisitor.visitTypeAlias',
     ],
     <String>[
-      'InterpreterVisitor._formalParameterName',
       'InterpreterVisitor._resolveAppliedReturnType',
       'InterpreterVisitor.moduleContext',
       'InterpreterVisitor.visitTypedefDeclaration',

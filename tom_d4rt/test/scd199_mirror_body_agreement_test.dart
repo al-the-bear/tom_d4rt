@@ -79,9 +79,10 @@
 //
 //   4. `tom_ast_model`'s ACCESSOR VOCABULARY (SCE235), applied to BOTH trees:
 //      `notOperator != null` -> `isNot`, `constKeyword != null` -> `isConst`,
-//      `.question != null` -> `.isNullable`, `as NormalFormalParameter`
-//      dropped, `lexeme` -> `name`, `identifier . name` -> `name . name`, and
-//      the twin's nullable `?. name ?? ''` -> `. name`. SCE235 decided the
+//      `.question != null` -> `.isNullable`, `lexeme` -> `name`,
+//      `identifier . name` -> `name . name`, and the twin's nullable
+//      `?. name ?? ''` -> `. name`. (A row dropping `as NormalFormalParameter`
+//      left with analyzer 14, which has no such cast to drop.) SCE235 decided the
 //      model keeps its own names (option (b)) and that the nullability
 //      difference is permanent, so these spellings are required rather than
 //      incidental. The table lives in `mirror_normalisation.dart`
@@ -227,7 +228,6 @@ const _divergentBodies = <String, Map<String, String>>{
     'BridgedEnumValue.toString': '184efa79',
   },
   'callable.dart': {
-    'InterpretedExtensionMethod.call': '04fc6741',
     'InterpretedFunction._beginAwaitForIteration': 'f361cfa9',
     'InterpretedFunction._isWithin': 'a8bc018c',
     'InterpretedFunction._callImpl': 'c0f390c5',
@@ -252,12 +252,18 @@ const _divergentBodies = <String, Map<String, String>>{
     // reason as its neighbours — the mirror AST has no `parent` getter, so
     // the twin walks with `_parentOf`.
     'InterpretedFunction._enclosingCascadeOf': '34fd9762',
-    'InterpretedFunction._jumpTarget': 'c5e2ff57',
+    // VSTDM3: the analyzer 14 port edited both trees alike; the divergence
+    // itself is unchanged.
+    'InterpretedFunction._jumpTarget': '0f43f668',
     'InterpretedFunction._leaveLoopsFor': 'e47bcb14',
     'InterpretedFunction._nextEnclosingFinallyTry': 'fe832583',
     'InterpretedFunction._nextFinallyTryBefore': '5b8b6fab',
-    'InterpretedFunction._prepareExecutionEnvironment': '01cdcb72',
-    'InterpretedFunction._resolveTypeAnnotationDynamic': 'ea018cda',
+    // VSTDM3: the analyzer 14 port edited both trees alike; the divergence
+    // itself is unchanged.
+    'InterpretedFunction._prepareExecutionEnvironment': '368f64b6',
+    // VSTDM3: the analyzer 14 port edited both trees alike; the divergence
+    // itself is unchanged.
+    'InterpretedFunction._resolveTypeAnnotationDynamic': 'aab085fa',
     // SCE139 / SCF29: the walker that finds the unit an await resumption
     // hands back to the state machine (a statement, an `=>` body's
     // expression, or an if / while / do reached from its condition),
@@ -275,18 +281,18 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpretedFunction._tryOwningCatchClauseOf': 'f1617e03',
     'InterpretedFunction._tryOwningFinallyBlockOf': '34fd9762',
     'InterpretedFunction.bind': '78b56933',
-    'InterpretedFunction.get arity': 'c0481db8',
-    'InterpretedFunction.get callableRuntimeType': 'e7ec5fa0',
-    'InterpretedFunction.get canCallWithoutArgs': 'ef0e0484',
-    'InterpretedFunction.get maxPositionalArity': '8f421c1b',
-    'InterpretedFunction.get namedParameterNames': 'f3029fc8',
-    'InterpretedFunction.get positionalParameterNames': '0a8695ab',
+    // VSTDM3: the analyzer 14 port edited both trees alike; the divergence
+    // itself is unchanged.
+    'InterpretedFunction.get callableRuntimeType': '818a3898',
     'InterpretedFunction.new constructor': 'aab4d189',
     'InterpretedFunction.new declaration': '3060dbb6',
     'InterpretedFunction.new expression': '73245b03',
     'InterpretedFunction.new method': '3847e56b',
     '_LazySyncGeneratorIterator._executeForInWithYieldSuspension': '2f4748e3',
   },
+  // VSTDM3: the twin's typedef node is TypedefDeclaration and its declared
+  // names are nullable; see SCD183's `_structural` entry.
+  'declared_names.dart': {'fn namedMemberName': 'a7165dcd'},
   'declaration_visitor.dart': {
     // SCE130: 81e4977d -> 954e4039. Pass 1 now passes `lenient: true` when
     // extracting the class's type-parameter bounds, in both trees; the
@@ -306,7 +312,6 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpreterVisitor._evaluateArgumentsAsync': '0df79830',
     'InterpreterVisitor._executeCascadeAssignment': '6ba592d9',
     'InterpreterVisitor._executeClassicFor': 'cc48545f',
-    'InterpreterVisitor._functionRuntimeTypeFromParts': '0c32ea02',
     'InterpreterVisitor._mapCompoundToOperatorName': 'd728ed84',
     // SCE104 extracted both from `visitAsExpression`, whose divergence they
     // inherit: the mirror AST carries an `importPrefix` and an `isNullable`
@@ -338,11 +343,17 @@ const _divergentBodies = <String, Map<String, String>>{
     // SCE130: 57fc0f99 -> fffabfd5. Both trees gained the same call to
     // `klass.resolveDeferredTypeParameterBounds`; the residue is the
     // accessor difference this member already had.
-    'InterpreterVisitor.visitClassDeclaration': 'b90ed00a',
+    // VSTDM3: the analyzer 14 port edited both trees alike; the divergence
+    // itself is unchanged.
+    'InterpreterVisitor.visitClassDeclaration': '60279044',
     'InterpreterVisitor.visitConstructorReference': '1d51b6d4',
-    'InterpreterVisitor.visitEnumDeclaration': '67060d95',
+    // VSTDM3: the analyzer 14 port edited both trees alike; the divergence
+    // itself is unchanged.
+    'InterpreterVisitor.visitEnumDeclaration': 'ce4a4dd5',
     'InterpreterVisitor.visitExtensionDeclaration': 'e26fd9f6',
-    'InterpreterVisitor.visitExtensionTypeDeclaration': 'a9daed3a',
+    // VSTDM3: the analyzer 14 port edited both trees alike; the divergence
+    // itself is unchanged.
+    'InterpreterVisitor.visitExtensionTypeDeclaration': '32961e82',
     'InterpreterVisitor.visitForStatement': '1df0d7d7',
     'InterpreterVisitor.visitFunctionDeclaration': 'a398e655',
     'InterpreterVisitor.visitFunctionDeclarationStatement': '1a8fa2ed',
@@ -370,7 +381,9 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpreterVisitor.visitSetOrMapLiteral': '1a33a2d6',
     'InterpreterVisitor.visitSimpleIdentifier': 'c243901e',
     'InterpreterVisitor.visitSwitchExpression': '0e2ec45a',
-    'InterpreterVisitor.visitSwitchStatement': '059a026e',
+    // VSTDM3: the analyzer 14 port edited both trees alike; the divergence
+    // itself is unchanged.
+    'InterpreterVisitor.visitSwitchStatement': 'b768ec28',
     'InterpreterVisitor.visitSymbolLiteral': '971210c9',
     'InterpreterVisitor.visitTryStatement': 'a0a6d8d1',
     'InterpreterVisitor.visitVariableDeclarationList': '9282373f',
@@ -378,7 +391,9 @@ const _divergentBodies = <String, Map<String, String>>{
   },
   'introspection.dart': {
     'IntrospectionBuilder._buildClassInfo': 'b394ab44',
-    'IntrospectionBuilder.buildFromEnvironment': 'c4bccd11',
+    // VSTDM3: the analyzer 14 port edited both trees alike; the divergence
+    // itself is unchanged.
+    'IntrospectionBuilder.buildFromEnvironment': 'c1da1828',
   },
   'runtime_types.dart': {
     'InterpretedClass.createAndInitializeInstance': '06adb03e',

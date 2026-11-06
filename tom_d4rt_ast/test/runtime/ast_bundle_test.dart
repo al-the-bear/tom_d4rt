@@ -139,7 +139,7 @@ void main() {
 
     test('rejects JSON without entry point', () {
       final json = {
-        AstBundleFormat.keyVersion: '1.0',
+        AstBundleFormat.keyVersion: AstBundleFormat.version,
         AstBundleFormat.keyModules: {'main.dart': createTestUnit().toJson()},
       };
       expect(
@@ -150,7 +150,7 @@ void main() {
 
     test('rejects JSON without modules', () {
       final json = {
-        AstBundleFormat.keyVersion: '1.0',
+        AstBundleFormat.keyVersion: AstBundleFormat.version,
         AstBundleFormat.keyEntryPoint: 'main.dart',
       };
       expect(
@@ -161,7 +161,7 @@ void main() {
 
     test('rejects JSON with invalid module', () {
       final json = {
-        AstBundleFormat.keyVersion: '1.0',
+        AstBundleFormat.keyVersion: AstBundleFormat.version,
         AstBundleFormat.keyEntryPoint: 'main.dart',
         AstBundleFormat.keyModules: {'main.dart': 'not-a-map'},
       };
@@ -413,7 +413,7 @@ void main() {
   group('AstBundleManifest', () {
     test('round-trips via JSON', () {
       final original = AstBundleManifest(
-        version: '1.0',
+        version: AstBundleFormat.version,
         entryPoint: 'bin/main.dart',
         files: {'0.ast.json': 'bin/main.dart', '1.ast.json': 'lib/utils.dart'},
       );
@@ -421,7 +421,7 @@ void main() {
       final json = original.toJson();
       final restored = AstBundleManifest.fromJson(json);
 
-      expect(restored.version, '1.0');
+      expect(restored.version, AstBundleFormat.version);
       expect(restored.entryPoint, 'bin/main.dart');
       expect(restored.files.length, 2);
       expect(restored.files['0.ast.json'], 'bin/main.dart');
@@ -440,7 +440,7 @@ void main() {
     test('rejects JSON without entry point', () {
       expect(
         () => AstBundleManifest.fromJson({
-          AstBundleFormat.keyVersion: '1.0',
+          AstBundleFormat.keyVersion: AstBundleFormat.version,
           AstBundleFormat.keyFiles: {},
         }),
         throwsA(isA<ArgumentD4rtException>()),
@@ -450,7 +450,7 @@ void main() {
     test('rejects JSON without files', () {
       expect(
         () => AstBundleManifest.fromJson({
-          AstBundleFormat.keyVersion: '1.0',
+          AstBundleFormat.keyVersion: AstBundleFormat.version,
           AstBundleFormat.keyEntryPoint: 'main.dart',
         }),
         throwsA(isA<ArgumentD4rtException>()),
@@ -459,12 +459,12 @@ void main() {
 
     test('toString is descriptive', () {
       final manifest = AstBundleManifest(
-        version: '1.0',
+        version: AstBundleFormat.version,
         entryPoint: 'main.dart',
         files: {'0.ast.json': 'main.dart'},
       );
 
-      expect(manifest.toString(), contains('1.0'));
+      expect(manifest.toString(), contains(AstBundleFormat.version));
       expect(manifest.toString(), contains('main.dart'));
       expect(manifest.toString(), contains('1'));
     });

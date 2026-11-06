@@ -68,6 +68,8 @@ const _pairings = <Pairing>[
   Pairing(analyzer.ImportDirective, SImportDirective, {
     'uri': Mirrored('uri'),
     'prefix': Mirrored('prefix'),
+    // analyzer 14's token form of `prefix`, held by the same field.
+    'prefixName': Mirrored('prefix'),
     'configurations': Mirrored('configurations'),
     'combinators': Mirrored('combinators'),
     'metadata': Mirrored('metadata'),
@@ -103,7 +105,9 @@ const _pairings = <Pairing>[
     'resolvedUri': _resolutionOnly,
   }),
   Pairing(analyzer.DottedName, SDottedName, {
-    'components': Mirrored('components'),
+    // analyzer 14 holds the names as tokens, periods included; the mirror
+    // keeps the names, as analyzer 10's `components` did.
+    'tokens': Mirrored('components'),
   }),
 ];
 
