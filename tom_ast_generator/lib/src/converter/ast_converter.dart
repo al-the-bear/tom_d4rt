@@ -1658,7 +1658,7 @@ class AstConverter {
     return SArgumentList(
       offset: node.offset,
       length: node.length,
-      arguments: _nodesAs<SExpression>(node.arguments),
+      arguments: _nodesAs<SArgument>(node.arguments),
     );
   }
 
@@ -2192,7 +2192,16 @@ class AstConverter {
     for (final node in nodes) {
       final converted = convert(node);
       _rejectUnknown(converted, node);
-      if (converted is T) result.add(converted);
+      if (converted == null) continue;
+      // A node of another type is a converter defect, not something to drop:
+      // filtering here once discarded every named argument in silence.
+      if (converted is! T) {
+        throw StateError(
+          'AstConverter: ${node.runtimeType} at offset ${node.offset} became '
+          '${converted.runtimeType}, which is not a $T',
+        );
+      }
+      result.add(converted);
     }
     return result;
   }
