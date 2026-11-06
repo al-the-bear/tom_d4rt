@@ -16,7 +16,7 @@ environment:
 # The generator uses the analyzer to parse Dart source files.
 dependencies:
   # Analyzer for parsing Dart source files
-  analyzer: ^10.0.0
+  analyzer: ^14.5.0
 
   # CLI argument parsing
   args: ^2.7.0
@@ -25,7 +25,7 @@ dependencies:
   path: ^1.9.0
 
   # Build system integration
-  build: ^4.0.4
+  build: ">=4.0.4 <6.0.0"
   glob: ^2.1.0
   yaml: ^3.1.0
   
@@ -63,8 +63,8 @@ dependencies:
   # version — otherwise a stale `.sum` throws "Missing library" while linking a
   # subclass's supertype, which the generator swallows and silently drops the
   # affected classes (observed: the JWT bridge surface vanishing, RCJ6).
-  tom_analyzer_shared: ^0.7.6
-  dart_style: ^3.1.7
+  tom_analyzer_shared: ^0.8.0
+  dart_style: ^3.1.11
   pub_semver: ^2.2.1
 
 executables:

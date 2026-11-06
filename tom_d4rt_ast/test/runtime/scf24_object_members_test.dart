@@ -36,22 +36,26 @@ SMethodInvocation _call(SExpression? target, String method) =>
 SClassDeclaration _class({SExpression? toStringBody}) => SClassDeclaration(
   offset: 0,
   length: 0,
-  name: _id('C'),
-  members: [
-    if (toStringBody != null)
-      SMethodDeclaration(
-        offset: 0,
-        length: 0,
-        name: _id('toString'),
-        returnType: SNamedType(offset: 0, length: 0, name: _id('String')),
-        parameters: _noParams(),
-        body: SExpressionFunctionBody(
+  namePart: SNameWithTypeParameters(offset: 0, length: 0, typeName: _id('C')),
+  body: SBlockClassBody(
+    offset: 0,
+    length: 0,
+    members: [
+      if (toStringBody != null)
+        SMethodDeclaration(
           offset: 0,
           length: 0,
-          expression: toStringBody,
+          name: _id('toString'),
+          returnType: SNamedType(offset: 0, length: 0, name: _id('String')),
+          parameters: _noParams(),
+          body: SExpressionFunctionBody(
+            offset: 0,
+            length: 0,
+            expression: toStringBody,
+          ),
         ),
-      ),
-  ],
+    ],
+  ),
 );
 
 /// `main() => C().toString();`

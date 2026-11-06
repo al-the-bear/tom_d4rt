@@ -287,8 +287,8 @@ class InterpretedFunction implements Callable {
       for (final param in params) {
         final paramType = _paramRuntimeType(param, env);
         if (param.isNamed) {
-          named[_paramName(param) ?? ''] = paramType;
-        } else if (param.isOptional) {
+          named[param.name?.name ?? ''] = paramType;
+        } else if (param.isOptionalPositional) {
           optionalPositional.add(paramType);
         } else {
           positional.add(paramType);
@@ -323,29 +323,18 @@ class InterpretedFunction implements Callable {
     return _resolveTypeAnnotationDynamic(typeNode, env);
   }
 
-  /// DFUB5: the declared name of a formal parameter, unwrapping a
-  /// [SDefaultFormalParameter] (which reports a null `parameterName`) to its
-  /// inner normal parameter.
-  static String? _paramName(SFormalParameter param) {
-    final normal = param is SDefaultFormalParameter ? param.parameter : param;
-    return normal?.parameterName;
-  }
-
   /// DFUB5: resolve a single formal parameter's declared type, falling back to
   /// `dynamic` when unannotated or unresolvable.
   static RuntimeType _paramRuntimeType(
     SFormalParameter param,
     Environment env,
   ) {
-    final normal = param is SDefaultFormalParameter ? param.parameter : param;
-    STypeAnnotation? typeNode;
-    if (normal is SSimpleFormalParameter) {
-      typeNode = normal.type;
-    } else if (normal is SFieldFormalParameter) {
-      typeNode = normal.type;
-    } else if (normal is SSuperFormalParameter) {
-      typeNode = normal.type;
-    }
+    // A function-typed parameter (`int cb(String)`) carries its RETURN type in
+    // `type`, so it has no single annotation to resolve here.
+    final STypeAnnotation? typeNode =
+        param is SRegularFormalParameter && param.functionTypedSuffix != null
+        ? null
+        : param.type;
     if (typeNode == null) {
       return const NamedRuntimeType('dynamic');
     }
@@ -370,23 +359,16 @@ class InterpretedFunction implements Callable {
   /// equivalent exemption.
   static Object? _checkArgumentType(
     Environment env,
-    SAstNode param,
+    SFormalParameter param,
     String paramName,
     Object? value,
   ) {
-    final STypeAnnotation? typeNode;
-    if (param is SSimpleFormalParameter) {
-      typeNode = param.type;
-    } else if (param is SFieldFormalParameter) {
-      typeNode = param.type;
-    } else if (param is SSuperFormalParameter) {
-      typeNode = param.type;
-    } else {
-      // SFunctionTypedFormalParameter (`void f(int cb(String))`) — a structural
-      // shape, handled like the other structural annotations below.
+    // A function-typed parameter (`void f(int cb(String))`) is a structural
+    // shape, handled like the annotation check's own structural exits.
+    if (param is SRegularFormalParameter && param.functionTypedSuffix != null) {
       return value;
     }
-    return checkBindingType(env, typeNode, value, describedAs: paramName);
+    return checkBindingType(env, param.type, value, describedAs: paramName);
   }
 
   /// The value to bind to a written type [typeNode], after checking it and
@@ -612,8 +594,8 @@ class InterpretedFunction implements Callable {
       for (final param in params) {
         final paramType = _paramRuntimeType(param, _closure);
         if (param.isNamed) {
-          named[_paramName(param) ?? ''] = paramType;
-        } else if (param.isOptional) {
+          named[param.name?.name ?? ''] = paramType;
+        } else if (param.isOptionalPositional) {
           optionalPositional.add(paramType);
         } else {
           positional.add(paramType);
@@ -782,21 +764,7 @@ class InterpretedFunction implements Callable {
     // Original logic for required positional parameters
     final params = _parameters?.parameters;
     if (params == null) return 0;
-    return params
-        .where(
-          (p) =>
-              p is SSimpleFormalParameter ||
-              p is SFieldFormalParameter ||
-              p is SFunctionTypedFormalParameter ||
-              p is SSuperFormalParameter,
-        )
-        .where((p) {
-          if (p is SSimpleFormalParameter) {
-            return p.isPositional && p.isRequired;
-          }
-          return true; // Other NormalFormalParameter-like types are required positional by default
-        })
-        .length;
+    return params.where((p) => p.isRequiredPositional).length;
   }
 
   /// The number of positional parameters this function *can* accept — required
@@ -812,18 +780,7 @@ class InterpretedFunction implements Callable {
   int get maxPositionalArity {
     final params = _parameters?.parameters;
     if (params == null) return 0;
-    return params.where((p) {
-      if (p is SSimpleFormalParameter) return p.isPositional;
-      if (p is SDefaultFormalParameter) return p.isPositional;
-      if (p is SFieldFormalParameter) {
-        return true; // this.x params are positional
-      }
-      if (p is SSuperFormalParameter) {
-        return true; // super.x params are positional
-      }
-      if (p is SFunctionTypedFormalParameter) return true;
-      return false;
-    }).length;
+    return params.where((p) => p.isPositional).length;
   }
 
   /// GEN-095 (D8f): true when the function can be called with no arguments,
@@ -837,26 +794,16 @@ class InterpretedFunction implements Callable {
     final params = _parameters?.parameters;
     if (params == null || params.isEmpty) return true;
     for (final param in params) {
-      SAstNode actualParam = param;
-      if (param is SDefaultFormalParameter) {
-        // Optional positional or optional-named — fine to skip; but a
-        // required-named (`{required ...}`) is still missing without args.
-        actualParam = param.parameter ?? param;
-        if (param.isNamed &&
-            actualParam is SSimpleFormalParameter &&
-            actualParam.isRequired) {
-          return false;
-        }
+      // Optional positional is fine to omit; required-named
+      // (`{required ...}`) is not. A required `super.x` named parameter has
+      // never been counted as required here.
+      if (param.isOptionalPositional) continue;
+      if (param.isNamed) {
+        if (param.isRequired && param is! SSuperFormalParameter) return false;
         continue;
       }
-      if (actualParam is SSimpleFormalParameter) {
-        if (actualParam.isPositional && actualParam.isRequired) return false;
-        if (actualParam.isNamed && actualParam.isRequired) return false;
-      } else if (actualParam is SFieldFormalParameter ||
-          actualParam is SFunctionTypedFormalParameter ||
-          actualParam is SSuperFormalParameter) {
-        return false;
-      }
+      // A required positional parameter of any shape.
+      return false;
     }
     return true;
   }
@@ -865,34 +812,10 @@ class InterpretedFunction implements Callable {
   List<String> get positionalParameterNames {
     final params = _parameters?.parameters;
     if (params == null) return [];
+    // `super.x` parameters are not listed, as they never were.
     return params
-        .where((p) {
-          if (p is SSimpleFormalParameter) return p.isPositional;
-          if (p is SDefaultFormalParameter) return p.isPositional;
-          if (p is SFieldFormalParameter) return true;
-          if (p is SSuperFormalParameter) return true;
-          if (p is SFunctionTypedFormalParameter) return true;
-          return false;
-        })
-        .map((p) {
-          if (p is SSimpleFormalParameter) {
-            return p.name?.name ?? '';
-          } else if (p is SDefaultFormalParameter) {
-            final inner = p.parameter;
-            if (inner is SSimpleFormalParameter) {
-              return inner.name?.name ?? '';
-            } else if (inner is SFieldFormalParameter) {
-              return inner.name?.name ?? '';
-            } else if (inner is SFunctionTypedFormalParameter) {
-              return inner.name?.name ?? '';
-            }
-          } else if (p is SFieldFormalParameter) {
-            return p.name?.name ?? '';
-          } else if (p is SFunctionTypedFormalParameter) {
-            return p.name?.name ?? '';
-          }
-          return '';
-        })
+        .where((p) => p.isPositional && p is! SSuperFormalParameter)
+        .map((p) => p.name?.name ?? '')
         .where((n) => n.isNotEmpty)
         .toList();
   }
@@ -901,25 +824,10 @@ class InterpretedFunction implements Callable {
   List<String> get namedParameterNames {
     final params = _parameters?.parameters;
     if (params == null) return [];
+    // `super.x` parameters are not listed, as they never were.
     return params
-        .where((p) {
-          if (p is SSimpleFormalParameter) return p.isNamed;
-          if (p is SDefaultFormalParameter) return p.isNamed;
-          return false;
-        })
-        .map((p) {
-          if (p is SDefaultFormalParameter) {
-            final inner = p.parameter;
-            if (inner is SSimpleFormalParameter) {
-              return inner.name?.name ?? '';
-            } else if (inner is SFieldFormalParameter) {
-              return inner.name?.name ?? '';
-            } else if (inner is SFunctionTypedFormalParameter) {
-              return inner.name?.name ?? '';
-            }
-          }
-          return '';
-        })
+        .where((p) => p.isNamed && p is! SSuperFormalParameter)
+        .map((p) => p.name?.name ?? '')
         .where((n) => n.isNotEmpty)
         .toList();
   }
@@ -1125,7 +1033,7 @@ class InterpretedFunction implements Callable {
     if (params != null) {
       for (final param in params) {
         String? paramName;
-        SAstNode? defaultValueExpr;
+        SExpression? defaultValueExpr;
         bool isRequired = false;
         bool isOptionalPositional = false;
         bool isNamed = false;
@@ -1133,54 +1041,22 @@ class InterpretedFunction implements Callable {
         bool isFieldInitializing = false; // NEW flag
         bool isSuperParameter = false; // Bug-96: super.param forwarding
 
-        // Determine parameter info
-        SAstNode actualParam =
-            param; // Handle potential SDefaultFormalParameter wrapper
-        if (param is SDefaultFormalParameter) {
-          defaultValueExpr = param.defaultValue;
-          actualParam = param.parameter ?? param;
-        }
-
-        if (actualParam is SSimpleFormalParameter) {
-          paramName = actualParam.name?.name;
-          isRequired = actualParam.isPositional && actualParam.isRequired;
-          isOptionalPositional =
-              actualParam.isPositional && !actualParam.isRequired;
-          isNamed = actualParam.isNamed;
-          isRequiredNamed = actualParam.isNamed && actualParam.isRequired;
-        } else if (actualParam is SFieldFormalParameter) {
-          paramName = actualParam.name?.name;
-          isRequired = true;
+        // Determine parameter info. A default value is the parameter's own
+        // default clause.
+        final SFormalParameter actualParam = param;
+        defaultValueExpr = param.defaultClause?.value;
+        paramName = actualParam.name?.name;
+        isRequired = actualParam.isRequiredPositional;
+        isOptionalPositional = actualParam.isOptionalPositional;
+        isNamed = actualParam.isNamed;
+        isRequiredNamed = actualParam.isRequiredNamed;
+        // Check if it's specifically a field-initializing parameter (this.x)
+        if (actualParam is SFieldFormalParameter) {
           isFieldInitializing = true;
-        } else if (actualParam is SFunctionTypedFormalParameter) {
-          paramName = actualParam.name?.name;
-          isRequired = true;
-        } else if (actualParam is SSuperFormalParameter) {
-          paramName = actualParam.name?.name;
-          isRequired = true;
-          isSuperParameter = true;
-        } else {
-          throw UnimplementedD4rtException(
-            "Unsupported parameter kind after unwrapping SDefaultFormalParameter: ${actualParam.runtimeType}",
-          );
         }
-
-        // Override with SDefaultFormalParameter info if wrapped
-        if (param is SDefaultFormalParameter) {
-          if (param.isNamed) {
-            isNamed = true;
-            isRequired = false;
-            isOptionalPositional = false;
-            // Check if required named - SDefaultFormalParameter doesn't have isRequired,
-            // but inner SSimpleFormalParameter does
-            if (actualParam is SSimpleFormalParameter &&
-                actualParam.isRequired) {
-              isRequiredNamed = true;
-            }
-          } else if (param.isPositional) {
-            isOptionalPositional = true;
-            isRequired = false;
-          }
+        // Bug-96: Check if it's a super-forwarding parameter (super.x)
+        if (actualParam is SSuperFormalParameter) {
+          isSuperParameter = true;
         }
 
         if (paramName == null) {
@@ -1629,8 +1505,8 @@ class InterpretedFunction implements Callable {
                   );
                 }
 
-                if (arg is SNamedExpression) {
-                  final name = arg.name!.label!.name;
+                if (arg is SNamedArgument) {
+                  final name = arg.name.name;
                   // Use already evaluated value
                   if (targetNamedArgs.containsKey(name)) {
                     throw RuntimeD4rtException(
@@ -4251,7 +4127,7 @@ class InterpretedFunction implements Callable {
           return node;
         }
       } else if (node is SLabeledStatement &&
-          node.labels.any((l) => l.label?.name == label)) {
+          node.labels.any((l) => l.name.name == label)) {
         SAstNode? statement = node.statement;
         while (statement is SLabeledStatement) {
           statement = statement.statement;
@@ -6396,9 +6272,9 @@ class InterpretedFunction implements Callable {
       // A named argument is unwrapped here rather than dispatched: dispatching
       // it and *then* re-reading `arg.expression` below would evaluate the
       // argument twice, running its side effects twice.
-      if (arg is SNamedExpression) {
-        final name = arg.name!.label!.name;
-        final value = arg.expression!.accept<Object?>(
+      if (arg is SNamedArgument) {
+        final name = arg.name.name;
+        final value = arg.argumentExpression.accept<Object?>(
           visitor,
         ); // Evaluate the expression part
         Logger.debug(
@@ -6722,7 +6598,7 @@ class _LazySyncGeneratorIterator implements Iterator<Object?> {
     // For while/for loops, we need to handle them specially
     // because we need to resume execution after yielding
     if (statement is SLabeledStatement) {
-      final labelSet = statement.labels.map((l) => l.label!.name).toSet();
+      final labelSet = statement.labels.map((l) => l.name.name).toSet();
       yield* _executeStatementWithYieldSuspension(
         statement.statement!,
         labels: labelSet,
@@ -7598,30 +7474,20 @@ class InterpretedExtensionMethod implements ExtensionMemberCallable {
     if (params != null) {
       for (final param in params) {
         String? paramName;
-        SAstNode? defaultValueExpr;
+        SExpression? defaultValueExpr;
         bool isRequired = false;
         bool isOptionalPositional = false;
         bool isNamed = false;
         bool isRequiredNamed = false;
 
         // Determine the parameter info (copied from InterpretedFunction)
-        SAstNode actualParam = param;
-        if (param is SDefaultFormalParameter) {
-          defaultValueExpr = param.defaultValue;
-          actualParam = param.parameter ?? param;
-        }
-        if (actualParam is SSimpleFormalParameter) {
-          paramName = actualParam.name?.name;
-          isRequired = actualParam.isPositional && actualParam.isRequired;
-          isOptionalPositional =
-              actualParam.isPositional && !actualParam.isRequired;
-          isNamed = actualParam.isNamed;
-          isRequiredNamed = actualParam.isNamed && actualParam.isRequired;
-        } else {
-          throw UnimplementedD4rtException(
-            "Unsupported parameter kind in extension method: ${actualParam.runtimeType}",
-          );
-        }
+        final SFormalParameter actualParam = param;
+        defaultValueExpr = param.defaultClause?.value;
+        paramName = actualParam.name?.name;
+        isRequired = actualParam.isRequiredPositional;
+        isOptionalPositional = actualParam.isOptionalPositional;
+        isNamed = actualParam.isNamed;
+        isRequiredNamed = actualParam.isRequiredNamed;
         if (paramName == null) {
           throw StateD4rtException("Extension parameter missing name");
         }
@@ -7670,11 +7536,7 @@ class InterpretedExtensionMethod implements ExtensionMemberCallable {
 
       // Final argument checks (copied from InterpretedFunction)
       final int totalPositionalDeclared = params
-          .where(
-            (p) =>
-                (p is SSimpleFormalParameter && p.isPositional) ||
-                (p is SDefaultFormalParameter && p.isPositional),
-          )
+          .where((p) => p.isPositional)
           .length;
       if (positionalArgIndex < positionalArguments.length) {
         throw RuntimeD4rtException(

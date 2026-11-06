@@ -96,7 +96,7 @@ void main() {
           offset: next(),
           length: 1,
           parameters: [
-            SSimpleFormalParameter(
+            SRegularFormalParameter(
               offset: next(),
               length: 2,
               name: id('cb'),

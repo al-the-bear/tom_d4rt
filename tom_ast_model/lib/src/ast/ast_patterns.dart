@@ -1282,6 +1282,7 @@ class SSwitchPatternCase extends SSwitchMember {
   @override
   final int length;
 
+  @override
   final List<SLabel> labels;
   final SGuardedPattern guardedPattern;
   @override

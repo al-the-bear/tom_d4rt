@@ -15,13 +15,13 @@ class DeclarationVisitor extends GeneralizingSAstVisitor<void> {
 
   @override
   void visitClassDeclaration(SClassDeclaration node) {
-    final className = node.name?.name ?? '';
+    final className = node.namePart.typeName.name;
     if (environment.isDefinedLocally(className)) {
       return;
     }
 
     // Extract type parameter information
-    final typeParameters = node.typeParameters;
+    final typeParameters = node.namePart.typeParameters;
     Environment? tempEnvironment;
 
     if (typeParameters != null) {
@@ -138,13 +138,15 @@ class DeclarationVisitor extends GeneralizingSAstVisitor<void> {
 
   @override
   void visitEnumDeclaration(SEnumDeclaration node) {
-    final enumName = node.name?.name ?? '';
+    final enumName = node.namePart.typeName.name;
     if (environment.isDefinedLocally(enumName)) {
       return;
     }
 
     // Extract constant names - needed for ordering later
-    final valueNames = node.constants.map((c) => c.name?.name ?? '').toList();
+    final valueNames = node.body.constants
+        .map((c) => c.name?.name ?? '')
+        .toList();
 
     // Create the placeholder enum runtime object, storing only names for now
     final enumPlaceholder = InterpretedEnum.placeholder(

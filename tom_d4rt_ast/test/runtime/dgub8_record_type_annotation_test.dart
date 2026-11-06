@@ -75,11 +75,11 @@ SRecordLiteral recordLiteral({
   fields: [
     ...positional,
     for (final entry in named.entries)
-      SNamedExpression(
+      SRecordLiteralNamedField(
         offset: 0,
         length: 0,
-        name: SLabel(offset: 0, length: 0, label: ident(entry.key)),
-        expression: entry.value,
+        name: ident(entry.key),
+        fieldExpression: entry.value,
       ),
   ],
 );

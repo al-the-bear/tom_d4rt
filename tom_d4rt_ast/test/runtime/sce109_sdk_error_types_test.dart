@@ -145,7 +145,7 @@ void main() {
           offset: next(),
           length: 0,
           parameters: [
-            SSimpleFormalParameter(offset: next(), length: 0, name: id('e')),
+            SRegularFormalParameter(offset: next(), length: 0, name: id('e')),
           ],
         ),
         body: SExpressionFunctionBody(

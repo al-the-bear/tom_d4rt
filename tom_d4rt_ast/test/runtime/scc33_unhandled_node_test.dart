@@ -95,15 +95,11 @@ void main() {
     test('F-SCC33-AST-3: a named argument evaluates to its expression, not to '
         'null [2026-09-05]', () {
       final visitor = makeVisitor();
-      final node = SNamedExpression(
+      final node = SNamedArgument(
         offset: 0,
         length: 4,
-        name: SLabel(
-          offset: 0,
-          length: 2,
-          label: SSimpleIdentifier(offset: 0, length: 1, name: 'a'),
-        ),
-        expression: SIntegerLiteral(offset: 3, length: 1, value: 7),
+        name: SSimpleIdentifier(offset: 0, length: 1, name: 'a'),
+        argumentExpression: SIntegerLiteral(offset: 3, length: 1, value: 7),
       );
 
       // Before SCC33 this answered `null`, so every site that *dispatched* a

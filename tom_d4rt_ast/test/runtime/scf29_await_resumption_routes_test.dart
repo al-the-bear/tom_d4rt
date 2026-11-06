@@ -91,7 +91,7 @@ SFunctionDeclarationStatement _localFn(
         length: 0,
         parameters: [
           for (final p in params)
-            SSimpleFormalParameter(offset: 0, length: 0, name: _id(p)),
+            SRegularFormalParameter(offset: 0, length: 0, name: _id(p)),
         ],
       ),
       body: body,

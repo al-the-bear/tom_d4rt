@@ -12,7 +12,7 @@ class AstConverter {
   /// Convert a compilation unit
   SCompilationUnit convertCompilationUnit(analyzer.CompilationUnit unit) {
     final directives = <SDirective>[];
-    final declarations = <SDeclaration>[];
+    final declarations = <SCompilationUnitMember>[];
     final comments = <SComment>[];
 
     // Convert directives
@@ -34,7 +34,7 @@ class AstConverter {
       final converted = convert(declaration);
       _rejectUnknown(converted, declaration);
       if (converted != null) {
-        declarations.add(converted as SDeclaration);
+        declarations.add(converted as SCompilationUnitMember);
       }
     }
 
@@ -116,8 +116,6 @@ class AstConverter {
     // Expressions
     if (node is analyzer.SimpleIdentifier)
       return _convertSimpleIdentifier(node);
-    if (node is analyzer.LibraryIdentifier)
-      return _convertLibraryIdentifier(node);
     if (node is analyzer.PrefixedIdentifier)
       return _convertPrefixedIdentifier(node);
     if (node is analyzer.BinaryExpression)
@@ -152,7 +150,9 @@ class AstConverter {
       return _convertCascadeExpression(node);
     if (node is analyzer.RethrowExpression)
       return _convertRethrowExpression(node);
-    if (node is analyzer.NamedExpression) return _convertNamedExpression(node);
+    if (node is analyzer.NamedArgument) return _convertNamedArgument(node);
+    if (node is analyzer.RecordLiteralNamedField)
+      return _convertRecordLiteralNamedField(node);
     if (node is analyzer.SpreadElement) return _convertSpreadElement(node);
     if (node is analyzer.NullAwareElement)
       return _convertNullAwareElement(node);
@@ -192,16 +192,7 @@ class AstConverter {
     // Parameters
     if (node is analyzer.FormalParameterList)
       return _convertFormalParameterList(node);
-    if (node is analyzer.SimpleFormalParameter)
-      return _convertSimpleFormalParameter(node);
-    if (node is analyzer.DefaultFormalParameter)
-      return _convertDefaultFormalParameter(node);
-    if (node is analyzer.FieldFormalParameter)
-      return _convertFieldFormalParameter(node);
-    if (node is analyzer.FunctionTypedFormalParameter)
-      return _convertFunctionTypedFormalParameter(node);
-    if (node is analyzer.SuperFormalParameter)
-      return _convertSuperFormalParameter(node);
+    if (node is analyzer.FormalParameter) return _convertFormalParameter(node);
 
     // Function bodies
     if (node is analyzer.BlockFunctionBody)
@@ -226,6 +217,7 @@ class AstConverter {
     if (node is analyzer.Annotation) return _convertAnnotation(node);
     if (node is analyzer.Comment) return _convertComment(node);
     if (node is analyzer.Label) return _convertLabel(node);
+    if (node is analyzer.LabelReference) return _convertLabelReference(node);
     if (node is analyzer.ExtendsClause) return _convertExtendsClause(node);
     if (node is analyzer.ImplementsClause)
       return _convertImplementsClause(node);
@@ -336,8 +328,6 @@ class AstConverter {
     // Extension types
     if (node is analyzer.ExtensionTypeDeclaration)
       return _convertExtensionTypeDeclaration(node);
-    if (node is analyzer.RepresentationDeclaration)
-      return _convertRepresentationDeclaration(node);
 
     // Unknown node type - return a placeholder
     return _SUnknownNode(
@@ -351,8 +341,12 @@ class AstConverter {
   // Helper to convert token to SSimpleIdentifier
   // ============================================================================
 
-  SSimpleIdentifier? _tokenToIdentifier(analyzer.Token? token) {
-    if (token == null) return null;
+  SSimpleIdentifier? _tokenToIdentifier(analyzer.Token? token) =>
+      token == null ? null : _nameToken(token);
+
+  /// A name the analyzer holds as a token (a declared name, a label, a named
+  /// argument's name). It names; it does not read a variable.
+  SSimpleIdentifier _nameToken(analyzer.Token token) {
     return SSimpleIdentifier(
       offset: token.offset,
       length: token.length,
@@ -410,7 +404,6 @@ class AstConverter {
     return SClassDeclaration(
       offset: node.offset,
       length: node.length,
-      name: _tokenToIdentifier(node.name),
       metadata: _convertAnnotations(node.metadata),
       isAbstract: node.abstractKeyword != null,
       isSealed: node.sealedKeyword != null,
@@ -418,10 +411,61 @@ class AstConverter {
       isInterface: node.interfaceKeyword != null,
       isFinal: node.finalKeyword != null,
       isMixin: node.mixinKeyword != null,
-      typeParameters: convert(node.typeParameters) as STypeParameterList?,
+      namePart: _convertClassNamePart(node.namePart),
       extendsClause: convert(node.extendsClause) as SExtendsClause?,
       withClause: convert(node.withClause) as SWithClause?,
       implementsClause: convert(node.implementsClause) as SImplementsClause?,
+      body: _convertClassBody(node.body),
+    );
+  }
+
+  /// A class-like declaration's name with its type parameters, or an
+  /// extension type's primary constructor.
+  SClassNamePart _convertClassNamePart(analyzer.ClassNamePart node) {
+    return switch (node) {
+      analyzer.PrimaryConstructorDeclaration() =>
+        SPrimaryConstructorDeclaration(
+          offset: node.offset,
+          length: node.length,
+          typeName: _nameToken(node.typeName),
+          typeParameters: convert(node.typeParameters) as STypeParameterList?,
+          isConst: node.constKeyword != null,
+          constructorName: node.constructorName != null
+              ? _tokenToIdentifier(node.constructorName!.name)
+              : null,
+          formalParameters: _convertFormalParameterList(node.formalParameters),
+        ),
+      analyzer.NameWithTypeParameters() => SNameWithTypeParameters(
+        offset: node.offset,
+        length: node.length,
+        typeName: _nameToken(node.typeName),
+        typeParameters: convert(node.typeParameters) as STypeParameterList?,
+      ),
+    };
+  }
+
+  SClassBody _convertClassBody(analyzer.ClassBody node) {
+    return switch (node) {
+      analyzer.BlockClassBody() => SBlockClassBody(
+        offset: node.offset,
+        length: node.length,
+        members: _nodesAs<SClassMember>(node.members),
+      ),
+      analyzer.EmptyClassBody() => SEmptyClassBody(
+        offset: node.offset,
+        length: node.length,
+      ),
+    };
+  }
+
+  SEnumBody _convertEnumBody(analyzer.EnumBody node) {
+    if (node is analyzer.EmptyEnumBody) {
+      return SEmptyEnumBody(offset: node.offset, length: node.length);
+    }
+    return SBlockEnumBody(
+      offset: node.offset,
+      length: node.length,
+      constants: _convertNodes(node.constants).cast<SEnumConstantDeclaration>(),
       members: _nodesAs<SClassMember>(node.members),
     );
   }
@@ -435,7 +479,7 @@ class AstConverter {
       typeParameters: convert(node.typeParameters) as STypeParameterList?,
       onClause: _convertOnClause(node.onClause),
       implementsClause: convert(node.implementsClause) as SImplementsClause?,
-      members: _nodesAs<SClassMember>(node.members),
+      body: _convertClassBody(node.body),
     );
   }
 
@@ -443,13 +487,11 @@ class AstConverter {
     return SEnumDeclaration(
       offset: node.offset,
       length: node.length,
-      name: _tokenToIdentifier(node.name),
       metadata: _convertAnnotations(node.metadata),
-      typeParameters: convert(node.typeParameters) as STypeParameterList?,
+      namePart: _convertClassNamePart(node.namePart),
       withClause: convert(node.withClause) as SWithClause?,
       implementsClause: convert(node.implementsClause) as SImplementsClause?,
-      constants: _convertNodes(node.constants).cast<SEnumConstantDeclaration>(),
-      members: _nodesAs<SClassMember>(node.members),
+      body: _convertEnumBody(node.body),
     );
   }
 
@@ -463,7 +505,7 @@ class AstConverter {
       metadata: _convertAnnotations(node.metadata),
       typeParameters: convert(node.typeParameters) as STypeParameterList?,
       extendedType: _as<STypeAnnotation>(node.onClause?.extendedType),
-      members: _nodesAs<SClassMember>(node.members),
+      body: _convertClassBody(node.body),
     );
   }
 
@@ -513,6 +555,7 @@ class AstConverter {
       offset: node.offset,
       length: node.length,
       name: node.name != null ? _tokenToIdentifier(node.name!) : null,
+      typeName: convert(node.typeName) as SSimpleIdentifier?,
       metadata: _convertAnnotations(node.metadata),
       isConst: node.constKeyword != null,
       isFactory: node.factoryKeyword != null,
@@ -833,9 +876,7 @@ class AstConverter {
     return SBreakStatement(
       offset: node.offset,
       length: node.length,
-      label: node.label != null
-          ? convert(node.label!) as SSimpleIdentifier?
-          : null,
+      label: convert(node.label) as SLabelReference?,
     );
   }
 
@@ -845,9 +886,7 @@ class AstConverter {
     return SContinueStatement(
       offset: node.offset,
       length: node.length,
-      label: node.label != null
-          ? convert(node.label!) as SSimpleIdentifier?
-          : null,
+      label: convert(node.label) as SLabelReference?,
     );
   }
 
@@ -1098,12 +1137,23 @@ class AstConverter {
     return SRethrowExpression(offset: node.offset, length: node.length);
   }
 
-  SNamedExpression _convertNamedExpression(analyzer.NamedExpression node) {
-    return SNamedExpression(
+  SNamedArgument _convertNamedArgument(analyzer.NamedArgument node) {
+    return SNamedArgument(
       offset: node.offset,
       length: node.length,
-      name: convert(node.name) as SLabel?,
-      expression: _as<SExpression>(node.expression),
+      name: _nameToken(node.name),
+      argumentExpression: _as<SExpression>(node.argumentExpression)!,
+    );
+  }
+
+  SRecordLiteralNamedField _convertRecordLiteralNamedField(
+    analyzer.RecordLiteralNamedField node,
+  ) {
+    return SRecordLiteralNamedField(
+      offset: node.offset,
+      length: node.length,
+      name: _nameToken(node.name),
+      fieldExpression: _as<SExpression>(node.fieldExpression)!,
     );
   }
 
@@ -1270,7 +1320,7 @@ class AstConverter {
       offset: node.offset,
       length: node.length,
       isConst: node.constKeyword != null,
-      fields: _nodesAs<SExpression>(node.fields),
+      fields: _nodesAs<SRecordLiteralField>(node.fields),
     );
   }
 
@@ -1374,77 +1424,82 @@ class AstConverter {
     );
   }
 
-  SSimpleFormalParameter _convertSimpleFormalParameter(
-    analyzer.SimpleFormalParameter node,
-  ) {
-    return SSimpleFormalParameter(
-      offset: node.offset,
-      length: node.length,
-      metadata: _convertAnnotations(node.metadata),
-      type: _as<STypeAnnotation>(node.type),
-      name: node.name != null ? _tokenToIdentifier(node.name!) : null,
-      isCovariant: node.covariantKeyword != null,
-      isRequired: node.isRequired,
-      isPositional: node.isPositional,
-      isNamed: node.isNamed,
-      isFinal: node.keyword?.lexeme == 'final',
-    );
-  }
-
-  SDefaultFormalParameter _convertDefaultFormalParameter(
-    analyzer.DefaultFormalParameter node,
-  ) {
-    return SDefaultFormalParameter(
-      offset: node.offset,
-      length: node.length,
-      parameter: _as<SNormalFormalParameter>(node.parameter),
-      defaultValue: _as<SExpression>(node.defaultValue),
-      isNamed: node.isNamed,
-    );
-  }
-
-  SFieldFormalParameter _convertFieldFormalParameter(
-    analyzer.FieldFormalParameter node,
-  ) {
-    return SFieldFormalParameter(
-      offset: node.offset,
-      length: node.length,
-      metadata: _convertAnnotations(node.metadata),
-      type: _as<STypeAnnotation>(node.type),
-      name: _tokenToIdentifier(node.name),
-      parameters: convert(node.parameters) as SFormalParameterList?,
-      isRequired: node.isRequired,
-      isFinal: node.keyword?.lexeme == 'final',
-    );
-  }
-
-  SFunctionTypedFormalParameter _convertFunctionTypedFormalParameter(
-    analyzer.FunctionTypedFormalParameter node,
-  ) {
-    return SFunctionTypedFormalParameter(
-      offset: node.offset,
-      length: node.length,
-      metadata: _convertAnnotations(node.metadata),
-      returnType: _as<STypeAnnotation>(node.returnType),
-      name: _tokenToIdentifier(node.name),
-      typeParameters: convert(node.typeParameters) as STypeParameterList?,
-      parameters: convert(node.parameters) as SFormalParameterList?,
-      isRequired: node.isRequired,
-    );
-  }
-
-  SSuperFormalParameter _convertSuperFormalParameter(
-    analyzer.SuperFormalParameter node,
-  ) {
-    return SSuperFormalParameter(
-      offset: node.offset,
-      length: node.length,
-      metadata: _convertAnnotations(node.metadata),
-      type: _as<STypeAnnotation>(node.type),
-      name: _tokenToIdentifier(node.name),
-      typeParameters: convert(node.typeParameters) as STypeParameterList?,
-      parameters: convert(node.parameters) as SFormalParameterList?,
-    );
+  /// One formal parameter. analyzer 13 folded the default-value wrapper and
+  /// the function-typed shape into the parameter itself, so this copies its
+  /// kind, its default clause and its function-typed suffix field for field.
+  SFormalParameter _convertFormalParameter(analyzer.FormalParameter node) {
+    final metadata = _convertAnnotations(node.metadata);
+    final type = _as<STypeAnnotation>(node.type);
+    final name = node.name != null ? _tokenToIdentifier(node.name!) : null;
+    final isConst = node.isConst;
+    final isFinal = node.isFinal;
+    final isCovariant = node.covariantKeyword != null;
+    final isRequired = node.isRequired;
+    final isNamed = node.isNamed;
+    final defaultClause = node.defaultClause == null
+        ? null
+        : SFormalParameterDefaultClause(
+            offset: node.defaultClause!.offset,
+            length: node.defaultClause!.length,
+            value: _as<SExpression>(node.defaultClause!.value)!,
+          );
+    final suffix = node.functionTypedSuffix;
+    final functionTypedSuffix = suffix == null
+        ? null
+        : SFunctionTypedFormalParameterSuffix(
+            offset: suffix.offset,
+            length: suffix.length,
+            typeParameters:
+                convert(suffix.typeParameters) as STypeParameterList?,
+            formalParameters: _convertFormalParameterList(
+              suffix.formalParameters,
+            ),
+            isNullable: suffix.question != null,
+          );
+    return switch (node) {
+      analyzer.FieldFormalParameter() => SFieldFormalParameter(
+        offset: node.offset,
+        length: node.length,
+        metadata: metadata,
+        type: type,
+        name: name,
+        isConst: isConst,
+        isFinal: isFinal,
+        isCovariant: isCovariant,
+        isRequired: isRequired,
+        isNamed: isNamed,
+        defaultClause: defaultClause,
+        functionTypedSuffix: functionTypedSuffix,
+      ),
+      analyzer.SuperFormalParameter() => SSuperFormalParameter(
+        offset: node.offset,
+        length: node.length,
+        metadata: metadata,
+        type: type,
+        name: name,
+        isConst: isConst,
+        isFinal: isFinal,
+        isCovariant: isCovariant,
+        isRequired: isRequired,
+        isNamed: isNamed,
+        defaultClause: defaultClause,
+        functionTypedSuffix: functionTypedSuffix,
+      ),
+      _ => SRegularFormalParameter(
+        offset: node.offset,
+        length: node.length,
+        metadata: metadata,
+        type: type,
+        name: name,
+        isConst: isConst,
+        isFinal: isFinal,
+        isCovariant: isCovariant,
+        isRequired: isRequired,
+        isNamed: isNamed,
+        defaultClause: defaultClause,
+        functionTypedSuffix: functionTypedSuffix,
+      ),
+    };
   }
 
   // ============================================================================
@@ -1534,30 +1589,10 @@ class AstConverter {
       offset: node.offset,
       length: node.length,
       metadata: _convertAnnotations(node.metadata),
-      libraryName: _as<SIdentifier>(node.libraryName),
+      libraryName: node.libraryName == null
+          ? null
+          : _convertDottedName(node.libraryName!),
       uri: _as<SStringLiteral>(node.uri),
-    );
-  }
-
-  /// The dotted name of a `library` directive: `foo`, or `foo.bar.baz`.
-  ///
-  /// FLATTENED TO ONE IDENTIFIER, DELIBERATELY. The analyzer models this as a
-  /// `LibraryIdentifier` holding a list of components; the mirror has no
-  /// counterpart, and `SLibraryDirective.name` is typed `SIdentifier?`.
-  /// `SPrefixedIdentifier` could carry two components but not three, so it
-  /// would be a mapping that works until somebody writes `library a.b.c`.
-  ///
-  /// The component structure is not read by anything: a `library` directive
-  /// has no runtime effect, which is why the reference interpreter runs
-  /// `library foo; main() => 42;` and returns 42 while ignoring the name. This
-  /// is RECORDED rather than silent — sce49's dropped conditional-import
-  /// configurations were the same shape of decision taken without one, and
-  /// the difference between the two is only that this comment exists.
-  SSimpleIdentifier _convertLibraryIdentifier(analyzer.LibraryIdentifier node) {
-    return SSimpleIdentifier(
-      offset: node.offset,
-      length: node.length,
-      name: node.name,
     );
   }
 
@@ -1566,7 +1601,7 @@ class AstConverter {
       offset: node.offset,
       length: node.length,
       metadata: _convertAnnotations(node.metadata),
-      name: _as<SIdentifier>(node.name),
+      name: node.name == null ? null : _convertDottedName(node.name!),
     );
   }
 
@@ -1589,7 +1624,7 @@ class AstConverter {
     return SDottedName(
       offset: node.offset,
       length: node.length,
-      components: node.components.map(_convertSimpleIdentifier).toList(),
+      components: node.tokens.map(_nameToken).toList(),
     );
   }
 
@@ -1668,7 +1703,15 @@ class AstConverter {
     return SLabel(
       offset: node.offset,
       length: node.length,
-      label: convert(node.label) as SSimpleIdentifier?,
+      name: _nameToken(node.name),
+    );
+  }
+
+  SLabelReference _convertLabelReference(analyzer.LabelReference node) {
+    return SLabelReference(
+      offset: node.offset,
+      length: node.length,
+      name: _nameToken(node.name),
     );
   }
 
@@ -2100,24 +2143,10 @@ class AstConverter {
     return SExtensionTypeDeclaration(
       offset: node.offset,
       length: node.length,
-      name: _tokenToIdentifier(node.name),
       metadata: _convertAnnotations(node.metadata),
-      typeParameters: convert(node.typeParameters) as STypeParameterList?,
-      representation: _as<SRepresentationDeclaration>(node.representation)!,
+      namePart: _convertClassNamePart(node.namePart),
       implementsClause: convert(node.implementsClause) as SImplementsClause?,
-      members: _nodesAs<SClassMember>(node.members),
-      isConst: node.constKeyword != null,
-    );
-  }
-
-  SRepresentationDeclaration _convertRepresentationDeclaration(
-    analyzer.RepresentationDeclaration node,
-  ) {
-    return SRepresentationDeclaration(
-      offset: node.offset,
-      length: node.length,
-      fieldName: node.fieldName.lexeme,
-      fieldType: _as<STypeAnnotation>(node.fieldType)!,
+      body: _convertClassBody(node.body),
     );
   }
 

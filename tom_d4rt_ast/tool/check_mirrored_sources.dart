@@ -78,6 +78,11 @@ const Map<String, String> kDivergentMirrors = <String, String>{
   'declaration_visitor.dart': '62 of 203 code lines. $_astNodeTypes',
   'runtime_types.dart': '55 of 2100 code lines. $_astNodeTypes',
   'introspection.dart': '48 of 608 code lines. $_astNodeTypes',
+  // VSTDM3: the six declaration kinds analyzer 14 no longer groups under
+  // `NamedCompilationUnitMember`. Every line that differs is the token-versus-
+  // identifier accessor: `.lexeme` against `.name`, and the model's nullable
+  // `name` on a mixin, function or typedef.
+  'declared_names.dart': '6 of 12 code lines. $_astNodeTypes',
   'bridge/bridged_enum.dart':
       '4 code lines at two sites, and nothing else: the reference passes '
       '`moduleLoader: ModuleLoader(env, {}, {}, {})` where the twin passes '

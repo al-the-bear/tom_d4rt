@@ -19,7 +19,7 @@ environment:
   sdk: ^3.10.4
 
 dependencies:
-  analyzer: ^10.0.0
+  analyzer: ^14.5.0
   pub_semver: ^2.2.0
   # The interpreter this package fronts. Resolved from pub.dev, not by path, so
   # this floor is also what any exec test suite actually measures (DGUC6) —

@@ -122,7 +122,7 @@ Object? _run(List<SStatement> mainBody) {
               ),
               isSetter: true,
               params: _params([
-                SSimpleFormalParameter(
+                SRegularFormalParameter(
                   offset: 0,
                   length: 0,
                   type: _int(),

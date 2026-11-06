@@ -37,7 +37,7 @@ SFormalParameterList _params(List<String> names) => SFormalParameterList(
   length: 0,
   parameters: [
     for (final name in names)
-      SSimpleFormalParameter(offset: 0, length: 0, name: _id(name)),
+      SRegularFormalParameter(offset: 0, length: 0, name: _id(name)),
   ],
 );
 
@@ -104,11 +104,15 @@ SStatement _awaitDelay(int ms) => SExpressionStatement(
           offset: 0,
           length: 0,
           arguments: [
-            SNamedExpression(
+            SNamedArgument(
               offset: 0,
               length: 0,
-              name: SLabel(offset: 0, length: 0, label: _id('milliseconds')),
-              expression: SIntegerLiteral(offset: 0, length: 2, value: ms),
+              name: _id('milliseconds'),
+              argumentExpression: SIntegerLiteral(
+                offset: 0,
+                length: 2,
+                value: ms,
+              ),
             ),
           ],
         ),

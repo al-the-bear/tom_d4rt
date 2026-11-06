@@ -59,53 +59,61 @@ AstBundle instanceBundle({required String name, required SExpression? body}) {
           SClassDeclaration(
             offset: 0,
             length: 0,
-            name: _id(name),
-            members: [
-              // An EXPLICIT unnamed constructor, because a hand-built bundle is
-              // not a generated one. `class Bare { }` instantiates fine through
-              // `tom_d4rt_exec` — measured — so the analyzer-free line does
-              // synthesise what source omits somewhere along the generator
-              // path; this bundle skips that path, and without a constructor
-              // the run fails with "does not have a constructor named ''"
-              // before `toString` is ever reached. Declaring one keeps this
-              // file about the thing it tests.
-              SConstructorDeclaration(
-                offset: 0,
-                length: 0,
-                returnType: _id(name),
-                parameters: SFormalParameterList(
+            namePart: SNameWithTypeParameters(
+              offset: 0,
+              length: 0,
+              typeName: _id(name),
+            ),
+            body: SBlockClassBody(
+              offset: 0,
+              length: 0,
+              members: [
+                // An EXPLICIT unnamed constructor, because a hand-built bundle is
+                // not a generated one. `class Bare { }` instantiates fine through
+                // `tom_d4rt_exec` — measured — so the analyzer-free line does
+                // synthesise what source omits somewhere along the generator
+                // path; this bundle skips that path, and without a constructor
+                // the run fails with "does not have a constructor named ''"
+                // before `toString` is ever reached. Declaring one keeps this
+                // file about the thing it tests.
+                SConstructorDeclaration(
                   offset: 0,
                   length: 0,
-                  parameters: const [],
-                ),
-                body: SBlockFunctionBody(
-                  offset: 0,
-                  length: 0,
-                  block: SBlock(offset: 0, length: 0, statements: const []),
-                ),
-              ),
-              if (body != null)
-                SMethodDeclaration(
-                  offset: 0,
-                  length: 0,
-                  name: _id('toString'),
-                  returnType: SNamedType(
-                    offset: 0,
-                    length: 0,
-                    name: _id('String'),
-                  ),
+                  typeName: _id(name),
                   parameters: SFormalParameterList(
                     offset: 0,
                     length: 0,
                     parameters: const [],
                   ),
-                  body: SExpressionFunctionBody(
+                  body: SBlockFunctionBody(
                     offset: 0,
                     length: 0,
-                    expression: body,
+                    block: SBlock(offset: 0, length: 0, statements: const []),
                   ),
                 ),
-            ],
+                if (body != null)
+                  SMethodDeclaration(
+                    offset: 0,
+                    length: 0,
+                    name: _id('toString'),
+                    returnType: SNamedType(
+                      offset: 0,
+                      length: 0,
+                      name: _id('String'),
+                    ),
+                    parameters: SFormalParameterList(
+                      offset: 0,
+                      length: 0,
+                      parameters: const [],
+                    ),
+                    body: SExpressionFunctionBody(
+                      offset: 0,
+                      length: 0,
+                      expression: body,
+                    ),
+                  ),
+              ],
+            ),
           ),
           SFunctionDeclaration(
             offset: 0,

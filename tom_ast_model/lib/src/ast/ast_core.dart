@@ -614,7 +614,7 @@ class SCompilationUnit extends SAstNode {
   final List<SDirective> directives;
 
   /// Declarations (classes, functions, variables, etc.)
-  final List<SDeclaration> declarations;
+  final List<SCompilationUnitMember> declarations;
 
   /// Comments in the file
   final List<SComment> comments;
@@ -656,7 +656,7 @@ class SCompilationUnit extends SAstNode {
       directives: SAstNodeFactory.listFromJson<SDirective>(
         json['directives'] as List?,
       ),
-      declarations: SAstNodeFactory.listFromJson<SDeclaration>(
+      declarations: SAstNodeFactory.listFromJson<SCompilationUnitMember>(
         json['declarations'] as List?,
       ),
       comments:

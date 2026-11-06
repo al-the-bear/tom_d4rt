@@ -84,19 +84,17 @@ void main() {
   /// required-argument error — the nullable positional list means "none", not
   /// "whatever the callee needs".
   SFunctionDeclaration callee(String name, {required bool withPositional}) {
-    SDefaultFormalParameter namedParam(String n) => SDefaultFormalParameter(
+    SFormalParameter namedParam(String n) => SRegularFormalParameter(
       offset: next(),
       length: 0,
-      isPositional: false,
+      name: id(n),
+      isRequired: false,
       isNamed: true,
-      parameter: SSimpleFormalParameter(
-        offset: next(),
+      defaultClause: SFormalParameterDefaultClause(
+        offset: 0,
         length: 0,
-        name: id(n),
-        isPositional: false,
-        isNamed: true,
+        value: int_(0),
       ),
-      defaultValue: int_(0),
     );
 
     return SFunctionDeclaration(
@@ -111,14 +109,13 @@ void main() {
           length: 0,
           parameters: [
             if (withPositional)
-              SSimpleFormalParameter(
+              SRegularFormalParameter(
                 offset: next(),
                 length: 0,
                 name: id('a'),
-                // `tom_ast_generator` copies the analyzer's `isRequired`, which
-                // is true for a required positional. Leaving it at its default
-                // declares an OPTIONAL positional, which binds `null` instead
-                // of reporting the missing argument.
+                // A required positional, as `tom_ast_generator` copies the
+                // analyzer's `isRequired`; an optional one would bind `null`
+                // instead of reporting the missing argument.
                 isRequired: true,
               ),
             namedParam('b'),

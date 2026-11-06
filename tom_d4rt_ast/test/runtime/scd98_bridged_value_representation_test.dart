@@ -38,11 +38,11 @@ SExpression durationCtor() => SMethodInvocation(
     offset: 0,
     length: 0,
     arguments: [
-      SNamedExpression(
+      SNamedArgument(
         offset: 0,
         length: 0,
-        name: SLabel(offset: 0, length: 0, label: _id('seconds')),
-        expression: SIntegerLiteral(offset: 0, length: 0, value: 1),
+        name: _id('seconds'),
+        argumentExpression: SIntegerLiteral(offset: 0, length: 0, value: 1),
       ),
     ],
   ),

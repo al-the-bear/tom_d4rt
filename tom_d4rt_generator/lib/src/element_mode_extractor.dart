@@ -536,7 +536,7 @@ class ElementModeExtractor {
     final staticMethodNames = <String>[];
 
     for (final field in enumEl.fields) {
-      if (field.isSynthetic) continue;
+      if (field.isOriginGetterSetter || field.isOriginEnumValues) continue;
       if (field.isPrivate) continue;
       if (field.isStatic) {
         if (!field.isEnumConstant) {
@@ -556,7 +556,7 @@ class ElementModeExtractor {
     }
 
     for (final accessor in enumEl.getters) {
-      if (accessor.isSynthetic) continue;
+      if (accessor.isOriginVariable) continue;
       if (accessor.isPrivate) continue;
       if (accessor.isStatic) {
         final accessorName = accessor.name;
@@ -576,7 +576,7 @@ class ElementModeExtractor {
     }
 
     for (final method in enumEl.methods) {
-      if (method.isSynthetic) continue;
+      if (!method.isOriginDeclaration) continue;
       if (method.isPrivate) continue;
       final methodName = method.name;
       if (methodName == null) continue;
@@ -602,7 +602,7 @@ class ElementModeExtractor {
       }
       for (final getter in supertypeElement.getters) {
         if (getter.isStatic) continue;
-        if (getter.isSynthetic) continue;
+        if (getter.isOriginVariable) continue;
         final gname = getter.name;
         if (gname == null) continue;
         if (gname.startsWith('_')) continue;
@@ -612,7 +612,7 @@ class ElementModeExtractor {
       }
       for (final method in supertypeElement.methods) {
         if (method.isStatic) continue;
-        if (method.isSynthetic) continue;
+        if (!method.isOriginDeclaration) continue;
         final mname = method.name;
         if (mname == null) continue;
         if (mname.startsWith('_')) continue;
@@ -629,8 +629,12 @@ class ElementModeExtractor {
         sourceFile: _currentSourceFile ?? '',
         hasMembers:
             enumEl.methods.isNotEmpty ||
-            enumEl.getters.any((g) => !g.isSynthetic) ||
-            enumEl.fields.any((f) => !f.isSynthetic && !f.isEnumConstant),
+            enumEl.getters.any((g) => !g.isOriginVariable) ||
+            enumEl.fields.any(
+              (f) =>
+                  !(f.isOriginGetterSetter || f.isOriginEnumValues) &&
+                  !f.isEnumConstant,
+            ),
         getterNames: getterNames,
         methodDetails: methodDetails,
         staticGetterNames: staticGetterNames,
@@ -707,7 +711,7 @@ class ElementModeExtractor {
 
     for (final getter in ext.getters) {
       if (getter.isStatic) continue;
-      if (getter.isSynthetic) continue;
+      if (getter.isOriginVariable) continue;
       final gname = getter.name;
       if (gname == null) continue;
       if (skipPrivate && gname.startsWith('_')) continue;
@@ -715,7 +719,7 @@ class ElementModeExtractor {
     }
     for (final setter in ext.setters) {
       if (setter.isStatic) continue;
-      if (setter.isSynthetic) continue;
+      if (setter.isOriginVariable) continue;
       final sname = setter.name;
       if (sname == null) continue;
       if (skipPrivate && sname.startsWith('_')) continue;
@@ -723,7 +727,7 @@ class ElementModeExtractor {
     }
     for (final method in ext.methods) {
       if (method.isStatic) continue;
-      if (method.isSynthetic) continue;
+      if (!method.isOriginDeclaration) continue;
       if (method.isOperator) continue;
       final mname = method.name;
       if (mname == null) continue;
@@ -795,7 +799,7 @@ class ElementModeExtractor {
   }
 
   void _processTopLevelGetter(GetterElement getter) {
-    if (getter.isSynthetic) return;
+    if (getter.isOriginVariable) return;
     final name = getter.name;
     if (name == null) return;
     if (skipPrivate && name.startsWith('_')) return;
@@ -822,7 +826,7 @@ class ElementModeExtractor {
   }
 
   void _processTopLevelSetter(SetterElement setter) {
-    if (setter.isSynthetic) return;
+    if (setter.isOriginVariable) return;
     final name = setter.name;
     if (name == null) return;
     if (skipPrivate && name.startsWith('_')) return;
@@ -835,7 +839,7 @@ class ElementModeExtractor {
   }
 
   void _processTopLevelVariable(TopLevelVariableElement variable) {
-    if (variable.isSynthetic) return;
+    if (variable.isOriginGetterSetter) return;
     final name = variable.name;
     if (name == null) return;
     if (skipPrivate && name.startsWith('_')) return;
@@ -917,7 +921,7 @@ class ElementModeExtractor {
     final declaredPairs = <({MemberInfo member, Element element})>[];
 
     for (final field in classElement.fields) {
-      if (field.isSynthetic) continue;
+      if (field.isOriginGetterSetter || field.isOriginEnumValues) continue;
       final fname = field.name;
       if (fname == null) continue;
       if (skipPrivate && fname.startsWith('_')) continue;
@@ -957,7 +961,7 @@ class ElementModeExtractor {
     }
 
     for (final getter in classElement.getters) {
-      if (getter.isSynthetic) continue;
+      if (getter.isOriginVariable) continue;
       final gname = getter.name;
       if (gname == null) continue;
       if (skipPrivate && gname.startsWith('_')) continue;
@@ -977,7 +981,7 @@ class ElementModeExtractor {
     }
 
     for (final setter in classElement.setters) {
-      if (setter.isSynthetic) continue;
+      if (setter.isOriginVariable) continue;
       final sname = setter.name;
       if (sname == null) continue;
       if (skipPrivate && sname.startsWith('_')) continue;
@@ -1031,7 +1035,7 @@ class ElementModeExtractor {
     final constructors = <ConstructorInfo>[];
     if (!isMixin) {
       for (final ctor in classElement.constructors) {
-        if (ctor.isSynthetic) {
+        if (!ctor.isOriginDeclaration) {
           // Collect synthetic unnamed constructor only for non-abstract
           // classes with no explicit constructors (GEN-042).
           continue;
@@ -1057,7 +1061,7 @@ class ElementModeExtractor {
           classElement is ClassElement && classElement.isAbstract;
       if (constructors.isEmpty && !isAbstract) {
         final unnamed = classElement.unnamedConstructor;
-        if (unnamed != null && unnamed.isSynthetic) {
+        if (unnamed != null && !unnamed.isOriginDeclaration) {
           constructors.add(const ConstructorInfo(name: null, parameters: []));
         }
       }
@@ -1248,7 +1252,9 @@ class ElementModeExtractor {
           continue;
         }
 
-        if (getter.isSynthetic && supertypeElement is EnumElement) continue;
+        if (getter.isOriginVariable && supertypeElement is EnumElement) {
+          continue;
+        }
 
         final memberInfo = _parseMemberFromGetterElement(
           getter,

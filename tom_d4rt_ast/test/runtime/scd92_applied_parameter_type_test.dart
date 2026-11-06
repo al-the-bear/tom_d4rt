@@ -82,7 +82,7 @@ AstBundle appliedParameterBundle({
                 offset: 0,
                 length: 0,
                 parameters: [
-                  SSimpleFormalParameter(
+                  SRegularFormalParameter(
                     offset: 0,
                     length: 0,
                     name: id('xs'),

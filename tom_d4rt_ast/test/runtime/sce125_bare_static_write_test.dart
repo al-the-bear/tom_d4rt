@@ -107,23 +107,31 @@ AstBundle _bundle({required bool isStatic, required SExpression result}) {
           SClassDeclaration(
             offset: 0,
             length: 0,
-            name: _id('Box'),
-            members: [
-              _field('v', 1, isStatic: isStatic),
-              SConstructorDeclaration(
-                offset: 0,
-                length: 0,
-                returnType: _id('Box'),
-                parameters: _noParams(),
-                body: SBlockFunctionBody(
+            namePart: SNameWithTypeParameters(
+              offset: 0,
+              length: 0,
+              typeName: _id('Box'),
+            ),
+            body: SBlockClassBody(
+              offset: 0,
+              length: 0,
+              members: [
+                _field('v', 1, isStatic: isStatic),
+                SConstructorDeclaration(
                   offset: 0,
                   length: 0,
-                  block: SBlock(offset: 0, length: 0, statements: const []),
+                  typeName: _id('Box'),
+                  parameters: _noParams(),
+                  body: SBlockFunctionBody(
+                    offset: 0,
+                    length: 0,
+                    block: SBlock(offset: 0, length: 0, statements: const []),
+                  ),
                 ),
-              ),
-              _bareIncrement('v'),
-              _peek('v'),
-            ],
+                _bareIncrement('v'),
+                _peek('v'),
+              ],
+            ),
           ),
           SFunctionDeclaration(
             offset: 0,

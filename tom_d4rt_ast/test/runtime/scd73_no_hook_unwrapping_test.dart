@@ -79,7 +79,7 @@ void main() {
             offset: 0,
             length: 0,
             parameters: [
-              SSimpleFormalParameter(offset: 0, length: 0, name: ident('v')),
+              SRegularFormalParameter(offset: 0, length: 0, name: ident('v')),
             ],
           ),
           body: SBlockFunctionBody(
@@ -136,15 +136,15 @@ void main() {
               offset: 0,
               length: 0,
               arguments: [
-                SNamedExpression(
+                SNamedArgument(
                   offset: 0,
                   length: 0,
-                  name: SLabel(
+                  name: ident('milliseconds'),
+                  argumentExpression: SIntegerLiteral(
                     offset: 0,
-                    length: 0,
-                    label: ident('milliseconds'),
+                    length: 1,
+                    value: ms,
                   ),
-                  expression: SIntegerLiteral(offset: 0, length: 1, value: ms),
                 ),
               ],
             ),

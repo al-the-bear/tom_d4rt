@@ -254,7 +254,7 @@ Map<String, _SdkClass> _readSdk() {
               in declaration.implementsClause?.interfaces ?? const []) {
             mixin.supertypes.add(type.name.lexeme);
           }
-          for (final member in declaration.members) {
+          for (final member in declaration.body.members) {
             if (member is! MethodDeclaration || member.isStatic) continue;
             final memberName = member.name.lexeme;
             if (memberName.startsWith('_')) continue;
@@ -269,7 +269,7 @@ Map<String, _SdkClass> _readSdk() {
           continue;
         }
         if (declaration is! ClassDeclaration) continue;
-        final name = declaration.name.lexeme;
+        final name = declaration.namePart.typeName.lexeme;
         if (name.startsWith('_')) continue;
         final entry = out.putIfAbsent(name, _SdkClass.new);
         final extendsClause = declaration.extendsClause;
@@ -283,7 +283,7 @@ Map<String, _SdkClass> _readSdk() {
         for (final type in declaration.withClause?.mixinTypes ?? const []) {
           entry.supertypes.add(type.name.lexeme);
         }
-        for (final member in declaration.members) {
+        for (final member in declaration.body.members) {
           if (member is! MethodDeclaration || member.isStatic) continue;
           final memberName = member.name.lexeme;
           if (memberName.startsWith('_')) continue;

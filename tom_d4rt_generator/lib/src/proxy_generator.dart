@@ -674,7 +674,7 @@ List<_AbstractMethodInfo> _getAbstractMethods(ClassElement element) {
       if (!getter.isAbstract &&
           !getter.isPrivate &&
           !getter.isStatic &&
-          !getter.isSynthetic) {
+          !getter.isOriginVariable) {
         concreteInHierarchy.add(getter.displayName);
       }
     }
@@ -799,7 +799,7 @@ List<_AbstractMethodInfo> _getOverridableMethods(ClassElement element) {
       if (!getter.isAbstract &&
           !getter.isPrivate &&
           !getter.isStatic &&
-          !getter.isSynthetic &&
+          !getter.isOriginVariable &&
           !processedNames.contains(getterName)) {
         processedNames.add(getterName);
         methods.add(_accessorElementToInfo(getter, isAbstract: false));

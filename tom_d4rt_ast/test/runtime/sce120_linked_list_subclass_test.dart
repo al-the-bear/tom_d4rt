@@ -80,65 +80,75 @@ SInstanceCreationExpression _new(
 SClassDeclaration _entryClass() => SClassDeclaration(
   offset: 0,
   length: 0,
-  name: _id('E'),
   extendsClause: SExtendsClause(
     offset: 0,
     length: 0,
     superclass: _type('LinkedListEntry', [_type('E')]),
   ),
-  members: [
-    SFieldDeclaration(
-      offset: 0,
-      length: 0,
-      fields: SVariableDeclarationList(
+  namePart: SNameWithTypeParameters(offset: 0, length: 0, typeName: _id('E')),
+  body: SBlockClassBody(
+    offset: 0,
+    length: 0,
+    members: [
+      SFieldDeclaration(
         offset: 0,
         length: 0,
-        type: _type('int'),
-        isFinal: true,
-        variables: [SVariableDeclaration(offset: 0, length: 0, name: _id('v'))],
-      ),
-    ),
-    SConstructorDeclaration(
-      offset: 0,
-      length: 0,
-      returnType: _id('E'),
-      parameters: SFormalParameterList(
-        offset: 0,
-        length: 0,
-        parameters: [
-          SFieldFormalParameter(
-            offset: 0,
-            length: 0,
-            name: _id('v'),
-            isRequired: true,
-          ),
-        ],
-      ),
-      body: SBlockFunctionBody(
-        offset: 0,
-        length: 0,
-        block: SBlock(offset: 0, length: 0, statements: const []),
-      ),
-    ),
-    SMethodDeclaration(
-      offset: 0,
-      length: 0,
-      name: _id('toString'),
-      returnType: _type('String'),
-      parameters: _noParams(),
-      body: SExpressionFunctionBody(
-        offset: 0,
-        length: 0,
-        expression: SBinaryExpression(
+        fields: SVariableDeclarationList(
           offset: 0,
           length: 0,
-          leftOperand: SSimpleStringLiteral(offset: 0, length: 2, value: 'E:'),
-          operator: '+',
-          rightOperand: _call(_id('v'), 'toString'),
+          type: _type('int'),
+          isFinal: true,
+          variables: [
+            SVariableDeclaration(offset: 0, length: 0, name: _id('v')),
+          ],
         ),
       ),
-    ),
-  ],
+      SConstructorDeclaration(
+        offset: 0,
+        length: 0,
+        typeName: _id('E'),
+        parameters: SFormalParameterList(
+          offset: 0,
+          length: 0,
+          parameters: [
+            SFieldFormalParameter(
+              offset: 0,
+              length: 0,
+              name: _id('v'),
+              isRequired: true,
+            ),
+          ],
+        ),
+        body: SBlockFunctionBody(
+          offset: 0,
+          length: 0,
+          block: SBlock(offset: 0, length: 0, statements: const []),
+        ),
+      ),
+      SMethodDeclaration(
+        offset: 0,
+        length: 0,
+        name: _id('toString'),
+        returnType: _type('String'),
+        parameters: _noParams(),
+        body: SExpressionFunctionBody(
+          offset: 0,
+          length: 0,
+          expression: SBinaryExpression(
+            offset: 0,
+            length: 0,
+            leftOperand: SSimpleStringLiteral(
+              offset: 0,
+              length: 2,
+              value: 'E:',
+            ),
+            operator: '+',
+            rightOperand: _call(_id('v'), 'toString'),
+          ),
+        ),
+      ),
+    ],
+  ),
 );
 
 /// `main() { var l = LinkedList<E>(); l.add(E(1)); return <expression>; }`

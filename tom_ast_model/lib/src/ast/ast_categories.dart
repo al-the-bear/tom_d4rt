@@ -196,6 +196,9 @@ abstract class SConstructorInitializer extends SAstNode {}
 /// Base class for switch case/default members.
 /// Mirrors analyzer's `SwitchMember`.
 abstract class SSwitchMember extends SAstNode {
+  /// The labels before this switch member, for `continue <label>`.
+  List<SLabel> get labels;
+
   /// The statements in this switch member.
   List<SStatement> get statements;
 }

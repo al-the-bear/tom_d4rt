@@ -135,7 +135,7 @@ AstBundle boundedPickBundle({
                 offset: 0,
                 length: 0,
                 parameters: [
-                  SSimpleFormalParameter(
+                  SRegularFormalParameter(
                     offset: 0,
                     length: 0,
                     name: _id('v'),

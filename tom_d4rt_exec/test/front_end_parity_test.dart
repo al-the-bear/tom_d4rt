@@ -217,8 +217,8 @@ Set<String> _publicMembers(String path, String className) {
   ).unit;
   final names = <String>{};
   for (final decl in unit.declarations.whereType<ClassDeclaration>()) {
-    if (decl.name.lexeme != className) continue;
-    for (final member in decl.members) {
+    if (decl.namePart.typeName.lexeme != className) continue;
+    for (final member in decl.body.members) {
       if (member is MethodDeclaration) {
         if (!member.name.lexeme.startsWith('_')) names.add(member.name.lexeme);
       } else if (member is FieldDeclaration) {
@@ -268,8 +268,8 @@ String? _memberSource(String path, String className, String member) {
     featureSet: FeatureSet.latestLanguageVersion(),
   ).unit;
   for (final decl in unit.declarations.whereType<ClassDeclaration>()) {
-    if (decl.name.lexeme != className) continue;
-    for (final m in decl.members.whereType<MethodDeclaration>()) {
+    if (decl.namePart.typeName.lexeme != className) continue;
+    for (final m in decl.body.members.whereType<MethodDeclaration>()) {
       if (m.name.lexeme != member) continue;
       return source.substring(
         m.firstTokenAfterCommentAndMetadata.offset,

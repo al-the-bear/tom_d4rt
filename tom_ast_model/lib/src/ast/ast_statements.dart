@@ -1020,6 +1020,7 @@ class SSwitchCase extends SSwitchMember {
   @override
   final int length;
 
+  @override
   final List<SLabel> labels;
   final SExpression? expression;
   @override
@@ -1085,6 +1086,7 @@ class SSwitchDefault extends SSwitchMember {
   @override
   final int length;
 
+  @override
   final List<SLabel> labels;
   @override
   final List<SStatement> statements;

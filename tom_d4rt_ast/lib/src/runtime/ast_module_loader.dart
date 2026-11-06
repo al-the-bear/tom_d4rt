@@ -1298,17 +1298,17 @@ Set<String> _ownTopLevelNames(SCompilationUnit unit) {
       case SFunctionDeclaration():
         add(d.name);
       case SClassDeclaration():
-        add(d.name);
+        add(d.namePart.typeName);
       case SMixinDeclaration():
         add(d.name);
       case SEnumDeclaration():
-        add(d.name);
+        add(d.namePart.typeName);
       case SExtensionDeclaration():
         add(d.name);
       case STypedefDeclaration():
         add(d.name);
       case SExtensionTypeDeclaration():
-        add(d.name);
+        add(d.namePart.typeName);
       case STopLevelVariableDeclaration():
         for (final v
             in d.variables?.variables ?? const <SVariableDeclaration>[]) {

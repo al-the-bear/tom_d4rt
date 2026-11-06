@@ -107,13 +107,17 @@ class _Ast {
   SBreakStatement break_([String? label]) => SBreakStatement(
     offset: _next(),
     length: 1,
-    label: label == null ? null : id(label),
+    label: label == null
+        ? null
+        : SLabelReference(offset: 0, length: 0, name: id(label)),
   );
 
   SContinueStatement continue_([String? label]) => SContinueStatement(
     offset: _next(),
     length: 1,
-    label: label == null ? null : id(label),
+    label: label == null
+        ? null
+        : SLabelReference(offset: 0, length: 0, name: id(label)),
   );
 
   /// `for (var <name> in <iterable>)` — or `await for` when [isAwait].
@@ -161,7 +165,7 @@ class _Ast {
       SLabeledStatement(
         offset: _next(),
         length: 1,
-        labels: [SLabel(offset: _next(), length: 1, label: id(label))],
+        labels: [SLabel(offset: _next(), length: 1, name: id(label))],
         statement: statement,
       );
 

@@ -48,27 +48,35 @@ SMethodInvocation _call(
 SClassDeclaration _measureBox() => SClassDeclaration(
   offset: 0,
   length: 0,
-  name: _id('MeasureBox'),
   extendsClause: SExtendsClause(offset: 0, length: 0, superclass: _type('Box')),
-  members: [
-    SFieldDeclaration(
-      offset: 0,
-      length: 0,
-      fields: SVariableDeclarationList(
+  namePart: SNameWithTypeParameters(
+    offset: 0,
+    length: 0,
+    typeName: _id('MeasureBox'),
+  ),
+  body: SBlockClassBody(
+    offset: 0,
+    length: 0,
+    members: [
+      SFieldDeclaration(
         offset: 0,
         length: 0,
-        type: _type('int'),
-        variables: [
-          SVariableDeclaration(
-            offset: 0,
-            length: 0,
-            name: _id('extra'),
-            initializer: SIntegerLiteral(offset: 0, length: 1, value: 7),
-          ),
-        ],
+        fields: SVariableDeclarationList(
+          offset: 0,
+          length: 0,
+          type: _type('int'),
+          variables: [
+            SVariableDeclaration(
+              offset: 0,
+              length: 0,
+              name: _id('extra'),
+              initializer: SIntegerLiteral(offset: 0, length: 1, value: 7),
+            ),
+          ],
+        ),
       ),
-    ),
-  ],
+    ],
+  ),
 );
 
 /// `int size(MeasureBox b) => b.extra;`
@@ -83,7 +91,7 @@ SFunctionDeclaration _size() => SFunctionDeclaration(
       offset: 0,
       length: 0,
       parameters: [
-        SSimpleFormalParameter(
+        SRegularFormalParameter(
           offset: 0,
           length: 0,
           name: _id('b'),

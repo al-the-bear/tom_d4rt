@@ -102,13 +102,13 @@ SClassDeclaration _class(
 ]) => SClassDeclaration(
   offset: 0,
   length: 0,
-  name: _id(name),
   extendsClause: SExtendsClause(
     offset: 0,
     length: 0,
     superclass: _type(superclass),
   ),
-  members: members,
+  namePart: SNameWithTypeParameters(offset: 0, length: 0, typeName: _id(name)),
+  body: SBlockClassBody(offset: 0, length: 0, members: members),
 );
 
 /// `String toString() => <body>;`

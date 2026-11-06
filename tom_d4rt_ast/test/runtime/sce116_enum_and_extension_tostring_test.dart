@@ -92,27 +92,31 @@ AstBundle _enumBundle({required bool withOverride}) => _bundle([
   SEnumDeclaration(
     offset: 0,
     length: 0,
-    name: _id('E'),
-    constants: [
-      SEnumConstantDeclaration(offset: 0, length: 0, name: _id('a')),
-      SEnumConstantDeclaration(offset: 0, length: 0, name: _id('b')),
-    ],
-    members: [
-      if (withOverride)
-        _toStringMethod(
-          SBinaryExpression(
-            offset: 0,
-            length: 0,
-            leftOperand: _concat('E<', _id('name')),
-            operator: '+',
-            rightOperand: SSimpleStringLiteral(
+    namePart: SNameWithTypeParameters(offset: 0, length: 0, typeName: _id('E')),
+    body: SBlockEnumBody(
+      offset: 0,
+      length: 0,
+      constants: [
+        SEnumConstantDeclaration(offset: 0, length: 0, name: _id('a')),
+        SEnumConstantDeclaration(offset: 0, length: 0, name: _id('b')),
+      ],
+      members: [
+        if (withOverride)
+          _toStringMethod(
+            SBinaryExpression(
               offset: 0,
               length: 0,
-              value: '>',
+              leftOperand: _concat('E<', _id('name')),
+              operator: '+',
+              rightOperand: SSimpleStringLiteral(
+                offset: 0,
+                length: 0,
+                value: '>',
+              ),
             ),
           ),
-        ),
-    ],
+      ],
+    ),
   ),
   _main(
     SPrefixedIdentifier(
@@ -130,29 +134,43 @@ AstBundle _extensionTypeBundle({required bool withOverride}) => _bundle([
   SExtensionTypeDeclaration(
     offset: 0,
     length: 0,
-    name: _id('X'),
-    representation: SRepresentationDeclaration(
+    namePart: SPrimaryConstructorDeclaration(
       offset: 0,
       length: 0,
-      fieldName: 'v',
-      fieldType: _type('int'),
+      typeName: _id('X'),
+      formalParameters: SFormalParameterList(
+        offset: 0,
+        length: 0,
+        parameters: [
+          SRegularFormalParameter(
+            offset: 0,
+            length: 0,
+            name: SSimpleIdentifier(offset: 0, length: 0, name: 'v'),
+            type: _type('int'),
+          ),
+        ],
+      ),
     ),
-    members: [
-      if (withOverride)
-        _toStringMethod(
-          _concat(
-            'X:',
-            SMethodInvocation(
-              offset: 0,
-              length: 0,
-              target: _id('v'),
-              operator: '.',
-              methodName: _id('toString'),
-              argumentList: _args(),
+    body: SBlockClassBody(
+      offset: 0,
+      length: 0,
+      members: [
+        if (withOverride)
+          _toStringMethod(
+            _concat(
+              'X:',
+              SMethodInvocation(
+                offset: 0,
+                length: 0,
+                target: _id('v'),
+                operator: '.',
+                methodName: _id('toString'),
+                argumentList: _args(),
+              ),
             ),
           ),
-        ),
-    ],
+      ],
+    ),
   ),
   _main(
     SMethodInvocation(

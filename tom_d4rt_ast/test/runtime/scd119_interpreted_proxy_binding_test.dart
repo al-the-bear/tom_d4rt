@@ -116,39 +116,47 @@ AstBundle proxyBundle({
   SClassDeclaration shapeSubclass(String name) => SClassDeclaration(
     offset: 0,
     length: 0,
-    name: _id(name),
     extendsClause: SExtendsClause(
       offset: 0,
       length: 0,
       superclass: _type('Shape'),
     ),
-    members: [
-      // Explicit, because a hand-built bundle is not a generated one: nothing
-      // here synthesises the unnamed constructor that source omits.
-      SConstructorDeclaration(
-        offset: 0,
-        length: 0,
-        returnType: _id(name),
-        parameters: _noParams(),
-        body: SBlockFunctionBody(
+    namePart: SNameWithTypeParameters(
+      offset: 0,
+      length: 0,
+      typeName: _id(name),
+    ),
+    body: SBlockClassBody(
+      offset: 0,
+      length: 0,
+      members: [
+        // Explicit, because a hand-built bundle is not a generated one: nothing
+        // here synthesises the unnamed constructor that source omits.
+        SConstructorDeclaration(
           offset: 0,
           length: 0,
-          block: SBlock(offset: 0, length: 0, statements: const []),
+          typeName: _id(name),
+          parameters: _noParams(),
+          body: SBlockFunctionBody(
+            offset: 0,
+            length: 0,
+            block: SBlock(offset: 0, length: 0, statements: const []),
+          ),
         ),
-      ),
-      SMethodDeclaration(
-        offset: 0,
-        length: 0,
-        name: _id('size'),
-        returnType: _type('int'),
-        parameters: _noParams(),
-        body: SExpressionFunctionBody(
+        SMethodDeclaration(
           offset: 0,
           length: 0,
-          expression: SIntegerLiteral(offset: 0, length: 0, value: 7),
+          name: _id('size'),
+          returnType: _type('int'),
+          parameters: _noParams(),
+          body: SExpressionFunctionBody(
+            offset: 0,
+            length: 0,
+            expression: SIntegerLiteral(offset: 0, length: 0, value: 7),
+          ),
         ),
-      ),
-    ],
+      ],
+    ),
   );
 
   final takeFn = SFunctionDeclaration(
@@ -163,12 +171,11 @@ AstBundle proxyBundle({
         offset: 0,
         length: 0,
         parameters: [
-          SSimpleFormalParameter(
+          SRegularFormalParameter(
             offset: 0,
             length: 0,
             name: _id('s'),
             type: asList ? _listType(param) : _type(param),
-            isPositional: true,
           ),
         ],
       ),

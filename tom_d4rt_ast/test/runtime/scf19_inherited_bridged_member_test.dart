@@ -64,23 +64,27 @@ SMethodDeclaration _method(String name, SExpression body) => SMethodDeclaration(
 SClassDeclaration _myQ() => SClassDeclaration(
   offset: 0,
   length: 0,
-  name: _id('MyQ'),
   extendsClause: SExtendsClause(
     offset: 0,
     length: 0,
     superclass: _type('ListQueue'),
   ),
-  members: [
-    _method('bare', _call(null, 'elementAt', [_int(0)])),
-    _method(
-      'viaSuper',
-      _call(SSuperExpression(offset: 0, length: 0), 'elementAt', [_int(0)]),
-    ),
-    _method(
-      'declared',
-      _call(SSuperExpression(offset: 0, length: 0), 'removeFirst'),
-    ),
-  ],
+  namePart: SNameWithTypeParameters(offset: 0, length: 0, typeName: _id('MyQ')),
+  body: SBlockClassBody(
+    offset: 0,
+    length: 0,
+    members: [
+      _method('bare', _call(null, 'elementAt', [_int(0)])),
+      _method(
+        'viaSuper',
+        _call(SSuperExpression(offset: 0, length: 0), 'elementAt', [_int(0)]),
+      ),
+      _method(
+        'declared',
+        _call(SSuperExpression(offset: 0, length: 0), 'removeFirst'),
+      ),
+    ],
+  ),
 );
 
 /// `main() { var q = MyQ(); q.addLast(7); return <result>; }`

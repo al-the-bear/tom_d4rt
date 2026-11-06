@@ -27,7 +27,8 @@ class _Recorder extends SAstVisitor<String> {
   @override
   String? visitNode(SAstNode node) => 'node';
   @override
-  String? visitRegularFormalParameter(SRegularFormalParameter node) => 'regular';
+  String? visitRegularFormalParameter(SRegularFormalParameter node) =>
+      'regular';
   @override
   String? visitNamedArgument(SNamedArgument node) => 'namedArgument';
   @override

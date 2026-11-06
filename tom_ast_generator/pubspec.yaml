@@ -13,7 +13,7 @@ environment:
   sdk: ^3.10.4
 
 dependencies:
-  analyzer: ^10.0.0
+  analyzer: ^14.5.0
   args: ^2.4.2
   glob: ^2.1.2
   path: ^1.9.1
@@ -22,7 +22,7 @@ dependencies:
   # `pub upgrade` always tracks our latest published versions during active
   # development.
   tom_d4rt_ast: "^0.210.0"
-  tom_ast_model: "^0.2.2"
+  tom_ast_model: "^0.3.0"
   tom_build_base: ">=2.10.0"
 
 dev_dependencies:

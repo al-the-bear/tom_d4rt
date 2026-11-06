@@ -34,32 +34,40 @@ Object? _run(String? typeArg) {
             SClassDeclaration(
               offset: 0,
               length: 0,
-              name: _id('Box'),
-              typeParameters: STypeParameterList(
+              namePart: SNameWithTypeParameters(
                 offset: 0,
                 length: 0,
-                typeParameters: [
-                  STypeParameter(
+                typeName: _id('Box'),
+                typeParameters: STypeParameterList(
+                  offset: 0,
+                  length: 0,
+                  typeParameters: [
+                    STypeParameter(
+                      offset: 0,
+                      length: 0,
+                      name: _id('T'),
+                      bound: _type('num'),
+                    ),
+                  ],
+                ),
+              ),
+              body: SBlockClassBody(
+                offset: 0,
+                length: 0,
+                members: [
+                  SConstructorDeclaration(
                     offset: 0,
                     length: 0,
-                    name: _id('T'),
-                    bound: _type('num'),
+                    typeName: _id('Box'),
+                    parameters: SFormalParameterList(offset: 0, length: 0),
+                    body: SBlockFunctionBody(
+                      offset: 0,
+                      length: 0,
+                      block: SBlock(offset: 0, length: 0),
+                    ),
                   ),
                 ],
               ),
-              members: [
-                SConstructorDeclaration(
-                  offset: 0,
-                  length: 0,
-                  returnType: _id('Box'),
-                  parameters: SFormalParameterList(offset: 0, length: 0),
-                  body: SBlockFunctionBody(
-                    offset: 0,
-                    length: 0,
-                    block: SBlock(offset: 0, length: 0),
-                  ),
-                ),
-              ],
             ),
             SFunctionDeclaration(
               offset: 0,

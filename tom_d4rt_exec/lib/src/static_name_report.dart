@@ -143,8 +143,8 @@ class _NameReportVisitor extends GeneralizingAstVisitor<void> {
     final top = <String>{};
     for (final d in unit.declarations) {
       switch (d) {
-        case NamedCompilationUnitMember():
-          top.add(d.name.lexeme);
+        case CompilationUnitMember() when _memberName(d) != null:
+          top.add(_memberName(d)!);
         case TopLevelVariableDeclaration():
           for (final v in d.variables.variables) {
             top.add(v.name.lexeme);
@@ -221,11 +221,11 @@ class _NameReportVisitor extends GeneralizingAstVisitor<void> {
         node.withClause != null ||
         node.implementsClause != null ||
         _extensionOnEverything ||
-        _extendedTypes.contains(node.name.lexeme);
-    if (leavesUnit) openClasses.add(node.name.lexeme);
+        _extendedTypes.contains(node.namePart.typeName.lexeme);
+    if (leavesUnit) openClasses.add(node.namePart.typeName.lexeme);
     final members = <String>{
-      ..._typeParamNames(node.typeParameters),
-      for (final m in node.members)
+      ..._typeParamNames(node.namePart.typeParameters),
+      for (final m in node.body.members)
         ...switch (m) {
           MethodDeclaration() => [m.name.lexeme],
           FieldDeclaration() => [
@@ -238,7 +238,7 @@ class _NameReportVisitor extends GeneralizingAstVisitor<void> {
       'super',
     };
     final savedEnclosing = _enclosing;
-    _enclosing = node.name.lexeme;
+    _enclosing = node.namePart.typeName.lexeme;
     if (leavesUnit) _openClassDepth++;
     _push(members);
     node.visitChildren(this);
@@ -277,12 +277,13 @@ class _NameReportVisitor extends GeneralizingAstVisitor<void> {
     // members read bare — `int get doubled => value * 2` — and nothing here
     // recorded it, so every such read was reported. It also `implements`
     // types that can leave the unit, which is the same openness a class has.
-    openClasses.add(node.name.lexeme);
+    openClasses.add(node.namePart.typeName.lexeme);
     _openClassDepth++;
     _push({
-      ..._typeParamNames(node.typeParameters),
-      node.representation.fieldName.lexeme,
-      for (final m in node.members)
+      ..._typeParamNames(node.namePart.typeParameters),
+      // The representation field is the primary constructor's one parameter.
+      node.primaryConstructor.formalParameters.parameters.first.name!.lexeme,
+      for (final m in node.body.members)
         if (m is MethodDeclaration) m.name.lexeme,
       'this',
     });
@@ -293,12 +294,12 @@ class _NameReportVisitor extends GeneralizingAstVisitor<void> {
 
   @override
   void visitEnumDeclaration(EnumDeclaration node) {
-    openClasses.add(node.name.lexeme);
+    openClasses.add(node.namePart.typeName.lexeme);
     _openClassDepth++;
     _push({
-      ..._typeParamNames(node.typeParameters),
-      for (final c in node.constants) c.name.lexeme,
-      for (final m in node.members)
+      ..._typeParamNames(node.namePart.typeParameters),
+      for (final c in node.body.constants) c.name.lexeme,
+      for (final m in node.body.members)
         if (m is MethodDeclaration) m.name.lexeme,
       'this',
       'values',
@@ -531,7 +532,6 @@ class _NameReportVisitor extends GeneralizingAstVisitor<void> {
       case ImportDirective():
       case ExportDirective():
       case PartDirective():
-      case LibraryIdentifier():
       // sci2: the `dart.library.io` of a conditional import's configuration
       // names a platform flag, not a variable. Read as one, it refused every
       // program with a conditional import.
@@ -545,7 +545,6 @@ class _NameReportVisitor extends GeneralizingAstVisitor<void> {
       case SuperFormalParameter():
       case PatternField():
       case PatternFieldName():
-      case RepresentationDeclaration():
         return false;
       // `super.x` and `this.x` targets are handled by the class scope.
       case PropertyAccess(:final target) when identical(target, node):
@@ -555,3 +554,16 @@ class _NameReportVisitor extends GeneralizingAstVisitor<void> {
     }
   }
 }
+
+/// The name a top-level declaration introduces: every kind analyzer 10
+/// grouped as `NamedCompilationUnitMember` (a class, enum, extension type,
+/// mixin, function or type alias), or null for any other declaration.
+String? _memberName(CompilationUnitMember d) => switch (d) {
+  ClassDeclaration(:final namePart) => namePart.typeName.lexeme,
+  EnumDeclaration(:final namePart) => namePart.typeName.lexeme,
+  ExtensionTypeDeclaration(:final namePart) => namePart.typeName.lexeme,
+  MixinDeclaration(:final name) => name.lexeme,
+  FunctionDeclaration(:final name) => name.lexeme,
+  TypeAlias(:final name) => name.lexeme,
+  _ => null,
+};

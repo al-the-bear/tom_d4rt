@@ -124,8 +124,8 @@ void main() {
           offset: 0,
           length: 0,
           parameters: [
-            SSimpleFormalParameter(offset: 0, length: 0, name: id('a')),
-            SSimpleFormalParameter(offset: 0, length: 0, name: id('b')),
+            SRegularFormalParameter(offset: 0, length: 0, name: id('a')),
+            SRegularFormalParameter(offset: 0, length: 0, name: id('b')),
           ],
         ),
         body: SExpressionFunctionBody(

@@ -92,7 +92,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     );
   }
 
-  /// A named argument evaluates to its expression — the label is a name, not a
+  /// A named argument evaluates to its expression — the name is a name, not a
   /// value.
   ///
   /// Without this the generalizing default returned `null`, so every site that
@@ -100,8 +100,14 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   /// bound `null`. The redirecting-constructor initializer in `callable.dart`
   /// is exactly such a site: `A() : this.named(a: 5)` passed `null`, not `5`.
   @override
-  Object? visitNamedExpression(SNamedExpression node) =>
-      node.expression!.accept<Object?>(this);
+  Object? visitNamedArgument(SNamedArgument node) =>
+      node.argumentExpression.accept<Object?>(this);
+
+  /// A named record field evaluates to its expression, as a named argument
+  /// does. [visitRecordLiteral] reads its name itself.
+  @override
+  Object? visitRecordLiteralNamedField(SRecordLiteralNamedField node) =>
+      node.fieldExpression.accept<Object?>(this);
 
   /// A typedef binds its NAME to the type it names, and evaluates to nothing
   /// itself.
@@ -7797,7 +7803,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
   @override
   Object? visitBreakStatement(SBreakStatement node) {
-    final label = node.label?.name;
+    final label = node.label?.name.name;
     Logger.debug(
       "[SBreakStatement] BREAKING: About to throw BreakException (label: $label). Current async state: ${currentAsyncState?.hashCode}",
     );
@@ -7809,7 +7815,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
   @override
   Object? visitContinueStatement(SContinueStatement node) {
-    final label = node.label?.name;
+    final label = node.label?.name.name;
     Logger.debug(
       "[SContinueStatement] Throwing ContinueException (label: $label)",
     );
@@ -10664,7 +10670,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
   @override
   Object? visitLabeledStatement(SLabeledStatement node) {
-    final labelNames = node.labels.map((l) => l.label!.name).toSet();
+    final labelNames = node.labels.map((l) => l.name.name).toSet();
     // A statement written `a: b: ...` may arrive as nested labelled
     // statements; the statement they wrap answers to every one of them.
     if (identical(node, _labelledStatement)) {
@@ -10700,7 +10706,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
   @override
   Object? visitClassDeclaration(SClassDeclaration node) {
-    final className = node.name!.name;
+    final className = node.namePart.typeName.name;
     Logger.debug(
       "[Visitor.visitClassDeclaration] START for '$className' in env: ${environment.hashCode}",
     );
@@ -10722,7 +10728,10 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     // SCE130: pass 1 resolved this class's type-parameter bounds before any
     // import or type alias existed, and left behind whatever it could not
     // resolve. Repair it now, before any member is populated.
-    klass.resolveDeferredTypeParameterBounds(node.typeParameters, environment);
+    klass.resolveDeferredTypeParameterBounds(
+      node.namePart.typeParameters,
+      environment,
+    );
     Logger.debug(
       "[Visitor.visitClassDeclaration] Retrieved placeholder for '$className' (hash: ${klass.hashCode})",
     );
@@ -10916,7 +10925,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       "[Visitor.visitClassDeclaration] Processing members for '$className' (hash: ${klass.hashCode})",
     );
 
-    for (final member in node.members) {
+    for (final member in node.body.members) {
       if (member is SMethodDeclaration) {
         final methodName = member.name!.name;
         // Pass the ALREADY RETRIEVED klass object
@@ -10991,7 +11000,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     final staticFieldDecls = <SVariableDeclaration>[];
     final staticFieldMeta =
         <String, (bool isLate, bool isFinal, SAstNode? initializer)>{};
-    for (final member in node.members) {
+    for (final member in node.body.members) {
       if (member is SFieldDeclaration && member.isStatic) {
         final isLate = member.fields!.isLate;
         final isFinal = member.fields!.isFinal;
@@ -11272,7 +11281,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
     try {
       environment = declarationEnv;
-      for (final member in node.members) {
+      for (final member in node.body.members) {
         if (member is SMethodDeclaration) {
           final methodName = member.name!.name;
           // Methods capture the GLOBAL environment via the mixinClass
@@ -11331,7 +11340,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
   @override
   Object? visitEnumDeclaration(SEnumDeclaration node) {
-    final enumName = node.name!.name;
+    final enumName = node.namePart.typeName.name;
     Logger.debug(
       "[Visitor.visitEnumDeclaration] START (Pass 2) for '$enumName'",
     );
@@ -11409,7 +11418,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     try {
       // Members are defined in the enum's declaration scope
       environment = enumObj.declarationEnvironment;
-      for (final member in node.members) {
+      for (final member in node.body.members) {
         if (member is SMethodDeclaration) {
           final methodName = member.name!.name;
           // Methods capture the enum's declaration environment implicitly
@@ -11513,8 +11522,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     Logger.debug(
       "[Visitor.visitEnumDeclaration]   Instantiating enum values...",
     );
-    for (int i = 0; i < node.constants.length; i++) {
-      final constantDecl = node.constants[i];
+    for (int i = 0; i < node.body.constants.length; i++) {
+      final constantDecl = node.body.constants[i];
       final valueName = constantDecl.name!.name;
 
       if (enumObj.values.containsKey(valueName)) {
@@ -13057,8 +13066,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       for (final param in parameters.parameters) {
         final paramType = _resolveFormalParameterRuntimeType(param, env);
         if (param.isNamed) {
-          named[_formalParameterName(param) ?? ''] = paramType;
-        } else if (param.isOptional) {
+          named[param.name?.name ?? ''] = paramType;
+        } else if (param.isOptionalPositional) {
           optionalPositional.add(paramType);
         } else {
           positional.add(paramType);
@@ -13073,14 +13082,6 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     );
   }
 
-  /// DFUB5: the declared name of a formal parameter, unwrapping a
-  /// [SDefaultFormalParameter] (which reports a null `parameterName`) to its
-  /// inner normal parameter.
-  String? _formalParameterName(SFormalParameter param) {
-    final normal = param is SDefaultFormalParameter ? param.parameter : param;
-    return normal?.parameterName;
-  }
-
   /// DFUB5: resolve the declared type of a single formal parameter to a
   /// [RuntimeType], falling back to `dynamic` when the parameter has no
   /// annotation or the annotation cannot be resolved.
@@ -13088,15 +13089,12 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     SFormalParameter param,
     Environment env,
   ) {
-    final normal = param is SDefaultFormalParameter ? param.parameter : param;
-    STypeAnnotation? typeNode;
-    if (normal is SSimpleFormalParameter) {
-      typeNode = normal.type;
-    } else if (normal is SFieldFormalParameter) {
-      typeNode = normal.type;
-    } else if (normal is SSuperFormalParameter) {
-      typeNode = normal.type;
-    }
+    // A function-typed parameter (`int cb(String)`) carries its RETURN type in
+    // `type`, so it has no single annotation to resolve here.
+    final STypeAnnotation? typeNode =
+        param is SRegularFormalParameter && param.functionTypedSuffix != null
+        ? null
+        : param.type;
     if (typeNode == null) {
       return const NamedRuntimeType('dynamic');
     }
@@ -13529,9 +13527,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     // arguments are appended in source order; named arguments are keyed by
     // name, so interleaving them produces well-defined results.
     for (final arg in argumentList.arguments) {
-      if (arg is SNamedExpression) {
-        final name = arg.name!.label!.name;
-        final value = arg.expression!.accept<Object?>(this);
+      if (arg is SNamedArgument) {
+        final name = arg.name.name;
+        final value = arg.argumentExpression.accept<Object?>(this);
 
         // Check for async suspension in named arguments
         if (value is AsyncSuspensionRequest) {
@@ -13653,9 +13651,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     // arguments are appended in source order; named arguments are keyed by
     // name, so interleaving them produces well-defined results.
     for (final arg in argumentList.arguments) {
-      if (arg is SNamedExpression) {
-        final name = arg.name!.label!.name;
-        final value = arg.expression!.accept<Object?>(this);
+      if (arg is SNamedArgument) {
+        final name = arg.name.name;
+        final value = arg.argumentExpression.accept<Object?>(this);
 
         // Check for async suspension in named arguments
         if (value is AsyncSuspensionRequest) {
@@ -13941,19 +13939,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     final Map<String, int> labelToIndex = {};
     for (int i = 0; i < node.members.length; i++) {
       final member = node.members[i];
-      List<dynamic> labels = [];
-      if (member is SSwitchCase) {
-        labels = member.labels;
-      } else if (member is SSwitchDefault) {
-        labels = member.labels;
-      } else if (member is SSwitchPatternCase) {
-        labels = member.labels;
-      }
-      for (final label in labels) {
-        final labelName = (label is SLabel)
-            ? label.label?.name
-            : (label as SAstNode).toString();
-        if (labelName != null) labelToIndex[labelName] = i;
+      for (final label in member.labels) {
+        labelToIndex[label.name.name] = i;
       }
     }
 
@@ -14949,9 +14936,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     final named = <String, Object?>{};
 
     for (final field in node.fields) {
-      if (field is SNamedExpression) {
-        final name = field.name!.label!.name;
-        final value = field.expression!.accept<Object?>(this);
+      if (field is SRecordLiteralNamedField) {
+        final name = field.name.name;
+        final value = field.fieldExpression.accept<Object?>(this);
         if (named.containsKey(name)) {
           throw RuntimeD4rtException(
             "Record literal field '$name' specified more than once.",
@@ -15183,7 +15170,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     final staticSetters = <String, Callable>{};
     final staticFields = <String, Object?>{};
 
-    for (final member in node.members) {
+    for (final member in node.body.members) {
       if (member is SMethodDeclaration) {
         final methodName =
             member.name!.name; // Operator names like '+', '[]' are also lexemes
@@ -15297,15 +15284,16 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   /// Lim-1 FIX: Handle extension type declarations (Dart 3.3+)
   @override
   Object? visitExtensionTypeDeclaration(SExtensionTypeDeclaration node) {
-    final typeName = node.name!.name;
+    final typeName = node.namePart.typeName.name;
     Logger.debug(
       "[visitExtensionTypeDeclaration] Declaring extension type: $typeName",
     );
 
-    // Get the representation field name and type
-    final representation = node.representation;
-    final representationFieldName = representation.fieldName;
-    final representationTypeNode = representation.fieldType;
+    // The representation field is the primary constructor's one parameter.
+    final representation =
+        node.primaryConstructor.formalParameters.parameters.first;
+    final representationFieldName = representation.name!.name;
+    final representationTypeNode = representation.type;
 
     Logger.debug(
       "[visitExtensionTypeDeclaration] Representation field: $representationFieldName, type: ${representationTypeNode.toString()}",
@@ -15352,7 +15340,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     // Define it in the environment early so methods can reference the type
     environment.define(typeName, extensionType);
 
-    for (final member in node.members) {
+    for (final member in node.body.members) {
       if (member is SMethodDeclaration) {
         final methodName = member.name!.name;
         final isGetter = member.isGetter;

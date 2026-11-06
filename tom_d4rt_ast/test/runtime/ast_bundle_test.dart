@@ -15,7 +15,7 @@ void main() {
     int offset = 0,
     int length = 100,
     List<SDirective>? directives,
-    List<SDeclaration>? declarations,
+    List<SCompilationUnitMember>? declarations,
   }) {
     return SCompilationUnit(
       offset: offset,

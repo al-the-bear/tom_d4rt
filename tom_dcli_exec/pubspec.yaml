@@ -49,7 +49,7 @@ dependencies:
   # AST converter (analyzer → mirror AST) for parseSourceCallback
   tom_ast_generator: "^0.1.17"
   # Analyzer needed by tom_ast_generator for parsing
-  analyzer: ^10.0.0
+  analyzer: ^14.5.0
 
   # VS Code scripting API (for bridge support)
   tom_vscode_scripting_api: ^2.0.3

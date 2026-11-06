@@ -50,80 +50,88 @@ SFormalParameterList _noParams() =>
 SClassDeclaration _lengthsClass() => SClassDeclaration(
   offset: 0,
   length: 0,
-  name: _id('Lengths'),
-  members: [
-    SConstructorDeclaration(
-      offset: 0,
-      length: 0,
-      returnType: _id('Lengths'),
-      parameters: _noParams(),
-      body: SBlockFunctionBody(
+  namePart: SNameWithTypeParameters(
+    offset: 0,
+    length: 0,
+    typeName: _id('Lengths'),
+  ),
+  body: SBlockClassBody(
+    offset: 0,
+    length: 0,
+    members: [
+      SConstructorDeclaration(
         offset: 0,
         length: 0,
-        block: SBlock(offset: 0, length: 0, statements: const []),
-      ),
-    ),
-    SMethodDeclaration(
-      offset: 0,
-      length: 0,
-      name: _id('bind'),
-      returnType: _type('Stream'),
-      parameters: SFormalParameterList(
-        offset: 0,
-        length: 0,
-        parameters: [
-          SSimpleFormalParameter(
-            offset: 0,
-            length: 0,
-            name: _id('source'),
-            type: _type('Stream'),
-            isRequired: true,
-          ),
-        ],
-      ),
-      // `source.map((chunk) => chunk.length)`
-      body: SExpressionFunctionBody(
-        offset: 0,
-        length: 0,
-        expression: SMethodInvocation(
+        typeName: _id('Lengths'),
+        parameters: _noParams(),
+        body: SBlockFunctionBody(
           offset: 0,
           length: 0,
-          target: _id('source'),
-          operator: '.',
-          methodName: _id('map'),
-          argumentList: _args([
-            SFunctionExpression(
-              offset: 0,
-              length: 0,
-              parameters: SFormalParameterList(
-                offset: 0,
-                length: 0,
-                parameters: [
-                  SSimpleFormalParameter(
-                    offset: 0,
-                    length: 0,
-                    name: _id('chunk'),
-                    isRequired: true,
-                  ),
-                ],
-              ),
-              body: SExpressionFunctionBody(
-                offset: 0,
-                length: 0,
-                expression: SPropertyAccess(
-                  offset: 0,
-                  length: 0,
-                  target: _id('chunk'),
-                  operator: '.',
-                  propertyName: _id('length'),
-                ),
-              ),
-            ),
-          ]),
+          block: SBlock(offset: 0, length: 0, statements: const []),
         ),
       ),
-    ),
-  ],
+      SMethodDeclaration(
+        offset: 0,
+        length: 0,
+        name: _id('bind'),
+        returnType: _type('Stream'),
+        parameters: SFormalParameterList(
+          offset: 0,
+          length: 0,
+          parameters: [
+            SRegularFormalParameter(
+              offset: 0,
+              length: 0,
+              name: _id('source'),
+              type: _type('Stream'),
+              isRequired: true,
+            ),
+          ],
+        ),
+        // `source.map((chunk) => chunk.length)`
+        body: SExpressionFunctionBody(
+          offset: 0,
+          length: 0,
+          expression: SMethodInvocation(
+            offset: 0,
+            length: 0,
+            target: _id('source'),
+            operator: '.',
+            methodName: _id('map'),
+            argumentList: _args([
+              SFunctionExpression(
+                offset: 0,
+                length: 0,
+                parameters: SFormalParameterList(
+                  offset: 0,
+                  length: 0,
+                  parameters: [
+                    SRegularFormalParameter(
+                      offset: 0,
+                      length: 0,
+                      name: _id('chunk'),
+                      isRequired: true,
+                    ),
+                  ],
+                ),
+                body: SExpressionFunctionBody(
+                  offset: 0,
+                  length: 0,
+                  expression: SPropertyAccess(
+                    offset: 0,
+                    length: 0,
+                    target: _id('chunk'),
+                    operator: '.',
+                    propertyName: _id('length'),
+                  ),
+                ),
+              ),
+            ]),
+          ),
+        ),
+      ),
+    ],
+  ),
 );
 
 /// `main() => Stream.fromIterable(['ab', 'cde']).transform(<argument>);`
