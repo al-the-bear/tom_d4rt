@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
-// Sources: 32 files
-// Generated: 2026-11-05T23:05:01.799785 by tom_d4rt_generator 1.52.0
+// Sources: 30 files
+// Generated: 2026-11-06T01:00:04.855175 by tom_d4rt_generator 1.52.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -25,52 +25,48 @@ import 'package:tom_vscode_scripting_api/src/agent_sdk_query.dart'
     as $tom_vscode_scripting_api_7;
 import 'package:tom_vscode_scripting_api/src/agent_sdk_tool_registry.dart'
     as $tom_vscode_scripting_api_8;
-import 'package:tom_vscode_scripting_api/src/ai_conversation_api.dart'
-    as $tom_vscode_scripting_api_9;
-import 'package:tom_vscode_scripting_api/src/ai_prompt_api.dart'
-    as $tom_vscode_scripting_api_10;
 import 'package:tom_vscode_scripting_api/src/bridge_discovery.dart'
-    as $tom_vscode_scripting_api_11;
+    as $tom_vscode_scripting_api_9;
 import 'package:tom_vscode_scripting_api/src/bridge_request_dispatcher.dart'
-    as $tom_vscode_scripting_api_12;
+    as $tom_vscode_scripting_api_10;
 import 'package:tom_vscode_scripting_api/src/tom_chat_api.dart'
-    as $tom_vscode_scripting_api_13;
+    as $tom_vscode_scripting_api_11;
 import 'package:tom_vscode_scripting_api/src/tom_document_api.dart'
-    as $tom_vscode_scripting_api_14;
+    as $tom_vscode_scripting_api_12;
 import 'package:tom_vscode_scripting_api/src/tom_queue_api.dart'
-    as $tom_vscode_scripting_api_15;
+    as $tom_vscode_scripting_api_13;
 import 'package:tom_vscode_scripting_api/src/tom_timed_api.dart'
-    as $tom_vscode_scripting_api_16;
+    as $tom_vscode_scripting_api_14;
 import 'package:tom_vscode_scripting_api/src/tom_todo_api.dart'
-    as $tom_vscode_scripting_api_17;
+    as $tom_vscode_scripting_api_15;
 import 'package:tom_vscode_scripting_api/src/tom_tools_api.dart'
-    as $tom_vscode_scripting_api_18;
+    as $tom_vscode_scripting_api_16;
 import 'package:tom_vscode_scripting_api/src/tom_workspace_api.dart'
-    as $tom_vscode_scripting_api_19;
+    as $tom_vscode_scripting_api_17;
 import 'package:tom_vscode_scripting_api/src/vscode.dart'
-    as $tom_vscode_scripting_api_20;
+    as $tom_vscode_scripting_api_18;
 import 'package:tom_vscode_scripting_api/src/vscode_adapter.dart'
-    as $tom_vscode_scripting_api_21;
+    as $tom_vscode_scripting_api_19;
 import 'package:tom_vscode_scripting_api/src/vscode_bridge_adapter.dart'
-    as $tom_vscode_scripting_api_22;
+    as $tom_vscode_scripting_api_20;
 import 'package:tom_vscode_scripting_api/src/vscode_bridge_client.dart'
-    as $tom_vscode_scripting_api_23;
+    as $tom_vscode_scripting_api_21;
 import 'package:tom_vscode_scripting_api/src/vscode_chat.dart'
-    as $tom_vscode_scripting_api_24;
+    as $tom_vscode_scripting_api_22;
 import 'package:tom_vscode_scripting_api/src/vscode_commands.dart'
-    as $tom_vscode_scripting_api_25;
+    as $tom_vscode_scripting_api_23;
 import 'package:tom_vscode_scripting_api/src/vscode_extensions.dart'
-    as $tom_vscode_scripting_api_26;
+    as $tom_vscode_scripting_api_24;
 import 'package:tom_vscode_scripting_api/src/vscode_helper.dart'
-    as $tom_vscode_scripting_api_27;
+    as $tom_vscode_scripting_api_25;
 import 'package:tom_vscode_scripting_api/src/vscode_lm.dart'
-    as $tom_vscode_scripting_api_28;
+    as $tom_vscode_scripting_api_26;
 import 'package:tom_vscode_scripting_api/src/vscode_types.dart'
-    as $tom_vscode_scripting_api_29;
+    as $tom_vscode_scripting_api_27;
 import 'package:tom_vscode_scripting_api/src/vscode_window.dart'
-    as $tom_vscode_scripting_api_30;
+    as $tom_vscode_scripting_api_28;
 import 'package:tom_vscode_scripting_api/src/vscode_workspace.dart'
-    as $tom_vscode_scripting_api_31;
+    as $tom_vscode_scripting_api_29;
 
 /// Bridge class for tom_vscode_scripting_api module.
 class TomVscodeScriptingApiBridge {
@@ -187,22 +183,6 @@ class TomVscodeScriptingApiBridge {
       _createVSCodeBridgeAgentSdkTransportBridge(),
       _createBridgeRequestDispatcherBridge(),
       _createAgentSdkToolRegistryBridge(),
-      _createAiTokenStatsBridge(),
-      _createAiPromptResultBridge(),
-      _createAiPromptProfileBridge(),
-      _createAiModelConfigBridge(),
-      _createAiModelsResultBridge(),
-      _createAiPromptApiBridge(),
-      _createCopilotResponseBridge(),
-      _createConversationExchangeBridge(),
-      _createConversationResultBridge(),
-      _createConversationStatusBridge(),
-      _createConversationProfileBridge(),
-      _createConversationConfigBridge(),
-      _createSingleTurnResultBridge(),
-      _createConversationActionResultBridge(),
-      _createConversationLogBridge(),
-      _createAiConversationApiBridge(),
       _createTomTodoBridge(),
       _createTomTodoDecisionBridge(),
       _createTomTodoScopeBridge(),
@@ -361,22 +341,6 @@ class TomVscodeScriptingApiBridge {
           _createVSCodeBridgeAgentSdkTransportBridge,
       'BridgeRequestDispatcher': _createBridgeRequestDispatcherBridge,
       'AgentSdkToolRegistry': _createAgentSdkToolRegistryBridge,
-      'AiTokenStats': _createAiTokenStatsBridge,
-      'AiPromptResult': _createAiPromptResultBridge,
-      'AiPromptProfile': _createAiPromptProfileBridge,
-      'AiModelConfig': _createAiModelConfigBridge,
-      'AiModelsResult': _createAiModelsResultBridge,
-      'AiPromptApi': _createAiPromptApiBridge,
-      'CopilotResponse': _createCopilotResponseBridge,
-      'ConversationExchange': _createConversationExchangeBridge,
-      'ConversationResult': _createConversationResultBridge,
-      'ConversationStatus': _createConversationStatusBridge,
-      'ConversationProfile': _createConversationProfileBridge,
-      'ConversationConfig': _createConversationConfigBridge,
-      'SingleTurnResult': _createSingleTurnResultBridge,
-      'ConversationActionResult': _createConversationActionResultBridge,
-      'ConversationLog': _createConversationLogBridge,
-      'AiConversationApi': _createAiConversationApiBridge,
       'TomTodo': _createTomTodoBridge,
       'TomTodoDecision': _createTomTodoDecisionBridge,
       'TomTodoScope': _createTomTodoScopeBridge,
@@ -426,58 +390,58 @@ class TomVscodeScriptingApiBridge {
   /// lookup thunk without building the BridgedClass.
   static Map<String, Type> bridgeClassTypes() {
     return {
-      'VSCodeAdapter': $tom_vscode_scripting_api_21.VSCodeAdapter,
-      'VSCodeBridgeResult': $tom_vscode_scripting_api_23.VSCodeBridgeResult,
-      'VSCodeBridgeClient': $tom_vscode_scripting_api_23.VSCodeBridgeClient,
-      'VSCodeBridgeAdapter': $tom_vscode_scripting_api_22.VSCodeBridgeAdapter,
+      'VSCodeAdapter': $tom_vscode_scripting_api_19.VSCodeAdapter,
+      'VSCodeBridgeResult': $tom_vscode_scripting_api_21.VSCodeBridgeResult,
+      'VSCodeBridgeClient': $tom_vscode_scripting_api_21.VSCodeBridgeClient,
+      'VSCodeBridgeAdapter': $tom_vscode_scripting_api_20.VSCodeBridgeAdapter,
       'LazyVSCodeBridgeAdapter':
-          $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter,
+          $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter,
       'BridgeWorkspaceNotFoundException':
-          $tom_vscode_scripting_api_11.BridgeWorkspaceNotFoundException,
-      'VSCode': $tom_vscode_scripting_api_20.VSCode,
-      'VSCodeCommands': $tom_vscode_scripting_api_25.VSCodeCommands,
-      'VSCodeCommonCommands': $tom_vscode_scripting_api_25.VSCodeCommonCommands,
-      'Extension': $tom_vscode_scripting_api_26.Extension,
-      'VSCodeExtensions': $tom_vscode_scripting_api_26.VSCodeExtensions,
-      'VSCodeLanguageModel': $tom_vscode_scripting_api_28.VSCodeLanguageModel,
-      'LanguageModelChat': $tom_vscode_scripting_api_28.LanguageModelChat,
+          $tom_vscode_scripting_api_9.BridgeWorkspaceNotFoundException,
+      'VSCode': $tom_vscode_scripting_api_18.VSCode,
+      'VSCodeCommands': $tom_vscode_scripting_api_23.VSCodeCommands,
+      'VSCodeCommonCommands': $tom_vscode_scripting_api_23.VSCodeCommonCommands,
+      'Extension': $tom_vscode_scripting_api_24.Extension,
+      'VSCodeExtensions': $tom_vscode_scripting_api_24.VSCodeExtensions,
+      'VSCodeLanguageModel': $tom_vscode_scripting_api_26.VSCodeLanguageModel,
+      'LanguageModelChat': $tom_vscode_scripting_api_26.LanguageModelChat,
       'LanguageModelCallException':
-          $tom_vscode_scripting_api_28.LanguageModelCallException,
+          $tom_vscode_scripting_api_26.LanguageModelCallException,
       'LanguageModelChatMessage':
-          $tom_vscode_scripting_api_28.LanguageModelChatMessage,
+          $tom_vscode_scripting_api_26.LanguageModelChatMessage,
       'LanguageModelChatResponse':
-          $tom_vscode_scripting_api_28.LanguageModelChatResponse,
+          $tom_vscode_scripting_api_26.LanguageModelChatResponse,
       'LanguageModelToolResult':
-          $tom_vscode_scripting_api_28.LanguageModelToolResult,
+          $tom_vscode_scripting_api_26.LanguageModelToolResult,
       'LanguageModelToolInformation':
-          $tom_vscode_scripting_api_28.LanguageModelToolInformation,
-      'VSCodeWindow': $tom_vscode_scripting_api_30.VSCodeWindow,
-      'VSCodeWorkspace': $tom_vscode_scripting_api_31.VSCodeWorkspace,
-      'VSCodeChat': $tom_vscode_scripting_api_24.VSCodeChat,
-      'ChatParticipant': $tom_vscode_scripting_api_24.ChatParticipant,
-      'ChatRequest': $tom_vscode_scripting_api_24.ChatRequest,
-      'ChatPromptReference': $tom_vscode_scripting_api_24.ChatPromptReference,
-      'ChatContext': $tom_vscode_scripting_api_24.ChatContext,
-      'ChatResult': $tom_vscode_scripting_api_24.ChatResult,
-      'ChatErrorDetails': $tom_vscode_scripting_api_24.ChatErrorDetails,
-      'ChatResponseStream': $tom_vscode_scripting_api_24.ChatResponseStream,
-      'HelperLogging': $tom_vscode_scripting_api_27.HelperLogging,
-      'VsCodeHelper': $tom_vscode_scripting_api_27.VsCodeHelper,
-      'VsProgress': $tom_vscode_scripting_api_27.VsProgress,
-      'FileBatch': $tom_vscode_scripting_api_27.FileBatch,
-      'VSCodeUri': $tom_vscode_scripting_api_29.VSCodeUri,
-      'WorkspaceFolder': $tom_vscode_scripting_api_29.WorkspaceFolder,
-      'TextDocument': $tom_vscode_scripting_api_29.TextDocument,
-      'Position': $tom_vscode_scripting_api_29.Position,
-      'Range': $tom_vscode_scripting_api_29.Range,
-      'Selection': $tom_vscode_scripting_api_29.Selection,
-      'TextEditor': $tom_vscode_scripting_api_29.TextEditor,
-      'QuickPickItem': $tom_vscode_scripting_api_29.QuickPickItem,
-      'InputBoxOptions': $tom_vscode_scripting_api_29.InputBoxOptions,
-      'MessageOptions': $tom_vscode_scripting_api_29.MessageOptions,
-      'TerminalOptions': $tom_vscode_scripting_api_29.TerminalOptions,
+          $tom_vscode_scripting_api_26.LanguageModelToolInformation,
+      'VSCodeWindow': $tom_vscode_scripting_api_28.VSCodeWindow,
+      'VSCodeWorkspace': $tom_vscode_scripting_api_29.VSCodeWorkspace,
+      'VSCodeChat': $tom_vscode_scripting_api_22.VSCodeChat,
+      'ChatParticipant': $tom_vscode_scripting_api_22.ChatParticipant,
+      'ChatRequest': $tom_vscode_scripting_api_22.ChatRequest,
+      'ChatPromptReference': $tom_vscode_scripting_api_22.ChatPromptReference,
+      'ChatContext': $tom_vscode_scripting_api_22.ChatContext,
+      'ChatResult': $tom_vscode_scripting_api_22.ChatResult,
+      'ChatErrorDetails': $tom_vscode_scripting_api_22.ChatErrorDetails,
+      'ChatResponseStream': $tom_vscode_scripting_api_22.ChatResponseStream,
+      'HelperLogging': $tom_vscode_scripting_api_25.HelperLogging,
+      'VsCodeHelper': $tom_vscode_scripting_api_25.VsCodeHelper,
+      'VsProgress': $tom_vscode_scripting_api_25.VsProgress,
+      'FileBatch': $tom_vscode_scripting_api_25.FileBatch,
+      'VSCodeUri': $tom_vscode_scripting_api_27.VSCodeUri,
+      'WorkspaceFolder': $tom_vscode_scripting_api_27.WorkspaceFolder,
+      'TextDocument': $tom_vscode_scripting_api_27.TextDocument,
+      'Position': $tom_vscode_scripting_api_27.Position,
+      'Range': $tom_vscode_scripting_api_27.Range,
+      'Selection': $tom_vscode_scripting_api_27.Selection,
+      'TextEditor': $tom_vscode_scripting_api_27.TextEditor,
+      'QuickPickItem': $tom_vscode_scripting_api_27.QuickPickItem,
+      'InputBoxOptions': $tom_vscode_scripting_api_27.InputBoxOptions,
+      'MessageOptions': $tom_vscode_scripting_api_27.MessageOptions,
+      'TerminalOptions': $tom_vscode_scripting_api_27.TerminalOptions,
       'FileSystemWatcherOptions':
-          $tom_vscode_scripting_api_29.FileSystemWatcherOptions,
+          $tom_vscode_scripting_api_27.FileSystemWatcherOptions,
       'SdkMessage': $tom_vscode_scripting_api_3.SdkMessage,
       'SdkAssistantMessage': $tom_vscode_scripting_api_3.SdkAssistantMessage,
       'SdkUserMessage': $tom_vscode_scripting_api_3.SdkUserMessage,
@@ -547,68 +511,51 @@ class TomVscodeScriptingApiBridge {
       'VSCodeBridgeAgentSdkTransport':
           $tom_vscode_scripting_api_7.VSCodeBridgeAgentSdkTransport,
       'BridgeRequestDispatcher':
-          $tom_vscode_scripting_api_12.BridgeRequestDispatcher,
+          $tom_vscode_scripting_api_10.BridgeRequestDispatcher,
       'AgentSdkToolRegistry': $tom_vscode_scripting_api_8.AgentSdkToolRegistry,
-      'AiTokenStats': $tom_vscode_scripting_api_10.AiTokenStats,
-      'AiPromptResult': $tom_vscode_scripting_api_10.AiPromptResult,
-      'AiPromptProfile': $tom_vscode_scripting_api_10.AiPromptProfile,
-      'AiModelConfig': $tom_vscode_scripting_api_10.AiModelConfig,
-      'AiModelsResult': $tom_vscode_scripting_api_10.AiModelsResult,
-      'AiPromptApi': $tom_vscode_scripting_api_10.AiPromptApi,
-      'CopilotResponse': $tom_vscode_scripting_api_9.CopilotResponse,
-      'ConversationExchange': $tom_vscode_scripting_api_9.ConversationExchange,
-      'ConversationResult': $tom_vscode_scripting_api_9.ConversationResult,
-      'ConversationStatus': $tom_vscode_scripting_api_9.ConversationStatus,
-      'ConversationProfile': $tom_vscode_scripting_api_9.ConversationProfile,
-      'ConversationConfig': $tom_vscode_scripting_api_9.ConversationConfig,
-      'SingleTurnResult': $tom_vscode_scripting_api_9.SingleTurnResult,
-      'ConversationActionResult':
-          $tom_vscode_scripting_api_9.ConversationActionResult,
-      'ConversationLog': $tom_vscode_scripting_api_9.ConversationLog,
-      'AiConversationApi': $tom_vscode_scripting_api_9.AiConversationApi,
       'TomTodo': $tom_todo_model_1.TomTodo,
       'TomTodoDecision': $tom_todo_model_1.TomTodoDecision,
       'TomTodoScope': $tom_todo_model_1.TomTodoScope,
       'TomTodoReference': $tom_todo_model_1.TomTodoReference,
-      'TodoEntry': $tom_vscode_scripting_api_17.TodoEntry,
-      'InvalidTodo': $tom_vscode_scripting_api_17.InvalidTodo,
-      'TodoWire': $tom_vscode_scripting_api_17.TodoWire,
-      'TodoListResult': $tom_vscode_scripting_api_17.TodoListResult,
-      'TodoFileListResult': $tom_vscode_scripting_api_17.TodoFileListResult,
-      'TomTodoApi': $tom_vscode_scripting_api_17.TomTodoApi,
-      'QueuedFollowUp': $tom_vscode_scripting_api_15.QueuedFollowUp,
-      'QueuedPrompt': $tom_vscode_scripting_api_15.QueuedPrompt,
-      'QueueListResult': $tom_vscode_scripting_api_15.QueueListResult,
-      'QueueItemInput': $tom_vscode_scripting_api_15.QueueItemInput,
-      'FollowUpInput': $tom_vscode_scripting_api_15.FollowUpInput,
-      'TomQueueApi': $tom_vscode_scripting_api_15.TomQueueApi,
-      'ScheduledTime': $tom_vscode_scripting_api_16.ScheduledTime,
-      'TimedRequest': $tom_vscode_scripting_api_16.TimedRequest,
+      'TodoEntry': $tom_vscode_scripting_api_15.TodoEntry,
+      'InvalidTodo': $tom_vscode_scripting_api_15.InvalidTodo,
+      'TodoWire': $tom_vscode_scripting_api_15.TodoWire,
+      'TodoListResult': $tom_vscode_scripting_api_15.TodoListResult,
+      'TodoFileListResult': $tom_vscode_scripting_api_15.TodoFileListResult,
+      'TomTodoApi': $tom_vscode_scripting_api_15.TomTodoApi,
+      'QueuedFollowUp': $tom_vscode_scripting_api_13.QueuedFollowUp,
+      'QueuedPrompt': $tom_vscode_scripting_api_13.QueuedPrompt,
+      'QueueListResult': $tom_vscode_scripting_api_13.QueueListResult,
+      'QueueItemInput': $tom_vscode_scripting_api_13.QueueItemInput,
+      'FollowUpInput': $tom_vscode_scripting_api_13.FollowUpInput,
+      'TomQueueApi': $tom_vscode_scripting_api_13.TomQueueApi,
+      'ScheduledTime': $tom_vscode_scripting_api_14.ScheduledTime,
+      'TimedRequest': $tom_vscode_scripting_api_14.TimedRequest,
       'TimedRequestListResult':
-          $tom_vscode_scripting_api_16.TimedRequestListResult,
-      'TimedRequestInput': $tom_vscode_scripting_api_16.TimedRequestInput,
-      'TomTimedApi': $tom_vscode_scripting_api_16.TomTimedApi,
-      'DocumentInfo': $tom_vscode_scripting_api_14.DocumentInfo,
-      'DocumentListResult': $tom_vscode_scripting_api_14.DocumentListResult,
-      'DocumentContent': $tom_vscode_scripting_api_14.DocumentContent,
-      'TrailEntry': $tom_vscode_scripting_api_14.TrailEntry,
-      'TrailListResult': $tom_vscode_scripting_api_14.TrailListResult,
-      'GuidelineInfo': $tom_vscode_scripting_api_14.GuidelineInfo,
-      'GuidelineListResult': $tom_vscode_scripting_api_14.GuidelineListResult,
-      'TomDocumentApi': $tom_vscode_scripting_api_14.TomDocumentApi,
-      'ProjectInfo': $tom_vscode_scripting_api_19.ProjectInfo,
-      'ProjectListResult': $tom_vscode_scripting_api_19.ProjectListResult,
-      'QuestInfo': $tom_vscode_scripting_api_19.QuestInfo,
-      'QuestListResult': $tom_vscode_scripting_api_19.QuestListResult,
-      'WorkspaceInfo': $tom_vscode_scripting_api_19.WorkspaceInfo,
-      'ChatVariable': $tom_vscode_scripting_api_19.ChatVariable,
+          $tom_vscode_scripting_api_14.TimedRequestListResult,
+      'TimedRequestInput': $tom_vscode_scripting_api_14.TimedRequestInput,
+      'TomTimedApi': $tom_vscode_scripting_api_14.TomTimedApi,
+      'DocumentInfo': $tom_vscode_scripting_api_12.DocumentInfo,
+      'DocumentListResult': $tom_vscode_scripting_api_12.DocumentListResult,
+      'DocumentContent': $tom_vscode_scripting_api_12.DocumentContent,
+      'TrailEntry': $tom_vscode_scripting_api_12.TrailEntry,
+      'TrailListResult': $tom_vscode_scripting_api_12.TrailListResult,
+      'GuidelineInfo': $tom_vscode_scripting_api_12.GuidelineInfo,
+      'GuidelineListResult': $tom_vscode_scripting_api_12.GuidelineListResult,
+      'TomDocumentApi': $tom_vscode_scripting_api_12.TomDocumentApi,
+      'ProjectInfo': $tom_vscode_scripting_api_17.ProjectInfo,
+      'ProjectListResult': $tom_vscode_scripting_api_17.ProjectListResult,
+      'QuestInfo': $tom_vscode_scripting_api_17.QuestInfo,
+      'QuestListResult': $tom_vscode_scripting_api_17.QuestListResult,
+      'WorkspaceInfo': $tom_vscode_scripting_api_17.WorkspaceInfo,
+      'ChatVariable': $tom_vscode_scripting_api_17.ChatVariable,
       'ChatVariableListResult':
-          $tom_vscode_scripting_api_19.ChatVariableListResult,
-      'TomWorkspaceApi': $tom_vscode_scripting_api_19.TomWorkspaceApi,
-      'ToolDefinitionJson': $tom_vscode_scripting_api_18.ToolDefinitionJson,
-      'TomToolsApi': $tom_vscode_scripting_api_18.TomToolsApi,
-      'SendToChatResult': $tom_vscode_scripting_api_13.SendToChatResult,
-      'TomChatApi': $tom_vscode_scripting_api_13.TomChatApi,
+          $tom_vscode_scripting_api_17.ChatVariableListResult,
+      'TomWorkspaceApi': $tom_vscode_scripting_api_17.TomWorkspaceApi,
+      'ToolDefinitionJson': $tom_vscode_scripting_api_16.ToolDefinitionJson,
+      'TomToolsApi': $tom_vscode_scripting_api_16.TomToolsApi,
+      'SendToChatResult': $tom_vscode_scripting_api_11.SendToChatResult,
+      'TomChatApi': $tom_vscode_scripting_api_11.TomChatApi,
     };
   }
 
@@ -810,36 +757,6 @@ class TomVscodeScriptingApiBridge {
           'package:tom_vscode_scripting_api/src/bridge_request_dispatcher.dart',
       'AgentSdkToolRegistry':
           'package:tom_vscode_scripting_api/src/agent_sdk_tool_registry.dart',
-      'AiTokenStats': 'package:tom_vscode_scripting_api/src/ai_prompt_api.dart',
-      'AiPromptResult':
-          'package:tom_vscode_scripting_api/src/ai_prompt_api.dart',
-      'AiPromptProfile':
-          'package:tom_vscode_scripting_api/src/ai_prompt_api.dart',
-      'AiModelConfig':
-          'package:tom_vscode_scripting_api/src/ai_prompt_api.dart',
-      'AiModelsResult':
-          'package:tom_vscode_scripting_api/src/ai_prompt_api.dart',
-      'AiPromptApi': 'package:tom_vscode_scripting_api/src/ai_prompt_api.dart',
-      'CopilotResponse':
-          'package:tom_vscode_scripting_api/src/ai_conversation_api.dart',
-      'ConversationExchange':
-          'package:tom_vscode_scripting_api/src/ai_conversation_api.dart',
-      'ConversationResult':
-          'package:tom_vscode_scripting_api/src/ai_conversation_api.dart',
-      'ConversationStatus':
-          'package:tom_vscode_scripting_api/src/ai_conversation_api.dart',
-      'ConversationProfile':
-          'package:tom_vscode_scripting_api/src/ai_conversation_api.dart',
-      'ConversationConfig':
-          'package:tom_vscode_scripting_api/src/ai_conversation_api.dart',
-      'SingleTurnResult':
-          'package:tom_vscode_scripting_api/src/ai_conversation_api.dart',
-      'ConversationActionResult':
-          'package:tom_vscode_scripting_api/src/ai_conversation_api.dart',
-      'ConversationLog':
-          'package:tom_vscode_scripting_api/src/ai_conversation_api.dart',
-      'AiConversationApi':
-          'package:tom_vscode_scripting_api/src/ai_conversation_api.dart',
       'TomTodo': 'package:tom_todo_model/src/todo.dart',
       'TomTodoDecision': 'package:tom_todo_model/src/todo.dart',
       'TomTodoScope': 'package:tom_todo_model/src/todo.dart',
@@ -1008,12 +925,12 @@ class TomVscodeScriptingApiBridge {
   /// Returns all bridged enum definitions.
   static List<BridgedEnumDefinition> bridgedEnums() {
     return [
-      BridgedEnumDefinition<$tom_vscode_scripting_api_29.DiagnosticSeverity>(
+      BridgedEnumDefinition<$tom_vscode_scripting_api_27.DiagnosticSeverity>(
         name: 'DiagnosticSeverity',
-        values: $tom_vscode_scripting_api_29.DiagnosticSeverity.values,
+        values: $tom_vscode_scripting_api_27.DiagnosticSeverity.values,
         getters: {
           'value': (visitor, target) =>
-              (target as $tom_vscode_scripting_api_29.DiagnosticSeverity).value,
+              (target as $tom_vscode_scripting_api_27.DiagnosticSeverity).value,
         },
       ),
       BridgedEnumDefinition<$tom_vscode_scripting_api_6.PermissionMode>(
@@ -1137,60 +1054,6 @@ class TomVscodeScriptingApiBridge {
           },
         },
       ),
-      BridgedEnumDefinition<$tom_vscode_scripting_api_9.ConversationMode>(
-        name: 'ConversationMode',
-        values: $tom_vscode_scripting_api_9.ConversationMode.values,
-        getters: {
-          'value': (visitor, target) =>
-              (target as $tom_vscode_scripting_api_9.ConversationMode).value,
-        },
-        methods: {
-          'toString': (visitor, target, positional, named, typeArgs) {
-            final t = target as $tom_vscode_scripting_api_9.ConversationMode;
-            return Function.apply(
-              t.toString,
-              positional,
-              named.map((k, v) => MapEntry(Symbol(k), v)),
-            );
-          },
-        },
-        staticMethods: {
-          'fromString': (visitor, positional, named, typeArgs) {
-            return Function.apply(
-              $tom_vscode_scripting_api_9.ConversationMode.fromString,
-              positional,
-              named.map((k, v) => MapEntry(Symbol(k), v)),
-            );
-          },
-        },
-      ),
-      BridgedEnumDefinition<$tom_vscode_scripting_api_9.HistoryMode>(
-        name: 'HistoryMode',
-        values: $tom_vscode_scripting_api_9.HistoryMode.values,
-        getters: {
-          'value': (visitor, target) =>
-              (target as $tom_vscode_scripting_api_9.HistoryMode).value,
-        },
-        methods: {
-          'toString': (visitor, target, positional, named, typeArgs) {
-            final t = target as $tom_vscode_scripting_api_9.HistoryMode;
-            return Function.apply(
-              t.toString,
-              positional,
-              named.map((k, v) => MapEntry(Symbol(k), v)),
-            );
-          },
-        },
-        staticMethods: {
-          'fromString': (visitor, positional, named, typeArgs) {
-            return Function.apply(
-              $tom_vscode_scripting_api_9.HistoryMode.fromString,
-              positional,
-              named.map((k, v) => MapEntry(Symbol(k), v)),
-            );
-          },
-        },
-      ),
       BridgedEnumDefinition<$tom_todo_model_1.TomTodoStatus>(
         name: 'TomTodoStatus',
         values: $tom_todo_model_1.TomTodoStatus.values,
@@ -1225,115 +1088,115 @@ class TomVscodeScriptingApiBridge {
           },
         },
       ),
-      BridgedEnumDefinition<$tom_vscode_scripting_api_17.TodoLevel>(
+      BridgedEnumDefinition<$tom_vscode_scripting_api_15.TodoLevel>(
         name: 'TodoLevel',
-        values: $tom_vscode_scripting_api_17.TodoLevel.values,
+        values: $tom_vscode_scripting_api_15.TodoLevel.values,
         staticMethods: {
           'fromWire': (visitor, positional, named, typeArgs) {
             return Function.apply(
-              $tom_vscode_scripting_api_17.TodoLevel.fromWire,
+              $tom_vscode_scripting_api_15.TodoLevel.fromWire,
               positional,
               named.map((k, v) => MapEntry(Symbol(k), v)),
             );
           },
         },
       ),
-      BridgedEnumDefinition<$tom_vscode_scripting_api_15.QueuedPromptStatus>(
+      BridgedEnumDefinition<$tom_vscode_scripting_api_13.QueuedPromptStatus>(
         name: 'QueuedPromptStatus',
-        values: $tom_vscode_scripting_api_15.QueuedPromptStatus.values,
+        values: $tom_vscode_scripting_api_13.QueuedPromptStatus.values,
         getters: {
           'value': (visitor, target) =>
-              (target as $tom_vscode_scripting_api_15.QueuedPromptStatus).value,
+              (target as $tom_vscode_scripting_api_13.QueuedPromptStatus).value,
         },
         staticMethods: {
           'fromString': (visitor, positional, named, typeArgs) {
             return Function.apply(
-              $tom_vscode_scripting_api_15.QueuedPromptStatus.fromString,
+              $tom_vscode_scripting_api_13.QueuedPromptStatus.fromString,
               positional,
               named.map((k, v) => MapEntry(Symbol(k), v)),
             );
           },
         },
       ),
-      BridgedEnumDefinition<$tom_vscode_scripting_api_15.QueuedPromptType>(
+      BridgedEnumDefinition<$tom_vscode_scripting_api_13.QueuedPromptType>(
         name: 'QueuedPromptType',
-        values: $tom_vscode_scripting_api_15.QueuedPromptType.values,
+        values: $tom_vscode_scripting_api_13.QueuedPromptType.values,
         getters: {
           'value': (visitor, target) =>
-              (target as $tom_vscode_scripting_api_15.QueuedPromptType).value,
+              (target as $tom_vscode_scripting_api_13.QueuedPromptType).value,
         },
         staticMethods: {
           'fromString': (visitor, positional, named, typeArgs) {
             return Function.apply(
-              $tom_vscode_scripting_api_15.QueuedPromptType.fromString,
+              $tom_vscode_scripting_api_13.QueuedPromptType.fromString,
               positional,
               named.map((k, v) => MapEntry(Symbol(k), v)),
             );
           },
         },
       ),
-      BridgedEnumDefinition<$tom_vscode_scripting_api_16.TimedRequestStatus>(
+      BridgedEnumDefinition<$tom_vscode_scripting_api_14.TimedRequestStatus>(
         name: 'TimedRequestStatus',
-        values: $tom_vscode_scripting_api_16.TimedRequestStatus.values,
+        values: $tom_vscode_scripting_api_14.TimedRequestStatus.values,
         getters: {
           'value': (visitor, target) =>
-              (target as $tom_vscode_scripting_api_16.TimedRequestStatus).value,
+              (target as $tom_vscode_scripting_api_14.TimedRequestStatus).value,
         },
         staticMethods: {
           'fromString': (visitor, positional, named, typeArgs) {
             return Function.apply(
-              $tom_vscode_scripting_api_16.TimedRequestStatus.fromString,
+              $tom_vscode_scripting_api_14.TimedRequestStatus.fromString,
               positional,
               named.map((k, v) => MapEntry(Symbol(k), v)),
             );
           },
         },
       ),
-      BridgedEnumDefinition<$tom_vscode_scripting_api_16.ScheduleMode>(
+      BridgedEnumDefinition<$tom_vscode_scripting_api_14.ScheduleMode>(
         name: 'ScheduleMode',
-        values: $tom_vscode_scripting_api_16.ScheduleMode.values,
+        values: $tom_vscode_scripting_api_14.ScheduleMode.values,
         getters: {
           'value': (visitor, target) =>
-              (target as $tom_vscode_scripting_api_16.ScheduleMode).value,
+              (target as $tom_vscode_scripting_api_14.ScheduleMode).value,
         },
         staticMethods: {
           'fromString': (visitor, positional, named, typeArgs) {
             return Function.apply(
-              $tom_vscode_scripting_api_16.ScheduleMode.fromString,
+              $tom_vscode_scripting_api_14.ScheduleMode.fromString,
               positional,
               named.map((k, v) => MapEntry(Symbol(k), v)),
             );
           },
         },
       ),
-      BridgedEnumDefinition<$tom_vscode_scripting_api_14.DocumentFolder>(
+      BridgedEnumDefinition<$tom_vscode_scripting_api_12.DocumentFolder>(
         name: 'DocumentFolder',
-        values: $tom_vscode_scripting_api_14.DocumentFolder.values,
+        values: $tom_vscode_scripting_api_12.DocumentFolder.values,
         getters: {
           'value': (visitor, target) =>
-              (target as $tom_vscode_scripting_api_14.DocumentFolder).value,
+              (target as $tom_vscode_scripting_api_12.DocumentFolder).value,
         },
         staticMethods: {
           'fromString': (visitor, positional, named, typeArgs) {
             return Function.apply(
-              $tom_vscode_scripting_api_14.DocumentFolder.fromString,
+              $tom_vscode_scripting_api_12.DocumentFolder.fromString,
               positional,
               named.map((k, v) => MapEntry(Symbol(k), v)),
             );
           },
         },
       ),
-      BridgedEnumDefinition<$tom_vscode_scripting_api_19.ProjectType>(
+      BridgedEnumDefinition<$tom_vscode_scripting_api_17.ProjectType>(
         name: 'ProjectType',
-        values: $tom_vscode_scripting_api_19.ProjectType.values,
+        values: $tom_vscode_scripting_api_17.ProjectType.values,
         getters: {
           'value': (visitor, target) =>
-              (target as $tom_vscode_scripting_api_19.ProjectType).value,
+              (target as $tom_vscode_scripting_api_17.ProjectType).value,
         },
         staticMethods: {
           'fromString': (visitor, positional, named, typeArgs) {
             return Function.apply(
-              $tom_vscode_scripting_api_19.ProjectType.fromString,
+              $tom_vscode_scripting_api_17.ProjectType.fromString,
               positional,
               named.map((k, v) => MapEntry(Symbol(k), v)),
             );
@@ -1363,10 +1226,6 @@ class TomVscodeScriptingApiBridge {
           'package:tom_vscode_scripting_api/src/agent_sdk_options.dart',
       'EffortLevel':
           'package:tom_vscode_scripting_api/src/agent_sdk_options.dart',
-      'ConversationMode':
-          'package:tom_vscode_scripting_api/src/ai_conversation_api.dart',
-      'HistoryMode':
-          'package:tom_vscode_scripting_api/src/ai_conversation_api.dart',
       'TomTodoStatus': 'package:tom_todo_model/src/todo.dart',
       'TomTodoPriority': 'package:tom_todo_model/src/todo.dart',
       'TodoLevel': 'package:tom_vscode_scripting_api/src/tom_todo_api.dart',
@@ -1615,20 +1474,6 @@ class TomVscodeScriptingApiBridge {
       (
         source:
             'package:tom_vscode_scripting_api/tom_vscode_scripting_api.dart',
-        target: 'package:tom_vscode_scripting_api/src/ai_prompt_api.dart',
-        show: null,
-        hide: null,
-      ),
-      (
-        source:
-            'package:tom_vscode_scripting_api/tom_vscode_scripting_api.dart',
-        target: 'package:tom_vscode_scripting_api/src/ai_conversation_api.dart',
-        show: null,
-        hide: null,
-      ),
-      (
-        source:
-            'package:tom_vscode_scripting_api/tom_vscode_scripting_api.dart',
         target: 'package:tom_vscode_scripting_api/src/tom_todo_api.dart',
         show: null,
         hide: null,
@@ -1774,7 +1619,7 @@ class TomVscodeScriptingApiBridge {
     try {
       interpreter.registerGlobalVariable(
         'defaultVSCodeBridgePort',
-        $tom_vscode_scripting_api_23.defaultVSCodeBridgePort,
+        $tom_vscode_scripting_api_21.defaultVSCodeBridgePort,
         importPath,
         sourceUri:
             'package:tom_vscode_scripting_api/src/vscode_bridge_client.dart',
@@ -1785,7 +1630,7 @@ class TomVscodeScriptingApiBridge {
     try {
       interpreter.registerGlobalVariable(
         'maxVSCodeBridgePort',
-        $tom_vscode_scripting_api_23.maxVSCodeBridgePort,
+        $tom_vscode_scripting_api_21.maxVSCodeBridgePort,
         importPath,
         sourceUri:
             'package:tom_vscode_scripting_api/src/vscode_bridge_client.dart',
@@ -1863,7 +1708,7 @@ class TomVscodeScriptingApiBridge {
             !named.containsKey('maxPort') &&
             !named.containsKey('probe') &&
             !named.containsKey('fetchIdentity')) {
-          return $tom_vscode_scripting_api_11.findBridgePortForWorkspace(
+          return $tom_vscode_scripting_api_9.findBridgePortForWorkspace(
             name,
             host: host,
           );
@@ -1877,7 +1722,7 @@ class TomVscodeScriptingApiBridge {
             'minPort',
             'findBridgePortForWorkspace',
           );
-          return $tom_vscode_scripting_api_11.findBridgePortForWorkspace(
+          return $tom_vscode_scripting_api_9.findBridgePortForWorkspace(
             name,
             host: host,
             minPort: minPort,
@@ -1892,7 +1737,7 @@ class TomVscodeScriptingApiBridge {
             'maxPort',
             'findBridgePortForWorkspace',
           );
-          return $tom_vscode_scripting_api_11.findBridgePortForWorkspace(
+          return $tom_vscode_scripting_api_9.findBridgePortForWorkspace(
             name,
             host: host,
             maxPort: maxPort,
@@ -1912,7 +1757,7 @@ class TomVscodeScriptingApiBridge {
             'maxPort',
             'findBridgePortForWorkspace',
           );
-          return $tom_vscode_scripting_api_11.findBridgePortForWorkspace(
+          return $tom_vscode_scripting_api_9.findBridgePortForWorkspace(
             name,
             host: host,
             minPort: minPort,
@@ -1931,7 +1776,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as bool);
                   })
                   as Future<bool> Function(String, int);
-          return $tom_vscode_scripting_api_11.findBridgePortForWorkspace(
+          return $tom_vscode_scripting_api_9.findBridgePortForWorkspace(
             name,
             host: host,
             probe: probe,
@@ -1954,7 +1799,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as bool);
                   })
                   as Future<bool> Function(String, int);
-          return $tom_vscode_scripting_api_11.findBridgePortForWorkspace(
+          return $tom_vscode_scripting_api_9.findBridgePortForWorkspace(
             name,
             host: host,
             minPort: minPort,
@@ -1978,7 +1823,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as bool);
                   })
                   as Future<bool> Function(String, int);
-          return $tom_vscode_scripting_api_11.findBridgePortForWorkspace(
+          return $tom_vscode_scripting_api_9.findBridgePortForWorkspace(
             name,
             host: host,
             maxPort: maxPort,
@@ -2007,7 +1852,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as bool);
                   })
                   as Future<bool> Function(String, int);
-          return $tom_vscode_scripting_api_11.findBridgePortForWorkspace(
+          return $tom_vscode_scripting_api_9.findBridgePortForWorkspace(
             name,
             host: host,
             minPort: minPort,
@@ -2030,7 +1875,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as String?);
                   })
                   as Future<String?> Function(String, int);
-          return $tom_vscode_scripting_api_11.findBridgePortForWorkspace(
+          return $tom_vscode_scripting_api_9.findBridgePortForWorkspace(
             name,
             host: host,
             fetchIdentity: fetchIdentity,
@@ -2056,7 +1901,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as String?);
                   })
                   as Future<String?> Function(String, int);
-          return $tom_vscode_scripting_api_11.findBridgePortForWorkspace(
+          return $tom_vscode_scripting_api_9.findBridgePortForWorkspace(
             name,
             host: host,
             minPort: minPort,
@@ -2083,7 +1928,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as String?);
                   })
                   as Future<String?> Function(String, int);
-          return $tom_vscode_scripting_api_11.findBridgePortForWorkspace(
+          return $tom_vscode_scripting_api_9.findBridgePortForWorkspace(
             name,
             host: host,
             maxPort: maxPort,
@@ -2115,7 +1960,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as String?);
                   })
                   as Future<String?> Function(String, int);
-          return $tom_vscode_scripting_api_11.findBridgePortForWorkspace(
+          return $tom_vscode_scripting_api_9.findBridgePortForWorkspace(
             name,
             host: host,
             minPort: minPort,
@@ -2146,7 +1991,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as String?);
                   })
                   as Future<String?> Function(String, int);
-          return $tom_vscode_scripting_api_11.findBridgePortForWorkspace(
+          return $tom_vscode_scripting_api_9.findBridgePortForWorkspace(
             name,
             host: host,
             probe: probe,
@@ -2181,7 +2026,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as String?);
                   })
                   as Future<String?> Function(String, int);
-          return $tom_vscode_scripting_api_11.findBridgePortForWorkspace(
+          return $tom_vscode_scripting_api_9.findBridgePortForWorkspace(
             name,
             host: host,
             minPort: minPort,
@@ -2217,7 +2062,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as String?);
                   })
                   as Future<String?> Function(String, int);
-          return $tom_vscode_scripting_api_11.findBridgePortForWorkspace(
+          return $tom_vscode_scripting_api_9.findBridgePortForWorkspace(
             name,
             host: host,
             maxPort: maxPort,
@@ -2258,7 +2103,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as String?);
                   })
                   as Future<String?> Function(String, int);
-          return $tom_vscode_scripting_api_11.findBridgePortForWorkspace(
+          return $tom_vscode_scripting_api_9.findBridgePortForWorkspace(
             name,
             host: host,
             minPort: minPort,
@@ -2288,7 +2133,7 @@ class TomVscodeScriptingApiBridge {
             !named.containsKey('maxPort') &&
             !named.containsKey('probe') &&
             !named.containsKey('fetchIdentity')) {
-          return $tom_vscode_scripting_api_11.findBridgePortsForWorkspace(
+          return $tom_vscode_scripting_api_9.findBridgePortsForWorkspace(
             name,
             host: host,
           );
@@ -2302,7 +2147,7 @@ class TomVscodeScriptingApiBridge {
             'minPort',
             'findBridgePortsForWorkspace',
           );
-          return $tom_vscode_scripting_api_11.findBridgePortsForWorkspace(
+          return $tom_vscode_scripting_api_9.findBridgePortsForWorkspace(
             name,
             host: host,
             minPort: minPort,
@@ -2317,7 +2162,7 @@ class TomVscodeScriptingApiBridge {
             'maxPort',
             'findBridgePortsForWorkspace',
           );
-          return $tom_vscode_scripting_api_11.findBridgePortsForWorkspace(
+          return $tom_vscode_scripting_api_9.findBridgePortsForWorkspace(
             name,
             host: host,
             maxPort: maxPort,
@@ -2337,7 +2182,7 @@ class TomVscodeScriptingApiBridge {
             'maxPort',
             'findBridgePortsForWorkspace',
           );
-          return $tom_vscode_scripting_api_11.findBridgePortsForWorkspace(
+          return $tom_vscode_scripting_api_9.findBridgePortsForWorkspace(
             name,
             host: host,
             minPort: minPort,
@@ -2356,7 +2201,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as bool);
                   })
                   as Future<bool> Function(String, int);
-          return $tom_vscode_scripting_api_11.findBridgePortsForWorkspace(
+          return $tom_vscode_scripting_api_9.findBridgePortsForWorkspace(
             name,
             host: host,
             probe: probe,
@@ -2379,7 +2224,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as bool);
                   })
                   as Future<bool> Function(String, int);
-          return $tom_vscode_scripting_api_11.findBridgePortsForWorkspace(
+          return $tom_vscode_scripting_api_9.findBridgePortsForWorkspace(
             name,
             host: host,
             minPort: minPort,
@@ -2403,7 +2248,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as bool);
                   })
                   as Future<bool> Function(String, int);
-          return $tom_vscode_scripting_api_11.findBridgePortsForWorkspace(
+          return $tom_vscode_scripting_api_9.findBridgePortsForWorkspace(
             name,
             host: host,
             maxPort: maxPort,
@@ -2432,7 +2277,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as bool);
                   })
                   as Future<bool> Function(String, int);
-          return $tom_vscode_scripting_api_11.findBridgePortsForWorkspace(
+          return $tom_vscode_scripting_api_9.findBridgePortsForWorkspace(
             name,
             host: host,
             minPort: minPort,
@@ -2455,7 +2300,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as String?);
                   })
                   as Future<String?> Function(String, int);
-          return $tom_vscode_scripting_api_11.findBridgePortsForWorkspace(
+          return $tom_vscode_scripting_api_9.findBridgePortsForWorkspace(
             name,
             host: host,
             fetchIdentity: fetchIdentity,
@@ -2481,7 +2326,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as String?);
                   })
                   as Future<String?> Function(String, int);
-          return $tom_vscode_scripting_api_11.findBridgePortsForWorkspace(
+          return $tom_vscode_scripting_api_9.findBridgePortsForWorkspace(
             name,
             host: host,
             minPort: minPort,
@@ -2508,7 +2353,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as String?);
                   })
                   as Future<String?> Function(String, int);
-          return $tom_vscode_scripting_api_11.findBridgePortsForWorkspace(
+          return $tom_vscode_scripting_api_9.findBridgePortsForWorkspace(
             name,
             host: host,
             maxPort: maxPort,
@@ -2540,7 +2385,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as String?);
                   })
                   as Future<String?> Function(String, int);
-          return $tom_vscode_scripting_api_11.findBridgePortsForWorkspace(
+          return $tom_vscode_scripting_api_9.findBridgePortsForWorkspace(
             name,
             host: host,
             minPort: minPort,
@@ -2571,7 +2416,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as String?);
                   })
                   as Future<String?> Function(String, int);
-          return $tom_vscode_scripting_api_11.findBridgePortsForWorkspace(
+          return $tom_vscode_scripting_api_9.findBridgePortsForWorkspace(
             name,
             host: host,
             probe: probe,
@@ -2606,7 +2451,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as String?);
                   })
                   as Future<String?> Function(String, int);
-          return $tom_vscode_scripting_api_11.findBridgePortsForWorkspace(
+          return $tom_vscode_scripting_api_9.findBridgePortsForWorkspace(
             name,
             host: host,
             minPort: minPort,
@@ -2642,7 +2487,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as String?);
                   })
                   as Future<String?> Function(String, int);
-          return $tom_vscode_scripting_api_11.findBridgePortsForWorkspace(
+          return $tom_vscode_scripting_api_9.findBridgePortsForWorkspace(
             name,
             host: host,
             maxPort: maxPort,
@@ -2683,7 +2528,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as String?);
                   })
                   as Future<String?> Function(String, int);
-          return $tom_vscode_scripting_api_11.findBridgePortsForWorkspace(
+          return $tom_vscode_scripting_api_9.findBridgePortsForWorkspace(
             name,
             host: host,
             minPort: minPort,
@@ -2706,7 +2551,7 @@ class TomVscodeScriptingApiBridge {
             !named.containsKey('maxPort') &&
             !named.containsKey('probe') &&
             !named.containsKey('fetchIdentity')) {
-          return $tom_vscode_scripting_api_11.scanBridgePorts(host: host);
+          return $tom_vscode_scripting_api_9.scanBridgePorts(host: host);
         }
         if (named.containsKey('minPort') &&
             !named.containsKey('maxPort') &&
@@ -2717,7 +2562,7 @@ class TomVscodeScriptingApiBridge {
             'minPort',
             'scanBridgePorts',
           );
-          return $tom_vscode_scripting_api_11.scanBridgePorts(
+          return $tom_vscode_scripting_api_9.scanBridgePorts(
             host: host,
             minPort: minPort,
           );
@@ -2731,7 +2576,7 @@ class TomVscodeScriptingApiBridge {
             'maxPort',
             'scanBridgePorts',
           );
-          return $tom_vscode_scripting_api_11.scanBridgePorts(
+          return $tom_vscode_scripting_api_9.scanBridgePorts(
             host: host,
             maxPort: maxPort,
           );
@@ -2750,7 +2595,7 @@ class TomVscodeScriptingApiBridge {
             'maxPort',
             'scanBridgePorts',
           );
-          return $tom_vscode_scripting_api_11.scanBridgePorts(
+          return $tom_vscode_scripting_api_9.scanBridgePorts(
             host: host,
             minPort: minPort,
             maxPort: maxPort,
@@ -2768,7 +2613,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as bool);
                   })
                   as Future<bool> Function(String, int);
-          return $tom_vscode_scripting_api_11.scanBridgePorts(
+          return $tom_vscode_scripting_api_9.scanBridgePorts(
             host: host,
             probe: probe,
           );
@@ -2790,7 +2635,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as bool);
                   })
                   as Future<bool> Function(String, int);
-          return $tom_vscode_scripting_api_11.scanBridgePorts(
+          return $tom_vscode_scripting_api_9.scanBridgePorts(
             host: host,
             minPort: minPort,
             probe: probe,
@@ -2813,7 +2658,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as bool);
                   })
                   as Future<bool> Function(String, int);
-          return $tom_vscode_scripting_api_11.scanBridgePorts(
+          return $tom_vscode_scripting_api_9.scanBridgePorts(
             host: host,
             maxPort: maxPort,
             probe: probe,
@@ -2841,7 +2686,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as bool);
                   })
                   as Future<bool> Function(String, int);
-          return $tom_vscode_scripting_api_11.scanBridgePorts(
+          return $tom_vscode_scripting_api_9.scanBridgePorts(
             host: host,
             minPort: minPort,
             maxPort: maxPort,
@@ -2863,7 +2708,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as String?);
                   })
                   as Future<String?> Function(String, int);
-          return $tom_vscode_scripting_api_11.scanBridgePorts(
+          return $tom_vscode_scripting_api_9.scanBridgePorts(
             host: host,
             fetchIdentity: fetchIdentity,
           );
@@ -2888,7 +2733,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as String?);
                   })
                   as Future<String?> Function(String, int);
-          return $tom_vscode_scripting_api_11.scanBridgePorts(
+          return $tom_vscode_scripting_api_9.scanBridgePorts(
             host: host,
             minPort: minPort,
             fetchIdentity: fetchIdentity,
@@ -2914,7 +2759,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as String?);
                   })
                   as Future<String?> Function(String, int);
-          return $tom_vscode_scripting_api_11.scanBridgePorts(
+          return $tom_vscode_scripting_api_9.scanBridgePorts(
             host: host,
             maxPort: maxPort,
             fetchIdentity: fetchIdentity,
@@ -2945,7 +2790,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as String?);
                   })
                   as Future<String?> Function(String, int);
-          return $tom_vscode_scripting_api_11.scanBridgePorts(
+          return $tom_vscode_scripting_api_9.scanBridgePorts(
             host: host,
             minPort: minPort,
             maxPort: maxPort,
@@ -2975,7 +2820,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as String?);
                   })
                   as Future<String?> Function(String, int);
-          return $tom_vscode_scripting_api_11.scanBridgePorts(
+          return $tom_vscode_scripting_api_9.scanBridgePorts(
             host: host,
             probe: probe,
             fetchIdentity: fetchIdentity,
@@ -3009,7 +2854,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as String?);
                   })
                   as Future<String?> Function(String, int);
-          return $tom_vscode_scripting_api_11.scanBridgePorts(
+          return $tom_vscode_scripting_api_9.scanBridgePorts(
             host: host,
             minPort: minPort,
             probe: probe,
@@ -3044,7 +2889,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as String?);
                   })
                   as Future<String?> Function(String, int);
-          return $tom_vscode_scripting_api_11.scanBridgePorts(
+          return $tom_vscode_scripting_api_9.scanBridgePorts(
             host: host,
             maxPort: maxPort,
             probe: probe,
@@ -3084,7 +2929,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as String?);
                   })
                   as Future<String?> Function(String, int);
-          return $tom_vscode_scripting_api_11.scanBridgePorts(
+          return $tom_vscode_scripting_api_9.scanBridgePorts(
             host: host,
             minPort: minPort,
             maxPort: maxPort,
@@ -3119,7 +2964,7 @@ class TomVscodeScriptingApiBridge {
             !named.containsKey('probe') &&
             !named.containsKey('fetchIdentity') &&
             !named.containsKey('adapterFactory')) {
-          return $tom_vscode_scripting_api_11.connectToWorkspace(
+          return $tom_vscode_scripting_api_9.connectToWorkspace(
             name,
             host: host,
             initializeVSCode: initializeVSCode,
@@ -3135,7 +2980,7 @@ class TomVscodeScriptingApiBridge {
             'minPort',
             'connectToWorkspace',
           );
-          return $tom_vscode_scripting_api_11.connectToWorkspace(
+          return $tom_vscode_scripting_api_9.connectToWorkspace(
             name,
             host: host,
             initializeVSCode: initializeVSCode,
@@ -3152,7 +2997,7 @@ class TomVscodeScriptingApiBridge {
             'maxPort',
             'connectToWorkspace',
           );
-          return $tom_vscode_scripting_api_11.connectToWorkspace(
+          return $tom_vscode_scripting_api_9.connectToWorkspace(
             name,
             host: host,
             initializeVSCode: initializeVSCode,
@@ -3174,7 +3019,7 @@ class TomVscodeScriptingApiBridge {
             'maxPort',
             'connectToWorkspace',
           );
-          return $tom_vscode_scripting_api_11.connectToWorkspace(
+          return $tom_vscode_scripting_api_9.connectToWorkspace(
             name,
             host: host,
             initializeVSCode: initializeVSCode,
@@ -3195,7 +3040,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as bool);
                   })
                   as Future<bool> Function(String, int);
-          return $tom_vscode_scripting_api_11.connectToWorkspace(
+          return $tom_vscode_scripting_api_9.connectToWorkspace(
             name,
             host: host,
             initializeVSCode: initializeVSCode,
@@ -3220,7 +3065,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as bool);
                   })
                   as Future<bool> Function(String, int);
-          return $tom_vscode_scripting_api_11.connectToWorkspace(
+          return $tom_vscode_scripting_api_9.connectToWorkspace(
             name,
             host: host,
             initializeVSCode: initializeVSCode,
@@ -3246,7 +3091,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as bool);
                   })
                   as Future<bool> Function(String, int);
-          return $tom_vscode_scripting_api_11.connectToWorkspace(
+          return $tom_vscode_scripting_api_9.connectToWorkspace(
             name,
             host: host,
             initializeVSCode: initializeVSCode,
@@ -3277,7 +3122,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as bool);
                   })
                   as Future<bool> Function(String, int);
-          return $tom_vscode_scripting_api_11.connectToWorkspace(
+          return $tom_vscode_scripting_api_9.connectToWorkspace(
             name,
             host: host,
             initializeVSCode: initializeVSCode,
@@ -3302,7 +3147,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as String?);
                   })
                   as Future<String?> Function(String, int);
-          return $tom_vscode_scripting_api_11.connectToWorkspace(
+          return $tom_vscode_scripting_api_9.connectToWorkspace(
             name,
             host: host,
             initializeVSCode: initializeVSCode,
@@ -3330,7 +3175,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as String?);
                   })
                   as Future<String?> Function(String, int);
-          return $tom_vscode_scripting_api_11.connectToWorkspace(
+          return $tom_vscode_scripting_api_9.connectToWorkspace(
             name,
             host: host,
             initializeVSCode: initializeVSCode,
@@ -3359,7 +3204,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as String?);
                   })
                   as Future<String?> Function(String, int);
-          return $tom_vscode_scripting_api_11.connectToWorkspace(
+          return $tom_vscode_scripting_api_9.connectToWorkspace(
             name,
             host: host,
             initializeVSCode: initializeVSCode,
@@ -3393,7 +3238,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as String?);
                   })
                   as Future<String?> Function(String, int);
-          return $tom_vscode_scripting_api_11.connectToWorkspace(
+          return $tom_vscode_scripting_api_9.connectToWorkspace(
             name,
             host: host,
             initializeVSCode: initializeVSCode,
@@ -3426,7 +3271,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as String?);
                   })
                   as Future<String?> Function(String, int);
-          return $tom_vscode_scripting_api_11.connectToWorkspace(
+          return $tom_vscode_scripting_api_9.connectToWorkspace(
             name,
             host: host,
             initializeVSCode: initializeVSCode,
@@ -3463,7 +3308,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as String?);
                   })
                   as Future<String?> Function(String, int);
-          return $tom_vscode_scripting_api_11.connectToWorkspace(
+          return $tom_vscode_scripting_api_9.connectToWorkspace(
             name,
             host: host,
             initializeVSCode: initializeVSCode,
@@ -3501,7 +3346,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as String?);
                   })
                   as Future<String?> Function(String, int);
-          return $tom_vscode_scripting_api_11.connectToWorkspace(
+          return $tom_vscode_scripting_api_9.connectToWorkspace(
             name,
             host: host,
             initializeVSCode: initializeVSCode,
@@ -3544,7 +3389,7 @@ class TomVscodeScriptingApiBridge {
                     ).then((v) => v as String?);
                   })
                   as Future<String?> Function(String, int);
-          return $tom_vscode_scripting_api_11.connectToWorkspace(
+          return $tom_vscode_scripting_api_9.connectToWorkspace(
             name,
             host: host,
             initializeVSCode: initializeVSCode,
@@ -3563,7 +3408,7 @@ class TomVscodeScriptingApiBridge {
           final adapterFactory =
               ((String p0, int p1) {
                     return D4.extractBridgedArg<
-                          $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter
+                          $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter
                         >(
                           D4.callInterpreterCallback(
                             visitor!,
@@ -3573,11 +3418,11 @@ class TomVscodeScriptingApiBridge {
                           'callback',
                           visitor,
                         )
-                        as $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter;
+                        as $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter;
                   })
-                  as $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter
+                  as $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter
                   Function(String, int);
-          return $tom_vscode_scripting_api_11.connectToWorkspace(
+          return $tom_vscode_scripting_api_9.connectToWorkspace(
             name,
             host: host,
             initializeVSCode: initializeVSCode,
@@ -3598,7 +3443,7 @@ class TomVscodeScriptingApiBridge {
           final adapterFactory =
               ((String p0, int p1) {
                     return D4.extractBridgedArg<
-                          $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter
+                          $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter
                         >(
                           D4.callInterpreterCallback(
                             visitor!,
@@ -3608,11 +3453,11 @@ class TomVscodeScriptingApiBridge {
                           'callback',
                           visitor,
                         )
-                        as $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter;
+                        as $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter;
                   })
-                  as $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter
+                  as $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter
                   Function(String, int);
-          return $tom_vscode_scripting_api_11.connectToWorkspace(
+          return $tom_vscode_scripting_api_9.connectToWorkspace(
             name,
             host: host,
             initializeVSCode: initializeVSCode,
@@ -3634,7 +3479,7 @@ class TomVscodeScriptingApiBridge {
           final adapterFactory =
               ((String p0, int p1) {
                     return D4.extractBridgedArg<
-                          $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter
+                          $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter
                         >(
                           D4.callInterpreterCallback(
                             visitor!,
@@ -3644,11 +3489,11 @@ class TomVscodeScriptingApiBridge {
                           'callback',
                           visitor,
                         )
-                        as $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter;
+                        as $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter;
                   })
-                  as $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter
+                  as $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter
                   Function(String, int);
-          return $tom_vscode_scripting_api_11.connectToWorkspace(
+          return $tom_vscode_scripting_api_9.connectToWorkspace(
             name,
             host: host,
             initializeVSCode: initializeVSCode,
@@ -3675,7 +3520,7 @@ class TomVscodeScriptingApiBridge {
           final adapterFactory =
               ((String p0, int p1) {
                     return D4.extractBridgedArg<
-                          $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter
+                          $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter
                         >(
                           D4.callInterpreterCallback(
                             visitor!,
@@ -3685,11 +3530,11 @@ class TomVscodeScriptingApiBridge {
                           'callback',
                           visitor,
                         )
-                        as $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter;
+                        as $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter;
                   })
-                  as $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter
+                  as $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter
                   Function(String, int);
-          return $tom_vscode_scripting_api_11.connectToWorkspace(
+          return $tom_vscode_scripting_api_9.connectToWorkspace(
             name,
             host: host,
             initializeVSCode: initializeVSCode,
@@ -3715,7 +3560,7 @@ class TomVscodeScriptingApiBridge {
           final adapterFactory =
               ((String p0, int p1) {
                     return D4.extractBridgedArg<
-                          $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter
+                          $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter
                         >(
                           D4.callInterpreterCallback(
                             visitor!,
@@ -3725,11 +3570,11 @@ class TomVscodeScriptingApiBridge {
                           'callback',
                           visitor,
                         )
-                        as $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter;
+                        as $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter;
                   })
-                  as $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter
+                  as $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter
                   Function(String, int);
-          return $tom_vscode_scripting_api_11.connectToWorkspace(
+          return $tom_vscode_scripting_api_9.connectToWorkspace(
             name,
             host: host,
             initializeVSCode: initializeVSCode,
@@ -3759,7 +3604,7 @@ class TomVscodeScriptingApiBridge {
           final adapterFactory =
               ((String p0, int p1) {
                     return D4.extractBridgedArg<
-                          $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter
+                          $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter
                         >(
                           D4.callInterpreterCallback(
                             visitor!,
@@ -3769,11 +3614,11 @@ class TomVscodeScriptingApiBridge {
                           'callback',
                           visitor,
                         )
-                        as $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter;
+                        as $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter;
                   })
-                  as $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter
+                  as $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter
                   Function(String, int);
-          return $tom_vscode_scripting_api_11.connectToWorkspace(
+          return $tom_vscode_scripting_api_9.connectToWorkspace(
             name,
             host: host,
             initializeVSCode: initializeVSCode,
@@ -3804,7 +3649,7 @@ class TomVscodeScriptingApiBridge {
           final adapterFactory =
               ((String p0, int p1) {
                     return D4.extractBridgedArg<
-                          $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter
+                          $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter
                         >(
                           D4.callInterpreterCallback(
                             visitor!,
@@ -3814,11 +3659,11 @@ class TomVscodeScriptingApiBridge {
                           'callback',
                           visitor,
                         )
-                        as $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter;
+                        as $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter;
                   })
-                  as $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter
+                  as $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter
                   Function(String, int);
-          return $tom_vscode_scripting_api_11.connectToWorkspace(
+          return $tom_vscode_scripting_api_9.connectToWorkspace(
             name,
             host: host,
             initializeVSCode: initializeVSCode,
@@ -3854,7 +3699,7 @@ class TomVscodeScriptingApiBridge {
           final adapterFactory =
               ((String p0, int p1) {
                     return D4.extractBridgedArg<
-                          $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter
+                          $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter
                         >(
                           D4.callInterpreterCallback(
                             visitor!,
@@ -3864,11 +3709,11 @@ class TomVscodeScriptingApiBridge {
                           'callback',
                           visitor,
                         )
-                        as $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter;
+                        as $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter;
                   })
-                  as $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter
+                  as $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter
                   Function(String, int);
-          return $tom_vscode_scripting_api_11.connectToWorkspace(
+          return $tom_vscode_scripting_api_9.connectToWorkspace(
             name,
             host: host,
             initializeVSCode: initializeVSCode,
@@ -3898,7 +3743,7 @@ class TomVscodeScriptingApiBridge {
           final adapterFactory =
               ((String p0, int p1) {
                     return D4.extractBridgedArg<
-                          $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter
+                          $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter
                         >(
                           D4.callInterpreterCallback(
                             visitor!,
@@ -3908,11 +3753,11 @@ class TomVscodeScriptingApiBridge {
                           'callback',
                           visitor,
                         )
-                        as $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter;
+                        as $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter;
                   })
-                  as $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter
+                  as $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter
                   Function(String, int);
-          return $tom_vscode_scripting_api_11.connectToWorkspace(
+          return $tom_vscode_scripting_api_9.connectToWorkspace(
             name,
             host: host,
             initializeVSCode: initializeVSCode,
@@ -3945,7 +3790,7 @@ class TomVscodeScriptingApiBridge {
           final adapterFactory =
               ((String p0, int p1) {
                     return D4.extractBridgedArg<
-                          $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter
+                          $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter
                         >(
                           D4.callInterpreterCallback(
                             visitor!,
@@ -3955,11 +3800,11 @@ class TomVscodeScriptingApiBridge {
                           'callback',
                           visitor,
                         )
-                        as $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter;
+                        as $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter;
                   })
-                  as $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter
+                  as $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter
                   Function(String, int);
-          return $tom_vscode_scripting_api_11.connectToWorkspace(
+          return $tom_vscode_scripting_api_9.connectToWorkspace(
             name,
             host: host,
             initializeVSCode: initializeVSCode,
@@ -3993,7 +3838,7 @@ class TomVscodeScriptingApiBridge {
           final adapterFactory =
               ((String p0, int p1) {
                     return D4.extractBridgedArg<
-                          $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter
+                          $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter
                         >(
                           D4.callInterpreterCallback(
                             visitor!,
@@ -4003,11 +3848,11 @@ class TomVscodeScriptingApiBridge {
                           'callback',
                           visitor,
                         )
-                        as $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter;
+                        as $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter;
                   })
-                  as $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter
+                  as $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter
                   Function(String, int);
-          return $tom_vscode_scripting_api_11.connectToWorkspace(
+          return $tom_vscode_scripting_api_9.connectToWorkspace(
             name,
             host: host,
             initializeVSCode: initializeVSCode,
@@ -4046,7 +3891,7 @@ class TomVscodeScriptingApiBridge {
           final adapterFactory =
               ((String p0, int p1) {
                     return D4.extractBridgedArg<
-                          $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter
+                          $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter
                         >(
                           D4.callInterpreterCallback(
                             visitor!,
@@ -4056,11 +3901,11 @@ class TomVscodeScriptingApiBridge {
                           'callback',
                           visitor,
                         )
-                        as $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter;
+                        as $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter;
                   })
-                  as $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter
+                  as $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter
                   Function(String, int);
-          return $tom_vscode_scripting_api_11.connectToWorkspace(
+          return $tom_vscode_scripting_api_9.connectToWorkspace(
             name,
             host: host,
             initializeVSCode: initializeVSCode,
@@ -4098,7 +3943,7 @@ class TomVscodeScriptingApiBridge {
           final adapterFactory =
               ((String p0, int p1) {
                     return D4.extractBridgedArg<
-                          $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter
+                          $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter
                         >(
                           D4.callInterpreterCallback(
                             visitor!,
@@ -4108,11 +3953,11 @@ class TomVscodeScriptingApiBridge {
                           'callback',
                           visitor,
                         )
-                        as $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter;
+                        as $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter;
                   })
-                  as $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter
+                  as $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter
                   Function(String, int);
-          return $tom_vscode_scripting_api_11.connectToWorkspace(
+          return $tom_vscode_scripting_api_9.connectToWorkspace(
             name,
             host: host,
             initializeVSCode: initializeVSCode,
@@ -4154,7 +3999,7 @@ class TomVscodeScriptingApiBridge {
           final adapterFactory =
               ((String p0, int p1) {
                     return D4.extractBridgedArg<
-                          $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter
+                          $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter
                         >(
                           D4.callInterpreterCallback(
                             visitor!,
@@ -4164,11 +4009,11 @@ class TomVscodeScriptingApiBridge {
                           'callback',
                           visitor,
                         )
-                        as $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter;
+                        as $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter;
                   })
-                  as $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter
+                  as $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter
                   Function(String, int);
-          return $tom_vscode_scripting_api_11.connectToWorkspace(
+          return $tom_vscode_scripting_api_9.connectToWorkspace(
             name,
             host: host,
             initializeVSCode: initializeVSCode,
@@ -4211,7 +4056,7 @@ class TomVscodeScriptingApiBridge {
           final adapterFactory =
               ((String p0, int p1) {
                     return D4.extractBridgedArg<
-                          $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter
+                          $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter
                         >(
                           D4.callInterpreterCallback(
                             visitor!,
@@ -4221,11 +4066,11 @@ class TomVscodeScriptingApiBridge {
                           'callback',
                           visitor,
                         )
-                        as $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter;
+                        as $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter;
                   })
-                  as $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter
+                  as $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter
                   Function(String, int);
-          return $tom_vscode_scripting_api_11.connectToWorkspace(
+          return $tom_vscode_scripting_api_9.connectToWorkspace(
             name,
             host: host,
             initializeVSCode: initializeVSCode,
@@ -4273,7 +4118,7 @@ class TomVscodeScriptingApiBridge {
           final adapterFactory =
               ((String p0, int p1) {
                     return D4.extractBridgedArg<
-                          $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter
+                          $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter
                         >(
                           D4.callInterpreterCallback(
                             visitor!,
@@ -4283,11 +4128,11 @@ class TomVscodeScriptingApiBridge {
                           'callback',
                           visitor,
                         )
-                        as $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter;
+                        as $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter;
                   })
-                  as $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter
+                  as $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter
                   Function(String, int);
-          return $tom_vscode_scripting_api_11.connectToWorkspace(
+          return $tom_vscode_scripting_api_9.connectToWorkspace(
             name,
             host: host,
             initializeVSCode: initializeVSCode,
@@ -4316,10 +4161,7 @@ class TomVscodeScriptingApiBridge {
           'port',
           'fetchBridgeWorkspaceName',
         );
-        return $tom_vscode_scripting_api_11.fetchBridgeWorkspaceName(
-          host,
-          port,
-        );
+        return $tom_vscode_scripting_api_9.fetchBridgeWorkspaceName(host, port);
       },
       'normalizeWorkspaceName': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'normalizeWorkspaceName');
@@ -4329,7 +4171,7 @@ class TomVscodeScriptingApiBridge {
           'value',
           'normalizeWorkspaceName',
         );
-        return $tom_vscode_scripting_api_11.normalizeWorkspaceName(value);
+        return $tom_vscode_scripting_api_9.normalizeWorkspaceName(value);
       },
       'dispatchCanUseTool': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'dispatchCanUseTool');
@@ -4430,8 +4272,6 @@ class TomVscodeScriptingApiBridge {
       'package:tom_vscode_scripting_api/src/agent_sdk_permissions.dart',
       'package:tom_vscode_scripting_api/src/agent_sdk_query.dart',
       'package:tom_vscode_scripting_api/src/agent_sdk_tool_registry.dart',
-      'package:tom_vscode_scripting_api/src/ai_conversation_api.dart',
-      'package:tom_vscode_scripting_api/src/ai_prompt_api.dart',
       'package:tom_vscode_scripting_api/src/bridge_discovery.dart',
       'package:tom_vscode_scripting_api/src/bridge_request_dispatcher.dart',
       'package:tom_vscode_scripting_api/src/tom_chat_api.dart',
@@ -4488,8 +4328,6 @@ class TomVscodeScriptingApiBridge {
     'PermissionDecisionClassification',
     'SettingSource',
     'EffortLevel',
-    'ConversationMode',
-    'HistoryMode',
     'TomTodoStatus',
     'TomTodoPriority',
     'TodoLevel',
@@ -4508,14 +4346,14 @@ class TomVscodeScriptingApiBridge {
 
 BridgedClass _createVSCodeAdapterBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_21.VSCodeAdapter,
+    nativeType: $tom_vscode_scripting_api_19.VSCodeAdapter,
     name: 'VSCodeAdapter',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_21.VSCodeAdapter,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_19.VSCodeAdapter,
     isAbstract: true,
     constructors: {},
     methods: {
       'sendRequest': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_21.VSCodeAdapter>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_19.VSCodeAdapter>(
           target,
           'VSCodeAdapter',
         );
@@ -4559,9 +4397,9 @@ BridgedClass _createVSCodeAdapterBridge() {
 
 BridgedClass _createVSCodeBridgeResultBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_23.VSCodeBridgeResult,
+    nativeType: $tom_vscode_scripting_api_21.VSCodeBridgeResult,
     name: 'VSCodeBridgeResult',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_23.VSCodeBridgeResult,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_21.VSCodeBridgeResult,
     constructors: {
       '': (visitor, positional, named) {
         final success = D4.getRequiredNamedArg<bool>(
@@ -4583,7 +4421,7 @@ BridgedClass _createVSCodeBridgeResultBridge() {
           'VSCodeBridgeResult',
         );
         if (!named.containsKey('value')) {
-          return $tom_vscode_scripting_api_23.VSCodeBridgeResult(
+          return $tom_vscode_scripting_api_21.VSCodeBridgeResult(
             success: success,
             output: output,
             error: error,
@@ -4599,7 +4437,7 @@ BridgedClass _createVSCodeBridgeResultBridge() {
             'value',
             'VSCodeBridgeResult',
           );
-          return $tom_vscode_scripting_api_23.VSCodeBridgeResult(
+          return $tom_vscode_scripting_api_21.VSCodeBridgeResult(
             success: success,
             output: output,
             error: error,
@@ -4627,7 +4465,7 @@ BridgedClass _createVSCodeBridgeResultBridge() {
           'VSCodeBridgeResult',
         );
         if (!named.containsKey('value')) {
-          return $tom_vscode_scripting_api_23.VSCodeBridgeResult.success(
+          return $tom_vscode_scripting_api_21.VSCodeBridgeResult.success(
             output: output,
             exception: exception,
             exceptionStackTrace: exceptionStackTrace,
@@ -4640,7 +4478,7 @@ BridgedClass _createVSCodeBridgeResultBridge() {
             'value',
             'VSCodeBridgeResult',
           );
-          return $tom_vscode_scripting_api_23.VSCodeBridgeResult.success(
+          return $tom_vscode_scripting_api_21.VSCodeBridgeResult.success(
             output: output,
             exception: exception,
             exceptionStackTrace: exceptionStackTrace,
@@ -4665,7 +4503,7 @@ BridgedClass _createVSCodeBridgeResultBridge() {
           'duration',
           'VSCodeBridgeResult',
         );
-        return $tom_vscode_scripting_api_23.VSCodeBridgeResult.failure(
+        return $tom_vscode_scripting_api_21.VSCodeBridgeResult.failure(
           error: error,
           stackTrace: stackTrace,
           output: output,
@@ -4675,55 +4513,55 @@ BridgedClass _createVSCodeBridgeResultBridge() {
     },
     getters: {
       'success': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_23.VSCodeBridgeResult>(
+          .validateTarget<$tom_vscode_scripting_api_21.VSCodeBridgeResult>(
             target,
             'VSCodeBridgeResult',
           )
           .success,
       'value': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_23.VSCodeBridgeResult>(
+          .validateTarget<$tom_vscode_scripting_api_21.VSCodeBridgeResult>(
             target,
             'VSCodeBridgeResult',
           )
           .value,
       'output': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_23.VSCodeBridgeResult>(
+          .validateTarget<$tom_vscode_scripting_api_21.VSCodeBridgeResult>(
             target,
             'VSCodeBridgeResult',
           )
           .output,
       'error': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_23.VSCodeBridgeResult>(
+          .validateTarget<$tom_vscode_scripting_api_21.VSCodeBridgeResult>(
             target,
             'VSCodeBridgeResult',
           )
           .error,
       'stackTrace': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_23.VSCodeBridgeResult>(
+          .validateTarget<$tom_vscode_scripting_api_21.VSCodeBridgeResult>(
             target,
             'VSCodeBridgeResult',
           )
           .stackTrace,
       'exception': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_23.VSCodeBridgeResult>(
+          .validateTarget<$tom_vscode_scripting_api_21.VSCodeBridgeResult>(
             target,
             'VSCodeBridgeResult',
           )
           .exception,
       'exceptionStackTrace': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_23.VSCodeBridgeResult>(
+          .validateTarget<$tom_vscode_scripting_api_21.VSCodeBridgeResult>(
             target,
             'VSCodeBridgeResult',
           )
           .exceptionStackTrace,
       'duration': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_23.VSCodeBridgeResult>(
+          .validateTarget<$tom_vscode_scripting_api_21.VSCodeBridgeResult>(
             target,
             'VSCodeBridgeResult',
           )
           .duration,
       'hasException': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_23.VSCodeBridgeResult>(
+          .validateTarget<$tom_vscode_scripting_api_21.VSCodeBridgeResult>(
             target,
             'VSCodeBridgeResult',
           )
@@ -4756,9 +4594,9 @@ BridgedClass _createVSCodeBridgeResultBridge() {
 
 BridgedClass _createVSCodeBridgeClientBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_23.VSCodeBridgeClient,
+    nativeType: $tom_vscode_scripting_api_21.VSCodeBridgeClient,
     name: 'VSCodeBridgeClient',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_23.VSCodeBridgeClient,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_21.VSCodeBridgeClient,
     constructors: {
       '': (visitor, positional, named) {
         final host = D4.getNamedArgWithDefault<String>(
@@ -4777,7 +4615,7 @@ BridgedClass _createVSCodeBridgeClientBridge() {
           const Duration(seconds: 30),
         );
         if (!named.containsKey('port')) {
-          return $tom_vscode_scripting_api_23.VSCodeBridgeClient(
+          return $tom_vscode_scripting_api_21.VSCodeBridgeClient(
             host: host,
             connectTimeout: connectTimeout,
             requestTimeout: requestTimeout,
@@ -4789,7 +4627,7 @@ BridgedClass _createVSCodeBridgeClientBridge() {
             'port',
             'VSCodeBridgeClient',
           );
-          return $tom_vscode_scripting_api_23.VSCodeBridgeClient(
+          return $tom_vscode_scripting_api_21.VSCodeBridgeClient(
             host: host,
             connectTimeout: connectTimeout,
             requestTimeout: requestTimeout,
@@ -4803,37 +4641,37 @@ BridgedClass _createVSCodeBridgeClientBridge() {
     },
     getters: {
       'host': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_23.VSCodeBridgeClient>(
+          .validateTarget<$tom_vscode_scripting_api_21.VSCodeBridgeClient>(
             target,
             'VSCodeBridgeClient',
           )
           .host,
       'port': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_23.VSCodeBridgeClient>(
+          .validateTarget<$tom_vscode_scripting_api_21.VSCodeBridgeClient>(
             target,
             'VSCodeBridgeClient',
           )
           .port,
       'connectTimeout': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_23.VSCodeBridgeClient>(
+          .validateTarget<$tom_vscode_scripting_api_21.VSCodeBridgeClient>(
             target,
             'VSCodeBridgeClient',
           )
           .connectTimeout,
       'requestTimeout': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_23.VSCodeBridgeClient>(
+          .validateTarget<$tom_vscode_scripting_api_21.VSCodeBridgeClient>(
             target,
             'VSCodeBridgeClient',
           )
           .requestTimeout,
       'notifications': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_23.VSCodeBridgeClient>(
+          .validateTarget<$tom_vscode_scripting_api_21.VSCodeBridgeClient>(
             target,
             'VSCodeBridgeClient',
           )
           .notifications,
       'isConnected': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_23.VSCodeBridgeClient>(
+          .validateTarget<$tom_vscode_scripting_api_21.VSCodeBridgeClient>(
             target,
             'VSCodeBridgeClient',
           )
@@ -4842,7 +4680,7 @@ BridgedClass _createVSCodeBridgeClientBridge() {
     methods: {
       'connect': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_23.VSCodeBridgeClient>(
+            .validateTarget<$tom_vscode_scripting_api_21.VSCodeBridgeClient>(
               target,
               'VSCodeBridgeClient',
             );
@@ -4850,7 +4688,7 @@ BridgedClass _createVSCodeBridgeClientBridge() {
       },
       'disconnect': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_23.VSCodeBridgeClient>(
+            .validateTarget<$tom_vscode_scripting_api_21.VSCodeBridgeClient>(
               target,
               'VSCodeBridgeClient',
             );
@@ -4858,7 +4696,7 @@ BridgedClass _createVSCodeBridgeClientBridge() {
       },
       'sendRequest': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_23.VSCodeBridgeClient>(
+            .validateTarget<$tom_vscode_scripting_api_21.VSCodeBridgeClient>(
               target,
               'VSCodeBridgeClient',
             );
@@ -4880,7 +4718,7 @@ BridgedClass _createVSCodeBridgeClientBridge() {
       },
       'registerRequestHandler': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_23.VSCodeBridgeClient>(
+            .validateTarget<$tom_vscode_scripting_api_21.VSCodeBridgeClient>(
               target,
               'VSCodeBridgeClient',
             );
@@ -4912,7 +4750,7 @@ BridgedClass _createVSCodeBridgeClientBridge() {
           (visitor, target, positional, named, typeArgs) {
             final t = D4
                 .validateTarget<
-                  $tom_vscode_scripting_api_23.VSCodeBridgeClient
+                  $tom_vscode_scripting_api_21.VSCodeBridgeClient
                 >(target, 'VSCodeBridgeClient');
             D4.requireMinArgs(positional, 1, 'unregisterRequestHandler');
             final method = D4.getRequiredArg<String>(
@@ -4926,7 +4764,7 @@ BridgedClass _createVSCodeBridgeClientBridge() {
           },
       'executeExpression': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_23.VSCodeBridgeClient>(
+            .validateTarget<$tom_vscode_scripting_api_21.VSCodeBridgeClient>(
               target,
               'VSCodeBridgeClient',
             );
@@ -4941,7 +4779,7 @@ BridgedClass _createVSCodeBridgeClientBridge() {
       },
       'executeScriptFile': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_23.VSCodeBridgeClient>(
+            .validateTarget<$tom_vscode_scripting_api_21.VSCodeBridgeClient>(
               target,
               'VSCodeBridgeClient',
             );
@@ -4956,7 +4794,7 @@ BridgedClass _createVSCodeBridgeClientBridge() {
       },
       'executeScript': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_23.VSCodeBridgeClient>(
+            .validateTarget<$tom_vscode_scripting_api_21.VSCodeBridgeClient>(
               target,
               'VSCodeBridgeClient',
             );
@@ -4978,7 +4816,7 @@ BridgedClass _createVSCodeBridgeClientBridge() {
           '127.0.0.1',
         );
         if (!named.containsKey('port')) {
-          return $tom_vscode_scripting_api_23.VSCodeBridgeClient.isAvailable(
+          return $tom_vscode_scripting_api_21.VSCodeBridgeClient.isAvailable(
             host: host,
           );
         }
@@ -4988,7 +4826,7 @@ BridgedClass _createVSCodeBridgeClientBridge() {
             'port',
             'isAvailable',
           );
-          return $tom_vscode_scripting_api_23.VSCodeBridgeClient.isAvailable(
+          return $tom_vscode_scripting_api_21.VSCodeBridgeClient.isAvailable(
             host: host,
             port: port,
           );
@@ -5037,32 +4875,32 @@ BridgedClass _createVSCodeBridgeClientBridge() {
 
 BridgedClass _createVSCodeBridgeAdapterBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_22.VSCodeBridgeAdapter,
+    nativeType: $tom_vscode_scripting_api_20.VSCodeBridgeAdapter,
     name: 'VSCodeBridgeAdapter',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_22.VSCodeBridgeAdapter,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_20.VSCodeBridgeAdapter,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'VSCodeBridgeAdapter');
         final client = D4
-            .getRequiredArg<$tom_vscode_scripting_api_23.VSCodeBridgeClient>(
+            .getRequiredArg<$tom_vscode_scripting_api_21.VSCodeBridgeClient>(
               positional,
               0,
               'client',
               'VSCodeBridgeAdapter',
             );
-        return $tom_vscode_scripting_api_22.VSCodeBridgeAdapter(client);
+        return $tom_vscode_scripting_api_20.VSCodeBridgeAdapter(client);
       },
     },
     getters: {
       'client': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_22.VSCodeBridgeAdapter>(
+          .validateTarget<$tom_vscode_scripting_api_20.VSCodeBridgeAdapter>(
             target,
             'VSCodeBridgeAdapter',
           )
           .client,
       'isConnected': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_22.VSCodeBridgeAdapter>(
+          .validateTarget<$tom_vscode_scripting_api_20.VSCodeBridgeAdapter>(
             target,
             'VSCodeBridgeAdapter',
           )
@@ -5071,7 +4909,7 @@ BridgedClass _createVSCodeBridgeAdapterBridge() {
     methods: {
       'sendRequest': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_22.VSCodeBridgeAdapter>(
+            .validateTarget<$tom_vscode_scripting_api_20.VSCodeBridgeAdapter>(
               target,
               'VSCodeBridgeAdapter',
             );
@@ -5103,7 +4941,7 @@ BridgedClass _createVSCodeBridgeAdapterBridge() {
       },
       'disconnect': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_22.VSCodeBridgeAdapter>(
+            .validateTarget<$tom_vscode_scripting_api_20.VSCodeBridgeAdapter>(
               target,
               'VSCodeBridgeAdapter',
             );
@@ -5131,10 +4969,10 @@ BridgedClass _createVSCodeBridgeAdapterBridge() {
 
 BridgedClass _createLazyVSCodeBridgeAdapterBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter,
+    nativeType: $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter,
     name: 'LazyVSCodeBridgeAdapter',
     isAssignable: (v) =>
-        v is $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter,
+        v is $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
@@ -5146,7 +4984,7 @@ BridgedClass _createLazyVSCodeBridgeAdapterBridge() {
         final onStatusMessageRaw = named['onStatusMessage'];
         final onErrorMessageRaw = named['onErrorMessage'];
         if (!named.containsKey('port')) {
-          return $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter(
+          return $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter(
             host: host,
             onStatusMessage: onStatusMessageRaw == null
                 ? null
@@ -5170,7 +5008,7 @@ BridgedClass _createLazyVSCodeBridgeAdapterBridge() {
             'port',
             'LazyVSCodeBridgeAdapter',
           );
-          return $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter(
+          return $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter(
             host: host,
             onStatusMessage: onStatusMessageRaw == null
                 ? null
@@ -5196,31 +5034,31 @@ BridgedClass _createLazyVSCodeBridgeAdapterBridge() {
     },
     getters: {
       'onStatusMessage': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter>(
+          .validateTarget<$tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter>(
             target,
             'LazyVSCodeBridgeAdapter',
           )
           .onStatusMessage,
       'onErrorMessage': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter>(
+          .validateTarget<$tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter>(
             target,
             'LazyVSCodeBridgeAdapter',
           )
           .onErrorMessage,
       'host': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter>(
+          .validateTarget<$tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter>(
             target,
             'LazyVSCodeBridgeAdapter',
           )
           .host,
       'port': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter>(
+          .validateTarget<$tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter>(
             target,
             'LazyVSCodeBridgeAdapter',
           )
           .port,
       'isConnected': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter>(
+          .validateTarget<$tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter>(
             target,
             'LazyVSCodeBridgeAdapter',
           )
@@ -5230,7 +5068,7 @@ BridgedClass _createLazyVSCodeBridgeAdapterBridge() {
       'setHostPort': (visitor, target, positional, named, typeArgs) {
         final t = D4
             .validateTarget<
-              $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter
+              $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter
             >(target, 'LazyVSCodeBridgeAdapter');
         D4.requireMinArgs(positional, 2, 'setHostPort');
         final host = D4.getRequiredArg<String>(
@@ -5250,7 +5088,7 @@ BridgedClass _createLazyVSCodeBridgeAdapterBridge() {
       'setPort': (visitor, target, positional, named, typeArgs) {
         final t = D4
             .validateTarget<
-              $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter
+              $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter
             >(target, 'LazyVSCodeBridgeAdapter');
         D4.requireMinArgs(positional, 1, 'setPort');
         final port = D4.getRequiredArg<int>(positional, 0, 'port', 'setPort');
@@ -5259,21 +5097,21 @@ BridgedClass _createLazyVSCodeBridgeAdapterBridge() {
       'connect': (visitor, target, positional, named, typeArgs) {
         final t = D4
             .validateTarget<
-              $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter
+              $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter
             >(target, 'LazyVSCodeBridgeAdapter');
         return t.connect();
       },
       'disconnect': (visitor, target, positional, named, typeArgs) {
         final t = D4
             .validateTarget<
-              $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter
+              $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter
             >(target, 'LazyVSCodeBridgeAdapter');
         return t.disconnect();
       },
       'sendRequest': (visitor, target, positional, named, typeArgs) {
         final t = D4
             .validateTarget<
-              $tom_vscode_scripting_api_22.LazyVSCodeBridgeAdapter
+              $tom_vscode_scripting_api_20.LazyVSCodeBridgeAdapter
             >(target, 'LazyVSCodeBridgeAdapter');
         D4.requireMinArgs(positional, 2, 'sendRequest');
         final method = D4.getRequiredArg<String>(
@@ -5329,10 +5167,10 @@ BridgedClass _createLazyVSCodeBridgeAdapterBridge() {
 
 BridgedClass _createBridgeWorkspaceNotFoundExceptionBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_11.BridgeWorkspaceNotFoundException,
+    nativeType: $tom_vscode_scripting_api_9.BridgeWorkspaceNotFoundException,
     name: 'BridgeWorkspaceNotFoundException',
     isAssignable: (v) =>
-        v is $tom_vscode_scripting_api_11.BridgeWorkspaceNotFoundException,
+        v is $tom_vscode_scripting_api_9.BridgeWorkspaceNotFoundException,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
@@ -5355,7 +5193,7 @@ BridgedClass _createBridgeWorkspaceNotFoundExceptionBridge() {
           'maxPort',
           'BridgeWorkspaceNotFoundException',
         );
-        return $tom_vscode_scripting_api_11.BridgeWorkspaceNotFoundException(
+        return $tom_vscode_scripting_api_9.BridgeWorkspaceNotFoundException(
           workspaceName,
           minPort,
           maxPort,
@@ -5365,17 +5203,17 @@ BridgedClass _createBridgeWorkspaceNotFoundExceptionBridge() {
     getters: {
       'workspaceName': (visitor, target) => D4
           .validateTarget<
-            $tom_vscode_scripting_api_11.BridgeWorkspaceNotFoundException
+            $tom_vscode_scripting_api_9.BridgeWorkspaceNotFoundException
           >(target, 'BridgeWorkspaceNotFoundException')
           .workspaceName,
       'minPort': (visitor, target) => D4
           .validateTarget<
-            $tom_vscode_scripting_api_11.BridgeWorkspaceNotFoundException
+            $tom_vscode_scripting_api_9.BridgeWorkspaceNotFoundException
           >(target, 'BridgeWorkspaceNotFoundException')
           .minPort,
       'maxPort': (visitor, target) => D4
           .validateTarget<
-            $tom_vscode_scripting_api_11.BridgeWorkspaceNotFoundException
+            $tom_vscode_scripting_api_9.BridgeWorkspaceNotFoundException
           >(target, 'BridgeWorkspaceNotFoundException')
           .maxPort,
     },
@@ -5383,7 +5221,7 @@ BridgedClass _createBridgeWorkspaceNotFoundExceptionBridge() {
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4
             .validateTarget<
-              $tom_vscode_scripting_api_11.BridgeWorkspaceNotFoundException
+              $tom_vscode_scripting_api_9.BridgeWorkspaceNotFoundException
             >(target, 'BridgeWorkspaceNotFoundException');
         return t.toString();
       },
@@ -5406,103 +5244,103 @@ BridgedClass _createBridgeWorkspaceNotFoundExceptionBridge() {
 
 BridgedClass _createVSCodeBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_20.VSCode,
+    nativeType: $tom_vscode_scripting_api_18.VSCode,
     name: 'VSCode',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_20.VSCode,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_18.VSCode,
     constructors: {},
     getters: {
       'workspace': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_20.VSCode>(target, 'VSCode')
+          .validateTarget<$tom_vscode_scripting_api_18.VSCode>(target, 'VSCode')
           .workspace,
       'window': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_20.VSCode>(target, 'VSCode')
+          .validateTarget<$tom_vscode_scripting_api_18.VSCode>(target, 'VSCode')
           .window,
       'commands': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_20.VSCode>(target, 'VSCode')
+          .validateTarget<$tom_vscode_scripting_api_18.VSCode>(target, 'VSCode')
           .commands,
       'extensions': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_20.VSCode>(target, 'VSCode')
+          .validateTarget<$tom_vscode_scripting_api_18.VSCode>(target, 'VSCode')
           .extensions,
       'lm': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_20.VSCode>(target, 'VSCode')
+          .validateTarget<$tom_vscode_scripting_api_18.VSCode>(target, 'VSCode')
           .lm,
       'chat': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_20.VSCode>(target, 'VSCode')
+          .validateTarget<$tom_vscode_scripting_api_18.VSCode>(target, 'VSCode')
           .chat,
       'adapter': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_20.VSCode>(target, 'VSCode')
+          .validateTarget<$tom_vscode_scripting_api_18.VSCode>(target, 'VSCode')
           .adapter,
     },
     setters: {
       'workspace': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_vscode_scripting_api_20.VSCode>(
+              .validateTarget<$tom_vscode_scripting_api_18.VSCode>(
                 target,
                 'VSCode',
               )
               .workspace = D4
-              .extractBridgedArg<$tom_vscode_scripting_api_31.VSCodeWorkspace>(
+              .extractBridgedArg<$tom_vscode_scripting_api_29.VSCodeWorkspace>(
                 value,
                 'workspace',
               ),
       'window': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_vscode_scripting_api_20.VSCode>(
+              .validateTarget<$tom_vscode_scripting_api_18.VSCode>(
                 target,
                 'VSCode',
               )
               .window = D4
-              .extractBridgedArg<$tom_vscode_scripting_api_30.VSCodeWindow>(
+              .extractBridgedArg<$tom_vscode_scripting_api_28.VSCodeWindow>(
                 value,
                 'window',
               ),
       'commands': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_vscode_scripting_api_20.VSCode>(
+              .validateTarget<$tom_vscode_scripting_api_18.VSCode>(
                 target,
                 'VSCode',
               )
               .commands = D4
-              .extractBridgedArg<$tom_vscode_scripting_api_25.VSCodeCommands>(
+              .extractBridgedArg<$tom_vscode_scripting_api_23.VSCodeCommands>(
                 value,
                 'commands',
               ),
       'extensions': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_vscode_scripting_api_20.VSCode>(
+              .validateTarget<$tom_vscode_scripting_api_18.VSCode>(
                 target,
                 'VSCode',
               )
               .extensions = D4
-              .extractBridgedArg<$tom_vscode_scripting_api_26.VSCodeExtensions>(
+              .extractBridgedArg<$tom_vscode_scripting_api_24.VSCodeExtensions>(
                 value,
                 'extensions',
               ),
       'lm': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_vscode_scripting_api_20.VSCode>(
+              .validateTarget<$tom_vscode_scripting_api_18.VSCode>(
                 target,
                 'VSCode',
               )
               .lm = D4
               .extractBridgedArg<
-                $tom_vscode_scripting_api_28.VSCodeLanguageModel
+                $tom_vscode_scripting_api_26.VSCodeLanguageModel
               >(value, 'lm'),
       'chat': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_vscode_scripting_api_20.VSCode>(
+              .validateTarget<$tom_vscode_scripting_api_18.VSCode>(
                 target,
                 'VSCode',
               )
               .chat = D4
-              .extractBridgedArg<$tom_vscode_scripting_api_24.VSCodeChat>(
+              .extractBridgedArg<$tom_vscode_scripting_api_22.VSCodeChat>(
                 value,
                 'chat',
               ),
     },
     methods: {
       'getVersion': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_20.VSCode>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_18.VSCode>(
           target,
           'VSCode',
         );
@@ -5514,7 +5352,7 @@ BridgedClass _createVSCodeBridge() {
         return t.getVersion(timeoutSeconds: timeoutSeconds);
       },
       'getEnv': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_20.VSCode>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_18.VSCode>(
           target,
           'VSCode',
         );
@@ -5526,7 +5364,7 @@ BridgedClass _createVSCodeBridge() {
         return t.getEnv(timeoutSeconds: timeoutSeconds);
       },
       'openExternal': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_20.VSCode>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_18.VSCode>(
           target,
           'VSCode',
         );
@@ -5545,7 +5383,7 @@ BridgedClass _createVSCodeBridge() {
         return t.openExternal(uri, timeoutSeconds: timeoutSeconds);
       },
       'copyToClipboard': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_20.VSCode>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_18.VSCode>(
           target,
           'VSCode',
         );
@@ -5564,7 +5402,7 @@ BridgedClass _createVSCodeBridge() {
         return t.copyToClipboard(text, timeoutSeconds: timeoutSeconds);
       },
       'readFromClipboard': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_20.VSCode>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_18.VSCode>(
           target,
           'VSCode',
         );
@@ -5577,21 +5415,21 @@ BridgedClass _createVSCodeBridge() {
       },
     },
     staticGetters: {
-      'instance': (visitor) => $tom_vscode_scripting_api_20.VSCode.instance,
+      'instance': (visitor) => $tom_vscode_scripting_api_18.VSCode.instance,
       'isInitialized': (visitor) =>
-          $tom_vscode_scripting_api_20.VSCode.isInitialized,
+          $tom_vscode_scripting_api_18.VSCode.isInitialized,
     },
     staticMethods: {
       'initialize': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'initialize');
         final adapter = D4
-            .getRequiredArg<$tom_vscode_scripting_api_21.VSCodeAdapter>(
+            .getRequiredArg<$tom_vscode_scripting_api_19.VSCodeAdapter>(
               positional,
               0,
               'adapter',
               'initialize',
             );
-        return $tom_vscode_scripting_api_20.VSCode.initialize(adapter);
+        return $tom_vscode_scripting_api_18.VSCode.initialize(adapter);
       },
     },
     methodSignatures: {
@@ -5638,26 +5476,26 @@ BridgedClass _createVSCodeBridge() {
 
 BridgedClass _createVSCodeCommandsBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_25.VSCodeCommands,
+    nativeType: $tom_vscode_scripting_api_23.VSCodeCommands,
     name: 'VSCodeCommands',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_25.VSCodeCommands,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_23.VSCodeCommands,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'VSCodeCommands');
         final adapter = D4
-            .getRequiredArg<$tom_vscode_scripting_api_21.VSCodeAdapter>(
+            .getRequiredArg<$tom_vscode_scripting_api_19.VSCodeAdapter>(
               positional,
               0,
               '_adapter',
               'VSCodeCommands',
             );
-        return $tom_vscode_scripting_api_25.VSCodeCommands(adapter);
+        return $tom_vscode_scripting_api_23.VSCodeCommands(adapter);
       },
     },
     methods: {
       'executeCommand': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_25.VSCodeCommands>(
+            .validateTarget<$tom_vscode_scripting_api_23.VSCodeCommands>(
               target,
               'VSCodeCommands',
             );
@@ -5682,7 +5520,7 @@ BridgedClass _createVSCodeCommandsBridge() {
       },
       'getCommands': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_25.VSCodeCommands>(
+            .validateTarget<$tom_vscode_scripting_api_23.VSCodeCommands>(
               target,
               'VSCodeCommands',
             );
@@ -5703,7 +5541,7 @@ BridgedClass _createVSCodeCommandsBridge() {
       },
       'registerCommand': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_25.VSCodeCommands>(
+            .validateTarget<$tom_vscode_scripting_api_23.VSCodeCommands>(
               target,
               'VSCodeCommands',
             );
@@ -5750,75 +5588,75 @@ BridgedClass _createVSCodeCommandsBridge() {
 
 BridgedClass _createVSCodeCommonCommandsBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_25.VSCodeCommonCommands,
+    nativeType: $tom_vscode_scripting_api_23.VSCodeCommonCommands,
     name: 'VSCodeCommonCommands',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_25.VSCodeCommonCommands,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_23.VSCodeCommonCommands,
     constructors: {
       '': (visitor, positional, named) {
-        return $tom_vscode_scripting_api_25.VSCodeCommonCommands();
+        return $tom_vscode_scripting_api_23.VSCodeCommonCommands();
       },
     },
     staticGetters: {
       'openFile': (visitor) =>
-          $tom_vscode_scripting_api_25.VSCodeCommonCommands.openFile,
+          $tom_vscode_scripting_api_23.VSCodeCommonCommands.openFile,
       'openFolder': (visitor) =>
-          $tom_vscode_scripting_api_25.VSCodeCommonCommands.openFolder,
+          $tom_vscode_scripting_api_23.VSCodeCommonCommands.openFolder,
       'newUntitledFile': (visitor) =>
-          $tom_vscode_scripting_api_25.VSCodeCommonCommands.newUntitledFile,
+          $tom_vscode_scripting_api_23.VSCodeCommonCommands.newUntitledFile,
       'saveFile': (visitor) =>
-          $tom_vscode_scripting_api_25.VSCodeCommonCommands.saveFile,
+          $tom_vscode_scripting_api_23.VSCodeCommonCommands.saveFile,
       'saveAllFiles': (visitor) =>
-          $tom_vscode_scripting_api_25.VSCodeCommonCommands.saveAllFiles,
+          $tom_vscode_scripting_api_23.VSCodeCommonCommands.saveAllFiles,
       'closeActiveEditor': (visitor) =>
-          $tom_vscode_scripting_api_25.VSCodeCommonCommands.closeActiveEditor,
+          $tom_vscode_scripting_api_23.VSCodeCommonCommands.closeActiveEditor,
       'showCommands': (visitor) =>
-          $tom_vscode_scripting_api_25.VSCodeCommonCommands.showCommands,
+          $tom_vscode_scripting_api_23.VSCodeCommonCommands.showCommands,
       'quickOpen': (visitor) =>
-          $tom_vscode_scripting_api_25.VSCodeCommonCommands.quickOpen,
+          $tom_vscode_scripting_api_23.VSCodeCommonCommands.quickOpen,
       'goToFile': (visitor) =>
-          $tom_vscode_scripting_api_25.VSCodeCommonCommands.goToFile,
+          $tom_vscode_scripting_api_23.VSCodeCommonCommands.goToFile,
       'goToSymbol': (visitor) =>
-          $tom_vscode_scripting_api_25.VSCodeCommonCommands.goToSymbol,
+          $tom_vscode_scripting_api_23.VSCodeCommonCommands.goToSymbol,
       'goToLine': (visitor) =>
-          $tom_vscode_scripting_api_25.VSCodeCommonCommands.goToLine,
+          $tom_vscode_scripting_api_23.VSCodeCommonCommands.goToLine,
       'findInFiles': (visitor) =>
-          $tom_vscode_scripting_api_25.VSCodeCommonCommands.findInFiles,
+          $tom_vscode_scripting_api_23.VSCodeCommonCommands.findInFiles,
       'replaceInFiles': (visitor) =>
-          $tom_vscode_scripting_api_25.VSCodeCommonCommands.replaceInFiles,
+          $tom_vscode_scripting_api_23.VSCodeCommonCommands.replaceInFiles,
       'toggleTerminal': (visitor) =>
-          $tom_vscode_scripting_api_25.VSCodeCommonCommands.toggleTerminal,
+          $tom_vscode_scripting_api_23.VSCodeCommonCommands.toggleTerminal,
       'newTerminal': (visitor) =>
-          $tom_vscode_scripting_api_25.VSCodeCommonCommands.newTerminal,
+          $tom_vscode_scripting_api_23.VSCodeCommonCommands.newTerminal,
       'toggleSidebar': (visitor) =>
-          $tom_vscode_scripting_api_25.VSCodeCommonCommands.toggleSidebar,
+          $tom_vscode_scripting_api_23.VSCodeCommonCommands.toggleSidebar,
       'togglePanel': (visitor) =>
-          $tom_vscode_scripting_api_25.VSCodeCommonCommands.togglePanel,
+          $tom_vscode_scripting_api_23.VSCodeCommonCommands.togglePanel,
       'formatDocument': (visitor) =>
-          $tom_vscode_scripting_api_25.VSCodeCommonCommands.formatDocument,
+          $tom_vscode_scripting_api_23.VSCodeCommonCommands.formatDocument,
       'organizeImports': (visitor) =>
-          $tom_vscode_scripting_api_25.VSCodeCommonCommands.organizeImports,
+          $tom_vscode_scripting_api_23.VSCodeCommonCommands.organizeImports,
       'renameSymbol': (visitor) =>
-          $tom_vscode_scripting_api_25.VSCodeCommonCommands.renameSymbol,
+          $tom_vscode_scripting_api_23.VSCodeCommonCommands.renameSymbol,
       'goToDefinition': (visitor) =>
-          $tom_vscode_scripting_api_25.VSCodeCommonCommands.goToDefinition,
+          $tom_vscode_scripting_api_23.VSCodeCommonCommands.goToDefinition,
       'goToReferences': (visitor) =>
-          $tom_vscode_scripting_api_25.VSCodeCommonCommands.goToReferences,
+          $tom_vscode_scripting_api_23.VSCodeCommonCommands.goToReferences,
       'showHover': (visitor) =>
-          $tom_vscode_scripting_api_25.VSCodeCommonCommands.showHover,
+          $tom_vscode_scripting_api_23.VSCodeCommonCommands.showHover,
       'commentLine': (visitor) =>
-          $tom_vscode_scripting_api_25.VSCodeCommonCommands.commentLine,
+          $tom_vscode_scripting_api_23.VSCodeCommonCommands.commentLine,
       'copyLineDown': (visitor) =>
-          $tom_vscode_scripting_api_25.VSCodeCommonCommands.copyLineDown,
+          $tom_vscode_scripting_api_23.VSCodeCommonCommands.copyLineDown,
       'moveLineDown': (visitor) =>
-          $tom_vscode_scripting_api_25.VSCodeCommonCommands.moveLineDown,
+          $tom_vscode_scripting_api_23.VSCodeCommonCommands.moveLineDown,
       'deleteLine': (visitor) =>
-          $tom_vscode_scripting_api_25.VSCodeCommonCommands.deleteLine,
+          $tom_vscode_scripting_api_23.VSCodeCommonCommands.deleteLine,
       'reloadWindow': (visitor) =>
-          $tom_vscode_scripting_api_25.VSCodeCommonCommands.reloadWindow,
+          $tom_vscode_scripting_api_23.VSCodeCommonCommands.reloadWindow,
       'showExtensions': (visitor) =>
-          $tom_vscode_scripting_api_25.VSCodeCommonCommands.showExtensions,
+          $tom_vscode_scripting_api_23.VSCodeCommonCommands.showExtensions,
       'installExtension': (visitor) =>
-          $tom_vscode_scripting_api_25.VSCodeCommonCommands.installExtension,
+          $tom_vscode_scripting_api_23.VSCodeCommonCommands.installExtension,
     },
     constructorSignatures: {'': 'VSCodeCommonCommands()'},
     staticGetterSignatures: {
@@ -5862,9 +5700,9 @@ BridgedClass _createVSCodeCommonCommandsBridge() {
 
 BridgedClass _createExtensionBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_26.Extension,
+    nativeType: $tom_vscode_scripting_api_24.Extension,
     name: 'Extension',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_26.Extension,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_24.Extension,
     constructors: {
       '': (visitor, positional, named) {
         final id = D4.getRequiredNamedArg<String>(named, 'id', 'Extension');
@@ -5896,7 +5734,7 @@ BridgedClass _createExtensionBridge() {
           named,
           'extensionKind',
         );
-        return $tom_vscode_scripting_api_26.Extension(
+        return $tom_vscode_scripting_api_24.Extension(
           id: id,
           extensionUri: extensionUri,
           extensionPath: extensionPath,
@@ -5913,42 +5751,42 @@ BridgedClass _createExtensionBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_26.Extension.fromJson(json);
+        return $tom_vscode_scripting_api_24.Extension.fromJson(json);
       },
     },
     getters: {
       'id': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_26.Extension>(
+          .validateTarget<$tom_vscode_scripting_api_24.Extension>(
             target,
             'Extension',
           )
           .id,
       'extensionUri': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_26.Extension>(
+          .validateTarget<$tom_vscode_scripting_api_24.Extension>(
             target,
             'Extension',
           )
           .extensionUri,
       'extensionPath': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_26.Extension>(
+          .validateTarget<$tom_vscode_scripting_api_24.Extension>(
             target,
             'Extension',
           )
           .extensionPath,
       'isActive': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_26.Extension>(
+          .validateTarget<$tom_vscode_scripting_api_24.Extension>(
             target,
             'Extension',
           )
           .isActive,
       'packageJSON': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_26.Extension>(
+          .validateTarget<$tom_vscode_scripting_api_24.Extension>(
             target,
             'Extension',
           )
           .packageJSON,
       'extensionKind': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_26.Extension>(
+          .validateTarget<$tom_vscode_scripting_api_24.Extension>(
             target,
             'Extension',
           )
@@ -5956,7 +5794,7 @@ BridgedClass _createExtensionBridge() {
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_26.Extension>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_24.Extension>(
           target,
           'Extension',
         );
@@ -5985,26 +5823,26 @@ BridgedClass _createExtensionBridge() {
 
 BridgedClass _createVSCodeExtensionsBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_26.VSCodeExtensions,
+    nativeType: $tom_vscode_scripting_api_24.VSCodeExtensions,
     name: 'VSCodeExtensions',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_26.VSCodeExtensions,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_24.VSCodeExtensions,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'VSCodeExtensions');
         final adapter = D4
-            .getRequiredArg<$tom_vscode_scripting_api_21.VSCodeAdapter>(
+            .getRequiredArg<$tom_vscode_scripting_api_19.VSCodeAdapter>(
               positional,
               0,
               '_adapter',
               'VSCodeExtensions',
             );
-        return $tom_vscode_scripting_api_26.VSCodeExtensions(adapter);
+        return $tom_vscode_scripting_api_24.VSCodeExtensions(adapter);
       },
     },
     methods: {
       'getAll': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_26.VSCodeExtensions>(
+            .validateTarget<$tom_vscode_scripting_api_24.VSCodeExtensions>(
               target,
               'VSCodeExtensions',
             );
@@ -6017,7 +5855,7 @@ BridgedClass _createVSCodeExtensionsBridge() {
       },
       'getExtension': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_26.VSCodeExtensions>(
+            .validateTarget<$tom_vscode_scripting_api_24.VSCodeExtensions>(
               target,
               'VSCodeExtensions',
             );
@@ -6037,7 +5875,7 @@ BridgedClass _createVSCodeExtensionsBridge() {
       },
       'isInstalled': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_26.VSCodeExtensions>(
+            .validateTarget<$tom_vscode_scripting_api_24.VSCodeExtensions>(
               target,
               'VSCodeExtensions',
             );
@@ -6057,7 +5895,7 @@ BridgedClass _createVSCodeExtensionsBridge() {
       },
       'getExtensionExports': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_26.VSCodeExtensions>(
+            .validateTarget<$tom_vscode_scripting_api_24.VSCodeExtensions>(
               target,
               'VSCodeExtensions',
             );
@@ -6080,7 +5918,7 @@ BridgedClass _createVSCodeExtensionsBridge() {
       },
       'activateExtension': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_26.VSCodeExtensions>(
+            .validateTarget<$tom_vscode_scripting_api_24.VSCodeExtensions>(
               target,
               'VSCodeExtensions',
             );
@@ -6100,7 +5938,7 @@ BridgedClass _createVSCodeExtensionsBridge() {
       },
       'getExtensionVersion': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_26.VSCodeExtensions>(
+            .validateTarget<$tom_vscode_scripting_api_24.VSCodeExtensions>(
               target,
               'VSCodeExtensions',
             );
@@ -6124,7 +5962,7 @@ BridgedClass _createVSCodeExtensionsBridge() {
       'getExtensionDisplayName':
           (visitor, target, positional, named, typeArgs) {
             final t = D4
-                .validateTarget<$tom_vscode_scripting_api_26.VSCodeExtensions>(
+                .validateTarget<$tom_vscode_scripting_api_24.VSCodeExtensions>(
                   target,
                   'VSCodeExtensions',
                 );
@@ -6148,7 +5986,7 @@ BridgedClass _createVSCodeExtensionsBridge() {
       'getExtensionDescription':
           (visitor, target, positional, named, typeArgs) {
             final t = D4
-                .validateTarget<$tom_vscode_scripting_api_26.VSCodeExtensions>(
+                .validateTarget<$tom_vscode_scripting_api_24.VSCodeExtensions>(
                   target,
                   'VSCodeExtensions',
                 );
@@ -6197,26 +6035,26 @@ BridgedClass _createVSCodeExtensionsBridge() {
 
 BridgedClass _createVSCodeLanguageModelBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_28.VSCodeLanguageModel,
+    nativeType: $tom_vscode_scripting_api_26.VSCodeLanguageModel,
     name: 'VSCodeLanguageModel',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_28.VSCodeLanguageModel,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_26.VSCodeLanguageModel,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'VSCodeLanguageModel');
         final adapter = D4
-            .getRequiredArg<$tom_vscode_scripting_api_21.VSCodeAdapter>(
+            .getRequiredArg<$tom_vscode_scripting_api_19.VSCodeAdapter>(
               positional,
               0,
               '_adapter',
               'VSCodeLanguageModel',
             );
-        return $tom_vscode_scripting_api_28.VSCodeLanguageModel(adapter);
+        return $tom_vscode_scripting_api_26.VSCodeLanguageModel(adapter);
       },
     },
     methods: {
       'selectChatModels': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_28.VSCodeLanguageModel>(
+            .validateTarget<$tom_vscode_scripting_api_26.VSCodeLanguageModel>(
               target,
               'VSCodeLanguageModel',
             );
@@ -6239,7 +6077,7 @@ BridgedClass _createVSCodeLanguageModelBridge() {
       },
       'invokeTool': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_28.VSCodeLanguageModel>(
+            .validateTarget<$tom_vscode_scripting_api_26.VSCodeLanguageModel>(
               target,
               'VSCodeLanguageModel',
             );
@@ -6265,7 +6103,7 @@ BridgedClass _createVSCodeLanguageModelBridge() {
       },
       'registerTool': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_28.VSCodeLanguageModel>(
+            .validateTarget<$tom_vscode_scripting_api_26.VSCodeLanguageModel>(
               target,
               'VSCodeLanguageModel',
             );
@@ -6291,7 +6129,7 @@ BridgedClass _createVSCodeLanguageModelBridge() {
       },
       'getTools': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_28.VSCodeLanguageModel>(
+            .validateTarget<$tom_vscode_scripting_api_26.VSCodeLanguageModel>(
               target,
               'VSCodeLanguageModel',
             );
@@ -6323,9 +6161,9 @@ BridgedClass _createVSCodeLanguageModelBridge() {
 
 BridgedClass _createLanguageModelChatBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_28.LanguageModelChat,
+    nativeType: $tom_vscode_scripting_api_26.LanguageModelChat,
     name: 'LanguageModelChat',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_28.LanguageModelChat,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_26.LanguageModelChat,
     constructors: {
       '': (visitor, positional, named) {
         final id = D4.getRequiredNamedArg<String>(
@@ -6358,7 +6196,7 @@ BridgedClass _createLanguageModelChatBridge() {
           'maxInputTokens',
           'LanguageModelChat',
         );
-        return $tom_vscode_scripting_api_28.LanguageModelChat(
+        return $tom_vscode_scripting_api_26.LanguageModelChat(
           id: id,
           vendor: vendor,
           family: family,
@@ -6375,42 +6213,42 @@ BridgedClass _createLanguageModelChatBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_28.LanguageModelChat.fromJson(json);
+        return $tom_vscode_scripting_api_26.LanguageModelChat.fromJson(json);
       },
     },
     getters: {
       'id': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_28.LanguageModelChat>(
+          .validateTarget<$tom_vscode_scripting_api_26.LanguageModelChat>(
             target,
             'LanguageModelChat',
           )
           .id,
       'vendor': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_28.LanguageModelChat>(
+          .validateTarget<$tom_vscode_scripting_api_26.LanguageModelChat>(
             target,
             'LanguageModelChat',
           )
           .vendor,
       'family': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_28.LanguageModelChat>(
+          .validateTarget<$tom_vscode_scripting_api_26.LanguageModelChat>(
             target,
             'LanguageModelChat',
           )
           .family,
       'version': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_28.LanguageModelChat>(
+          .validateTarget<$tom_vscode_scripting_api_26.LanguageModelChat>(
             target,
             'LanguageModelChat',
           )
           .version,
       'name': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_28.LanguageModelChat>(
+          .validateTarget<$tom_vscode_scripting_api_26.LanguageModelChat>(
             target,
             'LanguageModelChat',
           )
           .name,
       'maxInputTokens': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_28.LanguageModelChat>(
+          .validateTarget<$tom_vscode_scripting_api_26.LanguageModelChat>(
             target,
             'LanguageModelChat',
           )
@@ -6419,7 +6257,7 @@ BridgedClass _createLanguageModelChatBridge() {
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_28.LanguageModelChat>(
+            .validateTarget<$tom_vscode_scripting_api_26.LanguageModelChat>(
               target,
               'LanguageModelChat',
             );
@@ -6427,13 +6265,13 @@ BridgedClass _createLanguageModelChatBridge() {
       },
       'sendRequest': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_28.LanguageModelChat>(
+            .validateTarget<$tom_vscode_scripting_api_26.LanguageModelChat>(
               target,
               'LanguageModelChat',
             );
         D4.requireMinArgs(positional, 2, 'sendRequest');
         final adapter = D4
-            .getRequiredArg<$tom_vscode_scripting_api_21.VSCodeAdapter>(
+            .getRequiredArg<$tom_vscode_scripting_api_19.VSCodeAdapter>(
               positional,
               0,
               'adapter',
@@ -6445,7 +6283,7 @@ BridgedClass _createLanguageModelChatBridge() {
           );
         }
         final messages = D4
-            .coerceList<$tom_vscode_scripting_api_28.LanguageModelChatMessage>(
+            .coerceList<$tom_vscode_scripting_api_26.LanguageModelChatMessage>(
               positional[1],
               'messages',
             );
@@ -6467,13 +6305,13 @@ BridgedClass _createLanguageModelChatBridge() {
       },
       'countTokens': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_28.LanguageModelChat>(
+            .validateTarget<$tom_vscode_scripting_api_26.LanguageModelChat>(
               target,
               'LanguageModelChat',
             );
         D4.requireMinArgs(positional, 2, 'countTokens');
         final adapter = D4
-            .getRequiredArg<$tom_vscode_scripting_api_21.VSCodeAdapter>(
+            .getRequiredArg<$tom_vscode_scripting_api_19.VSCodeAdapter>(
               positional,
               0,
               'adapter',
@@ -6522,10 +6360,10 @@ BridgedClass _createLanguageModelChatBridge() {
 
 BridgedClass _createLanguageModelCallExceptionBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_28.LanguageModelCallException,
+    nativeType: $tom_vscode_scripting_api_26.LanguageModelCallException,
     name: 'LanguageModelCallException',
     isAssignable: (v) =>
-        v is $tom_vscode_scripting_api_28.LanguageModelCallException,
+        v is $tom_vscode_scripting_api_26.LanguageModelCallException,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
@@ -6542,7 +6380,7 @@ BridgedClass _createLanguageModelCallExceptionBridge() {
           'message',
           'LanguageModelCallException',
         );
-        return $tom_vscode_scripting_api_28.LanguageModelCallException(
+        return $tom_vscode_scripting_api_26.LanguageModelCallException(
           operation,
           message,
         );
@@ -6551,12 +6389,12 @@ BridgedClass _createLanguageModelCallExceptionBridge() {
     getters: {
       'operation': (visitor, target) => D4
           .validateTarget<
-            $tom_vscode_scripting_api_28.LanguageModelCallException
+            $tom_vscode_scripting_api_26.LanguageModelCallException
           >(target, 'LanguageModelCallException')
           .operation,
       'message': (visitor, target) => D4
           .validateTarget<
-            $tom_vscode_scripting_api_28.LanguageModelCallException
+            $tom_vscode_scripting_api_26.LanguageModelCallException
           >(target, 'LanguageModelCallException')
           .message,
     },
@@ -6564,7 +6402,7 @@ BridgedClass _createLanguageModelCallExceptionBridge() {
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4
             .validateTarget<
-              $tom_vscode_scripting_api_28.LanguageModelCallException
+              $tom_vscode_scripting_api_26.LanguageModelCallException
             >(target, 'LanguageModelCallException');
         return t.toString();
       },
@@ -6586,10 +6424,10 @@ BridgedClass _createLanguageModelCallExceptionBridge() {
 
 BridgedClass _createLanguageModelChatMessageBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_28.LanguageModelChatMessage,
+    nativeType: $tom_vscode_scripting_api_26.LanguageModelChatMessage,
     name: 'LanguageModelChatMessage',
     isAssignable: (v) =>
-        v is $tom_vscode_scripting_api_28.LanguageModelChatMessage,
+        v is $tom_vscode_scripting_api_26.LanguageModelChatMessage,
     constructors: {
       '': (visitor, positional, named) {
         final role = D4.getRequiredNamedArg<String>(
@@ -6603,7 +6441,7 @@ BridgedClass _createLanguageModelChatMessageBridge() {
           'LanguageModelChatMessage',
         );
         final name = D4.getOptionalNamedArg<String?>(named, 'name');
-        return $tom_vscode_scripting_api_28.LanguageModelChatMessage(
+        return $tom_vscode_scripting_api_26.LanguageModelChatMessage(
           role: role,
           content: content,
           name: name,
@@ -6618,7 +6456,7 @@ BridgedClass _createLanguageModelChatMessageBridge() {
           'LanguageModelChatMessage',
         );
         final name = D4.getOptionalNamedArg<String?>(named, 'name');
-        return $tom_vscode_scripting_api_28.LanguageModelChatMessage.user(
+        return $tom_vscode_scripting_api_26.LanguageModelChatMessage.user(
           content,
           name: name,
         );
@@ -6632,7 +6470,7 @@ BridgedClass _createLanguageModelChatMessageBridge() {
           'LanguageModelChatMessage',
         );
         final name = D4.getOptionalNamedArg<String?>(named, 'name');
-        return $tom_vscode_scripting_api_28.LanguageModelChatMessage.assistant(
+        return $tom_vscode_scripting_api_26.LanguageModelChatMessage.assistant(
           content,
           name: name,
         );
@@ -6645,7 +6483,7 @@ BridgedClass _createLanguageModelChatMessageBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_28.LanguageModelChatMessage.fromJson(
+        return $tom_vscode_scripting_api_26.LanguageModelChatMessage.fromJson(
           json,
         );
       },
@@ -6653,17 +6491,17 @@ BridgedClass _createLanguageModelChatMessageBridge() {
     getters: {
       'role': (visitor, target) => D4
           .validateTarget<
-            $tom_vscode_scripting_api_28.LanguageModelChatMessage
+            $tom_vscode_scripting_api_26.LanguageModelChatMessage
           >(target, 'LanguageModelChatMessage')
           .role,
       'content': (visitor, target) => D4
           .validateTarget<
-            $tom_vscode_scripting_api_28.LanguageModelChatMessage
+            $tom_vscode_scripting_api_26.LanguageModelChatMessage
           >(target, 'LanguageModelChatMessage')
           .content,
       'name': (visitor, target) => D4
           .validateTarget<
-            $tom_vscode_scripting_api_28.LanguageModelChatMessage
+            $tom_vscode_scripting_api_26.LanguageModelChatMessage
           >(target, 'LanguageModelChatMessage')
           .name,
     },
@@ -6671,7 +6509,7 @@ BridgedClass _createLanguageModelChatMessageBridge() {
       'toJson': (visitor, target, positional, named, typeArgs) {
         final t = D4
             .validateTarget<
-              $tom_vscode_scripting_api_28.LanguageModelChatMessage
+              $tom_vscode_scripting_api_26.LanguageModelChatMessage
             >(target, 'LanguageModelChatMessage');
         return t.toJson();
       },
@@ -6700,10 +6538,10 @@ BridgedClass _createLanguageModelChatMessageBridge() {
 
 BridgedClass _createLanguageModelChatResponseBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_28.LanguageModelChatResponse,
+    nativeType: $tom_vscode_scripting_api_26.LanguageModelChatResponse,
     name: 'LanguageModelChatResponse',
     isAssignable: (v) =>
-        v is $tom_vscode_scripting_api_28.LanguageModelChatResponse,
+        v is $tom_vscode_scripting_api_26.LanguageModelChatResponse,
     constructors: {
       '': (visitor, positional, named) {
         final text = D4.getRequiredNamedArg<String>(
@@ -6720,7 +6558,7 @@ BridgedClass _createLanguageModelChatResponseBridge() {
           named['streamParts'],
           'streamParts',
         );
-        return $tom_vscode_scripting_api_28.LanguageModelChatResponse(
+        return $tom_vscode_scripting_api_26.LanguageModelChatResponse(
           text: text,
           streamParts: streamParts,
         );
@@ -6733,7 +6571,7 @@ BridgedClass _createLanguageModelChatResponseBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_28.LanguageModelChatResponse.fromJson(
+        return $tom_vscode_scripting_api_26.LanguageModelChatResponse.fromJson(
           json,
         );
       },
@@ -6741,12 +6579,12 @@ BridgedClass _createLanguageModelChatResponseBridge() {
     getters: {
       'text': (visitor, target) => D4
           .validateTarget<
-            $tom_vscode_scripting_api_28.LanguageModelChatResponse
+            $tom_vscode_scripting_api_26.LanguageModelChatResponse
           >(target, 'LanguageModelChatResponse')
           .text,
       'streamParts': (visitor, target) => D4
           .validateTarget<
-            $tom_vscode_scripting_api_28.LanguageModelChatResponse
+            $tom_vscode_scripting_api_26.LanguageModelChatResponse
           >(target, 'LanguageModelChatResponse')
           .streamParts,
     },
@@ -6754,7 +6592,7 @@ BridgedClass _createLanguageModelChatResponseBridge() {
       'toJson': (visitor, target, positional, named, typeArgs) {
         final t = D4
             .validateTarget<
-              $tom_vscode_scripting_api_28.LanguageModelChatResponse
+              $tom_vscode_scripting_api_26.LanguageModelChatResponse
             >(target, 'LanguageModelChatResponse');
         return t.toJson();
       },
@@ -6778,10 +6616,10 @@ BridgedClass _createLanguageModelChatResponseBridge() {
 
 BridgedClass _createLanguageModelToolResultBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_28.LanguageModelToolResult,
+    nativeType: $tom_vscode_scripting_api_26.LanguageModelToolResult,
     name: 'LanguageModelToolResult',
     isAssignable: (v) =>
-        v is $tom_vscode_scripting_api_28.LanguageModelToolResult,
+        v is $tom_vscode_scripting_api_26.LanguageModelToolResult,
     constructors: {
       '': (visitor, positional, named) {
         final content = D4.getRequiredNamedArg<List>(
@@ -6789,7 +6627,7 @@ BridgedClass _createLanguageModelToolResultBridge() {
           'content',
           'LanguageModelToolResult',
         );
-        return $tom_vscode_scripting_api_28.LanguageModelToolResult(
+        return $tom_vscode_scripting_api_26.LanguageModelToolResult(
           content: content,
         );
       },
@@ -6801,14 +6639,14 @@ BridgedClass _createLanguageModelToolResultBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_28.LanguageModelToolResult.fromJson(
+        return $tom_vscode_scripting_api_26.LanguageModelToolResult.fromJson(
           json,
         );
       },
     },
     getters: {
       'content': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_28.LanguageModelToolResult>(
+          .validateTarget<$tom_vscode_scripting_api_26.LanguageModelToolResult>(
             target,
             'LanguageModelToolResult',
           )
@@ -6818,7 +6656,7 @@ BridgedClass _createLanguageModelToolResultBridge() {
       'toJson': (visitor, target, positional, named, typeArgs) {
         final t = D4
             .validateTarget<
-              $tom_vscode_scripting_api_28.LanguageModelToolResult
+              $tom_vscode_scripting_api_26.LanguageModelToolResult
             >(target, 'LanguageModelToolResult');
         return t.toJson();
       },
@@ -6839,10 +6677,10 @@ BridgedClass _createLanguageModelToolResultBridge() {
 
 BridgedClass _createLanguageModelToolInformationBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_28.LanguageModelToolInformation,
+    nativeType: $tom_vscode_scripting_api_26.LanguageModelToolInformation,
     name: 'LanguageModelToolInformation',
     isAssignable: (v) =>
-        v is $tom_vscode_scripting_api_28.LanguageModelToolInformation,
+        v is $tom_vscode_scripting_api_26.LanguageModelToolInformation,
     constructors: {
       '': (visitor, positional, named) {
         final name = D4.getRequiredNamedArg<String>(
@@ -6864,7 +6702,7 @@ BridgedClass _createLanguageModelToolInformationBridge() {
           named['inputSchema'],
           'inputSchema',
         );
-        return $tom_vscode_scripting_api_28.LanguageModelToolInformation(
+        return $tom_vscode_scripting_api_26.LanguageModelToolInformation(
           name: name,
           description: description,
           inputSchema: inputSchema,
@@ -6878,24 +6716,24 @@ BridgedClass _createLanguageModelToolInformationBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_28
+        return $tom_vscode_scripting_api_26
             .LanguageModelToolInformation.fromJson(json);
       },
     },
     getters: {
       'name': (visitor, target) => D4
           .validateTarget<
-            $tom_vscode_scripting_api_28.LanguageModelToolInformation
+            $tom_vscode_scripting_api_26.LanguageModelToolInformation
           >(target, 'LanguageModelToolInformation')
           .name,
       'description': (visitor, target) => D4
           .validateTarget<
-            $tom_vscode_scripting_api_28.LanguageModelToolInformation
+            $tom_vscode_scripting_api_26.LanguageModelToolInformation
           >(target, 'LanguageModelToolInformation')
           .description,
       'inputSchema': (visitor, target) => D4
           .validateTarget<
-            $tom_vscode_scripting_api_28.LanguageModelToolInformation
+            $tom_vscode_scripting_api_26.LanguageModelToolInformation
           >(target, 'LanguageModelToolInformation')
           .inputSchema,
     },
@@ -6903,7 +6741,7 @@ BridgedClass _createLanguageModelToolInformationBridge() {
       'toJson': (visitor, target, positional, named, typeArgs) {
         final t = D4
             .validateTarget<
-              $tom_vscode_scripting_api_28.LanguageModelToolInformation
+              $tom_vscode_scripting_api_26.LanguageModelToolInformation
             >(target, 'LanguageModelToolInformation');
         return t.toJson();
       },
@@ -6928,25 +6766,25 @@ BridgedClass _createLanguageModelToolInformationBridge() {
 
 BridgedClass _createVSCodeWindowBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_30.VSCodeWindow,
+    nativeType: $tom_vscode_scripting_api_28.VSCodeWindow,
     name: 'VSCodeWindow',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_30.VSCodeWindow,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_28.VSCodeWindow,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'VSCodeWindow');
         final adapter = D4
-            .getRequiredArg<$tom_vscode_scripting_api_21.VSCodeAdapter>(
+            .getRequiredArg<$tom_vscode_scripting_api_19.VSCodeAdapter>(
               positional,
               0,
               '_adapter',
               'VSCodeWindow',
             );
-        return $tom_vscode_scripting_api_30.VSCodeWindow(adapter);
+        return $tom_vscode_scripting_api_28.VSCodeWindow(adapter);
       },
     },
     methods: {
       'showInformationMessage': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_30.VSCodeWindow>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_28.VSCodeWindow>(
           target,
           'VSCodeWindow',
         );
@@ -6959,7 +6797,7 @@ BridgedClass _createVSCodeWindowBridge() {
         );
         final items = D4.coerceListOrNull<String>(named['items'], 'items');
         final options = D4
-            .getOptionalNamedArg<$tom_vscode_scripting_api_29.MessageOptions?>(
+            .getOptionalNamedArg<$tom_vscode_scripting_api_27.MessageOptions?>(
               named,
               'options',
             );
@@ -6976,7 +6814,7 @@ BridgedClass _createVSCodeWindowBridge() {
         );
       },
       'showWarningMessage': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_30.VSCodeWindow>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_28.VSCodeWindow>(
           target,
           'VSCodeWindow',
         );
@@ -6989,7 +6827,7 @@ BridgedClass _createVSCodeWindowBridge() {
         );
         final items = D4.coerceListOrNull<String>(named['items'], 'items');
         final options = D4
-            .getOptionalNamedArg<$tom_vscode_scripting_api_29.MessageOptions?>(
+            .getOptionalNamedArg<$tom_vscode_scripting_api_27.MessageOptions?>(
               named,
               'options',
             );
@@ -7006,7 +6844,7 @@ BridgedClass _createVSCodeWindowBridge() {
         );
       },
       'showErrorMessage': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_30.VSCodeWindow>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_28.VSCodeWindow>(
           target,
           'VSCodeWindow',
         );
@@ -7019,7 +6857,7 @@ BridgedClass _createVSCodeWindowBridge() {
         );
         final items = D4.coerceListOrNull<String>(named['items'], 'items');
         final options = D4
-            .getOptionalNamedArg<$tom_vscode_scripting_api_29.MessageOptions?>(
+            .getOptionalNamedArg<$tom_vscode_scripting_api_27.MessageOptions?>(
               named,
               'options',
             );
@@ -7036,7 +6874,7 @@ BridgedClass _createVSCodeWindowBridge() {
         );
       },
       'showQuickPick': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_30.VSCodeWindow>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_28.VSCodeWindow>(
           target,
           'VSCodeWindow',
         );
@@ -7080,7 +6918,7 @@ BridgedClass _createVSCodeWindowBridge() {
         );
       },
       'showInputBox': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_30.VSCodeWindow>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_28.VSCodeWindow>(
           target,
           'VSCodeWindow',
         );
@@ -7120,14 +6958,14 @@ BridgedClass _createVSCodeWindowBridge() {
         );
       },
       'getActiveTextEditor': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_30.VSCodeWindow>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_28.VSCodeWindow>(
           target,
           'VSCodeWindow',
         );
         return t.getActiveTextEditor();
       },
       'showTextDocument': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_30.VSCodeWindow>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_28.VSCodeWindow>(
           target,
           'VSCodeWindow',
         );
@@ -7146,7 +6984,7 @@ BridgedClass _createVSCodeWindowBridge() {
         return t.showTextDocument(path, timeoutSeconds: timeoutSeconds);
       },
       'createOutputChannel': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_30.VSCodeWindow>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_28.VSCodeWindow>(
           target,
           'VSCodeWindow',
         );
@@ -7165,7 +7003,7 @@ BridgedClass _createVSCodeWindowBridge() {
         return t.createOutputChannel(name, timeoutSeconds: timeoutSeconds);
       },
       'appendToOutputChannel': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_30.VSCodeWindow>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_28.VSCodeWindow>(
           target,
           'VSCodeWindow',
         );
@@ -7194,7 +7032,7 @@ BridgedClass _createVSCodeWindowBridge() {
         );
       },
       'showOutputChannel': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_30.VSCodeWindow>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_28.VSCodeWindow>(
           target,
           'VSCodeWindow',
         );
@@ -7213,7 +7051,7 @@ BridgedClass _createVSCodeWindowBridge() {
         return t.showOutputChannel(channelName, timeoutSeconds: timeoutSeconds);
       },
       'createTerminal': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_30.VSCodeWindow>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_28.VSCodeWindow>(
           target,
           'VSCodeWindow',
         );
@@ -7236,7 +7074,7 @@ BridgedClass _createVSCodeWindowBridge() {
         );
       },
       'sendTextToTerminal': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_30.VSCodeWindow>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_28.VSCodeWindow>(
           target,
           'VSCodeWindow',
         );
@@ -7265,7 +7103,7 @@ BridgedClass _createVSCodeWindowBridge() {
         );
       },
       'showTerminal': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_30.VSCodeWindow>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_28.VSCodeWindow>(
           target,
           'VSCodeWindow',
         );
@@ -7284,7 +7122,7 @@ BridgedClass _createVSCodeWindowBridge() {
         return t.showTerminal(terminalName, timeoutSeconds: timeoutSeconds);
       },
       'setStatusBarMessage': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_30.VSCodeWindow>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_28.VSCodeWindow>(
           target,
           'VSCodeWindow',
         );
@@ -7308,7 +7146,7 @@ BridgedClass _createVSCodeWindowBridge() {
         );
       },
       'showSaveDialog': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_30.VSCodeWindow>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_28.VSCodeWindow>(
           target,
           'VSCodeWindow',
         );
@@ -7331,7 +7169,7 @@ BridgedClass _createVSCodeWindowBridge() {
         );
       },
       'showOpenDialog': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_30.VSCodeWindow>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_28.VSCodeWindow>(
           target,
           'VSCodeWindow',
         );
@@ -7415,26 +7253,26 @@ BridgedClass _createVSCodeWindowBridge() {
 
 BridgedClass _createVSCodeWorkspaceBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_31.VSCodeWorkspace,
+    nativeType: $tom_vscode_scripting_api_29.VSCodeWorkspace,
     name: 'VSCodeWorkspace',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_31.VSCodeWorkspace,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_29.VSCodeWorkspace,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'VSCodeWorkspace');
         final adapter = D4
-            .getRequiredArg<$tom_vscode_scripting_api_21.VSCodeAdapter>(
+            .getRequiredArg<$tom_vscode_scripting_api_19.VSCodeAdapter>(
               positional,
               0,
               '_adapter',
               'VSCodeWorkspace',
             );
-        return $tom_vscode_scripting_api_31.VSCodeWorkspace(adapter);
+        return $tom_vscode_scripting_api_29.VSCodeWorkspace(adapter);
       },
     },
     methods: {
       'getWorkspaceFolders': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_31.VSCodeWorkspace>(
+            .validateTarget<$tom_vscode_scripting_api_29.VSCodeWorkspace>(
               target,
               'VSCodeWorkspace',
             );
@@ -7447,12 +7285,12 @@ BridgedClass _createVSCodeWorkspaceBridge() {
       },
       'getWorkspaceFolder': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_31.VSCodeWorkspace>(
+            .validateTarget<$tom_vscode_scripting_api_29.VSCodeWorkspace>(
               target,
               'VSCodeWorkspace',
             );
         D4.requireMinArgs(positional, 1, 'getWorkspaceFolder');
-        final uri = D4.getRequiredArg<$tom_vscode_scripting_api_29.VSCodeUri>(
+        final uri = D4.getRequiredArg<$tom_vscode_scripting_api_27.VSCodeUri>(
           positional,
           0,
           'uri',
@@ -7467,7 +7305,7 @@ BridgedClass _createVSCodeWorkspaceBridge() {
       },
       'openTextDocument': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_31.VSCodeWorkspace>(
+            .validateTarget<$tom_vscode_scripting_api_29.VSCodeWorkspace>(
               target,
               'VSCodeWorkspace',
             );
@@ -7487,7 +7325,7 @@ BridgedClass _createVSCodeWorkspaceBridge() {
       },
       'saveTextDocument': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_31.VSCodeWorkspace>(
+            .validateTarget<$tom_vscode_scripting_api_29.VSCodeWorkspace>(
               target,
               'VSCodeWorkspace',
             );
@@ -7507,7 +7345,7 @@ BridgedClass _createVSCodeWorkspaceBridge() {
       },
       'findFiles': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_31.VSCodeWorkspace>(
+            .validateTarget<$tom_vscode_scripting_api_29.VSCodeWorkspace>(
               target,
               'VSCodeWorkspace',
             );
@@ -7534,7 +7372,7 @@ BridgedClass _createVSCodeWorkspaceBridge() {
       },
       'findFilePaths': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_31.VSCodeWorkspace>(
+            .validateTarget<$tom_vscode_scripting_api_29.VSCodeWorkspace>(
               target,
               'VSCodeWorkspace',
             );
@@ -7559,7 +7397,7 @@ BridgedClass _createVSCodeWorkspaceBridge() {
       },
       'getConfiguration': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_31.VSCodeWorkspace>(
+            .validateTarget<$tom_vscode_scripting_api_29.VSCodeWorkspace>(
               target,
               'VSCodeWorkspace',
             );
@@ -7584,7 +7422,7 @@ BridgedClass _createVSCodeWorkspaceBridge() {
       },
       'updateConfiguration': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_31.VSCodeWorkspace>(
+            .validateTarget<$tom_vscode_scripting_api_29.VSCodeWorkspace>(
               target,
               'VSCodeWorkspace',
             );
@@ -7623,7 +7461,7 @@ BridgedClass _createVSCodeWorkspaceBridge() {
       },
       'getRootPath': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_31.VSCodeWorkspace>(
+            .validateTarget<$tom_vscode_scripting_api_29.VSCodeWorkspace>(
               target,
               'VSCodeWorkspace',
             );
@@ -7631,7 +7469,7 @@ BridgedClass _createVSCodeWorkspaceBridge() {
       },
       'getWorkspaceName': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_31.VSCodeWorkspace>(
+            .validateTarget<$tom_vscode_scripting_api_29.VSCodeWorkspace>(
               target,
               'VSCodeWorkspace',
             );
@@ -7639,7 +7477,7 @@ BridgedClass _createVSCodeWorkspaceBridge() {
       },
       'readFile': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_31.VSCodeWorkspace>(
+            .validateTarget<$tom_vscode_scripting_api_29.VSCodeWorkspace>(
               target,
               'VSCodeWorkspace',
             );
@@ -7654,7 +7492,7 @@ BridgedClass _createVSCodeWorkspaceBridge() {
       },
       'writeFile': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_31.VSCodeWorkspace>(
+            .validateTarget<$tom_vscode_scripting_api_29.VSCodeWorkspace>(
               target,
               'VSCodeWorkspace',
             );
@@ -7675,7 +7513,7 @@ BridgedClass _createVSCodeWorkspaceBridge() {
       },
       'deleteFile': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_31.VSCodeWorkspace>(
+            .validateTarget<$tom_vscode_scripting_api_29.VSCodeWorkspace>(
               target,
               'VSCodeWorkspace',
             );
@@ -7690,7 +7528,7 @@ BridgedClass _createVSCodeWorkspaceBridge() {
       },
       'fileExists': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_31.VSCodeWorkspace>(
+            .validateTarget<$tom_vscode_scripting_api_29.VSCodeWorkspace>(
               target,
               'VSCodeWorkspace',
             );
@@ -7738,25 +7576,25 @@ BridgedClass _createVSCodeWorkspaceBridge() {
 
 BridgedClass _createVSCodeChatBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_24.VSCodeChat,
+    nativeType: $tom_vscode_scripting_api_22.VSCodeChat,
     name: 'VSCodeChat',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_24.VSCodeChat,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_22.VSCodeChat,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'VSCodeChat');
         final adapter = D4
-            .getRequiredArg<$tom_vscode_scripting_api_21.VSCodeAdapter>(
+            .getRequiredArg<$tom_vscode_scripting_api_19.VSCodeAdapter>(
               positional,
               0,
               '_adapter',
               'VSCodeChat',
             );
-        return $tom_vscode_scripting_api_24.VSCodeChat(adapter);
+        return $tom_vscode_scripting_api_22.VSCodeChat(adapter);
       },
     },
     methods: {
       'createChatParticipant': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_24.VSCodeChat>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_22.VSCodeChat>(
           target,
           'VSCodeChat',
         );
@@ -7787,9 +7625,9 @@ BridgedClass _createVSCodeChatBridge() {
           id,
           handler:
               ((
-                    $tom_vscode_scripting_api_24.ChatRequest p0,
-                    $tom_vscode_scripting_api_24.ChatContext p1,
-                    $tom_vscode_scripting_api_24.ChatResponseStream p2,
+                    $tom_vscode_scripting_api_22.ChatRequest p0,
+                    $tom_vscode_scripting_api_22.ChatContext p1,
+                    $tom_vscode_scripting_api_22.ChatResponseStream p2,
                   ) {
                     return Future.value(
                       D4.callInterpreterCallback(visitor!, handlerRaw, [
@@ -7797,12 +7635,12 @@ BridgedClass _createVSCodeChatBridge() {
                         p1,
                         p2,
                       ]),
-                    ).then((v) => v as $tom_vscode_scripting_api_24.ChatResult);
+                    ).then((v) => v as $tom_vscode_scripting_api_22.ChatResult);
                   })
-                  as Future<$tom_vscode_scripting_api_24.ChatResult> Function(
-                    $tom_vscode_scripting_api_24.ChatRequest,
-                    $tom_vscode_scripting_api_24.ChatContext,
-                    $tom_vscode_scripting_api_24.ChatResponseStream,
+                  as Future<$tom_vscode_scripting_api_22.ChatResult> Function(
+                    $tom_vscode_scripting_api_22.ChatRequest,
+                    $tom_vscode_scripting_api_22.ChatContext,
+                    $tom_vscode_scripting_api_22.ChatResponseStream,
                   ),
           description: description,
           fullName: fullName,
@@ -7819,7 +7657,7 @@ BridgedClass _createVSCodeChatBridge() {
           );
         }
         final params = D4.coerceMap<String, dynamic>(positional[0], 'params');
-        return $tom_vscode_scripting_api_24.VSCodeChat.handleChatRequest(
+        return $tom_vscode_scripting_api_22.VSCodeChat.handleChatRequest(
           params,
         );
       },
@@ -7842,9 +7680,9 @@ BridgedClass _createVSCodeChatBridge() {
 
 BridgedClass _createChatParticipantBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_24.ChatParticipant,
+    nativeType: $tom_vscode_scripting_api_22.ChatParticipant,
     name: 'ChatParticipant',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_24.ChatParticipant,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_22.ChatParticipant,
     constructors: {
       '': (visitor, positional, named) {
         final id = D4.getRequiredNamedArg<String>(
@@ -7857,7 +7695,7 @@ BridgedClass _createChatParticipantBridge() {
           'description',
         );
         final fullName = D4.getOptionalNamedArg<String?>(named, 'fullName');
-        return $tom_vscode_scripting_api_24.ChatParticipant(
+        return $tom_vscode_scripting_api_22.ChatParticipant(
           id: id,
           description: description,
           fullName: fullName,
@@ -7871,24 +7709,24 @@ BridgedClass _createChatParticipantBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_24.ChatParticipant.fromJson(json);
+        return $tom_vscode_scripting_api_22.ChatParticipant.fromJson(json);
       },
     },
     getters: {
       'id': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_24.ChatParticipant>(
+          .validateTarget<$tom_vscode_scripting_api_22.ChatParticipant>(
             target,
             'ChatParticipant',
           )
           .id,
       'description': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_24.ChatParticipant>(
+          .validateTarget<$tom_vscode_scripting_api_22.ChatParticipant>(
             target,
             'ChatParticipant',
           )
           .description,
       'fullName': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_24.ChatParticipant>(
+          .validateTarget<$tom_vscode_scripting_api_22.ChatParticipant>(
             target,
             'ChatParticipant',
           )
@@ -7897,7 +7735,7 @@ BridgedClass _createChatParticipantBridge() {
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_24.ChatParticipant>(
+            .validateTarget<$tom_vscode_scripting_api_22.ChatParticipant>(
               target,
               'ChatParticipant',
             );
@@ -7923,9 +7761,9 @@ BridgedClass _createChatParticipantBridge() {
 
 BridgedClass _createChatRequestBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_24.ChatRequest,
+    nativeType: $tom_vscode_scripting_api_22.ChatRequest,
     name: 'ChatRequest',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_24.ChatRequest,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_22.ChatRequest,
     constructors: {
       '': (visitor, positional, named) {
         final prompt = D4.getRequiredNamedArg<String>(
@@ -7944,11 +7782,11 @@ BridgedClass _createChatRequestBridge() {
           );
         }
         final references = D4
-            .coerceList<$tom_vscode_scripting_api_24.ChatPromptReference>(
+            .coerceList<$tom_vscode_scripting_api_22.ChatPromptReference>(
               named['references'],
               'references',
             );
-        return $tom_vscode_scripting_api_24.ChatRequest(
+        return $tom_vscode_scripting_api_22.ChatRequest(
           prompt: prompt,
           command: command,
           references: references,
@@ -7962,24 +7800,24 @@ BridgedClass _createChatRequestBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_24.ChatRequest.fromJson(json);
+        return $tom_vscode_scripting_api_22.ChatRequest.fromJson(json);
       },
     },
     getters: {
       'prompt': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_24.ChatRequest>(
+          .validateTarget<$tom_vscode_scripting_api_22.ChatRequest>(
             target,
             'ChatRequest',
           )
           .prompt,
       'command': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_24.ChatRequest>(
+          .validateTarget<$tom_vscode_scripting_api_22.ChatRequest>(
             target,
             'ChatRequest',
           )
           .command,
       'references': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_24.ChatRequest>(
+          .validateTarget<$tom_vscode_scripting_api_22.ChatRequest>(
             target,
             'ChatRequest',
           )
@@ -7987,7 +7825,7 @@ BridgedClass _createChatRequestBridge() {
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_24.ChatRequest>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_22.ChatRequest>(
           target,
           'ChatRequest',
         );
@@ -8013,9 +7851,9 @@ BridgedClass _createChatRequestBridge() {
 
 BridgedClass _createChatPromptReferenceBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_24.ChatPromptReference,
+    nativeType: $tom_vscode_scripting_api_22.ChatPromptReference,
     name: 'ChatPromptReference',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_24.ChatPromptReference,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_22.ChatPromptReference,
     constructors: {
       '': (visitor, positional, named) {
         final id = D4.getRequiredNamedArg<String>(
@@ -8032,7 +7870,7 @@ BridgedClass _createChatPromptReferenceBridge() {
           named,
           'modelDescription',
         );
-        return $tom_vscode_scripting_api_24.ChatPromptReference(
+        return $tom_vscode_scripting_api_22.ChatPromptReference(
           id: id,
           value: value,
           modelDescription: modelDescription,
@@ -8046,24 +7884,24 @@ BridgedClass _createChatPromptReferenceBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_24.ChatPromptReference.fromJson(json);
+        return $tom_vscode_scripting_api_22.ChatPromptReference.fromJson(json);
       },
     },
     getters: {
       'id': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_24.ChatPromptReference>(
+          .validateTarget<$tom_vscode_scripting_api_22.ChatPromptReference>(
             target,
             'ChatPromptReference',
           )
           .id,
       'value': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_24.ChatPromptReference>(
+          .validateTarget<$tom_vscode_scripting_api_22.ChatPromptReference>(
             target,
             'ChatPromptReference',
           )
           .value,
       'modelDescription': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_24.ChatPromptReference>(
+          .validateTarget<$tom_vscode_scripting_api_22.ChatPromptReference>(
             target,
             'ChatPromptReference',
           )
@@ -8072,7 +7910,7 @@ BridgedClass _createChatPromptReferenceBridge() {
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_24.ChatPromptReference>(
+            .validateTarget<$tom_vscode_scripting_api_22.ChatPromptReference>(
               target,
               'ChatPromptReference',
             );
@@ -8099,9 +7937,9 @@ BridgedClass _createChatPromptReferenceBridge() {
 
 BridgedClass _createChatContextBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_24.ChatContext,
+    nativeType: $tom_vscode_scripting_api_22.ChatContext,
     name: 'ChatContext',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_24.ChatContext,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_22.ChatContext,
     constructors: {
       '': (visitor, positional, named) {
         final history = D4.getRequiredNamedArg<List>(
@@ -8109,7 +7947,7 @@ BridgedClass _createChatContextBridge() {
           'history',
           'ChatContext',
         );
-        return $tom_vscode_scripting_api_24.ChatContext(history: history);
+        return $tom_vscode_scripting_api_22.ChatContext(history: history);
       },
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ChatContext');
@@ -8119,12 +7957,12 @@ BridgedClass _createChatContextBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_24.ChatContext.fromJson(json);
+        return $tom_vscode_scripting_api_22.ChatContext.fromJson(json);
       },
     },
     getters: {
       'history': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_24.ChatContext>(
+          .validateTarget<$tom_vscode_scripting_api_22.ChatContext>(
             target,
             'ChatContext',
           )
@@ -8132,7 +7970,7 @@ BridgedClass _createChatContextBridge() {
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_24.ChatContext>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_22.ChatContext>(
           target,
           'ChatContext',
         );
@@ -8154,9 +7992,9 @@ BridgedClass _createChatContextBridge() {
 
 BridgedClass _createChatResultBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_24.ChatResult,
+    nativeType: $tom_vscode_scripting_api_22.ChatResult,
     name: 'ChatResult',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_24.ChatResult,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_22.ChatResult,
     constructors: {
       '': (visitor, positional, named) {
         final metadata = D4.coerceMapOrNull<String, dynamic>(
@@ -8165,9 +8003,9 @@ BridgedClass _createChatResultBridge() {
         );
         final errorDetails = D4
             .getOptionalNamedArg<
-              $tom_vscode_scripting_api_24.ChatErrorDetails?
+              $tom_vscode_scripting_api_22.ChatErrorDetails?
             >(named, 'errorDetails');
-        return $tom_vscode_scripting_api_24.ChatResult(
+        return $tom_vscode_scripting_api_22.ChatResult(
           metadata: metadata,
           errorDetails: errorDetails,
         );
@@ -8175,13 +8013,13 @@ BridgedClass _createChatResultBridge() {
     },
     getters: {
       'metadata': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_24.ChatResult>(
+          .validateTarget<$tom_vscode_scripting_api_22.ChatResult>(
             target,
             'ChatResult',
           )
           .metadata,
       'errorDetails': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_24.ChatResult>(
+          .validateTarget<$tom_vscode_scripting_api_22.ChatResult>(
             target,
             'ChatResult',
           )
@@ -8189,7 +8027,7 @@ BridgedClass _createChatResultBridge() {
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_24.ChatResult>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_22.ChatResult>(
           target,
           'ChatResult',
         );
@@ -8213,9 +8051,9 @@ BridgedClass _createChatResultBridge() {
 
 BridgedClass _createChatErrorDetailsBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_24.ChatErrorDetails,
+    nativeType: $tom_vscode_scripting_api_22.ChatErrorDetails,
     name: 'ChatErrorDetails',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_24.ChatErrorDetails,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_22.ChatErrorDetails,
     constructors: {
       '': (visitor, positional, named) {
         final message = D4.getRequiredNamedArg<String>(
@@ -8227,7 +8065,7 @@ BridgedClass _createChatErrorDetailsBridge() {
           named,
           'responseIsFiltered',
         );
-        return $tom_vscode_scripting_api_24.ChatErrorDetails(
+        return $tom_vscode_scripting_api_22.ChatErrorDetails(
           message: message,
           responseIsFiltered: responseIsFiltered,
         );
@@ -8235,13 +8073,13 @@ BridgedClass _createChatErrorDetailsBridge() {
     },
     getters: {
       'message': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_24.ChatErrorDetails>(
+          .validateTarget<$tom_vscode_scripting_api_22.ChatErrorDetails>(
             target,
             'ChatErrorDetails',
           )
           .message,
       'responseIsFiltered': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_24.ChatErrorDetails>(
+          .validateTarget<$tom_vscode_scripting_api_22.ChatErrorDetails>(
             target,
             'ChatErrorDetails',
           )
@@ -8250,7 +8088,7 @@ BridgedClass _createChatErrorDetailsBridge() {
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_24.ChatErrorDetails>(
+            .validateTarget<$tom_vscode_scripting_api_22.ChatErrorDetails>(
               target,
               'ChatErrorDetails',
             );
@@ -8274,14 +8112,14 @@ BridgedClass _createChatErrorDetailsBridge() {
 
 BridgedClass _createChatResponseStreamBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_24.ChatResponseStream,
+    nativeType: $tom_vscode_scripting_api_22.ChatResponseStream,
     name: 'ChatResponseStream',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_24.ChatResponseStream,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_22.ChatResponseStream,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'ChatResponseStream');
         final adapter = D4
-            .getRequiredArg<$tom_vscode_scripting_api_21.VSCodeAdapter>(
+            .getRequiredArg<$tom_vscode_scripting_api_19.VSCodeAdapter>(
               positional,
               0,
               '_adapter',
@@ -8293,7 +8131,7 @@ BridgedClass _createChatResponseStreamBridge() {
           '_streamId',
           'ChatResponseStream',
         );
-        return $tom_vscode_scripting_api_24.ChatResponseStream(
+        return $tom_vscode_scripting_api_22.ChatResponseStream(
           adapter,
           streamId,
         );
@@ -8302,7 +8140,7 @@ BridgedClass _createChatResponseStreamBridge() {
     methods: {
       'markdown': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_24.ChatResponseStream>(
+            .validateTarget<$tom_vscode_scripting_api_22.ChatResponseStream>(
               target,
               'ChatResponseStream',
             );
@@ -8317,7 +8155,7 @@ BridgedClass _createChatResponseStreamBridge() {
       },
       'anchor': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_24.ChatResponseStream>(
+            .validateTarget<$tom_vscode_scripting_api_22.ChatResponseStream>(
               target,
               'ChatResponseStream',
             );
@@ -8328,7 +8166,7 @@ BridgedClass _createChatResponseStreamBridge() {
       },
       'button': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_24.ChatResponseStream>(
+            .validateTarget<$tom_vscode_scripting_api_22.ChatResponseStream>(
               target,
               'ChatResponseStream',
             );
@@ -8345,7 +8183,7 @@ BridgedClass _createChatResponseStreamBridge() {
       },
       'filetree': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_24.ChatResponseStream>(
+            .validateTarget<$tom_vscode_scripting_api_22.ChatResponseStream>(
               target,
               'ChatResponseStream',
             );
@@ -8361,7 +8199,7 @@ BridgedClass _createChatResponseStreamBridge() {
       },
       'progress': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_24.ChatResponseStream>(
+            .validateTarget<$tom_vscode_scripting_api_22.ChatResponseStream>(
               target,
               'ChatResponseStream',
             );
@@ -8376,7 +8214,7 @@ BridgedClass _createChatResponseStreamBridge() {
       },
       'reference': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_24.ChatResponseStream>(
+            .validateTarget<$tom_vscode_scripting_api_22.ChatResponseStream>(
               target,
               'ChatResponseStream',
             );
@@ -8392,7 +8230,7 @@ BridgedClass _createChatResponseStreamBridge() {
       },
       'error': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_24.ChatResponseStream>(
+            .validateTarget<$tom_vscode_scripting_api_22.ChatResponseStream>(
               target,
               'ChatResponseStream',
             );
@@ -8429,21 +8267,21 @@ BridgedClass _createChatResponseStreamBridge() {
 
 BridgedClass _createHelperLoggingBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_27.HelperLogging,
+    nativeType: $tom_vscode_scripting_api_25.HelperLogging,
     name: 'HelperLogging',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_27.HelperLogging,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_25.HelperLogging,
     constructors: {
       '': (visitor, positional, named) {
-        return $tom_vscode_scripting_api_27.HelperLogging();
+        return $tom_vscode_scripting_api_25.HelperLogging();
       },
     },
     staticGetters: {
       'debugLogging': (visitor) =>
-          $tom_vscode_scripting_api_27.HelperLogging.debugLogging,
+          $tom_vscode_scripting_api_25.HelperLogging.debugLogging,
     },
     staticSetters: {
       'debugLogging': (visitor, value) =>
-          $tom_vscode_scripting_api_27.HelperLogging.debugLogging = D4
+          $tom_vscode_scripting_api_25.HelperLogging.debugLogging = D4
               .extractBridgedArg<bool>(value, 'debugLogging'),
     },
     constructorSignatures: {'': 'HelperLogging()'},
@@ -8458,34 +8296,34 @@ BridgedClass _createHelperLoggingBridge() {
 
 BridgedClass _createVsCodeHelperBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_27.VsCodeHelper,
+    nativeType: $tom_vscode_scripting_api_25.VsCodeHelper,
     name: 'VsCodeHelper',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_27.VsCodeHelper,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_25.VsCodeHelper,
     constructors: {},
     staticMethods: {
       'getVSCode': (visitor, positional, named, typeArgs) {
-        return $tom_vscode_scripting_api_27.VsCodeHelper.getVSCode();
+        return $tom_vscode_scripting_api_25.VsCodeHelper.getVSCode();
       },
       'setVSCode': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'setVSCode');
-        final vscode = D4.getRequiredArg<$tom_vscode_scripting_api_20.VSCode>(
+        final vscode = D4.getRequiredArg<$tom_vscode_scripting_api_18.VSCode>(
           positional,
           0,
           'vscode',
           'setVSCode',
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.setVSCode(vscode);
+        return $tom_vscode_scripting_api_25.VsCodeHelper.setVSCode(vscode);
       },
       'initialize': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'initialize');
         final adapter = D4
-            .getRequiredArg<$tom_vscode_scripting_api_21.VSCodeAdapter>(
+            .getRequiredArg<$tom_vscode_scripting_api_19.VSCodeAdapter>(
               positional,
               0,
               'adapter',
               'initialize',
             );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.initialize(adapter);
+        return $tom_vscode_scripting_api_25.VsCodeHelper.initialize(adapter);
       },
       'getWindowId': (visitor, positional, named, typeArgs) {
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(
@@ -8493,12 +8331,12 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           30,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.getWindowId(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.getWindowId(
           timeoutSeconds: timeoutSeconds,
         );
       },
       'generateTimestampId': (visitor, positional, named, typeArgs) {
-        return $tom_vscode_scripting_api_27.VsCodeHelper.generateTimestampId();
+        return $tom_vscode_scripting_api_25.VsCodeHelper.generateTimestampId();
       },
       'showInfo': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'showInfo');
@@ -8517,7 +8355,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           300,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.showInfo(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.showInfo(
           message,
           choices: choices,
           timeoutSeconds: timeoutSeconds,
@@ -8540,7 +8378,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           300,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.showWarning(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.showWarning(
           message,
           choices: choices,
           timeoutSeconds: timeoutSeconds,
@@ -8563,7 +8401,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           300,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.showError(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.showError(
           message,
           choices: choices,
           timeoutSeconds: timeoutSeconds,
@@ -8600,7 +8438,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'failOnTimeout',
           false,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.quickPick(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.quickPick(
           items,
           placeholder: placeholder,
           canPickMany: canPickMany,
@@ -8638,7 +8476,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'failOnTimeout',
           false,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.inputBox(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.inputBox(
           prompt: prompt,
           placeholder: placeholder,
           defaultValue: defaultValue,
@@ -8654,7 +8492,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           30,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.getWorkspaceRoot(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.getWorkspaceRoot(
           timeoutSeconds: timeoutSeconds,
         );
       },
@@ -8664,7 +8502,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           30,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.getWorkspaceFolders(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.getWorkspaceFolders(
           timeoutSeconds: timeoutSeconds,
         );
       },
@@ -8674,7 +8512,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           30,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.getActiveTextEditor(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.getActiveTextEditor(
           timeoutSeconds: timeoutSeconds,
         );
       },
@@ -8691,7 +8529,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           60,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.findFiles(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.findFiles(
           include: include,
           exclude: exclude,
           maxResults: maxResults,
@@ -8711,7 +8549,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           60,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.readFile(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.readFile(
           path,
           timeoutSeconds: timeoutSeconds,
         );
@@ -8735,7 +8573,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           60,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.writeFile(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.writeFile(
           path,
           content,
           timeoutSeconds: timeoutSeconds,
@@ -8755,7 +8593,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           60,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.createFile(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.createFile(
           path,
           content: content,
           timeoutSeconds: timeoutSeconds,
@@ -8774,7 +8612,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           60,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.deleteFile(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.deleteFile(
           path,
           timeoutSeconds: timeoutSeconds,
         );
@@ -8792,7 +8630,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           30,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.fileExists(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.fileExists(
           path,
           timeoutSeconds: timeoutSeconds,
         );
@@ -8811,7 +8649,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           120,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.executeCommand(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.executeCommand(
           command,
           args: args,
           timeoutSeconds: timeoutSeconds,
@@ -8831,7 +8669,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           120,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.setStatus(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.setStatus(
           message,
           timeout: timeout,
           timeoutSeconds: timeoutSeconds,
@@ -8854,7 +8692,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           60,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.createOutput(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.createOutput(
           name,
           initialContent: initialContent,
           timeoutSeconds: timeoutSeconds,
@@ -8879,7 +8717,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           60,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.appendOutput(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.appendOutput(
           channel,
           text,
           timeoutSeconds: timeoutSeconds,
@@ -8898,7 +8736,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           10,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.copyToClipboard(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.copyToClipboard(
           text,
           timeoutSeconds: timeoutSeconds,
         );
@@ -8909,7 +8747,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           10,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.readClipboard(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.readClipboard(
           timeoutSeconds: timeoutSeconds,
         );
       },
@@ -8926,7 +8764,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           600,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.openFile(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.openFile(
           path,
           timeoutSeconds: timeoutSeconds,
         );
@@ -8945,7 +8783,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           60,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.getConfig(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.getConfig(
           section,
           key: key,
           timeoutSeconds: timeoutSeconds,
@@ -8977,7 +8815,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           60,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.setConfig(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.setConfig(
           section,
           key,
           value,
@@ -8995,7 +8833,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           300,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.runPubGet(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.runPubGet(
           workingDirectory: workingDirectory,
           timeoutSeconds: timeoutSeconds,
         );
@@ -9010,7 +8848,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           300,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.runPubUpgrade(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.runPubUpgrade(
           workingDirectory: workingDirectory,
           timeoutSeconds: timeoutSeconds,
         );
@@ -9029,7 +8867,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           180,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.addDependency(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.addDependency(
           name,
           version: version,
           timeoutSeconds: timeoutSeconds,
@@ -9048,7 +8886,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           120,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.getDiagnostics(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.getDiagnostics(
           uri,
           timeoutSeconds: timeoutSeconds,
         );
@@ -9066,7 +8904,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           180,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.formatDocument(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.formatDocument(
           uri,
           timeoutSeconds: timeoutSeconds,
         );
@@ -9084,7 +8922,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           180,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.organizeImports(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.organizeImports(
           uri,
           timeoutSeconds: timeoutSeconds,
         );
@@ -9095,7 +8933,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           180,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.hotReload(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.hotReload(
           timeoutSeconds: timeoutSeconds,
         );
       },
@@ -9105,7 +8943,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           240,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.hotRestart(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.hotRestart(
           timeoutSeconds: timeoutSeconds,
         );
       },
@@ -9115,7 +8953,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           180,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.getFlutterDevices(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.getFlutterDevices(
           timeoutSeconds: timeoutSeconds,
         );
       },
@@ -9126,7 +8964,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           420,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.runFlutterApp(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.runFlutterApp(
           deviceId: deviceId,
           timeoutSeconds: timeoutSeconds,
         );
@@ -9145,7 +8983,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           300,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.askCopilot(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.askCopilot(
           prompt,
           context: context,
           timeoutSeconds: timeoutSeconds,
@@ -9175,7 +9013,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'customResponseInstructions',
           false,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.askCopilotChat(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.askCopilotChat(
           prompt,
           requestId: requestId,
           pollIntervalSeconds: pollIntervalSeconds,
@@ -9208,7 +9046,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           300,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.askModel(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.askModel(
           modelId,
           prompt,
           context: context,
@@ -9235,7 +9073,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           300,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.getCopilotSuggestion(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.getCopilotSuggestion(
           code,
           instruction,
           timeoutSeconds: timeoutSeconds,
@@ -9254,7 +9092,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           300,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.explainCode(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.explainCode(
           code,
           timeoutSeconds: timeoutSeconds,
         );
@@ -9272,7 +9110,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           300,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.reviewCode(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.reviewCode(
           code,
           timeoutSeconds: timeoutSeconds,
         );
@@ -9290,7 +9128,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           300,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.generateTests(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.generateTests(
           code,
           timeoutSeconds: timeoutSeconds,
         );
@@ -9314,7 +9152,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           300,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.fixCode(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.fixCode(
           code,
           error,
           timeoutSeconds: timeoutSeconds,
@@ -9329,7 +9167,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           120,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.selectCopilotModel(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.selectCopilotModel(
           family: family,
           vendor: vendor,
           id: id,
@@ -9342,7 +9180,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           120,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.getCopilotModels(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.getCopilotModels(
           timeoutSeconds: timeoutSeconds,
         );
       },
@@ -9389,7 +9227,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           180,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.replaceText(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.replaceText(
           uri,
           startLine,
           startChar,
@@ -9430,7 +9268,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           180,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.insertSnippet(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.insertSnippet(
           uri,
           line,
           character,
@@ -9454,7 +9292,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           180,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.applyWorkspaceEdit(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.applyWorkspaceEdit(
           edits,
           timeoutSeconds: timeoutSeconds,
         );
@@ -9465,7 +9303,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           60,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.getSelection(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.getSelection(
           timeoutSeconds: timeoutSeconds,
         );
       },
@@ -9500,7 +9338,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           120,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.setSelection(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.setSelection(
           startLine,
           startChar,
           endLine,
@@ -9514,7 +9352,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           60,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.getCursorPosition(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.getCursorPosition(
           timeoutSeconds: timeoutSeconds,
         );
       },
@@ -9536,7 +9374,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           120,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.getProjectFiles(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.getProjectFiles(
           pattern,
           excludeTests: excludeTests,
           timeoutSeconds: timeoutSeconds,
@@ -9548,7 +9386,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           120,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.getGitRoot(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.getGitRoot(
           timeoutSeconds: timeoutSeconds,
         );
       },
@@ -9558,7 +9396,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           120,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.getProjectType(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.getProjectType(
           timeoutSeconds: timeoutSeconds,
         );
       },
@@ -9589,7 +9427,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           180,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.searchInWorkspace(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.searchInWorkspace(
           query,
           includePattern: includePattern,
           excludePattern: excludePattern,
@@ -9630,7 +9468,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           180,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.replaceInWorkspace(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.replaceInWorkspace(
           query,
           replacement,
           includePattern: includePattern,
@@ -9646,7 +9484,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           420,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.runTests(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.runTests(
           uri: uri,
           timeoutSeconds: timeoutSeconds,
         );
@@ -9658,7 +9496,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           600,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.runTestsWithCoverage(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.runTestsWithCoverage(
           uri: uri,
           timeoutSeconds: timeoutSeconds,
         );
@@ -9669,7 +9507,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           240,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.getTestResults(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.getTestResults(
           timeoutSeconds: timeoutSeconds,
         );
       },
@@ -9683,7 +9521,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           300,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.startDebugging(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.startDebugging(
           config: config,
           timeoutSeconds: timeoutSeconds,
         );
@@ -9694,7 +9532,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           180,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.stopDebugging(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.stopDebugging(
           timeoutSeconds: timeoutSeconds,
         );
       },
@@ -9717,7 +9555,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           180,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.setBreakpoint(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.setBreakpoint(
           uri,
           line,
           timeoutSeconds: timeoutSeconds,
@@ -9742,7 +9580,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           180,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.removeBreakpoint(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.removeBreakpoint(
           uri,
           line,
           timeoutSeconds: timeoutSeconds,
@@ -9754,7 +9592,7 @@ BridgedClass _createVsCodeHelperBridge() {
           'timeoutSeconds',
           180,
         );
-        return $tom_vscode_scripting_api_27.VsCodeHelper.getBreakpoints(
+        return $tom_vscode_scripting_api_25.VsCodeHelper.getBreakpoints(
           timeoutSeconds: timeoutSeconds,
         );
       },
@@ -9895,13 +9733,13 @@ BridgedClass _createVsCodeHelperBridge() {
 
 BridgedClass _createVsProgressBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_27.VsProgress,
+    nativeType: $tom_vscode_scripting_api_25.VsProgress,
     name: 'VsProgress',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_27.VsProgress,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_25.VsProgress,
     constructors: {},
     getters: {
       'channelName': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_27.VsProgress>(
+          .validateTarget<$tom_vscode_scripting_api_25.VsProgress>(
             target,
             'VsProgress',
           )
@@ -9909,7 +9747,7 @@ BridgedClass _createVsProgressBridge() {
     },
     methods: {
       'report': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_27.VsProgress>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_25.VsProgress>(
           target,
           'VsProgress',
         );
@@ -9923,14 +9761,14 @@ BridgedClass _createVsProgressBridge() {
         return t.report(message);
       },
       'complete': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_27.VsProgress>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_25.VsProgress>(
           target,
           'VsProgress',
         );
         return t.complete();
       },
       'error': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_27.VsProgress>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_25.VsProgress>(
           target,
           'VsProgress',
         );
@@ -9948,7 +9786,7 @@ BridgedClass _createVsProgressBridge() {
       'create': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'create');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'create');
-        return $tom_vscode_scripting_api_27.VsProgress.create(name);
+        return $tom_vscode_scripting_api_25.VsProgress.create(name);
       },
     },
     methodSignatures: {
@@ -9969,19 +9807,19 @@ BridgedClass _createVsProgressBridge() {
 
 BridgedClass _createFileBatchBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_27.FileBatch,
+    nativeType: $tom_vscode_scripting_api_25.FileBatch,
     name: 'FileBatch',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_27.FileBatch,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_25.FileBatch,
     constructors: {},
     getters: {
       'files': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_27.FileBatch>(
+          .validateTarget<$tom_vscode_scripting_api_25.FileBatch>(
             target,
             'FileBatch',
           )
           .files,
       'count': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_27.FileBatch>(
+          .validateTarget<$tom_vscode_scripting_api_25.FileBatch>(
             target,
             'FileBatch',
           )
@@ -9989,7 +9827,7 @@ BridgedClass _createFileBatchBridge() {
     },
     methods: {
       'process': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_27.FileBatch>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_25.FileBatch>(
           target,
           'FileBatch',
         );
@@ -10010,7 +9848,7 @@ BridgedClass _createFileBatchBridge() {
         );
       },
       'filter': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_27.FileBatch>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_25.FileBatch>(
           target,
           'FileBatch',
         );
@@ -10039,7 +9877,7 @@ BridgedClass _createFileBatchBridge() {
         );
         final exclude = D4.getOptionalNamedArg<String?>(named, 'exclude');
         final maxResults = D4.getOptionalNamedArg<int?>(named, 'maxResults');
-        return $tom_vscode_scripting_api_27.FileBatch.fromPattern(
+        return $tom_vscode_scripting_api_25.FileBatch.fromPattern(
           include: include,
           exclude: exclude,
           maxResults: maxResults,
@@ -10069,9 +9907,9 @@ BridgedClass _createFileBatchBridge() {
 
 BridgedClass _createVSCodeUriBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_29.VSCodeUri,
+    nativeType: $tom_vscode_scripting_api_27.VSCodeUri,
     name: 'VSCodeUri',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_29.VSCodeUri,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_27.VSCodeUri,
     constructors: {
       '': (visitor, positional, named) {
         final scheme = D4.getRequiredNamedArg<String>(
@@ -10096,7 +9934,7 @@ BridgedClass _createVSCodeUriBridge() {
           'fsPath',
           'VSCodeUri',
         );
-        return $tom_vscode_scripting_api_29.VSCodeUri(
+        return $tom_vscode_scripting_api_27.VSCodeUri(
           scheme: scheme,
           authority: authority,
           path: path,
@@ -10113,7 +9951,7 @@ BridgedClass _createVSCodeUriBridge() {
           'path',
           'VSCodeUri',
         );
-        return $tom_vscode_scripting_api_29.VSCodeUri.file(path);
+        return $tom_vscode_scripting_api_27.VSCodeUri.file(path);
       },
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'VSCodeUri');
@@ -10123,42 +9961,42 @@ BridgedClass _createVSCodeUriBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_29.VSCodeUri.fromJson(json);
+        return $tom_vscode_scripting_api_27.VSCodeUri.fromJson(json);
       },
     },
     getters: {
       'scheme': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.VSCodeUri>(
+          .validateTarget<$tom_vscode_scripting_api_27.VSCodeUri>(
             target,
             'VSCodeUri',
           )
           .scheme,
       'authority': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.VSCodeUri>(
+          .validateTarget<$tom_vscode_scripting_api_27.VSCodeUri>(
             target,
             'VSCodeUri',
           )
           .authority,
       'path': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.VSCodeUri>(
+          .validateTarget<$tom_vscode_scripting_api_27.VSCodeUri>(
             target,
             'VSCodeUri',
           )
           .path,
       'query': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.VSCodeUri>(
+          .validateTarget<$tom_vscode_scripting_api_27.VSCodeUri>(
             target,
             'VSCodeUri',
           )
           .query,
       'fragment': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.VSCodeUri>(
+          .validateTarget<$tom_vscode_scripting_api_27.VSCodeUri>(
             target,
             'VSCodeUri',
           )
           .fragment,
       'fsPath': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.VSCodeUri>(
+          .validateTarget<$tom_vscode_scripting_api_27.VSCodeUri>(
             target,
             'VSCodeUri',
           )
@@ -10166,14 +10004,14 @@ BridgedClass _createVSCodeUriBridge() {
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_29.VSCodeUri>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_27.VSCodeUri>(
           target,
           'VSCodeUri',
         );
         return t.toJson();
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_29.VSCodeUri>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_27.VSCodeUri>(
           target,
           'VSCodeUri',
         );
@@ -10206,13 +10044,13 @@ BridgedClass _createVSCodeUriBridge() {
 
 BridgedClass _createWorkspaceFolderBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_29.WorkspaceFolder,
+    nativeType: $tom_vscode_scripting_api_27.WorkspaceFolder,
     name: 'WorkspaceFolder',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_29.WorkspaceFolder,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_27.WorkspaceFolder,
     constructors: {
       '': (visitor, positional, named) {
         final uri = D4
-            .getRequiredNamedArg<$tom_vscode_scripting_api_29.VSCodeUri>(
+            .getRequiredNamedArg<$tom_vscode_scripting_api_27.VSCodeUri>(
               named,
               'uri',
               'WorkspaceFolder',
@@ -10227,7 +10065,7 @@ BridgedClass _createWorkspaceFolderBridge() {
           'index',
           'WorkspaceFolder',
         );
-        return $tom_vscode_scripting_api_29.WorkspaceFolder(
+        return $tom_vscode_scripting_api_27.WorkspaceFolder(
           uri: uri,
           name: name,
           index: index,
@@ -10241,24 +10079,24 @@ BridgedClass _createWorkspaceFolderBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_29.WorkspaceFolder.fromJson(json);
+        return $tom_vscode_scripting_api_27.WorkspaceFolder.fromJson(json);
       },
     },
     getters: {
       'uri': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.WorkspaceFolder>(
+          .validateTarget<$tom_vscode_scripting_api_27.WorkspaceFolder>(
             target,
             'WorkspaceFolder',
           )
           .uri,
       'name': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.WorkspaceFolder>(
+          .validateTarget<$tom_vscode_scripting_api_27.WorkspaceFolder>(
             target,
             'WorkspaceFolder',
           )
           .name,
       'index': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.WorkspaceFolder>(
+          .validateTarget<$tom_vscode_scripting_api_27.WorkspaceFolder>(
             target,
             'WorkspaceFolder',
           )
@@ -10267,7 +10105,7 @@ BridgedClass _createWorkspaceFolderBridge() {
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_29.WorkspaceFolder>(
+            .validateTarget<$tom_vscode_scripting_api_27.WorkspaceFolder>(
               target,
               'WorkspaceFolder',
             );
@@ -10293,13 +10131,13 @@ BridgedClass _createWorkspaceFolderBridge() {
 
 BridgedClass _createTextDocumentBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_29.TextDocument,
+    nativeType: $tom_vscode_scripting_api_27.TextDocument,
     name: 'TextDocument',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_29.TextDocument,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_27.TextDocument,
     constructors: {
       '': (visitor, positional, named) {
         final uri = D4
-            .getRequiredNamedArg<$tom_vscode_scripting_api_29.VSCodeUri>(
+            .getRequiredNamedArg<$tom_vscode_scripting_api_27.VSCodeUri>(
               named,
               'uri',
               'TextDocument',
@@ -10339,7 +10177,7 @@ BridgedClass _createTextDocumentBridge() {
           'lineCount',
           'TextDocument',
         );
-        return $tom_vscode_scripting_api_29.TextDocument(
+        return $tom_vscode_scripting_api_27.TextDocument(
           uri: uri,
           fileName: fileName,
           isUntitled: isUntitled,
@@ -10358,54 +10196,54 @@ BridgedClass _createTextDocumentBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_29.TextDocument.fromJson(json);
+        return $tom_vscode_scripting_api_27.TextDocument.fromJson(json);
       },
     },
     getters: {
       'uri': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.TextDocument>(
+          .validateTarget<$tom_vscode_scripting_api_27.TextDocument>(
             target,
             'TextDocument',
           )
           .uri,
       'fileName': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.TextDocument>(
+          .validateTarget<$tom_vscode_scripting_api_27.TextDocument>(
             target,
             'TextDocument',
           )
           .fileName,
       'isUntitled': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.TextDocument>(
+          .validateTarget<$tom_vscode_scripting_api_27.TextDocument>(
             target,
             'TextDocument',
           )
           .isUntitled,
       'languageId': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.TextDocument>(
+          .validateTarget<$tom_vscode_scripting_api_27.TextDocument>(
             target,
             'TextDocument',
           )
           .languageId,
       'version': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.TextDocument>(
+          .validateTarget<$tom_vscode_scripting_api_27.TextDocument>(
             target,
             'TextDocument',
           )
           .version,
       'isDirty': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.TextDocument>(
+          .validateTarget<$tom_vscode_scripting_api_27.TextDocument>(
             target,
             'TextDocument',
           )
           .isDirty,
       'isClosed': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.TextDocument>(
+          .validateTarget<$tom_vscode_scripting_api_27.TextDocument>(
             target,
             'TextDocument',
           )
           .isClosed,
       'lineCount': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.TextDocument>(
+          .validateTarget<$tom_vscode_scripting_api_27.TextDocument>(
             target,
             'TextDocument',
           )
@@ -10413,7 +10251,7 @@ BridgedClass _createTextDocumentBridge() {
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_29.TextDocument>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_27.TextDocument>(
           target,
           'TextDocument',
         );
@@ -10444,9 +10282,9 @@ BridgedClass _createTextDocumentBridge() {
 
 BridgedClass _createPositionBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_29.Position,
+    nativeType: $tom_vscode_scripting_api_27.Position,
     name: 'Position',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_29.Position,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_27.Position,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Position');
@@ -10457,7 +10295,7 @@ BridgedClass _createPositionBridge() {
           'character',
           'Position',
         );
-        return $tom_vscode_scripting_api_29.Position(line, character);
+        return $tom_vscode_scripting_api_27.Position(line, character);
       },
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Position');
@@ -10467,18 +10305,18 @@ BridgedClass _createPositionBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_29.Position.fromJson(json);
+        return $tom_vscode_scripting_api_27.Position.fromJson(json);
       },
     },
     getters: {
       'line': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.Position>(
+          .validateTarget<$tom_vscode_scripting_api_27.Position>(
             target,
             'Position',
           )
           .line,
       'character': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.Position>(
+          .validateTarget<$tom_vscode_scripting_api_27.Position>(
             target,
             'Position',
           )
@@ -10486,7 +10324,7 @@ BridgedClass _createPositionBridge() {
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_29.Position>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_27.Position>(
           target,
           'Position',
         );
@@ -10511,25 +10349,25 @@ BridgedClass _createPositionBridge() {
 
 BridgedClass _createRangeBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_29.Range,
+    nativeType: $tom_vscode_scripting_api_27.Range,
     name: 'Range',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_29.Range,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_27.Range,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Range');
-        final start = D4.getRequiredArg<$tom_vscode_scripting_api_29.Position>(
+        final start = D4.getRequiredArg<$tom_vscode_scripting_api_27.Position>(
           positional,
           0,
           'start',
           'Range',
         );
-        final end = D4.getRequiredArg<$tom_vscode_scripting_api_29.Position>(
+        final end = D4.getRequiredArg<$tom_vscode_scripting_api_27.Position>(
           positional,
           1,
           'end',
           'Range',
         );
-        return $tom_vscode_scripting_api_29.Range(start, end);
+        return $tom_vscode_scripting_api_27.Range(start, end);
       },
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Range');
@@ -10539,20 +10377,20 @@ BridgedClass _createRangeBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_29.Range.fromJson(json);
+        return $tom_vscode_scripting_api_27.Range.fromJson(json);
       },
     },
     getters: {
       'start': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.Range>(target, 'Range')
+          .validateTarget<$tom_vscode_scripting_api_27.Range>(target, 'Range')
           .start,
       'end': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.Range>(target, 'Range')
+          .validateTarget<$tom_vscode_scripting_api_27.Range>(target, 'Range')
           .end,
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_29.Range>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_27.Range>(
           target,
           'Range',
         );
@@ -10577,20 +10415,20 @@ BridgedClass _createRangeBridge() {
 
 BridgedClass _createSelectionBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_29.Selection,
+    nativeType: $tom_vscode_scripting_api_27.Selection,
     name: 'Selection',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_29.Selection,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_27.Selection,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'Selection');
-        final anchor = D4.getRequiredArg<$tom_vscode_scripting_api_29.Position>(
+        final anchor = D4.getRequiredArg<$tom_vscode_scripting_api_27.Position>(
           positional,
           0,
           'anchor',
           'Selection',
         );
-        final active = D4.getRequiredArg<$tom_vscode_scripting_api_29.Position>(
+        final active = D4.getRequiredArg<$tom_vscode_scripting_api_27.Position>(
           positional,
           1,
           'active',
@@ -10602,7 +10440,7 @@ BridgedClass _createSelectionBridge() {
           'isReversed',
           'Selection',
         );
-        return $tom_vscode_scripting_api_29.Selection(
+        return $tom_vscode_scripting_api_27.Selection(
           anchor,
           active,
           isReversed,
@@ -10616,36 +10454,36 @@ BridgedClass _createSelectionBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_29.Selection.fromJson(json);
+        return $tom_vscode_scripting_api_27.Selection.fromJson(json);
       },
     },
     getters: {
       'start': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.Selection>(
+          .validateTarget<$tom_vscode_scripting_api_27.Selection>(
             target,
             'Selection',
           )
           .start,
       'end': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.Selection>(
+          .validateTarget<$tom_vscode_scripting_api_27.Selection>(
             target,
             'Selection',
           )
           .end,
       'anchor': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.Selection>(
+          .validateTarget<$tom_vscode_scripting_api_27.Selection>(
             target,
             'Selection',
           )
           .anchor,
       'active': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.Selection>(
+          .validateTarget<$tom_vscode_scripting_api_27.Selection>(
             target,
             'Selection',
           )
           .active,
       'isReversed': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.Selection>(
+          .validateTarget<$tom_vscode_scripting_api_27.Selection>(
             target,
             'Selection',
           )
@@ -10653,7 +10491,7 @@ BridgedClass _createSelectionBridge() {
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_29.Selection>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_27.Selection>(
           target,
           'Selection',
         );
@@ -10681,19 +10519,19 @@ BridgedClass _createSelectionBridge() {
 
 BridgedClass _createTextEditorBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_29.TextEditor,
+    nativeType: $tom_vscode_scripting_api_27.TextEditor,
     name: 'TextEditor',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_29.TextEditor,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_27.TextEditor,
     constructors: {
       '': (visitor, positional, named) {
         final document = D4
-            .getRequiredNamedArg<$tom_vscode_scripting_api_29.TextDocument>(
+            .getRequiredNamedArg<$tom_vscode_scripting_api_27.TextDocument>(
               named,
               'document',
               'TextEditor',
             );
         final selection = D4
-            .getRequiredNamedArg<$tom_vscode_scripting_api_29.Selection>(
+            .getRequiredNamedArg<$tom_vscode_scripting_api_27.Selection>(
               named,
               'selection',
               'TextEditor',
@@ -10704,16 +10542,16 @@ BridgedClass _createTextEditorBridge() {
           );
         }
         final selections = D4
-            .coerceList<$tom_vscode_scripting_api_29.Selection>(
+            .coerceList<$tom_vscode_scripting_api_27.Selection>(
               named['selections'],
               'selections',
             );
         final visibleRanges = D4
-            .getOptionalNamedArg<$tom_vscode_scripting_api_29.Range?>(
+            .getOptionalNamedArg<$tom_vscode_scripting_api_27.Range?>(
               named,
               'visibleRanges',
             );
-        return $tom_vscode_scripting_api_29.TextEditor(
+        return $tom_vscode_scripting_api_27.TextEditor(
           document: document,
           selection: selection,
           selections: selections,
@@ -10728,30 +10566,30 @@ BridgedClass _createTextEditorBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_29.TextEditor.fromJson(json);
+        return $tom_vscode_scripting_api_27.TextEditor.fromJson(json);
       },
     },
     getters: {
       'document': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.TextEditor>(
+          .validateTarget<$tom_vscode_scripting_api_27.TextEditor>(
             target,
             'TextEditor',
           )
           .document,
       'selection': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.TextEditor>(
+          .validateTarget<$tom_vscode_scripting_api_27.TextEditor>(
             target,
             'TextEditor',
           )
           .selection,
       'selections': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.TextEditor>(
+          .validateTarget<$tom_vscode_scripting_api_27.TextEditor>(
             target,
             'TextEditor',
           )
           .selections,
       'visibleRanges': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.TextEditor>(
+          .validateTarget<$tom_vscode_scripting_api_27.TextEditor>(
             target,
             'TextEditor',
           )
@@ -10759,7 +10597,7 @@ BridgedClass _createTextEditorBridge() {
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_29.TextEditor>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_27.TextEditor>(
           target,
           'TextEditor',
         );
@@ -10786,9 +10624,9 @@ BridgedClass _createTextEditorBridge() {
 
 BridgedClass _createQuickPickItemBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_29.QuickPickItem,
+    nativeType: $tom_vscode_scripting_api_27.QuickPickItem,
     name: 'QuickPickItem',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_29.QuickPickItem,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_27.QuickPickItem,
     constructors: {
       '': (visitor, positional, named) {
         final label = D4.getRequiredNamedArg<String>(
@@ -10802,7 +10640,7 @@ BridgedClass _createQuickPickItemBridge() {
         );
         final detail = D4.getOptionalNamedArg<String?>(named, 'detail');
         final picked = D4.getNamedArgWithDefault<bool>(named, 'picked', false);
-        return $tom_vscode_scripting_api_29.QuickPickItem(
+        return $tom_vscode_scripting_api_27.QuickPickItem(
           label: label,
           description: description,
           detail: detail,
@@ -10817,30 +10655,30 @@ BridgedClass _createQuickPickItemBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_29.QuickPickItem.fromJson(json);
+        return $tom_vscode_scripting_api_27.QuickPickItem.fromJson(json);
       },
     },
     getters: {
       'label': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.QuickPickItem>(
+          .validateTarget<$tom_vscode_scripting_api_27.QuickPickItem>(
             target,
             'QuickPickItem',
           )
           .label,
       'description': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.QuickPickItem>(
+          .validateTarget<$tom_vscode_scripting_api_27.QuickPickItem>(
             target,
             'QuickPickItem',
           )
           .description,
       'detail': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.QuickPickItem>(
+          .validateTarget<$tom_vscode_scripting_api_27.QuickPickItem>(
             target,
             'QuickPickItem',
           )
           .detail,
       'picked': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.QuickPickItem>(
+          .validateTarget<$tom_vscode_scripting_api_27.QuickPickItem>(
             target,
             'QuickPickItem',
           )
@@ -10848,7 +10686,7 @@ BridgedClass _createQuickPickItemBridge() {
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_29.QuickPickItem>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_27.QuickPickItem>(
           target,
           'QuickPickItem',
         );
@@ -10875,9 +10713,9 @@ BridgedClass _createQuickPickItemBridge() {
 
 BridgedClass _createInputBoxOptionsBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_29.InputBoxOptions,
+    nativeType: $tom_vscode_scripting_api_27.InputBoxOptions,
     name: 'InputBoxOptions',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_29.InputBoxOptions,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_27.InputBoxOptions,
     constructors: {
       '': (visitor, positional, named) {
         final prompt = D4.getOptionalNamedArg<String?>(named, 'prompt');
@@ -10891,7 +10729,7 @@ BridgedClass _createInputBoxOptionsBridge() {
           'password',
           false,
         );
-        return $tom_vscode_scripting_api_29.InputBoxOptions(
+        return $tom_vscode_scripting_api_27.InputBoxOptions(
           prompt: prompt,
           placeHolder: placeHolder,
           value: value,
@@ -10901,25 +10739,25 @@ BridgedClass _createInputBoxOptionsBridge() {
     },
     getters: {
       'prompt': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.InputBoxOptions>(
+          .validateTarget<$tom_vscode_scripting_api_27.InputBoxOptions>(
             target,
             'InputBoxOptions',
           )
           .prompt,
       'placeHolder': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.InputBoxOptions>(
+          .validateTarget<$tom_vscode_scripting_api_27.InputBoxOptions>(
             target,
             'InputBoxOptions',
           )
           .placeHolder,
       'value': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.InputBoxOptions>(
+          .validateTarget<$tom_vscode_scripting_api_27.InputBoxOptions>(
             target,
             'InputBoxOptions',
           )
           .value,
       'password': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.InputBoxOptions>(
+          .validateTarget<$tom_vscode_scripting_api_27.InputBoxOptions>(
             target,
             'InputBoxOptions',
           )
@@ -10928,7 +10766,7 @@ BridgedClass _createInputBoxOptionsBridge() {
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_29.InputBoxOptions>(
+            .validateTarget<$tom_vscode_scripting_api_27.InputBoxOptions>(
               target,
               'InputBoxOptions',
             );
@@ -10954,14 +10792,14 @@ BridgedClass _createInputBoxOptionsBridge() {
 
 BridgedClass _createMessageOptionsBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_29.MessageOptions,
+    nativeType: $tom_vscode_scripting_api_27.MessageOptions,
     name: 'MessageOptions',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_29.MessageOptions,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_27.MessageOptions,
     constructors: {
       '': (visitor, positional, named) {
         final modal = D4.getNamedArgWithDefault<bool>(named, 'modal', false);
         final detail = D4.getOptionalNamedArg<String?>(named, 'detail');
-        return $tom_vscode_scripting_api_29.MessageOptions(
+        return $tom_vscode_scripting_api_27.MessageOptions(
           modal: modal,
           detail: detail,
         );
@@ -10969,13 +10807,13 @@ BridgedClass _createMessageOptionsBridge() {
     },
     getters: {
       'modal': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.MessageOptions>(
+          .validateTarget<$tom_vscode_scripting_api_27.MessageOptions>(
             target,
             'MessageOptions',
           )
           .modal,
       'detail': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.MessageOptions>(
+          .validateTarget<$tom_vscode_scripting_api_27.MessageOptions>(
             target,
             'MessageOptions',
           )
@@ -10984,7 +10822,7 @@ BridgedClass _createMessageOptionsBridge() {
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_29.MessageOptions>(
+            .validateTarget<$tom_vscode_scripting_api_27.MessageOptions>(
               target,
               'MessageOptions',
             );
@@ -11008,9 +10846,9 @@ BridgedClass _createMessageOptionsBridge() {
 
 BridgedClass _createTerminalOptionsBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_29.TerminalOptions,
+    nativeType: $tom_vscode_scripting_api_27.TerminalOptions,
     name: 'TerminalOptions',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_29.TerminalOptions,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_27.TerminalOptions,
     constructors: {
       '': (visitor, positional, named) {
         final name = D4.getOptionalNamedArg<String?>(named, 'name');
@@ -11021,7 +10859,7 @@ BridgedClass _createTerminalOptionsBridge() {
         );
         final cwd = D4.getOptionalNamedArg<String?>(named, 'cwd');
         final env = D4.coerceMapOrNull<String, String>(named['env'], 'env');
-        return $tom_vscode_scripting_api_29.TerminalOptions(
+        return $tom_vscode_scripting_api_27.TerminalOptions(
           name: name,
           shellPath: shellPath,
           shellArgs: shellArgs,
@@ -11032,31 +10870,31 @@ BridgedClass _createTerminalOptionsBridge() {
     },
     getters: {
       'name': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.TerminalOptions>(
+          .validateTarget<$tom_vscode_scripting_api_27.TerminalOptions>(
             target,
             'TerminalOptions',
           )
           .name,
       'shellPath': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.TerminalOptions>(
+          .validateTarget<$tom_vscode_scripting_api_27.TerminalOptions>(
             target,
             'TerminalOptions',
           )
           .shellPath,
       'shellArgs': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.TerminalOptions>(
+          .validateTarget<$tom_vscode_scripting_api_27.TerminalOptions>(
             target,
             'TerminalOptions',
           )
           .shellArgs,
       'cwd': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.TerminalOptions>(
+          .validateTarget<$tom_vscode_scripting_api_27.TerminalOptions>(
             target,
             'TerminalOptions',
           )
           .cwd,
       'env': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_29.TerminalOptions>(
+          .validateTarget<$tom_vscode_scripting_api_27.TerminalOptions>(
             target,
             'TerminalOptions',
           )
@@ -11065,7 +10903,7 @@ BridgedClass _createTerminalOptionsBridge() {
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_29.TerminalOptions>(
+            .validateTarget<$tom_vscode_scripting_api_27.TerminalOptions>(
               target,
               'TerminalOptions',
             );
@@ -11092,10 +10930,10 @@ BridgedClass _createTerminalOptionsBridge() {
 
 BridgedClass _createFileSystemWatcherOptionsBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_29.FileSystemWatcherOptions,
+    nativeType: $tom_vscode_scripting_api_27.FileSystemWatcherOptions,
     name: 'FileSystemWatcherOptions',
     isAssignable: (v) =>
-        v is $tom_vscode_scripting_api_29.FileSystemWatcherOptions,
+        v is $tom_vscode_scripting_api_27.FileSystemWatcherOptions,
     constructors: {
       '': (visitor, positional, named) {
         final ignoreCreateEvents = D4.getNamedArgWithDefault<bool>(
@@ -11113,7 +10951,7 @@ BridgedClass _createFileSystemWatcherOptionsBridge() {
           'ignoreDeleteEvents',
           false,
         );
-        return $tom_vscode_scripting_api_29.FileSystemWatcherOptions(
+        return $tom_vscode_scripting_api_27.FileSystemWatcherOptions(
           ignoreCreateEvents: ignoreCreateEvents,
           ignoreChangeEvents: ignoreChangeEvents,
           ignoreDeleteEvents: ignoreDeleteEvents,
@@ -11123,17 +10961,17 @@ BridgedClass _createFileSystemWatcherOptionsBridge() {
     getters: {
       'ignoreCreateEvents': (visitor, target) => D4
           .validateTarget<
-            $tom_vscode_scripting_api_29.FileSystemWatcherOptions
+            $tom_vscode_scripting_api_27.FileSystemWatcherOptions
           >(target, 'FileSystemWatcherOptions')
           .ignoreCreateEvents,
       'ignoreChangeEvents': (visitor, target) => D4
           .validateTarget<
-            $tom_vscode_scripting_api_29.FileSystemWatcherOptions
+            $tom_vscode_scripting_api_27.FileSystemWatcherOptions
           >(target, 'FileSystemWatcherOptions')
           .ignoreChangeEvents,
       'ignoreDeleteEvents': (visitor, target) => D4
           .validateTarget<
-            $tom_vscode_scripting_api_29.FileSystemWatcherOptions
+            $tom_vscode_scripting_api_27.FileSystemWatcherOptions
           >(target, 'FileSystemWatcherOptions')
           .ignoreDeleteEvents,
     },
@@ -11141,7 +10979,7 @@ BridgedClass _createFileSystemWatcherOptionsBridge() {
       'toJson': (visitor, target, positional, named, typeArgs) {
         final t = D4
             .validateTarget<
-              $tom_vscode_scripting_api_29.FileSystemWatcherOptions
+              $tom_vscode_scripting_api_27.FileSystemWatcherOptions
             >(target, 'FileSystemWatcherOptions');
         return t.toJson();
       },
@@ -16475,7 +16313,7 @@ BridgedClass _createVSCodeBridgeAgentSdkTransportBridge() {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'VSCodeBridgeAgentSdkTransport');
         final client = D4
-            .getRequiredArg<$tom_vscode_scripting_api_23.VSCodeBridgeClient>(
+            .getRequiredArg<$tom_vscode_scripting_api_21.VSCodeBridgeClient>(
               positional,
               0,
               'client',
@@ -16686,10 +16524,10 @@ BridgedClass _createVSCodeBridgeAgentSdkTransportBridge() {
 
 BridgedClass _createBridgeRequestDispatcherBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_12.BridgeRequestDispatcher,
+    nativeType: $tom_vscode_scripting_api_10.BridgeRequestDispatcher,
     name: 'BridgeRequestDispatcher',
     isAssignable: (v) =>
-        v is $tom_vscode_scripting_api_12.BridgeRequestDispatcher,
+        v is $tom_vscode_scripting_api_10.BridgeRequestDispatcher,
     constructors: {
       '': (visitor, positional, named) {
         if (!named.containsKey('sendReply') || named['sendReply'] == null) {
@@ -16698,7 +16536,7 @@ BridgedClass _createBridgeRequestDispatcherBridge() {
           );
         }
         final sendReplyRaw = named['sendReply'];
-        return $tom_vscode_scripting_api_12.BridgeRequestDispatcher(
+        return $tom_vscode_scripting_api_10.BridgeRequestDispatcher(
           sendReply: (Map<String, dynamic> p0) {
             D4.callInterpreterCallback(visitor!, sendReplyRaw, [p0]);
           },
@@ -16709,7 +16547,7 @@ BridgedClass _createBridgeRequestDispatcherBridge() {
       'register': (visitor, target, positional, named, typeArgs) {
         final t = D4
             .validateTarget<
-              $tom_vscode_scripting_api_12.BridgeRequestDispatcher
+              $tom_vscode_scripting_api_10.BridgeRequestDispatcher
             >(target, 'BridgeRequestDispatcher');
         D4.requireMinArgs(positional, 2, 'register');
         final method = D4.getRequiredArg<String>(
@@ -16738,7 +16576,7 @@ BridgedClass _createBridgeRequestDispatcherBridge() {
       'unregister': (visitor, target, positional, named, typeArgs) {
         final t = D4
             .validateTarget<
-              $tom_vscode_scripting_api_12.BridgeRequestDispatcher
+              $tom_vscode_scripting_api_10.BridgeRequestDispatcher
             >(target, 'BridgeRequestDispatcher');
         D4.requireMinArgs(positional, 1, 'unregister');
         final method = D4.getRequiredArg<String>(
@@ -16753,7 +16591,7 @@ BridgedClass _createBridgeRequestDispatcherBridge() {
       'maybeHandle': (visitor, target, positional, named, typeArgs) {
         final t = D4
             .validateTarget<
-              $tom_vscode_scripting_api_12.BridgeRequestDispatcher
+              $tom_vscode_scripting_api_10.BridgeRequestDispatcher
             >(target, 'BridgeRequestDispatcher');
         D4.requireMinArgs(positional, 1, 'maybeHandle');
         if (positional.isEmpty) {
@@ -16841,2164 +16679,6 @@ BridgedClass _createAgentSdkToolRegistryBridge() {
           'Future<Map<String, dynamic>> handleToolCall(Map<String, dynamic> params)',
     },
     getterSignatures: {'hasHandlers': 'bool get hasHandlers'},
-  );
-}
-
-// =============================================================================
-// AiTokenStats Bridge
-// =============================================================================
-
-BridgedClass _createAiTokenStatsBridge() {
-  return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_10.AiTokenStats,
-    name: 'AiTokenStats',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_10.AiTokenStats,
-    constructors: {
-      '': (visitor, positional, named) {
-        final promptTokens = D4.getRequiredNamedArg<int>(
-          named,
-          'promptTokens',
-          'AiTokenStats',
-        );
-        final completionTokens = D4.getRequiredNamedArg<int>(
-          named,
-          'completionTokens',
-          'AiTokenStats',
-        );
-        final totalDurationMs = D4.getRequiredNamedArg<double>(
-          named,
-          'totalDurationMs',
-          'AiTokenStats',
-        );
-        final loadDurationMs = D4.getRequiredNamedArg<double>(
-          named,
-          'loadDurationMs',
-          'AiTokenStats',
-        );
-        return $tom_vscode_scripting_api_10.AiTokenStats(
-          promptTokens: promptTokens,
-          completionTokens: completionTokens,
-          totalDurationMs: totalDurationMs,
-          loadDurationMs: loadDurationMs,
-        );
-      },
-      'fromJson': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'AiTokenStats');
-        if (positional.isEmpty) {
-          throw ArgumentError(
-            'AiTokenStats: Missing required argument "json" at position 0',
-          );
-        }
-        final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_10.AiTokenStats.fromJson(json);
-      },
-    },
-    getters: {
-      'promptTokens': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_10.AiTokenStats>(
-            target,
-            'AiTokenStats',
-          )
-          .promptTokens,
-      'completionTokens': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_10.AiTokenStats>(
-            target,
-            'AiTokenStats',
-          )
-          .completionTokens,
-      'totalDurationMs': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_10.AiTokenStats>(
-            target,
-            'AiTokenStats',
-          )
-          .totalDurationMs,
-      'loadDurationMs': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_10.AiTokenStats>(
-            target,
-            'AiTokenStats',
-          )
-          .loadDurationMs,
-    },
-    methods: {
-      'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_10.AiTokenStats>(
-          target,
-          'AiTokenStats',
-        );
-        return t.toJson();
-      },
-      'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_10.AiTokenStats>(
-          target,
-          'AiTokenStats',
-        );
-        return t.toString();
-      },
-    },
-    constructorSignatures: {
-      '': 'AiTokenStats({required int promptTokens, required int completionTokens, required double totalDurationMs, required double loadDurationMs})',
-      'fromJson': 'factory AiTokenStats.fromJson(Map<String, dynamic> json)',
-    },
-    methodSignatures: {
-      'toJson': 'Map<String, dynamic> toJson()',
-      'toString': 'String toString()',
-    },
-    getterSignatures: {
-      'promptTokens': 'int get promptTokens',
-      'completionTokens': 'int get completionTokens',
-      'totalDurationMs': 'double get totalDurationMs',
-      'loadDurationMs': 'double get loadDurationMs',
-    },
-  );
-}
-
-// =============================================================================
-// AiPromptResult Bridge
-// =============================================================================
-
-BridgedClass _createAiPromptResultBridge() {
-  return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_10.AiPromptResult,
-    name: 'AiPromptResult',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_10.AiPromptResult,
-    constructors: {
-      '': (visitor, positional, named) {
-        final success = D4.getRequiredNamedArg<bool>(
-          named,
-          'success',
-          'AiPromptResult',
-        );
-        final result = D4.getRequiredNamedArg<String>(
-          named,
-          'result',
-          'AiPromptResult',
-        );
-        final rawResponse = D4.getRequiredNamedArg<String>(
-          named,
-          'rawResponse',
-          'AiPromptResult',
-        );
-        final response = D4.getRequiredNamedArg<String>(
-          named,
-          'response',
-          'AiPromptResult',
-        );
-        final thinkTagContent = D4.getRequiredNamedArg<String>(
-          named,
-          'thinkTagContent',
-          'AiPromptResult',
-        );
-        final profile = D4.getRequiredNamedArg<String>(
-          named,
-          'profile',
-          'AiPromptResult',
-        );
-        final modelConfig = D4.getRequiredNamedArg<String>(
-          named,
-          'modelConfig',
-          'AiPromptResult',
-        );
-        final error = D4.getOptionalNamedArg<String?>(named, 'error');
-        final tokenInfo = D4
-            .getOptionalNamedArg<$tom_vscode_scripting_api_10.AiTokenStats?>(
-              named,
-              'tokenInfo',
-            );
-        return $tom_vscode_scripting_api_10.AiPromptResult(
-          success: success,
-          result: result,
-          rawResponse: rawResponse,
-          response: response,
-          thinkTagContent: thinkTagContent,
-          profile: profile,
-          modelConfig: modelConfig,
-          error: error,
-          tokenInfo: tokenInfo,
-        );
-      },
-      'fromJson': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'AiPromptResult');
-        if (positional.isEmpty) {
-          throw ArgumentError(
-            'AiPromptResult: Missing required argument "json" at position 0',
-          );
-        }
-        final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_10.AiPromptResult.fromJson(json);
-      },
-    },
-    getters: {
-      'success': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_10.AiPromptResult>(
-            target,
-            'AiPromptResult',
-          )
-          .success,
-      'result': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_10.AiPromptResult>(
-            target,
-            'AiPromptResult',
-          )
-          .result,
-      'rawResponse': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_10.AiPromptResult>(
-            target,
-            'AiPromptResult',
-          )
-          .rawResponse,
-      'response': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_10.AiPromptResult>(
-            target,
-            'AiPromptResult',
-          )
-          .response,
-      'thinkTagContent': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_10.AiPromptResult>(
-            target,
-            'AiPromptResult',
-          )
-          .thinkTagContent,
-      'profile': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_10.AiPromptResult>(
-            target,
-            'AiPromptResult',
-          )
-          .profile,
-      'modelConfig': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_10.AiPromptResult>(
-            target,
-            'AiPromptResult',
-          )
-          .modelConfig,
-      'error': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_10.AiPromptResult>(
-            target,
-            'AiPromptResult',
-          )
-          .error,
-      'tokenInfo': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_10.AiPromptResult>(
-            target,
-            'AiPromptResult',
-          )
-          .tokenInfo,
-    },
-    methods: {
-      'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4
-            .validateTarget<$tom_vscode_scripting_api_10.AiPromptResult>(
-              target,
-              'AiPromptResult',
-            );
-        return t.toJson();
-      },
-      'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4
-            .validateTarget<$tom_vscode_scripting_api_10.AiPromptResult>(
-              target,
-              'AiPromptResult',
-            );
-        return t.toString();
-      },
-    },
-    constructorSignatures: {
-      '': 'AiPromptResult({required bool success, required String result, required String rawResponse, required String response, required String thinkTagContent, required String profile, required String modelConfig, String? error, AiTokenStats? tokenInfo})',
-      'fromJson': 'factory AiPromptResult.fromJson(Map<String, dynamic> json)',
-    },
-    methodSignatures: {
-      'toJson': 'Map<String, dynamic> toJson()',
-      'toString': 'String toString()',
-    },
-    getterSignatures: {
-      'success': 'bool get success',
-      'result': 'String get result',
-      'rawResponse': 'String get rawResponse',
-      'response': 'String get response',
-      'thinkTagContent': 'String get thinkTagContent',
-      'profile': 'String get profile',
-      'modelConfig': 'String get modelConfig',
-      'error': 'String? get error',
-      'tokenInfo': 'AiTokenStats? get tokenInfo',
-    },
-  );
-}
-
-// =============================================================================
-// AiPromptProfile Bridge
-// =============================================================================
-
-BridgedClass _createAiPromptProfileBridge() {
-  return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_10.AiPromptProfile,
-    name: 'AiPromptProfile',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_10.AiPromptProfile,
-    constructors: {
-      '': (visitor, positional, named) {
-        final key = D4.getRequiredNamedArg<String>(
-          named,
-          'key',
-          'AiPromptProfile',
-        );
-        final label = D4.getRequiredNamedArg<String>(
-          named,
-          'label',
-          'AiPromptProfile',
-        );
-        final isDefault = D4.getNamedArgWithDefault<bool>(
-          named,
-          'isDefault',
-          false,
-        );
-        final systemPrompt = D4.getOptionalNamedArg<String?>(
-          named,
-          'systemPrompt',
-        );
-        final resultTemplate = D4.getOptionalNamedArg<String?>(
-          named,
-          'resultTemplate',
-        );
-        final temperature = D4.getOptionalNamedArg<double?>(
-          named,
-          'temperature',
-        );
-        final modelConfig = D4.getOptionalNamedArg<String?>(
-          named,
-          'modelConfig',
-        );
-        return $tom_vscode_scripting_api_10.AiPromptProfile(
-          key: key,
-          label: label,
-          isDefault: isDefault,
-          systemPrompt: systemPrompt,
-          resultTemplate: resultTemplate,
-          temperature: temperature,
-          modelConfig: modelConfig,
-        );
-      },
-      'fromJson': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'AiPromptProfile');
-        if (positional.isEmpty) {
-          throw ArgumentError(
-            'AiPromptProfile: Missing required argument "json" at position 0',
-          );
-        }
-        final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_10.AiPromptProfile.fromJson(json);
-      },
-    },
-    getters: {
-      'key': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_10.AiPromptProfile>(
-            target,
-            'AiPromptProfile',
-          )
-          .key,
-      'label': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_10.AiPromptProfile>(
-            target,
-            'AiPromptProfile',
-          )
-          .label,
-      'isDefault': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_10.AiPromptProfile>(
-            target,
-            'AiPromptProfile',
-          )
-          .isDefault,
-      'systemPrompt': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_10.AiPromptProfile>(
-            target,
-            'AiPromptProfile',
-          )
-          .systemPrompt,
-      'resultTemplate': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_10.AiPromptProfile>(
-            target,
-            'AiPromptProfile',
-          )
-          .resultTemplate,
-      'temperature': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_10.AiPromptProfile>(
-            target,
-            'AiPromptProfile',
-          )
-          .temperature,
-      'modelConfig': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_10.AiPromptProfile>(
-            target,
-            'AiPromptProfile',
-          )
-          .modelConfig,
-    },
-    methods: {
-      'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4
-            .validateTarget<$tom_vscode_scripting_api_10.AiPromptProfile>(
-              target,
-              'AiPromptProfile',
-            );
-        return t.toJson();
-      },
-      'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4
-            .validateTarget<$tom_vscode_scripting_api_10.AiPromptProfile>(
-              target,
-              'AiPromptProfile',
-            );
-        return t.toString();
-      },
-    },
-    constructorSignatures: {
-      '': 'AiPromptProfile({required String key, required String label, bool isDefault = false, String? systemPrompt, String? resultTemplate, double? temperature, String? modelConfig})',
-      'fromJson': 'factory AiPromptProfile.fromJson(Map<String, dynamic> json)',
-    },
-    methodSignatures: {
-      'toJson': 'Map<String, dynamic> toJson()',
-      'toString': 'String toString()',
-    },
-    getterSignatures: {
-      'key': 'String get key',
-      'label': 'String get label',
-      'isDefault': 'bool get isDefault',
-      'systemPrompt': 'String? get systemPrompt',
-      'resultTemplate': 'String? get resultTemplate',
-      'temperature': 'double? get temperature',
-      'modelConfig': 'String? get modelConfig',
-    },
-  );
-}
-
-// =============================================================================
-// AiModelConfig Bridge
-// =============================================================================
-
-BridgedClass _createAiModelConfigBridge() {
-  return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_10.AiModelConfig,
-    name: 'AiModelConfig',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_10.AiModelConfig,
-    constructors: {
-      '': (visitor, positional, named) {
-        final key = D4.getRequiredNamedArg<String>(
-          named,
-          'key',
-          'AiModelConfig',
-        );
-        final ollamaUrl = D4.getRequiredNamedArg<String>(
-          named,
-          'ollamaUrl',
-          'AiModelConfig',
-        );
-        final model = D4.getRequiredNamedArg<String>(
-          named,
-          'model',
-          'AiModelConfig',
-        );
-        final temperature = D4.getRequiredNamedArg<double>(
-          named,
-          'temperature',
-          'AiModelConfig',
-        );
-        final stripThinkingTags = D4.getRequiredNamedArg<bool>(
-          named,
-          'stripThinkingTags',
-          'AiModelConfig',
-        );
-        final description = D4.getOptionalNamedArg<String?>(
-          named,
-          'description',
-        );
-        final isDefault = D4.getNamedArgWithDefault<bool>(
-          named,
-          'isDefault',
-          false,
-        );
-        return $tom_vscode_scripting_api_10.AiModelConfig(
-          key: key,
-          ollamaUrl: ollamaUrl,
-          model: model,
-          temperature: temperature,
-          stripThinkingTags: stripThinkingTags,
-          description: description,
-          isDefault: isDefault,
-        );
-      },
-      'fromJson': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'AiModelConfig');
-        if (positional.isEmpty) {
-          throw ArgumentError(
-            'AiModelConfig: Missing required argument "json" at position 0',
-          );
-        }
-        final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_10.AiModelConfig.fromJson(json);
-      },
-    },
-    getters: {
-      'key': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_10.AiModelConfig>(
-            target,
-            'AiModelConfig',
-          )
-          .key,
-      'ollamaUrl': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_10.AiModelConfig>(
-            target,
-            'AiModelConfig',
-          )
-          .ollamaUrl,
-      'model': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_10.AiModelConfig>(
-            target,
-            'AiModelConfig',
-          )
-          .model,
-      'temperature': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_10.AiModelConfig>(
-            target,
-            'AiModelConfig',
-          )
-          .temperature,
-      'stripThinkingTags': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_10.AiModelConfig>(
-            target,
-            'AiModelConfig',
-          )
-          .stripThinkingTags,
-      'description': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_10.AiModelConfig>(
-            target,
-            'AiModelConfig',
-          )
-          .description,
-      'isDefault': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_10.AiModelConfig>(
-            target,
-            'AiModelConfig',
-          )
-          .isDefault,
-    },
-    methods: {
-      'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_10.AiModelConfig>(
-          target,
-          'AiModelConfig',
-        );
-        return t.toJson();
-      },
-      'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_10.AiModelConfig>(
-          target,
-          'AiModelConfig',
-        );
-        return t.toString();
-      },
-    },
-    constructorSignatures: {
-      '': 'AiModelConfig({required String key, required String ollamaUrl, required String model, required double temperature, required bool stripThinkingTags, String? description, bool isDefault = false})',
-      'fromJson': 'factory AiModelConfig.fromJson(Map<String, dynamic> json)',
-    },
-    methodSignatures: {
-      'toJson': 'Map<String, dynamic> toJson()',
-      'toString': 'String toString()',
-    },
-    getterSignatures: {
-      'key': 'String get key',
-      'ollamaUrl': 'String get ollamaUrl',
-      'model': 'String get model',
-      'temperature': 'double get temperature',
-      'stripThinkingTags': 'bool get stripThinkingTags',
-      'description': 'String? get description',
-      'isDefault': 'bool get isDefault',
-    },
-  );
-}
-
-// =============================================================================
-// AiModelsResult Bridge
-// =============================================================================
-
-BridgedClass _createAiModelsResultBridge() {
-  return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_10.AiModelsResult,
-    name: 'AiModelsResult',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_10.AiModelsResult,
-    constructors: {
-      '': (visitor, positional, named) {
-        if (!named.containsKey('models') || named['models'] == null) {
-          throw ArgumentError(
-            'AiModelsResult: Missing required named argument "models"',
-          );
-        }
-        final models = D4
-            .coerceList<$tom_vscode_scripting_api_10.AiModelConfig>(
-              named['models'],
-              'models',
-            );
-        final effectiveDefault = D4
-            .getOptionalNamedArg<$tom_vscode_scripting_api_10.AiModelConfig?>(
-              named,
-              'effectiveDefault',
-            );
-        return $tom_vscode_scripting_api_10.AiModelsResult(
-          models: models,
-          effectiveDefault: effectiveDefault,
-        );
-      },
-      'fromJson': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'AiModelsResult');
-        if (positional.isEmpty) {
-          throw ArgumentError(
-            'AiModelsResult: Missing required argument "json" at position 0',
-          );
-        }
-        final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_10.AiModelsResult.fromJson(json);
-      },
-    },
-    getters: {
-      'models': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_10.AiModelsResult>(
-            target,
-            'AiModelsResult',
-          )
-          .models,
-      'effectiveDefault': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_10.AiModelsResult>(
-            target,
-            'AiModelsResult',
-          )
-          .effectiveDefault,
-    },
-    constructorSignatures: {
-      '': 'AiModelsResult({required List<AiModelConfig> models, AiModelConfig? effectiveDefault})',
-      'fromJson': 'factory AiModelsResult.fromJson(Map<String, dynamic> json)',
-    },
-    getterSignatures: {
-      'models': 'List<AiModelConfig> get models',
-      'effectiveDefault': 'AiModelConfig? get effectiveDefault',
-    },
-  );
-}
-
-// =============================================================================
-// AiPromptApi Bridge
-// =============================================================================
-
-BridgedClass _createAiPromptApiBridge() {
-  return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_10.AiPromptApi,
-    name: 'AiPromptApi',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_10.AiPromptApi,
-    constructors: {},
-    staticMethods: {
-      'process': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'process');
-        final prompt = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'prompt',
-          'process',
-        );
-        final profile = D4.getOptionalNamedArg<String?>(named, 'profile');
-        final model = D4.getOptionalNamedArg<String?>(named, 'model');
-        final timeoutSeconds = D4.getNamedArgWithDefault<int>(
-          named,
-          'timeoutSeconds',
-          120,
-        );
-        return $tom_vscode_scripting_api_10.AiPromptApi.process(
-          prompt,
-          profile: profile,
-          model: model,
-          timeoutSeconds: timeoutSeconds,
-        );
-      },
-      'getProfiles': (visitor, positional, named, typeArgs) {
-        final timeoutSeconds = D4.getNamedArgWithDefault<int>(
-          named,
-          'timeoutSeconds',
-          30,
-        );
-        return $tom_vscode_scripting_api_10.AiPromptApi.getProfiles(
-          timeoutSeconds: timeoutSeconds,
-        );
-      },
-      'updateProfile': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 2, 'updateProfile');
-        final key = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'key',
-          'updateProfile',
-        );
-        if (positional.length <= 1) {
-          throw ArgumentError(
-            'updateProfile: Missing required argument "profile" at position 1',
-          );
-        }
-        final profile = D4.coerceMap<String, dynamic>(positional[1], 'profile');
-        final timeoutSeconds = D4.getNamedArgWithDefault<int>(
-          named,
-          'timeoutSeconds',
-          30,
-        );
-        return $tom_vscode_scripting_api_10.AiPromptApi.updateProfile(
-          key,
-          profile,
-          timeoutSeconds: timeoutSeconds,
-        );
-      },
-      'removeProfile': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'removeProfile');
-        final key = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'key',
-          'removeProfile',
-        );
-        final timeoutSeconds = D4.getNamedArgWithDefault<int>(
-          named,
-          'timeoutSeconds',
-          30,
-        );
-        return $tom_vscode_scripting_api_10.AiPromptApi.removeProfile(
-          key,
-          timeoutSeconds: timeoutSeconds,
-        );
-      },
-      'getModels': (visitor, positional, named, typeArgs) {
-        final timeoutSeconds = D4.getNamedArgWithDefault<int>(
-          named,
-          'timeoutSeconds',
-          30,
-        );
-        return $tom_vscode_scripting_api_10.AiPromptApi.getModels(
-          timeoutSeconds: timeoutSeconds,
-        );
-      },
-      'updateModel': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 2, 'updateModel');
-        final key = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'key',
-          'updateModel',
-        );
-        if (positional.length <= 1) {
-          throw ArgumentError(
-            'updateModel: Missing required argument "model" at position 1',
-          );
-        }
-        final model = D4.coerceMap<String, dynamic>(positional[1], 'model');
-        final timeoutSeconds = D4.getNamedArgWithDefault<int>(
-          named,
-          'timeoutSeconds',
-          30,
-        );
-        return $tom_vscode_scripting_api_10.AiPromptApi.updateModel(
-          key,
-          model,
-          timeoutSeconds: timeoutSeconds,
-        );
-      },
-      'removeModel': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'removeModel');
-        final key = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'key',
-          'removeModel',
-        );
-        final timeoutSeconds = D4.getNamedArgWithDefault<int>(
-          named,
-          'timeoutSeconds',
-          30,
-        );
-        return $tom_vscode_scripting_api_10.AiPromptApi.removeModel(
-          key,
-          timeoutSeconds: timeoutSeconds,
-        );
-      },
-    },
-    staticMethodSignatures: {
-      'process':
-          'Future<AiPromptResult> process(String prompt, {String? profile, String? model, int timeoutSeconds = 120})',
-      'getProfiles':
-          'Future<List<AiPromptProfile>> getProfiles({int timeoutSeconds = 30})',
-      'updateProfile':
-          'Future<Map<String, dynamic>> updateProfile(String key, Map<String, dynamic> profile, {int timeoutSeconds = 30})',
-      'removeProfile':
-          'Future<Map<String, dynamic>> removeProfile(String key, {int timeoutSeconds = 30})',
-      'getModels':
-          'Future<AiModelsResult> getModels({int timeoutSeconds = 30})',
-      'updateModel':
-          'Future<Map<String, dynamic>> updateModel(String key, Map<String, dynamic> model, {int timeoutSeconds = 30})',
-      'removeModel':
-          'Future<Map<String, dynamic>> removeModel(String key, {int timeoutSeconds = 30})',
-    },
-  );
-}
-
-// =============================================================================
-// CopilotResponse Bridge
-// =============================================================================
-
-BridgedClass _createCopilotResponseBridge() {
-  return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_9.CopilotResponse,
-    name: 'CopilotResponse',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_9.CopilotResponse,
-    constructors: {
-      '': (visitor, positional, named) {
-        final requestId = D4.getRequiredNamedArg<String>(
-          named,
-          'requestId',
-          'CopilotResponse',
-        );
-        final generatedMarkdown = D4.getRequiredNamedArg<String>(
-          named,
-          'generatedMarkdown',
-          'CopilotResponse',
-        );
-        final comments = D4.getOptionalNamedArg<String?>(named, 'comments');
-        final references =
-            named.containsKey('references') && named['references'] != null
-            ? D4.coerceList<String>(named['references'], 'references')
-            : const <String>[];
-        final requestedAttachments =
-            named.containsKey('requestedAttachments') &&
-                named['requestedAttachments'] != null
-            ? D4.coerceList<String>(
-                named['requestedAttachments'],
-                'requestedAttachments',
-              )
-            : const <String>[];
-        return $tom_vscode_scripting_api_9.CopilotResponse(
-          requestId: requestId,
-          generatedMarkdown: generatedMarkdown,
-          comments: comments,
-          references: references,
-          requestedAttachments: requestedAttachments,
-        );
-      },
-      'fromJson': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'CopilotResponse');
-        if (positional.isEmpty) {
-          throw ArgumentError(
-            'CopilotResponse: Missing required argument "json" at position 0',
-          );
-        }
-        final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_9.CopilotResponse.fromJson(json);
-      },
-    },
-    getters: {
-      'requestId': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.CopilotResponse>(
-            target,
-            'CopilotResponse',
-          )
-          .requestId,
-      'generatedMarkdown': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.CopilotResponse>(
-            target,
-            'CopilotResponse',
-          )
-          .generatedMarkdown,
-      'comments': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.CopilotResponse>(
-            target,
-            'CopilotResponse',
-          )
-          .comments,
-      'references': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.CopilotResponse>(
-            target,
-            'CopilotResponse',
-          )
-          .references,
-      'requestedAttachments': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.CopilotResponse>(
-            target,
-            'CopilotResponse',
-          )
-          .requestedAttachments,
-    },
-    methods: {
-      'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4
-            .validateTarget<$tom_vscode_scripting_api_9.CopilotResponse>(
-              target,
-              'CopilotResponse',
-            );
-        return t.toJson();
-      },
-      'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4
-            .validateTarget<$tom_vscode_scripting_api_9.CopilotResponse>(
-              target,
-              'CopilotResponse',
-            );
-        return t.toString();
-      },
-    },
-    constructorSignatures: {
-      '': 'CopilotResponse({required String requestId, required String generatedMarkdown, String? comments, List<String> references = const [], List<String> requestedAttachments = const []})',
-      'fromJson': 'factory CopilotResponse.fromJson(Map<String, dynamic> json)',
-    },
-    methodSignatures: {
-      'toJson': 'Map<String, dynamic> toJson()',
-      'toString': 'String toString()',
-    },
-    getterSignatures: {
-      'requestId': 'String get requestId',
-      'generatedMarkdown': 'String get generatedMarkdown',
-      'comments': 'String? get comments',
-      'references': 'List<String> get references',
-      'requestedAttachments': 'List<String> get requestedAttachments',
-    },
-  );
-}
-
-// =============================================================================
-// ConversationExchange Bridge
-// =============================================================================
-
-BridgedClass _createConversationExchangeBridge() {
-  return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_9.ConversationExchange,
-    name: 'ConversationExchange',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_9.ConversationExchange,
-    constructors: {
-      '': (visitor, positional, named) {
-        final turn = D4.getRequiredNamedArg<int>(
-          named,
-          'turn',
-          'ConversationExchange',
-        );
-        final timestamp = D4.getRequiredNamedArg<DateTime>(
-          named,
-          'timestamp',
-          'ConversationExchange',
-        );
-        final promptToCopilot = D4.getRequiredNamedArg<String>(
-          named,
-          'promptToCopilot',
-          'ConversationExchange',
-        );
-        final copilotResponse = D4
-            .getRequiredNamedArg<$tom_vscode_scripting_api_9.CopilotResponse>(
-              named,
-              'copilotResponse',
-              'ConversationExchange',
-            );
-        final localModelStats = D4
-            .getOptionalNamedArg<$tom_vscode_scripting_api_10.AiTokenStats?>(
-              named,
-              'localModelStats',
-            );
-        return $tom_vscode_scripting_api_9.ConversationExchange(
-          turn: turn,
-          timestamp: timestamp,
-          promptToCopilot: promptToCopilot,
-          copilotResponse: copilotResponse,
-          localModelStats: localModelStats,
-        );
-      },
-      'fromJson': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'ConversationExchange');
-        if (positional.isEmpty) {
-          throw ArgumentError(
-            'ConversationExchange: Missing required argument "json" at position 0',
-          );
-        }
-        final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_9.ConversationExchange.fromJson(json);
-      },
-    },
-    getters: {
-      'turn': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationExchange>(
-            target,
-            'ConversationExchange',
-          )
-          .turn,
-      'timestamp': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationExchange>(
-            target,
-            'ConversationExchange',
-          )
-          .timestamp,
-      'promptToCopilot': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationExchange>(
-            target,
-            'ConversationExchange',
-          )
-          .promptToCopilot,
-      'copilotResponse': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationExchange>(
-            target,
-            'ConversationExchange',
-          )
-          .copilotResponse,
-      'localModelStats': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationExchange>(
-            target,
-            'ConversationExchange',
-          )
-          .localModelStats,
-    },
-    methods: {
-      'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4
-            .validateTarget<$tom_vscode_scripting_api_9.ConversationExchange>(
-              target,
-              'ConversationExchange',
-            );
-        return t.toJson();
-      },
-      'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4
-            .validateTarget<$tom_vscode_scripting_api_9.ConversationExchange>(
-              target,
-              'ConversationExchange',
-            );
-        return t.toString();
-      },
-    },
-    constructorSignatures: {
-      '': 'ConversationExchange({required int turn, required DateTime timestamp, required String promptToCopilot, required CopilotResponse copilotResponse, AiTokenStats? localModelStats})',
-      'fromJson':
-          'factory ConversationExchange.fromJson(Map<String, dynamic> json)',
-    },
-    methodSignatures: {
-      'toJson': 'Map<String, dynamic> toJson()',
-      'toString': 'String toString()',
-    },
-    getterSignatures: {
-      'turn': 'int get turn',
-      'timestamp': 'DateTime get timestamp',
-      'promptToCopilot': 'String get promptToCopilot',
-      'copilotResponse': 'CopilotResponse get copilotResponse',
-      'localModelStats': 'AiTokenStats? get localModelStats',
-    },
-  );
-}
-
-// =============================================================================
-// ConversationResult Bridge
-// =============================================================================
-
-BridgedClass _createConversationResultBridge() {
-  return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_9.ConversationResult,
-    name: 'ConversationResult',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_9.ConversationResult,
-    constructors: {
-      '': (visitor, positional, named) {
-        final conversationId = D4.getRequiredNamedArg<String>(
-          named,
-          'conversationId',
-          'ConversationResult',
-        );
-        final turns = D4.getRequiredNamedArg<int>(
-          named,
-          'turns',
-          'ConversationResult',
-        );
-        final goalReached = D4.getRequiredNamedArg<bool>(
-          named,
-          'goalReached',
-          'ConversationResult',
-        );
-        final logFilePath = D4.getRequiredNamedArg<String>(
-          named,
-          'logFilePath',
-          'ConversationResult',
-        );
-        if (!named.containsKey('exchanges') || named['exchanges'] == null) {
-          throw ArgumentError(
-            'ConversationResult: Missing required named argument "exchanges"',
-          );
-        }
-        final exchanges = D4
-            .coerceList<$tom_vscode_scripting_api_9.ConversationExchange>(
-              named['exchanges'],
-              'exchanges',
-            );
-        return $tom_vscode_scripting_api_9.ConversationResult(
-          conversationId: conversationId,
-          turns: turns,
-          goalReached: goalReached,
-          logFilePath: logFilePath,
-          exchanges: exchanges,
-        );
-      },
-      'fromJson': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'ConversationResult');
-        if (positional.isEmpty) {
-          throw ArgumentError(
-            'ConversationResult: Missing required argument "json" at position 0',
-          );
-        }
-        final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_9.ConversationResult.fromJson(json);
-      },
-    },
-    getters: {
-      'conversationId': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationResult>(
-            target,
-            'ConversationResult',
-          )
-          .conversationId,
-      'turns': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationResult>(
-            target,
-            'ConversationResult',
-          )
-          .turns,
-      'goalReached': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationResult>(
-            target,
-            'ConversationResult',
-          )
-          .goalReached,
-      'logFilePath': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationResult>(
-            target,
-            'ConversationResult',
-          )
-          .logFilePath,
-      'exchanges': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationResult>(
-            target,
-            'ConversationResult',
-          )
-          .exchanges,
-    },
-    methods: {
-      'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4
-            .validateTarget<$tom_vscode_scripting_api_9.ConversationResult>(
-              target,
-              'ConversationResult',
-            );
-        return t.toString();
-      },
-    },
-    constructorSignatures: {
-      '': 'ConversationResult({required String conversationId, required int turns, required bool goalReached, required String logFilePath, required List<ConversationExchange> exchanges})',
-      'fromJson':
-          'factory ConversationResult.fromJson(Map<String, dynamic> json)',
-    },
-    methodSignatures: {'toString': 'String toString()'},
-    getterSignatures: {
-      'conversationId': 'String get conversationId',
-      'turns': 'int get turns',
-      'goalReached': 'bool get goalReached',
-      'logFilePath': 'String get logFilePath',
-      'exchanges': 'List<ConversationExchange> get exchanges',
-    },
-  );
-}
-
-// =============================================================================
-// ConversationStatus Bridge
-// =============================================================================
-
-BridgedClass _createConversationStatusBridge() {
-  return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_9.ConversationStatus,
-    name: 'ConversationStatus',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_9.ConversationStatus,
-    constructors: {
-      '': (visitor, positional, named) {
-        final active = D4.getRequiredNamedArg<bool>(
-          named,
-          'active',
-          'ConversationStatus',
-        );
-        final halted = D4.getNamedArgWithDefault<bool>(named, 'halted', false);
-        final conversationId = D4.getOptionalNamedArg<String?>(
-          named,
-          'conversationId',
-        );
-        final goal = D4.getOptionalNamedArg<String?>(named, 'goal');
-        final profileKey = D4.getOptionalNamedArg<String?>(named, 'profileKey');
-        final conversationMode = D4
-            .getOptionalNamedArg<$tom_vscode_scripting_api_9.ConversationMode?>(
-              named,
-              'conversationMode',
-            );
-        final turnsCompleted = D4.getNamedArgWithDefault<int>(
-          named,
-          'turnsCompleted',
-          0,
-        );
-        final maxTurns = D4.getNamedArgWithDefault<int>(named, 'maxTurns', 0);
-        final pendingUserInput = D4.getNamedArgWithDefault<int>(
-          named,
-          'pendingUserInput',
-          0,
-        );
-        return $tom_vscode_scripting_api_9.ConversationStatus(
-          active: active,
-          halted: halted,
-          conversationId: conversationId,
-          goal: goal,
-          profileKey: profileKey,
-          conversationMode: conversationMode,
-          turnsCompleted: turnsCompleted,
-          maxTurns: maxTurns,
-          pendingUserInput: pendingUserInput,
-        );
-      },
-      'fromJson': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'ConversationStatus');
-        if (positional.isEmpty) {
-          throw ArgumentError(
-            'ConversationStatus: Missing required argument "json" at position 0',
-          );
-        }
-        final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_9.ConversationStatus.fromJson(json);
-      },
-    },
-    getters: {
-      'active': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationStatus>(
-            target,
-            'ConversationStatus',
-          )
-          .active,
-      'halted': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationStatus>(
-            target,
-            'ConversationStatus',
-          )
-          .halted,
-      'conversationId': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationStatus>(
-            target,
-            'ConversationStatus',
-          )
-          .conversationId,
-      'goal': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationStatus>(
-            target,
-            'ConversationStatus',
-          )
-          .goal,
-      'profileKey': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationStatus>(
-            target,
-            'ConversationStatus',
-          )
-          .profileKey,
-      'conversationMode': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationStatus>(
-            target,
-            'ConversationStatus',
-          )
-          .conversationMode,
-      'turnsCompleted': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationStatus>(
-            target,
-            'ConversationStatus',
-          )
-          .turnsCompleted,
-      'maxTurns': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationStatus>(
-            target,
-            'ConversationStatus',
-          )
-          .maxTurns,
-      'pendingUserInput': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationStatus>(
-            target,
-            'ConversationStatus',
-          )
-          .pendingUserInput,
-    },
-    methods: {
-      'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4
-            .validateTarget<$tom_vscode_scripting_api_9.ConversationStatus>(
-              target,
-              'ConversationStatus',
-            );
-        return t.toString();
-      },
-    },
-    constructorSignatures: {
-      '': 'ConversationStatus({required bool active, bool halted = false, String? conversationId, String? goal, String? profileKey, ConversationMode? conversationMode, int turnsCompleted = 0, int maxTurns = 0, int pendingUserInput = 0})',
-      'fromJson':
-          'factory ConversationStatus.fromJson(Map<String, dynamic> json)',
-    },
-    methodSignatures: {'toString': 'String toString()'},
-    getterSignatures: {
-      'active': 'bool get active',
-      'halted': 'bool get halted',
-      'conversationId': 'String? get conversationId',
-      'goal': 'String? get goal',
-      'profileKey': 'String? get profileKey',
-      'conversationMode': 'ConversationMode? get conversationMode',
-      'turnsCompleted': 'int get turnsCompleted',
-      'maxTurns': 'int get maxTurns',
-      'pendingUserInput': 'int get pendingUserInput',
-    },
-  );
-}
-
-// =============================================================================
-// ConversationProfile Bridge
-// =============================================================================
-
-BridgedClass _createConversationProfileBridge() {
-  return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_9.ConversationProfile,
-    name: 'ConversationProfile',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_9.ConversationProfile,
-    constructors: {
-      '': (visitor, positional, named) {
-        final key = D4.getRequiredNamedArg<String>(
-          named,
-          'key',
-          'ConversationProfile',
-        );
-        final label = D4.getRequiredNamedArg<String>(
-          named,
-          'label',
-          'ConversationProfile',
-        );
-        final maxTurns = D4.getOptionalNamedArg<int?>(named, 'maxTurns');
-        final temperature = D4.getOptionalNamedArg<double?>(
-          named,
-          'temperature',
-        );
-        final modelConfig = D4.getOptionalNamedArg<String?>(
-          named,
-          'modelConfig',
-        );
-        final historyMode = D4
-            .getOptionalNamedArg<$tom_vscode_scripting_api_9.HistoryMode?>(
-              named,
-              'historyMode',
-            );
-        final goalReachedMarker = D4.getOptionalNamedArg<String?>(
-          named,
-          'goalReachedMarker',
-        );
-        return $tom_vscode_scripting_api_9.ConversationProfile(
-          key: key,
-          label: label,
-          maxTurns: maxTurns,
-          temperature: temperature,
-          modelConfig: modelConfig,
-          historyMode: historyMode,
-          goalReachedMarker: goalReachedMarker,
-        );
-      },
-      'fromJson': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'ConversationProfile');
-        if (positional.isEmpty) {
-          throw ArgumentError(
-            'ConversationProfile: Missing required argument "json" at position 0',
-          );
-        }
-        final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_9.ConversationProfile.fromJson(json);
-      },
-    },
-    getters: {
-      'key': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationProfile>(
-            target,
-            'ConversationProfile',
-          )
-          .key,
-      'label': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationProfile>(
-            target,
-            'ConversationProfile',
-          )
-          .label,
-      'maxTurns': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationProfile>(
-            target,
-            'ConversationProfile',
-          )
-          .maxTurns,
-      'temperature': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationProfile>(
-            target,
-            'ConversationProfile',
-          )
-          .temperature,
-      'modelConfig': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationProfile>(
-            target,
-            'ConversationProfile',
-          )
-          .modelConfig,
-      'historyMode': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationProfile>(
-            target,
-            'ConversationProfile',
-          )
-          .historyMode,
-      'goalReachedMarker': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationProfile>(
-            target,
-            'ConversationProfile',
-          )
-          .goalReachedMarker,
-    },
-    methods: {
-      'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4
-            .validateTarget<$tom_vscode_scripting_api_9.ConversationProfile>(
-              target,
-              'ConversationProfile',
-            );
-        return t.toString();
-      },
-    },
-    constructorSignatures: {
-      '': 'ConversationProfile({required String key, required String label, int? maxTurns, double? temperature, String? modelConfig, HistoryMode? historyMode, String? goalReachedMarker})',
-      'fromJson':
-          'factory ConversationProfile.fromJson(Map<String, dynamic> json)',
-    },
-    methodSignatures: {'toString': 'String toString()'},
-    getterSignatures: {
-      'key': 'String get key',
-      'label': 'String get label',
-      'maxTurns': 'int? get maxTurns',
-      'temperature': 'double? get temperature',
-      'modelConfig': 'String? get modelConfig',
-      'historyMode': 'HistoryMode? get historyMode',
-      'goalReachedMarker': 'String? get goalReachedMarker',
-    },
-  );
-}
-
-// =============================================================================
-// ConversationConfig Bridge
-// =============================================================================
-
-BridgedClass _createConversationConfigBridge() {
-  return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_9.ConversationConfig,
-    name: 'ConversationConfig',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_9.ConversationConfig,
-    constructors: {
-      '': (visitor, positional, named) {
-        final maxTurns = D4.getRequiredNamedArg<int>(
-          named,
-          'maxTurns',
-          'ConversationConfig',
-        );
-        final temperature = D4.getRequiredNamedArg<double>(
-          named,
-          'temperature',
-          'ConversationConfig',
-        );
-        final historyMode = D4
-            .getRequiredNamedArg<$tom_vscode_scripting_api_9.HistoryMode>(
-              named,
-              'historyMode',
-              'ConversationConfig',
-            );
-        final maxHistoryTokens = D4.getRequiredNamedArg<int>(
-          named,
-          'maxHistoryTokens',
-          'ConversationConfig',
-        );
-        final modelConfig = D4.getOptionalNamedArg<String?>(
-          named,
-          'modelConfig',
-        );
-        final pauseBetweenTurns = D4.getRequiredNamedArg<bool>(
-          named,
-          'pauseBetweenTurns',
-          'ConversationConfig',
-        );
-        final pauseBeforeFirst = D4.getRequiredNamedArg<bool>(
-          named,
-          'pauseBeforeFirst',
-          'ConversationConfig',
-        );
-        final logConversation = D4.getRequiredNamedArg<bool>(
-          named,
-          'logConversation',
-          'ConversationConfig',
-        );
-        final stripThinkingTags = D4.getRequiredNamedArg<bool>(
-          named,
-          'stripThinkingTags',
-          'ConversationConfig',
-        );
-        final copilotModel = D4.getOptionalNamedArg<String?>(
-          named,
-          'copilotModel',
-        );
-        final conversationLogPath = D4.getRequiredNamedArg<String>(
-          named,
-          'conversationLogPath',
-          'ConversationConfig',
-        );
-        final goalReachedMarker = D4.getRequiredNamedArg<String>(
-          named,
-          'goalReachedMarker',
-          'ConversationConfig',
-        );
-        if (!named.containsKey('profileKeys') || named['profileKeys'] == null) {
-          throw ArgumentError(
-            'ConversationConfig: Missing required named argument "profileKeys"',
-          );
-        }
-        final profileKeys = D4.coerceList<String>(
-          named['profileKeys'],
-          'profileKeys',
-        );
-        return $tom_vscode_scripting_api_9.ConversationConfig(
-          maxTurns: maxTurns,
-          temperature: temperature,
-          historyMode: historyMode,
-          maxHistoryTokens: maxHistoryTokens,
-          modelConfig: modelConfig,
-          pauseBetweenTurns: pauseBetweenTurns,
-          pauseBeforeFirst: pauseBeforeFirst,
-          logConversation: logConversation,
-          stripThinkingTags: stripThinkingTags,
-          copilotModel: copilotModel,
-          conversationLogPath: conversationLogPath,
-          goalReachedMarker: goalReachedMarker,
-          profileKeys: profileKeys,
-        );
-      },
-      'fromJson': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'ConversationConfig');
-        if (positional.isEmpty) {
-          throw ArgumentError(
-            'ConversationConfig: Missing required argument "json" at position 0',
-          );
-        }
-        final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_9.ConversationConfig.fromJson(json);
-      },
-    },
-    getters: {
-      'maxTurns': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationConfig>(
-            target,
-            'ConversationConfig',
-          )
-          .maxTurns,
-      'temperature': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationConfig>(
-            target,
-            'ConversationConfig',
-          )
-          .temperature,
-      'historyMode': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationConfig>(
-            target,
-            'ConversationConfig',
-          )
-          .historyMode,
-      'maxHistoryTokens': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationConfig>(
-            target,
-            'ConversationConfig',
-          )
-          .maxHistoryTokens,
-      'modelConfig': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationConfig>(
-            target,
-            'ConversationConfig',
-          )
-          .modelConfig,
-      'pauseBetweenTurns': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationConfig>(
-            target,
-            'ConversationConfig',
-          )
-          .pauseBetweenTurns,
-      'pauseBeforeFirst': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationConfig>(
-            target,
-            'ConversationConfig',
-          )
-          .pauseBeforeFirst,
-      'logConversation': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationConfig>(
-            target,
-            'ConversationConfig',
-          )
-          .logConversation,
-      'stripThinkingTags': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationConfig>(
-            target,
-            'ConversationConfig',
-          )
-          .stripThinkingTags,
-      'copilotModel': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationConfig>(
-            target,
-            'ConversationConfig',
-          )
-          .copilotModel,
-      'conversationLogPath': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationConfig>(
-            target,
-            'ConversationConfig',
-          )
-          .conversationLogPath,
-      'goalReachedMarker': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationConfig>(
-            target,
-            'ConversationConfig',
-          )
-          .goalReachedMarker,
-      'profileKeys': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationConfig>(
-            target,
-            'ConversationConfig',
-          )
-          .profileKeys,
-    },
-    methods: {
-      'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4
-            .validateTarget<$tom_vscode_scripting_api_9.ConversationConfig>(
-              target,
-              'ConversationConfig',
-            );
-        return t.toString();
-      },
-    },
-    constructorSignatures: {
-      '': 'ConversationConfig({required int maxTurns, required double temperature, required HistoryMode historyMode, required int maxHistoryTokens, String? modelConfig, required bool pauseBetweenTurns, required bool pauseBeforeFirst, required bool logConversation, required bool stripThinkingTags, String? copilotModel, required String conversationLogPath, required String goalReachedMarker, required List<String> profileKeys})',
-      'fromJson':
-          'factory ConversationConfig.fromJson(Map<String, dynamic> json)',
-    },
-    methodSignatures: {'toString': 'String toString()'},
-    getterSignatures: {
-      'maxTurns': 'int get maxTurns',
-      'temperature': 'double get temperature',
-      'historyMode': 'HistoryMode get historyMode',
-      'maxHistoryTokens': 'int get maxHistoryTokens',
-      'modelConfig': 'String? get modelConfig',
-      'pauseBetweenTurns': 'bool get pauseBetweenTurns',
-      'pauseBeforeFirst': 'bool get pauseBeforeFirst',
-      'logConversation': 'bool get logConversation',
-      'stripThinkingTags': 'bool get stripThinkingTags',
-      'copilotModel': 'String? get copilotModel',
-      'conversationLogPath': 'String get conversationLogPath',
-      'goalReachedMarker': 'String get goalReachedMarker',
-      'profileKeys': 'List<String> get profileKeys',
-    },
-  );
-}
-
-// =============================================================================
-// SingleTurnResult Bridge
-// =============================================================================
-
-BridgedClass _createSingleTurnResultBridge() {
-  return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_9.SingleTurnResult,
-    name: 'SingleTurnResult',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_9.SingleTurnResult,
-    constructors: {
-      '': (visitor, positional, named) {
-        final localModelOutput = D4.getRequiredNamedArg<String>(
-          named,
-          'localModelOutput',
-          'SingleTurnResult',
-        );
-        final localModelStats = D4
-            .getOptionalNamedArg<$tom_vscode_scripting_api_10.AiTokenStats?>(
-              named,
-              'localModelStats',
-            );
-        final copilotResponse = D4
-            .getOptionalNamedArg<$tom_vscode_scripting_api_9.CopilotResponse?>(
-              named,
-              'copilotResponse',
-            );
-        return $tom_vscode_scripting_api_9.SingleTurnResult(
-          localModelOutput: localModelOutput,
-          localModelStats: localModelStats,
-          copilotResponse: copilotResponse,
-        );
-      },
-      'fromJson': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'SingleTurnResult');
-        if (positional.isEmpty) {
-          throw ArgumentError(
-            'SingleTurnResult: Missing required argument "json" at position 0',
-          );
-        }
-        final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_9.SingleTurnResult.fromJson(json);
-      },
-    },
-    getters: {
-      'localModelOutput': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.SingleTurnResult>(
-            target,
-            'SingleTurnResult',
-          )
-          .localModelOutput,
-      'localModelStats': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.SingleTurnResult>(
-            target,
-            'SingleTurnResult',
-          )
-          .localModelStats,
-      'copilotResponse': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.SingleTurnResult>(
-            target,
-            'SingleTurnResult',
-          )
-          .copilotResponse,
-    },
-    methods: {
-      'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4
-            .validateTarget<$tom_vscode_scripting_api_9.SingleTurnResult>(
-              target,
-              'SingleTurnResult',
-            );
-        return t.toString();
-      },
-    },
-    constructorSignatures: {
-      '': 'SingleTurnResult({required String localModelOutput, AiTokenStats? localModelStats, CopilotResponse? copilotResponse})',
-      'fromJson':
-          'factory SingleTurnResult.fromJson(Map<String, dynamic> json)',
-    },
-    methodSignatures: {'toString': 'String toString()'},
-    getterSignatures: {
-      'localModelOutput': 'String get localModelOutput',
-      'localModelStats': 'AiTokenStats? get localModelStats',
-      'copilotResponse': 'CopilotResponse? get copilotResponse',
-    },
-  );
-}
-
-// =============================================================================
-// ConversationActionResult Bridge
-// =============================================================================
-
-BridgedClass _createConversationActionResultBridge() {
-  return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_9.ConversationActionResult,
-    name: 'ConversationActionResult',
-    isAssignable: (v) =>
-        v is $tom_vscode_scripting_api_9.ConversationActionResult,
-    constructors: {
-      '': (visitor, positional, named) {
-        final success = D4.getRequiredNamedArg<bool>(
-          named,
-          'success',
-          'ConversationActionResult',
-        );
-        final message = D4.getRequiredNamedArg<String>(
-          named,
-          'message',
-          'ConversationActionResult',
-        );
-        final halted = D4.getOptionalNamedArg<bool?>(named, 'halted');
-        return $tom_vscode_scripting_api_9.ConversationActionResult(
-          success: success,
-          message: message,
-          halted: halted,
-        );
-      },
-      'fromJson': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'ConversationActionResult');
-        if (positional.isEmpty) {
-          throw ArgumentError(
-            'ConversationActionResult: Missing required argument "json" at position 0',
-          );
-        }
-        final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_9.ConversationActionResult.fromJson(
-          json,
-        );
-      },
-    },
-    getters: {
-      'success': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationActionResult>(
-            target,
-            'ConversationActionResult',
-          )
-          .success,
-      'message': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationActionResult>(
-            target,
-            'ConversationActionResult',
-          )
-          .message,
-      'halted': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationActionResult>(
-            target,
-            'ConversationActionResult',
-          )
-          .halted,
-    },
-    methods: {
-      'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4
-            .validateTarget<
-              $tom_vscode_scripting_api_9.ConversationActionResult
-            >(target, 'ConversationActionResult');
-        return t.toString();
-      },
-    },
-    constructorSignatures: {
-      '': 'ConversationActionResult({required bool success, required String message, bool? halted})',
-      'fromJson':
-          'factory ConversationActionResult.fromJson(Map<String, dynamic> json)',
-    },
-    methodSignatures: {'toString': 'String toString()'},
-    getterSignatures: {
-      'success': 'bool get success',
-      'message': 'String get message',
-      'halted': 'bool? get halted',
-    },
-  );
-}
-
-// =============================================================================
-// ConversationLog Bridge
-// =============================================================================
-
-BridgedClass _createConversationLogBridge() {
-  return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_9.ConversationLog,
-    name: 'ConversationLog',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_9.ConversationLog,
-    constructors: {
-      '': (visitor, positional, named) {
-        final found = D4.getRequiredNamedArg<bool>(
-          named,
-          'found',
-          'ConversationLog',
-        );
-        final conversationId = D4.getRequiredNamedArg<String>(
-          named,
-          'conversationId',
-          'ConversationLog',
-        );
-        final logFilePath = D4.getOptionalNamedArg<String?>(
-          named,
-          'logFilePath',
-        );
-        final content = D4.getOptionalNamedArg<String?>(named, 'content');
-        return $tom_vscode_scripting_api_9.ConversationLog(
-          found: found,
-          conversationId: conversationId,
-          logFilePath: logFilePath,
-          content: content,
-        );
-      },
-      'fromJson': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'ConversationLog');
-        if (positional.isEmpty) {
-          throw ArgumentError(
-            'ConversationLog: Missing required argument "json" at position 0',
-          );
-        }
-        final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_9.ConversationLog.fromJson(json);
-      },
-    },
-    getters: {
-      'found': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationLog>(
-            target,
-            'ConversationLog',
-          )
-          .found,
-      'conversationId': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationLog>(
-            target,
-            'ConversationLog',
-          )
-          .conversationId,
-      'logFilePath': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationLog>(
-            target,
-            'ConversationLog',
-          )
-          .logFilePath,
-      'content': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_9.ConversationLog>(
-            target,
-            'ConversationLog',
-          )
-          .content,
-    },
-    methods: {
-      'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4
-            .validateTarget<$tom_vscode_scripting_api_9.ConversationLog>(
-              target,
-              'ConversationLog',
-            );
-        return t.toString();
-      },
-    },
-    constructorSignatures: {
-      '': 'ConversationLog({required bool found, required String conversationId, String? logFilePath, String? content})',
-      'fromJson': 'factory ConversationLog.fromJson(Map<String, dynamic> json)',
-    },
-    methodSignatures: {'toString': 'String toString()'},
-    getterSignatures: {
-      'found': 'bool get found',
-      'conversationId': 'String get conversationId',
-      'logFilePath': 'String? get logFilePath',
-      'content': 'String? get content',
-    },
-  );
-}
-
-// =============================================================================
-// AiConversationApi Bridge
-// =============================================================================
-
-BridgedClass _createAiConversationApiBridge() {
-  return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_9.AiConversationApi,
-    name: 'AiConversationApi',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_9.AiConversationApi,
-    constructors: {},
-    staticMethods: {
-      'start': (visitor, positional, named, typeArgs) {
-        final goal = D4.getRequiredNamedArg<String>(named, 'goal', 'start');
-        final description = D4.getOptionalNamedArg<String?>(
-          named,
-          'description',
-        );
-        final profile = D4.getOptionalNamedArg<String?>(named, 'profile');
-        final maxTurns = D4.getOptionalNamedArg<int?>(named, 'maxTurns');
-        final temperature = D4.getOptionalNamedArg<double?>(
-          named,
-          'temperature',
-        );
-        final modelConfig = D4.getOptionalNamedArg<String?>(
-          named,
-          'modelConfig',
-        );
-        final historyMode = D4
-            .getOptionalNamedArg<$tom_vscode_scripting_api_9.HistoryMode?>(
-              named,
-              'historyMode',
-            );
-        final includeFileContext = D4.coerceListOrNull<String>(
-          named['includeFileContext'],
-          'includeFileContext',
-        );
-        final pauseBetweenTurns = D4.getOptionalNamedArg<bool?>(
-          named,
-          'pauseBetweenTurns',
-        );
-        final conversationMode = D4
-            .getOptionalNamedArg<$tom_vscode_scripting_api_9.ConversationMode?>(
-              named,
-              'conversationMode',
-            );
-        final timeoutSeconds = D4.getNamedArgWithDefault<int>(
-          named,
-          'timeoutSeconds',
-          1800,
-        );
-        return $tom_vscode_scripting_api_9.AiConversationApi.start(
-          goal: goal,
-          description: description,
-          profile: profile,
-          maxTurns: maxTurns,
-          temperature: temperature,
-          modelConfig: modelConfig,
-          historyMode: historyMode,
-          includeFileContext: includeFileContext,
-          pauseBetweenTurns: pauseBetweenTurns,
-          conversationMode: conversationMode,
-          timeoutSeconds: timeoutSeconds,
-        );
-      },
-      'stop': (visitor, positional, named, typeArgs) {
-        final reason = D4.getOptionalNamedArg<String?>(named, 'reason');
-        final timeoutSeconds = D4.getNamedArgWithDefault<int>(
-          named,
-          'timeoutSeconds',
-          30,
-        );
-        return $tom_vscode_scripting_api_9.AiConversationApi.stop(
-          reason: reason,
-          timeoutSeconds: timeoutSeconds,
-        );
-      },
-      'halt': (visitor, positional, named, typeArgs) {
-        final reason = D4.getOptionalNamedArg<String?>(named, 'reason');
-        final timeoutSeconds = D4.getNamedArgWithDefault<int>(
-          named,
-          'timeoutSeconds',
-          30,
-        );
-        return $tom_vscode_scripting_api_9.AiConversationApi.halt(
-          reason: reason,
-          timeoutSeconds: timeoutSeconds,
-        );
-      },
-      'continueConversation': (visitor, positional, named, typeArgs) {
-        final timeoutSeconds = D4.getNamedArgWithDefault<int>(
-          named,
-          'timeoutSeconds',
-          30,
-        );
-        return $tom_vscode_scripting_api_9
-            .AiConversationApi.continueConversation(
-          timeoutSeconds: timeoutSeconds,
-        );
-      },
-      'addInfo': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'addInfo');
-        final text = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'text',
-          'addInfo',
-        );
-        final timeoutSeconds = D4.getNamedArgWithDefault<int>(
-          named,
-          'timeoutSeconds',
-          30,
-        );
-        return $tom_vscode_scripting_api_9.AiConversationApi.addInfo(
-          text,
-          timeoutSeconds: timeoutSeconds,
-        );
-      },
-      'status': (visitor, positional, named, typeArgs) {
-        final timeoutSeconds = D4.getNamedArgWithDefault<int>(
-          named,
-          'timeoutSeconds',
-          30,
-        );
-        return $tom_vscode_scripting_api_9.AiConversationApi.status(
-          timeoutSeconds: timeoutSeconds,
-        );
-      },
-      'getLog': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'getLog');
-        final conversationId = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'conversationId',
-          'getLog',
-        );
-        final timeoutSeconds = D4.getNamedArgWithDefault<int>(
-          named,
-          'timeoutSeconds',
-          30,
-        );
-        return $tom_vscode_scripting_api_9.AiConversationApi.getLog(
-          conversationId,
-          timeoutSeconds: timeoutSeconds,
-        );
-      },
-      'getConfig': (visitor, positional, named, typeArgs) {
-        final timeoutSeconds = D4.getNamedArgWithDefault<int>(
-          named,
-          'timeoutSeconds',
-          30,
-        );
-        return $tom_vscode_scripting_api_9.AiConversationApi.getConfig(
-          timeoutSeconds: timeoutSeconds,
-        );
-      },
-      'getProfiles': (visitor, positional, named, typeArgs) {
-        final timeoutSeconds = D4.getNamedArgWithDefault<int>(
-          named,
-          'timeoutSeconds',
-          30,
-        );
-        return $tom_vscode_scripting_api_9.AiConversationApi.getProfiles(
-          timeoutSeconds: timeoutSeconds,
-        );
-      },
-      'singleTurn': (visitor, positional, named, typeArgs) {
-        final prompt = D4.getRequiredNamedArg<String>(
-          named,
-          'prompt',
-          'singleTurn',
-        );
-        final systemPrompt = D4.getOptionalNamedArg<String?>(
-          named,
-          'systemPrompt',
-        );
-        final modelConfig = D4.getOptionalNamedArg<String?>(
-          named,
-          'modelConfig',
-        );
-        final temperature = D4.getOptionalNamedArg<double?>(
-          named,
-          'temperature',
-        );
-        final sendToCopilot = D4.getNamedArgWithDefault<bool>(
-          named,
-          'sendToCopilot',
-          true,
-        );
-        final copilotSuffix = D4.getOptionalNamedArg<String?>(
-          named,
-          'copilotSuffix',
-        );
-        final timeoutSeconds = D4.getNamedArgWithDefault<int>(
-          named,
-          'timeoutSeconds',
-          300,
-        );
-        return $tom_vscode_scripting_api_9.AiConversationApi.singleTurn(
-          prompt: prompt,
-          systemPrompt: systemPrompt,
-          modelConfig: modelConfig,
-          temperature: temperature,
-          sendToCopilot: sendToCopilot,
-          copilotSuffix: copilotSuffix,
-          timeoutSeconds: timeoutSeconds,
-        );
-      },
-    },
-    staticMethodSignatures: {
-      'start':
-          'Future<ConversationResult> start({required String goal, String? description, String? profile, int? maxTurns, double? temperature, String? modelConfig, HistoryMode? historyMode, List<String>? includeFileContext, bool? pauseBetweenTurns, ConversationMode? conversationMode, int timeoutSeconds = 1800})',
-      'stop':
-          'Future<ConversationActionResult> stop({String? reason, int timeoutSeconds = 30})',
-      'halt':
-          'Future<ConversationActionResult> halt({String? reason, int timeoutSeconds = 30})',
-      'continueConversation':
-          'Future<ConversationActionResult> continueConversation({int timeoutSeconds = 30})',
-      'addInfo':
-          'Future<ConversationActionResult> addInfo(String text, {int timeoutSeconds = 30})',
-      'status': 'Future<ConversationStatus> status({int timeoutSeconds = 30})',
-      'getLog':
-          'Future<ConversationLog> getLog(String conversationId, {int timeoutSeconds = 30})',
-      'getConfig':
-          'Future<ConversationConfig> getConfig({int timeoutSeconds = 30})',
-      'getProfiles':
-          'Future<List<ConversationProfile>> getProfiles({int timeoutSeconds = 30})',
-      'singleTurn':
-          'Future<SingleTurnResult> singleTurn({required String prompt, String? systemPrompt, String? modelConfig, double? temperature, bool sendToCopilot = true, String? copilotSuffix, int timeoutSeconds = 300})',
-    },
   );
 }
 
@@ -20093,9 +17773,9 @@ BridgedClass _createTomTodoReferenceBridge() {
 
 BridgedClass _createTodoEntryBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_17.TodoEntry,
+    nativeType: $tom_vscode_scripting_api_15.TodoEntry,
     name: 'TodoEntry',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_17.TodoEntry,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_15.TodoEntry,
     constructors: {
       '': (visitor, positional, named) {
         final todo = D4.getRequiredNamedArg<$tom_todo_model_1.TomTodo>(
@@ -20105,7 +17785,7 @@ BridgedClass _createTodoEntryBridge() {
         );
         final sourceFile = D4.getOptionalNamedArg<String?>(named, 'sourceFile');
         final level = D4
-            .getOptionalNamedArg<$tom_vscode_scripting_api_17.TodoLevel?>(
+            .getOptionalNamedArg<$tom_vscode_scripting_api_15.TodoLevel?>(
               named,
               'level',
             );
@@ -20116,7 +17796,7 @@ BridgedClass _createTodoEntryBridge() {
                 'unknownFields',
               )
             : const <String, Object?>{};
-        return $tom_vscode_scripting_api_17.TodoEntry(
+        return $tom_vscode_scripting_api_15.TodoEntry(
           todo: todo,
           sourceFile: sourceFile,
           level: level,
@@ -20126,25 +17806,25 @@ BridgedClass _createTodoEntryBridge() {
     },
     getters: {
       'todo': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_17.TodoEntry>(
+          .validateTarget<$tom_vscode_scripting_api_15.TodoEntry>(
             target,
             'TodoEntry',
           )
           .todo,
       'sourceFile': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_17.TodoEntry>(
+          .validateTarget<$tom_vscode_scripting_api_15.TodoEntry>(
             target,
             'TodoEntry',
           )
           .sourceFile,
       'level': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_17.TodoEntry>(
+          .validateTarget<$tom_vscode_scripting_api_15.TodoEntry>(
             target,
             'TodoEntry',
           )
           .level,
       'unknownFields': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_17.TodoEntry>(
+          .validateTarget<$tom_vscode_scripting_api_15.TodoEntry>(
             target,
             'TodoEntry',
           )
@@ -20168,9 +17848,9 @@ BridgedClass _createTodoEntryBridge() {
 
 BridgedClass _createInvalidTodoBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_17.InvalidTodo,
+    nativeType: $tom_vscode_scripting_api_15.InvalidTodo,
     name: 'InvalidTodo',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_17.InvalidTodo,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_15.InvalidTodo,
     constructors: {
       '': (visitor, positional, named) {
         final id = D4.getRequiredNamedArg<String?>(named, 'id', 'InvalidTodo');
@@ -20185,7 +17865,7 @@ BridgedClass _createInvalidTodoBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(named['json'], 'json');
-        return $tom_vscode_scripting_api_17.InvalidTodo(
+        return $tom_vscode_scripting_api_15.InvalidTodo(
           id: id,
           error: error,
           json: json,
@@ -20194,19 +17874,19 @@ BridgedClass _createInvalidTodoBridge() {
     },
     getters: {
       'id': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_17.InvalidTodo>(
+          .validateTarget<$tom_vscode_scripting_api_15.InvalidTodo>(
             target,
             'InvalidTodo',
           )
           .id,
       'error': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_17.InvalidTodo>(
+          .validateTarget<$tom_vscode_scripting_api_15.InvalidTodo>(
             target,
             'InvalidTodo',
           )
           .error,
       'json': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_17.InvalidTodo>(
+          .validateTarget<$tom_vscode_scripting_api_15.InvalidTodo>(
             target,
             'InvalidTodo',
           )
@@ -20229,9 +17909,9 @@ BridgedClass _createInvalidTodoBridge() {
 
 BridgedClass _createTodoWireBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_17.TodoWire,
+    nativeType: $tom_vscode_scripting_api_15.TodoWire,
     name: 'TodoWire',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_17.TodoWire,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_15.TodoWire,
     isAbstract: true,
     constructors: {},
     staticMethods: {
@@ -20243,7 +17923,7 @@ BridgedClass _createTodoWireBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_17.TodoWire.fromBridge(json);
+        return $tom_vscode_scripting_api_15.TodoWire.fromBridge(json);
       },
       'toBridge': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'toBridge');
@@ -20253,7 +17933,7 @@ BridgedClass _createTodoWireBridge() {
           'todo',
           'toBridge',
         );
-        return $tom_vscode_scripting_api_17.TodoWire.toBridge(todo);
+        return $tom_vscode_scripting_api_15.TodoWire.toBridge(todo);
       },
       'toSessionBridge': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'toSessionBridge');
@@ -20263,7 +17943,7 @@ BridgedClass _createTodoWireBridge() {
           'todo',
           'toSessionBridge',
         );
-        return $tom_vscode_scripting_api_17.TodoWire.toSessionBridge(todo);
+        return $tom_vscode_scripting_api_15.TodoWire.toSessionBridge(todo);
       },
       'fromBridgeOrNull': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'fromBridgeOrNull');
@@ -20273,7 +17953,7 @@ BridgedClass _createTodoWireBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_17.TodoWire.fromBridgeOrNull(json);
+        return $tom_vscode_scripting_api_15.TodoWire.fromBridgeOrNull(json);
       },
     },
     staticMethodSignatures: {
@@ -20292,9 +17972,9 @@ BridgedClass _createTodoWireBridge() {
 
 BridgedClass _createTodoListResultBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_17.TodoListResult,
+    nativeType: $tom_vscode_scripting_api_15.TodoListResult,
     name: 'TodoListResult',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_17.TodoListResult,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_15.TodoListResult,
     constructors: {
       '': (visitor, positional, named) {
         if (!named.containsKey('entries') || named['entries'] == null) {
@@ -20302,19 +17982,19 @@ BridgedClass _createTodoListResultBridge() {
             'TodoListResult: Missing required named argument "entries"',
           );
         }
-        final entries = D4.coerceList<$tom_vscode_scripting_api_17.TodoEntry>(
+        final entries = D4.coerceList<$tom_vscode_scripting_api_15.TodoEntry>(
           named['entries'],
           'entries',
         );
         final invalid = named.containsKey('invalid') && named['invalid'] != null
-            ? D4.coerceList<$tom_vscode_scripting_api_17.InvalidTodo>(
+            ? D4.coerceList<$tom_vscode_scripting_api_15.InvalidTodo>(
                 named['invalid'],
                 'invalid',
               )
-            : const <$tom_vscode_scripting_api_17.InvalidTodo>[];
+            : const <$tom_vscode_scripting_api_15.InvalidTodo>[];
         final questId = D4.getOptionalNamedArg<String?>(named, 'questId');
         final file = D4.getOptionalNamedArg<String?>(named, 'file');
-        return $tom_vscode_scripting_api_17.TodoListResult(
+        return $tom_vscode_scripting_api_15.TodoListResult(
           entries: entries,
           invalid: invalid,
           questId: questId,
@@ -20329,36 +18009,36 @@ BridgedClass _createTodoListResultBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_17.TodoListResult.fromJson(json);
+        return $tom_vscode_scripting_api_15.TodoListResult.fromJson(json);
       },
     },
     getters: {
       'entries': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_17.TodoListResult>(
+          .validateTarget<$tom_vscode_scripting_api_15.TodoListResult>(
             target,
             'TodoListResult',
           )
           .entries,
       'invalid': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_17.TodoListResult>(
+          .validateTarget<$tom_vscode_scripting_api_15.TodoListResult>(
             target,
             'TodoListResult',
           )
           .invalid,
       'questId': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_17.TodoListResult>(
+          .validateTarget<$tom_vscode_scripting_api_15.TodoListResult>(
             target,
             'TodoListResult',
           )
           .questId,
       'file': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_17.TodoListResult>(
+          .validateTarget<$tom_vscode_scripting_api_15.TodoListResult>(
             target,
             'TodoListResult',
           )
           .file,
       'todos': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_17.TodoListResult>(
+          .validateTarget<$tom_vscode_scripting_api_15.TodoListResult>(
             target,
             'TodoListResult',
           )
@@ -20384,9 +18064,9 @@ BridgedClass _createTodoListResultBridge() {
 
 BridgedClass _createTodoFileListResultBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_17.TodoFileListResult,
+    nativeType: $tom_vscode_scripting_api_15.TodoFileListResult,
     name: 'TodoFileListResult',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_17.TodoFileListResult,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_15.TodoFileListResult,
     constructors: {
       '': (visitor, positional, named) {
         if (!named.containsKey('files') || named['files'] == null) {
@@ -20396,7 +18076,7 @@ BridgedClass _createTodoFileListResultBridge() {
         }
         final files = D4.coerceList<String>(named['files'], 'files');
         final questId = D4.getOptionalNamedArg<String?>(named, 'questId');
-        return $tom_vscode_scripting_api_17.TodoFileListResult(
+        return $tom_vscode_scripting_api_15.TodoFileListResult(
           files: files,
           questId: questId,
         );
@@ -20409,18 +18089,18 @@ BridgedClass _createTodoFileListResultBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_17.TodoFileListResult.fromJson(json);
+        return $tom_vscode_scripting_api_15.TodoFileListResult.fromJson(json);
       },
     },
     getters: {
       'files': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_17.TodoFileListResult>(
+          .validateTarget<$tom_vscode_scripting_api_15.TodoFileListResult>(
             target,
             'TodoFileListResult',
           )
           .files,
       'questId': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_17.TodoFileListResult>(
+          .validateTarget<$tom_vscode_scripting_api_15.TodoFileListResult>(
             target,
             'TodoFileListResult',
           )
@@ -20444,22 +18124,22 @@ BridgedClass _createTodoFileListResultBridge() {
 
 BridgedClass _createTomTodoApiBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_17.TomTodoApi,
+    nativeType: $tom_vscode_scripting_api_15.TomTodoApi,
     name: 'TomTodoApi',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_17.TomTodoApi,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_15.TomTodoApi,
     isAbstract: true,
     constructors: {},
     staticMethods: {
       'setAdapter': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'setAdapter');
         final adapter = D4
-            .getRequiredArg<$tom_vscode_scripting_api_21.VSCodeAdapter>(
+            .getRequiredArg<$tom_vscode_scripting_api_19.VSCodeAdapter>(
               positional,
               0,
               'adapter',
               'setAdapter',
             );
-        return $tom_vscode_scripting_api_17.TomTodoApi.setAdapter(adapter);
+        return $tom_vscode_scripting_api_15.TomTodoApi.setAdapter(adapter);
       },
       'listQuestTodoFiles': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'listQuestTodoFiles');
@@ -20469,7 +18149,7 @@ BridgedClass _createTomTodoApiBridge() {
           'questId',
           'listQuestTodoFiles',
         );
-        return $tom_vscode_scripting_api_17.TomTodoApi.listQuestTodoFiles(
+        return $tom_vscode_scripting_api_15.TomTodoApi.listQuestTodoFiles(
           questId,
         );
       },
@@ -20482,7 +18162,7 @@ BridgedClass _createTomTodoApiBridge() {
           'listQuestTodos',
         );
         final file = D4.getOptionalNamedArg<String?>(named, 'file');
-        return $tom_vscode_scripting_api_17.TomTodoApi.listQuestTodos(
+        return $tom_vscode_scripting_api_15.TomTodoApi.listQuestTodos(
           questId,
           file: file,
         );
@@ -20502,7 +18182,7 @@ BridgedClass _createTomTodoApiBridge() {
           'getQuestTodo',
         );
         final file = D4.getOptionalNamedArg<String?>(named, 'file');
-        return $tom_vscode_scripting_api_17.TomTodoApi.getQuestTodo(
+        return $tom_vscode_scripting_api_15.TomTodoApi.getQuestTodo(
           questId,
           todoId,
           file: file,
@@ -20523,7 +18203,7 @@ BridgedClass _createTomTodoApiBridge() {
           'createQuestTodo',
         );
         final file = D4.getOptionalNamedArg<String?>(named, 'file');
-        return $tom_vscode_scripting_api_17.TomTodoApi.createQuestTodo(
+        return $tom_vscode_scripting_api_15.TomTodoApi.createQuestTodo(
           questId,
           todo,
           file: file,
@@ -20544,7 +18224,7 @@ BridgedClass _createTomTodoApiBridge() {
           'updateQuestTodo',
         );
         final file = D4.getOptionalNamedArg<String?>(named, 'file');
-        return $tom_vscode_scripting_api_17.TomTodoApi.updateQuestTodo(
+        return $tom_vscode_scripting_api_15.TomTodoApi.updateQuestTodo(
           questId,
           todo,
           file: file,
@@ -20565,18 +18245,18 @@ BridgedClass _createTomTodoApiBridge() {
           'deleteQuestTodo',
         );
         final file = D4.getOptionalNamedArg<String?>(named, 'file');
-        return $tom_vscode_scripting_api_17.TomTodoApi.deleteQuestTodo(
+        return $tom_vscode_scripting_api_15.TomTodoApi.deleteQuestTodo(
           questId,
           todoId,
           file: file,
         );
       },
       'listWorkspaceTodoFiles': (visitor, positional, named, typeArgs) {
-        return $tom_vscode_scripting_api_17.TomTodoApi.listWorkspaceTodoFiles();
+        return $tom_vscode_scripting_api_15.TomTodoApi.listWorkspaceTodoFiles();
       },
       'listWorkspaceTodos': (visitor, positional, named, typeArgs) {
         final file = D4.getOptionalNamedArg<String?>(named, 'file');
-        return $tom_vscode_scripting_api_17.TomTodoApi.listWorkspaceTodos(
+        return $tom_vscode_scripting_api_15.TomTodoApi.listWorkspaceTodos(
           file: file,
         );
       },
@@ -20589,7 +18269,7 @@ BridgedClass _createTomTodoApiBridge() {
           'getWorkspaceTodo',
         );
         final file = D4.getOptionalNamedArg<String?>(named, 'file');
-        return $tom_vscode_scripting_api_17.TomTodoApi.getWorkspaceTodo(
+        return $tom_vscode_scripting_api_15.TomTodoApi.getWorkspaceTodo(
           todoId,
           file: file,
         );
@@ -20603,7 +18283,7 @@ BridgedClass _createTomTodoApiBridge() {
           'createWorkspaceTodo',
         );
         final file = D4.getOptionalNamedArg<String?>(named, 'file');
-        return $tom_vscode_scripting_api_17.TomTodoApi.createWorkspaceTodo(
+        return $tom_vscode_scripting_api_15.TomTodoApi.createWorkspaceTodo(
           todo,
           file: file,
         );
@@ -20617,7 +18297,7 @@ BridgedClass _createTomTodoApiBridge() {
           'updateWorkspaceTodo',
         );
         final file = D4.getOptionalNamedArg<String?>(named, 'file');
-        return $tom_vscode_scripting_api_17.TomTodoApi.updateWorkspaceTodo(
+        return $tom_vscode_scripting_api_15.TomTodoApi.updateWorkspaceTodo(
           todo,
           file: file,
         );
@@ -20631,13 +18311,13 @@ BridgedClass _createTomTodoApiBridge() {
           'deleteWorkspaceTodo',
         );
         final file = D4.getOptionalNamedArg<String?>(named, 'file');
-        return $tom_vscode_scripting_api_17.TomTodoApi.deleteWorkspaceTodo(
+        return $tom_vscode_scripting_api_15.TomTodoApi.deleteWorkspaceTodo(
           todoId,
           file: file,
         );
       },
       'listSessionTodos': (visitor, positional, named, typeArgs) {
-        return $tom_vscode_scripting_api_17.TomTodoApi.listSessionTodos();
+        return $tom_vscode_scripting_api_15.TomTodoApi.listSessionTodos();
       },
       'getSessionTodo': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'getSessionTodo');
@@ -20647,7 +18327,7 @@ BridgedClass _createTomTodoApiBridge() {
           'todoId',
           'getSessionTodo',
         );
-        return $tom_vscode_scripting_api_17.TomTodoApi.getSessionTodo(todoId);
+        return $tom_vscode_scripting_api_15.TomTodoApi.getSessionTodo(todoId);
       },
       'createSessionTodo': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'createSessionTodo');
@@ -20657,7 +18337,7 @@ BridgedClass _createTomTodoApiBridge() {
           'todo',
           'createSessionTodo',
         );
-        return $tom_vscode_scripting_api_17.TomTodoApi.createSessionTodo(todo);
+        return $tom_vscode_scripting_api_15.TomTodoApi.createSessionTodo(todo);
       },
       'updateSessionTodo': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'updateSessionTodo');
@@ -20667,7 +18347,7 @@ BridgedClass _createTomTodoApiBridge() {
           'todo',
           'updateSessionTodo',
         );
-        return $tom_vscode_scripting_api_17.TomTodoApi.updateSessionTodo(todo);
+        return $tom_vscode_scripting_api_15.TomTodoApi.updateSessionTodo(todo);
       },
       'deleteSessionTodo': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'deleteSessionTodo');
@@ -20677,7 +18357,7 @@ BridgedClass _createTomTodoApiBridge() {
           'todoId',
           'deleteSessionTodo',
         );
-        return $tom_vscode_scripting_api_17.TomTodoApi.deleteSessionTodo(
+        return $tom_vscode_scripting_api_15.TomTodoApi.deleteSessionTodo(
           todoId,
         );
       },
@@ -20698,7 +18378,7 @@ BridgedClass _createTomTodoApiBridge() {
           true,
         );
         final questId = D4.getOptionalNamedArg<String?>(named, 'questId');
-        return $tom_vscode_scripting_api_17.TomTodoApi.listAllTodos(
+        return $tom_vscode_scripting_api_15.TomTodoApi.listAllTodos(
           includeQuest: includeQuest,
           includeWorkspace: includeWorkspace,
           includeSession: includeSession,
@@ -20749,9 +18429,9 @@ BridgedClass _createTomTodoApiBridge() {
 
 BridgedClass _createQueuedFollowUpBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_15.QueuedFollowUp,
+    nativeType: $tom_vscode_scripting_api_13.QueuedFollowUp,
     name: 'QueuedFollowUp',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_15.QueuedFollowUp,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_13.QueuedFollowUp,
     constructors: {
       '': (visitor, positional, named) {
         final id = D4.getRequiredNamedArg<String>(
@@ -20786,7 +18466,7 @@ BridgedClass _createQueuedFollowUpBridge() {
           'createdAt',
           'QueuedFollowUp',
         );
-        return $tom_vscode_scripting_api_15.QueuedFollowUp(
+        return $tom_vscode_scripting_api_13.QueuedFollowUp(
           id: id,
           originalText: originalText,
           template: template,
@@ -20805,54 +18485,54 @@ BridgedClass _createQueuedFollowUpBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_15.QueuedFollowUp.fromJson(json);
+        return $tom_vscode_scripting_api_13.QueuedFollowUp.fromJson(json);
       },
     },
     getters: {
       'id': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.QueuedFollowUp>(
+          .validateTarget<$tom_vscode_scripting_api_13.QueuedFollowUp>(
             target,
             'QueuedFollowUp',
           )
           .id,
       'originalText': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.QueuedFollowUp>(
+          .validateTarget<$tom_vscode_scripting_api_13.QueuedFollowUp>(
             target,
             'QueuedFollowUp',
           )
           .originalText,
       'template': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.QueuedFollowUp>(
+          .validateTarget<$tom_vscode_scripting_api_13.QueuedFollowUp>(
             target,
             'QueuedFollowUp',
           )
           .template,
       'reminderTemplateId': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.QueuedFollowUp>(
+          .validateTarget<$tom_vscode_scripting_api_13.QueuedFollowUp>(
             target,
             'QueuedFollowUp',
           )
           .reminderTemplateId,
       'reminderTimeoutMinutes': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.QueuedFollowUp>(
+          .validateTarget<$tom_vscode_scripting_api_13.QueuedFollowUp>(
             target,
             'QueuedFollowUp',
           )
           .reminderTimeoutMinutes,
       'reminderRepeat': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.QueuedFollowUp>(
+          .validateTarget<$tom_vscode_scripting_api_13.QueuedFollowUp>(
             target,
             'QueuedFollowUp',
           )
           .reminderRepeat,
       'reminderEnabled': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.QueuedFollowUp>(
+          .validateTarget<$tom_vscode_scripting_api_13.QueuedFollowUp>(
             target,
             'QueuedFollowUp',
           )
           .reminderEnabled,
       'createdAt': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.QueuedFollowUp>(
+          .validateTarget<$tom_vscode_scripting_api_13.QueuedFollowUp>(
             target,
             'QueuedFollowUp',
           )
@@ -20861,7 +18541,7 @@ BridgedClass _createQueuedFollowUpBridge() {
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_15.QueuedFollowUp>(
+            .validateTarget<$tom_vscode_scripting_api_13.QueuedFollowUp>(
               target,
               'QueuedFollowUp',
             );
@@ -20892,9 +18572,9 @@ BridgedClass _createQueuedFollowUpBridge() {
 
 BridgedClass _createQueuedPromptBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_15.QueuedPrompt,
+    nativeType: $tom_vscode_scripting_api_13.QueuedPrompt,
     name: 'QueuedPrompt',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_15.QueuedPrompt,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_13.QueuedPrompt,
     constructors: {
       '': (visitor, positional, named) {
         final id = D4.getRequiredNamedArg<String>(named, 'id', 'QueuedPrompt');
@@ -20919,10 +18599,10 @@ BridgedClass _createQueuedPromptBridge() {
         );
         final status = D4
             .getRequiredNamedArg<
-              $tom_vscode_scripting_api_15.QueuedPromptStatus
+              $tom_vscode_scripting_api_13.QueuedPromptStatus
             >(named, 'status', 'QueuedPrompt');
         final type = D4
-            .getRequiredNamedArg<$tom_vscode_scripting_api_15.QueuedPromptType>(
+            .getRequiredNamedArg<$tom_vscode_scripting_api_13.QueuedPromptType>(
               named,
               'type',
               'QueuedPrompt',
@@ -20968,7 +18648,7 @@ BridgedClass _createQueuedPromptBridge() {
           'expectedRequestId',
         );
         final followUps = D4
-            .coerceListOrNull<$tom_vscode_scripting_api_15.QueuedFollowUp>(
+            .coerceListOrNull<$tom_vscode_scripting_api_13.QueuedFollowUp>(
               named['followUps'],
               'followUps',
             );
@@ -20976,7 +18656,7 @@ BridgedClass _createQueuedPromptBridge() {
           named,
           'followUpIndex',
         );
-        return $tom_vscode_scripting_api_15.QueuedPrompt(
+        return $tom_vscode_scripting_api_13.QueuedPrompt(
           id: id,
           template: template,
           answerWrapper: answerWrapper,
@@ -21008,132 +18688,132 @@ BridgedClass _createQueuedPromptBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_15.QueuedPrompt.fromJson(json);
+        return $tom_vscode_scripting_api_13.QueuedPrompt.fromJson(json);
       },
     },
     getters: {
       'id': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.QueuedPrompt>(
+          .validateTarget<$tom_vscode_scripting_api_13.QueuedPrompt>(
             target,
             'QueuedPrompt',
           )
           .id,
       'template': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.QueuedPrompt>(
+          .validateTarget<$tom_vscode_scripting_api_13.QueuedPrompt>(
             target,
             'QueuedPrompt',
           )
           .template,
       'answerWrapper': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.QueuedPrompt>(
+          .validateTarget<$tom_vscode_scripting_api_13.QueuedPrompt>(
             target,
             'QueuedPrompt',
           )
           .answerWrapper,
       'originalText': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.QueuedPrompt>(
+          .validateTarget<$tom_vscode_scripting_api_13.QueuedPrompt>(
             target,
             'QueuedPrompt',
           )
           .originalText,
       'expandedText': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.QueuedPrompt>(
+          .validateTarget<$tom_vscode_scripting_api_13.QueuedPrompt>(
             target,
             'QueuedPrompt',
           )
           .expandedText,
       'status': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.QueuedPrompt>(
+          .validateTarget<$tom_vscode_scripting_api_13.QueuedPrompt>(
             target,
             'QueuedPrompt',
           )
           .status,
       'type': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.QueuedPrompt>(
+          .validateTarget<$tom_vscode_scripting_api_13.QueuedPrompt>(
             target,
             'QueuedPrompt',
           )
           .type,
       'createdAt': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.QueuedPrompt>(
+          .validateTarget<$tom_vscode_scripting_api_13.QueuedPrompt>(
             target,
             'QueuedPrompt',
           )
           .createdAt,
       'sentAt': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.QueuedPrompt>(
+          .validateTarget<$tom_vscode_scripting_api_13.QueuedPrompt>(
             target,
             'QueuedPrompt',
           )
           .sentAt,
       'error': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.QueuedPrompt>(
+          .validateTarget<$tom_vscode_scripting_api_13.QueuedPrompt>(
             target,
             'QueuedPrompt',
           )
           .error,
       'reminderTemplateId': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.QueuedPrompt>(
+          .validateTarget<$tom_vscode_scripting_api_13.QueuedPrompt>(
             target,
             'QueuedPrompt',
           )
           .reminderTemplateId,
       'reminderTimeoutMinutes': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.QueuedPrompt>(
+          .validateTarget<$tom_vscode_scripting_api_13.QueuedPrompt>(
             target,
             'QueuedPrompt',
           )
           .reminderTimeoutMinutes,
       'reminderRepeat': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.QueuedPrompt>(
+          .validateTarget<$tom_vscode_scripting_api_13.QueuedPrompt>(
             target,
             'QueuedPrompt',
           )
           .reminderRepeat,
       'reminderEnabled': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.QueuedPrompt>(
+          .validateTarget<$tom_vscode_scripting_api_13.QueuedPrompt>(
             target,
             'QueuedPrompt',
           )
           .reminderEnabled,
       'reminderQueued': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.QueuedPrompt>(
+          .validateTarget<$tom_vscode_scripting_api_13.QueuedPrompt>(
             target,
             'QueuedPrompt',
           )
           .reminderQueued,
       'reminderSentCount': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.QueuedPrompt>(
+          .validateTarget<$tom_vscode_scripting_api_13.QueuedPrompt>(
             target,
             'QueuedPrompt',
           )
           .reminderSentCount,
       'lastReminderAt': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.QueuedPrompt>(
+          .validateTarget<$tom_vscode_scripting_api_13.QueuedPrompt>(
             target,
             'QueuedPrompt',
           )
           .lastReminderAt,
       'requestId': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.QueuedPrompt>(
+          .validateTarget<$tom_vscode_scripting_api_13.QueuedPrompt>(
             target,
             'QueuedPrompt',
           )
           .requestId,
       'expectedRequestId': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.QueuedPrompt>(
+          .validateTarget<$tom_vscode_scripting_api_13.QueuedPrompt>(
             target,
             'QueuedPrompt',
           )
           .expectedRequestId,
       'followUps': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.QueuedPrompt>(
+          .validateTarget<$tom_vscode_scripting_api_13.QueuedPrompt>(
             target,
             'QueuedPrompt',
           )
           .followUps,
       'followUpIndex': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.QueuedPrompt>(
+          .validateTarget<$tom_vscode_scripting_api_13.QueuedPrompt>(
             target,
             'QueuedPrompt',
           )
@@ -21141,7 +18821,7 @@ BridgedClass _createQueuedPromptBridge() {
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_15.QueuedPrompt>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_13.QueuedPrompt>(
           target,
           'QueuedPrompt',
         );
@@ -21185,9 +18865,9 @@ BridgedClass _createQueuedPromptBridge() {
 
 BridgedClass _createQueueListResultBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_15.QueueListResult,
+    nativeType: $tom_vscode_scripting_api_13.QueueListResult,
     name: 'QueueListResult',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_15.QueueListResult,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_13.QueueListResult,
     constructors: {
       '': (visitor, positional, named) {
         if (!named.containsKey('items') || named['items'] == null) {
@@ -21195,7 +18875,7 @@ BridgedClass _createQueueListResultBridge() {
             'QueueListResult: Missing required named argument "items"',
           );
         }
-        final items = D4.coerceList<$tom_vscode_scripting_api_15.QueuedPrompt>(
+        final items = D4.coerceList<$tom_vscode_scripting_api_13.QueuedPrompt>(
           named['items'],
           'items',
         );
@@ -21214,7 +18894,7 @@ BridgedClass _createQueueListResultBridge() {
           'sentCount',
           'QueueListResult',
         );
-        return $tom_vscode_scripting_api_15.QueueListResult(
+        return $tom_vscode_scripting_api_13.QueueListResult(
           items: items,
           totalCount: totalCount,
           pendingCount: pendingCount,
@@ -21229,30 +18909,30 @@ BridgedClass _createQueueListResultBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_15.QueueListResult.fromJson(json);
+        return $tom_vscode_scripting_api_13.QueueListResult.fromJson(json);
       },
     },
     getters: {
       'items': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.QueueListResult>(
+          .validateTarget<$tom_vscode_scripting_api_13.QueueListResult>(
             target,
             'QueueListResult',
           )
           .items,
       'totalCount': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.QueueListResult>(
+          .validateTarget<$tom_vscode_scripting_api_13.QueueListResult>(
             target,
             'QueueListResult',
           )
           .totalCount,
       'pendingCount': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.QueueListResult>(
+          .validateTarget<$tom_vscode_scripting_api_13.QueueListResult>(
             target,
             'QueueListResult',
           )
           .pendingCount,
       'sentCount': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.QueueListResult>(
+          .validateTarget<$tom_vscode_scripting_api_13.QueueListResult>(
             target,
             'QueueListResult',
           )
@@ -21277,9 +18957,9 @@ BridgedClass _createQueueListResultBridge() {
 
 BridgedClass _createQueueItemInputBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_15.QueueItemInput,
+    nativeType: $tom_vscode_scripting_api_13.QueueItemInput,
     name: 'QueueItemInput',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_15.QueueItemInput,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_13.QueueItemInput,
     constructors: {
       '': (visitor, positional, named) {
         final promptText = D4.getRequiredNamedArg<String>(
@@ -21308,7 +18988,7 @@ BridgedClass _createQueueItemInputBridge() {
           named,
           'reminderRepeat',
         );
-        return $tom_vscode_scripting_api_15.QueueItemInput(
+        return $tom_vscode_scripting_api_13.QueueItemInput(
           promptText: promptText,
           template: template,
           answerWrapper: answerWrapper,
@@ -21321,43 +19001,43 @@ BridgedClass _createQueueItemInputBridge() {
     },
     getters: {
       'promptText': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.QueueItemInput>(
+          .validateTarget<$tom_vscode_scripting_api_13.QueueItemInput>(
             target,
             'QueueItemInput',
           )
           .promptText,
       'template': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.QueueItemInput>(
+          .validateTarget<$tom_vscode_scripting_api_13.QueueItemInput>(
             target,
             'QueueItemInput',
           )
           .template,
       'answerWrapper': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.QueueItemInput>(
+          .validateTarget<$tom_vscode_scripting_api_13.QueueItemInput>(
             target,
             'QueueItemInput',
           )
           .answerWrapper,
       'reminderEnabled': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.QueueItemInput>(
+          .validateTarget<$tom_vscode_scripting_api_13.QueueItemInput>(
             target,
             'QueueItemInput',
           )
           .reminderEnabled,
       'reminderTemplateId': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.QueueItemInput>(
+          .validateTarget<$tom_vscode_scripting_api_13.QueueItemInput>(
             target,
             'QueueItemInput',
           )
           .reminderTemplateId,
       'reminderTimeoutMinutes': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.QueueItemInput>(
+          .validateTarget<$tom_vscode_scripting_api_13.QueueItemInput>(
             target,
             'QueueItemInput',
           )
           .reminderTimeoutMinutes,
       'reminderRepeat': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.QueueItemInput>(
+          .validateTarget<$tom_vscode_scripting_api_13.QueueItemInput>(
             target,
             'QueueItemInput',
           )
@@ -21366,7 +19046,7 @@ BridgedClass _createQueueItemInputBridge() {
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_15.QueueItemInput>(
+            .validateTarget<$tom_vscode_scripting_api_13.QueueItemInput>(
               target,
               'QueueItemInput',
             );
@@ -21395,9 +19075,9 @@ BridgedClass _createQueueItemInputBridge() {
 
 BridgedClass _createFollowUpInputBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_15.FollowUpInput,
+    nativeType: $tom_vscode_scripting_api_13.FollowUpInput,
     name: 'FollowUpInput',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_15.FollowUpInput,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_13.FollowUpInput,
     constructors: {
       '': (visitor, positional, named) {
         final promptText = D4.getRequiredNamedArg<String>(
@@ -21422,7 +19102,7 @@ BridgedClass _createFollowUpInputBridge() {
           named,
           'reminderRepeat',
         );
-        return $tom_vscode_scripting_api_15.FollowUpInput(
+        return $tom_vscode_scripting_api_13.FollowUpInput(
           promptText: promptText,
           template: template,
           reminderEnabled: reminderEnabled,
@@ -21434,37 +19114,37 @@ BridgedClass _createFollowUpInputBridge() {
     },
     getters: {
       'promptText': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.FollowUpInput>(
+          .validateTarget<$tom_vscode_scripting_api_13.FollowUpInput>(
             target,
             'FollowUpInput',
           )
           .promptText,
       'template': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.FollowUpInput>(
+          .validateTarget<$tom_vscode_scripting_api_13.FollowUpInput>(
             target,
             'FollowUpInput',
           )
           .template,
       'reminderEnabled': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.FollowUpInput>(
+          .validateTarget<$tom_vscode_scripting_api_13.FollowUpInput>(
             target,
             'FollowUpInput',
           )
           .reminderEnabled,
       'reminderTemplateId': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.FollowUpInput>(
+          .validateTarget<$tom_vscode_scripting_api_13.FollowUpInput>(
             target,
             'FollowUpInput',
           )
           .reminderTemplateId,
       'reminderTimeoutMinutes': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.FollowUpInput>(
+          .validateTarget<$tom_vscode_scripting_api_13.FollowUpInput>(
             target,
             'FollowUpInput',
           )
           .reminderTimeoutMinutes,
       'reminderRepeat': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_15.FollowUpInput>(
+          .validateTarget<$tom_vscode_scripting_api_13.FollowUpInput>(
             target,
             'FollowUpInput',
           )
@@ -21472,7 +19152,7 @@ BridgedClass _createFollowUpInputBridge() {
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_15.FollowUpInput>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_13.FollowUpInput>(
           target,
           'FollowUpInput',
         );
@@ -21500,22 +19180,22 @@ BridgedClass _createFollowUpInputBridge() {
 
 BridgedClass _createTomQueueApiBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_15.TomQueueApi,
+    nativeType: $tom_vscode_scripting_api_13.TomQueueApi,
     name: 'TomQueueApi',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_15.TomQueueApi,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_13.TomQueueApi,
     isAbstract: true,
     constructors: {},
     staticMethods: {
       'setAdapter': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'setAdapter');
         final adapter = D4
-            .getRequiredArg<$tom_vscode_scripting_api_21.VSCodeAdapter>(
+            .getRequiredArg<$tom_vscode_scripting_api_19.VSCodeAdapter>(
               positional,
               0,
               'adapter',
               'setAdapter',
             );
-        return $tom_vscode_scripting_api_15.TomQueueApi.setAdapter(adapter);
+        return $tom_vscode_scripting_api_13.TomQueueApi.setAdapter(adapter);
       },
       'list': (visitor, positional, named, typeArgs) {
         final includeSent = D4.getNamedArgWithDefault<bool>(
@@ -21524,7 +19204,7 @@ BridgedClass _createTomQueueApiBridge() {
           false,
         );
         final limit = D4.getOptionalNamedArg<int?>(named, 'limit');
-        return $tom_vscode_scripting_api_15.TomQueueApi.list(
+        return $tom_vscode_scripting_api_13.TomQueueApi.list(
           includeSent: includeSent,
           limit: limit,
         );
@@ -21537,18 +19217,18 @@ BridgedClass _createTomQueueApiBridge() {
           'itemId',
           'get',
         );
-        return $tom_vscode_scripting_api_15.TomQueueApi.get(itemId);
+        return $tom_vscode_scripting_api_13.TomQueueApi.get(itemId);
       },
       'add': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'add');
         final input = D4
-            .getRequiredArg<$tom_vscode_scripting_api_15.QueueItemInput>(
+            .getRequiredArg<$tom_vscode_scripting_api_13.QueueItemInput>(
               positional,
               0,
               'input',
               'add',
             );
-        return $tom_vscode_scripting_api_15.TomQueueApi.add(input);
+        return $tom_vscode_scripting_api_13.TomQueueApi.add(input);
       },
       'remove': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'remove');
@@ -21558,13 +19238,13 @@ BridgedClass _createTomQueueApiBridge() {
           'itemId',
           'remove',
         );
-        return $tom_vscode_scripting_api_15.TomQueueApi.remove(itemId);
+        return $tom_vscode_scripting_api_13.TomQueueApi.remove(itemId);
       },
       'clearPending': (visitor, positional, named, typeArgs) {
-        return $tom_vscode_scripting_api_15.TomQueueApi.clearPending();
+        return $tom_vscode_scripting_api_13.TomQueueApi.clearPending();
       },
       'clearSent': (visitor, positional, named, typeArgs) {
-        return $tom_vscode_scripting_api_15.TomQueueApi.clearSent();
+        return $tom_vscode_scripting_api_13.TomQueueApi.clearSent();
       },
       'updateStatus': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'updateStatus');
@@ -21575,13 +19255,13 @@ BridgedClass _createTomQueueApiBridge() {
           'updateStatus',
         );
         final status = D4
-            .getRequiredArg<$tom_vscode_scripting_api_15.QueuedPromptStatus>(
+            .getRequiredArg<$tom_vscode_scripting_api_13.QueuedPromptStatus>(
               positional,
               1,
               'status',
               'updateStatus',
             );
-        return $tom_vscode_scripting_api_15.TomQueueApi.updateStatus(
+        return $tom_vscode_scripting_api_13.TomQueueApi.updateStatus(
           itemId,
           status,
         );
@@ -21600,7 +19280,7 @@ BridgedClass _createTomQueueApiBridge() {
           'text',
           'updateText',
         );
-        return $tom_vscode_scripting_api_15.TomQueueApi.updateText(
+        return $tom_vscode_scripting_api_13.TomQueueApi.updateText(
           itemId,
           text,
         );
@@ -21620,7 +19300,7 @@ BridgedClass _createTomQueueApiBridge() {
           'timeoutMinutes',
         );
         final repeat = D4.getOptionalNamedArg<bool?>(named, 'repeat');
-        return $tom_vscode_scripting_api_15.TomQueueApi.updateReminder(
+        return $tom_vscode_scripting_api_13.TomQueueApi.updateReminder(
           itemId,
           enabled: enabled,
           templateId: templateId,
@@ -21642,7 +19322,7 @@ BridgedClass _createTomQueueApiBridge() {
           'newIndex',
           'moveTo',
         );
-        return $tom_vscode_scripting_api_15.TomQueueApi.moveTo(
+        return $tom_vscode_scripting_api_13.TomQueueApi.moveTo(
           itemId,
           newIndex,
         );
@@ -21655,7 +19335,7 @@ BridgedClass _createTomQueueApiBridge() {
           'itemId',
           'moveUp',
         );
-        return $tom_vscode_scripting_api_15.TomQueueApi.moveUp(itemId);
+        return $tom_vscode_scripting_api_13.TomQueueApi.moveUp(itemId);
       },
       'moveDown': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'moveDown');
@@ -21665,7 +19345,7 @@ BridgedClass _createTomQueueApiBridge() {
           'itemId',
           'moveDown',
         );
-        return $tom_vscode_scripting_api_15.TomQueueApi.moveDown(itemId);
+        return $tom_vscode_scripting_api_13.TomQueueApi.moveDown(itemId);
       },
       'addFollowUp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'addFollowUp');
@@ -21676,13 +19356,13 @@ BridgedClass _createTomQueueApiBridge() {
           'addFollowUp',
         );
         final input = D4
-            .getRequiredArg<$tom_vscode_scripting_api_15.FollowUpInput>(
+            .getRequiredArg<$tom_vscode_scripting_api_13.FollowUpInput>(
               positional,
               1,
               'input',
               'addFollowUp',
             );
-        return $tom_vscode_scripting_api_15.TomQueueApi.addFollowUp(
+        return $tom_vscode_scripting_api_13.TomQueueApi.addFollowUp(
           itemId,
           input,
         );
@@ -21701,7 +19381,7 @@ BridgedClass _createTomQueueApiBridge() {
           'followUpId',
           'removeFollowUp',
         );
-        return $tom_vscode_scripting_api_15.TomQueueApi.removeFollowUp(
+        return $tom_vscode_scripting_api_13.TomQueueApi.removeFollowUp(
           itemId,
           followUpId,
         );
@@ -21738,7 +19418,7 @@ BridgedClass _createTomQueueApiBridge() {
           named,
           'reminderRepeat',
         );
-        return $tom_vscode_scripting_api_15.TomQueueApi.updateFollowUp(
+        return $tom_vscode_scripting_api_13.TomQueueApi.updateFollowUp(
           itemId,
           followUpId,
           text: text,
@@ -21750,16 +19430,16 @@ BridgedClass _createTomQueueApiBridge() {
         );
       },
       'sendNext': (visitor, positional, named, typeArgs) {
-        return $tom_vscode_scripting_api_15.TomQueueApi.sendNext();
+        return $tom_vscode_scripting_api_13.TomQueueApi.sendNext();
       },
       'pause': (visitor, positional, named, typeArgs) {
-        return $tom_vscode_scripting_api_15.TomQueueApi.pause();
+        return $tom_vscode_scripting_api_13.TomQueueApi.pause();
       },
       'resume': (visitor, positional, named, typeArgs) {
-        return $tom_vscode_scripting_api_15.TomQueueApi.resume();
+        return $tom_vscode_scripting_api_13.TomQueueApi.resume();
       },
       'isPaused': (visitor, positional, named, typeArgs) {
-        return $tom_vscode_scripting_api_15.TomQueueApi.isPaused();
+        return $tom_vscode_scripting_api_13.TomQueueApi.isPaused();
       },
     },
     staticMethodSignatures: {
@@ -21800,9 +19480,9 @@ BridgedClass _createTomQueueApiBridge() {
 
 BridgedClass _createScheduledTimeBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_16.ScheduledTime,
+    nativeType: $tom_vscode_scripting_api_14.ScheduledTime,
     name: 'ScheduledTime',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_16.ScheduledTime,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_14.ScheduledTime,
     constructors: {
       '': (visitor, positional, named) {
         final time = D4.getRequiredNamedArg<String>(
@@ -21811,7 +19491,7 @@ BridgedClass _createScheduledTimeBridge() {
           'ScheduledTime',
         );
         final date = D4.getOptionalNamedArg<String?>(named, 'date');
-        return $tom_vscode_scripting_api_16.ScheduledTime(
+        return $tom_vscode_scripting_api_14.ScheduledTime(
           time: time,
           date: date,
         );
@@ -21824,18 +19504,18 @@ BridgedClass _createScheduledTimeBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_16.ScheduledTime.fromJson(json);
+        return $tom_vscode_scripting_api_14.ScheduledTime.fromJson(json);
       },
     },
     getters: {
       'time': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_16.ScheduledTime>(
+          .validateTarget<$tom_vscode_scripting_api_14.ScheduledTime>(
             target,
             'ScheduledTime',
           )
           .time,
       'date': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_16.ScheduledTime>(
+          .validateTarget<$tom_vscode_scripting_api_14.ScheduledTime>(
             target,
             'ScheduledTime',
           )
@@ -21843,7 +19523,7 @@ BridgedClass _createScheduledTimeBridge() {
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_16.ScheduledTime>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_14.ScheduledTime>(
           target,
           'ScheduledTime',
         );
@@ -21865,9 +19545,9 @@ BridgedClass _createScheduledTimeBridge() {
 
 BridgedClass _createTimedRequestBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_16.TimedRequest,
+    nativeType: $tom_vscode_scripting_api_14.TimedRequest,
     name: 'TimedRequest',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_16.TimedRequest,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_14.TimedRequest,
     constructors: {
       '': (visitor, positional, named) {
         final id = D4.getRequiredNamedArg<String>(named, 'id', 'TimedRequest');
@@ -21891,7 +19571,7 @@ BridgedClass _createTimedRequestBridge() {
           'TimedRequest',
         );
         final scheduleMode = D4
-            .getRequiredNamedArg<$tom_vscode_scripting_api_16.ScheduleMode>(
+            .getRequiredNamedArg<$tom_vscode_scripting_api_14.ScheduleMode>(
               named,
               'scheduleMode',
               'TimedRequest',
@@ -21901,7 +19581,7 @@ BridgedClass _createTimedRequestBridge() {
           'intervalMinutes',
         );
         final scheduledTimes = D4
-            .coerceListOrNull<$tom_vscode_scripting_api_16.ScheduledTime>(
+            .coerceListOrNull<$tom_vscode_scripting_api_14.ScheduledTime>(
               named['scheduledTimes'],
               'scheduledTimes',
             );
@@ -21924,9 +19604,9 @@ BridgedClass _createTimedRequestBridge() {
         final lastSentAt = D4.getOptionalNamedArg<String?>(named, 'lastSentAt');
         final status = D4
             .getRequiredNamedArg<
-              $tom_vscode_scripting_api_16.TimedRequestStatus
+              $tom_vscode_scripting_api_14.TimedRequestStatus
             >(named, 'status', 'TimedRequest');
-        return $tom_vscode_scripting_api_16.TimedRequest(
+        return $tom_vscode_scripting_api_14.TimedRequest(
           id: id,
           enabled: enabled,
           template: template,
@@ -21951,90 +19631,90 @@ BridgedClass _createTimedRequestBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_16.TimedRequest.fromJson(json);
+        return $tom_vscode_scripting_api_14.TimedRequest.fromJson(json);
       },
     },
     getters: {
       'id': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_16.TimedRequest>(
+          .validateTarget<$tom_vscode_scripting_api_14.TimedRequest>(
             target,
             'TimedRequest',
           )
           .id,
       'enabled': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_16.TimedRequest>(
+          .validateTarget<$tom_vscode_scripting_api_14.TimedRequest>(
             target,
             'TimedRequest',
           )
           .enabled,
       'template': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_16.TimedRequest>(
+          .validateTarget<$tom_vscode_scripting_api_14.TimedRequest>(
             target,
             'TimedRequest',
           )
           .template,
       'answerWrapper': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_16.TimedRequest>(
+          .validateTarget<$tom_vscode_scripting_api_14.TimedRequest>(
             target,
             'TimedRequest',
           )
           .answerWrapper,
       'originalText': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_16.TimedRequest>(
+          .validateTarget<$tom_vscode_scripting_api_14.TimedRequest>(
             target,
             'TimedRequest',
           )
           .originalText,
       'scheduleMode': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_16.TimedRequest>(
+          .validateTarget<$tom_vscode_scripting_api_14.TimedRequest>(
             target,
             'TimedRequest',
           )
           .scheduleMode,
       'intervalMinutes': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_16.TimedRequest>(
+          .validateTarget<$tom_vscode_scripting_api_14.TimedRequest>(
             target,
             'TimedRequest',
           )
           .intervalMinutes,
       'scheduledTimes': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_16.TimedRequest>(
+          .validateTarget<$tom_vscode_scripting_api_14.TimedRequest>(
             target,
             'TimedRequest',
           )
           .scheduledTimes,
       'reminderEnabled': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_16.TimedRequest>(
+          .validateTarget<$tom_vscode_scripting_api_14.TimedRequest>(
             target,
             'TimedRequest',
           )
           .reminderEnabled,
       'reminderTemplateId': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_16.TimedRequest>(
+          .validateTarget<$tom_vscode_scripting_api_14.TimedRequest>(
             target,
             'TimedRequest',
           )
           .reminderTemplateId,
       'reminderTimeoutMinutes': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_16.TimedRequest>(
+          .validateTarget<$tom_vscode_scripting_api_14.TimedRequest>(
             target,
             'TimedRequest',
           )
           .reminderTimeoutMinutes,
       'reminderRepeat': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_16.TimedRequest>(
+          .validateTarget<$tom_vscode_scripting_api_14.TimedRequest>(
             target,
             'TimedRequest',
           )
           .reminderRepeat,
       'lastSentAt': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_16.TimedRequest>(
+          .validateTarget<$tom_vscode_scripting_api_14.TimedRequest>(
             target,
             'TimedRequest',
           )
           .lastSentAt,
       'status': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_16.TimedRequest>(
+          .validateTarget<$tom_vscode_scripting_api_14.TimedRequest>(
             target,
             'TimedRequest',
           )
@@ -22042,7 +19722,7 @@ BridgedClass _createTimedRequestBridge() {
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_vscode_scripting_api_16.TimedRequest>(
+        final t = D4.validateTarget<$tom_vscode_scripting_api_14.TimedRequest>(
           target,
           'TimedRequest',
         );
@@ -22079,10 +19759,10 @@ BridgedClass _createTimedRequestBridge() {
 
 BridgedClass _createTimedRequestListResultBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_16.TimedRequestListResult,
+    nativeType: $tom_vscode_scripting_api_14.TimedRequestListResult,
     name: 'TimedRequestListResult',
     isAssignable: (v) =>
-        v is $tom_vscode_scripting_api_16.TimedRequestListResult,
+        v is $tom_vscode_scripting_api_14.TimedRequestListResult,
     constructors: {
       '': (visitor, positional, named) {
         if (!named.containsKey('entries') || named['entries'] == null) {
@@ -22091,7 +19771,7 @@ BridgedClass _createTimedRequestListResultBridge() {
           );
         }
         final entries = D4
-            .coerceList<$tom_vscode_scripting_api_16.TimedRequest>(
+            .coerceList<$tom_vscode_scripting_api_14.TimedRequest>(
               named['entries'],
               'entries',
             );
@@ -22115,7 +19795,7 @@ BridgedClass _createTimedRequestListResultBridge() {
           'timerActivated',
           'TimedRequestListResult',
         );
-        return $tom_vscode_scripting_api_16.TimedRequestListResult(
+        return $tom_vscode_scripting_api_14.TimedRequestListResult(
           entries: entries,
           totalCount: totalCount,
           activeCount: activeCount,
@@ -22131,38 +19811,38 @@ BridgedClass _createTimedRequestListResultBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_16.TimedRequestListResult.fromJson(
+        return $tom_vscode_scripting_api_14.TimedRequestListResult.fromJson(
           json,
         );
       },
     },
     getters: {
       'entries': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_16.TimedRequestListResult>(
+          .validateTarget<$tom_vscode_scripting_api_14.TimedRequestListResult>(
             target,
             'TimedRequestListResult',
           )
           .entries,
       'totalCount': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_16.TimedRequestListResult>(
+          .validateTarget<$tom_vscode_scripting_api_14.TimedRequestListResult>(
             target,
             'TimedRequestListResult',
           )
           .totalCount,
       'activeCount': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_16.TimedRequestListResult>(
+          .validateTarget<$tom_vscode_scripting_api_14.TimedRequestListResult>(
             target,
             'TimedRequestListResult',
           )
           .activeCount,
       'pausedCount': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_16.TimedRequestListResult>(
+          .validateTarget<$tom_vscode_scripting_api_14.TimedRequestListResult>(
             target,
             'TimedRequestListResult',
           )
           .pausedCount,
       'timerActivated': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_16.TimedRequestListResult>(
+          .validateTarget<$tom_vscode_scripting_api_14.TimedRequestListResult>(
             target,
             'TimedRequestListResult',
           )
@@ -22189,9 +19869,9 @@ BridgedClass _createTimedRequestListResultBridge() {
 
 BridgedClass _createTimedRequestInputBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_16.TimedRequestInput,
+    nativeType: $tom_vscode_scripting_api_14.TimedRequestInput,
     name: 'TimedRequestInput',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_16.TimedRequestInput,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_14.TimedRequestInput,
     constructors: {
       '': (visitor, positional, named) {
         final promptText = D4.getRequiredNamedArg<String>(
@@ -22205,7 +19885,7 @@ BridgedClass _createTimedRequestInputBridge() {
           'answerWrapper',
         );
         final scheduleMode = D4
-            .getRequiredNamedArg<$tom_vscode_scripting_api_16.ScheduleMode>(
+            .getRequiredNamedArg<$tom_vscode_scripting_api_14.ScheduleMode>(
               named,
               'scheduleMode',
               'TimedRequestInput',
@@ -22215,7 +19895,7 @@ BridgedClass _createTimedRequestInputBridge() {
           'intervalMinutes',
         );
         final scheduledTimes = D4
-            .coerceListOrNull<$tom_vscode_scripting_api_16.ScheduledTime>(
+            .coerceListOrNull<$tom_vscode_scripting_api_14.ScheduledTime>(
               named['scheduledTimes'],
               'scheduledTimes',
             );
@@ -22235,7 +19915,7 @@ BridgedClass _createTimedRequestInputBridge() {
           named,
           'reminderRepeat',
         );
-        return $tom_vscode_scripting_api_16.TimedRequestInput(
+        return $tom_vscode_scripting_api_14.TimedRequestInput(
           promptText: promptText,
           template: template,
           answerWrapper: answerWrapper,
@@ -22251,61 +19931,61 @@ BridgedClass _createTimedRequestInputBridge() {
     },
     getters: {
       'promptText': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_16.TimedRequestInput>(
+          .validateTarget<$tom_vscode_scripting_api_14.TimedRequestInput>(
             target,
             'TimedRequestInput',
           )
           .promptText,
       'template': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_16.TimedRequestInput>(
+          .validateTarget<$tom_vscode_scripting_api_14.TimedRequestInput>(
             target,
             'TimedRequestInput',
           )
           .template,
       'answerWrapper': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_16.TimedRequestInput>(
+          .validateTarget<$tom_vscode_scripting_api_14.TimedRequestInput>(
             target,
             'TimedRequestInput',
           )
           .answerWrapper,
       'scheduleMode': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_16.TimedRequestInput>(
+          .validateTarget<$tom_vscode_scripting_api_14.TimedRequestInput>(
             target,
             'TimedRequestInput',
           )
           .scheduleMode,
       'intervalMinutes': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_16.TimedRequestInput>(
+          .validateTarget<$tom_vscode_scripting_api_14.TimedRequestInput>(
             target,
             'TimedRequestInput',
           )
           .intervalMinutes,
       'scheduledTimes': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_16.TimedRequestInput>(
+          .validateTarget<$tom_vscode_scripting_api_14.TimedRequestInput>(
             target,
             'TimedRequestInput',
           )
           .scheduledTimes,
       'reminderEnabled': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_16.TimedRequestInput>(
+          .validateTarget<$tom_vscode_scripting_api_14.TimedRequestInput>(
             target,
             'TimedRequestInput',
           )
           .reminderEnabled,
       'reminderTemplateId': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_16.TimedRequestInput>(
+          .validateTarget<$tom_vscode_scripting_api_14.TimedRequestInput>(
             target,
             'TimedRequestInput',
           )
           .reminderTemplateId,
       'reminderTimeoutMinutes': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_16.TimedRequestInput>(
+          .validateTarget<$tom_vscode_scripting_api_14.TimedRequestInput>(
             target,
             'TimedRequestInput',
           )
           .reminderTimeoutMinutes,
       'reminderRepeat': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_16.TimedRequestInput>(
+          .validateTarget<$tom_vscode_scripting_api_14.TimedRequestInput>(
             target,
             'TimedRequestInput',
           )
@@ -22314,7 +19994,7 @@ BridgedClass _createTimedRequestInputBridge() {
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_16.TimedRequestInput>(
+            .validateTarget<$tom_vscode_scripting_api_14.TimedRequestInput>(
               target,
               'TimedRequestInput',
             );
@@ -22346,25 +20026,25 @@ BridgedClass _createTimedRequestInputBridge() {
 
 BridgedClass _createTomTimedApiBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_16.TomTimedApi,
+    nativeType: $tom_vscode_scripting_api_14.TomTimedApi,
     name: 'TomTimedApi',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_16.TomTimedApi,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_14.TomTimedApi,
     isAbstract: true,
     constructors: {},
     staticMethods: {
       'setAdapter': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'setAdapter');
         final adapter = D4
-            .getRequiredArg<$tom_vscode_scripting_api_21.VSCodeAdapter>(
+            .getRequiredArg<$tom_vscode_scripting_api_19.VSCodeAdapter>(
               positional,
               0,
               'adapter',
               'setAdapter',
             );
-        return $tom_vscode_scripting_api_16.TomTimedApi.setAdapter(adapter);
+        return $tom_vscode_scripting_api_14.TomTimedApi.setAdapter(adapter);
       },
       'list': (visitor, positional, named, typeArgs) {
-        return $tom_vscode_scripting_api_16.TomTimedApi.list();
+        return $tom_vscode_scripting_api_14.TomTimedApi.list();
       },
       'get': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'get');
@@ -22374,18 +20054,18 @@ BridgedClass _createTomTimedApiBridge() {
           'entryId',
           'get',
         );
-        return $tom_vscode_scripting_api_16.TomTimedApi.get(entryId);
+        return $tom_vscode_scripting_api_14.TomTimedApi.get(entryId);
       },
       'create': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'create');
         final input = D4
-            .getRequiredArg<$tom_vscode_scripting_api_16.TimedRequestInput>(
+            .getRequiredArg<$tom_vscode_scripting_api_14.TimedRequestInput>(
               positional,
               0,
               'input',
               'create',
             );
-        return $tom_vscode_scripting_api_16.TomTimedApi.create(input);
+        return $tom_vscode_scripting_api_14.TomTimedApi.create(input);
       },
       'update': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'update');
@@ -22402,7 +20082,7 @@ BridgedClass _createTomTimedApiBridge() {
           'answerWrapper',
         );
         final scheduleMode = D4
-            .getOptionalNamedArg<$tom_vscode_scripting_api_16.ScheduleMode?>(
+            .getOptionalNamedArg<$tom_vscode_scripting_api_14.ScheduleMode?>(
               named,
               'scheduleMode',
             );
@@ -22411,7 +20091,7 @@ BridgedClass _createTomTimedApiBridge() {
           'intervalMinutes',
         );
         final scheduledTimes = D4
-            .coerceListOrNull<$tom_vscode_scripting_api_16.ScheduledTime>(
+            .coerceListOrNull<$tom_vscode_scripting_api_14.ScheduledTime>(
               named['scheduledTimes'],
               'scheduledTimes',
             );
@@ -22433,9 +20113,9 @@ BridgedClass _createTomTimedApiBridge() {
         );
         final status = D4
             .getOptionalNamedArg<
-              $tom_vscode_scripting_api_16.TimedRequestStatus?
+              $tom_vscode_scripting_api_14.TimedRequestStatus?
             >(named, 'status');
-        return $tom_vscode_scripting_api_16.TomTimedApi.update(
+        return $tom_vscode_scripting_api_14.TomTimedApi.update(
           entryId,
           promptText: promptText,
           template: template,
@@ -22458,7 +20138,7 @@ BridgedClass _createTomTimedApiBridge() {
           'entryId',
           'delete',
         );
-        return $tom_vscode_scripting_api_16.TomTimedApi.delete(entryId);
+        return $tom_vscode_scripting_api_14.TomTimedApi.delete(entryId);
       },
       'enable': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'enable');
@@ -22468,7 +20148,7 @@ BridgedClass _createTomTimedApiBridge() {
           'entryId',
           'enable',
         );
-        return $tom_vscode_scripting_api_16.TomTimedApi.enable(entryId);
+        return $tom_vscode_scripting_api_14.TomTimedApi.enable(entryId);
       },
       'disable': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'disable');
@@ -22478,19 +20158,19 @@ BridgedClass _createTomTimedApiBridge() {
           'entryId',
           'disable',
         );
-        return $tom_vscode_scripting_api_16.TomTimedApi.disable(entryId);
+        return $tom_vscode_scripting_api_14.TomTimedApi.disable(entryId);
       },
       'isTimerActivated': (visitor, positional, named, typeArgs) {
-        return $tom_vscode_scripting_api_16.TomTimedApi.isTimerActivated();
+        return $tom_vscode_scripting_api_14.TomTimedApi.isTimerActivated();
       },
       'activateTimer': (visitor, positional, named, typeArgs) {
-        return $tom_vscode_scripting_api_16.TomTimedApi.activateTimer();
+        return $tom_vscode_scripting_api_14.TomTimedApi.activateTimer();
       },
       'deactivateTimer': (visitor, positional, named, typeArgs) {
-        return $tom_vscode_scripting_api_16.TomTimedApi.deactivateTimer();
+        return $tom_vscode_scripting_api_14.TomTimedApi.deactivateTimer();
       },
       'triggerCheck': (visitor, positional, named, typeArgs) {
-        return $tom_vscode_scripting_api_16.TomTimedApi.triggerCheck();
+        return $tom_vscode_scripting_api_14.TomTimedApi.triggerCheck();
       },
     },
     staticMethodSignatures: {
@@ -22517,9 +20197,9 @@ BridgedClass _createTomTimedApiBridge() {
 
 BridgedClass _createDocumentInfoBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_14.DocumentInfo,
+    nativeType: $tom_vscode_scripting_api_12.DocumentInfo,
     name: 'DocumentInfo',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_14.DocumentInfo,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_12.DocumentInfo,
     constructors: {
       '': (visitor, positional, named) {
         final name = D4.getRequiredNamedArg<String>(
@@ -22545,7 +20225,7 @@ BridgedClass _createDocumentInfoBridge() {
         final size = D4.getOptionalNamedArg<int?>(named, 'size');
         final modified = D4.getOptionalNamedArg<String?>(named, 'modified');
         final created = D4.getOptionalNamedArg<String?>(named, 'created');
-        return $tom_vscode_scripting_api_14.DocumentInfo(
+        return $tom_vscode_scripting_api_12.DocumentInfo(
           name: name,
           path: path,
           relativePath: relativePath,
@@ -22563,48 +20243,48 @@ BridgedClass _createDocumentInfoBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_14.DocumentInfo.fromJson(json);
+        return $tom_vscode_scripting_api_12.DocumentInfo.fromJson(json);
       },
     },
     getters: {
       'name': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.DocumentInfo>(
+          .validateTarget<$tom_vscode_scripting_api_12.DocumentInfo>(
             target,
             'DocumentInfo',
           )
           .name,
       'path': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.DocumentInfo>(
+          .validateTarget<$tom_vscode_scripting_api_12.DocumentInfo>(
             target,
             'DocumentInfo',
           )
           .path,
       'relativePath': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.DocumentInfo>(
+          .validateTarget<$tom_vscode_scripting_api_12.DocumentInfo>(
             target,
             'DocumentInfo',
           )
           .relativePath,
       'isDirectory': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.DocumentInfo>(
+          .validateTarget<$tom_vscode_scripting_api_12.DocumentInfo>(
             target,
             'DocumentInfo',
           )
           .isDirectory,
       'size': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.DocumentInfo>(
+          .validateTarget<$tom_vscode_scripting_api_12.DocumentInfo>(
             target,
             'DocumentInfo',
           )
           .size,
       'modified': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.DocumentInfo>(
+          .validateTarget<$tom_vscode_scripting_api_12.DocumentInfo>(
             target,
             'DocumentInfo',
           )
           .modified,
       'created': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.DocumentInfo>(
+          .validateTarget<$tom_vscode_scripting_api_12.DocumentInfo>(
             target,
             'DocumentInfo',
           )
@@ -22632,9 +20312,9 @@ BridgedClass _createDocumentInfoBridge() {
 
 BridgedClass _createDocumentListResultBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_14.DocumentListResult,
+    nativeType: $tom_vscode_scripting_api_12.DocumentListResult,
     name: 'DocumentListResult',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_14.DocumentListResult,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_12.DocumentListResult,
     constructors: {
       '': (visitor, positional, named) {
         if (!named.containsKey('documents') || named['documents'] == null) {
@@ -22643,7 +20323,7 @@ BridgedClass _createDocumentListResultBridge() {
           );
         }
         final documents = D4
-            .coerceList<$tom_vscode_scripting_api_14.DocumentInfo>(
+            .coerceList<$tom_vscode_scripting_api_12.DocumentInfo>(
               named['documents'],
               'documents',
             );
@@ -22653,7 +20333,7 @@ BridgedClass _createDocumentListResultBridge() {
           'DocumentListResult',
         );
         final subfolder = D4.getOptionalNamedArg<String?>(named, 'subfolder');
-        return $tom_vscode_scripting_api_14.DocumentListResult(
+        return $tom_vscode_scripting_api_12.DocumentListResult(
           documents: documents,
           folder: folder,
           subfolder: subfolder,
@@ -22667,24 +20347,24 @@ BridgedClass _createDocumentListResultBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_14.DocumentListResult.fromJson(json);
+        return $tom_vscode_scripting_api_12.DocumentListResult.fromJson(json);
       },
     },
     getters: {
       'documents': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.DocumentListResult>(
+          .validateTarget<$tom_vscode_scripting_api_12.DocumentListResult>(
             target,
             'DocumentListResult',
           )
           .documents,
       'folder': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.DocumentListResult>(
+          .validateTarget<$tom_vscode_scripting_api_12.DocumentListResult>(
             target,
             'DocumentListResult',
           )
           .folder,
       'subfolder': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.DocumentListResult>(
+          .validateTarget<$tom_vscode_scripting_api_12.DocumentListResult>(
             target,
             'DocumentListResult',
           )
@@ -22709,9 +20389,9 @@ BridgedClass _createDocumentListResultBridge() {
 
 BridgedClass _createDocumentContentBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_14.DocumentContent,
+    nativeType: $tom_vscode_scripting_api_12.DocumentContent,
     name: 'DocumentContent',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_14.DocumentContent,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_12.DocumentContent,
     constructors: {
       '': (visitor, positional, named) {
         final path = D4.getRequiredNamedArg<String>(
@@ -22731,7 +20411,7 @@ BridgedClass _createDocumentContentBridge() {
           'DocumentContent',
         );
         final modified = D4.getOptionalNamedArg<String?>(named, 'modified');
-        return $tom_vscode_scripting_api_14.DocumentContent(
+        return $tom_vscode_scripting_api_12.DocumentContent(
           path: path,
           content: content,
           encoding: encoding,
@@ -22747,36 +20427,36 @@ BridgedClass _createDocumentContentBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_14.DocumentContent.fromJson(json);
+        return $tom_vscode_scripting_api_12.DocumentContent.fromJson(json);
       },
     },
     getters: {
       'path': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.DocumentContent>(
+          .validateTarget<$tom_vscode_scripting_api_12.DocumentContent>(
             target,
             'DocumentContent',
           )
           .path,
       'content': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.DocumentContent>(
+          .validateTarget<$tom_vscode_scripting_api_12.DocumentContent>(
             target,
             'DocumentContent',
           )
           .content,
       'encoding': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.DocumentContent>(
+          .validateTarget<$tom_vscode_scripting_api_12.DocumentContent>(
             target,
             'DocumentContent',
           )
           .encoding,
       'size': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.DocumentContent>(
+          .validateTarget<$tom_vscode_scripting_api_12.DocumentContent>(
             target,
             'DocumentContent',
           )
           .size,
       'modified': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.DocumentContent>(
+          .validateTarget<$tom_vscode_scripting_api_12.DocumentContent>(
             target,
             'DocumentContent',
           )
@@ -22802,9 +20482,9 @@ BridgedClass _createDocumentContentBridge() {
 
 BridgedClass _createTrailEntryBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_14.TrailEntry,
+    nativeType: $tom_vscode_scripting_api_12.TrailEntry,
     name: 'TrailEntry',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_14.TrailEntry,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_12.TrailEntry,
     constructors: {
       '': (visitor, positional, named) {
         final id = D4.getRequiredNamedArg<String>(named, 'id', 'TrailEntry');
@@ -22825,7 +20505,7 @@ BridgedClass _createTrailEntryBridge() {
         );
         final timestamp = D4.getOptionalNamedArg<String?>(named, 'timestamp');
         final questId = D4.getOptionalNamedArg<String?>(named, 'questId');
-        return $tom_vscode_scripting_api_14.TrailEntry(
+        return $tom_vscode_scripting_api_12.TrailEntry(
           id: id,
           requestId: requestId,
           promptFile: promptFile,
@@ -22844,54 +20524,54 @@ BridgedClass _createTrailEntryBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_14.TrailEntry.fromJson(json);
+        return $tom_vscode_scripting_api_12.TrailEntry.fromJson(json);
       },
     },
     getters: {
       'id': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.TrailEntry>(
+          .validateTarget<$tom_vscode_scripting_api_12.TrailEntry>(
             target,
             'TrailEntry',
           )
           .id,
       'requestId': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.TrailEntry>(
+          .validateTarget<$tom_vscode_scripting_api_12.TrailEntry>(
             target,
             'TrailEntry',
           )
           .requestId,
       'promptFile': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.TrailEntry>(
+          .validateTarget<$tom_vscode_scripting_api_12.TrailEntry>(
             target,
             'TrailEntry',
           )
           .promptFile,
       'answerFile': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.TrailEntry>(
+          .validateTarget<$tom_vscode_scripting_api_12.TrailEntry>(
             target,
             'TrailEntry',
           )
           .answerFile,
       'promptContent': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.TrailEntry>(
+          .validateTarget<$tom_vscode_scripting_api_12.TrailEntry>(
             target,
             'TrailEntry',
           )
           .promptContent,
       'answerContent': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.TrailEntry>(
+          .validateTarget<$tom_vscode_scripting_api_12.TrailEntry>(
             target,
             'TrailEntry',
           )
           .answerContent,
       'timestamp': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.TrailEntry>(
+          .validateTarget<$tom_vscode_scripting_api_12.TrailEntry>(
             target,
             'TrailEntry',
           )
           .timestamp,
       'questId': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.TrailEntry>(
+          .validateTarget<$tom_vscode_scripting_api_12.TrailEntry>(
             target,
             'TrailEntry',
           )
@@ -22920,9 +20600,9 @@ BridgedClass _createTrailEntryBridge() {
 
 BridgedClass _createTrailListResultBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_14.TrailListResult,
+    nativeType: $tom_vscode_scripting_api_12.TrailListResult,
     name: 'TrailListResult',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_14.TrailListResult,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_12.TrailListResult,
     constructors: {
       '': (visitor, positional, named) {
         if (!named.containsKey('entries') || named['entries'] == null) {
@@ -22930,7 +20610,7 @@ BridgedClass _createTrailListResultBridge() {
             'TrailListResult: Missing required named argument "entries"',
           );
         }
-        final entries = D4.coerceList<$tom_vscode_scripting_api_14.TrailEntry>(
+        final entries = D4.coerceList<$tom_vscode_scripting_api_12.TrailEntry>(
           named['entries'],
           'entries',
         );
@@ -22940,7 +20620,7 @@ BridgedClass _createTrailListResultBridge() {
           'TrailListResult',
         );
         final questId = D4.getOptionalNamedArg<String?>(named, 'questId');
-        return $tom_vscode_scripting_api_14.TrailListResult(
+        return $tom_vscode_scripting_api_12.TrailListResult(
           entries: entries,
           totalCount: totalCount,
           questId: questId,
@@ -22954,24 +20634,24 @@ BridgedClass _createTrailListResultBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_14.TrailListResult.fromJson(json);
+        return $tom_vscode_scripting_api_12.TrailListResult.fromJson(json);
       },
     },
     getters: {
       'entries': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.TrailListResult>(
+          .validateTarget<$tom_vscode_scripting_api_12.TrailListResult>(
             target,
             'TrailListResult',
           )
           .entries,
       'totalCount': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.TrailListResult>(
+          .validateTarget<$tom_vscode_scripting_api_12.TrailListResult>(
             target,
             'TrailListResult',
           )
           .totalCount,
       'questId': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.TrailListResult>(
+          .validateTarget<$tom_vscode_scripting_api_12.TrailListResult>(
             target,
             'TrailListResult',
           )
@@ -22995,9 +20675,9 @@ BridgedClass _createTrailListResultBridge() {
 
 BridgedClass _createGuidelineInfoBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_14.GuidelineInfo,
+    nativeType: $tom_vscode_scripting_api_12.GuidelineInfo,
     name: 'GuidelineInfo',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_14.GuidelineInfo,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_12.GuidelineInfo,
     constructors: {
       '': (visitor, positional, named) {
         final name = D4.getRequiredNamedArg<String>(
@@ -23020,7 +20700,7 @@ BridgedClass _createGuidelineInfoBridge() {
           named,
           'description',
         );
-        return $tom_vscode_scripting_api_14.GuidelineInfo(
+        return $tom_vscode_scripting_api_12.GuidelineInfo(
           name: name,
           path: path,
           relativePath: relativePath,
@@ -23036,36 +20716,36 @@ BridgedClass _createGuidelineInfoBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_14.GuidelineInfo.fromJson(json);
+        return $tom_vscode_scripting_api_12.GuidelineInfo.fromJson(json);
       },
     },
     getters: {
       'name': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.GuidelineInfo>(
+          .validateTarget<$tom_vscode_scripting_api_12.GuidelineInfo>(
             target,
             'GuidelineInfo',
           )
           .name,
       'path': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.GuidelineInfo>(
+          .validateTarget<$tom_vscode_scripting_api_12.GuidelineInfo>(
             target,
             'GuidelineInfo',
           )
           .path,
       'relativePath': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.GuidelineInfo>(
+          .validateTarget<$tom_vscode_scripting_api_12.GuidelineInfo>(
             target,
             'GuidelineInfo',
           )
           .relativePath,
       'category': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.GuidelineInfo>(
+          .validateTarget<$tom_vscode_scripting_api_12.GuidelineInfo>(
             target,
             'GuidelineInfo',
           )
           .category,
       'description': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.GuidelineInfo>(
+          .validateTarget<$tom_vscode_scripting_api_12.GuidelineInfo>(
             target,
             'GuidelineInfo',
           )
@@ -23091,9 +20771,9 @@ BridgedClass _createGuidelineInfoBridge() {
 
 BridgedClass _createGuidelineListResultBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_14.GuidelineListResult,
+    nativeType: $tom_vscode_scripting_api_12.GuidelineListResult,
     name: 'GuidelineListResult',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_14.GuidelineListResult,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_12.GuidelineListResult,
     constructors: {
       '': (visitor, positional, named) {
         if (!named.containsKey('guidelines') || named['guidelines'] == null) {
@@ -23102,7 +20782,7 @@ BridgedClass _createGuidelineListResultBridge() {
           );
         }
         final guidelines = D4
-            .coerceList<$tom_vscode_scripting_api_14.GuidelineInfo>(
+            .coerceList<$tom_vscode_scripting_api_12.GuidelineInfo>(
               named['guidelines'],
               'guidelines',
             );
@@ -23115,7 +20795,7 @@ BridgedClass _createGuidelineListResultBridge() {
           named['categories'],
           'categories',
         );
-        return $tom_vscode_scripting_api_14.GuidelineListResult(
+        return $tom_vscode_scripting_api_12.GuidelineListResult(
           guidelines: guidelines,
           categories: categories,
         );
@@ -23128,18 +20808,18 @@ BridgedClass _createGuidelineListResultBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_14.GuidelineListResult.fromJson(json);
+        return $tom_vscode_scripting_api_12.GuidelineListResult.fromJson(json);
       },
     },
     getters: {
       'guidelines': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.GuidelineListResult>(
+          .validateTarget<$tom_vscode_scripting_api_12.GuidelineListResult>(
             target,
             'GuidelineListResult',
           )
           .guidelines,
       'categories': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.GuidelineListResult>(
+          .validateTarget<$tom_vscode_scripting_api_12.GuidelineListResult>(
             target,
             'GuidelineListResult',
           )
@@ -23163,27 +20843,27 @@ BridgedClass _createGuidelineListResultBridge() {
 
 BridgedClass _createTomDocumentApiBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_14.TomDocumentApi,
+    nativeType: $tom_vscode_scripting_api_12.TomDocumentApi,
     name: 'TomDocumentApi',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_14.TomDocumentApi,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_12.TomDocumentApi,
     isAbstract: true,
     constructors: {},
     staticMethods: {
       'setAdapter': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'setAdapter');
         final adapter = D4
-            .getRequiredArg<$tom_vscode_scripting_api_21.VSCodeAdapter>(
+            .getRequiredArg<$tom_vscode_scripting_api_19.VSCodeAdapter>(
               positional,
               0,
               'adapter',
               'setAdapter',
             );
-        return $tom_vscode_scripting_api_14.TomDocumentApi.setAdapter(adapter);
+        return $tom_vscode_scripting_api_12.TomDocumentApi.setAdapter(adapter);
       },
       'list': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'list');
         final folder = D4
-            .getRequiredArg<$tom_vscode_scripting_api_14.DocumentFolder>(
+            .getRequiredArg<$tom_vscode_scripting_api_12.DocumentFolder>(
               positional,
               0,
               'folder',
@@ -23196,7 +20876,7 @@ BridgedClass _createTomDocumentApiBridge() {
           'recursive',
           false,
         );
-        return $tom_vscode_scripting_api_14.TomDocumentApi.list(
+        return $tom_vscode_scripting_api_12.TomDocumentApi.list(
           folder,
           subfolder: subfolder,
           pattern: pattern,
@@ -23206,7 +20886,7 @@ BridgedClass _createTomDocumentApiBridge() {
       'read': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'read');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'read');
-        return $tom_vscode_scripting_api_14.TomDocumentApi.read(path);
+        return $tom_vscode_scripting_api_12.TomDocumentApi.read(path);
       },
       'write': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'write');
@@ -23217,21 +20897,21 @@ BridgedClass _createTomDocumentApiBridge() {
           'content',
           'write',
         );
-        return $tom_vscode_scripting_api_14.TomDocumentApi.write(path, content);
+        return $tom_vscode_scripting_api_12.TomDocumentApi.write(path, content);
       },
       'delete': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'delete');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'delete');
-        return $tom_vscode_scripting_api_14.TomDocumentApi.delete(path);
+        return $tom_vscode_scripting_api_12.TomDocumentApi.delete(path);
       },
       'exists': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'exists');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'exists');
-        return $tom_vscode_scripting_api_14.TomDocumentApi.exists(path);
+        return $tom_vscode_scripting_api_12.TomDocumentApi.exists(path);
       },
       'listPrompts': (visitor, positional, named, typeArgs) {
         final pattern = D4.getOptionalNamedArg<String?>(named, 'pattern');
-        return $tom_vscode_scripting_api_14.TomDocumentApi.listPrompts(
+        return $tom_vscode_scripting_api_12.TomDocumentApi.listPrompts(
           pattern: pattern,
         );
       },
@@ -23243,7 +20923,7 @@ BridgedClass _createTomDocumentApiBridge() {
           'filename',
           'readPrompt',
         );
-        return $tom_vscode_scripting_api_14.TomDocumentApi.readPrompt(filename);
+        return $tom_vscode_scripting_api_12.TomDocumentApi.readPrompt(filename);
       },
       'createPrompt': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'createPrompt');
@@ -23254,7 +20934,7 @@ BridgedClass _createTomDocumentApiBridge() {
           'createPrompt',
         );
         final filename = D4.getOptionalNamedArg<String?>(named, 'filename');
-        return $tom_vscode_scripting_api_14.TomDocumentApi.createPrompt(
+        return $tom_vscode_scripting_api_12.TomDocumentApi.createPrompt(
           content,
           filename: filename,
         );
@@ -23262,7 +20942,7 @@ BridgedClass _createTomDocumentApiBridge() {
       'listAnswers': (visitor, positional, named, typeArgs) {
         final subfolder = D4.getOptionalNamedArg<String?>(named, 'subfolder');
         final pattern = D4.getOptionalNamedArg<String?>(named, 'pattern');
-        return $tom_vscode_scripting_api_14.TomDocumentApi.listAnswers(
+        return $tom_vscode_scripting_api_12.TomDocumentApi.listAnswers(
           subfolder: subfolder,
           pattern: pattern,
         );
@@ -23275,13 +20955,13 @@ BridgedClass _createTomDocumentApiBridge() {
           'path',
           'readAnswer',
         );
-        return $tom_vscode_scripting_api_14.TomDocumentApi.readAnswer(path);
+        return $tom_vscode_scripting_api_12.TomDocumentApi.readAnswer(path);
       },
       'listTrail': (visitor, positional, named, typeArgs) {
         final questId = D4.getOptionalNamedArg<String?>(named, 'questId');
         final limit = D4.getOptionalNamedArg<int?>(named, 'limit');
         final since = D4.getOptionalNamedArg<String?>(named, 'since');
-        return $tom_vscode_scripting_api_14.TomDocumentApi.listTrail(
+        return $tom_vscode_scripting_api_12.TomDocumentApi.listTrail(
           questId: questId,
           limit: limit,
           since: since,
@@ -23295,7 +20975,7 @@ BridgedClass _createTomDocumentApiBridge() {
           'entryId',
           'getTrailEntry',
         );
-        return $tom_vscode_scripting_api_14.TomDocumentApi.getTrailEntry(
+        return $tom_vscode_scripting_api_12.TomDocumentApi.getTrailEntry(
           entryId,
         );
       },
@@ -23307,13 +20987,13 @@ BridgedClass _createTomDocumentApiBridge() {
           'requestId',
           'findTrailByRequestId',
         );
-        return $tom_vscode_scripting_api_14.TomDocumentApi.findTrailByRequestId(
+        return $tom_vscode_scripting_api_12.TomDocumentApi.findTrailByRequestId(
           requestId,
         );
       },
       'listGuidelines': (visitor, positional, named, typeArgs) {
         final category = D4.getOptionalNamedArg<String?>(named, 'category');
-        return $tom_vscode_scripting_api_14.TomDocumentApi.listGuidelines(
+        return $tom_vscode_scripting_api_12.TomDocumentApi.listGuidelines(
           category: category,
         );
       },
@@ -23325,11 +21005,11 @@ BridgedClass _createTomDocumentApiBridge() {
           'name',
           'readGuideline',
         );
-        return $tom_vscode_scripting_api_14.TomDocumentApi.readGuideline(name);
+        return $tom_vscode_scripting_api_12.TomDocumentApi.readGuideline(name);
       },
       'listNotes': (visitor, positional, named, typeArgs) {
         final pattern = D4.getOptionalNamedArg<String?>(named, 'pattern');
-        return $tom_vscode_scripting_api_14.TomDocumentApi.listNotes(
+        return $tom_vscode_scripting_api_12.TomDocumentApi.listNotes(
           pattern: pattern,
         );
       },
@@ -23341,7 +21021,7 @@ BridgedClass _createTomDocumentApiBridge() {
           'filename',
           'readNote',
         );
-        return $tom_vscode_scripting_api_14.TomDocumentApi.readNote(filename);
+        return $tom_vscode_scripting_api_12.TomDocumentApi.readNote(filename);
       },
       'writeNote': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'writeNote');
@@ -23357,7 +21037,7 @@ BridgedClass _createTomDocumentApiBridge() {
           'content',
           'writeNote',
         );
-        return $tom_vscode_scripting_api_14.TomDocumentApi.writeNote(
+        return $tom_vscode_scripting_api_12.TomDocumentApi.writeNote(
           filename,
           content,
         );
@@ -23371,7 +21051,7 @@ BridgedClass _createTomDocumentApiBridge() {
           'listQuestDocuments',
         );
         final pattern = D4.getOptionalNamedArg<String?>(named, 'pattern');
-        return $tom_vscode_scripting_api_14.TomDocumentApi.listQuestDocuments(
+        return $tom_vscode_scripting_api_12.TomDocumentApi.listQuestDocuments(
           questId,
           pattern: pattern,
         );
@@ -23390,7 +21070,7 @@ BridgedClass _createTomDocumentApiBridge() {
           'filename',
           'readQuestDocument',
         );
-        return $tom_vscode_scripting_api_14.TomDocumentApi.readQuestDocument(
+        return $tom_vscode_scripting_api_12.TomDocumentApi.readQuestDocument(
           questId,
           filename,
         );
@@ -23415,7 +21095,7 @@ BridgedClass _createTomDocumentApiBridge() {
           'content',
           'writeQuestDocument',
         );
-        return $tom_vscode_scripting_api_14.TomDocumentApi.writeQuestDocument(
+        return $tom_vscode_scripting_api_12.TomDocumentApi.writeQuestDocument(
           questId,
           filename,
           content,
@@ -23465,9 +21145,9 @@ BridgedClass _createTomDocumentApiBridge() {
 
 BridgedClass _createProjectInfoBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_19.ProjectInfo,
+    nativeType: $tom_vscode_scripting_api_17.ProjectInfo,
     name: 'ProjectInfo',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_19.ProjectInfo,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_17.ProjectInfo,
     constructors: {
       '': (visitor, positional, named) {
         final id = D4.getRequiredNamedArg<String>(named, 'id', 'ProjectInfo');
@@ -23487,7 +21167,7 @@ BridgedClass _createProjectInfoBridge() {
           'ProjectInfo',
         );
         final type = D4
-            .getRequiredNamedArg<$tom_vscode_scripting_api_19.ProjectType>(
+            .getRequiredNamedArg<$tom_vscode_scripting_api_17.ProjectType>(
               named,
               'type',
               'ProjectInfo',
@@ -23504,7 +21184,7 @@ BridgedClass _createProjectInfoBridge() {
           'isSubWorkspace',
           false,
         );
-        return $tom_vscode_scripting_api_19.ProjectInfo(
+        return $tom_vscode_scripting_api_17.ProjectInfo(
           id: id,
           name: name,
           path: path,
@@ -23525,66 +21205,66 @@ BridgedClass _createProjectInfoBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_19.ProjectInfo.fromJson(json);
+        return $tom_vscode_scripting_api_17.ProjectInfo.fromJson(json);
       },
     },
     getters: {
       'id': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_19.ProjectInfo>(
+          .validateTarget<$tom_vscode_scripting_api_17.ProjectInfo>(
             target,
             'ProjectInfo',
           )
           .id,
       'name': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_19.ProjectInfo>(
+          .validateTarget<$tom_vscode_scripting_api_17.ProjectInfo>(
             target,
             'ProjectInfo',
           )
           .name,
       'path': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_19.ProjectInfo>(
+          .validateTarget<$tom_vscode_scripting_api_17.ProjectInfo>(
             target,
             'ProjectInfo',
           )
           .path,
       'relativePath': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_19.ProjectInfo>(
+          .validateTarget<$tom_vscode_scripting_api_17.ProjectInfo>(
             target,
             'ProjectInfo',
           )
           .relativePath,
       'type': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_19.ProjectInfo>(
+          .validateTarget<$tom_vscode_scripting_api_17.ProjectInfo>(
             target,
             'ProjectInfo',
           )
           .type,
       'description': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_19.ProjectInfo>(
+          .validateTarget<$tom_vscode_scripting_api_17.ProjectInfo>(
             target,
             'ProjectInfo',
           )
           .description,
       'version': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_19.ProjectInfo>(
+          .validateTarget<$tom_vscode_scripting_api_17.ProjectInfo>(
             target,
             'ProjectInfo',
           )
           .version,
       'tags': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_19.ProjectInfo>(
+          .validateTarget<$tom_vscode_scripting_api_17.ProjectInfo>(
             target,
             'ProjectInfo',
           )
           .tags,
       'repository': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_19.ProjectInfo>(
+          .validateTarget<$tom_vscode_scripting_api_17.ProjectInfo>(
             target,
             'ProjectInfo',
           )
           .repository,
       'isSubWorkspace': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_19.ProjectInfo>(
+          .validateTarget<$tom_vscode_scripting_api_17.ProjectInfo>(
             target,
             'ProjectInfo',
           )
@@ -23615,9 +21295,9 @@ BridgedClass _createProjectInfoBridge() {
 
 BridgedClass _createProjectListResultBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_19.ProjectListResult,
+    nativeType: $tom_vscode_scripting_api_17.ProjectListResult,
     name: 'ProjectListResult',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_19.ProjectListResult,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_17.ProjectListResult,
     constructors: {
       '': (visitor, positional, named) {
         if (!named.containsKey('projects') || named['projects'] == null) {
@@ -23626,7 +21306,7 @@ BridgedClass _createProjectListResultBridge() {
           );
         }
         final projects = D4
-            .coerceList<$tom_vscode_scripting_api_19.ProjectInfo>(
+            .coerceList<$tom_vscode_scripting_api_17.ProjectInfo>(
               named['projects'],
               'projects',
             );
@@ -23635,7 +21315,7 @@ BridgedClass _createProjectListResultBridge() {
           'totalCount',
           'ProjectListResult',
         );
-        return $tom_vscode_scripting_api_19.ProjectListResult(
+        return $tom_vscode_scripting_api_17.ProjectListResult(
           projects: projects,
           totalCount: totalCount,
         );
@@ -23648,18 +21328,18 @@ BridgedClass _createProjectListResultBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_19.ProjectListResult.fromJson(json);
+        return $tom_vscode_scripting_api_17.ProjectListResult.fromJson(json);
       },
     },
     getters: {
       'projects': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_19.ProjectListResult>(
+          .validateTarget<$tom_vscode_scripting_api_17.ProjectListResult>(
             target,
             'ProjectListResult',
           )
           .projects,
       'totalCount': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_19.ProjectListResult>(
+          .validateTarget<$tom_vscode_scripting_api_17.ProjectListResult>(
             target,
             'ProjectListResult',
           )
@@ -23683,9 +21363,9 @@ BridgedClass _createProjectListResultBridge() {
 
 BridgedClass _createQuestInfoBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_19.QuestInfo,
+    nativeType: $tom_vscode_scripting_api_17.QuestInfo,
     name: 'QuestInfo',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_19.QuestInfo,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_17.QuestInfo,
     constructors: {
       '': (visitor, positional, named) {
         final id = D4.getRequiredNamedArg<String>(named, 'id', 'QuestInfo');
@@ -23711,7 +21391,7 @@ BridgedClass _createQuestInfoBridge() {
           named,
           'completedTodoCount',
         );
-        return $tom_vscode_scripting_api_19.QuestInfo(
+        return $tom_vscode_scripting_api_17.QuestInfo(
           id: id,
           name: name,
           path: path,
@@ -23731,60 +21411,60 @@ BridgedClass _createQuestInfoBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_19.QuestInfo.fromJson(json);
+        return $tom_vscode_scripting_api_17.QuestInfo.fromJson(json);
       },
     },
     getters: {
       'id': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_19.QuestInfo>(
+          .validateTarget<$tom_vscode_scripting_api_17.QuestInfo>(
             target,
             'QuestInfo',
           )
           .id,
       'name': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_19.QuestInfo>(
+          .validateTarget<$tom_vscode_scripting_api_17.QuestInfo>(
             target,
             'QuestInfo',
           )
           .name,
       'path': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_19.QuestInfo>(
+          .validateTarget<$tom_vscode_scripting_api_17.QuestInfo>(
             target,
             'QuestInfo',
           )
           .path,
       'description': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_19.QuestInfo>(
+          .validateTarget<$tom_vscode_scripting_api_17.QuestInfo>(
             target,
             'QuestInfo',
           )
           .description,
       'status': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_19.QuestInfo>(
+          .validateTarget<$tom_vscode_scripting_api_17.QuestInfo>(
             target,
             'QuestInfo',
           )
           .status,
       'hasOverview': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_19.QuestInfo>(
+          .validateTarget<$tom_vscode_scripting_api_17.QuestInfo>(
             target,
             'QuestInfo',
           )
           .hasOverview,
       'hasTodos': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_19.QuestInfo>(
+          .validateTarget<$tom_vscode_scripting_api_17.QuestInfo>(
             target,
             'QuestInfo',
           )
           .hasTodos,
       'todoCount': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_19.QuestInfo>(
+          .validateTarget<$tom_vscode_scripting_api_17.QuestInfo>(
             target,
             'QuestInfo',
           )
           .todoCount,
       'completedTodoCount': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_19.QuestInfo>(
+          .validateTarget<$tom_vscode_scripting_api_17.QuestInfo>(
             target,
             'QuestInfo',
           )
@@ -23814,9 +21494,9 @@ BridgedClass _createQuestInfoBridge() {
 
 BridgedClass _createQuestListResultBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_19.QuestListResult,
+    nativeType: $tom_vscode_scripting_api_17.QuestListResult,
     name: 'QuestListResult',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_19.QuestListResult,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_17.QuestListResult,
     constructors: {
       '': (visitor, positional, named) {
         if (!named.containsKey('quests') || named['quests'] == null) {
@@ -23824,7 +21504,7 @@ BridgedClass _createQuestListResultBridge() {
             'QuestListResult: Missing required named argument "quests"',
           );
         }
-        final quests = D4.coerceList<$tom_vscode_scripting_api_19.QuestInfo>(
+        final quests = D4.coerceList<$tom_vscode_scripting_api_17.QuestInfo>(
           named['quests'],
           'quests',
         );
@@ -23837,7 +21517,7 @@ BridgedClass _createQuestListResultBridge() {
           named,
           'activeQuestId',
         );
-        return $tom_vscode_scripting_api_19.QuestListResult(
+        return $tom_vscode_scripting_api_17.QuestListResult(
           quests: quests,
           totalCount: totalCount,
           activeQuestId: activeQuestId,
@@ -23851,24 +21531,24 @@ BridgedClass _createQuestListResultBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_19.QuestListResult.fromJson(json);
+        return $tom_vscode_scripting_api_17.QuestListResult.fromJson(json);
       },
     },
     getters: {
       'quests': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_19.QuestListResult>(
+          .validateTarget<$tom_vscode_scripting_api_17.QuestListResult>(
             target,
             'QuestListResult',
           )
           .quests,
       'totalCount': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_19.QuestListResult>(
+          .validateTarget<$tom_vscode_scripting_api_17.QuestListResult>(
             target,
             'QuestListResult',
           )
           .totalCount,
       'activeQuestId': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_19.QuestListResult>(
+          .validateTarget<$tom_vscode_scripting_api_17.QuestListResult>(
             target,
             'QuestListResult',
           )
@@ -23892,9 +21572,9 @@ BridgedClass _createQuestListResultBridge() {
 
 BridgedClass _createWorkspaceInfoBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_19.WorkspaceInfo,
+    nativeType: $tom_vscode_scripting_api_17.WorkspaceInfo,
     name: 'WorkspaceInfo',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_19.WorkspaceInfo,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_17.WorkspaceInfo,
     constructors: {
       '': (visitor, positional, named) {
         final name = D4.getRequiredNamedArg<String>(
@@ -23930,7 +21610,7 @@ BridgedClass _createWorkspaceInfoBridge() {
           named['metadata'],
           'metadata',
         );
-        return $tom_vscode_scripting_api_19.WorkspaceInfo(
+        return $tom_vscode_scripting_api_17.WorkspaceInfo(
           name: name,
           rootPath: rootPath,
           workspaceFile: workspaceFile,
@@ -23949,54 +21629,54 @@ BridgedClass _createWorkspaceInfoBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_19.WorkspaceInfo.fromJson(json);
+        return $tom_vscode_scripting_api_17.WorkspaceInfo.fromJson(json);
       },
     },
     getters: {
       'name': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_19.WorkspaceInfo>(
+          .validateTarget<$tom_vscode_scripting_api_17.WorkspaceInfo>(
             target,
             'WorkspaceInfo',
           )
           .name,
       'rootPath': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_19.WorkspaceInfo>(
+          .validateTarget<$tom_vscode_scripting_api_17.WorkspaceInfo>(
             target,
             'WorkspaceInfo',
           )
           .rootPath,
       'workspaceFile': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_19.WorkspaceInfo>(
+          .validateTarget<$tom_vscode_scripting_api_17.WorkspaceInfo>(
             target,
             'WorkspaceInfo',
           )
           .workspaceFile,
       'projectCount': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_19.WorkspaceInfo>(
+          .validateTarget<$tom_vscode_scripting_api_17.WorkspaceInfo>(
             target,
             'WorkspaceInfo',
           )
           .projectCount,
       'questCount': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_19.WorkspaceInfo>(
+          .validateTarget<$tom_vscode_scripting_api_17.WorkspaceInfo>(
             target,
             'WorkspaceInfo',
           )
           .questCount,
       'activeQuestId': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_19.WorkspaceInfo>(
+          .validateTarget<$tom_vscode_scripting_api_17.WorkspaceInfo>(
             target,
             'WorkspaceInfo',
           )
           .activeQuestId,
       'windowId': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_19.WorkspaceInfo>(
+          .validateTarget<$tom_vscode_scripting_api_17.WorkspaceInfo>(
             target,
             'WorkspaceInfo',
           )
           .windowId,
       'metadata': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_19.WorkspaceInfo>(
+          .validateTarget<$tom_vscode_scripting_api_17.WorkspaceInfo>(
             target,
             'WorkspaceInfo',
           )
@@ -24025,9 +21705,9 @@ BridgedClass _createWorkspaceInfoBridge() {
 
 BridgedClass _createChatVariableBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_19.ChatVariable,
+    nativeType: $tom_vscode_scripting_api_17.ChatVariable,
     name: 'ChatVariable',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_19.ChatVariable,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_17.ChatVariable,
     constructors: {
       '': (visitor, positional, named) {
         final name = D4.getRequiredNamedArg<String>(
@@ -24037,7 +21717,7 @@ BridgedClass _createChatVariableBridge() {
         );
         final value = D4.getOptionalNamedArg<String?>(named, 'value');
         final source = D4.getOptionalNamedArg<String?>(named, 'source');
-        return $tom_vscode_scripting_api_19.ChatVariable(
+        return $tom_vscode_scripting_api_17.ChatVariable(
           name: name,
           value: value,
           source: source,
@@ -24051,24 +21731,24 @@ BridgedClass _createChatVariableBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_19.ChatVariable.fromJson(json);
+        return $tom_vscode_scripting_api_17.ChatVariable.fromJson(json);
       },
     },
     getters: {
       'name': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_19.ChatVariable>(
+          .validateTarget<$tom_vscode_scripting_api_17.ChatVariable>(
             target,
             'ChatVariable',
           )
           .name,
       'value': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_19.ChatVariable>(
+          .validateTarget<$tom_vscode_scripting_api_17.ChatVariable>(
             target,
             'ChatVariable',
           )
           .value,
       'source': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_19.ChatVariable>(
+          .validateTarget<$tom_vscode_scripting_api_17.ChatVariable>(
             target,
             'ChatVariable',
           )
@@ -24092,10 +21772,10 @@ BridgedClass _createChatVariableBridge() {
 
 BridgedClass _createChatVariableListResultBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_19.ChatVariableListResult,
+    nativeType: $tom_vscode_scripting_api_17.ChatVariableListResult,
     name: 'ChatVariableListResult',
     isAssignable: (v) =>
-        v is $tom_vscode_scripting_api_19.ChatVariableListResult,
+        v is $tom_vscode_scripting_api_17.ChatVariableListResult,
     constructors: {
       '': (visitor, positional, named) {
         if (!named.containsKey('variables') || named['variables'] == null) {
@@ -24104,7 +21784,7 @@ BridgedClass _createChatVariableListResultBridge() {
           );
         }
         final variables = D4
-            .coerceList<$tom_vscode_scripting_api_19.ChatVariable>(
+            .coerceList<$tom_vscode_scripting_api_17.ChatVariable>(
               named['variables'],
               'variables',
             );
@@ -24112,7 +21792,7 @@ BridgedClass _createChatVariableListResultBridge() {
           named,
           'activeQuestId',
         );
-        return $tom_vscode_scripting_api_19.ChatVariableListResult(
+        return $tom_vscode_scripting_api_17.ChatVariableListResult(
           variables: variables,
           activeQuestId: activeQuestId,
         );
@@ -24125,20 +21805,20 @@ BridgedClass _createChatVariableListResultBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_19.ChatVariableListResult.fromJson(
+        return $tom_vscode_scripting_api_17.ChatVariableListResult.fromJson(
           json,
         );
       },
     },
     getters: {
       'variables': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_19.ChatVariableListResult>(
+          .validateTarget<$tom_vscode_scripting_api_17.ChatVariableListResult>(
             target,
             'ChatVariableListResult',
           )
           .variables,
       'activeQuestId': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_19.ChatVariableListResult>(
+          .validateTarget<$tom_vscode_scripting_api_17.ChatVariableListResult>(
             target,
             'ChatVariableListResult',
           )
@@ -24162,35 +21842,35 @@ BridgedClass _createChatVariableListResultBridge() {
 
 BridgedClass _createTomWorkspaceApiBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_19.TomWorkspaceApi,
+    nativeType: $tom_vscode_scripting_api_17.TomWorkspaceApi,
     name: 'TomWorkspaceApi',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_19.TomWorkspaceApi,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_17.TomWorkspaceApi,
     isAbstract: true,
     constructors: {},
     staticMethods: {
       'setAdapter': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'setAdapter');
         final adapter = D4
-            .getRequiredArg<$tom_vscode_scripting_api_21.VSCodeAdapter>(
+            .getRequiredArg<$tom_vscode_scripting_api_19.VSCodeAdapter>(
               positional,
               0,
               'adapter',
               'setAdapter',
             );
-        return $tom_vscode_scripting_api_19.TomWorkspaceApi.setAdapter(adapter);
+        return $tom_vscode_scripting_api_17.TomWorkspaceApi.setAdapter(adapter);
       },
       'getInfo': (visitor, positional, named, typeArgs) {
-        return $tom_vscode_scripting_api_19.TomWorkspaceApi.getInfo();
+        return $tom_vscode_scripting_api_17.TomWorkspaceApi.getInfo();
       },
       'getRootPath': (visitor, positional, named, typeArgs) {
-        return $tom_vscode_scripting_api_19.TomWorkspaceApi.getRootPath();
+        return $tom_vscode_scripting_api_17.TomWorkspaceApi.getRootPath();
       },
       'getWindowId': (visitor, positional, named, typeArgs) {
-        return $tom_vscode_scripting_api_19.TomWorkspaceApi.getWindowId();
+        return $tom_vscode_scripting_api_17.TomWorkspaceApi.getWindowId();
       },
       'listProjects': (visitor, positional, named, typeArgs) {
         final type = D4
-            .getOptionalNamedArg<$tom_vscode_scripting_api_19.ProjectType?>(
+            .getOptionalNamedArg<$tom_vscode_scripting_api_17.ProjectType?>(
               named,
               'type',
             );
@@ -24199,7 +21879,7 @@ BridgedClass _createTomWorkspaceApiBridge() {
           'includeSubWorkspaces',
           true,
         );
-        return $tom_vscode_scripting_api_19.TomWorkspaceApi.listProjects(
+        return $tom_vscode_scripting_api_17.TomWorkspaceApi.listProjects(
           type: type,
           includeSubWorkspaces: includeSubWorkspaces,
         );
@@ -24212,7 +21892,7 @@ BridgedClass _createTomWorkspaceApiBridge() {
           'projectId',
           'getProject',
         );
-        return $tom_vscode_scripting_api_19.TomWorkspaceApi.getProject(
+        return $tom_vscode_scripting_api_17.TomWorkspaceApi.getProject(
           projectId,
         );
       },
@@ -24224,7 +21904,7 @@ BridgedClass _createTomWorkspaceApiBridge() {
           'pattern',
           'findProjects',
         );
-        return $tom_vscode_scripting_api_19.TomWorkspaceApi.findProjects(
+        return $tom_vscode_scripting_api_17.TomWorkspaceApi.findProjects(
           pattern,
         );
       },
@@ -24234,7 +21914,7 @@ BridgedClass _createTomWorkspaceApiBridge() {
           'includeTodoCounts',
           false,
         );
-        return $tom_vscode_scripting_api_19.TomWorkspaceApi.listQuests(
+        return $tom_vscode_scripting_api_17.TomWorkspaceApi.listQuests(
           includeTodoCounts: includeTodoCounts,
         );
       },
@@ -24246,10 +21926,10 @@ BridgedClass _createTomWorkspaceApiBridge() {
           'questId',
           'getQuest',
         );
-        return $tom_vscode_scripting_api_19.TomWorkspaceApi.getQuest(questId);
+        return $tom_vscode_scripting_api_17.TomWorkspaceApi.getQuest(questId);
       },
       'getActiveQuest': (visitor, positional, named, typeArgs) {
-        return $tom_vscode_scripting_api_19.TomWorkspaceApi.getActiveQuest();
+        return $tom_vscode_scripting_api_17.TomWorkspaceApi.getActiveQuest();
       },
       'setActiveQuest': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'setActiveQuest');
@@ -24259,12 +21939,12 @@ BridgedClass _createTomWorkspaceApiBridge() {
           'questId',
           'setActiveQuest',
         );
-        return $tom_vscode_scripting_api_19.TomWorkspaceApi.setActiveQuest(
+        return $tom_vscode_scripting_api_17.TomWorkspaceApi.setActiveQuest(
           questId,
         );
       },
       'listChatVariables': (visitor, positional, named, typeArgs) {
-        return $tom_vscode_scripting_api_19.TomWorkspaceApi.listChatVariables();
+        return $tom_vscode_scripting_api_17.TomWorkspaceApi.listChatVariables();
       },
       'getChatVariable': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'getChatVariable');
@@ -24274,7 +21954,7 @@ BridgedClass _createTomWorkspaceApiBridge() {
           'name',
           'getChatVariable',
         );
-        return $tom_vscode_scripting_api_19.TomWorkspaceApi.getChatVariable(
+        return $tom_vscode_scripting_api_17.TomWorkspaceApi.getChatVariable(
           name,
         );
       },
@@ -24292,7 +21972,7 @@ BridgedClass _createTomWorkspaceApiBridge() {
           'value',
           'setChatVariable',
         );
-        return $tom_vscode_scripting_api_19.TomWorkspaceApi.setChatVariable(
+        return $tom_vscode_scripting_api_17.TomWorkspaceApi.setChatVariable(
           name,
           value,
         );
@@ -24305,7 +21985,7 @@ BridgedClass _createTomWorkspaceApiBridge() {
           'section',
           'getConfig',
         );
-        return $tom_vscode_scripting_api_19.TomWorkspaceApi.getConfig(section);
+        return $tom_vscode_scripting_api_17.TomWorkspaceApi.getConfig(section);
       },
       'updateConfig': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'updateConfig');
@@ -24321,7 +22001,7 @@ BridgedClass _createTomWorkspaceApiBridge() {
           );
         }
         final values = D4.coerceMap<String, dynamic>(positional[1], 'values');
-        return $tom_vscode_scripting_api_19.TomWorkspaceApi.updateConfig(
+        return $tom_vscode_scripting_api_17.TomWorkspaceApi.updateConfig(
           section,
           values,
         );
@@ -24358,9 +22038,9 @@ BridgedClass _createTomWorkspaceApiBridge() {
 
 BridgedClass _createToolDefinitionJsonBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_18.ToolDefinitionJson,
+    nativeType: $tom_vscode_scripting_api_16.ToolDefinitionJson,
     name: 'ToolDefinitionJson',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_18.ToolDefinitionJson,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_16.ToolDefinitionJson,
     constructors: {
       '': (visitor, positional, named) {
         final name = D4.getRequiredNamedArg<String>(
@@ -24382,7 +22062,7 @@ BridgedClass _createToolDefinitionJsonBridge() {
           named['inputSchema'],
           'inputSchema',
         );
-        return $tom_vscode_scripting_api_18.ToolDefinitionJson(
+        return $tom_vscode_scripting_api_16.ToolDefinitionJson(
           name: name,
           description: description,
           inputSchema: inputSchema,
@@ -24396,24 +22076,24 @@ BridgedClass _createToolDefinitionJsonBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_18.ToolDefinitionJson.fromJson(json);
+        return $tom_vscode_scripting_api_16.ToolDefinitionJson.fromJson(json);
       },
     },
     getters: {
       'name': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_18.ToolDefinitionJson>(
+          .validateTarget<$tom_vscode_scripting_api_16.ToolDefinitionJson>(
             target,
             'ToolDefinitionJson',
           )
           .name,
       'description': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_18.ToolDefinitionJson>(
+          .validateTarget<$tom_vscode_scripting_api_16.ToolDefinitionJson>(
             target,
             'ToolDefinitionJson',
           )
           .description,
       'inputSchema': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_18.ToolDefinitionJson>(
+          .validateTarget<$tom_vscode_scripting_api_16.ToolDefinitionJson>(
             target,
             'ToolDefinitionJson',
           )
@@ -24422,7 +22102,7 @@ BridgedClass _createToolDefinitionJsonBridge() {
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$tom_vscode_scripting_api_18.ToolDefinitionJson>(
+            .validateTarget<$tom_vscode_scripting_api_16.ToolDefinitionJson>(
               target,
               'ToolDefinitionJson',
             );
@@ -24449,22 +22129,22 @@ BridgedClass _createToolDefinitionJsonBridge() {
 
 BridgedClass _createTomToolsApiBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_18.TomToolsApi,
+    nativeType: $tom_vscode_scripting_api_16.TomToolsApi,
     name: 'TomToolsApi',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_18.TomToolsApi,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_16.TomToolsApi,
     isAbstract: true,
     constructors: {},
     staticMethods: {
       'setAdapter': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'setAdapter');
         final adapter = D4
-            .getRequiredArg<$tom_vscode_scripting_api_21.VSCodeAdapter>(
+            .getRequiredArg<$tom_vscode_scripting_api_19.VSCodeAdapter>(
               positional,
               0,
               'adapter',
               'setAdapter',
             );
-        return $tom_vscode_scripting_api_18.TomToolsApi.setAdapter(adapter);
+        return $tom_vscode_scripting_api_16.TomToolsApi.setAdapter(adapter);
       },
       'invokeTool': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'invokeTool');
@@ -24477,16 +22157,16 @@ BridgedClass _createTomToolsApiBridge() {
         final arguments = positional.length > 1 && positional[1] != null
             ? D4.coerceMap<String, dynamic>(positional[1], 'arguments')
             : const <String, dynamic>{};
-        return $tom_vscode_scripting_api_18.TomToolsApi.invokeTool(
+        return $tom_vscode_scripting_api_16.TomToolsApi.invokeTool(
           name,
           arguments,
         );
       },
       'getToolsJson': (visitor, positional, named, typeArgs) {
-        return $tom_vscode_scripting_api_18.TomToolsApi.getToolsJson();
+        return $tom_vscode_scripting_api_16.TomToolsApi.getToolsJson();
       },
       'listAllowedToolNames': (visitor, positional, named, typeArgs) {
-        return $tom_vscode_scripting_api_18.TomToolsApi.listAllowedToolNames();
+        return $tom_vscode_scripting_api_16.TomToolsApi.listAllowedToolNames();
       },
     },
     staticMethodSignatures: {
@@ -24505,9 +22185,9 @@ BridgedClass _createTomToolsApiBridge() {
 
 BridgedClass _createSendToChatResultBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_13.SendToChatResult,
+    nativeType: $tom_vscode_scripting_api_11.SendToChatResult,
     name: 'SendToChatResult',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_13.SendToChatResult,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_11.SendToChatResult,
     constructors: {
       '': (visitor, positional, named) {
         final target_ = D4.getRequiredNamedArg<String>(
@@ -24535,7 +22215,7 @@ BridgedClass _createSendToChatResultBridge() {
           'error',
           'SendToChatResult',
         );
-        return $tom_vscode_scripting_api_13.SendToChatResult(
+        return $tom_vscode_scripting_api_11.SendToChatResult(
           target: target_,
           success: success,
           answer: answer,
@@ -24551,36 +22231,36 @@ BridgedClass _createSendToChatResultBridge() {
           );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
-        return $tom_vscode_scripting_api_13.SendToChatResult.fromJson(json);
+        return $tom_vscode_scripting_api_11.SendToChatResult.fromJson(json);
       },
     },
     getters: {
       'target': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_13.SendToChatResult>(
+          .validateTarget<$tom_vscode_scripting_api_11.SendToChatResult>(
             target,
             'SendToChatResult',
           )
           .target,
       'success': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_13.SendToChatResult>(
+          .validateTarget<$tom_vscode_scripting_api_11.SendToChatResult>(
             target,
             'SendToChatResult',
           )
           .success,
       'answer': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_13.SendToChatResult>(
+          .validateTarget<$tom_vscode_scripting_api_11.SendToChatResult>(
             target,
             'SendToChatResult',
           )
           .answer,
       'rejected': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_13.SendToChatResult>(
+          .validateTarget<$tom_vscode_scripting_api_11.SendToChatResult>(
             target,
             'SendToChatResult',
           )
           .rejected,
       'error': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_13.SendToChatResult>(
+          .validateTarget<$tom_vscode_scripting_api_11.SendToChatResult>(
             target,
             'SendToChatResult',
           )
@@ -24607,22 +22287,22 @@ BridgedClass _createSendToChatResultBridge() {
 
 BridgedClass _createTomChatApiBridge() {
   return BridgedClass(
-    nativeType: $tom_vscode_scripting_api_13.TomChatApi,
+    nativeType: $tom_vscode_scripting_api_11.TomChatApi,
     name: 'TomChatApi',
-    isAssignable: (v) => v is $tom_vscode_scripting_api_13.TomChatApi,
+    isAssignable: (v) => v is $tom_vscode_scripting_api_11.TomChatApi,
     isAbstract: true,
     constructors: {},
     staticMethods: {
       'setAdapter': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'setAdapter');
         final adapter = D4
-            .getRequiredArg<$tom_vscode_scripting_api_21.VSCodeAdapter>(
+            .getRequiredArg<$tom_vscode_scripting_api_19.VSCodeAdapter>(
               positional,
               0,
               'adapter',
               'setAdapter',
             );
-        return $tom_vscode_scripting_api_13.TomChatApi.setAdapter(adapter);
+        return $tom_vscode_scripting_api_11.TomChatApi.setAdapter(adapter);
       },
       'sendToChat': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'sendToChat');
@@ -24632,7 +22312,7 @@ BridgedClass _createTomChatApiBridge() {
           'prompt',
           'sendToChat',
         );
-        return $tom_vscode_scripting_api_13.TomChatApi.sendToChat(prompt);
+        return $tom_vscode_scripting_api_11.TomChatApi.sendToChat(prompt);
       },
     },
     staticMethodSignatures: {
