@@ -164,7 +164,7 @@ that turns a string into a runnable command (`'ls -la'.run`); helpers like `Env`
 `Ask`, and `Confirm`. Bridging all of that by hand would be a large job.
 
 We do not have to. The `tom_d4rt_dcli` package already contains the generated
-bridges for the entire `dcli` surface, plus `path`, `tom_chattools`, and the CLI
+bridges for the entire `dcli` surface, plus `path` and the CLI
 helper API. It bundles them behind a single registration class:
 
 ```dart

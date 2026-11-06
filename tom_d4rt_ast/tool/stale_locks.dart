@@ -255,16 +255,7 @@ class HeldBack {
 /// "still stale" every run. A hold names that range, the todo that lifts it,
 /// and why, so the check stays red for everything else in those packages.
 /// F-SCC45-8 fails once a hold no longer holds anything back.
-const Map<String, HeldBack> heldBackVersions = <String, HeldBack>{
-  'tom_analyzer_shared': HeldBack(
-    from: '0.8.0',
-    owner: 'vstdm3_akex-d4rt-repo-to-analyzer-14',
-    reason:
-        'tom_analyzer_shared 0.8.0 requires analyzer ^14.1, and every package '
-        'of this repo with an analyzer dependency (tom_d4rt above all, which '
-        'the generator depends on) is on analyzer ^10',
-  ),
-};
+const Map<String, HeldBack> heldBackVersions = <String, HeldBack>{};
 
 /// [root]-relative path of [dir], always `/`-separated.
 String relativeTo(Directory root, Directory dir) {
