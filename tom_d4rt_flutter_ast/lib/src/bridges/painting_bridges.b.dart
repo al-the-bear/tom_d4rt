@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 46 files
-// Generated: 2026-09-30T19:12:03.097564 by tom_d4rt_generator 1.51.0
+// Generated: 2026-11-06T09:49:22.283434 by tom_d4rt_generator 1.52.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -1269,6 +1269,7 @@ class FlutterPaintingBridge {
         source: 'package:flutter/foundation.dart',
         target: 'package:meta/meta.dart',
         show: {
+          'awaitNotRequired',
           'factory',
           'immutable',
           'internal',
@@ -2480,6 +2481,12 @@ class FlutterPaintingBridge {
         source: 'package:flutter/src/services/text_layout_metrics.dart',
         target: 'package:flutter/src/services/text_editing.dart',
         show: {'TextSelection'},
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/services.dart',
+        target: 'package:flutter/src/services/app_version.dart',
+        show: null,
         hide: null,
       ),
       (
@@ -15135,6 +15142,17 @@ BridgedClass _createGradientBridge() {
         );
         return t.withOpacity(opacity);
       },
+      'fromColor': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_31.Gradient>(target, 'Gradient');
+        D4.requireMinArgs(positional, 1, 'fromColor');
+        final color = D4.getRequiredArg<Color>(
+          positional,
+          0,
+          'color',
+          'fromColor',
+        );
+        return t.fromColor(color);
+      },
       'lerpFrom': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_31.Gradient>(target, 'Gradient');
         D4.requireMinArgs(positional, 2, 'lerpFrom');
@@ -15184,6 +15202,7 @@ BridgedClass _createGradientBridge() {
           'Shader createShader(Rect rect, {TextDirection? textDirection})',
       'scale': 'Gradient scale(double factor)',
       'withOpacity': 'Gradient withOpacity(double opacity)',
+      'fromColor': 'Gradient fromColor(Color color)',
       'lerpFrom': 'Gradient? lerpFrom(Gradient? a, double t)',
       'lerpTo': 'Gradient? lerpTo(Gradient? b, double t)',
     },
@@ -15317,6 +15336,20 @@ BridgedClass _createLinearGradientBridge() {
         );
         return t.withOpacity(opacity);
       },
+      'fromColor': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_31.LinearGradient>(
+          target,
+          'LinearGradient',
+        );
+        D4.requireMinArgs(positional, 1, 'fromColor');
+        final color = D4.getRequiredArg<Color>(
+          positional,
+          0,
+          'color',
+          'fromColor',
+        );
+        return t.fromColor(color);
+      },
       'lerpFrom': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_31.LinearGradient>(
           target,
@@ -15397,6 +15430,7 @@ BridgedClass _createLinearGradientBridge() {
           'Shader createShader(Rect rect, {TextDirection? textDirection})',
       'scale': 'LinearGradient scale(double factor)',
       'withOpacity': 'LinearGradient withOpacity(double opacity)',
+      'fromColor': 'LinearGradient fromColor(Color color)',
       'lerpFrom': 'Gradient? lerpFrom(Gradient? a, double t)',
       'lerpTo': 'Gradient? lerpTo(Gradient? b, double t)',
       'toString': 'String toString()',
@@ -15549,6 +15583,20 @@ BridgedClass _createRadialGradientBridge() {
         );
         return t.withOpacity(opacity);
       },
+      'fromColor': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_31.RadialGradient>(
+          target,
+          'RadialGradient',
+        );
+        D4.requireMinArgs(positional, 1, 'fromColor');
+        final color = D4.getRequiredArg<Color>(
+          positional,
+          0,
+          'color',
+          'fromColor',
+        );
+        return t.fromColor(color);
+      },
       'lerpFrom': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_31.RadialGradient>(
           target,
@@ -15629,6 +15677,7 @@ BridgedClass _createRadialGradientBridge() {
           'Shader createShader(Rect rect, {TextDirection? textDirection})',
       'scale': 'RadialGradient scale(double factor)',
       'withOpacity': 'RadialGradient withOpacity(double opacity)',
+      'fromColor': 'RadialGradient fromColor(Color color)',
       'lerpFrom': 'Gradient? lerpFrom(Gradient? a, double t)',
       'lerpTo': 'Gradient? lerpTo(Gradient? b, double t)',
       'toString': 'String toString()',
@@ -15779,6 +15828,20 @@ BridgedClass _createSweepGradientBridge() {
         );
         return t.withOpacity(opacity);
       },
+      'fromColor': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_31.SweepGradient>(
+          target,
+          'SweepGradient',
+        );
+        D4.requireMinArgs(positional, 1, 'fromColor');
+        final color = D4.getRequiredArg<Color>(
+          positional,
+          0,
+          'color',
+          'fromColor',
+        );
+        return t.fromColor(color);
+      },
       'lerpFrom': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_31.SweepGradient>(
           target,
@@ -15859,6 +15922,7 @@ BridgedClass _createSweepGradientBridge() {
           'Shader createShader(Rect rect, {TextDirection? textDirection})',
       'scale': 'SweepGradient scale(double factor)',
       'withOpacity': 'SweepGradient withOpacity(double opacity)',
+      'fromColor': 'SweepGradient fromColor(Color color)',
       'lerpFrom': 'Gradient? lerpFrom(Gradient? a, double t)',
       'lerpTo': 'Gradient? lerpTo(Gradient? b, double t)',
       'toString': 'String toString()',
@@ -18623,6 +18687,11 @@ BridgedClass _createImageStreamListenerBridge() {
         final onImageRaw = positional[0];
         final onChunkRaw = named['onChunk'];
         final onErrorRaw = named['onError'];
+        final reportErrors = D4.getNamedArgWithDefault<bool>(
+          named,
+          'reportErrors',
+          true,
+        );
         return $flutter_36.ImageStreamListener(
           ($flutter_36.ImageInfo p0, bool p1) {
             D4.callInterpreterCallback(visitor!, onImageRaw, [p0, p1]);
@@ -18637,6 +18706,7 @@ BridgedClass _createImageStreamListenerBridge() {
               : (Object p0, StackTrace? p1) {
                   D4.callInterpreterCallback(visitor!, onErrorRaw, [p0, p1]);
                 },
+          reportErrors: reportErrors,
         );
       },
     },
@@ -18659,6 +18729,12 @@ BridgedClass _createImageStreamListenerBridge() {
             'ImageStreamListener',
           )
           .onError,
+      'reportErrors': (visitor, target) => D4
+          .validateTarget<$flutter_36.ImageStreamListener>(
+            target,
+            'ImageStreamListener',
+          )
+          .reportErrors,
       'hashCode': (visitor, target) => D4
           .validateTarget<$flutter_36.ImageStreamListener>(
             target,
@@ -18684,12 +18760,13 @@ BridgedClass _createImageStreamListenerBridge() {
       },
     },
     constructorSignatures: {
-      '': 'const ImageStreamListener(ImageListener onImage, {ImageChunkListener? onChunk, ImageErrorListener? onError})',
+      '': 'const ImageStreamListener(ImageListener onImage, {ImageChunkListener? onChunk, ImageErrorListener? onError, bool reportErrors = true})',
     },
     getterSignatures: {
       'onImage': 'ImageListener get onImage',
       'onChunk': 'ImageChunkListener? get onChunk',
       'onError': 'ImageErrorListener? get onError',
+      'reportErrors': 'bool get reportErrors',
       'hashCode': 'int get hashCode',
     },
   );
@@ -27584,6 +27661,18 @@ BridgedClass _createMatrix4Bridge() {
         t.translateByDouble(tx, ty, tz, tw);
         return null;
       },
+      'translateByVector2': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
+        D4.requireMinArgs(positional, 1, 'translateByVector2');
+        final v2 = D4.getRequiredArg<$vector_math_1.Vector2>(
+          positional,
+          0,
+          'v2',
+          'translateByVector2',
+        );
+        t.translateByVector2(v2);
+        return null;
+      },
       'translateByVector3': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
         D4.requireMinArgs(positional, 1, 'translateByVector3');
@@ -27650,6 +27739,18 @@ BridgedClass _createMatrix4Bridge() {
           'leftTranslateByDouble',
         );
         t.leftTranslateByDouble(tx, ty, tz, tw);
+        return null;
+      },
+      'leftTranslateByVector2': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
+        D4.requireMinArgs(positional, 1, 'leftTranslateByVector2');
+        final v2 = D4.getRequiredArg<$vector_math_1.Vector2>(
+          positional,
+          0,
+          'v2',
+          'leftTranslateByVector2',
+        );
+        t.leftTranslateByVector2(v2);
         return null;
       },
       'leftTranslateByVector3': (visitor, target, positional, named, typeArgs) {
@@ -28133,6 +28234,18 @@ BridgedClass _createMatrix4Bridge() {
         t.multiply(arg);
         return null;
       },
+      'leftMultiply': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
+        D4.requireMinArgs(positional, 1, 'leftMultiply');
+        final arg = D4.getRequiredArg<$vector_math_1.Matrix4>(
+          positional,
+          0,
+          'arg',
+          'leftMultiply',
+        );
+        t.leftMultiply(arg);
+        return null;
+      },
       'multiplied': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$vector_math_1.Matrix4>(target, 'Matrix4');
         D4.requireMinArgs(positional, 1, 'multiplied');
@@ -28554,12 +28667,14 @@ BridgedClass _createMatrix4Bridge() {
           'void translate(dynamic x, [double y = 0.0, double z = 0.0])',
       'translateByDouble':
           'void translateByDouble(double tx, double ty, double tz, double tw)',
+      'translateByVector2': 'void translateByVector2(Vector2 v2)',
       'translateByVector3': 'void translateByVector3(Vector3 v3)',
       'translateByVector4': 'void translateByVector4(Vector4 v4)',
       'leftTranslate':
           'void leftTranslate(dynamic x, [double y = 0.0, double z = 0.0])',
       'leftTranslateByDouble':
           'void leftTranslateByDouble(double tx, double ty, double tz, double tw)',
+      'leftTranslateByVector2': 'void leftTranslateByVector2(Vector2 v2)',
       'leftTranslateByVector3': 'void leftTranslateByVector3(Vector3 v3)',
       'leftTranslateByVector4': 'void leftTranslateByVector4(Vector4 v4)',
       'rotate': 'void rotate(Vector3 axis, double angle)',
@@ -28610,6 +28725,7 @@ BridgedClass _createMatrix4Bridge() {
       'sub': 'void sub(Matrix4 o)',
       'negate': 'void negate()',
       'multiply': 'void multiply(Matrix4 arg)',
+      'leftMultiply': 'void leftMultiply(Matrix4 arg)',
       'multiplied': 'Matrix4 multiplied(Matrix4 arg)',
       'transposeMultiply': 'void transposeMultiply(Matrix4 arg)',
       'multiplyTranspose': 'void multiplyTranspose(Matrix4 arg)',

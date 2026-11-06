@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 5 files
-// Generated: 2026-09-30T19:12:08.362063 by tom_d4rt_generator 1.51.0
+// Generated: 2026-11-06T09:49:57.281247 by tom_d4rt_generator 1.52.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -1458,6 +1458,12 @@ class FlutterSemanticsBridge {
       ),
       (
         source: 'package:flutter/services.dart',
+        target: 'package:flutter/src/services/app_version.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/services.dart',
         target: 'package:flutter/src/services/asset_bundle.dart',
         show: null,
         hide: null,
@@ -2154,6 +2160,31 @@ BridgedClass _createSemanticsBindingBridge() {
             });
             return null;
           },
+      'getRectOfSemanticsNodeInViewCoordinates':
+          (visitor, target, positional, named, typeArgs) {
+            final t = D4.validateTarget<$flutter_5.SemanticsBinding>(
+              target,
+              'SemanticsBinding',
+            );
+            D4.requireMinArgs(
+              positional,
+              2,
+              'getRectOfSemanticsNodeInViewCoordinates',
+            );
+            final viewId = D4.getRequiredArg<int>(
+              positional,
+              0,
+              'viewId',
+              'getRectOfSemanticsNodeInViewCoordinates',
+            );
+            final nodeId = D4.getRequiredArg<int>(
+              positional,
+              1,
+              'nodeId',
+              'getRectOfSemanticsNodeInViewCoordinates',
+            );
+            return t.getRectOfSemanticsNodeInViewCoordinates(viewId, nodeId);
+          },
       'ensureSemantics': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_5.SemanticsBinding>(
           target,
@@ -2484,6 +2515,8 @@ BridgedClass _createSemanticsBindingBridge() {
           'void addSemanticsActionListener(ValueSetter<SemanticsActionEvent> listener)',
       'removeSemanticsActionListener':
           'void removeSemanticsActionListener(ValueSetter<SemanticsActionEvent> listener)',
+      'getRectOfSemanticsNodeInViewCoordinates':
+          'Rect? getRectOfSemanticsNodeInViewCoordinates(int viewId, int nodeId)',
       'ensureSemantics': 'SemanticsHandle ensureSemantics()',
       'performSemanticsAction':
           'void performSemanticsAction(SemanticsActionEvent action)',
@@ -6288,6 +6321,20 @@ BridgedClass _createSemanticsOwnerBridge() {
           .hasListeners,
     },
     methods: {
+      'getSemanticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_7.SemanticsOwner>(
+          target,
+          'SemanticsOwner',
+        );
+        D4.requireMinArgs(positional, 1, 'getSemanticsNode');
+        final id = D4.getRequiredArg<int>(
+          positional,
+          0,
+          'id',
+          'getSemanticsNode',
+        );
+        return t.getSemanticsNode(id);
+      },
       'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_7.SemanticsOwner>(
           target,
@@ -6397,6 +6444,7 @@ BridgedClass _createSemanticsOwnerBridge() {
       '': 'SemanticsOwner({required SemanticsUpdateCallback onSemanticsUpdate})',
     },
     methodSignatures: {
+      'getSemanticsNode': 'SemanticsNode? getSemanticsNode(int id)',
       'dispose': 'void dispose()',
       'sendSemanticsUpdate': 'void sendSemanticsUpdate()',
       'performAction':
