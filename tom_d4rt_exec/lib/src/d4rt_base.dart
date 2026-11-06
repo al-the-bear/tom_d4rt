@@ -1240,7 +1240,6 @@ class D4rt {
     }
 
     // Initialize a fresh module loader (resets global environment)
-    InterpretedFunction.clearParentMap();
     _moduleLoader = _initModule(
       sources,
       basePath: basePath,
@@ -1294,7 +1293,6 @@ class D4rt {
     Map<String, String>? sources,
     bool allowFileSystemImports = false,
   }) {
-    InterpretedFunction.clearParentMap();
     _moduleLoader = _initModule(
       sources,
       basePath: program.basePath,
@@ -1308,6 +1306,89 @@ class D4rt {
       positionalArgs: positionalArgs,
       namedArgs: namedArgs,
     );
+  }
+
+  /// Runs [execute] and settles its result: an entry point that returns a
+  /// Future (an `async main`) is awaited, so the host always receives the
+  /// final native value. A synchronous entry point's value comes back
+  /// unchanged. The script's error — thrown synchronously or by the Future —
+  /// fails the returned Future, as [execute] would have thrown it.
+  ///
+  /// The arguments mean what they mean on [execute].
+  Future<Object?> executeAsync({
+    String? source,
+    String name = 'main',
+    List<Object?>? positionalArgs,
+    Map<String, Object?>? namedArgs,
+    String? library,
+    Map<String, String>? sources,
+    String? basePath,
+    bool allowFileSystemImports = false,
+  }) async {
+    final Object? result = execute(
+      source: source,
+      name: name,
+      positionalArgs: positionalArgs,
+      namedArgs: namedArgs,
+      library: library,
+      sources: sources,
+      basePath: basePath,
+      allowFileSystemImports: allowFileSystemImports,
+    );
+    return result is Future ? await result : result;
+  }
+
+  /// [executeAsync] with its result unwrapped to [T] by [D4.unwrapAs], so a
+  /// bridged value or an interpreted instance implementing a bridged
+  /// interface comes back as a native [T].
+  ///
+  /// The unwrap uses the visitor of THIS run, captured before the await:
+  /// [visitor] belongs to whichever run started last, and another run on
+  /// this interpreter may start while this one's Future is pending.
+  Future<T> executeAsAsync<T>({
+    String? source,
+    String name = 'main',
+    List<Object?>? positionalArgs,
+    Map<String, Object?>? namedArgs,
+    String? library,
+    Map<String, String>? sources,
+    String? basePath,
+    bool allowFileSystemImports = false,
+  }) async {
+    final Object? result = execute(
+      source: source,
+      name: name,
+      positionalArgs: positionalArgs,
+      namedArgs: namedArgs,
+      library: library,
+      sources: sources,
+      basePath: basePath,
+      allowFileSystemImports: allowFileSystemImports,
+    );
+    final runVisitor = _visitor;
+    final resolved = result is Future ? await result : result;
+    return D4.unwrapAs<T>(resolved, visitor: runVisitor);
+  }
+
+  /// [executeProgram] settled like [executeAsync]: an `async main` is
+  /// awaited, and its error fails the returned Future.
+  Future<Object?> executeProgramAsync(
+    D4rtProgram program, {
+    String name = 'main',
+    List<Object?>? positionalArgs,
+    Map<String, Object?>? namedArgs,
+    Map<String, String>? sources,
+    bool allowFileSystemImports = false,
+  }) async {
+    final Object? result = executeProgram(
+      program,
+      name: name,
+      positionalArgs: positionalArgs,
+      namedArgs: namedArgs,
+      sources: sources,
+      allowFileSystemImports: allowFileSystemImports,
+    );
+    return result is Future ? await result : result;
   }
 
   /// Execute additional source code in the existing global context.

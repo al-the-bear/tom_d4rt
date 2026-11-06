@@ -193,6 +193,21 @@ d4rt.execute(
 
 `continuedExecute()` reuses the existing environment from a prior `execute()` call, letting you add declarations without resetting state.
 
+#### Async scripts
+
+An `async main` makes `execute()` return a `Future`. `executeAsync()`, `executeAsAsync<T>()` and `executeProgramAsync()` settle it and hand back the final native value; the typed variant unwraps it to `T` with the visitor of its own run. A bridged method that returns a native `Future` is awaitable from the script, and a failing one is a catchable script exception — see [Bridging Asynchronous Methods](doc/BRIDGING_GUIDE.md#bridging-asynchronous-methods).
+
+```dart
+final total = await d4rt.executeAsync(
+  source: '''
+    Future<int> main() async {
+      final values = await Future.wait([Future.value(1), Future.value(2)]);
+      return values.fold(0, (a, b) => a + b);
+    }
+  ''',
+); // 3
+```
+
 ### REPL-style evaluation
 
 After calling `execute()` to establish a context, `eval()` evaluates expressions and statements incrementally in the same environment:

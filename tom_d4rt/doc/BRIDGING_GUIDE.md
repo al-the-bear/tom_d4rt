@@ -150,20 +150,20 @@ final complexEnumDefinition = BridgedEnumDefinition<ComplexEnum>(
     'info': (visitor, target) => (target as ComplexEnum).info, // Bridge the native getter
   },
   methods: {
-    'multiply': (visitor, target, positionalArgs, namedArgs) {
+    'multiply': (visitor, target, positionalArgs, namedArgs, typeArgs) {
       if (target is ComplexEnum && positionalArgs.length == 1 && positionalArgs[0] is int) {
         return target.multiply(positionalArgs[0] as int);
       }
       throw ArgumentError('Invalid arguments for multiply');
     },
-    'isItemA': (visitor, target, positionalArgs, namedArgs) {
+    'isItemA': (visitor, target, positionalArgs, namedArgs, typeArgs) {
       if (target is ComplexEnum && positionalArgs.isEmpty && namedArgs.isEmpty) {
         return target.isItemA();
       }
       throw ArgumentError('Invalid arguments for isItemA');
     },
     // Optionally, override toString behavior for the bridged enum value
-    'toString': (visitor, target, positionalArgs, namedArgs) {
+    'toString': (visitor, target, positionalArgs, namedArgs, typeArgs) {
       if (target is ComplexEnum) {
         return 'MyComplexEnum.${target.name} (bridged)';
       }
@@ -397,7 +397,7 @@ staticSetters: {
 ```dart
 // Native: static String NativeCounter.staticMethod(String prefix);
 staticMethods: {
-  'staticMethod': (visitor, positionalArgs, namedArgs) {
+  'staticMethod': (visitor, positionalArgs, namedArgs, typeArgs) {
     if (positionalArgs.length == 1 && positionalArgs[0] is String) {
       return NativeCounter.staticMethod(positionalArgs[0] as String);
     }
@@ -443,7 +443,7 @@ setters: {
 ```dart
 // Native: void NativeCounter.increment([int amount = 1]);
 methods: {
-  'increment': (visitor, target, positionalArgs, namedArgs) {
+  'increment': (visitor, target, positionalArgs, namedArgs, typeArgs) {
     if (target is NativeCounter) {
       if (positionalArgs.isEmpty) {
         target.increment();
@@ -465,7 +465,7 @@ Index operators `[]` and `[]=` are bridged as instance methods with special name
 -   `operator[]`: Bridge as a method named `'[]'`.
     ```dart
     // For Uint8List[]
-    '[]': (visitor, target, positionalArgs, namedArgs) {
+    '[]': (visitor, target, positionalArgs, namedArgs, typeArgs) {
        if (target is Uint8List && positionalArgs.length == 1 && positionalArgs[0] is int) {
         return target[positionalArgs[0] as int];
       }
@@ -475,7 +475,7 @@ Index operators `[]` and `[]=` are bridged as instance methods with special name
 -   `operator[] =`: Bridge as a method named `'[]='`.
     ```dart
     // For Uint8List[]=
-    '[]=': (visitor, target, positionalArgs, namedArgs) {
+    '[]=': (visitor, target, positionalArgs, namedArgs, typeArgs) {
       if (target is Uint8List && positionalArgs.length == 2 && 
           positionalArgs[0] is int && positionalArgs[1] is int) {
         final index = positionalArgs[0] as int;
@@ -489,74 +489,85 @@ Index operators `[]` and `[]=` are bridged as instance methods with special name
 
 ### Bridging Asynchronous Methods
 
-If your native methods return a `Future`, d4rt can handle them correctly, allowing you to use `await` in your scripts. The bridge adapter simply returns the `Future` instance.
+A bridged method, static method or top-level function may return a native `Future`. The adapter returns the `Future` as it is, and a script `await`s it like any other: the awaited value is wrapped exactly like a synchronous result (a bridged type comes back as a bridged instance the script can use), and a `Future` that fails raises its error in the script, where `try`/`catch` and `on <Type> catch` catch it.
 
 ```dart
-// Native Class
+// Native class
 class AsyncService {
   Future<String> fetchData(String id) async {
-    await Future.delayed(Duration(milliseconds: 100));
-    return "Data for $id";
+    await Future.delayed(const Duration(milliseconds: 100));
+    return 'Data for $id';
   }
-  Future<void> performAction() async { /* ... */ }
-  Future<NativeCounter> createCounterAsync(int val) async { /* ... */ return NativeCounter(val); }
+
+  Future<NativeCounter> createCounterAsync(int value) async =>
+      NativeCounter(value);
+
+  Future<int> failLater() async => throw StateError('no row');
 }
 
-// Bridge Definition (partial)
+// Bridge definition (partial)
 final asyncServiceDefinition = BridgedClass(
   nativeType: AsyncService,
   name: 'AsyncService',
-  constructors: { /* ... */ },
+  constructors: {'': (visitor, positional, named) => AsyncService()},
   methods: {
-    'fetchData': (visitor, target, positionalArgs, namedArgs) {
-      if (target is AsyncService && positionalArgs.length == 1 && positionalArgs[0] is String) {
-        return target.fetchData(positionalArgs[0] as String); // Return Future<String>
-      }
-      throw ArgumentError('Invalid args for fetchData');
-    },
-    'performAction': (visitor, target, positionalArgs, namedArgs) {
-      if (target is AsyncService && positionalArgs.isEmpty) {
-        return target.performAction(); // Return Future<void>
-      }
-      throw ArgumentError('Invalid args for performAction');
-    },
-    'createCounterAsync': (visitor, target, positionalArgs, namedArgs) {
-      if (target is AsyncService && positionalArgs.length == 1 && positionalArgs[0] is int) {
-        return target.createCounterAsync(positionalArgs[0] as int); // Return Future<NativeCounter>
-      }
-      throw ArgumentError('Invalid args for createCounterAsync');
-    }
-  }
+    'fetchData': (visitor, target, positional, named, typeArgs) =>
+        (target as AsyncService).fetchData(positional[0] as String),
+    'createCounterAsync': (visitor, target, positional, named, typeArgs) =>
+        (target as AsyncService).createCounterAsync(positional[0] as int),
+    'failLater': (visitor, target, positional, named, typeArgs) =>
+        (target as AsyncService).failLater(),
+  },
 );
 ```
 
-**Script Usage:**
+**Script usage:**
+
 ```dart
-// d4rt script
-import 'package:myapp/services.dart'; // Assuming AsyncService is registered here
+import 'package:myapp/services.dart'; // where AsyncService is registered
 
-main() async {
-  var service = AsyncService(); // Assuming a bridged constructor
-  
-  var data = await service.fetchData('user123');
-  print(data); // "Data for user123"
-  
-  await service.performAction();
-  print('Action performed');
+Future<String> main() async {
+  final service = AsyncService();
 
-  var counter = await service.createCounterAsync(50); // counter will be a bridged Counter instance
+  final data = await service.fetchData('user123'); // 'Data for user123'
+
+  final counter = await service.createCounterAsync(50); // a bridged NativeCounter
   counter.increment();
   print(counter.value); // 51
-  
+
   try {
-    // await service.methodThatFails(); // If it returns a Future.error
-  } catch (e) {
-    print('Caught error: \$e');
+    await service.failLater();
+  } on StateError catch (e) {
+    print('caught: ${e.message}'); // caught: no row
   }
   return data;
 }
 ```
-If a bridged async method returns a `Future` that completes with an error (e.g., `Future.error(...)` or an exception is thrown within the async native method), the error will be propagated to the d4rt script and can be caught using a `try-catch` block.
+
+The same holds for `Future.wait` over several bridged Futures, and for a Future a top-level function registered with `registertopLevelFunction` returns.
+
+#### Running an async entry point from the host
+
+`execute` returns what the entry point returns, so an `async main` comes back as a `Future`. The async entry points settle it for you and hand back the final native value:
+
+| Method | Runs | Returns |
+| --- | --- | --- |
+| `executeAsync(...)` | `execute(...)` | `Future<Object?>`: the settled value, native |
+| `executeAsAsync<T>(...)` | `execute(...)` | `Future<T>`, unwrapped by `D4.unwrapAs<T>` (a bridged value, or an interpreted instance implementing a bridged interface, comes back as a native `T`) |
+| `executeProgramAsync(program, ...)` | `executeProgram(program, ...)` | `Future<Object?>` |
+
+They take the same arguments as their synchronous counterparts, return a synchronous entry point's value unchanged, and fail with the script's error — thrown synchronously or by the Future — as the synchronous call would have thrown it.
+
+```dart
+final d4rt = D4rt()..registerBridgedClass(asyncServiceDefinition, 'package:myapp/services.dart');
+final data = await d4rt.executeAsync(source: script); // 'Data for user123'
+```
+
+The typed variant unwraps with the visitor of **its own** run, captured before the await. The interpreter's `visitor` getter belongs to whichever run started last, and another run may start on the same interpreter while this one's Future is pending. The analyzer-free runner (`tom_d4rt_ast`'s `D4rtRunner`) has the same `executeAsync` / `executeAsAsync<T>` for `execute(ast: ...)`, and `executeBundleAsAsync<T>` follows the same rule.
+
+#### Across an isolate boundary
+
+A script run by `tom_d4rt_host` runs in a worker isolate, away from the application's services. A bridge there returns the Future of `D4rtWorkerRun.request(tag, data)`: the host answers it in the caller's zone and the script awaits the answer as above. See `tom_d4rt_host`'s README, "Async bridges over `request`".
 
 ### Advanced Scenarios
 
@@ -566,7 +577,7 @@ You can pass instances of bridged classes (obtained in the script) as arguments 
 ```dart
 // Native: bool NativeCounter.isSame(NativeCounter other);
 // Bridge Adapter for 'isSame':
-'isSame': (visitor, target, positionalArgs, namedArgs) {
+'isSame': (visitor, target, positionalArgs, namedArgs, typeArgs) {
   if (target is NativeCounter && positionalArgs.length == 1) {
     final arg = positionalArgs[0];
     NativeCounter? otherNative;
@@ -597,7 +608,7 @@ If a native bridged method (synchronous or asynchronous) returns an instance of 
 ```dart
 // Native: NativeCounter AsyncProcessor.createCounterSync(int val, String id);
 // Adapter:
-'createCounterSync': (visitor, target, positionalArgs, namedArgs) {
+'createCounterSync': (visitor, target, positionalArgs, namedArgs, typeArgs) {
   if (target is AsyncProcessor && positionalArgs.length == 2 && 
       positionalArgs[0] is int && positionalArgs[1] is String) {
     return target.createCounterSync(positionalArgs[0] as int, positionalArgs[1] as String); 

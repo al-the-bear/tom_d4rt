@@ -123,23 +123,27 @@ class InterpretedFunction implements Callable {
     return '';
   }
 
-  // Parent map for AST node navigation (SAstNode has no .parent property)
-  // Built lazily from the function body.
-  static final Map<SAstNode, SAstNode?> _parentMap = Map.identity();
+  // Parent links for AST node navigation (SAstNode has no .parent property),
+  // built lazily from each function body.
+  //
+  // DASY1: the links live in an [Expando] rather than in a static map cleared
+  // at every top-level execution. A run suspended at an `await` walks these
+  // links when it resumes; clearing them when another run started — on this
+  // runner or any other, the map being process-wide — made the resumed run
+  // lose its enclosing statement, and an `async main` returned null. The
+  // Expando needs no clearing: a link is collected with the tree it belongs
+  // to, which is what the clearing was there to approximate.
+  static final Expando<Object> _parentLinks = Expando<Object>('d4rt.astParent');
 
-  /// Clear the parent map. Should be called at the start of each top-level
-  /// execution to prevent unbounded growth across multiple executions.
-  static void clearParentMap() {
-    _parentMap.clear();
-  }
-
-  /// Build a parent reference map for the given AST tree root.
-  /// Walks all children recursively and maps each child to its parent.
-  /// Builds additively — does not clear existing entries, so nested async
-  /// function calls preserve the outer function's parent map entries.
+  /// Build parent links for the given AST tree root.
+  /// Walks all children recursively and links each child to its parent.
+  /// Builds additively — existing links are kept, so nested async function
+  /// calls preserve the outer function's links.
   static void _buildParentMap(SAstNode root) {
-    if (_parentMap.containsKey(root)) return; // Already built for this body
-    _parentMap[root] = null;
+    if (_parentLinks[root] != null) return; // Already built for this body
+    // A walked root links to `true`: it has no parent, and is told apart
+    // from a node that was never walked, which links to nothing.
+    _parentLinks[root] = true;
     _walkChildren(root);
   }
 
@@ -147,17 +151,18 @@ class InterpretedFunction implements Callable {
     final collector = _ChildCollectorVisitor();
     parent.visitChildren(collector);
     for (final child in collector.children) {
-      if (!_parentMap.containsKey(child)) {
-        _parentMap[child] = parent;
+      if (_parentLinks[child] == null) {
+        _parentLinks[child] = parent;
         _walkChildren(child);
       }
     }
   }
 
-  /// Get the parent of an AST node using the parent map.
+  /// Get the parent of an AST node from its parent link.
   static SAstNode? _parentOf(SAstNode? node) {
     if (node == null) return null;
-    return _parentMap[node];
+    final link = _parentLinks[node];
+    return link is SAstNode ? link : null;
   }
 
   // Helper method to extract type parameter names from a STypeParameterList
@@ -4429,7 +4434,7 @@ class InterpretedFunction implements Callable {
   }
 
   static STryStatement? _findEnclosingTryStatement(SAstNode? node) {
-    // Walk up the parent chain using _parentMap to find enclosing TryStatement
+    // Walk up the parent chain using the parent links to find enclosing TryStatement
     SAstNode? current = _parentOf(node);
     while (current != null) {
       if (current is STryStatement) return current;
@@ -4703,7 +4708,7 @@ class InterpretedFunction implements Callable {
         state.lastAwaitResult = result;
 
         // Now we need to handle the result based on the parent context
-        // Walk up using _parentMap to find the enclosing Statement
+        // Walk up using the parent links to find the enclosing Statement
         SAstNode? parentStatement = awaitContextNode;
         while (parentStatement != null && parentStatement is! SStatement) {
           parentStatement = _parentOf(parentStatement);

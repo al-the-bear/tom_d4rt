@@ -1,3 +1,24 @@
+## 0.212.0
+
+### Added — async entry points (dasy1)
+
+`D4rtRunner.executeAsync` and `executeAsAsync<T>` take the arguments of
+`execute(ast: ...)` and settle the result, in step with `tom_d4rt` 1.231.0.
+`executeBundleAsAsync<T>` now unwraps with the visitor of its own run,
+captured before the await; it used to read the runner's visitor after it, so
+two runs interleaved on one runner could unwrap with each other's visitor.
+
+### Fixed (breaking) — a suspended async run kept its result only if no other run started
+
+Resumption after an `await` walks parent links, because `SAstNode` has no
+`.parent`. They lived in a process-wide map that every top-level execution
+cleared, so a run suspended at an `await` lost its enclosing statement when
+another run started — on the same runner or any other — and its `async main`
+returned null. The links now live in an `Expando` that is collected with its
+tree and is never cleared. `InterpretedFunction.clearParentMap` is gone.
+
+Name resolution: no
+
 ## 0.211.0
 
 ### Changed (breaking) — the AST of tom_ast_model 0.3, bundle format 2.0 (vstdm3)

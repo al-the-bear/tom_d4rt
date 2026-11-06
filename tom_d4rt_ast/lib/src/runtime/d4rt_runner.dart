@@ -1621,7 +1621,6 @@ class D4rtRunner {
     Map<String, Object?>? namedArgs,
   }) {
     // Initialize fresh environment
-    InterpretedFunction.clearParentMap();
     final executionEnvironment = _initEnvironment();
 
     // Create module context with permission checking
@@ -1639,6 +1638,52 @@ class D4rtRunner {
       positionalArgs: positionalArgs,
       namedArgs: namedArgs,
     );
+  }
+
+  /// Runs [execute] and settles its result: an entry point that returns a
+  /// Future (an `async main`) is awaited, so the host always receives the
+  /// final native value. A synchronous entry point's value comes back
+  /// unchanged. The script's error — thrown synchronously or by the Future —
+  /// fails the returned Future, as [execute] would have thrown it.
+  ///
+  /// The arguments mean what they mean on [execute].
+  Future<Object?> executeAsync({
+    required SCompilationUnit ast,
+    String name = 'main',
+    List<Object?>? positionalArgs,
+    Map<String, Object?>? namedArgs,
+  }) async {
+    final Object? result = execute(
+      ast: ast,
+      name: name,
+      positionalArgs: positionalArgs,
+      namedArgs: namedArgs,
+    );
+    return result is Future ? await result : result;
+  }
+
+  /// [executeAsync] with its result unwrapped to [T] by [D4.unwrapAs], so a
+  /// bridged value or an interpreted instance implementing a bridged
+  /// interface comes back as a native [T].
+  ///
+  /// The unwrap uses the visitor of THIS run, captured before the await:
+  /// [visitor] belongs to whichever run started last, and another run on
+  /// this runner may start while this one's Future is pending.
+  Future<T> executeAsAsync<T>({
+    required SCompilationUnit ast,
+    String name = 'main',
+    List<Object?>? positionalArgs,
+    Map<String, Object?>? namedArgs,
+  }) async {
+    final Object? result = execute(
+      ast: ast,
+      name: name,
+      positionalArgs: positionalArgs,
+      namedArgs: namedArgs,
+    );
+    final runVisitor = _visitor;
+    final resolved = result is Future ? await result : result;
+    return D4.unwrapAs<T>(resolved, visitor: runVisitor);
   }
 
   /// Execute from a JSON string.
@@ -1713,7 +1758,6 @@ class D4rtRunner {
 
     // Initialize environment
     final swInit = D4rtProfiler.enabled ? (Stopwatch()..start()) : null;
-    InterpretedFunction.clearParentMap();
     final executionEnvironment = _initEnvironment();
     if (D4rtProfiler.enabled) {
       D4rtProfiler.record(
@@ -1833,8 +1877,12 @@ class D4rtRunner {
       positionalArgs: positionalArgs,
       namedArgs: namedArgs,
     );
+    // DASY1: the unwrap uses THIS run's visitor, captured before the await.
+    // [visitor] belongs to whichever run started last, and another run on
+    // this runner may start while this one's Future is pending.
+    final runVisitor = _visitor;
     final resolved = raw is Future ? await raw : raw;
-    return D4.unwrapAs<T>(resolved, visitor: _visitor);
+    return D4.unwrapAs<T>(resolved, visitor: runVisitor);
   }
 
   /// Evaluate an expression in the current context.

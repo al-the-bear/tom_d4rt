@@ -97,7 +97,9 @@ the raw `executeBundle` and the typed `executeBundleAs<T>`:
 |------|---------|-------|
 | `executeBundle(bundle, …)` | `Object?` (raw) | caller deals with the wrapper |
 | `executeBundleAs<T>(bundle, …)` | `T` | `D4.unwrapAs<T>(raw, visitor: …)` |
-| `executeBundleAsAsync<T>(bundle, …)` | `Future<T>` | awaits a `Future` raw, then unwraps |
+| `executeBundleAsAsync<T>(bundle, …)` | `Future<T>` | awaits a `Future` raw, then unwraps with the visitor of its own run |
+| `executeAsync(ast: unit, …)` | `Future<Object?>` | `execute` settled: awaits a `Future` raw |
+| `executeAsAsync<T>(ast: unit, …)` | `Future<T>` | `execute` settled, then unwrapped like `executeBundleAsAsync<T>` |
 
 `D4.unwrapAs<T>` coercion rules (see `D4` in
 `lib/src/runtime/generator/d4.dart`): `null` → `T` if `null is T`;

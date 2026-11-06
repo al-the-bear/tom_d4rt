@@ -72,6 +72,14 @@ For async scripts (a `Future`-returning entry point), use
 final result = await runner.executeBundleAsAsync<Map<String, dynamic>>(bundle);
 ```
 
+`executeAsync(ast: unit)` and `executeAsAsync<T>(ast: unit)` do the same for
+a single compilation unit run with `execute` (no imports there: it runs
+without a module loader). Every typed async variant unwraps with the visitor
+of its own run, captured before the await, so two runs interleaved on one
+runner never unwrap with each other's visitor. A bridged method returning a
+native `Future` is awaitable from the script; a failing one raises its error
+there.
+
 `executeBundleAs<T>` applies `D4.unwrapAs<T>` to the raw interpreter result,
 throwing `D4UnwrapException` (carrying `expectedType` / `actualType`) on a
 mismatch — so consumers get a native `T`, never a `BridgedInstance`.

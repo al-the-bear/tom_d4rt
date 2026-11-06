@@ -1,3 +1,27 @@
+## 1.231.0
+
+### Added — async entry points (dasy1)
+
+`D4rt.executeAsync`, `executeAsAsync<T>` and `executeProgramAsync` take the
+arguments of `execute` / `executeProgram` and settle the result: an `async
+main` is awaited, so the host receives the final native value, and the
+script's error fails the returned Future. `executeAsAsync<T>` unwraps with
+`D4.unwrapAs<T>` using the visitor of its own run, captured before the await,
+so two runs interleaved on one interpreter never unwrap with each other's
+visitor.
+
+### Documented — awaiting host Futures from a script (tdimpa1)
+
+A bridged method or function returning a native `Future` is awaitable from an
+async script: the value is wrapped like a sync result and the error is a
+catchable script exception. This already worked; it is now pinned by
+`test/tdimpa1_async_bridge_test.dart` and described in the bridging guide's
+"Bridging Asynchronous Methods". The guide's method and static-method
+adapters now show the parameter lists the typedefs declare (the type
+arguments were missing).
+
+Name resolution: no
+
 ## 1.230.0
 
 ### Changed (breaking for analyzer consumers) — analyzer ^14.5.0 (vstdm3)

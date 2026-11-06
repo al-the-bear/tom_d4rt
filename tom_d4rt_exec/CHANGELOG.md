@@ -1,3 +1,21 @@
+## 1.53.0
+
+### Added — async entry points (dasy1)
+
+`D4rt.executeAsync`, `executeAsAsync<T>` and `executeProgramAsync`, as on
+`tom_d4rt` 1.231.0: they settle an `async` entry point and hand back its
+native value; the typed variant unwraps with the visitor of its own run,
+captured before the await. `executeBundleAsAsync<T>` gets the same rule from
+`tom_d4rt_ast` 0.212.0's runner.
+
+### Changed
+
+On `tom_d4rt_ast` ^0.212.0. `execute` and `executeProgram` no longer clear the
+interpreter's parent map: it is gone, its links now live in an `Expando`, so a
+run suspended at an `await` keeps its result when another run starts.
+
+Name resolution: no
+
 ## 1.52.0
 
 ### Changed — analyzer ^14.5.0; tom_d4rt_ast 0.211.0, tom_ast_generator 0.2.0 (vstdm3)

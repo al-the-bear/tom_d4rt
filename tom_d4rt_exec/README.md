@@ -303,6 +303,8 @@ final widget = d4rt.executeBundleAs<Widget>(bundle, name: 'build');
 final value  = await d4rt.executeBundleAsAsync<int>(bundle, name: 'computeAsync');
 ```
 
+For source, `executeAsync()`, `executeAsAsync<T>()` and `executeProgramAsync()` settle an `async` entry point the same way, as they do on `tom_d4rt`'s `D4rt`; the typed variants unwrap with the visitor of their own run. A bridged method returning a native `Future` is awaitable from the script.
+
 #### Extension hook for bridge packages
 
 Bridge packages register relaxers and proxy factories through a programmatic hook rather than comment-driven ordering. `registerExtensions(packageName, body)` queues a callback; `finalizeBridges()` runs every queued callback once, in registration order, after the standard bridges are wired up — it is called implicitly on the first `execute` / `executeBundle`:
