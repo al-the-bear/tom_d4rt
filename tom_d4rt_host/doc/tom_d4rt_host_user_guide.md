@@ -72,6 +72,40 @@ nobody can describe its state.
 `run.emit(stream, text)` adds a line to the transcript, for the application's
 own `stdout`/`stderr` sinks; `print` and `dart:io` are captured already.
 
+## 3a. Asking the host: async bridges
+
+`send` is one-way. When a bridge needs an answer — a value the application
+holds outside the worker, a call into a service only the host can make — it
+returns `run.request(tag, data)`, a `Future` the script awaits:
+
+```dart
+// In the delegate's furnish:
+interpreter.registertopLevelFunction(
+  'loadNote',
+  (visitor, args, named, types) => _run!.request('note.load', args.single),
+  'package:notes/notes.dart',
+);
+```
+
+The host answers with `onRequest`, in the zone that called `run`, returning a
+value or a `Future` of one; requests in flight together are matched to their
+answers by id. When it cannot answer — no `onRequest` was given, the handler
+threw, the answer cannot cross the port — the script's call fails with a
+`D4rtHostException` (`tag`, `kind`, `message`), which the script catches like
+any exception, by name after importing `package:tom_d4rt_host/tom_d4rt_host.dart`.
+The run goes on; the worker is kept.
+
+Each `D4rtHostRequest` carries `runGone`, a `TomCancellationToken` that fires
+when the run is gone — it ended, timed out, was cancelled, its worker died — so
+a handler still working can stop: nobody waits for the answer any more. A run
+that returns while a request is unanswered is reported failed
+(`kind: outstanding`).
+
+An entry point that awaits must be `async`; the worker runs it with
+`executeProgramAsync` and keeps the run — interpreter, output capture, `done` —
+until its Future settles, so what it prints after an await is in its
+transcript and its error is reported like a synchronous one.
+
 ## 4. Running
 
 ```dart
@@ -89,6 +123,7 @@ final outcome = await host.run(
   deadline: const Duration(seconds: 30),
   cancellation: token,                 // optional
   onMessage: (tag, data) { /* ... */ },
+  onRequest: (request) async => answer(request.tag, request.data),
   onOutput: (line) { /* live, in the root zone */ },
 );
 ```

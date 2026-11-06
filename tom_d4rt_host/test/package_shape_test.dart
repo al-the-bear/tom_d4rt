@@ -16,12 +16,9 @@ void main() {
   final pubspec = loadYaml(File('pubspec.yaml').readAsStringSync()) as YamlMap;
   final dependencies = (pubspec['dependencies'] as YamlMap).keys.toSet();
 
-  test(
-    'HOST-P1: the dependencies are the interpreter and tom_basics',
-    () {
-      expect(dependencies, {'tom_d4rt', 'tom_basics'});
-    },
-  );
+  test('HOST-P1: the dependencies are the interpreter and tom_basics', () {
+    expect(dependencies, {'tom_d4rt', 'tom_basics'});
+  });
 
   test(
     'HOST-P2: no application package, no copyleft dependency, no Flutter',

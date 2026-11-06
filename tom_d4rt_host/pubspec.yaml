@@ -5,7 +5,7 @@ description: >-
   bridges, a parsed-program cache keyed by source hash, a deadline and a
   cancellation that kill a runaway, and a bounded transcript of what a run
   printed. The application keeps its bridges and its own message channel.
-version: 0.1.0
+version: 0.2.0
 repository: https://github.com/al-the-bear/tom_d4rt
 homepage: https://github.com/al-the-bear/tom_d4rt/tree/main/tom_d4rt_host
 
@@ -16,7 +16,9 @@ dependencies:
   # The interpreter, resolved from pub.dev like every package of this
   # repository: consumers that also take `tom_d4rt_dcli` take `tom_d4rt` from
   # pub.dev, and pub refuses one package from both a path and pub.dev.
-  tom_d4rt: ^1.226.0
+  # 1.231.1: executeProgramAsync, which serves an async entry point, and the
+  # frames of an error raised after an await.
+  tom_d4rt: ^1.231.1
   # The output transcript and the cancellation token.
   tom_basics: ^3.3.0
 

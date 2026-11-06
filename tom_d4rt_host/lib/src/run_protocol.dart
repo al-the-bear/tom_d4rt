@@ -24,9 +24,55 @@ abstract final class D4rtWorkerMessage {
   /// script makes to a document).
   static const channel = 'channel';
 
+  /// One request the run is awaiting an answer to, `[request, runId, id, tag,
+  /// data]` — the application's request/reply channel
+  /// (`D4rtWorkerRun.request`). The host answers it with a
+  /// [D4rtHostMessage.reply] carrying the same run id and request id.
+  static const request = 'request';
+
   /// The run finished. Payload: `{status, value, error, droppedLines,
   /// parsed}`.
   static const done = 'done';
+}
+
+/// Message tags on the host → worker port, beside the run requests (which
+/// cross as `D4rtRunRequest.toMap()` maps).
+abstract final class D4rtHostMessage {
+  /// The answer to one [D4rtWorkerMessage.request]: `[reply, runId, id, ok,
+  /// payload]`. With `ok` true the payload is the handler's value; with `ok`
+  /// false it is `{message, kind}`, which the worker raises in the run as a
+  /// [D4rtHostException].
+  static const reply = 'reply';
+}
+
+/// The host could not answer a run's request (`D4rtWorkerRun.request`): it
+/// has no request handler, the handler threw, or its value could not cross the
+/// port. Raised in the run, so a script awaiting the request can catch it.
+class D4rtHostException implements Exception {
+  /// The kind of a request the host has no handler for.
+  static const refusedKind = 'refused';
+
+  /// The kind of a request whose answer could not be sent across the port.
+  static const unsendableKind = 'unsendable';
+
+  /// What went wrong, in the host's words.
+  final String message;
+
+  /// [refusedKind], [unsendableKind], or the runtime type of what the
+  /// handler threw.
+  final String kind;
+
+  /// The request's tag.
+  final String tag;
+
+  const D4rtHostException(
+    this.message, {
+    required this.kind,
+    required this.tag,
+  });
+
+  @override
+  String toString() => 'D4rtHostException($tag, $kind): $message';
 }
 
 /// One run, as sendable primitives.
@@ -148,11 +194,15 @@ class D4rtRunError {
   /// The kind of a run whose application refused a channel message.
   static const rejectedKind = 'rejected';
 
+  /// The kind of a run that ended while requests it sent were unanswered —
+  /// requests the program fired without awaiting.
+  static const outstandingKind = 'outstanding';
+
   final String message;
 
   /// [parseKind], [timeoutKind], [cancelledKind], [isolateKind],
-  /// [rejectedKind], a kind the application's delegate named, or the runtime
-  /// type of what the program threw.
+  /// [rejectedKind], [outstandingKind], a kind the application's delegate
+  /// named, or the runtime type of what the program threw.
   final String kind;
 
   /// The interpreter's frames in the program that was run, innermost first —

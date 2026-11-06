@@ -1,5 +1,6 @@
 /// A small application delegate for the suites: one gated corpus, a per-run
-/// slot the bridges read, a channel, and a failure it recognises.
+/// slot the bridges read, a channel, a request bridge (`ask`), and a failure it
+/// recognises.
 library;
 
 import 'dart:isolate';
@@ -54,6 +55,16 @@ class FixtureDelegate extends D4rtWorkerDelegate<Object?> {
         current!.send(args[0]! as String, args[1]);
         return null;
       }, runLibrary)
+      // The async bridge the request channel exists for: its Future is the
+      // host's answer, and the script awaits it.
+      ..registertopLevelFunction(
+        'ask',
+        (visitor, args, named, types) => current!.request(
+          args[0]! as String,
+          args.length > 1 ? args[1] : null,
+        ),
+        runLibrary,
+      )
       ..registertopLevelFunction('note', (visitor, args, named, types) {
         current!.emit(TomOutputStream.stderr, args[0]! as String);
         return null;

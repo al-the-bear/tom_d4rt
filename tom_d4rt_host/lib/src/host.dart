@@ -17,11 +17,47 @@ import 'worker.dart';
 /// because the program is still running and nobody can describe its state.
 typedef D4rtMessageHandler = void Function(String tag, Object? data);
 
+/// One request a run is awaiting an answer to (`D4rtWorkerRun.request`), as
+/// the host's [D4rtRequestHandler] receives it.
+class D4rtHostRequest {
+  const D4rtHostRequest({
+    required this.runId,
+    required this.tag,
+    required this.data,
+    required this.runGone,
+  });
+
+  /// The run that asked.
+  final String runId;
+
+  /// What the run asked for, in the application's own vocabulary.
+  final String tag;
+
+  /// What it sent with the question.
+  final Object? data;
+
+  /// Fires when the run is gone — it ended, timed out, was cancelled, its
+  /// worker died — so a handler still working on the answer can stop: nobody
+  /// is waiting for it any more. Its reason says which.
+  final TomCancellationToken runGone;
+}
+
+/// Answers one request a run sent ([D4rtHostRequest]); what it returns (or
+/// completes with) is sent back to the run.
+///
+/// Called in the zone that called [D4rtHost.run], like [D4rtMessageHandler],
+/// and possibly several times at once: a run that starts more than one request
+/// before awaiting them has them all in flight. A throw — or a failed Future —
+/// does not end the run: the run's request fails with a [D4rtHostException]
+/// the script can catch. The value crosses the port, so it must be sendable.
+typedef D4rtRequestHandler =
+    FutureOr<Object?> Function(D4rtHostRequest request);
+
 /// Runs programs in one resident worker isolate, one at a time.
 ///
-/// * Runs are **serialized**: `D4rt.execute` is synchronous, so a worker
-///   serves one at a time whatever the host does, and queueing them here makes
-///   that a property rather than an accident.
+/// * Runs are **serialized**: a worker serves one at a time — an `async` run
+///   keeps it until its Future settles — and queueing them here makes that a
+///   property rather than an accident.
 /// * Every message from the worker is tagged with its run, and one from a run
 ///   the host has given up on is dropped.
 /// * A run that is **abandoned** while the interpreter is still executing — a
@@ -64,8 +100,11 @@ class D4rtHost {
   ///
   /// [deadline] bounds the run; [cancellation] stops it early. [onMessage]
   /// receives the application's channel messages (see [D4rtMessageHandler]);
-  /// [onOutput] receives each line as it arrives, in the root zone, since what
-  /// a caller does with a line is not part of the run.
+  /// [onRequest] answers the run's requests (see [D4rtRequestHandler]) — a
+  /// run that asks with no handler set gets a [D4rtHostException] of kind
+  /// [D4rtHostException.refusedKind]; [onOutput] receives each line as it
+  /// arrives, in the root zone, since what a caller does with a line is not
+  /// part of the run.
   ///
   /// Never throws for anything the program did: the outcome says how it
   /// ended. Throws only when the worker cannot be started.
@@ -74,6 +113,7 @@ class D4rtHost {
     required Duration deadline,
     TomCancellationToken cancellation = TomCancellationToken.none,
     D4rtMessageHandler? onMessage,
+    D4rtRequestHandler? onRequest,
     void Function(TomOutputLine line)? onOutput,
   }) async {
     final mine = Completer<void>();
@@ -89,6 +129,7 @@ class D4rtHost {
         request.runId,
         done,
         onMessage,
+        onRequest,
         onOutput,
         lines,
         Zone.current,
@@ -146,6 +187,7 @@ class D4rtHost {
         // Cleared first: a message from a run already given up on must not be
         // handled, and the kill below is awaited.
         _current = null;
+        current.runGone.cancel(abandoned.error.message);
         await _discardWorker();
         return D4rtRunOutcome(
           status: abandoned.status,
@@ -155,10 +197,71 @@ class D4rtHost {
         );
       } finally {
         _current = null;
+        // A handler still working on an answer is told nobody waits for it.
+        if (!current.runGone.isCancelled) {
+          current.runGone.cancel('The run ${request.runId} has ended.');
+        }
       }
     } finally {
       mine.complete();
     }
+  }
+
+  /// Answers one [D4rtWorkerMessage.request] of [run] on [toWorker].
+  void _answer(
+    _CurrentRun run,
+    SendPort toWorker,
+    int id,
+    String tag,
+    Object? data,
+  ) {
+    void reply(bool ok, Object? payload) {
+      // The run is gone: its worker no longer waits, and may be serving the
+      // next run already.
+      if (!identical(_current, run)) return;
+      try {
+        toWorker.send([D4rtHostMessage.reply, run.runId, id, ok, payload]);
+      } catch (e) {
+        toWorker.send([
+          D4rtHostMessage.reply,
+          run.runId,
+          id,
+          false,
+          {
+            'message': 'The answer could not cross the port: $e',
+            'kind': D4rtHostException.unsendableKind,
+          },
+        ]);
+      }
+    }
+
+    final handler = run.onRequest;
+    if (handler == null) {
+      reply(false, {
+        'message': 'The host has no request handler for "$tag".',
+        'kind': D4rtHostException.refusedKind,
+      });
+      return;
+    }
+    run.zone.run(() {
+      // The reply is the continuation; nothing awaits the chain itself.
+      unawaited(
+        Future<Object?>.sync(
+          () => handler(
+            D4rtHostRequest(
+              runId: run.runId,
+              tag: tag,
+              data: data,
+              runGone: run.runGone.token,
+            ),
+          ),
+        ).then(
+          (value) => reply(true, value),
+          onError: (Object e) =>
+              reply(false, {'message': '$e', 'kind': e.runtimeType.toString()}),
+        ),
+      );
+    });
   }
 
   Future<_Worker> _worker() async {
@@ -182,11 +285,13 @@ class D4rtHost {
     final onError = ReceivePort();
     final onExit = ReceivePort();
     final ready = Completer<SendPort>();
+    SendPort? toWorker;
 
     fromWorker.listen((message) {
       final parts = message as List<Object?>;
       if (parts[0] == D4rtWorkerMessage.ready) {
-        if (!ready.isCompleted) ready.complete(parts[1]! as SendPort);
+        toWorker = parts[1]! as SendPort;
+        if (!ready.isCompleted) ready.complete(toWorker);
         return;
       }
       final current = _current;
@@ -206,6 +311,14 @@ class D4rtHost {
               D4rtRunError('$e', kind: D4rtRunError.rejectedKind, cause: e),
             );
           }
+        case D4rtWorkerMessage.request:
+          _answer(
+            current,
+            toWorker!,
+            parts[2]! as int,
+            parts[3]! as String,
+            parts[4],
+          );
         case D4rtWorkerMessage.output:
           final line = TomOutputLine.fromMap(parts[2]! as Map);
           current.lines.add(line);
@@ -340,6 +453,7 @@ class _CurrentRun {
     this.runId,
     this.done,
     this.onMessage,
+    this.onRequest,
     this.onOutput,
     this.lines,
     this.zone,
@@ -348,6 +462,10 @@ class _CurrentRun {
   final String runId;
   final Completer<Map<String, Object?>> done;
   final D4rtMessageHandler? onMessage;
+  final D4rtRequestHandler? onRequest;
+
+  /// Fired when the run is gone; handed to every request handler.
+  final TomCancellationSource runGone = TomCancellationSource();
   final void Function(TomOutputLine line)? onOutput;
   final List<TomOutputLine> lines;
 

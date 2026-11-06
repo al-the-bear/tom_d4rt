@@ -18,13 +18,22 @@
 ///   a value captured at registration would make every later run read the
 ///   first run's state.
 ///
-/// What residency cannot survive is a runaway: `D4rt.execute` is synchronous,
-/// so a worker running away cannot service a stop message, and the only way to
-/// end it is to kill the isolate. The host does that on a timeout, a
-/// cancellation, a refused message or a death; the next run spawns a fresh
-/// worker.
+/// What residency cannot survive is a runaway: a script that never yields
+/// cannot service a stop message, and the only way to end it is to kill the
+/// isolate. The host does that on a timeout, a cancellation, a refused message
+/// or a death; the next run spawns a fresh worker.
+///
+/// ## Async runs
+///
+/// An entry point may be `async`. The worker runs it with
+/// `D4rt.executeProgramAsync` and holds the run — its interpreter checked out,
+/// its output captured, its `done` unsent — until the Future settles, so one
+/// run at a time still holds. While the script is suspended the worker's event
+/// loop is free, which is what lets it receive the host's answers to
+/// [D4rtWorkerRun.request].
 library;
 
+import 'dart:async';
 import 'dart:isolate';
 
 import 'package:tom_basics/utilities.dart';
@@ -55,21 +64,39 @@ class D4rtWorkerFailure {
 
 /// One run, as the application's delegate sees it inside the worker.
 class D4rtWorkerRun {
-  D4rtWorkerRun._(this.request, this._send, this._emit);
+  D4rtWorkerRun._(this.runRequest, this._send, this._emit, this._request);
 
-  final D4rtRunRequest request;
+  /// The request this run serves.
+  final D4rtRunRequest runRequest;
   final void Function(List<Object?> message) _send;
   final D4rtOutputEmitter _emit;
+  final Future<Object?> Function(String tag, Object? data) _request;
 
-  String get runId => request.runId;
+  String get runId => runRequest.runId;
 
   /// The application's own part of the request.
-  Map<String, Object?> get payload => request.payload;
+  Map<String, Object?> get payload => runRequest.payload;
 
   /// Sends one message on the application's channel. The host hands it to the
   /// run's message handler, in order, tagged with this run.
   void send(String tag, Object? data) =>
-      _send([D4rtWorkerMessage.channel, request.runId, tag, data]);
+      _send([D4rtWorkerMessage.channel, runRequest.runId, tag, data]);
+
+  /// Asks the host and waits for its answer: the request/reply half of the
+  /// application's channel, beside one-way [send].
+  ///
+  /// The host hands [tag] and [data] to the run's request handler, in the
+  /// caller's zone, and sends back what it returns. A bridge that returns this
+  /// Future gives the script something to `await`. When the host cannot
+  /// answer — no handler, the handler threw, the answer cannot cross the port —
+  /// the Future fails with a [D4rtHostException], which the script can catch.
+  ///
+  /// [data] crosses the port, so it must be sendable; an unsendable value
+  /// throws here. Every request must be answered before the run ends: a run
+  /// whose entry point returns while one is outstanding is reported failed
+  /// ([D4rtRunError.outstandingKind]). Throws [StateError] once the run has
+  /// ended.
+  Future<Object?> request(String tag, Object? data) => _request(tag, data);
 
   /// Adds one line to the run's transcript — for the application's own output
   /// sinks; `print`, `stdout` and `stderr` are captured already.
@@ -116,9 +143,7 @@ void d4rtWorkerMain(List<Object?> payload) {
   final requests = ReceivePort();
   final worker = D4rtWorker(toHost.send, factory());
   toHost.send([D4rtWorkerMessage.ready, requests.sendPort]);
-  requests.listen((message) {
-    worker.serve(D4rtRunRequest.fromMap(message as Map));
-  });
+  requests.listen(worker.receive);
 }
 
 /// The worker body, with the port abstracted to a callback.
@@ -128,11 +153,76 @@ void d4rtWorkerMain(List<Object?> payload) {
 /// isolate.
 class D4rtWorker<K> {
   D4rtWorker(this._send, this._delegate)
-    : _pool = D4rtInterpreterPool<K>(_delegate.furnish);
+    : _pool = D4rtInterpreterPool<K>((interpreter, key) {
+        registerD4rtHostBridges(interpreter);
+        _delegate.furnish(interpreter, key);
+      });
 
   final void Function(List<Object?> message) _send;
   final D4rtWorkerDelegate<K> _delegate;
   final D4rtInterpreterPool<K> _pool;
+
+  /// The run being served, or null between runs.
+  String? _activeRunId;
+
+  /// The current run's requests awaiting the host's answer, by id.
+  final Map<int, ({String tag, Completer<Object?> answer})> _pending = {};
+  int _nextRequestId = 0;
+
+  /// Runs are served one after another even if two arrive together.
+  Future<void> _serving = Future.value();
+
+  /// Handles one message from the host: a run request (a
+  /// `D4rtRunRequest.toMap()` map), queued behind the run in flight, or a
+  /// [D4rtHostMessage.reply], delivered at once — the run awaiting it is
+  /// suspended, so it cannot wait in the queue.
+  void receive(Object? message) {
+    if (message is Map) {
+      final request = D4rtRunRequest.fromMap(message);
+      _serving = _serving.then((_) => serve(request));
+      return;
+    }
+    final parts = message! as List<Object?>;
+    if (parts[0] == D4rtHostMessage.reply) _reply(parts);
+  }
+
+  void _reply(List<Object?> parts) {
+    // A reply for a run that has ended, or for an id it no longer owes, is
+    // dropped: nothing awaits it.
+    if (parts[1] != _activeRunId) return;
+    final pending = _pending.remove(parts[2]! as int);
+    if (pending == null) return;
+    if (parts[3] == true) {
+      pending.answer.complete(parts[4]);
+      return;
+    }
+    final error = parts[4]! as Map;
+    pending.answer.completeError(
+      D4rtHostException(
+        error['message'] as String? ?? 'The host could not answer.',
+        kind: error['kind'] as String? ?? 'unknown',
+        tag: pending.tag,
+      ),
+    );
+  }
+
+  Future<Object?> _request(String runId, String tag, Object? data) {
+    if (runId != _activeRunId) {
+      throw StateError(
+        'Run $runId has ended; its request "$tag" cannot be sent.',
+      );
+    }
+    final id = _nextRequestId++;
+    final answer = Completer<Object?>();
+    _pending[id] = (tag: tag, answer: answer);
+    try {
+      _send([D4rtWorkerMessage.request, runId, id, tag, data]);
+    } catch (_) {
+      _pending.remove(id);
+      rethrow;
+    }
+    return answer.future;
+  }
 
   /// The parsed programs this worker keeps.
   final D4rtProgramCache programs = D4rtProgramCache();
@@ -143,7 +233,11 @@ class D4rtWorker<K> {
   /// Runs one request and reports its outcome. Never throws: a program's
   /// failure is a value, and a throw here would kill the worker and its
   /// residency with it.
-  void serve(D4rtRunRequest request) {
+  ///
+  /// Completes when the run's `done` has been sent — for an `async` entry
+  /// point, after its Future settled. Serve one run at a time: [receive]
+  /// queues them.
+  Future<void> serve(D4rtRunRequest request) async {
     Object? value;
     Map<String, Object?>? error;
     var status = D4rtRunStatus.ok;
@@ -160,7 +254,14 @@ class D4rtWorker<K> {
       _send([D4rtWorkerMessage.output, request.runId, line.toMap()]);
     }
 
-    final run = D4rtWorkerRun._(request, _send, emit);
+    _activeRunId = request.runId;
+    _pending.clear();
+    final run = D4rtWorkerRun._(
+      request,
+      _send,
+      emit,
+      (tag, data) => _request(request.runId, tag, data),
+    );
     try {
       _delegate.begin(run);
       key = _delegate.interpreterKey(run);
@@ -174,8 +275,8 @@ class D4rtWorker<K> {
       );
       parsed = didParse;
       value = d4rtSendable(
-        d4rtRunCapturing(
-          () => furnished.executeProgram(
+        await d4rtRunCapturing(
+          () => furnished.executeProgramAsync(
             program,
             name: request.entryPoint,
             positionalArgs: request.arguments,
@@ -183,6 +284,17 @@ class D4rtWorker<K> {
           emit,
         ),
       );
+      if (_pending.isNotEmpty) {
+        status = D4rtRunStatus.failed;
+        value = null;
+        error = {
+          'message':
+              'The run ended with ${_pending.length} request(s) unanswered: '
+              '${[for (final p in _pending.values) p.tag].join(', ')}. '
+              'Await every request before the entry point returns.',
+          'kind': D4rtRunError.outstandingKind,
+        };
+      }
     } on SourceCodeD4rtException catch (e) {
       status = D4rtRunStatus.failed;
       error = {'message': e.toString(), 'kind': D4rtRunError.parseKind};
@@ -198,6 +310,11 @@ class D4rtWorker<K> {
         'frames': ?frames,
       };
     } finally {
+      // Whatever is still pending belongs to a run that is over: its answers
+      // are dropped when they arrive, and the Futures are never completed — a
+      // failed one nobody listens to would surface in the NEXT run.
+      _activeRunId = null;
+      _pending.clear();
       _delegate.end(run);
       if (key != null) _pool.release(key as K);
     }
@@ -214,6 +331,32 @@ class D4rtWorker<K> {
       },
     ]);
   }
+}
+
+/// The library a script imports to name [D4rtHostException], for example in
+/// `on D4rtHostException catch (e)`.
+const d4rtHostLibrary = 'package:tom_d4rt_host/tom_d4rt_host.dart';
+
+/// Registers what every worker interpreter has from this package, before the
+/// application's delegate furnishes it: [D4rtHostException] in
+/// [d4rtHostLibrary], with its `message`, `kind` and `tag`.
+void registerD4rtHostBridges(D4rt interpreter) {
+  interpreter.registerBridgedClass(
+    BridgedClass(
+      nativeType: D4rtHostException,
+      name: 'D4rtHostException',
+      getters: {
+        'message': (visitor, target) => (target as D4rtHostException).message,
+        'kind': (visitor, target) => (target as D4rtHostException).kind,
+        'tag': (visitor, target) => (target as D4rtHostException).tag,
+      },
+      methods: {
+        'toString': (visitor, target, positional, named, _) =>
+            (target as D4rtHostException).toString(),
+      },
+    ),
+    d4rtHostLibrary,
+  );
 }
 
 /// [value] made sendable across a port: primitives and collections of them
