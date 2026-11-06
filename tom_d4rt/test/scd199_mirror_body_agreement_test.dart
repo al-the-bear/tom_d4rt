@@ -277,7 +277,10 @@ const _divergentBodies = <String, Map<String, String>>{
     // because the hash is over both bodies. The divergence itself is
     // unchanged: the mirror AST has no `parent` getter, so the twin walks
     // with `_parentOf`.
-    'InterpretedFunction._runStateMachine': '25b5cd5d',
+    // DASY1: the state machine's body moved to `_runStateMachineSegment`;
+    // `_runStateMachine` is now the frame wrapper both trees agree on. The
+    // divergence (`parent` against `_parentOf`) moved with the body.
+    'InterpretedFunction._runStateMachineSegment': '25b5cd5d',
     'InterpretedFunction._tryOwningCatchClauseOf': 'f1617e03',
     'InterpretedFunction._tryOwningFinallyBlockOf': '34fd9762',
     'InterpretedFunction.bind': '78b56933',
