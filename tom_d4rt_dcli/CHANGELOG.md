@@ -1,3 +1,16 @@
+## 1.11.0
+
+### Changed — `tom_vscode_scripting_api` ^3.0.0, bridges regenerated
+
+`tom_vscode_scripting_api` is `^3.0.0` (was `^2.0.3`). 3.0.0 removes
+`AiPromptApi` and `AiConversationApi` with their models (`AiPromptResult`,
+`ConversationResult`, `ConversationExchange`, …) and the enums
+`ConversationMode` / `HistoryMode`: the VS Code extension removed the Local LLM
+and AI Conversation panels and answered every such call with an error.
+`tom_vscode_scripting_api_bridges` is regenerated, so a script no longer sees
+these classes. The `hide ConversationExchange` clauses go with them: the local
+bot-mode `ConversationExchange` no longer clashes with anything.
+
 ## 1.10.0
 
 ### Changed — `tom_todo_model` ^1.3.0, bridges regenerated; generator ^1.52.0
