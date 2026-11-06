@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 49 files
-// Generated: 2026-09-30T19:19:16.415286 by tom_d4rt_generator 1.51.0
+// Generated: 2026-11-06T10:37:04.442778 by tom_d4rt_generator 1.52.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -1737,6 +1737,7 @@ class FlutterRenderingBridge {
         'DiagnosticableTreeMixin',
         'DiagnosticableTree',
         'Diagnosticable',
+        'NativeHitTestTarget',
       ],
       'RenderAppKitView': [
         'RenderDarwinPlatformView',
@@ -7206,6 +7207,31 @@ BridgedClass _createRenderingFlutterBindingBridge() {
             });
             return null;
           },
+      'getRectOfSemanticsNodeInViewCoordinates':
+          (visitor, target, positional, named, typeArgs) {
+            final t = D4.validateTarget<$flutter_41.RenderingFlutterBinding>(
+              target,
+              'RenderingFlutterBinding',
+            );
+            D4.requireMinArgs(
+              positional,
+              2,
+              'getRectOfSemanticsNodeInViewCoordinates',
+            );
+            final viewId = D4.getRequiredArg<int>(
+              positional,
+              0,
+              'viewId',
+              'getRectOfSemanticsNodeInViewCoordinates',
+            );
+            final nodeId = D4.getRequiredArg<int>(
+              positional,
+              1,
+              'nodeId',
+              'getRectOfSemanticsNodeInViewCoordinates',
+            );
+            return t.getRectOfSemanticsNodeInViewCoordinates(viewId, nodeId);
+          },
       'ensureSemantics': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_41.RenderingFlutterBinding>(
           target,
@@ -7568,6 +7594,8 @@ BridgedClass _createRenderingFlutterBindingBridge() {
           'void addSemanticsActionListener(ValueSetter<SemanticsActionEvent> listener)',
       'removeSemanticsActionListener':
           'void removeSemanticsActionListener(ValueSetter<SemanticsActionEvent> listener)',
+      'getRectOfSemanticsNodeInViewCoordinates':
+          'Rect? getRectOfSemanticsNodeInViewCoordinates(int viewId, int nodeId)',
       'ensureSemantics': 'SemanticsHandle ensureSemantics()',
       'performSemanticsAction':
           'void performSemanticsAction(SemanticsActionEvent action)',
@@ -8095,6 +8123,31 @@ BridgedClass _createRendererBindingBridge() {
         t.performSemanticsAction(action);
         return null;
       },
+      'getRectOfSemanticsNodeInViewCoordinates':
+          (visitor, target, positional, named, typeArgs) {
+            final t = D4.validateTarget<$flutter_41.RendererBinding>(
+              target,
+              'RendererBinding',
+            );
+            D4.requireMinArgs(
+              positional,
+              2,
+              'getRectOfSemanticsNodeInViewCoordinates',
+            );
+            final viewId = D4.getRequiredArg<int>(
+              positional,
+              0,
+              'viewId',
+              'getRectOfSemanticsNodeInViewCoordinates',
+            );
+            final nodeId = D4.getRequiredArg<int>(
+              positional,
+              1,
+              'nodeId',
+              'getRectOfSemanticsNodeInViewCoordinates',
+            );
+            return t.getRectOfSemanticsNodeInViewCoordinates(viewId, nodeId);
+          },
       'deferFirstFrame': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_41.RendererBinding>(
           target,
@@ -9088,6 +9141,8 @@ BridgedClass _createRendererBindingBridge() {
           'void dispatchEvent(PointerEvent event, HitTestResult? hitTestResult)',
       'performSemanticsAction':
           'void performSemanticsAction(SemanticsActionEvent action)',
+      'getRectOfSemanticsNodeInViewCoordinates':
+          'Rect? getRectOfSemanticsNodeInViewCoordinates(int viewId, int nodeId)',
       'deferFirstFrame': 'void deferFirstFrame()',
       'allowFirstFrame': 'void allowFirstFrame()',
       'resetFirstFrameSent': 'void resetFirstFrameSent()',
@@ -54808,6 +54863,11 @@ BridgedClass _createRenderParagraphBridge() {
               named,
               'registrar',
             );
+        final devicePixelRatio = D4.getNamedArgWithDefault<double>(
+          named,
+          'devicePixelRatio',
+          1.0,
+        );
         if (!named.containsKey('textScaler')) {
           return $flutter_60.RenderParagraph(
             text,
@@ -54824,6 +54884,7 @@ BridgedClass _createRenderParagraphBridge() {
             children: children,
             selectionColor: selectionColor,
             registrar: registrar,
+            devicePixelRatio: devicePixelRatio,
           );
         }
         if (named.containsKey('textScaler')) {
@@ -54847,6 +54908,7 @@ BridgedClass _createRenderParagraphBridge() {
             children: children,
             selectionColor: selectionColor,
             registrar: registrar,
+            devicePixelRatio: devicePixelRatio,
             textScaler: textScaler,
           );
         }
@@ -55085,6 +55147,12 @@ BridgedClass _createRenderParagraphBridge() {
             'RenderParagraph',
           )
           .textScaler,
+      'devicePixelRatio': (visitor, target) => D4
+          .validateTarget<$flutter_60.RenderParagraph>(
+            target,
+            'RenderParagraph',
+          )
+          .devicePixelRatio,
       'maxLines': (visitor, target) => D4
           .validateTarget<$flutter_60.RenderParagraph>(
             target,
@@ -55283,6 +55351,16 @@ BridgedClass _createRenderParagraphBridge() {
               .textScaler = D4.extractBridgedArg<$flutter_39.TextScaler>(
             value,
             'textScaler',
+          ),
+      'devicePixelRatio': (visitor, target, value) =>
+          D4
+              .validateTarget<$flutter_60.RenderParagraph>(
+                target,
+                'RenderParagraph',
+              )
+              .devicePixelRatio = D4.extractBridgedArg<double>(
+            value,
+            'devicePixelRatio',
           ),
       'maxLines': (visitor, target, value) =>
           D4
@@ -56923,7 +57001,7 @@ BridgedClass _createRenderParagraphBridge() {
       },
     },
     constructorSignatures: {
-      '': 'RenderParagraph(InlineSpan text, {TextAlign textAlign = TextAlign.start, required TextDirection textDirection, bool softWrap = true, TextOverflow overflow = TextOverflow.clip, double textScaleFactor = 1.0, TextScaler textScaler = const _UnspecifiedTextScaler(), int? maxLines, Locale? locale, StrutStyle? strutStyle, TextWidthBasis textWidthBasis = TextWidthBasis.parent, TextHeightBehavior? textHeightBehavior, List<RenderBox>? children, Color? selectionColor, SelectionRegistrar? registrar})',
+      '': 'RenderParagraph(InlineSpan text, {TextAlign textAlign = TextAlign.start, required TextDirection textDirection, bool softWrap = true, TextOverflow overflow = TextOverflow.clip, double textScaleFactor = 1.0, TextScaler textScaler = const _UnspecifiedTextScaler(), int? maxLines, Locale? locale, StrutStyle? strutStyle, TextWidthBasis textWidthBasis = TextWidthBasis.parent, TextHeightBehavior? textHeightBehavior, List<RenderBox>? children, Color? selectionColor, SelectionRegistrar? registrar, double devicePixelRatio = 1.0})',
     },
     methodSignatures: {
       'reassemble': 'void reassemble()',
@@ -57115,6 +57193,7 @@ BridgedClass _createRenderParagraphBridge() {
       'overflow': 'TextOverflow get overflow',
       'textScaleFactor': 'double get textScaleFactor',
       'textScaler': 'TextScaler get textScaler',
+      'devicePixelRatio': 'double get devicePixelRatio',
       'maxLines': 'int? get maxLines',
       'locale': 'Locale? get locale',
       'strutStyle': 'StrutStyle? get strutStyle',
@@ -57142,6 +57221,7 @@ BridgedClass _createRenderParagraphBridge() {
       'overflow': 'set overflow(TextOverflow value)',
       'textScaleFactor': 'set textScaleFactor(double value)',
       'textScaler': 'set textScaler(TextScaler value)',
+      'devicePixelRatio': 'set devicePixelRatio(double value)',
       'maxLines': 'set maxLines(int? value)',
       'locale': 'set locale(Locale? value)',
       'strutStyle': 'set strutStyle(StrutStyle? value)',
@@ -63612,7 +63692,7 @@ BridgedClass _createRenderUiKitViewBridge() {
     nativeType: $flutter_62.RenderUiKitView,
     name: 'RenderUiKitView',
     isAssignable: (v) => v is $flutter_62.RenderUiKitView,
-    hierarchyDepth: 7,
+    hierarchyDepth: 8,
     constructors: {
       '': (visitor, positional, named) {
         final viewController = D4

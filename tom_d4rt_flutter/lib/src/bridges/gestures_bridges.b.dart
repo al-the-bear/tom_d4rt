@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 27 files
-// Generated: 2026-09-30T19:19:12.960447 by tom_d4rt_generator 1.51.0
+// Generated: 2026-11-06T10:36:42.222840 by tom_d4rt_generator 1.52.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -85,6 +85,7 @@ class FlutterGesturesBridge {
       _createHitTestTargetBridge(),
       _createHitTestEntryBridge(),
       _createHitTestResultBridge(),
+      _createNativeHitTestTargetBridge(),
       _createPointerRouterBridge(),
       _createPointerSignalResolverBridge(),
       _createSamplingClockBridge(),
@@ -186,6 +187,7 @@ class FlutterGesturesBridge {
       'HitTestTarget': _createHitTestTargetBridge,
       'HitTestEntry': _createHitTestEntryBridge,
       'HitTestResult': _createHitTestResultBridge,
+      'NativeHitTestTarget': _createNativeHitTestTargetBridge,
       'PointerRouter': _createPointerRouterBridge,
       'PointerSignalResolver': _createPointerSignalResolverBridge,
       'SamplingClock': _createSamplingClockBridge,
@@ -298,6 +300,7 @@ class FlutterGesturesBridge {
       'HitTestTarget': $flutter_17.HitTestTarget,
       'HitTestEntry': $flutter_17.HitTestEntry,
       'HitTestResult': $flutter_17.HitTestResult,
+      'NativeHitTestTarget': $flutter_17.NativeHitTestTarget,
       'PointerRouter': $flutter_23.PointerRouter,
       'PointerSignalResolver': $flutter_24.PointerSignalResolver,
       'SamplingClock': $flutter_6.SamplingClock,
@@ -412,6 +415,7 @@ class FlutterGesturesBridge {
       'HitTestTarget': 'package:flutter/src/gestures/hit_test.dart',
       'HitTestEntry': 'package:flutter/src/gestures/hit_test.dart',
       'HitTestResult': 'package:flutter/src/gestures/hit_test.dart',
+      'NativeHitTestTarget': 'package:flutter/src/gestures/hit_test.dart',
       'PointerRouter': 'package:flutter/src/gestures/pointer_router.dart',
       'PointerSignalResolver':
           'package:flutter/src/gestures/pointer_signal_resolver.dart',
@@ -10369,6 +10373,21 @@ BridgedClass _createHitTestResultBridge() {
 }
 
 // =============================================================================
+// NativeHitTestTarget Bridge
+// =============================================================================
+
+BridgedClass _createNativeHitTestTargetBridge() {
+  return BridgedClass(
+    nativeType: $flutter_17.NativeHitTestTarget,
+    name: 'NativeHitTestTarget',
+    isAssignable: (v) => v is $flutter_17.NativeHitTestTarget,
+    canBeUsedAsMixin: true,
+    isAbstract: true,
+    constructors: {},
+  );
+}
+
+// =============================================================================
 // PointerRouter Bridge
 // =============================================================================
 
@@ -12737,6 +12756,20 @@ BridgedClass _createEagerGestureRecognizerBridge() {
         );
         return t.getKindForPointer(pointer);
       },
+      'getButtonsForPointer': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.EagerGestureRecognizer>(
+          target,
+          'EagerGestureRecognizer',
+        );
+        D4.requireMinArgs(positional, 1, 'getButtonsForPointer');
+        final pointer = D4.getRequiredArg<int>(
+          positional,
+          0,
+          'pointer',
+          'getButtonsForPointer',
+        );
+        return t.getButtonsForPointer(pointer);
+      },
       'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_12.EagerGestureRecognizer>(
           target,
@@ -13025,6 +13058,7 @@ BridgedClass _createEagerGestureRecognizerBridge() {
       'isPointerPanZoomAllowed':
           'bool isPointerPanZoomAllowed(PointerPanZoomStartEvent event)',
       'getKindForPointer': 'PointerDeviceKind getKindForPointer(int pointer)',
+      'getButtonsForPointer': 'int getButtonsForPointer(int pointer)',
       'dispose': 'void dispose()',
       'invokeCallback':
           'T? invokeCallback(String name, RecognizerCallback<T> callback, {String Function()? debugReport})',
@@ -13650,6 +13684,20 @@ BridgedClass _createForcePressGestureRecognizerBridge() {
         );
         return t.getKindForPointer(pointer);
       },
+      'getButtonsForPointer': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_14.ForcePressGestureRecognizer>(
+          target,
+          'ForcePressGestureRecognizer',
+        );
+        D4.requireMinArgs(positional, 1, 'getButtonsForPointer');
+        final pointer = D4.getRequiredArg<int>(
+          positional,
+          0,
+          'pointer',
+          'getButtonsForPointer',
+        );
+        return t.getButtonsForPointer(pointer);
+      },
       'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_14.ForcePressGestureRecognizer>(
           target,
@@ -13940,6 +13988,7 @@ BridgedClass _createForcePressGestureRecognizerBridge() {
       'isPointerPanZoomAllowed':
           'bool isPointerPanZoomAllowed(PointerPanZoomStartEvent event)',
       'getKindForPointer': 'PointerDeviceKind getKindForPointer(int pointer)',
+      'getButtonsForPointer': 'int getButtonsForPointer(int pointer)',
       'dispose': 'void dispose()',
       'invokeCallback':
           'T? invokeCallback(String name, RecognizerCallback<T> callback, {String Function()? debugReport})',
@@ -15355,6 +15404,20 @@ BridgedClass _createLongPressGestureRecognizerBridge() {
         );
         return t.getKindForPointer(pointer);
       },
+      'getButtonsForPointer': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(
+          target,
+          'LongPressGestureRecognizer',
+        );
+        D4.requireMinArgs(positional, 1, 'getButtonsForPointer');
+        final pointer = D4.getRequiredArg<int>(
+          positional,
+          0,
+          'pointer',
+          'getButtonsForPointer',
+        );
+        return t.getButtonsForPointer(pointer);
+      },
       'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.LongPressGestureRecognizer>(
           target,
@@ -15682,6 +15745,7 @@ BridgedClass _createLongPressGestureRecognizerBridge() {
       'isPointerPanZoomAllowed':
           'bool isPointerPanZoomAllowed(PointerPanZoomStartEvent event)',
       'getKindForPointer': 'PointerDeviceKind getKindForPointer(int pointer)',
+      'getButtonsForPointer': 'int getButtonsForPointer(int pointer)',
       'dispose': 'void dispose()',
       'invokeCallback':
           'T? invokeCallback(String name, RecognizerCallback<T> callback, {String Function()? debugReport})',
@@ -16231,6 +16295,20 @@ BridgedClass _createGestureRecognizerBridge() {
         );
         return t.getKindForPointer(pointer);
       },
+      'getButtonsForPointer': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_25.GestureRecognizer>(
+          target,
+          'GestureRecognizer',
+        );
+        D4.requireMinArgs(positional, 1, 'getButtonsForPointer');
+        final pointer = D4.getRequiredArg<int>(
+          positional,
+          0,
+          'pointer',
+          'getButtonsForPointer',
+        );
+        return t.getButtonsForPointer(pointer);
+      },
       'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_25.GestureRecognizer>(
           target,
@@ -16394,6 +16472,7 @@ BridgedClass _createGestureRecognizerBridge() {
       'isPointerPanZoomAllowed':
           'bool isPointerPanZoomAllowed(PointerPanZoomStartEvent event)',
       'getKindForPointer': 'PointerDeviceKind getKindForPointer(int pointer)',
+      'getButtonsForPointer': 'int getButtonsForPointer(int pointer)',
       'dispose': 'void dispose()',
       'invokeCallback':
           'T? invokeCallback(String name, RecognizerCallback<T> callback, {String Function()? debugReport})',
@@ -16679,6 +16758,20 @@ BridgedClass _createOneSequenceGestureRecognizerBridge() {
           'getKindForPointer',
         );
         return t.getKindForPointer(pointer);
+      },
+      'getButtonsForPointer': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_25.OneSequenceGestureRecognizer>(
+          target,
+          'OneSequenceGestureRecognizer',
+        );
+        D4.requireMinArgs(positional, 1, 'getButtonsForPointer');
+        final pointer = D4.getRequiredArg<int>(
+          positional,
+          0,
+          'pointer',
+          'getButtonsForPointer',
+        );
+        return t.getButtonsForPointer(pointer);
       },
       'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_25.OneSequenceGestureRecognizer>(
@@ -16967,6 +17060,7 @@ BridgedClass _createOneSequenceGestureRecognizerBridge() {
       'isPointerPanZoomAllowed':
           'bool isPointerPanZoomAllowed(PointerPanZoomStartEvent event)',
       'getKindForPointer': 'PointerDeviceKind getKindForPointer(int pointer)',
+      'getButtonsForPointer': 'int getButtonsForPointer(int pointer)',
       'dispose': 'void dispose()',
       'invokeCallback':
           'T? invokeCallback(String name, RecognizerCallback<T> callback, {String Function()? debugReport})',
@@ -17308,6 +17402,21 @@ BridgedClass _createPrimaryPointerGestureRecognizerBridge() {
           'getKindForPointer',
         );
         return t.getKindForPointer(pointer);
+      },
+      'getButtonsForPointer': (visitor, target, positional, named, typeArgs) {
+        final t = D4
+            .validateTarget<$flutter_25.PrimaryPointerGestureRecognizer>(
+              target,
+              'PrimaryPointerGestureRecognizer',
+            );
+        D4.requireMinArgs(positional, 1, 'getButtonsForPointer');
+        final pointer = D4.getRequiredArg<int>(
+          positional,
+          0,
+          'pointer',
+          'getButtonsForPointer',
+        );
+        return t.getButtonsForPointer(pointer);
       },
       'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4
@@ -17652,6 +17761,7 @@ BridgedClass _createPrimaryPointerGestureRecognizerBridge() {
       'isPointerPanZoomAllowed':
           'bool isPointerPanZoomAllowed(PointerPanZoomStartEvent event)',
       'getKindForPointer': 'PointerDeviceKind getKindForPointer(int pointer)',
+      'getButtonsForPointer': 'int getButtonsForPointer(int pointer)',
       'dispose': 'void dispose()',
       'invokeCallback':
           'T? invokeCallback(String name, RecognizerCallback<T> callback, {String Function()? debugReport})',
@@ -18310,6 +18420,20 @@ BridgedClass _createDragGestureRecognizerBridge() {
         );
         return t.getKindForPointer(pointer);
       },
+      'getButtonsForPointer': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_20.DragGestureRecognizer>(
+          target,
+          'DragGestureRecognizer',
+        );
+        D4.requireMinArgs(positional, 1, 'getButtonsForPointer');
+        final pointer = D4.getRequiredArg<int>(
+          positional,
+          0,
+          'pointer',
+          'getButtonsForPointer',
+        );
+        return t.getButtonsForPointer(pointer);
+      },
       'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_20.DragGestureRecognizer>(
           target,
@@ -18663,6 +18787,7 @@ BridgedClass _createDragGestureRecognizerBridge() {
       'isPointerPanZoomAllowed':
           'bool isPointerPanZoomAllowed(PointerPanZoomStartEvent event)',
       'getKindForPointer': 'PointerDeviceKind getKindForPointer(int pointer)',
+      'getButtonsForPointer': 'int getButtonsForPointer(int pointer)',
       'dispose': 'void dispose()',
       'invokeCallback':
           'T? invokeCallback(String name, RecognizerCallback<T> callback, {String Function()? debugReport})',
@@ -19286,6 +19411,20 @@ BridgedClass _createVerticalDragGestureRecognizerBridge() {
         );
         return t.getKindForPointer(pointer);
       },
+      'getButtonsForPointer': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_20.VerticalDragGestureRecognizer>(
+          target,
+          'VerticalDragGestureRecognizer',
+        );
+        D4.requireMinArgs(positional, 1, 'getButtonsForPointer');
+        final pointer = D4.getRequiredArg<int>(
+          positional,
+          0,
+          'pointer',
+          'getButtonsForPointer',
+        );
+        return t.getButtonsForPointer(pointer);
+      },
       'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_20.VerticalDragGestureRecognizer>(
           target,
@@ -19645,6 +19784,7 @@ BridgedClass _createVerticalDragGestureRecognizerBridge() {
       'isPointerPanZoomAllowed':
           'bool isPointerPanZoomAllowed(PointerPanZoomStartEvent event)',
       'getKindForPointer': 'PointerDeviceKind getKindForPointer(int pointer)',
+      'getButtonsForPointer': 'int getButtonsForPointer(int pointer)',
       'dispose': 'void dispose()',
       'invokeCallback':
           'T? invokeCallback(String name, RecognizerCallback<T> callback, {String Function()? debugReport})',
@@ -20276,6 +20416,21 @@ BridgedClass _createHorizontalDragGestureRecognizerBridge() {
         );
         return t.getKindForPointer(pointer);
       },
+      'getButtonsForPointer': (visitor, target, positional, named, typeArgs) {
+        final t = D4
+            .validateTarget<$flutter_20.HorizontalDragGestureRecognizer>(
+              target,
+              'HorizontalDragGestureRecognizer',
+            );
+        D4.requireMinArgs(positional, 1, 'getButtonsForPointer');
+        final pointer = D4.getRequiredArg<int>(
+          positional,
+          0,
+          'pointer',
+          'getButtonsForPointer',
+        );
+        return t.getButtonsForPointer(pointer);
+      },
       'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4
             .validateTarget<$flutter_20.HorizontalDragGestureRecognizer>(
@@ -20651,6 +20806,7 @@ BridgedClass _createHorizontalDragGestureRecognizerBridge() {
       'isPointerPanZoomAllowed':
           'bool isPointerPanZoomAllowed(PointerPanZoomStartEvent event)',
       'getKindForPointer': 'PointerDeviceKind getKindForPointer(int pointer)',
+      'getButtonsForPointer': 'int getButtonsForPointer(int pointer)',
       'dispose': 'void dispose()',
       'invokeCallback':
           'T? invokeCallback(String name, RecognizerCallback<T> callback, {String Function()? debugReport})',
@@ -21271,6 +21427,20 @@ BridgedClass _createPanGestureRecognizerBridge() {
         );
         return t.getKindForPointer(pointer);
       },
+      'getButtonsForPointer': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_20.PanGestureRecognizer>(
+          target,
+          'PanGestureRecognizer',
+        );
+        D4.requireMinArgs(positional, 1, 'getButtonsForPointer');
+        final pointer = D4.getRequiredArg<int>(
+          positional,
+          0,
+          'pointer',
+          'getButtonsForPointer',
+        );
+        return t.getButtonsForPointer(pointer);
+      },
       'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_20.PanGestureRecognizer>(
           target,
@@ -21627,6 +21797,7 @@ BridgedClass _createPanGestureRecognizerBridge() {
       'isPointerPanZoomAllowed':
           'bool isPointerPanZoomAllowed(PointerPanZoomStartEvent event)',
       'getKindForPointer': 'PointerDeviceKind getKindForPointer(int pointer)',
+      'getButtonsForPointer': 'int getButtonsForPointer(int pointer)',
       'dispose': 'void dispose()',
       'invokeCallback':
           'T? invokeCallback(String name, RecognizerCallback<T> callback, {String Function()? debugReport})',
@@ -22094,6 +22265,20 @@ BridgedClass _createMultiDragGestureRecognizerBridge() {
         );
         return t.getKindForPointer(pointer);
       },
+      'getButtonsForPointer': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_21.MultiDragGestureRecognizer>(
+          target,
+          'MultiDragGestureRecognizer',
+        );
+        D4.requireMinArgs(positional, 1, 'getButtonsForPointer');
+        final pointer = D4.getRequiredArg<int>(
+          positional,
+          0,
+          'pointer',
+          'getButtonsForPointer',
+        );
+        return t.getButtonsForPointer(pointer);
+      },
       'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_21.MultiDragGestureRecognizer>(
           target,
@@ -22271,6 +22456,7 @@ BridgedClass _createMultiDragGestureRecognizerBridge() {
       'isPointerPanZoomAllowed':
           'bool isPointerPanZoomAllowed(PointerPanZoomStartEvent event)',
       'getKindForPointer': 'PointerDeviceKind getKindForPointer(int pointer)',
+      'getButtonsForPointer': 'int getButtonsForPointer(int pointer)',
       'dispose': 'void dispose()',
       'invokeCallback':
           'T? invokeCallback(String name, RecognizerCallback<T> callback, {String Function()? debugReport})',
@@ -22601,6 +22787,21 @@ BridgedClass _createImmediateMultiDragGestureRecognizerBridge() {
         );
         return t.getKindForPointer(pointer);
       },
+      'getButtonsForPointer': (visitor, target, positional, named, typeArgs) {
+        final t = D4
+            .validateTarget<$flutter_21.ImmediateMultiDragGestureRecognizer>(
+              target,
+              'ImmediateMultiDragGestureRecognizer',
+            );
+        D4.requireMinArgs(positional, 1, 'getButtonsForPointer');
+        final pointer = D4.getRequiredArg<int>(
+          positional,
+          0,
+          'pointer',
+          'getButtonsForPointer',
+        );
+        return t.getButtonsForPointer(pointer);
+      },
       'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4
             .validateTarget<$flutter_21.ImmediateMultiDragGestureRecognizer>(
@@ -22791,6 +22992,7 @@ BridgedClass _createImmediateMultiDragGestureRecognizerBridge() {
       'isPointerPanZoomAllowed':
           'bool isPointerPanZoomAllowed(PointerPanZoomStartEvent event)',
       'getKindForPointer': 'PointerDeviceKind getKindForPointer(int pointer)',
+      'getButtonsForPointer': 'int getButtonsForPointer(int pointer)',
       'dispose': 'void dispose()',
       'invokeCallback':
           'T? invokeCallback(String name, RecognizerCallback<T> callback, {String Function()? debugReport})',
@@ -23121,6 +23323,21 @@ BridgedClass _createHorizontalMultiDragGestureRecognizerBridge() {
         );
         return t.getKindForPointer(pointer);
       },
+      'getButtonsForPointer': (visitor, target, positional, named, typeArgs) {
+        final t = D4
+            .validateTarget<$flutter_21.HorizontalMultiDragGestureRecognizer>(
+              target,
+              'HorizontalMultiDragGestureRecognizer',
+            );
+        D4.requireMinArgs(positional, 1, 'getButtonsForPointer');
+        final pointer = D4.getRequiredArg<int>(
+          positional,
+          0,
+          'pointer',
+          'getButtonsForPointer',
+        );
+        return t.getButtonsForPointer(pointer);
+      },
       'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4
             .validateTarget<$flutter_21.HorizontalMultiDragGestureRecognizer>(
@@ -23311,6 +23528,7 @@ BridgedClass _createHorizontalMultiDragGestureRecognizerBridge() {
       'isPointerPanZoomAllowed':
           'bool isPointerPanZoomAllowed(PointerPanZoomStartEvent event)',
       'getKindForPointer': 'PointerDeviceKind getKindForPointer(int pointer)',
+      'getButtonsForPointer': 'int getButtonsForPointer(int pointer)',
       'dispose': 'void dispose()',
       'invokeCallback':
           'T? invokeCallback(String name, RecognizerCallback<T> callback, {String Function()? debugReport})',
@@ -23645,6 +23863,21 @@ BridgedClass _createVerticalMultiDragGestureRecognizerBridge() {
         );
         return t.getKindForPointer(pointer);
       },
+      'getButtonsForPointer': (visitor, target, positional, named, typeArgs) {
+        final t = D4
+            .validateTarget<$flutter_21.VerticalMultiDragGestureRecognizer>(
+              target,
+              'VerticalMultiDragGestureRecognizer',
+            );
+        D4.requireMinArgs(positional, 1, 'getButtonsForPointer');
+        final pointer = D4.getRequiredArg<int>(
+          positional,
+          0,
+          'pointer',
+          'getButtonsForPointer',
+        );
+        return t.getButtonsForPointer(pointer);
+      },
       'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4
             .validateTarget<$flutter_21.VerticalMultiDragGestureRecognizer>(
@@ -23835,6 +24068,7 @@ BridgedClass _createVerticalMultiDragGestureRecognizerBridge() {
       'isPointerPanZoomAllowed':
           'bool isPointerPanZoomAllowed(PointerPanZoomStartEvent event)',
       'getKindForPointer': 'PointerDeviceKind getKindForPointer(int pointer)',
+      'getButtonsForPointer': 'int getButtonsForPointer(int pointer)',
       'dispose': 'void dispose()',
       'invokeCallback':
           'T? invokeCallback(String name, RecognizerCallback<T> callback, {String Function()? debugReport})',
@@ -24203,6 +24437,21 @@ BridgedClass _createDelayedMultiDragGestureRecognizerBridge() {
         );
         return t.getKindForPointer(pointer);
       },
+      'getButtonsForPointer': (visitor, target, positional, named, typeArgs) {
+        final t = D4
+            .validateTarget<$flutter_21.DelayedMultiDragGestureRecognizer>(
+              target,
+              'DelayedMultiDragGestureRecognizer',
+            );
+        D4.requireMinArgs(positional, 1, 'getButtonsForPointer');
+        final pointer = D4.getRequiredArg<int>(
+          positional,
+          0,
+          'pointer',
+          'getButtonsForPointer',
+        );
+        return t.getButtonsForPointer(pointer);
+      },
       'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4
             .validateTarget<$flutter_21.DelayedMultiDragGestureRecognizer>(
@@ -24393,6 +24642,7 @@ BridgedClass _createDelayedMultiDragGestureRecognizerBridge() {
       'isPointerPanZoomAllowed':
           'bool isPointerPanZoomAllowed(PointerPanZoomStartEvent event)',
       'getKindForPointer': 'PointerDeviceKind getKindForPointer(int pointer)',
+      'getButtonsForPointer': 'int getButtonsForPointer(int pointer)',
       'dispose': 'void dispose()',
       'invokeCallback':
           'T? invokeCallback(String name, RecognizerCallback<T> callback, {String Function()? debugReport})',
@@ -25002,6 +25252,20 @@ BridgedClass _createBaseTapGestureRecognizerBridge() {
         );
         return t.getKindForPointer(pointer);
       },
+      'getButtonsForPointer': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_28.BaseTapGestureRecognizer>(
+          target,
+          'BaseTapGestureRecognizer',
+        );
+        D4.requireMinArgs(positional, 1, 'getButtonsForPointer');
+        final pointer = D4.getRequiredArg<int>(
+          positional,
+          0,
+          'pointer',
+          'getButtonsForPointer',
+        );
+        return t.getButtonsForPointer(pointer);
+      },
       'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_28.BaseTapGestureRecognizer>(
           target,
@@ -25392,6 +25656,7 @@ BridgedClass _createBaseTapGestureRecognizerBridge() {
       'isPointerPanZoomAllowed':
           'bool isPointerPanZoomAllowed(PointerPanZoomStartEvent event)',
       'getKindForPointer': 'PointerDeviceKind getKindForPointer(int pointer)',
+      'getButtonsForPointer': 'int getButtonsForPointer(int pointer)',
       'dispose': 'void dispose()',
       'invokeCallback':
           'T? invokeCallback(String name, RecognizerCallback<T> callback, {String Function()? debugReport})',
@@ -26182,6 +26447,20 @@ BridgedClass _createTapGestureRecognizerBridge() {
         );
         return t.getKindForPointer(pointer);
       },
+      'getButtonsForPointer': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_28.TapGestureRecognizer>(
+          target,
+          'TapGestureRecognizer',
+        );
+        D4.requireMinArgs(positional, 1, 'getButtonsForPointer');
+        final pointer = D4.getRequiredArg<int>(
+          positional,
+          0,
+          'pointer',
+          'getButtonsForPointer',
+        );
+        return t.getButtonsForPointer(pointer);
+      },
       'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_28.TapGestureRecognizer>(
           target,
@@ -26575,6 +26854,7 @@ BridgedClass _createTapGestureRecognizerBridge() {
       'isPointerPanZoomAllowed':
           'bool isPointerPanZoomAllowed(PointerPanZoomStartEvent event)',
       'getKindForPointer': 'PointerDeviceKind getKindForPointer(int pointer)',
+      'getButtonsForPointer': 'int getButtonsForPointer(int pointer)',
       'dispose': 'void dispose()',
       'invokeCallback':
           'T? invokeCallback(String name, RecognizerCallback<T> callback, {String Function()? debugReport})',
@@ -26996,6 +27276,20 @@ BridgedClass _createDoubleTapGestureRecognizerBridge() {
         );
         return t.getKindForPointer(pointer);
       },
+      'getButtonsForPointer': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_22.DoubleTapGestureRecognizer>(
+          target,
+          'DoubleTapGestureRecognizer',
+        );
+        D4.requireMinArgs(positional, 1, 'getButtonsForPointer');
+        final pointer = D4.getRequiredArg<int>(
+          positional,
+          0,
+          'pointer',
+          'getButtonsForPointer',
+        );
+        return t.getButtonsForPointer(pointer);
+      },
       'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_22.DoubleTapGestureRecognizer>(
           target,
@@ -27162,6 +27456,7 @@ BridgedClass _createDoubleTapGestureRecognizerBridge() {
       'isPointerPanZoomAllowed':
           'bool isPointerPanZoomAllowed(PointerPanZoomStartEvent event)',
       'getKindForPointer': 'PointerDeviceKind getKindForPointer(int pointer)',
+      'getButtonsForPointer': 'int getButtonsForPointer(int pointer)',
       'dispose': 'void dispose()',
       'invokeCallback':
           'T? invokeCallback(String name, RecognizerCallback<T> callback, {String Function()? debugReport})',
@@ -27601,6 +27896,20 @@ BridgedClass _createMultiTapGestureRecognizerBridge() {
         );
         return t.getKindForPointer(pointer);
       },
+      'getButtonsForPointer': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_22.MultiTapGestureRecognizer>(
+          target,
+          'MultiTapGestureRecognizer',
+        );
+        D4.requireMinArgs(positional, 1, 'getButtonsForPointer');
+        final pointer = D4.getRequiredArg<int>(
+          positional,
+          0,
+          'pointer',
+          'getButtonsForPointer',
+        );
+        return t.getButtonsForPointer(pointer);
+      },
       'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_22.MultiTapGestureRecognizer>(
           target,
@@ -27767,6 +28076,7 @@ BridgedClass _createMultiTapGestureRecognizerBridge() {
       'isPointerPanZoomAllowed':
           'bool isPointerPanZoomAllowed(PointerPanZoomStartEvent event)',
       'getKindForPointer': 'PointerDeviceKind getKindForPointer(int pointer)',
+      'getButtonsForPointer': 'int getButtonsForPointer(int pointer)',
       'dispose': 'void dispose()',
       'invokeCallback':
           'T? invokeCallback(String name, RecognizerCallback<T> callback, {String Function()? debugReport})',
@@ -28507,6 +28817,20 @@ BridgedClass _createSerialTapGestureRecognizerBridge() {
         );
         return t.getKindForPointer(pointer);
       },
+      'getButtonsForPointer': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_22.SerialTapGestureRecognizer>(
+          target,
+          'SerialTapGestureRecognizer',
+        );
+        D4.requireMinArgs(positional, 1, 'getButtonsForPointer');
+        final pointer = D4.getRequiredArg<int>(
+          positional,
+          0,
+          'pointer',
+          'getButtonsForPointer',
+        );
+        return t.getButtonsForPointer(pointer);
+      },
       'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_22.SerialTapGestureRecognizer>(
           target,
@@ -28673,6 +28997,7 @@ BridgedClass _createSerialTapGestureRecognizerBridge() {
       'isPointerPanZoomAllowed':
           'bool isPointerPanZoomAllowed(PointerPanZoomStartEvent event)',
       'getKindForPointer': 'PointerDeviceKind getKindForPointer(int pointer)',
+      'getButtonsForPointer': 'int getButtonsForPointer(int pointer)',
       'dispose': 'void dispose()',
       'invokeCallback':
           'T? invokeCallback(String name, RecognizerCallback<T> callback, {String Function()? debugReport})',
@@ -29747,6 +30072,20 @@ BridgedClass _createScaleGestureRecognizerBridge() {
         );
         return t.getKindForPointer(pointer);
       },
+      'getButtonsForPointer': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_27.ScaleGestureRecognizer>(
+          target,
+          'ScaleGestureRecognizer',
+        );
+        D4.requireMinArgs(positional, 1, 'getButtonsForPointer');
+        final pointer = D4.getRequiredArg<int>(
+          positional,
+          0,
+          'pointer',
+          'getButtonsForPointer',
+        );
+        return t.getButtonsForPointer(pointer);
+      },
       'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_27.ScaleGestureRecognizer>(
           target,
@@ -30035,6 +30374,7 @@ BridgedClass _createScaleGestureRecognizerBridge() {
       'isPointerPanZoomAllowed':
           'bool isPointerPanZoomAllowed(PointerPanZoomStartEvent event)',
       'getKindForPointer': 'PointerDeviceKind getKindForPointer(int pointer)',
+      'getButtonsForPointer': 'int getButtonsForPointer(int pointer)',
       'dispose': 'void dispose()',
       'invokeCallback':
           'T? invokeCallback(String name, RecognizerCallback<T> callback, {String Function()? debugReport})',
@@ -31369,6 +31709,21 @@ BridgedClass _createBaseTapAndDragGestureRecognizerBridge() {
         );
         return t.getKindForPointer(pointer);
       },
+      'getButtonsForPointer': (visitor, target, positional, named, typeArgs) {
+        final t = D4
+            .validateTarget<$flutter_29.BaseTapAndDragGestureRecognizer>(
+              target,
+              'BaseTapAndDragGestureRecognizer',
+            );
+        D4.requireMinArgs(positional, 1, 'getButtonsForPointer');
+        final pointer = D4.getRequiredArg<int>(
+          positional,
+          0,
+          'pointer',
+          'getButtonsForPointer',
+        );
+        return t.getButtonsForPointer(pointer);
+      },
       'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4
             .validateTarget<$flutter_29.BaseTapAndDragGestureRecognizer>(
@@ -31670,6 +32025,7 @@ BridgedClass _createBaseTapAndDragGestureRecognizerBridge() {
       'isPointerPanZoomAllowed':
           'bool isPointerPanZoomAllowed(PointerPanZoomStartEvent event)',
       'getKindForPointer': 'PointerDeviceKind getKindForPointer(int pointer)',
+      'getButtonsForPointer': 'int getButtonsForPointer(int pointer)',
       'dispose': 'void dispose()',
       'invokeCallback':
           'T? invokeCallback(String name, RecognizerCallback<T> callback, {String Function()? debugReport})',
@@ -32265,6 +32621,21 @@ BridgedClass _createTapAndHorizontalDragGestureRecognizerBridge() {
         );
         return t.getKindForPointer(pointer);
       },
+      'getButtonsForPointer': (visitor, target, positional, named, typeArgs) {
+        final t = D4
+            .validateTarget<$flutter_29.TapAndHorizontalDragGestureRecognizer>(
+              target,
+              'TapAndHorizontalDragGestureRecognizer',
+            );
+        D4.requireMinArgs(positional, 1, 'getButtonsForPointer');
+        final pointer = D4.getRequiredArg<int>(
+          positional,
+          0,
+          'pointer',
+          'getButtonsForPointer',
+        );
+        return t.getButtonsForPointer(pointer);
+      },
       'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4
             .validateTarget<$flutter_29.TapAndHorizontalDragGestureRecognizer>(
@@ -32567,6 +32938,7 @@ BridgedClass _createTapAndHorizontalDragGestureRecognizerBridge() {
       'isPointerPanZoomAllowed':
           'bool isPointerPanZoomAllowed(PointerPanZoomStartEvent event)',
       'getKindForPointer': 'PointerDeviceKind getKindForPointer(int pointer)',
+      'getButtonsForPointer': 'int getButtonsForPointer(int pointer)',
       'dispose': 'void dispose()',
       'invokeCallback':
           'T? invokeCallback(String name, RecognizerCallback<T> callback, {String Function()? debugReport})',
@@ -33162,6 +33534,20 @@ BridgedClass _createTapAndPanGestureRecognizerBridge() {
         );
         return t.getKindForPointer(pointer);
       },
+      'getButtonsForPointer': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_29.TapAndPanGestureRecognizer>(
+          target,
+          'TapAndPanGestureRecognizer',
+        );
+        D4.requireMinArgs(positional, 1, 'getButtonsForPointer');
+        final pointer = D4.getRequiredArg<int>(
+          positional,
+          0,
+          'pointer',
+          'getButtonsForPointer',
+        );
+        return t.getButtonsForPointer(pointer);
+      },
       'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_29.TapAndPanGestureRecognizer>(
           target,
@@ -33450,6 +33836,7 @@ BridgedClass _createTapAndPanGestureRecognizerBridge() {
       'isPointerPanZoomAllowed':
           'bool isPointerPanZoomAllowed(PointerPanZoomStartEvent event)',
       'getKindForPointer': 'PointerDeviceKind getKindForPointer(int pointer)',
+      'getButtonsForPointer': 'int getButtonsForPointer(int pointer)',
       'dispose': 'void dispose()',
       'invokeCallback':
           'T? invokeCallback(String name, RecognizerCallback<T> callback, {String Function()? debugReport})',

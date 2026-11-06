@@ -18,6 +18,13 @@ analyzer:
   # fixtures is noise, not a signal. Exclude them from analysis.
   exclude:
     - test/send_ast_via_http_scripts/**
+    - build/**
+    - android/**
+    - ios/**
+    - web/**
+    - windows/**
+    - macos/**
+    - linux/**
   errors:
     # interaction_controller.dart uses `_isDown` as a write-only state flag for
     # the gesture-simulation helpers, and re-imports rendering.dart for clarity.

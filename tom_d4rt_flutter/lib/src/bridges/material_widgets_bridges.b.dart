@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 243 files
-// Generated: 2026-09-30T19:19:59.559879 by tom_d4rt_generator 1.51.0
+// Generated: 2026-11-06T10:40:36.047363 by tom_d4rt_generator 1.52.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -6176,6 +6176,7 @@ class FlutterMaterialBridge {
         source: 'package:flutter/foundation.dart',
         target: 'package:meta/meta.dart',
         show: {
+          'awaitNotRequired',
           'factory',
           'immutable',
           'internal',
@@ -7454,6 +7455,12 @@ class FlutterMaterialBridge {
       ),
       (
         source: 'package:flutter/widgets.dart',
+        target: 'package:flutter/src/widgets/indexed_stack.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:flutter/widgets.dart',
         target: 'package:flutter/src/widgets/inherited_model.dart',
         show: null,
         hide: null,
@@ -8106,12 +8113,6 @@ class FlutterMaterialBridge {
       ),
       (
         source: 'package:flutter/widgets.dart',
-        target: 'package:flutter/src/widgets/visibility.dart',
-        show: null,
-        hide: null,
-      ),
-      (
-        source: 'package:flutter/widgets.dart',
         target: 'package:flutter/src/widgets/widget_inspector.dart',
         show: null,
         hide: null,
@@ -8614,6 +8615,16 @@ class FlutterMaterialBridge {
       errors.add(
         'Failed to register variable "debugHighlightDeprecatedWidgets": $e',
       );
+    }
+    try {
+      interpreter.registerGlobalVariable(
+        'debugPaintFocusBoxes',
+        $flutter_264.debugPaintFocusBoxes,
+        importPath,
+        sourceUri: 'package:flutter/src/widgets/debug.dart',
+      );
+    } catch (e) {
+      errors.add('Failed to register variable "debugPaintFocusBoxes": $e');
     }
     try {
       interpreter.registerGlobalVariable(
@@ -168972,6 +168983,20 @@ BridgedClass _createAnimationStyleBridge() {
           reverseDuration: reverseDuration,
         );
       },
+      'merge': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_3.AnimationStyle>(
+          target,
+          'AnimationStyle',
+        );
+        D4.requireMinArgs(positional, 1, 'merge');
+        final other = D4.getRequiredArg<$flutter_3.AnimationStyle?>(
+          positional,
+          0,
+          'other',
+          'merge',
+        );
+        return t.merge(other);
+      },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_3.AnimationStyle>(
           target,
@@ -169063,6 +169088,7 @@ BridgedClass _createAnimationStyleBridge() {
     methodSignatures: {
       'copyWith':
           'AnimationStyle copyWith({Curve? curve, Duration? duration, Curve? reverseCurve, Duration? reverseDuration})',
+      'merge': 'AnimationStyle merge(AnimationStyle? other)',
       'debugFillProperties':
           'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
       'toStringShort': 'String toStringShort()',

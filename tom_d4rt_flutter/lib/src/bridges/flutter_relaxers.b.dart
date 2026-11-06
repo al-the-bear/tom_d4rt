@@ -1,4 +1,4 @@
-// Generated: 2026-09-30T19:20:18.595508 by tom_d4rt_generator 1.51.0
+// Generated: 2026-11-06T10:41:48.567197 by tom_d4rt_generator 1.52.0
 /// D4rt GEN-079 Relaxer Wrappers for flutter_material_bridges
 ///
 /// Auto-generated wrapper classes and factory functions for generic
@@ -3067,6 +3067,10 @@ Object? _relaxAlwaysStoppedAnimation$rc2(Object value, String innerTypeArg) {
       $RelaxedAlwaysStoppedAnimation<ContextMenuButtonItem>(value),
     'ContextMenuButtonItem?' =>
       $RelaxedAlwaysStoppedAnimation<ContextMenuButtonItem?>(value),
+    'ContextMenuButtonKind' =>
+      $RelaxedAlwaysStoppedAnimation<ContextMenuButtonKind>(value),
+    'ContextMenuButtonKind?' =>
+      $RelaxedAlwaysStoppedAnimation<ContextMenuButtonKind?>(value),
     'ContextMenuController' =>
       $RelaxedAlwaysStoppedAnimation<ContextMenuController>(value),
     'ContextMenuController?' =>
@@ -4475,6 +4479,12 @@ Object? _relaxAlwaysStoppedAnimation$rc2(Object value, String innerTypeArg) {
     'HeroMode?' => $RelaxedAlwaysStoppedAnimation<HeroMode?>(value),
     'HitTestEntry' => $RelaxedAlwaysStoppedAnimation<HitTestEntry>(value),
     'HitTestEntry?' => $RelaxedAlwaysStoppedAnimation<HitTestEntry?>(value),
+    'HitTestRequest' => $RelaxedAlwaysStoppedAnimation<HitTestRequest>(value),
+    'HitTestRequest?' => $RelaxedAlwaysStoppedAnimation<HitTestRequest?>(value),
+    'HitTestResponse' => $RelaxedAlwaysStoppedAnimation<HitTestResponse>(value),
+    'HitTestResponse?' => $RelaxedAlwaysStoppedAnimation<HitTestResponse?>(
+      value,
+    ),
     'HitTestResult' => $RelaxedAlwaysStoppedAnimation<HitTestResult>(value),
     'HitTestResult?' => $RelaxedAlwaysStoppedAnimation<HitTestResult?>(value),
     'HoldScrollActivity' => $RelaxedAlwaysStoppedAnimation<HoldScrollActivity>(
@@ -8900,6 +8910,10 @@ Object? _relaxAnimatable$rc2(Object value, String innerTypeArg) {
     'ContextMenuButtonItem?' => $RelaxedAnimatable<ContextMenuButtonItem?>(
       value,
     ),
+    'ContextMenuButtonKind' => $RelaxedAnimatable<ContextMenuButtonKind>(value),
+    'ContextMenuButtonKind?' => $RelaxedAnimatable<ContextMenuButtonKind?>(
+      value,
+    ),
     'ContextMenuController' => $RelaxedAnimatable<ContextMenuController>(value),
     'ContextMenuController?' => $RelaxedAnimatable<ContextMenuController?>(
       value,
@@ -9982,6 +9996,10 @@ Object? _relaxAnimatable$rc2(Object value, String innerTypeArg) {
     'HeroMode?' => $RelaxedAnimatable<HeroMode?>(value),
     'HitTestEntry' => $RelaxedAnimatable<HitTestEntry>(value),
     'HitTestEntry?' => $RelaxedAnimatable<HitTestEntry?>(value),
+    'HitTestRequest' => $RelaxedAnimatable<HitTestRequest>(value),
+    'HitTestRequest?' => $RelaxedAnimatable<HitTestRequest?>(value),
+    'HitTestResponse' => $RelaxedAnimatable<HitTestResponse>(value),
+    'HitTestResponse?' => $RelaxedAnimatable<HitTestResponse?>(value),
     'HitTestResult' => $RelaxedAnimatable<HitTestResult>(value),
     'HitTestResult?' => $RelaxedAnimatable<HitTestResult?>(value),
     'HoldScrollActivity' => $RelaxedAnimatable<HoldScrollActivity>(value),
@@ -13495,6 +13513,10 @@ Object? _relaxAnimation$rc2(Object value, String innerTypeArg) {
     'ContextMenuButtonItem?' => $RelaxedAnimation<ContextMenuButtonItem?>(
       value,
     ),
+    'ContextMenuButtonKind' => $RelaxedAnimation<ContextMenuButtonKind>(value),
+    'ContextMenuButtonKind?' => $RelaxedAnimation<ContextMenuButtonKind?>(
+      value,
+    ),
     'ContextMenuController' => $RelaxedAnimation<ContextMenuController>(value),
     'ContextMenuController?' => $RelaxedAnimation<ContextMenuController?>(
       value,
@@ -14597,6 +14619,10 @@ Object? _relaxAnimation$rc2(Object value, String innerTypeArg) {
     'HeroMode?' => $RelaxedAnimation<HeroMode?>(value),
     'HitTestEntry' => $RelaxedAnimation<HitTestEntry>(value),
     'HitTestEntry?' => $RelaxedAnimation<HitTestEntry?>(value),
+    'HitTestRequest' => $RelaxedAnimation<HitTestRequest>(value),
+    'HitTestRequest?' => $RelaxedAnimation<HitTestRequest?>(value),
+    'HitTestResponse' => $RelaxedAnimation<HitTestResponse>(value),
+    'HitTestResponse?' => $RelaxedAnimation<HitTestResponse?>(value),
     'HitTestResult' => $RelaxedAnimation<HitTestResult>(value),
     'HitTestResult?' => $RelaxedAnimation<HitTestResult?>(value),
     'HoldScrollActivity' => $RelaxedAnimation<HoldScrollActivity>(value),
@@ -18155,6 +18181,12 @@ Object? _relaxAsyncSnapshot$rc2(Object value, String innerTypeArg) {
     'ContextMenuButtonItem?' => $RelaxedAsyncSnapshot<ContextMenuButtonItem?>(
       value,
     ),
+    'ContextMenuButtonKind' => $RelaxedAsyncSnapshot<ContextMenuButtonKind>(
+      value,
+    ),
+    'ContextMenuButtonKind?' => $RelaxedAsyncSnapshot<ContextMenuButtonKind?>(
+      value,
+    ),
     'ContextMenuController' => $RelaxedAsyncSnapshot<ContextMenuController>(
       value,
     ),
@@ -19366,6 +19398,10 @@ Object? _relaxAsyncSnapshot$rc2(Object value, String innerTypeArg) {
     'HeroMode?' => $RelaxedAsyncSnapshot<HeroMode?>(value),
     'HitTestEntry' => $RelaxedAsyncSnapshot<HitTestEntry>(value),
     'HitTestEntry?' => $RelaxedAsyncSnapshot<HitTestEntry?>(value),
+    'HitTestRequest' => $RelaxedAsyncSnapshot<HitTestRequest>(value),
+    'HitTestRequest?' => $RelaxedAsyncSnapshot<HitTestRequest?>(value),
+    'HitTestResponse' => $RelaxedAsyncSnapshot<HitTestResponse>(value),
+    'HitTestResponse?' => $RelaxedAsyncSnapshot<HitTestResponse?>(value),
     'HitTestResult' => $RelaxedAsyncSnapshot<HitTestResult>(value),
     'HitTestResult?' => $RelaxedAsyncSnapshot<HitTestResult?>(value),
     'HoldScrollActivity' => $RelaxedAsyncSnapshot<HoldScrollActivity>(value),
@@ -23197,6 +23233,12 @@ Object? _relaxConstantTween$rc2(Object value, String innerTypeArg) {
     'ContextMenuButtonItem?' => $RelaxedConstantTween<ContextMenuButtonItem?>(
       value,
     ),
+    'ContextMenuButtonKind' => $RelaxedConstantTween<ContextMenuButtonKind>(
+      value,
+    ),
+    'ContextMenuButtonKind?' => $RelaxedConstantTween<ContextMenuButtonKind?>(
+      value,
+    ),
     'ContextMenuController' => $RelaxedConstantTween<ContextMenuController>(
       value,
     ),
@@ -24408,6 +24450,10 @@ Object? _relaxConstantTween$rc2(Object value, String innerTypeArg) {
     'HeroMode?' => $RelaxedConstantTween<HeroMode?>(value),
     'HitTestEntry' => $RelaxedConstantTween<HitTestEntry>(value),
     'HitTestEntry?' => $RelaxedConstantTween<HitTestEntry?>(value),
+    'HitTestRequest' => $RelaxedConstantTween<HitTestRequest>(value),
+    'HitTestRequest?' => $RelaxedConstantTween<HitTestRequest?>(value),
+    'HitTestResponse' => $RelaxedConstantTween<HitTestResponse>(value),
+    'HitTestResponse?' => $RelaxedConstantTween<HitTestResponse?>(value),
     'HitTestResult' => $RelaxedConstantTween<HitTestResult>(value),
     'HitTestResult?' => $RelaxedConstantTween<HitTestResult?>(value),
     'HoldScrollActivity' => $RelaxedConstantTween<HoldScrollActivity>(value),
@@ -28588,6 +28634,10 @@ Object? _relaxObjectFlagProperty$rc2(Object value, String innerTypeArg) {
       $RelaxedObjectFlagProperty<ContextMenuButtonItem>(value),
     'ContextMenuButtonItem?' =>
       $RelaxedObjectFlagProperty<ContextMenuButtonItem?>(value),
+    'ContextMenuButtonKind' =>
+      $RelaxedObjectFlagProperty<ContextMenuButtonKind>(value),
+    'ContextMenuButtonKind?' =>
+      $RelaxedObjectFlagProperty<ContextMenuButtonKind?>(value),
     'ContextMenuController' =>
       $RelaxedObjectFlagProperty<ContextMenuController>(value),
     'ContextMenuController?' =>
@@ -29846,6 +29896,10 @@ Object? _relaxObjectFlagProperty$rc2(Object value, String innerTypeArg) {
     'HeroMode?' => $RelaxedObjectFlagProperty<HeroMode?>(value),
     'HitTestEntry' => $RelaxedObjectFlagProperty<HitTestEntry>(value),
     'HitTestEntry?' => $RelaxedObjectFlagProperty<HitTestEntry?>(value),
+    'HitTestRequest' => $RelaxedObjectFlagProperty<HitTestRequest>(value),
+    'HitTestRequest?' => $RelaxedObjectFlagProperty<HitTestRequest?>(value),
+    'HitTestResponse' => $RelaxedObjectFlagProperty<HitTestResponse>(value),
+    'HitTestResponse?' => $RelaxedObjectFlagProperty<HitTestResponse?>(value),
     'HitTestResult' => $RelaxedObjectFlagProperty<HitTestResult>(value),
     'HitTestResult?' => $RelaxedObjectFlagProperty<HitTestResult?>(value),
     'HoldScrollActivity' => $RelaxedObjectFlagProperty<HoldScrollActivity>(
@@ -33911,6 +33965,12 @@ Object? _relaxPageStorageKey$rc2(Object value, String innerTypeArg) {
     'ContextMenuButtonItem?' => $RelaxedPageStorageKey<ContextMenuButtonItem?>(
       value,
     ),
+    'ContextMenuButtonKind' => $RelaxedPageStorageKey<ContextMenuButtonKind>(
+      value,
+    ),
+    'ContextMenuButtonKind?' => $RelaxedPageStorageKey<ContextMenuButtonKind?>(
+      value,
+    ),
     'ContextMenuController' => $RelaxedPageStorageKey<ContextMenuController>(
       value,
     ),
@@ -35096,6 +35156,10 @@ Object? _relaxPageStorageKey$rc2(Object value, String innerTypeArg) {
     'HeroMode?' => $RelaxedPageStorageKey<HeroMode?>(value),
     'HitTestEntry' => $RelaxedPageStorageKey<HitTestEntry>(value),
     'HitTestEntry?' => $RelaxedPageStorageKey<HitTestEntry?>(value),
+    'HitTestRequest' => $RelaxedPageStorageKey<HitTestRequest>(value),
+    'HitTestRequest?' => $RelaxedPageStorageKey<HitTestRequest?>(value),
+    'HitTestResponse' => $RelaxedPageStorageKey<HitTestResponse>(value),
+    'HitTestResponse?' => $RelaxedPageStorageKey<HitTestResponse?>(value),
     'HitTestResult' => $RelaxedPageStorageKey<HitTestResult>(value),
     'HitTestResult?' => $RelaxedPageStorageKey<HitTestResult?>(value),
     'HoldScrollActivity' => $RelaxedPageStorageKey<HoldScrollActivity>(value),
@@ -39591,6 +39655,10 @@ Object? _relaxRouteInformationParser$rc2(Object value, String innerTypeArg) {
       $RelaxedRouteInformationParser<ContextMenuButtonItem>(value),
     'ContextMenuButtonItem?' =>
       $RelaxedRouteInformationParser<ContextMenuButtonItem?>(value),
+    'ContextMenuButtonKind' =>
+      $RelaxedRouteInformationParser<ContextMenuButtonKind>(value),
+    'ContextMenuButtonKind?' =>
+      $RelaxedRouteInformationParser<ContextMenuButtonKind?>(value),
     'ContextMenuController' =>
       $RelaxedRouteInformationParser<ContextMenuController>(value),
     'ContextMenuController?' =>
@@ -40999,6 +41067,12 @@ Object? _relaxRouteInformationParser$rc2(Object value, String innerTypeArg) {
     'HeroMode?' => $RelaxedRouteInformationParser<HeroMode?>(value),
     'HitTestEntry' => $RelaxedRouteInformationParser<HitTestEntry>(value),
     'HitTestEntry?' => $RelaxedRouteInformationParser<HitTestEntry?>(value),
+    'HitTestRequest' => $RelaxedRouteInformationParser<HitTestRequest>(value),
+    'HitTestRequest?' => $RelaxedRouteInformationParser<HitTestRequest?>(value),
+    'HitTestResponse' => $RelaxedRouteInformationParser<HitTestResponse>(value),
+    'HitTestResponse?' => $RelaxedRouteInformationParser<HitTestResponse?>(
+      value,
+    ),
     'HitTestResult' => $RelaxedRouteInformationParser<HitTestResult>(value),
     'HitTestResult?' => $RelaxedRouteInformationParser<HitTestResult?>(value),
     'HoldScrollActivity' => $RelaxedRouteInformationParser<HoldScrollActivity>(
@@ -45593,6 +45667,11 @@ Object? _relaxSynchronousFuture$rc2(Object value, String innerTypeArg) {
     ),
     'ContextMenuButtonItem?' =>
       $RelaxedSynchronousFuture<ContextMenuButtonItem?>(value),
+    'ContextMenuButtonKind' => $RelaxedSynchronousFuture<ContextMenuButtonKind>(
+      value,
+    ),
+    'ContextMenuButtonKind?' =>
+      $RelaxedSynchronousFuture<ContextMenuButtonKind?>(value),
     'ContextMenuController' => $RelaxedSynchronousFuture<ContextMenuController>(
       value,
     ),
@@ -46881,6 +46960,10 @@ Object? _relaxSynchronousFuture$rc2(Object value, String innerTypeArg) {
     'HeroMode?' => $RelaxedSynchronousFuture<HeroMode?>(value),
     'HitTestEntry' => $RelaxedSynchronousFuture<HitTestEntry>(value),
     'HitTestEntry?' => $RelaxedSynchronousFuture<HitTestEntry?>(value),
+    'HitTestRequest' => $RelaxedSynchronousFuture<HitTestRequest>(value),
+    'HitTestRequest?' => $RelaxedSynchronousFuture<HitTestRequest?>(value),
+    'HitTestResponse' => $RelaxedSynchronousFuture<HitTestResponse>(value),
+    'HitTestResponse?' => $RelaxedSynchronousFuture<HitTestResponse?>(value),
     'HitTestResult' => $RelaxedSynchronousFuture<HitTestResult>(value),
     'HitTestResult?' => $RelaxedSynchronousFuture<HitTestResult?>(value),
     'HoldScrollActivity' => $RelaxedSynchronousFuture<HoldScrollActivity>(
@@ -50970,6 +51053,8 @@ Object? _relaxTween$rc2(Object value, String innerTypeArg) {
       $RelaxedTween<ContentInsertionConfiguration?>(value),
     'ContextMenuButtonItem' => $RelaxedTween<ContextMenuButtonItem>(value),
     'ContextMenuButtonItem?' => $RelaxedTween<ContextMenuButtonItem?>(value),
+    'ContextMenuButtonKind' => $RelaxedTween<ContextMenuButtonKind>(value),
+    'ContextMenuButtonKind?' => $RelaxedTween<ContextMenuButtonKind?>(value),
     'ContextMenuController' => $RelaxedTween<ContextMenuController>(value),
     'ContextMenuController?' => $RelaxedTween<ContextMenuController?>(value),
     'ContinuousRectangleBorder' => $RelaxedTween<ContinuousRectangleBorder>(
@@ -51976,6 +52061,10 @@ Object? _relaxTween$rc2(Object value, String innerTypeArg) {
     'HeroMode?' => $RelaxedTween<HeroMode?>(value),
     'HitTestEntry' => $RelaxedTween<HitTestEntry>(value),
     'HitTestEntry?' => $RelaxedTween<HitTestEntry?>(value),
+    'HitTestRequest' => $RelaxedTween<HitTestRequest>(value),
+    'HitTestRequest?' => $RelaxedTween<HitTestRequest?>(value),
+    'HitTestResponse' => $RelaxedTween<HitTestResponse>(value),
+    'HitTestResponse?' => $RelaxedTween<HitTestResponse?>(value),
     'HitTestResult' => $RelaxedTween<HitTestResult>(value),
     'HitTestResult?' => $RelaxedTween<HitTestResult?>(value),
     'HoldScrollActivity' => $RelaxedTween<HoldScrollActivity>(value),
@@ -55221,6 +55310,8 @@ Object? _relaxValueKey$rc2(Object value, String innerTypeArg) {
       $RelaxedValueKey<ContentInsertionConfiguration?>(value),
     'ContextMenuButtonItem' => $RelaxedValueKey<ContextMenuButtonItem>(value),
     'ContextMenuButtonItem?' => $RelaxedValueKey<ContextMenuButtonItem?>(value),
+    'ContextMenuButtonKind' => $RelaxedValueKey<ContextMenuButtonKind>(value),
+    'ContextMenuButtonKind?' => $RelaxedValueKey<ContextMenuButtonKind?>(value),
     'ContextMenuController' => $RelaxedValueKey<ContextMenuController>(value),
     'ContextMenuController?' => $RelaxedValueKey<ContextMenuController?>(value),
     'ContinuousRectangleBorder' => $RelaxedValueKey<ContinuousRectangleBorder>(
@@ -56245,6 +56336,10 @@ Object? _relaxValueKey$rc2(Object value, String innerTypeArg) {
     'HeroMode?' => $RelaxedValueKey<HeroMode?>(value),
     'HitTestEntry' => $RelaxedValueKey<HitTestEntry>(value),
     'HitTestEntry?' => $RelaxedValueKey<HitTestEntry?>(value),
+    'HitTestRequest' => $RelaxedValueKey<HitTestRequest>(value),
+    'HitTestRequest?' => $RelaxedValueKey<HitTestRequest?>(value),
+    'HitTestResponse' => $RelaxedValueKey<HitTestResponse>(value),
+    'HitTestResponse?' => $RelaxedValueKey<HitTestResponse?>(value),
     'HitTestResult' => $RelaxedValueKey<HitTestResult>(value),
     'HitTestResult?' => $RelaxedValueKey<HitTestResult?>(value),
     'HoldScrollActivity' => $RelaxedValueKey<HoldScrollActivity>(value),
@@ -59689,6 +59784,12 @@ Object? _relaxValueListenable$rc2(Object value, String innerTypeArg) {
     'ContextMenuButtonItem?' => $RelaxedValueListenable<ContextMenuButtonItem?>(
       value,
     ),
+    'ContextMenuButtonKind' => $RelaxedValueListenable<ContextMenuButtonKind>(
+      value,
+    ),
+    'ContextMenuButtonKind?' => $RelaxedValueListenable<ContextMenuButtonKind?>(
+      value,
+    ),
     'ContextMenuController' => $RelaxedValueListenable<ContextMenuController>(
       value,
     ),
@@ -60942,6 +61043,10 @@ Object? _relaxValueListenable$rc2(Object value, String innerTypeArg) {
     'HeroMode?' => $RelaxedValueListenable<HeroMode?>(value),
     'HitTestEntry' => $RelaxedValueListenable<HitTestEntry>(value),
     'HitTestEntry?' => $RelaxedValueListenable<HitTestEntry?>(value),
+    'HitTestRequest' => $RelaxedValueListenable<HitTestRequest>(value),
+    'HitTestRequest?' => $RelaxedValueListenable<HitTestRequest?>(value),
+    'HitTestResponse' => $RelaxedValueListenable<HitTestResponse>(value),
+    'HitTestResponse?' => $RelaxedValueListenable<HitTestResponse?>(value),
     'HitTestResult' => $RelaxedValueListenable<HitTestResult>(value),
     'HitTestResult?' => $RelaxedValueListenable<HitTestResult?>(value),
     'HoldScrollActivity' => $RelaxedValueListenable<HoldScrollActivity>(value),
@@ -64971,6 +65076,12 @@ Object? _relaxValueNotifier$rc2(Object value, String innerTypeArg) {
     'ContextMenuButtonItem?' => $RelaxedValueNotifier<ContextMenuButtonItem?>(
       value,
     ),
+    'ContextMenuButtonKind' => $RelaxedValueNotifier<ContextMenuButtonKind>(
+      value,
+    ),
+    'ContextMenuButtonKind?' => $RelaxedValueNotifier<ContextMenuButtonKind?>(
+      value,
+    ),
     'ContextMenuController' => $RelaxedValueNotifier<ContextMenuController>(
       value,
     ),
@@ -66182,6 +66293,10 @@ Object? _relaxValueNotifier$rc2(Object value, String innerTypeArg) {
     'HeroMode?' => $RelaxedValueNotifier<HeroMode?>(value),
     'HitTestEntry' => $RelaxedValueNotifier<HitTestEntry>(value),
     'HitTestEntry?' => $RelaxedValueNotifier<HitTestEntry?>(value),
+    'HitTestRequest' => $RelaxedValueNotifier<HitTestRequest>(value),
+    'HitTestRequest?' => $RelaxedValueNotifier<HitTestRequest?>(value),
+    'HitTestResponse' => $RelaxedValueNotifier<HitTestResponse>(value),
+    'HitTestResponse?' => $RelaxedValueNotifier<HitTestResponse?>(value),
     'HitTestResult' => $RelaxedValueNotifier<HitTestResult>(value),
     'HitTestResult?' => $RelaxedValueNotifier<HitTestResult?>(value),
     'HoldScrollActivity' => $RelaxedValueNotifier<HoldScrollActivity>(value),
@@ -70174,6 +70289,10 @@ Object? _relaxWidgetStatePropertyAll$rc2(Object value, String innerTypeArg) {
       $RelaxedWidgetStatePropertyAll<ContextMenuButtonItem>(value),
     'ContextMenuButtonItem?' =>
       $RelaxedWidgetStatePropertyAll<ContextMenuButtonItem?>(value),
+    'ContextMenuButtonKind' =>
+      $RelaxedWidgetStatePropertyAll<ContextMenuButtonKind>(value),
+    'ContextMenuButtonKind?' =>
+      $RelaxedWidgetStatePropertyAll<ContextMenuButtonKind?>(value),
     'ContextMenuController' =>
       $RelaxedWidgetStatePropertyAll<ContextMenuController>(value),
     'ContextMenuController?' =>
@@ -71582,6 +71701,12 @@ Object? _relaxWidgetStatePropertyAll$rc2(Object value, String innerTypeArg) {
     'HeroMode?' => $RelaxedWidgetStatePropertyAll<HeroMode?>(value),
     'HitTestEntry' => $RelaxedWidgetStatePropertyAll<HitTestEntry>(value),
     'HitTestEntry?' => $RelaxedWidgetStatePropertyAll<HitTestEntry?>(value),
+    'HitTestRequest' => $RelaxedWidgetStatePropertyAll<HitTestRequest>(value),
+    'HitTestRequest?' => $RelaxedWidgetStatePropertyAll<HitTestRequest?>(value),
+    'HitTestResponse' => $RelaxedWidgetStatePropertyAll<HitTestResponse>(value),
+    'HitTestResponse?' => $RelaxedWidgetStatePropertyAll<HitTestResponse?>(
+      value,
+    ),
     'HitTestResult' => $RelaxedWidgetStatePropertyAll<HitTestResult>(value),
     'HitTestResult?' => $RelaxedWidgetStatePropertyAll<HitTestResult?>(value),
     'HoldScrollActivity' => $RelaxedWidgetStatePropertyAll<HoldScrollActivity>(
@@ -75857,6 +75982,7 @@ Object? _rc2Adaptation(
     'ContentInsertionConfiguration' =>
       Adaptation<ContentInsertionConfiguration>(),
     'ContextMenuButtonItem' => Adaptation<ContextMenuButtonItem>(),
+    'ContextMenuButtonKind' => Adaptation<ContextMenuButtonKind>(),
     'ContextMenuController' => Adaptation<ContextMenuController>(),
     'ContinuousRectangleBorder' => Adaptation<ContinuousRectangleBorder>(),
     'ControlsDetails' => Adaptation<ControlsDetails>(),
@@ -76268,6 +76394,8 @@ Object? _rc2Adaptation(
     'HeroControllerScope' => Adaptation<HeroControllerScope>(),
     'HeroMode' => Adaptation<HeroMode>(),
     'HitTestEntry' => Adaptation<HitTestEntry>(),
+    'HitTestRequest' => Adaptation<HitTestRequest>(),
+    'HitTestResponse' => Adaptation<HitTestResponse>(),
     'HitTestResult' => Adaptation<HitTestResult>(),
     'HoldScrollActivity' => Adaptation<HoldScrollActivity>(),
     'HorizontalDragGestureRecognizer' =>
@@ -78037,6 +78165,9 @@ Object? _rc2AlwaysStoppedAnimation(
     'ContextMenuButtonItem' => AlwaysStoppedAnimation<ContextMenuButtonItem>(
       value as ContextMenuButtonItem,
     ),
+    'ContextMenuButtonKind' => AlwaysStoppedAnimation<ContextMenuButtonKind>(
+      value as ContextMenuButtonKind,
+    ),
     'ContextMenuController' => AlwaysStoppedAnimation<ContextMenuController>(
       value as ContextMenuController,
     ),
@@ -79104,6 +79235,12 @@ Object? _rc2AlwaysStoppedAnimation(
     'HeroMode' => AlwaysStoppedAnimation<HeroMode>(value as HeroMode),
     'HitTestEntry' => AlwaysStoppedAnimation<HitTestEntry>(
       value as HitTestEntry,
+    ),
+    'HitTestRequest' => AlwaysStoppedAnimation<HitTestRequest>(
+      value as HitTestRequest,
+    ),
+    'HitTestResponse' => AlwaysStoppedAnimation<HitTestResponse>(
+      value as HitTestResponse,
     ),
     'HitTestResult' => AlwaysStoppedAnimation<HitTestResult>(
       value as HitTestResult,
@@ -83075,6 +83212,10 @@ Object? _rc2AnnotationEntry(
       annotation: annotation as ContextMenuButtonItem,
       localPosition: localPosition!,
     ),
+    'ContextMenuButtonKind' => AnnotationEntry<ContextMenuButtonKind>(
+      annotation: annotation as ContextMenuButtonKind,
+      localPosition: localPosition!,
+    ),
     'ContextMenuController' => AnnotationEntry<ContextMenuController>(
       annotation: annotation as ContextMenuController,
       localPosition: localPosition!,
@@ -84578,6 +84719,14 @@ Object? _rc2AnnotationEntry(
     ),
     'HitTestEntry' => AnnotationEntry<HitTestEntry>(
       annotation: annotation as HitTestEntry,
+      localPosition: localPosition!,
+    ),
+    'HitTestRequest' => AnnotationEntry<HitTestRequest>(
+      annotation: annotation as HitTestRequest,
+      localPosition: localPosition!,
+    ),
+    'HitTestResponse' => AnnotationEntry<HitTestResponse>(
+      annotation: annotation as HitTestResponse,
       localPosition: localPosition!,
     ),
     'HitTestResult' => AnnotationEntry<HitTestResult>(
@@ -89070,6 +89219,7 @@ Object? _rc2AnnotationResult(
     'ContentInsertionConfiguration' =>
       AnnotationResult<ContentInsertionConfiguration>(),
     'ContextMenuButtonItem' => AnnotationResult<ContextMenuButtonItem>(),
+    'ContextMenuButtonKind' => AnnotationResult<ContextMenuButtonKind>(),
     'ContextMenuController' => AnnotationResult<ContextMenuController>(),
     'ContinuousRectangleBorder' =>
       AnnotationResult<ContinuousRectangleBorder>(),
@@ -89515,6 +89665,8 @@ Object? _rc2AnnotationResult(
     'HeroControllerScope' => AnnotationResult<HeroControllerScope>(),
     'HeroMode' => AnnotationResult<HeroMode>(),
     'HitTestEntry' => AnnotationResult<HitTestEntry>(),
+    'HitTestRequest' => AnnotationResult<HitTestRequest>(),
+    'HitTestResponse' => AnnotationResult<HitTestResponse>(),
     'HitTestResult' => AnnotationResult<HitTestResult>(),
     'HoldScrollActivity' => AnnotationResult<HoldScrollActivity>(),
     'HorizontalDragGestureRecognizer' =>
@@ -90991,6 +91143,7 @@ Object? _rc2AsyncSnapshot_nothing(
     'ContentInsertionConfiguration' =>
       AsyncSnapshot<ContentInsertionConfiguration>.nothing(),
     'ContextMenuButtonItem' => AsyncSnapshot<ContextMenuButtonItem>.nothing(),
+    'ContextMenuButtonKind' => AsyncSnapshot<ContextMenuButtonKind>.nothing(),
     'ContextMenuController' => AsyncSnapshot<ContextMenuController>.nothing(),
     'ContinuousRectangleBorder' =>
       AsyncSnapshot<ContinuousRectangleBorder>.nothing(),
@@ -91459,6 +91612,8 @@ Object? _rc2AsyncSnapshot_nothing(
     'HeroControllerScope' => AsyncSnapshot<HeroControllerScope>.nothing(),
     'HeroMode' => AsyncSnapshot<HeroMode>.nothing(),
     'HitTestEntry' => AsyncSnapshot<HitTestEntry>.nothing(),
+    'HitTestRequest' => AsyncSnapshot<HitTestRequest>.nothing(),
+    'HitTestResponse' => AsyncSnapshot<HitTestResponse>.nothing(),
     'HitTestResult' => AsyncSnapshot<HitTestResult>.nothing(),
     'HoldScrollActivity' => AsyncSnapshot<HoldScrollActivity>.nothing(),
     'HorizontalDragGestureRecognizer' =>
@@ -92989,6 +93144,7 @@ Object? _rc2AsyncSnapshot_waiting(
     'ContentInsertionConfiguration' =>
       AsyncSnapshot<ContentInsertionConfiguration>.waiting(),
     'ContextMenuButtonItem' => AsyncSnapshot<ContextMenuButtonItem>.waiting(),
+    'ContextMenuButtonKind' => AsyncSnapshot<ContextMenuButtonKind>.waiting(),
     'ContextMenuController' => AsyncSnapshot<ContextMenuController>.waiting(),
     'ContinuousRectangleBorder' =>
       AsyncSnapshot<ContinuousRectangleBorder>.waiting(),
@@ -93457,6 +93613,8 @@ Object? _rc2AsyncSnapshot_waiting(
     'HeroControllerScope' => AsyncSnapshot<HeroControllerScope>.waiting(),
     'HeroMode' => AsyncSnapshot<HeroMode>.waiting(),
     'HitTestEntry' => AsyncSnapshot<HitTestEntry>.waiting(),
+    'HitTestRequest' => AsyncSnapshot<HitTestRequest>.waiting(),
+    'HitTestResponse' => AsyncSnapshot<HitTestResponse>.waiting(),
     'HitTestResult' => AsyncSnapshot<HitTestResult>.waiting(),
     'HoldScrollActivity' => AsyncSnapshot<HoldScrollActivity>.waiting(),
     'HorizontalDragGestureRecognizer' =>
@@ -95609,6 +95767,10 @@ Object? _rc2AsyncSnapshot_withData(
       state!,
       data as ContextMenuButtonItem,
     ),
+    'ContextMenuButtonKind' => AsyncSnapshot<ContextMenuButtonKind>.withData(
+      state!,
+      data as ContextMenuButtonKind,
+    ),
     'ContextMenuController' => AsyncSnapshot<ContextMenuController>.withData(
       state!,
       data as ContextMenuController,
@@ -97054,6 +97216,14 @@ Object? _rc2AsyncSnapshot_withData(
     'HitTestEntry' => AsyncSnapshot<HitTestEntry>.withData(
       state!,
       data as HitTestEntry,
+    ),
+    'HitTestRequest' => AsyncSnapshot<HitTestRequest>.withData(
+      state!,
+      data as HitTestRequest,
+    ),
+    'HitTestResponse' => AsyncSnapshot<HitTestResponse>.withData(
+      state!,
+      data as HitTestResponse,
     ),
     'HitTestResult' => AsyncSnapshot<HitTestResult>.withData(
       state!,
@@ -102260,6 +102430,11 @@ Object? _rc2AsyncSnapshot_withError(
       error!,
       stackTrace ?? StackTrace.empty,
     ),
+    'ContextMenuButtonKind' => AsyncSnapshot<ContextMenuButtonKind>.withError(
+      state!,
+      error!,
+      stackTrace ?? StackTrace.empty,
+    ),
     'ContextMenuController' => AsyncSnapshot<ContextMenuController>.withError(
       state!,
       error!,
@@ -104148,6 +104323,16 @@ Object? _rc2AsyncSnapshot_withError(
       stackTrace ?? StackTrace.empty,
     ),
     'HitTestEntry' => AsyncSnapshot<HitTestEntry>.withError(
+      state!,
+      error!,
+      stackTrace ?? StackTrace.empty,
+    ),
+    'HitTestRequest' => AsyncSnapshot<HitTestRequest>.withError(
+      state!,
+      error!,
+      stackTrace ?? StackTrace.empty,
+    ),
+    'HitTestResponse' => AsyncSnapshot<HitTestResponse>.withError(
       state!,
       error!,
       stackTrace ?? StackTrace.empty,
@@ -110881,6 +111066,11 @@ Object? _rc2BasicMessageChannel(
       D4.extractBridgedArg<MessageCodec<ContextMenuButtonItem>>(codec, 'codec'),
       binaryMessenger: binaryMessenger,
     ),
+    'ContextMenuButtonKind' => BasicMessageChannel<ContextMenuButtonKind>(
+      name!,
+      D4.extractBridgedArg<MessageCodec<ContextMenuButtonKind>>(codec, 'codec'),
+      binaryMessenger: binaryMessenger,
+    ),
     'ContextMenuController' => BasicMessageChannel<ContextMenuController>(
       name!,
       D4.extractBridgedArg<MessageCodec<ContextMenuController>>(codec, 'codec'),
@@ -113108,6 +113298,16 @@ Object? _rc2BasicMessageChannel(
     'HitTestEntry' => BasicMessageChannel<HitTestEntry>(
       name!,
       D4.extractBridgedArg<MessageCodec<HitTestEntry>>(codec, 'codec'),
+      binaryMessenger: binaryMessenger,
+    ),
+    'HitTestRequest' => BasicMessageChannel<HitTestRequest>(
+      name!,
+      D4.extractBridgedArg<MessageCodec<HitTestRequest>>(codec, 'codec'),
+      binaryMessenger: binaryMessenger,
+    ),
+    'HitTestResponse' => BasicMessageChannel<HitTestResponse>(
+      name!,
+      D4.extractBridgedArg<MessageCodec<HitTestResponse>>(codec, 'codec'),
       binaryMessenger: binaryMessenger,
     ),
     'HitTestResult' => BasicMessageChannel<HitTestResult>(
@@ -120838,6 +121038,13 @@ Object? _rc2ButtonSegment(
       tooltip: tooltip,
       enabled: enabled ?? true,
     ),
+    'ContextMenuButtonKind' => ButtonSegment<ContextMenuButtonKind>(
+      value: value as ContextMenuButtonKind,
+      icon: icon,
+      label: label,
+      tooltip: tooltip,
+      enabled: enabled ?? true,
+    ),
     'ContextMenuController' => ButtonSegment<ContextMenuController>(
       value: value as ContextMenuController,
       icon: icon,
@@ -123396,6 +123603,20 @@ Object? _rc2ButtonSegment(
     ),
     'HitTestEntry' => ButtonSegment<HitTestEntry>(
       value: value as HitTestEntry,
+      icon: icon,
+      label: label,
+      tooltip: tooltip,
+      enabled: enabled ?? true,
+    ),
+    'HitTestRequest' => ButtonSegment<HitTestRequest>(
+      value: value as HitTestRequest,
+      icon: icon,
+      label: label,
+      tooltip: tooltip,
+      enabled: enabled ?? true,
+    ),
+    'HitTestResponse' => ButtonSegment<HitTestResponse>(
+      value: value as HitTestResponse,
       icon: icon,
       label: label,
       tooltip: tooltip,
@@ -132093,6 +132314,12 @@ Object? _rc2CachingIterable(
         '_prefillIterator',
       ),
     ),
+    'ContextMenuButtonKind' => CachingIterable<ContextMenuButtonKind>(
+      D4.extractBridgedArg<Iterator<ContextMenuButtonKind>>(
+        _prefillIterator,
+        '_prefillIterator',
+      ),
+    ),
     'ContextMenuController' => CachingIterable<ContextMenuController>(
       D4.extractBridgedArg<Iterator<ContextMenuController>>(
         _prefillIterator,
@@ -134298,6 +134525,18 @@ Object? _rc2CachingIterable(
     ),
     'HitTestEntry' => CachingIterable<HitTestEntry>(
       D4.extractBridgedArg<Iterator<HitTestEntry>>(
+        _prefillIterator,
+        '_prefillIterator',
+      ),
+    ),
+    'HitTestRequest' => CachingIterable<HitTestRequest>(
+      D4.extractBridgedArg<Iterator<HitTestRequest>>(
+        _prefillIterator,
+        '_prefillIterator',
+      ),
+    ),
+    'HitTestResponse' => CachingIterable<HitTestResponse>(
+      D4.extractBridgedArg<Iterator<HitTestResponse>>(
         _prefillIterator,
         '_prefillIterator',
       ),
@@ -145033,6 +145272,23 @@ Object? _rc2CheckedPopupMenuItem(
               await Future.delayed(const Duration(milliseconds: 1));
             },
     ),
+    'ContextMenuButtonKind' => CheckedPopupMenuItem<ContextMenuButtonKind>(
+      key: key,
+      value: value as ContextMenuButtonKind?,
+      checked: checked ?? false,
+      enabled: enabled ?? true,
+      padding: padding,
+      height: (height as num?)?.toDouble() ?? kMinInteractiveDimension,
+      labelTextStyle: labelTextStyle,
+      mouseCursor: mouseCursor,
+      child: child,
+      onTap: onTap == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onTap, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+    ),
     'ContextMenuController' => CheckedPopupMenuItem<ContextMenuController>(
       key: key,
       value: value as ContextMenuController?,
@@ -151206,6 +151462,40 @@ Object? _rc2CheckedPopupMenuItem(
     'HitTestEntry' => CheckedPopupMenuItem<HitTestEntry>(
       key: key,
       value: value as HitTestEntry?,
+      checked: checked ?? false,
+      enabled: enabled ?? true,
+      padding: padding,
+      height: (height as num?)?.toDouble() ?? kMinInteractiveDimension,
+      labelTextStyle: labelTextStyle,
+      mouseCursor: mouseCursor,
+      child: child,
+      onTap: onTap == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onTap, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+    ),
+    'HitTestRequest' => CheckedPopupMenuItem<HitTestRequest>(
+      key: key,
+      value: value as HitTestRequest?,
+      checked: checked ?? false,
+      enabled: enabled ?? true,
+      padding: padding,
+      height: (height as num?)?.toDouble() ?? kMinInteractiveDimension,
+      labelTextStyle: labelTextStyle,
+      mouseCursor: mouseCursor,
+      child: child,
+      onTap: onTap == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onTap, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+    ),
+    'HitTestResponse' => CheckedPopupMenuItem<HitTestResponse>(
+      key: key,
+      value: value as HitTestResponse?,
       checked: checked ?? false,
       enabled: enabled ?? true,
       padding: padding,
@@ -169782,6 +170072,10 @@ Object? _rc2ColorSwatch(
       primary!,
       D4.coerceMap<ContextMenuButtonItem, Color>(_swatch, '_swatch'),
     ),
+    'ContextMenuButtonKind' => ColorSwatch<ContextMenuButtonKind>(
+      primary!,
+      D4.coerceMap<ContextMenuButtonKind, Color>(_swatch, '_swatch'),
+    ),
     'ContextMenuController' => ColorSwatch<ContextMenuController>(
       primary!,
       D4.coerceMap<ContextMenuController, Color>(_swatch, '_swatch'),
@@ -171376,6 +171670,14 @@ Object? _rc2ColorSwatch(
     'HitTestEntry' => ColorSwatch<HitTestEntry>(
       primary!,
       D4.coerceMap<HitTestEntry, Color>(_swatch, '_swatch'),
+    ),
+    'HitTestRequest' => ColorSwatch<HitTestRequest>(
+      primary!,
+      D4.coerceMap<HitTestRequest, Color>(_swatch, '_swatch'),
+    ),
+    'HitTestResponse' => ColorSwatch<HitTestResponse>(
+      primary!,
+      D4.coerceMap<HitTestResponse, Color>(_swatch, '_swatch'),
     ),
     'HitTestResult' => ColorSwatch<HitTestResult>(
       primary!,
@@ -176268,6 +176570,9 @@ Object? _rc2ConstantTween(
     'ContextMenuButtonItem' => ConstantTween<ContextMenuButtonItem>(
       value as ContextMenuButtonItem,
     ),
+    'ContextMenuButtonKind' => ConstantTween<ContextMenuButtonKind>(
+      value as ContextMenuButtonKind,
+    ),
     'ContextMenuController' => ConstantTween<ContextMenuController>(
       value as ContextMenuController,
     ),
@@ -177191,6 +177496,10 @@ Object? _rc2ConstantTween(
     ),
     'HeroMode' => ConstantTween<HeroMode>(value as HeroMode),
     'HitTestEntry' => ConstantTween<HitTestEntry>(value as HitTestEntry),
+    'HitTestRequest' => ConstantTween<HitTestRequest>(value as HitTestRequest),
+    'HitTestResponse' => ConstantTween<HitTestResponse>(
+      value as HitTestResponse,
+    ),
     'HitTestResult' => ConstantTween<HitTestResult>(value as HitTestResult),
     'HoldScrollActivity' => ConstantTween<HoldScrollActivity>(
       value as HoldScrollActivity,
@@ -188326,6 +188635,43 @@ Object? _rc2CupertinoDialogRoute(
         anchorPoint: anchorPoint,
       ),
     'ContextMenuButtonItem' => CupertinoDialogRoute<ContextMenuButtonItem>(
+      builder: (BuildContext p0) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      context: context!,
+      barrierDismissible: barrierDismissible ?? true,
+      barrierColor: barrierColor,
+      barrierLabel: barrierLabel,
+      transitionDuration:
+          transitionDuration ?? const Duration(milliseconds: 250),
+      transitionBuilder: transitionBuilder == null
+          ? null
+          : (
+              BuildContext p0,
+              Animation<double> p1,
+              Animation<double> p2,
+              Widget p3,
+            ) {
+              return D4.extractBridgedArg<Widget>(
+                D4.callInterpreterCallback(visitor, transitionBuilder, [
+                  p0,
+                  p1,
+                  p2,
+                  p3,
+                ]),
+                'callback',
+                visitor,
+              );
+            },
+      settings: settings,
+      requestFocus: requestFocus,
+      anchorPoint: anchorPoint,
+    ),
+    'ContextMenuButtonKind' => CupertinoDialogRoute<ContextMenuButtonKind>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
           D4.callInterpreterCallback(visitor, builder, [p0]),
@@ -201634,6 +201980,80 @@ Object? _rc2CupertinoDialogRoute(
       anchorPoint: anchorPoint,
     ),
     'HitTestEntry' => CupertinoDialogRoute<HitTestEntry>(
+      builder: (BuildContext p0) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      context: context!,
+      barrierDismissible: barrierDismissible ?? true,
+      barrierColor: barrierColor,
+      barrierLabel: barrierLabel,
+      transitionDuration:
+          transitionDuration ?? const Duration(milliseconds: 250),
+      transitionBuilder: transitionBuilder == null
+          ? null
+          : (
+              BuildContext p0,
+              Animation<double> p1,
+              Animation<double> p2,
+              Widget p3,
+            ) {
+              return D4.extractBridgedArg<Widget>(
+                D4.callInterpreterCallback(visitor, transitionBuilder, [
+                  p0,
+                  p1,
+                  p2,
+                  p3,
+                ]),
+                'callback',
+                visitor,
+              );
+            },
+      settings: settings,
+      requestFocus: requestFocus,
+      anchorPoint: anchorPoint,
+    ),
+    'HitTestRequest' => CupertinoDialogRoute<HitTestRequest>(
+      builder: (BuildContext p0) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      context: context!,
+      barrierDismissible: barrierDismissible ?? true,
+      barrierColor: barrierColor,
+      barrierLabel: barrierLabel,
+      transitionDuration:
+          transitionDuration ?? const Duration(milliseconds: 250),
+      transitionBuilder: transitionBuilder == null
+          ? null
+          : (
+              BuildContext p0,
+              Animation<double> p1,
+              Animation<double> p2,
+              Widget p3,
+            ) {
+              return D4.extractBridgedArg<Widget>(
+                D4.callInterpreterCallback(visitor, transitionBuilder, [
+                  p0,
+                  p1,
+                  p2,
+                  p3,
+                ]),
+                'callback',
+                visitor,
+              );
+            },
+      settings: settings,
+      requestFocus: requestFocus,
+      anchorPoint: anchorPoint,
+    ),
+    'HitTestResponse' => CupertinoDialogRoute<HitTestResponse>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
           D4.callInterpreterCallback(visitor, builder, [p0]),
@@ -243776,6 +244196,23 @@ Object? _rc2CupertinoModalPopupRoute(
       requestFocus: requestFocus,
       anchorPoint: anchorPoint,
     ),
+    'ContextMenuButtonKind' => CupertinoModalPopupRoute<ContextMenuButtonKind>(
+      builder: (BuildContext p0) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      barrierLabel: barrierLabel ?? 'Dismiss',
+      barrierColor: barrierColor,
+      barrierDismissible: barrierDismissible ?? true,
+      semanticsDismissible: semanticsDismissible ?? false,
+      filter: filter,
+      settings: settings,
+      requestFocus: requestFocus,
+      anchorPoint: anchorPoint,
+    ),
     'ContextMenuController' => CupertinoModalPopupRoute<ContextMenuController>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -249955,6 +250392,40 @@ Object? _rc2CupertinoModalPopupRoute(
       anchorPoint: anchorPoint,
     ),
     'HitTestEntry' => CupertinoModalPopupRoute<HitTestEntry>(
+      builder: (BuildContext p0) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      barrierLabel: barrierLabel ?? 'Dismiss',
+      barrierColor: barrierColor,
+      barrierDismissible: barrierDismissible ?? true,
+      semanticsDismissible: semanticsDismissible ?? false,
+      filter: filter,
+      settings: settings,
+      requestFocus: requestFocus,
+      anchorPoint: anchorPoint,
+    ),
+    'HitTestRequest' => CupertinoModalPopupRoute<HitTestRequest>(
+      builder: (BuildContext p0) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      barrierLabel: barrierLabel ?? 'Dismiss',
+      barrierColor: barrierColor,
+      barrierDismissible: barrierDismissible ?? true,
+      semanticsDismissible: semanticsDismissible ?? false,
+      filter: filter,
+      settings: settings,
+      requestFocus: requestFocus,
+      anchorPoint: anchorPoint,
+    ),
+    'HitTestResponse' => CupertinoModalPopupRoute<HitTestResponse>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
           D4.callInterpreterCallback(visitor, builder, [p0]),
@@ -271429,6 +271900,22 @@ Object? _rc2CupertinoPage(
       arguments: arguments,
       restorationId: restorationId,
     ),
+    'ContextMenuButtonKind' => CupertinoPage<ContextMenuButtonKind>(
+      child: child!,
+      maintainState: maintainState ?? true,
+      title: title,
+      fullscreenDialog: fullscreenDialog ?? false,
+      allowSnapshotting: allowSnapshotting ?? true,
+      canPop: canPop ?? true,
+      onPopInvoked: (bool p0, ContextMenuButtonKind? p1) async {
+        D4.callInterpreterCallback(visitor, onPopInvoked, [p0, p1]);
+        await Future.delayed(const Duration(milliseconds: 1));
+      },
+      key: key,
+      name: name,
+      arguments: arguments,
+      restorationId: restorationId,
+    ),
     'ContextMenuController' => CupertinoPage<ContextMenuController>(
       child: child!,
       maintainState: maintainState ?? true,
@@ -277213,6 +277700,38 @@ Object? _rc2CupertinoPage(
       allowSnapshotting: allowSnapshotting ?? true,
       canPop: canPop ?? true,
       onPopInvoked: (bool p0, HitTestEntry? p1) async {
+        D4.callInterpreterCallback(visitor, onPopInvoked, [p0, p1]);
+        await Future.delayed(const Duration(milliseconds: 1));
+      },
+      key: key,
+      name: name,
+      arguments: arguments,
+      restorationId: restorationId,
+    ),
+    'HitTestRequest' => CupertinoPage<HitTestRequest>(
+      child: child!,
+      maintainState: maintainState ?? true,
+      title: title,
+      fullscreenDialog: fullscreenDialog ?? false,
+      allowSnapshotting: allowSnapshotting ?? true,
+      canPop: canPop ?? true,
+      onPopInvoked: (bool p0, HitTestRequest? p1) async {
+        D4.callInterpreterCallback(visitor, onPopInvoked, [p0, p1]);
+        await Future.delayed(const Duration(milliseconds: 1));
+      },
+      key: key,
+      name: name,
+      arguments: arguments,
+      restorationId: restorationId,
+    ),
+    'HitTestResponse' => CupertinoPage<HitTestResponse>(
+      child: child!,
+      maintainState: maintainState ?? true,
+      title: title,
+      fullscreenDialog: fullscreenDialog ?? false,
+      allowSnapshotting: allowSnapshotting ?? true,
+      canPop: canPop ?? true,
+      onPopInvoked: (bool p0, HitTestResponse? p1) async {
         D4.callInterpreterCallback(visitor, onPopInvoked, [p0, p1]);
         await Future.delayed(const Duration(milliseconds: 1));
       },
@@ -297520,6 +298039,22 @@ Object? _rc2CupertinoPageRoute(
       allowSnapshotting: allowSnapshotting ?? true,
       barrierDismissible: barrierDismissible ?? false,
     ),
+    'ContextMenuButtonKind' => CupertinoPageRoute<ContextMenuButtonKind>(
+      builder: (BuildContext p0) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      title: title,
+      settings: settings,
+      requestFocus: requestFocus,
+      maintainState: maintainState ?? true,
+      fullscreenDialog: fullscreenDialog ?? false,
+      allowSnapshotting: allowSnapshotting ?? true,
+      barrierDismissible: barrierDismissible ?? false,
+    ),
     'ContextMenuController' => CupertinoPageRoute<ContextMenuController>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -303304,6 +303839,38 @@ Object? _rc2CupertinoPageRoute(
       barrierDismissible: barrierDismissible ?? false,
     ),
     'HitTestEntry' => CupertinoPageRoute<HitTestEntry>(
+      builder: (BuildContext p0) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      title: title,
+      settings: settings,
+      requestFocus: requestFocus,
+      maintainState: maintainState ?? true,
+      fullscreenDialog: fullscreenDialog ?? false,
+      allowSnapshotting: allowSnapshotting ?? true,
+      barrierDismissible: barrierDismissible ?? false,
+    ),
+    'HitTestRequest' => CupertinoPageRoute<HitTestRequest>(
+      builder: (BuildContext p0) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      title: title,
+      settings: settings,
+      requestFocus: requestFocus,
+      maintainState: maintainState ?? true,
+      fullscreenDialog: fullscreenDialog ?? false,
+      allowSnapshotting: allowSnapshotting ?? true,
+      barrierDismissible: barrierDismissible ?? false,
+    ),
+    'HitTestResponse' => CupertinoPageRoute<HitTestResponse>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
           D4.callInterpreterCallback(visitor, builder, [p0]),
@@ -325875,6 +326442,32 @@ Object? _rc2CupertinoRadio(
             'groupRegistry',
           ),
     ),
+    'ContextMenuButtonKind' => CupertinoRadio<ContextMenuButtonKind>(
+      key: key,
+      value: value as ContextMenuButtonKind,
+      groupValue: groupValue as ContextMenuButtonKind?,
+      onChanged: onChanged == null
+          ? null
+          : (ContextMenuButtonKind? p0) async {
+              D4.callInterpreterCallback(visitor, onChanged, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      mouseCursor: mouseCursor,
+      toggleable: toggleable ?? false,
+      activeColor: activeColor,
+      inactiveColor: inactiveColor,
+      fillColor: fillColor,
+      focusColor: focusColor,
+      focusNode: focusNode,
+      autofocus: autofocus ?? false,
+      useCheckmarkStyle: useCheckmarkStyle ?? false,
+      enabled: enabled,
+      groupRegistry: D4
+          .extractBridgedArg<RadioGroupRegistry<ContextMenuButtonKind>?>(
+            groupRegistry,
+            'groupRegistry',
+          ),
+    ),
     'ContextMenuController' => CupertinoRadio<ContextMenuController>(
       key: key,
       value: value as ContextMenuController,
@@ -335044,6 +335637,56 @@ Object? _rc2CupertinoRadio(
       useCheckmarkStyle: useCheckmarkStyle ?? false,
       enabled: enabled,
       groupRegistry: D4.extractBridgedArg<RadioGroupRegistry<HitTestEntry>?>(
+        groupRegistry,
+        'groupRegistry',
+      ),
+    ),
+    'HitTestRequest' => CupertinoRadio<HitTestRequest>(
+      key: key,
+      value: value as HitTestRequest,
+      groupValue: groupValue as HitTestRequest?,
+      onChanged: onChanged == null
+          ? null
+          : (HitTestRequest? p0) async {
+              D4.callInterpreterCallback(visitor, onChanged, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      mouseCursor: mouseCursor,
+      toggleable: toggleable ?? false,
+      activeColor: activeColor,
+      inactiveColor: inactiveColor,
+      fillColor: fillColor,
+      focusColor: focusColor,
+      focusNode: focusNode,
+      autofocus: autofocus ?? false,
+      useCheckmarkStyle: useCheckmarkStyle ?? false,
+      enabled: enabled,
+      groupRegistry: D4.extractBridgedArg<RadioGroupRegistry<HitTestRequest>?>(
+        groupRegistry,
+        'groupRegistry',
+      ),
+    ),
+    'HitTestResponse' => CupertinoRadio<HitTestResponse>(
+      key: key,
+      value: value as HitTestResponse,
+      groupValue: groupValue as HitTestResponse?,
+      onChanged: onChanged == null
+          ? null
+          : (HitTestResponse? p0) async {
+              D4.callInterpreterCallback(visitor, onChanged, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      mouseCursor: mouseCursor,
+      toggleable: toggleable ?? false,
+      activeColor: activeColor,
+      inactiveColor: inactiveColor,
+      fillColor: fillColor,
+      focusColor: focusColor,
+      focusNode: focusNode,
+      autofocus: autofocus ?? false,
+      useCheckmarkStyle: useCheckmarkStyle ?? false,
+      enabled: enabled,
+      groupRegistry: D4.extractBridgedArg<RadioGroupRegistry<HitTestResponse>?>(
         groupRegistry,
         'groupRegistry',
       ),
@@ -367643,6 +368286,33 @@ Object? _rc2CupertinoSheetRoute(
       showDragHandle: showDragHandle ?? false,
       topGap: (topGap as num?)?.toDouble(),
     ),
+    'ContextMenuButtonKind' => CupertinoSheetRoute<ContextMenuButtonKind>(
+      settings: settings,
+      builder: builder == null
+          ? null
+          : (BuildContext p0) {
+              return D4.extractBridgedArg<Widget>(
+                D4.callInterpreterCallback(visitor, builder, [p0]),
+                'callback',
+                visitor,
+              );
+            },
+      scrollableBuilder: scrollableBuilder == null
+          ? null
+          : (BuildContext p0, ScrollController p1) {
+              return D4.extractBridgedArg<Widget>(
+                D4.callInterpreterCallback(visitor, scrollableBuilder, [
+                  p0,
+                  p1,
+                ]),
+                'callback',
+                visitor,
+              );
+            },
+      enableDrag: enableDrag ?? true,
+      showDragHandle: showDragHandle ?? false,
+      topGap: (topGap as num?)?.toDouble(),
+    ),
     'ContextMenuController' => CupertinoSheetRoute<ContextMenuController>(
       settings: settings,
       builder: builder == null
@@ -377343,6 +378013,60 @@ Object? _rc2CupertinoSheetRoute(
       topGap: (topGap as num?)?.toDouble(),
     ),
     'HitTestEntry' => CupertinoSheetRoute<HitTestEntry>(
+      settings: settings,
+      builder: builder == null
+          ? null
+          : (BuildContext p0) {
+              return D4.extractBridgedArg<Widget>(
+                D4.callInterpreterCallback(visitor, builder, [p0]),
+                'callback',
+                visitor,
+              );
+            },
+      scrollableBuilder: scrollableBuilder == null
+          ? null
+          : (BuildContext p0, ScrollController p1) {
+              return D4.extractBridgedArg<Widget>(
+                D4.callInterpreterCallback(visitor, scrollableBuilder, [
+                  p0,
+                  p1,
+                ]),
+                'callback',
+                visitor,
+              );
+            },
+      enableDrag: enableDrag ?? true,
+      showDragHandle: showDragHandle ?? false,
+      topGap: (topGap as num?)?.toDouble(),
+    ),
+    'HitTestRequest' => CupertinoSheetRoute<HitTestRequest>(
+      settings: settings,
+      builder: builder == null
+          ? null
+          : (BuildContext p0) {
+              return D4.extractBridgedArg<Widget>(
+                D4.callInterpreterCallback(visitor, builder, [p0]),
+                'callback',
+                visitor,
+              );
+            },
+      scrollableBuilder: scrollableBuilder == null
+          ? null
+          : (BuildContext p0, ScrollController p1) {
+              return D4.extractBridgedArg<Widget>(
+                D4.callInterpreterCallback(visitor, scrollableBuilder, [
+                  p0,
+                  p1,
+                ]),
+                'callback',
+                visitor,
+              );
+            },
+      enableDrag: enableDrag ?? true,
+      showDragHandle: showDragHandle ?? false,
+      topGap: (topGap as num?)?.toDouble(),
+    ),
+    'HitTestResponse' => CupertinoSheetRoute<HitTestResponse>(
       settings: settings,
       builder: builder == null
           ? null
@@ -405529,6 +406253,8 @@ Object? _rc2DefaultTransitionDelegate(
       DefaultTransitionDelegate<ContentInsertionConfiguration>(),
     'ContextMenuButtonItem' =>
       DefaultTransitionDelegate<ContextMenuButtonItem>(),
+    'ContextMenuButtonKind' =>
+      DefaultTransitionDelegate<ContextMenuButtonKind>(),
     'ContextMenuController' =>
       DefaultTransitionDelegate<ContextMenuController>(),
     'ContinuousRectangleBorder' =>
@@ -406038,6 +406764,8 @@ Object? _rc2DefaultTransitionDelegate(
     'HeroControllerScope' => DefaultTransitionDelegate<HeroControllerScope>(),
     'HeroMode' => DefaultTransitionDelegate<HeroMode>(),
     'HitTestEntry' => DefaultTransitionDelegate<HitTestEntry>(),
+    'HitTestRequest' => DefaultTransitionDelegate<HitTestRequest>(),
+    'HitTestResponse' => DefaultTransitionDelegate<HitTestResponse>(),
     'HitTestResult' => DefaultTransitionDelegate<HitTestResult>(),
     'HoldScrollActivity' => DefaultTransitionDelegate<HoldScrollActivity>(),
     'HorizontalDragGestureRecognizer' =>
@@ -411679,6 +412407,24 @@ Object? _rc2DiagnosticsProperty(
     'ContextMenuButtonItem' => DiagnosticsProperty<ContextMenuButtonItem>(
       name,
       value as ContextMenuButtonItem?,
+      description: description,
+      ifNull: ifNull,
+      ifEmpty: ifEmpty,
+      showName: showName ?? true,
+      showSeparator: showSeparator ?? true,
+      defaultValue: defaultValue,
+      tooltip: tooltip,
+      missingIfNull: missingIfNull ?? false,
+      linePrefix: linePrefix,
+      expandableValue: expandableValue ?? false,
+      allowWrap: allowWrap ?? true,
+      allowNameWrap: allowNameWrap ?? true,
+      style: style ?? DiagnosticsTreeStyle.singleLine,
+      level: level ?? DiagnosticLevel.info,
+    ),
+    'ContextMenuButtonKind' => DiagnosticsProperty<ContextMenuButtonKind>(
+      name,
+      value as ContextMenuButtonKind?,
       description: description,
       ifNull: ifNull,
       ifEmpty: ifEmpty,
@@ -418192,6 +418938,42 @@ Object? _rc2DiagnosticsProperty(
     'HitTestEntry' => DiagnosticsProperty<HitTestEntry>(
       name,
       value as HitTestEntry?,
+      description: description,
+      ifNull: ifNull,
+      ifEmpty: ifEmpty,
+      showName: showName ?? true,
+      showSeparator: showSeparator ?? true,
+      defaultValue: defaultValue,
+      tooltip: tooltip,
+      missingIfNull: missingIfNull ?? false,
+      linePrefix: linePrefix,
+      expandableValue: expandableValue ?? false,
+      allowWrap: allowWrap ?? true,
+      allowNameWrap: allowNameWrap ?? true,
+      style: style ?? DiagnosticsTreeStyle.singleLine,
+      level: level ?? DiagnosticLevel.info,
+    ),
+    'HitTestRequest' => DiagnosticsProperty<HitTestRequest>(
+      name,
+      value as HitTestRequest?,
+      description: description,
+      ifNull: ifNull,
+      ifEmpty: ifEmpty,
+      showName: showName ?? true,
+      showSeparator: showSeparator ?? true,
+      defaultValue: defaultValue,
+      tooltip: tooltip,
+      missingIfNull: missingIfNull ?? false,
+      linePrefix: linePrefix,
+      expandableValue: expandableValue ?? false,
+      allowWrap: allowWrap ?? true,
+      allowNameWrap: allowNameWrap ?? true,
+      style: style ?? DiagnosticsTreeStyle.singleLine,
+      level: level ?? DiagnosticLevel.info,
+    ),
+    'HitTestResponse' => DiagnosticsProperty<HitTestResponse>(
+      name,
+      value as HitTestResponse?,
       description: description,
       ifNull: ifNull,
       ifEmpty: ifEmpty,
@@ -442271,6 +443053,29 @@ Object? _rc2DiagnosticsProperty_lazy(
       style: style ?? DiagnosticsTreeStyle.singleLine,
       level: level ?? DiagnosticLevel.info,
     ),
+    'ContextMenuButtonKind' => DiagnosticsProperty<ContextMenuButtonKind>.lazy(
+      name,
+      () {
+        return D4.extractBridgedArg<ContextMenuButtonKind>(
+          D4.callInterpreterCallback(visitor, computeValue, []),
+          'callback',
+          visitor,
+        );
+      },
+      description: description,
+      ifNull: ifNull,
+      ifEmpty: ifEmpty,
+      showName: showName ?? true,
+      showSeparator: showSeparator ?? true,
+      defaultValue: defaultValue,
+      tooltip: tooltip,
+      missingIfNull: missingIfNull ?? false,
+      expandableValue: expandableValue ?? false,
+      allowWrap: allowWrap ?? true,
+      allowNameWrap: allowNameWrap ?? true,
+      style: style ?? DiagnosticsTreeStyle.singleLine,
+      level: level ?? DiagnosticLevel.info,
+    ),
     'ContextMenuController' => DiagnosticsProperty<ContextMenuController>.lazy(
       name,
       () {
@@ -450600,6 +451405,52 @@ Object? _rc2DiagnosticsProperty_lazy(
       name,
       () {
         return D4.extractBridgedArg<HitTestEntry>(
+          D4.callInterpreterCallback(visitor, computeValue, []),
+          'callback',
+          visitor,
+        );
+      },
+      description: description,
+      ifNull: ifNull,
+      ifEmpty: ifEmpty,
+      showName: showName ?? true,
+      showSeparator: showSeparator ?? true,
+      defaultValue: defaultValue,
+      tooltip: tooltip,
+      missingIfNull: missingIfNull ?? false,
+      expandableValue: expandableValue ?? false,
+      allowWrap: allowWrap ?? true,
+      allowNameWrap: allowNameWrap ?? true,
+      style: style ?? DiagnosticsTreeStyle.singleLine,
+      level: level ?? DiagnosticLevel.info,
+    ),
+    'HitTestRequest' => DiagnosticsProperty<HitTestRequest>.lazy(
+      name,
+      () {
+        return D4.extractBridgedArg<HitTestRequest>(
+          D4.callInterpreterCallback(visitor, computeValue, []),
+          'callback',
+          visitor,
+        );
+      },
+      description: description,
+      ifNull: ifNull,
+      ifEmpty: ifEmpty,
+      showName: showName ?? true,
+      showSeparator: showSeparator ?? true,
+      defaultValue: defaultValue,
+      tooltip: tooltip,
+      missingIfNull: missingIfNull ?? false,
+      expandableValue: expandableValue ?? false,
+      allowWrap: allowWrap ?? true,
+      allowNameWrap: allowNameWrap ?? true,
+      style: style ?? DiagnosticsTreeStyle.singleLine,
+      level: level ?? DiagnosticLevel.info,
+    ),
+    'HitTestResponse' => DiagnosticsProperty<HitTestResponse>.lazy(
+      name,
+      () {
+        return D4.extractBridgedArg<HitTestResponse>(
           D4.callInterpreterCallback(visitor, computeValue, []),
           'callback',
           visitor,
@@ -479400,6 +480251,27 @@ Object? _rc2DialogRoute(
       fullscreenDialog: fullscreenDialog ?? false,
       animationStyle: animationStyle,
     ),
+    'ContextMenuButtonKind' => DialogRoute<ContextMenuButtonKind>(
+      context: context!,
+      builder: (BuildContext p0) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      themes: themes,
+      barrierColor: barrierColor,
+      barrierDismissible: barrierDismissible ?? true,
+      barrierLabel: barrierLabel,
+      useSafeArea: useSafeArea ?? true,
+      settings: settings,
+      requestFocus: requestFocus,
+      anchorPoint: anchorPoint,
+      traversalEdgeBehavior: traversalEdgeBehavior,
+      fullscreenDialog: fullscreenDialog ?? false,
+      animationStyle: animationStyle,
+    ),
     'ContextMenuController' => DialogRoute<ContextMenuController>(
       context: context!,
       builder: (BuildContext p0) {
@@ -486926,6 +487798,48 @@ Object? _rc2DialogRoute(
       animationStyle: animationStyle,
     ),
     'HitTestEntry' => DialogRoute<HitTestEntry>(
+      context: context!,
+      builder: (BuildContext p0) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      themes: themes,
+      barrierColor: barrierColor,
+      barrierDismissible: barrierDismissible ?? true,
+      barrierLabel: barrierLabel,
+      useSafeArea: useSafeArea ?? true,
+      settings: settings,
+      requestFocus: requestFocus,
+      anchorPoint: anchorPoint,
+      traversalEdgeBehavior: traversalEdgeBehavior,
+      fullscreenDialog: fullscreenDialog ?? false,
+      animationStyle: animationStyle,
+    ),
+    'HitTestRequest' => DialogRoute<HitTestRequest>(
+      context: context!,
+      builder: (BuildContext p0) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      themes: themes,
+      barrierColor: barrierColor,
+      barrierDismissible: barrierDismissible ?? true,
+      barrierLabel: barrierLabel,
+      useSafeArea: useSafeArea ?? true,
+      settings: settings,
+      requestFocus: requestFocus,
+      anchorPoint: anchorPoint,
+      traversalEdgeBehavior: traversalEdgeBehavior,
+      fullscreenDialog: fullscreenDialog ?? false,
+      animationStyle: animationStyle,
+    ),
+    'HitTestResponse' => DialogRoute<HitTestResponse>(
       context: context!,
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -509532,6 +510446,10 @@ Object? _rc2DragTargetDetails(
       data: data as ContextMenuButtonItem,
       offset: offset!,
     ),
+    'ContextMenuButtonKind' => DragTargetDetails<ContextMenuButtonKind>(
+      data: data as ContextMenuButtonKind,
+      offset: offset!,
+    ),
     'ContextMenuController' => DragTargetDetails<ContextMenuController>(
       data: data as ContextMenuController,
       offset: offset!,
@@ -511018,6 +511936,14 @@ Object? _rc2DragTargetDetails(
     ),
     'HitTestEntry' => DragTargetDetails<HitTestEntry>(
       data: data as HitTestEntry,
+      offset: offset!,
+    ),
+    'HitTestRequest' => DragTargetDetails<HitTestRequest>(
+      data: data as HitTestRequest,
+      offset: offset!,
+    ),
+    'HitTestResponse' => DragTargetDetails<HitTestResponse>(
+      data: data as HitTestResponse,
       offset: offset!,
     ),
     'HitTestResult' => DragTargetDetails<HitTestResult>(
@@ -527892,6 +528818,60 @@ Object? _rc2DropdownButton(
       onChanged: onChanged == null
           ? null
           : (ContextMenuButtonItem? p0) async {
+              D4.callInterpreterCallback(visitor, onChanged, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onTap: onTap == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onTap, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      elevation: elevation ?? 8,
+      style: style,
+      underline: underline,
+      icon: icon,
+      iconDisabledColor: iconDisabledColor,
+      iconEnabledColor: iconEnabledColor,
+      iconSize: (iconSize as num?)?.toDouble() ?? 24.0,
+      isDense: isDense ?? false,
+      isExpanded: isExpanded ?? false,
+      itemHeight: (itemHeight as num?)?.toDouble(),
+      menuWidth: (menuWidth as num?)?.toDouble(),
+      focusColor: focusColor,
+      focusNode: focusNode,
+      autofocus: autofocus ?? false,
+      dropdownColor: dropdownColor,
+      menuMaxHeight: (menuMaxHeight as num?)?.toDouble(),
+      enableFeedback: enableFeedback,
+      alignment: alignment ?? AlignmentDirectional.centerStart,
+      borderRadius: borderRadius,
+      padding: padding,
+      barrierDismissible: barrierDismissible ?? true,
+      mouseCursor: mouseCursor,
+      dropdownMenuItemMouseCursor: dropdownMenuItemMouseCursor,
+    ),
+    'ContextMenuButtonKind' => DropdownButton<ContextMenuButtonKind>(
+      key: key,
+      items: D4.coerceListOrNull<DropdownMenuItem<ContextMenuButtonKind>>(
+        items,
+        'items',
+      ),
+      selectedItemBuilder: selectedItemBuilder == null
+          ? null
+          : (BuildContext p0) {
+              return D4.extractBridgedArg<List<Widget>>(
+                D4.callInterpreterCallback(visitor, selectedItemBuilder, [p0]),
+                'callback',
+                visitor,
+              );
+            },
+      value: value as ContextMenuButtonKind?,
+      hint: hint,
+      disabledHint: disabledHint,
+      onChanged: onChanged == null
+          ? null
+          : (ContextMenuButtonKind? p0) async {
               D4.callInterpreterCallback(visitor, onChanged, [p0]);
               await Future.delayed(const Duration(milliseconds: 1));
             },
@@ -547244,6 +548224,114 @@ Object? _rc2DropdownButton(
       onChanged: onChanged == null
           ? null
           : (HitTestEntry? p0) async {
+              D4.callInterpreterCallback(visitor, onChanged, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onTap: onTap == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onTap, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      elevation: elevation ?? 8,
+      style: style,
+      underline: underline,
+      icon: icon,
+      iconDisabledColor: iconDisabledColor,
+      iconEnabledColor: iconEnabledColor,
+      iconSize: (iconSize as num?)?.toDouble() ?? 24.0,
+      isDense: isDense ?? false,
+      isExpanded: isExpanded ?? false,
+      itemHeight: (itemHeight as num?)?.toDouble(),
+      menuWidth: (menuWidth as num?)?.toDouble(),
+      focusColor: focusColor,
+      focusNode: focusNode,
+      autofocus: autofocus ?? false,
+      dropdownColor: dropdownColor,
+      menuMaxHeight: (menuMaxHeight as num?)?.toDouble(),
+      enableFeedback: enableFeedback,
+      alignment: alignment ?? AlignmentDirectional.centerStart,
+      borderRadius: borderRadius,
+      padding: padding,
+      barrierDismissible: barrierDismissible ?? true,
+      mouseCursor: mouseCursor,
+      dropdownMenuItemMouseCursor: dropdownMenuItemMouseCursor,
+    ),
+    'HitTestRequest' => DropdownButton<HitTestRequest>(
+      key: key,
+      items: D4.coerceListOrNull<DropdownMenuItem<HitTestRequest>>(
+        items,
+        'items',
+      ),
+      selectedItemBuilder: selectedItemBuilder == null
+          ? null
+          : (BuildContext p0) {
+              return D4.extractBridgedArg<List<Widget>>(
+                D4.callInterpreterCallback(visitor, selectedItemBuilder, [p0]),
+                'callback',
+                visitor,
+              );
+            },
+      value: value as HitTestRequest?,
+      hint: hint,
+      disabledHint: disabledHint,
+      onChanged: onChanged == null
+          ? null
+          : (HitTestRequest? p0) async {
+              D4.callInterpreterCallback(visitor, onChanged, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onTap: onTap == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onTap, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      elevation: elevation ?? 8,
+      style: style,
+      underline: underline,
+      icon: icon,
+      iconDisabledColor: iconDisabledColor,
+      iconEnabledColor: iconEnabledColor,
+      iconSize: (iconSize as num?)?.toDouble() ?? 24.0,
+      isDense: isDense ?? false,
+      isExpanded: isExpanded ?? false,
+      itemHeight: (itemHeight as num?)?.toDouble(),
+      menuWidth: (menuWidth as num?)?.toDouble(),
+      focusColor: focusColor,
+      focusNode: focusNode,
+      autofocus: autofocus ?? false,
+      dropdownColor: dropdownColor,
+      menuMaxHeight: (menuMaxHeight as num?)?.toDouble(),
+      enableFeedback: enableFeedback,
+      alignment: alignment ?? AlignmentDirectional.centerStart,
+      borderRadius: borderRadius,
+      padding: padding,
+      barrierDismissible: barrierDismissible ?? true,
+      mouseCursor: mouseCursor,
+      dropdownMenuItemMouseCursor: dropdownMenuItemMouseCursor,
+    ),
+    'HitTestResponse' => DropdownButton<HitTestResponse>(
+      key: key,
+      items: D4.coerceListOrNull<DropdownMenuItem<HitTestResponse>>(
+        items,
+        'items',
+      ),
+      selectedItemBuilder: selectedItemBuilder == null
+          ? null
+          : (BuildContext p0) {
+              return D4.extractBridgedArg<List<Widget>>(
+                D4.callInterpreterCallback(visitor, selectedItemBuilder, [p0]),
+                'callback',
+                visitor,
+              );
+            },
+      value: value as HitTestResponse?,
+      hint: hint,
+      disabledHint: disabledHint,
+      onChanged: onChanged == null
+          ? null
+          : (HitTestResponse? p0) async {
               D4.callInterpreterCallback(visitor, onChanged, [p0]);
               await Future.delayed(const Duration(milliseconds: 1));
             },
@@ -621168,6 +622256,86 @@ Object? _rc2DropdownButtonFormField(
       mouseCursor: mouseCursor,
       dropdownMenuItemMouseCursor: dropdownMenuItemMouseCursor,
     ),
+    'ContextMenuButtonKind' => DropdownButtonFormField<ContextMenuButtonKind>(
+      key: key,
+      items: D4.coerceListOrNull<DropdownMenuItem<ContextMenuButtonKind>>(
+        items,
+        'items',
+      ),
+      selectedItemBuilder: selectedItemBuilder == null
+          ? null
+          : (BuildContext p0) {
+              return D4.extractBridgedArg<List<Widget>>(
+                D4.callInterpreterCallback(visitor, selectedItemBuilder, [p0]),
+                'callback',
+                visitor,
+              );
+            },
+      value: value as ContextMenuButtonKind?,
+      initialValue: initialValue as ContextMenuButtonKind?,
+      hint: hint,
+      disabledHint: disabledHint,
+      onChanged: onChanged == null
+          ? null
+          : (ContextMenuButtonKind? p0) async {
+              D4.callInterpreterCallback(visitor, onChanged, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onTap: onTap == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onTap, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      elevation: elevation ?? 8,
+      style: style,
+      icon: icon,
+      iconDisabledColor: iconDisabledColor,
+      iconEnabledColor: iconEnabledColor,
+      iconSize: (iconSize as num?)?.toDouble() ?? 24.0,
+      isDense: isDense ?? true,
+      isExpanded: isExpanded ?? false,
+      itemHeight: (itemHeight as num?)?.toDouble(),
+      focusColor: focusColor,
+      focusNode: focusNode,
+      autofocus: autofocus ?? false,
+      dropdownColor: dropdownColor,
+      decoration: decoration,
+      onSaved: onSaved == null
+          ? null
+          : (ContextMenuButtonKind? p0) async {
+              D4.callInterpreterCallback(visitor, onSaved, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      validator: validator == null
+          ? null
+          : (ContextMenuButtonKind? p0) {
+              return D4.extractBridgedArg<String>(
+                D4.callInterpreterCallback(visitor, validator, [p0]),
+                'callback',
+                visitor,
+              );
+            },
+      errorBuilder: errorBuilder == null
+          ? null
+          : (BuildContext p0, String p1) {
+              return D4.extractBridgedArg<Widget>(
+                D4.callInterpreterCallback(visitor, errorBuilder, [p0, p1]),
+                'callback',
+                visitor,
+              );
+            },
+      forceErrorText: forceErrorText,
+      autovalidateMode: autovalidateMode,
+      menuMaxHeight: (menuMaxHeight as num?)?.toDouble(),
+      enableFeedback: enableFeedback,
+      alignment: alignment ?? AlignmentDirectional.centerStart,
+      borderRadius: borderRadius,
+      padding: padding,
+      barrierDismissible: barrierDismissible ?? true,
+      mouseCursor: mouseCursor,
+      dropdownMenuItemMouseCursor: dropdownMenuItemMouseCursor,
+    ),
     'ContextMenuController' => DropdownButtonFormField<ContextMenuController>(
       key: key,
       items: D4.coerceListOrNull<DropdownMenuItem<ContextMenuController>>(
@@ -649916,6 +651084,166 @@ Object? _rc2DropdownButtonFormField(
       validator: validator == null
           ? null
           : (HitTestEntry? p0) {
+              return D4.extractBridgedArg<String>(
+                D4.callInterpreterCallback(visitor, validator, [p0]),
+                'callback',
+                visitor,
+              );
+            },
+      errorBuilder: errorBuilder == null
+          ? null
+          : (BuildContext p0, String p1) {
+              return D4.extractBridgedArg<Widget>(
+                D4.callInterpreterCallback(visitor, errorBuilder, [p0, p1]),
+                'callback',
+                visitor,
+              );
+            },
+      forceErrorText: forceErrorText,
+      autovalidateMode: autovalidateMode,
+      menuMaxHeight: (menuMaxHeight as num?)?.toDouble(),
+      enableFeedback: enableFeedback,
+      alignment: alignment ?? AlignmentDirectional.centerStart,
+      borderRadius: borderRadius,
+      padding: padding,
+      barrierDismissible: barrierDismissible ?? true,
+      mouseCursor: mouseCursor,
+      dropdownMenuItemMouseCursor: dropdownMenuItemMouseCursor,
+    ),
+    'HitTestRequest' => DropdownButtonFormField<HitTestRequest>(
+      key: key,
+      items: D4.coerceListOrNull<DropdownMenuItem<HitTestRequest>>(
+        items,
+        'items',
+      ),
+      selectedItemBuilder: selectedItemBuilder == null
+          ? null
+          : (BuildContext p0) {
+              return D4.extractBridgedArg<List<Widget>>(
+                D4.callInterpreterCallback(visitor, selectedItemBuilder, [p0]),
+                'callback',
+                visitor,
+              );
+            },
+      value: value as HitTestRequest?,
+      initialValue: initialValue as HitTestRequest?,
+      hint: hint,
+      disabledHint: disabledHint,
+      onChanged: onChanged == null
+          ? null
+          : (HitTestRequest? p0) async {
+              D4.callInterpreterCallback(visitor, onChanged, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onTap: onTap == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onTap, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      elevation: elevation ?? 8,
+      style: style,
+      icon: icon,
+      iconDisabledColor: iconDisabledColor,
+      iconEnabledColor: iconEnabledColor,
+      iconSize: (iconSize as num?)?.toDouble() ?? 24.0,
+      isDense: isDense ?? true,
+      isExpanded: isExpanded ?? false,
+      itemHeight: (itemHeight as num?)?.toDouble(),
+      focusColor: focusColor,
+      focusNode: focusNode,
+      autofocus: autofocus ?? false,
+      dropdownColor: dropdownColor,
+      decoration: decoration,
+      onSaved: onSaved == null
+          ? null
+          : (HitTestRequest? p0) async {
+              D4.callInterpreterCallback(visitor, onSaved, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      validator: validator == null
+          ? null
+          : (HitTestRequest? p0) {
+              return D4.extractBridgedArg<String>(
+                D4.callInterpreterCallback(visitor, validator, [p0]),
+                'callback',
+                visitor,
+              );
+            },
+      errorBuilder: errorBuilder == null
+          ? null
+          : (BuildContext p0, String p1) {
+              return D4.extractBridgedArg<Widget>(
+                D4.callInterpreterCallback(visitor, errorBuilder, [p0, p1]),
+                'callback',
+                visitor,
+              );
+            },
+      forceErrorText: forceErrorText,
+      autovalidateMode: autovalidateMode,
+      menuMaxHeight: (menuMaxHeight as num?)?.toDouble(),
+      enableFeedback: enableFeedback,
+      alignment: alignment ?? AlignmentDirectional.centerStart,
+      borderRadius: borderRadius,
+      padding: padding,
+      barrierDismissible: barrierDismissible ?? true,
+      mouseCursor: mouseCursor,
+      dropdownMenuItemMouseCursor: dropdownMenuItemMouseCursor,
+    ),
+    'HitTestResponse' => DropdownButtonFormField<HitTestResponse>(
+      key: key,
+      items: D4.coerceListOrNull<DropdownMenuItem<HitTestResponse>>(
+        items,
+        'items',
+      ),
+      selectedItemBuilder: selectedItemBuilder == null
+          ? null
+          : (BuildContext p0) {
+              return D4.extractBridgedArg<List<Widget>>(
+                D4.callInterpreterCallback(visitor, selectedItemBuilder, [p0]),
+                'callback',
+                visitor,
+              );
+            },
+      value: value as HitTestResponse?,
+      initialValue: initialValue as HitTestResponse?,
+      hint: hint,
+      disabledHint: disabledHint,
+      onChanged: onChanged == null
+          ? null
+          : (HitTestResponse? p0) async {
+              D4.callInterpreterCallback(visitor, onChanged, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onTap: onTap == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onTap, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      elevation: elevation ?? 8,
+      style: style,
+      icon: icon,
+      iconDisabledColor: iconDisabledColor,
+      iconEnabledColor: iconEnabledColor,
+      iconSize: (iconSize as num?)?.toDouble() ?? 24.0,
+      isDense: isDense ?? true,
+      isExpanded: isExpanded ?? false,
+      itemHeight: (itemHeight as num?)?.toDouble(),
+      focusColor: focusColor,
+      focusNode: focusNode,
+      autofocus: autofocus ?? false,
+      dropdownColor: dropdownColor,
+      decoration: decoration,
+      onSaved: onSaved == null
+          ? null
+          : (HitTestResponse? p0) async {
+              D4.callInterpreterCallback(visitor, onSaved, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      validator: validator == null
+          ? null
+          : (HitTestResponse? p0) {
               return D4.extractBridgedArg<String>(
                 D4.callInterpreterCallback(visitor, validator, [p0]),
                 'callback',
@@ -750856,6 +752184,86 @@ Object? _rc2DropdownMenu(
       menuController: menuController,
       scrollPadding: scrollPadding ?? const EdgeInsets.all(20.0),
     ),
+    'ContextMenuButtonKind' => DropdownMenu<ContextMenuButtonKind>(
+      key: key,
+      enabled: enabled ?? true,
+      width: (width as num?)?.toDouble(),
+      menuHeight: (menuHeight as num?)?.toDouble(),
+      leadingIcon: leadingIcon,
+      trailingIcon: trailingIcon,
+      showTrailingIcon: showTrailingIcon ?? true,
+      trailingIconFocusNode: trailingIconFocusNode,
+      label: label,
+      hintText: hintText,
+      helperText: helperText,
+      errorText: errorText,
+      selectedTrailingIcon: selectedTrailingIcon,
+      enableFilter: enableFilter ?? false,
+      enableSearch: enableSearch ?? true,
+      keyboardType: keyboardType,
+      textStyle: textStyle,
+      textAlign: textAlign ?? TextAlign.start,
+      inputDecorationTheme: inputDecorationTheme,
+      decorationBuilder: decorationBuilder == null
+          ? null
+          : (BuildContext p0, MenuController p1) {
+              return D4.extractBridgedArg<InputDecoration>(
+                D4.callInterpreterCallback(visitor, decorationBuilder, [
+                  p0,
+                  p1,
+                ]),
+                'callback',
+                visitor,
+              );
+            },
+      menuStyle: menuStyle,
+      controller: controller,
+      initialSelection: initialSelection as ContextMenuButtonKind?,
+      onSelected: onSelected == null
+          ? null
+          : (ContextMenuButtonKind? p0) async {
+              D4.callInterpreterCallback(visitor, onSelected, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      focusNode: focusNode,
+      requestFocusOnTap: requestFocusOnTap,
+      selectOnly: selectOnly ?? false,
+      expandedInsets: expandedInsets,
+      filterCallback: filterCallback == null
+          ? null
+          : (List<DropdownMenuEntry<ContextMenuButtonKind>> p0, String p1) {
+              return D4.extractBridgedArg<
+                List<DropdownMenuEntry<ContextMenuButtonKind>>
+              >(
+                D4.callInterpreterCallback(visitor, filterCallback, [p0, p1]),
+                'callback',
+                visitor,
+              );
+            },
+      searchCallback: searchCallback == null
+          ? null
+          : (List<DropdownMenuEntry<ContextMenuButtonKind>> p0, String p1) {
+              return D4.extractBridgedArg<int>(
+                D4.callInterpreterCallback(visitor, searchCallback, [p0, p1]),
+                'callback',
+                visitor,
+              );
+            },
+      alignmentOffset: alignmentOffset,
+      dropdownMenuEntries: D4
+          .coerceList<DropdownMenuEntry<ContextMenuButtonKind>>(
+            dropdownMenuEntries,
+            'dropdownMenuEntries',
+          ),
+      inputFormatters: inputFormatters,
+      closeBehavior: closeBehavior ?? DropdownMenuCloseBehavior.all,
+      maxLines: maxLines,
+      textInputAction: textInputAction,
+      cursorHeight: (cursorHeight as num?)?.toDouble(),
+      restorationId: restorationId,
+      menuController: menuController,
+      scrollPadding: scrollPadding ?? const EdgeInsets.all(20.0),
+    ),
     'ContextMenuController' => DropdownMenu<ContextMenuController>(
       key: key,
       enabled: enabled ?? true,
@@ -779950,6 +781358,168 @@ Object? _rc2DropdownMenu(
             },
       alignmentOffset: alignmentOffset,
       dropdownMenuEntries: D4.coerceList<DropdownMenuEntry<HitTestEntry>>(
+        dropdownMenuEntries,
+        'dropdownMenuEntries',
+      ),
+      inputFormatters: inputFormatters,
+      closeBehavior: closeBehavior ?? DropdownMenuCloseBehavior.all,
+      maxLines: maxLines,
+      textInputAction: textInputAction,
+      cursorHeight: (cursorHeight as num?)?.toDouble(),
+      restorationId: restorationId,
+      menuController: menuController,
+      scrollPadding: scrollPadding ?? const EdgeInsets.all(20.0),
+    ),
+    'HitTestRequest' => DropdownMenu<HitTestRequest>(
+      key: key,
+      enabled: enabled ?? true,
+      width: (width as num?)?.toDouble(),
+      menuHeight: (menuHeight as num?)?.toDouble(),
+      leadingIcon: leadingIcon,
+      trailingIcon: trailingIcon,
+      showTrailingIcon: showTrailingIcon ?? true,
+      trailingIconFocusNode: trailingIconFocusNode,
+      label: label,
+      hintText: hintText,
+      helperText: helperText,
+      errorText: errorText,
+      selectedTrailingIcon: selectedTrailingIcon,
+      enableFilter: enableFilter ?? false,
+      enableSearch: enableSearch ?? true,
+      keyboardType: keyboardType,
+      textStyle: textStyle,
+      textAlign: textAlign ?? TextAlign.start,
+      inputDecorationTheme: inputDecorationTheme,
+      decorationBuilder: decorationBuilder == null
+          ? null
+          : (BuildContext p0, MenuController p1) {
+              return D4.extractBridgedArg<InputDecoration>(
+                D4.callInterpreterCallback(visitor, decorationBuilder, [
+                  p0,
+                  p1,
+                ]),
+                'callback',
+                visitor,
+              );
+            },
+      menuStyle: menuStyle,
+      controller: controller,
+      initialSelection: initialSelection as HitTestRequest?,
+      onSelected: onSelected == null
+          ? null
+          : (HitTestRequest? p0) async {
+              D4.callInterpreterCallback(visitor, onSelected, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      focusNode: focusNode,
+      requestFocusOnTap: requestFocusOnTap,
+      selectOnly: selectOnly ?? false,
+      expandedInsets: expandedInsets,
+      filterCallback: filterCallback == null
+          ? null
+          : (List<DropdownMenuEntry<HitTestRequest>> p0, String p1) {
+              return D4
+                  .extractBridgedArg<List<DropdownMenuEntry<HitTestRequest>>>(
+                    D4.callInterpreterCallback(visitor, filterCallback, [
+                      p0,
+                      p1,
+                    ]),
+                    'callback',
+                    visitor,
+                  );
+            },
+      searchCallback: searchCallback == null
+          ? null
+          : (List<DropdownMenuEntry<HitTestRequest>> p0, String p1) {
+              return D4.extractBridgedArg<int>(
+                D4.callInterpreterCallback(visitor, searchCallback, [p0, p1]),
+                'callback',
+                visitor,
+              );
+            },
+      alignmentOffset: alignmentOffset,
+      dropdownMenuEntries: D4.coerceList<DropdownMenuEntry<HitTestRequest>>(
+        dropdownMenuEntries,
+        'dropdownMenuEntries',
+      ),
+      inputFormatters: inputFormatters,
+      closeBehavior: closeBehavior ?? DropdownMenuCloseBehavior.all,
+      maxLines: maxLines,
+      textInputAction: textInputAction,
+      cursorHeight: (cursorHeight as num?)?.toDouble(),
+      restorationId: restorationId,
+      menuController: menuController,
+      scrollPadding: scrollPadding ?? const EdgeInsets.all(20.0),
+    ),
+    'HitTestResponse' => DropdownMenu<HitTestResponse>(
+      key: key,
+      enabled: enabled ?? true,
+      width: (width as num?)?.toDouble(),
+      menuHeight: (menuHeight as num?)?.toDouble(),
+      leadingIcon: leadingIcon,
+      trailingIcon: trailingIcon,
+      showTrailingIcon: showTrailingIcon ?? true,
+      trailingIconFocusNode: trailingIconFocusNode,
+      label: label,
+      hintText: hintText,
+      helperText: helperText,
+      errorText: errorText,
+      selectedTrailingIcon: selectedTrailingIcon,
+      enableFilter: enableFilter ?? false,
+      enableSearch: enableSearch ?? true,
+      keyboardType: keyboardType,
+      textStyle: textStyle,
+      textAlign: textAlign ?? TextAlign.start,
+      inputDecorationTheme: inputDecorationTheme,
+      decorationBuilder: decorationBuilder == null
+          ? null
+          : (BuildContext p0, MenuController p1) {
+              return D4.extractBridgedArg<InputDecoration>(
+                D4.callInterpreterCallback(visitor, decorationBuilder, [
+                  p0,
+                  p1,
+                ]),
+                'callback',
+                visitor,
+              );
+            },
+      menuStyle: menuStyle,
+      controller: controller,
+      initialSelection: initialSelection as HitTestResponse?,
+      onSelected: onSelected == null
+          ? null
+          : (HitTestResponse? p0) async {
+              D4.callInterpreterCallback(visitor, onSelected, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      focusNode: focusNode,
+      requestFocusOnTap: requestFocusOnTap,
+      selectOnly: selectOnly ?? false,
+      expandedInsets: expandedInsets,
+      filterCallback: filterCallback == null
+          ? null
+          : (List<DropdownMenuEntry<HitTestResponse>> p0, String p1) {
+              return D4
+                  .extractBridgedArg<List<DropdownMenuEntry<HitTestResponse>>>(
+                    D4.callInterpreterCallback(visitor, filterCallback, [
+                      p0,
+                      p1,
+                    ]),
+                    'callback',
+                    visitor,
+                  );
+            },
+      searchCallback: searchCallback == null
+          ? null
+          : (List<DropdownMenuEntry<HitTestResponse>> p0, String p1) {
+              return D4.extractBridgedArg<int>(
+                D4.callInterpreterCallback(visitor, searchCallback, [p0, p1]),
+                'callback',
+                visitor,
+              );
+            },
+      alignmentOffset: alignmentOffset,
+      dropdownMenuEntries: D4.coerceList<DropdownMenuEntry<HitTestResponse>>(
         dropdownMenuEntries,
         'dropdownMenuEntries',
       ),
@@ -864665,6 +866235,15 @@ Object? _rc2DropdownMenuEntry(
       enabled: enabled ?? true,
       style: style,
     ),
+    'ContextMenuButtonKind' => DropdownMenuEntry<ContextMenuButtonKind>(
+      value: value as ContextMenuButtonKind,
+      label: label!,
+      labelWidget: labelWidget,
+      leadingIcon: leadingIcon,
+      trailingIcon: trailingIcon,
+      enabled: enabled ?? true,
+      style: style,
+    ),
     'ContextMenuController' => DropdownMenuEntry<ContextMenuController>(
       value: value as ContextMenuController,
       label: label!,
@@ -867950,6 +869529,24 @@ Object? _rc2DropdownMenuEntry(
     ),
     'HitTestEntry' => DropdownMenuEntry<HitTestEntry>(
       value: value as HitTestEntry,
+      label: label!,
+      labelWidget: labelWidget,
+      leadingIcon: leadingIcon,
+      trailingIcon: trailingIcon,
+      enabled: enabled ?? true,
+      style: style,
+    ),
+    'HitTestRequest' => DropdownMenuEntry<HitTestRequest>(
+      value: value as HitTestRequest,
+      label: label!,
+      labelWidget: labelWidget,
+      leadingIcon: leadingIcon,
+      trailingIcon: trailingIcon,
+      enabled: enabled ?? true,
+      style: style,
+    ),
+    'HitTestResponse' => DropdownMenuEntry<HitTestResponse>(
+      value: value as HitTestResponse,
       label: label!,
       labelWidget: labelWidget,
       leadingIcon: leadingIcon,
@@ -901902,6 +903499,110 @@ Object? _rc2DropdownMenuFormField(
       validator: validator == null
           ? null
           : (ContextMenuButtonItem? p0) {
+              return D4.extractBridgedArg<String>(
+                D4.callInterpreterCallback(visitor, validator, [p0]),
+                'callback',
+                visitor,
+              );
+            },
+      forceErrorText: forceErrorText,
+      errorBuilder: errorBuilder == null
+          ? null
+          : (BuildContext p0, String p1) {
+              return D4.extractBridgedArg<Widget>(
+                D4.callInterpreterCallback(visitor, errorBuilder, [p0, p1]),
+                'callback',
+                visitor,
+              );
+            },
+    ),
+    'ContextMenuButtonKind' => DropdownMenuFormField<ContextMenuButtonKind>(
+      key: key,
+      enabled: enabled ?? true,
+      width: (width as num?)?.toDouble(),
+      menuHeight: (menuHeight as num?)?.toDouble(),
+      leadingIcon: leadingIcon,
+      trailingIcon: trailingIcon,
+      showTrailingIcon: showTrailingIcon ?? true,
+      trailingIconFocusNode: trailingIconFocusNode,
+      label: label,
+      hintText: hintText,
+      helperText: helperText,
+      selectedTrailingIcon: selectedTrailingIcon,
+      enableFilter: enableFilter ?? false,
+      enableSearch: enableSearch ?? true,
+      keyboardType: keyboardType,
+      textStyle: textStyle,
+      textAlign: textAlign ?? TextAlign.start,
+      inputDecorationTheme: inputDecorationTheme,
+      decorationBuilder: decorationBuilder == null
+          ? null
+          : (BuildContext p0, MenuController p1) {
+              return D4.extractBridgedArg<InputDecoration>(
+                D4.callInterpreterCallback(visitor, decorationBuilder, [
+                  p0,
+                  p1,
+                ]),
+                'callback',
+                visitor,
+              );
+            },
+      menuStyle: menuStyle,
+      controller: controller,
+      initialSelection: initialSelection as ContextMenuButtonKind?,
+      onSelected: onSelected == null
+          ? null
+          : (ContextMenuButtonKind? p0) async {
+              D4.callInterpreterCallback(visitor, onSelected, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      focusNode: focusNode,
+      requestFocusOnTap: requestFocusOnTap,
+      selectOnly: selectOnly ?? false,
+      expandedInsets: expandedInsets,
+      alignmentOffset: alignmentOffset,
+      filterCallback: filterCallback == null
+          ? null
+          : (List<DropdownMenuEntry<ContextMenuButtonKind>> p0, String p1) {
+              return D4.extractBridgedArg<
+                List<DropdownMenuEntry<ContextMenuButtonKind>>
+              >(
+                D4.callInterpreterCallback(visitor, filterCallback, [p0, p1]),
+                'callback',
+                visitor,
+              );
+            },
+      searchCallback: searchCallback == null
+          ? null
+          : (List<DropdownMenuEntry<ContextMenuButtonKind>> p0, String p1) {
+              return D4.extractBridgedArg<int>(
+                D4.callInterpreterCallback(visitor, searchCallback, [p0, p1]),
+                'callback',
+                visitor,
+              );
+            },
+      dropdownMenuEntries: D4
+          .coerceList<DropdownMenuEntry<ContextMenuButtonKind>>(
+            dropdownMenuEntries,
+            'dropdownMenuEntries',
+          ),
+      inputFormatters: inputFormatters,
+      closeBehavior: closeBehavior ?? DropdownMenuCloseBehavior.all,
+      maxLines: maxLines ?? 1,
+      textInputAction: textInputAction,
+      cursorHeight: (cursorHeight as num?)?.toDouble(),
+      menuController: menuController,
+      restorationId: restorationId,
+      onSaved: onSaved == null
+          ? null
+          : (ContextMenuButtonKind? p0) async {
+              D4.callInterpreterCallback(visitor, onSaved, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      autovalidateMode: autovalidateMode ?? AutovalidateMode.disabled,
+      validator: validator == null
+          ? null
+          : (ContextMenuButtonKind? p0) {
               return D4.extractBridgedArg<String>(
                 D4.callInterpreterCallback(visitor, validator, [p0]),
                 'callback',
@@ -939749,6 +941450,216 @@ Object? _rc2DropdownMenuFormField(
       validator: validator == null
           ? null
           : (HitTestEntry? p0) {
+              return D4.extractBridgedArg<String>(
+                D4.callInterpreterCallback(visitor, validator, [p0]),
+                'callback',
+                visitor,
+              );
+            },
+      forceErrorText: forceErrorText,
+      errorBuilder: errorBuilder == null
+          ? null
+          : (BuildContext p0, String p1) {
+              return D4.extractBridgedArg<Widget>(
+                D4.callInterpreterCallback(visitor, errorBuilder, [p0, p1]),
+                'callback',
+                visitor,
+              );
+            },
+    ),
+    'HitTestRequest' => DropdownMenuFormField<HitTestRequest>(
+      key: key,
+      enabled: enabled ?? true,
+      width: (width as num?)?.toDouble(),
+      menuHeight: (menuHeight as num?)?.toDouble(),
+      leadingIcon: leadingIcon,
+      trailingIcon: trailingIcon,
+      showTrailingIcon: showTrailingIcon ?? true,
+      trailingIconFocusNode: trailingIconFocusNode,
+      label: label,
+      hintText: hintText,
+      helperText: helperText,
+      selectedTrailingIcon: selectedTrailingIcon,
+      enableFilter: enableFilter ?? false,
+      enableSearch: enableSearch ?? true,
+      keyboardType: keyboardType,
+      textStyle: textStyle,
+      textAlign: textAlign ?? TextAlign.start,
+      inputDecorationTheme: inputDecorationTheme,
+      decorationBuilder: decorationBuilder == null
+          ? null
+          : (BuildContext p0, MenuController p1) {
+              return D4.extractBridgedArg<InputDecoration>(
+                D4.callInterpreterCallback(visitor, decorationBuilder, [
+                  p0,
+                  p1,
+                ]),
+                'callback',
+                visitor,
+              );
+            },
+      menuStyle: menuStyle,
+      controller: controller,
+      initialSelection: initialSelection as HitTestRequest?,
+      onSelected: onSelected == null
+          ? null
+          : (HitTestRequest? p0) async {
+              D4.callInterpreterCallback(visitor, onSelected, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      focusNode: focusNode,
+      requestFocusOnTap: requestFocusOnTap,
+      selectOnly: selectOnly ?? false,
+      expandedInsets: expandedInsets,
+      alignmentOffset: alignmentOffset,
+      filterCallback: filterCallback == null
+          ? null
+          : (List<DropdownMenuEntry<HitTestRequest>> p0, String p1) {
+              return D4
+                  .extractBridgedArg<List<DropdownMenuEntry<HitTestRequest>>>(
+                    D4.callInterpreterCallback(visitor, filterCallback, [
+                      p0,
+                      p1,
+                    ]),
+                    'callback',
+                    visitor,
+                  );
+            },
+      searchCallback: searchCallback == null
+          ? null
+          : (List<DropdownMenuEntry<HitTestRequest>> p0, String p1) {
+              return D4.extractBridgedArg<int>(
+                D4.callInterpreterCallback(visitor, searchCallback, [p0, p1]),
+                'callback',
+                visitor,
+              );
+            },
+      dropdownMenuEntries: D4.coerceList<DropdownMenuEntry<HitTestRequest>>(
+        dropdownMenuEntries,
+        'dropdownMenuEntries',
+      ),
+      inputFormatters: inputFormatters,
+      closeBehavior: closeBehavior ?? DropdownMenuCloseBehavior.all,
+      maxLines: maxLines ?? 1,
+      textInputAction: textInputAction,
+      cursorHeight: (cursorHeight as num?)?.toDouble(),
+      menuController: menuController,
+      restorationId: restorationId,
+      onSaved: onSaved == null
+          ? null
+          : (HitTestRequest? p0) async {
+              D4.callInterpreterCallback(visitor, onSaved, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      autovalidateMode: autovalidateMode ?? AutovalidateMode.disabled,
+      validator: validator == null
+          ? null
+          : (HitTestRequest? p0) {
+              return D4.extractBridgedArg<String>(
+                D4.callInterpreterCallback(visitor, validator, [p0]),
+                'callback',
+                visitor,
+              );
+            },
+      forceErrorText: forceErrorText,
+      errorBuilder: errorBuilder == null
+          ? null
+          : (BuildContext p0, String p1) {
+              return D4.extractBridgedArg<Widget>(
+                D4.callInterpreterCallback(visitor, errorBuilder, [p0, p1]),
+                'callback',
+                visitor,
+              );
+            },
+    ),
+    'HitTestResponse' => DropdownMenuFormField<HitTestResponse>(
+      key: key,
+      enabled: enabled ?? true,
+      width: (width as num?)?.toDouble(),
+      menuHeight: (menuHeight as num?)?.toDouble(),
+      leadingIcon: leadingIcon,
+      trailingIcon: trailingIcon,
+      showTrailingIcon: showTrailingIcon ?? true,
+      trailingIconFocusNode: trailingIconFocusNode,
+      label: label,
+      hintText: hintText,
+      helperText: helperText,
+      selectedTrailingIcon: selectedTrailingIcon,
+      enableFilter: enableFilter ?? false,
+      enableSearch: enableSearch ?? true,
+      keyboardType: keyboardType,
+      textStyle: textStyle,
+      textAlign: textAlign ?? TextAlign.start,
+      inputDecorationTheme: inputDecorationTheme,
+      decorationBuilder: decorationBuilder == null
+          ? null
+          : (BuildContext p0, MenuController p1) {
+              return D4.extractBridgedArg<InputDecoration>(
+                D4.callInterpreterCallback(visitor, decorationBuilder, [
+                  p0,
+                  p1,
+                ]),
+                'callback',
+                visitor,
+              );
+            },
+      menuStyle: menuStyle,
+      controller: controller,
+      initialSelection: initialSelection as HitTestResponse?,
+      onSelected: onSelected == null
+          ? null
+          : (HitTestResponse? p0) async {
+              D4.callInterpreterCallback(visitor, onSelected, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      focusNode: focusNode,
+      requestFocusOnTap: requestFocusOnTap,
+      selectOnly: selectOnly ?? false,
+      expandedInsets: expandedInsets,
+      alignmentOffset: alignmentOffset,
+      filterCallback: filterCallback == null
+          ? null
+          : (List<DropdownMenuEntry<HitTestResponse>> p0, String p1) {
+              return D4
+                  .extractBridgedArg<List<DropdownMenuEntry<HitTestResponse>>>(
+                    D4.callInterpreterCallback(visitor, filterCallback, [
+                      p0,
+                      p1,
+                    ]),
+                    'callback',
+                    visitor,
+                  );
+            },
+      searchCallback: searchCallback == null
+          ? null
+          : (List<DropdownMenuEntry<HitTestResponse>> p0, String p1) {
+              return D4.extractBridgedArg<int>(
+                D4.callInterpreterCallback(visitor, searchCallback, [p0, p1]),
+                'callback',
+                visitor,
+              );
+            },
+      dropdownMenuEntries: D4.coerceList<DropdownMenuEntry<HitTestResponse>>(
+        dropdownMenuEntries,
+        'dropdownMenuEntries',
+      ),
+      inputFormatters: inputFormatters,
+      closeBehavior: closeBehavior ?? DropdownMenuCloseBehavior.all,
+      maxLines: maxLines ?? 1,
+      textInputAction: textInputAction,
+      cursorHeight: (cursorHeight as num?)?.toDouble(),
+      menuController: menuController,
+      restorationId: restorationId,
+      onSaved: onSaved == null
+          ? null
+          : (HitTestResponse? p0) async {
+              D4.callInterpreterCallback(visitor, onSaved, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      autovalidateMode: autovalidateMode ?? AutovalidateMode.disabled,
+      validator: validator == null
+          ? null
+          : (HitTestResponse? p0) {
               return D4.extractBridgedArg<String>(
                 D4.callInterpreterCallback(visitor, validator, [p0]),
                 'callback',
@@ -1050325,6 +1052236,19 @@ Object? _rc2DropdownMenuItem(
       alignment: alignment ?? AlignmentDirectional.centerStart,
       child: child!,
     ),
+    'ContextMenuButtonKind' => DropdownMenuItem<ContextMenuButtonKind>(
+      key: key,
+      onTap: onTap == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onTap, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      value: value as ContextMenuButtonKind?,
+      enabled: enabled ?? true,
+      alignment: alignment ?? AlignmentDirectional.centerStart,
+      child: child!,
+    ),
     'ContextMenuController' => DropdownMenuItem<ContextMenuController>(
       key: key,
       onTap: onTap == null
@@ -1055041,6 +1056965,32 @@ Object? _rc2DropdownMenuItem(
               await Future.delayed(const Duration(milliseconds: 1));
             },
       value: value as HitTestEntry?,
+      enabled: enabled ?? true,
+      alignment: alignment ?? AlignmentDirectional.centerStart,
+      child: child!,
+    ),
+    'HitTestRequest' => DropdownMenuItem<HitTestRequest>(
+      key: key,
+      onTap: onTap == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onTap, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      value: value as HitTestRequest?,
+      enabled: enabled ?? true,
+      alignment: alignment ?? AlignmentDirectional.centerStart,
+      child: child!,
+    ),
+    'HitTestResponse' => DropdownMenuItem<HitTestResponse>(
+      key: key,
+      onTap: onTap == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onTap, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      value: value as HitTestResponse?,
       enabled: enabled ?? true,
       alignment: alignment ?? AlignmentDirectional.centerStart,
       child: child!,
@@ -1070188,6 +1072138,13 @@ Object? _rc2Factory(
         visitor,
       );
     }),
+    'ContextMenuButtonKind' => Factory<ContextMenuButtonKind>(() {
+      return D4.extractBridgedArg<ContextMenuButtonKind>(
+        D4.callInterpreterCallback(visitor, constructor, []),
+        'callback',
+        visitor,
+      );
+    }),
     'ContextMenuController' => Factory<ContextMenuController>(() {
       return D4.extractBridgedArg<ContextMenuController>(
         D4.callInterpreterCallback(visitor, constructor, []),
@@ -1072750,6 +1074707,20 @@ Object? _rc2Factory(
     }),
     'HitTestEntry' => Factory<HitTestEntry>(() {
       return D4.extractBridgedArg<HitTestEntry>(
+        D4.callInterpreterCallback(visitor, constructor, []),
+        'callback',
+        visitor,
+      );
+    }),
+    'HitTestRequest' => Factory<HitTestRequest>(() {
+      return D4.extractBridgedArg<HitTestRequest>(
+        D4.callInterpreterCallback(visitor, constructor, []),
+        'callback',
+        visitor,
+      );
+    }),
+    'HitTestResponse' => Factory<HitTestResponse>(() {
+      return D4.extractBridgedArg<HitTestResponse>(
         D4.callInterpreterCallback(visitor, constructor, []),
         'callback',
         visitor,
@@ -1081962,6 +1083933,14 @@ Object? _rc2FlagsSummary(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
+    'ContextMenuButtonKind' => FlagsSummary<ContextMenuButtonKind>(
+      name!,
+      D4.coerceMap<String, ContextMenuButtonKind?>(value, 'value'),
+      ifEmpty: ifEmpty,
+      showName: showName ?? true,
+      showSeparator: showSeparator ?? true,
+      level: level ?? DiagnosticLevel.info,
+    ),
     'ContextMenuController' => FlagsSummary<ContextMenuController>(
       name!,
       D4.coerceMap<String, ContextMenuController?>(value, 'value'),
@@ -1084950,6 +1086929,22 @@ Object? _rc2FlagsSummary(
     'HitTestEntry' => FlagsSummary<HitTestEntry>(
       name!,
       D4.coerceMap<String, HitTestEntry?>(value, 'value'),
+      ifEmpty: ifEmpty,
+      showName: showName ?? true,
+      showSeparator: showSeparator ?? true,
+      level: level ?? DiagnosticLevel.info,
+    ),
+    'HitTestRequest' => FlagsSummary<HitTestRequest>(
+      name!,
+      D4.coerceMap<String, HitTestRequest?>(value, 'value'),
+      ifEmpty: ifEmpty,
+      showName: showName ?? true,
+      showSeparator: showSeparator ?? true,
+      level: level ?? DiagnosticLevel.info,
+    ),
+    'HitTestResponse' => FlagsSummary<HitTestResponse>(
+      name!,
+      D4.coerceMap<String, HitTestResponse?>(value, 'value'),
       ifEmpty: ifEmpty,
       showName: showName ?? true,
       showSeparator: showSeparator ?? true,
@@ -1103940,6 +1105935,51 @@ Object? _rc2FormField(
       autovalidateMode: autovalidateMode,
       restorationId: restorationId,
     ),
+    'ContextMenuButtonKind' => FormField<ContextMenuButtonKind>(
+      key: key,
+      builder: (FormFieldState<ContextMenuButtonKind> p0) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      onSaved: onSaved == null
+          ? null
+          : (ContextMenuButtonKind? p0) async {
+              D4.callInterpreterCallback(visitor, onSaved, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onReset: onReset == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onReset, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      forceErrorText: forceErrorText,
+      validator: validator == null
+          ? null
+          : (ContextMenuButtonKind? p0) {
+              return D4.extractBridgedArg<String>(
+                D4.callInterpreterCallback(visitor, validator, [p0]),
+                'callback',
+                visitor,
+              );
+            },
+      errorBuilder: errorBuilder == null
+          ? null
+          : (BuildContext p0, String p1) {
+              return D4.extractBridgedArg<Widget>(
+                D4.callInterpreterCallback(visitor, errorBuilder, [p0, p1]),
+                'callback',
+                visitor,
+              );
+            },
+      initialValue: initialValue as ContextMenuButtonKind?,
+      enabled: enabled ?? true,
+      autovalidateMode: autovalidateMode,
+      restorationId: restorationId,
+    ),
     'ContextMenuController' => FormField<ContextMenuController>(
       key: key,
       builder: (FormFieldState<ContextMenuController> p0) {
@@ -1120078,6 +1122118,96 @@ Object? _rc2FormField(
               );
             },
       initialValue: initialValue as HitTestEntry?,
+      enabled: enabled ?? true,
+      autovalidateMode: autovalidateMode,
+      restorationId: restorationId,
+    ),
+    'HitTestRequest' => FormField<HitTestRequest>(
+      key: key,
+      builder: (FormFieldState<HitTestRequest> p0) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      onSaved: onSaved == null
+          ? null
+          : (HitTestRequest? p0) async {
+              D4.callInterpreterCallback(visitor, onSaved, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onReset: onReset == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onReset, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      forceErrorText: forceErrorText,
+      validator: validator == null
+          ? null
+          : (HitTestRequest? p0) {
+              return D4.extractBridgedArg<String>(
+                D4.callInterpreterCallback(visitor, validator, [p0]),
+                'callback',
+                visitor,
+              );
+            },
+      errorBuilder: errorBuilder == null
+          ? null
+          : (BuildContext p0, String p1) {
+              return D4.extractBridgedArg<Widget>(
+                D4.callInterpreterCallback(visitor, errorBuilder, [p0, p1]),
+                'callback',
+                visitor,
+              );
+            },
+      initialValue: initialValue as HitTestRequest?,
+      enabled: enabled ?? true,
+      autovalidateMode: autovalidateMode,
+      restorationId: restorationId,
+    ),
+    'HitTestResponse' => FormField<HitTestResponse>(
+      key: key,
+      builder: (FormFieldState<HitTestResponse> p0) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      onSaved: onSaved == null
+          ? null
+          : (HitTestResponse? p0) async {
+              D4.callInterpreterCallback(visitor, onSaved, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onReset: onReset == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onReset, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      forceErrorText: forceErrorText,
+      validator: validator == null
+          ? null
+          : (HitTestResponse? p0) {
+              return D4.extractBridgedArg<String>(
+                D4.callInterpreterCallback(visitor, validator, [p0]),
+                'callback',
+                visitor,
+              );
+            },
+      errorBuilder: errorBuilder == null
+          ? null
+          : (BuildContext p0, String p1) {
+              return D4.extractBridgedArg<Widget>(
+                D4.callInterpreterCallback(visitor, errorBuilder, [p0, p1]),
+                'callback',
+                visitor,
+              );
+            },
+      initialValue: initialValue as HitTestResponse?,
       enabled: enabled ?? true,
       autovalidateMode: autovalidateMode,
       restorationId: restorationId,
@@ -1166474,6 +1168604,7 @@ Object? _rc2FormFieldState(
     'ContentInsertionConfiguration' =>
       FormFieldState<ContentInsertionConfiguration>(),
     'ContextMenuButtonItem' => FormFieldState<ContextMenuButtonItem>(),
+    'ContextMenuButtonKind' => FormFieldState<ContextMenuButtonKind>(),
     'ContextMenuController' => FormFieldState<ContextMenuController>(),
     'ContinuousRectangleBorder' => FormFieldState<ContinuousRectangleBorder>(),
     'ControlsDetails' => FormFieldState<ControlsDetails>(),
@@ -1166908,6 +1169039,8 @@ Object? _rc2FormFieldState(
     'HeroControllerScope' => FormFieldState<HeroControllerScope>(),
     'HeroMode' => FormFieldState<HeroMode>(),
     'HitTestEntry' => FormFieldState<HitTestEntry>(),
+    'HitTestRequest' => FormFieldState<HitTestRequest>(),
+    'HitTestResponse' => FormFieldState<HitTestResponse>(),
     'HitTestResult' => FormFieldState<HitTestResult>(),
     'HoldScrollActivity' => FormFieldState<HoldScrollActivity>(),
     'HorizontalDragGestureRecognizer' =>
@@ -1171286,6 +1173419,20 @@ Object? _rc2FutureBuilder(
       ),
       initialData: initialData as ContextMenuButtonItem?,
       builder: (BuildContext p0, AsyncSnapshot<ContextMenuButtonItem> p1) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0, p1]),
+          'callback',
+          visitor,
+        );
+      },
+    ),
+    'ContextMenuButtonKind' => FutureBuilder<ContextMenuButtonKind>(
+      key: key,
+      future: (future as Future?)?.then<ContextMenuButtonKind>(
+        (v) => v as ContextMenuButtonKind,
+      ),
+      initialData: initialData as ContextMenuButtonKind?,
+      builder: (BuildContext p0, AsyncSnapshot<ContextMenuButtonKind> p1) {
         return D4.extractBridgedArg<Widget>(
           D4.callInterpreterCallback(visitor, builder, [p0, p1]),
           'callback',
@@ -1176415,6 +1178562,34 @@ Object? _rc2FutureBuilder(
       future: (future as Future?)?.then<HitTestEntry>((v) => v as HitTestEntry),
       initialData: initialData as HitTestEntry?,
       builder: (BuildContext p0, AsyncSnapshot<HitTestEntry> p1) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0, p1]),
+          'callback',
+          visitor,
+        );
+      },
+    ),
+    'HitTestRequest' => FutureBuilder<HitTestRequest>(
+      key: key,
+      future: (future as Future?)?.then<HitTestRequest>(
+        (v) => v as HitTestRequest,
+      ),
+      initialData: initialData as HitTestRequest?,
+      builder: (BuildContext p0, AsyncSnapshot<HitTestRequest> p1) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0, p1]),
+          'callback',
+          visitor,
+        );
+      },
+    ),
+    'HitTestResponse' => FutureBuilder<HitTestResponse>(
+      key: key,
+      future: (future as Future?)?.then<HitTestResponse>(
+        (v) => v as HitTestResponse,
+      ),
+      initialData: initialData as HitTestResponse?,
+      builder: (BuildContext p0, AsyncSnapshot<HitTestResponse> p1) {
         return D4.extractBridgedArg<Widget>(
           D4.callInterpreterCallback(visitor, builder, [p0, p1]),
           'callback',
@@ -1191305,6 +1193480,7 @@ Object? _rc2HashedObserverList(
     'ContentInsertionConfiguration' =>
       HashedObserverList<ContentInsertionConfiguration>(),
     'ContextMenuButtonItem' => HashedObserverList<ContextMenuButtonItem>(),
+    'ContextMenuButtonKind' => HashedObserverList<ContextMenuButtonKind>(),
     'ContextMenuController' => HashedObserverList<ContextMenuController>(),
     'ContinuousRectangleBorder' =>
       HashedObserverList<ContinuousRectangleBorder>(),
@@ -1191761,6 +1193937,8 @@ Object? _rc2HashedObserverList(
     'HeroControllerScope' => HashedObserverList<HeroControllerScope>(),
     'HeroMode' => HashedObserverList<HeroMode>(),
     'HitTestEntry' => HashedObserverList<HitTestEntry>(),
+    'HitTestRequest' => HashedObserverList<HitTestRequest>(),
+    'HitTestResponse' => HashedObserverList<HitTestResponse>(),
     'HitTestResult' => HashedObserverList<HitTestResult>(),
     'HoldScrollActivity' => HashedObserverList<HoldScrollActivity>(),
     'HorizontalDragGestureRecognizer' =>
@@ -1194020,6 +1196198,12 @@ Object? _rc2InheritedModelElement(
         'widget',
       ),
     ),
+    'ContextMenuButtonKind' => InheritedModelElement<ContextMenuButtonKind>(
+      D4.extractBridgedArg<InheritedModel<ContextMenuButtonKind>>(
+        widget,
+        'widget',
+      ),
+    ),
     'ContextMenuController' => InheritedModelElement<ContextMenuController>(
       D4.extractBridgedArg<InheritedModel<ContextMenuController>>(
         widget,
@@ -1195750,6 +1197934,12 @@ Object? _rc2InheritedModelElement(
     ),
     'HitTestEntry' => InheritedModelElement<HitTestEntry>(
       D4.extractBridgedArg<InheritedModel<HitTestEntry>>(widget, 'widget'),
+    ),
+    'HitTestRequest' => InheritedModelElement<HitTestRequest>(
+      D4.extractBridgedArg<InheritedModel<HitTestRequest>>(widget, 'widget'),
+    ),
+    'HitTestResponse' => InheritedModelElement<HitTestResponse>(
+      D4.extractBridgedArg<InheritedModel<HitTestResponse>>(widget, 'widget'),
     ),
     'HitTestResult' => InheritedModelElement<HitTestResult>(
       D4.extractBridgedArg<InheritedModel<HitTestResult>>(widget, 'widget'),
@@ -1203005,6 +1205195,17 @@ Object? _rc2IterableProperty(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
+    'ContextMenuButtonKind' => IterableProperty<ContextMenuButtonKind>(
+      name!,
+      D4.coerceListOrNull<ContextMenuButtonKind>(value, 'value'),
+      defaultValue: defaultValue,
+      ifNull: ifNull,
+      ifEmpty: ifEmpty,
+      style: style ?? DiagnosticsTreeStyle.singleLine,
+      showName: showName ?? true,
+      showSeparator: showSeparator ?? true,
+      level: level ?? DiagnosticLevel.info,
+    ),
     'ContextMenuController' => IterableProperty<ContextMenuController>(
       name!,
       D4.coerceListOrNull<ContextMenuController>(value, 'value'),
@@ -1207073,6 +1209274,28 @@ Object? _rc2IterableProperty(
     'HitTestEntry' => IterableProperty<HitTestEntry>(
       name!,
       D4.coerceListOrNull<HitTestEntry>(value, 'value'),
+      defaultValue: defaultValue,
+      ifNull: ifNull,
+      ifEmpty: ifEmpty,
+      style: style ?? DiagnosticsTreeStyle.singleLine,
+      showName: showName ?? true,
+      showSeparator: showSeparator ?? true,
+      level: level ?? DiagnosticLevel.info,
+    ),
+    'HitTestRequest' => IterableProperty<HitTestRequest>(
+      name!,
+      D4.coerceListOrNull<HitTestRequest>(value, 'value'),
+      defaultValue: defaultValue,
+      ifNull: ifNull,
+      ifEmpty: ifEmpty,
+      style: style ?? DiagnosticsTreeStyle.singleLine,
+      showName: showName ?? true,
+      showSeparator: showSeparator ?? true,
+      level: level ?? DiagnosticLevel.info,
+    ),
+    'HitTestResponse' => IterableProperty<HitTestResponse>(
+      name!,
+      D4.coerceListOrNull<HitTestResponse>(value, 'value'),
       defaultValue: defaultValue,
       ifNull: ifNull,
       ifEmpty: ifEmpty,
@@ -1222324,6 +1224547,21 @@ Object? _rc2MaterialPage(
       arguments: arguments,
       restorationId: restorationId,
     ),
+    'ContextMenuButtonKind' => MaterialPage<ContextMenuButtonKind>(
+      child: child!,
+      maintainState: maintainState ?? true,
+      fullscreenDialog: fullscreenDialog ?? false,
+      allowSnapshotting: allowSnapshotting ?? true,
+      key: key,
+      canPop: canPop ?? true,
+      onPopInvoked: (bool p0, ContextMenuButtonKind? p1) async {
+        D4.callInterpreterCallback(visitor, onPopInvoked, [p0, p1]);
+        await Future.delayed(const Duration(milliseconds: 1));
+      },
+      name: name,
+      arguments: arguments,
+      restorationId: restorationId,
+    ),
     'ContextMenuController' => MaterialPage<ContextMenuController>(
       child: child!,
       maintainState: maintainState ?? true,
@@ -1227765,6 +1230003,36 @@ Object? _rc2MaterialPage(
       key: key,
       canPop: canPop ?? true,
       onPopInvoked: (bool p0, HitTestEntry? p1) async {
+        D4.callInterpreterCallback(visitor, onPopInvoked, [p0, p1]);
+        await Future.delayed(const Duration(milliseconds: 1));
+      },
+      name: name,
+      arguments: arguments,
+      restorationId: restorationId,
+    ),
+    'HitTestRequest' => MaterialPage<HitTestRequest>(
+      child: child!,
+      maintainState: maintainState ?? true,
+      fullscreenDialog: fullscreenDialog ?? false,
+      allowSnapshotting: allowSnapshotting ?? true,
+      key: key,
+      canPop: canPop ?? true,
+      onPopInvoked: (bool p0, HitTestRequest? p1) async {
+        D4.callInterpreterCallback(visitor, onPopInvoked, [p0, p1]);
+        await Future.delayed(const Duration(milliseconds: 1));
+      },
+      name: name,
+      arguments: arguments,
+      restorationId: restorationId,
+    ),
+    'HitTestResponse' => MaterialPage<HitTestResponse>(
+      child: child!,
+      maintainState: maintainState ?? true,
+      fullscreenDialog: fullscreenDialog ?? false,
+      allowSnapshotting: allowSnapshotting ?? true,
+      key: key,
+      canPop: canPop ?? true,
+      onPopInvoked: (bool p0, HitTestResponse? p1) async {
         D4.callInterpreterCallback(visitor, onPopInvoked, [p0, p1]);
         await Future.delayed(const Duration(milliseconds: 1));
       },
@@ -1247274,6 +1249542,23 @@ Object? _rc2MaterialPageRoute(
       traversalEdgeBehavior: traversalEdgeBehavior,
       directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
     ),
+    'ContextMenuButtonKind' => MaterialPageRoute<ContextMenuButtonKind>(
+      builder: (BuildContext p0) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      settings: settings,
+      requestFocus: requestFocus,
+      maintainState: maintainState ?? true,
+      fullscreenDialog: fullscreenDialog ?? false,
+      allowSnapshotting: allowSnapshotting ?? true,
+      barrierDismissible: barrierDismissible ?? false,
+      traversalEdgeBehavior: traversalEdgeBehavior,
+      directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
+    ),
     'ContextMenuController' => MaterialPageRoute<ContextMenuController>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -1253421,6 +1255706,40 @@ Object? _rc2MaterialPageRoute(
       directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
     ),
     'HitTestEntry' => MaterialPageRoute<HitTestEntry>(
+      builder: (BuildContext p0) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      settings: settings,
+      requestFocus: requestFocus,
+      maintainState: maintainState ?? true,
+      fullscreenDialog: fullscreenDialog ?? false,
+      allowSnapshotting: allowSnapshotting ?? true,
+      barrierDismissible: barrierDismissible ?? false,
+      traversalEdgeBehavior: traversalEdgeBehavior,
+      directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
+    ),
+    'HitTestRequest' => MaterialPageRoute<HitTestRequest>(
+      builder: (BuildContext p0) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      settings: settings,
+      requestFocus: requestFocus,
+      maintainState: maintainState ?? true,
+      fullscreenDialog: fullscreenDialog ?? false,
+      allowSnapshotting: allowSnapshotting ?? true,
+      barrierDismissible: barrierDismissible ?? false,
+      traversalEdgeBehavior: traversalEdgeBehavior,
+      directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
+    ),
+    'HitTestResponse' => MaterialPageRoute<HitTestResponse>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
           D4.callInterpreterCallback(visitor, builder, [p0]),
@@ -1278106,6 +1280425,36 @@ Object? _rc2ModalBottomSheetRoute(
       useSafeArea: useSafeArea ?? false,
       sheetAnimationStyle: sheetAnimationStyle,
     ),
+    'ContextMenuButtonKind' => ModalBottomSheetRoute<ContextMenuButtonKind>(
+      builder: (BuildContext p0) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      capturedThemes: capturedThemes,
+      barrierLabel: barrierLabel,
+      barrierOnTapHint: barrierOnTapHint,
+      backgroundColor: backgroundColor,
+      elevation: (elevation as num?)?.toDouble(),
+      shape: shape,
+      clipBehavior: clipBehavior,
+      constraints: constraints,
+      modalBarrierColor: modalBarrierColor,
+      isDismissible: isDismissible ?? true,
+      enableDrag: enableDrag ?? true,
+      showDragHandle: showDragHandle,
+      isScrollControlled: isScrollControlled!,
+      scrollControlDisabledMaxHeightRatio:
+          (scrollControlDisabledMaxHeightRatio as num).toDouble(),
+      settings: settings,
+      requestFocus: requestFocus,
+      transitionAnimationController: transitionAnimationController,
+      anchorPoint: anchorPoint,
+      useSafeArea: useSafeArea ?? false,
+      sheetAnimationStyle: sheetAnimationStyle,
+    ),
     'ContextMenuController' => ModalBottomSheetRoute<ContextMenuController>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -1288916,6 +1291265,66 @@ Object? _rc2ModalBottomSheetRoute(
       sheetAnimationStyle: sheetAnimationStyle,
     ),
     'HitTestEntry' => ModalBottomSheetRoute<HitTestEntry>(
+      builder: (BuildContext p0) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      capturedThemes: capturedThemes,
+      barrierLabel: barrierLabel,
+      barrierOnTapHint: barrierOnTapHint,
+      backgroundColor: backgroundColor,
+      elevation: (elevation as num?)?.toDouble(),
+      shape: shape,
+      clipBehavior: clipBehavior,
+      constraints: constraints,
+      modalBarrierColor: modalBarrierColor,
+      isDismissible: isDismissible ?? true,
+      enableDrag: enableDrag ?? true,
+      showDragHandle: showDragHandle,
+      isScrollControlled: isScrollControlled!,
+      scrollControlDisabledMaxHeightRatio:
+          (scrollControlDisabledMaxHeightRatio as num).toDouble(),
+      settings: settings,
+      requestFocus: requestFocus,
+      transitionAnimationController: transitionAnimationController,
+      anchorPoint: anchorPoint,
+      useSafeArea: useSafeArea ?? false,
+      sheetAnimationStyle: sheetAnimationStyle,
+    ),
+    'HitTestRequest' => ModalBottomSheetRoute<HitTestRequest>(
+      builder: (BuildContext p0) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      capturedThemes: capturedThemes,
+      barrierLabel: barrierLabel,
+      barrierOnTapHint: barrierOnTapHint,
+      backgroundColor: backgroundColor,
+      elevation: (elevation as num?)?.toDouble(),
+      shape: shape,
+      clipBehavior: clipBehavior,
+      constraints: constraints,
+      modalBarrierColor: modalBarrierColor,
+      isDismissible: isDismissible ?? true,
+      enableDrag: enableDrag ?? true,
+      showDragHandle: showDragHandle,
+      isScrollControlled: isScrollControlled!,
+      scrollControlDisabledMaxHeightRatio:
+          (scrollControlDisabledMaxHeightRatio as num).toDouble(),
+      settings: settings,
+      requestFocus: requestFocus,
+      transitionAnimationController: transitionAnimationController,
+      anchorPoint: anchorPoint,
+      useSafeArea: useSafeArea ?? false,
+      sheetAnimationStyle: sheetAnimationStyle,
+    ),
+    'HitTestResponse' => ModalBottomSheetRoute<HitTestResponse>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
           D4.callInterpreterCallback(visitor, builder, [p0]),
@@ -1323830,6 +1326239,23 @@ Object? _rc2NavigatorPopHandler(
       enabled: enabled ?? true,
       child: child!,
     ),
+    'ContextMenuButtonKind' => NavigatorPopHandler<ContextMenuButtonKind>(
+      key: key,
+      onPop: onPop == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onPop, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onPopWithResult: onPopWithResult == null
+          ? null
+          : (ContextMenuButtonKind? p0) async {
+              D4.callInterpreterCallback(visitor, onPopWithResult, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      enabled: enabled ?? true,
+      child: child!,
+    ),
     'ContextMenuController' => NavigatorPopHandler<ContextMenuController>(
       key: key,
       onPop: onPop == null
@@ -1330001,6 +1332427,40 @@ Object? _rc2NavigatorPopHandler(
       onPopWithResult: onPopWithResult == null
           ? null
           : (HitTestEntry? p0) async {
+              D4.callInterpreterCallback(visitor, onPopWithResult, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      enabled: enabled ?? true,
+      child: child!,
+    ),
+    'HitTestRequest' => NavigatorPopHandler<HitTestRequest>(
+      key: key,
+      onPop: onPop == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onPop, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onPopWithResult: onPopWithResult == null
+          ? null
+          : (HitTestRequest? p0) async {
+              D4.callInterpreterCallback(visitor, onPopWithResult, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      enabled: enabled ?? true,
+      child: child!,
+    ),
+    'HitTestResponse' => NavigatorPopHandler<HitTestResponse>(
+      key: key,
+      onPop: onPop == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onPop, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onPopWithResult: onPopWithResult == null
+          ? null
+          : (HitTestResponse? p0) async {
               D4.callInterpreterCallback(visitor, onPopWithResult, [p0]);
               await Future.delayed(const Duration(milliseconds: 1));
             },
@@ -1349662,6 +1352122,14 @@ Object? _rc2ObjectFlagProperty(
       showName: showName ?? false,
       level: level ?? DiagnosticLevel.info,
     ),
+    'ContextMenuButtonKind' => ObjectFlagProperty<ContextMenuButtonKind>(
+      name!,
+      value as ContextMenuButtonKind?,
+      ifPresent: ifPresent,
+      ifNull: ifNull,
+      showName: showName ?? false,
+      level: level ?? DiagnosticLevel.info,
+    ),
     'ContextMenuController' => ObjectFlagProperty<ContextMenuController>(
       name!,
       value as ContextMenuController?,
@@ -1352608,6 +1355076,22 @@ Object? _rc2ObjectFlagProperty(
     'HitTestEntry' => ObjectFlagProperty<HitTestEntry>(
       name!,
       value as HitTestEntry?,
+      ifPresent: ifPresent,
+      ifNull: ifNull,
+      showName: showName ?? false,
+      level: level ?? DiagnosticLevel.info,
+    ),
+    'HitTestRequest' => ObjectFlagProperty<HitTestRequest>(
+      name!,
+      value as HitTestRequest?,
+      ifPresent: ifPresent,
+      ifNull: ifNull,
+      showName: showName ?? false,
+      level: level ?? DiagnosticLevel.info,
+    ),
+    'HitTestResponse' => ObjectFlagProperty<HitTestResponse>(
+      name!,
+      value as HitTestResponse?,
       ifPresent: ifPresent,
       ifNull: ifNull,
       showName: showName ?? false,
@@ -1362184,6 +1364668,11 @@ Object? _rc2ObjectFlagProperty_has(
       value as ContextMenuButtonItem?,
       level: level ?? DiagnosticLevel.info,
     ),
+    'ContextMenuButtonKind' => ObjectFlagProperty<ContextMenuButtonKind>.has(
+      name!,
+      value as ContextMenuButtonKind?,
+      level: level ?? DiagnosticLevel.info,
+    ),
     'ContextMenuController' => ObjectFlagProperty<ContextMenuController>.has(
       name!,
       value as ContextMenuController?,
@@ -1364082,6 +1366571,16 @@ Object? _rc2ObjectFlagProperty_has(
     'HitTestEntry' => ObjectFlagProperty<HitTestEntry>.has(
       name!,
       value as HitTestEntry?,
+      level: level ?? DiagnosticLevel.info,
+    ),
+    'HitTestRequest' => ObjectFlagProperty<HitTestRequest>.has(
+      name!,
+      value as HitTestRequest?,
+      level: level ?? DiagnosticLevel.info,
+    ),
+    'HitTestResponse' => ObjectFlagProperty<HitTestResponse>.has(
+      name!,
+      value as HitTestResponse?,
       level: level ?? DiagnosticLevel.info,
     ),
     'HitTestResult' => ObjectFlagProperty<HitTestResult>.has(
@@ -1369685,6 +1372184,7 @@ Object? _rc2ObserverList(
     'ContentInsertionConfiguration' =>
       ObserverList<ContentInsertionConfiguration>(),
     'ContextMenuButtonItem' => ObserverList<ContextMenuButtonItem>(),
+    'ContextMenuButtonKind' => ObserverList<ContextMenuButtonKind>(),
     'ContextMenuController' => ObserverList<ContextMenuController>(),
     'ContinuousRectangleBorder' => ObserverList<ContinuousRectangleBorder>(),
     'ControlsDetails' => ObserverList<ControlsDetails>(),
@@ -1370112,6 +1372612,8 @@ Object? _rc2ObserverList(
     'HeroControllerScope' => ObserverList<HeroControllerScope>(),
     'HeroMode' => ObserverList<HeroMode>(),
     'HitTestEntry' => ObserverList<HitTestEntry>(),
+    'HitTestRequest' => ObserverList<HitTestRequest>(),
+    'HitTestResponse' => ObserverList<HitTestResponse>(),
     'HitTestResult' => ObserverList<HitTestResult>(),
     'HoldScrollActivity' => ObserverList<HoldScrollActivity>(),
     'HorizontalDragGestureRecognizer' =>
@@ -1380891,6 +1383393,47 @@ Object? _rc2PageRouteBuilder(
         allowSnapshotting: allowSnapshotting ?? true,
       ),
     'ContextMenuButtonItem' => PageRouteBuilder<ContextMenuButtonItem>(
+      settings: settings,
+      requestFocus: requestFocus,
+      pageBuilder:
+          (BuildContext p0, Animation<double> p1, Animation<double> p2) {
+            return D4.extractBridgedArg<Widget>(
+              D4.callInterpreterCallback(visitor, pageBuilder, [p0, p1, p2]),
+              'callback',
+              visitor,
+            );
+          },
+      transitionsBuilder:
+          (
+            BuildContext p0,
+            Animation<double> p1,
+            Animation<double> p2,
+            Widget p3,
+          ) {
+            return D4.extractBridgedArg<Widget>(
+              D4.callInterpreterCallback(visitor, transitionsBuilder, [
+                p0,
+                p1,
+                p2,
+                p3,
+              ]),
+              'callback',
+              visitor,
+            );
+          },
+      transitionDuration:
+          transitionDuration ?? const Duration(milliseconds: 300),
+      reverseTransitionDuration:
+          reverseTransitionDuration ?? const Duration(milliseconds: 300),
+      opaque: opaque ?? true,
+      barrierDismissible: barrierDismissible ?? false,
+      barrierColor: barrierColor,
+      barrierLabel: barrierLabel,
+      maintainState: maintainState ?? true,
+      fullscreenDialog: fullscreenDialog ?? false,
+      allowSnapshotting: allowSnapshotting ?? true,
+    ),
+    'ContextMenuButtonKind' => PageRouteBuilder<ContextMenuButtonKind>(
       settings: settings,
       requestFocus: requestFocus,
       pageBuilder:
@@ -1395646,6 +1398189,88 @@ Object? _rc2PageRouteBuilder(
       allowSnapshotting: allowSnapshotting ?? true,
     ),
     'HitTestEntry' => PageRouteBuilder<HitTestEntry>(
+      settings: settings,
+      requestFocus: requestFocus,
+      pageBuilder:
+          (BuildContext p0, Animation<double> p1, Animation<double> p2) {
+            return D4.extractBridgedArg<Widget>(
+              D4.callInterpreterCallback(visitor, pageBuilder, [p0, p1, p2]),
+              'callback',
+              visitor,
+            );
+          },
+      transitionsBuilder:
+          (
+            BuildContext p0,
+            Animation<double> p1,
+            Animation<double> p2,
+            Widget p3,
+          ) {
+            return D4.extractBridgedArg<Widget>(
+              D4.callInterpreterCallback(visitor, transitionsBuilder, [
+                p0,
+                p1,
+                p2,
+                p3,
+              ]),
+              'callback',
+              visitor,
+            );
+          },
+      transitionDuration:
+          transitionDuration ?? const Duration(milliseconds: 300),
+      reverseTransitionDuration:
+          reverseTransitionDuration ?? const Duration(milliseconds: 300),
+      opaque: opaque ?? true,
+      barrierDismissible: barrierDismissible ?? false,
+      barrierColor: barrierColor,
+      barrierLabel: barrierLabel,
+      maintainState: maintainState ?? true,
+      fullscreenDialog: fullscreenDialog ?? false,
+      allowSnapshotting: allowSnapshotting ?? true,
+    ),
+    'HitTestRequest' => PageRouteBuilder<HitTestRequest>(
+      settings: settings,
+      requestFocus: requestFocus,
+      pageBuilder:
+          (BuildContext p0, Animation<double> p1, Animation<double> p2) {
+            return D4.extractBridgedArg<Widget>(
+              D4.callInterpreterCallback(visitor, pageBuilder, [p0, p1, p2]),
+              'callback',
+              visitor,
+            );
+          },
+      transitionsBuilder:
+          (
+            BuildContext p0,
+            Animation<double> p1,
+            Animation<double> p2,
+            Widget p3,
+          ) {
+            return D4.extractBridgedArg<Widget>(
+              D4.callInterpreterCallback(visitor, transitionsBuilder, [
+                p0,
+                p1,
+                p2,
+                p3,
+              ]),
+              'callback',
+              visitor,
+            );
+          },
+      transitionDuration:
+          transitionDuration ?? const Duration(milliseconds: 300),
+      reverseTransitionDuration:
+          reverseTransitionDuration ?? const Duration(milliseconds: 300),
+      opaque: opaque ?? true,
+      barrierDismissible: barrierDismissible ?? false,
+      barrierColor: barrierColor,
+      barrierLabel: barrierLabel,
+      maintainState: maintainState ?? true,
+      fullscreenDialog: fullscreenDialog ?? false,
+      allowSnapshotting: allowSnapshotting ?? true,
+    ),
+    'HitTestResponse' => PageRouteBuilder<HitTestResponse>(
       settings: settings,
       requestFocus: requestFocus,
       pageBuilder:
@@ -1438251,6 +1440876,9 @@ Object? _rc2PageStorageKey(
     'ContextMenuButtonItem' => PageStorageKey<ContextMenuButtonItem>(
       value as ContextMenuButtonItem,
     ),
+    'ContextMenuButtonKind' => PageStorageKey<ContextMenuButtonKind>(
+      value as ContextMenuButtonKind,
+    ),
     'ContextMenuController' => PageStorageKey<ContextMenuController>(
       value as ContextMenuController,
     ),
@@ -1439188,6 +1441816,10 @@ Object? _rc2PageStorageKey(
     ),
     'HeroMode' => PageStorageKey<HeroMode>(value as HeroMode),
     'HitTestEntry' => PageStorageKey<HitTestEntry>(value as HitTestEntry),
+    'HitTestRequest' => PageStorageKey<HitTestRequest>(value as HitTestRequest),
+    'HitTestResponse' => PageStorageKey<HitTestResponse>(
+      value as HitTestResponse,
+    ),
     'HitTestResult' => PageStorageKey<HitTestResult>(value as HitTestResult),
     'HoldScrollActivity' => PageStorageKey<HoldScrollActivity>(
       value as HoldScrollActivity,
@@ -1446476,6 +1449108,26 @@ Object? _rc2PopScope(
               await Future.delayed(const Duration(milliseconds: 1));
             },
     ),
+    'ContextMenuButtonKind' => PopScope<ContextMenuButtonKind>(
+      key: key,
+      child: child!,
+      canPop: canPop ?? true,
+      onPopInvokedWithResult: onPopInvokedWithResult == null
+          ? null
+          : (bool p0, ContextMenuButtonKind? p1) async {
+              D4.callInterpreterCallback(visitor, onPopInvokedWithResult, [
+                p0,
+                p1,
+              ]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onPopInvoked: onPopInvoked == null
+          ? null
+          : (bool p0) async {
+              D4.callInterpreterCallback(visitor, onPopInvoked, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+    ),
     'ContextMenuController' => PopScope<ContextMenuController>(
       key: key,
       child: child!,
@@ -1453684,6 +1456336,46 @@ Object? _rc2PopScope(
       onPopInvokedWithResult: onPopInvokedWithResult == null
           ? null
           : (bool p0, HitTestEntry? p1) async {
+              D4.callInterpreterCallback(visitor, onPopInvokedWithResult, [
+                p0,
+                p1,
+              ]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onPopInvoked: onPopInvoked == null
+          ? null
+          : (bool p0) async {
+              D4.callInterpreterCallback(visitor, onPopInvoked, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+    ),
+    'HitTestRequest' => PopScope<HitTestRequest>(
+      key: key,
+      child: child!,
+      canPop: canPop ?? true,
+      onPopInvokedWithResult: onPopInvokedWithResult == null
+          ? null
+          : (bool p0, HitTestRequest? p1) async {
+              D4.callInterpreterCallback(visitor, onPopInvokedWithResult, [
+                p0,
+                p1,
+              ]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onPopInvoked: onPopInvoked == null
+          ? null
+          : (bool p0) async {
+              D4.callInterpreterCallback(visitor, onPopInvoked, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+    ),
+    'HitTestResponse' => PopScope<HitTestResponse>(
+      key: key,
+      child: child!,
+      canPop: canPop ?? true,
+      onPopInvokedWithResult: onPopInvokedWithResult == null
+          ? null
+          : (bool p0, HitTestResponse? p1) async {
               D4.callInterpreterCallback(visitor, onPopInvokedWithResult, [
                 p0,
                 p1,
@@ -1487064,6 +1489756,61 @@ Object? _rc2PopupMenuButton(
       style: style,
       requestFocus: requestFocus,
     ),
+    'ContextMenuButtonKind' => PopupMenuButton<ContextMenuButtonKind>(
+      key: key,
+      itemBuilder: (BuildContext p0) {
+        return D4
+            .extractBridgedArg<List<PopupMenuEntry<ContextMenuButtonKind>>>(
+              D4.callInterpreterCallback(visitor, itemBuilder, [p0]),
+              'callback',
+              visitor,
+            );
+      },
+      initialValue: initialValue as ContextMenuButtonKind?,
+      onOpened: onOpened == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onOpened, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onSelected: onSelected == null
+          ? null
+          : (ContextMenuButtonKind p0) async {
+              D4.callInterpreterCallback(visitor, onSelected, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onCanceled: onCanceled == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onCanceled, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      tooltip: tooltip,
+      elevation: (elevation as num?)?.toDouble(),
+      shadowColor: shadowColor,
+      surfaceTintColor: surfaceTintColor,
+      padding: padding ?? const EdgeInsets.all(8.0),
+      menuPadding: menuPadding,
+      child: child,
+      borderRadius: borderRadius,
+      splashRadius: (splashRadius as num?)?.toDouble(),
+      icon: icon,
+      iconSize: (iconSize as num?)?.toDouble(),
+      offset: offset ?? Offset.zero,
+      enabled: enabled ?? true,
+      shape: shape,
+      color: color,
+      iconColor: iconColor,
+      enableFeedback: enableFeedback,
+      constraints: constraints,
+      position: position,
+      clipBehavior: clipBehavior ?? Clip.none,
+      useRootNavigator: useRootNavigator ?? false,
+      popUpAnimationStyle: popUpAnimationStyle,
+      routeSettings: routeSettings,
+      style: style,
+      requestFocus: requestFocus,
+    ),
     'ContextMenuController' => PopupMenuButton<ContextMenuController>(
       key: key,
       itemBuilder: (BuildContext p0) {
@@ -1506672,6 +1509419,114 @@ Object? _rc2PopupMenuButton(
       onSelected: onSelected == null
           ? null
           : (HitTestEntry p0) async {
+              D4.callInterpreterCallback(visitor, onSelected, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onCanceled: onCanceled == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onCanceled, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      tooltip: tooltip,
+      elevation: (elevation as num?)?.toDouble(),
+      shadowColor: shadowColor,
+      surfaceTintColor: surfaceTintColor,
+      padding: padding ?? const EdgeInsets.all(8.0),
+      menuPadding: menuPadding,
+      child: child,
+      borderRadius: borderRadius,
+      splashRadius: (splashRadius as num?)?.toDouble(),
+      icon: icon,
+      iconSize: (iconSize as num?)?.toDouble(),
+      offset: offset ?? Offset.zero,
+      enabled: enabled ?? true,
+      shape: shape,
+      color: color,
+      iconColor: iconColor,
+      enableFeedback: enableFeedback,
+      constraints: constraints,
+      position: position,
+      clipBehavior: clipBehavior ?? Clip.none,
+      useRootNavigator: useRootNavigator ?? false,
+      popUpAnimationStyle: popUpAnimationStyle,
+      routeSettings: routeSettings,
+      style: style,
+      requestFocus: requestFocus,
+    ),
+    'HitTestRequest' => PopupMenuButton<HitTestRequest>(
+      key: key,
+      itemBuilder: (BuildContext p0) {
+        return D4.extractBridgedArg<List<PopupMenuEntry<HitTestRequest>>>(
+          D4.callInterpreterCallback(visitor, itemBuilder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      initialValue: initialValue as HitTestRequest?,
+      onOpened: onOpened == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onOpened, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onSelected: onSelected == null
+          ? null
+          : (HitTestRequest p0) async {
+              D4.callInterpreterCallback(visitor, onSelected, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onCanceled: onCanceled == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onCanceled, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      tooltip: tooltip,
+      elevation: (elevation as num?)?.toDouble(),
+      shadowColor: shadowColor,
+      surfaceTintColor: surfaceTintColor,
+      padding: padding ?? const EdgeInsets.all(8.0),
+      menuPadding: menuPadding,
+      child: child,
+      borderRadius: borderRadius,
+      splashRadius: (splashRadius as num?)?.toDouble(),
+      icon: icon,
+      iconSize: (iconSize as num?)?.toDouble(),
+      offset: offset ?? Offset.zero,
+      enabled: enabled ?? true,
+      shape: shape,
+      color: color,
+      iconColor: iconColor,
+      enableFeedback: enableFeedback,
+      constraints: constraints,
+      position: position,
+      clipBehavior: clipBehavior ?? Clip.none,
+      useRootNavigator: useRootNavigator ?? false,
+      popUpAnimationStyle: popUpAnimationStyle,
+      routeSettings: routeSettings,
+      style: style,
+      requestFocus: requestFocus,
+    ),
+    'HitTestResponse' => PopupMenuButton<HitTestResponse>(
+      key: key,
+      itemBuilder: (BuildContext p0) {
+        return D4.extractBridgedArg<List<PopupMenuEntry<HitTestResponse>>>(
+          D4.callInterpreterCallback(visitor, itemBuilder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      initialValue: initialValue as HitTestResponse?,
+      onOpened: onOpened == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onOpened, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onSelected: onSelected == null
+          ? null
+          : (HitTestResponse p0) async {
               D4.callInterpreterCallback(visitor, onSelected, [p0]);
               await Future.delayed(const Duration(milliseconds: 1));
             },
@@ -1562770,6 +1565625,7 @@ Object? _rc2PopupMenuButtonState(
     'ContentInsertionConfiguration' =>
       PopupMenuButtonState<ContentInsertionConfiguration>(),
     'ContextMenuButtonItem' => PopupMenuButtonState<ContextMenuButtonItem>(),
+    'ContextMenuButtonKind' => PopupMenuButtonState<ContextMenuButtonKind>(),
     'ContextMenuController' => PopupMenuButtonState<ContextMenuController>(),
     'ContinuousRectangleBorder' =>
       PopupMenuButtonState<ContinuousRectangleBorder>(),
@@ -1563238,6 +1566094,8 @@ Object? _rc2PopupMenuButtonState(
     'HeroControllerScope' => PopupMenuButtonState<HeroControllerScope>(),
     'HeroMode' => PopupMenuButtonState<HeroMode>(),
     'HitTestEntry' => PopupMenuButtonState<HitTestEntry>(),
+    'HitTestRequest' => PopupMenuButtonState<HitTestRequest>(),
+    'HitTestResponse' => PopupMenuButtonState<HitTestResponse>(),
     'HitTestResult' => PopupMenuButtonState<HitTestResult>(),
     'HoldScrollActivity' => PopupMenuButtonState<HoldScrollActivity>(),
     'HorizontalDragGestureRecognizer' =>
@@ -1568509,6 +1571367,23 @@ Object? _rc2PopupMenuItem(
     'ContextMenuButtonItem' => PopupMenuItem<ContextMenuButtonItem>(
       key: key,
       value: value as ContextMenuButtonItem?,
+      onTap: onTap == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onTap, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      enabled: enabled ?? true,
+      height: (height as num?)?.toDouble() ?? kMinInteractiveDimension,
+      padding: padding,
+      textStyle: textStyle,
+      labelTextStyle: labelTextStyle,
+      mouseCursor: mouseCursor,
+      child: child,
+    ),
+    'ContextMenuButtonKind' => PopupMenuItem<ContextMenuButtonKind>(
+      key: key,
+      value: value as ContextMenuButtonKind?,
       onTap: onTap == null
           ? null
           : () async {
@@ -1574652,6 +1577527,40 @@ Object? _rc2PopupMenuItem(
     'HitTestEntry' => PopupMenuItem<HitTestEntry>(
       key: key,
       value: value as HitTestEntry?,
+      onTap: onTap == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onTap, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      enabled: enabled ?? true,
+      height: (height as num?)?.toDouble() ?? kMinInteractiveDimension,
+      padding: padding,
+      textStyle: textStyle,
+      labelTextStyle: labelTextStyle,
+      mouseCursor: mouseCursor,
+      child: child,
+    ),
+    'HitTestRequest' => PopupMenuItem<HitTestRequest>(
+      key: key,
+      value: value as HitTestRequest?,
+      onTap: onTap == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onTap, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      enabled: enabled ?? true,
+      height: (height as num?)?.toDouble() ?? kMinInteractiveDimension,
+      padding: padding,
+      textStyle: textStyle,
+      labelTextStyle: labelTextStyle,
+      mouseCursor: mouseCursor,
+      child: child,
+    ),
+    'HitTestResponse' => PopupMenuItem<HitTestResponse>(
+      key: key,
+      value: value as HitTestResponse?,
       onTap: onTap == null
           ? null
           : () async {
@@ -1599598,6 +1602507,38 @@ Object? _rc2Radio(
       side: side,
       innerRadius: innerRadius,
     ),
+    'ContextMenuButtonKind' => Radio<ContextMenuButtonKind>(
+      key: key,
+      value: value as ContextMenuButtonKind,
+      groupValue: groupValue as ContextMenuButtonKind?,
+      onChanged: onChanged == null
+          ? null
+          : (ContextMenuButtonKind? p0) async {
+              D4.callInterpreterCallback(visitor, onChanged, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      mouseCursor: mouseCursor,
+      toggleable: toggleable ?? false,
+      activeColor: activeColor,
+      fillColor: fillColor,
+      focusColor: focusColor,
+      hoverColor: hoverColor,
+      overlayColor: overlayColor,
+      splashRadius: (splashRadius as num?)?.toDouble(),
+      materialTapTargetSize: materialTapTargetSize,
+      visualDensity: visualDensity,
+      focusNode: focusNode,
+      autofocus: autofocus ?? false,
+      enabled: enabled,
+      groupRegistry: D4
+          .extractBridgedArg<RadioGroupRegistry<ContextMenuButtonKind>?>(
+            groupRegistry,
+            'groupRegistry',
+          ),
+      backgroundColor: backgroundColor,
+      side: side,
+      innerRadius: innerRadius,
+    ),
     'ContextMenuController' => Radio<ContextMenuController>(
       key: key,
       value: value as ContextMenuController,
@@ -1610920,6 +1613861,68 @@ Object? _rc2Radio(
       autofocus: autofocus ?? false,
       enabled: enabled,
       groupRegistry: D4.extractBridgedArg<RadioGroupRegistry<HitTestEntry>?>(
+        groupRegistry,
+        'groupRegistry',
+      ),
+      backgroundColor: backgroundColor,
+      side: side,
+      innerRadius: innerRadius,
+    ),
+    'HitTestRequest' => Radio<HitTestRequest>(
+      key: key,
+      value: value as HitTestRequest,
+      groupValue: groupValue as HitTestRequest?,
+      onChanged: onChanged == null
+          ? null
+          : (HitTestRequest? p0) async {
+              D4.callInterpreterCallback(visitor, onChanged, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      mouseCursor: mouseCursor,
+      toggleable: toggleable ?? false,
+      activeColor: activeColor,
+      fillColor: fillColor,
+      focusColor: focusColor,
+      hoverColor: hoverColor,
+      overlayColor: overlayColor,
+      splashRadius: (splashRadius as num?)?.toDouble(),
+      materialTapTargetSize: materialTapTargetSize,
+      visualDensity: visualDensity,
+      focusNode: focusNode,
+      autofocus: autofocus ?? false,
+      enabled: enabled,
+      groupRegistry: D4.extractBridgedArg<RadioGroupRegistry<HitTestRequest>?>(
+        groupRegistry,
+        'groupRegistry',
+      ),
+      backgroundColor: backgroundColor,
+      side: side,
+      innerRadius: innerRadius,
+    ),
+    'HitTestResponse' => Radio<HitTestResponse>(
+      key: key,
+      value: value as HitTestResponse,
+      groupValue: groupValue as HitTestResponse?,
+      onChanged: onChanged == null
+          ? null
+          : (HitTestResponse? p0) async {
+              D4.callInterpreterCallback(visitor, onChanged, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      mouseCursor: mouseCursor,
+      toggleable: toggleable ?? false,
+      activeColor: activeColor,
+      fillColor: fillColor,
+      focusColor: focusColor,
+      hoverColor: hoverColor,
+      overlayColor: overlayColor,
+      splashRadius: (splashRadius as num?)?.toDouble(),
+      materialTapTargetSize: materialTapTargetSize,
+      visualDensity: visualDensity,
+      focusNode: focusNode,
+      autofocus: autofocus ?? false,
+      enabled: enabled,
+      groupRegistry: D4.extractBridgedArg<RadioGroupRegistry<HitTestResponse>?>(
         groupRegistry,
         'groupRegistry',
       ),
@@ -1650858,6 +1653861,39 @@ Object? _rc2Radio_adaptive(
       side: side,
       innerRadius: innerRadius,
     ),
+    'ContextMenuButtonKind' => Radio<ContextMenuButtonKind>.adaptive(
+      key: key,
+      value: value as ContextMenuButtonKind,
+      groupValue: groupValue as ContextMenuButtonKind?,
+      onChanged: onChanged == null
+          ? null
+          : (ContextMenuButtonKind? p0) async {
+              D4.callInterpreterCallback(visitor, onChanged, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      mouseCursor: mouseCursor,
+      toggleable: toggleable ?? false,
+      activeColor: activeColor,
+      fillColor: fillColor,
+      focusColor: focusColor,
+      hoverColor: hoverColor,
+      overlayColor: overlayColor,
+      splashRadius: (splashRadius as num?)?.toDouble(),
+      materialTapTargetSize: materialTapTargetSize,
+      visualDensity: visualDensity,
+      focusNode: focusNode,
+      autofocus: autofocus ?? false,
+      useCupertinoCheckmarkStyle: useCupertinoCheckmarkStyle ?? false,
+      enabled: enabled,
+      groupRegistry: D4
+          .extractBridgedArg<RadioGroupRegistry<ContextMenuButtonKind>?>(
+            groupRegistry,
+            'groupRegistry',
+          ),
+      backgroundColor: backgroundColor,
+      side: side,
+      innerRadius: innerRadius,
+    ),
     'ContextMenuController' => Radio<ContextMenuController>.adaptive(
       key: key,
       value: value as ContextMenuController,
@@ -1662555,6 +1665591,70 @@ Object? _rc2Radio_adaptive(
       useCupertinoCheckmarkStyle: useCupertinoCheckmarkStyle ?? false,
       enabled: enabled,
       groupRegistry: D4.extractBridgedArg<RadioGroupRegistry<HitTestEntry>?>(
+        groupRegistry,
+        'groupRegistry',
+      ),
+      backgroundColor: backgroundColor,
+      side: side,
+      innerRadius: innerRadius,
+    ),
+    'HitTestRequest' => Radio<HitTestRequest>.adaptive(
+      key: key,
+      value: value as HitTestRequest,
+      groupValue: groupValue as HitTestRequest?,
+      onChanged: onChanged == null
+          ? null
+          : (HitTestRequest? p0) async {
+              D4.callInterpreterCallback(visitor, onChanged, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      mouseCursor: mouseCursor,
+      toggleable: toggleable ?? false,
+      activeColor: activeColor,
+      fillColor: fillColor,
+      focusColor: focusColor,
+      hoverColor: hoverColor,
+      overlayColor: overlayColor,
+      splashRadius: (splashRadius as num?)?.toDouble(),
+      materialTapTargetSize: materialTapTargetSize,
+      visualDensity: visualDensity,
+      focusNode: focusNode,
+      autofocus: autofocus ?? false,
+      useCupertinoCheckmarkStyle: useCupertinoCheckmarkStyle ?? false,
+      enabled: enabled,
+      groupRegistry: D4.extractBridgedArg<RadioGroupRegistry<HitTestRequest>?>(
+        groupRegistry,
+        'groupRegistry',
+      ),
+      backgroundColor: backgroundColor,
+      side: side,
+      innerRadius: innerRadius,
+    ),
+    'HitTestResponse' => Radio<HitTestResponse>.adaptive(
+      key: key,
+      value: value as HitTestResponse,
+      groupValue: groupValue as HitTestResponse?,
+      onChanged: onChanged == null
+          ? null
+          : (HitTestResponse? p0) async {
+              D4.callInterpreterCallback(visitor, onChanged, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      mouseCursor: mouseCursor,
+      toggleable: toggleable ?? false,
+      activeColor: activeColor,
+      fillColor: fillColor,
+      focusColor: focusColor,
+      hoverColor: hoverColor,
+      overlayColor: overlayColor,
+      splashRadius: (splashRadius as num?)?.toDouble(),
+      materialTapTargetSize: materialTapTargetSize,
+      visualDensity: visualDensity,
+      focusNode: focusNode,
+      autofocus: autofocus ?? false,
+      useCupertinoCheckmarkStyle: useCupertinoCheckmarkStyle ?? false,
+      enabled: enabled,
+      groupRegistry: D4.extractBridgedArg<RadioGroupRegistry<HitTestResponse>?>(
         groupRegistry,
         'groupRegistry',
       ),
@@ -1698000,6 +1701100,15 @@ Object? _rc2RadioGroup(
       },
       child: child!,
     ),
+    'ContextMenuButtonKind' => RadioGroup<ContextMenuButtonKind>(
+      key: key,
+      groupValue: groupValue as ContextMenuButtonKind?,
+      onChanged: (ContextMenuButtonKind? p0) async {
+        D4.callInterpreterCallback(visitor, onChanged, [p0]);
+        await Future.delayed(const Duration(milliseconds: 1));
+      },
+      child: child!,
+    ),
     'ContextMenuController' => RadioGroup<ContextMenuController>(
       key: key,
       groupValue: groupValue as ContextMenuController?,
@@ -1701276,6 +1704385,24 @@ Object? _rc2RadioGroup(
       key: key,
       groupValue: groupValue as HitTestEntry?,
       onChanged: (HitTestEntry? p0) async {
+        D4.callInterpreterCallback(visitor, onChanged, [p0]);
+        await Future.delayed(const Duration(milliseconds: 1));
+      },
+      child: child!,
+    ),
+    'HitTestRequest' => RadioGroup<HitTestRequest>(
+      key: key,
+      groupValue: groupValue as HitTestRequest?,
+      onChanged: (HitTestRequest? p0) async {
+        D4.callInterpreterCallback(visitor, onChanged, [p0]);
+        await Future.delayed(const Duration(milliseconds: 1));
+      },
+      child: child!,
+    ),
+    'HitTestResponse' => RadioGroup<HitTestResponse>(
+      key: key,
+      groupValue: groupValue as HitTestResponse?,
+      onChanged: (HitTestResponse? p0) async {
         D4.callInterpreterCallback(visitor, onChanged, [p0]);
         await Future.delayed(const Duration(milliseconds: 1));
       },
@@ -1722924,6 +1726051,58 @@ Object? _rc2RadioListTile(
       radioSide: radioSide,
       radioInnerRadius: radioInnerRadius,
     ),
+    'ContextMenuButtonKind' => RadioListTile<ContextMenuButtonKind>(
+      key: key,
+      value: value as ContextMenuButtonKind,
+      groupValue: groupValue as ContextMenuButtonKind?,
+      onChanged: onChanged == null
+          ? null
+          : (ContextMenuButtonKind? p0) async {
+              D4.callInterpreterCallback(visitor, onChanged, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      mouseCursor: mouseCursor,
+      toggleable: toggleable ?? false,
+      activeColor: activeColor,
+      fillColor: fillColor,
+      hoverColor: hoverColor,
+      overlayColor: overlayColor,
+      splashRadius: (splashRadius as num?)?.toDouble(),
+      materialTapTargetSize: materialTapTargetSize,
+      title: title,
+      subtitle: subtitle,
+      isThreeLine: isThreeLine,
+      dense: dense,
+      secondary: secondary,
+      selected: selected ?? false,
+      controlAffinity: controlAffinity,
+      autofocus: autofocus ?? false,
+      contentPadding: contentPadding,
+      shape: shape,
+      tileColor: tileColor,
+      selectedTileColor: selectedTileColor,
+      visualDensity: visualDensity,
+      focusNode: focusNode,
+      statesController: statesController,
+      onFocusChange: onFocusChange == null
+          ? null
+          : (bool p0) async {
+              D4.callInterpreterCallback(visitor, onFocusChange, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      enableFeedback: enableFeedback,
+      horizontalTitleGap: (horizontalTitleGap as num?)?.toDouble(),
+      minVerticalPadding: (minVerticalPadding as num?)?.toDouble(),
+      minLeadingWidth: (minLeadingWidth as num?)?.toDouble(),
+      minTileHeight: (minTileHeight as num?)?.toDouble(),
+      radioScaleFactor: (radioScaleFactor as num?)?.toDouble() ?? 1.0,
+      titleAlignment: titleAlignment,
+      enabled: enabled,
+      internalAddSemanticForOnTap: internalAddSemanticForOnTap ?? false,
+      radioBackgroundColor: radioBackgroundColor,
+      radioSide: radioSide,
+      radioInnerRadius: radioInnerRadius,
+    ),
     'ContextMenuController' => RadioListTile<ContextMenuController>(
       key: key,
       value: value as ContextMenuController,
@@ -1741562,6 +1744741,110 @@ Object? _rc2RadioListTile(
       onChanged: onChanged == null
           ? null
           : (HitTestEntry? p0) async {
+              D4.callInterpreterCallback(visitor, onChanged, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      mouseCursor: mouseCursor,
+      toggleable: toggleable ?? false,
+      activeColor: activeColor,
+      fillColor: fillColor,
+      hoverColor: hoverColor,
+      overlayColor: overlayColor,
+      splashRadius: (splashRadius as num?)?.toDouble(),
+      materialTapTargetSize: materialTapTargetSize,
+      title: title,
+      subtitle: subtitle,
+      isThreeLine: isThreeLine,
+      dense: dense,
+      secondary: secondary,
+      selected: selected ?? false,
+      controlAffinity: controlAffinity,
+      autofocus: autofocus ?? false,
+      contentPadding: contentPadding,
+      shape: shape,
+      tileColor: tileColor,
+      selectedTileColor: selectedTileColor,
+      visualDensity: visualDensity,
+      focusNode: focusNode,
+      statesController: statesController,
+      onFocusChange: onFocusChange == null
+          ? null
+          : (bool p0) async {
+              D4.callInterpreterCallback(visitor, onFocusChange, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      enableFeedback: enableFeedback,
+      horizontalTitleGap: (horizontalTitleGap as num?)?.toDouble(),
+      minVerticalPadding: (minVerticalPadding as num?)?.toDouble(),
+      minLeadingWidth: (minLeadingWidth as num?)?.toDouble(),
+      minTileHeight: (minTileHeight as num?)?.toDouble(),
+      radioScaleFactor: (radioScaleFactor as num?)?.toDouble() ?? 1.0,
+      titleAlignment: titleAlignment,
+      enabled: enabled,
+      internalAddSemanticForOnTap: internalAddSemanticForOnTap ?? false,
+      radioBackgroundColor: radioBackgroundColor,
+      radioSide: radioSide,
+      radioInnerRadius: radioInnerRadius,
+    ),
+    'HitTestRequest' => RadioListTile<HitTestRequest>(
+      key: key,
+      value: value as HitTestRequest,
+      groupValue: groupValue as HitTestRequest?,
+      onChanged: onChanged == null
+          ? null
+          : (HitTestRequest? p0) async {
+              D4.callInterpreterCallback(visitor, onChanged, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      mouseCursor: mouseCursor,
+      toggleable: toggleable ?? false,
+      activeColor: activeColor,
+      fillColor: fillColor,
+      hoverColor: hoverColor,
+      overlayColor: overlayColor,
+      splashRadius: (splashRadius as num?)?.toDouble(),
+      materialTapTargetSize: materialTapTargetSize,
+      title: title,
+      subtitle: subtitle,
+      isThreeLine: isThreeLine,
+      dense: dense,
+      secondary: secondary,
+      selected: selected ?? false,
+      controlAffinity: controlAffinity,
+      autofocus: autofocus ?? false,
+      contentPadding: contentPadding,
+      shape: shape,
+      tileColor: tileColor,
+      selectedTileColor: selectedTileColor,
+      visualDensity: visualDensity,
+      focusNode: focusNode,
+      statesController: statesController,
+      onFocusChange: onFocusChange == null
+          ? null
+          : (bool p0) async {
+              D4.callInterpreterCallback(visitor, onFocusChange, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      enableFeedback: enableFeedback,
+      horizontalTitleGap: (horizontalTitleGap as num?)?.toDouble(),
+      minVerticalPadding: (minVerticalPadding as num?)?.toDouble(),
+      minLeadingWidth: (minLeadingWidth as num?)?.toDouble(),
+      minTileHeight: (minTileHeight as num?)?.toDouble(),
+      radioScaleFactor: (radioScaleFactor as num?)?.toDouble() ?? 1.0,
+      titleAlignment: titleAlignment,
+      enabled: enabled,
+      internalAddSemanticForOnTap: internalAddSemanticForOnTap ?? false,
+      radioBackgroundColor: radioBackgroundColor,
+      radioSide: radioSide,
+      radioInnerRadius: radioInnerRadius,
+    ),
+    'HitTestResponse' => RadioListTile<HitTestResponse>(
+      key: key,
+      value: value as HitTestResponse,
+      groupValue: groupValue as HitTestResponse?,
+      onChanged: onChanged == null
+          ? null
+          : (HitTestResponse? p0) async {
               D4.callInterpreterCallback(visitor, onChanged, [p0]);
               await Future.delayed(const Duration(milliseconds: 1));
             },
@@ -1807466,6 +1810749,59 @@ Object? _rc2RadioListTile_adaptive(
       radioSide: radioSide,
       radioInnerRadius: radioInnerRadius,
     ),
+    'ContextMenuButtonKind' => RadioListTile<ContextMenuButtonKind>.adaptive(
+      key: key,
+      value: value as ContextMenuButtonKind,
+      groupValue: groupValue as ContextMenuButtonKind?,
+      onChanged: onChanged == null
+          ? null
+          : (ContextMenuButtonKind? p0) async {
+              D4.callInterpreterCallback(visitor, onChanged, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      mouseCursor: mouseCursor,
+      toggleable: toggleable ?? false,
+      activeColor: activeColor,
+      fillColor: fillColor,
+      hoverColor: hoverColor,
+      overlayColor: overlayColor,
+      splashRadius: (splashRadius as num?)?.toDouble(),
+      materialTapTargetSize: materialTapTargetSize,
+      title: title,
+      subtitle: subtitle,
+      isThreeLine: isThreeLine,
+      dense: dense,
+      secondary: secondary,
+      selected: selected ?? false,
+      controlAffinity: controlAffinity,
+      autofocus: autofocus ?? false,
+      contentPadding: contentPadding,
+      shape: shape,
+      tileColor: tileColor,
+      selectedTileColor: selectedTileColor,
+      visualDensity: visualDensity,
+      focusNode: focusNode,
+      statesController: statesController,
+      onFocusChange: onFocusChange == null
+          ? null
+          : (bool p0) async {
+              D4.callInterpreterCallback(visitor, onFocusChange, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      enableFeedback: enableFeedback,
+      horizontalTitleGap: (horizontalTitleGap as num?)?.toDouble(),
+      minVerticalPadding: (minVerticalPadding as num?)?.toDouble(),
+      minLeadingWidth: (minLeadingWidth as num?)?.toDouble(),
+      minTileHeight: (minTileHeight as num?)?.toDouble(),
+      radioScaleFactor: (radioScaleFactor as num?)?.toDouble() ?? 1.0,
+      enabled: enabled,
+      useCupertinoCheckmarkStyle: useCupertinoCheckmarkStyle ?? false,
+      titleAlignment: titleAlignment,
+      internalAddSemanticForOnTap: internalAddSemanticForOnTap ?? false,
+      radioBackgroundColor: radioBackgroundColor,
+      radioSide: radioSide,
+      radioInnerRadius: radioInnerRadius,
+    ),
     'ContextMenuController' => RadioListTile<ContextMenuController>.adaptive(
       key: key,
       value: value as ContextMenuController,
@@ -1826516,6 +1829852,112 @@ Object? _rc2RadioListTile_adaptive(
       onChanged: onChanged == null
           ? null
           : (HitTestEntry? p0) async {
+              D4.callInterpreterCallback(visitor, onChanged, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      mouseCursor: mouseCursor,
+      toggleable: toggleable ?? false,
+      activeColor: activeColor,
+      fillColor: fillColor,
+      hoverColor: hoverColor,
+      overlayColor: overlayColor,
+      splashRadius: (splashRadius as num?)?.toDouble(),
+      materialTapTargetSize: materialTapTargetSize,
+      title: title,
+      subtitle: subtitle,
+      isThreeLine: isThreeLine,
+      dense: dense,
+      secondary: secondary,
+      selected: selected ?? false,
+      controlAffinity: controlAffinity,
+      autofocus: autofocus ?? false,
+      contentPadding: contentPadding,
+      shape: shape,
+      tileColor: tileColor,
+      selectedTileColor: selectedTileColor,
+      visualDensity: visualDensity,
+      focusNode: focusNode,
+      statesController: statesController,
+      onFocusChange: onFocusChange == null
+          ? null
+          : (bool p0) async {
+              D4.callInterpreterCallback(visitor, onFocusChange, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      enableFeedback: enableFeedback,
+      horizontalTitleGap: (horizontalTitleGap as num?)?.toDouble(),
+      minVerticalPadding: (minVerticalPadding as num?)?.toDouble(),
+      minLeadingWidth: (minLeadingWidth as num?)?.toDouble(),
+      minTileHeight: (minTileHeight as num?)?.toDouble(),
+      radioScaleFactor: (radioScaleFactor as num?)?.toDouble() ?? 1.0,
+      enabled: enabled,
+      useCupertinoCheckmarkStyle: useCupertinoCheckmarkStyle ?? false,
+      titleAlignment: titleAlignment,
+      internalAddSemanticForOnTap: internalAddSemanticForOnTap ?? false,
+      radioBackgroundColor: radioBackgroundColor,
+      radioSide: radioSide,
+      radioInnerRadius: radioInnerRadius,
+    ),
+    'HitTestRequest' => RadioListTile<HitTestRequest>.adaptive(
+      key: key,
+      value: value as HitTestRequest,
+      groupValue: groupValue as HitTestRequest?,
+      onChanged: onChanged == null
+          ? null
+          : (HitTestRequest? p0) async {
+              D4.callInterpreterCallback(visitor, onChanged, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      mouseCursor: mouseCursor,
+      toggleable: toggleable ?? false,
+      activeColor: activeColor,
+      fillColor: fillColor,
+      hoverColor: hoverColor,
+      overlayColor: overlayColor,
+      splashRadius: (splashRadius as num?)?.toDouble(),
+      materialTapTargetSize: materialTapTargetSize,
+      title: title,
+      subtitle: subtitle,
+      isThreeLine: isThreeLine,
+      dense: dense,
+      secondary: secondary,
+      selected: selected ?? false,
+      controlAffinity: controlAffinity,
+      autofocus: autofocus ?? false,
+      contentPadding: contentPadding,
+      shape: shape,
+      tileColor: tileColor,
+      selectedTileColor: selectedTileColor,
+      visualDensity: visualDensity,
+      focusNode: focusNode,
+      statesController: statesController,
+      onFocusChange: onFocusChange == null
+          ? null
+          : (bool p0) async {
+              D4.callInterpreterCallback(visitor, onFocusChange, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      enableFeedback: enableFeedback,
+      horizontalTitleGap: (horizontalTitleGap as num?)?.toDouble(),
+      minVerticalPadding: (minVerticalPadding as num?)?.toDouble(),
+      minLeadingWidth: (minLeadingWidth as num?)?.toDouble(),
+      minTileHeight: (minTileHeight as num?)?.toDouble(),
+      radioScaleFactor: (radioScaleFactor as num?)?.toDouble() ?? 1.0,
+      enabled: enabled,
+      useCupertinoCheckmarkStyle: useCupertinoCheckmarkStyle ?? false,
+      titleAlignment: titleAlignment,
+      internalAddSemanticForOnTap: internalAddSemanticForOnTap ?? false,
+      radioBackgroundColor: radioBackgroundColor,
+      radioSide: radioSide,
+      radioInnerRadius: radioInnerRadius,
+    ),
+    'HitTestResponse' => RadioListTile<HitTestResponse>.adaptive(
+      key: key,
+      value: value as HitTestResponse,
+      groupValue: groupValue as HitTestResponse?,
+      onChanged: onChanged == null
+          ? null
+          : (HitTestResponse? p0) async {
               D4.callInterpreterCallback(visitor, onChanged, [p0]);
               await Future.delayed(const Duration(milliseconds: 1));
             },
@@ -1888523,6 +1891965,38 @@ Object? _rc2RadioMenuButton(
       closeOnActivate: closeOnActivate ?? true,
       child: child,
     ),
+    'ContextMenuButtonKind' => RadioMenuButton<ContextMenuButtonKind>(
+      key: key,
+      value: value as ContextMenuButtonKind,
+      groupValue: groupValue as ContextMenuButtonKind?,
+      onChanged: onChanged == null
+          ? null
+          : (ContextMenuButtonKind? p0) async {
+              D4.callInterpreterCallback(visitor, onChanged, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      toggleable: toggleable ?? false,
+      onHover: onHover == null
+          ? null
+          : (bool p0) async {
+              D4.callInterpreterCallback(visitor, onHover, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onFocusChange: onFocusChange == null
+          ? null
+          : (bool p0) async {
+              D4.callInterpreterCallback(visitor, onFocusChange, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      focusNode: focusNode,
+      shortcut: shortcut,
+      style: style,
+      statesController: statesController,
+      clipBehavior: clipBehavior ?? Clip.none,
+      trailingIcon: trailingIcon,
+      closeOnActivate: closeOnActivate ?? true,
+      child: child,
+    ),
     'ContextMenuController' => RadioMenuButton<ContextMenuController>(
       key: key,
       value: value as ContextMenuController,
@@ -1900035,6 +1903509,70 @@ Object? _rc2RadioMenuButton(
       onChanged: onChanged == null
           ? null
           : (HitTestEntry? p0) async {
+              D4.callInterpreterCallback(visitor, onChanged, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      toggleable: toggleable ?? false,
+      onHover: onHover == null
+          ? null
+          : (bool p0) async {
+              D4.callInterpreterCallback(visitor, onHover, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onFocusChange: onFocusChange == null
+          ? null
+          : (bool p0) async {
+              D4.callInterpreterCallback(visitor, onFocusChange, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      focusNode: focusNode,
+      shortcut: shortcut,
+      style: style,
+      statesController: statesController,
+      clipBehavior: clipBehavior ?? Clip.none,
+      trailingIcon: trailingIcon,
+      closeOnActivate: closeOnActivate ?? true,
+      child: child,
+    ),
+    'HitTestRequest' => RadioMenuButton<HitTestRequest>(
+      key: key,
+      value: value as HitTestRequest,
+      groupValue: groupValue as HitTestRequest?,
+      onChanged: onChanged == null
+          ? null
+          : (HitTestRequest? p0) async {
+              D4.callInterpreterCallback(visitor, onChanged, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      toggleable: toggleable ?? false,
+      onHover: onHover == null
+          ? null
+          : (bool p0) async {
+              D4.callInterpreterCallback(visitor, onHover, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onFocusChange: onFocusChange == null
+          ? null
+          : (bool p0) async {
+              D4.callInterpreterCallback(visitor, onFocusChange, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      focusNode: focusNode,
+      shortcut: shortcut,
+      style: style,
+      statesController: statesController,
+      clipBehavior: clipBehavior ?? Clip.none,
+      trailingIcon: trailingIcon,
+      closeOnActivate: closeOnActivate ?? true,
+      child: child,
+    ),
+    'HitTestResponse' => RadioMenuButton<HitTestResponse>(
+      key: key,
+      value: value as HitTestResponse,
+      groupValue: groupValue as HitTestResponse?,
+      onChanged: onChanged == null
+          ? null
+          : (HitTestResponse? p0) async {
               D4.callInterpreterCallback(visitor, onChanged, [p0]);
               await Future.delayed(const Duration(milliseconds: 1));
             },
@@ -1942385,6 +1945923,46 @@ Object? _rc2RawDialogRoute(
       directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
       fullscreenDialog: fullscreenDialog ?? false,
     ),
+    'ContextMenuButtonKind' => RawDialogRoute<ContextMenuButtonKind>(
+      pageBuilder:
+          (BuildContext p0, Animation<double> p1, Animation<double> p2) {
+            return D4.extractBridgedArg<Widget>(
+              D4.callInterpreterCallback(visitor, pageBuilder, [p0, p1, p2]),
+              'callback',
+              visitor,
+            );
+          },
+      barrierDismissible: barrierDismissible ?? true,
+      barrierColor: barrierColor,
+      barrierLabel: barrierLabel,
+      transitionDuration:
+          transitionDuration ?? const Duration(milliseconds: 200),
+      transitionBuilder: transitionBuilder == null
+          ? null
+          : (
+              BuildContext p0,
+              Animation<double> p1,
+              Animation<double> p2,
+              Widget p3,
+            ) {
+              return D4.extractBridgedArg<Widget>(
+                D4.callInterpreterCallback(visitor, transitionBuilder, [
+                  p0,
+                  p1,
+                  p2,
+                  p3,
+                ]),
+                'callback',
+                visitor,
+              );
+            },
+      settings: settings,
+      requestFocus: requestFocus,
+      anchorPoint: anchorPoint,
+      traversalEdgeBehavior: traversalEdgeBehavior,
+      directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
+      fullscreenDialog: fullscreenDialog ?? false,
+    ),
     'ContextMenuController' => RawDialogRoute<ContextMenuController>(
       pageBuilder:
           (BuildContext p0, Animation<double> p1, Animation<double> p2) {
@@ -1956735,6 +1960313,86 @@ Object? _rc2RawDialogRoute(
       fullscreenDialog: fullscreenDialog ?? false,
     ),
     'HitTestEntry' => RawDialogRoute<HitTestEntry>(
+      pageBuilder:
+          (BuildContext p0, Animation<double> p1, Animation<double> p2) {
+            return D4.extractBridgedArg<Widget>(
+              D4.callInterpreterCallback(visitor, pageBuilder, [p0, p1, p2]),
+              'callback',
+              visitor,
+            );
+          },
+      barrierDismissible: barrierDismissible ?? true,
+      barrierColor: barrierColor,
+      barrierLabel: barrierLabel,
+      transitionDuration:
+          transitionDuration ?? const Duration(milliseconds: 200),
+      transitionBuilder: transitionBuilder == null
+          ? null
+          : (
+              BuildContext p0,
+              Animation<double> p1,
+              Animation<double> p2,
+              Widget p3,
+            ) {
+              return D4.extractBridgedArg<Widget>(
+                D4.callInterpreterCallback(visitor, transitionBuilder, [
+                  p0,
+                  p1,
+                  p2,
+                  p3,
+                ]),
+                'callback',
+                visitor,
+              );
+            },
+      settings: settings,
+      requestFocus: requestFocus,
+      anchorPoint: anchorPoint,
+      traversalEdgeBehavior: traversalEdgeBehavior,
+      directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
+      fullscreenDialog: fullscreenDialog ?? false,
+    ),
+    'HitTestRequest' => RawDialogRoute<HitTestRequest>(
+      pageBuilder:
+          (BuildContext p0, Animation<double> p1, Animation<double> p2) {
+            return D4.extractBridgedArg<Widget>(
+              D4.callInterpreterCallback(visitor, pageBuilder, [p0, p1, p2]),
+              'callback',
+              visitor,
+            );
+          },
+      barrierDismissible: barrierDismissible ?? true,
+      barrierColor: barrierColor,
+      barrierLabel: barrierLabel,
+      transitionDuration:
+          transitionDuration ?? const Duration(milliseconds: 200),
+      transitionBuilder: transitionBuilder == null
+          ? null
+          : (
+              BuildContext p0,
+              Animation<double> p1,
+              Animation<double> p2,
+              Widget p3,
+            ) {
+              return D4.extractBridgedArg<Widget>(
+                D4.callInterpreterCallback(visitor, transitionBuilder, [
+                  p0,
+                  p1,
+                  p2,
+                  p3,
+                ]),
+                'callback',
+                visitor,
+              );
+            },
+      settings: settings,
+      requestFocus: requestFocus,
+      anchorPoint: anchorPoint,
+      traversalEdgeBehavior: traversalEdgeBehavior,
+      directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
+      fullscreenDialog: fullscreenDialog ?? false,
+    ),
+    'HitTestResponse' => RawDialogRoute<HitTestResponse>(
       pageBuilder:
           (BuildContext p0, Animation<double> p1, Animation<double> p2) {
             return D4.extractBridgedArg<Widget>(
@@ -2002608,6 +2006266,27 @@ Object? _rc2RawRadio(
         );
       },
     ),
+    'ContextMenuButtonKind' => RawRadio<ContextMenuButtonKind>(
+      key: key,
+      value: value as ContextMenuButtonKind,
+      mouseCursor: mouseCursor!,
+      toggleable: toggleable!,
+      focusNode: focusNode!,
+      autofocus: autofocus!,
+      groupRegistry: D4
+          .extractBridgedArg<RadioGroupRegistry<ContextMenuButtonKind>?>(
+            groupRegistry,
+            'groupRegistry',
+          ),
+      enabled: enabled!,
+      builder: (BuildContext p0, ToggleableStateMixin<StatefulWidget> p1) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0, p1]),
+          'callback',
+          visitor,
+        );
+      },
+    ),
     'ContextMenuController' => RawRadio<ContextMenuController>(
       key: key,
       value: value as ContextMenuController,
@@ -2009986,6 +2013665,46 @@ Object? _rc2RawRadio(
       focusNode: focusNode!,
       autofocus: autofocus!,
       groupRegistry: D4.extractBridgedArg<RadioGroupRegistry<HitTestEntry>?>(
+        groupRegistry,
+        'groupRegistry',
+      ),
+      enabled: enabled!,
+      builder: (BuildContext p0, ToggleableStateMixin<StatefulWidget> p1) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0, p1]),
+          'callback',
+          visitor,
+        );
+      },
+    ),
+    'HitTestRequest' => RawRadio<HitTestRequest>(
+      key: key,
+      value: value as HitTestRequest,
+      mouseCursor: mouseCursor!,
+      toggleable: toggleable!,
+      focusNode: focusNode!,
+      autofocus: autofocus!,
+      groupRegistry: D4.extractBridgedArg<RadioGroupRegistry<HitTestRequest>?>(
+        groupRegistry,
+        'groupRegistry',
+      ),
+      enabled: enabled!,
+      builder: (BuildContext p0, ToggleableStateMixin<StatefulWidget> p1) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0, p1]),
+          'callback',
+          visitor,
+        );
+      },
+    ),
+    'HitTestResponse' => RawRadio<HitTestResponse>(
+      key: key,
+      value: value as HitTestResponse,
+      mouseCursor: mouseCursor!,
+      toggleable: toggleable!,
+      focusNode: focusNode!,
+      autofocus: autofocus!,
+      groupRegistry: D4.extractBridgedArg<RadioGroupRegistry<HitTestResponse>?>(
         groupRegistry,
         'groupRegistry',
       ),
@@ -2037743,6 +2041462,28 @@ Object? _rc2RestorableRouteFuture(
               await Future.delayed(const Duration(milliseconds: 1));
             },
     ),
+    'ContextMenuButtonKind' => RestorableRouteFuture<ContextMenuButtonKind>(
+      navigatorFinder: (BuildContext p0) {
+        return D4.extractBridgedArg<NavigatorState>(
+          D4.callInterpreterCallback(visitor, navigatorFinder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      onPresent: (NavigatorState p0, Object? p1) {
+        return D4.extractBridgedArg<String>(
+          D4.callInterpreterCallback(visitor, onPresent, [p0, p1]),
+          'callback',
+          visitor,
+        );
+      },
+      onComplete: onComplete == null
+          ? null
+          : (ContextMenuButtonKind p0) async {
+              D4.callInterpreterCallback(visitor, onComplete, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+    ),
     'ContextMenuController' => RestorableRouteFuture<ContextMenuController>(
       navigatorFinder: (BuildContext p0) {
         return D4.extractBridgedArg<NavigatorState>(
@@ -2045718,6 +2049459,50 @@ Object? _rc2RestorableRouteFuture(
       onComplete: onComplete == null
           ? null
           : (HitTestEntry p0) async {
+              D4.callInterpreterCallback(visitor, onComplete, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+    ),
+    'HitTestRequest' => RestorableRouteFuture<HitTestRequest>(
+      navigatorFinder: (BuildContext p0) {
+        return D4.extractBridgedArg<NavigatorState>(
+          D4.callInterpreterCallback(visitor, navigatorFinder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      onPresent: (NavigatorState p0, Object? p1) {
+        return D4.extractBridgedArg<String>(
+          D4.callInterpreterCallback(visitor, onPresent, [p0, p1]),
+          'callback',
+          visitor,
+        );
+      },
+      onComplete: onComplete == null
+          ? null
+          : (HitTestRequest p0) async {
+              D4.callInterpreterCallback(visitor, onComplete, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+    ),
+    'HitTestResponse' => RestorableRouteFuture<HitTestResponse>(
+      navigatorFinder: (BuildContext p0) {
+        return D4.extractBridgedArg<NavigatorState>(
+          D4.callInterpreterCallback(visitor, navigatorFinder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      onPresent: (NavigatorState p0, Object? p1) {
+        return D4.extractBridgedArg<String>(
+          D4.callInterpreterCallback(visitor, onPresent, [p0, p1]),
+          'callback',
+          visitor,
+        );
+      },
+      onComplete: onComplete == null
+          ? null
+          : (HitTestResponse p0) async {
               D4.callInterpreterCallback(visitor, onComplete, [p0]);
               await Future.delayed(const Duration(milliseconds: 1));
             },
@@ -2069191,6 +2072976,9 @@ Object? _rc2ReverseTween(
     'ContextMenuButtonItem' => ReverseTween<ContextMenuButtonItem>(
       D4.extractBridgedArg<Tween<ContextMenuButtonItem>>(parent, 'parent'),
     ),
+    'ContextMenuButtonKind' => ReverseTween<ContextMenuButtonKind>(
+      D4.extractBridgedArg<Tween<ContextMenuButtonKind>>(parent, 'parent'),
+    ),
     'ContextMenuController' => ReverseTween<ContextMenuController>(
       D4.extractBridgedArg<Tween<ContextMenuController>>(parent, 'parent'),
     ),
@@ -2070512,6 +2074300,12 @@ Object? _rc2ReverseTween(
     ),
     'HitTestEntry' => ReverseTween<HitTestEntry>(
       D4.extractBridgedArg<Tween<HitTestEntry>>(parent, 'parent'),
+    ),
+    'HitTestRequest' => ReverseTween<HitTestRequest>(
+      D4.extractBridgedArg<Tween<HitTestRequest>>(parent, 'parent'),
+    ),
+    'HitTestResponse' => ReverseTween<HitTestResponse>(
+      D4.extractBridgedArg<Tween<HitTestResponse>>(parent, 'parent'),
     ),
     'HitTestResult' => ReverseTween<HitTestResult>(
       D4.extractBridgedArg<Tween<HitTestResult>>(parent, 'parent'),
@@ -2077672,6 +2081466,22 @@ Object? _rc2Router(
       backButtonDispatcher: backButtonDispatcher,
       restorationScopeId: restorationScopeId,
     ),
+    'ContextMenuButtonKind' => Router<ContextMenuButtonKind>(
+      key: key,
+      routeInformationProvider: routeInformationProvider,
+      routeInformationParser: D4
+          .extractBridgedArg<RouteInformationParser<ContextMenuButtonKind>?>(
+            routeInformationParser,
+            'routeInformationParser',
+          ),
+      routerDelegate: D4
+          .extractBridgedArg<RouterDelegate<ContextMenuButtonKind>>(
+            routerDelegate,
+            'routerDelegate',
+          ),
+      backButtonDispatcher: backButtonDispatcher,
+      restorationScopeId: restorationScopeId,
+    ),
     'ContextMenuController' => Router<ContextMenuController>(
       key: key,
       routeInformationProvider: routeInformationProvider,
@@ -2083136,6 +2086946,36 @@ Object? _rc2Router(
             'routeInformationParser',
           ),
       routerDelegate: D4.extractBridgedArg<RouterDelegate<HitTestEntry>>(
+        routerDelegate,
+        'routerDelegate',
+      ),
+      backButtonDispatcher: backButtonDispatcher,
+      restorationScopeId: restorationScopeId,
+    ),
+    'HitTestRequest' => Router<HitTestRequest>(
+      key: key,
+      routeInformationProvider: routeInformationProvider,
+      routeInformationParser: D4
+          .extractBridgedArg<RouteInformationParser<HitTestRequest>?>(
+            routeInformationParser,
+            'routeInformationParser',
+          ),
+      routerDelegate: D4.extractBridgedArg<RouterDelegate<HitTestRequest>>(
+        routerDelegate,
+        'routerDelegate',
+      ),
+      backButtonDispatcher: backButtonDispatcher,
+      restorationScopeId: restorationScopeId,
+    ),
+    'HitTestResponse' => Router<HitTestResponse>(
+      key: key,
+      routeInformationProvider: routeInformationProvider,
+      routeInformationParser: D4
+          .extractBridgedArg<RouteInformationParser<HitTestResponse>?>(
+            routeInformationParser,
+            'routeInformationParser',
+          ),
+      routerDelegate: D4.extractBridgedArg<RouterDelegate<HitTestResponse>>(
         routerDelegate,
         'routerDelegate',
       ),
@@ -2101800,6 +2105640,20 @@ Object? _rc2RouterConfig(
           ),
       backButtonDispatcher: backButtonDispatcher,
     ),
+    'ContextMenuButtonKind' => RouterConfig<ContextMenuButtonKind>(
+      routeInformationProvider: routeInformationProvider,
+      routeInformationParser: D4
+          .extractBridgedArg<RouteInformationParser<ContextMenuButtonKind>?>(
+            routeInformationParser,
+            'routeInformationParser',
+          ),
+      routerDelegate: D4
+          .extractBridgedArg<RouterDelegate<ContextMenuButtonKind>>(
+            routerDelegate,
+            'routerDelegate',
+          ),
+      backButtonDispatcher: backButtonDispatcher,
+    ),
     'ContextMenuController' => RouterConfig<ContextMenuController>(
       routeInformationProvider: routeInformationProvider,
       routeInformationParser: D4
@@ -2106564,6 +2110418,32 @@ Object? _rc2RouterConfig(
             'routeInformationParser',
           ),
       routerDelegate: D4.extractBridgedArg<RouterDelegate<HitTestEntry>>(
+        routerDelegate,
+        'routerDelegate',
+      ),
+      backButtonDispatcher: backButtonDispatcher,
+    ),
+    'HitTestRequest' => RouterConfig<HitTestRequest>(
+      routeInformationProvider: routeInformationProvider,
+      routeInformationParser: D4
+          .extractBridgedArg<RouteInformationParser<HitTestRequest>?>(
+            routeInformationParser,
+            'routeInformationParser',
+          ),
+      routerDelegate: D4.extractBridgedArg<RouterDelegate<HitTestRequest>>(
+        routerDelegate,
+        'routerDelegate',
+      ),
+      backButtonDispatcher: backButtonDispatcher,
+    ),
+    'HitTestResponse' => RouterConfig<HitTestResponse>(
+      routeInformationProvider: routeInformationProvider,
+      routeInformationParser: D4
+          .extractBridgedArg<RouteInformationParser<HitTestResponse>?>(
+            routeInformationParser,
+            'routeInformationParser',
+          ),
+      routerDelegate: D4.extractBridgedArg<RouterDelegate<HitTestResponse>>(
         routerDelegate,
         'routerDelegate',
       ),
@@ -2124985,6 +2128865,27 @@ Object? _rc2SegmentedButton(
       selectedIcon: selectedIcon,
       direction: direction ?? Axis.horizontal,
     ),
+    'ContextMenuButtonKind' => SegmentedButton<ContextMenuButtonKind>(
+      key: key,
+      segments: D4.coerceList<ButtonSegment<ContextMenuButtonKind>>(
+        segments,
+        'segments',
+      ),
+      selected: D4.coerceSet<ContextMenuButtonKind>(selected, 'selected'),
+      onSelectionChanged: onSelectionChanged == null
+          ? null
+          : (Set<ContextMenuButtonKind> p0) async {
+              D4.callInterpreterCallback(visitor, onSelectionChanged, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      multiSelectionEnabled: multiSelectionEnabled ?? false,
+      emptySelectionAllowed: emptySelectionAllowed ?? false,
+      expandedInsets: expandedInsets,
+      style: style,
+      showSelectedIcon: showSelectedIcon ?? true,
+      selectedIcon: selectedIcon,
+      direction: direction ?? Axis.horizontal,
+    ),
     'ContextMenuController' => SegmentedButton<ContextMenuController>(
       key: key,
       segments: D4.coerceList<ButtonSegment<ContextMenuController>>(
@@ -2132630,6 +2136531,48 @@ Object? _rc2SegmentedButton(
       onSelectionChanged: onSelectionChanged == null
           ? null
           : (Set<HitTestEntry> p0) async {
+              D4.callInterpreterCallback(visitor, onSelectionChanged, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      multiSelectionEnabled: multiSelectionEnabled ?? false,
+      emptySelectionAllowed: emptySelectionAllowed ?? false,
+      expandedInsets: expandedInsets,
+      style: style,
+      showSelectedIcon: showSelectedIcon ?? true,
+      selectedIcon: selectedIcon,
+      direction: direction ?? Axis.horizontal,
+    ),
+    'HitTestRequest' => SegmentedButton<HitTestRequest>(
+      key: key,
+      segments: D4.coerceList<ButtonSegment<HitTestRequest>>(
+        segments,
+        'segments',
+      ),
+      selected: D4.coerceSet<HitTestRequest>(selected, 'selected'),
+      onSelectionChanged: onSelectionChanged == null
+          ? null
+          : (Set<HitTestRequest> p0) async {
+              D4.callInterpreterCallback(visitor, onSelectionChanged, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      multiSelectionEnabled: multiSelectionEnabled ?? false,
+      emptySelectionAllowed: emptySelectionAllowed ?? false,
+      expandedInsets: expandedInsets,
+      style: style,
+      showSelectedIcon: showSelectedIcon ?? true,
+      selectedIcon: selectedIcon,
+      direction: direction ?? Axis.horizontal,
+    ),
+    'HitTestResponse' => SegmentedButton<HitTestResponse>(
+      key: key,
+      segments: D4.coerceList<ButtonSegment<HitTestResponse>>(
+        segments,
+        'segments',
+      ),
+      selected: D4.coerceSet<HitTestResponse>(selected, 'selected'),
+      onSelectionChanged: onSelectionChanged == null
+          ? null
+          : (Set<HitTestResponse> p0) async {
               D4.callInterpreterCallback(visitor, onSelectionChanged, [p0]);
               await Future.delayed(const Duration(milliseconds: 1));
             },
@@ -2154348,6 +2158291,7 @@ Object? _rc2SegmentedButtonState(
     'ContentInsertionConfiguration' =>
       SegmentedButtonState<ContentInsertionConfiguration>(),
     'ContextMenuButtonItem' => SegmentedButtonState<ContextMenuButtonItem>(),
+    'ContextMenuButtonKind' => SegmentedButtonState<ContextMenuButtonKind>(),
     'ContextMenuController' => SegmentedButtonState<ContextMenuController>(),
     'ContinuousRectangleBorder' =>
       SegmentedButtonState<ContinuousRectangleBorder>(),
@@ -2154816,6 +2158760,8 @@ Object? _rc2SegmentedButtonState(
     'HeroControllerScope' => SegmentedButtonState<HeroControllerScope>(),
     'HeroMode' => SegmentedButtonState<HeroMode>(),
     'HitTestEntry' => SegmentedButtonState<HitTestEntry>(),
+    'HitTestRequest' => SegmentedButtonState<HitTestRequest>(),
+    'HitTestResponse' => SegmentedButtonState<HitTestResponse>(),
     'HitTestResult' => SegmentedButtonState<HitTestResult>(),
     'HoldScrollActivity' => SegmentedButtonState<HoldScrollActivity>(),
     'HorizontalDragGestureRecognizer' =>
@@ -2159268,6 +2163214,20 @@ Object? _rc2StreamBuilder(
         (v) => v as ContextMenuButtonItem,
       ),
       builder: (BuildContext p0, AsyncSnapshot<ContextMenuButtonItem> p1) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0, p1]),
+          'callback',
+          visitor,
+        );
+      },
+    ),
+    'ContextMenuButtonKind' => StreamBuilder<ContextMenuButtonKind>(
+      key: key,
+      initialData: initialData as ContextMenuButtonKind?,
+      stream: (stream as Stream?)?.map<ContextMenuButtonKind>(
+        (v) => v as ContextMenuButtonKind,
+      ),
+      builder: (BuildContext p0, AsyncSnapshot<ContextMenuButtonKind> p1) {
         return D4.extractBridgedArg<Widget>(
           D4.callInterpreterCallback(visitor, builder, [p0, p1]),
           'callback',
@@ -2164407,6 +2168367,34 @@ Object? _rc2StreamBuilder(
       initialData: initialData as HitTestEntry?,
       stream: (stream as Stream?)?.map<HitTestEntry>((v) => v as HitTestEntry),
       builder: (BuildContext p0, AsyncSnapshot<HitTestEntry> p1) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0, p1]),
+          'callback',
+          visitor,
+        );
+      },
+    ),
+    'HitTestRequest' => StreamBuilder<HitTestRequest>(
+      key: key,
+      initialData: initialData as HitTestRequest?,
+      stream: (stream as Stream?)?.map<HitTestRequest>(
+        (v) => v as HitTestRequest,
+      ),
+      builder: (BuildContext p0, AsyncSnapshot<HitTestRequest> p1) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0, p1]),
+          'callback',
+          visitor,
+        );
+      },
+    ),
+    'HitTestResponse' => StreamBuilder<HitTestResponse>(
+      key: key,
+      initialData: initialData as HitTestResponse?,
+      stream: (stream as Stream?)?.map<HitTestResponse>(
+        (v) => v as HitTestResponse,
+      ),
+      builder: (BuildContext p0, AsyncSnapshot<HitTestResponse> p1) {
         return D4.extractBridgedArg<Widget>(
           D4.callInterpreterCallback(visitor, builder, [p0, p1]),
           'callback',
@@ -2179324,6 +2183312,9 @@ Object? _rc2SynchronousFuture(
     'ContextMenuButtonItem' => SynchronousFuture<ContextMenuButtonItem>(
       _value as ContextMenuButtonItem,
     ),
+    'ContextMenuButtonKind' => SynchronousFuture<ContextMenuButtonKind>(
+      _value as ContextMenuButtonKind,
+    ),
     'ContextMenuController' => SynchronousFuture<ContextMenuController>(
       _value as ContextMenuController,
     ),
@@ -2180321,6 +2184312,12 @@ Object? _rc2SynchronousFuture(
     ),
     'HeroMode' => SynchronousFuture<HeroMode>(_value as HeroMode),
     'HitTestEntry' => SynchronousFuture<HitTestEntry>(_value as HitTestEntry),
+    'HitTestRequest' => SynchronousFuture<HitTestRequest>(
+      _value as HitTestRequest,
+    ),
+    'HitTestResponse' => SynchronousFuture<HitTestResponse>(
+      _value as HitTestResponse,
+    ),
     'HitTestResult' => SynchronousFuture<HitTestResult>(
       _value as HitTestResult,
     ),
@@ -2196803,6 +2200800,64 @@ Object? _rc2TreeSliver(
     'ContextMenuButtonItem' => TreeSliver<ContextMenuButtonItem>(
       key: key,
       tree: D4.coerceList<TreeSliverNode<ContextMenuButtonItem>>(tree, 'tree'),
+      treeNodeBuilder:
+          (BuildContext p0, TreeSliverNode<Object?> p1, AnimationStyle p2) {
+            return D4.extractBridgedArg<Widget>(
+              D4.callInterpreterCallback(visitor, treeNodeBuilder, [
+                p0,
+                p1,
+                p2,
+              ]),
+              'callback',
+              visitor,
+            );
+          },
+      treeRowExtentBuilder:
+          (TreeSliverNode<Object?> p0, SliverLayoutDimensions p1) {
+            return D4.extractBridgedArg<double>(
+              D4.callInterpreterCallback(visitor, treeRowExtentBuilder, [
+                p0,
+                p1,
+              ]),
+              'callback',
+              visitor,
+            );
+          },
+      controller: controller,
+      onNodeToggle: onNodeToggle == null
+          ? null
+          : (TreeSliverNode<Object?> p0) async {
+              D4.callInterpreterCallback(visitor, onNodeToggle, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      toggleAnimationStyle: toggleAnimationStyle,
+      indentation: indentation ?? TreeSliverIndentationType.standard,
+      addAutomaticKeepAlives: addAutomaticKeepAlives ?? true,
+      addRepaintBoundaries: addRepaintBoundaries ?? true,
+      addSemanticIndexes: addSemanticIndexes ?? true,
+      semanticIndexCallback: (Widget p0, int p1) {
+        return D4.extractBridgedArg<int>(
+          D4.callInterpreterCallback(visitor, semanticIndexCallback, [p0, p1]),
+          'callback',
+          visitor,
+        );
+      },
+      semanticIndexOffset: semanticIndexOffset ?? 0,
+      findChildIndexCallback: findChildIndexCallback == null
+          ? null
+          : (Key p0) {
+              return D4.extractBridgedArg<int>(
+                D4.callInterpreterCallback(visitor, findChildIndexCallback, [
+                  p0,
+                ]),
+                'callback',
+                visitor,
+              );
+            },
+    ),
+    'ContextMenuButtonKind' => TreeSliver<ContextMenuButtonKind>(
+      key: key,
+      tree: D4.coerceList<TreeSliverNode<ContextMenuButtonKind>>(tree, 'tree'),
       treeNodeBuilder:
           (BuildContext p0, TreeSliverNode<Object?> p1, AnimationStyle p2) {
             return D4.extractBridgedArg<Widget>(
@@ -2218095,6 +2222150,122 @@ Object? _rc2TreeSliver(
     'HitTestEntry' => TreeSliver<HitTestEntry>(
       key: key,
       tree: D4.coerceList<TreeSliverNode<HitTestEntry>>(tree, 'tree'),
+      treeNodeBuilder:
+          (BuildContext p0, TreeSliverNode<Object?> p1, AnimationStyle p2) {
+            return D4.extractBridgedArg<Widget>(
+              D4.callInterpreterCallback(visitor, treeNodeBuilder, [
+                p0,
+                p1,
+                p2,
+              ]),
+              'callback',
+              visitor,
+            );
+          },
+      treeRowExtentBuilder:
+          (TreeSliverNode<Object?> p0, SliverLayoutDimensions p1) {
+            return D4.extractBridgedArg<double>(
+              D4.callInterpreterCallback(visitor, treeRowExtentBuilder, [
+                p0,
+                p1,
+              ]),
+              'callback',
+              visitor,
+            );
+          },
+      controller: controller,
+      onNodeToggle: onNodeToggle == null
+          ? null
+          : (TreeSliverNode<Object?> p0) async {
+              D4.callInterpreterCallback(visitor, onNodeToggle, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      toggleAnimationStyle: toggleAnimationStyle,
+      indentation: indentation ?? TreeSliverIndentationType.standard,
+      addAutomaticKeepAlives: addAutomaticKeepAlives ?? true,
+      addRepaintBoundaries: addRepaintBoundaries ?? true,
+      addSemanticIndexes: addSemanticIndexes ?? true,
+      semanticIndexCallback: (Widget p0, int p1) {
+        return D4.extractBridgedArg<int>(
+          D4.callInterpreterCallback(visitor, semanticIndexCallback, [p0, p1]),
+          'callback',
+          visitor,
+        );
+      },
+      semanticIndexOffset: semanticIndexOffset ?? 0,
+      findChildIndexCallback: findChildIndexCallback == null
+          ? null
+          : (Key p0) {
+              return D4.extractBridgedArg<int>(
+                D4.callInterpreterCallback(visitor, findChildIndexCallback, [
+                  p0,
+                ]),
+                'callback',
+                visitor,
+              );
+            },
+    ),
+    'HitTestRequest' => TreeSliver<HitTestRequest>(
+      key: key,
+      tree: D4.coerceList<TreeSliverNode<HitTestRequest>>(tree, 'tree'),
+      treeNodeBuilder:
+          (BuildContext p0, TreeSliverNode<Object?> p1, AnimationStyle p2) {
+            return D4.extractBridgedArg<Widget>(
+              D4.callInterpreterCallback(visitor, treeNodeBuilder, [
+                p0,
+                p1,
+                p2,
+              ]),
+              'callback',
+              visitor,
+            );
+          },
+      treeRowExtentBuilder:
+          (TreeSliverNode<Object?> p0, SliverLayoutDimensions p1) {
+            return D4.extractBridgedArg<double>(
+              D4.callInterpreterCallback(visitor, treeRowExtentBuilder, [
+                p0,
+                p1,
+              ]),
+              'callback',
+              visitor,
+            );
+          },
+      controller: controller,
+      onNodeToggle: onNodeToggle == null
+          ? null
+          : (TreeSliverNode<Object?> p0) async {
+              D4.callInterpreterCallback(visitor, onNodeToggle, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      toggleAnimationStyle: toggleAnimationStyle,
+      indentation: indentation ?? TreeSliverIndentationType.standard,
+      addAutomaticKeepAlives: addAutomaticKeepAlives ?? true,
+      addRepaintBoundaries: addRepaintBoundaries ?? true,
+      addSemanticIndexes: addSemanticIndexes ?? true,
+      semanticIndexCallback: (Widget p0, int p1) {
+        return D4.extractBridgedArg<int>(
+          D4.callInterpreterCallback(visitor, semanticIndexCallback, [p0, p1]),
+          'callback',
+          visitor,
+        );
+      },
+      semanticIndexOffset: semanticIndexOffset ?? 0,
+      findChildIndexCallback: findChildIndexCallback == null
+          ? null
+          : (Key p0) {
+              return D4.extractBridgedArg<int>(
+                D4.callInterpreterCallback(visitor, findChildIndexCallback, [
+                  p0,
+                ]),
+                'callback',
+                visitor,
+              );
+            },
+    ),
+    'HitTestResponse' => TreeSliver<HitTestResponse>(
+      key: key,
+      tree: D4.coerceList<TreeSliverNode<HitTestResponse>>(tree, 'tree'),
       treeNodeBuilder:
           (BuildContext p0, TreeSliverNode<Object?> p1, AnimationStyle p2) {
             return D4.extractBridgedArg<Widget>(
@@ -2280390,6 +2284561,14 @@ Object? _rc2TreeSliverNode(
       ),
       expanded: expanded ?? false,
     ),
+    'ContextMenuButtonKind' => TreeSliverNode<ContextMenuButtonKind>(
+      content as ContextMenuButtonKind,
+      children: D4.coerceListOrNull<TreeSliverNode<ContextMenuButtonKind>>(
+        children,
+        'children',
+      ),
+      expanded: expanded ?? false,
+    ),
     'ContextMenuController' => TreeSliverNode<ContextMenuController>(
       content as ContextMenuController,
       children: D4.coerceListOrNull<TreeSliverNode<ContextMenuController>>(
@@ -2283349,6 +2287528,22 @@ Object? _rc2TreeSliverNode(
     'HitTestEntry' => TreeSliverNode<HitTestEntry>(
       content as HitTestEntry,
       children: D4.coerceListOrNull<TreeSliverNode<HitTestEntry>>(
+        children,
+        'children',
+      ),
+      expanded: expanded ?? false,
+    ),
+    'HitTestRequest' => TreeSliverNode<HitTestRequest>(
+      content as HitTestRequest,
+      children: D4.coerceListOrNull<TreeSliverNode<HitTestRequest>>(
+        children,
+        'children',
+      ),
+      expanded: expanded ?? false,
+    ),
+    'HitTestResponse' => TreeSliverNode<HitTestResponse>(
+      content as HitTestResponse,
+      children: D4.coerceListOrNull<TreeSliverNode<HitTestResponse>>(
         children,
         'children',
       ),
@@ -2292622,6 +2296817,10 @@ Object? _rc2Tween(
       begin: begin as ContextMenuButtonItem?,
       end: end as ContextMenuButtonItem?,
     ),
+    'ContextMenuButtonKind' => Tween<ContextMenuButtonKind>(
+      begin: begin as ContextMenuButtonKind?,
+      end: end as ContextMenuButtonKind?,
+    ),
     'ContextMenuController' => Tween<ContextMenuController>(
       begin: begin as ContextMenuController?,
       end: end as ContextMenuController?,
@@ -2294054,6 +2298253,14 @@ Object? _rc2Tween(
     'HitTestEntry' => Tween<HitTestEntry>(
       begin: begin as HitTestEntry?,
       end: end as HitTestEntry?,
+    ),
+    'HitTestRequest' => Tween<HitTestRequest>(
+      begin: begin as HitTestRequest?,
+      end: end as HitTestRequest?,
+    ),
+    'HitTestResponse' => Tween<HitTestResponse>(
+      begin: begin as HitTestResponse?,
+      end: end as HitTestResponse?,
     ),
     'HitTestResult' => Tween<HitTestResult>(
       begin: begin as HitTestResult?,
@@ -2302951,6 +2307158,26 @@ Object? _rc2TweenAnimationBuilder(
             },
       child: child,
     ),
+    'ContextMenuButtonKind' => TweenAnimationBuilder<ContextMenuButtonKind>(
+      key: key,
+      tween: D4.extractBridgedArg<Tween<ContextMenuButtonKind>>(tween, 'tween'),
+      duration: duration!,
+      curve: curve ?? Curves.linear,
+      builder: (BuildContext p0, ContextMenuButtonKind p1, Widget? p2) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0, p1, p2]),
+          'callback',
+          visitor,
+        );
+      },
+      onEnd: onEnd == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onEnd, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      child: child,
+    ),
     'ContextMenuController' => TweenAnimationBuilder<ContextMenuController>(
       key: key,
       tween: D4.extractBridgedArg<Tween<ContextMenuController>>(tween, 'tween'),
@@ -2310741,6 +2314968,46 @@ Object? _rc2TweenAnimationBuilder(
       duration: duration!,
       curve: curve ?? Curves.linear,
       builder: (BuildContext p0, HitTestEntry p1, Widget? p2) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0, p1, p2]),
+          'callback',
+          visitor,
+        );
+      },
+      onEnd: onEnd == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onEnd, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      child: child,
+    ),
+    'HitTestRequest' => TweenAnimationBuilder<HitTestRequest>(
+      key: key,
+      tween: D4.extractBridgedArg<Tween<HitTestRequest>>(tween, 'tween'),
+      duration: duration!,
+      curve: curve ?? Curves.linear,
+      builder: (BuildContext p0, HitTestRequest p1, Widget? p2) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0, p1, p2]),
+          'callback',
+          visitor,
+        );
+      },
+      onEnd: onEnd == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onEnd, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      child: child,
+    ),
+    'HitTestResponse' => TweenAnimationBuilder<HitTestResponse>(
+      key: key,
+      tween: D4.extractBridgedArg<Tween<HitTestResponse>>(tween, 'tween'),
+      duration: duration!,
+      curve: curve ?? Curves.linear,
+      builder: (BuildContext p0, HitTestResponse p1, Widget? p2) {
         return D4.extractBridgedArg<Widget>(
           D4.callInterpreterCallback(visitor, builder, [p0, p1, p2]),
           'callback',
@@ -2333269,6 +2337536,9 @@ Object? _rc2TweenSequence(
     'ContextMenuButtonItem' => TweenSequence<ContextMenuButtonItem>(
       D4.coerceList<TweenSequenceItem<ContextMenuButtonItem>>(items, 'items'),
     ),
+    'ContextMenuButtonKind' => TweenSequence<ContextMenuButtonKind>(
+      D4.coerceList<TweenSequenceItem<ContextMenuButtonKind>>(items, 'items'),
+    ),
     'ContextMenuController' => TweenSequence<ContextMenuController>(
       D4.coerceList<TweenSequenceItem<ContextMenuController>>(items, 'items'),
     ),
@@ -2334674,6 +2338944,12 @@ Object? _rc2TweenSequence(
     ),
     'HitTestEntry' => TweenSequence<HitTestEntry>(
       D4.coerceList<TweenSequenceItem<HitTestEntry>>(items, 'items'),
+    ),
+    'HitTestRequest' => TweenSequence<HitTestRequest>(
+      D4.coerceList<TweenSequenceItem<HitTestRequest>>(items, 'items'),
+    ),
+    'HitTestResponse' => TweenSequence<HitTestResponse>(
+      D4.coerceList<TweenSequenceItem<HitTestResponse>>(items, 'items'),
     ),
     'HitTestResult' => TweenSequence<HitTestResult>(
       D4.coerceList<TweenSequenceItem<HitTestResult>>(items, 'items'),
@@ -2339696,6 +2343972,13 @@ Object? _rc2TweenSequenceItem(
       ),
       weight: (weight as num).toDouble(),
     ),
+    'ContextMenuButtonKind' => TweenSequenceItem<ContextMenuButtonKind>(
+      tween: D4.extractBridgedArg<Animatable<ContextMenuButtonKind>>(
+        tween,
+        'tween',
+      ),
+      weight: (weight as num).toDouble(),
+    ),
     'ContextMenuController' => TweenSequenceItem<ContextMenuController>(
       tween: D4.extractBridgedArg<Animatable<ContextMenuController>>(
         tween,
@@ -2341848,6 +2346131,14 @@ Object? _rc2TweenSequenceItem(
     ),
     'HitTestEntry' => TweenSequenceItem<HitTestEntry>(
       tween: D4.extractBridgedArg<Animatable<HitTestEntry>>(tween, 'tween'),
+      weight: (weight as num).toDouble(),
+    ),
+    'HitTestRequest' => TweenSequenceItem<HitTestRequest>(
+      tween: D4.extractBridgedArg<Animatable<HitTestRequest>>(tween, 'tween'),
+      weight: (weight as num).toDouble(),
+    ),
+    'HitTestResponse' => TweenSequenceItem<HitTestResponse>(
+      tween: D4.extractBridgedArg<Animatable<HitTestResponse>>(tween, 'tween'),
       weight: (weight as num).toDouble(),
     ),
     'HitTestResult' => TweenSequenceItem<HitTestResult>(
@@ -2355721,6 +2360012,41 @@ Object? _rc2UndoHistory(
       controller: controller,
       child: child!,
     ),
+    'ContextMenuButtonKind' => UndoHistory<ContextMenuButtonKind>(
+      key: key,
+      shouldChangeUndoStack: shouldChangeUndoStack == null
+          ? null
+          : (ContextMenuButtonKind? p0, ContextMenuButtonKind p1) {
+              return D4.extractBridgedArg<bool>(
+                D4.callInterpreterCallback(visitor, shouldChangeUndoStack, [
+                  p0,
+                  p1,
+                ]),
+                'callback',
+                visitor,
+              );
+            },
+      value: D4.extractBridgedArg<ValueNotifier<ContextMenuButtonKind>>(
+        value,
+        'value',
+      ),
+      onTriggered: (ContextMenuButtonKind p0) async {
+        D4.callInterpreterCallback(visitor, onTriggered, [p0]);
+        await Future.delayed(const Duration(milliseconds: 1));
+      },
+      focusNode: focusNode!,
+      undoStackModifier: undoStackModifier == null
+          ? null
+          : (ContextMenuButtonKind p0) {
+              return D4.extractBridgedArg<ContextMenuButtonKind>(
+                D4.callInterpreterCallback(visitor, undoStackModifier, [p0]),
+                'callback',
+                visitor,
+              );
+            },
+      controller: controller,
+      child: child!,
+    ),
     'ContextMenuController' => UndoHistory<ContextMenuController>(
       key: key,
       shouldChangeUndoStack: shouldChangeUndoStack == null
@@ -2368283,6 +2372609,76 @@ Object? _rc2UndoHistory(
           ? null
           : (HitTestEntry p0) {
               return D4.extractBridgedArg<HitTestEntry>(
+                D4.callInterpreterCallback(visitor, undoStackModifier, [p0]),
+                'callback',
+                visitor,
+              );
+            },
+      controller: controller,
+      child: child!,
+    ),
+    'HitTestRequest' => UndoHistory<HitTestRequest>(
+      key: key,
+      shouldChangeUndoStack: shouldChangeUndoStack == null
+          ? null
+          : (HitTestRequest? p0, HitTestRequest p1) {
+              return D4.extractBridgedArg<bool>(
+                D4.callInterpreterCallback(visitor, shouldChangeUndoStack, [
+                  p0,
+                  p1,
+                ]),
+                'callback',
+                visitor,
+              );
+            },
+      value: D4.extractBridgedArg<ValueNotifier<HitTestRequest>>(
+        value,
+        'value',
+      ),
+      onTriggered: (HitTestRequest p0) async {
+        D4.callInterpreterCallback(visitor, onTriggered, [p0]);
+        await Future.delayed(const Duration(milliseconds: 1));
+      },
+      focusNode: focusNode!,
+      undoStackModifier: undoStackModifier == null
+          ? null
+          : (HitTestRequest p0) {
+              return D4.extractBridgedArg<HitTestRequest>(
+                D4.callInterpreterCallback(visitor, undoStackModifier, [p0]),
+                'callback',
+                visitor,
+              );
+            },
+      controller: controller,
+      child: child!,
+    ),
+    'HitTestResponse' => UndoHistory<HitTestResponse>(
+      key: key,
+      shouldChangeUndoStack: shouldChangeUndoStack == null
+          ? null
+          : (HitTestResponse? p0, HitTestResponse p1) {
+              return D4.extractBridgedArg<bool>(
+                D4.callInterpreterCallback(visitor, shouldChangeUndoStack, [
+                  p0,
+                  p1,
+                ]),
+                'callback',
+                visitor,
+              );
+            },
+      value: D4.extractBridgedArg<ValueNotifier<HitTestResponse>>(
+        value,
+        'value',
+      ),
+      onTriggered: (HitTestResponse p0) async {
+        D4.callInterpreterCallback(visitor, onTriggered, [p0]);
+        await Future.delayed(const Duration(milliseconds: 1));
+      },
+      focusNode: focusNode!,
+      undoStackModifier: undoStackModifier == null
+          ? null
+          : (HitTestResponse p0) {
+              return D4.extractBridgedArg<HitTestResponse>(
                 D4.callInterpreterCallback(visitor, undoStackModifier, [p0]),
                 'callback',
                 visitor,
@@ -2403985,6 +2408381,7 @@ Object? _rc2UndoHistoryState(
     'ContentInsertionConfiguration' =>
       UndoHistoryState<ContentInsertionConfiguration>(),
     'ContextMenuButtonItem' => UndoHistoryState<ContextMenuButtonItem>(),
+    'ContextMenuButtonKind' => UndoHistoryState<ContextMenuButtonKind>(),
     'ContextMenuController' => UndoHistoryState<ContextMenuController>(),
     'ContinuousRectangleBorder' =>
       UndoHistoryState<ContinuousRectangleBorder>(),
@@ -2404430,6 +2408827,8 @@ Object? _rc2UndoHistoryState(
     'HeroControllerScope' => UndoHistoryState<HeroControllerScope>(),
     'HeroMode' => UndoHistoryState<HeroMode>(),
     'HitTestEntry' => UndoHistoryState<HitTestEntry>(),
+    'HitTestRequest' => UndoHistoryState<HitTestRequest>(),
+    'HitTestResponse' => UndoHistoryState<HitTestResponse>(),
     'HitTestResult' => UndoHistoryState<HitTestResult>(),
     'HoldScrollActivity' => UndoHistoryState<HoldScrollActivity>(),
     'HorizontalDragGestureRecognizer' =>
@@ -2406080,6 +2410479,9 @@ Object? _rc2ValueKey(
     'ContextMenuButtonItem' => ValueKey<ContextMenuButtonItem>(
       value as ContextMenuButtonItem,
     ),
+    'ContextMenuButtonKind' => ValueKey<ContextMenuButtonKind>(
+      value as ContextMenuButtonKind,
+    ),
     'ContextMenuController' => ValueKey<ContextMenuController>(
       value as ContextMenuController,
     ),
@@ -2406897,6 +2411299,8 @@ Object? _rc2ValueKey(
     ),
     'HeroMode' => ValueKey<HeroMode>(value as HeroMode),
     'HitTestEntry' => ValueKey<HitTestEntry>(value as HitTestEntry),
+    'HitTestRequest' => ValueKey<HitTestRequest>(value as HitTestRequest),
+    'HitTestResponse' => ValueKey<HitTestResponse>(value as HitTestResponse),
     'HitTestResult' => ValueKey<HitTestResult>(value as HitTestResult),
     'HoldScrollActivity' => ValueKey<HoldScrollActivity>(
       value as HoldScrollActivity,
@@ -2412721,6 +2417125,22 @@ Object? _rc2ValueListenableBuilder(
       },
       child: child,
     ),
+    'ContextMenuButtonKind' => ValueListenableBuilder<ContextMenuButtonKind>(
+      key: key,
+      valueListenable: D4
+          .extractBridgedArg<ValueListenable<ContextMenuButtonKind>>(
+            valueListenable,
+            'valueListenable',
+          ),
+      builder: (BuildContext p0, ContextMenuButtonKind p1, Widget? p2) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0, p1, p2]),
+          'callback',
+          visitor,
+        );
+      },
+      child: child,
+    ),
     'ContextMenuController' => ValueListenableBuilder<ContextMenuController>(
       key: key,
       valueListenable: D4
@@ -2418517,6 +2422937,36 @@ Object? _rc2ValueListenableBuilder(
         'valueListenable',
       ),
       builder: (BuildContext p0, HitTestEntry p1, Widget? p2) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0, p1, p2]),
+          'callback',
+          visitor,
+        );
+      },
+      child: child,
+    ),
+    'HitTestRequest' => ValueListenableBuilder<HitTestRequest>(
+      key: key,
+      valueListenable: D4.extractBridgedArg<ValueListenable<HitTestRequest>>(
+        valueListenable,
+        'valueListenable',
+      ),
+      builder: (BuildContext p0, HitTestRequest p1, Widget? p2) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0, p1, p2]),
+          'callback',
+          visitor,
+        );
+      },
+      child: child,
+    ),
+    'HitTestResponse' => ValueListenableBuilder<HitTestResponse>(
+      key: key,
+      valueListenable: D4.extractBridgedArg<ValueListenable<HitTestResponse>>(
+        valueListenable,
+        'valueListenable',
+      ),
+      builder: (BuildContext p0, HitTestResponse p1, Widget? p2) {
         return D4.extractBridgedArg<Widget>(
           D4.callInterpreterCallback(visitor, builder, [p0, p1, p2]),
           'callback',
@@ -2435246,6 +2439696,9 @@ Object? _rc2ValueNotifier(
     'ContextMenuButtonItem' => ValueNotifier<ContextMenuButtonItem>(
       _value as ContextMenuButtonItem,
     ),
+    'ContextMenuButtonKind' => ValueNotifier<ContextMenuButtonKind>(
+      _value as ContextMenuButtonKind,
+    ),
     'ContextMenuController' => ValueNotifier<ContextMenuController>(
       _value as ContextMenuController,
     ),
@@ -2436169,6 +2440622,10 @@ Object? _rc2ValueNotifier(
     ),
     'HeroMode' => ValueNotifier<HeroMode>(_value as HeroMode),
     'HitTestEntry' => ValueNotifier<HitTestEntry>(_value as HitTestEntry),
+    'HitTestRequest' => ValueNotifier<HitTestRequest>(_value as HitTestRequest),
+    'HitTestResponse' => ValueNotifier<HitTestResponse>(
+      _value as HitTestResponse,
+    ),
     'HitTestResult' => ValueNotifier<HitTestResult>(_value as HitTestResult),
     'HoldScrollActivity' => ValueNotifier<HoldScrollActivity>(
       _value as HoldScrollActivity,
@@ -2439431,6 +2443888,9 @@ Object? _rc2WidgetStateMapper(
     'ContextMenuButtonItem' => WidgetStateMapper<ContextMenuButtonItem>(
       D4.coerceMap<WidgetStatesConstraint, ContextMenuButtonItem>(map, 'map'),
     ),
+    'ContextMenuButtonKind' => WidgetStateMapper<ContextMenuButtonKind>(
+      D4.coerceMap<WidgetStatesConstraint, ContextMenuButtonKind>(map, 'map'),
+    ),
     'ContextMenuController' => WidgetStateMapper<ContextMenuController>(
       D4.coerceMap<WidgetStatesConstraint, ContextMenuController>(map, 'map'),
     ),
@@ -2440866,6 +2445326,12 @@ Object? _rc2WidgetStateMapper(
     ),
     'HitTestEntry' => WidgetStateMapper<HitTestEntry>(
       D4.coerceMap<WidgetStatesConstraint, HitTestEntry>(map, 'map'),
+    ),
+    'HitTestRequest' => WidgetStateMapper<HitTestRequest>(
+      D4.coerceMap<WidgetStatesConstraint, HitTestRequest>(map, 'map'),
+    ),
+    'HitTestResponse' => WidgetStateMapper<HitTestResponse>(
+      D4.coerceMap<WidgetStatesConstraint, HitTestResponse>(map, 'map'),
     ),
     'HitTestResult' => WidgetStateMapper<HitTestResult>(
       D4.coerceMap<WidgetStatesConstraint, HitTestResult>(map, 'map'),
@@ -2445310,6 +2449776,9 @@ Object? _rc2WidgetStatePropertyAll(
     'ContextMenuButtonItem' => WidgetStatePropertyAll<ContextMenuButtonItem>(
       value as ContextMenuButtonItem,
     ),
+    'ContextMenuButtonKind' => WidgetStatePropertyAll<ContextMenuButtonKind>(
+      value as ContextMenuButtonKind,
+    ),
     'ContextMenuController' => WidgetStatePropertyAll<ContextMenuController>(
       value as ContextMenuController,
     ),
@@ -2446377,6 +2450846,12 @@ Object? _rc2WidgetStatePropertyAll(
     'HeroMode' => WidgetStatePropertyAll<HeroMode>(value as HeroMode),
     'HitTestEntry' => WidgetStatePropertyAll<HitTestEntry>(
       value as HitTestEntry,
+    ),
+    'HitTestRequest' => WidgetStatePropertyAll<HitTestRequest>(
+      value as HitTestRequest,
+    ),
+    'HitTestResponse' => WidgetStatePropertyAll<HitTestResponse>(
+      value as HitTestResponse,
     ),
     'HitTestResult' => WidgetStatePropertyAll<HitTestResult>(
       value as HitTestResult,

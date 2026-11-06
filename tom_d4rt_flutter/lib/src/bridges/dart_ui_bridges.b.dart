@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Source: dart:ui
-// Generated: 2026-09-30T19:18:42.458034 by tom_d4rt_generator 1.51.0
+// Generated: 2026-11-06T10:32:50.221692 by tom_d4rt_generator 1.52.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -104,6 +104,8 @@ class DartUiBridge {
       _createLocaleBridge(),
       _createSemanticsActionEventBridge(),
       _createViewFocusEventBridge(),
+      _createHitTestRequestBridge(),
+      _createHitTestResponseBridge(),
       _createCallbackHandleBridge(),
       _createPluginUtilitiesBridge(),
       _createPointerDataBridge(),
@@ -222,6 +224,8 @@ class DartUiBridge {
       'Locale': _createLocaleBridge,
       'SemanticsActionEvent': _createSemanticsActionEventBridge,
       'ViewFocusEvent': _createViewFocusEventBridge,
+      'HitTestRequest': _createHitTestRequestBridge,
+      'HitTestResponse': _createHitTestResponseBridge,
       'CallbackHandle': _createCallbackHandleBridge,
       'PluginUtilities': _createPluginUtilitiesBridge,
       'PointerData': _createPointerDataBridge,
@@ -338,6 +342,8 @@ class DartUiBridge {
       'Locale': $dart_ui.Locale,
       'SemanticsActionEvent': $dart_ui.SemanticsActionEvent,
       'ViewFocusEvent': $dart_ui.ViewFocusEvent,
+      'HitTestRequest': $dart_ui.HitTestRequest,
+      'HitTestResponse': $dart_ui.HitTestResponse,
       'CallbackHandle': $dart_ui.CallbackHandle,
       'PluginUtilities': $dart_ui.PluginUtilities,
       'PointerData': $dart_ui.PointerData,
@@ -455,6 +461,8 @@ class DartUiBridge {
       'Locale': 'dart:ui',
       'SemanticsActionEvent': 'dart:ui',
       'ViewFocusEvent': 'dart:ui',
+      'HitTestRequest': 'dart:ui',
+      'HitTestResponse': 'dart:ui',
       'CallbackHandle': 'dart:ui',
       'PluginUtilities': 'dart:ui',
       'PointerData': 'dart:ui',
@@ -569,6 +577,7 @@ class DartUiBridge {
       'PointerDataPacketCallback',
       'KeyDataCallback',
       'SemanticsActionEventCallback',
+      'HitTestCallback',
       'PlatformMessageResponseCallback',
       'ErrorCallback',
       'ViewFocusChangeCallback',
@@ -592,6 +601,7 @@ class DartUiBridge {
       'PointerDataPacketCallback': (required: 1, max: 1),
       'KeyDataCallback': (required: 1, max: 1),
       'SemanticsActionEventCallback': (required: 1, max: 1),
+      'HitTestCallback': (required: 1, max: 1),
       'PlatformMessageResponseCallback': (required: 1, max: 1),
       'ErrorCallback': (required: 2, max: 2),
       'ViewFocusChangeCallback': (required: 1, max: 1),
@@ -9832,6 +9842,12 @@ BridgedClass _createPlatformDispatcherBridge() {
             'PlatformDispatcher',
           )
           .onSemanticsActionEvent,
+      'onHitTest': (visitor, target) => D4
+          .validateTarget<$dart_ui.PlatformDispatcher>(
+            target,
+            'PlatformDispatcher',
+          )
+          .onHitTest,
       'frameData': (visitor, target) => D4
           .validateTarget<$dart_ui.PlatformDispatcher>(
             target,
@@ -10161,6 +10177,30 @@ BridgedClass _createPlatformDispatcherBridge() {
                   [p0],
                 );
               };
+      },
+      'onHitTest': (visitor, target, value) {
+        final onHitTestRaw = D4.extractBridgedArgOrNull<dynamic>(
+          value,
+          'onHitTest',
+        );
+        D4
+            .validateTarget<$dart_ui.PlatformDispatcher>(
+              target,
+              'PlatformDispatcher',
+            )
+            .onHitTest = onHitTestRaw == null
+            ? null
+            : (($dart_ui.HitTestRequest p0) {
+                    return D4.extractBridgedArg<$dart_ui.HitTestResponse>(
+                          D4.callInterpreterCallback(visitor!, onHitTestRaw, [
+                            p0,
+                          ]),
+                          'callback',
+                          visitor,
+                        )
+                        as $dart_ui.HitTestResponse;
+                  })
+                  as $dart_ui.HitTestResponse Function($dart_ui.HitTestRequest);
       },
       'onFrameDataChanged': (visitor, target, value) {
         final onFrameDataChangedRaw = D4.extractBridgedArgOrNull<dynamic>(
@@ -10549,6 +10589,7 @@ BridgedClass _createPlatformDispatcherBridge() {
           'VoidCallback? get onSemanticsEnabledChanged',
       'onSemanticsActionEvent':
           'SemanticsActionEventCallback? get onSemanticsActionEvent',
+      'onHitTest': 'HitTestCallback? get onHitTest',
       'frameData': 'FrameData get frameData',
       'onFrameDataChanged': 'VoidCallback? get onFrameDataChanged',
       'onError': 'ErrorCallback? get onError',
@@ -10581,6 +10622,7 @@ BridgedClass _createPlatformDispatcherBridge() {
           'set onSemanticsEnabledChanged(VoidCallback? value)',
       'onSemanticsActionEvent':
           'set onSemanticsActionEvent(SemanticsActionEventCallback? value)',
+      'onHitTest': 'set onHitTest(HitTestCallback? value)',
       'onFrameDataChanged': 'set onFrameDataChanged(VoidCallback? value)',
       'onError': 'set onError(ErrorCallback? value)',
     },
@@ -11598,6 +11640,81 @@ BridgedClass _createViewFocusEventBridge() {
       'state': 'ViewFocusState get state',
       'direction': 'ViewFocusDirection get direction',
     },
+  );
+}
+
+// =============================================================================
+// HitTestRequest Bridge
+// =============================================================================
+
+BridgedClass _createHitTestRequestBridge() {
+  return BridgedClass(
+    nativeType: $dart_ui.HitTestRequest,
+    name: 'HitTestRequest',
+    isAssignable: (v) => v is $dart_ui.HitTestRequest,
+    constructors: {
+      '': (visitor, positional, named) {
+        final view = D4.getRequiredNamedArg<$dart_ui.FlutterView>(
+          named,
+          'view',
+          'HitTestRequest',
+        );
+        final offset = D4.getRequiredNamedArg<$dart_ui.Offset>(
+          named,
+          'offset',
+          'HitTestRequest',
+        );
+        return $dart_ui.HitTestRequest(view: view, offset: offset);
+      },
+    },
+    getters: {
+      'view': (visitor, target) => D4
+          .validateTarget<$dart_ui.HitTestRequest>(target, 'HitTestRequest')
+          .view,
+      'offset': (visitor, target) => D4
+          .validateTarget<$dart_ui.HitTestRequest>(target, 'HitTestRequest')
+          .offset,
+    },
+    constructorSignatures: {
+      '': 'const HitTestRequest({required FlutterView view, required Offset offset})',
+    },
+    getterSignatures: {
+      'view': 'FlutterView get view',
+      'offset': 'Offset get offset',
+    },
+  );
+}
+
+// =============================================================================
+// HitTestResponse Bridge
+// =============================================================================
+
+BridgedClass _createHitTestResponseBridge() {
+  return BridgedClass(
+    nativeType: $dart_ui.HitTestResponse,
+    name: 'HitTestResponse',
+    isAssignable: (v) => v is $dart_ui.HitTestResponse,
+    constructors: {
+      '': (visitor, positional, named) {
+        final hasPlatformView = D4.getRequiredNamedArg<bool>(
+          named,
+          'hasPlatformView',
+          'HitTestResponse',
+        );
+        return $dart_ui.HitTestResponse(hasPlatformView: hasPlatformView);
+      },
+    },
+    getters: {
+      'hasPlatformView': (visitor, target) => D4
+          .validateTarget<$dart_ui.HitTestResponse>(target, 'HitTestResponse')
+          .hasPlatformView,
+    },
+    staticGetters: {'empty': (visitor) => $dart_ui.HitTestResponse.empty},
+    constructorSignatures: {
+      '': 'const HitTestResponse({required bool hasPlatformView})',
+    },
+    getterSignatures: {'hasPlatformView': 'bool get hasPlatformView'},
+    staticGetterSignatures: {'empty': 'HitTestResponse get empty'},
   );
 }
 

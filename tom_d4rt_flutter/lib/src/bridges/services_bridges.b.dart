@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
-// Sources: 43 files
-// Generated: 2026-09-30T19:19:11.648371 by tom_d4rt_generator 1.51.0
+// Sources: 44 files
+// Generated: 2026-11-06T10:36:31.206262 by tom_d4rt_generator 1.52.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -20,50 +20,51 @@ import 'package:flutter/src/foundation/serialization.dart' as $flutter_6;
 import 'package:flutter/src/gestures/events.dart' as $flutter_7;
 import 'package:flutter/src/scheduler/binding.dart' as $flutter_8;
 import 'package:flutter/src/scheduler/priority.dart' as $flutter_9;
-import 'package:flutter/src/services/asset_bundle.dart' as $flutter_10;
-import 'package:flutter/src/services/asset_manifest.dart' as $flutter_11;
-import 'package:flutter/src/services/autofill.dart' as $flutter_12;
-import 'package:flutter/src/services/binary_messenger.dart' as $flutter_13;
-import 'package:flutter/src/services/binding.dart' as $flutter_14;
-import 'package:flutter/src/services/browser_context_menu.dart' as $flutter_15;
-import 'package:flutter/src/services/clipboard.dart' as $flutter_16;
-import 'package:flutter/src/services/debug.dart' as $flutter_17;
-import 'package:flutter/src/services/deferred_component.dart' as $flutter_18;
-import 'package:flutter/src/services/flavor.dart' as $flutter_19;
-import 'package:flutter/src/services/flutter_version.dart' as $flutter_20;
-import 'package:flutter/src/services/font_loader.dart' as $flutter_21;
-import 'package:flutter/src/services/haptic_feedback.dart' as $flutter_22;
-import 'package:flutter/src/services/hardware_keyboard.dart' as $flutter_23;
+import 'package:flutter/src/services/app_version.dart' as $flutter_10;
+import 'package:flutter/src/services/asset_bundle.dart' as $flutter_11;
+import 'package:flutter/src/services/asset_manifest.dart' as $flutter_12;
+import 'package:flutter/src/services/autofill.dart' as $flutter_13;
+import 'package:flutter/src/services/binary_messenger.dart' as $flutter_14;
+import 'package:flutter/src/services/binding.dart' as $flutter_15;
+import 'package:flutter/src/services/browser_context_menu.dart' as $flutter_16;
+import 'package:flutter/src/services/clipboard.dart' as $flutter_17;
+import 'package:flutter/src/services/debug.dart' as $flutter_18;
+import 'package:flutter/src/services/deferred_component.dart' as $flutter_19;
+import 'package:flutter/src/services/flavor.dart' as $flutter_20;
+import 'package:flutter/src/services/flutter_version.dart' as $flutter_21;
+import 'package:flutter/src/services/font_loader.dart' as $flutter_22;
+import 'package:flutter/src/services/haptic_feedback.dart' as $flutter_23;
+import 'package:flutter/src/services/hardware_keyboard.dart' as $flutter_24;
 import 'package:flutter/src/services/keyboard_inserted_content.dart'
-    as $flutter_24;
-import 'package:flutter/src/services/keyboard_key.g.dart' as $flutter_25;
-import 'package:flutter/src/services/keyboard_maps.g.dart' as $flutter_26;
-import 'package:flutter/src/services/live_text.dart' as $flutter_27;
-import 'package:flutter/src/services/message_codec.dart' as $flutter_28;
-import 'package:flutter/src/services/message_codecs.dart' as $flutter_29;
-import 'package:flutter/src/services/mouse_cursor.dart' as $flutter_30;
-import 'package:flutter/src/services/mouse_tracking.dart' as $flutter_31;
-import 'package:flutter/src/services/platform_channel.dart' as $flutter_32;
-import 'package:flutter/src/services/platform_views.dart' as $flutter_33;
-import 'package:flutter/src/services/predictive_back_event.dart' as $flutter_34;
-import 'package:flutter/src/services/process_text.dart' as $flutter_35;
-import 'package:flutter/src/services/raw_keyboard_macos.dart' as $flutter_36;
-import 'package:flutter/src/services/restoration.dart' as $flutter_37;
-import 'package:flutter/src/services/scribe.dart' as $flutter_38;
-import 'package:flutter/src/services/sensitive_content.dart' as $flutter_39;
-import 'package:flutter/src/services/service_extensions.dart' as $flutter_40;
-import 'package:flutter/src/services/spell_check.dart' as $flutter_41;
-import 'package:flutter/src/services/system_channels.dart' as $flutter_42;
-import 'package:flutter/src/services/system_chrome.dart' as $flutter_43;
-import 'package:flutter/src/services/system_navigator.dart' as $flutter_44;
-import 'package:flutter/src/services/system_sound.dart' as $flutter_45;
-import 'package:flutter/src/services/text_boundary.dart' as $flutter_46;
-import 'package:flutter/src/services/text_editing.dart' as $flutter_47;
-import 'package:flutter/src/services/text_editing_delta.dart' as $flutter_48;
-import 'package:flutter/src/services/text_formatter.dart' as $flutter_49;
-import 'package:flutter/src/services/text_input.dart' as $flutter_50;
-import 'package:flutter/src/services/text_layout_metrics.dart' as $flutter_51;
-import 'package:flutter/src/services/undo_manager.dart' as $flutter_52;
+    as $flutter_25;
+import 'package:flutter/src/services/keyboard_key.g.dart' as $flutter_26;
+import 'package:flutter/src/services/keyboard_maps.g.dart' as $flutter_27;
+import 'package:flutter/src/services/live_text.dart' as $flutter_28;
+import 'package:flutter/src/services/message_codec.dart' as $flutter_29;
+import 'package:flutter/src/services/message_codecs.dart' as $flutter_30;
+import 'package:flutter/src/services/mouse_cursor.dart' as $flutter_31;
+import 'package:flutter/src/services/mouse_tracking.dart' as $flutter_32;
+import 'package:flutter/src/services/platform_channel.dart' as $flutter_33;
+import 'package:flutter/src/services/platform_views.dart' as $flutter_34;
+import 'package:flutter/src/services/predictive_back_event.dart' as $flutter_35;
+import 'package:flutter/src/services/process_text.dart' as $flutter_36;
+import 'package:flutter/src/services/raw_keyboard_macos.dart' as $flutter_37;
+import 'package:flutter/src/services/restoration.dart' as $flutter_38;
+import 'package:flutter/src/services/scribe.dart' as $flutter_39;
+import 'package:flutter/src/services/sensitive_content.dart' as $flutter_40;
+import 'package:flutter/src/services/service_extensions.dart' as $flutter_41;
+import 'package:flutter/src/services/spell_check.dart' as $flutter_42;
+import 'package:flutter/src/services/system_channels.dart' as $flutter_43;
+import 'package:flutter/src/services/system_chrome.dart' as $flutter_44;
+import 'package:flutter/src/services/system_navigator.dart' as $flutter_45;
+import 'package:flutter/src/services/system_sound.dart' as $flutter_46;
+import 'package:flutter/src/services/text_boundary.dart' as $flutter_47;
+import 'package:flutter/src/services/text_editing.dart' as $flutter_48;
+import 'package:flutter/src/services/text_editing_delta.dart' as $flutter_49;
+import 'package:flutter/src/services/text_formatter.dart' as $flutter_50;
+import 'package:flutter/src/services/text_input.dart' as $flutter_51;
+import 'package:flutter/src/services/text_layout_metrics.dart' as $flutter_52;
+import 'package:flutter/src/services/undo_manager.dart' as $flutter_53;
 import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/basic_message_channel_user_bridge.dart'
     as $tom_d4rt_flutter_1;
 import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/state_user_bridge.dart'
@@ -363,144 +364,144 @@ class FlutterServicesBridge {
   /// lookup thunk without building the BridgedClass.
   static Map<String, Type> bridgeClassTypes() {
     return {
-      'AssetBundle': $flutter_10.AssetBundle,
-      'NetworkAssetBundle': $flutter_10.NetworkAssetBundle,
-      'CachingAssetBundle': $flutter_10.CachingAssetBundle,
-      'PlatformAssetBundle': $flutter_10.PlatformAssetBundle,
-      'AssetManifest': $flutter_11.AssetManifest,
-      'AssetMetadata': $flutter_11.AssetMetadata,
-      'AutofillHints': $flutter_12.AutofillHints,
-      'AutofillConfiguration': $flutter_12.AutofillConfiguration,
-      'AutofillClient': $flutter_12.AutofillClient,
-      'AutofillScope': $flutter_12.AutofillScope,
-      'AutofillScopeMixin': $flutter_12.AutofillScopeMixin,
-      'TextInputType': $flutter_50.TextInputType,
-      'TextInputConfiguration': $flutter_50.TextInputConfiguration,
-      'RawFloatingCursorPoint': $flutter_50.RawFloatingCursorPoint,
-      'TextEditingValue': $flutter_50.TextEditingValue,
-      'ScribbleClient': $flutter_50.ScribbleClient,
-      'SelectionRect': $flutter_50.SelectionRect,
-      'TextInputStyle': $flutter_50.TextInputStyle,
-      'TextInputConnection': $flutter_50.TextInputConnection,
-      'TextInput': $flutter_50.TextInput,
-      'SystemContextMenuController': $flutter_50.SystemContextMenuController,
-      'IOSSystemContextMenuItemData': $flutter_50.IOSSystemContextMenuItemData,
+      'AssetBundle': $flutter_11.AssetBundle,
+      'NetworkAssetBundle': $flutter_11.NetworkAssetBundle,
+      'CachingAssetBundle': $flutter_11.CachingAssetBundle,
+      'PlatformAssetBundle': $flutter_11.PlatformAssetBundle,
+      'AssetManifest': $flutter_12.AssetManifest,
+      'AssetMetadata': $flutter_12.AssetMetadata,
+      'AutofillHints': $flutter_13.AutofillHints,
+      'AutofillConfiguration': $flutter_13.AutofillConfiguration,
+      'AutofillClient': $flutter_13.AutofillClient,
+      'AutofillScope': $flutter_13.AutofillScope,
+      'AutofillScopeMixin': $flutter_13.AutofillScopeMixin,
+      'TextInputType': $flutter_51.TextInputType,
+      'TextInputConfiguration': $flutter_51.TextInputConfiguration,
+      'RawFloatingCursorPoint': $flutter_51.RawFloatingCursorPoint,
+      'TextEditingValue': $flutter_51.TextEditingValue,
+      'ScribbleClient': $flutter_51.ScribbleClient,
+      'SelectionRect': $flutter_51.SelectionRect,
+      'TextInputStyle': $flutter_51.TextInputStyle,
+      'TextInputConnection': $flutter_51.TextInputConnection,
+      'TextInput': $flutter_51.TextInput,
+      'SystemContextMenuController': $flutter_51.SystemContextMenuController,
+      'IOSSystemContextMenuItemData': $flutter_51.IOSSystemContextMenuItemData,
       'IOSSystemContextMenuItemDataCopy':
-          $flutter_50.IOSSystemContextMenuItemDataCopy,
+          $flutter_51.IOSSystemContextMenuItemDataCopy,
       'IOSSystemContextMenuItemDataCut':
-          $flutter_50.IOSSystemContextMenuItemDataCut,
+          $flutter_51.IOSSystemContextMenuItemDataCut,
       'IOSSystemContextMenuItemDataPaste':
-          $flutter_50.IOSSystemContextMenuItemDataPaste,
+          $flutter_51.IOSSystemContextMenuItemDataPaste,
       'IOSSystemContextMenuItemDataSelectAll':
-          $flutter_50.IOSSystemContextMenuItemDataSelectAll,
+          $flutter_51.IOSSystemContextMenuItemDataSelectAll,
       'IOSSystemContextMenuItemDataLookUp':
-          $flutter_50.IOSSystemContextMenuItemDataLookUp,
+          $flutter_51.IOSSystemContextMenuItemDataLookUp,
       'IOSSystemContextMenuItemDataSearchWeb':
-          $flutter_50.IOSSystemContextMenuItemDataSearchWeb,
+          $flutter_51.IOSSystemContextMenuItemDataSearchWeb,
       'IOSSystemContextMenuItemDataShare':
-          $flutter_50.IOSSystemContextMenuItemDataShare,
+          $flutter_51.IOSSystemContextMenuItemDataShare,
       'IOSSystemContextMenuItemDataLiveText':
-          $flutter_50.IOSSystemContextMenuItemDataLiveText,
+          $flutter_51.IOSSystemContextMenuItemDataLiveText,
       'IOSSystemContextMenuItemDataCustom':
-          $flutter_50.IOSSystemContextMenuItemDataCustom,
-      'TextSelectionDelegate': $flutter_50.TextSelectionDelegate,
-      'TextInputClient': $flutter_50.TextInputClient,
-      'DeltaTextInputClient': $flutter_50.DeltaTextInputClient,
-      'TextInputControl': $flutter_50.TextInputControl,
-      'TextEditingDelta': $flutter_48.TextEditingDelta,
-      'TextEditingDeltaInsertion': $flutter_48.TextEditingDeltaInsertion,
-      'TextEditingDeltaDeletion': $flutter_48.TextEditingDeltaDeletion,
-      'TextEditingDeltaReplacement': $flutter_48.TextEditingDeltaReplacement,
+          $flutter_51.IOSSystemContextMenuItemDataCustom,
+      'TextSelectionDelegate': $flutter_51.TextSelectionDelegate,
+      'TextInputClient': $flutter_51.TextInputClient,
+      'DeltaTextInputClient': $flutter_51.DeltaTextInputClient,
+      'TextInputControl': $flutter_51.TextInputControl,
+      'TextEditingDelta': $flutter_49.TextEditingDelta,
+      'TextEditingDeltaInsertion': $flutter_49.TextEditingDeltaInsertion,
+      'TextEditingDeltaDeletion': $flutter_49.TextEditingDeltaDeletion,
+      'TextEditingDeltaReplacement': $flutter_49.TextEditingDeltaReplacement,
       'TextEditingDeltaNonTextUpdate':
-          $flutter_48.TextEditingDeltaNonTextUpdate,
-      'BinaryMessenger': $flutter_13.BinaryMessenger,
-      'KeyboardKey': $flutter_25.KeyboardKey,
-      'LogicalKeyboardKey': $flutter_25.LogicalKeyboardKey,
-      'PhysicalKeyboardKey': $flutter_25.PhysicalKeyboardKey,
-      'KeyEvent': $flutter_23.KeyEvent,
-      'KeyDownEvent': $flutter_23.KeyDownEvent,
-      'KeyUpEvent': $flutter_23.KeyUpEvent,
-      'KeyRepeatEvent': $flutter_23.KeyRepeatEvent,
-      'HardwareKeyboard': $flutter_23.HardwareKeyboard,
-      'RestorationManager': $flutter_37.RestorationManager,
-      'RestorationBucket': $flutter_37.RestorationBucket,
-      'ServicesBinding': $flutter_14.ServicesBinding,
-      'SystemContextMenuClient': $flutter_14.SystemContextMenuClient,
-      'BrowserContextMenu': $flutter_15.BrowserContextMenu,
-      'ClipboardData': $flutter_16.ClipboardData,
-      'Clipboard': $flutter_16.Clipboard,
-      'DeferredComponent': $flutter_18.DeferredComponent,
-      'FlutterVersion': $flutter_20.FlutterVersion,
-      'FontLoader': $flutter_21.FontLoader,
-      'HapticFeedback': $flutter_22.HapticFeedback,
-      'KeyboardInsertedContent': $flutter_24.KeyboardInsertedContent,
-      'LiveText': $flutter_27.LiveText,
-      'MessageCodec': $flutter_28.MessageCodec,
-      'MethodCall': $flutter_28.MethodCall,
-      'MethodCodec': $flutter_28.MethodCodec,
-      'PlatformException': $flutter_28.PlatformException,
-      'MissingPluginException': $flutter_28.MissingPluginException,
-      'BinaryCodec': $flutter_29.BinaryCodec,
-      'StringCodec': $flutter_29.StringCodec,
-      'JSONMessageCodec': $flutter_29.JSONMessageCodec,
-      'JSONMethodCodec': $flutter_29.JSONMethodCodec,
-      'StandardMessageCodec': $flutter_29.StandardMessageCodec,
-      'StandardMethodCodec': $flutter_29.StandardMethodCodec,
+          $flutter_49.TextEditingDeltaNonTextUpdate,
+      'BinaryMessenger': $flutter_14.BinaryMessenger,
+      'KeyboardKey': $flutter_26.KeyboardKey,
+      'LogicalKeyboardKey': $flutter_26.LogicalKeyboardKey,
+      'PhysicalKeyboardKey': $flutter_26.PhysicalKeyboardKey,
+      'KeyEvent': $flutter_24.KeyEvent,
+      'KeyDownEvent': $flutter_24.KeyDownEvent,
+      'KeyUpEvent': $flutter_24.KeyUpEvent,
+      'KeyRepeatEvent': $flutter_24.KeyRepeatEvent,
+      'HardwareKeyboard': $flutter_24.HardwareKeyboard,
+      'RestorationManager': $flutter_38.RestorationManager,
+      'RestorationBucket': $flutter_38.RestorationBucket,
+      'ServicesBinding': $flutter_15.ServicesBinding,
+      'SystemContextMenuClient': $flutter_15.SystemContextMenuClient,
+      'BrowserContextMenu': $flutter_16.BrowserContextMenu,
+      'ClipboardData': $flutter_17.ClipboardData,
+      'Clipboard': $flutter_17.Clipboard,
+      'DeferredComponent': $flutter_19.DeferredComponent,
+      'FlutterVersion': $flutter_21.FlutterVersion,
+      'FontLoader': $flutter_22.FontLoader,
+      'HapticFeedback': $flutter_23.HapticFeedback,
+      'KeyboardInsertedContent': $flutter_25.KeyboardInsertedContent,
+      'LiveText': $flutter_28.LiveText,
+      'MessageCodec': $flutter_29.MessageCodec,
+      'MethodCall': $flutter_29.MethodCall,
+      'MethodCodec': $flutter_29.MethodCodec,
+      'PlatformException': $flutter_29.PlatformException,
+      'MissingPluginException': $flutter_29.MissingPluginException,
+      'BinaryCodec': $flutter_30.BinaryCodec,
+      'StringCodec': $flutter_30.StringCodec,
+      'JSONMessageCodec': $flutter_30.JSONMessageCodec,
+      'JSONMethodCodec': $flutter_30.JSONMethodCodec,
+      'StandardMessageCodec': $flutter_30.StandardMessageCodec,
+      'StandardMethodCodec': $flutter_30.StandardMethodCodec,
       'PointerEvent': $flutter_7.PointerEvent,
-      'MouseCursorManager': $flutter_30.MouseCursorManager,
-      'MouseCursorSession': $flutter_30.MouseCursorSession,
-      'MouseCursor': $flutter_30.MouseCursor,
-      'SystemMouseCursor': $flutter_30.SystemMouseCursor,
-      'SystemMouseCursors': $flutter_30.SystemMouseCursors,
-      'MouseTrackerAnnotation': $flutter_31.MouseTrackerAnnotation,
-      'BasicMessageChannel': $flutter_32.BasicMessageChannel,
-      'MethodChannel': $flutter_32.MethodChannel,
-      'OptionalMethodChannel': $flutter_32.OptionalMethodChannel,
-      'EventChannel': $flutter_32.EventChannel,
-      'PlatformViewsRegistry': $flutter_33.PlatformViewsRegistry,
-      'PlatformViewsService': $flutter_33.PlatformViewsService,
-      'AndroidPointerProperties': $flutter_33.AndroidPointerProperties,
-      'AndroidPointerCoords': $flutter_33.AndroidPointerCoords,
-      'AndroidMotionEvent': $flutter_33.AndroidMotionEvent,
-      'AndroidViewController': $flutter_33.AndroidViewController,
-      'SurfaceAndroidViewController': $flutter_33.SurfaceAndroidViewController,
+      'MouseCursorManager': $flutter_31.MouseCursorManager,
+      'MouseCursorSession': $flutter_31.MouseCursorSession,
+      'MouseCursor': $flutter_31.MouseCursor,
+      'SystemMouseCursor': $flutter_31.SystemMouseCursor,
+      'SystemMouseCursors': $flutter_31.SystemMouseCursors,
+      'MouseTrackerAnnotation': $flutter_32.MouseTrackerAnnotation,
+      'BasicMessageChannel': $flutter_33.BasicMessageChannel,
+      'MethodChannel': $flutter_33.MethodChannel,
+      'OptionalMethodChannel': $flutter_33.OptionalMethodChannel,
+      'EventChannel': $flutter_33.EventChannel,
+      'PlatformViewsRegistry': $flutter_34.PlatformViewsRegistry,
+      'PlatformViewsService': $flutter_34.PlatformViewsService,
+      'AndroidPointerProperties': $flutter_34.AndroidPointerProperties,
+      'AndroidPointerCoords': $flutter_34.AndroidPointerCoords,
+      'AndroidMotionEvent': $flutter_34.AndroidMotionEvent,
+      'AndroidViewController': $flutter_34.AndroidViewController,
+      'SurfaceAndroidViewController': $flutter_34.SurfaceAndroidViewController,
       'ExpensiveAndroidViewController':
-          $flutter_33.ExpensiveAndroidViewController,
-      'HybridAndroidViewController': $flutter_33.HybridAndroidViewController,
-      'TextureAndroidViewController': $flutter_33.TextureAndroidViewController,
-      'DarwinPlatformViewController': $flutter_33.DarwinPlatformViewController,
-      'UiKitViewController': $flutter_33.UiKitViewController,
-      'AppKitViewController': $flutter_33.AppKitViewController,
-      'PlatformViewController': $flutter_33.PlatformViewController,
-      'PredictiveBackEvent': $flutter_34.PredictiveBackEvent,
-      'ProcessTextAction': $flutter_35.ProcessTextAction,
-      'ProcessTextService': $flutter_35.ProcessTextService,
-      'DefaultProcessTextService': $flutter_35.DefaultProcessTextService,
-      'Scribe': $flutter_38.Scribe,
-      'SensitiveContentService': $flutter_39.SensitiveContentService,
-      'SuggestionSpan': $flutter_41.SuggestionSpan,
-      'SpellCheckResults': $flutter_41.SpellCheckResults,
-      'SpellCheckService': $flutter_41.SpellCheckService,
-      'DefaultSpellCheckService': $flutter_41.DefaultSpellCheckService,
-      'SystemChannels': $flutter_42.SystemChannels,
+          $flutter_34.ExpensiveAndroidViewController,
+      'HybridAndroidViewController': $flutter_34.HybridAndroidViewController,
+      'TextureAndroidViewController': $flutter_34.TextureAndroidViewController,
+      'DarwinPlatformViewController': $flutter_34.DarwinPlatformViewController,
+      'UiKitViewController': $flutter_34.UiKitViewController,
+      'AppKitViewController': $flutter_34.AppKitViewController,
+      'PlatformViewController': $flutter_34.PlatformViewController,
+      'PredictiveBackEvent': $flutter_35.PredictiveBackEvent,
+      'ProcessTextAction': $flutter_36.ProcessTextAction,
+      'ProcessTextService': $flutter_36.ProcessTextService,
+      'DefaultProcessTextService': $flutter_36.DefaultProcessTextService,
+      'Scribe': $flutter_39.Scribe,
+      'SensitiveContentService': $flutter_40.SensitiveContentService,
+      'SuggestionSpan': $flutter_42.SuggestionSpan,
+      'SpellCheckResults': $flutter_42.SpellCheckResults,
+      'SpellCheckService': $flutter_42.SpellCheckService,
+      'DefaultSpellCheckService': $flutter_42.DefaultSpellCheckService,
+      'SystemChannels': $flutter_43.SystemChannels,
       'ApplicationSwitcherDescription':
-          $flutter_43.ApplicationSwitcherDescription,
-      'SystemUiOverlayStyle': $flutter_43.SystemUiOverlayStyle,
-      'SystemChrome': $flutter_43.SystemChrome,
-      'SystemNavigator': $flutter_44.SystemNavigator,
-      'SystemSound': $flutter_45.SystemSound,
-      'TextBoundary': $flutter_46.TextBoundary,
-      'CharacterBoundary': $flutter_46.CharacterBoundary,
-      'LineBoundary': $flutter_46.LineBoundary,
-      'ParagraphBoundary': $flutter_46.ParagraphBoundary,
-      'DocumentBoundary': $flutter_46.DocumentBoundary,
-      'TextInputFormatter': $flutter_49.TextInputFormatter,
-      'FilteringTextInputFormatter': $flutter_49.FilteringTextInputFormatter,
+          $flutter_44.ApplicationSwitcherDescription,
+      'SystemUiOverlayStyle': $flutter_44.SystemUiOverlayStyle,
+      'SystemChrome': $flutter_44.SystemChrome,
+      'SystemNavigator': $flutter_45.SystemNavigator,
+      'SystemSound': $flutter_46.SystemSound,
+      'TextBoundary': $flutter_47.TextBoundary,
+      'CharacterBoundary': $flutter_47.CharacterBoundary,
+      'LineBoundary': $flutter_47.LineBoundary,
+      'ParagraphBoundary': $flutter_47.ParagraphBoundary,
+      'DocumentBoundary': $flutter_47.DocumentBoundary,
+      'TextInputFormatter': $flutter_50.TextInputFormatter,
+      'FilteringTextInputFormatter': $flutter_50.FilteringTextInputFormatter,
       'LengthLimitingTextInputFormatter':
-          $flutter_49.LengthLimitingTextInputFormatter,
-      'TextLayoutMetrics': $flutter_51.TextLayoutMetrics,
-      'UndoManager': $flutter_52.UndoManager,
-      'UndoManagerClient': $flutter_52.UndoManagerClient,
+          $flutter_50.LengthLimitingTextInputFormatter,
+      'TextLayoutMetrics': $flutter_52.TextLayoutMetrics,
+      'UndoManager': $flutter_53.UndoManager,
+      'UndoManagerClient': $flutter_53.UndoManagerClient,
     };
   }
 
@@ -947,85 +948,89 @@ class FlutterServicesBridge {
   /// Returns all bridged enum definitions.
   static List<BridgedEnumDefinition> bridgedEnums() {
     return [
-      BridgedEnumDefinition<$flutter_50.SmartDashesType>(
+      BridgedEnumDefinition<$flutter_51.SmartDashesType>(
         name: 'SmartDashesType',
-        values: $flutter_50.SmartDashesType.values,
+        values: $flutter_51.SmartDashesType.values,
       ),
-      BridgedEnumDefinition<$flutter_50.SmartQuotesType>(
+      BridgedEnumDefinition<$flutter_51.SmartQuotesType>(
         name: 'SmartQuotesType',
-        values: $flutter_50.SmartQuotesType.values,
+        values: $flutter_51.SmartQuotesType.values,
       ),
-      BridgedEnumDefinition<$flutter_50.TextInputAction>(
+      BridgedEnumDefinition<$flutter_51.TextInputAction>(
         name: 'TextInputAction',
-        values: $flutter_50.TextInputAction.values,
+        values: $flutter_51.TextInputAction.values,
       ),
-      BridgedEnumDefinition<$flutter_50.TextCapitalization>(
+      BridgedEnumDefinition<$flutter_51.TextCapitalization>(
         name: 'TextCapitalization',
-        values: $flutter_50.TextCapitalization.values,
+        values: $flutter_51.TextCapitalization.values,
       ),
-      BridgedEnumDefinition<$flutter_50.FloatingCursorDragState>(
+      BridgedEnumDefinition<$flutter_51.FloatingCursorDragState>(
         name: 'FloatingCursorDragState',
-        values: $flutter_50.FloatingCursorDragState.values,
+        values: $flutter_51.FloatingCursorDragState.values,
       ),
-      BridgedEnumDefinition<$flutter_50.SelectionChangedCause>(
+      BridgedEnumDefinition<$flutter_51.SelectionChangedCause>(
         name: 'SelectionChangedCause',
-        values: $flutter_50.SelectionChangedCause.values,
+        values: $flutter_51.SelectionChangedCause.values,
         staticGetters: {
-          'scribble': () => $flutter_50.SelectionChangedCause.scribble,
+          'scribble': () => $flutter_51.SelectionChangedCause.scribble,
         },
       ),
-      BridgedEnumDefinition<$flutter_23.KeyboardLockMode>(
+      BridgedEnumDefinition<$flutter_24.KeyboardLockMode>(
         name: 'KeyboardLockMode',
-        values: $flutter_23.KeyboardLockMode.values,
+        values: $flutter_24.KeyboardLockMode.values,
         getters: {
           'logicalKey': (visitor, target) =>
-              (target as $flutter_23.KeyboardLockMode).logicalKey,
+              (target as $flutter_24.KeyboardLockMode).logicalKey,
         },
         staticMethods: {
           'findLockByLogicalKey': (visitor, positional, named, typeArgs) {
             return Function.apply(
-              $flutter_23.KeyboardLockMode.findLockByLogicalKey,
+              $flutter_24.KeyboardLockMode.findLockByLogicalKey,
               positional,
               named.map((k, v) => MapEntry(Symbol(k), v)),
             );
           },
         },
       ),
-      BridgedEnumDefinition<$flutter_34.SwipeEdge>(
+      BridgedEnumDefinition<$flutter_34.UiKitViewGestureBlockingPolicy>(
+        name: 'UiKitViewGestureBlockingPolicy',
+        values: $flutter_34.UiKitViewGestureBlockingPolicy.values,
+      ),
+      BridgedEnumDefinition<$flutter_35.SwipeEdge>(
         name: 'SwipeEdge',
-        values: $flutter_34.SwipeEdge.values,
+        values: $flutter_35.SwipeEdge.values,
       ),
-      BridgedEnumDefinition<$flutter_39.ContentSensitivity>(
+      BridgedEnumDefinition<$flutter_40.ContentSensitivity>(
         name: 'ContentSensitivity',
-        values: $flutter_39.ContentSensitivity.values,
+        values: $flutter_40.ContentSensitivity.values,
       ),
-      BridgedEnumDefinition<$flutter_40.ServicesServiceExtensions>(
+      BridgedEnumDefinition<$flutter_41.ServicesServiceExtensions>(
         name: 'ServicesServiceExtensions',
-        values: $flutter_40.ServicesServiceExtensions.values,
+        values: $flutter_41.ServicesServiceExtensions.values,
       ),
-      BridgedEnumDefinition<$flutter_43.DeviceOrientation>(
+      BridgedEnumDefinition<$flutter_44.DeviceOrientation>(
         name: 'DeviceOrientation',
-        values: $flutter_43.DeviceOrientation.values,
+        values: $flutter_44.DeviceOrientation.values,
       ),
-      BridgedEnumDefinition<$flutter_43.SystemUiOverlay>(
+      BridgedEnumDefinition<$flutter_44.SystemUiOverlay>(
         name: 'SystemUiOverlay',
-        values: $flutter_43.SystemUiOverlay.values,
+        values: $flutter_44.SystemUiOverlay.values,
       ),
-      BridgedEnumDefinition<$flutter_43.SystemUiMode>(
+      BridgedEnumDefinition<$flutter_44.SystemUiMode>(
         name: 'SystemUiMode',
-        values: $flutter_43.SystemUiMode.values,
+        values: $flutter_44.SystemUiMode.values,
       ),
-      BridgedEnumDefinition<$flutter_45.SystemSoundType>(
+      BridgedEnumDefinition<$flutter_46.SystemSoundType>(
         name: 'SystemSoundType',
-        values: $flutter_45.SystemSoundType.values,
+        values: $flutter_46.SystemSoundType.values,
       ),
-      BridgedEnumDefinition<$flutter_49.MaxLengthEnforcement>(
+      BridgedEnumDefinition<$flutter_50.MaxLengthEnforcement>(
         name: 'MaxLengthEnforcement',
-        values: $flutter_49.MaxLengthEnforcement.values,
+        values: $flutter_50.MaxLengthEnforcement.values,
       ),
-      BridgedEnumDefinition<$flutter_52.UndoDirection>(
+      BridgedEnumDefinition<$flutter_53.UndoDirection>(
         name: 'UndoDirection',
-        values: $flutter_52.UndoDirection.values,
+        values: $flutter_53.UndoDirection.values,
       ),
     ];
   }
@@ -1043,6 +1048,8 @@ class FlutterServicesBridge {
       'FloatingCursorDragState': 'package:flutter/src/services/text_input.dart',
       'SelectionChangedCause': 'package:flutter/src/services/text_input.dart',
       'KeyboardLockMode': 'package:flutter/src/services/hardware_keyboard.dart',
+      'UiKitViewGestureBlockingPolicy':
+          'package:flutter/src/services/platform_views.dart',
       'SwipeEdge': 'package:flutter/src/services/predictive_back_event.dart',
       'ContentSensitivity':
           'package:flutter/src/services/sensitive_content.dart',
@@ -1077,6 +1084,12 @@ class FlutterServicesBridge {
   >
   bridgeReExports() {
     return [
+      (
+        source: 'package:flutter/services.dart',
+        target: 'package:flutter/src/services/app_version.dart',
+        show: null,
+        hide: null,
+      ),
       (
         source: 'package:flutter/services.dart',
         target: 'package:flutter/src/services/asset_bundle.dart',
@@ -2437,8 +2450,28 @@ class FlutterServicesBridge {
 
     try {
       interpreter.registerGlobalVariable(
+        'appBuildName',
+        $flutter_10.appBuildName,
+        importPath,
+        sourceUri: 'package:flutter/src/services/app_version.dart',
+      );
+    } catch (e) {
+      errors.add('Failed to register variable "appBuildName": $e');
+    }
+    try {
+      interpreter.registerGlobalVariable(
+        'appBuildNumber',
+        $flutter_10.appBuildNumber,
+        importPath,
+        sourceUri: 'package:flutter/src/services/app_version.dart',
+      );
+    } catch (e) {
+      errors.add('Failed to register variable "appBuildNumber": $e');
+    }
+    try {
+      interpreter.registerGlobalVariable(
         'rootBundle',
-        $flutter_10.rootBundle,
+        $flutter_11.rootBundle,
         importPath,
         sourceUri: 'package:flutter/src/services/asset_bundle.dart',
       );
@@ -2448,7 +2481,7 @@ class FlutterServicesBridge {
     try {
       interpreter.registerGlobalVariable(
         'debugPrintKeyboardEvents',
-        $flutter_17.debugPrintKeyboardEvents,
+        $flutter_18.debugPrintKeyboardEvents,
         importPath,
         sourceUri: 'package:flutter/src/services/debug.dart',
       );
@@ -2458,7 +2491,7 @@ class FlutterServicesBridge {
     try {
       interpreter.registerGlobalVariable(
         'debugProfilePlatformChannels',
-        $flutter_17.debugProfilePlatformChannels,
+        $flutter_18.debugProfilePlatformChannels,
         importPath,
         sourceUri: 'package:flutter/src/services/debug.dart',
       );
@@ -2470,7 +2503,7 @@ class FlutterServicesBridge {
     try {
       interpreter.registerGlobalVariable(
         'appFlavor',
-        $flutter_19.appFlavor,
+        $flutter_20.appFlavor,
         importPath,
         sourceUri: 'package:flutter/src/services/flavor.dart',
       );
@@ -2480,7 +2513,7 @@ class FlutterServicesBridge {
     try {
       interpreter.registerGlobalVariable(
         'kAndroidToLogicalKey',
-        $flutter_26.kAndroidToLogicalKey,
+        $flutter_27.kAndroidToLogicalKey,
         importPath,
         sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
       );
@@ -2490,7 +2523,7 @@ class FlutterServicesBridge {
     try {
       interpreter.registerGlobalVariable(
         'kAndroidToPhysicalKey',
-        $flutter_26.kAndroidToPhysicalKey,
+        $flutter_27.kAndroidToPhysicalKey,
         importPath,
         sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
       );
@@ -2500,7 +2533,7 @@ class FlutterServicesBridge {
     try {
       interpreter.registerGlobalVariable(
         'kAndroidNumPadMap',
-        $flutter_26.kAndroidNumPadMap,
+        $flutter_27.kAndroidNumPadMap,
         importPath,
         sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
       );
@@ -2510,7 +2543,7 @@ class FlutterServicesBridge {
     try {
       interpreter.registerGlobalVariable(
         'kFuchsiaToLogicalKey',
-        $flutter_26.kFuchsiaToLogicalKey,
+        $flutter_27.kFuchsiaToLogicalKey,
         importPath,
         sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
       );
@@ -2520,7 +2553,7 @@ class FlutterServicesBridge {
     try {
       interpreter.registerGlobalVariable(
         'kFuchsiaToPhysicalKey',
-        $flutter_26.kFuchsiaToPhysicalKey,
+        $flutter_27.kFuchsiaToPhysicalKey,
         importPath,
         sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
       );
@@ -2530,7 +2563,7 @@ class FlutterServicesBridge {
     try {
       interpreter.registerGlobalVariable(
         'kMacOsToPhysicalKey',
-        $flutter_26.kMacOsToPhysicalKey,
+        $flutter_27.kMacOsToPhysicalKey,
         importPath,
         sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
       );
@@ -2540,7 +2573,7 @@ class FlutterServicesBridge {
     try {
       interpreter.registerGlobalVariable(
         'kMacOsNumPadMap',
-        $flutter_26.kMacOsNumPadMap,
+        $flutter_27.kMacOsNumPadMap,
         importPath,
         sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
       );
@@ -2550,7 +2583,7 @@ class FlutterServicesBridge {
     try {
       interpreter.registerGlobalVariable(
         'kMacOsFunctionKeyMap',
-        $flutter_26.kMacOsFunctionKeyMap,
+        $flutter_27.kMacOsFunctionKeyMap,
         importPath,
         sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
       );
@@ -2560,7 +2593,7 @@ class FlutterServicesBridge {
     try {
       interpreter.registerGlobalVariable(
         'kMacOsToLogicalKey',
-        $flutter_26.kMacOsToLogicalKey,
+        $flutter_27.kMacOsToLogicalKey,
         importPath,
         sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
       );
@@ -2570,7 +2603,7 @@ class FlutterServicesBridge {
     try {
       interpreter.registerGlobalVariable(
         'kIosToPhysicalKey',
-        $flutter_26.kIosToPhysicalKey,
+        $flutter_27.kIosToPhysicalKey,
         importPath,
         sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
       );
@@ -2580,7 +2613,7 @@ class FlutterServicesBridge {
     try {
       interpreter.registerGlobalVariable(
         'kIosSpecialLogicalMap',
-        $flutter_26.kIosSpecialLogicalMap,
+        $flutter_27.kIosSpecialLogicalMap,
         importPath,
         sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
       );
@@ -2590,7 +2623,7 @@ class FlutterServicesBridge {
     try {
       interpreter.registerGlobalVariable(
         'kIosNumPadMap',
-        $flutter_26.kIosNumPadMap,
+        $flutter_27.kIosNumPadMap,
         importPath,
         sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
       );
@@ -2600,7 +2633,7 @@ class FlutterServicesBridge {
     try {
       interpreter.registerGlobalVariable(
         'kIosToLogicalKey',
-        $flutter_26.kIosToLogicalKey,
+        $flutter_27.kIosToLogicalKey,
         importPath,
         sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
       );
@@ -2610,7 +2643,7 @@ class FlutterServicesBridge {
     try {
       interpreter.registerGlobalVariable(
         'kGlfwToLogicalKey',
-        $flutter_26.kGlfwToLogicalKey,
+        $flutter_27.kGlfwToLogicalKey,
         importPath,
         sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
       );
@@ -2620,7 +2653,7 @@ class FlutterServicesBridge {
     try {
       interpreter.registerGlobalVariable(
         'kGlfwNumpadMap',
-        $flutter_26.kGlfwNumpadMap,
+        $flutter_27.kGlfwNumpadMap,
         importPath,
         sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
       );
@@ -2630,7 +2663,7 @@ class FlutterServicesBridge {
     try {
       interpreter.registerGlobalVariable(
         'kGtkToLogicalKey',
-        $flutter_26.kGtkToLogicalKey,
+        $flutter_27.kGtkToLogicalKey,
         importPath,
         sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
       );
@@ -2640,7 +2673,7 @@ class FlutterServicesBridge {
     try {
       interpreter.registerGlobalVariable(
         'kGtkNumpadMap',
-        $flutter_26.kGtkNumpadMap,
+        $flutter_27.kGtkNumpadMap,
         importPath,
         sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
       );
@@ -2650,7 +2683,7 @@ class FlutterServicesBridge {
     try {
       interpreter.registerGlobalVariable(
         'kLinuxToPhysicalKey',
-        $flutter_26.kLinuxToPhysicalKey,
+        $flutter_27.kLinuxToPhysicalKey,
         importPath,
         sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
       );
@@ -2660,7 +2693,7 @@ class FlutterServicesBridge {
     try {
       interpreter.registerGlobalVariable(
         'kWebToLogicalKey',
-        $flutter_26.kWebToLogicalKey,
+        $flutter_27.kWebToLogicalKey,
         importPath,
         sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
       );
@@ -2670,7 +2703,7 @@ class FlutterServicesBridge {
     try {
       interpreter.registerGlobalVariable(
         'kWebToPhysicalKey',
-        $flutter_26.kWebToPhysicalKey,
+        $flutter_27.kWebToPhysicalKey,
         importPath,
         sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
       );
@@ -2680,7 +2713,7 @@ class FlutterServicesBridge {
     try {
       interpreter.registerGlobalVariable(
         'kWebNumPadMap',
-        $flutter_26.kWebNumPadMap,
+        $flutter_27.kWebNumPadMap,
         importPath,
         sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
       );
@@ -2690,7 +2723,7 @@ class FlutterServicesBridge {
     try {
       interpreter.registerGlobalVariable(
         'kWebLocationMap',
-        $flutter_26.kWebLocationMap,
+        $flutter_27.kWebLocationMap,
         importPath,
         sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
       );
@@ -2700,7 +2733,7 @@ class FlutterServicesBridge {
     try {
       interpreter.registerGlobalVariable(
         'kWindowsToLogicalKey',
-        $flutter_26.kWindowsToLogicalKey,
+        $flutter_27.kWindowsToLogicalKey,
         importPath,
         sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
       );
@@ -2710,7 +2743,7 @@ class FlutterServicesBridge {
     try {
       interpreter.registerGlobalVariable(
         'kWindowsToPhysicalKey',
-        $flutter_26.kWindowsToPhysicalKey,
+        $flutter_27.kWindowsToPhysicalKey,
         importPath,
         sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
       );
@@ -2720,7 +2753,7 @@ class FlutterServicesBridge {
     try {
       interpreter.registerGlobalVariable(
         'kWindowsNumPadMap',
-        $flutter_26.kWindowsNumPadMap,
+        $flutter_27.kWindowsNumPadMap,
         importPath,
         sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
       );
@@ -2730,7 +2763,7 @@ class FlutterServicesBridge {
     try {
       interpreter.registerGlobalVariable(
         'kProfilePlatformChannels',
-        $flutter_32.kProfilePlatformChannels,
+        $flutter_33.kProfilePlatformChannels,
         importPath,
         sourceUri: 'package:flutter/src/services/platform_channel.dart',
       );
@@ -2740,7 +2773,7 @@ class FlutterServicesBridge {
     try {
       interpreter.registerGlobalVariable(
         'platformViewsRegistry',
-        $flutter_33.platformViewsRegistry,
+        $flutter_34.platformViewsRegistry,
         importPath,
         sourceUri: 'package:flutter/src/services/platform_views.dart',
       );
@@ -2749,7 +2782,7 @@ class FlutterServicesBridge {
     }
     interpreter.registerGlobalGetter(
       'shouldProfilePlatformChannels',
-      () => $flutter_32.shouldProfilePlatformChannels,
+      () => $flutter_33.shouldProfilePlatformChannels,
       importPath,
       sourceUri: 'package:flutter/src/services/platform_channel.dart',
     );
@@ -2777,7 +2810,7 @@ class FlutterServicesBridge {
               'object',
               'debugIsSerializableForRestoration',
             );
-            return $flutter_37.debugIsSerializableForRestoration(object);
+            return $flutter_38.debugIsSerializableForRestoration(object);
           },
       'debugAssertAllServicesVarsUnset':
           (visitor, positional, named, typeArgs) {
@@ -2788,7 +2821,7 @@ class FlutterServicesBridge {
               'reason',
               'debugAssertAllServicesVarsUnset',
             );
-            return $flutter_17.debugAssertAllServicesVarsUnset(reason);
+            return $flutter_18.debugAssertAllServicesVarsUnset(reason);
           },
       'runeToLowerCase': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'runeToLowerCase');
@@ -2798,7 +2831,7 @@ class FlutterServicesBridge {
           'rune',
           'runeToLowerCase',
         );
-        return $flutter_36.runeToLowerCase(rune);
+        return $flutter_37.runeToLowerCase(rune);
       },
     };
   }
@@ -2836,6 +2869,7 @@ class FlutterServicesBridge {
   static List<String> sourceLibraries() {
     return [
       'package:flutter/src/gestures/events.dart',
+      'package:flutter/src/services/app_version.dart',
       'package:flutter/src/services/asset_bundle.dart',
       'package:flutter/src/services/asset_manifest.dart',
       'package:flutter/src/services/autofill.dart',
@@ -2908,6 +2942,7 @@ class FlutterServicesBridge {
     'FloatingCursorDragState',
     'SelectionChangedCause',
     'KeyboardLockMode',
+    'UiKitViewGestureBlockingPolicy',
     'SwipeEdge',
     'ContentSensitivity',
     'ServicesServiceExtensions',
@@ -2926,14 +2961,14 @@ class FlutterServicesBridge {
 
 BridgedClass _createAssetBundleBridge() {
   return BridgedClass(
-    nativeType: $flutter_10.AssetBundle,
+    nativeType: $flutter_11.AssetBundle,
     name: 'AssetBundle',
-    isAssignable: (v) => v is $flutter_10.AssetBundle,
+    isAssignable: (v) => v is $flutter_11.AssetBundle,
     isAbstract: true,
     constructors: {},
     methods: {
       'load': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.AssetBundle>(
+        final t = D4.validateTarget<$flutter_11.AssetBundle>(
           target,
           'AssetBundle',
         );
@@ -2942,7 +2977,7 @@ BridgedClass _createAssetBundleBridge() {
         return t.load(key);
       },
       'loadBuffer': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.AssetBundle>(
+        final t = D4.validateTarget<$flutter_11.AssetBundle>(
           target,
           'AssetBundle',
         );
@@ -2956,7 +2991,7 @@ BridgedClass _createAssetBundleBridge() {
         return t.loadBuffer(key);
       },
       'loadString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.AssetBundle>(
+        final t = D4.validateTarget<$flutter_11.AssetBundle>(
           target,
           'AssetBundle',
         );
@@ -2971,7 +3006,7 @@ BridgedClass _createAssetBundleBridge() {
         return t.loadString(key, cache: cache);
       },
       'loadStructuredData': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.AssetBundle>(
+        final t = D4.validateTarget<$flutter_11.AssetBundle>(
           target,
           'AssetBundle',
         );
@@ -2999,7 +3034,7 @@ BridgedClass _createAssetBundleBridge() {
         );
       },
       'loadStructuredBinaryData': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.AssetBundle>(
+        final t = D4.validateTarget<$flutter_11.AssetBundle>(
           target,
           'AssetBundle',
         );
@@ -3027,7 +3062,7 @@ BridgedClass _createAssetBundleBridge() {
         );
       },
       'evict': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.AssetBundle>(
+        final t = D4.validateTarget<$flutter_11.AssetBundle>(
           target,
           'AssetBundle',
         );
@@ -3037,7 +3072,7 @@ BridgedClass _createAssetBundleBridge() {
         return null;
       },
       'clear': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.AssetBundle>(
+        final t = D4.validateTarget<$flutter_11.AssetBundle>(
           target,
           'AssetBundle',
         );
@@ -3045,7 +3080,7 @@ BridgedClass _createAssetBundleBridge() {
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.AssetBundle>(
+        final t = D4.validateTarget<$flutter_11.AssetBundle>(
           target,
           'AssetBundle',
         );
@@ -3074,9 +3109,9 @@ BridgedClass _createAssetBundleBridge() {
 
 BridgedClass _createNetworkAssetBundleBridge() {
   return BridgedClass(
-    nativeType: $flutter_10.NetworkAssetBundle,
+    nativeType: $flutter_11.NetworkAssetBundle,
     name: 'NetworkAssetBundle',
-    isAssignable: (v) => v is $flutter_10.NetworkAssetBundle,
+    isAssignable: (v) => v is $flutter_11.NetworkAssetBundle,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
@@ -3087,12 +3122,12 @@ BridgedClass _createNetworkAssetBundleBridge() {
           'baseUrl',
           'NetworkAssetBundle',
         );
-        return $flutter_10.NetworkAssetBundle(baseUrl);
+        return $flutter_11.NetworkAssetBundle(baseUrl);
       },
     },
     methods: {
       'load': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.NetworkAssetBundle>(
+        final t = D4.validateTarget<$flutter_11.NetworkAssetBundle>(
           target,
           'NetworkAssetBundle',
         );
@@ -3101,7 +3136,7 @@ BridgedClass _createNetworkAssetBundleBridge() {
         return t.load(key);
       },
       'loadBuffer': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.NetworkAssetBundle>(
+        final t = D4.validateTarget<$flutter_11.NetworkAssetBundle>(
           target,
           'NetworkAssetBundle',
         );
@@ -3115,7 +3150,7 @@ BridgedClass _createNetworkAssetBundleBridge() {
         return t.loadBuffer(key);
       },
       'loadString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.NetworkAssetBundle>(
+        final t = D4.validateTarget<$flutter_11.NetworkAssetBundle>(
           target,
           'NetworkAssetBundle',
         );
@@ -3130,7 +3165,7 @@ BridgedClass _createNetworkAssetBundleBridge() {
         return t.loadString(key, cache: cache);
       },
       'loadStructuredData': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.NetworkAssetBundle>(
+        final t = D4.validateTarget<$flutter_11.NetworkAssetBundle>(
           target,
           'NetworkAssetBundle',
         );
@@ -3158,7 +3193,7 @@ BridgedClass _createNetworkAssetBundleBridge() {
         );
       },
       'loadStructuredBinaryData': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.NetworkAssetBundle>(
+        final t = D4.validateTarget<$flutter_11.NetworkAssetBundle>(
           target,
           'NetworkAssetBundle',
         );
@@ -3186,7 +3221,7 @@ BridgedClass _createNetworkAssetBundleBridge() {
         );
       },
       'evict': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.NetworkAssetBundle>(
+        final t = D4.validateTarget<$flutter_11.NetworkAssetBundle>(
           target,
           'NetworkAssetBundle',
         );
@@ -3196,7 +3231,7 @@ BridgedClass _createNetworkAssetBundleBridge() {
         return null;
       },
       'clear': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.NetworkAssetBundle>(
+        final t = D4.validateTarget<$flutter_11.NetworkAssetBundle>(
           target,
           'NetworkAssetBundle',
         );
@@ -3204,7 +3239,7 @@ BridgedClass _createNetworkAssetBundleBridge() {
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.NetworkAssetBundle>(
+        final t = D4.validateTarget<$flutter_11.NetworkAssetBundle>(
           target,
           'NetworkAssetBundle',
         );
@@ -3234,15 +3269,15 @@ BridgedClass _createNetworkAssetBundleBridge() {
 
 BridgedClass _createCachingAssetBundleBridge() {
   return BridgedClass(
-    nativeType: $flutter_10.CachingAssetBundle,
+    nativeType: $flutter_11.CachingAssetBundle,
     name: 'CachingAssetBundle',
-    isAssignable: (v) => v is $flutter_10.CachingAssetBundle,
+    isAssignable: (v) => v is $flutter_11.CachingAssetBundle,
     hierarchyDepth: 1,
     isAbstract: true,
     constructors: {},
     methods: {
       'load': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.CachingAssetBundle>(
+        final t = D4.validateTarget<$flutter_11.CachingAssetBundle>(
           target,
           'CachingAssetBundle',
         );
@@ -3251,7 +3286,7 @@ BridgedClass _createCachingAssetBundleBridge() {
         return t.load(key);
       },
       'loadBuffer': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.CachingAssetBundle>(
+        final t = D4.validateTarget<$flutter_11.CachingAssetBundle>(
           target,
           'CachingAssetBundle',
         );
@@ -3265,7 +3300,7 @@ BridgedClass _createCachingAssetBundleBridge() {
         return t.loadBuffer(key);
       },
       'loadString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.CachingAssetBundle>(
+        final t = D4.validateTarget<$flutter_11.CachingAssetBundle>(
           target,
           'CachingAssetBundle',
         );
@@ -3280,7 +3315,7 @@ BridgedClass _createCachingAssetBundleBridge() {
         return t.loadString(key, cache: cache);
       },
       'loadStructuredData': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.CachingAssetBundle>(
+        final t = D4.validateTarget<$flutter_11.CachingAssetBundle>(
           target,
           'CachingAssetBundle',
         );
@@ -3308,7 +3343,7 @@ BridgedClass _createCachingAssetBundleBridge() {
         );
       },
       'loadStructuredBinaryData': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.CachingAssetBundle>(
+        final t = D4.validateTarget<$flutter_11.CachingAssetBundle>(
           target,
           'CachingAssetBundle',
         );
@@ -3336,7 +3371,7 @@ BridgedClass _createCachingAssetBundleBridge() {
         );
       },
       'evict': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.CachingAssetBundle>(
+        final t = D4.validateTarget<$flutter_11.CachingAssetBundle>(
           target,
           'CachingAssetBundle',
         );
@@ -3346,7 +3381,7 @@ BridgedClass _createCachingAssetBundleBridge() {
         return null;
       },
       'clear': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.CachingAssetBundle>(
+        final t = D4.validateTarget<$flutter_11.CachingAssetBundle>(
           target,
           'CachingAssetBundle',
         );
@@ -3354,7 +3389,7 @@ BridgedClass _createCachingAssetBundleBridge() {
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.CachingAssetBundle>(
+        final t = D4.validateTarget<$flutter_11.CachingAssetBundle>(
           target,
           'CachingAssetBundle',
         );
@@ -3383,18 +3418,18 @@ BridgedClass _createCachingAssetBundleBridge() {
 
 BridgedClass _createPlatformAssetBundleBridge() {
   return BridgedClass(
-    nativeType: $flutter_10.PlatformAssetBundle,
+    nativeType: $flutter_11.PlatformAssetBundle,
     name: 'PlatformAssetBundle',
-    isAssignable: (v) => v is $flutter_10.PlatformAssetBundle,
+    isAssignable: (v) => v is $flutter_11.PlatformAssetBundle,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
-        return $flutter_10.PlatformAssetBundle();
+        return $flutter_11.PlatformAssetBundle();
       },
     },
     methods: {
       'load': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.PlatformAssetBundle>(
+        final t = D4.validateTarget<$flutter_11.PlatformAssetBundle>(
           target,
           'PlatformAssetBundle',
         );
@@ -3403,7 +3438,7 @@ BridgedClass _createPlatformAssetBundleBridge() {
         return t.load(key);
       },
       'loadBuffer': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.PlatformAssetBundle>(
+        final t = D4.validateTarget<$flutter_11.PlatformAssetBundle>(
           target,
           'PlatformAssetBundle',
         );
@@ -3417,7 +3452,7 @@ BridgedClass _createPlatformAssetBundleBridge() {
         return t.loadBuffer(key);
       },
       'loadString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.PlatformAssetBundle>(
+        final t = D4.validateTarget<$flutter_11.PlatformAssetBundle>(
           target,
           'PlatformAssetBundle',
         );
@@ -3432,7 +3467,7 @@ BridgedClass _createPlatformAssetBundleBridge() {
         return t.loadString(key, cache: cache);
       },
       'loadStructuredData': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.PlatformAssetBundle>(
+        final t = D4.validateTarget<$flutter_11.PlatformAssetBundle>(
           target,
           'PlatformAssetBundle',
         );
@@ -3460,7 +3495,7 @@ BridgedClass _createPlatformAssetBundleBridge() {
         );
       },
       'loadStructuredBinaryData': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.PlatformAssetBundle>(
+        final t = D4.validateTarget<$flutter_11.PlatformAssetBundle>(
           target,
           'PlatformAssetBundle',
         );
@@ -3488,7 +3523,7 @@ BridgedClass _createPlatformAssetBundleBridge() {
         );
       },
       'evict': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.PlatformAssetBundle>(
+        final t = D4.validateTarget<$flutter_11.PlatformAssetBundle>(
           target,
           'PlatformAssetBundle',
         );
@@ -3498,7 +3533,7 @@ BridgedClass _createPlatformAssetBundleBridge() {
         return null;
       },
       'clear': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.PlatformAssetBundle>(
+        final t = D4.validateTarget<$flutter_11.PlatformAssetBundle>(
           target,
           'PlatformAssetBundle',
         );
@@ -3506,7 +3541,7 @@ BridgedClass _createPlatformAssetBundleBridge() {
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_10.PlatformAssetBundle>(
+        final t = D4.validateTarget<$flutter_11.PlatformAssetBundle>(
           target,
           'PlatformAssetBundle',
         );
@@ -3536,21 +3571,21 @@ BridgedClass _createPlatformAssetBundleBridge() {
 
 BridgedClass _createAssetManifestBridge() {
   return BridgedClass(
-    nativeType: $flutter_11.AssetManifest,
+    nativeType: $flutter_12.AssetManifest,
     name: 'AssetManifest',
-    isAssignable: (v) => v is $flutter_11.AssetManifest,
+    isAssignable: (v) => v is $flutter_12.AssetManifest,
     isAbstract: true,
     constructors: {},
     methods: {
       'listAssets': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_11.AssetManifest>(
+        final t = D4.validateTarget<$flutter_12.AssetManifest>(
           target,
           'AssetManifest',
         );
         return t.listAssets();
       },
       'getAssetVariants': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_11.AssetManifest>(
+        final t = D4.validateTarget<$flutter_12.AssetManifest>(
           target,
           'AssetManifest',
         );
@@ -3567,13 +3602,13 @@ BridgedClass _createAssetManifestBridge() {
     staticMethods: {
       'loadFromAssetBundle': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'loadFromAssetBundle');
-        final bundle = D4.getRequiredArg<$flutter_10.AssetBundle>(
+        final bundle = D4.getRequiredArg<$flutter_11.AssetBundle>(
           positional,
           0,
           'bundle',
           'loadFromAssetBundle',
         );
-        return $flutter_11.AssetManifest.loadFromAssetBundle(bundle);
+        return $flutter_12.AssetManifest.loadFromAssetBundle(bundle);
       },
     },
     methodSignatures: {
@@ -3593,9 +3628,9 @@ BridgedClass _createAssetManifestBridge() {
 
 BridgedClass _createAssetMetadataBridge() {
   return BridgedClass(
-    nativeType: $flutter_11.AssetMetadata,
+    nativeType: $flutter_12.AssetMetadata,
     name: 'AssetMetadata',
-    isAssignable: (v) => v is $flutter_11.AssetMetadata,
+    isAssignable: (v) => v is $flutter_12.AssetMetadata,
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getRequiredNamedArg<String>(
@@ -3613,7 +3648,7 @@ BridgedClass _createAssetMetadataBridge() {
           'main',
           'AssetMetadata',
         );
-        return $flutter_11.AssetMetadata(
+        return $flutter_12.AssetMetadata(
           key: key,
           targetDevicePixelRatio: targetDevicePixelRatio,
           main: main,
@@ -3622,13 +3657,13 @@ BridgedClass _createAssetMetadataBridge() {
     },
     getters: {
       'targetDevicePixelRatio': (visitor, target) => D4
-          .validateTarget<$flutter_11.AssetMetadata>(target, 'AssetMetadata')
+          .validateTarget<$flutter_12.AssetMetadata>(target, 'AssetMetadata')
           .targetDevicePixelRatio,
       'key': (visitor, target) => D4
-          .validateTarget<$flutter_11.AssetMetadata>(target, 'AssetMetadata')
+          .validateTarget<$flutter_12.AssetMetadata>(target, 'AssetMetadata')
           .key,
       'main': (visitor, target) => D4
-          .validateTarget<$flutter_11.AssetMetadata>(target, 'AssetMetadata')
+          .validateTarget<$flutter_12.AssetMetadata>(target, 'AssetMetadata')
           .main,
     },
     constructorSignatures: {
@@ -3648,109 +3683,109 @@ BridgedClass _createAssetMetadataBridge() {
 
 BridgedClass _createAutofillHintsBridge() {
   return BridgedClass(
-    nativeType: $flutter_12.AutofillHints,
+    nativeType: $flutter_13.AutofillHints,
     name: 'AutofillHints',
-    isAssignable: (v) => v is $flutter_12.AutofillHints,
+    isAssignable: (v) => v is $flutter_13.AutofillHints,
     isAbstract: true,
     constructors: {},
     staticGetters: {
-      'addressCity': (visitor) => $flutter_12.AutofillHints.addressCity,
+      'addressCity': (visitor) => $flutter_13.AutofillHints.addressCity,
       'addressCityAndState': (visitor) =>
-          $flutter_12.AutofillHints.addressCityAndState,
-      'addressState': (visitor) => $flutter_12.AutofillHints.addressState,
-      'birthday': (visitor) => $flutter_12.AutofillHints.birthday,
-      'birthdayDay': (visitor) => $flutter_12.AutofillHints.birthdayDay,
-      'birthdayMonth': (visitor) => $flutter_12.AutofillHints.birthdayMonth,
-      'birthdayYear': (visitor) => $flutter_12.AutofillHints.birthdayYear,
-      'countryCode': (visitor) => $flutter_12.AutofillHints.countryCode,
-      'countryName': (visitor) => $flutter_12.AutofillHints.countryName,
+          $flutter_13.AutofillHints.addressCityAndState,
+      'addressState': (visitor) => $flutter_13.AutofillHints.addressState,
+      'birthday': (visitor) => $flutter_13.AutofillHints.birthday,
+      'birthdayDay': (visitor) => $flutter_13.AutofillHints.birthdayDay,
+      'birthdayMonth': (visitor) => $flutter_13.AutofillHints.birthdayMonth,
+      'birthdayYear': (visitor) => $flutter_13.AutofillHints.birthdayYear,
+      'countryCode': (visitor) => $flutter_13.AutofillHints.countryCode,
+      'countryName': (visitor) => $flutter_13.AutofillHints.countryName,
       'creditCardExpirationDate': (visitor) =>
-          $flutter_12.AutofillHints.creditCardExpirationDate,
+          $flutter_13.AutofillHints.creditCardExpirationDate,
       'creditCardExpirationDay': (visitor) =>
-          $flutter_12.AutofillHints.creditCardExpirationDay,
+          $flutter_13.AutofillHints.creditCardExpirationDay,
       'creditCardExpirationMonth': (visitor) =>
-          $flutter_12.AutofillHints.creditCardExpirationMonth,
+          $flutter_13.AutofillHints.creditCardExpirationMonth,
       'creditCardExpirationYear': (visitor) =>
-          $flutter_12.AutofillHints.creditCardExpirationYear,
+          $flutter_13.AutofillHints.creditCardExpirationYear,
       'creditCardFamilyName': (visitor) =>
-          $flutter_12.AutofillHints.creditCardFamilyName,
+          $flutter_13.AutofillHints.creditCardFamilyName,
       'creditCardGivenName': (visitor) =>
-          $flutter_12.AutofillHints.creditCardGivenName,
+          $flutter_13.AutofillHints.creditCardGivenName,
       'creditCardMiddleName': (visitor) =>
-          $flutter_12.AutofillHints.creditCardMiddleName,
-      'creditCardName': (visitor) => $flutter_12.AutofillHints.creditCardName,
+          $flutter_13.AutofillHints.creditCardMiddleName,
+      'creditCardName': (visitor) => $flutter_13.AutofillHints.creditCardName,
       'creditCardNumber': (visitor) =>
-          $flutter_12.AutofillHints.creditCardNumber,
+          $flutter_13.AutofillHints.creditCardNumber,
       'creditCardSecurityCode': (visitor) =>
-          $flutter_12.AutofillHints.creditCardSecurityCode,
-      'creditCardType': (visitor) => $flutter_12.AutofillHints.creditCardType,
-      'email': (visitor) => $flutter_12.AutofillHints.email,
-      'familyName': (visitor) => $flutter_12.AutofillHints.familyName,
+          $flutter_13.AutofillHints.creditCardSecurityCode,
+      'creditCardType': (visitor) => $flutter_13.AutofillHints.creditCardType,
+      'email': (visitor) => $flutter_13.AutofillHints.email,
+      'familyName': (visitor) => $flutter_13.AutofillHints.familyName,
       'fullStreetAddress': (visitor) =>
-          $flutter_12.AutofillHints.fullStreetAddress,
-      'gender': (visitor) => $flutter_12.AutofillHints.gender,
-      'givenName': (visitor) => $flutter_12.AutofillHints.givenName,
-      'impp': (visitor) => $flutter_12.AutofillHints.impp,
-      'jobTitle': (visitor) => $flutter_12.AutofillHints.jobTitle,
-      'language': (visitor) => $flutter_12.AutofillHints.language,
-      'location': (visitor) => $flutter_12.AutofillHints.location,
-      'middleInitial': (visitor) => $flutter_12.AutofillHints.middleInitial,
-      'middleName': (visitor) => $flutter_12.AutofillHints.middleName,
-      'name': (visitor) => $flutter_12.AutofillHints.name,
-      'namePrefix': (visitor) => $flutter_12.AutofillHints.namePrefix,
-      'nameSuffix': (visitor) => $flutter_12.AutofillHints.nameSuffix,
-      'newPassword': (visitor) => $flutter_12.AutofillHints.newPassword,
-      'newUsername': (visitor) => $flutter_12.AutofillHints.newUsername,
-      'nickname': (visitor) => $flutter_12.AutofillHints.nickname,
-      'oneTimeCode': (visitor) => $flutter_12.AutofillHints.oneTimeCode,
+          $flutter_13.AutofillHints.fullStreetAddress,
+      'gender': (visitor) => $flutter_13.AutofillHints.gender,
+      'givenName': (visitor) => $flutter_13.AutofillHints.givenName,
+      'impp': (visitor) => $flutter_13.AutofillHints.impp,
+      'jobTitle': (visitor) => $flutter_13.AutofillHints.jobTitle,
+      'language': (visitor) => $flutter_13.AutofillHints.language,
+      'location': (visitor) => $flutter_13.AutofillHints.location,
+      'middleInitial': (visitor) => $flutter_13.AutofillHints.middleInitial,
+      'middleName': (visitor) => $flutter_13.AutofillHints.middleName,
+      'name': (visitor) => $flutter_13.AutofillHints.name,
+      'namePrefix': (visitor) => $flutter_13.AutofillHints.namePrefix,
+      'nameSuffix': (visitor) => $flutter_13.AutofillHints.nameSuffix,
+      'newPassword': (visitor) => $flutter_13.AutofillHints.newPassword,
+      'newUsername': (visitor) => $flutter_13.AutofillHints.newUsername,
+      'nickname': (visitor) => $flutter_13.AutofillHints.nickname,
+      'oneTimeCode': (visitor) => $flutter_13.AutofillHints.oneTimeCode,
       'organizationName': (visitor) =>
-          $flutter_12.AutofillHints.organizationName,
-      'password': (visitor) => $flutter_12.AutofillHints.password,
-      'photo': (visitor) => $flutter_12.AutofillHints.photo,
-      'postalAddress': (visitor) => $flutter_12.AutofillHints.postalAddress,
+          $flutter_13.AutofillHints.organizationName,
+      'password': (visitor) => $flutter_13.AutofillHints.password,
+      'photo': (visitor) => $flutter_13.AutofillHints.photo,
+      'postalAddress': (visitor) => $flutter_13.AutofillHints.postalAddress,
       'postalAddressExtended': (visitor) =>
-          $flutter_12.AutofillHints.postalAddressExtended,
+          $flutter_13.AutofillHints.postalAddressExtended,
       'postalAddressExtendedPostalCode': (visitor) =>
-          $flutter_12.AutofillHints.postalAddressExtendedPostalCode,
-      'postalCode': (visitor) => $flutter_12.AutofillHints.postalCode,
+          $flutter_13.AutofillHints.postalAddressExtendedPostalCode,
+      'postalCode': (visitor) => $flutter_13.AutofillHints.postalCode,
       'streetAddressLevel1': (visitor) =>
-          $flutter_12.AutofillHints.streetAddressLevel1,
+          $flutter_13.AutofillHints.streetAddressLevel1,
       'streetAddressLevel2': (visitor) =>
-          $flutter_12.AutofillHints.streetAddressLevel2,
+          $flutter_13.AutofillHints.streetAddressLevel2,
       'streetAddressLevel3': (visitor) =>
-          $flutter_12.AutofillHints.streetAddressLevel3,
+          $flutter_13.AutofillHints.streetAddressLevel3,
       'streetAddressLevel4': (visitor) =>
-          $flutter_12.AutofillHints.streetAddressLevel4,
+          $flutter_13.AutofillHints.streetAddressLevel4,
       'streetAddressLine1': (visitor) =>
-          $flutter_12.AutofillHints.streetAddressLine1,
+          $flutter_13.AutofillHints.streetAddressLine1,
       'streetAddressLine2': (visitor) =>
-          $flutter_12.AutofillHints.streetAddressLine2,
+          $flutter_13.AutofillHints.streetAddressLine2,
       'streetAddressLine3': (visitor) =>
-          $flutter_12.AutofillHints.streetAddressLine3,
-      'sublocality': (visitor) => $flutter_12.AutofillHints.sublocality,
-      'telephoneNumber': (visitor) => $flutter_12.AutofillHints.telephoneNumber,
+          $flutter_13.AutofillHints.streetAddressLine3,
+      'sublocality': (visitor) => $flutter_13.AutofillHints.sublocality,
+      'telephoneNumber': (visitor) => $flutter_13.AutofillHints.telephoneNumber,
       'telephoneNumberAreaCode': (visitor) =>
-          $flutter_12.AutofillHints.telephoneNumberAreaCode,
+          $flutter_13.AutofillHints.telephoneNumberAreaCode,
       'telephoneNumberCountryCode': (visitor) =>
-          $flutter_12.AutofillHints.telephoneNumberCountryCode,
+          $flutter_13.AutofillHints.telephoneNumberCountryCode,
       'telephoneNumberDevice': (visitor) =>
-          $flutter_12.AutofillHints.telephoneNumberDevice,
+          $flutter_13.AutofillHints.telephoneNumberDevice,
       'telephoneNumberExtension': (visitor) =>
-          $flutter_12.AutofillHints.telephoneNumberExtension,
+          $flutter_13.AutofillHints.telephoneNumberExtension,
       'telephoneNumberLocal': (visitor) =>
-          $flutter_12.AutofillHints.telephoneNumberLocal,
+          $flutter_13.AutofillHints.telephoneNumberLocal,
       'telephoneNumberLocalPrefix': (visitor) =>
-          $flutter_12.AutofillHints.telephoneNumberLocalPrefix,
+          $flutter_13.AutofillHints.telephoneNumberLocalPrefix,
       'telephoneNumberLocalSuffix': (visitor) =>
-          $flutter_12.AutofillHints.telephoneNumberLocalSuffix,
+          $flutter_13.AutofillHints.telephoneNumberLocalSuffix,
       'telephoneNumberNational': (visitor) =>
-          $flutter_12.AutofillHints.telephoneNumberNational,
+          $flutter_13.AutofillHints.telephoneNumberNational,
       'transactionAmount': (visitor) =>
-          $flutter_12.AutofillHints.transactionAmount,
+          $flutter_13.AutofillHints.transactionAmount,
       'transactionCurrency': (visitor) =>
-          $flutter_12.AutofillHints.transactionCurrency,
-      'url': (visitor) => $flutter_12.AutofillHints.url,
-      'username': (visitor) => $flutter_12.AutofillHints.username,
+          $flutter_13.AutofillHints.transactionCurrency,
+      'url': (visitor) => $flutter_13.AutofillHints.url,
+      'username': (visitor) => $flutter_13.AutofillHints.username,
     },
     staticGetterSignatures: {
       'addressCity': 'String get addressCity',
@@ -3830,9 +3865,9 @@ BridgedClass _createAutofillHintsBridge() {
 
 BridgedClass _createAutofillConfigurationBridge() {
   return BridgedClass(
-    nativeType: $flutter_12.AutofillConfiguration,
+    nativeType: $flutter_13.AutofillConfiguration,
     name: 'AutofillConfiguration',
-    isAssignable: (v) => v is $flutter_12.AutofillConfiguration,
+    isAssignable: (v) => v is $flutter_13.AutofillConfiguration,
     constructors: {
       '': (visitor, positional, named) {
         final uniqueIdentifier = D4.getRequiredNamedArg<String>(
@@ -3851,13 +3886,13 @@ BridgedClass _createAutofillConfigurationBridge() {
           'autofillHints',
         );
         final currentEditingValue = D4
-            .getRequiredNamedArg<$flutter_50.TextEditingValue>(
+            .getRequiredNamedArg<$flutter_51.TextEditingValue>(
               named,
               'currentEditingValue',
               'AutofillConfiguration',
             );
         final hintText = D4.getOptionalNamedArg<String?>(named, 'hintText');
-        return $flutter_12.AutofillConfiguration(
+        return $flutter_13.AutofillConfiguration(
           uniqueIdentifier: uniqueIdentifier,
           autofillHints: autofillHints,
           currentEditingValue: currentEditingValue,
@@ -3867,37 +3902,37 @@ BridgedClass _createAutofillConfigurationBridge() {
     },
     getters: {
       'enabled': (visitor, target) => D4
-          .validateTarget<$flutter_12.AutofillConfiguration>(
+          .validateTarget<$flutter_13.AutofillConfiguration>(
             target,
             'AutofillConfiguration',
           )
           .enabled,
       'uniqueIdentifier': (visitor, target) => D4
-          .validateTarget<$flutter_12.AutofillConfiguration>(
+          .validateTarget<$flutter_13.AutofillConfiguration>(
             target,
             'AutofillConfiguration',
           )
           .uniqueIdentifier,
       'autofillHints': (visitor, target) => D4
-          .validateTarget<$flutter_12.AutofillConfiguration>(
+          .validateTarget<$flutter_13.AutofillConfiguration>(
             target,
             'AutofillConfiguration',
           )
           .autofillHints,
       'currentEditingValue': (visitor, target) => D4
-          .validateTarget<$flutter_12.AutofillConfiguration>(
+          .validateTarget<$flutter_13.AutofillConfiguration>(
             target,
             'AutofillConfiguration',
           )
           .currentEditingValue,
       'hintText': (visitor, target) => D4
-          .validateTarget<$flutter_12.AutofillConfiguration>(
+          .validateTarget<$flutter_13.AutofillConfiguration>(
             target,
             'AutofillConfiguration',
           )
           .hintText,
       'hashCode': (visitor, target) => D4
-          .validateTarget<$flutter_12.AutofillConfiguration>(
+          .validateTarget<$flutter_13.AutofillConfiguration>(
             target,
             'AutofillConfiguration',
           )
@@ -3905,21 +3940,21 @@ BridgedClass _createAutofillConfigurationBridge() {
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.AutofillConfiguration>(
+        final t = D4.validateTarget<$flutter_13.AutofillConfiguration>(
           target,
           'AutofillConfiguration',
         );
         return t.toJson();
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.AutofillConfiguration>(
+        final t = D4.validateTarget<$flutter_13.AutofillConfiguration>(
           target,
           'AutofillConfiguration',
         );
         return t.toString();
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.AutofillConfiguration>(
+        final t = D4.validateTarget<$flutter_13.AutofillConfiguration>(
           target,
           'AutofillConfiguration',
         );
@@ -3935,7 +3970,7 @@ BridgedClass _createAutofillConfigurationBridge() {
       },
     },
     staticGetters: {
-      'disabled': (visitor) => $flutter_12.AutofillConfiguration.disabled,
+      'disabled': (visitor) => $flutter_13.AutofillConfiguration.disabled,
     },
     constructorSignatures: {
       '': 'const AutofillConfiguration({required String uniqueIdentifier, required List<String> autofillHints, required TextEditingValue currentEditingValue, String? hintText})',
@@ -3962,27 +3997,27 @@ BridgedClass _createAutofillConfigurationBridge() {
 
 BridgedClass _createAutofillClientBridge() {
   return BridgedClass(
-    nativeType: $flutter_12.AutofillClient,
+    nativeType: $flutter_13.AutofillClient,
     name: 'AutofillClient',
-    isAssignable: (v) => v is $flutter_12.AutofillClient,
+    isAssignable: (v) => v is $flutter_13.AutofillClient,
     isAbstract: true,
     constructors: {},
     getters: {
       'autofillId': (visitor, target) => D4
-          .validateTarget<$flutter_12.AutofillClient>(target, 'AutofillClient')
+          .validateTarget<$flutter_13.AutofillClient>(target, 'AutofillClient')
           .autofillId,
       'textInputConfiguration': (visitor, target) => D4
-          .validateTarget<$flutter_12.AutofillClient>(target, 'AutofillClient')
+          .validateTarget<$flutter_13.AutofillClient>(target, 'AutofillClient')
           .textInputConfiguration,
     },
     methods: {
       'autofill': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.AutofillClient>(
+        final t = D4.validateTarget<$flutter_13.AutofillClient>(
           target,
           'AutofillClient',
         );
         D4.requireMinArgs(positional, 1, 'autofill');
-        final newEditingValue = D4.getRequiredArg<$flutter_50.TextEditingValue>(
+        final newEditingValue = D4.getRequiredArg<$flutter_51.TextEditingValue>(
           positional,
           0,
           'newEditingValue',
@@ -4009,19 +4044,19 @@ BridgedClass _createAutofillClientBridge() {
 
 BridgedClass _createAutofillScopeBridge() {
   return BridgedClass(
-    nativeType: $flutter_12.AutofillScope,
+    nativeType: $flutter_13.AutofillScope,
     name: 'AutofillScope',
-    isAssignable: (v) => v is $flutter_12.AutofillScope,
+    isAssignable: (v) => v is $flutter_13.AutofillScope,
     isAbstract: true,
     constructors: {},
     getters: {
       'autofillClients': (visitor, target) => D4
-          .validateTarget<$flutter_12.AutofillScope>(target, 'AutofillScope')
+          .validateTarget<$flutter_13.AutofillScope>(target, 'AutofillScope')
           .autofillClients,
     },
     methods: {
       'getAutofillClient': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.AutofillScope>(
+        final t = D4.validateTarget<$flutter_13.AutofillScope>(
           target,
           'AutofillScope',
         );
@@ -4035,19 +4070,19 @@ BridgedClass _createAutofillScopeBridge() {
         return t.getAutofillClient(autofillId);
       },
       'attach': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.AutofillScope>(
+        final t = D4.validateTarget<$flutter_13.AutofillScope>(
           target,
           'AutofillScope',
         );
         D4.requireMinArgs(positional, 2, 'attach');
-        final trigger = D4.getRequiredArg<$flutter_50.TextInputClient>(
+        final trigger = D4.getRequiredArg<$flutter_51.TextInputClient>(
           positional,
           0,
           'trigger',
           'attach',
         );
         final configuration = D4
-            .getRequiredArg<$flutter_50.TextInputConfiguration>(
+            .getRequiredArg<$flutter_51.TextInputConfiguration>(
               positional,
               1,
               'configuration',
@@ -4074,16 +4109,16 @@ BridgedClass _createAutofillScopeBridge() {
 
 BridgedClass _createAutofillScopeMixinBridge() {
   return BridgedClass(
-    nativeType: $flutter_12.AutofillScopeMixin,
+    nativeType: $flutter_13.AutofillScopeMixin,
     name: 'AutofillScopeMixin',
-    isAssignable: (v) => v is $flutter_12.AutofillScopeMixin,
+    isAssignable: (v) => v is $flutter_13.AutofillScopeMixin,
     hierarchyDepth: 1,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {},
     getters: {
       'autofillClients': (visitor, target) => D4
-          .validateTarget<$flutter_12.AutofillScopeMixin>(
+          .validateTarget<$flutter_13.AutofillScopeMixin>(
             target,
             'AutofillScopeMixin',
           )
@@ -4091,19 +4126,19 @@ BridgedClass _createAutofillScopeMixinBridge() {
     },
     methods: {
       'attach': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.AutofillScopeMixin>(
+        final t = D4.validateTarget<$flutter_13.AutofillScopeMixin>(
           target,
           'AutofillScopeMixin',
         );
         D4.requireMinArgs(positional, 2, 'attach');
-        final trigger = D4.getRequiredArg<$flutter_50.TextInputClient>(
+        final trigger = D4.getRequiredArg<$flutter_51.TextInputClient>(
           positional,
           0,
           'trigger',
           'attach',
         );
         final configuration = D4
-            .getRequiredArg<$flutter_50.TextInputConfiguration>(
+            .getRequiredArg<$flutter_51.TextInputConfiguration>(
               positional,
               1,
               'configuration',
@@ -4112,7 +4147,7 @@ BridgedClass _createAutofillScopeMixinBridge() {
         return t.attach(trigger, configuration);
       },
       'getAutofillClient': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.AutofillScopeMixin>(
+        final t = D4.validateTarget<$flutter_13.AutofillScopeMixin>(
           target,
           'AutofillScopeMixin',
         );
@@ -4144,9 +4179,9 @@ BridgedClass _createAutofillScopeMixinBridge() {
 
 BridgedClass _createTextInputTypeBridge() {
   return BridgedClass(
-    nativeType: $flutter_50.TextInputType,
+    nativeType: $flutter_51.TextInputType,
     name: 'TextInputType',
-    isAssignable: (v) => v is $flutter_50.TextInputType,
+    isAssignable: (v) => v is $flutter_51.TextInputType,
     constructors: {
       'numberWithOptions': (visitor, positional, named) {
         final signed = D4.getNamedArgWithDefault<bool?>(named, 'signed', false);
@@ -4155,7 +4190,7 @@ BridgedClass _createTextInputTypeBridge() {
           'decimal',
           false,
         );
-        return $flutter_50.TextInputType.numberWithOptions(
+        return $flutter_51.TextInputType.numberWithOptions(
           signed: signed,
           decimal: decimal,
         );
@@ -4163,35 +4198,35 @@ BridgedClass _createTextInputTypeBridge() {
     },
     getters: {
       'index': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextInputType>(target, 'TextInputType')
+          .validateTarget<$flutter_51.TextInputType>(target, 'TextInputType')
           .index,
       'signed': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextInputType>(target, 'TextInputType')
+          .validateTarget<$flutter_51.TextInputType>(target, 'TextInputType')
           .signed,
       'decimal': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextInputType>(target, 'TextInputType')
+          .validateTarget<$flutter_51.TextInputType>(target, 'TextInputType')
           .decimal,
       'hashCode': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextInputType>(target, 'TextInputType')
+          .validateTarget<$flutter_51.TextInputType>(target, 'TextInputType')
           .hashCode,
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputType>(
+        final t = D4.validateTarget<$flutter_51.TextInputType>(
           target,
           'TextInputType',
         );
         return t.toJson();
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputType>(
+        final t = D4.validateTarget<$flutter_51.TextInputType>(
           target,
           'TextInputType',
         );
         return t.toString();
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputType>(
+        final t = D4.validateTarget<$flutter_51.TextInputType>(
           target,
           'TextInputType',
         );
@@ -4207,20 +4242,20 @@ BridgedClass _createTextInputTypeBridge() {
       },
     },
     staticGetters: {
-      'text': (visitor) => $flutter_50.TextInputType.text,
-      'multiline': (visitor) => $flutter_50.TextInputType.multiline,
-      'number': (visitor) => $flutter_50.TextInputType.number,
-      'phone': (visitor) => $flutter_50.TextInputType.phone,
-      'datetime': (visitor) => $flutter_50.TextInputType.datetime,
-      'emailAddress': (visitor) => $flutter_50.TextInputType.emailAddress,
-      'url': (visitor) => $flutter_50.TextInputType.url,
-      'visiblePassword': (visitor) => $flutter_50.TextInputType.visiblePassword,
-      'name': (visitor) => $flutter_50.TextInputType.name,
-      'streetAddress': (visitor) => $flutter_50.TextInputType.streetAddress,
-      'none': (visitor) => $flutter_50.TextInputType.none,
-      'webSearch': (visitor) => $flutter_50.TextInputType.webSearch,
-      'twitter': (visitor) => $flutter_50.TextInputType.twitter,
-      'values': (visitor) => $flutter_50.TextInputType.values,
+      'text': (visitor) => $flutter_51.TextInputType.text,
+      'multiline': (visitor) => $flutter_51.TextInputType.multiline,
+      'number': (visitor) => $flutter_51.TextInputType.number,
+      'phone': (visitor) => $flutter_51.TextInputType.phone,
+      'datetime': (visitor) => $flutter_51.TextInputType.datetime,
+      'emailAddress': (visitor) => $flutter_51.TextInputType.emailAddress,
+      'url': (visitor) => $flutter_51.TextInputType.url,
+      'visiblePassword': (visitor) => $flutter_51.TextInputType.visiblePassword,
+      'name': (visitor) => $flutter_51.TextInputType.name,
+      'streetAddress': (visitor) => $flutter_51.TextInputType.streetAddress,
+      'none': (visitor) => $flutter_51.TextInputType.none,
+      'webSearch': (visitor) => $flutter_51.TextInputType.webSearch,
+      'twitter': (visitor) => $flutter_51.TextInputType.twitter,
+      'values': (visitor) => $flutter_51.TextInputType.values,
     },
     constructorSignatures: {
       'numberWithOptions':
@@ -4261,16 +4296,16 @@ BridgedClass _createTextInputTypeBridge() {
 
 BridgedClass _createTextInputConfigurationBridge() {
   return BridgedClass(
-    nativeType: $flutter_50.TextInputConfiguration,
+    nativeType: $flutter_51.TextInputConfiguration,
     name: 'TextInputConfiguration',
-    isAssignable: (v) => v is $flutter_50.TextInputConfiguration,
+    isAssignable: (v) => v is $flutter_51.TextInputConfiguration,
     constructors: {
       '': (visitor, positional, named) {
         final viewId = D4.getOptionalNamedArg<int?>(named, 'viewId');
-        final inputType = D4.getNamedArgWithDefault<$flutter_50.TextInputType>(
+        final inputType = D4.getNamedArgWithDefault<$flutter_51.TextInputType>(
           named,
           'inputType',
-          $flutter_50.TextInputType.text,
+          $flutter_51.TextInputType.text,
         );
         final readOnly = D4.getNamedArgWithDefault<bool>(
           named,
@@ -4288,12 +4323,12 @@ BridgedClass _createTextInputConfigurationBridge() {
           true,
         );
         final smartDashesType = D4
-            .getOptionalNamedArg<$flutter_50.SmartDashesType?>(
+            .getOptionalNamedArg<$flutter_51.SmartDashesType?>(
               named,
               'smartDashesType',
             );
         final smartQuotesType = D4
-            .getOptionalNamedArg<$flutter_50.SmartQuotesType?>(
+            .getOptionalNamedArg<$flutter_51.SmartQuotesType?>(
               named,
               'smartQuotesType',
             );
@@ -4312,10 +4347,10 @@ BridgedClass _createTextInputConfigurationBridge() {
           'actionLabel',
         );
         final inputAction = D4
-            .getNamedArgWithDefault<$flutter_50.TextInputAction>(
+            .getNamedArgWithDefault<$flutter_51.TextInputAction>(
               named,
               'inputAction',
-              $flutter_50.TextInputAction.done,
+              $flutter_51.TextInputAction.done,
             );
         final keyboardAppearance = D4.getNamedArgWithDefault<Brightness>(
           named,
@@ -4323,16 +4358,16 @@ BridgedClass _createTextInputConfigurationBridge() {
           $dart_ui.Brightness.light,
         );
         final textCapitalization = D4
-            .getNamedArgWithDefault<$flutter_50.TextCapitalization>(
+            .getNamedArgWithDefault<$flutter_51.TextCapitalization>(
               named,
               'textCapitalization',
-              $flutter_50.TextCapitalization.none,
+              $flutter_51.TextCapitalization.none,
             );
         final autofillConfiguration = D4
-            .getNamedArgWithDefault<$flutter_12.AutofillConfiguration>(
+            .getNamedArgWithDefault<$flutter_13.AutofillConfiguration>(
               named,
               'autofillConfiguration',
-              $flutter_12.AutofillConfiguration.disabled,
+              $flutter_13.AutofillConfiguration.disabled,
             );
         final enableIMEPersonalizedLearning = D4.getNamedArgWithDefault<bool>(
           named,
@@ -4360,7 +4395,7 @@ BridgedClass _createTextInputConfigurationBridge() {
           named,
           'enableInlinePrediction',
         );
-        return $flutter_50.TextInputConfiguration(
+        return $flutter_51.TextInputConfiguration(
           viewId: viewId,
           inputType: inputType,
           readOnly: readOnly,
@@ -4385,121 +4420,121 @@ BridgedClass _createTextInputConfigurationBridge() {
     },
     getters: {
       'viewId': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextInputConfiguration>(
+          .validateTarget<$flutter_51.TextInputConfiguration>(
             target,
             'TextInputConfiguration',
           )
           .viewId,
       'inputType': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextInputConfiguration>(
+          .validateTarget<$flutter_51.TextInputConfiguration>(
             target,
             'TextInputConfiguration',
           )
           .inputType,
       'readOnly': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextInputConfiguration>(
+          .validateTarget<$flutter_51.TextInputConfiguration>(
             target,
             'TextInputConfiguration',
           )
           .readOnly,
       'obscureText': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextInputConfiguration>(
+          .validateTarget<$flutter_51.TextInputConfiguration>(
             target,
             'TextInputConfiguration',
           )
           .obscureText,
       'autocorrect': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextInputConfiguration>(
+          .validateTarget<$flutter_51.TextInputConfiguration>(
             target,
             'TextInputConfiguration',
           )
           .autocorrect,
       'autofillConfiguration': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextInputConfiguration>(
+          .validateTarget<$flutter_51.TextInputConfiguration>(
             target,
             'TextInputConfiguration',
           )
           .autofillConfiguration,
       'smartDashesType': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextInputConfiguration>(
+          .validateTarget<$flutter_51.TextInputConfiguration>(
             target,
             'TextInputConfiguration',
           )
           .smartDashesType,
       'smartQuotesType': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextInputConfiguration>(
+          .validateTarget<$flutter_51.TextInputConfiguration>(
             target,
             'TextInputConfiguration',
           )
           .smartQuotesType,
       'enableSuggestions': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextInputConfiguration>(
+          .validateTarget<$flutter_51.TextInputConfiguration>(
             target,
             'TextInputConfiguration',
           )
           .enableSuggestions,
       'enableInteractiveSelection': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextInputConfiguration>(
+          .validateTarget<$flutter_51.TextInputConfiguration>(
             target,
             'TextInputConfiguration',
           )
           .enableInteractiveSelection,
       'actionLabel': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextInputConfiguration>(
+          .validateTarget<$flutter_51.TextInputConfiguration>(
             target,
             'TextInputConfiguration',
           )
           .actionLabel,
       'inputAction': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextInputConfiguration>(
+          .validateTarget<$flutter_51.TextInputConfiguration>(
             target,
             'TextInputConfiguration',
           )
           .inputAction,
       'textCapitalization': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextInputConfiguration>(
+          .validateTarget<$flutter_51.TextInputConfiguration>(
             target,
             'TextInputConfiguration',
           )
           .textCapitalization,
       'keyboardAppearance': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextInputConfiguration>(
+          .validateTarget<$flutter_51.TextInputConfiguration>(
             target,
             'TextInputConfiguration',
           )
           .keyboardAppearance,
       'enableIMEPersonalizedLearning': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextInputConfiguration>(
+          .validateTarget<$flutter_51.TextInputConfiguration>(
             target,
             'TextInputConfiguration',
           )
           .enableIMEPersonalizedLearning,
       'allowedMimeTypes': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextInputConfiguration>(
+          .validateTarget<$flutter_51.TextInputConfiguration>(
             target,
             'TextInputConfiguration',
           )
           .allowedMimeTypes,
       'hintLocales': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextInputConfiguration>(
+          .validateTarget<$flutter_51.TextInputConfiguration>(
             target,
             'TextInputConfiguration',
           )
           .hintLocales,
       'enableInlinePrediction': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextInputConfiguration>(
+          .validateTarget<$flutter_51.TextInputConfiguration>(
             target,
             'TextInputConfiguration',
           )
           .enableInlinePrediction,
       'enableDeltaModel': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextInputConfiguration>(
+          .validateTarget<$flutter_51.TextInputConfiguration>(
             target,
             'TextInputConfiguration',
           )
           .enableDeltaModel,
       'hashCode': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextInputConfiguration>(
+          .validateTarget<$flutter_51.TextInputConfiguration>(
             target,
             'TextInputConfiguration',
           )
@@ -4507,12 +4542,12 @@ BridgedClass _createTextInputConfigurationBridge() {
     },
     methods: {
       'copyWith': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputConfiguration>(
+        final t = D4.validateTarget<$flutter_51.TextInputConfiguration>(
           target,
           'TextInputConfiguration',
         );
         final viewId = D4.getOptionalNamedArg<int?>(named, 'viewId');
-        final inputType = D4.getOptionalNamedArg<$flutter_50.TextInputType?>(
+        final inputType = D4.getOptionalNamedArg<$flutter_51.TextInputType?>(
           named,
           'inputType',
         );
@@ -4520,12 +4555,12 @@ BridgedClass _createTextInputConfigurationBridge() {
         final obscureText = D4.getOptionalNamedArg<bool?>(named, 'obscureText');
         final autocorrect = D4.getOptionalNamedArg<bool?>(named, 'autocorrect');
         final smartDashesType = D4
-            .getOptionalNamedArg<$flutter_50.SmartDashesType?>(
+            .getOptionalNamedArg<$flutter_51.SmartDashesType?>(
               named,
               'smartDashesType',
             );
         final smartQuotesType = D4
-            .getOptionalNamedArg<$flutter_50.SmartQuotesType?>(
+            .getOptionalNamedArg<$flutter_51.SmartQuotesType?>(
               named,
               'smartQuotesType',
             );
@@ -4542,7 +4577,7 @@ BridgedClass _createTextInputConfigurationBridge() {
           'actionLabel',
         );
         final inputAction = D4
-            .getOptionalNamedArg<$flutter_50.TextInputAction?>(
+            .getOptionalNamedArg<$flutter_51.TextInputAction?>(
               named,
               'inputAction',
             );
@@ -4551,7 +4586,7 @@ BridgedClass _createTextInputConfigurationBridge() {
           'keyboardAppearance',
         );
         final textCapitalization = D4
-            .getOptionalNamedArg<$flutter_50.TextCapitalization?>(
+            .getOptionalNamedArg<$flutter_51.TextCapitalization?>(
               named,
               'textCapitalization',
             );
@@ -4564,7 +4599,7 @@ BridgedClass _createTextInputConfigurationBridge() {
           'allowedMimeTypes',
         );
         final autofillConfiguration = D4
-            .getOptionalNamedArg<$flutter_12.AutofillConfiguration?>(
+            .getOptionalNamedArg<$flutter_13.AutofillConfiguration?>(
               named,
               'autofillConfiguration',
             );
@@ -4603,21 +4638,21 @@ BridgedClass _createTextInputConfigurationBridge() {
         );
       },
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputConfiguration>(
+        final t = D4.validateTarget<$flutter_51.TextInputConfiguration>(
           target,
           'TextInputConfiguration',
         );
         return t.toJson();
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputConfiguration>(
+        final t = D4.validateTarget<$flutter_51.TextInputConfiguration>(
           target,
           'TextInputConfiguration',
         );
         return t.toString();
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputConfiguration>(
+        final t = D4.validateTarget<$flutter_51.TextInputConfiguration>(
           target,
           'TextInputConfiguration',
         );
@@ -4673,9 +4708,9 @@ BridgedClass _createTextInputConfigurationBridge() {
 
 BridgedClass _createRawFloatingCursorPointBridge() {
   return BridgedClass(
-    nativeType: $flutter_50.RawFloatingCursorPoint,
+    nativeType: $flutter_51.RawFloatingCursorPoint,
     name: 'RawFloatingCursorPoint',
-    isAssignable: (v) => v is $flutter_50.RawFloatingCursorPoint,
+    isAssignable: (v) => v is $flutter_51.RawFloatingCursorPoint,
     constructors: {
       '': (visitor, positional, named) {
         final offset = D4.getOptionalNamedArg<Offset?>(named, 'offset');
@@ -4688,19 +4723,19 @@ BridgedClass _createRawFloatingCursorPointBridge() {
                   startLocationRaw.positionalFields[0],
                   'startLocation.field0',
                 ),
-                D4.extractBridgedArg<$flutter_47.TextPosition>(
+                D4.extractBridgedArg<$flutter_48.TextPosition>(
                   startLocationRaw.positionalFields[1],
                   'startLocation.field1',
                 ),
               )
-            : startLocationRaw as (Offset, $flutter_47.TextPosition)?;
+            : startLocationRaw as (Offset, $flutter_48.TextPosition)?;
         final state = D4
-            .getRequiredNamedArg<$flutter_50.FloatingCursorDragState>(
+            .getRequiredNamedArg<$flutter_51.FloatingCursorDragState>(
               named,
               'state',
               'RawFloatingCursorPoint',
             );
-        return $flutter_50.RawFloatingCursorPoint(
+        return $flutter_51.RawFloatingCursorPoint(
           offset: offset,
           startLocation: startLocation,
           state: state,
@@ -4709,19 +4744,19 @@ BridgedClass _createRawFloatingCursorPointBridge() {
     },
     getters: {
       'offset': (visitor, target) => D4
-          .validateTarget<$flutter_50.RawFloatingCursorPoint>(
+          .validateTarget<$flutter_51.RawFloatingCursorPoint>(
             target,
             'RawFloatingCursorPoint',
           )
           .offset,
       'startLocation': (visitor, target) => D4
-          .validateTarget<$flutter_50.RawFloatingCursorPoint>(
+          .validateTarget<$flutter_51.RawFloatingCursorPoint>(
             target,
             'RawFloatingCursorPoint',
           )
           .startLocation,
       'state': (visitor, target) => D4
-          .validateTarget<$flutter_50.RawFloatingCursorPoint>(
+          .validateTarget<$flutter_51.RawFloatingCursorPoint>(
             target,
             'RawFloatingCursorPoint',
           )
@@ -4744,23 +4779,23 @@ BridgedClass _createRawFloatingCursorPointBridge() {
 
 BridgedClass _createTextEditingValueBridge() {
   return BridgedClass(
-    nativeType: $flutter_50.TextEditingValue,
+    nativeType: $flutter_51.TextEditingValue,
     name: 'TextEditingValue',
-    isAssignable: (v) => v is $flutter_50.TextEditingValue,
+    isAssignable: (v) => v is $flutter_51.TextEditingValue,
     constructors: {
       '': (visitor, positional, named) {
         final text = D4.getNamedArgWithDefault<String>(named, 'text', '');
-        final selection = D4.getNamedArgWithDefault<$flutter_47.TextSelection>(
+        final selection = D4.getNamedArgWithDefault<$flutter_48.TextSelection>(
           named,
           'selection',
-          const $flutter_47.TextSelection.collapsed(offset: -1),
+          const $flutter_48.TextSelection.collapsed(offset: -1),
         );
         final composing = D4.getNamedArgWithDefault<TextRange>(
           named,
           'composing',
           $dart_ui.TextRange.empty,
         );
-        return $flutter_50.TextEditingValue(
+        return $flutter_51.TextEditingValue(
           text: text,
           selection: selection,
           composing: composing,
@@ -4774,36 +4809,36 @@ BridgedClass _createTextEditingValueBridge() {
           );
         }
         final encoded = D4.coerceMap<String, dynamic>(positional[0], 'encoded');
-        return $flutter_50.TextEditingValue.fromJSON(encoded);
+        return $flutter_51.TextEditingValue.fromJSON(encoded);
       },
     },
     getters: {
       'text': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextEditingValue>(
+          .validateTarget<$flutter_51.TextEditingValue>(
             target,
             'TextEditingValue',
           )
           .text,
       'selection': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextEditingValue>(
+          .validateTarget<$flutter_51.TextEditingValue>(
             target,
             'TextEditingValue',
           )
           .selection,
       'composing': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextEditingValue>(
+          .validateTarget<$flutter_51.TextEditingValue>(
             target,
             'TextEditingValue',
           )
           .composing,
       'isComposingRangeValid': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextEditingValue>(
+          .validateTarget<$flutter_51.TextEditingValue>(
             target,
             'TextEditingValue',
           )
           .isComposingRangeValid,
       'hashCode': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextEditingValue>(
+          .validateTarget<$flutter_51.TextEditingValue>(
             target,
             'TextEditingValue',
           )
@@ -4811,12 +4846,12 @@ BridgedClass _createTextEditingValueBridge() {
     },
     methods: {
       'copyWith': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextEditingValue>(
+        final t = D4.validateTarget<$flutter_51.TextEditingValue>(
           target,
           'TextEditingValue',
         );
         final text = D4.getOptionalNamedArg<String?>(named, 'text');
-        final selection = D4.getOptionalNamedArg<$flutter_47.TextSelection?>(
+        final selection = D4.getOptionalNamedArg<$flutter_48.TextSelection?>(
           named,
           'selection',
         );
@@ -4831,7 +4866,7 @@ BridgedClass _createTextEditingValueBridge() {
         );
       },
       'replaced': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextEditingValue>(
+        final t = D4.validateTarget<$flutter_51.TextEditingValue>(
           target,
           'TextEditingValue',
         );
@@ -4851,21 +4886,21 @@ BridgedClass _createTextEditingValueBridge() {
         return t.replaced(replacementRange, replacementString);
       },
       'toJSON': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextEditingValue>(
+        final t = D4.validateTarget<$flutter_51.TextEditingValue>(
           target,
           'TextEditingValue',
         );
         return t.toJSON();
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextEditingValue>(
+        final t = D4.validateTarget<$flutter_51.TextEditingValue>(
           target,
           'TextEditingValue',
         );
         return t.toString();
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextEditingValue>(
+        final t = D4.validateTarget<$flutter_51.TextEditingValue>(
           target,
           'TextEditingValue',
         );
@@ -4880,7 +4915,7 @@ BridgedClass _createTextEditingValueBridge() {
         return t == other;
       },
     },
-    staticGetters: {'empty': (visitor) => $flutter_50.TextEditingValue.empty},
+    staticGetters: {'empty': (visitor) => $flutter_51.TextEditingValue.empty},
     constructorSignatures: {
       '': 'const TextEditingValue({String text = \'\', TextSelection selection = const TextSelection.collapsed(offset: -1), TextRange composing = TextRange.empty})',
       'fromJSON':
@@ -4911,22 +4946,22 @@ BridgedClass _createTextEditingValueBridge() {
 
 BridgedClass _createScribbleClientBridge() {
   return BridgedClass(
-    nativeType: $flutter_50.ScribbleClient,
+    nativeType: $flutter_51.ScribbleClient,
     name: 'ScribbleClient',
-    isAssignable: (v) => v is $flutter_50.ScribbleClient,
+    isAssignable: (v) => v is $flutter_51.ScribbleClient,
     isAbstract: true,
     constructors: {},
     getters: {
       'elementIdentifier': (visitor, target) => D4
-          .validateTarget<$flutter_50.ScribbleClient>(target, 'ScribbleClient')
+          .validateTarget<$flutter_51.ScribbleClient>(target, 'ScribbleClient')
           .elementIdentifier,
       'bounds': (visitor, target) => D4
-          .validateTarget<$flutter_50.ScribbleClient>(target, 'ScribbleClient')
+          .validateTarget<$flutter_51.ScribbleClient>(target, 'ScribbleClient')
           .bounds,
     },
     methods: {
       'onScribbleFocus': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.ScribbleClient>(
+        final t = D4.validateTarget<$flutter_51.ScribbleClient>(
           target,
           'ScribbleClient',
         );
@@ -4941,7 +4976,7 @@ BridgedClass _createScribbleClientBridge() {
         return null;
       },
       'isInScribbleRect': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.ScribbleClient>(
+        final t = D4.validateTarget<$flutter_51.ScribbleClient>(
           target,
           'ScribbleClient',
         );
@@ -4972,9 +5007,9 @@ BridgedClass _createScribbleClientBridge() {
 
 BridgedClass _createSelectionRectBridge() {
   return BridgedClass(
-    nativeType: $flutter_50.SelectionRect,
+    nativeType: $flutter_51.SelectionRect,
     name: 'SelectionRect',
-    isAssignable: (v) => v is $flutter_50.SelectionRect,
+    isAssignable: (v) => v is $flutter_51.SelectionRect,
     constructors: {
       '': (visitor, positional, named) {
         final position = D4.getRequiredNamedArg<int>(
@@ -4992,7 +5027,7 @@ BridgedClass _createSelectionRectBridge() {
           'direction',
           $dart_ui.TextDirection.ltr,
         );
-        return $flutter_50.SelectionRect(
+        return $flutter_51.SelectionRect(
           position: position,
           bounds: bounds,
           direction: direction,
@@ -5001,28 +5036,28 @@ BridgedClass _createSelectionRectBridge() {
     },
     getters: {
       'position': (visitor, target) => D4
-          .validateTarget<$flutter_50.SelectionRect>(target, 'SelectionRect')
+          .validateTarget<$flutter_51.SelectionRect>(target, 'SelectionRect')
           .position,
       'bounds': (visitor, target) => D4
-          .validateTarget<$flutter_50.SelectionRect>(target, 'SelectionRect')
+          .validateTarget<$flutter_51.SelectionRect>(target, 'SelectionRect')
           .bounds,
       'direction': (visitor, target) => D4
-          .validateTarget<$flutter_50.SelectionRect>(target, 'SelectionRect')
+          .validateTarget<$flutter_51.SelectionRect>(target, 'SelectionRect')
           .direction,
       'hashCode': (visitor, target) => D4
-          .validateTarget<$flutter_50.SelectionRect>(target, 'SelectionRect')
+          .validateTarget<$flutter_51.SelectionRect>(target, 'SelectionRect')
           .hashCode,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.SelectionRect>(
+        final t = D4.validateTarget<$flutter_51.SelectionRect>(
           target,
           'SelectionRect',
         );
         return t.toString();
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.SelectionRect>(
+        final t = D4.validateTarget<$flutter_51.SelectionRect>(
           target,
           'SelectionRect',
         );
@@ -5056,9 +5091,9 @@ BridgedClass _createSelectionRectBridge() {
 
 BridgedClass _createTextInputStyleBridge() {
   return BridgedClass(
-    nativeType: $flutter_50.TextInputStyle,
+    nativeType: $flutter_51.TextInputStyle,
     name: 'TextInputStyle',
-    isAssignable: (v) => v is $flutter_50.TextInputStyle,
+    isAssignable: (v) => v is $flutter_51.TextInputStyle,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
@@ -5087,7 +5122,7 @@ BridgedClass _createTextInputStyleBridge() {
           'wordSpacing',
         );
         final lineHeight = D4.getOptionalNamedArg<double?>(named, 'lineHeight');
-        return $flutter_50.TextInputStyle(
+        return $flutter_51.TextInputStyle(
           fontFamily: fontFamily,
           fontSize: fontSize,
           fontWeight: fontWeight,
@@ -5101,43 +5136,43 @@ BridgedClass _createTextInputStyleBridge() {
     },
     getters: {
       'fontFamily': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextInputStyle>(target, 'TextInputStyle')
+          .validateTarget<$flutter_51.TextInputStyle>(target, 'TextInputStyle')
           .fontFamily,
       'fontSize': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextInputStyle>(target, 'TextInputStyle')
+          .validateTarget<$flutter_51.TextInputStyle>(target, 'TextInputStyle')
           .fontSize,
       'fontWeight': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextInputStyle>(target, 'TextInputStyle')
+          .validateTarget<$flutter_51.TextInputStyle>(target, 'TextInputStyle')
           .fontWeight,
       'textDirection': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextInputStyle>(target, 'TextInputStyle')
+          .validateTarget<$flutter_51.TextInputStyle>(target, 'TextInputStyle')
           .textDirection,
       'textAlign': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextInputStyle>(target, 'TextInputStyle')
+          .validateTarget<$flutter_51.TextInputStyle>(target, 'TextInputStyle')
           .textAlign,
       'letterSpacing': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextInputStyle>(target, 'TextInputStyle')
+          .validateTarget<$flutter_51.TextInputStyle>(target, 'TextInputStyle')
           .letterSpacing,
       'wordSpacing': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextInputStyle>(target, 'TextInputStyle')
+          .validateTarget<$flutter_51.TextInputStyle>(target, 'TextInputStyle')
           .wordSpacing,
       'lineHeight': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextInputStyle>(target, 'TextInputStyle')
+          .validateTarget<$flutter_51.TextInputStyle>(target, 'TextInputStyle')
           .lineHeight,
       'hashCode': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextInputStyle>(target, 'TextInputStyle')
+          .validateTarget<$flutter_51.TextInputStyle>(target, 'TextInputStyle')
           .hashCode,
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputStyle>(
+        final t = D4.validateTarget<$flutter_51.TextInputStyle>(
           target,
           'TextInputStyle',
         );
         return t.toJson();
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputStyle>(
+        final t = D4.validateTarget<$flutter_51.TextInputStyle>(
           target,
           'TextInputStyle',
         );
@@ -5153,14 +5188,14 @@ BridgedClass _createTextInputStyleBridge() {
         return null;
       },
       'toStringShort': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputStyle>(
+        final t = D4.validateTarget<$flutter_51.TextInputStyle>(
           target,
           'TextInputStyle',
         );
         return t.toStringShort();
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputStyle>(
+        final t = D4.validateTarget<$flutter_51.TextInputStyle>(
           target,
           'TextInputStyle',
         );
@@ -5172,7 +5207,7 @@ BridgedClass _createTextInputStyleBridge() {
         return t.toString(minLevel: minLevel);
       },
       'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputStyle>(
+        final t = D4.validateTarget<$flutter_51.TextInputStyle>(
           target,
           'TextInputStyle',
         );
@@ -5184,7 +5219,7 @@ BridgedClass _createTextInputStyleBridge() {
         return t.toDiagnosticsNode(name: name, style: style);
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputStyle>(
+        final t = D4.validateTarget<$flutter_51.TextInputStyle>(
           target,
           'TextInputStyle',
         );
@@ -5232,19 +5267,19 @@ BridgedClass _createTextInputStyleBridge() {
 
 BridgedClass _createTextInputConnectionBridge() {
   return BridgedClass(
-    nativeType: $flutter_50.TextInputConnection,
+    nativeType: $flutter_51.TextInputConnection,
     name: 'TextInputConnection',
-    isAssignable: (v) => v is $flutter_50.TextInputConnection,
+    isAssignable: (v) => v is $flutter_51.TextInputConnection,
     constructors: {},
     getters: {
       'attached': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextInputConnection>(
+          .validateTarget<$flutter_51.TextInputConnection>(
             target,
             'TextInputConnection',
           )
           .attached,
       'scribbleInProgress': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextInputConnection>(
+          .validateTarget<$flutter_51.TextInputConnection>(
             target,
             'TextInputConnection',
           )
@@ -5252,7 +5287,7 @@ BridgedClass _createTextInputConnectionBridge() {
     },
     methods: {
       'show': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputConnection>(
+        final t = D4.validateTarget<$flutter_51.TextInputConnection>(
           target,
           'TextInputConnection',
         );
@@ -5260,7 +5295,7 @@ BridgedClass _createTextInputConnectionBridge() {
         return null;
       },
       'requestAutofill': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputConnection>(
+        final t = D4.validateTarget<$flutter_51.TextInputConnection>(
           target,
           'TextInputConnection',
         );
@@ -5268,13 +5303,13 @@ BridgedClass _createTextInputConnectionBridge() {
         return null;
       },
       'updateConfig': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputConnection>(
+        final t = D4.validateTarget<$flutter_51.TextInputConnection>(
           target,
           'TextInputConnection',
         );
         D4.requireMinArgs(positional, 1, 'updateConfig');
         final configuration = D4
-            .getRequiredArg<$flutter_50.TextInputConfiguration>(
+            .getRequiredArg<$flutter_51.TextInputConfiguration>(
               positional,
               0,
               'configuration',
@@ -5284,12 +5319,12 @@ BridgedClass _createTextInputConnectionBridge() {
         return null;
       },
       'setEditingState': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputConnection>(
+        final t = D4.validateTarget<$flutter_51.TextInputConnection>(
           target,
           'TextInputConnection',
         );
         D4.requireMinArgs(positional, 1, 'setEditingState');
-        final value = D4.getRequiredArg<$flutter_50.TextEditingValue>(
+        final value = D4.getRequiredArg<$flutter_51.TextEditingValue>(
           positional,
           0,
           'value',
@@ -5300,7 +5335,7 @@ BridgedClass _createTextInputConnectionBridge() {
       },
       'setEditableSizeAndTransform':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$flutter_50.TextInputConnection>(
+            final t = D4.validateTarget<$flutter_51.TextInputConnection>(
               target,
               'TextInputConnection',
             );
@@ -5321,7 +5356,7 @@ BridgedClass _createTextInputConnectionBridge() {
             return null;
           },
       'setComposingRect': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputConnection>(
+        final t = D4.validateTarget<$flutter_51.TextInputConnection>(
           target,
           'TextInputConnection',
         );
@@ -5336,7 +5371,7 @@ BridgedClass _createTextInputConnectionBridge() {
         return null;
       },
       'setCaretRect': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputConnection>(
+        final t = D4.validateTarget<$flutter_51.TextInputConnection>(
           target,
           'TextInputConnection',
         );
@@ -5351,7 +5386,7 @@ BridgedClass _createTextInputConnectionBridge() {
         return null;
       },
       'setSelectionRects': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputConnection>(
+        final t = D4.validateTarget<$flutter_51.TextInputConnection>(
           target,
           'TextInputConnection',
         );
@@ -5361,7 +5396,7 @@ BridgedClass _createTextInputConnectionBridge() {
             'setSelectionRects: Missing required argument "selectionRects" at position 0',
           );
         }
-        final selectionRects = D4.coerceList<$flutter_50.SelectionRect>(
+        final selectionRects = D4.coerceList<$flutter_51.SelectionRect>(
           positional[0],
           'selectionRects',
         );
@@ -5369,7 +5404,7 @@ BridgedClass _createTextInputConnectionBridge() {
         return null;
       },
       'setStyle': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputConnection>(
+        final t = D4.validateTarget<$flutter_51.TextInputConnection>(
           target,
           'TextInputConnection',
         );
@@ -5408,12 +5443,12 @@ BridgedClass _createTextInputConnectionBridge() {
         return null;
       },
       'updateStyle': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputConnection>(
+        final t = D4.validateTarget<$flutter_51.TextInputConnection>(
           target,
           'TextInputConnection',
         );
         D4.requireMinArgs(positional, 1, 'updateStyle');
-        final style = D4.getRequiredArg<$flutter_50.TextInputStyle>(
+        final style = D4.getRequiredArg<$flutter_51.TextInputStyle>(
           positional,
           0,
           'style',
@@ -5423,7 +5458,7 @@ BridgedClass _createTextInputConnectionBridge() {
         return null;
       },
       'close': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputConnection>(
+        final t = D4.validateTarget<$flutter_51.TextInputConnection>(
           target,
           'TextInputConnection',
         );
@@ -5432,7 +5467,7 @@ BridgedClass _createTextInputConnectionBridge() {
       },
       'connectionClosedReceived':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$flutter_50.TextInputConnection>(
+            final t = D4.validateTarget<$flutter_51.TextInputConnection>(
               target,
               'TextInputConnection',
             );
@@ -5443,7 +5478,7 @@ BridgedClass _createTextInputConnectionBridge() {
     staticMethods: {
       'debugResetId': (visitor, positional, named, typeArgs) {
         final to = D4.getNamedArgWithDefault<int>(named, 'to', 1);
-        return $flutter_50.TextInputConnection.debugResetId(to: to);
+        return $flutter_51.TextInputConnection.debugResetId(to: to);
       },
     },
     methodSignatures: {
@@ -5477,71 +5512,71 @@ BridgedClass _createTextInputConnectionBridge() {
 
 BridgedClass _createTextInputBridge() {
   return BridgedClass(
-    nativeType: $flutter_50.TextInput,
+    nativeType: $flutter_51.TextInput,
     name: 'TextInput',
-    isAssignable: (v) => v is $flutter_50.TextInput,
+    isAssignable: (v) => v is $flutter_51.TextInput,
     constructors: {},
     getters: {
       'scribbleInProgress': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextInput>(target, 'TextInput')
+          .validateTarget<$flutter_51.TextInput>(target, 'TextInput')
           .scribbleInProgress,
     },
     staticGetters: {
-      'scribbleClients': (visitor) => $flutter_50.TextInput.scribbleClients,
+      'scribbleClients': (visitor) => $flutter_51.TextInput.scribbleClients,
     },
     staticMethods: {
       'setChannel': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'setChannel');
-        final newChannel = D4.getRequiredArg<$flutter_32.MethodChannel>(
+        final newChannel = D4.getRequiredArg<$flutter_33.MethodChannel>(
           positional,
           0,
           'newChannel',
           'setChannel',
         );
-        return $flutter_50.TextInput.setChannel(newChannel);
+        return $flutter_51.TextInput.setChannel(newChannel);
       },
       'setInputControl': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'setInputControl');
-        final newControl = D4.getRequiredArg<$flutter_50.TextInputControl?>(
+        final newControl = D4.getRequiredArg<$flutter_51.TextInputControl?>(
           positional,
           0,
           'newControl',
           'setInputControl',
         );
-        return $flutter_50.TextInput.setInputControl(newControl);
+        return $flutter_51.TextInput.setInputControl(newControl);
       },
       'restorePlatformInputControl': (visitor, positional, named, typeArgs) {
-        return $flutter_50.TextInput.restorePlatformInputControl();
+        return $flutter_51.TextInput.restorePlatformInputControl();
       },
       'ensureInitialized': (visitor, positional, named, typeArgs) {
-        return $flutter_50.TextInput.ensureInitialized();
+        return $flutter_51.TextInput.ensureInitialized();
       },
       'attach': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'attach');
-        final client = D4.getRequiredArg<$flutter_50.TextInputClient>(
+        final client = D4.getRequiredArg<$flutter_51.TextInputClient>(
           positional,
           0,
           'client',
           'attach',
         );
         final configuration = D4
-            .getRequiredArg<$flutter_50.TextInputConfiguration>(
+            .getRequiredArg<$flutter_51.TextInputConfiguration>(
               positional,
               1,
               'configuration',
               'attach',
             );
-        return $flutter_50.TextInput.attach(client, configuration);
+        return $flutter_51.TextInput.attach(client, configuration);
       },
       'updateEditingValue': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'updateEditingValue');
-        final value = D4.getRequiredArg<$flutter_50.TextEditingValue>(
+        final value = D4.getRequiredArg<$flutter_51.TextEditingValue>(
           positional,
           0,
           'value',
           'updateEditingValue',
         );
-        return $flutter_50.TextInput.updateEditingValue(value);
+        return $flutter_51.TextInput.updateEditingValue(value);
       },
       'finishAutofillContext': (visitor, positional, named, typeArgs) {
         final shouldSave = D4.getNamedArgWithDefault<bool>(
@@ -5549,7 +5584,7 @@ BridgedClass _createTextInputBridge() {
           'shouldSave',
           true,
         );
-        return $flutter_50.TextInput.finishAutofillContext(
+        return $flutter_51.TextInput.finishAutofillContext(
           shouldSave: shouldSave,
         );
       },
@@ -5561,13 +5596,13 @@ BridgedClass _createTextInputBridge() {
           'elementIdentifier',
           'registerScribbleElement',
         );
-        final scribbleClient = D4.getRequiredArg<$flutter_50.ScribbleClient>(
+        final scribbleClient = D4.getRequiredArg<$flutter_51.ScribbleClient>(
           positional,
           1,
           'scribbleClient',
           'registerScribbleElement',
         );
-        return $flutter_50.TextInput.registerScribbleElement(
+        return $flutter_51.TextInput.registerScribbleElement(
           elementIdentifier,
           scribbleClient,
         );
@@ -5580,7 +5615,7 @@ BridgedClass _createTextInputBridge() {
           'elementIdentifier',
           'unregisterScribbleElement',
         );
-        return $flutter_50.TextInput.unregisterScribbleElement(
+        return $flutter_51.TextInput.unregisterScribbleElement(
           elementIdentifier,
         );
       },
@@ -5613,14 +5648,14 @@ BridgedClass _createTextInputBridge() {
 
 BridgedClass _createSystemContextMenuControllerBridge() {
   return BridgedClass(
-    nativeType: $flutter_50.SystemContextMenuController,
+    nativeType: $flutter_51.SystemContextMenuController,
     name: 'SystemContextMenuController',
-    isAssignable: (v) => v is $flutter_50.SystemContextMenuController,
+    isAssignable: (v) => v is $flutter_51.SystemContextMenuController,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final onSystemHideRaw = named['onSystemHide'];
-        return $flutter_50.SystemContextMenuController(
+        return $flutter_51.SystemContextMenuController(
           onSystemHide: onSystemHideRaw == null
               ? null
               : () {
@@ -5631,13 +5666,13 @@ BridgedClass _createSystemContextMenuControllerBridge() {
     },
     getters: {
       'onSystemHide': (visitor, target) => D4
-          .validateTarget<$flutter_50.SystemContextMenuController>(
+          .validateTarget<$flutter_51.SystemContextMenuController>(
             target,
             'SystemContextMenuController',
           )
           .onSystemHide,
       'isVisible': (visitor, target) => D4
-          .validateTarget<$flutter_50.SystemContextMenuController>(
+          .validateTarget<$flutter_51.SystemContextMenuController>(
             target,
             'SystemContextMenuController',
           )
@@ -5645,7 +5680,7 @@ BridgedClass _createSystemContextMenuControllerBridge() {
     },
     methods: {
       'handleSystemHide': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.SystemContextMenuController>(
+        final t = D4.validateTarget<$flutter_51.SystemContextMenuController>(
           target,
           'SystemContextMenuController',
         );
@@ -5655,7 +5690,7 @@ BridgedClass _createSystemContextMenuControllerBridge() {
       'handleCustomContextMenuAction':
           (visitor, target, positional, named, typeArgs) {
             final t = D4
-                .validateTarget<$flutter_50.SystemContextMenuController>(
+                .validateTarget<$flutter_51.SystemContextMenuController>(
                   target,
                   'SystemContextMenuController',
                 );
@@ -5670,7 +5705,7 @@ BridgedClass _createSystemContextMenuControllerBridge() {
             return null;
           },
       'show': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.SystemContextMenuController>(
+        final t = D4.validateTarget<$flutter_51.SystemContextMenuController>(
           target,
           'SystemContextMenuController',
         );
@@ -5684,7 +5719,7 @@ BridgedClass _createSystemContextMenuControllerBridge() {
         return t.show(targetRect);
       },
       'showWithItems': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.SystemContextMenuController>(
+        final t = D4.validateTarget<$flutter_51.SystemContextMenuController>(
           target,
           'SystemContextMenuController',
         );
@@ -5700,21 +5735,21 @@ BridgedClass _createSystemContextMenuControllerBridge() {
             'showWithItems: Missing required argument "items" at position 1',
           );
         }
-        final items = D4.coerceList<$flutter_50.IOSSystemContextMenuItemData>(
+        final items = D4.coerceList<$flutter_51.IOSSystemContextMenuItemData>(
           positional[1],
           'items',
         );
         return t.showWithItems(targetRect, items);
       },
       'hide': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.SystemContextMenuController>(
+        final t = D4.validateTarget<$flutter_51.SystemContextMenuController>(
           target,
           'SystemContextMenuController',
         );
         return t.hide();
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.SystemContextMenuController>(
+        final t = D4.validateTarget<$flutter_51.SystemContextMenuController>(
           target,
           'SystemContextMenuController',
         );
@@ -5730,7 +5765,7 @@ BridgedClass _createSystemContextMenuControllerBridge() {
         return null;
       },
       'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.SystemContextMenuController>(
+        final t = D4.validateTarget<$flutter_51.SystemContextMenuController>(
           target,
           'SystemContextMenuController',
         );
@@ -5738,14 +5773,14 @@ BridgedClass _createSystemContextMenuControllerBridge() {
         return null;
       },
       'toStringShort': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.SystemContextMenuController>(
+        final t = D4.validateTarget<$flutter_51.SystemContextMenuController>(
           target,
           'SystemContextMenuController',
         );
         return t.toStringShort();
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.SystemContextMenuController>(
+        final t = D4.validateTarget<$flutter_51.SystemContextMenuController>(
           target,
           'SystemContextMenuController',
         );
@@ -5757,7 +5792,7 @@ BridgedClass _createSystemContextMenuControllerBridge() {
         return t.toString(minLevel: minLevel);
       },
       'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.SystemContextMenuController>(
+        final t = D4.validateTarget<$flutter_51.SystemContextMenuController>(
           target,
           'SystemContextMenuController',
         );
@@ -5802,19 +5837,19 @@ BridgedClass _createSystemContextMenuControllerBridge() {
 
 BridgedClass _createIOSSystemContextMenuItemDataBridge() {
   return BridgedClass(
-    nativeType: $flutter_50.IOSSystemContextMenuItemData,
+    nativeType: $flutter_51.IOSSystemContextMenuItemData,
     name: 'IOSSystemContextMenuItemData',
-    isAssignable: (v) => v is $flutter_50.IOSSystemContextMenuItemData,
+    isAssignable: (v) => v is $flutter_51.IOSSystemContextMenuItemData,
     constructors: {},
     getters: {
       'title': (visitor, target) => D4
-          .validateTarget<$flutter_50.IOSSystemContextMenuItemData>(
+          .validateTarget<$flutter_51.IOSSystemContextMenuItemData>(
             target,
             'IOSSystemContextMenuItemData',
           )
           .title,
       'hashCode': (visitor, target) => D4
-          .validateTarget<$flutter_50.IOSSystemContextMenuItemData>(
+          .validateTarget<$flutter_51.IOSSystemContextMenuItemData>(
             target,
             'IOSSystemContextMenuItemData',
           )
@@ -5822,7 +5857,7 @@ BridgedClass _createIOSSystemContextMenuItemDataBridge() {
     },
     methods: {
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.IOSSystemContextMenuItemData>(
+        final t = D4.validateTarget<$flutter_51.IOSSystemContextMenuItemData>(
           target,
           'IOSSystemContextMenuItemData',
         );
@@ -5850,24 +5885,24 @@ BridgedClass _createIOSSystemContextMenuItemDataBridge() {
 
 BridgedClass _createIOSSystemContextMenuItemDataCopyBridge() {
   return BridgedClass(
-    nativeType: $flutter_50.IOSSystemContextMenuItemDataCopy,
+    nativeType: $flutter_51.IOSSystemContextMenuItemDataCopy,
     name: 'IOSSystemContextMenuItemDataCopy',
-    isAssignable: (v) => v is $flutter_50.IOSSystemContextMenuItemDataCopy,
+    isAssignable: (v) => v is $flutter_51.IOSSystemContextMenuItemDataCopy,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
-        return $flutter_50.IOSSystemContextMenuItemDataCopy();
+        return $flutter_51.IOSSystemContextMenuItemDataCopy();
       },
     },
     getters: {
       'title': (visitor, target) => D4
-          .validateTarget<$flutter_50.IOSSystemContextMenuItemDataCopy>(
+          .validateTarget<$flutter_51.IOSSystemContextMenuItemDataCopy>(
             target,
             'IOSSystemContextMenuItemDataCopy',
           )
           .title,
       'hashCode': (visitor, target) => D4
-          .validateTarget<$flutter_50.IOSSystemContextMenuItemDataCopy>(
+          .validateTarget<$flutter_51.IOSSystemContextMenuItemDataCopy>(
             target,
             'IOSSystemContextMenuItemDataCopy',
           )
@@ -5876,7 +5911,7 @@ BridgedClass _createIOSSystemContextMenuItemDataCopyBridge() {
     methods: {
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$flutter_50.IOSSystemContextMenuItemDataCopy>(
+            .validateTarget<$flutter_51.IOSSystemContextMenuItemDataCopy>(
               target,
               'IOSSystemContextMenuItemDataCopy',
             );
@@ -5905,24 +5940,24 @@ BridgedClass _createIOSSystemContextMenuItemDataCopyBridge() {
 
 BridgedClass _createIOSSystemContextMenuItemDataCutBridge() {
   return BridgedClass(
-    nativeType: $flutter_50.IOSSystemContextMenuItemDataCut,
+    nativeType: $flutter_51.IOSSystemContextMenuItemDataCut,
     name: 'IOSSystemContextMenuItemDataCut',
-    isAssignable: (v) => v is $flutter_50.IOSSystemContextMenuItemDataCut,
+    isAssignable: (v) => v is $flutter_51.IOSSystemContextMenuItemDataCut,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
-        return $flutter_50.IOSSystemContextMenuItemDataCut();
+        return $flutter_51.IOSSystemContextMenuItemDataCut();
       },
     },
     getters: {
       'title': (visitor, target) => D4
-          .validateTarget<$flutter_50.IOSSystemContextMenuItemDataCut>(
+          .validateTarget<$flutter_51.IOSSystemContextMenuItemDataCut>(
             target,
             'IOSSystemContextMenuItemDataCut',
           )
           .title,
       'hashCode': (visitor, target) => D4
-          .validateTarget<$flutter_50.IOSSystemContextMenuItemDataCut>(
+          .validateTarget<$flutter_51.IOSSystemContextMenuItemDataCut>(
             target,
             'IOSSystemContextMenuItemDataCut',
           )
@@ -5931,7 +5966,7 @@ BridgedClass _createIOSSystemContextMenuItemDataCutBridge() {
     methods: {
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$flutter_50.IOSSystemContextMenuItemDataCut>(
+            .validateTarget<$flutter_51.IOSSystemContextMenuItemDataCut>(
               target,
               'IOSSystemContextMenuItemDataCut',
             );
@@ -5960,24 +5995,24 @@ BridgedClass _createIOSSystemContextMenuItemDataCutBridge() {
 
 BridgedClass _createIOSSystemContextMenuItemDataPasteBridge() {
   return BridgedClass(
-    nativeType: $flutter_50.IOSSystemContextMenuItemDataPaste,
+    nativeType: $flutter_51.IOSSystemContextMenuItemDataPaste,
     name: 'IOSSystemContextMenuItemDataPaste',
-    isAssignable: (v) => v is $flutter_50.IOSSystemContextMenuItemDataPaste,
+    isAssignable: (v) => v is $flutter_51.IOSSystemContextMenuItemDataPaste,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
-        return $flutter_50.IOSSystemContextMenuItemDataPaste();
+        return $flutter_51.IOSSystemContextMenuItemDataPaste();
       },
     },
     getters: {
       'title': (visitor, target) => D4
-          .validateTarget<$flutter_50.IOSSystemContextMenuItemDataPaste>(
+          .validateTarget<$flutter_51.IOSSystemContextMenuItemDataPaste>(
             target,
             'IOSSystemContextMenuItemDataPaste',
           )
           .title,
       'hashCode': (visitor, target) => D4
-          .validateTarget<$flutter_50.IOSSystemContextMenuItemDataPaste>(
+          .validateTarget<$flutter_51.IOSSystemContextMenuItemDataPaste>(
             target,
             'IOSSystemContextMenuItemDataPaste',
           )
@@ -5986,7 +6021,7 @@ BridgedClass _createIOSSystemContextMenuItemDataPasteBridge() {
     methods: {
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$flutter_50.IOSSystemContextMenuItemDataPaste>(
+            .validateTarget<$flutter_51.IOSSystemContextMenuItemDataPaste>(
               target,
               'IOSSystemContextMenuItemDataPaste',
             );
@@ -6015,24 +6050,24 @@ BridgedClass _createIOSSystemContextMenuItemDataPasteBridge() {
 
 BridgedClass _createIOSSystemContextMenuItemDataSelectAllBridge() {
   return BridgedClass(
-    nativeType: $flutter_50.IOSSystemContextMenuItemDataSelectAll,
+    nativeType: $flutter_51.IOSSystemContextMenuItemDataSelectAll,
     name: 'IOSSystemContextMenuItemDataSelectAll',
-    isAssignable: (v) => v is $flutter_50.IOSSystemContextMenuItemDataSelectAll,
+    isAssignable: (v) => v is $flutter_51.IOSSystemContextMenuItemDataSelectAll,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
-        return $flutter_50.IOSSystemContextMenuItemDataSelectAll();
+        return $flutter_51.IOSSystemContextMenuItemDataSelectAll();
       },
     },
     getters: {
       'title': (visitor, target) => D4
-          .validateTarget<$flutter_50.IOSSystemContextMenuItemDataSelectAll>(
+          .validateTarget<$flutter_51.IOSSystemContextMenuItemDataSelectAll>(
             target,
             'IOSSystemContextMenuItemDataSelectAll',
           )
           .title,
       'hashCode': (visitor, target) => D4
-          .validateTarget<$flutter_50.IOSSystemContextMenuItemDataSelectAll>(
+          .validateTarget<$flutter_51.IOSSystemContextMenuItemDataSelectAll>(
             target,
             'IOSSystemContextMenuItemDataSelectAll',
           )
@@ -6041,7 +6076,7 @@ BridgedClass _createIOSSystemContextMenuItemDataSelectAllBridge() {
     methods: {
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$flutter_50.IOSSystemContextMenuItemDataSelectAll>(
+            .validateTarget<$flutter_51.IOSSystemContextMenuItemDataSelectAll>(
               target,
               'IOSSystemContextMenuItemDataSelectAll',
             );
@@ -6072,9 +6107,9 @@ BridgedClass _createIOSSystemContextMenuItemDataSelectAllBridge() {
 
 BridgedClass _createIOSSystemContextMenuItemDataLookUpBridge() {
   return BridgedClass(
-    nativeType: $flutter_50.IOSSystemContextMenuItemDataLookUp,
+    nativeType: $flutter_51.IOSSystemContextMenuItemDataLookUp,
     name: 'IOSSystemContextMenuItemDataLookUp',
-    isAssignable: (v) => v is $flutter_50.IOSSystemContextMenuItemDataLookUp,
+    isAssignable: (v) => v is $flutter_51.IOSSystemContextMenuItemDataLookUp,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
@@ -6083,18 +6118,18 @@ BridgedClass _createIOSSystemContextMenuItemDataLookUpBridge() {
           'title',
           'IOSSystemContextMenuItemDataLookUp',
         );
-        return $flutter_50.IOSSystemContextMenuItemDataLookUp(title: title);
+        return $flutter_51.IOSSystemContextMenuItemDataLookUp(title: title);
       },
     },
     getters: {
       'title': (visitor, target) => D4
-          .validateTarget<$flutter_50.IOSSystemContextMenuItemDataLookUp>(
+          .validateTarget<$flutter_51.IOSSystemContextMenuItemDataLookUp>(
             target,
             'IOSSystemContextMenuItemDataLookUp',
           )
           .title,
       'hashCode': (visitor, target) => D4
-          .validateTarget<$flutter_50.IOSSystemContextMenuItemDataLookUp>(
+          .validateTarget<$flutter_51.IOSSystemContextMenuItemDataLookUp>(
             target,
             'IOSSystemContextMenuItemDataLookUp',
           )
@@ -6103,7 +6138,7 @@ BridgedClass _createIOSSystemContextMenuItemDataLookUpBridge() {
     methods: {
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$flutter_50.IOSSystemContextMenuItemDataLookUp>(
+            .validateTarget<$flutter_51.IOSSystemContextMenuItemDataLookUp>(
               target,
               'IOSSystemContextMenuItemDataLookUp',
             );
@@ -6120,7 +6155,7 @@ BridgedClass _createIOSSystemContextMenuItemDataLookUpBridge() {
       },
       'toStringShort': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$flutter_50.IOSSystemContextMenuItemDataLookUp>(
+            .validateTarget<$flutter_51.IOSSystemContextMenuItemDataLookUp>(
               target,
               'IOSSystemContextMenuItemDataLookUp',
             );
@@ -6128,7 +6163,7 @@ BridgedClass _createIOSSystemContextMenuItemDataLookUpBridge() {
       },
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$flutter_50.IOSSystemContextMenuItemDataLookUp>(
+            .validateTarget<$flutter_51.IOSSystemContextMenuItemDataLookUp>(
               target,
               'IOSSystemContextMenuItemDataLookUp',
             );
@@ -6141,7 +6176,7 @@ BridgedClass _createIOSSystemContextMenuItemDataLookUpBridge() {
       },
       'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$flutter_50.IOSSystemContextMenuItemDataLookUp>(
+            .validateTarget<$flutter_51.IOSSystemContextMenuItemDataLookUp>(
               target,
               'IOSSystemContextMenuItemDataLookUp',
             );
@@ -6154,7 +6189,7 @@ BridgedClass _createIOSSystemContextMenuItemDataLookUpBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$flutter_50.IOSSystemContextMenuItemDataLookUp>(
+            .validateTarget<$flutter_51.IOSSystemContextMenuItemDataLookUp>(
               target,
               'IOSSystemContextMenuItemDataLookUp',
             );
@@ -6194,9 +6229,9 @@ BridgedClass _createIOSSystemContextMenuItemDataLookUpBridge() {
 
 BridgedClass _createIOSSystemContextMenuItemDataSearchWebBridge() {
   return BridgedClass(
-    nativeType: $flutter_50.IOSSystemContextMenuItemDataSearchWeb,
+    nativeType: $flutter_51.IOSSystemContextMenuItemDataSearchWeb,
     name: 'IOSSystemContextMenuItemDataSearchWeb',
-    isAssignable: (v) => v is $flutter_50.IOSSystemContextMenuItemDataSearchWeb,
+    isAssignable: (v) => v is $flutter_51.IOSSystemContextMenuItemDataSearchWeb,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
@@ -6205,18 +6240,18 @@ BridgedClass _createIOSSystemContextMenuItemDataSearchWebBridge() {
           'title',
           'IOSSystemContextMenuItemDataSearchWeb',
         );
-        return $flutter_50.IOSSystemContextMenuItemDataSearchWeb(title: title);
+        return $flutter_51.IOSSystemContextMenuItemDataSearchWeb(title: title);
       },
     },
     getters: {
       'title': (visitor, target) => D4
-          .validateTarget<$flutter_50.IOSSystemContextMenuItemDataSearchWeb>(
+          .validateTarget<$flutter_51.IOSSystemContextMenuItemDataSearchWeb>(
             target,
             'IOSSystemContextMenuItemDataSearchWeb',
           )
           .title,
       'hashCode': (visitor, target) => D4
-          .validateTarget<$flutter_50.IOSSystemContextMenuItemDataSearchWeb>(
+          .validateTarget<$flutter_51.IOSSystemContextMenuItemDataSearchWeb>(
             target,
             'IOSSystemContextMenuItemDataSearchWeb',
           )
@@ -6225,7 +6260,7 @@ BridgedClass _createIOSSystemContextMenuItemDataSearchWebBridge() {
     methods: {
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$flutter_50.IOSSystemContextMenuItemDataSearchWeb>(
+            .validateTarget<$flutter_51.IOSSystemContextMenuItemDataSearchWeb>(
               target,
               'IOSSystemContextMenuItemDataSearchWeb',
             );
@@ -6242,7 +6277,7 @@ BridgedClass _createIOSSystemContextMenuItemDataSearchWebBridge() {
       },
       'toStringShort': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$flutter_50.IOSSystemContextMenuItemDataSearchWeb>(
+            .validateTarget<$flutter_51.IOSSystemContextMenuItemDataSearchWeb>(
               target,
               'IOSSystemContextMenuItemDataSearchWeb',
             );
@@ -6250,7 +6285,7 @@ BridgedClass _createIOSSystemContextMenuItemDataSearchWebBridge() {
       },
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$flutter_50.IOSSystemContextMenuItemDataSearchWeb>(
+            .validateTarget<$flutter_51.IOSSystemContextMenuItemDataSearchWeb>(
               target,
               'IOSSystemContextMenuItemDataSearchWeb',
             );
@@ -6263,7 +6298,7 @@ BridgedClass _createIOSSystemContextMenuItemDataSearchWebBridge() {
       },
       'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$flutter_50.IOSSystemContextMenuItemDataSearchWeb>(
+            .validateTarget<$flutter_51.IOSSystemContextMenuItemDataSearchWeb>(
               target,
               'IOSSystemContextMenuItemDataSearchWeb',
             );
@@ -6276,7 +6311,7 @@ BridgedClass _createIOSSystemContextMenuItemDataSearchWebBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$flutter_50.IOSSystemContextMenuItemDataSearchWeb>(
+            .validateTarget<$flutter_51.IOSSystemContextMenuItemDataSearchWeb>(
               target,
               'IOSSystemContextMenuItemDataSearchWeb',
             );
@@ -6316,9 +6351,9 @@ BridgedClass _createIOSSystemContextMenuItemDataSearchWebBridge() {
 
 BridgedClass _createIOSSystemContextMenuItemDataShareBridge() {
   return BridgedClass(
-    nativeType: $flutter_50.IOSSystemContextMenuItemDataShare,
+    nativeType: $flutter_51.IOSSystemContextMenuItemDataShare,
     name: 'IOSSystemContextMenuItemDataShare',
-    isAssignable: (v) => v is $flutter_50.IOSSystemContextMenuItemDataShare,
+    isAssignable: (v) => v is $flutter_51.IOSSystemContextMenuItemDataShare,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
@@ -6327,18 +6362,18 @@ BridgedClass _createIOSSystemContextMenuItemDataShareBridge() {
           'title',
           'IOSSystemContextMenuItemDataShare',
         );
-        return $flutter_50.IOSSystemContextMenuItemDataShare(title: title);
+        return $flutter_51.IOSSystemContextMenuItemDataShare(title: title);
       },
     },
     getters: {
       'title': (visitor, target) => D4
-          .validateTarget<$flutter_50.IOSSystemContextMenuItemDataShare>(
+          .validateTarget<$flutter_51.IOSSystemContextMenuItemDataShare>(
             target,
             'IOSSystemContextMenuItemDataShare',
           )
           .title,
       'hashCode': (visitor, target) => D4
-          .validateTarget<$flutter_50.IOSSystemContextMenuItemDataShare>(
+          .validateTarget<$flutter_51.IOSSystemContextMenuItemDataShare>(
             target,
             'IOSSystemContextMenuItemDataShare',
           )
@@ -6347,7 +6382,7 @@ BridgedClass _createIOSSystemContextMenuItemDataShareBridge() {
     methods: {
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$flutter_50.IOSSystemContextMenuItemDataShare>(
+            .validateTarget<$flutter_51.IOSSystemContextMenuItemDataShare>(
               target,
               'IOSSystemContextMenuItemDataShare',
             );
@@ -6364,7 +6399,7 @@ BridgedClass _createIOSSystemContextMenuItemDataShareBridge() {
       },
       'toStringShort': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$flutter_50.IOSSystemContextMenuItemDataShare>(
+            .validateTarget<$flutter_51.IOSSystemContextMenuItemDataShare>(
               target,
               'IOSSystemContextMenuItemDataShare',
             );
@@ -6372,7 +6407,7 @@ BridgedClass _createIOSSystemContextMenuItemDataShareBridge() {
       },
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$flutter_50.IOSSystemContextMenuItemDataShare>(
+            .validateTarget<$flutter_51.IOSSystemContextMenuItemDataShare>(
               target,
               'IOSSystemContextMenuItemDataShare',
             );
@@ -6385,7 +6420,7 @@ BridgedClass _createIOSSystemContextMenuItemDataShareBridge() {
       },
       'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$flutter_50.IOSSystemContextMenuItemDataShare>(
+            .validateTarget<$flutter_51.IOSSystemContextMenuItemDataShare>(
               target,
               'IOSSystemContextMenuItemDataShare',
             );
@@ -6398,7 +6433,7 @@ BridgedClass _createIOSSystemContextMenuItemDataShareBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$flutter_50.IOSSystemContextMenuItemDataShare>(
+            .validateTarget<$flutter_51.IOSSystemContextMenuItemDataShare>(
               target,
               'IOSSystemContextMenuItemDataShare',
             );
@@ -6438,24 +6473,24 @@ BridgedClass _createIOSSystemContextMenuItemDataShareBridge() {
 
 BridgedClass _createIOSSystemContextMenuItemDataLiveTextBridge() {
   return BridgedClass(
-    nativeType: $flutter_50.IOSSystemContextMenuItemDataLiveText,
+    nativeType: $flutter_51.IOSSystemContextMenuItemDataLiveText,
     name: 'IOSSystemContextMenuItemDataLiveText',
-    isAssignable: (v) => v is $flutter_50.IOSSystemContextMenuItemDataLiveText,
+    isAssignable: (v) => v is $flutter_51.IOSSystemContextMenuItemDataLiveText,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
-        return $flutter_50.IOSSystemContextMenuItemDataLiveText();
+        return $flutter_51.IOSSystemContextMenuItemDataLiveText();
       },
     },
     getters: {
       'title': (visitor, target) => D4
-          .validateTarget<$flutter_50.IOSSystemContextMenuItemDataLiveText>(
+          .validateTarget<$flutter_51.IOSSystemContextMenuItemDataLiveText>(
             target,
             'IOSSystemContextMenuItemDataLiveText',
           )
           .title,
       'hashCode': (visitor, target) => D4
-          .validateTarget<$flutter_50.IOSSystemContextMenuItemDataLiveText>(
+          .validateTarget<$flutter_51.IOSSystemContextMenuItemDataLiveText>(
             target,
             'IOSSystemContextMenuItemDataLiveText',
           )
@@ -6464,7 +6499,7 @@ BridgedClass _createIOSSystemContextMenuItemDataLiveTextBridge() {
     methods: {
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$flutter_50.IOSSystemContextMenuItemDataLiveText>(
+            .validateTarget<$flutter_51.IOSSystemContextMenuItemDataLiveText>(
               target,
               'IOSSystemContextMenuItemDataLiveText',
             );
@@ -6493,9 +6528,9 @@ BridgedClass _createIOSSystemContextMenuItemDataLiveTextBridge() {
 
 BridgedClass _createIOSSystemContextMenuItemDataCustomBridge() {
   return BridgedClass(
-    nativeType: $flutter_50.IOSSystemContextMenuItemDataCustom,
+    nativeType: $flutter_51.IOSSystemContextMenuItemDataCustom,
     name: 'IOSSystemContextMenuItemDataCustom',
-    isAssignable: (v) => v is $flutter_50.IOSSystemContextMenuItemDataCustom,
+    isAssignable: (v) => v is $flutter_51.IOSSystemContextMenuItemDataCustom,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
@@ -6510,7 +6545,7 @@ BridgedClass _createIOSSystemContextMenuItemDataCustomBridge() {
           );
         }
         final onPressedRaw = named['onPressed'];
-        return $flutter_50.IOSSystemContextMenuItemDataCustom(
+        return $flutter_51.IOSSystemContextMenuItemDataCustom(
           title: title,
           onPressed: () {
             D4.callInterpreterCallback(visitor!, onPressedRaw, []);
@@ -6520,25 +6555,25 @@ BridgedClass _createIOSSystemContextMenuItemDataCustomBridge() {
     },
     getters: {
       'title': (visitor, target) => D4
-          .validateTarget<$flutter_50.IOSSystemContextMenuItemDataCustom>(
+          .validateTarget<$flutter_51.IOSSystemContextMenuItemDataCustom>(
             target,
             'IOSSystemContextMenuItemDataCustom',
           )
           .title,
       'hashCode': (visitor, target) => D4
-          .validateTarget<$flutter_50.IOSSystemContextMenuItemDataCustom>(
+          .validateTarget<$flutter_51.IOSSystemContextMenuItemDataCustom>(
             target,
             'IOSSystemContextMenuItemDataCustom',
           )
           .hashCode,
       'onPressed': (visitor, target) => D4
-          .validateTarget<$flutter_50.IOSSystemContextMenuItemDataCustom>(
+          .validateTarget<$flutter_51.IOSSystemContextMenuItemDataCustom>(
             target,
             'IOSSystemContextMenuItemDataCustom',
           )
           .onPressed,
       'callbackId': (visitor, target) => D4
-          .validateTarget<$flutter_50.IOSSystemContextMenuItemDataCustom>(
+          .validateTarget<$flutter_51.IOSSystemContextMenuItemDataCustom>(
             target,
             'IOSSystemContextMenuItemDataCustom',
           )
@@ -6547,7 +6582,7 @@ BridgedClass _createIOSSystemContextMenuItemDataCustomBridge() {
     methods: {
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$flutter_50.IOSSystemContextMenuItemDataCustom>(
+            .validateTarget<$flutter_51.IOSSystemContextMenuItemDataCustom>(
               target,
               'IOSSystemContextMenuItemDataCustom',
             );
@@ -6564,7 +6599,7 @@ BridgedClass _createIOSSystemContextMenuItemDataCustomBridge() {
       },
       'toStringShort': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$flutter_50.IOSSystemContextMenuItemDataCustom>(
+            .validateTarget<$flutter_51.IOSSystemContextMenuItemDataCustom>(
               target,
               'IOSSystemContextMenuItemDataCustom',
             );
@@ -6572,7 +6607,7 @@ BridgedClass _createIOSSystemContextMenuItemDataCustomBridge() {
       },
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$flutter_50.IOSSystemContextMenuItemDataCustom>(
+            .validateTarget<$flutter_51.IOSSystemContextMenuItemDataCustom>(
               target,
               'IOSSystemContextMenuItemDataCustom',
             );
@@ -6585,7 +6620,7 @@ BridgedClass _createIOSSystemContextMenuItemDataCustomBridge() {
       },
       'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$flutter_50.IOSSystemContextMenuItemDataCustom>(
+            .validateTarget<$flutter_51.IOSSystemContextMenuItemDataCustom>(
               target,
               'IOSSystemContextMenuItemDataCustom',
             );
@@ -6598,7 +6633,7 @@ BridgedClass _createIOSSystemContextMenuItemDataCustomBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$flutter_50.IOSSystemContextMenuItemDataCustom>(
+            .validateTarget<$flutter_51.IOSSystemContextMenuItemDataCustom>(
               target,
               'IOSSystemContextMenuItemDataCustom',
             );
@@ -6640,63 +6675,63 @@ BridgedClass _createIOSSystemContextMenuItemDataCustomBridge() {
 
 BridgedClass _createTextSelectionDelegateBridge() {
   return BridgedClass(
-    nativeType: $flutter_50.TextSelectionDelegate,
+    nativeType: $flutter_51.TextSelectionDelegate,
     name: 'TextSelectionDelegate',
-    isAssignable: (v) => v is $flutter_50.TextSelectionDelegate,
+    isAssignable: (v) => v is $flutter_51.TextSelectionDelegate,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {},
     getters: {
       'textEditingValue': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextSelectionDelegate>(
+          .validateTarget<$flutter_51.TextSelectionDelegate>(
             target,
             'TextSelectionDelegate',
           )
           .textEditingValue,
       'cutEnabled': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextSelectionDelegate>(
+          .validateTarget<$flutter_51.TextSelectionDelegate>(
             target,
             'TextSelectionDelegate',
           )
           .cutEnabled,
       'copyEnabled': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextSelectionDelegate>(
+          .validateTarget<$flutter_51.TextSelectionDelegate>(
             target,
             'TextSelectionDelegate',
           )
           .copyEnabled,
       'pasteEnabled': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextSelectionDelegate>(
+          .validateTarget<$flutter_51.TextSelectionDelegate>(
             target,
             'TextSelectionDelegate',
           )
           .pasteEnabled,
       'selectAllEnabled': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextSelectionDelegate>(
+          .validateTarget<$flutter_51.TextSelectionDelegate>(
             target,
             'TextSelectionDelegate',
           )
           .selectAllEnabled,
       'lookUpEnabled': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextSelectionDelegate>(
+          .validateTarget<$flutter_51.TextSelectionDelegate>(
             target,
             'TextSelectionDelegate',
           )
           .lookUpEnabled,
       'searchWebEnabled': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextSelectionDelegate>(
+          .validateTarget<$flutter_51.TextSelectionDelegate>(
             target,
             'TextSelectionDelegate',
           )
           .searchWebEnabled,
       'shareEnabled': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextSelectionDelegate>(
+          .validateTarget<$flutter_51.TextSelectionDelegate>(
             target,
             'TextSelectionDelegate',
           )
           .shareEnabled,
       'liveTextInputEnabled': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextSelectionDelegate>(
+          .validateTarget<$flutter_51.TextSelectionDelegate>(
             target,
             'TextSelectionDelegate',
           )
@@ -6705,18 +6740,18 @@ BridgedClass _createTextSelectionDelegateBridge() {
     methods: {
       'userUpdateTextEditingValue':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$flutter_50.TextSelectionDelegate>(
+            final t = D4.validateTarget<$flutter_51.TextSelectionDelegate>(
               target,
               'TextSelectionDelegate',
             );
             D4.requireMinArgs(positional, 2, 'userUpdateTextEditingValue');
-            final value = D4.getRequiredArg<$flutter_50.TextEditingValue>(
+            final value = D4.getRequiredArg<$flutter_51.TextEditingValue>(
               positional,
               0,
               'value',
               'userUpdateTextEditingValue',
             );
-            final cause = D4.getRequiredArg<$flutter_50.SelectionChangedCause>(
+            final cause = D4.getRequiredArg<$flutter_51.SelectionChangedCause>(
               positional,
               1,
               'cause',
@@ -6726,7 +6761,7 @@ BridgedClass _createTextSelectionDelegateBridge() {
             return null;
           },
       'hideToolbar': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextSelectionDelegate>(
+        final t = D4.validateTarget<$flutter_51.TextSelectionDelegate>(
           target,
           'TextSelectionDelegate',
         );
@@ -6740,7 +6775,7 @@ BridgedClass _createTextSelectionDelegateBridge() {
         return null;
       },
       'bringIntoView': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextSelectionDelegate>(
+        final t = D4.validateTarget<$flutter_51.TextSelectionDelegate>(
           target,
           'TextSelectionDelegate',
         );
@@ -6755,12 +6790,12 @@ BridgedClass _createTextSelectionDelegateBridge() {
         return null;
       },
       'cutSelection': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextSelectionDelegate>(
+        final t = D4.validateTarget<$flutter_51.TextSelectionDelegate>(
           target,
           'TextSelectionDelegate',
         );
         D4.requireMinArgs(positional, 1, 'cutSelection');
-        final cause = D4.getRequiredArg<$flutter_50.SelectionChangedCause>(
+        final cause = D4.getRequiredArg<$flutter_51.SelectionChangedCause>(
           positional,
           0,
           'cause',
@@ -6770,12 +6805,12 @@ BridgedClass _createTextSelectionDelegateBridge() {
         return null;
       },
       'pasteText': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextSelectionDelegate>(
+        final t = D4.validateTarget<$flutter_51.TextSelectionDelegate>(
           target,
           'TextSelectionDelegate',
         );
         D4.requireMinArgs(positional, 1, 'pasteText');
-        final cause = D4.getRequiredArg<$flutter_50.SelectionChangedCause>(
+        final cause = D4.getRequiredArg<$flutter_51.SelectionChangedCause>(
           positional,
           0,
           'cause',
@@ -6784,12 +6819,12 @@ BridgedClass _createTextSelectionDelegateBridge() {
         return t.pasteText(cause);
       },
       'selectAll': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextSelectionDelegate>(
+        final t = D4.validateTarget<$flutter_51.TextSelectionDelegate>(
           target,
           'TextSelectionDelegate',
         );
         D4.requireMinArgs(positional, 1, 'selectAll');
-        final cause = D4.getRequiredArg<$flutter_50.SelectionChangedCause>(
+        final cause = D4.getRequiredArg<$flutter_51.SelectionChangedCause>(
           positional,
           0,
           'cause',
@@ -6799,12 +6834,12 @@ BridgedClass _createTextSelectionDelegateBridge() {
         return null;
       },
       'copySelection': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextSelectionDelegate>(
+        final t = D4.validateTarget<$flutter_51.TextSelectionDelegate>(
           target,
           'TextSelectionDelegate',
         );
         D4.requireMinArgs(positional, 1, 'copySelection');
-        final cause = D4.getRequiredArg<$flutter_50.SelectionChangedCause>(
+        final cause = D4.getRequiredArg<$flutter_51.SelectionChangedCause>(
           positional,
           0,
           'cause',
@@ -6844,21 +6879,21 @@ BridgedClass _createTextSelectionDelegateBridge() {
 
 BridgedClass _createTextInputClientBridge() {
   return BridgedClass(
-    nativeType: $flutter_50.TextInputClient,
+    nativeType: $flutter_51.TextInputClient,
     name: 'TextInputClient',
-    isAssignable: (v) => v is $flutter_50.TextInputClient,
+    isAssignable: (v) => v is $flutter_51.TextInputClient,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {},
     getters: {
       'currentTextEditingValue': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextInputClient>(
+          .validateTarget<$flutter_51.TextInputClient>(
             target,
             'TextInputClient',
           )
           .currentTextEditingValue,
       'currentAutofillScope': (visitor, target) => D4
-          .validateTarget<$flutter_50.TextInputClient>(
+          .validateTarget<$flutter_51.TextInputClient>(
             target,
             'TextInputClient',
           )
@@ -6866,12 +6901,12 @@ BridgedClass _createTextInputClientBridge() {
     },
     methods: {
       'updateEditingValue': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputClient>(
+        final t = D4.validateTarget<$flutter_51.TextInputClient>(
           target,
           'TextInputClient',
         );
         D4.requireMinArgs(positional, 1, 'updateEditingValue');
-        final value = D4.getRequiredArg<$flutter_50.TextEditingValue>(
+        final value = D4.getRequiredArg<$flutter_51.TextEditingValue>(
           positional,
           0,
           'value',
@@ -6881,12 +6916,12 @@ BridgedClass _createTextInputClientBridge() {
         return null;
       },
       'performAction': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputClient>(
+        final t = D4.validateTarget<$flutter_51.TextInputClient>(
           target,
           'TextInputClient',
         );
         D4.requireMinArgs(positional, 1, 'performAction');
-        final action = D4.getRequiredArg<$flutter_50.TextInputAction>(
+        final action = D4.getRequiredArg<$flutter_51.TextInputAction>(
           positional,
           0,
           'action',
@@ -6896,12 +6931,12 @@ BridgedClass _createTextInputClientBridge() {
         return null;
       },
       'insertContent': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputClient>(
+        final t = D4.validateTarget<$flutter_51.TextInputClient>(
           target,
           'TextInputClient',
         );
         D4.requireMinArgs(positional, 1, 'insertContent');
-        final content = D4.getRequiredArg<$flutter_24.KeyboardInsertedContent>(
+        final content = D4.getRequiredArg<$flutter_25.KeyboardInsertedContent>(
           positional,
           0,
           'content',
@@ -6911,7 +6946,7 @@ BridgedClass _createTextInputClientBridge() {
         return null;
       },
       'performPrivateCommand': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputClient>(
+        final t = D4.validateTarget<$flutter_51.TextInputClient>(
           target,
           'TextInputClient',
         );
@@ -6932,12 +6967,12 @@ BridgedClass _createTextInputClientBridge() {
         return null;
       },
       'updateFloatingCursor': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputClient>(
+        final t = D4.validateTarget<$flutter_51.TextInputClient>(
           target,
           'TextInputClient',
         );
         D4.requireMinArgs(positional, 1, 'updateFloatingCursor');
-        final point = D4.getRequiredArg<$flutter_50.RawFloatingCursorPoint>(
+        final point = D4.getRequiredArg<$flutter_51.RawFloatingCursorPoint>(
           positional,
           0,
           'point',
@@ -6948,7 +6983,7 @@ BridgedClass _createTextInputClientBridge() {
       },
       'showAutocorrectionPromptRect':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$flutter_50.TextInputClient>(
+            final t = D4.validateTarget<$flutter_51.TextInputClient>(
               target,
               'TextInputClient',
             );
@@ -6969,14 +7004,14 @@ BridgedClass _createTextInputClientBridge() {
             return null;
           },
       'onFocusReceived': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputClient>(
+        final t = D4.validateTarget<$flutter_51.TextInputClient>(
           target,
           'TextInputClient',
         );
         return t.onFocusReceived();
       },
       'connectionClosed': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputClient>(
+        final t = D4.validateTarget<$flutter_51.TextInputClient>(
           target,
           'TextInputClient',
         );
@@ -6984,18 +7019,18 @@ BridgedClass _createTextInputClientBridge() {
         return null;
       },
       'didChangeInputControl': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputClient>(
+        final t = D4.validateTarget<$flutter_51.TextInputClient>(
           target,
           'TextInputClient',
         );
         D4.requireMinArgs(positional, 2, 'didChangeInputControl');
-        final oldControl = D4.getRequiredArg<$flutter_50.TextInputControl?>(
+        final oldControl = D4.getRequiredArg<$flutter_51.TextInputControl?>(
           positional,
           0,
           'oldControl',
           'didChangeInputControl',
         );
-        final newControl = D4.getRequiredArg<$flutter_50.TextInputControl?>(
+        final newControl = D4.getRequiredArg<$flutter_51.TextInputControl?>(
           positional,
           1,
           'newControl',
@@ -7005,7 +7040,7 @@ BridgedClass _createTextInputClientBridge() {
         return null;
       },
       'showToolbar': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputClient>(
+        final t = D4.validateTarget<$flutter_51.TextInputClient>(
           target,
           'TextInputClient',
         );
@@ -7013,7 +7048,7 @@ BridgedClass _createTextInputClientBridge() {
         return null;
       },
       'insertTextPlaceholder': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputClient>(
+        final t = D4.validateTarget<$flutter_51.TextInputClient>(
           target,
           'TextInputClient',
         );
@@ -7028,7 +7063,7 @@ BridgedClass _createTextInputClientBridge() {
         return null;
       },
       'removeTextPlaceholder': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputClient>(
+        final t = D4.validateTarget<$flutter_51.TextInputClient>(
           target,
           'TextInputClient',
         );
@@ -7036,7 +7071,7 @@ BridgedClass _createTextInputClientBridge() {
         return null;
       },
       'performSelector': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputClient>(
+        final t = D4.validateTarget<$flutter_51.TextInputClient>(
           target,
           'TextInputClient',
         );
@@ -7084,22 +7119,22 @@ BridgedClass _createTextInputClientBridge() {
 
 BridgedClass _createDeltaTextInputClientBridge() {
   return BridgedClass(
-    nativeType: $flutter_50.DeltaTextInputClient,
+    nativeType: $flutter_51.DeltaTextInputClient,
     name: 'DeltaTextInputClient',
-    isAssignable: (v) => v is $flutter_50.DeltaTextInputClient,
+    isAssignable: (v) => v is $flutter_51.DeltaTextInputClient,
     hierarchyDepth: 1,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {},
     getters: {
       'currentTextEditingValue': (visitor, target) => D4
-          .validateTarget<$flutter_50.DeltaTextInputClient>(
+          .validateTarget<$flutter_51.DeltaTextInputClient>(
             target,
             'DeltaTextInputClient',
           )
           .currentTextEditingValue,
       'currentAutofillScope': (visitor, target) => D4
-          .validateTarget<$flutter_50.DeltaTextInputClient>(
+          .validateTarget<$flutter_51.DeltaTextInputClient>(
             target,
             'DeltaTextInputClient',
           )
@@ -7108,7 +7143,7 @@ BridgedClass _createDeltaTextInputClientBridge() {
     methods: {
       'updateEditingValueWithDeltas':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$flutter_50.DeltaTextInputClient>(
+            final t = D4.validateTarget<$flutter_51.DeltaTextInputClient>(
               target,
               'DeltaTextInputClient',
             );
@@ -7119,7 +7154,7 @@ BridgedClass _createDeltaTextInputClientBridge() {
               );
             }
             final textEditingDeltas = D4
-                .coerceList<$flutter_48.TextEditingDelta>(
+                .coerceList<$flutter_49.TextEditingDelta>(
                   positional[0],
                   'textEditingDeltas',
                 );
@@ -7127,12 +7162,12 @@ BridgedClass _createDeltaTextInputClientBridge() {
             return null;
           },
       'updateEditingValue': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.DeltaTextInputClient>(
+        final t = D4.validateTarget<$flutter_51.DeltaTextInputClient>(
           target,
           'DeltaTextInputClient',
         );
         D4.requireMinArgs(positional, 1, 'updateEditingValue');
-        final value = D4.getRequiredArg<$flutter_50.TextEditingValue>(
+        final value = D4.getRequiredArg<$flutter_51.TextEditingValue>(
           positional,
           0,
           'value',
@@ -7142,12 +7177,12 @@ BridgedClass _createDeltaTextInputClientBridge() {
         return null;
       },
       'performAction': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.DeltaTextInputClient>(
+        final t = D4.validateTarget<$flutter_51.DeltaTextInputClient>(
           target,
           'DeltaTextInputClient',
         );
         D4.requireMinArgs(positional, 1, 'performAction');
-        final action = D4.getRequiredArg<$flutter_50.TextInputAction>(
+        final action = D4.getRequiredArg<$flutter_51.TextInputAction>(
           positional,
           0,
           'action',
@@ -7157,12 +7192,12 @@ BridgedClass _createDeltaTextInputClientBridge() {
         return null;
       },
       'insertContent': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.DeltaTextInputClient>(
+        final t = D4.validateTarget<$flutter_51.DeltaTextInputClient>(
           target,
           'DeltaTextInputClient',
         );
         D4.requireMinArgs(positional, 1, 'insertContent');
-        final content = D4.getRequiredArg<$flutter_24.KeyboardInsertedContent>(
+        final content = D4.getRequiredArg<$flutter_25.KeyboardInsertedContent>(
           positional,
           0,
           'content',
@@ -7172,7 +7207,7 @@ BridgedClass _createDeltaTextInputClientBridge() {
         return null;
       },
       'performPrivateCommand': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.DeltaTextInputClient>(
+        final t = D4.validateTarget<$flutter_51.DeltaTextInputClient>(
           target,
           'DeltaTextInputClient',
         );
@@ -7193,12 +7228,12 @@ BridgedClass _createDeltaTextInputClientBridge() {
         return null;
       },
       'updateFloatingCursor': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.DeltaTextInputClient>(
+        final t = D4.validateTarget<$flutter_51.DeltaTextInputClient>(
           target,
           'DeltaTextInputClient',
         );
         D4.requireMinArgs(positional, 1, 'updateFloatingCursor');
-        final point = D4.getRequiredArg<$flutter_50.RawFloatingCursorPoint>(
+        final point = D4.getRequiredArg<$flutter_51.RawFloatingCursorPoint>(
           positional,
           0,
           'point',
@@ -7209,7 +7244,7 @@ BridgedClass _createDeltaTextInputClientBridge() {
       },
       'showAutocorrectionPromptRect':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$flutter_50.DeltaTextInputClient>(
+            final t = D4.validateTarget<$flutter_51.DeltaTextInputClient>(
               target,
               'DeltaTextInputClient',
             );
@@ -7230,14 +7265,14 @@ BridgedClass _createDeltaTextInputClientBridge() {
             return null;
           },
       'onFocusReceived': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.DeltaTextInputClient>(
+        final t = D4.validateTarget<$flutter_51.DeltaTextInputClient>(
           target,
           'DeltaTextInputClient',
         );
         return t.onFocusReceived();
       },
       'connectionClosed': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.DeltaTextInputClient>(
+        final t = D4.validateTarget<$flutter_51.DeltaTextInputClient>(
           target,
           'DeltaTextInputClient',
         );
@@ -7245,18 +7280,18 @@ BridgedClass _createDeltaTextInputClientBridge() {
         return null;
       },
       'didChangeInputControl': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.DeltaTextInputClient>(
+        final t = D4.validateTarget<$flutter_51.DeltaTextInputClient>(
           target,
           'DeltaTextInputClient',
         );
         D4.requireMinArgs(positional, 2, 'didChangeInputControl');
-        final oldControl = D4.getRequiredArg<$flutter_50.TextInputControl?>(
+        final oldControl = D4.getRequiredArg<$flutter_51.TextInputControl?>(
           positional,
           0,
           'oldControl',
           'didChangeInputControl',
         );
-        final newControl = D4.getRequiredArg<$flutter_50.TextInputControl?>(
+        final newControl = D4.getRequiredArg<$flutter_51.TextInputControl?>(
           positional,
           1,
           'newControl',
@@ -7266,7 +7301,7 @@ BridgedClass _createDeltaTextInputClientBridge() {
         return null;
       },
       'showToolbar': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.DeltaTextInputClient>(
+        final t = D4.validateTarget<$flutter_51.DeltaTextInputClient>(
           target,
           'DeltaTextInputClient',
         );
@@ -7274,7 +7309,7 @@ BridgedClass _createDeltaTextInputClientBridge() {
         return null;
       },
       'insertTextPlaceholder': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.DeltaTextInputClient>(
+        final t = D4.validateTarget<$flutter_51.DeltaTextInputClient>(
           target,
           'DeltaTextInputClient',
         );
@@ -7289,7 +7324,7 @@ BridgedClass _createDeltaTextInputClientBridge() {
         return null;
       },
       'removeTextPlaceholder': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.DeltaTextInputClient>(
+        final t = D4.validateTarget<$flutter_51.DeltaTextInputClient>(
           target,
           'DeltaTextInputClient',
         );
@@ -7297,7 +7332,7 @@ BridgedClass _createDeltaTextInputClientBridge() {
         return null;
       },
       'performSelector': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.DeltaTextInputClient>(
+        final t = D4.validateTarget<$flutter_51.DeltaTextInputClient>(
           target,
           'DeltaTextInputClient',
         );
@@ -7347,27 +7382,27 @@ BridgedClass _createDeltaTextInputClientBridge() {
 
 BridgedClass _createTextInputControlBridge() {
   return BridgedClass(
-    nativeType: $flutter_50.TextInputControl,
+    nativeType: $flutter_51.TextInputControl,
     name: 'TextInputControl',
-    isAssignable: (v) => v is $flutter_50.TextInputControl,
+    isAssignable: (v) => v is $flutter_51.TextInputControl,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {},
     methods: {
       'attach': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputControl>(
+        final t = D4.validateTarget<$flutter_51.TextInputControl>(
           target,
           'TextInputControl',
         );
         D4.requireMinArgs(positional, 2, 'attach');
-        final client = D4.getRequiredArg<$flutter_50.TextInputClient>(
+        final client = D4.getRequiredArg<$flutter_51.TextInputClient>(
           positional,
           0,
           'client',
           'attach',
         );
         final configuration = D4
-            .getRequiredArg<$flutter_50.TextInputConfiguration>(
+            .getRequiredArg<$flutter_51.TextInputConfiguration>(
               positional,
               1,
               'configuration',
@@ -7377,12 +7412,12 @@ BridgedClass _createTextInputControlBridge() {
         return null;
       },
       'detach': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputControl>(
+        final t = D4.validateTarget<$flutter_51.TextInputControl>(
           target,
           'TextInputControl',
         );
         D4.requireMinArgs(positional, 1, 'detach');
-        final client = D4.getRequiredArg<$flutter_50.TextInputClient>(
+        final client = D4.getRequiredArg<$flutter_51.TextInputClient>(
           positional,
           0,
           'client',
@@ -7392,7 +7427,7 @@ BridgedClass _createTextInputControlBridge() {
         return null;
       },
       'show': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputControl>(
+        final t = D4.validateTarget<$flutter_51.TextInputControl>(
           target,
           'TextInputControl',
         );
@@ -7400,7 +7435,7 @@ BridgedClass _createTextInputControlBridge() {
         return null;
       },
       'hide': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputControl>(
+        final t = D4.validateTarget<$flutter_51.TextInputControl>(
           target,
           'TextInputControl',
         );
@@ -7408,13 +7443,13 @@ BridgedClass _createTextInputControlBridge() {
         return null;
       },
       'updateConfig': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputControl>(
+        final t = D4.validateTarget<$flutter_51.TextInputControl>(
           target,
           'TextInputControl',
         );
         D4.requireMinArgs(positional, 1, 'updateConfig');
         final configuration = D4
-            .getRequiredArg<$flutter_50.TextInputConfiguration>(
+            .getRequiredArg<$flutter_51.TextInputConfiguration>(
               positional,
               0,
               'configuration',
@@ -7424,12 +7459,12 @@ BridgedClass _createTextInputControlBridge() {
         return null;
       },
       'setEditingState': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputControl>(
+        final t = D4.validateTarget<$flutter_51.TextInputControl>(
           target,
           'TextInputControl',
         );
         D4.requireMinArgs(positional, 1, 'setEditingState');
-        final value = D4.getRequiredArg<$flutter_50.TextEditingValue>(
+        final value = D4.getRequiredArg<$flutter_51.TextEditingValue>(
           positional,
           0,
           'value',
@@ -7440,7 +7475,7 @@ BridgedClass _createTextInputControlBridge() {
       },
       'setEditableSizeAndTransform':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$flutter_50.TextInputControl>(
+            final t = D4.validateTarget<$flutter_51.TextInputControl>(
               target,
               'TextInputControl',
             );
@@ -7461,7 +7496,7 @@ BridgedClass _createTextInputControlBridge() {
             return null;
           },
       'setComposingRect': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputControl>(
+        final t = D4.validateTarget<$flutter_51.TextInputControl>(
           target,
           'TextInputControl',
         );
@@ -7476,7 +7511,7 @@ BridgedClass _createTextInputControlBridge() {
         return null;
       },
       'setCaretRect': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputControl>(
+        final t = D4.validateTarget<$flutter_51.TextInputControl>(
           target,
           'TextInputControl',
         );
@@ -7491,7 +7526,7 @@ BridgedClass _createTextInputControlBridge() {
         return null;
       },
       'setSelectionRects': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputControl>(
+        final t = D4.validateTarget<$flutter_51.TextInputControl>(
           target,
           'TextInputControl',
         );
@@ -7501,7 +7536,7 @@ BridgedClass _createTextInputControlBridge() {
             'setSelectionRects: Missing required argument "selectionRects" at position 0',
           );
         }
-        final selectionRects = D4.coerceList<$flutter_50.SelectionRect>(
+        final selectionRects = D4.coerceList<$flutter_51.SelectionRect>(
           positional[0],
           'selectionRects',
         );
@@ -7509,7 +7544,7 @@ BridgedClass _createTextInputControlBridge() {
         return null;
       },
       'setStyle': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputControl>(
+        final t = D4.validateTarget<$flutter_51.TextInputControl>(
           target,
           'TextInputControl',
         );
@@ -7548,12 +7583,12 @@ BridgedClass _createTextInputControlBridge() {
         return null;
       },
       'updateStyle': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputControl>(
+        final t = D4.validateTarget<$flutter_51.TextInputControl>(
           target,
           'TextInputControl',
         );
         D4.requireMinArgs(positional, 1, 'updateStyle');
-        final style = D4.getRequiredArg<$flutter_50.TextInputStyle>(
+        final style = D4.getRequiredArg<$flutter_51.TextInputStyle>(
           positional,
           0,
           'style',
@@ -7563,7 +7598,7 @@ BridgedClass _createTextInputControlBridge() {
         return null;
       },
       'requestAutofill': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputControl>(
+        final t = D4.validateTarget<$flutter_51.TextInputControl>(
           target,
           'TextInputControl',
         );
@@ -7571,7 +7606,7 @@ BridgedClass _createTextInputControlBridge() {
         return null;
       },
       'finishAutofillContext': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_50.TextInputControl>(
+        final t = D4.validateTarget<$flutter_51.TextInputControl>(
           target,
           'TextInputControl',
         );
@@ -7614,9 +7649,9 @@ BridgedClass _createTextInputControlBridge() {
 
 BridgedClass _createTextEditingDeltaBridge() {
   return BridgedClass(
-    nativeType: $flutter_48.TextEditingDelta,
+    nativeType: $flutter_49.TextEditingDelta,
     name: 'TextEditingDelta',
-    isAssignable: (v) => v is $flutter_48.TextEditingDelta,
+    isAssignable: (v) => v is $flutter_49.TextEditingDelta,
     hierarchyDepth: 1,
     isAbstract: true,
     constructors: {
@@ -7628,24 +7663,24 @@ BridgedClass _createTextEditingDeltaBridge() {
           );
         }
         final encoded = D4.coerceMap<String, dynamic>(positional[0], 'encoded');
-        return $flutter_48.TextEditingDelta.fromJSON(encoded);
+        return $flutter_49.TextEditingDelta.fromJSON(encoded);
       },
     },
     getters: {
       'oldText': (visitor, target) => D4
-          .validateTarget<$flutter_48.TextEditingDelta>(
+          .validateTarget<$flutter_49.TextEditingDelta>(
             target,
             'TextEditingDelta',
           )
           .oldText,
       'selection': (visitor, target) => D4
-          .validateTarget<$flutter_48.TextEditingDelta>(
+          .validateTarget<$flutter_49.TextEditingDelta>(
             target,
             'TextEditingDelta',
           )
           .selection,
       'composing': (visitor, target) => D4
-          .validateTarget<$flutter_48.TextEditingDelta>(
+          .validateTarget<$flutter_49.TextEditingDelta>(
             target,
             'TextEditingDelta',
           )
@@ -7653,12 +7688,12 @@ BridgedClass _createTextEditingDeltaBridge() {
     },
     methods: {
       'apply': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_48.TextEditingDelta>(
+        final t = D4.validateTarget<$flutter_49.TextEditingDelta>(
           target,
           'TextEditingDelta',
         );
         D4.requireMinArgs(positional, 1, 'apply');
-        final value = D4.getRequiredArg<$flutter_50.TextEditingValue>(
+        final value = D4.getRequiredArg<$flutter_51.TextEditingValue>(
           positional,
           0,
           'value',
@@ -7667,14 +7702,14 @@ BridgedClass _createTextEditingDeltaBridge() {
         return t.apply(value);
       },
       'toStringShort': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_48.TextEditingDelta>(
+        final t = D4.validateTarget<$flutter_49.TextEditingDelta>(
           target,
           'TextEditingDelta',
         );
         return t.toStringShort();
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_48.TextEditingDelta>(
+        final t = D4.validateTarget<$flutter_49.TextEditingDelta>(
           target,
           'TextEditingDelta',
         );
@@ -7686,7 +7721,7 @@ BridgedClass _createTextEditingDeltaBridge() {
         return t.toString(minLevel: minLevel);
       },
       'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_48.TextEditingDelta>(
+        final t = D4.validateTarget<$flutter_49.TextEditingDelta>(
           target,
           'TextEditingDelta',
         );
@@ -7698,7 +7733,7 @@ BridgedClass _createTextEditingDeltaBridge() {
         return t.toDiagnosticsNode(name: name, style: style);
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_48.TextEditingDelta>(
+        final t = D4.validateTarget<$flutter_49.TextEditingDelta>(
           target,
           'TextEditingDelta',
         );
@@ -7742,9 +7777,9 @@ BridgedClass _createTextEditingDeltaBridge() {
 
 BridgedClass _createTextEditingDeltaInsertionBridge() {
   return BridgedClass(
-    nativeType: $flutter_48.TextEditingDeltaInsertion,
+    nativeType: $flutter_49.TextEditingDeltaInsertion,
     name: 'TextEditingDeltaInsertion',
-    isAssignable: (v) => v is $flutter_48.TextEditingDeltaInsertion,
+    isAssignable: (v) => v is $flutter_49.TextEditingDeltaInsertion,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
@@ -7763,7 +7798,7 @@ BridgedClass _createTextEditingDeltaInsertionBridge() {
           'insertionOffset',
           'TextEditingDeltaInsertion',
         );
-        final selection = D4.getRequiredNamedArg<$flutter_47.TextSelection>(
+        final selection = D4.getRequiredNamedArg<$flutter_48.TextSelection>(
           named,
           'selection',
           'TextEditingDeltaInsertion',
@@ -7773,7 +7808,7 @@ BridgedClass _createTextEditingDeltaInsertionBridge() {
           'composing',
           'TextEditingDeltaInsertion',
         );
-        return $flutter_48.TextEditingDeltaInsertion(
+        return $flutter_49.TextEditingDeltaInsertion(
           oldText: oldText,
           textInserted: textInserted,
           insertionOffset: insertionOffset,
@@ -7784,31 +7819,31 @@ BridgedClass _createTextEditingDeltaInsertionBridge() {
     },
     getters: {
       'oldText': (visitor, target) => D4
-          .validateTarget<$flutter_48.TextEditingDeltaInsertion>(
+          .validateTarget<$flutter_49.TextEditingDeltaInsertion>(
             target,
             'TextEditingDeltaInsertion',
           )
           .oldText,
       'selection': (visitor, target) => D4
-          .validateTarget<$flutter_48.TextEditingDeltaInsertion>(
+          .validateTarget<$flutter_49.TextEditingDeltaInsertion>(
             target,
             'TextEditingDeltaInsertion',
           )
           .selection,
       'composing': (visitor, target) => D4
-          .validateTarget<$flutter_48.TextEditingDeltaInsertion>(
+          .validateTarget<$flutter_49.TextEditingDeltaInsertion>(
             target,
             'TextEditingDeltaInsertion',
           )
           .composing,
       'textInserted': (visitor, target) => D4
-          .validateTarget<$flutter_48.TextEditingDeltaInsertion>(
+          .validateTarget<$flutter_49.TextEditingDeltaInsertion>(
             target,
             'TextEditingDeltaInsertion',
           )
           .textInserted,
       'insertionOffset': (visitor, target) => D4
-          .validateTarget<$flutter_48.TextEditingDeltaInsertion>(
+          .validateTarget<$flutter_49.TextEditingDeltaInsertion>(
             target,
             'TextEditingDeltaInsertion',
           )
@@ -7816,12 +7851,12 @@ BridgedClass _createTextEditingDeltaInsertionBridge() {
     },
     methods: {
       'apply': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_48.TextEditingDeltaInsertion>(
+        final t = D4.validateTarget<$flutter_49.TextEditingDeltaInsertion>(
           target,
           'TextEditingDeltaInsertion',
         );
         D4.requireMinArgs(positional, 1, 'apply');
-        final value = D4.getRequiredArg<$flutter_50.TextEditingValue>(
+        final value = D4.getRequiredArg<$flutter_51.TextEditingValue>(
           positional,
           0,
           'value',
@@ -7830,14 +7865,14 @@ BridgedClass _createTextEditingDeltaInsertionBridge() {
         return t.apply(value);
       },
       'toStringShort': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_48.TextEditingDeltaInsertion>(
+        final t = D4.validateTarget<$flutter_49.TextEditingDeltaInsertion>(
           target,
           'TextEditingDeltaInsertion',
         );
         return t.toStringShort();
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_48.TextEditingDeltaInsertion>(
+        final t = D4.validateTarget<$flutter_49.TextEditingDeltaInsertion>(
           target,
           'TextEditingDeltaInsertion',
         );
@@ -7849,7 +7884,7 @@ BridgedClass _createTextEditingDeltaInsertionBridge() {
         return t.toString(minLevel: minLevel);
       },
       'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_48.TextEditingDeltaInsertion>(
+        final t = D4.validateTarget<$flutter_49.TextEditingDeltaInsertion>(
           target,
           'TextEditingDeltaInsertion',
         );
@@ -7861,7 +7896,7 @@ BridgedClass _createTextEditingDeltaInsertionBridge() {
         return t.toDiagnosticsNode(name: name, style: style);
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_48.TextEditingDeltaInsertion>(
+        final t = D4.validateTarget<$flutter_49.TextEditingDeltaInsertion>(
           target,
           'TextEditingDeltaInsertion',
         );
@@ -7906,9 +7941,9 @@ BridgedClass _createTextEditingDeltaInsertionBridge() {
 
 BridgedClass _createTextEditingDeltaDeletionBridge() {
   return BridgedClass(
-    nativeType: $flutter_48.TextEditingDeltaDeletion,
+    nativeType: $flutter_49.TextEditingDeltaDeletion,
     name: 'TextEditingDeltaDeletion',
-    isAssignable: (v) => v is $flutter_48.TextEditingDeltaDeletion,
+    isAssignable: (v) => v is $flutter_49.TextEditingDeltaDeletion,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
@@ -7922,7 +7957,7 @@ BridgedClass _createTextEditingDeltaDeletionBridge() {
           'deletedRange',
           'TextEditingDeltaDeletion',
         );
-        final selection = D4.getRequiredNamedArg<$flutter_47.TextSelection>(
+        final selection = D4.getRequiredNamedArg<$flutter_48.TextSelection>(
           named,
           'selection',
           'TextEditingDeltaDeletion',
@@ -7932,7 +7967,7 @@ BridgedClass _createTextEditingDeltaDeletionBridge() {
           'composing',
           'TextEditingDeltaDeletion',
         );
-        return $flutter_48.TextEditingDeltaDeletion(
+        return $flutter_49.TextEditingDeltaDeletion(
           oldText: oldText,
           deletedRange: deletedRange,
           selection: selection,
@@ -7942,31 +7977,31 @@ BridgedClass _createTextEditingDeltaDeletionBridge() {
     },
     getters: {
       'oldText': (visitor, target) => D4
-          .validateTarget<$flutter_48.TextEditingDeltaDeletion>(
+          .validateTarget<$flutter_49.TextEditingDeltaDeletion>(
             target,
             'TextEditingDeltaDeletion',
           )
           .oldText,
       'selection': (visitor, target) => D4
-          .validateTarget<$flutter_48.TextEditingDeltaDeletion>(
+          .validateTarget<$flutter_49.TextEditingDeltaDeletion>(
             target,
             'TextEditingDeltaDeletion',
           )
           .selection,
       'composing': (visitor, target) => D4
-          .validateTarget<$flutter_48.TextEditingDeltaDeletion>(
+          .validateTarget<$flutter_49.TextEditingDeltaDeletion>(
             target,
             'TextEditingDeltaDeletion',
           )
           .composing,
       'deletedRange': (visitor, target) => D4
-          .validateTarget<$flutter_48.TextEditingDeltaDeletion>(
+          .validateTarget<$flutter_49.TextEditingDeltaDeletion>(
             target,
             'TextEditingDeltaDeletion',
           )
           .deletedRange,
       'textDeleted': (visitor, target) => D4
-          .validateTarget<$flutter_48.TextEditingDeltaDeletion>(
+          .validateTarget<$flutter_49.TextEditingDeltaDeletion>(
             target,
             'TextEditingDeltaDeletion',
           )
@@ -7974,12 +8009,12 @@ BridgedClass _createTextEditingDeltaDeletionBridge() {
     },
     methods: {
       'apply': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_48.TextEditingDeltaDeletion>(
+        final t = D4.validateTarget<$flutter_49.TextEditingDeltaDeletion>(
           target,
           'TextEditingDeltaDeletion',
         );
         D4.requireMinArgs(positional, 1, 'apply');
-        final value = D4.getRequiredArg<$flutter_50.TextEditingValue>(
+        final value = D4.getRequiredArg<$flutter_51.TextEditingValue>(
           positional,
           0,
           'value',
@@ -7988,14 +8023,14 @@ BridgedClass _createTextEditingDeltaDeletionBridge() {
         return t.apply(value);
       },
       'toStringShort': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_48.TextEditingDeltaDeletion>(
+        final t = D4.validateTarget<$flutter_49.TextEditingDeltaDeletion>(
           target,
           'TextEditingDeltaDeletion',
         );
         return t.toStringShort();
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_48.TextEditingDeltaDeletion>(
+        final t = D4.validateTarget<$flutter_49.TextEditingDeltaDeletion>(
           target,
           'TextEditingDeltaDeletion',
         );
@@ -8007,7 +8042,7 @@ BridgedClass _createTextEditingDeltaDeletionBridge() {
         return t.toString(minLevel: minLevel);
       },
       'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_48.TextEditingDeltaDeletion>(
+        final t = D4.validateTarget<$flutter_49.TextEditingDeltaDeletion>(
           target,
           'TextEditingDeltaDeletion',
         );
@@ -8019,7 +8054,7 @@ BridgedClass _createTextEditingDeltaDeletionBridge() {
         return t.toDiagnosticsNode(name: name, style: style);
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_48.TextEditingDeltaDeletion>(
+        final t = D4.validateTarget<$flutter_49.TextEditingDeltaDeletion>(
           target,
           'TextEditingDeltaDeletion',
         );
@@ -8064,9 +8099,9 @@ BridgedClass _createTextEditingDeltaDeletionBridge() {
 
 BridgedClass _createTextEditingDeltaReplacementBridge() {
   return BridgedClass(
-    nativeType: $flutter_48.TextEditingDeltaReplacement,
+    nativeType: $flutter_49.TextEditingDeltaReplacement,
     name: 'TextEditingDeltaReplacement',
-    isAssignable: (v) => v is $flutter_48.TextEditingDeltaReplacement,
+    isAssignable: (v) => v is $flutter_49.TextEditingDeltaReplacement,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
@@ -8085,7 +8120,7 @@ BridgedClass _createTextEditingDeltaReplacementBridge() {
           'replacedRange',
           'TextEditingDeltaReplacement',
         );
-        final selection = D4.getRequiredNamedArg<$flutter_47.TextSelection>(
+        final selection = D4.getRequiredNamedArg<$flutter_48.TextSelection>(
           named,
           'selection',
           'TextEditingDeltaReplacement',
@@ -8095,7 +8130,7 @@ BridgedClass _createTextEditingDeltaReplacementBridge() {
           'composing',
           'TextEditingDeltaReplacement',
         );
-        return $flutter_48.TextEditingDeltaReplacement(
+        return $flutter_49.TextEditingDeltaReplacement(
           oldText: oldText,
           replacementText: replacementText,
           replacedRange: replacedRange,
@@ -8106,37 +8141,37 @@ BridgedClass _createTextEditingDeltaReplacementBridge() {
     },
     getters: {
       'oldText': (visitor, target) => D4
-          .validateTarget<$flutter_48.TextEditingDeltaReplacement>(
+          .validateTarget<$flutter_49.TextEditingDeltaReplacement>(
             target,
             'TextEditingDeltaReplacement',
           )
           .oldText,
       'selection': (visitor, target) => D4
-          .validateTarget<$flutter_48.TextEditingDeltaReplacement>(
+          .validateTarget<$flutter_49.TextEditingDeltaReplacement>(
             target,
             'TextEditingDeltaReplacement',
           )
           .selection,
       'composing': (visitor, target) => D4
-          .validateTarget<$flutter_48.TextEditingDeltaReplacement>(
+          .validateTarget<$flutter_49.TextEditingDeltaReplacement>(
             target,
             'TextEditingDeltaReplacement',
           )
           .composing,
       'replacementText': (visitor, target) => D4
-          .validateTarget<$flutter_48.TextEditingDeltaReplacement>(
+          .validateTarget<$flutter_49.TextEditingDeltaReplacement>(
             target,
             'TextEditingDeltaReplacement',
           )
           .replacementText,
       'replacedRange': (visitor, target) => D4
-          .validateTarget<$flutter_48.TextEditingDeltaReplacement>(
+          .validateTarget<$flutter_49.TextEditingDeltaReplacement>(
             target,
             'TextEditingDeltaReplacement',
           )
           .replacedRange,
       'textReplaced': (visitor, target) => D4
-          .validateTarget<$flutter_48.TextEditingDeltaReplacement>(
+          .validateTarget<$flutter_49.TextEditingDeltaReplacement>(
             target,
             'TextEditingDeltaReplacement',
           )
@@ -8144,12 +8179,12 @@ BridgedClass _createTextEditingDeltaReplacementBridge() {
     },
     methods: {
       'apply': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_48.TextEditingDeltaReplacement>(
+        final t = D4.validateTarget<$flutter_49.TextEditingDeltaReplacement>(
           target,
           'TextEditingDeltaReplacement',
         );
         D4.requireMinArgs(positional, 1, 'apply');
-        final value = D4.getRequiredArg<$flutter_50.TextEditingValue>(
+        final value = D4.getRequiredArg<$flutter_51.TextEditingValue>(
           positional,
           0,
           'value',
@@ -8158,14 +8193,14 @@ BridgedClass _createTextEditingDeltaReplacementBridge() {
         return t.apply(value);
       },
       'toStringShort': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_48.TextEditingDeltaReplacement>(
+        final t = D4.validateTarget<$flutter_49.TextEditingDeltaReplacement>(
           target,
           'TextEditingDeltaReplacement',
         );
         return t.toStringShort();
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_48.TextEditingDeltaReplacement>(
+        final t = D4.validateTarget<$flutter_49.TextEditingDeltaReplacement>(
           target,
           'TextEditingDeltaReplacement',
         );
@@ -8177,7 +8212,7 @@ BridgedClass _createTextEditingDeltaReplacementBridge() {
         return t.toString(minLevel: minLevel);
       },
       'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_48.TextEditingDeltaReplacement>(
+        final t = D4.validateTarget<$flutter_49.TextEditingDeltaReplacement>(
           target,
           'TextEditingDeltaReplacement',
         );
@@ -8189,7 +8224,7 @@ BridgedClass _createTextEditingDeltaReplacementBridge() {
         return t.toDiagnosticsNode(name: name, style: style);
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_48.TextEditingDeltaReplacement>(
+        final t = D4.validateTarget<$flutter_49.TextEditingDeltaReplacement>(
           target,
           'TextEditingDeltaReplacement',
         );
@@ -8235,9 +8270,9 @@ BridgedClass _createTextEditingDeltaReplacementBridge() {
 
 BridgedClass _createTextEditingDeltaNonTextUpdateBridge() {
   return BridgedClass(
-    nativeType: $flutter_48.TextEditingDeltaNonTextUpdate,
+    nativeType: $flutter_49.TextEditingDeltaNonTextUpdate,
     name: 'TextEditingDeltaNonTextUpdate',
-    isAssignable: (v) => v is $flutter_48.TextEditingDeltaNonTextUpdate,
+    isAssignable: (v) => v is $flutter_49.TextEditingDeltaNonTextUpdate,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
@@ -8246,7 +8281,7 @@ BridgedClass _createTextEditingDeltaNonTextUpdateBridge() {
           'oldText',
           'TextEditingDeltaNonTextUpdate',
         );
-        final selection = D4.getRequiredNamedArg<$flutter_47.TextSelection>(
+        final selection = D4.getRequiredNamedArg<$flutter_48.TextSelection>(
           named,
           'selection',
           'TextEditingDeltaNonTextUpdate',
@@ -8256,7 +8291,7 @@ BridgedClass _createTextEditingDeltaNonTextUpdateBridge() {
           'composing',
           'TextEditingDeltaNonTextUpdate',
         );
-        return $flutter_48.TextEditingDeltaNonTextUpdate(
+        return $flutter_49.TextEditingDeltaNonTextUpdate(
           oldText: oldText,
           selection: selection,
           composing: composing,
@@ -8265,19 +8300,19 @@ BridgedClass _createTextEditingDeltaNonTextUpdateBridge() {
     },
     getters: {
       'oldText': (visitor, target) => D4
-          .validateTarget<$flutter_48.TextEditingDeltaNonTextUpdate>(
+          .validateTarget<$flutter_49.TextEditingDeltaNonTextUpdate>(
             target,
             'TextEditingDeltaNonTextUpdate',
           )
           .oldText,
       'selection': (visitor, target) => D4
-          .validateTarget<$flutter_48.TextEditingDeltaNonTextUpdate>(
+          .validateTarget<$flutter_49.TextEditingDeltaNonTextUpdate>(
             target,
             'TextEditingDeltaNonTextUpdate',
           )
           .selection,
       'composing': (visitor, target) => D4
-          .validateTarget<$flutter_48.TextEditingDeltaNonTextUpdate>(
+          .validateTarget<$flutter_49.TextEditingDeltaNonTextUpdate>(
             target,
             'TextEditingDeltaNonTextUpdate',
           )
@@ -8285,12 +8320,12 @@ BridgedClass _createTextEditingDeltaNonTextUpdateBridge() {
     },
     methods: {
       'apply': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_48.TextEditingDeltaNonTextUpdate>(
+        final t = D4.validateTarget<$flutter_49.TextEditingDeltaNonTextUpdate>(
           target,
           'TextEditingDeltaNonTextUpdate',
         );
         D4.requireMinArgs(positional, 1, 'apply');
-        final value = D4.getRequiredArg<$flutter_50.TextEditingValue>(
+        final value = D4.getRequiredArg<$flutter_51.TextEditingValue>(
           positional,
           0,
           'value',
@@ -8299,14 +8334,14 @@ BridgedClass _createTextEditingDeltaNonTextUpdateBridge() {
         return t.apply(value);
       },
       'toStringShort': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_48.TextEditingDeltaNonTextUpdate>(
+        final t = D4.validateTarget<$flutter_49.TextEditingDeltaNonTextUpdate>(
           target,
           'TextEditingDeltaNonTextUpdate',
         );
         return t.toStringShort();
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_48.TextEditingDeltaNonTextUpdate>(
+        final t = D4.validateTarget<$flutter_49.TextEditingDeltaNonTextUpdate>(
           target,
           'TextEditingDeltaNonTextUpdate',
         );
@@ -8318,7 +8353,7 @@ BridgedClass _createTextEditingDeltaNonTextUpdateBridge() {
         return t.toString(minLevel: minLevel);
       },
       'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_48.TextEditingDeltaNonTextUpdate>(
+        final t = D4.validateTarget<$flutter_49.TextEditingDeltaNonTextUpdate>(
           target,
           'TextEditingDeltaNonTextUpdate',
         );
@@ -8330,7 +8365,7 @@ BridgedClass _createTextEditingDeltaNonTextUpdateBridge() {
         return t.toDiagnosticsNode(name: name, style: style);
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_48.TextEditingDeltaNonTextUpdate>(
+        final t = D4.validateTarget<$flutter_49.TextEditingDeltaNonTextUpdate>(
           target,
           'TextEditingDeltaNonTextUpdate',
         );
@@ -8373,14 +8408,14 @@ BridgedClass _createTextEditingDeltaNonTextUpdateBridge() {
 
 BridgedClass _createBinaryMessengerBridge() {
   return BridgedClass(
-    nativeType: $flutter_13.BinaryMessenger,
+    nativeType: $flutter_14.BinaryMessenger,
     name: 'BinaryMessenger',
-    isAssignable: (v) => v is $flutter_13.BinaryMessenger,
+    isAssignable: (v) => v is $flutter_14.BinaryMessenger,
     isAbstract: true,
     constructors: {},
     methods: {
       'handlePlatformMessage': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_13.BinaryMessenger>(
+        final t = D4.validateTarget<$flutter_14.BinaryMessenger>(
           target,
           'BinaryMessenger',
         );
@@ -8414,7 +8449,7 @@ BridgedClass _createBinaryMessengerBridge() {
         );
       },
       'send': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_13.BinaryMessenger>(
+        final t = D4.validateTarget<$flutter_14.BinaryMessenger>(
           target,
           'BinaryMessenger',
         );
@@ -8434,7 +8469,7 @@ BridgedClass _createBinaryMessengerBridge() {
         return t.send(channel, message);
       },
       'setMessageHandler': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_13.BinaryMessenger>(
+        final t = D4.validateTarget<$flutter_14.BinaryMessenger>(
           target,
           'BinaryMessenger',
         );
@@ -8486,22 +8521,22 @@ BridgedClass _createBinaryMessengerBridge() {
 
 BridgedClass _createKeyboardKeyBridge() {
   return BridgedClass(
-    nativeType: $flutter_25.KeyboardKey,
+    nativeType: $flutter_26.KeyboardKey,
     name: 'KeyboardKey',
-    isAssignable: (v) => v is $flutter_25.KeyboardKey,
+    isAssignable: (v) => v is $flutter_26.KeyboardKey,
     hierarchyDepth: 1,
     isAbstract: true,
     constructors: {},
     methods: {
       'toStringShort': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.KeyboardKey>(
+        final t = D4.validateTarget<$flutter_26.KeyboardKey>(
           target,
           'KeyboardKey',
         );
         return t.toStringShort();
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.KeyboardKey>(
+        final t = D4.validateTarget<$flutter_26.KeyboardKey>(
           target,
           'KeyboardKey',
         );
@@ -8513,7 +8548,7 @@ BridgedClass _createKeyboardKeyBridge() {
         return t.toString(minLevel: minLevel);
       },
       'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.KeyboardKey>(
+        final t = D4.validateTarget<$flutter_26.KeyboardKey>(
           target,
           'KeyboardKey',
         );
@@ -8525,7 +8560,7 @@ BridgedClass _createKeyboardKeyBridge() {
         return t.toDiagnosticsNode(name: name, style: style);
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.KeyboardKey>(
+        final t = D4.validateTarget<$flutter_26.KeyboardKey>(
           target,
           'KeyboardKey',
         );
@@ -8559,9 +8594,9 @@ BridgedClass _createKeyboardKeyBridge() {
 
 BridgedClass _createLogicalKeyboardKeyBridge() {
   return BridgedClass(
-    nativeType: $flutter_25.LogicalKeyboardKey,
+    nativeType: $flutter_26.LogicalKeyboardKey,
     name: 'LogicalKeyboardKey',
-    isAssignable: (v) => v is $flutter_25.LogicalKeyboardKey,
+    isAssignable: (v) => v is $flutter_26.LogicalKeyboardKey,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
@@ -8572,42 +8607,42 @@ BridgedClass _createLogicalKeyboardKeyBridge() {
           'keyId',
           'LogicalKeyboardKey',
         );
-        return $flutter_25.LogicalKeyboardKey(keyId);
+        return $flutter_26.LogicalKeyboardKey(keyId);
       },
     },
     getters: {
       'keyId': (visitor, target) => D4
-          .validateTarget<$flutter_25.LogicalKeyboardKey>(
+          .validateTarget<$flutter_26.LogicalKeyboardKey>(
             target,
             'LogicalKeyboardKey',
           )
           .keyId,
       'keyLabel': (visitor, target) => D4
-          .validateTarget<$flutter_25.LogicalKeyboardKey>(
+          .validateTarget<$flutter_26.LogicalKeyboardKey>(
             target,
             'LogicalKeyboardKey',
           )
           .keyLabel,
       'debugName': (visitor, target) => D4
-          .validateTarget<$flutter_25.LogicalKeyboardKey>(
+          .validateTarget<$flutter_26.LogicalKeyboardKey>(
             target,
             'LogicalKeyboardKey',
           )
           .debugName,
       'hashCode': (visitor, target) => D4
-          .validateTarget<$flutter_25.LogicalKeyboardKey>(
+          .validateTarget<$flutter_26.LogicalKeyboardKey>(
             target,
             'LogicalKeyboardKey',
           )
           .hashCode,
       'isAutogenerated': (visitor, target) => D4
-          .validateTarget<$flutter_25.LogicalKeyboardKey>(
+          .validateTarget<$flutter_26.LogicalKeyboardKey>(
             target,
             'LogicalKeyboardKey',
           )
           .isAutogenerated,
       'synonyms': (visitor, target) => D4
-          .validateTarget<$flutter_25.LogicalKeyboardKey>(
+          .validateTarget<$flutter_26.LogicalKeyboardKey>(
             target,
             'LogicalKeyboardKey',
           )
@@ -8615,14 +8650,14 @@ BridgedClass _createLogicalKeyboardKeyBridge() {
     },
     methods: {
       'toStringShort': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.LogicalKeyboardKey>(
+        final t = D4.validateTarget<$flutter_26.LogicalKeyboardKey>(
           target,
           'LogicalKeyboardKey',
         );
         return t.toStringShort();
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.LogicalKeyboardKey>(
+        final t = D4.validateTarget<$flutter_26.LogicalKeyboardKey>(
           target,
           'LogicalKeyboardKey',
         );
@@ -8634,7 +8669,7 @@ BridgedClass _createLogicalKeyboardKeyBridge() {
         return t.toString(minLevel: minLevel);
       },
       'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.LogicalKeyboardKey>(
+        final t = D4.validateTarget<$flutter_26.LogicalKeyboardKey>(
           target,
           'LogicalKeyboardKey',
         );
@@ -8646,7 +8681,7 @@ BridgedClass _createLogicalKeyboardKeyBridge() {
         return t.toDiagnosticsNode(name: name, style: style);
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.LogicalKeyboardKey>(
+        final t = D4.validateTarget<$flutter_26.LogicalKeyboardKey>(
           target,
           'LogicalKeyboardKey',
         );
@@ -8662,7 +8697,7 @@ BridgedClass _createLogicalKeyboardKeyBridge() {
         return null;
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.LogicalKeyboardKey>(
+        final t = D4.validateTarget<$flutter_26.LogicalKeyboardKey>(
           target,
           'LogicalKeyboardKey',
         );
@@ -8678,582 +8713,582 @@ BridgedClass _createLogicalKeyboardKeyBridge() {
       },
     },
     staticGetters: {
-      'valueMask': (visitor) => $flutter_25.LogicalKeyboardKey.valueMask,
-      'planeMask': (visitor) => $flutter_25.LogicalKeyboardKey.planeMask,
-      'unicodePlane': (visitor) => $flutter_25.LogicalKeyboardKey.unicodePlane,
+      'valueMask': (visitor) => $flutter_26.LogicalKeyboardKey.valueMask,
+      'planeMask': (visitor) => $flutter_26.LogicalKeyboardKey.planeMask,
+      'unicodePlane': (visitor) => $flutter_26.LogicalKeyboardKey.unicodePlane,
       'unprintablePlane': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.unprintablePlane,
-      'flutterPlane': (visitor) => $flutter_25.LogicalKeyboardKey.flutterPlane,
+          $flutter_26.LogicalKeyboardKey.unprintablePlane,
+      'flutterPlane': (visitor) => $flutter_26.LogicalKeyboardKey.flutterPlane,
       'startOfPlatformPlanes': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.startOfPlatformPlanes,
-      'androidPlane': (visitor) => $flutter_25.LogicalKeyboardKey.androidPlane,
-      'fuchsiaPlane': (visitor) => $flutter_25.LogicalKeyboardKey.fuchsiaPlane,
-      'iosPlane': (visitor) => $flutter_25.LogicalKeyboardKey.iosPlane,
-      'macosPlane': (visitor) => $flutter_25.LogicalKeyboardKey.macosPlane,
-      'gtkPlane': (visitor) => $flutter_25.LogicalKeyboardKey.gtkPlane,
-      'windowsPlane': (visitor) => $flutter_25.LogicalKeyboardKey.windowsPlane,
-      'webPlane': (visitor) => $flutter_25.LogicalKeyboardKey.webPlane,
-      'glfwPlane': (visitor) => $flutter_25.LogicalKeyboardKey.glfwPlane,
-      'space': (visitor) => $flutter_25.LogicalKeyboardKey.space,
-      'exclamation': (visitor) => $flutter_25.LogicalKeyboardKey.exclamation,
-      'quote': (visitor) => $flutter_25.LogicalKeyboardKey.quote,
-      'numberSign': (visitor) => $flutter_25.LogicalKeyboardKey.numberSign,
-      'dollar': (visitor) => $flutter_25.LogicalKeyboardKey.dollar,
-      'percent': (visitor) => $flutter_25.LogicalKeyboardKey.percent,
-      'ampersand': (visitor) => $flutter_25.LogicalKeyboardKey.ampersand,
-      'quoteSingle': (visitor) => $flutter_25.LogicalKeyboardKey.quoteSingle,
+          $flutter_26.LogicalKeyboardKey.startOfPlatformPlanes,
+      'androidPlane': (visitor) => $flutter_26.LogicalKeyboardKey.androidPlane,
+      'fuchsiaPlane': (visitor) => $flutter_26.LogicalKeyboardKey.fuchsiaPlane,
+      'iosPlane': (visitor) => $flutter_26.LogicalKeyboardKey.iosPlane,
+      'macosPlane': (visitor) => $flutter_26.LogicalKeyboardKey.macosPlane,
+      'gtkPlane': (visitor) => $flutter_26.LogicalKeyboardKey.gtkPlane,
+      'windowsPlane': (visitor) => $flutter_26.LogicalKeyboardKey.windowsPlane,
+      'webPlane': (visitor) => $flutter_26.LogicalKeyboardKey.webPlane,
+      'glfwPlane': (visitor) => $flutter_26.LogicalKeyboardKey.glfwPlane,
+      'space': (visitor) => $flutter_26.LogicalKeyboardKey.space,
+      'exclamation': (visitor) => $flutter_26.LogicalKeyboardKey.exclamation,
+      'quote': (visitor) => $flutter_26.LogicalKeyboardKey.quote,
+      'numberSign': (visitor) => $flutter_26.LogicalKeyboardKey.numberSign,
+      'dollar': (visitor) => $flutter_26.LogicalKeyboardKey.dollar,
+      'percent': (visitor) => $flutter_26.LogicalKeyboardKey.percent,
+      'ampersand': (visitor) => $flutter_26.LogicalKeyboardKey.ampersand,
+      'quoteSingle': (visitor) => $flutter_26.LogicalKeyboardKey.quoteSingle,
       'parenthesisLeft': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.parenthesisLeft,
+          $flutter_26.LogicalKeyboardKey.parenthesisLeft,
       'parenthesisRight': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.parenthesisRight,
-      'asterisk': (visitor) => $flutter_25.LogicalKeyboardKey.asterisk,
-      'add': (visitor) => $flutter_25.LogicalKeyboardKey.add,
-      'comma': (visitor) => $flutter_25.LogicalKeyboardKey.comma,
-      'minus': (visitor) => $flutter_25.LogicalKeyboardKey.minus,
-      'period': (visitor) => $flutter_25.LogicalKeyboardKey.period,
-      'slash': (visitor) => $flutter_25.LogicalKeyboardKey.slash,
-      'digit0': (visitor) => $flutter_25.LogicalKeyboardKey.digit0,
-      'digit1': (visitor) => $flutter_25.LogicalKeyboardKey.digit1,
-      'digit2': (visitor) => $flutter_25.LogicalKeyboardKey.digit2,
-      'digit3': (visitor) => $flutter_25.LogicalKeyboardKey.digit3,
-      'digit4': (visitor) => $flutter_25.LogicalKeyboardKey.digit4,
-      'digit5': (visitor) => $flutter_25.LogicalKeyboardKey.digit5,
-      'digit6': (visitor) => $flutter_25.LogicalKeyboardKey.digit6,
-      'digit7': (visitor) => $flutter_25.LogicalKeyboardKey.digit7,
-      'digit8': (visitor) => $flutter_25.LogicalKeyboardKey.digit8,
-      'digit9': (visitor) => $flutter_25.LogicalKeyboardKey.digit9,
-      'colon': (visitor) => $flutter_25.LogicalKeyboardKey.colon,
-      'semicolon': (visitor) => $flutter_25.LogicalKeyboardKey.semicolon,
-      'less': (visitor) => $flutter_25.LogicalKeyboardKey.less,
-      'equal': (visitor) => $flutter_25.LogicalKeyboardKey.equal,
-      'greater': (visitor) => $flutter_25.LogicalKeyboardKey.greater,
-      'question': (visitor) => $flutter_25.LogicalKeyboardKey.question,
-      'at': (visitor) => $flutter_25.LogicalKeyboardKey.at,
-      'bracketLeft': (visitor) => $flutter_25.LogicalKeyboardKey.bracketLeft,
-      'backslash': (visitor) => $flutter_25.LogicalKeyboardKey.backslash,
-      'bracketRight': (visitor) => $flutter_25.LogicalKeyboardKey.bracketRight,
-      'caret': (visitor) => $flutter_25.LogicalKeyboardKey.caret,
-      'underscore': (visitor) => $flutter_25.LogicalKeyboardKey.underscore,
-      'backquote': (visitor) => $flutter_25.LogicalKeyboardKey.backquote,
-      'keyA': (visitor) => $flutter_25.LogicalKeyboardKey.keyA,
-      'keyB': (visitor) => $flutter_25.LogicalKeyboardKey.keyB,
-      'keyC': (visitor) => $flutter_25.LogicalKeyboardKey.keyC,
-      'keyD': (visitor) => $flutter_25.LogicalKeyboardKey.keyD,
-      'keyE': (visitor) => $flutter_25.LogicalKeyboardKey.keyE,
-      'keyF': (visitor) => $flutter_25.LogicalKeyboardKey.keyF,
-      'keyG': (visitor) => $flutter_25.LogicalKeyboardKey.keyG,
-      'keyH': (visitor) => $flutter_25.LogicalKeyboardKey.keyH,
-      'keyI': (visitor) => $flutter_25.LogicalKeyboardKey.keyI,
-      'keyJ': (visitor) => $flutter_25.LogicalKeyboardKey.keyJ,
-      'keyK': (visitor) => $flutter_25.LogicalKeyboardKey.keyK,
-      'keyL': (visitor) => $flutter_25.LogicalKeyboardKey.keyL,
-      'keyM': (visitor) => $flutter_25.LogicalKeyboardKey.keyM,
-      'keyN': (visitor) => $flutter_25.LogicalKeyboardKey.keyN,
-      'keyO': (visitor) => $flutter_25.LogicalKeyboardKey.keyO,
-      'keyP': (visitor) => $flutter_25.LogicalKeyboardKey.keyP,
-      'keyQ': (visitor) => $flutter_25.LogicalKeyboardKey.keyQ,
-      'keyR': (visitor) => $flutter_25.LogicalKeyboardKey.keyR,
-      'keyS': (visitor) => $flutter_25.LogicalKeyboardKey.keyS,
-      'keyT': (visitor) => $flutter_25.LogicalKeyboardKey.keyT,
-      'keyU': (visitor) => $flutter_25.LogicalKeyboardKey.keyU,
-      'keyV': (visitor) => $flutter_25.LogicalKeyboardKey.keyV,
-      'keyW': (visitor) => $flutter_25.LogicalKeyboardKey.keyW,
-      'keyX': (visitor) => $flutter_25.LogicalKeyboardKey.keyX,
-      'keyY': (visitor) => $flutter_25.LogicalKeyboardKey.keyY,
-      'keyZ': (visitor) => $flutter_25.LogicalKeyboardKey.keyZ,
-      'braceLeft': (visitor) => $flutter_25.LogicalKeyboardKey.braceLeft,
-      'bar': (visitor) => $flutter_25.LogicalKeyboardKey.bar,
-      'braceRight': (visitor) => $flutter_25.LogicalKeyboardKey.braceRight,
-      'tilde': (visitor) => $flutter_25.LogicalKeyboardKey.tilde,
-      'unidentified': (visitor) => $flutter_25.LogicalKeyboardKey.unidentified,
-      'backspace': (visitor) => $flutter_25.LogicalKeyboardKey.backspace,
-      'tab': (visitor) => $flutter_25.LogicalKeyboardKey.tab,
-      'enter': (visitor) => $flutter_25.LogicalKeyboardKey.enter,
-      'escape': (visitor) => $flutter_25.LogicalKeyboardKey.escape,
-      'delete': (visitor) => $flutter_25.LogicalKeyboardKey.delete,
-      'accel': (visitor) => $flutter_25.LogicalKeyboardKey.accel,
-      'altGraph': (visitor) => $flutter_25.LogicalKeyboardKey.altGraph,
-      'capsLock': (visitor) => $flutter_25.LogicalKeyboardKey.capsLock,
-      'fn': (visitor) => $flutter_25.LogicalKeyboardKey.fn,
-      'fnLock': (visitor) => $flutter_25.LogicalKeyboardKey.fnLock,
-      'hyper': (visitor) => $flutter_25.LogicalKeyboardKey.hyper,
-      'numLock': (visitor) => $flutter_25.LogicalKeyboardKey.numLock,
-      'scrollLock': (visitor) => $flutter_25.LogicalKeyboardKey.scrollLock,
-      'superKey': (visitor) => $flutter_25.LogicalKeyboardKey.superKey,
-      'symbol': (visitor) => $flutter_25.LogicalKeyboardKey.symbol,
-      'symbolLock': (visitor) => $flutter_25.LogicalKeyboardKey.symbolLock,
-      'shiftLevel5': (visitor) => $flutter_25.LogicalKeyboardKey.shiftLevel5,
-      'arrowDown': (visitor) => $flutter_25.LogicalKeyboardKey.arrowDown,
-      'arrowLeft': (visitor) => $flutter_25.LogicalKeyboardKey.arrowLeft,
-      'arrowRight': (visitor) => $flutter_25.LogicalKeyboardKey.arrowRight,
-      'arrowUp': (visitor) => $flutter_25.LogicalKeyboardKey.arrowUp,
-      'end': (visitor) => $flutter_25.LogicalKeyboardKey.end,
-      'home': (visitor) => $flutter_25.LogicalKeyboardKey.home,
-      'pageDown': (visitor) => $flutter_25.LogicalKeyboardKey.pageDown,
-      'pageUp': (visitor) => $flutter_25.LogicalKeyboardKey.pageUp,
-      'clear': (visitor) => $flutter_25.LogicalKeyboardKey.clear,
-      'copy': (visitor) => $flutter_25.LogicalKeyboardKey.copy,
-      'crSel': (visitor) => $flutter_25.LogicalKeyboardKey.crSel,
-      'cut': (visitor) => $flutter_25.LogicalKeyboardKey.cut,
-      'eraseEof': (visitor) => $flutter_25.LogicalKeyboardKey.eraseEof,
-      'exSel': (visitor) => $flutter_25.LogicalKeyboardKey.exSel,
-      'insert': (visitor) => $flutter_25.LogicalKeyboardKey.insert,
-      'paste': (visitor) => $flutter_25.LogicalKeyboardKey.paste,
-      'redo': (visitor) => $flutter_25.LogicalKeyboardKey.redo,
-      'undo': (visitor) => $flutter_25.LogicalKeyboardKey.undo,
-      'accept': (visitor) => $flutter_25.LogicalKeyboardKey.accept,
-      'again': (visitor) => $flutter_25.LogicalKeyboardKey.again,
-      'attn': (visitor) => $flutter_25.LogicalKeyboardKey.attn,
-      'cancel': (visitor) => $flutter_25.LogicalKeyboardKey.cancel,
-      'contextMenu': (visitor) => $flutter_25.LogicalKeyboardKey.contextMenu,
-      'execute': (visitor) => $flutter_25.LogicalKeyboardKey.execute,
-      'find': (visitor) => $flutter_25.LogicalKeyboardKey.find,
-      'help': (visitor) => $flutter_25.LogicalKeyboardKey.help,
-      'pause': (visitor) => $flutter_25.LogicalKeyboardKey.pause,
-      'play': (visitor) => $flutter_25.LogicalKeyboardKey.play,
-      'props': (visitor) => $flutter_25.LogicalKeyboardKey.props,
-      'select': (visitor) => $flutter_25.LogicalKeyboardKey.select,
-      'zoomIn': (visitor) => $flutter_25.LogicalKeyboardKey.zoomIn,
-      'zoomOut': (visitor) => $flutter_25.LogicalKeyboardKey.zoomOut,
+          $flutter_26.LogicalKeyboardKey.parenthesisRight,
+      'asterisk': (visitor) => $flutter_26.LogicalKeyboardKey.asterisk,
+      'add': (visitor) => $flutter_26.LogicalKeyboardKey.add,
+      'comma': (visitor) => $flutter_26.LogicalKeyboardKey.comma,
+      'minus': (visitor) => $flutter_26.LogicalKeyboardKey.minus,
+      'period': (visitor) => $flutter_26.LogicalKeyboardKey.period,
+      'slash': (visitor) => $flutter_26.LogicalKeyboardKey.slash,
+      'digit0': (visitor) => $flutter_26.LogicalKeyboardKey.digit0,
+      'digit1': (visitor) => $flutter_26.LogicalKeyboardKey.digit1,
+      'digit2': (visitor) => $flutter_26.LogicalKeyboardKey.digit2,
+      'digit3': (visitor) => $flutter_26.LogicalKeyboardKey.digit3,
+      'digit4': (visitor) => $flutter_26.LogicalKeyboardKey.digit4,
+      'digit5': (visitor) => $flutter_26.LogicalKeyboardKey.digit5,
+      'digit6': (visitor) => $flutter_26.LogicalKeyboardKey.digit6,
+      'digit7': (visitor) => $flutter_26.LogicalKeyboardKey.digit7,
+      'digit8': (visitor) => $flutter_26.LogicalKeyboardKey.digit8,
+      'digit9': (visitor) => $flutter_26.LogicalKeyboardKey.digit9,
+      'colon': (visitor) => $flutter_26.LogicalKeyboardKey.colon,
+      'semicolon': (visitor) => $flutter_26.LogicalKeyboardKey.semicolon,
+      'less': (visitor) => $flutter_26.LogicalKeyboardKey.less,
+      'equal': (visitor) => $flutter_26.LogicalKeyboardKey.equal,
+      'greater': (visitor) => $flutter_26.LogicalKeyboardKey.greater,
+      'question': (visitor) => $flutter_26.LogicalKeyboardKey.question,
+      'at': (visitor) => $flutter_26.LogicalKeyboardKey.at,
+      'bracketLeft': (visitor) => $flutter_26.LogicalKeyboardKey.bracketLeft,
+      'backslash': (visitor) => $flutter_26.LogicalKeyboardKey.backslash,
+      'bracketRight': (visitor) => $flutter_26.LogicalKeyboardKey.bracketRight,
+      'caret': (visitor) => $flutter_26.LogicalKeyboardKey.caret,
+      'underscore': (visitor) => $flutter_26.LogicalKeyboardKey.underscore,
+      'backquote': (visitor) => $flutter_26.LogicalKeyboardKey.backquote,
+      'keyA': (visitor) => $flutter_26.LogicalKeyboardKey.keyA,
+      'keyB': (visitor) => $flutter_26.LogicalKeyboardKey.keyB,
+      'keyC': (visitor) => $flutter_26.LogicalKeyboardKey.keyC,
+      'keyD': (visitor) => $flutter_26.LogicalKeyboardKey.keyD,
+      'keyE': (visitor) => $flutter_26.LogicalKeyboardKey.keyE,
+      'keyF': (visitor) => $flutter_26.LogicalKeyboardKey.keyF,
+      'keyG': (visitor) => $flutter_26.LogicalKeyboardKey.keyG,
+      'keyH': (visitor) => $flutter_26.LogicalKeyboardKey.keyH,
+      'keyI': (visitor) => $flutter_26.LogicalKeyboardKey.keyI,
+      'keyJ': (visitor) => $flutter_26.LogicalKeyboardKey.keyJ,
+      'keyK': (visitor) => $flutter_26.LogicalKeyboardKey.keyK,
+      'keyL': (visitor) => $flutter_26.LogicalKeyboardKey.keyL,
+      'keyM': (visitor) => $flutter_26.LogicalKeyboardKey.keyM,
+      'keyN': (visitor) => $flutter_26.LogicalKeyboardKey.keyN,
+      'keyO': (visitor) => $flutter_26.LogicalKeyboardKey.keyO,
+      'keyP': (visitor) => $flutter_26.LogicalKeyboardKey.keyP,
+      'keyQ': (visitor) => $flutter_26.LogicalKeyboardKey.keyQ,
+      'keyR': (visitor) => $flutter_26.LogicalKeyboardKey.keyR,
+      'keyS': (visitor) => $flutter_26.LogicalKeyboardKey.keyS,
+      'keyT': (visitor) => $flutter_26.LogicalKeyboardKey.keyT,
+      'keyU': (visitor) => $flutter_26.LogicalKeyboardKey.keyU,
+      'keyV': (visitor) => $flutter_26.LogicalKeyboardKey.keyV,
+      'keyW': (visitor) => $flutter_26.LogicalKeyboardKey.keyW,
+      'keyX': (visitor) => $flutter_26.LogicalKeyboardKey.keyX,
+      'keyY': (visitor) => $flutter_26.LogicalKeyboardKey.keyY,
+      'keyZ': (visitor) => $flutter_26.LogicalKeyboardKey.keyZ,
+      'braceLeft': (visitor) => $flutter_26.LogicalKeyboardKey.braceLeft,
+      'bar': (visitor) => $flutter_26.LogicalKeyboardKey.bar,
+      'braceRight': (visitor) => $flutter_26.LogicalKeyboardKey.braceRight,
+      'tilde': (visitor) => $flutter_26.LogicalKeyboardKey.tilde,
+      'unidentified': (visitor) => $flutter_26.LogicalKeyboardKey.unidentified,
+      'backspace': (visitor) => $flutter_26.LogicalKeyboardKey.backspace,
+      'tab': (visitor) => $flutter_26.LogicalKeyboardKey.tab,
+      'enter': (visitor) => $flutter_26.LogicalKeyboardKey.enter,
+      'escape': (visitor) => $flutter_26.LogicalKeyboardKey.escape,
+      'delete': (visitor) => $flutter_26.LogicalKeyboardKey.delete,
+      'accel': (visitor) => $flutter_26.LogicalKeyboardKey.accel,
+      'altGraph': (visitor) => $flutter_26.LogicalKeyboardKey.altGraph,
+      'capsLock': (visitor) => $flutter_26.LogicalKeyboardKey.capsLock,
+      'fn': (visitor) => $flutter_26.LogicalKeyboardKey.fn,
+      'fnLock': (visitor) => $flutter_26.LogicalKeyboardKey.fnLock,
+      'hyper': (visitor) => $flutter_26.LogicalKeyboardKey.hyper,
+      'numLock': (visitor) => $flutter_26.LogicalKeyboardKey.numLock,
+      'scrollLock': (visitor) => $flutter_26.LogicalKeyboardKey.scrollLock,
+      'superKey': (visitor) => $flutter_26.LogicalKeyboardKey.superKey,
+      'symbol': (visitor) => $flutter_26.LogicalKeyboardKey.symbol,
+      'symbolLock': (visitor) => $flutter_26.LogicalKeyboardKey.symbolLock,
+      'shiftLevel5': (visitor) => $flutter_26.LogicalKeyboardKey.shiftLevel5,
+      'arrowDown': (visitor) => $flutter_26.LogicalKeyboardKey.arrowDown,
+      'arrowLeft': (visitor) => $flutter_26.LogicalKeyboardKey.arrowLeft,
+      'arrowRight': (visitor) => $flutter_26.LogicalKeyboardKey.arrowRight,
+      'arrowUp': (visitor) => $flutter_26.LogicalKeyboardKey.arrowUp,
+      'end': (visitor) => $flutter_26.LogicalKeyboardKey.end,
+      'home': (visitor) => $flutter_26.LogicalKeyboardKey.home,
+      'pageDown': (visitor) => $flutter_26.LogicalKeyboardKey.pageDown,
+      'pageUp': (visitor) => $flutter_26.LogicalKeyboardKey.pageUp,
+      'clear': (visitor) => $flutter_26.LogicalKeyboardKey.clear,
+      'copy': (visitor) => $flutter_26.LogicalKeyboardKey.copy,
+      'crSel': (visitor) => $flutter_26.LogicalKeyboardKey.crSel,
+      'cut': (visitor) => $flutter_26.LogicalKeyboardKey.cut,
+      'eraseEof': (visitor) => $flutter_26.LogicalKeyboardKey.eraseEof,
+      'exSel': (visitor) => $flutter_26.LogicalKeyboardKey.exSel,
+      'insert': (visitor) => $flutter_26.LogicalKeyboardKey.insert,
+      'paste': (visitor) => $flutter_26.LogicalKeyboardKey.paste,
+      'redo': (visitor) => $flutter_26.LogicalKeyboardKey.redo,
+      'undo': (visitor) => $flutter_26.LogicalKeyboardKey.undo,
+      'accept': (visitor) => $flutter_26.LogicalKeyboardKey.accept,
+      'again': (visitor) => $flutter_26.LogicalKeyboardKey.again,
+      'attn': (visitor) => $flutter_26.LogicalKeyboardKey.attn,
+      'cancel': (visitor) => $flutter_26.LogicalKeyboardKey.cancel,
+      'contextMenu': (visitor) => $flutter_26.LogicalKeyboardKey.contextMenu,
+      'execute': (visitor) => $flutter_26.LogicalKeyboardKey.execute,
+      'find': (visitor) => $flutter_26.LogicalKeyboardKey.find,
+      'help': (visitor) => $flutter_26.LogicalKeyboardKey.help,
+      'pause': (visitor) => $flutter_26.LogicalKeyboardKey.pause,
+      'play': (visitor) => $flutter_26.LogicalKeyboardKey.play,
+      'props': (visitor) => $flutter_26.LogicalKeyboardKey.props,
+      'select': (visitor) => $flutter_26.LogicalKeyboardKey.select,
+      'zoomIn': (visitor) => $flutter_26.LogicalKeyboardKey.zoomIn,
+      'zoomOut': (visitor) => $flutter_26.LogicalKeyboardKey.zoomOut,
       'brightnessDown': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.brightnessDown,
-      'brightnessUp': (visitor) => $flutter_25.LogicalKeyboardKey.brightnessUp,
-      'camera': (visitor) => $flutter_25.LogicalKeyboardKey.camera,
-      'eject': (visitor) => $flutter_25.LogicalKeyboardKey.eject,
-      'logOff': (visitor) => $flutter_25.LogicalKeyboardKey.logOff,
-      'power': (visitor) => $flutter_25.LogicalKeyboardKey.power,
-      'powerOff': (visitor) => $flutter_25.LogicalKeyboardKey.powerOff,
-      'printScreen': (visitor) => $flutter_25.LogicalKeyboardKey.printScreen,
-      'hibernate': (visitor) => $flutter_25.LogicalKeyboardKey.hibernate,
-      'standby': (visitor) => $flutter_25.LogicalKeyboardKey.standby,
-      'wakeUp': (visitor) => $flutter_25.LogicalKeyboardKey.wakeUp,
+          $flutter_26.LogicalKeyboardKey.brightnessDown,
+      'brightnessUp': (visitor) => $flutter_26.LogicalKeyboardKey.brightnessUp,
+      'camera': (visitor) => $flutter_26.LogicalKeyboardKey.camera,
+      'eject': (visitor) => $flutter_26.LogicalKeyboardKey.eject,
+      'logOff': (visitor) => $flutter_26.LogicalKeyboardKey.logOff,
+      'power': (visitor) => $flutter_26.LogicalKeyboardKey.power,
+      'powerOff': (visitor) => $flutter_26.LogicalKeyboardKey.powerOff,
+      'printScreen': (visitor) => $flutter_26.LogicalKeyboardKey.printScreen,
+      'hibernate': (visitor) => $flutter_26.LogicalKeyboardKey.hibernate,
+      'standby': (visitor) => $flutter_26.LogicalKeyboardKey.standby,
+      'wakeUp': (visitor) => $flutter_26.LogicalKeyboardKey.wakeUp,
       'allCandidates': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.allCandidates,
-      'alphanumeric': (visitor) => $flutter_25.LogicalKeyboardKey.alphanumeric,
-      'codeInput': (visitor) => $flutter_25.LogicalKeyboardKey.codeInput,
-      'compose': (visitor) => $flutter_25.LogicalKeyboardKey.compose,
-      'convert': (visitor) => $flutter_25.LogicalKeyboardKey.convert,
-      'finalMode': (visitor) => $flutter_25.LogicalKeyboardKey.finalMode,
-      'groupFirst': (visitor) => $flutter_25.LogicalKeyboardKey.groupFirst,
-      'groupLast': (visitor) => $flutter_25.LogicalKeyboardKey.groupLast,
-      'groupNext': (visitor) => $flutter_25.LogicalKeyboardKey.groupNext,
+          $flutter_26.LogicalKeyboardKey.allCandidates,
+      'alphanumeric': (visitor) => $flutter_26.LogicalKeyboardKey.alphanumeric,
+      'codeInput': (visitor) => $flutter_26.LogicalKeyboardKey.codeInput,
+      'compose': (visitor) => $flutter_26.LogicalKeyboardKey.compose,
+      'convert': (visitor) => $flutter_26.LogicalKeyboardKey.convert,
+      'finalMode': (visitor) => $flutter_26.LogicalKeyboardKey.finalMode,
+      'groupFirst': (visitor) => $flutter_26.LogicalKeyboardKey.groupFirst,
+      'groupLast': (visitor) => $flutter_26.LogicalKeyboardKey.groupLast,
+      'groupNext': (visitor) => $flutter_26.LogicalKeyboardKey.groupNext,
       'groupPrevious': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.groupPrevious,
-      'modeChange': (visitor) => $flutter_25.LogicalKeyboardKey.modeChange,
+          $flutter_26.LogicalKeyboardKey.groupPrevious,
+      'modeChange': (visitor) => $flutter_26.LogicalKeyboardKey.modeChange,
       'nextCandidate': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.nextCandidate,
-      'nonConvert': (visitor) => $flutter_25.LogicalKeyboardKey.nonConvert,
+          $flutter_26.LogicalKeyboardKey.nextCandidate,
+      'nonConvert': (visitor) => $flutter_26.LogicalKeyboardKey.nonConvert,
       'previousCandidate': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.previousCandidate,
-      'process': (visitor) => $flutter_25.LogicalKeyboardKey.process,
+          $flutter_26.LogicalKeyboardKey.previousCandidate,
+      'process': (visitor) => $flutter_26.LogicalKeyboardKey.process,
       'singleCandidate': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.singleCandidate,
-      'hangulMode': (visitor) => $flutter_25.LogicalKeyboardKey.hangulMode,
-      'hanjaMode': (visitor) => $flutter_25.LogicalKeyboardKey.hanjaMode,
-      'junjaMode': (visitor) => $flutter_25.LogicalKeyboardKey.junjaMode,
-      'eisu': (visitor) => $flutter_25.LogicalKeyboardKey.eisu,
-      'hankaku': (visitor) => $flutter_25.LogicalKeyboardKey.hankaku,
-      'hiragana': (visitor) => $flutter_25.LogicalKeyboardKey.hiragana,
+          $flutter_26.LogicalKeyboardKey.singleCandidate,
+      'hangulMode': (visitor) => $flutter_26.LogicalKeyboardKey.hangulMode,
+      'hanjaMode': (visitor) => $flutter_26.LogicalKeyboardKey.hanjaMode,
+      'junjaMode': (visitor) => $flutter_26.LogicalKeyboardKey.junjaMode,
+      'eisu': (visitor) => $flutter_26.LogicalKeyboardKey.eisu,
+      'hankaku': (visitor) => $flutter_26.LogicalKeyboardKey.hankaku,
+      'hiragana': (visitor) => $flutter_26.LogicalKeyboardKey.hiragana,
       'hiraganaKatakana': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.hiraganaKatakana,
-      'kanaMode': (visitor) => $flutter_25.LogicalKeyboardKey.kanaMode,
-      'kanjiMode': (visitor) => $flutter_25.LogicalKeyboardKey.kanjiMode,
-      'katakana': (visitor) => $flutter_25.LogicalKeyboardKey.katakana,
-      'romaji': (visitor) => $flutter_25.LogicalKeyboardKey.romaji,
-      'zenkaku': (visitor) => $flutter_25.LogicalKeyboardKey.zenkaku,
+          $flutter_26.LogicalKeyboardKey.hiraganaKatakana,
+      'kanaMode': (visitor) => $flutter_26.LogicalKeyboardKey.kanaMode,
+      'kanjiMode': (visitor) => $flutter_26.LogicalKeyboardKey.kanjiMode,
+      'katakana': (visitor) => $flutter_26.LogicalKeyboardKey.katakana,
+      'romaji': (visitor) => $flutter_26.LogicalKeyboardKey.romaji,
+      'zenkaku': (visitor) => $flutter_26.LogicalKeyboardKey.zenkaku,
       'zenkakuHankaku': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.zenkakuHankaku,
-      'f1': (visitor) => $flutter_25.LogicalKeyboardKey.f1,
-      'f2': (visitor) => $flutter_25.LogicalKeyboardKey.f2,
-      'f3': (visitor) => $flutter_25.LogicalKeyboardKey.f3,
-      'f4': (visitor) => $flutter_25.LogicalKeyboardKey.f4,
-      'f5': (visitor) => $flutter_25.LogicalKeyboardKey.f5,
-      'f6': (visitor) => $flutter_25.LogicalKeyboardKey.f6,
-      'f7': (visitor) => $flutter_25.LogicalKeyboardKey.f7,
-      'f8': (visitor) => $flutter_25.LogicalKeyboardKey.f8,
-      'f9': (visitor) => $flutter_25.LogicalKeyboardKey.f9,
-      'f10': (visitor) => $flutter_25.LogicalKeyboardKey.f10,
-      'f11': (visitor) => $flutter_25.LogicalKeyboardKey.f11,
-      'f12': (visitor) => $flutter_25.LogicalKeyboardKey.f12,
-      'f13': (visitor) => $flutter_25.LogicalKeyboardKey.f13,
-      'f14': (visitor) => $flutter_25.LogicalKeyboardKey.f14,
-      'f15': (visitor) => $flutter_25.LogicalKeyboardKey.f15,
-      'f16': (visitor) => $flutter_25.LogicalKeyboardKey.f16,
-      'f17': (visitor) => $flutter_25.LogicalKeyboardKey.f17,
-      'f18': (visitor) => $flutter_25.LogicalKeyboardKey.f18,
-      'f19': (visitor) => $flutter_25.LogicalKeyboardKey.f19,
-      'f20': (visitor) => $flutter_25.LogicalKeyboardKey.f20,
-      'f21': (visitor) => $flutter_25.LogicalKeyboardKey.f21,
-      'f22': (visitor) => $flutter_25.LogicalKeyboardKey.f22,
-      'f23': (visitor) => $flutter_25.LogicalKeyboardKey.f23,
-      'f24': (visitor) => $flutter_25.LogicalKeyboardKey.f24,
-      'soft1': (visitor) => $flutter_25.LogicalKeyboardKey.soft1,
-      'soft2': (visitor) => $flutter_25.LogicalKeyboardKey.soft2,
-      'soft3': (visitor) => $flutter_25.LogicalKeyboardKey.soft3,
-      'soft4': (visitor) => $flutter_25.LogicalKeyboardKey.soft4,
-      'soft5': (visitor) => $flutter_25.LogicalKeyboardKey.soft5,
-      'soft6': (visitor) => $flutter_25.LogicalKeyboardKey.soft6,
-      'soft7': (visitor) => $flutter_25.LogicalKeyboardKey.soft7,
-      'soft8': (visitor) => $flutter_25.LogicalKeyboardKey.soft8,
-      'close': (visitor) => $flutter_25.LogicalKeyboardKey.close,
-      'mailForward': (visitor) => $flutter_25.LogicalKeyboardKey.mailForward,
-      'mailReply': (visitor) => $flutter_25.LogicalKeyboardKey.mailReply,
-      'mailSend': (visitor) => $flutter_25.LogicalKeyboardKey.mailSend,
+          $flutter_26.LogicalKeyboardKey.zenkakuHankaku,
+      'f1': (visitor) => $flutter_26.LogicalKeyboardKey.f1,
+      'f2': (visitor) => $flutter_26.LogicalKeyboardKey.f2,
+      'f3': (visitor) => $flutter_26.LogicalKeyboardKey.f3,
+      'f4': (visitor) => $flutter_26.LogicalKeyboardKey.f4,
+      'f5': (visitor) => $flutter_26.LogicalKeyboardKey.f5,
+      'f6': (visitor) => $flutter_26.LogicalKeyboardKey.f6,
+      'f7': (visitor) => $flutter_26.LogicalKeyboardKey.f7,
+      'f8': (visitor) => $flutter_26.LogicalKeyboardKey.f8,
+      'f9': (visitor) => $flutter_26.LogicalKeyboardKey.f9,
+      'f10': (visitor) => $flutter_26.LogicalKeyboardKey.f10,
+      'f11': (visitor) => $flutter_26.LogicalKeyboardKey.f11,
+      'f12': (visitor) => $flutter_26.LogicalKeyboardKey.f12,
+      'f13': (visitor) => $flutter_26.LogicalKeyboardKey.f13,
+      'f14': (visitor) => $flutter_26.LogicalKeyboardKey.f14,
+      'f15': (visitor) => $flutter_26.LogicalKeyboardKey.f15,
+      'f16': (visitor) => $flutter_26.LogicalKeyboardKey.f16,
+      'f17': (visitor) => $flutter_26.LogicalKeyboardKey.f17,
+      'f18': (visitor) => $flutter_26.LogicalKeyboardKey.f18,
+      'f19': (visitor) => $flutter_26.LogicalKeyboardKey.f19,
+      'f20': (visitor) => $flutter_26.LogicalKeyboardKey.f20,
+      'f21': (visitor) => $flutter_26.LogicalKeyboardKey.f21,
+      'f22': (visitor) => $flutter_26.LogicalKeyboardKey.f22,
+      'f23': (visitor) => $flutter_26.LogicalKeyboardKey.f23,
+      'f24': (visitor) => $flutter_26.LogicalKeyboardKey.f24,
+      'soft1': (visitor) => $flutter_26.LogicalKeyboardKey.soft1,
+      'soft2': (visitor) => $flutter_26.LogicalKeyboardKey.soft2,
+      'soft3': (visitor) => $flutter_26.LogicalKeyboardKey.soft3,
+      'soft4': (visitor) => $flutter_26.LogicalKeyboardKey.soft4,
+      'soft5': (visitor) => $flutter_26.LogicalKeyboardKey.soft5,
+      'soft6': (visitor) => $flutter_26.LogicalKeyboardKey.soft6,
+      'soft7': (visitor) => $flutter_26.LogicalKeyboardKey.soft7,
+      'soft8': (visitor) => $flutter_26.LogicalKeyboardKey.soft8,
+      'close': (visitor) => $flutter_26.LogicalKeyboardKey.close,
+      'mailForward': (visitor) => $flutter_26.LogicalKeyboardKey.mailForward,
+      'mailReply': (visitor) => $flutter_26.LogicalKeyboardKey.mailReply,
+      'mailSend': (visitor) => $flutter_26.LogicalKeyboardKey.mailSend,
       'mediaPlayPause': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.mediaPlayPause,
-      'mediaStop': (visitor) => $flutter_25.LogicalKeyboardKey.mediaStop,
+          $flutter_26.LogicalKeyboardKey.mediaPlayPause,
+      'mediaStop': (visitor) => $flutter_26.LogicalKeyboardKey.mediaStop,
       'mediaTrackNext': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.mediaTrackNext,
+          $flutter_26.LogicalKeyboardKey.mediaTrackNext,
       'mediaTrackPrevious': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.mediaTrackPrevious,
-      'newKey': (visitor) => $flutter_25.LogicalKeyboardKey.newKey,
-      'open': (visitor) => $flutter_25.LogicalKeyboardKey.open,
-      'print': (visitor) => $flutter_25.LogicalKeyboardKey.print,
-      'save': (visitor) => $flutter_25.LogicalKeyboardKey.save,
-      'spellCheck': (visitor) => $flutter_25.LogicalKeyboardKey.spellCheck,
+          $flutter_26.LogicalKeyboardKey.mediaTrackPrevious,
+      'newKey': (visitor) => $flutter_26.LogicalKeyboardKey.newKey,
+      'open': (visitor) => $flutter_26.LogicalKeyboardKey.open,
+      'print': (visitor) => $flutter_26.LogicalKeyboardKey.print,
+      'save': (visitor) => $flutter_26.LogicalKeyboardKey.save,
+      'spellCheck': (visitor) => $flutter_26.LogicalKeyboardKey.spellCheck,
       'audioVolumeDown': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.audioVolumeDown,
+          $flutter_26.LogicalKeyboardKey.audioVolumeDown,
       'audioVolumeUp': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.audioVolumeUp,
+          $flutter_26.LogicalKeyboardKey.audioVolumeUp,
       'audioVolumeMute': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.audioVolumeMute,
+          $flutter_26.LogicalKeyboardKey.audioVolumeMute,
       'launchApplication2': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.launchApplication2,
+          $flutter_26.LogicalKeyboardKey.launchApplication2,
       'launchCalendar': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.launchCalendar,
-      'launchMail': (visitor) => $flutter_25.LogicalKeyboardKey.launchMail,
+          $flutter_26.LogicalKeyboardKey.launchCalendar,
+      'launchMail': (visitor) => $flutter_26.LogicalKeyboardKey.launchMail,
       'launchMediaPlayer': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.launchMediaPlayer,
+          $flutter_26.LogicalKeyboardKey.launchMediaPlayer,
       'launchMusicPlayer': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.launchMusicPlayer,
+          $flutter_26.LogicalKeyboardKey.launchMusicPlayer,
       'launchApplication1': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.launchApplication1,
+          $flutter_26.LogicalKeyboardKey.launchApplication1,
       'launchScreenSaver': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.launchScreenSaver,
+          $flutter_26.LogicalKeyboardKey.launchScreenSaver,
       'launchSpreadsheet': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.launchSpreadsheet,
+          $flutter_26.LogicalKeyboardKey.launchSpreadsheet,
       'launchWebBrowser': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.launchWebBrowser,
-      'launchWebCam': (visitor) => $flutter_25.LogicalKeyboardKey.launchWebCam,
+          $flutter_26.LogicalKeyboardKey.launchWebBrowser,
+      'launchWebCam': (visitor) => $flutter_26.LogicalKeyboardKey.launchWebCam,
       'launchWordProcessor': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.launchWordProcessor,
+          $flutter_26.LogicalKeyboardKey.launchWordProcessor,
       'launchContacts': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.launchContacts,
-      'launchPhone': (visitor) => $flutter_25.LogicalKeyboardKey.launchPhone,
+          $flutter_26.LogicalKeyboardKey.launchContacts,
+      'launchPhone': (visitor) => $flutter_26.LogicalKeyboardKey.launchPhone,
       'launchAssistant': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.launchAssistant,
+          $flutter_26.LogicalKeyboardKey.launchAssistant,
       'launchControlPanel': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.launchControlPanel,
-      'browserBack': (visitor) => $flutter_25.LogicalKeyboardKey.browserBack,
+          $flutter_26.LogicalKeyboardKey.launchControlPanel,
+      'browserBack': (visitor) => $flutter_26.LogicalKeyboardKey.browserBack,
       'browserFavorites': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.browserFavorites,
+          $flutter_26.LogicalKeyboardKey.browserFavorites,
       'browserForward': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.browserForward,
-      'browserHome': (visitor) => $flutter_25.LogicalKeyboardKey.browserHome,
+          $flutter_26.LogicalKeyboardKey.browserForward,
+      'browserHome': (visitor) => $flutter_26.LogicalKeyboardKey.browserHome,
       'browserRefresh': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.browserRefresh,
+          $flutter_26.LogicalKeyboardKey.browserRefresh,
       'browserSearch': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.browserSearch,
-      'browserStop': (visitor) => $flutter_25.LogicalKeyboardKey.browserStop,
+          $flutter_26.LogicalKeyboardKey.browserSearch,
+      'browserStop': (visitor) => $flutter_26.LogicalKeyboardKey.browserStop,
       'audioBalanceLeft': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.audioBalanceLeft,
+          $flutter_26.LogicalKeyboardKey.audioBalanceLeft,
       'audioBalanceRight': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.audioBalanceRight,
+          $flutter_26.LogicalKeyboardKey.audioBalanceRight,
       'audioBassBoostDown': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.audioBassBoostDown,
+          $flutter_26.LogicalKeyboardKey.audioBassBoostDown,
       'audioBassBoostUp': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.audioBassBoostUp,
+          $flutter_26.LogicalKeyboardKey.audioBassBoostUp,
       'audioFaderFront': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.audioFaderFront,
+          $flutter_26.LogicalKeyboardKey.audioFaderFront,
       'audioFaderRear': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.audioFaderRear,
+          $flutter_26.LogicalKeyboardKey.audioFaderRear,
       'audioSurroundModeNext': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.audioSurroundModeNext,
-      'avrInput': (visitor) => $flutter_25.LogicalKeyboardKey.avrInput,
-      'avrPower': (visitor) => $flutter_25.LogicalKeyboardKey.avrPower,
-      'channelDown': (visitor) => $flutter_25.LogicalKeyboardKey.channelDown,
-      'channelUp': (visitor) => $flutter_25.LogicalKeyboardKey.channelUp,
-      'colorF0Red': (visitor) => $flutter_25.LogicalKeyboardKey.colorF0Red,
-      'colorF1Green': (visitor) => $flutter_25.LogicalKeyboardKey.colorF1Green,
+          $flutter_26.LogicalKeyboardKey.audioSurroundModeNext,
+      'avrInput': (visitor) => $flutter_26.LogicalKeyboardKey.avrInput,
+      'avrPower': (visitor) => $flutter_26.LogicalKeyboardKey.avrPower,
+      'channelDown': (visitor) => $flutter_26.LogicalKeyboardKey.channelDown,
+      'channelUp': (visitor) => $flutter_26.LogicalKeyboardKey.channelUp,
+      'colorF0Red': (visitor) => $flutter_26.LogicalKeyboardKey.colorF0Red,
+      'colorF1Green': (visitor) => $flutter_26.LogicalKeyboardKey.colorF1Green,
       'colorF2Yellow': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.colorF2Yellow,
-      'colorF3Blue': (visitor) => $flutter_25.LogicalKeyboardKey.colorF3Blue,
-      'colorF4Grey': (visitor) => $flutter_25.LogicalKeyboardKey.colorF4Grey,
-      'colorF5Brown': (visitor) => $flutter_25.LogicalKeyboardKey.colorF5Brown,
+          $flutter_26.LogicalKeyboardKey.colorF2Yellow,
+      'colorF3Blue': (visitor) => $flutter_26.LogicalKeyboardKey.colorF3Blue,
+      'colorF4Grey': (visitor) => $flutter_26.LogicalKeyboardKey.colorF4Grey,
+      'colorF5Brown': (visitor) => $flutter_26.LogicalKeyboardKey.colorF5Brown,
       'closedCaptionToggle': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.closedCaptionToggle,
-      'dimmer': (visitor) => $flutter_25.LogicalKeyboardKey.dimmer,
-      'displaySwap': (visitor) => $flutter_25.LogicalKeyboardKey.displaySwap,
-      'exit': (visitor) => $flutter_25.LogicalKeyboardKey.exit,
+          $flutter_26.LogicalKeyboardKey.closedCaptionToggle,
+      'dimmer': (visitor) => $flutter_26.LogicalKeyboardKey.dimmer,
+      'displaySwap': (visitor) => $flutter_26.LogicalKeyboardKey.displaySwap,
+      'exit': (visitor) => $flutter_26.LogicalKeyboardKey.exit,
       'favoriteClear0': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.favoriteClear0,
+          $flutter_26.LogicalKeyboardKey.favoriteClear0,
       'favoriteClear1': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.favoriteClear1,
+          $flutter_26.LogicalKeyboardKey.favoriteClear1,
       'favoriteClear2': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.favoriteClear2,
+          $flutter_26.LogicalKeyboardKey.favoriteClear2,
       'favoriteClear3': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.favoriteClear3,
+          $flutter_26.LogicalKeyboardKey.favoriteClear3,
       'favoriteRecall0': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.favoriteRecall0,
+          $flutter_26.LogicalKeyboardKey.favoriteRecall0,
       'favoriteRecall1': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.favoriteRecall1,
+          $flutter_26.LogicalKeyboardKey.favoriteRecall1,
       'favoriteRecall2': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.favoriteRecall2,
+          $flutter_26.LogicalKeyboardKey.favoriteRecall2,
       'favoriteRecall3': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.favoriteRecall3,
+          $flutter_26.LogicalKeyboardKey.favoriteRecall3,
       'favoriteStore0': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.favoriteStore0,
+          $flutter_26.LogicalKeyboardKey.favoriteStore0,
       'favoriteStore1': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.favoriteStore1,
+          $flutter_26.LogicalKeyboardKey.favoriteStore1,
       'favoriteStore2': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.favoriteStore2,
+          $flutter_26.LogicalKeyboardKey.favoriteStore2,
       'favoriteStore3': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.favoriteStore3,
-      'guide': (visitor) => $flutter_25.LogicalKeyboardKey.guide,
-      'guideNextDay': (visitor) => $flutter_25.LogicalKeyboardKey.guideNextDay,
+          $flutter_26.LogicalKeyboardKey.favoriteStore3,
+      'guide': (visitor) => $flutter_26.LogicalKeyboardKey.guide,
+      'guideNextDay': (visitor) => $flutter_26.LogicalKeyboardKey.guideNextDay,
       'guidePreviousDay': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.guidePreviousDay,
-      'info': (visitor) => $flutter_25.LogicalKeyboardKey.info,
+          $flutter_26.LogicalKeyboardKey.guidePreviousDay,
+      'info': (visitor) => $flutter_26.LogicalKeyboardKey.info,
       'instantReplay': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.instantReplay,
-      'link': (visitor) => $flutter_25.LogicalKeyboardKey.link,
-      'listProgram': (visitor) => $flutter_25.LogicalKeyboardKey.listProgram,
-      'liveContent': (visitor) => $flutter_25.LogicalKeyboardKey.liveContent,
-      'lock': (visitor) => $flutter_25.LogicalKeyboardKey.lock,
-      'mediaApps': (visitor) => $flutter_25.LogicalKeyboardKey.mediaApps,
+          $flutter_26.LogicalKeyboardKey.instantReplay,
+      'link': (visitor) => $flutter_26.LogicalKeyboardKey.link,
+      'listProgram': (visitor) => $flutter_26.LogicalKeyboardKey.listProgram,
+      'liveContent': (visitor) => $flutter_26.LogicalKeyboardKey.liveContent,
+      'lock': (visitor) => $flutter_26.LogicalKeyboardKey.lock,
+      'mediaApps': (visitor) => $flutter_26.LogicalKeyboardKey.mediaApps,
       'mediaFastForward': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.mediaFastForward,
-      'mediaLast': (visitor) => $flutter_25.LogicalKeyboardKey.mediaLast,
-      'mediaPause': (visitor) => $flutter_25.LogicalKeyboardKey.mediaPause,
-      'mediaPlay': (visitor) => $flutter_25.LogicalKeyboardKey.mediaPlay,
-      'mediaRecord': (visitor) => $flutter_25.LogicalKeyboardKey.mediaRecord,
-      'mediaRewind': (visitor) => $flutter_25.LogicalKeyboardKey.mediaRewind,
-      'mediaSkip': (visitor) => $flutter_25.LogicalKeyboardKey.mediaSkip,
+          $flutter_26.LogicalKeyboardKey.mediaFastForward,
+      'mediaLast': (visitor) => $flutter_26.LogicalKeyboardKey.mediaLast,
+      'mediaPause': (visitor) => $flutter_26.LogicalKeyboardKey.mediaPause,
+      'mediaPlay': (visitor) => $flutter_26.LogicalKeyboardKey.mediaPlay,
+      'mediaRecord': (visitor) => $flutter_26.LogicalKeyboardKey.mediaRecord,
+      'mediaRewind': (visitor) => $flutter_26.LogicalKeyboardKey.mediaRewind,
+      'mediaSkip': (visitor) => $flutter_26.LogicalKeyboardKey.mediaSkip,
       'nextFavoriteChannel': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.nextFavoriteChannel,
+          $flutter_26.LogicalKeyboardKey.nextFavoriteChannel,
       'nextUserProfile': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.nextUserProfile,
-      'onDemand': (visitor) => $flutter_25.LogicalKeyboardKey.onDemand,
-      'pInPDown': (visitor) => $flutter_25.LogicalKeyboardKey.pInPDown,
-      'pInPMove': (visitor) => $flutter_25.LogicalKeyboardKey.pInPMove,
-      'pInPToggle': (visitor) => $flutter_25.LogicalKeyboardKey.pInPToggle,
-      'pInPUp': (visitor) => $flutter_25.LogicalKeyboardKey.pInPUp,
+          $flutter_26.LogicalKeyboardKey.nextUserProfile,
+      'onDemand': (visitor) => $flutter_26.LogicalKeyboardKey.onDemand,
+      'pInPDown': (visitor) => $flutter_26.LogicalKeyboardKey.pInPDown,
+      'pInPMove': (visitor) => $flutter_26.LogicalKeyboardKey.pInPMove,
+      'pInPToggle': (visitor) => $flutter_26.LogicalKeyboardKey.pInPToggle,
+      'pInPUp': (visitor) => $flutter_26.LogicalKeyboardKey.pInPUp,
       'playSpeedDown': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.playSpeedDown,
+          $flutter_26.LogicalKeyboardKey.playSpeedDown,
       'playSpeedReset': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.playSpeedReset,
-      'playSpeedUp': (visitor) => $flutter_25.LogicalKeyboardKey.playSpeedUp,
-      'randomToggle': (visitor) => $flutter_25.LogicalKeyboardKey.randomToggle,
-      'rcLowBattery': (visitor) => $flutter_25.LogicalKeyboardKey.rcLowBattery,
+          $flutter_26.LogicalKeyboardKey.playSpeedReset,
+      'playSpeedUp': (visitor) => $flutter_26.LogicalKeyboardKey.playSpeedUp,
+      'randomToggle': (visitor) => $flutter_26.LogicalKeyboardKey.randomToggle,
+      'rcLowBattery': (visitor) => $flutter_26.LogicalKeyboardKey.rcLowBattery,
       'recordSpeedNext': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.recordSpeedNext,
-      'rfBypass': (visitor) => $flutter_25.LogicalKeyboardKey.rfBypass,
+          $flutter_26.LogicalKeyboardKey.recordSpeedNext,
+      'rfBypass': (visitor) => $flutter_26.LogicalKeyboardKey.rfBypass,
       'scanChannelsToggle': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.scanChannelsToggle,
+          $flutter_26.LogicalKeyboardKey.scanChannelsToggle,
       'screenModeNext': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.screenModeNext,
-      'settings': (visitor) => $flutter_25.LogicalKeyboardKey.settings,
+          $flutter_26.LogicalKeyboardKey.screenModeNext,
+      'settings': (visitor) => $flutter_26.LogicalKeyboardKey.settings,
       'splitScreenToggle': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.splitScreenToggle,
-      'stbInput': (visitor) => $flutter_25.LogicalKeyboardKey.stbInput,
-      'stbPower': (visitor) => $flutter_25.LogicalKeyboardKey.stbPower,
-      'subtitle': (visitor) => $flutter_25.LogicalKeyboardKey.subtitle,
-      'teletext': (visitor) => $flutter_25.LogicalKeyboardKey.teletext,
-      'tv': (visitor) => $flutter_25.LogicalKeyboardKey.tv,
-      'tvInput': (visitor) => $flutter_25.LogicalKeyboardKey.tvInput,
-      'tvPower': (visitor) => $flutter_25.LogicalKeyboardKey.tvPower,
+          $flutter_26.LogicalKeyboardKey.splitScreenToggle,
+      'stbInput': (visitor) => $flutter_26.LogicalKeyboardKey.stbInput,
+      'stbPower': (visitor) => $flutter_26.LogicalKeyboardKey.stbPower,
+      'subtitle': (visitor) => $flutter_26.LogicalKeyboardKey.subtitle,
+      'teletext': (visitor) => $flutter_26.LogicalKeyboardKey.teletext,
+      'tv': (visitor) => $flutter_26.LogicalKeyboardKey.tv,
+      'tvInput': (visitor) => $flutter_26.LogicalKeyboardKey.tvInput,
+      'tvPower': (visitor) => $flutter_26.LogicalKeyboardKey.tvPower,
       'videoModeNext': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.videoModeNext,
-      'wink': (visitor) => $flutter_25.LogicalKeyboardKey.wink,
-      'zoomToggle': (visitor) => $flutter_25.LogicalKeyboardKey.zoomToggle,
-      'dvr': (visitor) => $flutter_25.LogicalKeyboardKey.dvr,
+          $flutter_26.LogicalKeyboardKey.videoModeNext,
+      'wink': (visitor) => $flutter_26.LogicalKeyboardKey.wink,
+      'zoomToggle': (visitor) => $flutter_26.LogicalKeyboardKey.zoomToggle,
+      'dvr': (visitor) => $flutter_26.LogicalKeyboardKey.dvr,
       'mediaAudioTrack': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.mediaAudioTrack,
+          $flutter_26.LogicalKeyboardKey.mediaAudioTrack,
       'mediaSkipBackward': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.mediaSkipBackward,
+          $flutter_26.LogicalKeyboardKey.mediaSkipBackward,
       'mediaSkipForward': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.mediaSkipForward,
+          $flutter_26.LogicalKeyboardKey.mediaSkipForward,
       'mediaStepBackward': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.mediaStepBackward,
+          $flutter_26.LogicalKeyboardKey.mediaStepBackward,
       'mediaStepForward': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.mediaStepForward,
-      'mediaTopMenu': (visitor) => $flutter_25.LogicalKeyboardKey.mediaTopMenu,
-      'navigateIn': (visitor) => $flutter_25.LogicalKeyboardKey.navigateIn,
-      'navigateNext': (visitor) => $flutter_25.LogicalKeyboardKey.navigateNext,
-      'navigateOut': (visitor) => $flutter_25.LogicalKeyboardKey.navigateOut,
+          $flutter_26.LogicalKeyboardKey.mediaStepForward,
+      'mediaTopMenu': (visitor) => $flutter_26.LogicalKeyboardKey.mediaTopMenu,
+      'navigateIn': (visitor) => $flutter_26.LogicalKeyboardKey.navigateIn,
+      'navigateNext': (visitor) => $flutter_26.LogicalKeyboardKey.navigateNext,
+      'navigateOut': (visitor) => $flutter_26.LogicalKeyboardKey.navigateOut,
       'navigatePrevious': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.navigatePrevious,
-      'pairing': (visitor) => $flutter_25.LogicalKeyboardKey.pairing,
-      'mediaClose': (visitor) => $flutter_25.LogicalKeyboardKey.mediaClose,
+          $flutter_26.LogicalKeyboardKey.navigatePrevious,
+      'pairing': (visitor) => $flutter_26.LogicalKeyboardKey.pairing,
+      'mediaClose': (visitor) => $flutter_26.LogicalKeyboardKey.mediaClose,
       'audioBassBoostToggle': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.audioBassBoostToggle,
+          $flutter_26.LogicalKeyboardKey.audioBassBoostToggle,
       'audioTrebleDown': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.audioTrebleDown,
+          $flutter_26.LogicalKeyboardKey.audioTrebleDown,
       'audioTrebleUp': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.audioTrebleUp,
+          $flutter_26.LogicalKeyboardKey.audioTrebleUp,
       'microphoneToggle': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.microphoneToggle,
+          $flutter_26.LogicalKeyboardKey.microphoneToggle,
       'microphoneVolumeDown': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.microphoneVolumeDown,
+          $flutter_26.LogicalKeyboardKey.microphoneVolumeDown,
       'microphoneVolumeUp': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.microphoneVolumeUp,
+          $flutter_26.LogicalKeyboardKey.microphoneVolumeUp,
       'microphoneVolumeMute': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.microphoneVolumeMute,
+          $flutter_26.LogicalKeyboardKey.microphoneVolumeMute,
       'speechCorrectionList': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.speechCorrectionList,
+          $flutter_26.LogicalKeyboardKey.speechCorrectionList,
       'speechInputToggle': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.speechInputToggle,
-      'appSwitch': (visitor) => $flutter_25.LogicalKeyboardKey.appSwitch,
-      'call': (visitor) => $flutter_25.LogicalKeyboardKey.call,
-      'cameraFocus': (visitor) => $flutter_25.LogicalKeyboardKey.cameraFocus,
-      'endCall': (visitor) => $flutter_25.LogicalKeyboardKey.endCall,
-      'goBack': (visitor) => $flutter_25.LogicalKeyboardKey.goBack,
-      'goHome': (visitor) => $flutter_25.LogicalKeyboardKey.goHome,
-      'headsetHook': (visitor) => $flutter_25.LogicalKeyboardKey.headsetHook,
+          $flutter_26.LogicalKeyboardKey.speechInputToggle,
+      'appSwitch': (visitor) => $flutter_26.LogicalKeyboardKey.appSwitch,
+      'call': (visitor) => $flutter_26.LogicalKeyboardKey.call,
+      'cameraFocus': (visitor) => $flutter_26.LogicalKeyboardKey.cameraFocus,
+      'endCall': (visitor) => $flutter_26.LogicalKeyboardKey.endCall,
+      'goBack': (visitor) => $flutter_26.LogicalKeyboardKey.goBack,
+      'goHome': (visitor) => $flutter_26.LogicalKeyboardKey.goHome,
+      'headsetHook': (visitor) => $flutter_26.LogicalKeyboardKey.headsetHook,
       'lastNumberRedial': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.lastNumberRedial,
-      'notification': (visitor) => $flutter_25.LogicalKeyboardKey.notification,
-      'mannerMode': (visitor) => $flutter_25.LogicalKeyboardKey.mannerMode,
-      'voiceDial': (visitor) => $flutter_25.LogicalKeyboardKey.voiceDial,
-      'tv3DMode': (visitor) => $flutter_25.LogicalKeyboardKey.tv3DMode,
+          $flutter_26.LogicalKeyboardKey.lastNumberRedial,
+      'notification': (visitor) => $flutter_26.LogicalKeyboardKey.notification,
+      'mannerMode': (visitor) => $flutter_26.LogicalKeyboardKey.mannerMode,
+      'voiceDial': (visitor) => $flutter_26.LogicalKeyboardKey.voiceDial,
+      'tv3DMode': (visitor) => $flutter_26.LogicalKeyboardKey.tv3DMode,
       'tvAntennaCable': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.tvAntennaCable,
+          $flutter_26.LogicalKeyboardKey.tvAntennaCable,
       'tvAudioDescription': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.tvAudioDescription,
+          $flutter_26.LogicalKeyboardKey.tvAudioDescription,
       'tvAudioDescriptionMixDown': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.tvAudioDescriptionMixDown,
+          $flutter_26.LogicalKeyboardKey.tvAudioDescriptionMixDown,
       'tvAudioDescriptionMixUp': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.tvAudioDescriptionMixUp,
+          $flutter_26.LogicalKeyboardKey.tvAudioDescriptionMixUp,
       'tvContentsMenu': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.tvContentsMenu,
+          $flutter_26.LogicalKeyboardKey.tvContentsMenu,
       'tvDataService': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.tvDataService,
+          $flutter_26.LogicalKeyboardKey.tvDataService,
       'tvInputComponent1': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.tvInputComponent1,
+          $flutter_26.LogicalKeyboardKey.tvInputComponent1,
       'tvInputComponent2': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.tvInputComponent2,
+          $flutter_26.LogicalKeyboardKey.tvInputComponent2,
       'tvInputComposite1': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.tvInputComposite1,
+          $flutter_26.LogicalKeyboardKey.tvInputComposite1,
       'tvInputComposite2': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.tvInputComposite2,
-      'tvInputHDMI1': (visitor) => $flutter_25.LogicalKeyboardKey.tvInputHDMI1,
-      'tvInputHDMI2': (visitor) => $flutter_25.LogicalKeyboardKey.tvInputHDMI2,
-      'tvInputHDMI3': (visitor) => $flutter_25.LogicalKeyboardKey.tvInputHDMI3,
-      'tvInputHDMI4': (visitor) => $flutter_25.LogicalKeyboardKey.tvInputHDMI4,
-      'tvInputVGA1': (visitor) => $flutter_25.LogicalKeyboardKey.tvInputVGA1,
+          $flutter_26.LogicalKeyboardKey.tvInputComposite2,
+      'tvInputHDMI1': (visitor) => $flutter_26.LogicalKeyboardKey.tvInputHDMI1,
+      'tvInputHDMI2': (visitor) => $flutter_26.LogicalKeyboardKey.tvInputHDMI2,
+      'tvInputHDMI3': (visitor) => $flutter_26.LogicalKeyboardKey.tvInputHDMI3,
+      'tvInputHDMI4': (visitor) => $flutter_26.LogicalKeyboardKey.tvInputHDMI4,
+      'tvInputVGA1': (visitor) => $flutter_26.LogicalKeyboardKey.tvInputVGA1,
       'tvMediaContext': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.tvMediaContext,
-      'tvNetwork': (visitor) => $flutter_25.LogicalKeyboardKey.tvNetwork,
+          $flutter_26.LogicalKeyboardKey.tvMediaContext,
+      'tvNetwork': (visitor) => $flutter_26.LogicalKeyboardKey.tvNetwork,
       'tvNumberEntry': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.tvNumberEntry,
+          $flutter_26.LogicalKeyboardKey.tvNumberEntry,
       'tvRadioService': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.tvRadioService,
-      'tvSatellite': (visitor) => $flutter_25.LogicalKeyboardKey.tvSatellite,
+          $flutter_26.LogicalKeyboardKey.tvRadioService,
+      'tvSatellite': (visitor) => $flutter_26.LogicalKeyboardKey.tvSatellite,
       'tvSatelliteBS': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.tvSatelliteBS,
+          $flutter_26.LogicalKeyboardKey.tvSatelliteBS,
       'tvSatelliteCS': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.tvSatelliteCS,
+          $flutter_26.LogicalKeyboardKey.tvSatelliteCS,
       'tvSatelliteToggle': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.tvSatelliteToggle,
+          $flutter_26.LogicalKeyboardKey.tvSatelliteToggle,
       'tvTerrestrialAnalog': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.tvTerrestrialAnalog,
+          $flutter_26.LogicalKeyboardKey.tvTerrestrialAnalog,
       'tvTerrestrialDigital': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.tvTerrestrialDigital,
-      'tvTimer': (visitor) => $flutter_25.LogicalKeyboardKey.tvTimer,
-      'key11': (visitor) => $flutter_25.LogicalKeyboardKey.key11,
-      'key12': (visitor) => $flutter_25.LogicalKeyboardKey.key12,
-      'suspend': (visitor) => $flutter_25.LogicalKeyboardKey.suspend,
-      'resume': (visitor) => $flutter_25.LogicalKeyboardKey.resume,
-      'sleep': (visitor) => $flutter_25.LogicalKeyboardKey.sleep,
-      'abort': (visitor) => $flutter_25.LogicalKeyboardKey.abort,
-      'lang1': (visitor) => $flutter_25.LogicalKeyboardKey.lang1,
-      'lang2': (visitor) => $flutter_25.LogicalKeyboardKey.lang2,
-      'lang3': (visitor) => $flutter_25.LogicalKeyboardKey.lang3,
-      'lang4': (visitor) => $flutter_25.LogicalKeyboardKey.lang4,
-      'lang5': (visitor) => $flutter_25.LogicalKeyboardKey.lang5,
+          $flutter_26.LogicalKeyboardKey.tvTerrestrialDigital,
+      'tvTimer': (visitor) => $flutter_26.LogicalKeyboardKey.tvTimer,
+      'key11': (visitor) => $flutter_26.LogicalKeyboardKey.key11,
+      'key12': (visitor) => $flutter_26.LogicalKeyboardKey.key12,
+      'suspend': (visitor) => $flutter_26.LogicalKeyboardKey.suspend,
+      'resume': (visitor) => $flutter_26.LogicalKeyboardKey.resume,
+      'sleep': (visitor) => $flutter_26.LogicalKeyboardKey.sleep,
+      'abort': (visitor) => $flutter_26.LogicalKeyboardKey.abort,
+      'lang1': (visitor) => $flutter_26.LogicalKeyboardKey.lang1,
+      'lang2': (visitor) => $flutter_26.LogicalKeyboardKey.lang2,
+      'lang3': (visitor) => $flutter_26.LogicalKeyboardKey.lang3,
+      'lang4': (visitor) => $flutter_26.LogicalKeyboardKey.lang4,
+      'lang5': (visitor) => $flutter_26.LogicalKeyboardKey.lang5,
       'intlBackslash': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.intlBackslash,
-      'intlRo': (visitor) => $flutter_25.LogicalKeyboardKey.intlRo,
-      'intlYen': (visitor) => $flutter_25.LogicalKeyboardKey.intlYen,
-      'controlLeft': (visitor) => $flutter_25.LogicalKeyboardKey.controlLeft,
-      'controlRight': (visitor) => $flutter_25.LogicalKeyboardKey.controlRight,
-      'shiftLeft': (visitor) => $flutter_25.LogicalKeyboardKey.shiftLeft,
-      'shiftRight': (visitor) => $flutter_25.LogicalKeyboardKey.shiftRight,
-      'altLeft': (visitor) => $flutter_25.LogicalKeyboardKey.altLeft,
-      'altRight': (visitor) => $flutter_25.LogicalKeyboardKey.altRight,
-      'metaLeft': (visitor) => $flutter_25.LogicalKeyboardKey.metaLeft,
-      'metaRight': (visitor) => $flutter_25.LogicalKeyboardKey.metaRight,
-      'control': (visitor) => $flutter_25.LogicalKeyboardKey.control,
-      'shift': (visitor) => $flutter_25.LogicalKeyboardKey.shift,
-      'alt': (visitor) => $flutter_25.LogicalKeyboardKey.alt,
-      'meta': (visitor) => $flutter_25.LogicalKeyboardKey.meta,
-      'numpadEnter': (visitor) => $flutter_25.LogicalKeyboardKey.numpadEnter,
+          $flutter_26.LogicalKeyboardKey.intlBackslash,
+      'intlRo': (visitor) => $flutter_26.LogicalKeyboardKey.intlRo,
+      'intlYen': (visitor) => $flutter_26.LogicalKeyboardKey.intlYen,
+      'controlLeft': (visitor) => $flutter_26.LogicalKeyboardKey.controlLeft,
+      'controlRight': (visitor) => $flutter_26.LogicalKeyboardKey.controlRight,
+      'shiftLeft': (visitor) => $flutter_26.LogicalKeyboardKey.shiftLeft,
+      'shiftRight': (visitor) => $flutter_26.LogicalKeyboardKey.shiftRight,
+      'altLeft': (visitor) => $flutter_26.LogicalKeyboardKey.altLeft,
+      'altRight': (visitor) => $flutter_26.LogicalKeyboardKey.altRight,
+      'metaLeft': (visitor) => $flutter_26.LogicalKeyboardKey.metaLeft,
+      'metaRight': (visitor) => $flutter_26.LogicalKeyboardKey.metaRight,
+      'control': (visitor) => $flutter_26.LogicalKeyboardKey.control,
+      'shift': (visitor) => $flutter_26.LogicalKeyboardKey.shift,
+      'alt': (visitor) => $flutter_26.LogicalKeyboardKey.alt,
+      'meta': (visitor) => $flutter_26.LogicalKeyboardKey.meta,
+      'numpadEnter': (visitor) => $flutter_26.LogicalKeyboardKey.numpadEnter,
       'numpadParenLeft': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.numpadParenLeft,
+          $flutter_26.LogicalKeyboardKey.numpadParenLeft,
       'numpadParenRight': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.numpadParenRight,
+          $flutter_26.LogicalKeyboardKey.numpadParenRight,
       'numpadMultiply': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.numpadMultiply,
-      'numpadAdd': (visitor) => $flutter_25.LogicalKeyboardKey.numpadAdd,
-      'numpadComma': (visitor) => $flutter_25.LogicalKeyboardKey.numpadComma,
+          $flutter_26.LogicalKeyboardKey.numpadMultiply,
+      'numpadAdd': (visitor) => $flutter_26.LogicalKeyboardKey.numpadAdd,
+      'numpadComma': (visitor) => $flutter_26.LogicalKeyboardKey.numpadComma,
       'numpadSubtract': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.numpadSubtract,
+          $flutter_26.LogicalKeyboardKey.numpadSubtract,
       'numpadDecimal': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.numpadDecimal,
-      'numpadDivide': (visitor) => $flutter_25.LogicalKeyboardKey.numpadDivide,
-      'numpad0': (visitor) => $flutter_25.LogicalKeyboardKey.numpad0,
-      'numpad1': (visitor) => $flutter_25.LogicalKeyboardKey.numpad1,
-      'numpad2': (visitor) => $flutter_25.LogicalKeyboardKey.numpad2,
-      'numpad3': (visitor) => $flutter_25.LogicalKeyboardKey.numpad3,
-      'numpad4': (visitor) => $flutter_25.LogicalKeyboardKey.numpad4,
-      'numpad5': (visitor) => $flutter_25.LogicalKeyboardKey.numpad5,
-      'numpad6': (visitor) => $flutter_25.LogicalKeyboardKey.numpad6,
-      'numpad7': (visitor) => $flutter_25.LogicalKeyboardKey.numpad7,
-      'numpad8': (visitor) => $flutter_25.LogicalKeyboardKey.numpad8,
-      'numpad9': (visitor) => $flutter_25.LogicalKeyboardKey.numpad9,
-      'numpadEqual': (visitor) => $flutter_25.LogicalKeyboardKey.numpadEqual,
-      'gameButton1': (visitor) => $flutter_25.LogicalKeyboardKey.gameButton1,
-      'gameButton2': (visitor) => $flutter_25.LogicalKeyboardKey.gameButton2,
-      'gameButton3': (visitor) => $flutter_25.LogicalKeyboardKey.gameButton3,
-      'gameButton4': (visitor) => $flutter_25.LogicalKeyboardKey.gameButton4,
-      'gameButton5': (visitor) => $flutter_25.LogicalKeyboardKey.gameButton5,
-      'gameButton6': (visitor) => $flutter_25.LogicalKeyboardKey.gameButton6,
-      'gameButton7': (visitor) => $flutter_25.LogicalKeyboardKey.gameButton7,
-      'gameButton8': (visitor) => $flutter_25.LogicalKeyboardKey.gameButton8,
-      'gameButton9': (visitor) => $flutter_25.LogicalKeyboardKey.gameButton9,
-      'gameButton10': (visitor) => $flutter_25.LogicalKeyboardKey.gameButton10,
-      'gameButton11': (visitor) => $flutter_25.LogicalKeyboardKey.gameButton11,
-      'gameButton12': (visitor) => $flutter_25.LogicalKeyboardKey.gameButton12,
-      'gameButton13': (visitor) => $flutter_25.LogicalKeyboardKey.gameButton13,
-      'gameButton14': (visitor) => $flutter_25.LogicalKeyboardKey.gameButton14,
-      'gameButton15': (visitor) => $flutter_25.LogicalKeyboardKey.gameButton15,
-      'gameButton16': (visitor) => $flutter_25.LogicalKeyboardKey.gameButton16,
-      'gameButtonA': (visitor) => $flutter_25.LogicalKeyboardKey.gameButtonA,
-      'gameButtonB': (visitor) => $flutter_25.LogicalKeyboardKey.gameButtonB,
-      'gameButtonC': (visitor) => $flutter_25.LogicalKeyboardKey.gameButtonC,
+          $flutter_26.LogicalKeyboardKey.numpadDecimal,
+      'numpadDivide': (visitor) => $flutter_26.LogicalKeyboardKey.numpadDivide,
+      'numpad0': (visitor) => $flutter_26.LogicalKeyboardKey.numpad0,
+      'numpad1': (visitor) => $flutter_26.LogicalKeyboardKey.numpad1,
+      'numpad2': (visitor) => $flutter_26.LogicalKeyboardKey.numpad2,
+      'numpad3': (visitor) => $flutter_26.LogicalKeyboardKey.numpad3,
+      'numpad4': (visitor) => $flutter_26.LogicalKeyboardKey.numpad4,
+      'numpad5': (visitor) => $flutter_26.LogicalKeyboardKey.numpad5,
+      'numpad6': (visitor) => $flutter_26.LogicalKeyboardKey.numpad6,
+      'numpad7': (visitor) => $flutter_26.LogicalKeyboardKey.numpad7,
+      'numpad8': (visitor) => $flutter_26.LogicalKeyboardKey.numpad8,
+      'numpad9': (visitor) => $flutter_26.LogicalKeyboardKey.numpad9,
+      'numpadEqual': (visitor) => $flutter_26.LogicalKeyboardKey.numpadEqual,
+      'gameButton1': (visitor) => $flutter_26.LogicalKeyboardKey.gameButton1,
+      'gameButton2': (visitor) => $flutter_26.LogicalKeyboardKey.gameButton2,
+      'gameButton3': (visitor) => $flutter_26.LogicalKeyboardKey.gameButton3,
+      'gameButton4': (visitor) => $flutter_26.LogicalKeyboardKey.gameButton4,
+      'gameButton5': (visitor) => $flutter_26.LogicalKeyboardKey.gameButton5,
+      'gameButton6': (visitor) => $flutter_26.LogicalKeyboardKey.gameButton6,
+      'gameButton7': (visitor) => $flutter_26.LogicalKeyboardKey.gameButton7,
+      'gameButton8': (visitor) => $flutter_26.LogicalKeyboardKey.gameButton8,
+      'gameButton9': (visitor) => $flutter_26.LogicalKeyboardKey.gameButton9,
+      'gameButton10': (visitor) => $flutter_26.LogicalKeyboardKey.gameButton10,
+      'gameButton11': (visitor) => $flutter_26.LogicalKeyboardKey.gameButton11,
+      'gameButton12': (visitor) => $flutter_26.LogicalKeyboardKey.gameButton12,
+      'gameButton13': (visitor) => $flutter_26.LogicalKeyboardKey.gameButton13,
+      'gameButton14': (visitor) => $flutter_26.LogicalKeyboardKey.gameButton14,
+      'gameButton15': (visitor) => $flutter_26.LogicalKeyboardKey.gameButton15,
+      'gameButton16': (visitor) => $flutter_26.LogicalKeyboardKey.gameButton16,
+      'gameButtonA': (visitor) => $flutter_26.LogicalKeyboardKey.gameButtonA,
+      'gameButtonB': (visitor) => $flutter_26.LogicalKeyboardKey.gameButtonB,
+      'gameButtonC': (visitor) => $flutter_26.LogicalKeyboardKey.gameButtonC,
       'gameButtonLeft1': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.gameButtonLeft1,
+          $flutter_26.LogicalKeyboardKey.gameButtonLeft1,
       'gameButtonLeft2': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.gameButtonLeft2,
+          $flutter_26.LogicalKeyboardKey.gameButtonLeft2,
       'gameButtonMode': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.gameButtonMode,
+          $flutter_26.LogicalKeyboardKey.gameButtonMode,
       'gameButtonRight1': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.gameButtonRight1,
+          $flutter_26.LogicalKeyboardKey.gameButtonRight1,
       'gameButtonRight2': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.gameButtonRight2,
+          $flutter_26.LogicalKeyboardKey.gameButtonRight2,
       'gameButtonSelect': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.gameButtonSelect,
+          $flutter_26.LogicalKeyboardKey.gameButtonSelect,
       'gameButtonStart': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.gameButtonStart,
+          $flutter_26.LogicalKeyboardKey.gameButtonStart,
       'gameButtonThumbLeft': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.gameButtonThumbLeft,
+          $flutter_26.LogicalKeyboardKey.gameButtonThumbLeft,
       'gameButtonThumbRight': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.gameButtonThumbRight,
-      'gameButtonX': (visitor) => $flutter_25.LogicalKeyboardKey.gameButtonX,
-      'gameButtonY': (visitor) => $flutter_25.LogicalKeyboardKey.gameButtonY,
-      'gameButtonZ': (visitor) => $flutter_25.LogicalKeyboardKey.gameButtonZ,
+          $flutter_26.LogicalKeyboardKey.gameButtonThumbRight,
+      'gameButtonX': (visitor) => $flutter_26.LogicalKeyboardKey.gameButtonX,
+      'gameButtonY': (visitor) => $flutter_26.LogicalKeyboardKey.gameButtonY,
+      'gameButtonZ': (visitor) => $flutter_26.LogicalKeyboardKey.gameButtonZ,
       'knownLogicalKeys': (visitor) =>
-          $flutter_25.LogicalKeyboardKey.knownLogicalKeys,
+          $flutter_26.LogicalKeyboardKey.knownLogicalKeys,
     },
     staticMethods: {
       'findKeyByKeyId': (visitor, positional, named, typeArgs) {
@@ -9264,7 +9299,7 @@ BridgedClass _createLogicalKeyboardKeyBridge() {
           'keyId',
           'findKeyByKeyId',
         );
-        return $flutter_25.LogicalKeyboardKey.findKeyByKeyId(keyId);
+        return $flutter_26.LogicalKeyboardKey.findKeyByKeyId(keyId);
       },
       'isControlCharacter': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'isControlCharacter');
@@ -9274,7 +9309,7 @@ BridgedClass _createLogicalKeyboardKeyBridge() {
           'label',
           'isControlCharacter',
         );
-        return $flutter_25.LogicalKeyboardKey.isControlCharacter(label);
+        return $flutter_26.LogicalKeyboardKey.isControlCharacter(label);
       },
       'collapseSynonyms': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'collapseSynonyms');
@@ -9283,11 +9318,11 @@ BridgedClass _createLogicalKeyboardKeyBridge() {
             'collapseSynonyms: Missing required argument "input" at position 0',
           );
         }
-        final input = D4.coerceSet<$flutter_25.LogicalKeyboardKey>(
+        final input = D4.coerceSet<$flutter_26.LogicalKeyboardKey>(
           positional[0],
           'input',
         );
-        return $flutter_25.LogicalKeyboardKey.collapseSynonyms(input);
+        return $flutter_26.LogicalKeyboardKey.collapseSynonyms(input);
       },
       'expandSynonyms': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'expandSynonyms');
@@ -9296,11 +9331,11 @@ BridgedClass _createLogicalKeyboardKeyBridge() {
             'expandSynonyms: Missing required argument "input" at position 0',
           );
         }
-        final input = D4.coerceSet<$flutter_25.LogicalKeyboardKey>(
+        final input = D4.coerceSet<$flutter_26.LogicalKeyboardKey>(
           positional[0],
           'input',
         );
-        return $flutter_25.LogicalKeyboardKey.expandSynonyms(input);
+        return $flutter_26.LogicalKeyboardKey.expandSynonyms(input);
       },
     },
     constructorSignatures: {'': 'const LogicalKeyboardKey(int keyId)'},
@@ -9801,9 +9836,9 @@ BridgedClass _createLogicalKeyboardKeyBridge() {
 
 BridgedClass _createPhysicalKeyboardKeyBridge() {
   return BridgedClass(
-    nativeType: $flutter_25.PhysicalKeyboardKey,
+    nativeType: $flutter_26.PhysicalKeyboardKey,
     name: 'PhysicalKeyboardKey',
-    isAssignable: (v) => v is $flutter_25.PhysicalKeyboardKey,
+    isAssignable: (v) => v is $flutter_26.PhysicalKeyboardKey,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
@@ -9814,24 +9849,24 @@ BridgedClass _createPhysicalKeyboardKeyBridge() {
           'usbHidUsage',
           'PhysicalKeyboardKey',
         );
-        return $flutter_25.PhysicalKeyboardKey(usbHidUsage);
+        return $flutter_26.PhysicalKeyboardKey(usbHidUsage);
       },
     },
     getters: {
       'usbHidUsage': (visitor, target) => D4
-          .validateTarget<$flutter_25.PhysicalKeyboardKey>(
+          .validateTarget<$flutter_26.PhysicalKeyboardKey>(
             target,
             'PhysicalKeyboardKey',
           )
           .usbHidUsage,
       'debugName': (visitor, target) => D4
-          .validateTarget<$flutter_25.PhysicalKeyboardKey>(
+          .validateTarget<$flutter_26.PhysicalKeyboardKey>(
             target,
             'PhysicalKeyboardKey',
           )
           .debugName,
       'hashCode': (visitor, target) => D4
-          .validateTarget<$flutter_25.PhysicalKeyboardKey>(
+          .validateTarget<$flutter_26.PhysicalKeyboardKey>(
             target,
             'PhysicalKeyboardKey',
           )
@@ -9839,14 +9874,14 @@ BridgedClass _createPhysicalKeyboardKeyBridge() {
     },
     methods: {
       'toStringShort': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.PhysicalKeyboardKey>(
+        final t = D4.validateTarget<$flutter_26.PhysicalKeyboardKey>(
           target,
           'PhysicalKeyboardKey',
         );
         return t.toStringShort();
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.PhysicalKeyboardKey>(
+        final t = D4.validateTarget<$flutter_26.PhysicalKeyboardKey>(
           target,
           'PhysicalKeyboardKey',
         );
@@ -9858,7 +9893,7 @@ BridgedClass _createPhysicalKeyboardKeyBridge() {
         return t.toString(minLevel: minLevel);
       },
       'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.PhysicalKeyboardKey>(
+        final t = D4.validateTarget<$flutter_26.PhysicalKeyboardKey>(
           target,
           'PhysicalKeyboardKey',
         );
@@ -9870,7 +9905,7 @@ BridgedClass _createPhysicalKeyboardKeyBridge() {
         return t.toDiagnosticsNode(name: name, style: style);
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.PhysicalKeyboardKey>(
+        final t = D4.validateTarget<$flutter_26.PhysicalKeyboardKey>(
           target,
           'PhysicalKeyboardKey',
         );
@@ -9886,7 +9921,7 @@ BridgedClass _createPhysicalKeyboardKeyBridge() {
         return null;
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_25.PhysicalKeyboardKey>(
+        final t = D4.validateTarget<$flutter_26.PhysicalKeyboardKey>(
           target,
           'PhysicalKeyboardKey',
         );
@@ -9902,336 +9937,336 @@ BridgedClass _createPhysicalKeyboardKeyBridge() {
       },
     },
     staticGetters: {
-      'hyper': (visitor) => $flutter_25.PhysicalKeyboardKey.hyper,
-      'superKey': (visitor) => $flutter_25.PhysicalKeyboardKey.superKey,
-      'fn': (visitor) => $flutter_25.PhysicalKeyboardKey.fn,
-      'fnLock': (visitor) => $flutter_25.PhysicalKeyboardKey.fnLock,
-      'suspend': (visitor) => $flutter_25.PhysicalKeyboardKey.suspend,
-      'resume': (visitor) => $flutter_25.PhysicalKeyboardKey.resume,
-      'turbo': (visitor) => $flutter_25.PhysicalKeyboardKey.turbo,
+      'hyper': (visitor) => $flutter_26.PhysicalKeyboardKey.hyper,
+      'superKey': (visitor) => $flutter_26.PhysicalKeyboardKey.superKey,
+      'fn': (visitor) => $flutter_26.PhysicalKeyboardKey.fn,
+      'fnLock': (visitor) => $flutter_26.PhysicalKeyboardKey.fnLock,
+      'suspend': (visitor) => $flutter_26.PhysicalKeyboardKey.suspend,
+      'resume': (visitor) => $flutter_26.PhysicalKeyboardKey.resume,
+      'turbo': (visitor) => $flutter_26.PhysicalKeyboardKey.turbo,
       'privacyScreenToggle': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.privacyScreenToggle,
+          $flutter_26.PhysicalKeyboardKey.privacyScreenToggle,
       'microphoneMuteToggle': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.microphoneMuteToggle,
-      'sleep': (visitor) => $flutter_25.PhysicalKeyboardKey.sleep,
-      'wakeUp': (visitor) => $flutter_25.PhysicalKeyboardKey.wakeUp,
+          $flutter_26.PhysicalKeyboardKey.microphoneMuteToggle,
+      'sleep': (visitor) => $flutter_26.PhysicalKeyboardKey.sleep,
+      'wakeUp': (visitor) => $flutter_26.PhysicalKeyboardKey.wakeUp,
       'displayToggleIntExt': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.displayToggleIntExt,
-      'gameButton1': (visitor) => $flutter_25.PhysicalKeyboardKey.gameButton1,
-      'gameButton2': (visitor) => $flutter_25.PhysicalKeyboardKey.gameButton2,
-      'gameButton3': (visitor) => $flutter_25.PhysicalKeyboardKey.gameButton3,
-      'gameButton4': (visitor) => $flutter_25.PhysicalKeyboardKey.gameButton4,
-      'gameButton5': (visitor) => $flutter_25.PhysicalKeyboardKey.gameButton5,
-      'gameButton6': (visitor) => $flutter_25.PhysicalKeyboardKey.gameButton6,
-      'gameButton7': (visitor) => $flutter_25.PhysicalKeyboardKey.gameButton7,
-      'gameButton8': (visitor) => $flutter_25.PhysicalKeyboardKey.gameButton8,
-      'gameButton9': (visitor) => $flutter_25.PhysicalKeyboardKey.gameButton9,
-      'gameButton10': (visitor) => $flutter_25.PhysicalKeyboardKey.gameButton10,
-      'gameButton11': (visitor) => $flutter_25.PhysicalKeyboardKey.gameButton11,
-      'gameButton12': (visitor) => $flutter_25.PhysicalKeyboardKey.gameButton12,
-      'gameButton13': (visitor) => $flutter_25.PhysicalKeyboardKey.gameButton13,
-      'gameButton14': (visitor) => $flutter_25.PhysicalKeyboardKey.gameButton14,
-      'gameButton15': (visitor) => $flutter_25.PhysicalKeyboardKey.gameButton15,
-      'gameButton16': (visitor) => $flutter_25.PhysicalKeyboardKey.gameButton16,
-      'gameButtonA': (visitor) => $flutter_25.PhysicalKeyboardKey.gameButtonA,
-      'gameButtonB': (visitor) => $flutter_25.PhysicalKeyboardKey.gameButtonB,
-      'gameButtonC': (visitor) => $flutter_25.PhysicalKeyboardKey.gameButtonC,
+          $flutter_26.PhysicalKeyboardKey.displayToggleIntExt,
+      'gameButton1': (visitor) => $flutter_26.PhysicalKeyboardKey.gameButton1,
+      'gameButton2': (visitor) => $flutter_26.PhysicalKeyboardKey.gameButton2,
+      'gameButton3': (visitor) => $flutter_26.PhysicalKeyboardKey.gameButton3,
+      'gameButton4': (visitor) => $flutter_26.PhysicalKeyboardKey.gameButton4,
+      'gameButton5': (visitor) => $flutter_26.PhysicalKeyboardKey.gameButton5,
+      'gameButton6': (visitor) => $flutter_26.PhysicalKeyboardKey.gameButton6,
+      'gameButton7': (visitor) => $flutter_26.PhysicalKeyboardKey.gameButton7,
+      'gameButton8': (visitor) => $flutter_26.PhysicalKeyboardKey.gameButton8,
+      'gameButton9': (visitor) => $flutter_26.PhysicalKeyboardKey.gameButton9,
+      'gameButton10': (visitor) => $flutter_26.PhysicalKeyboardKey.gameButton10,
+      'gameButton11': (visitor) => $flutter_26.PhysicalKeyboardKey.gameButton11,
+      'gameButton12': (visitor) => $flutter_26.PhysicalKeyboardKey.gameButton12,
+      'gameButton13': (visitor) => $flutter_26.PhysicalKeyboardKey.gameButton13,
+      'gameButton14': (visitor) => $flutter_26.PhysicalKeyboardKey.gameButton14,
+      'gameButton15': (visitor) => $flutter_26.PhysicalKeyboardKey.gameButton15,
+      'gameButton16': (visitor) => $flutter_26.PhysicalKeyboardKey.gameButton16,
+      'gameButtonA': (visitor) => $flutter_26.PhysicalKeyboardKey.gameButtonA,
+      'gameButtonB': (visitor) => $flutter_26.PhysicalKeyboardKey.gameButtonB,
+      'gameButtonC': (visitor) => $flutter_26.PhysicalKeyboardKey.gameButtonC,
       'gameButtonLeft1': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.gameButtonLeft1,
+          $flutter_26.PhysicalKeyboardKey.gameButtonLeft1,
       'gameButtonLeft2': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.gameButtonLeft2,
+          $flutter_26.PhysicalKeyboardKey.gameButtonLeft2,
       'gameButtonMode': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.gameButtonMode,
+          $flutter_26.PhysicalKeyboardKey.gameButtonMode,
       'gameButtonRight1': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.gameButtonRight1,
+          $flutter_26.PhysicalKeyboardKey.gameButtonRight1,
       'gameButtonRight2': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.gameButtonRight2,
+          $flutter_26.PhysicalKeyboardKey.gameButtonRight2,
       'gameButtonSelect': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.gameButtonSelect,
+          $flutter_26.PhysicalKeyboardKey.gameButtonSelect,
       'gameButtonStart': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.gameButtonStart,
+          $flutter_26.PhysicalKeyboardKey.gameButtonStart,
       'gameButtonThumbLeft': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.gameButtonThumbLeft,
+          $flutter_26.PhysicalKeyboardKey.gameButtonThumbLeft,
       'gameButtonThumbRight': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.gameButtonThumbRight,
-      'gameButtonX': (visitor) => $flutter_25.PhysicalKeyboardKey.gameButtonX,
-      'gameButtonY': (visitor) => $flutter_25.PhysicalKeyboardKey.gameButtonY,
-      'gameButtonZ': (visitor) => $flutter_25.PhysicalKeyboardKey.gameButtonZ,
-      'usbReserved': (visitor) => $flutter_25.PhysicalKeyboardKey.usbReserved,
+          $flutter_26.PhysicalKeyboardKey.gameButtonThumbRight,
+      'gameButtonX': (visitor) => $flutter_26.PhysicalKeyboardKey.gameButtonX,
+      'gameButtonY': (visitor) => $flutter_26.PhysicalKeyboardKey.gameButtonY,
+      'gameButtonZ': (visitor) => $flutter_26.PhysicalKeyboardKey.gameButtonZ,
+      'usbReserved': (visitor) => $flutter_26.PhysicalKeyboardKey.usbReserved,
       'usbErrorRollOver': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.usbErrorRollOver,
-      'usbPostFail': (visitor) => $flutter_25.PhysicalKeyboardKey.usbPostFail,
+          $flutter_26.PhysicalKeyboardKey.usbErrorRollOver,
+      'usbPostFail': (visitor) => $flutter_26.PhysicalKeyboardKey.usbPostFail,
       'usbErrorUndefined': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.usbErrorUndefined,
-      'keyA': (visitor) => $flutter_25.PhysicalKeyboardKey.keyA,
-      'keyB': (visitor) => $flutter_25.PhysicalKeyboardKey.keyB,
-      'keyC': (visitor) => $flutter_25.PhysicalKeyboardKey.keyC,
-      'keyD': (visitor) => $flutter_25.PhysicalKeyboardKey.keyD,
-      'keyE': (visitor) => $flutter_25.PhysicalKeyboardKey.keyE,
-      'keyF': (visitor) => $flutter_25.PhysicalKeyboardKey.keyF,
-      'keyG': (visitor) => $flutter_25.PhysicalKeyboardKey.keyG,
-      'keyH': (visitor) => $flutter_25.PhysicalKeyboardKey.keyH,
-      'keyI': (visitor) => $flutter_25.PhysicalKeyboardKey.keyI,
-      'keyJ': (visitor) => $flutter_25.PhysicalKeyboardKey.keyJ,
-      'keyK': (visitor) => $flutter_25.PhysicalKeyboardKey.keyK,
-      'keyL': (visitor) => $flutter_25.PhysicalKeyboardKey.keyL,
-      'keyM': (visitor) => $flutter_25.PhysicalKeyboardKey.keyM,
-      'keyN': (visitor) => $flutter_25.PhysicalKeyboardKey.keyN,
-      'keyO': (visitor) => $flutter_25.PhysicalKeyboardKey.keyO,
-      'keyP': (visitor) => $flutter_25.PhysicalKeyboardKey.keyP,
-      'keyQ': (visitor) => $flutter_25.PhysicalKeyboardKey.keyQ,
-      'keyR': (visitor) => $flutter_25.PhysicalKeyboardKey.keyR,
-      'keyS': (visitor) => $flutter_25.PhysicalKeyboardKey.keyS,
-      'keyT': (visitor) => $flutter_25.PhysicalKeyboardKey.keyT,
-      'keyU': (visitor) => $flutter_25.PhysicalKeyboardKey.keyU,
-      'keyV': (visitor) => $flutter_25.PhysicalKeyboardKey.keyV,
-      'keyW': (visitor) => $flutter_25.PhysicalKeyboardKey.keyW,
-      'keyX': (visitor) => $flutter_25.PhysicalKeyboardKey.keyX,
-      'keyY': (visitor) => $flutter_25.PhysicalKeyboardKey.keyY,
-      'keyZ': (visitor) => $flutter_25.PhysicalKeyboardKey.keyZ,
-      'digit1': (visitor) => $flutter_25.PhysicalKeyboardKey.digit1,
-      'digit2': (visitor) => $flutter_25.PhysicalKeyboardKey.digit2,
-      'digit3': (visitor) => $flutter_25.PhysicalKeyboardKey.digit3,
-      'digit4': (visitor) => $flutter_25.PhysicalKeyboardKey.digit4,
-      'digit5': (visitor) => $flutter_25.PhysicalKeyboardKey.digit5,
-      'digit6': (visitor) => $flutter_25.PhysicalKeyboardKey.digit6,
-      'digit7': (visitor) => $flutter_25.PhysicalKeyboardKey.digit7,
-      'digit8': (visitor) => $flutter_25.PhysicalKeyboardKey.digit8,
-      'digit9': (visitor) => $flutter_25.PhysicalKeyboardKey.digit9,
-      'digit0': (visitor) => $flutter_25.PhysicalKeyboardKey.digit0,
-      'enter': (visitor) => $flutter_25.PhysicalKeyboardKey.enter,
-      'escape': (visitor) => $flutter_25.PhysicalKeyboardKey.escape,
-      'backspace': (visitor) => $flutter_25.PhysicalKeyboardKey.backspace,
-      'tab': (visitor) => $flutter_25.PhysicalKeyboardKey.tab,
-      'space': (visitor) => $flutter_25.PhysicalKeyboardKey.space,
-      'minus': (visitor) => $flutter_25.PhysicalKeyboardKey.minus,
-      'equal': (visitor) => $flutter_25.PhysicalKeyboardKey.equal,
-      'bracketLeft': (visitor) => $flutter_25.PhysicalKeyboardKey.bracketLeft,
-      'bracketRight': (visitor) => $flutter_25.PhysicalKeyboardKey.bracketRight,
-      'backslash': (visitor) => $flutter_25.PhysicalKeyboardKey.backslash,
-      'semicolon': (visitor) => $flutter_25.PhysicalKeyboardKey.semicolon,
-      'quote': (visitor) => $flutter_25.PhysicalKeyboardKey.quote,
-      'backquote': (visitor) => $flutter_25.PhysicalKeyboardKey.backquote,
-      'comma': (visitor) => $flutter_25.PhysicalKeyboardKey.comma,
-      'period': (visitor) => $flutter_25.PhysicalKeyboardKey.period,
-      'slash': (visitor) => $flutter_25.PhysicalKeyboardKey.slash,
-      'capsLock': (visitor) => $flutter_25.PhysicalKeyboardKey.capsLock,
-      'f1': (visitor) => $flutter_25.PhysicalKeyboardKey.f1,
-      'f2': (visitor) => $flutter_25.PhysicalKeyboardKey.f2,
-      'f3': (visitor) => $flutter_25.PhysicalKeyboardKey.f3,
-      'f4': (visitor) => $flutter_25.PhysicalKeyboardKey.f4,
-      'f5': (visitor) => $flutter_25.PhysicalKeyboardKey.f5,
-      'f6': (visitor) => $flutter_25.PhysicalKeyboardKey.f6,
-      'f7': (visitor) => $flutter_25.PhysicalKeyboardKey.f7,
-      'f8': (visitor) => $flutter_25.PhysicalKeyboardKey.f8,
-      'f9': (visitor) => $flutter_25.PhysicalKeyboardKey.f9,
-      'f10': (visitor) => $flutter_25.PhysicalKeyboardKey.f10,
-      'f11': (visitor) => $flutter_25.PhysicalKeyboardKey.f11,
-      'f12': (visitor) => $flutter_25.PhysicalKeyboardKey.f12,
-      'printScreen': (visitor) => $flutter_25.PhysicalKeyboardKey.printScreen,
-      'scrollLock': (visitor) => $flutter_25.PhysicalKeyboardKey.scrollLock,
-      'pause': (visitor) => $flutter_25.PhysicalKeyboardKey.pause,
-      'insert': (visitor) => $flutter_25.PhysicalKeyboardKey.insert,
-      'home': (visitor) => $flutter_25.PhysicalKeyboardKey.home,
-      'pageUp': (visitor) => $flutter_25.PhysicalKeyboardKey.pageUp,
-      'delete': (visitor) => $flutter_25.PhysicalKeyboardKey.delete,
-      'end': (visitor) => $flutter_25.PhysicalKeyboardKey.end,
-      'pageDown': (visitor) => $flutter_25.PhysicalKeyboardKey.pageDown,
-      'arrowRight': (visitor) => $flutter_25.PhysicalKeyboardKey.arrowRight,
-      'arrowLeft': (visitor) => $flutter_25.PhysicalKeyboardKey.arrowLeft,
-      'arrowDown': (visitor) => $flutter_25.PhysicalKeyboardKey.arrowDown,
-      'arrowUp': (visitor) => $flutter_25.PhysicalKeyboardKey.arrowUp,
-      'numLock': (visitor) => $flutter_25.PhysicalKeyboardKey.numLock,
-      'numpadDivide': (visitor) => $flutter_25.PhysicalKeyboardKey.numpadDivide,
+          $flutter_26.PhysicalKeyboardKey.usbErrorUndefined,
+      'keyA': (visitor) => $flutter_26.PhysicalKeyboardKey.keyA,
+      'keyB': (visitor) => $flutter_26.PhysicalKeyboardKey.keyB,
+      'keyC': (visitor) => $flutter_26.PhysicalKeyboardKey.keyC,
+      'keyD': (visitor) => $flutter_26.PhysicalKeyboardKey.keyD,
+      'keyE': (visitor) => $flutter_26.PhysicalKeyboardKey.keyE,
+      'keyF': (visitor) => $flutter_26.PhysicalKeyboardKey.keyF,
+      'keyG': (visitor) => $flutter_26.PhysicalKeyboardKey.keyG,
+      'keyH': (visitor) => $flutter_26.PhysicalKeyboardKey.keyH,
+      'keyI': (visitor) => $flutter_26.PhysicalKeyboardKey.keyI,
+      'keyJ': (visitor) => $flutter_26.PhysicalKeyboardKey.keyJ,
+      'keyK': (visitor) => $flutter_26.PhysicalKeyboardKey.keyK,
+      'keyL': (visitor) => $flutter_26.PhysicalKeyboardKey.keyL,
+      'keyM': (visitor) => $flutter_26.PhysicalKeyboardKey.keyM,
+      'keyN': (visitor) => $flutter_26.PhysicalKeyboardKey.keyN,
+      'keyO': (visitor) => $flutter_26.PhysicalKeyboardKey.keyO,
+      'keyP': (visitor) => $flutter_26.PhysicalKeyboardKey.keyP,
+      'keyQ': (visitor) => $flutter_26.PhysicalKeyboardKey.keyQ,
+      'keyR': (visitor) => $flutter_26.PhysicalKeyboardKey.keyR,
+      'keyS': (visitor) => $flutter_26.PhysicalKeyboardKey.keyS,
+      'keyT': (visitor) => $flutter_26.PhysicalKeyboardKey.keyT,
+      'keyU': (visitor) => $flutter_26.PhysicalKeyboardKey.keyU,
+      'keyV': (visitor) => $flutter_26.PhysicalKeyboardKey.keyV,
+      'keyW': (visitor) => $flutter_26.PhysicalKeyboardKey.keyW,
+      'keyX': (visitor) => $flutter_26.PhysicalKeyboardKey.keyX,
+      'keyY': (visitor) => $flutter_26.PhysicalKeyboardKey.keyY,
+      'keyZ': (visitor) => $flutter_26.PhysicalKeyboardKey.keyZ,
+      'digit1': (visitor) => $flutter_26.PhysicalKeyboardKey.digit1,
+      'digit2': (visitor) => $flutter_26.PhysicalKeyboardKey.digit2,
+      'digit3': (visitor) => $flutter_26.PhysicalKeyboardKey.digit3,
+      'digit4': (visitor) => $flutter_26.PhysicalKeyboardKey.digit4,
+      'digit5': (visitor) => $flutter_26.PhysicalKeyboardKey.digit5,
+      'digit6': (visitor) => $flutter_26.PhysicalKeyboardKey.digit6,
+      'digit7': (visitor) => $flutter_26.PhysicalKeyboardKey.digit7,
+      'digit8': (visitor) => $flutter_26.PhysicalKeyboardKey.digit8,
+      'digit9': (visitor) => $flutter_26.PhysicalKeyboardKey.digit9,
+      'digit0': (visitor) => $flutter_26.PhysicalKeyboardKey.digit0,
+      'enter': (visitor) => $flutter_26.PhysicalKeyboardKey.enter,
+      'escape': (visitor) => $flutter_26.PhysicalKeyboardKey.escape,
+      'backspace': (visitor) => $flutter_26.PhysicalKeyboardKey.backspace,
+      'tab': (visitor) => $flutter_26.PhysicalKeyboardKey.tab,
+      'space': (visitor) => $flutter_26.PhysicalKeyboardKey.space,
+      'minus': (visitor) => $flutter_26.PhysicalKeyboardKey.minus,
+      'equal': (visitor) => $flutter_26.PhysicalKeyboardKey.equal,
+      'bracketLeft': (visitor) => $flutter_26.PhysicalKeyboardKey.bracketLeft,
+      'bracketRight': (visitor) => $flutter_26.PhysicalKeyboardKey.bracketRight,
+      'backslash': (visitor) => $flutter_26.PhysicalKeyboardKey.backslash,
+      'semicolon': (visitor) => $flutter_26.PhysicalKeyboardKey.semicolon,
+      'quote': (visitor) => $flutter_26.PhysicalKeyboardKey.quote,
+      'backquote': (visitor) => $flutter_26.PhysicalKeyboardKey.backquote,
+      'comma': (visitor) => $flutter_26.PhysicalKeyboardKey.comma,
+      'period': (visitor) => $flutter_26.PhysicalKeyboardKey.period,
+      'slash': (visitor) => $flutter_26.PhysicalKeyboardKey.slash,
+      'capsLock': (visitor) => $flutter_26.PhysicalKeyboardKey.capsLock,
+      'f1': (visitor) => $flutter_26.PhysicalKeyboardKey.f1,
+      'f2': (visitor) => $flutter_26.PhysicalKeyboardKey.f2,
+      'f3': (visitor) => $flutter_26.PhysicalKeyboardKey.f3,
+      'f4': (visitor) => $flutter_26.PhysicalKeyboardKey.f4,
+      'f5': (visitor) => $flutter_26.PhysicalKeyboardKey.f5,
+      'f6': (visitor) => $flutter_26.PhysicalKeyboardKey.f6,
+      'f7': (visitor) => $flutter_26.PhysicalKeyboardKey.f7,
+      'f8': (visitor) => $flutter_26.PhysicalKeyboardKey.f8,
+      'f9': (visitor) => $flutter_26.PhysicalKeyboardKey.f9,
+      'f10': (visitor) => $flutter_26.PhysicalKeyboardKey.f10,
+      'f11': (visitor) => $flutter_26.PhysicalKeyboardKey.f11,
+      'f12': (visitor) => $flutter_26.PhysicalKeyboardKey.f12,
+      'printScreen': (visitor) => $flutter_26.PhysicalKeyboardKey.printScreen,
+      'scrollLock': (visitor) => $flutter_26.PhysicalKeyboardKey.scrollLock,
+      'pause': (visitor) => $flutter_26.PhysicalKeyboardKey.pause,
+      'insert': (visitor) => $flutter_26.PhysicalKeyboardKey.insert,
+      'home': (visitor) => $flutter_26.PhysicalKeyboardKey.home,
+      'pageUp': (visitor) => $flutter_26.PhysicalKeyboardKey.pageUp,
+      'delete': (visitor) => $flutter_26.PhysicalKeyboardKey.delete,
+      'end': (visitor) => $flutter_26.PhysicalKeyboardKey.end,
+      'pageDown': (visitor) => $flutter_26.PhysicalKeyboardKey.pageDown,
+      'arrowRight': (visitor) => $flutter_26.PhysicalKeyboardKey.arrowRight,
+      'arrowLeft': (visitor) => $flutter_26.PhysicalKeyboardKey.arrowLeft,
+      'arrowDown': (visitor) => $flutter_26.PhysicalKeyboardKey.arrowDown,
+      'arrowUp': (visitor) => $flutter_26.PhysicalKeyboardKey.arrowUp,
+      'numLock': (visitor) => $flutter_26.PhysicalKeyboardKey.numLock,
+      'numpadDivide': (visitor) => $flutter_26.PhysicalKeyboardKey.numpadDivide,
       'numpadMultiply': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.numpadMultiply,
+          $flutter_26.PhysicalKeyboardKey.numpadMultiply,
       'numpadSubtract': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.numpadSubtract,
-      'numpadAdd': (visitor) => $flutter_25.PhysicalKeyboardKey.numpadAdd,
-      'numpadEnter': (visitor) => $flutter_25.PhysicalKeyboardKey.numpadEnter,
-      'numpad1': (visitor) => $flutter_25.PhysicalKeyboardKey.numpad1,
-      'numpad2': (visitor) => $flutter_25.PhysicalKeyboardKey.numpad2,
-      'numpad3': (visitor) => $flutter_25.PhysicalKeyboardKey.numpad3,
-      'numpad4': (visitor) => $flutter_25.PhysicalKeyboardKey.numpad4,
-      'numpad5': (visitor) => $flutter_25.PhysicalKeyboardKey.numpad5,
-      'numpad6': (visitor) => $flutter_25.PhysicalKeyboardKey.numpad6,
-      'numpad7': (visitor) => $flutter_25.PhysicalKeyboardKey.numpad7,
-      'numpad8': (visitor) => $flutter_25.PhysicalKeyboardKey.numpad8,
-      'numpad9': (visitor) => $flutter_25.PhysicalKeyboardKey.numpad9,
-      'numpad0': (visitor) => $flutter_25.PhysicalKeyboardKey.numpad0,
+          $flutter_26.PhysicalKeyboardKey.numpadSubtract,
+      'numpadAdd': (visitor) => $flutter_26.PhysicalKeyboardKey.numpadAdd,
+      'numpadEnter': (visitor) => $flutter_26.PhysicalKeyboardKey.numpadEnter,
+      'numpad1': (visitor) => $flutter_26.PhysicalKeyboardKey.numpad1,
+      'numpad2': (visitor) => $flutter_26.PhysicalKeyboardKey.numpad2,
+      'numpad3': (visitor) => $flutter_26.PhysicalKeyboardKey.numpad3,
+      'numpad4': (visitor) => $flutter_26.PhysicalKeyboardKey.numpad4,
+      'numpad5': (visitor) => $flutter_26.PhysicalKeyboardKey.numpad5,
+      'numpad6': (visitor) => $flutter_26.PhysicalKeyboardKey.numpad6,
+      'numpad7': (visitor) => $flutter_26.PhysicalKeyboardKey.numpad7,
+      'numpad8': (visitor) => $flutter_26.PhysicalKeyboardKey.numpad8,
+      'numpad9': (visitor) => $flutter_26.PhysicalKeyboardKey.numpad9,
+      'numpad0': (visitor) => $flutter_26.PhysicalKeyboardKey.numpad0,
       'numpadDecimal': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.numpadDecimal,
+          $flutter_26.PhysicalKeyboardKey.numpadDecimal,
       'intlBackslash': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.intlBackslash,
-      'contextMenu': (visitor) => $flutter_25.PhysicalKeyboardKey.contextMenu,
-      'power': (visitor) => $flutter_25.PhysicalKeyboardKey.power,
-      'numpadEqual': (visitor) => $flutter_25.PhysicalKeyboardKey.numpadEqual,
-      'f13': (visitor) => $flutter_25.PhysicalKeyboardKey.f13,
-      'f14': (visitor) => $flutter_25.PhysicalKeyboardKey.f14,
-      'f15': (visitor) => $flutter_25.PhysicalKeyboardKey.f15,
-      'f16': (visitor) => $flutter_25.PhysicalKeyboardKey.f16,
-      'f17': (visitor) => $flutter_25.PhysicalKeyboardKey.f17,
-      'f18': (visitor) => $flutter_25.PhysicalKeyboardKey.f18,
-      'f19': (visitor) => $flutter_25.PhysicalKeyboardKey.f19,
-      'f20': (visitor) => $flutter_25.PhysicalKeyboardKey.f20,
-      'f21': (visitor) => $flutter_25.PhysicalKeyboardKey.f21,
-      'f22': (visitor) => $flutter_25.PhysicalKeyboardKey.f22,
-      'f23': (visitor) => $flutter_25.PhysicalKeyboardKey.f23,
-      'f24': (visitor) => $flutter_25.PhysicalKeyboardKey.f24,
-      'open': (visitor) => $flutter_25.PhysicalKeyboardKey.open,
-      'help': (visitor) => $flutter_25.PhysicalKeyboardKey.help,
-      'select': (visitor) => $flutter_25.PhysicalKeyboardKey.select,
-      'again': (visitor) => $flutter_25.PhysicalKeyboardKey.again,
-      'undo': (visitor) => $flutter_25.PhysicalKeyboardKey.undo,
-      'cut': (visitor) => $flutter_25.PhysicalKeyboardKey.cut,
-      'copy': (visitor) => $flutter_25.PhysicalKeyboardKey.copy,
-      'paste': (visitor) => $flutter_25.PhysicalKeyboardKey.paste,
-      'find': (visitor) => $flutter_25.PhysicalKeyboardKey.find,
+          $flutter_26.PhysicalKeyboardKey.intlBackslash,
+      'contextMenu': (visitor) => $flutter_26.PhysicalKeyboardKey.contextMenu,
+      'power': (visitor) => $flutter_26.PhysicalKeyboardKey.power,
+      'numpadEqual': (visitor) => $flutter_26.PhysicalKeyboardKey.numpadEqual,
+      'f13': (visitor) => $flutter_26.PhysicalKeyboardKey.f13,
+      'f14': (visitor) => $flutter_26.PhysicalKeyboardKey.f14,
+      'f15': (visitor) => $flutter_26.PhysicalKeyboardKey.f15,
+      'f16': (visitor) => $flutter_26.PhysicalKeyboardKey.f16,
+      'f17': (visitor) => $flutter_26.PhysicalKeyboardKey.f17,
+      'f18': (visitor) => $flutter_26.PhysicalKeyboardKey.f18,
+      'f19': (visitor) => $flutter_26.PhysicalKeyboardKey.f19,
+      'f20': (visitor) => $flutter_26.PhysicalKeyboardKey.f20,
+      'f21': (visitor) => $flutter_26.PhysicalKeyboardKey.f21,
+      'f22': (visitor) => $flutter_26.PhysicalKeyboardKey.f22,
+      'f23': (visitor) => $flutter_26.PhysicalKeyboardKey.f23,
+      'f24': (visitor) => $flutter_26.PhysicalKeyboardKey.f24,
+      'open': (visitor) => $flutter_26.PhysicalKeyboardKey.open,
+      'help': (visitor) => $flutter_26.PhysicalKeyboardKey.help,
+      'select': (visitor) => $flutter_26.PhysicalKeyboardKey.select,
+      'again': (visitor) => $flutter_26.PhysicalKeyboardKey.again,
+      'undo': (visitor) => $flutter_26.PhysicalKeyboardKey.undo,
+      'cut': (visitor) => $flutter_26.PhysicalKeyboardKey.cut,
+      'copy': (visitor) => $flutter_26.PhysicalKeyboardKey.copy,
+      'paste': (visitor) => $flutter_26.PhysicalKeyboardKey.paste,
+      'find': (visitor) => $flutter_26.PhysicalKeyboardKey.find,
       'audioVolumeMute': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.audioVolumeMute,
+          $flutter_26.PhysicalKeyboardKey.audioVolumeMute,
       'audioVolumeUp': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.audioVolumeUp,
+          $flutter_26.PhysicalKeyboardKey.audioVolumeUp,
       'audioVolumeDown': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.audioVolumeDown,
-      'numpadComma': (visitor) => $flutter_25.PhysicalKeyboardKey.numpadComma,
-      'intlRo': (visitor) => $flutter_25.PhysicalKeyboardKey.intlRo,
-      'kanaMode': (visitor) => $flutter_25.PhysicalKeyboardKey.kanaMode,
-      'intlYen': (visitor) => $flutter_25.PhysicalKeyboardKey.intlYen,
-      'convert': (visitor) => $flutter_25.PhysicalKeyboardKey.convert,
-      'nonConvert': (visitor) => $flutter_25.PhysicalKeyboardKey.nonConvert,
-      'lang1': (visitor) => $flutter_25.PhysicalKeyboardKey.lang1,
-      'lang2': (visitor) => $flutter_25.PhysicalKeyboardKey.lang2,
-      'lang3': (visitor) => $flutter_25.PhysicalKeyboardKey.lang3,
-      'lang4': (visitor) => $flutter_25.PhysicalKeyboardKey.lang4,
-      'lang5': (visitor) => $flutter_25.PhysicalKeyboardKey.lang5,
-      'abort': (visitor) => $flutter_25.PhysicalKeyboardKey.abort,
-      'props': (visitor) => $flutter_25.PhysicalKeyboardKey.props,
+          $flutter_26.PhysicalKeyboardKey.audioVolumeDown,
+      'numpadComma': (visitor) => $flutter_26.PhysicalKeyboardKey.numpadComma,
+      'intlRo': (visitor) => $flutter_26.PhysicalKeyboardKey.intlRo,
+      'kanaMode': (visitor) => $flutter_26.PhysicalKeyboardKey.kanaMode,
+      'intlYen': (visitor) => $flutter_26.PhysicalKeyboardKey.intlYen,
+      'convert': (visitor) => $flutter_26.PhysicalKeyboardKey.convert,
+      'nonConvert': (visitor) => $flutter_26.PhysicalKeyboardKey.nonConvert,
+      'lang1': (visitor) => $flutter_26.PhysicalKeyboardKey.lang1,
+      'lang2': (visitor) => $flutter_26.PhysicalKeyboardKey.lang2,
+      'lang3': (visitor) => $flutter_26.PhysicalKeyboardKey.lang3,
+      'lang4': (visitor) => $flutter_26.PhysicalKeyboardKey.lang4,
+      'lang5': (visitor) => $flutter_26.PhysicalKeyboardKey.lang5,
+      'abort': (visitor) => $flutter_26.PhysicalKeyboardKey.abort,
+      'props': (visitor) => $flutter_26.PhysicalKeyboardKey.props,
       'numpadParenLeft': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.numpadParenLeft,
+          $flutter_26.PhysicalKeyboardKey.numpadParenLeft,
       'numpadParenRight': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.numpadParenRight,
+          $flutter_26.PhysicalKeyboardKey.numpadParenRight,
       'numpadBackspace': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.numpadBackspace,
+          $flutter_26.PhysicalKeyboardKey.numpadBackspace,
       'numpadMemoryStore': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.numpadMemoryStore,
+          $flutter_26.PhysicalKeyboardKey.numpadMemoryStore,
       'numpadMemoryRecall': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.numpadMemoryRecall,
+          $flutter_26.PhysicalKeyboardKey.numpadMemoryRecall,
       'numpadMemoryClear': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.numpadMemoryClear,
+          $flutter_26.PhysicalKeyboardKey.numpadMemoryClear,
       'numpadMemoryAdd': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.numpadMemoryAdd,
+          $flutter_26.PhysicalKeyboardKey.numpadMemoryAdd,
       'numpadMemorySubtract': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.numpadMemorySubtract,
+          $flutter_26.PhysicalKeyboardKey.numpadMemorySubtract,
       'numpadSignChange': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.numpadSignChange,
-      'numpadClear': (visitor) => $flutter_25.PhysicalKeyboardKey.numpadClear,
+          $flutter_26.PhysicalKeyboardKey.numpadSignChange,
+      'numpadClear': (visitor) => $flutter_26.PhysicalKeyboardKey.numpadClear,
       'numpadClearEntry': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.numpadClearEntry,
-      'controlLeft': (visitor) => $flutter_25.PhysicalKeyboardKey.controlLeft,
-      'shiftLeft': (visitor) => $flutter_25.PhysicalKeyboardKey.shiftLeft,
-      'altLeft': (visitor) => $flutter_25.PhysicalKeyboardKey.altLeft,
-      'metaLeft': (visitor) => $flutter_25.PhysicalKeyboardKey.metaLeft,
-      'controlRight': (visitor) => $flutter_25.PhysicalKeyboardKey.controlRight,
-      'shiftRight': (visitor) => $flutter_25.PhysicalKeyboardKey.shiftRight,
-      'altRight': (visitor) => $flutter_25.PhysicalKeyboardKey.altRight,
-      'metaRight': (visitor) => $flutter_25.PhysicalKeyboardKey.metaRight,
-      'info': (visitor) => $flutter_25.PhysicalKeyboardKey.info,
+          $flutter_26.PhysicalKeyboardKey.numpadClearEntry,
+      'controlLeft': (visitor) => $flutter_26.PhysicalKeyboardKey.controlLeft,
+      'shiftLeft': (visitor) => $flutter_26.PhysicalKeyboardKey.shiftLeft,
+      'altLeft': (visitor) => $flutter_26.PhysicalKeyboardKey.altLeft,
+      'metaLeft': (visitor) => $flutter_26.PhysicalKeyboardKey.metaLeft,
+      'controlRight': (visitor) => $flutter_26.PhysicalKeyboardKey.controlRight,
+      'shiftRight': (visitor) => $flutter_26.PhysicalKeyboardKey.shiftRight,
+      'altRight': (visitor) => $flutter_26.PhysicalKeyboardKey.altRight,
+      'metaRight': (visitor) => $flutter_26.PhysicalKeyboardKey.metaRight,
+      'info': (visitor) => $flutter_26.PhysicalKeyboardKey.info,
       'closedCaptionToggle': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.closedCaptionToggle,
-      'brightnessUp': (visitor) => $flutter_25.PhysicalKeyboardKey.brightnessUp,
+          $flutter_26.PhysicalKeyboardKey.closedCaptionToggle,
+      'brightnessUp': (visitor) => $flutter_26.PhysicalKeyboardKey.brightnessUp,
       'brightnessDown': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.brightnessDown,
+          $flutter_26.PhysicalKeyboardKey.brightnessDown,
       'brightnessToggle': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.brightnessToggle,
+          $flutter_26.PhysicalKeyboardKey.brightnessToggle,
       'brightnessMinimum': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.brightnessMinimum,
+          $flutter_26.PhysicalKeyboardKey.brightnessMinimum,
       'brightnessMaximum': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.brightnessMaximum,
+          $flutter_26.PhysicalKeyboardKey.brightnessMaximum,
       'brightnessAuto': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.brightnessAuto,
-      'kbdIllumUp': (visitor) => $flutter_25.PhysicalKeyboardKey.kbdIllumUp,
-      'kbdIllumDown': (visitor) => $flutter_25.PhysicalKeyboardKey.kbdIllumDown,
-      'mediaLast': (visitor) => $flutter_25.PhysicalKeyboardKey.mediaLast,
-      'launchPhone': (visitor) => $flutter_25.PhysicalKeyboardKey.launchPhone,
-      'programGuide': (visitor) => $flutter_25.PhysicalKeyboardKey.programGuide,
-      'exit': (visitor) => $flutter_25.PhysicalKeyboardKey.exit,
-      'channelUp': (visitor) => $flutter_25.PhysicalKeyboardKey.channelUp,
-      'channelDown': (visitor) => $flutter_25.PhysicalKeyboardKey.channelDown,
-      'mediaPlay': (visitor) => $flutter_25.PhysicalKeyboardKey.mediaPlay,
-      'mediaPause': (visitor) => $flutter_25.PhysicalKeyboardKey.mediaPause,
-      'mediaRecord': (visitor) => $flutter_25.PhysicalKeyboardKey.mediaRecord,
+          $flutter_26.PhysicalKeyboardKey.brightnessAuto,
+      'kbdIllumUp': (visitor) => $flutter_26.PhysicalKeyboardKey.kbdIllumUp,
+      'kbdIllumDown': (visitor) => $flutter_26.PhysicalKeyboardKey.kbdIllumDown,
+      'mediaLast': (visitor) => $flutter_26.PhysicalKeyboardKey.mediaLast,
+      'launchPhone': (visitor) => $flutter_26.PhysicalKeyboardKey.launchPhone,
+      'programGuide': (visitor) => $flutter_26.PhysicalKeyboardKey.programGuide,
+      'exit': (visitor) => $flutter_26.PhysicalKeyboardKey.exit,
+      'channelUp': (visitor) => $flutter_26.PhysicalKeyboardKey.channelUp,
+      'channelDown': (visitor) => $flutter_26.PhysicalKeyboardKey.channelDown,
+      'mediaPlay': (visitor) => $flutter_26.PhysicalKeyboardKey.mediaPlay,
+      'mediaPause': (visitor) => $flutter_26.PhysicalKeyboardKey.mediaPause,
+      'mediaRecord': (visitor) => $flutter_26.PhysicalKeyboardKey.mediaRecord,
       'mediaFastForward': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.mediaFastForward,
-      'mediaRewind': (visitor) => $flutter_25.PhysicalKeyboardKey.mediaRewind,
+          $flutter_26.PhysicalKeyboardKey.mediaFastForward,
+      'mediaRewind': (visitor) => $flutter_26.PhysicalKeyboardKey.mediaRewind,
       'mediaTrackNext': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.mediaTrackNext,
+          $flutter_26.PhysicalKeyboardKey.mediaTrackNext,
       'mediaTrackPrevious': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.mediaTrackPrevious,
-      'mediaStop': (visitor) => $flutter_25.PhysicalKeyboardKey.mediaStop,
-      'eject': (visitor) => $flutter_25.PhysicalKeyboardKey.eject,
+          $flutter_26.PhysicalKeyboardKey.mediaTrackPrevious,
+      'mediaStop': (visitor) => $flutter_26.PhysicalKeyboardKey.mediaStop,
+      'eject': (visitor) => $flutter_26.PhysicalKeyboardKey.eject,
       'mediaPlayPause': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.mediaPlayPause,
+          $flutter_26.PhysicalKeyboardKey.mediaPlayPause,
       'speechInputToggle': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.speechInputToggle,
-      'bassBoost': (visitor) => $flutter_25.PhysicalKeyboardKey.bassBoost,
-      'mediaSelect': (visitor) => $flutter_25.PhysicalKeyboardKey.mediaSelect,
+          $flutter_26.PhysicalKeyboardKey.speechInputToggle,
+      'bassBoost': (visitor) => $flutter_26.PhysicalKeyboardKey.bassBoost,
+      'mediaSelect': (visitor) => $flutter_26.PhysicalKeyboardKey.mediaSelect,
       'launchWordProcessor': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.launchWordProcessor,
+          $flutter_26.PhysicalKeyboardKey.launchWordProcessor,
       'launchSpreadsheet': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.launchSpreadsheet,
-      'launchMail': (visitor) => $flutter_25.PhysicalKeyboardKey.launchMail,
+          $flutter_26.PhysicalKeyboardKey.launchSpreadsheet,
+      'launchMail': (visitor) => $flutter_26.PhysicalKeyboardKey.launchMail,
       'launchContacts': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.launchContacts,
+          $flutter_26.PhysicalKeyboardKey.launchContacts,
       'launchCalendar': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.launchCalendar,
-      'launchApp2': (visitor) => $flutter_25.PhysicalKeyboardKey.launchApp2,
-      'launchApp1': (visitor) => $flutter_25.PhysicalKeyboardKey.launchApp1,
+          $flutter_26.PhysicalKeyboardKey.launchCalendar,
+      'launchApp2': (visitor) => $flutter_26.PhysicalKeyboardKey.launchApp2,
+      'launchApp1': (visitor) => $flutter_26.PhysicalKeyboardKey.launchApp1,
       'launchInternetBrowser': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.launchInternetBrowser,
-      'logOff': (visitor) => $flutter_25.PhysicalKeyboardKey.logOff,
-      'lockScreen': (visitor) => $flutter_25.PhysicalKeyboardKey.lockScreen,
+          $flutter_26.PhysicalKeyboardKey.launchInternetBrowser,
+      'logOff': (visitor) => $flutter_26.PhysicalKeyboardKey.logOff,
+      'lockScreen': (visitor) => $flutter_26.PhysicalKeyboardKey.lockScreen,
       'launchControlPanel': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.launchControlPanel,
-      'selectTask': (visitor) => $flutter_25.PhysicalKeyboardKey.selectTask,
+          $flutter_26.PhysicalKeyboardKey.launchControlPanel,
+      'selectTask': (visitor) => $flutter_26.PhysicalKeyboardKey.selectTask,
       'launchDocuments': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.launchDocuments,
-      'spellCheck': (visitor) => $flutter_25.PhysicalKeyboardKey.spellCheck,
+          $flutter_26.PhysicalKeyboardKey.launchDocuments,
+      'spellCheck': (visitor) => $flutter_26.PhysicalKeyboardKey.spellCheck,
       'launchKeyboardLayout': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.launchKeyboardLayout,
+          $flutter_26.PhysicalKeyboardKey.launchKeyboardLayout,
       'launchScreenSaver': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.launchScreenSaver,
+          $flutter_26.PhysicalKeyboardKey.launchScreenSaver,
       'launchAudioBrowser': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.launchAudioBrowser,
+          $flutter_26.PhysicalKeyboardKey.launchAudioBrowser,
       'launchAssistant': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.launchAssistant,
-      'newKey': (visitor) => $flutter_25.PhysicalKeyboardKey.newKey,
-      'close': (visitor) => $flutter_25.PhysicalKeyboardKey.close,
-      'save': (visitor) => $flutter_25.PhysicalKeyboardKey.save,
-      'print': (visitor) => $flutter_25.PhysicalKeyboardKey.print,
+          $flutter_26.PhysicalKeyboardKey.launchAssistant,
+      'newKey': (visitor) => $flutter_26.PhysicalKeyboardKey.newKey,
+      'close': (visitor) => $flutter_26.PhysicalKeyboardKey.close,
+      'save': (visitor) => $flutter_26.PhysicalKeyboardKey.save,
+      'print': (visitor) => $flutter_26.PhysicalKeyboardKey.print,
       'browserSearch': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.browserSearch,
-      'browserHome': (visitor) => $flutter_25.PhysicalKeyboardKey.browserHome,
-      'browserBack': (visitor) => $flutter_25.PhysicalKeyboardKey.browserBack,
+          $flutter_26.PhysicalKeyboardKey.browserSearch,
+      'browserHome': (visitor) => $flutter_26.PhysicalKeyboardKey.browserHome,
+      'browserBack': (visitor) => $flutter_26.PhysicalKeyboardKey.browserBack,
       'browserForward': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.browserForward,
-      'browserStop': (visitor) => $flutter_25.PhysicalKeyboardKey.browserStop,
+          $flutter_26.PhysicalKeyboardKey.browserForward,
+      'browserStop': (visitor) => $flutter_26.PhysicalKeyboardKey.browserStop,
       'browserRefresh': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.browserRefresh,
+          $flutter_26.PhysicalKeyboardKey.browserRefresh,
       'browserFavorites': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.browserFavorites,
-      'zoomIn': (visitor) => $flutter_25.PhysicalKeyboardKey.zoomIn,
-      'zoomOut': (visitor) => $flutter_25.PhysicalKeyboardKey.zoomOut,
-      'zoomToggle': (visitor) => $flutter_25.PhysicalKeyboardKey.zoomToggle,
-      'redo': (visitor) => $flutter_25.PhysicalKeyboardKey.redo,
-      'mailReply': (visitor) => $flutter_25.PhysicalKeyboardKey.mailReply,
-      'mailForward': (visitor) => $flutter_25.PhysicalKeyboardKey.mailForward,
-      'mailSend': (visitor) => $flutter_25.PhysicalKeyboardKey.mailSend,
+          $flutter_26.PhysicalKeyboardKey.browserFavorites,
+      'zoomIn': (visitor) => $flutter_26.PhysicalKeyboardKey.zoomIn,
+      'zoomOut': (visitor) => $flutter_26.PhysicalKeyboardKey.zoomOut,
+      'zoomToggle': (visitor) => $flutter_26.PhysicalKeyboardKey.zoomToggle,
+      'redo': (visitor) => $flutter_26.PhysicalKeyboardKey.redo,
+      'mailReply': (visitor) => $flutter_26.PhysicalKeyboardKey.mailReply,
+      'mailForward': (visitor) => $flutter_26.PhysicalKeyboardKey.mailForward,
+      'mailSend': (visitor) => $flutter_26.PhysicalKeyboardKey.mailSend,
       'keyboardLayoutSelect': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.keyboardLayoutSelect,
+          $flutter_26.PhysicalKeyboardKey.keyboardLayoutSelect,
       'showAllWindows': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.showAllWindows,
+          $flutter_26.PhysicalKeyboardKey.showAllWindows,
       'knownPhysicalKeys': (visitor) =>
-          $flutter_25.PhysicalKeyboardKey.knownPhysicalKeys,
+          $flutter_26.PhysicalKeyboardKey.knownPhysicalKeys,
     },
     staticMethods: {
       'findKeyByCode': (visitor, positional, named, typeArgs) {
@@ -10242,7 +10277,7 @@ BridgedClass _createPhysicalKeyboardKeyBridge() {
           'usageCode',
           'findKeyByCode',
         );
-        return $flutter_25.PhysicalKeyboardKey.findKeyByCode(usageCode);
+        return $flutter_26.PhysicalKeyboardKey.findKeyByCode(usageCode);
       },
     },
     constructorSignatures: {'': 'const PhysicalKeyboardKey(int usbHidUsage)'},
@@ -10545,33 +10580,33 @@ BridgedClass _createPhysicalKeyboardKeyBridge() {
 
 BridgedClass _createKeyEventBridge() {
   return BridgedClass(
-    nativeType: $flutter_23.KeyEvent,
+    nativeType: $flutter_24.KeyEvent,
     name: 'KeyEvent',
-    isAssignable: (v) => v is $flutter_23.KeyEvent,
+    isAssignable: (v) => v is $flutter_24.KeyEvent,
     hierarchyDepth: 1,
     isAbstract: true,
     constructors: {},
     getters: {
       'physicalKey': (visitor, target) => D4
-          .validateTarget<$flutter_23.KeyEvent>(target, 'KeyEvent')
+          .validateTarget<$flutter_24.KeyEvent>(target, 'KeyEvent')
           .physicalKey,
       'logicalKey': (visitor, target) => D4
-          .validateTarget<$flutter_23.KeyEvent>(target, 'KeyEvent')
+          .validateTarget<$flutter_24.KeyEvent>(target, 'KeyEvent')
           .logicalKey,
       'character': (visitor, target) =>
-          D4.validateTarget<$flutter_23.KeyEvent>(target, 'KeyEvent').character,
+          D4.validateTarget<$flutter_24.KeyEvent>(target, 'KeyEvent').character,
       'timeStamp': (visitor, target) =>
-          D4.validateTarget<$flutter_23.KeyEvent>(target, 'KeyEvent').timeStamp,
+          D4.validateTarget<$flutter_24.KeyEvent>(target, 'KeyEvent').timeStamp,
       'deviceType': (visitor, target) => D4
-          .validateTarget<$flutter_23.KeyEvent>(target, 'KeyEvent')
+          .validateTarget<$flutter_24.KeyEvent>(target, 'KeyEvent')
           .deviceType,
       'synthesized': (visitor, target) => D4
-          .validateTarget<$flutter_23.KeyEvent>(target, 'KeyEvent')
+          .validateTarget<$flutter_24.KeyEvent>(target, 'KeyEvent')
           .synthesized,
     },
     methods: {
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_23.KeyEvent>(target, 'KeyEvent');
+        final t = D4.validateTarget<$flutter_24.KeyEvent>(target, 'KeyEvent');
         D4.requireMinArgs(positional, 1, 'debugFillProperties');
         final properties = D4
             .getRequiredArg<$flutter_4.DiagnosticPropertiesBuilder>(
@@ -10584,11 +10619,11 @@ BridgedClass _createKeyEventBridge() {
         return null;
       },
       'toStringShort': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_23.KeyEvent>(target, 'KeyEvent');
+        final t = D4.validateTarget<$flutter_24.KeyEvent>(target, 'KeyEvent');
         return t.toStringShort();
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_23.KeyEvent>(target, 'KeyEvent');
+        final t = D4.validateTarget<$flutter_24.KeyEvent>(target, 'KeyEvent');
         final minLevel = D4.getNamedArgWithDefault<$flutter_4.DiagnosticLevel>(
           named,
           'minLevel',
@@ -10597,7 +10632,7 @@ BridgedClass _createKeyEventBridge() {
         return t.toString(minLevel: minLevel);
       },
       'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_23.KeyEvent>(target, 'KeyEvent');
+        final t = D4.validateTarget<$flutter_24.KeyEvent>(target, 'KeyEvent');
         final name = D4.getOptionalNamedArg<String?>(named, 'name');
         final style = D4.getOptionalNamedArg<$flutter_4.DiagnosticsTreeStyle?>(
           named,
@@ -10632,20 +10667,20 @@ BridgedClass _createKeyEventBridge() {
 
 BridgedClass _createKeyDownEventBridge() {
   return BridgedClass(
-    nativeType: $flutter_23.KeyDownEvent,
+    nativeType: $flutter_24.KeyDownEvent,
     name: 'KeyDownEvent',
-    isAssignable: (v) => v is $flutter_23.KeyDownEvent,
+    isAssignable: (v) => v is $flutter_24.KeyDownEvent,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final physicalKey = D4
-            .getRequiredNamedArg<$flutter_25.PhysicalKeyboardKey>(
+            .getRequiredNamedArg<$flutter_26.PhysicalKeyboardKey>(
               named,
               'physicalKey',
               'KeyDownEvent',
             );
         final logicalKey = D4
-            .getRequiredNamedArg<$flutter_25.LogicalKeyboardKey>(
+            .getRequiredNamedArg<$flutter_26.LogicalKeyboardKey>(
               named,
               'logicalKey',
               'KeyDownEvent',
@@ -10662,7 +10697,7 @@ BridgedClass _createKeyDownEventBridge() {
           false,
         );
         if (!named.containsKey('deviceType')) {
-          return $flutter_23.KeyDownEvent(
+          return $flutter_24.KeyDownEvent(
             physicalKey: physicalKey,
             logicalKey: logicalKey,
             character: character,
@@ -10676,7 +10711,7 @@ BridgedClass _createKeyDownEventBridge() {
             'deviceType',
             'KeyDownEvent',
           );
-          return $flutter_23.KeyDownEvent(
+          return $flutter_24.KeyDownEvent(
             physicalKey: physicalKey,
             logicalKey: logicalKey,
             character: character,
@@ -10692,27 +10727,27 @@ BridgedClass _createKeyDownEventBridge() {
     },
     getters: {
       'physicalKey': (visitor, target) => D4
-          .validateTarget<$flutter_23.KeyDownEvent>(target, 'KeyDownEvent')
+          .validateTarget<$flutter_24.KeyDownEvent>(target, 'KeyDownEvent')
           .physicalKey,
       'logicalKey': (visitor, target) => D4
-          .validateTarget<$flutter_23.KeyDownEvent>(target, 'KeyDownEvent')
+          .validateTarget<$flutter_24.KeyDownEvent>(target, 'KeyDownEvent')
           .logicalKey,
       'character': (visitor, target) => D4
-          .validateTarget<$flutter_23.KeyDownEvent>(target, 'KeyDownEvent')
+          .validateTarget<$flutter_24.KeyDownEvent>(target, 'KeyDownEvent')
           .character,
       'timeStamp': (visitor, target) => D4
-          .validateTarget<$flutter_23.KeyDownEvent>(target, 'KeyDownEvent')
+          .validateTarget<$flutter_24.KeyDownEvent>(target, 'KeyDownEvent')
           .timeStamp,
       'deviceType': (visitor, target) => D4
-          .validateTarget<$flutter_23.KeyDownEvent>(target, 'KeyDownEvent')
+          .validateTarget<$flutter_24.KeyDownEvent>(target, 'KeyDownEvent')
           .deviceType,
       'synthesized': (visitor, target) => D4
-          .validateTarget<$flutter_23.KeyDownEvent>(target, 'KeyDownEvent')
+          .validateTarget<$flutter_24.KeyDownEvent>(target, 'KeyDownEvent')
           .synthesized,
     },
     methods: {
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_23.KeyDownEvent>(
+        final t = D4.validateTarget<$flutter_24.KeyDownEvent>(
           target,
           'KeyDownEvent',
         );
@@ -10728,14 +10763,14 @@ BridgedClass _createKeyDownEventBridge() {
         return null;
       },
       'toStringShort': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_23.KeyDownEvent>(
+        final t = D4.validateTarget<$flutter_24.KeyDownEvent>(
           target,
           'KeyDownEvent',
         );
         return t.toStringShort();
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_23.KeyDownEvent>(
+        final t = D4.validateTarget<$flutter_24.KeyDownEvent>(
           target,
           'KeyDownEvent',
         );
@@ -10747,7 +10782,7 @@ BridgedClass _createKeyDownEventBridge() {
         return t.toString(minLevel: minLevel);
       },
       'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_23.KeyDownEvent>(
+        final t = D4.validateTarget<$flutter_24.KeyDownEvent>(
           target,
           'KeyDownEvent',
         );
@@ -10788,20 +10823,20 @@ BridgedClass _createKeyDownEventBridge() {
 
 BridgedClass _createKeyUpEventBridge() {
   return BridgedClass(
-    nativeType: $flutter_23.KeyUpEvent,
+    nativeType: $flutter_24.KeyUpEvent,
     name: 'KeyUpEvent',
-    isAssignable: (v) => v is $flutter_23.KeyUpEvent,
+    isAssignable: (v) => v is $flutter_24.KeyUpEvent,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final physicalKey = D4
-            .getRequiredNamedArg<$flutter_25.PhysicalKeyboardKey>(
+            .getRequiredNamedArg<$flutter_26.PhysicalKeyboardKey>(
               named,
               'physicalKey',
               'KeyUpEvent',
             );
         final logicalKey = D4
-            .getRequiredNamedArg<$flutter_25.LogicalKeyboardKey>(
+            .getRequiredNamedArg<$flutter_26.LogicalKeyboardKey>(
               named,
               'logicalKey',
               'KeyUpEvent',
@@ -10817,7 +10852,7 @@ BridgedClass _createKeyUpEventBridge() {
           false,
         );
         if (!named.containsKey('deviceType')) {
-          return $flutter_23.KeyUpEvent(
+          return $flutter_24.KeyUpEvent(
             physicalKey: physicalKey,
             logicalKey: logicalKey,
             timeStamp: timeStamp,
@@ -10830,7 +10865,7 @@ BridgedClass _createKeyUpEventBridge() {
             'deviceType',
             'KeyUpEvent',
           );
-          return $flutter_23.KeyUpEvent(
+          return $flutter_24.KeyUpEvent(
             physicalKey: physicalKey,
             logicalKey: logicalKey,
             timeStamp: timeStamp,
@@ -10845,27 +10880,27 @@ BridgedClass _createKeyUpEventBridge() {
     },
     getters: {
       'physicalKey': (visitor, target) => D4
-          .validateTarget<$flutter_23.KeyUpEvent>(target, 'KeyUpEvent')
+          .validateTarget<$flutter_24.KeyUpEvent>(target, 'KeyUpEvent')
           .physicalKey,
       'logicalKey': (visitor, target) => D4
-          .validateTarget<$flutter_23.KeyUpEvent>(target, 'KeyUpEvent')
+          .validateTarget<$flutter_24.KeyUpEvent>(target, 'KeyUpEvent')
           .logicalKey,
       'character': (visitor, target) => D4
-          .validateTarget<$flutter_23.KeyUpEvent>(target, 'KeyUpEvent')
+          .validateTarget<$flutter_24.KeyUpEvent>(target, 'KeyUpEvent')
           .character,
       'timeStamp': (visitor, target) => D4
-          .validateTarget<$flutter_23.KeyUpEvent>(target, 'KeyUpEvent')
+          .validateTarget<$flutter_24.KeyUpEvent>(target, 'KeyUpEvent')
           .timeStamp,
       'deviceType': (visitor, target) => D4
-          .validateTarget<$flutter_23.KeyUpEvent>(target, 'KeyUpEvent')
+          .validateTarget<$flutter_24.KeyUpEvent>(target, 'KeyUpEvent')
           .deviceType,
       'synthesized': (visitor, target) => D4
-          .validateTarget<$flutter_23.KeyUpEvent>(target, 'KeyUpEvent')
+          .validateTarget<$flutter_24.KeyUpEvent>(target, 'KeyUpEvent')
           .synthesized,
     },
     methods: {
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_23.KeyUpEvent>(
+        final t = D4.validateTarget<$flutter_24.KeyUpEvent>(
           target,
           'KeyUpEvent',
         );
@@ -10881,14 +10916,14 @@ BridgedClass _createKeyUpEventBridge() {
         return null;
       },
       'toStringShort': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_23.KeyUpEvent>(
+        final t = D4.validateTarget<$flutter_24.KeyUpEvent>(
           target,
           'KeyUpEvent',
         );
         return t.toStringShort();
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_23.KeyUpEvent>(
+        final t = D4.validateTarget<$flutter_24.KeyUpEvent>(
           target,
           'KeyUpEvent',
         );
@@ -10900,7 +10935,7 @@ BridgedClass _createKeyUpEventBridge() {
         return t.toString(minLevel: minLevel);
       },
       'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_23.KeyUpEvent>(
+        final t = D4.validateTarget<$flutter_24.KeyUpEvent>(
           target,
           'KeyUpEvent',
         );
@@ -10941,20 +10976,20 @@ BridgedClass _createKeyUpEventBridge() {
 
 BridgedClass _createKeyRepeatEventBridge() {
   return BridgedClass(
-    nativeType: $flutter_23.KeyRepeatEvent,
+    nativeType: $flutter_24.KeyRepeatEvent,
     name: 'KeyRepeatEvent',
-    isAssignable: (v) => v is $flutter_23.KeyRepeatEvent,
+    isAssignable: (v) => v is $flutter_24.KeyRepeatEvent,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final physicalKey = D4
-            .getRequiredNamedArg<$flutter_25.PhysicalKeyboardKey>(
+            .getRequiredNamedArg<$flutter_26.PhysicalKeyboardKey>(
               named,
               'physicalKey',
               'KeyRepeatEvent',
             );
         final logicalKey = D4
-            .getRequiredNamedArg<$flutter_25.LogicalKeyboardKey>(
+            .getRequiredNamedArg<$flutter_26.LogicalKeyboardKey>(
               named,
               'logicalKey',
               'KeyRepeatEvent',
@@ -10966,7 +11001,7 @@ BridgedClass _createKeyRepeatEventBridge() {
           'KeyRepeatEvent',
         );
         if (!named.containsKey('deviceType')) {
-          return $flutter_23.KeyRepeatEvent(
+          return $flutter_24.KeyRepeatEvent(
             physicalKey: physicalKey,
             logicalKey: logicalKey,
             character: character,
@@ -10979,7 +11014,7 @@ BridgedClass _createKeyRepeatEventBridge() {
             'deviceType',
             'KeyRepeatEvent',
           );
-          return $flutter_23.KeyRepeatEvent(
+          return $flutter_24.KeyRepeatEvent(
             physicalKey: physicalKey,
             logicalKey: logicalKey,
             character: character,
@@ -10994,27 +11029,27 @@ BridgedClass _createKeyRepeatEventBridge() {
     },
     getters: {
       'physicalKey': (visitor, target) => D4
-          .validateTarget<$flutter_23.KeyRepeatEvent>(target, 'KeyRepeatEvent')
+          .validateTarget<$flutter_24.KeyRepeatEvent>(target, 'KeyRepeatEvent')
           .physicalKey,
       'logicalKey': (visitor, target) => D4
-          .validateTarget<$flutter_23.KeyRepeatEvent>(target, 'KeyRepeatEvent')
+          .validateTarget<$flutter_24.KeyRepeatEvent>(target, 'KeyRepeatEvent')
           .logicalKey,
       'character': (visitor, target) => D4
-          .validateTarget<$flutter_23.KeyRepeatEvent>(target, 'KeyRepeatEvent')
+          .validateTarget<$flutter_24.KeyRepeatEvent>(target, 'KeyRepeatEvent')
           .character,
       'timeStamp': (visitor, target) => D4
-          .validateTarget<$flutter_23.KeyRepeatEvent>(target, 'KeyRepeatEvent')
+          .validateTarget<$flutter_24.KeyRepeatEvent>(target, 'KeyRepeatEvent')
           .timeStamp,
       'deviceType': (visitor, target) => D4
-          .validateTarget<$flutter_23.KeyRepeatEvent>(target, 'KeyRepeatEvent')
+          .validateTarget<$flutter_24.KeyRepeatEvent>(target, 'KeyRepeatEvent')
           .deviceType,
       'synthesized': (visitor, target) => D4
-          .validateTarget<$flutter_23.KeyRepeatEvent>(target, 'KeyRepeatEvent')
+          .validateTarget<$flutter_24.KeyRepeatEvent>(target, 'KeyRepeatEvent')
           .synthesized,
     },
     methods: {
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_23.KeyRepeatEvent>(
+        final t = D4.validateTarget<$flutter_24.KeyRepeatEvent>(
           target,
           'KeyRepeatEvent',
         );
@@ -11030,14 +11065,14 @@ BridgedClass _createKeyRepeatEventBridge() {
         return null;
       },
       'toStringShort': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_23.KeyRepeatEvent>(
+        final t = D4.validateTarget<$flutter_24.KeyRepeatEvent>(
           target,
           'KeyRepeatEvent',
         );
         return t.toStringShort();
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_23.KeyRepeatEvent>(
+        final t = D4.validateTarget<$flutter_24.KeyRepeatEvent>(
           target,
           'KeyRepeatEvent',
         );
@@ -11049,7 +11084,7 @@ BridgedClass _createKeyRepeatEventBridge() {
         return t.toString(minLevel: minLevel);
       },
       'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_23.KeyRepeatEvent>(
+        final t = D4.validateTarget<$flutter_24.KeyRepeatEvent>(
           target,
           'KeyRepeatEvent',
         );
@@ -11090,53 +11125,53 @@ BridgedClass _createKeyRepeatEventBridge() {
 
 BridgedClass _createHardwareKeyboardBridge() {
   return BridgedClass(
-    nativeType: $flutter_23.HardwareKeyboard,
+    nativeType: $flutter_24.HardwareKeyboard,
     name: 'HardwareKeyboard',
-    isAssignable: (v) => v is $flutter_23.HardwareKeyboard,
+    isAssignable: (v) => v is $flutter_24.HardwareKeyboard,
     constructors: {
       '': (visitor, positional, named) {
-        return $flutter_23.HardwareKeyboard();
+        return $flutter_24.HardwareKeyboard();
       },
     },
     getters: {
       'physicalKeysPressed': (visitor, target) => D4
-          .validateTarget<$flutter_23.HardwareKeyboard>(
+          .validateTarget<$flutter_24.HardwareKeyboard>(
             target,
             'HardwareKeyboard',
           )
           .physicalKeysPressed,
       'logicalKeysPressed': (visitor, target) => D4
-          .validateTarget<$flutter_23.HardwareKeyboard>(
+          .validateTarget<$flutter_24.HardwareKeyboard>(
             target,
             'HardwareKeyboard',
           )
           .logicalKeysPressed,
       'lockModesEnabled': (visitor, target) => D4
-          .validateTarget<$flutter_23.HardwareKeyboard>(
+          .validateTarget<$flutter_24.HardwareKeyboard>(
             target,
             'HardwareKeyboard',
           )
           .lockModesEnabled,
       'isControlPressed': (visitor, target) => D4
-          .validateTarget<$flutter_23.HardwareKeyboard>(
+          .validateTarget<$flutter_24.HardwareKeyboard>(
             target,
             'HardwareKeyboard',
           )
           .isControlPressed,
       'isShiftPressed': (visitor, target) => D4
-          .validateTarget<$flutter_23.HardwareKeyboard>(
+          .validateTarget<$flutter_24.HardwareKeyboard>(
             target,
             'HardwareKeyboard',
           )
           .isShiftPressed,
       'isAltPressed': (visitor, target) => D4
-          .validateTarget<$flutter_23.HardwareKeyboard>(
+          .validateTarget<$flutter_24.HardwareKeyboard>(
             target,
             'HardwareKeyboard',
           )
           .isAltPressed,
       'isMetaPressed': (visitor, target) => D4
-          .validateTarget<$flutter_23.HardwareKeyboard>(
+          .validateTarget<$flutter_24.HardwareKeyboard>(
             target,
             'HardwareKeyboard',
           )
@@ -11144,12 +11179,12 @@ BridgedClass _createHardwareKeyboardBridge() {
     },
     methods: {
       'lookUpLayout': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_23.HardwareKeyboard>(
+        final t = D4.validateTarget<$flutter_24.HardwareKeyboard>(
           target,
           'HardwareKeyboard',
         );
         D4.requireMinArgs(positional, 1, 'lookUpLayout');
-        final physicalKey = D4.getRequiredArg<$flutter_25.PhysicalKeyboardKey>(
+        final physicalKey = D4.getRequiredArg<$flutter_26.PhysicalKeyboardKey>(
           positional,
           0,
           'physicalKey',
@@ -11158,12 +11193,12 @@ BridgedClass _createHardwareKeyboardBridge() {
         return t.lookUpLayout(physicalKey);
       },
       'isLogicalKeyPressed': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_23.HardwareKeyboard>(
+        final t = D4.validateTarget<$flutter_24.HardwareKeyboard>(
           target,
           'HardwareKeyboard',
         );
         D4.requireMinArgs(positional, 1, 'isLogicalKeyPressed');
-        final key = D4.getRequiredArg<$flutter_25.LogicalKeyboardKey>(
+        final key = D4.getRequiredArg<$flutter_26.LogicalKeyboardKey>(
           positional,
           0,
           'key',
@@ -11172,12 +11207,12 @@ BridgedClass _createHardwareKeyboardBridge() {
         return t.isLogicalKeyPressed(key);
       },
       'isPhysicalKeyPressed': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_23.HardwareKeyboard>(
+        final t = D4.validateTarget<$flutter_24.HardwareKeyboard>(
           target,
           'HardwareKeyboard',
         );
         D4.requireMinArgs(positional, 1, 'isPhysicalKeyPressed');
-        final key = D4.getRequiredArg<$flutter_25.PhysicalKeyboardKey>(
+        final key = D4.getRequiredArg<$flutter_26.PhysicalKeyboardKey>(
           positional,
           0,
           'key',
@@ -11186,7 +11221,7 @@ BridgedClass _createHardwareKeyboardBridge() {
         return t.isPhysicalKeyPressed(key);
       },
       'addHandler': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_23.HardwareKeyboard>(
+        final t = D4.validateTarget<$flutter_24.HardwareKeyboard>(
           target,
           'HardwareKeyboard',
         );
@@ -11198,16 +11233,16 @@ BridgedClass _createHardwareKeyboardBridge() {
         }
         final handlerRaw = positional[0];
         t.addHandler(
-          (($flutter_23.KeyEvent p0) {
+          (($flutter_24.KeyEvent p0) {
                 return D4.callInterpreterCallback(visitor!, handlerRaw, [p0])
                     as bool;
               })
-              as bool Function($flutter_23.KeyEvent),
+              as bool Function($flutter_24.KeyEvent),
         );
         return null;
       },
       'removeHandler': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_23.HardwareKeyboard>(
+        final t = D4.validateTarget<$flutter_24.HardwareKeyboard>(
           target,
           'HardwareKeyboard',
         );
@@ -11219,28 +11254,28 @@ BridgedClass _createHardwareKeyboardBridge() {
         }
         final handlerRaw = positional[0];
         t.removeHandler(
-          (($flutter_23.KeyEvent p0) {
+          (($flutter_24.KeyEvent p0) {
                 return D4.callInterpreterCallback(visitor!, handlerRaw, [p0])
                     as bool;
               })
-              as bool Function($flutter_23.KeyEvent),
+              as bool Function($flutter_24.KeyEvent),
         );
         return null;
       },
       'syncKeyboardState': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_23.HardwareKeyboard>(
+        final t = D4.validateTarget<$flutter_24.HardwareKeyboard>(
           target,
           'HardwareKeyboard',
         );
         return t.syncKeyboardState();
       },
       'handleKeyEvent': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_23.HardwareKeyboard>(
+        final t = D4.validateTarget<$flutter_24.HardwareKeyboard>(
           target,
           'HardwareKeyboard',
         );
         D4.requireMinArgs(positional, 1, 'handleKeyEvent');
-        final event = D4.getRequiredArg<$flutter_23.KeyEvent>(
+        final event = D4.getRequiredArg<$flutter_24.KeyEvent>(
           positional,
           0,
           'event',
@@ -11249,7 +11284,7 @@ BridgedClass _createHardwareKeyboardBridge() {
         return t.handleKeyEvent(event);
       },
       'clearState': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_23.HardwareKeyboard>(
+        final t = D4.validateTarget<$flutter_24.HardwareKeyboard>(
           target,
           'HardwareKeyboard',
         );
@@ -11258,7 +11293,7 @@ BridgedClass _createHardwareKeyboardBridge() {
       },
     },
     staticGetters: {
-      'instance': (visitor) => $flutter_23.HardwareKeyboard.instance,
+      'instance': (visitor) => $flutter_24.HardwareKeyboard.instance,
     },
     constructorSignatures: {'': 'HardwareKeyboard()'},
     methodSignatures: {
@@ -11292,30 +11327,30 @@ BridgedClass _createHardwareKeyboardBridge() {
 
 BridgedClass _createRestorationManagerBridge() {
   return BridgedClass(
-    nativeType: $flutter_37.RestorationManager,
+    nativeType: $flutter_38.RestorationManager,
     name: 'RestorationManager',
-    isAssignable: (v) => v is $flutter_37.RestorationManager,
+    isAssignable: (v) => v is $flutter_38.RestorationManager,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
-        return $flutter_37.RestorationManager();
+        return $flutter_38.RestorationManager();
       },
     },
     getters: {
       'rootBucket': (visitor, target) => D4
-          .validateTarget<$flutter_37.RestorationManager>(
+          .validateTarget<$flutter_38.RestorationManager>(
             target,
             'RestorationManager',
           )
           .rootBucket,
       'isReplacing': (visitor, target) => D4
-          .validateTarget<$flutter_37.RestorationManager>(
+          .validateTarget<$flutter_38.RestorationManager>(
             target,
             'RestorationManager',
           )
           .isReplacing,
       'hasListeners': (visitor, target) => D4
-          .validateTarget<$flutter_37.RestorationManager>(
+          .validateTarget<$flutter_38.RestorationManager>(
             target,
             'RestorationManager',
           )
@@ -11323,7 +11358,7 @@ BridgedClass _createRestorationManagerBridge() {
     },
     methods: {
       'initChannels': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_37.RestorationManager>(
+        final t = D4.validateTarget<$flutter_38.RestorationManager>(
           target,
           'RestorationManager',
         );
@@ -11332,7 +11367,7 @@ BridgedClass _createRestorationManagerBridge() {
       },
       'handleRestorationUpdateFromEngine':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$flutter_37.RestorationManager>(
+            final t = D4.validateTarget<$flutter_38.RestorationManager>(
               target,
               'RestorationManager',
             );
@@ -11350,7 +11385,7 @@ BridgedClass _createRestorationManagerBridge() {
             return null;
           },
       'sendToEngine': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_37.RestorationManager>(
+        final t = D4.validateTarget<$flutter_38.RestorationManager>(
           target,
           'RestorationManager',
         );
@@ -11365,12 +11400,12 @@ BridgedClass _createRestorationManagerBridge() {
       },
       'scheduleSerializationFor':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$flutter_37.RestorationManager>(
+            final t = D4.validateTarget<$flutter_38.RestorationManager>(
               target,
               'RestorationManager',
             );
             D4.requireMinArgs(positional, 1, 'scheduleSerializationFor');
-            final bucket = D4.getRequiredArg<$flutter_37.RestorationBucket>(
+            final bucket = D4.getRequiredArg<$flutter_38.RestorationBucket>(
               positional,
               0,
               'bucket',
@@ -11381,12 +11416,12 @@ BridgedClass _createRestorationManagerBridge() {
           },
       'unscheduleSerializationFor':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$flutter_37.RestorationManager>(
+            final t = D4.validateTarget<$flutter_38.RestorationManager>(
               target,
               'RestorationManager',
             );
             D4.requireMinArgs(positional, 1, 'unscheduleSerializationFor');
-            final bucket = D4.getRequiredArg<$flutter_37.RestorationBucket>(
+            final bucket = D4.getRequiredArg<$flutter_38.RestorationBucket>(
               positional,
               0,
               'bucket',
@@ -11396,7 +11431,7 @@ BridgedClass _createRestorationManagerBridge() {
             return null;
           },
       'flushData': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_37.RestorationManager>(
+        final t = D4.validateTarget<$flutter_38.RestorationManager>(
           target,
           'RestorationManager',
         );
@@ -11404,7 +11439,7 @@ BridgedClass _createRestorationManagerBridge() {
         return null;
       },
       'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_37.RestorationManager>(
+        final t = D4.validateTarget<$flutter_38.RestorationManager>(
           target,
           'RestorationManager',
         );
@@ -11412,7 +11447,7 @@ BridgedClass _createRestorationManagerBridge() {
         return null;
       },
       'addListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_37.RestorationManager>(
+        final t = D4.validateTarget<$flutter_38.RestorationManager>(
           target,
           'RestorationManager',
         );
@@ -11429,7 +11464,7 @@ BridgedClass _createRestorationManagerBridge() {
         return null;
       },
       'removeListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_37.RestorationManager>(
+        final t = D4.validateTarget<$flutter_38.RestorationManager>(
           target,
           'RestorationManager',
         );
@@ -11446,7 +11481,7 @@ BridgedClass _createRestorationManagerBridge() {
         return null;
       },
       'notifyListeners': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_37.RestorationManager>(
+        final t = D4.validateTarget<$flutter_38.RestorationManager>(
           target,
           'RestorationManager',
         );
@@ -11484,9 +11519,9 @@ BridgedClass _createRestorationManagerBridge() {
 
 BridgedClass _createRestorationBucketBridge() {
   return BridgedClass(
-    nativeType: $flutter_37.RestorationBucket,
+    nativeType: $flutter_38.RestorationBucket,
     name: 'RestorationBucket',
-    isAssignable: (v) => v is $flutter_37.RestorationBucket,
+    isAssignable: (v) => v is $flutter_38.RestorationBucket,
     constructors: {
       'empty': (visitor, positional, named) {
         final restorationId = D4.getRequiredNamedArg<String>(
@@ -11499,13 +11534,13 @@ BridgedClass _createRestorationBucketBridge() {
           'debugOwner',
           'RestorationBucket',
         );
-        return $flutter_37.RestorationBucket.empty(
+        return $flutter_38.RestorationBucket.empty(
           restorationId: restorationId,
           debugOwner: debugOwner,
         );
       },
       'root': (visitor, positional, named) {
-        final manager = D4.getRequiredNamedArg<$flutter_37.RestorationManager>(
+        final manager = D4.getRequiredNamedArg<$flutter_38.RestorationManager>(
           named,
           'manager',
           'RestorationBucket',
@@ -11519,7 +11554,7 @@ BridgedClass _createRestorationBucketBridge() {
           named['rawData'],
           'rawData',
         );
-        return $flutter_37.RestorationBucket.root(
+        return $flutter_38.RestorationBucket.root(
           manager: manager,
           rawData: rawData,
         );
@@ -11530,7 +11565,7 @@ BridgedClass _createRestorationBucketBridge() {
           'restorationId',
           'RestorationBucket',
         );
-        final parent = D4.getRequiredNamedArg<$flutter_37.RestorationBucket>(
+        final parent = D4.getRequiredNamedArg<$flutter_38.RestorationBucket>(
           named,
           'parent',
           'RestorationBucket',
@@ -11540,7 +11575,7 @@ BridgedClass _createRestorationBucketBridge() {
           'debugOwner',
           'RestorationBucket',
         );
-        return $flutter_37.RestorationBucket.child(
+        return $flutter_38.RestorationBucket.child(
           restorationId: restorationId,
           parent: parent,
           debugOwner: debugOwner,
@@ -11549,19 +11584,19 @@ BridgedClass _createRestorationBucketBridge() {
     },
     getters: {
       'debugOwner': (visitor, target) => D4
-          .validateTarget<$flutter_37.RestorationBucket>(
+          .validateTarget<$flutter_38.RestorationBucket>(
             target,
             'RestorationBucket',
           )
           .debugOwner,
       'isReplacing': (visitor, target) => D4
-          .validateTarget<$flutter_37.RestorationBucket>(
+          .validateTarget<$flutter_38.RestorationBucket>(
             target,
             'RestorationBucket',
           )
           .isReplacing,
       'restorationId': (visitor, target) => D4
-          .validateTarget<$flutter_37.RestorationBucket>(
+          .validateTarget<$flutter_38.RestorationBucket>(
             target,
             'RestorationBucket',
           )
@@ -11569,7 +11604,7 @@ BridgedClass _createRestorationBucketBridge() {
     },
     methods: {
       'read': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_37.RestorationBucket>(
+        final t = D4.validateTarget<$flutter_38.RestorationBucket>(
           target,
           'RestorationBucket',
         );
@@ -11583,7 +11618,7 @@ BridgedClass _createRestorationBucketBridge() {
         return t.read(restorationId);
       },
       'write': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_37.RestorationBucket>(
+        final t = D4.validateTarget<$flutter_38.RestorationBucket>(
           target,
           'RestorationBucket',
         );
@@ -11604,7 +11639,7 @@ BridgedClass _createRestorationBucketBridge() {
         return null;
       },
       'remove': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_37.RestorationBucket>(
+        final t = D4.validateTarget<$flutter_38.RestorationBucket>(
           target,
           'RestorationBucket',
         );
@@ -11618,7 +11653,7 @@ BridgedClass _createRestorationBucketBridge() {
         return t.remove(restorationId);
       },
       'contains': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_37.RestorationBucket>(
+        final t = D4.validateTarget<$flutter_38.RestorationBucket>(
           target,
           'RestorationBucket',
         );
@@ -11632,7 +11667,7 @@ BridgedClass _createRestorationBucketBridge() {
         return t.contains(restorationId);
       },
       'claimChild': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_37.RestorationBucket>(
+        final t = D4.validateTarget<$flutter_38.RestorationBucket>(
           target,
           'RestorationBucket',
         );
@@ -11651,12 +11686,12 @@ BridgedClass _createRestorationBucketBridge() {
         return t.claimChild(restorationId, debugOwner: debugOwner);
       },
       'adoptChild': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_37.RestorationBucket>(
+        final t = D4.validateTarget<$flutter_38.RestorationBucket>(
           target,
           'RestorationBucket',
         );
         D4.requireMinArgs(positional, 1, 'adoptChild');
-        final child = D4.getRequiredArg<$flutter_37.RestorationBucket>(
+        final child = D4.getRequiredArg<$flutter_38.RestorationBucket>(
           positional,
           0,
           'child',
@@ -11666,7 +11701,7 @@ BridgedClass _createRestorationBucketBridge() {
         return null;
       },
       'finalize': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_37.RestorationBucket>(
+        final t = D4.validateTarget<$flutter_38.RestorationBucket>(
           target,
           'RestorationBucket',
         );
@@ -11674,7 +11709,7 @@ BridgedClass _createRestorationBucketBridge() {
         return null;
       },
       'rename': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_37.RestorationBucket>(
+        final t = D4.validateTarget<$flutter_38.RestorationBucket>(
           target,
           'RestorationBucket',
         );
@@ -11689,7 +11724,7 @@ BridgedClass _createRestorationBucketBridge() {
         return null;
       },
       'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_37.RestorationBucket>(
+        final t = D4.validateTarget<$flutter_38.RestorationBucket>(
           target,
           'RestorationBucket',
         );
@@ -11697,7 +11732,7 @@ BridgedClass _createRestorationBucketBridge() {
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_37.RestorationBucket>(
+        final t = D4.validateTarget<$flutter_38.RestorationBucket>(
           target,
           'RestorationBucket',
         );
@@ -11739,118 +11774,118 @@ BridgedClass _createRestorationBucketBridge() {
 
 BridgedClass _createServicesBindingBridge() {
   return BridgedClass(
-    nativeType: $flutter_14.ServicesBinding,
+    nativeType: $flutter_15.ServicesBinding,
     name: 'ServicesBinding',
-    isAssignable: (v) => v is $flutter_14.ServicesBinding,
+    isAssignable: (v) => v is $flutter_15.ServicesBinding,
     hierarchyDepth: 2,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {},
     getters: {
       'accessibilityFocus': (visitor, target) => D4
-          .validateTarget<$flutter_14.ServicesBinding>(
+          .validateTarget<$flutter_15.ServicesBinding>(
             target,
             'ServicesBinding',
           )
           .accessibilityFocus,
       'keyboard': (visitor, target) => D4
-          .validateTarget<$flutter_14.ServicesBinding>(
+          .validateTarget<$flutter_15.ServicesBinding>(
             target,
             'ServicesBinding',
           )
           .keyboard,
       'keyEventManager': (visitor, target) => D4
-          .validateTarget<$flutter_14.ServicesBinding>(
+          .validateTarget<$flutter_15.ServicesBinding>(
             target,
             'ServicesBinding',
           )
           .keyEventManager,
       'defaultBinaryMessenger': (visitor, target) => D4
-          .validateTarget<$flutter_14.ServicesBinding>(
+          .validateTarget<$flutter_15.ServicesBinding>(
             target,
             'ServicesBinding',
           )
           .defaultBinaryMessenger,
       'channelBuffers': (visitor, target) => D4
-          .validateTarget<$flutter_14.ServicesBinding>(
+          .validateTarget<$flutter_15.ServicesBinding>(
             target,
             'ServicesBinding',
           )
           .channelBuffers,
       'restorationManager': (visitor, target) => D4
-          .validateTarget<$flutter_14.ServicesBinding>(
+          .validateTarget<$flutter_15.ServicesBinding>(
             target,
             'ServicesBinding',
           )
           .restorationManager,
       'window': (visitor, target) => D4
-          .validateTarget<$flutter_14.ServicesBinding>(
+          .validateTarget<$flutter_15.ServicesBinding>(
             target,
             'ServicesBinding',
           )
           .window,
       'platformDispatcher': (visitor, target) => D4
-          .validateTarget<$flutter_14.ServicesBinding>(
+          .validateTarget<$flutter_15.ServicesBinding>(
             target,
             'ServicesBinding',
           )
           .platformDispatcher,
       'locked': (visitor, target) => D4
-          .validateTarget<$flutter_14.ServicesBinding>(
+          .validateTarget<$flutter_15.ServicesBinding>(
             target,
             'ServicesBinding',
           )
           .locked,
       'lifecycleState': (visitor, target) => D4
-          .validateTarget<$flutter_14.ServicesBinding>(
+          .validateTarget<$flutter_15.ServicesBinding>(
             target,
             'ServicesBinding',
           )
           .lifecycleState,
       'schedulingStrategy': (visitor, target) => D4
-          .validateTarget<$flutter_14.ServicesBinding>(
+          .validateTarget<$flutter_15.ServicesBinding>(
             target,
             'ServicesBinding',
           )
           .schedulingStrategy,
       'transientCallbackCount': (visitor, target) => D4
-          .validateTarget<$flutter_14.ServicesBinding>(
+          .validateTarget<$flutter_15.ServicesBinding>(
             target,
             'ServicesBinding',
           )
           .transientCallbackCount,
       'endOfFrame': (visitor, target) => D4
-          .validateTarget<$flutter_14.ServicesBinding>(
+          .validateTarget<$flutter_15.ServicesBinding>(
             target,
             'ServicesBinding',
           )
           .endOfFrame,
       'hasScheduledFrame': (visitor, target) => D4
-          .validateTarget<$flutter_14.ServicesBinding>(
+          .validateTarget<$flutter_15.ServicesBinding>(
             target,
             'ServicesBinding',
           )
           .hasScheduledFrame,
       'schedulerPhase': (visitor, target) => D4
-          .validateTarget<$flutter_14.ServicesBinding>(
+          .validateTarget<$flutter_15.ServicesBinding>(
             target,
             'ServicesBinding',
           )
           .schedulerPhase,
       'framesEnabled': (visitor, target) => D4
-          .validateTarget<$flutter_14.ServicesBinding>(
+          .validateTarget<$flutter_15.ServicesBinding>(
             target,
             'ServicesBinding',
           )
           .framesEnabled,
       'currentFrameTimeStamp': (visitor, target) => D4
-          .validateTarget<$flutter_14.ServicesBinding>(
+          .validateTarget<$flutter_15.ServicesBinding>(
             target,
             'ServicesBinding',
           )
           .currentFrameTimeStamp,
       'currentSystemFrameTimeStamp': (visitor, target) => D4
-          .validateTarget<$flutter_14.ServicesBinding>(
+          .validateTarget<$flutter_15.ServicesBinding>(
             target,
             'ServicesBinding',
           )
@@ -11863,7 +11898,7 @@ BridgedClass _createServicesBindingBridge() {
           'schedulingStrategy',
         );
         D4
-                .validateTarget<$flutter_14.ServicesBinding>(
+                .validateTarget<$flutter_15.ServicesBinding>(
                   target,
                   'ServicesBinding',
                 )
@@ -11884,7 +11919,7 @@ BridgedClass _createServicesBindingBridge() {
     },
     methods: {
       'initInstances': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+        final t = D4.validateTarget<$flutter_15.ServicesBinding>(
           target,
           'ServicesBinding',
         );
@@ -11892,14 +11927,14 @@ BridgedClass _createServicesBindingBridge() {
         return null;
       },
       'createBinaryMessenger': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+        final t = D4.validateTarget<$flutter_15.ServicesBinding>(
           target,
           'ServicesBinding',
         );
         return t.createBinaryMessenger();
       },
       'handleMemoryPressure': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+        final t = D4.validateTarget<$flutter_15.ServicesBinding>(
           target,
           'ServicesBinding',
         );
@@ -11907,7 +11942,7 @@ BridgedClass _createServicesBindingBridge() {
         return null;
       },
       'handleSystemMessage': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+        final t = D4.validateTarget<$flutter_15.ServicesBinding>(
           target,
           'ServicesBinding',
         );
@@ -11921,7 +11956,7 @@ BridgedClass _createServicesBindingBridge() {
         return t.handleSystemMessage(systemMessage);
       },
       'initLicenses': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+        final t = D4.validateTarget<$flutter_15.ServicesBinding>(
           target,
           'ServicesBinding',
         );
@@ -11929,7 +11964,7 @@ BridgedClass _createServicesBindingBridge() {
         return null;
       },
       'initServiceExtensions': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+        final t = D4.validateTarget<$flutter_15.ServicesBinding>(
           target,
           'ServicesBinding',
         );
@@ -11937,7 +11972,7 @@ BridgedClass _createServicesBindingBridge() {
         return null;
       },
       'evict': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+        final t = D4.validateTarget<$flutter_15.ServicesBinding>(
           target,
           'ServicesBinding',
         );
@@ -11953,7 +11988,7 @@ BridgedClass _createServicesBindingBridge() {
       },
       'readInitialLifecycleStateFromNativeWindow':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+            final t = D4.validateTarget<$flutter_15.ServicesBinding>(
               target,
               'ServicesBinding',
             );
@@ -11961,7 +11996,7 @@ BridgedClass _createServicesBindingBridge() {
             return null;
           },
       'handleViewFocusChanged': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+        final t = D4.validateTarget<$flutter_15.ServicesBinding>(
           target,
           'ServicesBinding',
         );
@@ -11976,14 +12011,14 @@ BridgedClass _createServicesBindingBridge() {
         return null;
       },
       'handleRequestAppExit': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+        final t = D4.validateTarget<$flutter_15.ServicesBinding>(
           target,
           'ServicesBinding',
         );
         return t.handleRequestAppExit();
       },
       'exitApplication': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+        final t = D4.validateTarget<$flutter_15.ServicesBinding>(
           target,
           'ServicesBinding',
         );
@@ -12004,14 +12039,14 @@ BridgedClass _createServicesBindingBridge() {
       },
       'createRestorationManager':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+            final t = D4.validateTarget<$flutter_15.ServicesBinding>(
               target,
               'ServicesBinding',
             );
             return t.createRestorationManager();
           },
       'setSystemUiChangeCallback': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+        final t = D4.validateTarget<$flutter_15.ServicesBinding>(
           target,
           'ServicesBinding',
         );
@@ -12035,14 +12070,14 @@ BridgedClass _createServicesBindingBridge() {
         return null;
       },
       'initializationComplete': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+        final t = D4.validateTarget<$flutter_15.ServicesBinding>(
           target,
           'ServicesBinding',
         );
         return t.initializationComplete();
       },
       'debugCheckZone': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+        final t = D4.validateTarget<$flutter_15.ServicesBinding>(
           target,
           'ServicesBinding',
         );
@@ -12056,7 +12091,7 @@ BridgedClass _createServicesBindingBridge() {
         return t.debugCheckZone(entryPoint);
       },
       'lockEvents': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+        final t = D4.validateTarget<$flutter_15.ServicesBinding>(
           target,
           'ServicesBinding',
         );
@@ -12077,7 +12112,7 @@ BridgedClass _createServicesBindingBridge() {
         );
       },
       'unlocked': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+        final t = D4.validateTarget<$flutter_15.ServicesBinding>(
           target,
           'ServicesBinding',
         );
@@ -12085,14 +12120,14 @@ BridgedClass _createServicesBindingBridge() {
         return null;
       },
       'reassembleApplication': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+        final t = D4.validateTarget<$flutter_15.ServicesBinding>(
           target,
           'ServicesBinding',
         );
         return t.reassembleApplication();
       },
       'performReassemble': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+        final t = D4.validateTarget<$flutter_15.ServicesBinding>(
           target,
           'ServicesBinding',
         );
@@ -12100,7 +12135,7 @@ BridgedClass _createServicesBindingBridge() {
       },
       'registerSignalServiceExtension':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+            final t = D4.validateTarget<$flutter_15.ServicesBinding>(
               target,
               'ServicesBinding',
             );
@@ -12128,7 +12163,7 @@ BridgedClass _createServicesBindingBridge() {
             return null;
           },
       'registerBoolServiceExtension': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+        final t = D4.validateTarget<$flutter_15.ServicesBinding>(
           target,
           'ServicesBinding',
         );
@@ -12170,7 +12205,7 @@ BridgedClass _createServicesBindingBridge() {
       },
       'registerNumericServiceExtension':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+            final t = D4.validateTarget<$flutter_15.ServicesBinding>(
               target,
               'ServicesBinding',
             );
@@ -12211,7 +12246,7 @@ BridgedClass _createServicesBindingBridge() {
             return null;
           },
       'postEvent': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+        final t = D4.validateTarget<$flutter_15.ServicesBinding>(
           target,
           'ServicesBinding',
         );
@@ -12235,7 +12270,7 @@ BridgedClass _createServicesBindingBridge() {
         return null;
       },
       'registerStringServiceExtension': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+        final t = D4.validateTarget<$flutter_15.ServicesBinding>(
           target,
           'ServicesBinding',
         );
@@ -12276,7 +12311,7 @@ BridgedClass _createServicesBindingBridge() {
         return null;
       },
       'registerServiceExtension': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+        final t = D4.validateTarget<$flutter_15.ServicesBinding>(
           target,
           'ServicesBinding',
         );
@@ -12304,14 +12339,14 @@ BridgedClass _createServicesBindingBridge() {
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+        final t = D4.validateTarget<$flutter_15.ServicesBinding>(
           target,
           'ServicesBinding',
         );
         return t.toString();
       },
       'addTimingsCallback': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+        final t = D4.validateTarget<$flutter_15.ServicesBinding>(
           target,
           'ServicesBinding',
         );
@@ -12328,7 +12363,7 @@ BridgedClass _createServicesBindingBridge() {
         return null;
       },
       'removeTimingsCallback': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+        final t = D4.validateTarget<$flutter_15.ServicesBinding>(
           target,
           'ServicesBinding',
         );
@@ -12345,7 +12380,7 @@ BridgedClass _createServicesBindingBridge() {
         return null;
       },
       'resetInternalState': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+        final t = D4.validateTarget<$flutter_15.ServicesBinding>(
           target,
           'ServicesBinding',
         );
@@ -12354,7 +12389,7 @@ BridgedClass _createServicesBindingBridge() {
       },
       'handleAppLifecycleStateChanged':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+            final t = D4.validateTarget<$flutter_15.ServicesBinding>(
               target,
               'ServicesBinding',
             );
@@ -12369,7 +12404,7 @@ BridgedClass _createServicesBindingBridge() {
             return null;
           },
       'scheduleTask': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+        final t = D4.validateTarget<$flutter_15.ServicesBinding>(
           target,
           'ServicesBinding',
         );
@@ -12402,14 +12437,14 @@ BridgedClass _createServicesBindingBridge() {
       },
       'handleEventLoopCallback':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+            final t = D4.validateTarget<$flutter_15.ServicesBinding>(
               target,
               'ServicesBinding',
             );
             return t.handleEventLoopCallback();
           },
       'scheduleFrameCallback': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+        final t = D4.validateTarget<$flutter_15.ServicesBinding>(
           target,
           'ServicesBinding',
         );
@@ -12440,7 +12475,7 @@ BridgedClass _createServicesBindingBridge() {
       },
       'cancelFrameCallbackWithId':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+            final t = D4.validateTarget<$flutter_15.ServicesBinding>(
               target,
               'ServicesBinding',
             );
@@ -12456,7 +12491,7 @@ BridgedClass _createServicesBindingBridge() {
           },
       'debugAssertNoTransientCallbacks':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+            final t = D4.validateTarget<$flutter_15.ServicesBinding>(
               target,
               'ServicesBinding',
             );
@@ -12471,7 +12506,7 @@ BridgedClass _createServicesBindingBridge() {
           },
       'debugAssertNoPendingPerformanceModeRequests':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+            final t = D4.validateTarget<$flutter_15.ServicesBinding>(
               target,
               'ServicesBinding',
             );
@@ -12490,7 +12525,7 @@ BridgedClass _createServicesBindingBridge() {
           },
       'debugAssertNoTimeDilation':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+            final t = D4.validateTarget<$flutter_15.ServicesBinding>(
               target,
               'ServicesBinding',
             );
@@ -12504,7 +12539,7 @@ BridgedClass _createServicesBindingBridge() {
             return t.debugAssertNoTimeDilation(reason);
           },
       'addPersistentFrameCallback': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+        final t = D4.validateTarget<$flutter_15.ServicesBinding>(
           target,
           'ServicesBinding',
         );
@@ -12521,7 +12556,7 @@ BridgedClass _createServicesBindingBridge() {
         return null;
       },
       'addPostFrameCallback': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+        final t = D4.validateTarget<$flutter_15.ServicesBinding>(
           target,
           'ServicesBinding',
         );
@@ -12544,7 +12579,7 @@ BridgedClass _createServicesBindingBridge() {
       },
       'ensureFrameCallbacksRegistered':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+            final t = D4.validateTarget<$flutter_15.ServicesBinding>(
               target,
               'ServicesBinding',
             );
@@ -12552,7 +12587,7 @@ BridgedClass _createServicesBindingBridge() {
             return null;
           },
       'ensureVisualUpdate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+        final t = D4.validateTarget<$flutter_15.ServicesBinding>(
           target,
           'ServicesBinding',
         );
@@ -12560,7 +12595,7 @@ BridgedClass _createServicesBindingBridge() {
         return null;
       },
       'scheduleFrame': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+        final t = D4.validateTarget<$flutter_15.ServicesBinding>(
           target,
           'ServicesBinding',
         );
@@ -12568,7 +12603,7 @@ BridgedClass _createServicesBindingBridge() {
         return null;
       },
       'scheduleForcedFrame': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+        final t = D4.validateTarget<$flutter_15.ServicesBinding>(
           target,
           'ServicesBinding',
         );
@@ -12576,7 +12611,7 @@ BridgedClass _createServicesBindingBridge() {
         return null;
       },
       'scheduleWarmUpFrame': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+        final t = D4.validateTarget<$flutter_15.ServicesBinding>(
           target,
           'ServicesBinding',
         );
@@ -12584,7 +12619,7 @@ BridgedClass _createServicesBindingBridge() {
         return null;
       },
       'resetEpoch': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+        final t = D4.validateTarget<$flutter_15.ServicesBinding>(
           target,
           'ServicesBinding',
         );
@@ -12592,7 +12627,7 @@ BridgedClass _createServicesBindingBridge() {
         return null;
       },
       'handleBeginFrame': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+        final t = D4.validateTarget<$flutter_15.ServicesBinding>(
           target,
           'ServicesBinding',
         );
@@ -12607,7 +12642,7 @@ BridgedClass _createServicesBindingBridge() {
         return null;
       },
       'requestPerformanceMode': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+        final t = D4.validateTarget<$flutter_15.ServicesBinding>(
           target,
           'ServicesBinding',
         );
@@ -12622,14 +12657,14 @@ BridgedClass _createServicesBindingBridge() {
       },
       'debugGetRequestedPerformanceMode':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+            final t = D4.validateTarget<$flutter_15.ServicesBinding>(
               target,
               'ServicesBinding',
             );
             return t.debugGetRequestedPerformanceMode();
           },
       'handleDrawFrame': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.ServicesBinding>(
+        final t = D4.validateTarget<$flutter_15.ServicesBinding>(
           target,
           'ServicesBinding',
         );
@@ -12638,14 +12673,14 @@ BridgedClass _createServicesBindingBridge() {
       },
     },
     staticGetters: {
-      'instance': (visitor) => $flutter_14.ServicesBinding.instance,
+      'instance': (visitor) => $flutter_15.ServicesBinding.instance,
       'rootIsolateToken': (visitor) =>
-          $flutter_14.ServicesBinding.rootIsolateToken,
+          $flutter_15.ServicesBinding.rootIsolateToken,
     },
     staticSetters: {
       'systemContextMenuClient': (visitor, value) =>
-          $flutter_14.ServicesBinding.systemContextMenuClient = D4
-              .extractBridgedArgOrNull<$flutter_14.SystemContextMenuClient>(
+          $flutter_15.ServicesBinding.systemContextMenuClient = D4
+              .extractBridgedArgOrNull<$flutter_15.SystemContextMenuClient>(
                 value,
                 'systemContextMenuClient',
               ),
@@ -12764,15 +12799,15 @@ BridgedClass _createServicesBindingBridge() {
 
 BridgedClass _createSystemContextMenuClientBridge() {
   return BridgedClass(
-    nativeType: $flutter_14.SystemContextMenuClient,
+    nativeType: $flutter_15.SystemContextMenuClient,
     name: 'SystemContextMenuClient',
-    isAssignable: (v) => v is $flutter_14.SystemContextMenuClient,
+    isAssignable: (v) => v is $flutter_15.SystemContextMenuClient,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {},
     methods: {
       'handleSystemHide': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_14.SystemContextMenuClient>(
+        final t = D4.validateTarget<$flutter_15.SystemContextMenuClient>(
           target,
           'SystemContextMenuClient',
         );
@@ -12781,7 +12816,7 @@ BridgedClass _createSystemContextMenuClientBridge() {
       },
       'handleCustomContextMenuAction':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$flutter_14.SystemContextMenuClient>(
+            final t = D4.validateTarget<$flutter_15.SystemContextMenuClient>(
               target,
               'SystemContextMenuClient',
             );
@@ -12810,19 +12845,19 @@ BridgedClass _createSystemContextMenuClientBridge() {
 
 BridgedClass _createBrowserContextMenuBridge() {
   return BridgedClass(
-    nativeType: $flutter_15.BrowserContextMenu,
+    nativeType: $flutter_16.BrowserContextMenu,
     name: 'BrowserContextMenu',
-    isAssignable: (v) => v is $flutter_15.BrowserContextMenu,
+    isAssignable: (v) => v is $flutter_16.BrowserContextMenu,
     constructors: {},
     staticGetters: {
-      'enabled': (visitor) => $flutter_15.BrowserContextMenu.enabled,
+      'enabled': (visitor) => $flutter_16.BrowserContextMenu.enabled,
     },
     staticMethods: {
       'disableContextMenu': (visitor, positional, named, typeArgs) {
-        return $flutter_15.BrowserContextMenu.disableContextMenu();
+        return $flutter_16.BrowserContextMenu.disableContextMenu();
       },
       'enableContextMenu': (visitor, positional, named, typeArgs) {
-        return $flutter_15.BrowserContextMenu.enableContextMenu();
+        return $flutter_16.BrowserContextMenu.enableContextMenu();
       },
     },
     staticMethodSignatures: {
@@ -12839,9 +12874,9 @@ BridgedClass _createBrowserContextMenuBridge() {
 
 BridgedClass _createClipboardDataBridge() {
   return BridgedClass(
-    nativeType: $flutter_16.ClipboardData,
+    nativeType: $flutter_17.ClipboardData,
     name: 'ClipboardData',
-    isAssignable: (v) => v is $flutter_16.ClipboardData,
+    isAssignable: (v) => v is $flutter_17.ClipboardData,
     constructors: {
       '': (visitor, positional, named) {
         final text = D4.getRequiredNamedArg<String>(
@@ -12849,12 +12884,12 @@ BridgedClass _createClipboardDataBridge() {
           'text',
           'ClipboardData',
         );
-        return $flutter_16.ClipboardData(text: text);
+        return $flutter_17.ClipboardData(text: text);
       },
     },
     getters: {
       'text': (visitor, target) => D4
-          .validateTarget<$flutter_16.ClipboardData>(target, 'ClipboardData')
+          .validateTarget<$flutter_17.ClipboardData>(target, 'ClipboardData')
           .text,
     },
     constructorSignatures: {'': 'const ClipboardData({required String text})'},
@@ -12868,24 +12903,24 @@ BridgedClass _createClipboardDataBridge() {
 
 BridgedClass _createClipboardBridge() {
   return BridgedClass(
-    nativeType: $flutter_16.Clipboard,
+    nativeType: $flutter_17.Clipboard,
     name: 'Clipboard',
-    isAssignable: (v) => v is $flutter_16.Clipboard,
+    isAssignable: (v) => v is $flutter_17.Clipboard,
     isAbstract: true,
     constructors: {},
     staticGetters: {
-      'kTextPlain': (visitor) => $flutter_16.Clipboard.kTextPlain,
+      'kTextPlain': (visitor) => $flutter_17.Clipboard.kTextPlain,
     },
     staticMethods: {
       'setData': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'setData');
-        final data = D4.getRequiredArg<$flutter_16.ClipboardData>(
+        final data = D4.getRequiredArg<$flutter_17.ClipboardData>(
           positional,
           0,
           'data',
           'setData',
         );
-        return $flutter_16.Clipboard.setData(data);
+        return $flutter_17.Clipboard.setData(data);
       },
       'getData': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'getData');
@@ -12895,10 +12930,10 @@ BridgedClass _createClipboardBridge() {
           'format',
           'getData',
         );
-        return $flutter_16.Clipboard.getData(format);
+        return $flutter_17.Clipboard.getData(format);
       },
       'hasStrings': (visitor, positional, named, typeArgs) {
-        return $flutter_16.Clipboard.hasStrings();
+        return $flutter_17.Clipboard.hasStrings();
       },
     },
     staticMethodSignatures: {
@@ -12916,9 +12951,9 @@ BridgedClass _createClipboardBridge() {
 
 BridgedClass _createDeferredComponentBridge() {
   return BridgedClass(
-    nativeType: $flutter_18.DeferredComponent,
+    nativeType: $flutter_19.DeferredComponent,
     name: 'DeferredComponent',
-    isAssignable: (v) => v is $flutter_18.DeferredComponent,
+    isAssignable: (v) => v is $flutter_19.DeferredComponent,
     isAbstract: true,
     constructors: {},
     staticMethods: {
@@ -12928,7 +12963,7 @@ BridgedClass _createDeferredComponentBridge() {
           'componentName',
           'installDeferredComponent',
         );
-        return $flutter_18.DeferredComponent.installDeferredComponent(
+        return $flutter_19.DeferredComponent.installDeferredComponent(
           componentName: componentName,
         );
       },
@@ -12938,7 +12973,7 @@ BridgedClass _createDeferredComponentBridge() {
           'componentName',
           'uninstallDeferredComponent',
         );
-        return $flutter_18.DeferredComponent.uninstallDeferredComponent(
+        return $flutter_19.DeferredComponent.uninstallDeferredComponent(
           componentName: componentName,
         );
       },
@@ -12958,19 +12993,19 @@ BridgedClass _createDeferredComponentBridge() {
 
 BridgedClass _createFlutterVersionBridge() {
   return BridgedClass(
-    nativeType: $flutter_20.FlutterVersion,
+    nativeType: $flutter_21.FlutterVersion,
     name: 'FlutterVersion',
-    isAssignable: (v) => v is $flutter_20.FlutterVersion,
+    isAssignable: (v) => v is $flutter_21.FlutterVersion,
     isAbstract: true,
     constructors: {},
     staticGetters: {
-      'version': (visitor) => $flutter_20.FlutterVersion.version,
-      'channel': (visitor) => $flutter_20.FlutterVersion.channel,
-      'gitUrl': (visitor) => $flutter_20.FlutterVersion.gitUrl,
+      'version': (visitor) => $flutter_21.FlutterVersion.version,
+      'channel': (visitor) => $flutter_21.FlutterVersion.channel,
+      'gitUrl': (visitor) => $flutter_21.FlutterVersion.gitUrl,
       'frameworkRevision': (visitor) =>
-          $flutter_20.FlutterVersion.frameworkRevision,
-      'engineRevision': (visitor) => $flutter_20.FlutterVersion.engineRevision,
-      'dartVersion': (visitor) => $flutter_20.FlutterVersion.dartVersion,
+          $flutter_21.FlutterVersion.frameworkRevision,
+      'engineRevision': (visitor) => $flutter_21.FlutterVersion.engineRevision,
+      'dartVersion': (visitor) => $flutter_21.FlutterVersion.dartVersion,
     },
     staticGetterSignatures: {
       'version': 'String? get version',
@@ -12989,9 +13024,9 @@ BridgedClass _createFlutterVersionBridge() {
 
 BridgedClass _createFontLoaderBridge() {
   return BridgedClass(
-    nativeType: $flutter_21.FontLoader,
+    nativeType: $flutter_22.FontLoader,
     name: 'FontLoader',
-    isAssignable: (v) => v is $flutter_21.FontLoader,
+    isAssignable: (v) => v is $flutter_22.FontLoader,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FontLoader');
@@ -13001,17 +13036,17 @@ BridgedClass _createFontLoaderBridge() {
           'family',
           'FontLoader',
         );
-        return $flutter_21.FontLoader(family);
+        return $flutter_22.FontLoader(family);
       },
     },
     getters: {
       'family': (visitor, target) => D4
-          .validateTarget<$flutter_21.FontLoader>(target, 'FontLoader')
+          .validateTarget<$flutter_22.FontLoader>(target, 'FontLoader')
           .family,
     },
     methods: {
       'addFont': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_21.FontLoader>(
+        final t = D4.validateTarget<$flutter_22.FontLoader>(
           target,
           'FontLoader',
         );
@@ -13026,14 +13061,14 @@ BridgedClass _createFontLoaderBridge() {
         return null;
       },
       'load': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_21.FontLoader>(
+        final t = D4.validateTarget<$flutter_22.FontLoader>(
           target,
           'FontLoader',
         );
         return t.load();
       },
       'loadFont': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_21.FontLoader>(
+        final t = D4.validateTarget<$flutter_22.FontLoader>(
           target,
           'FontLoader',
         );
@@ -13069,35 +13104,35 @@ BridgedClass _createFontLoaderBridge() {
 
 BridgedClass _createHapticFeedbackBridge() {
   return BridgedClass(
-    nativeType: $flutter_22.HapticFeedback,
+    nativeType: $flutter_23.HapticFeedback,
     name: 'HapticFeedback',
-    isAssignable: (v) => v is $flutter_22.HapticFeedback,
+    isAssignable: (v) => v is $flutter_23.HapticFeedback,
     isAbstract: true,
     constructors: {},
     staticMethods: {
       'vibrate': (visitor, positional, named, typeArgs) {
-        return $flutter_22.HapticFeedback.vibrate();
+        return $flutter_23.HapticFeedback.vibrate();
       },
       'lightImpact': (visitor, positional, named, typeArgs) {
-        return $flutter_22.HapticFeedback.lightImpact();
+        return $flutter_23.HapticFeedback.lightImpact();
       },
       'mediumImpact': (visitor, positional, named, typeArgs) {
-        return $flutter_22.HapticFeedback.mediumImpact();
+        return $flutter_23.HapticFeedback.mediumImpact();
       },
       'heavyImpact': (visitor, positional, named, typeArgs) {
-        return $flutter_22.HapticFeedback.heavyImpact();
+        return $flutter_23.HapticFeedback.heavyImpact();
       },
       'selectionClick': (visitor, positional, named, typeArgs) {
-        return $flutter_22.HapticFeedback.selectionClick();
+        return $flutter_23.HapticFeedback.selectionClick();
       },
       'successNotification': (visitor, positional, named, typeArgs) {
-        return $flutter_22.HapticFeedback.successNotification();
+        return $flutter_23.HapticFeedback.successNotification();
       },
       'warningNotification': (visitor, positional, named, typeArgs) {
-        return $flutter_22.HapticFeedback.warningNotification();
+        return $flutter_23.HapticFeedback.warningNotification();
       },
       'errorNotification': (visitor, positional, named, typeArgs) {
-        return $flutter_22.HapticFeedback.errorNotification();
+        return $flutter_23.HapticFeedback.errorNotification();
       },
     },
     staticMethodSignatures: {
@@ -13119,9 +13154,9 @@ BridgedClass _createHapticFeedbackBridge() {
 
 BridgedClass _createKeyboardInsertedContentBridge() {
   return BridgedClass(
-    nativeType: $flutter_24.KeyboardInsertedContent,
+    nativeType: $flutter_25.KeyboardInsertedContent,
     name: 'KeyboardInsertedContent',
-    isAssignable: (v) => v is $flutter_24.KeyboardInsertedContent,
+    isAssignable: (v) => v is $flutter_25.KeyboardInsertedContent,
     constructors: {
       '': (visitor, positional, named) {
         final mimeType = D4.getRequiredNamedArg<String>(
@@ -13135,7 +13170,7 @@ BridgedClass _createKeyboardInsertedContentBridge() {
           'KeyboardInsertedContent',
         );
         final data = D4.getOptionalNamedArg<Uint8List?>(named, 'data');
-        return $flutter_24.KeyboardInsertedContent(
+        return $flutter_25.KeyboardInsertedContent(
           mimeType: mimeType,
           uri: uri,
           data: data,
@@ -13152,36 +13187,36 @@ BridgedClass _createKeyboardInsertedContentBridge() {
           positional[0],
           'metadata',
         );
-        return $flutter_24.KeyboardInsertedContent.fromJson(metadata);
+        return $flutter_25.KeyboardInsertedContent.fromJson(metadata);
       },
     },
     getters: {
       'mimeType': (visitor, target) => D4
-          .validateTarget<$flutter_24.KeyboardInsertedContent>(
+          .validateTarget<$flutter_25.KeyboardInsertedContent>(
             target,
             'KeyboardInsertedContent',
           )
           .mimeType,
       'uri': (visitor, target) => D4
-          .validateTarget<$flutter_24.KeyboardInsertedContent>(
+          .validateTarget<$flutter_25.KeyboardInsertedContent>(
             target,
             'KeyboardInsertedContent',
           )
           .uri,
       'data': (visitor, target) => D4
-          .validateTarget<$flutter_24.KeyboardInsertedContent>(
+          .validateTarget<$flutter_25.KeyboardInsertedContent>(
             target,
             'KeyboardInsertedContent',
           )
           .data,
       'hasData': (visitor, target) => D4
-          .validateTarget<$flutter_24.KeyboardInsertedContent>(
+          .validateTarget<$flutter_25.KeyboardInsertedContent>(
             target,
             'KeyboardInsertedContent',
           )
           .hasData,
       'hashCode': (visitor, target) => D4
-          .validateTarget<$flutter_24.KeyboardInsertedContent>(
+          .validateTarget<$flutter_25.KeyboardInsertedContent>(
             target,
             'KeyboardInsertedContent',
           )
@@ -13189,14 +13224,14 @@ BridgedClass _createKeyboardInsertedContentBridge() {
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_24.KeyboardInsertedContent>(
+        final t = D4.validateTarget<$flutter_25.KeyboardInsertedContent>(
           target,
           'KeyboardInsertedContent',
         );
         return t.toString();
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_24.KeyboardInsertedContent>(
+        final t = D4.validateTarget<$flutter_25.KeyboardInsertedContent>(
           target,
           'KeyboardInsertedContent',
         );
@@ -13233,17 +13268,17 @@ BridgedClass _createKeyboardInsertedContentBridge() {
 
 BridgedClass _createLiveTextBridge() {
   return BridgedClass(
-    nativeType: $flutter_27.LiveText,
+    nativeType: $flutter_28.LiveText,
     name: 'LiveText',
-    isAssignable: (v) => v is $flutter_27.LiveText,
+    isAssignable: (v) => v is $flutter_28.LiveText,
     isAbstract: true,
     constructors: {},
     staticMethods: {
       'isLiveTextInputAvailable': (visitor, positional, named, typeArgs) {
-        return $flutter_27.LiveText.isLiveTextInputAvailable();
+        return $flutter_28.LiveText.isLiveTextInputAvailable();
       },
       'startLiveTextInput': (visitor, positional, named, typeArgs) {
-        return $flutter_27.LiveText.startLiveTextInput();
+        return $flutter_28.LiveText.startLiveTextInput();
       },
     },
     staticMethodSignatures: {
@@ -13259,14 +13294,14 @@ BridgedClass _createLiveTextBridge() {
 
 BridgedClass _createMessageCodecBridge() {
   return BridgedClass(
-    nativeType: $flutter_28.MessageCodec,
+    nativeType: $flutter_29.MessageCodec,
     name: 'MessageCodec',
-    isAssignable: (v) => v is $flutter_28.MessageCodec,
+    isAssignable: (v) => v is $flutter_29.MessageCodec,
     isAbstract: true,
     constructors: {},
     methods: {
       'encodeMessage': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_28.MessageCodec>(
+        final t = D4.validateTarget<$flutter_29.MessageCodec>(
           target,
           'MessageCodec',
         );
@@ -13280,7 +13315,7 @@ BridgedClass _createMessageCodecBridge() {
         return t.encodeMessage(message);
       },
       'decodeMessage': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_28.MessageCodec>(
+        final t = D4.validateTarget<$flutter_29.MessageCodec>(
           target,
           'MessageCodec',
         );
@@ -13307,9 +13342,9 @@ BridgedClass _createMessageCodecBridge() {
 
 BridgedClass _createMethodCallBridge() {
   return BridgedClass(
-    nativeType: $flutter_28.MethodCall,
+    nativeType: $flutter_29.MethodCall,
     name: 'MethodCall',
-    isAssignable: (v) => v is $flutter_28.MethodCall,
+    isAssignable: (v) => v is $flutter_29.MethodCall,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'MethodCall');
@@ -13324,20 +13359,20 @@ BridgedClass _createMethodCallBridge() {
           1,
           'arguments',
         );
-        return $flutter_28.MethodCall(method, arguments);
+        return $flutter_29.MethodCall(method, arguments);
       },
     },
     getters: {
       'method': (visitor, target) => D4
-          .validateTarget<$flutter_28.MethodCall>(target, 'MethodCall')
+          .validateTarget<$flutter_29.MethodCall>(target, 'MethodCall')
           .method,
       'arguments': (visitor, target) => D4
-          .validateTarget<$flutter_28.MethodCall>(target, 'MethodCall')
+          .validateTarget<$flutter_29.MethodCall>(target, 'MethodCall')
           .arguments,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_28.MethodCall>(
+        final t = D4.validateTarget<$flutter_29.MethodCall>(
           target,
           'MethodCall',
         );
@@ -13361,19 +13396,19 @@ BridgedClass _createMethodCallBridge() {
 
 BridgedClass _createMethodCodecBridge() {
   return BridgedClass(
-    nativeType: $flutter_28.MethodCodec,
+    nativeType: $flutter_29.MethodCodec,
     name: 'MethodCodec',
-    isAssignable: (v) => v is $flutter_28.MethodCodec,
+    isAssignable: (v) => v is $flutter_29.MethodCodec,
     isAbstract: true,
     constructors: {},
     methods: {
       'encodeMethodCall': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_28.MethodCodec>(
+        final t = D4.validateTarget<$flutter_29.MethodCodec>(
           target,
           'MethodCodec',
         );
         D4.requireMinArgs(positional, 1, 'encodeMethodCall');
-        final methodCall = D4.getRequiredArg<$flutter_28.MethodCall>(
+        final methodCall = D4.getRequiredArg<$flutter_29.MethodCall>(
           positional,
           0,
           'methodCall',
@@ -13382,7 +13417,7 @@ BridgedClass _createMethodCodecBridge() {
         return t.encodeMethodCall(methodCall);
       },
       'decodeMethodCall': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_28.MethodCodec>(
+        final t = D4.validateTarget<$flutter_29.MethodCodec>(
           target,
           'MethodCodec',
         );
@@ -13396,7 +13431,7 @@ BridgedClass _createMethodCodecBridge() {
         return t.decodeMethodCall(methodCall);
       },
       'decodeEnvelope': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_28.MethodCodec>(
+        final t = D4.validateTarget<$flutter_29.MethodCodec>(
           target,
           'MethodCodec',
         );
@@ -13410,7 +13445,7 @@ BridgedClass _createMethodCodecBridge() {
         return t.decodeEnvelope(envelope);
       },
       'encodeSuccessEnvelope': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_28.MethodCodec>(
+        final t = D4.validateTarget<$flutter_29.MethodCodec>(
           target,
           'MethodCodec',
         );
@@ -13424,7 +13459,7 @@ BridgedClass _createMethodCodecBridge() {
         return t.encodeSuccessEnvelope(result);
       },
       'encodeErrorEnvelope': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_28.MethodCodec>(
+        final t = D4.validateTarget<$flutter_29.MethodCodec>(
           target,
           'MethodCodec',
         );
@@ -13459,9 +13494,9 @@ BridgedClass _createMethodCodecBridge() {
 
 BridgedClass _createPlatformExceptionBridge() {
   return BridgedClass(
-    nativeType: $flutter_28.PlatformException,
+    nativeType: $flutter_29.PlatformException,
     name: 'PlatformException',
-    isAssignable: (v) => v is $flutter_28.PlatformException,
+    isAssignable: (v) => v is $flutter_29.PlatformException,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
@@ -13473,7 +13508,7 @@ BridgedClass _createPlatformExceptionBridge() {
         final message = D4.getOptionalNamedArg<String?>(named, 'message');
         final stacktrace = D4.getOptionalNamedArg<String?>(named, 'stacktrace');
         if (!named.containsKey('details')) {
-          return $flutter_28.PlatformException(
+          return $flutter_29.PlatformException(
             code: code,
             message: message,
             stacktrace: stacktrace,
@@ -13485,7 +13520,7 @@ BridgedClass _createPlatformExceptionBridge() {
             'details',
             'PlatformException',
           );
-          return $flutter_28.PlatformException(
+          return $flutter_29.PlatformException(
             code: code,
             message: message,
             stacktrace: stacktrace,
@@ -13499,25 +13534,25 @@ BridgedClass _createPlatformExceptionBridge() {
     },
     getters: {
       'code': (visitor, target) => D4
-          .validateTarget<$flutter_28.PlatformException>(
+          .validateTarget<$flutter_29.PlatformException>(
             target,
             'PlatformException',
           )
           .code,
       'message': (visitor, target) => D4
-          .validateTarget<$flutter_28.PlatformException>(
+          .validateTarget<$flutter_29.PlatformException>(
             target,
             'PlatformException',
           )
           .message,
       'details': (visitor, target) => D4
-          .validateTarget<$flutter_28.PlatformException>(
+          .validateTarget<$flutter_29.PlatformException>(
             target,
             'PlatformException',
           )
           .details,
       'stacktrace': (visitor, target) => D4
-          .validateTarget<$flutter_28.PlatformException>(
+          .validateTarget<$flutter_29.PlatformException>(
             target,
             'PlatformException',
           )
@@ -13525,7 +13560,7 @@ BridgedClass _createPlatformExceptionBridge() {
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_28.PlatformException>(
+        final t = D4.validateTarget<$flutter_29.PlatformException>(
           target,
           'PlatformException',
         );
@@ -13551,19 +13586,19 @@ BridgedClass _createPlatformExceptionBridge() {
 
 BridgedClass _createMissingPluginExceptionBridge() {
   return BridgedClass(
-    nativeType: $flutter_28.MissingPluginException,
+    nativeType: $flutter_29.MissingPluginException,
     name: 'MissingPluginException',
-    isAssignable: (v) => v is $flutter_28.MissingPluginException,
+    isAssignable: (v) => v is $flutter_29.MissingPluginException,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final message = D4.getOptionalArg<String?>(positional, 0, 'message');
-        return $flutter_28.MissingPluginException(message);
+        return $flutter_29.MissingPluginException(message);
       },
     },
     getters: {
       'message': (visitor, target) => D4
-          .validateTarget<$flutter_28.MissingPluginException>(
+          .validateTarget<$flutter_29.MissingPluginException>(
             target,
             'MissingPluginException',
           )
@@ -13571,7 +13606,7 @@ BridgedClass _createMissingPluginExceptionBridge() {
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_28.MissingPluginException>(
+        final t = D4.validateTarget<$flutter_29.MissingPluginException>(
           target,
           'MissingPluginException',
         );
@@ -13590,18 +13625,18 @@ BridgedClass _createMissingPluginExceptionBridge() {
 
 BridgedClass _createBinaryCodecBridge() {
   return BridgedClass(
-    nativeType: $flutter_29.BinaryCodec,
+    nativeType: $flutter_30.BinaryCodec,
     name: 'BinaryCodec',
-    isAssignable: (v) => v is $flutter_29.BinaryCodec,
+    isAssignable: (v) => v is $flutter_30.BinaryCodec,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
-        return $flutter_29.BinaryCodec();
+        return $flutter_30.BinaryCodec();
       },
     },
     methods: {
       'decodeMessage': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_29.BinaryCodec>(
+        final t = D4.validateTarget<$flutter_30.BinaryCodec>(
           target,
           'BinaryCodec',
         );
@@ -13615,7 +13650,7 @@ BridgedClass _createBinaryCodecBridge() {
         return t.decodeMessage(message);
       },
       'encodeMessage': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_29.BinaryCodec>(
+        final t = D4.validateTarget<$flutter_30.BinaryCodec>(
           target,
           'BinaryCodec',
         );
@@ -13643,18 +13678,18 @@ BridgedClass _createBinaryCodecBridge() {
 
 BridgedClass _createStringCodecBridge() {
   return BridgedClass(
-    nativeType: $flutter_29.StringCodec,
+    nativeType: $flutter_30.StringCodec,
     name: 'StringCodec',
-    isAssignable: (v) => v is $flutter_29.StringCodec,
+    isAssignable: (v) => v is $flutter_30.StringCodec,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
-        return $flutter_29.StringCodec();
+        return $flutter_30.StringCodec();
       },
     },
     methods: {
       'decodeMessage': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_29.StringCodec>(
+        final t = D4.validateTarget<$flutter_30.StringCodec>(
           target,
           'StringCodec',
         );
@@ -13668,7 +13703,7 @@ BridgedClass _createStringCodecBridge() {
         return t.decodeMessage(message);
       },
       'encodeMessage': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_29.StringCodec>(
+        final t = D4.validateTarget<$flutter_30.StringCodec>(
           target,
           'StringCodec',
         );
@@ -13696,18 +13731,18 @@ BridgedClass _createStringCodecBridge() {
 
 BridgedClass _createJSONMessageCodecBridge() {
   return BridgedClass(
-    nativeType: $flutter_29.JSONMessageCodec,
+    nativeType: $flutter_30.JSONMessageCodec,
     name: 'JSONMessageCodec',
-    isAssignable: (v) => v is $flutter_29.JSONMessageCodec,
+    isAssignable: (v) => v is $flutter_30.JSONMessageCodec,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
-        return $flutter_29.JSONMessageCodec();
+        return $flutter_30.JSONMessageCodec();
       },
     },
     methods: {
       'encodeMessage': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_29.JSONMessageCodec>(
+        final t = D4.validateTarget<$flutter_30.JSONMessageCodec>(
           target,
           'JSONMessageCodec',
         );
@@ -13721,7 +13756,7 @@ BridgedClass _createJSONMessageCodecBridge() {
         return t.encodeMessage(message);
       },
       'decodeMessage': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_29.JSONMessageCodec>(
+        final t = D4.validateTarget<$flutter_30.JSONMessageCodec>(
           target,
           'JSONMessageCodec',
         );
@@ -13749,23 +13784,23 @@ BridgedClass _createJSONMessageCodecBridge() {
 
 BridgedClass _createJSONMethodCodecBridge() {
   return BridgedClass(
-    nativeType: $flutter_29.JSONMethodCodec,
+    nativeType: $flutter_30.JSONMethodCodec,
     name: 'JSONMethodCodec',
-    isAssignable: (v) => v is $flutter_29.JSONMethodCodec,
+    isAssignable: (v) => v is $flutter_30.JSONMethodCodec,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
-        return $flutter_29.JSONMethodCodec();
+        return $flutter_30.JSONMethodCodec();
       },
     },
     methods: {
       'encodeMethodCall': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_29.JSONMethodCodec>(
+        final t = D4.validateTarget<$flutter_30.JSONMethodCodec>(
           target,
           'JSONMethodCodec',
         );
         D4.requireMinArgs(positional, 1, 'encodeMethodCall');
-        final methodCall = D4.getRequiredArg<$flutter_28.MethodCall>(
+        final methodCall = D4.getRequiredArg<$flutter_29.MethodCall>(
           positional,
           0,
           'methodCall',
@@ -13774,7 +13809,7 @@ BridgedClass _createJSONMethodCodecBridge() {
         return t.encodeMethodCall(methodCall);
       },
       'decodeMethodCall': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_29.JSONMethodCodec>(
+        final t = D4.validateTarget<$flutter_30.JSONMethodCodec>(
           target,
           'JSONMethodCodec',
         );
@@ -13788,7 +13823,7 @@ BridgedClass _createJSONMethodCodecBridge() {
         return t.decodeMethodCall(methodCall);
       },
       'decodeEnvelope': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_29.JSONMethodCodec>(
+        final t = D4.validateTarget<$flutter_30.JSONMethodCodec>(
           target,
           'JSONMethodCodec',
         );
@@ -13802,7 +13837,7 @@ BridgedClass _createJSONMethodCodecBridge() {
         return t.decodeEnvelope(envelope);
       },
       'encodeSuccessEnvelope': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_29.JSONMethodCodec>(
+        final t = D4.validateTarget<$flutter_30.JSONMethodCodec>(
           target,
           'JSONMethodCodec',
         );
@@ -13816,7 +13851,7 @@ BridgedClass _createJSONMethodCodecBridge() {
         return t.encodeSuccessEnvelope(result);
       },
       'encodeErrorEnvelope': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_29.JSONMethodCodec>(
+        final t = D4.validateTarget<$flutter_30.JSONMethodCodec>(
           target,
           'JSONMethodCodec',
         );
@@ -13852,18 +13887,18 @@ BridgedClass _createJSONMethodCodecBridge() {
 
 BridgedClass _createStandardMessageCodecBridge() {
   return BridgedClass(
-    nativeType: $flutter_29.StandardMessageCodec,
+    nativeType: $flutter_30.StandardMessageCodec,
     name: 'StandardMessageCodec',
-    isAssignable: (v) => v is $flutter_29.StandardMessageCodec,
+    isAssignable: (v) => v is $flutter_30.StandardMessageCodec,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
-        return $flutter_29.StandardMessageCodec();
+        return $flutter_30.StandardMessageCodec();
       },
     },
     methods: {
       'encodeMessage': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_29.StandardMessageCodec>(
+        final t = D4.validateTarget<$flutter_30.StandardMessageCodec>(
           target,
           'StandardMessageCodec',
         );
@@ -13877,7 +13912,7 @@ BridgedClass _createStandardMessageCodecBridge() {
         return t.encodeMessage(message);
       },
       'decodeMessage': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_29.StandardMessageCodec>(
+        final t = D4.validateTarget<$flutter_30.StandardMessageCodec>(
           target,
           'StandardMessageCodec',
         );
@@ -13891,7 +13926,7 @@ BridgedClass _createStandardMessageCodecBridge() {
         return t.decodeMessage(message);
       },
       'writeValue': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_29.StandardMessageCodec>(
+        final t = D4.validateTarget<$flutter_30.StandardMessageCodec>(
           target,
           'StandardMessageCodec',
         );
@@ -13912,7 +13947,7 @@ BridgedClass _createStandardMessageCodecBridge() {
         return null;
       },
       'readValue': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_29.StandardMessageCodec>(
+        final t = D4.validateTarget<$flutter_30.StandardMessageCodec>(
           target,
           'StandardMessageCodec',
         );
@@ -13926,7 +13961,7 @@ BridgedClass _createStandardMessageCodecBridge() {
         return t.readValue(buffer);
       },
       'readValueOfType': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_29.StandardMessageCodec>(
+        final t = D4.validateTarget<$flutter_30.StandardMessageCodec>(
           target,
           'StandardMessageCodec',
         );
@@ -13946,7 +13981,7 @@ BridgedClass _createStandardMessageCodecBridge() {
         return t.readValueOfType(type, buffer);
       },
       'writeSize': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_29.StandardMessageCodec>(
+        final t = D4.validateTarget<$flutter_30.StandardMessageCodec>(
           target,
           'StandardMessageCodec',
         );
@@ -13967,7 +14002,7 @@ BridgedClass _createStandardMessageCodecBridge() {
         return null;
       },
       'readSize': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_29.StandardMessageCodec>(
+        final t = D4.validateTarget<$flutter_30.StandardMessageCodec>(
           target,
           'StandardMessageCodec',
         );
@@ -14000,25 +14035,25 @@ BridgedClass _createStandardMessageCodecBridge() {
 
 BridgedClass _createStandardMethodCodecBridge() {
   return BridgedClass(
-    nativeType: $flutter_29.StandardMethodCodec,
+    nativeType: $flutter_30.StandardMethodCodec,
     name: 'StandardMethodCodec',
-    isAssignable: (v) => v is $flutter_29.StandardMethodCodec,
+    isAssignable: (v) => v is $flutter_30.StandardMethodCodec,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final messageCodec = D4
-            .getOptionalArgWithDefault<$flutter_29.StandardMessageCodec>(
+            .getOptionalArgWithDefault<$flutter_30.StandardMessageCodec>(
               positional,
               0,
               'messageCodec',
-              const $flutter_29.StandardMessageCodec(),
+              const $flutter_30.StandardMessageCodec(),
             );
-        return $flutter_29.StandardMethodCodec(messageCodec);
+        return $flutter_30.StandardMethodCodec(messageCodec);
       },
     },
     getters: {
       'messageCodec': (visitor, target) => D4
-          .validateTarget<$flutter_29.StandardMethodCodec>(
+          .validateTarget<$flutter_30.StandardMethodCodec>(
             target,
             'StandardMethodCodec',
           )
@@ -14026,12 +14061,12 @@ BridgedClass _createStandardMethodCodecBridge() {
     },
     methods: {
       'encodeMethodCall': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_29.StandardMethodCodec>(
+        final t = D4.validateTarget<$flutter_30.StandardMethodCodec>(
           target,
           'StandardMethodCodec',
         );
         D4.requireMinArgs(positional, 1, 'encodeMethodCall');
-        final methodCall = D4.getRequiredArg<$flutter_28.MethodCall>(
+        final methodCall = D4.getRequiredArg<$flutter_29.MethodCall>(
           positional,
           0,
           'methodCall',
@@ -14040,7 +14075,7 @@ BridgedClass _createStandardMethodCodecBridge() {
         return t.encodeMethodCall(methodCall);
       },
       'decodeMethodCall': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_29.StandardMethodCodec>(
+        final t = D4.validateTarget<$flutter_30.StandardMethodCodec>(
           target,
           'StandardMethodCodec',
         );
@@ -14054,7 +14089,7 @@ BridgedClass _createStandardMethodCodecBridge() {
         return t.decodeMethodCall(methodCall);
       },
       'encodeSuccessEnvelope': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_29.StandardMethodCodec>(
+        final t = D4.validateTarget<$flutter_30.StandardMethodCodec>(
           target,
           'StandardMethodCodec',
         );
@@ -14068,7 +14103,7 @@ BridgedClass _createStandardMethodCodecBridge() {
         return t.encodeSuccessEnvelope(result);
       },
       'encodeErrorEnvelope': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_29.StandardMethodCodec>(
+        final t = D4.validateTarget<$flutter_30.StandardMethodCodec>(
           target,
           'StandardMethodCodec',
         );
@@ -14086,7 +14121,7 @@ BridgedClass _createStandardMethodCodecBridge() {
         );
       },
       'decodeEnvelope': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_29.StandardMethodCodec>(
+        final t = D4.validateTarget<$flutter_30.StandardMethodCodec>(
           target,
           'StandardMethodCodec',
         );
@@ -14470,24 +14505,24 @@ BridgedClass _createPointerEventBridge() {
 
 BridgedClass _createMouseCursorManagerBridge() {
   return BridgedClass(
-    nativeType: $flutter_30.MouseCursorManager,
+    nativeType: $flutter_31.MouseCursorManager,
     name: 'MouseCursorManager',
-    isAssignable: (v) => v is $flutter_30.MouseCursorManager,
+    isAssignable: (v) => v is $flutter_31.MouseCursorManager,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'MouseCursorManager');
-        final fallbackMouseCursor = D4.getRequiredArg<$flutter_30.MouseCursor>(
+        final fallbackMouseCursor = D4.getRequiredArg<$flutter_31.MouseCursor>(
           positional,
           0,
           'fallbackMouseCursor',
           'MouseCursorManager',
         );
-        return $flutter_30.MouseCursorManager(fallbackMouseCursor);
+        return $flutter_31.MouseCursorManager(fallbackMouseCursor);
       },
     },
     getters: {
       'fallbackMouseCursor': (visitor, target) => D4
-          .validateTarget<$flutter_30.MouseCursorManager>(
+          .validateTarget<$flutter_31.MouseCursorManager>(
             target,
             'MouseCursorManager',
           )
@@ -14496,7 +14531,7 @@ BridgedClass _createMouseCursorManagerBridge() {
     methods: {
       'debugDeviceActiveCursor':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$flutter_30.MouseCursorManager>(
+            final t = D4.validateTarget<$flutter_31.MouseCursorManager>(
               target,
               'MouseCursorManager',
             );
@@ -14510,7 +14545,7 @@ BridgedClass _createMouseCursorManagerBridge() {
             return t.debugDeviceActiveCursor(device);
           },
       'handleDeviceCursorUpdate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_30.MouseCursorManager>(
+        final t = D4.validateTarget<$flutter_31.MouseCursorManager>(
           target,
           'MouseCursorManager',
         );
@@ -14532,7 +14567,7 @@ BridgedClass _createMouseCursorManagerBridge() {
             'handleDeviceCursorUpdate: Missing required argument "cursorCandidates" at position 2',
           );
         }
-        final cursorCandidates = D4.coerceList<$flutter_30.MouseCursor>(
+        final cursorCandidates = D4.coerceList<$flutter_31.MouseCursor>(
           positional[2],
           'cursorCandidates',
         );
@@ -14561,21 +14596,21 @@ BridgedClass _createMouseCursorManagerBridge() {
 
 BridgedClass _createMouseCursorSessionBridge() {
   return BridgedClass(
-    nativeType: $flutter_30.MouseCursorSession,
+    nativeType: $flutter_31.MouseCursorSession,
     name: 'MouseCursorSession',
-    isAssignable: (v) => v is $flutter_30.MouseCursorSession,
+    isAssignable: (v) => v is $flutter_31.MouseCursorSession,
     isAbstract: true,
     constructors: {},
     getters: {
       'cursor': (visitor, target) =>
-          (D4.validateTarget<$flutter_30.MouseCursorSession>(
+          (D4.validateTarget<$flutter_31.MouseCursorSession>(
                     target,
                     'MouseCursorSession',
                   )
                   as dynamic)
               .cursor,
       'device': (visitor, target) => D4
-          .validateTarget<$flutter_30.MouseCursorSession>(
+          .validateTarget<$flutter_31.MouseCursorSession>(
             target,
             'MouseCursorSession',
           )
@@ -14583,14 +14618,14 @@ BridgedClass _createMouseCursorSessionBridge() {
     },
     methods: {
       'activate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_30.MouseCursorSession>(
+        final t = D4.validateTarget<$flutter_31.MouseCursorSession>(
           target,
           'MouseCursorSession',
         );
         return (t as dynamic).activate();
       },
       'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_30.MouseCursorSession>(
+        final t = D4.validateTarget<$flutter_31.MouseCursorSession>(
           target,
           'MouseCursorSession',
         );
@@ -14615,20 +14650,20 @@ BridgedClass _createMouseCursorSessionBridge() {
 
 BridgedClass _createMouseCursorBridge() {
   return BridgedClass(
-    nativeType: $flutter_30.MouseCursor,
+    nativeType: $flutter_31.MouseCursor,
     name: 'MouseCursor',
-    isAssignable: (v) => v is $flutter_30.MouseCursor,
+    isAssignable: (v) => v is $flutter_31.MouseCursor,
     hierarchyDepth: 1,
     isAbstract: true,
     constructors: {},
     getters: {
       'debugDescription': (visitor, target) => D4
-          .validateTarget<$flutter_30.MouseCursor>(target, 'MouseCursor')
+          .validateTarget<$flutter_31.MouseCursor>(target, 'MouseCursor')
           .debugDescription,
     },
     methods: {
       'createSession': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_30.MouseCursor>(
+        final t = D4.validateTarget<$flutter_31.MouseCursor>(
           target,
           'MouseCursor',
         );
@@ -14642,7 +14677,7 @@ BridgedClass _createMouseCursorBridge() {
         return t.createSession(device);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_30.MouseCursor>(
+        final t = D4.validateTarget<$flutter_31.MouseCursor>(
           target,
           'MouseCursor',
         );
@@ -14654,14 +14689,14 @@ BridgedClass _createMouseCursorBridge() {
         return t.toString(minLevel: minLevel);
       },
       'toStringShort': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_30.MouseCursor>(
+        final t = D4.validateTarget<$flutter_31.MouseCursor>(
           target,
           'MouseCursor',
         );
         return t.toStringShort();
       },
       'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_30.MouseCursor>(
+        final t = D4.validateTarget<$flutter_31.MouseCursor>(
           target,
           'MouseCursor',
         );
@@ -14673,7 +14708,7 @@ BridgedClass _createMouseCursorBridge() {
         return t.toDiagnosticsNode(name: name, style: style);
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_30.MouseCursor>(
+        final t = D4.validateTarget<$flutter_31.MouseCursor>(
           target,
           'MouseCursor',
         );
@@ -14690,8 +14725,8 @@ BridgedClass _createMouseCursorBridge() {
       },
     },
     staticGetters: {
-      'defer': (visitor) => $flutter_30.MouseCursor.defer,
-      'uncontrolled': (visitor) => $flutter_30.MouseCursor.uncontrolled,
+      'defer': (visitor) => $flutter_31.MouseCursor.defer,
+      'uncontrolled': (visitor) => $flutter_31.MouseCursor.uncontrolled,
     },
     methodSignatures: {
       'createSession': 'MouseCursorSession createSession(int device)',
@@ -14717,26 +14752,26 @@ BridgedClass _createMouseCursorBridge() {
 
 BridgedClass _createSystemMouseCursorBridge() {
   return BridgedClass(
-    nativeType: $flutter_30.SystemMouseCursor,
+    nativeType: $flutter_31.SystemMouseCursor,
     name: 'SystemMouseCursor',
-    isAssignable: (v) => v is $flutter_30.SystemMouseCursor,
+    isAssignable: (v) => v is $flutter_31.SystemMouseCursor,
     hierarchyDepth: 2,
     constructors: {},
     getters: {
       'debugDescription': (visitor, target) => D4
-          .validateTarget<$flutter_30.SystemMouseCursor>(
+          .validateTarget<$flutter_31.SystemMouseCursor>(
             target,
             'SystemMouseCursor',
           )
           .debugDescription,
       'kind': (visitor, target) => D4
-          .validateTarget<$flutter_30.SystemMouseCursor>(
+          .validateTarget<$flutter_31.SystemMouseCursor>(
             target,
             'SystemMouseCursor',
           )
           .kind,
       'hashCode': (visitor, target) => D4
-          .validateTarget<$flutter_30.SystemMouseCursor>(
+          .validateTarget<$flutter_31.SystemMouseCursor>(
             target,
             'SystemMouseCursor',
           )
@@ -14744,7 +14779,7 @@ BridgedClass _createSystemMouseCursorBridge() {
     },
     methods: {
       'createSession': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_30.SystemMouseCursor>(
+        final t = D4.validateTarget<$flutter_31.SystemMouseCursor>(
           target,
           'SystemMouseCursor',
         );
@@ -14758,7 +14793,7 @@ BridgedClass _createSystemMouseCursorBridge() {
         return t.createSession(device);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_30.SystemMouseCursor>(
+        final t = D4.validateTarget<$flutter_31.SystemMouseCursor>(
           target,
           'SystemMouseCursor',
         );
@@ -14770,14 +14805,14 @@ BridgedClass _createSystemMouseCursorBridge() {
         return t.toString(minLevel: minLevel);
       },
       'toStringShort': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_30.SystemMouseCursor>(
+        final t = D4.validateTarget<$flutter_31.SystemMouseCursor>(
           target,
           'SystemMouseCursor',
         );
         return t.toStringShort();
       },
       'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_30.SystemMouseCursor>(
+        final t = D4.validateTarget<$flutter_31.SystemMouseCursor>(
           target,
           'SystemMouseCursor',
         );
@@ -14789,7 +14824,7 @@ BridgedClass _createSystemMouseCursorBridge() {
         return t.toDiagnosticsNode(name: name, style: style);
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_30.SystemMouseCursor>(
+        final t = D4.validateTarget<$flutter_31.SystemMouseCursor>(
           target,
           'SystemMouseCursor',
         );
@@ -14805,7 +14840,7 @@ BridgedClass _createSystemMouseCursorBridge() {
         return null;
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_30.SystemMouseCursor>(
+        final t = D4.validateTarget<$flutter_31.SystemMouseCursor>(
           target,
           'SystemMouseCursor',
         );
@@ -14844,54 +14879,54 @@ BridgedClass _createSystemMouseCursorBridge() {
 
 BridgedClass _createSystemMouseCursorsBridge() {
   return BridgedClass(
-    nativeType: $flutter_30.SystemMouseCursors,
+    nativeType: $flutter_31.SystemMouseCursors,
     name: 'SystemMouseCursors',
-    isAssignable: (v) => v is $flutter_30.SystemMouseCursors,
+    isAssignable: (v) => v is $flutter_31.SystemMouseCursors,
     isAbstract: true,
     constructors: {},
     staticGetters: {
-      'none': (visitor) => $flutter_30.SystemMouseCursors.none,
-      'basic': (visitor) => $flutter_30.SystemMouseCursors.basic,
-      'click': (visitor) => $flutter_30.SystemMouseCursors.click,
-      'forbidden': (visitor) => $flutter_30.SystemMouseCursors.forbidden,
-      'wait': (visitor) => $flutter_30.SystemMouseCursors.wait,
-      'progress': (visitor) => $flutter_30.SystemMouseCursors.progress,
-      'contextMenu': (visitor) => $flutter_30.SystemMouseCursors.contextMenu,
-      'help': (visitor) => $flutter_30.SystemMouseCursors.help,
-      'text': (visitor) => $flutter_30.SystemMouseCursors.text,
-      'verticalText': (visitor) => $flutter_30.SystemMouseCursors.verticalText,
-      'cell': (visitor) => $flutter_30.SystemMouseCursors.cell,
-      'precise': (visitor) => $flutter_30.SystemMouseCursors.precise,
-      'move': (visitor) => $flutter_30.SystemMouseCursors.move,
-      'grab': (visitor) => $flutter_30.SystemMouseCursors.grab,
-      'grabbing': (visitor) => $flutter_30.SystemMouseCursors.grabbing,
-      'noDrop': (visitor) => $flutter_30.SystemMouseCursors.noDrop,
-      'alias': (visitor) => $flutter_30.SystemMouseCursors.alias,
-      'copy': (visitor) => $flutter_30.SystemMouseCursors.copy,
-      'disappearing': (visitor) => $flutter_30.SystemMouseCursors.disappearing,
-      'allScroll': (visitor) => $flutter_30.SystemMouseCursors.allScroll,
+      'none': (visitor) => $flutter_31.SystemMouseCursors.none,
+      'basic': (visitor) => $flutter_31.SystemMouseCursors.basic,
+      'click': (visitor) => $flutter_31.SystemMouseCursors.click,
+      'forbidden': (visitor) => $flutter_31.SystemMouseCursors.forbidden,
+      'wait': (visitor) => $flutter_31.SystemMouseCursors.wait,
+      'progress': (visitor) => $flutter_31.SystemMouseCursors.progress,
+      'contextMenu': (visitor) => $flutter_31.SystemMouseCursors.contextMenu,
+      'help': (visitor) => $flutter_31.SystemMouseCursors.help,
+      'text': (visitor) => $flutter_31.SystemMouseCursors.text,
+      'verticalText': (visitor) => $flutter_31.SystemMouseCursors.verticalText,
+      'cell': (visitor) => $flutter_31.SystemMouseCursors.cell,
+      'precise': (visitor) => $flutter_31.SystemMouseCursors.precise,
+      'move': (visitor) => $flutter_31.SystemMouseCursors.move,
+      'grab': (visitor) => $flutter_31.SystemMouseCursors.grab,
+      'grabbing': (visitor) => $flutter_31.SystemMouseCursors.grabbing,
+      'noDrop': (visitor) => $flutter_31.SystemMouseCursors.noDrop,
+      'alias': (visitor) => $flutter_31.SystemMouseCursors.alias,
+      'copy': (visitor) => $flutter_31.SystemMouseCursors.copy,
+      'disappearing': (visitor) => $flutter_31.SystemMouseCursors.disappearing,
+      'allScroll': (visitor) => $flutter_31.SystemMouseCursors.allScroll,
       'resizeLeftRight': (visitor) =>
-          $flutter_30.SystemMouseCursors.resizeLeftRight,
-      'resizeUpDown': (visitor) => $flutter_30.SystemMouseCursors.resizeUpDown,
+          $flutter_31.SystemMouseCursors.resizeLeftRight,
+      'resizeUpDown': (visitor) => $flutter_31.SystemMouseCursors.resizeUpDown,
       'resizeUpLeftDownRight': (visitor) =>
-          $flutter_30.SystemMouseCursors.resizeUpLeftDownRight,
+          $flutter_31.SystemMouseCursors.resizeUpLeftDownRight,
       'resizeUpRightDownLeft': (visitor) =>
-          $flutter_30.SystemMouseCursors.resizeUpRightDownLeft,
-      'resizeUp': (visitor) => $flutter_30.SystemMouseCursors.resizeUp,
-      'resizeDown': (visitor) => $flutter_30.SystemMouseCursors.resizeDown,
-      'resizeLeft': (visitor) => $flutter_30.SystemMouseCursors.resizeLeft,
-      'resizeRight': (visitor) => $flutter_30.SystemMouseCursors.resizeRight,
-      'resizeUpLeft': (visitor) => $flutter_30.SystemMouseCursors.resizeUpLeft,
+          $flutter_31.SystemMouseCursors.resizeUpRightDownLeft,
+      'resizeUp': (visitor) => $flutter_31.SystemMouseCursors.resizeUp,
+      'resizeDown': (visitor) => $flutter_31.SystemMouseCursors.resizeDown,
+      'resizeLeft': (visitor) => $flutter_31.SystemMouseCursors.resizeLeft,
+      'resizeRight': (visitor) => $flutter_31.SystemMouseCursors.resizeRight,
+      'resizeUpLeft': (visitor) => $flutter_31.SystemMouseCursors.resizeUpLeft,
       'resizeUpRight': (visitor) =>
-          $flutter_30.SystemMouseCursors.resizeUpRight,
+          $flutter_31.SystemMouseCursors.resizeUpRight,
       'resizeDownLeft': (visitor) =>
-          $flutter_30.SystemMouseCursors.resizeDownLeft,
+          $flutter_31.SystemMouseCursors.resizeDownLeft,
       'resizeDownRight': (visitor) =>
-          $flutter_30.SystemMouseCursors.resizeDownRight,
-      'resizeColumn': (visitor) => $flutter_30.SystemMouseCursors.resizeColumn,
-      'resizeRow': (visitor) => $flutter_30.SystemMouseCursors.resizeRow,
-      'zoomIn': (visitor) => $flutter_30.SystemMouseCursors.zoomIn,
-      'zoomOut': (visitor) => $flutter_30.SystemMouseCursors.zoomOut,
+          $flutter_31.SystemMouseCursors.resizeDownRight,
+      'resizeColumn': (visitor) => $flutter_31.SystemMouseCursors.resizeColumn,
+      'resizeRow': (visitor) => $flutter_31.SystemMouseCursors.resizeRow,
+      'zoomIn': (visitor) => $flutter_31.SystemMouseCursors.zoomIn,
+      'zoomOut': (visitor) => $flutter_31.SystemMouseCursors.zoomOut,
     },
     staticGetterSignatures: {
       'none': 'SystemMouseCursor get none',
@@ -14940,25 +14975,25 @@ BridgedClass _createSystemMouseCursorsBridge() {
 
 BridgedClass _createMouseTrackerAnnotationBridge() {
   return BridgedClass(
-    nativeType: $flutter_31.MouseTrackerAnnotation,
+    nativeType: $flutter_32.MouseTrackerAnnotation,
     name: 'MouseTrackerAnnotation',
-    isAssignable: (v) => v is $flutter_31.MouseTrackerAnnotation,
+    isAssignable: (v) => v is $flutter_32.MouseTrackerAnnotation,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final onEnterRaw = named['onEnter'];
         final onExitRaw = named['onExit'];
-        final cursor = D4.getNamedArgWithDefault<$flutter_30.MouseCursor>(
+        final cursor = D4.getNamedArgWithDefault<$flutter_31.MouseCursor>(
           named,
           'cursor',
-          $flutter_30.MouseCursor.defer,
+          $flutter_31.MouseCursor.defer,
         );
         final validForMouseTracker = D4.getNamedArgWithDefault<bool>(
           named,
           'validForMouseTracker',
           true,
         );
-        return $flutter_31.MouseTrackerAnnotation(
+        return $flutter_32.MouseTrackerAnnotation(
           onEnter: onEnterRaw == null
               ? null
               : ($flutter_7.PointerEnterEvent p0) {
@@ -14976,26 +15011,26 @@ BridgedClass _createMouseTrackerAnnotationBridge() {
     },
     getters: {
       'onEnter': (visitor, target) => D4
-          .validateTarget<$flutter_31.MouseTrackerAnnotation>(
+          .validateTarget<$flutter_32.MouseTrackerAnnotation>(
             target,
             'MouseTrackerAnnotation',
           )
           .onEnter,
       'onExit': (visitor, target) => D4
-          .validateTarget<$flutter_31.MouseTrackerAnnotation>(
+          .validateTarget<$flutter_32.MouseTrackerAnnotation>(
             target,
             'MouseTrackerAnnotation',
           )
           .onExit,
       'cursor': (visitor, target) =>
-          (D4.validateTarget<$flutter_31.MouseTrackerAnnotation>(
+          (D4.validateTarget<$flutter_32.MouseTrackerAnnotation>(
                     target,
                     'MouseTrackerAnnotation',
                   )
                   as dynamic)
               .cursor,
       'validForMouseTracker': (visitor, target) => D4
-          .validateTarget<$flutter_31.MouseTrackerAnnotation>(
+          .validateTarget<$flutter_32.MouseTrackerAnnotation>(
             target,
             'MouseTrackerAnnotation',
           )
@@ -15003,7 +15038,7 @@ BridgedClass _createMouseTrackerAnnotationBridge() {
     },
     methods: {
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_31.MouseTrackerAnnotation>(
+        final t = D4.validateTarget<$flutter_32.MouseTrackerAnnotation>(
           target,
           'MouseTrackerAnnotation',
         );
@@ -15019,14 +15054,14 @@ BridgedClass _createMouseTrackerAnnotationBridge() {
         return null;
       },
       'toStringShort': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_31.MouseTrackerAnnotation>(
+        final t = D4.validateTarget<$flutter_32.MouseTrackerAnnotation>(
           target,
           'MouseTrackerAnnotation',
         );
         return t.toStringShort();
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_31.MouseTrackerAnnotation>(
+        final t = D4.validateTarget<$flutter_32.MouseTrackerAnnotation>(
           target,
           'MouseTrackerAnnotation',
         );
@@ -15038,7 +15073,7 @@ BridgedClass _createMouseTrackerAnnotationBridge() {
         return t.toString(minLevel: minLevel);
       },
       'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_31.MouseTrackerAnnotation>(
+        final t = D4.validateTarget<$flutter_32.MouseTrackerAnnotation>(
           target,
           'MouseTrackerAnnotation',
         );
@@ -15077,9 +15112,9 @@ BridgedClass _createMouseTrackerAnnotationBridge() {
 
 BridgedClass _createBasicMessageChannelBridge() {
   return BridgedClass(
-    nativeType: $flutter_32.BasicMessageChannel,
+    nativeType: $flutter_33.BasicMessageChannel,
     name: 'BasicMessageChannel',
-    isAssignable: (v) => v is $flutter_32.BasicMessageChannel,
+    isAssignable: (v) => v is $flutter_33.BasicMessageChannel,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'BasicMessageChannel');
@@ -15089,18 +15124,18 @@ BridgedClass _createBasicMessageChannelBridge() {
           'name',
           'BasicMessageChannel',
         );
-        final codec = D4.getRequiredArg<$flutter_28.MessageCodec<dynamic>>(
+        final codec = D4.getRequiredArg<$flutter_29.MessageCodec<dynamic>>(
           positional,
           1,
           'codec',
           'BasicMessageChannel',
         );
         final binaryMessenger = D4
-            .getOptionalNamedArg<$flutter_13.BinaryMessenger?>(
+            .getOptionalNamedArg<$flutter_14.BinaryMessenger?>(
               named,
               'binaryMessenger',
             );
-        return $flutter_32.BasicMessageChannel(
+        return $flutter_33.BasicMessageChannel(
           name,
           codec,
           binaryMessenger: binaryMessenger,
@@ -15109,19 +15144,19 @@ BridgedClass _createBasicMessageChannelBridge() {
     },
     getters: {
       'name': (visitor, target) => D4
-          .validateTarget<$flutter_32.BasicMessageChannel>(
+          .validateTarget<$flutter_33.BasicMessageChannel>(
             target,
             'BasicMessageChannel',
           )
           .name,
       'codec': (visitor, target) => D4
-          .validateTarget<$flutter_32.BasicMessageChannel>(
+          .validateTarget<$flutter_33.BasicMessageChannel>(
             target,
             'BasicMessageChannel',
           )
           .codec,
       'binaryMessenger': (visitor, target) => D4
-          .validateTarget<$flutter_32.BasicMessageChannel>(
+          .validateTarget<$flutter_33.BasicMessageChannel>(
             target,
             'BasicMessageChannel',
           )
@@ -15129,7 +15164,7 @@ BridgedClass _createBasicMessageChannelBridge() {
     },
     methods: {
       'send': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_32.BasicMessageChannel>(
+        final t = D4.validateTarget<$flutter_33.BasicMessageChannel>(
           target,
           'BasicMessageChannel',
         );
@@ -15168,9 +15203,9 @@ BridgedClass _createBasicMessageChannelBridge() {
 
 BridgedClass _createMethodChannelBridge() {
   return BridgedClass(
-    nativeType: $flutter_32.MethodChannel,
+    nativeType: $flutter_33.MethodChannel,
     name: 'MethodChannel',
-    isAssignable: (v) => v is $flutter_32.MethodChannel,
+    isAssignable: (v) => v is $flutter_33.MethodChannel,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'MethodChannel');
@@ -15180,34 +15215,34 @@ BridgedClass _createMethodChannelBridge() {
           'name',
           'MethodChannel',
         );
-        final codec = D4.getOptionalArgWithDefault<$flutter_28.MethodCodec>(
+        final codec = D4.getOptionalArgWithDefault<$flutter_29.MethodCodec>(
           positional,
           1,
           'codec',
-          const $flutter_29.StandardMethodCodec(),
+          const $flutter_30.StandardMethodCodec(),
         );
-        final binaryMessenger = D4.getOptionalArg<$flutter_13.BinaryMessenger?>(
+        final binaryMessenger = D4.getOptionalArg<$flutter_14.BinaryMessenger?>(
           positional,
           2,
           'binaryMessenger',
         );
-        return $flutter_32.MethodChannel(name, codec, binaryMessenger);
+        return $flutter_33.MethodChannel(name, codec, binaryMessenger);
       },
     },
     getters: {
       'name': (visitor, target) => D4
-          .validateTarget<$flutter_32.MethodChannel>(target, 'MethodChannel')
+          .validateTarget<$flutter_33.MethodChannel>(target, 'MethodChannel')
           .name,
       'codec': (visitor, target) => D4
-          .validateTarget<$flutter_32.MethodChannel>(target, 'MethodChannel')
+          .validateTarget<$flutter_33.MethodChannel>(target, 'MethodChannel')
           .codec,
       'binaryMessenger': (visitor, target) => D4
-          .validateTarget<$flutter_32.MethodChannel>(target, 'MethodChannel')
+          .validateTarget<$flutter_33.MethodChannel>(target, 'MethodChannel')
           .binaryMessenger,
     },
     methods: {
       'invokeMethod': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_32.MethodChannel>(
+        final t = D4.validateTarget<$flutter_33.MethodChannel>(
           target,
           'MethodChannel',
         );
@@ -15226,7 +15261,7 @@ BridgedClass _createMethodChannelBridge() {
         return t.invokeMethod(method, arguments);
       },
       'invokeListMethod': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_32.MethodChannel>(
+        final t = D4.validateTarget<$flutter_33.MethodChannel>(
           target,
           'MethodChannel',
         );
@@ -15245,7 +15280,7 @@ BridgedClass _createMethodChannelBridge() {
         return t.invokeListMethod(method, arguments);
       },
       'invokeMapMethod': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_32.MethodChannel>(
+        final t = D4.validateTarget<$flutter_33.MethodChannel>(
           target,
           'MethodChannel',
         );
@@ -15264,7 +15299,7 @@ BridgedClass _createMethodChannelBridge() {
         return t.invokeMapMethod(method, arguments);
       },
       'setMethodCallHandler': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_32.MethodChannel>(
+        final t = D4.validateTarget<$flutter_33.MethodChannel>(
           target,
           'MethodChannel',
         );
@@ -15278,12 +15313,12 @@ BridgedClass _createMethodChannelBridge() {
         t.setMethodCallHandler(
           handlerRaw == null
               ? null
-              : (($flutter_28.MethodCall p0) {
+              : (($flutter_29.MethodCall p0) {
                       return Future.value(
                         D4.callInterpreterCallback(visitor!, handlerRaw, [p0]),
                       ).then((v) => v as dynamic);
                     })
-                    as Future<dynamic> Function($flutter_28.MethodCall),
+                    as Future<dynamic> Function($flutter_29.MethodCall),
         );
         return null;
       },
@@ -15315,9 +15350,9 @@ BridgedClass _createMethodChannelBridge() {
 
 BridgedClass _createOptionalMethodChannelBridge() {
   return BridgedClass(
-    nativeType: $flutter_32.OptionalMethodChannel,
+    nativeType: $flutter_33.OptionalMethodChannel,
     name: 'OptionalMethodChannel',
-    isAssignable: (v) => v is $flutter_32.OptionalMethodChannel,
+    isAssignable: (v) => v is $flutter_33.OptionalMethodChannel,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
@@ -15328,35 +15363,35 @@ BridgedClass _createOptionalMethodChannelBridge() {
           'name',
           'OptionalMethodChannel',
         );
-        final codec = D4.getOptionalArgWithDefault<$flutter_28.MethodCodec>(
+        final codec = D4.getOptionalArgWithDefault<$flutter_29.MethodCodec>(
           positional,
           1,
           'codec',
-          const $flutter_29.StandardMethodCodec(),
+          const $flutter_30.StandardMethodCodec(),
         );
-        final binaryMessenger = D4.getOptionalArg<$flutter_13.BinaryMessenger?>(
+        final binaryMessenger = D4.getOptionalArg<$flutter_14.BinaryMessenger?>(
           positional,
           2,
           'binaryMessenger',
         );
-        return $flutter_32.OptionalMethodChannel(name, codec, binaryMessenger);
+        return $flutter_33.OptionalMethodChannel(name, codec, binaryMessenger);
       },
     },
     getters: {
       'name': (visitor, target) => D4
-          .validateTarget<$flutter_32.OptionalMethodChannel>(
+          .validateTarget<$flutter_33.OptionalMethodChannel>(
             target,
             'OptionalMethodChannel',
           )
           .name,
       'codec': (visitor, target) => D4
-          .validateTarget<$flutter_32.OptionalMethodChannel>(
+          .validateTarget<$flutter_33.OptionalMethodChannel>(
             target,
             'OptionalMethodChannel',
           )
           .codec,
       'binaryMessenger': (visitor, target) => D4
-          .validateTarget<$flutter_32.OptionalMethodChannel>(
+          .validateTarget<$flutter_33.OptionalMethodChannel>(
             target,
             'OptionalMethodChannel',
           )
@@ -15364,7 +15399,7 @@ BridgedClass _createOptionalMethodChannelBridge() {
     },
     methods: {
       'invokeMethod': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_32.OptionalMethodChannel>(
+        final t = D4.validateTarget<$flutter_33.OptionalMethodChannel>(
           target,
           'OptionalMethodChannel',
         );
@@ -15383,7 +15418,7 @@ BridgedClass _createOptionalMethodChannelBridge() {
         return t.invokeMethod(method, arguments);
       },
       'invokeListMethod': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_32.OptionalMethodChannel>(
+        final t = D4.validateTarget<$flutter_33.OptionalMethodChannel>(
           target,
           'OptionalMethodChannel',
         );
@@ -15402,7 +15437,7 @@ BridgedClass _createOptionalMethodChannelBridge() {
         return t.invokeListMethod(method, arguments);
       },
       'invokeMapMethod': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_32.OptionalMethodChannel>(
+        final t = D4.validateTarget<$flutter_33.OptionalMethodChannel>(
           target,
           'OptionalMethodChannel',
         );
@@ -15421,7 +15456,7 @@ BridgedClass _createOptionalMethodChannelBridge() {
         return t.invokeMapMethod(method, arguments);
       },
       'setMethodCallHandler': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_32.OptionalMethodChannel>(
+        final t = D4.validateTarget<$flutter_33.OptionalMethodChannel>(
           target,
           'OptionalMethodChannel',
         );
@@ -15435,12 +15470,12 @@ BridgedClass _createOptionalMethodChannelBridge() {
         t.setMethodCallHandler(
           handlerRaw == null
               ? null
-              : (($flutter_28.MethodCall p0) {
+              : (($flutter_29.MethodCall p0) {
                       return Future.value(
                         D4.callInterpreterCallback(visitor!, handlerRaw, [p0]),
                       ).then((v) => v as dynamic);
                     })
-                    as Future<dynamic> Function($flutter_28.MethodCall),
+                    as Future<dynamic> Function($flutter_29.MethodCall),
         );
         return null;
       },
@@ -15472,9 +15507,9 @@ BridgedClass _createOptionalMethodChannelBridge() {
 
 BridgedClass _createEventChannelBridge() {
   return BridgedClass(
-    nativeType: $flutter_32.EventChannel,
+    nativeType: $flutter_33.EventChannel,
     name: 'EventChannel',
-    isAssignable: (v) => v is $flutter_32.EventChannel,
+    isAssignable: (v) => v is $flutter_33.EventChannel,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'EventChannel');
@@ -15484,34 +15519,34 @@ BridgedClass _createEventChannelBridge() {
           'name',
           'EventChannel',
         );
-        final codec = D4.getOptionalArgWithDefault<$flutter_28.MethodCodec>(
+        final codec = D4.getOptionalArgWithDefault<$flutter_29.MethodCodec>(
           positional,
           1,
           'codec',
-          const $flutter_29.StandardMethodCodec(),
+          const $flutter_30.StandardMethodCodec(),
         );
-        final binaryMessenger = D4.getOptionalArg<$flutter_13.BinaryMessenger?>(
+        final binaryMessenger = D4.getOptionalArg<$flutter_14.BinaryMessenger?>(
           positional,
           2,
           'binaryMessenger',
         );
-        return $flutter_32.EventChannel(name, codec, binaryMessenger);
+        return $flutter_33.EventChannel(name, codec, binaryMessenger);
       },
     },
     getters: {
       'name': (visitor, target) => D4
-          .validateTarget<$flutter_32.EventChannel>(target, 'EventChannel')
+          .validateTarget<$flutter_33.EventChannel>(target, 'EventChannel')
           .name,
       'codec': (visitor, target) => D4
-          .validateTarget<$flutter_32.EventChannel>(target, 'EventChannel')
+          .validateTarget<$flutter_33.EventChannel>(target, 'EventChannel')
           .codec,
       'binaryMessenger': (visitor, target) => D4
-          .validateTarget<$flutter_32.EventChannel>(target, 'EventChannel')
+          .validateTarget<$flutter_33.EventChannel>(target, 'EventChannel')
           .binaryMessenger,
     },
     methods: {
       'receiveBroadcastStream': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_32.EventChannel>(
+        final t = D4.validateTarget<$flutter_33.EventChannel>(
           target,
           'EventChannel',
         );
@@ -15544,13 +15579,13 @@ BridgedClass _createEventChannelBridge() {
 
 BridgedClass _createPlatformViewsRegistryBridge() {
   return BridgedClass(
-    nativeType: $flutter_33.PlatformViewsRegistry,
+    nativeType: $flutter_34.PlatformViewsRegistry,
     name: 'PlatformViewsRegistry',
-    isAssignable: (v) => v is $flutter_33.PlatformViewsRegistry,
+    isAssignable: (v) => v is $flutter_34.PlatformViewsRegistry,
     constructors: {},
     methods: {
       'getNextPlatformViewId': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.PlatformViewsRegistry>(
+        final t = D4.validateTarget<$flutter_34.PlatformViewsRegistry>(
           target,
           'PlatformViewsRegistry',
         );
@@ -15567,9 +15602,9 @@ BridgedClass _createPlatformViewsRegistryBridge() {
 
 BridgedClass _createPlatformViewsServiceBridge() {
   return BridgedClass(
-    nativeType: $flutter_33.PlatformViewsService,
+    nativeType: $flutter_34.PlatformViewsService,
     name: 'PlatformViewsService',
-    isAssignable: (v) => v is $flutter_33.PlatformViewsService,
+    isAssignable: (v) => v is $flutter_34.PlatformViewsService,
     constructors: {},
     staticMethods: {
       'initAndroidView': (visitor, positional, named, typeArgs) {
@@ -15591,7 +15626,7 @@ BridgedClass _createPlatformViewsServiceBridge() {
           '<default unavailable>',
         );
         final creationParamsCodec = D4
-            .getOptionalNamedArg<$flutter_28.MessageCodec?>(
+            .getOptionalNamedArg<$flutter_29.MessageCodec?>(
               named,
               'creationParamsCodec',
             );
@@ -15601,7 +15636,7 @@ BridgedClass _createPlatformViewsServiceBridge() {
             : () {
                 D4.callInterpreterCallback(visitor!, onFocusRaw, []);
               };
-        return $flutter_33.PlatformViewsService.initAndroidView(
+        return $flutter_34.PlatformViewsService.initAndroidView(
           id: id,
           viewType: viewType,
           layoutDirection: layoutDirection,
@@ -15633,7 +15668,7 @@ BridgedClass _createPlatformViewsServiceBridge() {
           '<default unavailable>',
         );
         final creationParamsCodec = D4
-            .getOptionalNamedArg<$flutter_28.MessageCodec?>(
+            .getOptionalNamedArg<$flutter_29.MessageCodec?>(
               named,
               'creationParamsCodec',
             );
@@ -15643,7 +15678,7 @@ BridgedClass _createPlatformViewsServiceBridge() {
             : () {
                 D4.callInterpreterCallback(visitor!, onFocusRaw, []);
               };
-        return $flutter_33.PlatformViewsService.initSurfaceAndroidView(
+        return $flutter_34.PlatformViewsService.initSurfaceAndroidView(
           id: id,
           viewType: viewType,
           layoutDirection: layoutDirection,
@@ -15675,7 +15710,7 @@ BridgedClass _createPlatformViewsServiceBridge() {
           '<default unavailable>',
         );
         final creationParamsCodec = D4
-            .getOptionalNamedArg<$flutter_28.MessageCodec?>(
+            .getOptionalNamedArg<$flutter_29.MessageCodec?>(
               named,
               'creationParamsCodec',
             );
@@ -15685,7 +15720,7 @@ BridgedClass _createPlatformViewsServiceBridge() {
             : () {
                 D4.callInterpreterCallback(visitor!, onFocusRaw, []);
               };
-        return $flutter_33.PlatformViewsService.initExpensiveAndroidView(
+        return $flutter_34.PlatformViewsService.initExpensiveAndroidView(
           id: id,
           viewType: viewType,
           layoutDirection: layoutDirection,
@@ -15717,7 +15752,7 @@ BridgedClass _createPlatformViewsServiceBridge() {
           '<default unavailable>',
         );
         final creationParamsCodec = D4
-            .getOptionalNamedArg<$flutter_28.MessageCodec?>(
+            .getOptionalNamedArg<$flutter_29.MessageCodec?>(
               named,
               'creationParamsCodec',
             );
@@ -15727,7 +15762,7 @@ BridgedClass _createPlatformViewsServiceBridge() {
             : () {
                 D4.callInterpreterCallback(visitor!, onFocusRaw, []);
               };
-        return $flutter_33.PlatformViewsService.initHybridAndroidView(
+        return $flutter_34.PlatformViewsService.initHybridAndroidView(
           id: id,
           viewType: viewType,
           layoutDirection: layoutDirection,
@@ -15755,7 +15790,7 @@ BridgedClass _createPlatformViewsServiceBridge() {
           '<default unavailable>',
         );
         final creationParamsCodec = D4
-            .getOptionalNamedArg<$flutter_28.MessageCodec?>(
+            .getOptionalNamedArg<$flutter_29.MessageCodec?>(
               named,
               'creationParamsCodec',
             );
@@ -15765,13 +15800,35 @@ BridgedClass _createPlatformViewsServiceBridge() {
             : () {
                 D4.callInterpreterCallback(visitor!, onFocusRaw, []);
               };
-        return $flutter_33.PlatformViewsService.initUiKitView(
-          id: id,
-          viewType: viewType,
-          layoutDirection: layoutDirection,
-          creationParams: creationParams,
-          creationParamsCodec: creationParamsCodec,
-          onFocus: onFocus,
+        if (!named.containsKey('gestureBlockingPolicy')) {
+          return $flutter_34.PlatformViewsService.initUiKitView(
+            id: id,
+            viewType: viewType,
+            layoutDirection: layoutDirection,
+            creationParams: creationParams,
+            creationParamsCodec: creationParamsCodec,
+            onFocus: onFocus,
+          );
+        }
+        if (named.containsKey('gestureBlockingPolicy')) {
+          final gestureBlockingPolicy = D4
+              .getRequiredNamedArg<$flutter_34.UiKitViewGestureBlockingPolicy>(
+                named,
+                'gestureBlockingPolicy',
+                'initUiKitView',
+              );
+          return $flutter_34.PlatformViewsService.initUiKitView(
+            id: id,
+            viewType: viewType,
+            layoutDirection: layoutDirection,
+            creationParams: creationParams,
+            creationParamsCodec: creationParamsCodec,
+            onFocus: onFocus,
+            gestureBlockingPolicy: gestureBlockingPolicy,
+          );
+        }
+        throw StateError(
+          'Unreachable: all named parameter combinations should be covered',
         );
       },
       'initAppKitView': (visitor, positional, named, typeArgs) {
@@ -15793,7 +15850,7 @@ BridgedClass _createPlatformViewsServiceBridge() {
           '<default unavailable>',
         );
         final creationParamsCodec = D4
-            .getOptionalNamedArg<$flutter_28.MessageCodec?>(
+            .getOptionalNamedArg<$flutter_29.MessageCodec?>(
               named,
               'creationParamsCodec',
             );
@@ -15803,7 +15860,7 @@ BridgedClass _createPlatformViewsServiceBridge() {
             : () {
                 D4.callInterpreterCallback(visitor!, onFocusRaw, []);
               };
-        return $flutter_33.PlatformViewsService.initAppKitView(
+        return $flutter_34.PlatformViewsService.initAppKitView(
           id: id,
           viewType: viewType,
           layoutDirection: layoutDirection,
@@ -15823,7 +15880,7 @@ BridgedClass _createPlatformViewsServiceBridge() {
       'initHybridAndroidView':
           'HybridAndroidViewController initHybridAndroidView({required int id, required String viewType, required TextDirection layoutDirection, dynamic creationParams, MessageCodec? creationParamsCodec, VoidCallback? onFocus})',
       'initUiKitView':
-          'Future<UiKitViewController> initUiKitView({required int id, required String viewType, required TextDirection layoutDirection, dynamic creationParams, MessageCodec? creationParamsCodec, VoidCallback? onFocus})',
+          'Future<UiKitViewController> initUiKitView({required int id, required String viewType, UiKitViewGestureBlockingPolicy gestureBlockingPolicy = .fallbackToPluginDefault, required TextDirection layoutDirection, dynamic creationParams, MessageCodec? creationParamsCodec, VoidCallback? onFocus})',
       'initAppKitView':
           'Future<AppKitViewController> initAppKitView({required int id, required String viewType, required TextDirection layoutDirection, dynamic creationParams, MessageCodec? creationParamsCodec, VoidCallback? onFocus})',
     },
@@ -15836,9 +15893,9 @@ BridgedClass _createPlatformViewsServiceBridge() {
 
 BridgedClass _createAndroidPointerPropertiesBridge() {
   return BridgedClass(
-    nativeType: $flutter_33.AndroidPointerProperties,
+    nativeType: $flutter_34.AndroidPointerProperties,
     name: 'AndroidPointerProperties',
-    isAssignable: (v) => v is $flutter_33.AndroidPointerProperties,
+    isAssignable: (v) => v is $flutter_34.AndroidPointerProperties,
     constructors: {
       '': (visitor, positional, named) {
         final id = D4.getRequiredNamedArg<int>(
@@ -15851,18 +15908,18 @@ BridgedClass _createAndroidPointerPropertiesBridge() {
           'toolType',
           'AndroidPointerProperties',
         );
-        return $flutter_33.AndroidPointerProperties(id: id, toolType: toolType);
+        return $flutter_34.AndroidPointerProperties(id: id, toolType: toolType);
       },
     },
     getters: {
       'id': (visitor, target) => D4
-          .validateTarget<$flutter_33.AndroidPointerProperties>(
+          .validateTarget<$flutter_34.AndroidPointerProperties>(
             target,
             'AndroidPointerProperties',
           )
           .id,
       'toolType': (visitor, target) => D4
-          .validateTarget<$flutter_33.AndroidPointerProperties>(
+          .validateTarget<$flutter_34.AndroidPointerProperties>(
             target,
             'AndroidPointerProperties',
           )
@@ -15870,7 +15927,7 @@ BridgedClass _createAndroidPointerPropertiesBridge() {
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.AndroidPointerProperties>(
+        final t = D4.validateTarget<$flutter_34.AndroidPointerProperties>(
           target,
           'AndroidPointerProperties',
         );
@@ -15879,15 +15936,15 @@ BridgedClass _createAndroidPointerPropertiesBridge() {
     },
     staticGetters: {
       'kToolTypeUnknown': (visitor) =>
-          $flutter_33.AndroidPointerProperties.kToolTypeUnknown,
+          $flutter_34.AndroidPointerProperties.kToolTypeUnknown,
       'kToolTypeFinger': (visitor) =>
-          $flutter_33.AndroidPointerProperties.kToolTypeFinger,
+          $flutter_34.AndroidPointerProperties.kToolTypeFinger,
       'kToolTypeStylus': (visitor) =>
-          $flutter_33.AndroidPointerProperties.kToolTypeStylus,
+          $flutter_34.AndroidPointerProperties.kToolTypeStylus,
       'kToolTypeMouse': (visitor) =>
-          $flutter_33.AndroidPointerProperties.kToolTypeMouse,
+          $flutter_34.AndroidPointerProperties.kToolTypeMouse,
       'kToolTypeEraser': (visitor) =>
-          $flutter_33.AndroidPointerProperties.kToolTypeEraser,
+          $flutter_34.AndroidPointerProperties.kToolTypeEraser,
     },
     constructorSignatures: {
       '': 'const AndroidPointerProperties({required int id, required int toolType})',
@@ -15910,9 +15967,9 @@ BridgedClass _createAndroidPointerPropertiesBridge() {
 
 BridgedClass _createAndroidPointerCoordsBridge() {
   return BridgedClass(
-    nativeType: $flutter_33.AndroidPointerCoords,
+    nativeType: $flutter_34.AndroidPointerCoords,
     name: 'AndroidPointerCoords',
-    isAssignable: (v) => v is $flutter_33.AndroidPointerCoords,
+    isAssignable: (v) => v is $flutter_34.AndroidPointerCoords,
     constructors: {
       '': (visitor, positional, named) {
         final orientation = D4.getRequiredNamedArg<double>(
@@ -15960,7 +16017,7 @@ BridgedClass _createAndroidPointerCoordsBridge() {
           'y',
           'AndroidPointerCoords',
         );
-        return $flutter_33.AndroidPointerCoords(
+        return $flutter_34.AndroidPointerCoords(
           orientation: orientation,
           pressure: pressure,
           size: size,
@@ -15975,55 +16032,55 @@ BridgedClass _createAndroidPointerCoordsBridge() {
     },
     getters: {
       'orientation': (visitor, target) => D4
-          .validateTarget<$flutter_33.AndroidPointerCoords>(
+          .validateTarget<$flutter_34.AndroidPointerCoords>(
             target,
             'AndroidPointerCoords',
           )
           .orientation,
       'pressure': (visitor, target) => D4
-          .validateTarget<$flutter_33.AndroidPointerCoords>(
+          .validateTarget<$flutter_34.AndroidPointerCoords>(
             target,
             'AndroidPointerCoords',
           )
           .pressure,
       'size': (visitor, target) => D4
-          .validateTarget<$flutter_33.AndroidPointerCoords>(
+          .validateTarget<$flutter_34.AndroidPointerCoords>(
             target,
             'AndroidPointerCoords',
           )
           .size,
       'toolMajor': (visitor, target) => D4
-          .validateTarget<$flutter_33.AndroidPointerCoords>(
+          .validateTarget<$flutter_34.AndroidPointerCoords>(
             target,
             'AndroidPointerCoords',
           )
           .toolMajor,
       'toolMinor': (visitor, target) => D4
-          .validateTarget<$flutter_33.AndroidPointerCoords>(
+          .validateTarget<$flutter_34.AndroidPointerCoords>(
             target,
             'AndroidPointerCoords',
           )
           .toolMinor,
       'touchMajor': (visitor, target) => D4
-          .validateTarget<$flutter_33.AndroidPointerCoords>(
+          .validateTarget<$flutter_34.AndroidPointerCoords>(
             target,
             'AndroidPointerCoords',
           )
           .touchMajor,
       'touchMinor': (visitor, target) => D4
-          .validateTarget<$flutter_33.AndroidPointerCoords>(
+          .validateTarget<$flutter_34.AndroidPointerCoords>(
             target,
             'AndroidPointerCoords',
           )
           .touchMinor,
       'x': (visitor, target) => D4
-          .validateTarget<$flutter_33.AndroidPointerCoords>(
+          .validateTarget<$flutter_34.AndroidPointerCoords>(
             target,
             'AndroidPointerCoords',
           )
           .x,
       'y': (visitor, target) => D4
-          .validateTarget<$flutter_33.AndroidPointerCoords>(
+          .validateTarget<$flutter_34.AndroidPointerCoords>(
             target,
             'AndroidPointerCoords',
           )
@@ -16031,7 +16088,7 @@ BridgedClass _createAndroidPointerCoordsBridge() {
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.AndroidPointerCoords>(
+        final t = D4.validateTarget<$flutter_34.AndroidPointerCoords>(
           target,
           'AndroidPointerCoords',
         );
@@ -16062,9 +16119,9 @@ BridgedClass _createAndroidPointerCoordsBridge() {
 
 BridgedClass _createAndroidMotionEventBridge() {
   return BridgedClass(
-    nativeType: $flutter_33.AndroidMotionEvent,
+    nativeType: $flutter_34.AndroidMotionEvent,
     name: 'AndroidMotionEvent',
-    isAssignable: (v) => v is $flutter_33.AndroidMotionEvent,
+    isAssignable: (v) => v is $flutter_34.AndroidMotionEvent,
     constructors: {
       '': (visitor, positional, named) {
         final downTime = D4.getRequiredNamedArg<int>(
@@ -16094,7 +16151,7 @@ BridgedClass _createAndroidMotionEventBridge() {
           );
         }
         final pointerProperties = D4
-            .coerceList<$flutter_33.AndroidPointerProperties>(
+            .coerceList<$flutter_34.AndroidPointerProperties>(
               named['pointerProperties'],
               'pointerProperties',
             );
@@ -16104,7 +16161,7 @@ BridgedClass _createAndroidMotionEventBridge() {
             'AndroidMotionEvent: Missing required named argument "pointerCoords"',
           );
         }
-        final pointerCoords = D4.coerceList<$flutter_33.AndroidPointerCoords>(
+        final pointerCoords = D4.coerceList<$flutter_34.AndroidPointerCoords>(
           named['pointerCoords'],
           'pointerCoords',
         );
@@ -16153,7 +16210,7 @@ BridgedClass _createAndroidMotionEventBridge() {
           'motionEventId',
           'AndroidMotionEvent',
         );
-        return $flutter_33.AndroidMotionEvent(
+        return $flutter_34.AndroidMotionEvent(
           downTime: downTime,
           eventTime: eventTime,
           action: action,
@@ -16174,91 +16231,91 @@ BridgedClass _createAndroidMotionEventBridge() {
     },
     getters: {
       'downTime': (visitor, target) => D4
-          .validateTarget<$flutter_33.AndroidMotionEvent>(
+          .validateTarget<$flutter_34.AndroidMotionEvent>(
             target,
             'AndroidMotionEvent',
           )
           .downTime,
       'eventTime': (visitor, target) => D4
-          .validateTarget<$flutter_33.AndroidMotionEvent>(
+          .validateTarget<$flutter_34.AndroidMotionEvent>(
             target,
             'AndroidMotionEvent',
           )
           .eventTime,
       'action': (visitor, target) => D4
-          .validateTarget<$flutter_33.AndroidMotionEvent>(
+          .validateTarget<$flutter_34.AndroidMotionEvent>(
             target,
             'AndroidMotionEvent',
           )
           .action,
       'pointerCount': (visitor, target) => D4
-          .validateTarget<$flutter_33.AndroidMotionEvent>(
+          .validateTarget<$flutter_34.AndroidMotionEvent>(
             target,
             'AndroidMotionEvent',
           )
           .pointerCount,
       'pointerProperties': (visitor, target) => D4
-          .validateTarget<$flutter_33.AndroidMotionEvent>(
+          .validateTarget<$flutter_34.AndroidMotionEvent>(
             target,
             'AndroidMotionEvent',
           )
           .pointerProperties,
       'pointerCoords': (visitor, target) => D4
-          .validateTarget<$flutter_33.AndroidMotionEvent>(
+          .validateTarget<$flutter_34.AndroidMotionEvent>(
             target,
             'AndroidMotionEvent',
           )
           .pointerCoords,
       'metaState': (visitor, target) => D4
-          .validateTarget<$flutter_33.AndroidMotionEvent>(
+          .validateTarget<$flutter_34.AndroidMotionEvent>(
             target,
             'AndroidMotionEvent',
           )
           .metaState,
       'buttonState': (visitor, target) => D4
-          .validateTarget<$flutter_33.AndroidMotionEvent>(
+          .validateTarget<$flutter_34.AndroidMotionEvent>(
             target,
             'AndroidMotionEvent',
           )
           .buttonState,
       'xPrecision': (visitor, target) => D4
-          .validateTarget<$flutter_33.AndroidMotionEvent>(
+          .validateTarget<$flutter_34.AndroidMotionEvent>(
             target,
             'AndroidMotionEvent',
           )
           .xPrecision,
       'yPrecision': (visitor, target) => D4
-          .validateTarget<$flutter_33.AndroidMotionEvent>(
+          .validateTarget<$flutter_34.AndroidMotionEvent>(
             target,
             'AndroidMotionEvent',
           )
           .yPrecision,
       'deviceId': (visitor, target) => D4
-          .validateTarget<$flutter_33.AndroidMotionEvent>(
+          .validateTarget<$flutter_34.AndroidMotionEvent>(
             target,
             'AndroidMotionEvent',
           )
           .deviceId,
       'edgeFlags': (visitor, target) => D4
-          .validateTarget<$flutter_33.AndroidMotionEvent>(
+          .validateTarget<$flutter_34.AndroidMotionEvent>(
             target,
             'AndroidMotionEvent',
           )
           .edgeFlags,
       'source': (visitor, target) => D4
-          .validateTarget<$flutter_33.AndroidMotionEvent>(
+          .validateTarget<$flutter_34.AndroidMotionEvent>(
             target,
             'AndroidMotionEvent',
           )
           .source,
       'flags': (visitor, target) => D4
-          .validateTarget<$flutter_33.AndroidMotionEvent>(
+          .validateTarget<$flutter_34.AndroidMotionEvent>(
             target,
             'AndroidMotionEvent',
           )
           .flags,
       'motionEventId': (visitor, target) => D4
-          .validateTarget<$flutter_33.AndroidMotionEvent>(
+          .validateTarget<$flutter_34.AndroidMotionEvent>(
             target,
             'AndroidMotionEvent',
           )
@@ -16266,7 +16323,7 @@ BridgedClass _createAndroidMotionEventBridge() {
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.AndroidMotionEvent>(
+        final t = D4.validateTarget<$flutter_34.AndroidMotionEvent>(
           target,
           'AndroidMotionEvent',
         );
@@ -16304,51 +16361,51 @@ BridgedClass _createAndroidMotionEventBridge() {
 
 BridgedClass _createAndroidViewControllerBridge() {
   return BridgedClass(
-    nativeType: $flutter_33.AndroidViewController,
+    nativeType: $flutter_34.AndroidViewController,
     name: 'AndroidViewController',
-    isAssignable: (v) => v is $flutter_33.AndroidViewController,
+    isAssignable: (v) => v is $flutter_34.AndroidViewController,
     hierarchyDepth: 1,
     isAbstract: true,
     constructors: {},
     getters: {
       'viewId': (visitor, target) => D4
-          .validateTarget<$flutter_33.AndroidViewController>(
+          .validateTarget<$flutter_34.AndroidViewController>(
             target,
             'AndroidViewController',
           )
           .viewId,
       'awaitingCreation': (visitor, target) => D4
-          .validateTarget<$flutter_33.AndroidViewController>(
+          .validateTarget<$flutter_34.AndroidViewController>(
             target,
             'AndroidViewController',
           )
           .awaitingCreation,
       'textureId': (visitor, target) => D4
-          .validateTarget<$flutter_33.AndroidViewController>(
+          .validateTarget<$flutter_34.AndroidViewController>(
             target,
             'AndroidViewController',
           )
           .textureId,
       'requiresViewComposition': (visitor, target) => D4
-          .validateTarget<$flutter_33.AndroidViewController>(
+          .validateTarget<$flutter_34.AndroidViewController>(
             target,
             'AndroidViewController',
           )
           .requiresViewComposition,
       'pointTransformer': (visitor, target) => D4
-          .validateTarget<$flutter_33.AndroidViewController>(
+          .validateTarget<$flutter_34.AndroidViewController>(
             target,
             'AndroidViewController',
           )
           .pointTransformer,
       'isCreated': (visitor, target) => D4
-          .validateTarget<$flutter_33.AndroidViewController>(
+          .validateTarget<$flutter_34.AndroidViewController>(
             target,
             'AndroidViewController',
           )
           .isCreated,
       'createdCallbacks': (visitor, target) => D4
-          .validateTarget<$flutter_33.AndroidViewController>(
+          .validateTarget<$flutter_34.AndroidViewController>(
             target,
             'AndroidViewController',
           )
@@ -16361,7 +16418,7 @@ BridgedClass _createAndroidViewControllerBridge() {
           'pointTransformer',
         );
         D4
-                .validateTarget<$flutter_33.AndroidViewController>(
+                .validateTarget<$flutter_34.AndroidViewController>(
                   target,
                   'AndroidViewController',
                 )
@@ -16383,7 +16440,7 @@ BridgedClass _createAndroidViewControllerBridge() {
     },
     methods: {
       'dispatchPointerEvent': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.AndroidViewController>(
+        final t = D4.validateTarget<$flutter_34.AndroidViewController>(
           target,
           'AndroidViewController',
         );
@@ -16397,7 +16454,7 @@ BridgedClass _createAndroidViewControllerBridge() {
         return t.dispatchPointerEvent(event);
       },
       'create': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.AndroidViewController>(
+        final t = D4.validateTarget<$flutter_34.AndroidViewController>(
           target,
           'AndroidViewController',
         );
@@ -16406,21 +16463,21 @@ BridgedClass _createAndroidViewControllerBridge() {
         return t.create(size: size, position: position);
       },
       'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.AndroidViewController>(
+        final t = D4.validateTarget<$flutter_34.AndroidViewController>(
           target,
           'AndroidViewController',
         );
         return (t as dynamic).dispose();
       },
       'clearFocus': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.AndroidViewController>(
+        final t = D4.validateTarget<$flutter_34.AndroidViewController>(
           target,
           'AndroidViewController',
         );
         return t.clearFocus();
       },
       'setSize': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.AndroidViewController>(
+        final t = D4.validateTarget<$flutter_34.AndroidViewController>(
           target,
           'AndroidViewController',
         );
@@ -16429,7 +16486,7 @@ BridgedClass _createAndroidViewControllerBridge() {
         return t.setSize(size);
       },
       'setOffset': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.AndroidViewController>(
+        final t = D4.validateTarget<$flutter_34.AndroidViewController>(
           target,
           'AndroidViewController',
         );
@@ -16443,12 +16500,12 @@ BridgedClass _createAndroidViewControllerBridge() {
         return t.setOffset(off);
       },
       'sendMotionEvent': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.AndroidViewController>(
+        final t = D4.validateTarget<$flutter_34.AndroidViewController>(
           target,
           'AndroidViewController',
         );
         D4.requireMinArgs(positional, 1, 'sendMotionEvent');
-        final event = D4.getRequiredArg<$flutter_33.AndroidMotionEvent>(
+        final event = D4.getRequiredArg<$flutter_34.AndroidMotionEvent>(
           positional,
           0,
           'event',
@@ -16458,7 +16515,7 @@ BridgedClass _createAndroidViewControllerBridge() {
       },
       'addOnPlatformViewCreatedListener':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$flutter_33.AndroidViewController>(
+            final t = D4.validateTarget<$flutter_34.AndroidViewController>(
               target,
               'AndroidViewController',
             );
@@ -16480,7 +16537,7 @@ BridgedClass _createAndroidViewControllerBridge() {
           },
       'removeOnPlatformViewCreatedListener':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$flutter_33.AndroidViewController>(
+            final t = D4.validateTarget<$flutter_34.AndroidViewController>(
               target,
               'AndroidViewController',
             );
@@ -16501,7 +16558,7 @@ BridgedClass _createAndroidViewControllerBridge() {
             return null;
           },
       'setLayoutDirection': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.AndroidViewController>(
+        final t = D4.validateTarget<$flutter_34.AndroidViewController>(
           target,
           'AndroidViewController',
         );
@@ -16516,29 +16573,29 @@ BridgedClass _createAndroidViewControllerBridge() {
       },
     },
     staticGetters: {
-      'kActionDown': (visitor) => $flutter_33.AndroidViewController.kActionDown,
-      'kActionUp': (visitor) => $flutter_33.AndroidViewController.kActionUp,
-      'kActionMove': (visitor) => $flutter_33.AndroidViewController.kActionMove,
+      'kActionDown': (visitor) => $flutter_34.AndroidViewController.kActionDown,
+      'kActionUp': (visitor) => $flutter_34.AndroidViewController.kActionUp,
+      'kActionMove': (visitor) => $flutter_34.AndroidViewController.kActionMove,
       'kActionCancel': (visitor) =>
-          $flutter_33.AndroidViewController.kActionCancel,
+          $flutter_34.AndroidViewController.kActionCancel,
       'kActionPointerDown': (visitor) =>
-          $flutter_33.AndroidViewController.kActionPointerDown,
+          $flutter_34.AndroidViewController.kActionPointerDown,
       'kActionPointerUp': (visitor) =>
-          $flutter_33.AndroidViewController.kActionPointerUp,
+          $flutter_34.AndroidViewController.kActionPointerUp,
       'kAndroidLayoutDirectionLtr': (visitor) =>
-          $flutter_33.AndroidViewController.kAndroidLayoutDirectionLtr,
+          $flutter_34.AndroidViewController.kAndroidLayoutDirectionLtr,
       'kAndroidLayoutDirectionRtl': (visitor) =>
-          $flutter_33.AndroidViewController.kAndroidLayoutDirectionRtl,
+          $flutter_34.AndroidViewController.kAndroidLayoutDirectionRtl,
       'kInputDeviceSourceUnknown': (visitor) =>
-          $flutter_33.AndroidViewController.kInputDeviceSourceUnknown,
+          $flutter_34.AndroidViewController.kInputDeviceSourceUnknown,
       'kInputDeviceSourceTouchScreen': (visitor) =>
-          $flutter_33.AndroidViewController.kInputDeviceSourceTouchScreen,
+          $flutter_34.AndroidViewController.kInputDeviceSourceTouchScreen,
       'kInputDeviceSourceMouse': (visitor) =>
-          $flutter_33.AndroidViewController.kInputDeviceSourceMouse,
+          $flutter_34.AndroidViewController.kInputDeviceSourceMouse,
       'kInputDeviceSourceStylus': (visitor) =>
-          $flutter_33.AndroidViewController.kInputDeviceSourceStylus,
+          $flutter_34.AndroidViewController.kInputDeviceSourceStylus,
       'kInputDeviceSourceTouchPad': (visitor) =>
-          $flutter_33.AndroidViewController.kInputDeviceSourceTouchPad,
+          $flutter_34.AndroidViewController.kInputDeviceSourceTouchPad,
     },
     staticMethods: {
       'pointerAction': (visitor, positional, named, typeArgs) {
@@ -16555,7 +16612,7 @@ BridgedClass _createAndroidViewControllerBridge() {
           'action',
           'pointerAction',
         );
-        return $flutter_33.AndroidViewController.pointerAction(
+        return $flutter_34.AndroidViewController.pointerAction(
           pointerId,
           action,
         );
@@ -16618,50 +16675,50 @@ BridgedClass _createAndroidViewControllerBridge() {
 
 BridgedClass _createSurfaceAndroidViewControllerBridge() {
   return BridgedClass(
-    nativeType: $flutter_33.SurfaceAndroidViewController,
+    nativeType: $flutter_34.SurfaceAndroidViewController,
     name: 'SurfaceAndroidViewController',
-    isAssignable: (v) => v is $flutter_33.SurfaceAndroidViewController,
+    isAssignable: (v) => v is $flutter_34.SurfaceAndroidViewController,
     hierarchyDepth: 2,
     constructors: {},
     getters: {
       'viewId': (visitor, target) => D4
-          .validateTarget<$flutter_33.SurfaceAndroidViewController>(
+          .validateTarget<$flutter_34.SurfaceAndroidViewController>(
             target,
             'SurfaceAndroidViewController',
           )
           .viewId,
       'awaitingCreation': (visitor, target) => D4
-          .validateTarget<$flutter_33.SurfaceAndroidViewController>(
+          .validateTarget<$flutter_34.SurfaceAndroidViewController>(
             target,
             'SurfaceAndroidViewController',
           )
           .awaitingCreation,
       'textureId': (visitor, target) => D4
-          .validateTarget<$flutter_33.SurfaceAndroidViewController>(
+          .validateTarget<$flutter_34.SurfaceAndroidViewController>(
             target,
             'SurfaceAndroidViewController',
           )
           .textureId,
       'requiresViewComposition': (visitor, target) => D4
-          .validateTarget<$flutter_33.SurfaceAndroidViewController>(
+          .validateTarget<$flutter_34.SurfaceAndroidViewController>(
             target,
             'SurfaceAndroidViewController',
           )
           .requiresViewComposition,
       'pointTransformer': (visitor, target) => D4
-          .validateTarget<$flutter_33.SurfaceAndroidViewController>(
+          .validateTarget<$flutter_34.SurfaceAndroidViewController>(
             target,
             'SurfaceAndroidViewController',
           )
           .pointTransformer,
       'isCreated': (visitor, target) => D4
-          .validateTarget<$flutter_33.SurfaceAndroidViewController>(
+          .validateTarget<$flutter_34.SurfaceAndroidViewController>(
             target,
             'SurfaceAndroidViewController',
           )
           .isCreated,
       'createdCallbacks': (visitor, target) => D4
-          .validateTarget<$flutter_33.SurfaceAndroidViewController>(
+          .validateTarget<$flutter_34.SurfaceAndroidViewController>(
             target,
             'SurfaceAndroidViewController',
           )
@@ -16674,7 +16731,7 @@ BridgedClass _createSurfaceAndroidViewControllerBridge() {
           'pointTransformer',
         );
         D4
-                .validateTarget<$flutter_33.SurfaceAndroidViewController>(
+                .validateTarget<$flutter_34.SurfaceAndroidViewController>(
                   target,
                   'SurfaceAndroidViewController',
                 )
@@ -16696,7 +16753,7 @@ BridgedClass _createSurfaceAndroidViewControllerBridge() {
     },
     methods: {
       'dispatchPointerEvent': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.SurfaceAndroidViewController>(
+        final t = D4.validateTarget<$flutter_34.SurfaceAndroidViewController>(
           target,
           'SurfaceAndroidViewController',
         );
@@ -16710,7 +16767,7 @@ BridgedClass _createSurfaceAndroidViewControllerBridge() {
         return t.dispatchPointerEvent(event);
       },
       'create': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.SurfaceAndroidViewController>(
+        final t = D4.validateTarget<$flutter_34.SurfaceAndroidViewController>(
           target,
           'SurfaceAndroidViewController',
         );
@@ -16719,21 +16776,21 @@ BridgedClass _createSurfaceAndroidViewControllerBridge() {
         return t.create(size: size, position: position);
       },
       'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.SurfaceAndroidViewController>(
+        final t = D4.validateTarget<$flutter_34.SurfaceAndroidViewController>(
           target,
           'SurfaceAndroidViewController',
         );
         return (t as dynamic).dispose();
       },
       'clearFocus': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.SurfaceAndroidViewController>(
+        final t = D4.validateTarget<$flutter_34.SurfaceAndroidViewController>(
           target,
           'SurfaceAndroidViewController',
         );
         return t.clearFocus();
       },
       'setSize': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.SurfaceAndroidViewController>(
+        final t = D4.validateTarget<$flutter_34.SurfaceAndroidViewController>(
           target,
           'SurfaceAndroidViewController',
         );
@@ -16742,7 +16799,7 @@ BridgedClass _createSurfaceAndroidViewControllerBridge() {
         return t.setSize(size);
       },
       'setOffset': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.SurfaceAndroidViewController>(
+        final t = D4.validateTarget<$flutter_34.SurfaceAndroidViewController>(
           target,
           'SurfaceAndroidViewController',
         );
@@ -16756,12 +16813,12 @@ BridgedClass _createSurfaceAndroidViewControllerBridge() {
         return t.setOffset(off);
       },
       'sendMotionEvent': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.SurfaceAndroidViewController>(
+        final t = D4.validateTarget<$flutter_34.SurfaceAndroidViewController>(
           target,
           'SurfaceAndroidViewController',
         );
         D4.requireMinArgs(positional, 1, 'sendMotionEvent');
-        final event = D4.getRequiredArg<$flutter_33.AndroidMotionEvent>(
+        final event = D4.getRequiredArg<$flutter_34.AndroidMotionEvent>(
           positional,
           0,
           'event',
@@ -16772,7 +16829,7 @@ BridgedClass _createSurfaceAndroidViewControllerBridge() {
       'addOnPlatformViewCreatedListener':
           (visitor, target, positional, named, typeArgs) {
             final t = D4
-                .validateTarget<$flutter_33.SurfaceAndroidViewController>(
+                .validateTarget<$flutter_34.SurfaceAndroidViewController>(
                   target,
                   'SurfaceAndroidViewController',
                 );
@@ -16795,7 +16852,7 @@ BridgedClass _createSurfaceAndroidViewControllerBridge() {
       'removeOnPlatformViewCreatedListener':
           (visitor, target, positional, named, typeArgs) {
             final t = D4
-                .validateTarget<$flutter_33.SurfaceAndroidViewController>(
+                .validateTarget<$flutter_34.SurfaceAndroidViewController>(
                   target,
                   'SurfaceAndroidViewController',
                 );
@@ -16816,7 +16873,7 @@ BridgedClass _createSurfaceAndroidViewControllerBridge() {
             return null;
           },
       'setLayoutDirection': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.SurfaceAndroidViewController>(
+        final t = D4.validateTarget<$flutter_34.SurfaceAndroidViewController>(
           target,
           'SurfaceAndroidViewController',
         );
@@ -16869,50 +16926,50 @@ BridgedClass _createSurfaceAndroidViewControllerBridge() {
 
 BridgedClass _createExpensiveAndroidViewControllerBridge() {
   return BridgedClass(
-    nativeType: $flutter_33.ExpensiveAndroidViewController,
+    nativeType: $flutter_34.ExpensiveAndroidViewController,
     name: 'ExpensiveAndroidViewController',
-    isAssignable: (v) => v is $flutter_33.ExpensiveAndroidViewController,
+    isAssignable: (v) => v is $flutter_34.ExpensiveAndroidViewController,
     hierarchyDepth: 2,
     constructors: {},
     getters: {
       'viewId': (visitor, target) => D4
-          .validateTarget<$flutter_33.ExpensiveAndroidViewController>(
+          .validateTarget<$flutter_34.ExpensiveAndroidViewController>(
             target,
             'ExpensiveAndroidViewController',
           )
           .viewId,
       'awaitingCreation': (visitor, target) => D4
-          .validateTarget<$flutter_33.ExpensiveAndroidViewController>(
+          .validateTarget<$flutter_34.ExpensiveAndroidViewController>(
             target,
             'ExpensiveAndroidViewController',
           )
           .awaitingCreation,
       'textureId': (visitor, target) => D4
-          .validateTarget<$flutter_33.ExpensiveAndroidViewController>(
+          .validateTarget<$flutter_34.ExpensiveAndroidViewController>(
             target,
             'ExpensiveAndroidViewController',
           )
           .textureId,
       'requiresViewComposition': (visitor, target) => D4
-          .validateTarget<$flutter_33.ExpensiveAndroidViewController>(
+          .validateTarget<$flutter_34.ExpensiveAndroidViewController>(
             target,
             'ExpensiveAndroidViewController',
           )
           .requiresViewComposition,
       'pointTransformer': (visitor, target) => D4
-          .validateTarget<$flutter_33.ExpensiveAndroidViewController>(
+          .validateTarget<$flutter_34.ExpensiveAndroidViewController>(
             target,
             'ExpensiveAndroidViewController',
           )
           .pointTransformer,
       'isCreated': (visitor, target) => D4
-          .validateTarget<$flutter_33.ExpensiveAndroidViewController>(
+          .validateTarget<$flutter_34.ExpensiveAndroidViewController>(
             target,
             'ExpensiveAndroidViewController',
           )
           .isCreated,
       'createdCallbacks': (visitor, target) => D4
-          .validateTarget<$flutter_33.ExpensiveAndroidViewController>(
+          .validateTarget<$flutter_34.ExpensiveAndroidViewController>(
             target,
             'ExpensiveAndroidViewController',
           )
@@ -16925,7 +16982,7 @@ BridgedClass _createExpensiveAndroidViewControllerBridge() {
           'pointTransformer',
         );
         D4
-                .validateTarget<$flutter_33.ExpensiveAndroidViewController>(
+                .validateTarget<$flutter_34.ExpensiveAndroidViewController>(
                   target,
                   'ExpensiveAndroidViewController',
                 )
@@ -16947,7 +17004,7 @@ BridgedClass _createExpensiveAndroidViewControllerBridge() {
     },
     methods: {
       'dispatchPointerEvent': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.ExpensiveAndroidViewController>(
+        final t = D4.validateTarget<$flutter_34.ExpensiveAndroidViewController>(
           target,
           'ExpensiveAndroidViewController',
         );
@@ -16961,7 +17018,7 @@ BridgedClass _createExpensiveAndroidViewControllerBridge() {
         return t.dispatchPointerEvent(event);
       },
       'create': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.ExpensiveAndroidViewController>(
+        final t = D4.validateTarget<$flutter_34.ExpensiveAndroidViewController>(
           target,
           'ExpensiveAndroidViewController',
         );
@@ -16970,21 +17027,21 @@ BridgedClass _createExpensiveAndroidViewControllerBridge() {
         return t.create(size: size, position: position);
       },
       'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.ExpensiveAndroidViewController>(
+        final t = D4.validateTarget<$flutter_34.ExpensiveAndroidViewController>(
           target,
           'ExpensiveAndroidViewController',
         );
         return (t as dynamic).dispose();
       },
       'clearFocus': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.ExpensiveAndroidViewController>(
+        final t = D4.validateTarget<$flutter_34.ExpensiveAndroidViewController>(
           target,
           'ExpensiveAndroidViewController',
         );
         return t.clearFocus();
       },
       'setSize': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.ExpensiveAndroidViewController>(
+        final t = D4.validateTarget<$flutter_34.ExpensiveAndroidViewController>(
           target,
           'ExpensiveAndroidViewController',
         );
@@ -16993,7 +17050,7 @@ BridgedClass _createExpensiveAndroidViewControllerBridge() {
         return t.setSize(size);
       },
       'setOffset': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.ExpensiveAndroidViewController>(
+        final t = D4.validateTarget<$flutter_34.ExpensiveAndroidViewController>(
           target,
           'ExpensiveAndroidViewController',
         );
@@ -17007,12 +17064,12 @@ BridgedClass _createExpensiveAndroidViewControllerBridge() {
         return t.setOffset(off);
       },
       'sendMotionEvent': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.ExpensiveAndroidViewController>(
+        final t = D4.validateTarget<$flutter_34.ExpensiveAndroidViewController>(
           target,
           'ExpensiveAndroidViewController',
         );
         D4.requireMinArgs(positional, 1, 'sendMotionEvent');
-        final event = D4.getRequiredArg<$flutter_33.AndroidMotionEvent>(
+        final event = D4.getRequiredArg<$flutter_34.AndroidMotionEvent>(
           positional,
           0,
           'event',
@@ -17023,7 +17080,7 @@ BridgedClass _createExpensiveAndroidViewControllerBridge() {
       'addOnPlatformViewCreatedListener':
           (visitor, target, positional, named, typeArgs) {
             final t = D4
-                .validateTarget<$flutter_33.ExpensiveAndroidViewController>(
+                .validateTarget<$flutter_34.ExpensiveAndroidViewController>(
                   target,
                   'ExpensiveAndroidViewController',
                 );
@@ -17046,7 +17103,7 @@ BridgedClass _createExpensiveAndroidViewControllerBridge() {
       'removeOnPlatformViewCreatedListener':
           (visitor, target, positional, named, typeArgs) {
             final t = D4
-                .validateTarget<$flutter_33.ExpensiveAndroidViewController>(
+                .validateTarget<$flutter_34.ExpensiveAndroidViewController>(
                   target,
                   'ExpensiveAndroidViewController',
                 );
@@ -17067,7 +17124,7 @@ BridgedClass _createExpensiveAndroidViewControllerBridge() {
             return null;
           },
       'setLayoutDirection': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.ExpensiveAndroidViewController>(
+        final t = D4.validateTarget<$flutter_34.ExpensiveAndroidViewController>(
           target,
           'ExpensiveAndroidViewController',
         );
@@ -17120,50 +17177,50 @@ BridgedClass _createExpensiveAndroidViewControllerBridge() {
 
 BridgedClass _createHybridAndroidViewControllerBridge() {
   return BridgedClass(
-    nativeType: $flutter_33.HybridAndroidViewController,
+    nativeType: $flutter_34.HybridAndroidViewController,
     name: 'HybridAndroidViewController',
-    isAssignable: (v) => v is $flutter_33.HybridAndroidViewController,
+    isAssignable: (v) => v is $flutter_34.HybridAndroidViewController,
     hierarchyDepth: 2,
     constructors: {},
     getters: {
       'viewId': (visitor, target) => D4
-          .validateTarget<$flutter_33.HybridAndroidViewController>(
+          .validateTarget<$flutter_34.HybridAndroidViewController>(
             target,
             'HybridAndroidViewController',
           )
           .viewId,
       'awaitingCreation': (visitor, target) => D4
-          .validateTarget<$flutter_33.HybridAndroidViewController>(
+          .validateTarget<$flutter_34.HybridAndroidViewController>(
             target,
             'HybridAndroidViewController',
           )
           .awaitingCreation,
       'textureId': (visitor, target) => D4
-          .validateTarget<$flutter_33.HybridAndroidViewController>(
+          .validateTarget<$flutter_34.HybridAndroidViewController>(
             target,
             'HybridAndroidViewController',
           )
           .textureId,
       'requiresViewComposition': (visitor, target) => D4
-          .validateTarget<$flutter_33.HybridAndroidViewController>(
+          .validateTarget<$flutter_34.HybridAndroidViewController>(
             target,
             'HybridAndroidViewController',
           )
           .requiresViewComposition,
       'pointTransformer': (visitor, target) => D4
-          .validateTarget<$flutter_33.HybridAndroidViewController>(
+          .validateTarget<$flutter_34.HybridAndroidViewController>(
             target,
             'HybridAndroidViewController',
           )
           .pointTransformer,
       'isCreated': (visitor, target) => D4
-          .validateTarget<$flutter_33.HybridAndroidViewController>(
+          .validateTarget<$flutter_34.HybridAndroidViewController>(
             target,
             'HybridAndroidViewController',
           )
           .isCreated,
       'createdCallbacks': (visitor, target) => D4
-          .validateTarget<$flutter_33.HybridAndroidViewController>(
+          .validateTarget<$flutter_34.HybridAndroidViewController>(
             target,
             'HybridAndroidViewController',
           )
@@ -17176,7 +17233,7 @@ BridgedClass _createHybridAndroidViewControllerBridge() {
           'pointTransformer',
         );
         D4
-                .validateTarget<$flutter_33.HybridAndroidViewController>(
+                .validateTarget<$flutter_34.HybridAndroidViewController>(
                   target,
                   'HybridAndroidViewController',
                 )
@@ -17198,7 +17255,7 @@ BridgedClass _createHybridAndroidViewControllerBridge() {
     },
     methods: {
       'dispatchPointerEvent': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.HybridAndroidViewController>(
+        final t = D4.validateTarget<$flutter_34.HybridAndroidViewController>(
           target,
           'HybridAndroidViewController',
         );
@@ -17212,7 +17269,7 @@ BridgedClass _createHybridAndroidViewControllerBridge() {
         return t.dispatchPointerEvent(event);
       },
       'create': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.HybridAndroidViewController>(
+        final t = D4.validateTarget<$flutter_34.HybridAndroidViewController>(
           target,
           'HybridAndroidViewController',
         );
@@ -17221,21 +17278,21 @@ BridgedClass _createHybridAndroidViewControllerBridge() {
         return t.create(size: size, position: position);
       },
       'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.HybridAndroidViewController>(
+        final t = D4.validateTarget<$flutter_34.HybridAndroidViewController>(
           target,
           'HybridAndroidViewController',
         );
         return (t as dynamic).dispose();
       },
       'clearFocus': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.HybridAndroidViewController>(
+        final t = D4.validateTarget<$flutter_34.HybridAndroidViewController>(
           target,
           'HybridAndroidViewController',
         );
         return t.clearFocus();
       },
       'setSize': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.HybridAndroidViewController>(
+        final t = D4.validateTarget<$flutter_34.HybridAndroidViewController>(
           target,
           'HybridAndroidViewController',
         );
@@ -17244,7 +17301,7 @@ BridgedClass _createHybridAndroidViewControllerBridge() {
         return t.setSize(size);
       },
       'setOffset': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.HybridAndroidViewController>(
+        final t = D4.validateTarget<$flutter_34.HybridAndroidViewController>(
           target,
           'HybridAndroidViewController',
         );
@@ -17258,12 +17315,12 @@ BridgedClass _createHybridAndroidViewControllerBridge() {
         return t.setOffset(off);
       },
       'sendMotionEvent': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.HybridAndroidViewController>(
+        final t = D4.validateTarget<$flutter_34.HybridAndroidViewController>(
           target,
           'HybridAndroidViewController',
         );
         D4.requireMinArgs(positional, 1, 'sendMotionEvent');
-        final event = D4.getRequiredArg<$flutter_33.AndroidMotionEvent>(
+        final event = D4.getRequiredArg<$flutter_34.AndroidMotionEvent>(
           positional,
           0,
           'event',
@@ -17274,7 +17331,7 @@ BridgedClass _createHybridAndroidViewControllerBridge() {
       'addOnPlatformViewCreatedListener':
           (visitor, target, positional, named, typeArgs) {
             final t = D4
-                .validateTarget<$flutter_33.HybridAndroidViewController>(
+                .validateTarget<$flutter_34.HybridAndroidViewController>(
                   target,
                   'HybridAndroidViewController',
                 );
@@ -17297,7 +17354,7 @@ BridgedClass _createHybridAndroidViewControllerBridge() {
       'removeOnPlatformViewCreatedListener':
           (visitor, target, positional, named, typeArgs) {
             final t = D4
-                .validateTarget<$flutter_33.HybridAndroidViewController>(
+                .validateTarget<$flutter_34.HybridAndroidViewController>(
                   target,
                   'HybridAndroidViewController',
                 );
@@ -17318,7 +17375,7 @@ BridgedClass _createHybridAndroidViewControllerBridge() {
             return null;
           },
       'setLayoutDirection': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.HybridAndroidViewController>(
+        final t = D4.validateTarget<$flutter_34.HybridAndroidViewController>(
           target,
           'HybridAndroidViewController',
         );
@@ -17334,7 +17391,7 @@ BridgedClass _createHybridAndroidViewControllerBridge() {
     },
     staticMethods: {
       'checkIfSupported': (visitor, positional, named, typeArgs) {
-        return $flutter_33.HybridAndroidViewController.checkIfSupported();
+        return $flutter_34.HybridAndroidViewController.checkIfSupported();
       },
     },
     methodSignatures: {
@@ -17379,50 +17436,50 @@ BridgedClass _createHybridAndroidViewControllerBridge() {
 
 BridgedClass _createTextureAndroidViewControllerBridge() {
   return BridgedClass(
-    nativeType: $flutter_33.TextureAndroidViewController,
+    nativeType: $flutter_34.TextureAndroidViewController,
     name: 'TextureAndroidViewController',
-    isAssignable: (v) => v is $flutter_33.TextureAndroidViewController,
+    isAssignable: (v) => v is $flutter_34.TextureAndroidViewController,
     hierarchyDepth: 2,
     constructors: {},
     getters: {
       'viewId': (visitor, target) => D4
-          .validateTarget<$flutter_33.TextureAndroidViewController>(
+          .validateTarget<$flutter_34.TextureAndroidViewController>(
             target,
             'TextureAndroidViewController',
           )
           .viewId,
       'awaitingCreation': (visitor, target) => D4
-          .validateTarget<$flutter_33.TextureAndroidViewController>(
+          .validateTarget<$flutter_34.TextureAndroidViewController>(
             target,
             'TextureAndroidViewController',
           )
           .awaitingCreation,
       'textureId': (visitor, target) => D4
-          .validateTarget<$flutter_33.TextureAndroidViewController>(
+          .validateTarget<$flutter_34.TextureAndroidViewController>(
             target,
             'TextureAndroidViewController',
           )
           .textureId,
       'requiresViewComposition': (visitor, target) => D4
-          .validateTarget<$flutter_33.TextureAndroidViewController>(
+          .validateTarget<$flutter_34.TextureAndroidViewController>(
             target,
             'TextureAndroidViewController',
           )
           .requiresViewComposition,
       'pointTransformer': (visitor, target) => D4
-          .validateTarget<$flutter_33.TextureAndroidViewController>(
+          .validateTarget<$flutter_34.TextureAndroidViewController>(
             target,
             'TextureAndroidViewController',
           )
           .pointTransformer,
       'isCreated': (visitor, target) => D4
-          .validateTarget<$flutter_33.TextureAndroidViewController>(
+          .validateTarget<$flutter_34.TextureAndroidViewController>(
             target,
             'TextureAndroidViewController',
           )
           .isCreated,
       'createdCallbacks': (visitor, target) => D4
-          .validateTarget<$flutter_33.TextureAndroidViewController>(
+          .validateTarget<$flutter_34.TextureAndroidViewController>(
             target,
             'TextureAndroidViewController',
           )
@@ -17435,7 +17492,7 @@ BridgedClass _createTextureAndroidViewControllerBridge() {
           'pointTransformer',
         );
         D4
-                .validateTarget<$flutter_33.TextureAndroidViewController>(
+                .validateTarget<$flutter_34.TextureAndroidViewController>(
                   target,
                   'TextureAndroidViewController',
                 )
@@ -17457,7 +17514,7 @@ BridgedClass _createTextureAndroidViewControllerBridge() {
     },
     methods: {
       'dispatchPointerEvent': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.TextureAndroidViewController>(
+        final t = D4.validateTarget<$flutter_34.TextureAndroidViewController>(
           target,
           'TextureAndroidViewController',
         );
@@ -17471,7 +17528,7 @@ BridgedClass _createTextureAndroidViewControllerBridge() {
         return t.dispatchPointerEvent(event);
       },
       'create': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.TextureAndroidViewController>(
+        final t = D4.validateTarget<$flutter_34.TextureAndroidViewController>(
           target,
           'TextureAndroidViewController',
         );
@@ -17480,21 +17537,21 @@ BridgedClass _createTextureAndroidViewControllerBridge() {
         return t.create(size: size, position: position);
       },
       'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.TextureAndroidViewController>(
+        final t = D4.validateTarget<$flutter_34.TextureAndroidViewController>(
           target,
           'TextureAndroidViewController',
         );
         return (t as dynamic).dispose();
       },
       'clearFocus': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.TextureAndroidViewController>(
+        final t = D4.validateTarget<$flutter_34.TextureAndroidViewController>(
           target,
           'TextureAndroidViewController',
         );
         return t.clearFocus();
       },
       'setSize': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.TextureAndroidViewController>(
+        final t = D4.validateTarget<$flutter_34.TextureAndroidViewController>(
           target,
           'TextureAndroidViewController',
         );
@@ -17503,7 +17560,7 @@ BridgedClass _createTextureAndroidViewControllerBridge() {
         return t.setSize(size);
       },
       'setOffset': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.TextureAndroidViewController>(
+        final t = D4.validateTarget<$flutter_34.TextureAndroidViewController>(
           target,
           'TextureAndroidViewController',
         );
@@ -17517,12 +17574,12 @@ BridgedClass _createTextureAndroidViewControllerBridge() {
         return t.setOffset(off);
       },
       'sendMotionEvent': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.TextureAndroidViewController>(
+        final t = D4.validateTarget<$flutter_34.TextureAndroidViewController>(
           target,
           'TextureAndroidViewController',
         );
         D4.requireMinArgs(positional, 1, 'sendMotionEvent');
-        final event = D4.getRequiredArg<$flutter_33.AndroidMotionEvent>(
+        final event = D4.getRequiredArg<$flutter_34.AndroidMotionEvent>(
           positional,
           0,
           'event',
@@ -17533,7 +17590,7 @@ BridgedClass _createTextureAndroidViewControllerBridge() {
       'addOnPlatformViewCreatedListener':
           (visitor, target, positional, named, typeArgs) {
             final t = D4
-                .validateTarget<$flutter_33.TextureAndroidViewController>(
+                .validateTarget<$flutter_34.TextureAndroidViewController>(
                   target,
                   'TextureAndroidViewController',
                 );
@@ -17556,7 +17613,7 @@ BridgedClass _createTextureAndroidViewControllerBridge() {
       'removeOnPlatformViewCreatedListener':
           (visitor, target, positional, named, typeArgs) {
             final t = D4
-                .validateTarget<$flutter_33.TextureAndroidViewController>(
+                .validateTarget<$flutter_34.TextureAndroidViewController>(
                   target,
                   'TextureAndroidViewController',
                 );
@@ -17577,7 +17634,7 @@ BridgedClass _createTextureAndroidViewControllerBridge() {
             return null;
           },
       'setLayoutDirection': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.TextureAndroidViewController>(
+        final t = D4.validateTarget<$flutter_34.TextureAndroidViewController>(
           target,
           'TextureAndroidViewController',
         );
@@ -17630,14 +17687,14 @@ BridgedClass _createTextureAndroidViewControllerBridge() {
 
 BridgedClass _createDarwinPlatformViewControllerBridge() {
   return BridgedClass(
-    nativeType: $flutter_33.DarwinPlatformViewController,
+    nativeType: $flutter_34.DarwinPlatformViewController,
     name: 'DarwinPlatformViewController',
-    isAssignable: (v) => v is $flutter_33.DarwinPlatformViewController,
+    isAssignable: (v) => v is $flutter_34.DarwinPlatformViewController,
     isAbstract: true,
     constructors: {},
     getters: {
       'id': (visitor, target) => D4
-          .validateTarget<$flutter_33.DarwinPlatformViewController>(
+          .validateTarget<$flutter_34.DarwinPlatformViewController>(
             target,
             'DarwinPlatformViewController',
           )
@@ -17645,7 +17702,7 @@ BridgedClass _createDarwinPlatformViewControllerBridge() {
     },
     methods: {
       'setLayoutDirection': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.DarwinPlatformViewController>(
+        final t = D4.validateTarget<$flutter_34.DarwinPlatformViewController>(
           target,
           'DarwinPlatformViewController',
         );
@@ -17659,21 +17716,21 @@ BridgedClass _createDarwinPlatformViewControllerBridge() {
         return t.setLayoutDirection(layoutDirection);
       },
       'acceptGesture': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.DarwinPlatformViewController>(
+        final t = D4.validateTarget<$flutter_34.DarwinPlatformViewController>(
           target,
           'DarwinPlatformViewController',
         );
         return t.acceptGesture();
       },
       'rejectGesture': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.DarwinPlatformViewController>(
+        final t = D4.validateTarget<$flutter_34.DarwinPlatformViewController>(
           target,
           'DarwinPlatformViewController',
         );
         return t.rejectGesture();
       },
       'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.DarwinPlatformViewController>(
+        final t = D4.validateTarget<$flutter_34.DarwinPlatformViewController>(
           target,
           'DarwinPlatformViewController',
         );
@@ -17697,14 +17754,14 @@ BridgedClass _createDarwinPlatformViewControllerBridge() {
 
 BridgedClass _createUiKitViewControllerBridge() {
   return BridgedClass(
-    nativeType: $flutter_33.UiKitViewController,
+    nativeType: $flutter_34.UiKitViewController,
     name: 'UiKitViewController',
-    isAssignable: (v) => v is $flutter_33.UiKitViewController,
+    isAssignable: (v) => v is $flutter_34.UiKitViewController,
     hierarchyDepth: 1,
     constructors: {},
     getters: {
       'id': (visitor, target) => D4
-          .validateTarget<$flutter_33.UiKitViewController>(
+          .validateTarget<$flutter_34.UiKitViewController>(
             target,
             'UiKitViewController',
           )
@@ -17712,7 +17769,7 @@ BridgedClass _createUiKitViewControllerBridge() {
     },
     methods: {
       'setLayoutDirection': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.UiKitViewController>(
+        final t = D4.validateTarget<$flutter_34.UiKitViewController>(
           target,
           'UiKitViewController',
         );
@@ -17726,21 +17783,21 @@ BridgedClass _createUiKitViewControllerBridge() {
         return t.setLayoutDirection(layoutDirection);
       },
       'acceptGesture': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.UiKitViewController>(
+        final t = D4.validateTarget<$flutter_34.UiKitViewController>(
           target,
           'UiKitViewController',
         );
         return t.acceptGesture();
       },
       'rejectGesture': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.UiKitViewController>(
+        final t = D4.validateTarget<$flutter_34.UiKitViewController>(
           target,
           'UiKitViewController',
         );
         return t.rejectGesture();
       },
       'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.UiKitViewController>(
+        final t = D4.validateTarget<$flutter_34.UiKitViewController>(
           target,
           'UiKitViewController',
         );
@@ -17764,14 +17821,14 @@ BridgedClass _createUiKitViewControllerBridge() {
 
 BridgedClass _createAppKitViewControllerBridge() {
   return BridgedClass(
-    nativeType: $flutter_33.AppKitViewController,
+    nativeType: $flutter_34.AppKitViewController,
     name: 'AppKitViewController',
-    isAssignable: (v) => v is $flutter_33.AppKitViewController,
+    isAssignable: (v) => v is $flutter_34.AppKitViewController,
     hierarchyDepth: 1,
     constructors: {},
     getters: {
       'id': (visitor, target) => D4
-          .validateTarget<$flutter_33.AppKitViewController>(
+          .validateTarget<$flutter_34.AppKitViewController>(
             target,
             'AppKitViewController',
           )
@@ -17779,7 +17836,7 @@ BridgedClass _createAppKitViewControllerBridge() {
     },
     methods: {
       'setLayoutDirection': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.AppKitViewController>(
+        final t = D4.validateTarget<$flutter_34.AppKitViewController>(
           target,
           'AppKitViewController',
         );
@@ -17793,21 +17850,21 @@ BridgedClass _createAppKitViewControllerBridge() {
         return t.setLayoutDirection(layoutDirection);
       },
       'acceptGesture': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.AppKitViewController>(
+        final t = D4.validateTarget<$flutter_34.AppKitViewController>(
           target,
           'AppKitViewController',
         );
         return t.acceptGesture();
       },
       'rejectGesture': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.AppKitViewController>(
+        final t = D4.validateTarget<$flutter_34.AppKitViewController>(
           target,
           'AppKitViewController',
         );
         return t.rejectGesture();
       },
       'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.AppKitViewController>(
+        final t = D4.validateTarget<$flutter_34.AppKitViewController>(
           target,
           'AppKitViewController',
         );
@@ -17831,20 +17888,20 @@ BridgedClass _createAppKitViewControllerBridge() {
 
 BridgedClass _createPlatformViewControllerBridge() {
   return BridgedClass(
-    nativeType: $flutter_33.PlatformViewController,
+    nativeType: $flutter_34.PlatformViewController,
     name: 'PlatformViewController',
-    isAssignable: (v) => v is $flutter_33.PlatformViewController,
+    isAssignable: (v) => v is $flutter_34.PlatformViewController,
     isAbstract: true,
     constructors: {},
     getters: {
       'viewId': (visitor, target) => D4
-          .validateTarget<$flutter_33.PlatformViewController>(
+          .validateTarget<$flutter_34.PlatformViewController>(
             target,
             'PlatformViewController',
           )
           .viewId,
       'awaitingCreation': (visitor, target) => D4
-          .validateTarget<$flutter_33.PlatformViewController>(
+          .validateTarget<$flutter_34.PlatformViewController>(
             target,
             'PlatformViewController',
           )
@@ -17852,7 +17909,7 @@ BridgedClass _createPlatformViewControllerBridge() {
     },
     methods: {
       'dispatchPointerEvent': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.PlatformViewController>(
+        final t = D4.validateTarget<$flutter_34.PlatformViewController>(
           target,
           'PlatformViewController',
         );
@@ -17866,7 +17923,7 @@ BridgedClass _createPlatformViewControllerBridge() {
         return t.dispatchPointerEvent(event);
       },
       'create': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.PlatformViewController>(
+        final t = D4.validateTarget<$flutter_34.PlatformViewController>(
           target,
           'PlatformViewController',
         );
@@ -17875,14 +17932,14 @@ BridgedClass _createPlatformViewControllerBridge() {
         return t.create(size: size, position: position);
       },
       'dispose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.PlatformViewController>(
+        final t = D4.validateTarget<$flutter_34.PlatformViewController>(
           target,
           'PlatformViewController',
         );
         return (t as dynamic).dispose();
       },
       'clearFocus': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_33.PlatformViewController>(
+        final t = D4.validateTarget<$flutter_34.PlatformViewController>(
           target,
           'PlatformViewController',
         );
@@ -17909,9 +17966,9 @@ BridgedClass _createPlatformViewControllerBridge() {
 
 BridgedClass _createPredictiveBackEventBridge() {
   return BridgedClass(
-    nativeType: $flutter_34.PredictiveBackEvent,
+    nativeType: $flutter_35.PredictiveBackEvent,
     name: 'PredictiveBackEvent',
-    isAssignable: (v) => v is $flutter_34.PredictiveBackEvent,
+    isAssignable: (v) => v is $flutter_35.PredictiveBackEvent,
     constructors: {
       'fromMap': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'PredictiveBackEvent');
@@ -17921,36 +17978,36 @@ BridgedClass _createPredictiveBackEventBridge() {
           );
         }
         final map = D4.coerceMap<String?, Object?>(positional[0], 'map');
-        return $flutter_34.PredictiveBackEvent.fromMap(map);
+        return $flutter_35.PredictiveBackEvent.fromMap(map);
       },
     },
     getters: {
       'touchOffset': (visitor, target) => D4
-          .validateTarget<$flutter_34.PredictiveBackEvent>(
+          .validateTarget<$flutter_35.PredictiveBackEvent>(
             target,
             'PredictiveBackEvent',
           )
           .touchOffset,
       'progress': (visitor, target) => D4
-          .validateTarget<$flutter_34.PredictiveBackEvent>(
+          .validateTarget<$flutter_35.PredictiveBackEvent>(
             target,
             'PredictiveBackEvent',
           )
           .progress,
       'swipeEdge': (visitor, target) => D4
-          .validateTarget<$flutter_34.PredictiveBackEvent>(
+          .validateTarget<$flutter_35.PredictiveBackEvent>(
             target,
             'PredictiveBackEvent',
           )
           .swipeEdge,
       'isButtonEvent': (visitor, target) => D4
-          .validateTarget<$flutter_34.PredictiveBackEvent>(
+          .validateTarget<$flutter_35.PredictiveBackEvent>(
             target,
             'PredictiveBackEvent',
           )
           .isButtonEvent,
       'hashCode': (visitor, target) => D4
-          .validateTarget<$flutter_34.PredictiveBackEvent>(
+          .validateTarget<$flutter_35.PredictiveBackEvent>(
             target,
             'PredictiveBackEvent',
           )
@@ -17958,14 +18015,14 @@ BridgedClass _createPredictiveBackEventBridge() {
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_34.PredictiveBackEvent>(
+        final t = D4.validateTarget<$flutter_35.PredictiveBackEvent>(
           target,
           'PredictiveBackEvent',
         );
         return t.toString();
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_34.PredictiveBackEvent>(
+        final t = D4.validateTarget<$flutter_35.PredictiveBackEvent>(
           target,
           'PredictiveBackEvent',
         );
@@ -18001,9 +18058,9 @@ BridgedClass _createPredictiveBackEventBridge() {
 
 BridgedClass _createProcessTextActionBridge() {
   return BridgedClass(
-    nativeType: $flutter_35.ProcessTextAction,
+    nativeType: $flutter_36.ProcessTextAction,
     name: 'ProcessTextAction',
-    isAssignable: (v) => v is $flutter_35.ProcessTextAction,
+    isAssignable: (v) => v is $flutter_36.ProcessTextAction,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'ProcessTextAction');
@@ -18019,24 +18076,24 @@ BridgedClass _createProcessTextActionBridge() {
           'label',
           'ProcessTextAction',
         );
-        return $flutter_35.ProcessTextAction(id, label);
+        return $flutter_36.ProcessTextAction(id, label);
       },
     },
     getters: {
       'id': (visitor, target) => D4
-          .validateTarget<$flutter_35.ProcessTextAction>(
+          .validateTarget<$flutter_36.ProcessTextAction>(
             target,
             'ProcessTextAction',
           )
           .id,
       'label': (visitor, target) => D4
-          .validateTarget<$flutter_35.ProcessTextAction>(
+          .validateTarget<$flutter_36.ProcessTextAction>(
             target,
             'ProcessTextAction',
           )
           .label,
       'hashCode': (visitor, target) => D4
-          .validateTarget<$flutter_35.ProcessTextAction>(
+          .validateTarget<$flutter_36.ProcessTextAction>(
             target,
             'ProcessTextAction',
           )
@@ -18044,7 +18101,7 @@ BridgedClass _createProcessTextActionBridge() {
     },
     methods: {
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_35.ProcessTextAction>(
+        final t = D4.validateTarget<$flutter_36.ProcessTextAction>(
           target,
           'ProcessTextAction',
         );
@@ -18076,21 +18133,21 @@ BridgedClass _createProcessTextActionBridge() {
 
 BridgedClass _createProcessTextServiceBridge() {
   return BridgedClass(
-    nativeType: $flutter_35.ProcessTextService,
+    nativeType: $flutter_36.ProcessTextService,
     name: 'ProcessTextService',
-    isAssignable: (v) => v is $flutter_35.ProcessTextService,
+    isAssignable: (v) => v is $flutter_36.ProcessTextService,
     isAbstract: true,
     constructors: {},
     methods: {
       'queryTextActions': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_35.ProcessTextService>(
+        final t = D4.validateTarget<$flutter_36.ProcessTextService>(
           target,
           'ProcessTextService',
         );
         return t.queryTextActions();
       },
       'processTextAction': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_35.ProcessTextService>(
+        final t = D4.validateTarget<$flutter_36.ProcessTextService>(
           target,
           'ProcessTextService',
         );
@@ -18130,23 +18187,23 @@ BridgedClass _createProcessTextServiceBridge() {
 
 BridgedClass _createDefaultProcessTextServiceBridge() {
   return BridgedClass(
-    nativeType: $flutter_35.DefaultProcessTextService,
+    nativeType: $flutter_36.DefaultProcessTextService,
     name: 'DefaultProcessTextService',
-    isAssignable: (v) => v is $flutter_35.DefaultProcessTextService,
+    isAssignable: (v) => v is $flutter_36.DefaultProcessTextService,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
-        return $flutter_35.DefaultProcessTextService();
+        return $flutter_36.DefaultProcessTextService();
       },
     },
     methods: {
       'setChannel': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_35.DefaultProcessTextService>(
+        final t = D4.validateTarget<$flutter_36.DefaultProcessTextService>(
           target,
           'DefaultProcessTextService',
         );
         D4.requireMinArgs(positional, 1, 'setChannel');
-        final newChannel = D4.getRequiredArg<$flutter_32.MethodChannel>(
+        final newChannel = D4.getRequiredArg<$flutter_33.MethodChannel>(
           positional,
           0,
           'newChannel',
@@ -18156,14 +18213,14 @@ BridgedClass _createDefaultProcessTextServiceBridge() {
         return null;
       },
       'queryTextActions': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_35.DefaultProcessTextService>(
+        final t = D4.validateTarget<$flutter_36.DefaultProcessTextService>(
           target,
           'DefaultProcessTextService',
         );
         return t.queryTextActions();
       },
       'processTextAction': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_35.DefaultProcessTextService>(
+        final t = D4.validateTarget<$flutter_36.DefaultProcessTextService>(
           target,
           'DefaultProcessTextService',
         );
@@ -18205,20 +18262,20 @@ BridgedClass _createDefaultProcessTextServiceBridge() {
 
 BridgedClass _createScribeBridge() {
   return BridgedClass(
-    nativeType: $flutter_38.Scribe,
+    nativeType: $flutter_39.Scribe,
     name: 'Scribe',
-    isAssignable: (v) => v is $flutter_38.Scribe,
+    isAssignable: (v) => v is $flutter_39.Scribe,
     isAbstract: true,
     constructors: {},
     staticMethods: {
       'isFeatureAvailable': (visitor, positional, named, typeArgs) {
-        return $flutter_38.Scribe.isFeatureAvailable();
+        return $flutter_39.Scribe.isFeatureAvailable();
       },
       'isStylusHandwritingAvailable': (visitor, positional, named, typeArgs) {
-        return $flutter_38.Scribe.isStylusHandwritingAvailable();
+        return $flutter_39.Scribe.isStylusHandwritingAvailable();
       },
       'startStylusHandwriting': (visitor, positional, named, typeArgs) {
-        return $flutter_38.Scribe.startStylusHandwriting();
+        return $flutter_39.Scribe.startStylusHandwriting();
       },
     },
     staticMethodSignatures: {
@@ -18236,17 +18293,17 @@ BridgedClass _createScribeBridge() {
 
 BridgedClass _createSensitiveContentServiceBridge() {
   return BridgedClass(
-    nativeType: $flutter_39.SensitiveContentService,
+    nativeType: $flutter_40.SensitiveContentService,
     name: 'SensitiveContentService',
-    isAssignable: (v) => v is $flutter_39.SensitiveContentService,
+    isAssignable: (v) => v is $flutter_40.SensitiveContentService,
     constructors: {
       '': (visitor, positional, named) {
-        return $flutter_39.SensitiveContentService();
+        return $flutter_40.SensitiveContentService();
       },
     },
     getters: {
       'sensitiveContentChannel': (visitor, target) => D4
-          .validateTarget<$flutter_39.SensitiveContentService>(
+          .validateTarget<$flutter_40.SensitiveContentService>(
             target,
             'SensitiveContentService',
           )
@@ -18255,25 +18312,25 @@ BridgedClass _createSensitiveContentServiceBridge() {
     setters: {
       'sensitiveContentChannel': (visitor, target, value) =>
           D4
-              .validateTarget<$flutter_39.SensitiveContentService>(
+              .validateTarget<$flutter_40.SensitiveContentService>(
                 target,
                 'SensitiveContentService',
               )
               .sensitiveContentChannel = D4
-              .extractBridgedArg<$flutter_32.MethodChannel>(
+              .extractBridgedArg<$flutter_33.MethodChannel>(
                 value,
                 'sensitiveContentChannel',
               ),
     },
     methods: {
       'setContentSensitivity': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_39.SensitiveContentService>(
+        final t = D4.validateTarget<$flutter_40.SensitiveContentService>(
           target,
           'SensitiveContentService',
         );
         D4.requireMinArgs(positional, 1, 'setContentSensitivity');
         final contentSensitivity = D4
-            .getRequiredArg<$flutter_39.ContentSensitivity>(
+            .getRequiredArg<$flutter_40.ContentSensitivity>(
               positional,
               0,
               'contentSensitivity',
@@ -18282,14 +18339,14 @@ BridgedClass _createSensitiveContentServiceBridge() {
         return t.setContentSensitivity(contentSensitivity);
       },
       'getContentSensitivity': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_39.SensitiveContentService>(
+        final t = D4.validateTarget<$flutter_40.SensitiveContentService>(
           target,
           'SensitiveContentService',
         );
         return t.getContentSensitivity();
       },
       'isSupported': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_39.SensitiveContentService>(
+        final t = D4.validateTarget<$flutter_40.SensitiveContentService>(
           target,
           'SensitiveContentService',
         );
@@ -18319,9 +18376,9 @@ BridgedClass _createSensitiveContentServiceBridge() {
 
 BridgedClass _createSuggestionSpanBridge() {
   return BridgedClass(
-    nativeType: $flutter_41.SuggestionSpan,
+    nativeType: $flutter_42.SuggestionSpan,
     name: 'SuggestionSpan',
-    isAssignable: (v) => v is $flutter_41.SuggestionSpan,
+    isAssignable: (v) => v is $flutter_42.SuggestionSpan,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'SuggestionSpan');
@@ -18337,30 +18394,30 @@ BridgedClass _createSuggestionSpanBridge() {
           );
         }
         final suggestions = D4.coerceList<String>(positional[1], 'suggestions');
-        return $flutter_41.SuggestionSpan(range, suggestions);
+        return $flutter_42.SuggestionSpan(range, suggestions);
       },
     },
     getters: {
       'range': (visitor, target) => D4
-          .validateTarget<$flutter_41.SuggestionSpan>(target, 'SuggestionSpan')
+          .validateTarget<$flutter_42.SuggestionSpan>(target, 'SuggestionSpan')
           .range,
       'suggestions': (visitor, target) => D4
-          .validateTarget<$flutter_41.SuggestionSpan>(target, 'SuggestionSpan')
+          .validateTarget<$flutter_42.SuggestionSpan>(target, 'SuggestionSpan')
           .suggestions,
       'hashCode': (visitor, target) => D4
-          .validateTarget<$flutter_41.SuggestionSpan>(target, 'SuggestionSpan')
+          .validateTarget<$flutter_42.SuggestionSpan>(target, 'SuggestionSpan')
           .hashCode,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_41.SuggestionSpan>(
+        final t = D4.validateTarget<$flutter_42.SuggestionSpan>(
           target,
           'SuggestionSpan',
         );
         return t.toString();
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_41.SuggestionSpan>(
+        final t = D4.validateTarget<$flutter_42.SuggestionSpan>(
           target,
           'SuggestionSpan',
         );
@@ -18393,9 +18450,9 @@ BridgedClass _createSuggestionSpanBridge() {
 
 BridgedClass _createSpellCheckResultsBridge() {
   return BridgedClass(
-    nativeType: $flutter_41.SpellCheckResults,
+    nativeType: $flutter_42.SpellCheckResults,
     name: 'SpellCheckResults',
-    isAssignable: (v) => v is $flutter_41.SpellCheckResults,
+    isAssignable: (v) => v is $flutter_42.SpellCheckResults,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'SpellCheckResults');
@@ -18410,28 +18467,28 @@ BridgedClass _createSpellCheckResultsBridge() {
             'SpellCheckResults: Missing required argument "suggestionSpans" at position 1',
           );
         }
-        final suggestionSpans = D4.coerceList<$flutter_41.SuggestionSpan>(
+        final suggestionSpans = D4.coerceList<$flutter_42.SuggestionSpan>(
           positional[1],
           'suggestionSpans',
         );
-        return $flutter_41.SpellCheckResults(spellCheckedText, suggestionSpans);
+        return $flutter_42.SpellCheckResults(spellCheckedText, suggestionSpans);
       },
     },
     getters: {
       'spellCheckedText': (visitor, target) => D4
-          .validateTarget<$flutter_41.SpellCheckResults>(
+          .validateTarget<$flutter_42.SpellCheckResults>(
             target,
             'SpellCheckResults',
           )
           .spellCheckedText,
       'suggestionSpans': (visitor, target) => D4
-          .validateTarget<$flutter_41.SpellCheckResults>(
+          .validateTarget<$flutter_42.SpellCheckResults>(
             target,
             'SpellCheckResults',
           )
           .suggestionSpans,
       'hashCode': (visitor, target) => D4
-          .validateTarget<$flutter_41.SpellCheckResults>(
+          .validateTarget<$flutter_42.SpellCheckResults>(
             target,
             'SpellCheckResults',
           )
@@ -18439,14 +18496,14 @@ BridgedClass _createSpellCheckResultsBridge() {
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_41.SpellCheckResults>(
+        final t = D4.validateTarget<$flutter_42.SpellCheckResults>(
           target,
           'SpellCheckResults',
         );
         return t.toString();
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_41.SpellCheckResults>(
+        final t = D4.validateTarget<$flutter_42.SpellCheckResults>(
           target,
           'SpellCheckResults',
         );
@@ -18479,15 +18536,15 @@ BridgedClass _createSpellCheckResultsBridge() {
 
 BridgedClass _createSpellCheckServiceBridge() {
   return BridgedClass(
-    nativeType: $flutter_41.SpellCheckService,
+    nativeType: $flutter_42.SpellCheckService,
     name: 'SpellCheckService',
-    isAssignable: (v) => v is $flutter_41.SpellCheckService,
+    isAssignable: (v) => v is $flutter_42.SpellCheckService,
     isAbstract: true,
     constructors: {},
     methods: {
       'fetchSpellCheckSuggestions':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$flutter_41.SpellCheckService>(
+            final t = D4.validateTarget<$flutter_42.SpellCheckService>(
               target,
               'SpellCheckService',
             );
@@ -18520,24 +18577,24 @@ BridgedClass _createSpellCheckServiceBridge() {
 
 BridgedClass _createDefaultSpellCheckServiceBridge() {
   return BridgedClass(
-    nativeType: $flutter_41.DefaultSpellCheckService,
+    nativeType: $flutter_42.DefaultSpellCheckService,
     name: 'DefaultSpellCheckService',
-    isAssignable: (v) => v is $flutter_41.DefaultSpellCheckService,
+    isAssignable: (v) => v is $flutter_42.DefaultSpellCheckService,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
-        return $flutter_41.DefaultSpellCheckService();
+        return $flutter_42.DefaultSpellCheckService();
       },
     },
     getters: {
       'lastSavedResults': (visitor, target) => D4
-          .validateTarget<$flutter_41.DefaultSpellCheckService>(
+          .validateTarget<$flutter_42.DefaultSpellCheckService>(
             target,
             'DefaultSpellCheckService',
           )
           .lastSavedResults,
       'spellCheckChannel': (visitor, target) => D4
-          .validateTarget<$flutter_41.DefaultSpellCheckService>(
+          .validateTarget<$flutter_42.DefaultSpellCheckService>(
             target,
             'DefaultSpellCheckService',
           )
@@ -18546,23 +18603,23 @@ BridgedClass _createDefaultSpellCheckServiceBridge() {
     setters: {
       'lastSavedResults': (visitor, target, value) =>
           D4
-              .validateTarget<$flutter_41.DefaultSpellCheckService>(
+              .validateTarget<$flutter_42.DefaultSpellCheckService>(
                 target,
                 'DefaultSpellCheckService',
               )
               .lastSavedResults = D4
-              .extractBridgedArgOrNull<$flutter_41.SpellCheckResults>(
+              .extractBridgedArgOrNull<$flutter_42.SpellCheckResults>(
                 value,
                 'lastSavedResults',
               ),
       'spellCheckChannel': (visitor, target, value) =>
           D4
-              .validateTarget<$flutter_41.DefaultSpellCheckService>(
+              .validateTarget<$flutter_42.DefaultSpellCheckService>(
                 target,
                 'DefaultSpellCheckService',
               )
               .spellCheckChannel = D4
-              .extractBridgedArg<$flutter_32.MethodChannel>(
+              .extractBridgedArg<$flutter_33.MethodChannel>(
                 value,
                 'spellCheckChannel',
               ),
@@ -18570,7 +18627,7 @@ BridgedClass _createDefaultSpellCheckServiceBridge() {
     methods: {
       'fetchSpellCheckSuggestions':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$flutter_41.DefaultSpellCheckService>(
+            final t = D4.validateTarget<$flutter_42.DefaultSpellCheckService>(
               target,
               'DefaultSpellCheckService',
             );
@@ -18598,7 +18655,7 @@ BridgedClass _createDefaultSpellCheckServiceBridge() {
             'mergeResults: Missing required argument "oldResults" at position 0',
           );
         }
-        final oldResults = D4.coerceList<$flutter_41.SuggestionSpan>(
+        final oldResults = D4.coerceList<$flutter_42.SuggestionSpan>(
           positional[0],
           'oldResults',
         );
@@ -18607,11 +18664,11 @@ BridgedClass _createDefaultSpellCheckServiceBridge() {
             'mergeResults: Missing required argument "newResults" at position 1',
           );
         }
-        final newResults = D4.coerceList<$flutter_41.SuggestionSpan>(
+        final newResults = D4.coerceList<$flutter_42.SuggestionSpan>(
           positional[1],
           'newResults',
         );
-        return $flutter_41.DefaultSpellCheckService.mergeResults(
+        return $flutter_42.DefaultSpellCheckService.mergeResults(
           oldResults,
           newResults,
         );
@@ -18643,39 +18700,39 @@ BridgedClass _createDefaultSpellCheckServiceBridge() {
 
 BridgedClass _createSystemChannelsBridge() {
   return BridgedClass(
-    nativeType: $flutter_42.SystemChannels,
+    nativeType: $flutter_43.SystemChannels,
     name: 'SystemChannels',
-    isAssignable: (v) => v is $flutter_42.SystemChannels,
+    isAssignable: (v) => v is $flutter_43.SystemChannels,
     isAbstract: true,
     constructors: {},
     staticGetters: {
-      'navigation': (visitor) => $flutter_42.SystemChannels.navigation,
-      'backGesture': (visitor) => $flutter_42.SystemChannels.backGesture,
-      'platform': (visitor) => $flutter_42.SystemChannels.platform,
-      'statusBar': (visitor) => $flutter_42.SystemChannels.statusBar,
-      'processText': (visitor) => $flutter_42.SystemChannels.processText,
-      'textInput': (visitor) => $flutter_42.SystemChannels.textInput,
-      'scribe': (visitor) => $flutter_42.SystemChannels.scribe,
-      'spellCheck': (visitor) => $flutter_42.SystemChannels.spellCheck,
-      'undoManager': (visitor) => $flutter_42.SystemChannels.undoManager,
-      'keyEvent': (visitor) => $flutter_42.SystemChannels.keyEvent,
-      'lifecycle': (visitor) => $flutter_42.SystemChannels.lifecycle,
-      'system': (visitor) => $flutter_42.SystemChannels.system,
-      'accessibility': (visitor) => $flutter_42.SystemChannels.accessibility,
-      'platform_views': (visitor) => $flutter_42.SystemChannels.platform_views,
+      'navigation': (visitor) => $flutter_43.SystemChannels.navigation,
+      'backGesture': (visitor) => $flutter_43.SystemChannels.backGesture,
+      'platform': (visitor) => $flutter_43.SystemChannels.platform,
+      'statusBar': (visitor) => $flutter_43.SystemChannels.statusBar,
+      'processText': (visitor) => $flutter_43.SystemChannels.processText,
+      'textInput': (visitor) => $flutter_43.SystemChannels.textInput,
+      'scribe': (visitor) => $flutter_43.SystemChannels.scribe,
+      'spellCheck': (visitor) => $flutter_43.SystemChannels.spellCheck,
+      'undoManager': (visitor) => $flutter_43.SystemChannels.undoManager,
+      'keyEvent': (visitor) => $flutter_43.SystemChannels.keyEvent,
+      'lifecycle': (visitor) => $flutter_43.SystemChannels.lifecycle,
+      'system': (visitor) => $flutter_43.SystemChannels.system,
+      'accessibility': (visitor) => $flutter_43.SystemChannels.accessibility,
+      'platform_views': (visitor) => $flutter_43.SystemChannels.platform_views,
       'platform_views_2': (visitor) =>
-          $flutter_42.SystemChannels.platform_views_2,
-      'skia': (visitor) => $flutter_42.SystemChannels.skia,
-      'mouseCursor': (visitor) => $flutter_42.SystemChannels.mouseCursor,
-      'restoration': (visitor) => $flutter_42.SystemChannels.restoration,
+          $flutter_43.SystemChannels.platform_views_2,
+      'skia': (visitor) => $flutter_43.SystemChannels.skia,
+      'mouseCursor': (visitor) => $flutter_43.SystemChannels.mouseCursor,
+      'restoration': (visitor) => $flutter_43.SystemChannels.restoration,
       'deferredComponent': (visitor) =>
-          $flutter_42.SystemChannels.deferredComponent,
-      'localization': (visitor) => $flutter_42.SystemChannels.localization,
-      'menu': (visitor) => $flutter_42.SystemChannels.menu,
-      'contextMenu': (visitor) => $flutter_42.SystemChannels.contextMenu,
-      'keyboard': (visitor) => $flutter_42.SystemChannels.keyboard,
+          $flutter_43.SystemChannels.deferredComponent,
+      'localization': (visitor) => $flutter_43.SystemChannels.localization,
+      'menu': (visitor) => $flutter_43.SystemChannels.menu,
+      'contextMenu': (visitor) => $flutter_43.SystemChannels.contextMenu,
+      'keyboard': (visitor) => $flutter_43.SystemChannels.keyboard,
       'sensitiveContent': (visitor) =>
-          $flutter_42.SystemChannels.sensitiveContent,
+          $flutter_43.SystemChannels.sensitiveContent,
     },
     staticGetterSignatures: {
       'navigation': 'MethodChannel get navigation',
@@ -18712,9 +18769,9 @@ BridgedClass _createSystemChannelsBridge() {
 
 BridgedClass _createApplicationSwitcherDescriptionBridge() {
   return BridgedClass(
-    nativeType: $flutter_43.ApplicationSwitcherDescription,
+    nativeType: $flutter_44.ApplicationSwitcherDescription,
     name: 'ApplicationSwitcherDescription',
-    isAssignable: (v) => v is $flutter_43.ApplicationSwitcherDescription,
+    isAssignable: (v) => v is $flutter_44.ApplicationSwitcherDescription,
     constructors: {
       '': (visitor, positional, named) {
         final label = D4.getOptionalNamedArg<String?>(named, 'label');
@@ -18722,7 +18779,7 @@ BridgedClass _createApplicationSwitcherDescriptionBridge() {
           named,
           'primaryColor',
         );
-        return $flutter_43.ApplicationSwitcherDescription(
+        return $flutter_44.ApplicationSwitcherDescription(
           label: label,
           primaryColor: primaryColor,
         );
@@ -18730,13 +18787,13 @@ BridgedClass _createApplicationSwitcherDescriptionBridge() {
     },
     getters: {
       'label': (visitor, target) => D4
-          .validateTarget<$flutter_43.ApplicationSwitcherDescription>(
+          .validateTarget<$flutter_44.ApplicationSwitcherDescription>(
             target,
             'ApplicationSwitcherDescription',
           )
           .label,
       'primaryColor': (visitor, target) => D4
-          .validateTarget<$flutter_43.ApplicationSwitcherDescription>(
+          .validateTarget<$flutter_44.ApplicationSwitcherDescription>(
             target,
             'ApplicationSwitcherDescription',
           )
@@ -18758,9 +18815,9 @@ BridgedClass _createApplicationSwitcherDescriptionBridge() {
 
 BridgedClass _createSystemUiOverlayStyleBridge() {
   return BridgedClass(
-    nativeType: $flutter_43.SystemUiOverlayStyle,
+    nativeType: $flutter_44.SystemUiOverlayStyle,
     name: 'SystemUiOverlayStyle',
-    isAssignable: (v) => v is $flutter_43.SystemUiOverlayStyle,
+    isAssignable: (v) => v is $flutter_44.SystemUiOverlayStyle,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
@@ -18798,7 +18855,7 @@ BridgedClass _createSystemUiOverlayStyleBridge() {
           named,
           'systemStatusBarContrastEnforced',
         );
-        return $flutter_43.SystemUiOverlayStyle(
+        return $flutter_44.SystemUiOverlayStyle(
           systemNavigationBarColor: systemNavigationBarColor,
           systemNavigationBarDividerColor: systemNavigationBarDividerColor,
           systemNavigationBarIconBrightness: systemNavigationBarIconBrightness,
@@ -18813,55 +18870,55 @@ BridgedClass _createSystemUiOverlayStyleBridge() {
     },
     getters: {
       'systemNavigationBarColor': (visitor, target) => D4
-          .validateTarget<$flutter_43.SystemUiOverlayStyle>(
+          .validateTarget<$flutter_44.SystemUiOverlayStyle>(
             target,
             'SystemUiOverlayStyle',
           )
           .systemNavigationBarColor,
       'systemNavigationBarDividerColor': (visitor, target) => D4
-          .validateTarget<$flutter_43.SystemUiOverlayStyle>(
+          .validateTarget<$flutter_44.SystemUiOverlayStyle>(
             target,
             'SystemUiOverlayStyle',
           )
           .systemNavigationBarDividerColor,
       'systemNavigationBarIconBrightness': (visitor, target) => D4
-          .validateTarget<$flutter_43.SystemUiOverlayStyle>(
+          .validateTarget<$flutter_44.SystemUiOverlayStyle>(
             target,
             'SystemUiOverlayStyle',
           )
           .systemNavigationBarIconBrightness,
       'systemNavigationBarContrastEnforced': (visitor, target) => D4
-          .validateTarget<$flutter_43.SystemUiOverlayStyle>(
+          .validateTarget<$flutter_44.SystemUiOverlayStyle>(
             target,
             'SystemUiOverlayStyle',
           )
           .systemNavigationBarContrastEnforced,
       'statusBarColor': (visitor, target) => D4
-          .validateTarget<$flutter_43.SystemUiOverlayStyle>(
+          .validateTarget<$flutter_44.SystemUiOverlayStyle>(
             target,
             'SystemUiOverlayStyle',
           )
           .statusBarColor,
       'statusBarBrightness': (visitor, target) => D4
-          .validateTarget<$flutter_43.SystemUiOverlayStyle>(
+          .validateTarget<$flutter_44.SystemUiOverlayStyle>(
             target,
             'SystemUiOverlayStyle',
           )
           .statusBarBrightness,
       'statusBarIconBrightness': (visitor, target) => D4
-          .validateTarget<$flutter_43.SystemUiOverlayStyle>(
+          .validateTarget<$flutter_44.SystemUiOverlayStyle>(
             target,
             'SystemUiOverlayStyle',
           )
           .statusBarIconBrightness,
       'systemStatusBarContrastEnforced': (visitor, target) => D4
-          .validateTarget<$flutter_43.SystemUiOverlayStyle>(
+          .validateTarget<$flutter_44.SystemUiOverlayStyle>(
             target,
             'SystemUiOverlayStyle',
           )
           .systemStatusBarContrastEnforced,
       'hashCode': (visitor, target) => D4
-          .validateTarget<$flutter_43.SystemUiOverlayStyle>(
+          .validateTarget<$flutter_44.SystemUiOverlayStyle>(
             target,
             'SystemUiOverlayStyle',
           )
@@ -18869,7 +18926,7 @@ BridgedClass _createSystemUiOverlayStyleBridge() {
     },
     methods: {
       'copyWith': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_43.SystemUiOverlayStyle>(
+        final t = D4.validateTarget<$flutter_44.SystemUiOverlayStyle>(
           target,
           'SystemUiOverlayStyle',
         );
@@ -18920,7 +18977,7 @@ BridgedClass _createSystemUiOverlayStyleBridge() {
         );
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_43.SystemUiOverlayStyle>(
+        final t = D4.validateTarget<$flutter_44.SystemUiOverlayStyle>(
           target,
           'SystemUiOverlayStyle',
         );
@@ -18936,14 +18993,14 @@ BridgedClass _createSystemUiOverlayStyleBridge() {
         return null;
       },
       'toStringShort': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_43.SystemUiOverlayStyle>(
+        final t = D4.validateTarget<$flutter_44.SystemUiOverlayStyle>(
           target,
           'SystemUiOverlayStyle',
         );
         return t.toStringShort();
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_43.SystemUiOverlayStyle>(
+        final t = D4.validateTarget<$flutter_44.SystemUiOverlayStyle>(
           target,
           'SystemUiOverlayStyle',
         );
@@ -18955,7 +19012,7 @@ BridgedClass _createSystemUiOverlayStyleBridge() {
         return t.toString(minLevel: minLevel);
       },
       'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_43.SystemUiOverlayStyle>(
+        final t = D4.validateTarget<$flutter_44.SystemUiOverlayStyle>(
           target,
           'SystemUiOverlayStyle',
         );
@@ -18967,7 +19024,7 @@ BridgedClass _createSystemUiOverlayStyleBridge() {
         return t.toDiagnosticsNode(name: name, style: style);
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_43.SystemUiOverlayStyle>(
+        final t = D4.validateTarget<$flutter_44.SystemUiOverlayStyle>(
           target,
           'SystemUiOverlayStyle',
         );
@@ -18983,8 +19040,8 @@ BridgedClass _createSystemUiOverlayStyleBridge() {
       },
     },
     staticGetters: {
-      'light': (visitor) => $flutter_43.SystemUiOverlayStyle.light,
-      'dark': (visitor) => $flutter_43.SystemUiOverlayStyle.dark,
+      'light': (visitor) => $flutter_44.SystemUiOverlayStyle.light,
+      'dark': (visitor) => $flutter_44.SystemUiOverlayStyle.dark,
     },
     constructorSignatures: {
       '': 'const SystemUiOverlayStyle({Color? systemNavigationBarColor, Color? systemNavigationBarDividerColor, Brightness? systemNavigationBarIconBrightness, bool? systemNavigationBarContrastEnforced, Color? statusBarColor, Brightness? statusBarBrightness, Brightness? statusBarIconBrightness, bool? systemStatusBarContrastEnforced})',
@@ -19028,13 +19085,13 @@ BridgedClass _createSystemUiOverlayStyleBridge() {
 
 BridgedClass _createSystemChromeBridge() {
   return BridgedClass(
-    nativeType: $flutter_43.SystemChrome,
+    nativeType: $flutter_44.SystemChrome,
     name: 'SystemChrome',
-    isAssignable: (v) => v is $flutter_43.SystemChrome,
+    isAssignable: (v) => v is $flutter_44.SystemChrome,
     isAbstract: true,
     constructors: {},
     staticGetters: {
-      'latestStyle': (visitor) => $flutter_43.SystemChrome.latestStyle,
+      'latestStyle': (visitor) => $flutter_44.SystemChrome.latestStyle,
     },
     staticMethods: {
       'setPreferredOrientations': (visitor, positional, named, typeArgs) {
@@ -19044,11 +19101,11 @@ BridgedClass _createSystemChromeBridge() {
             'setPreferredOrientations: Missing required argument "orientations" at position 0',
           );
         }
-        final orientations = D4.coerceList<$flutter_43.DeviceOrientation>(
+        final orientations = D4.coerceList<$flutter_44.DeviceOrientation>(
           positional[0],
           'orientations',
         );
-        return $flutter_43.SystemChrome.setPreferredOrientations(orientations);
+        return $flutter_44.SystemChrome.setPreferredOrientations(orientations);
       },
       'setApplicationSwitcherDescription':
           (visitor, positional, named, typeArgs) {
@@ -19058,29 +19115,29 @@ BridgedClass _createSystemChromeBridge() {
               'setApplicationSwitcherDescription',
             );
             final description = D4
-                .getRequiredArg<$flutter_43.ApplicationSwitcherDescription>(
+                .getRequiredArg<$flutter_44.ApplicationSwitcherDescription>(
                   positional,
                   0,
                   'description',
                   'setApplicationSwitcherDescription',
                 );
-            return $flutter_43.SystemChrome.setApplicationSwitcherDescription(
+            return $flutter_44.SystemChrome.setApplicationSwitcherDescription(
               description,
             );
           },
       'setEnabledSystemUIMode': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'setEnabledSystemUIMode');
-        final mode = D4.getRequiredArg<$flutter_43.SystemUiMode>(
+        final mode = D4.getRequiredArg<$flutter_44.SystemUiMode>(
           positional,
           0,
           'mode',
           'setEnabledSystemUIMode',
         );
-        final overlays = D4.coerceListOrNull<$flutter_43.SystemUiOverlay>(
+        final overlays = D4.coerceListOrNull<$flutter_44.SystemUiOverlay>(
           named['overlays'],
           'overlays',
         );
-        return $flutter_43.SystemChrome.setEnabledSystemUIMode(
+        return $flutter_44.SystemChrome.setEnabledSystemUIMode(
           mode,
           overlays: overlays,
         );
@@ -19101,20 +19158,20 @@ BridgedClass _createSystemChromeBridge() {
                     );
                   })
                   as Future<void> Function(bool);
-        return $flutter_43.SystemChrome.setSystemUIChangeCallback(callback);
+        return $flutter_44.SystemChrome.setSystemUIChangeCallback(callback);
       },
       'restoreSystemUIOverlays': (visitor, positional, named, typeArgs) {
-        return $flutter_43.SystemChrome.restoreSystemUIOverlays();
+        return $flutter_44.SystemChrome.restoreSystemUIOverlays();
       },
       'setSystemUIOverlayStyle': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'setSystemUIOverlayStyle');
-        final style = D4.getRequiredArg<$flutter_43.SystemUiOverlayStyle>(
+        final style = D4.getRequiredArg<$flutter_44.SystemUiOverlayStyle>(
           positional,
           0,
           'style',
           'setSystemUIOverlayStyle',
         );
-        return $flutter_43.SystemChrome.setSystemUIOverlayStyle(style);
+        return $flutter_44.SystemChrome.setSystemUIOverlayStyle(style);
       },
       'handleAppLifecycleStateChanged': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'handleAppLifecycleStateChanged');
@@ -19124,7 +19181,7 @@ BridgedClass _createSystemChromeBridge() {
           'state',
           'handleAppLifecycleStateChanged',
         );
-        return $flutter_43.SystemChrome.handleAppLifecycleStateChanged(state);
+        return $flutter_44.SystemChrome.handleAppLifecycleStateChanged(state);
       },
     },
     staticMethodSignatures: {
@@ -19154,9 +19211,9 @@ BridgedClass _createSystemChromeBridge() {
 
 BridgedClass _createSystemNavigatorBridge() {
   return BridgedClass(
-    nativeType: $flutter_44.SystemNavigator,
+    nativeType: $flutter_45.SystemNavigator,
     name: 'SystemNavigator',
-    isAssignable: (v) => v is $flutter_44.SystemNavigator,
+    isAssignable: (v) => v is $flutter_45.SystemNavigator,
     isAbstract: true,
     constructors: {},
     staticMethods: {
@@ -19168,19 +19225,19 @@ BridgedClass _createSystemNavigatorBridge() {
           'frameworkHandlesBack',
           'setFrameworkHandlesBack',
         );
-        return $flutter_44.SystemNavigator.setFrameworkHandlesBack(
+        return $flutter_45.SystemNavigator.setFrameworkHandlesBack(
           frameworkHandlesBack,
         );
       },
       'pop': (visitor, positional, named, typeArgs) {
         final animated = D4.getOptionalNamedArg<bool?>(named, 'animated');
-        return $flutter_44.SystemNavigator.pop(animated: animated);
+        return $flutter_45.SystemNavigator.pop(animated: animated);
       },
       'selectSingleEntryHistory': (visitor, positional, named, typeArgs) {
-        return $flutter_44.SystemNavigator.selectSingleEntryHistory();
+        return $flutter_45.SystemNavigator.selectSingleEntryHistory();
       },
       'selectMultiEntryHistory': (visitor, positional, named, typeArgs) {
-        return $flutter_44.SystemNavigator.selectMultiEntryHistory();
+        return $flutter_45.SystemNavigator.selectMultiEntryHistory();
       },
       'routeInformationUpdated': (visitor, positional, named, typeArgs) {
         final location = D4.getOptionalNamedArg<String?>(named, 'location');
@@ -19191,7 +19248,7 @@ BridgedClass _createSystemNavigatorBridge() {
           'replace',
           false,
         );
-        return $flutter_44.SystemNavigator.routeInformationUpdated(
+        return $flutter_45.SystemNavigator.routeInformationUpdated(
           location: location,
           uri: uri,
           state: state,
@@ -19217,21 +19274,21 @@ BridgedClass _createSystemNavigatorBridge() {
 
 BridgedClass _createSystemSoundBridge() {
   return BridgedClass(
-    nativeType: $flutter_45.SystemSound,
+    nativeType: $flutter_46.SystemSound,
     name: 'SystemSound',
-    isAssignable: (v) => v is $flutter_45.SystemSound,
+    isAssignable: (v) => v is $flutter_46.SystemSound,
     isAbstract: true,
     constructors: {},
     staticMethods: {
       'play': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'play');
-        final type = D4.getRequiredArg<$flutter_45.SystemSoundType>(
+        final type = D4.getRequiredArg<$flutter_46.SystemSoundType>(
           positional,
           0,
           'type',
           'play',
         );
-        return $flutter_45.SystemSound.play(type);
+        return $flutter_46.SystemSound.play(type);
       },
     },
     staticMethodSignatures: {'play': 'Future<void> play(SystemSoundType type)'},
@@ -19244,15 +19301,15 @@ BridgedClass _createSystemSoundBridge() {
 
 BridgedClass _createTextBoundaryBridge() {
   return BridgedClass(
-    nativeType: $flutter_46.TextBoundary,
+    nativeType: $flutter_47.TextBoundary,
     name: 'TextBoundary',
-    isAssignable: (v) => v is $flutter_46.TextBoundary,
+    isAssignable: (v) => v is $flutter_47.TextBoundary,
     isAbstract: true,
     constructors: {},
     methods: {
       'getLeadingTextBoundaryAt':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$flutter_46.TextBoundary>(
+            final t = D4.validateTarget<$flutter_47.TextBoundary>(
               target,
               'TextBoundary',
             );
@@ -19267,7 +19324,7 @@ BridgedClass _createTextBoundaryBridge() {
           },
       'getTrailingTextBoundaryAt':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$flutter_46.TextBoundary>(
+            final t = D4.validateTarget<$flutter_47.TextBoundary>(
               target,
               'TextBoundary',
             );
@@ -19281,7 +19338,7 @@ BridgedClass _createTextBoundaryBridge() {
             return t.getTrailingTextBoundaryAt(position);
           },
       'getTextBoundaryAt': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_46.TextBoundary>(
+        final t = D4.validateTarget<$flutter_47.TextBoundary>(
           target,
           'TextBoundary',
         );
@@ -19310,9 +19367,9 @@ BridgedClass _createTextBoundaryBridge() {
 
 BridgedClass _createCharacterBoundaryBridge() {
   return BridgedClass(
-    nativeType: $flutter_46.CharacterBoundary,
+    nativeType: $flutter_47.CharacterBoundary,
     name: 'CharacterBoundary',
-    isAssignable: (v) => v is $flutter_46.CharacterBoundary,
+    isAssignable: (v) => v is $flutter_47.CharacterBoundary,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
@@ -19323,13 +19380,13 @@ BridgedClass _createCharacterBoundaryBridge() {
           '_text',
           'CharacterBoundary',
         );
-        return $flutter_46.CharacterBoundary(text);
+        return $flutter_47.CharacterBoundary(text);
       },
     },
     methods: {
       'getLeadingTextBoundaryAt':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$flutter_46.CharacterBoundary>(
+            final t = D4.validateTarget<$flutter_47.CharacterBoundary>(
               target,
               'CharacterBoundary',
             );
@@ -19344,7 +19401,7 @@ BridgedClass _createCharacterBoundaryBridge() {
           },
       'getTrailingTextBoundaryAt':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$flutter_46.CharacterBoundary>(
+            final t = D4.validateTarget<$flutter_47.CharacterBoundary>(
               target,
               'CharacterBoundary',
             );
@@ -19358,7 +19415,7 @@ BridgedClass _createCharacterBoundaryBridge() {
             return t.getTrailingTextBoundaryAt(position);
           },
       'getTextBoundaryAt': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_46.CharacterBoundary>(
+        final t = D4.validateTarget<$flutter_47.CharacterBoundary>(
           target,
           'CharacterBoundary',
         );
@@ -19388,26 +19445,26 @@ BridgedClass _createCharacterBoundaryBridge() {
 
 BridgedClass _createLineBoundaryBridge() {
   return BridgedClass(
-    nativeType: $flutter_46.LineBoundary,
+    nativeType: $flutter_47.LineBoundary,
     name: 'LineBoundary',
-    isAssignable: (v) => v is $flutter_46.LineBoundary,
+    isAssignable: (v) => v is $flutter_47.LineBoundary,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'LineBoundary');
-        final textLayout = D4.getRequiredArg<$flutter_51.TextLayoutMetrics>(
+        final textLayout = D4.getRequiredArg<$flutter_52.TextLayoutMetrics>(
           positional,
           0,
           '_textLayout',
           'LineBoundary',
         );
-        return $flutter_46.LineBoundary(textLayout);
+        return $flutter_47.LineBoundary(textLayout);
       },
     },
     methods: {
       'getLeadingTextBoundaryAt':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$flutter_46.LineBoundary>(
+            final t = D4.validateTarget<$flutter_47.LineBoundary>(
               target,
               'LineBoundary',
             );
@@ -19422,7 +19479,7 @@ BridgedClass _createLineBoundaryBridge() {
           },
       'getTrailingTextBoundaryAt':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$flutter_46.LineBoundary>(
+            final t = D4.validateTarget<$flutter_47.LineBoundary>(
               target,
               'LineBoundary',
             );
@@ -19436,7 +19493,7 @@ BridgedClass _createLineBoundaryBridge() {
             return t.getTrailingTextBoundaryAt(position);
           },
       'getTextBoundaryAt': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_46.LineBoundary>(
+        final t = D4.validateTarget<$flutter_47.LineBoundary>(
           target,
           'LineBoundary',
         );
@@ -19468,9 +19525,9 @@ BridgedClass _createLineBoundaryBridge() {
 
 BridgedClass _createParagraphBoundaryBridge() {
   return BridgedClass(
-    nativeType: $flutter_46.ParagraphBoundary,
+    nativeType: $flutter_47.ParagraphBoundary,
     name: 'ParagraphBoundary',
-    isAssignable: (v) => v is $flutter_46.ParagraphBoundary,
+    isAssignable: (v) => v is $flutter_47.ParagraphBoundary,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
@@ -19481,13 +19538,13 @@ BridgedClass _createParagraphBoundaryBridge() {
           '_text',
           'ParagraphBoundary',
         );
-        return $flutter_46.ParagraphBoundary(text);
+        return $flutter_47.ParagraphBoundary(text);
       },
     },
     methods: {
       'getLeadingTextBoundaryAt':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$flutter_46.ParagraphBoundary>(
+            final t = D4.validateTarget<$flutter_47.ParagraphBoundary>(
               target,
               'ParagraphBoundary',
             );
@@ -19502,7 +19559,7 @@ BridgedClass _createParagraphBoundaryBridge() {
           },
       'getTrailingTextBoundaryAt':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$flutter_46.ParagraphBoundary>(
+            final t = D4.validateTarget<$flutter_47.ParagraphBoundary>(
               target,
               'ParagraphBoundary',
             );
@@ -19516,7 +19573,7 @@ BridgedClass _createParagraphBoundaryBridge() {
             return t.getTrailingTextBoundaryAt(position);
           },
       'getTextBoundaryAt': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_46.ParagraphBoundary>(
+        final t = D4.validateTarget<$flutter_47.ParagraphBoundary>(
           target,
           'ParagraphBoundary',
         );
@@ -19546,9 +19603,9 @@ BridgedClass _createParagraphBoundaryBridge() {
 
 BridgedClass _createDocumentBoundaryBridge() {
   return BridgedClass(
-    nativeType: $flutter_46.DocumentBoundary,
+    nativeType: $flutter_47.DocumentBoundary,
     name: 'DocumentBoundary',
-    isAssignable: (v) => v is $flutter_46.DocumentBoundary,
+    isAssignable: (v) => v is $flutter_47.DocumentBoundary,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
@@ -19559,13 +19616,13 @@ BridgedClass _createDocumentBoundaryBridge() {
           '_text',
           'DocumentBoundary',
         );
-        return $flutter_46.DocumentBoundary(text);
+        return $flutter_47.DocumentBoundary(text);
       },
     },
     methods: {
       'getLeadingTextBoundaryAt':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$flutter_46.DocumentBoundary>(
+            final t = D4.validateTarget<$flutter_47.DocumentBoundary>(
               target,
               'DocumentBoundary',
             );
@@ -19580,7 +19637,7 @@ BridgedClass _createDocumentBoundaryBridge() {
           },
       'getTrailingTextBoundaryAt':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$flutter_46.DocumentBoundary>(
+            final t = D4.validateTarget<$flutter_47.DocumentBoundary>(
               target,
               'DocumentBoundary',
             );
@@ -19594,7 +19651,7 @@ BridgedClass _createDocumentBoundaryBridge() {
             return t.getTrailingTextBoundaryAt(position);
           },
       'getTextBoundaryAt': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_46.DocumentBoundary>(
+        final t = D4.validateTarget<$flutter_47.DocumentBoundary>(
           target,
           'DocumentBoundary',
         );
@@ -19624,9 +19681,9 @@ BridgedClass _createDocumentBoundaryBridge() {
 
 BridgedClass _createTextInputFormatterBridge() {
   return BridgedClass(
-    nativeType: $flutter_49.TextInputFormatter,
+    nativeType: $flutter_50.TextInputFormatter,
     name: 'TextInputFormatter',
-    isAssignable: (v) => v is $flutter_49.TextInputFormatter,
+    isAssignable: (v) => v is $flutter_50.TextInputFormatter,
     isAbstract: true,
     constructors: {
       'withFunction': (visitor, positional, named) {
@@ -19637,9 +19694,9 @@ BridgedClass _createTextInputFormatterBridge() {
           );
         }
         final formatFunctionRaw = positional[0];
-        return $flutter_49.TextInputFormatter.withFunction(
-          (($flutter_50.TextEditingValue p0, $flutter_50.TextEditingValue p1) {
-                return D4.extractBridgedArg<$flutter_50.TextEditingValue>(
+        return $flutter_50.TextInputFormatter.withFunction(
+          (($flutter_51.TextEditingValue p0, $flutter_51.TextEditingValue p1) {
+                return D4.extractBridgedArg<$flutter_51.TextEditingValue>(
                       D4.callInterpreterCallback(visitor!, formatFunctionRaw, [
                         p0,
                         p1,
@@ -19647,29 +19704,29 @@ BridgedClass _createTextInputFormatterBridge() {
                       'callback',
                       visitor,
                     )
-                    as $flutter_50.TextEditingValue;
+                    as $flutter_51.TextEditingValue;
               })
-              as $flutter_50.TextEditingValue Function(
-                $flutter_50.TextEditingValue,
-                $flutter_50.TextEditingValue,
+              as $flutter_51.TextEditingValue Function(
+                $flutter_51.TextEditingValue,
+                $flutter_51.TextEditingValue,
               ),
         );
       },
     },
     methods: {
       'formatEditUpdate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_49.TextInputFormatter>(
+        final t = D4.validateTarget<$flutter_50.TextInputFormatter>(
           target,
           'TextInputFormatter',
         );
         D4.requireMinArgs(positional, 2, 'formatEditUpdate');
-        final oldValue = D4.getRequiredArg<$flutter_50.TextEditingValue>(
+        final oldValue = D4.getRequiredArg<$flutter_51.TextEditingValue>(
           positional,
           0,
           'oldValue',
           'formatEditUpdate',
         );
-        final newValue = D4.getRequiredArg<$flutter_50.TextEditingValue>(
+        final newValue = D4.getRequiredArg<$flutter_51.TextEditingValue>(
           positional,
           1,
           'newValue',
@@ -19695,9 +19752,9 @@ BridgedClass _createTextInputFormatterBridge() {
 
 BridgedClass _createFilteringTextInputFormatterBridge() {
   return BridgedClass(
-    nativeType: $flutter_49.FilteringTextInputFormatter,
+    nativeType: $flutter_50.FilteringTextInputFormatter,
     name: 'FilteringTextInputFormatter',
-    isAssignable: (v) => v is $flutter_49.FilteringTextInputFormatter,
+    isAssignable: (v) => v is $flutter_50.FilteringTextInputFormatter,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
@@ -19718,7 +19775,7 @@ BridgedClass _createFilteringTextInputFormatterBridge() {
           'replacementString',
           '',
         );
-        return $flutter_49.FilteringTextInputFormatter(
+        return $flutter_50.FilteringTextInputFormatter(
           filterPattern,
           allow: allow,
           replacementString: replacementString,
@@ -19737,7 +19794,7 @@ BridgedClass _createFilteringTextInputFormatterBridge() {
           'replacementString',
           '',
         );
-        return $flutter_49.FilteringTextInputFormatter.allow(
+        return $flutter_50.FilteringTextInputFormatter.allow(
           filterPattern,
           replacementString: replacementString,
         );
@@ -19755,7 +19812,7 @@ BridgedClass _createFilteringTextInputFormatterBridge() {
           'replacementString',
           '',
         );
-        return $flutter_49.FilteringTextInputFormatter.deny(
+        return $flutter_50.FilteringTextInputFormatter.deny(
           filterPattern,
           replacementString: replacementString,
         );
@@ -19763,19 +19820,19 @@ BridgedClass _createFilteringTextInputFormatterBridge() {
     },
     getters: {
       'filterPattern': (visitor, target) => D4
-          .validateTarget<$flutter_49.FilteringTextInputFormatter>(
+          .validateTarget<$flutter_50.FilteringTextInputFormatter>(
             target,
             'FilteringTextInputFormatter',
           )
           .filterPattern,
       'allow': (visitor, target) => D4
-          .validateTarget<$flutter_49.FilteringTextInputFormatter>(
+          .validateTarget<$flutter_50.FilteringTextInputFormatter>(
             target,
             'FilteringTextInputFormatter',
           )
           .allow,
       'replacementString': (visitor, target) => D4
-          .validateTarget<$flutter_49.FilteringTextInputFormatter>(
+          .validateTarget<$flutter_50.FilteringTextInputFormatter>(
             target,
             'FilteringTextInputFormatter',
           )
@@ -19783,18 +19840,18 @@ BridgedClass _createFilteringTextInputFormatterBridge() {
     },
     methods: {
       'formatEditUpdate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_49.FilteringTextInputFormatter>(
+        final t = D4.validateTarget<$flutter_50.FilteringTextInputFormatter>(
           target,
           'FilteringTextInputFormatter',
         );
         D4.requireMinArgs(positional, 2, 'formatEditUpdate');
-        final oldValue = D4.getRequiredArg<$flutter_50.TextEditingValue>(
+        final oldValue = D4.getRequiredArg<$flutter_51.TextEditingValue>(
           positional,
           0,
           'oldValue',
           'formatEditUpdate',
         );
-        final newValue = D4.getRequiredArg<$flutter_50.TextEditingValue>(
+        final newValue = D4.getRequiredArg<$flutter_51.TextEditingValue>(
           positional,
           1,
           'newValue',
@@ -19805,9 +19862,9 @@ BridgedClass _createFilteringTextInputFormatterBridge() {
     },
     staticGetters: {
       'singleLineFormatter': (visitor) =>
-          $flutter_49.FilteringTextInputFormatter.singleLineFormatter,
+          $flutter_50.FilteringTextInputFormatter.singleLineFormatter,
       'digitsOnly': (visitor) =>
-          $flutter_49.FilteringTextInputFormatter.digitsOnly,
+          $flutter_50.FilteringTextInputFormatter.digitsOnly,
     },
     constructorSignatures: {
       '': 'FilteringTextInputFormatter(Pattern filterPattern, {required bool allow, String replacementString = \'\'})',
@@ -19838,9 +19895,9 @@ BridgedClass _createFilteringTextInputFormatterBridge() {
 
 BridgedClass _createLengthLimitingTextInputFormatterBridge() {
   return BridgedClass(
-    nativeType: $flutter_49.LengthLimitingTextInputFormatter,
+    nativeType: $flutter_50.LengthLimitingTextInputFormatter,
     name: 'LengthLimitingTextInputFormatter',
-    isAssignable: (v) => v is $flutter_49.LengthLimitingTextInputFormatter,
+    isAssignable: (v) => v is $flutter_50.LengthLimitingTextInputFormatter,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
@@ -19852,11 +19909,11 @@ BridgedClass _createLengthLimitingTextInputFormatterBridge() {
           'LengthLimitingTextInputFormatter',
         );
         final maxLengthEnforcement = D4
-            .getOptionalNamedArg<$flutter_49.MaxLengthEnforcement?>(
+            .getOptionalNamedArg<$flutter_50.MaxLengthEnforcement?>(
               named,
               'maxLengthEnforcement',
             );
-        return $flutter_49.LengthLimitingTextInputFormatter(
+        return $flutter_50.LengthLimitingTextInputFormatter(
           maxLength,
           maxLengthEnforcement: maxLengthEnforcement,
         );
@@ -19864,13 +19921,13 @@ BridgedClass _createLengthLimitingTextInputFormatterBridge() {
     },
     getters: {
       'maxLength': (visitor, target) => D4
-          .validateTarget<$flutter_49.LengthLimitingTextInputFormatter>(
+          .validateTarget<$flutter_50.LengthLimitingTextInputFormatter>(
             target,
             'LengthLimitingTextInputFormatter',
           )
           .maxLength,
       'maxLengthEnforcement': (visitor, target) => D4
-          .validateTarget<$flutter_49.LengthLimitingTextInputFormatter>(
+          .validateTarget<$flutter_50.LengthLimitingTextInputFormatter>(
             target,
             'LengthLimitingTextInputFormatter',
           )
@@ -19879,18 +19936,18 @@ BridgedClass _createLengthLimitingTextInputFormatterBridge() {
     methods: {
       'formatEditUpdate': (visitor, target, positional, named, typeArgs) {
         final t = D4
-            .validateTarget<$flutter_49.LengthLimitingTextInputFormatter>(
+            .validateTarget<$flutter_50.LengthLimitingTextInputFormatter>(
               target,
               'LengthLimitingTextInputFormatter',
             );
         D4.requireMinArgs(positional, 2, 'formatEditUpdate');
-        final oldValue = D4.getRequiredArg<$flutter_50.TextEditingValue>(
+        final oldValue = D4.getRequiredArg<$flutter_51.TextEditingValue>(
           positional,
           0,
           'oldValue',
           'formatEditUpdate',
         );
-        final newValue = D4.getRequiredArg<$flutter_50.TextEditingValue>(
+        final newValue = D4.getRequiredArg<$flutter_51.TextEditingValue>(
           positional,
           1,
           'newValue',
@@ -19906,14 +19963,14 @@ BridgedClass _createLengthLimitingTextInputFormatterBridge() {
           0,
           'platform',
         );
-        return $flutter_49
+        return $flutter_50
             .LengthLimitingTextInputFormatter.getDefaultMaxLengthEnforcement(
           platform,
         );
       },
       'truncate': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'truncate');
-        final value = D4.getRequiredArg<$flutter_50.TextEditingValue>(
+        final value = D4.getRequiredArg<$flutter_51.TextEditingValue>(
           positional,
           0,
           'value',
@@ -19925,7 +19982,7 @@ BridgedClass _createLengthLimitingTextInputFormatterBridge() {
           'maxLength',
           'truncate',
         );
-        return $flutter_49.LengthLimitingTextInputFormatter.truncate(
+        return $flutter_50.LengthLimitingTextInputFormatter.truncate(
           value,
           maxLength,
         );
@@ -19957,14 +20014,14 @@ BridgedClass _createLengthLimitingTextInputFormatterBridge() {
 
 BridgedClass _createTextLayoutMetricsBridge() {
   return BridgedClass(
-    nativeType: $flutter_51.TextLayoutMetrics,
+    nativeType: $flutter_52.TextLayoutMetrics,
     name: 'TextLayoutMetrics',
-    isAssignable: (v) => v is $flutter_51.TextLayoutMetrics,
+    isAssignable: (v) => v is $flutter_52.TextLayoutMetrics,
     isAbstract: true,
     constructors: {},
     methods: {
       'getLineAtOffset': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_51.TextLayoutMetrics>(
+        final t = D4.validateTarget<$flutter_52.TextLayoutMetrics>(
           target,
           'TextLayoutMetrics',
         );
@@ -19978,7 +20035,7 @@ BridgedClass _createTextLayoutMetricsBridge() {
         return t.getLineAtOffset(position);
       },
       'getWordBoundary': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_51.TextLayoutMetrics>(
+        final t = D4.validateTarget<$flutter_52.TextLayoutMetrics>(
           target,
           'TextLayoutMetrics',
         );
@@ -19992,7 +20049,7 @@ BridgedClass _createTextLayoutMetricsBridge() {
         return t.getWordBoundary(position);
       },
       'getTextPositionAbove': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_51.TextLayoutMetrics>(
+        final t = D4.validateTarget<$flutter_52.TextLayoutMetrics>(
           target,
           'TextLayoutMetrics',
         );
@@ -20006,7 +20063,7 @@ BridgedClass _createTextLayoutMetricsBridge() {
         return t.getTextPositionAbove(position);
       },
       'getTextPositionBelow': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_51.TextLayoutMetrics>(
+        final t = D4.validateTarget<$flutter_52.TextLayoutMetrics>(
           target,
           'TextLayoutMetrics',
         );
@@ -20029,7 +20086,7 @@ BridgedClass _createTextLayoutMetricsBridge() {
           'codeUnit',
           'isWhitespace',
         );
-        return $flutter_51.TextLayoutMetrics.isWhitespace(codeUnit);
+        return $flutter_52.TextLayoutMetrics.isWhitespace(codeUnit);
       },
       'isLineTerminator': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'isLineTerminator');
@@ -20039,7 +20096,7 @@ BridgedClass _createTextLayoutMetricsBridge() {
           'codeUnit',
           'isLineTerminator',
         );
-        return $flutter_51.TextLayoutMetrics.isLineTerminator(codeUnit);
+        return $flutter_52.TextLayoutMetrics.isLineTerminator(codeUnit);
       },
     },
     methodSignatures: {
@@ -20063,21 +20120,21 @@ BridgedClass _createTextLayoutMetricsBridge() {
 
 BridgedClass _createUndoManagerBridge() {
   return BridgedClass(
-    nativeType: $flutter_52.UndoManager,
+    nativeType: $flutter_53.UndoManager,
     name: 'UndoManager',
-    isAssignable: (v) => v is $flutter_52.UndoManager,
+    isAssignable: (v) => v is $flutter_53.UndoManager,
     constructors: {},
-    staticGetters: {'client': (visitor) => $flutter_52.UndoManager.client},
+    staticGetters: {'client': (visitor) => $flutter_53.UndoManager.client},
     staticMethods: {
       'setChannel': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'setChannel');
-        final newChannel = D4.getRequiredArg<$flutter_32.MethodChannel>(
+        final newChannel = D4.getRequiredArg<$flutter_33.MethodChannel>(
           positional,
           0,
           'newChannel',
           'setChannel',
         );
-        return $flutter_52.UndoManager.setChannel(newChannel);
+        return $flutter_53.UndoManager.setChannel(newChannel);
       },
       'setUndoState': (visitor, positional, named, typeArgs) {
         final canUndo = D4.getNamedArgWithDefault<bool>(
@@ -20090,15 +20147,15 @@ BridgedClass _createUndoManagerBridge() {
           'canRedo',
           false,
         );
-        return $flutter_52.UndoManager.setUndoState(
+        return $flutter_53.UndoManager.setUndoState(
           canUndo: canUndo,
           canRedo: canRedo,
         );
       },
     },
     staticSetters: {
-      'client': (visitor, value) => $flutter_52.UndoManager.client = D4
-          .extractBridgedArgOrNull<$flutter_52.UndoManagerClient>(
+      'client': (visitor, value) => $flutter_53.UndoManager.client = D4
+          .extractBridgedArgOrNull<$flutter_53.UndoManagerClient>(
             value,
             'client',
           ),
@@ -20119,21 +20176,21 @@ BridgedClass _createUndoManagerBridge() {
 
 BridgedClass _createUndoManagerClientBridge() {
   return BridgedClass(
-    nativeType: $flutter_52.UndoManagerClient,
+    nativeType: $flutter_53.UndoManagerClient,
     name: 'UndoManagerClient',
-    isAssignable: (v) => v is $flutter_52.UndoManagerClient,
+    isAssignable: (v) => v is $flutter_53.UndoManagerClient,
     canBeUsedAsMixin: true,
     isAbstract: true,
     constructors: {},
     getters: {
       'canUndo': (visitor, target) => D4
-          .validateTarget<$flutter_52.UndoManagerClient>(
+          .validateTarget<$flutter_53.UndoManagerClient>(
             target,
             'UndoManagerClient',
           )
           .canUndo,
       'canRedo': (visitor, target) => D4
-          .validateTarget<$flutter_52.UndoManagerClient>(
+          .validateTarget<$flutter_53.UndoManagerClient>(
             target,
             'UndoManagerClient',
           )
@@ -20141,12 +20198,12 @@ BridgedClass _createUndoManagerClientBridge() {
     },
     methods: {
       'handlePlatformUndo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_52.UndoManagerClient>(
+        final t = D4.validateTarget<$flutter_53.UndoManagerClient>(
           target,
           'UndoManagerClient',
         );
         D4.requireMinArgs(positional, 1, 'handlePlatformUndo');
-        final direction = D4.getRequiredArg<$flutter_52.UndoDirection>(
+        final direction = D4.getRequiredArg<$flutter_53.UndoDirection>(
           positional,
           0,
           'direction',
@@ -20156,7 +20213,7 @@ BridgedClass _createUndoManagerClientBridge() {
         return null;
       },
       'undo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_52.UndoManagerClient>(
+        final t = D4.validateTarget<$flutter_53.UndoManagerClient>(
           target,
           'UndoManagerClient',
         );
@@ -20164,7 +20221,7 @@ BridgedClass _createUndoManagerClientBridge() {
         return null;
       },
       'redo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_52.UndoManagerClient>(
+        final t = D4.validateTarget<$flutter_53.UndoManagerClient>(
           target,
           'UndoManagerClient',
         );
