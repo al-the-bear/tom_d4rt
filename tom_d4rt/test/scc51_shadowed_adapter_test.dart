@@ -1291,7 +1291,10 @@ void main() {
             'harness supplied. Fix the recipe in `_callableArgs` rather than '
             'reading THROW == THROW as a passing comparison.',
       );
-    });
+      // It invokes every shadowed adapter pair: measured 2026-11-07 at 27-30 s
+      // alone, at the default 30 s timeout, and it timed out whenever the
+      // host was busy. The budget is for a loaded machine, not a slow test.
+    }, timeout: const Timeout(Duration(minutes: 3)));
 
     test('F-SCE185-1: every bridge that shadows a supertype member is walked, '
         'or named in `_unwalked` with the reason it cannot be [2026-09-25]', () {
