@@ -261,4 +261,81 @@ void main() {
       expect(compareVersions('4.3.0', '4.3.0'), 0);
     });
   });
+
+  // qr3: the comparison is only meaningful for a fixture that compiles the
+  // host's SOURCE, i.e. one whose lock resolves the host by `path:`. A fixture
+  // that takes the host from pub.dev compiles the PUBLISHED host against its
+  // own, internally consistent lock, and one that does not use the host at all
+  // compiles none of it. Measured 2026-11-07: the generator moved to
+  // tom_analyzer_shared 0.11.0 unpublished, and its three examples that take
+  // the generator from pub.dev went red on 0.8.1 — a lock that is correct for
+  // the generator they actually compile.
+  group('qr3: only a fixture that path-resolves the host is compared', () {
+    void hostNamed(String name) => File(
+      p.join(host.path, 'pubspec.yaml'),
+    ).writeAsStringSync('name: $name\n');
+
+    /// Appends the host package to the fixture lock as [source].
+    void fixtureTakesHost(String name, {required String source}) {
+      final lock = File(p.join(fixture.path, 'pubspec.lock'));
+      final description = source == 'path'
+          ? '      path: "../.."\n      relative: true\n'
+          : '      name: $name\n      sha256: "0000"\n'
+                '      url: "https://pub.dev"\n';
+      lock.writeAsStringSync(
+        lock.readAsStringSync().replaceFirst(
+          'sdks:',
+          '  $name:\n'
+              '    dependency: "direct main"\n'
+              '    description:\n'
+              '$description'
+              '    source: $source\n'
+              '    version: "1.0.0"\n'
+              'sdks:',
+        ),
+      );
+    }
+
+    test('G-PARITY-11: a fixture taking the host from pub.dev is not compared '
+        '[2026-11-07]', () {
+      hostNamed('gen');
+      writeLock(host, {'tom_analyzer_shared': ('direct main', '0.11.0')});
+      writeLock(fixture, {'tom_analyzer_shared': ('transitive', '0.8.1')});
+      fixtureTakesHost('gen', source: 'hosted');
+      expect(
+        compareFixtureResolution(
+          hostProjectPath: host.path,
+          fixtureProjectPath: fixture.path,
+        ),
+        isEmpty,
+      );
+    });
+
+    test('G-PARITY-12: a fixture that does not use the host is not compared '
+        '[2026-11-07]', () {
+      hostNamed('gen');
+      writeLock(host, {'analyzer': ('direct main', '14.7.0')});
+      writeLock(fixture, {'analyzer': ('transitive', '14.5.0')});
+      expect(
+        compareFixtureResolution(
+          hostProjectPath: host.path,
+          fixtureProjectPath: fixture.path,
+        ),
+        isEmpty,
+      );
+    });
+
+    test('G-PARITY-13: a fixture path-resolving the host is still compared '
+        '[2026-11-07]', () {
+      hostNamed('gen');
+      writeLock(host, {'analyzer': ('direct main', '14.7.0')});
+      writeLock(fixture, {'analyzer': ('transitive', '14.5.0')});
+      fixtureTakesHost('gen', source: 'path');
+      final mismatches = compareFixtureResolution(
+        hostProjectPath: host.path,
+        fixtureProjectPath: fixture.path,
+      );
+      expect(mismatches.map((m) => m.package), ['analyzer']);
+    });
+  });
 }

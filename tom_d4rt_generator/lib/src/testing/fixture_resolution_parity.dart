@@ -104,10 +104,19 @@ String _pubTool(String projectPath) {
 ///
 /// Returns empty when either side has no lock file: a project that has never
 /// resolved is a different problem, with its own check.
+///
+/// Returns empty, too, for a fixture whose lock does not resolve the host by
+/// `path:` (when the host's pubspec names it): one that takes the host from
+/// pub.dev compiles the PUBLISHED host against its own lock, and one that does
+/// not use the host compiles none of its source — so neither can fail this way.
 List<ResolutionMismatch> compareFixtureResolution({
   required String hostProjectPath,
   required String fixtureProjectPath,
 }) {
+  final hostName = _packageName(hostProjectPath);
+  if (hostName != null && _lockSource(fixtureProjectPath, hostName) != 'path') {
+    return const [];
+  }
   final host = _hostedVersions(hostProjectPath, runtimeOnly: true);
   if (host.isEmpty) return const [];
   final fixture = _hostedVersions(fixtureProjectPath, runtimeOnly: false);
@@ -178,6 +187,36 @@ String describeMismatches(List<ResolutionMismatch> mismatches) {
     'move the version either, a constraint is holding it — raise it.',
   );
   return buffer.toString();
+}
+
+/// The `name:` a project's pubspec declares, or null.
+String? _packageName(String projectPath) {
+  final pubspec = File(p.join(projectPath, 'pubspec.yaml'));
+  if (!pubspec.existsSync()) return null;
+  return RegExp(
+    r'^name:\s*([A-Za-z0-9_]+)\s*$',
+    multiLine: true,
+  ).firstMatch(pubspec.readAsStringSync())?.group(1);
+}
+
+/// The `source:` a project's lock resolves [package] from, or null when the
+/// lock is missing or does not name it.
+String? _lockSource(String projectPath, String package) {
+  final lock = File(p.join(projectPath, 'pubspec.lock'));
+  if (!lock.existsSync()) return null;
+  var inPackage = false;
+  for (final line in lock.readAsLinesSync()) {
+    final packageStart = RegExp(r'^  ([A-Za-z0-9_]+):\s*$').firstMatch(line);
+    if (packageStart != null) {
+      inPackage = packageStart.group(1) == package;
+      continue;
+    }
+    if (inPackage) {
+      final source = _value(line, 'source');
+      if (source != null) return source;
+    }
+  }
+  return null;
 }
 
 /// `name -> version` for hosted packages in a project's lock.

@@ -1,3 +1,30 @@
+## 1.54.0
+
+### Changed — tom_analyzer_shared ^0.11.0 (qr3)
+
+The generator takes `tom_analyzer_shared` ^0.11.0 (was ^0.8.0). From 0.9.0
+on, a grouped bundle of Flutter packages links against the SDK with Flutter's
+embedder libraries, so the `dart:ui` types Flutter re-exports (`TextDirection`,
+`Color`, `Offset` ...) are defined to code read against it. 0.10.0 keys the
+summary cache by the analyzer's data version, so a bundle written by another
+analyzer minor on the same SDK is rebuilt rather than read. 0.11.0 changes
+only `SummaryStamp`, which the generator does not use; it calls
+`runSummaryCacheStage`, whose signature is unchanged. Regenerated with this
+release, the Flutter twins' bridges keep their surface: beyond the generation
+stamp, the AST twin's vector_math defaults read `1e-3` as the source writes
+them, where the committed files (generator 1.52.0, analyzer 10) read `0.001`.
+
+### Fixed — `compareFixtureResolution` compares only fixtures that compile the host
+
+The parity check (`package:tom_d4rt_generator/testing.dart`) compared every
+fixture against its host. When the host's pubspec names it, a fixture is now
+compared only if its lock resolves the host by `path:`: one that takes the host
+from pub.dev compiles the published host against its own lock, and one that
+does not use the host compiles none of its source. With this release unpublished,
+the generator's three examples that take it from pub.dev were red on
+`tom_analyzer_shared` 0.8.1, the version the published generator they compile
+requires.
+
 ## 1.53.0
 
 ### Changed — analyzer ^14.5.0, tom_analyzer_shared ^0.8.0 (vstdm3)
