@@ -36,8 +36,25 @@ import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:tom_d4rt_generator/testing.dart';
 
+/// Packages an example may resolve differently from this package, with the
+/// todo that aligns them and why it cannot be done now.
+///
+/// The examples path-depend on the generator TREE as well as on this package,
+/// so they take the generator's dependencies from its working tree, while this
+/// package takes the PUBLISHED generator. Until that generator is published
+/// the two cannot agree, however often either side is upgraded. X-PARITY-EX-HOLD
+/// fails once a hold no longer holds anything back, so it is deleted then.
+const _heldBack = <String, String>{
+  'tom_analyzer_shared':
+      'ghissues10: this package takes tom_analyzer_shared through the '
+      'published tom_d4rt_generator 1.53.0 (^0.8.0); the examples through the '
+      'tree generator 1.56.0 (^0.11.0, qr3). The batch release publishes the '
+      'generator, and `dart pub upgrade` here then aligns them.',
+};
+
 void main() {
   final projects = findDartProjects('example');
+  final heldBackSeen = <String>{};
 
   test('X-RESOLVE-EX-00: discovery finds the example projects '
       '[2026-09-11] (PASS)', () {
@@ -53,11 +70,29 @@ void main() {
 
     test('X-PARITY-EX[$project]: resolves this package\'s own dependencies '
         'the way this package does [2026-09-12] (PASS)', () {
-      final mismatches = compareFixtureResolution(
+      final all = compareFixtureResolution(
         hostProjectPath: p.current,
         fixtureProjectPath: p.absolute('example', project),
       );
+      heldBackSeen.addAll(
+        all.map((m) => m.package).where(_heldBack.containsKey),
+      );
+      final mismatches = [
+        for (final m in all)
+          if (!_heldBack.containsKey(m.package)) m,
+      ];
       expect(mismatches, isEmpty, reason: describeMismatches(mismatches));
     });
   }
+
+  test('X-PARITY-EX-HOLD: every held-back package still differs somewhere '
+      '[2026-11-07]', () {
+    expect(
+      _heldBack.keys.where((name) => !heldBackSeen.contains(name)),
+      isEmpty,
+      reason:
+          'these holds no longer hold anything back: delete them from '
+          '_heldBack (${_heldBack.keys.where((n) => !heldBackSeen.contains(n)).map((n) => '$n: ${_heldBack[n]}').join('; ')})',
+    );
+  });
 }
