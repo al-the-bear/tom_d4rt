@@ -255,7 +255,18 @@ class HeldBack {
 /// "still stale" every run. A hold names that range, the todo that lifts it,
 /// and why, so the check stays red for everything else in those packages.
 /// F-SCC45-8 fails once a hold no longer holds anything back.
-const Map<String, HeldBack> heldBackVersions = <String, HeldBack>{};
+const Map<String, HeldBack> heldBackVersions = <String, HeldBack>{
+  'tom_analyzer_shared': HeldBack(
+    from: '0.9.0',
+    owner: 'ghissues10_akgl-batch-release-after-ghissues-and-qr',
+    reason:
+        'every lock here takes tom_analyzer_shared through the PUBLISHED '
+        'tom_d4rt_generator 1.53.0, which declares ^0.8.0. The tree\'s '
+        'generator is on ^0.11.0 (qr3) but is not published on its own: the '
+        'batch release ghissues10 publishes it, and its upgrade_stale_locks '
+        'moves the locks',
+  ),
+};
 
 /// [root]-relative path of [dir], always `/`-separated.
 String relativeTo(Directory root, Directory dir) {
