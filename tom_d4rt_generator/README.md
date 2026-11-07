@@ -453,8 +453,8 @@ for the per-entry YAML shapes of `proxyClasses`, `genericConstructors`,
 | Key | Type | Default | Description |
 |---|---|---|---|
 | `name` | `String` | required | Module name |
-| `barrelFiles` | `List<String>` | required (or inferred from `barrelImport`) | Barrel files to scan |
-| `barrelImport` | `String` | — | Primary barrel URI for import-prefix generation |
+| `barrelFiles` | `List<String>` | required (or inferred from `barrelImport`) | Barrel files to scan; export graph is followed recursively. Each is a `package:` URI or a path from the package root (`lib/my_package.dart`). |
+| `barrelImport` | `String` | first of `barrelFiles` | The import scripts use for the module, under which the bridges are registered: a `package:` URI or a path relative to `lib/`. Paths become `package:<name>/...`. |
 | `outputPath` | `String` | required | Output `*.b.dart` file path |
 | `excludePatterns` | `List<String>` | `[]` | Class-name glob patterns to skip |
 | `excludeClasses` | `List<String>` | `[]` | Class names to skip |

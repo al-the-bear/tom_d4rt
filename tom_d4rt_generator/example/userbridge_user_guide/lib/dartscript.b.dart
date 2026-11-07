@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Dartscript registration for userbridge_user_guide_example
-// Generated: 2026-09-30T17:35:15.087596 by tom_d4rt_generator 1.51.0
+// Generated: 2026-11-07T14:21:49.018195 by tom_d4rt_generator 1.54.0
 
 /// D4rt Bridge Registration for userbridge_user_guide_example
 library;
@@ -18,10 +18,6 @@ class UserbridgeUserGuideExampleBridges {
     all_bridges.AllBridge.registerBridges(
       d4rt,
       'package:userbridge_user_guide_example/userbridge_user_guide_example.dart',
-    );
-    all_bridges.AllBridge.registerBridges(
-      d4rt,
-      'lib/userbridge_user_guide_example.dart',
     );
     // Register under sub-package barrels for direct imports
     for (final barrel in all_bridges.AllBridge.subPackageBarrels()) {

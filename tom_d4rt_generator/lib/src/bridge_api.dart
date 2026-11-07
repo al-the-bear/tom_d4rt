@@ -348,15 +348,11 @@ Future<GenerationResult> generateBridges({
       if (verbose) {
         print('  Generating module: ${module.name}');
       }
-      // Determine sourceImport: use barrelImport if provided, otherwise first barrel file
-      final sourceImport = module.barrelImport ?? module.barrelFiles.first;
-
-      // Build list of barrel imports for getImportBlock() generation.
-      // The barrel imports are used by D4rt scripts (not by the bridge code itself,
-      // which imports directly from source files).
-      final sourceImports = module.barrelFiles
-          .where((f) => f.startsWith('package:'))
-          .toList();
+      // The imports D4rt scripts use for this module, as package: URIs, for
+      // getImportBlock() (not for the bridge code itself, which imports
+      // directly from source files).
+      final sourceImport = module.scriptImport(bridgeConfig.name);
+      final sourceImports = module.scriptImports(bridgeConfig.name);
 
       final generator = BridgeGenerator(
         workspacePath: projectDir,

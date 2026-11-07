@@ -308,7 +308,7 @@ class PerPackageBridgeOrchestrator {
         excludeSourcePatterns: module.excludeSourcePatterns.toSet(),
       );
 
-      final sourceImport = module.barrelImport ?? module.barrelFiles.first;
+      final sourceImport = module.scriptImport(config.name);
 
       final generator = BridgeGenerator(
         workspacePath: projectRoot,

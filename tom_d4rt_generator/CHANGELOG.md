@@ -1,3 +1,21 @@
+## 1.55.0
+
+### Fixed — a package-relative barrel is imported as a `package:` URI (GitHub #1, bug 3)
+
+A module configured with `barrelFiles: [lib/url_builder.dart]` and no
+`barrelImport` handed scripts `lib/url_builder.dart` as its import: the
+dartscript and the test runner registered the bridges under that path, the
+test runner's init source left the barrel out, and `getImportBlock()` read
+`package:<pkg>/lib/url_builder.dart`. No script can import any of them. A
+lib-relative `barrelImport` (`url_builder.dart`) had the same effect in the
+dartscript and the test runner.
+
+`ModuleConfig.scriptImport` / `scriptImports` now give a module's imports as
+`package:` URIs through one helper, `barrelImportUri`, and every place that
+needs a barrel's import uses them: `lib/x.dart` and `x.dart` both become
+`package:<pkg>/x.dart`. The generator's examples drop their registrations under
+`lib/...` paths when regenerated.
+
 ## 1.54.0
 
 ### Changed — tom_analyzer_shared ^0.11.0 (qr3)

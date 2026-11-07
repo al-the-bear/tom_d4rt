@@ -6,18 +6,36 @@ library;
 import 'dart:convert';
 import 'dart:io';
 
+/// The `package:` URI a D4rt script imports for the barrel [path] of
+/// [packageName].
+///
+/// A URI (`package:`, `dart:`) is returned as written. A path is the barrel's
+/// location in the package: `lib/x.dart` (relative to the package root, the
+/// form `barrelFiles` documents) and `x.dart` (relative to `lib/`, the form
+/// `barrelImport` takes) both resolve to `package:<packageName>/x.dart`. Only
+/// files under `lib/` can be imported, so there is no other form.
+String barrelImportUri(String path, String packageName) {
+  if (path.startsWith('package:') || path.startsWith('dart:')) return path;
+  var libRelative = path.replaceAll(r'\', '/');
+  if (libRelative.startsWith('./')) libRelative = libRelative.substring(2);
+  if (libRelative.startsWith('lib/')) libRelative = libRelative.substring(4);
+  return 'package:$packageName/$libRelative';
+}
+
 /// Configuration for a single module within a project.
 class ModuleConfig {
   /// The name of the module.
   final String name;
 
-  /// List of barrel files to process for this module.
+  /// List of barrel files to process for this module, each a `package:` URI or
+  /// a path relative to the package root (`lib/my_package.dart`).
   final List<String> barrelFiles;
 
   /// Output path for the generated bridge file.
   final String outputPath;
 
-  /// Optional import path for the barrel file.
+  /// Optional import a script uses for this module: a `package:` URI or a path
+  /// relative to `lib/`. Defaults to the first of [barrelFiles].
   final String? barrelImport;
 
   /// Patterns to exclude from processing.
@@ -187,6 +205,19 @@ class ModuleConfig {
           (json['deprecatedAllowlist'] as List?)?.cast<String>() ?? [],
     );
   }
+
+  /// The import a D4rt script uses for this module, as a `package:` URI:
+  /// [barrelImport], else the first of [barrelFiles], through
+  /// [barrelImportUri]. The bridges are registered under it.
+  String scriptImport(String packageName) =>
+      barrelImportUri(barrelImport ?? barrelFiles.first, packageName);
+
+  /// Every import a D4rt script may use for this module: [scriptImport] first,
+  /// then each of [barrelFiles] as a `package:` URI, without duplicates.
+  List<String> scriptImports(String packageName) => {
+    scriptImport(packageName),
+    for (final barrel in barrelFiles) barrelImportUri(barrel, packageName),
+  }.toList();
 
   Map<String, dynamic> toJson() {
     return {

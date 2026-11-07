@@ -191,8 +191,9 @@ String generateDartscriptFileContent(
   for (final module in config.modules) {
     // Use toPascalCase for consistent class naming with bridge generator
     final capitalizedModuleName = toPascalCase(module.name);
-    // Use the source barrel import the classes were generated from
-    final sourceImport = module.barrelImport ?? module.barrelFiles.first;
+    // Register under every import a script may use for the module, the
+    // primary one first.
+    final sourceImport = module.scriptImport(effectivePackageName);
     buffer.writeln(
       '    ${module.name}_bridges.${capitalizedModuleName}Bridge.registerBridges(',
     );
@@ -200,9 +201,7 @@ String generateDartscriptFileContent(
     buffer.writeln("      '$sourceImport',");
     buffer.writeln('    );');
 
-    // When a module has multiple barrel files, also register under each
-    // additional barrel import so that D4rt scripts can import from any of them.
-    for (final barrelFile in module.barrelFiles) {
+    for (final barrelFile in module.scriptImports(effectivePackageName)) {
       if (barrelFile != sourceImport) {
         buffer.writeln(
           '    ${module.name}_bridges.${capitalizedModuleName}Bridge.registerBridges(',
@@ -366,17 +365,10 @@ String generateTestRunnerContent(
   // Build the init script source with all imports
   buffer.writeln('/// Init script source that imports all bridged modules.');
   buffer.writeln("const String _initSource = '''");
-  // Add import for each module's barrel — only package: imports
+  // Import every module's barrels, as package: URIs.
   for (final module in config.modules) {
-    final sourceImport = module.barrelImport ?? module.barrelFiles.first;
-    if (sourceImport.startsWith('package:')) {
-      buffer.writeln("import '$sourceImport';");
-    }
-    // Additional barrel files (only package: URIs)
-    for (final barrelFile in module.barrelFiles) {
-      if (barrelFile != sourceImport && barrelFile.startsWith('package:')) {
-        buffer.writeln("import '$barrelFile';");
-      }
+    for (final barrelFile in module.scriptImports(effectivePackageName)) {
+      buffer.writeln("import '$barrelFile';");
     }
   }
   buffer.writeln();
@@ -398,7 +390,7 @@ String generateTestRunnerContent(
 
   for (final module in config.modules) {
     final capitalizedModuleName = toPascalCase(module.name);
-    final sourceImport = module.barrelImport ?? module.barrelFiles.first;
+    final sourceImport = module.scriptImport(effectivePackageName);
     buffer.writeln(
       '  ${module.name}_bridges.${capitalizedModuleName}Bridge.registerBridges(',
     );
@@ -406,9 +398,9 @@ String generateTestRunnerContent(
     buffer.writeln("    '$sourceImport',");
     buffer.writeln('  );');
 
-    // Register additional barrel files (only package: URIs to avoid duplicates)
-    for (final barrelFile in module.barrelFiles) {
-      if (barrelFile != sourceImport && barrelFile.startsWith('package:')) {
+    // Register under the module's other barrels too.
+    for (final barrelFile in module.scriptImports(effectivePackageName)) {
+      if (barrelFile != sourceImport) {
         buffer.writeln(
           '  ${module.name}_bridges.${capitalizedModuleName}Bridge.registerBridges(',
         );

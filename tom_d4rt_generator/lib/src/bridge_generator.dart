@@ -23,6 +23,7 @@ import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 
 import 'analysis_paths.dart' show analysisIncludedPath;
+import 'bridge_config.dart' show barrelImportUri;
 import 'element_mode_extractor.dart';
 import 'file_writer.dart';
 import 'sdk_utils.dart' show getSdkPath;
@@ -7809,7 +7810,7 @@ class BridgeGenerator {
       final detectedPackageName =
           packageName ?? _getPackageNameFromPath(sourceFile);
       if (detectedPackageName != null && sourceImport != null) {
-        importBlockUri = 'package:$detectedPackageName/$sourceImport';
+        importBlockUri = barrelImportUri(sourceImport!, detectedPackageName);
       }
     }
 
