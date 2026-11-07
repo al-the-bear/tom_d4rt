@@ -1,3 +1,18 @@
+## 1.54.0
+
+### Added — deferred supertype resolution in the module loader (GitHub #9)
+
+`ModuleLoader` implements the `ModuleContext` members tom_d4rt_ast 0.215.0
+adds: `isLoadingModules`, and `deferUntilModulesLoaded`, which runs the
+resolutions the interpreter hands over (a supertype or type-parameter bound in
+a library still loading) once the outermost load returns. With tom_d4rt_ast
+0.215.0 and tom_ast_generator 0.2.2, a bundle of the unmodified intl 0.20.3
+sources runs `Intl.canonicalizedLocale('en-US')` (measured in the tree with
+both path-resolved). The members carry no `@override` while this package
+resolves tom_d4rt_ast 0.212.1.
+
+Name resolution: yes — module loading defers supertypes and bounds a library still loading declares.
+
 ## 1.53.0
 
 ### Added — async entry points (dasy1)

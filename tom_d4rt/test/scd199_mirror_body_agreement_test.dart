@@ -348,7 +348,10 @@ const _divergentBodies = <String, Map<String, String>>{
     // accessor difference this member already had.
     // VSTDM3: the analyzer 14 port edited both trees alike; the divergence
     // itself is unchanged.
-    'InterpreterVisitor.visitClassDeclaration': '59803477',
+    // GHISSUES4: both trees gained the same deferred relationship and bound
+    // resolution; the new residue is the loader field's name, `moduleLoader`
+    // here and `moduleContext` in the twin.
+    'InterpreterVisitor.visitClassDeclaration': '2bc3946e',
     'InterpreterVisitor.visitConstructorReference': '1d51b6d4',
     // VSTDM3: the analyzer 14 port edited both trees alike; the divergence
     // itself is unchanged.
@@ -368,6 +371,11 @@ const _divergentBodies = <String, Map<String, String>>{
     // arity-heuristic throw sites inside it now raise `RangeError`
     // rather than `RuntimeD4rtException`, symmetrically in both trees.
     'InterpreterVisitor.visitMethodInvocation': 'a1b41959',
+    // GHISSUES4: identical in both trees but for the loader field's name,
+    // `moduleLoader` here and `moduleContext` in the twin (the twin's
+    // interpreter reaches its loader through the ModuleContext interface).
+    'InterpreterVisitor.visitMixinDeclaration': 'e8f05235',
+    'InterpreterVisitor._deferUnresolvedBounds': 'e8f05235',
     // SCE236: the two `visitNode` bodies are identical now. Only the excerpt
     // helper differs: `toSource()` here, the bundled source in the twin.
     'InterpreterVisitor._nodeExcerpt': 'b5e37909',

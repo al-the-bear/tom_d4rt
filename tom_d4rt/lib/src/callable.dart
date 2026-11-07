@@ -628,35 +628,50 @@ class InterpretedFunction implements Callable {
         ),
       );
 
-  // Constructor for methods
+  // Constructor for methods. [lenientBounds]: see [resolveTypeParameterBounds].
   InterpretedFunction.method(
     MethodDeclaration declaration,
     Environment closure,
-    RuntimeType? owner,
-  ) : this._internal(
-        declaration.parameters,
-        declaration.body,
-        closure,
-        declaration.name.lexeme,
-        // Consider factory methods later
-        isInitializer: false, // Methods are not initializers (usually)
-        isGetter: declaration.isGetter, // Pass getter flag
-        isSetter: declaration.isSetter, // Pass setter flag
-        ownerType: owner, // Pass the owner type (class or enum)
-        isAbstract: declaration.isAbstract, // Set the abstract flag
-        isAsync: declaration.body.isAsynchronous, // Pass async flag
-        isGenerator: declaration.body.isGenerator, // Pass generator flag
-        isAsyncGenerator:
-            declaration.body.isAsynchronous &&
-            declaration.body.isGenerator, // Pass async generator flag
-        typeParameterNames: _extractTypeParameterNames(
-          declaration.typeParameters,
-        ),
-        typeParameterBounds: _extractTypeParameterBounds(
-          declaration.typeParameters,
-          closure,
-        ),
-      );
+    RuntimeType? owner, {
+    bool lenientBounds = false,
+  }) : this._internal(
+         declaration.parameters,
+         declaration.body,
+         closure,
+         declaration.name.lexeme,
+         // Consider factory methods later
+         isInitializer: false, // Methods are not initializers (usually)
+         isGetter: declaration.isGetter, // Pass getter flag
+         isSetter: declaration.isSetter, // Pass setter flag
+         ownerType: owner, // Pass the owner type (class or enum)
+         isAbstract: declaration.isAbstract, // Set the abstract flag
+         isAsync: declaration.body.isAsynchronous, // Pass async flag
+         isGenerator: declaration.body.isGenerator, // Pass generator flag
+         isAsyncGenerator:
+             declaration.body.isAsynchronous &&
+             declaration.body.isGenerator, // Pass async generator flag
+         typeParameterNames: _extractTypeParameterNames(
+           declaration.typeParameters,
+         ),
+         typeParameterBounds: _extractTypeParameterBounds(
+           declaration.typeParameters,
+           closure,
+           lenient: lenientBounds,
+         ),
+       );
+
+  /// The bounds of [typeParameters] resolved STRICTLY in [env]: an undefined
+  /// bound throws.
+  ///
+  /// GitHub #9 — a method created while a module load is in progress is built
+  /// with lenient bounds, because its bound may name a class a barrel has not
+  /// exported yet (intl's `parseWith<R, P extends NumberParserBase<R>>`, which
+  /// reaches `NumberParserBase` only through `intl.dart`). The bounds left
+  /// unresolved are filled from this once the outermost load returns.
+  static Map<String, RuntimeType?> resolveTypeParameterBounds(
+    TypeParameterList? typeParameters,
+    Environment env,
+  ) => _extractTypeParameterBounds(typeParameters, env);
 
   // Constructor for constructors
   InterpretedFunction.constructor(

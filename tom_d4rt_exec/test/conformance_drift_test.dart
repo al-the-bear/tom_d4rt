@@ -428,7 +428,20 @@ const _partialTwinBudget = 0;
 /// static and top-level variable declarations with list-literal and
 /// identifier initializers, which the corpus copies on every run.
 ///
-const _copierGapBudget = 43;
+/// 43 -> 44: GHISSUES4 added `gh9_import_cycle_test.dart`, which runs source
+/// to ask whether a class may extend, implement or mix in a type, or bound a
+/// type parameter by one, that a library still loading declares (an import
+/// cycle, a barrel), and runs intl 0.20.3 from source (GitHub #9). Exec
+/// resolves tom_d4rt_ast and tom_ast_generator from pub.dev, where those
+/// lookups still fail eagerly until the batch release (ghissues10), so a port
+/// would assert the fix against an interpreter that does not have it. Its ast
+/// twin holds the mechanism; the intl bundle through this package's front end
+/// was measured with both path-resolved (prepublish_overrides --set). The
+/// copier surface a port would have added is import and export directives
+/// and class declarations with extends / implements / with clauses, which the
+/// corpus copies on every run.
+///
+const _copierGapBudget = 44;
 
 const Map<String, _Coverage> _coveredElsewhere = {
   'sce208_bind_forwarding_source_errors_test.dart': _Coverage(
@@ -475,6 +488,22 @@ const Map<String, _Coverage> _coveredElsewhere = {
         'is a REAL-DART comparison rather than a property of either '
         'interpreter — restating it as bundles would assert the SDK against '
         'itself.',
+  ),
+  'gh9_import_cycle_test.dart': _Coverage(
+    'ast:runtime/gh9_import_cycle_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 8,
+    twinCases: 4,
+    whyPartial:
+        'the twin pins the two mechanisms once each - an interface across an '
+        'import cycle and a superclass and a method bound behind a barrel - '
+        'and that the deferred inherited-member check still rejects, which is '
+        'what only that tree can answer, since its class and mixin visitors '
+        'and its module loader are its own copies. The reference adds the '
+        'remaining SHAPES (a three-library cycle, class bounds, mixins, '
+        'mixin `on`, enum interfaces, undefined names) and intl 0.20.3 from '
+        'source, which a hand-built bundle would only restate.',
   ),
   'gh10_static_forward_reference_test.dart': _Coverage(
     'ast:runtime/gh10_static_forward_reference_test.dart',

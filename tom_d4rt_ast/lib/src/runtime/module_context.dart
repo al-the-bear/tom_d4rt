@@ -77,6 +77,17 @@ abstract class ModuleContext {
     Set<String>? showNames,
     Set<String>? hideNames,
   });
+
+  /// Whether a module load is in progress, i.e. names a module declares may
+  /// not be visible yet to a module of the same import cycle (GitHub #9).
+  bool get isLoadingModules;
+
+  /// Runs [resolve] once the outermost [loadModule] returns, because it needs
+  /// a name that is not declared yet (a supertype or type-parameter bound in a
+  /// library still loading - GitHub #9). Returns false when no module load is
+  /// in progress: then the name is genuinely undefined and the caller reports
+  /// it.
+  bool deferUntilModulesLoaded(void Function() resolve);
 }
 
 /// A no-op module context for executing pre-parsed AST without import support.
@@ -129,4 +140,11 @@ class NoOpModuleContext implements ModuleContext {
       'Use a full ModuleContext implementation for import support.',
     );
   }
+
+  /// Nothing is ever loading here.
+  @override
+  bool get isLoadingModules => false;
+
+  @override
+  bool deferUntilModulesLoaded(void Function() resolve) => false;
 }

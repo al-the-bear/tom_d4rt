@@ -10705,6 +10705,34 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     }
   }
 
+  /// GitHub #9 — the bounds of [function]'s type parameters that could not be
+  /// resolved while modules were loading (a bound naming a class a barrel has
+  /// not exported yet) are resolved, strictly, once the outermost load
+  /// returns; an undefined one throws then.
+  void _deferUnresolvedBounds(
+    InterpretedFunction function,
+    STypeParameterList? typeParameters,
+    Environment env,
+  ) {
+    if (typeParameters == null) return;
+    final unresolved = [
+      for (final param in typeParameters.typeParameters)
+        if (param.bound != null &&
+            function.typeParameterBounds[param.name!.name] == null)
+          param.name!.name,
+    ];
+    if (unresolved.isEmpty) return;
+    moduleContext.deferUntilModulesLoaded(() {
+      final bounds = InterpretedFunction.resolveTypeParameterBounds(
+        typeParameters,
+        env,
+      );
+      for (final name in unresolved) {
+        function.typeParameterBounds[name] = bounds[name];
+      }
+    });
+  }
+
   @override
   Object? visitClassDeclaration(SClassDeclaration node) {
     final className = node.namePart.typeName.name;
@@ -10729,194 +10757,285 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     // SCE130: pass 1 resolved this class's type-parameter bounds before any
     // import or type alias existed, and left behind whatever it could not
     // resolve. Repair it now, before any member is populated.
-    klass.resolveDeferredTypeParameterBounds(
+    // GitHub #9: a bound naming a class not declared yet while modules load
+    // (exported by a barrel that has not reached it) is repaired once the
+    // outermost load returns.
+    final boundsEnv = environment;
+    void repairBounds() => klass.resolveDeferredTypeParameterBounds(
       node.namePart.typeParameters,
-      environment,
+      boundsEnv,
     );
+    final boundNames = <String>[
+      ...?node.namePart.typeParameters?.typeParameters
+          .map(
+            (param) => switch (param.bound) {
+              SNamedType(:final name?) => name.name,
+              _ => null,
+            },
+          )
+          .nonNulls,
+    ];
+    if (!(boundNames.any((name) => !environment.isDefined(name)) &&
+        moduleContext.deferUntilModulesLoaded(repairBounds))) {
+      repairBounds();
+    }
     Logger.debug(
       "[Visitor.visitClassDeclaration] Retrieved placeholder for '$className' (hash: ${klass.hashCode})",
     );
 
-    // Resolve and populate relationships ON THE EXISTING klass object
-    // Superclass lookup
-    // InterpretedClass? superclass; // Keep this commented or remove
-    if (node.extendsClause != null) {
-      final superclassName = node.extendsClause!.superclass!.name!.name;
-      Logger.debug(
-        "[Visitor.visitClassDeclaration]   Trying to get superclass '$superclassName' from env: ${environment.hashCode}",
-      );
-      Object? potentialSuperclass;
-      try {
-        potentialSuperclass = environment.get(superclassName);
-      } on RuntimeD4rtException {
-        throw RuntimeD4rtException(
-          "Superclass '$superclassName' not found for class '$className'. Ensure it's defined.",
-        );
-      }
-
-      if (potentialSuperclass is InterpretedClass) {
-        // Standard Dart Superclass
-        final superclass = potentialSuperclass;
-
-        // Add checks for final and interface modifiers
-        // Note: sealed and interface classes CAN be extended within the same library/file,
-        // and in D4rt all interpreted code is considered the same library
-        //
-        // For 'final' classes:
-        // - A 'final' class cannot be extended outside its library
-        // - An 'abstract final' class CAN be extended within the same library (needs implementation)
-        // - Since all D4rt code is considered the same library, we only block non-abstract final classes
-        if (superclass.isFinal && !superclass.isAbstract) {
-          throw RuntimeD4rtException(
-            "Class '$className' cannot extend final class '$superclassName'.",
-          );
-        }
-        // Interface classes can be extended within the same library, so we allow it in D4rt
-        // sealed classes are also allowed to be extended - they restrict external libraries only
-
-        // Set the superclass and clear bridged superclass
-        klass.superclass = superclass;
-        klass.bridgedSuperclass = null;
+    // GitHub #9 — the supertypes are resolved, and the inherited members
+    // checked, in [resolveRelationships] / [checkInheritedMembers]. When a name
+    // in the extends / implements / with clause is not declared yet while a
+    // module load is in progress (an import cycle, or a barrel that has not
+    // reached the export declaring it), both are handed to the module loader,
+    // which runs them once the outermost load returns; the members below are
+    // populated either way. A class whose supertypes are all declared is
+    // resolved here, as before.
+    final relationshipEnv = environment;
+    void resolveRelationships() {
+      // Resolve and populate relationships ON THE EXISTING klass object
+      // Superclass lookup
+      // InterpretedClass? superclass; // Keep this commented or remove
+      if (node.extendsClause != null) {
+        final superclassName = node.extendsClause!.superclass!.name!.name;
         Logger.debug(
-          "[Visitor.visitClassDeclaration] Set standard superclass '$superclassName' for '$className'",
+          "[Visitor.visitClassDeclaration]   Trying to get superclass '$superclassName' from env: ${environment.hashCode}",
         );
-      } else if (potentialSuperclass is BridgedClass) {
-        final bridgedSuperclass = potentialSuperclass;
-        // No modifier checks needed for bridged classes (yet?)
-
-        // Set the bridged superclass and clear standard superclass
-        klass.bridgedSuperclass = bridgedSuperclass;
-        klass.superclass = null;
-
-        // Capture the reified type arguments from the extends clause so
-        // proxy factories can pick the right typed variant (e.g.
-        // `extends CustomClipper<RRect>` → pick the RRect proxy, not the
-        // default Path one). See [InterpretedClass.bridgedSuperTypeArgNames].
-        final superTypeArgs =
-            node.extendsClause!.superclass!.typeArguments?.arguments;
-        if (superTypeArgs != null && superTypeArgs.isNotEmpty) {
-          klass.bridgedSuperTypeArgNames = superTypeArgs
-              .map((arg) => arg is SNamedType ? (arg.name?.name ?? '') : '')
-              .toList();
-        }
-
-        Logger.debug(
-          "[Visitor.visitClassDeclaration] Set BRIDGED superclass '$superclassName' for '$className' (typeArgs=${klass.bridgedSuperTypeArgNames})",
-        );
-      } else {
-        throw RuntimeD4rtException(
-          "Superclass '$superclassName' for class '$className' resolved to ${potentialSuperclass?.runtimeType}, which is not a class or bridged class.",
-        );
-      }
-    }
-
-    // Interface lookup
-    if (node.implementsClause != null) {
-      Logger.debug(
-        "[Visitor.visitClassDeclaration] Processing 'implements' clause for '$className' in env: ${environment.hashCode}",
-      );
-      for (final interfaceType in node.implementsClause!.interfaces) {
-        final interfaceName = interfaceType.name!.name;
-        Logger.debug(
-          "[Visitor.visitClassDeclaration]   Trying to get interface '$interfaceName' from env: ${environment.hashCode}",
-        );
+        Object? potentialSuperclass;
         try {
-          final potentialInterface = environment.get(interfaceName);
-          if (potentialInterface is InterpretedClass) {
-            // Add checks for base modifier only
-            // Note: sealed classes CAN be implemented within the same library/file
-            if (potentialInterface.isBase) {
-              throw RuntimeD4rtException(
-                "Class '$className' cannot implement base class '$interfaceName' outside of its library.",
-              );
-            }
-            // sealed classes are allowed to be implemented - they restrict external libraries only
-
-            // Add to the interfaces list of the existing klass object
-            klass.interfaces.add(potentialInterface);
-            Logger.debug(
-              "[Visitor.visitClassDeclaration] Added interface '$interfaceName' for '$className'",
-            );
-          } else if (potentialInterface is BridgedClass) {
-            // Support for bridged interfaces like Comparable, Exception
-            klass.bridgedInterfaces.add(potentialInterface);
-            Logger.debug(
-              "[Visitor.visitClassDeclaration] Added bridged interface '$interfaceName' for '$className'",
-            );
-          } else {
-            throw RuntimeD4rtException(
-              "Class '$className' cannot implement non-class '$interfaceName' (${potentialInterface?.runtimeType}).",
-            );
-          }
+          potentialSuperclass = environment.get(superclassName);
         } on RuntimeD4rtException {
           throw RuntimeD4rtException(
-            "Interface '$interfaceName' not found for class '$className'. Ensure it's defined.",
-          );
-        }
-      }
-    }
-
-    // Mixin application lookup
-    if (node.withClause != null) {
-      Logger.debug(
-        "[Visitor.visitClassDeclaration] Processing 'with' clause for '$className' in env: ${environment.hashCode}",
-      );
-      for (final mixinType in node.withClause!.mixinTypes) {
-        final mixinName = mixinType.name!.name;
-        Logger.debug(
-          "[Visitor.visitClassDeclaration]   Trying to get mixin '$mixinName' from env: ${environment.hashCode}",
-        );
-
-        Object? mixin;
-        try {
-          mixin = environment.get(mixinName);
-        } on RuntimeD4rtException {
-          throw RuntimeD4rtException(
-            "Mixin '$mixinName' not found during lookup for class '$className'. Ensure it's defined (as a mixin or class mixin).",
+            "Superclass '$superclassName' not found for class '$className'. Ensure it's defined.",
           );
         }
 
-        if (mixin is InterpretedClass) {
-          if (!mixin.isMixin) {
+        if (potentialSuperclass is InterpretedClass) {
+          // Standard Dart Superclass
+          final superclass = potentialSuperclass;
+
+          // Add checks for final and interface modifiers
+          // Note: sealed and interface classes CAN be extended within the same library/file,
+          // and in D4rt all interpreted code is considered the same library
+          //
+          // For 'final' classes:
+          // - A 'final' class cannot be extended outside its library
+          // - An 'abstract final' class CAN be extended within the same library (needs implementation)
+          // - Since all D4rt code is considered the same library, we only block non-abstract final classes
+          if (superclass.isFinal && !superclass.isAbstract) {
             throw RuntimeD4rtException(
-              "Class '$mixinName' cannot be used as a mixin because it's not declared with 'mixin' or 'class mixin'.",
+              "Class '$className' cannot extend final class '$superclassName'.",
             );
           }
+          // Interface classes can be extended within the same library, so we allow it in D4rt
+          // sealed classes are also allowed to be extended - they restrict external libraries only
 
-          // Add checks for base modifier only
-          // Note: sealed classes CAN be mixed in within the same library/file
-          if (mixin.isBase) {
-            throw RuntimeD4rtException(
-              "Class '$className' cannot mix in base class '$mixinName' outside of its library.",
-            );
-          }
-          // sealed classes are allowed to be mixed in - they restrict external libraries only
-
-          // Add to the mixins list of the existing klass object
-          klass.mixins.add(mixin);
+          // Set the superclass and clear bridged superclass
+          klass.superclass = superclass;
+          klass.bridgedSuperclass = null;
           Logger.debug(
-            "[Visitor.visitClassDeclaration] Applied interpreted mixin '$mixinName' to '$className'",
+            "[Visitor.visitClassDeclaration] Set standard superclass '$superclassName' for '$className'",
           );
-        } else if (mixin is BridgedClass) {
-          // Support for bridged classes as mixins
-          if (!mixin.canBeUsedAsMixin) {
-            throw RuntimeD4rtException(
-              "Bridged class '$mixinName' cannot be used as a mixin. Set canBeUsedAsMixin=true when registering the bridge.",
-            );
+        } else if (potentialSuperclass is BridgedClass) {
+          final bridgedSuperclass = potentialSuperclass;
+          // No modifier checks needed for bridged classes (yet?)
+
+          // Set the bridged superclass and clear standard superclass
+          klass.bridgedSuperclass = bridgedSuperclass;
+          klass.superclass = null;
+
+          // Capture the reified type arguments from the extends clause so
+          // proxy factories can pick the right typed variant (e.g.
+          // `extends CustomClipper<RRect>` → pick the RRect proxy, not the
+          // default Path one). See [InterpretedClass.bridgedSuperTypeArgNames].
+          final superTypeArgs =
+              node.extendsClause!.superclass!.typeArguments?.arguments;
+          if (superTypeArgs != null && superTypeArgs.isNotEmpty) {
+            klass.bridgedSuperTypeArgNames = superTypeArgs
+                .map((arg) => arg is SNamedType ? (arg.name?.name ?? '') : '')
+                .toList();
           }
 
-          // Add to the bridged mixins list
-          klass.bridgedMixins.add(mixin);
           Logger.debug(
-            "[Visitor.visitClassDeclaration] Applied bridged mixin '$mixinName' to '$className'",
+            "[Visitor.visitClassDeclaration] Set BRIDGED superclass '$superclassName' for '$className' (typeArgs=${klass.bridgedSuperTypeArgNames})",
           );
         } else {
           throw RuntimeD4rtException(
-            "Identifier '$mixinName' resolved to ${mixin?.runtimeType}, which is not a class/mixin, for class '$className'.",
+            "Superclass '$superclassName' for class '$className' resolved to ${potentialSuperclass?.runtimeType}, which is not a class or bridged class.",
           );
         }
       }
+
+      // Interface lookup
+      if (node.implementsClause != null) {
+        Logger.debug(
+          "[Visitor.visitClassDeclaration] Processing 'implements' clause for '$className' in env: ${environment.hashCode}",
+        );
+        for (final interfaceType in node.implementsClause!.interfaces) {
+          final interfaceName = interfaceType.name!.name;
+          Logger.debug(
+            "[Visitor.visitClassDeclaration]   Trying to get interface '$interfaceName' from env: ${environment.hashCode}",
+          );
+          try {
+            final potentialInterface = environment.get(interfaceName);
+            if (potentialInterface is InterpretedClass) {
+              // Add checks for base modifier only
+              // Note: sealed classes CAN be implemented within the same library/file
+              if (potentialInterface.isBase) {
+                throw RuntimeD4rtException(
+                  "Class '$className' cannot implement base class '$interfaceName' outside of its library.",
+                );
+              }
+              // sealed classes are allowed to be implemented - they restrict external libraries only
+
+              // Add to the interfaces list of the existing klass object
+              klass.interfaces.add(potentialInterface);
+              Logger.debug(
+                "[Visitor.visitClassDeclaration] Added interface '$interfaceName' for '$className'",
+              );
+            } else if (potentialInterface is BridgedClass) {
+              // Support for bridged interfaces like Comparable, Exception
+              klass.bridgedInterfaces.add(potentialInterface);
+              Logger.debug(
+                "[Visitor.visitClassDeclaration] Added bridged interface '$interfaceName' for '$className'",
+              );
+            } else {
+              throw RuntimeD4rtException(
+                "Class '$className' cannot implement non-class '$interfaceName' (${potentialInterface?.runtimeType}).",
+              );
+            }
+          } on RuntimeD4rtException {
+            throw RuntimeD4rtException(
+              "Interface '$interfaceName' not found for class '$className'. Ensure it's defined.",
+            );
+          }
+        }
+      }
+
+      // Mixin application lookup
+      if (node.withClause != null) {
+        Logger.debug(
+          "[Visitor.visitClassDeclaration] Processing 'with' clause for '$className' in env: ${environment.hashCode}",
+        );
+        for (final mixinType in node.withClause!.mixinTypes) {
+          final mixinName = mixinType.name!.name;
+          Logger.debug(
+            "[Visitor.visitClassDeclaration]   Trying to get mixin '$mixinName' from env: ${environment.hashCode}",
+          );
+
+          Object? mixin;
+          try {
+            mixin = environment.get(mixinName);
+          } on RuntimeD4rtException {
+            throw RuntimeD4rtException(
+              "Mixin '$mixinName' not found during lookup for class '$className'. Ensure it's defined (as a mixin or class mixin).",
+            );
+          }
+
+          if (mixin is InterpretedClass) {
+            if (!mixin.isMixin) {
+              throw RuntimeD4rtException(
+                "Class '$mixinName' cannot be used as a mixin because it's not declared with 'mixin' or 'class mixin'.",
+              );
+            }
+
+            // Add checks for base modifier only
+            // Note: sealed classes CAN be mixed in within the same library/file
+            if (mixin.isBase) {
+              throw RuntimeD4rtException(
+                "Class '$className' cannot mix in base class '$mixinName' outside of its library.",
+              );
+            }
+            // sealed classes are allowed to be mixed in - they restrict external libraries only
+
+            // Add to the mixins list of the existing klass object
+            klass.mixins.add(mixin);
+            Logger.debug(
+              "[Visitor.visitClassDeclaration] Applied interpreted mixin '$mixinName' to '$className'",
+            );
+          } else if (mixin is BridgedClass) {
+            // Support for bridged classes as mixins
+            if (!mixin.canBeUsedAsMixin) {
+              throw RuntimeD4rtException(
+                "Bridged class '$mixinName' cannot be used as a mixin. Set canBeUsedAsMixin=true when registering the bridge.",
+              );
+            }
+
+            // Add to the bridged mixins list
+            klass.bridgedMixins.add(mixin);
+            Logger.debug(
+              "[Visitor.visitClassDeclaration] Applied bridged mixin '$mixinName' to '$className'",
+            );
+          } else {
+            throw RuntimeD4rtException(
+              "Identifier '$mixinName' resolved to ${mixin?.runtimeType}, which is not a class/mixin, for class '$className'.",
+            );
+          }
+        }
+      }
     }
+
+    final supertypeNames = <String>[
+      if (node.extendsClause != null)
+        node.extendsClause!.superclass!.name!.name,
+      for (final type
+          in node.implementsClause?.interfaces ?? const <SNamedType>[])
+        type.name!.name,
+      for (final type in node.withClause?.mixinTypes ?? const <SNamedType>[])
+        type.name!.name,
+    ];
+    void checkInheritedMembers() {
+      // Check for unimplemented abstract members
+      if (!klass.isAbstract) {
+        final inheritedAbstract = klass.getAbstractInheritedMembers();
+        // G-DOV-6/7 FIX: Use getAllConcreteMembers() to walk the full superclass chain
+        // (not just this class + mixins), so grandparent concrete implementations are found.
+        final concreteMembers = klass.getAllConcreteMembers();
+        final fieldNames = klass
+            .getInstanceFieldNames(); // Fields also satisfy abstract getters
+        for (final abstractName in inheritedAbstract.keys) {
+          // Check if the abstract member is satisfied by a concrete method/getter/setter OR a field
+          if (!concreteMembers.containsKey(abstractName) &&
+              !fieldNames.contains(abstractName)) {
+            final abstractMember = inheritedAbstract[abstractName]!;
+            String memberType = "method";
+            if (abstractMember.isGetter) memberType = "getter";
+            if (abstractMember.isSetter) memberType = "setter";
+            throw RuntimeD4rtException(
+              "Missing concrete implementation for inherited abstract $memberType '$abstractName' in class '${klass.name}'.",
+            );
+          }
+        }
+      }
+
+      // Check for unimplemented interface members
+      if (!klass.isAbstract) {
+        final requiredInterfaceMembers = klass.getAllInterfaceMembers();
+        final availableConcreteMembers = klass.getAllConcreteMembers();
+        for (final requiredName in requiredInterfaceMembers.keys) {
+          if (!availableConcreteMembers.containsKey(requiredName)) {
+            final memberType = requiredInterfaceMembers[requiredName]!;
+            throw RuntimeD4rtException(
+              "Missing concrete implementation for interface $memberType '$requiredName' in class '${klass.name}'.",
+            );
+          }
+        }
+      }
+    }
+
+    final relationshipsDeferred =
+        supertypeNames.any((name) => !environment.isDefined(name)) &&
+        moduleContext.deferUntilModulesLoaded(() {
+          final savedEnv = environment;
+          try {
+            environment = relationshipEnv;
+            resolveRelationships();
+            checkInheritedMembers();
+          } finally {
+            environment = savedEnv;
+          }
+        });
+    if (!relationshipsDeferred) resolveRelationships();
 
     // Populate members ON THE EXISTING klass object
     final staticInitEnv = environment; // Statics use the class definition env
@@ -10930,11 +11049,22 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       if (member is SMethodDeclaration) {
         final methodName = member.name!.name;
         // Pass the ALREADY RETRIEVED klass object
+        // GitHub #9: lenient bounds while modules load; see
+        // [_deferUnresolvedBounds].
+        final lenientBounds = moduleContext.isLoadingModules;
         final function = InterpretedFunction.method(
           member,
           staticInitEnv,
           klass,
+          lenientBounds: lenientBounds,
         );
+        if (lenientBounds) {
+          _deferUnresolvedBounds(
+            function,
+            member.typeParameters,
+            staticInitEnv,
+          );
+        }
 
         if (member.isStatic) {
           if (member.isGetter) {
@@ -11076,42 +11206,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     );
 
     // Final Checks (run on the populated klass object)
-    // Check for unimplemented abstract members
-    if (!klass.isAbstract) {
-      final inheritedAbstract = klass.getAbstractInheritedMembers();
-      // G-DOV-6/7 FIX: Use getAllConcreteMembers() to walk the full superclass chain
-      // (not just this class + mixins), so grandparent concrete implementations are found.
-      final concreteMembers = klass.getAllConcreteMembers();
-      final fieldNames = klass
-          .getInstanceFieldNames(); // Fields also satisfy abstract getters
-      for (final abstractName in inheritedAbstract.keys) {
-        // Check if the abstract member is satisfied by a concrete method/getter/setter OR a field
-        if (!concreteMembers.containsKey(abstractName) &&
-            !fieldNames.contains(abstractName)) {
-          final abstractMember = inheritedAbstract[abstractName]!;
-          String memberType = "method";
-          if (abstractMember.isGetter) memberType = "getter";
-          if (abstractMember.isSetter) memberType = "setter";
-          throw RuntimeD4rtException(
-            "Missing concrete implementation for inherited abstract $memberType '$abstractName' in class '${klass.name}'.",
-          );
-        }
-      }
-    }
-
-    // Check for unimplemented interface members
-    if (!klass.isAbstract) {
-      final requiredInterfaceMembers = klass.getAllInterfaceMembers();
-      final availableConcreteMembers = klass.getAllConcreteMembers();
-      for (final requiredName in requiredInterfaceMembers.keys) {
-        if (!availableConcreteMembers.containsKey(requiredName)) {
-          final memberType = requiredInterfaceMembers[requiredName]!;
-          throw RuntimeD4rtException(
-            "Missing concrete implementation for interface $memberType '$requiredName' in class '${klass.name}'.",
-          );
-        }
-      }
-    }
+    if (!relationshipsDeferred) checkInheritedMembers();
     // Perf T6: all function tables are fully populated; compact them into
     // their read-only form. staticFields is excluded (deferred init).
     klass.freezeMemberTables();
@@ -11179,76 +11274,102 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       "[Visitor.visitMixinDeclaration] Retrieved placeholder for mixin '$mixinName' (hash: ${mixinClass.hashCode})",
     );
 
-    // Resolve 'on' clause constraints ON THE EXISTING mixinClass object
-    if (node.onClause != null) {
-      mixinClass.onClauseTypes.clear(); // Clear existing before populating
-      for (final typeNode in node.onClause!.superclassConstraints) {
-        final typeName = typeNode.name!.name;
-        try {
-          final potentialType = environment.get(typeName);
-          if (potentialType is InterpretedClass ||
-              potentialType is BridgedClass) {
-            // RC-7b: Accept both InterpretedClass and BridgedClass as valid
-            // on-clause constraints. Bridged types like State, ChangeNotifier
-            // are BridgedClass instances resolved from the environment.
-            mixinClass.onClauseTypes.add(potentialType as RuntimeType);
-            Logger.debug(
-              "[Visitor.visitMixinDeclaration] Added 'on' constraint '$typeName' for '$mixinName'",
-            );
-          } else {
+    // GitHub #9 — as for a class: an `on` / `implements` name not declared
+    // yet while modules load is resolved once the outermost load returns.
+    final relationshipEnv = environment;
+    void resolveRelationships() {
+      // Resolve 'on' clause constraints ON THE EXISTING mixinClass object
+      if (node.onClause != null) {
+        mixinClass.onClauseTypes.clear(); // Clear existing before populating
+        for (final typeNode in node.onClause!.superclassConstraints) {
+          final typeName = typeNode.name!.name;
+          try {
+            final potentialType = environment.get(typeName);
+            if (potentialType is InterpretedClass ||
+                potentialType is BridgedClass) {
+              // RC-7b: Accept both InterpretedClass and BridgedClass as valid
+              // on-clause constraints. Bridged types like State, ChangeNotifier
+              // are BridgedClass instances resolved from the environment.
+              mixinClass.onClauseTypes.add(potentialType as RuntimeType);
+              Logger.debug(
+                "[Visitor.visitMixinDeclaration] Added 'on' constraint '$typeName' for '$mixinName'",
+              );
+            } else {
+              throw RuntimeD4rtException(
+                "Type '$typeName' in 'on' clause of mixin '$mixinName' is not a class (${potentialType?.runtimeType}).",
+              );
+            }
+          } on RuntimeD4rtException {
             throw RuntimeD4rtException(
-              "Type '$typeName' in 'on' clause of mixin '$mixinName' is not a class (${potentialType?.runtimeType}).",
+              "Type '$typeName' in 'on' clause of mixin '$mixinName' not found. Ensure it's defined.",
             );
           }
-        } on RuntimeD4rtException {
-          throw RuntimeD4rtException(
-            "Type '$typeName' in 'on' clause of mixin '$mixinName' not found. Ensure it's defined.",
-          );
+        }
+      }
+
+      // Cluster-18: Resolve 'implements' clause for mixins. Without this, an
+      // interpreted mixin like
+      //   mixin _TickerProviderShim on State<T> implements TickerProvider { ... }
+      // never records TickerProvider as a bridged interface, so callers using
+      // `vsync: this` (where `this` is a State that mixes in this shim) cannot
+      // satisfy a TickerProvider parameter through interface-proxy resolution.
+      if (node.implementsClause != null) {
+        Logger.debug(
+          "[Visitor.visitMixinDeclaration] Processing 'implements' clause for '$mixinName' in env: ${environment.hashCode}",
+        );
+        for (final interfaceType in node.implementsClause!.interfaces) {
+          final interfaceName = interfaceType.name!.name;
+          try {
+            final potentialInterface = environment.get(interfaceName);
+            if (potentialInterface is InterpretedClass) {
+              if (potentialInterface.isBase) {
+                throw RuntimeD4rtException(
+                  "Mixin '$mixinName' cannot implement base class '$interfaceName' outside of its library.",
+                );
+              }
+              mixinClass.interfaces.add(potentialInterface);
+              Logger.debug(
+                "[Visitor.visitMixinDeclaration] Added interface '$interfaceName' for '$mixinName'",
+              );
+            } else if (potentialInterface is BridgedClass) {
+              mixinClass.bridgedInterfaces.add(potentialInterface);
+              Logger.debug(
+                "[Visitor.visitMixinDeclaration] Added bridged interface '$interfaceName' for '$mixinName'",
+              );
+            } else {
+              throw RuntimeD4rtException(
+                "Mixin '$mixinName' cannot implement non-class '$interfaceName' (${potentialInterface?.runtimeType}).",
+              );
+            }
+          } on RuntimeD4rtException {
+            throw RuntimeD4rtException(
+              "Interface '$interfaceName' not found for mixin '$mixinName'. Ensure it's defined.",
+            );
+          }
         }
       }
     }
 
-    // Cluster-18: Resolve 'implements' clause for mixins. Without this, an
-    // interpreted mixin like
-    //   mixin _TickerProviderShim on State<T> implements TickerProvider { ... }
-    // never records TickerProvider as a bridged interface, so callers using
-    // `vsync: this` (where `this` is a State that mixes in this shim) cannot
-    // satisfy a TickerProvider parameter through interface-proxy resolution.
-    if (node.implementsClause != null) {
-      Logger.debug(
-        "[Visitor.visitMixinDeclaration] Processing 'implements' clause for '$mixinName' in env: ${environment.hashCode}",
-      );
-      for (final interfaceType in node.implementsClause!.interfaces) {
-        final interfaceName = interfaceType.name!.name;
-        try {
-          final potentialInterface = environment.get(interfaceName);
-          if (potentialInterface is InterpretedClass) {
-            if (potentialInterface.isBase) {
-              throw RuntimeD4rtException(
-                "Mixin '$mixinName' cannot implement base class '$interfaceName' outside of its library.",
-              );
-            }
-            mixinClass.interfaces.add(potentialInterface);
-            Logger.debug(
-              "[Visitor.visitMixinDeclaration] Added interface '$interfaceName' for '$mixinName'",
-            );
-          } else if (potentialInterface is BridgedClass) {
-            mixinClass.bridgedInterfaces.add(potentialInterface);
-            Logger.debug(
-              "[Visitor.visitMixinDeclaration] Added bridged interface '$interfaceName' for '$mixinName'",
-            );
-          } else {
-            throw RuntimeD4rtException(
-              "Mixin '$mixinName' cannot implement non-class '$interfaceName' (${potentialInterface?.runtimeType}).",
-            );
+    final supertypeNames = <String>[
+      for (final type
+          in node.onClause?.superclassConstraints ?? const <SNamedType>[])
+        type.name!.name,
+      for (final type
+          in node.implementsClause?.interfaces ?? const <SNamedType>[])
+        type.name!.name,
+    ];
+    final relationshipsDeferred =
+        supertypeNames.any((name) => !environment.isDefined(name)) &&
+        moduleContext.deferUntilModulesLoaded(() {
+          final savedEnv = environment;
+          try {
+            environment = relationshipEnv;
+            resolveRelationships();
+          } finally {
+            environment = savedEnv;
           }
-        } on RuntimeD4rtException {
-          throw RuntimeD4rtException(
-            "Interface '$interfaceName' not found for mixin '$mixinName'. Ensure it's defined.",
-          );
-        }
-      }
-    }
+        });
+    if (!relationshipsDeferred) resolveRelationships();
 
     // Populate members ON THE EXISTING mixinClass object
     final declarationEnv =

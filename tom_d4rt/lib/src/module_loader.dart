@@ -979,16 +979,58 @@ class ModuleLoader {
   /// it a module that threw part-way would stay registered as "in progress"
   /// forever, and a later `execute()` on the same loader would silently be
   /// handed that abandoned partial instead of re-loading.
+  ///
+  /// GitHub #9 — when the OUTERMOST load returns, what was handed to
+  /// [deferUntilModulesLoaded] runs: by then every module of every import
+  /// cycle has declared its names and every partial merge has been replayed.
   LoadedModule loadModule(
     Uri uri, {
     Set<String>? showNames,
     Set<String>? hideNames,
   }) {
+    final LoadedModule module;
+    _loadDepth++;
     try {
-      return _loadModule(uri, showNames: showNames, hideNames: hideNames);
+      module = _loadModule(uri, showNames: showNames, hideNames: hideNames);
     } catch (_) {
       _inFlightModules.remove(_moduleIdentityUri(_canonicalizeModuleUri(uri)));
+      if (--_loadDepth == 0) _deferredUntilLoaded.clear();
       rethrow;
+    }
+    if (--_loadDepth == 0) _runDeferredUntilLoaded();
+    return module;
+  }
+
+  /// How many [loadModule] calls are on the stack.
+  int _loadDepth = 0;
+
+  /// Whether a module load is in progress, i.e. names a module declares may
+  /// not be visible yet to a module of the same import cycle.
+  bool get isLoadingModules => _loadDepth > 0;
+
+  /// The work handed over by [deferUntilModulesLoaded], in order.
+  final List<void Function()> _deferredUntilLoaded = [];
+
+  /// Runs [resolve] once the outermost [loadModule] returns, because it needs
+  /// a name that is not declared yet. Dart has no declaration order across
+  /// libraries: in an import cycle (intl's `intl_helpers.dart` and
+  /// `message_lookup_by_library.dart`), or through a barrel that has not
+  /// reached the export declaring it, a class can be visited before its
+  /// supertype - or a method before its type-parameter bound - exists
+  /// anywhere. Returns false when no module load is in progress: then the name
+  /// is genuinely undefined and the caller reports it. [resolve] reports a
+  /// name that is still undefined when it runs.
+  bool deferUntilModulesLoaded(void Function() resolve) {
+    if (_loadDepth == 0) return false;
+    _deferredUntilLoaded.add(resolve);
+    return true;
+  }
+
+  void _runDeferredUntilLoaded() {
+    final pending = List<void Function()>.of(_deferredUntilLoaded);
+    _deferredUntilLoaded.clear();
+    for (final resolve in pending) {
+      resolve();
     }
   }
 

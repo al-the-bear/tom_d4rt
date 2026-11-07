@@ -1,3 +1,39 @@
+## 0.215.0
+
+### Fixed — classes whose supertypes are declared in a library still loading (GitHub #9)
+
+Loading intl 0.20.3 from source failed: `intl_helpers.dart` imports
+`message_lookup_by_library.dart`, which imports it back and declares
+`CompositeMessageLookup implements MessageLookup` before `MessageLookup` exists
+(`Interface 'MessageLookup' not found`), and `number_format.dart` reaches
+`NumberParserBase` only through the `intl.dart` barrel, which has not reached
+the export declaring it yet (`Undefined variable: NumberParserBase`, from the
+bound of `parseWith<R, P extends NumberParserBase<R>>`). The module loader
+loads a module's imports before declaring its own names, so inside an import
+cycle a class can be visited before its supertype exists anywhere; Dart has no
+declaration order across libraries.
+
+Now, while a module load is in progress, a class or mixin whose `extends` /
+`implements` / `with` / `on` names are not declared yet, a class whose
+type-parameter bound is not, and a method whose type-parameter bound is not,
+hand that resolution (and the class's inherited-member checks) to the module
+loader, which runs it once the outermost load returns - when every module of
+every cycle has declared its names. The members are populated as before, and a
+class whose names are all declared resolves at once, as before. A name that is
+still undefined then is reported, with the message it had. The loader gains
+`isLoadingModules` and `deferUntilModulesLoaded`; `InterpretedFunction.method`
+takes `lenientBounds`, and `InterpretedFunction.resolveTypeParameterBounds`
+resolves bounds strictly.
+
+An extension whose `on` type is declared in a library still loading is not
+covered yet.
+
+`ModuleContext` gains `isLoadingModules` and `deferUntilModulesLoaded`
+(implemented by `AstModuleLoader`; `NoOpModuleContext` never loads), so an
+implementer outside this package must add both.
+
+Name resolution: yes — supertypes, mixin constraints and type-parameter bounds of classes in an import cycle or behind a barrel resolve after the outermost module load instead of failing.
+
 ## 0.214.0
 
 ### Fixed — static and top-level initializers read later declarations (GitHub #10)

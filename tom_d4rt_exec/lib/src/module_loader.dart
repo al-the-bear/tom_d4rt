@@ -630,20 +630,63 @@ class ModuleLoader implements context.ModuleContext {
   /// DFUB10 — the real work lives in [_loadModuleInternal]; this wrapper only
   /// guarantees that a *failed* load drops its in-flight registration, so an
   /// abandoned partial is never handed out on a later execute.
+  ///
+  /// GitHub #9 — when the OUTERMOST load returns, what was handed to
+  /// [deferUntilModulesLoaded] runs: by then every module of every import
+  /// cycle has declared its names and every partial merge has been replayed.
   LoadedModule loadModuleInternal(
     Uri uri, {
     Set<String>? showNames,
     Set<String>? hideNames,
   }) {
+    final LoadedModule module;
+    _loadDepth++;
     try {
-      return _loadModuleInternal(
+      module = _loadModuleInternal(
         uri,
         showNames: showNames,
         hideNames: hideNames,
       );
     } catch (_) {
       _inFlightModules.remove(_moduleIdentityUri(_canonicalizeModuleUri(uri)));
+      if (--_loadDepth == 0) _deferredUntilLoaded.clear();
       rethrow;
+    }
+    if (--_loadDepth == 0) _runDeferredUntilLoaded();
+    return module;
+  }
+
+  /// How many [loadModuleInternal] calls are on the stack.
+  int _loadDepth = 0;
+
+  // GitHub #9: `isLoadingModules` and `deferUntilModulesLoaded` implement
+  // ModuleContext members tom_d4rt_ast 0.214.0 adds. They carry no @override
+  // while this package still resolves 0.212.1, whose ModuleContext lacks them
+  // (the batch release ghissues10 adds the annotation with the floor raise).
+
+  /// Whether a module load is in progress, i.e. names a module declares may
+  /// not be visible yet to a module of the same import cycle.
+  bool get isLoadingModules => _loadDepth > 0;
+
+  /// The work handed over by [deferUntilModulesLoaded], in order.
+  final List<void Function()> _deferredUntilLoaded = [];
+
+  /// Runs [resolve] once the outermost load returns, because it needs a name
+  /// that is not declared yet (a supertype or type-parameter bound in a
+  /// library still loading - an import cycle, or a barrel that has not reached
+  /// the export declaring it). Returns false when no module load is in
+  /// progress: then the name is genuinely undefined and the caller reports it.
+  bool deferUntilModulesLoaded(void Function() resolve) {
+    if (_loadDepth == 0) return false;
+    _deferredUntilLoaded.add(resolve);
+    return true;
+  }
+
+  void _runDeferredUntilLoaded() {
+    final pending = List<void Function()>.of(_deferredUntilLoaded);
+    _deferredUntilLoaded.clear();
+    for (final resolve in pending) {
+      resolve();
     }
   }
 
