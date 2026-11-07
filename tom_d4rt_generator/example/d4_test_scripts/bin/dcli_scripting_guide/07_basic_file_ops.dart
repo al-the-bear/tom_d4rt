@@ -9,8 +9,11 @@ void main() {
   print('Current directory: $pwd');
   print('Home: $HOME');
   
-  // Create directory structure
-  var workDir = createDir(join(HOME, 'dcli_demo'), recursive: true);
+  // Create directory structure. A run that stopped before its cleanup left
+  // the directory behind, and createDir refuses an existing path.
+  final demoDir = join(HOME, 'dcli_demo');
+  if (exists(demoDir)) deleteDir(demoDir);
+  var workDir = createDir(demoDir, recursive: true);
   
   // Create and write file
   var filePath = join(workDir, 'hello.txt');
