@@ -647,6 +647,10 @@ class FunctionTypeInfo {
   /// List of positional parameter types
   final List<String> positionalParamTypes;
 
+  /// How many of [positionalParamTypes], counted from the end, are optional
+  /// (`[...]` in the signature).
+  final int optionalPositionalCount;
+
   /// Map of named parameter name to type
   final Map<String, String> namedParamTypes;
 
@@ -661,6 +665,7 @@ class FunctionTypeInfo {
     required this.returnType,
     this.returnTypeNullable = false,
     this.positionalParamTypes = const [],
+    this.optionalPositionalCount = 0,
     this.namedParamTypes = const {},
     this.namedParamRequired = const {},
     this.genericTypeParameters = const {},
@@ -668,6 +673,59 @@ class FunctionTypeInfo {
 
   /// Whether the function returns void
   bool get isVoid => returnType == 'void';
+
+  /// How many positional parameters a caller must pass.
+  int get requiredPositionalCount =>
+      positionalParamTypes.length - optionalPositionalCount;
+
+  /// The positional parameters of a closure with this signature, named
+  /// `p0`, `p1`, ...: `T0 p0, [T1? p1]`. [types] are the rendered parameter
+  /// types, one per positional parameter.
+  ///
+  /// An optional parameter is declared nullable and without a default: a
+  /// wider parameter type keeps the closure a subtype of the signature, and
+  /// null is how [positionalArgumentList] tells an omitted argument.
+  String positionalParameterList(List<String> types) {
+    final required = requiredPositionalCount;
+    final parts = <String>[
+      for (var i = 0; i < required; i++) '${types[i]} p$i',
+    ];
+    final optional = <String>[
+      for (var i = required; i < types.length; i++)
+        '${_nullableType(types[i])} p$i',
+    ];
+    if (optional.isNotEmpty) parts.add('[${optional.join(', ')}]');
+    return parts.join(', ');
+  }
+
+  /// The argument list a closure built by [positionalParameterList] forwards
+  /// to the script callback: `[p0, if (p1 != null) p1]`. [args] are the
+  /// expressions to pass, one per positional parameter.
+  ///
+  /// Trailing optional arguments the native caller left out are left out of
+  /// the call too, so a script closure declaring fewer parameters (a one-
+  /// parameter closure for `String Function(Map, [dynamic])`) can be called
+  /// the way the native code calls it. Only TRAILING nulls are dropped: an
+  /// argument is kept when it or any later one is non-null.
+  String positionalArgumentList(List<String> args) {
+    final required = requiredPositionalCount;
+    final parts = <String>[for (var i = 0; i < required; i++) args[i]];
+    for (var i = required; i < args.length; i++) {
+      final laterOrThis = [
+        for (var j = i; j < args.length; j++) 'p$j != null',
+      ].join(' || ');
+      parts.add('if ($laterOrThis) ${args[i]}');
+    }
+    return '[${parts.join(', ')}]';
+  }
+
+  static String _nullableType(String type) {
+    final t = type.trim();
+    if (t.endsWith('?') || t == 'dynamic' || t == 'void' || t == 'Null') {
+      return t;
+    }
+    return '$t?';
+  }
 
   /// Total number of parameters
   int get paramCount => positionalParamTypes.length + namedParamTypes.length;
@@ -9785,31 +9843,20 @@ class BridgeGenerator {
         final isNullable = param.type.endsWith('?');
 
         // Generate wrapper function variable
-        final paramTypes = funcInfo.positionalParamTypes;
-        final paramNames = <String>[];
-        for (var j = 0; j < paramTypes.length; j++) {
-          paramNames.add('p$j');
-        }
-        final typedParams = <String>[];
-        for (var j = 0; j < paramTypes.length; j++) {
-          // GEN-065: Replace InvalidType with dynamic for callback parameter types
-          final pType = paramTypes[j].contains('InvalidType')
-              ? 'dynamic'
-              : paramTypes[j];
-          typedParams.add('$pType p$j');
-        }
+        final (typedParams, callArgs) = _callbackClosureParts(funcInfo);
+        final closure = _voidCallbackClosure(
+          typedParams,
+          'D4.callInterpreterCallback(visitor, $rawVarName, $callArgs)',
+          isVoidCallback: funcInfo.isVoid,
+        );
 
         if (isNullable) {
           buffer.writeln("            dynamic $localName;");
           buffer.writeln("            if ($rawVarName != null) {");
-          buffer.writeln(
-            "              $localName = ${_voidCallbackClosure(typedParams.join(', '), 'D4.callInterpreterCallback(visitor, $rawVarName, [${paramNames.join(', ')}])', isVoidCallback: funcInfo.isVoid)};",
-          );
+          buffer.writeln("              $localName = $closure;");
           buffer.writeln("            }");
         } else {
-          buffer.writeln(
-            "            final $localName = ${_voidCallbackClosure(typedParams.join(', '), 'D4.callInterpreterCallback(visitor, $rawVarName, [${paramNames.join(', ')}])', isVoidCallback: funcInfo.isVoid)};",
-          );
+          buffer.writeln("            final $localName = $closure;");
         }
         positionalArgs.add(localName);
       } else {
@@ -9860,22 +9907,11 @@ class BridgeGenerator {
         );
         buffer.writeln("            if ($rawVarName != null) {");
 
-        final paramTypesNamed = funcInfo.positionalParamTypes;
-        final paramNamesNamed = <String>[];
-        for (var j = 0; j < paramTypesNamed.length; j++) {
-          paramNamesNamed.add('p$j');
-        }
-        final typedParamsNamed = <String>[];
-        for (var j = 0; j < paramTypesNamed.length; j++) {
-          // GEN-065: Replace InvalidType with dynamic for callback parameter types
-          final pType = paramTypesNamed[j].contains('InvalidType')
-              ? 'dynamic'
-              : paramTypesNamed[j];
-          typedParamsNamed.add('$pType p$j');
-        }
-
+        final (typedParamsNamed, callArgsNamed) = _callbackClosureParts(
+          funcInfo,
+        );
         buffer.writeln(
-          "              wrappedNamed[#${param.name}] = ${_voidCallbackClosure(typedParamsNamed.join(', '), 'D4.callInterpreterCallback(visitor, $rawVarName, [${paramNamesNamed.join(', ')}])', isVoidCallback: funcInfo.isVoid)};",
+          "              wrappedNamed[#${param.name}] = ${_voidCallbackClosure(typedParamsNamed, 'D4.callInterpreterCallback(visitor, $rawVarName, $callArgsNamed)', isVoidCallback: funcInfo.isVoid)};",
         );
         buffer.writeln("            }");
       } else {
@@ -14730,6 +14766,7 @@ class BridgeGenerator {
 
     // Parse parameters
     final positionalParamTypes = <String>[];
+    var optionalPositionalCount = 0;
     final namedParamTypes = <String, String>{};
     final namedParamRequired = <String, bool>{};
     final genericTypeParameters = <String, String?>{};
@@ -14754,6 +14791,7 @@ class BridgeGenerator {
       // Split parameters, handling nested generics
       final params = _splitFunctionParams(paramsStr, trackCurlyBraces: false);
       var inNamedSection = false;
+      var inOptionalSection = false;
 
       for (var param in params) {
         param = param.trim();
@@ -14767,6 +14805,15 @@ class BridgeGenerator {
         if (param.endsWith('}')) {
           param = param.substring(0, param.length - 1).trim();
         }
+        // ... and the optional positional section, `[T a, U b]`.
+        if (!inNamedSection && param.startsWith('[')) {
+          inOptionalSection = true;
+          param = param.substring(1).trim();
+        }
+        if (inOptionalSection && param.endsWith(']')) {
+          param = param.substring(0, param.length - 1).trim();
+        }
+        if (inOptionalSection && !inNamedSection) optionalPositionalCount++;
 
         if (inNamedSection) {
           // Named parameter: "required Type name" or "Type name" or "Type? name"
@@ -14814,6 +14861,7 @@ class BridgeGenerator {
       returnType: returnType,
       returnTypeNullable: returnTypeNullable,
       positionalParamTypes: positionalParamTypes,
+      optionalPositionalCount: optionalPositionalCount,
       namedParamTypes: namedParamTypes,
       namedParamRequired: namedParamRequired,
       genericTypeParameters: genericTypeParameters,
@@ -14991,6 +15039,7 @@ class BridgeGenerator {
         }
       }
 
+      var optionalPositionalCount = 0;
       for (final param in effectiveType.formalParameters) {
         final paramType = param.type.getDisplayString();
         final paramName = param.name;
@@ -14999,6 +15048,7 @@ class BridgeGenerator {
           namedParamRequired[paramName] = param.isRequired;
         } else {
           positionalParamTypes.add(paramType);
+          if (param.isOptionalPositional) optionalPositionalCount++;
         }
       }
 
@@ -15006,6 +15056,7 @@ class BridgeGenerator {
         returnType: returnType,
         returnTypeNullable: returnTypeNullable,
         positionalParamTypes: positionalParamTypes,
+        optionalPositionalCount: optionalPositionalCount,
         namedParamTypes: namedParamTypes,
         namedParamRequired: namedParamRequired,
         genericTypeParameters: genericTypeParameters,
@@ -15050,6 +15101,23 @@ class BridgeGenerator {
         : castType;
     const primitives = {'bool', 'int', 'double', 'num', 'String'};
     return primitives.contains(stripped);
+  }
+
+  /// The parameter list and the forwarded argument list of the callback
+  /// closures the hybrid (`Function.apply`) adapters emit for [funcInfo]:
+  /// `('T0 p0, [T1? p1]', '[p0, if (p1 != null) p1]')`.
+  static (String, String) _callbackClosureParts(FunctionTypeInfo funcInfo) {
+    final types = [
+      for (final type in funcInfo.positionalParamTypes)
+        // GEN-065: Replace InvalidType with dynamic for callback parameter types
+        type.contains('InvalidType') ? 'dynamic' : type,
+    ];
+    return (
+      funcInfo.positionalParameterList(types),
+      funcInfo.positionalArgumentList([
+        for (var j = 0; j < types.length; j++) 'p$j',
+      ]),
+    );
   }
 
   /// Generates a wrapper that converts a script callback into a native
@@ -15157,8 +15225,18 @@ class BridgeGenerator {
       // Named args need to be passed as a map
     }
 
-    final paramsStr = paramList.join(', ');
-    final argsStr = argList.isNotEmpty ? '[${argList.join(', ')}]' : '[]';
+    // Positional parameters as `T0 p0, [T1? p1]`; a signature cannot have
+    // both optional positional and named parameters, so the two never meet.
+    final positionalTypes = [
+      for (final param in paramList.where((e) => !e.startsWith('{')))
+        param.substring(0, param.lastIndexOf(' ')),
+    ];
+    final paramsStr = [
+      if (positionalTypes.isNotEmpty)
+        funcInfo.positionalParameterList(positionalTypes),
+      ...paramList.where((e) => e.startsWith('{')),
+    ].join(', ');
+    final argsStr = funcInfo.positionalArgumentList(argList);
 
     // Generate named args map if there are named parameters
     String namedArgsStr = '{}';
@@ -15466,7 +15544,17 @@ class BridgeGenerator {
 
     final params = StringBuffer();
     if (positionalSigs.isNotEmpty) {
-      params.write(positionalSigs.join(', '));
+      // Optional positional parameters keep their brackets: without them the
+      // cast names a type the closure (`[T? p1]`) is not, and the declared
+      // callback type rejects it.
+      final required = funcInfo.requiredPositionalCount;
+      params.write(
+        [
+          ...positionalSigs.take(required),
+          if (positionalSigs.length > required)
+            '[${positionalSigs.skip(required).join(', ')}]',
+        ].join(', '),
+      );
     }
     if (namedSigs.isNotEmpty) {
       if (positionalSigs.isNotEmpty) params.write(', ');

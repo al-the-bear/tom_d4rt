@@ -3245,14 +3245,13 @@ String _rc2GenerateFunctionWrapper(
     return type.replaceAll(RegExp('\\b$typeParamName\\b'), typeArg);
   }
 
-  // Generate positional parameter list
+  // Generate positional parameter list: `T0 p0, [T1? p1]`.
   final paramList = <String>[];
-  final argList = <String>[];
-  for (var i = 0; i < funcInfo.positionalParamTypes.length; i++) {
-    final paramType = substitute(funcInfo.positionalParamTypes[i]);
-    final paramName = 'p$i';
-    paramList.add('$paramType $paramName');
-    argList.add(paramName);
+  final positionalTypes = [
+    for (final type in funcInfo.positionalParamTypes) substitute(type),
+  ];
+  if (positionalTypes.isNotEmpty) {
+    paramList.add(funcInfo.positionalParameterList(positionalTypes));
   }
 
   // Handle named parameters
@@ -3274,7 +3273,9 @@ String _rc2GenerateFunctionWrapper(
   }
 
   final paramsStr = paramList.join(', ');
-  final argsStr = argList.isNotEmpty ? '[${argList.join(', ')}]' : '[]';
+  final argsStr = funcInfo.positionalArgumentList([
+    for (var i = 0; i < positionalTypes.length; i++) 'p$i',
+  ]);
 
   // Generate named args map if there are named parameters
   String namedArgsExpr = '';

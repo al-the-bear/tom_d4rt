@@ -1,3 +1,20 @@
+## 1.56.0
+
+### Fixed — callbacks whose type has optional positional parameters (GitHub #1, secondary)
+
+For `typedef ParamsEncoder = String Function(Map<String, dynamic> params,
+[dynamic args]);` the generator wrapped a script closure as
+`(Map<String, dynamic> p0, dynamic p1) {...}`, cast to a type with both
+parameters required. That is not a `ParamsEncoder`, so the bridge did not
+compile. `FunctionTypeInfo` now records `optionalPositionalCount` (from the
+analyzer and from a parsed signature), and every callback wrapper renders its
+parameters through it: `(Map<String, dynamic> p0, [dynamic p1])`, cast to
+`String Function(Map<String, dynamic>, [dynamic])`. An optional parameter is
+declared nullable, and a trailing argument the native caller leaves out is left
+out of the script call (`[p0, if (p1 != null) p1]`), so a script closure with
+fewer parameters works where the native code calls with fewer arguments. The
+emitted code uses no new interpreter API.
+
 ## 1.55.0
 
 ### Fixed — a package-relative barrel is imported as a `package:` URI (GitHub #1, bug 3)
@@ -13,7 +30,9 @@ dartscript and the test runner.
 `ModuleConfig.scriptImport` / `scriptImports` now give a module's imports as
 `package:` URIs through one helper, `barrelImportUri`, and every place that
 needs a barrel's import uses them: `lib/x.dart` and `x.dart` both become
-`package:<pkg>/x.dart`. The generator's examples drop their registrations under
+`package:<pkg>/x.dart`, and a `dart:` barrel stays as written (the Flutter
+twins' `dart_ui` module returned `import 'package:<pkg>/dart:ui';` from
+`getImportBlock()`). The generator's examples drop their registrations under
 `lib/...` paths when regenerated.
 
 ## 1.54.0
