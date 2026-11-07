@@ -2040,10 +2040,19 @@ class InterpretedFunction implements Callable {
 
             if (!redirected) {
               if (bodyToExecute is SBlockFunctionBody) {
-                syncResult = visitor.executeBlock(
+                // PR #6: a block body that runs off its end returns null; only
+                // `return` yields a value, and it arrives as a
+                // ReturnException. executeBlock's own result is the LAST
+                // STATEMENT's value, which used to leak (`Object? f() {
+                // probe(); }` returned probe's result). A suspension request
+                // is kept for the check below.
+                final completion = visitor.executeBlock(
                   bodyToExecute.block!.statements,
                   executionEnvironment,
                 );
+                syncResult = completion is AsyncSuspensionRequest
+                    ? completion
+                    : null;
               } else if (bodyToExecute is SExpressionFunctionBody) {
                 visitor.environment = executionEnvironment;
                 syncResult = bodyToExecute.expression!.accept<Object?>(visitor);
@@ -3768,12 +3777,19 @@ class InterpretedFunction implements Callable {
       currentState.isHandlingErrorForRethrow = false;
       currentState.originalErrorForRethrow = null;
 
-      Object? finalCompletionValue = lastResult;
-      if (lastResult == null && currentState.lastAwaitResult != null) {
-        finalCompletionValue = currentState.lastAwaitResult;
-        Logger.debug(
-          " [StateMachine] Loop finished after await. Using await result for completion: $finalCompletionValue",
-        );
+      // PR #6: a BLOCK body that runs off its end completes with null - a
+      // `return` completed the future already. Only an expression body
+      // (`async => e`) completes with the value it computed, which may be
+      // the result of its last await.
+      Object? finalCompletionValue;
+      if (currentState.function._body is! SBlockFunctionBody) {
+        finalCompletionValue = lastResult;
+        if (lastResult == null && currentState.lastAwaitResult != null) {
+          finalCompletionValue = currentState.lastAwaitResult;
+          Logger.debug(
+            " [StateMachine] Loop finished after await. Using await result for completion: $finalCompletionValue",
+          );
+        }
       }
       currentState.completer.complete(finalCompletionValue);
     }
@@ -7645,11 +7661,13 @@ class InterpretedExtensionMethod implements ExtensionMemberCallable {
     try {
       final body = declaration.body;
       if (body is SBlockFunctionBody) {
-        // executeBlock already handles ReturnException correctly
-        return visitor.executeBlock(
+        // A `return` arrives as a ReturnException (caught below); running off
+        // the end returns null, not the last statement's value (PR #6).
+        final completion = visitor.executeBlock(
           body.block!.statements,
           executionEnvironment,
         );
+        return completion is AsyncSuspensionRequest ? completion : null;
       } else if (body is SExpressionFunctionBody) {
         // For an expression body, evaluate and return the value
         final result = body.expression!.accept<Object?>(visitor);

@@ -441,7 +441,16 @@ const _partialTwinBudget = 0;
 /// and class declarations with extends / implements / with clauses, which the
 /// corpus copies on every run.
 ///
-const _copierGapBudget = 44;
+/// 44 -> 45: GHISSUES5 added `gh6_block_fallthrough_null_test.dart`, which
+/// runs source to ask what a block body that runs off its end returns, sync
+/// and async (pull request #6). Exec resolves tom_d4rt_ast from pub.dev,
+/// where it still returns the last statement's value until the batch release
+/// (ghissues10), so a port would assert the fix against an interpreter that
+/// does not have it. Its ast twin holds the mechanism. The copier surface a
+/// port would have added is function declarations with block, expression and
+/// async bodies, which the corpus copies on every run.
+///
+const _copierGapBudget = 45;
 
 const Map<String, _Coverage> _coveredElsewhere = {
   'sce208_bind_forwarding_source_errors_test.dart': _Coverage(
@@ -488,6 +497,21 @@ const Map<String, _Coverage> _coveredElsewhere = {
         'is a REAL-DART comparison rather than a property of either '
         'interpreter — restating it as bundles would assert the SDK against '
         'itself.',
+  ),
+  'gh6_block_fallthrough_null_test.dart': _Coverage(
+    'ast:runtime/gh6_block_fallthrough_null_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 7,
+    twinCases: 3,
+    whyPartial:
+        'the twin pins the three places a body\'s result is decided - a sync '
+        'block body, an async block body, and the bodies that keep their '
+        'value - which is what only that tree can answer, since its '
+        '`callable.dart` is its own copy. The reference adds the remaining '
+        'SHAPES (branches, loops, try/finally, every callable kind, async '
+        'closures and methods, mid-body awaits), which a hand-built bundle '
+        'would only restate.',
   ),
   'gh9_import_cycle_test.dart': _Coverage(
     'ast:runtime/gh9_import_cycle_test.dart',

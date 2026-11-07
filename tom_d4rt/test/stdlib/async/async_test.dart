@@ -512,8 +512,10 @@ void main() {
           return total;
         }
 
-        Future<void> main() async {
-          await testAsyncForInWithAwaitInBody();
+        // PR #6: main returns the value it checks; an async block body
+        // that runs off its end completes with null.
+        Future<int> main() async {
+          return await testAsyncForInWithAwaitInBody();
         }
       ''');
 
@@ -547,8 +549,10 @@ void main() {
           return "\$status:\$finallyStatus";
         }
 
-        Future<void> main() async {
-          await testTryCatch();
+        // PR #6: main returns the value it checks; an async block body
+        // that runs off its end completes with null.
+        Future<String> main() async {
+          return await testTryCatch();
         }
       ''');
 

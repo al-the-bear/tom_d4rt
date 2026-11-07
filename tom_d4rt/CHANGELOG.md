@@ -1,3 +1,24 @@
+## 1.235.0
+
+### Fixed — a block body that runs off its end returns null (PR #6)
+
+`int probe() => 41; Object? f() { probe(); }` returned 41, and
+`Future<Object?> f() async { await probe(); }` completed with 41: a block
+body returned the value of its LAST STATEMENT, and an async block body
+completed with its last result or its last await's result. Dart gives null for
+both. Now only `return` yields a value: a block body that runs off its end
+returns null, sync and async, in functions, methods, getters, static members,
+local functions, closures and extension methods. Expression bodies
+(`=> e`, `async => e`) keep the value they compute, and constructors still
+yield their instance. Reported by pull request #6; the fix is this
+repository's own.
+
+Two tests in `stdlib/async/async_test.dart` asserted the old behaviour (their
+`Future<void> main() async { await f(); }` was expected to yield `f`'s value)
+and now return it explicitly.
+
+Name resolution: no
+
 ## 1.234.0
 
 ### Fixed — classes whose supertypes are declared in a library still loading (GitHub #9)
