@@ -13,6 +13,7 @@ import 'package:tom_d4rt_ast/runtime.dart' show AstBundle;
 
 import 'package:tom_ast_generator/src/converter/ast_converter.dart';
 import 'package:tom_ast_generator/src/version.versioner.dart';
+import '../bundle_feature_set.dart';
 
 // =============================================================================
 // Configuration
@@ -620,6 +621,7 @@ class AstBundler {
       content: source,
       path: path,
       throwIfDiagnostics: false,
+      featureSet: bundleFeatureSet,
     );
 
     if (parseResult.errors.isNotEmpty) {

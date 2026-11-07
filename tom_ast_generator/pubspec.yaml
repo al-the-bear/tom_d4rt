@@ -1,6 +1,6 @@
 name: tom_ast_generator
 description: AST converter from Dart analyzer AST to serializable AST model.
-version: 0.2.1
+version: 0.2.2
 repository: https://github.com/al-the-bear/tom_d4rt
 homepage: https://github.com/al-the-bear/tom_d4rt/tree/main/tom_ast_generator
 topics:
@@ -17,6 +17,8 @@ dependencies:
   args: ^2.4.2
   glob: ^2.1.2
   path: ^1.9.1
+  # FeatureSet.fromEnableFlags2 takes a pub_semver Version (bundle_feature_set).
+  pub_semver: ^2.1.4
   yaml: ^3.1.2
   # In-workspace components are pinned to a lower bound only (no upper cap) so
   # `pub upgrade` always tracks our latest published versions during active

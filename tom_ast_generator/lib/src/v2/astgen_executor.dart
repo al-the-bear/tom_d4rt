@@ -16,6 +16,7 @@ import 'package:tom_build_base/tom_build_base_v2.dart';
 import 'package:yaml/yaml.dart';
 
 import 'package:tom_ast_generator/tom_ast_generator.dart';
+import '../bundle_feature_set.dart';
 
 const _toolKey = 'astgen';
 
@@ -480,7 +481,11 @@ void _convertFile(
 ) {
   // Read and parse the Dart file
   final content = File(inputPath).readAsStringSync();
-  final parseResult = parseString(content: content, path: inputPath);
+  final parseResult = parseString(
+    content: content,
+    path: inputPath,
+    featureSet: bundleFeatureSet,
+  );
 
   // Check for parse errors - always fail on errors
   if (parseResult.errors.isNotEmpty) {

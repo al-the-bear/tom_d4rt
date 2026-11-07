@@ -1,3 +1,14 @@
+## 0.2.2
+
+### Fixed — the bundler parses at the interpreters' language version (GitHub #9)
+
+`AstBundler` and `astgen` called `parseString` without a feature set, so they
+parsed at analyzer 14.7.0's newest language version, which rejects a `final`
+parameter: bundling the unmodified intl 0.20.3 sources failed with "Can't have
+modifier 'final' here" (`num parse(final String inputText)`). Both now parse
+with `bundleFeatureSet`, the language version and flags the interpreters' own
+parser uses. `pub_semver` is a direct dependency.
+
 ## 0.2.1
 
 ### Changed — on tom_d4rt_ast 0.212.0
