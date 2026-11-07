@@ -18,7 +18,7 @@ dependencies:
   tom_d4rt: ">=1.231.1"
   tom_d4rt_dcli: ">=1.5.0"
   # Referenced directly by the example scripts (import 'package:dcli/dcli.dart').
-  dcli: ^10.0.0
+  dcli: ^10.4.7
 
 dev_dependencies:
   # Floor 1.15.3: below it, a regeneration from a relative scan root writes
