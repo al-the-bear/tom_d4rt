@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:tom_d4rt/d4rt.dart';
 import 'bridge/bridged_types.dart' as bridge;
@@ -1151,85 +1153,46 @@ class InterpretedClass implements Callable, RuntimeType {
     return concreteMembers;
   }
 
-  /// Checks if this class is a subtype of the [other] class.
-  /// This considers inheritance (extends), mixin application (with),
-  /// and interface implementation (implements).
+  /// Whether this class is a subtype of [other]: [other] itself, or a type
+  /// reached through `extends`, `with` or `implements`, at any depth.
+  ///
+  /// GitHub #7: one walk over the whole interpreted supertype graph —
+  /// [superclass], [mixins] and [interfaces] — each class visited once, so a
+  /// cyclic graph (Dart rejects one; this interpreter does not) ends. Against a
+  /// bridged [other], every bridged supertype a visited class names
+  /// ([bridgedSuperclass], [bridgedMixins], [bridgedInterfaces]) is asked
+  /// [BridgedClass.isSubtypeOf], which knows native identity and the
+  /// registered hierarchy. The walk used to stop at the superclass chain and
+  /// its mixins, so `class C implements I` with `abstract class I implements
+  /// Shape` was not a `Shape`; and it accepted a bridged supertype whose NAME
+  /// matched, so a class implementing one library's `Token` passed for an
+  /// unrelated `Token` bridged over another native type. Names are never
+  /// compared.
   @override
   bool isSubtypeOf(RuntimeType other, {Object? value}) {
-    if (other is InterpretedClass) {
-      // Check for identity (reflexive)
-      if (this == other) return true;
-
-      // Check direct inheritance (superclass chain)
-      InterpretedClass? current = superclass;
-      while (current != null) {
-        if (current == other) return true;
-        current = current.superclass;
+    if (other is! InterpretedClass && other is! BridgedClass) return false;
+    final visited = HashSet<InterpretedClass>.identity();
+    final pending = <InterpretedClass>[this];
+    while (pending.isNotEmpty) {
+      final klass = pending.removeLast();
+      if (!visited.add(klass)) continue;
+      if (identical(klass, other)) return true;
+      if (other is BridgedClass) {
+        for (final bridged in [
+          ?klass.bridgedSuperclass,
+          ...klass.bridgedMixins,
+          ...klass.bridgedInterfaces,
+        ]) {
+          if (identical(bridged, other) || bridged.isSubtypeOf(other)) {
+            return true;
+          }
+        }
       }
-
-      // Check applied mixins (recursively)
-      for (final mixin in mixins) {
-        if (mixin.isSubtypeOf(other)) return true;
-      }
-
-      // Check implemented interfaces (recursively)
-      for (final interface in interfaces) {
-        if (interface.isSubtypeOf(other)) return true;
-      }
-
-      // Check superclass's mixins and interfaces (transitive)
-      if (superclass != null) {
-        if (superclass!.isSubtypeOf(other)) return true;
-      }
-
-      // Check mixins' superclasses, mixins, and interfaces (transitive)
-      // This requires iterating through the mixin application chain implicitly handled above
-
-      // Check interfaces' superclasses, mixins, and interfaces (transitive)
-      // This requires iterating through the interface implementation chain implicitly handled above
-
-      // Default case: not a subtype
-      return false;
+      pending
+        ..addAll(klass.interfaces)
+        ..addAll(klass.mixins);
+      if (klass.superclass case final superclass?) pending.add(superclass);
     }
-
-    // RC-7: Check bridged superclass chain when comparing against a BridgedClass.
-    // An interpreted class extending a bridged class (e.g., MyWidget extends
-    // StatelessWidget) must be recognized as a subtype of Widget, etc.
-    if (other is BridgedClass) {
-      // Walk up the interpreted superclass chain checking bridged superclasses
-      InterpretedClass? current = this;
-      while (current != null) {
-        final bridgedSuper = current.bridgedSuperclass;
-        if (bridgedSuper != null) {
-          // Check if the bridged superclass matches or is a subtype of other
-          if (bridgedSuper.name == other.name) return true;
-          if (bridgedSuper.isSubtypeOf(other)) return true;
-        }
-
-        // Also check bridged mixins at each level
-        for (final bridgedMixin in current.bridgedMixins) {
-          if (bridgedMixin.name == other.name) return true;
-          if (bridgedMixin.isSubtypeOf(other)) return true;
-        }
-
-        // SC6: and bridged interfaces. `class D implements StreamTransformer`
-        // records the bridge in `bridgedInterfaces`, but this walk only ever
-        // looked at `extends` and `with`, so `D() is StreamTransformer` was
-        // false. `implements` is as much a subtype edge as `extends`.
-        for (final bridgedInterface in current.bridgedInterfaces) {
-          if (bridgedInterface.name == other.name) return true;
-          if (bridgedInterface.isSubtypeOf(other)) return true;
-        }
-
-        current = current.superclass;
-      }
-
-      // Check interpreted mixins' bridged superclass chains
-      for (final mixin in mixins) {
-        if (mixin.isSubtypeOf(other)) return true;
-      }
-    }
-
     return false;
   }
 }

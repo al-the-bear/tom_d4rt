@@ -450,7 +450,18 @@ const _partialTwinBudget = 0;
 /// port would have added is function declarations with block, expression and
 /// async bodies, which the corpus copies on every run.
 ///
-const _copierGapBudget = 45;
+/// 45 -> 46: GHISSUES6 added `gh7_transitive_bridged_interface_test.dart`,
+/// which runs source to ask whether an interpreted class reaches a bridged
+/// type through interpreted interfaces, mixins and superclasses, and is
+/// refused a same-named bridge over another native type (pull request #7).
+/// Exec resolves tom_d4rt_ast from pub.dev, where the subtype walk still stops
+/// at the superclass chain and compares bridge names until the batch release
+/// (ghissues10), so a port would assert the fix against an interpreter that
+/// does not have it. Its ast twin holds the mechanism. The copier surface a
+/// port would have added is class and mixin declarations with extends,
+/// implements and with clauses, which the corpus copies on every run.
+///
+const _copierGapBudget = 46;
 
 const Map<String, _Coverage> _coveredElsewhere = {
   'sce208_bind_forwarding_source_errors_test.dart': _Coverage(
@@ -512,6 +523,22 @@ const Map<String, _Coverage> _coveredElsewhere = {
         'SHAPES (branches, loops, try/finally, every callable kind, async '
         'closures and methods, mid-body awaits), which a hand-built bundle '
         'would only restate.',
+  ),
+  'gh7_transitive_bridged_interface_test.dart': _Coverage(
+    'ast:runtime/gh7_transitive_bridged_interface_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 12,
+    twinCases: 5,
+    whyPartial:
+        'the twin pins the walk\'s edges once each - an interface that '
+        'implements the bridge, one that extends it, a mixin whose interface '
+        'reaches it - and its two refusals, a cyclic graph and a same-named '
+        'bridge over another native type, which is what only that tree can '
+        'answer, since its `runtime_types.dart` is its own copy. The reference '
+        'adds the remaining SHAPES (native controls, a direct implements, an '
+        'inherited interface, a diamond, unrelated types), which a hand-built '
+        'bundle would only restate.',
   ),
   'gh9_import_cycle_test.dart': _Coverage(
     'ast:runtime/gh9_import_cycle_test.dart',

@@ -1,3 +1,28 @@
+## 1.236.0
+
+### Fixed — an interpreted class reaches a bridged type through interpreted interfaces (PR #7)
+
+With `abstract class I implements Shape {}` (`Shape` bridged), `class C
+implements I` was rejected at a `Shape` parameter and `C() is Shape` answered
+false; so were a subclass of `C`, a class mixing in `mixin M implements I`, a
+class implementing `abstract class J extends Shape`, and a diamond of two such
+interfaces. `InterpretedClass.isSubtypeOf` asked about a bridged type walked
+only the superclass chain, its bridged supertypes and its mixins, never the
+interpreted interfaces. It also accepted any bridged supertype whose NAME
+matched, so a class implementing one library's `Token` passed for an unrelated
+`Token` bridged over another native type; and on a cyclic interface graph
+(which Dart rejects and this interpreter does not) a test against an
+interpreted type overflowed the stack.
+
+Now the question is one walk over the interpreted supertype graph — superclass,
+mixins and interfaces — each class visited once, with every bridged supertype
+it reaches asked `BridgedClass.isSubtypeOf` (native identity, the registered
+hierarchy). Names are never compared, so two bridges of the same name over
+different native types are different types. Reported by pull request #7; the
+fix is this repository's own.
+
+Name resolution: no
+
 ## 1.235.0
 
 ### Fixed — a block body that runs off its end returns null (PR #6)
