@@ -71,15 +71,6 @@ void main() {
       expect(result.outputFiles, isNotEmpty);
 
       generatedCode = await File(result.outputFiles.first).readAsString();
-
-      // Debug: Save to workspace for inspection
-      final debugPath = p.join(
-        Platform.environment['HOME']!,
-        'repos/al_the_bear/inhouse/second_wind/'
-        'enterprise_flutter/tom_agent_container/ztmp/flutter_issues_bridge.dart',
-      );
-      await File(debugPath).create(recursive: true);
-      await File(debugPath).writeAsString(generatedCode);
     });
 
     // ==========================================================================
