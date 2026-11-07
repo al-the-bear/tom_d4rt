@@ -3,6 +3,9 @@ import 'package:tom_d4rt/d4rt.dart';
 /// Represents a late variable that supports lazy initialization
 class LateVariable {
   bool _isInitialized = false;
+
+  /// True while [_initializer] runs: a read in that window is a cycle.
+  bool _isInitializing = false;
   Object? _value;
   final Object? Function()? _initializer;
   final String _name;
@@ -15,8 +18,23 @@ class LateVariable {
   Object? get value {
     if (!_isInitialized) {
       if (_initializer != null) {
-        // Lazy initialization
-        _value = _initializer();
+        // Lazy initialization. A read while the initializer runs means it
+        // depends on itself (`static const a = b; static const b = a;`):
+        // report it instead of recursing until the stack overflows. An
+        // initializer that throws leaves the variable uninitialized, so the
+        // next read runs it again, as in Dart.
+        if (_isInitializing) {
+          throw LateInitializationError(
+            "LateInitializationError: '$_name' is read during its initialization "
+            '(its initializer depends on itself).',
+          );
+        }
+        _isInitializing = true;
+        try {
+          _value = _initializer();
+        } finally {
+          _isInitializing = false;
+        }
         _isInitialized = true;
         Logger.debug(
           "[LateVariable] Lazy initialized '$_name' with value: $_value",

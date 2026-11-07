@@ -438,16 +438,40 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
   @override
   Object? visitTopLevelVariableDeclaration(STopLevelVariableDeclaration node) {
+    // Top-level variables are initialized LAZILY, on first read, as in Dart
+    // (GitHub #10): a variable with an initializer is bound to a
+    // [LateVariable] that runs it in this library's scope, so it may read a
+    // declaration that comes later, and an unread variable runs nothing.
+    final declarationEnv = environment;
+    final isFinal = node.variables!.isFinal || node.variables!.isConst;
+    final isLate = node.variables!.isLate;
     for (final variable in node.variables!.variables) {
-      if (variable.name!.name == '_') {
+      final name = variable.name!.name;
+      final initializer = variable.initializer;
+      if (name == '_') {
         // Evaluate initializer for potential side effects, but don't define
-        variable.initializer?.accept<Object?>(this);
+        initializer?.accept<Object?>(this);
+      } else if (initializer == null && !isLate) {
+        environment.define(name, null);
       } else {
-        Object? value;
-        if (variable.initializer != null) {
-          value = variable.initializer!.accept<Object?>(this);
-        }
-        environment.define(variable.name!.name, value);
+        environment.define(
+          name,
+          LateVariable(
+            name,
+            initializer == null
+                ? null
+                : () {
+                    final savedEnv = environment;
+                    try {
+                      environment = declarationEnv;
+                      return initializer.accept<Object?>(this);
+                    } finally {
+                      environment = savedEnv;
+                    }
+                  },
+            isFinal: isFinal,
+          ),
+        );
       }
     }
     return null;
@@ -1269,10 +1293,12 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     }
 
     if (prefixValue is InterpretedClass) {
-      // Static access
-      try {
+      // Static access. Asked, not caught: reading a field runs its lazy
+      // initializer, and an error from it must surface (GitHub #10), not be
+      // taken for "no such field".
+      if (prefixValue.staticFields.containsKey(memberName)) {
         return prefixValue.getStaticField(memberName);
-      } on RuntimeD4rtException catch (_) {
+      } else {
         InterpretedFunction? staticMember = prefixValue.findStaticGetter(
           memberName,
         );
@@ -2931,7 +2957,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
       if (definingEnv != null) {
         // Check if the variable is a LateVariable
-        final variableValue = definingEnv.get(variableName);
+        final variableValue = definingEnv.getBinding(variableName);
         if (variableValue is LateVariable) {
           if (operatorType == '=') {
             // Simple assignment to late variable
@@ -5032,9 +5058,19 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         } else {
           // Not a named constructor, check for STATIC METHOD
           final staticMethod = targetValue.findStaticMethod(methodName);
+          final staticGetter = staticMethod == null
+              ? targetValue.findStaticGetter(methodName)
+              : null;
           if (staticMethod != null) {
             calleeValue =
                 staticMethod; // It's already the function, no binding needed
+          } else if (targetValue.staticFields.containsKey(methodName)) {
+            // `K.f()` where `static final f = () => ...`: call the function
+            // the field holds (reading it runs its lazy initializer).
+            calleeValue = targetValue.getStaticField(methodName);
+          } else if (staticGetter != null) {
+            // `K.f()` where `static get f => ...` returns a function.
+            calleeValue = staticGetter.call(this, [], {});
           } else {
             // Cluster C33: class-as-value (Type literal) semantics. A script
             // that does `final Type t = SomeClass; t.toString();` expects
@@ -6306,11 +6342,12 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         "Undefined static property '$propertyName' on enum '${target.name}'.",
       );
     } else if (target is InterpretedClass) {
-      // Static Access (no change)
-      try {
-        // Check static fields first (no inheritance for static fields in Dart)
+      // Static fields first (no inheritance for static fields in Dart). Asked,
+      // not caught: an error from a field's lazy initializer must surface
+      // (GitHub #10), not be taken for "no such field".
+      if (target.staticFields.containsKey(propertyName)) {
         return target.getStaticField(propertyName);
-      } on RuntimeD4rtException catch (_) {
+      } else {
         // If not a field, check static methods/getters
         InterpretedFunction? staticMember = target.findStaticGetter(
           propertyName,
@@ -7390,9 +7427,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           environment.define(variableName, null); // Define before loop
         } else if (loopVariableOrIdentifier is SSimpleIdentifier) {
           variableName = loopVariableOrIdentifier.name;
-          try {
-            environment.get(variableName); // Check existence
-          } catch (e) {
+          // Asked, not read: reading would run a lazy initializer (#10).
+          if (!environment.isDefined(variableName)) {
             throw RuntimeD4rtException(
               "Variable '$variableName' for for-in loop is not defined.",
             );
@@ -7607,9 +7643,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         environment.define(variableName, null);
       } else if (loopVariableOrIdentifier is SSimpleIdentifier) {
         variableName = loopVariableOrIdentifier.name;
-        try {
-          environment.get(variableName); // Check existence in enclosing scope
-        } catch (e) {
+        // Asked, not read: reading would run a lazy initializer (#10).
+        if (!environment.isDefined(variableName)) {
           throw RuntimeD4rtException(
             "Variable '$variableName' for for-in loop is not defined.",
           );
@@ -10167,7 +10202,10 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       // Try lexical scope first, then implicit 'this'. The write goes back
       // through [_assignBareName], which resolves the name the same way.
       try {
+        // Reads a lazily initialized variable's value (Environment.get).
         operandValue = environment.get(variableName); // Try lexical scope
+      } on LateInitializationError {
+        rethrow;
       } on RuntimeD4rtException {
         // Not found lexically, try implicit 'this'
         try {
@@ -10958,84 +10996,63 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       }
     }
 
-    // TWO-PASS STATIC FIELD PROCESSING to handle sibling references (Bug-23)
-    // Pass 1: Register all static field names in the class environment with null values
+    // Static fields are initialized LAZILY, on first read, as in Dart
+    // (GitHub #10): every field with an initializer becomes a [LateVariable]
+    // whose initializer runs in [staticFieldEvalEnv]. So declaration order does
+    // not matter (`static const values = [base]; static const base = 'x';`),
+    // a class nobody reads runs none of its initializers, and a field that
+    // reads itself during its initialization is reported as a cycle. Every
+    // holder is installed before any initializer can run, so a sibling read,
+    // bare or qualified, finds its holder and initializes it on demand.
     final staticFieldDecls = <SVariableDeclaration>[];
     final staticFieldMeta =
         <String, (bool isLate, bool isFinal, SAstNode? initializer)>{};
     for (final member in node.body.members) {
       if (member is SFieldDeclaration && member.isStatic) {
         final isLate = member.fields!.isLate;
-        final isFinal = member.fields!.isFinal;
+        final isFinal = member.fields!.isFinal || member.fields!.isConst;
         for (final variable in member.fields!.variables) {
           final fieldName = variable.name!.name;
           staticFieldDecls.add(variable);
           staticFieldMeta[fieldName] = (isLate, isFinal, variable.initializer);
-          // Pre-register all static fields so they can reference each other
           klass.staticFields[fieldName] = null;
         }
       }
     }
 
-    // Pass 2: Evaluate all static field initializers (now all fields are known)
-    // Create a child environment that can shadow with evaluated field values.
-    //
-    // Bug-43 / forward-class-reference FIX: evaluating `static const`
-    // initializers can require other classes (and their constructors) that
-    // appear later in source order. We support deferring this whole block
-    // to after every class has been visited.
+    // The environment the initializers run in: the class scope, plus every
+    // static field's holder for bare sibling reads.
     final staticFieldEvalEnv = Environment(enclosing: staticInitEnv);
 
     void evaluateStaticFields() {
-      final savedEnvOnEntry = environment;
-      try {
-        environment = staticFieldEvalEnv;
-        for (final variable in staticFieldDecls) {
-          final fieldName = variable.name!.name;
-          final (isLate, isFinal, initializer) = staticFieldMeta[fieldName]!;
-
-          if (isLate) {
-            // Handle late static field
-            if (initializer != null) {
-              // Late static field with lazy initializer
-              final lateVar = LateVariable(fieldName, () {
-                // Closure evaluates the initializer on first access.
-                final savedEnv = environment;
-                try {
-                  environment = staticFieldEvalEnv;
-                  return initializer.accept<Object?>(this);
-                } finally {
-                  environment = savedEnv;
-                }
-              }, isFinal: isFinal);
-              klass.staticFields[fieldName] = lateVar;
-              // Also define in eval environment for sibling access
-              staticFieldEvalEnv.define(fieldName, lateVar);
-              Logger.debug(
-                "[ClassDecl] Defined late static field '$fieldName' with lazy initializer for class '${klass.name}'.",
-              );
-            } else {
-              // Late static field without initializer
-              final lateVar = LateVariable(fieldName, null, isFinal: isFinal);
-              klass.staticFields[fieldName] = lateVar;
-              staticFieldEvalEnv.define(fieldName, lateVar);
-              Logger.debug(
-                "[ClassDecl] Defined late static field '$fieldName' without initializer for class '${klass.name}'.",
-              );
-            }
-          } else {
-            // Regular static field handling
-            Object? value;
-            if (initializer != null) {
-              value = initializer.accept<Object?>(this);
-            }
-            klass.staticFields[fieldName] = value;
-            // Define the evaluated value in the environment so subsequent fields can access it
-            staticFieldEvalEnv.define(fieldName, value);
-          }
+      for (final variable in staticFieldDecls) {
+        final fieldName = variable.name!.name;
+        final (isLate, isFinal, initializer) = staticFieldMeta[fieldName]!;
+        if (initializer == null && !isLate) {
+          // `static int? n;` - null until assigned, nothing to run.
+          klass.staticFields[fieldName] = null;
+          staticFieldEvalEnv.define(fieldName, null);
+          continue;
         }
-      } finally {
-        environment = savedEnvOnEntry;
+        final holder = LateVariable(
+          '${klass.name}.$fieldName',
+          initializer == null
+              ? null
+              : () {
+                  final savedEnv = environment;
+                  try {
+                    environment = staticFieldEvalEnv;
+                    return initializer.accept<Object?>(this);
+                  } finally {
+                    environment = savedEnv;
+                  }
+                },
+          // A `late` field without `final` stays assignable; a non-late field
+          // is assignable unless it is final or const.
+          isFinal: isFinal,
+        );
+        klass.staticFields[fieldName] = holder;
+        staticFieldEvalEnv.define(fieldName, holder);
       }
     }
 

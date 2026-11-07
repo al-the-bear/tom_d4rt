@@ -418,7 +418,17 @@ const _partialTwinBudget = 0;
 /// port would have added is prefix and postfix expressions over simple and
 /// prefixed identifiers, which the corpus copies on every run.
 ///
-const _copierGapBudget = 42;
+/// 42 -> 43: GHISSUES3 added `gh10_static_forward_reference_test.dart`, which
+/// runs source to ask whether a static or top-level initializer may read a
+/// declaration made after it, runs lazily, and reports a cycle (GitHub #10).
+/// Exec resolves tom_d4rt_ast from pub.dev, where initializers still run
+/// eagerly in declaration order until the batch release (ghissues10), so a
+/// port would assert the fix against an interpreter that does not have it. Its
+/// ast twin holds the mechanism. The copier surface a port would have added is
+/// static and top-level variable declarations with list-literal and
+/// identifier initializers, which the corpus copies on every run.
+///
+const _copierGapBudget = 43;
 
 const Map<String, _Coverage> _coveredElsewhere = {
   'sce208_bind_forwarding_source_errors_test.dart': _Coverage(
@@ -465,6 +475,23 @@ const Map<String, _Coverage> _coveredElsewhere = {
         'is a REAL-DART comparison rather than a property of either '
         'interpreter — restating it as bundles would assert the SDK against '
         'itself.',
+  ),
+  'gh10_static_forward_reference_test.dart': _Coverage(
+    'ast:runtime/gh10_static_forward_reference_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 13,
+    twinCases: 6,
+    whyPartial:
+        'the twin pins the issue\'s fixtures and the cycle once each - an '
+        'unqualified and a qualified forward reference, an unread class, a '
+        'self-dependent field, a top-level forward reference and `K.f()` - '
+        'which is what only that tree can answer, since its class and '
+        'top-level declaration visitors and `Environment.get` are its own '
+        'copies. The reference adds the remaining SHAPES (read order and '
+        'side effects, write before read, a throwing initializer, every '
+        'member kind, late statics, switch cases and defaults), which a '
+        'hand-built bundle would only restate.',
   ),
   'qr1_static_field_increment_test.dart': _Coverage(
     'ast:runtime/qr1_static_field_increment_test.dart',

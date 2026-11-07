@@ -341,14 +341,14 @@ const _divergentBodies = <String, Map<String, String>>{
     // unbridged-native clause to the same two assignment errors; the residue
     // is still `PrefixedIdentifier` vs `SPrefixedIdentifier` in one message,
     // which the new text now sits beside.
-    'InterpreterVisitor.visitAssignmentExpression': 'e8f2ce0b',
+    'InterpreterVisitor.visitAssignmentExpression': '0d5d1441',
     'InterpreterVisitor.visitBinaryExpression': 'c2f2a78f',
     // SCE130: 57fc0f99 -> fffabfd5. Both trees gained the same call to
     // `klass.resolveDeferredTypeParameterBounds`; the residue is the
     // accessor difference this member already had.
     // VSTDM3: the analyzer 14 port edited both trees alike; the divergence
     // itself is unchanged.
-    'InterpreterVisitor.visitClassDeclaration': '60279044',
+    'InterpreterVisitor.visitClassDeclaration': '59803477',
     'InterpreterVisitor.visitConstructorReference': '1d51b6d4',
     // VSTDM3: the analyzer 14 port edited both trees alike; the divergence
     // itself is unchanged.
@@ -367,14 +367,14 @@ const _divergentBodies = <String, Map<String, String>>{
     // SCE109 moved this signature without changing what diverges: the
     // arity-heuristic throw sites inside it now raise `RangeError`
     // rather than `RuntimeD4rtException`, symmetrically in both trees.
-    'InterpreterVisitor.visitMethodInvocation': '82a3e919',
+    'InterpreterVisitor.visitMethodInvocation': 'a1b41959',
     // SCE236: the two `visitNode` bodies are identical now. Only the excerpt
     // helper differs: `toSource()` here, the bundled source in the twin.
     'InterpreterVisitor._nodeExcerpt': 'b5e37909',
     // SCF37: both bodies gained the bridged-receiver branch, identically.
     // QR1: and the bare-name write-back through `_assignBareName` and the
     // class-target branch, identically again.
-    'InterpreterVisitor.visitPostfixExpression': 'eaf2eb3b',
+    'InterpreterVisitor.visitPostfixExpression': 'c9e1cab1',
     'InterpreterVisitor.visitPrefixExpression': 'ac3124de',
     // SCF37: the bridged step. The only difference is the operator spelling —
     // `TokenType.PLUS_PLUS` / `PLUS_EQ` here, the strings `'++'` / `'+='` in
@@ -383,8 +383,8 @@ const _divergentBodies = <String, Map<String, String>>{
     // QR1: the static step for a class target, the same operator spelling as
     // `_stepBridgedProperty` and nothing else.
     'InterpreterVisitor._stepStaticProperty': '15618af1',
-    'InterpreterVisitor.visitPrefixedIdentifier': '8998a214',
-    'InterpreterVisitor.visitPropertyAccess': 'f38664e1',
+    'InterpreterVisitor.visitPrefixedIdentifier': 'f3391558',
+    'InterpreterVisitor.visitPropertyAccess': '9ac16b77',
     'InterpreterVisitor.visitReturnStatement': 'b0d7b56c',
     'InterpreterVisitor.visitSetOrMapLiteral': '1a33a2d6',
     'InterpreterVisitor.visitSimpleIdentifier': 'c243901e',

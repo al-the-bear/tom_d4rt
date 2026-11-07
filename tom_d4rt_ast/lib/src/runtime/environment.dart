@@ -1820,7 +1820,20 @@ class Environment {
   ///
   /// The message is built by [undefinedVariableMessage], which appends a reason
   /// when [name] is one of the deliberately-unbridged SDK identifiers (SCB30).
+  ///
+  /// A variable initialized lazily - a static or top-level one with an
+  /// initializer, or a `late` one - reads as its VALUE, initializing it if
+  /// needed (GitHub #10), as any read of it in a script does. Code that must
+  /// see the [LateVariable] holder itself, to assign through it, uses
+  /// [getBinding].
   dynamic get(String name) {
+    final value = getBinding(name);
+    return value is LateVariable ? value.value : value;
+  }
+
+  /// The binding of [name] as stored, throwing like [get] when it is absent:
+  /// a [LateVariable] holder is returned as the holder, uninitialized or not.
+  dynamic getBinding(String name) {
     final value = lookup(name);
     if (identical(value, kNotFound)) {
       throw undefinedNameError(name);

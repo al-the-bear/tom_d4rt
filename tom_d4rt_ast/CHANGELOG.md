@@ -1,3 +1,29 @@
+## 0.214.0
+
+### Fixed — static and top-level initializers read later declarations (GitHub #10)
+
+`class Config { static const values = [base]; static const base = 'x'; }`
+failed with `Undefined variable: base`, `[Config.base]` read `null`, and the
+same class failed even when nothing read it: every static initializer of a
+class ran eagerly, in declaration order, when the class was loaded.
+Top-level variables did the same (`final values = [base]; const base = 'x';`
+read `null`). As in Dart, a static or top-level variable with an initializer
+is now initialized on its first read (a `LateVariable` holder), so
+declaration order does not matter and an unread class or variable runs
+nothing. A write before the first read skips the initializer; an initializer
+that throws leaves the variable uninitialized, and the next read runs it
+again. Reading a variable during its own initialization
+(`static const a = b; static const b = a;`) raises a `LateInitializationError`
+naming the cycle instead of overflowing the stack.
+
+`Environment.get` returns such a variable's value, initializing it, as a read
+in a script does; `Environment.getBinding` returns the holder. Reading a
+class's static field (`Config.base`) no longer takes an error from the
+field's initializer for "no such field", and `K.f()` now calls the function a
+static field (or static getter) `f` holds, which was refused.
+
+Name resolution: yes — bare and qualified reads of static and top-level variables run their initializers on first read (Environment.get, Class.field), and `Class.f()` reaches a function-valued static field or getter.
+
 ## 0.213.0
 
 ### Fixed — `++` / `--` on a static field (qr1)

@@ -1056,12 +1056,15 @@ class Colors {
 - **Location:** Static field initialization order
 - **Root Cause:** When initializing `defaultColor`, `blue` isn't yet in scope
 
-#### Potential Fix Strategies
+#### How It Is Fixed
 
-1. **Strategy A: Two-pass static field initialization**
-   - First pass: register all static field names
-   - Second pass: evaluate initializers with all names available
-   - Complexity: Medium
+Static fields and top-level variables with an initializer are initialized
+lazily, on their first read, as in Dart (GitHub #10). Every field's holder
+exists before any initializer runs, so a field may read a sibling declared
+before or after it, bare (`blue`) or qualified (`Colors.blue`); a class
+nobody reads runs none of its initializers; and a field read during its own
+initialization (`static const a = b; static const b = a;`) raises a
+`LateInitializationError` naming the cycle.
 
 ---
 
