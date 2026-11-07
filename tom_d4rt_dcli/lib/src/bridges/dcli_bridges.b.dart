@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
-// Sources: 73 files
-// Generated: 2026-11-06T14:32:35.224256 by tom_d4rt_generator 1.53.0
+// Sources: 76 files
+// Generated: 2026-11-07T09:58:35.206151 by tom_d4rt_generator 1.53.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -33,27 +33,29 @@ import 'package:dcli/src/installers/installer.dart' as $dcli_18;
 import 'package:dcli/src/progress/progress.dart' as $dcli_19;
 import 'package:dcli/src/resources/packed_resource.dart' as $dcli_20;
 import 'package:dcli/src/resources/resources.dart' as $dcli_21;
-import 'package:dcli/src/script/dart_project.dart' as $dcli_22;
-import 'package:dcli/src/script/dart_script.dart' as $dcli_23;
-import 'package:dcli/src/script/dart_sdk.dart' as $dcli_24;
-import 'package:dcli/src/settings.dart' as $dcli_25;
-import 'package:dcli/src/shell/shell.dart' as $dcli_26;
-import 'package:dcli/src/shell/shell_detection.dart' as $dcli_27;
-import 'package:dcli/src/shell/unknown_shell.dart' as $dcli_28;
-import 'package:dcli/src/util/capture.dart' as $dcli_29;
-import 'package:dcli/src/util/dcli_paths.dart' as $dcli_30;
-import 'package:dcli/src/util/digest_helper.dart' as $dcli_31;
-import 'package:dcli/src/util/editor.dart' as $dcli_32;
-import 'package:dcli/src/util/exceptions.dart' as $dcli_33;
-import 'package:dcli/src/util/file_sort.dart' as $dcli_34;
-import 'package:dcli/src/util/file_sync.dart' as $dcli_35;
-import 'package:dcli/src/util/file_util.dart' as $dcli_36;
-import 'package:dcli/src/util/named_lock.dart' as $dcli_37;
-import 'package:dcli/src/util/process_helper.dart' as $dcli_38;
-import 'package:dcli/src/util/pub_cache.dart' as $dcli_39;
-import 'package:dcli/src/util/remote.dart' as $dcli_40;
-import 'package:dcli/src/util/runnable_process.dart' as $dcli_41;
-import 'package:dcli/src/util/string_as_process.dart' as $dcli_42;
+import 'package:dcli/src/script/compiled_executable.dart' as $dcli_22;
+import 'package:dcli/src/script/dart_project.dart' as $dcli_23;
+import 'package:dcli/src/script/dart_script.dart' as $dcli_24;
+import 'package:dcli/src/script/dart_sdk.dart' as $dcli_25;
+import 'package:dcli/src/script/pub_get.dart' as $dcli_26;
+import 'package:dcli/src/settings.dart' as $dcli_27;
+import 'package:dcli/src/shell/shell.dart' as $dcli_28;
+import 'package:dcli/src/shell/shell_detection.dart' as $dcli_29;
+import 'package:dcli/src/shell/unknown_shell.dart' as $dcli_30;
+import 'package:dcli/src/util/capture.dart' as $dcli_31;
+import 'package:dcli/src/util/dcli_paths.dart' as $dcli_32;
+import 'package:dcli/src/util/digest_helper.dart' as $dcli_33;
+import 'package:dcli/src/util/editor.dart' as $dcli_34;
+import 'package:dcli/src/util/exceptions.dart' as $dcli_35;
+import 'package:dcli/src/util/file_sort.dart' as $dcli_36;
+import 'package:dcli/src/util/file_sync.dart' as $dcli_37;
+import 'package:dcli/src/util/file_util.dart' as $dcli_38;
+import 'package:dcli/src/util/named_lock.dart' as $dcli_39;
+import 'package:dcli/src/util/process_helper.dart' as $dcli_40;
+import 'package:dcli/src/util/pub_cache.dart' as $dcli_41;
+import 'package:dcli/src/util/remote.dart' as $dcli_42;
+import 'package:dcli/src/util/runnable_process.dart' as $dcli_43;
+import 'package:dcli/src/util/string_as_process.dart' as $dcli_44;
 import 'package:dcli_core/src/functions/backup.dart' as $dcli_core_1;
 import 'package:dcli_core/src/functions/cat.dart' as $dcli_core_2;
 import 'package:dcli_core/src/functions/copy.dart' as $dcli_core_3;
@@ -138,14 +140,17 @@ class DcliBridge {
       _createReadExceptionBridge(),
       _createProgressBridge(),
       _createPackedResourceBridge(),
+      _createPackedResourcePartBridge(),
       _createResourcesBridge(),
       _createResourceExceptionBridge(),
+      _createCompiledExecutableBridge(),
       _createDartProjectBridge(),
       _createDartProjectExceptionBridge(),
       _createTemplateNotFoundExceptionBridge(),
       _createInvalidProjectTemplateExceptionBridge(),
       _createDartScriptBridge(),
       _createDartSdkBridge(),
+      _createPubGetExceptionBridge(),
       _createSettingsBridge(),
       _createShellBridge(),
       _createShellExceptionBridge(),
@@ -172,6 +177,7 @@ class DcliBridge {
       _createHeadProgressBridge(),
       _createTailProgressBridge(),
       _createWhichBridge(),
+      _createPubSpecBridge(),
       _createScopeKeyBridge(),
     ];
   }
@@ -216,8 +222,10 @@ class DcliBridge {
       'ReadException': _createReadExceptionBridge,
       'Progress': _createProgressBridge,
       'PackedResource': _createPackedResourceBridge,
+      'PackedResourcePart': _createPackedResourcePartBridge,
       'Resources': _createResourcesBridge,
       'ResourceException': _createResourceExceptionBridge,
+      'CompiledExecutable': _createCompiledExecutableBridge,
       'DartProject': _createDartProjectBridge,
       'DartProjectException': _createDartProjectExceptionBridge,
       'TemplateNotFoundException': _createTemplateNotFoundExceptionBridge,
@@ -225,6 +233,7 @@ class DcliBridge {
           _createInvalidProjectTemplateExceptionBridge,
       'DartScript': _createDartScriptBridge,
       'DartSdk': _createDartSdkBridge,
+      'PubGetException': _createPubGetExceptionBridge,
       'Settings': _createSettingsBridge,
       'Shell': _createShellBridge,
       'ShellException': _createShellExceptionBridge,
@@ -251,6 +260,7 @@ class DcliBridge {
       'HeadProgress': _createHeadProgressBridge,
       'TailProgress': _createTailProgressBridge,
       'Which': _createWhichBridge,
+      'PubSpec': _createPubSpecBridge,
       'ScopeKey': _createScopeKeyBridge,
     };
   }
@@ -294,41 +304,45 @@ class DcliBridge {
       'ReadException': $dcli_12.ReadException,
       'Progress': $dcli_19.Progress,
       'PackedResource': $dcli_20.PackedResource,
+      'PackedResourcePart': $dcli_20.PackedResourcePart,
       'Resources': $dcli_21.Resources,
       'ResourceException': $dcli_21.ResourceException,
-      'DartProject': $dcli_22.DartProject,
-      'DartProjectException': $dcli_22.DartProjectException,
-      'TemplateNotFoundException': $dcli_22.TemplateNotFoundException,
+      'CompiledExecutable': $dcli_22.CompiledExecutable,
+      'DartProject': $dcli_23.DartProject,
+      'DartProjectException': $dcli_23.DartProjectException,
+      'TemplateNotFoundException': $dcli_23.TemplateNotFoundException,
       'InvalidProjectTemplateException':
-          $dcli_22.InvalidProjectTemplateException,
-      'DartScript': $dcli_23.DartScript,
-      'DartSdk': $dcli_24.DartSdk,
-      'Settings': $dcli_25.Settings,
-      'Shell': $dcli_26.Shell,
-      'ShellException': $dcli_26.ShellException,
-      'ShellDetection': $dcli_27.ShellDetection,
-      'UnknownShell': $dcli_28.UnknownShell,
-      'DCliPaths': $dcli_30.DCliPaths,
-      'InvalidArgumentException': $dcli_33.InvalidArgumentException,
-      'InvalidTemplateException': $dcli_33.InvalidTemplateException,
-      'InstallException': $dcli_33.InstallException,
-      'ProcessSyncException': $dcli_33.ProcessSyncException,
-      'FileSort': $dcli_34.FileSort,
-      'Column': $dcli_34.Column,
-      'FileSync': $dcli_35.FileSync,
-      'FileNotFoundException': $dcli_36.FileNotFoundException,
-      'NotAFileException': $dcli_36.NotAFileException,
-      'NamedLock': $dcli_37.NamedLock,
-      'NamedLockObservation': $dcli_37.NamedLockObservation,
-      'LockException': $dcli_37.LockException,
-      'ProcessHelper': $dcli_38.ProcessHelper,
-      'ProcessDetails': $dcli_38.ProcessDetails,
-      'PubCache': $dcli_39.PubCache,
-      'Remote': $dcli_40.Remote,
+          $dcli_23.InvalidProjectTemplateException,
+      'DartScript': $dcli_24.DartScript,
+      'DartSdk': $dcli_25.DartSdk,
+      'PubGetException': $dcli_26.PubGetException,
+      'Settings': $dcli_27.Settings,
+      'Shell': $dcli_28.Shell,
+      'ShellException': $dcli_28.ShellException,
+      'ShellDetection': $dcli_29.ShellDetection,
+      'UnknownShell': $dcli_30.UnknownShell,
+      'DCliPaths': $dcli_32.DCliPaths,
+      'InvalidArgumentException': $dcli_35.InvalidArgumentException,
+      'InvalidTemplateException': $dcli_35.InvalidTemplateException,
+      'InstallException': $dcli_35.InstallException,
+      'ProcessSyncException': $dcli_35.ProcessSyncException,
+      'FileSort': $dcli_36.FileSort,
+      'Column': $dcli_36.Column,
+      'FileSync': $dcli_37.FileSync,
+      'FileNotFoundException': $dcli_38.FileNotFoundException,
+      'NotAFileException': $dcli_38.NotAFileException,
+      'NamedLock': $dcli_39.NamedLock,
+      'NamedLockObservation': $dcli_39.NamedLockObservation,
+      'LockException': $dcli_39.LockException,
+      'ProcessHelper': $dcli_40.ProcessHelper,
+      'ProcessDetails': $dcli_40.ProcessDetails,
+      'PubCache': $dcli_41.PubCache,
+      'Remote': $dcli_42.Remote,
       'FindProgress': $dcli_8.FindProgress,
       'HeadProgress': $dcli_9.HeadProgress,
       'TailProgress': $dcli_16.TailProgress,
       'Which': $dcli_core_17.Which,
+      'PubSpec': $pubspec_manager_1.PubSpec,
       'ScopeKey': $scope_1.ScopeKey,
     };
   }
@@ -374,8 +388,10 @@ class DcliBridge {
       'ReadException': 'package:dcli/src/functions/read.dart',
       'Progress': 'package:dcli/src/progress/progress.dart',
       'PackedResource': 'package:dcli/src/resources/packed_resource.dart',
+      'PackedResourcePart': 'package:dcli/src/resources/packed_resource.dart',
       'Resources': 'package:dcli/src/resources/resources.dart',
       'ResourceException': 'package:dcli/src/resources/resources.dart',
+      'CompiledExecutable': 'package:dcli/src/script/compiled_executable.dart',
       'DartProject': 'package:dcli/src/script/dart_project.dart',
       'DartProjectException': 'package:dcli/src/script/dart_project.dart',
       'TemplateNotFoundException': 'package:dcli/src/script/dart_project.dart',
@@ -383,6 +399,7 @@ class DcliBridge {
           'package:dcli/src/script/dart_project.dart',
       'DartScript': 'package:dcli/src/script/dart_script.dart',
       'DartSdk': 'package:dcli/src/script/dart_sdk.dart',
+      'PubGetException': 'package:dcli/src/script/pub_get.dart',
       'Settings': 'package:dcli/src/settings.dart',
       'Shell': 'package:dcli/src/shell/shell.dart',
       'ShellException': 'package:dcli/src/shell/shell.dart',
@@ -409,6 +426,7 @@ class DcliBridge {
       'HeadProgress': 'package:dcli/src/functions/head.dart',
       'TailProgress': 'package:dcli/src/functions/tail.dart',
       'Which': 'package:dcli_core/src/functions/which.dart',
+      'PubSpec': 'package:pubspec_manager/src/pubspec/internal_parts.dart',
       'ScopeKey': 'package:scope/src/scope.dart',
     };
   }
@@ -466,6 +484,7 @@ class DcliBridge {
       'DartProjectException': ['DCliException', 'Exception'],
       'TemplateNotFoundException': ['DCliException', 'Exception'],
       'InvalidProjectTemplateException': ['DCliException', 'Exception'],
+      'PubGetException': ['DCliException', 'Exception'],
       'ShellException': ['DCliException', 'Exception'],
       'UnknownShell': ['ShellMixin', 'Shell'],
       'InvalidArgumentException': ['DCliException', 'Exception'],
@@ -487,7 +506,7 @@ class DcliBridge {
   /// are registered so that code using the alias name can resolve to the
   /// bridged class under its canonical name.
   static Map<String, String> classAliases() {
-    return {};
+    return {'Key': 'String'};
   }
 
   /// Returns the list of function typedef names declared in this library.
@@ -552,9 +571,9 @@ class DcliBridge {
         name: 'Interval',
         values: $dcli_15.Interval.values,
       ),
-      BridgedEnumDefinition<$dcli_34.SortDirection>(
+      BridgedEnumDefinition<$dcli_36.SortDirection>(
         name: 'SortDirection',
-        values: $dcli_34.SortDirection.values,
+        values: $dcli_36.SortDirection.values,
       ),
     ];
   }
@@ -920,13 +939,19 @@ class DcliBridge {
       (
         source: 'package:dcli/dcli.dart',
         target: 'package:dcli/src/resources/packed_resource.dart',
-        show: {'PackedResource'},
+        show: {'PackedResource', 'PackedResourcePart'},
         hide: null,
       ),
       (
         source: 'package:dcli/dcli.dart',
         target: 'package:dcli/src/resources/resources.dart',
         show: {'ResourceException', 'Resources'},
+        hide: null,
+      ),
+      (
+        source: 'package:dcli/dcli.dart',
+        target: 'package:dcli/src/script/compiled_executable.dart',
+        show: null,
         hide: null,
       ),
       (
@@ -945,6 +970,12 @@ class DcliBridge {
         source: 'package:dcli/dcli.dart',
         target: 'package:dcli/src/script/dart_sdk.dart',
         show: {'DartSdk'},
+        hide: null,
+      ),
+      (
+        source: 'package:dcli/dcli.dart',
+        target: 'package:dcli/src/script/pub_get.dart',
+        show: {'PubGetException'},
         hide: null,
       ),
       (
@@ -1378,6 +1409,12 @@ class DcliBridge {
       );
     }
 
+    // Register class aliases (typedef type aliases)
+    final aliases = classAliases();
+    for (final entry in aliases.entries) {
+      interpreter.registerClassAlias(entry.key, entry.value, importPath);
+    }
+
     // Register function typedefs for type resolution
     final typedefs = functionTypedefs();
     final typedefArity = functionTypedefArity();
@@ -1423,7 +1460,7 @@ class DcliBridge {
     try {
       interpreter.registerGlobalVariable(
         'overrideDCliPathKey',
-        $dcli_22.overrideDCliPathKey,
+        $dcli_23.overrideDCliPathKey,
         importPath,
         sourceUri: 'package:dcli/src/script/dart_project.dart',
       );
@@ -2799,7 +2836,29 @@ class DcliBridge {
           'pathToProject',
           'addUnitTestOverrides',
         );
-        return $dcli_22.addUnitTestOverrides(pathToProject);
+        return $dcli_23.addUnitTestOverrides(pathToProject);
+      },
+      'fixTemplatePubspec': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 3, 'fixTemplatePubspec');
+        final projectName = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'projectName',
+          'fixTemplatePubspec',
+        );
+        final pubSpec = D4.getRequiredArg<$pubspec_manager_1.PubSpec>(
+          positional,
+          1,
+          'pubSpec',
+          'fixTemplatePubspec',
+        );
+        final pathToPubSpec = D4.getRequiredArg<String>(
+          positional,
+          2,
+          'pathToPubSpec',
+          'fixTemplatePubspec',
+        );
+        return $dcli_23.fixTemplatePubspec(projectName, pubSpec, pathToPubSpec);
       },
       'capture': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'capture');
@@ -2820,7 +2879,7 @@ class DcliBridge {
           named,
           'progress',
         );
-        return $dcli_29.capture<dynamic>(action, progress: progress);
+        return $dcli_31.capture<dynamic>(action, progress: progress);
       },
       'showEditor': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'showEditor');
@@ -2830,7 +2889,7 @@ class DcliBridge {
           'path',
           'showEditor',
         );
-        return $dcli_32.showEditor(path);
+        return $dcli_34.showEditor(path);
       },
       'withOpenFile': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'withOpenFile');
@@ -2846,7 +2905,7 @@ class DcliBridge {
           );
         }
         final actionRaw = positional[1];
-        final action = ($dcli_35.FileSync p0) {
+        final action = ($dcli_37.FileSync p0) {
           return D4.castCallbackResult<dynamic>(
             D4.callInterpreterCallback(visitor!, actionRaw, [p0]),
           );
@@ -2856,7 +2915,7 @@ class DcliBridge {
           'fileMode',
           FileMode.writeOnlyAppend,
         );
-        return $dcli_35.withOpenFile<dynamic>(
+        return $dcli_37.withOpenFile<dynamic>(
           pathToFile,
           action,
           fileMode: fileMode,
@@ -2873,7 +2932,7 @@ class DcliBridge {
           'linkPath',
           'createSymLink',
         );
-        return $dcli_35.createSymLink(
+        return $dcli_37.createSymLink(
           targetPath: targetPath,
           linkPath: linkPath,
         );
@@ -2886,7 +2945,7 @@ class DcliBridge {
           'linkPath',
           'deleteSymlink',
         );
-        return $dcli_35.deleteSymlink(linkPath);
+        return $dcli_37.deleteSymlink(linkPath);
       },
       'resolveSymLink': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'resolveSymLink');
@@ -2896,12 +2955,12 @@ class DcliBridge {
           'pathToLink',
           'resolveSymLink',
         );
-        return $dcli_35.resolveSymLink(pathToLink);
+        return $dcli_37.resolveSymLink(pathToLink);
       },
       'stat': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'stat');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'stat');
-        return $dcli_36.stat(path);
+        return $dcli_38.stat(path);
       },
       'fileLength': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'fileLength');
@@ -2911,7 +2970,7 @@ class DcliBridge {
           'pathToFile',
           'fileLength',
         );
-        return $dcli_36.fileLength(pathToFile);
+        return $dcli_38.fileLength(pathToFile);
       },
       'calculateHash': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'calculateHash');
@@ -2921,7 +2980,7 @@ class DcliBridge {
           'path',
           'calculateHash',
         );
-        return $dcli_36.calculateHash(path);
+        return $dcli_38.calculateHash(path);
       },
       'printerr': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'printerr');
@@ -2931,7 +2990,7 @@ class DcliBridge {
           'object',
           'printerr',
         );
-        return $dcli_41.printerr(object);
+        return $dcli_43.printerr(object);
       },
     };
   }
@@ -3003,6 +3062,7 @@ class DcliBridge {
       'tail': 'package:dcli/src/functions/tail.dart',
       'which': 'package:dcli/src/functions/which.dart',
       'addUnitTestOverrides': 'package:dcli/src/script/dart_project.dart',
+      'fixTemplatePubspec': 'package:dcli/src/script/dart_project.dart',
       'capture': 'package:dcli/src/util/capture.dart',
       'showEditor': 'package:dcli/src/util/editor.dart',
       'withOpenFile': 'package:dcli/src/util/file_sync.dart',
@@ -3113,6 +3173,8 @@ class DcliBridge {
       'which':
           'Which which(String appname, {bool first = true, bool verbose = false, bool extensionSearch = true, Sink<String>? progress})',
       'addUnitTestOverrides': 'void addUnitTestOverrides(String pathToProject)',
+      'fixTemplatePubspec':
+          'void fixTemplatePubspec(String projectName, PubSpec pubSpec, String pathToPubSpec)',
       'capture':
           'Future<Progress> capture(Future<R> Function() action, {Progress? progress})',
       'showEditor': 'void showEditor(String path)',
@@ -3157,9 +3219,11 @@ class DcliBridge {
       'package:dcli/src/progress/progress.dart',
       'package:dcli/src/resources/packed_resource.dart',
       'package:dcli/src/resources/resources.dart',
+      'package:dcli/src/script/compiled_executable.dart',
       'package:dcli/src/script/dart_project.dart',
       'package:dcli/src/script/dart_script.dart',
       'package:dcli/src/script/dart_sdk.dart',
+      'package:dcli/src/script/pub_get.dart',
       'package:dcli/src/settings.dart',
       'package:dcli/src/shell/shell.dart',
       'package:dcli/src/shell/shell_detection.dart',
@@ -3205,6 +3269,7 @@ class DcliBridge {
       'package:dcli_terminal/src/ansi_color.dart',
       'package:dcli_terminal/src/format.dart',
       'package:dcli_terminal/src/terminal.dart',
+      'package:pubspec_manager/src/pubspec/internal_parts.dart',
       'package:scope/src/scope.dart',
     ];
   }
@@ -3218,6 +3283,7 @@ class DcliBridge {
     imports.writeln("import 'package:dcli/dcli.dart';");
     imports.writeln("import 'package:dcli_core/dcli_core.dart';");
     imports.writeln("import 'package:dcli_terminal/dcli_terminal.dart';");
+    imports.writeln("import 'package:pubspec_manager/pubspec_manager.dart';");
     imports.writeln("import 'package:scope/scope.dart';");
     return imports.toString();
   }
@@ -3232,6 +3298,7 @@ class DcliBridge {
     return [
       'package:dcli_core/dcli_core.dart',
       'package:dcli_terminal/dcli_terminal.dart',
+      'package:pubspec_manager/pubspec_manager.dart',
       'package:scope/scope.dart',
     ];
   }
@@ -7074,6 +7141,9 @@ BridgedClass _createPackedResourceBridge() {
       'content': (visitor, target) => D4
           .validateTarget<$dcli_20.PackedResource>(target, 'PackedResource')
           .content,
+      'parts': (visitor, target) => D4
+          .validateTarget<$dcli_20.PackedResource>(target, 'PackedResource')
+          .parts,
       'checksum': (visitor, target) => D4
           .validateTarget<$dcli_20.PackedResource>(target, 'PackedResource')
           .checksum,
@@ -7101,8 +7171,41 @@ BridgedClass _createPackedResourceBridge() {
     methodSignatures: {'unpack': 'void unpack(String pathTo)'},
     getterSignatures: {
       'content': 'String get content',
+      'parts': 'Iterable<PackedResourcePart>? get parts',
       'checksum': 'String get checksum',
       'originalPath': 'String get originalPath',
+    },
+  );
+}
+
+// =============================================================================
+// PackedResourcePart Bridge
+// =============================================================================
+
+BridgedClass _createPackedResourcePartBridge() {
+  return BridgedClass(
+    nativeType: $dcli_20.PackedResourcePart,
+    name: 'PackedResourcePart',
+    isAssignable: (v) => v is $dcli_20.PackedResourcePart,
+    isAbstract: true,
+    constructors: {},
+    getters: {
+      'content': (visitor, target) => D4
+          .validateTarget<$dcli_20.PackedResourcePart>(
+            target,
+            'PackedResourcePart',
+          )
+          .content,
+      'length': (visitor, target) => D4
+          .validateTarget<$dcli_20.PackedResourcePart>(
+            target,
+            'PackedResourcePart',
+          )
+          .length,
+    },
+    getterSignatures: {
+      'content': 'String get content',
+      'length': 'int get length',
     },
   );
 }
@@ -7135,7 +7238,12 @@ BridgedClass _createResourcesBridge() {
     methods: {
       'pack': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dcli_21.Resources>(target, 'Resources');
-        t.pack();
+        final includeHidden = D4.getNamedArgWithDefault<bool>(
+          named,
+          'includeHidden',
+          false,
+        );
+        t.pack(includeHidden: includeHidden);
         return null;
       },
       'isExcluded': (visitor, target, positional, named, typeArgs) {
@@ -7180,14 +7288,14 @@ BridgedClass _createResourcesBridge() {
       },
     },
     staticGetters: {
-      'pathToPackYaml': (visitor) => $dcli_21.Resources.pathToPackYaml,
       'scopeKeyProjectRoot': (visitor) =>
           $dcli_21.Resources.scopeKeyProjectRoot,
+      'pathToPackYaml': (visitor) => $dcli_21.Resources.pathToPackYaml,
       'projectRoot': (visitor) => $dcli_21.Resources.projectRoot,
     },
     constructorSignatures: {'': 'Resources()'},
     methodSignatures: {
-      'pack': 'void pack()',
+      'pack': 'void pack({bool includeHidden = false})',
       'isExcluded': 'bool isExcluded(String path, List<String> excludes)',
       'getExcludedPaths':
           'List<String> getExcludedPaths(SettingsYaml yaml, String path, int index)',
@@ -7198,8 +7306,8 @@ BridgedClass _createResourcesBridge() {
       'generatedRoot': 'String get generatedRoot',
     },
     staticGetterSignatures: {
-      'pathToPackYaml': 'String get pathToPackYaml',
       'scopeKeyProjectRoot': 'ScopeKey<String> get scopeKeyProjectRoot',
+      'pathToPackYaml': 'String get pathToPackYaml',
       'projectRoot': 'String get projectRoot',
     },
   );
@@ -7307,14 +7415,149 @@ BridgedClass _createResourceExceptionBridge() {
 }
 
 // =============================================================================
+// CompiledExecutable Bridge
+// =============================================================================
+
+BridgedClass _createCompiledExecutableBridge() {
+  return BridgedClass(
+    nativeType: $dcli_22.CompiledExecutable,
+    name: 'CompiledExecutable',
+    isAssignable: (v) => v is $dcli_22.CompiledExecutable,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'CompiledExecutable');
+        final pathToExe = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'pathToExe',
+          'CompiledExecutable',
+        );
+        final hasBundle = D4.getNamedArgWithDefault<bool>(
+          named,
+          'hasBundle',
+          false,
+        );
+        final isPacked = D4.getNamedArgWithDefault<bool>(
+          named,
+          'isPacked',
+          false,
+        );
+        return $dcli_22.CompiledExecutable(
+          pathToExe,
+          hasBundle: hasBundle,
+          isPacked: isPacked,
+        );
+      },
+    },
+    getters: {
+      'pathToExe': (visitor, target) => D4
+          .validateTarget<$dcli_22.CompiledExecutable>(
+            target,
+            'CompiledExecutable',
+          )
+          .pathToExe,
+      'hasBundle': (visitor, target) => D4
+          .validateTarget<$dcli_22.CompiledExecutable>(
+            target,
+            'CompiledExecutable',
+          )
+          .hasBundle,
+      'isPacked': (visitor, target) => D4
+          .validateTarget<$dcli_22.CompiledExecutable>(
+            target,
+            'CompiledExecutable',
+          )
+          .isPacked,
+      'pathToBundle': (visitor, target) => D4
+          .validateTarget<$dcli_22.CompiledExecutable>(
+            target,
+            'CompiledExecutable',
+          )
+          .pathToBundle,
+    },
+    methods: {
+      'report': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dcli_22.CompiledExecutable>(
+          target,
+          'CompiledExecutable',
+        );
+        if (!named.containsKey('output')) {
+          t.report();
+          return null;
+        }
+        if (named.containsKey('output')) {
+          final outputRaw = named['output'];
+          final output = (String p0) {
+            D4.callInterpreterCallback(visitor!, outputRaw, [p0]);
+          };
+          t.report(output: output);
+          return null;
+        }
+        throw StateError(
+          'Unreachable: all named parameter combinations should be covered',
+        );
+      },
+      'install': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dcli_22.CompiledExecutable>(
+          target,
+          'CompiledExecutable',
+        );
+        D4.requireMinArgs(positional, 1, 'install');
+        final destination = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'destination',
+          'install',
+        );
+        final overwrite = D4.getNamedArgWithDefault<bool>(
+          named,
+          'overwrite',
+          false,
+        );
+        return t.install(destination, overwrite: overwrite);
+      },
+    },
+    staticMethods: {
+      'bundlePath': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'bundlePath');
+        final executable = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'executable',
+          'bundlePath',
+        );
+        return $dcli_22.CompiledExecutable.bundlePath(executable);
+      },
+    },
+    constructorSignatures: {
+      '': 'CompiledExecutable(String pathToExe, {bool hasBundle = false, bool isPacked = false})',
+    },
+    methodSignatures: {
+      'report': 'void report({LineAction output = print})',
+      'install':
+          'CompiledExecutable install(String destination, {bool overwrite = false})',
+    },
+    getterSignatures: {
+      'pathToExe': 'String get pathToExe',
+      'hasBundle': 'bool get hasBundle',
+      'isPacked': 'bool get isPacked',
+      'pathToBundle': 'String? get pathToBundle',
+    },
+    staticMethodSignatures: {
+      'bundlePath': 'String bundlePath(String executable)',
+    },
+  );
+}
+
+// =============================================================================
 // DartProject Bridge
 // =============================================================================
 
 BridgedClass _createDartProjectBridge() {
   return BridgedClass(
-    nativeType: $dcli_22.DartProject,
+    nativeType: $dcli_23.DartProject,
     name: 'DartProject',
-    isAssignable: (v) => v is $dcli_22.DartProject,
+    isAssignable: (v) => v is $dcli_23.DartProject,
     constructors: {
       'create': (visitor, positional, named) {
         final pathTo = D4.getRequiredNamedArg<String>(
@@ -7327,7 +7570,7 @@ BridgedClass _createDartProjectBridge() {
           'templateName',
           'DartProject',
         );
-        return $dcli_22.DartProject.create(
+        return $dcli_23.DartProject.create(
           pathTo: pathTo,
           templateName: templateName,
         );
@@ -7346,7 +7589,7 @@ BridgedClass _createDartProjectBridge() {
           'version',
           'DartProject',
         );
-        return $dcli_22.DartProject.fromCache(name, version);
+        return $dcli_23.DartProject.fromCache(name, version);
       },
       'fromPath': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'DartProject');
@@ -7357,65 +7600,65 @@ BridgedClass _createDartProjectBridge() {
           'DartProject',
         );
         final search = D4.getNamedArgWithDefault<bool>(named, 'search', true);
-        return $dcli_22.DartProject.fromPath(pathToSearchFrom, search: search);
+        return $dcli_23.DartProject.fromPath(pathToSearchFrom, search: search);
       },
     },
     getters: {
       'pubSpec': (visitor, target) => D4
-          .validateTarget<$dcli_22.DartProject>(target, 'DartProject')
+          .validateTarget<$dcli_23.DartProject>(target, 'DartProject')
           .pubSpec,
       'pathToProjectRoot': (visitor, target) => D4
-          .validateTarget<$dcli_22.DartProject>(target, 'DartProject')
+          .validateTarget<$dcli_23.DartProject>(target, 'DartProject')
           .pathToProjectRoot,
       'pathToDartToolDir': (visitor, target) => D4
-          .validateTarget<$dcli_22.DartProject>(target, 'DartProject')
+          .validateTarget<$dcli_23.DartProject>(target, 'DartProject')
           .pathToDartToolDir,
       'pathToDartToolPackageConfig': (visitor, target) => D4
-          .validateTarget<$dcli_22.DartProject>(target, 'DartProject')
+          .validateTarget<$dcli_23.DartProject>(target, 'DartProject')
           .pathToDartToolPackageConfig,
       'pathToBinDir': (visitor, target) => D4
-          .validateTarget<$dcli_22.DartProject>(target, 'DartProject')
+          .validateTarget<$dcli_23.DartProject>(target, 'DartProject')
           .pathToBinDir,
       'pathToExampleDir': (visitor, target) => D4
-          .validateTarget<$dcli_22.DartProject>(target, 'DartProject')
+          .validateTarget<$dcli_23.DartProject>(target, 'DartProject')
           .pathToExampleDir,
       'pathToLibDir': (visitor, target) => D4
-          .validateTarget<$dcli_22.DartProject>(target, 'DartProject')
+          .validateTarget<$dcli_23.DartProject>(target, 'DartProject')
           .pathToLibDir,
       'pathToLibSrcDir': (visitor, target) => D4
-          .validateTarget<$dcli_22.DartProject>(target, 'DartProject')
+          .validateTarget<$dcli_23.DartProject>(target, 'DartProject')
           .pathToLibSrcDir,
       'pathToTestDir': (visitor, target) => D4
-          .validateTarget<$dcli_22.DartProject>(target, 'DartProject')
+          .validateTarget<$dcli_23.DartProject>(target, 'DartProject')
           .pathToTestDir,
       'pathToToolDir': (visitor, target) => D4
-          .validateTarget<$dcli_22.DartProject>(target, 'DartProject')
+          .validateTarget<$dcli_23.DartProject>(target, 'DartProject')
           .pathToToolDir,
       'pathToAnalysisOptions': (visitor, target) => D4
-          .validateTarget<$dcli_22.DartProject>(target, 'DartProject')
+          .validateTarget<$dcli_23.DartProject>(target, 'DartProject')
           .pathToAnalysisOptions,
       'pathToPubSpec': (visitor, target) => D4
-          .validateTarget<$dcli_22.DartProject>(target, 'DartProject')
+          .validateTarget<$dcli_23.DartProject>(target, 'DartProject')
           .pathToPubSpec,
       'pathToPubSpecLock': (visitor, target) => D4
-          .validateTarget<$dcli_22.DartProject>(target, 'DartProject')
+          .validateTarget<$dcli_23.DartProject>(target, 'DartProject')
           .pathToPubSpecLock,
       'isReadyToRun': (visitor, target) => D4
-          .validateTarget<$dcli_22.DartProject>(target, 'DartProject')
+          .validateTarget<$dcli_23.DartProject>(target, 'DartProject')
           .isReadyToRun,
       'isFlutterProject': (visitor, target) => D4
-          .validateTarget<$dcli_22.DartProject>(target, 'DartProject')
+          .validateTarget<$dcli_23.DartProject>(target, 'DartProject')
           .isFlutterProject,
       'hasPubSpec': (visitor, target) => D4
-          .validateTarget<$dcli_22.DartProject>(target, 'DartProject')
+          .validateTarget<$dcli_23.DartProject>(target, 'DartProject')
           .hasPubSpec,
       'hasAnalysisOptions': (visitor, target) => D4
-          .validateTarget<$dcli_22.DartProject>(target, 'DartProject')
+          .validateTarget<$dcli_23.DartProject>(target, 'DartProject')
           .hasAnalysisOptions,
     },
     methods: {
       'doctor': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_22.DartProject>(
+        final t = D4.validateTarget<$dcli_23.DartProject>(
           target,
           'DartProject',
         );
@@ -7423,7 +7666,7 @@ BridgedClass _createDartProjectBridge() {
         return null;
       },
       'warmup': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_22.DartProject>(
+        final t = D4.validateTarget<$dcli_23.DartProject>(
           target,
           'DartProject',
         );
@@ -7440,14 +7683,14 @@ BridgedClass _createDartProjectBridge() {
         return t.warmup(background: background, upgrade: upgrade);
       },
       'clean': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_22.DartProject>(
+        final t = D4.validateTarget<$dcli_23.DartProject>(
           target,
           'DartProject',
         );
         return t.clean();
       },
       'compile': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_22.DartProject>(
+        final t = D4.validateTarget<$dcli_23.DartProject>(
           target,
           'DartProject',
         );
@@ -7461,10 +7704,15 @@ BridgedClass _createDartProjectBridge() {
           'overwrite',
           false,
         );
-        return t.compile(install: install, overwrite: overwrite);
+        final packed = D4.getNamedArgWithDefault<bool>(named, 'packed', false);
+        return t.compile(
+          install: install,
+          overwrite: overwrite,
+          packed: packed,
+        );
       },
     },
-    staticGetters: {'self': (visitor) => $dcli_22.DartProject.self},
+    staticGetters: {'self': (visitor) => $dcli_23.DartProject.self},
     staticMethods: {
       'findProject': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'findProject');
@@ -7475,7 +7723,7 @@ BridgedClass _createDartProjectBridge() {
           'findProject',
         );
         final search = D4.getNamedArgWithDefault<bool>(named, 'search', true);
-        return $dcli_22.DartProject.findProject(
+        return $dcli_23.DartProject.findProject(
           pathToSearchFrom,
           search: search,
         );
@@ -7494,7 +7742,7 @@ BridgedClass _createDartProjectBridge() {
           'Future<void> warmup({bool background = false, bool upgrade = false})',
       'clean': 'Future<void> clean()',
       'compile':
-          'Future<void> compile({bool install = false, bool overwrite = false})',
+          'Future<void> compile({bool install = false, bool overwrite = false, bool packed = false})',
     },
     getterSignatures: {
       'pubSpec': 'PubSpec get pubSpec',
@@ -7529,9 +7777,9 @@ BridgedClass _createDartProjectBridge() {
 
 BridgedClass _createDartProjectExceptionBridge() {
   return BridgedClass(
-    nativeType: $dcli_22.DartProjectException,
+    nativeType: $dcli_23.DartProjectException,
     name: 'DartProjectException',
-    isAssignable: (v) => v is $dcli_22.DartProjectException,
+    isAssignable: (v) => v is $dcli_23.DartProjectException,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
@@ -7542,24 +7790,24 @@ BridgedClass _createDartProjectExceptionBridge() {
           'message',
           'DartProjectException',
         );
-        return $dcli_22.DartProjectException(message);
+        return $dcli_23.DartProjectException(message);
       },
     },
     getters: {
       'message': (visitor, target) => D4
-          .validateTarget<$dcli_22.DartProjectException>(
+          .validateTarget<$dcli_23.DartProjectException>(
             target,
             'DartProjectException',
           )
           .message,
       'cause': (visitor, target) => D4
-          .validateTarget<$dcli_22.DartProjectException>(
+          .validateTarget<$dcli_23.DartProjectException>(
             target,
             'DartProjectException',
           )
           .cause,
       'stackTrace': (visitor, target) => D4
-          .validateTarget<$dcli_22.DartProjectException>(
+          .validateTarget<$dcli_23.DartProjectException>(
             target,
             'DartProjectException',
           )
@@ -7568,7 +7816,7 @@ BridgedClass _createDartProjectExceptionBridge() {
     setters: {
       'stackTrace': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_22.DartProjectException>(
+              .validateTarget<$dcli_23.DartProjectException>(
                 target,
                 'DartProjectException',
               )
@@ -7579,14 +7827,14 @@ BridgedClass _createDartProjectExceptionBridge() {
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_22.DartProjectException>(
+        final t = D4.validateTarget<$dcli_23.DartProjectException>(
           target,
           'DartProjectException',
         );
         return t.toString();
       },
       'printStackTrace': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_22.DartProjectException>(
+        final t = D4.validateTarget<$dcli_23.DartProjectException>(
           target,
           'DartProjectException',
         );
@@ -7594,14 +7842,14 @@ BridgedClass _createDartProjectExceptionBridge() {
         return null;
       },
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_22.DartProjectException>(
+        final t = D4.validateTarget<$dcli_23.DartProjectException>(
           target,
           'DartProjectException',
         );
         return t.toJson();
       },
       'toJsonString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_22.DartProjectException>(
+        final t = D4.validateTarget<$dcli_23.DartProjectException>(
           target,
           'DartProjectException',
         );
@@ -7630,9 +7878,9 @@ BridgedClass _createDartProjectExceptionBridge() {
 
 BridgedClass _createTemplateNotFoundExceptionBridge() {
   return BridgedClass(
-    nativeType: $dcli_22.TemplateNotFoundException,
+    nativeType: $dcli_23.TemplateNotFoundException,
     name: 'TemplateNotFoundException',
-    isAssignable: (v) => v is $dcli_22.TemplateNotFoundException,
+    isAssignable: (v) => v is $dcli_23.TemplateNotFoundException,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
@@ -7643,24 +7891,24 @@ BridgedClass _createTemplateNotFoundExceptionBridge() {
           'pathTo',
           'TemplateNotFoundException',
         );
-        return $dcli_22.TemplateNotFoundException(pathTo);
+        return $dcli_23.TemplateNotFoundException(pathTo);
       },
     },
     getters: {
       'message': (visitor, target) => D4
-          .validateTarget<$dcli_22.TemplateNotFoundException>(
+          .validateTarget<$dcli_23.TemplateNotFoundException>(
             target,
             'TemplateNotFoundException',
           )
           .message,
       'cause': (visitor, target) => D4
-          .validateTarget<$dcli_22.TemplateNotFoundException>(
+          .validateTarget<$dcli_23.TemplateNotFoundException>(
             target,
             'TemplateNotFoundException',
           )
           .cause,
       'stackTrace': (visitor, target) => D4
-          .validateTarget<$dcli_22.TemplateNotFoundException>(
+          .validateTarget<$dcli_23.TemplateNotFoundException>(
             target,
             'TemplateNotFoundException',
           )
@@ -7669,7 +7917,7 @@ BridgedClass _createTemplateNotFoundExceptionBridge() {
     setters: {
       'stackTrace': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_22.TemplateNotFoundException>(
+              .validateTarget<$dcli_23.TemplateNotFoundException>(
                 target,
                 'TemplateNotFoundException',
               )
@@ -7680,14 +7928,14 @@ BridgedClass _createTemplateNotFoundExceptionBridge() {
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_22.TemplateNotFoundException>(
+        final t = D4.validateTarget<$dcli_23.TemplateNotFoundException>(
           target,
           'TemplateNotFoundException',
         );
         return t.toString();
       },
       'printStackTrace': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_22.TemplateNotFoundException>(
+        final t = D4.validateTarget<$dcli_23.TemplateNotFoundException>(
           target,
           'TemplateNotFoundException',
         );
@@ -7695,14 +7943,14 @@ BridgedClass _createTemplateNotFoundExceptionBridge() {
         return null;
       },
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_22.TemplateNotFoundException>(
+        final t = D4.validateTarget<$dcli_23.TemplateNotFoundException>(
           target,
           'TemplateNotFoundException',
         );
         return t.toJson();
       },
       'toJsonString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_22.TemplateNotFoundException>(
+        final t = D4.validateTarget<$dcli_23.TemplateNotFoundException>(
           target,
           'TemplateNotFoundException',
         );
@@ -7731,9 +7979,9 @@ BridgedClass _createTemplateNotFoundExceptionBridge() {
 
 BridgedClass _createInvalidProjectTemplateExceptionBridge() {
   return BridgedClass(
-    nativeType: $dcli_22.InvalidProjectTemplateException,
+    nativeType: $dcli_23.InvalidProjectTemplateException,
     name: 'InvalidProjectTemplateException',
-    isAssignable: (v) => v is $dcli_22.InvalidProjectTemplateException,
+    isAssignable: (v) => v is $dcli_23.InvalidProjectTemplateException,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
@@ -7744,24 +7992,24 @@ BridgedClass _createInvalidProjectTemplateExceptionBridge() {
           'message',
           'InvalidProjectTemplateException',
         );
-        return $dcli_22.InvalidProjectTemplateException(message);
+        return $dcli_23.InvalidProjectTemplateException(message);
       },
     },
     getters: {
       'message': (visitor, target) => D4
-          .validateTarget<$dcli_22.InvalidProjectTemplateException>(
+          .validateTarget<$dcli_23.InvalidProjectTemplateException>(
             target,
             'InvalidProjectTemplateException',
           )
           .message,
       'cause': (visitor, target) => D4
-          .validateTarget<$dcli_22.InvalidProjectTemplateException>(
+          .validateTarget<$dcli_23.InvalidProjectTemplateException>(
             target,
             'InvalidProjectTemplateException',
           )
           .cause,
       'stackTrace': (visitor, target) => D4
-          .validateTarget<$dcli_22.InvalidProjectTemplateException>(
+          .validateTarget<$dcli_23.InvalidProjectTemplateException>(
             target,
             'InvalidProjectTemplateException',
           )
@@ -7770,7 +8018,7 @@ BridgedClass _createInvalidProjectTemplateExceptionBridge() {
     setters: {
       'stackTrace': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_22.InvalidProjectTemplateException>(
+              .validateTarget<$dcli_23.InvalidProjectTemplateException>(
                 target,
                 'InvalidProjectTemplateException',
               )
@@ -7781,14 +8029,14 @@ BridgedClass _createInvalidProjectTemplateExceptionBridge() {
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_22.InvalidProjectTemplateException>(
+        final t = D4.validateTarget<$dcli_23.InvalidProjectTemplateException>(
           target,
           'InvalidProjectTemplateException',
         );
         return t.toString();
       },
       'printStackTrace': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_22.InvalidProjectTemplateException>(
+        final t = D4.validateTarget<$dcli_23.InvalidProjectTemplateException>(
           target,
           'InvalidProjectTemplateException',
         );
@@ -7796,14 +8044,14 @@ BridgedClass _createInvalidProjectTemplateExceptionBridge() {
         return null;
       },
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_22.InvalidProjectTemplateException>(
+        final t = D4.validateTarget<$dcli_23.InvalidProjectTemplateException>(
           target,
           'InvalidProjectTemplateException',
         );
         return t.toJson();
       },
       'toJsonString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_22.InvalidProjectTemplateException>(
+        final t = D4.validateTarget<$dcli_23.InvalidProjectTemplateException>(
           target,
           'InvalidProjectTemplateException',
         );
@@ -7834,12 +8082,12 @@ BridgedClass _createInvalidProjectTemplateExceptionBridge() {
 
 BridgedClass _createDartScriptBridge() {
   return BridgedClass(
-    nativeType: $dcli_23.DartScript,
+    nativeType: $dcli_24.DartScript,
     name: 'DartScript',
-    isAssignable: (v) => v is $dcli_23.DartScript,
+    isAssignable: (v) => v is $dcli_24.DartScript,
     constructors: {
       'createScript': (visitor, positional, named) {
-        final project = D4.getRequiredNamedArg<$dcli_22.DartProject>(
+        final project = D4.getRequiredNamedArg<$dcli_23.DartProject>(
           named,
           'project',
           'DartScript',
@@ -7854,7 +8102,7 @@ BridgedClass _createDartScriptBridge() {
           'templateName',
           'DartScript',
         );
-        return $dcli_23.DartScript.createScript(
+        return $dcli_24.DartScript.createScript(
           project: project,
           scriptName: scriptName,
           templateName: templateName,
@@ -7868,67 +8116,67 @@ BridgedClass _createDartScriptBridge() {
           'scriptPathTo',
           'DartScript',
         );
-        final project = D4.getOptionalNamedArg<$dcli_22.DartProject?>(
+        final project = D4.getOptionalNamedArg<$dcli_23.DartProject?>(
           named,
           'project',
         );
-        return $dcli_23.DartScript.fromFile(scriptPathTo, project: project);
+        return $dcli_24.DartScript.fromFile(scriptPathTo, project: project);
       },
     },
     getters: {
       'pathToScript': (visitor, target) => D4
-          .validateTarget<$dcli_23.DartScript>(target, 'DartScript')
+          .validateTarget<$dcli_24.DartScript>(target, 'DartScript')
           .pathToScript,
       'scriptName': (visitor, target) => D4
-          .validateTarget<$dcli_23.DartScript>(target, 'DartScript')
+          .validateTarget<$dcli_24.DartScript>(target, 'DartScript')
           .scriptName,
       'pathToScriptDirectory': (visitor, target) => D4
-          .validateTarget<$dcli_23.DartScript>(target, 'DartScript')
+          .validateTarget<$dcli_24.DartScript>(target, 'DartScript')
           .pathToScriptDirectory,
       'pubsecNameKey': (visitor, target) => D4
-          .validateTarget<$dcli_23.DartScript>(target, 'DartScript')
+          .validateTarget<$dcli_24.DartScript>(target, 'DartScript')
           .pubsecNameKey,
       'basename': (visitor, target) =>
-          D4.validateTarget<$dcli_23.DartScript>(target, 'DartScript').basename,
+          D4.validateTarget<$dcli_24.DartScript>(target, 'DartScript').basename,
       'pathToPubSpec': (visitor, target) => D4
-          .validateTarget<$dcli_23.DartScript>(target, 'DartScript')
+          .validateTarget<$dcli_24.DartScript>(target, 'DartScript')
           .pathToPubSpec,
       'isReadyToRun': (visitor, target) => D4
-          .validateTarget<$dcli_23.DartScript>(target, 'DartScript')
+          .validateTarget<$dcli_24.DartScript>(target, 'DartScript')
           .isReadyToRun,
       'isCompiled': (visitor, target) => D4
-          .validateTarget<$dcli_23.DartScript>(target, 'DartScript')
+          .validateTarget<$dcli_24.DartScript>(target, 'DartScript')
           .isCompiled,
       'inUnitTest': (visitor, target) => D4
-          .validateTarget<$dcli_23.DartScript>(target, 'DartScript')
+          .validateTarget<$dcli_24.DartScript>(target, 'DartScript')
           .inUnitTest,
       'isInstalled': (visitor, target) => D4
-          .validateTarget<$dcli_23.DartScript>(target, 'DartScript')
+          .validateTarget<$dcli_24.DartScript>(target, 'DartScript')
           .isInstalled,
       'isPubGlobalActivated': (visitor, target) => D4
-          .validateTarget<$dcli_23.DartScript>(target, 'DartScript')
+          .validateTarget<$dcli_24.DartScript>(target, 'DartScript')
           .isPubGlobalActivated,
       'pathToProjectRoot': (visitor, target) => D4
-          .validateTarget<$dcli_23.DartScript>(target, 'DartScript')
+          .validateTarget<$dcli_24.DartScript>(target, 'DartScript')
           .pathToProjectRoot,
       'project': (visitor, target) =>
-          D4.validateTarget<$dcli_23.DartScript>(target, 'DartScript').project,
+          D4.validateTarget<$dcli_24.DartScript>(target, 'DartScript').project,
       'doctor': (visitor, target) =>
-          D4.validateTarget<$dcli_23.DartScript>(target, 'DartScript').doctor,
+          D4.validateTarget<$dcli_24.DartScript>(target, 'DartScript').doctor,
       'pubSpec': (visitor, target) =>
-          D4.validateTarget<$dcli_23.DartScript>(target, 'DartScript').pubSpec,
+          D4.validateTarget<$dcli_24.DartScript>(target, 'DartScript').pubSpec,
       'exeName': (visitor, target) =>
-          D4.validateTarget<$dcli_23.DartScript>(target, 'DartScript').exeName,
+          D4.validateTarget<$dcli_24.DartScript>(target, 'DartScript').exeName,
       'pathToExe': (visitor, target) => D4
-          .validateTarget<$dcli_23.DartScript>(target, 'DartScript')
+          .validateTarget<$dcli_24.DartScript>(target, 'DartScript')
           .pathToExe,
       'pathToInstalledExe': (visitor, target) => D4
-          .validateTarget<$dcli_23.DartScript>(target, 'DartScript')
+          .validateTarget<$dcli_24.DartScript>(target, 'DartScript')
           .pathToInstalledExe,
     },
     methods: {
       'compile': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_23.DartScript>(target, 'DartScript');
+        final t = D4.validateTarget<$dcli_24.DartScript>(target, 'DartScript');
         final install = D4.getNamedArgWithDefault<bool>(
           named,
           'install',
@@ -7939,26 +8187,29 @@ BridgedClass _createDartScriptBridge() {
           'overwrite',
           false,
         );
+        final packed = D4.getNamedArgWithDefault<bool>(named, 'packed', false);
+        final report = D4.getNamedArgWithDefault<bool>(named, 'report', true);
         final workingDirectory = D4.getOptionalNamedArg<String?>(
           named,
           'workingDirectory',
         );
-        t.compile(
+        return t.compile(
           install: install,
           overwrite: overwrite,
+          packed: packed,
+          report: report,
           workingDirectory: workingDirectory,
         );
-        return null;
       },
       'run': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_23.DartScript>(target, 'DartScript');
+        final t = D4.validateTarget<$dcli_24.DartScript>(target, 'DartScript');
         final args = named.containsKey('args') && named['args'] != null
             ? D4.coerceList<String>(named['args'], 'args')
             : const <String>[];
         return t.run(args: args);
       },
       'start': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_23.DartScript>(target, 'DartScript');
+        final t = D4.validateTarget<$dcli_24.DartScript>(target, 'DartScript');
         final args = named.containsKey('args') && named['args'] != null
             ? D4.coerceList<String>(named['args'], 'args')
             : const <String>[];
@@ -8013,12 +8264,12 @@ BridgedClass _createDartScriptBridge() {
         );
       },
       'runPubGet': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_23.DartScript>(target, 'DartScript');
+        final t = D4.validateTarget<$dcli_24.DartScript>(target, 'DartScript');
         t.runPubGet();
         return null;
       },
     },
-    staticGetters: {'self': (visitor) => $dcli_23.DartScript.self},
+    staticGetters: {'self': (visitor) => $dcli_24.DartScript.self},
     staticMethods: {
       'sansRoot': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'sansRoot');
@@ -8028,7 +8279,7 @@ BridgedClass _createDartScriptBridge() {
           'path',
           'sansRoot',
         );
-        return $dcli_23.DartScript.sansRoot(path);
+        return $dcli_24.DartScript.sansRoot(path);
       },
       'stripDartVersionSuffix': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'stripDartVersionSuffix');
@@ -8038,7 +8289,7 @@ BridgedClass _createDartScriptBridge() {
           'pathToCurrentScript',
           'stripDartVersionSuffix',
         );
-        return $dcli_23.DartScript.stripDartVersionSuffix(pathToCurrentScript);
+        return $dcli_24.DartScript.stripDartVersionSuffix(pathToCurrentScript);
       },
     },
     constructorSignatures: {
@@ -8049,7 +8300,7 @@ BridgedClass _createDartScriptBridge() {
     },
     methodSignatures: {
       'compile':
-          'void compile({bool install = false, bool overwrite = false, String? workingDirectory})',
+          'CompiledExecutable compile({bool install = false, bool overwrite = false, bool packed = false, bool report = true, String? workingDirectory})',
       'run': 'int run({List<String> args = const <String>[]})',
       'start':
           'Progress start({List<String> args = const <String>[], Progress? progress, bool runInShell = false, bool detached = false, bool terminal = false, bool privileged = false, bool nothrow = false, String? workingDirectory, bool extensionSearch = true})',
@@ -8090,48 +8341,48 @@ BridgedClass _createDartScriptBridge() {
 
 BridgedClass _createDartSdkBridge() {
   return BridgedClass(
-    nativeType: $dcli_24.DartSdk,
+    nativeType: $dcli_25.DartSdk,
     name: 'DartSdk',
-    isAssignable: (v) => v is $dcli_24.DartSdk,
+    isAssignable: (v) => v is $dcli_25.DartSdk,
     constructors: {
       '': (visitor, positional, named) {
-        return $dcli_24.DartSdk();
+        return $dcli_25.DartSdk();
       },
     },
     getters: {
       'pathToSdk': (visitor, target) =>
-          D4.validateTarget<$dcli_24.DartSdk>(target, 'DartSdk').pathToSdk,
+          D4.validateTarget<$dcli_25.DartSdk>(target, 'DartSdk').pathToSdk,
       'pathToDartExe': (visitor, target) =>
-          D4.validateTarget<$dcli_24.DartSdk>(target, 'DartSdk').pathToDartExe,
+          D4.validateTarget<$dcli_25.DartSdk>(target, 'DartSdk').pathToDartExe,
       'pathToPubExe': (visitor, target) =>
-          D4.validateTarget<$dcli_24.DartSdk>(target, 'DartSdk').pathToPubExe,
+          D4.validateTarget<$dcli_25.DartSdk>(target, 'DartSdk').pathToPubExe,
       'pathToDartToNativeExe': (visitor, target) => D4
-          .validateTarget<$dcli_24.DartSdk>(target, 'DartSdk')
+          .validateTarget<$dcli_25.DartSdk>(target, 'DartSdk')
           .pathToDartToNativeExe,
       'versionMajor': (visitor, target) =>
-          D4.validateTarget<$dcli_24.DartSdk>(target, 'DartSdk').versionMajor,
+          D4.validateTarget<$dcli_25.DartSdk>(target, 'DartSdk').versionMajor,
       'versionMinor': (visitor, target) =>
-          D4.validateTarget<$dcli_24.DartSdk>(target, 'DartSdk').versionMinor,
+          D4.validateTarget<$dcli_25.DartSdk>(target, 'DartSdk').versionMinor,
       'useDartCommand': (visitor, target) =>
-          D4.validateTarget<$dcli_24.DartSdk>(target, 'DartSdk').useDartCommand,
+          D4.validateTarget<$dcli_25.DartSdk>(target, 'DartSdk').useDartCommand,
       'useDartDocCommand': (visitor, target) => D4
-          .validateTarget<$dcli_24.DartSdk>(target, 'DartSdk')
+          .validateTarget<$dcli_25.DartSdk>(target, 'DartSdk')
           .useDartDocCommand,
       'version': (visitor, target) =>
-          D4.validateTarget<$dcli_24.DartSdk>(target, 'DartSdk').version,
+          D4.validateTarget<$dcli_25.DartSdk>(target, 'DartSdk').version,
       'pathToPackageConfig': (visitor, target) => D4
-          .validateTarget<$dcli_24.DartSdk>(target, 'DartSdk')
+          .validateTarget<$dcli_25.DartSdk>(target, 'DartSdk')
           .pathToPackageConfig,
     },
     methods: {
       'getVersion': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_24.DartSdk>(target, 'DartSdk');
+        final t = D4.validateTarget<$dcli_25.DartSdk>(target, 'DartSdk');
         return t.getVersion();
       },
       'runDartCompiler': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_24.DartSdk>(target, 'DartSdk');
+        final t = D4.validateTarget<$dcli_25.DartSdk>(target, 'DartSdk');
         D4.requireMinArgs(positional, 1, 'runDartCompiler');
-        final script = D4.getRequiredArg<$dcli_23.DartScript>(
+        final script = D4.getRequiredArg<$dcli_24.DartScript>(
           positional,
           0,
           'script',
@@ -8150,16 +8401,28 @@ BridgedClass _createDartSdkBridge() {
           named,
           'workingDirectory',
         );
-        t.runDartCompiler(
+        final packed = D4.getNamedArgWithDefault<bool>(named, 'packed', false);
+        return t.runDartCompiler(
           script,
           pathToExe: pathToExe,
           progress: progress,
           workingDirectory: workingDirectory,
+          packed: packed,
         );
-        return null;
+      },
+      'hasBuildHooks': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dcli_25.DartSdk>(target, 'DartSdk');
+        D4.requireMinArgs(positional, 1, 'hasBuildHooks');
+        final script = D4.getRequiredArg<$dcli_24.DartScript>(
+          positional,
+          0,
+          'script',
+          'hasBuildHooks',
+        );
+        return t.hasBuildHooks(script);
       },
       'run': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_24.DartSdk>(target, 'DartSdk');
+        final t = D4.validateTarget<$dcli_25.DartSdk>(target, 'DartSdk');
         if (!named.containsKey('args') || named['args'] == null) {
           throw ArgumentError('run: Missing required named argument "args"');
         }
@@ -8197,7 +8460,7 @@ BridgedClass _createDartSdkBridge() {
         );
       },
       'runPub': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_24.DartSdk>(target, 'DartSdk');
+        final t = D4.validateTarget<$dcli_25.DartSdk>(target, 'DartSdk');
         if (!named.containsKey('args') || named['args'] == null) {
           throw ArgumentError('runPub: Missing required named argument "args"');
         }
@@ -8223,7 +8486,7 @@ BridgedClass _createDartSdkBridge() {
         );
       },
       'runDartDoc': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_24.DartSdk>(target, 'DartSdk');
+        final t = D4.validateTarget<$dcli_25.DartSdk>(target, 'DartSdk');
         final pathToProject = D4.getOptionalNamedArg<String?>(
           named,
           'pathToProject',
@@ -8250,7 +8513,7 @@ BridgedClass _createDartSdkBridge() {
         );
       },
       'isPubGetRequired': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_24.DartSdk>(target, 'DartSdk');
+        final t = D4.validateTarget<$dcli_25.DartSdk>(target, 'DartSdk');
         D4.requireMinArgs(positional, 1, 'isPubGetRequired');
         final workingDirectory = D4.getRequiredArg<String>(
           positional,
@@ -8261,7 +8524,7 @@ BridgedClass _createDartSdkBridge() {
         return t.isPubGetRequired(workingDirectory);
       },
       'runPubGet': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_24.DartSdk>(target, 'DartSdk');
+        final t = D4.validateTarget<$dcli_25.DartSdk>(target, 'DartSdk');
         D4.requireMinArgs(positional, 1, 'runPubGet');
         final workingDirectory = D4.getRequiredArg<String?>(
           positional,
@@ -8286,7 +8549,7 @@ BridgedClass _createDartSdkBridge() {
         return null;
       },
       'runPubUpgrade': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_24.DartSdk>(target, 'DartSdk');
+        final t = D4.validateTarget<$dcli_25.DartSdk>(target, 'DartSdk');
         D4.requireMinArgs(positional, 1, 'runPubUpgrade');
         final workingDirectory = D4.getRequiredArg<String?>(
           positional,
@@ -8311,7 +8574,7 @@ BridgedClass _createDartSdkBridge() {
         return null;
       },
       'installFromArchive': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_24.DartSdk>(target, 'DartSdk');
+        final t = D4.validateTarget<$dcli_25.DartSdk>(target, 'DartSdk');
         D4.requireMinArgs(positional, 1, 'installFromArchive');
         final defaultDartSdkPath = D4.getRequiredArg<String>(
           positional,
@@ -8323,22 +8586,23 @@ BridgedClass _createDartSdkBridge() {
         return t.installFromArchive(defaultDartSdkPath, askUser: askUser);
       },
       'resolveArchitecture': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_24.DartSdk>(target, 'DartSdk');
+        final t = D4.validateTarget<$dcli_25.DartSdk>(target, 'DartSdk');
         return t.resolveArchitecture();
       },
     },
     staticGetters: {
-      'dartExeName': (visitor) => $dcli_24.DartSdk.dartExeName,
-      'pubExeName': (visitor) => $dcli_24.DartSdk.pubExeName,
-      'dart2NativeExeName': (visitor) => $dcli_24.DartSdk.dart2NativeExeName,
+      'dartExeName': (visitor) => $dcli_25.DartSdk.dartExeName,
+      'pubExeName': (visitor) => $dcli_25.DartSdk.pubExeName,
+      'dart2NativeExeName': (visitor) => $dcli_25.DartSdk.dart2NativeExeName,
       'isUsingDartFromFlutter': (visitor) =>
-          $dcli_24.DartSdk.isUsingDartFromFlutter,
+          $dcli_25.DartSdk.isUsingDartFromFlutter,
     },
     constructorSignatures: {'': 'factory DartSdk()'},
     methodSignatures: {
       'getVersion': 'Version getVersion()',
       'runDartCompiler':
-          'void runDartCompiler(DartScript script, {required String pathToExe, Progress? progress, String? workingDirectory})',
+          'CompiledExecutable runDartCompiler(DartScript script, {required String pathToExe, Progress? progress, String? workingDirectory, bool packed = false})',
+      'hasBuildHooks': 'bool hasBuildHooks(DartScript script)',
       'run':
           'Progress run({required List<String> args, String? workingDirectory, Progress? progress, bool detached = false, bool terminal = false, bool nothrow = false})',
       'runPub':
@@ -8376,71 +8640,167 @@ BridgedClass _createDartSdkBridge() {
 }
 
 // =============================================================================
+// PubGetException Bridge
+// =============================================================================
+
+BridgedClass _createPubGetExceptionBridge() {
+  return BridgedClass(
+    nativeType: $dcli_26.PubGetException,
+    name: 'PubGetException',
+    isAssignable: (v) => v is $dcli_26.PubGetException,
+    hierarchyDepth: 2,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'PubGetException');
+        final exitCode = D4.getRequiredArg<int?>(
+          positional,
+          0,
+          'exitCode',
+          'PubGetException',
+        );
+        return $dcli_26.PubGetException(exitCode);
+      },
+    },
+    getters: {
+      'message': (visitor, target) => D4
+          .validateTarget<$dcli_26.PubGetException>(target, 'PubGetException')
+          .message,
+      'cause': (visitor, target) => D4
+          .validateTarget<$dcli_26.PubGetException>(target, 'PubGetException')
+          .cause,
+      'stackTrace': (visitor, target) => D4
+          .validateTarget<$dcli_26.PubGetException>(target, 'PubGetException')
+          .stackTrace,
+      'exitCode': (visitor, target) => D4
+          .validateTarget<$dcli_26.PubGetException>(target, 'PubGetException')
+          .exitCode,
+    },
+    setters: {
+      'stackTrace': (visitor, target, value) =>
+          D4
+              .validateTarget<$dcli_26.PubGetException>(
+                target,
+                'PubGetException',
+              )
+              .stackTrace = D4.extractBridgedArg<$stack_trace_1.Trace>(
+            value,
+            'stackTrace',
+          ),
+    },
+    methods: {
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dcli_26.PubGetException>(
+          target,
+          'PubGetException',
+        );
+        return t.toString();
+      },
+      'printStackTrace': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dcli_26.PubGetException>(
+          target,
+          'PubGetException',
+        );
+        t.printStackTrace();
+        return null;
+      },
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dcli_26.PubGetException>(
+          target,
+          'PubGetException',
+        );
+        return t.toJson();
+      },
+      'toJsonString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dcli_26.PubGetException>(
+          target,
+          'PubGetException',
+        );
+        return t.toJsonString();
+      },
+    },
+    constructorSignatures: {'': 'PubGetException(int? exitCode)'},
+    methodSignatures: {
+      'toString': 'String toString()',
+      'printStackTrace': 'void printStackTrace()',
+      'toJson': 'Map<String, dynamic> toJson()',
+      'toJsonString': 'String toJsonString()',
+    },
+    getterSignatures: {
+      'message': 'String get message',
+      'cause': 'Object? get cause',
+      'stackTrace': 'Trace get stackTrace',
+      'exitCode': 'int? get exitCode',
+    },
+    setterSignatures: {'stackTrace': 'set stackTrace(Trace value)'},
+  );
+}
+
+// =============================================================================
 // Settings Bridge
 // =============================================================================
 
 BridgedClass _createSettingsBridge() {
   return BridgedClass(
-    nativeType: $dcli_25.Settings,
+    nativeType: $dcli_27.Settings,
     name: 'Settings',
-    isAssignable: (v) => v is $dcli_25.Settings,
+    isAssignable: (v) => v is $dcli_27.Settings,
     constructors: {
       '': (visitor, positional, named) {
-        return $dcli_25.Settings();
+        return $dcli_27.Settings();
       },
       'forScope': (visitor, positional, named) {
-        return $dcli_25.Settings.forScope();
+        return $dcli_27.Settings.forScope();
       },
     },
     getters: {
       'version': (visitor, target) =>
-          D4.validateTarget<$dcli_25.Settings>(target, 'Settings').version,
+          D4.validateTarget<$dcli_27.Settings>(target, 'Settings').version,
       'dcliDir': (visitor, target) =>
-          D4.validateTarget<$dcli_25.Settings>(target, 'Settings').dcliDir,
+          D4.validateTarget<$dcli_27.Settings>(target, 'Settings').dcliDir,
       'isMacOS': (visitor, target) =>
-          D4.validateTarget<$dcli_25.Settings>(target, 'Settings').isMacOS,
+          D4.validateTarget<$dcli_27.Settings>(target, 'Settings').isMacOS,
       'isLinux': (visitor, target) =>
-          D4.validateTarget<$dcli_25.Settings>(target, 'Settings').isLinux,
+          D4.validateTarget<$dcli_27.Settings>(target, 'Settings').isLinux,
       'isWindows': (visitor, target) =>
-          D4.validateTarget<$dcli_25.Settings>(target, 'Settings').isWindows,
+          D4.validateTarget<$dcli_27.Settings>(target, 'Settings').isWindows,
       'pathToDCli': (visitor, target) =>
-          D4.validateTarget<$dcli_25.Settings>(target, 'Settings').pathToDCli,
+          D4.validateTarget<$dcli_27.Settings>(target, 'Settings').pathToDCli,
       'pathToDCliBin': (visitor, target) => D4
-          .validateTarget<$dcli_25.Settings>(target, 'Settings')
+          .validateTarget<$dcli_27.Settings>(target, 'Settings')
           .pathToDCliBin,
       'pathToTemplateProject': (visitor, target) => D4
-          .validateTarget<$dcli_25.Settings>(target, 'Settings')
+          .validateTarget<$dcli_27.Settings>(target, 'Settings')
           .pathToTemplateProject,
       'pathToTemplateProjectCustom': (visitor, target) => D4
-          .validateTarget<$dcli_25.Settings>(target, 'Settings')
+          .validateTarget<$dcli_27.Settings>(target, 'Settings')
           .pathToTemplateProjectCustom,
       'pathToTemplateScript': (visitor, target) => D4
-          .validateTarget<$dcli_25.Settings>(target, 'Settings')
+          .validateTarget<$dcli_27.Settings>(target, 'Settings')
           .pathToTemplateScript,
       'pathToTemplateScriptCustom': (visitor, target) => D4
-          .validateTarget<$dcli_25.Settings>(target, 'Settings')
+          .validateTarget<$dcli_27.Settings>(target, 'Settings')
           .pathToTemplateScriptCustom,
       'isVerbose': (visitor, target) =>
-          D4.validateTarget<$dcli_25.Settings>(target, 'Settings').isVerbose,
+          D4.validateTarget<$dcli_27.Settings>(target, 'Settings').isVerbose,
       'logger': (visitor, target) =>
-          D4.validateTarget<$dcli_25.Settings>(target, 'Settings').logger,
+          D4.validateTarget<$dcli_27.Settings>(target, 'Settings').logger,
       'isInstalled': (visitor, target) =>
-          D4.validateTarget<$dcli_25.Settings>(target, 'Settings').isInstalled,
+          D4.validateTarget<$dcli_27.Settings>(target, 'Settings').isInstalled,
       'installCompletedIndicator': (visitor, target) => D4
-          .validateTarget<$dcli_25.Settings>(target, 'Settings')
+          .validateTarget<$dcli_27.Settings>(target, 'Settings')
           .installCompletedIndicator,
     },
     setters: {
       'version': (visitor, target, value) =>
-          D4.validateTarget<$dcli_25.Settings>(target, 'Settings').version = D4
+          D4.validateTarget<$dcli_27.Settings>(target, 'Settings').version = D4
               .extractBridgedArgOrNull<String>(value, 'version'),
       'dcliDir': (visitor, target, value) =>
-          D4.validateTarget<$dcli_25.Settings>(target, 'Settings').dcliDir = D4
+          D4.validateTarget<$dcli_27.Settings>(target, 'Settings').dcliDir = D4
               .extractBridgedArg<String>(value, 'dcliDir'),
     },
     methods: {
       'setVerbose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_25.Settings>(target, 'Settings');
+        final t = D4.validateTarget<$dcli_27.Settings>(target, 'Settings');
         final enabled = D4.getRequiredNamedArg<bool>(
           named,
           'enabled',
@@ -8450,7 +8810,7 @@ BridgedClass _createSettingsBridge() {
         return null;
       },
       'verbose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_25.Settings>(target, 'Settings');
+        final t = D4.validateTarget<$dcli_27.Settings>(target, 'Settings');
         D4.requireMinArgs(positional, 1, 'verbose');
         final string = D4.getRequiredArg<String?>(
           positional,
@@ -8463,18 +8823,18 @@ BridgedClass _createSettingsBridge() {
       },
     },
     staticGetters: {
-      'scopeKey': (visitor) => $dcli_25.Settings.scopeKey,
-      'templateDir': (visitor) => $dcli_25.Settings.templateDir,
-      'dcliAppName': (visitor) => $dcli_25.Settings.dcliAppName,
+      'scopeKey': (visitor) => $dcli_27.Settings.scopeKey,
+      'templateDir': (visitor) => $dcli_27.Settings.templateDir,
+      'dcliAppName': (visitor) => $dcli_27.Settings.dcliAppName,
     },
     staticSetters: {
-      'scopeKey': (visitor, value) => $dcli_25.Settings.scopeKey = D4
-          .extractBridgedArg<$scope_1.ScopeKey<$dcli_25.Settings>>(
+      'scopeKey': (visitor, value) => $dcli_27.Settings.scopeKey = D4
+          .extractBridgedArg<$scope_1.ScopeKey<$dcli_27.Settings>>(
             value,
             'scopeKey',
           ),
-      'mock': (visitor, value) => $dcli_25.Settings.mock = D4
-          .extractBridgedArg<$dcli_25.Settings>(value, 'mock'),
+      'mock': (visitor, value) => $dcli_27.Settings.mock = D4
+          .extractBridgedArg<$dcli_27.Settings>(value, 'mock'),
     },
     constructorSignatures: {
       '': 'factory Settings()',
@@ -8523,49 +8883,49 @@ BridgedClass _createSettingsBridge() {
 
 BridgedClass _createShellBridge() {
   return BridgedClass(
-    nativeType: $dcli_26.Shell,
+    nativeType: $dcli_28.Shell,
     name: 'Shell',
-    isAssignable: (v) => v is $dcli_26.Shell,
+    isAssignable: (v) => v is $dcli_28.Shell,
     isAbstract: true,
     constructors: {},
     getters: {
       'name': (visitor, target) =>
-          D4.validateTarget<$dcli_26.Shell>(target, 'Shell').name,
+          D4.validateTarget<$dcli_28.Shell>(target, 'Shell').name,
       'hasStartScript': (visitor, target) =>
-          D4.validateTarget<$dcli_26.Shell>(target, 'Shell').hasStartScript,
+          D4.validateTarget<$dcli_28.Shell>(target, 'Shell').hasStartScript,
       'startScriptName': (visitor, target) =>
-          D4.validateTarget<$dcli_26.Shell>(target, 'Shell').startScriptName,
+          D4.validateTarget<$dcli_28.Shell>(target, 'Shell').startScriptName,
       'pathToStartScript': (visitor, target) =>
-          D4.validateTarget<$dcli_26.Shell>(target, 'Shell').pathToStartScript,
+          D4.validateTarget<$dcli_28.Shell>(target, 'Shell').pathToStartScript,
       'canModifyPath': (visitor, target) =>
-          D4.validateTarget<$dcli_26.Shell>(target, 'Shell').canModifyPath,
+          D4.validateTarget<$dcli_28.Shell>(target, 'Shell').canModifyPath,
       'isCompletionSupported': (visitor, target) => D4
-          .validateTarget<$dcli_26.Shell>(target, 'Shell')
+          .validateTarget<$dcli_28.Shell>(target, 'Shell')
           .isCompletionSupported,
       'isCompletionInstalled': (visitor, target) => D4
-          .validateTarget<$dcli_26.Shell>(target, 'Shell')
+          .validateTarget<$dcli_28.Shell>(target, 'Shell')
           .isCompletionInstalled,
       'isSudo': (visitor, target) =>
-          D4.validateTarget<$dcli_26.Shell>(target, 'Shell').isSudo,
+          D4.validateTarget<$dcli_28.Shell>(target, 'Shell').isSudo,
       'loggedInUser': (visitor, target) =>
-          D4.validateTarget<$dcli_26.Shell>(target, 'Shell').loggedInUser,
+          D4.validateTarget<$dcli_28.Shell>(target, 'Shell').loggedInUser,
       'isPrivilegedUser': (visitor, target) =>
-          D4.validateTarget<$dcli_26.Shell>(target, 'Shell').isPrivilegedUser,
+          D4.validateTarget<$dcli_28.Shell>(target, 'Shell').isPrivilegedUser,
       'isPrivilegedPasswordRequired': (visitor, target) => D4
-          .validateTarget<$dcli_26.Shell>(target, 'Shell')
+          .validateTarget<$dcli_28.Shell>(target, 'Shell')
           .isPrivilegedPasswordRequired,
       'isPrivilegedProcess': (visitor, target) => D4
-          .validateTarget<$dcli_26.Shell>(target, 'Shell')
+          .validateTarget<$dcli_28.Shell>(target, 'Shell')
           .isPrivilegedProcess,
       'installInstructions': (visitor, target) => D4
-          .validateTarget<$dcli_26.Shell>(target, 'Shell')
+          .validateTarget<$dcli_28.Shell>(target, 'Shell')
           .installInstructions,
       'pid': (visitor, target) =>
-          D4.validateTarget<$dcli_26.Shell>(target, 'Shell').pid,
+          D4.validateTarget<$dcli_28.Shell>(target, 'Shell').pid,
     },
     methods: {
       'matchByName': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_26.Shell>(target, 'Shell');
+        final t = D4.validateTarget<$dcli_28.Shell>(target, 'Shell');
         D4.requireMinArgs(positional, 1, 'matchByName');
         final name = D4.getRequiredArg<String>(
           positional,
@@ -8576,7 +8936,7 @@ BridgedClass _createShellBridge() {
         return t.matchByName(name);
       },
       'appendToPATH': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_26.Shell>(target, 'Shell');
+        final t = D4.validateTarget<$dcli_28.Shell>(target, 'Shell');
         D4.requireMinArgs(positional, 1, 'appendToPATH');
         final path = D4.getRequiredArg<String>(
           positional,
@@ -8587,7 +8947,7 @@ BridgedClass _createShellBridge() {
         return t.appendToPATH(path);
       },
       'prependToPATH': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_26.Shell>(target, 'Shell');
+        final t = D4.validateTarget<$dcli_28.Shell>(target, 'Shell');
         D4.requireMinArgs(positional, 1, 'prependToPATH');
         final path = D4.getRequiredArg<String>(
           positional,
@@ -8598,7 +8958,7 @@ BridgedClass _createShellBridge() {
         return t.prependToPATH(path);
       },
       'addFileAssocation': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_26.Shell>(target, 'Shell');
+        final t = D4.validateTarget<$dcli_28.Shell>(target, 'Shell');
         D4.requireMinArgs(positional, 1, 'addFileAssocation');
         final dcliPath = D4.getRequiredArg<String>(
           positional,
@@ -8610,23 +8970,23 @@ BridgedClass _createShellBridge() {
         return null;
       },
       'installTabCompletion': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_26.Shell>(target, 'Shell');
+        final t = D4.validateTarget<$dcli_28.Shell>(target, 'Shell');
         final quiet = D4.getNamedArgWithDefault<bool>(named, 'quiet', true);
         t.installTabCompletion(quiet: quiet);
         return null;
       },
       'releasePrivileges': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_26.Shell>(target, 'Shell');
+        final t = D4.validateTarget<$dcli_28.Shell>(target, 'Shell');
         t.releasePrivileges();
         return null;
       },
       'restorePrivileges': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_26.Shell>(target, 'Shell');
+        final t = D4.validateTarget<$dcli_28.Shell>(target, 'Shell');
         t.restorePrivileges();
         return null;
       },
       'withPrivileges': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_26.Shell>(target, 'Shell');
+        final t = D4.validateTarget<$dcli_28.Shell>(target, 'Shell');
         D4.requireMinArgs(positional, 1, 'withPrivileges');
         if (positional.isEmpty) {
           throw ArgumentError(
@@ -8645,7 +9005,7 @@ BridgedClass _createShellBridge() {
         return null;
       },
       'withPrivilegesAsync': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_26.Shell>(target, 'Shell');
+        final t = D4.validateTarget<$dcli_28.Shell>(target, 'Shell');
         D4.requireMinArgs(positional, 1, 'withPrivilegesAsync');
         if (positional.isEmpty) {
           throw ArgumentError(
@@ -8670,7 +9030,7 @@ BridgedClass _createShellBridge() {
       },
       'privilegesRequiredMessage':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$dcli_26.Shell>(target, 'Shell');
+            final t = D4.validateTarget<$dcli_28.Shell>(target, 'Shell');
             D4.requireMinArgs(positional, 1, 'privilegesRequiredMessage');
             final appname = D4.getRequiredArg<String>(
               positional,
@@ -8681,7 +9041,7 @@ BridgedClass _createShellBridge() {
             return t.privilegesRequiredMessage(appname);
           },
       'install': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_26.Shell>(target, 'Shell');
+        final t = D4.validateTarget<$dcli_28.Shell>(target, 'Shell');
         final installDart = D4.getNamedArgWithDefault<bool>(
           named,
           'installDart',
@@ -8691,11 +9051,11 @@ BridgedClass _createShellBridge() {
       },
       'checkInstallPreconditions':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$dcli_26.Shell>(target, 'Shell');
+            final t = D4.validateTarget<$dcli_28.Shell>(target, 'Shell');
             return t.checkInstallPreconditions();
           },
     },
-    staticGetters: {'current': (visitor) => $dcli_26.Shell.current},
+    staticGetters: {'current': (visitor) => $dcli_28.Shell.current},
     methodSignatures: {
       'matchByName': 'bool matchByName(String name)',
       'appendToPATH': 'bool appendToPATH(String path)',
@@ -8739,9 +9099,9 @@ BridgedClass _createShellBridge() {
 
 BridgedClass _createShellExceptionBridge() {
   return BridgedClass(
-    nativeType: $dcli_26.ShellException,
+    nativeType: $dcli_28.ShellException,
     name: 'ShellException',
-    isAssignable: (v) => v is $dcli_26.ShellException,
+    isAssignable: (v) => v is $dcli_28.ShellException,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
@@ -8752,24 +9112,24 @@ BridgedClass _createShellExceptionBridge() {
           'message',
           'ShellException',
         );
-        return $dcli_26.ShellException(message);
+        return $dcli_28.ShellException(message);
       },
     },
     getters: {
       'message': (visitor, target) => D4
-          .validateTarget<$dcli_26.ShellException>(target, 'ShellException')
+          .validateTarget<$dcli_28.ShellException>(target, 'ShellException')
           .message,
       'cause': (visitor, target) => D4
-          .validateTarget<$dcli_26.ShellException>(target, 'ShellException')
+          .validateTarget<$dcli_28.ShellException>(target, 'ShellException')
           .cause,
       'stackTrace': (visitor, target) => D4
-          .validateTarget<$dcli_26.ShellException>(target, 'ShellException')
+          .validateTarget<$dcli_28.ShellException>(target, 'ShellException')
           .stackTrace,
     },
     setters: {
       'stackTrace': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_26.ShellException>(target, 'ShellException')
+              .validateTarget<$dcli_28.ShellException>(target, 'ShellException')
               .stackTrace = D4.extractBridgedArg<$stack_trace_1.Trace>(
             value,
             'stackTrace',
@@ -8777,14 +9137,14 @@ BridgedClass _createShellExceptionBridge() {
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_26.ShellException>(
+        final t = D4.validateTarget<$dcli_28.ShellException>(
           target,
           'ShellException',
         );
         return t.toString();
       },
       'printStackTrace': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_26.ShellException>(
+        final t = D4.validateTarget<$dcli_28.ShellException>(
           target,
           'ShellException',
         );
@@ -8792,14 +9152,14 @@ BridgedClass _createShellExceptionBridge() {
         return null;
       },
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_26.ShellException>(
+        final t = D4.validateTarget<$dcli_28.ShellException>(
           target,
           'ShellException',
         );
         return t.toJson();
       },
       'toJsonString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_26.ShellException>(
+        final t = D4.validateTarget<$dcli_28.ShellException>(
           target,
           'ShellException',
         );
@@ -8828,17 +9188,17 @@ BridgedClass _createShellExceptionBridge() {
 
 BridgedClass _createShellDetectionBridge() {
   return BridgedClass(
-    nativeType: $dcli_27.ShellDetection,
+    nativeType: $dcli_29.ShellDetection,
     name: 'ShellDetection',
-    isAssignable: (v) => v is $dcli_27.ShellDetection,
+    isAssignable: (v) => v is $dcli_29.ShellDetection,
     constructors: {
       '': (visitor, positional, named) {
-        return $dcli_27.ShellDetection();
+        return $dcli_29.ShellDetection();
       },
     },
     methods: {
       'identifyShell': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_27.ShellDetection>(
+        final t = D4.validateTarget<$dcli_29.ShellDetection>(
           target,
           'ShellDetection',
         );
@@ -8856,9 +9216,9 @@ BridgedClass _createShellDetectionBridge() {
 
 BridgedClass _createUnknownShellBridge() {
   return BridgedClass(
-    nativeType: $dcli_28.UnknownShell,
+    nativeType: $dcli_30.UnknownShell,
     name: 'UnknownShell',
-    isAssignable: (v) => v is $dcli_28.UnknownShell,
+    isAssignable: (v) => v is $dcli_30.UnknownShell,
     hierarchyDepth: 2,
     constructors: {
       'withPid': (visitor, positional, named) {
@@ -8873,60 +9233,60 @@ BridgedClass _createUnknownShellBridge() {
           named,
           'processName',
         );
-        return $dcli_28.UnknownShell.withPid(pid, processName: processName);
+        return $dcli_30.UnknownShell.withPid(pid, processName: processName);
       },
     },
     getters: {
       'processName': (visitor, target) => D4
-          .validateTarget<$dcli_28.UnknownShell>(target, 'UnknownShell')
+          .validateTarget<$dcli_30.UnknownShell>(target, 'UnknownShell')
           .processName,
       'pid': (visitor, target) =>
-          D4.validateTarget<$dcli_28.UnknownShell>(target, 'UnknownShell').pid,
+          D4.validateTarget<$dcli_30.UnknownShell>(target, 'UnknownShell').pid,
       'canModifyPath': (visitor, target) => D4
-          .validateTarget<$dcli_28.UnknownShell>(target, 'UnknownShell')
+          .validateTarget<$dcli_30.UnknownShell>(target, 'UnknownShell')
           .canModifyPath,
       'isCompletionInstalled': (visitor, target) => D4
-          .validateTarget<$dcli_28.UnknownShell>(target, 'UnknownShell')
+          .validateTarget<$dcli_30.UnknownShell>(target, 'UnknownShell')
           .isCompletionInstalled,
       'isCompletionSupported': (visitor, target) => D4
-          .validateTarget<$dcli_28.UnknownShell>(target, 'UnknownShell')
+          .validateTarget<$dcli_30.UnknownShell>(target, 'UnknownShell')
           .isCompletionSupported,
       'name': (visitor, target) =>
-          D4.validateTarget<$dcli_28.UnknownShell>(target, 'UnknownShell').name,
+          D4.validateTarget<$dcli_30.UnknownShell>(target, 'UnknownShell').name,
       'hashCode': (visitor, target) => D4
-          .validateTarget<$dcli_28.UnknownShell>(target, 'UnknownShell')
+          .validateTarget<$dcli_30.UnknownShell>(target, 'UnknownShell')
           .hashCode,
       'hasStartScript': (visitor, target) => D4
-          .validateTarget<$dcli_28.UnknownShell>(target, 'UnknownShell')
+          .validateTarget<$dcli_30.UnknownShell>(target, 'UnknownShell')
           .hasStartScript,
       'startScriptName': (visitor, target) => D4
-          .validateTarget<$dcli_28.UnknownShell>(target, 'UnknownShell')
+          .validateTarget<$dcli_30.UnknownShell>(target, 'UnknownShell')
           .startScriptName,
       'pathToStartScript': (visitor, target) => D4
-          .validateTarget<$dcli_28.UnknownShell>(target, 'UnknownShell')
+          .validateTarget<$dcli_30.UnknownShell>(target, 'UnknownShell')
           .pathToStartScript,
       'isPrivilegedUser': (visitor, target) => D4
-          .validateTarget<$dcli_28.UnknownShell>(target, 'UnknownShell')
+          .validateTarget<$dcli_30.UnknownShell>(target, 'UnknownShell')
           .isPrivilegedUser,
       'loggedInUser': (visitor, target) => D4
-          .validateTarget<$dcli_28.UnknownShell>(target, 'UnknownShell')
+          .validateTarget<$dcli_30.UnknownShell>(target, 'UnknownShell')
           .loggedInUser,
       'isSudo': (visitor, target) => D4
-          .validateTarget<$dcli_28.UnknownShell>(target, 'UnknownShell')
+          .validateTarget<$dcli_30.UnknownShell>(target, 'UnknownShell')
           .isSudo,
       'isPrivilegedProcess': (visitor, target) => D4
-          .validateTarget<$dcli_28.UnknownShell>(target, 'UnknownShell')
+          .validateTarget<$dcli_30.UnknownShell>(target, 'UnknownShell')
           .isPrivilegedProcess,
       'isPrivilegedPasswordRequired': (visitor, target) => D4
-          .validateTarget<$dcli_28.UnknownShell>(target, 'UnknownShell')
+          .validateTarget<$dcli_30.UnknownShell>(target, 'UnknownShell')
           .isPrivilegedPasswordRequired,
       'installInstructions': (visitor, target) => D4
-          .validateTarget<$dcli_28.UnknownShell>(target, 'UnknownShell')
+          .validateTarget<$dcli_30.UnknownShell>(target, 'UnknownShell')
           .installInstructions,
     },
     methods: {
       'appendToPATH': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_28.UnknownShell>(
+        final t = D4.validateTarget<$dcli_30.UnknownShell>(
           target,
           'UnknownShell',
         );
@@ -8940,7 +9300,7 @@ BridgedClass _createUnknownShellBridge() {
         return t.appendToPATH(path);
       },
       'prependToPATH': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_28.UnknownShell>(
+        final t = D4.validateTarget<$dcli_30.UnknownShell>(
           target,
           'UnknownShell',
         );
@@ -8954,7 +9314,7 @@ BridgedClass _createUnknownShellBridge() {
         return t.prependToPATH(path);
       },
       'appendPathToMacOsPathd': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_28.UnknownShell>(
+        final t = D4.validateTarget<$dcli_30.UnknownShell>(
           target,
           'UnknownShell',
         );
@@ -8968,7 +9328,7 @@ BridgedClass _createUnknownShellBridge() {
         return t.appendPathToMacOsPathd(path);
       },
       'installTabCompletion': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_28.UnknownShell>(
+        final t = D4.validateTarget<$dcli_30.UnknownShell>(
           target,
           'UnknownShell',
         );
@@ -8978,7 +9338,7 @@ BridgedClass _createUnknownShellBridge() {
       },
       'privilegesRequiredMessage':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$dcli_28.UnknownShell>(
+            final t = D4.validateTarget<$dcli_30.UnknownShell>(
               target,
               'UnknownShell',
             );
@@ -8992,7 +9352,7 @@ BridgedClass _createUnknownShellBridge() {
             return t.privilegesRequiredMessage(app);
           },
       'install': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_28.UnknownShell>(
+        final t = D4.validateTarget<$dcli_30.UnknownShell>(
           target,
           'UnknownShell',
         );
@@ -9010,14 +9370,14 @@ BridgedClass _createUnknownShellBridge() {
       },
       'checkInstallPreconditions':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$dcli_28.UnknownShell>(
+            final t = D4.validateTarget<$dcli_30.UnknownShell>(
               target,
               'UnknownShell',
             );
             return t.checkInstallPreconditions();
           },
       'releasePrivileges': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_28.UnknownShell>(
+        final t = D4.validateTarget<$dcli_30.UnknownShell>(
           target,
           'UnknownShell',
         );
@@ -9025,7 +9385,7 @@ BridgedClass _createUnknownShellBridge() {
         return null;
       },
       'restorePrivileges': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_28.UnknownShell>(
+        final t = D4.validateTarget<$dcli_30.UnknownShell>(
           target,
           'UnknownShell',
         );
@@ -9033,7 +9393,7 @@ BridgedClass _createUnknownShellBridge() {
         return null;
       },
       'withPrivileges': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_28.UnknownShell>(
+        final t = D4.validateTarget<$dcli_30.UnknownShell>(
           target,
           'UnknownShell',
         );
@@ -9055,7 +9415,7 @@ BridgedClass _createUnknownShellBridge() {
         return null;
       },
       'withPrivilegesAsync': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_28.UnknownShell>(
+        final t = D4.validateTarget<$dcli_30.UnknownShell>(
           target,
           'UnknownShell',
         );
@@ -9082,7 +9442,7 @@ BridgedClass _createUnknownShellBridge() {
         );
       },
       'addFileAssocation': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_28.UnknownShell>(
+        final t = D4.validateTarget<$dcli_30.UnknownShell>(
           target,
           'UnknownShell',
         );
@@ -9097,7 +9457,7 @@ BridgedClass _createUnknownShellBridge() {
         return null;
       },
       'matchByName': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_28.UnknownShell>(
+        final t = D4.validateTarget<$dcli_30.UnknownShell>(
           target,
           'UnknownShell',
         );
@@ -9111,13 +9471,13 @@ BridgedClass _createUnknownShellBridge() {
         return t.matchByName(name);
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_28.UnknownShell>(
+        final t = D4.validateTarget<$dcli_30.UnknownShell>(
           target,
           'UnknownShell',
         );
         // GEN-103: Dart spec — non-null == null is always false.
         if (positional.isEmpty || positional[0] == null) return false;
-        final other = D4.getRequiredArg<$dcli_28.UnknownShell>(
+        final other = D4.getRequiredArg<$dcli_30.UnknownShell>(
           positional,
           0,
           'other',
@@ -9126,7 +9486,7 @@ BridgedClass _createUnknownShellBridge() {
         return t == other;
       },
     },
-    staticGetters: {'shellName': (visitor) => $dcli_28.UnknownShell.shellName},
+    staticGetters: {'shellName': (visitor) => $dcli_30.UnknownShell.shellName},
     constructorSignatures: {
       'withPid': 'UnknownShell.withPid(int? pid, {String? processName})',
     },
@@ -9177,40 +9537,40 @@ BridgedClass _createUnknownShellBridge() {
 
 BridgedClass _createDCliPathsBridge() {
   return BridgedClass(
-    nativeType: $dcli_30.DCliPaths,
+    nativeType: $dcli_32.DCliPaths,
     name: 'DCliPaths',
-    isAssignable: (v) => v is $dcli_30.DCliPaths,
+    isAssignable: (v) => v is $dcli_32.DCliPaths,
     constructors: {
       '': (visitor, positional, named) {
-        return $dcli_30.DCliPaths();
+        return $dcli_32.DCliPaths();
       },
     },
     getters: {
       'dcliName': (visitor, target) =>
-          D4.validateTarget<$dcli_30.DCliPaths>(target, 'DCliPaths').dcliName,
+          D4.validateTarget<$dcli_32.DCliPaths>(target, 'DCliPaths').dcliName,
       'dcliInstallName': (visitor, target) => D4
-          .validateTarget<$dcli_30.DCliPaths>(target, 'DCliPaths')
+          .validateTarget<$dcli_32.DCliPaths>(target, 'DCliPaths')
           .dcliInstallName,
       'dcliCompleteName': (visitor, target) => D4
-          .validateTarget<$dcli_30.DCliPaths>(target, 'DCliPaths')
+          .validateTarget<$dcli_32.DCliPaths>(target, 'DCliPaths')
           .dcliCompleteName,
       'pathToDCli': (visitor, target) =>
-          D4.validateTarget<$dcli_30.DCliPaths>(target, 'DCliPaths').pathToDCli,
+          D4.validateTarget<$dcli_32.DCliPaths>(target, 'DCliPaths').pathToDCli,
     },
     setters: {
       'dcliName': (visitor, target, value) =>
-          D4.validateTarget<$dcli_30.DCliPaths>(target, 'DCliPaths').dcliName =
+          D4.validateTarget<$dcli_32.DCliPaths>(target, 'DCliPaths').dcliName =
               D4.extractBridgedArg<String>(value, 'dcliName'),
       'dcliInstallName': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_30.DCliPaths>(target, 'DCliPaths')
+              .validateTarget<$dcli_32.DCliPaths>(target, 'DCliPaths')
               .dcliInstallName = D4.extractBridgedArg<String>(
             value,
             'dcliInstallName',
           ),
       'dcliCompleteName': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_30.DCliPaths>(target, 'DCliPaths')
+              .validateTarget<$dcli_32.DCliPaths>(target, 'DCliPaths')
               .dcliCompleteName = D4.extractBridgedArg<String>(
             value,
             'dcliCompleteName',
@@ -9237,9 +9597,9 @@ BridgedClass _createDCliPathsBridge() {
 
 BridgedClass _createInvalidArgumentExceptionBridge() {
   return BridgedClass(
-    nativeType: $dcli_33.InvalidArgumentException,
+    nativeType: $dcli_35.InvalidArgumentException,
     name: 'InvalidArgumentException',
-    isAssignable: (v) => v is $dcli_33.InvalidArgumentException,
+    isAssignable: (v) => v is $dcli_35.InvalidArgumentException,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
@@ -9250,24 +9610,24 @@ BridgedClass _createInvalidArgumentExceptionBridge() {
           'message',
           'InvalidArgumentException',
         );
-        return $dcli_33.InvalidArgumentException(message);
+        return $dcli_35.InvalidArgumentException(message);
       },
     },
     getters: {
       'message': (visitor, target) => D4
-          .validateTarget<$dcli_33.InvalidArgumentException>(
+          .validateTarget<$dcli_35.InvalidArgumentException>(
             target,
             'InvalidArgumentException',
           )
           .message,
       'cause': (visitor, target) => D4
-          .validateTarget<$dcli_33.InvalidArgumentException>(
+          .validateTarget<$dcli_35.InvalidArgumentException>(
             target,
             'InvalidArgumentException',
           )
           .cause,
       'stackTrace': (visitor, target) => D4
-          .validateTarget<$dcli_33.InvalidArgumentException>(
+          .validateTarget<$dcli_35.InvalidArgumentException>(
             target,
             'InvalidArgumentException',
           )
@@ -9276,7 +9636,7 @@ BridgedClass _createInvalidArgumentExceptionBridge() {
     setters: {
       'stackTrace': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_33.InvalidArgumentException>(
+              .validateTarget<$dcli_35.InvalidArgumentException>(
                 target,
                 'InvalidArgumentException',
               )
@@ -9287,14 +9647,14 @@ BridgedClass _createInvalidArgumentExceptionBridge() {
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_33.InvalidArgumentException>(
+        final t = D4.validateTarget<$dcli_35.InvalidArgumentException>(
           target,
           'InvalidArgumentException',
         );
         return t.toString();
       },
       'printStackTrace': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_33.InvalidArgumentException>(
+        final t = D4.validateTarget<$dcli_35.InvalidArgumentException>(
           target,
           'InvalidArgumentException',
         );
@@ -9302,14 +9662,14 @@ BridgedClass _createInvalidArgumentExceptionBridge() {
         return null;
       },
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_33.InvalidArgumentException>(
+        final t = D4.validateTarget<$dcli_35.InvalidArgumentException>(
           target,
           'InvalidArgumentException',
         );
         return t.toJson();
       },
       'toJsonString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_33.InvalidArgumentException>(
+        final t = D4.validateTarget<$dcli_35.InvalidArgumentException>(
           target,
           'InvalidArgumentException',
         );
@@ -9338,9 +9698,9 @@ BridgedClass _createInvalidArgumentExceptionBridge() {
 
 BridgedClass _createInvalidTemplateExceptionBridge() {
   return BridgedClass(
-    nativeType: $dcli_33.InvalidTemplateException,
+    nativeType: $dcli_35.InvalidTemplateException,
     name: 'InvalidTemplateException',
-    isAssignable: (v) => v is $dcli_33.InvalidTemplateException,
+    isAssignable: (v) => v is $dcli_35.InvalidTemplateException,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
@@ -9351,24 +9711,24 @@ BridgedClass _createInvalidTemplateExceptionBridge() {
           'message',
           'InvalidTemplateException',
         );
-        return $dcli_33.InvalidTemplateException(message);
+        return $dcli_35.InvalidTemplateException(message);
       },
     },
     getters: {
       'message': (visitor, target) => D4
-          .validateTarget<$dcli_33.InvalidTemplateException>(
+          .validateTarget<$dcli_35.InvalidTemplateException>(
             target,
             'InvalidTemplateException',
           )
           .message,
       'cause': (visitor, target) => D4
-          .validateTarget<$dcli_33.InvalidTemplateException>(
+          .validateTarget<$dcli_35.InvalidTemplateException>(
             target,
             'InvalidTemplateException',
           )
           .cause,
       'stackTrace': (visitor, target) => D4
-          .validateTarget<$dcli_33.InvalidTemplateException>(
+          .validateTarget<$dcli_35.InvalidTemplateException>(
             target,
             'InvalidTemplateException',
           )
@@ -9377,7 +9737,7 @@ BridgedClass _createInvalidTemplateExceptionBridge() {
     setters: {
       'stackTrace': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_33.InvalidTemplateException>(
+              .validateTarget<$dcli_35.InvalidTemplateException>(
                 target,
                 'InvalidTemplateException',
               )
@@ -9388,14 +9748,14 @@ BridgedClass _createInvalidTemplateExceptionBridge() {
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_33.InvalidTemplateException>(
+        final t = D4.validateTarget<$dcli_35.InvalidTemplateException>(
           target,
           'InvalidTemplateException',
         );
         return t.toString();
       },
       'printStackTrace': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_33.InvalidTemplateException>(
+        final t = D4.validateTarget<$dcli_35.InvalidTemplateException>(
           target,
           'InvalidTemplateException',
         );
@@ -9403,14 +9763,14 @@ BridgedClass _createInvalidTemplateExceptionBridge() {
         return null;
       },
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_33.InvalidTemplateException>(
+        final t = D4.validateTarget<$dcli_35.InvalidTemplateException>(
           target,
           'InvalidTemplateException',
         );
         return t.toJson();
       },
       'toJsonString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_33.InvalidTemplateException>(
+        final t = D4.validateTarget<$dcli_35.InvalidTemplateException>(
           target,
           'InvalidTemplateException',
         );
@@ -9439,9 +9799,9 @@ BridgedClass _createInvalidTemplateExceptionBridge() {
 
 BridgedClass _createInstallExceptionBridge() {
   return BridgedClass(
-    nativeType: $dcli_33.InstallException,
+    nativeType: $dcli_35.InstallException,
     name: 'InstallException',
-    isAssignable: (v) => v is $dcli_33.InstallException,
+    isAssignable: (v) => v is $dcli_35.InstallException,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
@@ -9452,24 +9812,24 @@ BridgedClass _createInstallExceptionBridge() {
           'message',
           'InstallException',
         );
-        return $dcli_33.InstallException(message);
+        return $dcli_35.InstallException(message);
       },
     },
     getters: {
       'message': (visitor, target) => D4
-          .validateTarget<$dcli_33.InstallException>(target, 'InstallException')
+          .validateTarget<$dcli_35.InstallException>(target, 'InstallException')
           .message,
       'cause': (visitor, target) => D4
-          .validateTarget<$dcli_33.InstallException>(target, 'InstallException')
+          .validateTarget<$dcli_35.InstallException>(target, 'InstallException')
           .cause,
       'stackTrace': (visitor, target) => D4
-          .validateTarget<$dcli_33.InstallException>(target, 'InstallException')
+          .validateTarget<$dcli_35.InstallException>(target, 'InstallException')
           .stackTrace,
     },
     setters: {
       'stackTrace': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_33.InstallException>(
+              .validateTarget<$dcli_35.InstallException>(
                 target,
                 'InstallException',
               )
@@ -9480,14 +9840,14 @@ BridgedClass _createInstallExceptionBridge() {
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_33.InstallException>(
+        final t = D4.validateTarget<$dcli_35.InstallException>(
           target,
           'InstallException',
         );
         return t.toString();
       },
       'printStackTrace': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_33.InstallException>(
+        final t = D4.validateTarget<$dcli_35.InstallException>(
           target,
           'InstallException',
         );
@@ -9495,14 +9855,14 @@ BridgedClass _createInstallExceptionBridge() {
         return null;
       },
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_33.InstallException>(
+        final t = D4.validateTarget<$dcli_35.InstallException>(
           target,
           'InstallException',
         );
         return t.toJson();
       },
       'toJsonString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_33.InstallException>(
+        final t = D4.validateTarget<$dcli_35.InstallException>(
           target,
           'InstallException',
         );
@@ -9531,9 +9891,9 @@ BridgedClass _createInstallExceptionBridge() {
 
 BridgedClass _createProcessSyncExceptionBridge() {
   return BridgedClass(
-    nativeType: $dcli_33.ProcessSyncException,
+    nativeType: $dcli_35.ProcessSyncException,
     name: 'ProcessSyncException',
-    isAssignable: (v) => v is $dcli_33.ProcessSyncException,
+    isAssignable: (v) => v is $dcli_35.ProcessSyncException,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
@@ -9544,24 +9904,24 @@ BridgedClass _createProcessSyncExceptionBridge() {
           'message',
           'ProcessSyncException',
         );
-        return $dcli_33.ProcessSyncException(message);
+        return $dcli_35.ProcessSyncException(message);
       },
     },
     getters: {
       'message': (visitor, target) => D4
-          .validateTarget<$dcli_33.ProcessSyncException>(
+          .validateTarget<$dcli_35.ProcessSyncException>(
             target,
             'ProcessSyncException',
           )
           .message,
       'cause': (visitor, target) => D4
-          .validateTarget<$dcli_33.ProcessSyncException>(
+          .validateTarget<$dcli_35.ProcessSyncException>(
             target,
             'ProcessSyncException',
           )
           .cause,
       'stackTrace': (visitor, target) => D4
-          .validateTarget<$dcli_33.ProcessSyncException>(
+          .validateTarget<$dcli_35.ProcessSyncException>(
             target,
             'ProcessSyncException',
           )
@@ -9570,7 +9930,7 @@ BridgedClass _createProcessSyncExceptionBridge() {
     setters: {
       'stackTrace': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_33.ProcessSyncException>(
+              .validateTarget<$dcli_35.ProcessSyncException>(
                 target,
                 'ProcessSyncException',
               )
@@ -9581,14 +9941,14 @@ BridgedClass _createProcessSyncExceptionBridge() {
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_33.ProcessSyncException>(
+        final t = D4.validateTarget<$dcli_35.ProcessSyncException>(
           target,
           'ProcessSyncException',
         );
         return t.toString();
       },
       'printStackTrace': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_33.ProcessSyncException>(
+        final t = D4.validateTarget<$dcli_35.ProcessSyncException>(
           target,
           'ProcessSyncException',
         );
@@ -9596,14 +9956,14 @@ BridgedClass _createProcessSyncExceptionBridge() {
         return null;
       },
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_33.ProcessSyncException>(
+        final t = D4.validateTarget<$dcli_35.ProcessSyncException>(
           target,
           'ProcessSyncException',
         );
         return t.toJson();
       },
       'toJsonString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_33.ProcessSyncException>(
+        final t = D4.validateTarget<$dcli_35.ProcessSyncException>(
           target,
           'ProcessSyncException',
         );
@@ -9632,9 +9992,9 @@ BridgedClass _createProcessSyncExceptionBridge() {
 
 BridgedClass _createFileSortBridge() {
   return BridgedClass(
-    nativeType: $dcli_34.FileSort,
+    nativeType: $dcli_36.FileSort,
     name: 'FileSort',
-    isAssignable: (v) => v is $dcli_34.FileSort,
+    isAssignable: (v) => v is $dcli_36.FileSort,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 5, 'FileSort');
@@ -9655,7 +10015,7 @@ BridgedClass _createFileSortBridge() {
             'FileSort: Missing required argument "columns" at position 2',
           );
         }
-        final columns = D4.coerceList<$dcli_34.Column>(
+        final columns = D4.coerceList<$dcli_36.Column>(
           positional[2],
           'columns',
         );
@@ -9676,7 +10036,7 @@ BridgedClass _createFileSortBridge() {
           'verbose',
           false,
         );
-        return $dcli_34.FileSort(
+        return $dcli_36.FileSort(
           inputPath,
           outputPath,
           columns,
@@ -9688,11 +10048,11 @@ BridgedClass _createFileSortBridge() {
     },
     getters: {
       'verbose': (visitor, target) =>
-          D4.validateTarget<$dcli_34.FileSort>(target, 'FileSort').verbose,
+          D4.validateTarget<$dcli_36.FileSort>(target, 'FileSort').verbose,
     },
     methods: {
       'sort': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_34.FileSort>(target, 'FileSort');
+        final t = D4.validateTarget<$dcli_36.FileSort>(target, 'FileSort');
         t.sort();
         return null;
       },
@@ -9706,7 +10066,7 @@ BridgedClass _createFileSortBridge() {
           );
         }
         final values = D4.coerceList<String>(positional[0], 'values');
-        return $dcli_34.FileSort.expandColumns(values);
+        return $dcli_36.FileSort.expandColumns(values);
       },
     },
     constructorSignatures: {
@@ -9726,9 +10086,9 @@ BridgedClass _createFileSortBridge() {
 
 BridgedClass _createColumnBridge() {
   return BridgedClass(
-    nativeType: $dcli_34.Column,
+    nativeType: $dcli_36.Column,
     name: 'Column',
-    isAssignable: (v) => v is $dcli_34.Column,
+    isAssignable: (v) => v is $dcli_36.Column,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'Column');
@@ -9738,19 +10098,19 @@ BridgedClass _createColumnBridge() {
           'ordinal',
           'Column',
         );
-        final comparator = D4.getRequiredArg<$dcli_34.ColumnComparator?>(
+        final comparator = D4.getRequiredArg<$dcli_36.ColumnComparator?>(
           positional,
           1,
           '_comparator',
           'Column',
         );
-        final sortDirection = D4.getRequiredArg<$dcli_34.SortDirection?>(
+        final sortDirection = D4.getRequiredArg<$dcli_36.SortDirection?>(
           positional,
           2,
           '_sortDirection',
           'Column',
         );
-        return $dcli_34.Column(ordinal, comparator, sortDirection);
+        return $dcli_36.Column(ordinal, comparator, sortDirection);
       },
       'parse': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Column');
@@ -9765,21 +10125,21 @@ BridgedClass _createColumnBridge() {
           'ordinalOnly',
           false,
         );
-        return $dcli_34.Column.parse(column, ordinalOnly: ordinalOnly);
+        return $dcli_36.Column.parse(column, ordinalOnly: ordinalOnly);
       },
     },
     getters: {
       'ordinal': (visitor, target) =>
-          D4.validateTarget<$dcli_34.Column>(target, 'Column').ordinal,
+          D4.validateTarget<$dcli_36.Column>(target, 'Column').ordinal,
     },
     setters: {
       'ordinal': (visitor, target, value) =>
-          D4.validateTarget<$dcli_34.Column>(target, 'Column').ordinal = D4
+          D4.validateTarget<$dcli_36.Column>(target, 'Column').ordinal = D4
               .extractBridgedArgOrNull<int>(value, 'ordinal'),
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_34.Column>(target, 'Column');
+        final t = D4.validateTarget<$dcli_36.Column>(target, 'Column');
         return t.toString();
       },
     },
@@ -9799,9 +10159,9 @@ BridgedClass _createColumnBridge() {
 
 BridgedClass _createFileSyncBridge() {
   return BridgedClass(
-    nativeType: $dcli_35.FileSync,
+    nativeType: $dcli_37.FileSync,
     name: 'FileSync',
-    isAssignable: (v) => v is $dcli_35.FileSync,
+    isAssignable: (v) => v is $dcli_37.FileSync,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FileSync');
@@ -9816,18 +10176,18 @@ BridgedClass _createFileSyncBridge() {
           'fileMode',
           FileMode.writeOnlyAppend,
         );
-        return $dcli_35.FileSync(path, fileMode: fileMode);
+        return $dcli_37.FileSync(path, fileMode: fileMode);
       },
     },
     getters: {
       'path': (visitor, target) =>
-          D4.validateTarget<$dcli_35.FileSync>(target, 'FileSync').path,
+          D4.validateTarget<$dcli_37.FileSync>(target, 'FileSync').path,
       'length': (visitor, target) =>
-          D4.validateTarget<$dcli_35.FileSync>(target, 'FileSync').length,
+          D4.validateTarget<$dcli_37.FileSync>(target, 'FileSync').length,
     },
     methods: {
       'readLine': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_35.FileSync>(target, 'FileSync');
+        final t = D4.validateTarget<$dcli_37.FileSync>(target, 'FileSync');
         final lineDelimiter = D4.getOptionalNamedArg<String?>(
           named,
           'lineDelimiter',
@@ -9835,17 +10195,17 @@ BridgedClass _createFileSyncBridge() {
         return t.readLine(lineDelimiter: lineDelimiter);
       },
       'flush': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_35.FileSync>(target, 'FileSync');
+        final t = D4.validateTarget<$dcli_37.FileSync>(target, 'FileSync');
         t.flush();
         return null;
       },
       'close': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_35.FileSync>(target, 'FileSync');
+        final t = D4.validateTarget<$dcli_37.FileSync>(target, 'FileSync');
         t.close();
         return null;
       },
       'read': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_35.FileSync>(target, 'FileSync');
+        final t = D4.validateTarget<$dcli_37.FileSync>(target, 'FileSync');
         D4.requireMinArgs(positional, 1, 'read');
         if (positional.isEmpty) {
           throw ArgumentError(
@@ -9863,11 +10223,11 @@ BridgedClass _createFileSyncBridge() {
         return null;
       },
       'resolveSymLink': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_35.FileSync>(target, 'FileSync');
+        final t = D4.validateTarget<$dcli_37.FileSync>(target, 'FileSync');
         return t.resolveSymLink();
       },
       'write': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_35.FileSync>(target, 'FileSync');
+        final t = D4.validateTarget<$dcli_37.FileSync>(target, 'FileSync');
         D4.requireMinArgs(positional, 1, 'write');
         final line = D4.getRequiredArg<String>(positional, 0, 'line', 'write');
         final newline = D4.getOptionalNamedArg<String?>(named, 'newline');
@@ -9875,7 +10235,7 @@ BridgedClass _createFileSyncBridge() {
         return null;
       },
       'writeFromSync': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_35.FileSync>(target, 'FileSync');
+        final t = D4.validateTarget<$dcli_37.FileSync>(target, 'FileSync');
         D4.requireMinArgs(positional, 1, 'writeFromSync');
         if (positional.isEmpty) {
           throw ArgumentError(
@@ -9894,7 +10254,7 @@ BridgedClass _createFileSyncBridge() {
         return null;
       },
       'readIntoSync': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_35.FileSync>(target, 'FileSync');
+        final t = D4.validateTarget<$dcli_37.FileSync>(target, 'FileSync');
         D4.requireMinArgs(positional, 1, 'readIntoSync');
         if (positional.isEmpty) {
           throw ArgumentError(
@@ -9912,7 +10272,7 @@ BridgedClass _createFileSyncBridge() {
         return t.readIntoSync(buffer, start, end);
       },
       'append': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_35.FileSync>(target, 'FileSync');
+        final t = D4.validateTarget<$dcli_37.FileSync>(target, 'FileSync');
         D4.requireMinArgs(positional, 1, 'append');
         final line = D4.getRequiredArg<String>(positional, 0, 'line', 'append');
         final newline = D4.getOptionalNamedArg<String?>(named, 'newline');
@@ -9920,7 +10280,7 @@ BridgedClass _createFileSyncBridge() {
         return null;
       },
       'truncate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_35.FileSync>(target, 'FileSync');
+        final t = D4.validateTarget<$dcli_37.FileSync>(target, 'FileSync');
         t.truncate();
         return null;
       },
@@ -9952,9 +10312,9 @@ BridgedClass _createFileSyncBridge() {
 
 BridgedClass _createFileNotFoundExceptionBridge() {
   return BridgedClass(
-    nativeType: $dcli_36.FileNotFoundException,
+    nativeType: $dcli_38.FileNotFoundException,
     name: 'FileNotFoundException',
-    isAssignable: (v) => v is $dcli_36.FileNotFoundException,
+    isAssignable: (v) => v is $dcli_38.FileNotFoundException,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
@@ -9965,24 +10325,24 @@ BridgedClass _createFileNotFoundExceptionBridge() {
           'path',
           'FileNotFoundException',
         );
-        return $dcli_36.FileNotFoundException(path);
+        return $dcli_38.FileNotFoundException(path);
       },
     },
     getters: {
       'message': (visitor, target) => D4
-          .validateTarget<$dcli_36.FileNotFoundException>(
+          .validateTarget<$dcli_38.FileNotFoundException>(
             target,
             'FileNotFoundException',
           )
           .message,
       'cause': (visitor, target) => D4
-          .validateTarget<$dcli_36.FileNotFoundException>(
+          .validateTarget<$dcli_38.FileNotFoundException>(
             target,
             'FileNotFoundException',
           )
           .cause,
       'stackTrace': (visitor, target) => D4
-          .validateTarget<$dcli_36.FileNotFoundException>(
+          .validateTarget<$dcli_38.FileNotFoundException>(
             target,
             'FileNotFoundException',
           )
@@ -9991,7 +10351,7 @@ BridgedClass _createFileNotFoundExceptionBridge() {
     setters: {
       'stackTrace': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_36.FileNotFoundException>(
+              .validateTarget<$dcli_38.FileNotFoundException>(
                 target,
                 'FileNotFoundException',
               )
@@ -10002,14 +10362,14 @@ BridgedClass _createFileNotFoundExceptionBridge() {
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_36.FileNotFoundException>(
+        final t = D4.validateTarget<$dcli_38.FileNotFoundException>(
           target,
           'FileNotFoundException',
         );
         return t.toString();
       },
       'printStackTrace': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_36.FileNotFoundException>(
+        final t = D4.validateTarget<$dcli_38.FileNotFoundException>(
           target,
           'FileNotFoundException',
         );
@@ -10017,14 +10377,14 @@ BridgedClass _createFileNotFoundExceptionBridge() {
         return null;
       },
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_36.FileNotFoundException>(
+        final t = D4.validateTarget<$dcli_38.FileNotFoundException>(
           target,
           'FileNotFoundException',
         );
         return t.toJson();
       },
       'toJsonString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_36.FileNotFoundException>(
+        final t = D4.validateTarget<$dcli_38.FileNotFoundException>(
           target,
           'FileNotFoundException',
         );
@@ -10053,9 +10413,9 @@ BridgedClass _createFileNotFoundExceptionBridge() {
 
 BridgedClass _createNotAFileExceptionBridge() {
   return BridgedClass(
-    nativeType: $dcli_36.NotAFileException,
+    nativeType: $dcli_38.NotAFileException,
     name: 'NotAFileException',
-    isAssignable: (v) => v is $dcli_36.NotAFileException,
+    isAssignable: (v) => v is $dcli_38.NotAFileException,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
@@ -10066,24 +10426,24 @@ BridgedClass _createNotAFileExceptionBridge() {
           'path',
           'NotAFileException',
         );
-        return $dcli_36.NotAFileException(path);
+        return $dcli_38.NotAFileException(path);
       },
     },
     getters: {
       'message': (visitor, target) => D4
-          .validateTarget<$dcli_36.NotAFileException>(
+          .validateTarget<$dcli_38.NotAFileException>(
             target,
             'NotAFileException',
           )
           .message,
       'cause': (visitor, target) => D4
-          .validateTarget<$dcli_36.NotAFileException>(
+          .validateTarget<$dcli_38.NotAFileException>(
             target,
             'NotAFileException',
           )
           .cause,
       'stackTrace': (visitor, target) => D4
-          .validateTarget<$dcli_36.NotAFileException>(
+          .validateTarget<$dcli_38.NotAFileException>(
             target,
             'NotAFileException',
           )
@@ -10092,7 +10452,7 @@ BridgedClass _createNotAFileExceptionBridge() {
     setters: {
       'stackTrace': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_36.NotAFileException>(
+              .validateTarget<$dcli_38.NotAFileException>(
                 target,
                 'NotAFileException',
               )
@@ -10103,14 +10463,14 @@ BridgedClass _createNotAFileExceptionBridge() {
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_36.NotAFileException>(
+        final t = D4.validateTarget<$dcli_38.NotAFileException>(
           target,
           'NotAFileException',
         );
         return t.toString();
       },
       'printStackTrace': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_36.NotAFileException>(
+        final t = D4.validateTarget<$dcli_38.NotAFileException>(
           target,
           'NotAFileException',
         );
@@ -10118,14 +10478,14 @@ BridgedClass _createNotAFileExceptionBridge() {
         return null;
       },
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_36.NotAFileException>(
+        final t = D4.validateTarget<$dcli_38.NotAFileException>(
           target,
           'NotAFileException',
         );
         return t.toJson();
       },
       'toJsonString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_36.NotAFileException>(
+        final t = D4.validateTarget<$dcli_38.NotAFileException>(
           target,
           'NotAFileException',
         );
@@ -10154,9 +10514,9 @@ BridgedClass _createNotAFileExceptionBridge() {
 
 BridgedClass _createNamedLockBridge() {
   return BridgedClass(
-    nativeType: $dcli_37.NamedLock,
+    nativeType: $dcli_39.NamedLock,
     name: 'NamedLock',
-    isAssignable: (v) => v is $dcli_37.NamedLock,
+    isAssignable: (v) => v is $dcli_39.NamedLock,
     constructors: {
       '': (visitor, positional, named) {
         final name = D4.getRequiredNamedArg<String>(named, 'name', 'NamedLock');
@@ -10171,7 +10531,7 @@ BridgedClass _createNamedLockBridge() {
           'timeout',
           const Duration(seconds: 30),
         );
-        return $dcli_37.NamedLock(
+        return $dcli_39.NamedLock(
           name: name,
           lockPath: lockPath,
           description: description,
@@ -10181,19 +10541,19 @@ BridgedClass _createNamedLockBridge() {
     },
     getters: {
       'port': (visitor, target) =>
-          D4.validateTarget<$dcli_37.NamedLock>(target, 'NamedLock').port,
+          D4.validateTarget<$dcli_39.NamedLock>(target, 'NamedLock').port,
       'name': (visitor, target) =>
-          D4.validateTarget<$dcli_37.NamedLock>(target, 'NamedLock').name,
+          D4.validateTarget<$dcli_39.NamedLock>(target, 'NamedLock').name,
       'incLockCount': (visitor, target) => D4
-          .validateTarget<$dcli_37.NamedLock>(target, 'NamedLock')
+          .validateTarget<$dcli_39.NamedLock>(target, 'NamedLock')
           .incLockCount,
       'decLockCount': (visitor, target) => D4
-          .validateTarget<$dcli_37.NamedLock>(target, 'NamedLock')
+          .validateTarget<$dcli_39.NamedLock>(target, 'NamedLock')
           .decLockCount,
     },
     methods: {
       'withLockAsync': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_37.NamedLock>(target, 'NamedLock');
+        final t = D4.validateTarget<$dcli_39.NamedLock>(target, 'NamedLock');
         D4.requireMinArgs(positional, 1, 'withLockAsync');
         if (positional.isEmpty) {
           throw ArgumentError(
@@ -10213,7 +10573,7 @@ BridgedClass _createNamedLockBridge() {
         );
       },
       'observe': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_37.NamedLock>(target, 'NamedLock');
+        final t = D4.validateTarget<$dcli_39.NamedLock>(target, 'NamedLock');
         return t.observe();
       },
     },
@@ -10240,9 +10600,9 @@ BridgedClass _createNamedLockBridge() {
 
 BridgedClass _createNamedLockObservationBridge() {
   return BridgedClass(
-    nativeType: $dcli_37.NamedLockObservation,
+    nativeType: $dcli_39.NamedLockObservation,
     name: 'NamedLockObservation',
-    isAssignable: (v) => v is $dcli_37.NamedLockObservation,
+    isAssignable: (v) => v is $dcli_39.NamedLockObservation,
     constructors: {
       'held': (visitor, positional, named) {
         final name = D4.getRequiredNamedArg<String>(
@@ -10265,7 +10625,7 @@ BridgedClass _createNamedLockObservationBridge() {
           'acquiredAt',
           'NamedLockObservation',
         );
-        return $dcli_37.NamedLockObservation.held(
+        return $dcli_39.NamedLockObservation.held(
           name: name,
           ownerPid: ownerPid,
           ownerIsolateId: ownerIsolateId,
@@ -10278,36 +10638,36 @@ BridgedClass _createNamedLockObservationBridge() {
           'name',
           'NamedLockObservation',
         );
-        return $dcli_37.NamedLockObservation.notHeld(name: name);
+        return $dcli_39.NamedLockObservation.notHeld(name: name);
       },
     },
     getters: {
       'name': (visitor, target) => D4
-          .validateTarget<$dcli_37.NamedLockObservation>(
+          .validateTarget<$dcli_39.NamedLockObservation>(
             target,
             'NamedLockObservation',
           )
           .name,
       'isHeld': (visitor, target) => D4
-          .validateTarget<$dcli_37.NamedLockObservation>(
+          .validateTarget<$dcli_39.NamedLockObservation>(
             target,
             'NamedLockObservation',
           )
           .isHeld,
       'ownerPid': (visitor, target) => D4
-          .validateTarget<$dcli_37.NamedLockObservation>(
+          .validateTarget<$dcli_39.NamedLockObservation>(
             target,
             'NamedLockObservation',
           )
           .ownerPid,
       'ownerIsolateId': (visitor, target) => D4
-          .validateTarget<$dcli_37.NamedLockObservation>(
+          .validateTarget<$dcli_39.NamedLockObservation>(
             target,
             'NamedLockObservation',
           )
           .ownerIsolateId,
       'acquiredAt': (visitor, target) => D4
-          .validateTarget<$dcli_37.NamedLockObservation>(
+          .validateTarget<$dcli_39.NamedLockObservation>(
             target,
             'NamedLockObservation',
           )
@@ -10334,9 +10694,9 @@ BridgedClass _createNamedLockObservationBridge() {
 
 BridgedClass _createLockExceptionBridge() {
   return BridgedClass(
-    nativeType: $dcli_37.LockException,
+    nativeType: $dcli_39.LockException,
     name: 'LockException',
-    isAssignable: (v) => v is $dcli_37.LockException,
+    isAssignable: (v) => v is $dcli_39.LockException,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
@@ -10347,24 +10707,24 @@ BridgedClass _createLockExceptionBridge() {
           'message',
           'LockException',
         );
-        return $dcli_37.LockException(message);
+        return $dcli_39.LockException(message);
       },
     },
     getters: {
       'message': (visitor, target) => D4
-          .validateTarget<$dcli_37.LockException>(target, 'LockException')
+          .validateTarget<$dcli_39.LockException>(target, 'LockException')
           .message,
       'cause': (visitor, target) => D4
-          .validateTarget<$dcli_37.LockException>(target, 'LockException')
+          .validateTarget<$dcli_39.LockException>(target, 'LockException')
           .cause,
       'stackTrace': (visitor, target) => D4
-          .validateTarget<$dcli_37.LockException>(target, 'LockException')
+          .validateTarget<$dcli_39.LockException>(target, 'LockException')
           .stackTrace,
     },
     setters: {
       'stackTrace': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_37.LockException>(target, 'LockException')
+              .validateTarget<$dcli_39.LockException>(target, 'LockException')
               .stackTrace = D4.extractBridgedArg<$stack_trace_1.Trace>(
             value,
             'stackTrace',
@@ -10372,14 +10732,14 @@ BridgedClass _createLockExceptionBridge() {
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_37.LockException>(
+        final t = D4.validateTarget<$dcli_39.LockException>(
           target,
           'LockException',
         );
         return t.toString();
       },
       'printStackTrace': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_37.LockException>(
+        final t = D4.validateTarget<$dcli_39.LockException>(
           target,
           'LockException',
         );
@@ -10387,14 +10747,14 @@ BridgedClass _createLockExceptionBridge() {
         return null;
       },
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_37.LockException>(
+        final t = D4.validateTarget<$dcli_39.LockException>(
           target,
           'LockException',
         );
         return t.toJson();
       },
       'toJsonString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_37.LockException>(
+        final t = D4.validateTarget<$dcli_39.LockException>(
           target,
           'LockException',
         );
@@ -10423,17 +10783,17 @@ BridgedClass _createLockExceptionBridge() {
 
 BridgedClass _createProcessHelperBridge() {
   return BridgedClass(
-    nativeType: $dcli_38.ProcessHelper,
+    nativeType: $dcli_40.ProcessHelper,
     name: 'ProcessHelper',
-    isAssignable: (v) => v is $dcli_38.ProcessHelper,
+    isAssignable: (v) => v is $dcli_40.ProcessHelper,
     constructors: {
       '': (visitor, positional, named) {
-        return $dcli_38.ProcessHelper();
+        return $dcli_40.ProcessHelper();
       },
     },
     methods: {
       'getProcessName': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_38.ProcessHelper>(
+        final t = D4.validateTarget<$dcli_40.ProcessHelper>(
           target,
           'ProcessHelper',
         );
@@ -10447,7 +10807,7 @@ BridgedClass _createProcessHelperBridge() {
         return t.getProcessName(pid);
       },
       'getParentPID': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_38.ProcessHelper>(
+        final t = D4.validateTarget<$dcli_40.ProcessHelper>(
           target,
           'ProcessHelper',
         );
@@ -10461,7 +10821,7 @@ BridgedClass _createProcessHelperBridge() {
         return t.getParentPID(childPid);
       },
       'isRunning': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_38.ProcessHelper>(
+        final t = D4.validateTarget<$dcli_40.ProcessHelper>(
           target,
           'ProcessHelper',
         );
@@ -10471,7 +10831,7 @@ BridgedClass _createProcessHelperBridge() {
       },
       'getProcessStartIdentity':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$dcli_38.ProcessHelper>(
+            final t = D4.validateTarget<$dcli_40.ProcessHelper>(
               target,
               'ProcessHelper',
             );
@@ -10485,7 +10845,7 @@ BridgedClass _createProcessHelperBridge() {
             return t.getProcessStartIdentity(pid);
           },
       'isProcessRunning': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_38.ProcessHelper>(
+        final t = D4.validateTarget<$dcli_40.ProcessHelper>(
           target,
           'ProcessHelper',
         );
@@ -10499,14 +10859,14 @@ BridgedClass _createProcessHelperBridge() {
         return t.isProcessRunning(name);
       },
       'getProcesses': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_38.ProcessHelper>(
+        final t = D4.validateTarget<$dcli_40.ProcessHelper>(
           target,
           'ProcessHelper',
         );
         return t.getProcesses();
       },
       'getProcessesByName': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_38.ProcessHelper>(
+        final t = D4.validateTarget<$dcli_40.ProcessHelper>(
           target,
           'ProcessHelper',
         );
@@ -10529,7 +10889,7 @@ BridgedClass _createProcessHelperBridge() {
           'process',
           'parseWMICLine',
         );
-        return $dcli_38.ProcessHelper.parseWMICLine(process);
+        return $dcli_40.ProcessHelper.parseWMICLine(process);
       },
     },
     constructorSignatures: {'': 'factory ProcessHelper()'},
@@ -10556,9 +10916,9 @@ BridgedClass _createProcessHelperBridge() {
 
 BridgedClass _createProcessDetailsBridge() {
   return BridgedClass(
-    nativeType: $dcli_38.ProcessDetails,
+    nativeType: $dcli_40.ProcessDetails,
     name: 'ProcessDetails',
-    isAssignable: (v) => v is $dcli_38.ProcessDetails,
+    isAssignable: (v) => v is $dcli_40.ProcessDetails,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'ProcessDetails');
@@ -10580,30 +10940,30 @@ BridgedClass _createProcessDetailsBridge() {
           'memory',
           'ProcessDetails',
         );
-        return $dcli_38.ProcessDetails(pid, name, memory);
+        return $dcli_40.ProcessDetails(pid, name, memory);
       },
     },
     getters: {
       'pid': (visitor, target) => D4
-          .validateTarget<$dcli_38.ProcessDetails>(target, 'ProcessDetails')
+          .validateTarget<$dcli_40.ProcessDetails>(target, 'ProcessDetails')
           .pid,
       'name': (visitor, target) => D4
-          .validateTarget<$dcli_38.ProcessDetails>(target, 'ProcessDetails')
+          .validateTarget<$dcli_40.ProcessDetails>(target, 'ProcessDetails')
           .name,
       'memoryUnits': (visitor, target) => D4
-          .validateTarget<$dcli_38.ProcessDetails>(target, 'ProcessDetails')
+          .validateTarget<$dcli_40.ProcessDetails>(target, 'ProcessDetails')
           .memoryUnits,
       'memory': (visitor, target) => D4
-          .validateTarget<$dcli_38.ProcessDetails>(target, 'ProcessDetails')
+          .validateTarget<$dcli_40.ProcessDetails>(target, 'ProcessDetails')
           .memory,
       'hashCode': (visitor, target) => D4
-          .validateTarget<$dcli_38.ProcessDetails>(target, 'ProcessDetails')
+          .validateTarget<$dcli_40.ProcessDetails>(target, 'ProcessDetails')
           .hashCode,
     },
     setters: {
       'memoryUnits': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_38.ProcessDetails>(target, 'ProcessDetails')
+              .validateTarget<$dcli_40.ProcessDetails>(target, 'ProcessDetails')
               .memoryUnits = D4.extractBridgedArgOrNull<String>(
             value,
             'memoryUnits',
@@ -10611,12 +10971,12 @@ BridgedClass _createProcessDetailsBridge() {
     },
     methods: {
       'compareTo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_38.ProcessDetails>(
+        final t = D4.validateTarget<$dcli_40.ProcessDetails>(
           target,
           'ProcessDetails',
         );
         D4.requireMinArgs(positional, 1, 'compareTo');
-        final other = D4.getRequiredArg<$dcli_38.ProcessDetails>(
+        final other = D4.getRequiredArg<$dcli_40.ProcessDetails>(
           positional,
           0,
           'other',
@@ -10625,13 +10985,13 @@ BridgedClass _createProcessDetailsBridge() {
         return t.compareTo(other);
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_38.ProcessDetails>(
+        final t = D4.validateTarget<$dcli_40.ProcessDetails>(
           target,
           'ProcessDetails',
         );
         // GEN-103: Dart spec — non-null == null is always false.
         if (positional.isEmpty || positional[0] == null) return false;
-        final other = D4.getRequiredArg<$dcli_38.ProcessDetails>(
+        final other = D4.getRequiredArg<$dcli_40.ProcessDetails>(
           positional,
           0,
           'other',
@@ -10661,38 +11021,38 @@ BridgedClass _createProcessDetailsBridge() {
 
 BridgedClass _createPubCacheBridge() {
   return BridgedClass(
-    nativeType: $dcli_39.PubCache,
+    nativeType: $dcli_41.PubCache,
     name: 'PubCache',
-    isAssignable: (v) => v is $dcli_39.PubCache,
+    isAssignable: (v) => v is $dcli_41.PubCache,
     constructors: {
       '': (visitor, positional, named) {
-        return $dcli_39.PubCache();
+        return $dcli_41.PubCache();
       },
       'forScope': (visitor, positional, named) {
-        return $dcli_39.PubCache.forScope();
+        return $dcli_41.PubCache.forScope();
       },
     },
     getters: {
       'pathTo': (visitor, target) =>
-          D4.validateTarget<$dcli_39.PubCache>(target, 'PubCache').pathTo,
+          D4.validateTarget<$dcli_41.PubCache>(target, 'PubCache').pathTo,
       'pathToBin': (visitor, target) =>
-          D4.validateTarget<$dcli_39.PubCache>(target, 'PubCache').pathToBin,
+          D4.validateTarget<$dcli_41.PubCache>(target, 'PubCache').pathToBin,
       'pathToHosted': (visitor, target) =>
-          D4.validateTarget<$dcli_39.PubCache>(target, 'PubCache').pathToHosted,
+          D4.validateTarget<$dcli_41.PubCache>(target, 'PubCache').pathToHosted,
       'cacheDir': (visitor, target) =>
-          D4.validateTarget<$dcli_39.PubCache>(target, 'PubCache').cacheDir,
+          D4.validateTarget<$dcli_41.PubCache>(target, 'PubCache').cacheDir,
       'pathToDartLang': (visitor, target) => D4
-          .validateTarget<$dcli_39.PubCache>(target, 'PubCache')
+          .validateTarget<$dcli_41.PubCache>(target, 'PubCache')
           .pathToDartLang,
     },
     setters: {
       'pathTo': (visitor, target, value) =>
-          D4.validateTarget<$dcli_39.PubCache>(target, 'PubCache').pathTo = D4
+          D4.validateTarget<$dcli_41.PubCache>(target, 'PubCache').pathTo = D4
               .extractBridgedArg<String>(value, 'pathTo'),
     },
     methods: {
       'pathToPackage': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_39.PubCache>(target, 'PubCache');
+        final t = D4.validateTarget<$dcli_41.PubCache>(target, 'PubCache');
         D4.requireMinArgs(positional, 2, 'pathToPackage');
         final packageName = D4.getRequiredArg<String>(
           positional,
@@ -10709,7 +11069,7 @@ BridgedClass _createPubCacheBridge() {
         return t.pathToPackage(packageName, version);
       },
       'pathToGlobalPackage': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_39.PubCache>(target, 'PubCache');
+        final t = D4.validateTarget<$dcli_41.PubCache>(target, 'PubCache');
         D4.requireMinArgs(positional, 1, 'pathToGlobalPackage');
         final packageName = D4.getRequiredArg<String>(
           positional,
@@ -10720,7 +11080,7 @@ BridgedClass _createPubCacheBridge() {
         return t.pathToGlobalPackage(packageName);
       },
       'isInstalled': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_39.PubCache>(target, 'PubCache');
+        final t = D4.validateTarget<$dcli_41.PubCache>(target, 'PubCache');
         D4.requireMinArgs(positional, 1, 'isInstalled');
         final packageName = D4.getRequiredArg<String>(
           positional,
@@ -10731,7 +11091,7 @@ BridgedClass _createPubCacheBridge() {
         return t.isInstalled(packageName);
       },
       'findPrimaryVersion': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_39.PubCache>(target, 'PubCache');
+        final t = D4.validateTarget<$dcli_41.PubCache>(target, 'PubCache');
         D4.requireMinArgs(positional, 1, 'findPrimaryVersion');
         final packageName = D4.getRequiredArg<String>(
           positional,
@@ -10742,7 +11102,7 @@ BridgedClass _createPubCacheBridge() {
         return t.findPrimaryVersion(packageName);
       },
       'findVersion': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_39.PubCache>(target, 'PubCache');
+        final t = D4.validateTarget<$dcli_41.PubCache>(target, 'PubCache');
         D4.requireMinArgs(positional, 2, 'findVersion');
         final packageName = D4.getRequiredArg<String>(
           positional,
@@ -10759,7 +11119,7 @@ BridgedClass _createPubCacheBridge() {
         return t.findVersion(packageName, requestedVersion);
       },
       'globalActivate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_39.PubCache>(target, 'PubCache');
+        final t = D4.validateTarget<$dcli_41.PubCache>(target, 'PubCache');
         D4.requireMinArgs(positional, 1, 'globalActivate');
         final packageName = D4.getRequiredArg<String>(
           positional,
@@ -10778,7 +11138,7 @@ BridgedClass _createPubCacheBridge() {
       },
       'globalActivateFromSource':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$dcli_39.PubCache>(target, 'PubCache');
+            final t = D4.validateTarget<$dcli_41.PubCache>(target, 'PubCache');
             D4.requireMinArgs(positional, 1, 'globalActivateFromSource');
             final path = D4.getRequiredArg<String>(
               positional,
@@ -10795,7 +11155,7 @@ BridgedClass _createPubCacheBridge() {
             return null;
           },
       'globalDeactivate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_39.PubCache>(target, 'PubCache');
+        final t = D4.validateTarget<$dcli_41.PubCache>(target, 'PubCache');
         D4.requireMinArgs(positional, 1, 'globalDeactivate');
         final packageName = D4.getRequiredArg<String>(
           positional,
@@ -10807,7 +11167,7 @@ BridgedClass _createPubCacheBridge() {
         return null;
       },
       'isGloballyActivated': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_39.PubCache>(target, 'PubCache');
+        final t = D4.validateTarget<$dcli_41.PubCache>(target, 'PubCache');
         D4.requireMinArgs(positional, 1, 'isGloballyActivated');
         final packageName = D4.getRequiredArg<String>(
           positional,
@@ -10819,7 +11179,7 @@ BridgedClass _createPubCacheBridge() {
       },
       'isGloballyActivatedFromSource':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$dcli_39.PubCache>(target, 'PubCache');
+            final t = D4.validateTarget<$dcli_41.PubCache>(target, 'PubCache');
             D4.requireMinArgs(positional, 1, 'isGloballyActivatedFromSource');
             final packageName = D4.getRequiredArg<String>(
               positional,
@@ -10831,12 +11191,12 @@ BridgedClass _createPubCacheBridge() {
           },
     },
     staticGetters: {
-      'scopeKey': (visitor) => $dcli_39.PubCache.scopeKey,
-      'envVarPubCache': (visitor) => $dcli_39.PubCache.envVarPubCache,
+      'scopeKey': (visitor) => $dcli_41.PubCache.scopeKey,
+      'envVarPubCache': (visitor) => $dcli_41.PubCache.envVarPubCache,
     },
     staticSetters: {
-      'scopeKey': (visitor, value) => $dcli_39.PubCache.scopeKey = D4
-          .extractBridgedArg<$scope_1.ScopeKey<$dcli_39.PubCache>>(
+      'scopeKey': (visitor, value) => $dcli_41.PubCache.scopeKey = D4
+          .extractBridgedArg<$scope_1.ScopeKey<$dcli_41.PubCache>>(
             value,
             'scopeKey',
           ),
@@ -10884,17 +11244,17 @@ BridgedClass _createPubCacheBridge() {
 
 BridgedClass _createRemoteBridge() {
   return BridgedClass(
-    nativeType: $dcli_40.Remote,
+    nativeType: $dcli_42.Remote,
     name: 'Remote',
-    isAssignable: (v) => v is $dcli_40.Remote,
+    isAssignable: (v) => v is $dcli_42.Remote,
     constructors: {
       '': (visitor, positional, named) {
-        return $dcli_40.Remote();
+        return $dcli_42.Remote();
       },
     },
     methods: {
       'exec': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_40.Remote>(target, 'Remote');
+        final t = D4.validateTarget<$dcli_42.Remote>(target, 'Remote');
         final host = D4.getRequiredNamedArg<String>(named, 'host', 'exec');
         final command = D4.getRequiredNamedArg<String>(
           named,
@@ -10941,7 +11301,7 @@ BridgedClass _createRemoteBridge() {
         );
       },
       'execList': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_40.Remote>(target, 'Remote');
+        final t = D4.validateTarget<$dcli_42.Remote>(target, 'Remote');
         final host = D4.getRequiredNamedArg<String>(named, 'host', 'execList');
         if (!named.containsKey('commands') || named['commands'] == null) {
           throw ArgumentError(
@@ -10989,7 +11349,7 @@ BridgedClass _createRemoteBridge() {
         );
       },
       'scp': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_40.Remote>(target, 'Remote');
+        final t = D4.validateTarget<$dcli_42.Remote>(target, 'Remote');
         if (!named.containsKey('from') || named['from'] == null) {
           throw ArgumentError('scp: Missing required named argument "from"');
         }
@@ -11045,6 +11405,18 @@ BridgedClass _createRemoteBridge() {
         );
       },
     },
+    staticMethods: {
+      'buildPasswordedCommand': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'buildPasswordedCommand');
+        final commands = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'commands',
+          'buildPasswordedCommand',
+        );
+        return $dcli_42.Remote.buildPasswordedCommand(commands);
+      },
+    },
     constructorSignatures: {'': 'factory Remote()'},
     methodSignatures: {
       'exec':
@@ -11053,6 +11425,10 @@ BridgedClass _createRemoteBridge() {
           'void execList({required String host, required List<String?> commands, bool agent = true, bool sudo = false, String? password, Progress? progress, Encoding encoding = utf8})',
       'scp':
           'void scp({required List<String> from, required String to, String? fromHost, String? toHost, String? fromUser, String? toUser, bool recursive = false, Progress? progress, Encoding encoding = utf8})',
+    },
+    staticMethodSignatures: {
+      'buildPasswordedCommand':
+          'String buildPasswordedCommand(String commands)',
     },
   );
 }
@@ -11395,6 +11771,407 @@ BridgedClass _createWhichBridge() {
 }
 
 // =============================================================================
+// PubSpec Bridge
+// =============================================================================
+
+BridgedClass _createPubSpecBridge() {
+  return BridgedClass(
+    nativeType: $pubspec_manager_1.PubSpec,
+    name: 'PubSpec',
+    isAssignable: (v) => v is $pubspec_manager_1.PubSpec,
+    constructors: {
+      '': (visitor, positional, named) {
+        final name = D4.getRequiredNamedArg<String>(named, 'name', 'PubSpec');
+        final version = D4.getOptionalNamedArg<String?>(named, 'version');
+        final description = D4.getOptionalNamedArg<String?>(
+          named,
+          'description',
+        );
+        final environment = D4
+            .getOptionalNamedArg<$pubspec_manager_1.EnvironmentBuilder?>(
+              named,
+              'environment',
+            );
+        return $pubspec_manager_1.PubSpec(
+          name: name,
+          version: version,
+          description: description,
+          environment: environment,
+        );
+      },
+      'loadFromString': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'PubSpec');
+        final content = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'content',
+          'PubSpec',
+        );
+        return $pubspec_manager_1.PubSpec.loadFromString(content);
+      },
+      'load': (visitor, positional, named) {
+        final directory = D4.getOptionalNamedArg<String?>(named, 'directory');
+        final filename = D4.getNamedArgWithDefault<String>(
+          named,
+          'filename',
+          'pubspec.yaml',
+        );
+        final search = D4.getNamedArgWithDefault<bool>(named, 'search', true);
+        return $pubspec_manager_1.PubSpec.load(
+          directory: directory,
+          filename: filename,
+          search: search,
+        );
+      },
+      'loadFromPath': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'PubSpec');
+        final pathTo = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'pathTo',
+          'PubSpec',
+        );
+        return $pubspec_manager_1.PubSpec.loadFromPath(pathTo);
+      },
+    },
+    getters: {
+      'document': (visitor, target) => D4
+          .validateTarget<$pubspec_manager_1.PubSpec>(target, 'PubSpec')
+          .document,
+      'name': (visitor, target) =>
+          D4.validateTarget<$pubspec_manager_1.PubSpec>(target, 'PubSpec').name,
+      'version': (visitor, target) => D4
+          .validateTarget<$pubspec_manager_1.PubSpec>(target, 'PubSpec')
+          .version,
+      'description': (visitor, target) => D4
+          .validateTarget<$pubspec_manager_1.PubSpec>(target, 'PubSpec')
+          .description,
+      'environment': (visitor, target) => D4
+          .validateTarget<$pubspec_manager_1.PubSpec>(target, 'PubSpec')
+          .environment,
+      'homepage': (visitor, target) => D4
+          .validateTarget<$pubspec_manager_1.PubSpec>(target, 'PubSpec')
+          .homepage,
+      'publishTo': (visitor, target) => D4
+          .validateTarget<$pubspec_manager_1.PubSpec>(target, 'PubSpec')
+          .publishTo,
+      'repository': (visitor, target) => D4
+          .validateTarget<$pubspec_manager_1.PubSpec>(target, 'PubSpec')
+          .repository,
+      'issueTracker': (visitor, target) => D4
+          .validateTarget<$pubspec_manager_1.PubSpec>(target, 'PubSpec')
+          .issueTracker,
+      'documentation': (visitor, target) => D4
+          .validateTarget<$pubspec_manager_1.PubSpec>(target, 'PubSpec')
+          .documentation,
+      'funding': (visitor, target) => D4
+          .validateTarget<$pubspec_manager_1.PubSpec>(target, 'PubSpec')
+          .funding,
+      'falseSecrets': (visitor, target) => D4
+          .validateTarget<$pubspec_manager_1.PubSpec>(target, 'PubSpec')
+          .falseSecrets,
+      'topics': (visitor, target) => D4
+          .validateTarget<$pubspec_manager_1.PubSpec>(target, 'PubSpec')
+          .topics,
+      'ignoredAdvisories': (visitor, target) => D4
+          .validateTarget<$pubspec_manager_1.PubSpec>(target, 'PubSpec')
+          .ignoredAdvisories,
+      'screenshots': (visitor, target) => D4
+          .validateTarget<$pubspec_manager_1.PubSpec>(target, 'PubSpec')
+          .screenshots,
+      'dependencies': (visitor, target) => D4
+          .validateTarget<$pubspec_manager_1.PubSpec>(target, 'PubSpec')
+          .dependencies,
+      'devDependencies': (visitor, target) => D4
+          .validateTarget<$pubspec_manager_1.PubSpec>(target, 'PubSpec')
+          .devDependencies,
+      'dependencyOverrides': (visitor, target) => D4
+          .validateTarget<$pubspec_manager_1.PubSpec>(target, 'PubSpec')
+          .dependencyOverrides,
+      'platforms': (visitor, target) => D4
+          .validateTarget<$pubspec_manager_1.PubSpec>(target, 'PubSpec')
+          .platforms,
+      'executables': (visitor, target) => D4
+          .validateTarget<$pubspec_manager_1.PubSpec>(target, 'PubSpec')
+          .executables,
+      'loadedFrom': (visitor, target) => D4
+          .validateTarget<$pubspec_manager_1.PubSpec>(target, 'PubSpec')
+          .loadedFrom,
+    },
+    setters: {
+      'document': (visitor, target, value) =>
+          D4
+              .validateTarget<$pubspec_manager_1.PubSpec>(target, 'PubSpec')
+              .document = D4.extractBridgedArg<$pubspec_manager_1.Document>(
+            value,
+            'document',
+          ),
+      'name': (visitor, target, value) =>
+          D4
+              .validateTarget<$pubspec_manager_1.PubSpec>(target, 'PubSpec')
+              .name = D4.extractBridgedArg<$pubspec_manager_1.Name>(
+            value,
+            'name',
+          ),
+      'version': (visitor, target, value) =>
+          D4
+              .validateTarget<$pubspec_manager_1.PubSpec>(target, 'PubSpec')
+              .version = D4.extractBridgedArg<$pubspec_manager_1.Version>(
+            value,
+            'version',
+          ),
+      'description': (visitor, target, value) =>
+          D4
+              .validateTarget<$pubspec_manager_1.PubSpec>(target, 'PubSpec')
+              .description = D4
+              .extractBridgedArg<$pubspec_manager_1.Description>(
+                value,
+                'description',
+              ),
+      'environment': (visitor, target, value) =>
+          D4
+              .validateTarget<$pubspec_manager_1.PubSpec>(target, 'PubSpec')
+              .environment = D4
+              .extractBridgedArg<$pubspec_manager_1.Environment>(
+                value,
+                'environment',
+              ),
+      'homepage': (visitor, target, value) =>
+          D4
+              .validateTarget<$pubspec_manager_1.PubSpec>(target, 'PubSpec')
+              .homepage = D4.extractBridgedArg<$pubspec_manager_1.Homepage>(
+            value,
+            'homepage',
+          ),
+      'publishTo': (visitor, target, value) =>
+          D4
+              .validateTarget<$pubspec_manager_1.PubSpec>(target, 'PubSpec')
+              .publishTo = D4.extractBridgedArg<$pubspec_manager_1.PublishTo>(
+            value,
+            'publishTo',
+          ),
+      'repository': (visitor, target, value) =>
+          D4
+              .validateTarget<$pubspec_manager_1.PubSpec>(target, 'PubSpec')
+              .repository = D4.extractBridgedArg<$pubspec_manager_1.Repository>(
+            value,
+            'repository',
+          ),
+      'issueTracker': (visitor, target, value) =>
+          D4
+              .validateTarget<$pubspec_manager_1.PubSpec>(target, 'PubSpec')
+              .issueTracker = D4
+              .extractBridgedArg<$pubspec_manager_1.IssueTracker>(
+                value,
+                'issueTracker',
+              ),
+      'documentation': (visitor, target, value) =>
+          D4
+              .validateTarget<$pubspec_manager_1.PubSpec>(target, 'PubSpec')
+              .documentation = D4
+              .extractBridgedArg<$pubspec_manager_1.Documentation>(
+                value,
+                'documentation',
+              ),
+      'funding': (visitor, target, value) =>
+          D4
+              .validateTarget<$pubspec_manager_1.PubSpec>(target, 'PubSpec')
+              .funding = D4
+              .extractBridgedArg<$pubspec_manager_1.StringListSection>(
+                value,
+                'funding',
+              ),
+      'falseSecrets': (visitor, target, value) =>
+          D4
+              .validateTarget<$pubspec_manager_1.PubSpec>(target, 'PubSpec')
+              .falseSecrets = D4
+              .extractBridgedArg<$pubspec_manager_1.StringListSection>(
+                value,
+                'falseSecrets',
+              ),
+      'topics': (visitor, target, value) =>
+          D4
+              .validateTarget<$pubspec_manager_1.PubSpec>(target, 'PubSpec')
+              .topics = D4
+              .extractBridgedArg<$pubspec_manager_1.StringListSection>(
+                value,
+                'topics',
+              ),
+      'ignoredAdvisories': (visitor, target, value) =>
+          D4
+              .validateTarget<$pubspec_manager_1.PubSpec>(target, 'PubSpec')
+              .ignoredAdvisories = D4
+              .extractBridgedArg<$pubspec_manager_1.StringListSection>(
+                value,
+                'ignoredAdvisories',
+              ),
+      'screenshots': (visitor, target, value) =>
+          D4
+              .validateTarget<$pubspec_manager_1.PubSpec>(target, 'PubSpec')
+              .screenshots = D4
+              .extractBridgedArg<$pubspec_manager_1.Screenshots>(
+                value,
+                'screenshots',
+              ),
+      'dependencies': (visitor, target, value) =>
+          D4
+              .validateTarget<$pubspec_manager_1.PubSpec>(target, 'PubSpec')
+              .dependencies = D4
+              .extractBridgedArg<$pubspec_manager_1.Dependencies>(
+                value,
+                'dependencies',
+              ),
+      'devDependencies': (visitor, target, value) =>
+          D4
+              .validateTarget<$pubspec_manager_1.PubSpec>(target, 'PubSpec')
+              .devDependencies = D4
+              .extractBridgedArg<$pubspec_manager_1.Dependencies>(
+                value,
+                'devDependencies',
+              ),
+      'dependencyOverrides': (visitor, target, value) =>
+          D4
+              .validateTarget<$pubspec_manager_1.PubSpec>(target, 'PubSpec')
+              .dependencyOverrides = D4
+              .extractBridgedArg<$pubspec_manager_1.Dependencies>(
+                value,
+                'dependencyOverrides',
+              ),
+      'platforms': (visitor, target, value) =>
+          D4
+              .validateTarget<$pubspec_manager_1.PubSpec>(target, 'PubSpec')
+              .platforms = D4.extractBridgedArg<$pubspec_manager_1.Platforms>(
+            value,
+            'platforms',
+          ),
+      'executables': (visitor, target, value) =>
+          D4
+              .validateTarget<$pubspec_manager_1.PubSpec>(target, 'PubSpec')
+              .executables = D4
+              .extractBridgedArg<$pubspec_manager_1.Executables>(
+                value,
+                'executables',
+              ),
+    },
+    methods: {
+      'save': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pubspec_manager_1.PubSpec>(
+          target,
+          'PubSpec',
+        );
+        final directory = D4.getOptionalNamedArg<String?>(named, 'directory');
+        final filename = D4.getOptionalNamedArg<String?>(named, 'filename');
+        t.save(directory: directory, filename: filename);
+        return null;
+      },
+      'write': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pubspec_manager_1.PubSpec>(
+          target,
+          'PubSpec',
+        );
+        D4.requireMinArgs(positional, 1, 'write');
+        final writer = D4.getRequiredArg<$pubspec_manager_1.Writer>(
+          positional,
+          0,
+          'writer',
+          'write',
+        );
+        t.write(writer);
+        return null;
+      },
+      'saveTo': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pubspec_manager_1.PubSpec>(
+          target,
+          'PubSpec',
+        );
+        D4.requireMinArgs(positional, 1, 'saveTo');
+        final pathTo = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'pathTo',
+          'saveTo',
+        );
+        t.saveTo(pathTo);
+        return null;
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$pubspec_manager_1.PubSpec>(
+          target,
+          'PubSpec',
+        );
+        return t.toString();
+      },
+    },
+    staticMethods: {
+      'isRoot': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'isRoot');
+        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'isRoot');
+        return $pubspec_manager_1.PubSpec.isRoot(path);
+      },
+    },
+    constructorSignatures: {
+      '': 'PubSpec({required String name, String? version, String? description, EnvironmentBuilder? environment})',
+      'loadFromString': 'factory PubSpec.loadFromString(String content)',
+      'load':
+          'factory PubSpec.load({String? directory, String filename = \'pubspec.yaml\', bool search = true})',
+      'loadFromPath': 'factory PubSpec.loadFromPath(String pathTo)',
+    },
+    methodSignatures: {
+      'save': 'void save({String? directory, String? filename})',
+      'write': 'void write(Writer writer)',
+      'saveTo': 'void saveTo(String pathTo)',
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'document': 'Document get document',
+      'name': 'Name get name',
+      'version': 'Version get version',
+      'description': 'Description get description',
+      'environment': 'Environment get environment',
+      'homepage': 'Homepage get homepage',
+      'publishTo': 'PublishTo get publishTo',
+      'repository': 'Repository get repository',
+      'issueTracker': 'IssueTracker get issueTracker',
+      'documentation': 'Documentation get documentation',
+      'funding': 'StringListSection get funding',
+      'falseSecrets': 'StringListSection get falseSecrets',
+      'topics': 'StringListSection get topics',
+      'ignoredAdvisories': 'StringListSection get ignoredAdvisories',
+      'screenshots': 'Screenshots get screenshots',
+      'dependencies': 'Dependencies get dependencies',
+      'devDependencies': 'Dependencies get devDependencies',
+      'dependencyOverrides': 'Dependencies get dependencyOverrides',
+      'platforms': 'Platforms get platforms',
+      'executables': 'Executables get executables',
+      'loadedFrom': 'String get loadedFrom',
+    },
+    setterSignatures: {
+      'document': 'set document(dynamic value)',
+      'name': 'set name(dynamic value)',
+      'version': 'set version(dynamic value)',
+      'description': 'set description(dynamic value)',
+      'environment': 'set environment(dynamic value)',
+      'homepage': 'set homepage(dynamic value)',
+      'publishTo': 'set publishTo(dynamic value)',
+      'repository': 'set repository(dynamic value)',
+      'issueTracker': 'set issueTracker(dynamic value)',
+      'documentation': 'set documentation(dynamic value)',
+      'funding': 'set funding(dynamic value)',
+      'falseSecrets': 'set falseSecrets(dynamic value)',
+      'topics': 'set topics(dynamic value)',
+      'ignoredAdvisories': 'set ignoredAdvisories(dynamic value)',
+      'screenshots': 'set screenshots(dynamic value)',
+      'dependencies': 'set dependencies(dynamic value)',
+      'devDependencies': 'set devDependencies(dynamic value)',
+      'dependencyOverrides': 'set dependencyOverrides(dynamic value)',
+      'platforms': 'set platforms(dynamic value)',
+      'executables': 'set executables(dynamic value)',
+    },
+    staticMethodSignatures: {'isRoot': 'bool isRoot(String path)'},
+  );
+}
+
+// =============================================================================
 // ScopeKey Bridge
 // =============================================================================
 
@@ -11495,8 +12272,8 @@ BridgedClass _createScopeKeyBridge() {
             return $scope_1.ScopeKey<
               $dcli_core_6.DCliFunctionException
             >.withDefault(defaultValue, debugName);
-          case $dcli_22.DartProjectException _:
-            return $scope_1.ScopeKey<$dcli_22.DartProjectException>.withDefault(
+          case $dcli_23.DartProjectException _:
+            return $scope_1.ScopeKey<$dcli_23.DartProjectException>.withDefault(
               defaultValue,
               debugName,
             );
@@ -11505,39 +12282,44 @@ BridgedClass _createScopeKeyBridge() {
               defaultValue,
               debugName,
             );
-          case $dcli_36.FileNotFoundException _:
+          case $dcli_38.FileNotFoundException _:
             return $scope_1.ScopeKey<
-              $dcli_36.FileNotFoundException
+              $dcli_38.FileNotFoundException
             >.withDefault(defaultValue, debugName);
-          case $dcli_33.InstallException _:
-            return $scope_1.ScopeKey<$dcli_33.InstallException>.withDefault(
+          case $dcli_35.InstallException _:
+            return $scope_1.ScopeKey<$dcli_35.InstallException>.withDefault(
               defaultValue,
               debugName,
             );
-          case $dcli_33.InvalidArgumentException _:
+          case $dcli_35.InvalidArgumentException _:
             return $scope_1.ScopeKey<
-              $dcli_33.InvalidArgumentException
+              $dcli_35.InvalidArgumentException
             >.withDefault(defaultValue, debugName);
-          case $dcli_22.InvalidProjectTemplateException _:
+          case $dcli_23.InvalidProjectTemplateException _:
             return $scope_1.ScopeKey<
-              $dcli_22.InvalidProjectTemplateException
+              $dcli_23.InvalidProjectTemplateException
             >.withDefault(defaultValue, debugName);
-          case $dcli_33.InvalidTemplateException _:
+          case $dcli_35.InvalidTemplateException _:
             return $scope_1.ScopeKey<
-              $dcli_33.InvalidTemplateException
+              $dcli_35.InvalidTemplateException
             >.withDefault(defaultValue, debugName);
-          case $dcli_37.LockException _:
-            return $scope_1.ScopeKey<$dcli_37.LockException>.withDefault(
+          case $dcli_39.LockException _:
+            return $scope_1.ScopeKey<$dcli_39.LockException>.withDefault(
               defaultValue,
               debugName,
             );
-          case $dcli_36.NotAFileException _:
-            return $scope_1.ScopeKey<$dcli_36.NotAFileException>.withDefault(
+          case $dcli_38.NotAFileException _:
+            return $scope_1.ScopeKey<$dcli_38.NotAFileException>.withDefault(
               defaultValue,
               debugName,
             );
-          case $dcli_33.ProcessSyncException _:
-            return $scope_1.ScopeKey<$dcli_33.ProcessSyncException>.withDefault(
+          case $dcli_35.ProcessSyncException _:
+            return $scope_1.ScopeKey<$dcli_35.ProcessSyncException>.withDefault(
+              defaultValue,
+              debugName,
+            );
+          case $dcli_26.PubGetException _:
+            return $scope_1.ScopeKey<$dcli_26.PubGetException>.withDefault(
               defaultValue,
               debugName,
             );
@@ -11555,17 +12337,17 @@ BridgedClass _createScopeKeyBridge() {
               defaultValue,
               debugName,
             );
-          case $dcli_26.ShellException _:
-            return $scope_1.ScopeKey<$dcli_26.ShellException>.withDefault(
+          case $dcli_28.ShellException _:
+            return $scope_1.ScopeKey<$dcli_28.ShellException>.withDefault(
               defaultValue,
               debugName,
             );
-          case $dcli_22.TemplateNotFoundException _:
+          case $dcli_23.TemplateNotFoundException _:
             return $scope_1.ScopeKey<
-              $dcli_22.TemplateNotFoundException
+              $dcli_23.TemplateNotFoundException
             >.withDefault(defaultValue, debugName);
-          case $dcli_28.UnknownShell _:
-            return $scope_1.ScopeKey<$dcli_28.UnknownShell>.withDefault(
+          case $dcli_30.UnknownShell _:
+            return $scope_1.ScopeKey<$dcli_30.UnknownShell>.withDefault(
               defaultValue,
               debugName,
             );
@@ -11624,8 +12406,13 @@ BridgedClass _createScopeKeyBridge() {
               defaultValue,
               debugName,
             );
-          case $dcli_34.Column _:
-            return $scope_1.ScopeKey<$dcli_34.Column>.withDefault(
+          case $dcli_36.Column _:
+            return $scope_1.ScopeKey<$dcli_36.Column>.withDefault(
+              defaultValue,
+              debugName,
+            );
+          case $dcli_22.CompiledExecutable _:
+            return $scope_1.ScopeKey<$dcli_22.CompiledExecutable>.withDefault(
               defaultValue,
               debugName,
             );
@@ -11639,23 +12426,23 @@ BridgedClass _createScopeKeyBridge() {
               defaultValue,
               debugName,
             );
-          case $dcli_30.DCliPaths _:
-            return $scope_1.ScopeKey<$dcli_30.DCliPaths>.withDefault(
+          case $dcli_32.DCliPaths _:
+            return $scope_1.ScopeKey<$dcli_32.DCliPaths>.withDefault(
               defaultValue,
               debugName,
             );
-          case $dcli_22.DartProject _:
-            return $scope_1.ScopeKey<$dcli_22.DartProject>.withDefault(
+          case $dcli_23.DartProject _:
+            return $scope_1.ScopeKey<$dcli_23.DartProject>.withDefault(
               defaultValue,
               debugName,
             );
-          case $dcli_23.DartScript _:
-            return $scope_1.ScopeKey<$dcli_23.DartScript>.withDefault(
+          case $dcli_24.DartScript _:
+            return $scope_1.ScopeKey<$dcli_24.DartScript>.withDefault(
               defaultValue,
               debugName,
             );
-          case $dcli_24.DartSdk _:
-            return $scope_1.ScopeKey<$dcli_24.DartSdk>.withDefault(
+          case $dcli_25.DartSdk _:
+            return $scope_1.ScopeKey<$dcli_25.DartSdk>.withDefault(
               defaultValue,
               debugName,
             );
@@ -11674,13 +12461,13 @@ BridgedClass _createScopeKeyBridge() {
               defaultValue,
               debugName,
             );
-          case $dcli_34.FileSort _:
-            return $scope_1.ScopeKey<$dcli_34.FileSort>.withDefault(
+          case $dcli_36.FileSort _:
+            return $scope_1.ScopeKey<$dcli_36.FileSort>.withDefault(
               defaultValue,
               debugName,
             );
-          case $dcli_35.FileSync _:
-            return $scope_1.ScopeKey<$dcli_35.FileSync>.withDefault(
+          case $dcli_37.FileSync _:
+            return $scope_1.ScopeKey<$dcli_37.FileSync>.withDefault(
               defaultValue,
               debugName,
             );
@@ -11694,13 +12481,13 @@ BridgedClass _createScopeKeyBridge() {
               defaultValue,
               debugName,
             );
-          case $dcli_37.NamedLock _:
-            return $scope_1.ScopeKey<$dcli_37.NamedLock>.withDefault(
+          case $dcli_39.NamedLock _:
+            return $scope_1.ScopeKey<$dcli_39.NamedLock>.withDefault(
               defaultValue,
               debugName,
             );
-          case $dcli_37.NamedLockObservation _:
-            return $scope_1.ScopeKey<$dcli_37.NamedLockObservation>.withDefault(
+          case $dcli_39.NamedLockObservation _:
+            return $scope_1.ScopeKey<$dcli_39.NamedLockObservation>.withDefault(
               defaultValue,
               debugName,
             );
@@ -11709,13 +12496,18 @@ BridgedClass _createScopeKeyBridge() {
               defaultValue,
               debugName,
             );
-          case $dcli_38.ProcessDetails _:
-            return $scope_1.ScopeKey<$dcli_38.ProcessDetails>.withDefault(
+          case $dcli_20.PackedResourcePart _:
+            return $scope_1.ScopeKey<$dcli_20.PackedResourcePart>.withDefault(
               defaultValue,
               debugName,
             );
-          case $dcli_38.ProcessHelper _:
-            return $scope_1.ScopeKey<$dcli_38.ProcessHelper>.withDefault(
+          case $dcli_40.ProcessDetails _:
+            return $scope_1.ScopeKey<$dcli_40.ProcessDetails>.withDefault(
+              defaultValue,
+              debugName,
+            );
+          case $dcli_40.ProcessHelper _:
+            return $scope_1.ScopeKey<$dcli_40.ProcessHelper>.withDefault(
               defaultValue,
               debugName,
             );
@@ -11724,13 +12516,18 @@ BridgedClass _createScopeKeyBridge() {
               defaultValue,
               debugName,
             );
-          case $dcli_39.PubCache _:
-            return $scope_1.ScopeKey<$dcli_39.PubCache>.withDefault(
+          case $dcli_41.PubCache _:
+            return $scope_1.ScopeKey<$dcli_41.PubCache>.withDefault(
               defaultValue,
               debugName,
             );
-          case $dcli_40.Remote _:
-            return $scope_1.ScopeKey<$dcli_40.Remote>.withDefault(
+          case $pubspec_manager_1.PubSpec _:
+            return $scope_1.ScopeKey<$pubspec_manager_1.PubSpec>.withDefault(
+              defaultValue,
+              debugName,
+            );
+          case $dcli_42.Remote _:
+            return $scope_1.ScopeKey<$dcli_42.Remote>.withDefault(
               defaultValue,
               debugName,
             );
@@ -11739,18 +12536,18 @@ BridgedClass _createScopeKeyBridge() {
               defaultValue,
               debugName,
             );
-          case $dcli_25.Settings _:
-            return $scope_1.ScopeKey<$dcli_25.Settings>.withDefault(
+          case $dcli_27.Settings _:
+            return $scope_1.ScopeKey<$dcli_27.Settings>.withDefault(
               defaultValue,
               debugName,
             );
-          case $dcli_26.Shell _:
-            return $scope_1.ScopeKey<$dcli_26.Shell>.withDefault(
+          case $dcli_28.Shell _:
+            return $scope_1.ScopeKey<$dcli_28.Shell>.withDefault(
               defaultValue,
               debugName,
             );
-          case $dcli_27.ShellDetection _:
-            return $scope_1.ScopeKey<$dcli_27.ShellDetection>.withDefault(
+          case $dcli_29.ShellDetection _:
+            return $scope_1.ScopeKey<$dcli_29.ShellDetection>.withDefault(
               defaultValue,
               debugName,
             );

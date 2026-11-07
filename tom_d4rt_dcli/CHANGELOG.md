@@ -1,3 +1,15 @@
+## 1.14.0
+
+### Changed — on dcli 10.4 and pubspec_manager ^4 (vstdm12)
+
+`dcli` ^10.4.7, `dcli_core` and `dcli_terminal` ^10.4.0, and `pubspec_manager`
+^4.1.0, up from dcli ^10.0.0 and pubspec_manager ^3.2.1. Every dcli from
+10.1.0 on requires pubspec_manager ^4, so the old pin held every package
+depending on this one on dcli 10.0.0, whatever its own dcli floor said. The
+dcli bridges are regenerated against 10.4.7: scripts now also reach
+`CompiledExecutable`, `PackedResourcePart`, `PubGetException` and `PubSpec`.
+No bridged class was removed.
+
 ## 1.13.0
 
 ### Changed — on tom_d4rt 1.231.1; the D4rt bridge has the async entry points

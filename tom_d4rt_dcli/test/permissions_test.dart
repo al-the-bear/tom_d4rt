@@ -9,6 +9,18 @@ import 'package:dcli/dcli.dart';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 
+/// A permission check on a missing path: dcli throws, naming the path. The
+/// exception is posix's `StatException`, named here rather than imported
+/// because `posix` is only a transitive dependency.
+Matcher throwsMissingPath(String path) => throwsA(
+  predicate<Object>(
+    (e) =>
+        e.runtimeType.toString() == 'StatException' &&
+        e.toString().contains('No such file or directory $path'),
+    'StatException naming $path',
+  ),
+);
+
 /// Whether upstream dcli can see that this process owns the files it creates.
 ///
 /// dcli (8.4.2 through at least 10.0.0) decides the owner and group branches of
@@ -108,10 +120,11 @@ void main() {
     test('throws for non-existent file', () {
       final path = p.join(testDir, 'nonexistent');
 
-      // DCli permission functions use stat internally which throws on non-existent files
-      // Use exists() check before calling permission functions
+      // dcli 10.4 stats the path first and throws posix's StatException
+      // (`No such file or directory <path>`) for a missing one; 10.0 threw
+      // RunException. Check exists() before a permission function.
       expect(exists(path), isFalse);
-      expect(() => isReadable(path), throwsA(isA<RunException>()));
+      expect(() => isReadable(path), throwsMissingPath(path));
     });
 
     test('handles symlink', () {
@@ -142,9 +155,11 @@ void main() {
     test('throws for non-existent file', () {
       final path = p.join(testDir, 'nonexistent');
 
-      // DCli permission functions use stat internally which throws on non-existent files
+      // dcli 10.4 stats the path first and throws posix's StatException
+      // (`No such file or directory <path>`) for a missing one; 10.0 threw
+      // RunException. Check exists() before a permission function.
       expect(exists(path), isFalse);
-      expect(() => isWritable(path), throwsA(isA<RunException>()));
+      expect(() => isWritable(path), throwsMissingPath(path));
     });
 
     ownerTest('can write to writable file', () {
@@ -179,9 +194,11 @@ void main() {
     test('throws for non-existent file', () {
       final path = p.join(testDir, 'nonexistent');
 
-      // DCli permission functions use stat internally which throws on non-existent files
+      // dcli 10.4 stats the path first and throws posix's StatException
+      // (`No such file or directory <path>`) for a missing one; 10.0 threw
+      // RunException. Check exists() before a permission function.
       expect(exists(path), isFalse);
-      expect(() => isExecutable(path), throwsA(isA<RunException>()));
+      expect(() => isExecutable(path), throwsMissingPath(path));
     });
 
     test('directories are typically executable (traversable)', () {
