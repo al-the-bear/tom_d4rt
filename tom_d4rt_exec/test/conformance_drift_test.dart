@@ -408,7 +408,17 @@ const _partialTwinBudget = 0;
 /// port would have added is set literals and `.where(…)` over list literals,
 /// which the corpus copies on every run.
 ///
-const _copierGapBudget = 41;
+/// 41 -> 42: QR1 added `qr1_static_field_increment_test.dart`, which runs
+/// source to ask where `++` / `--` on a static field lands, and whether a
+/// shadowing parameter or local in a static member keeps its writes to itself.
+/// Exec resolves tom_d4rt_ast from pub.dev, where the increment still mints a
+/// per-instance shadow (or is refused for `Class.n++`) until the batch release
+/// (ghissues10), so a port would assert the fix against an interpreter that
+/// does not have it. Its ast twin holds the mechanism. The copier surface a
+/// port would have added is prefix and postfix expressions over simple and
+/// prefixed identifiers, which the corpus copies on every run.
+///
+const _copierGapBudget = 42;
 
 const Map<String, _Coverage> _coveredElsewhere = {
   'sce208_bind_forwarding_source_errors_test.dart': _Coverage(
@@ -455,6 +465,22 @@ const Map<String, _Coverage> _coveredElsewhere = {
         'is a REAL-DART comparison rather than a property of either '
         'interpreter — restating it as bundles would assert the SDK against '
         'itself.',
+  ),
+  'qr1_static_field_increment_test.dart': _Coverage(
+    'ast:runtime/qr1_static_field_increment_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 10,
+    twinCases: 6,
+    whyPartial:
+        'the twin pins each CAUSE once - a bare static through implicit '
+        '`this`, a bare static in a static member\'s snapshot, a class '
+        'target, a shadowing parameter, and prefix `++` on an instance field '
+        '- which is what only that tree can answer, since `_assignBareName`, '
+        '`_stepStaticProperty` and the snapshot bookkeeping are its own '
+        'copies. The reference adds the remaining SPELLINGS (decrement, '
+        'compound, prefix values, the qualified form from outside, setters), '
+        'which a hand-built bundle would only restate.',
   ),
   'sce125_bare_static_write_test.dart': _Coverage(
     'ast:runtime/sce125_bare_static_write_test.dart',
@@ -3317,12 +3343,11 @@ const Map<String, String> _astDriftFingerprints = <String, String>{
 // The type is the contract — `null` is how "nothing blocks the publish" is
 // expressed, and that is the state this constant returns to. The lint reasons
 // from today's value alone.
-// tom_d4rt 1.210.0 / tom_d4rt_ast 0.195.0 are published (scf34), and scf35
-// landed interpreter work behind them (scheduleMicrotask, 0.196.0), so the
-// tree is ahead of the release again. sch4 (which absorbed scf42 and then
-// scg2) owns the next release and sets this back to `null`.
+// QR1 (2026-11-07): the tree is ahead of tom_d4rt_ast 0.212.1 again, and by
+// the user's decision the fixes of the ghissues* / qr* batch are published
+// together, once, by ghissues10 - which sets this back to `null`.
 // ignore: unnecessary_nullable_for_final_variable_declarations
-const String? _astPublishBlock = null;
+const String? _astPublishBlock = 'ghissues10_akgl';
 
 /// One baseline entry and the comment block written directly above it.
 typedef _BaselineEntry = ({String path, String comment});

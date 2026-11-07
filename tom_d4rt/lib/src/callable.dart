@@ -905,7 +905,12 @@ class InterpretedFunction implements Callable {
       // bare-identifier write to a snapshotted field (`value = value + 1`) is
       // propagated back to the class's authoritative static slot, not just the
       // discarded local snapshot. See [Environment.staticFieldSnapshotOwner].
-      executionEnvironment.staticFieldSnapshotOwner = ownerClass;
+      // QR1: the parameters and locals defined after this replace the
+      // snapshot binding of their name, and are not propagated.
+      executionEnvironment.markStaticFieldSnapshot(
+        ownerClass,
+        ownerClass.staticFields.keys,
+      );
     }
 
     // Handle type parameters (generics) if provided

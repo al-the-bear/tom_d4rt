@@ -62,7 +62,9 @@ dependencies:
   # version — otherwise a stale `.sum` throws "Missing library" while linking a
   # subclass's supertype, which the generator swallows and silently drops the
   # affected classes (observed: the JWT bridge surface vanishing, RCJ6).
-  tom_analyzer_shared: ^0.8.0
+  # Floor 0.10.0: the cache is keyed by the analyzer's data version, so
+  # bundles another analyzer minor wrote on the same SDK are never read.
+  tom_analyzer_shared: ^0.10.0
   dart_style: ^3.1.11
   pub_semver: ^2.2.1
 

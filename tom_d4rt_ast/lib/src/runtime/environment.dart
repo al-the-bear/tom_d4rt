@@ -300,10 +300,34 @@ class Environment {
   /// static slot (`InterpretedClass.setStaticField`). Without it, the write
   /// would only mutate the discarded local snapshot and never survive the call.
   ///
-  /// Only set on the static-member execution environment itself; a shadowing
-  /// local declared in a nested block lives in a different (unmarked)
-  /// environment, so the propagation stays shadow-safe.
+  /// Only set on the static-member execution environment itself. That
+  /// environment also receives the member's parameters and top-level locals,
+  /// so the marker alone does not make a name a snapshot binding:
+  /// [holdsStaticFieldSnapshot] says which names still are.
   InterpretedClass? staticFieldSnapshotOwner;
+
+  /// The names whose binding here is still the static-field snapshot.
+  ///
+  /// QR1. A parameter or local of a static member that shares a static
+  /// field's name is defined into the snapshot environment too, replacing the
+  /// snapshot binding; the write-back propagation used to treat it as the
+  /// static all the same, so `static int f(int n) { n = n + 1; ... }` wrote
+  /// the class's `n`. [define] removes a name from this set.
+  final Set<String> _staticSnapshotNames = {};
+
+  /// Marks this environment as [owner]'s static-field snapshot, holding the
+  /// snapshot of [names] (defined just before).
+  void markStaticFieldSnapshot(InterpretedClass owner, Iterable<String> names) {
+    staticFieldSnapshotOwner = owner;
+    _staticSnapshotNames
+      ..clear()
+      ..addAll(names);
+  }
+
+  /// Whether [name]'s binding in this environment is still the static-field
+  /// snapshot, not a parameter or local defined over it.
+  bool holdsStaticFieldSnapshot(String name) =>
+      _staticSnapshotNames.contains(name);
 
   /// Creates a new environment, optionally with an enclosing (parent) environment.
   ///
@@ -365,6 +389,9 @@ class Environment {
   }
 
   void define(String name, Object? value, {String? sourceUri}) {
+    // A parameter or local defined over a static-field snapshot binding
+    // replaces it (see [holdsStaticFieldSnapshot]).
+    _staticSnapshotNames.remove(name);
     if (_values.containsKey(name) ||
         _bridgedClasses.containsKey(name) ||
         _bridgedEnums.containsKey(name)) {

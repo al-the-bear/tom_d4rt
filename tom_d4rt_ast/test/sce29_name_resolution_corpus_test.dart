@@ -84,6 +84,12 @@ const Map<String, String> _deferred = {
   // the post-publish base corpus recorded under `Verification runs` at that
   // pair (VSTDM3). An empty map is the normal state; each entry is a debt with
   // its reason, deleted when the run is made.
+  '1.232.0':
+      'qr1: unpublished; certified by the post-publish corpus run of '
+      'ghissues10 (the ghissues* / qr* batch release)',
+  '0.213.0':
+      'qr1: unpublished; certified by the post-publish corpus run of '
+      'ghissues10 (the ghissues* / qr* batch release)',
 };
 
 List<int> _key(String v) => v.split('.').map(int.parse).toList();

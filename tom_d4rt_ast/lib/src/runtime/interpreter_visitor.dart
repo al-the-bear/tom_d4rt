@@ -2810,16 +2810,17 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   /// snapshot, which is discarded when the call returns — so the write must also
   /// be mirrored to `InterpretedClass.setStaticField` to survive across calls.
   ///
-  /// Shadow-safe: a local that shadows a static field lives in a different
-  /// (unmarked) environment, so [definingEnv] is not the snapshot scope and no
-  /// propagation occurs.
+  /// Shadow-safe: a local or parameter that shadows a static field either
+  /// lives in a nested environment, or replaced the snapshot binding in this
+  /// one ([Environment.holdsStaticFieldSnapshot] is then false); either way no
+  /// propagation occurs (QR1).
   void _propagateStaticFieldWrite(
     Environment definingEnv,
     String variableName,
     Object? value,
   ) {
     final owner = definingEnv.staticFieldSnapshotOwner;
-    if (owner != null && owner.staticFields.containsKey(variableName)) {
+    if (owner != null && definingEnv.holdsStaticFieldSnapshot(variableName)) {
       owner.setStaticField(variableName, value);
     }
   }
@@ -9716,7 +9717,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
                 ? currentValue + 1
                 : currentValue - 1;
             // Assign the new value back to the variable
-            environment.assign(variableName, newValue);
+            _assignBareName(variableName, newValue);
             // Return the *new* value
             return newValue;
           } else if (operandValue is InterpretedInstance) {
@@ -9735,13 +9736,13 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
                   operand,
                 ], {});
                 // Assign the new value back to the variable
-                environment.assign(variableName, newValue);
+                _assignBareName(variableName, newValue);
                 // Return the *new* value
                 return newValue;
               } on ReturnException catch (e) {
                 final newValue = e.value;
                 // Assign the new value back to the variable
-                environment.assign(variableName, newValue);
+                _assignBareName(variableName, newValue);
                 // Return the *new* value
                 return newValue;
               } catch (e) {
@@ -9829,6 +9830,13 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
             // Return the *new* value for prefix operators
             return newValue;
+          } else if (targetValue is InterpretedClass) {
+            // QR1: `Class.n++` steps the class's static member.
+            return _stepStaticProperty(
+              targetValue,
+              propertyName,
+              operatorType,
+            ).$2;
           } else {
             // SCF37: a bridged receiver, as the compound path handles it.
             final stepped = _stepBridgedProperty(
@@ -9939,6 +9947,13 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
             // Return the *new* value for prefix operators
             return newValue;
+          } else if (targetValue is InterpretedClass) {
+            // QR1: `Class.n++` steps the class's static member.
+            return _stepStaticProperty(
+              targetValue,
+              propertyName,
+              operatorType,
+            ).$2;
           } else {
             // SCF37: a bridged receiver, as the compound path handles it.
             final stepped = _stepBridgedProperty(
@@ -10148,10 +10163,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         }
       }
       Object? operandValue;
-      InterpretedInstance? thisInstance;
-      bool isInstanceField = false;
 
-      // Try lexical scope first, then implicit 'this'
+      // Try lexical scope first, then implicit 'this'. The write goes back
+      // through [_assignBareName], which resolves the name the same way.
       try {
         operandValue = environment.get(variableName); // Try lexical scope
       } on RuntimeD4rtException {
@@ -10159,9 +10173,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         try {
           final potentialThis = environment.get('this');
           if (potentialThis is InterpretedInstance) {
-            thisInstance = potentialThis;
-            operandValue = thisInstance.get(variableName); // Get from instance
-            isInstanceField = true;
+            operandValue = potentialThis.get(variableName); // Get from instance
           } else {
             throw undefinedNameError(variableName);
           }
@@ -10182,24 +10194,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             ? currentValue + 1
             : currentValue - 1;
 
-        // Assign back to correct target (lexical or instance)
-        if (isInstanceField && thisInstance != null) {
-          final setter = thisInstance.klass.findInstanceSetter(variableName);
-          if (setter != null) {
-            setter.bind(thisInstance).call(this, [newValue], {});
-          } else {
-            thisInstance.set(
-              variableName,
-              newValue,
-              this,
-            ); // Assign to instance field
-          }
-        } else {
-          environment.assign(
-            variableName,
-            newValue,
-          ); // Assign to lexical variable
-        }
+        _assignBareName(variableName, newValue);
 
         return operandValue; // Return the original value
       } else if (operandValue is InterpretedInstance) {
@@ -10216,51 +10211,13 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
               operand,
             ], {});
 
-            // Assign back to correct target (lexical or instance)
-            if (isInstanceField && thisInstance != null) {
-              final setter = thisInstance.klass.findInstanceSetter(
-                variableName,
-              );
-              if (setter != null) {
-                setter.bind(thisInstance).call(this, [newValue], {});
-              } else {
-                thisInstance.set(
-                  variableName,
-                  newValue,
-                  this,
-                ); // Assign to instance field
-              }
-            } else {
-              environment.assign(
-                variableName,
-                newValue,
-              ); // Assign to lexical variable
-            }
+            _assignBareName(variableName, newValue);
 
             return operandValue; // Return the original value for postfix
           } on ReturnException catch (e) {
             final newValue = e.value;
 
-            // Assign back to correct target (lexical or instance)
-            if (isInstanceField && thisInstance != null) {
-              final setter = thisInstance.klass.findInstanceSetter(
-                variableName,
-              );
-              if (setter != null) {
-                setter.bind(thisInstance).call(this, [newValue], {});
-              } else {
-                thisInstance.set(
-                  variableName,
-                  newValue,
-                  this,
-                ); // Assign to instance field
-              }
-            } else {
-              environment.assign(
-                variableName,
-                newValue,
-              ); // Assign to lexical variable
-            }
+            _assignBareName(variableName, newValue);
 
             return operandValue; // Return the original value for postfix
           } catch (e) {
@@ -10337,6 +10294,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
         // Return the *original* value for postfix operators
         return originalValue;
+      } else if (targetValue is InterpretedClass) {
+        // QR1: `Class.n++` steps the class's static member.
+        return _stepStaticProperty(targetValue, propertyName, operatorType).$1;
       } else {
         // SCF37: a bridged receiver, as the compound path handles it.
         final stepped = _stepBridgedProperty(
@@ -10448,6 +10408,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
         // Return the *original* value for postfix operators
         return originalValue;
+      } else if (targetValue is InterpretedClass) {
+        // QR1: `Class.n++` steps the class's static member.
+        return _stepStaticProperty(targetValue, propertyName, operatorType).$1;
       } else {
         // SCF37: a bridged receiver, as the compound path handles it.
         final stepped = _stepBridgedProperty(
@@ -11645,6 +11608,88 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
     Logger.debug("[Visitor.visitEnumDeclaration] END (Pass 2) for '$enumName'");
     return null; // Declaration doesn't return a value
+  }
+
+  /// Writes [value] back to the bare name [name] that an increment or
+  /// decrement just read, resolving the name the way the read did.
+  ///
+  /// QR1. Both operators used to write a bare name back on their own terms:
+  /// postfix through `thisInstance.set`, which mints a per-instance field when
+  /// the name is a STATIC reached through implicit `this` (the defect SCE125
+  /// fixed for assignment), and prefix through `environment.assign` alone,
+  /// which threw for any name reached through implicit `this` - an ordinary
+  /// instance field included. And neither propagated a write that landed on
+  /// the static-field snapshot a static member runs in. The order here is
+  /// [visitAssignmentExpression]'s: a lexical binding first (with the
+  /// snapshot propagation), then through implicit `this` the class's static
+  /// field, its static setter, an instance setter, and the instance field.
+  void _assignBareName(String name, Object? value) {
+    final definingEnv = environment.findDefiningEnvironment(name);
+    if (definingEnv != null) {
+      environment.assign(name, value);
+      _propagateStaticFieldWrite(definingEnv, name, value);
+      return;
+    }
+    final thisValue = environment.findDefiningEnvironment('this')?.get('this');
+    if (thisValue is! InterpretedInstance) {
+      // What `environment.assign` raises for a name bound nowhere.
+      environment.assign(name, value);
+      return;
+    }
+    final staticOwner = _staticFieldOwner(thisValue.klass, name);
+    if (staticOwner != null) {
+      staticOwner.setStaticField(name, value);
+      return;
+    }
+    final staticSetter = _staticSetterFor(thisValue.klass, name);
+    if (staticSetter != null) {
+      staticSetter.call(this, [value], {});
+      return;
+    }
+    final setter = thisValue.klass.findInstanceSetter(name);
+    if (setter != null) {
+      setter.bind(thisValue).call(this, [value], {});
+      return;
+    }
+    thisValue.set(name, value, this);
+  }
+
+  /// `Class.n++` / `--Class.n`: steps the static member [name] of [klass] -
+  /// through its static getter and setter when it declares them, else its
+  /// static field. Returns `(old, new)`: postfix yields the first, prefix the
+  /// second (QR1; before it, a class target was refused outright).
+  (Object?, Object?) _stepStaticProperty(
+    InterpretedClass klass,
+    String name,
+    String operatorType,
+  ) {
+    final getter = klass.findStaticGetter(name);
+    final Object? oldValue;
+    if (getter != null) {
+      oldValue = getter.call(this, [], {});
+    } else if (klass.staticFields.containsKey(name)) {
+      oldValue = klass.getStaticField(name);
+    } else {
+      throw RuntimeD4rtException.resolutionFailure(
+        "Class '${klass.name}' has no static field or getter named '$name'.",
+      );
+    }
+    final newValue = computeCompoundValue(
+      oldValue,
+      1,
+      operatorType == '++' ? '+=' : '-=',
+    );
+    final setter = klass.findStaticSetter(name);
+    if (setter != null) {
+      setter.call(this, [newValue], {});
+    } else if (klass.staticFields.containsKey(name)) {
+      klass.setStaticField(name, newValue);
+    } else {
+      throw RuntimeD4rtException.resolutionFailure(
+        "Class '${klass.name}' has no static setter or field named '$name'.",
+      );
+    }
+    return (oldValue, newValue);
   }
 
   // Helper function to compute compound assignment values

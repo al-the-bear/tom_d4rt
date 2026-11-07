@@ -1,3 +1,34 @@
+## 0.213.0
+
+### Fixed — `++` / `--` on a static field (qr1)
+
+`n++`, `++n`, `n--` and `--n` on a static field named bare now update the
+static. In a constructor or instance method the write used to create a
+per-instance field, which the method could read back while the static never
+changed; in a static method it only touched the static-field snapshot the
+member runs in, discarded on return. `Class.n++` and its prefix and decrement
+forms, which were refused ('Cannot increment/decrement property on
+non-instance object'), step the class's static field, or its static getter and
+setter. Both operators now write a bare name back through one path that
+resolves it as an assignment does.
+
+### Fixed — prefix `++c` on an instance field (qr1)
+
+Prefix `++c` / `--c` on a bare instance field inside a method threw 'Assigning
+to undefined variable'; postfix worked. Both go through the same write-back
+now, including an instance setter.
+
+### Fixed — a parameter or local shadowing a static, in a static member (qr1)
+
+A static member's parameters and top-level locals live in the same
+environment as its static-field snapshot, and a write to one named like a
+static field was propagated to the static: `static int f(int n) { n = n + 1;
+... }` changed the class's `n`. `Environment` now records which names still
+hold the snapshot (`markStaticFieldSnapshot`, `holdsStaticFieldSnapshot`); a
+parameter or local defined over one replaces it and is not propagated.
+
+Name resolution: yes — a write to a bare name now reaches the binding it shadows correctly: the static field through implicit `this` or the static-member snapshot, and no longer the static when a parameter or local of a static member shadows it.
+
 ## 0.212.1
 
 ### Fixed — an async error keeps its frames (dasy1)
