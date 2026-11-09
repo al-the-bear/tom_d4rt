@@ -9,13 +9,13 @@ class D4rtGenVersionInfo {
   D4rtGenVersionInfo._();
 
   /// Package version from pubspec.yaml
-  static const String version = '1.57.0';
+  static const String version = '1.58.0';
 
   /// Build timestamp (ISO 8601 UTC format)
-  static const String buildTime = '2026-11-09T12:12:01.029992Z';
+  static const String buildTime = '2026-11-09T14:00:22.000000Z';
 
   /// Git commit hash (short form)
-  static const String gitCommit = '8bff7e34d';
+  static const String gitCommit = 'c67c5110a';
 
   /// Build number (increments with each build)
   static const int buildNumber = 1;

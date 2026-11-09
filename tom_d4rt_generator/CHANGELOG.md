@@ -1,3 +1,16 @@
+## 1.58.0
+
+### Changed — tom_analyzer_shared ^0.13.0
+
+The generator takes `tom_analyzer_shared` ^0.13.0 (was ^0.12.0). 0.13.0 names
+a cached summary by the dependency closure it is linked against, so the
+parallel runs of a `dart test -j 4` over different closures no longer delete a
+bundle another run is linking against: that cost a run its bundles
+(`PathNotFoundException`), and the bridges generated in it lost top-level names
+(`Undefined variable: red` in the dcli scripting tests). The suite with `-j 4`,
+twice from an empty summary cache, logs no such failure. `runSummaryCacheStage`,
+the one entry point the generator calls, is unchanged.
+
 ## 1.57.0
 
 ### Changed — tom_analyzer_shared ^0.12.0
