@@ -31,6 +31,7 @@ import 'user_bridge_scanner.dart';
 import 'generated_stamp.dart';
 import 'source_package.dart';
 import 'generated_code_formatter.dart';
+import 'public_import_targets.dart';
 
 // =============================================================================
 // OPERATOR DETECTION
@@ -1333,6 +1334,14 @@ class BridgeGenerator {
   /// Key is the import URI, value is the set of type names from that import.
   final Map<String, Set<String>> _auxiliaryImports = {};
 
+  /// GitHub #5: for a `src` library of another package, the public library
+  /// of that package the bridge imports it through ([choosePublicImportTargets]).
+  /// Filled by [_preparePublicImportTargets] before a bridge file is written.
+  final Map<String, String> _publicImportTargets = {};
+
+  /// Packages [_preparePublicImportTargets] has already read.
+  final Set<String> _publicSurfacePackages = {};
+
   /// Prefixes assigned to auxiliary imports.
   /// Key is the import URI, value is the prefix to use.
   final Map<String, String> _auxiliaryPrefixes = {};
@@ -1905,6 +1914,101 @@ class BridgeGenerator {
   /// Extracts the package name from a package URI.
   ///
   /// Given `package:dcli_core/dcli_core.dart`, returns `dcli_core`.
+  /// GitHub #5: reads the public libraries (`lib/*.dart`) of every package
+  /// [uris] name, other than the one being generated, and records in
+  /// [_publicImportTargets] which of them each `src` library they export can
+  /// be imported through. A package is read once per generator.
+  Future<void> _preparePublicImportTargets(Iterable<String> uris) async {
+    final ownPackage = packageName ?? _ownPackageName();
+    final packages = <String>{
+      for (final uri in uris)
+        if (uri.startsWith('package:')) ?_extractPackageFromUri(uri),
+    }..remove(ownPackage);
+    for (final pkg in packages.toList()..sort()) {
+      if (!_publicSurfacePackages.add(pkg)) continue;
+      final root = _packageRootSync(pkg);
+      if (root == null) continue;
+      final libDir = Directory(p.join(root, 'lib'));
+      if (!libDir.existsSync()) continue;
+      final publicFiles =
+          libDir
+              .listSync()
+              .whereType<File>()
+              .where((f) => f.path.endsWith('.dart'))
+              .map((f) => p.normalize(p.absolute(f.path)))
+              .toList()
+            ..sort();
+      if (publicFiles.isEmpty) continue;
+      final dynamic context;
+      try {
+        context = _getAnalysisContextFor(publicFiles.first)
+            .contextFor(publicFiles.first);
+      } catch (_) {
+        continue;
+      }
+      final publicNamespaces = <String, ExportNamespace>{};
+      for (final file in publicFiles) {
+        final uri = 'package:$pkg/${p.basename(file)}';
+        final namespace = await _exportNamespaceOf(context, uri);
+        if (namespace != null) publicNamespaces[uri] = namespace;
+      }
+      final srcLibraries = <String>{
+        for (final namespace in publicNamespaces.values)
+          for (final declaring in namespace.values)
+            if (declaring.startsWith('package:$pkg/src/')) declaring,
+      };
+      final srcNamespaces = <String, ExportNamespace>{};
+      for (final uri in srcLibraries.toList()..sort()) {
+        final namespace = await _exportNamespaceOf(context, uri);
+        if (namespace != null) srcNamespaces[uri] = namespace;
+      }
+      _publicImportTargets.addAll(
+        choosePublicImportTargets(
+          publicNamespaces: publicNamespaces,
+          srcNamespaces: srcNamespaces,
+        ),
+      );
+    }
+  }
+
+  /// The export namespace of the library at [uri], each name with the URI of
+  /// its declaring library, or null when the library does not resolve.
+  Future<ExportNamespace?> _exportNamespaceOf(
+    dynamic context,
+    String uri,
+  ) async {
+    final result = await context.currentSession.getLibraryByUri(uri);
+    if (result is! LibraryElementResult) return null;
+    return {
+      for (final entry in result.element.exportNamespace.definedNames2.entries)
+        if (entry.value.library != null)
+          entry.key: entry.value.library!.identifier,
+    };
+  }
+
+  /// The package URIs of [sourceFiles] and of every type the generator has
+  /// resolved: the libraries a bridge file can import.
+  Iterable<String> _urisInPlay(Iterable<String> sourceFiles) => {
+    for (final file in sourceFiles)
+      file.startsWith('package:') ? file : _getPackageUri(file),
+    ..._globalTypeToUri.values,
+  };
+
+  /// The `name:` of the pubspec at [workspacePath], or null.
+  String? _ownPackageName() {
+    final pubspec = File(p.join(workspacePath, 'pubspec.yaml'));
+    if (!pubspec.existsSync()) return null;
+    final match = RegExp(
+      r'^name:\s*([A-Za-z0-9_]+)',
+      multiLine: true,
+    ).firstMatch(pubspec.readAsStringSync());
+    return match?.group(1);
+  }
+
+  /// The URI a bridge writes in the import of [uri]: its public stand-in
+  /// (GitHub #5), or [uri] itself.
+  String _importTargetFor(String uri) => _publicImportTargets[uri] ?? uri;
+
   String? _extractPackageFromUri(String uri) {
     final parsed = _parsePackageUri(uri);
     return parsed?.$1;
@@ -3054,6 +3158,10 @@ class BridgeGenerator {
         ...extensionsPerFile.keys,
       };
 
+      await _preparePublicImportTargets(
+        _urisInPlay([...allSourceFiles, ...classesPerFile.keys]),
+      );
+
       for (final sourceFile in allSourceFiles) {
         final classes = classesPerFile[sourceFile] ?? <ClassInfo>[];
         final allClassesForFile = allClassesPerFile[sourceFile] ?? classes;
@@ -3266,6 +3374,13 @@ class BridgeGenerator {
           }
         }
       }
+
+      await _preparePublicImportTargets(
+        _urisInPlay([
+          ...sourceFiles,
+          for (final c in filteredClasses) c.sourceFile,
+        ]),
+      );
 
       // Generate single output file using already-parsed globals
       final code = _generateBridgeFile(
@@ -3792,6 +3907,13 @@ class BridgeGenerator {
         }
       }
     }
+
+    await _preparePublicImportTargets(
+      _urisInPlay([
+        ...sourceFiles,
+        for (final c in filteredClasses) c.sourceFile,
+      ]),
+    );
 
     // Generate single output file content
     final code = _generateBridgeFile(
@@ -6407,7 +6529,7 @@ class BridgeGenerator {
 
       final prefix = '\$${sanitized}_$counter';
       _importPrefixes[uri] = prefix;
-      buffer.writeln("import '$uri' as $prefix;");
+      buffer.writeln("import '${_importTargetFor(uri)}' as $prefix;");
     }
 
     // Also map absolute file paths to their URI prefix
@@ -6471,7 +6593,9 @@ class BridgeGenerator {
           continue;
         }
         _importPrefixes[importUri] = auxPrefix;
-        buffer.writeln("import '$importUri' as $auxPrefix;");
+        buffer.writeln(
+          "import '${_importTargetFor(importUri)}' as $auxPrefix;",
+        );
       }
     }
     buffer.writeln();

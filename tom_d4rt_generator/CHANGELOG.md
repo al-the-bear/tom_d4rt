@@ -1,3 +1,22 @@
+## 1.60.0
+
+### Changed — a bridge imports another package's `src` libraries through its public libraries (GitHub #5)
+
+A bridge refers to every type through a prefix for the library that declares
+it, and imported that library directly — mostly a package's `lib/src/` files.
+A bridge set was therefore pinned to the file layout it was generated against:
+Flutter 3.47 removed `package:flutter/src/widgets/visibility.dart`, and the
+published Flutter bridges stopped compiling. The import of a `src` library of
+another package now names the narrowest public library of that package
+(`lib/*.dart`) whose export namespace binds every name of the `src` library to
+the same declaration — `package:flutter/src/widgets/framework.dart` is imported
+as `package:flutter/widgets.dart`. The prefixes and every reference through
+them are unchanged. A `src` library no public library covers (a type reachable
+only through `src`, or a name a public library hides) keeps its own import, as
+do the generating package's own libraries. On the full Flutter bridge set 1 110
+of 1 113 `src` imports move; the one `src` library left is
+`widgets/_html_element_view_io.dart`, which no public library exports.
+
 ## 1.59.0
 
 ### Changed — relaxer and constructor dispatch in switches of at most 64 selectors (GitHub #11)

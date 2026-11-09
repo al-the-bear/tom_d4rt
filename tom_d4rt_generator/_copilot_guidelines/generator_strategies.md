@@ -72,19 +72,27 @@ For each exported symbol, parse its source file:
 
 ### Phase 4: Generate Bridge Imports
 
-**Key insight: Import directly from source files with prefix**
+**Key insight: one prefix per declaring library, imported through the package's public surface**
 
-For each source file that has symbols we need:
-1. Collect all symbols we need from that file
-2. Generate import with:
-   - Direct source file path
-   - Explicit `show` clause listing exactly those symbols
-   - Unique prefix (`as pkgXYZ`)
+Every library that declares a symbol the bridge needs gets a unique prefix
+(`$<package>_<n>`), and every reference to its symbols uses that prefix. The
+import that binds the prefix names, for a library of another package's
+`lib/src/`, the narrowest public library of that package (`lib/*.dart`) whose
+export namespace binds every name of the `src` library to the same
+declaration; `package:flutter/src/widgets/framework.dart` is imported as
+`package:flutter/widgets.dart`. Both imports resolve every `$prefix.Name` the
+bridge writes identically, and the public one survives the package moving its
+files (GitHub #5: Flutter 3.47 removed `widgets/visibility.dart` and broke
+every bridge that imported it). A `src` library no public library covers - a
+type reachable only through `src`, a name a public library hides - keeps its
+own import, and so do the generating package's own libraries.
+`choosePublicImportTargets` (`lib/src/public_import_targets.dart`) makes the
+choice from the export namespaces `_preparePublicImportTargets` reads.
 
 ```dart
-import 'package:dcli/src/functions/find.dart' show Find, find, FindProgress as ext_dcli_find;
-import 'package:dcli/src/functions/copy.dart' show copy, CopyException as ext_dcli_copy;
-import 'package:dcli/src/progress/progress.dart' show Progress as ext_dcli_progress;
+import 'package:flutter/widgets.dart' as $flutter_165;  // for src/widgets/framework.dart
+import 'package:flutter/widgets.dart' as $flutter_136;  // for src/widgets/basic.dart
+import 'package:flutter/src/widgets/_html_element_view_io.dart' as $flutter_121;  // exported by no public library
 ```
 
 ### Phase 5: Use Prefixed Types in Generated Code
@@ -106,13 +114,12 @@ class FindProgressBridge extends BridgedClass<ext_dcli_find.FindProgress> {
 
 ---
 
-## Why Direct Source Imports with Prefixes
+## Why One Prefix per Declaring Library
 
-1. **Explicit** - shows exactly what we need from each file
-2. **No collisions** - prefixes guarantee no naming conflicts between different sources
-3. **No inherited complexity** - no barrel show/hide chains to track/combine
-4. **Self-documenting** - prefix shows origin (e.g., `ext_dcli_find`)
-5. **Reliable** - mirrors what Dart compiler sees, with added safety
+1. **No collisions** - prefixes guarantee no naming conflicts between different sources
+2. **No inherited complexity** - no barrel show/hide chains to track or combine: a public library stands in for a `src` library only when its namespace agrees on every name
+3. **Self-documenting** - each prefix stands for one declaring library
+4. **Stable across releases** - the import names the package's public surface wherever one covers the library, not its internal file layout
 
 ---
 
