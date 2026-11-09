@@ -2215,8 +2215,10 @@ class Environment {
     // Search current environment and enclosing ones
     Environment? current = this;
     while (current != null) {
-      // Check unnamed extensions
+      // Check unnamed extensions. One whose `on` type is not resolved yet
+      // (declared in a library still loading, GitHub #9) applies to nothing.
       for (final ext in current._unnamedExtensions) {
+        if (!ext.hasOnType) continue;
         if (_matchesExtensionType(targetType, ext.onType, value: target)) {
           final member = ext.findMember(name);
           if (member != null) {
@@ -2231,7 +2233,7 @@ class Environment {
       }
       // Check named extensions (stored as values)
       for (final value in current._values.values) {
-        if (value is InterpretedExtension) {
+        if (value is InterpretedExtension && value.hasOnType) {
           if (_matchesExtensionType(targetType, value.onType, value: target)) {
             final member = value.findMember(name);
             if (member != null) {
@@ -2268,7 +2270,7 @@ class Environment {
     while (current != null) {
       // Check unnamed extensions with nullable on-type
       for (final ext in current._unnamedExtensions) {
-        if (ext.isOnNullableType) {
+        if (ext.isOnNullableType && ext.hasOnType) {
           final member = ext.findMember(name);
           if (member != null) {
             Logger.debug(
@@ -2280,7 +2282,9 @@ class Environment {
       }
       // Check named extensions with nullable on-type
       for (final value in current._values.values) {
-        if (value is InterpretedExtension && value.isOnNullableType) {
+        if (value is InterpretedExtension &&
+            value.isOnNullableType &&
+            value.hasOnType) {
           final member = value.findMember(name);
           if (member != null) {
             Logger.debug(

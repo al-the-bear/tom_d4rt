@@ -15298,79 +15298,97 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       return null;
     }
 
-    // Look up the RuntimeType in the environment
-    RuntimeType onRuntimeType;
-    try {
-      final typeValue = environment.get(onTypeName);
+    // Look up the RuntimeType in the environment. PR #8: a prefixed type
+    // (`on l.Base`) is looked up through its prefix.
+    final onTypeLookupName = _relationshipLookupName(onTypeNode);
+    RuntimeType resolveOnType() {
+      RuntimeType onRuntimeType;
+      try {
+        final typeValue = environment.get(onTypeLookupName);
 
-      // Handle Resolution of Native/Bridged Types
-      if (typeValue is RuntimeType) {
-        // Standard case: Found an InterpretedClass/Mixin or existing BridgedClass
-        onRuntimeType = typeValue;
-        Logger.debug(
-          "[visitExtensionDeclaration] Resolved 'on' type '$onTypeName' to RuntimeType: ${onRuntimeType.name}",
-        );
-      } else if (typeValue is NativeFunction) {
-        // Heuristic: If environment.get returns a NativeFunction for a common type name,
-        // assume it represents the native type and find/create a corresponding BridgedClass.
-        // This relies on the global environment being populated correctly with type bridges.
-        BridgedClass? bridgedType = _getBridgedClassForNativeType(onTypeName);
-        if (bridgedType != null) {
-          onRuntimeType = bridgedType;
+        // Handle Resolution of Native/Bridged Types
+        if (typeValue is RuntimeType) {
+          // Standard case: Found an InterpretedClass/Mixin or existing BridgedClass
+          onRuntimeType = typeValue;
           Logger.debug(
-            "[visitExtensionDeclaration] Resolved native 'on' type '$onTypeName' to BridgedClass: ${onRuntimeType.name}",
+            "[visitExtensionDeclaration] Resolved 'on' type '$onTypeName' to RuntimeType: ${onRuntimeType.name}",
           );
+        } else if (typeValue is NativeFunction) {
+          // Heuristic: If environment.get returns a NativeFunction for a common type name,
+          // assume it represents the native type and find/create a corresponding BridgedClass.
+          // This relies on the global environment being populated correctly with type bridges.
+          BridgedClass? bridgedType = _getBridgedClassForNativeType(onTypeName);
+          if (bridgedType != null) {
+            onRuntimeType = bridgedType;
+            Logger.debug(
+              "[visitExtensionDeclaration] Resolved native 'on' type '$onTypeName' to BridgedClass: ${onRuntimeType.name}",
+            );
+          } else {
+            // We found something, but couldn't map it to a known bridged type
+            throw RuntimeD4rtException(
+              "Symbol '$onTypeName' resolved to NativeFunction but could not map to a known BridgedClass.",
+            );
+          }
         } else {
-          // We found something, but couldn't map it to a known bridged type
+          // Resolved to something unexpected (e.g., an instance, null, etc.)
           throw RuntimeD4rtException(
-            "Symbol '$onTypeName' resolved to NativeFunction but could not map to a known BridgedClass.",
+            "Symbol '$onTypeName' resolved to non-type: ${typeValue?.runtimeType}",
           );
         }
-      } else {
-        // Resolved to something unexpected (e.g., an instance, null, etc.)
-        throw RuntimeD4rtException(
-          "Symbol '$onTypeName' resolved to non-type: ${typeValue?.runtimeType}",
-        );
-      }
-    } on RuntimeD4rtException catch (e) {
-      // SCC31: the type named in `on T` resolved to nothing at all, which is a
-      // question here rather than an answer — a core type may still be reachable
-      // as a bridge. Asked by type and by exact name: the old
-      // `e.message.contains(...)` made a formatted diagnostic load-bearing, and
-      // also took this branch when the name merely *appeared* in an unrelated
-      // failure's message.
-      if (e is UndefinedNameD4rtException && e.name == onTypeName) {
-        // Special handling for core types that might not be explicitly defined if stdlib wasn't fully loaded?
-        // Or maybe they are always NativeFunctions?
-        BridgedClass? coreBridgedType = _getBridgedClassForNativeType(
-          onTypeName,
-        );
-        if (coreBridgedType != null) {
-          onRuntimeType = coreBridgedType;
-          Logger.debug(
-            "[visitExtensionDeclaration] Resolved unfound core 'on' type '$onTypeName' to BridgedClass: ${onRuntimeType.name}",
+      } on RuntimeD4rtException catch (e) {
+        // SCC31: the type named in `on T` resolved to nothing at all, which is a
+        // question here rather than an answer — a core type may still be reachable
+        // as a bridge. Asked by type and by exact name: the old
+        // `e.message.contains(...)` made a formatted diagnostic load-bearing, and
+        // also took this branch when the name merely *appeared* in an unrelated
+        // failure's message.
+        if (e is UndefinedNameD4rtException && e.name == onTypeName) {
+          // Special handling for core types that might not be explicitly defined if stdlib wasn't fully loaded?
+          // Or maybe they are always NativeFunctions?
+          BridgedClass? coreBridgedType = _getBridgedClassForNativeType(
+            onTypeName,
           );
+          if (coreBridgedType != null) {
+            onRuntimeType = coreBridgedType;
+            Logger.debug(
+              "[visitExtensionDeclaration] Resolved unfound core 'on' type '$onTypeName' to BridgedClass: ${onRuntimeType.name}",
+            );
+          } else {
+            // Type genuinely not found or not a recognized core type
+            throw RuntimeD4rtException(
+              "Could not resolve 'on' type '$onTypeName' for extension '${extensionName ?? '<unnamed>'}': Type not found or not a recognized core type.",
+            );
+          }
         } else {
-          // Type genuinely not found or not a recognized core type
+          // Propagate other RuntimeErrors (like the non-type error from above)
+          //
+          // SCE70: the sibling throw above is NOT given the payload, and the
+          // difference is the branch condition rather than an oversight. That one
+          // fires when `e is UndefinedNameD4rtException` — a name that resolved to
+          // nothing, which scc31 keeps deliberately uncatchable and which carries
+          // no preserved native exception. There is nothing there to forward.
           throw RuntimeD4rtException(
-            "Could not resolve 'on' type '$onTypeName' for extension '${extensionName ?? '<unnamed>'}': Type not found or not a recognized core type.",
+            "Could not resolve 'on' type '$onTypeName' for extension '${extensionName ?? '<unnamed>'}': ${e.message}",
+            originalException: e.originalException,
+            originalStackTrace: e.originalStackTrace,
           );
         }
-      } else {
-        // Propagate other RuntimeErrors (like the non-type error from above)
-        //
-        // SCE70: the sibling throw above is NOT given the payload, and the
-        // difference is the branch condition rather than an oversight. That one
-        // fires when `e is UndefinedNameD4rtException` — a name that resolved to
-        // nothing, which scc31 keeps deliberately uncatchable and which carries
-        // no preserved native exception. There is nothing there to forward.
-        throw RuntimeD4rtException(
-          "Could not resolve 'on' type '$onTypeName' for extension '${extensionName ?? '<unnamed>'}': ${e.message}",
-          originalException: e.originalException,
-          originalStackTrace: e.originalStackTrace,
-        );
       }
+      return onRuntimeType;
     }
+
+    // GitHub #9 — the `on` type may be declared in a library that is still
+    // loading (an import cycle, or a barrel that has not reached the export
+    // declaring it). The extension is then created and registered below as
+    // usual, so importers copy it with the module's exports, and its type is
+    // resolved once the outermost load returns
+    // ([InterpretedExtension.resolveOnType]); a type still undefined then is
+    // reported. Until then no lookup applies the extension.
+    final onTypeDeferred =
+        moduleContext.isLoadingModules &&
+        !environment.isDefined(onTypeLookupName) &&
+        _getBridgedClassForNativeType(onTypeName) == null;
+    final RuntimeType? onRuntimeType = onTypeDeferred ? null : resolveOnType();
 
     // 2. Process members (methods, getters, setters, operators) - both instance and static
     final members = <String, Callable>{};
@@ -15485,6 +15503,19 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       Logger.debug(
         "[visitExtensionDeclaration] Added unnamed extension to environment list.",
       );
+    }
+
+    if (onTypeDeferred) {
+      final onTypeEnv = environment;
+      moduleContext.deferUntilModulesLoaded(() {
+        final savedEnv = environment;
+        try {
+          environment = onTypeEnv;
+          interpretedExtension.resolveOnType(resolveOnType());
+        } finally {
+          environment = savedEnv;
+        }
+      });
     }
 
     return null; // Declarations typically return null

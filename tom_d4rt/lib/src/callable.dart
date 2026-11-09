@@ -7371,9 +7371,17 @@ class InterpretedExtensionMethod implements ExtensionMemberCallable {
   final MethodDeclaration declaration; // The AST node for the method
   final Environment closure; // Environment where the extension was declared
   // Store the 'on' type to potentially check 'this' type during call?
-  final RuntimeType onType;
+  // Set later by [InterpretedExtension.resolveOnType] when the extension is
+  // declared before its `on` type exists (GitHub #9).
+  late RuntimeType onType;
 
-  InterpretedExtensionMethod(this.declaration, this.closure, this.onType);
+  InterpretedExtensionMethod(
+    this.declaration,
+    this.closure,
+    RuntimeType? onType,
+  ) {
+    if (onType != null) this.onType = onType;
+  }
 
   // Add getters for method type
   @override

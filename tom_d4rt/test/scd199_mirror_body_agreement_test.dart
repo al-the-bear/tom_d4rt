@@ -368,7 +368,10 @@ const _divergentBodies = <String, Map<String, String>>{
     // VSTDM3: the analyzer 14 port edited both trees alike; the divergence
     // itself is unchanged.
     'InterpreterVisitor.visitEnumDeclaration': 'ce4a4dd5',
-    'InterpreterVisitor.visitExtensionDeclaration': 'e26fd9f6',
+    // GHISSUES11: both trees defer an `on` type declared in a library still
+    // loading; the residue grows by the loader field's name, `moduleLoader`
+    // here and `moduleContext` in the twin.
+    'InterpreterVisitor.visitExtensionDeclaration': '1ea7e106',
     // VSTDM3: the analyzer 14 port edited both trees alike; the divergence
     // itself is unchanged.
     'InterpreterVisitor.visitExtensionTypeDeclaration': '32961e82',

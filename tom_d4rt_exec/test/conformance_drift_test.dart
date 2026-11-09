@@ -484,7 +484,19 @@ const _partialTwinBudget = 0;
 /// show and hide and prefixed named types, which the corpus copies on every
 /// run.
 ///
-const _copierGapBudget = 48;
+/// 48 -> 49: GHISSUES11 added `gh11_extension_on_loading_type_test.dart`,
+/// which runs source to check that an extension whose `on` type is declared in
+/// a library still loading (a barrel, an import cycle) is registered at once
+/// and gets its type once the load returns, that a prefixed `on` type binds
+/// the imported class, and that an undefined `on` type is still reported. Exec
+/// resolves tom_d4rt_ast from pub.dev, where the extension still fails at its
+/// declaration until the batch release (ghissues999), so a port would assert
+/// the fix against an interpreter that does not have it. Its ast twin holds
+/// the mechanism. The copier surface a port would have added is extension
+/// declarations, export directives and import cycles, which the corpus copies
+/// on every run.
+///
+const _copierGapBudget = 49;
 
 const Map<String, _Coverage> _coveredElsewhere = {
   'sce208_bind_forwarding_source_errors_test.dart': _Coverage(
@@ -594,6 +606,19 @@ const Map<String, _Coverage> _coveredElsewhere = {
         'repeated dart:core and dart:async prefixes, dart:math, missing names '
         'and prefixes, dynamic and Record), which a hand-built bundle would '
         'only restate.',
+  ),
+  'gh11_extension_on_loading_type_test.dart': _Coverage(
+    'ast:runtime/gh11_extension_on_loading_type_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 5,
+    twinCases: 4,
+    whyPartial:
+        'the twin pins each mechanism once - a barrel, a two-library cycle, '
+        'a prefixed `on` type and an undefined one. The reference adds the '
+        'remaining SHAPES (a getter, an unnamed extension used inside its '
+        'library and by the importer, the undefined type without a load in '
+        'progress), which a hand-built bundle would only restate.',
   ),
   'gh9_import_cycle_test.dart': _Coverage(
     'ast:runtime/gh9_import_cycle_test.dart',

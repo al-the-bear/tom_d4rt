@@ -1,3 +1,23 @@
+## 1.239.0
+
+### Fixed — an extension on a type declared in a library still loading (GitHub #9 follow-up)
+
+An extension whose `on` type is declared in a library that is still loading -
+an import cycle, or a barrel that has not reached the export declaring it -
+failed at its declaration with `Could not resolve 'on' type 'Base' for
+extension 'X': Type not found or not a recognized core type.` The extension is
+now created and registered at once, so importers copy it with the module's
+exports, and its `on` type is resolved once the outermost module load returns,
+as a class's supertypes already were; until then no lookup applies it. An `on`
+type still undefined then is reported as before.
+
+### Fixed — a prefixed `on` type resolves through its prefix (pull request #8)
+
+`extension X on l.Base` looked `Base` up by its bare name, binding a
+same-named local class, as the class clauses did before pull request #8.
+
+Name resolution: yes — an extension's `on` type declared in a library still loading resolves once the load returns instead of failing, and a prefixed `on` type resolves through its prefix instead of by its bare name.
+
 ## 1.238.0
 
 ### Fixed — a prefixed type resolves through its prefix (pull request #8)

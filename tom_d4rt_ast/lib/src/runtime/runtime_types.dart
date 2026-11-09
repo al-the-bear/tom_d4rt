@@ -2894,7 +2894,25 @@ class InterpretedEnumValue implements RuntimeValue /* Add RuntimeValue */ {
 // Represents a declared extension during interpretation.
 class InterpretedExtension {
   final String? name; // Optional name of the extension
-  final RuntimeType onType; // The type the extension applies to
+
+  /// The type the extension applies to; see [hasOnType].
+  RuntimeType get onType => _onType!;
+  RuntimeType? _onType;
+
+  /// Whether [onType] is resolved. An extension declared in a library that is
+  /// still loading, on a type not declared yet (an import cycle, or a barrel
+  /// that has not reached the export), is registered at once - importers copy
+  /// it with the module's exports - and gets its type from [resolveOnType] once
+  /// the outermost load returns (GitHub #9). Until then no lookup applies it.
+  bool get hasOnType => _onType != null;
+
+  /// Sets [onType], on the extension and on its instance members.
+  void resolveOnType(RuntimeType type) {
+    _onType = type;
+    for (final member in members.values) {
+      if (member is InterpretedExtensionMethod) member.onType = type;
+    }
+  }
   final bool
   isOnNullableType; // G-DOV-10/11: Whether the extension is on T? (nullable)
   final Map<String, Callable>
@@ -2908,14 +2926,15 @@ class InterpretedExtension {
 
   InterpretedExtension({
     this.name,
-    required this.onType,
+    required RuntimeType? onType,
     this.isOnNullableType = false,
     required this.members,
     Map<String, Callable>? staticMethods,
     Map<String, Callable>? staticGetters,
     Map<String, Callable>? staticSetters,
     Map<String, Object?>? staticFields,
-  }) : staticMethods = staticMethods ?? {},
+  }) : _onType = onType,
+       staticMethods = staticMethods ?? {},
        staticGetters = staticGetters ?? {},
        staticSetters = staticSetters ?? {},
        staticFields = staticFields ?? {};
