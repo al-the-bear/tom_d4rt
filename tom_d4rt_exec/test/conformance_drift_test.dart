@@ -413,7 +413,7 @@ const _partialTwinBudget = 0;
 /// shadowing parameter or local in a static member keeps its writes to itself.
 /// Exec resolves tom_d4rt_ast from pub.dev, where the increment still mints a
 /// per-instance shadow (or is refused for `Class.n++`) until the batch release
-/// (ghissues10), so a port would assert the fix against an interpreter that
+/// (ghissues999), so a port would assert the fix against an interpreter that
 /// does not have it. Its ast twin holds the mechanism. The copier surface a
 /// port would have added is prefix and postfix expressions over simple and
 /// prefixed identifiers, which the corpus copies on every run.
@@ -422,7 +422,7 @@ const _partialTwinBudget = 0;
 /// runs source to ask whether a static or top-level initializer may read a
 /// declaration made after it, runs lazily, and reports a cycle (GitHub #10).
 /// Exec resolves tom_d4rt_ast from pub.dev, where initializers still run
-/// eagerly in declaration order until the batch release (ghissues10), so a
+/// eagerly in declaration order until the batch release (ghissues999), so a
 /// port would assert the fix against an interpreter that does not have it. Its
 /// ast twin holds the mechanism. The copier surface a port would have added is
 /// static and top-level variable declarations with list-literal and
@@ -433,7 +433,7 @@ const _partialTwinBudget = 0;
 /// type parameter by one, that a library still loading declares (an import
 /// cycle, a barrel), and runs intl 0.20.3 from source (GitHub #9). Exec
 /// resolves tom_d4rt_ast and tom_ast_generator from pub.dev, where those
-/// lookups still fail eagerly until the batch release (ghissues10), so a port
+/// lookups still fail eagerly until the batch release (ghissues999), so a port
 /// would assert the fix against an interpreter that does not have it. Its ast
 /// twin holds the mechanism; the intl bundle through this package's front end
 /// was measured with both path-resolved (prepublish_overrides --set). The
@@ -445,7 +445,7 @@ const _partialTwinBudget = 0;
 /// runs source to ask what a block body that runs off its end returns, sync
 /// and async (pull request #6). Exec resolves tom_d4rt_ast from pub.dev,
 /// where it still returns the last statement's value until the batch release
-/// (ghissues10), so a port would assert the fix against an interpreter that
+/// (ghissues999), so a port would assert the fix against an interpreter that
 /// does not have it. Its ast twin holds the mechanism. The copier surface a
 /// port would have added is function declarations with block, expression and
 /// async bodies, which the corpus copies on every run.
@@ -456,7 +456,7 @@ const _partialTwinBudget = 0;
 /// refused a same-named bridge over another native type (pull request #7).
 /// Exec resolves tom_d4rt_ast from pub.dev, where the subtype walk still stops
 /// at the superclass chain and compares bridge names until the batch release
-/// (ghissues10), so a port would assert the fix against an interpreter that
+/// (ghissues999), so a port would assert the fix against an interpreter that
 /// does not have it. Its ast twin holds the mechanism. The copier surface a
 /// port would have added is class and mixin declarations with extends,
 /// implements and with clauses, which the corpus copies on every run.
@@ -3452,9 +3452,9 @@ const Map<String, String> _astDriftFingerprints = <String, String>{
 // from today's value alone.
 // QR1 (2026-11-07): the tree is ahead of tom_d4rt_ast 0.212.1 again, and by
 // the user's decision the fixes of the ghissues* / qr* batch are published
-// together, once, by ghissues10 - which sets this back to `null`.
+// together, once, by ghissues999 - which sets this back to `null`.
 // ignore: unnecessary_nullable_for_final_variable_declarations
-const String? _astPublishBlock = 'ghissues10_akgl';
+const String? _astPublishBlock = 'ghissues999_akim';
 
 /// One baseline entry and the comment block written directly above it.
 typedef _BaselineEntry = ({String path, String comment});

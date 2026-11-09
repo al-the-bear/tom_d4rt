@@ -258,12 +258,12 @@ class HeldBack {
 const Map<String, HeldBack> heldBackVersions = <String, HeldBack>{
   'tom_analyzer_shared': HeldBack(
     from: '0.9.0',
-    owner: 'ghissues10_akgl-batch-release-after-ghissues-and-qr',
+    owner: 'ghissues999_akim-batch-release-after-ghissues-and-qr',
     reason:
         'every lock here takes tom_analyzer_shared through the PUBLISHED '
         'tom_d4rt_generator 1.53.0, which declares ^0.8.0. The tree\'s '
         'generator is on ^0.11.0 (qr3) but is not published on its own: the '
-        'batch release ghissues10 publishes it, and its upgrade_stale_locks '
+        'batch release ghissues999 publishes it, and its upgrade_stale_locks '
         'moves the locks',
   ),
 };
