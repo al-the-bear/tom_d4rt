@@ -1,3 +1,19 @@
+## 1.59.0
+
+### Changed — relaxer and constructor dispatch in switches of at most 64 selectors (GitHub #11)
+
+A relaxer factory and an RC-2 generic constructor factory dispatch on a type
+name, one `switch` arm per bridged type. For the full Flutter bridge set that
+made 99 switches with 176 563 selectors between them (up to 3 233 in one), and a
+release AOT build of an app using the set did not finish (al-the-bear/tom_d4rt#11).
+A dispatch of more than 64 distinct selectors is now split into leaf functions
+of at most 64, reached through a binary search on the selector; each leaf keeps
+the typed arguments its arms read (the relaxed value, or `visitor` and the
+extracted constructor arguments) and the fallback for an unknown selector. A
+selector named twice keeps its first arm, as in the switch it replaces. A
+dispatch of up to 64 selectors is written exactly as before. The registrations,
+the factories and what every selector yields are unchanged.
+
 ## 1.58.0
 
 ### Changed — tom_analyzer_shared ^0.13.0

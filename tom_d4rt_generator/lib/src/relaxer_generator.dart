@@ -22,6 +22,7 @@ import 'dart:io';
 import 'package:meta/meta.dart' show visibleForTesting;
 import 'package:path/path.dart' as p;
 
+import 'bounded_dispatch.dart';
 import 'bridge_config.dart';
 import 'bridge_generator.dart'
     show
@@ -1635,24 +1636,33 @@ String _generateFactoryFunction(
   );
   buf.writeln('Object? $funcName(Object value, String innerTypeArg) {');
   buf.writeln('  if (value is! $baseTypeName) return null;');
-  buf.writeln('  return switch (innerTypeArg) {');
 
+  final arms = <DispatchArm>[];
   for (final arg in sortedArgs) {
-    buf.writeln("    '$arg' => $wrapperName<$arg>(value),");
+    arms.add(DispatchArm([arg], '$wrapperName<$arg>(value)'));
     // GEN-079b: Also generate nullable variant so that e.g.
     // WidgetStateProperty<Color?> resolves through WidgetStateProperty<Color?>
     // rather than failing because only 'Color' (non-nullable) is in the switch.
     // Only safe when the wrapper's type param has no upper bound (or Object?),
     // otherwise T? violates `extends Bound`.
     if (allowNullableVariants && !arg.endsWith('?') && !arg.endsWith('>')) {
-      buf.writeln("    '$arg?' => $wrapperName<$arg?>(value),");
+      arms.add(DispatchArm(['$arg?'], '$wrapperName<$arg?>(value)'));
     }
   }
-
-  buf.writeln('    _ => null,');
-  buf.writeln('  };');
+  // #11: past the selector bound the arms move into leaf functions, which
+  // take `value` as the type the guard above promoted it to.
+  final dispatch = writeBoundedSelectorDispatch(
+    selector: 'innerTypeArg',
+    arms: arms,
+    fallback: 'null',
+    returnType: 'Object?',
+    leafPrefix: funcName,
+    parameters: [(type: baseTypeName, name: 'value')],
+  );
+  buf.write(dispatch.statements);
   buf.writeln('}');
   buf.writeln();
+  buf.write(dispatch.leafFunctions);
 
   return buf.toString();
 }
@@ -2589,32 +2599,34 @@ void _writeGenericConstructorFactory(
     );
   }
 
-  buffer.writeln('  return switch (typeName) {');
+  final arms = <DispatchArm>[];
 
   // Primitive dispatches (for unbounded type params)
   if (isUnbounded) {
-    _writeRC2Case(
-      buffer,
-      className,
-      ctorSuffix,
-      'dynamic',
-      "'dynamic' || 'Object' || 'Object?'",
-      positionalParams,
-      namedParams,
-      typeParamName,
-      yieldVoidCallbacks: yieldVoidCallbacks,
-    );
-    for (final prim in _rc2PrimitiveTypes) {
-      _writeRC2Case(
-        buffer,
+    arms.add(
+      _rc2Arm(
         className,
         ctorSuffix,
-        prim,
-        "'$prim'",
+        'dynamic',
+        const ['dynamic', 'Object', 'Object?'],
         positionalParams,
         namedParams,
         typeParamName,
         yieldVoidCallbacks: yieldVoidCallbacks,
+      ),
+    );
+    for (final prim in _rc2PrimitiveTypes) {
+      arms.add(
+        _rc2Arm(
+          className,
+          ctorSuffix,
+          prim,
+          [prim],
+          positionalParams,
+          namedParams,
+          typeParamName,
+          yieldVoidCallbacks: yieldVoidCallbacks,
+        ),
       );
     }
   }
@@ -2630,32 +2642,55 @@ void _writeGenericConstructorFactory(
       }
     }
 
-    _writeRC2Case(
-      buffer,
-      className,
-      ctorSuffix,
-      typeName,
-      "'$typeName'",
-      positionalParams,
-      namedParams,
-      typeParamName,
-      yieldVoidCallbacks: yieldVoidCallbacks,
+    arms.add(
+      _rc2Arm(
+        className,
+        ctorSuffix,
+        typeName,
+        [typeName],
+        positionalParams,
+        namedParams,
+        typeParamName,
+        yieldVoidCallbacks: yieldVoidCallbacks,
+      ),
     );
   }
 
-  buffer.writeln('    _ => null,');
-  buffer.writeln('  };');
+  // #11: past the selector bound the arms move into leaf functions. They read
+  // the extracted arguments and `visitor` (callback wrappers), so each leaf
+  // takes those, typed as the extraction above types them.
+  String localType(ParameterInfo p) {
+    if (isTypeParamTyped(p)) return 'Object?';
+    if (p.type.replaceAll('?', '') == 'double') return 'double?';
+    if (_rc2IsInlineFunctionType(p.type) || p.isFunctionType) return 'Object?';
+    return _rc2NullableCast(p.type);
+  }
+
+  final dispatch = writeBoundedSelectorDispatch(
+    selector: 'typeName',
+    arms: arms,
+    fallback: 'null',
+    returnType: 'Object?',
+    leafPrefix: funcName,
+    parameters: [
+      (type: 'dynamic', name: 'visitor'),
+      for (final p in [...positionalParams, ...namedParams])
+        (type: localType(p), name: _rc2SafeName(p.name)),
+    ],
+  );
+  buffer.write(dispatch.statements);
   buffer.writeln('}');
   buffer.writeln();
+  buffer.write(dispatch.leafFunctions);
 }
 
-/// Writes a single switch case for a generic constructor dispatch.
-void _writeRC2Case(
-  StringBuffer buffer,
+/// The switch arm of a generic constructor dispatch for [typeArg], matched by
+/// [selectors].
+DispatchArm _rc2Arm(
   String className,
   String ctorSuffix,
   String typeArg,
-  String casePattern,
+  List<String> selectors,
   List<ParameterInfo> positionalParams,
   List<ParameterInfo> namedParams,
   String typeParamName, {
@@ -2978,9 +3013,7 @@ void _writeRC2Case(
   }
 
   final allArgs = [...args, ...namedArgParts].join(', ');
-  buffer.writeln(
-    '    $casePattern => $className<$typeArg>$ctorSuffix($allArgs),',
-  );
+  return DispatchArm(selectors, '$className<$typeArg>$ctorSuffix($allArgs)');
 }
 
 /// Checks if [typeName] satisfies the [bound] using the class hierarchy.
@@ -3021,6 +3054,46 @@ bool _rc2IsInlineFunctionType(String type) {
 /// dart:core are safe to use.
 bool _isTypeInScope(ClassInfo classInfo, Set<String> inScopePackagePrefixes) =>
     _isSourceInScope(classInfo.sourceFile, inScopePackagePrefixes);
+
+/// Test-only accessor for [_generateFactoryFunction] (#11, bounded dispatch).
+@visibleForTesting
+String generateRelaxerFactoryFunctionForTesting(
+  String baseTypeName,
+  String moduleName,
+  Set<String> typeArgs,
+  String funcName, {
+  bool allowNullableVariants = false,
+}) => _generateFactoryFunction(
+  baseTypeName,
+  moduleName,
+  typeArgs,
+  funcName,
+  allowNullableVariants: allowNullableVariants,
+);
+
+/// Test-only accessor for [_writeGenericConstructorFactory] (#11, bounded
+/// dispatch): the RC-2 factory of [ctor] of [cls], dispatching over
+/// [allBridgedTypes].
+@visibleForTesting
+String generateGenericConstructorFactoryForTesting(
+  ClassInfo cls,
+  ConstructorInfo ctor,
+  String funcName,
+  List<String> allBridgedTypes,
+  Map<String, ClassInfo> globalClassLookup,
+) {
+  final buffer = StringBuffer();
+  _writeGenericConstructorFactory(
+    buffer,
+    cls,
+    ctor,
+    cls.name,
+    funcName,
+    allBridgedTypes,
+    globalClassLookup,
+  );
+  return buffer.toString();
+}
 
 /// Test-only accessor for the scope check behind [_isTypeInScope] (SCF32).
 @visibleForTesting
