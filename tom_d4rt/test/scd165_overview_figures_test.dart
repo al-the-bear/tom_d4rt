@@ -83,7 +83,9 @@ void main() {
             'checkout rather than a supported configuration — fix the mount '
             'rather than skipping this guard.',
       );
-      expect(file.readAsLinesSync().length, greaterThan(400));
+      // A floor, not a size target: the overview is kept short (current state
+      // only), so this only tells a real document from an empty or stub file.
+      expect(file.readAsLinesSync().length, greaterThan(100));
     });
 
     test('F-SCD165-2: no heading carries a version stamp '
