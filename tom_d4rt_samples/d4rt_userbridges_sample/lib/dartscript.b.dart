@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Dartscript registration for d4rt_userbridges_sample
-// Generated: 2026-09-30T19:41:59.934429 by tom_d4rt_generator 1.51.0
+// Generated: 2026-11-09T14:41:25.665260 by tom_d4rt_generator 1.57.0
 
 /// D4rt Bridge Registration for d4rt_userbridges_sample
 library;
@@ -18,10 +18,6 @@ class UserBridgesSampleBridges {
     ledger_bridges.LedgerBridge.registerBridges(
       d4rt,
       'package:d4rt_userbridges_sample/d4rt_userbridges_sample.dart',
-    );
-    ledger_bridges.LedgerBridge.registerBridges(
-      d4rt,
-      'lib/d4rt_userbridges_sample.dart',
     );
     // Register under sub-package barrels for direct imports
     for (final barrel in ledger_bridges.LedgerBridge.subPackageBarrels()) {

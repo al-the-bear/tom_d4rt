@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Dartscript registration for d4rt_advanced_sample
-// Generated: 2026-09-30T19:40:39.361265 by tom_d4rt_generator 1.51.0
+// Generated: 2026-11-09T14:38:27.331131 by tom_d4rt_generator 1.57.0
 
 /// D4rt Bridge Registration for d4rt_advanced_sample
 library;
@@ -18,10 +18,6 @@ class AdvancedSampleBridges {
     geometry_bridges.GeometryBridge.registerBridges(
       d4rt,
       'package:d4rt_advanced_sample/d4rt_advanced_sample.dart',
-    );
-    geometry_bridges.GeometryBridge.registerBridges(
-      d4rt,
-      'lib/d4rt_advanced_sample.dart',
     );
     // Register under sub-package barrels for direct imports
     for (final barrel in geometry_bridges.GeometryBridge.subPackageBarrels()) {

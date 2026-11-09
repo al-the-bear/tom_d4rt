@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Dartscript registration for dart_overview
-// Generated: 2026-09-30T19:37:47.413869 by tom_d4rt_generator 1.51.0
+// Generated: 2026-11-09T14:30:13.303694 by tom_d4rt_generator 1.57.0
 
 /// D4rt Bridge Registration for dart_overview
 library;
@@ -19,7 +19,6 @@ class DartOverviewBridges {
       d4rt,
       'package:dart_overview/dart_overview.dart',
     );
-    all_bridges.AllBridge.registerBridges(d4rt, 'lib/dart_overview.dart');
     // Register under sub-package barrels for direct imports
     for (final barrel in all_bridges.AllBridge.subPackageBarrels()) {
       all_bridges.AllBridge.registerBridges(d4rt, barrel);
