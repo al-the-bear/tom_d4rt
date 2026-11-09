@@ -44,13 +44,7 @@ import 'package:tom_d4rt_generator/testing.dart';
 /// package takes the PUBLISHED generator. Until that generator is published
 /// the two cannot agree, however often either side is upgraded. X-PARITY-EX-HOLD
 /// fails once a hold no longer holds anything back, so it is deleted then.
-const _heldBack = <String, String>{
-  'tom_analyzer_shared':
-      'ghissues999: this package takes tom_analyzer_shared through the '
-      'published tom_d4rt_generator 1.53.0 (^0.8.0); the examples through the '
-      'tree generator 1.56.0 (^0.11.0, qr3). The batch release publishes the '
-      'generator, and `dart pub upgrade` here then aligns them.',
-};
+const _heldBack = <String, String>{};
 
 void main() {
   final projects = findDartProjects('example');
