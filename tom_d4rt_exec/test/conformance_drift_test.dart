@@ -496,7 +496,19 @@ const _partialTwinBudget = 0;
 /// declarations, export directives and import cycles, which the corpus copies
 /// on every run.
 ///
-const _copierGapBudget = 49;
+/// 49 -> 50: GHISSUES12 added `gh12_async_native_error_catch_test.dart`,
+/// which runs source to check that a native error thrown behind a bridged call
+/// (`int.parse`, `List.unmodifiable(...).add`) is caught as itself in an
+/// `async` function as in a synchronous one: `on T` matches it, `is T` holds,
+/// the trace is the native one, and an undefined name stays uncatchable. Exec
+/// resolves tom_d4rt_ast from pub.dev, where the async state machine still
+/// binds the RuntimeD4rtException wrapper until the batch release
+/// (ghissues999), so a port would assert the fix against an interpreter that
+/// does not have it. Its ast twin holds the mechanism. The copier surface a
+/// port would have added is async functions with try / on / catch clauses,
+/// which the corpus copies on every run.
+///
+const _copierGapBudget = 50;
 
 const Map<String, _Coverage> _coveredElsewhere = {
   'sce208_bind_forwarding_source_errors_test.dart': _Coverage(
@@ -606,6 +618,21 @@ const Map<String, _Coverage> _coveredElsewhere = {
         'repeated dart:core and dart:async prefixes, dart:math, missing names '
         'and prefixes, dynamic and Record), which a hand-built bundle would '
         'only restate.',
+  ),
+  'gh12_async_native_error_catch_test.dart': _Coverage(
+    'ast:runtime/gh12_async_native_error_catch_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 7,
+    twinCases: 2,
+    whyPartial:
+        'the twin pins the async state machine once each way - `on '
+        'FormatException` and a bare catch with an `is` check, before and '
+        'after an await - which is the code that tree owns. The reference '
+        'adds the remaining SHAPES (the synchronous control cases, a script '
+        'throw, an awaited Future completing with an error, the trace '
+        'parameter and rethrow, the uncatchable undefined name), which a '
+        'hand-built bundle would only restate.',
   ),
   'gh11_extension_on_loading_type_test.dart': _Coverage(
     'ast:runtime/gh11_extension_on_loading_type_test.dart',

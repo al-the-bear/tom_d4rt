@@ -3865,6 +3865,19 @@ class InterpretedFunction implements Callable {
       error = error.originalThrownValue;
     }
     final stackTrace = state.currentStackTrace;
+    // ghissues12: a native error thrown behind a bridged call arrives wrapped
+    // in a RuntimeD4rtException carrying it. The catch clause is chosen for,
+    // and binds, the native error and its own trace, as `visitTryStatement`
+    // does for a synchronous body (OPEN B.5, SCC11); `on FormatException` and
+    // `e is UnsupportedError` missed it in an `async` function. An error no
+    // clause takes propagates as it arrived.
+    final caught =
+        error is RuntimeD4rtException && error.originalException != null
+        ? error.originalException
+        : error;
+    final caughtStackTrace =
+        (error is RuntimeD4rtException ? error.originalStackTrace : null) ??
+        stackTrace;
 
     Logger.debug(
       "[_handleAsyncError] Handling error: $error from node: ${nodeWhereErrorOccurred.runtimeType} at offset ${nodeWhereErrorOccurred.offset}",
@@ -4011,7 +4024,7 @@ class InterpretedFunction implements Callable {
       // that had just thrown, forever.
       if (enclosingTry.catchClauses.isNotEmpty &&
           !_isInsideCatchClauseOf(nodeWhereErrorOccurred, enclosingTry)) {
-        matchingCatchClause = visitor.selectCatchClause(enclosingTry, error);
+        matchingCatchClause = visitor.selectCatchClause(enclosingTry, caught);
         Logger.debug(
           matchingCatchClause == null
               ? " [_handleAsyncError] No clause of the TryStatement handles "
@@ -4063,7 +4076,7 @@ class InterpretedFunction implements Callable {
 
       // Update the state for rethrow - store the original error
       final internalError = InternalInterpreterD4rtException(
-        error ?? Exception("Unknown error caught"),
+        caught ?? Exception("Unknown error caught"),
       ); // Pass only the error
       state.originalErrorForRethrow = internalError;
       // NOTE: We set isHandlingErrorForRethrow to true here to indicate we're in a catch block
@@ -4107,7 +4120,7 @@ class InterpretedFunction implements Callable {
       final exceptionParameter = matchingCatchClause.exceptionParameter;
       if (exceptionParameter != null) {
         final varName = exceptionParameter.name;
-        catchEnvironment.define(varName, error);
+        catchEnvironment.define(varName, caught);
         Logger.debug(
           " [_handleAsyncError] Defined exception variable '$varName' in the "
           "catch block's own environment.",
@@ -4117,7 +4130,7 @@ class InterpretedFunction implements Callable {
         final stackTraceParameter = matchingCatchClause.stackTraceParameter;
         if (stackTraceParameter != null) {
           final stackVarName = stackTraceParameter.name;
-          catchEnvironment.define(stackVarName, stackTrace);
+          catchEnvironment.define(stackVarName, caughtStackTrace);
           Logger.debug(
             "[_handleAsyncError] Defined stack trace variable '$stackVarName' "
             "in the catch block's own environment.",

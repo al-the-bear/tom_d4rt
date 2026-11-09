@@ -102,9 +102,6 @@ void main() {
 
     test('F-DART313B1-7: List.unmodifiableOf and Map.unmodifiableOf build '
         'unmodifiable copies [2026-11-09]', () {
-      // In a sync function on purpose: inside an async one a native error
-      // from a bridged call is caught wrapped (asynccatch1_akiq), which is a
-      // separate defect and not what this case is about.
       expect(
         execute('''
         main() {

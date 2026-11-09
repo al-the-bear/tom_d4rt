@@ -237,7 +237,10 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpretedFunction._findInvocationWithAwaitInArguments': '5fedfaed',
     'InterpretedFunction._findNextSequentialNode': 'f20b7114',
     'InterpretedFunction._enclosingExpressionFunctionBody': '34fd9762',
-    'InterpretedFunction._handleAsyncError': '7e829bf3',
+    // GHISSUES12: both trees choose and bind the catch clause for the native
+    // error a RuntimeD4rtException carries; the recorded residue is unchanged
+    // in kind, its signature moved with the shared edit.
+    'InterpretedFunction._handleAsyncError': 'a9719a4d',
     'InterpretedFunction._instantiateRedirectedFactory': '92a6e173',
     'InterpretedFunction._isInsideCatchClauseOf': '3782eeaf',
     // SCE78: the finally-block companion to the catch-clause predicate

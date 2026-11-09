@@ -1,3 +1,19 @@
+## 0.221.0
+
+### Fixed — an `async` function catches a native error from a bridged call as itself
+
+Inside an `async` function, an error thrown by native code behind a bridged
+call (`int.parse('x')`, `List.unmodifiable(...).add`, a bridged call inside a
+closure a native `Future` runs) reached the catch clause wrapped in the
+interpreter's `RuntimeD4rtException`: `on FormatException` did not match,
+`e is UnsupportedError` was false, `e.runtimeType` named the wrapper and the
+trace was the wrapper's. The catch clause is now chosen for, and binds, the
+native error and its own trace, as in a synchronous function; `rethrow` carries
+the native error on. An error no clause takes propagates as before, and an
+undefined name is still not catchable.
+
+Name resolution: no
+
 ## 0.220.0
 
 ### Fixed — an extension on a type declared in a library still loading (GitHub #9 follow-up)
