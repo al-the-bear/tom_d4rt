@@ -134,7 +134,7 @@ void main() {
         'member-lookup diagnostic text [2026-09-05]', () {
       // Needs the sibling checkout. A published copy of this package cannot see
       // `tom_d4rt_ast`, and a red test there would be noise rather than a
-      // finding — same reasoning as F-SCC26-3.
+      // finding.
       if (repoRoot == null) {
         markTestSkipped('mirrored checkout not present');
         return;

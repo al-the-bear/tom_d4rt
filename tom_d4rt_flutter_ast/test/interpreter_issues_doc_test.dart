@@ -211,7 +211,7 @@ List<OpenCluster> parseOpenClustersFromTable(List<String> lines) {
 // IT LIVES IN THE AST TWIN because that twin owns `doc/interpreter_issues.md`,
 // and the record being guarded is a table in that document. It reaches across
 // to the sibling package for the source twin's companion-app lockfile and
-// README — as `scc26_format_alignment_test.dart` already does in the
+// README — as `sce222_mirrored_pair_floors_test.dart` already does in the
 // interpreter trees — rather than being duplicated, because one record cannot
 // have two guards that could disagree about it.
 
