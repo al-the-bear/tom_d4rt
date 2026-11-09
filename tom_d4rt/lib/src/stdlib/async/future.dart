@@ -68,6 +68,15 @@ class FutureAsync {
       },
     },
     staticMethods: {
+      // Dart 3.13 (DART313B1): `Future.pause([duration])` completes with no
+      // value after [duration] and cannot fail, which is `Future.delayed` with
+      // no computation. Delegating to that keeps it available on older host
+      // SDKs too.
+      'pause': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Future.pause', atMost: 1);
+        final duration = positionalArgs.get<Duration?>(0) ?? Duration.zero;
+        return Future<void>.delayed(duration);
+      },
       'delayed': (visitor, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Future.delayed', atMost: 2);
         final duration = positionalArgs[0] as Duration;

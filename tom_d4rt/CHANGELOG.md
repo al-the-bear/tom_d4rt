@@ -1,3 +1,34 @@
+## 1.237.0
+
+### Added — the members Dart 3.13 added to bridged classes
+
+`int.oneBitCount`, `int.trailingZeroBitCount`, `Future.pause`,
+`List.unmodifiableOf` and `Map.unmodifiableOf` are bridged. The packages
+declare `sdk: ^3.10.4`, so none of them reads the 3.13 member: the bit counts
+follow the SDK's own algorithm on the width it documents (64-bit native, the
+low 32 bits on the web), `Future.pause` is `Future.delayed` with no
+computation, and the two constructors delegate to `unmodifiable`, which the SDK
+declares them as redirects to. A script gets the same answer on every host SDK,
+3.13 or older.
+
+### Declined — the Dart 3.13 isolate-embedding members on `Isolate`
+
+`create`, `pinToCurrentThread`, `isPinnedToCurrentThread`, `runSync`,
+`runEventLoopSync`, `handleEvent`, `onEvent` and `shutdownSync` block or pin OS
+threads, drive event loops the interpreter does not own, and take only deeply
+immutable callbacks. They are recorded in `kUnbridgedMemberReasons` (and the
+limitations doc); the rest of `Isolate` stays bridged.
+
+### Changed — every missing-member message names a declined member's reason
+
+A declined member reported its reason only when it was called as an instance
+method. A static call (`has no constructor or static method named`), a getter
+read (`Undefined property or method`) and a setter write (`Cannot assign to
+property`) now append the same `(not bridged: …; see doc/d4rt_limitations.md)`
+suffix. For any other member the messages are unchanged.
+
+Name resolution: no
+
 ## 1.236.0
 
 ### Fixed — an interpreted class reaches a bridged type through interpreted interfaces (PR #7)

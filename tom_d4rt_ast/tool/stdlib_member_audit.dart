@@ -106,6 +106,113 @@ bool _isDeprecated(DeclarationMirror decl) {
   }
 }
 
+/// The oldest Dart SDK the d4rt packages declare (`environment: sdk: ^3.10.4`
+/// in their pubspecs), as major and minor.
+///
+/// DART313B1. The audit enumerates the RUNNING SDK through `dart:mirrors`, so a
+/// newer SDK brings members an older one lacks, and the baseline and the
+/// measured figures stop being the same on every SDK the suites run on (Dart
+/// 3.13 added `int.oneBitCount`, `Future.pause` and an isolate-embedding API to
+/// `Isolate`). The audit therefore measures the surface every supported SDK
+/// has: members the SDK marks `@Since` a version newer than this floor are left
+/// out, and `test/dart313b1_sdk_313_members_test.dart` holds each of them to the
+/// same rule separately — bridged, or declined in `kUnbridgedMemberReasons`.
+/// Raise this together with the pubspecs' floor.
+const auditSdkFloor = (major: 3, minor: 10);
+
+/// The version an SDK declaration's `@Since` annotation names, or null.
+///
+/// `Since` lives in `dart:_internal`, so it is matched by name rather than by
+/// type, and its `version` field is read through the mirror.
+String? sinceVersion(DeclarationMirror decl) {
+  try {
+    for (final m in decl.metadata) {
+      if (MirrorSystem.getName(m.type.simpleName) != 'Since') continue;
+      final version = m.getField(#version).reflectee;
+      if (version is String) return version;
+    }
+  } catch (_) {
+    // Some SDK declarations throw on metadata access; treat as not annotated.
+  }
+  return null;
+}
+
+/// Whether [decl] is marked `@Since` a version newer than [auditSdkFloor].
+bool isNewerThanAuditFloor(DeclarationMirror decl) {
+  final version = sinceVersion(decl);
+  if (version == null) return false;
+  final parts = version.split('.').map(int.tryParse).toList();
+  final major = parts.isNotEmpty ? parts[0] : null;
+  final minor = parts.length > 1 ? parts[1] ?? 0 : 0;
+  if (major == null) return false;
+  return major > auditSdkFloor.major ||
+      (major == auditSdkFloor.major && minor > auditSdkFloor.minor);
+}
+
+/// The public members of [type] (its own declarations and its supertypes';
+/// statics and constructors from [type] itself) that the SDK marks newer than
+/// [auditSdkFloor] — what the audit leaves out. Constructors are named as a
+/// script writes them after the class (`unmodifiableOf`, or `''` for the
+/// unnamed one).
+({Set<String> instance, Set<String> statics, Set<String> constructors})
+sdkMembersNewerThanFloor(Type type) {
+  final instance = <String>{};
+  final statics = <String>{};
+  final constructors = <String>{};
+  final ClassMirror root;
+  try {
+    final t = reflectType(type);
+    if (t is! ClassMirror) {
+      return (instance: instance, statics: statics, constructors: constructors);
+    }
+    root = t;
+  } catch (_) {
+    return (instance: instance, statics: statics, constructors: constructors);
+  }
+  final seen = <ClassMirror>{};
+  final queue = <ClassMirror>[root];
+  while (queue.isNotEmpty) {
+    final cm = queue.removeAt(0);
+    if (!seen.add(cm)) continue;
+    final isRoot = identical(cm, root);
+    Map<Symbol, DeclarationMirror> declarations;
+    try {
+      declarations = cm.declarations;
+    } catch (_) {
+      continue;
+    }
+    for (final entry in declarations.entries) {
+      final raw = MirrorSystem.getName(entry.key);
+      final decl = entry.value;
+      if (!isNewerThanAuditFloor(decl)) continue;
+      if (decl is MethodMirror && decl.isConstructor) {
+        if (!isRoot) continue;
+        final name = MirrorSystem.getName(decl.constructorName);
+        if (!name.startsWith('_')) constructors.add(name);
+        continue;
+      }
+      if (raw.startsWith('_')) continue;
+      final name = _normalizeSetter(raw);
+      final isStatic = decl is MethodMirror
+          ? decl.isStatic
+          : decl is VariableMirror && decl.isStatic;
+      if (isStatic) {
+        if (isRoot) statics.add(name);
+      } else {
+        instance.add(name);
+      }
+    }
+    try {
+      final sup = cm.superclass;
+      if (sup != null && sup.reflectedType != Object) queue.add(sup);
+      queue.addAll(cm.superinterfaces);
+    } catch (_) {
+      // best-effort hierarchy walk
+    }
+  }
+  return (instance: instance, statics: statics, constructors: constructors);
+}
+
 /// Member names a script may reach on the native [type].
 ///
 /// Statics come from the entry class only: Dart does not inherit them, so
@@ -142,6 +249,7 @@ bool _isDeprecated(DeclarationMirror decl) {
       final decl = entry.value;
       if (!_isPublic(raw)) continue;
       if (_isDeprecated(decl)) continue;
+      if (isNewerThanAuditFloor(decl)) continue;
 
       if (decl is MethodMirror) {
         if (decl.isConstructor) continue;

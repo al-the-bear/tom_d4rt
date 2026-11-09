@@ -3046,11 +3046,14 @@ below assert that its key set is exactly the "Reported as" identifiers on this
 page, so the two cannot drift apart.
 
 A missing **member** on a class that *is* bridged reports differently — the
-three `ByteBuffer` SIMD views and the `RawSocket` message pair say
+three `ByteBuffer` SIMD views, the `RawSocket` message pair and the `Isolate`
+embedding members say
 `Bridged class 'ByteBuffer' has no instance method named 'asFloat32x4List'`
-rather than `Undefined variable:` — but SCC91 gave that path its own reason
-map, so the message continues with the same explanation and the same pointer
-back here. Neither case requires you to arrive by searching any more.
+(or, for a static, a getter or a setter, `has no constructor or static method
+named`, `Undefined property or method` or `Cannot assign to property`) rather
+than `Undefined variable:` — but SCC91 gave that path its own reason map, so
+every one of those messages continues with the same explanation and the same
+pointer back here. Neither case requires you to arrive by searching any more.
 
 The two maps stay separate because they are keyed on different things: a
 missing class fails at a variable lookup and is known by its bare name, a
@@ -3081,6 +3084,7 @@ construction. The same holds for the runners layered on top
 | `Finalizer` | `Finalizer` | `dart:core` | Same root cause as `WeakReference`, plus it hands the script a GC-timed callback — a non-deterministic re-entry point into sandboxed code. Sandbox-hostile by design. |
 | `HttpOverrides` | `HttpOverrides` | `dart:io` | A global hook for swapping the `HttpClient` implementation. `HttpOverrides.global = …` takes effect **process-wide and outlives the script that set it**, so one sandboxed script would silently redirect every subsequent HTTP call made by the host application and by every other script. That is the uncontrolled host access the permission system exists to prevent, and unlike a filesystem or network grant there is no granularity that makes it safe — the capability *is* the escape. The zone-scoped `runZoned` / `runWithHttpOverrides` forms are narrower but require the script to supply an `HttpOverrides` subclass whose `createHttpClient` returns a native `HttpClient`, which interpreted code cannot produce. |
 | `SocketControlMessage` | `SocketMessage`, `SocketControlMessage`, `ResourceHandle`, `readMessage`, `sendMessage` | `dart:io` | File-descriptor passing over a Unix domain socket, reached through `RawSocket.readMessage` / `sendMessage` — which are therefore absent too, as missing *members* on a bridged class (pinned by F-SCC74-1). A `SocketControlMessage` exists to carry `ResourceHandle`s: raw operating-system file descriptors. A script that received one would hold a working handle to a file or socket that `FilesystemPermission` and `NetworkPermission` never granted, and neither permission could see it happen — a grant is checked when a path or a host is *named*, and a descriptor names neither. The capability is the escape, exactly as with `HttpOverrides`, so no granularity makes it safe. The rest of `RawSocket` is bridged; only the message pair is out. |
+| `Isolate` (its Dart 3.13 embedding members) | `create`, `pinToCurrentThread`, `isPinnedToCurrentThread`, `runSync`, `runEventLoopSync`, `handleEvent`, `onEvent`, `shutdownSync` | `dart:isolate` | Dart 3.13 added an API for embedding isolates by hand: create one in the current group, pin it to an OS thread, run its event loop synchronously on the calling thread, register an event callback that runs on an arbitrary thread, execute a function inside it. Every one of these blocks or pins OS threads or drives an event loop the interpreter does not own, and `runSync` and `onEvent` accept only deeply immutable callbacks, which an interpreted closure never is. Exposed to a script they could deadlock the host or shut down an isolate it depends on, and no permission granularity makes that safe. The rest of `Isolate` is bridged (behind `IsolatePermission`); only these eight are out (pinned by F-DART313B1-3). |
 
 ### Not a class, so there is nothing to bridge
 

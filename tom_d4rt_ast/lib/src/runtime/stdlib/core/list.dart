@@ -53,6 +53,12 @@ class ListCore {
       'unmodifiable': (visitor, positionalArgs, namedArgs) {
         return List<dynamic>.unmodifiable(positionalArgs[0] as Iterable);
       },
+      // Dart 3.13 (DART313B1): the SDK declares `List.unmodifiableOf` as a
+      // redirect to `List.unmodifiable`, so delegating to that is exact and
+      // keeps it available on older host SDKs.
+      'unmodifiableOf': (visitor, positionalArgs, namedArgs) {
+        return List<dynamic>.unmodifiable(positionalArgs[0] as Iterable);
+      },
     },
     staticMethods: {
       'castFrom': (visitor, positionalArgs, namedArgs, _) {
@@ -111,6 +117,10 @@ class ListCore {
       },
       'unmodifiable': (visitor, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'List.unmodifiable', atMost: 1);
+        return List<dynamic>.unmodifiable(positionalArgs[0] as Iterable);
+      },
+      'unmodifiableOf': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.unmodifiableOf', atMost: 1);
         return List<dynamic>.unmodifiable(positionalArgs[0] as Iterable);
       },
       'writeIterable': (visitor, positionalArgs, namedArgs, _) {

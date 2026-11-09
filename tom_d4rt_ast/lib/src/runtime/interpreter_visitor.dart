@@ -3615,7 +3615,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           }
           // No setter adapter found and no script-defined fallback.
           throw RuntimeD4rtException(
-            "Cannot assign to property '$propertyName' on bridged instance of '${bridgedInstance.bridgedClass.name}': No setter adapter found.",
+            "Cannot assign to property '$propertyName' on bridged instance of '${bridgedInstance.bridgedClass.name}': No setter adapter found."
+            "${unbridgedMemberSuffix(bridgedInstance.bridgedClass.name, propertyName)}",
           );
         }
       } else if (targetValue is BoundBridgedSuper) {
@@ -4050,7 +4051,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           }
           // No setter adapter found and no script-defined fallback.
           throw RuntimeD4rtException(
-            "Cannot assign to property '$propertyName' on bridged instance of '${bridgedInstance.bridgedClass.name}': No setter adapter found.",
+            "Cannot assign to property '$propertyName' on bridged instance of '${bridgedInstance.bridgedClass.name}': No setter adapter found."
+            "${unbridgedMemberSuffix(bridgedInstance.bridgedClass.name, propertyName)}",
           );
         }
       } else if (target is InterpretedExtensionTypeInstance) {
@@ -5422,7 +5424,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
               return bridgedClass.name;
             }
             throw RuntimeD4rtException.resolutionFailure(
-              "Bridged class '${bridgedClass.name}' has no constructor or static method named '$methodName'.",
+              "Bridged class '${bridgedClass.name}' has no constructor or static method named '$methodName'."
+              "${unbridgedMemberSuffix(bridgedClass.name, methodName)}",
             );
           }
         }
@@ -6611,7 +6614,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       }
 
       throw UndefinedMemberD4rtException(
-        "Undefined property or method '$propertyName' on bridged instance of '${bridgedInstance.bridgedClass.name}'.",
+        "Undefined property or method '$propertyName' on bridged instance of '${bridgedInstance.bridgedClass.name}'."
+        "${unbridgedMemberSuffix(bridgedInstance.bridgedClass.name, propertyName)}",
         memberName: propertyName,
         receiver: bridgedInstance,
       );

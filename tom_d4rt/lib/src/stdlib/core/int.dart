@@ -181,6 +181,12 @@ class IntCore {
       'hashCode': (visitor, target) => (target as int).hashCode,
       'runtimeType': (visitor, target) => (target as int).runtimeType,
       'bitLength': (visitor, target) => (target as int).bitLength,
+      // Dart 3.13 (DART313B1). Computed here rather than read off the native
+      // `int`, so a script gets the same answer on every host SDK, 3.13 or
+      // older: the SDK's own algorithm, on the width it documents.
+      'oneBitCount': (visitor, target) => intOneBitCount(target as int),
+      'trailingZeroBitCount': (visitor, target) =>
+          intTrailingZeroBitCount(target as int),
       'sign': (visitor, target) => (target as int).sign,
       'isEven': (visitor, target) => (target as int).isEven,
       'isOdd': (visitor, target) => (target as int).isOdd,
@@ -190,4 +196,29 @@ class IntCore {
       'isNegative': (visitor, target) => (target as int).isNegative,
     },
   );
+}
+
+/// Whether integers are JavaScript numbers, where `int`'s bit operations use
+/// the least significant 32 bits (`0 == 0.0` holds only there).
+const bool _jsInts = identical(0, 0.0);
+
+/// `int.oneBitCount` (Dart 3.13): the `1` bits of [value] — of the 64-bit
+/// two's complement on native platforms, of the low 32 bits on the web.
+int intOneBitCount(int value) {
+  var bits = _jsInts ? value.toUnsigned(32) : value;
+  var count = 0;
+  while (bits != 0) {
+    bits &= bits - 1;
+    count++;
+  }
+  return count;
+}
+
+/// `int.trailingZeroBitCount` (Dart 3.13): the position of the least
+/// significant `1` bit of [value], or the platform's bit width (64 native,
+/// 32 web) when [value] is zero. The SDK's own formula.
+int intTrailingZeroBitCount(int value) {
+  final bits = _jsInts ? value.toUnsigned(32) : value;
+  if (bits == 0) return _jsInts ? 32 : 64;
+  return intOneBitCount((bits - 1) & ~bits);
 }

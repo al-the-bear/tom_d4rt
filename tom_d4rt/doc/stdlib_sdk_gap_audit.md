@@ -479,6 +479,17 @@ baseline.
 
 ### Current measured state
 
+**The figures are the same on every supported SDK.** The audit enumerates the
+running SDK, so a newer SDK brings members an older one lacks; it therefore
+leaves out every member the SDK marks `@Since` a version newer than
+`auditSdkFloor` (3.10, the `sdk: ^3.10.4` the packages declare). Those members
+are held to the same rule by `test/dart313b1_sdk_313_members_test.dart`
+(F-DART313B1-5): each is bridged, or declined in `kUnbridgedMemberReasons`.
+Dart 3.13 added thirteen: `int.oneBitCount`, `int.trailingZeroBitCount`,
+`Future.pause`, `List.unmodifiableOf` and `Map.unmodifiableOf` are bridged with
+equivalents every supported SDK has, and the eight `Isolate` embedding members
+are declined (limitations doc).
+
 Measured 2026-09-21.
 
 | Metric | Count |

@@ -340,8 +340,10 @@ const _divergentBodies = <String, Map<String, String>>{
     // SCE176: 510fd0b5 -> fddd7587. Both trees appended the same
     // unbridged-native clause to the same two assignment errors; the residue
     // is still `PrefixedIdentifier` vs `SPrefixedIdentifier` in one message,
-    // which the new text now sits beside.
-    'InterpreterVisitor.visitAssignmentExpression': '0d5d1441',
+    // which the new text now sits beside. DART313B1: 0d5d1441 -> 8af32809,
+    // both trees appended the same declined-member reason to the same
+    // setter-miss message.
+    'InterpreterVisitor.visitAssignmentExpression': '8af32809',
     'InterpreterVisitor.visitBinaryExpression': 'c2f2a78f',
     // SCE130: 57fc0f99 -> fffabfd5. Both trees gained the same call to
     // `klass.resolveDeferredTypeParameterBounds`; the residue is the
@@ -392,7 +394,9 @@ const _divergentBodies = <String, Map<String, String>>{
     // `_stepBridgedProperty` and nothing else.
     'InterpreterVisitor._stepStaticProperty': '15618af1',
     'InterpreterVisitor.visitPrefixedIdentifier': 'f3391558',
-    'InterpreterVisitor.visitPropertyAccess': '9ac16b77',
+    // DART313B1: 9ac16b77 -> 4745333b, both trees appended the same
+    // declined-member reason to the same property-miss message.
+    'InterpreterVisitor.visitPropertyAccess': '4745333b',
     'InterpreterVisitor.visitReturnStatement': 'b0d7b56c',
     'InterpreterVisitor.visitSetOrMapLiteral': '1a33a2d6',
     'InterpreterVisitor.visitSimpleIdentifier': 'c243901e',

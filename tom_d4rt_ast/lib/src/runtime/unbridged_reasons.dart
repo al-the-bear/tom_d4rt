@@ -98,6 +98,12 @@ const String _simd =
     'deferred: every lane operation would cost a bridge '
     'crossing, so bridged SIMD is slower than the scalar code it replaces';
 
+const String _isolateEmbedding =
+    'refused: the Dart 3.13 isolate-embedding API blocks or pins OS threads, '
+    'drives event loops by hand and takes only deeply immutable callbacks, '
+    'which an interpreted closure is not; exposed to a script it could '
+    'deadlock or shut down the host';
+
 /// Why a deliberately-unbridged MEMBER on a bridged class is absent, keyed by
 /// `Class.member`.
 ///
@@ -109,7 +115,7 @@ const String _simd =
 /// is a class and a member name. So it needs its own key shape, and the two
 /// maps cannot be merged without one of them lying about what it is keyed on.
 ///
-/// Both entries here are members whose ABSENCE is the decision while the class
+/// Every entry here is a member whose ABSENCE is the decision while the class
 /// around them is bridged and useful. That is the whole membership rule: a
 /// class nobody bridged belongs in [kUnbridgedReasons] instead.
 const Map<String, String> kUnbridgedMemberReasons = <String, String>{
@@ -120,6 +126,16 @@ const Map<String, String> kUnbridgedMemberReasons = <String, String>{
   // The RawSocket message pair, added by SCC74. Pinned by F-SCC74-1.
   'RawSocket.readMessage': _fileDescriptorPassing,
   'RawSocket.sendMessage': _fileDescriptorPassing,
+  // The isolate-embedding API Dart 3.13 added to `Isolate` (DART313B1).
+  // Pinned by F-DART313B1-3.
+  'Isolate.create': _isolateEmbedding,
+  'Isolate.handleEvent': _isolateEmbedding,
+  'Isolate.isPinnedToCurrentThread': _isolateEmbedding,
+  'Isolate.onEvent': _isolateEmbedding,
+  'Isolate.pinToCurrentThread': _isolateEmbedding,
+  'Isolate.runEventLoopSync': _isolateEmbedding,
+  'Isolate.runSync': _isolateEmbedding,
+  'Isolate.shutdownSync': _isolateEmbedding,
 };
 
 /// The suffix a member-miss message carries when the member is a decision.

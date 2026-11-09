@@ -37,6 +37,7 @@
 import 'package:test/test.dart';
 import 'package:tom_d4rt_ast/runtime.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/io.dart';
+import 'package:tom_d4rt_ast/src/runtime/stdlib/isolate.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/math.dart';
 import 'package:tom_d4rt_ast/src/runtime/unbridged_reasons.dart';
 
@@ -304,8 +305,10 @@ void main() {
       // The shared `env` carries the eagerly-registered stdlib, which covers
       // the dart:typed_data half. dart:io registers lazily on import, so the
       // RawSocket pair needs it explicitly — without this the case fails for
-      // the wrong reason, reporting a bridged class as absent.
+      // the wrong reason, reporting a bridged class as absent. dart:isolate is
+      // lazy too, and the declined `Isolate` members (DART313B1) need it.
       IoStdlib.register(env);
+      IsolateStdlib.register(env);
       final missing = <String>[];
       for (final key in kUnbridgedMemberReasons.keys) {
         final className = key.split('.').first;

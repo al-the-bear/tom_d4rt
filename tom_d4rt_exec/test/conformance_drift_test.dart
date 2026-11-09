@@ -461,7 +461,18 @@ const _partialTwinBudget = 0;
 /// port would have added is class and mixin declarations with extends,
 /// implements and with clauses, which the corpus copies on every run.
 ///
-const _copierGapBudget = 46;
+/// 46 -> 47: DART313B1 added `dart313b1_sdk_313_members_test.dart`, which
+/// runs source to check the Dart 3.13 members bridged with SDK-independent
+/// equivalents (`int.oneBitCount`, `int.trailingZeroBitCount`, `Future.pause`,
+/// `List.unmodifiableOf`, `Map.unmodifiableOf`) and holds every SDK member
+/// newer than the audit floor to "bridged or declined". Exec resolves
+/// tom_d4rt_ast from pub.dev, where those bridges do not exist until the batch
+/// release (ghissues999), so a port would assert them against an interpreter
+/// that does not have them. Its ast twin holds the bridges. The copier surface
+/// a port would have added is property access on literals, static calls and
+/// await, which the corpus copies on every run.
+///
+const _copierGapBudget = 47;
 
 const Map<String, _Coverage> _coveredElsewhere = {
   'sce208_bind_forwarding_source_errors_test.dart': _Coverage(
@@ -523,6 +534,21 @@ const Map<String, _Coverage> _coveredElsewhere = {
         'SHAPES (branches, loops, try/finally, every callable kind, async '
         'closures and methods, mid-body awaits), which a hand-built bundle '
         'would only restate.',
+  ),
+  'dart313b1_sdk_313_members_test.dart': _Coverage(
+    'ast:runtime/dart313b1_sdk_313_members_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 6,
+    twinCases: 3,
+    whyPartial:
+        'the twin pins the five bridged members once each - the two bit '
+        'counts, Future.pause and the two unmodifiableOf constructors - which '
+        'is what only that tree can answer, since its stdlib bridges are its '
+        'own copy. The reference adds the native comparison on Dart 3.13, the '
+        'audit-floor guard over every bridged class and the floor-pubspec '
+        'agreement, which read the registry and the SDK rather than the '
+        'interpreter.',
   ),
   'gh7_transitive_bridged_interface_test.dart': _Coverage(
     'ast:runtime/gh7_transitive_bridged_interface_test.dart',
@@ -2336,6 +2362,10 @@ const Map<String, _Divergence> _divergentBaseline = {
   // not the same set, and the reference copy does not even run here — exec has
   // no such doc, so F-SCB30-3/-5 die on a missing file. Convergence would
   // require one shared document, which would then be wrong about both trees.
+  //
+  // DART313B1 added F-DART313B1-3 to the reference copy only: it asserts the
+  // eight declined `Isolate` members, which the published tom_d4rt_ast exec
+  // resolves does not decline until the batch release (ghissues999).
   'stdlib/intentionally_unbridged_test.dart': _Divergence.necessary,
   // Ported by SCC43 minus the twin's F-SCC31-17/18, which scan every mirrored
   // tree's sources for the guard rather than running a script. A second copy
@@ -2381,11 +2411,11 @@ const Map<String, _Divergence> _divergentBaseline = {
 const Map<String, String> _divergenceFingerprints = <String, String>{
   'scd34_constructor_trace_forwarding_test.dart': '239ecf0a3afc35f2',
   'scd35_bridged_tearoff_as_callback_test.dart': '2af9f62cc4643311',
-  'scc28_typed_undefined_member_test.dart': '26138b224ded3701',
+  'scc28_typed_undefined_member_test.dart': '607adb1f1f551b29',
   'stdlib/io/scd188_stdin_audit_reason_expiry_test.dart': '46be47f827711c3a',
   'warm_parent_package_pool_test.dart': '971b6ff19185f442',
-  'stdlib/intentionally_unbridged_test.dart': 'a11036cda720efcf',
-  'scc31_undefined_name_uncatchable_test.dart': '5cbda0053357426b',
+  'stdlib/intentionally_unbridged_test.dart': '7afe64313e406c95',
+  'scc31_undefined_name_uncatchable_test.dart': '5168561b17d50b1b',
   'scc32_bridged_value_key_test.dart': '0a2b0b334d6eedaf',
   'scc33_unhandled_node_test.dart': '1be2b48d0784ff46',
 };

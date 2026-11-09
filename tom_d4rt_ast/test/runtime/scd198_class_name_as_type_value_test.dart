@@ -85,13 +85,24 @@ void main() {
       expect(carrier == 42, isFalse);
     });
 
-    test('F-SCD198-AST-5: a bridge is usable as a map key against its Type '
-        '[2026-09-15] (PASS)', () {
-      // The consequence the whole fix exists for, at the level this tree can
-      // measure it: store by native, look up by bridge.
+    test('F-SCD198-AST-5: a bridge lands in its Type\'s bucket and equals it '
+        'from its own side [2026-11-09]', () {
+      // What a hash collection needs from the bridge, on every SDK: the same
+      // bucket as the native `Type`, and equality when the bridge is asked.
+      //
+      // NOT a raw lookup `{_Carrier: 'c'}[carrier]`. Which key a `Map` asks
+      // to compare is the SDK's choice — Dart 3.12 asked the lookup key (the
+      // bridge, which says yes), 3.13 asks the stored one (the `Type`, whose
+      // `==` is not ours and says no) — so that lookup answered 'c' on 3.12
+      // and null on 3.13. The interpreter does not depend on it: it stores and
+      // looks up the native `Type` (`_unwrapHashKey`), and the script-level
+      // twin, `tom_d4rt/test/scd198_class_name_as_type_value_test.dart`,
+      // checks that path (map, set and list) on every SDK.
       final carrier = bridge(_Carrier, 'Carrier');
+      expect(carrier.hashCode, equals(_carrierType.hashCode));
+      expect(carrier == _carrierType, isTrue);
       final byType = <Object, String>{_Carrier: 'c'};
-      expect(byType[carrier], equals('c'));
+      expect(byType[carrier.nativeType], equals('c'));
     });
   });
 }

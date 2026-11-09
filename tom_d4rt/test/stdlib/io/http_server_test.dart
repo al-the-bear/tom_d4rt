@@ -517,11 +517,13 @@ void main() {
     test('F-SCC62-13: a SameSite parsed off the wire is recognised '
         '[2026-09-06]', () {
       // The value arrives from a native call rather than from a script-side
-      // constant, which is the case `isAssignable` exists for.
+      // constant, which is the case `isAssignable` exists for. `Secure` is
+      // there because Dart 3.13's `dart:io` rejects `SameSite=None` without it
+      // (as browsers do); 3.12 accepted either, so the cookie is valid on both.
       const source = '''
       import 'dart:io';
       main() {
-        var c = Cookie.fromSetCookieValue('sid=abc; SameSite=None');
+        var c = Cookie.fromSetCookieValue('sid=abc; SameSite=None; Secure');
         return [c.sameSite is SameSite, c.sameSite.name];
       }
       ''';

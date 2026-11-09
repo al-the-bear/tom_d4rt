@@ -25,6 +25,12 @@ class MapCore {
       'unmodifiable': (visitor, positionalArgs, namedArgs) {
         return Map.unmodifiable(positionalArgs[0] as Map);
       },
+      // Dart 3.13 (DART313B1): the SDK declares `Map.unmodifiableOf` as a
+      // redirect to `Map.unmodifiable`, so delegating to that is exact and
+      // keeps it available on older host SDKs.
+      'unmodifiableOf': (visitor, positionalArgs, namedArgs) {
+        return Map.unmodifiable(positionalArgs[0] as Map);
+      },
       'identity': (visitor, positionalArgs, namedArgs) {
         return Map.identity();
       },
@@ -75,6 +81,10 @@ class MapCore {
       },
       'unmodifiable': (visitor, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Map.unmodifiable', atMost: 1);
+        return Map.unmodifiable(positionalArgs[0] as Map);
+      },
+      'unmodifiableOf': (visitor, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Map.unmodifiableOf', atMost: 1);
         return Map.unmodifiable(positionalArgs[0] as Map);
       },
       'identity': (visitor, positionalArgs, namedArgs, _) {
