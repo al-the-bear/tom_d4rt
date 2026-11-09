@@ -1,6 +1,6 @@
 name: tom_d4rt_generator
 description: D4rt bridge generator for creating BridgedClass implementations from Dart source. Supports per-package generation, deduplication, and cross-package bridging.
-version: 1.56.0
+version: 1.57.0
 repository: https://github.com/al-the-bear/tom_d4rt
 homepage: https://github.com/al-the-bear/tom_d4rt/tree/main/tom_d4rt_generator
 topics:
@@ -64,9 +64,12 @@ dependencies:
   # affected classes (observed: the JWT bridge surface vanishing, RCJ6).
   # Floor 0.10.0: the cache is keyed by the analyzer's data version, so
   # bundles another analyzer minor wrote on the same SDK are never read.
-  # 0.9.0 lets a grouped Flutter bundle resolve dart:ui. Caret on the current
-  # minor: 0.11.0's break is in SummaryStamp, which the generator does not use.
-  tom_analyzer_shared: ^0.11.0
+  # 0.9.0 lets a grouped Flutter bundle resolve dart:ui. Floor 0.12.0: a cached
+  # summary is complete or not cached, so parallel runs filling one partition no
+  # longer leave truncated bundles that silently drop types. Caret on the
+  # current minor: the generator calls only `runSummaryCacheStage`, whose
+  # signature 0.11 and 0.12 leave unchanged.
+  tom_analyzer_shared: ^0.12.0
   dart_style: ^3.1.11
   pub_semver: ^2.2.1
 

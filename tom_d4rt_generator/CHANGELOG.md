@@ -1,3 +1,15 @@
+## 1.57.0
+
+### Changed — tom_analyzer_shared ^0.12.0
+
+The generator takes `tom_analyzer_shared` ^0.12.0 (was ^0.11.0), so a consumer
+can resolve the current release. 0.12.0 makes the shared summary cache keep only
+complete bundles: two processes filling one empty partition used to leave
+bundles missing types and libraries, and the generator then dropped the affected
+classes from its output without a word. A package whose bundle would be
+incomplete is now analysed from source, and the summary-cache stage names it.
+`runSummaryCacheStage`, the one entry point the generator calls, is unchanged.
+
 ## 1.56.0
 
 ### Fixed — callbacks whose type has optional positional parameters (GitHub #1, secondary)
