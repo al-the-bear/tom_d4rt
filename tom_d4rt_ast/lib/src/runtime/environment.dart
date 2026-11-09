@@ -1852,6 +1852,21 @@ class Environment {
   /// bridged enums, and an ambiguous name counts as defined — the ambiguity is
   /// reported where it is used.
   bool isDefined(String name) {
+    // `prefix.Name` (PR #8): a relationship clause written with an import
+    // prefix is asked about by its qualified name. It is defined when the
+    // nearest scope importing [prefix] defines `Name`; an unknown prefix is
+    // not defined, never a fallback to the bare name.
+    final dot = name.indexOf('.');
+    if (dot > 0) {
+      final prefix = name.substring(0, dot);
+      for (Environment? env = this; env != null; env = env._enclosing) {
+        final imported = env._prefixedImports[prefix];
+        if (imported != null) {
+          return imported.isDefined(name.substring(dot + 1));
+        }
+      }
+      return false;
+    }
     for (Environment? env = this; env != null; env = env._enclosing) {
       if (env._prefixedImports.containsKey(name) ||
           env._values.containsKey(name) ||
@@ -2550,6 +2565,26 @@ class Environment {
     return common;
   }
 
+  /// The environment an `import ... as prefix` of this exported environment
+  /// binds to the prefix: the names the library exports, filtered by
+  /// [showNames] / [hideNames], and nothing behind them, so a prefixed lookup
+  /// that misses fails as it does in Dart (pull request #8).
+  ///
+  /// [scriptGlobal] is the script's global scope. `dart:core` and `dart:async`
+  /// export it, because they are registered where the script inherits them
+  /// rather than in a library of their own; a prefix on them reaches what that
+  /// scope inherits, but not the script's own declarations.
+  Environment prefixSurface(
+    Environment scriptGlobal, {
+    Set<String>? showNames,
+    Set<String>? hideNames,
+  }) {
+    if (identical(this, scriptGlobal)) {
+      return Environment(enclosing: _enclosing ?? this);
+    }
+    return shallowCopyFiltered(showNames: showNames, hideNames: hideNames);
+  }
+
   /// Creates a shallow copy of this environment, optionally filtering symbols.
   ///
   /// If [showNames] is provided, only symbols (values, bridged classes, enums, prefixed imports)
@@ -2559,6 +2594,11 @@ class Environment {
   ///
   /// It is an error to provide both [showNames] and [hideNames].
   /// Unnamed extensions are always copied.
+  ///
+  /// The copy has no enclosing scope: it holds the names it was given and
+  /// nothing behind them. An exported environment encloses the script's
+  /// global scope, so a copy that kept it let a hidden or undeclared name fall
+  /// through to a same-named script declaration (pull request #8).
   Environment shallowCopyFiltered({
     Set<String>? showNames,
     Set<String>? hideNames,
@@ -2569,7 +2609,7 @@ class Environment {
       );
     }
 
-    final newEnv = Environment(enclosing: _enclosing);
+    final newEnv = Environment();
 
     // Filter _values
     _values.forEach((name, value) {

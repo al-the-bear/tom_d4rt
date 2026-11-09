@@ -1175,11 +1175,12 @@ class ModuleLoader {
           // Import the environment of the imported module into the current module environment
           if (prefix != null) {
             // For prefixed imports, create a filtered environment and define it
-            // with the prefix. `shallowCopyFiltered` snapshots, so a cyclic
+            // with the prefix. `prefixSurface` snapshots, so a cyclic
             // import needs the same deferred replay as the plain case.
             _mergeFromModule(importedModule, () {
               Environment prefixedEnv = importedModule.exportedEnvironment
-                  .shallowCopyFiltered(
+                  .prefixSurface(
+                    globalEnvironment,
                     showNames: showNames,
                     hideNames: hideNames,
                   );

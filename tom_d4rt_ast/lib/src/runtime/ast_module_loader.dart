@@ -1102,10 +1102,11 @@ class AstModuleLoader implements ModuleContext {
       }
 
       if (prefix != null) {
-        // `shallowCopyFiltered` snapshots, so a cyclic import needs the same
+        // `prefixSurface` snapshots, so a cyclic import needs the same
         // deferred replay as the plain case (DFUB10).
         _mergeFromModule(loaded, () {
-          final filteredEnv = loaded.exportedEnvironment.shallowCopyFiltered(
+          final filteredEnv = loaded.exportedEnvironment.prefixSurface(
+            globalEnvironment,
             showNames: showNames,
             hideNames: hideNames,
           );

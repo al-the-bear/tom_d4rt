@@ -251,7 +251,11 @@ class InterpretedFunction implements Callable {
         "[InterpretedFunction._resolveTypeAnnotationDynamic] Resolving SNamedType: $typeName",
       );
 
-      final resolved = env.get(typeName);
+      // PR #8: `p.Name` is looked up through its prefix; the bare name would
+      // bind a same-named local class, or fail and leave the binding
+      // unchecked.
+      final prefix = typeNode.importPrefix?.name;
+      final resolved = env.get(prefix == null ? typeName : '$prefix.$typeName');
       if (resolved is RuntimeType) {
         Logger.debug(
           "[InterpretedFunction._resolveTypeAnnotationDynamic] Resolved from environment to RuntimeType: ${resolved.name}",

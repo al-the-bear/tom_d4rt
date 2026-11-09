@@ -1,3 +1,28 @@
+## 0.219.0
+
+### Fixed — a prefixed type resolves through its prefix (pull request #8)
+
+`class Child extends imported.Base {}` bound a same-named local `Base`, and
+without a local class of that name the clause was refused (`Superclass 'Base'
+not found`). The `extends`, `implements` and `with` clauses of a class, the
+`on` and `implements` clauses of a mixin and the `with` clause of an enum now
+look their type up through its import prefix, for interpreted and bridged
+types alike; so does the import-cycle deferral's "not declared yet" test. A
+prefixed parameter type (`void take(l.Base b)`) is checked against the
+imported type: it refused the imported instance next to a same-named local
+class, and checked nothing without one.
+
+### Fixed — a prefixed lookup stays inside the library's exports
+
+A prefix binds the names the library exports and nothing behind them. A name
+the import hides, the library does not declare or a barrel does not export was
+looked up in the script's own scope after missing there, so `imported.Base`
+reached a script class `Base`, and `core.Local` a script class `Local`. Such a
+lookup is now refused, as in Dart; `dart:core` and `dart:async` prefixes still
+reach the core library.
+
+Name resolution: yes — a type named with an import prefix in a class, mixin or enum clause or a parameter annotation resolves through that prefix instead of by its bare name, and a prefixed name the library does not export is refused instead of resolving to a script declaration.
+
 ## 0.218.0
 
 ### Added — the members Dart 3.13 added to bridged classes

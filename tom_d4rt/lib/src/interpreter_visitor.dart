@@ -10788,6 +10788,20 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     });
   }
 
+  /// The name a relationship clause's type (`extends`, `implements`, `with`,
+  /// a mixin's `on`) is looked up under: `prefix.Name` when it is written with
+  /// an import prefix, the bare name otherwise.
+  ///
+  /// PR #8 / prefsuper1. The bare name dropped the prefix, so
+  /// `class Child extends imported.Base` bound a same-named LOCAL `Base`, and
+  /// with no local class of that name the clause was refused. A type
+  /// annotation elsewhere already resolved the prefix the same way.
+  String _relationshipLookupName(NamedType type) {
+    final prefix = type.importPrefix?.name.lexeme;
+    final name = type.name.lexeme;
+    return prefix == null ? name : '$prefix.$name';
+  }
+
   @override
   Object? visitClassDeclaration(ClassDeclaration node) {
     final className = node.namePart.typeName.lexeme;
@@ -10858,7 +10872,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         );
         Object? potentialSuperclass;
         try {
-          potentialSuperclass = environment.get(superclassName);
+          potentialSuperclass = environment.get(
+            _relationshipLookupName(node.extendsClause!.superclass),
+          );
         } on RuntimeD4rtException {
           throw RuntimeD4rtException(
             "Superclass '$superclassName' not found for class '$className'. Ensure it's defined.",
@@ -10932,7 +10948,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             "[Visitor.visitClassDeclaration]   Trying to get interface '$interfaceName' from env: ${environment.hashCode}",
           );
           try {
-            final potentialInterface = environment.get(interfaceName);
+            final potentialInterface = environment.get(
+              _relationshipLookupName(interfaceType),
+            );
             if (potentialInterface is InterpretedClass) {
               // Add checks for base modifier only
               // Note: sealed classes CAN be implemented within the same library/file
@@ -10980,7 +10998,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
           Object? mixin;
           try {
-            mixin = environment.get(mixinName);
+            mixin = environment.get(_relationshipLookupName(mixinType));
           } on RuntimeD4rtException {
             throw RuntimeD4rtException(
               "Mixin '$mixinName' not found during lookup for class '$className'. Ensure it's defined (as a mixin or class mixin).",
@@ -11032,12 +11050,12 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
     final supertypeNames = <String>[
       if (node.extendsClause != null)
-        node.extendsClause!.superclass.name.lexeme,
+        _relationshipLookupName(node.extendsClause!.superclass),
       for (final type
           in node.implementsClause?.interfaces ?? const <NamedType>[])
-        type.name.lexeme,
+        _relationshipLookupName(type),
       for (final type in node.withClause?.mixinTypes ?? const <NamedType>[])
-        type.name.lexeme,
+        _relationshipLookupName(type),
     ];
     void checkInheritedMembers() {
       // Check for unimplemented abstract members
@@ -11339,7 +11357,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         for (final typeNode in node.onClause!.superclassConstraints) {
           final typeName = typeNode.name.lexeme;
           try {
-            final potentialType = environment.get(typeName);
+            final potentialType = environment.get(
+              _relationshipLookupName(typeNode),
+            );
             if (potentialType is InterpretedClass ||
                 potentialType is BridgedClass) {
               // RC-7: Accept both InterpretedClass and BridgedClass for
@@ -11375,7 +11395,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         for (final interfaceType in node.implementsClause!.interfaces) {
           final interfaceName = interfaceType.name.lexeme;
           try {
-            final potentialInterface = environment.get(interfaceName);
+            final potentialInterface = environment.get(
+              _relationshipLookupName(interfaceType),
+            );
             if (potentialInterface is InterpretedClass) {
               if (potentialInterface.isBase) {
                 throw RuntimeD4rtException(
@@ -11408,10 +11430,10 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     final supertypeNames = <String>[
       for (final type
           in node.onClause?.superclassConstraints ?? const <NamedType>[])
-        type.name.lexeme,
+        _relationshipLookupName(type),
       for (final type
           in node.implementsClause?.interfaces ?? const <NamedType>[])
-        type.name.lexeme,
+        _relationshipLookupName(type),
     ];
     final relationshipsDeferred =
         supertypeNames.any((name) => !environment.isDefined(name)) &&
@@ -11528,7 +11550,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
         Object? mixin;
         try {
-          mixin = environment.get(mixinName);
+          mixin = environment.get(_relationshipLookupName(mixinType));
         } on RuntimeD4rtException {
           throw RuntimeD4rtException(
             "Mixin '$mixinName' not found during lookup for enum '$enumName'. Ensure it's defined (as a mixin or class mixin).",
@@ -15936,16 +15958,14 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         "[visitImportDirective] Importation du module '${resolvedUri.toString()}' avec le préfixe '$prefixName'. Show: $showNames, Hide: $hideNames",
       );
 
-      Environment envForPrefix;
-      if (showNames != null || hideNames != null) {
-        // Apply show/hide to the exported environment of the loaded module BEFORE defining it for the prefix
-        envForPrefix = loadedModule.exportedEnvironment.shallowCopyFiltered(
-          showNames: showNames,
-          hideNames: hideNames,
-        );
-      } else {
-        envForPrefix = loadedModule.exportedEnvironment;
-      }
+      // The prefix binds the library's export surface only, filtered or not:
+      // the exported environment itself encloses the script's scope, which a
+      // prefixed lookup must not reach (pull request #8).
+      final envForPrefix = loadedModule.exportedEnvironment.prefixSurface(
+        moduleLoader.globalEnvironment,
+        showNames: showNames,
+        hideNames: hideNames,
+      );
       environment.definePrefixedImport(prefixName, envForPrefix);
     } else {
       Logger.debug(

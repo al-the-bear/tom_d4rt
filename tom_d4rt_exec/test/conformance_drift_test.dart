@@ -472,7 +472,19 @@ const _partialTwinBudget = 0;
 /// a port would have added is property access on literals, static calls and
 /// await, which the corpus copies on every run.
 ///
-const _copierGapBudget = 47;
+/// 47 -> 48: GHISSUES7 added `gh8_prefixed_type_relationships_test.dart`,
+/// which runs source to check that extends, implements, with and mixin-on
+/// clauses and parameter types resolve through their import prefix, and that
+/// a prefixed lookup missing in the library's exports is refused rather than
+/// falling through to a script declaration (pull request #8). Exec resolves
+/// tom_d4rt_ast from pub.dev, where both lookups still drop the prefix until
+/// the batch release (ghissues999), so a port would assert the fix against an
+/// interpreter that does not have it. Its ast twin holds the mechanism. The
+/// copier surface a port would have added is prefixed import directives with
+/// show and hide and prefixed named types, which the corpus copies on every
+/// run.
+///
+const _copierGapBudget = 48;
 
 const Map<String, _Coverage> _coveredElsewhere = {
   'sce208_bind_forwarding_source_errors_test.dart': _Coverage(
@@ -565,6 +577,23 @@ const Map<String, _Coverage> _coveredElsewhere = {
         'adds the remaining SHAPES (native controls, a direct implements, an '
         'inherited interface, a diamond, unrelated types), which a hand-built '
         'bundle would only restate.',
+  ),
+  'gh8_prefixed_type_relationships_test.dart': _Coverage(
+    'ast:runtime/gh8_prefixed_type_relationships_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 12,
+    twinCases: 6,
+    whyPartial:
+        'the twin pins each mechanism once - a prefixed extends next to a '
+        'same-named local class, implements / with / mixin-on through a '
+        'prefix, two same-named bridges under two prefixes, a hidden name '
+        'refused as a clause and as an expression, a dart:core prefix, and a '
+        'prefixed parameter type. The reference adds the remaining SHAPES '
+        '(all six positions in one script, barrels, an import cycle, show, '
+        'repeated dart:core and dart:async prefixes, dart:math, missing names '
+        'and prefixes, dynamic and Record), which a hand-built bundle would '
+        'only restate.',
   ),
   'gh9_import_cycle_test.dart': _Coverage(
     'ast:runtime/gh9_import_cycle_test.dart',

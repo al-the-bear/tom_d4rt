@@ -263,7 +263,10 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpretedFunction._prepareExecutionEnvironment': '368f64b6',
     // VSTDM3: the analyzer 14 port edited both trees alike; the divergence
     // itself is unchanged.
-    'InterpretedFunction._resolveTypeAnnotationDynamic': 'aab085fa',
+    // GHISSUES7: both trees look a prefixed type up through its prefix; the
+    // residue grows by the prefix's accessor, `importPrefix?.name.lexeme`
+    // here (a token) and `importPrefix?.name` in the twin (an identifier).
+    'InterpretedFunction._resolveTypeAnnotationDynamic': '0dadb569',
     // SCE139 / SCF29: the walker that finds the unit an await resumption
     // hands back to the state machine (a statement, an `=>` body's
     // expression, or an if / while / do reached from its condition),
@@ -328,6 +331,10 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpreterVisitor._tryCast': 'c54f1a19',
     'InterpreterVisitor._matchAndBind': 'bcdd64fd',
     'InterpreterVisitor._processCollectionElement': '14f71e24',
+    // GHISSUES7: the prefix's accessor — the analyzer's import prefix names a
+    // token (`importPrefix?.name.lexeme`), the mirror's an identifier
+    // (`importPrefix?.name`).
+    'InterpreterVisitor._relationshipLookupName': 'f7ad00b8',
     'InterpreterVisitor._resolveTypeAnnotationWithEnvironment': '7c7642bd',
     'InterpreterVisitor._statementsIntroduceBindings': '73f8180e',
     'InterpreterVisitor._subtreeContainsClosure': 'b6e41360',
@@ -353,7 +360,10 @@ const _divergentBodies = <String, Map<String, String>>{
     // GHISSUES4: both trees gained the same deferred relationship and bound
     // resolution; the new residue is the loader field's name, `moduleLoader`
     // here and `moduleContext` in the twin.
-    'InterpreterVisitor.visitClassDeclaration': '2bc3946e',
+    // GHISSUES7: both trees look every relationship type up through
+    // `_relationshipLookupName`, which replaced the per-clause bare-name
+    // accessors; the residue left is the loader field's name.
+    'InterpreterVisitor.visitClassDeclaration': '297bfae2',
     'InterpreterVisitor.visitConstructorReference': '1d51b6d4',
     // VSTDM3: the analyzer 14 port edited both trees alike; the divergence
     // itself is unchanged.
@@ -367,7 +377,10 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpreterVisitor.visitFunctionDeclarationStatement': '1a8fa2ed',
     'InterpreterVisitor.visitIdentifier': '0b2aded7',
     'InterpreterVisitor.visitIfStatement': 'f881cee4',
-    'InterpreterVisitor.visitImportDirective': '9958469b',
+    // GHISSUES7: both trees bind a prefix to `prefixSurface`; the new residue
+    // is the loader field's name, `moduleLoader` here and `moduleContext` in
+    // the twin.
+    'InterpreterVisitor.visitImportDirective': '72f538a9',
     'InterpreterVisitor.visitInstanceCreationExpression': '942d3194',
     // SCE109 moved this signature without changing what diverges: the
     // arity-heuristic throw sites inside it now raise `RangeError`
