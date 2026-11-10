@@ -1,3 +1,15 @@
+## 1.16.0
+
+### Changed — on tom_todo_model 2.0.0 and tom_vscode_scripting_api 4.0.0 (repeated todos)
+
+`tom_todo_model` ^2.0.0 and `tom_vscode_scripting_api` ^4.0.0, up from ^1.3.0
+and ^3.0.0. A todo file holding a repeated todo — the `waiting-for-repeat`
+status, a `repeat` rule, `next_repeat`, `repeat_count` — was refused by the
+1.x model; scripts now read it. The scripting-API bridges are regenerated:
+scripts reach `TomTodoRepeat`, `TomTodoRepeatRule`, `TomTodoStatus.waitingForRepeat`
+and `TomTodo.repeat` / `nextRepeat` / `repeatCount`. No bridged class was
+removed.
+
 ## 1.15.0
 
 ### Changed — on dcli 10.4 and pubspec_manager ^4 (vstdm12)
