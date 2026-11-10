@@ -460,9 +460,21 @@ D4.markProxyIsReceiver('DiagnosticableTree');
 ```
 
 An inherited method or getter, `super.m()` and `super.x` then create the proxy,
-keep it as the instance's `nativeProxy` and run the member on it. Do not mark a
-proxy that reads the instance's fields to build itself (a widget proxy reading
-`key` or `child`): it would be built during the member lookup it serves.
+keep it as the instance's `nativeProxy` and run the member on it. A marked
+proxy is one native object per instance: whichever route creates it first (a
+member lookup, or the instance crossing into native code as an argument) keeps
+it, and every later crossing receives the same object. Do not mark a proxy that
+reads the instance's fields to build itself (a widget proxy reading `key` or
+`child`): it would be built during the member lookup it serves.
+
+A marked proxy that forwards overridable members back to the script should
+also implement `D4ReceiverProxy`: a script override's `super.m()` reaches the
+proxy, which would otherwise forward to the override again. The interpreter
+brackets that call with `d4rtSuperCall(member, call)` (member `name`, or
+`get name` for a getter); the proxy answers the native member for that member
+while the call runs. `tom_d4rt_generator` emits the mark, the interface and the
+guard for every proxy it generates (`receiverProxies` /
+`receiverProxyExclude` in its configuration).
 
 ### Warmup
 

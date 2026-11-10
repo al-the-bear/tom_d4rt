@@ -50,7 +50,13 @@ as the instance's native object: when a member the instance inherits from the
 bridged class `name` - or `super.m()` / `super.x` - finds neither a native
 super-object nor a `nativeProxy`, `InterpretedInstance.nativeReceiverFor`
 creates the proxy (`D4.receiverProxyFor`), keeps it as `nativeProxy` and runs
-the member on it. Unmarked, such a member answers null (RC-9).
+the member on it; an instance crossing into native code receives that same
+proxy, and a proxy created at a crossing is kept the same way. A `super.m()` /
+`super.x` on a proxy implementing `D4ReceiverProxy` runs inside
+`d4rtSuperCall(member, call)`, so the proxy answers the native member instead of
+forwarding back to the script's override. Unmarked, such a member answers null
+(RC-9). Generated proxies are marked and implement `D4ReceiverProxy` unless the
+generator's `receiverProxies` / `receiverProxyExclude` say otherwise.
 
 ## 3. Argument resolution leaf
 

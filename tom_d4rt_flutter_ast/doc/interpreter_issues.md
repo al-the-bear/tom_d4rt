@@ -388,8 +388,15 @@ twins under `--set` afterwards). Pre-publish measurements, not verification runs
 mark (`D4.markProxyIsReceiver('DiagnosticableTree')`) needs the published
 interpreter, so it lands with the release; the driver skip is removed now, so
 until then a run at the published pair fails this test - owed by todo
-ghissues999. Other abstract bridged classes scripts extend without a receiver
-keep the null: todo receiver1_akjk-inherited-bridged-members-answer-null-without-receiver.
+ghissues999. The other abstract bridged classes scripts extend: ghissues29
+(tom_d4rt 1.251.0 / tom_d4rt_ast 0.231.0 / tom_d4rt_generator 1.61.0, not
+yet published) makes every generated proxy a receiver (the 15 `proxyClasses`:
+`Decoration.padding`, `FlowDelegate.getSize`,
+`MultiChildLayoutDelegate.getSize`, `CustomPainter.shouldRebuildSemantics`
+measured null on the published pair, correct on the tree with regenerated
+bridges); the twins regenerate with the release. A class with no proxy at all
+still answers null: todo ghissues31_akjk-rc9-error-without-receiver-impact
+measures making RC-9 an error there.
 
 ### [ ] Open (GEN-131) — a class's static initializers read the script's top-level constants as null
 
