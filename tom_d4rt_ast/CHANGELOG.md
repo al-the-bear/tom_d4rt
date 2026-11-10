@@ -1,3 +1,25 @@
+## 0.234.0
+
+### Fixed — an int bound to a declared `double` field or variable holds a double
+
+Dart widens an int bound to a `double` (`double f = 0;` holds `0.0`). Only a
+local declaration and a typed parameter widened (`ResolvedBinding.bind`); an
+instance field initializer, a static field, a top-level variable, a field
+formal (`this.radius = 14`, which has no annotation of its own), an
+initializer-list entry and a later assignment to a `double` field stored the
+int as is. They now widen too, through the same rule
+(`ResolvedBinding.widen` / `ResolvedBinding.declaresDouble`): instance fields
+in `InterpretedInstance.set` and at initialization
+(`InterpretedClass.doubleFieldNames`), static, top-level and late variables
+in their `LateVariable` holder (`declaredDouble`). A `double` / `double?`
+static or top-level variable without an initializer gets a holder too, so a
+later assignment widens.
+
+This changes what scripts compute: a value printed as `14` now prints `14.0`,
+its `runtimeType` is `double`, and an API that checks `is double` accepts it.
+
+Name resolution: no
+
 ## 0.233.0
 
 ### Changed — an inherited bridged member with no native object is an error, not null

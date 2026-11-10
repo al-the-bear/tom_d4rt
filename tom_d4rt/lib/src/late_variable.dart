@@ -11,8 +11,20 @@ class LateVariable {
   final String _name;
   final bool _isFinal;
 
-  LateVariable(this._name, this._initializer, {bool isFinal = false})
-    : _isFinal = isFinal;
+  /// ghissues32: the variable is declared `double` / `double?`, so an `int`
+  /// it is initialized or assigned with widens ([ResolvedBinding.widen]).
+  final bool _declaredDouble;
+
+  LateVariable(
+    this._name,
+    this._initializer, {
+    bool isFinal = false,
+    bool declaredDouble = false,
+  }) : _isFinal = isFinal,
+       _declaredDouble = declaredDouble;
+
+  Object? _widened(Object? value) =>
+      _declaredDouble ? ResolvedBinding.widen('double', value) : value;
 
   /// Gets the value of the late variable, initializing it if necessary
   Object? get value {
@@ -31,7 +43,7 @@ class LateVariable {
         }
         _isInitializing = true;
         try {
-          _value = _initializer();
+          _value = _widened(_initializer());
         } finally {
           _isInitializing = false;
         }
@@ -56,7 +68,7 @@ class LateVariable {
         "LateInitializationError: Late final variable '$_name' has already been assigned.",
       );
     }
-    _value = value;
+    _value = _widened(value);
     _isInitialized = true;
     Logger.debug("[LateVariable] Assigned '$_name' = $value");
   }
@@ -68,7 +80,7 @@ class LateVariable {
         "LateInitializationError: Field '$_name' has already been initialized.",
       );
     }
-    _value = newValue;
+    _value = _widened(newValue);
     _isInitialized = true;
   }
 

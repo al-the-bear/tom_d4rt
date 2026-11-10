@@ -646,7 +646,18 @@ const _partialTwinBudget = 0;
 /// would have added is classes extending a bridged class, `super` calls and
 /// static calls, which the corpus copies on every run.
 ///
-const _copierGapBudget = 62;
+/// 62 -> 63: GHISSUES32 added `ghissues32_double_binding_widening_test.dart`,
+/// which runs source to check that an int bound to a declared `double` holds a
+/// double for an instance field initializer, a static field, a top-level
+/// variable, a field formal (default and passed), an initializer-list entry, a
+/// nullable `double?` and a later assignment, and that `num` / `int` fields
+/// keep the int. Exec resolves tom_d4rt_ast from pub.dev, which stores the int
+/// until the batch release (ghissues999), so a port would fail. Its ast twin
+/// holds the mechanism. The copier surface a port would have added is field,
+/// static and top-level declarations, field formals and initializer lists,
+/// which the corpus copies on every run.
+///
+const _copierGapBudget = 63;
 
 const Map<String, _Coverage> _coveredElsewhere = {
   'sce208_bind_forwarding_source_errors_test.dart': _Coverage(
@@ -756,6 +767,19 @@ const Map<String, _Coverage> _coveredElsewhere = {
         'repeated dart:core and dart:async prefixes, dart:math, missing names '
         'and prefixes, dynamic and Record), which a hand-built bundle would '
         'only restate.',
+  ),
+  'ghissues32_double_binding_widening_test.dart': _Coverage(
+    'ast:runtime/ghissues32_double_binding_widening_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 7,
+    twinCases: 4,
+    whyPartial:
+        'the twin pins the instance field initializer, the static field and '
+        'top-level variable, the field formal and the initializer-list entry. '
+        'The reference adds the nullable double, a later assignment and the '
+        'num / int fields keeping an int, which go through the same set path '
+        'and a hand-built bundle would only restate.',
   ),
   'ghissues31_rc9_no_receiver_error_test.dart': _Coverage(
     'ast:runtime/ghissues31_rc9_no_receiver_error_test.dart',

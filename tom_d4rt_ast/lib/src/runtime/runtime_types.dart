@@ -37,6 +37,21 @@ class InterpretedClass implements Callable, RuntimeType {
   List<RuntimeType> onClauseTypes;
   List<InterpretedClass> mixins;
 
+  /// ghissues32: the instance fields declared `double` / `double?` in this
+  /// class, its superclasses and its mixins - the fields an `int` widens in.
+  /// Computed on first use (instances are created after every class of the
+  /// library is declared, so the hierarchy is complete by then) and kept.
+  Set<String> get doubleFieldNames => _doubleFieldNames ??= {
+    ...?superclass?.doubleFieldNames,
+    for (final mixin in mixins) ...mixin.doubleFieldNames,
+    for (final declaration in fieldDeclarations)
+      if (!declaration.isStatic &&
+          ResolvedBinding.declaresDouble(declaration.fields?.type))
+        for (final variable in declaration.fields?.variables ?? const [])
+          variable.name?.name ?? '',
+  };
+  Set<String>? _doubleFieldNames;
+
   // Support for bridged mixins
   List<BridgedClass> bridgedMixins;
 
@@ -659,6 +674,11 @@ class InterpretedClass implements Callable, RuntimeType {
               final isLate = fieldDecl.fields?.isLate ?? false;
               final isFinal = fieldDecl.fields?.isFinal ?? false;
 
+              // ghissues32: an `int` bound to a `double` field widens.
+              final declaredDouble = ResolvedBinding.declaresDouble(
+                fieldDecl.fields?.type,
+              );
+
               if (isLate) {
                 // Handle late instance field
                 if (variable.initializer != null) {
@@ -672,7 +692,7 @@ class InterpretedClass implements Callable, RuntimeType {
                     } finally {
                       visitor.environment = savedEnv;
                     }
-                  }, isFinal: isFinal);
+                  }, isFinal: isFinal, declaredDouble: declaredDouble);
                   instance._fields[fieldName] = lateVar;
                   Logger.debug(
                     "[Instance Init] Defined late instance field '$fieldName' with lazy initializer.",
@@ -683,6 +703,7 @@ class InterpretedClass implements Callable, RuntimeType {
                     fieldName,
                     null,
                     isFinal: isFinal,
+                    declaredDouble: declaredDouble,
                   );
                   instance._fields[fieldName] = lateVar;
                   Logger.debug(
@@ -694,7 +715,9 @@ class InterpretedClass implements Callable, RuntimeType {
                 if (variable.initializer != null) {
                   final value = variable.initializer!.accept<Object?>(visitor);
                   // Directly set the field on the instance map
-                  instance._fields[fieldName] = value;
+                  instance._fields[fieldName] = declaredDouble
+                      ? ResolvedBinding.widen('double', value)
+                      : value;
                 } else {
                   // Ensure field exists even without initializer (Dart default is null)
                   instance._fields.putIfAbsent(fieldName, () => null);
@@ -726,8 +749,12 @@ class InterpretedClass implements Callable, RuntimeType {
                     final value = variable.initializer!.accept<Object?>(
                       visitor,
                     );
-                    // Set (or overwrite) the field on the instance
-                    instance._fields[fieldName] = value;
+                    // Set (or overwrite) the field on the instance;
+                    // ghissues32: an `int` bound to a `double` field widens.
+                    instance._fields[fieldName] =
+                        ResolvedBinding.declaresDouble(fieldDecl.fields?.type)
+                        ? ResolvedBinding.widen('double', value)
+                        : value;
                     Logger.debug(
                       "[Instance Init] Initialized mixin field '${klassInHierarchy.name}.$fieldName' from mixin '${mixin.name}' with value: $value",
                     );
@@ -2365,6 +2392,12 @@ class InterpretedInstance implements RuntimeValue {
     Logger.debug(
       "[Instance.set] No setter found for '$name'. Setting field directly. Instance $hashCode",
     );
+
+    // ghissues32: an `int` assigned to a `double` field widens - field
+    // formals and initializer-list entries land here too.
+    if (value is int && klass.doubleFieldNames.contains(name)) {
+      value = ResolvedBinding.widen('double', value);
+    }
 
     // Check if it's a late variable
     if (_fields.containsKey(name)) {

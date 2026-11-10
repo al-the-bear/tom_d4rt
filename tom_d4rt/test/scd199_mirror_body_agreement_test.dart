@@ -228,6 +228,9 @@ const _divergentBodies = <String, Map<String, String>>{
     'BridgedEnumValue.toString': '184efa79',
   },
   'callable.dart': {
+    // GHISSUES32: `type.name.lexeme` against the mirror model's nullable
+    // `type.name?.name`; the same test otherwise.
+    'ResolvedBinding.declaresDouble': 'b1de00ae',
     'InterpretedFunction._beginAwaitForIteration': 'f361cfa9',
     'InterpretedFunction._isWithin': 'a8bc018c',
     'InterpretedFunction._callImpl': 'c0f390c5',
@@ -450,7 +453,13 @@ const _divergentBodies = <String, Map<String, String>>{
     'IntrospectionBuilder.buildFromEnvironment': 'c1da1828',
   },
   'runtime_types.dart': {
-    'InterpretedClass.createAndInitializeInstance': '06adb03e',
+    // GHISSUES32: 06adb03e -> 07da2480, both trees widen an int bound to a
+    // `double` field alike; the mirror model's nullable field access moved
+    // with it.
+    'InterpretedClass.createAndInitializeInstance': '07da2480',
+    // GHISSUES32: the same set of `double` field names; the mirror model's
+    // `fields` and `name` are nullable (`?.`, `?? const []`).
+    'InterpretedClass.get doubleFieldNames': 'd9435592',
     'InterpretedClass.getInstanceFieldNames': 'de802187',
     // SCE130. New in both trees, and divergent for the oldest architectural
     // reason in this table: a type parameter's name is a `Token` with

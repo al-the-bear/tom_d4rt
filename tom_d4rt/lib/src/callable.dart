@@ -6841,6 +6841,19 @@ class ResolvedBinding {
 
   String get _displayName => _isNullable ? '$_declaredName?' : _declaredName;
 
+  /// [value] as a binding declared [declaredName] holds it: an `int` bound to
+  /// a `double` widens, as in Dart; every other value is unchanged. The one
+  /// widening rule, shared by [bind] and the bindings that do not run a full
+  /// check - fields, field formals, static and top-level variables
+  /// (ghissues32).
+  static Object? widen(String declaredName, Object? value) =>
+      declaredName == 'double' && value is int ? value.toDouble() : value;
+
+  /// Whether [type] is written `double` or `double?` - a binding whose
+  /// values [widen] turns into doubles (ghissues32).
+  static bool declaresDouble(TypeAnnotation? type) =>
+      type is NamedType && type.name.lexeme == 'double';
+
   /// The value to bind — [value] unchanged, or its `double` widening — or
   /// throws [D4rtTypeError] when [value] cannot inhabit the declared type.
   Object? bind(Environment env, Object? value) {
@@ -6862,7 +6875,7 @@ class ResolvedBinding {
     // also why a binding check cannot be the `is` predicate: `1 is double` is
     // false, but `for (final double d in [1, 2.5])` is a program real Dart
     // accepts, because the literal widens.
-    if (_declaredName == 'double' && value is int) return value.toDouble();
+    if (_declaredName == 'double' && value is int) return widen('double', value);
 
     // SCE103: `{}` is a Map unless the CONTEXT type says Set — Dart's own rule,
     // and the interpreter has no context type to consult, so the literal always

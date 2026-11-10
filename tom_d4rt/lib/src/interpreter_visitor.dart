@@ -423,14 +423,22 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     final declarationEnv = environment;
     final isFinal = node.variables.isFinal || node.variables.isConst;
     final isLate = node.variables.isLate;
+    // ghissues32: an `int` bound to a `double` variable widens; such a
+    // variable always gets a holder, so a later assignment widens too.
+    final declaredDouble = ResolvedBinding.declaresDouble(node.variables.type);
     for (final variable in node.variables.variables) {
       final name = variable.name.lexeme;
       final initializer = variable.initializer;
       if (name == '_') {
         // Evaluate initializer for potential side effects, but don't define
         initializer?.accept<Object?>(this);
-      } else if (initializer == null && !isLate) {
+      } else if (initializer == null && !isLate && !declaredDouble) {
         environment.define(name, null);
+      } else if (initializer == null && !isLate) {
+        environment.define(
+          name,
+          LateVariable(name, () => null, declaredDouble: true),
+        );
       } else {
         environment.define(
           name,
@@ -448,6 +456,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                     }
                   },
             isFinal: isFinal,
+            declaredDouble: declaredDouble,
           ),
         );
       }
@@ -7776,17 +7785,29 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           // Handle late variable
           if (variable.initializer != null) {
             // Late variable with lazy initializer
-            final lateVar = LateVariable(variableName, () {
-              // Create a closure that will evaluate the initializer when accessed
-              return variable.initializer!.accept<Object?>(this);
-            }, isFinal: isFinal);
+            final lateVar = LateVariable(
+              variableName,
+              () {
+                // Create a closure that will evaluate the initializer when accessed
+                return variable.initializer!.accept<Object?>(this);
+              },
+              isFinal: isFinal,
+              // ghissues32: a late local is outside the binding check, so
+              // its `double` widening travels with the holder.
+              declaredDouble: ResolvedBinding.declaresDouble(node.type),
+            );
             def(lateVar);
             Logger.debug(
               "[VariableDeclList] Defined late variable '$variableName' with lazy initializer.",
             );
           } else {
             // Late variable without initializer
-            final lateVar = LateVariable(variableName, null, isFinal: isFinal);
+            final lateVar = LateVariable(
+              variableName,
+              null,
+              isFinal: isFinal,
+              declaredDouble: ResolvedBinding.declaresDouble(node.type),
+            );
             def(lateVar);
             Logger.debug(
               "[VariableDeclList] Defined late variable '$variableName' without initializer.",
@@ -11237,15 +11258,32 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     // bare or qualified, finds its holder and initializes it on demand.
     final staticFieldDecls = <VariableDeclaration>[];
     final staticFieldMeta =
-        <String, (bool isLate, bool isFinal, Expression? initializer)>{};
+        <
+          String,
+          (
+            bool isLate,
+            bool isFinal,
+            Expression? initializer,
+            bool declaredDouble,
+          )
+        >{};
     for (final member in node.body.members) {
       if (member is FieldDeclaration && member.isStatic) {
         final isLate = member.fields.isLate;
         final isFinal = member.fields.isFinal || member.fields.isConst;
+        // ghissues32: an `int` bound to a `double` static field widens.
+        final declaredDouble = ResolvedBinding.declaresDouble(
+          member.fields.type,
+        );
         for (final variable in member.fields.variables) {
           final fieldName = variable.name.lexeme;
           staticFieldDecls.add(variable);
-          staticFieldMeta[fieldName] = (isLate, isFinal, variable.initializer);
+          staticFieldMeta[fieldName] = (
+            isLate,
+            isFinal,
+            variable.initializer,
+            declaredDouble,
+          );
           klass.staticFields[fieldName] = null;
         }
       }
@@ -11258,8 +11296,11 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     void evaluateStaticFields() {
       for (final variable in staticFieldDecls) {
         final fieldName = variable.name.lexeme;
-        final (isLate, isFinal, initializer) = staticFieldMeta[fieldName]!;
-        if (initializer == null && !isLate) {
+        final (isLate, isFinal, initializer, declaredDouble) =
+            staticFieldMeta[fieldName]!;
+        // A `double` field without an initializer still gets a holder, so a
+        // later assignment widens (ghissues32).
+        if (initializer == null && !isLate && !declaredDouble) {
           // `static int? n;` - null until assigned, nothing to run.
           klass.staticFields[fieldName] = null;
           staticFieldEvalEnv.define(fieldName, null);
@@ -11268,7 +11309,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         final holder = LateVariable(
           '${klass.name}.$fieldName',
           initializer == null
-              ? null
+              ? (isLate ? null : () => null)
               : () {
                   final savedEnv = environment;
                   try {
@@ -11281,6 +11322,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           // A `late` field without `final` stays assignable; a non-late field
           // is assignable unless it is final or const.
           isFinal: isFinal,
+          declaredDouble: declaredDouble,
         );
         klass.staticFields[fieldName] = holder;
         staticFieldEvalEnv.define(fieldName, holder);
