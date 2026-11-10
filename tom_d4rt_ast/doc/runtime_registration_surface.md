@@ -23,7 +23,7 @@ during interpretation.
 |------|---------|-----------|
 | `registerInterpretedForNative` | native→interpreted back-map so a native instance can recover the script object that wraps it | — |
 | `registerInterfaceProxy` | create a native proxy for an interpreted class that implements/extends a bridged interface | RC-1 |
-| `registerTypeCoercion` | convert between equivalent types from different packages (e.g. VM↔web skew) | RC-3 |
+| `registerTypeCoercion` | convert between equivalent types from different packages (e.g. VM↔web skew); a value of the source type also passes a type check of the target (`D4.hasTypeCoercion`) | RC-3 |
 | `registerGenericTypeWrapper` | re-create a generic widget/value with a script-supplied element (the "re-creator" pattern) | — |
 | `registerGenericConstructor` | supply type arguments to a bridged constructor the adapter would otherwise erase | RC-2 |
 | `registerSupplementaryMethod` | add a method missing from the generated bridge (e.g. `@protected` members) | RC-5 |

@@ -211,8 +211,12 @@ itself stays manual.
 getters, so a script that constructs one cannot read its properties back. The
 override constructs the richer `painting.StrutStyle` (which has full getters)
 instead, and a paired `D4.registerTypeCoercion` converts it back to the engine
-type when a `dart:ui` API needs it. The choice of which richer type to
-substitute is domain knowledge.
+type when a `dart:ui` API needs it. The coercion also declares the stand-in
+to the type checks: a value of the coercion's source type passes a check of
+its target type (`final ui.StrutStyle s = ui.StrutStyle(...)`, a
+`ui.StrutStyle?` parameter, `is ui.StrutStyle`), so the substitution needs no
+second registration. The choice of which richer type to substitute is domain
+knowledge.
 
 ```dart
 @D4rtUserBridge('dart:ui', 'StrutStyle')
