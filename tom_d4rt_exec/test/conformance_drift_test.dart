@@ -611,7 +611,20 @@ const _partialTwinBudget = 0;
 /// prefixed type annotations and prefixed constructor calls, which the corpus
 /// copies on every run.
 ///
-const _copierGapBudget = 59;
+/// 59 -> 60: GHISSUES29 added `ghissues29_receiver_kept_test.dart`, which runs
+/// source to check that a proxy marked as a receiver is one native object per
+/// script instance whichever route creates it (two crossings into native code,
+/// an inherited call first, a nullable parameter type), that a script
+/// override's `super.m()` on it runs the native member once
+/// (`D4ReceiverProxy.d4rtSuperCall`), and that an unmarked proxy is still
+/// created per crossing. Exec resolves tom_d4rt_ast from pub.dev, which has
+/// neither `markProxyIsReceiver` nor `D4ReceiverProxy` until the batch release
+/// (ghissues999), so a port would not compile. Its ast twin holds the
+/// mechanism. The copier surface a port would have added is classes extending
+/// a bridged class, static calls and `super` calls, which the corpus copies on
+/// every run.
+///
+const _copierGapBudget = 60;
 
 const Map<String, _Coverage> _coveredElsewhere = {
   'sce208_bind_forwarding_source_errors_test.dart': _Coverage(
@@ -721,6 +734,19 @@ const Map<String, _Coverage> _coveredElsewhere = {
         'repeated dart:core and dart:async prefixes, dart:math, missing names '
         'and prefixes, dynamic and Record), which a hand-built bundle would '
         'only restate.',
+  ),
+  'ghissues29_receiver_kept_test.dart': _Coverage(
+    'ast:runtime/ghissues29_receiver_kept_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 5,
+    twinCases: 3,
+    whyPartial:
+        'the twin pins two crossings receiving one receiver, a script '
+        'override calling super running the native member once, and an '
+        'unmarked proxy created per crossing. The reference adds the '
+        'inherited-call-first order and a nullable parameter type, which a '
+        'hand-built bundle would only restate.',
   ),
   'ghissues28_coercion_stand_in_type_test.dart': _Coverage(
     'ast:runtime/ghissues28_coercion_stand_in_type_test.dart',

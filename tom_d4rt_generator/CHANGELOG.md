@@ -1,3 +1,22 @@
+## 1.61.0
+
+### Added — generated proxies are receivers (`receiverProxies`, `receiverProxyExclude`)
+
+A script class extending an abstract bridged class has no native super-object,
+so a member it inherits from that class answered null (`Decoration.padding`,
+`FlowDelegate.getSize`, `CustomPainter.shouldRebuildSemantics`). Every proxy
+the generator emits is now marked with `D4.markProxyIsReceiver`: the
+interpreter keeps it as the script instance's native object and runs inherited
+members on it. Its overridable members forward to the script's overrides
+unless a forward of that member is already running, and the proxy implements
+`D4ReceiverProxy`, so a script override's `super.m()` runs the native member
+instead of the override again. Configure with `receiverProxies` (default
+`true`) and `receiverProxyExclude` (class names).
+
+Receivers are emitted only when the project resolves tom_d4rt >= 1.251.0 /
+tom_d4rt_ast >= 0.231.0 (read from its `.dart_tool/package_config.json`);
+otherwise the proxies are generated as before and the run warns.
+
 ## 1.60.0
 
 ### Changed — a bridge imports another package's `src` libraries through its public libraries (GitHub #5)

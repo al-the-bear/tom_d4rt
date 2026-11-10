@@ -372,3 +372,13 @@ abstract class D4InterpretedProxy {
   /// The interpreted instance wrapped by this native proxy.
   Object get d4rtInstance;
 }
+
+/// ghissues29: a receiver proxy whose overridable members forward to the
+/// script instance it stands for. A script's `super.m()` that reaches it must
+/// run the native member, not forward to the script's override again, so the
+/// interpreter runs such a call inside [d4rtSuperCall].
+abstract class D4ReceiverProxy {
+  /// Runs [call] - the native [member] (`name`, or `get name` for a getter) -
+  /// with [member] not forwarded to the script.
+  R d4rtSuperCall<R>(String member, R Function() call);
+}

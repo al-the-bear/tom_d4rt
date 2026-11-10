@@ -5495,13 +5495,18 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
           // Call the adapter with the native object as target
           try {
-            return methodAdapter(
+            Object? invoke() => methodAdapter(
               this,
               nativeSuperObject,
               positionalArgs,
               namedArgs,
               evaluatedTypeArguments,
             );
+            // ghissues29: on a receiver proxy, `super.m()` runs the native
+            // member instead of forwarding to the script's override again.
+            return nativeSuperObject is D4ReceiverProxy
+                ? nativeSuperObject.d4rtSuperCall(methodName, invoke)
+                : invoke();
           } catch (e, s) {
             Logger.error(
               "Native exception during super call to bridged method '${bridgedSuper.name}.$methodName': $e\n$s",
@@ -6655,7 +6660,13 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       );
       if (getterAdapter != null) {
         try {
-          return getterAdapter(this, nativeSuperObject);
+          // ghissues29: see `super.m()` - the native getter, not a forward.
+          return nativeSuperObject is D4ReceiverProxy
+              ? nativeSuperObject.d4rtSuperCall(
+                  'get $propertyName',
+                  () => getterAdapter(this, nativeSuperObject),
+                )
+              : getterAdapter(this, nativeSuperObject);
         } catch (e, s) {
           Logger.error(
             "Native exception during super access to bridged getter '${bridgedSuper.name}.$propertyName': $e\n$s",

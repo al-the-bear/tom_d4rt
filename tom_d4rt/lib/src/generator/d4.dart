@@ -3067,8 +3067,19 @@ class D4 {
     for (final name in candidates) {
       final factory = _interfaceProxies[name];
       if (factory != null) {
+        // ghissues29: a receiver is created once per instance and kept as its
+        // native object, whichever route asks for it first.
+        final isReceiver = _receiverProxies.contains(name);
+        if (isReceiver) {
+          // Non-null first: for a nullable T, `null is T` holds.
+          final kept = instance.nativeProxy;
+          if (kept != null && kept is T) return kept as T;
+        }
         final proxy = factory(visitor, instance);
-        if (proxy is T) return proxy;
+        if (proxy is T) {
+          if (isReceiver) instance.nativeProxy ??= proxy;
+          return proxy;
+        }
       }
     }
 
@@ -3093,6 +3104,14 @@ class D4 {
   ) {
     final factory = _interfaceProxies[bridgedTypeName];
     if (factory == null) return null;
+    // ghissues29: a receiver is kept as the instance's native object.
+    if (_receiverProxies.contains(bridgedTypeName)) {
+      final kept = instance.nativeProxy;
+      if (kept != null) return kept;
+      final proxy = factory(visitor, instance);
+      if (proxy != null) instance.nativeProxy ??= proxy;
+      return instance.nativeProxy ?? proxy;
+    }
     return factory(visitor, instance);
   }
 }

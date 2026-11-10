@@ -555,6 +555,7 @@ Future<GenerationResult> generateBridges({
         outputFiles.add(proxyResult.outputFile!);
       }
       errors.addAll(proxyResult.errors);
+      warnings.addAll(proxyResult.warnings);
       if (proxyResult.proxies.isNotEmpty) {
         print(
           '  GEN-083: Generated ${proxyResult.proxies.length} proxy classes'

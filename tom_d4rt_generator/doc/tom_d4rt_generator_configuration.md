@@ -109,6 +109,8 @@ that package meant to use it.
 | `genericInterceptors` | `List` | `[]` | Type-arg-keyed re-dispatch interceptors (e.g. `RadioGroup.maybeOf<T>`). Dormant when empty. |
 | `genericConstructors` | `List` | `[]` | Templated RC-2 generic constructor factories (e.g. `GlobalKey<NavigatorState>()`). Dormant when empty. |
 | `yieldVoidCallbacks` | `bool` | `false` | Wrap every *void* bridged callback in an `async` closure that yields ~1 ms after invoking the interpreted callback, handing a slice of the event loop back. For `tom_d4rt_flutter*` configs only — keep `false` for CLI/build scripting. Non-void callbacks are left untouched. |
+| `receiverProxies` | `bool` | `true` | Make every generated proxy the receiver of its script instance (`D4.markProxyIsReceiver`): a member a script class inherits from the abstract bridged class runs on the proxy natively instead of answering null, and a script's `super.m()` runs the native member (`D4ReceiverProxy`). Emitted only for a project resolving tom_d4rt >= 1.251.0 / tom_d4rt_ast >= 0.231.0; otherwise the proxy is generated as before, with a warning. |
+| `receiverProxyExclude` | `List<String>` | `[]` | Proxy classes (by class name) not made receivers even with `receiverProxies` on. |
 
 When all four dormant lists (`recreatorClasses`, `genericInterceptors`,
 `genericConstructors`) are empty and `generateAllRelaxers` keeps its default,

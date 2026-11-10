@@ -1,3 +1,26 @@
+## 1.251.0
+
+### Fixed — a receiver proxy is one native object per instance, and a script's `super.m()` on it runs natively
+
+A proxy marked with `D4.markProxyIsReceiver` is now kept as the script
+instance's `nativeProxy` whichever route creates it first: crossing into
+native code (`D4.tryCreateInterfaceProxyWithVisitor`,
+`D4.tryCreateInterfaceProxyByName`) returns the kept proxy and keeps a new
+one, as the inherited-member path already did. A script instance passed twice
+to native code got two different proxies before. New `D4ReceiverProxy`: a
+receiver whose overridable members forward to the script implements
+`d4rtSuperCall(member, call)`, and the interpreter runs a script's `super.m()`
+/ `super.x` on such a proxy inside it, so the native member runs instead of
+the proxy forwarding to the script's override again (which ran the override
+twice). tom_d4rt_generator marks the proxies it generates as receivers and
+generates `D4ReceiverProxy` for them once a project resolves this version.
+
+This changes what scripts compute where a generated proxy is a receiver: a
+member a script class inherits from an abstract bridged class runs natively
+instead of answering null.
+
+Name resolution: no
+
 ## 1.250.0
 
 ### Fixed — a registered type coercion's source passes a check of its target

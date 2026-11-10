@@ -1177,6 +1177,37 @@ class BridgeConfig {
   /// ```
   final bool yieldVoidCallbacks;
 
+  /// ghissues29: whether each generated proxy is also the RECEIVER of the
+  /// script instance it stands for (`D4.markProxyIsReceiver`). A script class
+  /// extending an abstract bridged class has no native super-object; a member
+  /// it inherits from that class (`Decoration.padding`,
+  /// `FlowDelegate.getSize`) then has nothing to run on and answers null. A
+  /// receiver proxy is created on first use, kept as the instance's
+  /// `nativeProxy`, and runs the inherited member natively; its overridable
+  /// members forward to the script's overrides with a re-entry guard, so a
+  /// script override calling `super.m()` reaches the native member.
+  ///
+  /// Default `true`. Exclude single classes with [receiverProxyExclude].
+  /// Receivers are emitted only for a project that resolves tom_d4rt >=
+  /// 1.251.0 / tom_d4rt_ast >= 0.231.0 (`D4.markProxyIsReceiver`,
+  /// `D4ReceiverProxy`); otherwise the proxy is generated as before, with a
+  /// warning.
+  final bool receiverProxies;
+
+  /// ghissues29: proxy classes (by class name) that are NOT made receivers
+  /// even when [receiverProxies] is on: their factory creates a fresh proxy
+  /// per native boundary, as before.
+  ///
+  /// ```yaml
+  /// d4rtgen:
+  ///   receiverProxyExclude: [RouterDelegate]
+  /// ```
+  final List<String> receiverProxyExclude;
+
+  /// Whether the generated proxy for [className] is a receiver.
+  bool isReceiverProxy(String className) =>
+      receiverProxies && !receiverProxyExclude.contains(className);
+
   /// DGU3: Escape hatch mapping an awkward source type to a substitute that is
   /// emitted verbatim in generated code — the config seam that upholds the
   /// "fix the generator, not the generated code" rule.
@@ -1238,6 +1269,8 @@ class BridgeConfig {
     this.genericInterceptors = const [],
     this.genericConstructors = const [],
     this.yieldVoidCallbacks = false,
+    this.receiverProxies = true,
+    this.receiverProxyExclude = const [],
     this.typeMappings = const {},
     this.additionalImports = const [],
   });
@@ -1304,6 +1337,12 @@ class BridgeConfig {
               .toList() ??
           const [],
       yieldVoidCallbacks: json['yieldVoidCallbacks'] as bool? ?? false,
+      receiverProxies: json['receiverProxies'] as bool? ?? true,
+      receiverProxyExclude:
+          (json['receiverProxyExclude'] as List?)
+              ?.map((e) => e.toString())
+              .toList() ??
+          const [],
       typeMappings:
           (json['typeMappings'] as Map?)?.map(
             (k, v) => MapEntry(k.toString(), v.toString()),
@@ -1405,6 +1444,9 @@ class BridgeConfig {
             .map((g) => g.toJson())
             .toList(),
       if (yieldVoidCallbacks) 'yieldVoidCallbacks': yieldVoidCallbacks,
+      if (!receiverProxies) 'receiverProxies': receiverProxies,
+      if (receiverProxyExclude.isNotEmpty)
+        'receiverProxyExclude': receiverProxyExclude,
       if (typeMappings.isNotEmpty) 'typeMappings': typeMappings,
       if (additionalImports.isNotEmpty) 'additionalImports': additionalImports,
     };
@@ -1438,6 +1480,8 @@ class BridgeConfig {
     List<GenericInterceptorConfig>? genericInterceptors,
     List<GenericConstructorConfig>? genericConstructors,
     bool? yieldVoidCallbacks,
+    bool? receiverProxies,
+    List<String>? receiverProxyExclude,
     Map<String, String>? typeMappings,
     List<String>? additionalImports,
   }) {
@@ -1469,6 +1513,8 @@ class BridgeConfig {
       genericInterceptors: genericInterceptors ?? this.genericInterceptors,
       genericConstructors: genericConstructors ?? this.genericConstructors,
       yieldVoidCallbacks: yieldVoidCallbacks ?? this.yieldVoidCallbacks,
+      receiverProxies: receiverProxies ?? this.receiverProxies,
+      receiverProxyExclude: receiverProxyExclude ?? this.receiverProxyExclude,
       typeMappings: typeMappings ?? this.typeMappings,
       additionalImports: additionalImports ?? this.additionalImports,
     );

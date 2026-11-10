@@ -447,6 +447,8 @@ registration-facade / annotation-directive surfaces — is in
 | `genericInterceptors` | `List` | `[]` | Type-arg-keyed re-dispatch interceptors (e.g. `RadioGroup.maybeOf<T>`); dormant when empty |
 | `genericConstructors` | `List` | `[]` | Templated RC-2 generic constructor factories (e.g. `GlobalKey<NavigatorState>()`); dormant when empty |
 | `yieldVoidCallbacks` | `bool` | `false` | Wrap void bridged callbacks in an `async` closure that yields to the event loop (`tom_d4rt_flutter*` only) |
+| `receiverProxies` | `bool` | `true` | Make generated proxies the receivers of their script instances, so inherited members of an abstract bridged class run natively (needs tom_d4rt >= 1.251.0 / tom_d4rt_ast >= 0.231.0; otherwise not emitted, with a warning) |
+| `receiverProxyExclude` | `List<String>` | `[]` | Proxy classes not made receivers |
 
 See [doc/tom_d4rt_generator_configuration.md](doc/tom_d4rt_generator_configuration.md)
 for the per-entry YAML shapes of `proxyClasses`, `genericConstructors`,

@@ -15,6 +15,7 @@
 /// ```
 library;
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
@@ -24,6 +25,7 @@ import 'package:analyzer/src/dart/analysis/analysis_context_collection.dart'
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:path/path.dart' as p;
+import 'package:pub_semver/pub_semver.dart';
 
 import 'analysis_paths.dart' show analysisIncludedPath;
 import 'bridge_config.dart';
@@ -160,6 +162,12 @@ class ProxyGenerationInfo {
   /// Alias names for [instantiations], e.g. `D4rtZomBoxZomCustomer`.
   final List<String> instantiationProxyNames;
 
+  /// ghissues29: the proxy is the receiver of its script instance
+  /// ([BridgeConfig.isReceiverProxy]): it is marked with
+  /// `D4.markProxyIsReceiver` (the interpreter then keeps it as the instance's
+  /// `nativeProxy`), and its overridable members carry a re-entry guard.
+  final bool isReceiver;
+
   const ProxyGenerationInfo({
     required this.className,
     required this.proxyName,
@@ -171,6 +179,7 @@ class ProxyGenerationInfo {
     this.typeParameterIsFBounded = const [],
     this.instantiations = const [],
     this.instantiationProxyNames = const [],
+    this.isReceiver = false,
   });
 }
 
@@ -185,10 +194,15 @@ class ProxyGenerationResult {
   /// Any errors encountered.
   final List<String> errors;
 
+  /// Non-fatal notes, e.g. receivers requested but not emitted because the
+  /// project's interpreter predates `D4.markProxyIsReceiver` (ghissues29).
+  final List<String> warnings;
+
   const ProxyGenerationResult({
     this.outputFile,
     this.proxies = const [],
     this.errors = const [],
+    this.warnings = const [],
   });
 
   bool get isSuccess => errors.isEmpty && proxies.isNotEmpty;
@@ -231,7 +245,20 @@ Future<ProxyGenerationResult> generateProxies({
   }
 
   final errors = <String>[];
+  final warnings = <String>[];
   final proxies = <ProxyGenerationInfo>[];
+
+  // ghissues29: receivers are marked with `D4.markProxyIsReceiver` and
+  // implement `D4ReceiverProxy`, which the interpreter has from tom_d4rt
+  // 1.251.0 / tom_d4rt_ast 0.231.0 ([receiverInterpreterFloors]). Emit them
+  // only when the project resolves such an interpreter, so the generated file
+  // always compiles against the interpreter it runs on.
+  final receiversSupported = interpreterSupportsReceivers(
+    projectPath,
+    config.d4rtImport,
+  );
+  bool isReceiver(String className) =>
+      receiversSupported && config.isReceiverProxy(className);
 
   // Set up the analyzer context for the project.
   final absoluteProjectPath = analysisIncludedPath(projectPath);
@@ -453,8 +480,12 @@ Future<ProxyGenerationResult> generateProxies({
     );
     buffer.writeln('/// D4rt scripts to implement [$className] via named');
     buffer.writeln('/// function parameters.');
+    // ghissues29: a receiver proxy declares D4ReceiverProxy so the
+    // interpreter can run a script's `super.m()` natively on it.
+    final receiver = isReceiver(className);
     buffer.writeln(
-      'class $proxyName$typeParamDecl extends $className$typeParamUse {',
+      'class $proxyName$typeParamDecl extends $className$typeParamUse'
+      '${receiver ? ' implements D4ReceiverProxy' : ''} {',
     );
 
     // Fields for each callback — abstract are required, overridable are nullable
@@ -488,8 +519,37 @@ Future<ProxyGenerationResult> generateProxies({
     buffer.writeln('  });');
     buffer.writeln();
 
+    // ghissues29: a receiver proxy is kept as the script instance's native
+    // object, so a script override calling `super.m()` is dispatched to this
+    // proxy - whose `m` forwards to the script's override again. The guard
+    // sends that re-entry to the native member instead.
+    // ghissues29: the members not to forward to the script right now - a
+    // forward in progress (re-entry guard) or a script `super.m()` the
+    // interpreter runs through [D4ReceiverProxy.d4rtSuperCall]. One final
+    // field: the proxied class may be @immutable.
+    if (receiver) {
+      buffer.writeln('  final Set<String> _d4rtForwarding = <String>{};');
+      buffer.writeln();
+      buffer.writeln('  @override');
+      buffer.writeln(
+        '  R d4rtSuperCall<R>(String member, R Function() call) {',
+      );
+      buffer.writeln('    if (!_d4rtForwarding.add(member)) return call();');
+      buffer.writeln('    try {');
+      buffer.writeln('      return call();');
+      buffer.writeln('    } finally {');
+      buffer.writeln('      _d4rtForwarding.remove(member);');
+      buffer.writeln('    }');
+      buffer.writeln('  }');
+      buffer.writeln();
+    }
+
     // Override methods
     for (final method in allMethods) {
+      if (receiver && !method.isAbstract) {
+        _writeGuardedOverride(buffer, method);
+        continue;
+      }
       buffer.writeln('  @override');
       if (method.isGetter) {
         if (method.isAbstract) {
@@ -570,6 +630,7 @@ Future<ProxyGenerationResult> generateProxies({
         }).toList(),
         instantiations: instantiations,
         instantiationProxyNames: instantiationNames,
+        isReceiver: receiver,
       ),
     );
 
@@ -600,11 +661,75 @@ Future<ProxyGenerationResult> generateProxies({
     formatGeneratedDart(buffer.toString(), outputPath: outputPath),
   );
 
+  if (!receiversSupported &&
+      config.receiverProxies &&
+      proxies.any(
+        (proxy) => !config.receiverProxyExclude.contains(proxy.className),
+      )) {
+    warnings.add(
+      'receiverProxies: not emitted - the project does not resolve tom_d4rt '
+      '>= ${receiverInterpreterFloors['tom_d4rt']} / tom_d4rt_ast >= '
+      '${receiverInterpreterFloors['tom_d4rt_ast']}, whose '
+      'D4.markProxyIsReceiver the receivers need; regenerate after upgrading',
+    );
+  }
+
   return ProxyGenerationResult(
     outputFile: outputPath,
     proxies: proxies,
     errors: errors,
+    warnings: warnings,
   );
+}
+
+/// ghissues29: the first interpreter versions with `D4.markProxyIsReceiver`
+/// and `D4ReceiverProxy`.
+const Map<String, String> receiverInterpreterFloors = {
+  'tom_d4rt': '1.251.0',
+  'tom_d4rt_ast': '0.231.0',
+};
+
+/// Whether the interpreter [d4rtImport] names (`package:tom_d4rt/...` or
+/// `package:tom_d4rt_ast/...`), as [projectPath] resolves it, has
+/// `D4.markProxyIsReceiver` and `D4ReceiverProxy` (ghissues29). Read from the project's
+/// `.dart_tool/package_config.json` and the resolved package's pubspec; an
+/// unreadable resolution, an older version or another package (e.g.
+/// `tom_d4rt_exec`, whose D4 comes from the tom_d4rt_ast it resolves) is
+/// `false`, so the generated file never calls an API its interpreter lacks.
+bool interpreterSupportsReceivers(String projectPath, String? d4rtImport) {
+  // A config without `d4rtImport` generates for tom_d4rt (file_generators).
+  final import = d4rtImport ?? 'package:tom_d4rt/d4rt.dart';
+  final match = RegExp(r'^package:([a-z0-9_]+)/').firstMatch(import);
+  final package = match?.group(1);
+  final floor = receiverInterpreterFloors[package];
+  if (package == null || floor == null) return false;
+  final configFile = File(
+    p.join(projectPath, '.dart_tool', 'package_config.json'),
+  );
+  if (!configFile.existsSync()) return false;
+  try {
+    final json = jsonDecode(configFile.readAsStringSync());
+    final packages = (json as Map)['packages'] as List;
+    final entry = packages.cast<Map>().firstWhere(
+      (e) => e['name'] == package,
+      orElse: () => const {},
+    );
+    final rootUri = entry['rootUri'] as String?;
+    if (rootUri == null) return false;
+    final root = configFile.parent.uri.resolve(
+      rootUri.endsWith('/') ? rootUri : '$rootUri/',
+    );
+    final pubspec = File.fromUri(root.resolve('pubspec.yaml'));
+    if (!pubspec.existsSync()) return false;
+    final version = RegExp(
+      r'^version:\s*([0-9][^\s]*)',
+      multiLine: true,
+    ).firstMatch(pubspec.readAsStringSync())?.group(1);
+    if (version == null) return false;
+    return Version.parse(version) >= Version.parse(floor);
+  } on FormatException {
+    return false;
+  }
 }
 
 /// Finds a class by name in a barrel file's exported symbols.
@@ -1021,6 +1146,7 @@ void _generateProxyFactoryRegistration(
       "  D4.registerInterfaceProxy('${proxy.className}', "
       '(visitor, instance) {',
     );
+
     // GEN-104: emit explicit <dynamic, ...> type args for generic proxies so
     // F-bounded type parameters (e.g. `ThemeExtension<T extends
     // ThemeExtension<T>>`) compile. Without this Dart's type inference picks
@@ -1074,6 +1200,11 @@ void _generateProxyFactoryRegistration(
     _generateFactoryCallbacks(buffer, proxy, typeParameterReplacements);
     buffer.writeln('    );');
     buffer.writeln('  });');
+    if (proxy.isReceiver) {
+      // ghissues29: the proxy stands in as the script instance's native
+      // object; the interpreter creates it once per instance and keeps it.
+      buffer.writeln("  D4.markProxyIsReceiver('${proxy.className}');");
+    }
     buffer.writeln();
   }
 
@@ -1636,4 +1767,42 @@ String _eraseTypeParams(
     );
   }
   return result;
+}
+
+/// ghissues29: an overridable member of a receiver proxy. It forwards to the
+/// script's override (its callback) unless there is none or the call is a
+/// re-entry - the override's own `super.m()`, dispatched to this proxy because
+/// the proxy is the instance's native object - and then runs the native member.
+void _writeGuardedOverride(StringBuffer buffer, _AbstractMethodInfo method) {
+  final key = method.isGetter ? 'get ${method.name}' : method.name;
+  buffer.writeln('  @override');
+  final String header;
+  final String callArgs;
+  final String superCall;
+  if (method.isGetter) {
+    header = '  ${method.returnType} get ${method.name} {';
+    callArgs = '';
+    superCall = 'super.${method.name}';
+  } else {
+    final paramSig = _buildParamSignature(method.params);
+    callArgs = _buildCallArgs(method.params);
+    header = '  ${method.returnType} ${method.name}($paramSig) {';
+    superCall = 'super.${method.name}($callArgs)';
+  }
+  buffer.writeln(header);
+  // `d4rtForward`, not `callback`: a parameter of that name would be shadowed.
+  buffer.writeln('    final d4rtForward = ${method.callbackName};');
+  buffer.writeln(
+    "    if (d4rtForward == null || _d4rtForwarding.contains('$key')) {",
+  );
+  buffer.writeln('      return $superCall;');
+  buffer.writeln('    }');
+  buffer.writeln("    _d4rtForwarding.add('$key');");
+  buffer.writeln('    try {');
+  buffer.writeln('      return d4rtForward($callArgs);');
+  buffer.writeln('    } finally {');
+  buffer.writeln("      _d4rtForwarding.remove('$key');");
+  buffer.writeln('    }');
+  buffer.writeln('  }');
+  buffer.writeln();
 }
