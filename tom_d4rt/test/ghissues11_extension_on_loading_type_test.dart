@@ -14,7 +14,7 @@
 // with the module's exports, and its `on` type is filled in once the load
 // returns; an undefined `on` type is still reported then. Found on the way: the
 // `on` clause dropped an import prefix (`on l.Base` bound a local `Base`), as
-// the class clauses did before pull request #8 — GH11-4.
+// the class clauses did before pull request #8 — GHI11-4.
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt/d4rt.dart';
@@ -43,7 +43,7 @@ Matcher _refusedWith(String part) => throwsA(
 void main() {
   group('ghissues11: an extension on a type declared in a library still '
       'loading', () {
-    test('GH11-1: through a barrel that exports the type later '
+    test('GHI11-1: through a barrel that exports the type later '
         '[2026-11-09]', () {
       expect(
         _run(
@@ -56,7 +56,7 @@ void main() {
       );
     });
 
-    test('GH11-2: across a two-library import cycle [2026-11-09]', () {
+    test('GHI11-2: across a two-library import cycle [2026-11-09]', () {
       // main imports a.dart, whose import of b.dart loads first; b.dart imports
       // a.dart back, which is still loading, so the extension is declared
       // before `Base` exists.
@@ -81,7 +81,7 @@ void main() {
       );
     });
 
-    test('GH11-3: an unnamed extension, used inside the library and by the '
+    test('GHI11-3: an unnamed extension, used inside the library and by the '
         'importer [2026-11-09]', () {
       expect(
         _run(
@@ -95,7 +95,7 @@ void main() {
       );
     });
 
-    test('GH11-4: a prefixed `on` type binds the imported class, not a '
+    test('GHI11-4: a prefixed `on` type binds the imported class, not a '
         'same-named local one [2026-11-09]', () {
       final sources = {
         'package:p/types.dart': "abstract class Base { String b() => 'base'; }",
@@ -109,11 +109,11 @@ void main() {
       // The extension binds `l.Base` (a local `Base` bound before, so `W`, a
       // `l.Base`, had no `x`). That it is not applied to the local `Base` is
       // not asserted: extension matching also accepts a type of the same NAME
-      // (Bug-98's raw-generic fallback), tracked as extmatch1_akiw.
+      // (Bug-98's raw-generic fallback), tracked as ghissues17_akiw.
       expect(_run(sources), 'x:base');
     });
 
-    test('GH11-5: an undefined `on` type is still reported, with and without '
+    test('GHI11-5: an undefined `on` type is still reported, with and without '
         'a module load in progress [2026-11-09]', () {
       expect(
         () => _run(

@@ -11590,6 +11590,53 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       }
     }
 
+    // ghissues19: the `implements` clause makes the enum a subtype of each
+    // interface ([InterpretedEnum.isSubtypeOf]). An interface not declared yet
+    // while modules load (an import cycle, or a barrel that has not reached
+    // the export declaring it) is resolved once the outermost load returns,
+    // as a class's are (GitHub #9); an undefined one is reported.
+    final interfaceTypes = node.implementsClause?.interfaces ?? const [];
+    void resolveInterfaces() {
+      for (final interfaceType in interfaceTypes) {
+        final interfaceName = interfaceType.name.lexeme;
+        Object? potentialInterface;
+        try {
+          potentialInterface = environment.get(
+            _relationshipLookupName(interfaceType),
+          );
+        } on RuntimeD4rtException {
+          throw RuntimeD4rtException(
+            "Interface '$interfaceName' not found for enum '$enumName'. Ensure it's defined.",
+          );
+        }
+        if (potentialInterface is InterpretedClass) {
+          enumObj.interfaces.add(potentialInterface);
+        } else if (potentialInterface is BridgedClass) {
+          enumObj.bridgedInterfaces.add(potentialInterface);
+        } else {
+          throw RuntimeD4rtException(
+            "Enum '$enumName' cannot implement non-class '$interfaceName' (${potentialInterface?.runtimeType}).",
+          );
+        }
+      }
+    }
+
+    final interfacesEnv = environment;
+    final interfacesDeferred =
+        interfaceTypes.any(
+          (type) => !environment.isDefined(_relationshipLookupName(type)),
+        ) &&
+        moduleLoader.deferUntilModulesLoaded(() {
+          final savedEnv = environment;
+          try {
+            environment = interfacesEnv;
+            resolveInterfaces();
+          } finally {
+            environment = savedEnv;
+          }
+        });
+    if (!interfacesDeferred) resolveInterfaces();
+
     // Process Members (Static and Instance)
     // Members defined in the enum body (methods, getters, fields, constructors)
     final originalVisitorEnv = environment; // Save original environment
@@ -12965,6 +13012,10 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                 } else {
                   result = instance.klass.isSubtypeOf(targetType);
                 }
+              } else if (expressionValue is InterpretedEnumValue) {
+                // ghissues19: an enum is a subtype of the classes and mixins
+                // it implements and applies.
+                result = expressionValue.parentEnum.isSubtypeOf(targetType);
               } else {
                 // A non-instance value cannot be a subtype of a user-defined class
                 result = false;

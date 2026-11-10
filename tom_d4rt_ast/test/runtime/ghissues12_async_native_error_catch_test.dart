@@ -1,7 +1,7 @@
-// GH12/AST — in an `async` function a native error from a bridged call is
+// GHI12/AST — in an `async` function a native error from a bridged call is
 // caught as itself, in the analyzer-free tree (ghissues12).
 //
-// The mirror of `tom_d4rt/test/gh12_async_native_error_catch_test.dart`,
+// The mirror of `tom_d4rt/test/ghissues12_async_native_error_catch_test.dart`,
 // which runs source over the whole sync / async matrix. Here each script is a
 // hand-built bundle: an `async` main whose try body makes a bridged call that
 // throws natively (`int.parse('x')`, `List.unmodifiable([1]).add(2)`), caught
@@ -138,11 +138,11 @@ Future<Object?> _runAsync(
 }
 
 void main() {
-  group('GH12/AST: a native error from a bridged call in an async catch', () {
+  group('GHI12/AST: a native error from a bridged call in an async catch', () {
     for (final afterAwait in const [false, true]) {
       final label = afterAwait ? 'after an await' : 'before any await';
 
-      test('F-GH12-AST-1: $label: `on FormatException` matches a native '
+      test('F-GHI12-AST-1: $label: `on FormatException` matches a native '
           'FormatException [2026-11-09]', () async {
         expect(
           await _runAsync([
@@ -155,7 +155,7 @@ void main() {
         );
       });
 
-      test('F-GH12-AST-2: $label: a bare catch binds the native '
+      test('F-GHI12-AST-2: $label: a bare catch binds the native '
           'UnsupportedError [2026-11-09]', () async {
         expect(
           await _runAsync([

@@ -180,11 +180,9 @@ enum E implements l.Contract {
 }
 
 main() => [X().base(), Y().contract(), Y() is l.Contract, Z().feature(),
-  W().m(), E.a.contract()];
+  W().m(), E.a.contract(), E.a is l.Contract];
 '''),
-        // `E.a is l.Contract` is left out: an enum's `implements` does not make
-        // it a subtype even without a prefix (enumtype1_akir).
-        [10, 40, true, 30, 11, 7],
+        [10, 40, true, 30, 11, 7, true],
       );
     });
 

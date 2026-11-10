@@ -2675,13 +2675,32 @@ class InterpretedEnum implements RuntimeType {
     return _valuesListCache!;
   }
 
-  // Implement isSubtypeOf
+  /// The interpreted and bridged types of the enum's `implements` clause.
+  final List<InterpretedClass> interfaces = [];
+  final List<BridgedClass> bridgedInterfaces = [];
+
+  /// An enum is a subtype of itself, of `Enum` and `Object`, and of every
+  /// mixin it applies and interface it implements, with their supertypes
+  /// (ghissues19: it answered only for itself and Object, so `E.a is C` was
+  /// false and a `C` parameter refused `E.a`).
   @override
   bool isSubtypeOf(RuntimeType other, {Object? value}) {
-    // An enum is a subtype of itself and Object.
-    // For now, we don't handle complex type hierarchies involving enums.
-    // We might need to look up 'Object' in the environment later.
-    return identical(this, other) || other.name == 'Object';
+    if (identical(this, other) ||
+        other.name == 'Object' ||
+        other.name == 'Enum') {
+      return true;
+    }
+    for (final RuntimeType supertype in [
+      ...mixins,
+      ...bridgedMixins,
+      ...interfaces,
+      ...bridgedInterfaces,
+    ]) {
+      if (identical(supertype, other) || supertype.isSubtypeOf(other)) {
+        return true;
+      }
+    }
+    return false;
   }
 }
 

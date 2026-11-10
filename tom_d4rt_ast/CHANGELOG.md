@@ -1,3 +1,20 @@
+## 0.222.0
+
+### Fixed — an enum is a subtype of what it implements and mixes in
+
+An enum's `implements` and `with` clauses gave it the members of its
+interfaces and mixins, but not their types: `InterpretedEnum.isSubtypeOf`
+answered only for the enum itself and `Object`, so `E.a is C` was false, a
+parameter typed `C` refused `E.a`, `List<C> l = [E.a]` was refused, and
+`E.a is Enum` was false. An enum is now a subtype of every interface it
+implements and mixin it applies, with their supertypes, of interpreted and
+bridged types alike, and of `Enum`. The `implements` clause is now resolved
+like a class's: an undefined interface is reported (`Interface 'X' not found
+for enum 'E'`), and one declared in a library still loading is resolved once
+the load returns.
+
+Name resolution: no
+
 ## 0.221.0
 
 ### Fixed — an `async` function catches a native error from a bridged call as itself

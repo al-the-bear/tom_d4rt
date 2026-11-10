@@ -370,7 +370,10 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpreterVisitor.visitConstructorReference': '1d51b6d4',
     // VSTDM3: the analyzer 14 port edited both trees alike; the divergence
     // itself is unchanged.
-    'InterpreterVisitor.visitEnumDeclaration': 'ce4a4dd5',
+    // GHISSUES19: both trees resolve the enum's `implements` clause, deferred
+    // while modules load; the residue grows by the interface name's accessor
+    // (`name.lexeme` / `name!.name`) and the loader field's name.
+    'InterpreterVisitor.visitEnumDeclaration': 'b6064b95',
     // GHISSUES11: both trees defer an `on` type declared in a library still
     // loading; the residue grows by the loader field's name, `moduleLoader`
     // here and `moduleContext` in the twin.

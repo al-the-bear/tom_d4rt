@@ -1,8 +1,8 @@
-// GH11/AST — an extension whose `on` type is declared in a library that is
+// GHI11/AST — an extension whose `on` type is declared in a library that is
 // still loading, in the analyzer-free tree (ghissues11, a GitHub
 // al-the-bear/tom_d4rt#9 follow-up).
 //
-// The mirror of `tom_d4rt/test/gh11_extension_on_loading_type_test.dart`,
+// The mirror of `tom_d4rt/test/ghissues11_extension_on_loading_type_test.dart`,
 // which runs source. Here each library is a hand-built bundle module: an
 // extension a barrel declares before the export that declares its `on` type,
 // the same across a two-library import cycle, a prefixed `on` type next to a
@@ -234,9 +234,9 @@ Map<String, SCompilationUnit> _viaBarrel(List<SCompilationUnitMember> user) => {
 
 void main() {
   group(
-    'GH11/AST: an extension on a type declared in a library still loading',
+    'GHI11/AST: an extension on a type declared in a library still loading',
     () {
-      test('F-GH11-AST-1: through a barrel that exports the type later '
+      test('F-GHI11-AST-1: through a barrel that exports the type later '
           '[2026-11-09]', () {
         expect(
           _run([
@@ -246,7 +246,7 @@ void main() {
         );
       });
 
-      test('F-GH11-AST-2: across a two-library import cycle [2026-11-09]', () {
+      test('F-GHI11-AST-2: across a two-library import cycle [2026-11-09]', () {
         // main imports a.dart, whose import of b.dart loads first; b.dart
         // imports a.dart back, still loading, so X is declared before Base.
         expect(
@@ -264,7 +264,7 @@ void main() {
         );
       });
 
-      test('F-GH11-AST-3: a prefixed `on` type binds the imported class, not a '
+      test('F-GHI11-AST-3: a prefixed `on` type binds the imported class, not a '
           'same-named local one [2026-11-09]', () {
         expect(
           _run(
@@ -294,7 +294,7 @@ void main() {
         );
       });
 
-      test('F-GH11-AST-4: an undefined `on` type is still reported '
+      test('F-GHI11-AST-4: an undefined `on` type is still reported '
           '[2026-11-09]', () {
         expect(
           () => _run([

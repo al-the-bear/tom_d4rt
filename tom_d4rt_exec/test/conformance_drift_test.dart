@@ -484,7 +484,7 @@ const _partialTwinBudget = 0;
 /// show and hide and prefixed named types, which the corpus copies on every
 /// run.
 ///
-/// 48 -> 49: GHISSUES11 added `gh11_extension_on_loading_type_test.dart`,
+/// 48 -> 49: GHISSUES11 added `ghissues11_extension_on_loading_type_test.dart`,
 /// which runs source to check that an extension whose `on` type is declared in
 /// a library still loading (a barrel, an import cycle) is registered at once
 /// and gets its type once the load returns, that a prefixed `on` type binds
@@ -496,7 +496,7 @@ const _partialTwinBudget = 0;
 /// declarations, export directives and import cycles, which the corpus copies
 /// on every run.
 ///
-/// 49 -> 50: GHISSUES12 added `gh12_async_native_error_catch_test.dart`,
+/// 49 -> 50: GHISSUES12 added `ghissues12_async_native_error_catch_test.dart`,
 /// which runs source to check that a native error thrown behind a bridged call
 /// (`int.parse`, `List.unmodifiable(...).add`) is caught as itself in an
 /// `async` function as in a synchronous one: `on T` matches it, `is T` holds,
@@ -508,7 +508,19 @@ const _partialTwinBudget = 0;
 /// port would have added is async functions with try / on / catch clauses,
 /// which the corpus copies on every run.
 ///
-const _copierGapBudget = 50;
+/// 50 -> 51: GHISSUES19 added `ghissues19_enum_subtyping_test.dart`, which runs
+/// source to check that an enum is a subtype of the interfaces it implements,
+/// the mixins it applies, their supertypes and `Enum` - through `is`, a typed
+/// parameter, a typed list element, a cast and a bridged interface - and that
+/// an undefined interface is reported, also across an import cycle. Exec
+/// resolves tom_d4rt_ast from pub.dev, where an enum answers only for itself
+/// and Object until the batch release (ghissues999), so a port would assert
+/// the fix against an interpreter that does not have it. Its ast twin holds
+/// the mechanism. The copier surface a port would have added is enum
+/// declarations with implements and with clauses, which the corpus copies on
+/// every run.
+///
+const _copierGapBudget = 51;
 
 const Map<String, _Coverage> _coveredElsewhere = {
   'sce208_bind_forwarding_source_errors_test.dart': _Coverage(
@@ -619,8 +631,22 @@ const Map<String, _Coverage> _coveredElsewhere = {
         'and prefixes, dynamic and Record), which a hand-built bundle would '
         'only restate.',
   ),
-  'gh12_async_native_error_catch_test.dart': _Coverage(
-    'ast:runtime/gh12_async_native_error_catch_test.dart',
+  'ghissues19_enum_subtyping_test.dart': _Coverage(
+    'ast:runtime/ghissues19_enum_subtyping_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 6,
+    twinCases: 4,
+    whyPartial:
+        'the twin pins each relation once - an implemented interface through '
+        '`is`, a typed parameter and `is Enum`, an applied mixin, a bridged '
+        'interface, and the refusals. The reference adds the remaining SHAPES '
+        '(a typed list element, a cast, an interface reached through another, '
+        'an interface across an import cycle), which a hand-built bundle '
+        'would only restate.',
+  ),
+  'ghissues12_async_native_error_catch_test.dart': _Coverage(
+    'ast:runtime/ghissues12_async_native_error_catch_test.dart',
     _astTwin,
     layer: _Layer.script,
     refCases: 7,
@@ -634,8 +660,8 @@ const Map<String, _Coverage> _coveredElsewhere = {
         'parameter and rethrow, the uncatchable undefined name), which a '
         'hand-built bundle would only restate.',
   ),
-  'gh11_extension_on_loading_type_test.dart': _Coverage(
-    'ast:runtime/gh11_extension_on_loading_type_test.dart',
+  'ghissues11_extension_on_loading_type_test.dart': _Coverage(
+    'ast:runtime/ghissues11_extension_on_loading_type_test.dart',
     _astTwin,
     layer: _Layer.script,
     refCases: 5,

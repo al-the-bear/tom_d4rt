@@ -40,7 +40,7 @@ void main() {
       (isAsync: true, afterAwait: false, label: 'async'),
       (isAsync: true, afterAwait: true, label: 'async after an await'),
     ]) {
-      test('GH12-1: ${mode.label}: a bare catch binds the native error '
+      test('GHI12-1: ${mode.label}: a bare catch binds the native error '
           '[2026-11-09]', () async {
         expect(
           await _run(
@@ -55,7 +55,7 @@ void main() {
         );
       });
 
-      test('GH12-2: ${mode.label}: `on FormatException` matches a native '
+      test('GHI12-2: ${mode.label}: `on FormatException` matches a native '
           'FormatException [2026-11-09]', () async {
         expect(
           await _run(
@@ -71,7 +71,7 @@ void main() {
         );
       });
 
-      test('GH12-3: ${mode.label}: a clause for another type is passed over '
+      test('GHI12-3: ${mode.label}: a clause for another type is passed over '
           '[2026-11-09]', () async {
         expect(
           await _run(
@@ -86,7 +86,7 @@ void main() {
         );
       });
 
-      test('GH12-4: ${mode.label}: a script throw of the same type '
+      test('GHI12-4: ${mode.label}: a script throw of the same type '
           '[2026-11-09]', () async {
         expect(
           await _run(
@@ -102,7 +102,7 @@ void main() {
       });
     }
 
-    test('GH12-5: an awaited Future that completes with a native error, from '
+    test('GHI12-5: an awaited Future that completes with a native error, from '
         'a bridged call or from Future.error [2026-11-09]', () async {
       expect(
         await _run(
@@ -120,7 +120,7 @@ void main() {
       );
     });
 
-    test('GH12-6: the stack trace parameter is bound, and rethrow carries the '
+    test('GHI12-6: the stack trace parameter is bound, and rethrow carries the '
         'native error on [2026-11-09]', () async {
       expect(
         await _run(
@@ -133,7 +133,7 @@ void main() {
       );
     });
 
-    test('GH12-7: an undefined name is still not catchable, and an uncaught '
+    test('GHI12-7: an undefined name is still not catchable, and an uncaught '
         'native error still fails the call [2026-11-09]', () async {
       await expectLater(
         _run(
