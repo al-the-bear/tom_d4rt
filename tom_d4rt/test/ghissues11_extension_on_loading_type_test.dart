@@ -107,10 +107,19 @@ void main() {
             'main() => W().x();',
       };
       // The extension binds `l.Base` (a local `Base` bound before, so `W`, a
-      // `l.Base`, had no `x`). That it is not applied to the local `Base` is
-      // not asserted: extension matching also accepts a type of the same NAME
-      // (Bug-98's raw-generic fallback), tracked as ghissues17_akiw.
+      // `l.Base`, had no `x`), and is not applied to the local `Base`
+      // (ghissues17: matching accepted a type of the same name).
       expect(_run(sources), 'x:base');
+      expect(
+        () => _run({
+          ...sources,
+          'package:p/main.dart': sources['package:p/main.dart']!.replaceFirst(
+            'main() => W().x();',
+            'main() => Base().x();',
+          ),
+        }),
+        _refusedWith('no suitable extension method found'),
+      );
     });
 
     test('GHI11-5: an undefined `on` type is still reported, with and without '

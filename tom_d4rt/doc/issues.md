@@ -799,7 +799,7 @@ if (bound.name == 'Comparable') {
 **Status:** ✅ Fixed  
 **Relevance:** Medium  
 **Complexity:** Medium  
-**Fixed:** 2026-02-09 — Relaxed type matching in findExtensionMember for same-name types
+**Fixed:** 2026-02-09 — Relaxed type matching in findExtensionMember for raw types. A raw receiver matches an extension on the same declaration with type arguments; a type that only shares the name does not (narrowed in 1.243.0)
 
 #### Problem Description
 

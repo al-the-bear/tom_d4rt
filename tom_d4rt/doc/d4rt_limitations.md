@@ -2874,7 +2874,7 @@ In the type bound validation, add knowledge that core Dart types (`num`, `int`, 
 
 ### Bug-98: Extension Getter on Bridged List Not Resolved
 
-**Status:** ⬜ TODO  
+**Status:** ✅ Fixed  
 **Fixable:** ✅ Yes  
 **Complexity:** Medium
 
@@ -2908,6 +2908,10 @@ void main() {
 #### Solution Strategy
 
 Enhance the extension lookup to match extensions on parameterized bridged types (like `List<int>`) against actual bridged instances, checking that the type arguments are compatible.
+
+#### Resolution
+
+Extension matching accepts a receiver of the same declaration as the extension's `on` type once type arguments are removed (the same type, or two bridges over the same native type), so a native `List` gets the extensions on `List<int>`. A type that only shares the name, declared in another library or bridged over another native type, does not.
 
 ---
 

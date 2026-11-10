@@ -2313,19 +2313,35 @@ class Environment {
       return true;
     }
 
-    // Bug-98 fix: Relaxed matching for raw types
-    // If the target and extension have the same base type name, allow the match.
-    // This handles cases where:
-    // - Target is native List (no type parameterization available at runtime)
-    // - Extension is on List<int> (has type parameter in declaration)
-    if (targetType.name == extensionOnType.name) {
+    // Bug-98: a raw receiver type (a native `List`, whose type arguments are
+    // not available at runtime) matches an extension on the same type with
+    // type arguments (`List<int>`). Only the same DECLARATION matches: a type
+    // of the same name declared elsewhere - a class in another library, a
+    // script class named like a bridge, another bridge over a different
+    // native type - does not (ghissues17).
+    if (_sameDeclaration(targetType, extensionOnType)) {
       Logger.debug(
-        "[_matchesExtensionType] Allowing same-name type match: ${targetType.name}",
+        "[_matchesExtensionType] Allowing raw-type match: ${targetType.name}",
       );
       return true;
     }
 
     return false;
+  }
+
+  /// Whether [a] and [b] are the same declaration once type arguments are
+  /// removed: the same type object, or two bridges over the same native type.
+  static bool _sameDeclaration(RuntimeType a, RuntimeType b) {
+    while (a is AppliedRuntimeType) {
+      a = a.baseType;
+    }
+    while (b is AppliedRuntimeType) {
+      b = b.baseType;
+    }
+    if (identical(a, b)) return true;
+    return a is BridgedClass &&
+        b is BridgedClass &&
+        a.nativeType == b.nativeType;
   }
 
   // Placeholder helper to get RuntimeType - needs actual implementation

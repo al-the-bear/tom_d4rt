@@ -520,7 +520,19 @@ const _partialTwinBudget = 0;
 /// declarations with implements and with clauses, which the corpus copies on
 /// every run.
 ///
-const _copierGapBudget = 51;
+/// 51 -> 52: GHISSUES17 added `ghissues17_extension_matches_type_test.dart`,
+/// which runs source to check that an extension applies to subtypes of its
+/// `on` type and not to a type of the same name - a local class named like an
+/// imported `on` type, a script class named like a bridged one, another bridge
+/// of the same name - while an extension on a parameterised type still applies
+/// to a raw native receiver (Bug-98). Exec resolves tom_d4rt_ast from pub.dev,
+/// where matching still accepts the same name until the batch release
+/// (ghissues999), so a port would assert the fix against an interpreter that
+/// does not have it. Its ast twin holds the mechanism. The copier surface a
+/// port would have added is extension declarations on prefixed and
+/// parameterised types, which the corpus copies on every run.
+///
+const _copierGapBudget = 52;
 
 const Map<String, _Coverage> _coveredElsewhere = {
   'sce208_bind_forwarding_source_errors_test.dart': _Coverage(
@@ -630,6 +642,19 @@ const Map<String, _Coverage> _coveredElsewhere = {
         'repeated dart:core and dart:async prefixes, dart:math, missing names '
         'and prefixes, dynamic and Record), which a hand-built bundle would '
         'only restate.',
+  ),
+  'ghissues17_extension_matches_type_test.dart': _Coverage(
+    'ast:runtime/ghissues17_extension_matches_type_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 4,
+    twinCases: 2,
+    whyPartial:
+        'the twin pins the two mechanisms once each - an interpreted class '
+        'named like a prefixed `on` type, and a bridge named like another '
+        'bridge. The reference adds the remaining SHAPES (a script class named '
+        'like a bridged type, and the parameterised `on` types Bug-98 '
+        'covers), which a hand-built bundle would only restate.',
   ),
   'ghissues19_enum_subtyping_test.dart': _Coverage(
     'ast:runtime/ghissues19_enum_subtyping_test.dart',

@@ -120,6 +120,12 @@ const Map<String, String> _deferred = {
   '0.223.0':
       'ghissues14: unpublished; certified by the post-publish corpus run of '
       'ghissues999 (the ghissues* / qr* batch release)',
+  '1.243.0':
+      'ghissues17: unpublished; certified by the post-publish corpus run of '
+      'ghissues999 (the ghissues* / qr* batch release)',
+  '0.224.0':
+      'ghissues17: unpublished; certified by the post-publish corpus run of '
+      'ghissues999 (the ghissues* / qr* batch release)',
 };
 
 List<int> _key(String v) => v.split('.').map(int.parse).toList();

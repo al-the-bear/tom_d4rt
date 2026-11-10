@@ -1,3 +1,21 @@
+## 1.243.0
+
+### Fixed — an extension applies to subtypes of its `on` type, not to a type of the same name
+
+Extension matching accepted a receiver whose type was a subtype of the
+extension's `on` type OR merely had the same name, so a class named like the
+`on` type got the extension: a local `Base` received an extension declared
+`on l.Base` from another library (and failed inside it, `Undefined variable:
+b`), a script class named like a bridged type received the bridged type's
+extensions, and a bridge received the extensions of another bridge of the same
+name over a different native type. The name match was Bug-98's allowance for a
+raw receiver (a native `List`) against an extension on a parameterised type
+(`List<int>`); it now accepts only the same declaration once type arguments are
+removed - the same type, or two bridges over the same native type. Such a
+receiver now reports that no extension supplies the member.
+
+Name resolution: yes — an extension member no longer resolves on a receiver whose type only shares the `on` type's name.
+
 ## 1.242.0
 
 ### Fixed — an imported library no longer sees the importing script's declarations
