@@ -19,9 +19,9 @@
 // met the imported abstract class (`Cannot instantiate abstract class`); in a
 // `source:` entry pass 1 ran first and the import then replaced the
 // placeholder (an import won every name conflict). The enum case read the
-// imported enum. A library's own
-// class, mixin or enum now shadows an imported one, as in Dart. The explicit
-// `dart:core` import is how it was met; it is not needed for the defect.
+// imported enum. A library's own class, mixin or enum now shadows an imported
+// one, as in Dart. The explicit `dart:core` import is how it was met; it is
+// not needed for the defect.
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt/d4rt.dart';
