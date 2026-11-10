@@ -394,9 +394,14 @@ yet published) makes every generated proxy a receiver (the 15 `proxyClasses`:
 `Decoration.padding`, `FlowDelegate.getSize`,
 `MultiChildLayoutDelegate.getSize`, `CustomPainter.shouldRebuildSemantics`
 measured null on the published pair, correct on the tree with regenerated
-bridges); the twins regenerate with the release. A class with no proxy at all
-still answers null: todo ghissues31_akjk-rc9-error-without-receiver-impact
-measures making RC-9 an error there.
+bridges); the twins regenerate with the release. A class with no receiver at
+all is an error since ghissues31 (tom_d4rt 1.253.0 / tom_d4rt_ast 0.233.0, not
+yet published): RC-9 throws naming the class and member, except a `super.m()`
+on a script State the State proxy runs. Measured with the throw on both twins'
+full corpus: 50 failures were those State `super` calls (now the named
+exception) and one a missing receiver, the script controller extending
+`RegularWindowController` (`ChangeNotifier.notifyListeners` notified nobody) -
+the twins mark their `ChangeNotifier` proxy as a receiver with the release.
 
 ### [ ] Open (GEN-131) — a class's static initializers read the script's top-level constants as null
 

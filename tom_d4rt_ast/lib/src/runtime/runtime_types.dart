@@ -1377,6 +1377,20 @@ class InterpretedInstance implements RuntimeValue {
           ? null
           : D4.receiverProxyFor(bridgedTypeName, this, visitor));
 
+  /// ghissues31: the error for a member this instance's class inherits from
+  /// the bridged class [bridgedName] when there is no native object to run
+  /// it on - neither a native super-object nor a native or receiver proxy.
+  /// It used to answer null silently (RC-9).
+  RuntimeD4rtException noReceiverError(String bridgedName, String member) =>
+      RuntimeD4rtException(
+        "'${klass.name}' inherits '$bridgedName.$member' from the bridged "
+        "class '$bridgedName' but has no native object to run it on: "
+        "'$bridgedName' has no constructor the interpreter can call, so a "
+        'script subclass gets no native super-object, and no receiver proxy '
+        "is marked for it (register an interface proxy for '$bridgedName' "
+        'and mark it with D4.markProxyIsReceiver).',
+      );
+
   // Bug-45 (narrowed): for State<T> subclass instances, the parent
   // StatefulWidget InterpretedInstance, set by _InterpretedStatefulWidget.
   // createState. Resolved by `widget` lookup below WITHOUT going through
@@ -2204,21 +2218,8 @@ class InterpretedInstance implements RuntimeValue {
                 bridgedSuper.name,
               );
             }
-            Logger.debug(
-              "[Instance.get] No native target for '${bridgedSuper.name}.$name' — returning callback-invoking no-op fallback.",
-            );
-            return NativeFunction(
-              (v, positionalArgs, namedArgs, typeArgs) {
-                for (final arg in positionalArgs) {
-                  if (arg is Callable) {
-                    arg.call(v, const [], const {});
-                  }
-                }
-                return null;
-              },
-              arity: 0,
-              name: name,
-            );
+            // ghissues31: no native object to run the inherited method on.
+            throw noReceiverError(bridgedSuper.name, name);
           }
           final getterAdapter = bridgedSuper.findReachableGetterAdapter(
             name,
@@ -2258,10 +2259,8 @@ class InterpretedInstance implements RuntimeValue {
                 );
               }
             } else {
-              Logger.debug(
-                "[Instance.get] No native target for '${bridgedSuper.name}.$name' getter — returning null.",
-              );
-              return null;
+              // ghissues31: no native object to run the inherited getter on.
+              throw noReceiverError(bridgedSuper.name, name);
             }
           }
         }
@@ -2956,6 +2955,7 @@ class InterpretedExtension {
       if (member is InterpretedExtensionMethod) member.onType = type;
     }
   }
+
   final bool
   isOnNullableType; // G-DOV-10/11: Whether the extension is on T? (nullable)
   final Map<String, Callable>

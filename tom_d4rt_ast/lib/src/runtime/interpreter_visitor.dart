@@ -5489,19 +5489,20 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         );
 
         if (nativeSuperObject == null) {
-          // RC-8: super.<method>() on a bridged superclass that has no
-          // realised native target (e.g. State without nativeProxy on a
-          // plain `_InterpretedState` after the narrowed-#82 fix; scripts
-          // that mix in `AutomaticKeepAliveClientMixin` need to call
-          // `super.build(context)` for spec compliance even though the
-          // mixin's native side isn't reachable from the bridge). Return
-          // null silently — these calls are typically made for side-effects
-          // the bridge can't observe and the script discards the result.
-          Logger.debug(
-            "[visitMethodInvocation] super.$methodName() on bridged super "
-            "'${bridgedSuper.name}' has no native target — treating as no-op.",
-          );
-          return null;
+          // ghissues31, the one named exception: a script State run by the
+          // State proxy (`nativeStateProxy`, Bug-45) has no native object by
+          // design - the proxy runs the native State member itself around the
+          // script's override (`super.initState(); <script initState>`), so
+          // the script's own `super.initState()`, `super.dispose()`,
+          // `super.build(context)` ... has nothing left to do.
+          if (instance.nativeStateProxy != null) {
+            Logger.debug(
+              "[visitMethodInvocation] super.$methodName() on the proxied "
+              "State '${instance.klass.name}' - the State proxy runs it.",
+            );
+            return null;
+          }
+          throw instance.noReceiverError(bridgedSuper.name, methodName);
         }
 
         // SCF39: `super.toString()` over a native `Object` default names the

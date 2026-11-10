@@ -446,7 +446,11 @@ for the variant syntax and worked examples.
 **A proxy as the instance's native object.** A script class that extends an
 abstract bridged class has no native super-object (the class has no
 constructor adapter), so a member it inherits from that class has nothing to
-run on: it answers null. When the proxy registered for the class can stand in
+run on: calling it (or `super.m()` / `super.x` on it) throws a
+`RuntimeD4rtException` naming the class and the member. The one exception is a
+`super.m()` on a script State whose State proxy runs it (`nativeStateProxy`,
+set by the Flutter twins): the proxy runs the native State member around the
+script's override, so the call is a no-op. When the proxy registered for the class can stand in
 for the instance - it builds itself from the instance alone and forwards the
 members a script may override back to it - mark it:
 

@@ -54,8 +54,10 @@ the member on it; an instance crossing into native code receives that same
 proxy, and a proxy created at a crossing is kept the same way. A `super.m()` /
 `super.x` on a proxy implementing `D4ReceiverProxy` runs inside
 `d4rtSuperCall(member, call)`, so the proxy answers the native member instead of
-forwarding back to the script's override. Unmarked, such a member answers null
-(RC-9). Generated proxies are marked and implement `D4ReceiverProxy` unless the
+forwarding back to the script's override. With no native object at all, such
+a member is an error (RC-9 throws `InterpretedInstance.noReceiverError`), except
+a `super.m()` on a script State whose State proxy runs it (`nativeStateProxy`),
+which stays a no-op. Generated proxies are marked and implement `D4ReceiverProxy` unless the
 generator's `receiverProxies` / `receiverProxyExclude` say otherwise.
 
 ## 3. Argument resolution leaf

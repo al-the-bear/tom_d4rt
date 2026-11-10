@@ -1,3 +1,30 @@
+## 1.253.0
+
+### Changed — an inherited bridged member with no native object is an error, not null
+
+A script class that extends an abstract bridged class (one with no
+constructor the interpreter can call) has no native super-object. Unless a
+receiver proxy is marked for the class (`D4.markProxyIsReceiver`), a member it
+inherits from that class had nothing to run on, and the RC-9 fallback answered
+silently: an inherited method was a no-op returning null (running any callback
+argument), an inherited getter answered null, and `super.m()` was a no-op.
+They now throw a `RuntimeD4rtException` naming the script class, the bridged
+member and how to give the class a receiver
+(`InterpretedInstance.noReceiverError`).
+
+One named exception stays a no-op: `super.m()` on a script State whose State
+proxy runs it (`nativeStateProxy`, set by the Flutter twins' State proxy),
+because the proxy runs the native State member itself around the script's
+override - the script's own `super.initState()`, `super.dispose()`,
+`super.build(context)` has nothing left to do.
+
+This changes what scripts compute: a script that silently got null (or a
+skipped `super` call) from an inherited bridged member without a receiver now
+gets an error. Measured on the Flutter corpus of both twins: with the State
+exception and the twins' receivers, no script reaches it.
+
+Name resolution: no
+
 ## 1.252.0
 
 ### Changed — `cast<T>()` on a stdlib collection checks its elements against T

@@ -228,7 +228,18 @@ void main() {
 
     test('F-GH25-AST-3: an unmarked interface proxy is not consulted for an '
         'inherited member [2026-11-10]', () {
-      expect(_run([_call(_new('P'), 'describe')]), [null]);
+      // An error since ghissues31 (it answered null before): the member has
+      // no native object to run on.
+      expect(
+        () => _run([_call(_new('P'), 'describe')]),
+        throwsA(
+          isA<RuntimeD4rtException>().having(
+            (e) => e.message,
+            'message',
+            contains("'Gh25AstPlain.describe'"),
+          ),
+        ),
+      );
     });
   });
 }

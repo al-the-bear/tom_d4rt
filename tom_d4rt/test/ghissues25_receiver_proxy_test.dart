@@ -143,9 +143,19 @@ void main() {
 
     test('GHI25-3: an unmarked interface proxy is not consulted for an '
         'inherited member [2026-11-10]', () {
-      // The RC-9 fallback, unchanged: a widget proxy builds itself from the
-      // instance's fields, so creating one on a member lookup is not safe.
-      expect(_run('P().describe()'), isNull);
+      // A widget proxy builds itself from the instance's fields, so creating
+      // one on a member lookup is not safe: the member has no native object,
+      // which is an error since ghissues31 (it answered null before).
+      expect(
+        () => _run('P().describe()'),
+        throwsA(
+          isA<RuntimeD4rtException>().having(
+            (e) => e.message,
+            'message',
+            contains("'Gh25Plain.describe'"),
+          ),
+        ),
+      );
     });
   });
 }

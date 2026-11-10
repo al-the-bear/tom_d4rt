@@ -5444,22 +5444,28 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         final instance = targetValue.instance; // L'instance 'this' interprétée
         final bridgedSuper = targetValue.startLookupClass;
         // RC-6 / RC-8: Use nativeProxy as fallback when bridgedSuperObject
-        // is null (mirrors tom_d4rt_ast). And when neither is set, treat
-        // the super.<method>() call as a no-op rather than throwing —
-        // typically scripts mixing in `AutomaticKeepAliveClientMixin` etc.
-        // call `super.build(context)` for side-effects the bridge cannot
-        // observe; the script discards the result.
+        // is null (mirrors tom_d4rt_ast); a receiver proxy after that
+        // (ghissues25). With none of them the call is an error (ghissues31).
         final nativeSuperObject = instance.nativeReceiverFor(
           bridgedSuper.name,
           this,
         );
 
         if (nativeSuperObject == null) {
-          Logger.debug(
-            "[visitMethodInvocation] super.$methodName() on bridged super "
-            "'${bridgedSuper.name}' has no native target — treating as no-op.",
-          );
-          return null;
+          // ghissues31, the one named exception: a script State run by the
+          // State proxy (`nativeStateProxy`, Bug-45) has no native object by
+          // design - the proxy runs the native State member itself around the
+          // script's override (`super.initState(); <script initState>`), so
+          // the script's own `super.initState()`, `super.dispose()`,
+          // `super.build(context)` ... has nothing left to do.
+          if (instance.nativeStateProxy != null) {
+            Logger.debug(
+              "[visitMethodInvocation] super.$methodName() on the proxied "
+              "State '${instance.klass.name}' - the State proxy runs it.",
+            );
+            return null;
+          }
+          throw instance.noReceiverError(bridgedSuper.name, methodName);
         }
 
         // SCF39: `super.toString()` over a native `Object` default names the
