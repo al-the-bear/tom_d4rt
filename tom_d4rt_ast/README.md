@@ -292,7 +292,7 @@ Interpreted code can call native Dart constructors and methods through registere
 
 ### Environment and lexical scoping
 
-Each `Environment` holds a `Map<String, Object?>` for named values and a `Map<String, BridgedClass>` for type-resolution. The `enclosing` reference chains scopes: local → function closure → class → global. `define` writes to the current scope; `assign` walks the chain to find the binding owner; `get` walks up until it finds a value or throws `RuntimeD4rtException`.
+Each `Environment` holds a `Map<String, Object?>` for named values and a `Map<String, BridgedClass>` for type-resolution. The `enclosing` reference chains scopes: local → function closure → class → library → global. The library level is the entry's own script scope or a loaded module's environment; both enclose the global one, so a module does not see the entry's declarations. `define` writes to the current scope; `assign` walks the chain to find the binding owner; `get` walks up until it finds a value or throws `RuntimeD4rtException`.
 
 ### AstBundle format
 
