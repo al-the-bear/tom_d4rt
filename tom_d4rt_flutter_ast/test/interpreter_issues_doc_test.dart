@@ -1123,7 +1123,7 @@ void main() {
       // an interpreter change cannot be certified by the corpus until it is
       // published — but it must never mean forgotten.
       // A todo is named by its id: the `scd…` / `sce…` series, or any id
-      // written after the word `todo` (`todo wheretype1`), which is how the
+      // written after the word `todo` (`todo ghissues22`), which is how the
       // quest's later series (`ghissues…`, `wheretype…`) are cited.
       final todoRef = RegExp(
         r'\b(scd|sce)\d+\b|\btodo\s+`?[a-z][a-z_]*\d+',

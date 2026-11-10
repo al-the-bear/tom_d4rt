@@ -42,7 +42,7 @@ dynamic build(BuildContext context) {
     );
   }
   // Counted with `is`: `whereType<T>()` ignores T in the interpreter
-  // (GEN-127, todo wheretype1).
+  // (GEN-127, todo ghissues22).
   var nativeCount = 0;
   for (final target in targets) {
     if (target is NativeHitTestTarget) nativeCount++;

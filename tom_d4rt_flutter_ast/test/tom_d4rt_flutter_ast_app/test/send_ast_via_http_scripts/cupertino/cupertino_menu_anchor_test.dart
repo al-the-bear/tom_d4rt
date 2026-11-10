@@ -37,7 +37,7 @@ dynamic build(BuildContext context) {
     print('${entry.runtimeType}: entry=$isEntry divider=$isDivider');
   }
   // Counted with `is`: `whereType<T>()` ignores T in the interpreter
-  // (GEN-127, todo wheretype1).
+  // (GEN-127, todo ghissues22).
   var entryCount = 0;
   var dividerCount = 0;
   for (final entry in entries) {

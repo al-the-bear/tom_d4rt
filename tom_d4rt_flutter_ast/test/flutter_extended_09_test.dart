@@ -354,16 +354,16 @@ void main() {
         );
         SendTestRunner.expectSuccess(result);
       },
-      // GEN-132 (todo hostscripts1): the companion app runs on the macOS
+      // GEN-132 (todo ghissues27): the companion app runs on the macOS
       // desktop, where the script mounts AppKitView(viewType:
       // 'tom.demo.appkit.visual'); no plugin registers that view type, so the
       // engine answers PlatformException(unregistered_view_type) before the
       // interpreter's result can be observed. Measured 2026-11-10 by
       // ghissues15, runs 20261110-full-ast and 20261110-full-src (published
-      // tom_d4rt 1.231.1 / tom_d4rt_ast 0.212.1). Remove when hostscripts1
+      // tom_d4rt 1.231.1 / tom_d4rt_ast 0.212.1). Remove when ghissues27
       // fixes the script.
       skip:
-          'GEN-132: AppKitView view type unregistered on the desktop host (hostscripts1)',
+          'GEN-132: AppKitView view type unregistered on the desktop host (ghissues27)',
     );
 
     test('render_clip_r_superellipse_test.dart', () async {

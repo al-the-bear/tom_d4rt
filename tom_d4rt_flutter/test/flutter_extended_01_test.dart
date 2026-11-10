@@ -284,15 +284,15 @@ void main() {
         );
         SendTestRunner.expectSuccess(result);
       },
-      // GEN-128 (todo recnull1): a record type annotation drops its fields'
+      // GEN-128 (todo ghissues23): a record type annotation drops its fields'
       // `?`, so the script's `for (final ({String name, Color? color}) s in
       // samples)` refuses the sample whose color is null: type '({String name,
       // Null color})' is not a subtype of type '({String name, Color color})'.
       // The script is correct Dart; the interpreter cannot run it until the fix
       // lands. Measured 2026-11-10 by ghissues15, runs 20261110-full-ast and
       // 20261110-full-src (published tom_d4rt 1.231.1 / tom_d4rt_ast 0.212.1).
-      // Remove with recnull1's fix.
-      skip: 'GEN-128: record field nullability dropped (recnull1)',
+      // Remove with ghissues23's fix.
+      skip: 'GEN-128: record field nullability dropped (ghissues23)',
     );
 
     test('cupertino_list_section_type_test.dart', () async {

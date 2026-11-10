@@ -105,16 +105,16 @@ void main() {
         );
         SendTestRunner.expectSuccess(result);
       },
-      // GEN-129 (todo docref1): tom_d4rt's static name pass reads doc-comment
+      // GEN-129 (todo ghissues24): tom_d4rt's static name pass reads doc-comment
       // references, and the script's `/// Visual deep demo for
       // [BinaryMessenger]` names a type material.dart does not export, so the
       // run is refused with Undefined variable: BinaryMessenger before main.
       // The AST twin, whose model carries no comments, passes it. Measured
       // 2026-11-10 by ghissues15, runs 20261110-full-ast and 20261110-full-src
       // (published tom_d4rt 1.231.1 / tom_d4rt_ast 0.212.1). Remove with
-      // docref1's fix.
+      // ghissues24's fix.
       skip:
-          'GEN-129: doc-comment reference refused by the static name pass (docref1)',
+          'GEN-129: doc-comment reference refused by the static name pass (ghissues24)',
     );
 
     test('class_test.dart', () async {
