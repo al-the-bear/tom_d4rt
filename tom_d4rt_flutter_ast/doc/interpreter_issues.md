@@ -26,7 +26,7 @@ reverse) fails the suite. Re-derive; do not hand-edit one side alone.
 | ------ | -------------------------------- | ---------- |
 | `[ ]` | Open (GEN-125) — an interpreted closure is rejected against a bridged function typedef (`VoidCallback`, `ValueChanged`) | An **interpreter / bridge** defect. Blast radius: every script closure passed to a parameter typed as a Flutter function typedef — which is every Flutter callback, on every widget, wherever a declared parameter type is checked. Nothing narrows it to the widgets the corpus happens to contain. Found 2026-09-06. **Fixed in the interpreter (scd136) and published in 1.192.0 / 0.177.0; re-measured 2026-09-28**, base corpus, both twins: 0 refused callbacks across 910 scripts, against 117 on 2026-09-15. Open until a FULL-corpus run at a published fix confirms the 4 failing extended files (sce160). |
 | `[ ]` | Open (GEN-128) — a record type annotation drops its fields' `?` | An **interpreter** defect, both runtimes. Blast radius: every record type with a nullable field used where a type is checked (a declared variable, a loop variable, a parameter), given null. Found 2026-11-10 by ghissues15. Fixed in the tree by ghissues23 (tom_d4rt 1.247.0 / tom_d4rt_ast 0.228.0, not published) and the `flutter_extended_01` skip removed; open until a run at the published fix passes the script, owed by todo ghissues999. |
-| `[ ]` | Open (GEN-129) — tom_d4rt refuses a script whose doc comment names something not in scope | An **interpreter** defect, `tom_d4rt` only. Blast radius: every script with a doc-comment reference `[Name]` to a name it does not import or declare fails before `main`. Found 2026-11-10 by ghissues15; owed by todo ghissues24. |
+| `[ ]` | Open (GEN-129) — tom_d4rt refuses a script whose doc comment names something not in scope | An **interpreter** defect, `tom_d4rt` only. Blast radius: every script with a doc-comment reference `[Name]` to a name it does not import or declare fails before `main`. Found 2026-11-10 by ghissues15. Fixed in the tree by ghissues24 (tom_d4rt 1.248.0 / tom_d4rt_exec 1.56.0, not published) and the source twin's `flutter_extended_11` skip removed; open until a run at the published fix passes the script, owed by todo ghissues999. |
 | `[ ]` | Open (GEN-130) — an interpreted DiagnosticableTree subclass's inherited toDiagnosticsNode() returns null | An **interpreter / bridge** defect, both twins, cause not yet located. Blast radius: an inherited bridged method called on an interpreted subclass of an abstract bridged class without a proxy may return null. Found 2026-11-10 by ghissues15; owed by todo ghissues25. |
 | `[ ]` | Open (GEN-131) — an interpreted SlottedMultiChildRenderObjectWidget reads null from its own defaulted field in createRenderObject | An **interpreter / bridge** defect, both twins, cause not yet located. Blast radius: a field of an interpreted render-object widget read when the framework calls `createRenderObject` may be null. Found 2026-11-10 by ghissues15; owed by todo ghissues26. |
 | `[ ]` | Open (GEN-132) — three scripts fail on the desktop companion app: AppKitView view types and a Scrollbar without a position | Not yet attributed; at least the two AppKitView scripts are **script / host** failures. Blast radius: scripts that mount a platform view whose type the companion app does not register, or a Scrollbar without a scroll position, cannot be measured on the desktop host. Found 2026-11-10 by ghissues15; owed by todo ghissues27. |
@@ -329,9 +329,21 @@ the same refusal.
 **Root cause:** the static name pass (`reportUnresolvedNames`,
 `lib/src/static_name_report.dart`, a `GeneralizingAstVisitor`) descends into
 `Comment` nodes, and `D4rt._refuseStaticallyUndefinedNames` evaluates each
-comment-reference identifier it reports.
+comment-reference identifier it reports. tom_d4rt_exec runs its own copy of the
+pass over the analyzer AST at parse time and had the same defect, which no
+corpus run could show (the twins do not use exec).
 
-**Fix:** owed by todo ghissues24: the pass skips comments.
+**Fix:** ghissues24 (tom_d4rt 1.248.0, tom_d4rt_exec 1.56.0, not yet
+published): the pass skips comments, in both copies, so a doc comment may name
+anything; a real undefined read is still refused. tom_d4rt's slot resolver
+(`StaticResolver`) skips comments too. tom_d4rt_ast has no copy (no comments in
+the model). Pinned by `ghissues24_doc_comment_reference_test.dart` (3 cases,
+the same file in tom_d4rt and tom_d4rt_exec). Measured on the tree 2026-11-10,
+source twin under `prepublish_overrides --set`: `flutter_extended_11`'s
+`binary_messenger_test.dart` passes (frameworkErrors=0); a pre-publish
+measurement, not a verification run. The driver skip is removed, so until the
+release a run at the published pair fails this test; the release's runs certify
+it, then this cluster is marked - owed by todo ghissues999.
 
 ### [ ] Open (GEN-130) — an interpreted DiagnosticableTree subclass's inherited toDiagnosticsNode() returns null
 

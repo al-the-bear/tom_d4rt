@@ -1,3 +1,18 @@
+## 1.56.0
+
+### Fixed — a doc-comment reference never refuses a script
+
+Exec's copy of the static name pass, which runs over the analyzer AST at parse
+time and refuses a program reading an undefined name before `main`, walked
+into doc comments: `/// Uses [NotDeclared].` above a declaration refused the
+script with `Undefined variable: NotDeclared`. It now skips comments, as
+tom_d4rt 1.248.0's does; a real undefined read is still refused.
+
+This changes which programs are refused: a script whose doc comments name
+something out of scope now runs.
+
+Name resolution: yes — a doc comment's `[Name]` references are no longer read as names by the static name pass.
+
 ## 1.55.0
 
 ### Fixed — an imported library no longer sees the importing script's declarations

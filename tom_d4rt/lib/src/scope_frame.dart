@@ -294,6 +294,11 @@ class StaticResolver extends GeneralizingAstVisitor<void> {
     }
   }
 
+  /// ghissues24: a doc comment's `[name]` is not a read; counted as one it
+  /// could only make a local ineligible for a slot.
+  @override
+  void visitComment(Comment node) {}
+
   @override
   void visitSimpleIdentifier(SimpleIdentifier node) {
     if (_isVariableRead(node)) _useRead(node);

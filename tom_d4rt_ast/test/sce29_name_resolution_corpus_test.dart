@@ -71,6 +71,9 @@ const Map<String, String> _referenceOnly = {
   '1.224.0':
       'sci2: the static name pass reads a DottedName as a tag; the pass runs '
       'over the analyzer AST, so tom_d4rt_ast has no copy to change',
+  '1.248.0':
+      'ghissues24: the static name pass skips doc comments; the mirror model '
+      'carries no comments, so tom_d4rt_ast has nothing to change',
 };
 
 /// Releases that are marked but cannot yet be certified, each with the reason.
@@ -131,6 +134,9 @@ const Map<String, String> _deferred = {
       'ghissues999 (the ghissues* / qr* batch release)',
   '0.225.0':
       'ghissues18: unpublished; certified by the post-publish corpus run of '
+      'ghissues999 (the ghissues* / qr* batch release)',
+  '1.248.0':
+      'ghissues24: unpublished; certified by the post-publish corpus run of '
       'ghissues999 (the ghissues* / qr* batch release)',
 };
 

@@ -1,3 +1,25 @@
+## 1.248.0
+
+### Fixed — a doc-comment reference never refuses a script
+
+The static name pass that refuses a program reading an undefined name before
+`main` walked into doc comments, so every `[Name]` reference was reported as
+a read: `/// Uses [NotDeclared].` above `main`, a class, a member or a
+top-level variable refused the script with `Undefined variable: NotDeclared`
+(GEN-129; Flutter's `/// ... [BinaryMessenger] ...` in a corpus script that
+imports only material.dart). The pass now skips comments, so a doc comment may
+name anything - an undeclared name, an imported one, `[p.Foo]`, `[Foo.bar]`;
+a real undefined read is still refused. The slot resolver
+(`StaticResolver`) skips comments too: a `[name]` there was counted as a read
+of a local, which could only cost the local its slot. tom_d4rt_ast is not
+affected (the mirror model carries no comments); tom_d4rt_exec, which runs its
+own copy of the pass, has the same fix in 1.56.0.
+
+This changes which programs are refused: a script whose doc comments name
+something out of scope now runs.
+
+Name resolution: yes — a doc comment's `[Name]` references are no longer read as names by the static name pass.
+
 ## 1.247.0
 
 ### Fixed — a record type keeps its fields' `?`, so a nullable field accepts null

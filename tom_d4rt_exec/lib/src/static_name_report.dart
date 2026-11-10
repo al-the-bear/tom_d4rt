@@ -176,6 +176,13 @@ class _NameReportVisitor extends GeneralizingAstVisitor<void> {
   /// names the program can read but no declaration in the unit introduces.
   void declareTopLevel(String name) => _scopes.first.add(name);
 
+  /// ghissues24: a doc comment's `[Name]` references are documentation, not
+  /// reads. Walking into them reported every one as an unresolved name, and a
+  /// script whose comment named something out of scope was refused before
+  /// `main` (`Undefined variable: Name`).
+  @override
+  void visitComment(Comment node) {}
+
   void _push([Iterable<String> names = const []]) => _scopes.add({...names});
 
   void _pop() => _scopes.removeLast();
