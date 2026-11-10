@@ -457,6 +457,12 @@ class D4 {
 
   static final Map<_TypePair, TypeCoercionFactory> _typeCoercionsByType = {};
 
+  /// True when a coercion from [sourceType] to [targetType] is registered
+  /// ([registerTypeCoercion]): a value of [sourceType] stands in for a
+  /// [targetType], so a type check of the target accepts it (ghissues28).
+  static bool hasTypeCoercion(Type sourceType, Type targetType) =>
+      _typeCoercionsByType.containsKey(_TypePair(sourceType, targetType));
+
   /// Per-base-type identity tracking for [registerGenericTypeWrapper] —
   /// keyed by the same [baseTypeName] used by [_genericTypeWrappers].
   /// Lets the registration call dedupe by factory identity so a second

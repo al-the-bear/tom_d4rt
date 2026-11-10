@@ -1,3 +1,23 @@
+## 0.230.0
+
+### Fixed — a registered type coercion's source passes a check of its target
+
+`D4.registerTypeCoercion(sourceType: A, targetType: B, ...)` now also declares
+that an `A` stands in for a `B` in a type check: a bridged `A` is a subtype of
+a bridged `B` (`BridgedClass.isSubtypeOf`, `D4.hasTypeCoercion`). The Flutter
+twins build a painting `StrutStyle` for a dart:ui `StrutStyle(...)` call (the
+engine type has no getters) and register the coercion painting -> dart:ui.
+Since 0.219.0 a prefixed annotation resolves to the prefixed library's own
+class instead of by its bare name (which found the painting class), so `final
+ui.StrutStyle s = ui.StrutStyle(...)` and a `ui.StrutStyle?` parameter refused
+the stand-in (`type 'StrutStyle' is not a subtype of type 'StrutStyle?'`), and
+`ui.StrutStyle() is ui.StrutStyle` was false in every version measured. Two
+same-named bridges without a coercion between them stay distinct types.
+
+This changes what a type check accepts.
+
+Name resolution: no
+
 ## 0.229.0
 
 ### Added — a receiver proxy stands in as an interpreted instance's native object

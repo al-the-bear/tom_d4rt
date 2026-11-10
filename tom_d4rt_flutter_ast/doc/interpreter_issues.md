@@ -381,7 +381,10 @@ both twins under `prepublish_overrides --set` with the `DiagnosticableTree`
 proxy marked: `flutter_extended_03` 54/54, every script frameworkErrors=0; base
 corpus 910 scripts with 0 framework errors, the two failures there
 (`dart_ui/text_test.dart`, `dart_ui/text_data_test.dart`) not caused by this
-change (ghissues28). Pre-publish measurements, not verification runs. The
+change: since ghissues7 a prefixed `ui.StrutStyle` annotation refused the
+painting `StrutStyle` the twins build for it, fixed by ghissues28 (a
+registered type coercion declares a stand-in; base corpus 927 / 1 / 0 in both
+twins under `--set` afterwards). Pre-publish measurements, not verification runs. The
 mark (`D4.markProxyIsReceiver('DiagnosticableTree')`) needs the published
 interpreter, so it lands with the release; the driver skip is removed now, so
 until then a run at the published pair fails this test - owed by todo

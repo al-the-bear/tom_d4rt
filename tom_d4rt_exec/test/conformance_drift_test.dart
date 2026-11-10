@@ -600,7 +600,18 @@ const _partialTwinBudget = 0;
 /// added is static fields and top-level variables, which the corpus copies on
 /// every run.
 ///
-const _copierGapBudget = 58;
+/// 58 -> 59: GHISSUES28 added `ghissues28_coercion_stand_in_type_test.dart`,
+/// which runs source to check that a value a registered type coercion converts
+/// to a bridged type passes a prefixed parameter, a declared variable, `is`
+/// and `as` of that type, while a same-named bridge without a coercion stays
+/// another type. Exec resolves tom_d4rt_ast from pub.dev, where the check
+/// compared bridges by name until the batch release (ghissues999), so a port
+/// would assert the fix against an interpreter that does not have it. Its ast
+/// twin holds the mechanism. The copier surface a port would have added is
+/// prefixed type annotations and prefixed constructor calls, which the corpus
+/// copies on every run.
+///
+const _copierGapBudget = 59;
 
 const Map<String, _Coverage> _coveredElsewhere = {
   'sce208_bind_forwarding_source_errors_test.dart': _Coverage(
@@ -710,6 +721,18 @@ const Map<String, _Coverage> _coveredElsewhere = {
         'repeated dart:core and dart:async prefixes, dart:math, missing names '
         'and prefixes, dynamic and Record), which a hand-built bundle would '
         'only restate.',
+  ),
+  'ghissues28_coercion_stand_in_type_test.dart': _Coverage(
+    'ast:runtime/ghissues28_coercion_stand_in_type_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 3,
+    twinCases: 2,
+    whyPartial:
+        'the twin pins a prefixed parameter and `is` accepting the stand-in, '
+        'and a same-named bridge without a coercion refused. The reference '
+        'adds a declared variable, `as` and the `is` refusal, which a '
+        'hand-built bundle would only restate.',
   ),
   'ghissues26_static_reads_top_level_const_test.dart': _Coverage(
     'ast:runtime/ghissues26_static_reads_top_level_const_test.dart',

@@ -3,6 +3,7 @@ import '../exceptions.dart';
 import '../interpreter_visitor.dart';
 import 'registration.dart' hide BridgedMethodCallable;
 import '../callable.dart';
+import '../generator/d4.dart' show D4;
 
 /// Represents a natively defined class that is accessible to the interpreter.
 ///
@@ -298,6 +299,13 @@ class BridgedClass implements RuntimeType {
       }
 
       if (nativeType == other.nativeType) return true;
+
+      // ghissues28: a registered coercion from this native type to the
+      // other's declares this type a stand-in for it - the twins' dart:ui
+      // `StrutStyle(...)` builds a painting StrutStyle and coerces it at
+      // native boundaries, so a `ui.StrutStyle` check must accept it. Two
+      // same-named bridges without a coercion stay distinct types.
+      if (D4.hasTypeCoercion(nativeType, other.nativeType)) return true;
 
       // Common Dart type hierarchy relationships
       // Object is a supertype of everything
