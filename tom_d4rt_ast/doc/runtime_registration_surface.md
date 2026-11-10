@@ -44,6 +44,14 @@ The proxy lookup (`D4.tryCreateInterfaceProxyWithVisitor<T>` and the by-name
 `tryCreateInterfaceProxyByName`) consults `transitiveSupertypeNames` and keeps
 the **most specific** registered proxy (last-match-wins specificity filter).
 
+A registered proxy is otherwise consulted only where the instance crosses into
+native code. A proxy marked with `D4.markProxyIsReceiver(name)` also stands in
+as the instance's native object: when a member the instance inherits from the
+bridged class `name` - or `super.m()` / `super.x` - finds neither a native
+super-object nor a `nativeProxy`, `InterpretedInstance.nativeReceiverFor`
+creates the proxy (`D4.receiverProxyFor`), keeps it as `nativeProxy` and runs
+the member on it. Unmarked, such a member answers null (RC-9).
+
 ## 3. Argument resolution leaf
 
 `D4.extractBridgedArg<T>` is the single resolution leaf adapters call to turn a

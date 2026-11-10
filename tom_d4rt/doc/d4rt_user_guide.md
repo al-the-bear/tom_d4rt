@@ -443,6 +443,27 @@ does not cover — without editing `buildkit.yaml`. See the generator's
 [user_proxy_relaxer_annotations.md](../../tom_d4rt_generator/doc/user_proxy_relaxer_annotations.md)
 for the variant syntax and worked examples.
 
+**A proxy as the instance's native object.** A script class that extends an
+abstract bridged class has no native super-object (the class has no
+constructor adapter), so a member it inherits from that class has nothing to
+run on: it answers null. When the proxy registered for the class can stand in
+for the instance - it builds itself from the instance alone and forwards the
+members a script may override back to it - mark it:
+
+```dart
+D4.registerInterfaceProxy('DiagnosticableTree', (visitor, instance) {
+  final cached = instance.nativeProxy;
+  if (cached is DiagnosticableTree) return cached;
+  return _InterpretedDiagnosticableTree(visitor, instance);
+});
+D4.markProxyIsReceiver('DiagnosticableTree');
+```
+
+An inherited method or getter, `super.m()` and `super.x` then create the proxy,
+keep it as the instance's `nativeProxy` and run the member on it. Do not mark a
+proxy that reads the instance's fields to build itself (a widget proxy reading
+`key` or `child`): it would be built during the member lookup it serves.
+
 ### Warmup
 
 `warmup()` calls `finalizeBridges()` and then executes a trivial throwaway
