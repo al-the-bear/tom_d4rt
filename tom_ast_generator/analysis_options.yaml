@@ -30,7 +30,7 @@ analyzer:
     # They must be analyzed individually, not from the parent package.
     - example/**
     # analyzer-10 migration: these tests drive tom_d4rt_generator (still on
-    # analyzer ^8.4.1) and are deferred to the cli_tools-quest generator
+    # analyzer ^8.4.1) and are deferred to the build_tom-quest generator
     # migration. They cannot resolve against this package's analyzer ^10.
     - test/generator_tests/**
 
