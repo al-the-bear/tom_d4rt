@@ -33,6 +33,17 @@ selector named twice keeps its first arm, as in the switch it replaces. A
 dispatch of up to 64 selectors is written exactly as before. The registrations,
 the factories and what every selector yields are unchanged.
 
+Measured on the tom_d4rt_flutter_ast bridge set (2 052 classes, Flutter
+3.47.9): every bridge file but the relaxers is byte-identical to 1.58.0's apart
+from the generation stamp, and the relaxer file dispatches identically (219
+factories, 176 925 selectors compared, each yielding the same expression). A
+release AOT build of an app calling `FlutterD4rt().warmup()` completes: the
+`--aot --tfa` frontend in 175 s, gen_snapshot in 159 s (macOS arm64).
+
+The bounded-leaf design was proposed by HelloWorldDotApp in #11, with a
+reference repair (HelloWorldDotApp/tom_d4rt 3e5c9dc...d2ee285); this
+implementation follows it.
+
 ## 1.58.0
 
 ### Changed — tom_analyzer_shared ^0.13.0
