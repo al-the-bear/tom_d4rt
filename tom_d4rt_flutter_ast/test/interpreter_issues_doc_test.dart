@@ -1122,12 +1122,18 @@ void main() {
       // already paid for. Deferring is sometimes unavoidable — DGUC6 means
       // an interpreter change cannot be certified by the corpus until it is
       // published — but it must never mean forgotten.
-      final todoRef = RegExp(r'\b(scd|sce)\d+\b', caseSensitive: false);
+      // A todo is named by its id: the `scd…` / `sce…` series, or any id
+      // written after the word `todo` (`todo wheretype1`), which is how the
+      // quest's later series (`ghissues…`, `wheretype…`) are cited.
+      final todoRef = RegExp(
+        r'\b(scd|sce)\d+\b|\btodo\s+`?[a-z][a-z_]*\d+',
+        caseSensitive: false,
+      );
       final unowned = <String>[];
       var withFix = 0;
       for (final cluster in parseOpenClusterBodies(lines)) {
         final hasFix = cluster.body.any(
-          (l) => l.trimLeft().startsWith('**Fix**'),
+          (l) => RegExp(r'^\*\*Fix(\*\*|:)').hasMatch(l.trimLeft()),
         );
         if (!hasFix) continue;
         withFix++;
@@ -1139,7 +1145,8 @@ void main() {
         isEmpty,
         reason:
             'These clusters write out a fix and name no todo to apply it. '
-            'Add the `scd…` / `sce…` that owns it — a fix nobody is '
+            'Add the `scd…` / `sce…` (or `todo <id>`) that owns it — a fix '
+            'nobody is '
             'assigned is the state GEN-124 spent 25 days '
             'in:\n  ${unowned.join('\n  ')}',
       );

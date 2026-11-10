@@ -21,6 +21,8 @@ dynamic build(BuildContext context) {
       '${identical(request.view, view)}',
     );
   }
+  final onThisView = requests.where((r) => identical(r.view, view)).length;
+  print('requests on this view: $onThisView');
 
   const hit = ui.HitTestResponse(hasPlatformView: true);
   const miss = ui.HitTestResponse(hasPlatformView: false);

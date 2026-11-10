@@ -41,7 +41,12 @@ dynamic build(BuildContext context) {
       ),
     );
   }
-  final nativeCount = targets.whereType<NativeHitTestTarget>().length;
+  // Counted with `is`: `whereType<T>()` ignores T in the interpreter
+  // (GEN-127, todo wheretype1).
+  var nativeCount = 0;
+  for (final target in targets) {
+    if (target is NativeHitTestTarget) nativeCount++;
+  }
   print('native targets: $nativeCount');
 
   return Column(

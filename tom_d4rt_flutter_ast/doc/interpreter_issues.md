@@ -25,6 +25,7 @@ reverse) fails the suite. Re-derive; do not hand-edit one side alone.
 | Marker | Section (heading text, verbatim) | What it is |
 | ------ | -------------------------------- | ---------- |
 | `[ ]` | Open (GEN-125) — an interpreted closure is rejected against a bridged function typedef (`VoidCallback`, `ValueChanged`) | An **interpreter / bridge** defect. Blast radius: every script closure passed to a parameter typed as a Flutter function typedef — which is every Flutter callback, on every widget, wherever a declared parameter type is checked. Nothing narrows it to the widgets the corpus happens to contain. Found 2026-09-06. **Fixed in the interpreter (scd136) and published in 1.192.0 / 0.177.0; re-measured 2026-09-28**, base corpus, both twins: 0 refused callbacks across 910 scripts, against 117 on 2026-09-15. Open until a FULL-corpus run at a published fix confirms the 4 failing extended files (sce160). |
+| `[ ]` | Open (GEN-127) — `whereType<T>()` on a stdlib collection ignores its type argument | An **interpreter** defect. Blast radius: every `whereType<T>()` a script calls on a stdlib collection, in both runtimes, returns every element instead of the T ones, silently. Found 2026-11-10 by ghissues15; the fix is owed by wheretype1. |
 | `[~]` | Partially fixed — script-side / Flutter framework limitations | **Not an interpreter defect** — a rolling sweep log of demo-script fixes (layout overflow, unbounded constraints, platform-unsupported services). Rows whose "After" column reads `1*` note a residual that *is* interpreter-side; each of those is tracked by its own cluster. Last sweep 2026-04-29. |
 
 ## No corpus numbers live in this header
@@ -171,7 +172,7 @@ The second half of the same lesson: **where a cluster already carries an exact,
 written-out fix, deferring it buys nothing** — the analysis is the expensive
 part and it is already paid for. What deferral must never mean is *forgotten*,
 so a cluster with a `**Fix**` section names the todo that will apply it
-(`scd…` / `sce…`). `ISSUES-6` fails when one does not.
+(`scd…` / `sce…`, or `todo <id>`). `ISSUES-6` fails when one does not.
 
 That is deliberately a tracking requirement rather than a prohibition on
 deferring. A fix can be genuinely blocked — DGUC6 means an interpreter change
@@ -264,6 +265,40 @@ decision honest, and a closed cluster has no decision left to make.
 ---
 
 ## Active clusters
+
+### [ ] Open (GEN-127) — `whereType<T>()` on a stdlib collection ignores its type argument
+
+**Found:** 2026-11-10, ghissues15, run `20261110-ext25b-ast` (the checks of
+`flutter_extended_25`).
+
+**Blast radius:** every `whereType<T>()` a script calls on a stdlib
+collection, in both runtimes: List, Set, Iterable, the `dart:collection` sets,
+the typed-data lists and Runes. The result holds every element whatever T is,
+and nothing reports it, so code that filters a mixed collection computes with
+the wrong elements. Nothing about the element or T types narrows it.
+
+**Measured:** in `flutter_extended_25` (AST twin, published tom_d4rt_ast
+0.212.1), `entries.whereType<CupertinoMenuDivider>()` counted 4 where 1 entry is
+a divider and `targets.whereType<NativeHitTestTarget>()` 3 where 2 mix it in;
+`is` gave the right answer for each element. On the tom_d4rt 1.242.0 tree,
+`[1, 'a', 2.5, B(), A()]` (`B extends A`) gives 5 elements for
+`whereType<int>()`, `whereType<String>()`, `whereType<A>()` and the Set's
+`whereType<int>()`, where Dart gives 1, 1, 2 and 1. 53 corpus scripts call
+`whereType<...>()`.
+
+**Root cause:** the stdlib bridges' `whereType` adapters call the native
+`whereType()` without a type argument, so it is `whereType<dynamic>()`;
+`tom_d4rt/lib/src/stdlib/core/list.dart` says so in its comment. The same
+adapter is in 9 files of each tree (`core/iterable.dart`, `core/list.dart`,
+`core/set.dart`, `core/runes.dart`, the `collection/` sets and
+`typed_data/inherited_list_methods.dart`).
+
+**Fix:** owed by todo wheretype1: filter by the call's type argument as `is`
+decides it, in both trees.
+
+**Representative script:** none fails: the two corpus scripts that met it count
+with `is` instead (`cupertino/cupertino_menu_anchor_test.dart`,
+`gestures/native_hit_test_target_test.dart`).
 
 ### [X] Fixed — SCE162: four base-corpus regressions that only the pre-publish pass could see
 
