@@ -341,17 +341,30 @@ void main() {
       SendTestRunner.expectSuccess(result);
     });
 
-    test('render_app_kit_view_test.dart', () async {
-      // 1944 TODO C.77 (2026-05-31): historical 20260523-1056 §1.6/E25
-      // (= §S/S3 wedge-candidate cluster) cold-start-contention
-      // wrapper REMOVED. Script runs in ~3.2 s under normal load
-      // (httpMs=3157, bundleJsonBytes=850801 — 851 KB bundle / 61 KB
-      // source). Slower than typical but still ~27 s of headroom.
-      final result = await SendTestRunner.send(
-        'rendering/render_app_kit_view_test.dart',
-      );
-      SendTestRunner.expectSuccess(result);
-    });
+    test(
+      'render_app_kit_view_test.dart',
+      () async {
+        // 1944 TODO C.77 (2026-05-31): historical 20260523-1056 §1.6/E25
+        // (= §S/S3 wedge-candidate cluster) cold-start-contention
+        // wrapper REMOVED. Script runs in ~3.2 s under normal load
+        // (httpMs=3157, bundleJsonBytes=850801 — 851 KB bundle / 61 KB
+        // source). Slower than typical but still ~27 s of headroom.
+        final result = await SendTestRunner.send(
+          'rendering/render_app_kit_view_test.dart',
+        );
+        SendTestRunner.expectSuccess(result);
+      },
+      // GEN-132 (todo hostscripts1): the companion app runs on the macOS
+      // desktop, where the script mounts AppKitView(viewType:
+      // 'tom.demo.appkit.visual'); no plugin registers that view type, so the
+      // engine answers PlatformException(unregistered_view_type) before the
+      // interpreter's result can be observed. Measured 2026-11-10 by
+      // ghissues15, runs 20261110-full-ast and 20261110-full-src (published
+      // tom_d4rt 1.231.1 / tom_d4rt_ast 0.212.1). Remove when hostscripts1
+      // fixes the script.
+      skip:
+          'GEN-132: AppKitView view type unregistered on the desktop host (hostscripts1)',
+    );
 
     test('render_clip_r_superellipse_test.dart', () async {
       final result = await SendTestRunner.send(

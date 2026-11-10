@@ -26,6 +26,11 @@ reverse) fails the suite. Re-derive; do not hand-edit one side alone.
 | ------ | -------------------------------- | ---------- |
 | `[ ]` | Open (GEN-125) — an interpreted closure is rejected against a bridged function typedef (`VoidCallback`, `ValueChanged`) | An **interpreter / bridge** defect. Blast radius: every script closure passed to a parameter typed as a Flutter function typedef — which is every Flutter callback, on every widget, wherever a declared parameter type is checked. Nothing narrows it to the widgets the corpus happens to contain. Found 2026-09-06. **Fixed in the interpreter (scd136) and published in 1.192.0 / 0.177.0; re-measured 2026-09-28**, base corpus, both twins: 0 refused callbacks across 910 scripts, against 117 on 2026-09-15. Open until a FULL-corpus run at a published fix confirms the 4 failing extended files (sce160). |
 | `[ ]` | Open (GEN-127) — `whereType<T>()` on a stdlib collection ignores its type argument | An **interpreter** defect. Blast radius: every `whereType<T>()` a script calls on a stdlib collection, in both runtimes, returns every element instead of the T ones, silently. Found 2026-11-10 by ghissues15; the fix is owed by wheretype1. |
+| `[ ]` | Open (GEN-128) — a record type annotation drops its fields' `?` | An **interpreter** defect, both runtimes. Blast radius: every record type with a nullable field used where a type is checked (a declared variable, a loop variable, a parameter), given null. Found 2026-11-10 by ghissues15; owed by todo recnull1. |
+| `[ ]` | Open (GEN-129) — tom_d4rt refuses a script whose doc comment names something not in scope | An **interpreter** defect, `tom_d4rt` only. Blast radius: every script with a doc-comment reference `[Name]` to a name it does not import or declare fails before `main`. Found 2026-11-10 by ghissues15; owed by todo docref1. |
+| `[ ]` | Open (GEN-130) — an interpreted DiagnosticableTree subclass's inherited toDiagnosticsNode() returns null | An **interpreter / bridge** defect, both twins, cause not yet located. Blast radius: an inherited bridged method called on an interpreted subclass of an abstract bridged class without a proxy may return null. Found 2026-11-10 by ghissues15; owed by todo diagtree1. |
+| `[ ]` | Open (GEN-131) — an interpreted SlottedMultiChildRenderObjectWidget reads null from its own defaulted field in createRenderObject | An **interpreter / bridge** defect, both twins, cause not yet located. Blast radius: a field of an interpreted render-object widget read when the framework calls `createRenderObject` may be null. Found 2026-11-10 by ghissues15; owed by todo slotted1. |
+| `[ ]` | Open (GEN-132) — three scripts fail on the desktop companion app: AppKitView view types and a Scrollbar without a position | Not yet attributed; at least the two AppKitView scripts are **script / host** failures. Blast radius: scripts that mount a platform view whose type the companion app does not register, or a Scrollbar without a scroll position, cannot be measured on the desktop host. Found 2026-11-10 by ghissues15; owed by todo hostscripts1. |
 | `[~]` | Partially fixed — script-side / Flutter framework limitations | **Not an interpreter defect** — a rolling sweep log of demo-script fixes (layout overflow, unbounded constraints, platform-unsupported services). Rows whose "After" column reads `1*` note a residual that *is* interpreter-side; each of those is tracked by its own cluster. Last sweep 2026-04-29. |
 
 ## No corpus numbers live in this header
@@ -265,6 +270,113 @@ decision honest, and a closed cluster has no decision left to make.
 ---
 
 ## Active clusters
+
+### [ ] Open (GEN-128) — a record type annotation drops its fields' `?`
+
+**Found:** 2026-11-10, ghissues15's full-corpus runs `20261110-full-ast` / `20261110-full-src` (published tom_d4rt 1.231.1 / tom_d4rt_ast 0.212.1, Flutter 3.47.9).
+
+**Blast radius:** every record type with a nullable field, positional or named,
+wherever a value is checked against it — a declared variable, a loop variable, a
+parameter — refuses null for that field in both runtimes. Correct Dart is
+refused; nothing about the field's type narrows it.
+
+**Measured:** `cupertino/cupertino_linear_activity_indicator_test.dart`
+(`flutter_extended_01`) fails in both twins with `type '({String name, Null
+color})' is not a subtype of type '({String name, Color color})'`; the script
+declares `({String name, Color? color})`. On the tom_d4rt 1.242.0 tree
+`final ({String name, int? n}) r = (name: 'a', n: null)`, `final (String, int?)
+r = ('a', null)` and a loop variable of that type are refused; a list literal's
+type argument is not checked and passes.
+
+**Root cause:** the record branch of `_resolveTypeAnnotationWithEnvironment`
+(DFUB5, `ffd620402`) resolves each field type with the same resolver, which
+returns the class without the annotation's `?`; its other callers read
+`question` themselves. Which later change made a declared variable check its
+record initializer is not yet known.
+
+**Fix:** owed by todo recnull1, in both trees.
+
+### [ ] Open (GEN-129) — tom_d4rt refuses a script whose doc comment names something not in scope
+
+**Found:** 2026-11-10, ghissues15's full-corpus runs `20261110-full-ast` / `20261110-full-src` (published tom_d4rt 1.231.1 / tom_d4rt_ast 0.212.1, Flutter 3.47.9).
+
+**Blast radius:** every script run by `tom_d4rt` whose doc comments reference a
+name (`/// see [Name]`) that the script neither declares nor imports is refused
+before `main` runs, wherever the comment sits. `tom_d4rt_ast` is not affected:
+the mirror model carries no comments.
+
+**Measured:** `services/binary_messenger_test.dart` (`flutter_extended_11`)
+fails in the source twin only, `Undefined variable: BinaryMessenger`; the
+script names BinaryMessenger only in strings and in `/// Visual deep demo for
+[BinaryMessenger] ...`, and imports `material.dart`. On the tom_d4rt 1.242.0
+tree `/// Uses [NotDeclared].` above `main`, a class or a called function gives
+the same refusal.
+
+**Root cause:** the static name pass (`reportUnresolvedNames`,
+`lib/src/static_name_report.dart`, a `GeneralizingAstVisitor`) descends into
+`Comment` nodes, and `D4rt._refuseStaticallyUndefinedNames` evaluates each
+comment-reference identifier it reports.
+
+**Fix:** owed by todo docref1: the pass skips comments.
+
+### [ ] Open (GEN-130) — an interpreted DiagnosticableTree subclass's inherited toDiagnosticsNode() returns null
+
+**Found:** 2026-11-10, ghissues15's full-corpus runs `20261110-full-ast` / `20261110-full-src` (published tom_d4rt 1.231.1 / tom_d4rt_ast 0.212.1, Flutter 3.47.9).
+
+**Blast radius:** not yet bounded. What is shown: an inherited method of the
+abstract bridged `DiagnosticableTree`, called on an interpreted subclass,
+returns null instead of its result. If the cause is bridged-super dispatch
+without a native receiver, it reaches every abstract bridged class without a
+proxy that scripts extend.
+
+**Measured:** `foundation/diagnosticable_tree_node_test.dart`
+(`flutter_extended_03`) fails in both twins with `type 'Null' is not a subtype
+of type 'DiagnosticsNode' of 'rootNode'`, at `root.toDiagnosticsNode(name:
+'root')` on the script's `class _Folder extends DiagnosticableTree`.
+`flutter_proxies.b.dart` has no proxy for `DiagnosticableTree`. Not reproduced
+outside the corpus yet.
+
+**Fix:** owed by todo diagtree1, once the cause is located.
+
+### [ ] Open (GEN-131) — an interpreted SlottedMultiChildRenderObjectWidget reads null from its own defaulted field in createRenderObject
+
+**Found:** 2026-11-10, ghissues15's full-corpus runs `20261110-full-ast` / `20261110-full-src` (published tom_d4rt 1.231.1 / tom_d4rt_ast 0.212.1, Flutter 3.47.9).
+
+**Blast radius:** not yet bounded. What is shown: a field of an interpreted
+`SlottedMultiChildRenderObjectWidget` subclass, initialised by a constructor
+default, reads null inside `createRenderObject` when the framework calls it.
+
+**Measured:** `widgets/slotted_multi_child_render_object_widget_test.dart`
+(`flutter_extended_19`) fails in both twins with the refused callback `type
+'Null' is not a subtype of type 'Color' of 'accent'` — each run's only
+rejection. The field is `this.accent = _kSmcrowTeal` with a top-level `const
+Color`. A plain-Dart const constructor default from a top-level const object
+works on the tom_d4rt 1.242.0 tree, so the bridged superclass or the
+framework-side call is involved.
+
+**Fix:** owed by todo slotted1, once the cause is located.
+
+### [ ] Open (GEN-132) — three scripts fail on the desktop companion app: AppKitView view types and a Scrollbar without a position
+
+**Found:** 2026-11-10, ghissues15's full-corpus runs `20261110-full-ast` / `20261110-full-src` (published tom_d4rt 1.231.1 / tom_d4rt_ast 0.212.1, Flutter 3.47.9).
+
+**Blast radius:** a script that mounts a platform view whose view type no
+plugin of the companion app registers, or a Scrollbar that finds no scroll
+position, raises on the macOS desktop host and measures nothing of the
+interpreter. Not an interpreter defect for the AppKitView pair; the Scrollbar
+case is unattributed.
+
+**Measured:** in both twins, `rendering/render_app_kit_view_test.dart`
+(`flutter_extended_09`) and `retest/widgets/app_kit_view_test.dart`
+(`flutter_extended_21`) fail with `PlatformException(unregistered_view_type,
+... < tom.demo.appkit.visual >` (resp. `tom.demo.appkit.hostdock`), and
+`widgets/selectable_region_state_test.dart` (`flutter_extended_18`) with the
+framework error `The Scrollbar's ScrollController has no ScrollPosition
+attached`. None of the 15 failures of the 2026-09-15 full-corpus run carried
+these signatures.
+
+**Fix:** owed by todo hostscripts1: attribute each, fix the scripts that are
+script-side.
 
 ### [ ] Open (GEN-127) — `whereType<T>()` on a stdlib collection ignores its type argument
 
@@ -4610,10 +4722,73 @@ the newest covering the base corpus with `**Current base-corpus baseline.**`
 marker in the same edit; SCE255 in `test/interpreter_issues_doc_test.dart`
 fails when a marker is left on an older entry.
 
-### 2026-11-06 — base corpus, both twins, at tom_d4rt 1.230.0 / tom_d4rt_ast 0.211.0
+### 2026-11-10 — BOTH corpora (full run), both twins, at tom_d4rt 1.231.1 / tom_d4rt_ast 0.212.1: the Flutter 3.47 classes pass, five new clusters
+
+**Current full-corpus baseline.** The newest run of the full corpus; a new full
+run is compared against this one, and moves the marker.
 
 **Current base-corpus baseline.** The newest run of the base corpus; a new base
 run is compared against this one, and moves the marker.
+
+**Why this run exists.** ghissues15 added `flutter_extended_25` (eleven scripts
+for the eighteen classes Flutter 3.47 added over the 3.41.3 SDK the corpus was
+written against) and owed a full serial run of both twins. It is also the first
+full-corpus run since 2026-09-15: the twins moved to Flutter 3.47.9 and the
+published tom_d4rt 1.231.1 / tom_d4rt_ast 0.212.1 since, and SCD65 reported the
+newest entry no longer described this machine.
+
+| Package | `tom_d4rt` | `tom_d4rt_ast` | `tom_d4rt_generator` |
+| ------- | ---------- | -------------- | -------------------- |
+| `tom_d4rt_flutter` | **1.231.1** | — | **1.58.0** |
+| `tom_d4rt_flutter/test/tom_d4rt_flutter_test_app` | **1.231.1** | — | — |
+| `tom_d4rt_flutter_ast` | **1.231.1** | **0.212.1** | **1.58.0** |
+| `tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app` | — | **0.212.1** | — |
+
+**Method.** `run_issue_analysis_tests.sh` in each twin, hosted, AST twin first,
+the source twin started only after it finished; no other `flutter test` ran on
+the host. No file was IDLE-KILLED.
+
+**Result.**
+
+| Twin | Run | files | base (17) | extended 01–24 | extended 25 | full |
+| ---- | --- | ----- | --------- | -------------- | ----------- | ---- |
+| `tom_d4rt_flutter_ast` | `testlog_20261110-full-ast` | 42 | 927 / 1 / 0 | 1233 / 2 / 6 | 12 / 0 / 0 | **2172 / 3 / 6** |
+| `tom_d4rt_flutter` | `testlog_20261110-full-src` | 42 | 927 / 1 / 0 | 1232 / 2 / 7 | 12 / 0 / 0 | **2171 / 3 / 7** |
+
+**Against the baselines.** The base corpus matches the 2026-11-06 base run,
+927 / 1 / 0, in both twins. On the 41 files the 2026-09-15 full run measured,
+the AST twin gives 2160 / 3 / 6 and the source twin 2159 / 3 / 7, against
+2151 / 3 / 15 in both: pass +9 (+8), fail −9 (−8), skip unchanged at 3. The
+fifteen failures of 2026-09-15 carried the GEN-125 signature and none recurs;
+the six (seven) failures here are new signatures. `flutter_extended_25` passes
+12 / 0 / 0 in both twins, every test also checking the lines its script prints.
+
+**The failures**, one test each, filed as clusters with their todos:
+
+| File | Script | Twins | Cluster |
+| ---- | ------ | ----- | ------- |
+| `flutter_extended_01` | `cupertino/cupertino_linear_activity_indicator_test.dart` | both | GEN-128 (recnull1) |
+| `flutter_extended_03` | `foundation/diagnosticable_tree_node_test.dart` | both | GEN-130 (diagtree1) |
+| `flutter_extended_09` | `rendering/render_app_kit_view_test.dart` | both | GEN-132 (hostscripts1) |
+| `flutter_extended_11` | `services/binary_messenger_test.dart` | source only | GEN-129 (docref1) |
+| `flutter_extended_18` | `widgets/selectable_region_state_test.dart` | both | GEN-132 (hostscripts1) |
+| `flutter_extended_19` | `widgets/slotted_multi_child_render_object_widget_test.dart` | both | GEN-131 (slotted1) |
+| `flutter_extended_21` | `retest/widgets/app_kit_view_test.dart` | both | GEN-132 (hostscripts1) |
+
+Each test is now skipped in the drivers, naming its cluster and todo, so the
+next run will read skip 10 in the source twin and 9 in the AST twin with the
+pass count unchanged: that rise is these skips, and each is lifted by its todo.
+The checks of `flutter_extended_25` found GEN-127 (`whereType<T>()` ignores T)
+before this run; it fails no test.
+
+**Framework errors** (SCE247 trailer):
+
+- `tom_d4rt_flutter_ast`: 5 framework error(s) in 4 of 2136 script(s); 1 refused callback(s) — 1 × `type 'Null' is not a subtype of type 'Color' of 'accent'`
+- `tom_d4rt_flutter`: 5 framework error(s) in 4 of 2136 script(s); 1 refused callback(s) — 1 × `type 'Null' is not a subtype of type 'Color' of 'accent'`
+
+### 2026-11-06 — base corpus, both twins, at tom_d4rt 1.230.0 / tom_d4rt_ast 0.211.0
+
+**Superseded as the base-corpus baseline by the 2026-11-10 run above.**
 
 **Why this run exists.** VSTDM3 moved the repo to analyzer ^14 and published
 `tom_d4rt` 1.230.0, `tom_d4rt_ast` 0.211.0 (`tom_ast_model` 0.3.1, bundle
@@ -4983,8 +5158,7 @@ the log, not the number.
 
 ### 2026-09-15 — BOTH corpora, BOTH twins at tom_d4rt 1.77.0 / tom_d4rt_ast 0.65.0: SCC29 has no corpus fallout of its own (GEN-125 is all of it), and SCC33's backstop fires nowhere
 
-**Current full-corpus baseline.** The newest run of the full corpus; a new full
-run is compared against this one, and moves the marker.
+**Superseded as the full-corpus baseline by the 2026-11-10 run above.**
 
 **Why this run exists.** SCD91 held SCC29's DONE WHEN clause — the bridge
 corpus run its landing commit could not make, because the twins resolve the

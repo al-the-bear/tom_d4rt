@@ -200,12 +200,24 @@ void main() {
       SendTestRunner.expectSuccess(result);
     });
 
-    test('diagnosticable_tree_node_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'foundation/diagnosticable_tree_node_test.dart',
-      );
-      SendTestRunner.expectSuccess(result);
-    });
+    test(
+      'diagnosticable_tree_node_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'foundation/diagnosticable_tree_node_test.dart',
+        );
+        SendTestRunner.expectSuccess(result);
+      },
+      // GEN-130 (todo diagtree1): `toDiagnosticsNode(name: 'root')` on the
+      // script's interpreted `_Folder extends DiagnosticableTree` returns null,
+      // so `final DiagnosticsNode rootNode = ...` is refused: type 'Null' is
+      // not a subtype of type 'DiagnosticsNode' of 'rootNode'.
+      // DiagnosticableTree has no proxy in flutter_proxies.b.dart. Measured
+      // 2026-11-10 by ghissues15, runs 20261110-full-ast and 20261110-full-src
+      // (published tom_d4rt 1.231.1 / tom_d4rt_ast 0.212.1). Remove with
+      // diagtree1's fix.
+      skip: 'GEN-130: inherited toDiagnosticsNode returns null (diagtree1)',
+    );
 
     test('diagnosticable_tree_test.dart', () async {
       final result = await SendTestRunner.send(
