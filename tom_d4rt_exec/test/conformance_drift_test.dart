@@ -588,7 +588,19 @@ const _partialTwinBudget = 0;
 /// classes extending a bridged class and `super` calls, which the corpus
 /// copies on every run.
 ///
-const _copierGapBudget = 57;
+/// 57 -> 58: GHISSUES26 added `ghissues26_static_reads_top_level_const_test.dart`,
+/// which runs source to check that a static field reads the top-level
+/// constants declared before its class - a static const list of top-level
+/// ints and of a top-level const object, read directly, from an instance
+/// getter, and passed on as a named argument. Exec resolves tom_d4rt_ast from
+/// pub.dev, where a class's static initializers still run before the
+/// top-level variables are initialized until the batch release (ghissues999),
+/// so a port would assert the fix against an interpreter that does not have
+/// it. Its ast twin holds the mechanism. The copier surface a port would have
+/// added is static fields and top-level variables, which the corpus copies on
+/// every run.
+///
+const _copierGapBudget = 58;
 
 const Map<String, _Coverage> _coveredElsewhere = {
   'sce208_bind_forwarding_source_errors_test.dart': _Coverage(
@@ -698,6 +710,19 @@ const Map<String, _Coverage> _coveredElsewhere = {
         'repeated dart:core and dart:async prefixes, dart:math, missing names '
         'and prefixes, dynamic and Record), which a hand-built bundle would '
         'only restate.',
+  ),
+  'ghissues26_static_reads_top_level_const_test.dart': _Coverage(
+    'ast:runtime/ghissues26_static_reads_top_level_const_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 3,
+    twinCases: 2,
+    whyPartial:
+        'the twin pins a static const list of top-level ints and of a '
+        'top-level const object, read directly and from an instance getter. '
+        'The reference adds the corpus shape (a getter indexing the list by '
+        'an instance field, passed to a constructor with a default), which a '
+        'hand-built bundle would only restate.',
   ),
   'ghissues25_receiver_proxy_test.dart': _Coverage(
     'ast:runtime/ghissues25_receiver_proxy_test.dart',

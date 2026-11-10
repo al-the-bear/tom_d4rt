@@ -111,7 +111,7 @@ The bridged names the priority files classify as Hardly Relevant, and every brid
 | KeyEventType | (not classified) | ✅ | dart_ui/key_data_test.dart, dart_ui/key_event_device_type_test.dart, dart_ui/key_event_type_test.dart, +1 |
 | OffsetEngineLayer | Offset layer | ⬜ |  |
 | OpacityEngineLayer | Opacity layer | ⬜ |  |
-| PaintingStyle | (not classified) | ✅ | animation/animation_max_test.dart, animation/animationstyle_test.dart, animation/cubic_test.dart, +381 |
+| PaintingStyle | (not classified) | ✅ | animation/animation_max_test.dart, animation/animationstyle_test.dart, animation/cubic_test.dart, +382 |
 | PathFillType | (not classified) | ✅ | dart_ui/path_fill_type_test.dart |
 | PathOperation | (not classified) | ✅ | dart_ui/path_operation_test.dart, dart_ui/primitives_test.dart, material/input_borders_test.dart, +1 |
 | PictureRasterizationException | Picture error | ⬜ |  |
@@ -136,7 +136,7 @@ The bridged names the priority files classify as Hardly Relevant, and every brid
 | TextAlign | (not classified) | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animation_behavior_test.dart, animation/animation_eager_listener_mixin_test.dart, +1110 |
 | TextBaseline | (not classified) | ✅ | dart_ui/placeholder_alignment_test.dart, dart_ui/text_baseline_test.dart, dart_ui/text_test.dart, +27 |
 | TextDecorationStyle | (not classified) | ✅ | cupertino/cupertino_spell_check_suggestions_toolbar_test.dart, dart_ui/text_data_test.dart, dart_ui/text_decoration_style_test.dart, +15 |
-| TextDirection | (not classified) | ✅ | animation/animation_max_test.dart, animation/cubic_test.dart, cupertino/class_test.dart, +353 |
+| TextDirection | (not classified) | ✅ | animation/animation_max_test.dart, animation/cubic_test.dart, cupertino/class_test.dart, +354 |
 | TextLeadingDistribution | (not classified) | ✅ | dart_ui/text_data_test.dart, dart_ui/text_leading_distribution_test.dart, painting/textstyle_test.dart, +4 |
 | TileMode | (not classified) | ✅ | dart_ui/filters_test.dart, dart_ui/shader_mask_engine_layer_test.dart, dart_ui/tile_mode_test.dart, +7 |
 | TransformEngineLayer | Transform layer | ✅ | dart_ui/transform_engine_layer_test.dart |
@@ -426,11 +426,11 @@ The bridged names the priority files classify as Hardly Relevant, and every brid
 | Accumulator | Internal accumulation | ✅ | painting/accumulator_test.dart |
 | AssetBundleImageKey | Asset cache key | ⬜ |  |
 | AssetBundleImageProvider | Asset image base | ⬜ |  |
-| Axis | (not classified) | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animationstyle_test.dart, cupertino/cupertino_expansion_tile_test.dart, +305 |
+| Axis | (not classified) | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animationstyle_test.dart, cupertino/cupertino_expansion_tile_test.dart, +306 |
 | AxisDirection | (not classified) | ✅ | material/material_scroll_behavior_test.dart, material/rawscrollbar_test.dart, painting/axis_direction_test.dart, +24 |
 | BorderStyle | (not classified) | ✅ | dart_ui/offset_engine_layer_test.dart, dart_ui/opacity_engine_layer_test.dart, foundation/class_test.dart, +92 |
 | BoxFit | (not classified) | ✅ | dart_ui/image_descriptor_test.dart, painting/advanced_decorations_test.dart, painting/box_fit_test.dart, +17 |
-| BoxShape | (not classified) | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animation_eager_listener_mixin_test.dart, animation/animation_lazy_listener_mixin_test.dart, +1379 |
+| BoxShape | (not classified) | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animation_eager_listener_mixin_test.dart, animation/animation_lazy_listener_mixin_test.dart, +1380 |
 | ClipContext | Clipping context | ⬜ |  |
 | ColorProperty | Diagnostics property | ✅ | foundation/diagnosticable_test.dart, foundation/diagnosticable_tree_mixin_test.dart, foundation/documentation_icon_test.dart, +1 |
 | FittedSizes | Fitted size calculation | ✅ | painting/fitted_sizes_test.dart |
@@ -475,7 +475,7 @@ The bridged names the priority files classify as Hardly Relevant, and every brid
 | ChildLayoutHelper | Layout helper | ⬜ |  |
 | ClearSelectionEvent | Clear selection | ✅ | rendering/clear_selection_event_test.dart, widgets/selection_types_test.dart |
 | ContainerParentDataMixin | (not classified) | ⬜ |  |
-| CrossAxisAlignment | (not classified) | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2036 |
+| CrossAxisAlignment | (not classified) | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2037 |
 | DecorationPosition | (not classified) | ✅ | rendering/decoration_position_test.dart, widgets/decorated_sliver_test.dart, widgets/decoratedbox_test.dart |
 | DiagnosticsDebugCreator | Debug creator | ⬜ |  |
 | DirectionallyExtendSelectionEvent | Directional extend | ✅ | widgets/selection_types_test.dart |
@@ -492,7 +492,7 @@ The bridged names the priority files classify as Hardly Relevant, and every brid
 | ImageFilterContext | Filter context | ⬜ |  |
 | ListWheelChildManager | Wheel manager | ⬜ |  |
 | MainAxisAlignment | (not classified) | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1038 |
-| MainAxisSize | (not classified) | ✅ | animation/animatable_test.dart, animation/animation_lazy_listener_mixin_test.dart, animation/animation_local_listeners_mixin_test.dart, +1006 |
+| MainAxisSize | (not classified) | ✅ | animation/animatable_test.dart, animation/animation_lazy_listener_mixin_test.dart, animation/animation_local_listeners_mixin_test.dart, +1007 |
 | MaxColumnWidth | Max column | ✅ | widgets/table_test.dart, widgets/table_wrap_flow_test.dart |
 | MinColumnWidth | Min column | ✅ | widgets/table_test.dart, widgets/table_wrap_flow_test.dart |
 | MultiChildLayoutParentData | (not classified) | ⬜ |  |
@@ -1036,8 +1036,8 @@ The bridged names the priority files classify as Hardly Relevant, and every brid
 | SliverPersistentHeaderDelegate | (not classified) | ✅ | rendering/render_sliver_animated_opacity_test.dart, rendering/render_sliver_floating_pinned_persistent_header_test.dart, rendering/render_sliver_persistent_header_test.dart, +13 |
 | SliverReorderableListState | (not classified) | ✅ | widgets/sliver_reorderable_list_state_test.dart |
 | SliverWithKeepAliveWidget | (not classified) | ⬜ |  |
-| SlottedContainerRenderObjectMixin | (not classified) | ✅ | widgets/slotted_container_render_object_mixin_test.dart, widgets/slotted_multi_child_render_object_widget_mixin_test.dart, widgets/slotted_render_object_element_test.dart |
-| SlottedMultiChildRenderObjectWidget | (not classified) | ✅ | widgets/slotted_container_render_object_mixin_test.dart, widgets/slotted_multi_child_render_object_widget_mixin_test.dart, widgets/slotted_render_object_element_test.dart |
+| SlottedContainerRenderObjectMixin | (not classified) | ✅ | widgets/slotted_container_render_object_mixin_test.dart, widgets/slotted_multi_child_render_object_widget_mixin_test.dart, widgets/slotted_multi_child_render_object_widget_test.dart, +1 |
+| SlottedMultiChildRenderObjectWidget | (not classified) | ✅ | widgets/slotted_container_render_object_mixin_test.dart, widgets/slotted_multi_child_render_object_widget_mixin_test.dart, widgets/slotted_multi_child_render_object_widget_test.dart, +1 |
 | SlottedRenderObjectElement | (not classified) | ⬜ |  |
 | SnapshotController | (not classified) | ✅ | widgets/snapshot_controller_test.dart, widgets/snapshot_mode_test.dart |
 | SnapshotMode | (not classified) | ✅ | widgets/snapshot_mode_test.dart |
@@ -1104,7 +1104,7 @@ The bridged names the priority files classify as Hardly Relevant, and every brid
 | WidgetStateMapper | (not classified) | ✅ | widgets/widget_state_mapper_test.dart |
 | WidgetStateMouseCursor | (not classified) | ✅ | material/widgetstate_test.dart, services/cursor_test.dart, services/mouse_tracker_annotation_test.dart, +1 |
 | WidgetStateOutlinedBorder | (not classified) | ✅ | widgets/widget_state_outlined_border_test.dart |
-| WidgetStatePropertyAll | (not classified) | ✅ | material/button_styles_misc_test.dart, material/buttonstyle_popup_test.dart, material/datarow_test.dart, +24 |
+| WidgetStatePropertyAll | (not classified) | ✅ | material/button_styles_misc_test.dart, material/buttonstyle_popup_test.dart, material/datarow_test.dart, +25 |
 | WidgetStateTextStyle | (not classified) | ✅ | material/widgetstate_test.dart, widgets/widget_state_text_style_test.dart |
 | WidgetStatesConstraint | (not classified) | ✅ | material/widgetstate_test.dart, widgets/widget_state_border_side_test.dart, widgets/widget_state_color_test.dart, +7 |
 | WidgetToRenderBoxAdapter | (not classified) | ⬜ |  |

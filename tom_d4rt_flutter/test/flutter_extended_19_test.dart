@@ -189,24 +189,12 @@ void main() {
       SendTestRunner.expectSuccess(result);
     });
 
-    test(
-      'slotted_multi_child_render_object_widget_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'widgets/slotted_multi_child_render_object_widget_test.dart',
-        );
-        SendTestRunner.expectSuccess(result);
-      },
-      // GEN-131 (todo ghissues26): the script's interpreted
-      // SlottedMultiChildRenderObjectWidget subclass reads null from its
-      // `this.accent = _kSmcrowTeal` field when the framework calls
-      // createRenderObject, and the render object refuses it: type 'Null' is
-      // not a subtype of type 'Color' of 'accent'. Measured 2026-11-10 by
-      // ghissues15, runs 20261110-full-ast and 20261110-full-src (published
-      // tom_d4rt 1.231.1 / tom_d4rt_ast 0.212.1). Remove with ghissues26's fix.
-      skip:
-          'GEN-131: defaulted field reads null in createRenderObject (ghissues26)',
-    );
+    test('slotted_multi_child_render_object_widget_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/slotted_multi_child_render_object_widget_test.dart',
+      );
+      SendTestRunner.expectSuccess(result);
+    });
 
     test('slotted_render_object_element_test.dart', () async {
       final result = await SendTestRunner.send(

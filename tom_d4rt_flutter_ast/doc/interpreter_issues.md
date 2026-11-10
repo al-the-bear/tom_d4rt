@@ -28,7 +28,7 @@ reverse) fails the suite. Re-derive; do not hand-edit one side alone.
 | `[ ]` | Open (GEN-128) — a record type annotation drops its fields' `?` | An **interpreter** defect, both runtimes. Blast radius: every record type with a nullable field used where a type is checked (a declared variable, a loop variable, a parameter), given null. Found 2026-11-10 by ghissues15. Fixed in the tree by ghissues23 (tom_d4rt 1.247.0 / tom_d4rt_ast 0.228.0, not published) and the `flutter_extended_01` skip removed; open until a run at the published fix passes the script, owed by todo ghissues999. |
 | `[ ]` | Open (GEN-129) — tom_d4rt refuses a script whose doc comment names something not in scope | An **interpreter** defect, `tom_d4rt` only. Blast radius: every script with a doc-comment reference `[Name]` to a name it does not import or declare fails before `main`. Found 2026-11-10 by ghissues15. Fixed in the tree by ghissues24 (tom_d4rt 1.248.0 / tom_d4rt_exec 1.56.0, not published) and the source twin's `flutter_extended_11` skip removed; open until a run at the published fix passes the script, owed by todo ghissues999. |
 | `[ ]` | Open (GEN-130) — an interpreted DiagnosticableTree subclass's inherited toDiagnosticsNode() returns null | An **interpreter / bridge** defect, both twins. Blast radius: every member a script class inherits from an abstract bridged class (no constructor adapter) answered null, `super.m()` was a no-op. Found 2026-11-10 by ghissues15. Fixed in the tree by ghissues25 (tom_d4rt 1.249.0 / tom_d4rt_ast 0.229.0, not published: receiver proxies; the twins' `DiagnosticableTree` and `Diagnosticable` proxies) and the `flutter_extended_03` skip removed; open until the twins mark the receiver with the release and a run at the published fix passes the script, owed by todo ghissues999. |
-| `[ ]` | Open (GEN-131) — an interpreted SlottedMultiChildRenderObjectWidget reads null from its own defaulted field in createRenderObject | An **interpreter / bridge** defect, both twins, cause not yet located. Blast radius: a field of an interpreted render-object widget read when the framework calls `createRenderObject` may be null. Found 2026-11-10 by ghissues15; owed by todo ghissues26. |
+| `[ ]` | Open (GEN-131) — a class's static initializers read the script's top-level constants as null | An **interpreter** defect of the published pair (tom_d4rt <= 1.232.0, tom_d4rt_ast <= 0.213.0), both twins. Blast radius: every static field initialized from a top-level variable or constant of the script read null, wherever it was read. Found 2026-11-10 by ghissues15. Fixed in the tree by GitHub #10's lazy initialization (ghissues3: tom_d4rt 1.233.0 / tom_d4rt_ast 0.214.0, not published) and the `flutter_extended_19` skip removed; open until a run at the published fix passes the script, owed by todo ghissues999. |
 | `[ ]` | Open (GEN-132) — three scripts fail on the desktop companion app: AppKitView view types and a Scrollbar without a position | Not yet attributed; at least the two AppKitView scripts are **script / host** failures. Blast radius: scripts that mount a platform view whose type the companion app does not register, or a Scrollbar without a scroll position, cannot be measured on the desktop host. Found 2026-11-10 by ghissues15; owed by todo ghissues27. |
 | `[~]` | Partially fixed — script-side / Flutter framework limitations | **Not an interpreter defect** — a rolling sweep log of demo-script fixes (layout overflow, unbounded constraints, platform-unsupported services). Rows whose "After" column reads `1*` note a residual that *is* interpreter-side; each of those is tracked by its own cluster. Last sweep 2026-04-29. |
 
@@ -388,23 +388,40 @@ until then a run at the published pair fails this test - owed by todo
 ghissues999. Other abstract bridged classes scripts extend without a receiver
 keep the null: todo receiver1_akjk-inherited-bridged-members-answer-null-without-receiver.
 
-### [ ] Open (GEN-131) — an interpreted SlottedMultiChildRenderObjectWidget reads null from its own defaulted field in createRenderObject
+### [ ] Open (GEN-131) — a class's static initializers read the script's top-level constants as null
 
 **Found:** 2026-11-10, ghissues15's full-corpus runs `20261110-full-ast` / `20261110-full-src` (published tom_d4rt 1.231.1 / tom_d4rt_ast 0.212.1, Flutter 3.47.9).
 
-**Blast radius:** not yet bounded. What is shown: a field of an interpreted
-`SlottedMultiChildRenderObjectWidget` subclass, initialised by a constructor
-default, reads null inside `createRenderObject` when the framework calls it.
+**Blast radius:** every static field whose initializer reads a top-level
+variable or constant of the script reads null, wherever it is read, in both
+runtimes up to tom_d4rt 1.232.0 / tom_d4rt_ast 0.213.0 (the published pair is
+1.231.1 / 0.212.1). Nothing reports it; the null surfaces wherever it is used.
 
 **Measured:** `widgets/slotted_multi_child_render_object_widget_test.dart`
 (`flutter_extended_19`) fails in both twins with the refused callback `type
 'Null' is not a subtype of type 'Color' of 'accent'` — each run's only
-rejection. The field is `this.accent = _kSmcrowTeal` with a top-level `const
-Color`. A plain-Dart const constructor default from a top-level const object
-works on the tom_d4rt 1.242.0 tree, so the bridged superclass or the
-framework-side call is involved.
+rejection. Traced 2026-11-10 by ghissues26 in-process (the script pumped with
+FlutterD4rt): the widget's own `this.accent = _kSmcrowTeal` default is set; the
+null comes from `_SmcrowConfiguratorState`, whose `static const List<Color>
+_accents = <Color>[_kSmcrowTeal, ...]` held five nulls, so its getter `_accent`
+passed `accent: null` to the widget, and `createRenderObject` handed it to the
+render object. Plain Dart: `const int _a = 7; class C { static const
+List<int> xs = <int>[_a]; }` gives `C.xs == [null]` on the published tom_d4rt
+1.231.1 and on 1.232.0 / tom_d4rt_ast 0.213.0, `[7]` from 1.233.0 / 0.214.0.
 
-**Fix:** owed by todo ghissues26, once the cause is located.
+**Root cause:** every static initializer of a class ran when the class was
+loaded, before the script's top-level variables were initialized.
+
+**Fix:** GitHub #10's (ghissues3) lazy initialization: a static or top-level
+variable is initialized on its first read (tom_d4rt 1.233.0 / tom_d4rt_ast
+0.214.0, not yet published). Pinned for this shape by
+`ghissues26_static_reads_top_level_const_test.dart` (tom_d4rt, 3 cases;
+tom_d4rt_ast, 2 cases; red at 1.232.0 / 0.213.0). Measured on the tree
+2026-11-10, both twins under `prepublish_overrides --set`:
+`flutter_extended_19` 61/61, every script frameworkErrors=0 (pre-publish
+measurements, not verification runs). The driver skip is removed, so until
+the release a run at the published pair fails this test; the release's runs
+certify it, then this cluster is marked - owed by todo ghissues999.
 
 ### [ ] Open (GEN-132) — three scripts fail on the desktop companion app: AppKitView view types and a Scrollbar without a position
 

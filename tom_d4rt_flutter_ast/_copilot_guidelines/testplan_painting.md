@@ -11,29 +11,29 @@ Every name the bridges register for `painting` (100), with its tier and the corp
 | # | Name | Kind | Tier | Status | Scripts |
 |---|------|------|------|--------|---------|
 | 1 | Accumulator | class | Hardly Relevant | ✅ | painting/accumulator_test.dart |
-| 2 | Alignment | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1867 |
+| 2 | Alignment | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1868 |
 | 3 | AlignmentDirectional | class | Essential | ✅ | dart_ui/clip_r_rect_engine_layer_test.dart, material/badge_test.dart, material/dropdown_test.dart, +17 |
 | 4 | AlignmentGeometry | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, dart_ui/vertices_test.dart, material/badge_test.dart, +14 |
 | 5 | AssetBundleImageKey | class | Hardly Relevant | ⬜ |  |
 | 6 | AssetBundleImageProvider | class | Hardly Relevant | ⬜ |  |
 | 7 | AssetImage | class | Essential | ✅ | dart_ui/opacity_engine_layer_test.dart, painting/decoration_test.dart, painting/image_providers_test.dart, +4 |
 | 8 | AutomaticNotchedShape | class | Secondary | ✅ | material/bottom_app_bar_test.dart, material/bottomappbar_test.dart, painting/automatic_notched_shape_test.dart, +1 |
-| 9 | Axis | enum | Hardly Relevant | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animationstyle_test.dart, cupertino/cupertino_expansion_tile_test.dart, +305 |
+| 9 | Axis | enum | Hardly Relevant | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animationstyle_test.dart, cupertino/cupertino_expansion_tile_test.dart, +306 |
 | 10 | AxisDirection | enum | Hardly Relevant | ✅ | material/material_scroll_behavior_test.dart, material/rawscrollbar_test.dart, painting/axis_direction_test.dart, +24 |
 | 11 | BeveledRectangleBorder | class | Important | ✅ | material/button_style_button_test.dart, material/button_styles_misc_test.dart, material/buttonstyle_test.dart, +36 |
-| 12 | Border | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2008 |
+| 12 | Border | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2009 |
 | 13 | BorderDirectional | class | Secondary | ✅ | painting/advanced_decorations_test.dart, painting/border_directional_test.dart, painting/border_test.dart, +1 |
-| 14 | BorderRadius | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2025 |
+| 14 | BorderRadius | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2026 |
 | 15 | BorderRadiusDirectional | class | Essential | ✅ | painting/border_radius_test.dart, rendering/shape_border_clipper_test.dart |
 | 16 | BorderRadiusGeometry | class | Essential | ✅ | material/widgetstate_test.dart, painting/border_radius_test.dart, painting/rounded_superellipse_border_test.dart |
 | 17 | BorderSide | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_max_test.dart, +1084 |
 | 18 | BorderStyle | enum | Hardly Relevant | ✅ | dart_ui/offset_engine_layer_test.dart, dart_ui/opacity_engine_layer_test.dart, foundation/class_test.dart, +92 |
 | 19 | BoxBorder | class | Secondary | ✅ | material/divider_listtile_test.dart, painting/advanced_decorations_test.dart, painting/border_test.dart, +1 |
-| 20 | BoxDecoration | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2027 |
+| 20 | BoxDecoration | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2028 |
 | 21 | BoxFit | enum | Hardly Relevant | ✅ | dart_ui/image_descriptor_test.dart, painting/advanced_decorations_test.dart, painting/box_fit_test.dart, +17 |
 | 22 | BoxPainter | class | Secondary | ✅ | painting/box_painter_test.dart, painting/decoration_test.dart, widgets/decoratedbox_test.dart |
-| 23 | BoxShadow | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1476 |
-| 24 | BoxShape | enum | Hardly Relevant | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animation_eager_listener_mixin_test.dart, animation/animation_lazy_listener_mixin_test.dart, +1379 |
+| 23 | BoxShadow | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1477 |
+| 24 | BoxShape | enum | Hardly Relevant | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animation_eager_listener_mixin_test.dart, animation/animation_lazy_listener_mixin_test.dart, +1380 |
 | 25 | CircleBorder | class | Important | ✅ | material/button_styles_misc_test.dart, material/buttons_test.dart, material/buttonstyle_test.dart, +36 |
 | 26 | CircularNotchedRectangle | class | Secondary | ✅ | material/bottom_app_bar_test.dart, material/bottom_app_bar_theme_data_test.dart, material/bottomappbar_test.dart, +6 |
 | 27 | ClipContext | class | Hardly Relevant | ⬜ |  |
@@ -72,7 +72,7 @@ Every name the bridges register for `painting` (100), with its tier and the corp
 | 60 | InlineSpanSemanticsInformation | class | Hardly Relevant | ✅ | painting/inline_span_semantics_information_test.dart |
 | 61 | LinearBorder | class | Secondary | ✅ | painting/linear_border_edge_test.dart, painting/linear_border_test.dart, painting/outlined_border_test.dart, +1 |
 | 62 | LinearBorderEdge | class | Secondary | ✅ | painting/linear_border_edge_test.dart, painting/linear_border_test.dart, painting/shape_border_test.dart |
-| 63 | LinearGradient | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1808 |
+| 63 | LinearGradient | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1809 |
 | 64 | MatrixUtils | class | Hardly Relevant | ✅ | painting/matrix_test.dart, painting/matrix_utils_test.dart, painting/matrixutils_test.dart |
 | 65 | MemoryImage | class | Important | ✅ | painting/asset_bundle_image_provider_test.dart, painting/decoration_image_painter_test.dart, painting/image_providers_test.dart, +3 |
 | 66 | MultiFrameImageStreamCompleter | class | Hardly Relevant | ⬜ |  |
@@ -101,10 +101,10 @@ Every name the bridges register for `painting` (100), with its tier and the corp
 | 89 | SweepGradient | class | Important | ✅ | animation/animation_lazy_listener_mixin_test.dart, dart_ui/dart_ui_paint_canvas_test.dart, dart_ui/painting_style_test.dart, +30 |
 | 90 | TextAlignVertical | class | Important | ✅ | cupertino/textfield_test.dart, widgets/text_editing_adv_test.dart |
 | 91 | TextOverflow | enum | Hardly Relevant | ✅ | animation/cubic_test.dart, animation/curves_test.dart, cupertino/cupertino_colors_system_test.dart, +291 |
-| 92 | TextPainter | class | Important | ✅ | animation/animation_max_test.dart, animation/cubic_test.dart, cupertino/class_test.dart, +250 |
+| 92 | TextPainter | class | Important | ✅ | animation/animation_max_test.dart, animation/cubic_test.dart, cupertino/class_test.dart, +251 |
 | 93 | TextScaler | class | Important | ✅ | material/material_text_selection_handle_controls_test.dart, material/navigation_destination_label_behavior_test.dart, widgets/icon_theme_data_test.dart, +3 |
-| 94 | TextSpan | class | Essential | ✅ | animation/animation_max_test.dart, animation/cubic_test.dart, animation/elastic_in_curve_test.dart, +460 |
-| 95 | TextStyle | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2036 |
+| 94 | TextSpan | class | Essential | ✅ | animation/animation_max_test.dart, animation/cubic_test.dart, animation/elastic_in_curve_test.dart, +461 |
+| 95 | TextStyle | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2037 |
 | 96 | TextWidthBasis | enum | Hardly Relevant | ✅ | painting/text_width_basis_test.dart, rendering/textpainter_test.dart, widgets/defaulttextstyle_test.dart, +2 |
 | 97 | TransformProperty | class | Hardly Relevant | ✅ | painting/transform_property_test.dart |
 | 98 | VerticalDirection | enum | Hardly Relevant | ✅ | material/button_bar_test.dart, material/button_bar_theme_data_test.dart, painting/vertical_direction_test.dart, +6 |

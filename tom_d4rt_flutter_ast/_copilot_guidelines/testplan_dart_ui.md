@@ -21,7 +21,7 @@ Every name the bridges register for `dart_ui` (158), with its tier and the corpu
 | 9 | BoxWidthStyle | enum | Hardly Relevant | ✅ | dart_ui/enums_ui_test.dart |
 | 10 | Brightness | enum | Secondary | ✅ | animation/animatable_test.dart, animation/cubic_test.dart, animation/tween_test.dart, +303 |
 | 11 | CallbackHandle | class | Hardly Relevant | ✅ | dart_ui/plugin_utilities_test.dart |
-| 12 | Canvas | class | Essential | ✅ | animation/animation_max_test.dart, animation/animationstyle_test.dart, animation/cubic_test.dart, +445 |
+| 12 | Canvas | class | Essential | ✅ | animation/animation_max_test.dart, animation/animationstyle_test.dart, animation/cubic_test.dart, +446 |
 | 13 | ChannelBuffers | class | Hardly Relevant | ⬜ |  |
 | 14 | CheckedState | enum | Hardly Relevant | ✅ | dart_ui/checked_state_test.dart |
 | 15 | Clip | enum | Hardly Relevant | ✅ | cupertino/button_test.dart, cupertino/cupertino_expansion_tile_test.dart, cupertino/cupertino_list_tile_chevron_test.dart, +296 |
@@ -31,7 +31,7 @@ Every name the bridges register for `dart_ui` (158), with its tier and the corpu
 | 19 | ClipRSuperellipseEngineLayer | class | Hardly Relevant | ✅ | dart_ui/clip_r_superellipse_engine_layer_test.dart |
 | 20 | ClipRectEngineLayer | class | Hardly Relevant | ✅ | dart_ui/clip_rect_engine_layer_test.dart |
 | 21 | Codec | class | Secondary | ✅ | dart_ui/codec_test.dart, dart_ui/image_descriptor_test.dart |
-| 22 | Color | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2013 |
+| 22 | Color | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2014 |
 | 23 | ColorFilter | class | Important | ✅ | dart_ui/blend_mode_test.dart, dart_ui/color_filter_engine_layer_test.dart, dart_ui/engine_layer_test.dart, +15 |
 | 24 | ColorFilterEngineLayer | class | Hardly Relevant | ✅ | dart_ui/color_filter_engine_layer_test.dart |
 | 25 | ColorSpace | enum | Hardly Relevant | ✅ | dart_ui/color_space_test.dart, retest/dart_ui/color_space_test.dart |
@@ -48,7 +48,7 @@ Every name the bridges register for `dart_ui` (158), with its tier and the corpu
 | 36 | FontFeature | class | Important | ✅ | animation/animatable_test.dart, animation/animationstyle_test.dart, cupertino/class_test.dart, +50 |
 | 37 | FontStyle | enum | Hardly Relevant | ✅ | animation/animatable_test.dart, animation/animation_mean_test.dart, animation/animation_min_test.dart, +1025 |
 | 38 | FontVariation | class | Important | ✅ | dart_ui/font_test.dart, material/texttheme_test.dart, widgets/text_test.dart |
-| 39 | FontWeight | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2036 |
+| 39 | FontWeight | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2037 |
 | 40 | FragmentProgram | class | Hardly Relevant | ✅ | dart_ui/image_sampler_slot_test.dart |
 | 41 | FragmentShader | class | Hardly Relevant | ✅ | dart_ui/image_sampler_slot_test.dart |
 | 42 | FrameData | class | Secondary | ⬜ |  |
@@ -76,17 +76,17 @@ Every name the bridges register for `dart_ui` (158), with its tier and the corpu
 | 64 | Locale | class | Essential | ✅ | cupertino/localization_test.dart, dart_ui/locale_string_attribute_test.dart, dart_ui/platform_dispatcher_test.dart, +17 |
 | 65 | LocaleStringAttribute | class | Secondary | ✅ | dart_ui/locale_string_attribute_test.dart, dart_ui/spell_out_string_attribute_test.dart, dart_ui/string_attribute_test.dart, +5 |
 | 66 | MaskFilter | class | Important | ✅ | cupertino/magnifier_test.dart, dart_ui/dart_ui_paint_canvas_test.dart, dart_ui/paint_test.dart, +5 |
-| 67 | Offset | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1587 |
+| 67 | Offset | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1588 |
 | 68 | OffsetBase | class | Secondary | ⬜ |  |
 | 69 | OffsetEngineLayer | class | Hardly Relevant | ⬜ |  |
 | 70 | OpacityEngineLayer | class | Hardly Relevant | ⬜ |  |
-| 71 | Paint | class | Essential | ✅ | animation/animation_max_test.dart, animation/animationstyle_test.dart, animation/cubic_test.dart, +452 |
-| 72 | PaintingStyle | enum | Hardly Relevant | ✅ | animation/animation_max_test.dart, animation/animationstyle_test.dart, animation/cubic_test.dart, +381 |
+| 71 | Paint | class | Essential | ✅ | animation/animation_max_test.dart, animation/animationstyle_test.dart, animation/cubic_test.dart, +453 |
+| 72 | PaintingStyle | enum | Hardly Relevant | ✅ | animation/animation_max_test.dart, animation/animationstyle_test.dart, animation/cubic_test.dart, +382 |
 | 73 | Paragraph | class | Essential | ✅ | cupertino/magnifier_test.dart, dart_ui/paragraph_test.dart, dart_ui/picture_rasterization_exception_test.dart, +1 |
 | 74 | ParagraphBuilder | class | Essential | ✅ | cupertino/magnifier_test.dart, dart_ui/paragraph_test.dart, dart_ui/picture_rasterization_exception_test.dart, +1 |
 | 75 | ParagraphConstraints | class | Important | ✅ | cupertino/magnifier_test.dart, dart_ui/paragraph_test.dart, dart_ui/picture_rasterization_exception_test.dart, +1 |
 | 76 | ParagraphStyle | class | Important | ✅ | cupertino/magnifier_test.dart, dart_ui/paragraph_test.dart, dart_ui/picture_rasterization_exception_test.dart, +2 |
-| 77 | Path | class | Essential | ✅ | animation/animation_max_test.dart, animation/animationstyle_test.dart, animation/cubic_test.dart, +281 |
+| 77 | Path | class | Essential | ✅ | animation/animation_max_test.dart, animation/animationstyle_test.dart, animation/cubic_test.dart, +282 |
 | 78 | PathFillType | enum | Hardly Relevant | ✅ | dart_ui/path_fill_type_test.dart |
 | 79 | PathMetric | class | Secondary | ✅ | dart_ui/clip_path_engine_layer_test.dart, dart_ui/path_metric_iterator_test.dart, dart_ui/path_metrics_test.dart, +7 |
 | 80 | PathMetricIterator | class | Secondary | ⬜ |  |
@@ -105,11 +105,11 @@ Every name the bridges register for `dart_ui` (158), with its tier and the corpu
 | 93 | PointerDataPacket | class | Secondary | ✅ | dart_ui/dart_ui_misc_adv_test.dart, dart_ui/pointer_data_packet_test.dart |
 | 94 | PointerDeviceKind | enum | Hardly Relevant | ✅ | dart_ui/dart_ui_misc_adv_test.dart, dart_ui/pointer_data_packet_test.dart, dart_ui/pointer_data_test.dart, +40 |
 | 95 | PointerSignalKind | enum | Hardly Relevant | ✅ | dart_ui/pointer_signal_kind_test.dart |
-| 96 | RRect | class | Essential | ✅ | animation/cubic_test.dart, cupertino/class_test.dart, cupertino/cupertino_linear_activity_indicator_test.dart, +250 |
+| 96 | RRect | class | Essential | ✅ | animation/cubic_test.dart, cupertino/class_test.dart, cupertino/cupertino_linear_activity_indicator_test.dart, +251 |
 | 97 | RSTransform | class | Important | ⬜ |  |
 | 98 | RSuperellipse | class | Secondary | ✅ | dart_ui/clip_r_superellipse_engine_layer_test.dart, dart_ui/r_superellipse_test.dart |
-| 99 | Radius | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_min_test.dart, +978 |
-| 100 | Rect | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animation_local_listeners_mixin_test.dart, animation/animationstyle_test.dart, +339 |
+| 99 | Radius | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_min_test.dart, +979 |
+| 100 | Rect | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animation_local_listeners_mixin_test.dart, animation/animationstyle_test.dart, +340 |
 | 101 | RootIsolateToken | class | Hardly Relevant | ✅ | dart_ui/dart_ui_misc_adv_test.dart, dart_ui/root_isolate_token_test.dart |
 | 102 | Scene | class | Secondary | ✅ | dart_ui/transform_engine_layer_test.dart |
 | 103 | SceneBuilder | class | Secondary | ✅ | dart_ui/clip_r_superellipse_engine_layer_test.dart, dart_ui/clip_rect_engine_layer_test.dart, dart_ui/color_filter_engine_layer_test.dart, +7 |
@@ -125,7 +125,7 @@ Every name the bridges register for `dart_ui` (158), with its tier and the corpu
 | 113 | Shader | class | Important | ✅ | dart_ui/clip_path_engine_layer_test.dart, rendering/gradient_rendering_test.dart, rendering/shader_mask_layer_test.dart, +1 |
 | 114 | ShaderMaskEngineLayer | class | Hardly Relevant | ⬜ |  |
 | 115 | Shadow | class | Essential | ✅ | animation/color_tween_test.dart, dart_ui/dart_ui_image_codec_test.dart, foundation/stack_filter_test.dart, +50 |
-| 116 | Size | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animation_eager_listener_mixin_test.dart, animation/animation_local_listeners_mixin_test.dart, +522 |
+| 116 | Size | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animation_eager_listener_mixin_test.dart, animation/animation_local_listeners_mixin_test.dart, +523 |
 | 117 | SpellOutStringAttribute | class | Secondary | ✅ | dart_ui/spell_out_string_attribute_test.dart, dart_ui/string_attribute_test.dart, painting/inline_span_semantics_information_test.dart, +5 |
 | 118 | StringAttribute | class | Secondary | ✅ | dart_ui/locale_string_attribute_test.dart, dart_ui/string_attribute_test.dart, painting/inline_span_semantics_information_test.dart, +3 |
 | 119 | StrokeCap | enum | Hardly Relevant | ✅ | animation/animation_max_test.dart, animation/animationstyle_test.dart, animation/cubic_test.dart, +110 |
@@ -142,7 +142,7 @@ Every name the bridges register for `dart_ui` (158), with its tier and the corpu
 | 130 | TextBox | class | Important | ✅ | dart_ui/text_data_test.dart, dart_ui/text_test.dart, services/spellcheck_test.dart, +1 |
 | 131 | TextDecoration | class | Important | ✅ | cupertino/cupertino_nav_segmented_test.dart, cupertino/cupertino_spell_check_suggestions_toolbar_test.dart, dart_ui/semantics_flag_test.dart, +94 |
 | 132 | TextDecorationStyle | enum | Hardly Relevant | ✅ | cupertino/cupertino_spell_check_suggestions_toolbar_test.dart, dart_ui/text_data_test.dart, dart_ui/text_decoration_style_test.dart, +15 |
-| 133 | TextDirection | enum | Hardly Relevant | ✅ | animation/animation_max_test.dart, animation/cubic_test.dart, cupertino/class_test.dart, +353 |
+| 133 | TextDirection | enum | Hardly Relevant | ✅ | animation/animation_max_test.dart, animation/cubic_test.dart, cupertino/class_test.dart, +354 |
 | 134 | TextHeightBehavior | class | Important | ✅ | dart_ui/text_data_test.dart, material/selectabletext_test.dart, widgets/default_text_height_behavior_test.dart, +4 |
 | 135 | TextLeadingDistribution | enum | Hardly Relevant | ✅ | dart_ui/text_data_test.dart, dart_ui/text_leading_distribution_test.dart, painting/textstyle_test.dart, +4 |
 | 136 | TextPosition | class | Important | ✅ | dart_ui/text_affinity_test.dart, dart_ui/text_data_test.dart, painting/text_painting_test.dart, +6 |

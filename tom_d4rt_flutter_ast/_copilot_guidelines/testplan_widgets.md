@@ -82,7 +82,7 @@ Every name the bridges register for `widgets` (772), with its tier and the corpu
 | 70 | BouncingScrollSimulation | class | Hardly Relevant | ✅ | physics/clamped_simulation_test.dart, physics/simulations_test.dart, physics/spring_test.dart, +2 |
 | 71 | BoxConstraintsTween | class | Hardly Relevant | ✅ | widgets/box_constraints_tween_test.dart |
 | 72 | BoxScrollView | class | Hardly Relevant | ✅ | retest/widgets/box_scroll_view_test.dart, widgets/box_scroll_view_test.dart |
-| 73 | BuildContext | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2043 |
+| 73 | BuildContext | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2044 |
 | 74 | BuildOwner | class | Secondary | ✅ | widgets/root_element_mixin_test.dart, widgets/widgets_binding_test.dart |
 | 75 | BuildScope | class | Secondary | ⬜ |  |
 | 76 | Builder | class | Important | ✅ | animation/animatable_test.dart, animation/animation_misc_adv_test.dart, cupertino/cupertino_focus_halo_test.dart, +111 |
@@ -107,15 +107,15 @@ Every name the bridges register for `widgets` (772), with its tier and the corpu
 | 95 | ClipboardStatusNotifier | class | Hardly Relevant | ⬜ |  |
 | 96 | ColorFiltered | class | Secondary | ✅ | dart_ui/blend_mode_test.dart, painting/advanced_decorations_test.dart, painting/decoration_image_painter_test.dart, +7 |
 | 97 | ColoredBox | class | Important | ✅ | cupertino/cupertino_list_tile_chevron_test.dart, cupertino/obstructing_preferred_size_widget_test.dart, dart_ui/text_test.dart, +16 |
-| 98 | Column | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2042 |
+| 98 | Column | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2043 |
 | 99 | ComponentElement | class | Secondary | ⬜ |  |
 | 100 | CompositedTransformFollower | class | Secondary | ✅ | rendering/follower_layer_test.dart, rendering/render_follower_layer_test.dart, rendering/render_leader_layer_test.dart, +2 |
 | 101 | CompositedTransformTarget | class | Secondary | ✅ | rendering/follower_layer_test.dart, rendering/render_follower_layer_test.dart, rendering/render_leader_layer_test.dart, +2 |
 | 102 | ConnectionState | enum | Hardly Relevant | ✅ | widgets/futurebuilder_test.dart |
-| 103 | ConstrainedBox | class | Important | ✅ | animation/cubic_test.dart, foundation/diagnosticable_tree_mixin_test.dart, foundation/diagnosticable_tree_test.dart, +70 |
+| 103 | ConstrainedBox | class | Important | ✅ | animation/cubic_test.dart, foundation/diagnosticable_tree_mixin_test.dart, foundation/diagnosticable_tree_test.dart, +71 |
 | 104 | ConstrainedLayoutBuilder | class | Hardly Relevant | ⬜ |  |
 | 105 | ConstraintsTransformBox | class | Hardly Relevant | ✅ | rendering/render_constraints_transform_box_test.dart, widgets/constraints_transform_box_test.dart |
-| 106 | Container | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2027 |
+| 106 | Container | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2028 |
 | 107 | ContentInsertionConfiguration | class | Secondary | ⬜ |  |
 | 108 | ContextAction | class | Hardly Relevant | ✅ | retest/widgets/context_action_test.dart, widgets/context_action_test.dart |
 | 109 | ContextMenuButtonItem | class | Secondary | ✅ | cupertino/cupertino_spell_check_suggestions_toolbar_test.dart, cupertino/cupertino_text_selection_controls_test.dart, material/selection_area_state_test.dart, +3 |
@@ -125,8 +125,8 @@ Every name the bridges register for `widgets` (772), with its tier and the corpu
 | 113 | CopySelectionTextIntent | class | Hardly Relevant | ✅ | widgets/static_selection_container_delegate_test.dart |
 | 114 | CrossFadeState | enum | Hardly Relevant | ✅ | animation/animatable_test.dart, widgets/animated_cross_fade_test.dart, widgets/animated_widgets_adv_test.dart, +3 |
 | 115 | CustomMultiChildLayout | class | Important | ✅ | proxies/multichildlayout_proxy_test.dart, rendering/render_custom_multi_child_layout_box_test.dart, rendering/renderobjects_layout_test.dart, +3 |
-| 116 | CustomPaint | class | Important | ✅ | animation/animation_max_test.dart, animation/animationstyle_test.dart, animation/cubic_test.dart, +442 |
-| 117 | CustomScrollView | class | Important | ✅ | cupertino/cupertino_refresh_mag_test.dart, cupertino/cupertino_secondary_test.dart, cupertino/obstructing_preferred_size_widget_test.dart, +131 |
+| 116 | CustomPaint | class | Important | ✅ | animation/animation_max_test.dart, animation/animationstyle_test.dart, animation/cubic_test.dart, +443 |
+| 117 | CustomScrollView | class | Important | ✅ | cupertino/cupertino_refresh_mag_test.dart, cupertino/cupertino_secondary_test.dart, cupertino/obstructing_preferred_size_widget_test.dart, +132 |
 | 118 | CustomSingleChildLayout | class | Important | ✅ | material/spell_check_suggestions_toolbar_layout_delegate_test.dart, material/spell_check_suggestions_toolbar_test.dart, proxies/singlechildlayout_proxy_test.dart, +2 |
 | 119 | DebugCreator | class | Hardly Relevant | ⬜ |  |
 | 120 | DecoratedBox | class | Important | ✅ | animation/tweensequence_test.dart, cupertino/cupertino_sheet_route_test.dart, cupertino/cupertino_sheet_transition_test.dart, +108 |
@@ -197,7 +197,7 @@ Every name the bridges register for `widgets` (772), with its tier and the corpu
 | 185 | ExcludeSemantics | class | Important | ✅ | dart_ui/semantics_update_test.dart, rendering/pipeline_manifold_test.dart, rendering/render_mixins_test.dart, +13 |
 | 186 | ExpandSelectionToDocumentBoundaryIntent | class | Hardly Relevant | ⬜ |  |
 | 187 | ExpandSelectionToLineBreakIntent | class | Hardly Relevant | ⬜ |  |
-| 188 | Expanded | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2024 |
+| 188 | Expanded | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2025 |
 | 189 | Expansible | class | Hardly Relevant | ✅ | widgets/expansible_test.dart |
 | 190 | ExpansibleController | class | Hardly Relevant | ✅ | widgets/expansible_test.dart |
 | 191 | ExpansionTileController | alias of ExpansibleController | Hardly Relevant | ✅ | material/expansiontile_test.dart |
@@ -298,7 +298,7 @@ Every name the bridges register for `widgets` (772), with its tier and the corpu
 | 286 | InspectorSerializationDelegate | class | Hardly Relevant | ⬜ |  |
 | 287 | Intent | class | Important | ✅ | material/materialapp_test.dart, material/menu_accelerator_callback_binding_test.dart, retest/widgets/context_action_test.dart, +37 |
 | 288 | InteractiveViewer | class | Important | ✅ | widgets/interactive_viewer_test.dart, widgets/interactiveviewer_test.dart, widgets/pan_axis_test.dart |
-| 289 | IntrinsicHeight | class | Important | ✅ | animation/cubic_test.dart, cupertino/cupertino_secondary_test.dart, cupertino/refresh_test.dart, +112 |
+| 289 | IntrinsicHeight | class | Important | ✅ | animation/cubic_test.dart, cupertino/cupertino_secondary_test.dart, cupertino/refresh_test.dart, +113 |
 | 290 | IntrinsicWidth | class | Important | ✅ | gestures/pointer_pan_zoom_end_event_test.dart, material/desktop_text_selection_toolbar_button_test.dart, rendering/render_objects_misc_test.dart, +3 |
 | 291 | KeepAlive | class | Important | ⬜ |  |
 | 292 | KeepAliveHandle | class | Hardly Relevant | ✅ | widgets/keep_alive_handle_test.dart |
@@ -308,7 +308,7 @@ Every name the bridges register for `widgets` (772), with its tier and the corpu
 | 296 | KeyboardListener | class | Hardly Relevant | ✅ | services/key_events_test.dart, widgets/keyboard_listener_test.dart, widgets/raw_keyboard_listener_test.dart |
 | 297 | KeyedSubtree | class | Secondary | ✅ | widgets/keyedsubtree_test.dart, widgets/two_dimensional_child_manager_test.dart |
 | 298 | LabeledGlobalKey | class | Hardly Relevant | ✅ | foundation/key_test.dart, widgets/key_test.dart, widgets/labeled_global_key_test.dart |
-| 299 | LayoutBuilder | class | Important | ✅ | animation/curves_test.dart, dart_ui/channel_buffers_test.dart, dart_ui/clip_path_engine_layer_test.dart, +149 |
+| 299 | LayoutBuilder | class | Important | ✅ | animation/curves_test.dart, dart_ui/channel_buffers_test.dart, dart_ui/clip_path_engine_layer_test.dart, +150 |
 | 300 | LayoutChangedNotification | class | Important | ✅ | widgets/notification_locale_test.dart |
 | 301 | LayoutId | class | Hardly Relevant | ✅ | proxies/multichildlayout_proxy_test.dart, rendering/render_custom_multi_child_layout_box_test.dart, rendering/renderobjects_layout_test.dart, +3 |
 | 302 | LeafRenderObjectElement | class | Secondary | ⬜ |  |
@@ -400,7 +400,7 @@ Every name the bridges register for `widgets` (772), with its tier and the corpu
 | 388 | OverlayState | class | Hardly Relevant | ⬜ |  |
 | 389 | OverscrollIndicatorNotification | class | Hardly Relevant | ✅ | widgets/glowing_overscroll_indicator_test.dart |
 | 390 | OverscrollNotification | class | Hardly Relevant | ✅ | widgets/scroll_activity_delegate_test.dart, widgets/scroll_context_test.dart, widgets/scroll_drag_controller_test.dart, +2 |
-| 391 | Padding | class | Essential | ✅ | animation/animatable_test.dart, animation/animation_eager_listener_mixin_test.dart, animation/animation_lazy_listener_mixin_test.dart, +1888 |
+| 391 | Padding | class | Essential | ✅ | animation/animatable_test.dart, animation/animation_eager_listener_mixin_test.dart, animation/animation_lazy_listener_mixin_test.dart, +1889 |
 | 392 | Page | class | Hardly Relevant | ✅ | material/materialapp_test.dart, widgets/navigator_test.dart |
 | 393 | PageController | class | Important | ✅ | rendering/render_abstract_viewport_test.dart, widgets/keep_alive_handle_test.dart, widgets/page_view_tabview_test.dart, +4 |
 | 394 | PageMetrics | class | Hardly Relevant | ✅ | widgets/page_metrics_test.dart, widgets/scroll_metrics_test.dart |
@@ -436,7 +436,7 @@ Every name the bridges register for `widgets` (772), with its tier and the corpu
 | 424 | PopNavigatorRouterDelegateMixin | class | Hardly Relevant | ✅ | material/materialapp_test.dart |
 | 425 | PopScope | class | Secondary | ✅ | widgets/pop_entry_test.dart, widgets/pop_scope_test.dart, widgets/raw_widgets_test.dart |
 | 426 | PopupRoute | class | Important | ⬜ |  |
-| 427 | Positioned | class | Essential | ✅ | animation/catmull_rom_spline_test.dart, animation/curve2_d_sample_test.dart, animation/curve_tween_test.dart, +609 |
+| 427 | Positioned | class | Essential | ✅ | animation/catmull_rom_spline_test.dart, animation/curve2_d_sample_test.dart, animation/curve_tween_test.dart, +610 |
 | 428 | PositionedDirectional | class | Secondary | ✅ | widgets/directionality_test.dart, widgets/positioned_directional_test.dart, widgets/positioned_test.dart, +1 |
 | 429 | PositionedTransition | class | Important | ✅ | animation/alwaysstoppedanimation_test.dart |
 | 430 | PredictiveBackRoute | class | Hardly Relevant | ⬜ |  |
@@ -538,7 +538,7 @@ Every name the bridges register for `widgets` (772), with its tier and the corpu
 | 526 | Router | class | Important | ✅ | retest/widgets/back_button_listener_test.dart, widgets/back_button_listener_test.dart |
 | 527 | RouterConfig | class | Hardly Relevant | ⬜ |  |
 | 528 | RouterDelegate | class | Important | ✅ | material/materialapp_test.dart, retest/widgets/back_button_listener_test.dart, widgets/back_button_listener_test.dart |
-| 529 | Row | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2029 |
+| 529 | Row | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2030 |
 | 530 | SafeArea | class | Important | ✅ | animation/animation_misc_adv_test.dart, animation/animationstyle_test.dart, animation/curves_test.dart, +477 |
 | 531 | ScaleTransition | class | Important | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, material/pageroute_test.dart, +15 |
 | 532 | ScrollAction | class | Secondary | ✅ | widgets/scroll_action_test.dart, widgets/scroll_increment_details_test.dart, widgets/scroll_intent_test.dart |
@@ -608,12 +608,12 @@ Every name the bridges register for `widgets` (772), with its tier and the corpu
 | 596 | SingleActivator | class | Hardly Relevant | ✅ | material/buttonstyle_popup_test.dart, material/materialapp_test.dart, material/menu_themes_test.dart, +28 |
 | 597 | SingleChildRenderObjectElement | class | Secondary | ⬜ |  |
 | 598 | SingleChildRenderObjectWidget | class | Secondary | ✅ | rendering/render_absorb_pointer_test.dart, rendering/render_aligning_shifted_box_test.dart, rendering/render_shrink_wrapping_viewport_test.dart, +3 |
-| 599 | SingleChildScrollView | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1787 |
+| 599 | SingleChildScrollView | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1788 |
 | 600 | SingleTickerProviderStateMixin | class | Secondary | ✅ | material/tabs_test.dart, rendering/pipeline_manifold_test.dart, rendering/render_abstract_viewport_test.dart, +78 |
 | 601 | SizeChangedLayoutNotification | class | Hardly Relevant | ✅ | widgets/size_changed_layout_notification_test.dart, widgets/size_changed_layout_notifier_test.dart |
 | 602 | SizeChangedLayoutNotifier | class | Hardly Relevant | ✅ | widgets/size_changed_layout_notification_test.dart, widgets/size_changed_layout_notifier_test.dart |
 | 603 | SizeTransition | class | Important | ✅ | animation/alwaysstoppedanimation_test.dart, widgets/animated_switcher_test.dart, widgets/animatedgrid_test.dart, +5 |
-| 604 | SizedBox | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2034 |
+| 604 | SizedBox | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2035 |
 | 605 | SizedOverflowBox | class | Hardly Relevant | ✅ | rendering/render_constrained_overflow_box_test.dart, rendering/render_sized_overflow_box_test.dart, rendering/renderobjects_layout_test.dart, +2 |
 | 606 | SlideTransition | class | Important | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, material/pageroute_test.dart, +10 |
 | 607 | SliverAnimatedGrid | class | Secondary | ✅ | widgets/sliver_animated_grid_state_test.dart, widgets/sliver_animated_grid_test.dart |
@@ -654,12 +654,12 @@ Every name the bridges register for `widgets` (772), with its tier and the corpu
 | 642 | SliverResizingHeader | class | Secondary | ✅ | widgets/sliver_resizing_header_test.dart |
 | 643 | SliverSafeArea | class | Secondary | ✅ | widgets/safearea_test.dart, widgets/sliver_delegates_test.dart, widgets/sliver_safe_area_test.dart |
 | 644 | SliverSemantics | class | Secondary | ⬜ |  |
-| 645 | SliverToBoxAdapter | class | Important | ✅ | cupertino/cupertino_secondary_test.dart, cupertino/refresh_test.dart, material/refreshindicator_test.dart, +91 |
+| 645 | SliverToBoxAdapter | class | Important | ✅ | cupertino/cupertino_secondary_test.dart, cupertino/refresh_test.dart, material/refreshindicator_test.dart, +92 |
 | 646 | SliverVariedExtentList | class | Important | ✅ | rendering/render_sliver_varied_extent_list_test.dart |
 | 647 | SliverVisibility | class | Secondary | ✅ | widgets/sliver_delegates_test.dart, widgets/sliver_visibility_test.dart, widgets/visibility_test.dart |
 | 648 | SliverWithKeepAliveWidget | class | Hardly Relevant | ⬜ |  |
-| 649 | SlottedContainerRenderObjectMixin | class | Hardly Relevant | ✅ | widgets/slotted_container_render_object_mixin_test.dart, widgets/slotted_multi_child_render_object_widget_mixin_test.dart, widgets/slotted_render_object_element_test.dart |
-| 650 | SlottedMultiChildRenderObjectWidget | class | Hardly Relevant | ✅ | widgets/slotted_container_render_object_mixin_test.dart, widgets/slotted_multi_child_render_object_widget_mixin_test.dart, widgets/slotted_render_object_element_test.dart |
+| 649 | SlottedContainerRenderObjectMixin | class | Hardly Relevant | ✅ | widgets/slotted_container_render_object_mixin_test.dart, widgets/slotted_multi_child_render_object_widget_mixin_test.dart, widgets/slotted_multi_child_render_object_widget_test.dart, +1 |
+| 650 | SlottedMultiChildRenderObjectWidget | class | Hardly Relevant | ✅ | widgets/slotted_container_render_object_mixin_test.dart, widgets/slotted_multi_child_render_object_widget_mixin_test.dart, widgets/slotted_multi_child_render_object_widget_test.dart, +1 |
 | 651 | SlottedRenderObjectElement | class | Hardly Relevant | ⬜ |  |
 | 652 | SnapshotController | class | Hardly Relevant | ✅ | widgets/snapshot_controller_test.dart, widgets/snapshot_mode_test.dart |
 | 653 | SnapshotMode | enum | Hardly Relevant | ✅ | widgets/snapshot_mode_test.dart |
@@ -667,14 +667,14 @@ Every name the bridges register for `widgets` (772), with its tier and the corpu
 | 655 | SnapshotWidget | class | Hardly Relevant | ✅ | widgets/snapshot_mode_test.dart |
 | 656 | Spacer | class | Secondary | ✅ | animation/animatable_test.dart, animation/animation_mean_test.dart, animation/animation_with_parent_mixin_test.dart, +540 |
 | 657 | SpellCheckConfiguration | class | Secondary | ✅ | services/spell_check_service_test.dart, services/spellcheck_test.dart, widgets/spell_check_configuration_test.dart |
-| 658 | Stack | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/catmull_rom_spline_test.dart, +721 |
+| 658 | Stack | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/catmull_rom_spline_test.dart, +722 |
 | 659 | StandardComponentType | enum | Hardly Relevant | ✅ | widgets/standard_component_type_test.dart |
-| 660 | State | class | Essential | ✅ | cupertino/textfield_test.dart, dart_ui/clip_r_superellipse_engine_layer_test.dart, dart_ui/clip_rect_engine_layer_test.dart, +354 |
+| 660 | State | class | Essential | ✅ | cupertino/textfield_test.dart, dart_ui/clip_r_superellipse_engine_layer_test.dart, dart_ui/clip_rect_engine_layer_test.dart, +355 |
 | 661 | StatefulBuilder | class | Important | ✅ | cupertino/cupertino_linear_activity_indicator_test.dart, dart_ui/pointer_data_test.dart, dart_ui/vertices_test.dart, +81 |
 | 662 | StatefulElement | class | Secondary | ⬜ |  |
-| 663 | StatefulWidget | class | Essential | ✅ | cupertino/textfield_test.dart, dart_ui/clip_r_superellipse_engine_layer_test.dart, dart_ui/clip_rect_engine_layer_test.dart, +353 |
+| 663 | StatefulWidget | class | Essential | ✅ | cupertino/textfield_test.dart, dart_ui/clip_r_superellipse_engine_layer_test.dart, dart_ui/clip_rect_engine_layer_test.dart, +354 |
 | 664 | StatelessElement | class | Secondary | ⬜ |  |
-| 665 | StatelessWidget | class | Essential | ✅ | animation/animation_max_test.dart, animation/animationstyle_test.dart, animation/cubic_test.dart, +504 |
+| 665 | StatelessWidget | class | Essential | ✅ | animation/animation_max_test.dart, animation/animationstyle_test.dart, animation/cubic_test.dart, +505 |
 | 666 | StaticSelectionContainerDelegate | class | Hardly Relevant | ✅ | widgets/static_selection_container_delegate_test.dart |
 | 667 | StatusTransitionWidget | class | Hardly Relevant | ⬜ |  |
 | 668 | StreamBuilder | class | Important | ✅ | widgets/streambuilder_test.dart |
@@ -689,7 +689,7 @@ Every name the bridges register for `widgets` (772), with its tier and the corpu
 | 677 | TapRegion | class | Secondary | ✅ | retest/widgets/render_tap_region_surface_test.dart, widgets/raw_menu_anchor_group_test.dart, widgets/raw_menu_anchor_test.dart, +3 |
 | 678 | TapRegionRegistry | class | Hardly Relevant | ⬜ |  |
 | 679 | TapRegionSurface | class | Secondary | ✅ | retest/widgets/render_tap_region_surface_test.dart, widgets/render_tap_region_surface_test.dart, widgets/render_tap_region_test.dart |
-| 680 | Text | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2042 |
+| 680 | Text | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2043 |
 | 681 | TextEditingController | class | Important | ✅ | cupertino/cupertino_desktop_text_selection_controls_test.dart, cupertino/cupertino_focus_halo_test.dart, cupertino/cupertino_text_selection_handle_controls_test.dart, +77 |
 | 682 | TextFieldTapRegion | class | Secondary | ⬜ |  |
 | 683 | TextMagnifierConfiguration | class | Secondary | ✅ | material/selection_area_state_test.dart, widgets/text_editing_adv_test.dart, widgets/text_magnifier_configuration_test.dart |
@@ -757,7 +757,7 @@ Every name the bridges register for `widgets` (772), with its tier and the corpu
 | 745 | VoidCallbackAction | class | Hardly Relevant | ✅ | widgets/void_callback_action_test.dart, widgets/void_callback_intent_test.dart |
 | 746 | VoidCallbackIntent | class | Hardly Relevant | ✅ | widgets/void_callback_action_test.dart, widgets/void_callback_intent_test.dart |
 | 747 | WeakMap | class | Hardly Relevant | ✅ | widgets/weak_map_test.dart |
-| 748 | Widget | class | Secondary | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2028 |
+| 748 | Widget | class | Secondary | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2029 |
 | 749 | WidgetInspector | class | Secondary | ✅ | widgets/widget_inspector_test.dart |
 | 750 | WidgetInspectorService | class | Hardly Relevant | ✅ | widgets/widget_inspector_service_test.dart |
 | 751 | WidgetInspectorServiceExtensions | enum | Hardly Relevant | ✅ | widgets/widget_inspector_service_extensions_test.dart |
@@ -770,7 +770,7 @@ Every name the bridges register for `widgets` (772), with its tier and the corpu
 | 758 | WidgetStateMouseCursor | class | Hardly Relevant | ✅ | material/widgetstate_test.dart, services/cursor_test.dart, services/mouse_tracker_annotation_test.dart, +1 |
 | 759 | WidgetStateOutlinedBorder | class | Hardly Relevant | ✅ | widgets/widget_state_outlined_border_test.dart |
 | 760 | WidgetStateProperty | class | Important | ✅ | foundation/persistent_hash_map_test.dart, material/bottomnavigationbar_test.dart, material/button_style_button_test.dart, +68 |
-| 761 | WidgetStatePropertyAll | class | Hardly Relevant | ✅ | material/button_styles_misc_test.dart, material/buttonstyle_popup_test.dart, material/datarow_test.dart, +24 |
+| 761 | WidgetStatePropertyAll | class | Hardly Relevant | ✅ | material/button_styles_misc_test.dart, material/buttonstyle_popup_test.dart, material/datarow_test.dart, +25 |
 | 762 | WidgetStateTextStyle | class | Hardly Relevant | ✅ | material/widgetstate_test.dart, widgets/widget_state_text_style_test.dart |
 | 763 | WidgetStatesConstraint | class | Hardly Relevant | ✅ | material/widgetstate_test.dart, widgets/widget_state_border_side_test.dart, widgets/widget_state_color_test.dart, +7 |
 | 764 | WidgetStatesController | class | Important | ✅ | material/material_state_mixin_test.dart, material/widgetstate_test.dart |
@@ -781,4 +781,4 @@ Every name the bridges register for `widgets` (772), with its tier and the corpu
 | 769 | WidgetsFlutterBinding | class | Secondary | ✅ | dart_ui/dart_ui_advanced_test.dart, widgets/widgets_flutter_binding_test.dart, widgets/widgets_service_extensions_test.dart, +2 |
 | 770 | WidgetsLocalizations | class | Hardly Relevant | ✅ | widgets/localizations_resolver_test.dart, widgets/widgets_localizations_test.dart |
 | 771 | WidgetsServiceExtensions | enum | Hardly Relevant | ⬜ |  |
-| 772 | Wrap | class | Important | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_eager_listener_mixin_test.dart, +1349 |
+| 772 | Wrap | class | Important | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_eager_listener_mixin_test.dart, +1350 |

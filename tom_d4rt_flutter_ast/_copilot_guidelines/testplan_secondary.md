@@ -141,7 +141,7 @@ The bridged names the priority files classify as Secondary. Status: ✅ a script
 | ChipAnimationStyle | Chip animation | ⬜ |  |
 | ChipAttributes | Chip attributes | ⬜ |  |
 | ChipThemeData | Chip data | ✅ | material/autocomplete_chips_test.dart, material/chip_attributes_test.dart, material/chip_variants_test.dart, +7 |
-| Colors | Color constants | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1693 |
+| Colors | Color constants | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1694 |
 | ControlsDetails | Controls details | ✅ | material/expansion_stepper_test.dart, material/step_style_test.dart, material/stepper_test.dart |
 | DataTableSource | Data source | ✅ | material/data_table_test.dart, material/paginated_data_table_state_test.dart |
 | DataTableTheme | Table theme | ✅ | material/datarow_test.dart |
@@ -277,7 +277,7 @@ The bridged names the priority files classify as Secondary. Status: ✅ a script
 | Name | Description | Status | Scripts |
 |------|-------------|--------|---------|
 | BoxHitTestEntry | Box hit entry | ✅ | rendering/box_hit_test_result_test.dart, rendering/relayout_when_system_fonts_change_mixin_test.dart |
-| BoxHitTestResult | Box hit test | ✅ | gestures/hit_testable_test.dart, rendering/box_hit_test_result_test.dart, rendering/render_aligning_shifted_box_test.dart, +6 |
+| BoxHitTestResult | Box hit test | ✅ | gestures/hit_testable_test.dart, rendering/box_hit_test_result_test.dart, rendering/render_aligning_shifted_box_test.dart, +7 |
 | ClipPathLayer | Clip path layer | ✅ | rendering/clip_path_layer_test.dart, rendering/layers_test.dart |
 | ClipRSuperellipseLayer | Superellipse clip | ⬜ |  |
 | ColorFilterLayer | Color filter layer | ✅ | rendering/color_filter_layer_test.dart, rendering/layers_test.dart |
@@ -627,7 +627,7 @@ The bridged names the priority files classify as Secondary. Status: ✅ a script
 | ViewAnchor | View anchor | ⬜ |  |
 | ViewCollection | View collection | ⬜ |  |
 | Viewport | Viewport widget | ⬜ |  |
-| Widget | Widget base | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2028 |
+| Widget | Widget base | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2029 |
 | WidgetInspector | Widget inspector | ✅ | widgets/widget_inspector_test.dart |
 | WidgetSpan | Widget in text | ✅ | dart_ui/placeholder_alignment_test.dart, painting/inline_span_semantics_information_test.dart, painting/inline_span_test.dart, +14 |
 | WidgetsApp | Widgets app | ⬜ |  |
