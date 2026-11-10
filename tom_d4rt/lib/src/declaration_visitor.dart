@@ -18,7 +18,8 @@ class DeclarationVisitor extends GeneralizingAstVisitor<void> {
   @override
   void visitClassDeclaration(ClassDeclaration node) {
     final className = node.namePart.typeName.lexeme;
-    if (environment.isDefinedLocally(className)) {
+    if (environment.isDefinedLocally(className) &&
+        !environment.holdsImportedTypeDeclaration(className)) {
       return;
     }
 
@@ -105,7 +106,8 @@ class DeclarationVisitor extends GeneralizingAstVisitor<void> {
   @override
   void visitMixinDeclaration(MixinDeclaration node) {
     final mixinName = node.name.lexeme;
-    if (environment.isDefinedLocally(mixinName)) {
+    if (environment.isDefinedLocally(mixinName) &&
+        !environment.holdsImportedTypeDeclaration(mixinName)) {
       return;
     }
     // Create a placeholder for the mixin with the required positional arguments
@@ -141,7 +143,8 @@ class DeclarationVisitor extends GeneralizingAstVisitor<void> {
   @override
   void visitEnumDeclaration(EnumDeclaration node) {
     final enumName = node.namePart.typeName.lexeme;
-    if (environment.isDefinedLocally(enumName)) {
+    if (environment.isDefinedLocally(enumName) &&
+        !environment.holdsImportedTypeDeclaration(enumName)) {
       return;
     }
 

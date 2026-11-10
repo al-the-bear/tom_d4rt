@@ -16,7 +16,8 @@ class DeclarationVisitor extends GeneralizingSAstVisitor<void> {
   @override
   void visitClassDeclaration(SClassDeclaration node) {
     final className = node.namePart.typeName.name;
-    if (environment.isDefinedLocally(className)) {
+    if (environment.isDefinedLocally(className) &&
+        !environment.holdsImportedTypeDeclaration(className)) {
       return;
     }
 
@@ -103,7 +104,8 @@ class DeclarationVisitor extends GeneralizingSAstVisitor<void> {
   @override
   void visitMixinDeclaration(SMixinDeclaration node) {
     final mixinName = node.name?.name ?? '';
-    if (environment.isDefinedLocally(mixinName)) {
+    if (environment.isDefinedLocally(mixinName) &&
+        !environment.holdsImportedTypeDeclaration(mixinName)) {
       return;
     }
     // Create a placeholder for the mixin with the required positional arguments
@@ -139,7 +141,8 @@ class DeclarationVisitor extends GeneralizingSAstVisitor<void> {
   @override
   void visitEnumDeclaration(SEnumDeclaration node) {
     final enumName = node.namePart.typeName.name;
-    if (environment.isDefinedLocally(enumName)) {
+    if (environment.isDefinedLocally(enumName) &&
+        !environment.holdsImportedTypeDeclaration(enumName)) {
       return;
     }
 

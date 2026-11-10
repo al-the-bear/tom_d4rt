@@ -1,3 +1,22 @@
+## 0.225.0
+
+### Fixed — a library's own class, mixin or enum shadows an imported one of the same name
+
+A class, mixin or enum a library declared lost to an imported declaration of
+the same name. A library's imports are processed before its declaration pass,
+which skipped a name the import had already bound, so the library's own class
+WAS the imported one: filling it in threw `FrozenNameMap is frozen and cannot
+be mutated.`, constructing it met the imported class (`Cannot instantiate
+abstract class`), and an enum read the imported enum's values. Where the
+declaration pass runs first (a script's entry), the import then replaced the
+library's placeholder, because an import won every name conflict. The
+declaration pass now creates the library's placeholder over an imported class,
+mixin or enum, and an import no longer replaces one the library declares - as
+in Dart, where a library's own declaration shadows its imports. Met through a
+library importing `dart:core` explicitly; the explicit import is not needed.
+
+Name resolution: yes — a class, mixin or enum name declared by a library resolves to that declaration, not to an imported one of the same name.
+
 ## 0.224.0
 
 ### Fixed — an extension applies to subtypes of its `on` type, not to a type of the same name

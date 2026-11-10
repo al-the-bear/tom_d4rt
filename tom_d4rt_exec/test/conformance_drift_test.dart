@@ -532,7 +532,18 @@ const _partialTwinBudget = 0;
 /// port would have added is extension declarations on prefixed and
 /// parameterised types, which the corpus copies on every run.
 ///
-const _copierGapBudget = 52;
+/// 52 -> 53: GHISSUES18 added `ghissues18_explicit_dart_core_import_test.dart`,
+/// which runs source to check that a library's own class, mixin or enum
+/// shadows an imported one of the same name - in an imported library, a
+/// `library:` entry and a `source:` entry, with and without an explicit
+/// `dart:core` import. Exec resolves tom_d4rt_ast from pub.dev, where the
+/// import still wins until the batch release (ghissues999), so a port would
+/// assert the fix against an interpreter that does not have it. Its ast twin
+/// holds the mechanism. The copier surface a port would have added is import
+/// directives of `dart:core` with and without a prefix, which the corpus
+/// copies on every run.
+///
+const _copierGapBudget = 53;
 
 const Map<String, _Coverage> _coveredElsewhere = {
   'sce208_bind_forwarding_source_errors_test.dart': _Coverage(
@@ -642,6 +653,19 @@ const Map<String, _Coverage> _coveredElsewhere = {
         'repeated dart:core and dart:async prefixes, dart:math, missing names '
         'and prefixes, dynamic and Record), which a hand-built bundle would '
         'only restate.',
+  ),
+  'ghissues18_explicit_dart_core_import_test.dart': _Coverage(
+    'ast:runtime/ghissues18_explicit_dart_core_import_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 4,
+    twinCases: 4,
+    whyPartial:
+        'the twin pins the two paths - an entry whose pass 1 ran before its '
+        'import, with and without prefixes and an explicit dart:core import, '
+        'and an imported library whose import ran before its pass 1. The '
+        'reference adds the remaining SHAPES (mixins, enums, a `source:` '
+        'entry), which a hand-built bundle would only restate.',
   ),
   'ghissues17_extension_matches_type_test.dart': _Coverage(
     'ast:runtime/ghissues17_extension_matches_type_test.dart',

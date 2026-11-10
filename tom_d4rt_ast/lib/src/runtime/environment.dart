@@ -2169,6 +2169,23 @@ class Environment {
     return _values.containsKey(name);
   }
 
+  /// Whether [name] is bound here to a class, mixin or enum that an import
+  /// brought in, rather than one this environment declared. A library's own
+  /// declaration shadows an imported one of the same name, as in Dart: pass 1
+  /// creates its placeholder over the import (ghissues18).
+  bool holdsImportedTypeDeclaration(String name) {
+    final value = _values[name];
+    return (value is InterpretedClass || value is InterpretedEnum) &&
+        !_isOwnTypeDeclaration(value);
+  }
+
+  /// Whether [value] is a class, mixin or enum declared in this environment.
+  bool _isOwnTypeDeclaration(Object? value) =>
+      (value is InterpretedClass &&
+          identical(value.classDefinitionEnvironment, this)) ||
+      (value is InterpretedEnum &&
+          identical(value.declarationEnvironment, this));
+
   /// Gets the raw value for a variable if defined locally, without GlobalGetter unwrapping.
   ///
   /// This is useful when you need to access the GlobalGetter wrapper itself
@@ -2755,6 +2772,10 @@ class Environment {
       if (_values.containsKey(name)) {
         // Allow if it's the same value (e.g., same class/function imported via different paths)
         if (!identical(_values[name], value)) {
+          // ghissues18: a class, mixin or enum this environment declares
+          // shadows an imported one of the same name; the import does not
+          // replace it.
+          if (_isOwnTypeDeclaration(_values[name])) return;
           if (errorOnConflict) {
             // Cluster EXPORT (I-MISC-40/41): export-merge cannot silently
             // overwrite — a library that re-publishes two different
