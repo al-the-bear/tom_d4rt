@@ -218,6 +218,10 @@ const _minMirrorTypes = 150;
 /// where they belong — SCD183's `_structural` and `_allowedRegions` say why
 /// each of these six files cannot be compared whole. This map is a census of
 /// WHAT diverges, so that a change in it is visible.
+// GHISSUES34: both trees wrap every interpolating `Logger.debug` on the
+// evaluation paths in `if (Logger.isDebug) { ... }`, alike; the members below
+// that already diverged moved signature with it (29 of them, recorded
+// 2026-11-10).
 const _divergentBodies = <String, Map<String, String>>{
   // SCD208: both were '1954…'-era signatures naming the reference's two
   // separate `Environment()` objects. It now binds one local like the twin, so
@@ -235,15 +239,15 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpretedFunction._isWithin': 'a8bc018c',
     'InterpretedFunction._callImpl': 'c0f390c5',
     'InterpretedFunction._containsAwait': 'ee448f09',
-    'InterpretedFunction._determineNextNodeAfterAwait': '3dd47cca',
+    'InterpretedFunction._determineNextNodeAfterAwait': '69fa72f0',
     'InterpretedFunction._findEnclosingTryStatement': '64523cb5',
     'InterpretedFunction._findInvocationWithAwaitInArguments': '5fedfaed',
-    'InterpretedFunction._findNextSequentialNode': 'f20b7114',
+    'InterpretedFunction._findNextSequentialNode': 'ef0c1ab1',
     'InterpretedFunction._enclosingExpressionFunctionBody': '34fd9762',
     // GHISSUES12: both trees choose and bind the catch clause for the native
     // error a RuntimeD4rtException carries; the recorded residue is unchanged
     // in kind, its signature moved with the shared edit.
-    'InterpretedFunction._handleAsyncError': 'a9719a4d',
+    'InterpretedFunction._handleAsyncError': '1fe0d3c2',
     'InterpretedFunction._instantiateRedirectedFactory': '92a6e173',
     'InterpretedFunction._isInsideCatchClauseOf': '3782eeaf',
     // SCE78: the finally-block companion to the catch-clause predicate
@@ -266,7 +270,7 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpretedFunction._nextFinallyTryBefore': '5b8b6fab',
     // VSTDM3: the analyzer 14 port edited both trees alike; the divergence
     // itself is unchanged.
-    'InterpretedFunction._prepareExecutionEnvironment': '368f64b6',
+    'InterpretedFunction._prepareExecutionEnvironment': '01ca3c3c',
     // VSTDM3: the analyzer 14 port edited both trees alike; the divergence
     // itself is unchanged.
     // GHISSUES7: both trees look a prefixed type up through its prefix; the
@@ -275,7 +279,7 @@ const _divergentBodies = <String, Map<String, String>>{
     // GHISSUES23: both trees give a record field its `?`; the reference does
     // it inline with `question != null`, the twin in its
     // `_resolveRecordFieldTypeDynamic` helper with `isNullable`.
-    'InterpretedFunction._resolveTypeAnnotationDynamic': 'e04ab501',
+    'InterpretedFunction._resolveTypeAnnotationDynamic': '1ec112f7',
     // SCE139 / SCF29: the walker that finds the unit an await resumption
     // hands back to the state machine (a statement, an `=>` body's
     // expression, or an if / while / do reached from its condition),
@@ -292,7 +296,7 @@ const _divergentBodies = <String, Map<String, String>>{
     // DASY1: the state machine's body moved to `_runStateMachineSegment`;
     // `_runStateMachine` is now the frame wrapper both trees agree on. The
     // divergence (`parent` against `_parentOf`) moved with the body.
-    'InterpretedFunction._runStateMachineSegment': '25b5cd5d',
+    'InterpretedFunction._runStateMachineSegment': '597c59af',
     'InterpretedFunction._tryOwningCatchClauseOf': 'f1617e03',
     'InterpretedFunction._tryOwningFinallyBlockOf': '34fd9762',
     'InterpretedFunction.bind': '78b56933',
@@ -326,7 +330,7 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpreterVisitor._evaluateArguments': '0df79830',
     'InterpreterVisitor._evaluateArgumentsAsync': '0df79830',
     'InterpreterVisitor._executeCascadeAssignment': '6ba592d9',
-    'InterpreterVisitor._executeClassicFor': 'cc48545f',
+    'InterpreterVisitor._executeClassicFor': 'd58610fd',
     'InterpreterVisitor._mapCompoundToOperatorName': 'd728ed84',
     // SCE104 extracted both from `visitAsExpression`, whose divergence they
     // inherit: the mirror AST carries an `importPrefix` and an `isNullable`
@@ -347,12 +351,12 @@ const _divergentBodies = <String, Map<String, String>>{
     // GHISSUES23: both trees give a record field its `?`, spelled
     // `question != null` here and `isNullable` (on a nullable field type) in
     // the twin.
-    'InterpreterVisitor._resolveTypeAnnotationWithEnvironment': 'c98479f1',
+    'InterpreterVisitor._resolveTypeAnnotationWithEnvironment': 'd274bc1f',
     'InterpreterVisitor._statementsIntroduceBindings': '73f8180e',
     'InterpreterVisitor._subtreeContainsClosure': 'b6e41360',
     'InterpreterVisitor._valueHasType': '716e1f67',
     'InterpreterVisitor.computeCompoundValue': 'aab15c4a',
-    'InterpreterVisitor.new': '2cc4e641',
+    'InterpreterVisitor.new': '53a57695',
     'InterpreterVisitor.registerTypeAlias': '8b81a27c',
     'InterpreterVisitor.resolveStaticCoordinates': '1c58137b',
     'InterpreterVisitor.visitAsExpression': '749f9253',
@@ -362,8 +366,8 @@ const _divergentBodies = <String, Map<String, String>>{
     // which the new text now sits beside. DART313B1: 0d5d1441 -> 8af32809,
     // both trees appended the same declined-member reason to the same
     // setter-miss message.
-    'InterpreterVisitor.visitAssignmentExpression': '8af32809',
-    'InterpreterVisitor.visitBinaryExpression': 'c2f2a78f',
+    'InterpreterVisitor.visitAssignmentExpression': '3a03f289',
+    'InterpreterVisitor.visitBinaryExpression': 'de77a7f3',
     // SCE130: 57fc0f99 -> fffabfd5. Both trees gained the same call to
     // `klass.resolveDeferredTypeParameterBounds`; the residue is the
     // accessor difference this member already had.
@@ -375,35 +379,35 @@ const _divergentBodies = <String, Map<String, String>>{
     // GHISSUES7: both trees look every relationship type up through
     // `_relationshipLookupName`, which replaced the per-clause bare-name
     // accessors; the residue left is the loader field's name.
-    'InterpreterVisitor.visitClassDeclaration': '297bfae2',
+    'InterpreterVisitor.visitClassDeclaration': '799fab94',
     'InterpreterVisitor.visitConstructorReference': '1d51b6d4',
     // VSTDM3: the analyzer 14 port edited both trees alike; the divergence
     // itself is unchanged.
     // GHISSUES19: both trees resolve the enum's `implements` clause, deferred
     // while modules load; the residue grows by the interface name's accessor
     // (`name.lexeme` / `name!.name`) and the loader field's name.
-    'InterpreterVisitor.visitEnumDeclaration': 'b6064b95',
+    'InterpreterVisitor.visitEnumDeclaration': '5b42c393',
     // GHISSUES11: both trees defer an `on` type declared in a library still
     // loading; the residue grows by the loader field's name, `moduleLoader`
     // here and `moduleContext` in the twin.
-    'InterpreterVisitor.visitExtensionDeclaration': '1ea7e106',
+    'InterpreterVisitor.visitExtensionDeclaration': '4b256eea',
     // VSTDM3: the analyzer 14 port edited both trees alike; the divergence
     // itself is unchanged.
     'InterpreterVisitor.visitExtensionTypeDeclaration': '32961e82',
     'InterpreterVisitor.visitForStatement': '1df0d7d7',
-    'InterpreterVisitor.visitFunctionDeclaration': 'a398e655',
+    'InterpreterVisitor.visitFunctionDeclaration': '07212aed',
     'InterpreterVisitor.visitFunctionDeclarationStatement': '1a8fa2ed',
-    'InterpreterVisitor.visitIdentifier': '0b2aded7',
+    'InterpreterVisitor.visitIdentifier': '842b50f3',
     'InterpreterVisitor.visitIfStatement': 'f881cee4',
     // GHISSUES7: both trees bind a prefix to `prefixSurface`; the new residue
     // is the loader field's name, `moduleLoader` here and `moduleContext` in
     // the twin.
-    'InterpreterVisitor.visitImportDirective': '72f538a9',
-    'InterpreterVisitor.visitInstanceCreationExpression': '942d3194',
+    'InterpreterVisitor.visitImportDirective': 'ccb08d3d',
+    'InterpreterVisitor.visitInstanceCreationExpression': '7ad649cc',
     // SCE109 moved this signature without changing what diverges: the
     // arity-heuristic throw sites inside it now raise `RangeError`
     // rather than `RuntimeD4rtException`, symmetrically in both trees.
-    'InterpreterVisitor.visitMethodInvocation': 'a1b41959',
+    'InterpreterVisitor.visitMethodInvocation': '1d4c48dd',
     // GHISSUES4: identical in both trees but for the loader field's name,
     // `moduleLoader` here and `moduleContext` in the twin (the twin's
     // interpreter reaches its loader through the ModuleContext interface).
@@ -416,7 +420,7 @@ const _divergentBodies = <String, Map<String, String>>{
     // QR1: and the bare-name write-back through `_assignBareName` and the
     // class-target branch, identically again.
     'InterpreterVisitor.visitPostfixExpression': 'c9e1cab1',
-    'InterpreterVisitor.visitPrefixExpression': 'ac3124de',
+    'InterpreterVisitor.visitPrefixExpression': 'f5947d6e',
     // SCF37: the bridged step. The only difference is the operator spelling —
     // `TokenType.PLUS_PLUS` / `PLUS_EQ` here, the strings `'++'` / `'+='` in
     // the twin, as in [computeCompoundValue] which it calls.
@@ -424,7 +428,7 @@ const _divergentBodies = <String, Map<String, String>>{
     // QR1: the static step for a class target, the same operator spelling as
     // `_stepBridgedProperty` and nothing else.
     'InterpreterVisitor._stepStaticProperty': '15618af1',
-    'InterpreterVisitor.visitPrefixedIdentifier': 'f3391558',
+    'InterpreterVisitor.visitPrefixedIdentifier': '522d3312',
     // DART313B1: 9ac16b77 -> 4745333b, both trees appended the same
     // declined-member reason to the same property-miss message.
     // GHISSUES25: 4745333b -> 43934bf3, smaller: `super.x` on a bridged
@@ -433,18 +437,18 @@ const _divergentBodies = <String, Map<String, String>>{
     // GHISSUES30: 43934bf3 -> e8e8640d, both trees wrapped the same debug
     // line in `if (Logger.debugEnabled)`; the line already differed (the
     // node's `toSource()` / `toString()`), so the divergence moved with it.
-    'InterpreterVisitor.visitPropertyAccess': 'e8e8640d',
-    'InterpreterVisitor.visitReturnStatement': 'b0d7b56c',
+    'InterpreterVisitor.visitPropertyAccess': 'f9f25004',
+    'InterpreterVisitor.visitReturnStatement': '76023c84',
     'InterpreterVisitor.visitSetOrMapLiteral': '1a33a2d6',
-    'InterpreterVisitor.visitSimpleIdentifier': 'c243901e',
+    'InterpreterVisitor.visitSimpleIdentifier': '62e52aee',
     'InterpreterVisitor.visitSwitchExpression': '0e2ec45a',
     // VSTDM3: the analyzer 14 port edited both trees alike; the divergence
     // itself is unchanged.
-    'InterpreterVisitor.visitSwitchStatement': 'b768ec28',
+    'InterpreterVisitor.visitSwitchStatement': '5ef5ac20',
     'InterpreterVisitor.visitSymbolLiteral': '971210c9',
-    'InterpreterVisitor.visitTryStatement': 'a0a6d8d1',
+    'InterpreterVisitor.visitTryStatement': '93345267',
     'InterpreterVisitor.visitVariableDeclarationList': '9282373f',
-    'InterpreterVisitor.visitYieldStatement': '344aa778',
+    'InterpreterVisitor.visitYieldStatement': 'fb9fe6d8',
   },
   'introspection.dart': {
     'IntrospectionBuilder._buildClassInfo': 'b394ab44',
@@ -456,7 +460,7 @@ const _divergentBodies = <String, Map<String, String>>{
     // GHISSUES32: 06adb03e -> 07da2480, both trees widen an int bound to a
     // `double` field alike; the mirror model's nullable field access moved
     // with it.
-    'InterpretedClass.createAndInitializeInstance': '07da2480',
+    'InterpretedClass.createAndInitializeInstance': 'e5df9238',
     // GHISSUES32: the same set of `double` field names; the mirror model's
     // `fields` and `name` are nullable (`?.`, `?? const []`).
     'InterpretedClass.get doubleFieldNames': 'd9435592',
@@ -470,7 +474,7 @@ const _divergentBodies = <String, Map<String, String>>{
     // The bodies are otherwise token-for-token the same shape.
     'InterpretedClass.resolveDeferredTypeParameterBounds': '93cf914e',
     'InterpretedClass.resolveTypeAnnotationDynamic': 'b27475b4',
-    'InterpretedInstance._get': '286b1331',
+    'InterpretedInstance._get': '727a92ca',
   },
 };
 

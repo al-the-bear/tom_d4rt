@@ -210,9 +210,11 @@ class InterpretedFunction implements Callable {
       if (typeParam.bound != null && resolveEnvironment != null) {
         // Use dynamic type resolution instead of static hard-coded types
         try {
-          Logger.debug(
-            "[InterpretedFunction._extractTypeParameterBounds] Resolving bound for type parameter '$paramName'",
-          );
+          if (Logger.isDebug) {
+            Logger.debug(
+              "[InterpretedFunction._extractTypeParameterBounds] Resolving bound for type parameter '$paramName'",
+            );
+          }
 
           // Use dynamic resolution to look up the bound type in the environment
           bound = _resolveTypeAnnotationDynamic(
@@ -220,13 +222,17 @@ class InterpretedFunction implements Callable {
             resolveEnvironment,
           );
 
-          Logger.debug(
-            "[InterpretedFunction._extractTypeParameterBounds] Successfully resolved bound for '$paramName' to: ${bound.name}",
-          );
+          if (Logger.isDebug) {
+            Logger.debug(
+              "[InterpretedFunction._extractTypeParameterBounds] Successfully resolved bound for '$paramName' to: ${bound.name}",
+            );
+          }
         } catch (e) {
-          Logger.debug(
-            "[InterpretedFunction._extractTypeParameterBounds] Failed to resolve bound for '$paramName': $e",
-          );
+          if (Logger.isDebug) {
+            Logger.debug(
+              "[InterpretedFunction._extractTypeParameterBounds] Failed to resolve bound for '$paramName': $e",
+            );
+          }
           // SCE130: lenient in pass 1, strict in pass 2. See the doc above.
           if (!lenient) rethrow;
           bound = null;
@@ -247,9 +253,11 @@ class InterpretedFunction implements Callable {
     if (typeNode is SNamedType) {
       final typeName = typeNode.name?.name ?? '';
 
-      Logger.debug(
-        "[InterpretedFunction._resolveTypeAnnotationDynamic] Resolving SNamedType: $typeName",
-      );
+      if (Logger.isDebug) {
+        Logger.debug(
+          "[InterpretedFunction._resolveTypeAnnotationDynamic] Resolving SNamedType: $typeName",
+        );
+      }
 
       // PR #8: `p.Name` is looked up through its prefix; the bare name would
       // bind a same-named local class, or fail and leave the binding
@@ -257,9 +265,11 @@ class InterpretedFunction implements Callable {
       final prefix = typeNode.importPrefix?.name;
       final resolved = env.get(prefix == null ? typeName : '$prefix.$typeName');
       if (resolved is RuntimeType) {
-        Logger.debug(
-          "[InterpretedFunction._resolveTypeAnnotationDynamic] Resolved from environment to RuntimeType: ${resolved.name}",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            "[InterpretedFunction._resolveTypeAnnotationDynamic] Resolved from environment to RuntimeType: ${resolved.name}",
+          );
+        }
         return resolved;
       } else {
         throw RuntimeD4rtException(
@@ -1028,9 +1038,11 @@ class InterpretedFunction implements Callable {
         // Define the type parameter in the execution environment
         executionEnvironment.define(paramName, typeArg);
 
-        Logger.debug(
-          "[InterpretedFunction._prepareExecutionEnvironment] Defined type parameter '$paramName' = ${typeArg.name}",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            "[InterpretedFunction._prepareExecutionEnvironment] Defined type parameter '$paramName' = ${typeArg.name}",
+          );
+        }
       }
     }
 
@@ -1044,9 +1056,11 @@ class InterpretedFunction implements Callable {
           final typeParam = TypeParameter(paramName);
           executionEnvironment.define(paramName, typeParam);
 
-          Logger.debug(
-            "[InterpretedFunction._prepareExecutionEnvironment] Defined placeholder type parameter '$paramName'",
-          );
+          if (Logger.isDebug) {
+            Logger.debug(
+              "[InterpretedFunction._prepareExecutionEnvironment] Defined placeholder type parameter '$paramName'",
+            );
+          }
         }
       }
     }
@@ -1205,9 +1219,11 @@ class InterpretedFunction implements Callable {
                   as RuntimeValue; // Get 'this' as RuntimeValue
           // Directly call set on the RuntimeValue (works for both Instance and EnumValue)
           // We don't need the visitor here, as field init parameters don't call setters.
-          Logger.debug(
-            "[_prepareEnv] Attempting to set this.$paramName = $valueToDefine for instance ${thisValue.hashCode}",
-          );
+          if (Logger.isDebug) {
+            Logger.debug(
+              "[_prepareEnv] Attempting to set this.$paramName = $valueToDefine for instance ${thisValue.hashCode}",
+            );
+          }
           thisValue.set(paramName, valueToDefine);
         } else {
           // It's a regular parameter. Define it in the execution environment.
@@ -1418,14 +1434,18 @@ class InterpretedFunction implements Callable {
                         thisValue.superCallPositionalArgs = capturedPositional;
                         thisValue.superCallNamedArgs = capturedNamed;
                       } catch (e) {
-                        Logger.debug(
-                          "[SuperCall] Argument evaluation failed for proxy-only bridged super '${bridgedSuperClass.name}': $e — proceeding without capture.",
-                        );
+                        if (Logger.isDebug) {
+                          Logger.debug(
+                            "[SuperCall] Argument evaluation failed for proxy-only bridged super '${bridgedSuperClass.name}': $e — proceeding without capture.",
+                          );
+                        }
                       }
                     }
-                    Logger.debug(
-                      "[SuperCall] Bridged superclass '${bridgedSuperClass.name}' has no '$superConstructorName' constructor adapter, but an interface proxy is registered — skipping super() call (the proxy will be created at the bridge boundary).",
-                    );
+                    if (Logger.isDebug) {
+                      Logger.debug(
+                        "[SuperCall] Bridged superclass '${bridgedSuperClass.name}' has no '$superConstructorName' constructor adapter, but an interface proxy is registered — skipping super() call (the proxy will be created at the bridge boundary).",
+                      );
+                    }
                     explicitSuperCalled = true;
                     continue; // Move on to next initializer in the loop.
                   }
@@ -1468,9 +1488,11 @@ class InterpretedFunction implements Callable {
                     // Store the returned native object in the public field
                     thisValue.bridgedSuperObject =
                         nativeSuperObject; // Use the public field
-                    Logger.debug(
-                      "[SuperCall] Stored native object from bridged super constructor '$superConstructorName' ($nativeSuperObject)",
-                    );
+                    if (Logger.isDebug) {
+                      Logger.debug(
+                        "[SuperCall] Stored native object from bridged super constructor '$superConstructorName' ($nativeSuperObject)",
+                      );
+                    }
                   } else {
                     // This case (e.g., calling super() from an enum constructor?) seems unlikely/invalid.
                     throw StateD4rtException(
@@ -1657,9 +1679,11 @@ class InterpretedFunction implements Callable {
             try {
               final nativeSuperObject = defaultBridgedCtor(visitor, [], {});
               thisValue.bridgedSuperObject = nativeSuperObject;
-              Logger.debug(
-                "[ImplicitSuperCall] Stored native object from bridged super constructor '' ($nativeSuperObject)",
-              );
+              if (Logger.isDebug) {
+                Logger.debug(
+                  "[ImplicitSuperCall] Stored native object from bridged super constructor '' ($nativeSuperObject)",
+                );
+              }
             } on RuntimeD4rtException catch (e) {
               // SCD34: carry the preserved trace across the re-wrap.
               throw RuntimeD4rtException(
@@ -1714,9 +1738,11 @@ class InterpretedFunction implements Callable {
     // Check return type constraints (will be validated at return time)
     // Return type validation happens in visitReturnStatement
 
-    Logger.debug(
-      "[InterpretedFunction._validateTypeArguments] Validated ${typeArguments.length} type arguments for function '${_name ?? '<anonymous>'}'",
-    );
+    if (Logger.isDebug) {
+      Logger.debug(
+        "[InterpretedFunction._validateTypeArguments] Validated ${typeArguments.length} type arguments for function '${_name ?? '<anonymous>'}'",
+      );
+    }
   }
 
   /// Validate that type arguments respect their bounds constraints
@@ -1730,9 +1756,11 @@ class InterpretedFunction implements Callable {
       final paramName = typeParameterNames[i];
       final bound = typeParameterBounds[paramName];
 
-      Logger.debug(
-        "[InterpretedFunction._validateTypeBounds] Type parameter '$paramName' bound check for argument '${typeArg.name}'",
-      );
+      if (Logger.isDebug) {
+        Logger.debug(
+          "[InterpretedFunction._validateTypeBounds] Type parameter '$paramName' bound check for argument '${typeArg.name}'",
+        );
+      }
 
       if (bound != null) {
         // Check if the type argument satisfies the bound constraint
@@ -1744,20 +1772,26 @@ class InterpretedFunction implements Callable {
           );
         }
 
-        Logger.debug(
-          "[InterpretedFunction._validateTypeBounds] Type parameter '$paramName' with argument '${typeArg.name}' satisfies bound '${bound.name}'",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            "[InterpretedFunction._validateTypeBounds] Type parameter '$paramName' with argument '${typeArg.name}' satisfies bound '${bound.name}'",
+          );
+        }
       } else {
-        Logger.debug(
-          "[InterpretedFunction._validateTypeBounds] Type parameter '$paramName' has no bound constraint",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            "[InterpretedFunction._validateTypeBounds] Type parameter '$paramName' has no bound constraint",
+          );
+        }
       }
 
       // Example basic validation - could be extended
       if (typeArg.name == 'Null') {
-        Logger.debug(
-          "[InterpretedFunction._validateTypeBounds] Warning: Null type argument for parameter '$paramName'",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            "[InterpretedFunction._validateTypeBounds] Warning: Null type argument for parameter '$paramName'",
+          );
+        }
       }
     }
   }
@@ -1814,9 +1848,11 @@ class InterpretedFunction implements Callable {
     try {
       return typeArg.isSubtypeOf(bound);
     } catch (e) {
-      Logger.debug(
-        "[InterpretedFunction._checkTypeSatisfiesBound] Error checking subtype relationship: $e",
-      );
+      if (Logger.isDebug) {
+        Logger.debug(
+          "[InterpretedFunction._checkTypeSatisfiesBound] Error checking subtype relationship: $e",
+        );
+      }
       // If we can't determine the relationship, default to allowing it
       // In a stricter implementation, this might default to false
       return true;
@@ -1832,18 +1868,22 @@ class InterpretedFunction implements Callable {
     // Basic validation - check if arguments are compatible with function signature
     // This is a simplified implementation
 
-    Logger.debug(
-      "[InterpretedFunction._validateParameterTypes] Validating ${positionalArguments.length} positional and ${namedArguments.length} named arguments",
-    );
+    if (Logger.isDebug) {
+      Logger.debug(
+        "[InterpretedFunction._validateParameterTypes] Validating ${positionalArguments.length} positional and ${namedArguments.length} named arguments",
+      );
+    }
 
     // For each positional argument, try basic type compatibility check
     for (int i = 0; i < positionalArguments.length; i++) {
       final argument = positionalArguments[i];
 
       if (argument != null) {
-        Logger.debug(
-          "[InterpretedFunction._validateParameterTypes] Argument $i: ${argument.runtimeType}",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            "[InterpretedFunction._validateParameterTypes] Argument $i: ${argument.runtimeType}",
+          );
+        }
 
         // Additional type checking could be implemented here
         // For example, checking against expected parameter types from function signature
@@ -1856,9 +1896,11 @@ class InterpretedFunction implements Callable {
       final argValue = entry.value;
 
       if (argValue != null) {
-        Logger.debug(
-          "[InterpretedFunction._validateParameterTypes] Named argument '$argName': ${argValue.runtimeType}",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            "[InterpretedFunction._validateParameterTypes] Named argument '$argName': ${argValue.runtimeType}",
+          );
+        }
       }
     }
 
@@ -2075,9 +2117,11 @@ class InterpretedFunction implements Callable {
                 );
               }
             } else {
-              Logger.debug(
-                " [InterpretedFunction.call sync] Body skipped due to redirecting constructor for $_name",
-              );
+              if (Logger.isDebug) {
+                Logger.debug(
+                  " [InterpretedFunction.call sync] Body skipped due to redirecting constructor for $_name",
+                );
+              }
               // If redirected, the value is 'this'
               syncResult = _closure.get('this');
             }
@@ -2319,19 +2363,23 @@ class InterpretedFunction implements Callable {
             currentState.errorAfterFinallyStackTrace;
         currentState.errorAfterFinally = null;
         currentState.errorAfterFinallyStackTrace = null;
-        Logger.debug(
-          " [StateMachine] Finally block finished; re-raising the error it was "
-          "holding: ${currentState.currentError}",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            " [StateMachine] Finally block finished; re-raising the error it was "
+            "holding: ${currentState.currentError}",
+          );
+        }
         _handleAsyncError(visitor, currentState, _parentOf(heldTry) ?? heldTry);
         visitor.environment = originalVisitorEnv;
         visitor.currentAsyncState = previousAsyncState;
         return;
       }
 
-      Logger.debug(
-        " [StateMachine] Executing state: ${currentNode.runtimeType} in state env ${currentState.environment.hashCode}, loop stack depth: ${currentState.loopEnvironmentStack.length}. Visitor env set to: ${visitor.environment.hashCode}",
-      );
+      if (Logger.isDebug) {
+        Logger.debug(
+          " [StateMachine] Executing state: ${currentNode.runtimeType} in state env ${currentState.environment.hashCode}, loop stack depth: ${currentState.loopEnvironmentStack.length}. Visitor env set to: ${visitor.environment.hashCode}",
+        );
+      }
 
       try {
         // Case: While loop
@@ -2353,9 +2401,11 @@ class InterpretedFunction implements Callable {
             // Synchronous condition
             if (conditionResult) {
               // True condition: the next state is the body of the loop
-              Logger.debug(
-                "[StateMachine] While condition TRUE. Next node is body: ${whileNode.body.runtimeType}",
-              );
+              if (Logger.isDebug) {
+                Logger.debug(
+                  "[StateMachine] While condition TRUE. Next node is body: ${whileNode.body.runtimeType}",
+                );
+              }
               // If the body is a block, take the first statement
               if (whileNode.body is SBlock) {
                 currentNode = (whileNode.body as SBlock).statements.firstOrNull;
@@ -2443,9 +2493,11 @@ class InterpretedFunction implements Callable {
             // Synchronous condition
             if (conditionResult) {
               // True condition: the next state is the beginning of the loop body
-              Logger.debug(
-                "[StateMachine] DoWhile condition TRUE. Next node is body: ${doNode.body.runtimeType}",
-              );
+              if (Logger.isDebug) {
+                Logger.debug(
+                  "[StateMachine] DoWhile condition TRUE. Next node is body: ${doNode.body.runtimeType}",
+                );
+              }
               if (doNode.body is SBlock) {
                 currentNode = (doNode.body as SBlock).statements.firstOrNull;
                 // SCE102: an empty body leaves `currentNode` null, and this
@@ -2589,9 +2641,11 @@ class InterpretedFunction implements Callable {
                 // ── Case 2: an element is in hand ──────────────────────────
                 final currentItem = iterator.current;
                 currentState.awaitForHasElementStack[awaitForLoopIndex] = false;
-                Logger.debug(
-                  "[StateMachine] AwaitForIn: Processing $currentItem (stack level ${currentState.awaitForNodeStack.length})",
-                );
+                if (Logger.isDebug) {
+                  Logger.debug(
+                    "[StateMachine] AwaitForIn: Processing $currentItem (stack level ${currentState.awaitForNodeStack.length})",
+                  );
+                }
 
                 // The loop's environment is the one it pushed on entry, at the
                 // environment depth recorded then.
@@ -2641,9 +2695,11 @@ class InterpretedFunction implements Callable {
               } else if (currentState.lastAwaitResult == false &&
                   !currentState.awaitingStreamMoveNext) {
                 // ── The stream is done ─────────────────────────────────────
-                Logger.debug(
-                  "[StateMachine] AwaitForIn: Stream exhausted at stack level ${currentState.awaitForNodeStack.length}.",
-                );
+                if (Logger.isDebug) {
+                  Logger.debug(
+                    "[StateMachine] AwaitForIn: Stream exhausted at stack level ${currentState.awaitForNodeStack.length}.",
+                  );
+                }
                 final entryDepths = currentState.loopEntryDepths[forNode];
                 if (entryDepths != null) {
                   // Truncation cancels the iterator. Harmless on a stream that
@@ -2677,25 +2733,33 @@ class InterpretedFunction implements Callable {
             final loopIndex = currentState.loopNodeStack.indexOf(forNode);
             Iterator<Object?>? iterator;
 
-            Logger.debug(
-              "[StateMachine] ForIn: Checking for existing loop. loopIndex=$loopIndex, stack size=${currentState.loopNodeStack.length}, forNode hashCode=${forNode.hashCode}",
-            );
-            Logger.debug(
-              "[StateMachine] ForIn: forInIteratorMap size=${currentState.forInIteratorMap.length}",
-            );
-            if (currentState.loopNodeStack.isNotEmpty) {
+            if (Logger.isDebug) {
               Logger.debug(
-                "[StateMachine] ForIn: Stack nodes hashCodes: ${currentState.loopNodeStack.map((n) => n.hashCode).join(', ')}",
+                "[StateMachine] ForIn: Checking for existing loop. loopIndex=$loopIndex, stack size=${currentState.loopNodeStack.length}, forNode hashCode=${forNode.hashCode}",
               );
+            }
+            if (Logger.isDebug) {
+              Logger.debug(
+                "[StateMachine] ForIn: forInIteratorMap size=${currentState.forInIteratorMap.length}",
+              );
+            }
+            if (currentState.loopNodeStack.isNotEmpty) {
+              if (Logger.isDebug) {
+                Logger.debug(
+                  "[StateMachine] ForIn: Stack nodes hashCodes: ${currentState.loopNodeStack.map((n) => n.hashCode).join(', ')}",
+                );
+              }
             }
 
             // Check if iterator exists for this forNode in the map
             if (currentState.forInIteratorMap.containsKey(forNode)) {
               // This loop is already initialized, retrieve its iterator
               iterator = currentState.forInIteratorMap[forNode];
-              Logger.debug(
-                "[StateMachine] ForIn: Resumed existing loop at index $loopIndex",
-              );
+              if (Logger.isDebug) {
+                Logger.debug(
+                  "[StateMachine] ForIn: Resumed existing loop at index $loopIndex",
+                );
+              }
             }
 
             // First time OR node in stack but no iterator yet?
@@ -2721,9 +2785,11 @@ class InterpretedFunction implements Callable {
                 currentState.recordLoopEntry(forNode);
                 currentState.loopNodeStack.add(forNode);
                 currentState.forInIteratorMap[forNode] = iterator;
-                Logger.debug(
-                  "[StateMachine] ForIn: Iterator created and added to stacks at index ${currentState.loopNodeStack.length - 1}",
-                );
+                if (Logger.isDebug) {
+                  Logger.debug(
+                    "[StateMachine] ForIn: Iterator created and added to stacks at index ${currentState.loopNodeStack.length - 1}",
+                  );
+                }
               } else {
                 throw RuntimeD4rtException(
                   "The value iterate over in a for-in loop must be an Iterable, but got ${iterableResult?.runtimeType}.",
@@ -2746,9 +2812,11 @@ class InterpretedFunction implements Callable {
               if (hasNext) {
                 // Next item available
                 final currentItem = iterator.current;
-                Logger.debug(
-                  "[StateMachine] ForIn: Got next item: $currentItem",
-                );
+                if (Logger.isDebug) {
+                  Logger.debug(
+                    "[StateMachine] ForIn: Got next item: $currentItem",
+                  );
+                }
 
                 if (parts is SForEachPartsWithDeclaration) {
                   final loopVariable = parts.loopVariable;
@@ -2791,9 +2859,11 @@ class InterpretedFunction implements Callable {
                         currentItem,
                       ),
                     );
-                    Logger.debug(
-                      "[StateMachine] ForIn: Created environment at index ${currentState.loopEnvironmentStack.length - 1}",
-                    );
+                    if (Logger.isDebug) {
+                      Logger.debug(
+                        "[StateMachine] ForIn: Created environment at index ${currentState.loopEnvironmentStack.length - 1}",
+                      );
+                    }
                   }
                 } else if (parts is SForEachPartsWithIdentifier) {
                   // No declaration, assign in the current environment
@@ -2811,9 +2881,11 @@ class InterpretedFunction implements Callable {
                 }
 
                 // The next state is the body of the loop
-                Logger.debug(
-                  "[StateMachine] ForIn: Next node is body: \\${forNode.body.runtimeType}",
-                );
+                if (Logger.isDebug) {
+                  Logger.debug(
+                    "[StateMachine] ForIn: Next node is body: \\${forNode.body.runtimeType}",
+                  );
+                }
                 if (forNode.body is SBlock) {
                   currentNode = (forNode.body as SBlock).statements.firstOrNull;
                   // SCE102: an empty body leaves `currentNode` null, and this
@@ -2829,9 +2901,11 @@ class InterpretedFunction implements Callable {
                 continue; // Restart the state machine loop with the beginning of the body
               } else {
                 // End of iteration
-                Logger.debug(
-                  "[StateMachine] ForIn: Iteration finished. Finding node after loop. (forNode: \\${forNode.runtimeType}, env: \\${visitor.environment.hashCode})",
-                );
+                if (Logger.isDebug) {
+                  Logger.debug(
+                    "[StateMachine] ForIn: Iteration finished. Finding node after loop. (forNode: \\${forNode.runtimeType}, env: \\${visitor.environment.hashCode})",
+                  );
+                }
                 currentState.currentForInIterator = null; // Clean the iterator
                 // Clean the loop environment if it existed
                 currentState.forLoopEnvironment = null;
@@ -2846,9 +2920,11 @@ class InterpretedFunction implements Callable {
                 }
                 visitor.environment = currentState.environment;
                 currentNode = _findNextSequentialNode(visitor, forNode);
-                Logger.debug(
-                  "[StateMachine] ForIn: After _findNextSequentialNode, currentNode: \\${currentNode?.runtimeType}",
-                );
+                if (Logger.isDebug) {
+                  Logger.debug(
+                    "[StateMachine] ForIn: After _findNextSequentialNode, currentNode: \\${currentNode?.runtimeType}",
+                  );
+                }
                 currentState.nextStateIdentifier = currentNode;
                 continue; // Restart the state machine loop
               }
@@ -2978,14 +3054,18 @@ class InterpretedFunction implements Callable {
             // Use the current loop environment from the stack
             if (currentState.loopEnvironmentStack.isNotEmpty) {
               visitor.environment = currentState.loopEnvironmentStack.last;
-              Logger.debug(
-                " [DEBUG] Updater: Using stack environment ${currentState.loopEnvironmentStack.last.hashCode}, stack depth: ${currentState.loopEnvironmentStack.length}",
-              );
+              if (Logger.isDebug) {
+                Logger.debug(
+                  " [DEBUG] Updater: Using stack environment ${currentState.loopEnvironmentStack.last.hashCode}, stack depth: ${currentState.loopEnvironmentStack.length}",
+                );
+              }
             } else {
               visitor.environment = currentState.forLoopEnvironment!;
-              Logger.debug(
-                " [DEBUG] Updater: Using fallback forLoopEnvironment ${currentState.forLoopEnvironment!.hashCode}",
-              );
+              if (Logger.isDebug) {
+                Logger.debug(
+                  " [DEBUG] Updater: Using fallback forLoopEnvironment ${currentState.forLoopEnvironment!.hashCode}",
+                );
+              }
             }
 
             // Debug: check what variables are available in the current environment
@@ -2998,11 +3078,15 @@ class InterpretedFunction implements Callable {
                 );
                 currentEnv = currentEnv.enclosing;
               }
-              Logger.debug(
-                " [DEBUG] Environment chain: ${envVars.join(' -> ')}",
-              );
+              if (Logger.isDebug) {
+                Logger.debug(
+                  " [DEBUG] Environment chain: ${envVars.join(' -> ')}",
+                );
+              }
             } catch (e) {
-              Logger.debug(" [DEBUG] Error checking environment chain: $e");
+              if (Logger.isDebug) {
+                Logger.debug(" [DEBUG] Error checking environment chain: $e");
+              }
             }
             List<SAstNode>? updaters;
             if (parts is SForPartsWithDeclarations) {
@@ -3078,9 +3162,11 @@ class InterpretedFunction implements Callable {
             if (lastResult is! AsyncSuspensionRequest) {
               if (conditionValue) {
                 // Condition true: the next state is the body
-                Logger.debug(
-                  "[StateMachine] For condition TRUE. Next node is body: ${forNode.body.runtimeType}",
-                );
+                if (Logger.isDebug) {
+                  Logger.debug(
+                    "[StateMachine] For condition TRUE. Next node is body: ${forNode.body.runtimeType}",
+                  );
+                }
                 // The loop environment remains active for the body execution
                 if (forNode.body is SBlock) {
                   currentNode = (forNode.body as SBlock).statements.firstOrNull;
@@ -3175,9 +3261,11 @@ class InterpretedFunction implements Callable {
         } else if (currentNode is STryStatement) {
           // When entering a STryStatement, register it
           currentState.activeTryStatement = currentNode;
-          Logger.debug(
-            "[StateMachine] Entering STryStatement: ${currentNode.offset}. Proceeding to body.",
-          );
+          if (Logger.isDebug) {
+            Logger.debug(
+              "[StateMachine] Entering STryStatement: ${currentNode.offset}. Proceeding to body.",
+            );
+          }
           // The next state is the first instruction of the try block
           currentNode = currentNode.body!.statements.firstOrNull;
           // If the try block is empty, find the next node after the try
@@ -3224,9 +3312,11 @@ class InterpretedFunction implements Callable {
             // Synchronous condition
             if (conditionResult) {
               // Condition true: the next state is the 'then' branch
-              Logger.debug(
-                "[StateMachine] If condition TRUE. Next node is thenBranch: ${ifNode.thenStatement.runtimeType}",
-              );
+              if (Logger.isDebug) {
+                Logger.debug(
+                  "[StateMachine] If condition TRUE. Next node is thenBranch: ${ifNode.thenStatement.runtimeType}",
+                );
+              }
               // If then is a block, take the first instruction
               if (ifNode.thenStatement is SBlock) {
                 currentNode =
@@ -3246,9 +3336,11 @@ class InterpretedFunction implements Callable {
             } else {
               // Condition false: check the 'else' branch
               if (ifNode.elseStatement != null) {
-                Logger.debug(
-                  "[StateMachine] If condition FALSE. Next node is elseBranch: ${ifNode.elseStatement?.runtimeType}",
-                );
+                if (Logger.isDebug) {
+                  Logger.debug(
+                    "[StateMachine] If condition FALSE. Next node is elseBranch: ${ifNode.elseStatement?.runtimeType}",
+                  );
+                }
                 // If else is a block, take the first instruction
                 if (ifNode.elseStatement is SBlock) {
                   currentNode =
@@ -3285,9 +3377,11 @@ class InterpretedFunction implements Callable {
           if (currentNode is SReturnStatement) {
             try {
               final checkX = visitor.environment.get('x');
-              Logger.debug(
-                "[StateMachine] BEFORE ACCEPT SReturnStatement: env=${visitor.environment.hashCode}, x=$checkX (${checkX?.runtimeType})",
-              );
+              if (Logger.isDebug) {
+                Logger.debug(
+                  "[StateMachine] BEFORE ACCEPT SReturnStatement: env=${visitor.environment.hashCode}, x=$checkX (${checkX?.runtimeType})",
+                );
+              }
             } catch (_) {
               /* ignore if x not defined */
             }
@@ -3295,16 +3389,20 @@ class InterpretedFunction implements Callable {
               currentNode.name == 'x') {
             try {
               final checkX = visitor.environment.get('x');
-              Logger.debug(
-                "[StateMachine] BEFORE ACCEPT SSimpleIdentifier('x'): env=${visitor.environment.hashCode}, x=$checkX (${checkX?.runtimeType})",
-              );
+              if (Logger.isDebug) {
+                Logger.debug(
+                  "[StateMachine] BEFORE ACCEPT SSimpleIdentifier('x'): env=${visitor.environment.hashCode}, x=$checkX (${checkX?.runtimeType})",
+                );
+              }
             } catch (_) {
               /* ignore */
             }
           }
-          Logger.debug(
-            "[StateMachine] About to accept node ${currentNode.runtimeType}. Visitor env: ${visitor.environment.hashCode}, State env: ${currentState.environment.hashCode}",
-          );
+          if (Logger.isDebug) {
+            Logger.debug(
+              "[StateMachine] About to accept node ${currentNode.runtimeType}. Visitor env: ${visitor.environment.hashCode}, State env: ${currentState.environment.hashCode}",
+            );
+          }
           try {
             lastResult = currentNode.accept<Object?>(visitor);
           } on ReturnException {
@@ -3326,9 +3424,11 @@ class InterpretedFunction implements Callable {
               return; // Stop this iteration, _handleAsyncError will reschedule if caught
             } else {
               // Standard synchronous error during accept(): store and try to handle
-              Logger.debug(
-                " [StateMachine] Caught standard SYNC error during accept(): $error",
-              );
+              if (Logger.isDebug) {
+                Logger.debug(
+                  " [StateMachine] Caught standard SYNC error during accept(): $error",
+                );
+              }
               currentState.currentError = error;
               currentState.currentStackTrace = stackTrace;
               _handleAsyncError(visitor, currentState, currentNode);
@@ -3342,16 +3442,20 @@ class InterpretedFunction implements Callable {
           // Check if accept() returned a suspension
           final AsyncSuspensionRequest suspension = lastResult;
 
-          Logger.debug(
-            "[StateMachine] Suspension requested (from ${currentNode.runtimeType}). Waiting for Future...",
-          );
+          if (Logger.isDebug) {
+            Logger.debug(
+              "[StateMachine] Suspension requested (from ${currentNode.runtimeType}). Waiting for Future...",
+            );
+          }
 
           // Attach the callbacks to the Future
           suspension.future
               .then((futureResult) {
-                Logger.debug(
-                  " [StateMachine] Future completed successfully with: $futureResult",
-                );
+                if (Logger.isDebug) {
+                  Logger.debug(
+                    " [StateMachine] Future completed successfully with: $futureResult",
+                  );
+                }
                 // SCC12: this callback runs *after* the state machine loop's own
                 // `finally` has restored `visitor.currentAsyncState`, so by the time
                 // we get here the field is stale — null, for the outermost async
@@ -3427,9 +3531,11 @@ class InterpretedFunction implements Callable {
                       visitor,
                       currentNode!,
                     ); // The SYieldStatement that caused the suspension
-                    Logger.debug(
-                      "[StateMachine] Yield suspension completed. Next node: ${nextNodeAfterAwait?.runtimeType}",
-                    );
+                    if (Logger.isDebug) {
+                      Logger.debug(
+                        "[StateMachine] Yield suspension completed. Next node: ${nextNodeAfterAwait?.runtimeType}",
+                      );
+                    }
                   } else {
                     // For await suspensions, use the complex await logic
                     currentState.resumingStatementHasMoreAwaits = false;
@@ -3457,9 +3563,11 @@ class InterpretedFunction implements Callable {
                 }
               })
               .catchError((Object error, StackTrace stackTrace) {
-                Logger.debug(
-                  " [StateMachine] Future completed with ERROR: $error",
-                ); // Do not display stackTrace here, too long
+                if (Logger.isDebug) {
+                  Logger.debug(
+                    " [StateMachine] Future completed with ERROR: $error",
+                  ); // Do not display stackTrace here, too long
+                }
                 // Store the error and stack trace in the state
                 currentState.lastAwaitError =
                     error; // For info if someone uses it
@@ -3500,9 +3608,11 @@ class InterpretedFunction implements Callable {
           // Determine the next sequential normal state
           // Use _findNextSequentialNode which now handles try/catch/finally
           final nextNode = _findNextSequentialNode(visitor, currentNode);
-          Logger.debug(
-            "[StateMachine] Sync execution finished. Next node from _findNext: ${nextNode?.runtimeType}",
-          );
+          if (Logger.isDebug) {
+            Logger.debug(
+              "[StateMachine] Sync execution finished. Next node from _findNext: ${nextNode?.runtimeType}",
+            );
+          }
           currentNode = nextNode;
           currentState.nextStateIdentifier = currentNode;
         }
@@ -3512,9 +3622,11 @@ class InterpretedFunction implements Callable {
         // inside a finally.
         currentState.pendingJump = null;
         // The function returned a value
-        Logger.debug(
-          " [StateMachine] Caught ReturnException. Completing with: ${e.value}",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            " [StateMachine] Caught ReturnException. Completing with: ${e.value}",
+          );
+        }
         // SCE139: a `return` whose expression held awaits finishes by throwing
         // from HERE, not through the `else` branch above, so this is the only
         // place that can see that evaluation end. The per-site cache is scoped
@@ -3605,10 +3717,12 @@ class InterpretedFunction implements Callable {
         // from the top of a stack — see `_jumpTarget`.
         final from = currentNode!;
         final target = _jumpTarget(from, e.label, isContinue: false);
-        Logger.debug(
-          " [StateMachine] Caught BreakException (label: ${e.label}); leaving "
-          "${target?.runtimeType}.",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            " [StateMachine] Caught BreakException (label: ${e.label}); leaving "
+            "${target?.runtimeType}.",
+          );
+        }
         if (target == null) {
           if (!currentState.completer.isCompleted) {
             currentState.completer.completeError(
@@ -3633,10 +3747,12 @@ class InterpretedFunction implements Callable {
       } on ContinueException catch (e) {
         final from = currentNode!;
         final target = _jumpTarget(from, e.label, isContinue: true);
-        Logger.debug(
-          " [StateMachine] Caught ContinueException (label: ${e.label}); "
-          "restarting ${target?.runtimeType}.",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            " [StateMachine] Caught ContinueException (label: ${e.label}); "
+            "restarting ${target?.runtimeType}.",
+          );
+        }
         if (target == null) {
           if (!currentState.completer.isCompleted) {
             currentState.completer.completeError(
@@ -3686,9 +3802,11 @@ class InterpretedFunction implements Callable {
           return; // Stop the state machine execution
         } else {
           // Standard synchronous error: Try to handle via internal try/catch/finally
-          Logger.debug(
-            " [StateMachine] Caught standard SYNC Error during non-accept state execution: $error\\n$stackTrace",
-          );
+          if (Logger.isDebug) {
+            Logger.debug(
+              " [StateMachine] Caught standard SYNC Error during non-accept state execution: $error\\n$stackTrace",
+            );
+          }
           currentState.currentError = error; // Utiliser currentState
           currentState.currentStackTrace = stackTrace;
           _handleAsyncError(
@@ -3702,9 +3820,11 @@ class InterpretedFunction implements Callable {
         // Restore the visitor environment if it was changed
         visitor.environment = originalVisitorEnv;
         visitor.currentAsyncState = previousAsyncState;
-        Logger.debug(
-          " [StateMachine] Restored visitor env (${originalVisitorEnv.hashCode}) and async state in finally block.",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            " [StateMachine] Restored visitor env (${originalVisitorEnv.hashCode}) and async state in finally block.",
+          );
+        }
       }
     }
 
@@ -3734,10 +3854,12 @@ class InterpretedFunction implements Callable {
       currentState.resumeErrorAfterFinally = false;
       currentState.isHandlingErrorForRethrow = false;
       currentState.originalErrorForRethrow = null;
-      Logger.debug(
-        " [StateMachine] Loop finished with an error held across a finally; "
-        "propagating it: $heldError",
-      );
+      if (Logger.isDebug) {
+        Logger.debug(
+          " [StateMachine] Loop finished with an error held across a finally; "
+          "propagating it: $heldError",
+        );
+      }
       currentState.completer.completeError(
         _unwrapExceptionForPropagation(
           heldError ?? Exception("Unknown error after finally"),
@@ -3750,9 +3872,11 @@ class InterpretedFunction implements Callable {
     // Handle a return that was suspended by a finally
     if (currentState.returnAfterFinally != null &&
         !currentState.completer.isCompleted) {
-      Logger.debug(
-        " [StateMachine] Completing with stored return value after finally: ${currentState.returnAfterFinally}",
-      );
+      if (Logger.isDebug) {
+        Logger.debug(
+          " [StateMachine] Completing with stored return value after finally: ${currentState.returnAfterFinally}",
+        );
+      }
       // Reset rethrow state before completing
       currentState.isHandlingErrorForRethrow = false;
       currentState.originalErrorForRethrow = null;
@@ -3763,9 +3887,11 @@ class InterpretedFunction implements Callable {
     // If the loop ends and there was an error (not caught but after a finally executed)
     if (currentState.currentError != null &&
         !currentState.completer.isCompleted) {
-      Logger.debug(
-        " [StateMachine] Loop finished, propagating unhandled error after finally: ${currentState.currentError}",
-      );
+      if (Logger.isDebug) {
+        Logger.debug(
+          " [StateMachine] Loop finished, propagating unhandled error after finally: ${currentState.currentError}",
+        );
+      }
       // Reset rethrow state before completing with error
       currentState.isHandlingErrorForRethrow = false;
       currentState.originalErrorForRethrow = null;
@@ -3776,9 +3902,11 @@ class InterpretedFunction implements Callable {
     }
     // If the loop ends normally (no more nodes to execute)
     else if (!currentState.completer.isCompleted) {
-      Logger.debug(
-        " [StateMachine] Loop finished normally. Completing with last result: $lastResult (State has await result: ${currentState.lastAwaitResult})",
-      );
+      if (Logger.isDebug) {
+        Logger.debug(
+          " [StateMachine] Loop finished normally. Completing with last result: $lastResult (State has await result: ${currentState.lastAwaitResult})",
+        );
+      }
       // Reset rethrow state before completing normally
       currentState.isHandlingErrorForRethrow = false;
       currentState.originalErrorForRethrow = null;
@@ -3792,9 +3920,11 @@ class InterpretedFunction implements Callable {
         finalCompletionValue = lastResult;
         if (lastResult == null && currentState.lastAwaitResult != null) {
           finalCompletionValue = currentState.lastAwaitResult;
-          Logger.debug(
-            " [StateMachine] Loop finished after await. Using await result for completion: $finalCompletionValue",
-          );
+          if (Logger.isDebug) {
+            Logger.debug(
+              " [StateMachine] Loop finished after await. Using await result for completion: $finalCompletionValue",
+            );
+          }
         }
       }
       currentState.completer.complete(finalCompletionValue);
@@ -3881,9 +4011,11 @@ class InterpretedFunction implements Callable {
         (error is RuntimeD4rtException ? error.originalStackTrace : null) ??
         stackTrace;
 
-    Logger.debug(
-      "[_handleAsyncError] Handling error: $error from node: ${nodeWhereErrorOccurred.runtimeType} at offset ${nodeWhereErrorOccurred.offset}",
-    );
+    if (Logger.isDebug) {
+      Logger.debug(
+        "[_handleAsyncError] Handling error: $error from node: ${nodeWhereErrorOccurred.runtimeType} at offset ${nodeWhereErrorOccurred.offset}",
+      );
+    }
 
     // Check if this is a rethrow - if so, skip the current try/catch
     bool isRethrow = state.isCurrentlyRethrowing;
@@ -3961,10 +4093,12 @@ class InterpretedFunction implements Callable {
     // loop and still answers wrongly.
     final finallyOwner = _tryOwningFinallyBlockOf(nodeWhereErrorOccurred);
     if (enclosingTry != null && identical(enclosingTry, finallyOwner)) {
-      Logger.debug(
-        " [_handleAsyncError] Error raised inside the finally of "
-        "${enclosingTry.offset}; continuing the search outside that try.",
-      );
+      if (Logger.isDebug) {
+        Logger.debug(
+          " [_handleAsyncError] Error raised inside the finally of "
+          "${enclosingTry.offset}; continuing the search outside that try.",
+        );
+      }
       if (identical(state.errorAfterFinallyTry, enclosingTry)) {
         state.errorAfterFinally = null;
         state.errorAfterFinallyStackTrace = null;
@@ -4002,9 +4136,11 @@ class InterpretedFunction implements Callable {
 
     SCatchClause? matchingCatchClause;
     if (enclosingTry != null) {
-      Logger.debug(
-        " [_handleAsyncError] Found enclosing STryStatement: ${enclosingTry.offset}",
-      );
+      if (Logger.isDebug) {
+        Logger.debug(
+          " [_handleAsyncError] Found enclosing STryStatement: ${enclosingTry.offset}",
+        );
+      }
       state.activeTryStatement = enclosingTry; // Marquer comme actif
 
       // 2. Find a matching SCatchClause (simplified: take the first one)
@@ -4123,20 +4259,24 @@ class InterpretedFunction implements Callable {
       if (exceptionParameter != null) {
         final varName = exceptionParameter.name;
         catchEnvironment.define(varName, caught);
-        Logger.debug(
-          " [_handleAsyncError] Defined exception variable '$varName' in the "
-          "catch block's own environment.",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            " [_handleAsyncError] Defined exception variable '$varName' in the "
+            "catch block's own environment.",
+          );
+        }
 
         // Handle the stack trace parameter if it exists
         final stackTraceParameter = matchingCatchClause.stackTraceParameter;
         if (stackTraceParameter != null) {
           final stackVarName = stackTraceParameter.name;
           catchEnvironment.define(stackVarName, caughtStackTrace);
-          Logger.debug(
-            "[_handleAsyncError] Defined stack trace variable '$stackVarName' "
-            "in the catch block's own environment.",
-          );
+          if (Logger.isDebug) {
+            Logger.debug(
+              "[_handleAsyncError] Defined stack trace variable '$stackVarName' "
+              "in the catch block's own environment.",
+            );
+          }
         }
       }
 
@@ -4610,13 +4750,17 @@ class InterpretedFunction implements Callable {
     final currentExecutionEnvironment = state.loopEnvironmentStack.isNotEmpty
         ? state.loopEnvironmentStack.last
         : state.environment;
-    Logger.debug(
-      "[_determineNextNodeAfterAwait] Modifying environment: ${currentExecutionEnvironment.hashCode} (state.environment: ${state.environment.hashCode}, loop stack depth: ${state.loopEnvironmentStack.length})",
-    );
+    if (Logger.isDebug) {
+      Logger.debug(
+        "[_determineNextNodeAfterAwait] Modifying environment: ${currentExecutionEnvironment.hashCode} (state.environment: ${state.environment.hashCode}, loop stack depth: ${state.loopEnvironmentStack.length})",
+      );
+    }
 
-    Logger.debug(
-      "[_determineNextNodeAfterAwait] Resuming after await. Node causing suspension: ${nodeThatCausedSuspension.runtimeType}, Result: $futureResult",
-    );
+    if (Logger.isDebug) {
+      Logger.debug(
+        "[_determineNextNodeAfterAwait] Resuming after await. Node causing suspension: ${nodeThatCausedSuspension.runtimeType}, Result: $futureResult",
+      );
+    }
 
     // The node that caused the suspension is either the SAwaitExpression itself,
     // or a parent node (like SWhileStatement) if the await was in its condition.
@@ -4674,9 +4818,11 @@ class InterpretedFunction implements Callable {
         nodeThatCausedSuspension,
       );
       if (foundInvocation != null) {
-        Logger.debug(
-          "[_determineNextNodeAfterAwait] Found invocation with await in arguments: ${foundInvocation.runtimeType}",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            "[_determineNextNodeAfterAwait] Found invocation with await in arguments: ${foundInvocation.runtimeType}",
+          );
+        }
         awaitContextNode = foundInvocation;
         awaitExpression = null; // The await is nested in arguments
       } else {
@@ -4713,9 +4859,11 @@ class InterpretedFunction implements Callable {
       awaitContextNode = cascadeOwner;
     }
 
-    Logger.debug(
-      "[_determineNextNodeAfterAwait] Determined await context: ${awaitContextNode.runtimeType}",
-    );
+    if (Logger.isDebug) {
+      Logger.debug(
+        "[_determineNextNodeAfterAwait] Determined await context: ${awaitContextNode.runtimeType}",
+      );
+    }
 
     // Logic based on the type of node that contained the await (awaitContextNode)
 
@@ -4725,9 +4873,11 @@ class InterpretedFunction implements Callable {
         awaitContextNode is SInstanceCreationExpression ||
         // SCE81: a cascade is re-executed the same way, and must be.
         awaitContextNode is SCascadeExpression) {
-      Logger.debug(
-        "[_determineNextNodeAfterAwait] Handling ${awaitContextNode.runtimeType} with await in arguments. Re-executing the invocation...",
-      );
+      if (Logger.isDebug) {
+        Logger.debug(
+          "[_determineNextNodeAfterAwait] Handling ${awaitContextNode.runtimeType} with await in arguments. Re-executing the invocation...",
+        );
+      }
 
       // SCE139: evaluate NOTHING here when the state machine can re-run the
       // statement instead.
@@ -4749,11 +4899,13 @@ class InterpretedFunction implements Callable {
       // one evaluation per pass, which is what keeps the counts right.
       final SAstNode? resumableNode = _resumableNodeFor(awaitContextNode);
       if (resumableNode != null) {
-        Logger.debug(
-          "[_determineNextNodeAfterAwait] Re-running "
-          "${resumableNode.runtimeType} so the resolved await sites "
-          "replay.",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            "[_determineNextNodeAfterAwait] Re-running "
+            "${resumableNode.runtimeType} so the resolved await sites "
+            "replay.",
+          );
+        }
         state.resumingStatementHasMoreAwaits = true;
         if (visitor.environment != currentExecutionEnvironment) {
           visitor.environment = currentExecutionEnvironment;
@@ -4795,9 +4947,11 @@ class InterpretedFunction implements Callable {
         }
 
         // The call completed successfully
-        Logger.debug(
-          "[_determineNextNodeAfterAwait] Invocation completed successfully with result: $result",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            "[_determineNextNodeAfterAwait] Invocation completed successfully with result: $result",
+          );
+        }
 
         // CRITICAL FIX: Store the invocation result so it can be used as the final completion value
         // This ensures that when the state machine finishes, it uses the correct result
@@ -4813,9 +4967,11 @@ class InterpretedFunction implements Callable {
 
         if (parentStatement is SVariableDeclarationStatement) {
           // This is a variable declaration with the invocation as initializer
-          Logger.debug(
-            "[_determineNextNodeAfterAwait] Completing variable declaration with invocation result: $result",
-          );
+          if (Logger.isDebug) {
+            Logger.debug(
+              "[_determineNextNodeAfterAwait] Completing variable declaration with invocation result: $result",
+            );
+          }
 
           // Find the variable declaration and assign the result
           final varList = parentStatement.variables;
@@ -4828,18 +4984,22 @@ class InterpretedFunction implements Callable {
                 ? state.loopEnvironmentStack.last
                 : currentExecutionEnvironment;
             currentEnv.define(varName, result);
-            Logger.debug(
-              "[_determineNextNodeAfterAwait] Assigned invocation result to variable '$varName' = $result",
-            );
+            if (Logger.isDebug) {
+              Logger.debug(
+                "[_determineNextNodeAfterAwait] Assigned invocation result to variable '$varName' = $result",
+              );
+            }
           }
 
           // Find the next statement after the variable declaration
           return _findNextSequentialNode(visitor, parentStatement);
         } else if (parentStatement is SExpressionStatement) {
           // This is a standalone expression statement
-          Logger.debug(
-            "[_determineNextNodeAfterAwait] Completed expression statement with invocation result: $result",
-          );
+          if (Logger.isDebug) {
+            Logger.debug(
+              "[_determineNextNodeAfterAwait] Completed expression statement with invocation result: $result",
+            );
+          }
 
           // Find the next statement after the expression statement
           return _findNextSequentialNode(visitor, parentStatement);
@@ -4924,11 +5084,13 @@ class InterpretedFunction implements Callable {
       if (initializer != null &&
           !initializerIsTheAwait &&
           !initializerIsHandledPropertyAccess) {
-        Logger.debug(
-          "[_determineNextNodeAfterAwait] Initializer of "
-          "'${targetVar.name!.name}' contains more than the await; "
-          "re-running the declaration so the resolved sites replay.",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            "[_determineNextNodeAfterAwait] Initializer of "
+            "'${targetVar.name!.name}' contains more than the await; "
+            "re-running the declaration so the resolved sites replay.",
+          );
+        }
         // Keep the per-site results for that re-run. The machine clears them
         // once the statement completes without suspending.
         state.resumingStatementHasMoreAwaits = true;
@@ -4973,17 +5135,23 @@ class InterpretedFunction implements Callable {
         }
       }
       currentExecutionEnvironment.define(targetVar.name!.name, futureResult);
-      Logger.debug(
-        " [_determineNextNodeAfterAwait] Defined awaited result for variable '${targetVar.name!.name}' = $futureResult in env ${currentExecutionEnvironment.hashCode} (Case 1). Finding next node.",
-      );
-      Logger.debug(
-        " [_determineNextNodeAfterAwait] Assigned awaited result to variable '${targetVar.name!.name}' (Case 1). Finding next node.",
-      );
+      if (Logger.isDebug) {
+        Logger.debug(
+          " [_determineNextNodeAfterAwait] Defined awaited result for variable '${targetVar.name!.name}' = $futureResult in env ${currentExecutionEnvironment.hashCode} (Case 1). Finding next node.",
+        );
+      }
+      if (Logger.isDebug) {
+        Logger.debug(
+          " [_determineNextNodeAfterAwait] Assigned awaited result to variable '${targetVar.name!.name}' (Case 1). Finding next node.",
+        );
+      }
 
       if (visitor.environment != currentExecutionEnvironment) {
-        Logger.debug(
-          " [_determineNextNodeAfterAwait] Updating visitor environment from ${visitor.environment.hashCode} to ${currentExecutionEnvironment.hashCode}",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            " [_determineNextNodeAfterAwait] Updating visitor environment from ${visitor.environment.hashCode} to ${currentExecutionEnvironment.hashCode}",
+          );
+        }
         visitor.environment = currentExecutionEnvironment;
       }
 
@@ -5020,18 +5188,24 @@ class InterpretedFunction implements Callable {
         final checkValue = currentExecutionEnvironment.get(
           targetVar.name!.name,
         );
-        Logger.debug(
-          " [_determineNextNodeAfterAwait] Check after define+assign: '${targetVar.name!.name}' in env ${currentExecutionEnvironment.hashCode} is $checkValue (${checkValue?.runtimeType}) <Expected: $futureResult>",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            " [_determineNextNodeAfterAwait] Check after define+assign: '${targetVar.name!.name}' in env ${currentExecutionEnvironment.hashCode} is $checkValue (${checkValue?.runtimeType}) <Expected: $futureResult>",
+          );
+        }
       } catch (e) {
-        Logger.debug(
-          " [_determineNextNodeAfterAwait] Check after define+assign FAILED for '${targetVar.name!.name}': $e",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            " [_determineNextNodeAfterAwait] Check after define+assign FAILED for '${targetVar.name!.name}': $e",
+          );
+        }
       }
       // END ADD DEBUG
-      Logger.debug(
-        " [_determineNextNodeAfterAwait] Defined/Assigned variable '${targetVar.name!.name}' = $futureResult (Case 1.5). Finding next node.",
-      );
+      if (Logger.isDebug) {
+        Logger.debug(
+          " [_determineNextNodeAfterAwait] Defined/Assigned variable '${targetVar.name!.name}' = $futureResult (Case 1.5). Finding next node.",
+        );
+      }
 
       // Find the next instruction AFTER this declaration
       return _findNextSequentialNode(visitor, varDeclStatement);
@@ -5084,17 +5258,23 @@ class InterpretedFunction implements Callable {
         }
         try {
           final checkValue2 = currentEnv.get(targetVar.name!.name);
-          Logger.debug(
-            "[_determineNextNodeAfterAwait] Check after define+assign: '${targetVar.name!.name}' in env ${currentEnv.hashCode} is $checkValue2 (${checkValue2?.runtimeType}) <Expected: $futureResult>",
-          );
+          if (Logger.isDebug) {
+            Logger.debug(
+              "[_determineNextNodeAfterAwait] Check after define+assign: '${targetVar.name!.name}' in env ${currentEnv.hashCode} is $checkValue2 (${checkValue2?.runtimeType}) <Expected: $futureResult>",
+            );
+          }
         } catch (e) {
+          if (Logger.isDebug) {
+            Logger.debug(
+              "[_determineNextNodeAfterAwait] Check after define+assign FAILED for '${targetVar.name!.name}': $e",
+            );
+          }
+        }
+        if (Logger.isDebug) {
           Logger.debug(
-            "[_determineNextNodeAfterAwait] Check after define+assign FAILED for '${targetVar.name!.name}': $e",
+            " [_determineNextNodeAfterAwait] Defined/Assigned variable '${targetVar.name!.name}' = $futureResult (Case 2 - VarDecl). Finding next node.",
           );
         }
-        Logger.debug(
-          " [_determineNextNodeAfterAwait] Defined/Assigned variable '${targetVar.name!.name}' = $futureResult (Case 2 - VarDecl). Finding next node.",
-        );
 
         // Find the next statement after this SExpressionStatement
         return _findNextSequentialNode(visitor, awaitContextNode);
@@ -5137,9 +5317,11 @@ class InterpretedFunction implements Callable {
             ? state.loopEnvironmentStack.last
             : currentExecutionEnvironment;
 
-        Logger.debug(
-          " [_determineNextNodeAfterAwait] Resuming SExpressionStatement(SAssignmentExpression Op: $operatorType). RHS: $resolvedRhs (${resolvedRhs?.runtimeType})",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            " [_determineNextNodeAfterAwait] Resuming SExpressionStatement(SAssignmentExpression Op: $operatorType). RHS: $resolvedRhs (${resolvedRhs?.runtimeType})",
+          );
+        }
 
         // Determine the next node AFTER the SExpressionStatement
         final SAstNode? nextNode = _findNextSequentialNode(
@@ -5185,9 +5367,11 @@ class InterpretedFunction implements Callable {
             final varName = lhs.name;
             try {
               currentEnv.assign(varName, resolvedRhs);
-              Logger.debug(
-                "[_determineNextNodeAfterAwait] Assigned $varName = $resolvedRhs (Case 2 - Simple Assign)",
-              );
+              if (Logger.isDebug) {
+                Logger.debug(
+                  "[_determineNextNodeAfterAwait] Assigned $varName = $resolvedRhs (Case 2 - Simple Assign)",
+                );
+              }
             } catch (e) {
               Logger.error("Assigning simple await result: $e");
             }
@@ -5221,9 +5405,11 @@ class InterpretedFunction implements Callable {
             visitor.environment = currentEnv; // Use correct scope
             // IMPORTANT: Re-evaluating LHS here. Assumes it's safe/idempotent.
             lhsValue = lhs!.accept<Object?>(visitor);
-            Logger.debug(
-              " [_determineNextNodeAfterAwait] Re-evaluated LHS for compound assign to: $lhsValue (${lhsValue?.runtimeType})",
-            );
+            if (Logger.isDebug) {
+              Logger.debug(
+                " [_determineNextNodeAfterAwait] Re-evaluated LHS for compound assign to: $lhsValue (${lhsValue?.runtimeType})",
+              );
+            }
           } catch (e, s) {
             Logger.error("Re-evaluating LHS for compound assign: $e\n$s");
             if (!state.completer.isCompleted) {
@@ -5243,9 +5429,11 @@ class InterpretedFunction implements Callable {
               resolvedRhs,
               operatorType,
             );
-            Logger.debug(
-              " [_determineNextNodeAfterAwait] Computed compound value: $resultValue",
-            );
+            if (Logger.isDebug) {
+              Logger.debug(
+                " [_determineNextNodeAfterAwait] Computed compound value: $resultValue",
+              );
+            }
           } catch (e, s) {
             Logger.error("Computing compound value after await: $e\n$s");
             if (!state.completer.isCompleted) {
@@ -5259,9 +5447,11 @@ class InterpretedFunction implements Callable {
             final varName = lhs.name;
             try {
               currentEnv.assign(varName, resultValue);
-              Logger.debug(
-                "[_determineNextNodeAfterAwait] Assigned $varName = $resultValue (Case 2 - Compound Assign)",
-              );
+              if (Logger.isDebug) {
+                Logger.debug(
+                  "[_determineNextNodeAfterAwait] Assigned $varName = $resultValue (Case 2 - Compound Assign)",
+                );
+              }
             } catch (e) {
               Logger.error("Assigning compound await result: $e");
             }
@@ -5292,9 +5482,11 @@ class InterpretedFunction implements Callable {
       if (awaitExpression != null && returnNode.expression == awaitExpression) {
         // Direct await: return await f();
         // The result is already in lastAwaitResult, just trigger a return with it
-        Logger.debug(
-          "[_determineNextNodeAfterAwait] Resuming SReturnStatement with direct await. Result: $futureResult",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            "[_determineNextNodeAfterAwait] Resuming SReturnStatement with direct await. Result: $futureResult",
+          );
+        }
         // The return statement will be re-executed with the resolved value
         // We need to mark the function as complete with this value
         state.lastAwaitResult = futureResult;
@@ -5341,9 +5533,11 @@ class InterpretedFunction implements Callable {
           ? state.loopEnvironmentStack.last
           : currentExecutionEnvironment;
 
-      Logger.debug(
-        " [_determineNextNodeAfterAwait] Resuming SAssignmentExpression (Operator: $operatorType). RHS resolved to: $resolvedRhs (${resolvedRhs?.runtimeType})",
-      );
+      if (Logger.isDebug) {
+        Logger.debug(
+          " [_determineNextNodeAfterAwait] Resuming SAssignmentExpression (Operator: $operatorType). RHS resolved to: $resolvedRhs (${resolvedRhs?.runtimeType})",
+        );
+      }
 
       // Determine the next node BEFORE making the assignment (because _findNext may depend on the parent)
       SAstNode? parentStatement = assignmentNode;
@@ -5359,9 +5553,11 @@ class InterpretedFunction implements Callable {
           final varName = lhs.name;
           try {
             currentEnv.assign(varName, resolvedRhs);
-            Logger.debug(
-              " [_determineNextNodeAfterAwait] Assigned $varName = $resolvedRhs (Simple Assign)",
-            );
+            if (Logger.isDebug) {
+              Logger.debug(
+                " [_determineNextNodeAfterAwait] Assigned $varName = $resolvedRhs (Simple Assign)",
+              );
+            }
           } catch (e) {
             Logger.error("Assigning simple await result: $e");
           }
@@ -5388,9 +5584,11 @@ class InterpretedFunction implements Callable {
         try {
           visitor.environment = currentEnv; // Use correct scope for LHS
           lhsValue = lhs!.accept<Object?>(visitor);
-          Logger.debug(
-            "[_determineNextNodeAfterAwait] Re-evaluated LHS for compound assignment to: $lhsValue (${lhsValue?.runtimeType})",
-          );
+          if (Logger.isDebug) {
+            Logger.debug(
+              "[_determineNextNodeAfterAwait] Re-evaluated LHS for compound assignment to: $lhsValue (${lhsValue?.runtimeType})",
+            );
+          }
         } catch (e, s) {
           Logger.error("Re-evaluating LHS for compound assign: $e\n$s");
           // Cannot proceed without LHS value
@@ -5420,9 +5618,11 @@ class InterpretedFunction implements Callable {
           final varName = lhs.name;
           try {
             currentEnv.assign(varName, resultValue);
-            Logger.debug(
-              " [_determineNextNodeAfterAwait] Assigned $varName = $resultValue (Compound Assign)",
-            );
+            if (Logger.isDebug) {
+              Logger.debug(
+                " [_determineNextNodeAfterAwait] Assigned $varName = $resultValue (Compound Assign)",
+              );
+            }
           } catch (e) {
             Logger.error("Assigning compound await result: $e");
           }
@@ -5461,9 +5661,11 @@ class InterpretedFunction implements Callable {
       }
       // The await was in the condition
       final conditionResult = state.lastAwaitResult;
-      Logger.debug(
-        " [_determineNextNodeAfterAwait] Resuming While condition with awaited result: $conditionResult",
-      );
+      if (Logger.isDebug) {
+        Logger.debug(
+          " [_determineNextNodeAfterAwait] Resuming While condition with awaited result: $conditionResult",
+        );
+      }
 
       if (conditionResult is! bool) {
         final error = RuntimeD4rtException(
@@ -5477,9 +5679,11 @@ class InterpretedFunction implements Callable {
 
       if (conditionResult) {
         // Condition true -> Go to body
-        Logger.debug(
-          " [_determineNextNodeAfterAwait] While condition TRUE. Next node is body: ${awaitContextNode.body.runtimeType}",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            " [_determineNextNodeAfterAwait] While condition TRUE. Next node is body: ${awaitContextNode.body.runtimeType}",
+          );
+        }
         if (awaitContextNode.body is SBlock) {
           return (awaitContextNode.body as SBlock).statements.firstOrNull;
         } else {
@@ -5506,9 +5710,11 @@ class InterpretedFunction implements Callable {
       }
       // The await was in the condition
       final conditionResult = state.lastAwaitResult;
-      Logger.debug(
-        " [_determineNextNodeAfterAwait] Resuming DoWhile condition with awaited result: $conditionResult",
-      );
+      if (Logger.isDebug) {
+        Logger.debug(
+          " [_determineNextNodeAfterAwait] Resuming DoWhile condition with awaited result: $conditionResult",
+        );
+      }
 
       if (conditionResult is! bool) {
         final error = RuntimeD4rtException(
@@ -5522,9 +5728,11 @@ class InterpretedFunction implements Callable {
 
       if (conditionResult) {
         // Condition true: the next state is the beginning of the loop body
-        Logger.debug(
-          " [_determineNextNodeAfterAwait] DoWhile condition TRUE. Next node is body: ${awaitContextNode.body.runtimeType}",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            " [_determineNextNodeAfterAwait] DoWhile condition TRUE. Next node is body: ${awaitContextNode.body.runtimeType}",
+          );
+        }
         if (awaitContextNode.body is SBlock) {
           return (awaitContextNode.body as SBlock).statements.firstOrNull;
         } else {
@@ -5552,9 +5760,11 @@ class InterpretedFunction implements Callable {
       // The await was in the condition
       final ifNode = awaitContextNode;
       final conditionResult = state.lastAwaitResult;
-      Logger.debug(
-        " [_determineNextNodeAfterAwait] Resuming If condition with awaited result: $conditionResult",
-      );
+      if (Logger.isDebug) {
+        Logger.debug(
+          " [_determineNextNodeAfterAwait] Resuming If condition with awaited result: $conditionResult",
+        );
+      }
 
       if (conditionResult is! bool) {
         final error = RuntimeD4rtException(
@@ -5568,9 +5778,11 @@ class InterpretedFunction implements Callable {
 
       if (conditionResult) {
         // Condition true: the next state is the 'then' branch
-        Logger.debug(
-          " [_determineNextNodeAfterAwait] If condition TRUE. Next node is thenBranch: ${ifNode.thenStatement.runtimeType}",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            " [_determineNextNodeAfterAwait] If condition TRUE. Next node is thenBranch: ${ifNode.thenStatement.runtimeType}",
+          );
+        }
         if (ifNode.thenStatement is SBlock) {
           return (ifNode.thenStatement as SBlock).statements.firstOrNull;
         } else {
@@ -5579,9 +5791,11 @@ class InterpretedFunction implements Callable {
       } else {
         // Condition false: check the 'else' branch
         if (ifNode.elseStatement != null) {
-          Logger.debug(
-            "[_determineNextNodeAfterAwait] If condition FALSE. Next node is elseBranch: ${ifNode.elseStatement?.runtimeType}",
-          );
+          if (Logger.isDebug) {
+            Logger.debug(
+              "[_determineNextNodeAfterAwait] If condition FALSE. Next node is elseBranch: ${ifNode.elseStatement?.runtimeType}",
+            );
+          }
           if (ifNode.elseStatement is SBlock) {
             return (ifNode.elseStatement as SBlock).statements.firstOrNull;
           } else {
@@ -5603,9 +5817,11 @@ class InterpretedFunction implements Callable {
       // SAstNode? nodeThatContainedAwait = nodeThatCausedSuspension; // Can be SAwaitExpression or SForStatement if await in condition/updater
       final awaitResult = state.lastAwaitResult;
 
-      Logger.debug(
-        " [_determineNextNodeAfterAwait] Resuming For loop. Suspension node: ${nodeThatCausedSuspension.runtimeType}, Context node: ${awaitContextNode.runtimeType}, Result: $awaitResult",
-      );
+      if (Logger.isDebug) {
+        Logger.debug(
+          " [_determineNextNodeAfterAwait] Resuming For loop. Suspension node: ${nodeThatCausedSuspension.runtimeType}, Context node: ${awaitContextNode.runtimeType}, Result: $awaitResult",
+        );
+      }
 
       // Check if we are resuming specifically from initializer suspension
       // We know we suspended during initialization if:
@@ -5642,9 +5858,11 @@ class InterpretedFunction implements Callable {
             final loopVarName = parts.variables!.variables.first.name!.name;
             // Assign the actual result now. The var was defined as null previously by visitVariableDeclarationList.
             state.loopEnvironmentStack.last.assign(loopVarName, awaitResult);
-            Logger.debug(
-              " [_determineNextNodeAfterAwait] Assigned awaited result $awaitResult to for loop variable '$loopVarName' in env ${currentExecutionEnvironment.hashCode}.",
-            );
+            if (Logger.isDebug) {
+              Logger.debug(
+                " [_determineNextNodeAfterAwait] Assigned awaited result $awaitResult to for loop variable '$loopVarName' in env ${currentExecutionEnvironment.hashCode}.",
+              );
+            }
           } else {
             // SCE223: genuinely unsupported, and stated exactly. The awaited
             // initializer suspended the declaration list partway, so the
@@ -5705,9 +5923,11 @@ class InterpretedFunction implements Callable {
         }
 
         if (inCondition) {
-          Logger.debug(
-            "[_determineNextNodeAfterAwait] Resumed from For condition. Result: $awaitResult",
-          );
+          if (Logger.isDebug) {
+            Logger.debug(
+              "[_determineNextNodeAfterAwait] Resumed from For condition. Result: $awaitResult",
+            );
+          }
           if (awaitResult is! bool) {
             final error = RuntimeD4rtException(
               "For loop condition (after await) must be a boolean, but got ${awaitResult?.runtimeType}",
@@ -5750,9 +5970,11 @@ class InterpretedFunction implements Callable {
           return forNode;
         } else {
           // If not initializer, condition, or updater, assume it was in the body.
-          Logger.debug(
-            "[_determineNextNodeAfterAwait] Assuming await was in For loop body. Finding next node after suspension point: ${nodeThatCausedSuspension.runtimeType}. Visitor env: ${visitor.environment.hashCode}",
-          );
+          if (Logger.isDebug) {
+            Logger.debug(
+              "[_determineNextNodeAfterAwait] Assuming await was in For loop body. Finding next node after suspension point: ${nodeThatCausedSuspension.runtimeType}. Visitor env: ${visitor.environment.hashCode}",
+            );
+          }
           // Reset the initializer flag just in case
           state.resumedFromInitializer = false;
           // Find the node *after* the statement that contained the await
@@ -5776,9 +5998,11 @@ class InterpretedFunction implements Callable {
               visitor,
               parentStatement,
             );
-            Logger.debug(
-              " [_determineNextNodeAfterAwait] Found parent statement in body: ${parentStatement.runtimeType}. Next sequential node is: ${nextInBody?.runtimeType}",
-            );
+            if (Logger.isDebug) {
+              Logger.debug(
+                " [_determineNextNodeAfterAwait] Found parent statement in body: ${parentStatement.runtimeType}. Next sequential node is: ${nextInBody?.runtimeType}",
+              );
+            }
             // If _findNextSequentialNode returns the SForStatement, it means we finished the body
             return nextInBody;
           } else {
@@ -5962,9 +6186,11 @@ class InterpretedFunction implements Callable {
     AsyncExecutionState? state =
         visitor.currentAsyncState; // Can be null if not async
 
-    Logger.debug(
-      "[_findNextSequentialNode] Finding next node after: ${currentNode.runtimeType} (parent: ${parent?.runtimeType})",
-    );
+    if (Logger.isDebug) {
+      Logger.debug(
+        "[_findNextSequentialNode] Finding next node after: ${currentNode.runtimeType} (parent: ${parent?.runtimeType})",
+      );
+    }
 
     // Handle the end of an instruction in a block
     if (parent is SBlock) {
@@ -5975,9 +6201,11 @@ class InterpretedFunction implements Callable {
 
       if (!isLastStatement && index != -1) {
         // Simple case: next instruction in the same block
-        Logger.debug(
-          " [_findNextSequentialNode] Next sequential node in block: ${block.statements[index + 1].runtimeType}",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            " [_findNextSequentialNode] Next sequential node in block: ${block.statements[index + 1].runtimeType}",
+          );
+        }
         return block.statements[index + 1];
       } else if (isLastStatement) {
         // It was the last instruction in the block. What next?
@@ -6149,9 +6377,11 @@ class InterpretedFunction implements Callable {
         }
         // Generic case: end of an unhandled block
         else {
-          Logger.debug(
-            "[_findNextSequentialNode] End of generic SBlock (parent: ${blockParent?.runtimeType}). Finding node after parent SBlock.",
-          );
+          if (Logger.isDebug) {
+            Logger.debug(
+              "[_findNextSequentialNode] End of generic SBlock (parent: ${blockParent?.runtimeType}). Finding node after parent SBlock.",
+            );
+          }
           // Go back to the parent of the block to find the next node
           return _findNextSequentialNode(visitor, block);
         }
@@ -6260,9 +6490,11 @@ class InterpretedFunction implements Callable {
       } else if (parent is SAstNode) {
         // If the parent is another statement, continue ascending
         // to find the enclosing block or function.
-        Logger.debug(
-          " [_findNextSequentialNode] Ascending from node (${currentSearchNode.runtimeType}) to parent (${parent.runtimeType}).",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            " [_findNextSequentialNode] Ascending from node (${currentSearchNode.runtimeType}) to parent (${parent.runtimeType}).",
+          );
+        }
         currentSearchNode = parent;
       } else if (parent == null) {
         // Reached the root of the AST
@@ -6284,9 +6516,11 @@ class InterpretedFunction implements Callable {
     InterpreterVisitor visitor,
     AsyncExecutionState initialState,
   ) {
-    Logger.debug(
-      "[_startAsyncStateMachine] Scheduling state machine run for initial state: ${initialState.nextStateIdentifier?.runtimeType}",
-    );
+    if (Logger.isDebug) {
+      Logger.debug(
+        "[_startAsyncStateMachine] Scheduling state machine run for initial state: ${initialState.nextStateIdentifier?.runtimeType}",
+      );
+    }
     _scheduleStateMachineRun(visitor, initialState);
   }
 
@@ -6379,9 +6613,11 @@ class InterpretedFunction implements Callable {
         final value = arg.argumentExpression.accept<Object?>(
           visitor,
         ); // Evaluate the expression part
-        Logger.debug(
-          " [_evalArgs] Evaluated NAMED arg expression '$name' = $value (${value?.runtimeType})",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            " [_evalArgs] Evaluated NAMED arg expression '$name' = $value (${value?.runtimeType})",
+          );
+        }
         if (value is AsyncSuspensionRequest) {
           // SCE223: not a gap — a constructor cannot be async, so Dart
           // rejects an `await` in a `super(...)` / `this(...)` initializer.
@@ -6409,9 +6645,11 @@ class InterpretedFunction implements Callable {
           );
         }
         positionalArgs.add(argValue);
-        Logger.debug(
-          " [_evalArgs] Evaluated POSITIONAL arg = $argValue (${argValue?.runtimeType})",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            " [_evalArgs] Evaluated POSITIONAL arg = $argValue (${argValue?.runtimeType})",
+          );
+        }
       }
     }
     return (positionalArgs, namedArgs);
@@ -7520,9 +7758,11 @@ class BoundExtensionCallable implements Callable {
   ]) {
     final actualPositionalArgs = [target, ...positionalArguments];
 
-    Logger.debug(
-      "[BoundExtensionCallable] Calling extension member bound to ${target?.runtimeType}",
-    );
+    if (Logger.isDebug) {
+      Logger.debug(
+        "[BoundExtensionCallable] Calling extension member bound to ${target?.runtimeType}",
+      );
+    }
 
     return extensionCallable.call(
       visitor,
@@ -7584,9 +7824,11 @@ class InterpretedExtensionMethod implements ExtensionMemberCallable {
     final executionEnvironment = Environment(enclosing: closure);
     // Define 'this' in this environment
     executionEnvironment.define('this', targetInstance);
-    Logger.debug(
-      "[InterpretedExtensionMethod.call] Created execution env (${executionEnvironment.hashCode}) for '${declaration.name!.name}', defining 'this'=${targetInstance?.runtimeType}",
-    );
+    if (Logger.isDebug) {
+      Logger.debug(
+        "[InterpretedExtensionMethod.call] Created execution env (${executionEnvironment.hashCode}) for '${declaration.name!.name}', defining 'this'=${targetInstance?.runtimeType}",
+      );
+    }
 
     // 3. Bind the declared parameters (explicit arguments)
     final params = declaration.parameters?.parameters;
@@ -7652,9 +7894,11 @@ class InterpretedExtensionMethod implements ExtensionMemberCallable {
         }
         // Define the variable in the execution environment
         executionEnvironment.define(paramName, valueToDefine);
-        Logger.debug(
-          " [InterpretedExtensionMethod.call] Bound param '$paramName' = $valueToDefine",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            " [InterpretedExtensionMethod.call] Bound param '$paramName' = $valueToDefine",
+          );
+        }
       }
 
       // Final argument checks (copied from InterpretedFunction)
@@ -7694,9 +7938,11 @@ class InterpretedExtensionMethod implements ExtensionMemberCallable {
       onType,
     );
     visitor.environment = executionEnvironment; // USE THE NEW ENVIRONMENT
-    Logger.debug(
-      "[InterpretedExtensionMethod.call] Set visitor environment to executionEnvironment (${executionEnvironment.hashCode}) before executing body.",
-    );
+    if (Logger.isDebug) {
+      Logger.debug(
+        "[InterpretedExtensionMethod.call] Set visitor environment to executionEnvironment (${executionEnvironment.hashCode}) before executing body.",
+      );
+    }
 
     try {
       final body = declaration.body;
@@ -7724,14 +7970,18 @@ class InterpretedExtensionMethod implements ExtensionMemberCallable {
       }
     } on ReturnException catch (e) {
       // Catch in case executeBlock (or other) still raises ReturnException
-      Logger.debug(
-        " [InterpretedExtensionMethod.call] Caught ReturnException, returning value: ${e.value}",
-      );
+      if (Logger.isDebug) {
+        Logger.debug(
+          " [InterpretedExtensionMethod.call] Caught ReturnException, returning value: ${e.value}",
+        );
+      }
       return e.value;
     } finally {
-      Logger.debug(
-        " [InterpretedExtensionMethod.call] Restoring visitor environment from (${visitor.environment.hashCode}) to (${previousEnvironment.hashCode}).",
-      );
+      if (Logger.isDebug) {
+        Logger.debug(
+          " [InterpretedExtensionMethod.call] Restoring visitor environment from (${visitor.environment.hashCode}) to (${previousEnvironment.hashCode}).",
+        );
+      }
       visitor.environment = previousEnvironment;
       visitor.currentFunction =
           previousFunction; // Restaurer aussi currentFunction
@@ -7765,9 +8015,11 @@ class BoundExtensionMethodCallable implements Callable {
     // The first argument is ALWAYS the target instance.
     final actualPositionalArgs = [target, ...positionalArguments];
 
-    Logger.debug(
-      "[BoundExtensionMethodCallable] Calling extension method '${extensionMethod.declaration.name!.name}' bound to ${target?.runtimeType}",
-    );
+    if (Logger.isDebug) {
+      Logger.debug(
+        "[BoundExtensionMethodCallable] Calling extension method '${extensionMethod.declaration.name!.name}' bound to ${target?.runtimeType}",
+      );
+    }
 
     // Call the original extension method with the adjusted arguments.
     // It will handle ReturnException, etc.

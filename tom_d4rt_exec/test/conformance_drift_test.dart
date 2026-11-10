@@ -657,7 +657,17 @@ const _partialTwinBudget = 0;
 /// static and top-level declarations, field formals and initializer lists,
 /// which the corpus copies on every run.
 ///
-const _copierGapBudget = 63;
+/// 63 -> 64: GHISSUES34 added `ghissues34_debug_message_lazy_test.dart`,
+/// which runs source to check that member access, method invocation,
+/// identifier lookup, assignment and a value stored in and read from a script
+/// field never stringify that value with debug logging off, and that they do
+/// with it on. Exec resolves tom_d4rt_ast from pub.dev, which builds every
+/// debug message until the batch release (ghissues999), so a port would fail.
+/// Its ast twin holds the mechanism. The copier surface a port would have
+/// added is bridged member access and field stores, which the corpus copies
+/// on every run.
+///
+const _copierGapBudget = 64;
 
 const Map<String, _Coverage> _coveredElsewhere = {
   'sce208_bind_forwarding_source_errors_test.dart': _Coverage(
@@ -767,6 +777,13 @@ const Map<String, _Coverage> _coveredElsewhere = {
         'repeated dart:core and dart:async prefixes, dart:math, missing names '
         'and prefixes, dynamic and Record), which a hand-built bundle would '
         'only restate.',
+  ),
+  'ghissues34_debug_message_lazy_test.dart': _Coverage(
+    'ast:runtime/ghissues34_debug_message_lazy_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 2,
+    twinCases: 2,
   ),
   'ghissues32_double_binding_widening_test.dart': _Coverage(
     'ast:runtime/ghissues32_double_binding_widening_test.dart',

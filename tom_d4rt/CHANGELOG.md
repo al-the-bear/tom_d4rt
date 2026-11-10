@@ -1,3 +1,26 @@
+## 1.255.0
+
+### Changed — no debug message is built with debug logging off
+
+`Logger.debug(String)` takes a finished message, so every interpolating
+`Logger.debug("... $value ...")` on the evaluation paths built its message -
+calling `toString()` / `runtimeType` / `toSource()` on targets, arguments and
+values - on every evaluation, logging on or off. Each of them in
+`interpreter_visitor.dart`, `callable.dart`, `runtime_types.dart`,
+`environment.dart` and `late_variable.dart` is now wrapped in
+`if (Logger.isDebug) { ... }` (messages without interpolation cost nothing and
+stay as they are). A value is no longer stringified by the interpreter's own
+bookkeeping - one stored in a script object's field and read back was
+stringified two or three times per step.
+
+Measured with the generator's perf suite (`test/perf/run_profile.sh
+--budget-ms=1500`, medians of three runs each): string building fell from
+about 6-7% of CPU samples to about 1.2% (`_AbstractType.toString` gone);
+method_dispatch -47%, wrap_classes -33%, polymorphism -25%, the other
+benchmarks within the suite's run-to-run noise.
+
+Name resolution: no
+
 ## 1.254.0
 
 ### Fixed — an int bound to a declared `double` field or variable holds a double

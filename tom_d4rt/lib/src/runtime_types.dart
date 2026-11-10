@@ -130,22 +130,28 @@ class InterpretedClass implements Callable, RuntimeType {
 
       if (typeParam.bound != null && resolveEnvironment != null) {
         try {
-          Logger.debug(
-            "[InterpretedClass._extractTypeParameterBounds] Resolving bound for type parameter '$paramName'",
-          );
+          if (Logger.isDebug) {
+            Logger.debug(
+              "[InterpretedClass._extractTypeParameterBounds] Resolving bound for type parameter '$paramName'",
+            );
+          }
 
           bound = resolveTypeAnnotationDynamic(
             typeParam.bound!,
             resolveEnvironment,
           );
 
-          Logger.debug(
-            "[InterpretedClass._extractTypeParameterBounds] Successfully resolved bound for '$paramName' to: ${bound.name}",
-          );
+          if (Logger.isDebug) {
+            Logger.debug(
+              "[InterpretedClass._extractTypeParameterBounds] Successfully resolved bound for '$paramName' to: ${bound.name}",
+            );
+          }
         } catch (e) {
-          Logger.debug(
-            "[InterpretedClass._extractTypeParameterBounds] Failed to resolve bound for '$paramName': $e",
-          );
+          if (Logger.isDebug) {
+            Logger.debug(
+              "[InterpretedClass._extractTypeParameterBounds] Failed to resolve bound for '$paramName': $e",
+            );
+          }
           // SCE130: see the doc above — pass 1 defers, pass 2 repairs.
           if (!lenient) rethrow;
           bound = null;
@@ -205,15 +211,19 @@ class InterpretedClass implements Callable, RuntimeType {
     if (typeNode is NamedType) {
       final typeName = typeNode.name.lexeme;
 
-      Logger.debug(
-        "[InterpretedClass._resolveTypeAnnotationDynamic] Resolving NamedType: $typeName",
-      );
+      if (Logger.isDebug) {
+        Logger.debug(
+          "[InterpretedClass._resolveTypeAnnotationDynamic] Resolving NamedType: $typeName",
+        );
+      }
 
       final resolved = env.get(typeName);
       if (resolved is RuntimeType) {
-        Logger.debug(
-          "[InterpretedClass._resolveTypeAnnotationDynamic] Resolved from environment to RuntimeType: ${resolved.name}",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            "[InterpretedClass._resolveTypeAnnotationDynamic] Resolved from environment to RuntimeType: ${resolved.name}",
+          );
+        }
         return resolved;
       } else {
         throw RuntimeD4rtException(
@@ -573,9 +583,11 @@ class InterpretedClass implements Callable, RuntimeType {
     try {
       return typeArg.isSubtypeOf(bound);
     } catch (e) {
-      Logger.debug(
-        "[InterpretedClass._checkTypeSatisfiesBound] Error checking subtype relationship: $e",
-      );
+      if (Logger.isDebug) {
+        Logger.debug(
+          "[InterpretedClass._checkTypeSatisfiesBound] Error checking subtype relationship: $e",
+        );
+      }
       // If we can't determine the relationship, default to false for strict validation
       return false;
     }
@@ -696,9 +708,11 @@ class InterpretedClass implements Callable, RuntimeType {
                     }
                   }, isFinal: isFinal, declaredDouble: declaredDouble);
                   instance._fields[fieldName] = lateVar;
-                  Logger.debug(
-                    "[Instance Init] Defined late instance field '$fieldName' with lazy initializer.",
-                  );
+                  if (Logger.isDebug) {
+                    Logger.debug(
+                      "[Instance Init] Defined late instance field '$fieldName' with lazy initializer.",
+                    );
+                  }
                 } else {
                   // Late instance field without initializer
                   final lateVar = LateVariable(
@@ -708,9 +722,11 @@ class InterpretedClass implements Callable, RuntimeType {
                     declaredDouble: declaredDouble,
                   );
                   instance._fields[fieldName] = lateVar;
-                  Logger.debug(
-                    "[Instance Init] Defined late instance field '$fieldName' without initializer.",
-                  );
+                  if (Logger.isDebug) {
+                    Logger.debug(
+                      "[Instance Init] Defined late instance field '$fieldName' without initializer.",
+                    );
+                  }
                 }
               } else {
                 // Regular field handling
@@ -757,16 +773,20 @@ class InterpretedClass implements Callable, RuntimeType {
                         ResolvedBinding.declaresDouble(fieldDecl.fields.type)
                         ? ResolvedBinding.widen('double', value)
                         : value;
-                    Logger.debug(
-                      "[Instance Init] Initialized mixin field '${klassInHierarchy.name}.$fieldName' from mixin '${mixin.name}' with value: $value",
-                    );
+                    if (Logger.isDebug) {
+                      Logger.debug(
+                        "[Instance Init] Initialized mixin field '${klassInHierarchy.name}.$fieldName' from mixin '${mixin.name}' with value: $value",
+                      );
+                    }
                   } else {
                     // Ensure field exists even if not initialized (Dart default is null)
                     // Only set null if field wasn't already set by class or previous mixin
                     instance._fields.putIfAbsent(fieldName, () {
-                      Logger.debug(
-                        "[Instance Init] Initialized mixin field '${klassInHierarchy.name}.$fieldName' from mixin '${mixin.name}' to null (default)",
-                      );
+                      if (Logger.isDebug) {
+                        Logger.debug(
+                          "[Instance Init] Initialized mixin field '${klassInHierarchy.name}.$fieldName' from mixin '${mixin.name}' to null (default)",
+                        );
+                      }
                       return null;
                     });
                   }
@@ -785,9 +805,11 @@ class InterpretedClass implements Callable, RuntimeType {
     }
 
     // Instance fields from class hierarchy AND mixins should now be initialized.
-    Logger.debug(
-      "[Instance Init] Finished instance initialization for '$name'. Fields: ${instance._fields}",
-    );
+    if (Logger.isDebug) {
+      Logger.debug(
+        "[Instance Init] Finished instance initialization for '$name'. Fields: ${instance._fields}",
+      );
+    }
 
     return instance;
   }
@@ -825,9 +847,11 @@ class InterpretedClass implements Callable, RuntimeType {
     // _ThemePreset({required this.id, ...})) that are called dynamically.
     if (constructor == null && constructors.length == 1) {
       constructor = constructors.values.first;
-      Logger.debug(
-        "[Instance Init] No unnamed constructor for '$name', falling back to sole constructor '${constructors.keys.first}'",
-      );
+      if (Logger.isDebug) {
+        Logger.debug(
+          "[Instance Init] No unnamed constructor for '$name', falling back to sole constructor '${constructors.keys.first}'",
+        );
+      }
     }
 
     // 3. Call constructor if found, binding 'this' (which is the instance)
@@ -869,9 +893,11 @@ class InterpretedClass implements Callable, RuntimeType {
       if (superclass != null) {
         final defaultSuperConstructor = superclass!.findConstructor('');
         if (defaultSuperConstructor != null) {
-          Logger.debug(
-            "[Instance Init] Calling implicit super() for class '$name' with no explicit constructor",
-          );
+          if (Logger.isDebug) {
+            Logger.debug(
+              "[Instance Init] Calling implicit super() for class '$name' with no explicit constructor",
+            );
+          }
           // Call the default super constructor, bound to the instance
           defaultSuperConstructor.bind(instance).call(visitor, [], {});
         }
@@ -890,9 +916,11 @@ class InterpretedClass implements Callable, RuntimeType {
           '',
         );
         if (defaultBridgedCtor != null) {
-          Logger.debug(
-            "[Instance Init] Calling implicit bridged super() for class '$name' (bridged super: ${bridgedSuperclass!.name})",
-          );
+          if (Logger.isDebug) {
+            Logger.debug(
+              "[Instance Init] Calling implicit bridged super() for class '$name' (bridged super: ${bridgedSuperclass!.name})",
+            );
+          }
           try {
             final nativeSuperObject = defaultBridgedCtor(visitor, [], {});
             instance.bridgedSuperObject = nativeSuperObject;
@@ -1802,9 +1830,11 @@ class InterpretedInstance implements RuntimeValue {
     InterpreterVisitor? visitor, {
     required bool answerMissWithNoSuchMethod,
   }) {
-    Logger.debug(
-      "[Instance.get] Looking for '$name' on instance $hashCode of '${klass.name}'. Fields: ${_fields.keys}",
-    );
+    if (Logger.isDebug) {
+      Logger.debug(
+        "[Instance.get] Looking for '$name' on instance $hashCode of '${klass.name}'. Fields: ${_fields.keys}",
+      );
+    }
 
     // Cluster J #29: returns true when `klass` itself or any of its
     // ancestors via `superclass` registers a `bridgedSuperclass`. Used by
@@ -1832,20 +1862,26 @@ class InterpretedInstance implements RuntimeValue {
       final fieldValue = _fields[name];
       if (fieldValue is LateVariable) {
         // Return the value of the late variable (will initialize if needed)
-        Logger.debug(
-          "[Instance.get] Found late field '$name', accessing value...",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            "[Instance.get] Found late field '$name', accessing value...",
+          );
+        }
         return fieldValue.value;
       }
-      Logger.debug(
-        "[Instance.get] Found field '$name' with value: $fieldValue",
-      );
+      if (Logger.isDebug) {
+        Logger.debug(
+          "[Instance.get] Found field '$name' with value: $fieldValue",
+        );
+      }
       return fieldValue;
     }
 
-    Logger.debug(
-      "[Instance.get] Field '$name' not found in instance fields. Checking getters/methods...",
-    );
+    if (Logger.isDebug) {
+      Logger.debug(
+        "[Instance.get] Field '$name' not found in instance fields. Checking getters/methods...",
+      );
+    }
 
     // Check instance members (getter/method) in the current class and superclasses
     InterpretedClass? currentClass = klass;
@@ -1928,9 +1964,11 @@ class InterpretedInstance implements RuntimeValue {
             visitor,
           );
           if (getterAdapter != null && getterTarget != null) {
-            Logger.debug(
-              "[Instance.get] Found getter '$name' in bridged superclass '${bridgedSuper.name}' at level '${currentClass.name}'. Calling adapter.",
-            );
+            if (Logger.isDebug) {
+              Logger.debug(
+                "[Instance.get] Found getter '$name' in bridged superclass '${bridgedSuper.name}' at level '${currentClass.name}'. Calling adapter.",
+              );
+            }
             try {
               final result = getterAdapter(visitor, getterTarget);
 
@@ -1972,9 +2010,11 @@ class InterpretedInstance implements RuntimeValue {
               return objectMember('toString');
             }
             if (methodAdapter != null) {
-              Logger.debug(
-                "[Instance.get] Found method '$name' in bridged superclass '${bridgedSuper.name}' at level '${currentClass.name}'. Returning bound callable.",
-              );
+              if (Logger.isDebug) {
+                Logger.debug(
+                  "[Instance.get] Found method '$name' in bridged superclass '${bridgedSuper.name}' at level '${currentClass.name}'. Returning bound callable.",
+                );
+              }
               return BridgedSuperMethodCallable(
                 nativeTarget,
                 methodAdapter,
@@ -1992,9 +2032,11 @@ class InterpretedInstance implements RuntimeValue {
               name,
             );
             if (supplementaryAdapter != null) {
-              Logger.debug(
-                "[Instance.get] Found supplementary method '$name' for bridged superclass '${bridgedSuper.name}'.",
-              );
+              if (Logger.isDebug) {
+                Logger.debug(
+                  "[Instance.get] Found supplementary method '$name' for bridged superclass '${bridgedSuper.name}'.",
+                );
+              }
               return BridgedSuperMethodCallable(
                 nativeTarget,
                 supplementaryAdapter,
@@ -2048,9 +2090,11 @@ class InterpretedInstance implements RuntimeValue {
       // Try getter first
       final getterAdapter = bridgedMixin.findInstanceGetterAdapter(name);
       if (getterAdapter != null) {
-        Logger.debug(
-          "[Instance.get] Found getter '$name' in bridged mixin '${bridgedMixin.name}'. Calling adapter directly.",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            "[Instance.get] Found getter '$name' in bridged mixin '${bridgedMixin.name}'. Calling adapter directly.",
+          );
+        }
         try {
           // For bridged mixins, call the getter directly and return the value
           return getterAdapter(visitor, mixinTarget);
@@ -2062,10 +2106,12 @@ class InterpretedInstance implements RuntimeValue {
           // bridged-super fallback below — it walks the bridged-super
           // chain with the same `nativeProxy` and a typical bridged
           // super (e.g. RenderBox) accepts the cast.
-          Logger.debug(
-            "[Instance.get] Bridged mixin '${bridgedMixin.name}' getter '$name' rejected target "
-            "${mixinTarget.runtimeType} (${e.message}). Falling through to bridged-super walk.",
-          );
+          if (Logger.isDebug) {
+            Logger.debug(
+              "[Instance.get] Bridged mixin '${bridgedMixin.name}' getter '$name' rejected target "
+              "${mixinTarget.runtimeType} (${e.message}). Falling through to bridged-super walk.",
+            );
+          }
           continue;
         } catch (e, s) {
           Logger.error(
@@ -2115,16 +2161,20 @@ class InterpretedInstance implements RuntimeValue {
                     ) ==
                     null) &&
             hasBridgedSuperInChain(klass)) {
-          Logger.debug(
-            "[Instance.get] Skipping bridged mixin '${bridgedMixin.name}' "
-            "method '$name' — no native target and no interface proxy "
-            "available; falling through to bridged-super walk.",
-          );
+          if (Logger.isDebug) {
+            Logger.debug(
+              "[Instance.get] Skipping bridged mixin '${bridgedMixin.name}' "
+              "method '$name' — no native target and no interface proxy "
+              "available; falling through to bridged-super walk.",
+            );
+          }
           continue;
         }
-        Logger.debug(
-          "[Instance.get] Found method '$name' in bridged mixin '${bridgedMixin.name}'. Creating bound callable.",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            "[Instance.get] Found method '$name' in bridged mixin '${bridgedMixin.name}'. Creating bound callable.",
+          );
+        }
         // Return a callable that binds the method to the appropriate target
         return BridgedMixinMethodCallable(
           this,
@@ -2149,9 +2199,11 @@ class InterpretedInstance implements RuntimeValue {
     // Check for noSuchMethod before throwing an error
     final noSuchMethod = klass.findInstanceMethod('noSuchMethod');
     if (answerMissWithNoSuchMethod && noSuchMethod != null && visitor != null) {
-      Logger.debug(
-        "[Instance.get] Property '$name' not found but noSuchMethod exists. Invoking noSuchMethod...",
-      );
+      if (Logger.isDebug) {
+        Logger.debug(
+          "[Instance.get] Property '$name' not found but noSuchMethod exists. Invoking noSuchMethod...",
+        );
+      }
       // Create an Invocation.getter for this property access
       final invocation = Invocation.getter(Symbol(name));
       final boundNoSuchMethod = noSuchMethod.bind(this);
@@ -2184,9 +2236,11 @@ class InterpretedInstance implements RuntimeValue {
             // proxy's own `_lifecycleInProgress` re-entrancy guard
             // already handle that hazard. Mirror in tom_d4rt_ast.
             if (nativeStateProxy != null) {
-              Logger.debug(
-                "[Instance.get] GEN-112: routing '${bridgedSuper.name}.$name' through nativeStateProxy ${nativeStateProxy.runtimeType}.",
-              );
+              if (Logger.isDebug) {
+                Logger.debug(
+                  "[Instance.get] GEN-112: routing '${bridgedSuper.name}.$name' through nativeStateProxy ${nativeStateProxy.runtimeType}.",
+                );
+              }
               return BridgedSuperMethodCallable(
                 nativeStateProxy!,
                 methodAdapter,
@@ -2224,14 +2278,18 @@ class InterpretedInstance implements RuntimeValue {
             final nativeTarget = nativeReceiverFor(bridgedSuper.name, visitor);
             if (nativeTarget != null) {
               try {
-                Logger.debug(
-                  "[Instance.get] RC-9b: calling bridged-super '${bridgedSuper.name}.$name' getter with nativeTarget ${nativeTarget.runtimeType}.",
-                );
+                if (Logger.isDebug) {
+                  Logger.debug(
+                    "[Instance.get] RC-9b: calling bridged-super '${bridgedSuper.name}.$name' getter with nativeTarget ${nativeTarget.runtimeType}.",
+                  );
+                }
                 return getterAdapter(visitor, nativeTarget);
               } on ArgumentD4rtException catch (e) {
-                Logger.debug(
-                  "[Instance.get] RC-9b: bridged-super '${bridgedSuper.name}.$name' adapter rejected nativeTarget: ${e.message}. Walking up.",
-                );
+                if (Logger.isDebug) {
+                  Logger.debug(
+                    "[Instance.get] RC-9b: bridged-super '${bridgedSuper.name}.$name' adapter rejected nativeTarget: ${e.message}. Walking up.",
+                  );
+                }
                 // Continue walking up the bridged-super chain.
               } catch (e, s) {
                 Logger.error(
@@ -2290,9 +2348,11 @@ class InterpretedInstance implements RuntimeValue {
   // Set: Setter -> Field (now includes inheritance for finding setters)
   @override
   void set(String name, Object? value, [InterpreterVisitor? visitor]) {
-    Logger.debug(
-      "[Instance.set] called for '${klass.name}.$name' with value: $value on instance $hashCode",
-    );
+    if (Logger.isDebug) {
+      Logger.debug(
+        "[Instance.set] called for '${klass.name}.$name' with value: $value on instance $hashCode",
+      );
+    }
     // Look for a setter in the current class and superclasses
     InterpretedClass? currentClass = klass;
     while (currentClass != null) {
@@ -2320,9 +2380,11 @@ class InterpretedInstance implements RuntimeValue {
           );
 
           if (setterAdapter != null) {
-            Logger.debug(
-              "[Instance.set] Found setter '$name' in bridged superclass '${bridgedSuper.name}' at level '${currentClass.name}'. Calling adapter.",
-            );
+            if (Logger.isDebug) {
+              Logger.debug(
+                "[Instance.set] Found setter '$name' in bridged superclass '${bridgedSuper.name}' at level '${currentClass.name}'. Calling adapter.",
+              );
+            }
             try {
               setterAdapter(visitor, nativeTarget, value);
               return; // Setter called, assignment done
@@ -2345,9 +2407,11 @@ class InterpretedInstance implements RuntimeValue {
     }
 
     // No setter found in the hierarchy or bridge, assign directly to the field
-    Logger.debug(
-      "[Instance.set] No setter found for '$name'. Setting field directly. Instance $hashCode",
-    );
+    if (Logger.isDebug) {
+      Logger.debug(
+        "[Instance.set] No setter found for '$name'. Setting field directly. Instance $hashCode",
+      );
+    }
 
     // ghissues32: an `int` assigned to a `double` field widens - field
     // formals and initializer-list entries land here too.
@@ -2361,9 +2425,11 @@ class InterpretedInstance implements RuntimeValue {
       if (fieldValue is LateVariable) {
         // Assign to the late variable
         fieldValue.assign(value);
-        Logger.debug(
-          "[Instance.set] Assigned to late field '$name'. Fields now: ${_fields.keys}",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            "[Instance.set] Assigned to late field '$name'. Fields now: ${_fields.keys}",
+          );
+        }
         return;
       }
     }
@@ -2372,9 +2438,11 @@ class InterpretedInstance implements RuntimeValue {
     _validateFieldAssignmentGeneric(name, value);
 
     _fields[name] = value;
-    Logger.debug(
-      "[Instance.set] Field '$name' set. Fields now: ${_fields.keys}",
-    );
+    if (Logger.isDebug) {
+      Logger.debug(
+        "[Instance.set] Field '$name' set. Fields now: ${_fields.keys}",
+      );
+    }
   }
 
   // Added to allow explicit field access, bypassing getters/methods for super
@@ -2768,26 +2836,32 @@ class InterpretedEnumValue implements RuntimeValue /* Add RuntimeValue */ {
   Object? get(String memberName, [InterpreterVisitor? visitor]) {
     // Handle implicit 'name' property
     if (memberName == 'name') {
-      Logger.debug(
-        " [EnumValue.get] Accessing implicit property 'name'. Returning: $name",
-      );
+      if (Logger.isDebug) {
+        Logger.debug(
+          " [EnumValue.get] Accessing implicit property 'name'. Returning: $name",
+        );
+      }
       return name; // Return the stored name of the enum value
     }
 
     // Handle implicit 'index' property
     if (memberName == 'index') {
-      Logger.debug(
-        " [EnumValue.get] Accessing implicit property 'index'. Returning: $index",
-      );
+      if (Logger.isDebug) {
+        Logger.debug(
+          " [EnumValue.get] Accessing implicit property 'index'. Returning: $index",
+        );
+      }
       return index;
     }
 
     // 1. Check instance fields specific to this enum value
     if (_fields.containsKey(memberName)) {
       final fieldValue = _fields[memberName];
-      Logger.debug(
-        " [EnumValue.get] Found field '$memberName' with value: $fieldValue",
-      );
+      if (Logger.isDebug) {
+        Logger.debug(
+          " [EnumValue.get] Found field '$memberName' with value: $fieldValue",
+        );
+      }
       return fieldValue;
     }
 
@@ -2804,9 +2878,11 @@ class InterpretedEnumValue implements RuntimeValue /* Add RuntimeValue */ {
       final boundGetter = getter.bind(this);
       // Call the getter immediately with no arguments
       final getterResult = boundGetter.call(visitor, [], {});
-      Logger.debug(
-        " [EnumValue.get] Executed getter '$memberName'. Result: $getterResult",
-      );
+      if (Logger.isDebug) {
+        Logger.debug(
+          " [EnumValue.get] Executed getter '$memberName'. Result: $getterResult",
+        );
+      }
       return getterResult;
     }
 
@@ -2815,9 +2891,11 @@ class InterpretedEnumValue implements RuntimeValue /* Add RuntimeValue */ {
     if (method != null) {
       // Return the bound method
       final boundMethod = method.bind(this);
-      Logger.debug(
-        " [EnumValue.get] Found method '$memberName'. Returning bound method: $boundMethod",
-      );
+      if (Logger.isDebug) {
+        Logger.debug(
+          " [EnumValue.get] Found method '$memberName'. Returning bound method: $boundMethod",
+        );
+      }
       return boundMethod;
     }
 
@@ -2834,9 +2912,11 @@ class InterpretedEnumValue implements RuntimeValue /* Add RuntimeValue */ {
         }
         final boundGetter = mixinGetter.bind(this);
         final getterResult = boundGetter.call(visitor, [], {});
-        Logger.debug(
-          " [EnumValue.get] Executed mixin getter '$memberName' from '${mixin.name}'. Result: $getterResult",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            " [EnumValue.get] Executed mixin getter '$memberName' from '${mixin.name}'. Result: $getterResult",
+          );
+        }
         return getterResult;
       }
 
@@ -2844,9 +2924,11 @@ class InterpretedEnumValue implements RuntimeValue /* Add RuntimeValue */ {
       final mixinMethod = mixin.methods[memberName];
       if (mixinMethod != null) {
         final boundMethod = mixinMethod.bind(this);
-        Logger.debug(
-          " [EnumValue.get] Found mixin method '$memberName' from '${mixin.name}'. Returning bound method.",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            " [EnumValue.get] Found mixin method '$memberName' from '${mixin.name}'. Returning bound method.",
+          );
+        }
         return boundMethod;
       }
     }
@@ -2861,9 +2943,11 @@ class InterpretedEnumValue implements RuntimeValue /* Add RuntimeValue */ {
             "Internal error: Visitor required to execute bridged mixin getter '$memberName'.",
           );
         }
-        Logger.debug(
-          " [EnumValue.get] Executing bridged mixin getter '$memberName' from '${bridgedMixin.name}'.",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            " [EnumValue.get] Executing bridged mixin getter '$memberName' from '${bridgedMixin.name}'.",
+          );
+        }
         try {
           return getterAdapter(visitor, this);
         } catch (e, s) {
@@ -2881,9 +2965,11 @@ class InterpretedEnumValue implements RuntimeValue /* Add RuntimeValue */ {
       // Try method next
       final methodAdapter = bridgedMixin.findInstanceMethodAdapter(memberName);
       if (methodAdapter != null) {
-        Logger.debug(
-          " [EnumValue.get] Found bridged mixin method '$memberName' from '${bridgedMixin.name}'.",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            " [EnumValue.get] Found bridged mixin method '$memberName' from '${bridgedMixin.name}'.",
+          );
+        }
         // Return a callable that wraps the bridged method
         return BridgedEnumMixinMethodCallable(
           this,
@@ -2905,9 +2991,11 @@ class InterpretedEnumValue implements RuntimeValue /* Add RuntimeValue */ {
   // Set: Instance Setter -> Field
   @override
   void set(String memberName, Object? value, [InterpreterVisitor? visitor]) {
-    Logger.debug(
-      "[EnumValue.set] called for '$this.$memberName' with value: $value",
-    );
+    if (Logger.isDebug) {
+      Logger.debug(
+        "[EnumValue.set] called for '$this.$memberName' with value: $value",
+      );
+    }
     // 1. Check instance setters defined on the enum
     final setter = parentEnum.setters[memberName];
     if (setter != null) {

@@ -991,9 +991,11 @@ class Environment {
       if (targetEnum != null) {
         _bridgedEnumsOrNew[aliasName] = targetEnum;
         (_enumAliasTargetsRaw ??= {})[aliasName] = targetName;
-        Logger.debug(
-          "[Environment] Defined bridge alias: $aliasName -> enum $targetName",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            "[Environment] Defined bridge alias: $aliasName -> enum $targetName",
+          );
+        }
         return;
       }
       Logger.warn(
@@ -1003,9 +1005,11 @@ class Environment {
       return;
     }
     _bridgedClassesOrNew[aliasName] = target;
-    Logger.debug(
-      "[Environment] Defined bridge alias: $aliasName -> $targetName",
-    );
+    if (Logger.isDebug) {
+      Logger.debug(
+        "[Environment] Defined bridge alias: $aliasName -> $targetName",
+      );
+    }
   }
 
   /// Converts a native object to a bridged instance if a bridge exists.
@@ -1331,10 +1335,12 @@ class Environment {
           _structuralSuffixBridge(runtimeType) ??
           _latentBridgeFor(runtimeType, structural: true);
       if (match == null) rethrow;
-      Logger.debug(
-        "[Environment] Matched native type '$runtimeType' to bridge "
-        "'${match.name}' via structural suffix matching",
-      );
+      if (Logger.isDebug) {
+        Logger.debug(
+          "[Environment] Matched native type '$runtimeType' to bridge "
+          "'${match.name}' via structural suffix matching",
+        );
+      }
       return match;
     }
   }
@@ -1530,9 +1536,11 @@ class Environment {
           })
           ?.value;
       if (bridgedClass != null) {
-        Logger.debug(
-          "[Environment] Matched native type '$nativeTypeNameFull' to bridge '${bridgedClass.name}' via corroborated prefix matching",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            "[Environment] Matched native type '$nativeTypeNameFull' to bridge '${bridgedClass.name}' via corroborated prefix matching",
+          );
+        }
         return bridgedClass;
       }
       current = current._enclosing;
@@ -2062,9 +2070,11 @@ class Environment {
       // Move up the lexical scope chain (iterative — no recursion).
       final parent = env._enclosing;
       if (Logger.isDebug && parent != null) {
-        Logger.debug(
-          '[Env.get] Looking for \'$name\' in parent env: ${parent.hashCode}',
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            '[Env.get] Looking for \'$name\' in parent env: ${parent.hashCode}',
+          );
+        }
       }
       env = parent;
     }
@@ -2168,9 +2178,11 @@ class Environment {
       ); // Delegate to the parent environment
     }
 
-    Logger.debug(
-      "[Env.assign] Variable '$name' not found for assignment, throwing error.",
-    );
+    if (Logger.isDebug) {
+      Logger.debug(
+        "[Env.assign] Variable '$name' not found for assignment, throwing error.",
+      );
+    }
     throw RuntimeD4rtException.resolutionFailure(
       "Assigning to undefined variable '$name'.",
     );
@@ -2247,9 +2259,11 @@ class Environment {
         if (_matchesExtensionType(targetType, ext.onType, value: target)) {
           final member = ext.findMember(name);
           if (member != null) {
-            Logger.debug(
-              " [Environment] Found extension member '$name' in unnamed ext on ${ext.onType.name}",
-            );
+            if (Logger.isDebug) {
+              Logger.debug(
+                " [Environment] Found extension member '$name' in unnamed ext on ${ext.onType.name}",
+              );
+            }
             // Need to bind 'target' to the call somehow.
             // This will likely require returning a bound callable or modifying the call site.
             return member; // Return the raw callable for now
@@ -2262,9 +2276,11 @@ class Environment {
           if (_matchesExtensionType(targetType, value.onType, value: target)) {
             final member = value.findMember(name);
             if (member != null) {
-              Logger.debug(
-                "[Environment] Found extension member '$name' in named ext '${value.name}' on ${value.onType.name}",
-              );
+              if (Logger.isDebug) {
+                Logger.debug(
+                  "[Environment] Found extension member '$name' in named ext '${value.name}' on ${value.onType.name}",
+                );
+              }
               return member; // Return the raw callable
             }
           } else if (targetType is NativeFunction &&
@@ -2274,9 +2290,11 @@ class Environment {
             if (valueType.name == targetType.name) {
               final member = value.findMember(name);
               if (member != null) {
-                Logger.debug(
-                  "[Environment] Found extension member '$name' in named ext '${value.name}' on ${value.onType.name}",
-                );
+                if (Logger.isDebug) {
+                  Logger.debug(
+                    "[Environment] Found extension member '$name' in named ext '${value.name}' on ${value.onType.name}",
+                  );
+                }
                 return member; // Return the raw callable
               }
             }
@@ -2298,9 +2316,11 @@ class Environment {
         if (ext.isOnNullableType && ext.hasOnType) {
           final member = ext.findMember(name);
           if (member != null) {
-            Logger.debug(
-              "[Environment] Found nullable extension member '$name' in unnamed ext on ${ext.onType.name}?",
-            );
+            if (Logger.isDebug) {
+              Logger.debug(
+                "[Environment] Found nullable extension member '$name' in unnamed ext on ${ext.onType.name}?",
+              );
+            }
             return member;
           }
         }
@@ -2312,9 +2332,11 @@ class Environment {
             value.hasOnType) {
           final member = value.findMember(name);
           if (member != null) {
-            Logger.debug(
-              "[Environment] Found nullable extension member '$name' in named ext '${value.name}' on ${value.onType.name}?",
-            );
+            if (Logger.isDebug) {
+              Logger.debug(
+                "[Environment] Found nullable extension member '$name' in named ext '${value.name}' on ${value.onType.name}?",
+              );
+            }
             return member;
           }
         }
@@ -2349,9 +2371,11 @@ class Environment {
     // script class named like a bridge, another bridge over a different
     // native type - does not (ghissues17).
     if (_sameDeclaration(targetType, extensionOnType)) {
-      Logger.debug(
-        "[_matchesExtensionType] Allowing raw-type match: ${targetType.name}",
-      );
+      if (Logger.isDebug) {
+        Logger.debug(
+          "[_matchesExtensionType] Allowing raw-type match: ${targetType.name}",
+        );
+      }
       return true;
     }
 
@@ -2489,9 +2513,11 @@ class Environment {
         return bridgedClass;
       } on RuntimeD4rtException {
         // No bridged class found for this type
-        Logger.debug(
-          "[getRuntimeType] No BridgedClass found for native type ${value.runtimeType}",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            "[getRuntimeType] No BridgedClass found for native type ${value.runtimeType}",
+          );
+        }
       }
       // C20a fix: When the runtime type isn't a registered bridge (e.g.
       // private impl types returned by extension operators like
@@ -2512,10 +2538,12 @@ class Environment {
         current = current._enclosing;
       }
       if (bestMatch != null) {
-        Logger.debug(
-          "[getRuntimeType] Resolved native ${value.runtimeType} via "
-          "isAssignable to BridgedClass(${bestMatch.name})",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            "[getRuntimeType] Resolved native ${value.runtimeType} via "
+            "isAssignable to BridgedClass(${bestMatch.name})",
+          );
+        }
         return bestMatch;
       }
     }
@@ -2733,9 +2761,11 @@ class Environment {
     // Copy unnamed extensions (cannot be filtered by name)
     newEnv._unnamedExtensionsOrNew.addAll(_unnamedExtensions);
 
-    Logger.debug(
-      "[Environment.shallowCopyFiltered] Created filtered environment. Original size: ${_values.length} values. New size: ${newEnv._values.length} values.",
-    );
+    if (Logger.isDebug) {
+      Logger.debug(
+        "[Environment.shallowCopyFiltered] Created filtered environment. Original size: ${_values.length} values. New size: ${newEnv._values.length} values.",
+      );
+    }
     return newEnv;
   }
 
@@ -2769,14 +2799,18 @@ class Environment {
         showNames: show,
         hideNames: hide,
       );
-      Logger.debug(
-        "[Environment.importEnvironment] Importing from a filtered version of other env (hashCode: ${other.hashCode}).",
-      );
+      if (Logger.isDebug) {
+        Logger.debug(
+          "[Environment.importEnvironment] Importing from a filtered version of other env (hashCode: ${other.hashCode}).",
+        );
+      }
     } else {
       sourceEnvToImportFrom = other;
-      Logger.debug(
-        "[Environment.importEnvironment] Importing directly from other env (hashCode: ${other.hashCode}).",
-      );
+      if (Logger.isDebug) {
+        Logger.debug(
+          "[Environment.importEnvironment] Importing directly from other env (hashCode: ${other.hashCode}).",
+        );
+      }
     }
 
     // Perform the merge from sourceEnvToImportFrom
@@ -2799,10 +2833,12 @@ class Environment {
           // GEN-100 FIX: Import wins for value conflicts too.
           // This handles cases where a pre-registered function or variable
           // is overwritten by an explicit import.
-          Logger.debug(
-            "[Environment.importEnvironment] GEN-100: Overwriting pre-registered "
-            "value '$name' with imported version",
-          );
+          if (Logger.isDebug) {
+            Logger.debug(
+              "[Environment.importEnvironment] GEN-100: Overwriting pre-registered "
+              "value '$name' with imported version",
+            );
+          }
           _values[name] = value;
         }
         // Same value, skip the duplicate
@@ -2818,10 +2854,12 @@ class Environment {
         }
         // GEN-100 FIX: Import values can override pre-registered bridged
         // types when a library re-exports something with the same name.
-        Logger.debug(
-          "[Environment.importEnvironment] GEN-100: Import value '$name' "
-          "replaces pre-registered type definition",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            "[Environment.importEnvironment] GEN-100: Import value '$name' "
+            "replaces pre-registered type definition",
+          );
+        }
       }
       _values[name] = value;
     });
@@ -2842,10 +2880,12 @@ class Environment {
         // painting.TextStyle from an explicit import), the IMPORT WINS.
         // This matches Dart's import semantics: explicit imports take priority
         // over pre-registered (ambient) definitions.
-        Logger.debug(
-          "[Environment.importEnvironment] GEN-100: Overwriting pre-registered "
-          "bridged class '$name' with imported version",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            "[Environment.importEnvironment] GEN-100: Overwriting pre-registered "
+            "bridged class '$name' with imported version",
+          );
+        }
         // Preserve the displaced same-name bridge so every candidate stays
         // enumerable.
         final displaced = _bridgedClassesRaw?[name];
@@ -2894,10 +2934,12 @@ class Environment {
         // declarations always win over imports for unprefixed names — silently
         // skip the import. Type-based lookups still find the bridge via the
         // global _bridgedClassesLookupByType map.
-        Logger.debug(
-          "[Environment.importEnvironment] Local declaration of '$name' "
-          "shadows imported bridged class — skipping import",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            "[Environment.importEnvironment] Local declaration of '$name' "
+            "shadows imported bridged class — skipping import",
+          );
+        }
         return;
       }
       _bridgedClassesOrNew[name] = bridgedClass;
@@ -2942,10 +2984,12 @@ class Environment {
           );
         }
         // GEN-100 FIX: Import wins for enum conflicts too.
-        Logger.debug(
-          "[Environment.importEnvironment] GEN-100: Overwriting pre-registered "
-          "bridged enum '$name' with imported version",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            "[Environment.importEnvironment] GEN-100: Overwriting pre-registered "
+            "bridged enum '$name' with imported version",
+          );
+        }
         // SCD194: preserve the displaced enum, as the bridged-class branch
         // above does. "Import wins" decides which one the bare name reaches;
         // it does not make the other one stop existing.
@@ -2963,10 +3007,12 @@ class Environment {
         }
         // Cluster A fix: local declaration shadows imported bridged enum.
         // See comment on the bridged-class branch above.
-        Logger.debug(
-          "[Environment.importEnvironment] Local declaration of '$name' "
-          "shadows imported bridged enum — skipping import",
-        );
+        if (Logger.isDebug) {
+          Logger.debug(
+            "[Environment.importEnvironment] Local declaration of '$name' "
+            "shadows imported bridged enum — skipping import",
+          );
+        }
         return;
       }
       _bridgedEnumsOrNew[name] = bridgedEnum;
@@ -3015,16 +3061,20 @@ class Environment {
       _unnamedExtensionsOrNew.addAll(sourceEnvToImportFrom._unnamedExtensions);
     }
 
-    Logger.debug(
-      "[Environment.importEnvironment] Merge complete. Current env (hashCode: $hashCode) updated.",
-    );
+    if (Logger.isDebug) {
+      Logger.debug(
+        "[Environment.importEnvironment] Merge complete. Current env (hashCode: $hashCode) updated.",
+      );
+    }
   }
 
   // New method to handle prefixed imports
   void definePrefixedImport(String prefix, Environment importEnvironment) {
-    Logger.debug(
-      "[Env.definePrefixedImport] Defining prefixed import '$prefix' with environment $importEnvironment (hash: ${importEnvironment.hashCode})",
-    );
+    if (Logger.isDebug) {
+      Logger.debug(
+        "[Env.definePrefixedImport] Defining prefixed import '$prefix' with environment $importEnvironment (hash: ${importEnvironment.hashCode})",
+      );
+    }
     _prefixedImportsOrNew[prefix] = importEnvironment;
   }
 }
