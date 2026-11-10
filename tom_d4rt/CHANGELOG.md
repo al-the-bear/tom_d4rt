@@ -1,3 +1,25 @@
+## 1.247.0
+
+### Fixed — a record type keeps its fields' `?`, so a nullable field accepts null
+
+A record type annotation dropped the `?` of its fields: both type resolvers
+built a `RecordRuntimeType` from each field's resolved class, which carries no
+nullability. `final ({String name, int? n}) r = (name: 'a', n: null);` was
+refused with `type '({String name, Null n})' is not a subtype of type
+'({String name, int n})' of 'r'`, and the same for a positional field, a loop
+variable, a parameter, a nested record and `as`; `('a', null) is (String,
+int?)` answered false. A field written `T?` is now a `NullableRuntimeType`,
+which `Null` and what `T` accepts satisfy; a non-null field still refuses
+null. Function types are unchanged: a parameter's `?` is dropped both in a
+`void Function(int?)` annotation and in a closure's own type, so neither side
+is refused.
+
+This changes what a type check accepts: a declared record variable, loop
+variable or parameter with a nullable field takes null, and `is` / `as` on
+such a record type answer as in Dart.
+
+Name resolution: no
+
 ## 1.246.0
 
 ### Fixed — `whereType<T>()` keeps the T elements; `is` accepts a script enum

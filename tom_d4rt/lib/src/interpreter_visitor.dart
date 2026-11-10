@@ -13422,18 +13422,20 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       Logger.debug(
         "[ResolveType] Resolving RecordTypeAnnotation: ${typeNode.toSource()}",
       );
+      // ghissues23: a field keeps its `?` (NullableRuntimeType).
+      RuntimeType fieldType(TypeAnnotation type) {
+        final resolved = _resolveTypeAnnotationWithEnvironment(type, env);
+        return type.question != null ? NullableRuntimeType(resolved) : resolved;
+      }
+
       final positional = <RuntimeType>[
-        for (final field in typeNode.positionalFields)
-          _resolveTypeAnnotationWithEnvironment(field.type, env),
+        for (final field in typeNode.positionalFields) fieldType(field.type),
       ];
       final named = <String, RuntimeType>{};
       final namedFields = typeNode.namedFields;
       if (namedFields != null) {
         for (final field in namedFields.fields) {
-          named[field.name.lexeme] = _resolveTypeAnnotationWithEnvironment(
-            field.type,
-            env,
-          );
+          named[field.name.lexeme] = fieldType(field.type);
         }
       }
       return RecordRuntimeType(

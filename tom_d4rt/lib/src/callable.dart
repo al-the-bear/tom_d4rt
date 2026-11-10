@@ -187,18 +187,20 @@ class InterpretedFunction implements Callable {
       }
     } else if (typeNode is RecordTypeAnnotation) {
       // DFUB5: structural record type (also usable as a type-parameter bound).
+      // ghissues23: a field keeps its `?` (NullableRuntimeType).
+      RuntimeType fieldType(TypeAnnotation type) {
+        final resolved = _resolveTypeAnnotationDynamic(type, env);
+        return type.question != null ? NullableRuntimeType(resolved) : resolved;
+      }
+
       final positional = <RuntimeType>[
-        for (final field in typeNode.positionalFields)
-          _resolveTypeAnnotationDynamic(field.type, env),
+        for (final field in typeNode.positionalFields) fieldType(field.type),
       ];
       final named = <String, RuntimeType>{};
       final namedFields = typeNode.namedFields;
       if (namedFields != null) {
         for (final field in namedFields.fields) {
-          named[field.name.lexeme] = _resolveTypeAnnotationDynamic(
-            field.type,
-            env,
-          );
+          named[field.name.lexeme] = fieldType(field.type);
         }
       }
       return RecordRuntimeType(

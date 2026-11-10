@@ -329,7 +329,9 @@ class InterpretedFunction implements Callable {
   ) {
     final typeNode = field.type;
     if (typeNode == null) return const NamedRuntimeType('dynamic');
-    return _resolveTypeAnnotationDynamic(typeNode, env);
+    final resolved = _resolveTypeAnnotationDynamic(typeNode, env);
+    // ghissues23: a field keeps its `?` (NullableRuntimeType).
+    return typeNode.isNullable ? NullableRuntimeType(resolved) : resolved;
   }
 
   /// DFUB5: resolve a single formal parameter's declared type, falling back to

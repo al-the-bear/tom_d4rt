@@ -269,7 +269,10 @@ const _divergentBodies = <String, Map<String, String>>{
     // GHISSUES7: both trees look a prefixed type up through its prefix; the
     // residue grows by the prefix's accessor, `importPrefix?.name.lexeme`
     // here (a token) and `importPrefix?.name` in the twin (an identifier).
-    'InterpretedFunction._resolveTypeAnnotationDynamic': '0dadb569',
+    // GHISSUES23: both trees give a record field its `?`; the reference does
+    // it inline with `question != null`, the twin in its
+    // `_resolveRecordFieldTypeDynamic` helper with `isNullable`.
+    'InterpretedFunction._resolveTypeAnnotationDynamic': 'e04ab501',
     // SCE139 / SCF29: the walker that finds the unit an await resumption
     // hands back to the state machine (a statement, an `=>` body's
     // expression, or an if / while / do reached from its condition),
@@ -338,7 +341,10 @@ const _divergentBodies = <String, Map<String, String>>{
     // token (`importPrefix?.name.lexeme`), the mirror's an identifier
     // (`importPrefix?.name`).
     'InterpreterVisitor._relationshipLookupName': 'f7ad00b8',
-    'InterpreterVisitor._resolveTypeAnnotationWithEnvironment': '7c7642bd',
+    // GHISSUES23: both trees give a record field its `?`, spelled
+    // `question != null` here and `isNullable` (on a nullable field type) in
+    // the twin.
+    'InterpreterVisitor._resolveTypeAnnotationWithEnvironment': 'c98479f1',
     'InterpreterVisitor._statementsIntroduceBindings': '73f8180e',
     'InterpreterVisitor._subtreeContainsClosure': 'b6e41360',
     'InterpreterVisitor._valueHasType': '716e1f67',

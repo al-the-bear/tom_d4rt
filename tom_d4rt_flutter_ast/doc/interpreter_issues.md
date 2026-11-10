@@ -25,7 +25,7 @@ reverse) fails the suite. Re-derive; do not hand-edit one side alone.
 | Marker | Section (heading text, verbatim) | What it is |
 | ------ | -------------------------------- | ---------- |
 | `[ ]` | Open (GEN-125) — an interpreted closure is rejected against a bridged function typedef (`VoidCallback`, `ValueChanged`) | An **interpreter / bridge** defect. Blast radius: every script closure passed to a parameter typed as a Flutter function typedef — which is every Flutter callback, on every widget, wherever a declared parameter type is checked. Nothing narrows it to the widgets the corpus happens to contain. Found 2026-09-06. **Fixed in the interpreter (scd136) and published in 1.192.0 / 0.177.0; re-measured 2026-09-28**, base corpus, both twins: 0 refused callbacks across 910 scripts, against 117 on 2026-09-15. Open until a FULL-corpus run at a published fix confirms the 4 failing extended files (sce160). |
-| `[ ]` | Open (GEN-128) — a record type annotation drops its fields' `?` | An **interpreter** defect, both runtimes. Blast radius: every record type with a nullable field used where a type is checked (a declared variable, a loop variable, a parameter), given null. Found 2026-11-10 by ghissues15; owed by todo ghissues23. |
+| `[ ]` | Open (GEN-128) — a record type annotation drops its fields' `?` | An **interpreter** defect, both runtimes. Blast radius: every record type with a nullable field used where a type is checked (a declared variable, a loop variable, a parameter), given null. Found 2026-11-10 by ghissues15. Fixed in the tree by ghissues23 (tom_d4rt 1.247.0 / tom_d4rt_ast 0.228.0, not published) and the `flutter_extended_01` skip removed; open until a run at the published fix passes the script, owed by todo ghissues999. |
 | `[ ]` | Open (GEN-129) — tom_d4rt refuses a script whose doc comment names something not in scope | An **interpreter** defect, `tom_d4rt` only. Blast radius: every script with a doc-comment reference `[Name]` to a name it does not import or declare fails before `main`. Found 2026-11-10 by ghissues15; owed by todo ghissues24. |
 | `[ ]` | Open (GEN-130) — an interpreted DiagnosticableTree subclass's inherited toDiagnosticsNode() returns null | An **interpreter / bridge** defect, both twins, cause not yet located. Blast radius: an inherited bridged method called on an interpreted subclass of an abstract bridged class without a proxy may return null. Found 2026-11-10 by ghissues15; owed by todo ghissues25. |
 | `[ ]` | Open (GEN-131) — an interpreted SlottedMultiChildRenderObjectWidget reads null from its own defaulted field in createRenderObject | An **interpreter / bridge** defect, both twins, cause not yet located. Blast radius: a field of an interpreted render-object widget read when the framework calls `createRenderObject` may be null. Found 2026-11-10 by ghissues15; owed by todo ghissues26. |
@@ -287,13 +287,28 @@ declares `({String name, Color? color})`. On the tom_d4rt 1.242.0 tree
 r = ('a', null)` and a loop variable of that type are refused; a list literal's
 type argument is not checked and passes.
 
-**Root cause:** the record branch of `_resolveTypeAnnotationWithEnvironment`
-(DFUB5, `ffd620402`) resolves each field type with the same resolver, which
-returns the class without the annotation's `?`; its other callers read
-`question` themselves. Which later change made a declared variable check its
-record initializer is not yet known.
+**Root cause:** the record branches of both type resolvers -
+`InterpreterVisitor._resolveTypeAnnotationWithEnvironment` (`is`, `as`) and
+`InterpretedFunction._resolveTypeAnnotationDynamic` (declared variables, loop
+variables, parameters) - resolve each field type with a resolver that returns
+the class without the annotation's `?`; their other callers read `question`
+themselves. `is` and `as` answered wrong as well (`('a', null) is (String,
+int?)` was false). Which later change made a declared variable check its
+record initializer is not known.
 
-**Fix:** owed by todo ghissues23, in both trees.
+**Fix:** ghissues23, in both trees (tom_d4rt 1.247.0 / tom_d4rt_ast 0.228.0,
+not yet published): a field written `T?` resolves to a `NullableRuntimeType`,
+which `Null` and what `T` accepts satisfy; a non-null field still refuses null.
+Function types are unchanged (a parameter's `?` is dropped on both sides, in
+the annotation and in a closure's own type). Pinned by
+`tom_d4rt/test/ghissues23_record_field_nullability_test.dart` (6 cases) and
+`tom_d4rt_ast/test/runtime/ghissues23_record_field_nullability_test.dart` (3).
+Measured on the tree 2026-11-10, both twins under `prepublish_overrides --set`:
+`flutter_extended_01`'s `cupertino_linear_activity_indicator_test.dart` passes
+(+1, frameworkErrors=0); a pre-publish measurement, not a verification run. The
+driver skip is removed in both twins, so until the release a run at the
+published pair fails this test: the release's runs certify it, then this
+cluster is marked - owed by todo ghissues999.
 
 ### [ ] Open (GEN-129) — tom_d4rt refuses a script whose doc comment names something not in scope
 

@@ -565,7 +565,19 @@ const _partialTwinBudget = 0;
 /// copier surface a port would have added is generic method invocations with
 /// explicit type arguments, which the corpus copies on every run.
 ///
-const _copierGapBudget = 55;
+/// 55 -> 56: GHISSUES23 added `ghissues23_record_field_nullability_test.dart`,
+/// which runs source to check that a record type keeps its fields' `?` - a
+/// declared variable, a loop variable, a parameter, a return type, `is` / `as`
+/// and nested records, each with a nullable positional and named field given
+/// null - while a non-null field still refuses null and function types are
+/// unchanged. Exec resolves tom_d4rt_ast from pub.dev, where a nullable record
+/// field still refuses null until the batch release (ghissues999), so a port
+/// would assert the fix against an interpreter that does not have it. Its ast
+/// twin holds the mechanism. The copier surface a port would have added is
+/// record type annotations with nullable fields, which the corpus copies on
+/// every run.
+///
+const _copierGapBudget = 56;
 
 const Map<String, _Coverage> _coveredElsewhere = {
   'sce208_bind_forwarding_source_errors_test.dart': _Coverage(
@@ -675,6 +687,20 @@ const Map<String, _Coverage> _coveredElsewhere = {
         'repeated dart:core and dart:async prefixes, dart:math, missing names '
         'and prefixes, dynamic and Record), which a hand-built bundle would '
         'only restate.',
+  ),
+  'ghissues23_record_field_nullability_test.dart': _Coverage(
+    'ast:runtime/ghissues23_record_field_nullability_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 6,
+    twinCases: 3,
+    whyPartial:
+        'the twin pins a nullable positional and named field given null and '
+        'a value on a declared variable and a parameter, `is` with a '
+        'nullable and a non-null field, and a nested nullable record. The '
+        'reference adds the remaining SHAPES (a loop variable, a return '
+        'type, `as`, the non-null refusal message, function types), which a '
+        'hand-built bundle would only restate.',
   ),
   'ghissues22_where_type_test.dart': _Coverage(
     'ast:runtime/ghissues22_where_type_test.dart',

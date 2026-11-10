@@ -46,8 +46,47 @@ bool _runtimeTypeCompatible(RuntimeType sub, RuntimeType sup) {
   if (_isWildcardTypeName(sub.name) || _isWildcardTypeName(sup.name)) {
     return true;
   }
+  // ghissues23: a field written `T?` admits `Null` and what `T` admits; a
+  // nullable type is a subtype of a non-nullable one only through a top type.
+  if (sup is NullableRuntimeType) {
+    if (sub.name == 'Null') return true;
+    return _runtimeTypeCompatible(
+      sub is NullableRuntimeType ? sub.inner : sub,
+      sup.inner,
+    );
+  }
+  if (sub is NullableRuntimeType) return sub.isSubtypeOf(sup);
   if (sub.name == sup.name) return true;
   return sub.isSubtypeOf(sup);
+}
+
+/// A type written with `?` where the type is part of a structural type — a
+/// record field such as the `int?` of `(String, int?)`.
+///
+/// ghissues23: the resolvers return the class a name stands for, without the
+/// annotation's `?` (callers that check a binding read `question` themselves),
+/// so a record's nullable field became non-nullable and refused `null`. A
+/// record field has no caller of its own to read it, so the record type
+/// carries it.
+class NullableRuntimeType implements RuntimeType {
+  /// The type without the `?`.
+  final RuntimeType inner;
+
+  const NullableRuntimeType(this.inner);
+
+  @override
+  String get name => '${inner.name}?';
+
+  @override
+  bool isSubtypeOf(RuntimeType other, {Object? value}) {
+    if (other is NullableRuntimeType) {
+      return _runtimeTypeCompatible(inner, other.inner);
+    }
+    return _isWildcardTypeName(other.name);
+  }
+
+  @override
+  String toString() => name;
 }
 
 /// A minimal, self-contained [RuntimeType] identified purely by name. Used as a
