@@ -554,7 +554,18 @@ const _partialTwinBudget = 0;
 /// mechanism. The copier surface a port would have added is `is` expressions
 /// and typed parameters, which the corpus copies on every run.
 ///
-const _copierGapBudget = 54;
+/// 54 -> 55: GHISSUES22 added `ghissues22_where_type_test.dart`, which runs
+/// source to check that `whereType<T>()` keeps exactly the elements that are a
+/// `T` - by int, num, String, an interpreted class and its subclass, a bridged
+/// class and a bridged mixin, on a List, a Set, a lazy Iterable, a typed-data
+/// list and Runes - and that `is` accepts a script enum. Exec resolves
+/// tom_d4rt_ast from pub.dev, where `whereType` still keeps every element until
+/// the batch release (ghissues999), so a port would assert the fix against an
+/// interpreter that does not have it. Its ast twin holds the mechanism. The
+/// copier surface a port would have added is generic method invocations with
+/// explicit type arguments, which the corpus copies on every run.
+///
+const _copierGapBudget = 55;
 
 const Map<String, _Coverage> _coveredElsewhere = {
   'sce208_bind_forwarding_source_errors_test.dart': _Coverage(
@@ -664,6 +675,20 @@ const Map<String, _Coverage> _coveredElsewhere = {
         'repeated dart:core and dart:async prefixes, dart:math, missing names '
         'and prefixes, dynamic and Record), which a hand-built bundle would '
         'only restate.',
+  ),
+  'ghissues22_where_type_test.dart': _Coverage(
+    'ast:runtime/ghissues22_where_type_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 6,
+    twinCases: 3,
+    whyPartial:
+        'the twin pins the filter once per kind of type - a core type on a '
+        'List and a Set, an interpreted class and its subclass, a script '
+        'enum with `is`. The reference adds the remaining SHAPES (num, '
+        'Object, a bridged class and mixin, a lazy Iterable, typed data, '
+        'Runes, no type argument), which a hand-built bundle would only '
+        'restate.',
   ),
   'ghissues21_bridged_enum_type_test.dart': _Coverage(
     'ast:runtime/ghissues21_bridged_enum_type_test.dart',

@@ -125,8 +125,8 @@ class UnmodifiableSetViewCollection {
           'where',
         ).where(_predicate(visitor, positionalArgs[0], 'where'));
       },
-      'whereType': (visitor, target, positionalArgs, namedArgs, _) {
-        return _view(target, 'whereType').whereType<dynamic>();
+      'whereType': (visitor, target, positionalArgs, namedArgs, typeArgs) {
+        return visitor.whereTypeFilter(_view(target, 'whereType'), typeArgs);
       },
       'expand': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'UnmodifiableSetView.expand', atMost: 1);

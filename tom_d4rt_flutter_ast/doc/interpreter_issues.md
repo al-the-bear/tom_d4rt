@@ -25,7 +25,6 @@ reverse) fails the suite. Re-derive; do not hand-edit one side alone.
 | Marker | Section (heading text, verbatim) | What it is |
 | ------ | -------------------------------- | ---------- |
 | `[ ]` | Open (GEN-125) — an interpreted closure is rejected against a bridged function typedef (`VoidCallback`, `ValueChanged`) | An **interpreter / bridge** defect. Blast radius: every script closure passed to a parameter typed as a Flutter function typedef — which is every Flutter callback, on every widget, wherever a declared parameter type is checked. Nothing narrows it to the widgets the corpus happens to contain. Found 2026-09-06. **Fixed in the interpreter (scd136) and published in 1.192.0 / 0.177.0; re-measured 2026-09-28**, base corpus, both twins: 0 refused callbacks across 910 scripts, against 117 on 2026-09-15. Open until a FULL-corpus run at a published fix confirms the 4 failing extended files (sce160). |
-| `[ ]` | Open (GEN-127) — `whereType<T>()` on a stdlib collection ignores its type argument | An **interpreter** defect. Blast radius: every `whereType<T>()` a script calls on a stdlib collection, in both runtimes, returns every element instead of the T ones, silently. Found 2026-11-10 by ghissues15; the fix is owed by ghissues22. |
 | `[ ]` | Open (GEN-128) — a record type annotation drops its fields' `?` | An **interpreter** defect, both runtimes. Blast radius: every record type with a nullable field used where a type is checked (a declared variable, a loop variable, a parameter), given null. Found 2026-11-10 by ghissues15; owed by todo ghissues23. |
 | `[ ]` | Open (GEN-129) — tom_d4rt refuses a script whose doc comment names something not in scope | An **interpreter** defect, `tom_d4rt` only. Blast radius: every script with a doc-comment reference `[Name]` to a name it does not import or declare fails before `main`. Found 2026-11-10 by ghissues15; owed by todo ghissues24. |
 | `[ ]` | Open (GEN-130) — an interpreted DiagnosticableTree subclass's inherited toDiagnosticsNode() returns null | An **interpreter / bridge** defect, both twins, cause not yet located. Blast radius: an inherited bridged method called on an interpreted subclass of an abstract bridged class without a proxy may return null. Found 2026-11-10 by ghissues15; owed by todo ghissues25. |
@@ -378,7 +377,7 @@ these signatures.
 **Fix:** owed by todo ghissues27: attribute each, fix the scripts that are
 script-side.
 
-### [ ] Open (GEN-127) — `whereType<T>()` on a stdlib collection ignores its type argument
+### [X] Fixed — GEN-127: `whereType<T>()` on a stdlib collection ignores its type argument
 
 **Found:** 2026-11-10, ghissues15, run `20261110-ext25b-ast` (the checks of
 `flutter_extended_25`).
@@ -405,8 +404,21 @@ adapter is in 9 files of each tree (`core/iterable.dart`, `core/list.dart`,
 `core/set.dart`, `core/runes.dart`, the `collection/` sets and
 `typed_data/inherited_list_methods.dart`).
 
-**Fix:** owed by todo ghissues22: filter by the call's type argument as `is`
-decides it, in both trees.
+**Fix:** ghissues22, in both trees (tom_d4rt 1.246.0 / tom_d4rt_ast 0.227.0,
+not yet published). The adapters filter with
+`InterpreterVisitor.whereTypeFilter`, which asks each element the question the
+`is` operator asks (`valueHasRuntimeType`, the `is` operator's own type
+resolution): `int`, `num`, `String`, interpreted classes and subclasses,
+bridged classes and mixins, script enums. Without a type argument every
+element stays. The same pass found that `E.a is E` threw for a script enum;
+`is` has an arm for one now. `cast<T>()` is unchanged: it still returns the
+elements as they are, without a check. Pinned by
+`tom_d4rt/test/ghissues22_where_type_test.dart` (6 cases) and
+`tom_d4rt_ast/test/runtime/ghissues22_where_type_test.dart` (3).
+
+**Corpus:** the twins resolve the published interpreters, so the corpus sees the
+fix after the release (ghissues999), which also restores the `whereType` checks
+in the two scripts below.
 
 **Representative script:** none fails: the two corpus scripts that met it count
 with `is` instead (`cupertino/cupertino_menu_anchor_test.dart`,

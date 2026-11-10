@@ -261,12 +261,9 @@ class ListCore {
           (element) => test.call(visitor, [element], {}) as bool,
         );
       },
-      'whereType': (visitor, target, positionalArgs, namedArgs, _) {
-        // Mirrors the Iterable bridge: returns the list contents
-        // unfiltered (Iterable<dynamic>); the per-call type argument is
-        // not used yet. Adding this entry stops scripts that call
-        // `someList.whereType<Widget>()` from failing the bridge lookup.
-        return (target as List).whereType();
+      'whereType': (visitor, target, positionalArgs, namedArgs, typeArgs) {
+        // ghissues22: filtered by the call's type argument, as `is` decides.
+        return visitor.whereTypeFilter(target as List, typeArgs);
       },
       'expand': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'List.expand', atMost: 1);

@@ -446,9 +446,9 @@ class HashSetCollection {
         }
         throw RuntimeD4rtException("Invalid arguments for HashSet.toString");
       },
-      'whereType': (visitor, target, positionalArgs, namedArgs, _) {
+      'whereType': (visitor, target, positionalArgs, namedArgs, typeArgs) {
         if (target is HashSet && positionalArgs.isEmpty && namedArgs.isEmpty) {
-          return target.whereType<dynamic>();
+          return visitor.whereTypeFilter(target, typeArgs);
         }
         throw RuntimeD4rtException("Invalid arguments for HashSet.whereType");
       },

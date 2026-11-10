@@ -194,8 +194,8 @@ Map<String, BridgedMethodAdapter> inheritedListMethods<E>(
       // d4rt erases the type argument; <Object?> preserves all elements.
       return coerce(target).cast<Object?>();
     },
-    'whereType': (visitor, target, positionalArgs, namedArgs, _) {
-      return coerce(target).whereType<Object>();
+    'whereType': (visitor, target, positionalArgs, namedArgs, typeArgs) {
+      return visitor.whereTypeFilter(coerce(target), typeArgs);
     },
 
     // Iterable<E> — searches.

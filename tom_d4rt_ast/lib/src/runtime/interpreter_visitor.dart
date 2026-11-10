@@ -12225,6 +12225,179 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   /// `sink is StreamSink` must be true). That fallback adds no `isAssignable`
   /// closure, so bridge selection in `Environment.toBridgedInstance` is
   /// untouched.
+  /// Whether [expressionValue] satisfies [targetType], the object a type name
+  /// resolved to - the arms of the `is` operator's lookup branch, shared with
+  /// [valueHasRuntimeType] so that `whereType<T>()` filters exactly as `x is T`
+  /// decides (ghissues22). [appliedArgs] produces the resolved type arguments
+  /// of a generic test (`is Box<int>`); it is only called for an interpreted
+  /// class. Throws [RuntimeD4rtException] when [targetType] is not a type.
+  bool _valueMatchesResolvedType(
+    Object? expressionValue,
+    Object? targetType,
+    String typeName,
+    List<RuntimeType> Function()? appliedArgs,
+  ) {
+    if (targetType is BridgedClass) {
+      return _nativeOrBridgedMatches(expressionValue, targetType);
+    }
+    if (targetType is InterpretedClass) {
+      // SCF31: a proxy or a bridged super object IS its interpreted
+      // instance to the script, so `x is ScriptClass` asks about the
+      // instance. It answered false for both, while `x as ScriptClass`
+      // on the same value succeeded.
+      final instance = expressionValue is InterpretedInstance
+          ? expressionValue
+          : D4.interpretedBehind(expressionValue);
+      if (instance is InterpretedInstance) {
+        // DFUB6: when the test carries applied type arguments
+        // (`is Box<int>`), compare the value's applied runtime type
+        // against an `AppliedRuntimeType(targetClass, resolvedArgs)`
+        // so the arguments are checked element-wise. Without arguments
+        // (`is Box`) the raw base-class subtype check is used.
+        if (appliedArgs != null) {
+          return instance.valueType.isSubtypeOf(
+            AppliedRuntimeType(targetType, appliedArgs()),
+          );
+        }
+        return instance.klass.isSubtypeOf(targetType);
+      }
+      if (expressionValue is InterpretedEnumValue) {
+        // ghissues19: an enum is a subtype of the classes and mixins
+        // it implements and applies.
+        return expressionValue.parentEnum.isSubtypeOf(targetType);
+      }
+      // A non-instance value cannot be a subtype of a user-defined class
+      return false;
+    }
+    if (targetType is InterpretedEnum) {
+      // ghissues22: a script enum on the right of `is` had no arm either, so
+      // `E.a is E` threw.
+      return expressionValue is InterpretedEnumValue &&
+          expressionValue.parentEnum.isSubtypeOf(targetType);
+    }
+    if (targetType is BridgedEnum) {
+      // ghissues21: a bridged enum on the right of `is` had no arm and
+      // reached the `else` below, so `x is WidgetState` threw for every
+      // value. Decided as a parameter check decides it: by the value's
+      // bridged enum type, which a native enum value finds through the
+      // registry.
+      final valueType = expressionValue is BridgedEnumValue
+          ? expressionValue.enumType
+          : environment.getRuntimeType(expressionValue);
+      return valueType is BridgedEnum &&
+          valueType.isSubtypeOf(targetType, value: expressionValue);
+    }
+    if (targetType is Callable) {
+      // SCC64: a callable is never a type, so this is a diagnosis
+      // rather than an answer — and until SCC64 the interpreter
+      // answered it by CALLING the function, twice, to see whether it
+      // returned a `Type`. A type test therefore ran arbitrary host
+      // code: `1 is print` surfaced a `RangeError` from inside
+      // `print`'s own body, and `1 is identical` reported "identical
+      // requires two arguments" as though the type test had arguments.
+      //
+      // That branch existed for exactly one registration in the whole
+      // stdlib — `HttpClientCredentials`, defined as a zero-arity
+      // native returning its own `Type` — which SCC64 replaced with a
+      // real bridge. No consumer package registers a `Type`-valued
+      // native either, so it was one workaround that every other
+      // callable fell into rather than a mechanism with one user.
+      //
+      // `Callable`, not `NativeFunction`: an interpreted function
+      // reached the `else` below and got "not found or is not a int",
+      // which names the OPERAND's type and so reads as though the
+      // operand were at fault. Both halves of the same mistake now
+      // give the same sentence.
+      throw RuntimeD4rtException(
+        "'$typeName' is a function, not a type, so it cannot be used "
+        "on the right-hand side of 'is'.",
+      );
+    }
+    throw RuntimeD4rtException(
+      "Type '$typeName' not found or is not a ${expressionValue.runtimeType}.",
+    );
+  }
+
+  /// Whether [value] has the resolved type [type], answered as the `is`
+  /// operator answers `value is T` for the type `T` that resolved to [type].
+  ///
+  /// For the stdlib bridges, which receive a generic call's type arguments
+  /// already resolved: `whereType<T>()` filters with it (ghissues22). A
+  /// resolved type carries no `?`, so a null value satisfies only a top type
+  /// here (`dynamic`); `whereType<int?>()` drops null as `whereType<int>()`
+  /// does.
+  bool valueHasRuntimeType(Object? value, RuntimeType type) {
+    final base = type is AppliedRuntimeType ? type.baseType : type;
+    final args = type is AppliedRuntimeType ? type.typeArguments : null;
+    final shape = value is BridgedInstance ? value.nativeObject : value;
+    switch (base.name) {
+      case 'dynamic':
+        return true;
+      case 'void':
+        return false;
+      case 'Object':
+        return value != null;
+      case 'Null':
+        return value == null;
+      case 'int':
+        return shape is int;
+      case 'double':
+        return shape is double;
+      case 'num':
+        return shape is num;
+      case 'String':
+        return shape is String;
+      case 'bool':
+        return shape is bool;
+      case 'Record':
+        return value is InterpretedRecord || value is Record;
+      case 'List':
+        return shape is List &&
+            (args == null ||
+                args.isEmpty ||
+                shape.every((e) => valueHasRuntimeType(e, args.first)));
+      case 'Map':
+        return shape is Map &&
+            (args == null ||
+                args.length < 2 ||
+                shape.entries.every(
+                  (e) =>
+                      valueHasRuntimeType(e.key, args[0]) &&
+                      valueHasRuntimeType(e.value, args[1]),
+                ));
+    }
+    if (base is BridgedClass ||
+        base is InterpretedClass ||
+        base is InterpretedEnum ||
+        base is BridgedEnum) {
+      if (value == null) return false;
+      return _valueMatchesResolvedType(
+        value,
+        base,
+        base.name,
+        args == null || args.isEmpty ? null : () => args,
+      );
+    }
+    // A structural type (function, record) or a name-only placeholder: the
+    // value's own runtime type decides.
+    final valueType = environment.getRuntimeType(value);
+    return valueType != null && valueType.isSubtypeOf(type, value: value);
+  }
+
+  /// The elements of [source] that have the call's type argument - the
+  /// `whereType<T>()` of the stdlib bridges (ghissues22). Without a type
+  /// argument the call is `whereType<dynamic>()` and keeps every element.
+  Iterable<Object?> whereTypeFilter(
+    Iterable<Object?> source,
+    List<RuntimeType>? typeArguments,
+  ) {
+    if (typeArguments == null || typeArguments.isEmpty) {
+      return source.whereType<dynamic>();
+    }
+    final type = typeArguments.first;
+    return source.where((element) => valueHasRuntimeType(element, type));
+  }
+
   bool _nativeOrBridgedMatches(Object? value, BridgedClass targetType) {
     Object? nativeValue;
     if (value is BridgedInstance) {
@@ -12926,87 +13099,18 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         default:
           try {
             final targetType = environment.get(typeName);
-
-            if (targetType is BridgedClass) {
-              result = _nativeOrBridgedMatches(expressionValue, targetType);
-            } else if (targetType is InterpretedClass) {
-              // SCF31: a proxy or a bridged super object IS its interpreted
-              // instance to the script, so `x is ScriptClass` asks about the
-              // instance. It answered false for both, while `x as ScriptClass`
-              // on the same value succeeded.
-              final instance = expressionValue is InterpretedInstance
-                  ? expressionValue
-                  : D4.interpretedBehind(expressionValue);
-              if (instance is InterpretedInstance) {
-                // DFUB6: when the test carries applied type arguments
-                // (`is Box<int>`), compare the value's applied runtime type
-                // against an `AppliedRuntimeType(targetClass, resolvedArgs)`
-                // so the arguments are checked element-wise. Without arguments
-                // (`is Box`) the raw base-class subtype check is used.
-                final typeArgNodes = typeNode.typeArguments?.arguments;
-                if (typeArgNodes != null && typeArgNodes.isNotEmpty) {
-                  final resolvedArgs = <RuntimeType>[
-                    for (final argNode in typeArgNodes)
-                      _resolveTypeAnnotation(argNode),
-                  ];
-                  final appliedTarget = AppliedRuntimeType(
-                    targetType,
-                    resolvedArgs,
-                  );
-                  result = instance.valueType.isSubtypeOf(appliedTarget);
-                } else {
-                  result = instance.klass.isSubtypeOf(targetType);
-                }
-              } else if (expressionValue is InterpretedEnumValue) {
-                // ghissues19: an enum is a subtype of the classes and mixins
-                // it implements and applies.
-                result = expressionValue.parentEnum.isSubtypeOf(targetType);
-              } else {
-                // A non-instance value cannot be a subtype of a user-defined class
-                result = false;
-              }
-            } else if (targetType is BridgedEnum) {
-              // ghissues21: a bridged enum on the right of `is` had no arm and
-              // reached the `else` below, so `x is WidgetState` threw for every
-              // value. Decided as a parameter check decides it: by the value's
-              // bridged enum type, which a native enum value finds through the
-              // registry.
-              final valueType = expressionValue is BridgedEnumValue
-                  ? expressionValue.enumType
-                  : environment.getRuntimeType(expressionValue);
-              result =
-                  valueType is BridgedEnum &&
-                  valueType.isSubtypeOf(targetType, value: expressionValue);
-            } else if (targetType is Callable) {
-              // SCC64: a callable is never a type, so this is a diagnosis
-              // rather than an answer — and until SCC64 the interpreter
-              // answered it by CALLING the function, twice, to see whether it
-              // returned a `Type`. A type test therefore ran arbitrary host
-              // code: `1 is print` surfaced a `RangeError` from inside
-              // `print`'s own body, and `1 is identical` reported "identical
-              // requires two arguments" as though the type test had arguments.
-              //
-              // That branch existed for exactly one registration in the whole
-              // stdlib — `HttpClientCredentials`, defined as a zero-arity
-              // native returning its own `Type` — which SCC64 replaced with a
-              // real bridge. No consumer package registers a `Type`-valued
-              // native either, so it was one workaround that every other
-              // callable fell into rather than a mechanism with one user.
-              //
-              // `Callable`, not `NativeFunction`: an interpreted function
-              // reached the `else` below and got "not found or is not a int",
-              // which names the OPERAND's type and so reads as though the
-              // operand were at fault. Both halves of the same mistake now
-              // give the same sentence.
-              throw RuntimeD4rtException(
-                "'$typeName' is a function, not a type, so it cannot be used "
-                "on the right-hand side of 'is'.",
-              );
-            } else {
-              throw RuntimeD4rtException(
-                "Type '$typeName' not found or is not a ${expressionValue.runtimeType}.",
-              );
-            }
+            final typeArgNodes = typeNode.typeArguments?.arguments;
+            result = _valueMatchesResolvedType(
+              expressionValue,
+              targetType,
+              typeName,
+              typeArgNodes == null || typeArgNodes.isEmpty
+                  ? null
+                  : () => [
+                      for (final argNode in typeArgNodes)
+                        _resolveTypeAnnotation(argNode),
+                    ],
+            );
           } on RuntimeD4rtException catch (e) {
             // Propagate type lookup error
             // Wrap in InternalInterpreterException to be caught correctly

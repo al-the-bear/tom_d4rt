@@ -254,8 +254,8 @@ class IterableCore {
           positionalArgs[0] as Iterable,
         );
       },
-      'whereType': (visitor, target, positionalArgs, namedArgs, _) {
-        return (target as Iterable).whereType();
+      'whereType': (visitor, target, positionalArgs, namedArgs, typeArgs) {
+        return visitor.whereTypeFilter(target as Iterable, typeArgs);
       },
       'cast': (visitor, target, positionalArgs, namedArgs, _) {
         return (target as Iterable).cast();

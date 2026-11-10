@@ -182,11 +182,9 @@ class SetCore {
           return test.call(visitor, [element]) as bool;
         });
       },
-      'whereType': (visitor, target, positionalArgs, namedArgs, _) {
-        // Mirrors the Iterable / List bridges so that
-        // `mySet.whereType<...>()` resolves. Returns Iterable<dynamic>;
-        // per-call type argument is not applied yet.
-        return (target as Set).whereType();
+      'whereType': (visitor, target, positionalArgs, namedArgs, typeArgs) {
+        // ghissues22: filtered by the call's type argument, as `is` decides.
+        return visitor.whereTypeFilter(target as Set, typeArgs);
       },
       'expand': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Set.expand', atMost: 1);

@@ -1,3 +1,24 @@
+## 0.227.0
+
+### Fixed — `whereType<T>()` keeps the T elements; `is` accepts a script enum
+
+`whereType<T>()` on a List, Set, Iterable, Runes, a `dart:collection` set or a
+typed-data list ignored T and kept every element: the stdlib bridges called
+the native `whereType()` without the call's type argument. It now filters
+with `InterpreterVisitor.whereTypeFilter`, which asks of each element the
+question the `is` operator asks (`valueHasRuntimeType`; the `is` operator's
+lookup arms are one method, `_valueMatchesResolvedType`, shared by both).
+`[1, 'a', 2.5].whereType<int>()` is `[1]`; `whereType<A>()` keeps A and its
+subclasses. A resolved type argument carries no `?`, so `whereType<int?>()`
+drops null like `whereType<int>()`. `cast<T>()` is unchanged (it still ignores
+T). Also: `E.a is E` threw for a script enum - `is` had no arm for an
+interpreted enum.
+
+This changes what a script computes: code that relied on the unfiltered
+result now sees fewer elements.
+
+Name resolution: no
+
 ## 0.226.0
 
 ### Fixed — a bridged enum is one type: `is` accepts it, and an alias or a second registration of it is the same type

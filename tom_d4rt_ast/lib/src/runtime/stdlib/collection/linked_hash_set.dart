@@ -503,11 +503,11 @@ class LinkedHashSetCollection {
           "Invalid arguments for LinkedHashSet.toString",
         );
       },
-      'whereType': (visitor, target, positionalArgs, namedArgs, _) {
+      'whereType': (visitor, target, positionalArgs, namedArgs, typeArgs) {
         if (target is LinkedHashSet &&
             positionalArgs.isEmpty &&
             namedArgs.isEmpty) {
-          return target.whereType<dynamic>();
+          return visitor.whereTypeFilter(target, typeArgs);
         }
         throw RuntimeD4rtException(
           "Invalid arguments for LinkedHashSet.whereType",

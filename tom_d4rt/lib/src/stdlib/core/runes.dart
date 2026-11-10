@@ -29,8 +29,8 @@ class RunesCore {
         D4.checkArity(positionalArgs, 'Runes.elementAt', atMost: 1);
         return (target as Runes).elementAt(positionalArgs[0] as int);
       },
-      'whereType': (visitor, target, positionalArgs, namedArgs, _) {
-        return (target as Runes).whereType();
+      'whereType': (visitor, target, positionalArgs, namedArgs, typeArgs) {
+        return visitor.whereTypeFilter(target as Runes, typeArgs);
       },
       'skip': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Runes.skip', atMost: 1);

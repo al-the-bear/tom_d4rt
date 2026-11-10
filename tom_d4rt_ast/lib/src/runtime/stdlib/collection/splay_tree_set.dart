@@ -528,11 +528,11 @@ class SplayTreeSetCollection {
           "Invalid arguments for SplayTreeSet.toString",
         );
       },
-      'whereType': (visitor, target, positionalArgs, namedArgs, _) {
+      'whereType': (visitor, target, positionalArgs, namedArgs, typeArgs) {
         if (target is SplayTreeSet &&
             positionalArgs.isEmpty &&
             namedArgs.isEmpty) {
-          return target.whereType<dynamic>();
+          return visitor.whereTypeFilter(target, typeArgs);
         }
         throw RuntimeD4rtException(
           "Invalid arguments for SplayTreeSet.whereType",
