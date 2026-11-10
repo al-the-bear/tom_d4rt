@@ -274,7 +274,11 @@ removed entirely in this release.
 For every generic class whose type argument must be materialised at runtime
 (e.g., `Animation<double>`, `ValueNotifier<String>`), the relaxer generator
 emits a `$RelaxedAnimation<V>` wrapper class plus a factory function with a
-`switch` dispatch over the concrete type argument. A `registerRelaxers()`
+`switch` dispatch over the concrete type argument. A dispatch of more than 64
+type names is split into leaf functions of at most 64, reached through a binary
+search on the name, so that a release AOT build of a large bridge set stays
+bounded (GitHub #11); the same holds for the RC-2 generic constructor factories.
+A `registerRelaxers()`
 function registers all factories with `D4.registerGenericTypeWrapper()`. The
 output file defaults to `relaxers.b.dart` alongside the first module's bridge
 file and can be overridden via `relaxerOutputPath`. Upstream relaxer modules
@@ -523,7 +527,9 @@ Element-walker over `LibraryElement` that discovers classes extending
 Consumes `GenericExtractionSite` records accumulated during bridge emission
 (`lib/src/relaxer_generator.dart`). Generates `$Relaxed<Base><V>` wrapper
 classes, per-module factory functions with `switch` dispatch on the concrete
-type argument, and a `registerRelaxers()` registration function.
+type argument (split into leaves of at most 64 selectors by
+`lib/src/bounded_dispatch.dart`), and a `registerRelaxers()` registration
+function.
 
 ### `ProxyGenerator`
 

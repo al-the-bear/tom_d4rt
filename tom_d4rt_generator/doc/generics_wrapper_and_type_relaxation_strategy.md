@@ -158,7 +158,7 @@ class $RelaxedValueNotifier<V> extends ValueNotifier<V> {
 
 #### Component 2: Per-Module Factory Functions
 
-Each module generates a factory function that covers the type arguments **from that module's classes only**. The factory uses a switch on the `innerTypeArg` string to create the correctly typed wrapper instance.
+Each module generates a factory function that covers the type arguments **from that module's classes only**. The factory uses a switch on the `innerTypeArg` string to create the correctly typed wrapper instance. A factory with more than 64 type names splits the switch into leaf functions of at most 64, reached through a binary search on the name (`lib/src/bounded_dispatch.dart`, GitHub #11); each leaf keeps the typed value and the fallback, so every name yields what the single switch did.
 
 **Module generation order matters:** Modules are generated in dependency order (as defined in buildkit.yaml). Each module's factory covers only the types it introduces.
 
