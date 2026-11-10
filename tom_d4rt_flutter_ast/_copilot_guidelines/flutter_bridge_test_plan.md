@@ -4,22 +4,61 @@ Comprehensive test coverage plan for validating all bridged Flutter classes in t
 
 ## Summary Statistics
 
+Class Count is the number of classes and enums each bridge file registers
+(its `classSourceUris()` and `enumSourceUris()` maps), measured 2026-11-10 on
+Flutter 3.47.9. A name re-exported by several libraries is counted in each
+file that registers it; the files register 2,233 distinct names.
+
 | Module | Bridge File | Class Count | Priority Tests |
 |--------|-------------|-------------|----------------|
-| dart:ui | dart_ui_bridges.b.dart | 204 | 25 |
-| painting | painting_bridges.b.dart | 184 | 30 |
-| foundation | foundation_bridges.b.dart | 92 | 15 |
+| dart:ui | dart_ui_bridges.b.dart | 157 | 25 |
+| painting | painting_bridges.b.dart | 102 | 30 |
+| foundation | foundation_bridges.b.dart | 72 | 15 |
 | animation | animation_bridges.b.dart | 54 | 12 |
-| physics | physics_bridges.b.dart | 18 | 6 |
-| scheduler | scheduler_bridges.b.dart | 16 | 4 |
-| semantics | semantics_bridges.b.dart | 52 | 8 |
-| services | services_bridges.b.dart | 190 | 20 |
-| gestures | gestures_bridges.b.dart | 142 | 15 |
-| rendering | rendering_bridges.b.dart | 738 | 25 |
-| widgets | widgets_bridges.b.dart | 1806 | 50 |
-| material | material_widgets_bridges.b.dart | 2576 | 60 |
-| cupertino | cupertino_bridges.b.dart | 1962 | 30 |
-| **TOTAL** | | **8,034** | **300** |
+| physics | physics_bridges.b.dart | 8 | 6 |
+| scheduler | scheduler_bridges.b.dart | 6 | 4 |
+| semantics | semantics_bridges.b.dart | 27 | 8 |
+| services | services_bridges.b.dart | 142 | 20 |
+| gestures | gestures_bridges.b.dart | 96 | 15 |
+| rendering | rendering_bridges.b.dart | 270 | 25 |
+| widgets | widgets_bridges.b.dart | 770 | 50 |
+| material | material_widgets_bridges.b.dart | 490 | 60 |
+| cupertino | cupertino_bridges.b.dart | 145 | 30 |
+| vector_math | vector_math_bridges.b.dart | 18 | - |
+| **TOTAL** | | **2,357** | **300** |
+
+## Flutter 3.47 inventory
+
+The corpus scripts and the per-library testplans were written against Flutter
+3.41.3. The bridges are generated on Flutter 3.47.9. Measured 2026-11-10:
+
+- **18 bridged names are new in Flutter 3.47** (not declared in Flutter
+  3.41.3) and each has a script, run by `flutter_extended_25_test.dart` in
+  both twins: cupertino CupertinoMenuAnchor, CupertinoMenuDivider,
+  CupertinoMenuEntry, CupertinoMenuItem; dart:ui DisplayCornerRadii,
+  HitTestRequest, HitTestResponse, UniformArray, UniformMat2Slot,
+  UniformMat3Slot, UniformType; gestures NativeHitTestTarget; material
+  ShapedInputBorder, TabBarScrollController; rendering ScrollCacheExtent;
+  services TextInputStyle, UiKitViewGestureBlockingPolicy; widgets
+  ContextMenuButtonKind. Each library's testplan lists them under
+  "Classes Flutter 3.47 added". UniformMat4Slot, also new, was already named
+  by a script.
+- **One bridged name that existed in 3.41.3 has no script:**
+  RefreshIndicatorStatus (material). `testplan_hardly_relevant.md` records it
+  as scripted.
+- **27 names Flutter 3.47 declares are not bridged**, because no library the
+  bridges are generated from exports them: the windowing classes
+  (`src/widgets/_window*.dart`), the accessibility evaluations
+  (`src/widgets/_accessibility_evaluations.dart`), ErrorToConsoleDumper
+  (`src/foundation/_error_dumper_*.dart`), the `Console` extension type of
+  `src/web.dart`, and MultiPreviewThemeData (`widget_previews.dart`, not among
+  the generated barrels).
+
+Method: the names come from the bridge files' `classSourceUris()` /
+`enumSourceUris()` maps; "declared in a release" is a `class`, `enum`,
+`mixin` or `extension type` declaration under `packages/flutter/lib` or
+`engine/src/flutter/lib/ui` at that release's tag; "has a script" is the name
+appearing in any file under `send_ast_via_http_scripts/`.
 
 ## Priority Tiers
 
@@ -37,7 +76,7 @@ Advanced features, platform-specific, or rarely used classes.
 
 ---
 
-## Module: dart:ui (204 classes)
+## Module: dart:ui (157 classes)
 
 ### Tier 1 - Core Primitives
 | Class | Test File | Status |
@@ -76,7 +115,7 @@ Advanced features, platform-specific, or rarely used classes.
 
 ---
 
-## Module: painting (184 classes)
+## Module: painting (102 classes)
 
 ### Tier 1 - Core Primitives
 | Class | Test File | Status |
@@ -115,7 +154,7 @@ Advanced features, platform-specific, or rarely used classes.
 
 ---
 
-## Module: foundation (92 classes)
+## Module: foundation (72 classes)
 
 ### Tier 1 - Core
 | Class | Test File | Status |
@@ -161,7 +200,7 @@ Advanced features, platform-specific, or rarely used classes.
 
 ---
 
-## Module: physics (18 classes)
+## Module: physics (8 classes)
 
 ### All Classes (Small Module)
 | Class | Test File | Status |
@@ -175,7 +214,7 @@ Advanced features, platform-specific, or rarely used classes.
 
 ---
 
-## Module: widgets (1806 classes)
+## Module: widgets (770 classes)
 
 ### Tier 1 - Layout Widgets
 | Class | Test File | Status |
@@ -249,7 +288,7 @@ Advanced features, platform-specific, or rarely used classes.
 
 ---
 
-## Module: material (2576 classes)
+## Module: material (490 classes)
 
 ### Tier 1 - App Structure
 | Class | Test File | Status |
@@ -315,7 +354,7 @@ Advanced features, platform-specific, or rarely used classes.
 
 ---
 
-## Module: cupertino (1962 classes)
+## Module: cupertino (145 classes)
 
 ### Tier 1 - Core iOS Widgets
 | Class | Test File | Status |

@@ -1,6 +1,6 @@
 # Test Plan: gestures
 
-**Total bridged classes: 71**
+**Total bridged classes: 72**
 
 ## Classes (Alphabetical)
 
@@ -78,9 +78,18 @@
 | 70 | VerticalDragGestureRecognizer | ⬜ | |
 | 71 | VerticalMultiDragGestureRecognizer | ⬜ | |
 
+## Classes Flutter 3.47 added
+
+Bridged on Flutter 3.47.9 and not declared in Flutter 3.41.3, the release
+the alphabetical table was written against (measured 2026-11-10).
+
+| # | Class Name | Status | Test File |
+|---|------------|--------|-----------|
+| 72 | NativeHitTestTarget | ✅ | gestures/native_hit_test_target_test.dart |
+
 ## Summary
 
-- **Total classes:** 71
-- **Tested:** 0
+- **Total classes:** 72
+- **Tested:** 1 (NativeHitTestTarget)
 - **Remaining:** 71
-- **Coverage:** 0%
+- **Coverage:** 1.4%

@@ -77,7 +77,7 @@ if command -v timeout >/dev/null 2>&1; then TIMEOUT_BIN=(timeout 900)
 elif command -v gtimeout >/dev/null 2>&1; then TIMEOUT_BIN=(gtimeout 900); fi
 
 # Full corpus: the flutter_base_NN then flutter_extended_NN split files, in
-# numeric order (base before extended, interactive is the last extended file).
+# numeric order (base before extended).
 # Globbed so the list auto-tracks the generated files; each runs its own app.
 FILES=()
 for f in test/flutter_base_*_test.dart test/flutter_extended_*_test.dart; do

@@ -1,6 +1,6 @@
 # Test Plan: rendering
 
-**Total bridged classes: 369**
+**Total bridged classes: 370**
 
 ## Classes (Alphabetical)
 
@@ -376,9 +376,18 @@
 | 368 | WordBoundary | ⬜ | |
 | 369 | WrapParentData | ⬜ | |
 
+## Classes Flutter 3.47 added
+
+Bridged on Flutter 3.47.9 and not declared in Flutter 3.41.3, the release
+the alphabetical table was written against (measured 2026-11-10).
+
+| # | Class Name | Status | Test File |
+|---|------------|--------|-----------|
+| 370 | ScrollCacheExtent | ✅ | rendering/scroll_cache_extent_test.dart |
+
 ## Summary
 
-- **Total classes:** 369
-- **Tested:** 0
+- **Total classes:** 370
+- **Tested:** 1 (ScrollCacheExtent)
 - **Remaining:** 369
-- **Coverage:** 0%
+- **Coverage:** 0.3%

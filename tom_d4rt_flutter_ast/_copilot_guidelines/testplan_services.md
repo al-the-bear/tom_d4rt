@@ -1,6 +1,6 @@
 # Test Plan: services
 
-**Total bridged classes: 95**
+**Total bridged classes: 97**
 
 ## Classes (Alphabetical)
 
@@ -102,9 +102,19 @@
 | 94 | Vector3 | ⬜ | |
 | 95 | WriteBuffer | ⬜ | |
 
+## Classes Flutter 3.47 added
+
+Bridged on Flutter 3.47.9 and not declared in Flutter 3.41.3, the release
+the alphabetical table was written against (measured 2026-11-10).
+
+| # | Class Name | Status | Test File |
+|---|------------|--------|-----------|
+| 96 | TextInputStyle | ✅ | services/text_input_style_test.dart |
+| 97 | UiKitViewGestureBlockingPolicy | ✅ | services/uikit_view_gesture_blocking_policy_test.dart |
+
 ## Summary
 
-- **Total classes:** 95
-- **Tested:** 0
+- **Total classes:** 97
+- **Tested:** 2 (TextInputStyle, UiKitViewGestureBlockingPolicy)
 - **Remaining:** 95
-- **Coverage:** 0%
+- **Coverage:** 2.1%

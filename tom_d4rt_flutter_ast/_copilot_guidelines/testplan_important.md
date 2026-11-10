@@ -302,15 +302,15 @@ Commonly used classes for intermediate Flutter development - test after essentia
 | CupertinoTimerPickerMode | Timer mode | cupertino/datepicker_modes_test.dart | created | - |
 | DatePickerDateOrder | Date order | cupertino/datepicker_modes_test.dart | created | - |
 | DatePickerDateTimeOrder | DateTime order | cupertino/datepicker_modes_test.dart | created | - |
-| CupertinoMenuDivider | Menu divider | cupertino/menu_widgets_test.dart | created | - |
-| CupertinoMenuItem | Menu item | cupertino/menu_widgets_test.dart | created | - |
+| CupertinoMenuDivider | Menu divider | cupertino/cupertino_menu_anchor_test.dart | created | - |
+| CupertinoMenuItem | Menu item | cupertino/cupertino_menu_anchor_test.dart | created | - |
 | CupertinoMenuLargeDivider | Large divider | cupertino/menu_widgets_test.dart | created | - |
 | CupertinoMenuTitle | Menu title | cupertino/menu_widgets_test.dart | created | - |
 | CupertinoPulldownMenuItem | Pulldown item | cupertino/pulldown_test.dart | created | - |
 | CupertinoPulldownMenuDivider | Pulldown divider | cupertino/pulldown_test.dart | created | - |
 | CupertinoPulldownMenuTitle | Pulldown title | cupertino/pulldown_test.dart | created | - |
 | CupertinoPulldownButton | Pulldown button | cupertino/pulldown_test.dart | created | - |
-| CupertinoMenuAnchor | Menu anchor | cupertino/menu_widgets_test.dart | created | - |
+| CupertinoMenuAnchor | Menu anchor | cupertino/cupertino_menu_anchor_test.dart | created | - |
 | CupertinoMenuTheme | Menu theme | cupertino/menu_widgets_test.dart | created | - |
 | CupertinoMenuThemeData | Menu theme data | cupertino/menu_widgets_test.dart | created | - |
 | CupertinoInheritedTheme | Inherited theme | cupertino/cupertino_themes_batch1_test.dart | created | - |

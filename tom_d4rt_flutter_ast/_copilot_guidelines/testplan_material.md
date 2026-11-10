@@ -1,6 +1,6 @@
 # Test Plan: material
 
-**Total bridged classes: 1288**
+**Total bridged classes: 1290**
 
 ## Classes (Alphabetical)
 
@@ -1295,9 +1295,19 @@
 | 1287 | YearPicker | ⬜ | |
 | 1288 | ZoomPageTransitionsBuilder | ⬜ | |
 
+## Classes Flutter 3.47 added
+
+Bridged on Flutter 3.47.9 and not declared in Flutter 3.41.3, the release
+the alphabetical table was written against (measured 2026-11-10).
+
+| # | Class Name | Status | Test File |
+|---|------------|--------|-----------|
+| 1289 | ShapedInputBorder | ✅ | material/shaped_input_border_test.dart |
+| 1290 | TabBarScrollController | ✅ | material/tab_bar_scroll_controller_test.dart |
+
 ## Summary
 
-- **Total classes:** 1288
-- **Tested:** 5 (Scaffold, ElevatedButton, TextButton, Card, Icon)
+- **Total classes:** 1290
+- **Tested:** 7 (Scaffold, ElevatedButton, TextButton, Card, Icon, ShapedInputBorder, TabBarScrollController)
 - **Remaining:** 1283
-- **Coverage:** 0.4%
+- **Coverage:** 0.5%

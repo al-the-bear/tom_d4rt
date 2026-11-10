@@ -1,6 +1,6 @@
 # Test Plan: dart:ui
 
-**Total bridged classes: 102**
+**Total bridged classes: 109**
 
 ## Classes (Alphabetical)
 
@@ -109,9 +109,28 @@
 | 101 | ViewFocusEvent | ⬜ | |
 | 102 | ViewPadding | ⬜ | |
 
+## Classes Flutter 3.47 added
+
+Bridged on Flutter 3.47.9 and not declared in Flutter 3.41.3, the release
+the alphabetical table was written against (measured 2026-11-10).
+
+| # | Class Name | Status | Test File |
+|---|------------|--------|-----------|
+| 103 | DisplayCornerRadii | ✅ | dart_ui/display_corner_radii_test.dart |
+| 104 | HitTestRequest | ✅ | dart_ui/hit_test_request_response_test.dart |
+| 105 | HitTestResponse | ✅ | dart_ui/hit_test_request_response_test.dart |
+| 106 | UniformArray | ✅ | dart_ui/uniform_slots_new_test.dart |
+| 107 | UniformMat2Slot | ✅ | dart_ui/uniform_slots_new_test.dart |
+| 108 | UniformMat3Slot | ✅ | dart_ui/uniform_slots_new_test.dart |
+| 109 | UniformType | ✅ | dart_ui/uniform_slots_new_test.dart |
+
+The uniform handles have no public constructor and come only from a
+FragmentShader; the companion app bundles no shader asset, so their script
+uses them as types (annotations, type arguments, `is` checks).
+
 ## Summary
 
-- **Total classes:** 102
-- **Tested:** 4
+- **Total classes:** 109
+- **Tested:** 11
 - **Remaining:** 98
-- **Coverage:** 3.9%
+- **Coverage:** 10.1%

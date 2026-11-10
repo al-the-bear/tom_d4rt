@@ -1,6 +1,6 @@
 # Test Plan: widgets
 
-**Total bridged classes: 903**
+**Total bridged classes: 904**
 
 ## Classes (Alphabetical)
 
@@ -910,9 +910,18 @@
 | 902 | WordBoundary | ⬜ | |
 | 903 | Wrap | ⬜ | |
 
+## Classes Flutter 3.47 added
+
+Bridged on Flutter 3.47.9 and not declared in Flutter 3.41.3, the release
+the alphabetical table was written against (measured 2026-11-10).
+
+| # | Class Name | Status | Test File |
+|---|------------|--------|-----------|
+| 904 | ContextMenuButtonKind | ✅ | widgets/context_menu_button_kind_test.dart |
+
 ## Summary
 
-- **Total classes:** 903
-- **Tested:** 8 (Container, Center, Padding, Row, Column, Text, SizedBox, Expanded)
+- **Total classes:** 904
+- **Tested:** 9 (Container, Center, Padding, Row, Column, Text, SizedBox, Expanded, ContextMenuButtonKind)
 - **Remaining:** 895
-- **Coverage:** 0.9%
+- **Coverage:** 1.0%

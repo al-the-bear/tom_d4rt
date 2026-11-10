@@ -1,6 +1,6 @@
 # Test Plan: cupertino
 
-**Total bridged classes: 981**
+**Total bridged classes: 985**
 
 ## Classes (Alphabetical)
 
@@ -988,9 +988,21 @@
 | 980 | WordBoundary | ⬜ | |
 | 981 | Wrap | ⬜ | |
 
+## Classes Flutter 3.47 added
+
+Bridged on Flutter 3.47.9 and not declared in Flutter 3.41.3, the release
+the alphabetical table was written against (measured 2026-11-10).
+
+| # | Class Name | Status | Test File |
+|---|------------|--------|-----------|
+| 982 | CupertinoMenuAnchor | ✅ | cupertino/cupertino_menu_anchor_test.dart |
+| 983 | CupertinoMenuDivider | ✅ | cupertino/cupertino_menu_anchor_test.dart |
+| 984 | CupertinoMenuEntry | ✅ | cupertino/cupertino_menu_anchor_test.dart |
+| 985 | CupertinoMenuItem | ✅ | cupertino/cupertino_menu_anchor_test.dart |
+
 ## Summary
 
-- **Total classes:** 981
-- **Tested:** 0
+- **Total classes:** 985
+- **Tested:** 4 (CupertinoMenuAnchor, CupertinoMenuDivider, CupertinoMenuEntry, CupertinoMenuItem)
 - **Remaining:** 981
-- **Coverage:** 0%
+- **Coverage:** 0.4%
