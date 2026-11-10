@@ -1532,6 +1532,14 @@ class D4rtRunner {
     // process-global and not tied to this runner's environment lifecycle.
     D4.resetNativeAccumulators();
 
+    // ghissues14: the entry's own declarations live in the loader's script
+    // scope, all of which is script-declared.
+    final scriptEnv = _lastModuleLoader?.scriptEnvironment;
+    if (scriptEnv != null) {
+      for (final key in scriptEnv.values.keys.toList()) {
+        scriptEnv.removeLocalValue(key);
+      }
+    }
     final env = _globalEnvironment;
     final baseline = _baselineValueKeys;
     if (env == null || baseline == null) return;
@@ -1817,10 +1825,11 @@ class D4rtRunner {
       '(${bundle.modules.length} modules in bundle)',
     );
 
-    // Execute with full module context
+    // Execute with full module context. ghissues14: the entry runs in the
+    // loader's script scope, so the modules it loads do not see its names.
     return _executeInEnvironment(
       compilationUnit: entryAst,
-      executionEnvironment: executionEnvironment,
+      executionEnvironment: moduleLoader.scriptEnvironment,
       moduleContext: moduleLoader,
       name: name,
       positionalArgs: positionalArgs,

@@ -25,6 +25,18 @@ library;
 import 'package:test/test.dart';
 import 'package:tom_d4rt_ast/runtime.dart';
 
+/// The warm parent: the outermost environment above [env]. The script's own
+/// scope encloses the per-execute global environment, which encloses the warm
+/// parent (ghissues14), so it is found by walking out rather than by a fixed
+/// number of `enclosing` steps.
+Environment _warmParentOf(Environment env) {
+  var current = env;
+  while (current.enclosing != null) {
+    current = current.enclosing!;
+  }
+  return current;
+}
+
 void main() {
   /// Builds an [AstBundle] whose `main` returns the literal [returnValue]
   /// and additionally defines a top-level function named [extraName] so the
@@ -107,7 +119,7 @@ void main() {
         final runner = D4rtRunner();
 
         expect(runner.executeBundleAs<int>(bundleWith(1, extraName: 'a1')), 1);
-        final parentAfterFirst = runner.visitor!.globalEnvironment.enclosing;
+        final parentAfterFirst = _warmParentOf(runner.visitor!.globalEnvironment);
         expect(
           parentAfterFirst,
           isNotNull,
@@ -115,7 +127,7 @@ void main() {
         );
 
         expect(runner.executeBundleAs<int>(bundleWith(2, extraName: 'a2')), 2);
-        final parentAfterSecond = runner.visitor!.globalEnvironment.enclosing;
+        final parentAfterSecond = _warmParentOf(runner.visitor!.globalEnvironment);
 
         expect(
           identical(parentAfterFirst, parentAfterSecond),
@@ -175,9 +187,9 @@ void main() {
 
         // Two executes on the migrated instance build the parent once.
         first.executeBundleAs<int>(bundleWith(1, extraName: 'w1'));
-        final parent1 = first.visitor!.globalEnvironment.enclosing;
+        final parent1 = _warmParentOf(first.visitor!.globalEnvironment);
         first.executeBundleAs<int>(bundleWith(2, extraName: 'w2'));
-        final parent2 = first.visitor!.globalEnvironment.enclosing;
+        final parent2 = _warmParentOf(first.visitor!.globalEnvironment);
         expect(identical(parent1, parent2), isTrue);
         expect(
           D4rtRunner.debugWarmParentCacheSize,
@@ -193,7 +205,7 @@ void main() {
           reason: 'pkg_w is already pooled — second runner reuses it',
         );
         second.executeBundleAs<int>(bundleWith(3, extraName: 'w3'));
-        final parent3 = second.visitor!.globalEnvironment.enclosing;
+        final parent3 = _warmParentOf(second.visitor!.globalEnvironment);
         expect(
           identical(parent1, parent3),
           isTrue,
@@ -215,8 +227,8 @@ void main() {
       first.executeBundleAs<int>(bundleWith(1, extraName: 'l1'));
       second.executeBundleAs<int>(bundleWith(2, extraName: 'l2'));
 
-      final firstParent = first.visitor!.globalEnvironment.enclosing;
-      final secondParent = second.visitor!.globalEnvironment.enclosing;
+      final firstParent = _warmParentOf(first.visitor!.globalEnvironment);
+      final secondParent = _warmParentOf(second.visitor!.globalEnvironment);
 
       expect(
         identical(firstParent, secondParent),

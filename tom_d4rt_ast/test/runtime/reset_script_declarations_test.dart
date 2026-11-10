@@ -16,6 +16,18 @@ library;
 import 'package:test/test.dart';
 import 'package:tom_d4rt_ast/runtime.dart';
 
+/// The warm parent: the outermost environment above [env]. The script's own
+/// scope encloses the per-execute global environment, which encloses the warm
+/// parent (ghissues14), so it is found by walking out rather than by a fixed
+/// number of `enclosing` steps.
+Environment _warmParentOf(Environment env) {
+  var current = env;
+  while (current.enclosing != null) {
+    current = current.enclosing!;
+  }
+  return current;
+}
+
 void main() {
   /// Builds an [AstBundle] whose `main` returns the literal [returnValue]
   /// AND defines an extra top-level function `extra()` so we can assert
@@ -165,11 +177,12 @@ void main() {
 
       // Step 8 (warm parent): stdlib bridges land on the shared warm PARENT
       // via `Stdlib(parent).register()`, not on the per-execute child. The
-      // visitor's `globalEnvironment` is the child; its `enclosing` is the
-      // warm parent that holds the stdlib baseline. `reset` walks the child,
-      // so stdlib on the parent is preserved by construction.
+      // visitor's `globalEnvironment` is the entry's script scope, which
+      // encloses the child, which encloses the warm parent that holds the
+      // stdlib baseline. `reset` walks the script scope and the child, so
+      // stdlib on the parent is preserved by construction.
       final env = runner.visitor!.globalEnvironment;
-      final parent = env.enclosing!;
+      final parent = _warmParentOf(env);
       expect(
         parent.values.containsKey('print'),
         isTrue,
@@ -203,11 +216,12 @@ void main() {
       expect(runner.executeBundleAs<int>(bundleWithExtraTopLevelFn(1)), 1);
 
       // Step 8 (warm parent): `_registerBridgedDefinitions` runs on the warm
-      // PARENT, so built-in stdlib bridges (e.g. _Random) live on
-      // `env.enclosing`, not on the per-execute child. The reset walks the
-      // child's `_values`, so parent bridges are preserved by construction.
+      // PARENT, so built-in stdlib bridges (e.g. _Random) live on the
+      // outermost environment, not on the per-execute child. The reset walks
+      // the script scope's and the child's `_values`, so parent bridges are
+      // preserved by construction.
       final env = runner.visitor!.globalEnvironment;
-      final parent = env.enclosing!;
+      final parent = _warmParentOf(env);
       final preBridgeNames = parent.bridgedClassNames.toSet();
       expect(
         preBridgeNames,
@@ -236,7 +250,7 @@ void main() {
 
       // Step 8 (warm parent): bridged enums also live on the warm parent.
       final env = runner.visitor!.globalEnvironment;
-      final parent = env.enclosing!;
+      final parent = _warmParentOf(env);
       final preEnumNames = parent.bridgedEnumNames.toSet();
 
       runner.resetScriptDeclarations();

@@ -21,6 +21,18 @@ library;
 import 'package:test/test.dart';
 import 'package:tom_d4rt_ast/runtime.dart';
 
+/// The warm parent: the outermost environment above [env]. The script's own
+/// scope encloses the per-execute global environment, which encloses the warm
+/// parent (ghissues14), so it is found by walking out rather than by a fixed
+/// number of `enclosing` steps.
+Environment _warmParentOf(Environment env) {
+  var current = env;
+  while (current.enclosing != null) {
+    current = current.enclosing!;
+  }
+  return current;
+}
+
 /// Unique native type for the lazily-registered probe bridge — chosen so the
 /// `toBridgedInstance` direct type lookup resolves to this bridge alone and
 /// builds exactly its thunk (no shared supertype that would force others).
@@ -109,7 +121,7 @@ void main() {
             'this is what keeps registerBridgedDefinitionsFromPool cheap',
       );
 
-      final parent = runner.visitor!.globalEnvironment.enclosing;
+      final parent = _warmParentOf(runner.visitor!.globalEnvironment);
       expect(
         parent,
         isNotNull,
@@ -117,7 +129,7 @@ void main() {
       );
 
       // First resolution (by native type) builds the bridge exactly once.
-      parent!.toBridgedInstance(_S5Probe());
+      parent.toBridgedInstance(_S5Probe());
       expect(builds, 1, reason: 'first resolution builds the thunk');
 
       // Second resolution reuses the memoized build.

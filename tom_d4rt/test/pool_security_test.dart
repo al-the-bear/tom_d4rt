@@ -34,6 +34,18 @@ library;
 import 'package:test/test.dart';
 import 'package:tom_d4rt/d4rt.dart';
 
+/// The warm parent: the outermost environment above [env]. The script's own
+/// scope encloses the per-execute global environment, which encloses the warm
+/// parent (ghissues14), so it is found by walking out rather than by a fixed
+/// number of `enclosing` steps.
+Environment _warmParentOf(Environment env) {
+  var current = env;
+  while (current.enclosing != null) {
+    current = current.enclosing!;
+  }
+  return current;
+}
+
 /// Distinct native marker types so the analyzer twin's *type* lookup can tell
 /// `AClass` apart from `BClass` (a shared `Object` nativeType would collide).
 class _AClassNative {}
@@ -86,7 +98,7 @@ void main() {
 
       // Positive control: interpreter 1's warm parent DOES resolve the native
       // `_AClassNative` type (its pooled bridge is registered there).
-      final firstParent = first.visitor!.globalEnvironment.enclosing!;
+      final firstParent = _warmParentOf(first.visitor!.globalEnvironment);
       expect(
         firstParent.toBridgedInstance(_AClassNative()),
         isNotNull,
@@ -108,7 +120,7 @@ void main() {
 
       // SECURITY: `_AClassNative` must NOT resolve in interpreter 2's warm
       // parent — it was not granted pkg_a, so the type is unbridged there.
-      final secondParent = second.visitor!.globalEnvironment.enclosing!;
+      final secondParent = _warmParentOf(second.visitor!.globalEnvironment);
       expect(
         () => secondParent.toBridgedInstance(_AClassNative()),
         throwsA(anything),
@@ -121,7 +133,7 @@ void main() {
       // likewise isolated: its warm parent is built from its own empty maps.
       final third = D4rt();
       third.execute(source: 'int main() => 3;');
-      final thirdParent = third.visitor!.globalEnvironment.enclosing!;
+      final thirdParent = _warmParentOf(third.visitor!.globalEnvironment);
       expect(
         () => thirdParent.toBridgedInstance(_AClassNative()),
         throwsA(anything),
@@ -141,9 +153,9 @@ void main() {
       );
 
       first.execute(source: 'int main() => 1;');
-      final parent1 = first.visitor!.globalEnvironment.enclosing;
+      final parent1 = _warmParentOf(first.visitor!.globalEnvironment);
       first.execute(source: 'int main() => 2;');
-      final parent2 = first.visitor!.globalEnvironment.enclosing;
+      final parent2 = _warmParentOf(first.visitor!.globalEnvironment);
 
       expect(
         identical(parent1, parent2),

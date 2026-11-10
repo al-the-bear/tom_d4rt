@@ -1,3 +1,17 @@
+## 0.223.0
+
+### Fixed — an imported module no longer sees the bundle entry's declarations
+
+A loaded module could read the bundle entry's top-level declarations: a
+module's environment encloses the loader's global environment, and
+`executeBundle` ran the entry IN that environment. The entry now runs in the
+loader's script scope, `AstModuleLoader.scriptEnvironment`, which encloses the
+global environment: the entry still sees the stdlib, the bridges and its
+imports, and a module no longer sees the entry. `resetScriptDeclarations`
+clears the script scope.
+
+Name resolution: yes — a module's free names no longer resolve to the bundle entry's declarations; the entry's declarations live in a script scope only the entry sees.
+
 ## 0.222.0
 
 ### Fixed — an enum is a subtype of what it implements and mixes in

@@ -1,3 +1,20 @@
+## 1.242.0
+
+### Fixed — an imported library no longer sees the importing script's declarations
+
+A loaded library could read the importing script's top-level declarations:
+a module's environment encloses the loader's global environment, and the entry
+script was executed IN that environment, so `int useScript() => scriptOnly;`
+in a library returned the script's `scriptOnly` (Dart: a compile error), a
+library class could extend a script class, and a library naming something it
+neither declares nor imports bound a same-named script declaration. The entry
+now runs in a script scope of its own, `ModuleLoader.scriptEnvironment`, which
+encloses the global environment: the script still sees the stdlib, the bridges
+and its imports, and a library no longer sees the script. `getEnvironmentState` lists the script scope and then the global
+environment, and `resetScriptDeclarations` clears the script scope.
+
+Name resolution: yes — a library's free names no longer resolve to the importing script's declarations; the entry's declarations live in a script scope only the entry sees.
+
 ## 1.241.0
 
 ### Fixed — an enum is a subtype of what it implements and mixes in

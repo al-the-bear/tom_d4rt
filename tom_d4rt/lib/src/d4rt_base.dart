@@ -1298,6 +1298,12 @@ class D4rt {
     D4.resetNativeAccumulators();
 
     if (!_hasExecutedOnce) return;
+    // ghissues14: the script's own declarations live in the script scope,
+    // all of which is script-declared.
+    final scriptEnv = _moduleLoader.scriptEnvironment;
+    for (final key in scriptEnv.values.keys.toList()) {
+      scriptEnv.removeLocalValue(key);
+    }
     final baseline = _baselineValueKeys;
     if (baseline == null) return;
     final env = _moduleLoader.globalEnvironment;
@@ -1398,7 +1404,7 @@ class D4rt {
       final compilationUnit = _parseSource(source: source);
 
       // Execute main to complete initialization
-      final executionEnvironment = _moduleLoader.globalEnvironment;
+      final executionEnvironment = _moduleLoader.scriptEnvironment;
       _executeInEnvironment(
         compilationUnit: compilationUnit,
         executionEnvironment: executionEnvironment,
@@ -1903,9 +1909,17 @@ class D4rt {
 
     final globalEnv = _moduleLoader.globalEnvironment;
 
-    // Get all variables from the global environment
+    // Get all variables: the script's own scope first (ghissues14: the entry
+    // runs in [ModuleLoader.scriptEnvironment]), then the global environment
+    // it encloses, a name the script redeclares listed once.
     final variables = <EnvironmentVariableInfo>[];
-    for (final entry in globalEnv.values.entries) {
+    final scriptValues = _moduleLoader.scriptEnvironment.values;
+    for (final entry in [
+      ...scriptValues.entries,
+      ...globalEnv.values.entries.where(
+        (e) => !scriptValues.containsKey(e.key),
+      ),
+    ]) {
       variables.add(
         EnvironmentVariableInfo(
           name: entry.key,
@@ -2035,7 +2049,7 @@ class D4rt {
     }
 
     // Library-scoped globals are registered via ModuleLoader when imports are processed
-    final executionEnvironment = _moduleLoader.globalEnvironment;
+    final executionEnvironment = _moduleLoader.scriptEnvironment;
 
     // Execute and return result
     return _executeInEnvironment(
@@ -2105,7 +2119,7 @@ class D4rt {
     final compilationUnit = _parseSource(source: source, library: library);
 
     // Reuse existing environment - don't register globals again
-    final executionEnvironment = _moduleLoader.globalEnvironment;
+    final executionEnvironment = _moduleLoader.scriptEnvironment;
 
     // Execute and return result
     return _executeInEnvironment(
@@ -2162,7 +2176,7 @@ class D4rt {
     );
     return _executeInEnvironment(
       compilationUnit: program._unit,
-      executionEnvironment: _moduleLoader.globalEnvironment,
+      executionEnvironment: _moduleLoader.scriptEnvironment,
       name: name,
       positionalArgs: positionalArgs,
       namedArgs: namedArgs,
@@ -2983,7 +2997,7 @@ class D4rt {
     final compilationUnit = parseResult.unit;
 
     // Library-scoped globals are registered via ModuleLoader when imports are processed
-    final Environment executionEnvironment = _moduleLoader.globalEnvironment;
+    final Environment executionEnvironment = _moduleLoader.scriptEnvironment;
 
     // Pass 1: Declaration
     final declarationVisitor = DeclarationVisitor(executionEnvironment);
@@ -3053,7 +3067,7 @@ class D4rt {
     }
 
     Logger.debug("[D4rt.eval] Evaluating: $expression");
-    final executionEnvironment = _moduleLoader.globalEnvironment;
+    final executionEnvironment = _moduleLoader.scriptEnvironment;
 
     // First, try to parse as a top-level declaration (function, class, variable)
     final declarationParseResult = parseString(

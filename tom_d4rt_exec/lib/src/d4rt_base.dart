@@ -630,7 +630,7 @@ class D4rt {
       final compilationUnit = _parseSource(source: source);
 
       // Execute main to complete initialization
-      final executionEnvironment = _moduleLoader.globalEnvironment;
+      final executionEnvironment = _moduleLoader.scriptEnvironment;
       _executeInEnvironment(
         compilationUnit: compilationUnit,
         executionEnvironment: executionEnvironment,
@@ -779,7 +779,7 @@ class D4rt {
   /// hook rather than the §U28 wedge fix).
   ///
   /// This method does NOT walk the classic [execute]-path's
-  /// `_moduleLoader.globalEnvironment`. Callers that mix [execute]
+  /// `_moduleLoader` environments. Callers that mix [execute]
   /// (source-direct) with [executeBundle] (AST-driven) and need
   /// both flushed should call this followed by re-instantiating
   /// the D4rt host (or open a follow-up issue if that becomes a
@@ -1126,9 +1126,17 @@ class D4rt {
 
     final globalEnv = _moduleLoader.globalEnvironment;
 
-    // Get all variables from the global environment
+    // Get all variables: the script's own scope first (ghissues14: the entry
+    // runs in [ModuleLoader.scriptEnvironment]), then the global environment
+    // it encloses, a name the script redeclares listed once.
     final variables = <EnvironmentVariableInfo>[];
-    for (final entry in globalEnv.values.entries) {
+    final scriptValues = _moduleLoader.scriptEnvironment.values;
+    for (final entry in [
+      ...scriptValues.entries,
+      ...globalEnv.values.entries.where(
+        (e) => !scriptValues.containsKey(e.key),
+      ),
+    ]) {
       variables.add(
         EnvironmentVariableInfo(
           name: entry.key,
@@ -1250,7 +1258,7 @@ class D4rt {
     final compilationUnit = _parseSource(source: source, library: library);
 
     // Library-scoped globals are registered via ModuleLoader when imports are processed
-    final executionEnvironment = _moduleLoader.globalEnvironment;
+    final executionEnvironment = _moduleLoader.scriptEnvironment;
 
     // Execute and return result
     return _executeInEnvironment(
@@ -1301,7 +1309,7 @@ class D4rt {
     _moduleLoader.recordEntrySource(program._unit, program.source);
     return _executeInEnvironment(
       compilationUnit: program._unit,
-      executionEnvironment: _moduleLoader.globalEnvironment,
+      executionEnvironment: _moduleLoader.scriptEnvironment,
       name: name,
       positionalArgs: positionalArgs,
       namedArgs: namedArgs,
@@ -1448,7 +1456,7 @@ class D4rt {
     final compilationUnit = _parseSource(source: source, library: library);
 
     // Reuse existing environment - don't register globals again
-    final executionEnvironment = _moduleLoader.globalEnvironment;
+    final executionEnvironment = _moduleLoader.scriptEnvironment;
 
     // Execute and return result
     return _executeInEnvironment(
@@ -2286,7 +2294,7 @@ class D4rt {
     final compilationUnit = _parseExecutableSource(source);
 
     // Library-scoped globals are registered via ModuleLoader when imports are processed
-    final Environment executionEnvironment = _moduleLoader.globalEnvironment;
+    final Environment executionEnvironment = _moduleLoader.scriptEnvironment;
 
     // Pass 1: Declaration
     final declarationVisitor = DeclarationVisitor(executionEnvironment);
@@ -2356,7 +2364,7 @@ class D4rt {
     }
 
     Logger.debug("[D4rt.eval] Evaluating: $expression");
-    final executionEnvironment = _moduleLoader.globalEnvironment;
+    final executionEnvironment = _moduleLoader.scriptEnvironment;
 
     // First, try to parse as a top-level declaration (function, class, variable)
     final declarationParseResult = _parseSourceToAst(expression);

@@ -26,6 +26,18 @@ library;
 import 'package:test/test.dart';
 import 'package:tom_d4rt/d4rt.dart';
 
+/// The warm parent: the outermost environment above [env]. The script's own
+/// scope encloses the per-execute global environment, which encloses the warm
+/// parent (ghissues14), so it is found by walking out rather than by a fixed
+/// number of `enclosing` steps.
+Environment _warmParentOf(Environment env) {
+  var current = env;
+  while (current.enclosing != null) {
+    current = current.enclosing!;
+  }
+  return current;
+}
+
 void main() {
   /// A marker [BridgedClass] — never instantiated; only used to make an
   /// instance "migrated" by registering it under a provided package.
@@ -46,7 +58,7 @@ void main() {
 
         expect(interpreter.execute(source: 'int main() => 1;'), 1);
         final parentAfterFirst =
-            interpreter.visitor!.globalEnvironment.enclosing;
+            _warmParentOf(interpreter.visitor!.globalEnvironment);
         expect(
           parentAfterFirst,
           isNotNull,
@@ -55,7 +67,7 @@ void main() {
 
         expect(interpreter.execute(source: 'int main() => 2;'), 2);
         final parentAfterSecond =
-            interpreter.visitor!.globalEnvironment.enclosing;
+            _warmParentOf(interpreter.visitor!.globalEnvironment);
 
         expect(
           identical(parentAfterFirst, parentAfterSecond),
@@ -117,9 +129,9 @@ void main() {
 
       // Two executes on the migrated instance build the parent once.
       first.execute(source: 'int main() => 1;');
-      final parent1 = first.visitor!.globalEnvironment.enclosing;
+      final parent1 = _warmParentOf(first.visitor!.globalEnvironment);
       first.execute(source: 'int main() => 2;');
-      final parent2 = first.visitor!.globalEnvironment.enclosing;
+      final parent2 = _warmParentOf(first.visitor!.globalEnvironment);
       expect(identical(parent1, parent2), isTrue);
       expect(
         D4rt.debugWarmParentCacheSize,
@@ -135,7 +147,7 @@ void main() {
         reason: 'pkg_w is already pooled — second interpreter reuses it',
       );
       second.execute(source: 'int main() => 3;');
-      final parent3 = second.visitor!.globalEnvironment.enclosing;
+      final parent3 = _warmParentOf(second.visitor!.globalEnvironment);
       expect(
         identical(parent1, parent3),
         isTrue,
@@ -156,8 +168,8 @@ void main() {
       first.execute(source: 'int main() => 1;');
       second.execute(source: 'int main() => 2;');
 
-      final firstParent = first.visitor!.globalEnvironment.enclosing;
-      final secondParent = second.visitor!.globalEnvironment.enclosing;
+      final firstParent = _warmParentOf(first.visitor!.globalEnvironment);
+      final secondParent = _warmParentOf(second.visitor!.globalEnvironment);
 
       expect(
         identical(firstParent, secondParent),

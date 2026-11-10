@@ -2456,6 +2456,10 @@ const Map<String, _Divergence> _divergentBaseline = {
   // an inner `D4rtRunner` and holds no chain of its own. What this copy pins is
   // therefore a different contract: that the forwards expose the runner's
   // behaviour faithfully through the wrapper. Neither copy can be the other.
+  // GHISSUES14 moved the reference's reach into its chain from one
+  // `enclosing` step to `_warmParentOf` (the outermost environment), because
+  // the entry now runs in a script scope one level below the per-execute
+  // global environment; the difference is the same in kind.
   'warm_parent_package_pool_test.dart': _Divergence.necessary,
   // SCD171 changed the reference copy's F-SCC65-23: bridging `X509Certificate`
   // made a parameter annotation naming it start being CHECKED, so the case's
@@ -2520,7 +2524,7 @@ const Map<String, String> _divergenceFingerprints = <String, String>{
   'scd35_bridged_tearoff_as_callback_test.dart': '2af9f62cc4643311',
   'scc28_typed_undefined_member_test.dart': '607adb1f1f551b29',
   'stdlib/io/scd188_stdin_audit_reason_expiry_test.dart': '46be47f827711c3a',
-  'warm_parent_package_pool_test.dart': '971b6ff19185f442',
+  'warm_parent_package_pool_test.dart': '57ffe9a94a4afcdc',
   'stdlib/intentionally_unbridged_test.dart': '7afe64313e406c95',
   'scc31_undefined_name_uncatchable_test.dart': '5168561b17d50b1b',
   'scc32_bridged_value_key_test.dart': '0a2b0b334d6eedaf',

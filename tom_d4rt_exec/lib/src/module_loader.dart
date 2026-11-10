@@ -70,6 +70,16 @@ class _InFlightModule {
 class ModuleLoader implements context.ModuleContext {
   @override
   final Environment globalEnvironment;
+
+  /// The scope the entry script's own declarations live in, enclosing
+  /// [globalEnvironment]: the script sees everything registered there (the
+  /// stdlib, bridges, what its imports bring in), while a loaded module, whose
+  /// environment encloses [globalEnvironment] too, does not see the script
+  /// (ghissues14: a library that named something it neither declares nor
+  /// imports found a same-named script declaration).
+  late final Environment scriptEnvironment = Environment(
+    enclosing: globalEnvironment,
+  );
   final Map<String, String> sources;
   final Map<Uri, LoadedModule> _moduleCache = {};
 

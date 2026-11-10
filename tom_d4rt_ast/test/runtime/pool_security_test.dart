@@ -25,6 +25,18 @@ library;
 import 'package:test/test.dart';
 import 'package:tom_d4rt_ast/runtime.dart';
 
+/// The warm parent: the outermost environment above [env]. The script's own
+/// scope encloses the per-execute global environment, which encloses the warm
+/// parent (ghissues14), so it is found by walking out rather than by a fixed
+/// number of `enclosing` steps.
+Environment _warmParentOf(Environment env) {
+  var current = env;
+  while (current.enclosing != null) {
+    current = current.enclosing!;
+  }
+  return current;
+}
+
 /// AClass's own native type, so a warm parent can be asked whether it knows
 /// the TYPE — which is all a warm parent holds since SCF9.
 class _AClass {}
@@ -150,7 +162,7 @@ void main() {
       // Positive control: instance 1's warm parent DOES know AClass. Asked by
       // TYPE: since SCF9 the warm parent binds no names, only the type lookup
       // `toBridgedInstance` needs, as tom_d4rt's always has.
-      final firstParent = first.visitor!.globalEnvironment.enclosing!;
+      final firstParent = _warmParentOf(first.visitor!.globalEnvironment);
       expect(
         _knowsAClass(firstParent),
         isTrue,
@@ -171,7 +183,7 @@ void main() {
       second.executeBundleAs<int>(bundleWith(2, extraName: 's1'));
 
       // SECURITY: AClass must NOT be visible in instance 2's warm parent.
-      final secondParent = second.visitor!.globalEnvironment.enclosing!;
+      final secondParent = _warmParentOf(second.visitor!.globalEnvironment);
       expect(
         _knowsAClass(secondParent),
         isFalse,
@@ -182,7 +194,7 @@ void main() {
       // isolated: its warm parent is built from its own empty maps.
       final third = D4rtRunner();
       third.executeBundleAs<int>(bundleWith(3, extraName: 't1'));
-      final thirdParent = third.visitor!.globalEnvironment.enclosing!;
+      final thirdParent = _warmParentOf(third.visitor!.globalEnvironment);
       expect(
         _knowsAClass(thirdParent),
         isFalse,
@@ -202,9 +214,9 @@ void main() {
       );
 
       first.executeBundleAs<int>(bundleWith(1, extraName: 'c1'));
-      final parent1 = first.visitor!.globalEnvironment.enclosing;
+      final parent1 = _warmParentOf(first.visitor!.globalEnvironment);
       first.executeBundleAs<int>(bundleWith(2, extraName: 'c2'));
-      final parent2 = first.visitor!.globalEnvironment.enclosing;
+      final parent2 = _warmParentOf(first.visitor!.globalEnvironment);
 
       expect(
         identical(parent1, parent2),

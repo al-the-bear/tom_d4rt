@@ -58,6 +58,16 @@ class AstModuleLoader implements ModuleContext {
   @override
   final Environment globalEnvironment;
 
+  /// The scope the entry module's own declarations live in, enclosing
+  /// [globalEnvironment]: the entry sees everything registered there (the
+  /// stdlib, bridges, what its imports bring in), while a loaded module, whose
+  /// environment encloses [globalEnvironment] too, does not see the entry
+  /// (ghissues14: a library that named something it neither declares nor
+  /// imports found a same-named declaration of the entry).
+  late final Environment scriptEnvironment = Environment(
+    enclosing: globalEnvironment,
+  );
+
   /// The interpreted call stack of the run this loader serves, located through
   /// the bundle's [sources] — a bundle built without them yields empty traces.
   @override
