@@ -1,5 +1,6 @@
 import 'package:tom_d4rt_ast/runtime.dart';
 import '../coerce_elements.dart';
+import '../cast_views.dart';
 
 class RunesCore {
   static BridgedClass get definition => BridgedClass(
@@ -57,8 +58,8 @@ class RunesCore {
       'toString': (visitor, target, positionalArgs, namedArgs, _) {
         return (target as Runes).toString();
       },
-      'cast': (visitor, target, positionalArgs, namedArgs, _) {
-        return (target as Runes).cast();
+      'cast': (visitor, target, positionalArgs, namedArgs, typeArgs) {
+        return castIterable(visitor, target as Runes, typeArgs);
       },
       'followedBy': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Runes.followedBy', atMost: 1);

@@ -3,6 +3,7 @@ import 'dart:collection';
 import 'package:tom_d4rt/d4rt.dart';
 
 import 'set_algebra_methods.dart';
+import '../cast_views.dart';
 
 /// Narrows [target] to the native view, or reports which member was reached
 /// with the wrong receiver.
@@ -272,8 +273,8 @@ class UnmodifiableSetViewCollection {
       'toSet': (visitor, target, positionalArgs, namedArgs, _) {
         return _view(target, 'toSet').toSet();
       },
-      'cast': (visitor, target, positionalArgs, namedArgs, _) {
-        return _view(target, 'cast').cast<dynamic>();
+      'cast': (visitor, target, positionalArgs, namedArgs, typeArgs) {
+        return castSet(visitor, _view(target, 'cast'), typeArgs);
       },
       'toString': (visitor, target, positionalArgs, namedArgs, _) {
         return _view(target, 'toString').toString();

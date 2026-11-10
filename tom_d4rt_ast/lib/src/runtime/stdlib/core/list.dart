@@ -1,6 +1,7 @@
 import 'dart:math' show Random;
 
 import 'package:tom_d4rt_ast/runtime.dart';
+import '../cast_views.dart';
 
 class ListCore {
   static BridgedClass get definition => BridgedClass(
@@ -519,8 +520,8 @@ class ListCore {
       'asMap': (visitor, target, positionalArgs, namedArgs, _) {
         return (target as List).asMap();
       },
-      'cast': (visitor, target, positionalArgs, namedArgs, _) {
-        return (target as List).cast<dynamic>();
+      'cast': (visitor, target, positionalArgs, namedArgs, typeArgs) {
+        return castList(visitor, target as List, typeArgs);
       },
       'followedBy': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'List.followedBy', atMost: 1);

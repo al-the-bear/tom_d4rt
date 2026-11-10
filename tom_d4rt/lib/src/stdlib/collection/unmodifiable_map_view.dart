@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:tom_d4rt/d4rt.dart';
+import '../cast_views.dart';
 
 /// Narrows [target] to the native view, or reports which member was reached
 /// with the wrong receiver.
@@ -121,8 +122,8 @@ class UnmodifiableMapViewCollection {
           'map',
         ).map((key, value) => _asMapEntry(convert.call(visitor, [key, value])));
       },
-      'cast': (visitor, target, positionalArgs, namedArgs, _) {
-        return _view(target, 'cast').cast<dynamic, dynamic>();
+      'cast': (visitor, target, positionalArgs, namedArgs, typeArgs) {
+        return castMap(visitor, _view(target, 'cast'), typeArgs);
       },
       'toString': (visitor, target, positionalArgs, namedArgs, _) {
         return _view(target, 'toString').toString();

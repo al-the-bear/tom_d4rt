@@ -1,6 +1,7 @@
 import 'package:tom_d4rt/d4rt.dart';
 
 import '../collection/set_algebra_methods.dart';
+import '../cast_views.dart';
 
 class SetCore {
   static BridgedClass get definition => BridgedClass(
@@ -286,8 +287,8 @@ class SetCore {
         D4.checkArity(positionalArgs, 'Set.followedBy', atMost: 1);
         return (target as Set).followedBy(positionalArgs[0] as Iterable);
       },
-      'cast': (visitor, target, positionalArgs, namedArgs, _) {
-        return (target as Set).cast();
+      'cast': (visitor, target, positionalArgs, namedArgs, typeArgs) {
+        return castSet(visitor, target as Set, typeArgs);
       },
     },
     getters: {

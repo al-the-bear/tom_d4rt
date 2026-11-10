@@ -1,3 +1,32 @@
+## 1.252.0
+
+### Changed — `cast<T>()` on a stdlib collection checks its elements against T
+
+The `cast` adapters of `List`, `Iterable`, `Set`, `Map`, `Runes`, the
+dart:collection sets, maps and unmodifiable views, and the typed-data lists
+answered the native `cast<dynamic>()` and dropped the call's type argument.
+They now answer a checked view (`InterpreterVisitor.castElementCheck`): an
+element read through it, or written into it, that is not a `T` throws a
+`TypeError` (`D4rtTypeError`, "type 'String' is not a subtype of type 'int' in
+type cast"), lazily as in Dart - `[1, 'a'].cast<int>().first` is still 1.
+`UnmodifiableListView.cast` is a view of its source now, not a copy.
+
+The check is lenient where the interpreter cannot judge: a null element always
+passes (a call's type argument reaches the bridge without its `?`), a type
+argument's own type arguments arrive erased (`cast<List<int>>()` checks for a
+list), a class is checked without its type arguments, and a type parameter,
+function or record type is not checked at all.
+
+Also: `visitPropertyAccess` built its debug line - which stringifies the
+target, reading every element of a collection - on every property access with
+logging off; it is built only when `Logger.debugEnabled` is set.
+
+This changes what scripts compute: a script that cast a mixed collection and
+read a non-`T` element through the view now throws a `TypeError` where it
+read the element before.
+
+Name resolution: no
+
 ## 1.251.0
 
 ### Fixed — a receiver proxy is one native object per instance, and a script's `super.m()` on it runs natively

@@ -18,10 +18,8 @@
 // way: `E.a is E` threw for a script enum (`is` had no arm for one) - GHI22-5.
 // The same in tom_d4rt_ast (test/runtime/ghissues22_where_type_test.dart).
 //
-// `cast<T>()` is unchanged: it still ignores T and returns a view of the
-// elements as they are, so a script reads its elements without a check - a
-// strict cast would throw on access to an element that is not a T, which the
-// interpreter does not reproduce.
+// `cast<T>()` checks its elements against T through the same machinery:
+// ghissues30_strict_cast_test.dart.
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt/d4rt.dart';

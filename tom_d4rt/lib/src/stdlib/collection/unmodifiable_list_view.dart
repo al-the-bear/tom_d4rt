@@ -2,6 +2,7 @@ import 'dart:collection';
 import 'dart:math';
 
 import 'package:tom_d4rt/d4rt.dart';
+import '../cast_views.dart';
 
 /// Narrows [target] to the native view, or reports which member was reached
 /// with the wrong receiver.
@@ -516,10 +517,11 @@ class UnmodifiableListViewCollection {
           "Invalid arguments for UnmodifiableListView.toSet",
         );
       },
-      'cast': (visitor, target, positionalArgs, namedArgs, _) {
-        final t = target as UnmodifiableListView;
-        var castedSource = t.cast<dynamic>();
-        return UnmodifiableListView(castedSource.toList());
+      'cast': (visitor, target, positionalArgs, namedArgs, typeArgs) {
+        // ghissues30: a view of the source, as Dart's is (no copy).
+        return UnmodifiableListView(
+          castList(visitor, target as UnmodifiableListView, typeArgs),
+        );
       },
       'singleWhere': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(

@@ -6129,9 +6129,14 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       );
     }
 
-    Logger.debug(
-      "[SPropertyAccess: ${node.toString()}] Target type: ${target.runtimeType}, Target value: ${target.toString()}",
-    );
+    // ghissues30: built only when debug logging is on - `target.toString()`
+    // reads every element of a collection, which a lazy `cast<T>()` view
+    // must not have done for it.
+    if (Logger.debugEnabled) {
+      Logger.debug(
+        "[SPropertyAccess: ${node.toString()}] Target type: ${target.runtimeType}, Target value: ${target.toString()}",
+      );
+    }
 
     // GEN-100c: Handle prefixed import access (e.g., prefix.SomeClass.staticMember)
     // When the AST produces SPropertyAccess with a prefix target that resolved to an Environment,
@@ -12413,6 +12418,84 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     }
     final type = typeArguments.first;
     return source.where((element) => valueHasRuntimeType(element, type));
+  }
+
+  /// The element check of `cast<T>()` for the stdlib bridges (ghissues30):
+  /// the function a cast view runs on each element read through it or
+  /// written into it, answering the element or throwing the `TypeError` Dart
+  /// raises. [index] picks the type argument (`Map.cast<K, V>` has two).
+  ///
+  /// Null when nothing can fail the check: no type argument, a top type, or a
+  /// type the interpreter cannot judge (a type parameter, a function or
+  /// record type) - the view then stays the lenient `cast<dynamic>()`.
+  Object? Function(Object?)? castElementCheck(
+    List<RuntimeType>? typeArguments, [
+    int index = 0,
+  ]) {
+    if (typeArguments == null || typeArguments.length <= index) return null;
+    final type = typeArguments[index];
+    if (!_castChecks(type)) return null;
+    return (element) {
+      if (_castAccepts(element, type)) return element;
+      final valueType = element is InterpretedInstance
+          ? element.klass.name
+          : element is BridgedInstance
+          ? element.bridgedClass.name
+          : element.runtimeType.toString();
+      throw D4rtTypeError(
+        "type '$valueType' is not a subtype of type '${type.name}' in type "
+        'cast',
+      );
+    };
+  }
+
+  /// Whether a `cast<T>()` check for [type] can ever reject an element.
+  bool _castChecks(RuntimeType type) {
+    if (type is NullableRuntimeType) return _castChecks(type.inner);
+    final base = type is AppliedRuntimeType ? type.baseType : type;
+    switch (base.name) {
+      case 'dynamic' || 'Object' || 'void':
+        return false;
+      case 'int' || 'double' || 'num' || 'String' || 'bool' || 'Null':
+      case 'List' || 'Map':
+        return true;
+    }
+    return base is BridgedClass ||
+        base is InterpretedClass ||
+        base is InterpretedEnum ||
+        base is BridgedEnum;
+  }
+
+  /// Whether a `cast<T>()` view for [type] lets [value] through. Lenient by
+  /// design: a null always passes, because a call's type argument reaches the
+  /// bridge without its `?`; `List` / `Map` are judged by their contents when
+  /// their own type arguments arrive (a call's `cast<List<int>>()` reaches the
+  /// bridge as `List`, judged as a list), a class only by itself (not its type
+  /// arguments, which a script instance does not always carry as Dart
+  /// reifies them).
+  bool _castAccepts(Object? value, RuntimeType type) {
+    if (value == null) return true;
+    if (type is NullableRuntimeType) return _castAccepts(value, type.inner);
+    final base = type is AppliedRuntimeType ? type.baseType : type;
+    final args = type is AppliedRuntimeType
+        ? type.typeArguments
+        : const <RuntimeType>[];
+    final shape = value is BridgedInstance ? value.nativeObject : value;
+    switch (base.name) {
+      case 'List':
+        return shape is List &&
+            (args.isEmpty || shape.every((e) => _castAccepts(e, args.first)));
+      case 'Map':
+        return shape is Map &&
+            (args.length < 2 ||
+                shape.entries.every(
+                  (e) =>
+                      _castAccepts(e.key, args[0]) &&
+                      _castAccepts(e.value, args[1]),
+                ));
+    }
+    if (!_castChecks(base)) return true;
+    return valueHasRuntimeType(value, base);
   }
 
   bool _nativeOrBridgedMatches(Object? value, BridgedClass targetType) {

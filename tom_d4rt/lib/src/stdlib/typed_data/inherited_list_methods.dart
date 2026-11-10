@@ -12,6 +12,7 @@ import 'package:tom_d4rt/d4rt.dart';
 export '../coerce_elements.dart' show coerceElements;
 
 import '../coerce_elements.dart';
+import '../cast_views.dart';
 
 /// The `List<E>` setters every typed list inherits.
 ///
@@ -190,9 +191,8 @@ Map<String, BridgedMethodAdapter> inheritedListMethods<E>(
         target,
       ).followedBy(coerceElements<E>(positionalArgs[0], 'followedBy'));
     },
-    'cast': (visitor, target, positionalArgs, namedArgs, _) {
-      // d4rt erases the type argument; <Object?> preserves all elements.
-      return coerce(target).cast<Object?>();
+    'cast': (visitor, target, positionalArgs, namedArgs, typeArgs) {
+      return castList(visitor, coerce(target), typeArgs);
     },
     'whereType': (visitor, target, positionalArgs, namedArgs, typeArgs) {
       return visitor.whereTypeFilter(coerce(target), typeArgs);

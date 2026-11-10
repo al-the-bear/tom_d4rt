@@ -1,4 +1,5 @@
 import 'package:tom_d4rt_ast/runtime.dart';
+import '../cast_views.dart';
 
 class MapCore {
   static BridgedClass get definition => BridgedClass(
@@ -238,8 +239,8 @@ class MapCore {
           }
         });
       },
-      'cast': (visitor, target, positionalArgs, namedArgs, _) {
-        return (target as Map).cast();
+      'cast': (visitor, target, positionalArgs, namedArgs, typeArgs) {
+        return castMap(visitor, target as Map, typeArgs);
       },
     },
     getters: {

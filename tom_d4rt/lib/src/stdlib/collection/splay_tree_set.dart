@@ -3,6 +3,7 @@ import 'dart:collection';
 import 'package:tom_d4rt/d4rt.dart';
 
 import 'set_algebra_methods.dart';
+import '../cast_views.dart';
 
 /// Adapts an optional script-supplied `compare` argument into a native
 /// [Comparator], or returns `null` so the native constructor falls back to
@@ -368,9 +369,9 @@ class SplayTreeSetCollection {
         }
         throw RuntimeD4rtException("Invalid arguments for SplayTreeSet.lookup");
       },
-      'cast': (visitor, target, positionalArgs, namedArgs, _) {
+      'cast': (visitor, target, positionalArgs, namedArgs, typeArgs) {
         if (target is SplayTreeSet) {
-          return target.cast<dynamic>();
+          return castSet(visitor, target, typeArgs);
         }
         throw RuntimeD4rtException("Invalid arguments for SplayTreeSet.cast");
       },

@@ -3,6 +3,7 @@ import 'dart:collection';
 import 'package:tom_d4rt_ast/runtime.dart';
 
 import 'set_algebra_methods.dart';
+import '../cast_views.dart';
 
 /// Bridge for `dart:collection`'s [LinkedHashSet] — a [Set] whose iteration
 /// order is the order in which elements were first inserted.
@@ -343,9 +344,9 @@ class LinkedHashSetCollection {
           "Invalid arguments for LinkedHashSet.lookup",
         );
       },
-      'cast': (visitor, target, positionalArgs, namedArgs, _) {
+      'cast': (visitor, target, positionalArgs, namedArgs, typeArgs) {
         if (target is LinkedHashSet) {
-          return target.cast<dynamic>();
+          return castSet(visitor, target, typeArgs);
         }
         throw RuntimeD4rtException("Invalid arguments for LinkedHashSet.cast");
       },

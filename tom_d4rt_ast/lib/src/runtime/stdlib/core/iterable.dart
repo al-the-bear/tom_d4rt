@@ -1,4 +1,5 @@
 import 'package:tom_d4rt_ast/runtime.dart';
+import '../cast_views.dart';
 
 class IterableCore {
   static BridgedClass get definition => BridgedClass(
@@ -257,8 +258,8 @@ class IterableCore {
       'whereType': (visitor, target, positionalArgs, namedArgs, typeArgs) {
         return visitor.whereTypeFilter(target as Iterable, typeArgs);
       },
-      'cast': (visitor, target, positionalArgs, namedArgs, _) {
-        return (target as Iterable).cast();
+      'cast': (visitor, target, positionalArgs, namedArgs, typeArgs) {
+        return castIterable(visitor, target as Iterable, typeArgs);
       },
     },
     getters: {

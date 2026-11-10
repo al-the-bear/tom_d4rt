@@ -624,7 +624,19 @@ const _partialTwinBudget = 0;
 /// a bridged class, static calls and `super` calls, which the corpus copies on
 /// every run.
 ///
-const _copierGapBudget = 60;
+/// 60 -> 61: GHISSUES30 added `ghissues30_strict_cast_test.dart`, which runs
+/// source to check that `cast<T>()` on the stdlib collections throws a
+/// `TypeError` on a non-T element read or written through the view (List,
+/// Set, Iterable, Runes, Map, the dart:collection types, typed data), lazily,
+/// and that the legitimate casts (subtypes, bridged interfaces and mixins,
+/// enums, functions, records, nested collections, null) keep working. Exec
+/// resolves tom_d4rt_ast from pub.dev, whose `cast` still ignores T until the
+/// batch release (ghissues999), so a port would fail. Its ast twin holds the
+/// mechanism. The copier surface a port would have added is generic method
+/// calls with type arguments and try/on clauses, which the corpus copies on
+/// every run.
+///
+const _copierGapBudget = 61;
 
 const Map<String, _Coverage> _coveredElsewhere = {
   'sce208_bind_forwarding_source_errors_test.dart': _Coverage(
@@ -734,6 +746,20 @@ const Map<String, _Coverage> _coveredElsewhere = {
         'repeated dart:core and dart:async prefixes, dart:math, missing names '
         'and prefixes, dynamic and Record), which a hand-built bundle would '
         'only restate.',
+  ),
+  'ghissues30_strict_cast_test.dart': _Coverage(
+    'ast:runtime/ghissues30_strict_cast_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 9,
+    twinCases: 4,
+    whyPartial:
+        'the twin pins a List and Set cast throwing on a non-T element, the '
+        'lazy view read chained, a script class and enum judged, and a Map '
+        'value checked. The reference adds Iterable, Runes, the '
+        'dart:collection and typed-data adapters, writes through the view, '
+        'a bridged class, and the legitimate casts, which a hand-built '
+        'bundle would only restate.',
   ),
   'ghissues29_receiver_kept_test.dart': _Coverage(
     'ast:runtime/ghissues29_receiver_kept_test.dart',

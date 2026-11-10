@@ -3,6 +3,7 @@ import 'dart:collection';
 import 'package:tom_d4rt_ast/runtime.dart';
 
 import 'set_algebra_methods.dart';
+import '../cast_views.dart';
 
 class HashSetCollection {
   static BridgedClass get definition => BridgedClass(
@@ -304,9 +305,9 @@ class HashSetCollection {
         }
         throw RuntimeD4rtException("Invalid arguments for HashSet.lookup");
       },
-      'cast': (visitor, target, positionalArgs, namedArgs, _) {
+      'cast': (visitor, target, positionalArgs, namedArgs, typeArgs) {
         if (target is HashSet) {
-          return target.cast<dynamic>();
+          return castSet(visitor, target, typeArgs);
         }
         throw RuntimeD4rtException("Invalid arguments for HashSet.cast");
       },

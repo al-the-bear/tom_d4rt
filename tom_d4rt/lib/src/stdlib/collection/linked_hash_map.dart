@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/src/stdlib/collection/map_named_constructors.dart';
+import '../cast_views.dart';
 
 /// Bridged LinkedHashMap.
 ///
@@ -255,9 +256,9 @@ class LinkedHashMapCollection {
       // `LinkedHashMap`, so the shadowing copy broke `addEntries` for
       // ordinary map literals too, not only for explicitly constructed
       // `LinkedHashMap`s.
-      'cast': (visitor, target, positionalArgs, namedArgs, _) {
+      'cast': (visitor, target, positionalArgs, namedArgs, typeArgs) {
         if (target is LinkedHashMap) {
-          return target.cast<dynamic, dynamic>();
+          return castMap(visitor, target, typeArgs);
         }
         throw RuntimeD4rtException("Invalid arguments for LinkedHashMap.cast");
       },

@@ -427,7 +427,10 @@ const _divergentBodies = <String, Map<String, String>>{
     // GHISSUES25: 4745333b -> 43934bf3, smaller: `super.x` on a bridged
     // superclass reads its target through `nativeReceiverFor` in both trees
     // (the reference used to skip the `nativeProxy` fallback the twin had).
-    'InterpreterVisitor.visitPropertyAccess': '43934bf3',
+    // GHISSUES30: 43934bf3 -> e8e8640d, both trees wrapped the same debug
+    // line in `if (Logger.debugEnabled)`; the line already differed (the
+    // node's `toSource()` / `toString()`), so the divergence moved with it.
+    'InterpreterVisitor.visitPropertyAccess': 'e8e8640d',
     'InterpreterVisitor.visitReturnStatement': 'b0d7b56c',
     'InterpreterVisitor.visitSetOrMapLiteral': '1a33a2d6',
     'InterpreterVisitor.visitSimpleIdentifier': 'c243901e',

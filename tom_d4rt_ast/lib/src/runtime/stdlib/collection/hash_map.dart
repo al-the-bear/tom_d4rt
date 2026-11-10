@@ -2,6 +2,7 @@ import 'dart:collection';
 
 import 'package:tom_d4rt_ast/runtime.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/collection/map_named_constructors.dart';
+import '../cast_views.dart';
 
 /// Bridged HashMap.
 ///
@@ -238,9 +239,9 @@ class HashMapCollection {
       // not a subtype of type 'MapEntry'". `SplayTreeMap` never had a local
       // copy and was therefore already correct — that asymmetry is what
       // identified this as shadowing rather than a missing feature.
-      'cast': (visitor, target, positionalArgs, namedArgs, _) {
+      'cast': (visitor, target, positionalArgs, namedArgs, typeArgs) {
         if (target is HashMap) {
-          return target.cast<dynamic, dynamic>();
+          return castMap(visitor, target, typeArgs);
         }
         throw RuntimeD4rtException("Invalid arguments for HashMap.cast");
       },
