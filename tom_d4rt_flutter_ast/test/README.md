@@ -637,13 +637,17 @@ numeric order: all `flutter_base_*` first, then all `flutter_extended_*`.
   hardly-relevant / timeout / blocking / generator tiers.
 - `flutter_extended_24_test.dart` — the **interactive** suite (its custom
   `setUpAll` and `/interact` behaviour are preserved verbatim in its own file).
+- `flutter_extended_25_test.dart` — the classes Flutter 3.47 added over the
+  3.41.3 SDK the other files were written against; each test also checks
+  lines its script prints.
 
 Each file opens with a `Test App Health` group (`app is running`) that is **not**
 counted toward the ~50-test target; it is a per-file smoke check.
 
-The files are generated from the legacy tier corpus by `ztmp/split_tests.py`
-(brace-aware parser → dedup → group-slice → pack). Re-run that generator if the
-underlying tier sources change.
+`flutter_base_*` and `flutter_extended_01` … `_24` were split once from the
+legacy tier corpus (brace-aware parse → dedup → group-slice → pack); the
+splitter is not kept, so the files are edited by hand like
+`flutter_extended_25`.
 
 Other `*_test.dart` files in this folder (e.g. `bridge_execution_test.dart`,
 `interpreter_generator_open_issues_test.dart`, `sync_shared_user_bridges_test.dart`,
