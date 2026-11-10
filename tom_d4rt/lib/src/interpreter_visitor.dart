@@ -13020,6 +13020,18 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                 // A non-instance value cannot be a subtype of a user-defined class
                 result = false;
               }
+            } else if (targetType is BridgedEnum) {
+              // ghissues21: a bridged enum on the right of `is` had no arm and
+              // reached the `else` below, so `x is WidgetState` threw for every
+              // value. Decided as a parameter check decides it: by the value's
+              // bridged enum type, which a native enum value finds through the
+              // registry.
+              final valueType = expressionValue is BridgedEnumValue
+                  ? expressionValue.enumType
+                  : environment.getRuntimeType(expressionValue);
+              result =
+                  valueType is BridgedEnum &&
+                  valueType.isSubtypeOf(targetType, value: expressionValue);
             } else if (targetType is Callable) {
               // SCC64: a callable is never a type, so this is a diagnosis
               // rather than an answer — and until SCC64 the interpreter

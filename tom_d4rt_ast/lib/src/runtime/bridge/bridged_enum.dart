@@ -38,6 +38,9 @@ class BridgedEnum implements RuntimeType {
   @override
   bool isSubtypeOf(RuntimeType other, {Object? value}) {
     if (other.name == 'Object' || other == this) return true;
+    // ghissues21: two BridgedEnum objects over the same native enum are one
+    // type (an alias, or a second registration of the enum).
+    if (other is BridgedEnum && _sameNativeEnum(other)) return true;
     // Allow runtime hierarchy checks for interfaces/superclasses the native
     // enum implements (e.g. WidgetState implements WidgetStatesConstraint).
     // We delegate to BridgedClass.isAssignable using the underlying native
@@ -50,6 +53,14 @@ class BridgedEnum implements RuntimeType {
       }
     }
     return false;
+  }
+
+  /// Whether [other] bridges the same native enum: its values wrap the same
+  /// native value objects.
+  bool _sameNativeEnum(BridgedEnum other) {
+    final mine = values.values.firstOrNull?.nativeValue;
+    return mine != null &&
+        identical(mine, other.values[values.keys.first]?.nativeValue);
   }
 
   /// Retrieves an enum value by its name, or handles built-in static

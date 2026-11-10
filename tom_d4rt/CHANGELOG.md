@@ -1,3 +1,23 @@
+## 1.245.0
+
+### Fixed — a bridged enum is one type: `is` accepts it, and an alias or a second registration of it is the same type
+
+`x is E` threw for every bridged enum `E` (`Type check failed: Type 'E' not
+found or is not a BridgedEnumValue.`): the type test had no branch for a
+bridged enum and fell through to its error. And the generator writes one
+`BridgedEnumDefinition` per bridge file that exports an enum (Flutter's
+`WidgetState` is in three); each built its own `BridgedEnum`, an alias
+(`MaterialState`) bound whichever was registered first while a later
+registration replaced the name, and the two objects were told apart by
+identity - so a `MaterialState` parameter refused `WidgetState.hovered`
+(`type 'WidgetState' is not a subtype of type 'WidgetState'`). An enum alias
+now follows its target's current registration in its environment,
+`BridgedEnum.isSubtypeOf` accepts another `BridgedEnum` over the same native
+enum, and `is` decides a bridged enum type by the value's bridged enum type.
+Each definition still builds its own `BridgedEnum` with its own adapters.
+
+Name resolution: no
+
 ## 1.244.0
 
 ### Fixed — a library's own class, mixin or enum shadows an imported one of the same name

@@ -543,7 +543,18 @@ const _partialTwinBudget = 0;
 /// directives of `dart:core` with and without a prefix, which the corpus
 /// copies on every run.
 ///
-const _copierGapBudget = 53;
+/// 53 -> 54: GHISSUES21 added `ghissues21_bridged_enum_type_test.dart`, which
+/// runs source to check that a bridged enum is one type: `is` accepts it and
+/// its alias, a parameter of the alias type takes a value of the enum, and
+/// `==`, a typed list and a cast agree - over one native enum registered from
+/// two libraries, as Flutter's bridge files register WidgetState. Exec
+/// resolves tom_d4rt_ast from pub.dev, where `is` on a bridged enum still
+/// throws until the batch release (ghissues999), so a port would assert the
+/// fix against an interpreter that does not have it. Its ast twin holds the
+/// mechanism. The copier surface a port would have added is `is` expressions
+/// and typed parameters, which the corpus copies on every run.
+///
+const _copierGapBudget = 54;
 
 const Map<String, _Coverage> _coveredElsewhere = {
   'sce208_bind_forwarding_source_errors_test.dart': _Coverage(
@@ -653,6 +664,18 @@ const Map<String, _Coverage> _coveredElsewhere = {
         'repeated dart:core and dart:async prefixes, dart:math, missing names '
         'and prefixes, dynamic and Record), which a hand-built bundle would '
         'only restate.',
+  ),
+  'ghissues21_bridged_enum_type_test.dart': _Coverage(
+    'ast:runtime/ghissues21_bridged_enum_type_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 3,
+    twinCases: 2,
+    whyPartial:
+        'the twin pins `is` with the enum and its alias, a refusal, and an '
+        'alias-typed parameter. The reference adds the remaining SHAPES (the '
+        'reverse parameter, `==`, a typed list and a cast), which a '
+        'hand-built bundle would only restate.',
   ),
   'ghissues18_explicit_dart_core_import_test.dart': _Coverage(
     'ast:runtime/ghissues18_explicit_dart_core_import_test.dart',

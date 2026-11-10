@@ -250,6 +250,9 @@ class Environment {
   // collision enumerable, and therefore assertable. Null until a genuine
   // collision occurs; the one-enum-per-name case allocates nothing.
   Map<String, List<BridgedEnum>>? _shadowedEnumsRaw;
+
+  /// Enum aliases defined here, alias -> target name (ghissues21).
+  Map<String, String>? _enumAliasTargetsRaw;
   List<InterpretedExtension>? _unnamedExtensionsRaw; // Store unnamed extensions
   Map<String, Environment>? _prefixedImportsRaw; // For prefixed imports
 
@@ -987,6 +990,7 @@ class Environment {
       }
       if (targetEnum != null) {
         _bridgedEnumsOrNew[aliasName] = targetEnum;
+        (_enumAliasTargetsRaw ??= {})[aliasName] = targetName;
         Logger.debug(
           "[Environment] Defined bridge alias: $aliasName -> enum $targetName",
         );
@@ -1678,6 +1682,14 @@ class Environment {
     // bookkeeping on the namespace that lacked it.
     _recordShadowedEnum(name, _bridgedEnumsRaw?[name], bridgedEnum);
     _bridgedEnumsOrNew[name] = bridgedEnum;
+    // ghissues21: an alias defined here follows its target's current
+    // registration. Bridge files each register their own BridgedEnum of a
+    // shared enum (Flutter's WidgetState is in three); an alias bound to the
+    // first one kept it after a later registration replaced the name, so
+    // `MaterialState` and `WidgetState` were two objects.
+    _enumAliasTargetsRaw?.forEach((alias, target) {
+      if (target == name) _bridgedEnumsOrNew[alias] = bridgedEnum;
+    });
     Logger.debugLazy(() => "[Environment] Defined bridge for enum: $name");
   }
 
