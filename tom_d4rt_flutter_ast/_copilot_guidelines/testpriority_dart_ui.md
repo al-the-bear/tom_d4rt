@@ -1,8 +1,6 @@
 # Test Priority: dart:ui
 
-**Total classes: 102**
-
-## Essential (17 classes)
+## Essential
 Core classes used in virtually every Flutter application.
 
 | Class | Description |
@@ -17,15 +15,15 @@ Core classes used in virtually every Flutter application.
 | Path | Vector paths - shapes and clipping |
 | Canvas | Drawing surface - custom painting |
 | Image | Bitmap images - displaying images |
-| TextStyle | Text styling - all text rendering |
 | Paragraph | Text layout - text rendering |
 | ParagraphBuilder | Text construction - building text |
 | Locale | Language/region - internationalization |
 | FontWeight | Text weight - typography |
 | Shadow | Drop shadows - visual effects |
 | Gradient | Color gradients - backgrounds and fills |
+| TextStyle | Text styling - all text rendering |
 
-## Important (23 classes)
+## Important
 Commonly used classes for intermediate Flutter development.
 
 | Class | Description |
@@ -54,7 +52,7 @@ Commonly used classes for intermediate Flutter development.
 | Tangent | Path tangent info |
 | ViewPadding | Safe area insets |
 
-## Secondary (35 classes)
+## Secondary
 Specialized classes for advanced use cases.
 
 | Class | Description |
@@ -82,7 +80,6 @@ Specialized classes for advanced use cases.
 | SemanticsAction | Accessibility actions |
 | SemanticsActionEvent | Accessibility events |
 | SemanticsFlag | Accessibility flags |
-| SemanticsFlags | Accessibility flag set |
 | SemanticsUpdate | Accessibility updates |
 | SemanticsUpdateBuilder | Building accessibility |
 | StringAttribute | Text attributes |
@@ -94,8 +91,9 @@ Specialized classes for advanced use cases.
 | TargetImageSize | Image sizing |
 | AccessibilityFeatures | Accessibility settings |
 | SystemColor | System color access |
+| Brightness | Brightness |
 
-## Hardly Relevant (27 classes)
+## Hardly Relevant
 Internal/low-level classes rarely used directly.
 
 | Class | Description |
@@ -127,13 +125,3 @@ Internal/low-level classes rarely used directly.
 | RootIsolateToken | Root isolate token |
 | PictureRasterizationException | Picture error |
 | SystemColorPalette | System color palette |
-
-## Summary
-
-| Priority | Count | Percentage |
-|----------|-------|------------|
-| Essential | 17 | 16.7% |
-| Important | 23 | 22.5% |
-| Secondary | 35 | 34.3% |
-| Hardly Relevant | 27 | 26.5% |
-| **Total** | **102** | **100%** |

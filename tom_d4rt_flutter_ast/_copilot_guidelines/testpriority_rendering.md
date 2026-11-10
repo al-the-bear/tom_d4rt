@@ -1,8 +1,8 @@
 # Test Priority: rendering
 
-**Total classes: 369**
+The hand-maintained tiers of the bridged classes, the input of `tool/testplan_report.dart`. Every row names a class the bridges register (the guard `test/testplan_fresh_test.dart` checks it); a bridged class no priority file names is Hardly Relevant. The counts and coverage are measured in the generated `testplan_*.md` files.
 
-## Essential (25 classes)
+## Essential
 Core rendering classes used in most Flutter applications.
 
 | Class | Description |
@@ -10,12 +10,6 @@ Core rendering classes used in most Flutter applications.
 | RenderBox | Box layout model - fundamental |
 | RenderObject | Base render object |
 | BoxConstraints | Box layout constraints |
-| EdgeInsets | Padding/margin |
-| EdgeInsetsGeometry | Base edge insets |
-| Alignment | Alignment positioning |
-| AlignmentGeometry | Base alignment |
-| BorderRadius | Corner rounding |
-| BoxDecoration | Box styling |
 | RenderFlex | Flex layout (Row/Column) |
 | RenderStack | Stack layout |
 | RenderPadding | Padding render |
@@ -30,10 +24,8 @@ Core rendering classes used in most Flutter applications.
 | PipelineOwner | Render pipeline |
 | ViewConfiguration | View config |
 | ViewportOffset | Scroll offset |
-| TextPainter | Text painting |
-| TextStyle | Text styling |
 
-## Important (60 classes)
+## Important
 Commonly used rendering classes.
 
 | Class | Description |
@@ -76,16 +68,6 @@ Commonly used rendering classes.
 | ImageFilterLayer | Image filter layer |
 | BackdropFilterLayer | Backdrop filter |
 | RelativeRect | Relative positioning |
-| BoxShadow | Box shadows |
-| Border | Border styling |
-| BorderSide | Border side |
-| LinearGradient | Linear gradient |
-| RadialGradient | Radial gradient |
-| Gradient | Base gradient |
-| ImageProvider | Image provider |
-| AssetImage | Asset images |
-| NetworkImage | Network images |
-| DecorationImage | Decoration image |
 | CustomPainter | Custom painting |
 | CustomClipper | Custom clipping |
 | SingleChildLayoutDelegate | Single layout |
@@ -99,7 +81,7 @@ Commonly used rendering classes.
 | FlexColumnWidth | Flex column |
 | IntrinsicColumnWidth | Intrinsic column |
 
-## Secondary (150 classes)
+## Secondary
 Specialized rendering classes.
 
 | Class | Description |
@@ -175,9 +157,6 @@ Specialized rendering classes.
 | PlatformViewLayer | Platform view layer |
 | PerformanceOverlayLayer | Performance overlay |
 | MouseTracker | Mouse tracking |
-| MouseCursor | Mouse cursor |
-| HitTestResult | Hit testing |
-| HitTestEntry | Hit test entry |
 | BoxHitTestResult | Box hit test |
 | BoxHitTestEntry | Box hit entry |
 | SliverHitTestResult | Sliver hit test |
@@ -211,55 +190,11 @@ Specialized rendering classes.
 | RendererBinding | Renderer binding |
 | RenderingFlutterBinding | Flutter binding |
 | CustomPainterSemantics | Painter semantics |
-| ShapeBorder | Shape border |
 | ShapeBorderClipper | Shape clipper |
-| OutlinedBorder | Outlined border |
-| RoundedRectangleBorder | Rounded border |
-| CircleBorder | Circle border |
-| StadiumBorder | Stadium border |
-| BeveledRectangleBorder | Beveled border |
-| ContinuousRectangleBorder | Continuous border |
-| OvalBorder | Oval border |
-| StarBorder | Star border |
-| LinearBorder | Linear border |
-| LinearBorderEdge | Linear edge |
-| NotchedShape | Notched shape |
-| CircularNotchedRectangle | Notched rectangle |
-| AutomaticNotchedShape | Auto notched |
-| ShapeDecoration | Shape decoration |
-| Decoration | Base decoration |
-| DecorationImagePainter | Image decorator |
-| FlutterLogoDecoration | Logo decoration |
-| BoxPainter | Box painter |
-| ImageCache | Image cache |
-| ImageStream | Image stream |
-| ImageStreamCompleter | Stream completer |
-| ImageInfo | Image info |
-| ImageConfiguration | Image config |
 | Constraints | Base constraints |
-| SemanticsNode | Semantics node |
-| SemanticsOwner | Semantics owner |
-| SemanticsConfiguration | Semantics config |
-| SemanticsProperties | Semantics properties |
-| SemanticsData | Semantics data |
-| SemanticsHintOverrides | Hint overrides |
-| SemanticsTag | Semantics tag |
-| SemanticsSortKey | Sort key |
-| OrdinalSortKey | Ordinal key |
-| AttributedString | Attributed string |
-| CustomSemanticsAction | Custom action |
-| SemanticsEvent | Semantics event |
-| SemanticsHandle | Semantics handle |
-| SemanticsService | Semantics service |
-| SemanticsBinding | Semantics binding |
-| SemanticsLabelBuilder | Label builder |
-| TextSelection | Text selection |
 | TextSelectionPoint | Selection point |
-| PlaceholderDimensions | Placeholder dims |
-| PlaceholderSpan | Placeholder span |
-| InlineSpan | Inline span |
 
-## Hardly Relevant (134 classes)
+## Hardly Relevant
 Internal/low-level rendering classes.
 
 | Class | Description |
@@ -318,83 +253,13 @@ Internal/low-level rendering classes.
 | MaxColumnWidth | Max column |
 | FractionColumnWidth | Fraction column |
 | PlaceholderSpanIndexSemanticsTag | Placeholder tag |
-| RoundedSuperellipseBorder | Superellipse border |
 | RenderClipRSuperellipse | Clip superellipse |
 | SliverLogicalContainerParentData | Logical container |
 | SliverPhysicalContainerParentData | Physical container |
-| ChildSemanticsConfigurationsResult | Child configs |
-| ChildSemanticsConfigurationsResultBuilder | Config builder |
 | ChildLayoutHelper | Layout helper |
-| Accumulator | Internal |
 | AlignmentGeometryTween | Alignment tween |
 | AlignmentTween | Alignment tween |
-| BorderRadiusDirectional | Directional radius |
-| BorderRadiusGeometry | Radius geometry |
-| EdgeInsetsDirectional | Directional insets |
-| AlignmentDirectional | Directional alignment |
-| BoxBorder | Box border base |
-| BorderDirectional | Directional border |
-| FractionalOffset | Fractional offset |
 | FractionalOffsetTween | Offset tween |
-| Key | Widget key |
-| HSLColor | HSL color |
-| HSVColor | HSV color |
-| GradientRotation | Gradient rotation |
-| GradientTransform | Gradient transform |
-| SweepGradient | Sweep gradient |
-| ImageChunkEvent | Chunk event |
-| ImageCacheStatus | Cache status |
-| ImageSizeInfo | Size info |
-| ImageStreamCompleterHandle | Stream handle |
-| ImageStreamListener | Stream listener |
-| InlineSpanSemanticsInformation | Span semantics |
-| MemoryImage | Memory image |
-| FileImage | File image |
-| ExactAssetImage | Exact asset |
-| ResizeImage | Resize image |
-| ResizeImageKey | Resize key |
-| AssetBundleImageKey | Asset key |
-| AssetBundleImageProvider | Asset provider |
-| MultiFrameImageStreamCompleter | Multi frame |
-| OneFrameImageStreamCompleter | One frame |
-| NetworkImageLoadException | Network error |
 | ImageFilterConfig | Filter config |
 | ImageFilterContext | Filter context |
-| StrutStyle | Strut style |
-| TextScaler | Text scaler |
-| TextAlignVertical | Text align |
-| TextSpan | Text span |
-| WordBoundary | Word boundary |
-| ColorProperty | Color diagnostics |
-| ColorSwatch | Color swatch |
-| TransformProperty | Transform diagnostics |
-| DiagnosticPropertiesBuilder | Diagnostics builder |
-| DiagnosticsNode | Diagnostics node |
 | DiagnosticsDebugCreator | Debug creator |
-| ErrorDescription | Error description |
-| ErrorHint | Error hint |
-| ErrorSummary | Error summary |
-| FlutterError | Flutter error |
-| PaintingBinding | Painting binding |
-| ShaderWarmUp | Shader warmup |
-| ClipContext | Clip context |
-| Matrix4 | Matrix |
-| MatrixUtils | Matrix utils |
-| Vector2 | 2D vector |
-| Vector3 | 3D vector |
-| PointerCancelEvent | Cancel event |
-| PointerDownEvent | Down event |
-| PointerEvent | Pointer event |
-| PointerUpEvent | Up event |
-| SystemMouseCursors | Mouse cursors |
-| AttributedStringProperty | String property |
-
-## Summary
-
-| Priority | Count | Percentage |
-|----------|-------|------------|
-| Essential | 25 | 6.8% |
-| Important | 60 | 16.3% |
-| Secondary | 150 | 40.7% |
-| Hardly Relevant | 134 | 36.3% |
-| **Total** | **369** | **100%** |

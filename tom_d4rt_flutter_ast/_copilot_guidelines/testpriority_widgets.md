@@ -1,8 +1,8 @@
 # Test Priority: widgets
 
-**Total classes: 903**
+The hand-maintained tiers of the bridged classes, the input of `tool/testplan_report.dart`. Every row names a class the bridges register (the guard `test/testplan_fresh_test.dart` checks it); a bridged class no priority file names is Hardly Relevant. The counts and coverage are measured in the generated `testplan_*.md` files.
 
-## Essential (45 classes)
+## Essential
 Core widget classes used in virtually every Flutter application.
 
 | Class | Description |
@@ -19,22 +19,16 @@ Core widget classes used in virtually every Flutter application.
 | Text | Text display |
 | RichText | Rich text display |
 | Icon | Icon display |
-| Image | Image display |
-| Scaffold | App scaffold |
-| AppBar | App bar |
 | ListView | Scrollable list |
 | GridView | Scrollable grid |
 | SingleChildScrollView | Scrollable container |
 | Stack | Layered layout |
 | Positioned | Stack positioning |
 | GestureDetector | Gesture handling |
-| InkWell | Material tap effect |
 | Navigator | Navigation |
 | PageView | Page scrolling |
 | Form | Form container |
 | FormField | Form field base |
-| TextFormField | Text input field |
-| TextField | Basic text input |
 | EditableText | Low-level text edit |
 | FocusNode | Focus management |
 | FocusScope | Focus scoping |
@@ -42,18 +36,11 @@ Core widget classes used in virtually every Flutter application.
 | StatefulWidget | Stateful base |
 | State | Widget state |
 | BuildContext | Build context |
-| Key | Widget identity |
 | GlobalKey | Global widget key |
-| ValueKey | Value-based key |
-| UniqueKey | Unique widget key |
-| ChangeNotifier | State notification |
-| ValueNotifier | Single value state |
-| Animation | Animation base |
-| AnimationController | Animation control |
-| Tween | Value interpolation |
-| Curve | Animation curve |
+| IconTheme | Icon theme |
+| Image | Image display |
 
-## Important (120 classes)
+## Important
 Commonly used widget classes.
 
 | Class | Description |
@@ -66,7 +53,6 @@ Commonly used widget classes.
 | NestedScrollView | Nested scrolling |
 | ScrollController | Scroll control |
 | PageController | Page control |
-| TabController | Tab control |
 | AnimatedContainer | Animated container |
 | AnimatedOpacity | Animated opacity |
 | AnimatedPadding | Animated padding |
@@ -118,7 +104,6 @@ Commonly used widget classes.
 | ListenableBuilder | Listenable building |
 | AnimatedList | Animated list |
 | AnimatedGrid | Animated grid |
-| ReorderableListView | Reorderable list |
 | Draggable | Draggable widget |
 | DragTarget | Drop target |
 | LongPressDraggable | Long press drag |
@@ -134,7 +119,6 @@ Commonly used widget classes.
 | ExcludeSemantics | Exclude semantics |
 | BlockSemantics | Block semantics |
 | IndexedSemantics | Indexed semantics |
-| Tooltip | Tooltips |
 | Overlay | Overlay layer |
 | OverlayEntry | Overlay entry |
 | ModalRoute | Modal routing |
@@ -163,7 +147,6 @@ Commonly used widget classes.
 | FocusTraversalPolicy | Traversal policy |
 | FocusManager | Focus manager |
 | Focus | Focus widget |
-| FocusScope | Focus scope widget |
 | FormState | Form state |
 | FormFieldState | Field state |
 | TextEditingController | Text controller |
@@ -182,12 +165,19 @@ Commonly used widget classes.
 | SliverPadding | Sliver padding |
 | SliverOpacity | Sliver opacity |
 | SliverPersistentHeader | Persistent header |
-| SliverAppBar | Sliver app bar |
-| SnackBar | Snackbar message |
 | Banner | Debug banner |
 | ErrorWidget | Error display |
+| MaterialState | Widget state |
+| MaterialStateProperty | State property |
+| WidgetStateProperty | Widget state |
+| WidgetStatesController | States controller |
+| FlutterLogo | Flutter logo |
+| RawScrollbar | Raw scrollbar |
+| PageTransitionsBuilder | Transition builder |
+| FadeUpwardsPageTransitionsBuilder | Fade upwards |
+| OpenUpwardsPageTransitionsBuilder | Open upwards |
 
-## Secondary (380 classes)
+## Secondary
 Specialized widget classes.
 
 | Class | Description |
@@ -222,7 +212,6 @@ Specialized widget classes.
 | ScrollBehavior | Scroll behavior |
 | ScrollConfiguration | Scroll config |
 | ScrollPosition | Scroll position |
-| ScrollController | Scroll controller |
 | ScrollMetrics | Scroll metrics |
 | ScrollPhysics | Scroll physics |
 | AlwaysScrollableScrollPhysics | Always scrollable |
@@ -249,7 +238,6 @@ Specialized widget classes.
 | RestorationScope | Restoration scope |
 | RestorationMixin | Restoration mixin |
 | RootRestorationScope | Root restoration |
-| WillPopScope | Pop scope (deprecated) |
 | PopScope | Navigation pop |
 | NavigationToolbar | Nav toolbar |
 | ImplicitlyAnimatedWidget | Implicit animation |
@@ -279,7 +267,6 @@ Specialized widget classes.
 | InheritedNotifier | Inherited notifier |
 | InheritedTheme | Inherited theme |
 | SharedAppData | Shared app data |
-| VisualDensity | Visual density |
 | ScrollAction | Scroll action |
 | ScrollIntent | Scroll intent |
 | PrimaryScrollController | Primary controller |
@@ -341,7 +328,6 @@ Specialized widget classes.
 | Placeholder | Placeholder |
 | Spacer | Spacer widget |
 | DisplayFeatureSubScreen | Foldable screen |
-| Table | Table widget |
 | TableRow | Table row |
 | TableCell | Table cell |
 | OverflowBox | Overflow box |
@@ -369,15 +355,22 @@ Specialized widget classes.
 | Widget | Widget base |
 | RootWidget | Root widget |
 | RootElement | Root element |
-| (400+ more specialized classes...) | ... |
+| ListWheelChildDelegate | Child delegate |
+| ListWheelChildListDelegate | List delegate |
+| ListWheelChildBuilderDelegate | Builder delegate |
+| ListWheelChildLoopingListDelegate | Looping delegate |
+| ListWheelElement | Wheel element |
+| FixedExtentMetrics | Extent metrics |
+| FixedExtentScrollController | Extent controller |
+| TooltipTriggerMode | Trigger mode |
+| RadioGroup | Radio group |
 
-## Hardly Relevant (358 classes)
+## Hardly Relevant
 Internal/specialized widget classes.
 
 | Class | Description |
 |-------|-------------|
 | AbstractLayoutBuilder | Layout builder base |
-| Action | Action base (shared) |
 | ActionDispatcher | Action dispatch |
 | ActionListener | Action listener |
 | ActivateAction | Activate action |
@@ -402,22 +395,13 @@ Internal/specialized widget classes.
 | CallbackShortcuts | Callback shortcuts |
 | CapturedThemes | Captured themes |
 | CharacterActivator | Char activator |
-| CharacterRange | Char range |
-| Characters | String characters |
 | ChildBackButtonDispatcher | Child dispatcher |
 | ChildVicinity | Child location |
 | ClipboardStatusNotifier | Clipboard status |
 | BouncingScrollSimulation | Bounce sim |
 | ClampingScrollSimulation | Clamp sim |
-| ScrollSpringSimulation | Spring sim |
-| (300+ more internal classes...) | ... |
-
-## Summary
-
-| Priority | Count | Percentage |
-|----------|-------|------------|
-| Essential | 45 | 5.0% |
-| Important | 120 | 13.3% |
-| Secondary | 380 | 42.1% |
-| Hardly Relevant | 358 | 39.6% |
-| **Total** | **903** | **100%** |
+| AlignTransition | Transition |
+| AndroidViewSurface | Surface |
+| AnimatedPositionedDirectional | Directional |
+| AnimatedWidgetBaseState | State |
+| AnnotatedRegion | Region |

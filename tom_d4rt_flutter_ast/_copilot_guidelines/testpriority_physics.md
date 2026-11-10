@@ -1,8 +1,8 @@
 # Test Priority: physics
 
-**Total classes: 9**
+The hand-maintained tiers of the bridged classes, the input of `tool/testplan_report.dart`. Every row names a class the bridges register (the guard `test/testplan_fresh_test.dart` checks it); a bridged class no priority file names is Hardly Relevant. The counts and coverage are measured in the generated `testplan_*.md` files.
 
-## Essential (2 classes)
+## Essential
 Core classes used commonly in Flutter applications.
 
 | Class | Description |
@@ -10,7 +10,7 @@ Core classes used commonly in Flutter applications.
 | SpringDescription | Spring physics parameters |
 | Tolerance | Simulation tolerance |
 
-## Important (4 classes)
+## Important
 Commonly used classes for physics-based animations.
 
 | Class | Description |
@@ -20,7 +20,7 @@ Commonly used classes for physics-based animations.
 | FrictionSimulation | Friction deceleration |
 | Simulation | Base simulation class |
 
-## Secondary (2 classes)
+## Secondary
 Specialized classes for advanced physics.
 
 | Class | Description |
@@ -28,19 +28,9 @@ Specialized classes for advanced physics.
 | GravitySimulation | Gravity physics |
 | ClampedSimulation | Clamped simulation |
 
-## Hardly Relevant (1 class)
+## Hardly Relevant
 Internal/specialized classes.
 
 | Class | Description |
 |-------|-------------|
 | BoundedFrictionSimulation | Bounded friction |
-
-## Summary
-
-| Priority | Count | Percentage |
-|----------|-------|------------|
-| Essential | 2 | 22.2% |
-| Important | 4 | 44.4% |
-| Secondary | 2 | 22.2% |
-| Hardly Relevant | 1 | 11.1% |
-| **Total** | **9** | **100%** |

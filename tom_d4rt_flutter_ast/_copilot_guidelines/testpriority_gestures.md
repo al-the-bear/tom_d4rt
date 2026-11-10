@@ -1,8 +1,8 @@
 # Test Priority: gestures
 
-**Total classes: 71**
+The hand-maintained tiers of the bridged classes, the input of `tool/testplan_report.dart`. Every row names a class the bridges register (the guard `test/testplan_fresh_test.dart` checks it); a bridged class no priority file names is Hardly Relevant. The counts and coverage are measured in the generated `testplan_*.md` files.
 
-## Essential (10 classes)
+## Essential
 Core gesture classes used commonly.
 
 | Class | Description |
@@ -18,7 +18,7 @@ Core gesture classes used commonly.
 | ScaleUpdateDetails | Scale gesture update |
 | ScaleEndDetails | Scale gesture end |
 
-## Important (18 classes)
+## Important
 Commonly used gesture recognizers.
 
 | Class | Description |
@@ -42,7 +42,7 @@ Commonly used gesture recognizers.
 | GestureArenaMember | Arena member |
 | GestureArenaTeam | Arena team |
 
-## Secondary (25 classes)
+## Secondary
 Specialized gesture classes.
 
 | Class | Description |
@@ -73,7 +73,7 @@ Specialized gesture classes.
 | LongPressDownDetails | Long press down |
 | PositionedGestureDetails | Positioned details |
 
-## Hardly Relevant (18 classes)
+## Hardly Relevant
 Internal/low-level classes.
 
 | Class | Description |
@@ -91,18 +91,3 @@ Internal/low-level classes.
 | LeastSquaresSolver | Math solver |
 | PolynomialFit | Polynomial fitting |
 | FlutterErrorDetailsForPointerEventDispatcher | Error details |
-| DiagnosticPropertiesBuilder | Diagnostics |
-| DiagnosticsNode | Diagnostics node |
-| Matrix4 | Transform matrix |
-| Vector2 | 2D vector |
-| Vector3 | 3D vector |
-
-## Summary
-
-| Priority | Count | Percentage |
-|----------|-------|------------|
-| Essential | 10 | 14.1% |
-| Important | 18 | 25.4% |
-| Secondary | 25 | 35.2% |
-| Hardly Relevant | 18 | 25.4% |
-| **Total** | **71** | **100%** |

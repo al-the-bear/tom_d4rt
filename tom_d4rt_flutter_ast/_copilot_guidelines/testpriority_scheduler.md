@@ -1,8 +1,8 @@
 # Test Priority: scheduler
 
-**Total classes: 8**
+The hand-maintained tiers of the bridged classes, the input of `tool/testplan_report.dart`. Every row names a class the bridges register (the guard `test/testplan_fresh_test.dart` checks it); a bridged class no priority file names is Hardly Relevant. The counts and coverage are measured in the generated `testplan_*.md` files.
 
-## Essential (2 classes)
+## Essential
 Core classes used in Flutter applications.
 
 | Class | Description |
@@ -10,7 +10,7 @@ Core classes used in Flutter applications.
 | TickerProvider | Frame tick provider |
 | Ticker | Frame callback ticker |
 
-## Important (3 classes)
+## Important
 Commonly used classes.
 
 | Class | Description |
@@ -19,7 +19,7 @@ Commonly used classes.
 | TickerFuture | Ticker completion future |
 | TickerCanceled | Ticker cancellation |
 
-## Secondary (2 classes)
+## Secondary
 Specialized classes.
 
 | Class | Description |
@@ -27,19 +27,8 @@ Specialized classes.
 | Priority | Scheduling priority |
 | PerformanceModeRequestHandle | Performance mode |
 
-## Hardly Relevant (1 class)
+## Hardly Relevant
 Internal classes.
 
 | Class | Description |
 |-------|-------------|
-| DiagnosticsNode | Diagnostics (shared) |
-
-## Summary
-
-| Priority | Count | Percentage |
-|----------|-------|------------|
-| Essential | 2 | 25.0% |
-| Important | 3 | 37.5% |
-| Secondary | 2 | 25.0% |
-| Hardly Relevant | 1 | 12.5% |
-| **Total** | **8** | **100%** |

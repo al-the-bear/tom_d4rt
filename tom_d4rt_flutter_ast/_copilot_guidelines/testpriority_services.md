@@ -1,8 +1,8 @@
 # Test Priority: services
 
-**Total classes: 95**
+The hand-maintained tiers of the bridged classes, the input of `tool/testplan_report.dart`. Every row names a class the bridges register (the guard `test/testplan_fresh_test.dart` checks it); a bridged class no priority file names is Hardly Relevant. The counts and coverage are measured in the generated `testplan_*.md` files.
 
-## Essential (12 classes)
+## Essential
 Core platform service classes.
 
 | Class | Description |
@@ -20,7 +20,7 @@ Core platform service classes.
 | FilteringTextInputFormatter | Text filtering |
 | LengthLimitingTextInputFormatter | Length limits |
 
-## Important (25 classes)
+## Important
 Commonly used service classes.
 
 | Class | Description |
@@ -51,7 +51,7 @@ Commonly used service classes.
 | TextEditingDelta | Editing changes |
 | SpellCheckResults | Spell check |
 
-## Secondary (35 classes)
+## Secondary
 Specialized service classes.
 
 | Class | Description |
@@ -92,7 +92,7 @@ Specialized service classes.
 | SuggestionSpan | Suggestion span |
 | TextLayoutMetrics | Text metrics |
 
-## Hardly Relevant (23 classes)
+## Hardly Relevant
 Internal/low-level classes.
 
 | Class | Description |
@@ -112,21 +112,4 @@ Internal/low-level classes.
 | AndroidMotionEvent | Android motion |
 | AndroidPointerCoords | Android coords |
 | AndroidPointerProperties | Android properties |
-| PointerEvent | Pointer event |
-| DiagnosticPropertiesBuilder | Diagnostics |
-| ReadBuffer | Binary reading |
-| WriteBuffer | Binary writing |
-| Matrix4 | Transform matrix |
-| Vector2 | 2D vector |
-| Vector3 | 3D vector |
 | TextSelection | Text selection |
-
-## Summary
-
-| Priority | Count | Percentage |
-|----------|-------|------------|
-| Essential | 12 | 12.6% |
-| Important | 25 | 26.3% |
-| Secondary | 35 | 36.8% |
-| Hardly Relevant | 23 | 24.2% |
-| **Total** | **95** | **100%** |

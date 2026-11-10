@@ -61,6 +61,7 @@ run 'bridged enums resolve to themselves' { flutter test test/scd133_registry_en
 run 'no bridged name covers two native classes' { flutter test test/scd195_registry_collision_test.dart }
 run 'no class-shaped name bound to a value' { flutter test test/sce210_class_shaped_binding_test.dart }
 run 'bridge registration is pooled (step #20)' { flutter test test/registration_skip_test.dart }
+run 'testplans are generated from the bridges and the corpus' { flutter test test/testplan_fresh_test.dart }
 run 'bridges execute in-process' { flutter test test/bridge_execution_test.dart }
 run 'import-optimization timings hold' { flutter test test/import_optimization_perf_test.dart }
 pair 'companion app resolution is checked' { flutter test test/companion_app_resolution_test.dart }

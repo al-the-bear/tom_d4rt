@@ -1,8 +1,8 @@
 # Test Priority: foundation
 
-**Total classes: 46**
+The hand-maintained tiers of the bridged classes, the input of `tool/testplan_report.dart`. Every row names a class the bridges register (the guard `test/testplan_fresh_test.dart` checks it); a bridged class no priority file names is Hardly Relevant. The counts and coverage are measured in the generated `testplan_*.md` files.
 
-## Essential (8 classes)
+## Essential
 Core classes used in virtually every Flutter application.
 
 | Class | Description |
@@ -16,7 +16,7 @@ Core classes used in virtually every Flutter application.
 | Listenable | Base listenable interface |
 | ValueListenable | Value listenable interface |
 
-## Important (12 classes)
+## Important
 Commonly used classes for intermediate Flutter development.
 
 | Class | Description |
@@ -34,7 +34,7 @@ Commonly used classes for intermediate Flutter development.
 | LicenseRegistry | License registry |
 | LicenseParagraph | License paragraph |
 
-## Secondary (16 classes)
+## Secondary
 Specialized classes for advanced use cases.
 
 | Class | Description |
@@ -56,7 +56,7 @@ Specialized classes for advanced use cases.
 | Unicode | Unicode utilities |
 | BitField | Bit manipulation |
 
-## Hardly Relevant (10 classes)
+## Hardly Relevant
 Internal/low-level classes rarely used directly.
 
 | Class | Description |
@@ -66,18 +66,7 @@ Internal/low-level classes rarely used directly.
 | DocumentationIcon | Doc icon annotation |
 | ErrorSpacer | Error formatting |
 | FlutterMemoryAllocations | Memory tracking |
-| Immutable | Immutability annotation |
 | ObjectCreated | Object lifecycle |
 | ObjectDisposed | Object lifecycle |
 | ObjectEvent | Object events |
 | Summary | Summary annotation |
-
-## Summary
-
-| Priority | Count | Percentage |
-|----------|-------|------------|
-| Essential | 8 | 17.4% |
-| Important | 12 | 26.1% |
-| Secondary | 16 | 34.8% |
-| Hardly Relevant | 10 | 21.7% |
-| **Total** | **46** | **100%** |

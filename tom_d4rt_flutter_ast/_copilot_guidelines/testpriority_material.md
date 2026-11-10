@@ -1,8 +1,8 @@
 # Test Priority: material
 
-**Total classes: 1288**
+The hand-maintained tiers of the bridged classes, the input of `tool/testplan_report.dart`. Every row names a class the bridges register (the guard `test/testplan_fresh_test.dart` checks it); a bridged class no priority file names is Hardly Relevant. The counts and coverage are measured in the generated `testplan_*.md` files.
 
-## Essential (60 classes)
+## Essential
 Core Material Design widgets used in virtually every Flutter app.
 
 | Class | Description |
@@ -23,7 +23,6 @@ Core Material Design widgets used in virtually every Flutter app.
 | FilledButton | Filled button |
 | Card | Card container |
 | ListTile | List tile |
-| Text | Text widget |
 | TextField | Text input |
 | TextFormField | Form text |
 | Checkbox | Checkbox |
@@ -52,14 +51,12 @@ Core Material Design widgets used in virtually every Flutter app.
 | LinearProgressIndicator | Linear progress |
 | Tooltip | Tooltip |
 | Divider | Divider line |
-| Icon | Icon display |
 | Theme | Theme widget |
 | ThemeData | Theme data |
 | ColorScheme | Color scheme |
 | MaterialColor | Material color |
 | MaterialAccentColor | Accent color |
 | TextTheme | Text theme |
-| IconTheme | Icon theme |
 | ButtonStyle | Button styling |
 | InputDecoration | Input decoration |
 | InputBorder | Input border |
@@ -68,15 +65,11 @@ Core Material Design widgets used in virtually every Flutter app.
 | SearchBar | Search bar |
 | SearchAnchor | Search anchor |
 
-## Important (180 classes)
+## Important
 Commonly used Material widgets and components.
 
 | Class | Description |
 |-------|-------------|
-| MaterialState | Widget state |
-| MaterialStateProperty | State property |
-| WidgetStateProperty | Widget state |
-| WidgetStatesController | States controller |
 | ButtonTheme | Button theming |
 | ButtonThemeData | Button theme data |
 | ElevatedButtonTheme | Elevated theme |
@@ -97,7 +90,6 @@ Commonly used Material widgets and components.
 | TooltipTheme | Tooltip theme |
 | DividerTheme | Divider theme |
 | DialogTheme | Dialog theme |
-| BottomSheetTheme | Sheet theme |
 | SnackBarTheme | Snackbar theme |
 | TabBarTheme | Tab theme |
 | SliderTheme | Slider theme |
@@ -126,19 +118,10 @@ Commonly used Material widgets and components.
 | AboutListTile | About tile |
 | AboutDialog | About dialog |
 | LicensePage | License page |
-| showDialog | Show dialog |
-| showModalBottomSheet | Modal sheet |
-| showBottomSheet | Bottom sheet |
-| showMenu | Show menu |
-| showDatePicker | Date picker |
-| showTimePicker | Time picker |
-| showSearch | Show search |
 | DatePickerDialog | Date dialog |
 | TimePickerDialog | Time dialog |
 | CalendarDatePicker | Calendar picker |
 | YearPicker | Year picker |
-| MonthPicker | Month picker |
-| CupertinoDatePicker | iOS date picker |
 | MenuAnchor | Menu anchor |
 | MenuBar | Menu bar |
 | MenuItemButton | Menu item |
@@ -159,7 +142,6 @@ Commonly used Material widgets and components.
 | SegmentedButton | Segmented button |
 | ButtonSegment | Button segment |
 | Badge | Badge widget |
-| FlutterLogo | Flutter logo |
 | CircleAvatar | Circle avatar |
 | Material | Material widget |
 | InkWell | Ink ripple |
@@ -172,7 +154,6 @@ Commonly used Material widgets and components.
 | AnimatedIcons | Icon animations |
 | RefreshIndicator | Pull to refresh |
 | Scrollbar | Scrollbar |
-| RawScrollbar | Raw scrollbar |
 | InteractiveInkFeature | Ink feature |
 | InkHighlight | Ink highlight |
 | InkSplash | Ink splash |
@@ -181,7 +162,6 @@ Commonly used Material widgets and components.
 | MaterialInkController | Ink controller |
 | SliverAppBar | Sliver app bar |
 | FlexibleSpaceBar | Flexible space |
-| StretchyHeaderBar | Stretchy header |
 | MergeableMaterial | Mergeable |
 | MaterialGap | Material gap |
 | MaterialSlice | Material slice |
@@ -191,26 +171,20 @@ Commonly used Material widgets and components.
 | MaterialPage | Material page |
 | MaterialRouteTransitionMixin | Route transition |
 | PageTransitionsTheme | Page transitions |
-| PageTransitionsBuilder | Transition builder |
-| FadeUpwardsPageTransitionsBuilder | Fade upwards |
-| OpenUpwardsPageTransitionsBuilder | Open upwards |
 | ZoomPageTransitionsBuilder | Zoom transition |
-| CupertinoPageTransitionsBuilder | iOS transition |
 | PredictiveBackPageTransitionsBuilder | Predictive back |
 | ScrollbarTheme | Scrollbar theme |
 | MaterialBannerTheme | Banner theme |
-| progressIndicatorTheme | Progress theme |
-| TextFieldTheme | Text field theme |
+| MaterialBasedCupertinoThemeData | Material based |
+| TabController | Tab control |
 
-## Secondary (500 classes)
+## Secondary
 Specialized Material widgets and theme classes.
 
 | Class | Description |
 |-------|-------------|
 | MaterialLocalizations | Localization |
 | DefaultMaterialLocalizations | Default locale |
-| GlobalMaterialLocalizations | Global locale |
-| MaterialApp.router | Router app |
 | ScaffoldState | Scaffold state |
 | ScaffoldMessenger | Messenger |
 | ScaffoldMessengerState | Messenger state |
@@ -235,10 +209,8 @@ Specialized Material widgets and theme classes.
 | SegmentedButtonThemeData | Segment data |
 | BadgeThemeData | Badge data |
 | ButtonStyleButton | Style button base |
-| ButtonState | Button state |
 | FilledButtonThemeData | Filled data |
 | TextButtonThemeData | Text data |
-| ElevatedButtonThemeData | Elevated data |
 | OutlinedButtonThemeData | Outlined data |
 | IconButtonThemeData | Icon data |
 | FloatingActionButtonThemeData | FAB data |
@@ -260,7 +232,6 @@ Specialized Material widgets and theme classes.
 | DisabledChipAttributes | Disabled |
 | SelectableChipAttributes | Selectable |
 | TooltipThemeData | Tooltip data |
-| TooltipTriggerMode | Trigger mode |
 | TooltipVisibility | Visibility |
 | DividerThemeData | Divider data |
 | SliderThemeData | Slider data |
@@ -287,7 +258,6 @@ Specialized Material widgets and theme classes.
 | CheckboxListTile | Checkbox tile |
 | RadioThemeData | Radio data |
 | RadioListTile | Radio tile |
-| RadioGroup | Radio group |
 | ProgressIndicatorThemeData | Progress data |
 | TabBarThemeData | Tab data |
 | TabBarIndicatorSize | Indicator size |
@@ -299,8 +269,6 @@ Specialized Material widgets and theme classes.
 | DesktopTextSelectionToolbarButton | Desktop button |
 | AdaptiveTextSelectionToolbar | Adaptive toolbar |
 | MaterialTextSelectionControls | Material controls |
-| CupertinoTextSelectionControls | iOS controls |
-| CupertinoSpellCheckSuggestionsToolbar | Spell toolbar |
 | SpellCheckSuggestionsToolbar | Spell suggestions |
 | DataTableSource | Data source |
 | DataTableTheme | Table theme |
@@ -313,91 +281,16 @@ Specialized Material widgets and theme classes.
 | MaterialType | Material type |
 | MaterialButton | Material button |
 | RawMaterialButton | Raw button |
-| OutlinedBorder | Outlined shape |
-| RoundedRectangleBorder | Rounded border |
-| CircleBorder | Circle border |
-| StadiumBorder | Stadium border |
-| BeveledRectangleBorder | Beveled border |
-| ContinuousRectangleBorder | Continuous |
 | InputDecorationTheme | Input theme |
-| InputDecoratorState | Decorator state |
 | CalendarDelegate | Calendar delegate |
 | DateTimeRange | Date range |
 | DateUtils | Date utilities |
 | DateRangePickerDialog | Range dialog |
-| MonthPickerSelector | Month selector |
-| YearPickerSelector | Year selector |
-| (300+ more specialized classes...) | ... |
+| VisualDensity | Visual density |
 
-## Hardly Relevant (548 classes)
+## Hardly Relevant
 Internal/theme data classes rarely used directly.
 
 | Class | Description |
 |-------|-------------|
-| AbstractLayoutBuilder | Layout base |
-| Accumulator | Accumulator |
-| ActionChipTheme | Action theme |
-| ActionDispatcher | Dispatcher |
-| ActionListener | Listener |
-| ActivateAction | Activate |
-| ActivateIntent | Intent |
-| Actions | Actions widget |
-| Align | Align widget |
-| Alignment | Alignment |
-| AlignmentDirectional | Directional |
-| AlignmentGeometry | Geometry |
-| AlignmentGeometryTween | Tween |
-| AlignmentTween | Tween |
-| AlignTransition | Transition |
-| AlwaysScrollableScrollPhysics | Physics |
-| AlwaysStoppedAnimation | Animation |
-| AndroidView | Android view |
-| AndroidViewSurface | Surface |
-| Animatable | Animatable |
-| AnimatedAlign | Animated |
-| AnimatedBuilder | Builder |
-| AnimatedContainer | Container |
-| AnimatedCrossFade | Cross fade |
-| AnimatedDefaultTextStyle | Text style |
-| AnimatedFractionallySizedBox | Fraction |
-| AnimatedGrid | Grid |
-| AnimatedGridState | State |
-| AnimatedList | List |
-| AnimatedListState | State |
-| AnimatedModalBarrier | Barrier |
-| AnimatedOpacity | Opacity |
-| AnimatedPadding | Padding |
-| AnimatedPhysicalModel | Physical |
-| AnimatedPositioned | Positioned |
-| AnimatedPositionedDirectional | Directional |
-| AnimatedRotation | Rotation |
-| AnimatedScale | Scale |
-| AnimatedSize | Size |
-| AnimatedSlide | Slide |
-| AnimatedSwitcher | Switcher |
 | AnimatedTheme | Theme |
-| AnimatedWidget | Widget |
-| AnimatedWidgetBaseState | State |
-| Animation | Animation |
-| AnimationController | Controller |
-| AnimationEagerListenerMixin | Mixin |
-| AnimationLazyListenerMixin | Mixin |
-| AnimationLocalListenersMixin | Mixin |
-| AnimationLocalStatusListenersMixin | Mixin |
-| AnimationMax | Max |
-| AnimationMean | Mean |
-| AnimationMin | Min |
-| AnimationStyle | Style |
-| AnimationWithParentMixin | Mixin |
-| AnnotatedRegion | Region |
-| (500+ more internal classes...) | ... |
-
-## Summary
-
-| Priority | Count | Percentage |
-|----------|-------|------------|
-| Essential | 60 | 4.7% |
-| Important | 180 | 14.0% |
-| Secondary | 500 | 38.8% |
-| Hardly Relevant | 548 | 42.5% |
-| **Total** | **1288** | **100%** |

@@ -1,8 +1,8 @@
 # Test Priority: animation
 
-**Total classes: 27**
+The hand-maintained tiers of the bridged classes, the input of `tool/testplan_report.dart`. Every row names a class the bridges register (the guard `test/testplan_fresh_test.dart` checks it); a bridged class no priority file names is Hardly Relevant. The counts and coverage are measured in the generated `testplan_*.md` files.
 
-## Essential (6 classes)
+## Essential
 Core classes used in virtually every Flutter application.
 
 | Class | Description |
@@ -12,9 +12,8 @@ Core classes used in virtually every Flutter application.
 | Curve | Easing curves |
 | CurvedAnimation | Animation with curve |
 | Tween | Value interpolation |
-| TickerProvider | Frame callbacks |
 
-## Important (10 classes)
+## Important
 Commonly used classes for intermediate Flutter development.
 
 | Class | Description |
@@ -30,7 +29,7 @@ Commonly used classes for intermediate Flutter development.
 | TweenSequenceItem | Sequence item |
 | FlippedTweenSequence | Reversed sequence |
 
-## Secondary (8 classes)
+## Secondary
 Specialized classes for advanced use cases.
 
 | Class | Description |
@@ -38,13 +37,9 @@ Specialized classes for advanced use cases.
 | AnimationMax | Max of animations |
 | AnimationMin | Min of animations |
 | AnimationMean | Average of animations |
-| Simulation | Physics simulation |
-| SpringDescription | Spring physics |
-| TickerFuture | Ticker completion |
-| TickerCanceled | Ticker cancellation |
 | AnimationWithParentMixin | Parent animation mixin |
 
-## Hardly Relevant (3 classes)
+## Hardly Relevant
 Internal/low-level classes rarely used directly.
 
 | Class | Description |
@@ -53,13 +48,3 @@ Internal/low-level classes rarely used directly.
 | AnimationLazyListenerMixin | Lazy listener mixin |
 | AnimationLocalListenersMixin | Local listeners mixin |
 | AnimationLocalStatusListenersMixin | Status listeners mixin |
-
-## Summary
-
-| Priority | Count | Percentage |
-|----------|-------|------------|
-| Essential | 6 | 22.2% |
-| Important | 10 | 37.0% |
-| Secondary | 8 | 29.6% |
-| Hardly Relevant | 3 | 11.1% |
-| **Total** | **27** | **100%** |

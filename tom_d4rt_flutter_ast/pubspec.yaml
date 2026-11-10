@@ -58,6 +58,11 @@ dev_dependencies:
   # analyzer-free and web-safe.
   tom_d4rt_exec: "^1.53.0"
   tom_ast_generator: "^0.2.1"
+  # tool/testplan_report.dart parses the corpus scripts and drivers to decide
+  # which bridged classes a script uses in code (not in a comment or string).
+  # Already resolved through the generator; declared because the tool and its
+  # guard import it.
+  analyzer: ^14.0.0
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

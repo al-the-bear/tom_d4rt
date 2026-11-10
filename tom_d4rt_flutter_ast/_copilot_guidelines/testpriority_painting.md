@@ -1,8 +1,8 @@
 # Test Priority: painting
 
-**Total classes: 92**
+The hand-maintained tiers of the bridged classes, the input of `tool/testplan_report.dart`. Every row names a class the bridges register (the guard `test/testplan_fresh_test.dart` checks it); a bridged class no priority file names is Hardly Relevant. The counts and coverage are measured in the generated `testplan_*.md` files.
 
-## Essential (18 classes)
+## Essential
 Core classes used in virtually every Flutter application.
 
 | Class | Description |
@@ -26,16 +26,14 @@ Core classes used in virtually every Flutter application.
 | LinearGradient | Linear color gradients |
 | BoxShadow | Drop shadows |
 
-## Important (24 classes)
+## Important
 Commonly used classes for intermediate Flutter development.
 
 | Class | Description |
 |-------|-------------|
 | TextPainter | Low-level text rendering |
-| TextSelection | Text selection range |
 | TextScaler | Text scaling |
 | TextAlignVertical | Vertical text alignment |
-| StrutStyle | Line height control |
 | RoundedRectangleBorder | Rounded rectangle shape |
 | CircleBorder | Circular shape |
 | StadiumBorder | Stadium/pill shape |
@@ -48,15 +46,14 @@ Commonly used classes for intermediate Flutter development.
 | ShapeDecoration | Shape-based decoration |
 | ImageProvider | Base image provider |
 | MemoryImage | In-memory images |
-| FileImage | File-based images |
 | ExactAssetImage | Exact resolution assets |
 | FractionalOffset | Fractional positioning |
 | HSLColor | HSL color representation |
 | HSVColor | HSV color representation |
 | ColorSwatch | Color palette |
-| Matrix4 | 4x4 transformation matrix |
+| StrutStyle | Line height control |
 
-## Secondary (32 classes)
+## Secondary
 Specialized classes for advanced use cases.
 
 | Class | Description |
@@ -72,7 +69,6 @@ Specialized classes for advanced use cases.
 | NotchedShape | Shape with notch |
 | CircularNotchedRectangle | Notched rectangle |
 | AutomaticNotchedShape | Auto-notched shape |
-| Gradient | Base gradient |
 | GradientRotation | Gradient rotation |
 | GradientTransform | Gradient transform |
 | Decoration | Base decoration |
@@ -92,9 +88,9 @@ Specialized classes for advanced use cases.
 | PlaceholderDimensions | Inline placeholder |
 | PlaceholderSpan | Inline span placeholder |
 | WordBoundary | Word boundary detection |
-| Vector2 | 2D vector |
+| Gradient | Base gradient |
 
-## Hardly Relevant (18 classes)
+## Hardly Relevant
 Internal/low-level classes rarely used directly.
 
 | Class | Description |
@@ -116,14 +112,3 @@ Internal/low-level classes rarely used directly.
 | PaintingBinding | Painting binding |
 | ShaderWarmUp | Shader precompilation |
 | TransformProperty | Transform diagnostics |
-| Vector3 | 3D vector |
-
-## Summary
-
-| Priority | Count | Percentage |
-|----------|-------|------------|
-| Essential | 18 | 19.6% |
-| Important | 24 | 26.1% |
-| Secondary | 32 | 34.8% |
-| Hardly Relevant | 18 | 19.6% |
-| **Total** | **92** | **100%** |
