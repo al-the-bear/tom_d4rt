@@ -58,7 +58,7 @@ The bridged names the priority files classify as Important. Status: ✅ a script
 | Name | Description | Status | Scripts |
 |------|-------------|--------|---------|
 | ColorFilter | Color transformations | ✅ | dart_ui/blend_mode_test.dart, dart_ui/color_filter_engine_layer_test.dart, dart_ui/engine_layer_test.dart, +15 |
-| FontFeature | OpenType font features | ✅ | animation/animatable_test.dart, animation/animationstyle_test.dart, cupertino/class_test.dart, +49 |
+| FontFeature | OpenType font features | ✅ | animation/animatable_test.dart, animation/animationstyle_test.dart, cupertino/class_test.dart, +50 |
 | FontVariation | Variable font axes | ✅ | dart_ui/font_test.dart, material/texttheme_test.dart, widgets/text_test.dart |
 | GlyphInfo | Individual glyph data | ⬜ |  |
 | ImageFilter | Blur and matrix effects | ✅ | dart_ui/backdrop_filter_engine_layer_test.dart, dart_ui/clip_path_engine_layer_test.dart, dart_ui/engine_layer_test.dart, +18 |
@@ -86,8 +86,8 @@ The bridged names the priority files classify as Important. Status: ✅ a script
 | Name | Description | Status | Scripts |
 |------|-------------|--------|---------|
 | BindingBase | Binding base class | ⬜ |  |
-| DiagnosticPropertiesBuilder | Building diagnostics | ✅ | foundation/class_test.dart, foundation/diagnosticable_test.dart, foundation/diagnosticable_tree_mixin_test.dart, +6 |
-| DiagnosticsNode | Debug diagnostics | ✅ | foundation/class_test.dart, foundation/diagnostic_level_test.dart, foundation/diagnosticable_tree_mixin_test.dart, +10 |
+| DiagnosticPropertiesBuilder | Building diagnostics | ✅ | foundation/class_test.dart, foundation/diagnosticable_test.dart, foundation/diagnosticable_tree_mixin_test.dart, +7 |
+| DiagnosticsNode | Debug diagnostics | ✅ | foundation/class_test.dart, foundation/diagnostic_level_test.dart, foundation/diagnosticable_tree_mixin_test.dart, +11 |
 | ErrorDescription | Error description | ✅ | foundation/error_test.dart, gestures/flutter_error_details_for_pointer_event_dispatcher_test.dart |
 | ErrorHint | Error hints | ⬜ |  |
 | ErrorSummary | Error summary | ⬜ |  |
@@ -256,7 +256,7 @@ The bridged names the priority files classify as Important. Status: ✅ a script
 | StrutStyle | Line height control | ✅ | dart_ui/text_leading_distribution_test.dart, painting/class_test.dart, painting/text_painting_test.dart, +2 |
 | SweepGradient | Angular gradients | ✅ | animation/animation_lazy_listener_mixin_test.dart, dart_ui/dart_ui_paint_canvas_test.dart, dart_ui/painting_style_test.dart, +30 |
 | TextAlignVertical | Vertical text alignment | ✅ | cupertino/textfield_test.dart, widgets/text_editing_adv_test.dart |
-| TextPainter | Low-level text rendering | ✅ | animation/animation_max_test.dart, animation/cubic_test.dart, cupertino/class_test.dart, +249 |
+| TextPainter | Low-level text rendering | ✅ | animation/animation_max_test.dart, animation/cubic_test.dart, cupertino/class_test.dart, +250 |
 | TextScaler | Text scaling | ✅ | material/material_text_selection_handle_controls_test.dart, material/navigation_destination_label_behavior_test.dart, widgets/icon_theme_data_test.dart, +3 |
 
 ## physics (4)
@@ -276,9 +276,9 @@ The bridged names the priority files classify as Important. Status: ✅ a script
 | ClipRRectLayer | Clip rounded layer | ✅ | rendering/layers_test.dart |
 | ClipRectLayer | Clip rect layer | ✅ | rendering/layers_test.dart |
 | CustomClipper | Custom clipping | ✅ | dart_ui/r_superellipse_test.dart, material/collapse_mode_test.dart, painting/clip_context_test.dart, +13 |
-| CustomPainter | Custom painting | ✅ | animation/animation_max_test.dart, animation/animationstyle_test.dart, animation/cubic_test.dart, +440 |
+| CustomPainter | Custom painting | ✅ | animation/animation_max_test.dart, animation/animationstyle_test.dart, animation/cubic_test.dart, +441 |
 | FixedColumnWidth | Fixed column | ✅ | cupertino/route_test.dart, cupertino/tab_test.dart, foundation/aggregated_timed_block_test.dart, +30 |
-| FlexColumnWidth | Flex column | ✅ | cupertino/dialog_test.dart, cupertino/route_test.dart, cupertino/tab_test.dart, +184 |
+| FlexColumnWidth | Flex column | ✅ | cupertino/cupertino_linear_activity_indicator_test.dart, cupertino/dialog_test.dart, cupertino/route_test.dart, +185 |
 | FlexParentData | Flex parent data | ⬜ |  |
 | FlowDelegate | Flow layout delegate | ✅ | proxies/flowdelegate_proxy_test.dart, rendering/flow_painting_context_test.dart, widgets/table_wrap_flow_test.dart |
 | ImageFilterLayer | Image filter layer | ✅ | rendering/layers_test.dart |
@@ -320,7 +320,7 @@ The bridged names the priority files classify as Important. Status: ✅ a script
 | SliverGridDelegateWithMaxCrossAxisExtent | Max extent grid | ✅ | rendering/render_sliver_types_test.dart, rendering/sliver_delegates_test.dart, rendering/sliver_grid_layout_test.dart, +9 |
 | SliverGridParentData | Grid parent data | ⬜ |  |
 | StackParentData | Stack parent data | ⬜ |  |
-| TableColumnWidth | Table column width | ✅ | cupertino/route_test.dart, cupertino/tab_test.dart, dart_ui/key_data_test.dart, +80 |
+| TableColumnWidth | Table column width | ✅ | cupertino/cupertino_linear_activity_indicator_test.dart, cupertino/route_test.dart, cupertino/tab_test.dart, +81 |
 | TransformLayer | Transform layer | ✅ | rendering/layers_test.dart |
 
 ## scheduler (3)
@@ -388,7 +388,7 @@ The bridged names the priority files classify as Important. Status: ✅ a script
 | Action | Action handler | ✅ | material/materialapp_test.dart, material/menu_accelerator_callback_binding_test.dart, retest/widgets/context_action_test.dart, +35 |
 | Actions | Action handling | ✅ | material/menu_accelerator_callback_binding_test.dart, retest/widgets/context_action_test.dart, retest/widgets/default_text_editing_shortcuts_test.dart, +37 |
 | AnimatedBuilder | Generic animation | ✅ | animation/alwaysstoppedanimation_test.dart, cupertino/cupertino_focus_halo_test.dart, cupertino/textfield_test.dart, +78 |
-| AnimatedContainer | Animated container | ✅ | animation/animatable_test.dart, cupertino/cupertino_focus_halo_test.dart, dart_ui/clip_r_superellipse_engine_layer_test.dart, +106 |
+| AnimatedContainer | Animated container | ✅ | animation/animatable_test.dart, cupertino/cupertino_focus_halo_test.dart, cupertino/cupertino_linear_activity_indicator_test.dart, +107 |
 | AnimatedGrid | Animated grid | ✅ | widgets/animated_grid_state_test.dart, widgets/animatedgrid_test.dart |
 | AnimatedList | Animated list | ✅ | widgets/animated_list_state_test.dart, widgets/animatedlist_test.dart, widgets/object_key_test.dart |
 | AnimatedOpacity | Animated opacity | ✅ | animation/animatable_test.dart, dart_ui/spell_out_string_attribute_test.dart, rendering/render_animated_opacity_mixin_test.dart, +17 |
@@ -406,12 +406,12 @@ The bridged names the priority files classify as Important. Status: ✅ a script
 | CallbackAction | Callback action | ✅ | material/materialapp_test.dart, material/menu_accelerator_callback_binding_test.dart, retest/widgets/default_text_editing_shortcuts_test.dart, +17 |
 | ClipOval | Oval clipping | ✅ | cupertino/cupertino_text_magnifier_test.dart, dart_ui/clip_test.dart, painting/clip_context_test.dart, +11 |
 | ClipPath | Path clipping | ✅ | dart_ui/r_superellipse_test.dart, material/collapse_mode_test.dart, painting/clip_context_test.dart, +16 |
-| ClipRRect | Rounded clipping | ✅ | animation/animationstyle_test.dart, animation/color_tween_test.dart, animation/cubic_test.dart, +380 |
+| ClipRRect | Rounded clipping | ✅ | animation/animationstyle_test.dart, animation/color_tween_test.dart, animation/cubic_test.dart, +381 |
 | ClipRect | Rectangle clipping | ✅ | cupertino/class_test.dart, cupertino/cupertino_page_test.dart, dart_ui/backdrop_filter_engine_layer_test.dart, +36 |
 | ColoredBox | Colored box | ✅ | cupertino/cupertino_list_tile_chevron_test.dart, cupertino/obstructing_preferred_size_widget_test.dart, dart_ui/text_test.dart, +16 |
 | ConstrainedBox | Constraints | ✅ | animation/cubic_test.dart, foundation/diagnosticable_tree_mixin_test.dart, foundation/diagnosticable_tree_test.dart, +70 |
 | CustomMultiChildLayout | Multi layout | ✅ | proxies/multichildlayout_proxy_test.dart, rendering/render_custom_multi_child_layout_box_test.dart, rendering/renderobjects_layout_test.dart, +3 |
-| CustomPaint | Custom painting | ✅ | animation/animation_max_test.dart, animation/animationstyle_test.dart, animation/cubic_test.dart, +441 |
+| CustomPaint | Custom painting | ✅ | animation/animation_max_test.dart, animation/animationstyle_test.dart, animation/cubic_test.dart, +442 |
 | CustomScrollView | Custom scrolling | ✅ | cupertino/cupertino_refresh_mag_test.dart, cupertino/cupertino_secondary_test.dart, cupertino/obstructing_preferred_size_widget_test.dart, +131 |
 | CustomSingleChildLayout | Single layout | ✅ | material/spell_check_suggestions_toolbar_layout_delegate_test.dart, material/spell_check_suggestions_toolbar_test.dart, proxies/singlechildlayout_proxy_test.dart, +2 |
 | DecoratedBox | Decoration box | ✅ | animation/tweensequence_test.dart, cupertino/cupertino_sheet_route_test.dart, cupertino/cupertino_sheet_transition_test.dart, +108 |
@@ -486,7 +486,7 @@ The bridged names the priority files classify as Important. Status: ✅ a script
 | RouteSettings | Route settings | ✅ | cupertino/cupertino_page_route_test.dart, cupertino/route_test.dart, material/materialapp_test.dart, +7 |
 | Router | Declarative routing | ✅ | retest/widgets/back_button_listener_test.dart, widgets/back_button_listener_test.dart |
 | RouterDelegate | Router delegate | ✅ | material/materialapp_test.dart, retest/widgets/back_button_listener_test.dart, widgets/back_button_listener_test.dart |
-| SafeArea | Safe area insets | ✅ | animation/animation_misc_adv_test.dart, animation/animationstyle_test.dart, animation/curves_test.dart, +475 |
+| SafeArea | Safe area insets | ✅ | animation/animation_misc_adv_test.dart, animation/animationstyle_test.dart, animation/curves_test.dart, +477 |
 | ScaleTransition | Scale animation | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, material/pageroute_test.dart, +15 |
 | ScrollController | Scroll control | ✅ | material/carousel_view_test.dart, material/material_scroll_behavior_test.dart, material/rawscrollbar_test.dart, +74 |
 | ScrollNotification | Scroll notification | ✅ | material/rawscrollbar_test.dart, rendering/hit_test_behavior_test.dart, rendering/render_proxy_sliver_test.dart, +16 |
@@ -504,9 +504,9 @@ The bridged names the priority files classify as Important. Status: ✅ a script
 | SliverPersistentHeader | Persistent header | ✅ | rendering/render_sliver_animated_opacity_test.dart, rendering/render_sliver_floating_pinned_persistent_header_test.dart, rendering/render_sliver_persistent_header_test.dart, +13 |
 | SliverToBoxAdapter | Box adapter | ✅ | cupertino/cupertino_secondary_test.dart, cupertino/refresh_test.dart, material/refreshindicator_test.dart, +91 |
 | SliverVariedExtentList | Varied extent | ✅ | rendering/render_sliver_varied_extent_list_test.dart |
-| StatefulBuilder | Stateful building | ✅ | dart_ui/pointer_data_test.dart, dart_ui/vertices_test.dart, foundation/bit_field_test.dart, +80 |
+| StatefulBuilder | Stateful building | ✅ | cupertino/cupertino_linear_activity_indicator_test.dart, dart_ui/pointer_data_test.dart, dart_ui/vertices_test.dart, +81 |
 | StreamBuilder | Stream building | ✅ | widgets/streambuilder_test.dart |
-| Table | Table layout | ✅ | cupertino/dialog_test.dart, cupertino/route_test.dart, cupertino/tab_test.dart, +193 |
+| Table | Table layout | ✅ | cupertino/cupertino_linear_activity_indicator_test.dart, cupertino/dialog_test.dart, cupertino/route_test.dart, +194 |
 | TextEditingController | Text controller | ✅ | cupertino/cupertino_desktop_text_selection_controls_test.dart, cupertino/cupertino_focus_halo_test.dart, cupertino/cupertino_text_selection_handle_controls_test.dart, +77 |
 | Transform | Transformations | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/tween_test.dart, +128 |
 | UnconstrainedBox | No constraints | ✅ | rendering/boxconstraints_test.dart, rendering/render_constraints_transform_box_test.dart, rendering/render_object_with_child_mixin_test.dart, +4 |
@@ -514,4 +514,4 @@ The bridged names the priority files classify as Important. Status: ✅ a script
 | Visibility | Visibility control | ✅ | rendering/render_indexed_stack_test.dart, rendering/render_offstage_test.dart, widgets/offstage_test.dart, +1 |
 | WidgetStateProperty | Widget state | ✅ | foundation/persistent_hash_map_test.dart, material/bottomnavigationbar_test.dart, material/button_style_button_test.dart, +68 |
 | WidgetStatesController | States controller | ✅ | material/material_state_mixin_test.dart, material/widgetstate_test.dart |
-| Wrap | Wrapping layout | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_eager_listener_mixin_test.dart, +1347 |
+| Wrap | Wrapping layout | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_eager_listener_mixin_test.dart, +1349 |

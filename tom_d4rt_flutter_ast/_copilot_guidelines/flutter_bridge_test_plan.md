@@ -13,7 +13,7 @@ Measured by `tool/testplan_report.dart` from the bridges and the corpus. A name 
 |---------|---------|-----------|----|----|----------|
 | [animation](testplan_animation.md) | 49 | 39 | 0 | 10 | 79.6% |
 | [characters](testplan_characters.md) | 2 | 0 | 0 | 2 | 0.0% |
-| [cupertino](testplan_cupertino.md) | 93 | 76 | 1 | 16 | 81.7% |
+| [cupertino](testplan_cupertino.md) | 93 | 77 | 0 | 16 | 82.8% |
 | [dart_ui](testplan_dart_ui.md) | 158 | 136 | 0 | 22 | 86.1% |
 | [foundation](testplan_foundation.md) | 72 | 58 | 0 | 14 | 80.6% |
 | [gestures](testplan_gestures.md) | 97 | 78 | 0 | 19 | 80.4% |
@@ -27,7 +27,7 @@ Measured by `tool/testplan_report.dart` from the bridges and the corpus. A name 
 | [services](testplan_services.md) | 142 | 95 | 0 | 47 | 66.9% |
 | [vector_math](testplan_vector_math.md) | 19 | 1 | 1 | 17 | 5.3% |
 | [widgets](testplan_widgets.md) | 772 | 568 | 1 | 203 | 73.6% |
-| **Total** | **2251** | **1625** | **4** | **622** | **72.2%** |
+| **Total** | **2251** | **1626** | **3** | **622** | **72.2%** |
 
 By tier:
 
@@ -36,7 +36,7 @@ By tier:
 | [Essential](testplan_essential.md) | 227 | 213 | 93.8% |
 | [Important](testplan_important.md) | 440 | 338 | 76.8% |
 | [Secondary](testplan_secondary.md) | 559 | 374 | 66.9% |
-| [Hardly Relevant](testplan_hardly_relevant.md) | 1025 | 700 | 68.3% |
+| [Hardly Relevant](testplan_hardly_relevant.md) | 1025 | 701 | 68.4% |
 <!-- testplan_report:end -->
 
 ## How the plans are kept

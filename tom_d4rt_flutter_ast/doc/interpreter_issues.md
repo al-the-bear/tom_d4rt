@@ -27,7 +27,7 @@ reverse) fails the suite. Re-derive; do not hand-edit one side alone.
 | `[ ]` | Open (GEN-125) — an interpreted closure is rejected against a bridged function typedef (`VoidCallback`, `ValueChanged`) | An **interpreter / bridge** defect. Blast radius: every script closure passed to a parameter typed as a Flutter function typedef — which is every Flutter callback, on every widget, wherever a declared parameter type is checked. Nothing narrows it to the widgets the corpus happens to contain. Found 2026-09-06. **Fixed in the interpreter (scd136) and published in 1.192.0 / 0.177.0; re-measured 2026-09-28**, base corpus, both twins: 0 refused callbacks across 910 scripts, against 117 on 2026-09-15. Open until a FULL-corpus run at a published fix confirms the 4 failing extended files (sce160). |
 | `[ ]` | Open (GEN-128) — a record type annotation drops its fields' `?` | An **interpreter** defect, both runtimes. Blast radius: every record type with a nullable field used where a type is checked (a declared variable, a loop variable, a parameter), given null. Found 2026-11-10 by ghissues15. Fixed in the tree by ghissues23 (tom_d4rt 1.247.0 / tom_d4rt_ast 0.228.0, not published) and the `flutter_extended_01` skip removed; open until a run at the published fix passes the script, owed by todo ghissues999. |
 | `[ ]` | Open (GEN-129) — tom_d4rt refuses a script whose doc comment names something not in scope | An **interpreter** defect, `tom_d4rt` only. Blast radius: every script with a doc-comment reference `[Name]` to a name it does not import or declare fails before `main`. Found 2026-11-10 by ghissues15. Fixed in the tree by ghissues24 (tom_d4rt 1.248.0 / tom_d4rt_exec 1.56.0, not published) and the source twin's `flutter_extended_11` skip removed; open until a run at the published fix passes the script, owed by todo ghissues999. |
-| `[ ]` | Open (GEN-130) — an interpreted DiagnosticableTree subclass's inherited toDiagnosticsNode() returns null | An **interpreter / bridge** defect, both twins, cause not yet located. Blast radius: an inherited bridged method called on an interpreted subclass of an abstract bridged class without a proxy may return null. Found 2026-11-10 by ghissues15; owed by todo ghissues25. |
+| `[ ]` | Open (GEN-130) — an interpreted DiagnosticableTree subclass's inherited toDiagnosticsNode() returns null | An **interpreter / bridge** defect, both twins. Blast radius: every member a script class inherits from an abstract bridged class (no constructor adapter) answered null, `super.m()` was a no-op. Found 2026-11-10 by ghissues15. Fixed in the tree by ghissues25 (tom_d4rt 1.249.0 / tom_d4rt_ast 0.229.0, not published: receiver proxies; the twins' `DiagnosticableTree` and `Diagnosticable` proxies) and the `flutter_extended_03` skip removed; open until the twins mark the receiver with the release and a run at the published fix passes the script, owed by todo ghissues999. |
 | `[ ]` | Open (GEN-131) — an interpreted SlottedMultiChildRenderObjectWidget reads null from its own defaulted field in createRenderObject | An **interpreter / bridge** defect, both twins, cause not yet located. Blast radius: a field of an interpreted render-object widget read when the framework calls `createRenderObject` may be null. Found 2026-11-10 by ghissues15; owed by todo ghissues26. |
 | `[ ]` | Open (GEN-132) — three scripts fail on the desktop companion app: AppKitView view types and a Scrollbar without a position | Not yet attributed; at least the two AppKitView scripts are **script / host** failures. Blast radius: scripts that mount a platform view whose type the companion app does not register, or a Scrollbar without a scroll position, cannot be measured on the desktop host. Found 2026-11-10 by ghissues15; owed by todo ghissues27. |
 | `[~]` | Partially fixed — script-side / Flutter framework limitations | **Not an interpreter defect** — a rolling sweep log of demo-script fixes (layout overflow, unbounded constraints, platform-unsupported services). Rows whose "After" column reads `1*` note a residual that *is* interpreter-side; each of those is tracked by its own cluster. Last sweep 2026-04-29. |
@@ -349,20 +349,44 @@ it, then this cluster is marked - owed by todo ghissues999.
 
 **Found:** 2026-11-10, ghissues15's full-corpus runs `20261110-full-ast` / `20261110-full-src` (published tom_d4rt 1.231.1 / tom_d4rt_ast 0.212.1, Flutter 3.47.9).
 
-**Blast radius:** not yet bounded. What is shown: an inherited method of the
-abstract bridged `DiagnosticableTree`, called on an interpreted subclass,
-returns null instead of its result. If the cause is bridged-super dispatch
-without a native receiver, it reaches every abstract bridged class without a
-proxy that scripts extend.
+**Blast radius:** every member a script class inherits from an abstract
+bridged class - one with no constructor adapter, so the script instance has no
+native super-object - unless a receiver proxy is marked for that class: a
+method answers null without running, a getter answers null, `super.m()` is a
+no-op. Nothing reports it. `DiagnosticableTree` is the case the corpus met; a
+script class mixing in `Diagnosticable` threw `Invalid target` instead.
 
 **Measured:** `foundation/diagnosticable_tree_node_test.dart`
 (`flutter_extended_03`) fails in both twins with `type 'Null' is not a subtype
 of type 'DiagnosticsNode' of 'rootNode'`, at `root.toDiagnosticsNode(name:
-'root')` on the script's `class _Folder extends DiagnosticableTree`.
-`flutter_proxies.b.dart` has no proxy for `DiagnosticableTree`. Not reproduced
-outside the corpus yet.
+'root')` on the script's `class _Folder extends DiagnosticableTree`. Reproduced
+in-process 2026-11-10 (`test/ghissues25_diagnosticable_proxy_test.dart` in
+both twins): `toDiagnosticsNode`, `toStringDeep` and `toStringShort` answer
+null on `extends DiagnosticableTree`.
 
-**Fix:** owed by todo ghissues25, once the cause is located.
+**Root cause:** the RC-9 fallback in `InterpretedInstance.get` (both trees):
+with neither a native super-object nor a native proxy, an inherited bridged
+member returns a no-op answering null. An interface proxy registered for the
+class was consulted only where the instance crosses into native code, and
+`DiagnosticableTree` had none.
+
+**Fix:** ghissues25. Interpreter (tom_d4rt 1.249.0 / tom_d4rt_ast 0.229.0, not
+yet published): `D4.markProxyIsReceiver` marks a registered proxy as one that
+may stand in as the instance's native object; RC-9, `super.m()` and `super.x`
+create it, keep it as `nativeProxy` and run the member on it. Unmarked
+proxies (widgets) are left alone. Twins: proxies for `DiagnosticableTree` and
+`Diagnosticable` in `d4rt_runtime_registrations.dart`; the `Diagnosticable`
+one works with the published interpreter. Measured on the tree 2026-11-10,
+both twins under `prepublish_overrides --set` with the `DiagnosticableTree`
+proxy marked: `flutter_extended_03` 54/54, every script frameworkErrors=0; base
+corpus 910 scripts with 0 framework errors, the two failures there
+(`dart_ui/text_test.dart`, `dart_ui/text_data_test.dart`) not caused by this
+change (ghissues28). Pre-publish measurements, not verification runs. The
+mark (`D4.markProxyIsReceiver('DiagnosticableTree')`) needs the published
+interpreter, so it lands with the release; the driver skip is removed now, so
+until then a run at the published pair fails this test - owed by todo
+ghissues999. Other abstract bridged classes scripts extend without a receiver
+keep the null: todo receiver1_akjk-inherited-bridged-members-answer-null-without-receiver.
 
 ### [ ] Open (GEN-131) — an interpreted SlottedMultiChildRenderObjectWidget reads null from its own defaulted field in createRenderObject
 

@@ -134,6 +134,10 @@ run "testplans are generated from the bridges and the corpus" \
 # makes them belong here rather than in the corpus or harness runners.
 run "bridges execute in-process" \
   flutter test test/bridge_execution_test.dart
+# ghissues25: script DiagnosticableTree / Diagnosticable classes run their
+# inherited members on the hand-written proxies, in-process.
+run "script Diagnosticable classes run on their proxy" \
+  flutter test test/ghissues25_diagnosticable_proxy_test.dart
 run "import-optimization timings hold" \
   flutter test test/import_optimization_perf_test.dart
 pair "companion app resolution is checked" \

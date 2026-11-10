@@ -23,6 +23,8 @@ import 'package:flutter/foundation.dart'
     show
         ChangeNotifier,
         DiagnosticPropertiesBuilder,
+        Diagnosticable,
+        DiagnosticableTree,
         DiagnosticableTreeMixin,
         DiagnosticsNode,
         Key,
@@ -31,7 +33,8 @@ import 'package:flutter/foundation.dart'
         ValueListenable,
         ValueNotifier,
         VoidCallback,
-        debugPrint;
+        debugPrint,
+        shortHash;
 import 'package:flutter/material.dart'
     show
         ButtonSegment,
@@ -554,6 +557,25 @@ void _registerInterfaceProxies() {
     final cached = instance.nativeProxy;
     if (cached is DiagnosticableTreeMixin) return cached;
     final proxy = _InterpretedDiagnosticableTreeMixin(visitor, instance);
+    instance.nativeProxy ??= proxy;
+    return proxy;
+  });
+
+  // ghissues25: script subclasses of `DiagnosticableTree` and classes mixing
+  // in `Diagnosticable`. Cached on `nativeProxy` like the mixin above, so a
+  // `super.debugFillProperties(...)` from the script reaches the proxy's
+  // guard rather than a new proxy.
+  D4.registerInterfaceProxy('DiagnosticableTree', (visitor, instance) {
+    final cached = instance.nativeProxy;
+    if (cached is DiagnosticableTree) return cached;
+    final proxy = _InterpretedDiagnosticableTree(visitor, instance);
+    instance.nativeProxy ??= proxy;
+    return proxy;
+  });
+  D4.registerInterfaceProxy('Diagnosticable', (visitor, instance) {
+    final cached = instance.nativeProxy;
+    if (cached is Diagnosticable) return cached;
+    final proxy = _InterpretedDiagnosticable(visitor, instance);
     instance.nativeProxy ??= proxy;
     return proxy;
   });
@@ -5373,44 +5395,49 @@ class _InterpretedTextSelectionControls extends TextSelectionControls
 /// through `instance.nativeProxy` (which is this proxy). Without a guard,
 /// re-entering the same override would loop. The boolean flags
 /// short-circuit re-entry to the mixin's native default impl.
-class _InterpretedDiagnosticableTreeMixin
-    with DiagnosticableTreeMixin
-    implements D4InterpretedProxy {
+/// Forwards the overridable diagnostics members of a native proxy -
+/// `toStringShort`, `debugFillProperties`, `debugDescribeChildren` - to the
+/// interpreted instance it stands for, so the native traversal
+/// (`toDiagnosticsNode`, `toStringDeep`, `toString`) runs the script's
+/// overrides.
+///
+/// Recursion guard: when the script's own `debugFillProperties` calls
+/// `super.debugFillProperties(properties)`, super-call dispatch routes through
+/// `instance.nativeProxy` - which is the proxy. The flags send that re-entry
+/// to the native default instead of back to the script.
+class _DiagnosticsForwarder {
+  _DiagnosticsForwarder(this._visitor, this._instance);
+
   final InterpreterVisitor _visitor;
   final InterpretedInstance _instance;
   bool _inToStringShort = false;
   bool _inDebugFillProperties = false;
   bool _inDebugDescribeChildren = false;
 
-  _InterpretedDiagnosticableTreeMixin(this._visitor, this._instance);
-
-  @override
-  InterpretedInstance get d4rtInstance => _instance;
-
-  @override
-  String toStringShort() {
-    if (_inToStringShort) return super.toStringShort();
+  /// The script's `toStringShort`, else Dart's default for the script class:
+  /// its name and the proxy's short hash (`describeIdentity` would name the
+  /// proxy class).
+  String toStringShort(Object proxy) {
     final method = _instance.klass.findInstanceMethod('toStringShort');
-    if (method == null) return super.toStringShort();
-    _inToStringShort = true;
-    try {
-      final result = method.bind(_instance).call(_visitor, [], {});
-      if (result is String) return result;
-      return super.toStringShort();
-    } finally {
-      _inToStringShort = false;
+    if (!_inToStringShort && method != null) {
+      _inToStringShort = true;
+      try {
+        final result = method.bind(_instance).call(_visitor, [], {});
+        if (result is String) return result;
+      } finally {
+        _inToStringShort = false;
+      }
     }
+    return '${_instance.klass.name}#${shortHash(proxy)}';
   }
 
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    if (_inDebugFillProperties) {
-      super.debugFillProperties(properties);
-      return;
-    }
+  void debugFillProperties(
+    DiagnosticPropertiesBuilder properties,
+    void Function() inherited,
+  ) {
     final method = _instance.klass.findInstanceMethod('debugFillProperties');
-    if (method == null) {
-      super.debugFillProperties(properties);
+    if (_inDebugFillProperties || method == null) {
+      inherited();
       return;
     }
     _inDebugFillProperties = true;
@@ -5421,20 +5448,108 @@ class _InterpretedDiagnosticableTreeMixin
     }
   }
 
-  @override
-  List<DiagnosticsNode> debugDescribeChildren() {
-    if (_inDebugDescribeChildren) return super.debugDescribeChildren();
+  List<DiagnosticsNode> debugDescribeChildren(
+    List<DiagnosticsNode> Function() inherited,
+  ) {
     final method = _instance.klass.findInstanceMethod('debugDescribeChildren');
-    if (method == null) return super.debugDescribeChildren();
+    if (_inDebugDescribeChildren || method == null) return inherited();
     _inDebugDescribeChildren = true;
     try {
       final result = method.bind(_instance).call(_visitor, [], {});
       if (result is List) {
         return result.whereType<DiagnosticsNode>().toList();
       }
-      return super.debugDescribeChildren();
+      return inherited();
     } finally {
       _inDebugDescribeChildren = false;
     }
   }
+}
+
+class _InterpretedDiagnosticableTreeMixin
+    with DiagnosticableTreeMixin
+    implements D4InterpretedProxy {
+  _InterpretedDiagnosticableTreeMixin(
+    InterpreterVisitor visitor,
+    this._instance,
+  ) : _forward = _DiagnosticsForwarder(visitor, _instance);
+
+  final InterpretedInstance _instance;
+  final _DiagnosticsForwarder _forward;
+
+  @override
+  InterpretedInstance get d4rtInstance => _instance;
+
+  @override
+  String toStringShort() => _forward.toStringShort(this);
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) =>
+      _forward.debugFillProperties(
+        properties,
+        () => super.debugFillProperties(properties),
+      );
+
+  @override
+  List<DiagnosticsNode> debugDescribeChildren() =>
+      _forward.debugDescribeChildren(super.debugDescribeChildren);
+}
+
+/// ghissues25: the native object of a script `class X extends
+/// DiagnosticableTree`. The bridged class is abstract, so the script instance
+/// has no native super-object; this proxy is its receiver
+/// (`D4.markProxyIsReceiver`), so the members it inherits
+/// (`toDiagnosticsNode`, `toStringDeep`, `toStringShort`) run on a real
+/// DiagnosticableTree that calls the script's overrides.
+class _InterpretedDiagnosticableTree extends DiagnosticableTree
+    implements D4InterpretedProxy {
+  _InterpretedDiagnosticableTree(InterpreterVisitor visitor, this._instance)
+    : _forward = _DiagnosticsForwarder(visitor, _instance);
+
+  final InterpretedInstance _instance;
+  final _DiagnosticsForwarder _forward;
+
+  @override
+  InterpretedInstance get d4rtInstance => _instance;
+
+  @override
+  String toStringShort() => _forward.toStringShort(this);
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) =>
+      _forward.debugFillProperties(
+        properties,
+        () => super.debugFillProperties(properties),
+      );
+
+  @override
+  List<DiagnosticsNode> debugDescribeChildren() =>
+      _forward.debugDescribeChildren(super.debugDescribeChildren);
+}
+
+/// ghissues25: the native object of a script class that mixes in
+/// `Diagnosticable`, so the members it gets from the mixin
+/// (`toDiagnosticsNode`, `toString`, `toStringShort`) run on a real
+/// Diagnosticable that calls the script's overrides.
+class _InterpretedDiagnosticable
+    with Diagnosticable
+    implements D4InterpretedProxy {
+  _InterpretedDiagnosticable(InterpreterVisitor visitor, this._instance)
+    : _forward = _DiagnosticsForwarder(visitor, _instance);
+
+  final InterpretedInstance _instance;
+  final _DiagnosticsForwarder _forward;
+
+  @override
+  InterpretedInstance get d4rtInstance => _instance;
+
+  @override
+  String toStringShort() => _forward.toStringShort(this);
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) =>
+      _forward.debugFillProperties(
+        properties,
+        () => super.debugFillProperties(properties),
+      );
 }

@@ -424,7 +424,10 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpreterVisitor.visitPrefixedIdentifier': 'f3391558',
     // DART313B1: 9ac16b77 -> 4745333b, both trees appended the same
     // declined-member reason to the same property-miss message.
-    'InterpreterVisitor.visitPropertyAccess': '4745333b',
+    // GHISSUES25: 4745333b -> 43934bf3, smaller: `super.x` on a bridged
+    // superclass reads its target through `nativeReceiverFor` in both trees
+    // (the reference used to skip the `nativeProxy` fallback the twin had).
+    'InterpreterVisitor.visitPropertyAccess': '43934bf3',
     'InterpreterVisitor.visitReturnStatement': 'b0d7b56c',
     'InterpreterVisitor.visitSetOrMapLiteral': '1a33a2d6',
     'InterpreterVisitor.visitSimpleIdentifier': 'c243901e',

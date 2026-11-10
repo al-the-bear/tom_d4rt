@@ -394,6 +394,52 @@ class D4 {
   static bool proxyCapturesSuperArgs(String bridgedTypeName) =>
       _superArgCapturingProxies.contains(bridgedTypeName);
 
+  /// Bridged-class names whose registered proxy may stand in as an interpreted
+  /// instance's native object (ghissues25).
+  ///
+  /// An abstract bridged class has no constructor adapter, so a script
+  /// subclass of it has no native super-object, and a member the subclass
+  /// inherits from the bridged class had nothing to run on: a method answered
+  /// null without running (`toDiagnosticsNode()` on a script
+  /// `DiagnosticableTree`). For a class marked here, the interpreter creates
+  /// the registered proxy at that point, keeps it as the instance's
+  /// `nativeProxy`, and runs the member on it.
+  ///
+  /// Opt-in, because creating a proxy is not always safe: a widget proxy
+  /// reads the instance's fields (`key`, `child`) to build itself, and doing
+  /// that on a member lookup could recurse into the lookup it serves. A
+  /// receiver proxy builds itself from the instance alone and forwards the
+  /// members the script overrides back to it.
+  static final Set<String> _receiverProxies = <String>{};
+
+  /// Mark the proxy registered for [bridgedTypeName] (with
+  /// [registerInterfaceProxy]) as a receiver. See [_receiverProxies].
+  static void markProxyIsReceiver(String bridgedTypeName) {
+    _receiverProxies.add(bridgedTypeName);
+  }
+
+  /// The receiver proxy for [bridgedTypeName] on [instance]: the instance's
+  /// `nativeProxy` once one is kept, otherwise a new one from the registered
+  /// factory, kept as the instance's `nativeProxy`. Null when
+  /// [bridgedTypeName] is not marked with [markProxyIsReceiver] or has no
+  /// factory.
+  static Object? receiverProxyFor(
+    String bridgedTypeName,
+    InterpretedInstance instance,
+    InterpreterVisitor visitor,
+  ) {
+    if (!_receiverProxies.contains(bridgedTypeName)) return null;
+    final kept = instance.nativeProxy;
+    if (kept != null) return kept;
+    final proxy = tryCreateInterfaceProxyByName(
+      bridgedTypeName,
+      instance,
+      visitor,
+    );
+    if (proxy != null) instance.nativeProxy ??= proxy;
+    return instance.nativeProxy ?? proxy;
+  }
+
   // ==========================================================================
   // RC-3: Type Coercion Registration
   // ==========================================================================

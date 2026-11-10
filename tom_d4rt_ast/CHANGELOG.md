@@ -1,3 +1,27 @@
+## 0.229.0
+
+### Added — a receiver proxy stands in as an interpreted instance's native object
+
+A script subclass of an abstract bridged class has no native super-object (the
+class has no constructor adapter), so a member it inherits from the bridged
+class had nothing to run on: a method answered null without running, a getter
+answered null, and `super.m()` was a no-op. On a script `class Leaf extends
+DiagnosticableTree`, `toDiagnosticsNode()`, `toStringDeep()` and
+`toStringShort()` all answered null (GEN-130). `D4.markProxyIsReceiver(name)`
+marks the proxy registered for a bridged class with `registerInterfaceProxy` as
+one that may stand in as the instance's native object:
+`InterpretedInstance.nativeReceiverFor` creates it where an inherited member,
+`super.m()` or `super.x` finds no native object, keeps it as the instance's
+`nativeProxy`, and runs the member on it (`D4.receiverProxyFor`). Unmarked
+proxies are not consulted there: a widget proxy reads the instance's fields to
+build itself.
+
+This changes what scripts compute only for classes whose embedder marks a
+receiver. The Flutter twins' `DiagnosticableTree` proxy is marked once they
+resolve this release.
+
+Name resolution: no
+
 ## 0.228.0
 
 ### Fixed — a record type keeps its fields' `?`, so a nullable field accepts null

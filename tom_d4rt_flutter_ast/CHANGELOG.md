@@ -1,3 +1,22 @@
+## 0.11.0
+
+### Fixed — script `DiagnosticableTree` and `Diagnosticable` classes (ghissues25)
+
+A script class mixing in `Diagnosticable` threw `Invalid target: expected
+Diagnosticable, got InterpretedInstance` from `toString()` and
+`toDiagnosticsNode()`; a script class extending `DiagnosticableTree` answered
+null from `toDiagnosticsNode()`, `toStringDeep()` and `toStringShort()` (GEN-130).
+The runtime registrations add proxies for both (`_InterpretedDiagnosticable`,
+`_InterpretedDiagnosticableTree`) that call the script's `toStringShort`,
+`debugFillProperties` and `debugDescribeChildren` overrides; the existing
+`DiagnosticableTreeMixin` proxy shares their forwarding, and the default
+`toStringShort` of all three names the script class (`Leaf#1a2b3`) rather than
+the proxy class. The `Diagnosticable` case works with the published
+interpreter. The `DiagnosticableTree` proxy runs a script class's inherited
+members once it is marked as the instance's receiver
+(`D4.markProxyIsReceiver`), which needs tom_d4rt 1.249.0 / tom_d4rt_ast
+0.229.0.
+
 ## 0.10.0
 
 ### Changed — analyzer 14 stack and Flutter 3.47 (vstdm3)

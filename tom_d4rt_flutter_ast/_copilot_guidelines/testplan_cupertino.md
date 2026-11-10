@@ -4,22 +4,22 @@
 
 Every name the bridges register for `cupertino` (93), with its tier and the corpus scripts that use it. Status: ✅ a script a running corpus test sends uses the class in its code; 🟨 only scripts no running test sends (skipped or not wired) use it; ⬜ no script uses it. "Used" means named in code - not in a comment or a string, and not as a class the script declares itself.
 
-- **Exercised:** 76 of 93 (81.7%)
-- **Used only by scripts no running test sends:** 1
+- **Exercised:** 77 of 93 (82.8%)
+- **Used only by scripts no running test sends:** 0
 - **Not used by any script:** 16
 
 | # | Name | Kind | Tier | Status | Scripts |
 |---|------|------|------|--------|---------|
 | 1 | CupertinoActionSheet | class | Essential | ✅ | cupertino/dialog_test.dart |
 | 2 | CupertinoActionSheetAction | class | Essential | ✅ | cupertino/dialog_test.dart |
-| 3 | CupertinoActivityIndicator | class | Essential | ✅ | cupertino/class_test.dart, cupertino/controls_test.dart, cupertino/cupertino_controls_advanced_test.dart, +6 |
+| 3 | CupertinoActivityIndicator | class | Essential | ✅ | cupertino/class_test.dart, cupertino/controls_test.dart, cupertino/cupertino_controls_advanced_test.dart, +7 |
 | 4 | CupertinoAdaptiveTextSelectionToolbar | class | Important | ✅ | cupertino/toolbar_test.dart |
 | 5 | CupertinoAlertDialog | class | Essential | ✅ | cupertino/dialog_test.dart |
 | 6 | CupertinoApp | class | Essential | ✅ | cupertino/controls_test.dart, cupertino/cupertino_colors_system_test.dart, cupertino/cupertino_controls_advanced_test.dart, +29 |
 | 7 | CupertinoButton | class | Essential | ✅ | cupertino/button_test.dart, cupertino/class_test.dart, cupertino/controls_test.dart, +19 |
 | 8 | CupertinoButtonSize | enum | Hardly Relevant | ✅ | cupertino/button_test.dart, cupertino/cupertino_button_size_test.dart, cupertino/cupertino_secondary_test.dart |
 | 9 | CupertinoCheckbox | class | Essential | ✅ | cupertino/controls_test.dart |
-| 10 | CupertinoColors | class | Essential | ✅ | cupertino/button_test.dart, cupertino/cupertino_button_size_test.dart, cupertino/cupertino_colors_system_test.dart, +40 |
+| 10 | CupertinoColors | class | Essential | ✅ | cupertino/button_test.dart, cupertino/cupertino_button_size_test.dart, cupertino/cupertino_colors_system_test.dart, +41 |
 | 11 | CupertinoContextMenu | class | Essential | ✅ | cupertino/contextmenu_test.dart |
 | 12 | CupertinoContextMenuAction | class | Essential | ✅ | cupertino/contextmenu_test.dart, cupertino/cupertino_secondary_test.dart |
 | 13 | CupertinoDatePicker | class | Essential | ✅ | cupertino/cupertino_controls_advanced_test.dart, cupertino/cupertino_picker_default_selection_overlay_test.dart, cupertino/datepicker_modes_test.dart, +2 |
@@ -36,8 +36,8 @@ Every name the bridges register for `cupertino` (93), with its tier and the corp
 | 24 | CupertinoFormSection | class | Essential | ✅ | cupertino/cupertino_form_scroll_test.dart, cupertino/cupertino_list_tile_chevron_test.dart, cupertino/form_test.dart, +1 |
 | 25 | CupertinoFullscreenDialogTransition | class | Essential | ✅ | cupertino/cupertino_page_test.dart, cupertino/cupertino_refresh_mag_test.dart |
 | 26 | CupertinoIconThemeData | class | Important | ⬜ |  |
-| 27 | CupertinoIcons | class | Essential | ✅ | cupertino/button_test.dart, cupertino/class_test.dart, cupertino/contextmenu_test.dart, +53 |
-| 28 | CupertinoLinearActivityIndicator | class | Hardly Relevant | 🟨 | cupertino/cupertino_linear_activity_indicator_test.dart |
+| 27 | CupertinoIcons | class | Essential | ✅ | cupertino/button_test.dart, cupertino/class_test.dart, cupertino/contextmenu_test.dart, +54 |
+| 28 | CupertinoLinearActivityIndicator | class | Hardly Relevant | ✅ | cupertino/cupertino_linear_activity_indicator_test.dart |
 | 29 | CupertinoListSection | class | Essential | ✅ | cupertino/cupertino_expansion_tile_test.dart, cupertino/cupertino_list_section_type_test.dart, cupertino/cupertino_list_tile_chevron_test.dart, +6 |
 | 30 | CupertinoListSectionType | enum | Hardly Relevant | ✅ | cupertino/cupertino_list_section_type_test.dart |
 | 31 | CupertinoListTile | class | Essential | ✅ | cupertino/cupertino_expansion_tile_test.dart, cupertino/cupertino_list_section_type_test.dart, cupertino/cupertino_list_tile_chevron_test.dart, +8 |

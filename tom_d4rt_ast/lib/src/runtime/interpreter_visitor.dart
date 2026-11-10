@@ -5483,8 +5483,10 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         final bridgedSuper = targetValue.startLookupClass;
         // RC-6: Use nativeProxy as fallback when bridgedSuperObject is null.
         // This supports abstract class adapters (like _InterpretedState for State).
-        final nativeSuperObject =
-            instance.bridgedSuperObject ?? instance.nativeProxy;
+        final nativeSuperObject = instance.nativeReceiverFor(
+          bridgedSuper.name,
+          this,
+        );
 
         if (nativeSuperObject == null) {
           // RC-8: super.<method>() on a bridged superclass that has no
@@ -6676,8 +6678,12 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       final bridgedSuper = target.startLookupClass;
       // RC-6: Use nativeProxy as fallback when bridgedSuperObject is null.
       // This supports abstract class adapters (like _InterpretedState for State).
-      final nativeSuperObject =
-          instance.bridgedSuperObject ?? instance.nativeProxy;
+      // ghissues25: the native proxy or a receiver proxy when there is no
+      // native super-object.
+      final nativeSuperObject = instance.nativeReceiverFor(
+        bridgedSuper.name,
+        this,
+      );
 
       if (nativeSuperObject == null) {
         throw RuntimeD4rtException(

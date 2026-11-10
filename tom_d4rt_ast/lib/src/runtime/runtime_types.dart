@@ -1363,6 +1363,20 @@ class InterpretedInstance implements RuntimeValue {
   // instead of creating a new delegation wrapper.
   Object? nativeProxy;
 
+  /// The native object a member inherited from the bridged class
+  /// [bridgedTypeName] runs on: the native super-object, else the native
+  /// proxy, else a receiver proxy for that class ([D4.markProxyIsReceiver],
+  /// ghissues25). Null when there is none.
+  Object? nativeReceiverFor(
+    String bridgedTypeName,
+    InterpreterVisitor? visitor,
+  ) =>
+      bridgedSuperObject ??
+      nativeProxy ??
+      (visitor == null
+          ? null
+          : D4.receiverProxyFor(bridgedTypeName, this, visitor));
+
   // Bug-45 (narrowed): for State<T> subclass instances, the parent
   // StatefulWidget InterpretedInstance, set by _InterpretedStatefulWidget.
   // createState. Resolved by `widget` lookup below WITHOUT going through
@@ -2180,6 +2194,16 @@ class InterpretedInstance implements RuntimeValue {
                 bridgedSuper.name,
               );
             }
+            // ghissues25: a receiver proxy stands in as the native object.
+            final receiver = nativeReceiverFor(bridgedSuper.name, visitor);
+            if (receiver != null) {
+              return BridgedSuperMethodCallable(
+                receiver,
+                methodAdapter,
+                name,
+                bridgedSuper.name,
+              );
+            }
             Logger.debug(
               "[Instance.get] No native target for '${bridgedSuper.name}.$name' — returning callback-invoking no-op fallback.",
             );
@@ -2211,7 +2235,7 @@ class InterpretedInstance implements RuntimeValue {
             // directly. Only return null when there really is no native
             // target available (the original RC-9 semantics for plain
             // interpreted widgets / States).
-            final nativeTarget = bridgedSuperObject ?? nativeProxy;
+            final nativeTarget = nativeReceiverFor(bridgedSuper.name, visitor);
             if (nativeTarget != null) {
               try {
                 Logger.debug(

@@ -30,6 +30,7 @@ run 'bridged enums resolve to themselves' { flutter test test/scd133_registry_en
 run 'no bridged name covers two native classes' { flutter test test/scd195_registry_collision_test.dart }
 run 'bridge registration is pooled (step #19)' { flutter test test/registration_skip_test.dart }
 run 'precise bridge match beats fuzzy prefix' { flutter test test/mapped_iterable_resolution_test.dart }
+run 'script Diagnosticable classes run on their proxy' { flutter test test/ghissues25_diagnosticable_proxy_test.dart }
 
 Write-Host ''
 & (Join-Path $PSScriptRoot '../../tom_d4rt_flutter_ast/test/run_guard_tests.ps1') --pair

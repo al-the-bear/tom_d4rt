@@ -34,7 +34,7 @@ The bridged names the priority files classify as Secondary. Status: ✅ a script
 | Name | Description | Status | Scripts |
 |------|-------------|--------|---------|
 | AccessibilityFeatures | Accessibility settings | ✅ | dart_ui/platform_dispatcher_test.dart, widgets/widgets_binding_test.dart |
-| Brightness | Brightness | ✅ | animation/animatable_test.dart, animation/cubic_test.dart, animation/tween_test.dart, +302 |
+| Brightness | Brightness | ✅ | animation/animatable_test.dart, animation/cubic_test.dart, animation/tween_test.dart, +303 |
 | Codec | Image codec | ✅ | dart_ui/codec_test.dart, dart_ui/image_descriptor_test.dart |
 | Display | Display information | ✅ | dart_ui/platform_dispatcher_test.dart |
 | DisplayFeature | Screen cutouts/folds | ✅ | widgets/display_feature_sub_screen_test.dart, widgets/display_feature_test.dart, widgets/media_query_adv_test.dart, +1 |
@@ -141,7 +141,7 @@ The bridged names the priority files classify as Secondary. Status: ✅ a script
 | ChipAnimationStyle | Chip animation | ⬜ |  |
 | ChipAttributes | Chip attributes | ⬜ |  |
 | ChipThemeData | Chip data | ✅ | material/autocomplete_chips_test.dart, material/chip_attributes_test.dart, material/chip_variants_test.dart, +7 |
-| Colors | Color constants | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1691 |
+| Colors | Color constants | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1693 |
 | ControlsDetails | Controls details | ✅ | material/expansion_stepper_test.dart, material/step_style_test.dart, material/stepper_test.dart |
 | DataTableSource | Data source | ✅ | material/data_table_test.dart, material/paginated_data_table_state_test.dart |
 | DataTableTheme | Table theme | ✅ | material/datarow_test.dart |
@@ -518,7 +518,7 @@ The bridged names the priority files classify as Secondary. Status: ✅ a script
 | MultiChildRenderObjectElement | Multi element | ⬜ |  |
 | MultiChildRenderObjectWidget | Multi child | ✅ | rendering/render_box_container_defaults_mixin_test.dart, widgets/render_object_element_test.dart, widgets/render_object_widget_test.dart |
 | NavigationToolbar | Nav toolbar | ✅ | widgets/navigation_toolbar_test.dart |
-| NeverScrollableScrollPhysics | Never scrollable | ✅ | animation/animatable_test.dart, animation/cubic_test.dart, cupertino/cupertino_refresh_mag_test.dart, +159 |
+| NeverScrollableScrollPhysics | Never scrollable | ✅ | animation/animatable_test.dart, animation/cubic_test.dart, cupertino/cupertino_refresh_mag_test.dart, +160 |
 | OverflowBar | Overflow bar | ✅ | material/button_bar_test.dart, material/button_bar_theme_data_test.dart, rendering/render_objects_misc_test.dart, +4 |
 | OverflowBox | Overflow box | ✅ | painting/decoration_image_painter_test.dart, rendering/debug_overflow_indicator_mixin_test.dart, rendering/layers_data_test.dart, +13 |
 | PageScrollPhysics | Page scroll | ✅ | material/carousel_scroll_physics_test.dart, material/carousel_view_test.dart, widgets/box_scroll_view_test.dart, +6 |
@@ -600,13 +600,13 @@ The bridged names the priority files classify as Secondary. Status: ✅ a script
 | SliverSafeArea | Sliver safe area | ✅ | widgets/safearea_test.dart, widgets/sliver_delegates_test.dart, widgets/sliver_safe_area_test.dart |
 | SliverSemantics | Sliver semantics | ⬜ |  |
 | SliverVisibility | Sliver visibility | ✅ | widgets/sliver_delegates_test.dart, widgets/sliver_visibility_test.dart, widgets/visibility_test.dart |
-| Spacer | Spacer widget | ✅ | animation/animatable_test.dart, animation/animation_mean_test.dart, animation/animation_with_parent_mixin_test.dart, +539 |
+| Spacer | Spacer widget | ✅ | animation/animatable_test.dart, animation/animation_mean_test.dart, animation/animation_with_parent_mixin_test.dart, +540 |
 | SpellCheckConfiguration | Spell check | ✅ | services/spell_check_service_test.dart, services/spellcheck_test.dart, widgets/spell_check_configuration_test.dart |
 | StatefulElement | Stateful element | ⬜ |  |
 | StatelessElement | Stateless element | ⬜ |  |
 | StretchingOverscrollIndicator | Stretch overscroll | ✅ | material/material_scroll_behavior_test.dart, widgets/android_overscroll_indicator_test.dart |
 | TableCell | Table cell | ✅ | widgets/table_test.dart, widgets/table_wrap_flow_test.dart |
-| TableRow | Table row | ✅ | cupertino/dialog_test.dart, cupertino/route_test.dart, cupertino/tab_test.dart, +193 |
+| TableRow | Table row | ✅ | cupertino/cupertino_linear_activity_indicator_test.dart, cupertino/dialog_test.dart, cupertino/route_test.dart, +194 |
 | TapRegion | Tap region | ✅ | retest/widgets/render_tap_region_surface_test.dart, widgets/raw_menu_anchor_group_test.dart, widgets/raw_menu_anchor_test.dart, +3 |
 | TapRegionSurface | Tap surface | ✅ | retest/widgets/render_tap_region_surface_test.dart, widgets/render_tap_region_surface_test.dart, widgets/render_tap_region_test.dart |
 | TextFieldTapRegion | Text tap region | ⬜ |  |
@@ -627,7 +627,7 @@ The bridged names the priority files classify as Secondary. Status: ✅ a script
 | ViewAnchor | View anchor | ⬜ |  |
 | ViewCollection | View collection | ⬜ |  |
 | Viewport | Viewport widget | ⬜ |  |
-| Widget | Widget base | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2026 |
+| Widget | Widget base | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2028 |
 | WidgetInspector | Widget inspector | ✅ | widgets/widget_inspector_test.dart |
 | WidgetSpan | Widget in text | ✅ | dart_ui/placeholder_alignment_test.dart, painting/inline_span_semantics_information_test.dart, painting/inline_span_test.dart, +14 |
 | WidgetsApp | Widgets app | ⬜ |  |

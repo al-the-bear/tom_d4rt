@@ -5449,8 +5449,10 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         // typically scripts mixing in `AutomaticKeepAliveClientMixin` etc.
         // call `super.build(context)` for side-effects the bridge cannot
         // observe; the script discards the result.
-        final nativeSuperObject =
-            instance.bridgedSuperObject ?? instance.nativeProxy;
+        final nativeSuperObject = instance.nativeReceiverFor(
+          bridgedSuper.name,
+          this,
+        );
 
         if (nativeSuperObject == null) {
           Logger.debug(
@@ -6633,8 +6635,12 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     } else if (target is BoundBridgedSuper) {
       final instance = target.instance; // The interpreted 'this' instance
       final bridgedSuper = target.startLookupClass;
-      final nativeSuperObject =
-          instance.bridgedSuperObject; // Retrieve the native object
+      // ghissues25: the native proxy or a receiver proxy when there is no
+      // native super-object.
+      final nativeSuperObject = instance.nativeReceiverFor(
+        bridgedSuper.name,
+        this,
+      );
 
       if (nativeSuperObject == null) {
         throw RuntimeD4rtException(

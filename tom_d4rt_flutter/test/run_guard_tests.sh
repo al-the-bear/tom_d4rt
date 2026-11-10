@@ -68,6 +68,10 @@ run "bridge registration is pooled (step #19)" \
 # regression that broke `List.map(...).toList()`.
 run "precise bridge match beats fuzzy prefix" \
   flutter test test/mapped_iterable_resolution_test.dart
+# ghissues25: script DiagnosticableTree / Diagnosticable classes run their
+# inherited members on the hand-written proxies, in-process.
+run "script Diagnosticable classes run on their proxy" \
+  flutter test test/ghissues25_diagnosticable_proxy_test.dart
 
 # SCD142: the harness-level tests live behind ./test/run_harness_tests.sh (they
 # drive the companion app, so they are serial and belong nowhere near this

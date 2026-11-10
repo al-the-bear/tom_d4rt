@@ -18,14 +18,14 @@ Every name the bridges register for `foundation` (72), with its tier and the cor
 | 6 | Category | class | Hardly Relevant | ⬜ |  |
 | 7 | ChangeNotifier | class | Essential | ✅ | foundation/notifier_test.dart, material/materialapp_test.dart, retest/foundation/object_disposed_test.dart, +13 |
 | 8 | DiagnosticLevel | enum | Hardly Relevant | ✅ | foundation/diagnostic_level_test.dart, foundation/diagnostics_block_test.dart, foundation/diagnostics_property_test.dart, +12 |
-| 9 | DiagnosticPropertiesBuilder | class | Important | ✅ | foundation/class_test.dart, foundation/diagnosticable_test.dart, foundation/diagnosticable_tree_mixin_test.dart, +6 |
+| 9 | DiagnosticPropertiesBuilder | class | Important | ✅ | foundation/class_test.dart, foundation/diagnosticable_test.dart, foundation/diagnosticable_tree_mixin_test.dart, +7 |
 | 10 | Diagnosticable | class | Hardly Relevant | ✅ | foundation/diagnosticable_test.dart, foundation/object_flag_property_test.dart |
 | 11 | DiagnosticableNode | class | Hardly Relevant | ⬜ |  |
-| 12 | DiagnosticableTree | class | Hardly Relevant | ✅ | foundation/text_tree_configuration_test.dart |
+| 12 | DiagnosticableTree | class | Hardly Relevant | ✅ | foundation/diagnosticable_tree_node_test.dart, foundation/text_tree_configuration_test.dart |
 | 13 | DiagnosticableTreeMixin | class | Hardly Relevant | ✅ | foundation/class_test.dart, foundation/diagnosticable_tree_mixin_test.dart, widgets/shortcut_map_property_test.dart |
 | 14 | DiagnosticableTreeNode | class | Hardly Relevant | ⬜ |  |
 | 15 | DiagnosticsBlock | class | Hardly Relevant | ⬜ |  |
-| 16 | DiagnosticsNode | class | Important | ✅ | foundation/class_test.dart, foundation/diagnostic_level_test.dart, foundation/diagnosticable_tree_mixin_test.dart, +10 |
+| 16 | DiagnosticsNode | class | Important | ✅ | foundation/class_test.dart, foundation/diagnostic_level_test.dart, foundation/diagnosticable_tree_mixin_test.dart, +11 |
 | 17 | DiagnosticsProperty | class | Hardly Relevant | ✅ | foundation/diagnostics_property_test.dart, foundation/foundation_misc_adv_test.dart, foundation/string_property_test.dart, +4 |
 | 18 | DiagnosticsSerializationDelegate | class | Hardly Relevant | ✅ | foundation/diagnostics_serialization_delegate_test.dart, foundation/flags_summary_test.dart, foundation/int_property_test.dart, +1 |
 | 19 | DiagnosticsStackTrace | class | Hardly Relevant | ⬜ |  |
@@ -38,7 +38,7 @@ Every name the bridges register for `foundation` (72), with its tier and the cor
 | 26 | ErrorSpacer | class | Hardly Relevant | ✅ | foundation/error_spacer_test.dart |
 | 27 | ErrorSummary | class | Important | ⬜ |  |
 | 28 | Factory | class | Hardly Relevant | ✅ | foundation/foundation_misc_adv_test.dart, retest/widgets/android_view_surface_test.dart |
-| 29 | FlagProperty | class | Hardly Relevant | ✅ | foundation/diagnosticable_test.dart, foundation/diagnosticable_tree_mixin_test.dart, foundation/diagnostics_property_test.dart, +5 |
+| 29 | FlagProperty | class | Hardly Relevant | ✅ | foundation/diagnosticable_test.dart, foundation/diagnosticable_tree_mixin_test.dart, foundation/diagnosticable_tree_node_test.dart, +6 |
 | 30 | FlagsSummary | class | Hardly Relevant | ✅ | foundation/flags_summary_test.dart |
 | 31 | FlutterError | class | Important | ✅ | widgets/inherited_theme_test.dart, widgets/inherited_widget_test.dart, widgets/leaf_render_object_widget_test.dart |
 | 32 | FlutterErrorDetails | class | Important | ✅ | foundation/error_test.dart |
@@ -46,7 +46,7 @@ Every name the bridges register for `foundation` (72), with its tier and the cor
 | 34 | FlutterTimeline | class | Secondary | ✅ | foundation/flutter_timeline_test.dart |
 | 35 | FoundationServiceExtensions | enum | Hardly Relevant | ✅ | foundation/foundation_service_extensions_test.dart |
 | 36 | HashedObserverList | class | Secondary | ✅ | foundation/observer_list_test.dart |
-| 37 | IntProperty | class | Hardly Relevant | ✅ | foundation/class_test.dart, foundation/diagnostic_level_test.dart, foundation/diagnosticable_test.dart, +5 |
+| 37 | IntProperty | class | Hardly Relevant | ✅ | foundation/class_test.dart, foundation/diagnostic_level_test.dart, foundation/diagnosticable_test.dart, +6 |
 | 38 | IterableProperty | class | Hardly Relevant | ✅ | foundation/diagnostics_property_test.dart, foundation/iterable_property_test.dart |
 | 39 | Key | class | Essential | ✅ | foundation/key_test.dart, widgets/animated_cross_fade_test.dart, widgets/animated_widgets_adv_test.dart, +7 |
 | 40 | LicenseEntry | class | Important | ⬜ |  |
@@ -69,7 +69,7 @@ Every name the bridges register for `foundation` (72), with its tier and the cor
 | 57 | RepetitiveStackFrameFilter | class | Secondary | ✅ | foundation/repetitive_stack_frame_filter_test.dart, foundation/stack_filter_test.dart |
 | 58 | StackFilter | class | Secondary | ✅ | foundation/stack_filter_test.dart |
 | 59 | StackFrame | class | Secondary | ✅ | foundation/partial_stack_frame_test.dart, foundation/stack_filter_test.dart, foundation/stack_frame_test.dart |
-| 60 | StringProperty | class | Hardly Relevant | ✅ | foundation/class_test.dart, foundation/diagnostic_level_test.dart, foundation/diagnosticable_test.dart, +7 |
+| 60 | StringProperty | class | Hardly Relevant | ✅ | foundation/class_test.dart, foundation/diagnostic_level_test.dart, foundation/diagnosticable_test.dart, +8 |
 | 61 | Summary | class | Hardly Relevant | ⬜ |  |
 | 62 | SynchronousFuture | class | Secondary | ✅ | foundation/synchronousfuture_test.dart |
 | 63 | TargetPlatform | enum | Hardly Relevant | ✅ | dart_ui/system_color_palette_test.dart, foundation/enum_property_test.dart, foundation/foundation_misc_adv_test.dart, +46 |

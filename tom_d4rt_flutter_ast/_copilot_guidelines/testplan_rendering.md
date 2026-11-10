@@ -34,16 +34,16 @@ Every name the bridges register for `rendering` (269), with its tier and the cor
 | 22 | ContainerLayer | class | Essential | ✅ | rendering/render_layers_pipeline_test.dart |
 | 23 | ContainerParentDataMixin | class | Hardly Relevant | ⬜ |  |
 | 24 | ContainerRenderObjectMixin | class | Secondary | ✅ | rendering/render_box_container_defaults_mixin_test.dart, widgets/render_object_element_test.dart, widgets/render_object_widget_test.dart |
-| 25 | CrossAxisAlignment | enum | Hardly Relevant | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2034 |
+| 25 | CrossAxisAlignment | enum | Hardly Relevant | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2036 |
 | 26 | CustomClipper | class | Important | ✅ | dart_ui/r_superellipse_test.dart, material/collapse_mode_test.dart, painting/clip_context_test.dart, +13 |
-| 27 | CustomPainter | class | Important | ✅ | animation/animation_max_test.dart, animation/animationstyle_test.dart, animation/cubic_test.dart, +440 |
+| 27 | CustomPainter | class | Important | ✅ | animation/animation_max_test.dart, animation/animationstyle_test.dart, animation/cubic_test.dart, +441 |
 | 28 | CustomPainterSemantics | class | Secondary | ✅ | rendering/custom_painter_semantics_test.dart |
 | 29 | DebugOverflowIndicatorMixin | class | Secondary | ⬜ |  |
 | 30 | DecorationPosition | enum | Hardly Relevant | ✅ | rendering/decoration_position_test.dart, widgets/decorated_sliver_test.dart, widgets/decoratedbox_test.dart |
 | 31 | DiagnosticsDebugCreator | class | Hardly Relevant | ⬜ |  |
 | 32 | DirectionallyExtendSelectionEvent | class | Hardly Relevant | ✅ | widgets/selection_types_test.dart |
 | 33 | FixedColumnWidth | class | Important | ✅ | cupertino/route_test.dart, cupertino/tab_test.dart, foundation/aggregated_timed_block_test.dart, +30 |
-| 34 | FlexColumnWidth | class | Important | ✅ | cupertino/dialog_test.dart, cupertino/route_test.dart, cupertino/tab_test.dart, +184 |
+| 34 | FlexColumnWidth | class | Important | ✅ | cupertino/cupertino_linear_activity_indicator_test.dart, cupertino/dialog_test.dart, cupertino/route_test.dart, +185 |
 | 35 | FlexFit | enum | Hardly Relevant | ✅ | rendering/flex_fit_test.dart, rendering/parent_data_test.dart, rendering/parentdata_test.dart, +6 |
 | 36 | FlexParentData | class | Important | ⬜ |  |
 | 37 | FloatingHeaderSnapConfiguration | class | Hardly Relevant | ✅ | widgets/sliver_persistent_header_delegate_test.dart |
@@ -55,7 +55,7 @@ Every name the bridges register for `rendering` (269), with its tier and the cor
 | 43 | FractionalOffsetTween | class | Hardly Relevant | ✅ | rendering/fractional_offset_tween_test.dart |
 | 44 | GranularlyExtendSelectionEvent | class | Hardly Relevant | ✅ | rendering/granularly_extend_selection_event_test.dart, widgets/selection_types_test.dart |
 | 45 | GrowthDirection | enum | Hardly Relevant | ✅ | rendering/growth_direction_test.dart, rendering/renderobjects_sliver_test.dart, rendering/viewport_test.dart |
-| 46 | HitTestBehavior | enum | Hardly Relevant | ✅ | gestures/gesture_callbacks_adv_test.dart, gestures/immediate_multi_drag_gesture_recognizer_test.dart, gestures/pointer_cancel_event_test.dart, +35 |
+| 46 | HitTestBehavior | enum | Hardly Relevant | ✅ | cupertino/cupertino_linear_activity_indicator_test.dart, gestures/gesture_callbacks_adv_test.dart, gestures/immediate_multi_drag_gesture_recognizer_test.dart, +36 |
 | 47 | ImageFilterConfig | class | Hardly Relevant | ⬜ |  |
 | 48 | ImageFilterContext | class | Hardly Relevant | ⬜ |  |
 | 49 | ImageFilterLayer | class | Important | ✅ | rendering/layers_test.dart |
@@ -68,8 +68,8 @@ Every name the bridges register for `rendering` (269), with its tier and the cor
 | 56 | ListBodyParentData | class | Secondary | ⬜ |  |
 | 57 | ListWheelChildManager | class | Hardly Relevant | ⬜ |  |
 | 58 | ListWheelParentData | class | Secondary | ⬜ |  |
-| 59 | MainAxisAlignment | enum | Hardly Relevant | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1037 |
-| 60 | MainAxisSize | enum | Hardly Relevant | ✅ | animation/animatable_test.dart, animation/animation_lazy_listener_mixin_test.dart, animation/animation_local_listeners_mixin_test.dart, +1004 |
+| 59 | MainAxisAlignment | enum | Hardly Relevant | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1038 |
+| 60 | MainAxisSize | enum | Hardly Relevant | ✅ | animation/animatable_test.dart, animation/animation_lazy_listener_mixin_test.dart, animation/animation_local_listeners_mixin_test.dart, +1006 |
 | 61 | MaxColumnWidth | class | Hardly Relevant | ✅ | widgets/table_test.dart, widgets/table_wrap_flow_test.dart |
 | 62 | MinColumnWidth | class | Hardly Relevant | ✅ | widgets/table_test.dart, widgets/table_wrap_flow_test.dart |
 | 63 | MouseTracker | class | Secondary | ⬜ |  |
@@ -260,10 +260,10 @@ Every name the bridges register for `rendering` (269), with its tier and the cor
 | 248 | SliverPhysicalParentData | class | Secondary | ⬜ |  |
 | 249 | StackFit | enum | Hardly Relevant | ✅ | material/collapse_mode_test.dart, painting/decoration_image_painter_test.dart, painting/image_stream_adv_test.dart, +54 |
 | 250 | StackParentData | class | Important | ⬜ |  |
-| 251 | TableBorder | class | Hardly Relevant | ✅ | cupertino/tab_test.dart, dart_ui/image_byte_format_test.dart, dart_ui/key_data_test.dart, +135 |
+| 251 | TableBorder | class | Hardly Relevant | ✅ | cupertino/cupertino_linear_activity_indicator_test.dart, cupertino/tab_test.dart, dart_ui/image_byte_format_test.dart, +136 |
 | 252 | TableCellParentData | class | Secondary | ⬜ |  |
 | 253 | TableCellVerticalAlignment | enum | Hardly Relevant | ✅ | foundation/aggregated_timed_block_test.dart, foundation/foundation_service_extensions_test.dart, material/hour_format_test.dart, +24 |
-| 254 | TableColumnWidth | class | Important | ✅ | cupertino/route_test.dart, cupertino/tab_test.dart, dart_ui/key_data_test.dart, +80 |
+| 254 | TableColumnWidth | class | Important | ✅ | cupertino/cupertino_linear_activity_indicator_test.dart, cupertino/route_test.dart, cupertino/tab_test.dart, +81 |
 | 255 | TextGranularity | enum | Hardly Relevant | ✅ | rendering/granularly_extend_selection_event_test.dart, rendering/text_granularity_test.dart, widgets/selection_types_test.dart |
 | 256 | TextParentData | class | Secondary | ⬜ |  |
 | 257 | TextSelectionHandleType | enum | Hardly Relevant | ✅ | cupertino/cupertino_desktop_text_selection_controls_test.dart, cupertino/cupertino_text_selection_handle_controls_test.dart, widgets/selection_types_test.dart, +3 |

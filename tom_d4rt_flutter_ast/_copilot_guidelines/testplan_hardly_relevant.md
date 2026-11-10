@@ -4,7 +4,7 @@
 
 The bridged names the priority files classify as Hardly Relevant, and every bridged name they do not classify. Status: ✅ a script a running corpus test sends uses the class in its code; 🟨 only scripts no running test sends (skipped or not wired) use it; ⬜ no script uses it. "Used" means named in code - not in a comment or a string, and not as a class the script declares itself.
 
-- **Exercised:** 700 of 1025 (68.3%)
+- **Exercised:** 701 of 1025 (68.4%)
 
 ## animation (30)
 
@@ -56,7 +56,7 @@ The bridged names the priority files classify as Hardly Relevant, and every brid
 | CupertinoDesktopTextSelectionControls | (not classified) | ✅ | cupertino/cupertino_desktop_text_selection_controls_test.dart |
 | CupertinoExpansionTile | (not classified) | ✅ | cupertino/cupertino_expansion_tile_test.dart, cupertino/expansion_tile_transition_mode_test.dart |
 | CupertinoFocusHalo | (not classified) | ⬜ |  |
-| CupertinoLinearActivityIndicator | (not classified) | 🟨 | cupertino/cupertino_linear_activity_indicator_test.dart |
+| CupertinoLinearActivityIndicator | (not classified) | ✅ | cupertino/cupertino_linear_activity_indicator_test.dart |
 | CupertinoListSectionType | (not classified) | ✅ | cupertino/cupertino_list_section_type_test.dart |
 | CupertinoListTileChevron | (not classified) | ✅ | cupertino/cupertino_list_tile_chevron_test.dart, cupertino/cupertino_sections_test.dart, cupertino/cupertino_text_selection_handle_controls_test.dart, +3 |
 | CupertinoMenuEntry | (not classified) | ✅ | cupertino/cupertino_menu_anchor_test.dart |
@@ -111,7 +111,7 @@ The bridged names the priority files classify as Hardly Relevant, and every brid
 | KeyEventType | (not classified) | ✅ | dart_ui/key_data_test.dart, dart_ui/key_event_device_type_test.dart, dart_ui/key_event_type_test.dart, +1 |
 | OffsetEngineLayer | Offset layer | ⬜ |  |
 | OpacityEngineLayer | Opacity layer | ⬜ |  |
-| PaintingStyle | (not classified) | ✅ | animation/animation_max_test.dart, animation/animationstyle_test.dart, animation/cubic_test.dart, +380 |
+| PaintingStyle | (not classified) | ✅ | animation/animation_max_test.dart, animation/animationstyle_test.dart, animation/cubic_test.dart, +381 |
 | PathFillType | (not classified) | ✅ | dart_ui/path_fill_type_test.dart |
 | PathOperation | (not classified) | ✅ | dart_ui/path_operation_test.dart, dart_ui/primitives_test.dart, material/input_borders_test.dart, +1 |
 | PictureRasterizationException | Picture error | ⬜ |  |
@@ -133,10 +133,10 @@ The bridged names the priority files classify as Hardly Relevant, and every brid
 | SystemColorPalette | System color palette | ✅ | dart_ui/system_color_palette_test.dart, retest/dart_ui/system_color_palette_test.dart |
 | TargetPixelFormat | (not classified) | ✅ | dart_ui/target_pixel_format_test.dart |
 | TextAffinity | (not classified) | ✅ | dart_ui/text_affinity_test.dart, dart_ui/text_data_test.dart, painting/text_selection_test.dart, +5 |
-| TextAlign | (not classified) | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animation_behavior_test.dart, animation/animation_eager_listener_mixin_test.dart, +1109 |
+| TextAlign | (not classified) | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animation_behavior_test.dart, animation/animation_eager_listener_mixin_test.dart, +1110 |
 | TextBaseline | (not classified) | ✅ | dart_ui/placeholder_alignment_test.dart, dart_ui/text_baseline_test.dart, dart_ui/text_test.dart, +27 |
 | TextDecorationStyle | (not classified) | ✅ | cupertino/cupertino_spell_check_suggestions_toolbar_test.dart, dart_ui/text_data_test.dart, dart_ui/text_decoration_style_test.dart, +15 |
-| TextDirection | (not classified) | ✅ | animation/animation_max_test.dart, animation/cubic_test.dart, cupertino/class_test.dart, +352 |
+| TextDirection | (not classified) | ✅ | animation/animation_max_test.dart, animation/cubic_test.dart, cupertino/class_test.dart, +353 |
 | TextLeadingDistribution | (not classified) | ✅ | dart_ui/text_data_test.dart, dart_ui/text_leading_distribution_test.dart, painting/textstyle_test.dart, +4 |
 | TileMode | (not classified) | ✅ | dart_ui/filters_test.dart, dart_ui/shader_mask_engine_layer_test.dart, dart_ui/tile_mode_test.dart, +7 |
 | TransformEngineLayer | Transform layer | ✅ | dart_ui/transform_engine_layer_test.dart |
@@ -164,7 +164,7 @@ The bridged names the priority files classify as Hardly Relevant, and every brid
 | DiagnosticLevel | (not classified) | ✅ | foundation/diagnostic_level_test.dart, foundation/diagnostics_block_test.dart, foundation/diagnostics_property_test.dart, +12 |
 | Diagnosticable | (not classified) | ✅ | foundation/diagnosticable_test.dart, foundation/object_flag_property_test.dart |
 | DiagnosticableNode | (not classified) | ⬜ |  |
-| DiagnosticableTree | (not classified) | ✅ | foundation/text_tree_configuration_test.dart |
+| DiagnosticableTree | (not classified) | ✅ | foundation/diagnosticable_tree_node_test.dart, foundation/text_tree_configuration_test.dart |
 | DiagnosticableTreeMixin | (not classified) | ✅ | foundation/class_test.dart, foundation/diagnosticable_tree_mixin_test.dart, widgets/shortcut_map_property_test.dart |
 | DiagnosticableTreeNode | (not classified) | ⬜ |  |
 | DiagnosticsBlock | (not classified) | ⬜ |  |
@@ -177,11 +177,11 @@ The bridged names the priority files classify as Hardly Relevant, and every brid
 | EnumProperty | (not classified) | ✅ | foundation/diagnostics_property_test.dart, foundation/enum_property_test.dart, foundation/foundation_misc_adv_test.dart |
 | ErrorSpacer | Error formatting | ✅ | foundation/error_spacer_test.dart |
 | Factory | (not classified) | ✅ | foundation/foundation_misc_adv_test.dart, retest/widgets/android_view_surface_test.dart |
-| FlagProperty | (not classified) | ✅ | foundation/diagnosticable_test.dart, foundation/diagnosticable_tree_mixin_test.dart, foundation/diagnostics_property_test.dart, +5 |
+| FlagProperty | (not classified) | ✅ | foundation/diagnosticable_test.dart, foundation/diagnosticable_tree_mixin_test.dart, foundation/diagnosticable_tree_node_test.dart, +6 |
 | FlagsSummary | (not classified) | ✅ | foundation/flags_summary_test.dart |
 | FlutterMemoryAllocations | Memory tracking | ✅ | foundation/flutter_memory_allocations_test.dart |
 | FoundationServiceExtensions | (not classified) | ✅ | foundation/foundation_service_extensions_test.dart |
-| IntProperty | (not classified) | ✅ | foundation/class_test.dart, foundation/diagnostic_level_test.dart, foundation/diagnosticable_test.dart, +5 |
+| IntProperty | (not classified) | ✅ | foundation/class_test.dart, foundation/diagnostic_level_test.dart, foundation/diagnosticable_test.dart, +6 |
 | IterableProperty | (not classified) | ✅ | foundation/diagnostics_property_test.dart, foundation/iterable_property_test.dart |
 | MemoryAllocations | (not classified) | ⬜ |  |
 | MessageProperty | (not classified) | ✅ | foundation/diagnostic_level_test.dart, foundation/message_property_test.dart |
@@ -190,7 +190,7 @@ The bridged names the priority files classify as Hardly Relevant, and every brid
 | ObjectEvent | Object events | ✅ | foundation/flutter_memory_allocations_test.dart, foundation/object_event_test.dart, retest/foundation/object_event_test.dart |
 | ObjectFlagProperty | (not classified) | ✅ | foundation/object_flag_property_test.dart |
 | PercentProperty | (not classified) | ✅ | foundation/int_property_test.dart, foundation/percent_property_test.dart |
-| StringProperty | (not classified) | ✅ | foundation/class_test.dart, foundation/diagnostic_level_test.dart, foundation/diagnosticable_test.dart, +7 |
+| StringProperty | (not classified) | ✅ | foundation/class_test.dart, foundation/diagnostic_level_test.dart, foundation/diagnosticable_test.dart, +8 |
 | Summary | Summary annotation | ⬜ |  |
 | TargetPlatform | (not classified) | ✅ | dart_ui/system_color_palette_test.dart, foundation/enum_property_test.dart, foundation/foundation_misc_adv_test.dart, +46 |
 | TextTreeConfiguration | (not classified) | ⬜ |  |
@@ -317,7 +317,7 @@ The bridged names the priority files classify as Hardly Relevant, and every brid
 | HandleThumbShape | (not classified) | ✅ | material/gapped_slider_track_shape_test.dart |
 | HourFormat | (not classified) | ✅ | material/hour_format_test.dart, retest/material/hour_format_test.dart |
 | IconAlignment | (not classified) | ✅ | material/buttons_test.dart, material/icon_alignment_test.dart, material/text_button_test.dart |
-| Icons | (not classified) | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1814 |
+| Icons | (not classified) | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1815 |
 | InkDecoration | (not classified) | ⬜ |  |
 | InkSparkle | (not classified) | ✅ | material/ink_sparkle_test.dart |
 | InputDatePickerFormField | (not classified) | ✅ | material/datepicker_widgets_test.dart, material/datetime_utils_test.dart, material/input_date_picker_form_field_test.dart |
@@ -430,7 +430,7 @@ The bridged names the priority files classify as Hardly Relevant, and every brid
 | AxisDirection | (not classified) | ✅ | material/material_scroll_behavior_test.dart, material/rawscrollbar_test.dart, painting/axis_direction_test.dart, +24 |
 | BorderStyle | (not classified) | ✅ | dart_ui/offset_engine_layer_test.dart, dart_ui/opacity_engine_layer_test.dart, foundation/class_test.dart, +92 |
 | BoxFit | (not classified) | ✅ | dart_ui/image_descriptor_test.dart, painting/advanced_decorations_test.dart, painting/box_fit_test.dart, +17 |
-| BoxShape | (not classified) | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animation_eager_listener_mixin_test.dart, animation/animation_lazy_listener_mixin_test.dart, +1378 |
+| BoxShape | (not classified) | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animation_eager_listener_mixin_test.dart, animation/animation_lazy_listener_mixin_test.dart, +1379 |
 | ClipContext | Clipping context | ⬜ |  |
 | ColorProperty | Diagnostics property | ✅ | foundation/diagnosticable_test.dart, foundation/diagnosticable_tree_mixin_test.dart, foundation/documentation_icon_test.dart, +1 |
 | FittedSizes | Fitted size calculation | ✅ | painting/fitted_sizes_test.dart |
@@ -448,7 +448,7 @@ The bridged names the priority files classify as Hardly Relevant, and every brid
 | RenderComparison | (not classified) | ✅ | painting/enums_painting_test.dart, painting/render_comparison_test.dart |
 | ResizeImagePolicy | (not classified) | ✅ | painting/image_providers_test.dart, painting/resize_image_policy_test.dart, painting/resize_image_test.dart |
 | ShaderWarmUp | Shader precompilation | ⬜ |  |
-| TextOverflow | (not classified) | ✅ | animation/cubic_test.dart, animation/curves_test.dart, cupertino/cupertino_colors_system_test.dart, +290 |
+| TextOverflow | (not classified) | ✅ | animation/cubic_test.dart, animation/curves_test.dart, cupertino/cupertino_colors_system_test.dart, +291 |
 | TextWidthBasis | (not classified) | ✅ | painting/text_width_basis_test.dart, rendering/textpainter_test.dart, widgets/defaulttextstyle_test.dart, +2 |
 | TransformProperty | Transform diagnostics | ✅ | painting/transform_property_test.dart |
 | VerticalDirection | (not classified) | ✅ | material/button_bar_test.dart, material/button_bar_theme_data_test.dart, painting/vertical_direction_test.dart, +6 |
@@ -475,7 +475,7 @@ The bridged names the priority files classify as Hardly Relevant, and every brid
 | ChildLayoutHelper | Layout helper | ⬜ |  |
 | ClearSelectionEvent | Clear selection | ✅ | rendering/clear_selection_event_test.dart, widgets/selection_types_test.dart |
 | ContainerParentDataMixin | (not classified) | ⬜ |  |
-| CrossAxisAlignment | (not classified) | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2034 |
+| CrossAxisAlignment | (not classified) | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2036 |
 | DecorationPosition | (not classified) | ✅ | rendering/decoration_position_test.dart, widgets/decorated_sliver_test.dart, widgets/decoratedbox_test.dart |
 | DiagnosticsDebugCreator | Debug creator | ⬜ |  |
 | DirectionallyExtendSelectionEvent | Directional extend | ✅ | widgets/selection_types_test.dart |
@@ -487,12 +487,12 @@ The bridged names the priority files classify as Hardly Relevant, and every brid
 | FractionalOffsetTween | Offset tween | ✅ | rendering/fractional_offset_tween_test.dart |
 | GranularlyExtendSelectionEvent | Granular extend | ✅ | rendering/granularly_extend_selection_event_test.dart, widgets/selection_types_test.dart |
 | GrowthDirection | (not classified) | ✅ | rendering/growth_direction_test.dart, rendering/renderobjects_sliver_test.dart, rendering/viewport_test.dart |
-| HitTestBehavior | (not classified) | ✅ | gestures/gesture_callbacks_adv_test.dart, gestures/immediate_multi_drag_gesture_recognizer_test.dart, gestures/pointer_cancel_event_test.dart, +35 |
+| HitTestBehavior | (not classified) | ✅ | cupertino/cupertino_linear_activity_indicator_test.dart, gestures/gesture_callbacks_adv_test.dart, gestures/immediate_multi_drag_gesture_recognizer_test.dart, +36 |
 | ImageFilterConfig | Filter config | ⬜ |  |
 | ImageFilterContext | Filter context | ⬜ |  |
 | ListWheelChildManager | Wheel manager | ⬜ |  |
-| MainAxisAlignment | (not classified) | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1037 |
-| MainAxisSize | (not classified) | ✅ | animation/animatable_test.dart, animation/animation_lazy_listener_mixin_test.dart, animation/animation_local_listeners_mixin_test.dart, +1004 |
+| MainAxisAlignment | (not classified) | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1038 |
+| MainAxisSize | (not classified) | ✅ | animation/animatable_test.dart, animation/animation_lazy_listener_mixin_test.dart, animation/animation_local_listeners_mixin_test.dart, +1006 |
 | MaxColumnWidth | Max column | ✅ | widgets/table_test.dart, widgets/table_wrap_flow_test.dart |
 | MinColumnWidth | Min column | ✅ | widgets/table_test.dart, widgets/table_wrap_flow_test.dart |
 | MultiChildLayoutParentData | (not classified) | ⬜ |  |
@@ -550,7 +550,7 @@ The bridged names the priority files classify as Hardly Relevant, and every brid
 | SliverPaintOrder | (not classified) | ✅ | rendering/sliver_paint_order_test.dart |
 | SliverPhysicalContainerParentData | Physical container | ⬜ |  |
 | StackFit | (not classified) | ✅ | material/collapse_mode_test.dart, painting/decoration_image_painter_test.dart, painting/image_stream_adv_test.dart, +54 |
-| TableBorder | Table border | ✅ | cupertino/tab_test.dart, dart_ui/image_byte_format_test.dart, dart_ui/key_data_test.dart, +135 |
+| TableBorder | Table border | ✅ | cupertino/cupertino_linear_activity_indicator_test.dart, cupertino/tab_test.dart, dart_ui/image_byte_format_test.dart, +136 |
 | TableCellVerticalAlignment | (not classified) | ✅ | foundation/aggregated_timed_block_test.dart, foundation/foundation_service_extensions_test.dart, material/hour_format_test.dart, +24 |
 | TextGranularity | (not classified) | ✅ | rendering/granularly_extend_selection_event_test.dart, rendering/text_granularity_test.dart, widgets/selection_types_test.dart |
 | TextSelectionHandleType | (not classified) | ✅ | cupertino/cupertino_desktop_text_selection_controls_test.dart, cupertino/cupertino_text_selection_handle_controls_test.dart, widgets/selection_types_test.dart, +3 |
@@ -832,7 +832,7 @@ The bridged names the priority files classify as Hardly Relevant, and every brid
 | IOSSystemContextMenuItemSearchWeb | (not classified) | ⬜ |  |
 | IOSSystemContextMenuItemSelectAll | (not classified) | ✅ | widgets/i_o_s_system_context_menu_item_copy_test.dart, widgets/i_o_s_system_context_menu_item_cut_test.dart |
 | IOSSystemContextMenuItemShare | (not classified) | ✅ | widgets/i_o_s_system_context_menu_item_copy_test.dart, widgets/i_o_s_system_context_menu_item_cut_test.dart |
-| IconData | (not classified) | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1485 |
+| IconData | (not classified) | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1486 |
 | IconDataProperty | (not classified) | ✅ | foundation/documentation_icon_test.dart |
 | IconThemeData | (not classified) | ✅ | animation/animatable_test.dart, cupertino/cupertino_list_tile_chevron_test.dart, cupertino/cupertino_themes_batch2_test.dart, +35 |
 | IdleScrollActivity | (not classified) | ⬜ |  |
