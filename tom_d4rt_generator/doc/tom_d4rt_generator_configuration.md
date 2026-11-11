@@ -225,6 +225,15 @@ d4rtgen:
       includeDynamicArm: true         # adds a leading <dynamic> arm
 ```
 
+A script's type argument is matched by its name with its own type arguments
+taken off and its `?` kept: `GlobalKey<PopupMenuButtonState<String>>` matches
+`PopupMenuButtonState`, `ValueNotifier<String?>` matches `String?`. A variant
+written with type arguments (`PopupMenuButtonState<String>`) matches verbatim,
+and each `nullableValue` variant `T` also gets a `T?` arm. The generated RC-2
+constructor factories match the same way and give the primitives (`String`,
+`int`, `double`, `bool`, `num`) a nullable arm; a nullable class argument
+(`X<Widget?>`) takes their default, the bridge constructor.
+
 ### Generic interceptor entries
 
 `genericInterceptors` templates the re-dispatch half of a type-arg-keyed

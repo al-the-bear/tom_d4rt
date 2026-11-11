@@ -100,8 +100,10 @@ The auto-generation pattern for each generic class with constructors:
 ```dart
 // Auto-generated for GlobalKey<T extends State>
 D4.registerGenericConstructor('GlobalKey', '', (visitor, positional, named, typeArgs) {
-  final typeName = typeArgs?.isNotEmpty == true ? typeArgs!.first.name : null;
-  if (typeName == null) return null; // No type args → fall through to regular ctor
+  final rawTypeName = typeArgs?.isNotEmpty == true ? typeArgs!.first.name : null;
+  if (rawTypeName == null) return null; // No type args → fall through to regular ctor
+  // `PopupMenuButtonState<String>` dispatches as `PopupMenuButtonState`.
+  final typeName = rawTypeName.replaceFirst(RegExp(r'<.*>'), '');
   
   final debugLabel = D4.extractBridgedArgOrNull<String>(named['debugLabel'], 'debugLabel');
   
@@ -120,6 +122,13 @@ The generator would:
 2. For each, collect all concrete types that satisfy the type bounds from the global class lookup
 3. Generate a `registerGenericConstructor` call with a switch on `typeArgs.first.name`
 4. Each case creates the constructor with the proper type argument
+
+The interpreter names a type argument with its `?` and its own type arguments
+(`int?`, `List<int>`). The switch matches the name with the type arguments
+taken off and the `?` kept: a nested argument dispatches by its class, and an
+unbounded `T` has nullable arms for the primitives (`'int?' => X<int?>(…)`).
+A nullable class argument (`X<Widget?>`) has no arm — one per class would
+double the generated relaxers — and falls through to the bridge constructor.
 
 ### Should It Be Auto-Generated?
 
