@@ -72,6 +72,15 @@ run "precise bridge match beats fuzzy prefix" \
 # inherited members on the hand-written proxies, in-process.
 run "script Diagnosticable classes run on their proxy" \
   flutter test test/ghissues25_diagnosticable_proxy_test.dart
+# ghissues38: a proxied override returning a script list hands native code
+# the declared List<E>, in-process (skips until the proxies are regenerated
+# by tom_d4rt_generator 1.62.0).
+run "a proxied override's list reaches native code typed" \
+  flutter test test/ghissues38_proxy_list_return_test.dart
+# ghissues42: the hand-written name-keyed dispatch reads `T?` and `T<U>` type
+# arguments, in-process (skips below tom_d4rt 1.257.0 / tom_d4rt_ast 0.237.0).
+run "name-keyed dispatch reads nullable and nested type arguments" \
+  flutter test test/ghissues42_type_arg_names_test.dart
 
 # SCD142: the harness-level tests live behind ./test/run_harness_tests.sh (they
 # drive the companion app, so they are serial and belong nowhere near this

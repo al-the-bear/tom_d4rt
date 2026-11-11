@@ -64,6 +64,8 @@ run 'bridge registration is pooled (step #20)' { flutter test test/registration_
 run 'testplans are generated from the bridges and the corpus' { flutter test test/testplan_fresh_test.dart }
 run 'bridges execute in-process' { flutter test test/bridge_execution_test.dart }
 run 'script Diagnosticable classes run on their proxy' { flutter test test/ghissues25_diagnosticable_proxy_test.dart }
+run "a proxied override's list reaches native code typed" { flutter test test/ghissues38_proxy_list_return_test.dart }
+run 'name-keyed dispatch reads nullable and nested type arguments' { flutter test test/ghissues42_type_arg_names_test.dart }
 run 'import-optimization timings hold' { flutter test test/import_optimization_perf_test.dart }
 pair 'companion app resolution is checked' { flutter test test/companion_app_resolution_test.dart }
 pair 'hosted is the default resolution strategy' { flutter test test/scd66_resolution_strategy_test.dart }

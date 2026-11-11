@@ -1,3 +1,23 @@
+## 0.12.0
+
+### Fixed — name-keyed generic dispatch reads `T?` and `T<U>` type arguments (ghissues42)
+
+Since tom_d4rt 1.257.0 / tom_d4rt_ast 0.237.0 a type argument's name keeps
+its `?` and its own type arguments. The runtime registrations switched on the
+plain name, so `ValueNotifier<String?>('a')` took the bridge constructor's
+inferred `ValueNotifier<String>`, and
+`dependOnInheritedWidgetOfExactType<_Scope<int>>()` and
+`ThemeData.extension<_Brand<int>>()` found nothing. The `GlobalKey`,
+`ValueKey`, `ValueNotifier` and `RadioGroup.maybeOf` dispatch now matches the
+name without its type arguments and with its `?`; `ValueKey` and
+`ValueNotifier` have nullable arms (`ValueNotifier<String?>(...)` is a
+`ValueNotifier<String?>` whatever its value). The inherited-element and theme
+extension lookups match a script class by its class name (`_Scope<int>` as
+`_Scope`) and a native one by its whole type name. Takes effect with tom_d4rt
+1.257.0 / tom_d4rt_ast 0.237.0; with an older interpreter nothing changes.
+
+Name resolution: no.
+
 ## 0.11.0
 
 ### Fixed — script `DiagnosticableTree` and `Diagnosticable` classes (ghissues25)

@@ -117,6 +117,16 @@ const Set<String> derivable = {
 /// They are a dated observation, not a pin; what this guard pins is that each
 /// entry still diverges (SCE170-3).
 const Map<String, String> divergent = {
+  'ghissues25_diagnosticable_proxy_test.dart':
+      'the AST line compiles each probe through AstBundler and runs it with '
+      'executeAsync; the source twin runs the source with '
+      'SourceFlutterD4rt.execute (measured 2026-11-11).',
+  'ghissues38_proxy_list_return_test.dart':
+      'the same AstBundler step as ghissues25 (measured 2026-11-11).',
+  'ghissues42_type_arg_names_test.dart':
+      'the same AstBundler step as ghissues25, and each twin gates on its own '
+      'interpreter version (tom_d4rt_ast 0.237.0 vs tom_d4rt 1.257.0, '
+      'measured 2026-11-11).',
   'README.md':
       'prose written for each twin\'s own reader. What must agree is guarded '
       'by rule rather than by text: SCD65-3 and SCE169 in '

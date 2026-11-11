@@ -1055,8 +1055,9 @@ void _registerGenericConstructors() {
       'debugLabel',
     );
 
-    // Dispatch based on the type argument name
-    final typeName = typeArgs?.isNotEmpty == true ? typeArgs!.first.name : null;
+    // Dispatch based on the type argument's class:
+    // `GlobalKey<PopupMenuButtonState<String>>` has no arm of its own.
+    final typeName = _typeArgSelector(typeArgs);
     return switch (typeName) {
       'NavigatorState' => GlobalKey<NavigatorState>(debugLabel: debugLabel),
       'FormState' => GlobalKey<FormState>(debugLabel: debugLabel),
@@ -1078,9 +1079,9 @@ void _registerGenericConstructors() {
     typeArgs,
   ) {
     final value = positional.isNotEmpty ? positional[0] : null;
-    final typeName = typeArgs?.isNotEmpty == true ? typeArgs!.first.name : null;
-    // Handle nullable type arguments: String? resolves to name 'String' but
-    // value may be null. Use safe pattern matching instead of hard casts.
+    final typeName = _typeArgSelector(typeArgs);
+    // `String` with a null value builds `ValueKey<String?>`; `String?` builds
+    // it whatever the value. No hard casts on the non-null arms.
     return switch (typeName) {
       'String' =>
         value is String
@@ -1088,6 +1089,8 @@ void _registerGenericConstructors() {
             : ValueKey<String?>(value as String?),
       'int' =>
         value is int ? ValueKey<int>(value) : ValueKey<int?>(value as int?),
+      'String?' => ValueKey<String?>(value as String?),
+      'int?' => ValueKey<int?>(value as int?),
       _ => null, // Fall through to runtime-value-based inference.
     };
   });
@@ -1103,7 +1106,7 @@ void _registerGenericConstructors() {
     typeArgs,
   ) {
     final value = positional.isNotEmpty ? positional[0] : null;
-    final typeName = typeArgs?.isNotEmpty == true ? typeArgs!.first.name : null;
+    final typeName = _typeArgSelector(typeArgs);
     return switch (typeName) {
       'dynamic' || 'Object' || 'Object?' => ValueNotifier<dynamic>(value),
       'String' =>
@@ -1122,6 +1125,12 @@ void _registerGenericConstructors() {
         value is bool
             ? ValueNotifier<bool>(value)
             : ValueNotifier<bool?>(value as bool?),
+      // A nullable type argument builds the nullable notifier whatever the
+      // value, so it can be set to null later.
+      'String?' => ValueNotifier<String?>(value as String?),
+      'int?' => ValueNotifier<int?>(value as int?),
+      'double?' => ValueNotifier<double?>((value as num?)?.toDouble()),
+      'bool?' => ValueNotifier<bool?>(value as bool?),
       _ => null, // Fall through to regular bridge constructor
     };
   });
@@ -4143,13 +4152,14 @@ void _registerBridgedMethodInterceptors() {
     final theme = target is ThemeData ? target : null;
     if (theme == null) return null;
     if (typeArgs == null || typeArgs.isEmpty) return null;
-    final wantedName = typeArgs[0].name;
+    final wantedClass = _typeArgClassName(typeArgs[0]);
+    final wantedType = _typeArgNonNullName(typeArgs[0]);
     for (final ext in theme.extensions.values) {
       if (ext is _InterpretedThemeExtension) {
-        if (ext._instance.klass.name == wantedName) {
+        if (ext._instance.klass.name == wantedClass) {
           return ext._instance;
         }
-      } else if (ext.runtimeType.toString() == wantedName) {
+      } else if (ext.runtimeType.toString() == wantedType) {
         return ext;
       }
     }
@@ -4206,9 +4216,7 @@ void _registerBridgedMethodInterceptors() {
     final ctx = positional[0];
     if (ctx is! BuildContext) return null;
 
-    final typeName = (typeArgs != null && typeArgs.isNotEmpty)
-        ? typeArgs[0].name
-        : null;
+    final typeName = _typeArgSelector(typeArgs);
 
     final byType = switch (typeName) {
       'String' => RadioGroup.maybeOf<String>(ctx),
@@ -4248,23 +4256,28 @@ void _registerBridgedMethodInterceptors() {
 /// `InterpretedInstance.klass.name`; for native widgets we compare
 /// `widget.runtimeType.toString()`. Returns `null` when no ancestor matches
 /// or when no type argument was supplied.
+///
+/// A script class matches by its class name, `_Scope<int>` as `_Scope`: an
+/// interpreted class has one native proxy type for all its instantiations. A
+/// native widget matches its whole type name, `_RadioGroupStateScope<String>`.
 InheritedElement? _findInheritedElementForType(
   Element from,
   List<RuntimeType>? typeArgs,
 ) {
   if (typeArgs == null || typeArgs.isEmpty) return null;
-  final wantedName = typeArgs[0].name;
+  final wantedClass = _typeArgClassName(typeArgs[0]);
+  final wantedType = _typeArgNonNullName(typeArgs[0]);
   InheritedElement? match;
   from.visitAncestorElements((ancestor) {
     if (ancestor is InheritedElement) {
       final widget = ancestor.widget;
-      String candidateName;
+      final bool matches;
       if (widget is _InterpretedInheritedWidget) {
-        candidateName = widget._instance.klass.name;
+        matches = widget._instance.klass.name == wantedClass;
       } else {
-        candidateName = widget.runtimeType.toString();
+        matches = widget.runtimeType.toString() == wantedType;
       }
-      if (candidateName == wantedName) {
+      if (matches) {
         match = ancestor;
         return false; // stop walking
       }
@@ -4272,6 +4285,33 @@ InheritedElement? _findInheritedElementForType(
     return true; // keep walking
   });
   return match;
+}
+
+/// The name a name-keyed dispatch matches a script's type argument by: its
+/// own type arguments taken off, its `?` kept (`List<int>?` is `List?`).
+///
+/// A type argument's name carries both since tom_d4rt 1.257.0 /
+/// tom_d4rt_ast 0.237.0, so a switch over plain class names missed
+/// `ValueNotifier<String?>` and `GlobalKey<PopupMenuButtonState<String>>`
+/// (ghissues42). Null without a type argument.
+String? _typeArgSelector(List<RuntimeType>? typeArgs) {
+  if (typeArgs == null || typeArgs.isEmpty) return null;
+  return typeArgs.first.name.replaceFirst(RegExp(r'<.*>'), '');
+}
+
+/// The class [typeArg] names, for a lookup that matches a class rather than
+/// an instantiation: `_Scope<int>` and `_Scope?` are `_Scope`.
+String _typeArgClassName(RuntimeType typeArg) {
+  final name = _typeArgNonNullName(typeArg);
+  final lt = name.indexOf('<');
+  return lt < 0 ? name : name.substring(0, lt);
+}
+
+/// [typeArg]'s name without a trailing `?`, as `runtimeType.toString()`
+/// writes a native instance's type: `_RadioGroupStateScope<String>`.
+String _typeArgNonNullName(RuntimeType typeArg) {
+  final name = typeArg.name;
+  return name.endsWith('?') ? name.substring(0, name.length - 1) : name;
 }
 
 /// Unwrap `_InterpretedInheritedWidget` to the underlying `InterpretedInstance`

@@ -31,6 +31,8 @@ run 'no bridged name covers two native classes' { flutter test test/scd195_regis
 run 'bridge registration is pooled (step #19)' { flutter test test/registration_skip_test.dart }
 run 'precise bridge match beats fuzzy prefix' { flutter test test/mapped_iterable_resolution_test.dart }
 run 'script Diagnosticable classes run on their proxy' { flutter test test/ghissues25_diagnosticable_proxy_test.dart }
+run "a proxied override's list reaches native code typed" { flutter test test/ghissues38_proxy_list_return_test.dart }
+run 'name-keyed dispatch reads nullable and nested type arguments' { flutter test test/ghissues42_type_arg_names_test.dart }
 
 Write-Host ''
 & (Join-Path $PSScriptRoot '../../tom_d4rt_flutter_ast/test/run_guard_tests.ps1') --pair
