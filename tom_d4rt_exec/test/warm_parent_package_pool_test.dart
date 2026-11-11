@@ -26,18 +26,16 @@ library;
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
-/// The warm parent an execute's environment chain ends in: the root of the
-/// chain. Read as the root rather than a fixed number of `enclosing` steps
-/// because the chain's depth is the interpreter's business - since tom_d4rt_ast
-/// 0.223.0 (ghissues14) the entry script runs in its own scope enclosing the
-/// loader's per-execute global one, so the warm parent sits one level further
-/// up than with 0.212.1.
-Environment? _warmParent(Environment env) {
+/// The warm parent: the outermost environment above [env]. The script's own
+/// scope encloses the per-execute global environment, which encloses the warm
+/// parent (ghissues14), so it is found by walking out rather than by a fixed
+/// number of `enclosing` steps.
+Environment _warmParentOf(Environment env) {
   var current = env;
   while (current.enclosing != null) {
     current = current.enclosing!;
   }
-  return identical(current, env) ? null : current;
+  return current;
 }
 
 void main() {
@@ -127,7 +125,7 @@ void main() {
           1,
         );
         final parentAfterFirst =
-            _warmParent(interpreter.visitor!.globalEnvironment);
+            _warmParentOf(interpreter.visitor!.globalEnvironment);
         expect(
           parentAfterFirst,
           isNotNull,
@@ -139,7 +137,7 @@ void main() {
           2,
         );
         final parentAfterSecond =
-            _warmParent(interpreter.visitor!.globalEnvironment);
+            _warmParentOf(interpreter.visitor!.globalEnvironment);
 
         expect(
           identical(parentAfterFirst, parentAfterSecond),
@@ -202,9 +200,9 @@ void main() {
         );
 
         first.executeBundleAs<int>(bundleWith(1, extraName: 'w1'));
-        final parent1 = _warmParent(first.visitor!.globalEnvironment);
+        final parent1 = _warmParentOf(first.visitor!.globalEnvironment);
         first.executeBundleAs<int>(bundleWith(2, extraName: 'w2'));
-        final parent2 = _warmParent(first.visitor!.globalEnvironment);
+        final parent2 = _warmParentOf(first.visitor!.globalEnvironment);
         expect(identical(parent1, parent2), isTrue);
         expect(
           D4rt.debugWarmParentCacheSize,
@@ -219,7 +217,7 @@ void main() {
           reason: 'pkg_w is already pooled — second wrapper reuses it',
         );
         second.executeBundleAs<int>(bundleWith(3, extraName: 'w3'));
-        final parent3 = _warmParent(second.visitor!.globalEnvironment);
+        final parent3 = _warmParentOf(second.visitor!.globalEnvironment);
         expect(
           identical(parent1, parent3),
           isTrue,
@@ -241,8 +239,8 @@ void main() {
       first.executeBundleAs<int>(bundleWith(1, extraName: 'l1'));
       second.executeBundleAs<int>(bundleWith(2, extraName: 'l2'));
 
-      final firstParent = _warmParent(first.visitor!.globalEnvironment);
-      final secondParent = _warmParent(second.visitor!.globalEnvironment);
+      final firstParent = _warmParentOf(first.visitor!.globalEnvironment);
+      final secondParent = _warmParentOf(second.visitor!.globalEnvironment);
 
       expect(
         identical(firstParent, secondParent),

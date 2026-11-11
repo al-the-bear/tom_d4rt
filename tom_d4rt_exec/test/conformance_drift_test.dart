@@ -2791,7 +2791,11 @@ const Map<String, _Divergence> _divergentBaseline = {
   // GHISSUES14 moved the reference's reach into its chain from one
   // `enclosing` step to `_warmParentOf` (the outermost environment), because
   // the entry now runs in a script scope one level below the per-execute
-  // global environment; the difference is the same in kind.
+  // global environment; the difference is the same in kind. GHISSUES35
+  // (2026-11-11) mirrored that move into this copy, which still stepped one
+  // `enclosing` - it passed against the published 0.212.1 only; the tree
+  // interpreter's extra script scope made IMP-OPT-10a/10c fail in the
+  // pre-publish pass.
   'warm_parent_package_pool_test.dart': _Divergence.necessary,
   // SCD171 changed the reference copy's F-SCC65-23: bridging `X509Certificate`
   // made a parameter annotation naming it start being CHECKED, so the case's
@@ -2856,7 +2860,7 @@ const Map<String, String> _divergenceFingerprints = <String, String>{
   'scd35_bridged_tearoff_as_callback_test.dart': '2af9f62cc4643311',
   'scc28_typed_undefined_member_test.dart': '607adb1f1f551b29',
   'stdlib/io/scd188_stdin_audit_reason_expiry_test.dart': '46be47f827711c3a',
-  'warm_parent_package_pool_test.dart': '57ffe9a94a4afcdc',
+  'warm_parent_package_pool_test.dart': '3505d9a231e60e96',
   'stdlib/intentionally_unbridged_test.dart': '7afe64313e406c95',
   'scc31_undefined_name_uncatchable_test.dart': '5168561b17d50b1b',
   'scc32_bridged_value_key_test.dart': '0a2b0b334d6eedaf',
