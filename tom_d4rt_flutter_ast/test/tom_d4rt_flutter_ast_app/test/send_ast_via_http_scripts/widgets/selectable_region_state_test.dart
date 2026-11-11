@@ -153,7 +153,7 @@ class _SelectionLabScaffoldState extends State<_SelectionLabScaffold> {
   final FocusNode _compareRightFocus =
       FocusNode(debugLabel: 'compareRightRegion');
 
-  // ghissues33 (GEN-132): the page's Scrollbar and SingleChildScrollView share
+  // ghissues39 (GEN-132): the page's Scrollbar and SingleChildScrollView share
   // this controller. Without one the Scrollbar falls back to the
   // PrimaryScrollController, which Flutter attaches automatically only on iOS
   // and Android; on a desktop host it has no ScrollPosition and the

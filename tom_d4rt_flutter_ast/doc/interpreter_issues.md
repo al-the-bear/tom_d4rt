@@ -499,7 +499,7 @@ attached`. None of the 15 failures of the 2026-09-15 full-corpus run carried
 these signatures.
 
 **Root cause:** script-side, all three, measured in compiled Flutter
-(2026-11-10, todo ghissues33). The AppKitView pair: neither companion app
+(2026-11-10, todo ghissues39). The AppKitView pair: neither companion app
 registers a platform-view factory (no `registerViewFactory` /
 `FlutterPlatformViewFactory` in either app's `macos/` runner), so
 `tom.demo.appkit.*` is unregistered on the desktop host in compiled Flutter
@@ -508,7 +508,7 @@ macOS` raises the identical error for `Scrollbar(thumbVisibility: true)` over
 a `SingleChildScrollView` without a controller - the `PrimaryScrollController`
 is inherited automatically only on iOS and Android.
 
-**Fix:** todo ghissues33 (2026-11-11), in the scripts (rows in the `[~]`
+**Fix:** todo ghissues39 (2026-11-11), in the scripts (rows in the `[~]`
 sweep log): the AppKitView scripts mount an `AppKitView` only when the host
 registers its view type (`_kHostRegistersAppKitViews`, false for the companion
 apps) and show their fallback otherwise; `selectable_region_state_test.dart`
@@ -2255,9 +2255,9 @@ regression on gii/essential/important/secondary.
 | `widgets/spell_check_configuration_test.dart` | 4 | 0 | The four side-by-side specimen cards each construct a `TextField` with an enabled `SpellCheckConfiguration`. Flutter's `EditableText` looks up a default `SpellCheckService` for the active platform when an enabled config is supplied; only iOS and Android currently ship one, so on the d4rt test app's Linux desktop target the lookup throws "Spell check was enabled with spellCheckConfiguration, but the current platform does not have a supported spell check service" once per render. Demo's purpose is exposition (configs are still labeled in annotation/readout cards); replaced the two `TextField.spellCheckConfiguration:` arguments with a `_platformSafeSpellcCfg(...)` helper that returns `null` (the param is nullable). The original guard tried to keep the original config on iOS/Android via `defaultTargetPlatform`, but `TargetPlatform` enum equality through the d4rt bridge wasn't reliable — the helper now unconditionally returns `null`, which is correct for every platform the d4rt test app actually runs on. | _this commit_ |
 | `widgets/display_feature_sub_screen_test.dart` | 1 | 0 | `_FeatureComparisonScene._ComparisonCard.build` synthesised a `MediaQuery(size: Size(360, 220))` inside a parent `SizedBox(width: 300)` and inner `SizedBox(width: 300, height: 180)`. `DisplayFeatureSubScreen.build` (flutter/lib/src/widgets/display_feature_sub_screen.dart:111-118) wraps `child` in a `Padding` whose insets are computed from `mediaQuery.size − closestSubScreen` — when `MQ.size > parent box`, the insets eat into the available space and `_MiniPaneCard`'s intrinsic Column overflows by 40 px on the bottom for the `horizontalFold` mode (closest sub-screen = bottom half, `Padding.top = 118`, parent = 180 → 62 px for a ~91 px Column). Aligned `MQ.size = canvas = Size(300, 220)` with the inner SizedBox, bumped the outer SizedBox to 324 (canvas.width + Container padding 12×2) so the inner 300 px is not clamped. Sub-screen height becomes `220/2 − 8 = 102 px`, giving ~11 px headroom over `_MiniPaneCard`. See `interpreter_unfixable.md` "Small-overflow pocket — DFSS MediaQuery / SizedBox mismatch 2026-04-29". Test-script-only change → regression rule (a), single-test retest verified FE → 0. | _this commit_ |
 
-| `rendering/render_app_kit_view_test.dart` | 1 | 0 | GEN-132: mount the `AppKitView` only when the host registers `tom.demo.appkit.visual` (`_kHostRegistersAppKitViews`, false for the companion apps; `_isMacOS` became `_canMountAppKit`) - unregistered, it threw `PlatformException(unregistered_view_type)` on the macOS desktop host, in compiled Flutter too. | ghissues33 |
-| `retest/widgets/app_kit_view_test.dart` | 1 | 0 | GEN-132: the same flag in `_supportsAppKit` (`tom.demo.appkit.hostdock`); the fallback sentence now names the missing factory instead of claiming the host is not macOS, and stays no longer than the old one - a longer draft wrapped and overflowed its card by 5 px. | ghissues33 |
-| `widgets/selectable_region_state_test.dart` | 1 | 0 | GEN-132: the page's `Scrollbar` and `SingleChildScrollView` share one `ScrollController` (`_pageScroll`, disposed) - on desktop the `PrimaryScrollController` is not inherited, so the Scrollbar had no position. | ghissues33 |
+| `rendering/render_app_kit_view_test.dart` | 1 | 0 | GEN-132: mount the `AppKitView` only when the host registers `tom.demo.appkit.visual` (`_kHostRegistersAppKitViews`, false for the companion apps; `_isMacOS` became `_canMountAppKit`) - unregistered, it threw `PlatformException(unregistered_view_type)` on the macOS desktop host, in compiled Flutter too. | ghissues39 |
+| `retest/widgets/app_kit_view_test.dart` | 1 | 0 | GEN-132: the same flag in `_supportsAppKit` (`tom.demo.appkit.hostdock`); the fallback sentence now names the missing factory instead of claiming the host is not macOS, and stays no longer than the old one - a longer draft wrapped and overflowed its card by 5 px. | ghissues39 |
+| `widgets/selectable_region_state_test.dart` | 1 | 0 | GEN-132: the page's `Scrollbar` and `SingleChildScrollView` share one `ScrollController` (`_pageScroll`, disposed) - on desktop the `PrimaryScrollController` is not inherited, so the Scrollbar had no position. | ghissues39 |
 Regression battery results are recorded with each commit in
 `session_resume.d4rt.md` (no new regressions in any sweep).
 
@@ -4926,11 +4926,11 @@ the six (seven) failures here are new signatures. `flutter_extended_25` passes
 | ---- | ------ | ----- | ------- |
 | `flutter_extended_01` | `cupertino/cupertino_linear_activity_indicator_test.dart` | both | GEN-128 (ghissues23) |
 | `flutter_extended_03` | `foundation/diagnosticable_tree_node_test.dart` | both | GEN-130 (ghissues25) |
-| `flutter_extended_09` | `rendering/render_app_kit_view_test.dart` | both | GEN-132 (ghissues33) |
+| `flutter_extended_09` | `rendering/render_app_kit_view_test.dart` | both | GEN-132 (ghissues39) |
 | `flutter_extended_11` | `services/binary_messenger_test.dart` | source only | GEN-129 (ghissues24) |
-| `flutter_extended_18` | `widgets/selectable_region_state_test.dart` | both | GEN-132 (ghissues33) |
+| `flutter_extended_18` | `widgets/selectable_region_state_test.dart` | both | GEN-132 (ghissues39) |
 | `flutter_extended_19` | `widgets/slotted_multi_child_render_object_widget_test.dart` | both | GEN-131 (ghissues26) |
-| `flutter_extended_21` | `retest/widgets/app_kit_view_test.dart` | both | GEN-132 (ghissues33) |
+| `flutter_extended_21` | `retest/widgets/app_kit_view_test.dart` | both | GEN-132 (ghissues39) |
 
 Each test is now skipped in the drivers, naming its cluster and todo, so the
 next run will read skip 10 in the source twin and 9 in the AST twin with the

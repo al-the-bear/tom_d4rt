@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 
-// ghissues33 (GEN-132): an AppKitView needs a native factory registered for
+// ghissues39 (GEN-132): an AppKitView needs a native factory registered for
 // its viewType. The corpus companion app registers none, so mounting one on a
 // macOS host throws PlatformException(unregistered_view_type) - in compiled
 // Flutter as much as under the interpreter. The demo shows its fallback
