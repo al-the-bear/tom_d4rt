@@ -1,3 +1,18 @@
+## 1.62.0
+
+### Fixed — a proxy hands native code a typed list for a script's list
+
+A script builds its list literals as `List<Object?>` whatever their element
+type. When native code called a proxied override declared to return `List<E>`,
+`Iterable<E>` or a `Future` of one - Flutter 3.47's text field calls a script's
+`SpellCheckService.fetchSpellCheckSuggestions` itself - the proxy passed the
+script list to `extractBridgedArg<List<E>>`, which refused it ("expected
+List<SuggestionSpan>?, got List<Object?>"). The proxy now rebuilds such a list
+with `D4.coerceList<E>`, which unwraps each element, directly and inside the
+future's `then`. Function-typed elements keep the earlier path.
+
+Name resolution: no.
+
 ## 1.61.0
 
 ### Added — generated proxies are receivers (`receiverProxies`, `receiverProxyExclude`)

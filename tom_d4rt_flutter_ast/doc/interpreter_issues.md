@@ -29,6 +29,7 @@ reverse) fails the suite. Re-derive; do not hand-edit one side alone.
 | `[ ]` | Open (GEN-129) — tom_d4rt refuses a script whose doc comment names something not in scope | An **interpreter** defect, `tom_d4rt` only. Blast radius: every script with a doc-comment reference `[Name]` to a name it does not import or declare fails before `main`. Found 2026-11-10 by ghissues15. Fixed in the tree by ghissues24 (tom_d4rt 1.248.0 / tom_d4rt_exec 1.56.0, not published) and the source twin's `flutter_extended_11` skip removed; open until a run at the published fix passes the script, owed by todo ghissues999. |
 | `[ ]` | Open (GEN-130) — an interpreted DiagnosticableTree subclass's inherited toDiagnosticsNode() returns null | An **interpreter / bridge** defect, both twins. Blast radius: every member a script class inherits from an abstract bridged class (no constructor adapter) answered null, `super.m()` was a no-op. Found 2026-11-10 by ghissues15. Fixed in the tree by ghissues25 (tom_d4rt 1.249.0 / tom_d4rt_ast 0.229.0, not published: receiver proxies; the twins' `DiagnosticableTree` and `Diagnosticable` proxies) and the `flutter_extended_03` skip removed; open until the twins mark the receiver with the release and a run at the published fix passes the script, owed by todo ghissues999. |
 | `[ ]` | Open (GEN-131) — a class's static initializers read the script's top-level constants as null | An **interpreter** defect of the published pair (tom_d4rt <= 1.232.0, tom_d4rt_ast <= 0.213.0), both twins. Blast radius: every static field initialized from a top-level variable or constant of the script read null, wherever it was read. Found 2026-11-10 by ghissues15. Fixed in the tree by GitHub #10's lazy initialization (ghissues3: tom_d4rt 1.233.0 / tom_d4rt_ast 0.214.0, not published) and the `flutter_extended_19` skip removed; open until a run at the published fix passes the script, owed by todo ghissues999. |
+| `[ ]` | Open (GEN-133) — a generated proxy hands native code a script's `List<Object?>` where the overridden method declares `List<E>` or `Future<List<E>?>` | A **generator** defect, both twins. Blast radius: every proxied override native code calls whose declared return type is `List<E>`, `Iterable<E>` or a `Future` of one received the script's `List<Object?>` and threw at the proxy boundary. Found 2026-11-10 by ghissues34 (`services/spell_check_service_test.dart`, intermittent). Fixed in the tree by ghissues38 (2026-11-11, tom_d4rt_generator 1.62.0, not published); open until the twins' committed proxies are regenerated with the published fix and a run passes, owed by todo ghissues999. |
 | `[~]` | Partially fixed — script-side / Flutter framework limitations | **Not an interpreter defect** — a rolling sweep log of demo-script fixes (layout overflow, unbounded constraints, platform-unsupported services). Rows whose "After" column reads `1*` note a residual that *is* interpreter-side; each of those is tracked by its own cluster. Last sweep 2026-04-29. |
 
 ## No corpus numbers live in this header
@@ -436,6 +437,47 @@ tom_d4rt_ast, 2 cases; red at 1.232.0 / 0.213.0). Measured on the tree
 measurements, not verification runs). The driver skip is removed, so until
 the release a run at the published pair fails this test; the release's runs
 certify it, then this cluster is marked - owed by todo ghissues999.
+
+### [ ] Open (GEN-133) — a generated proxy hands native code a script's `List<Object?>` where the overridden method declares `List<E>` or `Future<List<E>?>`
+
+**Found:** 2026-11-10, ghissues34's base gate under prepublish `--set`
+(run `20261110-ghi34-prepub`, committed bridges): `services/spell_check_service_test.dart`
+(`flutter_base_14`) failed once with `Invalid parameter
+"fetchSpellCheckSuggestions": expected List<SuggestionSpan>?, got
+List<Object?>` and passed in three reruns.
+
+**Blast radius:** every proxied override that native code calls and whose
+declared return type is `List<E>`, `Iterable<E>` or a `Future` of one: the
+proxy handed the script's list literal (`List<Object?>` whatever its element
+type) to `extractBridgedArg<List<E>>`, which refuses it, so the call threw at
+the proxy boundary. In the twins that is `SpellCheckService
+.fetchSpellCheckSuggestions` (`Future<List<SuggestionSpan>?>`) and
+`TransitionDelegate.resolve` (`Iterable<RouteTransitionRecord>`).
+
+**Measured:** intermittent in the corpus because Flutter 3.47's text field
+calls the configured service itself, and whether it does during the script
+depends on timing; the script's own `FutureBuilder` calls the override from
+script code, which never crosses the proxy. Deterministic when native code
+makes the call: `test/ghissues38_proxy_list_return_test.dart` (both twins)
+failed with the corpus's message on the committed proxies (2026-11-11).
+
+**Root cause:** `proxy_generator.dart` `_emitTypedReturn` extracted a returned
+value, and a future's completion, as the declared type with
+`D4.extractBridgedArg`, which has no list conversion.
+
+**Fix:** todo ghissues38 (2026-11-11), tom_d4rt_generator 1.62.0 (not
+published): a returned `List<E>` / `Iterable<E>` that is not already a
+`List<E>` is rebuilt with `D4.coerceList<E>`, directly and inside the future's
+`then` (function-typed elements keep the earlier path). Generator test
+`ghissues38_proxy_list_return_test.dart`; the twins' tests skip themselves
+until their committed proxies carry the conversion. With both twins under
+`prepublish_overrides --set`, bridges regenerated by the tree generator and
+the ghissues25/31 marks (run `20261111-ghi38-prepub`): the twins' tests pass,
+and the base gate gives 927 / 1 / 0 in both, 0 framework errors (the source
+twin's `flutter_base_07` to `_09` re-run alone after the disk filled during
+the first pass; `flutter_base_14` then passed three more times in each twin,
+`spell_check_service_test.dart` successful every time). The committed
+proxies follow the generator's publish, owed by todo ghissues999.
 
 ### [X] Fixed (GEN-132) — three scripts failed on the desktop companion app: AppKitView view types and a Scrollbar without a position
 

@@ -1549,6 +1549,20 @@ String? _futureElementType(String returnType) {
   return inner;
 }
 
+/// The element type `E` of a `List<E>` / `Iterable<E>` (optionally nullable)
+/// return type, or null for any other type (function-typed elements too).
+///
+/// ghissues38: a script returns its list literals as `List<Object?>`, which
+/// `extractBridgedArg<List<E>>` refuses; such a value is rebuilt with
+/// `D4.coerceList<E>`, which unwraps every element.
+String? _collectionElementType(String type) {
+  final m = RegExp(r'^(?:List|Iterable)<(.+)>\??$').firstMatch(type.trim());
+  if (m == null) return null;
+  final element = m.group(1)!.trim();
+  if (element.contains('Function(')) return null;
+  return element;
+}
+
 /// Emit `return ...;` for an interpreter call result, choosing between a
 /// plain `extractBridgedArg<T>` and — for function-typed `T` — a typed
 /// closure that wraps the returned `Callable` and constructs a Dart
@@ -1577,9 +1591,17 @@ void _emitTypedReturn(
     buffer.writeln(
       '$indent if ($resultVar is Future && $resultVar is! Future<$futureInner>) {',
     );
-    buffer.writeln(
-      "$indent   return $resultVar.then((v) => D4.extractBridgedArg<$futureInner>(v, '$memberName', visitor));",
-    );
+    final element = _collectionElementType(futureInner);
+    if (element != null) {
+      // ghissues38: the completion is a script list (`List<Object?>`).
+      buffer.writeln(
+        "$indent   return $resultVar.then((v) => v is List && v is! List<$element> ? D4.coerceList<$element>(v, '$memberName') : D4.extractBridgedArg<$futureInner>(v, '$memberName', visitor));",
+      );
+    } else {
+      buffer.writeln(
+        "$indent   return $resultVar.then((v) => D4.extractBridgedArg<$futureInner>(v, '$memberName', visitor));",
+      );
+    }
     buffer.writeln('$indent }');
   }
   final fn = _parseFunctionType(returnType);
@@ -1589,6 +1611,17 @@ void _emitTypedReturn(
     // proxies (e.g. `Decoration.createBoxPainter` returning a script-side
     // `BoxPainter` subclass needs the visitor to materialise a
     // `D4rtBoxPainter`).
+    final element = _collectionElementType(returnType);
+    if (element != null) {
+      // ghissues38: a script list (`List<Object?>`) rebuilt as `List<E>`.
+      buffer.writeln(
+        "$indent if ($resultVar is List && $resultVar is! List<$element>) {",
+      );
+      buffer.writeln(
+        "$indent   return D4.coerceList<$element>($resultVar, '$memberName');",
+      );
+      buffer.writeln('$indent }');
+    }
     buffer.writeln(
       "$indent return D4.extractBridgedArg<$returnType>($resultVar, '$memberName', visitor);",
     );
