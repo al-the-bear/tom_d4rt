@@ -9,3 +9,5 @@ bin/dclie
 # regenerated on demand. Committed copies named a workspace layout that no
 # longer exists and the account that produced them (sce54).
 test/results/
+# Application package: its pubspec.lock is tracked (al_the_bear tom_app_locks, todo oqa2).
+!/pubspec.lock

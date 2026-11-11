@@ -49,3 +49,5 @@ app.*.map.json
 # Flutter build scaffolding: regenerated per machine, and the committed copy
 # named a fleet Linux host (sce54).
 **/flutter/ephemeral/
+# Application package: its pubspec.lock is tracked (al_the_bear tom_app_locks, todo oqa2).
+!/pubspec.lock

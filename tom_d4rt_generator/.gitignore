@@ -4,3 +4,5 @@
 # bundle is undecodable by analyzer 10's bundle_reader -> RangeError), and
 # bloats the published archive. They regenerate on demand.
 **/.tom/analyzer-cache/
+# Application package: its pubspec.lock is tracked (al_the_bear tom_app_locks, todo oqa2).
+!/pubspec.lock
