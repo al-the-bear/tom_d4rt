@@ -1,3 +1,26 @@
+## 1.63.0
+
+### Fixed — name-keyed generic dispatch matches `T?` and `T<U>` type arguments
+
+Since tom_d4rt 1.257.0 / tom_d4rt_ast 0.237.0 a script's type argument
+reaches a generic constructor or interceptor with its `?` and its own type
+arguments (`int?`, `List<int>`). The generated RC-2 constructor factories,
+which switch on the plain name, matched neither and took their default arm.
+They now match the name with its type arguments taken off and its `?` kept:
+`GlobalKey<PopupMenuButtonState<String>>` dispatches as
+`PopupMenuButtonState`, and the primitives have nullable arms, so
+`ValueNotifier<String?>(null)` is a `ValueNotifier<String?>`. A nullable class
+argument (`X<Widget?>`) has no arm - one per bridged class would double the
+Flutter relaxers - and takes the default (the bridge constructor infers T)
+instead of the non-null instantiation. The GEN-102 null guard lets a nullable
+argument through, and the `dynamic` arm, which also serves `Object?`, passes a
+null value on. The templated `genericConstructors` and `genericInterceptors`
+switches take the same name, match a configured variant such as
+`PopupMenuButtonState<String>` verbatim, and a `nullableValue` constructor
+gets a `T?` arm for each variant `T`.
+
+Name resolution: no.
+
 ## 1.62.0
 
 ### Fixed — a proxy hands native code a typed list for a script's list

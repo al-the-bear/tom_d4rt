@@ -32,9 +32,10 @@ const _radioGroupGolden =
     if (positional.length <= 0) return null;
     final ctx = positional[0];
     if (ctx is! BuildContext) return null;
-    final typeName = (typeArgs != null && typeArgs.isNotEmpty)
+    final rawTypeName = (typeArgs != null && typeArgs.isNotEmpty)
         ? typeArgs[0].name
         : null;
+    final typeName = rawTypeName?.replaceFirst(RegExp(r'<.*>'), '');
     final byType = switch (typeName) {
       'String' => RadioGroup.maybeOf<String>(ctx),
       'int' => RadioGroup.maybeOf<int>(ctx),

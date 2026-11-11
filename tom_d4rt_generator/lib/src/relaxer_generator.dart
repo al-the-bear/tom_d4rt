@@ -34,6 +34,7 @@ import 'bridge_generator.dart'
         ParameterInfo;
 import 'file_generators.dart' show ensureBDartExtension;
 import 'generated_stamp.dart';
+import 'type_arg_selector.dart';
 import 'generic_constructor_generator.dart' show generateGenericConstructor;
 import 'generic_interceptor_generator.dart' show generateGenericInterceptor;
 import 'generated_code_formatter.dart';
@@ -2443,11 +2444,18 @@ void _writeGenericConstructorFactory(
   buffer.writeln('  Map<String, Object?> named,');
   buffer.writeln('  List<dynamic>? typeArgs,');
   buffer.writeln(') {');
+  // ghissues42: a type argument's name keeps its `?` and its own type
+  // arguments (`int?`, `List<int>`). The switch matches the name with the
+  // type arguments taken off - `List<int>` dispatches as `List`, `List<int>?`
+  // as `List?` - and keeps the `?`, which selects a nullable arm or none.
   buffer.writeln(
-    '  final typeName = typeArgs?.isNotEmpty == true '
+    '  final rawTypeName = typeArgs?.isNotEmpty == true '
     "? typeArgs!.first.name as String? : null;",
   );
-  buffer.writeln('  if (typeName == null) return null;');
+  buffer.writeln('  if (rawTypeName == null) return null;');
+  buffer.writeln(
+    '  final typeName = ${typeArgNameWithoutTypeArgs('rawTypeName')};',
+  );
 
   // Extract fixed-type params before the switch
   for (var i = 0; i < positionalParams.length; i++) {
@@ -2566,18 +2574,13 @@ void _writeGenericConstructorFactory(
 
   // GEN-102: Null-guard exact-T non-nullable required params.
   //
-  // The interpreter's `_resolveTypeAnnotation` strips the nullable `?` from
-  // resolved type arguments — `ValueNotifier<int?>` surfaces here with
-  // `typeName = 'int'`, indistinguishable from `ValueNotifier<int>`. The
-  // switch cases below emit `ValueNotifier<int>(_value as int)`, which
-  // crashes on `null as int` when the script wrote `ValueNotifier<int?>(null)`.
-  //
-  // When a required non-nullable T-typed value is null, return null to fall
-  // through to the default bridge constructor. Its runtime-type switch (in
-  // foundation_bridges.b.dart) sends null values to the `default:` branch,
-  // producing `ValueNotifier<dynamic>(null)`. The `$Relaxed<T>` wrapper at
-  // bridge-method boundaries then adapts the untyped notifier to the typed
-  // contract expected by consumers.
+  // A non-nullable arm emits `ValueNotifier<int>(_value as int)`, which
+  // crashes on `null as int`. When a required T-typed value is null and the
+  // type argument is not nullable (`ValueNotifier<int>(null)` is a script
+  // error the default constructor reports, and a nullable `int?` has its own
+  // arm since ghissues42), return null to fall through to the default bridge
+  // constructor. Its runtime-type switch sends null values to the `default:`
+  // branch, producing `ValueNotifier<dynamic>(null)`.
   final guardNames = <String>[
     for (final p in positionalParams)
       if (p.type == typeParamName && p.isRequired) _rc2SafeName(p.name),
@@ -2589,13 +2592,11 @@ void _writeGenericConstructorFactory(
       '  // GEN-102: Fall through to default bridge constructor when a required',
     );
     buffer.writeln(
-      '  // non-nullable T-typed value is null. The interpreter strips `?` from',
+      '  // T-typed value is null and the type argument is not nullable.',
     );
     buffer.writeln(
-      '  // resolved type arguments, so typeName cannot distinguish `<T>` from `<T?>`.',
-    );
-    buffer.writeln(
-      '  if (${guardNames.map((n) => '$n == null').join(' || ')}) return null;',
+      "  if (!typeName.endsWith('?') && "
+      "(${guardNames.map((n) => '$n == null').join(' || ')})) return null;",
     );
   }
 
@@ -2622,6 +2623,25 @@ void _writeGenericConstructorFactory(
           ctorSuffix,
           prim,
           [prim],
+          positionalParams,
+          namedParams,
+          typeParamName,
+          yieldVoidCallbacks: yieldVoidCallbacks,
+        ),
+      );
+    }
+    // ghissues42: `X<int?>` builds `X<int?>`. Only the primitives get a
+    // nullable arm: one per bridged class would double the ~134k arms of the
+    // Flutter relaxers. A nullable class argument (`X<Widget?>`) matches no
+    // arm and takes the default - the bridge constructor, which infers T -
+    // rather than the non-null instantiation.
+    for (final prim in _rc2PrimitiveTypes) {
+      arms.add(
+        _rc2Arm(
+          className,
+          ctorSuffix,
+          '$prim?',
+          ['$prim?'],
           positionalParams,
           namedParams,
           typeParamName,
@@ -2706,9 +2726,14 @@ DispatchArm _rc2Arm(
   }
 
   // Helper: substitute type param with concrete type arg
-  String substituteTypeParam(String type) {
-    return type.replaceAll(RegExp('\\b$typeParamName\\b'), typeArg);
-  }
+  String substituteTypeParam(String type) =>
+      _rc2SubstituteTypeArg(type, typeParamName, typeArg);
+  // ghissues42: a nullable type argument (`int?`) - the exact-T params below
+  // read it as nullable, and its `double?` widens like `double`.
+  final typeArgIsNullable = typeArg.endsWith('?');
+  final typeArgBase = typeArgIsNullable
+      ? typeArg.substring(0, typeArg.length - 1)
+      : typeArg;
 
   // Helper: check if type is an inline function type (not castable via as)
   // Inline: "void Function(bool, T?)?", "Object? Function(T)"
@@ -2723,7 +2748,10 @@ DispatchArm _rc2Arm(
     final safeName = _rc2SafeName(p.name);
     final isExactTypeParam = p.type.replaceAll('?', '') == typeParamName;
     final hasTypeParam = containsTypeParam(p.type);
-    final isNullable = p.type.endsWith('?') || !p.isRequired;
+    final isNullable =
+        p.type.endsWith('?') ||
+        !p.isRequired ||
+        (isExactTypeParam && typeArgIsNullable);
     // GEN-075: Use actual type nullability for coercion (not optional-ness)
     final isTypeNullable = p.type.endsWith('?');
 
@@ -2731,8 +2759,10 @@ DispatchArm _rc2Arm(
       if (isExactTypeParam) {
         // Exact type param match (T or T?)
         if (typeArg == 'dynamic') {
-          args.add(isNullable ? safeName : '$safeName!');
-        } else if (typeArg == 'double') {
+          // `dynamic` admits null: the arm also serves `Object?`, which the
+          // GEN-102 guard lets through with a null value (ghissues42).
+          args.add(safeName);
+        } else if (typeArgBase == 'double') {
           // GEN-075c: int → double widening for primitive type-param dispatch.
           // Scripts pass `ValueNotifier<double>(0)` literally; the value is
           // an int and a strict `as double` cast would fail. Coerce via num.
@@ -2742,7 +2772,7 @@ DispatchArm _rc2Arm(
                 : '($safeName as num).toDouble()',
           );
         } else {
-          args.add('$safeName as $typeArg${isNullable ? '?' : ''}');
+          args.add('$safeName as $typeArgBase${isNullable ? '?' : ''}');
         }
       } else if (_rc2IsListType(p.type)) {
         // GEN-075: List/Iterable containing type param → D4.coerceList
@@ -2885,17 +2915,19 @@ DispatchArm _rc2Arm(
     final safeName = _rc2SafeName(p.name);
     final isExactTypeParam = p.type.replaceAll('?', '') == typeParamName;
     final hasTypeParam = containsTypeParam(p.type);
-    final isNullable = p.type.endsWith('?') || !p.isRequired;
+    final isNullable =
+        p.type.endsWith('?') ||
+        !p.isRequired ||
+        (isExactTypeParam && typeArgIsNullable);
     // GEN-075: Use actual type nullability for coercion (not optional-ness)
     final isTypeNullable = p.type.endsWith('?');
 
     if (hasTypeParam) {
       if (isExactTypeParam) {
         if (typeArg == 'dynamic') {
-          namedArgParts.add(
-            '${p.name}: ${isNullable ? safeName : '$safeName!'}',
-          );
-        } else if (typeArg == 'double') {
+          // `dynamic` admits null (see the positional branch).
+          namedArgParts.add('${p.name}: $safeName');
+        } else if (typeArgBase == 'double') {
           // GEN-075c: int → double widening (see positional branch).
           namedArgParts.add(
             isNullable
@@ -2904,7 +2936,7 @@ DispatchArm _rc2Arm(
           );
         } else {
           namedArgParts.add(
-            '${p.name}: $safeName as $typeArg${isNullable ? '?' : ''}',
+            '${p.name}: $safeName as $typeArgBase${isNullable ? '?' : ''}',
           );
         }
       } else if (_rc2IsListType(p.type)) {
@@ -3014,6 +3046,22 @@ DispatchArm _rc2Arm(
 
   final allArgs = [...args, ...namedArgParts].join(', ');
   return DispatchArm(selectors, '$className<$typeArg>$ctorSuffix($allArgs)');
+}
+
+/// [type] with the class type parameter [typeParamName] replaced by [typeArg].
+///
+/// A nullable [typeArg] (`int?`) absorbs a `?` already on the parameter: `T?`
+/// becomes `int?`, not `int??` (ghissues42).
+String _rc2SubstituteTypeArg(
+  String type,
+  String typeParamName,
+  String typeArg,
+) {
+  final pattern = RegExp('\\b${RegExp.escape(typeParamName)}\\b(\\?)?');
+  return type.replaceAllMapped(pattern, (m) {
+    if (typeArg.endsWith('?')) return typeArg;
+    return '$typeArg${m[1] ?? ''}';
+  });
 }
 
 /// Checks if [typeName] satisfies the [bound] using the class hierarchy.
@@ -3314,9 +3362,8 @@ String _rc2GenerateFunctionWrapper(
   bool yieldVoidCallbacks = false,
 }) {
   // Substitute type param with concrete type arg
-  String substitute(String type) {
-    return type.replaceAll(RegExp('\\b$typeParamName\\b'), typeArg);
-  }
+  String substitute(String type) =>
+      _rc2SubstituteTypeArg(type, typeParamName, typeArg);
 
   // Generate positional parameter list: `T0 p0, [T1? p1]`.
   final paramList = <String>[];

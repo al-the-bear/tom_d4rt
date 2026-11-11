@@ -26,6 +26,7 @@
 library;
 
 import 'bridge_config.dart';
+import 'type_arg_selector.dart';
 
 /// Emits the full `D4.registerBridged{,Static}MethodInterceptor(...)` call for
 /// [config], including the re-dispatch `switch (typeName)` over its type-arg
@@ -71,9 +72,7 @@ String generateGenericInterceptor(GenericInterceptorConfig config) {
   b.writeln('    if (positional.length <= $ctxIndex) return null;');
   b.writeln('    final ctx = positional[$ctxIndex];');
   b.writeln('    if (ctx is! $ctxType) return null;');
-  b.writeln('    final typeName = (typeArgs != null && typeArgs.isNotEmpty)');
-  b.writeln('        ? typeArgs[0].name');
-  b.writeln('        : null;');
+  writeTypeArgNameSelector(b, config.typeArgVariants);
   b.writeln('    final byType = switch (typeName) {');
   for (final t in config.typeArgVariants) {
     b.writeln("      '$t' => $receiver.$methodName<$t>(ctx),");

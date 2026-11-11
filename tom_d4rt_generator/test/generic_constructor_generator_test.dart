@@ -34,9 +34,10 @@ const _globalKeyGolden =
       (visitor, positional, named, typeArgs) {
     final debugLabel =
         D4.extractBridgedArgOrNull<String>(named['debugLabel'], 'debugLabel');
-    final typeName = (typeArgs != null && typeArgs.isNotEmpty)
+    final rawTypeName = (typeArgs != null && typeArgs.isNotEmpty)
         ? typeArgs[0].name
         : null;
+    final typeName = rawTypeName?.replaceFirst(RegExp(r'<.*>'), '');
     return switch (typeName) {
       'NavigatorState' => GlobalKey<NavigatorState>(debugLabel: debugLabel),
       'FormState' => GlobalKey<FormState>(debugLabel: debugLabel),
@@ -56,16 +57,19 @@ const _valueKeyGolden =
   D4.registerGenericConstructor('ValueKey', '',
       (visitor, positional, named, typeArgs) {
     final value = positional.isNotEmpty ? positional[0] : null;
-    final typeName = (typeArgs != null && typeArgs.isNotEmpty)
+    final rawTypeName = (typeArgs != null && typeArgs.isNotEmpty)
         ? typeArgs[0].name
         : null;
+    final typeName = rawTypeName?.replaceFirst(RegExp(r'<.*>'), '');
     return switch (typeName) {
       'String' => value is String
           ? ValueKey<String>(value)
           : ValueKey<String?>(value as String?),
+      'String?' => ValueKey<String?>(value as String?),
       'int' => value is int
           ? ValueKey<int>(value)
           : ValueKey<int?>(value as int?),
+      'int?' => ValueKey<int?>(value as int?),
       _ => null,
     };
   });

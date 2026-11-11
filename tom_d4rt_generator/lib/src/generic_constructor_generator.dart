@@ -30,6 +30,7 @@
 library;
 
 import 'bridge_config.dart';
+import 'type_arg_selector.dart';
 
 /// Emits the full `D4.registerGenericConstructor(...)` statement for [config],
 /// indented two spaces for emission inside the generated
@@ -100,9 +101,7 @@ String _namedPassthrough(GenericConstructorConfig config) {
       "        D4.extractBridgedArgOrNull<${a.type}>(named['${a.name}'], '${a.name}');",
     );
   }
-  b.writeln('    final typeName = (typeArgs != null && typeArgs.isNotEmpty)');
-  b.writeln('        ? typeArgs[0].name');
-  b.writeln('        : null;');
+  writeTypeArgNameSelector(b, config.typeArgVariants);
   b.writeln('    return switch (typeName) {');
   for (final t in config.typeArgVariants) {
     b.writeln("      '$t' => $className<$t>($forwards),");
@@ -130,9 +129,7 @@ String _nullableValue(GenericConstructorConfig config) {
   b.writeln("  D4.registerGenericConstructor('$className', '',");
   b.writeln('      (visitor, positional, named, typeArgs) {');
   b.writeln('    final value = positional.isNotEmpty ? positional[0] : null;');
-  b.writeln('    final typeName = (typeArgs != null && typeArgs.isNotEmpty)');
-  b.writeln('        ? typeArgs[0].name');
-  b.writeln('        : null;');
+  writeTypeArgNameSelector(b, config.typeArgVariants);
   b.writeln('    return switch (typeName) {');
   if (config.includeDynamicArm) {
     b.writeln(
@@ -140,9 +137,18 @@ String _nullableValue(GenericConstructorConfig config) {
     );
   }
   for (final t in config.typeArgVariants) {
+    if (t.endsWith('?')) {
+      b.writeln("      '$t' => $className<$t>(value as $t),");
+      continue;
+    }
     b.writeln("      '$t' => value is $t");
     b.writeln('          ? $className<$t>(value)');
     b.writeln('          : $className<$t?>(value as $t?),');
+    // ghissues42: `ValueNotifier<String?>(...)` is a `ValueNotifier<String?>`
+    // whatever its value.
+    if (!config.typeArgVariants.contains('$t?')) {
+      b.writeln("      '$t?' => $className<$t?>(value as $t?),");
+    }
   }
   b.writeln('      _ => null,');
   b.writeln('    };');
