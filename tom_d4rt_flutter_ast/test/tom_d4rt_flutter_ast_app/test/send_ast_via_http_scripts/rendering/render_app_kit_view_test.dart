@@ -6,6 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart' show PlatformViewHitTestBehavior;
 import 'package:flutter/services.dart';
 
+// ghissues33 (GEN-132): an AppKitView needs a native factory registered for
+// its viewType. The corpus companion app registers none, so mounting one on a
+// macOS host throws PlatformException(unregistered_view_type) - in compiled
+// Flutter as much as under the interpreter. The demo shows its fallback
+// surface unless the host registers the tom.demo.appkit.* factories; set this
+// to true only in such a host.
+const bool _kHostRegistersAppKitViews = false;
+
 const List<_ThemePreset> _themes = <_ThemePreset>[
   _ThemePreset(
     id: 'harbor',
@@ -256,12 +264,13 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
 
   List<_TimelineEvent> _timeline = const <_TimelineEvent>[];
 
-  bool get _isMacOS => defaultTargetPlatform == TargetPlatform.macOS;
+  bool get _canMountAppKit =>
+      defaultTargetPlatform == TargetPlatform.macOS && _kHostRegistersAppKitViews;
 
   @override
   void initState() {
     super.initState();
-    _platformState = _isMacOS ? 'macOS host available' : 'non-macOS fallback mode';
+    _platformState = _canMountAppKit ? 'AppKit host available' : 'fallback mode (no AppKit view factory)';
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _pushTimeline('Init', 'RenderAppKitView visual lab initialized.');
       _pushTimeline('Platform', _platformState);
@@ -540,7 +549,7 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
     final PlatformViewHitTestBehavior behavior = _hitTestPresets[_hitBehaviorIndex].behavior;
     final Clip clip = _clipPresets[_clipIndex].value;
 
-    Widget host = _isMacOS
+    Widget host = _canMountAppKit
         ? AppKitView(
             key: ValueKey<String>('appkit_revision_$_revision'),
             viewType: 'tom.demo.appkit.visual',
@@ -592,7 +601,7 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
                 child: GestureDetector(
                   onTap: () {
                     setState(() => _hostTapCount += 1);
-                    _pushTimeline('Host Tap', 'Host surface tapped in ${_isMacOS ? 'live' : 'simulator'} mode.');
+                    _pushTimeline('Host Tap', 'Host surface tapped in ${_canMountAppKit ? 'live' : 'simulator'} mode.');
                   },
                   child: Container(
                     width: _stageWidth,
@@ -607,7 +616,7 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
                         if (_showGrid)
                           Positioned.fill(child: CustomPaint(painter: _GridPainter(color: scheme.outlineVariant.withValues(alpha: 0.22), step: 22))),
                         Positioned.fill(child: host),
-                        Positioned(top: 10, left: 10, child: _chip(scheme, _isMacOS ? 'macOS live' : 'simulator', Icons.computer_outlined)),
+                        Positioned(top: 10, left: 10, child: _chip(scheme, _canMountAppKit ? 'macOS live' : 'simulator', Icons.computer_outlined)),
                         Positioned(top: 10, right: 10, child: _chip(scheme, _hitTestPresets[_hitBehaviorIndex].label, Icons.ads_click_outlined)),
                         Positioned(bottom: 10, right: 10, child: _chip(scheme, _clipPresets[_clipIndex].label, Icons.crop_outlined)),
                       ],
@@ -929,7 +938,7 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
                               ),
                               child: Center(
                                 child: Text(
-                                  _isMacOS ? 'AppKit host envelope' : 'Simulator envelope',
+                                  _canMountAppKit ? 'AppKit host envelope' : 'Simulator envelope',
                                   style: TextStyle(color: scheme.onPrimaryContainer, fontWeight: FontWeight.w700),
                                 ),
                               ),

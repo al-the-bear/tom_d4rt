@@ -14,7 +14,7 @@ Every name the bridges register for `animation` (49), with its tier and the corp
 | 2 | Animatable | class | Important | ✅ | animation/animatable_test.dart, animation/tween_test.dart |
 | 3 | Animation | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_lazy_listener_mixin_test.dart, +79 |
 | 4 | AnimationBehavior | enum | Hardly Relevant | ✅ | animation/animation_behavior_test.dart |
-| 5 | AnimationController | class | Essential | ✅ | rendering/pipeline_manifold_test.dart, rendering/render_abstract_viewport_test.dart, rendering/render_android_view_test.dart, +77 |
+| 5 | AnimationController | class | Essential | ✅ | rendering/pipeline_manifold_test.dart, rendering/render_abstract_viewport_test.dart, rendering/render_android_view_test.dart, +78 |
 | 6 | AnimationEagerListenerMixin | class | Hardly Relevant | ⬜ |  |
 | 7 | AnimationLazyListenerMixin | class | Hardly Relevant | ⬜ |  |
 | 8 | AnimationLocalListenersMixin | class | Hardly Relevant | ⬜ |  |

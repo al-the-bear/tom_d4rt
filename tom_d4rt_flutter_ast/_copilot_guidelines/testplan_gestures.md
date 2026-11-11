@@ -22,7 +22,7 @@ Every name the bridges register for `gestures` (97), with its tier and the corpu
 | 10 | DragStartBehavior | enum | Hardly Relevant | ✅ | gestures/class_test.dart, gestures/drag_gesture_recognizer_test.dart, gestures/drag_start_behavior_test.dart, +8 |
 | 11 | DragStartDetails | class | Hardly Relevant | ✅ | gestures/details_test.dart, gestures/drag_gesture_recognizer_test.dart, gestures/drag_start_details_test.dart, +12 |
 | 12 | DragUpdateDetails | class | Essential | ✅ | gestures/class_test.dart, gestures/details_test.dart, gestures/drag_gesture_recognizer_test.dart, +17 |
-| 13 | EagerGestureRecognizer | class | Secondary | ✅ | gestures/eager_gesture_recognizer_test.dart, gestures/recognizers_test.dart, retest/widgets/android_view_surface_test.dart |
+| 13 | EagerGestureRecognizer | class | Secondary | ✅ | gestures/eager_gesture_recognizer_test.dart, gestures/recognizers_test.dart, retest/widgets/android_view_surface_test.dart, +1 |
 | 14 | FlutterErrorDetailsForPointerEventDispatcher | class | Hardly Relevant | ✅ | gestures/flutter_error_details_for_pointer_event_dispatcher_test.dart |
 | 15 | ForcePressDetails | class | Important | ✅ | gestures/details_test.dart, gestures/gesture_callbacks_adv_test.dart, gestures/tap_force_test.dart, +1 |
 | 16 | ForcePressGestureRecognizer | class | Important | ⬜ |  |
@@ -46,7 +46,7 @@ Every name the bridges register for `gestures` (97), with its tier and the corpu
 | 34 | LeastSquaresSolver | class | Hardly Relevant | ✅ | gestures/least_squares_solver_test.dart, gestures/polynomial_fit_test.dart |
 | 35 | LongPressDownDetails | class | Secondary | ✅ | gestures/long_press_down_details_test.dart, gestures/recognizers_test.dart, widgets/gesturedetector_test.dart |
 | 36 | LongPressEndDetails | class | Essential | ✅ | gestures/details_test.dart, gestures/gesture_callbacks_adv_test.dart, gestures/gesture_callbacks_test.dart, +5 |
-| 37 | LongPressGestureRecognizer | class | Important | ✅ | gestures/gesture_callbacks_adv_test.dart, gestures/gesture_recognizer_test.dart, gestures/one_sequence_gesture_recognizer_test.dart, +5 |
+| 37 | LongPressGestureRecognizer | class | Important | ✅ | gestures/gesture_callbacks_adv_test.dart, gestures/gesture_recognizer_test.dart, gestures/one_sequence_gesture_recognizer_test.dart, +6 |
 | 38 | LongPressMoveUpdateDetails | class | Essential | ✅ | gestures/details_test.dart, gestures/gesture_callbacks_adv_test.dart, gestures/gesture_callbacks_test.dart, +5 |
 | 39 | LongPressStartDetails | class | Essential | ✅ | gestures/details_test.dart, gestures/gesture_callbacks_adv_test.dart, gestures/gesture_callbacks_test.dart, +6 |
 | 40 | MacOSScrollViewFlingVelocityTracker | class | Hardly Relevant | ✅ | gestures/mac_o_s_scroll_view_fling_velocity_tracker_test.dart |
@@ -56,8 +56,8 @@ Every name the bridges register for `gestures` (97), with its tier and the corpu
 | 44 | MultitouchDragStrategy | enum | Hardly Relevant | ✅ | gestures/drag_gesture_recognizer_test.dart, gestures/gesture_callbacks_adv_test.dart, gestures/multitouch_drag_strategy_test.dart |
 | 45 | NativeHitTestTarget | class | Hardly Relevant | ✅ | gestures/native_hit_test_target_test.dart |
 | 46 | OffsetPair | class | Hardly Relevant | ✅ | gestures/offset_pair_test.dart, gestures/primary_pointer_gesture_recognizer_test.dart, gestures/tap_force_test.dart |
-| 47 | OneSequenceGestureRecognizer | class | Hardly Relevant | ✅ | gestures/one_sequence_gesture_recognizer_test.dart, retest/widgets/android_view_surface_test.dart |
-| 48 | PanGestureRecognizer | class | Important | ✅ | gestures/drag_gesture_recognizer_test.dart, gestures/one_sequence_gesture_recognizer_test.dart, gestures/recognizers_test.dart, +1 |
+| 47 | OneSequenceGestureRecognizer | class | Hardly Relevant | ✅ | gestures/one_sequence_gesture_recognizer_test.dart, rendering/render_app_kit_view_test.dart, retest/widgets/android_view_surface_test.dart, +1 |
+| 48 | PanGestureRecognizer | class | Important | ✅ | gestures/drag_gesture_recognizer_test.dart, gestures/one_sequence_gesture_recognizer_test.dart, gestures/recognizers_test.dart, +3 |
 | 49 | PointerAddedEvent | class | Hardly Relevant | ✅ | gestures/pointer_added_event_test.dart, gestures/pointer_event_resampler_test.dart |
 | 50 | PointerCancelEvent | class | Hardly Relevant | ✅ | gestures/pointer_cancel_event_test.dart, gestures/tap_force_test.dart, rendering/render_pointer_listener_test.dart, +1 |
 | 51 | PointerDownEvent | class | Hardly Relevant | ✅ | gestures/flutter_error_details_for_pointer_event_dispatcher_test.dart, gestures/hit_test_dispatcher_test.dart, gestures/pointer_cancel_event_test.dart, +11 |
@@ -84,7 +84,7 @@ Every name the bridges register for `gestures` (97), with its tier and the corpu
 | 72 | PrimaryPointerGestureRecognizer | class | Hardly Relevant | ⬜ |  |
 | 73 | SamplingClock | class | Hardly Relevant | ⬜ |  |
 | 74 | ScaleEndDetails | class | Essential | ✅ | gestures/details_test.dart, gestures/gesture_callbacks_adv_test.dart, gestures/positioned_gesture_details_test.dart, +6 |
-| 75 | ScaleGestureRecognizer | class | Important | ✅ | gestures/gesture_callbacks_adv_test.dart, gestures/one_sequence_gesture_recognizer_test.dart, gestures/recognizers_test.dart, +2 |
+| 75 | ScaleGestureRecognizer | class | Important | ✅ | gestures/gesture_callbacks_adv_test.dart, gestures/one_sequence_gesture_recognizer_test.dart, gestures/recognizers_test.dart, +3 |
 | 76 | ScaleStartDetails | class | Essential | ✅ | gestures/details_test.dart, gestures/gesture_callbacks_adv_test.dart, gestures/positioned_gesture_details_test.dart, +6 |
 | 77 | ScaleUpdateDetails | class | Essential | ✅ | gestures/class_test.dart, gestures/details_test.dart, gestures/gesture_callbacks_adv_test.dart, +7 |
 | 78 | SerialTapCancelDetails | class | Secondary | ✅ | gestures/recognizers_test.dart, gestures/serial_tap_cancel_details_test.dart, gestures/serial_tap_gesture_recognizer_test.dart |
@@ -99,7 +99,7 @@ Every name the bridges register for `gestures` (97), with its tier and the corpu
 | 87 | TapDragStartDetails | class | Secondary | ✅ | gestures/tap_drag_start_details_test.dart |
 | 88 | TapDragUpDetails | class | Secondary | ✅ | gestures/tap_and_pan_gesture_recognizer_test.dart, gestures/tap_drag_up_details_test.dart |
 | 89 | TapDragUpdateDetails | class | Secondary | ✅ | gestures/tap_and_pan_gesture_recognizer_test.dart, gestures/tap_drag_update_details_test.dart |
-| 90 | TapGestureRecognizer | class | Hardly Relevant | ✅ | gestures/base_tap_gesture_recognizer_test.dart, gestures/gesture_callbacks_adv_test.dart, gestures/gesture_recognizer_test.dart, +8 |
+| 90 | TapGestureRecognizer | class | Hardly Relevant | ✅ | gestures/base_tap_gesture_recognizer_test.dart, gestures/gesture_callbacks_adv_test.dart, gestures/gesture_recognizer_test.dart, +9 |
 | 91 | TapMoveDetails | class | Hardly Relevant | ✅ | gestures/tap_move_details_test.dart |
 | 92 | TapUpDetails | class | Essential | ✅ | gestures/details_test.dart, gestures/gesture_callbacks_adv_test.dart, gestures/gesture_callbacks_test.dart, +11 |
 | 93 | Velocity | class | Important | ✅ | gestures/class_test.dart, gestures/details_test.dart, gestures/drag_test.dart, +6 |

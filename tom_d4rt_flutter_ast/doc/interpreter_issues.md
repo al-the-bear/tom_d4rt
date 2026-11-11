@@ -29,7 +29,6 @@ reverse) fails the suite. Re-derive; do not hand-edit one side alone.
 | `[ ]` | Open (GEN-129) — tom_d4rt refuses a script whose doc comment names something not in scope | An **interpreter** defect, `tom_d4rt` only. Blast radius: every script with a doc-comment reference `[Name]` to a name it does not import or declare fails before `main`. Found 2026-11-10 by ghissues15. Fixed in the tree by ghissues24 (tom_d4rt 1.248.0 / tom_d4rt_exec 1.56.0, not published) and the source twin's `flutter_extended_11` skip removed; open until a run at the published fix passes the script, owed by todo ghissues999. |
 | `[ ]` | Open (GEN-130) — an interpreted DiagnosticableTree subclass's inherited toDiagnosticsNode() returns null | An **interpreter / bridge** defect, both twins. Blast radius: every member a script class inherits from an abstract bridged class (no constructor adapter) answered null, `super.m()` was a no-op. Found 2026-11-10 by ghissues15. Fixed in the tree by ghissues25 (tom_d4rt 1.249.0 / tom_d4rt_ast 0.229.0, not published: receiver proxies; the twins' `DiagnosticableTree` and `Diagnosticable` proxies) and the `flutter_extended_03` skip removed; open until the twins mark the receiver with the release and a run at the published fix passes the script, owed by todo ghissues999. |
 | `[ ]` | Open (GEN-131) — a class's static initializers read the script's top-level constants as null | An **interpreter** defect of the published pair (tom_d4rt <= 1.232.0, tom_d4rt_ast <= 0.213.0), both twins. Blast radius: every static field initialized from a top-level variable or constant of the script read null, wherever it was read. Found 2026-11-10 by ghissues15. Fixed in the tree by GitHub #10's lazy initialization (ghissues3: tom_d4rt 1.233.0 / tom_d4rt_ast 0.214.0, not published) and the `flutter_extended_19` skip removed; open until a run at the published fix passes the script, owed by todo ghissues999. |
-| `[ ]` | Open (GEN-132) — three scripts fail on the desktop companion app: AppKitView view types and a Scrollbar without a position | Not yet attributed; at least the two AppKitView scripts are **script / host** failures. Blast radius: scripts that mount a platform view whose type the companion app does not register, or a Scrollbar without a scroll position, cannot be measured on the desktop host. Found 2026-11-10 by ghissues15; owed by todo ghissues33. |
 | `[~]` | Partially fixed — script-side / Flutter framework limitations | **Not an interpreter defect** — a rolling sweep log of demo-script fixes (layout overflow, unbounded constraints, platform-unsupported services). Rows whose "After" column reads `1*` note a residual that *is* interpreter-side; each of those is tracked by its own cluster. Last sweep 2026-04-29. |
 
 ## No corpus numbers live in this header
@@ -438,15 +437,15 @@ measurements, not verification runs). The driver skip is removed, so until
 the release a run at the published pair fails this test; the release's runs
 certify it, then this cluster is marked - owed by todo ghissues999.
 
-### [ ] Open (GEN-132) — three scripts fail on the desktop companion app: AppKitView view types and a Scrollbar without a position
+### [X] Fixed (GEN-132) — three scripts failed on the desktop companion app: AppKitView view types and a Scrollbar without a position
 
 **Found:** 2026-11-10, ghissues15's full-corpus runs `20261110-full-ast` / `20261110-full-src` (published tom_d4rt 1.231.1 / tom_d4rt_ast 0.212.1, Flutter 3.47.9).
 
 **Blast radius:** a script that mounts a platform view whose view type no
 plugin of the companion app registers, or a Scrollbar that finds no scroll
 position, raises on the macOS desktop host and measures nothing of the
-interpreter. Not an interpreter defect for the AppKitView pair; the Scrollbar
-case is unattributed.
+interpreter. Not an interpreter defect: all three are script / host failures
+(attribution below).
 
 **Measured:** in both twins, `rendering/render_app_kit_view_test.dart`
 (`flutter_extended_09`) and `retest/widgets/app_kit_view_test.dart`
@@ -457,8 +456,26 @@ framework error `The Scrollbar's ScrollController has no ScrollPosition
 attached`. None of the 15 failures of the 2026-09-15 full-corpus run carried
 these signatures.
 
-**Fix:** owed by todo ghissues33: attribute each, fix the scripts that are
-script-side.
+**Root cause:** script-side, all three, measured in compiled Flutter
+(2026-11-10, todo ghissues33). The AppKitView pair: neither companion app
+registers a platform-view factory (no `registerViewFactory` /
+`FlutterPlatformViewFactory` in either app's `macos/` runner), so
+`tom.demo.appkit.*` is unregistered on the desktop host in compiled Flutter
+too. The Scrollbar: plain Flutter under `debugDefaultTargetPlatformOverride =
+macOS` raises the identical error for `Scrollbar(thumbVisibility: true)` over
+a `SingleChildScrollView` without a controller - the `PrimaryScrollController`
+is inherited automatically only on iOS and Android.
+
+**Fix:** todo ghissues33 (2026-11-11), in the scripts (rows in the `[~]`
+sweep log): the AppKitView scripts mount an `AppKitView` only when the host
+registers its view type (`_kHostRegistersAppKitViews`, false for the companion
+apps) and show their fallback otherwise; `selectable_region_state_test.dart`
+gives its Scrollbar and SingleChildScrollView one shared `ScrollController`.
+The GEN-132 skips are removed from `flutter_extended_09`, `_18` and `_21` in
+both twins. Measured in run `20261111-ghi36-prepub` (both twins, under
+`prepublish_overrides --set`; the fixes are script-side, so the resolution
+does not matter): all three scripts success with 0 framework errors in both
+twins.
 
 ### [X] Fixed — GEN-127: `whereType<T>()` on a stdlib collection ignores its type argument
 
@@ -2196,6 +2213,9 @@ regression on gii/essential/important/secondary.
 | `widgets/spell_check_configuration_test.dart` | 4 | 0 | The four side-by-side specimen cards each construct a `TextField` with an enabled `SpellCheckConfiguration`. Flutter's `EditableText` looks up a default `SpellCheckService` for the active platform when an enabled config is supplied; only iOS and Android currently ship one, so on the d4rt test app's Linux desktop target the lookup throws "Spell check was enabled with spellCheckConfiguration, but the current platform does not have a supported spell check service" once per render. Demo's purpose is exposition (configs are still labeled in annotation/readout cards); replaced the two `TextField.spellCheckConfiguration:` arguments with a `_platformSafeSpellcCfg(...)` helper that returns `null` (the param is nullable). The original guard tried to keep the original config on iOS/Android via `defaultTargetPlatform`, but `TargetPlatform` enum equality through the d4rt bridge wasn't reliable — the helper now unconditionally returns `null`, which is correct for every platform the d4rt test app actually runs on. | _this commit_ |
 | `widgets/display_feature_sub_screen_test.dart` | 1 | 0 | `_FeatureComparisonScene._ComparisonCard.build` synthesised a `MediaQuery(size: Size(360, 220))` inside a parent `SizedBox(width: 300)` and inner `SizedBox(width: 300, height: 180)`. `DisplayFeatureSubScreen.build` (flutter/lib/src/widgets/display_feature_sub_screen.dart:111-118) wraps `child` in a `Padding` whose insets are computed from `mediaQuery.size − closestSubScreen` — when `MQ.size > parent box`, the insets eat into the available space and `_MiniPaneCard`'s intrinsic Column overflows by 40 px on the bottom for the `horizontalFold` mode (closest sub-screen = bottom half, `Padding.top = 118`, parent = 180 → 62 px for a ~91 px Column). Aligned `MQ.size = canvas = Size(300, 220)` with the inner SizedBox, bumped the outer SizedBox to 324 (canvas.width + Container padding 12×2) so the inner 300 px is not clamped. Sub-screen height becomes `220/2 − 8 = 102 px`, giving ~11 px headroom over `_MiniPaneCard`. See `interpreter_unfixable.md` "Small-overflow pocket — DFSS MediaQuery / SizedBox mismatch 2026-04-29". Test-script-only change → regression rule (a), single-test retest verified FE → 0. | _this commit_ |
 
+| `rendering/render_app_kit_view_test.dart` | 1 | 0 | GEN-132: mount the `AppKitView` only when the host registers `tom.demo.appkit.visual` (`_kHostRegistersAppKitViews`, false for the companion apps; `_isMacOS` became `_canMountAppKit`) - unregistered, it threw `PlatformException(unregistered_view_type)` on the macOS desktop host, in compiled Flutter too. | ghissues33 |
+| `retest/widgets/app_kit_view_test.dart` | 1 | 0 | GEN-132: the same flag in `_supportsAppKit` (`tom.demo.appkit.hostdock`); the fallback sentence now names the missing factory instead of claiming the host is not macOS, and stays no longer than the old one - a longer draft wrapped and overflowed its card by 5 px. | ghissues33 |
+| `widgets/selectable_region_state_test.dart` | 1 | 0 | GEN-132: the page's `Scrollbar` and `SingleChildScrollView` share one `ScrollController` (`_pageScroll`, disposed) - on desktop the `PrimaryScrollController` is not inherited, so the Scrollbar had no position. | ghissues33 |
 Regression battery results are recorded with each commit in
 `session_resume.d4rt.md` (no new regressions in any sweep).
 

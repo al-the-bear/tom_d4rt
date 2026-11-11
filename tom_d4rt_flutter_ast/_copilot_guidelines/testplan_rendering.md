@@ -17,7 +17,7 @@ Every name the bridges register for `rendering` (269), with its tier and the cor
 | 5 | AnnotationResult | class | Hardly Relevant | ⬜ |  |
 | 6 | BackdropFilterLayer | class | Important | ✅ | rendering/layers_test.dart |
 | 7 | BackdropKey | class | Hardly Relevant | ⬜ |  |
-| 8 | BoxConstraints | class | Essential | ✅ | animation/cubic_test.dart, animation/curves_test.dart, cupertino/restorable_cupertino_tab_controller_test.dart, +244 |
+| 8 | BoxConstraints | class | Essential | ✅ | animation/cubic_test.dart, animation/curves_test.dart, cupertino/restorable_cupertino_tab_controller_test.dart, +246 |
 | 9 | BoxHitTestEntry | class | Secondary | ✅ | rendering/box_hit_test_result_test.dart, rendering/relayout_when_system_fonts_change_mixin_test.dart |
 | 10 | BoxHitTestResult | class | Secondary | ✅ | gestures/hit_testable_test.dart, rendering/box_hit_test_result_test.dart, rendering/render_aligning_shifted_box_test.dart, +7 |
 | 11 | BoxParentData | class | Essential | ✅ | rendering/parent_data_test.dart, rendering/render_aligning_shifted_box_test.dart, rendering/viewport_test.dart, +5 |
@@ -34,9 +34,9 @@ Every name the bridges register for `rendering` (269), with its tier and the cor
 | 22 | ContainerLayer | class | Essential | ✅ | rendering/render_layers_pipeline_test.dart |
 | 23 | ContainerParentDataMixin | class | Hardly Relevant | ⬜ |  |
 | 24 | ContainerRenderObjectMixin | class | Secondary | ✅ | rendering/render_box_container_defaults_mixin_test.dart, widgets/render_object_element_test.dart, widgets/render_object_widget_test.dart |
-| 25 | CrossAxisAlignment | enum | Hardly Relevant | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2037 |
+| 25 | CrossAxisAlignment | enum | Hardly Relevant | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2040 |
 | 26 | CustomClipper | class | Important | ✅ | dart_ui/r_superellipse_test.dart, material/collapse_mode_test.dart, painting/clip_context_test.dart, +13 |
-| 27 | CustomPainter | class | Important | ✅ | animation/animation_max_test.dart, animation/animationstyle_test.dart, animation/cubic_test.dart, +442 |
+| 27 | CustomPainter | class | Important | ✅ | animation/animation_max_test.dart, animation/animationstyle_test.dart, animation/cubic_test.dart, +445 |
 | 28 | CustomPainterSemantics | class | Secondary | ✅ | rendering/custom_painter_semantics_test.dart |
 | 29 | DebugOverflowIndicatorMixin | class | Secondary | ⬜ |  |
 | 30 | DecorationPosition | enum | Hardly Relevant | ✅ | rendering/decoration_position_test.dart, widgets/decorated_sliver_test.dart, widgets/decoratedbox_test.dart |
@@ -69,7 +69,7 @@ Every name the bridges register for `rendering` (269), with its tier and the cor
 | 57 | ListWheelChildManager | class | Hardly Relevant | ⬜ |  |
 | 58 | ListWheelParentData | class | Secondary | ⬜ |  |
 | 59 | MainAxisAlignment | enum | Hardly Relevant | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1038 |
-| 60 | MainAxisSize | enum | Hardly Relevant | ✅ | animation/animatable_test.dart, animation/animation_lazy_listener_mixin_test.dart, animation/animation_local_listeners_mixin_test.dart, +1007 |
+| 60 | MainAxisSize | enum | Hardly Relevant | ✅ | animation/animatable_test.dart, animation/animation_lazy_listener_mixin_test.dart, animation/animation_local_listeners_mixin_test.dart, +1010 |
 | 61 | MaxColumnWidth | class | Hardly Relevant | ✅ | widgets/table_test.dart, widgets/table_wrap_flow_test.dart |
 | 62 | MinColumnWidth | class | Hardly Relevant | ✅ | widgets/table_test.dart, widgets/table_wrap_flow_test.dart |
 | 63 | MouseTracker | class | Secondary | ⬜ |  |
@@ -88,7 +88,7 @@ Every name the bridges register for `rendering` (269), with its tier and the cor
 | 76 | PipelineManifold | class | Hardly Relevant | ⬜ |  |
 | 77 | PipelineOwner | class | Essential | ✅ | widgets/widgets_binding_test.dart |
 | 78 | PlaceholderSpanIndexSemanticsTag | class | Hardly Relevant | ✅ | rendering/placeholder_span_index_semantics_tag_test.dart |
-| 79 | PlatformViewHitTestBehavior | enum | Hardly Relevant | ✅ | rendering/platform_view_hit_test_behavior_test.dart, retest/widgets/android_view_surface_test.dart, widgets/html_element_view_test.dart |
+| 79 | PlatformViewHitTestBehavior | enum | Hardly Relevant | ✅ | rendering/platform_view_hit_test_behavior_test.dart, rendering/render_app_kit_view_test.dart, retest/widgets/android_view_surface_test.dart, +2 |
 | 80 | PlatformViewLayer | class | Secondary | ⬜ |  |
 | 81 | PlatformViewRenderBox | class | Hardly Relevant | ⬜ |  |
 | 82 | RelativeRect | class | Important | ✅ | widgets/relative_rect_tween_test.dart |
@@ -243,7 +243,7 @@ Every name the bridges register for `rendering` (269), with its tier and the cor
 | 231 | SliverConstraints | class | Important | ✅ | widgets/layoutbuilder_test.dart, widgets/render_abstract_layout_builder_mixin_test.dart |
 | 232 | SliverGeometry | class | Important | ✅ | rendering/renderobjects_sliver_test.dart |
 | 233 | SliverGridDelegate | class | Important | ⬜ |  |
-| 234 | SliverGridDelegateWithFixedCrossAxisCount | class | Important | ✅ | material/no_splash_test.dart, material/refresh_indicator_state_test.dart, material/refreshindicator_test.dart, +83 |
+| 234 | SliverGridDelegateWithFixedCrossAxisCount | class | Important | ✅ | material/no_splash_test.dart, material/refresh_indicator_state_test.dart, material/refreshindicator_test.dart, +84 |
 | 235 | SliverGridDelegateWithMaxCrossAxisExtent | class | Important | ✅ | rendering/render_sliver_types_test.dart, rendering/sliver_delegates_test.dart, rendering/sliver_grid_layout_test.dart, +9 |
 | 236 | SliverGridGeometry | class | Secondary | ✅ | rendering/sliver_grid_geometry_test.dart |
 | 237 | SliverGridLayout | class | Secondary | ⬜ |  |
@@ -277,5 +277,5 @@ Every name the bridges register for `rendering` (269), with its tier and the cor
 | 265 | ViewConfiguration | class | Essential | ⬜ |  |
 | 266 | ViewportOffset | class | Essential | ✅ | rendering/viewport_test.dart, widgets/two_dimensional_child_builder_delegate_test.dart, widgets/two_dimensional_child_list_delegate_test.dart, +2 |
 | 267 | WrapAlignment | enum | Hardly Relevant | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_eager_listener_mixin_test.dart, +293 |
-| 268 | WrapCrossAlignment | enum | Hardly Relevant | ✅ | cupertino/class_test.dart, cupertino/icons_test.dart, dart_ui/primitives_test.dart, +100 |
+| 268 | WrapCrossAlignment | enum | Hardly Relevant | ✅ | cupertino/class_test.dart, cupertino/icons_test.dart, dart_ui/primitives_test.dart, +102 |
 | 269 | WrapParentData | class | Secondary | ⬜ |  |

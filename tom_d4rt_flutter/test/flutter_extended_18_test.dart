@@ -383,24 +383,12 @@ void main() {
       SendTestRunner.expectSuccess(result);
     });
 
-    test(
-      'selectable_region_state_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'widgets/selectable_region_state_test.dart',
-        );
-        SendTestRunner.expectSuccess(result);
-      },
-      // GEN-132 (todo ghissues27): on the desktop companion app a Scrollbar
-      // in the script finds the PrimaryScrollController with no ScrollPosition
-      // attached and the framework raises "The Scrollbar's ScrollController has
-      // no ScrollPosition attached"; not yet attributed to the script or the
-      // interpreter. Measured 2026-11-10 by ghissues15, runs 20261110-full-ast
-      // and 20261110-full-src (published tom_d4rt 1.231.1 / tom_d4rt_ast
-      // 0.212.1). Remove when ghissues27 attributes and fixes it.
-      skip:
-          'GEN-132: Scrollbar without a scroll position on the desktop host (ghissues27)',
-    );
+    test('selectable_region_state_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'widgets/selectable_region_state_test.dart',
+      );
+      SendTestRunner.expectSuccess(result);
+    });
 
     test('selection_container_delegate_test.dart', () async {
       final result = await SendTestRunner.send(

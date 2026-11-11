@@ -11,7 +11,7 @@ The bridged names the priority files classify as Essential. Status: ✅ a script
 | Name | Description | Status | Scripts |
 |------|-------------|--------|---------|
 | Animation | Base animation class | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_lazy_listener_mixin_test.dart, +79 |
-| AnimationController | Animation control - fundamental | ✅ | rendering/pipeline_manifold_test.dart, rendering/render_abstract_viewport_test.dart, rendering/render_android_view_test.dart, +77 |
+| AnimationController | Animation control - fundamental | ✅ | rendering/pipeline_manifold_test.dart, rendering/render_abstract_viewport_test.dart, rendering/render_android_view_test.dart, +78 |
 | Curve | Easing curves | ✅ | animation/animatable_test.dart, animation/animation_misc_adv_test.dart, animation/animationstyle_test.dart, +45 |
 | CurvedAnimation | Animation with curve | ✅ | animation/animation_misc_adv_test.dart, widgets/align_transition_test.dart, widgets/animated_list_state_test.dart, +12 |
 | Tween | Value interpolation | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/constant_tween_test.dart, +41 |
@@ -68,22 +68,22 @@ The bridged names the priority files classify as Essential. Status: ✅ a script
 
 | Name | Description | Status | Scripts |
 |------|-------------|--------|---------|
-| Canvas | Drawing surface - custom painting | ✅ | animation/animation_max_test.dart, animation/animationstyle_test.dart, animation/cubic_test.dart, +446 |
-| Color | Color representation - fundamental to all styling | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2014 |
-| FontWeight | Text weight - typography | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2037 |
+| Canvas | Drawing surface - custom painting | ✅ | animation/animation_max_test.dart, animation/animationstyle_test.dart, animation/cubic_test.dart, +449 |
+| Color | Color representation - fundamental to all styling | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2017 |
+| FontWeight | Text weight - typography | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2040 |
 | Gradient | Color gradients - backgrounds and fills | ✅ | cupertino/magnifier_test.dart, dart_ui/clip_path_engine_layer_test.dart, dart_ui/dart_ui_paint_canvas_test.dart, +10 |
 | Image | Bitmap images - displaying images | ✅ | dart_ui/dart_ui_image_codec_test.dart, dart_ui/image_descriptor_test.dart, dart_ui/picture_rasterization_exception_test.dart, +2 |
 | Locale | Language/region - internationalization | ✅ | cupertino/localization_test.dart, dart_ui/locale_string_attribute_test.dart, dart_ui/platform_dispatcher_test.dart, +17 |
-| Offset | 2D point - used everywhere for positioning | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1588 |
-| Paint | Drawing style/color - all custom painting | ✅ | animation/animation_max_test.dart, animation/animationstyle_test.dart, animation/cubic_test.dart, +453 |
+| Offset | 2D point - used everywhere for positioning | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1591 |
+| Paint | Drawing style/color - all custom painting | ✅ | animation/animation_max_test.dart, animation/animationstyle_test.dart, animation/cubic_test.dart, +456 |
 | Paragraph | Text layout - text rendering | ✅ | cupertino/magnifier_test.dart, dart_ui/paragraph_test.dart, dart_ui/picture_rasterization_exception_test.dart, +1 |
 | ParagraphBuilder | Text construction - building text | ✅ | cupertino/magnifier_test.dart, dart_ui/paragraph_test.dart, dart_ui/picture_rasterization_exception_test.dart, +1 |
-| Path | Vector paths - shapes and clipping | ✅ | animation/animation_max_test.dart, animation/animationstyle_test.dart, animation/cubic_test.dart, +282 |
-| RRect | Rounded rectangle - common UI element | ✅ | animation/cubic_test.dart, cupertino/class_test.dart, cupertino/cupertino_linear_activity_indicator_test.dart, +251 |
-| Radius | Corner radius - rounded corners | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_min_test.dart, +979 |
-| Rect | Rectangle geometry - layout and rendering | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animation_local_listeners_mixin_test.dart, animation/animationstyle_test.dart, +340 |
+| Path | Vector paths - shapes and clipping | ✅ | animation/animation_max_test.dart, animation/animationstyle_test.dart, animation/cubic_test.dart, +283 |
+| RRect | Rounded rectangle - common UI element | ✅ | animation/cubic_test.dart, cupertino/class_test.dart, cupertino/cupertino_linear_activity_indicator_test.dart, +252 |
+| Radius | Corner radius - rounded corners | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_min_test.dart, +980 |
+| Rect | Rectangle geometry - layout and rendering | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animation_local_listeners_mixin_test.dart, animation/animationstyle_test.dart, +341 |
 | Shadow | Drop shadows - visual effects | ✅ | animation/color_tween_test.dart, dart_ui/dart_ui_image_codec_test.dart, foundation/stack_filter_test.dart, +50 |
-| Size | Width/height dimensions - layout fundamentals | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animation_eager_listener_mixin_test.dart, animation/animation_local_listeners_mixin_test.dart, +523 |
+| Size | Width/height dimensions - layout fundamentals | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animation_eager_listener_mixin_test.dart, animation/animation_local_listeners_mixin_test.dart, +526 |
 | TextStyle | Text styling - all text rendering | ✅ | cupertino/magnifier_test.dart, dart_ui/paragraph_test.dart, dart_ui/picture_rasterization_exception_test.dart, +2 |
 
 ## foundation (8)
@@ -95,7 +95,7 @@ The bridged names the priority files classify as Essential. Status: ✅ a script
 | Listenable | Base listenable interface | ✅ | cupertino/textfield_test.dart, foundation/notifier_test.dart, material/list_tile_style_test.dart, +16 |
 | LocalKey | Local widget identity | ⬜ |  |
 | UniqueKey | Unique widget key | ✅ | foundation/key_test.dart, widgets/key_test.dart, widgets/keyedsubtree_test.dart |
-| ValueKey | Value-based key | ✅ | animation/animatable_test.dart, cupertino/cupertino_page_test.dart, foundation/key_test.dart, +54 |
+| ValueKey | Value-based key | ✅ | animation/animatable_test.dart, cupertino/cupertino_page_test.dart, foundation/key_test.dart, +56 |
 | ValueListenable | Value listenable interface | ✅ | widgets/router_test.dart, widgets/text_selection_controls_test.dart |
 | ValueNotifier | Single value notification | ✅ | cupertino/tab_test.dart, foundation/notifier_test.dart, material/drawer_controller_state_test.dart, +102 |
 
@@ -120,59 +120,59 @@ The bridged names the priority files classify as Essential. Status: ✅ a script
 |------|-------------|--------|---------|
 | ActionChip | Action chip | ✅ | dart_ui/key_data_test.dart, material/autocomplete_chips_test.dart, material/chip_attributes_test.dart, +15 |
 | AlertDialog | Alert dialog | ✅ | material/dialog_advanced_test.dart, material/dialog_bottom_sheet_test.dart, material/dialog_test.dart, +9 |
-| AppBar | Top app bar | ✅ | animation/animatable_test.dart, animation/animationstyle_test.dart, cupertino/button_test.dart, +842 |
+| AppBar | Top app bar | ✅ | animation/animatable_test.dart, animation/animationstyle_test.dart, cupertino/button_test.dart, +843 |
 | BottomNavigationBar | Bottom navigation | ✅ | material/badge_test.dart, material/bottom_navigation_bar_theme_data_test.dart, material/bottom_navigation_bar_theme_test.dart, +14 |
 | BottomSheet | Bottom sheet | ⬜ |  |
 | ButtonStyle | Button styling | ✅ | material/button_style_button_test.dart, material/button_styles_misc_test.dart, material/buttons_test.dart, +32 |
-| Card | Card container | ✅ | cupertino/cupertino_expansion_tile_test.dart, dart_ui/brightness_test.dart, dart_ui/checked_state_test.dart, +212 |
+| Card | Card container | ✅ | cupertino/cupertino_expansion_tile_test.dart, dart_ui/brightness_test.dart, dart_ui/checked_state_test.dart, +214 |
 | Checkbox | Checkbox | ✅ | dart_ui/semantics_update_test.dart, dart_ui/tristate_test.dart, material/animated_theme_test.dart, +36 |
 | Chip | Chip widget | ✅ | dart_ui/pointer_data_test.dart, dart_ui/text_direction_test.dart, dart_ui/vertex_mode_test.dart, +86 |
-| ChoiceChip | Choice chip | ✅ | dart_ui/clip_r_superellipse_engine_layer_test.dart, dart_ui/clip_rect_engine_layer_test.dart, dart_ui/image_descriptor_test.dart, +116 |
+| ChoiceChip | Choice chip | ✅ | dart_ui/clip_r_superellipse_engine_layer_test.dart, dart_ui/clip_rect_engine_layer_test.dart, dart_ui/image_descriptor_test.dart, +118 |
 | CircularProgressIndicator | Circular progress | ✅ | animation/animatable_test.dart, material/component_themes_test.dart, material/grid_tile_bar_test.dart, +39 |
-| ColorScheme | Color scheme | ✅ | animation/animationstyle_test.dart, animation/tween_test.dart, cupertino/cupertino_themes_batch4_test.dart, +278 |
+| ColorScheme | Color scheme | ✅ | animation/animationstyle_test.dart, animation/tween_test.dart, cupertino/cupertino_themes_batch4_test.dart, +279 |
 | DefaultTabController | Tab controller | ✅ | material/component_themes_test.dart, material/list_tile_style_test.dart, material/navigation_themes_test.dart, +154 |
 | Dialog | Dialog base | ✅ | material/dialog_advanced_test.dart, material/dialog_test.dart, material/showdialog_test.dart, +1 |
-| Divider | Divider line | ✅ | animation/curve2_d_test.dart, cupertino/cupertino_page_route_test.dart, cupertino/icons_test.dart, +400 |
+| Divider | Divider line | ✅ | animation/curve2_d_test.dart, cupertino/cupertino_page_route_test.dart, cupertino/icons_test.dart, +401 |
 | Drawer | Side drawer | ✅ | material/drawer_controller_state_test.dart, material/end_drawer_button_test.dart, material/navigation_test.dart, +3 |
 | DropdownButton | Dropdown | ✅ | dart_ui/image_sampler_slot_test.dart, dart_ui/immutable_buffer_test.dart, dart_ui/isolate_name_server_test.dart, +33 |
 | DropdownMenu | Dropdown menu | ✅ | material/dropdown_menu_close_behavior_test.dart, material/dropdown_menu_entry_test.dart, material/dropdown_menu_form_field_test.dart, +4 |
-| ElevatedButton | Elevated button | ✅ | cupertino/cupertino_themes_batch3_test.dart, dart_ui/clip_r_superellipse_engine_layer_test.dart, dart_ui/clip_rect_engine_layer_test.dart, +201 |
+| ElevatedButton | Elevated button | ✅ | cupertino/cupertino_themes_batch3_test.dart, dart_ui/clip_r_superellipse_engine_layer_test.dart, dart_ui/clip_rect_engine_layer_test.dart, +203 |
 | FilledButton | Filled button | ✅ | dart_ui/pointer_data_test.dart, material/button_style_button_test.dart, material/button_styles_misc_test.dart, +118 |
-| FilterChip | Filter chip | ✅ | dart_ui/clip_rect_engine_layer_test.dart, dart_ui/image_descriptor_test.dart, dart_ui/image_filter_engine_layer_test.dart, +95 |
+| FilterChip | Filter chip | ✅ | dart_ui/clip_rect_engine_layer_test.dart, dart_ui/image_descriptor_test.dart, dart_ui/image_filter_engine_layer_test.dart, +97 |
 | FloatingActionButton | FAB | ✅ | material/animated_theme_test.dart, material/bottom_app_bar_test.dart, material/bottom_app_bar_theme_data_test.dart, +19 |
 | IconButton | Icon button | ✅ | cupertino/icons_test.dart, dart_ui/semantics_update_test.dart, material/back_button_test.dart, +95 |
 | InputBorder | Input border | ✅ | dart_ui/text_direction_test.dart, material/floating_label_behavior_test.dart, material/input_borders_test.dart, +15 |
 | InputChip | Input chip | ✅ | material/autocomplete_chips_test.dart, material/chip_attributes_test.dart, material/chip_variants_test.dart, +8 |
 | InputDecoration | Input decoration | ✅ | dart_ui/key_data_test.dart, dart_ui/pointer_data_test.dart, dart_ui/semantics_update_test.dart, +136 |
 | LinearProgressIndicator | Linear progress | ✅ | cupertino/cupertino_linear_activity_indicator_test.dart, dart_ui/locale_string_attribute_test.dart, gestures/class_test.dart, +50 |
-| ListTile | List tile | ✅ | cupertino/cupertino_expansion_tile_test.dart, cupertino/list_test.dart, dart_ui/hit_test_request_response_test.dart, +120 |
+| ListTile | List tile | ✅ | cupertino/cupertino_expansion_tile_test.dart, cupertino/list_test.dart, dart_ui/hit_test_request_response_test.dart, +121 |
 | MaterialAccentColor | Accent color | ✅ | material/colors_test.dart, material/materialcolor_test.dart |
-| MaterialApp | Material application | ✅ | animation/animation_max_test.dart, animation/animation_misc_adv_test.dart, animation/animationstyle_test.dart, +922 |
+| MaterialApp | Material application | ✅ | animation/animation_max_test.dart, animation/animation_misc_adv_test.dart, animation/animationstyle_test.dart, +923 |
 | MaterialBanner | Banner message | ✅ | material/fablocation_messenger_test.dart, material/material_banner_closed_reason_test.dart, material/materialbanner_test.dart, +3 |
 | MaterialColor | Material color | ✅ | animation/alwaysstoppedanimation_test.dart, animation/tweensequence_test.dart, dart_ui/view_focus_event_test.dart, +103 |
 | NavigationBar | Navigation bar | ✅ | material/badge_test.dart, material/component_themes_test.dart, material/nav_badge_advanced_test.dart, +8 |
 | NavigationDrawer | Navigation drawer | ✅ | material/component_themes_test.dart, material/navigation_drawer_theme_test.dart, material/navigation_test.dart |
 | NavigationRail | Navigation rail | ✅ | material/component_themes_test.dart, material/nav_badge_advanced_test.dart, material/nav_destinations_test.dart, +9 |
 | OutlineInputBorder | Outline border | ✅ | dart_ui/key_data_test.dart, dart_ui/pointer_data_test.dart, dart_ui/semantics_update_test.dart, +128 |
-| OutlinedButton | Outlined button | ✅ | cupertino/cupertino_themes_batch3_test.dart, dart_ui/clip_r_superellipse_engine_layer_test.dart, dart_ui/clip_rect_engine_layer_test.dart, +189 |
+| OutlinedButton | Outlined button | ✅ | cupertino/cupertino_themes_batch3_test.dart, dart_ui/clip_r_superellipse_engine_layer_test.dart, dart_ui/clip_rect_engine_layer_test.dart, +191 |
 | PopupMenuButton | Popup menu | ✅ | material/buttonstyle_popup_test.dart, material/menu_themes_test.dart, material/popup_menu_button_state_test.dart, +8 |
 | Radio | Radio button | ✅ | material/animated_theme_test.dart, material/component_themes_test.dart, material/formcontrols_test.dart, +7 |
-| Scaffold | App structure | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_max_test.dart, +1430 |
+| Scaffold | App structure | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_max_test.dart, +1433 |
 | SearchAnchor | Search anchor | ✅ | material/search_anchor_test.dart, material/search_controller_test.dart, material/search_filled_test.dart, +1 |
 | SearchBar | Search bar | ✅ | material/component_themes_test.dart, material/misc_themes_test.dart, material/search_anchor_test.dart, +3 |
 | SimpleDialog | Simple dialog | ✅ | material/dialog_advanced_test.dart, material/dialog_bottom_sheet_test.dart, material/dialog_test.dart, +2 |
-| Slider | Slider | ✅ | dart_ui/clip_r_superellipse_engine_layer_test.dart, dart_ui/clip_rect_engine_layer_test.dart, dart_ui/image_descriptor_test.dart, +242 |
+| Slider | Slider | ✅ | dart_ui/clip_r_superellipse_engine_layer_test.dart, dart_ui/clip_rect_engine_layer_test.dart, dart_ui/image_descriptor_test.dart, +244 |
 | SnackBar | Snackbar message | ✅ | material/fablocation_messenger_test.dart, material/scaffold_messenger_test.dart, material/snack_bar_action_test.dart, +7 |
-| Switch | Toggle switch | ✅ | dart_ui/clip_r_superellipse_engine_layer_test.dart, dart_ui/semantics_flag_test.dart, dart_ui/semantics_update_test.dart, +116 |
+| Switch | Toggle switch | ✅ | dart_ui/clip_r_superellipse_engine_layer_test.dart, dart_ui/semantics_flag_test.dart, dart_ui/semantics_update_test.dart, +118 |
 | Tab | Tab widget | ✅ | material/component_themes_test.dart, material/list_tile_style_test.dart, material/navigation_themes_test.dart, +193 |
 | TabBar | Tab bar | ✅ | material/component_themes_test.dart, material/list_tile_style_test.dart, material/navigation_themes_test.dart, +193 |
 | TabBarView | Tab content | ✅ | material/list_tile_style_test.dart, material/navigation_themes_test.dart, material/refreshindicator_test.dart, +185 |
-| TextButton | Text button | ✅ | cupertino/cupertino_themes_batch3_test.dart, dart_ui/text_align_test.dart, foundation/target_platform_test.dart, +130 |
+| TextButton | Text button | ✅ | cupertino/cupertino_themes_batch3_test.dart, dart_ui/text_align_test.dart, foundation/target_platform_test.dart, +132 |
 | TextField | Text input | ✅ | dart_ui/key_data_test.dart, dart_ui/semantics_update_test.dart, dart_ui/text_direction_test.dart, +114 |
 | TextFormField | Form text | ✅ | dart_ui/pointer_data_test.dart, material/dropdown_menu_form_field_test.dart, material/floating_label_behavior_test.dart, +7 |
 | TextTheme | Text theme | ✅ | animation/curves_test.dart, cupertino/cupertino_linear_activity_indicator_test.dart, cupertino/restorable_cupertino_tab_controller_test.dart, +140 |
-| Theme | Theme widget | ✅ | animation/animatable_test.dart, dart_ui/app_lifecycle_state_test.dart, dart_ui/blur_style_test.dart, +242 |
-| ThemeData | Theme data | ✅ | animation/animatable_test.dart, animation/animationstyle_test.dart, animation/cubic_test.dart, +653 |
+| Theme | Theme widget | ✅ | animation/animatable_test.dart, dart_ui/app_lifecycle_state_test.dart, dart_ui/blur_style_test.dart, +243 |
+| ThemeData | Theme data | ✅ | animation/animatable_test.dart, animation/animationstyle_test.dart, animation/cubic_test.dart, +654 |
 | Tooltip | Tooltip | ✅ | dart_ui/accessibility_features_test.dart, dart_ui/semantics_update_test.dart, dart_ui/system_color_test.dart, +30 |
 | UnderlineInputBorder | Underline border | ✅ | material/dropdown_menu_test.dart, material/dropdown_test.dart, material/floating_label_alignment_test.dart, +15 |
 
@@ -180,24 +180,24 @@ The bridged names the priority files classify as Essential. Status: ✅ a script
 
 | Name | Description | Status | Scripts |
 |------|-------------|--------|---------|
-| Alignment | Widget alignment - layout essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1868 |
+| Alignment | Widget alignment - layout essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1871 |
 | AlignmentDirectional | RTL-aware alignment | ✅ | dart_ui/clip_r_rect_engine_layer_test.dart, material/badge_test.dart, material/dropdown_test.dart, +17 |
 | AlignmentGeometry | Base alignment class | ✅ | animation/alwaysstoppedanimation_test.dart, dart_ui/vertices_test.dart, material/badge_test.dart, +14 |
 | AssetImage | Asset image loading | ✅ | dart_ui/opacity_engine_layer_test.dart, painting/decoration_test.dart, painting/image_providers_test.dart, +4 |
-| Border | Border styling | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2009 |
-| BorderRadius | Corner rounding - common styling | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2026 |
+| Border | Border styling | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2012 |
+| BorderRadius | Corner rounding - common styling | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2029 |
 | BorderRadiusDirectional | RTL-aware corners | ✅ | painting/border_radius_test.dart, rendering/shape_border_clipper_test.dart |
 | BorderRadiusGeometry | Base border radius | ✅ | material/widgetstate_test.dart, painting/border_radius_test.dart, painting/rounded_superellipse_border_test.dart |
-| BorderSide | Individual border side | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_max_test.dart, +1084 |
-| BoxDecoration | Container styling - backgrounds/borders | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2028 |
-| BoxShadow | Drop shadows | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1477 |
-| EdgeInsets | Padding/margin - fundamental layout | ✅ | animation/animatable_test.dart, animation/animation_behavior_test.dart, animation/animation_eager_listener_mixin_test.dart, +1410 |
+| BorderSide | Individual border side | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_max_test.dart, +1086 |
+| BoxDecoration | Container styling - backgrounds/borders | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2031 |
+| BoxShadow | Drop shadows | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1478 |
+| EdgeInsets | Padding/margin - fundamental layout | ✅ | animation/animatable_test.dart, animation/animation_behavior_test.dart, animation/animation_eager_listener_mixin_test.dart, +1412 |
 | EdgeInsetsDirectional | RTL-aware padding | ✅ | painting/border_directional_test.dart, painting/edge_insets_test.dart, painting/edgeinsets_test.dart, +3 |
 | EdgeInsetsGeometry | Base padding class | ✅ | foundation/diagnosticable_tree_mixin_test.dart, foundation/diagnosticable_tree_test.dart, foundation/synchronousfuture_test.dart, +39 |
-| LinearGradient | Linear color gradients | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1809 |
+| LinearGradient | Linear color gradients | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1812 |
 | NetworkImage | URL image loading | ✅ | painting/image_providers_test.dart, painting/image_stream_adv_test.dart, widgets/backdrop_filter_test.dart |
-| TextSpan | Rich text spans | ✅ | animation/animation_max_test.dart, animation/cubic_test.dart, animation/elastic_in_curve_test.dart, +461 |
-| TextStyle | Text formatting | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2037 |
+| TextSpan | Rich text spans | ✅ | animation/animation_max_test.dart, animation/cubic_test.dart, animation/elastic_in_curve_test.dart, +462 |
+| TextStyle | Text formatting | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2040 |
 
 ## physics (2)
 
@@ -210,7 +210,7 @@ The bridged names the priority files classify as Essential. Status: ✅ a script
 
 | Name | Description | Status | Scripts |
 |------|-------------|--------|---------|
-| BoxConstraints | Box layout constraints | ✅ | animation/cubic_test.dart, animation/curves_test.dart, cupertino/restorable_cupertino_tab_controller_test.dart, +244 |
+| BoxConstraints | Box layout constraints | ✅ | animation/cubic_test.dart, animation/curves_test.dart, cupertino/restorable_cupertino_tab_controller_test.dart, +246 |
 | BoxParentData | Box parent data | ✅ | rendering/parent_data_test.dart, rendering/render_aligning_shifted_box_test.dart, rendering/viewport_test.dart, +5 |
 | ContainerLayer | Layer container | ✅ | rendering/render_layers_pipeline_test.dart |
 | Layer | Base layer | ⬜ |  |
@@ -266,34 +266,34 @@ The bridged names the priority files classify as Essential. Status: ✅ a script
 | Name | Description | Status | Scripts |
 |------|-------------|--------|---------|
 | Align | Alignment wrapper | ✅ | animation/animatable_test.dart, animation/animation_eager_listener_mixin_test.dart, animation/animation_status_test.dart, +198 |
-| BuildContext | Build context | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2044 |
-| Center | Center alignment | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animation_eager_listener_mixin_test.dart, animation/animation_lazy_listener_mixin_test.dart, +1348 |
-| Column | Vertical layout | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2043 |
-| Container | All-in-one layout widget | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2028 |
+| BuildContext | Build context | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2047 |
+| Center | Center alignment | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animation_eager_listener_mixin_test.dart, animation/animation_lazy_listener_mixin_test.dart, +1351 |
+| Column | Vertical layout | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2046 |
+| Container | All-in-one layout widget | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2031 |
 | EditableText | Low-level text edit | ✅ | widgets/default_text_editing_shortcuts_test.dart, widgets/editable_text_misc_test.dart, widgets/redo_text_intent_test.dart, +2 |
-| Expanded | Flex expansion | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2025 |
+| Expanded | Flex expansion | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2028 |
 | Flexible | Flex sizing | ✅ | cupertino/class_test.dart, cupertino/cupertino_form_scroll_test.dart, cupertino/obstructing_preferred_size_widget_test.dart, +99 |
-| FocusNode | Focus management | ✅ | cupertino/button_test.dart, cupertino/cupertino_focus_halo_test.dart, cupertino/cupertino_text_selection_handle_controls_test.dart, +54 |
+| FocusNode | Focus management | ✅ | cupertino/button_test.dart, cupertino/cupertino_focus_halo_test.dart, cupertino/cupertino_text_selection_handle_controls_test.dart, +55 |
 | FocusScope | Focus scoping | ✅ | widgets/callback_shortcuts_test.dart, widgets/context_action_test.dart, widgets/undo_history_state_test.dart, +2 |
 | Form | Form container | ✅ | foundation/key_test.dart, material/dropdown_menu_form_field_test.dart, material/dropdown_test.dart, +10 |
 | FormField | Form field base | ✅ | material/formcontrols_test.dart |
-| GestureDetector | Gesture handling | ✅ | cupertino/cupertino_focus_halo_test.dart, cupertino/cupertino_linear_activity_indicator_test.dart, cupertino/inherited_cupertino_theme_test.dart, +193 |
-| GlobalKey | Global widget key | ✅ | foundation/key_test.dart, material/drawer_controller_state_test.dart, material/dropdown_test.dart, +49 |
-| GridView | Scrollable grid | ✅ | animation/animatable_test.dart, animation/cubic_test.dart, cupertino/refresh_test.dart, +142 |
-| Icon | Icon display | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1852 |
+| GestureDetector | Gesture handling | ✅ | cupertino/cupertino_focus_halo_test.dart, cupertino/cupertino_linear_activity_indicator_test.dart, cupertino/inherited_cupertino_theme_test.dart, +195 |
+| GlobalKey | Global widget key | ✅ | foundation/key_test.dart, material/drawer_controller_state_test.dart, material/dropdown_test.dart, +50 |
+| GridView | Scrollable grid | ✅ | animation/animatable_test.dart, animation/cubic_test.dart, cupertino/refresh_test.dart, +143 |
+| Icon | Icon display | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1855 |
 | IconTheme | Icon theme | ✅ | cupertino/cupertino_list_tile_chevron_test.dart, cupertino/cupertino_themes_batch2_test.dart, material/bottomnavigationbar_test.dart, +11 |
 | Image | Image display | ✅ | painting/asset_bundle_image_provider_test.dart, widgets/img_element_platform_view_test.dart |
-| ListView | Scrollable list | ✅ | animation/animationstyle_test.dart, cupertino/class_test.dart, cupertino/controls_test.dart, +432 |
+| ListView | Scrollable list | ✅ | animation/animationstyle_test.dart, cupertino/class_test.dart, cupertino/controls_test.dart, +433 |
 | Navigator | Navigation | ✅ | cupertino/tab_test.dart, material/drawer_controller_state_test.dart, material/materialapp_test.dart, +14 |
-| Padding | Padding wrapper | ✅ | animation/animatable_test.dart, animation/animation_eager_listener_mixin_test.dart, animation/animation_lazy_listener_mixin_test.dart, +1889 |
+| Padding | Padding wrapper | ✅ | animation/animatable_test.dart, animation/animation_eager_listener_mixin_test.dart, animation/animation_lazy_listener_mixin_test.dart, +1892 |
 | PageView | Page scrolling | ✅ | material/material_scroll_behavior_test.dart, material/refresh_progress_indicator_test.dart, painting/axis_test.dart, +9 |
-| Positioned | Stack positioning | ✅ | animation/catmull_rom_spline_test.dart, animation/curve2_d_sample_test.dart, animation/curve_tween_test.dart, +610 |
+| Positioned | Stack positioning | ✅ | animation/catmull_rom_spline_test.dart, animation/curve2_d_sample_test.dart, animation/curve_tween_test.dart, +612 |
 | RichText | Rich text display | ✅ | animation/cubic_test.dart, animation/elastic_in_curve_test.dart, cupertino/class_test.dart, +218 |
-| Row | Horizontal layout | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2030 |
-| SingleChildScrollView | Scrollable container | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1788 |
-| SizedBox | Fixed size box | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2035 |
-| Stack | Layered layout | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/catmull_rom_spline_test.dart, +722 |
-| State | Widget state | ✅ | cupertino/textfield_test.dart, dart_ui/clip_r_superellipse_engine_layer_test.dart, dart_ui/clip_rect_engine_layer_test.dart, +355 |
-| StatefulWidget | Stateful base | ✅ | cupertino/textfield_test.dart, dart_ui/clip_r_superellipse_engine_layer_test.dart, dart_ui/clip_rect_engine_layer_test.dart, +354 |
-| StatelessWidget | Stateless base | ✅ | animation/animation_max_test.dart, animation/animationstyle_test.dart, animation/cubic_test.dart, +505 |
-| Text | Text display | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2043 |
+| Row | Horizontal layout | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2033 |
+| SingleChildScrollView | Scrollable container | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1791 |
+| SizedBox | Fixed size box | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2038 |
+| Stack | Layered layout | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/catmull_rom_spline_test.dart, +724 |
+| State | Widget state | ✅ | cupertino/textfield_test.dart, dart_ui/clip_r_superellipse_engine_layer_test.dart, dart_ui/clip_rect_engine_layer_test.dart, +358 |
+| StatefulWidget | Stateful base | ✅ | cupertino/textfield_test.dart, dart_ui/clip_r_superellipse_engine_layer_test.dart, dart_ui/clip_rect_engine_layer_test.dart, +357 |
+| StatelessWidget | Stateless base | ✅ | animation/animation_max_test.dart, animation/animationstyle_test.dart, animation/cubic_test.dart, +506 |
+| Text | Text display | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2046 |

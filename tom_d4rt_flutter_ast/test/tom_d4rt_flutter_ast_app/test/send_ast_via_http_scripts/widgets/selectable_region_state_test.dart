@@ -153,6 +153,13 @@ class _SelectionLabScaffoldState extends State<_SelectionLabScaffold> {
   final FocusNode _compareRightFocus =
       FocusNode(debugLabel: 'compareRightRegion');
 
+  // ghissues33 (GEN-132): the page's Scrollbar and SingleChildScrollView share
+  // this controller. Without one the Scrollbar falls back to the
+  // PrimaryScrollController, which Flutter attaches automatically only on iOS
+  // and Android; on a desktop host it has no ScrollPosition and the
+  // `thumbVisibility: true` Scrollbar asserts.
+  final ScrollController _pageScroll = ScrollController();
+
   // Current selection echoed from the canvas region's onSelectionChanged.
   String _canvasSelection = '';
   int _canvasChangeCount = 0;
@@ -168,6 +175,7 @@ class _SelectionLabScaffoldState extends State<_SelectionLabScaffold> {
   @override
   void dispose() {
     _compareRightFocus.dispose();
+    _pageScroll.dispose();
     super.dispose();
   }
 
@@ -287,8 +295,10 @@ class _SelectionLabScaffoldState extends State<_SelectionLabScaffold> {
       ),
       body: SafeArea(
         child: Scrollbar(
+          controller: _pageScroll,
           thumbVisibility: true,
           child: SingleChildScrollView(
+            controller: _pageScroll,
             padding: const EdgeInsets.fromLTRB(16, 20, 16, 28),
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 1100),

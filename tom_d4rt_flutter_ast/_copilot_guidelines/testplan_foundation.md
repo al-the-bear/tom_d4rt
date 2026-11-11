@@ -37,7 +37,7 @@ Every name the bridges register for `foundation` (72), with its tier and the cor
 | 25 | ErrorHint | class | Important | ⬜ |  |
 | 26 | ErrorSpacer | class | Hardly Relevant | ✅ | foundation/error_spacer_test.dart |
 | 27 | ErrorSummary | class | Important | ⬜ |  |
-| 28 | Factory | class | Hardly Relevant | ✅ | foundation/foundation_misc_adv_test.dart, retest/widgets/android_view_surface_test.dart |
+| 28 | Factory | class | Hardly Relevant | ✅ | foundation/foundation_misc_adv_test.dart, rendering/render_app_kit_view_test.dart, retest/widgets/android_view_surface_test.dart, +1 |
 | 29 | FlagProperty | class | Hardly Relevant | ✅ | foundation/diagnosticable_test.dart, foundation/diagnosticable_tree_mixin_test.dart, foundation/diagnosticable_tree_node_test.dart, +6 |
 | 30 | FlagsSummary | class | Hardly Relevant | ✅ | foundation/flags_summary_test.dart |
 | 31 | FlutterError | class | Important | ✅ | widgets/inherited_theme_test.dart, widgets/inherited_widget_test.dart, widgets/leaf_render_object_widget_test.dart |
@@ -72,13 +72,13 @@ Every name the bridges register for `foundation` (72), with its tier and the cor
 | 60 | StringProperty | class | Hardly Relevant | ✅ | foundation/class_test.dart, foundation/diagnostic_level_test.dart, foundation/diagnosticable_test.dart, +8 |
 | 61 | Summary | class | Hardly Relevant | ⬜ |  |
 | 62 | SynchronousFuture | class | Secondary | ✅ | foundation/synchronousfuture_test.dart |
-| 63 | TargetPlatform | enum | Hardly Relevant | ✅ | dart_ui/system_color_palette_test.dart, foundation/enum_property_test.dart, foundation/foundation_misc_adv_test.dart, +46 |
+| 63 | TargetPlatform | enum | Hardly Relevant | ✅ | dart_ui/system_color_palette_test.dart, foundation/enum_property_test.dart, foundation/foundation_misc_adv_test.dart, +48 |
 | 64 | TextTreeConfiguration | class | Hardly Relevant | ⬜ |  |
 | 65 | TextTreeRenderer | class | Hardly Relevant | ✅ | foundation/text_tree_renderer_test.dart |
 | 66 | TimedBlock | class | Secondary | ✅ | foundation/aggregated_timings_test.dart, foundation/timed_block_test.dart |
 | 67 | Unicode | class | Secondary | ✅ | foundation/unicode_test.dart |
 | 68 | UniqueKey | class | Essential | ✅ | foundation/key_test.dart, widgets/key_test.dart, widgets/keyedsubtree_test.dart |
-| 69 | ValueKey | class | Essential | ✅ | animation/animatable_test.dart, cupertino/cupertino_page_test.dart, foundation/key_test.dart, +54 |
+| 69 | ValueKey | class | Essential | ✅ | animation/animatable_test.dart, cupertino/cupertino_page_test.dart, foundation/key_test.dart, +56 |
 | 70 | ValueListenable | class | Essential | ✅ | widgets/router_test.dart, widgets/text_selection_controls_test.dart |
 | 71 | ValueNotifier | class | Essential | ✅ | cupertino/tab_test.dart, foundation/notifier_test.dart, material/drawer_controller_state_test.dart, +102 |
 | 72 | WriteBuffer | class | Secondary | ✅ | foundation/buffers_misc_test.dart, foundation/read_buffer_test.dart |

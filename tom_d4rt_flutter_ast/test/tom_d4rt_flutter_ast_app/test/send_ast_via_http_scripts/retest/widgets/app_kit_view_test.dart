@@ -4,6 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 
+// ghissues33 (GEN-132): an AppKitView needs a native factory registered for
+// its viewType. The corpus companion app registers none, so mounting one on a
+// macOS host throws PlatformException(unregistered_view_type) - in compiled
+// Flutter as much as under the interpreter. The demo shows its fallback
+// surface unless the host registers the tom.demo.appkit.* factories; set this
+// to true only in such a host.
+const bool _kHostRegistersAppKitViews = false;
+
 class _DemoPalette {
   final String name;
   final Color shell;
@@ -235,7 +243,8 @@ class _AppKitViewDeepDemoState extends State<_AppKitViewDeepDemo> {
   _DemoPalette get _p => _palettes[_paletteIndex];
 
   bool get _supportsAppKit {
-    return defaultTargetPlatform == TargetPlatform.macOS;
+    return defaultTargetPlatform == TargetPlatform.macOS &&
+        _kHostRegistersAppKitViews;
   }
 
   int get _effectiveSimRows {
@@ -668,7 +677,7 @@ class _AppKitViewDeepDemoState extends State<_AppKitViewDeepDemo> {
           Text(
             _supportsAppKit
                 ? 'Host platform supports AppKitView and can render live NSView content.'
-                : 'Host platform is not macOS. Demo shows visual simulation with policy diagnostics.',
+                : 'No AppKit view factory here. Demo shows visual simulation and policy diagnostics.',
             style: TextStyle(color: _p.muted, fontSize: 11.1, height: 1.3),
           ),
         ],

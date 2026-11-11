@@ -48,25 +48,12 @@ void main() {
     // historical §1.10/E39 (= §S/S5) cold-start padding (50 s
     // httpBuildTimeout + 60 s dart-test wrapper) masked nothing.
     // Wrappers removed; defaults (25 s HTTP + 30 s dart-test) apply.
-    test(
-      'retest: widgets/app_kit_view_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'retest/widgets/app_kit_view_test.dart',
-        );
-        SendTestRunner.expectSuccess(result);
-      },
-      // GEN-132 (todo ghissues27): the companion app runs on the macOS
-      // desktop, where the script mounts AppKitView(viewType:
-      // 'tom.demo.appkit.hostdock'); no plugin registers that view type, so the
-      // engine answers PlatformException(unregistered_view_type) before the
-      // interpreter's result can be observed. Measured 2026-11-10 by
-      // ghissues15, runs 20261110-full-ast and 20261110-full-src (published
-      // tom_d4rt 1.231.1 / tom_d4rt_ast 0.212.1). Remove when ghissues27
-      // fixes the script.
-      skip:
-          'GEN-132: AppKitView view type unregistered on the desktop host (ghissues27)',
-    );
+    test('retest: widgets/app_kit_view_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'retest/widgets/app_kit_view_test.dart',
+      );
+      SendTestRunner.expectSuccess(result);
+    });
 
     // testlog_20260529-1944 TODO C.186 — wrapper removed (was 50 s
     // httpBuildTimeout + 60 s dart-test Timeout). The §6 todo #5 baseline

@@ -99,7 +99,7 @@ Every name the bridges register for `services` (142), with its tier and the corp
 | 87 | RestorationManager | class | Secondary | ✅ | widgets/restoration_scope_test.dart |
 | 88 | ScribbleClient | class | Hardly Relevant | ⬜ |  |
 | 89 | Scribe | class | Secondary | ⬜ |  |
-| 90 | SelectionChangedCause | enum | Hardly Relevant | ✅ | material/selection_area_state_test.dart, material/selection_area_test.dart, retest/widgets/replace_text_intent_test.dart, +11 |
+| 90 | SelectionChangedCause | enum | Hardly Relevant | ✅ | material/selection_area_state_test.dart, material/selection_area_test.dart, retest/widgets/replace_text_intent_test.dart, +12 |
 | 91 | SelectionRect | class | Hardly Relevant | ✅ | services/selection_rect_test.dart |
 | 92 | SensitiveContentService | class | Hardly Relevant | ⬜ |  |
 | 93 | ServicesBinding | class | Important | ⬜ |  |
@@ -108,7 +108,7 @@ Every name the bridges register for `services` (142), with its tier and the corp
 | 96 | SmartQuotesType | enum | Hardly Relevant | ✅ | services/smart_quotes_type_test.dart, services/text_input_configuration_test.dart, widgets/editable_text_misc_test.dart, +1 |
 | 97 | SpellCheckResults | class | Important | ✅ | services/spellcheck_test.dart, services/suggestion_span_test.dart |
 | 98 | SpellCheckService | class | Secondary | ✅ | services/default_spell_check_service_test.dart, services/spell_check_service_test.dart |
-| 99 | StandardMessageCodec | class | Important | ✅ | rendering/render_darwin_platform_view_test.dart, retest/widgets/android_view_surface_test.dart, services/channels_test.dart, +3 |
+| 99 | StandardMessageCodec | class | Important | ✅ | rendering/render_app_kit_view_test.dart, rendering/render_darwin_platform_view_test.dart, retest/widgets/android_view_surface_test.dart, +5 |
 | 100 | StandardMethodCodec | class | Important | ✅ | retest/services/method_codec_test.dart, services/channels_test.dart, services/codecs_test.dart, +2 |
 | 101 | StringCodec | class | Important | ✅ | services/channels_test.dart, services/codecs_test.dart, services/message_codec_test.dart, +1 |
 | 102 | SuggestionSpan | class | Secondary | ✅ | cupertino/cupertino_spell_check_suggestions_toolbar_test.dart, services/default_spell_check_service_test.dart, services/spell_check_service_test.dart, +2 |
