@@ -15,10 +15,10 @@
 //
 // Lenient by design (decision of the todo): the check runs only for element
 // types the interpreter can judge - the core scalars, `List` / `Map` contents,
-// bridged and script classes and enums - and a null element always passes,
-// because a call's type argument reaches the bridge without its `?`; a type
-// argument's own type arguments arrive erased (`List<int>` as `List`), so a
-// nested collection is judged by its kind, not its contents.
+// bridged and script classes and enums. Since ghissues36 a call's type
+// argument keeps its `?` and its own type arguments, so a null element passes
+// only a nullable type and a nested collection is judged by its contents
+// (ghissues36_method_type_arguments_test.dart).
 // GHI30-L pins the legitimate casts that must keep working.
 
 import 'package:test/test.dart';
@@ -178,9 +178,8 @@ void main() {
         _run('[Gh30Square(), A()].cast<Gh30Shape>().toList()'),
         startsWith('TypeError'),
       );
-      // A type argument's own type arguments reach the bridge erased
-      // (`List<int>` arrives as `List`), so a nested list is judged as a
-      // list, not by its contents.
+      // A non-list element fails `cast<List<int>>()`; the nested contents are
+      // checked too since ghissues36 (GHI36-3).
       expect(
         _run("[[1], 'a'].cast<List<int>>().toList()"),
         startsWith('TypeError'),

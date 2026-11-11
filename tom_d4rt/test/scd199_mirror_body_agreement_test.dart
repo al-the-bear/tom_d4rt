@@ -403,13 +403,20 @@ const _divergentBodies = <String, Map<String, String>>{
     // is the loader field's name, `moduleLoader` here and `moduleContext` in
     // the twin.
     'InterpreterVisitor.visitImportDirective': 'ccb08d3d',
-    'InterpreterVisitor.visitInstanceCreationExpression': '7ad649cc',
+    // GHISSUES36: 7ad649cc -> 0ff5eaa8, both trees resolve a call's type arguments
+    // with `_resolveTypeArgument` alike.
+    'InterpreterVisitor.visitInstanceCreationExpression': '0ff5eaa8',
     // SCE109 moved this signature without changing what diverges: the
     // arity-heuristic throw sites inside it now raise `RangeError`
     // rather than `RuntimeD4rtException`, symmetrically in both trees.
     // GHISSUES37: 1d4c48dd -> 8cc20343, both trees answer Object's members on a
     // null target alike.
-    'InterpreterVisitor.visitMethodInvocation': '8cc20343',
+    // GHISSUES36: 8cc20343 -> 06ec31b3, both trees resolve a call's type arguments
+    // with `_resolveTypeArgument` alike.
+    'InterpreterVisitor.visitMethodInvocation': '06ec31b3',
+    // GHISSUES36: the same resolver; the analyzer's `question` token against
+    // the mirror model's `isNullable` flag.
+    'InterpreterVisitor._resolveTypeArgument': '7028b122',
     // GHISSUES4: identical in both trees but for the loader field's name,
     // `moduleLoader` here and `moduleContext` in the twin (the twin's
     // interpreter reaches its loader through the ModuleContext interface).

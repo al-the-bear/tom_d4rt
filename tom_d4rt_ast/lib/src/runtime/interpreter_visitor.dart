@@ -4825,7 +4825,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
                 final typeArgsNode = node.typeArguments;
                 if (typeArgsNode != null) {
                   evaluatedTypeArguments = typeArgsNode.arguments
-                      .map((typeNode) => _resolveTypeAnnotation(typeNode))
+                      .map(_resolveTypeArgument)
                       .toList();
                 }
 
@@ -5082,7 +5082,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           final typeArgsNode = node.typeArguments;
           if (typeArgsNode != null) {
             evaluatedTypeArguments = typeArgsNode.arguments
-                .map((typeNode) => _resolveTypeAnnotation(typeNode))
+                .map(_resolveTypeArgument)
                 .toList();
           }
 
@@ -5217,7 +5217,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
                   final typeArgsNode = node.typeArguments;
                   if (typeArgsNode != null) {
                     evaluatedTypeArguments = typeArgsNode.arguments
-                        .map((typeNode) => _resolveTypeAnnotation(typeNode))
+                        .map(_resolveTypeArgument)
                         .toList();
                   }
                   return bound.call(
@@ -5262,7 +5262,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             final typeArgsNode = node.typeArguments;
             if (typeArgsNode != null) {
               evaluatedTypeArguments = typeArgsNode.arguments
-                  .map((typeNode) => _resolveTypeAnnotation(typeNode))
+                  .map(_resolveTypeArgument)
                   .toList();
             }
             return (supertypeMatch.$1 as Callable).call(
@@ -5536,7 +5536,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         final typeArgsNode = node.typeArguments;
         if (typeArgsNode != null) {
           evaluatedTypeArguments = typeArgsNode.arguments
-              .map((typeNode) => _resolveTypeAnnotation(typeNode))
+              .map(_resolveTypeArgument)
               .toList();
         }
         try {
@@ -5697,7 +5697,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             final typeArgsNode = node.typeArguments;
             if (typeArgsNode != null) {
               evaluatedTypeArguments = typeArgsNode.arguments
-                  .map((typeNode) => _resolveTypeAnnotation(typeNode))
+                  .map(_resolveTypeArgument)
                   .toList();
             }
 
@@ -5872,7 +5872,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           final typeArgsNode = node.typeArguments;
           if (typeArgsNode != null) {
             evaluatedTypeArguments = typeArgsNode.arguments
-                .map((typeNode) => _resolveTypeAnnotation(typeNode))
+                .map(_resolveTypeArgument)
                 .toList();
           }
 
@@ -5940,7 +5940,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         final typeArgsNode = node.typeArguments;
         if (typeArgsNode != null) {
           evaluatedTypeArguments = typeArgsNode.arguments
-              .map((typeNode) => _resolveTypeAnnotation(typeNode))
+              .map(_resolveTypeArgument)
               .toList();
         }
 
@@ -5967,7 +5967,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         final typeArgsNode = node.typeArguments;
         if (typeArgsNode != null) {
           evaluatedTypeArguments = typeArgsNode.arguments
-              .map((typeNode) => _resolveTypeAnnotation(typeNode))
+              .map(_resolveTypeArgument)
               .toList();
         }
 
@@ -6056,7 +6056,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       final typeArgsNode = node.typeArguments;
       if (typeArgsNode != null) {
         evaluatedTypeArguments = typeArgsNode.arguments
-            .map((typeNode) => _resolveTypeAnnotation(typeNode))
+            .map(_resolveTypeArgument)
             .toList();
         if (Logger.isDebug) {
           Logger.debug(
@@ -6093,7 +6093,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       final typeArgsNode = node.typeArguments;
       if (typeArgsNode != null) {
         evaluatedTypeArguments = typeArgsNode.arguments
-            .map((typeNode) => _resolveTypeAnnotation(typeNode))
+            .map(_resolveTypeArgument)
             .toList();
       }
 
@@ -6265,7 +6265,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           final typeArgsNode = node.typeArguments;
           if (typeArgsNode != null) {
             evaluatedTypeArguments = typeArgsNode.arguments
-                .map((typeNode) => _resolveTypeAnnotation(typeNode))
+                .map(_resolveTypeArgument)
                 .toList();
           }
           try {
@@ -6302,7 +6302,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           final typeArgsNode = node.typeArguments;
           if (typeArgsNode != null) {
             evaluatedTypeArguments = typeArgsNode.arguments
-                .map((typeNode) => _resolveTypeAnnotation(typeNode))
+                .map(_resolveTypeArgument)
                 .toList();
           }
           try {
@@ -6348,7 +6348,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           final typeArgsNode = node.typeArguments;
           if (typeArgsNode != null) {
             evaluatedTypeArguments = typeArgsNode.arguments
-                .map((typeNode) => _resolveTypeAnnotation(typeNode))
+                .map(_resolveTypeArgument)
                 .toList();
           }
 
@@ -8596,7 +8596,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     final typeArgsNode = node.typeArguments;
     if (typeArgsNode != null) {
       evaluatedTypeArguments = typeArgsNode.arguments
-          .map((typeNode) => _resolveTypeAnnotation(typeNode))
+          .map(_resolveTypeArgument)
           .toList();
     }
 
@@ -12990,11 +12990,14 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   /// operator answers `value is T` for the type `T` that resolved to [type].
   ///
   /// For the stdlib bridges, which receive a generic call's type arguments
-  /// already resolved: `whereType<T>()` filters with it (ghissues22). A
-  /// resolved type carries no `?`, so a null value satisfies only a top type
-  /// here (`dynamic`); `whereType<int?>()` drops null as `whereType<int>()`
-  /// does.
+  /// already resolved: `whereType<T>()` filters with it (ghissues22). A call's
+  /// type argument keeps its `?` (ghissues36), so `whereType<int?>()` keeps
+  /// null and `whereType<int>()` drops it, as in Dart.
   bool valueHasRuntimeType(Object? value, RuntimeType type) {
+    // ghissues36: `T?` holds null and every `T`.
+    if (type is NullableRuntimeType) {
+      return value == null || valueHasRuntimeType(value, type.inner);
+    }
     final base = type is AppliedRuntimeType ? type.baseType : type;
     final args = type is AppliedRuntimeType ? type.typeArguments : null;
     final shape = value is BridgedInstance ? value.nativeObject : value;
@@ -13100,8 +13103,10 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     if (type is NullableRuntimeType) return _castChecks(type.inner);
     final base = type is AppliedRuntimeType ? type.baseType : type;
     switch (base.name) {
-      case 'dynamic' || 'Object' || 'void':
+      case 'dynamic' || 'void':
         return false;
+      // `Object` rejects only null (ghissues36).
+      case 'Object':
       case 'int' || 'double' || 'num' || 'String' || 'bool' || 'Null':
       case 'List' || 'Map':
         return true;
@@ -13112,16 +13117,21 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         base is BridgedEnum;
   }
 
-  /// Whether a `cast<T>()` view for [type] lets [value] through. Lenient by
-  /// design: a null always passes, because a call's type argument reaches the
-  /// bridge without its `?`; `List` / `Map` are judged by their contents when
-  /// their own type arguments arrive (a call's `cast<List<int>>()` reaches the
-  /// bridge as `List`, judged as a list), a class only by itself (not its type
-  /// arguments, which a script instance does not always carry as Dart
+  /// Whether a `cast<T>()` view for [type] lets [value] through. A call's
+  /// type argument keeps its `?` and its own type arguments (ghissues36): a
+  /// null passes a nullable type and is refused by a type the check judges,
+  /// `List` / `Map` are judged by their contents. Lenient where the
+  /// interpreter cannot judge: a type it does not check lets everything,
+  /// null included, through, and a class is judged only by itself (not its
+  /// type arguments, which a script instance does not always carry as Dart
   /// reifies them).
   bool _castAccepts(Object? value, RuntimeType type) {
-    if (value == null) return true;
-    if (type is NullableRuntimeType) return _castAccepts(value, type.inner);
+    if (type is NullableRuntimeType) {
+      return value == null || _castAccepts(value, type.inner);
+    }
+    if (value == null) {
+      return !_castChecks(type) || type.name == 'Null';
+    }
     final base = type is AppliedRuntimeType ? type.baseType : type;
     final args = type is AppliedRuntimeType
         ? type.typeArguments
@@ -13884,6 +13894,14 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           try {
             final targetType = environment.get(typeName);
             final typeArgNodes = typeNode.typeArguments?.arguments;
+            // ghissues36: a type parameter bound by a call's type argument may
+            // carry a `?` or its own type arguments.
+            if ((targetType is NullableRuntimeType ||
+                    targetType is AppliedRuntimeType) &&
+                (typeArgNodes == null || typeArgNodes.isEmpty)) {
+              result = valueHasRuntimeType(expressionValue, targetType);
+              break;
+            }
             result = _valueMatchesResolvedType(
               expressionValue,
               targetType,
@@ -14070,6 +14088,28 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   }
 
   // Resolve TypeAnnotation AST node to RuntimeType
+  /// A call's type argument as written (ghissues36): a `?` stays as a
+  /// [NullableRuntimeType] and the argument's own type arguments as an
+  /// [AppliedRuntimeType], so `whereType<int?>()` keeps null and
+  /// `cast<List<int>>()` checks the nested elements. [_resolveTypeAnnotation]
+  /// drops both, which is what every other type position still expects.
+  RuntimeType _resolveTypeArgument(SAstNode typeNode) {
+    var resolved = _resolveTypeAnnotation(typeNode);
+    if (typeNode is SNamedType && resolved is! AppliedRuntimeType) {
+      final argNodes = typeNode.typeArguments?.arguments;
+      if (argNodes != null && argNodes.isNotEmpty) {
+        resolved = AppliedRuntimeType(resolved, [
+          for (final argNode in argNodes) _resolveTypeArgument(argNode),
+        ]);
+      }
+    }
+    return typeNode is SNamedType &&
+            typeNode.isNullable &&
+            resolved.name != 'dynamic'
+        ? NullableRuntimeType(resolved)
+        : resolved;
+  }
+
   RuntimeType _resolveTypeAnnotation(
     SAstNode? typeNode, {
     bool isAsync = false,
@@ -14397,7 +14437,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         final typeArgsNode = node.constructorName!.type!.typeArguments;
         if (typeArgsNode != null) {
           evaluatedTypeArguments = typeArgsNode.arguments
-              .map((typeNode) => _resolveTypeAnnotation(typeNode))
+              .map(_resolveTypeArgument)
               .toList();
         }
 
@@ -14503,7 +14543,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       final typeArgsNode = node.constructorName!.type!.typeArguments;
       if (typeArgsNode != null) {
         evaluatedTypeArguments = typeArgsNode.arguments
-            .map((typeNode) => _resolveTypeAnnotation(typeNode))
+            .map(_resolveTypeArgument)
             .toList();
       }
 
@@ -14911,7 +14951,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     final typeArgsNode = node.typeArguments;
     if (typeArgsNode != null) {
       evaluatedTypeArguments = typeArgsNode.arguments
-          .map((typeNode) => _resolveTypeAnnotation(typeNode))
+          .map(_resolveTypeArgument)
           .toList();
     }
 

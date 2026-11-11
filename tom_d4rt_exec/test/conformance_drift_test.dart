@@ -677,7 +677,18 @@ const _partialTwinBudget = 0;
 /// copier surface a port would have added is member access on null and
 /// try/on clauses, which the corpus copies on every run.
 ///
-const _copierGapBudget = 65;
+/// 65 -> 66: GHISSUES36 added `ghissues36_method_type_arguments_test.dart`,
+/// which runs source to check that a call's type argument keeps its `?` and
+/// its own type arguments: `whereType<int?>` keeps null, `cast<int>` throws on
+/// a null element and `cast<int?>` does not (List and Map), `cast<List<int>>`
+/// checks the nested elements, and a generic function's `is T` with
+/// `T = int?` holds for null. Exec resolves tom_d4rt_ast from pub.dev, which
+/// drops the `?` until the batch release (ghissues999), so a port would fail.
+/// Its ast twin holds the mechanism. The copier surface a port would have
+/// added is generic calls with nullable and nested type arguments and generic
+/// functions, which the corpus copies on every run.
+///
+const _copierGapBudget = 66;
 
 const Map<String, _Coverage> _coveredElsewhere = {
   'sce208_bind_forwarding_source_errors_test.dart': _Coverage(
@@ -800,6 +811,18 @@ const Map<String, _Coverage> _coveredElsewhere = {
         'members still an error. The reference adds the property chain, '
         '`==` and null-aware access, which take the same paths and a '
         'hand-built bundle would only restate.',
+  ),
+  'ghissues36_method_type_arguments_test.dart': _Coverage(
+    'ast:runtime/ghissues36_method_type_arguments_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 4,
+    twinCases: 3,
+    whyPartial:
+        'the twin pins whereType<int?>, cast<int> / cast<int?> on a list and '
+        'cast<List<int>>. The reference adds the Map form and a generic '
+        "function's is T, which go through the same resolver and a hand-built "
+        'bundle would only restate.',
   ),
   'ghissues34_debug_message_lazy_test.dart': _Coverage(
     'ast:runtime/ghissues34_debug_message_lazy_test.dart',

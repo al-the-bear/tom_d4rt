@@ -1,3 +1,26 @@
+## 1.257.0
+
+### Changed — a generic call's type arguments keep their `?` and their own type arguments
+
+A method or function call resolved its type arguments with the annotation
+resolver every type position uses, which drops a `?` and erases a type
+argument's own type arguments: `whereType<int?>()` arrived as `int`,
+`cast<List<int>>()` as the bare `List`. A call's type arguments now keep both
+(`NullableRuntimeType`, `AppliedRuntimeType`), so
+
+- `whereType<int?>()` keeps null (it dropped it), `whereType<int>()` drops it;
+- `cast<int>()` throws a `TypeError` on a null element read through the view
+  (it let null through), `cast<int?>()` does not; `cast<Object>()` rejects
+  null too;
+- `cast<List<int>>()` checks the nested list's elements (it judged only that
+  the element is a list);
+- a generic function's `v is T` with `T` bound to `int?` holds for null.
+
+This changes what scripts compute: a script that cast a collection holding
+null to a non-nullable type and read the null now throws, as in Dart.
+
+Name resolution: no
+
 ## 1.256.0
 
 ### Fixed — Object's members answer on null
