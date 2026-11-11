@@ -1,3 +1,23 @@
+## 0.236.0
+
+### Fixed — Object's members answer on null
+
+Dart lets every value, null included, use the members `Null` inherits from
+`Object`. On a null target the interpreter threw the null error for all of
+them: `null.toString()`, `v.hashCode`, `v.runtimeType`, `c.f.toString()`.
+`toString()` now answers `'null'`, `hashCode` null's hash code,
+`runtimeType` `Null`, and `noSuchMethod(...)` throws a `NoSuchMethodError`
+(`D4rtNoSuchMethodError`), as for any receiver - through a variable, a literal
+`null` and a property chain (`visitPrefixedIdentifier`, `visitPropertyAccess`,
+`visitMethodInvocation`). They answer before an extension member of the same
+name, as in Dart. Every other member on null is still the error, and a
+null-aware access (`v?.toString()`) is unchanged.
+
+This changes what scripts compute: a script that threw on these members now
+runs.
+
+Name resolution: no
+
 ## 0.235.0
 
 ### Changed — no debug message is built with debug logging off

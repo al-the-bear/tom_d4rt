@@ -407,7 +407,9 @@ const _divergentBodies = <String, Map<String, String>>{
     // SCE109 moved this signature without changing what diverges: the
     // arity-heuristic throw sites inside it now raise `RangeError`
     // rather than `RuntimeD4rtException`, symmetrically in both trees.
-    'InterpreterVisitor.visitMethodInvocation': '1d4c48dd',
+    // GHISSUES37: 1d4c48dd -> 8cc20343, both trees answer Object's members on a
+    // null target alike.
+    'InterpreterVisitor.visitMethodInvocation': '8cc20343',
     // GHISSUES4: identical in both trees but for the loader field's name,
     // `moduleLoader` here and `moduleContext` in the twin (the twin's
     // interpreter reaches its loader through the ModuleContext interface).
@@ -437,7 +439,9 @@ const _divergentBodies = <String, Map<String, String>>{
     // GHISSUES30: 43934bf3 -> e8e8640d, both trees wrapped the same debug
     // line in `if (Logger.debugEnabled)`; the line already differed (the
     // node's `toSource()` / `toString()`), so the divergence moved with it.
-    'InterpreterVisitor.visitPropertyAccess': 'f9f25004',
+    // GHISSUES37: f9f25004 -> 5866e41a, both trees answer Object's members on a
+    // null target alike.
+    'InterpreterVisitor.visitPropertyAccess': '5866e41a',
     'InterpreterVisitor.visitReturnStatement': '76023c84',
     'InterpreterVisitor.visitSetOrMapLiteral': '1a33a2d6',
     'InterpreterVisitor.visitSimpleIdentifier': '62e52aee',

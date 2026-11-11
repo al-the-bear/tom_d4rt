@@ -398,6 +398,45 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     return lastValue;
   }
 
+  /// ghissues37: the members every value has - `Null` inherits them from
+  /// `Object` - answered on a null target, as Dart answers them: `hashCode`,
+  /// `runtimeType` (`Null`), and `toString` / `noSuchMethod` as callables
+  /// (`noSuchMethod` throws the NoSuchMethodError it throws for any
+  /// receiver). [_notAnObjectMember] for every other member, which on null is
+  /// the null error.
+  Object? _objectMemberOfNull(String name) => switch (name) {
+    'hashCode' => null.hashCode,
+    'runtimeType' => null.runtimeType,
+    'toString' => NativeFunction(
+      (_, _, _, _) => 'null',
+      arity: 0,
+      name: 'toString',
+    ),
+    'noSuchMethod' => NativeFunction(
+      (_, positional, _, _) {
+        final invocation = positional.isEmpty
+            ? null
+            : positional.first is BridgedInstance
+            ? (positional.first as BridgedInstance).nativeObject
+            : positional.first;
+        final member = invocation is Invocation
+            ? RegExp(r'Symbol\("([^"]*)"\)')
+                      .firstMatch(invocation.memberName.toString())
+                      ?.group(1) ??
+                  invocation.memberName.toString()
+            : '<unknown>';
+        throw D4rtNoSuchMethodError(
+          "NoSuchMethodError: The member '$member' was called on null.",
+        );
+      },
+      arity: 1,
+      name: 'noSuchMethod',
+    ),
+    _ => _notAnObjectMember,
+  };
+
+  static const Object _notAnObjectMember = Object();
+
   /// Returns true if the given expression chain contains a null-aware
   /// selector (`?.`, `?[…]`) somewhere along the receiver path.
   ///
@@ -2094,6 +2133,12 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
               name: 'toString',
             );
         }
+      }
+
+      // ghissues37: and on null, the members `Null` inherits from `Object`.
+      if (prefixValue == null) {
+        final objectMember = _objectMemberOfNull(memberName);
+        if (!identical(objectMember, _notAnObjectMember)) return objectMember;
       }
 
       throw RuntimeD4rtException.resolutionFailure(
@@ -4694,6 +4739,14 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         if (_chainHasNullAwareSelector(node.target)) {
           return null;
         }
+        // ghissues37: `null.toString()`, `null.noSuchMethod(...)`.
+        final objectMember = _objectMemberOfNull(methodName);
+        if (objectMember is Callable) {
+          final (positionalArgs, namedArgs) = _evaluateArguments(
+            node.argumentList,
+          );
+          return objectMember.call(this, positionalArgs, namedArgs);
+        }
         throw RuntimeD4rtException(
           "Cannot invoke method '$methodName' on null. Use '?.' for null-aware method invocation.",
         );
@@ -6414,6 +6467,10 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       if (_chainHasNullAwareSelector(node.target)) {
         return null;
       }
+      // ghissues37: Object's members answer on null; in Dart they win over
+      // an extension member of the same name.
+      final objectMember = _objectMemberOfNull(propertyName);
+      if (!identical(objectMember, _notAnObjectMember)) return objectMember;
       // G-DOV-10/11 FIX: Try extension lookup on nullable types before throwing
       final extensionMember = environment.findExtensionMember(
         target,

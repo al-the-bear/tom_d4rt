@@ -667,7 +667,17 @@ const _partialTwinBudget = 0;
 /// added is bridged member access and field stores, which the corpus copies
 /// on every run.
 ///
-const _copierGapBudget = 64;
+/// 64 -> 65: GHISSUES37 added `ghissues37_object_members_on_null_test.dart`,
+/// which runs source to check that `toString()`, `hashCode`, `runtimeType`,
+/// `==` and `noSuchMethod` answer on a null target through a variable, a
+/// literal and a property chain, that every other member on null is still an
+/// error and that null-aware access is unchanged. Exec resolves tom_d4rt_ast
+/// from pub.dev, which throws on these members until the batch release
+/// (ghissues999), so a port would fail. Its ast twin holds the mechanism. The
+/// copier surface a port would have added is member access on null and
+/// try/on clauses, which the corpus copies on every run.
+///
+const _copierGapBudget = 65;
 
 const Map<String, _Coverage> _coveredElsewhere = {
   'sce208_bind_forwarding_source_errors_test.dart': _Coverage(
@@ -777,6 +787,19 @@ const Map<String, _Coverage> _coveredElsewhere = {
         'repeated dart:core and dart:async prefixes, dart:math, missing names '
         'and prefixes, dynamic and Record), which a hand-built bundle would '
         'only restate.',
+  ),
+  'ghissues37_object_members_on_null_test.dart': _Coverage(
+    'ast:runtime/ghissues37_object_members_on_null_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 7,
+    twinCases: 4,
+    whyPartial:
+        'the twin pins toString / hashCode on a null literal, runtimeType / '
+        'hashCode on a null variable, noSuchMethod throwing, and other '
+        'members still an error. The reference adds the property chain, '
+        '`==` and null-aware access, which take the same paths and a '
+        'hand-built bundle would only restate.',
   ),
   'ghissues34_debug_message_lazy_test.dart': _Coverage(
     'ast:runtime/ghissues34_debug_message_lazy_test.dart',
