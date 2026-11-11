@@ -29,7 +29,7 @@ reverse) fails the suite. Re-derive; do not hand-edit one side alone.
 | `[ ]` | Open (GEN-129) — tom_d4rt refuses a script whose doc comment names something not in scope | An **interpreter** defect, `tom_d4rt` only. Blast radius: every script with a doc-comment reference `[Name]` to a name it does not import or declare fails before `main`. Found 2026-11-10 by ghissues15. Fixed in the tree by ghissues24 (tom_d4rt 1.248.0 / tom_d4rt_exec 1.56.0, not published) and the source twin's `flutter_extended_11` skip removed; open until a run at the published fix passes the script, owed by todo ghissues999. |
 | `[ ]` | Open (GEN-130) — an interpreted DiagnosticableTree subclass's inherited toDiagnosticsNode() returns null | An **interpreter / bridge** defect, both twins. Blast radius: every member a script class inherits from an abstract bridged class (no constructor adapter) answered null, `super.m()` was a no-op. Found 2026-11-10 by ghissues15. Fixed in the tree by ghissues25 (tom_d4rt 1.249.0 / tom_d4rt_ast 0.229.0, not published: receiver proxies; the twins' `DiagnosticableTree` and `Diagnosticable` proxies) and the `flutter_extended_03` skip removed; open until the twins mark the receiver with the release and a run at the published fix passes the script, owed by todo ghissues999. |
 | `[ ]` | Open (GEN-131) — a class's static initializers read the script's top-level constants as null | An **interpreter** defect of the published pair (tom_d4rt <= 1.232.0, tom_d4rt_ast <= 0.213.0), both twins. Blast radius: every static field initialized from a top-level variable or constant of the script read null, wherever it was read. Found 2026-11-10 by ghissues15. Fixed in the tree by GitHub #10's lazy initialization (ghissues3: tom_d4rt 1.233.0 / tom_d4rt_ast 0.214.0, not published) and the `flutter_extended_19` skip removed; open until a run at the published fix passes the script, owed by todo ghissues999. |
-| `[ ]` | Open (GEN-132) — three scripts fail on the desktop companion app: AppKitView view types and a Scrollbar without a position | Not yet attributed; at least the two AppKitView scripts are **script / host** failures. Blast radius: scripts that mount a platform view whose type the companion app does not register, or a Scrollbar without a scroll position, cannot be measured on the desktop host. Found 2026-11-10 by ghissues15; owed by todo ghissues27. |
+| `[ ]` | Open (GEN-132) — three scripts fail on the desktop companion app: AppKitView view types and a Scrollbar without a position | Not yet attributed; at least the two AppKitView scripts are **script / host** failures. Blast radius: scripts that mount a platform view whose type the companion app does not register, or a Scrollbar without a scroll position, cannot be measured on the desktop host. Found 2026-11-10 by ghissues15; owed by todo ghissues33. |
 | `[~]` | Partially fixed — script-side / Flutter framework limitations | **Not an interpreter defect** — a rolling sweep log of demo-script fixes (layout overflow, unbounded constraints, platform-unsupported services). Rows whose "After" column reads `1*` note a residual that *is* interpreter-side; each of those is tracked by its own cluster. Last sweep 2026-04-29. |
 
 ## No corpus numbers live in this header
@@ -387,8 +387,8 @@ registered type coercion declares a stand-in; base corpus 927 / 1 / 0 in both
 twins under `--set` afterwards). Pre-publish measurements, not verification runs. The
 mark (`D4.markProxyIsReceiver('DiagnosticableTree')`) needs the published
 interpreter, so it lands with the release; the driver skip is removed now, so
-until then a run at the published pair fails this test - owed by todo
-ghissues999. The other abstract bridged classes scripts extend: ghissues29
+until then a run at the published pair fails this test - owed by
+todo ghissues999. The other abstract bridged classes scripts extend: ghissues29
 (tom_d4rt 1.251.0 / tom_d4rt_ast 0.231.0 / tom_d4rt_generator 1.61.0, not
 yet published) makes every generated proxy a receiver (the 15 `proxyClasses`:
 `Decoration.padding`, `FlowDelegate.getSize`,
@@ -457,7 +457,7 @@ framework error `The Scrollbar's ScrollController has no ScrollPosition
 attached`. None of the 15 failures of the 2026-09-15 full-corpus run carried
 these signatures.
 
-**Fix:** owed by todo ghissues27: attribute each, fix the scripts that are
+**Fix:** owed by todo ghissues33: attribute each, fix the scripts that are
 script-side.
 
 ### [X] Fixed — GEN-127: `whereType<T>()` on a stdlib collection ignores its type argument
@@ -4864,11 +4864,11 @@ the six (seven) failures here are new signatures. `flutter_extended_25` passes
 | ---- | ------ | ----- | ------- |
 | `flutter_extended_01` | `cupertino/cupertino_linear_activity_indicator_test.dart` | both | GEN-128 (ghissues23) |
 | `flutter_extended_03` | `foundation/diagnosticable_tree_node_test.dart` | both | GEN-130 (ghissues25) |
-| `flutter_extended_09` | `rendering/render_app_kit_view_test.dart` | both | GEN-132 (ghissues27) |
+| `flutter_extended_09` | `rendering/render_app_kit_view_test.dart` | both | GEN-132 (ghissues33) |
 | `flutter_extended_11` | `services/binary_messenger_test.dart` | source only | GEN-129 (ghissues24) |
-| `flutter_extended_18` | `widgets/selectable_region_state_test.dart` | both | GEN-132 (ghissues27) |
+| `flutter_extended_18` | `widgets/selectable_region_state_test.dart` | both | GEN-132 (ghissues33) |
 | `flutter_extended_19` | `widgets/slotted_multi_child_render_object_widget_test.dart` | both | GEN-131 (ghissues26) |
-| `flutter_extended_21` | `retest/widgets/app_kit_view_test.dart` | both | GEN-132 (ghissues27) |
+| `flutter_extended_21` | `retest/widgets/app_kit_view_test.dart` | both | GEN-132 (ghissues33) |
 
 Each test is now skipped in the drivers, naming its cluster and todo, so the
 next run will read skip 10 in the source twin and 9 in the AST twin with the

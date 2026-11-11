@@ -72,8 +72,7 @@ void main() {
         'double',
         '2.0',
       ]);
-      // `null.runtimeType` throws in the interpreter (todo nullobj1), so the
-      // unset field is checked by value.
+      // The unset field is checked by value.
       expect(
         _run('class C { C([this.f]); double? f; }', 'C().f == null'),
         isTrue,
