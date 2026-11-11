@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 44 files
-// Generated: 2026-11-06T13:01:15.814275 by tom_d4rt_generator 1.52.0
+// Generated: 2026-11-11T10:40:12.375069 by tom_d4rt_generator 1.63.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -11,60 +11,59 @@ import 'dart:typed_data';
 import 'dart:ui' as $dart_ui;
 import 'dart:ui';
 
-import 'package:flutter/src/foundation/basic_types.dart' as $flutter_1;
-import 'package:flutter/src/foundation/binding.dart' as $flutter_2;
-import 'package:flutter/src/foundation/change_notifier.dart' as $flutter_3;
-import 'package:flutter/src/foundation/diagnostics.dart' as $flutter_4;
-import 'package:flutter/src/foundation/platform.dart' as $flutter_5;
-import 'package:flutter/src/foundation/serialization.dart' as $flutter_6;
-import 'package:flutter/src/gestures/events.dart' as $flutter_7;
-import 'package:flutter/src/scheduler/binding.dart' as $flutter_8;
-import 'package:flutter/src/scheduler/priority.dart' as $flutter_9;
-import 'package:flutter/src/services/app_version.dart' as $flutter_10;
-import 'package:flutter/src/services/asset_bundle.dart' as $flutter_11;
-import 'package:flutter/src/services/asset_manifest.dart' as $flutter_12;
-import 'package:flutter/src/services/autofill.dart' as $flutter_13;
-import 'package:flutter/src/services/binary_messenger.dart' as $flutter_14;
-import 'package:flutter/src/services/binding.dart' as $flutter_15;
-import 'package:flutter/src/services/browser_context_menu.dart' as $flutter_16;
-import 'package:flutter/src/services/clipboard.dart' as $flutter_17;
-import 'package:flutter/src/services/debug.dart' as $flutter_18;
-import 'package:flutter/src/services/deferred_component.dart' as $flutter_19;
-import 'package:flutter/src/services/flavor.dart' as $flutter_20;
-import 'package:flutter/src/services/flutter_version.dart' as $flutter_21;
-import 'package:flutter/src/services/font_loader.dart' as $flutter_22;
-import 'package:flutter/src/services/haptic_feedback.dart' as $flutter_23;
-import 'package:flutter/src/services/hardware_keyboard.dart' as $flutter_24;
-import 'package:flutter/src/services/keyboard_inserted_content.dart'
-    as $flutter_25;
-import 'package:flutter/src/services/keyboard_key.g.dart' as $flutter_26;
-import 'package:flutter/src/services/keyboard_maps.g.dart' as $flutter_27;
-import 'package:flutter/src/services/live_text.dart' as $flutter_28;
-import 'package:flutter/src/services/message_codec.dart' as $flutter_29;
-import 'package:flutter/src/services/message_codecs.dart' as $flutter_30;
-import 'package:flutter/src/services/mouse_cursor.dart' as $flutter_31;
-import 'package:flutter/src/services/mouse_tracking.dart' as $flutter_32;
-import 'package:flutter/src/services/platform_channel.dart' as $flutter_33;
-import 'package:flutter/src/services/platform_views.dart' as $flutter_34;
-import 'package:flutter/src/services/predictive_back_event.dart' as $flutter_35;
-import 'package:flutter/src/services/process_text.dart' as $flutter_36;
-import 'package:flutter/src/services/raw_keyboard_macos.dart' as $flutter_37;
-import 'package:flutter/src/services/restoration.dart' as $flutter_38;
-import 'package:flutter/src/services/scribe.dart' as $flutter_39;
-import 'package:flutter/src/services/sensitive_content.dart' as $flutter_40;
-import 'package:flutter/src/services/service_extensions.dart' as $flutter_41;
-import 'package:flutter/src/services/spell_check.dart' as $flutter_42;
-import 'package:flutter/src/services/system_channels.dart' as $flutter_43;
-import 'package:flutter/src/services/system_chrome.dart' as $flutter_44;
-import 'package:flutter/src/services/system_navigator.dart' as $flutter_45;
-import 'package:flutter/src/services/system_sound.dart' as $flutter_46;
-import 'package:flutter/src/services/text_boundary.dart' as $flutter_47;
-import 'package:flutter/src/services/text_editing.dart' as $flutter_48;
-import 'package:flutter/src/services/text_editing_delta.dart' as $flutter_49;
-import 'package:flutter/src/services/text_formatter.dart' as $flutter_50;
-import 'package:flutter/src/services/text_input.dart' as $flutter_51;
-import 'package:flutter/src/services/text_layout_metrics.dart' as $flutter_52;
-import 'package:flutter/src/services/undo_manager.dart' as $flutter_53;
+import 'package:flutter/foundation.dart' as $flutter_1;
+import 'package:flutter/foundation.dart' as $flutter_2;
+import 'package:flutter/foundation.dart' as $flutter_3;
+import 'package:flutter/foundation.dart' as $flutter_4;
+import 'package:flutter/foundation.dart' as $flutter_5;
+import 'package:flutter/foundation.dart' as $flutter_6;
+import 'package:flutter/gestures.dart' as $flutter_7;
+import 'package:flutter/scheduler.dart' as $flutter_8;
+import 'package:flutter/scheduler.dart' as $flutter_9;
+import 'package:flutter/services.dart' as $flutter_10;
+import 'package:flutter/services.dart' as $flutter_11;
+import 'package:flutter/services.dart' as $flutter_12;
+import 'package:flutter/services.dart' as $flutter_13;
+import 'package:flutter/services.dart' as $flutter_14;
+import 'package:flutter/services.dart' as $flutter_15;
+import 'package:flutter/services.dart' as $flutter_16;
+import 'package:flutter/services.dart' as $flutter_17;
+import 'package:flutter/services.dart' as $flutter_18;
+import 'package:flutter/services.dart' as $flutter_19;
+import 'package:flutter/services.dart' as $flutter_20;
+import 'package:flutter/services.dart' as $flutter_21;
+import 'package:flutter/services.dart' as $flutter_22;
+import 'package:flutter/services.dart' as $flutter_23;
+import 'package:flutter/services.dart' as $flutter_24;
+import 'package:flutter/services.dart' as $flutter_25;
+import 'package:flutter/services.dart' as $flutter_26;
+import 'package:flutter/services.dart' as $flutter_27;
+import 'package:flutter/services.dart' as $flutter_28;
+import 'package:flutter/services.dart' as $flutter_29;
+import 'package:flutter/services.dart' as $flutter_30;
+import 'package:flutter/services.dart' as $flutter_31;
+import 'package:flutter/services.dart' as $flutter_32;
+import 'package:flutter/services.dart' as $flutter_33;
+import 'package:flutter/services.dart' as $flutter_34;
+import 'package:flutter/services.dart' as $flutter_35;
+import 'package:flutter/services.dart' as $flutter_36;
+import 'package:flutter/services.dart' as $flutter_37;
+import 'package:flutter/services.dart' as $flutter_38;
+import 'package:flutter/services.dart' as $flutter_39;
+import 'package:flutter/services.dart' as $flutter_40;
+import 'package:flutter/services.dart' as $flutter_41;
+import 'package:flutter/services.dart' as $flutter_42;
+import 'package:flutter/services.dart' as $flutter_43;
+import 'package:flutter/services.dart' as $flutter_44;
+import 'package:flutter/services.dart' as $flutter_45;
+import 'package:flutter/services.dart' as $flutter_46;
+import 'package:flutter/services.dart' as $flutter_47;
+import 'package:flutter/painting.dart' as $flutter_48;
+import 'package:flutter/services.dart' as $flutter_49;
+import 'package:flutter/services.dart' as $flutter_50;
+import 'package:flutter/services.dart' as $flutter_51;
+import 'package:flutter/services.dart' as $flutter_52;
+import 'package:flutter/services.dart' as $flutter_53;
 import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/basic_message_channel_user_bridge.dart'
     as $tom_d4rt_flutter_1;
 import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/state_user_bridge.dart'

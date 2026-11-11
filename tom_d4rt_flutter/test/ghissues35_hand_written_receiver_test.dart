@@ -1,0 +1,123 @@
+// RUNNER BUCKET: guard — run_guard_tests.sh
+// ghissues35 — a script override's `super.m()` on a hand-written receiver
+// proxy runs the native member once.
+//
+// Measured 2026-11-10 (tree tom_d4rt 1.255.0 / tom_d4rt_ast 0.235.0 under
+// tool/prepublish_overrides.dart --set): once a script `CustomPainter`,
+// `SingleChildLayoutDelegate` or `Diagnosticable` has crossed into native code,
+// the hand-written proxy cached on its `nativeProxy` is the native object a
+// script's `super.m()` runs on - and the proxy forwarded that member back to
+// the script's override, so the override ran twice (`shouldRebuildSemantics`
+// counted 2 and answered the inverse of Dart). The proxies now implement
+// `D4ReceiverProxy` (tom_d4rt 1.251.0 / tom_d4rt_ast 0.231.0): the interpreter
+// runs a script's `super` call inside `d4rtSuperCall`, and the proxy answers
+// the native member for it.
+
+import 'package:flutter_test/flutter_test.dart';
+import 'package:tom_d4rt_flutter/tom_d4rt_flutter.dart';
+
+const _script = r'''
+import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
+
+class SuperPainter extends CustomPainter {
+  int calls = 0;
+  @override
+  void paint(Canvas canvas, Size size) {}
+  @override
+  bool shouldRepaint(CustomPainter old) => false;
+  @override
+  bool shouldRebuildSemantics(CustomPainter old) {
+    calls++;
+    return !super.shouldRebuildSemantics(old);
+  }
+}
+
+class HalfDelegate extends SingleChildLayoutDelegate {
+  int calls = 0;
+  @override
+  Size getSize(BoxConstraints constraints) {
+    calls++;
+    return super.getSize(constraints) * 0.5;
+  }
+  @override
+  bool shouldRelayout(SingleChildLayoutDelegate old) => false;
+}
+
+class Box with Diagnosticable {
+  int calls = 0;
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    calls++;
+    super.debugFillProperties(properties);
+    properties.add(IntProperty('n', 3));
+  }
+}
+
+List<Object?> painter() {
+  final p = SuperPainter();
+  CustomPaint(painter: p); // the crossing that keeps the proxy
+  final answer = p.shouldRebuildSemantics(p);
+  return <Object?>[answer, p.calls];
+}
+
+List<Object?> delegate() {
+  final d = HalfDelegate();
+  CustomSingleChildLayout(delegate: d);
+  final size = d.getSize(BoxConstraints.tight(const Size(10, 20)));
+  return <Object?>[size.width, size.height, d.calls];
+}
+
+List<Object?> painterFirst() {
+  final p = SuperPainter();
+  final answer = p.shouldRebuildSemantics(p); // no crossing yet
+  return <Object?>[answer, p.calls];
+}
+
+List<Object?> delegateFirst() {
+  final d = HalfDelegate();
+  final size = d.getSize(BoxConstraints.tight(const Size(10, 20)));
+  return <Object?>[size.width, size.height, d.calls];
+}
+
+List<Object?> diagnosticable() {
+  final b = Box();
+  b.toString(); // the crossing: native toString builds the properties
+  final before = b.calls;
+  final builder = DiagnosticPropertiesBuilder();
+  b.debugFillProperties(builder);
+  return <Object?>[b.calls - before, builder.properties.length];
+}
+''';
+
+Future<List<Object?>> _run(String entry) async => SourceFlutterD4rt()
+    .execute<List<Object?>>('$_script\nList<Object?> main() => $entry();\n')
+    .toList();
+
+void main() {
+  group('ghissues35: super.m() on a hand-written receiver runs once', () {
+    test('GHI35-1: CustomPainter.shouldRebuildSemantics after a crossing '
+        '[2026-11-10]', () async {
+      expect(await _run('painter'), [true, 1]);
+    });
+
+    test('GHI35-2: SingleChildLayoutDelegate.getSize after a crossing '
+        '[2026-11-10]', () async {
+      expect(await _run('delegate'), [5.0, 10.0, 1]);
+    });
+
+    test(
+      'GHI35-4: the same super calls before any crossing - the receiver '
+      'mark the generated proxies carry creates the proxy [2026-11-10]',
+      () async {
+        expect(await _run('painterFirst'), [true, 1]);
+        expect(await _run('delegateFirst'), [5.0, 10.0, 1]);
+      },
+    );
+
+    test('GHI35-3: Diagnosticable.debugFillProperties called directly after '
+        'a crossing [2026-11-10]', () async {
+      expect(await _run('diagnosticable'), [1, 1]);
+    });
+  });
+}

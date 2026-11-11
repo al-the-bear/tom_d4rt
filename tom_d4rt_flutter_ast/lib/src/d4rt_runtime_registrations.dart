@@ -132,7 +132,7 @@ import 'package:tom_d4rt_ast/src/runtime/bridge/bridged_types.dart'
     show BridgedInstance;
 import 'package:tom_d4rt_ast/src/runtime/interpreter_visitor.dart';
 import 'package:tom_d4rt_ast/src/runtime/runtime_interfaces.dart'
-    show D4InterpretedProxy, RuntimeType;
+    show D4InterpretedProxy, D4ReceiverProxy, RuntimeType;
 import 'package:tom_d4rt_ast/src/runtime/runtime_types.dart';
 
 import 'bridges/flutter_proxies.b.dart' show D4rtMultiChildLayoutDelegate;
@@ -519,6 +519,7 @@ void _registerInterfaceProxies() {
     instance.nativeProxy ??= proxy;
     return proxy;
   });
+  D4.markProxyIsReceiver('ChangeNotifier');
   D4.registerInterfaceProxy('Listenable', (visitor, instance) {
     final bridgedSuper = instance.bridgedSuperObject;
     if (bridgedSuper is Listenable) return bridgedSuper;
@@ -572,6 +573,7 @@ void _registerInterfaceProxies() {
     instance.nativeProxy ??= proxy;
     return proxy;
   });
+  D4.markProxyIsReceiver('DiagnosticableTree');
   D4.registerInterfaceProxy('Diagnosticable', (visitor, instance) {
     final cached = instance.nativeProxy;
     if (cached is Diagnosticable) return cached;
@@ -3056,6 +3058,29 @@ class _InterpretedInheritedElement extends InheritedElement {
   }
 }
 
+/// ghissues35: a hand-written receiver proxy's side of `D4ReceiverProxy`.
+///
+/// The proxy is the native object a script's `super.m()` runs on (it is kept
+/// on the instance's `nativeProxy`), and it forwards overridable members back
+/// to the script. The interpreter runs that `super` call inside
+/// [d4rtSuperCall]; while it runs, a forwarding member answers its native
+/// implementation (`super.m()`) instead of calling the script's override
+/// again - which recursed until the stack gave out. Member keys are the
+/// member name, or `get name` for a getter, as in the generated proxies.
+mixin _D4rtSuperCalls implements D4ReceiverProxy {
+  final Set<String> _d4rtForwarding = <String>{};
+
+  @override
+  R d4rtSuperCall<R>(String member, R Function() call) {
+    if (!_d4rtForwarding.add(member)) return call();
+    try {
+      return call();
+    } finally {
+      _d4rtForwarding.remove(member);
+    }
+  }
+}
+
 /// Native [MultiChildLayoutDelegate] backing an interpreted subclass.
 class _InterpretedMultiChildLayoutDelegate extends MultiChildLayoutDelegate
     implements D4InterpretedProxy {
@@ -3094,6 +3119,7 @@ class _InterpretedMultiChildLayoutDelegate extends MultiChildLayoutDelegate
 
 /// Native [SingleChildLayoutDelegate] backing an interpreted subclass.
 class _InterpretedSingleChildLayoutDelegate extends SingleChildLayoutDelegate
+    with _D4rtSuperCalls
     implements D4InterpretedProxy {
   /// SCD138 — exposes the interpreted instance so a value that crossed into
   /// native code can still bind to a parameter declared as the SCRIPT's own
@@ -3111,6 +3137,9 @@ class _InterpretedSingleChildLayoutDelegate extends SingleChildLayoutDelegate
 
   @override
   BoxConstraints getConstraintsForChild(BoxConstraints constraints) {
+    if (_d4rtForwarding.contains('getConstraintsForChild')) {
+      return super.getConstraintsForChild(constraints);
+    }
     final method = _instance.klass.findInstanceMethod('getConstraintsForChild');
     if (method == null) return constraints;
     try {
@@ -3122,6 +3151,7 @@ class _InterpretedSingleChildLayoutDelegate extends SingleChildLayoutDelegate
 
   @override
   Size getSize(BoxConstraints constraints) {
+    if (_d4rtForwarding.contains('getSize')) return super.getSize(constraints);
     final method = _instance.klass.findInstanceMethod('getSize');
     if (method == null) return super.getSize(constraints);
     try {
@@ -3133,6 +3163,9 @@ class _InterpretedSingleChildLayoutDelegate extends SingleChildLayoutDelegate
 
   @override
   Offset getPositionForChild(Size size, Size childSize) {
+    if (_d4rtForwarding.contains('getPositionForChild')) {
+      return super.getPositionForChild(size, childSize);
+    }
     final method = _instance.klass.findInstanceMethod('getPositionForChild');
     if (method == null) return Offset.zero;
     try {
@@ -3348,6 +3381,7 @@ class _InterpretedCustomClipperRSuperellipse
 /// Common case: `bool shouldRepaint(covariant _MyPainter old) =>
 /// old.progress != progress;` — `old.progress` resolves through the unwrap.
 class _InterpretedCustomPainter extends CustomPainter
+    with _D4rtSuperCalls
     implements D4InterpretedProxy {
   _InterpretedCustomPainter(this._visitor, this._instance);
 
@@ -3387,6 +3421,9 @@ class _InterpretedCustomPainter extends CustomPainter
 
   @override
   bool shouldRebuildSemantics(covariant CustomPainter oldDelegate) {
+    if (_d4rtForwarding.contains('shouldRebuildSemantics')) {
+      return super.shouldRebuildSemantics(oldDelegate);
+    }
     final method = _instance.klass.findInstanceMethod('shouldRebuildSemantics');
     if (method == null) return shouldRepaint(oldDelegate);
     try {
@@ -3401,6 +3438,7 @@ class _InterpretedCustomPainter extends CustomPainter
 
   @override
   bool? hitTest(Offset position) {
+    if (_d4rtForwarding.contains('hitTest')) return super.hitTest(position);
     final method = _instance.klass.findInstanceMethod('hitTest');
     if (method == null) return null;
     try {
@@ -5450,22 +5488,34 @@ class _DiagnosticsForwarder {
 
   final InterpreterVisitor _visitor;
   final InterpretedInstance _instance;
-  bool _inToStringShort = false;
-  bool _inDebugFillProperties = false;
-  bool _inDebugDescribeChildren = false;
+
+  /// The members running natively right now: re-entered from the script's
+  /// own `super` call while forwarding, or bracketed by [superCall].
+  final Set<String> _native = <String>{};
+
+  /// ghissues35: the proxies' `D4ReceiverProxy.d4rtSuperCall`. A script's
+  /// `super.m()` that reaches the proxy outside a forward (the script called
+  /// its own override directly) runs the native member, not the script again.
+  R superCall<R>(String member, R Function() call) {
+    if (!_native.add(member)) return call();
+    try {
+      return call();
+    } finally {
+      _native.remove(member);
+    }
+  }
 
   /// The script's `toStringShort`, else Dart's default for the script class:
   /// its name and the proxy's short hash (`describeIdentity` would name the
   /// proxy class).
   String toStringShort(Object proxy) {
     final method = _instance.klass.findInstanceMethod('toStringShort');
-    if (!_inToStringShort && method != null) {
-      _inToStringShort = true;
+    if (method != null && _native.add('toStringShort')) {
       try {
         final result = method.bind(_instance).call(_visitor, [], {});
         if (result is String) return result;
       } finally {
-        _inToStringShort = false;
+        _native.remove('toStringShort');
       }
     }
     return '${_instance.klass.name}#${shortHash(proxy)}';
@@ -5476,15 +5526,14 @@ class _DiagnosticsForwarder {
     void Function() inherited,
   ) {
     final method = _instance.klass.findInstanceMethod('debugFillProperties');
-    if (_inDebugFillProperties || method == null) {
+    if (method == null || !_native.add('debugFillProperties')) {
       inherited();
       return;
     }
-    _inDebugFillProperties = true;
     try {
       method.bind(_instance).call(_visitor, [properties], {});
     } finally {
-      _inDebugFillProperties = false;
+      _native.remove('debugFillProperties');
     }
   }
 
@@ -5492,8 +5541,9 @@ class _DiagnosticsForwarder {
     List<DiagnosticsNode> Function() inherited,
   ) {
     final method = _instance.klass.findInstanceMethod('debugDescribeChildren');
-    if (_inDebugDescribeChildren || method == null) return inherited();
-    _inDebugDescribeChildren = true;
+    if (method == null || !_native.add('debugDescribeChildren')) {
+      return inherited();
+    }
     try {
       final result = method.bind(_instance).call(_visitor, [], {});
       if (result is List) {
@@ -5501,14 +5551,14 @@ class _DiagnosticsForwarder {
       }
       return inherited();
     } finally {
-      _inDebugDescribeChildren = false;
+      _native.remove('debugDescribeChildren');
     }
   }
 }
 
 class _InterpretedDiagnosticableTreeMixin
     with DiagnosticableTreeMixin
-    implements D4InterpretedProxy {
+    implements D4InterpretedProxy, D4ReceiverProxy {
   _InterpretedDiagnosticableTreeMixin(
     InterpreterVisitor visitor,
     this._instance,
@@ -5519,6 +5569,10 @@ class _InterpretedDiagnosticableTreeMixin
 
   @override
   InterpretedInstance get d4rtInstance => _instance;
+
+  @override
+  R d4rtSuperCall<R>(String member, R Function() call) =>
+      _forward.superCall(member, call);
 
   @override
   String toStringShort() => _forward.toStringShort(this);
@@ -5542,7 +5596,7 @@ class _InterpretedDiagnosticableTreeMixin
 /// (`toDiagnosticsNode`, `toStringDeep`, `toStringShort`) run on a real
 /// DiagnosticableTree that calls the script's overrides.
 class _InterpretedDiagnosticableTree extends DiagnosticableTree
-    implements D4InterpretedProxy {
+    implements D4InterpretedProxy, D4ReceiverProxy {
   _InterpretedDiagnosticableTree(InterpreterVisitor visitor, this._instance)
     : _forward = _DiagnosticsForwarder(visitor, _instance);
 
@@ -5551,6 +5605,10 @@ class _InterpretedDiagnosticableTree extends DiagnosticableTree
 
   @override
   InterpretedInstance get d4rtInstance => _instance;
+
+  @override
+  R d4rtSuperCall<R>(String member, R Function() call) =>
+      _forward.superCall(member, call);
 
   @override
   String toStringShort() => _forward.toStringShort(this);
@@ -5573,7 +5631,7 @@ class _InterpretedDiagnosticableTree extends DiagnosticableTree
 /// Diagnosticable that calls the script's overrides.
 class _InterpretedDiagnosticable
     with Diagnosticable
-    implements D4InterpretedProxy {
+    implements D4InterpretedProxy, D4ReceiverProxy {
   _InterpretedDiagnosticable(InterpreterVisitor visitor, this._instance)
     : _forward = _DiagnosticsForwarder(visitor, _instance);
 
@@ -5582,6 +5640,10 @@ class _InterpretedDiagnosticable
 
   @override
   InterpretedInstance get d4rtInstance => _instance;
+
+  @override
+  R d4rtSuperCall<R>(String member, R Function() call) =>
+      _forward.superCall(member, call);
 
   @override
   String toStringShort() => _forward.toStringShort(this);
