@@ -566,7 +566,7 @@ packages:
       path: "../tom_d4rt_flutter_ast"
       relative: true
     source: path
-    version: "0.11.0"
+    version: "0.12.0"
   typed_data:
     dependency: transitive
     description:

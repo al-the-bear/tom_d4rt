@@ -475,7 +475,7 @@ packages:
       path: "../tom_d4rt_flutter"
       relative: true
     source: path
-    version: "1.6.0"
+    version: "1.7.0"
   typed_data:
     dependency: transitive
     description:
