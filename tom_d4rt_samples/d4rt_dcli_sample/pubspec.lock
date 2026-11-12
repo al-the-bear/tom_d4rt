@@ -629,34 +629,34 @@ packages:
     dependency: "direct main"
     description:
       name: tom_d4rt
-      sha256: f1be3adfe4881dc7a0613e49cb8e0fc385ee334841355ce87a97b186beafa3e0
+      sha256: eec43dcd850a1111cc01405adaa06604d53ad8e2833d52cf1b4067cd9805bb93
       url: "https://pub.dev"
     source: hosted
-    version: "1.256.0"
+    version: "1.257.0"
   tom_d4rt_dcli:
     dependency: "direct main"
     description:
       name: tom_d4rt_dcli
-      sha256: "57a9b7d502b682322f5e9135492aef85d5ceabad85e1b969d60de75b8ebd4204"
+      sha256: e5e90109a7ce3b07f82e5b722b2904689787294b63b020ec732b8e4497b9d579
       url: "https://pub.dev"
     source: hosted
-    version: "1.15.0"
+    version: "1.16.0"
   tom_d4rt_generator:
     dependency: "direct dev"
     description:
       name: tom_d4rt_generator
-      sha256: "4cd7248a3c4debcf7ed9c67a3f7135c597d84947ab71ac21008b2e5efe10f8e3"
+      sha256: efe60c4b66c92c61690f4201d4e5c570e4270eb7f0c4cffab99bc5ff72ef04a0
       url: "https://pub.dev"
     source: hosted
-    version: "1.58.0"
+    version: "1.63.0"
   tom_todo_model:
     dependency: transitive
     description:
       name: tom_todo_model
-      sha256: a69fd09802befd438bf64c6dfeb8b7f990fb0357b7cc9ded7f7363c2a3249913
+      sha256: f5b7dae7c8614fd08a701f466a0ceac102d18fd064d326b9670b646487ca967a
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.0"
+    version: "2.1.0"
   tom_vscode_scripting_api:
     dependency: transitive
     description:
