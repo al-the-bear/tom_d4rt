@@ -629,34 +629,34 @@ packages:
     dependency: "direct main"
     description:
       name: tom_build_base
-      sha256: "4404a7d08640d71780fb3a5ac60c0b84dcdceb3456e422c401de67f3d2f964c2"
+      sha256: be71220b8cc2ea0f2c18da0d83a301474bd2ab51389392ca4bcc7768a1c0fc87
       url: "https://pub.dev"
     source: hosted
-    version: "2.18.0"
+    version: "2.19.0"
   tom_d4rt:
     dependency: transitive
     description:
       name: tom_d4rt
-      sha256: "502f696ed4f2c621c79afe62f4c0698506efac2e1aaf466f8b33c7a00d71652f"
+      sha256: f1be3adfe4881dc7a0613e49cb8e0fc385ee334841355ce87a97b186beafa3e0
       url: "https://pub.dev"
     source: hosted
-    version: "1.231.1"
+    version: "1.256.0"
   tom_d4rt_ast:
     dependency: "direct main"
     description:
       name: tom_d4rt_ast
-      sha256: "75707a480cc678a33b44c167102c097c5f007eac8327ddff321254b24e2f99d5"
+      sha256: "85b2fea026d7db1f8998116f72d50a3bffe5babe1cdbc557763362701ef87a06"
       url: "https://pub.dev"
     source: hosted
-    version: "0.212.1"
+    version: "0.236.0"
   tom_d4rt_exec:
     dependency: "direct dev"
     description:
       name: tom_d4rt_exec
-      sha256: c2dbb8cca79c9248d09d2fbe60a05644db30b008059368f9afde19663187cf4c
+      sha256: "73b31d533f2ad6318a54c2f26c9aecaddd59cbb6fd0e28935174b65fa2361960"
       url: "https://pub.dev"
     source: hosted
-    version: "1.53.0"
+    version: "1.57.0"
   tom_d4rt_generator:
     dependency: "direct dev"
     description:

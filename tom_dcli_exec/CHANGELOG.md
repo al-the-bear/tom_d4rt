@@ -1,3 +1,13 @@
+## 1.17.0
+
+### Changed — on tom_d4rt_exec 1.57.0 / tom_d4rt_ast 0.236.0
+
+`tom_d4rt_exec` ^1.57.0, `tom_d4rt_ast` ^0.236.0 and `tom_ast_generator`
+^0.2.2, up from ^1.53.0 / ^0.212.0 / ^0.2.1: `dclie` runs scripts on the
+interpreter's current release.
+
+Name resolution: no.
+
 ## 1.16.0
 
 ### Changed — on tom_todo_model 2.0.0 and tom_vscode_scripting_api 4.0.0 (repeated todos)
