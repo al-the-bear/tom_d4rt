@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 31 files
-// Generated: 2026-11-10T18:56:10.727860 by tom_d4rt_generator 1.58.0
+// Generated: 2026-11-12T21:43:23.929751 by tom_d4rt_generator 1.63.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -8,65 +8,65 @@ import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
 import 'dart:async';
 
-import 'package:tom_todo_model/src/todo.dart' as $tom_todo_model_1;
-import 'package:tom_todo_model/src/todo_repeat.dart' as $tom_todo_model_2;
+import 'package:tom_todo_model/tom_todo_model.dart' as $tom_todo_model_1;
+import 'package:tom_todo_model/tom_todo_model.dart' as $tom_todo_model_2;
 import 'package:tom_vscode_scripting_api/script_globals.dart'
     as $tom_vscode_scripting_api_1;
-import 'package:tom_vscode_scripting_api/src/agent_sdk_mcp.dart'
+import 'package:tom_vscode_scripting_api/script_globals.dart'
     as $tom_vscode_scripting_api_2;
-import 'package:tom_vscode_scripting_api/src/agent_sdk_messages.dart'
+import 'package:tom_vscode_scripting_api/script_globals.dart'
     as $tom_vscode_scripting_api_3;
-import 'package:tom_vscode_scripting_api/src/agent_sdk_options.dart'
+import 'package:tom_vscode_scripting_api/script_globals.dart'
     as $tom_vscode_scripting_api_4;
-import 'package:tom_vscode_scripting_api/src/agent_sdk_permission_dispatch.dart'
+import 'package:tom_vscode_scripting_api/script_globals.dart'
     as $tom_vscode_scripting_api_5;
-import 'package:tom_vscode_scripting_api/src/agent_sdk_permissions.dart'
+import 'package:tom_vscode_scripting_api/script_globals.dart'
     as $tom_vscode_scripting_api_6;
-import 'package:tom_vscode_scripting_api/src/agent_sdk_query.dart'
+import 'package:tom_vscode_scripting_api/script_globals.dart'
     as $tom_vscode_scripting_api_7;
-import 'package:tom_vscode_scripting_api/src/agent_sdk_tool_registry.dart'
+import 'package:tom_vscode_scripting_api/script_globals.dart'
     as $tom_vscode_scripting_api_8;
-import 'package:tom_vscode_scripting_api/src/bridge_discovery.dart'
+import 'package:tom_vscode_scripting_api/script_globals.dart'
     as $tom_vscode_scripting_api_9;
-import 'package:tom_vscode_scripting_api/src/bridge_request_dispatcher.dart'
+import 'package:tom_vscode_scripting_api/script_globals.dart'
     as $tom_vscode_scripting_api_10;
-import 'package:tom_vscode_scripting_api/src/tom_chat_api.dart'
+import 'package:tom_vscode_scripting_api/script_globals.dart'
     as $tom_vscode_scripting_api_11;
-import 'package:tom_vscode_scripting_api/src/tom_document_api.dart'
+import 'package:tom_vscode_scripting_api/script_globals.dart'
     as $tom_vscode_scripting_api_12;
-import 'package:tom_vscode_scripting_api/src/tom_queue_api.dart'
+import 'package:tom_vscode_scripting_api/script_globals.dart'
     as $tom_vscode_scripting_api_13;
-import 'package:tom_vscode_scripting_api/src/tom_timed_api.dart'
+import 'package:tom_vscode_scripting_api/script_globals.dart'
     as $tom_vscode_scripting_api_14;
-import 'package:tom_vscode_scripting_api/src/tom_todo_api.dart'
+import 'package:tom_vscode_scripting_api/script_globals.dart'
     as $tom_vscode_scripting_api_15;
-import 'package:tom_vscode_scripting_api/src/tom_tools_api.dart'
+import 'package:tom_vscode_scripting_api/script_globals.dart'
     as $tom_vscode_scripting_api_16;
-import 'package:tom_vscode_scripting_api/src/tom_workspace_api.dart'
+import 'package:tom_vscode_scripting_api/script_globals.dart'
     as $tom_vscode_scripting_api_17;
-import 'package:tom_vscode_scripting_api/src/vscode.dart'
+import 'package:tom_vscode_scripting_api/script_globals.dart'
     as $tom_vscode_scripting_api_18;
-import 'package:tom_vscode_scripting_api/src/vscode_adapter.dart'
+import 'package:tom_vscode_scripting_api/script_globals.dart'
     as $tom_vscode_scripting_api_19;
-import 'package:tom_vscode_scripting_api/src/vscode_bridge_adapter.dart'
+import 'package:tom_vscode_scripting_api/script_globals.dart'
     as $tom_vscode_scripting_api_20;
-import 'package:tom_vscode_scripting_api/src/vscode_bridge_client.dart'
+import 'package:tom_vscode_scripting_api/script_globals.dart'
     as $tom_vscode_scripting_api_21;
-import 'package:tom_vscode_scripting_api/src/vscode_chat.dart'
+import 'package:tom_vscode_scripting_api/script_globals.dart'
     as $tom_vscode_scripting_api_22;
-import 'package:tom_vscode_scripting_api/src/vscode_commands.dart'
+import 'package:tom_vscode_scripting_api/script_globals.dart'
     as $tom_vscode_scripting_api_23;
-import 'package:tom_vscode_scripting_api/src/vscode_extensions.dart'
+import 'package:tom_vscode_scripting_api/script_globals.dart'
     as $tom_vscode_scripting_api_24;
-import 'package:tom_vscode_scripting_api/src/vscode_helper.dart'
+import 'package:tom_vscode_scripting_api/script_globals.dart'
     as $tom_vscode_scripting_api_25;
-import 'package:tom_vscode_scripting_api/src/vscode_lm.dart'
+import 'package:tom_vscode_scripting_api/script_globals.dart'
     as $tom_vscode_scripting_api_26;
-import 'package:tom_vscode_scripting_api/src/vscode_types.dart'
+import 'package:tom_vscode_scripting_api/script_globals.dart'
     as $tom_vscode_scripting_api_27;
-import 'package:tom_vscode_scripting_api/src/vscode_window.dart'
+import 'package:tom_vscode_scripting_api/script_globals.dart'
     as $tom_vscode_scripting_api_28;
-import 'package:tom_vscode_scripting_api/src/vscode_workspace.dart'
+import 'package:tom_vscode_scripting_api/script_globals.dart'
     as $tom_vscode_scripting_api_29;
 
 /// Bridge class for tom_vscode_scripting_api module.
