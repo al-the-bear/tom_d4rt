@@ -637,10 +637,10 @@ packages:
     dependency: transitive
     description:
       name: tom_build_base
-      sha256: "3a0fcc0ecacd1d6c395d0ecdeee96c6ddcdfda95e908d3ef029b855b0a3471e7"
+      sha256: "7d739f6688fc427ca11c99051b4a6443bb0669a1c8593ba28c9f3170e5d7c957"
       url: "https://pub.dev"
     source: hosted
-    version: "2.22.1"
+    version: "2.23.0"
   tom_d4rt:
     dependency: transitive
     description:
