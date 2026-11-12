@@ -9,7 +9,7 @@ class AstgenVersionInfo {
   AstgenVersionInfo._();
 
   /// Package version from pubspec.yaml
-  static const String version = '0.2.2';
+  static const String version = '0.2.3';
 
   /// Build timestamp (ISO 8601 UTC format)
   static const String buildTime = '2026-11-11T17:33:19.968473Z';
