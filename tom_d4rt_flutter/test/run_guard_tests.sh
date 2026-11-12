@@ -72,6 +72,11 @@ run "precise bridge match beats fuzzy prefix" \
 # inherited members on the hand-written proxies, in-process.
 run "script Diagnosticable classes run on their proxy" \
   flutter test test/ghissues25_diagnosticable_proxy_test.dart
+# ghissues45: a script override's `super.m()` on a hand-written receiver proxy
+# (CustomPainter, SingleChildLayoutDelegate, the Diagnosticable proxies) runs
+# the native member once, in-process.
+run "super.m() on a hand-written receiver runs once" \
+  flutter test test/ghissues35_hand_written_receiver_test.dart
 # ghissues38: a proxied override returning a script list hands native code
 # the declared List<E>, in-process (skips until the proxies are regenerated
 # by tom_d4rt_generator 1.62.0).

@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 46 files
-// Generated: 2026-11-11T10:40:06.171881 by tom_d4rt_generator 1.63.0
+// Generated: 2026-11-12T18:12:26.248480 by tom_d4rt_generator 1.58.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -12,70 +12,73 @@ import 'dart:typed_data';
 import 'dart:ui' as $dart_ui;
 import 'dart:ui';
 
-import 'package:flutter/foundation.dart' as $flutter_1;
-import 'package:flutter/foundation.dart' as $flutter_2;
-import 'package:flutter/foundation.dart' as $flutter_3;
-import 'package:flutter/foundation.dart' as $flutter_4;
-import 'package:flutter/foundation.dart' as $flutter_5;
-import 'package:flutter/foundation.dart' as $flutter_6;
-import 'package:flutter/gestures.dart' as $flutter_7;
-import 'package:flutter/gestures.dart' as $flutter_8;
-import 'package:flutter/gestures.dart' as $flutter_9;
-import 'package:flutter/painting.dart' as $flutter_10;
-import 'package:flutter/painting.dart' as $flutter_11;
-import 'package:flutter/painting.dart' as $flutter_12;
-import 'package:flutter/painting.dart' as $flutter_13;
-import 'package:flutter/painting.dart' as $flutter_14;
-import 'package:flutter/painting.dart' as $flutter_15;
-import 'package:flutter/painting.dart' as $flutter_16;
-import 'package:flutter/painting.dart' as $flutter_17;
-import 'package:flutter/painting.dart' as $flutter_18;
-import 'package:flutter/painting.dart' as $flutter_19;
-import 'package:flutter/painting.dart' as $flutter_20;
-import 'package:flutter/painting.dart' as $flutter_21;
-import 'package:flutter/painting.dart' as $flutter_22;
-import 'package:flutter/painting.dart' as $flutter_23;
-import 'package:flutter/painting.dart' as $flutter_24;
-import 'package:flutter/painting.dart' as $flutter_25;
-import 'package:flutter/painting.dart' as $flutter_26;
-import 'package:flutter/painting.dart' as $flutter_27;
-import 'package:flutter/painting.dart' as $flutter_28;
-import 'package:flutter/painting.dart' as $flutter_29;
-import 'package:flutter/painting.dart' as $flutter_30;
-import 'package:flutter/painting.dart' as $flutter_31;
-import 'package:flutter/painting.dart' as $flutter_32;
-import 'package:flutter/painting.dart' as $flutter_33;
-import 'package:flutter/painting.dart' as $flutter_34;
-import 'package:flutter/painting.dart' as $flutter_35;
-import 'package:flutter/painting.dart' as $flutter_36;
-import 'package:flutter/painting.dart' as $flutter_37;
-import 'package:flutter/painting.dart' as $flutter_38;
-import 'package:flutter/painting.dart' as $flutter_39;
-import 'package:flutter/painting.dart' as $flutter_40;
-import 'package:flutter/painting.dart' as $flutter_41;
-import 'package:flutter/painting.dart' as $flutter_42;
-import 'package:flutter/painting.dart' as $flutter_43;
-import 'package:flutter/painting.dart' as $flutter_44;
-import 'package:flutter/painting.dart' as $flutter_45;
-import 'package:flutter/painting.dart' as $flutter_46;
-import 'package:flutter/painting.dart' as $flutter_47;
-import 'package:flutter/painting.dart' as $flutter_48;
-import 'package:flutter/painting.dart' as $flutter_49;
-import 'package:flutter/painting.dart' as $flutter_50;
-import 'package:flutter/painting.dart' as $flutter_51;
-import 'package:flutter/painting.dart' as $flutter_52;
-import 'package:flutter/painting.dart' as $flutter_53;
-import 'package:flutter/scheduler.dart' as $flutter_54;
-import 'package:flutter/scheduler.dart' as $flutter_55;
-import 'package:flutter/services.dart' as $flutter_56;
-import 'package:flutter/services.dart' as $flutter_57;
-import 'package:flutter/services.dart' as $flutter_58;
-import 'package:flutter/services.dart' as $flutter_59;
-import 'package:flutter/services.dart' as $flutter_60;
-import 'package:flutter/services.dart' as $flutter_61;
-import 'package:flutter/services.dart' as $flutter_62;
-import 'package:flutter/services.dart' as $flutter_63;
-import 'package:flutter/painting.dart' as $flutter_64;
+import 'package:flutter/src/foundation/assertions.dart' as $flutter_1;
+import 'package:flutter/src/foundation/basic_types.dart' as $flutter_2;
+import 'package:flutter/src/foundation/binding.dart' as $flutter_3;
+import 'package:flutter/src/foundation/change_notifier.dart' as $flutter_4;
+import 'package:flutter/src/foundation/diagnostics.dart' as $flutter_5;
+import 'package:flutter/src/foundation/platform.dart' as $flutter_6;
+import 'package:flutter/src/gestures/events.dart' as $flutter_7;
+import 'package:flutter/src/gestures/hit_test.dart' as $flutter_8;
+import 'package:flutter/src/gestures/recognizer.dart' as $flutter_9;
+import 'package:flutter/src/painting/alignment.dart' as $flutter_10;
+import 'package:flutter/src/painting/basic_types.dart' as $flutter_11;
+import 'package:flutter/src/painting/beveled_rectangle_border.dart'
+    as $flutter_12;
+import 'package:flutter/src/painting/binding.dart' as $flutter_13;
+import 'package:flutter/src/painting/border_radius.dart' as $flutter_14;
+import 'package:flutter/src/painting/borders.dart' as $flutter_15;
+import 'package:flutter/src/painting/box_border.dart' as $flutter_16;
+import 'package:flutter/src/painting/box_decoration.dart' as $flutter_17;
+import 'package:flutter/src/painting/box_fit.dart' as $flutter_18;
+import 'package:flutter/src/painting/box_shadow.dart' as $flutter_19;
+import 'package:flutter/src/painting/circle_border.dart' as $flutter_20;
+import 'package:flutter/src/painting/clip.dart' as $flutter_21;
+import 'package:flutter/src/painting/colors.dart' as $flutter_22;
+import 'package:flutter/src/painting/continuous_rectangle_border.dart'
+    as $flutter_23;
+import 'package:flutter/src/painting/debug.dart' as $flutter_24;
+import 'package:flutter/src/painting/decoration.dart' as $flutter_25;
+import 'package:flutter/src/painting/decoration_image.dart' as $flutter_26;
+import 'package:flutter/src/painting/edge_insets.dart' as $flutter_27;
+import 'package:flutter/src/painting/flutter_logo.dart' as $flutter_28;
+import 'package:flutter/src/painting/fractional_offset.dart' as $flutter_29;
+import 'package:flutter/src/painting/geometry.dart' as $flutter_30;
+import 'package:flutter/src/painting/gradient.dart' as $flutter_31;
+import 'package:flutter/src/painting/image_cache.dart' as $flutter_32;
+import 'package:flutter/src/painting/image_decoder.dart' as $flutter_33;
+import 'package:flutter/src/painting/image_provider.dart' as $flutter_34;
+import 'package:flutter/src/painting/image_resolution.dart' as $flutter_35;
+import 'package:flutter/src/painting/image_stream.dart' as $flutter_36;
+import 'package:flutter/src/painting/inline_span.dart' as $flutter_37;
+import 'package:flutter/src/painting/linear_border.dart' as $flutter_38;
+import 'package:flutter/src/painting/matrix_utils.dart' as $flutter_39;
+import 'package:flutter/src/painting/notched_shapes.dart' as $flutter_40;
+import 'package:flutter/src/painting/oval_border.dart' as $flutter_41;
+import 'package:flutter/src/painting/paint_utilities.dart' as $flutter_42;
+import 'package:flutter/src/painting/placeholder_span.dart' as $flutter_43;
+import 'package:flutter/src/painting/rounded_rectangle_border.dart'
+    as $flutter_44;
+import 'package:flutter/src/painting/shader_warm_up.dart' as $flutter_45;
+import 'package:flutter/src/painting/shape_decoration.dart' as $flutter_46;
+import 'package:flutter/src/painting/stadium_border.dart' as $flutter_47;
+import 'package:flutter/src/painting/star_border.dart' as $flutter_48;
+import 'package:flutter/src/painting/strut_style.dart' as $flutter_49;
+import 'package:flutter/src/painting/text_painter.dart' as $flutter_50;
+import 'package:flutter/src/painting/text_scaler.dart' as $flutter_51;
+import 'package:flutter/src/painting/text_span.dart' as $flutter_52;
+import 'package:flutter/src/painting/text_style.dart' as $flutter_53;
+import 'package:flutter/src/scheduler/binding.dart' as $flutter_54;
+import 'package:flutter/src/scheduler/priority.dart' as $flutter_55;
+import 'package:flutter/src/services/asset_bundle.dart' as $flutter_56;
+import 'package:flutter/src/services/binary_messenger.dart' as $flutter_57;
+import 'package:flutter/src/services/binding.dart' as $flutter_58;
+import 'package:flutter/src/services/hardware_keyboard.dart' as $flutter_59;
+import 'package:flutter/src/services/mouse_cursor.dart' as $flutter_60;
+import 'package:flutter/src/services/mouse_tracking.dart' as $flutter_61;
+import 'package:flutter/src/services/restoration.dart' as $flutter_62;
+import 'package:flutter/src/services/text_boundary.dart' as $flutter_63;
+import 'package:flutter/src/services/text_editing.dart' as $flutter_64;
 import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/basic_message_channel_user_bridge.dart'
     as $tom_d4rt_flutter_1;
 import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/state_user_bridge.dart'

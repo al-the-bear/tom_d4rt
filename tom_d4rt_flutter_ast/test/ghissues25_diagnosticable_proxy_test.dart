@@ -89,19 +89,9 @@ void main() {
       expect(r[2], 'Named!');
     });
 
-    test(
-      'GHI25-F2: a class extending DiagnosticableTree builds its node and '
-      'deep string through its overrides [2026-11-10]',
-      () async {
-        expect(await _run('tree'), [2, 1, true, true]);
-      },
-      skip:
-          'ghissues999: the DiagnosticableTree proxy runs inherited members only '
-          'once it is marked with D4.markProxyIsReceiver, which needs tom_d4rt '
-          '1.249.0 / tom_d4rt_ast 0.229.0 (unpublished; this package resolves '
-          'the published interpreter). Measured passing on the tree under '
-          'tool/prepublish_overrides.dart --set with the mark added, 2026-11-10 '
-          '(GEN-130, ghissues25).',
-    );
+    test('GHI25-F2: a class extending DiagnosticableTree builds its node and '
+        'deep string through its overrides [2026-11-10]', () async {
+      expect(await _run('tree'), [2, 1, true, true]);
+    });
   });
 }

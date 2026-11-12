@@ -121,6 +121,8 @@ const Map<String, String> divergent = {
       'the AST line compiles each probe through AstBundler and runs it with '
       'executeAsync; the source twin runs the source with '
       'SourceFlutterD4rt.execute (measured 2026-11-11).',
+  'ghissues35_hand_written_receiver_test.dart':
+      'the same AstBundler step as ghissues25 (measured 2026-11-12).',
   'ghissues38_proxy_list_return_test.dart':
       'the same AstBundler step as ghissues25 (measured 2026-11-11).',
   'ghissues42_type_arg_names_test.dart':

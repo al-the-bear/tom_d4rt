@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 27 files
-// Generated: 2026-11-11T10:37:58.821998 by tom_d4rt_generator 1.63.0
+// Generated: 2026-11-12T18:10:12.540024 by tom_d4rt_generator 1.58.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -12,32 +12,32 @@ import 'dart:typed_data';
 import 'dart:ui' as $dart_ui;
 import 'dart:ui';
 
-import 'package:flutter/foundation.dart' as $flutter_1;
-import 'package:flutter/foundation.dart' as $flutter_2;
-import 'package:flutter/foundation.dart' as $flutter_3;
-import 'package:flutter/foundation.dart' as $flutter_4;
-import 'package:flutter/foundation.dart' as $flutter_5;
-import 'package:flutter/foundation.dart' as $flutter_6;
-import 'package:flutter/foundation.dart' as $flutter_7;
-import 'package:flutter/foundation.dart' as $flutter_8;
-import 'package:flutter/foundation.dart' as $flutter_9;
-import 'package:flutter/foundation.dart' as $flutter_10;
-import 'package:flutter/foundation.dart' as $flutter_11;
-import 'package:flutter/foundation.dart' as $flutter_12;
-import 'package:flutter/foundation.dart' as $flutter_13;
-import 'package:flutter/foundation.dart' as $flutter_14;
-import 'package:flutter/foundation.dart' as $flutter_15;
-import 'package:flutter/foundation.dart' as $flutter_16;
-import 'package:flutter/foundation.dart' as $flutter_17;
-import 'package:flutter/foundation.dart' as $flutter_18;
-import 'package:flutter/foundation.dart' as $flutter_19;
-import 'package:flutter/foundation.dart' as $flutter_20;
-import 'package:flutter/foundation.dart' as $flutter_21;
-import 'package:flutter/foundation.dart' as $flutter_22;
-import 'package:flutter/foundation.dart' as $flutter_23;
-import 'package:flutter/foundation.dart' as $flutter_24;
-import 'package:flutter/foundation.dart' as $flutter_25;
-import 'package:flutter/foundation.dart' as $flutter_26;
+import 'package:flutter/src/foundation/annotations.dart' as $flutter_1;
+import 'package:flutter/src/foundation/assertions.dart' as $flutter_2;
+import 'package:flutter/src/foundation/basic_types.dart' as $flutter_3;
+import 'package:flutter/src/foundation/binding.dart' as $flutter_4;
+import 'package:flutter/src/foundation/bitfield.dart' as $flutter_5;
+import 'package:flutter/src/foundation/capabilities.dart' as $flutter_6;
+import 'package:flutter/src/foundation/change_notifier.dart' as $flutter_7;
+import 'package:flutter/src/foundation/collections.dart' as $flutter_8;
+import 'package:flutter/src/foundation/constants.dart' as $flutter_9;
+import 'package:flutter/src/foundation/debug.dart' as $flutter_10;
+import 'package:flutter/src/foundation/diagnostics.dart' as $flutter_11;
+import 'package:flutter/src/foundation/isolates.dart' as $flutter_12;
+import 'package:flutter/src/foundation/key.dart' as $flutter_13;
+import 'package:flutter/src/foundation/licenses.dart' as $flutter_14;
+import 'package:flutter/src/foundation/memory_allocations.dart' as $flutter_15;
+import 'package:flutter/src/foundation/object.dart' as $flutter_16;
+import 'package:flutter/src/foundation/observer_list.dart' as $flutter_17;
+import 'package:flutter/src/foundation/persistent_hash_map.dart' as $flutter_18;
+import 'package:flutter/src/foundation/platform.dart' as $flutter_19;
+import 'package:flutter/src/foundation/print.dart' as $flutter_20;
+import 'package:flutter/src/foundation/serialization.dart' as $flutter_21;
+import 'package:flutter/src/foundation/service_extensions.dart' as $flutter_22;
+import 'package:flutter/src/foundation/stack_frame.dart' as $flutter_23;
+import 'package:flutter/src/foundation/synchronous_future.dart' as $flutter_24;
+import 'package:flutter/src/foundation/timeline.dart' as $flutter_25;
+import 'package:flutter/src/foundation/unicode.dart' as $flutter_26;
 import 'package:meta/meta.dart' as $meta_1;
 import 'package:tom_d4rt_flutter_ast/src/d4rt_user_bridges/basic_message_channel_user_bridge.dart'
     as $tom_d4rt_flutter_ast_1;

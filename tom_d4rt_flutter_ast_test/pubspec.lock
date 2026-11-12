@@ -532,10 +532,10 @@ packages:
     dependency: "direct dev"
     description:
       name: tom_ast_generator
-      sha256: "2f69c6f7be17a22bab88efc8b00f24822e66af3bfb5e2d0196864b54a8197e8e"
+      sha256: deaefa268393790388f3ece1ac5654aa3fd4442034523ccf6999d4bd49358932
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.1"
+    version: "0.2.2"
   tom_ast_model:
     dependency: transitive
     description:
@@ -548,25 +548,25 @@ packages:
     dependency: transitive
     description:
       name: tom_build_base
-      sha256: "4404a7d08640d71780fb3a5ac60c0b84dcdceb3456e422c401de67f3d2f964c2"
+      sha256: ba84a741b3587451528dcc8ef47e7f180dd4f77163bdbfbe7f68bce3d8656ff9
       url: "https://pub.dev"
     source: hosted
-    version: "2.18.0"
+    version: "2.19.1"
   tom_d4rt_ast:
     dependency: "direct main"
     description:
       name: tom_d4rt_ast
-      sha256: "75707a480cc678a33b44c167102c097c5f007eac8327ddff321254b24e2f99d5"
+      sha256: "85b2fea026d7db1f8998116f72d50a3bffe5babe1cdbc557763362701ef87a06"
       url: "https://pub.dev"
     source: hosted
-    version: "0.212.1"
+    version: "0.236.0"
   tom_d4rt_flutter_ast:
     dependency: "direct main"
     description:
       path: "../tom_d4rt_flutter_ast"
       relative: true
     source: path
-    version: "0.12.0"
+    version: "0.13.0"
   typed_data:
     dependency: transitive
     description:
