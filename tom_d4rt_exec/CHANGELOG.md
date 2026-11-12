@@ -1,3 +1,15 @@
+## 1.57.0
+
+### Changed — resolves tom_d4rt_ast 0.236.0 and tom_ast_generator 0.2.2
+
+The interpreter floor moves to `tom_d4rt_ast ^0.236.0` (and the reference
+`tom_d4rt ^1.256.0`), with `tom_ast_generator ^0.2.2`, which takes the same
+interpreter. `ModuleLoader.isLoadingModules` and `deferUntilModulesLoaded`
+now carry `@override`: the `ModuleContext` they implement declares them from
+tom_d4rt_ast 0.215.0 on.
+
+Name resolution: no.
+
 ## 1.56.0
 
 ### Fixed — a doc-comment reference never refuses a script

@@ -669,13 +669,9 @@ class ModuleLoader implements context.ModuleContext {
   /// How many [loadModuleInternal] calls are on the stack.
   int _loadDepth = 0;
 
-  // GitHub #9: `isLoadingModules` and `deferUntilModulesLoaded` implement
-  // ModuleContext members tom_d4rt_ast 0.214.0 adds. They carry no @override
-  // while this package still resolves 0.212.1, whose ModuleContext lacks them
-  // (the batch release ghissues10 adds the annotation with the floor raise).
-
   /// Whether a module load is in progress, i.e. names a module declares may
   /// not be visible yet to a module of the same import cycle.
+  @override
   bool get isLoadingModules => _loadDepth > 0;
 
   /// The work handed over by [deferUntilModulesLoaded], in order.
@@ -686,6 +682,7 @@ class ModuleLoader implements context.ModuleContext {
   /// library still loading - an import cycle, or a barrel that has not reached
   /// the export declaring it). Returns false when no module load is in
   /// progress: then the name is genuinely undefined and the caller reports it.
+  @override
   bool deferUntilModulesLoaded(void Function() resolve) {
     if (_loadDepth == 0) return false;
     _deferredUntilLoaded.add(resolve);
