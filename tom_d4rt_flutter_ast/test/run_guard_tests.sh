@@ -218,6 +218,14 @@ run "open-issues doc is rated and derived" \
 pair "proxy registries agree across the twins" \
   flutter test test/sce164_proxy_registry_parity_test.dart
 
+# ghissues44: every copy of idle_timeout.sh (both twins and the demo app) gives
+# its command a temp folder of its own and removes it, after a normal exit, an
+# idle kill or its own termination - the companion app's `flutter run`, killed
+# by the harness, leaves 570-614 MB behind per test file otherwise. Fixture
+# commands only; no companion app.
+pair "the watchdog removes its command's temp folder" \
+  flutter test test/ghissues44_idle_timeout_temp_test.dart
+
 # SCE165: the twins' ~200 KB hand-duplicated d4rt_runtime_registrations.dart
 # agrees line for line below its import prologue. The largest duplication in the
 # repo and, until now, the only one with no mechanism at all. Pure file I/O.

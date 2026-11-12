@@ -78,6 +78,7 @@ pair 'cluster log is derived, dated and blast-radius rated' { flutter test test/
 run 'generator issues log is a derived register' { flutter test test/sce158_generator_issues_doc_test.dart }
 run 'open-issues doc is rated and derived' { flutter test test/sce159_open_issues_doc_test.dart }
 pair 'proxy registries agree across the twins' { flutter test test/sce164_proxy_registry_parity_test.dart }
+pair "the watchdog removes its command's temp folder" { flutter test test/ghissues44_idle_timeout_temp_test.dart }
 pair 'runtime registrations mirror below the prologue' { flutter test test/sce165_runtime_registrations_mirror_test.dart }
 pair 'one definition of a passing corpus script' { flutter test test/sce167_pass_verdict_convention_test.dart }
 run 'bridge step is streamed and content-decided' { flutter test test/sce13_bridge_gate_test.dart }

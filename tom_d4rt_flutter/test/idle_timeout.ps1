@@ -37,6 +37,13 @@
 #
 # Override the wall clock with $env:WALL_TIMEOUT (seconds; 0 disables it).
 #
+# The command gets a temp folder of its own (TEMP / TMP = <outer TEMP>\
+# d4rtflutter.<random>), removed when the command is gone, whatever its fate.
+# The companion app's `flutter run`, which the corpus harness starts and kills
+# for every test file, leaves its `flutter_tools.*` folder (two ~300 MB .dill
+# files) behind; one per test file filled mbp's disk with 447 GB in two days
+# (ghissues44, 2026-11-11). See idle_timeout.sh.
+#
 # Stall detection polls the logfile's LastWriteTime (fd-agnostic, like the bash
 # sibling). Output is merged (stdout+stderr) into the logfile via cmd.exe and
 # mirrored live to the console.
@@ -61,9 +68,23 @@ Set-Content -Path $LogFile -Value $null
 # source for both the run's output and the summary grep (matches the bash
 # wrapper). flutter on Windows is flutter.bat — cmd /c resolves it.
 $inner = ($Command -join ' ')
-$proc = Start-Process -FilePath $env:ComSpec `
-  -ArgumentList @('/c', "$inner > `"$LogFile`" 2>&1") `
-  -NoNewWindow -PassThru
+$outerTemp = if ($env:TEMP) { $env:TEMP } else { [System.IO.Path]::GetTempPath() }
+$runTmp = Join-Path $outerTemp ('d4rtflutter.' + [System.IO.Path]::GetRandomFileName())
+New-Item -ItemType Directory -Path $runTmp -Force | Out-Null
+# Start-Process hands the child this process's environment: point TEMP / TMP
+# at the run's folder for the start only, then put them back.
+$savedTemp = $env:TEMP
+$savedTmp = $env:TMP
+$env:TEMP = $runTmp
+$env:TMP = $runTmp
+try {
+  $proc = Start-Process -FilePath $env:ComSpec `
+    -ArgumentList @('/c', "$inner > `"$LogFile`" 2>&1") `
+    -NoNewWindow -PassThru
+} finally {
+  $env:TEMP = $savedTemp
+  $env:TMP = $savedTmp
+}
 
 # Live console mirror: a job tailing the logfile while the process runs.
 $mirror = Start-Job -ScriptBlock { param($lf) Get-Content -Path $lf -Wait } -ArgumentList $LogFile
@@ -113,6 +134,14 @@ if ($idleKilled) {
 Receive-Job $mirror -ErrorAction SilentlyContinue | Out-Host
 Stop-Job $mirror -ErrorAction SilentlyContinue
 Remove-Job $mirror -Force -ErrorAction SilentlyContinue
+
+# The tree is gone (exited or taskkill /T); a file it held may take a moment
+# to be released, so try twice.
+foreach ($attempt in 1..2) {
+  Remove-Item -LiteralPath $runTmp -Recurse -Force -ErrorAction SilentlyContinue
+  if (-not (Test-Path -LiteralPath $runTmp)) { break }
+  Start-Sleep -Seconds 1
+}
 
 if ($idleKilled -or $wallKilled) { exit 124 }
 exit $proc.ExitCode

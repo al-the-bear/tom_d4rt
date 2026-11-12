@@ -25,6 +25,15 @@
 #     any child it spawned are torn down together — no orphaned wedge.
 #   - Exit code: the command's own exit code on normal completion; 124 (the
 #     GNU `timeout` convention) when the watchdog killed it for going idle.
+#   - The command gets a temp folder of its own (TMPDIR=<outer TMPDIR>/
+#     d4rtflutter.XXXXXX), removed when this script exits, whatever the
+#     command's fate. The companion app's `flutter run` (Flutter 3.47.9),
+#     which the corpus harness starts and kills for every test file, leaves
+#     its `flutter_tools.*` folder - app.dill and app.dill.incremental.dill,
+#     about 300 MB each - behind, and one per test file filled mbp's disk with
+#     447 GB in two days (ghissues44, 2026-11-11). The EXIT trap runs in this
+#     shell, not in the killed process group, so a watchdog kill is cleaned up
+#     too.
 #
 # Stall detection is based on the logfile's modification time, polled every
 # few seconds. This is intentionally fd-agnostic: it does not rely on pipe EOF,
@@ -69,12 +78,29 @@ _mtime() {
 # live mirror (tail) have a file to attach to with no race.
 : > "$logfile"
 
+# The command's own temp folder (see the header). INT/TERM exit through the
+# EXIT trap so an interrupted run is cleaned up as well.
+run_tmp="$(mktemp -d "${TMPDIR:-/tmp}/d4rtflutter.XXXXXX")" || {
+  echo "idle_timeout.sh: cannot create a temp folder under ${TMPDIR:-/tmp}" >&2
+  exit 2
+}
+trap 'rm -rf "$run_tmp"' EXIT
+# An interrupted watchdog takes the command's process group with it first:
+# the group does not receive the terminal's SIGINT, and its temp folder is
+# about to go.
+_on_signal() {
+  if [ -n "${cmd_pid:-}" ]; then _kill_group; fi
+  exit "$1"
+}
+trap '_on_signal 130' INT
+trap '_on_signal 143' TERM
+
 # Job control: each background job becomes its own process group, so a negative
 # PID (-pgid) signals the whole tree, not just the leader.
 set -m
 
 # Run the command, merging stderr into stdout, appending to the logfile.
-"$@" >> "$logfile" 2>&1 &
+TMPDIR="$run_tmp" "$@" >> "$logfile" 2>&1 &
 cmd_pid=$!
 
 # Live console mirror. -n +1 so we stream from the very first byte.
