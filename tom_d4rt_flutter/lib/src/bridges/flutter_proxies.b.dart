@@ -1,4 +1,4 @@
-// Generated: 2026-11-12T18:13:25.437316 by tom_d4rt_generator 1.58.0
+// Generated: 2026-11-12T21:56:21.545688 by tom_d4rt_generator 1.63.0
 /// D4rt Proxy Classes for flutter_material_bridges
 ///
 /// Generated proxy/adapter subclasses that delegate abstract methods
@@ -22,7 +22,7 @@ import 'package:tom_d4rt/d4rt.dart';
 /// Delegates abstract methods to callback functions, enabling
 /// D4rt scripts to implement [CustomPainter] via named
 /// function parameters.
-class D4rtCustomPainter extends CustomPainter {
+class D4rtCustomPainter extends CustomPainter implements D4ReceiverProxy {
   /// Callback for [CustomPainter.paint].
   final void Function(Canvas, Size) onPaint;
 
@@ -55,6 +55,18 @@ class D4rtCustomPainter extends CustomPainter {
     this.onSemanticsBuilder,
   });
 
+  final Set<String> _d4rtForwarding = <String>{};
+
+  @override
+  R d4rtSuperCall<R>(String member, R Function() call) {
+    if (!_d4rtForwarding.add(member)) return call();
+    try {
+      return call();
+    } finally {
+      _d4rtForwarding.remove(member);
+    }
+  }
+
   @override
   void paint(Canvas canvas, Size size) => onPaint(canvas, size);
 
@@ -62,29 +74,76 @@ class D4rtCustomPainter extends CustomPainter {
   bool shouldRepaint(CustomPainter oldDelegate) => onShouldRepaint(oldDelegate);
 
   @override
-  void addListener(VoidCallback listener) => onAddListener != null
-      ? onAddListener!(listener)
-      : super.addListener(listener);
+  void addListener(VoidCallback listener) {
+    final d4rtForward = onAddListener;
+    if (d4rtForward == null || _d4rtForwarding.contains('addListener')) {
+      return super.addListener(listener);
+    }
+    _d4rtForwarding.add('addListener');
+    try {
+      return d4rtForward(listener);
+    } finally {
+      _d4rtForwarding.remove('addListener');
+    }
+  }
 
   @override
-  void removeListener(VoidCallback listener) => onRemoveListener != null
-      ? onRemoveListener!(listener)
-      : super.removeListener(listener);
+  void removeListener(VoidCallback listener) {
+    final d4rtForward = onRemoveListener;
+    if (d4rtForward == null || _d4rtForwarding.contains('removeListener')) {
+      return super.removeListener(listener);
+    }
+    _d4rtForwarding.add('removeListener');
+    try {
+      return d4rtForward(listener);
+    } finally {
+      _d4rtForwarding.remove('removeListener');
+    }
+  }
 
   @override
-  bool shouldRebuildSemantics(CustomPainter oldDelegate) =>
-      onShouldRebuildSemantics != null
-      ? onShouldRebuildSemantics!(oldDelegate)
-      : super.shouldRebuildSemantics(oldDelegate);
+  bool shouldRebuildSemantics(CustomPainter oldDelegate) {
+    final d4rtForward = onShouldRebuildSemantics;
+    if (d4rtForward == null ||
+        _d4rtForwarding.contains('shouldRebuildSemantics')) {
+      return super.shouldRebuildSemantics(oldDelegate);
+    }
+    _d4rtForwarding.add('shouldRebuildSemantics');
+    try {
+      return d4rtForward(oldDelegate);
+    } finally {
+      _d4rtForwarding.remove('shouldRebuildSemantics');
+    }
+  }
 
   @override
-  bool? hitTest(Offset position) =>
-      onHitTest != null ? onHitTest!(position) : super.hitTest(position);
+  bool? hitTest(Offset position) {
+    final d4rtForward = onHitTest;
+    if (d4rtForward == null || _d4rtForwarding.contains('hitTest')) {
+      return super.hitTest(position);
+    }
+    _d4rtForwarding.add('hitTest');
+    try {
+      return d4rtForward(position);
+    } finally {
+      _d4rtForwarding.remove('hitTest');
+    }
+  }
 
   @override
-  SemanticsBuilderCallback? get semanticsBuilder => onSemanticsBuilder != null
-      ? onSemanticsBuilder!()
-      : super.semanticsBuilder;
+  SemanticsBuilderCallback? get semanticsBuilder {
+    final d4rtForward = onSemanticsBuilder;
+    if (d4rtForward == null ||
+        _d4rtForwarding.contains('get semanticsBuilder')) {
+      return super.semanticsBuilder;
+    }
+    _d4rtForwarding.add('get semanticsBuilder');
+    try {
+      return d4rtForward();
+    } finally {
+      _d4rtForwarding.remove('get semanticsBuilder');
+    }
+  }
 }
 
 /// D4rt proxy for [CustomClipper].
@@ -92,7 +151,7 @@ class D4rtCustomPainter extends CustomPainter {
 /// Delegates abstract methods to callback functions, enabling
 /// D4rt scripts to implement [CustomClipper] via named
 /// function parameters.
-class D4rtCustomClipper<T> extends CustomClipper<T> {
+class D4rtCustomClipper<T> extends CustomClipper<T> implements D4ReceiverProxy {
   /// Callback for [CustomClipper.getClip].
   final T Function(Size) onGetClip;
 
@@ -117,6 +176,18 @@ class D4rtCustomClipper<T> extends CustomClipper<T> {
     this.onGetApproximateClipRect,
   });
 
+  final Set<String> _d4rtForwarding = <String>{};
+
+  @override
+  R d4rtSuperCall<R>(String member, R Function() call) {
+    if (!_d4rtForwarding.add(member)) return call();
+    try {
+      return call();
+    } finally {
+      _d4rtForwarding.remove(member);
+    }
+  }
+
   @override
   T getClip(Size size) => onGetClip(size);
 
@@ -124,19 +195,47 @@ class D4rtCustomClipper<T> extends CustomClipper<T> {
   bool shouldReclip(CustomClipper<T> oldClipper) => onShouldReclip(oldClipper);
 
   @override
-  void addListener(VoidCallback listener) => onAddListener != null
-      ? onAddListener!(listener)
-      : super.addListener(listener);
+  void addListener(VoidCallback listener) {
+    final d4rtForward = onAddListener;
+    if (d4rtForward == null || _d4rtForwarding.contains('addListener')) {
+      return super.addListener(listener);
+    }
+    _d4rtForwarding.add('addListener');
+    try {
+      return d4rtForward(listener);
+    } finally {
+      _d4rtForwarding.remove('addListener');
+    }
+  }
 
   @override
-  void removeListener(VoidCallback listener) => onRemoveListener != null
-      ? onRemoveListener!(listener)
-      : super.removeListener(listener);
+  void removeListener(VoidCallback listener) {
+    final d4rtForward = onRemoveListener;
+    if (d4rtForward == null || _d4rtForwarding.contains('removeListener')) {
+      return super.removeListener(listener);
+    }
+    _d4rtForwarding.add('removeListener');
+    try {
+      return d4rtForward(listener);
+    } finally {
+      _d4rtForwarding.remove('removeListener');
+    }
+  }
 
   @override
-  Rect getApproximateClipRect(Size size) => onGetApproximateClipRect != null
-      ? onGetApproximateClipRect!(size)
-      : super.getApproximateClipRect(size);
+  Rect getApproximateClipRect(Size size) {
+    final d4rtForward = onGetApproximateClipRect;
+    if (d4rtForward == null ||
+        _d4rtForwarding.contains('getApproximateClipRect')) {
+      return super.getApproximateClipRect(size);
+    }
+    _d4rtForwarding.add('getApproximateClipRect');
+    try {
+      return d4rtForward(size);
+    } finally {
+      _d4rtForwarding.remove('getApproximateClipRect');
+    }
+  }
 }
 
 /// D4rt proxy for [FlowDelegate].
@@ -144,7 +243,7 @@ class D4rtCustomClipper<T> extends CustomClipper<T> {
 /// Delegates abstract methods to callback functions, enabling
 /// D4rt scripts to implement [FlowDelegate] via named
 /// function parameters.
-class D4rtFlowDelegate extends FlowDelegate {
+class D4rtFlowDelegate extends FlowDelegate implements D4ReceiverProxy {
   /// Callback for [FlowDelegate.paintChildren].
   final void Function(FlowPaintingContext) onPaintChildren;
 
@@ -169,6 +268,18 @@ class D4rtFlowDelegate extends FlowDelegate {
     this.onShouldRelayout,
   });
 
+  final Set<String> _d4rtForwarding = <String>{};
+
+  @override
+  R d4rtSuperCall<R>(String member, R Function() call) {
+    if (!_d4rtForwarding.add(member)) return call();
+    try {
+      return call();
+    } finally {
+      _d4rtForwarding.remove(member);
+    }
+  }
+
   @override
   void paintChildren(FlowPaintingContext context) => onPaintChildren(context);
 
@@ -176,19 +287,47 @@ class D4rtFlowDelegate extends FlowDelegate {
   bool shouldRepaint(FlowDelegate oldDelegate) => onShouldRepaint(oldDelegate);
 
   @override
-  Size getSize(BoxConstraints constraints) =>
-      onGetSize != null ? onGetSize!(constraints) : super.getSize(constraints);
+  Size getSize(BoxConstraints constraints) {
+    final d4rtForward = onGetSize;
+    if (d4rtForward == null || _d4rtForwarding.contains('getSize')) {
+      return super.getSize(constraints);
+    }
+    _d4rtForwarding.add('getSize');
+    try {
+      return d4rtForward(constraints);
+    } finally {
+      _d4rtForwarding.remove('getSize');
+    }
+  }
 
   @override
-  BoxConstraints getConstraintsForChild(int i, BoxConstraints constraints) =>
-      onGetConstraintsForChild != null
-      ? onGetConstraintsForChild!(i, constraints)
-      : super.getConstraintsForChild(i, constraints);
+  BoxConstraints getConstraintsForChild(int i, BoxConstraints constraints) {
+    final d4rtForward = onGetConstraintsForChild;
+    if (d4rtForward == null ||
+        _d4rtForwarding.contains('getConstraintsForChild')) {
+      return super.getConstraintsForChild(i, constraints);
+    }
+    _d4rtForwarding.add('getConstraintsForChild');
+    try {
+      return d4rtForward(i, constraints);
+    } finally {
+      _d4rtForwarding.remove('getConstraintsForChild');
+    }
+  }
 
   @override
-  bool shouldRelayout(FlowDelegate oldDelegate) => onShouldRelayout != null
-      ? onShouldRelayout!(oldDelegate)
-      : super.shouldRelayout(oldDelegate);
+  bool shouldRelayout(FlowDelegate oldDelegate) {
+    final d4rtForward = onShouldRelayout;
+    if (d4rtForward == null || _d4rtForwarding.contains('shouldRelayout')) {
+      return super.shouldRelayout(oldDelegate);
+    }
+    _d4rtForwarding.add('shouldRelayout');
+    try {
+      return d4rtForward(oldDelegate);
+    } finally {
+      _d4rtForwarding.remove('shouldRelayout');
+    }
+  }
 }
 
 /// D4rt proxy for [MultiChildLayoutDelegate].
@@ -196,7 +335,8 @@ class D4rtFlowDelegate extends FlowDelegate {
 /// Delegates abstract methods to callback functions, enabling
 /// D4rt scripts to implement [MultiChildLayoutDelegate] via named
 /// function parameters.
-class D4rtMultiChildLayoutDelegate extends MultiChildLayoutDelegate {
+class D4rtMultiChildLayoutDelegate extends MultiChildLayoutDelegate
+    implements D4ReceiverProxy {
   /// Callback for [MultiChildLayoutDelegate.performLayout].
   final void Function(Size) onPerformLayout;
 
@@ -225,6 +365,18 @@ class D4rtMultiChildLayoutDelegate extends MultiChildLayoutDelegate {
     this.onGetSize,
   });
 
+  final Set<String> _d4rtForwarding = <String>{};
+
+  @override
+  R d4rtSuperCall<R>(String member, R Function() call) {
+    if (!_d4rtForwarding.add(member)) return call();
+    try {
+      return call();
+    } finally {
+      _d4rtForwarding.remove(member);
+    }
+  }
+
   @override
   void performLayout(Size size) => onPerformLayout(size);
 
@@ -233,23 +385,60 @@ class D4rtMultiChildLayoutDelegate extends MultiChildLayoutDelegate {
       onShouldRelayout(oldDelegate);
 
   @override
-  bool hasChild(Object childId) =>
-      onHasChild != null ? onHasChild!(childId) : super.hasChild(childId);
+  bool hasChild(Object childId) {
+    final d4rtForward = onHasChild;
+    if (d4rtForward == null || _d4rtForwarding.contains('hasChild')) {
+      return super.hasChild(childId);
+    }
+    _d4rtForwarding.add('hasChild');
+    try {
+      return d4rtForward(childId);
+    } finally {
+      _d4rtForwarding.remove('hasChild');
+    }
+  }
 
   @override
-  Size layoutChild(Object childId, BoxConstraints constraints) =>
-      onLayoutChild != null
-      ? onLayoutChild!(childId, constraints)
-      : super.layoutChild(childId, constraints);
+  Size layoutChild(Object childId, BoxConstraints constraints) {
+    final d4rtForward = onLayoutChild;
+    if (d4rtForward == null || _d4rtForwarding.contains('layoutChild')) {
+      return super.layoutChild(childId, constraints);
+    }
+    _d4rtForwarding.add('layoutChild');
+    try {
+      return d4rtForward(childId, constraints);
+    } finally {
+      _d4rtForwarding.remove('layoutChild');
+    }
+  }
 
   @override
-  void positionChild(Object childId, Offset offset) => onPositionChild != null
-      ? onPositionChild!(childId, offset)
-      : super.positionChild(childId, offset);
+  void positionChild(Object childId, Offset offset) {
+    final d4rtForward = onPositionChild;
+    if (d4rtForward == null || _d4rtForwarding.contains('positionChild')) {
+      return super.positionChild(childId, offset);
+    }
+    _d4rtForwarding.add('positionChild');
+    try {
+      return d4rtForward(childId, offset);
+    } finally {
+      _d4rtForwarding.remove('positionChild');
+    }
+  }
 
   @override
-  Size getSize(BoxConstraints constraints) =>
-      onGetSize != null ? onGetSize!(constraints) : super.getSize(constraints);
+  Size getSize(BoxConstraints constraints) {
+    final d4rtForward = onGetSize;
+    if (d4rtForward == null || _d4rtForwarding.contains('getSize')) {
+      return super.getSize(constraints);
+    }
+    _d4rtForwarding.add('getSize');
+    try {
+      return d4rtForward(constraints);
+    } finally {
+      _d4rtForwarding.remove('getSize');
+    }
+  }
 }
 
 /// D4rt proxy for [SingleChildLayoutDelegate].
@@ -257,7 +446,8 @@ class D4rtMultiChildLayoutDelegate extends MultiChildLayoutDelegate {
 /// Delegates abstract methods to callback functions, enabling
 /// D4rt scripts to implement [SingleChildLayoutDelegate] via named
 /// function parameters.
-class D4rtSingleChildLayoutDelegate extends SingleChildLayoutDelegate {
+class D4rtSingleChildLayoutDelegate extends SingleChildLayoutDelegate
+    implements D4ReceiverProxy {
   /// Callback for [SingleChildLayoutDelegate.shouldRelayout].
   final bool Function(SingleChildLayoutDelegate) onShouldRelayout;
 
@@ -278,25 +468,65 @@ class D4rtSingleChildLayoutDelegate extends SingleChildLayoutDelegate {
     this.onGetPositionForChild,
   });
 
+  final Set<String> _d4rtForwarding = <String>{};
+
+  @override
+  R d4rtSuperCall<R>(String member, R Function() call) {
+    if (!_d4rtForwarding.add(member)) return call();
+    try {
+      return call();
+    } finally {
+      _d4rtForwarding.remove(member);
+    }
+  }
+
   @override
   bool shouldRelayout(SingleChildLayoutDelegate oldDelegate) =>
       onShouldRelayout(oldDelegate);
 
   @override
-  Size getSize(BoxConstraints constraints) =>
-      onGetSize != null ? onGetSize!(constraints) : super.getSize(constraints);
+  Size getSize(BoxConstraints constraints) {
+    final d4rtForward = onGetSize;
+    if (d4rtForward == null || _d4rtForwarding.contains('getSize')) {
+      return super.getSize(constraints);
+    }
+    _d4rtForwarding.add('getSize');
+    try {
+      return d4rtForward(constraints);
+    } finally {
+      _d4rtForwarding.remove('getSize');
+    }
+  }
 
   @override
-  BoxConstraints getConstraintsForChild(BoxConstraints constraints) =>
-      onGetConstraintsForChild != null
-      ? onGetConstraintsForChild!(constraints)
-      : super.getConstraintsForChild(constraints);
+  BoxConstraints getConstraintsForChild(BoxConstraints constraints) {
+    final d4rtForward = onGetConstraintsForChild;
+    if (d4rtForward == null ||
+        _d4rtForwarding.contains('getConstraintsForChild')) {
+      return super.getConstraintsForChild(constraints);
+    }
+    _d4rtForwarding.add('getConstraintsForChild');
+    try {
+      return d4rtForward(constraints);
+    } finally {
+      _d4rtForwarding.remove('getConstraintsForChild');
+    }
+  }
 
   @override
-  Offset getPositionForChild(Size size, Size childSize) =>
-      onGetPositionForChild != null
-      ? onGetPositionForChild!(size, childSize)
-      : super.getPositionForChild(size, childSize);
+  Offset getPositionForChild(Size size, Size childSize) {
+    final d4rtForward = onGetPositionForChild;
+    if (d4rtForward == null ||
+        _d4rtForwarding.contains('getPositionForChild')) {
+      return super.getPositionForChild(size, childSize);
+    }
+    _d4rtForwarding.add('getPositionForChild');
+    try {
+      return d4rtForward(size, childSize);
+    } finally {
+      _d4rtForwarding.remove('getPositionForChild');
+    }
+  }
 }
 
 /// D4rt proxy for [SliverPersistentHeaderDelegate].
@@ -304,8 +534,8 @@ class D4rtSingleChildLayoutDelegate extends SingleChildLayoutDelegate {
 /// Delegates abstract methods to callback functions, enabling
 /// D4rt scripts to implement [SliverPersistentHeaderDelegate] via named
 /// function parameters.
-class D4rtSliverPersistentHeaderDelegate
-    extends SliverPersistentHeaderDelegate {
+class D4rtSliverPersistentHeaderDelegate extends SliverPersistentHeaderDelegate
+    implements D4ReceiverProxy {
   /// Callback for [SliverPersistentHeaderDelegate.build].
   final Widget Function(BuildContext, double, bool) onBuild;
 
@@ -344,6 +574,18 @@ class D4rtSliverPersistentHeaderDelegate
     this.onShowOnScreenConfiguration,
   });
 
+  final Set<String> _d4rtForwarding = <String>{};
+
+  @override
+  R d4rtSuperCall<R>(String member, R Function() call) {
+    if (!_d4rtForwarding.add(member)) return call();
+    try {
+      return call();
+    } finally {
+      _d4rtForwarding.remove(member);
+    }
+  }
+
   @override
   Widget build(
     BuildContext context,
@@ -362,25 +604,63 @@ class D4rtSliverPersistentHeaderDelegate
   double get maxExtent => onMaxExtent();
 
   @override
-  TickerProvider? get vsync => onVsync != null ? onVsync!() : super.vsync;
+  TickerProvider? get vsync {
+    final d4rtForward = onVsync;
+    if (d4rtForward == null || _d4rtForwarding.contains('get vsync')) {
+      return super.vsync;
+    }
+    _d4rtForwarding.add('get vsync');
+    try {
+      return d4rtForward();
+    } finally {
+      _d4rtForwarding.remove('get vsync');
+    }
+  }
 
   @override
-  FloatingHeaderSnapConfiguration? get snapConfiguration =>
-      onSnapConfiguration != null
-      ? onSnapConfiguration!()
-      : super.snapConfiguration;
+  FloatingHeaderSnapConfiguration? get snapConfiguration {
+    final d4rtForward = onSnapConfiguration;
+    if (d4rtForward == null ||
+        _d4rtForwarding.contains('get snapConfiguration')) {
+      return super.snapConfiguration;
+    }
+    _d4rtForwarding.add('get snapConfiguration');
+    try {
+      return d4rtForward();
+    } finally {
+      _d4rtForwarding.remove('get snapConfiguration');
+    }
+  }
 
   @override
-  OverScrollHeaderStretchConfiguration? get stretchConfiguration =>
-      onStretchConfiguration != null
-      ? onStretchConfiguration!()
-      : super.stretchConfiguration;
+  OverScrollHeaderStretchConfiguration? get stretchConfiguration {
+    final d4rtForward = onStretchConfiguration;
+    if (d4rtForward == null ||
+        _d4rtForwarding.contains('get stretchConfiguration')) {
+      return super.stretchConfiguration;
+    }
+    _d4rtForwarding.add('get stretchConfiguration');
+    try {
+      return d4rtForward();
+    } finally {
+      _d4rtForwarding.remove('get stretchConfiguration');
+    }
+  }
 
   @override
-  PersistentHeaderShowOnScreenConfiguration? get showOnScreenConfiguration =>
-      onShowOnScreenConfiguration != null
-      ? onShowOnScreenConfiguration!()
-      : super.showOnScreenConfiguration;
+  PersistentHeaderShowOnScreenConfiguration? get showOnScreenConfiguration {
+    final d4rtForward = onShowOnScreenConfiguration;
+    if (d4rtForward == null ||
+        _d4rtForwarding.contains('get showOnScreenConfiguration')) {
+      return super.showOnScreenConfiguration;
+    }
+    _d4rtForwarding.add('get showOnScreenConfiguration');
+    try {
+      return d4rtForward();
+    } finally {
+      _d4rtForwarding.remove('get showOnScreenConfiguration');
+    }
+  }
 }
 
 /// D4rt proxy for [DataTableSource].
@@ -388,7 +668,7 @@ class D4rtSliverPersistentHeaderDelegate
 /// Delegates abstract methods to callback functions, enabling
 /// D4rt scripts to implement [DataTableSource] via named
 /// function parameters.
-class D4rtDataTableSource extends DataTableSource {
+class D4rtDataTableSource extends DataTableSource implements D4ReceiverProxy {
   /// Callback for [DataTableSource.getRow].
   final DataRow? Function(int) onGetRow;
 
@@ -429,6 +709,18 @@ class D4rtDataTableSource extends DataTableSource {
     this.onHasListeners,
   });
 
+  final Set<String> _d4rtForwarding = <String>{};
+
+  @override
+  R d4rtSuperCall<R>(String member, R Function() call) {
+    if (!_d4rtForwarding.add(member)) return call();
+    try {
+      return call();
+    } finally {
+      _d4rtForwarding.remove(member);
+    }
+  }
+
   @override
   DataRow? getRow(int index) => onGetRow(index);
 
@@ -442,26 +734,74 @@ class D4rtDataTableSource extends DataTableSource {
   int get selectedRowCount => onSelectedRowCount();
 
   @override
-  void addListener(VoidCallback listener) => onAddListener != null
-      ? onAddListener!(listener)
-      : super.addListener(listener);
+  void addListener(VoidCallback listener) {
+    final d4rtForward = onAddListener;
+    if (d4rtForward == null || _d4rtForwarding.contains('addListener')) {
+      return super.addListener(listener);
+    }
+    _d4rtForwarding.add('addListener');
+    try {
+      return d4rtForward(listener);
+    } finally {
+      _d4rtForwarding.remove('addListener');
+    }
+  }
 
   @override
-  void removeListener(VoidCallback listener) => onRemoveListener != null
-      ? onRemoveListener!(listener)
-      : super.removeListener(listener);
+  void removeListener(VoidCallback listener) {
+    final d4rtForward = onRemoveListener;
+    if (d4rtForward == null || _d4rtForwarding.contains('removeListener')) {
+      return super.removeListener(listener);
+    }
+    _d4rtForwarding.add('removeListener');
+    try {
+      return d4rtForward(listener);
+    } finally {
+      _d4rtForwarding.remove('removeListener');
+    }
+  }
 
   @override
-  void dispose() => onDispose != null ? onDispose!() : super.dispose();
+  void dispose() {
+    final d4rtForward = onDispose;
+    if (d4rtForward == null || _d4rtForwarding.contains('dispose')) {
+      return super.dispose();
+    }
+    _d4rtForwarding.add('dispose');
+    try {
+      return d4rtForward();
+    } finally {
+      _d4rtForwarding.remove('dispose');
+    }
+  }
 
   @override
-  void notifyListeners() => onNotifyListeners != null
-      ? onNotifyListeners!()
-      : super.notifyListeners();
+  void notifyListeners() {
+    final d4rtForward = onNotifyListeners;
+    if (d4rtForward == null || _d4rtForwarding.contains('notifyListeners')) {
+      return super.notifyListeners();
+    }
+    _d4rtForwarding.add('notifyListeners');
+    try {
+      return d4rtForward();
+    } finally {
+      _d4rtForwarding.remove('notifyListeners');
+    }
+  }
 
   @override
-  bool get hasListeners =>
-      onHasListeners != null ? onHasListeners!() : super.hasListeners;
+  bool get hasListeners {
+    final d4rtForward = onHasListeners;
+    if (d4rtForward == null || _d4rtForwarding.contains('get hasListeners')) {
+      return super.hasListeners;
+    }
+    _d4rtForwarding.add('get hasListeners');
+    try {
+      return d4rtForward();
+    } finally {
+      _d4rtForwarding.remove('get hasListeners');
+    }
+  }
 }
 
 /// D4rt proxy for [TransitionDelegate].
@@ -469,7 +809,8 @@ class D4rtDataTableSource extends DataTableSource {
 /// Delegates abstract methods to callback functions, enabling
 /// D4rt scripts to implement [TransitionDelegate] via named
 /// function parameters.
-class D4rtTransitionDelegate<T> extends TransitionDelegate<T> {
+class D4rtTransitionDelegate<T> extends TransitionDelegate<T>
+    implements D4ReceiverProxy {
   /// Callback for [TransitionDelegate.resolve].
   final Iterable<RouteTransitionRecord> Function({
     required List<RouteTransitionRecord> newPageRouteHistory,
@@ -482,6 +823,18 @@ class D4rtTransitionDelegate<T> extends TransitionDelegate<T> {
 
   /// Creates a [D4rtTransitionDelegate] with callback implementations.
   D4rtTransitionDelegate({required this.onResolve});
+
+  final Set<String> _d4rtForwarding = <String>{};
+
+  @override
+  R d4rtSuperCall<R>(String member, R Function() call) {
+    if (!_d4rtForwarding.add(member)) return call();
+    try {
+      return call();
+    } finally {
+      _d4rtForwarding.remove(member);
+    }
+  }
 
   @override
   Iterable<RouteTransitionRecord> resolve({
@@ -502,12 +855,25 @@ class D4rtTransitionDelegate<T> extends TransitionDelegate<T> {
 /// Delegates abstract methods to callback functions, enabling
 /// D4rt scripts to implement [GradientTransform] via named
 /// function parameters.
-class D4rtGradientTransform extends GradientTransform {
+class D4rtGradientTransform extends GradientTransform
+    implements D4ReceiverProxy {
   /// Callback for [GradientTransform.transform].
   final Matrix4? Function(Rect, {TextDirection? textDirection}) onTransform;
 
   /// Creates a [D4rtGradientTransform] with callback implementations.
   D4rtGradientTransform({required this.onTransform});
+
+  final Set<String> _d4rtForwarding = <String>{};
+
+  @override
+  R d4rtSuperCall<R>(String member, R Function() call) {
+    if (!_d4rtForwarding.add(member)) return call();
+    try {
+      return call();
+    } finally {
+      _d4rtForwarding.remove(member);
+    }
+  }
 
   @override
   Matrix4? transform(Rect bounds, {TextDirection? textDirection}) =>
@@ -519,7 +885,8 @@ class D4rtGradientTransform extends GradientTransform {
 /// Delegates abstract methods to callback functions, enabling
 /// D4rt scripts to implement [SliderComponentShape] via named
 /// function parameters.
-class D4rtSliderComponentShape extends SliderComponentShape {
+class D4rtSliderComponentShape extends SliderComponentShape
+    implements D4ReceiverProxy {
   /// Callback for [SliderComponentShape.getPreferredSize].
   final Size Function(bool, bool) onGetPreferredSize;
 
@@ -545,6 +912,18 @@ class D4rtSliderComponentShape extends SliderComponentShape {
     required this.onGetPreferredSize,
     required this.onPaint,
   });
+
+  final Set<String> _d4rtForwarding = <String>{};
+
+  @override
+  R d4rtSuperCall<R>(String member, R Function() call) {
+    if (!_d4rtForwarding.add(member)) return call();
+    try {
+      return call();
+    } finally {
+      _d4rtForwarding.remove(member);
+    }
+  }
 
   @override
   Size getPreferredSize(bool isEnabled, bool isDiscrete) =>
@@ -585,13 +964,26 @@ class D4rtSliderComponentShape extends SliderComponentShape {
 /// Delegates abstract methods to callback functions, enabling
 /// D4rt scripts to implement [SpellCheckService] via named
 /// function parameters.
-class D4rtSpellCheckService extends SpellCheckService {
+class D4rtSpellCheckService extends SpellCheckService
+    implements D4ReceiverProxy {
   /// Callback for [SpellCheckService.fetchSpellCheckSuggestions].
   final Future<List<SuggestionSpan>?> Function(Locale, String)
   onFetchSpellCheckSuggestions;
 
   /// Creates a [D4rtSpellCheckService] with callback implementations.
   D4rtSpellCheckService({required this.onFetchSpellCheckSuggestions});
+
+  final Set<String> _d4rtForwarding = <String>{};
+
+  @override
+  R d4rtSuperCall<R>(String member, R Function() call) {
+    if (!_d4rtForwarding.add(member)) return call();
+    try {
+      return call();
+    } finally {
+      _d4rtForwarding.remove(member);
+    }
+  }
 
   @override
   Future<List<SuggestionSpan>?> fetchSpellCheckSuggestions(
@@ -605,7 +997,7 @@ class D4rtSpellCheckService extends SpellCheckService {
 /// Delegates abstract methods to callback functions, enabling
 /// D4rt scripts to implement [Decoration] via named
 /// function parameters.
-class D4rtDecoration extends Decoration {
+class D4rtDecoration extends Decoration implements D4ReceiverProxy {
   /// Callback for [Decoration.createBoxPainter].
   final BoxPainter Function(VoidCallback?) onCreateBoxPainter;
 
@@ -646,45 +1038,133 @@ class D4rtDecoration extends Decoration {
     this.onIsComplex,
   });
 
+  final Set<String> _d4rtForwarding = <String>{};
+
+  @override
+  R d4rtSuperCall<R>(String member, R Function() call) {
+    if (!_d4rtForwarding.add(member)) return call();
+    try {
+      return call();
+    } finally {
+      _d4rtForwarding.remove(member);
+    }
+  }
+
   @override
   BoxPainter createBoxPainter([VoidCallback? onChanged]) =>
       onCreateBoxPainter(onChanged);
 
   @override
-  String toStringShort() =>
-      onToStringShort != null ? onToStringShort!() : super.toStringShort();
+  String toStringShort() {
+    final d4rtForward = onToStringShort;
+    if (d4rtForward == null || _d4rtForwarding.contains('toStringShort')) {
+      return super.toStringShort();
+    }
+    _d4rtForwarding.add('toStringShort');
+    try {
+      return d4rtForward();
+    } finally {
+      _d4rtForwarding.remove('toStringShort');
+    }
+  }
 
   @override
-  bool debugAssertIsValid() => onDebugAssertIsValid != null
-      ? onDebugAssertIsValid!()
-      : super.debugAssertIsValid();
+  bool debugAssertIsValid() {
+    final d4rtForward = onDebugAssertIsValid;
+    if (d4rtForward == null || _d4rtForwarding.contains('debugAssertIsValid')) {
+      return super.debugAssertIsValid();
+    }
+    _d4rtForwarding.add('debugAssertIsValid');
+    try {
+      return d4rtForward();
+    } finally {
+      _d4rtForwarding.remove('debugAssertIsValid');
+    }
+  }
 
   @override
-  Decoration? lerpFrom(Decoration? a, double t) =>
-      onLerpFrom != null ? onLerpFrom!(a, t) : super.lerpFrom(a, t);
+  Decoration? lerpFrom(Decoration? a, double t) {
+    final d4rtForward = onLerpFrom;
+    if (d4rtForward == null || _d4rtForwarding.contains('lerpFrom')) {
+      return super.lerpFrom(a, t);
+    }
+    _d4rtForwarding.add('lerpFrom');
+    try {
+      return d4rtForward(a, t);
+    } finally {
+      _d4rtForwarding.remove('lerpFrom');
+    }
+  }
 
   @override
-  Decoration? lerpTo(Decoration? b, double t) =>
-      onLerpTo != null ? onLerpTo!(b, t) : super.lerpTo(b, t);
+  Decoration? lerpTo(Decoration? b, double t) {
+    final d4rtForward = onLerpTo;
+    if (d4rtForward == null || _d4rtForwarding.contains('lerpTo')) {
+      return super.lerpTo(b, t);
+    }
+    _d4rtForwarding.add('lerpTo');
+    try {
+      return d4rtForward(b, t);
+    } finally {
+      _d4rtForwarding.remove('lerpTo');
+    }
+  }
 
   @override
-  bool hitTest(Size size, Offset position, {TextDirection? textDirection}) =>
-      onHitTest != null
-      ? onHitTest!(size, position, textDirection: textDirection)
-      : super.hitTest(size, position, textDirection: textDirection);
+  bool hitTest(Size size, Offset position, {TextDirection? textDirection}) {
+    final d4rtForward = onHitTest;
+    if (d4rtForward == null || _d4rtForwarding.contains('hitTest')) {
+      return super.hitTest(size, position, textDirection: textDirection);
+    }
+    _d4rtForwarding.add('hitTest');
+    try {
+      return d4rtForward(size, position, textDirection: textDirection);
+    } finally {
+      _d4rtForwarding.remove('hitTest');
+    }
+  }
 
   @override
-  Path getClipPath(Rect rect, TextDirection textDirection) =>
-      onGetClipPath != null
-      ? onGetClipPath!(rect, textDirection)
-      : super.getClipPath(rect, textDirection);
+  Path getClipPath(Rect rect, TextDirection textDirection) {
+    final d4rtForward = onGetClipPath;
+    if (d4rtForward == null || _d4rtForwarding.contains('getClipPath')) {
+      return super.getClipPath(rect, textDirection);
+    }
+    _d4rtForwarding.add('getClipPath');
+    try {
+      return d4rtForward(rect, textDirection);
+    } finally {
+      _d4rtForwarding.remove('getClipPath');
+    }
+  }
 
   @override
-  EdgeInsetsGeometry get padding =>
-      onPadding != null ? onPadding!() : super.padding;
+  EdgeInsetsGeometry get padding {
+    final d4rtForward = onPadding;
+    if (d4rtForward == null || _d4rtForwarding.contains('get padding')) {
+      return super.padding;
+    }
+    _d4rtForwarding.add('get padding');
+    try {
+      return d4rtForward();
+    } finally {
+      _d4rtForwarding.remove('get padding');
+    }
+  }
 
   @override
-  bool get isComplex => onIsComplex != null ? onIsComplex!() : super.isComplex;
+  bool get isComplex {
+    final d4rtForward = onIsComplex;
+    if (d4rtForward == null || _d4rtForwarding.contains('get isComplex')) {
+      return super.isComplex;
+    }
+    _d4rtForwarding.add('get isComplex');
+    try {
+      return d4rtForward();
+    } finally {
+      _d4rtForwarding.remove('get isComplex');
+    }
+  }
 }
 
 /// D4rt proxy for [BoxPainter].
@@ -692,7 +1172,7 @@ class D4rtDecoration extends Decoration {
 /// Delegates abstract methods to callback functions, enabling
 /// D4rt scripts to implement [BoxPainter] via named
 /// function parameters.
-class D4rtBoxPainter extends BoxPainter {
+class D4rtBoxPainter extends BoxPainter implements D4ReceiverProxy {
   /// Callback for [BoxPainter.paint].
   final void Function(Canvas, Offset, ImageConfiguration) onPaint;
 
@@ -702,12 +1182,35 @@ class D4rtBoxPainter extends BoxPainter {
   /// Creates a [D4rtBoxPainter] with callback implementations.
   D4rtBoxPainter({required this.onPaint, this.onDispose});
 
+  final Set<String> _d4rtForwarding = <String>{};
+
+  @override
+  R d4rtSuperCall<R>(String member, R Function() call) {
+    if (!_d4rtForwarding.add(member)) return call();
+    try {
+      return call();
+    } finally {
+      _d4rtForwarding.remove(member);
+    }
+  }
+
   @override
   void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) =>
       onPaint(canvas, offset, configuration);
 
   @override
-  void dispose() => onDispose != null ? onDispose!() : super.dispose();
+  void dispose() {
+    final d4rtForward = onDispose;
+    if (d4rtForward == null || _d4rtForwarding.contains('dispose')) {
+      return super.dispose();
+    }
+    _d4rtForwarding.add('dispose');
+    try {
+      return d4rtForward();
+    } finally {
+      _d4rtForwarding.remove('dispose');
+    }
+  }
 }
 
 /// D4rt proxy for [RouteInformationParser].
@@ -715,7 +1218,8 @@ class D4rtBoxPainter extends BoxPainter {
 /// Delegates abstract methods to callback functions, enabling
 /// D4rt scripts to implement [RouteInformationParser] via named
 /// function parameters.
-class D4rtRouteInformationParser<T> extends RouteInformationParser<T> {
+class D4rtRouteInformationParser<T> extends RouteInformationParser<T>
+    implements D4ReceiverProxy {
   /// Callback for [RouteInformationParser.parseRouteInformation].
   final Future<T> Function(RouteInformation)? onParseRouteInformation;
 
@@ -733,25 +1237,68 @@ class D4rtRouteInformationParser<T> extends RouteInformationParser<T> {
     this.onRestoreRouteInformation,
   });
 
+  final Set<String> _d4rtForwarding = <String>{};
+
   @override
-  Future<T> parseRouteInformation(RouteInformation routeInformation) =>
-      onParseRouteInformation != null
-      ? onParseRouteInformation!(routeInformation)
-      : super.parseRouteInformation(routeInformation);
+  R d4rtSuperCall<R>(String member, R Function() call) {
+    if (!_d4rtForwarding.add(member)) return call();
+    try {
+      return call();
+    } finally {
+      _d4rtForwarding.remove(member);
+    }
+  }
+
+  @override
+  Future<T> parseRouteInformation(RouteInformation routeInformation) {
+    final d4rtForward = onParseRouteInformation;
+    if (d4rtForward == null ||
+        _d4rtForwarding.contains('parseRouteInformation')) {
+      return super.parseRouteInformation(routeInformation);
+    }
+    _d4rtForwarding.add('parseRouteInformation');
+    try {
+      return d4rtForward(routeInformation);
+    } finally {
+      _d4rtForwarding.remove('parseRouteInformation');
+    }
+  }
 
   @override
   Future<T> parseRouteInformationWithDependencies(
     RouteInformation routeInformation,
     BuildContext context,
-  ) => onParseRouteInformationWithDependencies != null
-      ? onParseRouteInformationWithDependencies!(routeInformation, context)
-      : super.parseRouteInformationWithDependencies(routeInformation, context);
+  ) {
+    final d4rtForward = onParseRouteInformationWithDependencies;
+    if (d4rtForward == null ||
+        _d4rtForwarding.contains('parseRouteInformationWithDependencies')) {
+      return super.parseRouteInformationWithDependencies(
+        routeInformation,
+        context,
+      );
+    }
+    _d4rtForwarding.add('parseRouteInformationWithDependencies');
+    try {
+      return d4rtForward(routeInformation, context);
+    } finally {
+      _d4rtForwarding.remove('parseRouteInformationWithDependencies');
+    }
+  }
 
   @override
-  RouteInformation? restoreRouteInformation(T configuration) =>
-      onRestoreRouteInformation != null
-      ? onRestoreRouteInformation!(configuration)
-      : super.restoreRouteInformation(configuration);
+  RouteInformation? restoreRouteInformation(T configuration) {
+    final d4rtForward = onRestoreRouteInformation;
+    if (d4rtForward == null ||
+        _d4rtForwarding.contains('restoreRouteInformation')) {
+      return super.restoreRouteInformation(configuration);
+    }
+    _d4rtForwarding.add('restoreRouteInformation');
+    try {
+      return d4rtForward(configuration);
+    } finally {
+      _d4rtForwarding.remove('restoreRouteInformation');
+    }
+  }
 }
 
 /// D4rt proxy for [RouterDelegate].
@@ -759,7 +1306,8 @@ class D4rtRouteInformationParser<T> extends RouteInformationParser<T> {
 /// Delegates abstract methods to callback functions, enabling
 /// D4rt scripts to implement [RouterDelegate] via named
 /// function parameters.
-class D4rtRouterDelegate<T> extends RouterDelegate<T> {
+class D4rtRouterDelegate<T> extends RouterDelegate<T>
+    implements D4ReceiverProxy {
   /// Callback for [RouterDelegate.setNewRoutePath].
   final Future<void> Function(T) onSetNewRoutePath;
 
@@ -796,6 +1344,18 @@ class D4rtRouterDelegate<T> extends RouterDelegate<T> {
     this.onCurrentConfiguration,
   });
 
+  final Set<String> _d4rtForwarding = <String>{};
+
+  @override
+  R d4rtSuperCall<R>(String member, R Function() call) {
+    if (!_d4rtForwarding.add(member)) return call();
+    try {
+      return call();
+    } finally {
+      _d4rtForwarding.remove(member);
+    }
+  }
+
   @override
   Future<void> setNewRoutePath(T configuration) =>
       onSetNewRoutePath(configuration);
@@ -813,21 +1373,49 @@ class D4rtRouterDelegate<T> extends RouterDelegate<T> {
   void removeListener(VoidCallback listener) => onRemoveListener(listener);
 
   @override
-  Future<void> setInitialRoutePath(T configuration) =>
-      onSetInitialRoutePath != null
-      ? onSetInitialRoutePath!(configuration)
-      : super.setInitialRoutePath(configuration);
+  Future<void> setInitialRoutePath(T configuration) {
+    final d4rtForward = onSetInitialRoutePath;
+    if (d4rtForward == null ||
+        _d4rtForwarding.contains('setInitialRoutePath')) {
+      return super.setInitialRoutePath(configuration);
+    }
+    _d4rtForwarding.add('setInitialRoutePath');
+    try {
+      return d4rtForward(configuration);
+    } finally {
+      _d4rtForwarding.remove('setInitialRoutePath');
+    }
+  }
 
   @override
-  Future<void> setRestoredRoutePath(T configuration) =>
-      onSetRestoredRoutePath != null
-      ? onSetRestoredRoutePath!(configuration)
-      : super.setRestoredRoutePath(configuration);
+  Future<void> setRestoredRoutePath(T configuration) {
+    final d4rtForward = onSetRestoredRoutePath;
+    if (d4rtForward == null ||
+        _d4rtForwarding.contains('setRestoredRoutePath')) {
+      return super.setRestoredRoutePath(configuration);
+    }
+    _d4rtForwarding.add('setRestoredRoutePath');
+    try {
+      return d4rtForward(configuration);
+    } finally {
+      _d4rtForwarding.remove('setRestoredRoutePath');
+    }
+  }
 
   @override
-  T? get currentConfiguration => onCurrentConfiguration != null
-      ? onCurrentConfiguration!()
-      : super.currentConfiguration;
+  T? get currentConfiguration {
+    final d4rtForward = onCurrentConfiguration;
+    if (d4rtForward == null ||
+        _d4rtForwarding.contains('get currentConfiguration')) {
+      return super.currentConfiguration;
+    }
+    _d4rtForwarding.add('get currentConfiguration');
+    try {
+      return d4rtForward();
+    } finally {
+      _d4rtForwarding.remove('get currentConfiguration');
+    }
+  }
 }
 
 // =========================================================================
@@ -1004,6 +1592,7 @@ void registerProxyFactories() {
           : null,
     );
   });
+  D4.markProxyIsReceiver('CustomPainter');
 
   // Register factory for CustomClipper
   D4.registerInterfaceProxy('CustomClipper', (visitor, instance) {
@@ -1080,6 +1669,7 @@ void registerProxyFactories() {
           : null,
     );
   });
+  D4.markProxyIsReceiver('CustomClipper');
 
   // Register factory for FlowDelegate
   D4.registerInterfaceProxy('FlowDelegate', (visitor, instance) {
@@ -1163,6 +1753,7 @@ void registerProxyFactories() {
           : null,
     );
   });
+  D4.markProxyIsReceiver('FlowDelegate');
 
   // Register factory for MultiChildLayoutDelegate
   D4.registerInterfaceProxy('MultiChildLayoutDelegate', (visitor, instance) {
@@ -1252,6 +1843,7 @@ void registerProxyFactories() {
           : null,
     );
   });
+  D4.markProxyIsReceiver('MultiChildLayoutDelegate');
 
   // Register factory for SingleChildLayoutDelegate
   D4.registerInterfaceProxy('SingleChildLayoutDelegate', (visitor, instance) {
@@ -1325,6 +1917,7 @@ void registerProxyFactories() {
           : null,
     );
   });
+  D4.markProxyIsReceiver('SingleChildLayoutDelegate');
 
   // Register factory for SliverPersistentHeaderDelegate
   D4.registerInterfaceProxy('SliverPersistentHeaderDelegate', (
@@ -1489,6 +2082,7 @@ void registerProxyFactories() {
           : null,
     );
   });
+  D4.markProxyIsReceiver('SliverPersistentHeaderDelegate');
 
   // Register factory for DataTableSource
   D4.registerInterfaceProxy('DataTableSource', (visitor, instance) {
@@ -1639,6 +2233,7 @@ void registerProxyFactories() {
           : null,
     );
   });
+  D4.markProxyIsReceiver('DataTableSource');
 
   // Register factory for TransitionDelegate
   D4.registerInterfaceProxy('TransitionDelegate', (visitor, instance) {
@@ -1658,6 +2253,9 @@ void registerProxyFactories() {
                 'locationToExitingPageRoute': locationToExitingPageRoute,
                 'pageRouteToPagelessRoutes': pageRouteToPagelessRoutes,
               });
+              if (result is List && result is! List<RouteTransitionRecord>) {
+                return D4.coerceList<RouteTransitionRecord>(result, 'resolve');
+              }
               return D4.extractBridgedArg<Iterable<RouteTransitionRecord>>(
                 result,
                 'resolve',
@@ -1670,6 +2268,7 @@ void registerProxyFactories() {
           },
     );
   });
+  D4.markProxyIsReceiver('TransitionDelegate');
 
   // Register factory for GradientTransform
   D4.registerInterfaceProxy('GradientTransform', (visitor, instance) {
@@ -1688,6 +2287,7 @@ void registerProxyFactories() {
       },
     );
   });
+  D4.markProxyIsReceiver('GradientTransform');
 
   // Register factory for SliderComponentShape
   D4.registerInterfaceProxy('SliderComponentShape', (visitor, instance) {
@@ -1752,6 +2352,7 @@ void registerProxyFactories() {
           },
     );
   });
+  D4.markProxyIsReceiver('SliderComponentShape');
 
   // Register factory for SpellCheckService
   D4.registerInterfaceProxy('SpellCheckService', (visitor, instance) {
@@ -1767,11 +2368,16 @@ void registerProxyFactories() {
           ], {});
           if (result is Future && result is! Future<List<SuggestionSpan>?>) {
             return result.then(
-              (v) => D4.extractBridgedArg<List<SuggestionSpan>?>(
-                v,
-                'fetchSpellCheckSuggestions',
-                visitor,
-              ),
+              (v) => v is List && v is! List<SuggestionSpan>
+                  ? D4.coerceList<SuggestionSpan>(
+                      v,
+                      'fetchSpellCheckSuggestions',
+                    )
+                  : D4.extractBridgedArg<List<SuggestionSpan>?>(
+                      v,
+                      'fetchSpellCheckSuggestions',
+                      visitor,
+                    ),
             );
           }
           return D4.extractBridgedArg<Future<List<SuggestionSpan>?>>(
@@ -1786,6 +2392,7 @@ void registerProxyFactories() {
       },
     );
   });
+  D4.markProxyIsReceiver('SpellCheckService');
 
   // Register factory for Decoration
   D4.registerInterfaceProxy('Decoration', (visitor, instance) {
@@ -1951,6 +2558,7 @@ void registerProxyFactories() {
           : null,
     );
   });
+  D4.markProxyIsReceiver('Decoration');
 
   // Register factory for BoxPainter
   D4.registerInterfaceProxy('BoxPainter', (visitor, instance) {
@@ -1983,6 +2591,7 @@ void registerProxyFactories() {
           : null,
     );
   });
+  D4.markProxyIsReceiver('BoxPainter');
 
   // Register factory for RouteInformationParser
   D4.registerInterfaceProxy('RouteInformationParser', (visitor, instance) {
@@ -2074,6 +2683,7 @@ void registerProxyFactories() {
           : null,
     );
   });
+  D4.markProxyIsReceiver('RouteInformationParser');
 
   // Register factory for RouterDelegate
   D4.registerInterfaceProxy('RouterDelegate', (visitor, instance) {
@@ -2214,4 +2824,5 @@ void registerProxyFactories() {
           : null,
     );
   });
+  D4.markProxyIsReceiver('RouterDelegate');
 }
