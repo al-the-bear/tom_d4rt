@@ -9,6 +9,15 @@ modifier 'final' here" (`num parse(final String inputText)`). Both now parse
 with `bundleFeatureSet`, the language version and flags the interpreters' own
 parser uses. `pub_semver` is a direct dependency.
 
+Name resolution: no.
+
+### Changed — takes tom_d4rt_ast 0.236.0
+
+The interpreter constraint is `tom_d4rt_ast ^0.236.0` (from `^0.212.0`), so a
+package depending on this one can resolve the interpreter's current release.
+
+Name resolution: no.
+
 ## 0.2.1
 
 ### Changed — on tom_d4rt_ast 0.212.0
