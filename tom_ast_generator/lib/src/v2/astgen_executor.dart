@@ -11,7 +11,7 @@ import 'package:glob/glob.dart';
 import 'package:glob/list_local_fs.dart';
 import 'package:path/path.dart' as p;
 import 'package:tom_build_base/tom_build_base.dart'
-    show TomBuildConfig, hasTomBuildConfig, findWorkspaceRoot;
+    show TomBuildConfig, hasTomBuildConfig, findWorkspaceRootOrNull;
 import 'package:tom_build_base/tom_build_base_v2.dart';
 import 'package:yaml/yaml.dart';
 
@@ -35,7 +35,9 @@ class AstgenExecutor extends CommandExecutor {
 
     // Handle --list mode
     if (args.listOnly) {
-      final workspaceRoot = findWorkspaceRoot(context.executionRoot);
+      final workspaceRoot =
+          findWorkspaceRootOrNull(context.executionRoot) ??
+          context.executionRoot;
       final relativePath = p.relative(context.path, from: workspaceRoot);
       print('  $relativePath');
 
