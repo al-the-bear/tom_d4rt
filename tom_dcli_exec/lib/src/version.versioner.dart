@@ -9,7 +9,7 @@ class DcliVersionInfo {
   DcliVersionInfo._();
 
   /// Package version from pubspec.yaml
-  static const String version = '1.17.0';
+  static const String version = '1.18.0';
 
   /// Build timestamp (ISO 8601 UTC format)
   static const String buildTime = '2026-11-11T17:34:43.700984Z';

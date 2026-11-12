@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 10 files
-// Generated: 2026-11-06T20:49:29.902136 by tom_d4rt_generator 1.53.0
+// Generated: 2026-11-12T21:36:31.831696 by tom_d4rt_generator 1.63.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -9,26 +9,21 @@ import 'package:tom_d4rt_exec/tom_d4rt_exec.dart';
 import 'dart:async';
 import 'dart:io';
 
-import 'package:tom_ast_generator/src/bundler/ast_bundler.dart'
+import 'package:tom_ast_generator/tom_ast_generator.dart'
     as $tom_ast_generator_1;
-import 'package:tom_d4rt_ast/src/runtime/ast_bundle.dart' as $tom_d4rt_ast_1;
-import 'package:tom_d4rt_ast/src/runtime/bridge/bridged_types.dart'
-    as $tom_d4rt_ast_2;
+import 'package:tom_d4rt_ast/runtime.dart' as $tom_d4rt_ast_1;
+import 'package:tom_d4rt_ast/runtime.dart' as $tom_d4rt_ast_2;
 import 'package:tom_d4rt_ast/src/runtime/bridge/registration.dart'
     as $tom_d4rt_ast_3;
-import 'package:tom_d4rt_ast/src/runtime/call_stack.dart' as $tom_d4rt_ast_4;
-import 'package:tom_d4rt_ast/src/runtime/callable.dart' as $tom_d4rt_ast_5;
-import 'package:tom_d4rt_ast/src/runtime/generator/d4.dart' as $tom_d4rt_ast_6;
-import 'package:tom_d4rt_ast/src/runtime/interpreter_visitor.dart'
-    as $tom_d4rt_ast_7;
-import 'package:tom_d4rt_ast/src/runtime/introspection.dart' as $tom_d4rt_ast_8;
-import 'package:tom_d4rt_ast/src/runtime/runtime_interfaces.dart'
-    as $tom_d4rt_ast_9;
-import 'package:tom_d4rt_ast/src/runtime/runtime_types.dart'
-    as $tom_d4rt_ast_10;
-import 'package:tom_d4rt_ast/src/runtime/security/permissions.dart'
-    as $tom_d4rt_ast_11;
-import 'package:tom_d4rt_exec/src/d4rt_base.dart' as $tom_d4rt_exec_1;
+import 'package:tom_d4rt_ast/runtime.dart' as $tom_d4rt_ast_4;
+import 'package:tom_d4rt_ast/runtime.dart' as $tom_d4rt_ast_5;
+import 'package:tom_d4rt_ast/runtime.dart' as $tom_d4rt_ast_6;
+import 'package:tom_d4rt_ast/runtime.dart' as $tom_d4rt_ast_7;
+import 'package:tom_d4rt_ast/runtime.dart' as $tom_d4rt_ast_8;
+import 'package:tom_d4rt_ast/runtime.dart' as $tom_d4rt_ast_9;
+import 'package:tom_d4rt_ast/runtime.dart' as $tom_d4rt_ast_10;
+import 'package:tom_d4rt_ast/runtime.dart' as $tom_d4rt_ast_11;
+import 'package:tom_d4rt_exec/d4rt.dart' as $tom_d4rt_exec_1;
 import 'package:tom_dcli_exec/src/api/cli_api.dart' as $tom_dcli_exec_1;
 import 'package:tom_dcli_exec/src/api/cli_bridge.dart' as $tom_dcli_exec_2;
 import 'package:tom_dcli_exec/src/api/cli_controller.dart' as $tom_dcli_exec_3;
@@ -40,7 +35,7 @@ import 'package:tom_dcli_exec/src/api/cli_state.dart' as $tom_dcli_exec_7;
 import 'package:tom_dcli_exec/src/api/cli_test_utils.dart' as $tom_dcli_exec_8;
 import 'package:tom_dcli_exec/src/api/execution_context.dart'
     as $tom_dcli_exec_9;
-import 'package:tom_d4rt_ast/src/runtime/exceptions.dart' as $aux_tom_d4rt_ast;
+import 'package:tom_d4rt_ast/runtime.dart' as $aux_tom_d4rt_ast;
 
 /// Bridge class for cli_api module.
 class CliApiBridge {
