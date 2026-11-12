@@ -11,7 +11,7 @@ import 'package:path/path.dart' as p;
 
 import '../verification/generated_output_analysis.dart';
 import 'package:tom_build_base/tom_build_base.dart'
-    show TomBuildConfig, hasTomBuildConfig, findWorkspaceRoot;
+    show TomBuildConfig, hasTomBuildConfig, findWorkspaceRootOrNull;
 import 'package:tom_build_base/tom_build_base_v2.dart';
 import 'package:tom_d4rt_generator/src/build_config_loader.dart';
 import 'package:tom_d4rt_generator/tom_d4rt_generator.dart';
@@ -34,7 +34,7 @@ class D4rtgenExecutor extends CommandExecutor {
 
     // Handle --list mode
     if (args.listOnly) {
-      final workspaceRoot = findWorkspaceRoot(context.executionRoot);
+      final workspaceRoot = _labelRoot(context);
       final relativePath = p.relative(context.path, from: workspaceRoot);
       print('  $relativePath');
 
@@ -46,7 +46,7 @@ class D4rtgenExecutor extends CommandExecutor {
 
     // Handle --dump-config mode
     if (args.dumpConfig) {
-      final workspaceRoot = findWorkspaceRoot(context.executionRoot);
+      final workspaceRoot = _labelRoot(context);
       final relativePath = p.relative(context.path, from: workspaceRoot);
       print('# $relativePath');
       _printEffectiveConfig(context.path);
@@ -120,7 +120,7 @@ Future<ItemResult?> _verifyOutput(
   CommandContext context,
   List<String> written,
 ) async {
-  final workspaceRoot = findWorkspaceRoot(context.executionRoot);
+  final workspaceRoot = _labelRoot(context);
   final label = p.relative(context.path, from: workspaceRoot);
 
   final OutputVerification verification;
@@ -159,7 +159,7 @@ Future<ItemResult?> _verifyOutput(
 /// catches every write wherever it is made, and the report is read off what
 /// the overlay caught.
 Future<ItemResult> _dryRun(CommandContext context, CliArgs args) async {
-  final workspaceRoot = findWorkspaceRoot(context.executionRoot);
+  final workspaceRoot = _labelRoot(context);
   final relativePath = p.relative(context.path, from: workspaceRoot);
   try {
     final preview = await previewGeneration(
@@ -371,3 +371,8 @@ void _printYamlNode(dynamic node, {int indent = 0}) {
 Map<String, CommandExecutor> createD4rtgenExecutors() {
   return {'default': D4rtgenExecutor()};
 }
+
+/// The directory a project is named relative to in d4rtgen's output: the
+/// workspace root, or the execution root outside a workspace.
+String _labelRoot(CommandContext context) =>
+    findWorkspaceRootOrNull(context.executionRoot) ?? context.executionRoot;

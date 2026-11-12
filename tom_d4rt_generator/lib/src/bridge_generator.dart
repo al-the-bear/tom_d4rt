@@ -21,6 +21,8 @@ import 'package:analyzer/dart/element/nullability_suffix.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
+import 'package:tom_build_base/tom_build_base.dart'
+    show findWorkspaceRootOrNull;
 
 import 'analysis_paths.dart' show analysisIncludedPath;
 import 'bridge_config.dart' show barrelImportUri;
@@ -5676,17 +5678,7 @@ class BridgeGenerator {
       }
     }
 
-    // Detect workspace root by looking for tom_workspace.yaml or tom.code-workspace
-    var wsRoot = workspacePath;
-    var current = Directory(workspacePath);
-    while (current.path != current.parent.path) {
-      if (File(p.join(current.path, 'tom_workspace.yaml')).existsSync() ||
-          File(p.join(current.path, 'tom.code-workspace')).existsSync()) {
-        wsRoot = current.path;
-        break;
-      }
-      current = current.parent;
-    }
+    final wsRoot = fallbackSearchRoot(workspacePath);
 
     // Search common workspace locations for the package
     final searchDirs = <String>[
@@ -16169,3 +16161,10 @@ String _lengthCheckGreaterThan(String collection, int index) {
   }
   return '$collection.length > $index';
 }
+
+/// Where the fallback package search of a [BridgeGenerator] starts: the
+/// workspace root of [workspacePath] (the nearest directory holding
+/// `buildkit_master.yaml`), or [workspacePath] itself outside a workspace.
+@visibleForTesting
+String fallbackSearchRoot(String workspacePath) =>
+    findWorkspaceRootOrNull(workspacePath) ?? workspacePath;

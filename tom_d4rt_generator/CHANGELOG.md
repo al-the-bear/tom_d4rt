@@ -1,3 +1,20 @@
+## 1.63.1
+
+### Changed — the workspace root is the nearest `buildkit_master.yaml`
+
+The fallback package search (used when `.dart_tool/package_config.json` does
+not name a package) found the workspace by `tom_workspace.yaml` or
+`tom.code-workspace`; it now takes tom_build_base's `findWorkspaceRootOrNull`
+(`buildkit_master.yaml`, tom_build_base ^2.23.0), and starts where it was asked
+to outside a workspace. d4rtgen names projects relative to the same root,
+through the non-deprecated finder. Tests BCL3-FSR-1/2.
+
+### Fixed — the corpus relaxer allowlist names three types again
+
+`doc/corpus_relaxer_allowlist.yaml` is regenerated: the corpus scripts changed
+on 2026-11-12 use `CupertinoMenuDivider`, `CupertinoMenuEntry` and
+`NativeHitTestTarget` as type arguments (G-RCN-3/4).
+
 ## 1.63.0
 
 ### Fixed — name-keyed generic dispatch matches `T?` and `T<U>` type arguments
