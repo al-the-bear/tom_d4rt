@@ -3950,11 +3950,8 @@ const Map<String, String> _astDriftFingerprints = <String, String>{
 // The type is the contract — `null` is how "nothing blocks the publish" is
 // expressed, and that is the state this constant returns to. The lint reasons
 // from today's value alone.
-// QR1 (2026-11-07): the tree is ahead of tom_d4rt_ast 0.212.1 again, and by
-// the user's decision the fixes of the ghissues* / qr* batch are published
-// together, once, by ghissues999 - which sets this back to `null`.
 // ignore: unnecessary_nullable_for_final_variable_declarations
-const String? _astPublishBlock = 'ghissues999_akim';
+const String? _astPublishBlock = null;
 
 /// One baseline entry and the comment block written directly above it.
 typedef _BaselineEntry = ({String path, String comment});

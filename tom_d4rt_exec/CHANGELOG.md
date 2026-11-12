@@ -1,3 +1,13 @@
+## 1.58.0
+
+### Changed — resolves tom_d4rt_ast 0.237.0 and tom_ast_generator 0.2.3
+
+The interpreter floor moves to `tom_d4rt_ast ^0.237.0` (reference
+`tom_d4rt ^1.257.0`), with `tom_ast_generator ^0.2.3`: the release that keeps a
+generic call's type arguments with their `?` and nesting.
+
+Name resolution: no.
+
 ## 1.57.0
 
 ### Changed — resolves tom_d4rt_ast 0.236.0 and tom_ast_generator 0.2.2
