@@ -40,3 +40,4 @@ dev_dependencies:
   # 1.19.0 is the first whose `resolveIfUnresolved` asks pub whether a project
   # resolves instead of only checking that a package config exists.
   tom_d4rt_generator: "^1.53.0"
+  tom_d4rt_exec: "^1.57.0"
