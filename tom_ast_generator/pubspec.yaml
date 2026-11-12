@@ -25,7 +25,7 @@ dependencies:
   # development.
   tom_d4rt_ast: "^0.237.0"
   tom_ast_model: "^0.3.0"
-  tom_build_base: ">=2.23.0"
+  tom_build_base: ">=2.23.0 <3.0.0"
 
 dev_dependencies:
   lints: ^6.0.0

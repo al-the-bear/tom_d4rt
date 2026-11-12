@@ -3,7 +3,7 @@
 ### Changed — the workspace root is the nearest `buildkit_master.yaml`
 
 `astgen --list` names projects relative to tom_build_base's
-`findWorkspaceRootOrNull` (tom_build_base `>=2.23.0`), or the execution root
+`findWorkspaceRootOrNull` (tom_build_base `>=2.23.0 <3.0.0`), or the execution root
 outside a workspace, instead of the deprecated `findWorkspaceRoot`.
 
 ## 0.2.3
