@@ -58,6 +58,34 @@ const _absoluteHeaderBacklog = <String>{};
 /// The repo root — the parent of this package.
 String get _repoRoot => p.normalize(p.join(Directory.current.path, '..'));
 
+/// Runs [program] (a Dart `main` importing this package) with [cwd] as its
+/// working directory and returns its stdout, trimmed.
+///
+/// The relative spellings below resolve against the working directory. A test
+/// must not move this process's (ghissues43): `dart test` runs the files of
+/// the package in isolates of one process, so every other file would see it.
+String _runIn(String cwd, String program, List<String> args) {
+  final dir = Directory.systemTemp.createTempSync('sce42_prog_');
+  addTearDown(() {
+    try {
+      dir.deleteSync(recursive: true);
+    } catch (_) {}
+  });
+  final script = File(p.join(dir.path, 'main.dart'))
+    ..writeAsStringSync(program);
+  final result = Process.runSync(Platform.resolvedExecutable, [
+    '--packages=${p.join(Directory.current.path, '.dart_tool', 'package_config.json')}',
+    script.path,
+    ...args,
+  ], workingDirectory: cwd);
+  expect(
+    result.exitCode,
+    0,
+    reason: 'the subprocess failed:\n${result.stdout}\n${result.stderr}',
+  );
+  return (result.stdout as String).trim();
+}
+
 void main() {
   group('SCE42: the source header is canonical', () {
     late BridgeGenerator generator;
@@ -145,15 +173,20 @@ void main() {
         );
 
         // The relative spelling is resolved against the working directory, so
-        // it has to be exercised from one that makes it name the same file.
-        final saved = Directory.current;
-        Directory.current = tmp.path;
-        final String relative;
-        try {
-          relative = generator.packageUriForTesting('pkg/lib/x.dart');
-        } finally {
-          Directory.current = saved;
-        }
+        // it has to be exercised from one that makes it name the same file -
+        // in a subprocess, never by moving this process's (ghissues43).
+        final relative = _runIn(
+          tmp.path,
+          '''
+import 'dart:io';
+import 'package:tom_d4rt_generator/src/bridge_generator.dart';
+void main(List<String> args) {
+  print(BridgeGenerator(workspacePath: Directory.current.path)
+      .packageUriForTesting(args.single));
+}
+''',
+          ['pkg/lib/x.dart'],
+        );
 
         expect(absolute, 'package:zom_sce42/x.dart');
         expect(
@@ -197,24 +230,46 @@ void main() {
       );
 
       final output = p.join(tmp.path, 'out', 'thing_bridges.dart');
-      final saved = Directory.current;
-      if (!absolute) Directory.current = pkg;
-      final BridgeGeneratorResult result;
-      try {
-        result = await gen.generateBridges(
-          sourceFiles: [
-            absolute ? p.join(pkg, 'lib', 'thing.dart') : 'lib/thing.dart',
-          ],
+      final String outputFile;
+      if (absolute) {
+        final result = await gen.generateBridges(
+          sourceFiles: [p.join(pkg, 'lib', 'thing.dart')],
           outputPath: output,
           moduleName: 'thing',
         );
-      } finally {
-        Directory.current = saved;
+        expect(result.errors, isEmpty, reason: '${result.errors}');
+        expect(result.outputFiles, isNotEmpty);
+        outputFile = result.outputFiles.first;
+      } else {
+        // The CLI's relative spelling resolves against the working directory:
+        // generate from a subprocess started in the package (ghissues43).
+        outputFile = _runIn(
+          pkg,
+          '''
+import 'dart:io';
+import 'package:tom_d4rt_generator/src/bridge_generator.dart';
+Future<void> main(List<String> args) async {
+  final result = await BridgeGenerator(
+    workspacePath: args[0],
+    packageName: 'zom_sce42_emit',
+    sourceImport: 'thing.dart',
+    skipPrivate: true,
+  ).generateBridges(
+    sourceFiles: ['lib/thing.dart'],
+    outputPath: args[1],
+    moduleName: 'thing',
+  );
+  if (result.errors.isNotEmpty || result.outputFiles.isEmpty) {
+    stderr.writeln('errors: \${result.errors}');
+    exit(1);
+  }
+  print(result.outputFiles.first);
+}
+''',
+          [pkg, output],
+        ).split('\n').last;
       }
-
-      expect(result.errors, isEmpty, reason: '${result.errors}');
-      expect(result.outputFiles, isNotEmpty);
-      return File(result.outputFiles.first)
+      return File(outputFile)
           .readAsStringSync()
           .split('\n')
           .firstWhere(
