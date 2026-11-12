@@ -25,11 +25,6 @@ reverse) fails the suite. Re-derive; do not hand-edit one side alone.
 | Marker | Section (heading text, verbatim) | What it is |
 | ------ | -------------------------------- | ---------- |
 | `[ ]` | Open (GEN-125) — an interpreted closure is rejected against a bridged function typedef (`VoidCallback`, `ValueChanged`) | An **interpreter / bridge** defect. Blast radius: every script closure passed to a parameter typed as a Flutter function typedef — which is every Flutter callback, on every widget, wherever a declared parameter type is checked. Nothing narrows it to the widgets the corpus happens to contain. Found 2026-09-06. **Fixed in the interpreter (scd136) and published in 1.192.0 / 0.177.0; re-measured 2026-09-28**, base corpus, both twins: 0 refused callbacks across 910 scripts, against 117 on 2026-09-15. Open until a FULL-corpus run at a published fix confirms the 4 failing extended files (sce160). |
-| `[ ]` | Open (GEN-128) — a record type annotation drops its fields' `?` | An **interpreter** defect, both runtimes. Blast radius: every record type with a nullable field used where a type is checked (a declared variable, a loop variable, a parameter), given null. Found 2026-11-10 by ghissues15. Fixed in the tree by ghissues23 (tom_d4rt 1.247.0 / tom_d4rt_ast 0.228.0, not published) and the `flutter_extended_01` skip removed; open until a run at the published fix passes the script, owed by todo ghissues999. |
-| `[ ]` | Open (GEN-129) — tom_d4rt refuses a script whose doc comment names something not in scope | An **interpreter** defect, `tom_d4rt` only. Blast radius: every script with a doc-comment reference `[Name]` to a name it does not import or declare fails before `main`. Found 2026-11-10 by ghissues15. Fixed in the tree by ghissues24 (tom_d4rt 1.248.0 / tom_d4rt_exec 1.56.0, not published) and the source twin's `flutter_extended_11` skip removed; open until a run at the published fix passes the script, owed by todo ghissues999. |
-| `[ ]` | Open (GEN-130) — an interpreted DiagnosticableTree subclass's inherited toDiagnosticsNode() returns null | An **interpreter / bridge** defect, both twins. Blast radius: every member a script class inherits from an abstract bridged class (no constructor adapter) answered null, `super.m()` was a no-op. Found 2026-11-10 by ghissues15. Fixed in the tree by ghissues25 (tom_d4rt 1.249.0 / tom_d4rt_ast 0.229.0, not published: receiver proxies; the twins' `DiagnosticableTree` and `Diagnosticable` proxies) and the `flutter_extended_03` skip removed; open until the twins mark the receiver with the release and a run at the published fix passes the script, owed by todo ghissues999. |
-| `[ ]` | Open (GEN-131) — a class's static initializers read the script's top-level constants as null | An **interpreter** defect of the published pair (tom_d4rt <= 1.232.0, tom_d4rt_ast <= 0.213.0), both twins. Blast radius: every static field initialized from a top-level variable or constant of the script read null, wherever it was read. Found 2026-11-10 by ghissues15. Fixed in the tree by GitHub #10's lazy initialization (ghissues3: tom_d4rt 1.233.0 / tom_d4rt_ast 0.214.0, not published) and the `flutter_extended_19` skip removed; open until a run at the published fix passes the script, owed by todo ghissues999. |
-| `[ ]` | Open (GEN-133) — a generated proxy hands native code a script's `List<Object?>` where the overridden method declares `List<E>` or `Future<List<E>?>` | A **generator** defect, both twins. Blast radius: every proxied override native code calls whose declared return type is `List<E>`, `Iterable<E>` or a `Future` of one received the script's `List<Object?>` and threw at the proxy boundary. Found 2026-11-10 by ghissues34 (`services/spell_check_service_test.dart`, intermittent). Fixed in the tree by ghissues38 (2026-11-11, tom_d4rt_generator 1.62.0, not published); open until the twins' committed proxies are regenerated with the published fix and a run passes, owed by todo ghissues999. |
 | `[~]` | Partially fixed — script-side / Flutter framework limitations | **Not an interpreter defect** — a rolling sweep log of demo-script fixes (layout overflow, unbounded constraints, platform-unsupported services). Rows whose "After" column reads `1*` note a residual that *is* interpreter-side; each of those is tracked by its own cluster. Last sweep 2026-04-29. |
 
 ## No corpus numbers live in this header
@@ -270,7 +265,7 @@ decision honest, and a closed cluster has no decision left to make.
 
 ## Active clusters
 
-### [ ] Open (GEN-128) — a record type annotation drops its fields' `?`
+### [X] Fixed (GEN-128) — a record type annotation drops its fields' `?`
 
 **Found:** 2026-11-10, ghissues15's full-corpus runs `20261110-full-ast` / `20261110-full-src` (published tom_d4rt 1.231.1 / tom_d4rt_ast 0.212.1, Flutter 3.47.9).
 
@@ -308,9 +303,11 @@ Measured on the tree 2026-11-10, both twins under `prepublish_overrides --set`:
 (+1, frameworkErrors=0); a pre-publish measurement, not a verification run. The
 driver skip is removed in both twins, so until the release a run at the
 published pair fails this test: the release's runs certify it, then this
-cluster is marked - owed by todo ghissues999.
+cluster is marked - done by todo ghissues999.
 
-### [ ] Open (GEN-129) — tom_d4rt refuses a script whose doc comment names something not in scope
+**Released:** tom_d4rt 1.257.0 / tom_d4rt_ast 0.237.0 / tom_d4rt_generator 1.63.0, published by todo ghissues999 (2026-11-13). The post-publish full run `20261113-ghi999-post` passes the script in both twins (2178 / 3 / 0 each) - this cluster is fixed.
+
+### [X] Fixed (GEN-129) — tom_d4rt refuses a script whose doc comment names something not in scope
 
 **Found:** 2026-11-10, ghissues15's full-corpus runs `20261110-full-ast` / `20261110-full-src` (published tom_d4rt 1.231.1 / tom_d4rt_ast 0.212.1, Flutter 3.47.9).
 
@@ -343,9 +340,11 @@ source twin under `prepublish_overrides --set`: `flutter_extended_11`'s
 `binary_messenger_test.dart` passes (frameworkErrors=0); a pre-publish
 measurement, not a verification run. The driver skip is removed, so until the
 release a run at the published pair fails this test; the release's runs certify
-it, then this cluster is marked - owed by todo ghissues999.
+it, then this cluster is marked - done by todo ghissues999.
 
-### [ ] Open (GEN-130) — an interpreted DiagnosticableTree subclass's inherited toDiagnosticsNode() returns null
+**Released:** tom_d4rt 1.257.0 / tom_d4rt_ast 0.237.0 / tom_d4rt_generator 1.63.0, published by todo ghissues999 (2026-11-13). The post-publish full run `20261113-ghi999-post` passes the script in both twins (2178 / 3 / 0 each) - this cluster is fixed.
+
+### [X] Fixed (GEN-130) — an interpreted DiagnosticableTree subclass's inherited toDiagnosticsNode() returns null
 
 **Found:** 2026-11-10, ghissues15's full-corpus runs `20261110-full-ast` / `20261110-full-src` (published tom_d4rt 1.231.1 / tom_d4rt_ast 0.212.1, Flutter 3.47.9).
 
@@ -387,8 +386,7 @@ registered type coercion declares a stand-in; base corpus 927 / 1 / 0 in both
 twins under `--set` afterwards). Pre-publish measurements, not verification runs. The
 mark (`D4.markProxyIsReceiver('DiagnosticableTree')`) needs the published
 interpreter, so it lands with the release; the driver skip is removed now, so
-until then a run at the published pair fails this test - owed by
-todo ghissues999. The other abstract bridged classes scripts extend: ghissues29
+until then a run at the published pair fails this test - done by todo ghissues999. The other abstract bridged classes scripts extend: ghissues29
 (tom_d4rt 1.251.0 / tom_d4rt_ast 0.231.0 / tom_d4rt_generator 1.61.0, not
 yet published) makes every generated proxy a receiver (the 15 `proxyClasses`:
 `Decoration.padding`, `FlowDelegate.getSize`,
@@ -403,7 +401,9 @@ exception) and one a missing receiver, the script controller extending
 `RegularWindowController` (`ChangeNotifier.notifyListeners` notified nobody) -
 the twins mark their `ChangeNotifier` proxy as a receiver with the release.
 
-### [ ] Open (GEN-131) — a class's static initializers read the script's top-level constants as null
+**Released:** tom_d4rt 1.257.0 / tom_d4rt_ast 0.237.0 / tom_d4rt_generator 1.63.0, published by todo ghissues999 (2026-11-13). The post-publish full run `20261113-ghi999-post` passes the script in both twins (2178 / 3 / 0 each) - this cluster is fixed.
+
+### [X] Fixed (GEN-131) — a class's static initializers read the script's top-level constants as null
 
 **Found:** 2026-11-10, ghissues15's full-corpus runs `20261110-full-ast` / `20261110-full-src` (published tom_d4rt 1.231.1 / tom_d4rt_ast 0.212.1, Flutter 3.47.9).
 
@@ -436,9 +436,11 @@ tom_d4rt_ast, 2 cases; red at 1.232.0 / 0.213.0). Measured on the tree
 `flutter_extended_19` 61/61, every script frameworkErrors=0 (pre-publish
 measurements, not verification runs). The driver skip is removed, so until
 the release a run at the published pair fails this test; the release's runs
-certify it, then this cluster is marked - owed by todo ghissues999.
+certify it, then this cluster is marked - done by todo ghissues999.
 
-### [ ] Open (GEN-133) — a generated proxy hands native code a script's `List<Object?>` where the overridden method declares `List<E>` or `Future<List<E>?>`
+**Released:** tom_d4rt 1.257.0 / tom_d4rt_ast 0.237.0 / tom_d4rt_generator 1.63.0, published by todo ghissues999 (2026-11-13). The post-publish full run `20261113-ghi999-post` passes the script in both twins (2178 / 3 / 0 each) - this cluster is fixed.
+
+### [X] Fixed (GEN-133) — a generated proxy hands native code a script's `List<Object?>` where the overridden method declares `List<E>` or `Future<List<E>?>`
 
 **Found:** 2026-11-10, ghissues34's base gate under prepublish `--set`
 (run `20261110-ghi34-prepub`, committed bridges): `services/spell_check_service_test.dart`
@@ -477,7 +479,9 @@ and the base gate gives 927 / 1 / 0 in both, 0 framework errors (the source
 twin's `flutter_base_07` to `_09` re-run alone after the disk filled during
 the first pass; `flutter_base_14` then passed three more times in each twin,
 `spell_check_service_test.dart` successful every time). The committed
-proxies follow the generator's publish, owed by todo ghissues999.
+proxies follow the generator's publish, done by todo ghissues999.
+
+**Released:** tom_d4rt 1.257.0 / tom_d4rt_ast 0.237.0 / tom_d4rt_generator 1.63.0, published by todo ghissues999 (2026-11-13). The post-publish full run `20261113-ghi999-post` passes the script in both twins (2178 / 3 / 0 each) - this cluster is fixed.
 
 ### [X] Fixed (GEN-132) — three scripts failed on the desktop companion app: AppKitView view types and a Scrollbar without a position
 
@@ -4879,10 +4883,63 @@ the newest covering the base corpus with `**Current base-corpus baseline.**`
 marker in the same edit; SCE255 in `test/interpreter_issues_doc_test.dart`
 fails when a marker is left on an older entry.
 
-### 2026-11-12 — base corpus, both twins, at tom_d4rt 1.256.0 / tom_d4rt_ast 0.236.0: the interim publish reaches the twins
+### 2026-11-13 — BOTH corpora (full run), both twins, at tom_d4rt 1.257.0 / tom_d4rt_ast 0.237.0 / tom_d4rt_generator 1.63.0: the ghissues batch release
+
+**Current full-corpus baseline.** The newest run of the full corpus; a new full
+run is compared against this one, and moves the marker.
 
 **Current base-corpus baseline.** The newest run of the base corpus; a new base
 run is compared against this one, and moves the marker.
+
+**Why this run exists.** ghissues999 published the `ghissues*` / `qr*` batch:
+`tom_d4rt` 1.257.0, `tom_d4rt_ast` 0.237.0, `tom_d4rt_generator` 1.63.0,
+`tom_ast_generator` 0.2.3, `tom_d4rt_exec` 1.58.0, `tom_dcli_exec` 1.18.0,
+`tom_d4rt_dcli` 1.16.0, `tom_d4rt_flutter` 1.9.0 and `tom_d4rt_flutter_ast`
+0.14.0, with the twins' bridges regenerated by the published generator. This
+is the post-publish run the release owes: it certifies the batch's
+`Name resolution: yes` sections (tom_d4rt 1.232.0 - 1.248.0, tom_d4rt_ast
+0.213.0 - 0.225.0), whose SCE29 deferrals it discharges.
+
+**Before publishing**, the same tree ran path-resolved under
+`prepublish_overrides --set`, with the bridges regenerated by the tree
+generator (not recordable as a run): 2178 / 3 / 0 in both twins, 0 framework
+errors (`testlog_20261112-ghi999-prepub`).
+
+| Package | `tom_d4rt` | `tom_d4rt_ast` | `tom_d4rt_generator` |
+| ------- | ---------- | -------------- | -------------------- |
+| `tom_d4rt_flutter` | **1.257.0** | — | **1.63.0** |
+| `tom_d4rt_flutter/test/tom_d4rt_flutter_test_app` | **1.257.0** | — | — |
+| `tom_d4rt_flutter_ast` | **1.257.0** | **0.237.0** | **1.63.0** |
+| `tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app` | — | **0.237.0** | — |
+
+**Result.** `run_issue_analysis_tests.sh 20261113-ghi999-post` in each twin,
+hosted, one twin at a time:
+
+| Twin | Run | files | base (17) | extended 01–24 | extended 25 | full |
+| ---- | --- | ----- | --------- | -------------- | ----------- | ---- |
+| `tom_d4rt_flutter_ast` | `testlog_20261113-ghi999-post` | 42 | 927 / 1 / 0 | 1239 / 2 / 0 | 12 / 0 / 0 | **2178 / 3 / 0** |
+| `tom_d4rt_flutter` | `testlog_20261113-ghi999-post` | 42 | 927 / 1 / 0 | 1239 / 2 / 0 | 12 / 0 / 0 | **2178 / 3 / 0** |
+
+**Against the baselines.** Base corpus as on 2026-11-12, 927 / 1 / 0. Full
+corpus: the 2026-11-10 run had AST 2172 / 3 / 6 and source 2171 / 3 / 7; the
+six / seven failures pass (GEN-128 extended_01, GEN-129 extended_11 in the
+source twin, GEN-130 extended_03, GEN-131 extended_19, GEN-132
+extended_09 / 18 / 21). The three skips are the platform skips of
+`flutter_base_15`, `flutter_extended_22` and `flutter_extended_23`, unchanged:
+no rising skip, and no skip a group todo added is left. Every file exits 0.
+
+**Framework errors** (SCE247 trailer):
+
+- `tom_d4rt_flutter_ast`: 0 framework error(s) in 0 of 2136 script(s); 0 refused callback(s)
+- `tom_d4rt_flutter`: 0 framework error(s) in 0 of 2136 script(s); 0 refused callback(s)
+
+**Clusters this run closes:** GEN-128, GEN-129, GEN-130, GEN-131 and GEN-133
+(their sections say how). `services/spell_check_service_test` (GEN-133) ran
+in `flutter_base_14` without its intermittent failure in both twins.
+
+### 2026-11-12 — base corpus, both twins, at tom_d4rt 1.256.0 / tom_d4rt_ast 0.236.0: the interim publish reaches the twins
+
+**Superseded as the base-corpus baseline by the 2026-11-13 run above.**
 
 **Why this run exists.** ghissues45 needed the twins on interpreters that carry
 `D4ReceiverProxy` (tom_d4rt 1.251.0 / tom_d4rt_ast 0.231.0 and later) and made
@@ -4925,8 +4982,7 @@ not in these bridges.
 
 ### 2026-11-10 — BOTH corpora (full run), both twins, at tom_d4rt 1.231.1 / tom_d4rt_ast 0.212.1: the Flutter 3.47 classes pass, five new clusters
 
-**Current full-corpus baseline.** The newest run of the full corpus; a new full
-run is compared against this one, and moves the marker.
+**Superseded as the full-corpus baseline by the 2026-11-13 run above.**
 
 **Superseded as the base-corpus baseline by the 2026-11-12 run above.**
 

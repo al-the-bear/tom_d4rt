@@ -83,61 +83,10 @@ const Map<String, String> _referenceOnly = {
 /// blocker lifts — the guard then holds the release to the same standard as
 /// every other.
 const Map<String, String> _deferred = {
-  // Every release up to tom_d4rt 1.230.0 / tom_d4rt_ast 0.211.0 is covered by
-  // the post-publish base corpus recorded under `Verification runs` at that
-  // pair (VSTDM3). An empty map is the normal state; each entry is a debt with
-  // its reason, deleted when the run is made.
-  '1.232.0':
-      'qr1: unpublished; certified by the post-publish corpus run of '
-      'ghissues999 (the ghissues* / qr* batch release)',
-  '0.213.0':
-      'qr1: unpublished; certified by the post-publish corpus run of '
-      'ghissues999 (the ghissues* / qr* batch release)',
-  '1.233.0':
-      'ghissues3: unpublished; certified by the post-publish corpus run of '
-      'ghissues999 (the ghissues* / qr* batch release)',
-  '0.214.0':
-      'ghissues3: unpublished; certified by the post-publish corpus run of '
-      'ghissues999 (the ghissues* / qr* batch release)',
-  '1.234.0':
-      'ghissues4: unpublished; certified by the post-publish corpus run of '
-      'ghissues999 (the ghissues* / qr* batch release)',
-  '0.215.0':
-      'ghissues4: unpublished; certified by the post-publish corpus run of '
-      'ghissues999 (the ghissues* / qr* batch release)',
-  '1.238.0':
-      'ghissues7: unpublished; certified by the post-publish corpus run of '
-      'ghissues999 (the ghissues* / qr* batch release)',
-  '0.219.0':
-      'ghissues7: unpublished; certified by the post-publish corpus run of '
-      'ghissues999 (the ghissues* / qr* batch release)',
-  '1.239.0':
-      'ghissues11: unpublished; certified by the post-publish corpus run of '
-      'ghissues999 (the ghissues* / qr* batch release)',
-  '0.220.0':
-      'ghissues11: unpublished; certified by the post-publish corpus run of '
-      'ghissues999 (the ghissues* / qr* batch release)',
-  '1.242.0':
-      'ghissues14: unpublished; certified by the post-publish corpus run of '
-      'ghissues999 (the ghissues* / qr* batch release)',
-  '0.223.0':
-      'ghissues14: unpublished; certified by the post-publish corpus run of '
-      'ghissues999 (the ghissues* / qr* batch release)',
-  '1.243.0':
-      'ghissues17: unpublished; certified by the post-publish corpus run of '
-      'ghissues999 (the ghissues* / qr* batch release)',
-  '0.224.0':
-      'ghissues17: unpublished; certified by the post-publish corpus run of '
-      'ghissues999 (the ghissues* / qr* batch release)',
-  '1.244.0':
-      'ghissues18: unpublished; certified by the post-publish corpus run of '
-      'ghissues999 (the ghissues* / qr* batch release)',
-  '0.225.0':
-      'ghissues18: unpublished; certified by the post-publish corpus run of '
-      'ghissues999 (the ghissues* / qr* batch release)',
-  '1.248.0':
-      'ghissues24: unpublished; certified by the post-publish corpus run of '
-      'ghissues999 (the ghissues* / qr* batch release)',
+  // Every release up to tom_d4rt 1.257.0 / tom_d4rt_ast 0.237.0 is covered by
+  // the post-publish full corpus recorded under `Verification runs` at that
+  // pair (ghissues999, 2026-11-13). An empty map is the normal state; each
+  // entry is a debt with its reason, deleted when the run is made.
 };
 
 List<int> _key(String v) => v.split('.').map(int.parse).toList();
