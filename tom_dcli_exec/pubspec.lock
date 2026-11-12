@@ -613,10 +613,10 @@ packages:
     dependency: transitive
     description:
       name: tom_analyzer_shared
-      sha256: "513ef48dfd0afcb1cf5099fc2580fbde6c5b0ab2849d76306263dd082fc3007d"
+      sha256: "396ac4b98b382a1b73101b92644fcf09e0320b227672bfbfb2a08d6706c1fe18"
       url: "https://pub.dev"
     source: hosted
-    version: "0.13.0"
+    version: "0.13.1"
   tom_ast_generator:
     dependency: "direct main"
     description:
