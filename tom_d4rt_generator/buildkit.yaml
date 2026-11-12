@@ -5,12 +5,12 @@ versioner:
 
 compiler:
   compiles:
-    # macOS ARM64 - compile for self + all Linux targets
+    # macOS ARM64 - compile for self; with --all-platforms also linux-x64 (bigbeast builds it natively)
     - pipeline:
         - shell mkdir -p $TOM_BINARY_PATH/%{target-platform-vs}
         - shell dart compile exe %{file} --target-os=%{dart-target-os} --target-arch=%{dart-target-arch} -o $TOM_BINARY_PATH/%{target-platform-vs}/%{file.name}
       files: bin/d4rtgen.dart
-      targets: [darwin-arm64, linux-x64, linux-arm64, linux-armhf]
+      targets: [darwin-arm64, linux-x64]
       platforms: [darwin-arm64]
     
     # Unix-like platforms - compile for self only
