@@ -1,5 +1,14 @@
 ## 0.13.0
 
+### Changed — Flutter 3.47 floor (GitHub #5)
+
+`flutter: ">=3.47.0"`: the bridges are generated against Flutter 3.47.9 and use
+its API. They import Flutter classes through its public libraries, so a release
+that only moves a `src` file no longer breaks them; the README's new "Flutter
+versions" section says what still needs a regeneration.
+
+Name resolution: no.
+
 ### Fixed — a script's `super.m()` on a hand-written receiver proxy runs the native member once (ghissues45)
 
 The hand-written proxies the runtime registrations install for `CustomPainter`,
@@ -61,6 +70,8 @@ members once it is marked as the instance's receiver
 (`D4.markProxyIsReceiver`), which needs tom_d4rt 1.249.0 / tom_d4rt_ast
 0.229.0.
 
+Name resolution: no.
+
 ## 0.10.0
 
 ### Changed — analyzer 14 stack and Flutter 3.47 (vstdm3)
@@ -79,11 +90,15 @@ target is 12.0, Flutter 3.47's minimum.
 
 Resolves `tom_d4rt_ast` ^0.211.0 (bundle format 2.0), `tom_d4rt_exec` ^1.52.0, `tom_ast_generator` ^0.2.0 and `tom_d4rt_generator` ^1.53.0.
 
+Name resolution: no.
+
 ## 0.9.8
 
 ### Changed — resolves the web int fix release (dfin9)
 
 `tom_d4rt_ast` ^0.210.0, `tom_d4rt_exec` ^1.51.0, `tom_ast_generator` ^0.1.17, carrying the fix for integers typed as `double` on the web. No code change; the bridges are unchanged.
+
+Name resolution: no.
 
 ## 0.9.7
 
@@ -91,11 +106,15 @@ Resolves `tom_d4rt_ast` ^0.211.0 (bundle format 2.0), `tom_d4rt_exec` ^1.52.0, `
 
 `tom_d4rt_ast` ^0.209.0, `tom_d4rt_exec` ^1.49.0, `tom_ast_generator` ^0.1.16. No code change; the bridges are unchanged.
 
+Name resolution: no.
+
 ## 0.9.6
 
 ### Changed — resolves the security release (dfin4)
 
 `tom_d4rt_ast` ^0.207.0, `tom_d4rt_exec` ^1.46.0, `tom_ast_generator` ^0.1.15. No code change; the bridges are unchanged.
+
+Name resolution: no.
 
 ## 0.9.5
 
@@ -103,11 +122,15 @@ Resolves `tom_d4rt_ast` ^0.211.0 (bundle format 2.0), `tom_d4rt_exec` ^1.52.0, `
 
 `tom_d4rt_ast` ^0.206.0, `tom_d4rt_exec` ^1.43.0, `tom_ast_generator` ^0.1.14. No code change; the bridges are unchanged.
 
+Name resolution: no.
+
 ## 0.9.4
 
 ### Changed — bridges regenerated with tom_d4rt_generator 1.51.0 (sch3)
 
 `tom_d4rt_generator` ^1.51.0. 1.51.0 formats its output at this package's language version, so every generated `*.b.dart` is now `dart format`-clean as written. The generator's other 1.51.0 changes are in its own CHANGELOG.
+
+Name resolution: no.
 
 ## 0.9.3
 
@@ -118,6 +141,8 @@ Resolves `tom_d4rt_ast` ^0.211.0 (bundle format 2.0), `tom_d4rt_exec` ^1.52.0, `
 file's `// Generated:` line. Generator 1.50.0 is also the release that produces
 the same bridges on Windows (scf32), so the `D4RT_SKIP_BRIDGE_REGEN`
 workaround for Windows is no longer needed once a host resolves it.
+
+Name resolution: no.
 
 ## 0.9.2
 
@@ -130,11 +155,15 @@ tom_d4rt_ast 0.195.0) by recognising a bridged super object when it comes
 back, and why the two proxies must therefore stay unregistered. No behaviour
 changes in this package.
 
+Name resolution: no.
+
 ## 0.9.1
 
 ### Changed — bridges regenerated with tom_d4rt_generator 1.47.0 (scf17)
 
 All 18 generated bridge files were rewritten by one generator, the same one tom_d4rt_flutter 1.4.1 uses, so the twins record a single writer. Only the header lines changed; every bridge body is byte-identical, so no script behaviour moves.
+
+Name resolution: no.
 
 ## 0.9.0
 
@@ -147,6 +176,8 @@ the generator stamps, and two `// Source:` headers that now name `dart:ui` and
 a `package:` URI instead of an absolute machine path. The base corpus at this
 resolution is 927/1/0, equal to the previous run on every file; framework
 errors now fail a script, which changed no verdict (zero across all 910).
+
+Name resolution: no.
 
 ## 0.8.0
 
@@ -179,6 +210,8 @@ on one twin and not the other is a red test rather than a discovery.
 Base corpus, hosted, this twin: 927 / 1 / 0, every file `exit=0` — unchanged
 from the baseline.
 
+Name resolution: no.
+
 ## 0.7.0
 
 ### Documented — why GEN-126's last two bases have no interface proxy (sce164)
@@ -205,6 +238,8 @@ covering both) fails if either is registered again, and independently holds that
 the two hand-duplicated registries agree and that every proxy class exposes its
 interpreted instance. scf31 owns the remaining work.
 
+Name resolution: no.
+
 ## 0.6.0
 
 ### Changed — bridges re-stamped at generator 1.26.2 (sce1)
@@ -222,6 +257,8 @@ answer a diff can carry.
 
 No behaviour change, and no corpus run is owed: byte-identical bridges cannot
 move a corpus result.
+
+Name resolution: no.
 
 ## 0.5.2
 
@@ -254,6 +291,8 @@ binding.
 **Needs an interpreter carrying scd119.** Below that the retry does not exist
 and these declarations are inert.
 
+Name resolution: no.
+
 ## 0.5.1
 
 ### Fixed — a dangling citation in `d4rt_runtime_registrations.dart`
@@ -267,6 +306,8 @@ something a reader could open.
 The comment now names the run (`20260427-1339-post-c22`) rather than a path,
 which is the convention `interpreter_unfixable.md` states for a past pass: a run
 id is the name of a pass, not a location. No behaviour changes.
+
+Name resolution: no.
 
 ## 0.5.0
 
@@ -296,6 +337,8 @@ base 927/1/0 (identical to the previous entry) and full 2150/4/15 with
 
 Only the AST twin regenerates; `tom_d4rt_flutter`'s bridges are untouched.
 
+Name resolution: no.
+
 ## 0.4.1
 
 ### Changed — formatted the hand-written half of `lib/` (scd81)
@@ -318,6 +361,8 @@ whitespace-and-commas leaves every changed file byte-identical to its previous
 content, and no quote count changed, so no string literal was re-split and no
 D4rt script text moved. `dart analyze` clean in both twins.
 
+Name resolution: no.
+
 ## 0.4.0
 
 ### Fixed — the TwoDimensional proxies follow Flutter's `ScrollCacheExtent` rename
@@ -329,6 +374,8 @@ the abstract members they override.
 *(Bumped 2026-09-12 by scd60. `e60560ff6` changed `lib/` and no version
 followed it, so the change would otherwise have shipped inside the already
 written 0.3.0 section — the SCC17 failure mode.)*
+
+Name resolution: no.
 
 ## 0.3.0
 

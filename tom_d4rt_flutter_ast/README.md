@@ -82,7 +82,7 @@ Add the package to your Flutter application's `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  tom_d4rt_flutter_ast: ^0.1.1
+  tom_d4rt_flutter_ast: ^0.13.0
 ```
 
 Or via the command line:
@@ -94,6 +94,18 @@ dart pub add tom_d4rt_flutter_ast
 The package pulls in its own transitive D4rt dependencies (`tom_d4rt_ast`,
 `tom_d4rt_exec`, `tom_ast_generator`); nothing extra is needed in the consuming
 project's `pubspec.yaml` for those.
+
+## Flutter versions
+
+The bridges are generated against **Flutter 3.47.9** (Dart 3.13.7), so the
+package requires `flutter: ">=3.47.0"`: they use API that older releases do
+not have. They import each Flutter class through Flutter's public libraries
+(`package:flutter/material.dart`, `widgets.dart`, ...), not through the
+`package:flutter/src/...` file that declares it, so a later Flutter release
+that only moves a file does not break them (GitHub #5). The one exception is
+`widgets/_html_element_view_io.dart`, which no public library exports. A
+Flutter release that removes or changes a bridged API still needs the bridges
+regenerated.
 
 ## Usage
 

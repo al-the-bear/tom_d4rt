@@ -55,6 +55,8 @@ Receivers are emitted only when the project resolves tom_d4rt >= 1.251.0 /
 tom_d4rt_ast >= 0.231.0 (read from its `.dart_tool/package_config.json`);
 otherwise the proxies are generated as before and the run warns.
 
+Name resolution: no.
+
 ## 1.60.0
 
 ### Changed — a bridge imports another package's `src` libraries through its public libraries (GitHub #5)
@@ -73,6 +75,8 @@ only through `src`, or a name a public library hides) keeps its own import, as
 do the generating package's own libraries. On the full Flutter bridge set 1 110
 of 1 113 `src` imports move; the one `src` library left is
 `widgets/_html_element_view_io.dart`, which no public library exports.
+
+Name resolution: no.
 
 ## 1.59.0
 
@@ -100,6 +104,8 @@ release AOT build of an app calling `FlutterD4rt().warmup()` completes: the
 The bounded-leaf design was proposed by HelloWorldDotApp in #11, with a
 reference repair (HelloWorldDotApp/tom_d4rt 3e5c9dc...d2ee285); this
 implementation follows it.
+
+Name resolution: no.
 
 ## 1.58.0
 

@@ -1,5 +1,14 @@
 ## 1.8.0
 
+### Changed — Flutter 3.47 floor (GitHub #5)
+
+`flutter: ">=3.47.0"`: the bridges are generated against Flutter 3.47.9 and use
+its API. They import Flutter classes through its public libraries, so a release
+that only moves a `src` file no longer breaks them; the README's new "Flutter
+versions" section says what still needs a regeneration.
+
+Name resolution: no.
+
 ### Fixed — a script's `super.m()` on a hand-written receiver proxy runs the native member once (ghissues45)
 
 The hand-written proxies the runtime registrations install for `CustomPainter`,
@@ -61,6 +70,8 @@ members once it is marked as the instance's receiver
 (`D4.markProxyIsReceiver`), which needs tom_d4rt 1.249.0 / tom_d4rt_ast
 0.229.0.
 
+Name resolution: no.
+
 ## 1.5.0
 
 ### Changed — analyzer 14 stack and Flutter 3.47 (vstdm3)
@@ -79,11 +90,15 @@ target is 12.0, Flutter 3.47's minimum.
 
 Resolves `tom_d4rt` ^1.230.0 and `tom_d4rt_generator` ^1.53.0.
 
+Name resolution: no.
+
 ## 1.4.8
 
 ### Changed — resolves the web int fix release (dfin9)
 
 `tom_d4rt` ^1.229.0. No code change; the bridges are unchanged.
+
+Name resolution: no.
 
 ## 1.4.7
 
@@ -91,11 +106,15 @@ Resolves `tom_d4rt` ^1.230.0 and `tom_d4rt_generator` ^1.53.0.
 
 `tom_d4rt` ^1.228.0. No code change; the bridges are unchanged.
 
+Name resolution: no.
+
 ## 1.4.6
 
 ### Changed — resolves the security release (dfin4)
 
 `tom_d4rt` ^1.226.0. No code change; the bridges are unchanged.
+
+Name resolution: no.
 
 ## 1.4.5
 
@@ -103,11 +122,15 @@ Resolves `tom_d4rt` ^1.230.0 and `tom_d4rt_generator` ^1.53.0.
 
 `tom_d4rt` ^1.224.0. No code change; the bridges are unchanged.
 
+Name resolution: no.
+
 ## 1.4.4
 
 ### Changed — bridges regenerated with tom_d4rt_generator 1.51.0 (sch3)
 
 dev `tom_d4rt_generator` ^1.51.0. 1.51.0 formats its output at this package's language version, so every generated `*.b.dart` is now `dart format`-clean as written. The generator's other 1.51.0 changes are in its own CHANGELOG.
+
+Name resolution: no.
 
 ## 1.4.3
 
@@ -116,6 +139,8 @@ dev `tom_d4rt_generator` ^1.51.0. 1.51.0 formats its output at this package's la
 `tom_d4rt` ^1.210.0 and dev `tom_d4rt_generator` ^1.50.0. The regeneration
 changes only each file's `// Generated:` line: 1.50.0's output on macOS is the
 same as 1.47.0's.
+
+Name resolution: no.
 
 ## 1.4.2
 
@@ -128,6 +153,8 @@ tom_d4rt_ast 0.195.0) by recognising a bridged super object when it comes
 back, and why the two proxies must therefore stay unregistered. No behaviour
 changes in this package.
 
+Name resolution: no.
+
 ## 1.4.1
 
 ### Changed — bridges regenerated with tom_d4rt_generator 1.47.0 (scf17)
@@ -135,6 +162,8 @@ changes in this package.
 All 18 generated bridge files were rewritten by one generator, the same one tom_d4rt_flutter_ast 0.9.1 uses, so the twins record a single writer. Only the header lines changed; every bridge body is byte-identical, so no script behaviour moves.
 
 Two of them, `dart_ui_bridges.b.dart` and `vector_math_bridges.b.dart`, still named this machine in their `// Source:` header (`/Users/.../sky_engine/lib/ui/ui.dart`, a pub-cache path) — output from before the generator emitted `dart:` / `package:` URIs there. They now read `dart:ui` and `package:vector_math/vector_math_64.dart`.
+
+Name resolution: no.
 
 ## 1.4.0
 
@@ -162,6 +191,8 @@ covering both) fails if either is registered again, and independently holds that
 the two hand-duplicated registries agree and that every proxy class exposes its
 interpreted instance. scf31 owns the remaining work.
 
+Name resolution: no.
+
 ## 1.3.0
 
 ### Changed — the extension registry keys a named extension by name AND target type (sce1)
@@ -182,6 +213,8 @@ generator and the same keying.
 Verified by the bridge corpus, which is the right gate for a bridge change:
 base corpus 927 / 1 / 0, identical to the two preceding recorded runs cell for
 cell.
+
+Name resolution: no.
 
 ## 1.2.3
 
@@ -214,6 +247,8 @@ binding.
 **Needs an interpreter carrying scd119.** Below that the retry does not exist
 and these declarations are inert.
 
+Name resolution: no.
+
 ## 1.2.2
 
 ### Fixed — a dangling citation in `d4rt_runtime_registrations.dart`
@@ -227,6 +262,8 @@ something a reader could open.
 The comment now names the run (`20260427-1339-post-c22`) rather than a path,
 which is the convention `interpreter_unfixable.md` states for a past pass: a run
 id is the name of a pass, not a location. No behaviour changes.
+
+Name resolution: no.
 
 ## 1.2.1
 
@@ -249,6 +286,8 @@ Layout-only, measured rather than asserted: normalising away whitespace and then
 whitespace-and-commas leaves every changed file byte-identical to its previous
 content, and no quote count changed, so no string literal was re-split and no
 D4rt script text moved. `dart analyze` clean in both twins.
+
+Name resolution: no.
 
 ## 1.2.0
 
