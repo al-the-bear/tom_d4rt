@@ -36,14 +36,8 @@ dynamic build(BuildContext context) {
     final isDivider = entry is CupertinoMenuDivider;
     print('${entry.runtimeType}: entry=$isEntry divider=$isDivider');
   }
-  // Counted with `is`: `whereType<T>()` ignores T in the interpreter
-  // (GEN-127, todo ghissues22).
-  var entryCount = 0;
-  var dividerCount = 0;
-  for (final entry in entries) {
-    if (entry is CupertinoMenuEntry) entryCount++;
-    if (entry is CupertinoMenuDivider) dividerCount++;
-  }
+  final entryCount = entries.whereType<CupertinoMenuEntry>().length;
+  final dividerCount = entries.whereType<CupertinoMenuDivider>().length;
   print('menu entries: $entryCount, dividers: $dividerCount');
   final delete = entries.last as CupertinoMenuItem;
   print('delete isDestructiveAction: ${delete.isDestructiveAction}');
