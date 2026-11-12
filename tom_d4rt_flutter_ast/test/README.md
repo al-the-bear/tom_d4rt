@@ -414,6 +414,17 @@ each `flutter test` invocation is wrapped by `idle_timeout.sh` (bash) /
 — `flutter test` and any child it spawned — and returns exit code **124**. The
 metrics line for that file is annotated `(IDLE-KILLED after <n>s of no output)`.
 
+**The wrapper also owns the run's temp folder (ghissues44).** The command runs
+with `TMPDIR` (`TEMP` / `TMP` in the `.ps1`) pointing at a folder of its own,
+`d4rtflutter.*` under the outer one, which the wrapper removes when the command
+is gone - after a normal exit, an idle or wall-clock kill, or when the wrapper
+itself is interrupted (it takes the command's process group down first). The
+reason: the companion app's `flutter run`, which the harness starts and kills
+for every test file, leaves its `flutter_tools.*` folder (two ~300 MB `.dill`
+files) behind, and on 2026-11-11 791 of them filled mbp's disk. A
+`flutter_tools.*` folder at the top of `$TMPDIR` therefore comes from a run
+outside the wrapper. Guard: `tom_d4rt_flutter_ast/test/ghissues44_idle_timeout_temp_test.dart`.
+
 **The default was 80 (70 in the `.ps1` twins) and that was too short — SCD131.**
 The watchdog was shorter than the thing it watches: `SendTestRunner.setUp` waits
 up to **120 s** for the companion app to start, so on a cold build cache the
