@@ -465,17 +465,17 @@ packages:
     dependency: "direct dev"
     description:
       name: tom_d4rt
-      sha256: f1be3adfe4881dc7a0613e49cb8e0fc385ee334841355ce87a97b186beafa3e0
+      sha256: eec43dcd850a1111cc01405adaa06604d53ad8e2833d52cf1b4067cd9805bb93
       url: "https://pub.dev"
     source: hosted
-    version: "1.256.0"
+    version: "1.257.0"
   tom_d4rt_flutter:
     dependency: "direct main"
     description:
       path: "../tom_d4rt_flutter"
       relative: true
     source: path
-    version: "1.8.0"
+    version: "1.9.0"
   typed_data:
     dependency: transitive
     description:
