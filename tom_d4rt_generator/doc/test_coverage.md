@@ -1605,7 +1605,7 @@ This is a critical feature for producing a **complete, working closure** of brid
 
 #### GFEAT12: Config precedence
 
-Configuration comes from four sources with a defined precedence order: CLI arguments > `tom_project.yaml` > `build.yaml` (`d4rtgen:` section) > `d4rt_bridging.json` (legacy). Higher-precedence sources override lower ones.
+Configuration comes from three sources with a defined precedence order: CLI arguments > the project's `buildkit.yaml` (`d4rtgen:` section) > `d4rt_bridging.json` (legacy). Higher-precedence sources override lower ones.
 
 **Test:** —
 **Issue:** GEN-024
