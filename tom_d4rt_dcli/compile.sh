@@ -1,5 +1,5 @@
 #!/bin/zsh
-# Compile dcli binary to ~/.tom/bin/{platform}/
+# Compile the dcli binary into the binaries layer: $TOM_BINARY_PATH/{platform}/
 #
 # Usage: ./compile.sh
 #
@@ -39,8 +39,13 @@ case "$(uname -s)" in
         ;;
 esac
 
-# Target directory
-TARGET_DIR="$HOME/.tom/bin/$PLATFORM"
+# Target directory: the binaries layer (tom_binaries/tom), as TOM_BINARY_PATH
+# names it. Nothing is installed under ~/.tom/bin.
+if [[ -z "${TOM_BINARY_PATH:-}" ]]; then
+    echo "TOM_BINARY_PATH is not set: it names the binaries layer (tom_binaries/tom)."
+    exit 1
+fi
+TARGET_DIR="$TOM_BINARY_PATH/$PLATFORM"
 OUTPUT="$TARGET_DIR/dcli"
 
 # Ensure target directory exists
@@ -79,7 +84,7 @@ if [[ ":$PATH:" != *":$TARGET_DIR:"* ]]; then
     echo ""
     echo "Add this to your ~/.zshrc or ~/.bashrc:"
     echo ""
-    echo "  export PATH=\"\$HOME/.tom/bin/$PLATFORM:\$PATH\""
+    echo "  export PATH=\"\$TOM_BINARY_PATH/$PLATFORM:\$PATH\""
     echo ""
 fi
 

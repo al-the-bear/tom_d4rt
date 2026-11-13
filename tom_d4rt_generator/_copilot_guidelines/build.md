@@ -144,9 +144,8 @@ The example project includes test classes and generated bridges:
    :versioner` instead.
 
    **Use the BuildKit in `tom_binaries`, not whatever is on `PATH`.** An older
-   one writes `lib/src/version.g.dart` and leaves the banner behind; the 1.1.0
-   copy that was on `~/.tom/bin` reported "Version file generated" and wrote
-   nothing at all. From tom_build_base 2.10.0 every tom CLI prints where it is
+   one writes `lib/src/version.g.dart` and leaves the banner behind, and an old
+   copy can report "Version file generated" and write nothing at all. From tom_build_base 2.10.0 every tom CLI prints where it is
    running from under its version, so `buildkit --version` answers which copy
    you have.
 2. **Update CHANGELOG.md** with changes

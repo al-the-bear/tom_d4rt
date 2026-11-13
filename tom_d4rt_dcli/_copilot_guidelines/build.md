@@ -16,7 +16,8 @@ cd tom_ai/d4rt/tom_d4rt_dcli
 The script automatically:
 1. Gets dependencies (`dart pub get`)
 2. Runs `d4rtgen` to regenerate bridges
-3. Compiles the executable to `~/.tom/bin/{platform}/dcli`
+3. Compiles the executable into the binaries layer, `$TOM_BINARY_PATH/{platform}/dcli`
+   (it stops when `TOM_BINARY_PATH` is not set; nothing is installed under `~/.tom/bin`)
 
 ### Manual Build Steps
 
@@ -34,7 +35,7 @@ If you need to build manually:
 
 3. **Compile the executable**:
    ```bash
-   dart compile exe bin/dcli.dart -o ~/.tom/bin/darwin-arm64/dcli
+   dart compile exe bin/dcli.dart -o "$TOM_BINARY_PATH/darwin-arm64/dcli"
    ```
 
 ### What Gets Generated
@@ -67,16 +68,14 @@ To update the version, manually edit the `dcliVersion` constant.
 
 | Platform | Binary Location |
 |----------|-----------------|
-| macOS ARM64 | `~/.tom/bin/darwin-arm64/dcli` |
-| macOS x64 | `~/.tom/bin/darwin-x64/dcli` |
-| Linux x64 | `~/.tom/bin/linux-x64/dcli` |
-| Windows x64 | `~/.tom/bin/win32-x64/dcli.exe` |
+| macOS ARM64 | `$TOM_BINARY_PATH/darwin-arm64/dcli` |
+| macOS x64 | `$TOM_BINARY_PATH/darwin-x64/dcli` |
+| Linux x64 | `$TOM_BINARY_PATH/linux-x64/dcli` |
+| Windows x64 | `$TOM_BINARY_PATH/win32-x64/dcli.exe` |
 
-### Relationship with d4rt
+### Relationship with other REPLs
 
-`tom_d4rt_dcli` provides the base REPL (`D4rtReplBase`) that `tom_dartscript_bridges` extends:
-
-- **dcli** - Base tool with only dcli package bridges
-- **d4rt** - Full tool with all Tom Framework bridges + VS Code integration
-
-If you modify `D4rtReplBase` in this package, you'll need to rebuild both `dcli` and `d4rt`.
+`tom_d4rt_dcli` provides the base REPL (`D4rtReplBase`); `dcli` is the scripting
+tool. A package that wants a REPL with more bridges extends `D4rtReplBase`
+(as `tom_dcli_exec` does for `dclie`); after a change to `D4rtReplBase`,
+rebuild every binary built on it.

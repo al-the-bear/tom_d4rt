@@ -22,7 +22,8 @@ String? _cachedSdkPath;
 /// 5. `flutter` executable in PATH → derive `bin/cache/dart-sdk`
 /// 6. Fall back to `null` (let analyzer use its default)
 ///
-/// When running d4rtgen as a compiled binary (e.g., from `~/.tom/bin/`),
+/// When running d4rtgen as a compiled binary (e.g., from the binaries layer
+/// `$TOM_BINARY_PATH/<platform>/`),
 /// the analyzer's default SDK detection fails because it derives the SDK
 /// path from the executable location. Steps 1–5 handle this automatically.
 String? getSdkPath() {
@@ -49,7 +50,7 @@ String? getSdkPath() {
   // 3. Try Platform.resolvedExecutable — when running via `dart run`,
   //    this points to the actual dart binary inside the SDK.
   //    For compiled binaries, this points to the binary itself
-  //    (e.g., ~/.tom/bin/d4rtgen).
+  //    (e.g., $TOM_BINARY_PATH/darwin-arm64/d4rtgen).
   try {
     final resolvedExe = Platform.resolvedExecutable;
     final sdk = _resolveSdkFromDartPath(resolvedExe);

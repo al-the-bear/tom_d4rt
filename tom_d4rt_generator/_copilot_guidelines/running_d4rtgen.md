@@ -21,17 +21,17 @@ This is shared between the bridge generator and proxy generator via `sdk_utils.d
 
 ## The Problem with Compiled Binaries
 
-When `d4rtgen` is compiled to a native binary (e.g., at `~/.tom/bin/darwin-arm64/d4rtgen`), the Dart analyzer's default SDK detection fails. It uses:
+When `d4rtgen` is compiled to a native binary (e.g., at `$TOM_BINARY_PATH/darwin-arm64/d4rtgen`, the binaries layer), the Dart analyzer's default SDK detection fails. It uses:
 
 ```dart
-dart:io Platform.resolvedExecutable  // Returns ~/.tom/bin/darwin-arm64/d4rtgen
+dart:io Platform.resolvedExecutable  // Returns .../tom_binaries/tom/darwin-arm64/d4rtgen
 ```
 
-The analyzer then derives the SDK path as `dirname(dirname(executable))` = `~/.tom/bin/`, which is not a valid SDK.
+The analyzer then derives the SDK path as `dirname(dirname(executable))` = `.../tom_binaries/tom/`, which is not a valid SDK.
 
 This causes errors like:
 ```
-PathNotFoundException(path=/Users/.../.tom/bin/lib/_internal/sdk_library_metadata/lib/libraries.dart; message=Cannot open file)
+PathNotFoundException(path=/Users/.../tom_binaries/tom/lib/_internal/sdk_library_metadata/lib/libraries.dart; message=Cannot open file)
 ```
 
 ## Solution: Set DART_SDK
