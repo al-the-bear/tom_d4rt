@@ -9,6 +9,5 @@
 # merge conflicts (reconcile policy)" and reconciliation_problem_analysis.md
 # § 4.D. If the driver is not registered on a machine, git simply falls back to
 # its default merge for these paths (a re-run of install.sh restores it).
-**/tom_build_state.json    merge=generated-newer-wins
 **/*.versioner.dart        merge=generated-newer-wins
 **/*.reflection.dart       merge=generated-newer-wins

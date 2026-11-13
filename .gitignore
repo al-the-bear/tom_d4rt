@@ -367,3 +367,7 @@ bk_master.yaml
 # thing the workspace rule against path overrides exists to prevent.
 # `tom_d4rt_flutter_ast/tool/prepublish_overrides.dart --restore` removes them.
 pubspec_overrides.yaml
+
+# Retired build state (build_tom build_cleanup7): the build number lives in
+# version.versioner.dart; an old buildkit that still writes this file is ignored.
+tom_build_state.json
