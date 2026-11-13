@@ -177,17 +177,6 @@ class ModuleLoader implements context.ModuleContext {
   final List<Map<String, LibrarySetter>> librarySetters;
   final List<Map<String, LibraryExtension>> bridgedExtensions;
 
-  // Track which globals have been registered and from which source library
-  // Maps global name -> canonical source library URI (not import barrel URI)
-  final Map<String, String> _registeredFunctions = {};
-  final Map<String, String> _registeredVariables = {};
-  final Map<String, String> _registeredGetters = {};
-  final Map<String, String> _registeredSetters = {};
-  // Track registered classes and enums by sourceUri for deduplication
-  final Map<String, String> _registeredClasses = {};
-  final Map<String, String> _registeredEnums = {};
-  final Map<String, String> _registeredExtensions = {};
-
   /// When true, registration errors are collected instead of thrown.
   ///
   /// Use this with [accumulatedRegistrationErrors] to validate all bridge
@@ -1261,6 +1250,22 @@ class ModuleLoader implements context.ModuleContext {
       bool hasContentForUri = false;
       final registrationErrors = <String>[];
 
+      // Which names this call has registered, and from which canonical source
+      // library (not the import barrel), so a re-export of one declaration is
+      // registered once. EXECPORT1: these are per call, i.e. per module env.
+      // Kept on the loader they outlived the env they described: a second
+      // barrel re-exporting a declaration found it "already registered" and
+      // skipped it, so its own module env never got it and a library importing
+      // only that barrel read `Undefined variable`. tom_d4rt's per-module
+      // registration has no such skip.
+      final registeredFunctions = <String, String>{};
+      final registeredVariables = <String, String>{};
+      final registeredGetters = <String, String>{};
+      final registeredSetters = <String, String>{};
+      final registeredClasses = <String, String>{};
+      final registeredEnums = <String, String>{};
+      final registeredExtensions = <String, String>{};
+
       for (var bridgedEnumDefinition in bridgedEnumDefinitions) {
         if (bridgedEnumDefinition.containsKey(uriString)) {
           hasContentForUri = true;
@@ -1283,29 +1288,38 @@ class ModuleLoader implements context.ModuleContext {
           // Use sourceUri for deduplication if available, otherwise fall back to import URI
           final sourceUri = libEnum.sourceUri ?? uriString;
 
-          if (_registeredEnums.containsKey(enumName)) {
-            final existingSourceUri = _registeredEnums[enumName]!;
+          if (registeredEnums.containsKey(enumName)) {
+            final existingSourceUri = registeredEnums[enumName]!;
             if (existingSourceUri == sourceUri) {
               // Same enum from same canonical source - silently skip (re-export case)
               Logger.debug(
                 " [execute] Skipping duplicate enum '$enumName' from same source: $sourceUri",
               );
               continue;
-            } else {
-              // Different source - this is an actual duplicate, error
-              registrationErrors.add(
-                "Duplicate enum '$enumName' exists from source '$existingSourceUri' and source '$sourceUri'. "
-                "These are different enums with the same name.",
-              );
-              continue;
             }
+            // EXECPORT1: two libraries registering an enum of one name is not
+            // an error here, as it is not for classes (B2 below) and not in
+            // tom_d4rt's per-module registration. Flutter's bridge files
+            // register WidgetState from three libraries; refusing the second
+            // made a script importing two of them fail to load. Each library
+            // gets its own module env, so register this one too, with its
+            // source, and let the environment decide: one native enum is one
+            // type (ghissues21), two enums from two packages leave the bare
+            // name ambiguous (SCE25).
+            Logger.debug(
+              " [execute] Same-name enum '$enumName' from a different "
+              "source ($existingSourceUri vs $sourceUri); registering both.",
+            );
           }
 
-          _registeredEnums[enumName] = sourceUri;
+          registeredEnums[enumName] = sourceUri;
 
           try {
             final bridgedEnum = definition.buildBridgedEnum();
-            targetEnvironment.defineBridgedEnum(bridgedEnum);
+            targetEnvironment.defineBridgedEnum(
+              bridgedEnum,
+              sourceUri: sourceUri,
+            );
             Logger.debug(
               " [execute] Registered bridged enum: $enumName from $sourceUri",
             );
@@ -1339,8 +1353,8 @@ class ModuleLoader implements context.ModuleContext {
           // Use sourceUri for deduplication if available, otherwise fall back to import URI
           final sourceUri = libClass.sourceUri ?? uriString;
 
-          if (_registeredClasses.containsKey(className)) {
-            final existingSourceUri = _registeredClasses[className]!;
+          if (registeredClasses.containsKey(className)) {
+            final existingSourceUri = registeredClasses[className]!;
             if (existingSourceUri == sourceUri) {
               // Same class from same canonical source - silently skip (re-export case)
               Logger.debug(
@@ -1361,7 +1375,7 @@ class ModuleLoader implements context.ModuleContext {
             );
           }
 
-          _registeredClasses[className] = sourceUri;
+          registeredClasses[className] = sourceUri;
 
           try {
             // Step #17 — transfer the deferred thunk (build on first resolve).
@@ -1440,8 +1454,8 @@ class ModuleLoader implements context.ModuleContext {
           final sourceUri = libFunc.sourceUri ?? uriString;
 
           // Check for duplicate registration
-          if (_registeredFunctions.containsKey(funcName)) {
-            final existingSourceUri = _registeredFunctions[funcName]!;
+          if (registeredFunctions.containsKey(funcName)) {
+            final existingSourceUri = registeredFunctions[funcName]!;
             if (existingSourceUri == sourceUri) {
               // Same function from same canonical source - silently skip (re-export case)
               Logger.debug(
@@ -1460,7 +1474,7 @@ class ModuleLoader implements context.ModuleContext {
 
           try {
             targetEnvironment.define(funcName, nativeFunc);
-            _registeredFunctions[funcName] = sourceUri;
+            registeredFunctions[funcName] = sourceUri;
             Logger.debug(
               " [execute] Registered library function: $funcName from $sourceUri",
             );
@@ -1496,8 +1510,8 @@ class ModuleLoader implements context.ModuleContext {
           final sourceUri = libVar.sourceUri ?? uriString;
 
           // Check for duplicate registration
-          if (_registeredVariables.containsKey(varName)) {
-            final existingSourceUri = _registeredVariables[varName]!;
+          if (registeredVariables.containsKey(varName)) {
+            final existingSourceUri = registeredVariables[varName]!;
             if (existingSourceUri == sourceUri) {
               // Same variable from same canonical source - silently skip (re-export case)
               Logger.debug(
@@ -1516,7 +1530,7 @@ class ModuleLoader implements context.ModuleContext {
 
           try {
             targetEnvironment.define(varName, libVar.value);
-            _registeredVariables[varName] = sourceUri;
+            registeredVariables[varName] = sourceUri;
             Logger.debug(
               " [execute] Registered library variable: $varName from $sourceUri",
             );
@@ -1552,8 +1566,8 @@ class ModuleLoader implements context.ModuleContext {
           final sourceUri = libGetter.sourceUri ?? uriString;
 
           // Check for duplicate registration
-          if (_registeredGetters.containsKey(getterName)) {
-            final existingSourceUri = _registeredGetters[getterName]!;
+          if (registeredGetters.containsKey(getterName)) {
+            final existingSourceUri = registeredGetters[getterName]!;
             if (existingSourceUri == sourceUri) {
               // Same getter from same canonical source - silently skip (re-export case)
               Logger.debug(
@@ -1575,7 +1589,7 @@ class ModuleLoader implements context.ModuleContext {
               getterName,
               GlobalGetter(libGetter.getter),
             );
-            _registeredGetters[getterName] = sourceUri;
+            registeredGetters[getterName] = sourceUri;
             Logger.debug(
               " [execute] Registered library getter: $getterName from $sourceUri",
             );
@@ -1612,8 +1626,8 @@ class ModuleLoader implements context.ModuleContext {
           final sourceUri = libSetter.sourceUri ?? uriString;
 
           // Check for duplicate registration
-          if (_registeredSetters.containsKey(setterName)) {
-            final existingSourceUri = _registeredSetters[setterName]!;
+          if (registeredSetters.containsKey(setterName)) {
+            final existingSourceUri = registeredSetters[setterName]!;
             if (existingSourceUri == sourceUri) {
               // Same setter from same canonical source - silently skip (re-export case)
               Logger.debug(
@@ -1658,7 +1672,7 @@ class ModuleLoader implements context.ModuleContext {
                 ),
               );
             }
-            _registeredSetters[setterName] = sourceUri;
+            registeredSetters[setterName] = sourceUri;
             Logger.debug(
               " [execute] Registered library setter: $setterName from $sourceUri",
             );
@@ -1700,8 +1714,8 @@ class ModuleLoader implements context.ModuleContext {
           // extensions with different target types but same name.
           final deduplicationKey = '$extName@${definition.onTypeName}';
 
-          if (_registeredExtensions.containsKey(deduplicationKey)) {
-            final existingSourceUri = _registeredExtensions[deduplicationKey]!;
+          if (registeredExtensions.containsKey(deduplicationKey)) {
+            final existingSourceUri = registeredExtensions[deduplicationKey]!;
             if (existingSourceUri == sourceUri) {
               Logger.debug(
                 " [execute] Skipping duplicate extension '$extName on ${definition.onTypeName}' from same source: $sourceUri",
@@ -1715,7 +1729,7 @@ class ModuleLoader implements context.ModuleContext {
             }
           }
 
-          _registeredExtensions[deduplicationKey] = sourceUri;
+          registeredExtensions[deduplicationKey] = sourceUri;
 
           try {
             // Resolve the onType from the environment.

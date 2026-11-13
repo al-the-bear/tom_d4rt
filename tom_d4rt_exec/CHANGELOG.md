@@ -1,3 +1,32 @@
+## 1.59.0
+
+### Fixed — one enum name registered by two libraries no longer refuses the import
+
+Exec's module loader refused a second bridged enum of one name from another
+library: a script importing two libraries that both register the enum (as
+Flutter's bridge files register `WidgetState` from three) failed to load with
+`Duplicate enum ... These are different enums with the same name.` It now
+registers each into its library's module environment with its source, as it
+already did for same-named classes and as tom_d4rt's per-module registration
+does: one native enum registered twice is one type (tom_d4rt_ast 0.226.0,
+ghissues21), and two enums of one name from two packages leave the bare name
+ambiguous (SCE25).
+
+### Fixed — a re-exported bridge reaches every barrel that exports it
+
+The loader kept its "already registered from this source" maps across the
+module environments it builds per bridged library, so a declaration two
+barrels re-export (same `sourceUri`) was registered into the first barrel's
+environment only: a library importing only the second barrel read
+`Undefined variable`. The maps are now per module environment, as tom_d4rt's
+per-module registration has it; enums, classes, functions, variables,
+getters, setters and extensions alike.
+
+The 25 tests the GitHub-issue batch added to tom_d4rt are now ported here
+verbatim, and gh9 (intl 0.20.3) and gh10 also run on the bundle path.
+
+Name resolution: yes — a bridged enum name registered by two libraries binds through the environment instead of refusing the import, and a re-exported bridge resolves through every barrel that exports it.
+
 ## 1.58.0
 
 ### Changed — resolves tom_d4rt_ast 0.237.0 and tom_ast_generator 0.2.3

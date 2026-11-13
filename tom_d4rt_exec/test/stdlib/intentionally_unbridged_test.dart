@@ -13,6 +13,7 @@
 // the doc's table and delete the case here, in the same change.
 
 import 'package:test/test.dart';
+import 'package:tom_d4rt_ast/src/runtime/unbridged_reasons.dart';
 
 import '../interpreter_test.dart';
 
@@ -137,6 +138,66 @@ void main() {
       }
       ''';
       expect(execute(source), equals([4, 3, 4, 3]));
+    });
+  });
+
+  group('DART313B1: declined, not missing', () {
+    test('F-DART313B1-3: the Dart 3.13 Isolate embedding members fail as '
+        'declined members on every path, and the rest of Isolate still '
+        'works [2026-11-09]', () {
+      // The eight members Dart 3.13 added for embedding isolates by hand. They
+      // block or pin OS threads and drive event loops the interpreter does not
+      // own, so they are REFUSED rather than deferred (limitations doc, the
+      // `Isolate` row). Every spelling a script can write reaches a different
+      // miss path — static call, method call, getter read, setter write — and
+      // each must carry the reason, not only the method call. The interpreter
+      // registry decides this, not the host SDK, so it holds on SDKs that do
+      // not have the members at all.
+      const forms = {
+        'create': 'Isolate.create()',
+        'pinToCurrentThread': 'Isolate.pinToCurrentThread()',
+        'isPinnedToCurrentThread': 'Isolate.current.isPinnedToCurrentThread',
+        'runSync': 'Isolate.current.runSync(() => 1)',
+        'runEventLoopSync': 'Isolate.current.runEventLoopSync()',
+        'handleEvent': 'Isolate.current.handleEvent()',
+        'onEvent': '(Isolate.current.onEvent = (i) {})',
+        'shutdownSync': 'Isolate.current.shutdownSync()',
+      };
+      expect(
+        forms.keys.map((m) => 'Isolate.$m').toSet(),
+        equals(
+          kUnbridgedMemberReasons.keys
+              .where((k) => k.startsWith('Isolate.'))
+              .toSet(),
+        ),
+        reason: 'every declined Isolate member has a form here, and no more',
+      );
+      for (final MapEntry(key: member, value: expression) in forms.entries) {
+        expect(
+          () => execute("import 'dart:isolate';\nmain() => $expression;"),
+          throwsA(
+            isA<Object>().having(
+              (e) => e.toString(),
+              'toString',
+              allOf(
+                contains("'$member'"),
+                contains('not bridged:'),
+                contains('isolate-embedding API'),
+                contains('doc/d4rt_limitations.md'),
+              ),
+            ),
+          ),
+          reason: 'Isolate.$member should fail as a declined member',
+        );
+      }
+      // The anchor: the refusal is of eight members, not of the class.
+      expect(
+        execute(
+          "import 'dart:isolate';\n"
+          'main() => Isolate.current.debugName != null || true;',
+        ),
+        isTrue,
+      );
     });
   });
 
