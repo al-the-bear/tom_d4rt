@@ -1,4 +1,4 @@
-// Generated: 2026-11-12T21:56:21.485764 by tom_d4rt_generator 1.63.0
+// Generated: 2026-11-13T08:33:14.436158 by tom_d4rt_generator 1.63.2
 /// D4rt Bridges for flutter_material_bridges
 library;
 

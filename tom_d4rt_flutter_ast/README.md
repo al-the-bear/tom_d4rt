@@ -253,6 +253,12 @@ between D4rt's `<dynamic>` type arguments and Flutter's concrete generic expecta
 These are registered before `FlutterMaterialBridges` in `FlutterD4rt._registerBridges`
 so that factories resolve in the correct order.
 
+Its generic constructor factories (RC-2) are too large for one file, so the
+generator writes them into the part files `flutter_relaxers_part1.b.dart` …
+`flutter_relaxers_part3.b.dart` of the same library; each generated file stays
+far below GitHub's 100 MB limit, which `test/relaxsize1_bridge_file_size_test.dart`
+holds at 50 MB.
+
 ### Hand-written D4UserBridge overrides
 
 Three classes in `lib/src/d4rt_user_bridges/` override specific auto-generated adapter

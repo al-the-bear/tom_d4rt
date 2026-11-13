@@ -152,6 +152,10 @@ run "a proxied override's list reaches native code typed" \
 # arguments, in-process (skips below tom_d4rt 1.257.0 / tom_d4rt_ast 0.237.0).
 run "name-keyed dispatch reads nullable and nested type arguments" \
   flutter test test/ghissues42_type_arg_names_test.dart
+# relaxsize1: no generated bridge file above 50 MB (GitHub refuses a push
+# with a file above 100 MB). File sizes only.
+run "no bridge file above the GitHub size budget" \
+  flutter test test/relaxsize1_bridge_file_size_test.dart
 run "import-optimization timings hold" \
   flutter test test/import_optimization_perf_test.dart
 pair "companion app resolution is checked" \

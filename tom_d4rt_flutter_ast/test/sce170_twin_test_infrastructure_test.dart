@@ -98,6 +98,7 @@ const Set<String> derivable = {
   'idle_timeout.sh',
   'interpreter_generator_open_issues_test.dart',
   'registration_skip_test.dart',
+  'relaxsize1_bridge_file_size_test.dart',
   'run_attribution.dart',
   'run_base_tests.ps1',
   'run_base_tests.sh',

@@ -4883,13 +4883,45 @@ the newest covering the base corpus with `**Current base-corpus baseline.**`
 marker in the same edit; SCE255 in `test/interpreter_issues_doc_test.dart`
 fails when a marker is left on an older entry.
 
+### 2026-11-13 — base corpus, both twins, at tom_d4rt 1.257.0 / tom_d4rt_ast 0.237.0 / tom_d4rt_generator 1.63.2: the relaxer file in part files (relaxsize1)
+
+**Current base-corpus baseline.** The newest run of the base corpus; a new base
+run is compared against this one, and moves the marker.
+
+**Why this run exists.** At generator 1.63.0 both twins' `flutter_relaxers.b.dart`
+was 93.4 MB (98.8% RC-2 leaf functions), near GitHub's 100 MB limit per pushed
+file. `tom_d4rt_generator` 1.63.2 (published) moves a relaxer output's RC-2
+generic constructor factories into part files of the same library when it is
+above 25 MB before formatting. Regenerated with it, each twin's relaxer file is
+4.2 MB plus `flutter_relaxers_part1..3.b.dart` (28-31 MB each; 21 `*.b.dart`
+files per twin instead of 18). The 2228 RC-2 functions are the same text as in
+the one-file output (compared function by function on the AST twin); no
+executed line changed. The other bridge files changed only in their
+`// Generated:` stamp and a doc comment (generator 1.63.2's example import).
+
+| Package | `tom_d4rt` | `tom_d4rt_ast` | `tom_d4rt_generator` |
+| ------- | ---------- | -------------- | -------------------- |
+| `tom_d4rt_flutter` | **1.257.0** | — | **1.63.2** |
+| `tom_d4rt_flutter/test/tom_d4rt_flutter_test_app` | **1.257.0** | — | — |
+| `tom_d4rt_flutter_ast` | **1.257.0** | **0.237.0** | **1.63.2** |
+| `tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app` | — | **0.237.0** | — |
+
+**Result.** `run_base_tests.sh` in each twin, hosted, one twin at a time
+(`basetestlog_20261113-relaxsize1-base`): **927 / 1 / 0 in both twins**, every
+`flutter_base_*` file with the same count as in the 2026-11-13 batch-release run
+below; the one skip is `flutter_base_15`'s platform skip, unchanged.
+
+**Framework errors** (SCE247 trailer):
+
+- `tom_d4rt_flutter_ast`: 0 framework error(s) in 0 of 910 script(s); 0 refused callback(s)
+- `tom_d4rt_flutter`: 0 framework error(s) in 0 of 910 script(s); 0 refused callback(s)
+
 ### 2026-11-13 — BOTH corpora (full run), both twins, at tom_d4rt 1.257.0 / tom_d4rt_ast 0.237.0 / tom_d4rt_generator 1.63.0: the ghissues batch release
 
 **Current full-corpus baseline.** The newest run of the full corpus; a new full
 run is compared against this one, and moves the marker.
 
-**Current base-corpus baseline.** The newest run of the base corpus; a new base
-run is compared against this one, and moves the marker.
+**Superseded as the base-corpus baseline by the 2026-11-13 relaxsize1 run above.**
 
 **Why this run exists.** ghissues999 published the `ghissues*` / `qr*` batch:
 `tom_d4rt` 1.257.0, `tom_d4rt_ast` 0.237.0, `tom_d4rt_generator` 1.63.0,

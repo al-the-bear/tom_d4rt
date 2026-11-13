@@ -19,7 +19,8 @@
 // `environment.dart`'s own comment names that shape: "two distinct bridges
 // register under the same simple name (e.g. `tom_doc_scanner` and
 // `tom_md2latex` both export a `MarkdownParser`)". The generated Flutter
-// bridges are it — 18 `*.b.dart` files covering material, widgets, rendering,
+// bridges are it — 18 `*.b.dart` bridge files (plus the relaxer's part
+// files) covering material, widgets, rendering,
 // painting, gestures, animation, foundation, cupertino, dart:ui and
 // vector_math, all re-exporting each other, with a
 // `PerPackageBridgeOrchestrator` in the generator that exists to deduplicate
