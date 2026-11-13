@@ -106,7 +106,7 @@ d4rtgen -R /path/to/workspace
 d4rtgen -R -r
 ```
 
-When used without a path argument, the tool automatically detects the workspace root by looking for `tom_workspace.yaml`, `tom.code-workspace`, or `buildkit_master.yaml`.
+When used without a path argument, the tool automatically detects the workspace root by looking for `buildkit_master.yaml`.
 
 ### Default Behavior
 

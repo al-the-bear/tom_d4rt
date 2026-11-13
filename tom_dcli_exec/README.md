@@ -61,9 +61,7 @@ tom_ast_model
     └─ tom_d4rt_ast
            └─ tom_ast_generator      (source → mirror AST)
                   └─ tom_d4rt_exec   (analyzer-free interpreter)
-                         └─ tom_dcli_exec   ← THIS PACKAGE
-                                └─ tom_dartscript_bridges  (binary: d4rt)
-                                └─ tom_build_cli           (binary: tom)
+                         └─ tom_dcli_exec   ← THIS PACKAGE (binary: dclie)
 ```
 
 ## Installation
@@ -368,7 +366,5 @@ Current release: **1.1.3** (389 tests, 0 failures, 0 skips).
 
 Source repository: <https://github.com/al-the-bear/tom_d4rt/tree/main/tom_dcli_exec>
 
-Downstream packages that build on this base:
-
-- **`tom_dartscript_bridges`** — adds Tom Framework bridges; compiles the `d4rt` binary.
-- **`tom_build_cli`** — adds build tooling bridges; compiles the `tom` binary.
+A downstream tool package that needs more bridges, commands or its own
+branding extends `D4rtReplBase` from this base.

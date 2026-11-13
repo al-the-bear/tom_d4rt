@@ -640,7 +640,7 @@ constraints shaped that design and must survive any change to it:
   from its own location, and quotes its path in usage comments — so re-rooted
   generation is not byte-comparable, and every package reads as stale.
 - **Do not redirect reads.** Packages import their own generated files
-  (`tom_build_cli` imports its `dartscript.b.dart`); with reads redirected the
+  (`tom_d4rt_dcli` imports its `dartscript.b.dart`); with reads redirected the
   analyzer meets one library under two URIs and fails with a library-cycle
   error.
 

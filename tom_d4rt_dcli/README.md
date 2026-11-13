@@ -15,13 +15,10 @@ Analyzer-based D4rt CLI with dcli shell-scripting bridges — the extensible fou
 - An abstract base REPL class (`D4rtReplBase`) that downstream tool packages extend
 - A ready-to-run concrete REPL (`DcliRepl`) exposed as the `dcli` executable
 
-The package is the **shared nucleus** of the stacked-REPL design used across the Tom workspace:
-
-```
-dcli  (DcliRepl in this package, bin/dcli.dart)
-  └── tom_dartscript_bridges  (binary: d4rt — adds full Tom Framework bridges)
-        └── tom_build_cli       (binary: tom — adds build/workspace bridges)
-```
+The package is the **shared nucleus** of the stacked-REPL design: `dcli`
+(`DcliRepl` in this package, `bin/dcli.dart`) is the workspace's scripting tool,
+and a downstream tool package that needs more bridges, commands or its own
+branding extends `D4rtReplBase` instead of writing a REPL of its own.
 
 ### Source-based vs analyzer-free — which D4rt family
 
@@ -351,8 +348,6 @@ D4rtReplBase  (abstract base — this package)
     ├─ DcliRepl + VSCodeIntegrationMixin  (concrete dcli REPL — this package)
     │
     └─ [downstream tool packages extend D4rtReplBase directly]
-         e.g. tom_dartscript_bridges (d4rt binary),
-              tom_build_cli (tom binary)
 ```
 
 `D4rtReplBase` owns the full REPL loop, argument parsing, session management, history, multiline input, stdin mode, `--help`/`--version` output, and the `cli` global registration. Downstream tools add only bridges, additional commands, and branding.
@@ -392,8 +387,6 @@ The REPL stores all persistent state under `~/.tom/dcli/`:
 | `tom_d4rt` | Analyzer-based interpreter runtime | Direct dependency |
 | `tom_d4rt_dcli` | **This package** — dcli CLI base | Analyzer-based |
 | `tom_dcli_exec` | Analyzer-free dcli CLI base | Lighter weight, no analyzer |
-| `tom_dartscript_bridges` | Full D4rt binary (`d4rt`) | Extends `D4rtReplBase` |
-| `tom_build_cli` | Tom workspace CLI (`tom`) | Extends `D4rtReplBase` |
 | `tom_d4rt_generator` | Bridge code generator | Dev dependency |
 | `tom_vscode_scripting_api` | VS Code bridge API | Runtime dependency |
 

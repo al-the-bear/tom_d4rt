@@ -110,7 +110,7 @@ dart run tom_d4rt_generator:d4rtgen --project=.
 dart run tom_d4rt_generator:d4rtgen --scan=/path/to/my_package --not-recursive
 
 # Generate for multiple projects via comma-separated list or glob
-dart run tom_d4rt_generator:d4rtgen --project=tom_*_bridges,devops/tom_build_cli
+dart run tom_d4rt_generator:d4rtgen --project=tom_*_bridges,tom_d4rt_dcli
 
 # Scan a workspace tree for all projects that have a d4rtgen config
 dart run tom_d4rt_generator:d4rtgen --scan=. --recursive
